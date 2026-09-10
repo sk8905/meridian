@@ -416,7 +416,7 @@
      redundant pane label (the chip row above already names it), give the search
      the full width, and let the filter buttons fall to the line beneath. */
   .thead-search { height: auto; flex-wrap: wrap; row-gap: 8px; padding: 8px 12px; align-items: center; }
-  .thead-search > span:first-child { display: none; }
+  .thead-search > span { display: none; }
   .thead-search .tsearch { flex: 1 1 100%; max-width: none; height: 26px; }
   .thead-search .tfocus-btn { flex: 0 0 auto; }
 }
@@ -431,11 +431,25 @@
    still-visible list. Force both to honour [hidden] (id+attr beats .tdash), so a
    profile opens as its own full page. */
 #pf-list[hidden], #pf-detail[hidden] { display: none !important; }
-/* Back-to-list bar shown above an open profile (Profiles tab). */
-.pf-back-bar { flex: 0 0 auto; padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--head); }
-.pf-back-bar[hidden] { display: none; }
-.pf-back { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; letter-spacing: .03em; padding: 5px 12px; cursor: pointer; border-radius: 0; }
-.pf-back:hover { border-color: var(--accent); color: var(--accent); }
+/* Profiles list ↔ detail. An open profile keeps the list frame — the tabs, the
+   AUM-focus row and the SEARCH box — exactly as the list shows it; only the
+   TABLE gives way to the profile, which renders directly beneath the search box
+   (inside the same scroll region, #pf-panes). The detail view's own duplicate
+   Managers/Hedge Funds/Law firms nav is suppressed — the persistent tabs do it. */
+.pf-detailing #pf-panes .tleague-wrap { display: none; }
+.pf-detailing #pf-detail .tdet-secnav { display: none; }
+/* Back control: a leading ‹ chevron in the persistent search row (shown only
+   while a profile is open, and only in the active pane's visible search row). */
+.pf-back-chev { display: none; flex: 0 0 auto; align-items: center; justify-content: center;
+  width: 26px; height: 26px; padding: 0; background: transparent; border: 1px solid var(--border);
+  color: var(--ink); font-family: var(--t-mono); font-size: 16px; line-height: 1; cursor: pointer; border-radius: 0; }
+.pf-back-chev:hover { border-color: var(--accent); color: var(--accent); }
+.pf-detailing .tpane:not([hidden]) .thead-search .pf-back-chev { display: inline-flex; }
+/* Mobile: the list search normally takes a full-width row (flex 1 1 100%); with a
+   leading chevron beside it, let it share the row instead of wrapping below. */
+@media (max-width: 760px) {
+  .pf-detailing .tpane:not([hidden]) .thead-search .tsearch { flex: 1 1 auto; }
+}
 
 /* ---- AUM focus bar — ONE control, ONE place, everywhere ---------------------
    The $1–15bn AUM focus toggle always sits in this slim right-aligned bar
@@ -470,7 +484,7 @@
 .tx-up { color: var(--t-up, #3fc08d); } .tx-dn { color: var(--t-down, #f26d84); } .tx-fl { color: var(--faint); }
 .tx-tbl tfoot .tx-tot { position: sticky; bottom: 0; background: var(--head); }
 .tx-tbl tfoot .tx-tot td { border-top: 1px solid var(--border); border-bottom: 0; color: var(--ink); font-weight: 700; }
-/* back bar + type header (mirrors .pf-back) */
+/* Transactions back bar + type header. */
 .tx-back-bar { padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--head); }
 .tx-back { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; letter-spacing: .03em; padding: 5px 12px; cursor: pointer; border-radius: 0; }
 .tx-back:hover { border-color: var(--accent); color: var(--accent); }

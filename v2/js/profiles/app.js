@@ -36,17 +36,30 @@ export async function mount(host, ctx) {
             ${credit.buildManagers()}
             ${credit.buildHedgeFunds()}
             ${legal.buildLawFirms()}
+            <div id="pf-detail" hidden></div>
           </div>
         </section>
       </div>
-    </div>
-    <div id="pf-back-bar" class="pf-back-bar" hidden><button type="button" id="pf-back" class="pf-back">‹ Back to list</button></div>
-    <div id="pf-detail" hidden></div>`;
+    </div>`;
   const pfList = host.querySelector("#pf-list");
   const pfDetail = host.querySelector("#pf-detail");
-  const backBar = host.querySelector("#pf-back-bar");
   const panes = host.querySelector("#pf-panes");
   const chips = host.querySelector("#pf-chips");
+
+  // Back control: a leading ‹ chevron injected into each list's search row. When
+  // a profile is open the list's tabs + AUM-focus row + search box stay put (the
+  // table gives way to the profile below); the chevron in that persistent search
+  // row returns to the list. Injected once per pane; shown only while detailing
+  // (CSS .pf-detailing), and only in the active pane's visible search row.
+  panes.querySelectorAll(".thead-search").forEach((h) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "pf-back-chev";
+    b.setAttribute("aria-label", "Back to list");
+    b.setAttribute("title", "Back to list");
+    b.textContent = "‹";
+    h.insertBefore(b, h.firstChild);
+  });
 
   // ---- list <-> detail plumbing -------------------------------------------
   const showPane = (p) => panes.querySelectorAll(".tpane").forEach((el) => { el.hidden = el.dataset.pane !== p; });
@@ -54,19 +67,27 @@ export async function mount(host, ctx) {
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.p === p));
     showPane(p);
   };
+  // Detailing = a profile is open. The list frame (chips + AUM-focus + search)
+  // stays visible; CSS (.pf-detailing) hides the active list's TABLE and the
+  // detail's own duplicate section nav, so the profile renders directly under the
+  // search box. exitDetail() just closes the profile (no scroll — used when you
+  // start typing/filtering in the persistent search); showList() also resets the
+  // scroll and (optionally) the active tab.
+  const setDetailing = (on) => host.classList.toggle("pf-detailing", on);
+  const exitDetail = () => { setDetailing(false); pfDetail.hidden = true; pfDetail.innerHTML = ""; };
   function showList(tab) {
-    pfDetail.hidden = true; pfDetail.innerHTML = "";
-    backBar.hidden = true;
+    exitDetail();
     pfList.hidden = false;
     if (tab) selectChip(tab);
     window.scrollTo(0, 0);
   }
-  // Render a desk detail view into the Profiles-owned host. Point the shared
-  // detail host at #pf-detail and flip that module into Profiles mode (so its
-  // top nav is the Profiles chips, not the desk sections) right before the
-  // synchronous render — only one tab renders at a time, so the last writer wins.
-  const renderCredit = (fn) => { pfList.hidden = true; backBar.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); };
-  const renderLegal = (fn) => { pfList.hidden = true; backBar.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); };
+  // Render a desk detail view into the Profiles-owned host. The list stays
+  // mounted (only its table is hidden by .pf-detailing); point the shared detail
+  // host at #pf-detail and flip Profiles mode on right before the synchronous
+  // render. selectChip(p) first, so the persistent frame above the profile is the
+  // RIGHT list (its search box + AUM focus), and the active tab highlights.
+  const renderCredit = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); };
+  const renderLegal = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); };
 
   // If the viewer has imported their LinkedIn connections (menu ▸ Network) and
   // knows anyone at this entity, prepend a COLLAPSIBLE badge to the freshly-
@@ -108,13 +129,13 @@ export async function mount(host, ctx) {
     const seg = raw.split("?")[0].replace(/^#/, "").split("/").filter(Boolean);
     const route = seg[0], arg = seg[1];
     switch (route) {
-      case "manager": renderCredit(() => viewManager(arg)); return decorateNet("manager", arg);
-      case "fund": return renderCredit(() => viewFund(arg));
-      case "clo": return renderCredit(() => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
-      case "lp": return renderCredit(() => viewLp(arg));
-      case "hf": renderCredit(() => viewHedgeFund(arg)); return decorateNet("hf", arg);
-      case "firm": renderLegal(() => viewFirm(dec(arg))); return decorateNet("firm", dec(arg));
-      case "item": return renderLegal(() => viewItem(dec(arg)));
+      case "manager": renderCredit("managers", () => viewManager(arg)); return decorateNet("manager", arg);
+      case "fund": return renderCredit("managers", () => viewFund(arg));
+      case "clo": return renderCredit("managers", () => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
+      case "lp": return renderCredit("managers", () => viewLp(arg));
+      case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg)); return decorateNet("hf", arg);
+      case "firm": renderLegal("firms", () => viewFirm(dec(arg))); return decorateNet("firm", dec(arg));
+      case "item": return renderLegal("firms", () => viewItem(dec(arg)));
       default: return showList(readTab());
     }
   }
@@ -144,8 +165,9 @@ export async function mount(host, ctx) {
   // (AUM source, 13F, SLS chip, breadcrumb) defers to that anchor. External /
   // absolute rows open in a new tab.
   host.addEventListener("click", (e) => {
-    // Back button on an open profile → return to the list pane it came from.
-    const back = e.target.closest("#pf-back");
+    // Leading ‹ chevron in the persistent search row → close the profile and
+    // return to the list it came from (the active tab).
+    const back = e.target.closest(".pf-back-chev");
     if (back) {
       const on = chips.querySelector(".tchip.is-on");
       const h = "#/?tab=" + (on ? on.dataset.p : "managers");
@@ -153,13 +175,20 @@ export async function mount(host, ctx) {
       router();
       return;
     }
+    // A tab tap always lands on that list (closing any open profile).
     const chip = e.target.closest("#pf-chips .tchip");
-    if (chip) { selectChip(chip.dataset.p); return; }
+    if (chip) {
+      const h = "#/?tab=" + chip.dataset.p;
+      if (location.hash !== h) location.hash = h;
+      router();
+      return;
+    }
     // League $1–15bn AUM focus toggles + the hedge-fund Cross-holdings (13F
     // consensus) button. These live inside the borrowed panes, whose ids are
     // duplicated in the Credit desk — wire OUR copies here, scoped to this host.
     const focus = e.target.closest("#cr-hf-focus, #cr-lg-focus");
     if (focus) {
+      if (host.classList.contains("pf-detailing")) exitDetail();   // filtering means you want the list
       const rowsSel = focus.id === "cr-hf-focus" ? "#hf-rows tr" : "#mgr-rows tr";
       const on = focus.getAttribute("aria-pressed") !== "true";
       focus.setAttribute("aria-pressed", on ? "true" : "false");
@@ -211,6 +240,7 @@ export async function mount(host, ctx) {
   // Scoped to this host so it never touches the desks' own (hidden) copies.
   host.addEventListener("input", (e) => {
     const inp = e.target.closest("#mgr-q, #hf-q, #lf-q"); if (!inp) return;
+    if (host.classList.contains("pf-detailing")) exitDetail();   // typing a search returns to the list
     const sel = inp.id === "mgr-q" ? "#mgr-rows tr" : inp.id === "hf-q" ? "#hf-rows tr" : "#lf-rows tr";
     const v = inp.value.toLowerCase().trim();
     host.querySelectorAll(sel).forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });

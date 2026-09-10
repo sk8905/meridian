@@ -83,38 +83,50 @@ async function tapRow(pane, kind, hrefRe) {
   check(hrefRe.test(box.href || ""), `${kind}: row targets a ${kind} profile (${box.href})`);
   await tapAt(box.x, box.y);
   await pg.waitForTimeout(800);
-  // Assert VISUAL state (computed display), not just the .hidden property: the
-  // list carries .tdash{display:flex}, whose author specificity beat the UA
-  // [hidden] rule, so the profile opened BELOW the still-visible list. .hidden
-  // was true yet the list stayed on screen — the property check missed it.
-  const after = await pg.evaluate(() => {
+  // New model: the list FRAME (tabs + AUM-focus + search) stays put; only the
+  // TABLE gives way to the profile, which renders below the search box. The
+  // detail's own duplicate section nav is suppressed, and the ‹ back chevron
+  // shows in the active pane's search row.
+  const after = await pg.evaluate((pane) => {
     const list = document.querySelector("#pf-list");
     const detail = document.querySelector("#pf-detail");
-    const back = document.querySelector("#pf-back-bar");
+    const activePane = document.querySelector(`.tpane[data-pane="${pane}"]:not([hidden])`);
+    const table = activePane && activePane.querySelector(".tleague-wrap");
+    const search = activePane && activePane.querySelector(".thead-search");
+    const chev = activePane && activePane.querySelector(".pf-back-chev");
+    const secnav = detail && detail.querySelector(".tdet-secnav");
     return {
       hash: location.hash,
-      listDisplay: list ? getComputedStyle(list).display : null,
-      detailDisplay: detail ? getComputedStyle(detail).display : null,
-      backShown: !!(back && getComputedStyle(back).display !== "none"),
+      listShown: list ? getComputedStyle(list).display !== "none" : false,
+      searchShown: search ? getComputedStyle(search).display !== "none" : false,
+      tableHidden: table ? getComputedStyle(table).display === "none" : null,
+      detailShown: detail ? getComputedStyle(detail).display !== "none" : false,
+      chevShown: !!(chev && getComputedStyle(chev).display !== "none"),
+      secnavHidden: secnav ? getComputedStyle(secnav).display === "none" : true,
       len: detail ? detail.textContent.trim().length : 0,
     };
-  });
+  }, pane);
   check(after.hash === box.href, `${kind}: tapping the name routes to ${box.href} (got ${after.hash})`);
-  check(after.listDisplay === "none", `${kind}: the list is VISUALLY hidden — profile opens as its own page (list display=${after.listDisplay})`);
-  check(after.detailDisplay !== "none", `${kind}: the profile detail is shown (display=${after.detailDisplay})`);
-  check(after.backShown, `${kind}: a Back-to-list button is shown on the profile`);
+  check(after.listShown && after.searchShown, `${kind}: the list frame (tabs + search) stays visible above the profile`);
+  check(after.tableHidden === true, `${kind}: the list table gives way to the profile`);
+  check(after.detailShown, `${kind}: the profile detail is shown`);
+  check(after.chevShown, `${kind}: the ‹ back chevron shows in the search row`);
+  check(after.secnavHidden, `${kind}: the detail's duplicate section nav is suppressed`);
   check(after.len > 300, `${kind}: the profile page renders content (${after.len} chars)`);
 
-  // The Back button returns to the list (list visible again, detail gone).
-  await pg.evaluate(() => { const b = document.querySelector("#pf-back"); if (b) b.click(); });
+  // The ‹ chevron in the search row returns to the list (table back, detail gone).
+  await pg.evaluate(() => { const b = document.querySelector(".tpane:not([hidden]) .pf-back-chev"); if (b) b.click(); });
   await pg.waitForTimeout(400);
-  const backState = await pg.evaluate(() => {
-    const list = document.querySelector("#pf-list");
+  const backState = await pg.evaluate((pane) => {
     const detail = document.querySelector("#pf-detail");
-    return { listDisplay: list ? getComputedStyle(list).display : null, detailDisplay: detail ? getComputedStyle(detail).display : null };
-  });
-  check(backState.listDisplay !== "none", `${kind}: Back returns to the visible list (list display=${backState.listDisplay})`);
-  check(backState.detailDisplay === "none", `${kind}: Back hides the profile detail`);
+    const table = document.querySelector(`.tpane[data-pane="${pane}"] .tleague-wrap`);
+    return {
+      tableShown: table ? getComputedStyle(table).display !== "none" : false,
+      detailShown: detail ? getComputedStyle(detail).display !== "none" : true,
+    };
+  }, pane);
+  check(backState.tableShown, `${kind}: Back restores the list table`);
+  check(!backState.detailShown, `${kind}: Back hides the profile detail`);
 }
 
 await tapRow("managers", "manager", /^#\/manager\//);
@@ -142,7 +154,7 @@ const touchNav = await pg.evaluate(() => {
 });
 check(touchNav.ok, `touch-only: a manager row is present (${touchNav.why || "ok"})`);
 if (touchNav.ok) check(touchNav.hash === touchNav.href, `touch-only (no click) tap navigates to ${touchNav.href} (got ${touchNav.hash})`);
-const touchShown = await pg.evaluate(() => document.querySelector("#pf-detail") && !document.querySelector("#pf-detail").hidden && document.querySelector("#pf-list").hidden);
+const touchShown = await pg.evaluate(() => { const d = document.querySelector("#pf-detail"); return !!(d && !d.hidden && document.querySelector(".pf-detailing")); });
 check(!!touchShown, "touch-only: the profile detail is shown after a click-less tap");
 
 checkErrs(errs, "profiles navigation");
