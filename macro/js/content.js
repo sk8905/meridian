@@ -1125,7 +1125,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Sterling has been the G10's surprise outperformer this year on resilient UK growth, but CNBC reports strategists see it exposed to a widening rate-hike divergence — an imminent ECB hike and rising Fed-hike odds against a more cautious-sounding Bank of England — heading into the 17 September MPC decision and 28 October Budget.", src: "https://www.cnbc.com/2026/09/09/fx-currencies-interest-rate-hikes.html", srcName: "CNBC", date: "2026-09-09" };
+export const FX_KEYMOMENT = { text: "The dollar crawled higher Thursday as Brent's hold above $100 spooked investors ahead of the ECB decision and Friday's decisive US CPI print, with the oil-driven inflation risk still the dominant cross-asset driver into next week's back-to-back FOMC and MPC meetings.", src: "https://www.msn.com/en-gb/news/other/dollar-crawls-higher-ahead-of-ecb-us-inflation-data-100-oil-spooks-investors/ar-AA2bX8P1", srcName: "Reuters (via MSN)", date: "2026-09-10" };
 
 export const EARNINGS = {
   weeks: [
