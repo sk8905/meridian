@@ -126,6 +126,8 @@ a { color: inherit; text-decoration: none; }
   .v2-botmeta-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .v2-botmeta-acct:empty { display: none; }
   .v2-botmeta-acct strong { color: var(--ink, #131a2b); font-weight: 600; }
+  .v2-botmeta-acct a { color: var(--ink, #131a2b); font-weight: 600; text-decoration: none; }
+  .v2-botmeta-acct a:hover { color: var(--accent, #fb8b1e); }
   .v2-botmeta-status { flex: 0 0 auto; white-space: nowrap; }
   .v2-botmeta-status:empty { display: none; }
 }

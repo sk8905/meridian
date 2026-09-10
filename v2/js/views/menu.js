@@ -1,7 +1,7 @@
 // Menu view — THREE chips:
-//   • Dialogue — the OMNIBOX: one input where Enter/"Ask" answers inline via AI
-//     (B) and "Search" hands the text to the command palette for instant local
-//     matches. No idle explainer copy.
+//   • Dialogue — Ask Wire (B): one input (styled like the .tsearch search
+//     fields) where Enter/"Ask" answers inline via AI. Ask only — search lives
+//     in the global palette (header search / other pages). No explainer copy.
 //   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
 //   • Settings — Notifications (push toggle), Display (theme + density), Sign out.
 // On PHONES this is where Search + the Ask/Add assistant live (the header keeps
@@ -107,9 +107,9 @@ function netPaneHTML() {
 }
 
 function dialoguePaneHTML() {
-  // One omnibox (mounted into #v2-menu-omni after render): Enter / "Ask" answers
-  // inline via /api/ask (B); "Search" hands the text to the command palette for
-  // instant local matches. No idle explainer copy — the placeholder carries it.
+  // Ask Wire (mounted into #v2-menu-omni after render): Enter / "Ask" answers
+  // inline via /api/ask (B). Ask only — search is the global palette, not here.
+  // No idle explainer copy — the placeholder carries it.
   return `<div class="menu-asst" id="v2-menu-omni"></div>`;
 }
 function coveragePaneHTML() {
@@ -173,7 +173,7 @@ export function mount(host, ctx) {
       <div class="na-menu-pane">${paneHTML(sec)}</div>
     </div>`;
     if (sec === "settings") fillMenuAccount();
-    if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: true, ask: true, add: false, state: askState });
+    if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, state: askState });
     if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
   };
 

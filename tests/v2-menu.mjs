@@ -29,7 +29,31 @@ async function menuState(pg) {
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
   check(s.visible, `direct /v2/menu/: the three chips (Dialogue/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
   checkEq((s.labels || []).join("/"), "Dialogue/Coverage/Settings", "direct /v2/menu/: chips are Dialogue / Coverage / Settings");
-  check(await pg.evaluate(() => { const c = document.querySelector('.v2-view[data-view="menu"] #v2-menu-omni'); return !!c && !!c.querySelector(".na-ask-search") && !!c.querySelector(".na-ask-go"); }), "direct /v2/menu/: the Dialogue chip is the Search+Ask omnibox");
+  // Dialogue is ASK ONLY now (no Search button); its input takes the lifted
+  // .tsearch ground so it reads as a distinct field, not the near-black page.
+  const dlg = await pg.evaluate(() => {
+    const c = document.querySelector('.v2-view[data-view="menu"] #v2-menu-omni');
+    if (!c) return null;
+    const form = c.querySelector(".na-ask-form");
+    // Probe the --lift token (the .tsearch search-field ground) as an rgb() so we
+    // can compare it to the form's computed background regardless of theme.
+    const probe = document.createElement("div"); probe.style.background = "var(--lift)";
+    document.body.appendChild(probe); const liftRGB = getComputedStyle(probe).backgroundColor; probe.remove();
+    return {
+      ask: !!c.querySelector(".na-ask-go"), search: !!c.querySelector(".na-ask-search"),
+      add: !!c.querySelector(".na-ask-add"), inputs: c.querySelectorAll(".na-ask-in").length,
+      formBg: form ? getComputedStyle(form).backgroundColor : "", liftRGB,
+    };
+  });
+  check(dlg && dlg.ask && !dlg.search && !dlg.add && dlg.inputs === 1, "direct /v2/menu/: the Dialogue chip is Ask only (one input, no Search/Add)");
+  check(dlg && dlg.formBg === dlg.liftRGB, `direct /v2/menu/: the Ask box takes the lifted --lift search-field ground (form ${dlg && dlg.formBg} vs --lift ${dlg && dlg.liftRGB})`);
+  // Bottom strip: a Sign out action, not the signed-in identity string.
+  const strip = await pg.evaluate(() => {
+    const bot = document.getElementById("account-nav-bot");
+    return { html: bot ? bot.innerHTML : "", logout: !!(bot && bot.querySelector('a[href*="logout"]')) };
+  });
+  check(strip.logout, "direct /v2/menu/: bottom strip shows a Sign out link");
+  check(!/Signed in as/i.test(strip.html), "direct /v2/menu/: bottom strip no longer shows the signed-in identity");
   checkErrs(errs, "direct menu");
   await ctx.close();
 }

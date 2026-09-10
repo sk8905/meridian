@@ -64,14 +64,10 @@ await pg.waitForTimeout(150);
 await pg.evaluate(() => { const b = document.querySelector(".nav-menu-btn") || document.querySelector('.mtab[data-key="menu"]'); if (b) b.click(); });
 await pg.waitForTimeout(700);
 check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Dialogue/Coverage/Settings"), "Menu shows the Dialogue/Coverage/Settings chips");
-// Dialogue chip (default): the OMNIBOX — one input with Search + Ask, no Add.
-check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !!c.querySelector(".na-ask-search") && !!c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is one omnibox: Search + Ask, no Add");
-// The Search button hands the typed text to the command palette (wire:search).
-await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "Apollo"; c.querySelector(".na-ask-search").click(); });
-await pg.waitForTimeout(300);
-check(await pg.evaluate(() => { const i = document.querySelector(".mcmdk.open .mcmdk-input"); return !!i && i.value === "Apollo"; }), "omnibox Search opens the command palette seeded with the typed text");
-await pg.keyboard.press("Escape"); await pg.waitForTimeout(150);
-check(await pg.evaluate(() => !document.querySelector("#v2-menu-omni .na-ask-hint")), "no idle explainer text in the Dialogue omnibox");
+// Dialogue chip (default): Ask ONLY — one input + Ask, no Search, no Add.
+check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !c.querySelector(".na-ask-search") && !!c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is Ask only: one input + Ask, no Search/Add");
+check(await pg.evaluate(() => { const i = document.querySelector("#v2-menu-omni .na-ask-in"); return !!i && /ask/i.test(i.placeholder) && !/search/i.test(i.placeholder); }), "Dialogue placeholder is the Ask prompt (no 'Search…')");
+check(await pg.evaluate(() => !document.querySelector("#v2-menu-omni .na-ask-hint")), "no idle explainer text in the Dialogue Ask box");
 // Coverage chip: Add (C) + Network.
 await pg.evaluate(() => document.querySelector('.v2-menu .na-menu-bar .tchip[data-sec="coverage"]').click());
 await pg.waitForTimeout(300);

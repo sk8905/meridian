@@ -168,9 +168,9 @@ function fillAccount() {
         if (el) el.innerHTML = full;
         // Desktop footer: full identity + sign-out.
         if (foot) foot.innerHTML = full;
-        // Phone strip: compact — just the identity (sign-out lives in the Menu),
-        // ellipsised so it shares the row with the last-refresh.
-        if (bot) bot.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${email}</strong>`;
+        // Phone strip: just a Sign out action (no identity string) — it shares
+        // the row with the last-refresh on the right.
+        if (bot) bot.innerHTML = `<a href="/cdn-cgi/access/logout">Sign out</a>`;
         try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ }
       }
     })
