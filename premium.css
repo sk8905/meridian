@@ -986,14 +986,18 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-answer p:last-child { margin-bottom: 0; }
 .na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight: 600; }
 .na-ask-answer code { font-size: 11px; padding: 1px 4px; border-radius: 0; background: color-mix(in srgb, var(--ink, #eaf0fb) 10%, transparent); }
-/* The Ask assistant in the Menu → Dialogue chip is styled to match the .tsearch
-   search field used elsewhere: a single bordered, lifted (var(--lift)) mono field
-   with a muted placeholder and NO action button — the reader types and presses
-   Enter (the field mounts `bare`). Any answer renders as a framed card beneath. */
+/* The Ask assistant in the Menu → Dialogue chip is rendered to look EXACTLY like
+   the shared search band (bandHTML → .tpanel-h.thead-search with a .tsearch
+   field): a full-width band on the --head ground with an 8px 12px gutter and a
+   bottom divider, holding the lifted (--lift), bordered, mono 11px / 26px field.
+   No action button — the reader types and presses Enter (the field mounts `bare`).
+   Any answer renders as a framed card beneath, inset to the same gutter. */
 .menu-asst { border: 0; }
-.menu-asst .na-ask-form { position: static; top: auto; background: var(--lift, #202020); border: 1px solid var(--border, #262626); }
+.menu-asst .na-ask-form { position: static; top: auto; display: flex; align-items: center; padding: 8px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+.menu-asst .na-ask-in { flex: 1 1 auto; min-width: 0; background: var(--lift, #202020); border: 1px solid var(--border, #262626); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; height: 26px; padding: 2px 8px; border-radius: 0; }
+.menu-asst .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
 .menu-asst .na-ask-out { padding: 0; }
-.menu-asst .na-ask-out:not(:empty) { margin-top: 10px; border: 1px solid var(--border, #262626); }
+.menu-asst .na-ask-out:not(:empty) { margin: 8px 12px 0; border: 1px solid var(--border, #262626); }
 .na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
 .na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.4; }

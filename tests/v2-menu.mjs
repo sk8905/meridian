@@ -29,34 +29,46 @@ async function menuState(pg) {
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
   check(s.visible, `direct /v2/menu/: the three chips (Dialogue/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
   checkEq((s.labels || []).join("/"), "Dialogue/Coverage/Settings", "direct /v2/menu/: chips are Dialogue / Coverage / Settings");
-  // Dialogue is a BARE Ask field: one input, NO action button (Search/Add/Ask
-  // all absent), placeholder "Ask…", and it takes the lifted .tsearch ground.
+  // Dialogue is a BARE Ask field rendered EXACTLY like the search band: one input,
+  // NO action button, placeholder "Ask…". The band form sits on the --head ground
+  // with a bottom divider; the FIELD (.na-ask-in) takes the lifted --lift ground
+  // and the .tsearch metrics (26px tall, 1px border) — same as bandHTML's .tsearch.
   const dlg = await pg.evaluate(() => {
     const c = document.querySelector('.v2-view[data-view="menu"] #v2-menu-omni');
     if (!c) return null;
     const form = c.querySelector(".na-ask-form");
     const input = c.querySelector(".na-ask-in");
-    // Probe the --lift token (the .tsearch search-field ground) as an rgb() so we
-    // can compare it to the form's computed background regardless of theme.
-    const probe = document.createElement("div"); probe.style.background = "var(--lift)";
-    document.body.appendChild(probe); const liftRGB = getComputedStyle(probe).backgroundColor; probe.remove();
+    const rgbOf = (v) => { const p = document.createElement("div"); p.style.background = v; document.body.appendChild(p); const c2 = getComputedStyle(p).backgroundColor; p.remove(); return c2; };
+    const cs = input ? getComputedStyle(input) : {};
     return {
       buttons: c.querySelectorAll(".na-ask-go, .na-ask-search, .na-ask-add").length,
       inputs: c.querySelectorAll(".na-ask-in").length,
       ph: input ? input.placeholder : "",
-      formBg: form ? getComputedStyle(form).backgroundColor : "", liftRGB,
+      inputBg: input ? cs.backgroundColor : "", liftRGB: rgbOf("var(--lift)"),
+      formBg: form ? getComputedStyle(form).backgroundColor : "", headRGB: rgbOf("var(--head)"),
+      h: input ? cs.height : "", bw: input ? cs.borderTopWidth : "",
     };
   });
   check(dlg && dlg.inputs === 1 && dlg.buttons === 0, "direct /v2/menu/: the Dialogue chip is a bare Ask field (one input, no buttons)");
   check(dlg && /ask/i.test(dlg.ph) && !/search/i.test(dlg.ph), `direct /v2/menu/: the placeholder is the Ask prompt (${dlg && dlg.ph})`);
-  check(dlg && dlg.formBg === dlg.liftRGB, `direct /v2/menu/: the Ask box takes the lifted --lift search-field ground (form ${dlg && dlg.formBg} vs --lift ${dlg && dlg.liftRGB})`);
-  // Bottom strip: a Sign out action, not the signed-in identity string.
+  check(dlg && dlg.inputBg === dlg.liftRGB, `direct /v2/menu/: the Ask FIELD takes the lifted --lift ground (field ${dlg && dlg.inputBg} vs --lift ${dlg && dlg.liftRGB})`);
+  check(dlg && dlg.formBg === dlg.headRGB, `direct /v2/menu/: the band sits on the --head ground like the search band (form ${dlg && dlg.formBg} vs --head ${dlg && dlg.headRGB})`);
+  check(dlg && dlg.h === "26px" && parseFloat(dlg.bw) >= 1, `direct /v2/menu/: the Ask field matches the .tsearch metrics (26px tall, bordered; got ${dlg && dlg.h}/${dlg && dlg.bw})`);
+  // Bottom strip: a Sign out action, not the signed-in identity string — and it
+  // reads the same muted grey as the refresh time beside it.
   const strip = await pg.evaluate(() => {
     const bot = document.getElementById("account-nav-bot");
-    return { html: bot ? bot.innerHTML : "", logout: !!(bot && bot.querySelector('a[href*="logout"]')) };
+    const link = bot && bot.querySelector('a[href*="logout"]');
+    const stat = document.querySelector("#data-status-bot .ds-part") || document.getElementById("data-status-bot");
+    return {
+      html: bot ? bot.innerHTML : "", logout: !!link,
+      linkColor: link ? getComputedStyle(link).color : "",
+      refreshColor: stat ? getComputedStyle(stat).color : "",
+    };
   });
   check(strip.logout, "direct /v2/menu/: bottom strip shows a Sign out link");
   check(!/Signed in as/i.test(strip.html), "direct /v2/menu/: bottom strip no longer shows the signed-in identity");
+  check(strip.logout && strip.linkColor === strip.refreshColor, `direct /v2/menu/: Sign out is the same grey as the refresh time (${strip.linkColor} vs ${strip.refreshColor})`);
   // Bottom-right refresh is the compact "Last: <time>" — time only, no date and
   // not the long "Last refresh" label (the header rail/footer keep the full form).
   const refresh = await pg.evaluate(() => (document.getElementById("data-status-bot")?.textContent || "").trim());
