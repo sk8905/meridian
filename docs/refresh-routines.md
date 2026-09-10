@@ -156,6 +156,16 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   public source. Never fabricate: set unknown fields to `null`, mark estimates with
   `estimated: true`, and keep each new/edited record's `sources` pointing to real
   URLs. Reuse existing field names exactly (see a neighbouring record as a template).
+- **Investment instrument (`instrument` + `instrumentType`) — curate opportunistically.**
+  The manager profile's **Investments** tab (HOUSE_STYLE R21) tags each surfaced deal
+  debt vs equity (+ sub-type). Absent a curated tag it is **auto-derived** from the
+  article and marked `~`. When a run adds or re-verifies an investment-type `deals`
+  record (`Financing` / `Investment` / `Acquisition` / `Structured Credit` /
+  `Refinancing` / `Unitranche` / `NPL / Portfolio` / …) and the article makes the
+  instrument explicit, set `instrument: "Debt"|"Equity"` and, where named,
+  `instrumentType` (e.g. `"Senior"`, `"Unitranche"`, `"Mezzanine"`, `"RCF"`,
+  `"Acquisition financing"`, `"Preferred"`, `"Minority equity"`). Only when the source
+  supports it — never guess; leave it off and let the auto-derive stand.
 - **Origination fields (`book` + `advisers`) — capture opportunistically.** The Radar
   tab reads two optional manager fields (spec: `docs/origination-radar-spec.md` Part H).
   When a run surfaces source-verifiable evidence for a manager it is already touching

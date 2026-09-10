@@ -16,7 +16,7 @@ import {
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import {
-  eur, pct, fmtDate, link, sources, raiseDisplay, nameCell,
+  eur, pct, fmtDate, link, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource,
   _chipMem, chipMemKey,
@@ -245,7 +245,7 @@ export function viewFund(id) {
             ${x.description ? `<p class="tdet-desc">${esc(x.description)}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(x.strategy)}</span><span class="tdet-chip">${esc(x.status)}</span>${x.geoFocus ? `<span class="tdet-chip">${esc(x.geoFocus)}</span>` : ""}${x.lifecycle ? `<span class="tdet-chip">${esc(typeof x.lifecycle === "string" ? x.lifecycle : x.lifecycle.status)}</span>` : ""}</div>
             <div class="tdet-src">Data as of ${esc(x.asOf || "—")} · ${completenessPill(x)}</div>
-            ${(x.sources && x.sources.length) ? `<div class="tdet-src">${sources(x)}</div>` : ""}
+            ${srcDetails(x)}
           </div>
           <header class="tpanel-h twire-head">
             <div class="tchips" id="fd-chips">
@@ -362,6 +362,81 @@ function advisersHTML(m) {
     + `</div>`;
 }
 
+// Collapsible sources: a single "Sources" line that expands to the links (+ an
+// "as of" stamp). Replaces the long inline "Sources: …" note. Local to the detail
+// views so it doesn't touch the shared sources() used elsewhere.
+function srcDetails(rec) {
+  if (!rec || !rec.sources || !rec.sources.length) return "";
+  const links = rec.sources.map((s, i) =>
+    `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label || "source " + (i + 1))}</a>`).join(" · ");
+  const asOf = rec.asOf ? ` · <span class="muted">as of ${esc(rec.asOf)}</span>` : "";
+  const n = rec.sources.length;
+  return `<details class="tdet-src-det"><summary>Sources${n > 1 ? ` (${n})` : ""}</summary><div class="tdet-src-body">${links}${asOf}</div></details>`;
+}
+
+// ---- Investments: instrument classification --------------------------------
+// The Investments tab lists a manager's deal activity drawn ONLY from the news
+// we've surfaced, tagged debt vs equity (and a sub-type where the article says
+// so). A CURATED override on the deal wins (d.instrument = "Debt"|"Equity",
+// d.instrumentType = "Senior"/"Mezzanine"/"RCF"/…); otherwise we derive
+// CONSERVATIVELY from the deal's own type + the wording of the article itself —
+// asserting a class only on an explicit signal and a sub-type only when named,
+// leaving anything unclear blank (never guessed). Each row links its source.
+const INVEST_TYPES = new Set([
+  "Financing", "Investment", "Acquisition", "Structured Credit",
+  "Structured Credit / CLO", "Refinancing", "Unitranche", "NPL / Portfolio",
+  "Restructuring", "Continuation Vehicle", "Disposal / Exit",
+]);
+const DEBT_SUB = [
+  [/\bunitranche\b/, "Unitranche"],
+  [/\bmezzanine\b|\bmezz\b/, "Mezzanine"],
+  [/revolving credit facilit|\brcf\b/, "RCF"],
+  [/second[-\s]lien/, "Second lien"],
+  [/senior secured|senior debt|senior loan|first[-\s]lien/, "Senior"],
+  [/\bterm loan\b|\btlb\b/, "Term loan"],
+  [/nav (loan|financ|facilit)/, "NAV financing"],
+  [/asset[-\s]backed|\babs\b|securitis|securitiz/, "Asset-backed"],
+  [/\bclo\b|collateralis?ed loan/, "CLO / structured"],
+  [/acquisition financ|financ\w+ (?:the|an|its) acquisition|to (?:back|fund|finance) the acquisition|buyout financ|\blbo\b/, "Acquisition financing"],
+  [/\brefinanc/, "Refinancing"],
+  [/\bnpl\b|non[-\s]performing/, "NPL / portfolio"],
+  [/private placement|\bnotes\b|\bbond\b/, "Notes / bonds"],
+];
+const EQUITY_SUB = [
+  [/preferred equity|\bpref equity\b/, "Preferred"],
+  [/structured equity/, "Structured equity"],
+  [/gp[-\s]stake|stake in the (?:manager|firm|gp)/, "GP stake"],
+  [/growth equity/, "Growth equity"],
+  [/ordinary shares|common equity|common shares/, "Ordinary"],
+  [/minority (?:equity )?stake|minority investment|equity stake/, "Minority equity"],
+];
+const DEBT_KW = /(loan|facilit|financ|senior|unitranche|mezzanine|\brcf\b|revolving credit|term loan|refinanc|\bclo\b|securitis|securitiz|\bnpl\b|\bdebt\b|\bnotes\b|\bbond\b|direct lending|private credit|second[-\s]lien|first[-\s]lien)/;
+const EQUITY_KW = /(\bequity\b|\bstake\b|\bshares\b|recapitalis|recapitaliz|preferred|buyout)/;
+const DEBT_TYPES = new Set(["Financing", "Refinancing", "Unitranche", "Structured Credit", "Structured Credit / CLO", "NPL / Portfolio"]);
+function classifyInstrument(d) {
+  if (d.instrument) return { cls: d.instrument, sub: d.instrumentType || "", curated: true };
+  const s = ((d.headline || "") + " — " + (d.summary || "")).toLowerCase();
+  const findSub = (list) => { for (const [re, label] of list) if (re.test(s)) return label; return ""; };
+  const dsub = findSub(DEBT_SUB); if (dsub) return { cls: "Debt", sub: dsub, curated: false };
+  const esub = findSub(EQUITY_SUB); if (esub) return { cls: "Equity", sub: esub, curated: false };
+  if (DEBT_TYPES.has(d.type)) return { cls: "Debt", sub: "", curated: false };
+  const debt = DEBT_KW.test(s), eq = EQUITY_KW.test(s);
+  if (debt && !eq) return { cls: "Debt", sub: "", curated: false };
+  if (eq && !debt) return { cls: "Equity", sub: "", curated: false };
+  return { cls: "", sub: "", curated: false };   // unspecified — never guessed
+}
+function invRow(d) {
+  const { cls, sub, curated } = classifyInstrument(d);
+  const tag = cls
+    ? `<span class="tinv-tag ${cls === "Debt" ? "is-debt" : "is-equity"}"${curated ? "" : ' title="Auto-derived from the linked article"'}>${esc(cls)}${sub ? " · " + esc(sub) : ""}${curated ? "" : "<span class=\"tinv-inf\">~</span>"}</span>`
+    : `<span class="tinv-tag is-unspec">Type unspecified</span>`;
+  const outlet = creditSource(d) || "";
+  return `<li class="tinv-row">`
+    + `<a class="tinv-head" href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(d.headline)}</a>`
+    + `<div class="tinv-meta">${tag}<span class="tinv-when">${esc(fmtDate(d.date))}</span>${outlet ? `<span class="tinv-src">${esc(outlet)}</span>` : ""}</div>`
+    + `</li>`;
+}
+
 export function viewManager(id) {
   const m = managerById[id];
   if (!m) return notFound(app);
@@ -400,16 +475,23 @@ export function viewManager(id) {
     ["AUM", aumHeadline(m)], ["Founded", m.founded], ["Funds", fs.length],
     ["In market", liveFunds], ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
   ];
-  // ---- panes: News (default) · Funds · CLOs · Key personnel ----
+  // ---- panes: News (default) · Vehicles (Funds + CLOs + listed) · Investments ·
+  //      Business ----
   const newsPane = mgrFeed.length
     ? `<ul class="twire compact-list" id="mgr-wire">${mgrFeed.map(mgrWireRow).join("")}</ul>`
     : '<p class="tw-empty muted small">No news yet for this manager.</p>';
-  const fundsPane = fs.length
+  const fundsList = fs.length
     ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}<span class="tmini-r">${x.evergreen ? "Evergreen" : (x.targetSize ? eur(x.targetSize) : "—")}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span></li>`).join("")}</ul>`
-    : `<p class="tw-empty muted small">${esc(m.fundsNote || "No fund tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
-  const closPane = mgrCloRoster.length
+    : "";
+  const closList = mgrCloRoster.length
     ? `<ul class="tmini">${mgrCloRoster.map((c) => `<li class="tmini-row clickable" data-href="#/clo/${m.id}/${encodeURIComponent(c.name)}"><span class="tmini-t">${esc(c.name)}<span class="tmini-r">${c.size ? esc(c.size) : ""}</span></span><span class="tmini-m">${c.vintage ? "Vintage " + esc(c.vintage) : "Issued"}</span></li>`).join("")}</ul>`
-    : `<p class="tw-empty muted small">${mgrClo.length ? "No individually-named CLO vehicles identified yet." : "No tracked CLOs."}</p>`;
+    : "";
+  // Investments — the manager's deal activity from the news we've surfaced, tagged
+  // debt/equity (+ sub-type where the article says so). mgrFeed is date-sorted.
+  const investments = mgrFeed.filter((x) => x._kind === "deal" && INVEST_TYPES.has(x.type));
+  const invPane = investments.length
+    ? `<ul class="tinv">${investments.map(invRow).join("")}</ul>`
+    : `<p class="tw-empty muted small">No investments identified yet from the news surfaced for this manager.</p>`;
   const peoplePane = (() => {
     let out = "";
     if (m.owners && m.owners.length) out += `<div class="tpg"><div class="tpg-h">Ownership</div><ul class="tfacts">${m.owners.map((o) => `<li><span class="tf-k">${esc(o.name)}</span><span class="tf-v">${esc(o.stake)}</span></li>`).join("")}</ul></div>`;
@@ -432,9 +514,13 @@ export function viewManager(id) {
       + `<button type="button" class="tfocus-btn veh-load" data-cik="${esc(v.cik)}" data-type="${esc(v.type)}" data-nm="${esc(v.name)}">Load holdings</button></div>`
       + `<div class="veh-body" id="veh-${esc(v.cik)}"></div></div>`;
   };
-  const vehiclesPane = vehicles.length
-    ? vehicles.map(vehRow).join("")
-    : "";
+  const listedList = vehicles.length ? vehicles.map(vehRow).join("") : "";
+  // Merged Vehicles tab: Funds + CLOs + listed BDC/CEF vehicles, each a labelled
+  // group (groups with nothing to show are omitted).
+  const vehGrp = (label, n, body) => body ? `<div class="tveh-grp"><div class="tveh-grp-h">${label}${n ? ` <span class="tveh-grp-n">${n}</span>` : ""}</div>${body}</div>` : "";
+  const vehCount = fs.length + mgrCloRoster.length + vehicles.length;
+  const vehiclesPane = (vehGrp("Funds", fs.length, fundsList) + vehGrp("CLOs", mgrCloRoster.length, closList) + vehGrp("Listed vehicles", vehicles.length, listedList)).trim()
+    || `<p class="tw-empty muted small">${esc(m.fundsNote || "No funds, CLOs or listed vehicles tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
   app.innerHTML = `
@@ -448,28 +534,26 @@ export function viewManager(id) {
             <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${m.aumText ? " · " + esc(aumHeadline(m)) + " AUM" : ""}</div>
             ${m.description ? `<p class="tdet-desc">${esc(m.description)}</p>` : ""}
             ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
-            ${(m.sources && m.sources.length) ? `<div class="tdet-src">${sources(m)}</div>` : ""}
+            ${srcDetails(m)}
           </div>
           <header class="tpanel-h twire-head">
             <div class="tchips" id="mgr-tabs">
               <button type="button" class="tchip is-on" data-p="news">News</button>
-              <button type="button" class="tchip" data-p="funds">Funds${fs.length ? " " + fs.length : ""}</button>
-              <button type="button" class="tchip" data-p="clos">CLOs${mgrCloRoster.length ? " " + mgrCloRoster.length : ""}</button>
-              ${vehicles.length ? `<button type="button" class="tchip" data-p="vehicles">Vehicles ${vehicles.length}</button>` : ""}
+              <button type="button" class="tchip" data-p="vehicles">Vehicles${vehCount ? " " + vehCount : ""}</button>
+              <button type="button" class="tchip" data-p="investments">Investments${investments.length ? " " + investments.length : ""}</button>
               ${hasBiz ? `<button type="button" class="tchip" data-p="business">Business</button>` : ""}
             </div>
           </header>
           <div class="tpanes" id="mgr-panes">
             ${pane("news", newsPane)}
-            ${pane("funds", fundsPane)}
-            ${pane("clos", closPane)}
-            ${vehicles.length ? pane("vehicles", vehiclesPane) : ""}
+            ${pane("vehicles", vehiclesPane)}
+            ${pane("investments", invPane)}
             ${hasBiz ? pane("business", businessPane) : ""}
           </div>
         </section>
       </div>
     </div>`;
-  // Toggle which pane (News / Funds / CLOs / Key personnel) is shown.
+  // Toggle which pane (News / Vehicles / Investments / Business) is shown.
   const tabs = document.getElementById("mgr-tabs");
   if (tabs) tabs.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;

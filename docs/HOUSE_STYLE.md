@@ -222,6 +222,23 @@ notification badge red (`#ef4444`).
   note); and a one-line *interaction affordance* ("Tap a row for detail"). The
   source-citation is separate and stays — every data item still links its source
   (R7), but the citation lives on the row/figure, never as a methodology caption.
+  A long entity-level "Sources: …" note collapses into a single **`Sources`**
+  disclosure (`.tdet-src-det`, `srcDetails()` in the detail views) that expands to
+  the links — the citation is preserved (R7), the prose is off-screen until asked.
+- **R21 — Manager profile: tabs + investments.** A manager profile's tabs are
+  **News · Vehicles · Investments · Business** (`viewManager`, `v2/js/credit/detail.js`).
+  *Vehicles* merges funds, CLOs and listed BDC/CEF vehicles into one tab (labelled
+  groups). *Investments* lists the manager's deal activity **drawn only from the
+  news we've surfaced** (`INVEST_TYPES` over `deals`), each tagged **debt vs equity
+  and a sub-type** (senior / mezz / RCF / acquisition / unitranche / structured;
+  pref / ordinary / structured / minority). The tag comes from a **curated**
+  override on the deal (`instrument` = "Debt"|"Equity", `instrumentType` = string)
+  where verified against the article; otherwise it is **auto-derived** from the
+  deal's own type + the wording of the surfaced article, asserting a class only on
+  an explicit signal and a sub-type only when named — anything unclear stays
+  *Type unspecified* (never guessed). Auto-derived tags carry a `~` marker; every
+  investment links its source so the label can be checked (R7). Ongoing curation of
+  `instrument`/`instrumentType` is a daily-refresh task (see refresh-routines).
 
 ---
 

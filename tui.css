@@ -556,6 +556,37 @@
 .tdet-chip { font-family: var(--t-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); border: 1px solid var(--border); padding: 2px 7px; white-space: nowrap; }
 .tdet-src { margin-top: 9px; font-size: 10px; color: var(--faint); }
 .tdet-src a { color: var(--faint); } .tdet-src a:hover { color: var(--ink); }
+/* Collapsible sources — a single "Sources" line that expands to the links. */
+.tdet-src-det { margin-top: 9px; font-size: 10px; }
+.tdet-src-det > summary { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; width: max-content;
+  color: var(--faint); font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; list-style: none; }
+.tdet-src-det > summary::-webkit-details-marker { display: none; }
+.tdet-src-det > summary::before { content: "›"; display: inline-block; transition: transform .15s ease; }
+.tdet-src-det[open] > summary::before { transform: rotate(90deg); }
+.tdet-src-det > summary:hover { color: var(--ink); }
+.tdet-src-body { margin-top: 5px; color: var(--faint); line-height: 1.5; }
+.tdet-src-body a { color: var(--faint); } .tdet-src-body a:hover { color: var(--ink); }
+/* Merged Vehicles tab groups (Funds / CLOs / Listed vehicles). */
+.tveh-grp + .tveh-grp { border-top: 1px solid var(--border); }
+.tveh-grp-h { padding: 9px 12px 4px; font-family: var(--t-mono); font-size: 9.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .05em; color: var(--faint); }
+.tveh-grp-n { color: var(--muted); }
+/* Investments tab — deal activity from surfaced news, tagged debt/equity. */
+.tinv { list-style: none; margin: 0; padding: 0; }
+.tinv-row { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+.tinv-row:last-child { border-bottom: 0; }
+.tinv-head { display: block; font-size: 12px; line-height: 1.35; color: var(--ink); font-weight: 600; text-decoration: none; }
+.tinv-head:hover { color: var(--accent); }
+.tinv-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 5px; font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
+.tinv-when, .tinv-src { color: var(--faint); }
+.tinv-tag { display: inline-flex; align-items: center; gap: 3px; font-family: var(--t-mono); font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .03em; padding: 2px 6px; border: 1px solid currentColor; border-radius: 0; white-space: nowrap; }
+.tinv-tag.is-debt { color: #4f86cc; }
+.tinv-tag.is-equity { color: #8f76d6; }
+.tinv-tag.is-unspec { color: var(--faint); }
+.tinv-inf { opacity: .55; font-weight: 400; }
+:root[data-theme="dark"] .tinv-tag.is-debt { color: #6fa2e0; }
+:root[data-theme="dark"] .tinv-tag.is-equity { color: #a892e6; }
 /* key-figure grid in the rail */
 .tkv { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
 .tkv > div { background: var(--surface); padding: 7px 11px; min-width: 0; }
