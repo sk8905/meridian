@@ -1,7 +1,7 @@
 // Menu view — THREE chips:
-//   • Dialogue — Ask Wire (B): one input (styled like the .tsearch search
-//     fields) where Enter/"Ask" answers inline via AI. Ask only — search lives
-//     in the global palette (header search / other pages). No explainer copy.
+//   • Chat (key "dialogue") — Ask Wire (B): one input (styled like the .tsearch
+//     search fields) where Enter/"Ask" answers inline via AI. Ask only — search
+//     lives in the global palette (header search / other pages). No explainer copy.
 //   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
 //   • Settings — Notifications (push toggle) + Appearance (theme). Sign out and
 //     density live elsewhere: sign out in the phone bottom strip; density is not
@@ -31,9 +31,9 @@ function applyTheme(pref) {
   try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
   setThemeColorMeta(t);
 }
-// Three chips: Dialogue (Ask), Coverage (Add a firm + Network) and
-// Settings (Notifications + Display + Sign out).
-const SECTIONS = [["dialogue", "Dialogue"], ["coverage", "Coverage"], ["settings", "Settings"]];
+// Three chips: Chat (Ask), Coverage (Add a firm + Network) and
+// Settings (Notifications + Appearance).
+const SECTIONS = [["dialogue", "Chat"], ["coverage", "Coverage"], ["settings", "Settings"]];
 
 // ---- Network (LinkedIn connections) ---------------------------------------
 // The importer + "My network" list. All state comes from network/store.js

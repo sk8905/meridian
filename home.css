@@ -984,8 +984,8 @@
       .tui .g-wiretab{ flex:1 1 0; height:100%; display:flex; align-items:center; justify-content:center;
         font:inherit; font-size:11px; font-weight:400; letter-spacing:normal; border:0; background:var(--t-head);
         color:var(--t-mut); cursor:pointer; }
-      .tui .g-wiretab.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000); }
-      [data-theme="dark"] .tui .g-wiretab.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff); }
+      .tui .g-wiretab.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
+      [data-theme="dark"] .tui .g-wiretab.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
       .tui .g-side3{ display:none; }
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }

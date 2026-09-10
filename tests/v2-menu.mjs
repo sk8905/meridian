@@ -27,8 +27,8 @@ async function menuState(pg) {
   check(s.hasMenu, "direct /v2/menu/: menu container present");
   check(s.w >= 300, `direct /v2/menu/: menu is full-width (${s.w}px), not a dropdown sliver`);
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
-  check(s.visible, `direct /v2/menu/: the three chips (Dialogue/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
-  checkEq((s.labels || []).join("/"), "Dialogue/Coverage/Settings", "direct /v2/menu/: chips are Dialogue / Coverage / Settings");
+  check(s.visible, `direct /v2/menu/: the three chips (Chat/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
+  checkEq((s.labels || []).join("/"), "Chat/Coverage/Settings", "direct /v2/menu/: chips are Chat / Coverage / Settings");
   // Dialogue is a BARE Ask field rendered EXACTLY like the search band: one input,
   // NO action button, placeholder "Ask…". The band form sits on the --head ground
   // with a bottom divider; the FIELD (.na-ask-in) takes the lifted --lift ground
@@ -74,6 +74,13 @@ async function menuState(pg) {
   const refresh = await pg.evaluate(() => (document.getElementById("data-status-bot")?.textContent || "").trim());
   check(/^Last:\s*\d{1,2}:\d{2}/.test(refresh), `direct /v2/menu/: bottom-right reads "Last: <time>" (${refresh})`);
   check(refresh && !/\d{4}/.test(refresh) && !/refresh/i.test(refresh), `direct /v2/menu/: bottom-right has no date and drops the 'refresh' word (${refresh})`);
+  // The chip bar is locked (sticky) so it does not scroll away.
+  const chipbar = await pg.evaluate(() => {
+    const el = document.querySelector('.v2-view[data-view="menu"] .na-menu-bar');
+    if (!el) return null; const cs = getComputedStyle(el); return { pos: cs.position, top: cs.top };
+  });
+  check(chipbar && chipbar.pos === "sticky", `direct /v2/menu/: the chip bar is locked (position: sticky, got ${chipbar && chipbar.pos})`);
+  check(chipbar && parseFloat(chipbar.top) > 0, `direct /v2/menu/: the chip bar pins below the header on phone (top ${chipbar && chipbar.top})`);
   checkErrs(errs, "direct menu");
   await ctx.close();
 }
@@ -140,6 +147,27 @@ async function menuState(pg) {
   check(hidden, "phone: top-bar Menu icon is hidden (bottom tab bar carries Menu)");
   checkErrs(errs, "phone menu button hidden");
   await ctx.close();
+}
+
+// 5) The active-tab underline is IDENTICAL across surfaces — one canonical
+// flush 2-layer marker (2px inset + 1px below), so no tab row looks heavier or
+// thinner than another (Menu chips, Macro .twire-head tabs, Home wire tabs).
+{
+  async function underline(path, sel, waitSel) {
+    const { ctx, pg } = await open(b, PHONE, base + path);
+    if (waitSel) await pg.waitForSelector(waitSel, { timeout: 8000 }).catch(() => {});
+    await pg.waitForTimeout(1400);
+    const bs = await pg.evaluate((s) => { const el = document.querySelector(s); return el ? getComputedStyle(el).boxShadow : ""; }, sel);
+    await ctx.close();
+    return bs;
+  }
+  const menuUL = await underline("/v2/menu/", ".na-menu-bar .tchip.is-on", ".na-menu-bar .tchip");
+  const macroUL = await underline("/v2/macro/", ".twire-head .tchip.is-on", "#mac-chips");
+  const homeUL = await underline("/v2/", ".tui .g-wiretab.is-on", ".g-wiretabs");
+  // Two shadow layers = the flush marker (inset underline + the on-divider line).
+  check(menuUL && (menuUL.match(/rgb/g) || []).length >= 2 && /inset/.test(menuUL), `active-tab underline is the flush 2-layer marker (${menuUL})`);
+  checkEq(macroUL, menuUL, "Macro .twire-head tab underline matches the Menu chip underline (same weight)");
+  checkEq(homeUL, menuUL, "Home wire-tab underline matches the Menu chip underline (same weight)");
 }
 
 await b.close(); srv.close();

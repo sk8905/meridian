@@ -479,7 +479,12 @@ html.wire-boot #out { visibility: hidden; }
 /* /menu/ head strip: the same segmented chip bar the other pages pin under
    the header (one chip for now — Search). tui.css styles the chips. */
 .na-menu-bar { height: var(--chip-h, 34px); flex: 0 0 auto; display: flex;
-  background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+  background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626);
+  /* Lock the chip bar so it never scrolls away. On DESKTOP the menu view is the
+     internal scroller, so it pins to the view's top (top:0); on PHONE the body
+     scrolls, so it pins just below the fixed Wire header (top:--wire-head-h). */
+  position: sticky; top: 0; z-index: 8; }
+@media (max-width: 760px) { .na-menu-bar { top: var(--wire-head-h, 57px); } }
 /* One chip so far: size it like a single tab in the four-chip bars (¼ width),
    not full-bleed. */
 /* Spread the menu chips evenly across the full width of the bar. */
