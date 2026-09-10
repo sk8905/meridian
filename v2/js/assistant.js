@@ -64,11 +64,20 @@ export function renderAsk(body, st, opts) {
   const withSearch = !!opts.search;
   const bare = !!opts.bare;
   const isChat = withAsk;   // Ask surfaces are conversational; Add-only is single-shot
+  // Sources are COLLAPSED by default — a click-to-expand disclosure so the answer
+  // isn't buried under a wall of links.
   const srcList = (list) => (list && list.length)
-    ? `<div class="na-ask-srch">Sources</div><ul class="na-ask-srcs">${list.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.label || s.url)}</a></li>`).join("")}</ul>` : "";
+    ? `<details class="na-ask-srcd"><summary class="na-ask-srch">Sources <span class="na-ask-srcn">${list.length}</span></summary><ul class="na-ask-srcs">${list.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.label || s.url)}</a></li>`).join("")}</ul></details>` : "";
 
   const turns = Array.isArray(st.turns) ? st.turns : [];
   const hasChat = isChat && turns.length > 0;
+  // On a PHONE, an active menu chat (the `bare` full-screen surface) DOCKS its
+  // input to the bottom of the screen and shows the transcript oldest-first above
+  // it — the familiar messaging layout. Elsewhere (empty state, desktop, the
+  // header panel) the input stays at the top with a newest-first transcript.
+  const onPhone = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+  const dock = bare && hasChat && onPhone;
+  if (body.classList) body.classList.toggle("is-docked", dock);
   const answered = turns.some((t) => t.a != null);
   const turnHTML = (t) => `<div class="na-chat-turn">`
     + `<div class="na-chat-q">${esc(t.q)}</div>`
@@ -99,7 +108,7 @@ export function renderAsk(body, st, opts) {
     + (isChat
       ? (hasChat
         ? `<div class="na-chat"><div class="na-chat-top"><button type="button" class="na-chat-clear" title="Clear this conversation">New chat</button></div>`
-          + turns.slice().reverse().map(turnHTML).join("") + `</div>`
+          + (dock ? turns : turns.slice().reverse()).map(turnHTML).join("") + `</div>`
           + (answered ? `<div class="na-brief-foot">AI answers from Wire’s data + a live web search — verify anything critical.</div>` : "")
         : "")
       : `<div class="na-ask-out">${addOut}</div>`);
@@ -122,6 +131,9 @@ export function mountAssistant(container, opts) {
   const isChat = withAsk;   // Ask surfaces keep a conversation; Add-only is single-shot
   const state = opts.state || {};
   const draw = () => renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch, bare: !!opts.bare, placeholder: opts.placeholder });
+  // When the chat is docked (bottom input), keep the newest turn in view above the
+  // fixed input by scrolling the page to the bottom after a redraw.
+  const drawScroll = () => { draw(); if (container.classList.contains("is-docked")) requestAnimationFrame(() => { const se = document.scrollingElement || document.documentElement; se.scrollTop = se.scrollHeight; }); };
   const setState = (s) => { for (const k in state) delete state[k]; Object.assign(state, s); draw(); };
   draw();
   if (container._asstBound) return;
@@ -147,7 +159,7 @@ export function mountAssistant(container, opts) {
     const turn = { q, loading: true };
     state.turns.push(turn);
     state.loading = true;
-    draw();
+    drawScroll();
     buildAskContext().then((context) =>
       fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: q, context, history }) })
         .then((r) => r.json())
@@ -157,7 +169,7 @@ export function mountAssistant(container, opts) {
           else { turn.a = d.answer || ""; turn.sources = d.sources || []; }
         })
         .catch(() => { turn.error = "Network error — try again."; })
-        .then(() => { turn.loading = false; state.loading = false; draw(); })
+        .then(() => { turn.loading = false; state.loading = false; drawScroll(); })
     );
   };
   const runAdd = () => {

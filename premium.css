@@ -1011,8 +1011,25 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .menu-asst .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
 .menu-asst .na-ask-out { padding: 0; }
 .menu-asst .na-ask-out:not(:empty) { margin: 8px 12px 0; border: 1px solid var(--border, #262626); }
+/* PHONE, active chat (.is-docked): dock the input to the BOTTOM of the screen —
+   the familiar messaging layout. The transcript flows above it (rendered
+   oldest→newest in JS); the input is fixed just above the bottom tab bar with a
+   top divider instead of a bottom one. Extra bottom padding keeps the last turn
+   clear of the fixed input. */
+@media (max-width: 760px) {
+  .menu-asst.is-docked { padding-bottom: 20px; }
+  .menu-asst.is-docked .na-ask-form { position: fixed; left: 0; right: 0; bottom: calc(55px + env(safe-area-inset-bottom, 0px)); z-index: 9490; border-top: 1px solid var(--border, #262626); border-bottom: 0; }
+}
 .na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
+/* Sources COLLAPSE into a click-to-expand disclosure. The .na-ask-srch summary
+   keeps its uppercase-eyebrow look; a chevron on the right rotates when open. */
+.na-ask-srcd > summary { cursor: pointer; list-style: none; display: flex; align-items: center; }
+.na-ask-srcd > summary::-webkit-details-marker { display: none; }
+.na-ask-srcd > summary:hover { color: var(--muted, #8592ad); }
+.na-ask-srcn { color: var(--faint, #5c6a86); font-weight: 700; margin-left: 4px; }
+.na-ask-srcd > summary::after { content: ""; width: 5px; height: 5px; margin-left: auto; margin-right: 2px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: .75; transform: rotate(-45deg); transition: transform .12s ease; }
+.na-ask-srcd[open] > summary::after { transform: rotate(45deg); }
 .na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.4; }
 
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links

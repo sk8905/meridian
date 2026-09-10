@@ -4,7 +4,7 @@
 // route is dormant until ANTHROPIC_API_KEY is set; here we stub /api/ask to
 // exercise the client wiring — the answer path, the sourced links, and the
 // graceful "not switched on yet" (unconfigured) path.
-import { serve, launchChromium, open, check, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
@@ -86,7 +86,7 @@ let askN = 0;
 await pg.route("**/api/ask", (route) => {
   try { asked.push(JSON.parse(route.request().postData() || "{}")); } catch { asked.push(null); }
   askN += 1;
-  route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: `Answer number ${askN}.`, sources: [] }) });
+  route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: `Answer number ${askN}.`, sources: [{ url: "https://example.com/s" + askN, title: "Source " + askN }] }) });
 });
 await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "First question about Apollo?"; c.querySelector(".na-ask-form").requestSubmit(); });
 await pg.waitForTimeout(400);
@@ -114,6 +114,19 @@ const followReq = asked[asked.length - 1];
 check(followReq && Array.isArray(followReq.history) && followReq.history.length === 1
   && /First question about Apollo/.test(followReq.history[0].q) && /Answer number 1/.test(followReq.history[0].a),
   `the follow-up request carries the prior turn as history (${JSON.stringify(followReq && followReq.history)})`);
+// Sources are COLLAPSED by default — a <details> disclosure, not an open list.
+const src = await pg.evaluate(() => {
+  const d = document.querySelector("#v2-menu-omni .na-ask-srcd");
+  return { isDetails: !!d && d.tagName === "DETAILS", open: d ? d.open : null,
+    summary: d ? (d.querySelector("summary")?.textContent || "").trim() : "",
+    linksVisible: d ? d.querySelectorAll(".na-ask-srcs a[href]").length : 0 };
+});
+check(src.isDetails && src.open === false, "Sources render as a collapsed disclosure by default");
+check(/sources/i.test(src.summary), `the summary is labelled 'Sources' (${src.summary})`);
+// Clicking the summary expands it to reveal the links.
+await pg.evaluate(() => document.querySelector("#v2-menu-omni .na-ask-srcd > summary").click());
+await pg.waitForTimeout(120);
+check(await pg.evaluate(() => { const d = document.querySelector("#v2-menu-omni .na-ask-srcd"); return d.open === true && d.querySelectorAll(".na-ask-srcs a[href]").length >= 1; }), "clicking Sources expands it to show the links");
 await pg.evaluate(() => document.querySelector("#v2-menu-omni .na-chat-clear").click());
 await pg.waitForTimeout(150);
 check(await pg.evaluate(() => document.querySelectorAll("#v2-menu-omni .na-chat-turn").length === 0), "'New chat' clears the transcript");
@@ -149,5 +162,33 @@ check(await pg.evaluate(() => ((document.querySelector("#v2-menu-add .na-ask-err
 
 checkErrs(errs, "ask wire");
 await ctx.close();
+
+// ---- PHONE: an active chat DOCKS the input to the bottom, transcript oldest→newest ----
+{
+  const { ctx: pc, pg: pp, errs: pe } = await open(b, PHONE, base + "/v2/menu/");
+  await pp.waitForSelector("#v2-menu-omni .na-ask-in", { timeout: 8000 });
+  // Empty state: the input is NOT fixed (it sits at the top like the search band).
+  const emptyPos = await pp.evaluate(() => getComputedStyle(document.querySelector("#v2-menu-omni .na-ask-form")).position);
+  check(emptyPos !== "fixed", `empty chat: the input is not docked (position ${emptyPos})`);
+  await pp.route("**/api/ask", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: "Answer text.", sources: [{ url: "https://example.com/", title: "Src" }] }) }));
+  await pp.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "First?"; c.querySelector(".na-ask-form").requestSubmit(); });
+  await pp.waitForTimeout(400);
+  await pp.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "Second?"; c.querySelector(".na-ask-form").requestSubmit(); });
+  await pp.waitForTimeout(400);
+  const dock = await pp.evaluate(() => {
+    const c = document.querySelector("#v2-menu-omni");
+    const form = c.querySelector(".na-ask-form");
+    const fr = form.getBoundingClientRect();
+    const qs = [...c.querySelectorAll(".na-chat-q")].map((q) => q.textContent.trim());
+    return { docked: c.classList.contains("is-docked"), pos: getComputedStyle(form).position, formBottom: Math.round(fr.bottom), vh: window.innerHeight, qs };
+  });
+  check(dock.docked && dock.pos === "fixed", `active chat: the input docks to the bottom (fixed, got ${dock.pos})`);
+  check(dock.formBottom >= dock.vh - 120 && dock.formBottom <= dock.vh, `docked input sits at the bottom of the screen (bottom ${dock.formBottom} of ${dock.vh})`);
+  check(dock.qs[0] === "First?" && dock.qs[1] === "Second?", `docked transcript is oldest→newest (${dock.qs.join(" | ")})`);
+  await pp.unroute("**/api/ask");
+  checkErrs(pe, "docked phone chat");
+  await pc.close();
+}
+
 await b.close(); srv.close();
 finish();
