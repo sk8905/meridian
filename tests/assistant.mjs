@@ -178,15 +178,28 @@ await ctx.close();
   await pp.waitForTimeout(400);
   const dock = await pp.evaluate(() => {
     const c = document.querySelector("#v2-menu-omni");
+    const view = document.querySelector('.v2-view[data-view="menu"]');
     const form = c.querySelector(".na-ask-form");
     const chat = c.querySelector(".na-chat");
+    const chip = document.querySelector(".na-menu-bar");
     const fr = form.getBoundingClientRect();
     const cr = chat.getBoundingClientRect();
+    const se = document.scrollingElement;
     const qs = [...c.querySelectorAll(".na-chat-q")].map((q) => q.textContent.trim());
-    return { docked: c.classList.contains("is-docked"), colPos: getComputedStyle(c).position, formBottom: Math.round(fr.bottom), formTop: Math.round(fr.top), chatBottom: Math.round(cr.bottom), vh: window.innerHeight, qs };
+    return {
+      docked: c.classList.contains("is-docked"), viewPos: getComputedStyle(view).position,
+      formBottom: Math.round(fr.bottom), formTop: Math.round(fr.top), chatBottom: Math.round(cr.bottom),
+      chipTop: Math.round(chip.getBoundingClientRect().top),
+      chatScrollbar: chat.offsetWidth - chat.clientWidth,
+      bodyScrolls: se.scrollHeight > se.clientHeight + 1,
+      vh: window.innerHeight, qs,
+    };
   });
-  // The chat is a FIXED column; the input is pinned at its base near the screen bottom.
-  check(dock.docked && dock.colPos === "fixed", `active chat: the chat docks as a fixed column (got ${dock.colPos})`);
+  // The whole menu VIEW is a fixed flex column; the input is pinned at its base.
+  check(dock.docked && dock.viewPos === "fixed", `active chat: the menu view docks as a fixed column (got ${dock.viewPos})`);
+  check(dock.chipTop <= 80, `the chip bar stays at the top (no drift; top ${dock.chipTop})`);
+  check(!dock.bodyScrolls, "the page body does not scroll (no page scrollbar) — only the transcript scrolls");
+  check(dock.chatScrollbar === 0, `the transcript scrollbar is hidden (${dock.chatScrollbar}px)`);
   check(dock.formBottom >= dock.vh - 120 && dock.formBottom <= dock.vh, `docked input sits at the bottom of the screen (bottom ${dock.formBottom} of ${dock.vh})`);
   // Transcript is bottom-anchored: it ends right at the input (no dead space between).
   check(Math.abs(dock.chatBottom - dock.formTop) <= 2, `transcript is bottom-anchored right above the input (chat ${dock.chatBottom}, input top ${dock.formTop})`);

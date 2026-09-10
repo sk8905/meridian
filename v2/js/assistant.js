@@ -140,9 +140,9 @@ export function mountAssistant(container, opts) {
   // A redraw recreates the input (unfocused) and, on submit, closes the keyboard —
   // so clear the typing flag here; focusin re-sets it when the reader taps back in.
   const draw = () => { try { document.documentElement.classList.remove("chat-kbd"); } catch { /* ignore */ } renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch, bare: !!opts.bare, placeholder: opts.placeholder }); };
-  // When the chat is docked (bottom input), keep the newest turn in view above the
-  // fixed input by scrolling the page to the bottom after a redraw.
-  const drawScroll = () => { draw(); if (container.classList.contains("is-docked")) requestAnimationFrame(() => { const se = document.scrollingElement || document.documentElement; se.scrollTop = se.scrollHeight; }); };
+  // When the chat is docked, the transcript (.na-chat) is the only scroller — keep
+  // the newest turn in view by scrolling it to the bottom after a redraw.
+  const drawScroll = () => { draw(); if (container.classList.contains("is-docked")) requestAnimationFrame(() => { const sc = container.querySelector(".na-chat"); if (sc) sc.scrollTop = sc.scrollHeight; }); };
   const setState = (s) => { for (const k in state) delete state[k]; Object.assign(state, s); draw(); };
   draw();
   if (container._asstBound) return;
