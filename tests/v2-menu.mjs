@@ -29,7 +29,7 @@ async function menuState(pg) {
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
   check(s.visible, `direct /v2/menu/: the three chips (Dialogue/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
   checkEq((s.labels || []).join("/"), "Dialogue/Coverage/Settings", "direct /v2/menu/: chips are Dialogue / Coverage / Settings");
-  check(await pg.evaluate(() => !!document.querySelector('.v2-view[data-view="menu"] .na-menu-search[data-open-search]')), "direct /v2/menu/: Search lives in the Dialogue chip (opens the palette)");
+  check(await pg.evaluate(() => { const c = document.querySelector('.v2-view[data-view="menu"] #v2-menu-omni'); return !!c && !!c.querySelector(".na-ask-search") && !!c.querySelector(".na-ask-go"); }), "direct /v2/menu/: the Dialogue chip is the Search+Ask omnibox");
   checkErrs(errs, "direct menu");
   await ctx.close();
 }

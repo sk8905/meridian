@@ -45,38 +45,36 @@ export function askFmt(s) {
 }
 
 // Render the assistant from its state: {q, loading, loadingLabel, answer,
-// sources, error, pr, prName, notFound}. opts.ask / opts.add pick which buttons
-// show — the Menu splits them (Dialogue = Ask only; Coverage = Add only) while
-// the desktop header shows Ask only. opts.ask defaults to true.
+// sources, error, pr, prName, notFound}. opts.ask / opts.add / opts.search pick
+// which controls show. The Menu → Dialogue chip is the OMNIBOX (search + ask —
+// one input; Enter/Ask answers inline, Search hands the text to the command
+// palette); Coverage is Add only; the desktop header is Ask only. opts.ask
+// defaults to true.
+//
+// No idle "explainer" copy: the empty state is just the box (the placeholder
+// carries the purpose). A short verify-disclaimer shows only ALONGSIDE an AI
+// answer, where it belongs (HOUSE_STYLE R20 keeps disclaimers + citations).
 export function renderAsk(body, st, opts) {
   st = st || {}; opts = opts || {};
   const withAsk = opts.ask !== false;
   const withAdd = !!opts.add;
+  const withSearch = !!opts.search;
   const srcList = (list) => (list && list.length)
     ? `<div class="na-ask-srch">Sources</div><ul class="na-ask-srcs">${list.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.label || s.url)}</a></li>`).join("")}</ul>` : "";
-  const hint = withAsk && withAdd
-    ? `Ask about any tracked manager, fund, law firm, deal or the markets — or type a firm’s name and press <strong>Add</strong> to have Wire research it and open a PR for review. Every claim links its source.`
-    : withAdd
-      ? `Type a firm’s name and press <strong>Add</strong> — Wire researches it from public sources and opens a PR for review. It never edits live data; every field is sourced or left blank.`
-      : `Ask about any tracked manager, fund, law firm, deal or the markets. Every claim links its source.`;
   const out = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`
     : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
     : st.notFound ? `<div class="na-ask-err">${esc(st.notFound)}</div>`
     : st.pr ? `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong> and opened a pull request — verify every field before merging.</div><div class="na-ask-srch">Pull request</div><ul class="na-ask-srcs"><li><a class="na-brief-src" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">${esc(st.pr)}</a></li></ul>` + srcList(st.sources)
     : st.answer != null ? `<div class="na-ask-answer">${askFmt(st.answer)}</div>` + srcList(st.sources)
-    : `<div class="na-ask-hint">${hint}</div>`;
-  const foot = withAsk && withAdd
-    ? `AI answers/drafts from Wire’s sourced data + a live web search — verify anything critical. “Add” opens a PR for review; it never edits live data.`
-    : withAdd
-      ? `Claude drafts from public sources + a live web search and opens a PR for review — it never edits live data. Verify every field before merging.`
-      : `AI answers from Wire’s sourced data + a live web search — verify anything critical.`;
-  const placeholder = withAsk && withAdd ? "Ask Wire, or a firm to add…" : withAdd ? "Firm to research & add…" : "Ask Wire…";
+    : "";
+  const placeholder = withSearch ? "Search Wire, or ask a question…" : withAdd && !withAsk ? "Firm to research & add…" : "Ask Wire…";
   body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${placeholder}" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} />`
+    + (withSearch ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
     + (withAdd ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
     + (withAsk ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
     + `</form>`
     + `<div class="na-ask-out">${out}</div>`
-    + `<div class="na-brief-foot">${foot}</div>`;
+    + (st.answer != null ? `<div class="na-brief-foot">AI answer from Wire’s data + a live web search — verify anything critical.</div>` : "");
 }
 
 // Mount the assistant into `container`, wiring "Ask" (→ /api/ask, feature B) when
@@ -92,12 +90,20 @@ export function mountAssistant(container, opts) {
   opts = opts || {};
   const withAsk = opts.ask !== false;
   const withAdd = !!opts.add;
+  const withSearch = !!opts.search;
   const state = opts.state || {};
-  const draw = () => renderAsk(container, state, { ask: withAsk, add: withAdd });
+  const draw = () => renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch });
   const setState = (s) => { for (const k in state) delete state[k]; Object.assign(state, s); draw(); };
   draw();
   if (container._asstBound) return;
   container._asstBound = true;
+
+  // Search (omnibox): hand the typed text to the shared command palette for
+  // instant local matches. palette.js listens for wire:search and opens seeded.
+  const runSearch = () => {
+    const q = (container.querySelector(".na-ask-in").value || "").trim();
+    document.dispatchEvent(new CustomEvent("wire:search", { detail: { q } }));
+  };
 
   const runAsk = () => {
     if (state.loading) return;
@@ -137,9 +143,8 @@ export function mountAssistant(container, opts) {
     e.preventDefault(); e.stopPropagation();
     if (withAsk) runAsk(); else if (withAdd) runAdd();
   });
-  if (withAdd) container.addEventListener("click", (e) => {
-    if (!e.target.closest(".na-ask-add")) return;
-    e.preventDefault(); e.stopPropagation();
-    runAdd();
+  container.addEventListener("click", (e) => {
+    if (withSearch && e.target.closest(".na-ask-search")) { e.preventDefault(); e.stopPropagation(); runSearch(); return; }
+    if (withAdd && e.target.closest(".na-ask-add")) { e.preventDefault(); e.stopPropagation(); runAdd(); return; }
   });
 }

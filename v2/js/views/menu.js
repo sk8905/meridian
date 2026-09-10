@@ -1,18 +1,18 @@
-// Menu view — TWO chips:
-//   • Dialogue — Search (opens the command palette), Ask Wire (B), Add a firm
-//     (C, opens a review PR) and the LinkedIn Network importer.
-//   • Settings — Notifications (push toggle), Display (theme + density) and Sign
-//     out.
+// Menu view — THREE chips:
+//   • Dialogue — the OMNIBOX: one input where Enter/"Ask" answers inline via AI
+//     (B) and "Search" hands the text to the command palette for instant local
+//     matches. No idle explainer copy.
+//   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
+//   • Settings — Notifications (push toggle), Display (theme + density), Sign out.
 // On PHONES this is where Search + the Ask/Add assistant live (the header keeps
 // only Briefing/Markets/Bookmarks/Notifications). On DESKTOP the header still
-// carries the search pill and the Ask chat, and this menu mirrors the same two
-// chips. The Ask/Add UI is the shared assistant module (mountAssistant).
+// carries the search pill and the Ask chat, and this menu mirrors the same chips.
+// The Ask/Add/omnibox UI is the shared assistant module (mountAssistant).
 import { esc, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js?v=v2-2";
-import { mountAssistant } from "/v2/js/assistant.js?v=v2-1";
+import { mountAssistant } from "/v2/js/assistant.js?v=v2-2";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
-const ICO_MAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 
 const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
 const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -107,13 +107,10 @@ function netPaneHTML() {
 }
 
 function dialoguePaneHTML() {
-  // Search opens the one command palette via the shared [data-open-search] hook
-  // (palette.js binds it globally). The Ask (B) assistant mounts into #v2-menu-ask
-  // after render().
-  return `<div class="na-menu-recent-h">Search</div>`
-    + `<button type="button" class="na-menu-row na-menu-search" data-open-search aria-label="Search Wire">${ICO_MAG}<span>Search everything…</span><kbd>/</kbd></button>`
-    + `<div class="na-menu-recent-h">Ask Wire</div>`
-    + `<div class="menu-asst" id="v2-menu-ask"></div>`;
+  // One omnibox (mounted into #v2-menu-omni after render): Enter / "Ask" answers
+  // inline via /api/ask (B); "Search" hands the text to the command palette for
+  // instant local matches. No idle explainer copy — the placeholder carries it.
+  return `<div class="menu-asst" id="v2-menu-omni"></div>`;
 }
 function coveragePaneHTML() {
   // "Add a firm" (C) drafts a roster entry and opens a review PR; the Add (C)
@@ -176,7 +173,7 @@ export function mount(host, ctx) {
       <div class="na-menu-pane">${paneHTML(sec)}</div>
     </div>`;
     if (sec === "settings") fillMenuAccount();
-    if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-ask"), { ask: true, add: false, state: askState });
+    if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: true, ask: true, add: false, state: askState });
     if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
   };
 

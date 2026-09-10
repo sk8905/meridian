@@ -25,10 +25,11 @@ await pg.evaluate(() => document.getElementById("na-ask").click());
 await pg.waitForTimeout(300);
 const opened = await pg.evaluate(() => {
   const p = document.getElementById("na-ask-panel");
-  return { vis: !p.hidden, input: !!p.querySelector(".na-ask-in"), hint: !!p.querySelector(".na-ask-hint") };
+  return { vis: !p.hidden, input: !!p.querySelector(".na-ask-in"), ask: !!p.querySelector(".na-ask-go"), noHint: !p.querySelector(".na-ask-hint") };
 });
 check(opened.vis, "Ask button opens the Ask Wire panel");
-check(opened.input && opened.hint, "panel shows a question input and an initial hint");
+check(opened.input && opened.ask, "panel shows a question input and an Ask button");
+check(opened.noHint, "no idle explainer text in the header Ask panel");
 
 await pg.evaluate(() => { document.querySelector(".na-ask-in").value = "Who is the biggest manager?"; document.querySelector(".na-ask-form").requestSubmit(); });
 await pg.waitForTimeout(500);
@@ -63,9 +64,14 @@ await pg.waitForTimeout(150);
 await pg.evaluate(() => { const b = document.querySelector(".nav-menu-btn") || document.querySelector('.mtab[data-key="menu"]'); if (b) b.click(); });
 await pg.waitForTimeout(700);
 check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Dialogue/Coverage/Settings"), "Menu shows the Dialogue/Coverage/Settings chips");
-// Dialogue chip (default): Search + Ask (B), no Add.
-check(await pg.evaluate(() => !!document.querySelector(".v2-menu .na-menu-search[data-open-search]")), "Search is in the Menu Dialogue chip");
-check(await pg.evaluate(() => !!document.querySelector("#v2-menu-ask .na-ask-go") && !document.querySelector("#v2-menu-ask .na-ask-add")), "Dialogue chip has Ask (B) only, no Add");
+// Dialogue chip (default): the OMNIBOX — one input with Search + Ask, no Add.
+check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !!c.querySelector(".na-ask-search") && !!c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is one omnibox: Search + Ask, no Add");
+// The Search button hands the typed text to the command palette (wire:search).
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "Apollo"; c.querySelector(".na-ask-search").click(); });
+await pg.waitForTimeout(300);
+check(await pg.evaluate(() => { const i = document.querySelector(".mcmdk.open .mcmdk-input"); return !!i && i.value === "Apollo"; }), "omnibox Search opens the command palette seeded with the typed text");
+await pg.keyboard.press("Escape"); await pg.waitForTimeout(150);
+check(await pg.evaluate(() => !document.querySelector("#v2-menu-omni .na-ask-hint")), "no idle explainer text in the Dialogue omnibox");
 // Coverage chip: Add (C) + Network.
 await pg.evaluate(() => document.querySelector('.v2-menu .na-menu-bar .tchip[data-sec="coverage"]').click());
 await pg.waitForTimeout(300);

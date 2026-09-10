@@ -15,17 +15,21 @@ Messages API + `web_search` server tool (`claude-opus-5`) when only
 `ANTHROPIC_API_KEY` is set. So `hasLLM(env)` = either key present.
 
 **Shared UI module (`v2/js/assistant.js`):** one `mountAssistant(container,
-{ask, add, state})` renders the Q&A/propose box (styles `.na-ask-*` in
-`premium.css`) and wires Ask → `/api/ask` and Add → `/api/propose`. It is mounted
-in three places: the **desktop header** Ask panel (Ask only), the **Menu →
-Dialogue** chip (Ask only) and the **Menu → Coverage** chip (Add only). On phones
-the header carries no Ask/Search buttons — both live in the Menu.
+{ask, add, search, state})` renders the box (styles `.na-ask-*` in `premium.css`)
+and wires Ask → `/api/ask`, Add → `/api/propose`, and Search → the command
+palette (via the `wire:search` event). It is mounted in three shapes: the
+**desktop header** Ask panel (Ask only), the **Menu → Dialogue** chip (the
+**omnibox**: Search + Ask in one input) and the **Menu → Coverage** chip (Add
+only). No idle "explainer" copy — the placeholder carries the purpose and a short
+verify-disclaimer shows only alongside an AI answer. On phones the header carries
+no Ask/Search buttons — both live in the Menu.
 
 ## B — Ask Wire (read-only Q&A) — LIVE (dormant until keyed)
 
 - **UI:** the desktop header "Ask Wire" button (`#na-ask`, chat icon) opens a
   terminal Q&A panel; on every surface it also lives in the **Menu → Dialogue**
-  chip beside Search. Rendered by the shared `mountAssistant` (Ask-only).
+  omnibox, where Enter / "Ask" answers inline and "Search" hands the text to the
+  command palette. Rendered by the shared `mountAssistant`.
 - **Flow:** the client posts `{question, context}` to `/api/ask`, where `context`
   is a compact roster the client builds from the desk data it already loads
   (credit managers, hedge funds, law firms, recent deals). The Worker calls the
