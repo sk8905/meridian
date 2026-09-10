@@ -3,7 +3,7 @@
 // groups matches by Managers / Hedge Funds / Law firms, ambiguous company names
 // go to a confirm step, and — once imported — the matching entity profile shows
 // a "N connections here" badge. All state is localStorage; nothing is fetched.
-import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, DESKTOP, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
@@ -97,6 +97,34 @@ check(noBadge, "Profile badge: absent on a profile with no imported connection")
 
 checkErrs(errs, "network connections importer");
 await ctx.close();
+
+// ---- Phone styling: the importer fits the gutter and uses the terminal scale ----
+{
+  const { ctx: c2, pg: p2, errs: e2 } = await open(b, PHONE, base + "/v2/menu/");
+  await p2.waitForSelector(".na-menu-bar .tchip", { timeout: 8000 });
+  await p2.evaluate(() => document.querySelector('.na-menu-bar .tchip[data-sec="coverage"]').click());
+  await p2.waitForSelector(".wn-intro", { timeout: 5000 });
+  const s = await p2.evaluate(() => {
+    const vw = window.innerWidth;
+    const intro = document.querySelector(".wn-intro");
+    const btn = document.querySelector(".wn-btn");
+    const ir = intro.getBoundingClientRect();
+    const cs = getComputedStyle(intro);
+    const bcs = btn ? getComputedStyle(btn) : {};
+    return {
+      vw, left: Math.round(ir.left), right: Math.round(ir.right),
+      size: cs.fontSize, mono: /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(cs.fontFamily),
+      btnSize: bcs.fontSize, btnRadius: bcs.borderRadius,
+    };
+  });
+  check(s.left >= 12 && s.right <= s.vw - 12, `Network importer fits within the side gutter (left ${s.left}, right ${s.right}, vw ${s.vw})`);
+  checkEq(s.size, "11px", "Network intro uses the 11px terminal size");
+  check(s.mono, "Network intro uses the mono terminal family");
+  checkEq(s.btnSize, "11px", "Choose-file button uses the 11px terminal size");
+  checkEq(s.btnRadius, "0px", "Choose-file button is square (no pill radius)");
+  checkErrs(e2, "network importer phone styling");
+  await c2.close();
+}
 
 await b.close(); srv.close();
 finish();
