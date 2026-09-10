@@ -166,6 +166,19 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   `instrumentType` (e.g. `"Senior"`, `"Unitranche"`, `"Mezzanine"`, `"RCF"`,
   `"Acquisition financing"`, `"Preferred"`, `"Minority equity"`). Only when the source
   supports it — never guess; leave it off and let the auto-derive stand.
+- **European credit universe (`credit/js/eu-credits.js`) — compile incrementally.**
+  The Transactions ▸ Credits sub-tab lists the ~300 European leveraged-loan / CLO
+  obligors by sector with their current issuer rating, anchored to the Morningstar
+  European Leveraged Loan Index (ELLI). The constituent list + ratings are
+  proprietary, so build `EUR_CREDITS` from PUBLIC rating actions and coverage — a
+  few verified names per run, working toward the full universe. Every row is real
+  and sourced (R7): `{ name, sector, rating, agency, asOf, source }` — `sector` one
+  of `CREDIT_SECTORS`, `rating` the issuer/corporate-family rating from a SINGLE
+  agency kept consistent across the roster (`EUR_CREDITS_META.agency`, currently
+  S&P), `asOf` the date it was verified, `source` a real URL. Never guess a rating;
+  omit it (leave the field off → shows "NR") rather than invent one. `eu-credits.js`
+  is imported tokenless (like `data.js`), so no cache-token bump is needed for a
+  data-only edit.
 - **Origination fields (`book` + `advisers`) — capture opportunistically.** The Radar
   tab reads two optional manager fields (spec: `docs/origination-radar-spec.md` Part H).
   When a run surfaces source-verifiable evidence for a manager it is already touching

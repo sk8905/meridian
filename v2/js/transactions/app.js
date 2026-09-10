@@ -9,6 +9,7 @@
 // .tleague) so the two tabs read as one app. mount(host, ctx) → {enter,leave}.
 // =============================================================================
 import { deals, managers } from "/credit/js/data.js";
+import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-credits.js";
 import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-1";
 import { esc } from "/util.js?v=20260818-1";
 import { fmtDay } from "/feed.js?v=20260808-1";
@@ -65,20 +66,32 @@ export function mount(host, ctx) {
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-c tcol-full">
           <header class="tpanel-h twire-head">
+            <div class="tchips" id="tx-mode">
+              <button type="button" class="tchip is-on" data-mode="flow">Deal flow</button>
+              <button type="button" class="tchip" data-mode="credits">Credits${EUR_CREDITS.length ? " " + EUR_CREDITS.length : ""}</button>
+            </div>
+          </header>
+          <header class="tpanel-h twire-head" id="tx-period-h">
             <div class="tchips" id="tx-period">
               <button type="button" class="tchip is-on" data-per="12m">Last 12 months</button>
               <button type="button" class="tchip" data-per="all">All time</button>
             </div>
           </header>
-          <header class="tpanel-h thead-search">
+          <header class="tpanel-h thead-search" id="tx-flow-search">
             <input type="search" id="tx-q" class="tsearch" placeholder="Search a deal, manager or type…" aria-label="Search transactions">
             <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
           </header>
+          <header class="tpanel-h thead-search" id="tx-credits-search">
+            <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
+          </header>
           <div class="tx-scroll" id="tx-body"></div>
+          <div class="tx-scroll" id="tx-credits-body"></div>
         </section>
       </div>
     </div>`;
   const body = host.querySelector("#tx-body");
+  const creditsBody = host.querySelector("#tx-credits-body");
+  let _crMode = "flow", _crQ = "";
 
   const trendMark = (a, b) => a > b ? `<span class="tx-up">▲</span>` : a < b ? `<span class="tx-dn">▼</span>` : `<span class="tx-fl">·</span>`;
 
@@ -183,9 +196,52 @@ export function mount(host, ctx) {
         : `<p class="tw-empty muted small">No transactions match “${esc(st.q)}”.</p>`}`;
   }
 
+  // ---- Credits: the European credit universe (ELLI), organised by sector, each
+  // with its current issuer rating. Real, sourced rows only — empty until the
+  // first verified batch lands (compiled by the daily routine; see eu-credits.js).
+  const crRow = (c) => {
+    const rt = c.rating
+      ? (c.source
+        ? `<a class="tcr-rt" href="${esc(c.source)}" target="_blank" rel="noopener noreferrer" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</a>`
+        : `<span class="tcr-rt" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</span>`)
+      : `<span class="tcr-rt tcr-nr" title="Rating pending verification">NR</span>`;
+    return `<li class="tmini-row tcr-row"><span class="tcr-nm">${esc(c.name)}</span>${rt}</li>`;
+  };
+  function renderCredits() {
+    if (!EUR_CREDITS.length) {
+      creditsBody.innerHTML = `<p class="tw-empty muted small">The European credit universe (anchored to the ${esc(EUR_CREDITS_META.index)}) is being compiled — sourced names and ratings land here as they’re verified.</p>`;
+      return;
+    }
+    const q = _crQ.toLowerCase();
+    const filtered = q ? EUR_CREDITS.filter((c) => `${c.name} ${c.sector} ${c.rating || ""}`.toLowerCase().includes(q)) : EUR_CREDITS;
+    const groups = creditsBySector(filtered);
+    creditsBody.innerHTML = groups.length
+      ? `<div class="tcr-meta muted small">${filtered.length} of ${EUR_CREDITS.length} credits · issuer ratings ${esc(EUR_CREDITS_META.agency)}</div>`
+        + groups.map(([sec, arr]) => `<div class="tcr-grp"><div class="tcr-grp-h">${esc(sec)} <span class="tcr-grp-n">${arr.length}</span></div><ul class="tmini tcr-list">${arr.map(crRow).join("")}</ul></div>`).join("")
+      : `<p class="tw-empty muted small">No credits match “${esc(_crQ)}”.</p>`;
+  }
+
   function render() { st.q ? renderSearch() : (st.type ? renderType(st.type) : renderOverview()); }
 
   // ---- events (delegated) --------------------------------------------------
+  // Primary mode: Deal flow (the transaction-type table) vs Credits (the ELLI
+  // issuer universe). Toggling swaps which chrome + body is shown. Drive it with
+  // inline display (not [hidden]) — the headers carry a CSS `display` that beats
+  // the UA [hidden] rule, so the attribute alone wouldn't hide them.
+  const setMode = (mode) => {
+    _crMode = mode === "credits" ? "credits" : "flow";
+    const credits = _crMode === "credits";
+    host.querySelectorAll("#tx-mode .tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.mode === _crMode));
+    ["tx-period-h", "tx-flow-search", "tx-body"].forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = credits ? "none" : ""; });
+    ["tx-credits-search", "tx-credits-body"].forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = credits ? "" : "none"; });
+    if (credits) renderCredits();
+  };
+  setMode("flow");   // initial (drives the display, replacing the [hidden] attrs)
+  host.querySelector("#tx-mode").addEventListener("click", (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    setMode(b.dataset.mode);
+  });
+  host.querySelector("#tx-cr-q").addEventListener("input", (e) => { _crQ = e.target.value.trim(); renderCredits(); });
   host.querySelector("#tx-period").addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     st.period = b.dataset.per; st.sector = "all";
