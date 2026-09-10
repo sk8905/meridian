@@ -167,9 +167,10 @@ await ctx.close();
 {
   const { ctx: pc, pg: pp, errs: pe } = await open(b, PHONE, base + "/v2/menu/");
   await pp.waitForSelector("#v2-menu-omni .na-ask-in", { timeout: 8000 });
-  // Empty state: the input is NOT fixed (it sits at the top like the search band).
-  const emptyPos = await pp.evaluate(() => getComputedStyle(document.querySelector("#v2-menu-omni .na-ask-form")).position);
-  check(emptyPos !== "fixed", `empty chat: the input is not docked (position ${emptyPos})`);
+  // Empty state: the chat container is NOT docked (input sits at the top like the
+  // search band).
+  const emptyPos = await pp.evaluate(() => getComputedStyle(document.querySelector("#v2-menu-omni")).position);
+  check(emptyPos !== "fixed", `empty chat: the chat is not docked (container position ${emptyPos})`);
   await pp.route("**/api/ask", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: "Answer text.", sources: [{ url: "https://example.com/", title: "Src" }] }) }));
   await pp.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "First?"; c.querySelector(".na-ask-form").requestSubmit(); });
   await pp.waitForTimeout(400);
@@ -178,12 +179,17 @@ await ctx.close();
   const dock = await pp.evaluate(() => {
     const c = document.querySelector("#v2-menu-omni");
     const form = c.querySelector(".na-ask-form");
+    const chat = c.querySelector(".na-chat");
     const fr = form.getBoundingClientRect();
+    const cr = chat.getBoundingClientRect();
     const qs = [...c.querySelectorAll(".na-chat-q")].map((q) => q.textContent.trim());
-    return { docked: c.classList.contains("is-docked"), pos: getComputedStyle(form).position, formBottom: Math.round(fr.bottom), vh: window.innerHeight, qs };
+    return { docked: c.classList.contains("is-docked"), colPos: getComputedStyle(c).position, formBottom: Math.round(fr.bottom), formTop: Math.round(fr.top), chatBottom: Math.round(cr.bottom), vh: window.innerHeight, qs };
   });
-  check(dock.docked && dock.pos === "fixed", `active chat: the input docks to the bottom (fixed, got ${dock.pos})`);
+  // The chat is a FIXED column; the input is pinned at its base near the screen bottom.
+  check(dock.docked && dock.colPos === "fixed", `active chat: the chat docks as a fixed column (got ${dock.colPos})`);
   check(dock.formBottom >= dock.vh - 120 && dock.formBottom <= dock.vh, `docked input sits at the bottom of the screen (bottom ${dock.formBottom} of ${dock.vh})`);
+  // Transcript is bottom-anchored: it ends right at the input (no dead space between).
+  check(Math.abs(dock.chatBottom - dock.formTop) <= 2, `transcript is bottom-anchored right above the input (chat ${dock.chatBottom}, input top ${dock.formTop})`);
   check(dock.qs[0] === "First?" && dock.qs[1] === "Second?", `docked transcript is oldest→newest (${dock.qs.join(" | ")})`);
   // Focusing the input (keyboard up) hides the bottom tab bar so nothing sits
   // between the field and the keyboard; blurring restores it.

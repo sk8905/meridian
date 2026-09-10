@@ -100,18 +100,25 @@ export function renderAsk(body, st, opts) {
   const basePlaceholder = opts.placeholder || (withSearch ? "Search Wire, or ask a question…" : withAdd && !withAsk ? "Firm to research & add…" : "Ask Wire…");
   const placeholder = hasChat ? "Ask a follow-up…" : basePlaceholder;
   const inputVal = isChat ? "" : esc(st.q || "");
-  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${esc(placeholder)}" value="${inputVal}"${st.loading ? " disabled" : ""} />`
+  const formHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${esc(placeholder)}" value="${inputVal}"${st.loading ? " disabled" : ""} />`
     + (withSearch && !bare ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
     + (withAdd && !bare ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
     + (withAsk && !bare ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
-    + `</form>`
-    + (isChat
-      ? (hasChat
-        ? `<div class="na-chat"><div class="na-chat-top"><button type="button" class="na-chat-clear" title="Clear this conversation">New chat</button></div>`
-          + (dock ? turns : turns.slice().reverse()).map(turnHTML).join("") + `</div>`
-          + (answered ? `<div class="na-brief-foot">AI answers from Wire’s data + a live web search — verify anything critical.</div>` : "")
-        : "")
-      : `<div class="na-ask-out">${addOut}</div>`);
+    + `</form>`;
+  // The transcript (New chat control → turns → verify disclaimer) is ONE block so
+  // the docked layout can scroll it as a unit above the pinned input.
+  const chatHTML = hasChat
+    ? `<div class="na-chat"><div class="na-chat-top"><button type="button" class="na-chat-clear" title="Clear this conversation">New chat</button></div>`
+      + (dock ? turns : turns.slice().reverse()).map(turnHTML).join("")
+      + (answered ? `<div class="na-brief-foot">AI answers from Wire’s data + a live web search — verify anything critical.</div>` : "")
+      + `</div>`
+    : "";
+  // Docked (phone, active chat): transcript first, input LAST — a fixed flex
+  // column (CSS) puts the input at the bottom above the keyboard. Otherwise the
+  // input stays on top.
+  body.innerHTML = isChat
+    ? (dock ? chatHTML + formHTML : formHTML + chatHTML)
+    : formHTML + `<div class="na-ask-out">${addOut}</div>`;
 }
 
 // Mount the assistant into `container`, wiring "Ask" (→ /api/ask, feature B) when
@@ -203,12 +210,20 @@ export function mountAssistant(container, opts) {
     if (isChat && e.target.closest(".na-chat-clear")) { e.preventDefault(); e.stopPropagation(); state.turns = []; state.loading = false; draw(); return; }
   });
   // Docked chat only: while the input is focused (keyboard up), flag <html> so the
-  // bottom tab bar hides and the input drops flush to the bottom (CSS) — no nav bar
-  // wedged between the field and the keyboard while asking a follow-up.
+  // bottom tab bar hides and the fixed chat column ends at the keyboard top — no
+  // nav bar or dead space between the field and the keyboard. `--kbd-h` tracks the
+  // on-screen keyboard height via visualViewport so the input glues above it.
+  const vv = typeof window !== "undefined" && window.visualViewport;
+  const setKbd = () => {
+    if (!vv || !document.documentElement.classList.contains("chat-kbd")) return;
+    const h = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
+    document.documentElement.style.setProperty("--kbd-h", h + "px");
+  };
+  if (vv) { vv.addEventListener("resize", setKbd); vv.addEventListener("scroll", setKbd); }
   container.addEventListener("focusin", (e) => {
-    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) document.documentElement.classList.add("chat-kbd");
+    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); setKbd(); }
   });
   container.addEventListener("focusout", (e) => {
-    if (e.target.closest(".na-ask-in")) document.documentElement.classList.remove("chat-kbd");
+    if (e.target.closest(".na-ask-in")) { document.documentElement.classList.remove("chat-kbd"); document.documentElement.style.setProperty("--kbd-h", "0px"); }
   });
 }

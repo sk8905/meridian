@@ -1017,13 +1017,23 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    top divider instead of a bottom one. Extra bottom padding keeps the last turn
    clear of the fixed input. */
 @media (max-width: 760px) {
-  .menu-asst.is-docked { padding-bottom: 20px; }
-  .menu-asst.is-docked .na-ask-form { position: fixed; left: 0; right: 0; bottom: calc(55px + env(safe-area-inset-bottom, 0px)); z-index: 9490; border-top: 1px solid var(--border, #262626); border-bottom: 0; }
-  /* While asking a follow-up (input focused → html.chat-kbd), hide the bottom tab
-     bar and drop the input flush to the bottom so nothing sits between the field
-     and the on-screen keyboard. */
+  /* Docked chat = a fixed flex COLUMN filling the space between the chip bar and
+     the bottom tab bar: the transcript scrolls (bottom-anchored, so a short thread
+     sits right by the input) and the input is pinned at the column's base. */
+  .menu-asst.is-docked {
+    position: fixed; left: 0; right: 0; z-index: 6;
+    top: calc(var(--wire-head-h, 57px) + var(--chip-h, 34px));
+    bottom: calc(55px + env(safe-area-inset-bottom, 0px));
+    display: flex; flex-direction: column;
+  }
+  .menu-asst.is-docked .na-chat { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
+  .menu-asst.is-docked .na-chat > .na-chat-top { margin-top: auto; }   /* bottom-anchor a short thread */
+  .menu-asst.is-docked .na-ask-form { flex: 0 0 auto; border-top: 1px solid var(--border, #262626); border-bottom: 0; }
+  /* While typing (input focused → html.chat-kbd): hide the bottom tab bar and end
+     the column exactly at the on-screen keyboard top (--kbd-h, tracked from
+     visualViewport) — no nav bar and no dead space between the field and keyboard. */
   html.chat-kbd .mobile-tabbar { display: none; }
-  html.chat-kbd .menu-asst.is-docked .na-ask-form { bottom: env(safe-area-inset-bottom, 0px); }
+  html.chat-kbd .menu-asst.is-docked { bottom: var(--kbd-h, 0px); }
 }
 .na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
