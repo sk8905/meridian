@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e7a8a9fa-0dc2-41df-890c-9628efac54fd", title: "Vantage Data Centers seeks $2bn in loans from Pimco and PGIM", date: "2026-09-10", time: "17:04", url: "https://www.ft.com/content/e7a8a9fa-0dc2-41df-890c-9628efac54fd" },
+  { id: "a3cb053b-08eb-43c5-8cc4-9c4c22fbf529", title: "Ourselves Alone: a partial glimpse inside Ireland’s Sinn Féin", date: "2026-09-10", time: "17:00", url: "https://www.ft.com/content/a3cb053b-08eb-43c5-8cc4-9c4c22fbf529" },
+  { id: "aa78428b-747f-4486-bac5-e3500386abaf", title: "Spain’s new citizenship law to spark fresh tensions with Morocco", date: "2026-09-10", time: "16:57", url: "https://www.ft.com/content/aa78428b-747f-4486-bac5-e3500386abaf" },
+  { id: "7816ad68-58ed-494c-a66f-091a9cca2cbc", title: "ECB prepares for ‘longer-lasting’ inflation as it lifts interest rates to 2.5%", date: "2026-09-10", time: "16:18", url: "https://www.ft.com/content/7816ad68-58ed-494c-a66f-091a9cca2cbc" },
   { id: "a441ea66-329a-4f42-8e50-3ff140958e53", title: "America is losing its captive creditors", date: "2026-09-10", time: "16:08", url: "https://www.ft.com/content/a441ea66-329a-4f42-8e50-3ff140958e53" },
   { id: "30e384f2-7aee-4dca-a97f-cb2ebf3c29b4", title: "Why young Africans are nostalgic for the past", date: "2026-09-10", time: "16:00", url: "https://www.ft.com/content/30e384f2-7aee-4dca-a97f-cb2ebf3c29b4" },
   { id: "7072bdc1-49d0-47c3-875b-4b1508e24481", title: "Burnham’s devolution project needs strong local media too", date: "2026-09-10", time: "15:33", url: "https://www.ft.com/content/7072bdc1-49d0-47c3-875b-4b1508e24481" },
@@ -56,10 +60,4 @@ export const FT_ITEMS = [
   { id: "2476992f-c9fe-4992-887d-f34c81c100ab", title: "Treasury yields jump as Bessent’s $6bn buyback plan disappoints investors", date: "2026-09-10", time: "06:44", url: "https://www.ft.com/content/2476992f-c9fe-4992-887d-f34c81c100ab" },
   { id: "ca7bee53-270c-4b80-9297-b4fe7af50222", title: "FT Alphaville’s Art of the Chart show returns 15 October. Tickets are £5, get them here", date: "2026-09-10", time: "06:35", url: "https://www.ft.com/content/ca7bee53-270c-4b80-9297-b4fe7af50222" },
   { id: "bdde7148-eab2-4e13-abc8-9652c52257f4", title: "Must high bond yields crack stocks?", date: "2026-09-10", time: "06:30", url: "https://www.ft.com/content/bdde7148-eab2-4e13-abc8-9652c52257f4" },
-  { id: "d9886b71-4ada-4007-bcf4-bcc0991846e7", title: "FTAV’s further reading", date: "2026-09-10", time: "06:30", url: "https://www.ft.com/content/d9886b71-4ada-4007-bcf4-bcc0991846e7" },
-  { id: "17d9e59e-b934-4bca-a81e-2d211a067205", title: "Germany holds the line against a larger EU budget", date: "2026-09-10", time: "06:03", url: "https://www.ft.com/content/17d9e59e-b934-4bca-a81e-2d211a067205" },
-  { id: "abbb4a43-4e0b-4178-951b-1924a9af305d", title: "FirstFT: Trump tariff remarks cost lead candidate IMF job", date: "2026-09-10", time: "05:31", url: "https://www.ft.com/content/abbb4a43-4e0b-4178-951b-1924a9af305d" },
-  { id: "acfc3ed7-9e2d-4d86-a915-a68c9a55db1f", title: "Trump promises $5,000 ‘dividend’ for US voters if Republicans win midterms", date: "2026-09-10", time: "05:21", url: "https://www.ft.com/content/acfc3ed7-9e2d-4d86-a915-a68c9a55db1f" },
-  { id: "8313accc-1de6-48a8-b184-e5e3b20c5b19", title: "Bank of Japan must raise rates further, board member says", date: "2026-09-10", time: "05:07", url: "https://www.ft.com/content/8313accc-1de6-48a8-b184-e5e3b20c5b19" },
-  { id: "e6307a83-3671-4b13-a2c7-d3a626248014", title: "Sports Exchange", date: "2026-09-10", time: "05:04", url: "https://www.ft.com/content/e6307a83-3671-4b13-a2c7-d3a626248014" },
 ];
