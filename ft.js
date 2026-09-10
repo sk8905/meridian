@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "58e9a70f-29c2-4f44-8531-00fc399ebbe0", title: "Prediction markets ‘rife with insider trading’, warns EU watchdog", date: "2026-09-10", time: "10:00", url: "https://www.ft.com/content/58e9a70f-29c2-4f44-8531-00fc399ebbe0" },
+  { id: "59baaebd-ba30-4e75-bbf9-a9a46459816f", title: "England’s mayors to be allowed to introduce unlimited tourism tax", date: "2026-09-10", time: "09:54", url: "https://www.ft.com/content/59baaebd-ba30-4e75-bbf9-a9a46459816f" },
+  { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-10", time: "09:47", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
+  { id: "95ad3625-a3af-4bc0-b673-238020844d7b", title: "Doubts about Reform and Labour benefit Kemi Badenoch", date: "2026-09-10", time: "09:30", url: "https://www.ft.com/content/95ad3625-a3af-4bc0-b673-238020844d7b" },
   { id: "7f9a5140-e3f5-45a9-9620-08b8e819ba41", title: "Abu Dhabi buys into China’s Luckin Coffee with $1bn deal", date: "2026-09-10", time: "07:43", url: "https://www.ft.com/content/7f9a5140-e3f5-45a9-9620-08b8e819ba41" },
   { id: "2476992f-c9fe-4992-887d-f34c81c100ab", title: "Treasury yields jump as Bessent’s $6bn buyback plan disappoints investors", date: "2026-09-10", time: "06:44", url: "https://www.ft.com/content/2476992f-c9fe-4992-887d-f34c81c100ab" },
   { id: "ca7bee53-270c-4b80-9297-b4fe7af50222", title: "FT Alphaville’s Art of the Chart show returns 15 October. Tickets are £5, get them here", date: "2026-09-10", time: "06:35", url: "https://www.ft.com/content/ca7bee53-270c-4b80-9297-b4fe7af50222" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
 { id: "d0557d25-78b5-45d8-bb33-d655e859d803", title: "US spy chief prepares for greater role in Russia-Ukraine talks", date: "2026-09-09", time: "15:50", url: "https://www.ft.com/content/d0557d25-78b5-45d8-bb33-d655e859d803" },
 { id: "06c80195-c7b7-4423-a4ef-90056d1864f9", title: "Serbian leader Aleksandar Vučić calls snap elections", date: "2026-09-09", time: "15:41", url: "https://www.ft.com/content/06c80195-c7b7-4423-a4ef-90056d1864f9" },
 { id: "73c6c2f1-349a-4aeb-9d90-0268e3dcdc65", title: "Police investigate Reform UK over donor sting", date: "2026-09-09", time: "15:10", url: "https://www.ft.com/content/73c6c2f1-349a-4aeb-9d90-0268e3dcdc65" },
-{ id: "71dccbca-4a1f-485a-9790-28cc527cdb82", title: "US affordability tracker: the data that could decide the 2026 midterm elections", date: "2026-09-09", time: "14:05", url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82" },
-{ id: "55a506e8-8cba-4d8e-bf1a-e5d3e6682677", title: "How to fix the brittleness caused by Treasury basis trades", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/55a506e8-8cba-4d8e-bf1a-e5d3e6682677" },
-{ id: "bc02e99c-c6e0-4b1e-825c-330b4646ee9e", title: "Kushner and Witkoff’s blind amateurism", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/bc02e99c-c6e0-4b1e-825c-330b4646ee9e" },
-{ id: "07e5851c-5e3b-43a8-ad23-527c0f191089", title: "Saudi Arabia’s other war enters dangerous new chapter", date: "2026-09-09", time: "12:09", url: "https://www.ft.com/content/07e5851c-5e3b-43a8-ad23-527c0f191089" },
-
 ];
