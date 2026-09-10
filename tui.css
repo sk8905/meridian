@@ -25,7 +25,7 @@
 /* mono for numeric/terminal data (matches Home) + a head surface for panel bars.
    --wb-txt is the briefing-bar body text colour, kept in lock-step with Home's
    terminal --t-dim so the app banners read identically (light value here). */
-:root { --t-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #3b475f; }
+:root { --t-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #3b475f; --lift: #ffffff; }
 
 /* ---- deep near-black terminal surfaces (dark) to match Home ---- */
 :root[data-theme="dark"] {
@@ -40,6 +40,7 @@
   --accent: #fb8b1e;
   --primary: #fb8b1e;
   --wb-txt: #b7c2da;   /* == Home --t-dim (dark) */
+  --lift: #202020;     /* lifted shade for search inputs (R8: token, not literal) */
 }
 
 /* ---- full-bleed content column ---- */
@@ -367,13 +368,10 @@
    the chips/label above; the €1–10bn chip stays pinned right) rather than being a
    fixed 210px box floated to the right. */
 .thead-search .tsearch { flex: 1 1 auto; min-width: 0; width: auto; max-width: none; margin-left: 0; }
-.tsearch { margin-left: auto; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
 /* The field sits a step off the panel ground so it reads as an editable search box,
-   not flat chrome — the same intent as the top "Search everything" pill and the
-   Legal dashboard search (--t-panel2). .tsearch isn't in the --t-* token scope, so
-   set the lifted shade per theme: a step lighter on dark, a crisp white field on light. */
-:root[data-theme="dark"] .tsearch { background: #202020; }
-:root[data-theme="light"] .tsearch { background: #ffffff; }
+   not flat chrome — via the scoped --lift token (lighter on dark, crisp white on
+   light), not raw hex (R8). */
+.tsearch { margin-left: auto; background: var(--lift); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
 .tsearch::placeholder { color: var(--faint); }
 /* Shared search band on non-list pages: the "search" is a button styled like the
    .tsearch input (it opens the command palette); the $1–15bn button sits beside
@@ -595,14 +593,13 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tinv-head:hover { color: var(--accent); }
 .tinv-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 5px; font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
 .tinv-when, .tinv-src { color: var(--faint); }
+/* Instrument tags are token-only (R8): a bordered mono chip, debt vs equity read
+   from the LABEL text, not an ad-hoc colour (R9 keeps colour for deltas/accent). */
 .tinv-tag { display: inline-flex; align-items: center; gap: 3px; font-family: var(--t-mono); font-size: 9px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .03em; padding: 2px 6px; border: 1px solid currentColor; border-radius: 0; white-space: nowrap; }
-.tinv-tag.is-debt { color: #4f86cc; }
-.tinv-tag.is-equity { color: #8f76d6; }
+  text-transform: uppercase; letter-spacing: .03em; padding: 2px 6px; border: 1px solid var(--border); border-radius: 0; white-space: nowrap; color: var(--muted); }
+.tinv-tag.is-debt, .tinv-tag.is-equity { color: var(--ink); }
 .tinv-tag.is-unspec { color: var(--faint); }
 .tinv-inf { opacity: .55; font-weight: 400; }
-:root[data-theme="dark"] .tinv-tag.is-debt { color: #6fa2e0; }
-:root[data-theme="dark"] .tinv-tag.is-equity { color: #a892e6; }
 /* key-figure grid in the rail */
 .tkv { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
 .tkv > div { background: var(--surface); padding: 7px 11px; min-width: 0; }
