@@ -1,5 +1,6 @@
-// F7 — a Density preference (Menu ▸ Display): "Comfortable" grows the shared
-// --chip-h to a ~44px touch target, opt-in over the compact default.
+// F7 — density is fixed at the compact default; the user-facing Density toggle
+// was removed from Settings (along with the Account section — Sign out lives in
+// the phone bottom strip). Settings keeps only Notifications + Appearance (Theme).
 // F8 — Home remembers the last wire desk filter and the mobile News/Watchlist
 // tab, so it reopens where you left it.
 import { serve, launchChromium, open, DESKTOP, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
@@ -8,11 +9,11 @@ const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 
-// ---- F7: density toggle ----
+// ---- F7: density is the compact default; Density + Account controls removed ----
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/menu/");
   await pg.waitForSelector('.v2-view[data-view="menu"] .na-menu-bar .tchip', { timeout: 8000 });
-  // Default density is compact.
+  // Density stays at the compact default (no user control to change it).
   const def = await pg.evaluate(() => ({
     attr: document.documentElement.getAttribute("data-density"),
     chip: getComputedStyle(document.documentElement).getPropertyValue("--chip-h").trim(),
@@ -20,22 +21,25 @@ const base = `http://localhost:${srv.port}`;
   checkEq(def.attr, "compact", "default density is compact");
   checkEq(def.chip, "34px", "compact --chip-h is 34px");
 
-  // Open Settings (Display/Density lives under the Settings chip), choose Comfortable.
+  // Open Settings — it must NOT carry a Density control or an Account section any
+  // more, but must keep Theme + Notifications.
   await pg.evaluate(() => [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].find((c) => c.textContent.trim() === "Settings")?.click());
   await pg.waitForTimeout(200);
-  const hasSeg = await pg.evaluate(() => !!document.getElementById("v2-density-seg"));
-  check(hasSeg, "Settings pane has a Density control");
-  await pg.evaluate(() => document.querySelector('#v2-density-seg .na-theme-opt[data-density-opt="comfortable"]').click());
-  await pg.waitForTimeout(200);
-  const after = await pg.evaluate(() => ({
-    attr: document.documentElement.getAttribute("data-density"),
-    stored: (() => { try { return localStorage.getItem("m_density"); } catch { return null; } })(),
-    chip: getComputedStyle(document.documentElement).getPropertyValue("--chip-h").trim(),
-  }));
-  checkEq(after.attr, "comfortable", "choosing Comfortable sets data-density=comfortable");
-  checkEq(after.stored, "comfortable", "the density choice is persisted (m_density)");
-  checkEq(after.chip, "44px", "comfortable --chip-h grows to a 44px touch target");
-  checkErrs(errs, "density toggle");
+  const pane = await pg.evaluate(() => {
+    const p = document.querySelector('.v2-view[data-view="menu"] .na-menu-pane');
+    return {
+      densitySeg: !!document.getElementById("v2-density-seg"),
+      densityLabel: /Density/i.test(p?.textContent || ""),
+      account: /Account/i.test(p?.textContent || ""),
+      acctRow: !!document.getElementById("account-nav-menu"),
+      theme: !!document.getElementById("v2-theme-seg"),
+      push: !!document.getElementById("v2-push"),
+    };
+  });
+  check(!pane.densitySeg && !pane.densityLabel, "Settings has NO Density control");
+  check(!pane.account && !pane.acctRow, "Settings has NO Account section");
+  check(pane.theme && pane.push, "Settings keeps Theme + Notifications controls");
+  checkErrs(errs, "settings pane");
   await ctx.close();
 }
 

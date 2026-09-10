@@ -3,7 +3,9 @@
 //     fields) where Enter/"Ask" answers inline via AI. Ask only — search lives
 //     in the global palette (header search / other pages). No explainer copy.
 //   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
-//   • Settings — Notifications (push toggle), Display (theme + density), Sign out.
+//   • Settings — Notifications (push toggle) + Appearance (theme). Sign out and
+//     density live elsewhere: sign out in the phone bottom strip; density is not
+//     user-configurable.
 // On PHONES this is where Search + the Ask/Add assistant live (the header keeps
 // only Briefing/Markets/Bookmarks/Notifications). On DESKTOP the header still
 // carries the search pill and the Ask chat, and this menu mirrors the same chips.
@@ -21,16 +23,6 @@ const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-s
 // system|light|dark that the inline boot script already understands.
 const THEME_LABEL = { system: "System", light: "Light", dark: "Dark" };
 const THEME_ORDER = ["system", "light", "dark"];
-// Density (F7): compact (default terminal) vs comfortable (larger touch targets).
-// Persisted as m_density; the inline boot applies data-density before first paint.
-const DENSITY_LABEL = { compact: "Compact", comfortable: "Comfortable" };
-const DENSITY_ORDER = ["compact", "comfortable"];
-const storedDensity = () => { try { return localStorage.getItem("m_density") === "comfortable" ? "comfortable" : "compact"; } catch { return "compact"; } };
-function applyDensity(pref) {
-  const p = pref === "comfortable" ? "comfortable" : "compact";
-  document.documentElement.setAttribute("data-density", p);
-  try { localStorage.setItem("m_density", p); } catch { /* ignore */ }
-}
 function applyTheme(pref) {
   const r = document.documentElement;
   const t = pref === "system" ? (osDark() ? "dark" : "light") : pref;
@@ -131,13 +123,7 @@ function settingsPaneHTML() {
     + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
     + `<div class="na-theme-seg" id="v2-theme-seg" role="group" aria-label="Theme">`
     + THEME_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedPref() === pf ? " is-on" : ""}" data-pref="${pf}" aria-pressed="${storedPref() === pf ? "true" : "false"}">${THEME_LABEL[pf]}</button>`).join("")
-    + `</div></div>`
-    + `<div class="na-menu-row na-menu-pushrow"><span>Density</span>`
-    + `<div class="na-theme-seg" id="v2-density-seg" role="group" aria-label="Density">`
-    + DENSITY_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedDensity() === pf ? " is-on" : ""}" data-density-opt="${pf}" aria-pressed="${storedDensity() === pf ? "true" : "false"}">${DENSITY_LABEL[pf]}</button>`).join("")
-    + `</div></div>`
-    + `<div class="na-menu-recent-h">Account</div>`
-    + `<div class="na-menu-row na-menu-acct" id="account-nav-menu"></div>`;
+    + `</div></div>`;
 }
 function paneHTML(sec) {
   if (sec === "settings") return settingsPaneHTML();
@@ -154,16 +140,8 @@ export function mount(host, ctx) {
   // (Coverage) are separate surfaces, so they keep separate state.
   const askState = {};
   const addState = {};
-  // The signed-in identity lives in the bottom strip (see chrome.js); the Menu's
-  // Settings chip keeps a Sign out action in its Account row.
-  const fillMenuAccount = () => {
-    const el = host.querySelector("#account-nav-menu");
-    if (!el) return;
-    fetch("/api/me", { headers: { accept: "application/json" } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (d && d.email) el.innerHTML = `<a href="/cdn-cgi/access/logout">Sign out</a>`; })
-      .catch(() => {});
-  };
+  // Sign out lives only in the phone bottom strip (see chrome.js) — the Settings
+  // chip no longer carries its own Account row.
   const render = () => {
     // A plain, always-visible full-width column — NOT the .na-panel dropdown,
     // which is a fixed pop-over sized for a corner and rendered the menu
@@ -172,7 +150,6 @@ export function mount(host, ctx) {
       <div class="na-menu-bar"><div class="tchips">${SECTIONS.map(([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`).join("")}</div></div>
       <div class="na-menu-pane">${paneHTML(sec)}</div>
     </div>`;
-    if (sec === "settings") fillMenuAccount();
     if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, bare: true, placeholder: "Ask…", state: askState });
     if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
   };
@@ -200,8 +177,6 @@ export function mount(host, ctx) {
     if (chip) { sec = chip.dataset.sec; render(); return; }
     const opt = e.target.closest("#v2-theme-seg .na-theme-opt");
     if (opt) { applyTheme(opt.dataset.pref); render(); return; }
-    const dopt = e.target.closest("#v2-density-seg .na-theme-opt");
-    if (dopt) { applyDensity(dopt.dataset.densityOpt); render(); return; }
     const push = e.target.closest("#v2-push");
     if (push && typeof Notification !== "undefined" && Notification.requestPermission) {
       Notification.requestPermission().then(() => render()).catch(() => {});
