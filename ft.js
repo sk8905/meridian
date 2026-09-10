@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "17d9e59e-b934-4bca-a81e-2d211a067205", title: "Germany holds the line against a larger EU budget", date: "2026-09-10", time: "06:03", url: "https://www.ft.com/content/17d9e59e-b934-4bca-a81e-2d211a067205" },
+  { id: "abbb4a43-4e0b-4178-951b-1924a9af305d", title: "FirstFT: Trump tariff remarks cost lead candidate IMF job", date: "2026-09-10", time: "05:31", url: "https://www.ft.com/content/abbb4a43-4e0b-4178-951b-1924a9af305d" },
+  { id: "acfc3ed7-9e2d-4d86-a915-a68c9a55db1f", title: "Trump promises $5,000 ‘dividend’ for US voters if Republicans win midterms", date: "2026-09-10", time: "05:21", url: "https://www.ft.com/content/acfc3ed7-9e2d-4d86-a915-a68c9a55db1f" },
   { id: "8313accc-1de6-48a8-b184-e5e3b20c5b19", title: "Bank of Japan must raise rates further, board member says", date: "2026-09-10", time: "05:07", url: "https://www.ft.com/content/8313accc-1de6-48a8-b184-e5e3b20c5b19" },
   { id: "e6307a83-3671-4b13-a2c7-d3a626248014", title: "Sports Exchange", date: "2026-09-10", time: "05:04", url: "https://www.ft.com/content/e6307a83-3671-4b13-a2c7-d3a626248014" },
   { id: "b77c5dd4-f9b9-451a-b184-2061288a4894", title: "The new rainmakers of European private equity", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/b77c5dd4-f9b9-451a-b184-2061288a4894" },
@@ -58,7 +61,5 @@ export const FT_ITEMS = [
 { id: "bce40838-6b08-4a04-9937-627bdf64a1a9", title: "Millennium to open office in Greece after investor charm offensive", date: "2026-09-09", time: "11:58", url: "https://www.ft.com/content/bce40838-6b08-4a04-9937-627bdf64a1a9" },
 { id: "0715a142-311f-422f-a9dd-9e31bc3d7d61", title: "FirstFT: Oil hits $100 as fears rise over global supplies", date: "2026-09-09", time: "11:28", url: "https://www.ft.com/content/0715a142-311f-422f-a9dd-9e31bc3d7d61" },
 { id: "2cc88608-04b2-4dcb-8c89-698f251de170", title: "Silver Lake to merge French software groups Cegid and Silae in €10bn deal", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/2cc88608-04b2-4dcb-8c89-698f251de170" },
-{ id: "b397ced1-b9bc-4fe6-8dc7-20f0752e2591", title: "China’s giant trade surplus has an increasingly geopolitical twist", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/b397ced1-b9bc-4fe6-8dc7-20f0752e2591" },
-{ id: "81786612-93e4-4af3-8cc9-f69434872740", title: "Swedish anti-immigrant party nears government role for first time", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/81786612-93e4-4af3-8cc9-f69434872740" },
 
 ];
