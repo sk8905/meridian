@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "63e733d1-2c0f-46c5-ae6b-de1a72d4e9df", title: "HSBC finance chief Pam Kaur to step down by 2027", date: "2026-09-10", time: "11:04", url: "https://www.ft.com/content/63e733d1-2c0f-46c5-ae6b-de1a72d4e9df" },
+  { id: "a2aaa848-92c3-4f7a-b758-5858bfb29e70", title: "Latham & Watkins buys Nvidia servers to set up in-house AI systems", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/a2aaa848-92c3-4f7a-b758-5858bfb29e70" },
+  { id: "362b3139-b0de-42f1-83db-67d4572a66ce", title: "On Europe’s economy, let’s ditch the lazy stereotypes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/362b3139-b0de-42f1-83db-67d4572a66ce" },
+  { id: "735fbed6-850f-4bd3-a0f6-ae762c2680be", title: "The capital wars are coming", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/735fbed6-850f-4bd3-a0f6-ae762c2680be" },
+  { id: "8a0bc64f-44c7-4811-8e68-fb17c0a6ae28", title: "Donald Trump’s US coal revival push fails to reverse fuel’s long decline", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/8a0bc64f-44c7-4811-8e68-fb17c0a6ae28" },
+  { id: "3382efba-83fe-41b2-aaab-c3c50d5f7df4", title: "Franklin Templeton turns the tide as Western Asset crisis recedes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/3382efba-83fe-41b2-aaab-c3c50d5f7df4" },
+  { id: "890dc1c8-f5f1-46d2-a4fa-1a9df3667f37", title: "Hard left holds key to Germany’s first far-right state premiership", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/890dc1c8-f5f1-46d2-a4fa-1a9df3667f37" },
+  { id: "083a9c4b-3913-496d-be13-22c96053624b", title: "ECB rate decision live: central bank expected to raise borrowing costs to fight inflation shock", date: "2026-09-10", time: "10:58", url: "https://www.ft.com/content/083a9c4b-3913-496d-be13-22c96053624b" },
   { id: "58e9a70f-29c2-4f44-8531-00fc399ebbe0", title: "Prediction markets ‘rife with insider trading’, warns EU watchdog", date: "2026-09-10", time: "10:00", url: "https://www.ft.com/content/58e9a70f-29c2-4f44-8531-00fc399ebbe0" },
   { id: "59baaebd-ba30-4e75-bbf9-a9a46459816f", title: "England’s mayors to be allowed to introduce unlimited tourism tax", date: "2026-09-10", time: "09:54", url: "https://www.ft.com/content/59baaebd-ba30-4e75-bbf9-a9a46459816f" },
   { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-10", time: "09:47", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
@@ -52,12 +60,4 @@ export const FT_ITEMS = [
 { id: "6842ca4b-1a16-4a76-89b5-098cd288ffc7", title: "AI labs test the rigour of credit rating agencies", date: "2026-09-09", time: "19:02", url: "https://www.ft.com/content/6842ca4b-1a16-4a76-89b5-098cd288ffc7" },
 { id: "6b71127f-2ca3-4a6b-a268-91177b6cc981", title: "JPMorgan chief Jamie Dimon meets Andy Burnham amid Budget windfall tax fears", date: "2026-09-09", time: "18:25", url: "https://www.ft.com/content/6b71127f-2ca3-4a6b-a268-91177b6cc981" },
 { id: "e93416e8-c630-4483-8552-6efd7a54ffed", title: "The lessons of LIV Golf's failure", date: "2026-09-09", time: "18:16", url: "https://www.ft.com/content/e93416e8-c630-4483-8552-6efd7a54ffed" },
-{ id: "e00e1d73-c0cb-49e5-99c5-8ca4ce219d93", title: "Windscreen giant Belron explores mega-IPO", date: "2026-09-09", time: "17:19", url: "https://www.ft.com/content/e00e1d73-c0cb-49e5-99c5-8ca4ce219d93" },
-{ id: "b9e0b9b5-3b6e-420e-83da-381b75534635", title: "Tether launches private credit fund in effort to boost stablecoin use", date: "2026-09-09", time: "17:09", url: "https://www.ft.com/content/b9e0b9b5-3b6e-420e-83da-381b75534635" },
-{ id: "dea481e8-d30b-4cbb-b535-5ff219c4e546", title: "New Apple CEO to unveil $2,000 folding iPhone", date: "2026-09-09", time: "16:43", url: "https://www.ft.com/content/dea481e8-d30b-4cbb-b535-5ff219c4e546" },
-{ id: "ad209e95-c5f2-4031-b207-7abaafe75d43", title: "The curse of Jets fandom", date: "2026-09-09", time: "16:09", url: "https://www.ft.com/content/ad209e95-c5f2-4031-b207-7abaafe75d43" },
-{ id: "8be9ce96-3307-43db-b755-c67f3c50be29", title: "France’s Marine Le Pen stays silent on far-right victory in German election", date: "2026-09-09", time: "16:01", url: "https://www.ft.com/content/8be9ce96-3307-43db-b755-c67f3c50be29" },
-{ id: "d0557d25-78b5-45d8-bb33-d655e859d803", title: "US spy chief prepares for greater role in Russia-Ukraine talks", date: "2026-09-09", time: "15:50", url: "https://www.ft.com/content/d0557d25-78b5-45d8-bb33-d655e859d803" },
-{ id: "06c80195-c7b7-4423-a4ef-90056d1864f9", title: "Serbian leader Aleksandar Vučić calls snap elections", date: "2026-09-09", time: "15:41", url: "https://www.ft.com/content/06c80195-c7b7-4423-a4ef-90056d1864f9" },
-{ id: "73c6c2f1-349a-4aeb-9d90-0268e3dcdc65", title: "Police investigate Reform UK over donor sting", date: "2026-09-09", time: "15:10", url: "https://www.ft.com/content/73c6c2f1-349a-4aeb-9d90-0268e3dcdc65" },
 ];
