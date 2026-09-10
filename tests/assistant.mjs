@@ -64,10 +64,17 @@ await pg.waitForTimeout(150);
 await pg.evaluate(() => { const b = document.querySelector(".nav-menu-btn") || document.querySelector('.mtab[data-key="menu"]'); if (b) b.click(); });
 await pg.waitForTimeout(700);
 check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Dialogue/Coverage/Settings"), "Menu shows the Dialogue/Coverage/Settings chips");
-// Dialogue chip (default): Ask ONLY — one input + Ask, no Search, no Add.
-check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !c.querySelector(".na-ask-search") && !!c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is Ask only: one input + Ask, no Search/Add");
+// Dialogue chip (default): a BARE Ask field — one input styled like .tsearch,
+// NO action button (Search/Add/Ask all absent); Enter submits.
+check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !c.querySelector(".na-ask-search") && !c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is a bare Ask field: one input, no buttons");
 check(await pg.evaluate(() => { const i = document.querySelector("#v2-menu-omni .na-ask-in"); return !!i && /ask/i.test(i.placeholder) && !/search/i.test(i.placeholder); }), "Dialogue placeholder is the Ask prompt (no 'Search…')");
 check(await pg.evaluate(() => !document.querySelector("#v2-menu-omni .na-ask-hint")), "no idle explainer text in the Dialogue Ask box");
+// Enter (form submit) still fires an Ask even with no button.
+await pg.route("**/api/ask", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: "Apollo is the biggest.", sources: [] }) }));
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "Biggest manager?"; c.querySelector(".na-ask-form").requestSubmit(); });
+await pg.waitForTimeout(400);
+check(await pg.evaluate(() => (document.querySelector("#v2-menu-omni .na-ask-answer")?.textContent || "").includes("Apollo")), "bare Ask field submits on Enter and renders the answer");
+await pg.unroute("**/api/ask");
 // Coverage chip: Add (C) + Network.
 await pg.evaluate(() => document.querySelector('.v2-menu .na-menu-bar .tchip[data-sec="coverage"]').click());
 await pg.waitForTimeout(300);

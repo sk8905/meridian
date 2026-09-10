@@ -10,7 +10,7 @@
 // The Ask/Add/omnibox UI is the shared assistant module (mountAssistant).
 import { esc, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js?v=v2-2";
-import { mountAssistant } from "/v2/js/assistant.js?v=v2-2";
+import { mountAssistant } from "/v2/js/assistant.js?v=v2-3";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
 
@@ -39,7 +39,7 @@ function applyTheme(pref) {
   try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
   setThemeColorMeta(t);
 }
-// Three chips: Dialogue (Search + Ask), Coverage (Add a firm + Network) and
+// Three chips: Dialogue (Ask), Coverage (Add a firm + Network) and
 // Settings (Notifications + Display + Sign out).
 const SECTIONS = [["dialogue", "Dialogue"], ["coverage", "Coverage"], ["settings", "Settings"]];
 
@@ -173,7 +173,7 @@ export function mount(host, ctx) {
       <div class="na-menu-pane">${paneHTML(sec)}</div>
     </div>`;
     if (sec === "settings") fillMenuAccount();
-    if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, state: askState });
+    if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, bare: true, placeholder: "Ask…", state: askState });
     if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
   };
 

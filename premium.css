@@ -986,15 +986,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-answer p:last-child { margin-bottom: 0; }
 .na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight: 600; }
 .na-ask-answer code { font-size: 11px; padding: 1px 4px; border-radius: 0; background: color-mix(in srgb, var(--ink, #eaf0fb) 10%, transparent); }
-/* The Ask/Add assistant when mounted in the Menu → Dialogue chip (not the header
-   panel): the form must not stick to a panel header, and it sits inside the
-   normal scrolling menu column with a light frame so it reads as one block. The
-   input row takes the lifted ground (var(--lift)) of the .tsearch search fields
-   used elsewhere, so it reads as a distinct field rather than blending into the
-   near-black page. */
-.menu-asst { border: 1px solid var(--border, #262626); }
-.menu-asst .na-ask-form { position: static; top: auto; background: var(--lift, #202020); }
+/* The Ask assistant in the Menu → Dialogue chip is styled to match the .tsearch
+   search field used elsewhere: a single bordered, lifted (var(--lift)) mono field
+   with a muted placeholder and NO action button — the reader types and presses
+   Enter (the field mounts `bare`). Any answer renders as a framed card beneath. */
+.menu-asst { border: 0; }
+.menu-asst .na-ask-form { position: static; top: auto; background: var(--lift, #202020); border: 1px solid var(--border, #262626); }
 .menu-asst .na-ask-out { padding: 0; }
+.menu-asst .na-ask-out:not(:empty) { margin-top: 10px; border: 1px solid var(--border, #262626); }
 .na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
 .na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.4; }

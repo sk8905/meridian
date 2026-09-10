@@ -65,14 +65,15 @@ const strip = await pg.evaluate(() => {
     ok: true,
     shown: getComputedStyle(s).display !== "none" && sr.height > 0,
     aboveBar: sr.bottom <= tr.top + 2 && Math.abs(sr.bottom - tr.top) <= 2,
-    acct: ((document.getElementById("account-nav-bot") || {}).textContent || "").trim().length,
+    acct: ((document.getElementById("account-nav-bot") || {}).textContent || "").trim(),
+    acctLogout: !!(document.querySelector("#account-nav-bot a[href*='logout']")),
     stat: ((document.getElementById("data-status-bot") || {}).textContent || "").trim(),
   };
 });
 check(strip.ok && strip.shown, "bottom meta strip is shown on the Menu tab");
 check(strip.aboveBar, "meta strip sits directly above the bottom tab bar");
-check(strip.acct > 0, "meta strip shows the signed-in identity");
-check(/last refresh/i.test(strip.stat), `meta strip shows the app-wide last refresh ("${strip.stat}")`);
+check(strip.acctLogout && !/Signed in as/i.test(strip.acct), `meta strip shows a Sign out link, not the identity ("${strip.acct}")`);
+check(/^Last:\s*\d{1,2}:\d{2}/.test(strip.stat) && !/refresh/i.test(strip.stat), `meta strip shows the compact "Last: <time>" refresh ("${strip.stat}")`);
 await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/"); dispatchEvent(new PopStateEvent("popstate")); });
 await pg.waitForTimeout(700);
 

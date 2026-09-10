@@ -8,12 +8,14 @@ import { esc } from "/util.js?v=20260818-1";
 // whichever desk loads first sets it and later desks only ever move it forward.
 let _best = -1;
 let _label = "";
+let _time = "";
 
 export function reportRefresh(dateStr, timeStr) {
   const ts = parse(dateStr, timeStr);
   if (ts < 0 || ts <= _best) { render(); return; }   // keep the most recent
   _best = ts;
   _label = fmt(dateStr, timeStr);
+  _time = timeStr || "";
   render();
 }
 
@@ -43,6 +45,10 @@ function render() {
   // it finds in the document, so the ring animates here too — one ticker, one
   // ring geometry, wherever "Last refresh" surfaces.
   const ring = `<span class="ds-ring na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>`;
-  const html = `<span class="ds-text" title="Wire data is refreshed together by the five-times-daily routine (05:00, 09:00, 12:00, 17:00 &amp; 21:00 London).">${ring}<span class="ds-part">Last refresh ${esc(_label)}</span></span>`;
-  document.querySelectorAll("[data-refresh-slot]").forEach((el) => { el.innerHTML = html; });
+  const title = "Wire data is refreshed together by the five-times-daily routine (05:00, 09:00, 12:00, 17:00 &amp; 21:00 London).";
+  const html = `<span class="ds-text" title="${title}">${ring}<span class="ds-part">Last refresh ${esc(_label)}</span></span>`;
+  // The phone bottom-meta strip (Menu tab) is tight — show a compact "Last: <time>"
+  // (time only, no date). The header rail and desktop footer keep the full stamp.
+  const compact = `<span class="ds-text" title="${title}">${ring}<span class="ds-part">Last: ${esc(_time || _label)}</span></span>`;
+  document.querySelectorAll("[data-refresh-slot]").forEach((el) => { el.innerHTML = el.id === "data-status-bot" ? compact : html; });
 }

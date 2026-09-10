@@ -67,11 +67,15 @@ export function renderAsk(body, st, opts) {
     : st.pr ? `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong> and opened a pull request — verify every field before merging.</div><div class="na-ask-srch">Pull request</div><ul class="na-ask-srcs"><li><a class="na-brief-src" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">${esc(st.pr)}</a></li></ul>` + srcList(st.sources)
     : st.answer != null ? `<div class="na-ask-answer">${askFmt(st.answer)}</div>` + srcList(st.sources)
     : "";
-  const placeholder = withSearch ? "Search Wire, or ask a question…" : withAdd && !withAsk ? "Firm to research & add…" : "Ask Wire…";
-  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${placeholder}" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} />`
-    + (withSearch ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
-    + (withAdd ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
-    + (withAsk ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
+  // `bare` renders JUST the field (no action button) styled like the .tsearch
+  // search box — the reader types and presses Enter to submit. `placeholder`
+  // overrides the default prompt.
+  const bare = !!opts.bare;
+  const placeholder = opts.placeholder || (withSearch ? "Search Wire, or ask a question…" : withAdd && !withAsk ? "Firm to research & add…" : "Ask Wire…");
+  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${esc(placeholder)}" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} />`
+    + (withSearch && !bare ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
+    + (withAdd && !bare ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
+    + (withAsk && !bare ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
     + `</form>`
     + `<div class="na-ask-out">${out}</div>`
     + (st.answer != null ? `<div class="na-brief-foot">AI answer from Wire’s data + a live web search — verify anything critical.</div>` : "");
@@ -92,7 +96,7 @@ export function mountAssistant(container, opts) {
   const withAdd = !!opts.add;
   const withSearch = !!opts.search;
   const state = opts.state || {};
-  const draw = () => renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch });
+  const draw = () => renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch, bare: !!opts.bare, placeholder: opts.placeholder });
   const setState = (s) => { for (const k in state) delete state[k]; Object.assign(state, s); draw(); };
   draw();
   if (container._asstBound) return;
