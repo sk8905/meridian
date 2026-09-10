@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bfb9323d-2555-41b6-ba2c-a26335f94f95", title: "Exit Party by Emily St John Mandel — conflicting visions of dystopia", date: "2026-09-10", time: "12:15", url: "https://www.ft.com/content/bfb9323d-2555-41b6-ba2c-a26335f94f95" },
+  { id: "b1141d4b-e2f6-409e-8a74-1ce8d38f7d6a", title: "Israel’s hapless British defenders", date: "2026-09-10", time: "12:05", url: "https://www.ft.com/content/b1141d4b-e2f6-409e-8a74-1ce8d38f7d6a" },
+  { id: "b05629bb-0c2d-419c-a3a2-910a811ac0a9", title: "Big Tech has replaced Big Oil as Public Enemy No 1, says US shale boss", date: "2026-09-10", time: "12:00", url: "https://www.ft.com/content/b05629bb-0c2d-419c-a3a2-910a811ac0a9" },
+  { id: "796f0045-d300-4e22-be82-fa9a111fb634", title: "Is now really the time to worry about a new China shock?", date: "2026-09-10", time: "12:00", url: "https://www.ft.com/content/796f0045-d300-4e22-be82-fa9a111fb634" },
+  { id: "360dfa5f-1ed8-441e-b926-486af101be17", title: "Foreign Office to appoint first female head after Mandelson turmoil", date: "2026-09-10", time: "11:58", url: "https://www.ft.com/content/360dfa5f-1ed8-441e-b926-486af101be17" },
+  { id: "718a525e-d6d8-4944-b149-95c57212c168", title: "UK banks don’t have a windfall to tax", date: "2026-09-10", time: "11:37", url: "https://www.ft.com/content/718a525e-d6d8-4944-b149-95c57212c168" },
+  { id: "a4b8c8ac-56cf-4f6e-9050-4292f37252ad", title: "Ryanair investors revolt over Michael O’Leary’s €150mn pay deal", date: "2026-09-10", time: "11:19", url: "https://www.ft.com/content/a4b8c8ac-56cf-4f6e-9050-4292f37252ad" },
+  { id: "25e31948-c429-4c46-8465-72220b7e2e53", title: "New AI health tools need ‘L-plates’, says UK review", date: "2026-09-10", time: "11:15", url: "https://www.ft.com/content/25e31948-c429-4c46-8465-72220b7e2e53" },
   { id: "63e733d1-2c0f-46c5-ae6b-de1a72d4e9df", title: "HSBC finance chief Pam Kaur to step down by 2027", date: "2026-09-10", time: "11:04", url: "https://www.ft.com/content/63e733d1-2c0f-46c5-ae6b-de1a72d4e9df" },
   { id: "a2aaa848-92c3-4f7a-b758-5858bfb29e70", title: "Latham & Watkins buys Nvidia servers to set up in-house AI systems", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/a2aaa848-92c3-4f7a-b758-5858bfb29e70" },
   { id: "362b3139-b0de-42f1-83db-67d4572a66ce", title: "On Europe’s economy, let’s ditch the lazy stereotypes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/362b3139-b0de-42f1-83db-67d4572a66ce" },
@@ -27,6 +35,7 @@ export const FT_ITEMS = [
   { id: "8a0bc64f-44c7-4811-8e68-fb17c0a6ae28", title: "Donald Trump’s US coal revival push fails to reverse fuel’s long decline", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/8a0bc64f-44c7-4811-8e68-fb17c0a6ae28" },
   { id: "3382efba-83fe-41b2-aaab-c3c50d5f7df4", title: "Franklin Templeton turns the tide as Western Asset crisis recedes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/3382efba-83fe-41b2-aaab-c3c50d5f7df4" },
   { id: "890dc1c8-f5f1-46d2-a4fa-1a9df3667f37", title: "Hard left holds key to Germany’s first far-right state premiership", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/890dc1c8-f5f1-46d2-a4fa-1a9df3667f37" },
+  { id: "f5f7fde0-9623-4aca-b5df-31c6cab830bb", title: "Rose Chalalai Singh’s dinner with the dervishes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/f5f7fde0-9623-4aca-b5df-31c6cab830bb" },
   { id: "083a9c4b-3913-496d-be13-22c96053624b", title: "ECB rate decision live: central bank expected to raise borrowing costs to fight inflation shock", date: "2026-09-10", time: "10:58", url: "https://www.ft.com/content/083a9c4b-3913-496d-be13-22c96053624b" },
   { id: "58e9a70f-29c2-4f44-8531-00fc399ebbe0", title: "Prediction markets ‘rife with insider trading’, warns EU watchdog", date: "2026-09-10", time: "10:00", url: "https://www.ft.com/content/58e9a70f-29c2-4f44-8531-00fc399ebbe0" },
   { id: "59baaebd-ba30-4e75-bbf9-a9a46459816f", title: "England’s mayors to be allowed to introduce unlimited tourism tax", date: "2026-09-10", time: "09:54", url: "https://www.ft.com/content/59baaebd-ba30-4e75-bbf9-a9a46459816f" },
@@ -51,13 +60,4 @@ export const FT_ITEMS = [
   { id: "bc8781ba-f785-481f-b84d-966067d1b98f", title: "Linklaters poaches top lawyer in latest Wachtell raid", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/bc8781ba-f785-481f-b84d-966067d1b98f" },
   { id: "4c61ab58-e410-4f7f-b314-83b66deb3c84", title: "Oil shock revives interest in clean hydrogen", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/4c61ab58-e410-4f7f-b314-83b66deb3c84" },
   { id: "4ba62ec5-8f81-4c39-a2f7-be9408844079", title: "Numbers returned to prison after release at ‘crisis’ levels, UK probation watchdog warns", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/4ba62ec5-8f81-4c39-a2f7-be9408844079" },
-  { id: "da5e731b-3f93-45f2-a566-1d9db0e1aa5f", title: "How Ukraine’s anti-graft bureau became a ‘Sword of Damocles’", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/da5e731b-3f93-45f2-a566-1d9db0e1aa5f" },
-  { id: "8acfb405-b58c-40db-b879-7dc03efe0595", title: "Fans, franchises and the big four: how private capital is targeting elite sport", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/8acfb405-b58c-40db-b879-7dc03efe0595" },
-  { id: "75b94026-82a1-449a-acf2-f04dcec55d81", title: "Milei’s great free trade experiment", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/75b94026-82a1-449a-acf2-f04dcec55d81" },
-  { id: "efa63c8b-bd31-4c32-afab-00096281e692", title: "EU social media ban to test fragile truce with Donald Trump", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/efa63c8b-bd31-4c32-afab-00096281e692" },
-  { id: "031b8b28-8a95-499f-b3f4-216d3b3b70df", title: "The Dorchester hotel to sell Qatari sheikh’s car over unpaid £460,000 bill", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/031b8b28-8a95-499f-b3f4-216d3b3b70df" },
-{ id: "5f8a49b5-cded-4c6c-ba26-e33213b40ee2", title: "Hunter Biden’s $LAPTOP memecoin crashes shortly after launch", date: "2026-09-09", time: "21:06", url: "https://www.ft.com/content/5f8a49b5-cded-4c6c-ba26-e33213b40ee2" },
-{ id: "6842ca4b-1a16-4a76-89b5-098cd288ffc7", title: "AI labs test the rigour of credit rating agencies", date: "2026-09-09", time: "19:02", url: "https://www.ft.com/content/6842ca4b-1a16-4a76-89b5-098cd288ffc7" },
-{ id: "6b71127f-2ca3-4a6b-a268-91177b6cc981", title: "JPMorgan chief Jamie Dimon meets Andy Burnham amid Budget windfall tax fears", date: "2026-09-09", time: "18:25", url: "https://www.ft.com/content/6b71127f-2ca3-4a6b-a268-91177b6cc981" },
-{ id: "e93416e8-c630-4483-8552-6efd7a54ffed", title: "The lessons of LIV Golf's failure", date: "2026-09-09", time: "18:16", url: "https://www.ft.com/content/e93416e8-c630-4483-8552-6efd7a54ffed" },
 ];
