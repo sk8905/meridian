@@ -249,6 +249,21 @@ await ctx.close();
   const topics = await p2.evaluate(() => [...document.querySelectorAll("#v2-menu-omni .na-sugg")].map((s) => s.textContent.trim()));
   check(topics.includes("Fed"), `topics are derived from today's headlines — Fed present (${topics.join(", ")})`);
   check(topics.includes("Oil") || topics.includes("Inflation"), `a second real topic present (${topics.join(", ")})`);
+  // The three suggestions sit SIDE BY SIDE in one row (equal offsetTop).
+  const tops = await p2.evaluate(() => [...document.querySelectorAll("#v2-menu-omni .na-sugg")].map((s) => Math.round(s.getBoundingClientRect().top)));
+  check(tops.length === 3 && tops.every((t) => t === tops[0]), `the 3 topics sit side by side in a row (tops ${tops.join(",")})`);
+  // Clear-text ✕: typing shows it; tapping it empties the field.
+  const clr = await p2.evaluate(() => {
+    const i = document.querySelector("#v2-menu-omni .na-ask-in"), c = document.querySelector("#v2-menu-omni .na-ask-clr");
+    const before = c.hidden;
+    i.value = "some text"; i.dispatchEvent(new Event("input", { bubbles: true }));
+    const shown = !c.hidden;
+    c.click();
+    return { present: !!c, hiddenWhenEmpty: before, shownWithText: shown, clearedVal: i.value, hiddenAfter: c.hidden };
+  });
+  check(clr.present && clr.hiddenWhenEmpty, "clear ✕ is hidden when the field is empty");
+  check(clr.shownWithText, "clear ✕ appears once the field has text");
+  check(clr.clearedVal === "" && clr.hiddenAfter, "tapping the clear ✕ empties the field and hides itself");
   // Tapping a topic seeds its question and starts the chat.
   let asked = null;
   await p2.route("**/api/ask", (route) => { try { asked = JSON.parse(route.request().postData() || "{}"); } catch {} route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: "On the Fed…", sources: [] }) }); });

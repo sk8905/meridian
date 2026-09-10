@@ -161,6 +161,7 @@ export function renderAsk(body, st, opts) {
   const placeholder = hasChat ? "Ask a follow-up…" : basePlaceholder;
   const inputVal = isChat ? "" : esc(st.q || "");
   const formHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${esc(placeholder)}" value="${inputVal}"${st.loading ? " disabled" : ""} />`
+    + `<button type="button" class="na-ask-clr" tabindex="-1" aria-label="Clear"${inputVal ? "" : " hidden"}>✕</button>`
     + (withSearch && !bare ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
     + (withAdd && !bare ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
     + (withAsk && !bare ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
@@ -267,7 +268,11 @@ export function mountAssistant(container, opts) {
     e.preventDefault(); e.stopPropagation();
     if (withAsk) runAsk(); else if (withAdd) runAdd();
   });
+  // Clear-text ✕: show it while the field has text, hide it (and clear) on tap.
+  const syncClr = () => { const i = container.querySelector(".na-ask-in"), c = container.querySelector(".na-ask-clr"); if (c) c.hidden = !(i && i.value); };
+  container.addEventListener("input", (e) => { if (e.target.closest(".na-ask-in")) syncClr(); });
   container.addEventListener("click", (e) => {
+    if (e.target.closest(".na-ask-clr")) { e.preventDefault(); e.stopPropagation(); const i = container.querySelector(".na-ask-in"); if (i) { i.value = ""; i.focus(); } syncClr(); return; }
     // A new-chat topic suggestion → seed the input with its question and ask.
     const sugg = e.target.closest(".na-sugg");
     if (isChat && sugg) { e.preventDefault(); e.stopPropagation(); const i = container.querySelector(".na-ask-in"); if (i) i.value = sugg.dataset.ask || sugg.textContent || ""; runAsk(); return; }
