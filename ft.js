@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "083a9c4b-3913-496d-be13-22c96053624b", title: "Markets live: US Treasury yields rise to session highs after Scott Bessent’s buyback operation undershoots target", date: "2026-09-10", time: "19:49", url: "https://www.ft.com/content/083a9c4b-3913-496d-be13-22c96053624b" },
+  { id: "a79892a3-c6c2-4c0b-8c3a-a37e9a32cf4f", title: "How would Donald Trump’s $5,000 voting payout work?", date: "2026-09-10", time: "19:26", url: "https://www.ft.com/content/a79892a3-c6c2-4c0b-8c3a-a37e9a32cf4f" },
   { id: "92a1f269-2832-4bcd-aad6-629fd86dda0f", title: "Burnham urged not to snub Commonwealth summit amid reparations demands", date: "2026-09-10", time: "18:47", url: "https://www.ft.com/content/92a1f269-2832-4bcd-aad6-629fd86dda0f" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-09-10", time: "18:31", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
   { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-09-10", time: "18:28", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
