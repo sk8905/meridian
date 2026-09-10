@@ -84,13 +84,16 @@ async function menuState(pg) {
   await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="dialogue"]').click());
   await pg.waitForTimeout(200);
   checkEq(await stripDisplay(), "none", "back on Chat: the bottom strip hides again");
-  // The chip bar is locked (sticky) so it does not scroll away.
+  // The chip bar is locked at the top so it never scrolls away — either sticky
+  // (Coverage/Settings) or a flex item in the docked Chat's fixed column.
   const chipbar = await pg.evaluate(() => {
     const el = document.querySelector('.v2-view[data-view="menu"] .na-menu-bar');
-    if (!el) return null; const cs = getComputedStyle(el); return { pos: cs.position, top: cs.top };
+    const view = document.querySelector('.v2-view[data-view="menu"]');
+    if (!el) return null; const cs = getComputedStyle(el); const r = el.getBoundingClientRect();
+    return { pos: cs.position, top: Math.round(r.top), viewPos: getComputedStyle(view).position };
   });
-  check(chipbar && chipbar.pos === "sticky", `direct /v2/menu/: the chip bar is locked (position: sticky, got ${chipbar && chipbar.pos})`);
-  check(chipbar && parseFloat(chipbar.top) > 0, `direct /v2/menu/: the chip bar pins below the header on phone (top ${chipbar && chipbar.top})`);
+  check(chipbar && (chipbar.pos === "sticky" || chipbar.viewPos === "fixed"), `direct /v2/menu/: the chip bar is locked (sticky or in the docked fixed view; chip ${chipbar && chipbar.pos}, view ${chipbar && chipbar.viewPos})`);
+  check(chipbar && chipbar.top >= 40 && chipbar.top <= 80, `direct /v2/menu/: the chip bar pins below the header on phone (top ${chipbar && chipbar.top})`);
   checkErrs(errs, "direct menu");
   await ctx.close();
 }

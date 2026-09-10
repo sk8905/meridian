@@ -999,6 +999,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-chat-top { display: flex; justify-content: flex-end; padding: 6px 12px 0; }
 .na-chat-clear { border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; padding: 0; }
 .na-chat-clear:hover { color: var(--muted, #8592ad); }
+/* New-chat EMPTY STATE: a centred accent spark + three one-word news topics as
+   tappable pills — tapping one starts the chat on that topic. */
+.na-chat-empty { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 44px 16px; text-align: center; }
+.na-sugg-mark { color: var(--accent, #fb8b1e); flex: 0 0 auto; }
+.na-suggs { display: flex; flex-direction: column; align-items: center; gap: 9px; width: 100%; max-width: 260px; }
+.na-sugg { width: 100%; border: 1px solid var(--border, #262626); background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; letter-spacing: .02em; padding: 9px 16px; border-radius: 999px; cursor: pointer; }
+.na-sugg:hover { border-color: var(--accent, #fb8b1e); color: var(--accent, #fb8b1e); }
 /* The Ask assistant in the Menu → Dialogue chip is rendered to look EXACTLY like
    the shared search band (bandHTML → .tpanel-h.thead-search with a .tsearch
    field): a full-width band on the --head ground with an 8px 12px gutter and a
@@ -1030,6 +1037,8 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   .menu-asst.is-docked { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
   .menu-asst.is-docked .na-chat { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; scrollbar-width: none; }
   .menu-asst.is-docked .na-chat::-webkit-scrollbar { width: 0; height: 0; display: none; }
+  /* Empty state fills the middle and centres the spark + suggestions vertically. */
+  .menu-asst.is-docked .na-chat-empty { flex: 1 1 auto; min-height: 0; justify-content: center; }
   .menu-asst.is-docked .na-chat > .na-chat-top { margin-top: auto; }   /* bottom-anchor a short thread */
   .menu-asst.is-docked .na-ask-form { flex: 0 0 auto; border-top: 1px solid var(--border, #262626); border-bottom: 0; }
   /* While typing (input focused → html.chat-kbd): hide the bottom tab bar and end

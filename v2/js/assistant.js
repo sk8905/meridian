@@ -31,6 +31,58 @@ export async function buildAskContext() {
   return _askCtx;
 }
 
+// ---- New-chat suggestions: 3 one-word topics from today's most important news --
+// Derived from the SAME live wire the Home feed reads (/api/feed) — never invented:
+// each topic is a one-word label whose keyword actually appears in today's
+// headlines, ranked by how many of the day's stories mention it. Padded with
+// Wire's evergreen desks only if the day is thin, so there are always three.
+const TOPIC_MAP = [
+  { re: /\b(fed|fomc|powell|jerome powell)\b/i, label: "Fed" },
+  { re: /\b(ecb|lagarde)\b/i, label: "ECB" },
+  { re: /\b(boe|bank of england|gilts?)\b/i, label: "Gilts" },
+  { re: /\b(inflation|\bcpi\b|\bpce\b)\b/i, label: "Inflation" },
+  { re: /\b(treasur\w+|yields?|rate (cut|hike|hold|rise|decision|path))\b/i, label: "Rates" },
+  { re: /\b(tariffs?|trade war)\b/i, label: "Tariffs" },
+  { re: /\b(oil|crude|brent|\bopec\b)\b/i, label: "Oil" },
+  { re: /\b(gold|bullion)\b/i, label: "Gold" },
+  { re: /\b(dollar|\bdxy\b|greenback)\b/i, label: "Dollar" },
+  { re: /\b(crypto|bitcoin|ether\w*)\b/i, label: "Crypto" },
+  { re: /\b(earnings|profit warning|guidance|results)\b/i, label: "Earnings" },
+  { re: /\b(merger|acquisition|takeover|\bm&a\b|buyout)\b/i, label: "Deals" },
+  { re: /\b(ipos?|listing|float)\b/i, label: "IPOs" },
+  { re: /\b(clos?|collateral\w*[- ]loan)\b/i, label: "CLOs" },
+  { re: /\b(default|distress\w*|restructur\w+|bankrupt\w+|chapter 11)\b/i, label: "Distress" },
+  { re: /\b(private credit|direct lending|\bbdc\b)\b/i, label: "Credit" },
+  { re: /\b(downgrade|upgrade|rating)\b/i, label: "Ratings" },
+  { re: /\b(recession|slowdown|contraction)\b/i, label: "Recession" },
+  { re: /\b(jobs?|payrolls?|unemploy\w+|labou?r market)\b/i, label: "Jobs" },
+  { re: /\b(stocks?|equit\w+|shares?|s&p|nasdaq|dow|ftse)\b/i, label: "Equities" },
+  { re: /\b(china|beijing|pboc)\b/i, label: "China" },
+];
+const DEFAULT_TOPICS = ["Markets", "Rates", "Credit"];
+let _topics = null;
+export async function newsTopics() {
+  if (_topics) return _topics;
+  let titles = [];
+  try {
+    const r = await fetch("/api/feed", { headers: { accept: "application/json" } });
+    const d = await r.json();
+    titles = ((d && d.items) || []).map((x) => (x && x.title) || "");
+  } catch { titles = []; }
+  const tally = new Map();
+  for (const t of titles) for (const { re, label } of TOPIC_MAP) if (re.test(t)) tally.set(label, (tally.get(label) || 0) + 1);
+  const top = [...tally.entries()].sort((a, b) => b[1] - a[1]).map(([l]) => l);
+  for (const d of DEFAULT_TOPICS) if (top.length < 3 && !top.includes(d)) top.push(d);
+  _topics = top.slice(0, 3);
+  return _topics;
+}
+const topicQuestion = (t) => `What's the most important ${t} news today?`;
+// A small accent "spark" mark for the new-chat empty state (12 rays, drawn so the
+// source stays clean).
+const SPARK = `<svg class="na-sugg-mark" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><g stroke="currentColor" stroke-width="2.2" stroke-linecap="round">`
+  + Array.from({ length: 12 }, (_, i) => { const a = (i * 30) * Math.PI / 180, x1 = 20 + 6 * Math.cos(a), y1 = 20 + 6 * Math.sin(a), x2 = 20 + 17 * Math.cos(a), y2 = 20 + 17 * Math.sin(a); return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`; }).join("")
+  + `</g></svg>`;
+
 // The model may return light markdown (**bold**, *italic*, `code`, [t](url),
 // paragraph/line breaks). Escape FIRST, then apply a tiny safe subset on the
 // already-escaped string so nothing user/model-supplied can inject markup.
@@ -71,12 +123,20 @@ export function renderAsk(body, st, opts) {
 
   const turns = Array.isArray(st.turns) ? st.turns : [];
   const hasChat = isChat && turns.length > 0;
-  // On a PHONE, an active menu chat (the `bare` full-screen surface) DOCKS its
-  // input to the bottom of the screen and shows the transcript oldest-first above
-  // it — the familiar messaging layout. Elsewhere (empty state, desktop, the
-  // header panel) the input stays at the top with a newest-first transcript.
+  // The menu Chat (`bare`) has a new-chat EMPTY STATE: a centred spark + three
+  // one-word topic suggestions from today's news. Tapping one starts the chat.
+  const showEmpty = isChat && bare && !hasChat;
+  const emptyHTML = showEmpty
+    ? `<div class="na-chat-empty">${SPARK}<div class="na-suggs">`
+      + (_topics || DEFAULT_TOPICS).map((t) => `<button type="button" class="na-sugg" data-ask="${esc(topicQuestion(t))}">${esc(t)}</button>`).join("")
+      + `</div></div>`
+    : "";
+  // On a PHONE the menu Chat (`bare`) is DOCKED: the whole view is a fixed column
+  // with the input at the bottom — the new-chat empty state centres above it, and
+  // once a chat starts the transcript (oldest→newest) fills the space, messaging
+  // style. Desktop and the header panel keep the input on top.
   const onPhone = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
-  const dock = bare && hasChat && onPhone;
+  const dock = bare && onPhone;
   if (body.classList) body.classList.toggle("is-docked", dock);
   const answered = turns.some((t) => t.a != null);
   const turnHTML = (t) => `<div class="na-chat-turn">`
@@ -113,11 +173,12 @@ export function renderAsk(body, st, opts) {
       + (answered ? `<div class="na-brief-foot">AI answers from Wire’s data + a live web search — verify anything critical.</div>` : "")
       + `</div>`
     : "";
-  // Docked (phone, active chat): transcript first, input LAST — a fixed flex
-  // column (CSS) puts the input at the bottom above the keyboard. Otherwise the
-  // input stays on top.
+  // The middle is the transcript (active chat) or the new-chat empty state.
+  const middle = hasChat ? chatHTML : emptyHTML;
+  // Docked (phone menu Chat): middle first, input LAST — a fixed flex column (CSS)
+  // puts the input at the bottom. Otherwise the input stays on top.
   body.innerHTML = isChat
-    ? (dock ? chatHTML + formHTML : formHTML + chatHTML)
+    ? (dock ? middle + formHTML : formHTML + middle)
     : formHTML + `<div class="na-ask-out">${addOut}</div>`;
 }
 
@@ -145,6 +206,9 @@ export function mountAssistant(container, opts) {
   const drawScroll = () => { draw(); if (container.classList.contains("is-docked")) requestAnimationFrame(() => { const sc = container.querySelector(".na-chat"); if (sc) sc.scrollTop = sc.scrollHeight; }); };
   const setState = (s) => { for (const k in state) delete state[k]; Object.assign(state, s); draw(); };
   draw();
+  // The menu Chat empty state shows three news-topic suggestions — load them once
+  // (from /api/feed) and redraw so real topics replace the evergreen placeholders.
+  if (isChat && !!opts.bare && !(state.turns && state.turns.length)) newsTopics().then(() => { if (!(state.turns && state.turns.length)) draw(); }).catch(() => {});
   if (container._asstBound) return;
   container._asstBound = true;
 
@@ -204,6 +268,9 @@ export function mountAssistant(container, opts) {
     if (withAsk) runAsk(); else if (withAdd) runAdd();
   });
   container.addEventListener("click", (e) => {
+    // A new-chat topic suggestion → seed the input with its question and ask.
+    const sugg = e.target.closest(".na-sugg");
+    if (isChat && sugg) { e.preventDefault(); e.stopPropagation(); const i = container.querySelector(".na-ask-in"); if (i) i.value = sugg.dataset.ask || sugg.textContent || ""; runAsk(); return; }
     if (withSearch && e.target.closest(".na-ask-search")) { e.preventDefault(); e.stopPropagation(); runSearch(); return; }
     if (withAdd && e.target.closest(".na-ask-add")) { e.preventDefault(); e.stopPropagation(); runAdd(); return; }
     // "New chat": drop the transcript and start fresh.

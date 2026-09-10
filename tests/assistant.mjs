@@ -167,10 +167,20 @@ await ctx.close();
 {
   const { ctx: pc, pg: pp, errs: pe } = await open(b, PHONE, base + "/v2/menu/");
   await pp.waitForSelector("#v2-menu-omni .na-ask-in", { timeout: 8000 });
-  // Empty state: the chat container is NOT docked (input sits at the top like the
-  // search band).
-  const emptyPos = await pp.evaluate(() => getComputedStyle(document.querySelector("#v2-menu-omni")).position);
-  check(emptyPos !== "fixed", `empty chat: the chat is not docked (container position ${emptyPos})`);
+  // New-chat empty state: the docked view shows a spark + three ONE-WORD news
+  // topics, with the input already at the bottom.
+  const empty = await pp.evaluate(() => {
+    const c = document.querySelector("#v2-menu-omni");
+    const view = document.querySelector('.v2-view[data-view="menu"]');
+    return {
+      viewFixed: getComputedStyle(view).position === "fixed",
+      mark: !!c.querySelector(".na-sugg-mark"),
+      suggs: [...c.querySelectorAll(".na-sugg")].map((s) => s.textContent.trim()),
+    };
+  });
+  check(empty.viewFixed, "empty chat: the menu view is docked (input already at the bottom)");
+  check(empty.mark && empty.suggs.length === 3, `empty chat shows a spark + 3 topic suggestions (${empty.suggs.join(", ")})`);
+  check(empty.suggs.every((s) => /^\S+$/.test(s)), `each suggested topic is one word (${empty.suggs.join(", ")})`);
   await pp.route("**/api/ask", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: "Answer text.", sources: [{ url: "https://example.com/", title: "Src" }] }) }));
   await pp.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "First?"; c.querySelector(".na-ask-form").requestSubmit(); });
   await pp.waitForTimeout(400);
@@ -218,6 +228,35 @@ await ctx.close();
   await pp.unroute("**/api/ask");
   checkErrs(pe, "docked phone chat");
   await pc.close();
+}
+
+// ---- Topic suggestions are DERIVED from today's headlines; tapping one asks ----
+{
+  const ctx2 = await b.newContext(PHONE);
+  const p2 = await ctx2.newPage();
+  // A day whose headlines are about the Fed, inflation and oil.
+  await p2.route("**/api/feed", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ items: [
+    { title: "Fed holds rates as Powell signals caution", source: "FT", date: "2026-07-19", time: "12:00" },
+    { title: "Fed minutes show a split on the next cut", source: "Reuters", date: "2026-07-19", time: "11:00" },
+    { title: "Inflation cools but core CPI stays sticky", source: "Bloomberg", date: "2026-07-19", time: "10:00" },
+    { title: "Oil jumps as OPEC weighs supply cuts", source: "Reuters", date: "2026-07-19", time: "09:00" },
+    { title: "Brent crude climbs on Middle East risk", source: "FT", date: "2026-07-19", time: "08:00" },
+    { title: "Powell testimony in focus for markets", source: "WSJ", date: "2026-07-19", time: "07:00" },
+  ] }) }));
+  await p2.goto(base + "/v2/menu/", { waitUntil: "load" });
+  await p2.waitForSelector("#v2-menu-omni .na-sugg", { timeout: 8000 });
+  await p2.waitForTimeout(400);
+  const topics = await p2.evaluate(() => [...document.querySelectorAll("#v2-menu-omni .na-sugg")].map((s) => s.textContent.trim()));
+  check(topics.includes("Fed"), `topics are derived from today's headlines — Fed present (${topics.join(", ")})`);
+  check(topics.includes("Oil") || topics.includes("Inflation"), `a second real topic present (${topics.join(", ")})`);
+  // Tapping a topic seeds its question and starts the chat.
+  let asked = null;
+  await p2.route("**/api/ask", (route) => { try { asked = JSON.parse(route.request().postData() || "{}"); } catch {} route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: "On the Fed…", sources: [] }) }); });
+  await p2.evaluate(() => [...document.querySelectorAll("#v2-menu-omni .na-sugg")].find((s) => s.textContent.trim() === "Fed").click());
+  await p2.waitForTimeout(400);
+  check(asked && /Fed/i.test(asked.question || ""), `tapping 'Fed' asks about it (${asked && asked.question})`);
+  check(await p2.evaluate(() => document.querySelectorAll("#v2-menu-omni .na-chat-turn").length === 1 && !document.querySelector("#v2-menu-omni .na-chat-empty")), "tapping a topic starts the chat (empty state replaced by the transcript)");
+  await ctx2.close();
 }
 
 await b.close(); srv.close();
