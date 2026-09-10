@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "683a6973-ad54-42e1-8b53-f0e294d15022", title: "Saudi Arabia cuts oil output to lowest this year on Houthi threats", date: "2026-09-10", time: "13:06", url: "https://www.ft.com/content/683a6973-ad54-42e1-8b53-f0e294d15022" },
+  { id: "bb42e8fa-aa7e-4410-9f7b-42cd6115d8fb", title: "How to teach the next generation in the era of AI", date: "2026-09-10", time: "13:00", url: "https://www.ft.com/content/bb42e8fa-aa7e-4410-9f7b-42cd6115d8fb" },
+  { id: "bfb9323d-2555-41b6-ba2c-a26335f94f95", title: "Exit Party by Emily St John Mandel — all-too-plausible visions of dystopia", date: "2026-09-10", time: "12:15", url: "https://www.ft.com/content/bfb9323d-2555-41b6-ba2c-a26335f94f95" },
   { id: "b1141d4b-e2f6-409e-8a74-1ce8d38f7d6a", title: "Israel’s hapless British defenders", date: "2026-09-10", time: "12:05", url: "https://www.ft.com/content/b1141d4b-e2f6-409e-8a74-1ce8d38f7d6a" },
   { id: "b05629bb-0c2d-419c-a3a2-910a811ac0a9", title: "Big Tech has replaced Big Oil as Public Enemy No 1, says US shale boss", date: "2026-09-10", time: "12:00", url: "https://www.ft.com/content/b05629bb-0c2d-419c-a3a2-910a811ac0a9" },
   { id: "796f0045-d300-4e22-be82-fa9a111fb634", title: "Is now really the time to worry about a new China shock?", date: "2026-09-10", time: "12:00", url: "https://www.ft.com/content/796f0045-d300-4e22-be82-fa9a111fb634" },
@@ -28,6 +31,7 @@ export const FT_ITEMS = [
   { id: "a4b8c8ac-56cf-4f6e-9050-4292f37252ad", title: "Ryanair investors revolt over Michael O’Leary’s €150mn pay deal", date: "2026-09-10", time: "11:19", url: "https://www.ft.com/content/a4b8c8ac-56cf-4f6e-9050-4292f37252ad" },
   { id: "25e31948-c429-4c46-8465-72220b7e2e53", title: "New AI health tools need ‘L-plates’, says UK review", date: "2026-09-10", time: "11:15", url: "https://www.ft.com/content/25e31948-c429-4c46-8465-72220b7e2e53" },
   { id: "63e733d1-2c0f-46c5-ae6b-de1a72d4e9df", title: "HSBC finance chief Pam Kaur to step down by 2027", date: "2026-09-10", time: "11:04", url: "https://www.ft.com/content/63e733d1-2c0f-46c5-ae6b-de1a72d4e9df" },
+  { id: "f5f7fde0-9623-4aca-b5df-31c6cab830bb", title: "Rose Chalalai Singh’s dinner with the dervishes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/f5f7fde0-9623-4aca-b5df-31c6cab830bb" },
   { id: "a2aaa848-92c3-4f7a-b758-5858bfb29e70", title: "Latham & Watkins buys Nvidia servers to set up in-house AI systems", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/a2aaa848-92c3-4f7a-b758-5858bfb29e70" },
   { id: "362b3139-b0de-42f1-83db-67d4572a66ce", title: "On Europe’s economy, let’s ditch the lazy stereotypes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/362b3139-b0de-42f1-83db-67d4572a66ce" },
   { id: "735fbed6-850f-4bd3-a0f6-ae762c2680be", title: "The capital wars are coming", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/735fbed6-850f-4bd3-a0f6-ae762c2680be" },
@@ -56,6 +60,4 @@ export const FT_ITEMS = [
   { id: "a62199d1-9388-4735-a4f0-db519c84eb79", title: "London credit investor Arini hit by Europe’s thorniest credit trades", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/a62199d1-9388-4735-a4f0-db519c84eb79" },
   { id: "98329c45-f5b7-4885-9911-e0c8a9c83c0a", title: "IMF ditched top candidate for chief economist job over Trump tariff remarks", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/98329c45-f5b7-4885-9911-e0c8a9c83c0a" },
   { id: "bc8781ba-f785-481f-b84d-966067d1b98f", title: "Linklaters poaches top lawyer in latest Wachtell raid", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/bc8781ba-f785-481f-b84d-966067d1b98f" },
-  { id: "4c61ab58-e410-4f7f-b314-83b66deb3c84", title: "Oil shock revives interest in clean hydrogen", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/4c61ab58-e410-4f7f-b314-83b66deb3c84" },
-  { id: "4ba62ec5-8f81-4c39-a2f7-be9408844079", title: "Numbers returned to prison after release at ‘crisis’ levels, UK probation watchdog warns", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/4ba62ec5-8f81-4c39-a2f7-be9408844079" },
 ];
