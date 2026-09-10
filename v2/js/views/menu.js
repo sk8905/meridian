@@ -141,9 +141,11 @@ export function mount(host, ctx) {
   // (Coverage) are separate surfaces, so they keep separate state.
   const askState = {};
   const addState = {};
-  // Sign out lives only in the phone bottom strip (see chrome.js) — the Settings
-  // chip no longer carries its own Account row.
+  // Sign out + last-refresh live in the phone bottom strip (built in chrome.js),
+  // and that strip is shown ONLY on the Settings chip. We surface the active chip
+  // as data-menu-sec on <html> so the strip's CSS can gate on it (see app.css).
   const render = () => {
+    document.documentElement.setAttribute("data-menu-sec", sec);
     // A plain, always-visible full-width column — NOT the .na-panel dropdown,
     // which is a fixed pop-over sized for a corner and rendered the menu
     // invisible/mis-sized on phones. The inner .na-menu-* rows are self-styled.
@@ -195,5 +197,10 @@ export function mount(host, ctx) {
     if (netrow) { e.preventDefault(); ctx.navigate("/v2/profiles/" + netrow.dataset.netRoute); return; }
   });
 
-  return { enter() { render(); }, leave() {} };
+  return {
+    enter() { render(); },
+    // Drop the menu-section signal so the bottom strip can't linger on other tabs
+    // (its CSS also gates on data-v2tab="menu", but keep the root attribute tidy).
+    leave() { document.documentElement.removeAttribute("data-menu-sec"); },
+  };
 }

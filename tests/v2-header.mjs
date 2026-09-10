@@ -48,14 +48,18 @@ check(brief.lbl === "rgb(251, 139, 30)", `brief 'Top story' kicker is Wire orang
 check(brief.gl.length > 0 && brief.gl.every((c) => c === "rgb(251, 139, 30)"), `Markets / Rates & spreads kickers are Wire orange too (${brief.gl.join(", ")})`);
 check(brief.link !== "rgb(251, 139, 30)", `brief story text is NOT orange (${brief.link})`);
 
-// Bottom meta strip (phone): the signed-in identity + the app-wide last refresh,
-// pinned DIRECTLY above the bottom tab bar. It shows ONLY on the Menu tab now —
-// navigate there, assert it, then return to Home for the checks below. It must
-// be HIDDEN on the content desks.
+// Bottom meta strip (phone): the Sign out action + the app-wide last refresh,
+// pinned DIRECTLY above the bottom tab bar. It shows ONLY on the Menu tab's
+// SETTINGS chip now — navigate there, switch to Settings, assert it, then return
+// to Home. It must be HIDDEN on the content desks AND on the Menu's Chat chip.
 const stripHiddenOnHome = await pg.evaluate(() => { const s = document.querySelector(".v2-botmeta"); return !!s && getComputedStyle(s).display === "none"; });
 check(stripHiddenOnHome, "bottom meta strip is hidden on Home (content desks stay uncluttered)");
 await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/menu/"); dispatchEvent(new PopStateEvent("popstate")); });
 await pg.waitForTimeout(700);
+check(await pg.evaluate(() => { const s = document.querySelector(".v2-botmeta"); return !!s && getComputedStyle(s).display === "none"; }),
+  "bottom meta strip is hidden on the Menu's Chat chip");
+await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="settings"]').click());
+await pg.waitForTimeout(250);
 const strip = await pg.evaluate(() => {
   const s = document.querySelector(".v2-botmeta");
   const t = document.querySelector(".mobile-tabbar");
@@ -70,7 +74,7 @@ const strip = await pg.evaluate(() => {
     stat: ((document.getElementById("data-status-bot") || {}).textContent || "").trim(),
   };
 });
-check(strip.ok && strip.shown, "bottom meta strip is shown on the Menu tab");
+check(strip.ok && strip.shown, "bottom meta strip is shown on the Menu's Settings chip");
 check(strip.aboveBar, "meta strip sits directly above the bottom tab bar");
 check(strip.acctLogout && !/Signed in as/i.test(strip.acct), `meta strip shows a Sign out link, not the identity ("${strip.acct}")`);
 check(/^Last:\s*\d{1,2}:\d{2}/.test(strip.stat) && !/refresh/i.test(strip.stat), `meta strip shows the compact "Last: <time>" refresh ("${strip.stat}")`);

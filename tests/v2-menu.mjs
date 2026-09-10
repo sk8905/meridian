@@ -54,8 +54,14 @@ async function menuState(pg) {
   check(dlg && dlg.inputBg === dlg.liftRGB, `direct /v2/menu/: the Ask FIELD takes the lifted --lift ground (field ${dlg && dlg.inputBg} vs --lift ${dlg && dlg.liftRGB})`);
   check(dlg && dlg.formBg === dlg.headRGB, `direct /v2/menu/: the band sits on the --head ground like the search band (form ${dlg && dlg.formBg} vs --head ${dlg && dlg.headRGB})`);
   check(dlg && dlg.h === "26px" && parseFloat(dlg.bw) >= 1, `direct /v2/menu/: the Ask field matches the .tsearch metrics (26px tall, bordered; got ${dlg && dlg.h}/${dlg && dlg.bw})`);
-  // Bottom strip: a Sign out action, not the signed-in identity string — and it
-  // reads the same muted grey as the refresh time beside it.
+  // The bottom strip (Sign out + last refresh) shows ONLY on the Settings chip.
+  // On the default Chat chip it must be hidden.
+  const stripDisplay = () => pg.evaluate(() => { const s = document.querySelector(".v2-botmeta"); return s ? getComputedStyle(s).display : "missing"; });
+  checkEq(await stripDisplay(), "none", "direct /v2/menu/: the bottom strip is hidden on the Chat chip");
+  // Switch to Settings → the strip appears.
+  await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="settings"]').click());
+  await pg.waitForTimeout(200);
+  checkEq(await stripDisplay(), "flex", "Settings chip: the bottom strip appears");
   const strip = await pg.evaluate(() => {
     const bot = document.getElementById("account-nav-bot");
     const link = bot && bot.querySelector('a[href*="logout"]');
@@ -66,14 +72,18 @@ async function menuState(pg) {
       refreshColor: stat ? getComputedStyle(stat).color : "",
     };
   });
-  check(strip.logout, "direct /v2/menu/: bottom strip shows a Sign out link");
-  check(!/Signed in as/i.test(strip.html), "direct /v2/menu/: bottom strip no longer shows the signed-in identity");
-  check(strip.logout && strip.linkColor === strip.refreshColor, `direct /v2/menu/: Sign out is the same grey as the refresh time (${strip.linkColor} vs ${strip.refreshColor})`);
+  check(strip.logout, "Settings chip: bottom strip shows a Sign out link");
+  check(!/Signed in as/i.test(strip.html), "Settings chip: bottom strip no longer shows the signed-in identity");
+  check(strip.logout && strip.linkColor === strip.refreshColor, `Settings chip: Sign out is the same grey as the refresh time (${strip.linkColor} vs ${strip.refreshColor})`);
   // Bottom-right refresh is the compact "Last: <time>" — time only, no date and
   // not the long "Last refresh" label (the header rail/footer keep the full form).
   const refresh = await pg.evaluate(() => (document.getElementById("data-status-bot")?.textContent || "").trim());
-  check(/^Last:\s*\d{1,2}:\d{2}/.test(refresh), `direct /v2/menu/: bottom-right reads "Last: <time>" (${refresh})`);
-  check(refresh && !/\d{4}/.test(refresh) && !/refresh/i.test(refresh), `direct /v2/menu/: bottom-right has no date and drops the 'refresh' word (${refresh})`);
+  check(/^Last:\s*\d{1,2}:\d{2}/.test(refresh), `Settings chip: bottom-right reads "Last: <time>" (${refresh})`);
+  check(refresh && !/\d{4}/.test(refresh) && !/refresh/i.test(refresh), `Settings chip: bottom-right has no date and drops the 'refresh' word (${refresh})`);
+  // Back to Chat → the strip hides again.
+  await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="dialogue"]').click());
+  await pg.waitForTimeout(200);
+  checkEq(await stripDisplay(), "none", "back on Chat: the bottom strip hides again");
   // The chip bar is locked (sticky) so it does not scroll away.
   const chipbar = await pg.evaluate(() => {
     const el = document.querySelector('.v2-view[data-view="menu"] .na-menu-bar');

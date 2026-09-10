@@ -106,14 +106,15 @@ a { color: inherit; text-decoration: none; }
 
 /* ---- Bottom meta strip (phone, MENU tab only) ---------------------------- */
 /* A slim strip pinned DIRECTLY above the fixed bottom tab bar, carrying the
-   signed-in identity (left) + the app-wide last refresh (right). It shows ONLY
-   on the Menu tab (html[data-v2tab="menu"], set by the runtime) — the content
-   desks stay uncluttered. It's welded to the tab bar (same backgrounds) and
-   sits just under it in the stack (bar 9500) but persists over overlays, like
+   Sign out action (left) + the app-wide last refresh (right). It shows ONLY on
+   the Menu tab's SETTINGS chip (html[data-v2tab="menu"][data-menu-sec="settings"],
+   set by the runtime + menu.js) — every other surface, and the Menu's Chat and
+   Coverage chips, stay uncluttered. It's welded to the tab bar (same backgrounds)
+   and sits just under it in the stack (bar 9500) but persists over overlays, like
    the bar. Anchored by the bar's known height (55px) so no JS measurement. */
 .v2-botmeta { display: none; }
 @media (max-width: 760px) {
-  html[data-v2tab="menu"] .v2-botmeta {
+  html[data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta {
     display: flex; align-items: center; justify-content: space-between; gap: .7rem;
     position: fixed; left: 0; right: 0;
     bottom: calc(55px + env(safe-area-inset-bottom, 0px));
@@ -132,10 +133,9 @@ a { color: inherit; text-decoration: none; }
   .v2-botmeta-status { flex: 0 0 auto; white-space: nowrap; }
   .v2-botmeta-status:empty { display: none; }
 }
-/* Dark: the strip is black. Scoped with html[data-theme][data-v2tab] so it
-   outweighs the light menu rule (html[data-v2tab="menu"] .v2-botmeta) instead of
-   losing the cascade to it. */
-html[data-theme="dark"][data-v2tab="menu"] .v2-botmeta { background: var(--bg, #000); color: var(--muted, #8592ad); border-top: 1px solid var(--border, #262626); }
+/* Dark: the strip is black. Scoped with html[data-theme][data-v2tab][data-menu-sec]
+   so it outweighs the light show rule instead of losing the cascade to it. */
+html[data-theme="dark"][data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta { background: var(--bg, #000); color: var(--muted, #8592ad); border-top: 1px solid var(--border, #262626); }
 [data-theme="dark"] .v2-botmeta-acct strong { color: var(--ink, #eaf0fb); }
 
 /* ---- Page footer: identity + last refresh (desktop only) ----------------- */
