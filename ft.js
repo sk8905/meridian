@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "11f0fe2f-bf72-4760-a2df-1a3b5405173f", title: "Scott Bessent continues crusade against rising US government bond yields", date: "2026-09-10", time: "14:00", url: "https://www.ft.com/content/11f0fe2f-bf72-4760-a2df-1a3b5405173f" },
+  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-10", time: "13:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
+  { id: "a98cb11f-e665-46ee-9ac5-0f85ec73e3b2", title: "European Central Bank raises interest rates with hawkish guidance", date: "2026-09-10", time: "13:45", url: "https://www.ft.com/content/a98cb11f-e665-46ee-9ac5-0f85ec73e3b2" },
   { id: "683a6973-ad54-42e1-8b53-f0e294d15022", title: "Saudi Arabia cuts oil output to lowest this year on Houthi threats", date: "2026-09-10", time: "13:06", url: "https://www.ft.com/content/683a6973-ad54-42e1-8b53-f0e294d15022" },
   { id: "bb42e8fa-aa7e-4410-9f7b-42cd6115d8fb", title: "How to teach the next generation in the era of AI", date: "2026-09-10", time: "13:00", url: "https://www.ft.com/content/bb42e8fa-aa7e-4410-9f7b-42cd6115d8fb" },
   { id: "bfb9323d-2555-41b6-ba2c-a26335f94f95", title: "Exit Party by Emily St John Mandel — all-too-plausible visions of dystopia", date: "2026-09-10", time: "12:15", url: "https://www.ft.com/content/bfb9323d-2555-41b6-ba2c-a26335f94f95" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "be6a9dce-2cda-447a-b78a-83486e46e8bb", title: "Debate over Swedish school model rages ahead of elections", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/be6a9dce-2cda-447a-b78a-83486e46e8bb" },
   { id: "8fe10fa2-e061-4ebe-9853-f5b7136f6e56", title: "The end of the ‘win-win’ era", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/8fe10fa2-e061-4ebe-9853-f5b7136f6e56" },
   { id: "a62199d1-9388-4735-a4f0-db519c84eb79", title: "London credit investor Arini hit by Europe’s thorniest credit trades", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/a62199d1-9388-4735-a4f0-db519c84eb79" },
-  { id: "98329c45-f5b7-4885-9911-e0c8a9c83c0a", title: "IMF ditched top candidate for chief economist job over Trump tariff remarks", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/98329c45-f5b7-4885-9911-e0c8a9c83c0a" },
-  { id: "bc8781ba-f785-481f-b84d-966067d1b98f", title: "Linklaters poaches top lawyer in latest Wachtell raid", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/bc8781ba-f785-481f-b84d-966067d1b98f" },
 ];
