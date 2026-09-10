@@ -988,8 +988,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-clr { flex: 0 0 auto; display: grid; place-items: center; width: 26px; height: 24px; border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; line-height: 1; cursor: pointer; padding: 0; }
 .na-ask-clr:hover { color: var(--ink, #eaf0fb); }
 .na-ask-clr[hidden] { display: none; }
-.menu-asst .na-ask-in { padding-right: 26px; }
-.menu-asst .na-ask-clr { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); height: 22px; }
 .na-ask-out { padding: 0; }
 .na-ask-hint { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 11px; line-height: 1.5; }
 .na-ask-err { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--muted, #8592ad); font-size: 11px; line-height: 1.5; }
@@ -1003,15 +1001,15 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    question sits in emphasised mono above its answer; a small "New chat" clears it. */
 .na-chat-turn { border-bottom: 1px solid var(--border, #262626); }
 .na-chat-q { padding: 10px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; color: var(--ink, #eaf0fb); line-height: 1.4; word-wrap: break-word; }
-.na-chat-top { display: flex; justify-content: flex-end; padding: 6px 12px 0; }
-.na-chat-clear { border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; padding: 0; }
+/* "New chat" sits on the right of the input row (a flex sibling of the field). */
+.na-chat-clear { flex: 0 0 auto; border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; padding: 0 2px 0 10px; white-space: nowrap; }
 .na-chat-clear:hover { color: var(--muted, #8592ad); }
 /* New-chat EMPTY STATE: a centred accent spark + three one-word news topics as
    tappable pills — tapping one starts the chat on that topic. */
 .na-chat-empty { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 44px 16px; text-align: center; }
 .na-sugg-mark { color: var(--accent, #fb8b1e); flex: 0 0 auto; }
 .na-suggs { display: flex; flex-flow: row wrap; align-items: center; justify-content: center; gap: 8px; width: 100%; }
-.na-sugg { flex: 0 1 auto; border: 1px solid var(--border, #262626); background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; letter-spacing: .02em; padding: 8px 13px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+.na-sugg { flex: 0 1 auto; border: 1px solid var(--border, #262626); background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; letter-spacing: .02em; padding: 8px 13px; border-radius: 0; cursor: pointer; white-space: nowrap; }
 .na-sugg:hover { border-color: var(--accent, #fb8b1e); color: var(--accent, #fb8b1e); }
 /* The Ask assistant in the Menu → Dialogue chip is rendered to look EXACTLY like
    the shared search band (bandHTML → .tpanel-h.thead-search with a .tsearch
@@ -1046,7 +1044,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   .menu-asst.is-docked .na-chat::-webkit-scrollbar { width: 0; height: 0; display: none; }
   /* Empty state fills the middle and centres the spark + suggestions vertically. */
   .menu-asst.is-docked .na-chat-empty { flex: 1 1 auto; min-height: 0; justify-content: center; }
-  .menu-asst.is-docked .na-chat > .na-chat-top { margin-top: auto; }   /* bottom-anchor a short thread */
+  .menu-asst.is-docked .na-chat > :first-child { margin-top: auto; }   /* bottom-anchor a short thread */
   .menu-asst.is-docked .na-ask-form { flex: 0 0 auto; border-top: 1px solid var(--border, #262626); border-bottom: 0; }
   /* While typing (input focused → html.chat-kbd): hide the bottom tab bar and end
      the view exactly at the on-screen keyboard top (--kbd-h, tracked from

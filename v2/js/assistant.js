@@ -165,11 +165,13 @@ export function renderAsk(body, st, opts) {
     + (withSearch && !bare ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
     + (withAdd && !bare ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
     + (withAsk && !bare ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
+    // "New chat" lives on the RIGHT of the input row while a conversation is going.
+    + (hasChat ? `<button type="button" class="na-chat-clear" title="Clear this conversation">New chat</button>` : "")
     + `</form>`;
-  // The transcript (New chat control → turns → verify disclaimer) is ONE block so
-  // the docked layout can scroll it as a unit above the pinned input.
+  // The transcript (turns → verify disclaimer) is ONE block so the docked layout
+  // can scroll it as a unit above the pinned input row.
   const chatHTML = hasChat
-    ? `<div class="na-chat"><div class="na-chat-top"><button type="button" class="na-chat-clear" title="Clear this conversation">New chat</button></div>`
+    ? `<div class="na-chat">`
       + (dock ? turns : turns.slice().reverse()).map(turnHTML).join("")
       + (answered ? `<div class="na-brief-foot">AI answers from Wire’s data + a live web search — verify anything critical.</div>` : "")
       + `</div>`

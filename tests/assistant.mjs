@@ -214,6 +214,8 @@ await ctx.close();
   // Transcript is bottom-anchored: it ends right at the input (no dead space between).
   check(Math.abs(dock.chatBottom - dock.formTop) <= 2, `transcript is bottom-anchored right above the input (chat ${dock.chatBottom}, input top ${dock.formTop})`);
   check(dock.qs[0] === "First?" && dock.qs[1] === "Second?", `docked transcript is oldest→newest (${dock.qs.join(" | ")})`);
+  // "New chat" sits in the input row (right side), not as a separate top row.
+  check(await pp.evaluate(() => { const f = document.querySelector("#v2-menu-omni .na-ask-form .na-chat-clear"); return !!f && !document.querySelector("#v2-menu-omni .na-chat-top"); }), "New chat sits in the input row, not above the transcript");
   // Focusing the input (keyboard up) hides the bottom tab bar so nothing sits
   // between the field and the keyboard; blurring restores it.
   const tabDisplay = () => pp.evaluate(() => getComputedStyle(document.querySelector(".mobile-tabbar")).display);
@@ -252,6 +254,8 @@ await ctx.close();
   // The three suggestions sit SIDE BY SIDE in one row (equal offsetTop).
   const tops = await p2.evaluate(() => [...document.querySelectorAll("#v2-menu-omni .na-sugg")].map((s) => Math.round(s.getBoundingClientRect().top)));
   check(tops.length === 3 && tops.every((t) => t === tops[0]), `the 3 topics sit side by side in a row (tops ${tops.join(",")})`);
+  const radius = await p2.evaluate(() => getComputedStyle(document.querySelector("#v2-menu-omni .na-sugg")).borderRadius);
+  check(radius === "0px", `topic pills are square, matching the app (border-radius ${radius})`);
   // Clear-text ✕: typing shows it; tapping it empties the field.
   const clr = await p2.evaluate(() => {
     const i = document.querySelector("#v2-menu-omni .na-ask-in"), c = document.querySelector("#v2-menu-omni .na-ask-clr");
