@@ -44,41 +44,65 @@ export function askFmt(s) {
   return `<p>${h}</p>`;
 }
 
-// Render the assistant from its state: {q, loading, loadingLabel, answer,
-// sources, error, pr, prName, notFound}. opts.ask / opts.add / opts.search pick
-// which controls show. The Menu → Dialogue chip is the OMNIBOX (search + ask —
-// one input; Enter/Ask answers inline, Search hands the text to the command
-// palette); Coverage is Add only; the desktop header is Ask only. opts.ask
-// defaults to true.
+// Render the assistant from its state. opts.ask / opts.add / opts.search pick
+// which controls show. opts.ask defaults to true.
+//
+// ASK surfaces (the Menu → Chat chip and the desktop header) are CONVERSATIONAL:
+// state.turns is a running transcript of {q, a, sources, error, loading} turns,
+// rendered NEWEST-FIRST directly under the input, so a follow-up's answer appears
+// right where you typed and each question carries the earlier turns as context.
+// Add-only (Coverage) stays SINGLE-SHOT: {loading, error, notFound, pr, prName,
+// sources} — research a firm and open one PR.
 //
 // No idle "explainer" copy: the empty state is just the box (the placeholder
-// carries the purpose). A short verify-disclaimer shows only ALONGSIDE an AI
-// answer, where it belongs (HOUSE_STYLE R20 keeps disclaimers + citations).
+// carries the purpose). A short verify-disclaimer shows only once BELOW the
+// transcript, where it belongs (HOUSE_STYLE R20 keeps disclaimers + citations).
 export function renderAsk(body, st, opts) {
   st = st || {}; opts = opts || {};
   const withAsk = opts.ask !== false;
   const withAdd = !!opts.add;
   const withSearch = !!opts.search;
+  const bare = !!opts.bare;
+  const isChat = withAsk;   // Ask surfaces are conversational; Add-only is single-shot
   const srcList = (list) => (list && list.length)
     ? `<div class="na-ask-srch">Sources</div><ul class="na-ask-srcs">${list.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.label || s.url)}</a></li>`).join("")}</ul>` : "";
-  const out = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`
+
+  const turns = Array.isArray(st.turns) ? st.turns : [];
+  const hasChat = isChat && turns.length > 0;
+  const answered = turns.some((t) => t.a != null);
+  const turnHTML = (t) => `<div class="na-chat-turn">`
+    + `<div class="na-chat-q">${esc(t.q)}</div>`
+    + (t.loading ? `<div class="na-load">${esc(t.loadingLabel || "Thinking…")}</div>`
+      : t.error ? `<div class="na-ask-err">${esc(t.error)}</div>`
+      : `<div class="na-ask-answer">${askFmt(t.a || "")}</div>` + srcList(t.sources))
+    + `</div>`;
+
+  // Add-only single-shot output (unchanged behaviour).
+  const addOut = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`
     : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
     : st.notFound ? `<div class="na-ask-err">${esc(st.notFound)}</div>`
     : st.pr ? `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong> and opened a pull request — verify every field before merging.</div><div class="na-ask-srch">Pull request</div><ul class="na-ask-srcs"><li><a class="na-brief-src" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">${esc(st.pr)}</a></li></ul>` + srcList(st.sources)
-    : st.answer != null ? `<div class="na-ask-answer">${askFmt(st.answer)}</div>` + srcList(st.sources)
     : "";
+
   // `bare` renders JUST the field (no action button) styled like the .tsearch
-  // search box — the reader types and presses Enter to submit. `placeholder`
-  // overrides the default prompt.
-  const bare = !!opts.bare;
-  const placeholder = opts.placeholder || (withSearch ? "Search Wire, or ask a question…" : withAdd && !withAsk ? "Firm to research & add…" : "Ask Wire…");
-  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${esc(placeholder)}" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} />`
+  // search box — the reader types and presses Enter. Once a chat is going the
+  // placeholder invites a follow-up. The Ask input clears after each send (the
+  // question moves into the transcript); the Add input keeps its text.
+  const basePlaceholder = opts.placeholder || (withSearch ? "Search Wire, or ask a question…" : withAdd && !withAsk ? "Firm to research & add…" : "Ask Wire…");
+  const placeholder = hasChat ? "Ask a follow-up…" : basePlaceholder;
+  const inputVal = isChat ? "" : esc(st.q || "");
+  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="${esc(placeholder)}" value="${inputVal}"${st.loading ? " disabled" : ""} />`
     + (withSearch && !bare ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
     + (withAdd && !bare ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
     + (withAsk && !bare ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
     + `</form>`
-    + `<div class="na-ask-out">${out}</div>`
-    + (st.answer != null ? `<div class="na-brief-foot">AI answer from Wire’s data + a live web search — verify anything critical.</div>` : "");
+    + (isChat
+      ? (hasChat
+        ? `<div class="na-chat"><div class="na-chat-top"><button type="button" class="na-chat-clear" title="Clear this conversation">New chat</button></div>`
+          + turns.slice().reverse().map(turnHTML).join("") + `</div>`
+          + (answered ? `<div class="na-brief-foot">AI answers from Wire’s data + a live web search — verify anything critical.</div>` : "")
+        : "")
+      : `<div class="na-ask-out">${addOut}</div>`);
 }
 
 // Mount the assistant into `container`, wiring "Ask" (→ /api/ask, feature B) when
@@ -95,6 +119,7 @@ export function mountAssistant(container, opts) {
   const withAsk = opts.ask !== false;
   const withAdd = !!opts.add;
   const withSearch = !!opts.search;
+  const isChat = withAsk;   // Ask surfaces keep a conversation; Add-only is single-shot
   const state = opts.state || {};
   const draw = () => renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch, bare: !!opts.bare, placeholder: opts.placeholder });
   const setState = (s) => { for (const k in state) delete state[k]; Object.assign(state, s); draw(); };
@@ -109,20 +134,30 @@ export function mountAssistant(container, opts) {
     document.dispatchEvent(new CustomEvent("wire:search", { detail: { q } }));
   };
 
+  // Ask is a CONVERSATION: each question appends a turn, carries the prior
+  // completed turns to /api/ask for follow-up context, and fills its own answer
+  // in place. The input clears on send (the question is now in the transcript).
   const runAsk = () => {
     if (state.loading) return;
-    const q = (container.querySelector(".na-ask-in").value || "").trim();
+    const input = container.querySelector(".na-ask-in");
+    const q = ((input && input.value) || "").trim();
     if (!q) return;
-    setState({ q, loading: true });
+    if (!Array.isArray(state.turns)) state.turns = [];
+    const history = state.turns.filter((t) => t.a != null).map((t) => ({ q: t.q, a: t.a }));
+    const turn = { q, loading: true };
+    state.turns.push(turn);
+    state.loading = true;
+    draw();
     buildAskContext().then((context) =>
-      fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: q, context }) })
+      fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: q, context, history }) })
         .then((r) => r.json())
         .then((d) => {
-          if (d && d.unconfigured) setState({ q, error: d.message || "The assistant isn’t switched on yet." });
-          else if (!d || d.error) setState({ q, error: (d && d.message) || "The assistant is unavailable right now." });
-          else setState({ q, answer: d.answer || "", sources: d.sources || [] });
+          if (d && d.unconfigured) turn.error = d.message || "The assistant isn’t switched on yet.";
+          else if (!d || d.error) turn.error = (d && d.message) || "The assistant is unavailable right now.";
+          else { turn.a = d.answer || ""; turn.sources = d.sources || []; }
         })
-        .catch(() => setState({ q, error: "Network error — try again." }))
+        .catch(() => { turn.error = "Network error — try again."; })
+        .then(() => { turn.loading = false; state.loading = false; draw(); })
     );
   };
   const runAdd = () => {
@@ -150,5 +185,7 @@ export function mountAssistant(container, opts) {
   container.addEventListener("click", (e) => {
     if (withSearch && e.target.closest(".na-ask-search")) { e.preventDefault(); e.stopPropagation(); runSearch(); return; }
     if (withAdd && e.target.closest(".na-ask-add")) { e.preventDefault(); e.stopPropagation(); runAdd(); return; }
+    // "New chat": drop the transcript and start fresh.
+    if (isChat && e.target.closest(".na-chat-clear")) { e.preventDefault(); e.stopPropagation(); state.turns = []; state.loading = false; draw(); return; }
   });
 }

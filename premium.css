@@ -991,6 +991,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-answer p:last-child { margin-bottom: 0; }
 .na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight: 600; }
 .na-ask-answer code { font-size: 11px; padding: 1px 4px; border-radius: 0; background: color-mix(in srgb, var(--ink, #eaf0fb) 10%, transparent); }
+/* Ask CONVERSATION transcript (Menu Chat + desktop header): a running list of
+   {question → answer} turns, newest first, each divided by a 1px line. The
+   question sits in emphasised mono above its answer; a small "New chat" clears it. */
+.na-chat-turn { border-bottom: 1px solid var(--border, #262626); }
+.na-chat-q { padding: 10px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; color: var(--ink, #eaf0fb); line-height: 1.4; word-wrap: break-word; }
+.na-chat-top { display: flex; justify-content: flex-end; padding: 6px 12px 0; }
+.na-chat-clear { border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; padding: 0; }
+.na-chat-clear:hover { color: var(--muted, #8592ad); }
 /* The Ask assistant in the Menu → Dialogue chip is rendered to look EXACTLY like
    the shared search band (bandHTML → .tpanel-h.thead-search with a .tsearch
    field): a full-width band on the --head ground with an 8px 12px gutter and a

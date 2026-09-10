@@ -2972,6 +2972,9 @@ const ASK_SYSTEM = [
   "- Every factual claim taken from a web search must name its source. If you",
   "  don't know, say so plainly — do not guess.",
   "- Be terse and concrete, like a terminal. No preamble, no disclaimers.",
+  "- This may be an ongoing conversation: when 'Conversation so far' is present,",
+  "  treat the latest Question as a possible follow-up and resolve pronouns and",
+  "  references ('it', 'they', 'that firm', 'why?') against those earlier turns.",
 ].join("\n");
 
 // One raw Messages API call (no SDK in the Worker bundle — it's a single hand-
@@ -3141,7 +3144,20 @@ async function handleAsk(request, env) {
 
   const context = typeof (body && body.context) === "string" ? body.context.slice(0, 60000) : "";
   const debug = !!(body && body.debug);
-  const userContent = (context ? `Wire context (the data on the reader's screen):\n${context}\n\n` : "") + `Question: ${question}`;
+  // Prior turns for follow-up questions: a compact oldest-first transcript folded
+  // into the user message (works for both the Mistral and Anthropic paths without
+  // changing the single-user-turn shape). Bounded so a long chat can't blow the
+  // context window: the last 6 exchanges, each answer clipped.
+  const history = Array.isArray(body && body.history) ? body.history : [];
+  let convo = "";
+  if (history.length) {
+    convo = "Conversation so far (oldest first):\n" + history.slice(-6).map((t) => {
+      const q = String((t && t.q) || "").trim().slice(0, 500);
+      const a = String((t && t.a) || "").trim().slice(0, 1200);
+      return q ? `User: ${q}\nAssistant: ${a}` : "";
+    }).filter(Boolean).join("\n\n") + "\n\n";
+  }
+  const userContent = (context ? `Wire context (the data on the reader's screen):\n${context}\n\n` : "") + convo + `Question: ${question}`;
   let res;
   try { res = await llmAsk(env, { system: ASK_SYSTEM, user: userContent, search: true, maxTokens: 1500, fallbackNoSearch: true, debug }); }
   catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }

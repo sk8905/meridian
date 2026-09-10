@@ -1,7 +1,8 @@
 // Menu view — THREE chips:
-//   • Chat (key "dialogue") — Ask Wire (B): one input (styled like the .tsearch
-//     search fields) where Enter/"Ask" answers inline via AI. Ask only — search
-//     lives in the global palette (header search / other pages). No explainer copy.
+//   • Chat (key "dialogue") — Ask Wire (B): a conversational assistant. The input
+//     is styled like the .tsearch search fields; Enter answers inline via AI and
+//     keeps a transcript, so follow-up questions carry the earlier turns as
+//     context. Ask only — search lives in the global palette. No explainer copy.
 //   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
 //   • Settings — Notifications (push toggle) + Appearance (theme). Sign out and
 //     density live elsewhere: sign out in the phone bottom strip; density is not
@@ -12,7 +13,7 @@
 // The Ask/Add/omnibox UI is the shared assistant module (mountAssistant).
 import { esc, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js?v=v2-2";
-import { mountAssistant } from "/v2/js/assistant.js?v=v2-3";
+import { mountAssistant } from "/v2/js/assistant.js?v=v2-4";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
 

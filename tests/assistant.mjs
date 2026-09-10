@@ -74,6 +74,49 @@ await pg.route("**/api/ask", (route) => route.fulfill({ status: 200, contentType
 await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "Biggest manager?"; c.querySelector(".na-ask-form").requestSubmit(); });
 await pg.waitForTimeout(400);
 check(await pg.evaluate(() => (document.querySelector("#v2-menu-omni .na-ask-answer")?.textContent || "").includes("Apollo")), "bare Ask field submits on Enter and renders the answer");
+
+// ---- Multi-turn CHAT: follow-ups keep a transcript and carry prior turns ----
+// Reset any transcript from the single-ask test above, then drive two turns
+// through a capturing stub that numbers its answers and records each request.
+await pg.evaluate(() => document.querySelector("#v2-menu-omni .na-chat-clear")?.click());
+await pg.waitForTimeout(120);
+await pg.unroute("**/api/ask");
+const asked = [];
+let askN = 0;
+await pg.route("**/api/ask", (route) => {
+  try { asked.push(JSON.parse(route.request().postData() || "{}")); } catch { asked.push(null); }
+  askN += 1;
+  route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: `Answer number ${askN}.`, sources: [] }) });
+});
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "First question about Apollo?"; c.querySelector(".na-ask-form").requestSubmit(); });
+await pg.waitForTimeout(400);
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "And its AUM?"; c.querySelector(".na-ask-form").requestSubmit(); });
+await pg.waitForTimeout(400);
+const chat = await pg.evaluate(() => {
+  const c = document.querySelector("#v2-menu-omni");
+  const turns = [...c.querySelectorAll(".na-chat-turn")];
+  return {
+    count: turns.length,
+    qs: turns.map((t) => (t.querySelector(".na-chat-q")?.textContent || "").trim()),
+    as: turns.map((t) => (t.querySelector(".na-ask-answer")?.textContent || "").trim()),
+    inputEmpty: (c.querySelector(".na-ask-in")?.value || "") === "",
+    followPh: /follow-up/i.test(c.querySelector(".na-ask-in")?.placeholder || ""),
+    hasClear: !!c.querySelector(".na-chat-clear"),
+  };
+});
+check(chat.count === 2, `chat keeps a transcript of both turns (${chat.count})`);
+check(chat.qs[0] === "And its AUM?" && chat.qs[1] === "First question about Apollo?", `transcript is newest-first (${chat.qs.join(" | ")})`);
+check(chat.as[0].includes("number 2") && chat.as[1].includes("number 1"), `each turn keeps its own answer (${chat.as.join(" | ")})`);
+check(chat.inputEmpty, "the input clears after each send");
+check(chat.followPh, "the placeholder invites a follow-up once a chat is going");
+check(chat.hasClear, "a 'New chat' control appears");
+const followReq = asked[asked.length - 1];
+check(followReq && Array.isArray(followReq.history) && followReq.history.length === 1
+  && /First question about Apollo/.test(followReq.history[0].q) && /Answer number 1/.test(followReq.history[0].a),
+  `the follow-up request carries the prior turn as history (${JSON.stringify(followReq && followReq.history)})`);
+await pg.evaluate(() => document.querySelector("#v2-menu-omni .na-chat-clear").click());
+await pg.waitForTimeout(150);
+check(await pg.evaluate(() => document.querySelectorAll("#v2-menu-omni .na-chat-turn").length === 0), "'New chat' clears the transcript");
 await pg.unroute("**/api/ask");
 // Coverage chip: Add (C) + Network.
 await pg.evaluate(() => document.querySelector('.v2-menu .na-menu-bar .tchip[data-sec="coverage"]').click());
