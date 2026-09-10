@@ -103,25 +103,26 @@ await ctx.close();
   const { ctx: c2, pg: p2, errs: e2 } = await open(b, PHONE, base + "/v2/menu/");
   await p2.waitForSelector(".na-menu-bar .tchip", { timeout: 8000 });
   await p2.evaluate(() => document.querySelector('.na-menu-bar .tchip[data-sec="coverage"]').click());
-  await p2.waitForSelector(".wn-intro", { timeout: 5000 });
+  await p2.waitForSelector(".wire-net .wn-btn", { timeout: 5000 });
   const s = await p2.evaluate(() => {
     const vw = window.innerWidth;
-    const intro = document.querySelector(".wn-intro");
+    const how = document.querySelector(".wn-how");
     const btn = document.querySelector(".wn-btn");
-    const ir = intro.getBoundingClientRect();
-    const cs = getComputedStyle(intro);
-    const bcs = btn ? getComputedStyle(btn) : {};
+    const hr = how.getBoundingClientRect();
+    const hcs = getComputedStyle(how);
+    const bcs = getComputedStyle(btn);
     return {
-      vw, left: Math.round(ir.left), right: Math.round(ir.right),
-      size: cs.fontSize, mono: /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(cs.fontFamily),
+      vw, left: Math.round(hr.left), right: Math.round(hr.right),
+      mono: /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(hcs.fontFamily),
       btnSize: bcs.fontSize, btnRadius: bcs.borderRadius,
+      noIntro: !document.querySelector(".wn-intro"),
     };
   });
   check(s.left >= 12 && s.right <= s.vw - 12, `Network importer fits within the side gutter (left ${s.left}, right ${s.right}, vw ${s.vw})`);
-  checkEq(s.size, "11px", "Network intro uses the 11px terminal size");
-  check(s.mono, "Network intro uses the mono terminal family");
+  check(s.mono, "Network importer uses the mono terminal family");
   checkEq(s.btnSize, "11px", "Choose-file button uses the 11px terminal size");
   checkEq(s.btnRadius, "0px", "Choose-file button is square (no pill radius)");
+  check(s.noIntro, "the explainer intro paragraph is removed");
   checkErrs(e2, "network importer phone styling");
   await c2.close();
 }

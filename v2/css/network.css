@@ -25,8 +25,7 @@
 }
 
 /* ---- import controls ---- */
-.wn-intro, .wn-how { color:var(--wn-mut); font-size:11px; line-height:1.5; margin:6px 0 10px; }
-.wn-how { margin-top:12px; font-size:10px; }
+.wn-how { color:var(--wn-mut); font-size:10px; line-height:1.5; margin:12px 0 10px; }
 .wn-how code { background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; padding:0 4px; font-size:10px; }
 .wn-import { display:flex; flex-direction:column; gap:8px; margin:8px 0; }
 .wn-btn { display:inline-block; align-self:flex-start; background:var(--wn-accent); color:#1b1200; font-weight:600;

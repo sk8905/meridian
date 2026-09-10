@@ -57,7 +57,6 @@ function netPaneHTML() {
   if (!s) {
     return `<div class="wire-net">
       <div class="na-menu-recent-h">LinkedIn connections</div>
-      <p class="wn-intro">Import your LinkedIn <strong>Connections.csv</strong> export to see who you know at the managers, hedge funds and law firms Wire tracks. Everything stays on this device — your contacts are matched in the browser and never sent anywhere.</p>
       ${netImporter()}
       <p class="wn-how">Get the file from LinkedIn: <em>Settings → Data privacy → Get a copy of your data → Connections</em>, then open the archive and import <code>Connections.csv</code>.</p>
     </div>`;
