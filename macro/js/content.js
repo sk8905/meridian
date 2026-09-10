@@ -12,8 +12,8 @@ export const UPDATED = "9 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-09",
-  lastCheckedTime: "21:11 BST",
+  lastChecked: "2026-09-10",
+  lastCheckedTime: "05:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -885,19 +885,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-09",
+  updated: "2026-09-10",
   us: [
-    { title: "U.S. reveals import ban on slew of Canadian goods as trade war escalates", source: "CNBC", date: "2026-09-09", url: "https://www.cnbc.com/2026/09/09/us-canada-trade-war-import-ban.html" },
+    { title: "Dollar Eyes Seven-Month Low With US Buybacks, Inflation In Focus", source: "Bloomberg", date: "2026-09-09", url: "https://www.bloomberg.com/news/articles/2026-09-09/dollar-eyes-seven-month-low-with-us-buybacks-inflation-in-focus" },
     { title: "US Treasury Triples Long-Dated Debt Buyback to $6 Billion", source: "Bloomberg", date: "2026-09-09", url: "https://www.bloomberg.com/news/articles/2026-09-09/us-more-than-doubles-long-dated-debt-buyback-size-to-6-billion" },
-    { title: "Meta Rises 6% as Muse AI Agent Arrives With Paid Subscription Tiers; Alphabet Falls 2%", source: "24/7 Wall St.", date: "2026-09-09", url: "https://247wallst.com/investing/2026/09/09/meta-rises-6-as-muse-ai-agent-arrives-with-paid-subscription-tiers-alphabet-falls-2/" },
-    { title: "Brent crude rises above $100 a barrel as Middle East conflict escalates", source: "Reuters", date: "2026-09-09", url: "https://finance.yahoo.com/news/brent-crude-rises-above-100-073722479.html" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq sink as oil prices surpass $100, Treasury yields jump", source: "Yahoo Finance / Reuters", date: "2026-09-09", url: "https://ca.finance.yahoo.com/news/stock-market-today-wednesday-september-9-dow-sp-500-nasdaq-futures-080411279.html" },
+    { title: "Global oil prices hit $100 per barrel as Middle East conflict roils markets", source: "CNN Business", date: "2026-09-09", url: "https://edition.cnn.com/2026/09/09/economy/oil-price-iran-war" },
+    { title: "Trump pushes Fed to cut rates ahead of pivotal September decision", source: "CNBC", date: "2026-09-05", url: "https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html" },
+    { title: "World Economy Latest: US Payrolls Growth Tops Forecast in Broad Advance", source: "Bloomberg", date: "2026-09-05", url: "https://www.bloomberg.com/news/articles/2026-09-05/world-economy-latest-us-payrolls-growth-tops-forecast-in-broad-advance" },
   ],
   uk: [
+    { title: "UK food price inflation to rise above 6% next year, industry says", source: "Reuters", date: "2026-09-09", url: "https://www.investing.com/news/economic-indicators/uk-food-price-inflation-to-rise-above-6-next-year-industry-says-4892880" },
     { title: "G10's 'surprise' currency star could stumble as peers hike interest rates", source: "CNBC", date: "2026-09-09", url: "https://www.cnbc.com/2026/09/09/fx-currencies-interest-rate-hikes.html" },
-    { title: "Bank of England Warns Iran War Could Push UK Inflation Above 4%", source: "OilPrice.com", date: "2026-09-09", url: "https://oilprice.com/Energy/Energy-General/Bank-of-England-Warns-Iran-War-Could-Push-UK-Inflation-Above-4.html" },
-    { title: "Sterling finds 'support' as Bailey's hawkish warning lifts pound ahead of MPC decision", source: "FXStreet", date: "2026-09-09", url: "https://www.fxstreet.com/analysis/sterling-finds-support-as-baileys-hawkish-warning-lifts-pound-ahead-of-mpc-decision-202609090927" },
-    { title: "Healey Says UK Borrowing Remains High as Fiscal Discipline Takes Priority", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/healey-says-uk-borrowing-too-high-in-signal-of-fiscal-rigor" },
+    { title: "'Risks to inflation are to upside': BoE's Bailey sounds a cautious note", source: "FXStreet / Reuters", date: "2026-09-08", url: "https://www.fxstreet.com/news/risks-to-inflation-are-to-upside-boes-bailey-sounds-a-cautious-note-202609081449" },
+    { title: "UK sells 30-year debt at record yield, showing pressure on public finances", source: "Reuters", date: "2026-09-08", url: "https://www.investing.com/news/economy-news/uk-sells-30year-debt-at-record-yield-showing-pressure-on-public-finances-4891674" },
     { title: "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", source: "Reuters", date: "2026-09-09", url: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672" },
   ],
 };
@@ -910,8 +910,14 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-09",
+  updated: "2026-09-10",
   items: [
+    {"title": "Bank of Japan must raise rates further, board member says", "source": "Financial Times", "date": "2026-09-10", "time": "05:07", "url": "https://www.ft.com/content/8313accc-1de6-48a8-b184-e5e3b20c5b19", "blurb": "A Bank of Japan board member argued for further policy-rate increases to contain persistent inflation, keeping yen-policy divergence in focus as markets await the Fed's own September decision.", "author": null},
+    {"title": "Dollar Eyes Seven-Month Low With US Buybacks, Inflation In Focus", "source": "Bloomberg", "date": "2026-09-09", "time": "05:16", "url": "https://www.bloomberg.com/news/articles/2026-09-09/dollar-eyes-seven-month-low-with-us-buybacks-inflation-in-focus", "blurb": "The dollar wobbled near a seven-month low as traders weighed the Treasury's tripled buyback programme against the countdown to next week's FOMC decision.", "author": null},
+    {"title": "UK food price inflation to rise above 6% next year, industry says", "source": "Reuters", "date": "2026-09-09", "time": "05:16", "url": "https://www.investing.com/news/economic-indicators/uk-food-price-inflation-to-rise-above-6-next-year-industry-says-4892880", "blurb": "Food and drink manufacturers warned grocery inflation will climb above 6% in 2027 on El Niño weather effects and higher energy costs, adding to the Bank of England's inflation headache.", "author": null},
+    {"title": "The Fed's Three Choices as Warsh's Honeymoon Ends", "source": "Bloomberg Opinion", "date": "2026-09-09", "time": "05:16", "url": "https://www.bloomberg.com/opinion/articles/2026-09-09/the-fed-s-three-choices-as-warsh-s-honeymoon-ends", "blurb": "Jonathan Levin argues Chair Kevin Warsh must choose between holding, cutting under White House pressure, or delivering the hike markets have begun to price in — with credibility at stake either way.", "author": "Jonathan Levin"},
+    {"title": "'Risks to inflation are to upside': BoE's Bailey sounds a cautious note", "source": "FXStreet / Reuters", "date": "2026-09-08", "time": "05:16", "url": "https://www.fxstreet.com/news/risks-to-inflation-are-to-upside-boes-bailey-sounds-a-cautious-note-202609081449", "blurb": "Governor Andrew Bailey told the Treasury Committee the market curve embeds an inflation risk premium, pushing back on the narrative that a rate hike is inevitable at next week's MPC decision.", "author": null},
+    {"title": "Trump pushes Fed to cut rates ahead of pivotal September decision", "source": "CNBC", "date": "2026-09-05", "time": "05:16", "url": "https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html", "blurb": "President Trump renewed pressure on the Fed to cut rates even as Chair Warsh's hawkish post-Jackson Hole tone has markets pricing rising odds of a hike instead at next week's FOMC meeting.", "author": null},
     {"title": "Meta Rises 6% as Muse AI Agent Arrives With Paid Subscription Tiers; Alphabet Falls 2%", "source": "24/7 Wall St.", "date": "2026-09-09", "time": "21:11", "url": "https://247wallst.com/investing/2026/09/09/meta-rises-6-as-muse-ai-agent-arrives-with-paid-subscription-tiers-alphabet-falls-2/", "blurb": "Meta's new AI agent (email, travel booking, purchases) rallied the stock as much as 7%+ on bullish notes from Mizuho ($750 price target) and KeyBanc ($780), even as Alphabet fell on competitive read-through.", "author": null},
     {"title": "Stock market today: Dow, S&P 500, Nasdaq sink as oil prices surpass $100, Treasury yields jump", "source": "Yahoo Finance / Reuters", "date": "2026-09-09", "time": "21:11", "url": "https://ca.finance.yahoo.com/news/stock-market-today-wednesday-september-9-dow-sp-500-nasdaq-futures-080411279.html", "blurb": "US equities closed lower (S&P -0.24%, Dow -0.58%, Nasdaq -0.35%) as the 10-year Treasury yield rose to 4.84%, its highest since October 2023, on Bessent's tripled buyback announcement and the oil-driven inflation scare.", "author": null},
     {"title": "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", "source": "Reuters", "date": "2026-09-09", "time": "21:11", "url": "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672", "blurb": "All 65 economists in Reuters' 4-8 September poll expect a 17 September hold; 57 of 65 see no change for the rest of the year despite the Iran-war inflation risk.", "author": null},
@@ -985,7 +991,12 @@ export const RELEASES = [
   { date: "2026-10-02", country: "US", title: "Employment Situation / Nonfarm payrolls (September)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-10-05", country: "US", title: "ISM Services PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-10-07", country: "US", title: "FOMC Minutes (15–16 September meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
+  { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
+  { date: "2026-10-15", country: "US", title: "PPI (September)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
+  { date: "2026-10-15", country: "US", title: "Retail sales (September)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
+  { date: "2026-10-29", country: "US", title: "GDP (Q3 2026, Advance Estimate)", url: "https://www.bea.gov/news/schedule" },
+  { date: "2026-10-29", country: "US", title: "Personal Income and Outlays / PCE inflation (September)", url: "https://www.bea.gov/news/schedule" },
 ];
 
 // ---- Wall of maturities — corporate credit due over the next five years ----
