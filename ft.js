@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c090f503-1299-4f33-8539-79bbfb50c21b", title: "British man charged with volunteering to sabotage UK drone factory for Russia", date: "2026-09-10", time: "15:04", url: "https://www.ft.com/content/c090f503-1299-4f33-8539-79bbfb50c21b" },
+  { id: "49e8c693-0064-4ef9-917f-5f2be97458fc", title: "Global bond sell-off reignites as oil jumps above $105", date: "2026-09-10", time: "14:44", url: "https://www.ft.com/content/49e8c693-0064-4ef9-917f-5f2be97458fc" },
+  { id: "cd652b20-1fa3-4a51-bea7-4d7e33b1eaa2", title: "Houthis capture Red Sea port in blow to Saudis", date: "2026-09-10", time: "14:36", url: "https://www.ft.com/content/cd652b20-1fa3-4a51-bea7-4d7e33b1eaa2" },
   { id: "11f0fe2f-bf72-4760-a2df-1a3b5405173f", title: "Scott Bessent continues crusade against rising US government bond yields", date: "2026-09-10", time: "14:00", url: "https://www.ft.com/content/11f0fe2f-bf72-4760-a2df-1a3b5405173f" },
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-10", time: "13:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "a98cb11f-e665-46ee-9ac5-0f85ec73e3b2", title: "European Central Bank raises interest rates with hawkish guidance", date: "2026-09-10", time: "13:45", url: "https://www.ft.com/content/a98cb11f-e665-46ee-9ac5-0f85ec73e3b2" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "e6307a83-3671-4b13-a2c7-d3a626248014", title: "Sports Exchange", date: "2026-09-10", time: "05:04", url: "https://www.ft.com/content/e6307a83-3671-4b13-a2c7-d3a626248014" },
   { id: "b77c5dd4-f9b9-451a-b184-2061288a4894", title: "The new rainmakers of European private equity", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/b77c5dd4-f9b9-451a-b184-2061288a4894" },
   { id: "6c0bdcb1-e4dc-453e-b51d-9a8ae2509203", title: "Lessons drawn from Charles Goodhart", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/6c0bdcb1-e4dc-453e-b51d-9a8ae2509203" },
-  { id: "be6a9dce-2cda-447a-b78a-83486e46e8bb", title: "Debate over Swedish school model rages ahead of elections", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/be6a9dce-2cda-447a-b78a-83486e46e8bb" },
-  { id: "8fe10fa2-e061-4ebe-9853-f5b7136f6e56", title: "The end of the ‘win-win’ era", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/8fe10fa2-e061-4ebe-9853-f5b7136f6e56" },
-  { id: "a62199d1-9388-4735-a4f0-db519c84eb79", title: "London credit investor Arini hit by Europe’s thorniest credit trades", date: "2026-09-10", time: "05:00", url: "https://www.ft.com/content/a62199d1-9388-4735-a4f0-db519c84eb79" },
 ];
