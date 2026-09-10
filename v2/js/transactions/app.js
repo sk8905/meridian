@@ -34,8 +34,10 @@ export function mount(host, ctx) {
     .map((d) => { const amt = amountOf(d); return { d, tx: txOf(d), sec: sectorOf(d), amt, usd: toUsd(amt), ts: Date.parse((d.date || "").slice(0, 10)) || 0 }; })
     .filter((r) => r.ts > 0);
 
-  const st = { period: "12m", type: null, sector: "all", focus: false, q: "" };   // type=null → overview; q set → search
-  const inPeriod = (r) => st.period === "all" || r.ts >= now - 365 * DAY;
+  // No period toggle — the tab shows ALL transaction history (the overview's "12mo
+  // vs prior" column still carries the recency trend).
+  const st = { period: "all", type: null, sector: "all", focus: false, q: "" };   // type=null → overview; q set → search
+  const inPeriod = () => true;
   // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
   // qualifies when its manager sits in the target band. Off → everything.
   const inFocus = (r) => !st.focus || mInFocus(_mById.get(r.d.managerId));
@@ -69,12 +71,6 @@ export function mount(host, ctx) {
             <div class="tchips" id="tx-mode">
               <button type="button" class="tchip is-on" data-mode="flow">Deal flow</button>
               <button type="button" class="tchip" data-mode="credits">Credits${EUR_CREDITS.length ? " " + EUR_CREDITS.length : ""}</button>
-            </div>
-          </header>
-          <header class="tpanel-h twire-head" id="tx-period-h">
-            <div class="tchips" id="tx-period">
-              <button type="button" class="tchip is-on" data-per="12m">Last 12 months</button>
-              <button type="button" class="tchip" data-per="all">All time</button>
             </div>
           </header>
           <header class="tpanel-h thead-search" id="tx-flow-search">
@@ -156,7 +152,7 @@ export function mount(host, ctx) {
         <h2 class="tx-title">${esc(t.label)}</h2>
         <p class="tx-blurb">${esc(t.blurb)} <span class="muted">Tap a row for the borrower, advisers &amp; full detail.</span></p>
         <div class="tx-kpis">
-          ${kpi("Deals", String(s.n), st.period === "12m" ? "last 12mo" : "all time")}
+          ${kpi("Deals", String(s.n), "all time")}
           ${kpi("Volume ≈$", fmtUsd(s.usd), `${s.disclosed}% size disclosed`)}
           ${kpi("Median ≈$", s.med != null ? fmtUsd(s.med) : "—", "per deal")}
           ${kpi("Managers", String(s.managers), "active")}
@@ -168,7 +164,7 @@ export function mount(host, ctx) {
       ${list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
         <thead><tr><th class="tx-dt-h">Date</th><th class="tx-hd-h">Transaction</th><th class="tx-mg-h">Lender / investor</th><th>Amount</th></tr></thead>
         <tbody>${list.map(txRow).join("")}</tbody></table></div>`
-        : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${st.sector !== "all" ? " · " + esc(SECTOR_LABEL[st.sector]) : ""} transactions ${st.period === "12m" ? "in the last 12 months" : "on record"} yet.</p>`}`;
+        : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${st.sector !== "all" ? " · " + esc(SECTOR_LABEL[st.sector]) : ""} transactions on record yet.</p>`}`;
   }
 
   // ---- search: a flat, dated list of matching deals across ALL types --------
@@ -188,7 +184,7 @@ export function mount(host, ctx) {
     body.innerHTML = `
       <div class="tx-head">
         <h2 class="tx-title">Search</h2>
-        <p class="tx-blurb"><span class="muted">${list.length} transaction${list.length === 1 ? "" : "s"} match “${esc(st.q)}”${st.focus ? " · $1–15bn AUM" : ""}${st.period === "12m" ? " · last 12 months" : ""}${list.length > CAP ? ` — showing the first ${CAP}` : ""}. Tap a row for the full detail.</span></p>
+        <p class="tx-blurb"><span class="muted">${list.length} transaction${list.length === 1 ? "" : "s"} match “${esc(st.q)}”${st.focus ? " · $1–15bn AUM" : ""}${list.length > CAP ? ` — showing the first ${CAP}` : ""}. Tap a row for the full detail.</span></p>
       </div>
       ${shown.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
         <thead><tr><th class="tx-dt-h">Date</th><th class="tx-hd-h">Transaction</th><th class="tx-mg-h">Lender / investor</th><th>Amount</th></tr></thead>
@@ -232,7 +228,7 @@ export function mount(host, ctx) {
     _crMode = mode === "credits" ? "credits" : "flow";
     const credits = _crMode === "credits";
     host.querySelectorAll("#tx-mode .tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.mode === _crMode));
-    ["tx-period-h", "tx-flow-search", "tx-body"].forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = credits ? "none" : ""; });
+    ["tx-flow-search", "tx-body"].forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = credits ? "none" : ""; });
     ["tx-credits-search", "tx-credits-body"].forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = credits ? "" : "none"; });
     if (credits) renderCredits();
   };
@@ -242,12 +238,6 @@ export function mount(host, ctx) {
     setMode(b.dataset.mode);
   });
   host.querySelector("#tx-cr-q").addEventListener("input", (e) => { _crQ = e.target.value.trim(); renderCredits(); });
-  host.querySelector("#tx-period").addEventListener("click", (e) => {
-    const b = e.target.closest(".tchip"); if (!b) return;
-    st.period = b.dataset.per; st.sector = "all";
-    host.querySelectorAll("#tx-period .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    render();
-  });
   // Search box — typing switches the body to a flat list of matching deals; the
   // input lives in the shell (outside #tx-body) so it keeps focus across renders.
   host.querySelector("#tx-q").addEventListener("input", (e) => {

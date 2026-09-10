@@ -38,7 +38,8 @@ const ov = await pg.evaluate(() => ({
   hasTotal: /All types/.test((document.querySelector(".tx-tbl tfoot") || {}).textContent || ""),
   hasTrend: document.querySelectorAll(".tx-tbl .tx-up, .tx-tbl .tx-fl, .tx-tbl .tx-dn").length > 0,
   hasVol: /\$/.test((document.querySelector(".tx-tbl tbody tr") || {}).textContent || ""),
-  chips: [...document.querySelectorAll("#tx-period .tchip")].map((c) => c.textContent.trim()),
+  noPeriodChips: !document.querySelector("#tx-period"),
+  modeChips: [...document.querySelectorAll("#tx-mode .tchip")].map((c) => c.textContent.trim().replace(/\s+\d+$/, "")),
   // Every league row is the SAME height (matches the Profiles panes — single-line
   // rows are normalised up to the chip-row height), so the vertical rhythm is even.
   rowHs: [...new Set([...document.querySelectorAll(".tx-tbl tbody tr.clickable")].map((tr) => Math.round(tr.getBoundingClientRect().height)))],
@@ -63,7 +64,8 @@ check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the tabl
 check(ov.headOffset === 0, `the column header sits flush at the top — no blank band above it (offset ${ov.headOffset}px)`);
 check(ov.hasTotal, "overview carries an 'All types' total row");
 check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
-check(ov.chips.join(",") === "Last 12 months,All time", `period chips present (${ov.chips.join(",")})`);
+check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed");
+check(ov.modeChips.join(",") === "Deal flow,Credits", `the Deal flow / Credits mode chips are present (${ov.modeChips.join(",")})`);
 
 // ---- 3) drill into a type → stat header + transaction list ---------------
 await pg.evaluate(() => { const r = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")].find((x) => /CLO issuance/.test(x.textContent)); (r || document.querySelector(".tx-tbl tbody tr.clickable")).click(); });
@@ -106,20 +108,14 @@ const exp = await pg.evaluate(() => {
 });
 check(exp.isExp && exp.before === true && exp.after === false && exp.fields >= 4, `a transaction expands to its detail — lender · amount · date · sub-category (${exp.fields} fields)`);
 
-// ---- 4) back to overview + period toggle ---------------------------------
+// ---- 4) back to the overview ---------------------------------------------
 await pg.evaluate(() => document.querySelector("#tx-back").click());
 await pg.waitForSelector(".tx-tbl tbody tr.clickable", { timeout: 4000 });
-const twelve = await pg.evaluate(() => document.querySelectorAll(".tx-tbl tbody tr.clickable").length);
-await pg.evaluate(() => document.querySelector('#tx-period .tchip[data-per="all"]').click());
-await pg.waitForTimeout(200);
-const allN = await pg.evaluate(() => { const foot = document.querySelector(".tx-tot"); return { rows: document.querySelectorAll(".tx-tbl tbody tr.clickable").length, total: (foot ? foot.textContent : "") }; });
-check(allN.rows >= twelve, `the All-time period shows at least as many types as last-12-months (${allN.rows} ≥ ${twelve})`);
+check(await pg.evaluate(() => document.querySelectorAll(".tx-tbl tbody tr.clickable").length) >= 6, "back returns to the transaction-type overview");
 
 // ---- 5) $1–15bn AUM focus toggle -----------------------------------------
 // A target-band filter (identical to the Profiles league toggle) narrows every
 // view — overview + type detail — to deals by managers whose group AUM is $1–15bn.
-await pg.evaluate(() => document.querySelector('#tx-period .tchip[data-per="all"]').click());
-await pg.waitForTimeout(150);
 const totOff = await pg.evaluate(() => parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10));
 const foc = await pg.evaluate(() => {
   const btn = document.querySelector("#tx-focus"); if (!btn) return { present: false };

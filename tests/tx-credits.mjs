@@ -16,8 +16,8 @@ check(modes.length === 2 && modes[0].label === "Deal flow" && modes[1].label ===
 check(modes[0].on && !modes[1].on, "Deal flow is the default mode");
 
 // Deal-flow chrome shows the type table; the credits body is hidden.
-const flow = await pg.evaluate(() => { const d = (id) => getComputedStyle(document.querySelector("#" + id)).display; return { period: d("tx-period-h"), body: d("tx-body"), credits: d("tx-credits-body") }; });
-check(flow.period !== "none" && flow.body !== "none" && flow.credits === "none", "Deal flow mode shows the type table, hides the credits body");
+const flow = await pg.evaluate(() => { const d = (id) => getComputedStyle(document.querySelector("#" + id)).display; return { search: d("tx-flow-search"), body: d("tx-body"), credits: d("tx-credits-body") }; });
+check(flow.search !== "none" && flow.body !== "none" && flow.credits === "none", "Deal flow mode shows the type table, hides the credits body");
 
 // Switch to Credits.
 await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="credits"]').click());
@@ -26,14 +26,14 @@ const cr = await pg.evaluate(() => {
   const d = (id) => getComputedStyle(document.querySelector("#" + id)).display;
   const cb = document.querySelector("#tx-credits-body");
   return {
-    periodHidden: d("tx-period-h") === "none", flowSearchHidden: d("tx-flow-search") === "none", flowBodyHidden: d("tx-body") === "none",
+    flowSearchHidden: d("tx-flow-search") === "none", flowBodyHidden: d("tx-body") === "none",
     crSearchShown: d("tx-credits-search") !== "none", crBodyShown: d("tx-credits-body") !== "none",
     groups: cb.querySelectorAll(".tcr-grp").length,
     empty: !!cb.querySelector(".tw-empty"),
     text: (cb.textContent || "").trim().length,
   };
 });
-check(cr.periodHidden && cr.flowSearchHidden && cr.flowBodyHidden, "Credits mode hides all the deal-flow chrome (no leftover period/search/table)");
+check(cr.flowSearchHidden && cr.flowBodyHidden, "Credits mode hides all the deal-flow chrome (no leftover search/table)");
 check(cr.crSearchShown && cr.crBodyShown, "Credits mode shows the credit search + roster body");
 // Either the sourced roster (sector groups) or the honest "being compiled" state.
 check((cr.groups > 0) || (cr.empty && cr.text > 0), `Credits body shows the sector roster or the compiling state (groups ${cr.groups})`);
