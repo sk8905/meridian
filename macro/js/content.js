@@ -13,7 +13,7 @@ export const UPDATED = "10 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-10",
-  lastCheckedTime: "17:22 BST",
+  lastCheckedTime: "21:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -382,7 +382,7 @@ export const COMMENTARY = {
   uk: [
     { title: "UK Budget 2026: Bond Market Has Already Halved Healey's Fiscal Room for Tax Rises", source: "Tech Times", author: "Pantheon Macroeconomics", date: "2026-09-07", url: "https://www.techtimes.com/articles/326863/20260907/uk-budget-2026-bond-market-has-already-halved-healeys-fiscal-room-tax-rises.htm" },
     { title: "UK borrowing costs hit a 28-year high: why Burnham's budget just got harder", source: "Eastern Eye", author: "Deutsche Bank \u2014 Sanjay Raja", date: "2026-09-04", url: "https://www.easterneye.biz/uk-borrowing-costs-burnham-budget/" },
-    { title: "Burnham beware, the bond markets will demand proper answers in the budget", source: "The Guardian", author: "Nils Pratley", date: "2026-09-02", url: "https://www.theguardian.com/business/nils-pratley-on-finance/2026/sep/02/burnham-beware-bond-markets-demand-answers-budget" },
+    { title: "UK locks in priciest 30-year gilt yield since 1998 as tax rises at the October Budget look 'near certain'", source: "Tech Times", author: "Handelsbanken — Daniel Mahoney", date: "2026-09-08", url: "https://www.techtimes.com/articles/326996/20260908/uk-locks-priciest-30-year-gilt-yield-since-1998-tax-rises-october-budget-now-near-certain.htm" },
   ],
 };
 
@@ -895,10 +895,10 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-10",
   us: [
+    { title: "Oil extends gains as Iran vows more intense war, Strait of Hormuz supply disruption continues", source: "CNBC", date: "2026-09-10", time: "21:16", url: "https://www.cnbc.com/2026/09/10/iran-us-oil-hormuz-supply-trump-military-brent-wti.html" },
     { title: "The likelihood of a Fed interest rate hike next week just got a lot higher", source: "CNBC", date: "2026-09-10", time: "13:40", url: "https://www.cnbc.com/2026/09/10/the-likelihood-of-a-fed-interest-rate-hike-next-week-just-got-a-lot-higher.html" },
-    { title: "Wholesale inflation picked up in August, as energy costs kept rising", source: "CNN Business", date: "2026-09-10", time: "13:40", url: "https://www.cnn.com/2026/09/10/economy/us-ppi-wholesale-inflation-august" },
     { title: "Stock Market Today (Sept. 10, 2026): S&P 500 falls as oil prices spike", source: "TheStreet", date: "2026-09-10", time: "17:14", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-10-2026" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq extend losses as bond yields jump, oil holds above $100", source: "Yahoo Finance", date: "2026-09-10", time: "17:14", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-september-10-dow-sp-500-nasdaq-083717303.html" },
+    { title: "Latest Oil Market News and Analysis for Sept. 10", source: "Bloomberg", date: "2026-09-09", time: "21:16", url: "https://www.bloomberg.com/news/articles/2026-09-09/latest-oil-market-news-and-analysis-for-sept-10" },
     { title: "Trump says Iran war to end after US midterm vote, Houthis close in on key Strait", source: "Reuters", date: "2026-09-10", time: "12:16", url: "https://www.reuters.com/world/middle-east/trump-says-iran-war-end-after-us-midterm-elections-threatens-attack-pickaxe-2026-09-10/" },
   ],
   uk: [
@@ -906,7 +906,7 @@ export const NEWS = {
     { title: "Sterling today: Pound rises as BoE rate hike bets build", source: "Reuters (via Investing.com)", date: "2026-09-10", time: "10:10", url: "https://www.investing.com/news/forex-news/sterling-today-pound-rises-as-boe-rate-hike-bets-build-4895211" },
     { title: "FTSE 100 Live: Stocks dip; Trump says Iran war 'will end after midterms'", source: "CityAM", date: "2026-09-10", time: "10:43", url: "https://www.cityam.com/ftse-100-live-stocks-to-fall-trump-says-iran-war-will-end-after-midterms/" },
     { title: "Businesses urge Healey to reduce cost pressures in pre-Budget campaigns", source: "CityAM", date: "2026-09-10", time: "05:00", url: "https://www.cityam.com/businesses-urge-healey-to-reduce-cost-pressures-in-pre-budget-campaigns/" },
-    { title: "JP Morgan boss Jamie Dimon to meet Chancellor John Healey ahead of Budget", source: "CityAM", date: "2026-09-09", time: "12:17", url: "https://www.cityam.com/jp-morgan-boss-jamie-dimon-to-meet-chancellor-john-healey-ahead-of-budget/" },
+    { title: "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", source: "Reuters (via Investing.com)", date: "2026-09-10", time: "21:16", url: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672" },
   ],
 };
 
@@ -920,6 +920,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-10",
   items: [
+    {"title": "Oil extends gains as Iran vows more intense war, Strait of Hormuz supply disruption continues", "source": "CNBC", "date": "2026-09-10", "time": "21:16", "url": "https://www.cnbc.com/2026/09/10/iran-us-oil-hormuz-supply-trump-military-brent-wti.html", "blurb": "Brent and WTI extended their advance as Iran vowed a more intense war and fresh Strait of Hormuz attacks kept the six-month-old conflict's threat to oil supply squarely alive into next week's FOMC decision.", "author": null},
+    {"title": "Latest Oil Market News and Analysis for Sept. 10", "source": "Bloomberg", "date": "2026-09-09", "time": "21:16", "url": "https://www.bloomberg.com/news/articles/2026-09-09/latest-oil-market-news-and-analysis-for-sept-10", "blurb": "Bloomberg's rolling oil-market wrap tracks crude's climb back above $100/bbl on the widening Iran conflict and its knock-on pressure on the Fed's rate-decision calculus.", "author": null},
+    {"title": "A New Global Energy Shock", "source": "Project Syndicate", "date": "2026-09-09", "time": "21:16", "url": "https://www.project-syndicate.org/onpoint/a-new-global-energy-shock", "blurb": "Analysis of how the Iran-war oil shock is transmitting into global growth and inflation, echoing the 1970s energy-shock playbook central banks are now being forced to relearn.", "author": null},
     {"title": "The likelihood of a Fed interest rate hike next week just got a lot higher", "source": "CNBC", "date": "2026-09-10", "time": "13:40", "url": "https://www.cnbc.com/2026/09/10/the-likelihood-of-a-fed-interest-rate-hike-next-week-just-got-a-lot-higher.html", "blurb": "August producer prices rose 0.4% m/m and 5.4% y/y — hotter than forecast — pushing CME FedWatch-implied odds of a 16 September hike to roughly 70%, up from about 60% before the data, with Friday's CPI print now the last major test.", "author": null},
     {"title": "ECB raises interest rates again amid Iran war inflation pressure", "source": "Reuters (via Yahoo Finance)", "date": "2026-09-10", "time": "13:15", "url": "https://finance.yahoo.com/economy/policy/articles/ecb-raises-interest-rates-again-123331896.html", "blurb": "The ECB lifted its deposit rate 25bp to 2.50% — its second hike of the year — as the Iran-war energy shock keeps euro-area inflation well above target, lifting its 2026 growth forecast to 0.9% alongside the tightening.", "author": null},
     {"title": "Wholesale inflation picked up in August, as energy costs kept rising", "source": "CNN Business", "date": "2026-09-10", "time": "13:40", "url": "https://www.cnn.com/2026/09/10/economy/us-ppi-wholesale-inflation-august", "blurb": "A 4.2% jump in final-demand energy prices, led by a 24.1% surge in diesel, drove most of August's PPI increase even as core producer prices cooled slightly more than expected.", "author": null},
@@ -1121,7 +1124,7 @@ export const MATWALL = {
 export const IND_KEYMOMENTS = {
   "US:two_year": { text: "August PPI rose 0.4% m/m and a hotter-than-expected 5.4% y/y, pushing CME FedWatch-implied odds of a 16 September hike to roughly 70% (from ~60% before the data) and the 10-year Treasury yield above 4.9%, its highest since November 2023, with Friday's decisive CPI print the last major test.", src: "https://www.cnbc.com/2026/09/10/the-likelihood-of-a-fed-interest-rate-hike-next-week-just-got-a-lot-higher.html", srcName: "CNBC", date: "2026-09-10" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
-  "UK:two_year": { text: "The 2-year gilt yield rose to 4.742% Thursday — its highest since November 2023 — as the 10-year struck a fresh 19-year high of 5.295% and a £5bn May-2030 gilt auction drew robust demand, with Reuters' latest poll still showing all 65 economists expecting the MPC to hold Bank Rate at 3.75% on 17 September.", src: "https://order-order.com/2026/09/10/british-10-year-gilt-yield-rises-to-19-year-high/", srcName: "Guido Fawkes", date: "2026-09-10" },
+  "UK:two_year": { text: "The 2-year gilt yield rose to 4.742% Thursday — its highest since November 2023 — as the 10-year struck a fresh 19-year high of 5.295%, even as a unanimous Reuters poll of all 65 economists surveyed expects the MPC to hold Bank Rate at 3.75% on 17 September, a starker consensus than the market curve, which keeps pricing hikes from November.", src: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672", srcName: "Reuters (via Investing.com)", date: "2026-09-10" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
   "UK:core_cpi": { text: "July CPI rose to 2.9% y/y (from 2.6%), a four-month high in line with consensus, with core CPI hotter than forecast at 2.6% (vs 2.5% expected) on a 14.7% jump in gas prices as the Ofgem energy-cap rise fed through — sterling's reaction stayed muted.", src: "https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html", srcName: "Yahoo Finance UK", date: "2026-08-19" },
 };
