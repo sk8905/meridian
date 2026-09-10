@@ -1,7 +1,7 @@
 // Home (Glance) markup — the <main class="g-main"> block, extracted verbatim
 // from index.html. The shell provides the header, so the inner #wire-header and
 // Glance's own cmdk overlay (v2 uses palette.js) are omitted.
-import { bandHTML } from "/v2/js/searchband.js?v=v2-1";
+import { bandHTML } from "/v2/js/searchband.js?v=v2-2";
 export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
       ${bandHTML("Search…")}
 

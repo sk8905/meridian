@@ -19,7 +19,6 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // (its own leaf token, not V; see runtime.js), so chrome's boot-time value and a
 // desk's real stamp share one monotonic keep-latest state.
 import { reportRefresh } from "./status.js?v=v2-4";
-import { initSearchBand } from "./searchband.js?v=v2-1";
 import { esc } from "/util.js?v=20260818-1";
 
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
@@ -56,9 +55,6 @@ const TAB_ICONS = {
 // onTab(key) is called for every tab / platform activation — the runtime routes.
 export function initChrome({ onTab }) {
   buildHeader(onTab);
-  // The shared search band's $1–15bn button (on pages with no list of their own)
-  // jumps to Profiles → Managers with that AUM focus applied.
-  initSearchBand((key, hash) => { onTab(key); if (hash) setTimeout(() => { location.hash = hash; }, 0); });
   const tabbar = buildTabBar(onTab);
   // In-view "go to tab" affordances (e.g. the Home feed banner's Newsletters
   // button) route via the SPA exactly like a bottom-tab tap — any [data-nav-tab]

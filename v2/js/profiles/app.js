@@ -19,7 +19,6 @@ import {
 } from "/v2/js/legal/detail.js?v=v2-10";
 import { esc } from "/util.js?v=20260818-1";
 import { matchesFor, pendingFor } from "/v2/js/network/store.js?v=v2-2";
-import { consumeAumFocus } from "/v2/js/searchband.js?v=v2-1";
 
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
@@ -247,19 +246,9 @@ export async function mount(host, ctx) {
     host.querySelectorAll(sel).forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
   });
 
-  // After a $1–15bn jump from another page's search band, land on the Managers
-  // list with the AUM focus already applied (one-shot handshake, read-and-clear).
-  function applyAumJump() {
-    if (!consumeAumFocus()) return;
-    showList("managers");
-    const f = host.querySelector("#cr-lg-focus");
-    if (f && f.getAttribute("aria-pressed") !== "true") f.click();
-  }
-
   router();                                             // land on the list (or a deep-linked profile)
-  applyAumJump();
   // On re-entry, re-run the router (honours a deep link, else shows the list).
   // On leave, collapse any open detail back to the list so returning to Profiles
   // never flashes a stale profile before the router re-decides.
-  return { enter: () => { router(); applyAumJump(); }, leave() { showList(); } };
+  return { enter: () => router(), leave() { showList(); } };
 }
