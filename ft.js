@@ -20,7 +20,6 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
-  { id: "bfb9323d-2555-41b6-ba2c-a26335f94f95", title: "Exit Party by Emily St John Mandel — conflicting visions of dystopia", date: "2026-09-10", time: "12:15", url: "https://www.ft.com/content/bfb9323d-2555-41b6-ba2c-a26335f94f95" },
   { id: "b1141d4b-e2f6-409e-8a74-1ce8d38f7d6a", title: "Israel’s hapless British defenders", date: "2026-09-10", time: "12:05", url: "https://www.ft.com/content/b1141d4b-e2f6-409e-8a74-1ce8d38f7d6a" },
   { id: "b05629bb-0c2d-419c-a3a2-910a811ac0a9", title: "Big Tech has replaced Big Oil as Public Enemy No 1, says US shale boss", date: "2026-09-10", time: "12:00", url: "https://www.ft.com/content/b05629bb-0c2d-419c-a3a2-910a811ac0a9" },
   { id: "796f0045-d300-4e22-be82-fa9a111fb634", title: "Is now really the time to worry about a new China shock?", date: "2026-09-10", time: "12:00", url: "https://www.ft.com/content/796f0045-d300-4e22-be82-fa9a111fb634" },
@@ -35,7 +34,6 @@ export const FT_ITEMS = [
   { id: "8a0bc64f-44c7-4811-8e68-fb17c0a6ae28", title: "Donald Trump’s US coal revival push fails to reverse fuel’s long decline", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/8a0bc64f-44c7-4811-8e68-fb17c0a6ae28" },
   { id: "3382efba-83fe-41b2-aaab-c3c50d5f7df4", title: "Franklin Templeton turns the tide as Western Asset crisis recedes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/3382efba-83fe-41b2-aaab-c3c50d5f7df4" },
   { id: "890dc1c8-f5f1-46d2-a4fa-1a9df3667f37", title: "Hard left holds key to Germany’s first far-right state premiership", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/890dc1c8-f5f1-46d2-a4fa-1a9df3667f37" },
-  { id: "f5f7fde0-9623-4aca-b5df-31c6cab830bb", title: "Rose Chalalai Singh’s dinner with the dervishes", date: "2026-09-10", time: "11:00", url: "https://www.ft.com/content/f5f7fde0-9623-4aca-b5df-31c6cab830bb" },
   { id: "083a9c4b-3913-496d-be13-22c96053624b", title: "ECB rate decision live: central bank expected to raise borrowing costs to fight inflation shock", date: "2026-09-10", time: "10:58", url: "https://www.ft.com/content/083a9c4b-3913-496d-be13-22c96053624b" },
   { id: "58e9a70f-29c2-4f44-8531-00fc399ebbe0", title: "Prediction markets ‘rife with insider trading’, warns EU watchdog", date: "2026-09-10", time: "10:00", url: "https://www.ft.com/content/58e9a70f-29c2-4f44-8531-00fc399ebbe0" },
   { id: "59baaebd-ba30-4e75-bbf9-a9a46459816f", title: "England’s mayors to be allowed to introduce unlimited tourism tax", date: "2026-09-10", time: "09:54", url: "https://www.ft.com/content/59baaebd-ba30-4e75-bbf9-a9a46459816f" },
