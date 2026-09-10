@@ -375,6 +375,11 @@
 :root[data-theme="dark"] .tsearch { background: #202020; }
 :root[data-theme="light"] .tsearch { background: #ffffff; }
 .tsearch::placeholder { color: var(--faint); }
+/* Shared search band on non-list pages: the "search" is a button styled like the
+   .tsearch input (it opens the command palette); the $1–15bn button sits beside
+   it, exactly as on the list pages. */
+.wire-band-q { text-align: left; color: var(--faint); cursor: pointer; line-height: 1; display: inline-flex; align-items: center; }
+.wire-band-q:hover { color: var(--muted); border-color: var(--muted); }
 .tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague-full th.tl-hq { text-align: left; }
 /* CLO indicator: right-align to sit under its right-aligned "CLOs" header (the
@@ -417,7 +422,8 @@
      the full width, and let the filter buttons fall to the line beneath. */
   .thead-search { height: auto; flex-wrap: wrap; row-gap: 8px; padding: 8px 12px; align-items: center; }
   .thead-search > span { display: none; }
-  .thead-search .tsearch { flex: 1 1 100%; max-width: none; height: 26px; }
+  /* Search input shares the row with the AUM button now merged into it. */
+  .thead-search .tsearch { flex: 1 1 auto; max-width: none; height: 26px; }
   .thead-search .tfocus-btn { flex: 0 0 auto; }
 }
 /* detail pane toggle (News / Funds / CLOs / Key personnel) */

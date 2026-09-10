@@ -10,6 +10,7 @@ import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260730-2";
 import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260811-1";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260808-1";
+import { bandHTML } from "/v2/js/searchband.js?v=v2-1";
 
 export function mount(host, ctx) {
   const app = host;
@@ -346,6 +347,7 @@ function viewDashboard() {
               .map(([k, l]) => `<button type="button" class="tchip${k === mk ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("");
           })()}</div>
         </header>
+        ${bandHTML("Search…")}
         <div class="g-feed twire g-feed-wrap" id="mac-wire">${_macWireItems.length ? feedBodyHTML(_macWireItems) : feedEmptyHTML("No items yet.")}</div>
         <div class="mac-dash-pane" id="mac-dash" hidden>${macroDashPane()}</div>
       </section>

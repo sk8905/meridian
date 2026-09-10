@@ -9,9 +9,11 @@
 // =============================================================================
 import { NEWSLETTERS } from "/newsletters.js";
 import { createFeed, onLiveWire, dedupeByTitle } from "/feed.js?v=20260808-1";
+import { bandHTML } from "/v2/js/searchband.js?v=v2-1";
 
 export function mount(host, ctx) {
   host.innerHTML = `<div class="g-feed-wrap nl-wrap">
+      ${bandHTML("Search…")}
       <header class="g-feed-head" id="nl-head"></header>
       <div class="g-feed" id="nl-feed"></div>
     </div>`;

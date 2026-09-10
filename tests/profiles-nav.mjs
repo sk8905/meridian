@@ -23,20 +23,20 @@ await tapAt(tb.x, tb.y);
 await pg.waitForTimeout(1500);
 checkEq(await pg.evaluate(() => document.documentElement.dataset.v2tab), "profiles", "Profiles tab is active after tapping it");
 
-// The AUM focus control is the SAME everywhere: an "AUM focus" label + a
-// "$1–15bn" button, sitting in its own .aum-focus bar at the top of the pane
-// (identical to the Transactions tab), not inline in the search row.
+// The $1–15bn AUM-focus button is now MERGED into the search row (the "AUM focus"
+// label is dropped to save space), the same on Managers, Hedge Funds and
+// Transactions.
 const focusLbl = await pg.evaluate(() => {
-  const read = (id) => { const btn = document.querySelector(id); if (!btn) return { btn: "(missing)" }; const bar = btn.closest(".aum-focus"); return { btn: btn.textContent.trim(), inBar: !!bar, label: bar ? (bar.querySelector(".aum-focus-l") || {}).textContent : "", inSearch: !!btn.closest(".thead-search") }; };
+  const read = (id) => { const btn = document.querySelector(id); if (!btn) return { btn: "(missing)" }; return { btn: btn.textContent.trim(), inSearch: !!btn.closest(".thead-search"), noBar: !document.querySelector(".aum-focus .aum-focus-l") }; };
   return { lg: read("#cr-lg-focus"), hf: read("#cr-hf-focus") };
 });
 checkEq(focusLbl.lg.btn, "$1–15bn", "managers AUM focus toggle reads $1–15bn");
 checkEq(focusLbl.hf.btn, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
-check(focusLbl.lg.inBar && focusLbl.lg.label === "AUM focus" && !focusLbl.lg.inSearch, "Managers: the $1–15bn toggle sits in the shared 'AUM focus' bar, not the search row");
-check(focusLbl.hf.inBar && focusLbl.hf.label === "AUM focus" && !focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle sits in the shared 'AUM focus' bar, not the search row");
-// The Hedge Funds "Cross-holdings" button shares that same AUM-focus line.
-const cons = await pg.evaluate(() => { const btn = document.querySelector("#hf-cons-btn"); return { present: !!btn, inBar: !!(btn && btn.closest(".aum-focus")), inSearch: !!(btn && btn.closest(".thead-search")) }; });
-check(cons.present && cons.inBar && !cons.inSearch, "Hedge Funds: the Cross-holdings button shares the AUM focus line");
+check(focusLbl.lg.inSearch && focusLbl.lg.noBar, "Managers: the $1–15bn toggle is merged into the search row (no 'AUM focus' label)");
+check(focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle is merged into the search row");
+// The Hedge Funds "Cross-holdings" button is still present (its own slim row).
+const cons = await pg.evaluate(() => !!document.querySelector("#hf-cons-btn"));
+check(cons, "Hedge Funds: the Cross-holdings button is still present");
 
 // The Managers / Hedge Funds / Law firms chips carry the active-tab underline
 // like the Dashboard/Transactions bars — the chip's marker sits in the header's
