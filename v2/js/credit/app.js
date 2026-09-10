@@ -965,7 +965,7 @@ function viewManagers() {
   const LOCATIONS = [...new Set(managers.flatMap((m) => hqRegions(m.hq)))].sort();
   const rows = managers.filter((m) =>
     (!targetFocus || mInFocus(m)) &&
-    (!f.q || m.name.toLowerCase().includes(f.q.toLowerCase()) || m.hq.toLowerCase().includes(f.q.toLowerCase())) &&
+    (!f.q || m.name.toLowerCase().includes(f.q.toLowerCase()) || (m.hq || "").toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.strategy.length || f.strategy.some((s) => m.strategies.includes(s))) &&
     (!f.location.length || hqRegions(m.hq).some((r) => f.location.includes(r)))
   );
@@ -1007,7 +1007,7 @@ function viewManagers() {
 function viewLps() {
   const f = filterState.lps;
   const rows = lps.filter((l) =>
-    (!f.q || l.name.toLowerCase().includes(f.q.toLowerCase()) || l.hq.toLowerCase().includes(f.q.toLowerCase())) &&
+    (!f.q || l.name.toLowerCase().includes(f.q.toLowerCase()) || (l.hq || "").toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.type.length || f.type.includes(l.type)) &&
     (!f.strategy.length || f.strategy.some((s) => l.strategies.includes(s)))
   );

@@ -28,6 +28,7 @@ const feedJs = read("feed.js");
 const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
 const statusJs = read(path.join("v2", "js", "status.js"));
 const creditDetailJs = read(path.join("v2", "js", "credit", "detail.js"));
+const creditAppJs = read(path.join("v2", "js", "credit", "app.js"));
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
 // just a var(--t-news, #fallback) with nothing ever setting it.
@@ -196,6 +197,17 @@ check(/\.ew-day\s*\{[^}]*background:\s*var\(--head,/.test(macroCss),
 check(/function viewFund\(id\)\s*\{[^]*?const m = managerById\[x\.managerId\];\s*\n\s*if \(!m\) return notFound\(app\);/.test(creditDetailJs),
   "v2/js/credit/detail.js viewFund() guards a missing manager record before use");
 
+// T12 — Managers/Investors search must not throw on a record with no `hq`
+// (an unset field is legitimately `null` per the refresh routine's "never
+// fabricate — unknown fields are null" rule). hqRegions() already guards with
+// String(hq || ""), but the free-text search predicates called `m.hq`/`l.hq`
+// .toLowerCase() directly — a manager or LP added with hq left null would
+// throw mid-filter and blank the whole Managers/Investors list.
+check(/m\.name\.toLowerCase\(\)\.includes\(f\.q\.toLowerCase\(\)\) \|\| \(m\.hq \|\| ""\)\.toLowerCase\(\)/.test(creditAppJs),
+  "v2/js/credit/app.js viewManagers() guards a null m.hq before .toLowerCase()");
+check(/l\.name\.toLowerCase\(\)\.includes\(f\.q\.toLowerCase\(\)\) \|\| \(l\.hq \|\| ""\)\.toLowerCase\(\)/.test(creditAppJs),
+  "v2/js/credit/app.js viewLps() guards a null l.hq before .toLowerCase()");
+
 // R9 — the Dashboard heatmap cells (sector flows, world indices, govt-yield
 // change) must theme-adapt via color-mix(var(--t-up)/var(--t-down)), the same
 // pattern used by the FX-matrix and prediction-market heat helpers
@@ -260,5 +272,15 @@ check(/\.dsh-tbl \{[^}]*font-family:var\(--t-mono\)/.test(dashboardCss),
   "dashboard.css .dsh-tbl data tables render in the mono face");
 check(/\.dsh-kv-v \{[^}]*font-family:var\(--t-mono\)/.test(dashboardCss),
   "dashboard.css .dsh-kv-v metric values render in the mono face");
+
+// R20 — no methodology/provenance caption prose under a data table or list.
+// Each row already links its own source (R7); a trailing "each/every X links
+// its source" sentence (or "sourced, illustrative not exhaustive") is exactly
+// the banned pattern HOUSE_STYLE R20 names by example, and had crept into four
+// Dashboard captions (World indices, Govt yields, HF 13F consensus & moves).
+check(!/[Ee]ach (index|country|fund) links its source/.test(dashboardApp),
+  "v2/js/dashboard/app.js captions do not restate per-row sourcing as methodology prose (R20)");
+check(!/illustrative not exhaustive/.test(dashboardApp),
+  "v2/js/dashboard/app.js captions do not carry the banned 'illustrative not exhaustive' methodology phrase (R20)");
 
 finish();

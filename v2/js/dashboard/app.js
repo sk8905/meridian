@@ -217,7 +217,7 @@ export function mount(host, ctx) {
     const group = (g, i) => (g.rows || []).map((r, ri) => row(r, i > 0 && ri === 0)).join("");
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Index</th>${IDX_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${W.regions.map(group).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span>, price return shaded within each window; the grey figure is the latest index level (points). Each index links its source.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span>, price return shaded within each window; the grey figure is the latest index level (points).</p>`;
   }
   async function loadWorldIndices() {
     const box = host.querySelector("#dsh-wi-box");
@@ -657,7 +657,7 @@ export function mount(host, ctx) {
       + `<select id="dsh-yld-tenor" class="dsh-hf-sel">${YLD_TENORS.map(([k, l]) => `<option value="${k}"${k === tk ? " selected" : ""}>${l}</option>`).join("")}</select></div>`;
     return sel + `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YCHG_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${G.regions.map(group).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = yield fell</span> · <span class="dsh-fl-neg">red = yield rose</span> over each window (${esc(tl)} change in basis points, shaded per column); the grey figure is the current ${esc(tl)} yield. Each country links its source.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = yield fell</span> · <span class="dsh-fl-neg">red = yield rose</span> over each window (${esc(tl)} change in basis points, shaded per column); the grey figure is the current ${esc(tl)} yield.</p>`;
   }
   function wireYields() {
     const box = host.querySelector("#dsh-yld");
@@ -844,7 +844,7 @@ export function mount(host, ctx) {
       <section class="dsh-card">
         <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
         <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
-        <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage — each links its source. ${esc(F.filed || "")}</p>
+        <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage. ${esc(F.filed || "")}</p>
       </section>
       <section class="dsh-card">
         <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
@@ -854,7 +854,7 @@ export function mount(host, ctx) {
       </section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
       <div class="dsh-news dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
-      <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs — sourced, illustrative not exhaustive.</p></section>`;
+      <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs.</p></section>`;
     return { mid, news, newsLabel: "Notable moves" };
   }
   function renderHfHoldings(body, d) {
