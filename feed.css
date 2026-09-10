@@ -118,7 +118,7 @@
 /* Fixed income (Bond Vigilantes + any fi-flagged source) reads the macro/rates
    palette — bonds & rates sit in the macro domain. */
 .g-feed-code.fi{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
-.g-feed-title { font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
+.g-feed-title { font-size:11.5px; color:var(--t-ink); font-weight:400; line-height:1.4;
   white-space:normal; overflow:visible; min-width:0; }
 /* Entity chip (a manager/firm named in the headline, linking to its profile). */
 .g-feed-ent { font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
@@ -152,7 +152,7 @@ body.wire-sliding .g-feed-srcbar { position:static; }
     grid-template-columns:max-content max-content minmax(0,1fr);
     grid-template-areas:"title title title" "code time src";
     column-gap:6px; row-gap:5px; padding:11px 12px; }
-  .g-feed-title { grid-area:title; font-size:14px; line-height:1.36; }
+  .g-feed-title { grid-area:title; font-size:11.5px; line-height:1.36; }
   .g-feed-code { grid-area:code; padding:2px 5px; }
   .g-feed-time { grid-area:time; white-space:nowrap; }
   /* Source sits flush RIGHT on the meta line (code · time on the left). */

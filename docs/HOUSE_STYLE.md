@@ -139,10 +139,17 @@ notification badge red (`#ef4444`).
   Consolas, "Liberation Mono", monospace`): all tabular/numeric data (tickers,
   price columns, FX, prediction %) and the terminal-chrome dropdown panels
   (Markets / Saved / Notifications).
-- **R11 — Sizes come from the scale, not ad-hoc px:** 10px (day breaks /
-  eyebrows, uppercase), ~10.5px (mono data rows), 12px (panel headers),
-  `--fs-content` (body). Numeric columns use
-  `font-variant-numeric: tabular-nums`.
+- **R11 — Sizes come from the scale, not ad-hoc px:** the whole app is anchored
+  to the **Profiles ▸ Managers league** (`.tleague`) — the agreed reference
+  density: **11px** sans names, mono figures. The scale: 8.5–10px (day breaks /
+  eyebrows / column heads, uppercase), ~10.5px (mono data rows), **11px** body /
+  content / list & feed item text (`--fs-content` ≈ .69rem; feed headlines a
+  hair up at 11.5px), 12px (panel headers), then a restrained heading step
+  (`--fs-card-title` .82rem, `--fs-section-title` 1.18rem / .95rem mobile).
+  Prose, feed rows and info-page copy all sit at this league density — they do
+  **not** run at the retired 13.6px prose scale. Numeric columns use
+  `font-variant-numeric: tabular-nums`. Change a size once, in the `--fs-*`
+  token block (premium.css), so every surface moves in lockstep.
 - **R11b — No new font family or weight** beyond the two stacks and the weights
   already in use (400 / 500 / 600 / 700 / 800). 500 is the inactive-chip/label
   weight, paired with 600 for the active state.

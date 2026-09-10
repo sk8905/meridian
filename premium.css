@@ -124,14 +124,18 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         content        [.macro-sum-line "Fed on hold at…" — the DEFAULT]
       card/panel titles (h2/h3) keep the established 1.05rem card-title size. -- */
 :root {
-  --fs-section-title: 1.6rem;  /* page / section heading (h1); 1.2rem on mobile */
-  --fs-card-title:    1.05rem; /* card / panel heading (h2, h3, .g-card-title) */
-  --fs-tagline:       .85rem;  /* lede / subtitle under a title (muted) */
-  --fs-item-title:    .9rem;   /* feed / list / card item headline */
-  --fs-item-meta:     .76rem;  /* item date · source · fine print (muted) */
-  --fs-content:       .85rem;  /* DEFAULT — summaries, descriptions, narrative */
+  /* Anchored to the terminal density the Profiles ▸ Managers list (.tleague)
+     uses — 11px sans names, mono figures. The whole app matches that list's
+     font + size: content lands at ~11px, the rest steps proportionally off it.
+     Sizes only — layout/spacing/padding are unchanged. */
+  --fs-section-title: 1.18rem; /* page / section heading (h1); .95rem on mobile */
+  --fs-card-title:    .82rem;  /* card / panel heading (h2, h3, .g-card-title) */
+  --fs-tagline:       .69rem;  /* lede / subtitle under a title (muted) */
+  --fs-item-title:    .72rem;  /* feed / list / card item headline */
+  --fs-item-meta:     .62rem;  /* item date · source · fine print (muted) */
+  --fs-content:       .69rem;  /* DEFAULT — summaries, descriptions, narrative */
 }
-@media (max-width: 760px) { :root { --fs-section-title: 1.2rem; } }
+@media (max-width: 760px) { :root { --fs-section-title: .95rem; } }
 
 /* Content is the platform's DEFAULT text size: every classless <p>, <td>, <li>
    and narrative block inherits it in place of the old 16px body base (rem-sized
@@ -493,14 +497,14 @@ html.wire-boot #out { visibility: hidden; }
         centred card on desktop; rules apply in both). */
 .na-menu-row { display: flex; align-items: center; gap: 10px; width: 100%;
   padding: 13px 14px; border: 0; border-bottom: 1px solid var(--border, #262626);
-  background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size: 13px;
+  background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size: 11px;
   text-align: left; border-radius: 0; }
 .na-menu-search { color: var(--faint, #5c6a86); cursor: pointer; }
 .na-menu-search svg { width: 16px; height: 16px; flex: 0 0 auto; }
 .na-menu-search > span { flex: 1 1 auto; }
 .na-menu-search kbd { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px;
   border: 1px solid var(--border, #262626); padding: 0 5px; color: var(--muted, #8592ad); }
-.na-menu-acct { display: block; font-size: 12px; color: var(--muted, #8592ad); }
+.na-menu-acct { display: block; font-size: 11px; color: var(--muted, #8592ad); }
 .na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight: 600; }
 .na-menu-acct a { color: var(--muted, #8592ad); font-weight: 600; text-decoration: none; margin-left: .2em; }
 .na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
@@ -650,7 +654,7 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
    every page (Markets · Macro · Portfolio share this one list grammar). */
 .na-sec { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; color: var(--ink, #eaf0fb); font-weight: 700; padding: 9px 12px 5px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 .na-sec-x { font-weight: 600; font-size: 10px; color: var(--faint, #5c6a86); }
-.na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 12px; color: inherit; text-decoration: none; }
+.na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 11px; color: inherit; text-decoration: none; }
 a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-l { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
@@ -690,7 +694,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-dot.open { background: var(--t-up); }
 .na-dot.closed { background: var(--t-down); }
 /* Saved feed rows */
-.na-load, .na-empty { padding: 16px 12px; color: var(--muted, #8592ad); font-size: 12.5px; line-height: 1.5; }
+.na-load, .na-empty { padding: 16px 12px; color: var(--muted, #8592ad); font-size: 11px; line-height: 1.5; }
 /* Mobile scrim behind a full-screen overlay. Starts BELOW the top bar so the
    Markets/Saved/Notifications buttons are never covered by it — guarantees a tap
    on another button always hits the button (and switches) rather than the scrim. */
@@ -718,8 +722,8 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* Titles clamp to two lines (the Wire-analysis guidance rows are full
    paragraphs); a tap goes straight to the full story via the row's link. */
 .nf-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
-  color: var(--ink, #eaf0fb); font-weight: 400; font-size: 13px; line-height: 1.35; margin-bottom: 4px; }
-.nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; color: var(--muted, #8592ad); }
+  color: var(--ink, #eaf0fb); font-weight: 400; font-size: 11px; line-height: 1.35; margin-bottom: 4px; }
+.nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; color: var(--muted, #8592ad); }
 .nf-code { flex: 0 0 auto; font-size: 9.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 5px; }
 .nf-code.macro { color: var(--t-mac, #9b83e2); background: color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
 .nf-code.credit { color: var(--t-crd, #fb8b1e); background: color-mix(in srgb, var(--t-crd, #fb8b1e) 16%, transparent); }
@@ -734,7 +738,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    then the question on the left with the implied YES odds pinned top-right and
    the daily odds change stacked directly beneath it. */
 .na-pred-chips { position: sticky; top: 0; z-index: 2; display: flex; gap: 0; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
-.na-pred-fchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: var(--chip-h, 34px); font: inherit; font-size: 12px; font-weight: 600; letter-spacing: .01em; padding: 0 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
+.na-pred-fchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: var(--chip-h, 34px); font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .01em; padding: 0 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pred-fchip:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
 .na-pred-fchip.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-pred-fchip.on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
@@ -759,7 +763,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .notif-item.is-new .nf-row, .nf-row.nf-new { box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
 .nf-row.nf-new { background: color-mix(in srgb, var(--accent, #fb8b1e) 7%, transparent); }
 .notif-empty { padding: 16px 14px; color: var(--muted, #8592ad); }
-.na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 12px; }
+.na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 11px; }
 /* reserve room for the taller flat bar */
 @media (max-width: 760px) { body { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom, 0px)) !important; } }
 
@@ -905,7 +909,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   bottom: calc(84px + env(safe-area-inset-bottom, 0px)); z-index: 9600;
   background: var(--surface, #191919); color: var(--ink, #eaf0fb);
   border: 1px solid var(--border, #262626); padding: 8px 14px;
-  font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px;
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px;
   opacity: 0; transition: opacity .18s ease; pointer-events: none; white-space: nowrap; }
 .wire-toast.on { opacity: 1; }
 @media (min-width: 761px) { .wire-toast { bottom: 28px; } }
@@ -919,11 +923,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .rowmenu-sub { padding: 8px 14px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px;
   font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86);
   border-top: 1px solid var(--border, #262626); }
-.rowmenu-title { padding: 10px 14px; font-size: 12px; line-height: 1.35; color: var(--muted, #8592ad);
+.rowmenu-title { padding: 10px 14px; font-size: 11px; line-height: 1.35; color: var(--muted, #8592ad);
   border-bottom: 1px solid var(--border, #262626);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .rowmenu-act { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 14px;
-  background: none; border: 0; color: var(--ink, #eaf0fb); font: inherit; font-size: 13px;
+  background: none; border: 0; color: var(--ink, #eaf0fb); font: inherit; font-size: 11px;
   text-align: left; cursor: pointer; border-radius: 0; }
 .rowmenu-act:hover { background: var(--panel2, rgba(255,255,255,.05)); }
 .rowmenu-act svg { width: 16px; height: 16px; flex: 0 0 auto; color: var(--accent, #fb8b1e); }
@@ -956,7 +960,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
 /* Lede is clamped to 3 lines so a long authored summary can never push the panel
    past one screen (see renderBriefing — the bullet list is capped in lockstep). */
-.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 12px; line-height: 1.5; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 11px; line-height: 1.5; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .na-brief-list { list-style: none; margin: 6px 0 0; padding: 0; }
 .na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 10.5px; line-height: 1.55; }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
@@ -967,7 +971,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* ---- Ask Wire assistant panel (feature B) — a terminal Q&A box: an input row
    pinned under the panel head, the answer/sources below, a provenance footer. */
 .na-ask-form { display: flex; gap: 0; border-bottom: 1px solid var(--border, #262626); position: sticky; top: 33px; z-index: 2; background: var(--head, #0a0a0a); }
-.na-ask-in { flex: 1 1 auto; min-width: 0; border: 0; background: transparent; color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; padding: 9px 12px; outline: none; }
+.na-ask-in { flex: 1 1 auto; min-width: 0; border: 0; background: transparent; color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; padding: 9px 12px; outline: none; }
 .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
 .na-ask-go { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
 .na-ask-go:disabled { color: var(--faint, #5c6a86); cursor: default; }
@@ -977,7 +981,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-out { padding: 0; }
 .na-ask-hint { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 11px; line-height: 1.5; }
 .na-ask-err { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--muted, #8592ad); font-size: 11px; line-height: 1.5; }
-.na-ask-answer { padding: 11px 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 12px; line-height: 1.55; word-wrap: break-word; }
+.na-ask-answer { padding: 11px 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 11px; line-height: 1.55; word-wrap: break-word; }
 .na-ask-answer p { margin: 0 0 8px; }
 .na-ask-answer p:last-child { margin-bottom: 0; }
 .na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight: 600; }
