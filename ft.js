@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f1542280-1e6e-40ea-ac7f-83a5866a19f2", title: "Shabana Mahmood demands ‘effective police action’ ahead of UK anti-immigration protests", date: "2026-09-10", time: "18:02", url: "https://www.ft.com/content/f1542280-1e6e-40ea-ac7f-83a5866a19f2" },
+  { id: "d3fe6f10-d03e-4580-b033-1fd39f9f8f97", title: "British man admits inventing fake takeover bid for Canadian oil explorer", date: "2026-09-10", time: "17:51", url: "https://www.ft.com/content/d3fe6f10-d03e-4580-b033-1fd39f9f8f97" },
+  { id: "6508d169-35b1-4e56-a29a-57911d9123d8", title: "Say goodbye to the SaaSpocalypse and hello to the RenaiSaaS", date: "2026-09-10", time: "17:35", url: "https://www.ft.com/content/6508d169-35b1-4e56-a29a-57911d9123d8" },
+  { id: "f9969f50-b2bb-4a8b-933b-1e39932d6e27", title: "Reform candidate for London mayor said Tories ‘should have borrowed and borrowed’", date: "2026-09-10", time: "17:23", url: "https://www.ft.com/content/f9969f50-b2bb-4a8b-933b-1e39932d6e27" },
   { id: "e7a8a9fa-0dc2-41df-890c-9628efac54fd", title: "Vantage Data Centers seeks $2bn in loans from Pimco and PGIM", date: "2026-09-10", time: "17:04", url: "https://www.ft.com/content/e7a8a9fa-0dc2-41df-890c-9628efac54fd" },
   { id: "a3cb053b-08eb-43c5-8cc4-9c4c22fbf529", title: "Ourselves Alone: a partial glimpse inside Ireland’s Sinn Féin", date: "2026-09-10", time: "17:00", url: "https://www.ft.com/content/a3cb053b-08eb-43c5-8cc4-9c4c22fbf529" },
   { id: "aa78428b-747f-4486-bac5-e3500386abaf", title: "Spain’s new citizenship law to spark fresh tensions with Morocco", date: "2026-09-10", time: "16:57", url: "https://www.ft.com/content/aa78428b-747f-4486-bac5-e3500386abaf" },
@@ -58,6 +62,4 @@ export const FT_ITEMS = [
   { id: "95ad3625-a3af-4bc0-b673-238020844d7b", title: "Doubts about Reform and Labour benefit Kemi Badenoch", date: "2026-09-10", time: "09:30", url: "https://www.ft.com/content/95ad3625-a3af-4bc0-b673-238020844d7b" },
   { id: "7f9a5140-e3f5-45a9-9620-08b8e819ba41", title: "Abu Dhabi buys into China’s Luckin Coffee with $1bn deal", date: "2026-09-10", time: "07:43", url: "https://www.ft.com/content/7f9a5140-e3f5-45a9-9620-08b8e819ba41" },
   { id: "2476992f-c9fe-4992-887d-f34c81c100ab", title: "Treasury yields jump as Bessent’s $6bn buyback plan disappoints investors", date: "2026-09-10", time: "06:44", url: "https://www.ft.com/content/2476992f-c9fe-4992-887d-f34c81c100ab" },
-  { id: "ca7bee53-270c-4b80-9297-b4fe7af50222", title: "FT Alphaville’s Art of the Chart show returns 15 October. Tickets are £5, get them here", date: "2026-09-10", time: "06:35", url: "https://www.ft.com/content/ca7bee53-270c-4b80-9297-b4fe7af50222" },
-  { id: "bdde7148-eab2-4e13-abc8-9652c52257f4", title: "Must high bond yields crack stocks?", date: "2026-09-10", time: "06:30", url: "https://www.ft.com/content/bdde7148-eab2-4e13-abc8-9652c52257f4" },
 ];
