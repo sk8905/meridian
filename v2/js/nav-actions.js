@@ -757,19 +757,19 @@ export function initNavActions() {
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =
-      // Cluster order (left→right): Briefing · Ask (desktop only) · Markets ·
-      // Bookmarks · Notifications · Theme (desktop only).
+      // Cluster order (left→right): Markets · Bookmarks · Briefing ·
+      // Notifications, then Ask (desktop only) · Theme (desktop only).
       // The refresh-countdown ring moved OUT of this cluster — it now sits beside
       // the "Last refresh" marker (status.js). Ask Wire (B) is a desktop-header
       // affordance; on phones it lives in the Menu → Dialogue chip, so the header
-      // stays to Briefing · Markets · Bookmarks · Notifications there. Search on
+      // stays to Markets · Bookmarks · Briefing · Notifications there. Search on
       // phones also moved to the Menu → Dialogue chip (desktop keeps the topbar
       // search pill), so there is no phone magnifier button here any more.
-      `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
-      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>`) +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
+      `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
+      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>`) +
       // Theme toggle lives in the nav bar on desktop; on phones it moves into the
       // Menu → Settings chip's own control so the nav bar stays uncluttered.
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${themeTitle()}">${themeIcon()}</button>`);
