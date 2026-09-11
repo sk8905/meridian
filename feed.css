@@ -118,6 +118,24 @@
 /* Fixed income (Bond Vigilantes + any fi-flagged source) reads the macro/rates
    palette — bonds & rates sit in the macro domain. */
 .g-feed-code.fi{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
+/* Manager-wire category tags — a soft, PER-CATEGORY pastel (not all credit-orange),
+   mirroring the newswire desk-code look. Applies to the flat wire (.g-feed-code)
+   and the grouped view (.g-mw-ev-c, colour only). Keys are the CSS-safe cat class
+   from _catCls() in glance.js (e.g. "m&a" → cat-ma). */
+.g-feed-code.cat-fundraising,.g-feed-code.cat-financing{ color:var(--t-hdg,#4aa3f0); background:color-mix(in srgb,var(--t-hdg,#4aa3f0) 15%,transparent); }
+.g-feed-code.cat-deal,.g-feed-code.cat-ma{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
+.g-feed-code.cat-clo{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
+.g-feed-code.cat-team,.g-feed-code.cat-mandate{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
+.g-feed-code.cat-strategy,.g-feed-code.cat-exit{ color:var(--t-ft); background:color-mix(in srgb,var(--t-ft) 15%,transparent); }
+.g-feed-code.cat-restructuring{ color:var(--t-crd); background:color-mix(in srgb,var(--t-crd) 15%,transparent); }
+.g-feed-code.cat-news{ color:var(--t-news,#8aa0c8); background:color-mix(in srgb,var(--t-news,#8aa0c8) 14%,transparent); }
+.g-mw-ev-c.cat-fundraising,.g-mw-ev-c.cat-financing{ color:var(--t-hdg,#4aa3f0); }
+.g-mw-ev-c.cat-deal,.g-mw-ev-c.cat-ma{ color:var(--t-lex); }
+.g-mw-ev-c.cat-clo{ color:var(--t-mac); }
+.g-mw-ev-c.cat-team,.g-mw-ev-c.cat-mandate{ color:var(--t-amber); }
+.g-mw-ev-c.cat-strategy,.g-mw-ev-c.cat-exit{ color:var(--t-ft); }
+.g-mw-ev-c.cat-restructuring{ color:var(--t-crd); }
+.g-mw-ev-c.cat-news{ color:var(--t-news,#8aa0c8); }
 .g-feed-title { font-size:11.5px; color:var(--t-ink); font-weight:400; line-height:1.4;
   white-space:normal; overflow:visible; min-width:0; }
 /* Entity chip (a manager/firm named in the headline, linking to its profile). */

@@ -209,6 +209,11 @@
 .tleague .tl-nm { color: var(--ink); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague .tl-n { text-align: right; color: var(--muted); font-family: var(--t-mono); }
 .tleague th:not(:first-child) { text-align: right; }
+/* Transaction (Deal Flow / Credits: .tx-tbl / .tx-list) and profile (holdings:
+   .tl-holdings) league tables read LEFT-ALIGNED throughout — override .tleague's
+   right-aligned numeric columns + headers for these table families. */
+.tx-tbl th, .tx-tbl td, .tx-list th, .tx-list td,
+.tl-holdings th, .tl-holdings td { text-align: left; }
 .tleague tr.clickable { cursor: pointer; }
 /* Uniform league-row height: plain single-line rows grow to match the taller
    rows that carry a chip (Profiles' Secondaries badges are ~18px, ~3px over a

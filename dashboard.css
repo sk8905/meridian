@@ -309,11 +309,14 @@
    "This week" / "Last week" bands). */
 .dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:.7rem; text-transform:uppercase;
   letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
-.dsh-r { text-align:right; }
-/* A numeric column's HEADER must right-align too — `.dsh-tbl th` forces left,
-   which beat `.dsh-r` and left every value column's header misaligned over its
-   right-aligned figures. This realigns header ↔ contents across every table. */
-.dsh-tbl th.dsh-r { text-align:right; }
+/* Dashboard tables read LEFT-ALIGNED throughout (headers + cells), including the
+   value columns that .dsh-r used to right-align — a consistent left edge across
+   the pipeline, stress, rates, maturity and other tables. */
+.dsh-r { text-align:left; }
+.dsh-tbl th.dsh-r { text-align:left; }
+/* SRC source chips sit at the EXTREME RIGHT of their row — float them to the right
+   edge of their cell so the row text stays left while the source pins right. */
+.dsh-tbl td .dsh-src { float:right; margin-left:10px; }
 /* Region separator inside the heatmap tables: a thin grey rule (no label band) —
    the first row of each new region carries a stronger top border + a little space. */
 .dsh-tbl tr.dsh-secbreak td { border-top:1px solid var(--t-grid2); padding-top:11px; }
@@ -372,6 +375,14 @@
 .dsh-ladder-bar { width:100%; max-width:34px; background:var(--t-crd); border-radius:0; min-height:2px; }
 .dsh-ladder-y { color:var(--t-dim); font-size:.7rem; font-variant-numeric:tabular-nums; }
 .dsh-ladder-cap { color:var(--t-faint); font-size:.7rem; }
+/* Maturity wall — the bar chart and the per-year table SIDE BY SIDE on desktop
+   (chart left, table right) rather than stacked, which reads better in the wide
+   card. Stacks back to one column on phones. */
+.dsh-mw-split { display:flex; align-items:flex-start; gap:22px; }
+.dsh-mw-bars { flex:1 1 55%; min-width:0; }
+.dsh-mw-tblwrap { flex:1 1 45%; min-width:0; align-self:center; }
+.dsh-mw-split .dsh-ladder { margin-top:2px; }
+@media (max-width:760px){ .dsh-mw-split { flex-direction:column; gap:8px; } .dsh-mw-bars, .dsh-mw-tblwrap { flex:1 1 auto; width:100%; } }
 
 /* Stress cards */
 .dsh-stresslist { display:flex; flex-direction:column; gap:8px; }

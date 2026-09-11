@@ -442,6 +442,9 @@ function _mgrFollows() {
   try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}"); return new Set(Array.isArray(f.manager) ? f.manager : []); }
   catch { return new Set(); }
 }
+// A CSS-safe category class for a manager-wire tag ("m&a" → "cat-ma"), so each
+// category paints in its own soft pastel (see feed.css) instead of all-orange.
+const _catCls = (c) => "cat-" + String(c || "news").replace(/[^a-z0-9]/gi, "").toLowerCase();
 function _mwWhen(d) {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || "");
   if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]}`;
@@ -508,7 +511,7 @@ function renderManagerWire() {
 
     // All the manager's news stories together, feed-styled, beneath the activity line.
     const ev = (x) => `<a class="g-mw-ev" href="${esc(x.ext ? x.source : href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-      + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c">${CAT_LABEL[x.cat] || "NEWS"}</span>`
+      + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c ${_catCls(x.cat)}">${CAT_LABEL[x.cat] || "NEWS"}</span>`
       + `<span class="g-mw-ev-t">${esc(x.title)}</span><span class="g-mw-ev-s">${esc(_mwSrc(x))}</span></a>`;
     const SHOWN = 3;
     const shown = r.events.slice(0, SHOWN).map(ev).join("");
@@ -530,7 +533,7 @@ function renderManagerWire() {
     const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
     return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
-      + `<span class="g-feed-code credit">${CAT_LABEL[x.cat] || "NEWS"}</span>`
+      + `<span class="g-feed-code ${_catCls(x.cat)}">${CAT_LABEL[x.cat] || "NEWS"}</span>`
       + `<span class="g-feed-title">${star}${esc(x.title)}</span>`
       + `<span class="g-feed-src">${esc(_mwSrc(x))}</span></a>`;
   };

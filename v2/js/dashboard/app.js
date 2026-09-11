@@ -319,17 +319,18 @@ export function mount(host, ctx) {
       const col = (b) => `<div class="dsh-ladder-col"><span class="dsh-ladder-v">$${(b.amt / 1000).toFixed(1)}tn</span>`
         + `<span class="dsh-ladder-bar" style="height:${Math.max(2, Math.round((b.amt / max) * 100))}%"></span>`
         + `<span class="dsh-ladder-y">${esc(b.y)}</span></div>`;
-      ladder = `<div class="dsh-ladder" role="img" aria-label="Maturity wall by year">${wall.buckets.map(col).join("")}</div>`
+      const bars = `<div class="dsh-ladder" role="img" aria-label="Maturity wall by year">${wall.buckets.map(col).join("")}</div>`
         + `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
-      // Per-year breakdown beneath the bars: the exact figure and the running
-      // cumulative share of the wall — fills the panel and turns the chart into a
-      // scannable table (same sourced buckets, no new data).
+      // Per-year breakdown: the exact figure and the running cumulative share of the
+      // wall — the same sourced buckets as the bars, as a scannable table. Laid out
+      // to the RIGHT of the chart on desktop (dsh-mw-split), stacked on phones.
       const tot = wall.buckets.reduce((s, b) => s + (b.amt || 0), 0) || 1;
       let cum = 0;
       const trow = (b) => { cum += b.amt || 0; return `<tr><td class="dsh-nm">${esc(b.y)}</td>`
         + `<td class="dsh-r">$${(b.amt / 1000).toFixed(2)}tn</td>`
         + `<td class="dsh-r">${Math.round((cum / tot) * 100)}%</td></tr>`; };
-      ladder += `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th class="dsh-r">Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
+      const table = `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th class="dsh-r">Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
+      ladder = `<div class="dsh-mw-split"><div class="dsh-mw-bars">${bars}</div><div class="dsh-mw-tblwrap">${table}</div></div>`;
     }
     return summary + ladder;
   }
@@ -338,7 +339,7 @@ export function mount(host, ctx) {
     const items = [...(deals || []), ...(intel || [])]
       .filter((x) => x && x.date && (x.headline || x.title) && (x.sourceUrl || x.url))
       .sort(byDateDesc)
-      .slice(0, 12);
+      .slice(0, 50);
     if (!items.length) return "";
     const row = (x) => { const u = x.sourceUrl || x.url; return `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
       + `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(x.headline || x.title)}</a>` + `</li>`; };
@@ -548,7 +549,7 @@ export function mount(host, ctx) {
     const items = [...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
       .filter((x) => x && x.title && x.url)
       .sort((a, b) => byDateDesc(a, b) || String(b.time || "").localeCompare(String(a.time || "")))
-      .slice(0, 12);
+      .slice(0, 50);
     if (!items.length) return "";
     const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
       + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>`
