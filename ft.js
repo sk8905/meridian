@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "41fb2ff1-fb84-4ae4-8668-59d46842dcdb", title: "Citadel hands international equities leadership to Elliott veteran Nabeel Bhanji", date: "2026-09-11", time: "09:04", url: "https://www.ft.com/content/41fb2ff1-fb84-4ae4-8668-59d46842dcdb" },
+  { id: "ebfa69a3-323b-450d-8bfd-0b12e01d2a5b", title: "US diesel hits record $6 a gallon on Iran supply shock", date: "2026-09-11", time: "08:56", url: "https://www.ft.com/content/ebfa69a3-323b-450d-8bfd-0b12e01d2a5b" },
   { id: "e1aacb1c-45d1-4d21-b5e9-0166c12c54cd", title: "UK economy unexpectedly grew 0.4 per cent in July", date: "2026-09-11", time: "07:02", url: "https://www.ft.com/content/e1aacb1c-45d1-4d21-b5e9-0166c12c54cd" },
   { id: "f7ca7904-b0d8-428b-9bf7-883740ba9922", title: "Scott Bessent’s intervention risks damaging BoJ’s credibility, bankers warn", date: "2026-09-11", time: "06:51", url: "https://www.ft.com/content/f7ca7904-b0d8-428b-9bf7-883740ba9922" },
   { id: "a525a00f-231f-4376-9ca6-645ed956ea69", title: "Oil is scary again", date: "2026-09-11", time: "06:30", url: "https://www.ft.com/content/a525a00f-231f-4376-9ca6-645ed956ea69" },
@@ -58,8 +60,4 @@ export const FT_ITEMS = [
   { id: "a3cb053b-08eb-43c5-8cc4-9c4c22fbf529", title: "Ourselves Alone: a partial glimpse inside Ireland’s Sinn Féin", date: "2026-09-10", time: "17:00", url: "https://www.ft.com/content/a3cb053b-08eb-43c5-8cc4-9c4c22fbf529" },
   { id: "aa78428b-747f-4486-bac5-e3500386abaf", title: "Spain’s new citizenship law to spark fresh tensions with Morocco", date: "2026-09-10", time: "16:57", url: "https://www.ft.com/content/aa78428b-747f-4486-bac5-e3500386abaf" },
   { id: "7816ad68-58ed-494c-a66f-091a9cca2cbc", title: "ECB prepares for ‘longer-lasting’ inflation as it lifts interest rates to 2.5%", date: "2026-09-10", time: "16:18", url: "https://www.ft.com/content/7816ad68-58ed-494c-a66f-091a9cca2cbc" },
-  { id: "a441ea66-329a-4f42-8e50-3ff140958e53", title: "America is losing its captive creditors", date: "2026-09-10", time: "16:08", url: "https://www.ft.com/content/a441ea66-329a-4f42-8e50-3ff140958e53" },
-  { id: "30e384f2-7aee-4dca-a97f-cb2ebf3c29b4", title: "Why young Africans are nostalgic for the past", date: "2026-09-10", time: "16:00", url: "https://www.ft.com/content/30e384f2-7aee-4dca-a97f-cb2ebf3c29b4" },
-  { id: "7072bdc1-49d0-47c3-875b-4b1508e24481", title: "Burnham’s devolution project needs strong local media too", date: "2026-09-10", time: "15:33", url: "https://www.ft.com/content/7072bdc1-49d0-47c3-875b-4b1508e24481" },
-  { id: "c090f503-1299-4f33-8539-79bbfb50c21b", title: "British man charged with volunteering to sabotage UK drone factory for Russia", date: "2026-09-10", time: "15:04", url: "https://www.ft.com/content/c090f503-1299-4f33-8539-79bbfb50c21b" },
 ];
