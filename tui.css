@@ -785,6 +785,11 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tfacts .tf-k { color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tfacts .tf-v { color: var(--muted); font-family: var(--t-mono); font-variant-numeric: tabular-nums; white-space: nowrap; flex: 0 0 auto; }
 .tmini-r { color: var(--muted); font-family: var(--t-mono); font-size: 10px; float: right; margin-left: 8px; }
+/* Ownership stakes sit INLINE, right after the owner's name on the same line —
+   not floated out to the row's right edge (which left a wide, disconnected gap on
+   a full-width iPad row). Scoped so the floated variant still serves the vehicle
+   lists and rails. */
+.tmini-r-inline { float: none; margin-left: 6px; }
 .tfacts .tf-est { font-family: var(--t-mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
 .tfd-raise { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 11px; }
 .tfacts a.tf-lnk, .tfacts .tf-v a { color: inherit; }
