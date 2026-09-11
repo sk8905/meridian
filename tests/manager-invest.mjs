@@ -1,7 +1,7 @@
 // Manager profile: the restructured tabs (News · Vehicles · Investments ·
 // Business), the collapsible "Sources" line, and the Investments tab — deal
 // activity drawn from surfaced news, tagged debt/equity. Rendered inside Profiles.
-import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, PHONE, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
@@ -98,5 +98,34 @@ check(veh.length > 0 && veh.some((h) => /Funds/.test(h)), `Vehicles tab merges F
 
 checkErrs(errs, "manager profile investments");
 await ctx.close();
+
+// DESKTOP: the Investments league table must read as EVENLY-SPACED columns —
+// table-layout:fixed with a proper per-column width set — not the leaked 8-column
+// manager widths that once starved Source (wrapping its name to 3 lines) and
+// overran the instrument badge into Amount. Assert no column is squashed or
+// runaway, and every row is a single line (Source ellipsizes rather than wraps).
+{
+  const d = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/profiles/#/manager/m8`);
+  await d.pg.waitForTimeout(1500);
+  await d.pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="investments"]'); if (t) t.click(); });
+  await d.pg.waitForTimeout(400);
+  const g = await d.pg.evaluate(() => {
+    const tbl = document.querySelector(".tinv-tbl");
+    if (!tbl) return { found: false };
+    const tw = tbl.getBoundingClientRect().width;
+    const cols = [...tbl.querySelectorAll("thead th")].map((th) => th.getBoundingClientRect().width / tw);
+    const rowsH = [...tbl.querySelectorAll("tbody tr")].slice(0, 20).map((tr) => tr.getBoundingClientRect().height);
+    const cs = getComputedStyle(tbl);
+    return { found: true, layout: cs.tableLayout, min: Math.min(...cols), max: Math.max(...cols), maxRowH: Math.max(...rowsH), n: cols.length };
+  });
+  check(g.found && g.layout === "fixed", `desktop: Investments table uses fixed column layout (${g.layout})`);
+  check(g.n === 6, `desktop: six columns (${g.n})`);
+  check(g.min >= 0.08, `desktop: no column is squashed (narrowest ${(g.min * 100).toFixed(0)}%)`);
+  check(g.max <= 0.30, `desktop: no column runs away with the width (widest ${(g.max * 100).toFixed(0)}%)`);
+  check(g.maxRowH > 0 && g.maxRowH <= 44, `desktop: every row is a single line — Source ellipsizes, it does not wrap (tallest ${Math.round(g.maxRowH)}px)`);
+  checkErrs(d.errs, "desktop investments column spacing");
+  await d.ctx.close();
+}
+
 await b.close(); srv.close();
 finish();

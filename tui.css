@@ -430,6 +430,53 @@
   .tleague-full th:nth-child(8) { width: 18%; }   /* SLS        */
   .tleague-full .tl-nm { max-width: none; }
 }
+/* Per-table column split for every OTHER .tleague-full family. They all inherit
+   .tleague-full's table-layout:fixed, but the 8-column MANAGER widths above are
+   wrong for their column counts — the slack was dumping into one wide column and
+   starving the rest (the Investments source name wrapping to 3 lines, the
+   instrument badge overrunning Amount). Each block below restates a full, correct
+   width set for its own columns (equal specificity, later in source → it wins over
+   the manager widths). Every set sums to 100% so table-layout:fixed never starves a
+   column. Kept in a min-width:761px media query so phones keep the horizontal-scroll
+   auto layout (see the max-width:760px block below). */
+@media (min-width: 761px) {
+  /* Investments (credit/detail.js): Company/borrower · Deal · Instrument · Amount · Date · Source */
+  .tinv-tbl th:nth-child(1) { width: 24%; }
+  .tinv-tbl th:nth-child(2) { width: 12%; }
+  .tinv-tbl th:nth-child(3) { width: 21%; }
+  .tinv-tbl th:nth-child(4) { width: 12%; }
+  .tinv-tbl th:nth-child(5) { width: 12%; }
+  .tinv-tbl th:nth-child(6) { width: 19%; }
+  /* Transaction credits list (transactions/app.js): Date · Borrower/company · Lender/investor · Type · Amount · Source */
+  .tx-list th:nth-child(1) { width: 9%; }
+  .tx-list th:nth-child(2) { width: 27%; }
+  .tx-list th:nth-child(3) { width: 22%; }
+  .tx-list th:nth-child(4) { width: 12%; }
+  .tx-list th:nth-child(5) { width: 12%; }
+  .tx-list th:nth-child(6) { width: 18%; }
+  /* Transaction type table (transactions/app.js): Type · Deals · 12mo · Volume · Median · Managers · Most active */
+  .tx-tbl th:nth-child(1) { width: 19%; }
+  .tx-tbl th:nth-child(2) { width: 8%; }
+  .tx-tbl th:nth-child(3) { width: 13%; }
+  .tx-tbl th:nth-child(4) { width: 12%; }
+  .tx-tbl th:nth-child(5) { width: 12%; }
+  .tx-tbl th:nth-child(6) { width: 10%; }
+  .tx-tbl th:nth-child(7) { width: 26%; }
+  /* Hedge funds (.tleague-hf) and law firms (.tleague-lf) render inside a
+     .tpane[data-pane="…"] and take their column widths from higher-specificity
+     rules in credit/css/styles.css and legal/css/styles.css respectively — those
+     are the authoritative sets, so no width rules for them belong here. */
+  /* Single-line, even columns: content that would wrap ellipsizes at the column
+     edge instead. tx-list is excluded — its borrower/headline cells set
+     white-space:normal themselves (they wrap on purpose) and out-specify this. */
+  .tinv-tbl th, .tinv-tbl td,
+  .tleague-hf th, .tleague-hf td,
+  .tleague-lf th, .tleague-lf td,
+  .tx-tbl th, .tx-tbl td {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .tinv-c-co { min-width: 0; }   /* the 10rem floor is for phone auto-layout; fixed columns size themselves */
+}
 /* iPhone: drop the HQ column so the manager name + numeric columns fit the width. */
 @media (max-width: 760px) {
   .tleague-full .tl-hq, .tleague-full th.tl-hq { display: none; }
