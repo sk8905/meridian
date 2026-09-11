@@ -40,6 +40,10 @@ const ov = await pg.evaluate(() => ({
   hasVol: /\$/.test((document.querySelector(".tx-tbl tbody tr") || {}).textContent || ""),
   noPeriodChips: !document.querySelector("#tx-period"),
   modeChips: [...document.querySelectorAll("#tx-mode .tchip")].map((c) => c.textContent.trim().replace(/\s+\d+$/, "")),
+  // Desktop: the mode tabs form a vertical LEFT sidebar (like the Dashboard rail) —
+  // chips stack (differing tops) and the .twire-head rail sits left of the content.
+  railStacked: (() => { const c = [...document.querySelectorAll("#tx-mode .tchip")]; return c.length > 1 ? Math.round(c[1].getBoundingClientRect().top - c[0].getBoundingClientRect().top) : 0; })(),
+  railLeft: (() => { const h = document.querySelector(".tx-dash .twire-head"), m = document.querySelector(".tx-dash .tcol-main"); return !!(h && m) && h.getBoundingClientRect().right <= m.getBoundingClientRect().left + 5 && Math.round(h.getBoundingClientRect().width) < 220; })(),
   // Every league row is the SAME height (matches the Profiles panes — single-line
   // rows are normalised up to the chip-row height), so the vertical rhythm is even.
   rowHs: [...new Set([...document.querySelectorAll(".tx-tbl tbody tr.clickable")].map((tr) => Math.round(tr.getBoundingClientRect().height)))],
@@ -66,6 +70,8 @@ check(ov.hasTotal, "overview carries an 'All types' total row");
 check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
 check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed");
 check(ov.modeChips.join(",") === "Deal flow,Credits", `the Deal flow / Credits mode chips are present (${ov.modeChips.join(",")})`);
+check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
+check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 
 // ---- 3) drill into a type → stat header + transaction list ---------------
 await pg.evaluate(() => { const r = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")].find((x) => /CLO issuance/.test(x.textContent)); (r || document.querySelector(".tx-tbl tbody tr.clickable")).click(); });

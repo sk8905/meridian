@@ -435,6 +435,28 @@
 .tchips-l { margin-left: 0; }
 .tpanes { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--surface); }
 .tpanes .twire { overflow: visible; flex: none; }
+/* ---- DESKTOP left sidebar nav for Profiles + Transactions (mirrors the Dashboard
+   rail). The .twire-head tab bar becomes a fixed-width vertical rail on the left and
+   the pane content fills the rest. PHONES keep the horizontal chip bar — this only
+   engages at the desktop breakpoint (≥901px, same as the Dashboard rail). ---- */
+.tcol-main { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; overflow: hidden; }
+@media (min-width: 901px) {
+  #pf-list .tcol-c, .tx-dash .tcol-c { flex-direction: row; align-items: stretch; }
+  #pf-list .tcol-c > .twire-head, .tx-dash .tcol-c > .twire-head {
+    flex: 0 0 168px; align-self: stretch; height: auto !important; position: static !important;
+    z-index: auto; padding: 8px !important; background: var(--bg);
+    border-bottom: 0 !important; border-right: 1px solid var(--border, #262626); overflow-y: auto; }
+  #pf-list .tcol-c > .twire-head .tchips, .tx-dash .tcol-c > .twire-head .tchips {
+    flex-direction: column; height: auto; width: 100%; gap: 3px; }
+  #pf-list .tcol-c > .twire-head .tchip, .tx-dash .tcol-c > .twire-head .tchip {
+    flex: 0 0 auto; justify-content: flex-start; text-align: left; max-width: none;
+    padding: 8px 11px; border: 1px solid transparent; box-shadow: none; font-weight: 600; }
+  #pf-list .tcol-c > .twire-head .tchip:hover, .tx-dash .tcol-c > .twire-head .tchip:hover {
+    color: var(--ink); background: var(--head); }
+  #pf-list .tcol-c > .twire-head .tchip.is-on, .tx-dash .tcol-c > .twire-head .tchip.is-on {
+    color: var(--ink); background: var(--head); box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
+  #pf-list .tcol-c > .tpanes, .tx-dash .tcol-c > .tcol-main { flex: 1 1 auto; min-width: 0; }
+}
 .tpane[hidden] { display: none; }
 /* Profiles list/detail: #pf-list carries .tdash (display:flex), whose author
    specificity beats the UA [hidden]{display:none} rule — so the bare hidden

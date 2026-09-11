@@ -73,15 +73,17 @@ export function mount(host, ctx) {
               <button type="button" class="tchip" data-mode="credits">Credits${EUR_CREDITS.length ? " " + EUR_CREDITS.length : ""}</button>
             </div>
           </header>
-          <header class="tpanel-h thead-search" id="tx-flow-search">
-            <input type="search" id="tx-q" class="tsearch" placeholder="Search a deal, manager or type…" aria-label="Search transactions">
-            <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
-          </header>
-          <header class="tpanel-h thead-search" id="tx-credits-search">
-            <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
-          </header>
-          <div class="tx-scroll" id="tx-body"></div>
-          <div class="tx-scroll" id="tx-credits-body"></div>
+          <div class="tcol-main">
+            <header class="tpanel-h thead-search" id="tx-flow-search">
+              <input type="search" id="tx-q" class="tsearch" placeholder="Search a deal, manager or type…" aria-label="Search transactions">
+              <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
+            </header>
+            <header class="tpanel-h thead-search" id="tx-credits-search">
+              <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
+            </header>
+            <div class="tx-scroll" id="tx-body"></div>
+            <div class="tx-scroll" id="tx-credits-body"></div>
+          </div>
         </section>
       </div>
     </div>`;
