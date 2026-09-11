@@ -207,12 +207,21 @@ const BRIEF_MAX_BULLETS = 4;
 // before the em-dash in the lead <strong> — Macro / Fixed income / Equities …)
 // reads ORANGE, and every NUMBER (5%, 4.97%, $100, 1.3522 …) reads BLUE. Numbers
 // are wrapped only inside text runs, never inside a tag, so markup stays intact.
+const NB_MONTH = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec";
 function briefMarkup(html) {
   let h = String(html || "");
   h = h.replace(/(<strong>)\s*([^<]*?)\s*(&mdash;|—)/, (_m, s, topic, dash) => `${s}<span class="nb-topic">${topic}</span> ${dash}`);
+  // Wrap numbers in blue — but NOT date components: a day directly before a month
+  // name ("16 September") and bare 4-digit years ("2026", "2007") keep the plain
+  // colour, while metrics ($100, 5%, 4.97%, 1.3522, 10-year) go blue.
   h = h.replace(/(<[^>]*>)|([^<]+)/g, (_m, tag, text) => tag
     ? tag
-    : text.replace(/(^|[^\w$£€.])((?:[$£€])?\d[\d,]*(?:\.\d+)?%?)/g, (_x, pre, num) => `${pre}<span class="nb-num">${num}</span>`));
+    : text.replace(new RegExp(`(^|[^\\w$£€.])((?:[$£€])?\\d+(?:,\\d{3})*(?:\\.\\d+)?%?)(\\s+(?:${NB_MONTH})[a-z]*)?`, "gi"), (m, pre, num, monthTail) => {
+        const isDateDay = !!monthTail && /^\d{1,2}$/.test(num);
+        const isYear = /^(?:19|20)\d\d$/.test(num);
+        if (isDateDay || isYear) return m;
+        return `${pre}<span class="nb-num">${num}</span>${monthTail || ""}`;
+      }));
   return h;
 }
 function renderBriefing(body, slotKey) {

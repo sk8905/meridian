@@ -43,14 +43,20 @@ const opened = await pg.evaluate(() => {
   const rgb = (v) => { const s = document.createElement("span"); s.style.color = v; document.body.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; };
   const topic = p.querySelector(".na-brief-b .nb-topic"), num = p.querySelector(".na-brief-b .nb-num");
   const srcHrefOk = [...p.querySelectorAll(".na-brief-b .na-brief-src")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "") && !a.querySelector(".nb-num"));
+  // Date components must NOT be blue: no .nb-num is a bare 4-digit year, and none is
+  // a day immediately followed by a month name.
+  const nums = [...p.querySelectorAll(".nb-num")];
+  const yearBlue = nums.some((e) => /^(?:19|20)\d\d$/.test(e.textContent.trim()));
+  const dayBeforeMonth = nums.some((e) => /^\d{1,2}$/.test(e.textContent.trim()) && /^\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/i.test(e.nextSibling ? e.nextSibling.textContent || "" : ""));
   return { visible, chips, onSlot, bullets, srcs, lede,
     topicColor: topic ? getComputedStyle(topic).color : null, accent: rgb("var(--accent)"),
     numColor: num ? getComputedStyle(num).color : null, wbtxt: rgb("var(--wb-txt)"),
-    nTopics: p.querySelectorAll(".na-brief-b .nb-topic").length, nNums: p.querySelectorAll(".nb-num").length, srcHrefOk };
+    nTopics: p.querySelectorAll(".na-brief-b .nb-topic").length, nNums: nums.length, srcHrefOk, yearBlue, dayBeforeMonth };
 });
 check(opened && opened.visible, "Briefing button opens the Briefing panel");
 check(opened && opened.nTopics >= 1 && opened.topicColor === opened.accent, `briefing topic headings read orange (${opened && opened.topicColor})`);
 check(opened && opened.nNums >= 1 && opened.numColor === opened.wbtxt, `briefing numbers read blue (${opened && opened.numColor})`);
+check(opened && !opened.yearBlue && !opened.dayBeforeMonth, "briefing: date numbers (bare years, day-before-month) are NOT blue");
 check(opened && opened.srcHrefOk, "briefing source links stay intact (URLs not recoloured)");
 check(opened && opened.chips.length === 3, `three slot chips — Morning/Afternoon/Evening (${opened ? opened.chips.join(",") : "none"})`);
 check(opened && !!opened.onSlot, `a slot is active by default (${opened ? opened.onSlot : "none"})`);
