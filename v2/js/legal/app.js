@@ -466,7 +466,7 @@ function lawFirmsPane() {
   // £ (~0.79) so the order reflects real size across the mixed-currency reporting.
   const lfRevGBP = (f) => (f.london.revenue || 0) * (lfCcy(f.london.revenueBasis) === "$" ? 0.79 : 1);
   const rows = firms.filter((f) => f.london).sort((a, b) => lfRevGBP(b) - lfRevGBP(a));
-  return `<header class="tpanel-h thead-search"><span>Law firms</span>`
+  return `<header class="tpanel-h thead-search">`
     + `<input type="search" id="lf-q" class="tsearch" placeholder="Search name, practice or tier…" aria-label="Search law firms"></header>`
     + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf">`
     + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Total&nbsp;revenue</th><th class="tl-n">London&nbsp;revenue</th><th class="tl-n">PEP</th></tr></thead>`

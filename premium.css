@@ -889,7 +889,9 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .topbar .na-actions .notif-bell:hover { border-color: var(--border, #262626); }
 .topbar .na-ring circle { stroke: #cdd6e6; }
 /* Flat, squared tabs with an accent underline — matches the Home feed filters. */
-.topbar .platform-switch { align-self: stretch; align-items: stretch; background: transparent; border: 0; border-radius: 0; padding: 0; gap: 0; margin-right: .4rem; }
+/* margin-right:auto pushes the identity/bell cluster to the right gutter — the
+   role the removed search pill's margin-left:auto used to play. */
+.topbar .platform-switch { align-self: stretch; align-items: stretch; background: transparent; border: 0; border-radius: 0; padding: 0; gap: 0; margin-right: auto; }
 .topbar .ps-btn { display: inline-flex; align-items: center; padding: 6px 12px; border: 0; border-radius: 0; font-size: 12px; font-weight: 600; color: #fff; cursor: pointer; }
 .topbar .ps-btn:hover { background: rgba(255,255,255,.06); color: #fff; }
 /* Selected platform: no filled background — just an orange bottom border. */

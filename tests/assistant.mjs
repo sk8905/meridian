@@ -105,7 +105,8 @@ await pg.waitForTimeout(120);
 // (dark context — the whole desktop spec runs colorScheme:"dark".)
 const rgbLift = await pg.evaluate(() => { const p = document.createElement("span"); p.style.background = "var(--lift)"; document.body.appendChild(p); const c = getComputedStyle(p).backgroundColor; p.remove(); return c; });
 const searchFont = await pg.evaluate(() => {
-  const btn = document.querySelector("[data-open-search]"); if (btn) btn.click();
+  // The top-bar search pill is gone — open the palette with the "/" shortcut.
+  window.dispatchEvent(new KeyboardEvent("keydown", { key: "/", bubbles: true }));
   const i = document.querySelector(".mcmdk-input"); if (!i) return null;
   i.value = "a"; i.dispatchEvent(new Event("input", { bubbles: true }));
   const cs = getComputedStyle(i);

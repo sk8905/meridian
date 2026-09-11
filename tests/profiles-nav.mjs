@@ -34,9 +34,21 @@ checkEq(focusLbl.lg.btn, "$1–15bn", "managers AUM focus toggle reads $1–15bn
 checkEq(focusLbl.hf.btn, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
 check(focusLbl.lg.inSearch && focusLbl.lg.noBar, "Managers: the $1–15bn toggle is merged into the search row (no 'AUM focus' label)");
 check(focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle is merged into the search row");
-// The Hedge Funds "Cross-holdings" button is still present (its own slim row).
-const cons = await pg.evaluate(() => !!document.querySelector("#hf-cons-btn"));
-check(cons, "Hedge Funds: the Cross-holdings button is still present");
+// The Hedge Funds "Cross-holdings" button now sits IN the search row, just to the
+// left of the $1–15bn AUM filter.
+const cons = await pg.evaluate(() => {
+  const btn = document.querySelector("#hf-cons-btn"), aum = document.querySelector("#cr-hf-focus");
+  if (!btn || !aum) return { present: false };
+  return { present: true, inSearch: !!btn.closest(".thead-search"),
+    leftOfAum: !!(btn.compareDocumentPosition(aum) & Node.DOCUMENT_POSITION_FOLLOWING) };
+});
+check(cons.present && cons.inSearch && cons.leftOfAum, "Hedge Funds: Cross-holdings sits in the search row, just left of the $1–15bn filter");
+// The Law firms pane no longer prints a redundant "Law firms" label in its header.
+const lfLabel = await pg.evaluate(() => {
+  const h = [...document.querySelectorAll('.tpane[data-pane] .thead-search')].find((x) => x.querySelector("#lf-q"));
+  return h ? /law firms/i.test(h.textContent || "") : null;
+});
+check(lfLabel === false, "Law firms: the redundant 'Law firms' header label is removed");
 
 // The Managers / Hedge Funds / Law firms chips carry the active-tab underline
 // like the Dashboard/Transactions bars — the chip's marker sits in the header's

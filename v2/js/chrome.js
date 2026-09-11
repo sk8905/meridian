@@ -127,9 +127,6 @@ function buildHeader(onTab) {
         <span class="brand-text"><strong>Wire</strong></span>
       </a>
       <div class="platform-switch" role="group" aria-label="Switch platform">${pills}</div>
-      <button class="nav-search" data-open-search type="button" aria-label="Search Wire">
-        <span class="ns-lbl">Search everything…</span><kbd>/</kbd>
-      </button>
       <div class="topbar-right">
         <div id="account-nav" class="account-nav"></div>
         <div id="data-status" class="data-status" data-refresh-slot></div>
