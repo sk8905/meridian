@@ -96,6 +96,13 @@ const veh = await pg.evaluate(() => {
 });
 check(veh.length > 0 && veh.some((h) => /Funds/.test(h)), `Vehicles tab merges Funds/CLOs/Listed into labelled groups (${veh.join(" · ")})`);
 
+// No stray divider line in the dead space under a short profile page: the single
+// full-width column (Profiles / Transactions) carries no bottom border, so the
+// empty area below the content reads as clean background, not an unfinished list.
+const stray = await pg.evaluate(() => [...document.querySelectorAll(".tcol-full")]
+  .map((e) => parseFloat(getComputedStyle(e).borderBottomWidth) || 0));
+check(stray.length > 0 && stray.every((w) => w === 0), `phone: the full-width profile column has no stray bottom-border line (${stray.join(", ")})`);
+
 checkErrs(errs, "manager profile investments");
 await ctx.close();
 

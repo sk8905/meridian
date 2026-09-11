@@ -395,7 +395,13 @@
 .tdash-grid.tdash-2 { grid-template-columns: minmax(0,1fr); }
 /* single-column dense screen (managers list, manager detail) */
 .tdash-grid.tdash-1 { grid-template-columns: minmax(0,1fr); }
-.tcol-full { border-right: 0; border-left: 0; }
+/* A single, full-width column (Profiles / Transactions) has nothing beside or
+   below it, so it carries no side OR bottom divider. Dropping the bottom border
+   removes the stray lines the mobile `.tcol { border-bottom }` rule left floating
+   in the dead space under a short profile page (one at the content edge, one ~80px
+   down after the tab-bar clearance). Multi-column rails (Macro, Home) keep theirs
+   to separate the stacked columns. */
+.tcol-full { border-right: 0; border-left: 0; border-bottom: 0; }
 /* full-width managers table + its search header */
 .thead-search { gap: 10px; }
 .thead-search .tfocus-btn { margin-left: 0; }
