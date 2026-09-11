@@ -20,12 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "645b8e7d-39d6-4500-b761-c9a2edbc1a37", title: "Trump’s $5,000 dividend is bad corporate finance", date: "2026-09-11", time: "18:21", url: "https://www.ft.com/content/645b8e7d-39d6-4500-b761-c9a2edbc1a37" },
+  { id: "916eea1b-d483-49e1-9a70-53b4df8f9870", title: "Situational Awareness builds relationships with new brokers as it attempts rebound", date: "2026-09-11", time: "18:15", url: "https://www.ft.com/content/916eea1b-d483-49e1-9a70-53b4df8f9870" },
   { id: "fbcfcd21-f34f-41ca-b6b9-76b415f8d54e", title: "Stockpickers: Rosebank Industries, SigmaRoc, Ashmore", date: "2026-09-11", time: "18:00", url: "https://www.ft.com/content/fbcfcd21-f34f-41ca-b6b9-76b415f8d54e" },
   { id: "c3740cd0-3c4c-44d0-b3e8-4ccb1bac65b0", title: "Is Scott Bessent winning the wrong battle in markets?", date: "2026-09-11", time: "18:00", url: "https://www.ft.com/content/c3740cd0-3c4c-44d0-b3e8-4ccb1bac65b0" },
   { id: "cde3c168-5522-4d38-a6c3-454ef36aa0d4", title: "Directors’ Deals: Shell’s upstream boss takes advantage of valuation uplift", date: "2026-09-11", time: "18:00", url: "https://www.ft.com/content/cde3c168-5522-4d38-a6c3-454ef36aa0d4" },
   { id: "dd4cc4a0-844e-486a-b99c-b379d457019b", title: "Scott Bessent fails to break ‘fever’ in US bond market", date: "2026-09-11", time: "17:56", url: "https://www.ft.com/content/dd4cc4a0-844e-486a-b99c-b379d457019b" },
   { id: "3ad0a45f-ae93-4854-8b61-b933a93ee159", title: "FTAV’s Friday charts quiz", date: "2026-09-11", time: "17:54", url: "https://www.ft.com/content/3ad0a45f-ae93-4854-8b61-b933a93ee159" },
   { id: "b087d8e6-db04-4db6-8308-7275a40df5fb", title: "UK delays Jackdaw gasfield decision until after by-election in Starmer seat", date: "2026-09-11", time: "17:50", url: "https://www.ft.com/content/b087d8e6-db04-4db6-8308-7275a40df5fb" },
+  { id: "e1aacb1c-45d1-4d21-b5e9-0166c12c54cd", title: "UK economy unexpectedly grew 0.4% in July boosted by AI surge", date: "2026-09-11", time: "17:40", url: "https://www.ft.com/content/e1aacb1c-45d1-4d21-b5e9-0166c12c54cd" },
   { id: "e070149c-70a4-41ee-a829-0630abb2ce35", title: "Military jet triggered UK’s latest air traffic meltdown", date: "2026-09-11", time: "17:26", url: "https://www.ft.com/content/e070149c-70a4-41ee-a829-0630abb2ce35" },
   { id: "bbdad57e-bd57-4c75-98b8-12fca7cbd268", title: "America remembers: twenty-five years after 9/11", date: "2026-09-11", time: "17:19", url: "https://www.ft.com/content/bbdad57e-bd57-4c75-98b8-12fca7cbd268" },
   { id: "b7fe0fe0-0463-4f55-9590-0a7d08d8fe66", title: "Why the AI race has its creators fearing human extinction", date: "2026-09-11", time: "17:11", url: "https://www.ft.com/content/b7fe0fe0-0463-4f55-9590-0a7d08d8fe66" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "7aa19beb-db39-46dd-8979-0c32c51ed53b", title: "KPMG under investigation over audits for Prax’s State Oil arm", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/7aa19beb-db39-46dd-8979-0c32c51ed53b" },
   { id: "db6974e5-0088-4dde-b455-2275033d9438", title: "Ukrainian Lessons by Charlotte Higgins — culture war", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/db6974e5-0088-4dde-b455-2275033d9438" },
   { id: "fe5cd1b4-5131-4dca-a728-4bc7df90d6df", title: "Tiny snail stalls Donald Trump’s Irish golf ambitions", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/fe5cd1b4-5131-4dca-a728-4bc7df90d6df" },
-  { id: "b9a48a1b-5896-46fb-91a1-d7beb18a64b7", title: "The day that blew America and the world off course", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/b9a48a1b-5896-46fb-91a1-d7beb18a64b7" },
-  { id: "1dbb63ef-359b-410e-8e86-5cd2df59fc3d", title: "Anglo nickel deal tests EU resolve over Chinese control of resources", date: "2026-09-11", time: "10:59", url: "https://www.ft.com/content/1dbb63ef-359b-410e-8e86-5cd2df59fc3d" },
-  { id: "495e1b57-9b1a-483d-b776-3ac4aa05764c", title: "Desperately seeking UK data centre data", date: "2026-09-11", time: "10:17", url: "https://www.ft.com/content/495e1b57-9b1a-483d-b776-3ac4aa05764c" },
 ];
