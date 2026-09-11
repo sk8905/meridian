@@ -11,12 +11,14 @@ const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v
 await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await pg.waitForTimeout(2500);
 
-// The chip row replaces the dropdown and lists every desk, in order.
+// The chip row replaces the dropdown and lists every desk, in order. Scope to the
+// news wire's desk chips (data-desk) — the manager wire reuses .g-feed-deskchip for
+// its own label filter (data-mwcat), which must not be counted here.
 const chips = await pg.evaluate(() => ({
-  labels: [...document.querySelectorAll(".g-feed-deskchip")].map((c) => c.textContent.trim()),
-  keys: [...document.querySelectorAll(".g-feed-deskchip")].map((c) => c.dataset.desk),
+  labels: [...document.querySelectorAll(".g-feed-deskchip[data-desk]")].map((c) => c.textContent.trim()),
+  keys: [...document.querySelectorAll(".g-feed-deskchip[data-desk]")].map((c) => c.dataset.desk),
   noSelect: !document.querySelector("#g-feed-desk-sel"),
-  dots: [...document.querySelectorAll(".g-feed-deskchip")].filter((c) => c.querySelector(".g-feed-deskdot")).length,
+  dots: [...document.querySelectorAll(".g-feed-deskchip[data-desk]")].filter((c) => c.querySelector(".g-feed-deskdot")).length,
 }));
 checkEq(chips.labels.join(" · "), "All · Views · Macro · Equities · Fixed Income · Credit · Hedge · Legal · Newsletters",
   "home feed chips: All + Views lenses, then the ordered topic desks incl. Newsletters");

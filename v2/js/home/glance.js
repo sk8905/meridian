@@ -100,6 +100,7 @@ export function initGlance(ctx) {
   if (_DESK_KEYS.includes(_hp.desk)) _feedDesk = _hp.desk;
   if (typeof _hp.group === "boolean") _feedGroup = _hp.group;
   if (typeof _hp.mgrGroup === "boolean") _mwGroup = _hp.mgrGroup;
+  if (typeof _hp.mgrCat === "string") _mwCat = _hp.mgrCat;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
   renderFeed();
   renderManagerWire();
@@ -415,6 +416,12 @@ let _feedGroup = false;
 // manager's events, newest first, regardless of manager; true = grouped into a
 // mini-section per manager, managers ordered most-active → least-active.
 let _mwGroup = false;
+// Manager-wire LABEL filter (mirrors the news wire's desk filter): "all" or a
+// signal category (fundraising/deal/clo/…). Chips carry the category's pastel dot.
+let _mwCat = "all";
+// Category → dot hue (matches the pastel tag colours in feed.css) + display order.
+const MW_DOT = { fundraising: "hdg", financing: "hdg", deal: "lex", "m&a": "lex", clo: "mac", team: "amber", mandate: "amber", strategy: "ft", exit: "ft", restructuring: "crd", news: "news" };
+const MW_CAT_ORDER = ["fundraising", "deal", "clo", "restructuring", "financing", "m&a", "team", "strategy", "mandate", "exit", "news"];
 // Secondary type chips per domain: [labelKey (matches item.type||item.desk), text].
 // Domains without sub-types (Newsletters, myFT) get no second row.
 const TYPE_CHIPS = {
@@ -490,7 +497,23 @@ function renderManagerWire() {
   const seen = _mgrSeen();
   rows.forEach((r) => { const p = seen[r.id]; r.newCount = (p != null) ? r.events.filter((e) => e.ts && e.ts > p).length : 0; });
 
+  // LABEL filter (mirrors the news wire's desk filter): a chip row of the signal
+  // categories PRESENT in the wire, each with its pastel dot, plus "All". Clicking
+  // one narrows the wire to that category (flat + grouped).
+  const presentCats = new Set(rows.flatMap((r) => (r.events || []).map((e) => e.cat)).filter(Boolean));
+  if (_mwCat !== "all" && !presentCats.has(_mwCat)) _mwCat = "all";
+  const catOpts = ["all", ...MW_CAT_ORDER.filter((c) => presentCats.has(c))];
+  const filterRow = `<div class="g-feed-deskrow g-mw-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by label">`
+    + catOpts.map((c) => {
+        const on = _mwCat === c;
+        const dot = c === "all" ? "" : `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
+        return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mwcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(c === "all" ? "All" : (CAT_LABEL[c] || c.toUpperCase()))}</button>`;
+      }).join("")
+    + `</div></div>`;
+  const _catOk = (e) => _mwCat === "all" || (e && e.cat === _mwCat);
+
   const item = (r) => {
+    const evs = (r.events || []).filter(_catOk);
     const href = `/credit/#/manager/${encodeURIComponent(r.id)}`;
     // One-tap follow ☆/★ (F2) — builds the watchlist straight from the wire, using
     // the same button/store as the Credit view.
@@ -514,8 +537,8 @@ function renderManagerWire() {
       + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c ${_catCls(x.cat)}">${CAT_LABEL[x.cat] || "NEWS"}</span>`
       + `<span class="g-mw-ev-t">${esc(x.title)}</span><span class="g-mw-ev-s">${esc(_mwSrc(x))}</span></a>`;
     const SHOWN = 3;
-    const shown = r.events.slice(0, SHOWN).map(ev).join("");
-    const rest = r.events.slice(SHOWN, 8);
+    const shown = evs.slice(0, SHOWN).map(ev).join("");
+    const rest = evs.slice(SHOWN, 8);
     const more = rest.length ? `<div class="g-mw-events" hidden>${rest.map(ev).join("")}</div><button type="button" class="g-mw-exp" aria-expanded="false">More</button>` : "";
 
     return `<div class="g-mw-item">${hdr}${activity}<div class="g-mw-stories">${shown}${more}</div></div>`;
@@ -544,8 +567,9 @@ function renderManagerWire() {
     // count shown on each card (then 90-day, then recency). Watchlisted managers
     // still lead their section.
     const byActive = (a, b) => (b.count30 - a.count30) || (b.count90 - a.count90) || (b.lastTs - a.lastTs);
-    const watched = rows.filter((r) => r.watched).sort(byActive);
-    const active = rows.filter((r) => !r.watched).sort(byActive).slice(0, 20);
+    const rowsF = _mwCat === "all" ? rows : rows.filter((r) => (r.events || []).some(_catOk));
+    const watched = rowsF.filter((r) => r.watched).sort(byActive);
+    const active = rowsF.filter((r) => !r.watched).sort(byActive).slice(0, 20);
     // First-run coaching (F2): with an empty watchlist, tell the user what
     // following does — the active list below doubles as the starter set.
     const coach = _mgrFollows().size === 0
@@ -565,7 +589,7 @@ function renderManagerWire() {
     const _nd = new Date(), _winStart = Date.UTC(_nd.getUTCFullYear(), _nd.getUTCMonth() - 1, 1);
     const flat = rows
       .flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
-      .filter((e) => e.ts && e.ts >= _winStart)
+      .filter((e) => e.ts && e.ts >= _winStart && _catOk(e))
       .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
     let out = "", lastMonth = "";
     flat.forEach((r) => {
@@ -573,9 +597,11 @@ function renderManagerWire() {
       if (mk && mk !== lastMonth) { lastMonth = mk; const [y, mo] = mk.split("-"); out += `<div class="g-feed-dayhdr g-mw-month">${esc((MONTHS[(+mo) - 1] || "") + " " + y)}</div>`; }
       out += flatEv(r);
     });
-    html = `<div class="g-mw-flat">${out}</div>`;
+    html = out ? `<div class="g-mw-flat">${out}</div>` : "";
   }
-  box.innerHTML = html;
+  // Under an active label filter that leaves nothing, keep the chips + a note.
+  if (!html && _mwCat !== "all") html = `<div class="g-mw-empty">No ${esc(CAT_LABEL[_mwCat] || _mwCat)} activity in this window.</div>`;
+  box.innerHTML = filterRow + html;
 
   // Update the seen baseline for shown managers (so this session's items aren't
   // "new" next load); expand toggle is delegated once on the container.
@@ -593,6 +619,16 @@ function renderManagerWire() {
   if (!box.dataset.wired) {
     box.dataset.wired = "1";
     box.addEventListener("click", (e) => {
+      // Label filter chip: narrow the wire to a signal category (or All), persist,
+      // and re-render — mirrors the news wire's desk-chip behaviour.
+      const catChip = e.target.closest("[data-mwcat]");
+      if (catChip) {
+        e.preventDefault(); e.stopPropagation();
+        _mwCat = catChip.dataset.mwcat || "all";
+        _saveHomePref({ mgrCat: _mwCat });
+        renderManagerWire();
+        return;
+      }
       // One-tap follow ☆/★: mutate the shared follows store + persist to
       // localStorage (mirrors the credit app's persistLocal; cloud sync reconciles
       // when the Credit view next loads), then re-render so the row restacks.

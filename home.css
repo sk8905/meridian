@@ -1079,6 +1079,8 @@
     .tui .g-dot-mac{ background:var(--t-mac); } .tui .g-dot-crd{ background:var(--t-crd); }
     .tui .g-dot-hdg{ background:var(--t-hdg); } .tui .g-dot-lex{ background:var(--t-lex); }
     .tui .g-dot-amber{ background:var(--t-amber); }
+    /* Manager-wire label-filter dots reuse these hues; ft + news added here. */
+    .tui .g-dot-ft{ background:var(--t-ft); } .tui .g-dot-news{ background:var(--t-news, #8aa0c8); }
     /* Views is a content lens, not a topic desk — a hairline sets [All · Views]
        apart from the topic desks that follow. */
     .tui .g-feed-deskchip-sep{ border-right:1px solid var(--t-grid2); margin-right:2px; }
