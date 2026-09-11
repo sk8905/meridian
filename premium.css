@@ -1068,8 +1068,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   .menu-asst.is-docked { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
   .menu-asst.is-docked .na-chat { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; scrollbar-width: none; }
   .menu-asst.is-docked .na-chat::-webkit-scrollbar { width: 0; height: 0; display: none; }
-  /* Empty state fills the middle and centres the spark + suggestions vertically. */
-  .menu-asst.is-docked .na-chat-empty { flex: 1 1 auto; min-height: 0; justify-content: center; }
+  /* Empty state fills the middle; the spark + suggestions sit ~30% BELOW centre
+     (per request) rather than dead-centre. Weighted top/bottom flex spacers place
+     the group at ~80% of the height — pure layout, so nothing overflows or scrolls
+     and it scales with the chat area (shorter when the keyboard is up). */
+  .menu-asst.is-docked .na-chat-empty { flex: 1 1 auto; min-height: 0; justify-content: flex-start; }
+  .menu-asst.is-docked .na-chat-empty::before { content: ""; flex: 8 1 0; min-height: 0; }
+  .menu-asst.is-docked .na-chat-empty::after { content: ""; flex: 1 1 0; min-height: 0; }
   .menu-asst.is-docked .na-chat > :first-child { margin-top: auto; }   /* bottom-anchor a short thread */
   .menu-asst.is-docked .na-ask-form { flex: 0 0 auto; border-top: 1px solid var(--border, #262626); border-bottom: 0; }
   /* While typing (input focused → html.chat-kbd) the chat goes FULL-SCREEN: hide the
