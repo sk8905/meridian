@@ -9,8 +9,9 @@
    (terminal surfaces). Accent is Wire orange platform-wide.
    ============================================================================= */
 
-/* Briefing body-text colour — a soft blue (the orange kickers stay --accent), so
-   the strip's story/summary text reads blue and un-bold against the orange labels. */
+/* Briefing KICKER colour — the soft blue used for the TOP STORY / MARKETS /
+   RATES & SPREADS labels (the greeting is orange --accent, the stories are white
+   --ink; see the .wb-* rules below). */
 :root { --wb-txt: #1f6fd0; }
 :root[data-theme="dark"] { --wb-txt: #4aa3f0; }
 
@@ -136,16 +137,18 @@
   background: var(--head); border-bottom: 1px solid var(--border); overflow: hidden; }
 .wbrief:empty { display: none; }
 .wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
-.wb-hello { color: var(--wb-txt); font-size: 12px; font-weight: 400; letter-spacing: 0; white-space: nowrap; }
-.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12px; color: var(--wb-txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Briefing band colour map: the greeting reads ORANGE (--accent), the kicker
+   labels BLUE (--wb-txt), and the actual headlines/stories WHITE (--ink). */
+.wb-hello { color: var(--accent, #fb8b1e); font-size: 12px; font-weight: 400; letter-spacing: 0; white-space: nowrap; }
+.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wb-brief:empty { display: none; }
-.wb-lbl { font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--accent, #fb8b1e); opacity: 1; white-space: nowrap; margin-right: .3rem; }
-.wb-link { color: var(--wb-txt); font-weight: 400; text-decoration: none; }
+.wb-lbl { font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; margin-right: .3rem; }
+.wb-link { color: var(--ink); font-weight: 400; text-decoration: none; }
 .wb-link:hover { color: var(--ink); text-decoration: none; }
 .wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
-.wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 11.5px; line-height: 1.4; color: var(--wb-txt); overflow: hidden; }
-.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--accent, #fb8b1e); opacity: 1; white-space: nowrap; }
-.wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--wb-txt); }
+.wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 11.5px; line-height: 1.4; color: var(--ink); overflow: hidden; }
+.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; }
+.wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
 .wb-gl-v a { color: inherit; text-decoration: none; }
 .wb-gl-v a:hover { color: var(--ink); text-decoration: none; }
 @media (max-width: 760px) { .wbrief { display: none; } }

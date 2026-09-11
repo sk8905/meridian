@@ -36,17 +36,27 @@ check(present.panels >= 3, `Markets/Saved/Notifications panels built (${present.
 checkEq(present.tabbars, 1, "still exactly one tab bar (nav-actions did NOT add its own)");
 check(present.refresh > 0, `refresh indicator populated ("Last refresh…", ${present.refresh} chars)`);
 
-// The header brief KICKER LABELS (Top story / Markets / Rates & spreads) read in
-// Wire orange — the accent — while the story text stays plain, not orange.
+// Briefing band colour map: the GREETING reads Wire orange (--accent), the KICKER
+// labels (Top story / Markets / Rates & spreads) read blue (--wb-txt), and the
+// actual stories/headlines read white ink (--ink) — not orange, not blue.
+const ORANGE = "rgb(251, 139, 30)";
 const brief = await pg.evaluate(() => {
-  const lbl = document.querySelector(".wb-lbl, .g-brief-lbl");
-  const link = document.querySelector(".wb-link, .g-brief-link");
-  const gl = [...document.querySelectorAll(".wb-gl-l")].map((e) => getComputedStyle(e).color);
-  return { lbl: lbl ? getComputedStyle(lbl).color : null, link: link ? getComputedStyle(link).color : null, gl };
+  const rgb = (v) => { const p = document.createElement("span"); p.style.color = v; document.body.appendChild(p); const c = getComputedStyle(p).color; p.remove(); return c; };
+  const col = (sel) => { const e = document.querySelector(sel); return e ? getComputedStyle(e).color : null; };
+  return {
+    hello: col(".wb-hello"),
+    lbl: col(".wb-lbl, .g-brief-lbl"),
+    link: col(".wb-link, .g-brief-link"),
+    gl: [...document.querySelectorAll(".wb-gl-l")].map((e) => getComputedStyle(e).color),
+    glv: col(".wb-gl-v"),
+    wbtxt: rgb("var(--wb-txt)"), ink: rgb("var(--ink)"),
+  };
 });
-check(brief.lbl === "rgb(251, 139, 30)", `brief 'Top story' kicker is Wire orange #fb8b1e (${brief.lbl})`);
-check(brief.gl.length > 0 && brief.gl.every((c) => c === "rgb(251, 139, 30)"), `Markets / Rates & spreads kickers are Wire orange too (${brief.gl.join(", ")})`);
-check(brief.link !== "rgb(251, 139, 30)", `brief story text is NOT orange (${brief.link})`);
+check(brief.hello === ORANGE, `brief greeting is Wire orange #fb8b1e (${brief.hello})`);
+check(brief.lbl === brief.wbtxt && brief.lbl !== ORANGE, `brief 'Top story' kicker is the blue --wb-txt (${brief.lbl})`);
+check(brief.gl.length > 0 && brief.gl.every((c) => c === brief.wbtxt), `Markets / Rates & spreads kickers are blue too (${brief.gl.join(", ")})`);
+check(brief.link === brief.ink && brief.link !== ORANGE, `brief story text is white ink, not orange (${brief.link})`);
+check(brief.glv === brief.ink, `glance story text is white ink too (${brief.glv})`);
 
 // Bottom meta strip (phone): the Sign out action + the app-wide last refresh,
 // pinned DIRECTLY above the bottom tab bar. It shows ONLY on the Menu tab's

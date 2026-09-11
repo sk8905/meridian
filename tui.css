@@ -23,8 +23,8 @@
    ===================================================================== */
 
 /* mono for numeric/terminal data (matches Home) + a head surface for panel bars.
-   --wb-txt is the briefing-bar body text colour — a soft blue against the orange
-   kickers (header.css owns the authoritative value; this stays in sync). */
+   --wb-txt is the briefing-bar KICKER colour — a soft blue for the TOP STORY /
+   MARKETS labels (header.css owns the authoritative value; this stays in sync). */
 :root { --t-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #1f6fd0; --lift: #ffffff; }
 
 /* ---- deep near-black terminal surfaces (dark) to match Home ---- */
@@ -441,20 +441,25 @@
    engages at the desktop breakpoint (≥901px, same as the Dashboard rail). ---- */
 .tcol-main { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; overflow: hidden; }
 @media (min-width: 901px) {
-  #pf-list .tcol-c, .tx-dash .tcol-c { flex-direction: row; align-items: stretch; }
+  /* Rail | content, with a gap — matches the Dashboard's grid rail (no divider). */
+  #pf-list .tcol-c, .tx-dash .tcol-c { flex-direction: row; align-items: stretch; gap: 12px; padding: 12px; }
   #pf-list .tcol-c > .twire-head, .tx-dash .tcol-c > .twire-head {
-    flex: 0 0 168px; align-self: stretch; height: auto !important; position: static !important;
-    z-index: auto; padding: 8px !important; background: var(--bg);
-    border-bottom: 0 !important; border-right: 1px solid var(--border, #262626); overflow-y: auto; }
+    flex: 0 0 158px; align-self: start; height: auto !important; position: static !important;
+    z-index: auto; padding: 0 !important; background: transparent;
+    border-bottom: 0 !important; border-right: 0 !important; overflow: visible; }
   #pf-list .tcol-c > .twire-head .tchips, .tx-dash .tcol-c > .twire-head .tchips {
     flex-direction: column; height: auto; width: 100%; gap: 3px; }
+  /* Chip = the Dashboard .dsh-navchip look: slate-blue inactive text; the ACTIVE
+     item is a bordered box with an orange 3px left bar and ink text (no fill). */
   #pf-list .tcol-c > .twire-head .tchip, .tx-dash .tcol-c > .twire-head .tchip {
     flex: 0 0 auto; justify-content: flex-start; text-align: left; max-width: none;
-    padding: 8px 11px; border: 1px solid transparent; box-shadow: none; font-weight: 600; }
+    padding: 8px 11px; border: 1px solid transparent; box-shadow: none; font-weight: 600;
+    color: var(--muted, #8592ad); }
   #pf-list .tcol-c > .twire-head .tchip:hover, .tx-dash .tcol-c > .twire-head .tchip:hover {
-    color: var(--ink); background: var(--head); }
+    color: var(--ink); background: var(--lift, #202020); }
   #pf-list .tcol-c > .twire-head .tchip.is-on, .tx-dash .tcol-c > .twire-head .tchip.is-on {
-    color: var(--ink); background: var(--head); box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
+    color: var(--ink); background: transparent; border-color: var(--border, #2d2d2d);
+    box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
   #pf-list .tcol-c > .tpanes, .tx-dash .tcol-c > .tcol-main { flex: 1 1 auto; min-width: 0; }
 }
 .tpane[hidden] { display: none; }
