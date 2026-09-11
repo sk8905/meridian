@@ -101,28 +101,28 @@ const anchored = await pg.evaluate(async () => {
   window.scrollTo(0, 600);
   await new Promise((r) => setTimeout(r, 300));
   const top1 = Math.round(bar.getBoundingClientRect().top);
-  // On mobile Home the News / Watchlist chip bar is the FIRST sticky sub-nav
-  // under the fixed header; the feed head then pins flush beneath the chips.
-  const chips = document.querySelector(".g-wiretabs");
-  const chipsVisible = chips && getComputedStyle(chips).display !== "none";
-  const chipsTop = chipsVisible ? Math.round(chips.getBoundingClientRect().top) : null;
-  const chipsH = chipsVisible ? Math.round(chips.getBoundingClientRect().height) : 0;
-  const fh = document.querySelector(".g-feed-head, .g-feed-chips");
+  // On mobile Home the sticky stack under the fixed header is, top-to-bottom:
+  // the search band, the News/Watchlist chip bar, then the feed filter head —
+  // each pinned flush beneath the one above (no bleed through the seams).
+  const rect = (s) => { const e = document.querySelector(s); if (!e || getComputedStyle(e).display === "none") return null; const r = e.getBoundingClientRect(); return { top: Math.round(r.top), bot: Math.round(r.bottom) }; };
+  const band = rect(".g-main .wire-band");
+  const chips = rect(".g-wiretabs");
+  const fh = rect(".g-feed-head, .g-feed-chips");
   const headVar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 0;
-  const fhTop = fh ? Math.round(fh.getBoundingClientRect().top) : null;
   window.scrollTo(0, 0);
-  return { top0, top1, headVar, fhTop, chipsTop, chipsH, barH: Math.round(bar.getBoundingClientRect().height) };
+  return { top0, top1, headVar, band, chips, fh, barH: Math.round(bar.getBoundingClientRect().height) };
 });
 check(anchored.top0 === 0 && anchored.top1 === 0, `top bar stays anchored at top through scroll (top ${anchored.top0}→${anchored.top1})`);
 check(anchored.headVar > 0, `--wire-head-h is set for sub-nav offsets (${anchored.headVar}px)`);
-// The topmost sticky sub-nav pins flush under the header (no content bleeds
-// through the seam). On mobile Home that is the News/Watchlist chip bar, and the
-// feed head pins flush under the chips; elsewhere the feed head pins under the header.
-if (anchored.chipsTop !== null) {
-  check(Math.abs(anchored.chipsTop - anchored.headVar) <= 2, `sub-nav pins flush under the header (chips ${anchored.chipsTop} ≈ head ${Math.round(anchored.headVar)})`);
-  if (anchored.fhTop !== null) check(Math.abs(anchored.fhTop - (anchored.headVar + anchored.chipsH)) <= 2, `feed head pins flush under the chip bar (feed head ${anchored.fhTop} ≈ chips bottom ${Math.round(anchored.headVar) + anchored.chipsH})`);
-} else if (anchored.fhTop !== null) {
-  check(Math.abs(anchored.fhTop - anchored.headVar) <= 2, `sub-nav pins flush under the header (feed head ${anchored.fhTop} ≈ head ${Math.round(anchored.headVar)})`);
+// Each sticky layer pins flush under the one above (no content bleeds through the
+// seam). On mobile Home: search band under the header, chips under the band, feed
+// head under the chips. Elsewhere the feed head pins directly under the header.
+if (anchored.chips !== null) {
+  check(Math.abs(anchored.band.top - anchored.headVar) <= 2, `search band pins flush under the header (band ${anchored.band.top} ≈ head ${Math.round(anchored.headVar)})`);
+  check(Math.abs(anchored.chips.top - anchored.band.bot) <= 2, `News/Watchlist chips pin flush under the search band (chips ${anchored.chips.top} ≈ band bottom ${anchored.band.bot})`);
+  if (anchored.fh !== null) check(Math.abs(anchored.fh.top - anchored.chips.bot) <= 2, `feed head pins flush under the chip bar (feed head ${anchored.fh.top} ≈ chips bottom ${anchored.chips.bot})`);
+} else if (anchored.fh !== null) {
+  check(Math.abs(anchored.fh.top - anchored.headVar) <= 2, `sub-nav pins flush under the header (feed head ${anchored.fh.top} ≈ head ${Math.round(anchored.headVar)})`);
 }
 
 // Each button opens its panel (click → the matching .na-panel becomes visible).

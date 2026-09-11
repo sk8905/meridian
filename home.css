@@ -975,10 +975,17 @@
       .tui .g-side{ order:2; }
       .tui .g-side2{ order:3; }
       .tui .g-side,.tui .g-side2,.tui .g-side3{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); }
-      /* News / Watchlist chips: pinned at the very top of the workspace (under the
-         fixed command bar), swapping the visible wire. Default = News: the manager
-         wire is hidden until 'Watchlist' is chosen; then the news wire hides. */
-      .tui .g-wiretabs{ display:flex; order:-1; position:sticky; top:var(--wire-head-h, 53px); z-index:9;
+      /* The sticky stack under the fixed header is, top-to-bottom: the search band
+         (.wire-band, --wire-band-h tall), then the News/Watchlist tabs, then the
+         feed filter row. Each pins directly beneath the one above, so their `top`
+         offsets ACCUMULATE — omitting the band height let the tabs slide up over
+         the search band on scroll. --wire-band-h is the band's fixed phone height
+         (26px field + 8+8 padding + 1px divider). */
+      .tui{ --wire-band-h:43px; }
+      /* News / Watchlist chips: pinned under the header AND the search band,
+         swapping the visible wire. Default = News: the manager wire is hidden until
+         'Watchlist' is chosen; then the news wire hides. */
+      .tui .g-wiretabs{ display:flex; order:-1; position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px)); z-index:9;
         height:var(--chip-h, 34px); box-sizing:border-box;
         background:var(--t-head); border-bottom:1px solid var(--t-grid2);
         transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; }
@@ -990,9 +997,9 @@
       .tui .g-side3{ display:none; }
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
-      /* Lock the feed filter tabs to the top (under the command bar AND the wire
-         chips) while the headlines scroll. */
-      .tui .g-feed-head{ position:sticky; top:calc(var(--wire-head-h, 53px) + var(--chip-h, 34px)); z-index:8; background:var(--t-head);
+      /* Lock the feed filter tabs to the top (under the header, the search band AND
+         the wire chips) while the headlines scroll. */
+      .tui .g-feed-head{ position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:8; background:var(--t-head);
         transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; }
       }
 

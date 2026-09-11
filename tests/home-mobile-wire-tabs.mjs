@@ -54,6 +54,25 @@ const b = await launchChromium();
   check(await vis(".g-feed-wrap"), "phone: tapping News returns to the feed");
   check(!(await vis(".g-side3")), "phone: the manager wire is hidden again under News");
 
+  // The whole top cluster (header · search band · News/Watchlist tabs · feed
+  // filter row) stays LOCKED when the headlines scroll — each pins directly under
+  // the one above with no overlap. Regression guard for the band-height omission
+  // that let the tabs slide up over the search band.
+  const stackAt = () => pg.evaluate(() => {
+    const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bot: Math.round(b.bottom) }; };
+    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), feedhead: r("#g-feed-head") };
+  });
+  const rest = await stackAt();
+  await pg.evaluate(() => window.scrollTo(0, 700));
+  await pg.waitForTimeout(300);
+  const scrolled = await stackAt();
+  const same = (a, b) => a && b && Math.abs(a.top - b.top) <= 1;
+  check(same(rest.band, scrolled.band) && same(rest.tabs, scrolled.tabs) && same(rest.feedhead, scrolled.feedhead),
+    `phone: search band + tabs + filter row stay pinned on scroll (band ${rest.band?.top}→${scrolled.band?.top}, tabs ${rest.tabs?.top}→${scrolled.tabs?.top}, filter ${rest.feedhead?.top}→${scrolled.feedhead?.top})`);
+  // No overlap: each element sits fully below the previous one's bottom edge.
+  const stacked = scrolled.header.bot <= scrolled.band.top + 1 && scrolled.band.bot <= scrolled.tabs.top + 1 && scrolled.tabs.bot <= scrolled.feedhead.top + 1;
+  check(stacked, `phone: the locked cluster stacks without overlap (header→${scrolled.band.top}, band→${scrolled.tabs.top}, tabs→${scrolled.feedhead.top})`);
+
   checkErrs(errs, "home mobile wire tabs");
   await ctx.close();
 }
