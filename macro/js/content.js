@@ -1129,7 +1129,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The US Dollar Index held onto Thursday's PPI-driven gains above 99.00 in early Friday trading, with GBP/USD flat near 1.3510 and EUR/USD still soft after the ECB's own 25bp hike, as traders stayed on the sidelines ahead of the decisive US August CPI print.", src: "https://www.fxstreet.com/news/united-states-dollar-index-holds-onto-gains-above-99-ahead-of-us-cpi-data-202609110324", srcName: "FXStreet", date: "2026-09-11" };
+export const FX_KEYMOMENT = { text: "GBP/USD jumped Friday after the ONS reported UK July GDP grew 0.4% m/m against a Reuters poll median of no growth, putting the UK on track for the fastest H1 2026 growth in the G7, while the US Dollar Index held onto Thursday's PPI-driven gains ahead of the decisive US August CPI print.", src: "https://www.fxstreet.com/news/british-pound-jumps-after-strong-uk-monthly-gdp-data-202609110608", srcName: "FXStreet", date: "2026-09-11" };
 
 export const EARNINGS = {
   weeks: [
