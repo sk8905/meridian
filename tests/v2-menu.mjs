@@ -105,28 +105,18 @@ async function menuState(pg) {
     return { kbdOn: document.documentElement.classList.contains("chat-kbd") };
   });
   check(pin.kbdOn, "docked chat: focusing the input arms keyboard mode (chat-kbd)");
-  // Visual-viewport anchoring: when iOS scrolls the layout viewport up to lift the
-  // input (--vv-top), the header translates down by it and the docked view's top
-  // shifts to match, so header + tabs stay visually pinned (no page scroll). Simulate
-  // a 120px shift + 300px keyboard and assert the compensation.
-  const anchor = await pg.evaluate(() => {
+  // While the keyboard is up the docked view ends exactly at the keyboard top
+  // (--kbd-h) so the Ask input stays visible just above it.
+  const kb = await pg.evaluate(() => {
     const view = document.querySelector('.v2-view[data-view="menu"]:has(.menu-asst.is-docked)') || document.querySelector('.v2-view[data-view="menu"]');
-    const header = document.querySelector("#wire-header .topbar");
-    const whh = Math.round(parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 57);
     document.documentElement.classList.add("chat-kbd");
-    document.documentElement.style.setProperty("--vv-top", "120px");
     document.documentElement.style.setProperty("--kbd-h", "300px");
-    const vt = parseFloat(getComputedStyle(view).top);
-    const tf = getComputedStyle(header).transform;
     const vb = getComputedStyle(view).bottom;
     document.documentElement.classList.remove("chat-kbd");
-    document.documentElement.style.setProperty("--vv-top", "0px");
     document.documentElement.style.setProperty("--kbd-h", "0px");
-    return { whh, viewTop: Math.round(vt), headerTy: tf.includes("120") ? 120 : 0, viewBottom: vb };
+    return { viewBottom: vb };
   });
-  check(anchor.viewTop === anchor.whh + 120, `docked chat: the view top compensates for the iOS shift (${anchor.viewTop} = ${anchor.whh}+120)`);
-  check(anchor.headerTy === 120, "docked chat: the fixed header translates down by the iOS shift, staying pinned");
-  check(anchor.viewBottom === "300px", `docked chat: the view still ends at the keyboard top (--kbd-h) so the input stays visible (${anchor.viewBottom})`);
+  check(kb.viewBottom === "300px", `docked chat: the view ends at the keyboard top so the input stays visible (${kb.viewBottom})`);
   checkErrs(errs, "direct menu");
   await ctx.close();
 }

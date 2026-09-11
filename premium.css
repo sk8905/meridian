@@ -1076,13 +1076,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
      the view exactly at the on-screen keyboard top (--kbd-h, tracked from
      visualViewport) — no nav bar and no dead space between the field and keyboard. */
   html.chat-kbd .mobile-tabbar { display: none; }
-  /* Keep the header + tab bar visually pinned when iOS scrolls the layout viewport
-     up to lift the input: --vv-top is that shift (visualViewport.offsetTop). Translate
-     the fixed header down by it and push the docked view's top to match, so nothing
-     scrolls off the top and the input still ends exactly at the keyboard (--kbd-h).
-     No-op when iOS doesn't shift the viewport (--vv-top:0). */
-  html.chat-kbd #wire-header .topbar { transform: translateY(var(--vv-top, 0px)); }
-  html.chat-kbd .v2-view[data-view="menu"]:has(.menu-asst.is-docked) { top: calc(var(--wire-head-h, 57px) + var(--vv-top, 0px)); bottom: var(--kbd-h, 0px); }
+  html.chat-kbd .v2-view[data-view="menu"]:has(.menu-asst.is-docked) { bottom: var(--kbd-h, 0px); }
 }
 .na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
