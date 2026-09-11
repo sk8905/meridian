@@ -13,7 +13,7 @@ import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-cr
 import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-1";
 import { esc } from "/util.js?v=20260818-1";
 import { fmtDay } from "/feed.js?v=20260808-1";
-import { dealSubject } from "../deal-parse.js?v=v2-1";
+import { dealSubject } from "../deal-parse.js?v=v2-2";
 import { creditSource } from "/credit/js/shared.js?v=20260730-2";
 
 const _mById = new Map(managers.map((m) => [m.id, m]));

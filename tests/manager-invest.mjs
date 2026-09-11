@@ -58,6 +58,11 @@ const inv = await pg.evaluate(() => {
     sourced: rows.filter((r) => { const a = r.querySelector(".tinv-c-src a"); return a && /^https?:/.test(a.getAttribute("href") || ""); }).length,
     withAmount: rows.filter((r) => { const t = (r.querySelector(".tinv-c-amt") || {}).textContent || ""; return /[$£€]/.test(t); }).length,
     withDate: rows.filter((r) => (r.querySelector(".tinv-c-date") || {}).textContent.trim()).length,
+    // Every header + cell reads left-aligned (no .tleague right-aligned columns).
+    aligns: table ? [...table.querySelectorAll("thead th, tbody tr:first-child td")].map((c) => getComputedStyle(c).textAlign) : [],
+    // The name column holds a CONCISE extracted name, not the whole headline: the
+    // cell text is shorter than the full headline it carries in its title.
+    concise: rows.filter((r) => { const c = r.querySelector(".tinv-c-co"); const t = (c && c.getAttribute("title")) || ""; return c && t && c.textContent.trim().length < t.length; }).length,
   };
 });
 check(inv.hasTable, "Investments tab renders as a table");
@@ -67,9 +72,20 @@ check(inv.count > 0, `Investments table lists deals (${inv.count})`);
 check(inv.tagged === inv.count, `every investment carries an instrument tag (${inv.tagged}/${inv.count})`);
 check(inv.debtOrEquity > 0, `investments are classified debt/equity where the article says so (${inv.debtOrEquity})`);
 check(inv.named === inv.count, `every investment leads with a company/borrower name (${inv.named}/${inv.count})`);
+check(inv.aligns.length > 0 && inv.aligns.every((a) => a === "left" || a === "start"), `every header + cell is left-aligned (${[...new Set(inv.aligns)].join(", ")})`);
+check(inv.concise >= Math.ceil(inv.count * 0.6), `most rows show a concise extracted name, not the full headline (${inv.concise}/${inv.count})`);
 check(inv.sourced === inv.count, `every investment links its source in the Source column (${inv.sourced}/${inv.count})`);
 check(inv.withAmount > 0, `deal amounts surface where known (${inv.withAmount})`);
 check(inv.withDate === inv.count, `every investment shows its date (${inv.withDate}/${inv.count})`);
+// No stacked dead space under the table: the detail's own .tcol must not re-add the
+// mobile tab-bar clearance the list wrapper already provides (it doubled to ~160px).
+const tail = await pg.evaluate(() => {
+  const tbl = document.querySelector("#pf-detail .tinv-tbl");
+  const sec = document.querySelector("#pf-list > .tdash-grid > .tcol-c");
+  if (!tbl || !sec) return -1;
+  return Math.round(sec.getBoundingClientRect().bottom - tbl.getBoundingClientRect().bottom);
+});
+check(tail >= 0 && tail <= 120, `only one tab-bar clearance under the table, no stacked dead space (${tail}px)`);
 
 // Vehicles tab: Funds + CLOs + Listed vehicles merged into labelled groups.
 await pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="vehicles"]'); if (t) t.click(); });

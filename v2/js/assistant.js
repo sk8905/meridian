@@ -287,10 +287,21 @@ export function mountAssistant(container, opts) {
   // nav bar or dead space between the field and the keyboard. `--kbd-h` tracks the
   // on-screen keyboard height via visualViewport so the input glues above it.
   const vv = typeof window !== "undefined" && window.visualViewport;
+  // iOS slides the LAYOUT viewport up when an input near the bottom is focused,
+  // to lift it above the keyboard — which drags the position:fixed Wire header AND
+  // the docked chat's tab bar off the top (they vanish, and the content jumps to
+  // the very top). The docked view is already bottom-anchored to the keyboard top
+  // (--kbd-h), so the input never actually hides; we just have to UNDO that scroll
+  // to keep the header + tabs glued in place.
+  const pinTop = () => {
+    if (!document.documentElement.classList.contains("chat-kbd")) return;
+    try { if (window.scrollY) window.scrollTo(0, 0); const se = document.scrollingElement; if (se && se.scrollTop) se.scrollTop = 0; } catch { /* ignore */ }
+  };
   const setKbd = () => {
     if (!vv || !document.documentElement.classList.contains("chat-kbd")) return;
     const h = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
     document.documentElement.style.setProperty("--kbd-h", h + "px");
+    pinTop();
   };
   let kbdQueued = false;
   const queueSetKbd = () => {
@@ -298,9 +309,15 @@ export function mountAssistant(container, opts) {
     kbdQueued = true;
     requestAnimationFrame(() => { kbdQueued = false; setKbd(); });
   };
-  if (vv) { vv.addEventListener("resize", queueSetKbd); vv.addEventListener("scroll", queueSetKbd); }
+  if (vv) { vv.addEventListener("resize", queueSetKbd); vv.addEventListener("scroll", () => { pinTop(); queueSetKbd(); }); }
+  // A late iOS focus-scroll can land after our handlers; snap the page back on any
+  // window scroll while the keyboard is up (the page itself must not scroll here —
+  // only the transcript does), so the header + tabs never drift off. Phone-only —
+  // docking (hence chat-kbd) never engages on desktop, so no listener there.
+  const onPhoneSetup = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
+  if (onPhoneSetup) window.addEventListener("scroll", pinTop, { passive: true });
   container.addEventListener("focusin", (e) => {
-    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); setKbd(); }
+    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); setKbd(); requestAnimationFrame(pinTop); setTimeout(pinTop, 120); setTimeout(pinTop, 300); }
   });
   container.addEventListener("focusout", (e) => {
     if (e.target.closest(".na-ask-in")) { document.documentElement.classList.remove("chat-kbd"); document.documentElement.style.setProperty("--kbd-h", "0px"); }

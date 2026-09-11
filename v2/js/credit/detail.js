@@ -15,7 +15,7 @@ import {
   HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
-import { dealSubject, dealAmount } from "../deal-parse.js?v=v2-1";
+import { dealSubject, dealAmount } from "../deal-parse.js?v=v2-2";
 import {
   eur, pct, fmtDate, link, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,

@@ -97,6 +97,23 @@ async function menuState(pg) {
   });
   check(chipbar && (chipbar.pos === "sticky" || chipbar.viewPos === "fixed"), `direct /v2/menu/: the chip bar is locked (sticky or in the docked fixed view; chip ${chipbar && chipbar.pos}, view ${chipbar && chipbar.viewPos})`);
   check(chipbar && chipbar.top >= 40 && chipbar.top <= 80, `direct /v2/menu/: the chip bar pins below the header on phone (top ${chipbar && chipbar.top})`);
+  // Keyboard-open guard: iOS scrolls the layout viewport up to lift a focused input
+  // above the keyboard, which would drag the header + tab bar off the top (the bug).
+  // Focusing the docked chat input arms keyboard mode; the pin-to-top handler must
+  // snap any resulting page scroll back to 0 so the header + tabs stay put.
+  const pin = await pg.evaluate(() => {
+    const inp = document.querySelector('.v2-view[data-view="menu"] .na-ask-in');
+    if (inp) inp.focus();
+    const kbdOn = document.documentElement.classList.contains("chat-kbd");
+    const sp = document.createElement("div"); sp.style.height = "1400px"; document.body.appendChild(sp);
+    window.scrollTo(0, 500);
+    window.dispatchEvent(new Event("scroll"));
+    const after = window.scrollY;
+    sp.remove();
+    return { kbdOn, after };
+  });
+  check(pin.kbdOn, "docked chat: focusing the input arms keyboard mode (chat-kbd)");
+  check(pin.after === 0, `docked chat: the page is pinned to the top while the keyboard is up, so the header + tabs never scroll off (scrollY ${pin.after})`);
   checkErrs(errs, "direct menu");
   await ctx.close();
 }

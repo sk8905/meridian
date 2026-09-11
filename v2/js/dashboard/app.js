@@ -301,10 +301,10 @@ export function mount(host, ctx) {
       + `<td class="dsh-nm">${esc(s.name)}<span class="dsh-stress-sub">${esc(s.sector)} · ${esc(s.hq)}</span></td>`
       + `<td class="dsh-r">${esc(s.debt)}</td>`
       + `<td><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
-      + `<td class="dsh-note"><span class="dsh-clamp2">${esc(s.note)}</span>${srcLink(s.source, s.name + " source")}</td></tr>`;
+      + `<td class="dsh-note">${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
       + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("debt", "Debt")}${chip("name", "Debtor")}${chip("sector", "Sector")}</div>`
-      + `<table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th class="dsh-r">Debt</th><th>Status</th><th>Note</th></tr></thead>`
+      + `<table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th class="dsh-r">Debt</th><th>Status</th><th>Src</th></tr></thead>`
       + `<tbody>${stressRows().map(row).join("")}</tbody></table></div>`;
   }
   function maturityHTML() {
@@ -351,10 +351,10 @@ export function mount(host, ctx) {
   function privateCreditHTML() {
     const P = PRIVATE_CREDIT;
     if (!P || !(P.metrics || []).length) return "";
+    // Clean: label · value · SRC only — no explainer paragraph, no per-row context note.
     const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(x.k)}</span>`
-      + `<span class="dsh-kv-v">${esc(x.v)}${x.sub ? ` <span class="dsh-band">${esc(x.sub)}</span>` : ""}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
-    return (P.headline ? `<p class="dsh-fl-note">${esc(P.headline)}</p>` : "")
-      + `<div class="dsh-kvgrid">${P.metrics.map(kv).join("")}</div>`;
+      + `<span class="dsh-kv-v">${esc(x.v)}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
+    return `<div class="dsh-kvgrid">${P.metrics.map(kv).join("")}</div>`;
   }
   // Compact credit pulse strip — the Fitch PCDR + market-context metrics as pills.
   function crTapeHTML() {
@@ -368,11 +368,11 @@ export function mount(host, ctx) {
     const strip = crTapeHTML();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <h3 class="dsh-term-lbl">Spreads &amp; pulse</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
+      <section class="dsh-card"><h3 class="dsh-h">Private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
       <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>`;
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Credit wire" };
   }

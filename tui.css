@@ -218,7 +218,9 @@
    .tl-holdings) league tables read LEFT-ALIGNED throughout — override .tleague's
    right-aligned numeric columns + headers for these table families. */
 .tx-tbl th, .tx-tbl td, .tx-list th, .tx-list td,
-.tl-holdings th, .tl-holdings td { text-align: left; }
+.tl-holdings th, .tl-holdings td,
+.tx-tbl th:not(:first-child), .tx-list th:not(:first-child),
+.tl-holdings th:not(:first-child) { text-align: left; }
 .tleague tr.clickable { cursor: pointer; }
 /* Uniform league-row height: plain single-line rows grow to match the taller
    rows that carry a chip (Profiles' Secondaries badges are ~18px, ~3px over a
@@ -361,6 +363,11 @@
 
   /* clear the floating bottom tab bar so the last rows aren't hidden under it */
   .tcol:last-child { padding-bottom: 5rem; }
+  /* …but a profile DETAIL renders its own .tcol INSIDE the list's .tcol, so both
+     picked up the 5rem clearance and stacked ~160px of dead space under the table.
+     The outer (list) clearance is the one that clears the tab bar; drop the inner
+     one so the detail's table ends flush. */
+  #pf-detail .tcol:last-child { padding-bottom: 0; }
 }
 
 /* =====================================================================
@@ -706,11 +713,11 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tinv-tag.is-debt, .tinv-tag.is-equity { color: var(--ink); }
 .tinv-tag.is-unspec { color: var(--faint); }
 .tinv-inf { opacity: .55; font-weight: 400; }
-/* Investments TABLE (.tinv-tbl on the shared .tleague): company/borrower leads,
-   then deal type · instrument · amount · date · source. All cells left-aligned
-   (house R: profile/transaction tables left-align), name cell carries the verbatim
-   headline beneath. */
-.tinv-tbl th, .tinv-tbl td { text-align: left; }
+/* Investments TABLE (.tinv-tbl on the shared .tleague): company/borrower · deal ·
+   instrument · amount · date · source. Every cell AND header left-aligned — the
+   :not(:first-child) selector out-specifies .tleague's right-aligned header rule. */
+.tinv-tbl th, .tinv-tbl td,
+.tinv-tbl th:not(:first-child), .tinv-tbl td:not(:first-child) { text-align: left; }
 /* Company/borrower cell shows JUST the name (bold); full headline is the hover
    title, source link lives in the Source column. */
 .tinv-c-co { color: var(--ink); font-weight: 600; line-height: 1.3; min-width: 10rem; }
