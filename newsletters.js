@@ -42,6 +42,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-srascrutiny-20260911",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "SRA faces renewed scrutiny as LSB steps up pressure",
+    date: "2026-09-11",
+    time: "16:20",
+    summary: "After a run of bruising law firm collapses, the SRA is facing questions over how it can up its game – and what needs to change.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMR6OtbZdENfhCSepp/wv",
+  },
+  {
     id: "nl-legalbusiness-sixmapartnersweilcravath-20260911",
     publication: "Legal Business",
     author: null,
