@@ -203,19 +203,24 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector("#g-mgrwire .g-mw-fev", { timeout: 8000 });
   const f = await pg.evaluate(() => {
-    const chips = [...document.querySelectorAll("#g-mgrwire .g-mw-deskrow .g-feed-deskchip[data-mwcat]")];
+    // The filter chips live in the fixed header (#g-mw-head), not in the scroll —
+    // and there is no "Manager wire" title text.
+    const head = document.getElementById("g-mw-head");
+    const chips = [...head.querySelectorAll(".g-feed-deskchip[data-mwcat]")];
     return { count: chips.length, first: chips[0]?.textContent.trim(), allOn: chips[0]?.classList.contains("is-on"),
-      dots: chips.filter((c) => c.querySelector(".g-feed-deskdot")).length };
+      dots: chips.filter((c) => c.querySelector(".g-feed-deskdot")).length,
+      noTitle: !(head.textContent || "").includes("Manager wire"), grpInHead: !!head.querySelector(".g-mw-grpbtn") };
   });
-  check(f.count >= 3, `manager wire has a label-filter chip row (${f.count} chips)`);
+  check(f.count >= 3, `manager wire has a label-filter chip row in the header (${f.count} chips)`);
   check(f.first === "All" && f.allOn, "the filter leads with 'All', selected by default");
   check(f.dots === f.count - 1, `every category chip carries a pastel dot; only 'All' has none (${f.dots}/${f.count})`);
+  check(f.noTitle && f.grpInHead, "the 'Manager wire' title is gone; chips + Group-by-manager share the header row");
   // Pick a specific category and confirm the wire narrows to only that label.
   const narrowed = await pg.evaluate(() => {
-    const chip = [...document.querySelectorAll("#g-mgrwire .g-feed-deskchip[data-mwcat]")].find((c) => c.dataset.mwcat !== "all");
+    const chip = [...document.querySelectorAll("#g-mw-head .g-feed-deskchip[data-mwcat]")].find((c) => c.dataset.mwcat !== "all");
     const want = chip.dataset.mwcat; chip.click();
     return new Promise((res) => setTimeout(() => {
-      const on = document.querySelector("#g-mgrwire .g-feed-deskchip.is-on");
+      const on = document.querySelector("#g-mw-head .g-feed-deskchip.is-on");
       const codes = [...new Set([...document.querySelectorAll("#g-mgrwire .g-feed-code")].map((c) => c.textContent.trim()))];
       res({ want, onSel: on?.dataset.mwcat, codes });
     }, 400));

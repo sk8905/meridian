@@ -64,7 +64,10 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <aside class="g-side3">
           <div class="g-mw-scroll">
             <section class="tui-pnl g-mw">
-              <header class="tui-ph g-mw-head"><span>Manager wire</span><button type="button" class="g-feed-openbtn g-mw-grpbtn" aria-pressed="false" aria-label="Group the wire by manager (most active first)"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg><span>Group by manager</span></button></header>
+              <!-- No title row: the label-filter chips + Group-by-manager control
+                   are rendered here by glance.js (renderManagerWire) as a desk row,
+                   mirroring the news wire's fixed filter header. -->
+              <div class="g-mw-head" id="g-mw-head"></div>
               <div class="g-mw-body">
                 <div id="g-mgrwire" class="g-mw-pane" aria-label="Manager activity wire"><div class="g-loading">Loading managers…</div></div>
               </div>

@@ -69,7 +69,7 @@ for (const key of ["equities", "fixed-income", "hedge-funds", "legal"]) {
   check(p.threeZone && p.navChips === 6 && p.dshFlex === "flex", `${key}: renders the 3-zone workspace with the left nav rail`);
   check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
   check(p.hasRail && !p.norail, `${key}: keeps a news rail on the right`);
-  check(p.hSize === "12px", `${key}: panel headers use the 12px terminal scale (got ${p.hSize})`);
+  check(p.hSize === "11px", `${key}: panel headers use the app's 11px scale (got ${p.hSize})`);
 }
 checkErrs(errs, "dashboard 3-zone all sections");
 

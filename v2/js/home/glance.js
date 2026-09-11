@@ -487,9 +487,6 @@ function _saveMgrSeen(o) { try { localStorage.setItem("meridian.mgrSeen", JSON.s
 // with the aggregated feed (shared .g-feed-row engine).
 function renderManagerWire() {
   const box = document.getElementById("g-mgrwire"); if (!box) return;
-  // Reflect the current mode on the header toggle.
-  const grpBtn = document.querySelector(".g-mw-grpbtn");
-  if (grpBtn) { grpBtn.classList.toggle("is-on", _mwGroup); grpBtn.setAttribute("aria-pressed", String(_mwGroup)); }
   // Pull EVERY covered manager with activity (not a capped 24) so the flat stream
   // is a true chronological wire and the grouped view can rank the whole universe.
   const rows = managerWire(_mgrFollows(), { limit: 0 });
@@ -503,13 +500,16 @@ function renderManagerWire() {
   const presentCats = new Set(rows.flatMap((r) => (r.events || []).map((e) => e.cat)).filter(Boolean));
   if (_mwCat !== "all" && !presentCats.has(_mwCat)) _mwCat = "all";
   const catOpts = ["all", ...MW_CAT_ORDER.filter((c) => presentCats.has(c))];
-  const filterRow = `<div class="g-feed-deskrow g-mw-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by label">`
-    + catOpts.map((c) => {
-        const on = _mwCat === c;
-        const dot = c === "all" ? "" : `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
-        return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mwcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(c === "all" ? "All" : (CAT_LABEL[c] || c.toUpperCase()))}</button>`;
-      }).join("")
-    + `</div></div>`;
+  const catChips = catOpts.map((c) => {
+    const on = _mwCat === c;
+    const dot = c === "all" ? "" : `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
+    return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mwcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(c === "all" ? "All" : (CAT_LABEL[c] || c.toUpperCase()))}</button>`;
+  }).join("");
+  // The wire's header row (fixed, like the news wire's #g-feed-head): the label
+  // chips on the left, the Group-by-manager toggle on the right. No title.
+  const grpSvg = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`;
+  const grpBtnHTML = `<button type="button" class="g-feed-openbtn g-mw-grpbtn${_mwGroup ? " is-on" : ""}" aria-pressed="${_mwGroup}" aria-label="Group the wire by manager (most active first)">${grpSvg}<span>Group by manager</span></button>`;
+  const deskrow = `<div class="g-feed-deskrow g-mw-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by label">${catChips}</div><div class="g-feed-ctl">${grpBtnHTML}</div></div>`;
   const _catOk = (e) => _mwCat === "all" || (e && e.cat === _mwCat);
 
   const item = (r) => {
@@ -601,34 +601,27 @@ function renderManagerWire() {
   }
   // Under an active label filter that leaves nothing, keep the chips + a note.
   if (!html && _mwCat !== "all") html = `<div class="g-mw-empty">No ${esc(CAT_LABEL[_mwCat] || _mwCat)} activity in this window.</div>`;
-  box.innerHTML = filterRow + html;
+  const headEl = document.getElementById("g-mw-head");
+  if (headEl) headEl.innerHTML = deskrow;
+  box.innerHTML = html;
 
   // Update the seen baseline for shown managers (so this session's items aren't
   // "new" next load); expand toggle is delegated once on the container.
   const next = { ...seen }; rows.forEach((r) => { next[r.id] = r.lastTs; }); _saveMgrSeen(next);
-  // Group-by-manager toggle (lives in the column header, outside #g-mgrwire) —
-  // wired once; flips the mode, persists it, and re-renders.
-  if (grpBtn && !grpBtn.dataset.wired) {
-    grpBtn.dataset.wired = "1";
-    grpBtn.addEventListener("click", () => {
-      _mwGroup = !_mwGroup;
-      _saveHomePref({ mgrGroup: _mwGroup });
-      renderManagerWire();
+  // The header row (label chips + Group-by-manager) lives OUTSIDE #g-mgrwire, so
+  // wire its clicks once via delegation: a chip narrows the wire by category, the
+  // toggle flips flat ⇄ grouped. Both persist and re-render.
+  if (headEl && !headEl.dataset.wired) {
+    headEl.dataset.wired = "1";
+    headEl.addEventListener("click", (e) => {
+      const catChip = e.target.closest("[data-mwcat]");
+      if (catChip) { e.preventDefault(); e.stopPropagation(); _mwCat = catChip.dataset.mwcat || "all"; _saveHomePref({ mgrCat: _mwCat }); renderManagerWire(); return; }
+      if (e.target.closest(".g-mw-grpbtn")) { e.preventDefault(); e.stopPropagation(); _mwGroup = !_mwGroup; _saveHomePref({ mgrGroup: _mwGroup }); renderManagerWire(); }
     });
   }
   if (!box.dataset.wired) {
     box.dataset.wired = "1";
     box.addEventListener("click", (e) => {
-      // Label filter chip: narrow the wire to a signal category (or All), persist,
-      // and re-render — mirrors the news wire's desk-chip behaviour.
-      const catChip = e.target.closest("[data-mwcat]");
-      if (catChip) {
-        e.preventDefault(); e.stopPropagation();
-        _mwCat = catChip.dataset.mwcat || "all";
-        _saveHomePref({ mgrCat: _mwCat });
-        renderManagerWire();
-        return;
-      }
       // One-tap follow ☆/★: mutate the shared follows store + persist to
       // localStorage (mirrors the credit app's persistLocal; cloud sync reconciles
       // when the Credit view next loads), then re-render so the row restacks.
