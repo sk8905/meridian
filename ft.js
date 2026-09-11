@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "819e34f5-7ba7-4cb3-942f-012d5fc501ce", title: "Macron shoots for the moon with pitch to Europe’s struggling space sector", date: "2026-09-11", time: "06:00", url: "https://www.ft.com/content/819e34f5-7ba7-4cb3-942f-012d5fc501ce" },
+  { id: "48588acb-8026-4c8e-aac7-8b5588294dbf", title: "How big is the open-model threat to AI hyperscalers?", date: "2026-09-11", time: "06:00", url: "https://www.ft.com/content/48588acb-8026-4c8e-aac7-8b5588294dbf" },
+  { id: "41fcad5f-054c-4b8b-8796-bcccaf9ae489", title: "FirstFT: Bessent fails to break bond market ‘fever’", date: "2026-09-11", time: "05:31", url: "https://www.ft.com/content/41fcad5f-054c-4b8b-8796-bcccaf9ae489" },
+  { id: "b1b44515-1825-4164-ac83-659a74c9f553", title: "Trump-Vance’s US midterm pitch: vote Republican or live with the ‘lunatics’", date: "2026-09-11", time: "05:27", url: "https://www.ft.com/content/b1b44515-1825-4164-ac83-659a74c9f553" },
   { id: "2c9ce5b0-32ae-4460-aa89-9c80eb05ee41", title: "US rate rise fears ripple through global bond markets", date: "2026-09-11", time: "05:06", url: "https://www.ft.com/content/2c9ce5b0-32ae-4460-aa89-9c80eb05ee41" },
   { id: "4c4f948d-dedf-4eb1-addb-73581cc455e7", title: "Private equity’s ‘Waiting for Godot’ era continues", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/4c4f948d-dedf-4eb1-addb-73581cc455e7" },
   { id: "df2d9bcc-59f9-4122-aa4d-2020bef77e0e", title: "Iran and Gulf states to meet in push for Hormuz deal", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/df2d9bcc-59f9-4122-aa4d-2020bef77e0e" },
@@ -56,6 +60,4 @@ export const FT_ITEMS = [
   { id: "c090f503-1299-4f33-8539-79bbfb50c21b", title: "British man charged with volunteering to sabotage UK drone factory for Russia", date: "2026-09-10", time: "15:04", url: "https://www.ft.com/content/c090f503-1299-4f33-8539-79bbfb50c21b" },
   { id: "49e8c693-0064-4ef9-917f-5f2be97458fc", title: "Global bond sell-off reignites as oil jumps above $105", date: "2026-09-10", time: "14:44", url: "https://www.ft.com/content/49e8c693-0064-4ef9-917f-5f2be97458fc" },
   { id: "cd652b20-1fa3-4a51-bea7-4d7e33b1eaa2", title: "Houthis capture Red Sea port in blow to Saudis", date: "2026-09-10", time: "14:36", url: "https://www.ft.com/content/cd652b20-1fa3-4a51-bea7-4d7e33b1eaa2" },
-  { id: "11f0fe2f-bf72-4760-a2df-1a3b5405173f", title: "Scott Bessent continues crusade against rising US government bond yields", date: "2026-09-10", time: "14:00", url: "https://www.ft.com/content/11f0fe2f-bf72-4760-a2df-1a3b5405173f" },
-  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-10", time: "13:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
 ];
