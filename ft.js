@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7aa19beb-db39-46dd-8979-0c32c51ed53b", title: "KPMG under investigation over audits for Prax’s State Oil arm", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/7aa19beb-db39-46dd-8979-0c32c51ed53b" },
+  { id: "db6974e5-0088-4dde-b455-2275033d9438", title: "Ukrainian Lessons by Charlotte Higgins — culture war", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/db6974e5-0088-4dde-b455-2275033d9438" },
+  { id: "fe5cd1b4-5131-4dca-a728-4bc7df90d6df", title: "Tiny snail stalls Donald Trump’s Irish golf ambitions", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/fe5cd1b4-5131-4dca-a728-4bc7df90d6df" },
+  { id: "b9a48a1b-5896-46fb-91a1-d7beb18a64b7", title: "The day that blew America and the world off course", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/b9a48a1b-5896-46fb-91a1-d7beb18a64b7" },
+  { id: "1dbb63ef-359b-410e-8e86-5cd2df59fc3d", title: "Anglo nickel deal tests EU resolve over Chinese control of resources", date: "2026-09-11", time: "10:59", url: "https://www.ft.com/content/1dbb63ef-359b-410e-8e86-5cd2df59fc3d" },
+  { id: "495e1b57-9b1a-483d-b776-3ac4aa05764c", title: "Desperately seeking UK data centre data", date: "2026-09-11", time: "10:17", url: "https://www.ft.com/content/495e1b57-9b1a-483d-b776-3ac4aa05764c" },
   { id: "8310cf56-ce60-4e6e-8254-5bb470e9a880", title: "Yemeni militants used Anthropic AI to try to build ballistic missiles", date: "2026-09-11", time: "10:02", url: "https://www.ft.com/content/8310cf56-ce60-4e6e-8254-5bb470e9a880" },
   { id: "ab6f6433-1f23-4153-a02b-7984d14734c6", title: "IEA warns of ‘lost period’ in global oil demand", date: "2026-09-11", time: "09:37", url: "https://www.ft.com/content/ab6f6433-1f23-4153-a02b-7984d14734c6" },
   { id: "91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20", title: "Andy Burnham’s blind spot", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20" },
@@ -54,11 +60,4 @@ export const FT_ITEMS = [
   { id: "a79892a3-c6c2-4c0b-8c3a-a37e9a32cf4f", title: "How would Donald Trump’s $5,000 voting payout work?", date: "2026-09-10", time: "19:26", url: "https://www.ft.com/content/a79892a3-c6c2-4c0b-8c3a-a37e9a32cf4f" },
   { id: "92a1f269-2832-4bcd-aad6-629fd86dda0f", title: "Burnham urged not to snub Commonwealth summit amid reparations demands", date: "2026-09-10", time: "18:47", url: "https://www.ft.com/content/92a1f269-2832-4bcd-aad6-629fd86dda0f" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-09-10", time: "18:31", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
-  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-09-10", time: "18:28", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
-  { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-09-10", time: "18:24", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
-  { id: "7410c56e-5350-48f8-a5e6-24f37c1581e9", title: "Stanley Druckenmiller says US borrowing costs still ‘a little low’ despite surge in yields", date: "2026-09-10", time: "18:21", url: "https://www.ft.com/content/7410c56e-5350-48f8-a5e6-24f37c1581e9" },
-  { id: "cc99c301-8c5d-4014-889e-8eb374d993f9", title: "Apple’s big goal after foldable iPhone", date: "2026-09-10", time: "18:12", url: "https://www.ft.com/content/cc99c301-8c5d-4014-889e-8eb374d993f9" },
-  { id: "f1542280-1e6e-40ea-ac7f-83a5866a19f2", title: "Shabana Mahmood demands ‘effective police action’ ahead of UK anti-immigration protests", date: "2026-09-10", time: "18:02", url: "https://www.ft.com/content/f1542280-1e6e-40ea-ac7f-83a5866a19f2" },
-  { id: "d3fe6f10-d03e-4580-b033-1fd39f9f8f97", title: "British man admits inventing fake takeover bid for Canadian oil explorer", date: "2026-09-10", time: "17:51", url: "https://www.ft.com/content/d3fe6f10-d03e-4580-b033-1fd39f9f8f97" },
-  { id: "6508d169-35b1-4e56-a29a-57911d9123d8", title: "Say goodbye to the SaaSpocalypse and hello to the RenaiSaaS", date: "2026-09-10", time: "17:35", url: "https://www.ft.com/content/6508d169-35b1-4e56-a29a-57911d9123d8" },
 ];
