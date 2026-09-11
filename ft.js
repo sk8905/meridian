@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bcffd7aa-d9fc-4ae3-bf3e-c121d50a7d6d", title: "Time to start taking AI risks seriously", date: "2026-09-11", time: "12:01", url: "https://www.ft.com/content/bcffd7aa-d9fc-4ae3-bf3e-c121d50a7d6d" },
+  { id: "e396d7c6-9301-49e3-9e5d-6348650a1a98", title: "‘Manchester is an opportunity’: but for who?", date: "2026-09-11", time: "12:00", url: "https://www.ft.com/content/e396d7c6-9301-49e3-9e5d-6348650a1a98" },
+  { id: "7274da64-f1ad-47aa-811f-680f76d3b18c", title: "Ex-Goodwin lawyer pleads not guilty to insider trading in London", date: "2026-09-11", time: "11:34", url: "https://www.ft.com/content/7274da64-f1ad-47aa-811f-680f76d3b18c" },
+  { id: "45ba5468-87fa-4afb-8c35-ff27579109d3", title: "Hong Kong sentences Tiananmen vigil organisers to prison", date: "2026-09-11", time: "11:10", url: "https://www.ft.com/content/45ba5468-87fa-4afb-8c35-ff27579109d3" },
   { id: "7aa19beb-db39-46dd-8979-0c32c51ed53b", title: "KPMG under investigation over audits for Prax’s State Oil arm", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/7aa19beb-db39-46dd-8979-0c32c51ed53b" },
   { id: "db6974e5-0088-4dde-b455-2275033d9438", title: "Ukrainian Lessons by Charlotte Higgins — culture war", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/db6974e5-0088-4dde-b455-2275033d9438" },
   { id: "fe5cd1b4-5131-4dca-a728-4bc7df90d6df", title: "Tiny snail stalls Donald Trump’s Irish golf ambitions", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/fe5cd1b4-5131-4dca-a728-4bc7df90d6df" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "403933ff-4c4b-4809-b863-d61d0e061729", title: "Sanctions loophole lets UK insurer cover tankers carrying Russian gas", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/403933ff-4c4b-4809-b863-d61d0e061729" },
   { id: "bbdad57e-bd57-4c75-98b8-12fca7cbd268", title: "America remembers: twenty-five years after 9/11", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/bbdad57e-bd57-4c75-98b8-12fca7cbd268" },
   { id: "083a9c4b-3913-496d-be13-22c96053624b", title: "Markets live: US Treasury yields rise to session highs after Scott Bessent’s buyback operation undershoots target", date: "2026-09-10", time: "19:49", url: "https://www.ft.com/content/083a9c4b-3913-496d-be13-22c96053624b" },
-  { id: "a79892a3-c6c2-4c0b-8c3a-a37e9a32cf4f", title: "How would Donald Trump’s $5,000 voting payout work?", date: "2026-09-10", time: "19:26", url: "https://www.ft.com/content/a79892a3-c6c2-4c0b-8c3a-a37e9a32cf4f" },
-  { id: "92a1f269-2832-4bcd-aad6-629fd86dda0f", title: "Burnham urged not to snub Commonwealth summit amid reparations demands", date: "2026-09-10", time: "18:47", url: "https://www.ft.com/content/92a1f269-2832-4bcd-aad6-629fd86dda0f" },
-  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-09-10", time: "18:31", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
 ];
