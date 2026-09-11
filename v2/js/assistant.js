@@ -287,10 +287,16 @@ export function mountAssistant(container, opts) {
   // nav bar or dead space between the field and the keyboard. `--kbd-h` tracks the
   // on-screen keyboard height via visualViewport so the input glues above it.
   const vv = typeof window !== "undefined" && window.visualViewport;
+  // --kbd-h = on-screen keyboard height (so the docked view ends at the keyboard
+  // top). --vv-top = how far iOS scrolled the LAYOUT viewport up to lift the input;
+  // the CSS translates the fixed header down by it and pushes the docked view's top
+  // to match, so the header + tab bar stay visually pinned without scrolling the
+  // page (which would hide the input).
   const setKbd = () => {
     if (!vv || !document.documentElement.classList.contains("chat-kbd")) return;
     const h = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
     document.documentElement.style.setProperty("--kbd-h", h + "px");
+    document.documentElement.style.setProperty("--vv-top", Math.max(0, Math.round(vv.offsetTop)) + "px");
   };
   let kbdQueued = false;
   const queueSetKbd = () => {
@@ -303,6 +309,6 @@ export function mountAssistant(container, opts) {
     if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); setKbd(); }
   });
   container.addEventListener("focusout", (e) => {
-    if (e.target.closest(".na-ask-in")) { document.documentElement.classList.remove("chat-kbd"); document.documentElement.style.setProperty("--kbd-h", "0px"); }
+    if (e.target.closest(".na-ask-in")) { document.documentElement.classList.remove("chat-kbd"); document.documentElement.style.setProperty("--kbd-h", "0px"); document.documentElement.style.setProperty("--vv-top", "0px"); }
   });
 }

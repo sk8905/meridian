@@ -13,7 +13,7 @@
 // The Ask/Add/omnibox UI is the shared assistant module (mountAssistant).
 import { esc, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js?v=v2-2";
-import { mountAssistant } from "/v2/js/assistant.js?v=v2-14";
+import { mountAssistant } from "/v2/js/assistant.js?v=v2-15";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
 // A small down caret beside the "Chat" chip label — it opens the chip's dropdown
