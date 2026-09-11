@@ -489,6 +489,19 @@ html.wire-boot #out { visibility: hidden; }
    not full-bleed. */
 /* Spread the menu chips evenly across the full width of the bar. */
 .na-menu-bar .tchip { flex: 1 1 0; max-width: none; }
+/* Chat chip caret + its "New chat" dropdown. The caret is a hair below the text
+   baseline; when the dropdown is open it flips to point up. The menu is a small
+   squared card pinned under the chip bar (the bar is the positioning context). */
+.na-menu-bar { position: sticky; }
+.tchip .tchip-caret { flex: 0 0 auto; opacity: .7; transition: transform .12s ease; }
+.tchip-has-menu[aria-expanded="true"] .tchip-caret { transform: rotate(180deg); opacity: 1; }
+.tchip-menu { position: absolute; top: 100%; left: 0; z-index: 9; min-width: 132px;
+  background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); border-top: 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+.tchip-menu-item { display: block; width: 100%; text-align: left; border: 0; background: transparent;
+  color: var(--ink, #e8e8e8); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px;
+  font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; }
+.tchip-menu-item:hover { background: var(--hover, rgba(255,255,255,.05)); color: var(--accent, #fb8b1e); }
 /* Push toggle row (Notifications tab): label left, the on/off pill right. */
 .na-menu-pushrow { justify-content: space-between; }
 .na-menu-pushrow .na-menu-push { margin-right: 0; }
@@ -894,18 +907,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .topbar .notif-panel, .topbar .mkt-panel { border-radius: 0; }
 
 /* =============================================================================
-   CANONICAL SCROLLBAR — one consistent style platform-wide (Home + all sections,
-   every scroll container). Thin, squared, subtle. The horizontal nav scrollers
-   (.g-jump / .mainnav) keep their own hidden-scrollbar rules (higher specificity).
+   SCROLLBARS — hidden platform-wide. Every scroll container still scrolls (touch,
+   wheel, trackpad, keyboard) but shows no visible bar, on any surface or theme —
+   the terminal aesthetic keeps the chrome clean. Applied to every element and its
+   scrolling shadow root so nothing paints a grey track.
    ============================================================================= */
-* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.16) transparent; }
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,.16); border-radius: 0; border: 2px solid transparent; background-clip: padding-box; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.28); background-clip: padding-box; }
-:root[data-theme="light"] * { scrollbar-color: rgba(11,31,68,.24) transparent; }
-:root[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(11,31,68,.24); background-clip: padding-box; }
-:root[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(11,31,68,.36); background-clip: padding-box; }
+* { scrollbar-width: none; -ms-overflow-style: none; }
+::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
 /* ---- Row-bookmark toast + long-press support (Home feed) ---- */
 /* Long-press must reach our handler, not iOS's link callout / text selection. */
@@ -980,6 +988,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
 .na-ask-go { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
 .na-ask-go:disabled { color: var(--faint, #5c6a86); cursor: default; }
+/* Send button (bare menu Chat): an accent up-arrow that submits the typed line —
+   the on-screen equivalent of pressing Enter. Squared, sits at the field's edge. */
+.na-ask-send { flex: 0 0 auto; display: grid; place-items: center; width: 40px; align-self: stretch; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); cursor: pointer; padding: 0; }
+.na-ask-send:disabled { color: var(--faint, #5c6a86); cursor: default; }
 .na-ask-add, .na-ask-search { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 0 12px; cursor: pointer; }
 .na-ask-add:hover:not(:disabled), .na-ask-search:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
 .na-ask-add:disabled, .na-ask-search:disabled { color: var(--faint, #5c6a86); cursor: default; }
@@ -1001,9 +1013,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    question sits in emphasised mono above its answer; a small "New chat" clears it. */
 .na-chat-turn { border-bottom: 1px solid var(--border, #262626); }
 .na-chat-q { padding: 10px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; color: var(--ink, #eaf0fb); line-height: 1.4; word-wrap: break-word; }
-/* "New chat" sits on the right of the input row (a flex sibling of the field). */
-.na-chat-clear { flex: 0 0 auto; border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; padding: 0 2px 0 10px; white-space: nowrap; }
-.na-chat-clear:hover { color: var(--muted, #8592ad); }
 /* New-chat EMPTY STATE: a centred accent spark + three one-word news topics as
    tappable pills — tapping one starts the chat on that topic. */
 .na-chat-empty { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 44px 16px; text-align: center; }

@@ -42,6 +42,7 @@ async function menuState(pg) {
     const cs = input ? getComputedStyle(input) : {};
     return {
       buttons: c.querySelectorAll(".na-ask-go, .na-ask-search, .na-ask-add").length,
+      send: c.querySelectorAll(".na-ask-send").length,
       inputs: c.querySelectorAll(".na-ask-in").length,
       ph: input ? input.placeholder : "",
       inputBg: input ? cs.backgroundColor : "", liftRGB: rgbOf("var(--lift)"),
@@ -49,7 +50,9 @@ async function menuState(pg) {
       h: input ? cs.height : "", bw: input ? cs.borderTopWidth : "",
     };
   });
-  check(dlg && dlg.inputs === 1 && dlg.buttons === 0, "direct /v2/menu/: the Dialogue chip is a bare Ask field (one input, no buttons)");
+  check(dlg && dlg.inputs === 1 && dlg.buttons === 0, "direct /v2/menu/: the Dialogue chip is a bare Ask field (one input, no Search/Add/Ask buttons)");
+  check(dlg && dlg.send === 1, "direct /v2/menu/: the Dialogue chip has a single Send button");
+  check(await pg.evaluate(() => !!document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="dialogue"] .tchip-caret')), "direct /v2/menu/: the Chat chip carries a down caret");
   check(dlg && /ask/i.test(dlg.ph) && !/search/i.test(dlg.ph), `direct /v2/menu/: the placeholder is the Ask prompt (${dlg && dlg.ph})`);
   check(dlg && dlg.inputBg === dlg.liftRGB, `direct /v2/menu/: the Ask FIELD takes the lifted --lift ground (field ${dlg && dlg.inputBg} vs --lift ${dlg && dlg.liftRGB})`);
   check(dlg && dlg.formBg === dlg.headRGB, `direct /v2/menu/: the band sits on the --head ground like the search band (form ${dlg && dlg.formBg} vs --head ${dlg && dlg.headRGB})`);

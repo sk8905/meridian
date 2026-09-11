@@ -65,8 +65,9 @@ await pg.evaluate(() => { const b = document.querySelector(".nav-menu-btn") || d
 await pg.waitForTimeout(700);
 check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Chat/Coverage/Settings"), "Menu shows the Chat/Coverage/Settings chips");
 // Dialogue chip (default): a BARE Ask field — one input styled like .tsearch,
-// NO action button (Search/Add/Ask all absent); Enter submits.
-check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !c.querySelector(".na-ask-search") && !c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is a bare Ask field: one input, no buttons");
+// no Search/Add/Ask buttons, just a dedicated Send button; Enter also submits.
+check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !c.querySelector(".na-ask-search") && !c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is a bare Ask field: one input, no Search/Add/Ask buttons");
+check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); const s = c.querySelector(".na-ask-send"); return !!s && s.type === "submit" && !!s.querySelector("svg"); }), "Dialogue chip has a Send button (submit) in the input row");
 check(await pg.evaluate(() => { const i = document.querySelector("#v2-menu-omni .na-ask-in"); return !!i && /ask/i.test(i.placeholder) && !/search/i.test(i.placeholder); }), "Dialogue placeholder is the Ask prompt (no 'Search…')");
 check(await pg.evaluate(() => !document.querySelector("#v2-menu-omni .na-ask-hint")), "no idle explainer text in the Dialogue Ask box");
 // Enter (form submit) still fires an Ask even with no button.
@@ -76,10 +77,16 @@ await pg.waitForTimeout(400);
 check(await pg.evaluate(() => (document.querySelector("#v2-menu-omni .na-ask-answer")?.textContent || "").includes("Apollo")), "bare Ask field submits on Enter and renders the answer");
 
 // ---- Multi-turn CHAT: follow-ups keep a transcript and carry prior turns ----
-// Reset any transcript from the single-ask test above, then drive two turns
-// through a capturing stub that numbers its answers and records each request.
-await pg.evaluate(() => document.querySelector("#v2-menu-omni .na-chat-clear")?.click());
-await pg.waitForTimeout(120);
+// Reset any transcript from the single-ask test above via the Chat-chip dropdown
+// "New chat", then drive two turns through a capturing stub that numbers its
+// answers and records each request.
+const newChat = async (page) => {
+  await page.evaluate(() => document.querySelector('.na-menu-bar .tchip[data-sec="dialogue"]').click());
+  await page.waitForTimeout(80);
+  await page.evaluate(() => document.querySelector("#v2-newchat")?.click());
+  await page.waitForTimeout(120);
+};
+await newChat(pg);
 await pg.unroute("**/api/ask");
 const asked = [];
 let askN = 0;
@@ -101,7 +108,8 @@ const chat = await pg.evaluate(() => {
     as: turns.map((t) => (t.querySelector(".na-ask-answer")?.textContent || "").trim()),
     inputEmpty: (c.querySelector(".na-ask-in")?.value || "") === "",
     followPh: /follow-up/i.test(c.querySelector(".na-ask-in")?.placeholder || ""),
-    hasClear: !!c.querySelector(".na-chat-clear"),
+    hasSend: !!c.querySelector(".na-ask-send"),
+    noFoot: !c.querySelector(".na-brief-foot"),
   };
 });
 check(chat.count === 2, `chat keeps a transcript of both turns (${chat.count})`);
@@ -109,7 +117,8 @@ check(chat.qs[0] === "And its AUM?" && chat.qs[1] === "First question about Apol
 check(chat.as[0].includes("number 2") && chat.as[1].includes("number 1"), `each turn keeps its own answer (${chat.as.join(" | ")})`);
 check(chat.inputEmpty, "the input clears after each send");
 check(chat.followPh, "the placeholder invites a follow-up once a chat is going");
-check(chat.hasClear, "a 'New chat' control appears");
+check(chat.hasSend, "the Send button stays in the input row during a chat");
+check(chat.noFoot, "no AI-answers disclaimer under the transcript");
 const followReq = asked[asked.length - 1];
 check(followReq && Array.isArray(followReq.history) && followReq.history.length === 1
   && /First question about Apollo/.test(followReq.history[0].q) && /Answer number 1/.test(followReq.history[0].a),
@@ -127,9 +136,18 @@ check(/sources/i.test(src.summary), `the summary is labelled 'Sources' (${src.su
 await pg.evaluate(() => document.querySelector("#v2-menu-omni .na-ask-srcd > summary").click());
 await pg.waitForTimeout(120);
 check(await pg.evaluate(() => { const d = document.querySelector("#v2-menu-omni .na-ask-srcd"); return d.open === true && d.querySelectorAll(".na-ask-srcs a[href]").length >= 1; }), "clicking Sources expands it to show the links");
-await pg.evaluate(() => document.querySelector("#v2-menu-omni .na-chat-clear").click());
+// The "New chat" control lives in a dropdown under the Chat chip (which carries a
+// down caret). Tapping the active Chat chip opens the dropdown; tapping New chat
+// clears the transcript.
+check(await pg.evaluate(() => !!document.querySelector('.na-menu-bar .tchip[data-sec="dialogue"] .tchip-caret')), "the Chat chip shows a down caret");
+check(await pg.evaluate(() => !document.querySelector("#v2-newchat")), "the New chat dropdown is closed by default");
+await pg.evaluate(() => document.querySelector('.na-menu-bar .tchip[data-sec="dialogue"]').click());
+await pg.waitForTimeout(120);
+check(await pg.evaluate(() => !!document.querySelector("#v2-newchat")), "tapping the active Chat chip opens the New chat dropdown");
+await pg.evaluate(() => document.querySelector("#v2-newchat").click());
 await pg.waitForTimeout(150);
 check(await pg.evaluate(() => document.querySelectorAll("#v2-menu-omni .na-chat-turn").length === 0), "'New chat' clears the transcript");
+check(await pg.evaluate(() => !document.querySelector("#v2-newchat")), "choosing New chat closes the dropdown");
 await pg.unroute("**/api/ask");
 // Coverage chip: Add (C) + Network.
 await pg.evaluate(() => document.querySelector('.v2-menu .na-menu-bar .tchip[data-sec="coverage"]').click());
@@ -214,8 +232,11 @@ await ctx.close();
   // Transcript is bottom-anchored: it ends right at the input (no dead space between).
   check(Math.abs(dock.chatBottom - dock.formTop) <= 2, `transcript is bottom-anchored right above the input (chat ${dock.chatBottom}, input top ${dock.formTop})`);
   check(dock.qs[0] === "First?" && dock.qs[1] === "Second?", `docked transcript is oldest→newest (${dock.qs.join(" | ")})`);
-  // "New chat" sits in the input row (right side), not as a separate top row.
-  check(await pp.evaluate(() => { const f = document.querySelector("#v2-menu-omni .na-ask-form .na-chat-clear"); return !!f && !document.querySelector("#v2-menu-omni .na-chat-top"); }), "New chat sits in the input row, not above the transcript");
+  // The Send button sits in the input row (right side); New chat has moved to the
+  // Chat-chip dropdown, so no "New chat" button lives in the input row anymore.
+  check(await pp.evaluate(() => { const f = document.querySelector("#v2-menu-omni .na-ask-form .na-ask-send"); return !!f && !document.querySelector("#v2-menu-omni .na-ask-form .na-chat-clear"); }), "the Send button sits in the input row (New chat moved to the Chat-chip dropdown)");
+  // No AI-answers disclaimer under the docked transcript.
+  check(await pp.evaluate(() => !document.querySelector("#v2-menu-omni .na-brief-foot")), "no AI-answers disclaimer in the docked chat");
   // Focusing the input (keyboard up) hides the bottom tab bar so nothing sits
   // between the field and the keyboard; blurring restores it.
   const tabDisplay = () => pp.evaluate(() => getComputedStyle(document.querySelector(".mobile-tabbar")).display);

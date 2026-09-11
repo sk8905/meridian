@@ -16,6 +16,10 @@ import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss a
 import { mountAssistant } from "/v2/js/assistant.js?v=v2-12";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
+// A small down caret beside the "Chat" chip label — it opens the chip's dropdown
+// (currently just "New chat"). Tapping the Chat chip when it is already the active
+// section toggles the dropdown; otherwise the chip switches to it as normal.
+const ICO_CARET = '<svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
 
 const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
 const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -140,6 +144,9 @@ export function mount(host, ctx) {
   // (Coverage) are separate surfaces, so they keep separate state.
   const askState = {};
   const addState = {};
+  // The Chat chip carries a caret that opens a small dropdown ("New chat"). It is
+  // only ever open while the Chat section is active; switching chips closes it.
+  let chatMenuOpen = false;
   // Sign out + last-refresh live in the phone bottom strip (built in chrome.js),
   // and that strip is shown ONLY on the Settings chip. We surface the active chip
   // as data-menu-sec on <html> so the strip's CSS can gate on it (see app.css).
@@ -148,8 +155,19 @@ export function mount(host, ctx) {
     // A plain, always-visible full-width column — NOT the .na-panel dropdown,
     // which is a fixed pop-over sized for a corner and rendered the menu
     // invisible/mis-sized on phones. The inner .na-menu-* rows are self-styled.
+    const chips = SECTIONS.map(([k, l]) => {
+      const isChat = k === "dialogue";
+      const label = isChat ? `${l}${ICO_CARET}` : l;
+      const expanded = isChat ? ` aria-expanded="${chatMenuOpen ? "true" : "false"}"` : "";
+      return `<button type="button" class="tchip${k === sec ? " is-on" : ""}${isChat ? " tchip-has-menu" : ""}" data-sec="${k}"${expanded}>${label}</button>`;
+    }).join("");
+    // The "New chat" dropdown lives under the Chat chip; it's only rendered while
+    // the Chat section is active and the caret has been tapped open.
+    const chatMenu = (sec === "dialogue" && chatMenuOpen)
+      ? `<div class="tchip-menu" role="menu"><button type="button" class="tchip-menu-item" id="v2-newchat" role="menuitem">New chat</button></div>`
+      : "";
     host.innerHTML = `<div class="v2-menu">
-      <div class="na-menu-bar"><div class="tchips">${SECTIONS.map(([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`).join("")}</div></div>
+      <div class="na-menu-bar"><div class="tchips">${chips}</div>${chatMenu}</div>
       <div class="na-menu-pane">${paneHTML(sec)}</div>
     </div>`;
     if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, bare: true, placeholder: "Ask…", state: askState });
@@ -175,8 +193,19 @@ export function mount(host, ctx) {
   });
 
   host.addEventListener("click", (e) => {
+    // "New chat" (Chat-chip dropdown): drop the transcript and start a fresh chat.
+    const newChat = e.target.closest("#v2-newchat");
+    if (newChat) { askState.turns = []; askState.loading = false; chatMenuOpen = false; render(); return; }
     const chip = e.target.closest(".na-menu-bar .tchip");
-    if (chip) { sec = chip.dataset.sec; render(); return; }
+    if (chip) {
+      const target = chip.dataset.sec;
+      // Tapping the active Chat chip toggles its dropdown; any other tap switches
+      // section (and always closes the dropdown).
+      if (target === "dialogue" && sec === "dialogue") { chatMenuOpen = !chatMenuOpen; render(); return; }
+      sec = target; chatMenuOpen = false; render(); return;
+    }
+    // A tap anywhere else closes an open Chat dropdown.
+    if (chatMenuOpen) { chatMenuOpen = false; render(); }
     const opt = e.target.closest("#v2-theme-seg .na-theme-opt");
     if (opt) { applyTheme(opt.dataset.pref); render(); return; }
     const push = e.target.closest("#v2-push");

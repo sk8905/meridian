@@ -82,6 +82,8 @@ const topicQuestion = (t) => `What's the most important ${t} news today?`;
 const SPARK = `<svg class="na-sugg-mark" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><g stroke="currentColor" stroke-width="2.2" stroke-linecap="round">`
   + Array.from({ length: 12 }, (_, i) => { const a = (i * 30) * Math.PI / 180, x1 = 20 + 6 * Math.cos(a), y1 = 20 + 6 * Math.sin(a), x2 = 20 + 17 * Math.cos(a), y2 = 20 + 17 * Math.sin(a); return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`; }).join("")
   + `</g></svg>`;
+// The Send glyph on the bare Chat input (an upward arrow — submit the typed line).
+const SEND_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="6 11 12 5 18 11"/></svg>`;
 
 // The model may return light markdown (**bold**, *italic*, `code`, [t](url),
 // paragraph/line breaks). Escape FIRST, then apply a tiny safe subset on the
@@ -138,7 +140,6 @@ export function renderAsk(body, st, opts) {
   const onPhone = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
   const dock = bare && onPhone;
   if (body.classList) body.classList.toggle("is-docked", dock);
-  const answered = turns.some((t) => t.a != null);
   const turnHTML = (t) => `<div class="na-chat-turn">`
     + `<div class="na-chat-q">${esc(t.q)}</div>`
     + (t.loading ? `<div class="na-load">${esc(t.loadingLabel || "Thinking…")}</div>`
@@ -165,15 +166,15 @@ export function renderAsk(body, st, opts) {
     + (withSearch && !bare ? `<button type="button" class="na-ask-search"${st.loading ? " disabled" : ""} title="Search Wire — instant matches across managers, funds, firms, deals & pages">Search</button>` : "")
     + (withAdd && !bare ? `<button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button>` : "")
     + (withAsk && !bare ? `<button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button>` : "")
-    // "New chat" lives on the RIGHT of the input row while a conversation is going.
-    + (hasChat ? `<button type="button" class="na-chat-clear" title="Clear this conversation">New chat</button>` : "")
+    // The bare menu Chat sends with a dedicated Send button (New chat moved to the
+    // Chat-chip dropdown). It submits the form — the same path as pressing Enter.
+    + (withAsk && bare ? `<button type="submit" class="na-ask-send"${st.loading ? " disabled" : ""} aria-label="Send" title="Send">${SEND_ICON}</button>` : "")
     + `</form>`;
   // The transcript (turns → verify disclaimer) is ONE block so the docked layout
   // can scroll it as a unit above the pinned input row.
   const chatHTML = hasChat
     ? `<div class="na-chat">`
       + (dock ? turns : turns.slice().reverse()).map(turnHTML).join("")
-      + (answered ? `<div class="na-brief-foot">AI answers from Wire’s data + a live web search — verify anything critical.</div>` : "")
       + `</div>`
     : "";
   // The middle is the transcript (active chat) or the new-chat empty state.
@@ -280,8 +281,6 @@ export function mountAssistant(container, opts) {
     if (isChat && sugg) { e.preventDefault(); e.stopPropagation(); const i = container.querySelector(".na-ask-in"); if (i) i.value = sugg.dataset.ask || sugg.textContent || ""; runAsk(); return; }
     if (withSearch && e.target.closest(".na-ask-search")) { e.preventDefault(); e.stopPropagation(); runSearch(); return; }
     if (withAdd && e.target.closest(".na-ask-add")) { e.preventDefault(); e.stopPropagation(); runAdd(); return; }
-    // "New chat": drop the transcript and start fresh.
-    if (isChat && e.target.closest(".na-chat-clear")) { e.preventDefault(); e.stopPropagation(); state.turns = []; state.loading = false; draw(); return; }
   });
   // Docked chat only: while the input is focused (keyboard up), flag <html> so the
   // bottom tab bar hides and the fixed chat column ends at the keyboard top — no
