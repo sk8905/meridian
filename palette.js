@@ -134,7 +134,7 @@ html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;
 .mcmdk-clear{display:grid;place-items:center;flex:0 0 auto;width:30px;height:30px;border:0;background:transparent;color:var(--faint,#5c6a86);font-size:13px;line-height:1;cursor:pointer;border-radius:0}
 .mcmdk-clear:hover{color:var(--ink,#eaf0fb)}
 .mcmdk-clear[hidden]{display:none}
-.mcmdk .mcmdk-input{flex:1 1 auto;width:100%;min-width:0;border:0 !important;border-bottom:1px solid var(--border,#232f47) !important;padding:1rem 1.1rem;font:inherit;font-size:1.05rem;color:var(--ink,#eaf0fb);background:transparent !important;outline:none}
+.mcmdk .mcmdk-input{flex:1 1 auto;width:100%;min-width:0;border:0 !important;border-bottom:1px solid var(--border,#232f47) !important;padding:9px 12px;font-family:var(--t-mono,ui-monospace,monospace);font-size:11px;color:var(--ink,#eaf0fb);background:transparent !important;outline:none}
 .mcmdk-input::placeholder{color:var(--faint,#5c6a86)}
 .mcmdk-results{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;padding:.35rem}
 .mcmdk-empty{color:var(--muted,#8592ad);font-size:.9rem;padding:1.2rem;text-align:center;line-height:1.6}

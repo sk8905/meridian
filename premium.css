@@ -656,11 +656,13 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
   --surface: #0d0d0d; --head: #0a0a0a; --border: #262626;
   --ink: #eaf0fb; --muted: #8592ad; --faint: #5c6a86; --accent: #fb8b1e;
 }
-/* Desktop: the header menus open as a CENTERED modal in the middle of the page
-   (like the command palette), on the shared scrim — not a dropdown under the
-   button. Phones keep the full-screen sheet (the max-width:760px block below,
-   which resets the transform). */
-.na-panel { position: fixed; left: 50%; top: 50%; right: auto; transform: translate(-50%, -50%); width: min(560px, 92vw); max-width: 92vw; max-height: 80vh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
+/* Desktop: the header menus open as a modal centered horizontally and
+   TOP-ANCHORED at 9vh — the exact position, width, border and shadow of the
+   command palette (.mcmdk-panel), so Chat / Saved / Briefing / Notifications and
+   Search all share one top edge instead of each floating to its own height-
+   dependent centre. Phones keep the full-screen sheet (the max-width:760px block
+   below resets top/transform). */
+.na-panel { position: fixed; left: 50%; top: 9vh; right: auto; transform: translateX(-50%); width: min(560px, 92vw); max-width: 92vw; max-height: 82vh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 .na-panel[hidden] { display: none; }
 .na-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; z-index: 3; }
 .na-h-t { font-size: 12px; font-weight: 700; letter-spacing: .02em; color: var(--ink, #eaf0fb); text-transform: uppercase; }

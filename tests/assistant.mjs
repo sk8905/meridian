@@ -62,6 +62,47 @@ check(await pg.evaluate(() => ((document.querySelector(".na-ask-err") || {}).tex
 check(await pg.evaluate(() => !document.querySelector(".na-actions .na-ring")), "countdown ring no longer in the header action cluster");
 check(await pg.evaluate(() => !!document.querySelector(".ds-text .na-ring")), "countdown ring renders beside the Last refresh marker");
 
+// ---- Panels are TOP-ALIGNED with the search box (all open top-anchored at 9vh) --
+// Chat (Ask), Markets, Saved, Briefing & Notifications share ONE top edge rather
+// than each floating to its own height-dependent centre — matching the command
+// palette. Close whatever is open, then open two panels of different heights and
+// confirm both tops equal ~9vh.
+await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
+await pg.waitForTimeout(120);
+const vh = await pg.evaluate(() => window.innerHeight);
+const panelTop = async (btnId, panelId) => {
+  await pg.evaluate((id) => document.getElementById(id).click(), btnId);
+  await pg.waitForTimeout(140);
+  const t = await pg.evaluate((id) => Math.round(document.getElementById(id).getBoundingClientRect().top), panelId);
+  await pg.evaluate((id) => document.getElementById(id).click(), btnId);   // toggle closed
+  await pg.waitForTimeout(120);
+  return t;
+};
+const askTop = await panelTop("na-ask", "na-ask-panel");
+const mktTop = await panelTop("na-mkt", "na-mkt-panel");
+const target = Math.round(0.09 * vh);
+check(Math.abs(askTop - target) <= 5, `Ask panel is top-anchored at ~9vh (top ${askTop}, target ${target})`);
+check(Math.abs(askTop - mktTop) <= 2, `Ask & Markets panels share one top edge (${askTop} vs ${mktTop})`);
+
+// ---- The "'" shortcut opens the Chat (Ask) panel (keyboard twin of "/") ----
+await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "'", bubbles: true })));
+await pg.waitForTimeout(150);
+check(await pg.evaluate(() => !document.getElementById("na-ask-panel").hidden), "the ' shortcut opens the Chat (Ask) panel");
+await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
+await pg.waitForTimeout(120);
+
+// ---- Search box text conforms to the app: mono family, 11px (like .na-ask-in) --
+const searchFont = await pg.evaluate(() => {
+  const btn = document.querySelector("[data-open-search]"); if (btn) btn.click();
+  const i = document.querySelector(".mcmdk-input"); if (!i) return null;
+  const cs = getComputedStyle(i);
+  return { size: cs.fontSize, fam: cs.fontFamily };
+});
+check(searchFont && searchFont.size === "11px", `search box text is 11px like the app (${searchFont && searchFont.size})`);
+check(searchFont && /mono/i.test(searchFont.fam), `search box uses the app mono family (${searchFont && searchFont.fam})`);
+await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
+await pg.waitForTimeout(120);
+
 // Feature C ("Add" → propose a firm → open a PR) now lives in the Menu → Dialogue
 // chip, NOT the header Ask panel (which is Ask-only). Close the header panel and
 // open the Menu to drive Add there.

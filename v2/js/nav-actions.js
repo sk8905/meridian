@@ -747,7 +747,7 @@ export function initNavActions() {
       // of this cluster (now beside the "Last refresh" marker, status.js), and
       // Search moved to the Menu → Chat chip on phones (desktop keeps the topbar
       // search pill), so there is no phone magnifier button here any more.
-      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>`) +
+      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire ( ' )">${ICO_ASK}</button>`) +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
@@ -1032,7 +1032,20 @@ export function initNavActions() {
       if (Date.now() - _openAt < 700) return;
       closeAll();
     });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
+    // Keyboard: Escape closes any open panel; "'" opens the Chat (Ask) panel — the
+    // keyboard twin of "/" for search. Ignore "'" while typing in a field or with a
+    // modifier held, and only when the Ask panel exists (desktop; on phones Chat
+    // lives in the Menu → Chat chip, not the header).
+    const isTyping = (t) => { const tag = (t && t.tagName || "").toLowerCase(); return !!t && (t.isContentEditable || tag === "input" || tag === "textarea" || tag === "select"); };
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { closeAll(); return; }
+      if (e.key === "'" && !e.metaKey && !e.ctrlKey && !e.altKey && !isTyping(e.target)) {
+        const askRec = panels.find((x) => x.btn && x.btn.id === "na-ask");
+        if (!askRec) return;
+        e.preventDefault();
+        if (askRec.panel.hidden) openPanel(askRec); else closeAll();
+      }
+    });
 
     // Prime the cross-desk notifications + unread badge in the background. Hydrate
     // the server-side seen-state FIRST so notifications read on another device are
