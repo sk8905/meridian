@@ -351,10 +351,11 @@ export function mount(host, ctx) {
   function privateCreditHTML() {
     const P = PRIVATE_CREDIT;
     if (!P || !(P.metrics || []).length) return "";
-    // Clean: label · value · SRC only — no explainer paragraph, no per-row context note.
-    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(x.k)}</span>`
+    // Clean: label · value · SRC only — no explainer paragraph, no per-row context
+    // note. Each metric stays on ONE line (label truncates with a hover title).
+    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}">${esc(x.k)}</span>`
       + `<span class="dsh-kv-v">${esc(x.v)}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
-    return `<div class="dsh-kvgrid">${P.metrics.map(kv).join("")}</div>`;
+    return `<div class="dsh-kvgrid dsh-pc-grid">${P.metrics.map(kv).join("")}</div>`;
   }
   // Compact credit pulse strip — the Fitch PCDR + market-context metrics as pills.
   function crTapeHTML() {
@@ -362,7 +363,7 @@ export function mount(host, ctx) {
     const m = (P && P.metrics) || [];
     if (!m.length) return "";
     const pill = (x) => `<span class="dsh-pill"><span class="dsh-pill-k">${esc(x.k)}</span><span class="dsh-pill-v">${esc(x.v)}</span></span>`;
-    return `<div class="dsh-pills">${m.slice(0, 5).map(pill).join("")}</div>`;
+    return `<div class="dsh-pills dsh-pills-stack">${m.slice(0, 5).map(pill).join("")}</div>`;
   }
   function creditHTML() {
     const strip = crTapeHTML();

@@ -238,6 +238,12 @@
 .dsh-kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-kv-k { color:var(--t-dim); font-family:var(--t-mono); font-size:11px; }
 .dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:11px; font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
+/* Private-credit card: one metric per SINGLE line (always full-width rows; the
+   label truncates with an ellipsis + hover title, the value · SRC stay put). */
+.dsh-pc-grid { grid-template-columns:1fr; }
+.dsh-pc-grid .dsh-kv { flex-wrap:nowrap; }
+.dsh-pc-grid .dsh-kv-k { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:0 1 auto; }
+.dsh-pc-grid .dsh-kv-v { white-space:nowrap; flex:0 0 auto; }
 .dsh-band { color:var(--t-mut); font-weight:500; font-size:11px; border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; margin-left:4px; }
 .dsh-band.up{ color:var(--t-up); border-color:var(--t-up); } .dsh-band.down{ color:var(--t-down); border-color:var(--t-down); }
 
@@ -415,6 +421,11 @@
 .dsh-pill-v .dsh-pill-up, .dsh-pill-v.dsh-pill-up { color:var(--t-up); }
 .dsh-pill-v .dsh-pill-dn, .dsh-pill-v.dsh-pill-dn { color:var(--t-down); }
 .dsh-pill-win { color:var(--t-faint); font-size:.58rem; font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
+/* Long-label pills (credit pulse): stack the label OVER the value so a long metric
+   name ("PRIVATE CREDIT DEFAULT RATE") never clips or pushes the value off. */
+.dsh-pills-stack .dsh-pill { flex-direction:column; align-items:flex-start; gap:3px; }
+.dsh-pills-stack .dsh-pill-k { flex:0 0 auto; white-space:normal; line-height:1.2; }
+.dsh-pills-stack .dsh-pill-v { flex:0 0 auto; text-align:left; }
 
 /* Rate-outlook grid (Macro) — one card per economy, stacked vertically so the
    Rate-outlook card fills the height of the taller Yield-curve card beside it. */

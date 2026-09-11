@@ -49,6 +49,24 @@ const stress = await pg.evaluate(() => {
 check(stress && stress.rows > 0, `Credit: stress table renders (${stress && stress.rows})`);
 check(stress && stress.proseNotes === 0 && stress.srcOnly, "Credit: stress rows carry just an SRC link, no prose note");
 
+// Top pulse pills: long metric labels stack over the value (no clipped text) and
+// the private-credit rows each sit on a single line.
+const layout = await pg.evaluate(() => {
+  const pills = [...document.querySelectorAll(".dsh-pills-stack .dsh-pill")];
+  const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => { const h = c.querySelector(".dsh-h"); return h && /private credit/i.test(h.textContent); });
+  const rows = card ? [...card.querySelectorAll(".dsh-pc-grid .dsh-kv")] : [];
+  return {
+    nPills: pills.length,
+    stacked: pills.length > 0 && pills.every((p) => getComputedStyle(p).flexDirection === "column"),
+    clipped: pills.filter((p) => [...p.querySelectorAll(".dsh-pill-k, .dsh-pill-v")].some((e) => e.scrollWidth > e.clientWidth + 1)).length,
+    nRows: rows.length,
+    maxRowH: rows.length ? Math.max(...rows.map((r) => Math.round(r.getBoundingClientRect().height))) : 0,
+  };
+});
+check(layout.nPills > 0 && layout.stacked, "Credit: top pulse pills stack the label over the value");
+check(layout.clipped === 0, `Credit: no pill text is clipped/overrunning (${layout.clipped} clipped)`);
+check(layout.nRows > 0 && layout.maxRowH <= 34, `Credit: each private-credit row is a single line (max ${layout.maxRowH}px)`);
+
 checkErrs(errs, "dashboard credit private-credit");
 await ctx.close();
 await b.close(); srv.close();
