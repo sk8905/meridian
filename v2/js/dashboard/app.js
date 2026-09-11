@@ -705,7 +705,7 @@ export function mount(host, ctx) {
   function fiTapeHTML() {
     const flat = (GOVT_YIELDS.regions || []).flatMap((g) => g.rows || []);
     const find = (c) => flat.find((r) => (r.country || "").toLowerCase() === c.toLowerCase());
-    const specs = [["United States", "y2", "US 2Y"], ["United States", "y10", "US 10Y"], ["United States", "y30", "US 30Y"], ["United Kingdom", "y10", "UK 10Y"], ["Germany", "y10", "DE 10Y"]];
+    const specs = [["United States", "y2", "US 2Y"], ["United States", "y10", "US 10Y"], ["United Kingdom", "y2", "UK 2Y"], ["United Kingdom", "y10", "UK 10Y"], ["Japan", "y2", "JP 2Y"], ["Japan", "y10", "JP 10Y"]];
     const pills = specs.map(([c, tk, lbl]) => { const r = find(c), v = r && r[tk]; return v == null ? "" : `<span class="dsh-pill"><span class="dsh-pill-k">${esc(lbl)}</span><span class="dsh-pill-v">${v.toFixed(2)}%</span></span>`; }).filter(Boolean).join("");
     return pills ? `<div class="dsh-pills">${pills}</div>` : "";
   }
