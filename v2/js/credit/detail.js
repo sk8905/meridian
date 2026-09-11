@@ -192,11 +192,6 @@ export function viewFund(id) {
   const fundWireRow = (i) => crWireRow(i, `<a href="#/manager/${m.id}" class="tw-mgr">${esc(m.name)}</a>`);
 
   const raisedLabel = x.evergreen ? "AUM/NAV" : "Raised";
-  const metrics = [
-    [x.evergreen ? "AUM" : "Target", x.evergreen ? (x.raised != null ? eur(x.raised) : "—") : eur(x.targetSize)],
-    [raisedLabel, eur(x.raised)], ["Vintage", x.vintage], ["Status", x.status],
-    ["Investors", inv.length], ["Deals", fdeals.length],
-  ];
   // Rail: fundraising facts, deployment, returns, investors, notable, peers, provenance.
   const facts = [
     ["Target size", x.evergreen ? "Evergreen" : eur(x.targetSize)],
@@ -236,13 +231,11 @@ export function viewFund(id) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/funds", "Funds"], [null, x.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">
             <h1>${nameCell("fund", x.id, esc(x.name))}</h1>
             <div class="tdet-sub">${link(`#/manager/${m.id}`, m.name)} · ${esc(x.domicile)} · Vintage ${x.vintage}</div>
-            ${x.description ? `<p class="tdet-desc">${esc(x.description)}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(x.strategy)}</span><span class="tdet-chip">${esc(x.status)}</span>${x.geoFocus ? `<span class="tdet-chip">${esc(x.geoFocus)}</span>` : ""}${x.lifecycle ? `<span class="tdet-chip">${esc(typeof x.lifecycle === "string" ? x.lifecycle : x.lifecycle.status)}</span>` : ""}</div>
             <div class="tdet-src">Data as of ${esc(x.asOf || "—")} · ${completenessPill(x)}</div>
             ${srcDetails(x)}
@@ -442,7 +435,6 @@ export function viewManager(id) {
   if (!m) return notFound(app);
   const fs = fundsByManager(id).sort((a, b) => b.vintage - a.vintage);
   const news = intelForManager(id);
-  const liveFunds = fs.filter((x) => !x.evergreen && !x.lifecycle && x.status !== "Final Close").length;
   // The CLO roster still needs this manager's CLO items (deals + intel tagged clo).
   const mgrClo = [
     ...dealsForManager(m.id).filter((d) => d.clo).map((d) => ({ ...d, _kind: "deal" })),
@@ -467,14 +459,9 @@ export function viewManager(id) {
       .sort(byDateDesc);
   })();
 
-  const commits = commitmentsForManager(m.id);
   // The manager is implicit on this page, so we surface the fund inline instead.
   const mgrWireRow = (x) => crWireRow(x, x.fundId && fundById[x.fundId]
     ? `<a href="#/fund/${x.fundId}" class="tw-mgr">${esc(fundById[x.fundId].name)}</a>` : "");
-  const metrics = [
-    ["AUM", aumHeadline(m)], ["Founded", m.founded], ["Funds", fs.length],
-    ["In market", liveFunds], ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
-  ];
   // ---- panes: News (default) · Vehicles (Funds + CLOs + listed) · Investments ·
   //      Business ----
   const newsPane = mgrFeed.length
@@ -526,13 +513,11 @@ export function viewManager(id) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Managers"], [null, m.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-c tcol-full">
           <div class="tdet-id">
             <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
             <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${m.aumText ? " · " + esc(aumHeadline(m)) + " AUM" : ""}</div>
-            ${m.description ? `<p class="tdet-desc">${esc(m.description)}</p>` : ""}
             ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
             ${srcDetails(m)}
           </div>
@@ -747,13 +732,6 @@ export function viewHedgeFund(id) {
   const f = HEDGE_FUNDS.find((x) => x.id === id);
   if (!f) return notFound(app);
   const secUrl = f.cik ? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${esc(f.cik)}&type=13F-HR&dateb=&owner=include&count=40` : null;
-  // Ticker carries every scalar fact (mirrors the manager page's metric strip),
-  // so the single-column body below is just the tabbed News / Holdings / Filings.
-  const metrics = [
-    ["AUM", f.aum == null ? "n.a." : "$" + f.aum.toFixed(2) + "bn"],
-    ["Strategy", f.strategy], ["Region", f.region], ["HQ", f.hq],
-    ["Founded", f.founded || "—"], ["Founder", f.founder || "—"],
-  ];
   // News for this fund — the hedge-fund intelligence stream (HEDGE_INTEL),
   // shaped into the shared credit wire row, newest first.
   const news = (HEDGE_INTEL || []).filter((h) => h.hfId === f.id)
@@ -774,7 +752,6 @@ export function viewHedgeFund(id) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Hedge Funds"], [null, f.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-c tcol-full">
           <div class="tdet-id">

@@ -33,11 +33,11 @@ async function deepLink(url, view, min, label) {
   await deepLink(`/v2/`, "home", 2000, "home");
 }
 
-// ---- 1c. Detail-page ticker metrics never double-escape entities ----
-// Regression: several `metrics` arrays fed the ticker a value already run through
-// esc() (e.g. a hedge fund's strategy), and the ticker's own template escaped it
-// again, corrupting "&" into the literal text "&amp;" for any real record
-// containing one (Man Group's "Multi (quant & discretionary)" strategy).
+// ---- 1c. Detail-page header never double-escapes entities ----
+// Regression guard: a value already run through esc() (e.g. a hedge fund's
+// "Multi (quant & discretionary)" strategy) must not be escaped again, which would
+// corrupt "&" into the literal text "&amp;". The stat ticker was removed, so the
+// strategy now shows in the header's strategy chip — assert THAT stays single-escaped.
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/credit/");
   await pg.waitForTimeout(1200);
@@ -46,11 +46,11 @@ async function deepLink(url, view, min, label) {
     const hf = c.HEDGE_FUNDS.find((h) => (h.strategy || "").includes("&"));
     location.hash = "#/hf/" + hf.id;
     await new Promise((r) => setTimeout(r, 500));
-    const ticker = document.querySelector('.v2-view[data-view="credit"] .tdash-ticker');
-    return { text: ticker ? ticker.textContent : "", html: ticker ? ticker.innerHTML : "" };
+    const head = document.querySelector('.v2-view[data-view="credit"] .tdet-id');
+    return { text: head ? head.textContent : "", html: head ? head.innerHTML : "" };
   });
-  check(amp.text.includes("&") && !amp.html.includes("&amp;amp;"), `credit hedge-fund ticker doesn't double-escape "&" (${amp.text.slice(0, 60)})`);
-  checkErrs(errs, "credit ticker escaping");
+  check(amp.text.includes("&") && !amp.html.includes("&amp;amp;"), `credit hedge-fund header doesn't double-escape "&" (${amp.text.slice(0, 60)})`);
+  checkErrs(errs, "credit header escaping");
   await ctx.close();
 }
 
