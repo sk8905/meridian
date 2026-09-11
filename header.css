@@ -9,10 +9,10 @@
    (terminal surfaces). Accent is Wire orange platform-wide.
    ============================================================================= */
 
-/* Briefing body-text colour, kept in lock-step with the terminal --t-dim so the
-   strip reads identically on Home and the app pages (light value here). */
-:root { --wb-txt: #3b475f; }
-:root[data-theme="dark"] { --wb-txt: #b7c2da; }
+/* Briefing body-text colour — a soft blue (the orange kickers stay --accent), so
+   the strip's story/summary text reads blue and un-bold against the orange labels. */
+:root { --wb-txt: #1f6fd0; }
+:root[data-theme="dark"] { --wb-txt: #4aa3f0; }
 
 /* The ticker + briefing read terminal surface tokens (--head/--surface/--border/
    --ink/--muted/--faint/--accent). Home doesn't load tui.css (where those live),
@@ -136,7 +136,7 @@
   background: var(--head); border-bottom: 1px solid var(--border); overflow: hidden; }
 .wbrief:empty { display: none; }
 .wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
-.wb-hello { color: var(--wb-txt); font-size: 12px; font-weight: 600; letter-spacing: 0; white-space: nowrap; }
+.wb-hello { color: var(--wb-txt); font-size: 12px; font-weight: 400; letter-spacing: 0; white-space: nowrap; }
 .wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12px; color: var(--wb-txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wb-brief:empty { display: none; }
 .wb-lbl { font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--accent, #fb8b1e); opacity: 1; white-space: nowrap; margin-right: .3rem; }

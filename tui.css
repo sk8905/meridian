@@ -23,9 +23,9 @@
    ===================================================================== */
 
 /* mono for numeric/terminal data (matches Home) + a head surface for panel bars.
-   --wb-txt is the briefing-bar body text colour, kept in lock-step with Home's
-   terminal --t-dim so the app banners read identically (light value here). */
-:root { --t-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #3b475f; --lift: #ffffff; }
+   --wb-txt is the briefing-bar body text colour — a soft blue against the orange
+   kickers (header.css owns the authoritative value; this stays in sync). */
+:root { --t-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #1f6fd0; --lift: #ffffff; }
 
 /* ---- deep near-black terminal surfaces (dark) to match Home ---- */
 :root[data-theme="dark"] {
@@ -39,7 +39,7 @@
   --faint: #5c6a86;
   --accent: #fb8b1e;
   --primary: #fb8b1e;
-  --wb-txt: #b7c2da;   /* == Home --t-dim (dark) */
+  --wb-txt: #4aa3f0;   /* briefing body: soft blue */
   --lift: #202020;     /* lifted shade for search inputs (R8: token, not literal) */
 }
 
