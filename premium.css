@@ -1072,11 +1072,18 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   .menu-asst.is-docked .na-chat-empty { flex: 1 1 auto; min-height: 0; justify-content: center; }
   .menu-asst.is-docked .na-chat > :first-child { margin-top: auto; }   /* bottom-anchor a short thread */
   .menu-asst.is-docked .na-ask-form { flex: 0 0 auto; border-top: 1px solid var(--border, #262626); border-bottom: 0; }
-  /* While typing (input focused → html.chat-kbd): hide the bottom tab bar and end
-     the view exactly at the on-screen keyboard top (--kbd-h, tracked from
-     visualViewport) — no nav bar and no dead space between the field and keyboard. */
+  /* While typing (input focused → html.chat-kbd) the chat goes FULL-SCREEN: hide the
+     bottom tab bar, the Wire header AND the Chat/Coverage/Settings tab bar, and let
+     the conversation + input own the screen from the top safe-area down to the
+     keyboard top (--kbd-h). Chrome that would otherwise fight the iOS keyboard is
+     simply out of the way, so nothing flickers or drifts. */
   html.chat-kbd .mobile-tabbar { display: none; }
-  html.chat-kbd .v2-view[data-view="menu"]:has(.menu-asst.is-docked) { bottom: var(--kbd-h, 0px); }
+  html.chat-kbd #wire-header { display: none; }
+  html.chat-kbd .v2-view[data-view="menu"]:has(.menu-asst.is-docked) .na-menu-bar { display: none; }
+  html.chat-kbd .v2-view[data-view="menu"]:has(.menu-asst.is-docked) {
+    top: env(safe-area-inset-top, 0px);
+    bottom: var(--kbd-h, 0px);
+  }
 }
 .na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }

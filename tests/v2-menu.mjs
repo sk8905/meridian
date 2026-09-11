@@ -105,18 +105,24 @@ async function menuState(pg) {
     return { kbdOn: document.documentElement.classList.contains("chat-kbd") };
   });
   check(pin.kbdOn, "docked chat: focusing the input arms keyboard mode (chat-kbd)");
-  // While the keyboard is up the docked view ends exactly at the keyboard top
-  // (--kbd-h) so the Ask input stays visible just above it.
+  // Full-screen while typing: the keyboard being up (html.chat-kbd) HIDES the Wire
+  // header + the Chat/Coverage/Settings tab bar, and the chat fills from the top
+  // safe-area down to the keyboard top (--kbd-h) with the input visible above it.
   const kb = await pg.evaluate(() => {
+    const header = document.querySelector("#wire-header");
+    const tabs = document.querySelector('.v2-view[data-view="menu"] .na-menu-bar');
     const view = document.querySelector('.v2-view[data-view="menu"]:has(.menu-asst.is-docked)') || document.querySelector('.v2-view[data-view="menu"]');
+    const form = document.querySelector(".na-ask-form");
     document.documentElement.classList.add("chat-kbd");
     document.documentElement.style.setProperty("--kbd-h", "300px");
-    const vb = getComputedStyle(view).bottom;
+    const r = { header: getComputedStyle(header).display, tabs: getComputedStyle(tabs).display, viewTop: getComputedStyle(view).top, viewBottom: getComputedStyle(view).bottom, form: form ? getComputedStyle(form).display : "none" };
     document.documentElement.classList.remove("chat-kbd");
     document.documentElement.style.setProperty("--kbd-h", "0px");
-    return { viewBottom: vb };
+    return r;
   });
-  check(kb.viewBottom === "300px", `docked chat: the view ends at the keyboard top so the input stays visible (${kb.viewBottom})`);
+  check(kb.header === "none" && kb.tabs === "none", "docked chat (keyboard up): the Wire header + Chat/Coverage/Settings tabs are hidden");
+  check(parseFloat(kb.viewTop) <= 1, `docked chat (keyboard up): the chat fills from the top (${kb.viewTop})`);
+  check(kb.viewBottom === "300px" && kb.form !== "none", `docked chat (keyboard up): it ends at the keyboard top with the input visible (${kb.viewBottom})`);
   checkErrs(errs, "direct menu");
   await ctx.close();
 }
