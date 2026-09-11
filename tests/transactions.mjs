@@ -3,6 +3,7 @@
 // ledger, then the tab UI: an overview league table of the types → a per-type
 // stat header + dated transaction list, in the Profiles terminal look.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+const PHONE_SHORT = { viewport: { width: 390, height: 460 }, isMobile: true, hasTouch: true, userAgent: "Mozilla/5.0 (iPhone)" };
 
 const srv = await serve();
 const b = await launchChromium();
@@ -179,5 +180,28 @@ check(cleared.league >= 6, `Transactions: clearing the search restores the type 
 
 checkErrs(errs, "transactions tab");
 await ctx.close();
+
+// ---- 7) phone: the search bar stays pinned on scroll ---------------------
+// A short viewport forces the page to scroll; the search row (and the Deal flow /
+// Credits tabs above it) must stay locked at the top rather than scrolling away —
+// the inner terminal scroll container used to trap the sticky and it vanished.
+{
+  const p = await open(b, PHONE_SHORT, base + "/v2/transactions/");
+  await p.pg.waitForTimeout(1200);
+  const at = () => p.pg.evaluate(() => {
+    const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bot: Math.round(b.bottom) }; };
+    return { tabs: r(".tx-dash .twire-head"), search: r("#tx-flow-search"), maxSY: document.documentElement.scrollHeight - window.innerHeight };
+  });
+  const rest = await at();
+  check(rest.maxSY > 40, `phone: the transactions page is scrollable in the short viewport (${rest.maxSY}px)`);
+  await p.pg.evaluate(() => window.scrollTo(0, 300));
+  await p.pg.waitForTimeout(300);
+  const scrolled = await at();
+  check(Math.abs(rest.search.top - scrolled.search.top) <= 1 && scrolled.search.top >= 0, `phone: the search bar stays pinned on scroll (top ${rest.search.top}→${scrolled.search.top})`);
+  check(Math.abs(scrolled.search.top - scrolled.tabs.bot) <= 2, `phone: the search bar pins flush under the Deal flow / Credits tabs (search ${scrolled.search.top} ≈ tabs bottom ${scrolled.tabs.bot})`);
+  checkErrs(p.errs, "transactions phone sticky search");
+  await p.ctx.close();
+}
+
 await b.close(); srv.close();
 finish();

@@ -305,6 +305,17 @@
      the global `.wire-band { top: --wire-head-h }` rule slides it up over the tabs
      on scroll. Out-specifies that rule (0,3,0 > 0,2,0). */
   .twire-head + .thead-search.wire-band { position: sticky; top: calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); z-index: 7; background: var(--head); }
+  /* Transactions: on mobile the page scrolls (like every other view), so the
+     terminal-only inner scroll containers must open up — .tcol-main (overflow
+     hidden) and .tx-scroll (overflow auto) were left clipped/scrolling by the
+     desktop rules, and .tcol-main being a scroll container TRAPPED the sticky
+     search inside it (it pinned to .tcol-main, which scrolls off, instead of the
+     viewport). Freeing them lets the whole view flow into the page scroll. */
+  .tx-dash .tcol-main, .tx-dash .tx-scroll { overflow: visible; }
+  /* The search row lives inside .tcol-main (one level below the Deal flow /
+     Credits .twire-head tab row), so the adjacency rule above can't reach it —
+     pin it explicitly beneath those tabs. It was scrolling away with the list. */
+  .tx-dash .thead-search { position: sticky; top: calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); z-index: 7; background: var(--head); }
   /* The wide league table scrolls HORIZONTALLY inside .tleague-wrap on phones —
      it used to squash to fit (width:100%), so there was nothing to scroll. Let it
      take its natural width (columns keep a readable size, and it survives adding
