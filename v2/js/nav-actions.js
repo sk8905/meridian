@@ -17,7 +17,7 @@
 // with the same full-screen presentation on mobile.
 // =============================================================================
 import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
-import { mountAssistant } from "/v2/js/assistant.js?v=v2-13";
+import { mountAssistant } from "/v2/js/assistant.js?v=v2-14";
 import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
 import { briefMarkup, nbNums } from "./nb-format.js?v=v2-2";

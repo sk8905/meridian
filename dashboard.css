@@ -29,6 +29,18 @@
 .dsh { color:var(--t-ink); }
 .dsh { --dsh-gap:10px; padding:0 0 40px; }
 .dsh-nav { position:sticky; top:0; z-index:2; background:var(--t-head); }
+/* ---- Phones: lock the search band + section tabs to the top while scrolling.
+   (Desktop already keeps them fixed — it's a fixed-height terminal where only the
+   .dsh-mid column scrolls.) The shared search band (.wire-band, also on Macro /
+   Newsletters / Home) is static on mobile; pin it just under the fixed Wire header,
+   and drop the section tabs directly below it (they were pinned at top:0, i.e.
+   behind the header). ---- */
+@media (max-width:760px) {
+  .thead-search.wire-band { position:sticky; top:var(--wire-head-h, 57px); z-index:9; background:var(--head, #0d0d0d); }
+  .dsh > .wire-band { background:var(--t-head); }
+  /* Specificity must beat the base `.dsh-railnav { top:0 }` that follows it. */
+  .dsh-3z > .dsh-railnav { top:calc(var(--wire-head-h, 57px) + var(--dsh-band-h, 43px)); z-index:8; }
+}
 /* Sub-tab labels: desktop shows the full label; the narrow iPhone tab bar shows
    the short one so "Fixed Income"/"Hedge Funds" don't wrap to two lines. */
 .dsh-tab-sm { display:none; }
