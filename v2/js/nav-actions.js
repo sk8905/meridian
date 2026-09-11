@@ -580,36 +580,17 @@ async function loadSaved(body, headCount) {
 
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
-const ICO_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>';
-const ICO_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
-// "System" = follow the OS. A small monitor glyph reads as "adapts to system".
-const ICO_AUTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 4v13" stroke-width="1.6"/><path d="M8 21h8M12 17v4"/></svg>';
-// Two-option theme control (System | Other) over a REMEMBERED preference stored
-// in data-theme-choice (+ localStorage): "system" follows the OS live, while
-// "light"/"dark" are concrete, remembered choices that persist across OS changes
-// and reloads — so "Other" sticks to the exact theme you picked. When switching
-// INTO Other we pick the opposite of the current OS theme (a guaranteed switch),
-// then remember that concrete value.
+// Theme preference plumbing — the CONTROL lives in the Menu → Settings segmented
+// control (both surfaces); the nav bar no longer carries a theme button. These
+// helpers stay because the runtime still owns the OS "system" follow (applied in
+// initNavActions): "system" tracks the OS live; "light"/"dark" are concrete
+// remembered choices in data-theme-choice (+ localStorage) that persist across
+// OS changes and reloads.
 const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
 // The stored preference: "system" | "light" | "dark".
 const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
-// UI mode for the two-option control.
-const themeChoice = () => (storedPref() === "system" ? "system" : "other");
 // Resolve a preference to a concrete theme: system = OS setting, else itself.
 const resolveTheme = (pref) => (pref === "system" ? (osDark() ? "dark" : "light") : pref);
-// The concrete theme "Other" should switch to: keep a remembered manual choice,
-// else the opposite of the current OS theme.
-// Button reflects the CURRENT state: the monitor glyph while following the
-// system, otherwise the sun/moon of whatever theme is showing.
-const themeIcon = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
-// Three explicit theme options — System · Light · Dark. The stored preference is
-// one of these three; "system" follows the OS live, "light"/"dark" are concrete
-// remembered choices. Surfaced as a segmented control in the phone /menu/
-// Appearance row, and cycled by the desktop nav-bar button.
-const THEME_LABEL = { system: "System", light: "Light", dark: "Dark" };
-const THEME_ORDER = ["system", "light", "dark"];
-const themeNext = () => THEME_ORDER[(THEME_ORDER.indexOf(storedPref()) + 1) % THEME_ORDER.length];
-const themeTitle = () => `Theme: ${THEME_LABEL[storedPref()] || "System"} — tap to change`;
 // Two desks only: the bell is limited to Credit + Legal deal-flow (saved.js
 // buildNotifs) — macro items no longer appear, so no macro seen-state to sync.
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
@@ -757,35 +738,32 @@ export function initNavActions() {
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =
-      // Cluster order (left→right): Markets · Bookmarks · Briefing ·
-      // Notifications, then Ask (desktop only) · Theme (desktop only).
-      // The refresh-countdown ring moved OUT of this cluster — it now sits beside
-      // the "Last refresh" marker (status.js). Ask Wire (B) is a desktop-header
-      // affordance; on phones it lives in the Menu → Dialogue chip, so the header
-      // stays to Markets · Bookmarks · Briefing · Notifications there. Search on
-      // phones also moved to the Menu → Dialogue chip (desktop keeps the topbar
+      // Cluster order (left→right): Ask/Chat (desktop only) · Markets · Bookmarks ·
+      // Briefing · Notifications. Ask (Chat) leads on desktop; on phones it lives
+      // in the Menu → Chat chip, so the phone header stays Markets · Bookmarks ·
+      // Briefing · Notifications. The Theme toggle no longer lives here on EITHER
+      // surface — it is reached via the Menu → Settings segmented control (the OS
+      // "system" follow is still wired below). The refresh-countdown ring moved OUT
+      // of this cluster (now beside the "Last refresh" marker, status.js), and
+      // Search moved to the Menu → Chat chip on phones (desktop keeps the topbar
       // search pill), so there is no phone magnifier button here any more.
+      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>`) +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
-      `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
-      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>`) +
-      // Theme toggle lives in the nav bar on desktop; on phones it moves into the
-      // Menu → Settings chip's own control so the nav bar stays uncluttered.
-      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${themeTitle()}">${themeIcon()}</button>`);
+      `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>`;
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
     } else if (bar) {
       bar.appendChild(wrap);
     }
 
-    // Theme toggle — two options over a remembered preference: "system" (follow
-    // the OS) or a concrete "light"/"dark" ("Other"). The pref is stored in
-    // localStorage (m_theme_pref) so the inline head script applies it before
-    // paint on the next load. A concrete choice is remembered as-is and does NOT
-    // drift with the OS. Shared across all pages (nav-bar button on desktop;
-    // /menu/ segmented control on phones) via this controller.
-    const themeBtn = wrap.querySelector("#na-theme");
+    // Theme follows a remembered preference: "system" (track the OS) or a concrete
+    // "light"/"dark". The pref is stored in localStorage (m_theme_pref) so the
+    // inline head script applies it before paint on the next load. The theme
+    // CONTROL now lives only in the Menu → Settings segmented control (both
+    // surfaces) — there is no nav-bar theme button any more — but the OS "system"
+    // follow is still owned here so a system-set choice tracks light/dark live.
     const applyThemeChoice = (pref) => {
       const r = document.documentElement;
       const t = resolveTheme(pref);
@@ -793,11 +771,7 @@ export function initNavActions() {
       r.setAttribute("data-theme-choice", pref);
       try { localStorage.setItem("m_theme_pref", pref); } catch { /* */ }
       setThemeColorMeta(t);
-      if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", themeTitle()); }
     };
-    // Desktop nav-bar button cycles through all three: System → Light → Dark → …
-    // (the phone theme control is the /v2/menu/ view's own segmented control).
-    if (themeBtn) themeBtn.addEventListener("click", () => applyThemeChoice(themeNext()));
     // Only re-apply on OS light/dark change when following the system; a
     // concrete choice is remembered and must not drift.
     if (window.matchMedia) {
