@@ -242,12 +242,15 @@ export function mount(host, ctx) {
     // ONE consistent window (1-month) so the tape never mixes horizons; where a
     // 1M change is missing (e.g. Dow), show the level alone rather than borrow a
     // longer window and read as a same-scale move.
+    // Each tile stacks name → level → 1-month change so the numbers read cleanly
+    // and every tile is the same height (an inline level+change+window wrapped
+    // raggedly at narrow widths). See .dsh-tape in dashboard.css.
     const tape = (r) => { const v = r.m1, cls = v == null ? "" : (v >= 0 ? "dsh-pill-up" : "dsh-pill-dn"),
-      lv = r.level != null ? Number(r.level).toLocaleString("en-GB", { maximumFractionDigits: 0 }) : "";
-      const chg = v == null ? "" : ` <span class="${cls}">${pct1(v)}</span> <span class="dsh-pill-win">1M</span>`;
-      return `<span class="dsh-pill"><span class="dsh-pill-k">${esc(r.name)}</span><span class="dsh-pill-v">${lv}${chg}</span></span>`; };
+      lv = r.level != null ? Number(r.level).toLocaleString("en-GB", { maximumFractionDigits: 0 }) : "—";
+      const chg = v == null ? "" : `<span class="dsh-pill-chg ${cls}">${pct1(v)} <span class="dsh-pill-win">1M</span></span>`;
+      return `<span class="dsh-pill"><span class="dsh-pill-k">${esc(r.name)}</span><span class="dsh-pill-lv">${lv}</span>${chg}</span>`; };
     const vix = EQ_VOL.find((v) => /vix/i.test(v.name));
-    return `<div class="dsh-pills">${pick.map(tape).join("")}${vix ? `<span class="dsh-pill"><span class="dsh-pill-k">${esc(vix.name)}</span><span class="dsh-pill-v">${vix.level != null ? vix.level.toFixed(1) : "—"}</span></span>` : ""}</div>`;
+    return `<div class="dsh-pills dsh-tape">${pick.map(tape).join("")}${vix ? `<span class="dsh-pill"><span class="dsh-pill-k">${esc(vix.name)}</span><span class="dsh-pill-lv">${vix.level != null ? vix.level.toFixed(1) : "—"}</span></span>` : ""}</div>`;
   }
   function equitiesHTML() {
     const km = keyMomentsBody();
