@@ -587,6 +587,18 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 
 .tpg { border-bottom: 1px solid var(--border); }
 .tpg-h { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 9px 12px 4px; }
+/* Consistent Business-tab primitives: a short lead note, a sources line, and the
+   .tbiz stacked key/value list (label above, wrapping value below) — used for
+   every fact so prose and short values read the same. Lists use .tmini. */
+.tpg-note { margin: 0; padding: 2px 12px 6px; font-size: 11px; line-height: 1.5; color: var(--muted); }
+.tpg-src { padding: 4px 12px 9px; font-family: var(--t-mono); font-size: 9.5px; color: var(--faint); }
+.tpg-src a { color: var(--faint); } .tpg-src a:hover { color: var(--ink); }
+.tbiz { list-style: none; margin: 0; padding: 0; }
+.tbiz li { padding: 7px 12px; border-bottom: 1px solid var(--border); }
+.tbiz li:last-child { border-bottom: 0; }
+.tbiz-k { display: block; font-family: var(--t-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--faint); margin-bottom: 2px; }
+.tbiz-v { display: block; font-size: 11px; line-height: 1.5; color: var(--ink); }
+.tbiz-v a { color: inherit; }
 @media (max-width: 900px) {
   .tsearch { width: 150px; }
 }
@@ -633,6 +645,10 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tinv-row:last-child { border-bottom: 0; }
 .tinv-head { display: block; font-size: 12px; line-height: 1.35; color: var(--ink); font-weight: 600; text-decoration: none; }
 .tinv-head:hover { color: var(--accent); }
+/* Amount suffix on the company/borrower lead, and the verbatim sourced headline
+   shown beneath it when the row leads with an extracted name. */
+.tinv-amt { font-family: var(--t-mono); font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tinv-sub { margin-top: 3px; font-size: 10.5px; line-height: 1.4; color: var(--muted); }
 .tinv-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 5px; font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
 .tinv-when, .tinv-src { color: var(--faint); }
 /* Instrument tags are token-only (R8): a bordered mono chip, debt vs equity read

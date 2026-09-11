@@ -12,7 +12,7 @@
 import {
   viewManager, viewFund, viewClo, viewLp, viewHedgeFund,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-22";
+} from "/v2/js/credit/detail.js?v=v2-23";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
@@ -112,7 +112,14 @@ export async function mount(host, ctx) {
       const el = document.createElement("details");
       el.className = "wire-net wn-badge";
       el.innerHTML = `<summary class="wn-badge-h"><span class="wn-badge-ic" aria-hidden="true">in</span> ${label}<span class="wn-badge-chev" aria-hidden="true"></span></summary><div class="wn-badge-body">${confHTML}${pendHTML}</div>`;
-      pfDetail.prepend(el);
+      // Sit the badge INSIDE the identity header, between the strategy chips and
+      // the Sources line — not floating above the whole profile. Fall back to the
+      // top of the detail host only if the header shape is unexpected.
+      const host = pfDetail.querySelector(".tdet-id");
+      const anchor = host && host.querySelector(":scope > .tdet-src-det, :scope > .tdet-src");
+      if (anchor) anchor.parentNode.insertBefore(el, anchor);
+      else if (host) host.appendChild(el);
+      else pfDetail.prepend(el);
     } catch { /* the badge is optional — never block the profile */ }
   }
 

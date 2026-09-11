@@ -321,22 +321,25 @@ function cloRosterFor(items) {
 
 // "Book & business" — additive, render-if-present manager detail (docs/
 // origination-radar-spec.md Part E). Every value is optional and sourced.
+// A stacked label→value row (label above, value wraps below) — the single
+// key/value primitive for the Business tab, so prose facts (strategy, origination)
+// and short ones (check size, AUM) read the same way instead of the old mix of
+// fact-tables, chips and free paragraphs.
+const bizRow = (k, v) => `<li><span class="tbiz-k">${esc(k)}</span><span class="tbiz-v">${v}</span></li>`;
 function bookHTML(m) {
   const b = m.book; if (!b) return "";
-  const chips = (arr) => arr.map((x) => `<span class="tdet-chip">${esc(x)}</span>`).join("");
   const rows = [];
-  if (b.strategyDetail) rows.push(["Strategy", esc(b.strategyDetail)]);
-  if (b.checkSize) rows.push(["Typical check", esc(b.checkSize)]);
-  if (b.originationMix) rows.push(["Origination", esc(b.originationMix)]);
-  if (b.lpBase && b.lpBase.length) rows.push(["LP base", esc(b.lpBase.join(" · "))]);
-  const facts = rows.length ? `<ul class="tfacts">${rows.map(([k, v]) => `<li><span class="tf-k">${esc(k)}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>` : "";
-  const instr = (b.instruments && b.instruments.length) ? `<div class="adv-role">Instruments</div><div class="tdet-chips">${chips(b.instruments)}</div>` : "";
-  const secs = (b.sectors && b.sectors.length) ? `<div class="adv-role">Target sectors</div><div class="tdet-chips">${chips(b.sectors)}</div>` : "";
-  const traj = (b.aumTrajectory && b.aumTrajectory.length)
-    ? `<div class="adv-role">AUM trajectory</div><ul class="tfacts">${b.aumTrajectory.map((t) => `<li><span class="tf-k">${esc(t.asOf)}</span><span class="tf-v">$${esc(String(t.aum))}bn</span></li>`).join("")}</ul>` : "";
-  const src = (b.sources && b.sources.length) ? `<div class="tdet-src">${b.sources.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">source${b.sources.length > 1 ? " " + (i + 1) : ""}</a>`).join(" · ")}</div>` : "";
-  return `<div class="tpg"><div class="tpg-h">Book &amp; business</div>`
-    + (b.note ? `<p class="tdet-desc">${esc(b.note)}</p>` : "") + facts + instr + secs + traj + src + `</div>`;
+  if (b.strategyDetail) rows.push(bizRow("Strategy", esc(b.strategyDetail)));
+  if (b.checkSize) rows.push(bizRow("Typical check", esc(b.checkSize)));
+  if (b.originationMix) rows.push(bizRow("Origination", esc(b.originationMix)));
+  if (b.instruments && b.instruments.length) rows.push(bizRow("Instruments", esc(b.instruments.join(" · "))));
+  if (b.sectors && b.sectors.length) rows.push(bizRow("Target sectors", esc(b.sectors.join(" · "))));
+  if (b.lpBase && b.lpBase.length) rows.push(bizRow("LP base", esc(b.lpBase.join(" · "))));
+  if (b.aumTrajectory && b.aumTrajectory.length) rows.push(bizRow("AUM trajectory", b.aumTrajectory.map((t) => `${esc(t.asOf)} — $${esc(String(t.aum))}bn`).join(" · ")));
+  const facts = rows.length ? `<ul class="tbiz">${rows.join("")}</ul>` : "";
+  const note = b.note ? `<p class="tpg-note">${esc(b.note)}</p>` : "";
+  const src = (b.sources && b.sources.length) ? `<div class="tpg-src">${b.sources.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">source${b.sources.length > 1 ? " " + (i + 1) : ""}</a>`).join(" · ")}</div>` : "";
+  return `<div class="tpg"><div class="tpg-h">Strategy &amp; book</div>${note}${facts}${src}</div>`;
 }
 // "Advisers" — incumbent counsel grouped by product line (Part F). `firm` is a
 // display name; `confidence:"inferred"` edges (derived from public deal coverage)
@@ -418,14 +421,58 @@ function classifyInstrument(d) {
   if (eq && !debt) return { cls: "Equity", sub: "", curated: false };
   return { cls: "", sub: "", curated: false };   // unspecified — never guessed
 }
+// The manager is implicit on its own profile, so an Investments row should LEAD
+// with the other named party — the portfolio company invested in, or the borrower
+// lent to. We derive that party (and the deal size) best-effort from the real,
+// sourced headline: only high-confidence connective patterns count, and the
+// verbatim headline always stays visible beneath, so nothing is fabricated or
+// hidden when a headline doesn't parse (it simply leads with the headline).
+const _INV_NAME = "[A-Z][A-Za-z0-9&.'’-]*(?:\\s+[A-Z0-9][A-Za-z0-9&.'’-]*){0,4}";
+const INV_SUBJ_PATTS = [
+  `acquisition of (${_INV_NAME})`,
+  `buyout of (${_INV_NAME})`,
+  `takeover of (${_INV_NAME})`,
+  `refinanc(?:ing|e[ds]?) (?:of|for) (${_INV_NAME})`,
+  `\\brefinance (${_INV_NAME})`,
+  `(?:stake|interest) in (${_INV_NAME})`,
+  `(?:take control of|control of|to take over) (${_INV_NAME})`,
+  `\\bexits (${_INV_NAME})`,
+  `\\bto back (${_INV_NAME})`,
+  `\\bbacks (${_INV_NAME})`,
+  `(?:facility|financing|loan|package) (?:to|for) (${_INV_NAME})`,
+].map((p) => new RegExp(p));
+function dealSubject(d) {
+  const h = String(d.headline || "");
+  for (const re of INV_SUBJ_PATTS) {
+    const m = h.match(re);
+    if (m && m[1]) {
+      const s = m[1].replace(/[’']s$/, "").replace(/[ ,.;:]+$/, "").trim();
+      if (s.length >= 2 && !/^(?:The|A|An|Its|Their|New)$/i.test(s)) return s;
+    }
+  }
+  return "";
+}
+// First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn").
+function dealAmount(d) {
+  const m = String(d.headline || "").match(/[$£€]\s?\d[\d.,]*\s?(?:bn|billion|m|million|k)?/i);
+  if (!m) return "";
+  return m[0].replace(/\s+/g, "").replace(/billion/i, "bn").replace(/million/i, "m");
+}
 function invRow(d) {
   const { cls, sub, curated } = classifyInstrument(d);
   const tag = cls
     ? `<span class="tinv-tag ${cls === "Debt" ? "is-debt" : "is-equity"}"${curated ? "" : ' title="Auto-derived from the linked article"'}>${esc(cls)}${sub ? " · " + esc(sub) : ""}${curated ? "" : "<span class=\"tinv-inf\">~</span>"}</span>`
     : `<span class="tinv-tag is-unspec">Type unspecified</span>`;
   const outlet = creditSource(d) || "";
+  const subj = dealSubject(d);
+  const amt = dealAmount(d);
+  const lead = subj
+    ? `${esc(subj)}${amt ? ` <span class="tinv-amt">${esc(amt)}</span>` : ""}`
+    : esc(d.headline);
+  const headlineSub = subj ? `<div class="tinv-sub">${esc(d.headline)}</div>` : "";
   return `<li class="tinv-row">`
-    + `<a class="tinv-head" href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(d.headline)}</a>`
+    + `<a class="tinv-head" href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${lead}</a>`
+    + headlineSub
     + `<div class="tinv-meta">${tag}<span class="tinv-when">${esc(fmtDate(d.date))}</span>${outlet ? `<span class="tinv-src">${esc(outlet)}</span>` : ""}</div>`
     + `</li>`;
 }
@@ -481,9 +528,11 @@ export function viewManager(id) {
     : `<p class="tw-empty muted small">No investments identified yet from the news surfaced for this manager.</p>`;
   const peoplePane = (() => {
     let out = "";
-    if (m.owners && m.owners.length) out += `<div class="tpg"><div class="tpg-h">Ownership</div><ul class="tfacts">${m.owners.map((o) => `<li><span class="tf-k">${esc(o.name)}</span><span class="tf-v">${esc(o.stake)}</span></li>`).join("")}</ul></div>`;
+    // Ownership & senior counsel: entity/person rows in the shared .tmini list style.
+    if (m.owners && m.owners.length) out += `<div class="tpg"><div class="tpg-h">Ownership</div><ul class="tmini">${m.owners.map((o) => `<li class="tmini-row"><span class="tmini-t">${esc(o.name)}<span class="tmini-r">${esc(o.stake)}</span></span></li>`).join("")}</ul></div>`;
     if (m.legal && m.legal.length) out += `<div class="tpg"><div class="tpg-h">Legal &amp; senior counsel</div><ul class="tmini">${m.legal.map((p) => `<li class="tmini-row"><span class="tmini-t">${esc(p.name)}${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">LinkedIn</a>` : ""}</span><span class="tmini-m">${esc(p.role || "")}${p.city ? " · " + esc(p.city) : ""}</span></li>`).join("")}</ul></div>`;
-    if (m.headcount) { const h = m.headcount; out += `<div class="tpg"><div class="tpg-h">Headcount${h.asOf ? ` · as of ${esc(h.asOf)}` : ""}</div><ul class="tfacts"><li><span class="tf-k">Investment professionals</span><span class="tf-v">${h.investment ?? "—"}</span></li><li><span class="tf-k">Other professionals</span><span class="tf-v">${h.other ?? "—"}</span></li><li><span class="tf-k">Total</span><span class="tf-v">${h.total ?? "—"}</span></li></ul></div>`; }
+    // Headcount: numeric facts in the shared .tbiz key/value style.
+    if (m.headcount) { const h = m.headcount; out += `<div class="tpg"><div class="tpg-h">Headcount${h.asOf ? ` · as of ${esc(h.asOf)}` : ""}</div><ul class="tbiz">${bizRow("Investment professionals", esc(String(h.investment ?? "—")))}${bizRow("Other professionals", esc(String(h.other ?? "—")))}${bizRow("Total", esc(String(h.total ?? "—")))}</ul></div>`; }
     if (m.filings && m.filings.length) out += `<div class="tpg"><div class="tpg-h">Regulatory &amp; account filings</div><ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul></div>`;
     return out;
   })();
@@ -493,15 +542,17 @@ export function viewManager(id) {
   const businessPane = bookHTML(m) + advisersHTML(m) + peoplePane;
   const hasBiz = businessPane.trim().length > 0;
   // ---- Listed vehicles (BDC / registered CEF) — live holdings from SEC ----
+  // Rendered in the SAME .tmini row style as Funds/CLOs: a clickable row that
+  // expands its latest SEC holdings inline (no separate card chrome).
   const vehicles = (VEHICLES && VEHICLES[m.id]) || [];
   const vehRow = (v) => {
-    const tag = v.type === "cef" ? `<span class="veh-tag veh-cef">CEF · N-PORT</span>` : `<span class="veh-tag veh-bdc">BDC · 10-Q</span>`;
-    return `<div class="veh">`
-      + `<div class="veh-h"><span class="veh-nm">${esc(v.name)}${v.ticker ? ` <span class="veh-tk">${esc(v.ticker)}</span>` : ""}</span>${tag}`
-      + `<button type="button" class="tfocus-btn veh-load" data-cik="${esc(v.cik)}" data-type="${esc(v.type)}" data-nm="${esc(v.name)}">Load holdings</button></div>`
-      + `<div class="veh-body" id="veh-${esc(v.cik)}"></div></div>`;
+    const tag = v.type === "cef" ? "CEF · N-PORT" : "BDC · 10-Q";
+    return `<li class="tmini-row clickable veh-load" data-cik="${esc(v.cik)}" data-type="${esc(v.type)}" data-nm="${esc(v.name)}">`
+      + `<span class="tmini-t">${esc(v.name)}${v.ticker ? ` <span class="veh-tk">${esc(v.ticker)}</span>` : ""}<span class="tmini-r">${tag}</span></span>`
+      + `<span class="tmini-m veh-cta" id="vehcta-${esc(v.cik)}">Tap to load latest holdings</span>`
+      + `<div class="veh-body" id="veh-${esc(v.cik)}"></div></li>`;
   };
-  const listedList = vehicles.length ? vehicles.map(vehRow).join("") : "";
+  const listedList = vehicles.length ? `<ul class="tmini">${vehicles.map(vehRow).join("")}</ul>` : "";
   // Merged Vehicles tab: Funds + CLOs + listed BDC/CEF vehicles, each a labelled
   // group (groups with nothing to show are omitted).
   const vehGrp = (label, n, body) => body ? `<div class="tveh-grp"><div class="tveh-grp-h">${label}${n ? ` <span class="tveh-grp-n">${n}</span>` : ""}</div>${body}</div>` : "";
@@ -547,17 +598,29 @@ export function viewManager(id) {
     _chipMem[chipMemKey("mgr-tabs")] = p || "news";
     document.querySelectorAll("#mgr-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
   });
-  // Listed-vehicle holdings: fetch the latest N-PORT (CEF) or 10-Q SOI (BDC).
-  document.querySelectorAll(".veh-load").forEach((btn) => btn.addEventListener("click", () => {
-    const cik = btn.dataset.cik, type = btn.dataset.type;
+  // Listed-vehicle holdings: tapping the row fetches the latest N-PORT (CEF) or
+  // 10-Q SOI (BDC) and expands it inline; tapping again collapses/re-expands.
+  // Clicks inside the loaded holdings (source links etc.) must NOT toggle.
+  document.querySelectorAll("#mgr-panes .veh-load").forEach((row) => row.addEventListener("click", (e) => {
+    if (e.target.closest(".veh-body")) return;
+    const cik = row.dataset.cik, type = row.dataset.type;
     const body = document.getElementById("veh-" + cik);
+    const cta = document.getElementById("vehcta-" + cik);
     if (!body) return;
-    btn.disabled = true; btn.textContent = "Loading…";
+    if (body.dataset.state === "loading") return;
+    if (body.dataset.state === "loaded") {                 // toggle collapse/expand
+      const hidden = body.style.display === "none";
+      body.style.display = hidden ? "" : "none";
+      if (cta) cta.textContent = hidden ? "Latest holdings" : "Tap to show latest holdings";
+      return;
+    }
+    body.dataset.state = "loading";
+    if (cta) cta.textContent = "Fetching latest SEC filing…";
     body.innerHTML = `<p class="tw-empty muted small">Fetching latest SEC filing…</p>`;
     fetch(`${type === "cef" ? "/api/nport" : "/api/bdc"}?cik=${encodeURIComponent(cik)}`, { headers: { accept: "application/json" } })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { btn.disabled = false; btn.textContent = "Refresh"; renderVehicle(body, d, type); })
-      .catch(() => { btn.disabled = false; btn.textContent = "Retry"; body.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`; });
+      .then((d) => { body.dataset.state = "loaded"; if (cta) cta.textContent = "Latest holdings"; renderVehicle(body, d, type); })
+      .catch(() => { body.dataset.state = ""; if (cta) cta.textContent = "Tap to retry"; body.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`; });
   }));
   if (tabs) {
     const k0 = _chipMem[chipMemKey("mgr-tabs")];
