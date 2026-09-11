@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3bafb3ae-ba94-44f0-984c-ec7c9f54a5e0", title: "Saudi Arabia shuts East-West pipeline that bypasses Hormuz after attacks", date: "2026-09-11", time: "20:20", url: "https://www.ft.com/content/3bafb3ae-ba94-44f0-984c-ec7c9f54a5e0" },
   { id: "645b8e7d-39d6-4500-b761-c9a2edbc1a37", title: "Trump’s $5,000 dividend is bad corporate finance", date: "2026-09-11", time: "18:21", url: "https://www.ft.com/content/645b8e7d-39d6-4500-b761-c9a2edbc1a37" },
   { id: "916eea1b-d483-49e1-9a70-53b4df8f9870", title: "Situational Awareness builds relationships with new brokers as it attempts rebound", date: "2026-09-11", time: "18:15", url: "https://www.ft.com/content/916eea1b-d483-49e1-9a70-53b4df8f9870" },
   { id: "fbcfcd21-f34f-41ca-b6b9-76b415f8d54e", title: "Stockpickers: Rosebank Industries, SigmaRoc, Ashmore", date: "2026-09-11", time: "18:00", url: "https://www.ft.com/content/fbcfcd21-f34f-41ca-b6b9-76b415f8d54e" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "45ba5468-87fa-4afb-8c35-ff27579109d3", title: "Hong Kong sentences Tiananmen vigil organisers to prison", date: "2026-09-11", time: "11:10", url: "https://www.ft.com/content/45ba5468-87fa-4afb-8c35-ff27579109d3" },
   { id: "7aa19beb-db39-46dd-8979-0c32c51ed53b", title: "KPMG under investigation over audits for Prax’s State Oil arm", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/7aa19beb-db39-46dd-8979-0c32c51ed53b" },
   { id: "db6974e5-0088-4dde-b455-2275033d9438", title: "Ukrainian Lessons by Charlotte Higgins — culture war", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/db6974e5-0088-4dde-b455-2275033d9438" },
-  { id: "fe5cd1b4-5131-4dca-a728-4bc7df90d6df", title: "Tiny snail stalls Donald Trump’s Irish golf ambitions", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/fe5cd1b4-5131-4dca-a728-4bc7df90d6df" },
 ];
