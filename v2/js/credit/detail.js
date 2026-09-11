@@ -510,8 +510,16 @@ export function viewManager(id) {
     // Ownership & senior counsel: entity/person rows in the shared .tmini list style.
     if (m.owners && m.owners.length) out += `<div class="tpg"><div class="tpg-h">Ownership</div><ul class="tmini">${m.owners.map((o) => `<li class="tmini-row"><span class="tmini-t">${esc(o.name)}<span class="tmini-r tmini-r-inline">${esc(o.stake)}</span></span></li>`).join("")}</ul></div>`;
     if (m.legal && m.legal.length) out += `<div class="tpg"><div class="tpg-h">Legal &amp; senior counsel</div><ul class="tmini">${m.legal.map((p) => `<li class="tmini-row"><span class="tmini-t">${esc(p.name)}${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">LinkedIn</a>` : ""}</span><span class="tmini-m">${esc(p.role || "")}${p.city ? " · " + esc(p.city) : ""}</span></li>`).join("")}</ul></div>`;
-    // Headcount: numeric facts in the shared .tbiz key/value style.
-    if (m.headcount) { const h = m.headcount; out += `<div class="tpg"><div class="tpg-h">Headcount${h.asOf ? ` · as of ${esc(h.asOf)}` : ""}</div><ul class="tbiz">${bizRow("Investment professionals", esc(String(h.investment ?? "—")))}${bizRow("Other professionals", esc(String(h.other ?? "—")))}${bizRow("Total", esc(String(h.total ?? "—")))}</ul></div>`; }
+    // Headcount: numeric facts in the shared .tbiz key/value style. Only rows with a
+    // real figure render — an undisclosed count is dropped rather than shown as a
+    // "—" placeholder (so a firm that only discloses a total reads as one clean row,
+    // not two empty ones).
+    if (m.headcount) {
+      const h = m.headcount;
+      const hrows = [["Investment professionals", h.investment], ["Other professionals", h.other], ["Total", h.total]]
+        .filter(([, v]) => v != null).map(([k, v]) => bizRow(k, esc(String(v))));
+      if (hrows.length) out += `<div class="tpg"><div class="tpg-h">Headcount${h.asOf ? ` · as of ${esc(h.asOf)}` : ""}</div><ul class="tbiz">${hrows.join("")}</ul></div>`;
+    }
     if (m.filings && m.filings.length) out += `<div class="tpg"><div class="tpg-h">Regulatory &amp; account filings</div><ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul></div>`;
     return out;
   })();

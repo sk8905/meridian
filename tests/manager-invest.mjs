@@ -103,6 +103,14 @@ const stray = await pg.evaluate(() => [...document.querySelectorAll(".tcol-full"
   .map((e) => parseFloat(getComputedStyle(e).borderBottomWidth) || 0));
 check(stray.length > 0 && stray.every((w) => w === 0), `phone: the full-width profile column has no stray bottom-border line (${stray.join(", ")})`);
 
+// Business tab reads as data only — an undisclosed figure is dropped, never shown
+// as a "—" placeholder row (which cluttered the Headcount section on every firm
+// that discloses only a total).
+await pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="business"]'); if (t) t.click(); });
+await pg.waitForTimeout(250);
+const dashRows = await pg.evaluate(() => [...document.querySelectorAll('#mgr-panes .tpane[data-p="business"] .tbiz-v')].filter((e) => e.textContent.trim() === "—").length);
+check(dashRows === 0, `phone: the Business tab shows no empty "—" placeholder rows (${dashRows})`);
+
 checkErrs(errs, "manager profile investments");
 await ctx.close();
 
