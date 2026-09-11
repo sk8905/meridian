@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8310cf56-ce60-4e6e-8254-5bb470e9a880", title: "Yemeni militants used Anthropic AI to try to build ballistic missiles", date: "2026-09-11", time: "10:02", url: "https://www.ft.com/content/8310cf56-ce60-4e6e-8254-5bb470e9a880" },
+  { id: "ab6f6433-1f23-4153-a02b-7984d14734c6", title: "IEA warns of ‘lost period’ in global oil demand", date: "2026-09-11", time: "09:37", url: "https://www.ft.com/content/ab6f6433-1f23-4153-a02b-7984d14734c6" },
+  { id: "91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20", title: "Andy Burnham’s blind spot", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20" },
+  { id: "95717e6f-2cc0-4d25-856d-2817008806ac", title: "The perfect impracticality of the ‘wow’ shoe", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/95717e6f-2cc0-4d25-856d-2817008806ac" },
+  { id: "f1333f1c-a459-4992-8681-996c7727a981", title: "Celia Birtwell on Hockney, Carmen rollers and the feathers of Moulin Rouge", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/f1333f1c-a459-4992-8681-996c7727a981" },
+  { id: "d8127be2-633e-415d-8e5f-82981ad551d4", title: "Vladimir Putin anticipates friendly reception at India Brics summit", date: "2026-09-11", time: "09:20", url: "https://www.ft.com/content/d8127be2-633e-415d-8e5f-82981ad551d4" },
   { id: "41fb2ff1-fb84-4ae4-8668-59d46842dcdb", title: "Citadel hands international equities leadership to Elliott veteran Nabeel Bhanji", date: "2026-09-11", time: "09:04", url: "https://www.ft.com/content/41fb2ff1-fb84-4ae4-8668-59d46842dcdb" },
   { id: "ebfa69a3-323b-450d-8bfd-0b12e01d2a5b", title: "US diesel hits record $6 a gallon on Iran supply shock", date: "2026-09-11", time: "08:56", url: "https://www.ft.com/content/ebfa69a3-323b-450d-8bfd-0b12e01d2a5b" },
   { id: "e1aacb1c-45d1-4d21-b5e9-0166c12c54cd", title: "UK economy unexpectedly grew 0.4 per cent in July", date: "2026-09-11", time: "07:02", url: "https://www.ft.com/content/e1aacb1c-45d1-4d21-b5e9-0166c12c54cd" },
@@ -55,9 +61,4 @@ export const FT_ITEMS = [
   { id: "f1542280-1e6e-40ea-ac7f-83a5866a19f2", title: "Shabana Mahmood demands ‘effective police action’ ahead of UK anti-immigration protests", date: "2026-09-10", time: "18:02", url: "https://www.ft.com/content/f1542280-1e6e-40ea-ac7f-83a5866a19f2" },
   { id: "d3fe6f10-d03e-4580-b033-1fd39f9f8f97", title: "British man admits inventing fake takeover bid for Canadian oil explorer", date: "2026-09-10", time: "17:51", url: "https://www.ft.com/content/d3fe6f10-d03e-4580-b033-1fd39f9f8f97" },
   { id: "6508d169-35b1-4e56-a29a-57911d9123d8", title: "Say goodbye to the SaaSpocalypse and hello to the RenaiSaaS", date: "2026-09-10", time: "17:35", url: "https://www.ft.com/content/6508d169-35b1-4e56-a29a-57911d9123d8" },
-  { id: "f9969f50-b2bb-4a8b-933b-1e39932d6e27", title: "Reform candidate for London mayor said Tories ‘should have borrowed and borrowed’", date: "2026-09-10", time: "17:23", url: "https://www.ft.com/content/f9969f50-b2bb-4a8b-933b-1e39932d6e27" },
-  { id: "e7a8a9fa-0dc2-41df-890c-9628efac54fd", title: "Vantage Data Centers seeks $2bn in loans from Pimco and PGIM", date: "2026-09-10", time: "17:04", url: "https://www.ft.com/content/e7a8a9fa-0dc2-41df-890c-9628efac54fd" },
-  { id: "a3cb053b-08eb-43c5-8cc4-9c4c22fbf529", title: "Ourselves Alone: a partial glimpse inside Ireland’s Sinn Féin", date: "2026-09-10", time: "17:00", url: "https://www.ft.com/content/a3cb053b-08eb-43c5-8cc4-9c4c22fbf529" },
-  { id: "aa78428b-747f-4486-bac5-e3500386abaf", title: "Spain’s new citizenship law to spark fresh tensions with Morocco", date: "2026-09-10", time: "16:57", url: "https://www.ft.com/content/aa78428b-747f-4486-bac5-e3500386abaf" },
-  { id: "7816ad68-58ed-494c-a66f-091a9cca2cbc", title: "ECB prepares for ‘longer-lasting’ inflation as it lifts interest rates to 2.5%", date: "2026-09-10", time: "16:18", url: "https://www.ft.com/content/7816ad68-58ed-494c-a66f-091a9cca2cbc" },
 ];
