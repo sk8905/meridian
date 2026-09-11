@@ -14,8 +14,12 @@
 const NB_MONTH = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec";
 
 export function nbNums(html) {
-  return String(html || "").replace(/(<[^>]*>)|([^<]+)/g, (_m, tag, text) => tag
-    ? tag
+  // Tokenise into HTML tags, HTML ENTITIES, and plain text runs. Entities and
+  // tags are skipped verbatim — critically, so the digits inside a numeric entity
+  // like &#39; (esc()'s apostrophe) are NEVER wrapped, which would split the entity
+  // and leak literal "&#39;" into the page. The text branch stops at "<" and "&".
+  return String(html || "").replace(/(<[^>]*>|&#?[a-z0-9]+;)|([^<&]+)/gi, (_m, skip, text) => skip
+    ? skip
     : text.replace(new RegExp(`(^|[^\\w$£€.])((?:[$£€])?\\d+(?:,\\d{3})*(?:\\.\\d+)?%?)(\\s+(?:${NB_MONTH})[a-z]*)?`, "gi"), (m, pre, num, monthTail) => {
         const isDateDay = !!monthTail && /^\d{1,2}$/.test(num);
         const isYear = /^(?:19|20)\d\d$/.test(num);

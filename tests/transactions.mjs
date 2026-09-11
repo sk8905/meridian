@@ -79,20 +79,23 @@ await pg.waitForSelector(".tx-kpis .tx-kpi", { timeout: 4000 });
 const dt = await pg.evaluate(() => ({
   title: (document.querySelector(".tx-title") || {}).textContent,
   kpis: document.querySelectorAll(".tx-kpi").length,
-  // Table columns: Date · Borrower/company · Lender/investor · Type · Amount.
+  // Table columns: Date · Borrower/company · Lender/investor · Type · Amount · Source.
   heads: [...document.querySelectorAll(".tx-list thead th")].map((h) => h.textContent.trim()),
   listRows: document.querySelectorAll(".tx-list tbody tr.tx-row").length,
   anySize: [...document.querySelectorAll(".tx-list td.tx-sz")].some((td) => /[$€£]/.test(td.textContent)),
   mgrLinks: document.querySelectorAll(".tx-list a.tx-mgr").length,
-  borrowerLed: [...document.querySelectorAll(".tx-list td.tx-bd a")].filter((a) => a.textContent.trim() && /^https?:/.test(a.getAttribute("href") || "")).length,
+  // Borrower cell is the NAME only (no link); the source link is its own column.
+  borrowerNamed: [...document.querySelectorAll(".tx-list td.tx-bd")].filter((td) => td.textContent.trim() && !td.querySelector("a")).length,
+  srcLinks: [...document.querySelectorAll(".tx-list td.tx-src2 a")].filter((a) => /^https?:/.test(a.getAttribute("href") || "")).length,
   typed: [...document.querySelectorAll(".tx-list td.tx-cat")].filter((td) => td.textContent.trim() && td.textContent.trim() !== "—").length,
 }));
 check(dt.kpis === 6, `type detail shows the stat header (${dt.kpis} tiles)`);
 check(dt.listRows > 0, `type detail lists its transactions (${dt.listRows})`);
-check(/Borrower/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Type/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)),
-  `columns are Date · Borrower · Lender · Type · Amount (${dt.heads.join(" · ")})`);
+check(/Borrower/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Type/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
+  `columns are Date · Borrower · Lender · Type · Amount · Source (${dt.heads.join(" · ")})`);
 check(dt.anySize, "transactions show their native disclosed size");
-check(dt.mgrLinks > 0 && dt.borrowerLed > 0, `each transaction leads with a borrower/company link and names its lender (${dt.borrowerLed} borrower, ${dt.mgrLinks} lender)`);
+check(dt.mgrLinks > 0 && dt.borrowerNamed > 0, `borrower cell is a plain name and the lender is named (${dt.borrowerNamed} borrower, ${dt.mgrLinks} lender)`);
+check(dt.srcLinks > 0, `the source link sits in its own Source column (${dt.srcLinks})`);
 check(dt.typed > 0, `transactions carry a deal-type/category column (${dt.typed})`);
 
 // a manager link routes into the Profiles tab

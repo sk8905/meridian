@@ -477,13 +477,17 @@
    Only in the Profiles surface (#pf-detail) and only on desktop; mobile keeps the
    horizontal chip bar. ---- */
 @media (min-width: 901px) {
+  /* The profiles detail nests a fixed-height terminal (.tdash) inside the already-
+     scrolling #pf-panes; let a TABBED detail flow and scroll with #pf-panes instead
+     of clipping to that fixed height (which collapsed the panes to a sliver). */
+  #pf-detail .tdash:has(.tdet-tabbed) { height: auto; overflow: visible; }
+  #pf-detail .tdash:has(.tdet-tabbed) .tdash-grid { min-height: 0; }
   #pf-detail .tdet-tabbed {
-    display: grid; column-gap: 12px; padding-right: 12px;
+    display: grid; column-gap: 12px; padding-right: 12px; align-items: start;
     grid-template-columns: 150px minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
     grid-template-areas: "id id" "nav panes"; }
   #pf-detail .tdet-tabbed > .tdet-id { grid-area: id; }
-  #pf-detail .tdet-tabbed > .tpanes { grid-area: panes; }
+  #pf-detail .tdet-tabbed > .tpanes { grid-area: panes; overflow: visible; min-height: 0; }
   #pf-detail .tdet-tabbed > .twire-head {
     grid-area: nav; align-self: start; height: auto !important; position: static !important;
     z-index: auto; padding: 12px 0 0 12px !important; background: transparent;
@@ -511,7 +515,10 @@
    TABLE gives way to the profile, which renders directly beneath the search box
    (inside the same scroll region, #pf-panes). The detail view's own duplicate
    Managers/Hedge Funds/Law firms nav is suppressed — the persistent tabs do it. */
-.pf-detailing #pf-panes .tleague-wrap { display: none; }
+/* Hide only the LIST's league table while detailing — scope to the list panes
+   (direct-child .tpane[data-pane]) so it does NOT hide a .tleague-wrap that a
+   detail renders (e.g. the Investments table) inside #pf-detail. */
+.pf-detailing #pf-panes > .tpane .tleague-wrap { display: none; }
 .pf-detailing #pf-detail .tdet-secnav { display: none; }
 /* Back control: a leading ‹ chevron in the persistent search row (shown only
    while a profile is open, and only in the active pane's visible search row). */
@@ -581,21 +588,24 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-kpi-v { font-size: 1.2rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.15; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-kpi-l { font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
 .tx-kpi-s { font-size: 10px; color: var(--faint); }
-.tx-list td.tx-dt { color: var(--muted); font-family: var(--t-mono); white-space: nowrap; width: 74px; vertical-align: top; }
+.tx-list td.tx-dt { color: var(--muted); font-family: var(--t-mono); white-space: nowrap; width: 74px; }
 .tx-list td.tx-hd { color: var(--ink); white-space: normal; line-height: 1.35; }
-/* Borrower / company cell: bold name leads, the verbatim sourced headline beneath. */
-.tx-list td.tx-bd { color: var(--ink); white-space: normal; line-height: 1.3; min-width: 11rem; vertical-align: top; }
-.tx-list td.tx-bd a { color: inherit; text-decoration: none; font-weight: 600; }
-.tx-list td.tx-bd a:hover { color: var(--accent); }
-.tx-bd-hl { display: block; margin-top: 2px; font-size: 10px; line-height: 1.35; color: var(--muted); font-weight: 400; }
-.tx-list td.tx-mg { color: var(--muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: top; }
-.tx-list td.tx-cat { color: var(--muted); white-space: nowrap; vertical-align: top; }
-.tx-list td.tx-sz { color: var(--ink); white-space: nowrap; font-family: var(--t-mono); vertical-align: top; }
+/* Borrower / company cell: JUST the name (bold); the full headline is the hover
+   title and the source link lives in the Source column. */
+.tx-list td.tx-bd { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.3; }
+.tx-list td.tx-mg { color: var(--muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tx-list td.tx-cat { color: var(--muted); white-space: nowrap; }
+.tx-list td.tx-sz { color: var(--ink); white-space: nowrap; font-family: var(--t-mono); }
+/* Source column at the right: a faint outlet link. */
+.tx-list td.tx-src2 { color: var(--faint); white-space: nowrap; max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+.tx-list td.tx-src2 a { color: var(--faint); text-decoration: none; }
+.tx-list td.tx-src2 a:hover { color: var(--ink); }
 .tx-list .tx-hd a, .tx-list .tx-mg a { color: inherit; text-decoration: none; }
 .tx-list .tx-mg a:hover { color: var(--ink); }
 @media (max-width: 620px) {
   .tx-list td.tx-mg, .tx-list th.tx-mg-h { display: none; }
   .tx-list td.tx-cat, .tx-list th.tx-cat-h { display: none; }
+  .tx-list td.tx-src2, .tx-list th.tx-src-h { display: none; }
 }
 /* sub-category (asset-class) filter chips */
 .tx-secfilter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
@@ -700,12 +710,10 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
    then deal type · instrument · amount · date · source. All cells left-aligned
    (house R: profile/transaction tables left-align), name cell carries the verbatim
    headline beneath. */
-.tinv-tbl th, .tinv-tbl td { text-align: left; vertical-align: top; }
-.tinv-tbl td { padding-top: 8px; padding-bottom: 8px; }
-.tinv-c-co { min-width: 12rem; }
-.tinv-co { display: block; color: var(--ink); font-weight: 600; text-decoration: none; line-height: 1.3; }
-.tinv-co:hover { color: var(--accent); }
-.tinv-hl { display: block; margin-top: 2px; font-size: 10px; line-height: 1.35; color: var(--muted); font-weight: 400; }
+.tinv-tbl th, .tinv-tbl td { text-align: left; }
+/* Company/borrower cell shows JUST the name (bold); full headline is the hover
+   title, source link lives in the Source column. */
+.tinv-c-co { color: var(--ink); font-weight: 600; line-height: 1.3; min-width: 10rem; }
 .tinv-c-type { color: var(--muted); white-space: nowrap; }
 .tinv-c-amt { font-family: var(--t-mono); font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
 .tinv-c-date { font-family: var(--t-mono); color: var(--faint); white-space: nowrap; }

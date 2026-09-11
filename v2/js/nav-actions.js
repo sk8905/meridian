@@ -20,7 +20,7 @@ import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { mountAssistant } from "/v2/js/assistant.js?v=v2-12";
 import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
-import { briefMarkup, nbNums } from "./nb-format.js?v=v2-1";
+import { briefMarkup, nbNums } from "./nb-format.js?v=v2-2";
 import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };

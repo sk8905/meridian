@@ -4,7 +4,7 @@
 
 import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-5";
-import { nbNums } from "../nb-format.js?v=v2-1";
+import { nbNums } from "../nb-format.js?v=v2-2";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,

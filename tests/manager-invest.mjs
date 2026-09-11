@@ -47,21 +47,27 @@ const inv = await pg.evaluate(() => {
   const rows = table ? [...table.querySelectorAll("tbody tr")] : [];
   return {
     hasTable: !!table,
+    // The table must actually be VISIBLE, not just present — a display:none
+    // ancestor once hid it entirely while the DOM rows still existed.
+    visibleH: table ? Math.round(table.getBoundingClientRect().height) : 0,
     heads,
     count: rows.length,
     tagged: rows.filter((r) => r.querySelector(".tinv-tag")).length,
     debtOrEquity: rows.filter((r) => r.querySelector(".tinv-tag.is-debt, .tinv-tag.is-equity")).length,
-    named: rows.filter((r) => { const a = r.querySelector(".tinv-c-co .tinv-co[href]"); return a && /^https?:/.test(a.getAttribute("href")); }).length,
+    named: rows.filter((r) => (r.querySelector(".tinv-c-co") || {}).textContent.trim()).length,
+    sourced: rows.filter((r) => { const a = r.querySelector(".tinv-c-src a"); return a && /^https?:/.test(a.getAttribute("href") || ""); }).length,
     withAmount: rows.filter((r) => { const t = (r.querySelector(".tinv-c-amt") || {}).textContent || ""; return /[$£€]/.test(t); }).length,
     withDate: rows.filter((r) => (r.querySelector(".tinv-c-date") || {}).textContent.trim()).length,
   };
 });
 check(inv.hasTable, "Investments tab renders as a table");
-check(/Company/.test(inv.heads[0] || "") && inv.heads.some((h) => /Amount/.test(h)) && inv.heads.some((h) => /Date/.test(h)), `table columns: company/borrower, deal, instrument, amount, date, source (${inv.heads.join(" · ")})`);
+check(inv.visibleH > 0, `the Investments table is visible, not hidden (${inv.visibleH}px)`);
+check(/Company/.test(inv.heads[0] || "") && inv.heads.some((h) => /Amount/.test(h)) && inv.heads.some((h) => /Date/.test(h)) && inv.heads.some((h) => /Source/.test(h)), `table columns: company/borrower, deal, instrument, amount, date, source (${inv.heads.join(" · ")})`);
 check(inv.count > 0, `Investments table lists deals (${inv.count})`);
 check(inv.tagged === inv.count, `every investment carries an instrument tag (${inv.tagged}/${inv.count})`);
 check(inv.debtOrEquity > 0, `investments are classified debt/equity where the article says so (${inv.debtOrEquity})`);
-check(inv.named === inv.count, `every investment leads with a company/borrower link to its source (${inv.named}/${inv.count})`);
+check(inv.named === inv.count, `every investment leads with a company/borrower name (${inv.named}/${inv.count})`);
+check(inv.sourced === inv.count, `every investment links its source in the Source column (${inv.sourced}/${inv.count})`);
 check(inv.withAmount > 0, `deal amounts surface where known (${inv.withAmount})`);
 check(inv.withDate === inv.count, `every investment shows its date (${inv.withDate}/${inv.count})`);
 

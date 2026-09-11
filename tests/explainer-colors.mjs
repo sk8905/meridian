@@ -35,6 +35,22 @@ check(eq.heading === ACCENT, `dashboard Key-moment heading reads orange (${eq.he
 check(eq.hasNum && eq.numColor === BLUE, `dashboard Key-moment numbers read blue (${eq.numColor})`);
 check(!eq.badDate, "dashboard Key-moment date components are NOT blue");
 
+// Entity safety: the number-colouring must NEVER split an HTML entity (esc()'s
+// apostrophe is &#39;) — that would leak literal "&#39;" into the page. Guard both
+// the live text and the nbNums round-trip.
+const noLeak = await pg.evaluate(() => [...document.querySelectorAll(".dsh-km-x, .mac-km-x, .na-fx-km, .na-brief-b, .na-brief-lede")].every((el) => !/&#\d/.test(el.textContent)));
+check(noLeak, "no explainer leaks a literal HTML entity (e.g. &#39;) into its text");
+const rt = await pg.evaluate(async () => {
+  const m = await import("/v2/js/nb-format.js?v=v2-2");
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const src = "Japan's PPI up 3.2% in 2023 on 16 September — Norway's fund";
+  const d = document.createElement("div"); d.innerHTML = m.nbNums(esc(src)); document.body.appendChild(d);
+  const txt = d.textContent; const nBlue = d.querySelectorAll(".nb-num").length; d.remove();
+  return { txt, nBlue };
+});
+check(rt.txt === "Japan's PPI up 3.2% in 2023 on 16 September — Norway's fund", `nbNums preserves apostrophes/entities verbatim (${rt.txt})`);
+check(rt.nBlue === 1, `nbNums still wraps the metric but not the date/year (${rt.nBlue} blue)`);
+
 // ---- Dashboard ▸ Rates "why it moved" (renders with committed IND_KEYMOMENTS) ---
 await pg.evaluate(() => { const c = [...document.querySelectorAll('.dsh-railnav .dsh-navchip[data-sub]')].find((x) => x.dataset.sub === "rates" || x.dataset.sub === "fixed-income"); if (c) c.click(); });
 await pg.waitForTimeout(600);

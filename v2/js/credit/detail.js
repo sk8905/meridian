@@ -441,15 +441,16 @@ function invRow(d) {
   const subj = dealSubject(d);
   const amt = dealAmount(d);
   const url = esc(d.sourceUrl);
-  const co = `<a class="tinv-co" href="${url}" target="_blank" rel="noopener noreferrer">${subj ? esc(subj) : esc(d.headline)}</a>`;
-  const hl = subj ? `<span class="tinv-hl">${esc(d.headline)}</span>` : "";
+  // Company/borrower cell shows JUST the name (full headline is the hover title);
+  // the source link is its own column at the right.
+  const name = subj || d.headline;
   return `<tr>`
-    + `<td class="tinv-c-co">${co}${hl}</td>`
+    + `<td class="tinv-c-co" title="${esc(d.headline)}">${esc(name)}</td>`
     + `<td class="tinv-c-type">${esc(d.type || "—")}</td>`
     + `<td class="tinv-c-instr">${tag}</td>`
     + `<td class="tinv-c-amt">${amt ? esc(amt) : "—"}</td>`
     + `<td class="tinv-c-date">${esc(fmtDate(d.date))}</td>`
-    + `<td class="tinv-c-src">${outlet ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${esc(outlet)}</a>` : "—"}</td>`
+    + `<td class="tinv-c-src">${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${esc(outlet || "source")}</a>` : "—"}</td>`
     + `</tr>`;
 }
 
