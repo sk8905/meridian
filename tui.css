@@ -79,12 +79,16 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---- dark inputs / search fields (were leaking a white light-mode fill) ---- */
+/* ---- dark inputs / search fields — the lifted grey (--lift), the app's shade for
+   search/dialogue boxes, so every field (list searches, the Ask box, the palette,
+   textareas) reads as a distinct grey box rather than blending into the surface.
+   This rule outranks .tsearch/.na-ask-in, so --lift MUST live here to take effect.
+   (Range sliders + visually-hidden toggle inputs override this themselves.) ---- */
 :root[data-theme="dark"] input,
 :root[data-theme="dark"] select,
 :root[data-theme="dark"] textarea,
 :root[data-theme="dark"] .searchbar {
-  background: var(--surface);
+  background: var(--lift);
   color: var(--ink);
   border: 1px solid var(--border);
 }
