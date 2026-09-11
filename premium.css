@@ -982,6 +982,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-brief-list { list-style: none; margin: 6px 0 0; padding: 0; }
 .na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 10.5px; line-height: 1.55; }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
+/* Briefing colour cues: the TOPIC heading (Macro / Fixed income / Equities …) is
+   orange, and every NUMBER (5%, $100, 4.97% …) is blue — in the lede and bullets. */
+.na-brief-lede .nb-topic, .na-brief-b .nb-topic { color: var(--accent, #fb8b1e); }
+.na-brief-lede .nb-num, .na-brief-b .nb-num { color: var(--wb-txt, #4aa3f0); }
 .na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
 .na-brief-src:hover { color: var(--ink); }
 .na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; line-height: 1.45; }

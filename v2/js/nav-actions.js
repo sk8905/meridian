@@ -203,6 +203,18 @@ function briefHasUnread() {
 // premium.css) and the bullet list is capped, so the panel never becomes a long
 // scroll — it reads at a glance.
 const BRIEF_MAX_BULLETS = 4;
+// Colour-mark a briefing line's authored HTML: the TOPIC heading (the word[s]
+// before the em-dash in the lead <strong> — Macro / Fixed income / Equities …)
+// reads ORANGE, and every NUMBER (5%, 4.97%, $100, 1.3522 …) reads BLUE. Numbers
+// are wrapped only inside text runs, never inside a tag, so markup stays intact.
+function briefMarkup(html) {
+  let h = String(html || "");
+  h = h.replace(/(<strong>)\s*([^<]*?)\s*(&mdash;|—)/, (_m, s, topic, dash) => `${s}<span class="nb-topic">${topic}</span> ${dash}`);
+  h = h.replace(/(<[^>]*>)|([^<]+)/g, (_m, tag, text) => tag
+    ? tag
+    : text.replace(/(^|[^\w$£€.])((?:[$£€])?\d[\d,]*(?:\.\d+)?%?)/g, (_x, pre, num) => `${pre}<span class="nb-num">${num}</span>`));
+  return h;
+}
 function renderBriefing(body, slotKey) {
   const B = BRIEFINGS || {};
   const slots = B.slots || {};
@@ -211,10 +223,10 @@ function renderBriefing(body, slotKey) {
   const s = slots[key];
   const chips = order.map((k) => `<button type="button" class="na-chip${k === key ? " is-on" : ""}" data-slot="${esc(k)}">${esc(slots[k].label || k)}</button>`).join("");
   if (!s) { body.innerHTML = `<div class="na-chips">${chips}</div><div class="na-load">No briefing yet.</div>`; return; }
-  const bullets = (s.bullets || []).slice(0, BRIEF_MAX_BULLETS).map((b) => `<li class="na-brief-b">${b.html || ""}${b.src ? ` <a class="na-brief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
+  const bullets = (s.bullets || []).slice(0, BRIEF_MAX_BULLETS).map((b) => `<li class="na-brief-b">${briefMarkup(b.html)}${b.src ? ` <a class="na-brief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
   body.innerHTML = `<div class="na-chips">${chips}</div>`
     + `<div class="na-brief-when">${esc(s.label || "")}${s.time ? " · " + esc(s.time) : ""}${s.date ? " · " + esc(s.date) : ""}</div>`
-    + (s.lede ? `<p class="na-brief-lede">${s.lede}</p>` : "")
+    + (s.lede ? `<p class="na-brief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="na-brief-list">${bullets}</ul>`
     + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
 }

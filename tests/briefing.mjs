@@ -38,9 +38,20 @@ const opened = await pg.evaluate(() => {
   const bullets = p.querySelectorAll(".na-brief-b").length;
   const srcs = p.querySelectorAll(".na-brief-b .na-brief-src[href]").length;
   const lede = ((p.querySelector(".na-brief-lede") || {}).textContent || "").trim().length;
-  return { visible, chips, onSlot, bullets, srcs, lede };
+  // Colour cues: topic headings orange (--accent), numbers blue (--wb-txt); the
+  // source links must stay intact (their URLs contain digits we must NOT recolour).
+  const rgb = (v) => { const s = document.createElement("span"); s.style.color = v; document.body.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; };
+  const topic = p.querySelector(".na-brief-b .nb-topic"), num = p.querySelector(".na-brief-b .nb-num");
+  const srcHrefOk = [...p.querySelectorAll(".na-brief-b .na-brief-src")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "") && !a.querySelector(".nb-num"));
+  return { visible, chips, onSlot, bullets, srcs, lede,
+    topicColor: topic ? getComputedStyle(topic).color : null, accent: rgb("var(--accent)"),
+    numColor: num ? getComputedStyle(num).color : null, wbtxt: rgb("var(--wb-txt)"),
+    nTopics: p.querySelectorAll(".na-brief-b .nb-topic").length, nNums: p.querySelectorAll(".nb-num").length, srcHrefOk };
 });
 check(opened && opened.visible, "Briefing button opens the Briefing panel");
+check(opened && opened.nTopics >= 1 && opened.topicColor === opened.accent, `briefing topic headings read orange (${opened && opened.topicColor})`);
+check(opened && opened.nNums >= 1 && opened.numColor === opened.wbtxt, `briefing numbers read blue (${opened && opened.numColor})`);
+check(opened && opened.srcHrefOk, "briefing source links stay intact (URLs not recoloured)");
 check(opened && opened.chips.length === 3, `three slot chips — Morning/Afternoon/Evening (${opened ? opened.chips.join(",") : "none"})`);
 check(opened && !!opened.onSlot, `a slot is active by default (${opened ? opened.onSlot : "none"})`);
 // The panel always DEFAULTS to the most recent briefing (newest date · time
