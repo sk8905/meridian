@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "686b06a7-a041-49dc-88b1-2607a3ba8e11", title: "What we still haven’t learnt from 9/11", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/686b06a7-a041-49dc-88b1-2607a3ba8e11" },
+  { id: "4e1c7760-b716-47a9-bc08-064d13b936df", title: "The AfD won’t stop with Saxony-Anhalt", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/4e1c7760-b716-47a9-bc08-064d13b936df" },
+  { id: "780d08a9-1ae9-4d36-94e6-a7e2e38b1314", title: "Will Burnham grasp the urgent need to defend the UK?", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/780d08a9-1ae9-4d36-94e6-a7e2e38b1314" },
+  { id: "24646e74-9506-4718-b1be-789208db86d9", title: "US inflation held steady at 3.4% in August as high fuel prices persist", date: "2026-09-11", time: "13:55", url: "https://www.ft.com/content/24646e74-9506-4718-b1be-789208db86d9" },
+  { id: "f08d9848-ca55-4e39-af14-91e770d39a5d", title: "Reader callout: What is the outlook for buy-to-let investors?", date: "2026-09-11", time: "13:42", url: "https://www.ft.com/content/f08d9848-ca55-4e39-af14-91e770d39a5d" },
+  { id: "970b007d-3ce9-452a-bba7-f0163be0522f", title: "Claude thinks I’m an investment dunce", date: "2026-09-11", time: "13:33", url: "https://www.ft.com/content/970b007d-3ce9-452a-bba7-f0163be0522f" },
+  { id: "976fa0d6-ed09-4a6f-be02-ff4317b45f40", title: "Houthis seize Red Sea islands in lightning offensive", date: "2026-09-11", time: "13:26", url: "https://www.ft.com/content/976fa0d6-ed09-4a6f-be02-ff4317b45f40" },
   { id: "d470e9dd-760c-46ae-93ec-014b59160b37", title: "France’s debt interest bill to jump 25% this year", date: "2026-09-11", time: "12:35", url: "https://www.ft.com/content/d470e9dd-760c-46ae-93ec-014b59160b37" },
   { id: "03686827-1e80-4796-90ad-8e2d5318c0a5", title: "The day Warren Buffett saved Salomon Brothers", date: "2026-09-11", time: "12:31", url: "https://www.ft.com/content/03686827-1e80-4796-90ad-8e2d5318c0a5" },
   { id: "fb4dec4d-8c25-4ba6-bdc9-d993739ca986", title: "Soho House founder Nick Jones: ‘We were never trying to be exclusive’", date: "2026-09-11", time: "12:30", url: "https://www.ft.com/content/fb4dec4d-8c25-4ba6-bdc9-d993739ca986" },
@@ -53,11 +60,4 @@ export const FT_ITEMS = [
   { id: "b1b44515-1825-4164-ac83-659a74c9f553", title: "Trump-Vance’s US midterm pitch: vote Republican or live with the ‘lunatics’", date: "2026-09-11", time: "05:27", url: "https://www.ft.com/content/b1b44515-1825-4164-ac83-659a74c9f553" },
   { id: "2c9ce5b0-32ae-4460-aa89-9c80eb05ee41", title: "US rate rise fears ripple through global bond markets", date: "2026-09-11", time: "05:06", url: "https://www.ft.com/content/2c9ce5b0-32ae-4460-aa89-9c80eb05ee41" },
   { id: "4c4f948d-dedf-4eb1-addb-73581cc455e7", title: "Private equity’s ‘Waiting for Godot’ era continues", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/4c4f948d-dedf-4eb1-addb-73581cc455e7" },
-  { id: "df2d9bcc-59f9-4122-aa4d-2020bef77e0e", title: "Iran and Gulf states to meet in push for Hormuz deal", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/df2d9bcc-59f9-4122-aa4d-2020bef77e0e" },
-  { id: "38e0e6c6-0775-4f05-89e4-c02bbcf7008a", title: "Elon Musk’s gas turbines could shake up the backlogged sector", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/38e0e6c6-0775-4f05-89e4-c02bbcf7008a" },
-  { id: "dd4cc4a0-844e-486a-b99c-b379d457019b", title: "Scott Bessent fails to break ‘fever’ in US bond market", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/dd4cc4a0-844e-486a-b99c-b379d457019b" },
-  { id: "56a0085d-460d-45a1-a5a9-7dc862e826c0", title: "Virgin Media O2 owners target £600mn in cost cuts", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/56a0085d-460d-45a1-a5a9-7dc862e826c0" },
-  { id: "de71f35d-37b2-4d4b-ae4a-489d454b74bf", title: "EU looks for new path to tap Russian assets for Ukraine", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/de71f35d-37b2-4d4b-ae4a-489d454b74bf" },
-  { id: "3c6c225c-10d5-45b4-ad38-baacadcacad9", title: "First-time buyers load up on mortgage debt after change in lending rules", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/3c6c225c-10d5-45b4-ad38-baacadcacad9" },
-  { id: "ad97a760-6ce9-4f96-bfd0-1d6921fdcbd0", title: "UK youth unemployment plan will not produce savings for years, warns Milburn", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/ad97a760-6ce9-4f96-bfd0-1d6921fdcbd0" },
 ];
