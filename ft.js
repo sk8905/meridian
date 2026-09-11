@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-11", time: "15:45", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "25102821-d86d-4ef0-a858-903e270df3f9", title: "Higher than expected core CPI gives Fed enough to tighten", date: "2026-09-11", time: "14:53", url: "https://www.ft.com/content/25102821-d86d-4ef0-a858-903e270df3f9" },
   { id: "2c9ce5b0-32ae-4460-aa89-9c80eb05ee41", title: "Bond markets stabilise after global sell-off", date: "2026-09-11", time: "14:22", url: "https://www.ft.com/content/2c9ce5b0-32ae-4460-aa89-9c80eb05ee41" },
   { id: "686b06a7-a041-49dc-88b1-2607a3ba8e11", title: "What we still haven’t learnt from 9/11", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/686b06a7-a041-49dc-88b1-2607a3ba8e11" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "d8848ef1-e707-4b92-b46e-e3c289a6df19", title: "FTAV’s further reading", date: "2026-09-11", time: "06:30", url: "https://www.ft.com/content/d8848ef1-e707-4b92-b46e-e3c289a6df19" },
   { id: "819e34f5-7ba7-4cb3-942f-012d5fc501ce", title: "Macron shoots for the moon with pitch to Europe’s struggling space sector", date: "2026-09-11", time: "06:00", url: "https://www.ft.com/content/819e34f5-7ba7-4cb3-942f-012d5fc501ce" },
   { id: "48588acb-8026-4c8e-aac7-8b5588294dbf", title: "How big is the open-model threat to AI hyperscalers?", date: "2026-09-11", time: "06:00", url: "https://www.ft.com/content/48588acb-8026-4c8e-aac7-8b5588294dbf" },
-  { id: "b1b44515-1825-4164-ac83-659a74c9f553", title: "Trump-Vance’s US midterm pitch: vote Republican or live with the ‘lunatics’", date: "2026-09-11", time: "05:27", url: "https://www.ft.com/content/b1b44515-1825-4164-ac83-659a74c9f553" },
 ];

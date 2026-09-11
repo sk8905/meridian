@@ -42,6 +42,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-sixmapartnersweilcravath-20260911",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Full details - the six M&A partners set to leave Weil for Cravath",
+    date: "2026-09-11",
+    time: "15:29",
+    summary: "Five other partners to join corporate chair Aiello in move to Cravath.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMR6JZEgXOQdYZ5gAX/wv",
+  },
+  {
     id: "nl-mailbrew-fridaybrew13-20260911",
     publication: "Mailbrew",
     author: null,
@@ -469,16 +480,5 @@ export const NEWSLETTERS = [
     time: "18:17",
     summary: "Stronger payrolls and a 6.3% rise in Brent put inflation and central bank decisions back in focus.",
     url: "https://go.cf.com/e3t/Ctc/ZZ+113/d5Z2Pb04/VX26NC78JSmCW5Z3wDk4ZNjPqW4nNzqf5TJxQsMSn_pR3prCCW95jsWP6lZ3pDW54DR0H8Sddt5W35cxtC5Tjmd9VYW83W8mKZCDW402VQS1WZ6w5W1xLS3J16kN61W8dtCM85lK2bVW4828KF4WNKHxW3kVdJ279kcTQW5D4d2794MpBNW9jV0Yh5bfvGGW6Q-vqP4ZBVkJVlM5vj5BQtjbN4v_qrwHr5XrW6d9PlJ5S4_p9VKVHj-5fYZHwW4FpMWT9jwwmJW1dcFCF3mVdnFW37r8Mh3_P614N4JKyJfNzXWcW33v07_4BSjg4V1BvHS5bQv4sM-1ZrBn3hdtW4KHKhv61PlyVW4NsCv51_vS78W23fL-c7Vt62kW4x6_Mq6pvzwyW6qp1C04WVBHbW50Hstj284H24W4B49Z67ZrbHfW8BCGJN34zQRNf23xxcT04",
-  },
-  {
-    id: "nl-bbg-thebrink-australiachinaparallel-20260908",
-    publication: "Bloomberg",
-    author: "Manolo Serapio Jr.",
-    series: "The Brink",
-    title: "The Brink: Australia-China parallel",
-    date: "2026-09-08",
-    time: "16:54",
-    summary: "A property developer unravels in Australia and raises a Chinese specter.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-08/australia-s-bathla-collapse-raises-fears-of-a-china-style-spiral",
   },
 ];
