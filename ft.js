@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d470e9dd-760c-46ae-93ec-014b59160b37", title: "France’s debt interest bill to jump 25% this year", date: "2026-09-11", time: "12:35", url: "https://www.ft.com/content/d470e9dd-760c-46ae-93ec-014b59160b37" },
+  { id: "03686827-1e80-4796-90ad-8e2d5318c0a5", title: "The day Warren Buffett saved Salomon Brothers", date: "2026-09-11", time: "12:31", url: "https://www.ft.com/content/03686827-1e80-4796-90ad-8e2d5318c0a5" },
+  { id: "fb4dec4d-8c25-4ba6-bdc9-d993739ca986", title: "Soho House founder Nick Jones: ‘We were never trying to be exclusive’", date: "2026-09-11", time: "12:30", url: "https://www.ft.com/content/fb4dec4d-8c25-4ba6-bdc9-d993739ca986" },
+  { id: "4fccbee7-49a3-4d4f-887a-db8b44c6e0c3", title: "AI: Is Britain prepared?", date: "2026-09-11", time: "12:29", url: "https://www.ft.com/content/4fccbee7-49a3-4d4f-887a-db8b44c6e0c3" },
+  { id: "43122dc1-0340-4ec0-a7f4-4d198901317f", title: "Zack Polanski faces uphill battle in Keir Starmer’s former seat", date: "2026-09-11", time: "12:13", url: "https://www.ft.com/content/43122dc1-0340-4ec0-a7f4-4d198901317f" },
   { id: "bcffd7aa-d9fc-4ae3-bf3e-c121d50a7d6d", title: "Time to start taking AI risks seriously", date: "2026-09-11", time: "12:01", url: "https://www.ft.com/content/bcffd7aa-d9fc-4ae3-bf3e-c121d50a7d6d" },
   { id: "e396d7c6-9301-49e3-9e5d-6348650a1a98", title: "‘Manchester is an opportunity’: but for who?", date: "2026-09-11", time: "12:00", url: "https://www.ft.com/content/e396d7c6-9301-49e3-9e5d-6348650a1a98" },
   { id: "7274da64-f1ad-47aa-811f-680f76d3b18c", title: "Ex-Goodwin lawyer pleads not guilty to insider trading in London", date: "2026-09-11", time: "11:34", url: "https://www.ft.com/content/7274da64-f1ad-47aa-811f-680f76d3b18c" },
@@ -55,10 +60,4 @@ export const FT_ITEMS = [
   { id: "de71f35d-37b2-4d4b-ae4a-489d454b74bf", title: "EU looks for new path to tap Russian assets for Ukraine", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/de71f35d-37b2-4d4b-ae4a-489d454b74bf" },
   { id: "3c6c225c-10d5-45b4-ad38-baacadcacad9", title: "First-time buyers load up on mortgage debt after change in lending rules", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/3c6c225c-10d5-45b4-ad38-baacadcacad9" },
   { id: "ad97a760-6ce9-4f96-bfd0-1d6921fdcbd0", title: "UK youth unemployment plan will not produce savings for years, warns Milburn", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/ad97a760-6ce9-4f96-bfd0-1d6921fdcbd0" },
-  { id: "595b3b7e-1b6d-4fc2-99fa-8383c313b1eb", title: "Insurers Zurich and Allianz have exposure linked to Radiant World", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/595b3b7e-1b6d-4fc2-99fa-8383c313b1eb" },
-  { id: "98bfd632-8778-4c48-97a0-ef78b11299cc", title: "Why Warsh is starting to bite back", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/98bfd632-8778-4c48-97a0-ef78b11299cc" },
-  { id: "303ff813-fa48-417d-a44e-387c9e649ddf", title: "Time for the Brics", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/303ff813-fa48-417d-a44e-387c9e649ddf" },
-  { id: "403933ff-4c4b-4809-b863-d61d0e061729", title: "Sanctions loophole lets UK insurer cover tankers carrying Russian gas", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/403933ff-4c4b-4809-b863-d61d0e061729" },
-  { id: "bbdad57e-bd57-4c75-98b8-12fca7cbd268", title: "America remembers: twenty-five years after 9/11", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/bbdad57e-bd57-4c75-98b8-12fca7cbd268" },
-  { id: "083a9c4b-3913-496d-be13-22c96053624b", title: "Markets live: US Treasury yields rise to session highs after Scott Bessent’s buyback operation undershoots target", date: "2026-09-10", time: "19:49", url: "https://www.ft.com/content/083a9c4b-3913-496d-be13-22c96053624b" },
 ];
