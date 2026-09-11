@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "25102821-d86d-4ef0-a858-903e270df3f9", title: "Higher than expected core CPI gives Fed enough to tighten", date: "2026-09-11", time: "14:53", url: "https://www.ft.com/content/25102821-d86d-4ef0-a858-903e270df3f9" },
+  { id: "2c9ce5b0-32ae-4460-aa89-9c80eb05ee41", title: "Bond markets stabilise after global sell-off", date: "2026-09-11", time: "14:22", url: "https://www.ft.com/content/2c9ce5b0-32ae-4460-aa89-9c80eb05ee41" },
   { id: "686b06a7-a041-49dc-88b1-2607a3ba8e11", title: "What we still haven’t learnt from 9/11", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/686b06a7-a041-49dc-88b1-2607a3ba8e11" },
   { id: "4e1c7760-b716-47a9-bc08-064d13b936df", title: "The AfD won’t stop with Saxony-Anhalt", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/4e1c7760-b716-47a9-bc08-064d13b936df" },
   { id: "780d08a9-1ae9-4d36-94e6-a7e2e38b1314", title: "Will Burnham grasp the urgent need to defend the UK?", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/780d08a9-1ae9-4d36-94e6-a7e2e38b1314" },
@@ -27,14 +29,16 @@ export const FT_ITEMS = [
   { id: "f08d9848-ca55-4e39-af14-91e770d39a5d", title: "Reader callout: What is the outlook for buy-to-let investors?", date: "2026-09-11", time: "13:42", url: "https://www.ft.com/content/f08d9848-ca55-4e39-af14-91e770d39a5d" },
   { id: "970b007d-3ce9-452a-bba7-f0163be0522f", title: "Claude thinks I’m an investment dunce", date: "2026-09-11", time: "13:33", url: "https://www.ft.com/content/970b007d-3ce9-452a-bba7-f0163be0522f" },
   { id: "976fa0d6-ed09-4a6f-be02-ff4317b45f40", title: "Houthis seize Red Sea islands in lightning offensive", date: "2026-09-11", time: "13:26", url: "https://www.ft.com/content/976fa0d6-ed09-4a6f-be02-ff4317b45f40" },
+  { id: "d8127be2-633e-415d-8e5f-82981ad551d4", title: "Vladimir Putin given friendly reception at India Brics summit", date: "2026-09-11", time: "13:05", url: "https://www.ft.com/content/d8127be2-633e-415d-8e5f-82981ad551d4" },
   { id: "d470e9dd-760c-46ae-93ec-014b59160b37", title: "France’s debt interest bill to jump 25% this year", date: "2026-09-11", time: "12:35", url: "https://www.ft.com/content/d470e9dd-760c-46ae-93ec-014b59160b37" },
   { id: "03686827-1e80-4796-90ad-8e2d5318c0a5", title: "The day Warren Buffett saved Salomon Brothers", date: "2026-09-11", time: "12:31", url: "https://www.ft.com/content/03686827-1e80-4796-90ad-8e2d5318c0a5" },
   { id: "fb4dec4d-8c25-4ba6-bdc9-d993739ca986", title: "Soho House founder Nick Jones: ‘We were never trying to be exclusive’", date: "2026-09-11", time: "12:30", url: "https://www.ft.com/content/fb4dec4d-8c25-4ba6-bdc9-d993739ca986" },
   { id: "4fccbee7-49a3-4d4f-887a-db8b44c6e0c3", title: "AI: Is Britain prepared?", date: "2026-09-11", time: "12:29", url: "https://www.ft.com/content/4fccbee7-49a3-4d4f-887a-db8b44c6e0c3" },
   { id: "43122dc1-0340-4ec0-a7f4-4d198901317f", title: "Zack Polanski faces uphill battle in Keir Starmer’s former seat", date: "2026-09-11", time: "12:13", url: "https://www.ft.com/content/43122dc1-0340-4ec0-a7f4-4d198901317f" },
   { id: "bcffd7aa-d9fc-4ae3-bf3e-c121d50a7d6d", title: "Time to start taking AI risks seriously", date: "2026-09-11", time: "12:01", url: "https://www.ft.com/content/bcffd7aa-d9fc-4ae3-bf3e-c121d50a7d6d" },
-  { id: "e396d7c6-9301-49e3-9e5d-6348650a1a98", title: "‘Manchester is an opportunity’: but for who?", date: "2026-09-11", time: "12:00", url: "https://www.ft.com/content/e396d7c6-9301-49e3-9e5d-6348650a1a98" },
+  { id: "e396d7c6-9301-49e3-9e5d-6348650a1a98", title: "‘Manchester is an opportunity’: but for whom?", date: "2026-09-11", time: "12:00", url: "https://www.ft.com/content/e396d7c6-9301-49e3-9e5d-6348650a1a98" },
   { id: "7274da64-f1ad-47aa-811f-680f76d3b18c", title: "Ex-Goodwin lawyer pleads not guilty to insider trading in London", date: "2026-09-11", time: "11:34", url: "https://www.ft.com/content/7274da64-f1ad-47aa-811f-680f76d3b18c" },
+  { id: "41fcad5f-054c-4b8b-8796-bcccaf9ae489", title: "FirstFT: Remembering the victims of 9/11", date: "2026-09-11", time: "11:23", url: "https://www.ft.com/content/41fcad5f-054c-4b8b-8796-bcccaf9ae489" },
   { id: "45ba5468-87fa-4afb-8c35-ff27579109d3", title: "Hong Kong sentences Tiananmen vigil organisers to prison", date: "2026-09-11", time: "11:10", url: "https://www.ft.com/content/45ba5468-87fa-4afb-8c35-ff27579109d3" },
   { id: "7aa19beb-db39-46dd-8979-0c32c51ed53b", title: "KPMG under investigation over audits for Prax’s State Oil arm", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/7aa19beb-db39-46dd-8979-0c32c51ed53b" },
   { id: "db6974e5-0088-4dde-b455-2275033d9438", title: "Ukrainian Lessons by Charlotte Higgins — culture war", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/db6974e5-0088-4dde-b455-2275033d9438" },
@@ -47,7 +51,6 @@ export const FT_ITEMS = [
   { id: "91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20", title: "Andy Burnham’s blind spot", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20" },
   { id: "95717e6f-2cc0-4d25-856d-2817008806ac", title: "The perfect impracticality of the ‘wow’ shoe", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/95717e6f-2cc0-4d25-856d-2817008806ac" },
   { id: "f1333f1c-a459-4992-8681-996c7727a981", title: "Celia Birtwell on Hockney, Carmen rollers and the feathers of Moulin Rouge", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/f1333f1c-a459-4992-8681-996c7727a981" },
-  { id: "d8127be2-633e-415d-8e5f-82981ad551d4", title: "Vladimir Putin anticipates friendly reception at India Brics summit", date: "2026-09-11", time: "09:20", url: "https://www.ft.com/content/d8127be2-633e-415d-8e5f-82981ad551d4" },
   { id: "41fb2ff1-fb84-4ae4-8668-59d46842dcdb", title: "Citadel hands international equities leadership to Elliott veteran Nabeel Bhanji", date: "2026-09-11", time: "09:04", url: "https://www.ft.com/content/41fb2ff1-fb84-4ae4-8668-59d46842dcdb" },
   { id: "ebfa69a3-323b-450d-8bfd-0b12e01d2a5b", title: "US diesel hits record $6 a gallon on Iran supply shock", date: "2026-09-11", time: "08:56", url: "https://www.ft.com/content/ebfa69a3-323b-450d-8bfd-0b12e01d2a5b" },
   { id: "e1aacb1c-45d1-4d21-b5e9-0166c12c54cd", title: "UK economy unexpectedly grew 0.4 per cent in July", date: "2026-09-11", time: "07:02", url: "https://www.ft.com/content/e1aacb1c-45d1-4d21-b5e9-0166c12c54cd" },
@@ -56,8 +59,5 @@ export const FT_ITEMS = [
   { id: "d8848ef1-e707-4b92-b46e-e3c289a6df19", title: "FTAV’s further reading", date: "2026-09-11", time: "06:30", url: "https://www.ft.com/content/d8848ef1-e707-4b92-b46e-e3c289a6df19" },
   { id: "819e34f5-7ba7-4cb3-942f-012d5fc501ce", title: "Macron shoots for the moon with pitch to Europe’s struggling space sector", date: "2026-09-11", time: "06:00", url: "https://www.ft.com/content/819e34f5-7ba7-4cb3-942f-012d5fc501ce" },
   { id: "48588acb-8026-4c8e-aac7-8b5588294dbf", title: "How big is the open-model threat to AI hyperscalers?", date: "2026-09-11", time: "06:00", url: "https://www.ft.com/content/48588acb-8026-4c8e-aac7-8b5588294dbf" },
-  { id: "41fcad5f-054c-4b8b-8796-bcccaf9ae489", title: "FirstFT: Bessent fails to break bond market ‘fever’", date: "2026-09-11", time: "05:31", url: "https://www.ft.com/content/41fcad5f-054c-4b8b-8796-bcccaf9ae489" },
   { id: "b1b44515-1825-4164-ac83-659a74c9f553", title: "Trump-Vance’s US midterm pitch: vote Republican or live with the ‘lunatics’", date: "2026-09-11", time: "05:27", url: "https://www.ft.com/content/b1b44515-1825-4164-ac83-659a74c9f553" },
-  { id: "2c9ce5b0-32ae-4460-aa89-9c80eb05ee41", title: "US rate rise fears ripple through global bond markets", date: "2026-09-11", time: "05:06", url: "https://www.ft.com/content/2c9ce5b0-32ae-4460-aa89-9c80eb05ee41" },
-  { id: "4c4f948d-dedf-4eb1-addb-73581cc455e7", title: "Private equity’s ‘Waiting for Godot’ era continues", date: "2026-09-11", time: "05:00", url: "https://www.ft.com/content/4c4f948d-dedf-4eb1-addb-73581cc455e7" },
 ];
