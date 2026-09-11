@@ -4,6 +4,7 @@
 
 import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-5";
+import { nbNums } from "../nb-format.js?v=v2-1";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
@@ -380,7 +381,7 @@ function macIndKeyMomentsHtml(country) {
   if (!rows.length) return "";
   const LBL = Object.fromEntries(INDICATORS);
   const row = (x) => `<div class="mac-km"><span class="mac-km-t">${esc(LBL[x.k] || x.k)}</span>`
-    + `<span class="mac-km-x">${esc(x.km.text)} <a class="mac-km-src" href="${esc(x.km.src)}" target="_blank" rel="noopener noreferrer">${esc(x.km.srcName || "source")}</a></span></div>`;
+    + `<span class="mac-km-x">${nbNums(esc(x.km.text))} <a class="mac-km-src" href="${esc(x.km.src)}" target="_blank" rel="noopener noreferrer">${esc(x.km.srcName || "source")}</a></span></div>`;
   return `<div class="mac-km-wrap"><div class="mac-km-h">Key moments <span>why it moved</span></div>${rows.map(row).join("")}</div>`;
 }
 // Which economy the indicators rail has expanded (G7 + Euro Area + Ireland).

@@ -35,23 +35,35 @@ check(src.hasDet && /^Sources/.test(src.summaryText), `sources render as a singl
 check(src.startsClosed, "sources start collapsed");
 check(src.bodyLinks > 0 && src.noInlineBlock, `expanding shows the source links (${src.bodyLinks}); no long inline note`);
 
-// Investments tab: deal rows tagged debt/equity, each linking its source.
+// Investments tab: a TABLE — company/borrower · deal · instrument · amount · date
+// · source. Every row is tagged debt/equity and leads with a company link to its
+// source article.
 await pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="investments"]'); if (t) t.click(); });
 await pg.waitForTimeout(300);
 const inv = await pg.evaluate(() => {
   const pane = document.querySelector('#mgr-panes .tpane[data-p="investments"]');
-  const rows = [...pane.querySelectorAll(".tinv-row")];
+  const table = pane.querySelector("table.tinv-tbl");
+  const heads = table ? [...table.querySelectorAll("thead th")].map((h) => h.textContent.trim()) : [];
+  const rows = table ? [...table.querySelectorAll("tbody tr")] : [];
   return {
+    hasTable: !!table,
+    heads,
     count: rows.length,
     tagged: rows.filter((r) => r.querySelector(".tinv-tag")).length,
     debtOrEquity: rows.filter((r) => r.querySelector(".tinv-tag.is-debt, .tinv-tag.is-equity")).length,
-    sourced: rows.filter((r) => { const a = r.querySelector(".tinv-head[href]"); return a && /^https?:/.test(a.getAttribute("href")); }).length,
+    named: rows.filter((r) => { const a = r.querySelector(".tinv-c-co .tinv-co[href]"); return a && /^https?:/.test(a.getAttribute("href")); }).length,
+    withAmount: rows.filter((r) => { const t = (r.querySelector(".tinv-c-amt") || {}).textContent || ""; return /[$£€]/.test(t); }).length,
+    withDate: rows.filter((r) => (r.querySelector(".tinv-c-date") || {}).textContent.trim()).length,
   };
 });
-check(inv.count > 0, `Investments tab lists deals (${inv.count})`);
+check(inv.hasTable, "Investments tab renders as a table");
+check(/Company/.test(inv.heads[0] || "") && inv.heads.some((h) => /Amount/.test(h)) && inv.heads.some((h) => /Date/.test(h)), `table columns: company/borrower, deal, instrument, amount, date, source (${inv.heads.join(" · ")})`);
+check(inv.count > 0, `Investments table lists deals (${inv.count})`);
 check(inv.tagged === inv.count, `every investment carries an instrument tag (${inv.tagged}/${inv.count})`);
 check(inv.debtOrEquity > 0, `investments are classified debt/equity where the article says so (${inv.debtOrEquity})`);
-check(inv.sourced === inv.count, `every investment links its source article (${inv.sourced}/${inv.count})`);
+check(inv.named === inv.count, `every investment leads with a company/borrower link to its source (${inv.named}/${inv.count})`);
+check(inv.withAmount > 0, `deal amounts surface where known (${inv.withAmount})`);
+check(inv.withDate === inv.count, `every investment shows its date (${inv.withDate}/${inv.count})`);
 
 // Vehicles tab: Funds + CLOs + Listed vehicles merged into labelled groups.
 await pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="vehicles"]'); if (t) t.click(); });

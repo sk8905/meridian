@@ -15,6 +15,7 @@ import {
   HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
+import { dealSubject, dealAmount } from "../deal-parse.js?v=v2-1";
 import {
   eur, pct, fmtDate, link, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
@@ -421,60 +422,35 @@ function classifyInstrument(d) {
   if (eq && !debt) return { cls: "Equity", sub: "", curated: false };
   return { cls: "", sub: "", curated: false };   // unspecified — never guessed
 }
-// The manager is implicit on its own profile, so an Investments row should LEAD
-// with the other named party — the portfolio company invested in, or the borrower
-// lent to. We derive that party (and the deal size) best-effort from the real,
-// sourced headline: only high-confidence connective patterns count, and the
-// verbatim headline always stays visible beneath, so nothing is fabricated or
-// hidden when a headline doesn't parse (it simply leads with the headline).
-const _INV_NAME = "[A-Z][A-Za-z0-9&.'’-]*(?:\\s+[A-Z0-9][A-Za-z0-9&.'’-]*){0,4}";
-const INV_SUBJ_PATTS = [
-  `acquisition of (${_INV_NAME})`,
-  `buyout of (${_INV_NAME})`,
-  `takeover of (${_INV_NAME})`,
-  `refinanc(?:ing|e[ds]?) (?:of|for) (${_INV_NAME})`,
-  `\\brefinance (${_INV_NAME})`,
-  `(?:stake|interest) in (${_INV_NAME})`,
-  `(?:take control of|control of|to take over) (${_INV_NAME})`,
-  `\\bexits (${_INV_NAME})`,
-  `\\bto back (${_INV_NAME})`,
-  `\\bbacks (${_INV_NAME})`,
-  `(?:facility|financing|loan|package) (?:to|for) (${_INV_NAME})`,
-].map((p) => new RegExp(p));
-function dealSubject(d) {
-  const h = String(d.headline || "");
-  for (const re of INV_SUBJ_PATTS) {
-    const m = h.match(re);
-    if (m && m[1]) {
-      const s = m[1].replace(/[’']s$/, "").replace(/[ ,.;:]+$/, "").trim();
-      if (s.length >= 2 && !/^(?:The|A|An|Its|Their|New)$/i.test(s)) return s;
-    }
-  }
-  return "";
-}
-// First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn").
-function dealAmount(d) {
-  const m = String(d.headline || "").match(/[$£€]\s?\d[\d.,]*\s?(?:bn|billion|m|million|k)?/i);
-  if (!m) return "";
-  return m[0].replace(/\s+/g, "").replace(/billion/i, "bn").replace(/million/i, "m");
-}
+// The manager is implicit on its own profile, so an Investments row LEADS with the
+// other named party — the portfolio company / borrower — derived best-effort from
+// the sourced headline (dealSubject/dealAmount, shared with the Transactions
+// tables; see v2/js/deal-parse.js). The verbatim headline always stays visible
+// beneath, so a headline that doesn’t parse simply leads with itself.
+// One Investments table row: the portfolio company / borrower leads (linking to
+// the source article — "news about this"), with the deal type, debt/equity
+// instrument, size and date in their own columns and the outlet at the right. The
+// verbatim, sourced headline sits beneath the name so nothing is misrepresented
+// when the name is derived; rows that don't parse lead with the headline itself.
 function invRow(d) {
   const { cls, sub, curated } = classifyInstrument(d);
   const tag = cls
     ? `<span class="tinv-tag ${cls === "Debt" ? "is-debt" : "is-equity"}"${curated ? "" : ' title="Auto-derived from the linked article"'}>${esc(cls)}${sub ? " · " + esc(sub) : ""}${curated ? "" : "<span class=\"tinv-inf\">~</span>"}</span>`
-    : `<span class="tinv-tag is-unspec">Type unspecified</span>`;
+    : `<span class="tinv-tag is-unspec">—</span>`;
   const outlet = creditSource(d) || "";
   const subj = dealSubject(d);
   const amt = dealAmount(d);
-  const lead = subj
-    ? `${esc(subj)}${amt ? ` <span class="tinv-amt">${esc(amt)}</span>` : ""}`
-    : esc(d.headline);
-  const headlineSub = subj ? `<div class="tinv-sub">${esc(d.headline)}</div>` : "";
-  return `<li class="tinv-row">`
-    + `<a class="tinv-head" href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${lead}</a>`
-    + headlineSub
-    + `<div class="tinv-meta">${tag}<span class="tinv-when">${esc(fmtDate(d.date))}</span>${outlet ? `<span class="tinv-src">${esc(outlet)}</span>` : ""}</div>`
-    + `</li>`;
+  const url = esc(d.sourceUrl);
+  const co = `<a class="tinv-co" href="${url}" target="_blank" rel="noopener noreferrer">${subj ? esc(subj) : esc(d.headline)}</a>`;
+  const hl = subj ? `<span class="tinv-hl">${esc(d.headline)}</span>` : "";
+  return `<tr>`
+    + `<td class="tinv-c-co">${co}${hl}</td>`
+    + `<td class="tinv-c-type">${esc(d.type || "—")}</td>`
+    + `<td class="tinv-c-instr">${tag}</td>`
+    + `<td class="tinv-c-amt">${amt ? esc(amt) : "—"}</td>`
+    + `<td class="tinv-c-date">${esc(fmtDate(d.date))}</td>`
+    + `<td class="tinv-c-src">${outlet ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${esc(outlet)}</a>` : "—"}</td>`
+    + `</tr>`;
 }
 
 export function viewManager(id) {
@@ -524,7 +500,9 @@ export function viewManager(id) {
   // debt/equity (+ sub-type where the article says so). mgrFeed is date-sorted.
   const investments = mgrFeed.filter((x) => x._kind === "deal" && INVEST_TYPES.has(x.type));
   const invPane = investments.length
-    ? `<ul class="tinv">${investments.map(invRow).join("")}</ul>`
+    ? `<div class="tleague-wrap"><table class="tleague tleague-full tinv-tbl">`
+      + `<thead><tr><th>Company / borrower</th><th>Deal</th><th>Instrument</th><th>Amount</th><th>Date</th><th class="tinv-c-src">Source</th></tr></thead>`
+      + `<tbody>${investments.map(invRow).join("")}</tbody></table></div>`
     : `<p class="tw-empty muted small">No investments identified yet from the news surfaced for this manager.</p>`;
   const peoplePane = (() => {
     let out = "";
@@ -565,7 +543,7 @@ export function viewManager(id) {
     <div class="tdash">
       ${breadcrumb([["#/", "Managers"], [null, m.name]])}
       <div class="tdash-grid tdash-1">
-        <section class="tcol tcol-c tcol-full">
+        <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
             <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${m.aumText ? " · " + esc(aumHeadline(m)) + " AUM" : ""}</div>
@@ -816,7 +794,7 @@ export function viewHedgeFund(id) {
     <div class="tdash">
       ${breadcrumb([["#/", "Hedge Funds"], [null, f.name]])}
       <div class="tdash-grid tdash-1">
-        <section class="tcol tcol-c tcol-full">
+        <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${esc(f.name)}</h1>
             <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>

@@ -253,7 +253,7 @@
    column so every explanation lines up regardless of index-name length. */
 .dsh-km { display:grid; grid-template-columns:148px 1fr; gap:10px; align-items:baseline; padding:6px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-km:last-child { border-bottom:0; }
-.dsh-km-t { color:var(--t-ink); font-weight:600; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-km-t { color:var(--accent); font-weight:600; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-km-x { color:var(--t-dim); font-size:11px; line-height:1.4; }
 @media (max-width:520px){ .dsh-km { grid-template-columns:118px 1fr; gap:8px; } }
 

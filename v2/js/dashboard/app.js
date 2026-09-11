@@ -17,6 +17,7 @@ import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNI
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { bandHTML } from "/v2/js/searchband.js?v=v2-2";
+import { nbNums } from "../nb-format.js?v=v2-1";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
 
 // Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
@@ -155,7 +156,7 @@ export function mount(host, ctx) {
     const items = EQ_INDICES.filter((x) => x.keyMoment && x.keyMoment.text);
     if (!items.length) return "";
     const row = (x) => `<div class="dsh-km"><span class="dsh-km-t">${esc(x.name)}</span>`
-      + `<span class="dsh-km-x">${esc(x.keyMoment.text)}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
+      + `<span class="dsh-km-x">${nbNums(esc(x.keyMoment.text))}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
     return items.map(row).join("");
   }
   // ETF flows heatmap — net fund flows across the Top Movers cross-asset ETF set
@@ -693,7 +694,7 @@ export function mount(host, ctx) {
     const TEN = { two_year: "2Y", five_year: "5Y", ten_year: "10Y", thirty_year: "30Y" };
     const label = (k) => { const [cc, t] = String(k).split(":"); return `${cc}${TEN[t] ? " " + TEN[t] : ""}`; };
     const row = (k) => { const m = KM[k]; return `<div class="dsh-km"><span class="dsh-km-t">${esc(label(k))}</span>`
-      + `<span class="dsh-km-x">${esc(m.text)}${srcLink(m.src, (m.srcName || "source") + " — source")}</span></div>`; };
+      + `<span class="dsh-km-x">${nbNums(esc(m.text))}${srcLink(m.src, (m.srcName || "source") + " — source")}</span></div>`; };
     return keys.map(row).join("");
   }
   // Compact sovereign-yields tape — headline benchmark levels as pills.

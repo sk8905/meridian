@@ -12,7 +12,7 @@
 import {
   viewManager, viewFund, viewClo, viewLp, viewHedgeFund,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-23";
+} from "/v2/js/credit/detail.js?v=v2-24";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
@@ -106,12 +106,13 @@ export async function mount(host, ctx) {
         ? `<div class="wn-badge-pending"><span class="wn-badge-plbl">Possible — confirm in Menu ▸ Network</span>${pend.map((p) => line(p) + (p.company ? ` <span class="wn-badge-co">(${esc(p.company)})</span>` : "")).join("<br>")}</div>`
         : "";
       const n = people.length;
+      // Label mirrors the "Sources (n)" line: a count only when there's more than one.
       const label = n
-        ? `<strong>${n}</strong> LinkedIn connection${n === 1 ? "" : "s"} here`
-        : `<strong>${pend.length}</strong> possible connection${pend.length === 1 ? "" : "s"}`;
+        ? `LinkedIn connections${n > 1 ? ` (${n})` : ""}`
+        : `Possible connections${pend.length > 1 ? ` (${pend.length})` : ""}`;
       const el = document.createElement("details");
       el.className = "wire-net wn-badge";
-      el.innerHTML = `<summary class="wn-badge-h"><span class="wn-badge-ic" aria-hidden="true">in</span> ${label}<span class="wn-badge-chev" aria-hidden="true"></span></summary><div class="wn-badge-body">${confHTML}${pendHTML}</div>`;
+      el.innerHTML = `<summary class="wn-badge-h">${label}</summary><div class="wn-badge-body">${confHTML}${pendHTML}</div>`;
       // Sit the badge INSIDE the identity header, between the strategy chips and
       // the Sources line — not floating above the whole profile. Fall back to the
       // top of the detail host only if the header shape is unexpected.

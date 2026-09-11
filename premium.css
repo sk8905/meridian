@@ -699,7 +699,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-fx-tbl td a { color: inherit; text-decoration: none; display: block; padding: 5px 4px; }
 /* FX key moment — a single sourced "why it moved" line under the matrix. */
 .na-fx-km { margin-top: 8px; color: var(--mut, #8592ad); font-size: 11px; line-height: 1.45; }
-.na-fx-km-l { color: var(--ink, #eaf0fb); font-weight: 700; font-size: 9px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
+.na-fx-km-l { color: var(--accent, #fb8b1e); font-weight: 700; font-size: 9px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
 
 /* Portfolio Daily/Total P&L toggle, sat in the Holdings section header. */
 .na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }
@@ -989,8 +989,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
 /* Briefing colour cues: the TOPIC heading (Macro / Fixed income / Equities …) is
    orange, and every NUMBER (5%, $100, 4.97% …) is blue — in the lede and bullets. */
-.na-brief-lede .nb-topic, .na-brief-b .nb-topic { color: var(--accent, #fb8b1e); }
-.na-brief-lede .nb-num, .na-brief-b .nb-num { color: var(--wb-txt, #4aa3f0); }
+/* Explainer colour marks — GLOBAL so every "Key moments" / "why it moved" line and
+   briefing bullet reads the same: topic headings orange, non-date numbers blue.
+   (See v2/js/nb-format.js, which wraps the .nb-topic / .nb-num spans.) */
+.nb-topic { color: var(--accent, #fb8b1e); }
+.nb-num { color: var(--wb-txt, #4aa3f0); }
 .na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
 .na-brief-src:hover { color: var(--ink); }
 .na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; line-height: 1.45; }

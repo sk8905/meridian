@@ -20,6 +20,7 @@ import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { mountAssistant } from "/v2/js/assistant.js?v=v2-12";
 import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
+import { briefMarkup, nbNums } from "./nb-format.js?v=v2-1";
 import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
@@ -203,27 +204,8 @@ function briefHasUnread() {
 // premium.css) and the bullet list is capped, so the panel never becomes a long
 // scroll — it reads at a glance.
 const BRIEF_MAX_BULLETS = 4;
-// Colour-mark a briefing line's authored HTML: the TOPIC heading (the word[s]
-// before the em-dash in the lead <strong> — Macro / Fixed income / Equities …)
-// reads ORANGE, and every NUMBER (5%, 4.97%, $100, 1.3522 …) reads BLUE. Numbers
-// are wrapped only inside text runs, never inside a tag, so markup stays intact.
-const NB_MONTH = "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec";
-function briefMarkup(html) {
-  let h = String(html || "");
-  h = h.replace(/(<strong>)\s*([^<]*?)\s*(&mdash;|—)/, (_m, s, topic, dash) => `${s}<span class="nb-topic">${topic}</span> ${dash}`);
-  // Wrap numbers in blue — but NOT date components: a day directly before a month
-  // name ("16 September") and bare 4-digit years ("2026", "2007") keep the plain
-  // colour, while metrics ($100, 5%, 4.97%, 1.3522, 10-year) go blue.
-  h = h.replace(/(<[^>]*>)|([^<]+)/g, (_m, tag, text) => tag
-    ? tag
-    : text.replace(new RegExp(`(^|[^\\w$£€.])((?:[$£€])?\\d+(?:,\\d{3})*(?:\\.\\d+)?%?)(\\s+(?:${NB_MONTH})[a-z]*)?`, "gi"), (m, pre, num, monthTail) => {
-        const isDateDay = !!monthTail && /^\d{1,2}$/.test(num);
-        const isYear = /^(?:19|20)\d\d$/.test(num);
-        if (isDateDay || isYear) return m;
-        return `${pre}<span class="nb-num">${num}</span>${monthTail || ""}`;
-      }));
-  return h;
-}
+// Briefing lines + every explainer share ONE colour treatment (orange topic,
+// blue non-date numbers) — see v2/js/nb-format.js (briefMarkup / nbNums).
 function renderBriefing(body, slotKey) {
   const B = BRIEFINGS || {};
   const slots = B.slots || {};
@@ -426,7 +408,7 @@ function naFxMatrix(d) {
     return `<tr><th>${esc(base)}</th>${cells}</tr>`;
   }).join("");
   const km = (FX_KEYMOMENT && FX_KEYMOMENT.text)
-    ? `<div class="na-fx-km"><span class="na-fx-km-l">Key moment</span> ${esc(FX_KEYMOMENT.text)}${FX_KEYMOMENT.src ? ` <a class="na-brief-src" href="${esc(FX_KEYMOMENT.src)}" target="_blank" rel="noopener noreferrer">${esc(FX_KEYMOMENT.srcName || "source")}</a>` : ""}</div>`
+    ? `<div class="na-fx-km"><span class="na-fx-km-l">Key moment</span> ${nbNums(esc(FX_KEYMOMENT.text))}${FX_KEYMOMENT.src ? ` <a class="na-brief-src" href="${esc(FX_KEYMOMENT.src)}" target="_blank" rel="noopener noreferrer">${esc(FX_KEYMOMENT.srcName || "source")}</a>` : ""}</div>`
     : "";
   return naSec("FX matrix", "1D cross") + `<div class="na-fx-wrap"><table class="na-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>${km}</div>`;
 }
