@@ -84,6 +84,16 @@ const target = Math.round(0.09 * vh);
 check(Math.abs(askTop - target) <= 5, `Ask panel is top-anchored at ~9vh (top ${askTop}, target ${target})`);
 check(Math.abs(askTop - mktTop) <= 2, `Ask & Markets panels share one top edge (${askTop} vs ${mktTop})`);
 
+// The panel chip tabs (Markets|Macro|Portfolio here) carry the SAME flush 2-layer
+// active marker as the main tabs — sitting ON the row borderline, not floating
+// above it.
+await pg.evaluate(() => document.getElementById("na-mkt").click());
+await pg.waitForTimeout(150);
+const chipUL = await pg.evaluate(() => { const c = document.querySelector("#na-mkt-panel .na-chip.is-on"); return c ? getComputedStyle(c).boxShadow : null; });
+check(chipUL && (chipUL.match(/rgb/g) || []).length >= 2 && /inset/.test(chipUL), `panel chip active marker is the flush 2-layer underline (${chipUL})`);
+await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
+await pg.waitForTimeout(120);
+
 // ---- The "'" shortcut opens the Chat (Ask) panel (keyboard twin of "/") ----
 await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "'", bubbles: true })));
 await pg.waitForTimeout(150);
