@@ -20,6 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fbcfcd21-f34f-41ca-b6b9-76b415f8d54e", title: "Stockpickers: Rosebank Industries, SigmaRoc, Ashmore", date: "2026-09-11", time: "18:00", url: "https://www.ft.com/content/fbcfcd21-f34f-41ca-b6b9-76b415f8d54e" },
+  { id: "c3740cd0-3c4c-44d0-b3e8-4ccb1bac65b0", title: "Is Scott Bessent winning the wrong battle in markets?", date: "2026-09-11", time: "18:00", url: "https://www.ft.com/content/c3740cd0-3c4c-44d0-b3e8-4ccb1bac65b0" },
+  { id: "cde3c168-5522-4d38-a6c3-454ef36aa0d4", title: "Directors’ Deals: Shell’s upstream boss takes advantage of valuation uplift", date: "2026-09-11", time: "18:00", url: "https://www.ft.com/content/cde3c168-5522-4d38-a6c3-454ef36aa0d4" },
+  { id: "dd4cc4a0-844e-486a-b99c-b379d457019b", title: "Scott Bessent fails to break ‘fever’ in US bond market", date: "2026-09-11", time: "17:56", url: "https://www.ft.com/content/dd4cc4a0-844e-486a-b99c-b379d457019b" },
+  { id: "3ad0a45f-ae93-4854-8b61-b933a93ee159", title: "FTAV’s Friday charts quiz", date: "2026-09-11", time: "17:54", url: "https://www.ft.com/content/3ad0a45f-ae93-4854-8b61-b933a93ee159" },
+  { id: "b087d8e6-db04-4db6-8308-7275a40df5fb", title: "UK delays Jackdaw gasfield decision until after by-election in Starmer seat", date: "2026-09-11", time: "17:50", url: "https://www.ft.com/content/b087d8e6-db04-4db6-8308-7275a40df5fb" },
+  { id: "e070149c-70a4-41ee-a829-0630abb2ce35", title: "Military jet triggered UK’s latest air traffic meltdown", date: "2026-09-11", time: "17:26", url: "https://www.ft.com/content/e070149c-70a4-41ee-a829-0630abb2ce35" },
+  { id: "bbdad57e-bd57-4c75-98b8-12fca7cbd268", title: "America remembers: twenty-five years after 9/11", date: "2026-09-11", time: "17:19", url: "https://www.ft.com/content/bbdad57e-bd57-4c75-98b8-12fca7cbd268" },
+  { id: "b7fe0fe0-0463-4f55-9590-0a7d08d8fe66", title: "Why the AI race has its creators fearing human extinction", date: "2026-09-11", time: "17:11", url: "https://www.ft.com/content/b7fe0fe0-0463-4f55-9590-0a7d08d8fe66" },
   { id: "df2d9bcc-59f9-4122-aa4d-2020bef77e0e", title: "Iran and Gulf states to meet in push for Hormuz deal", date: "2026-09-11", time: "17:03", url: "https://www.ft.com/content/df2d9bcc-59f9-4122-aa4d-2020bef77e0e" },
   { id: "cf77ca45-6e16-4232-836b-714293619822", title: "Monetary Policy Radar preview: BoE’s September meeting", date: "2026-09-11", time: "16:34", url: "https://www.ft.com/content/cf77ca45-6e16-4232-836b-714293619822" },
   { id: "d7f197dd-a39a-43dc-a2f9-6204c5876e76", title: "How both sides lost after 9/11", date: "2026-09-11", time: "16:34", url: "https://www.ft.com/content/d7f197dd-a39a-43dc-a2f9-6204c5876e76" },
@@ -51,15 +60,4 @@ export const FT_ITEMS = [
   { id: "b9a48a1b-5896-46fb-91a1-d7beb18a64b7", title: "The day that blew America and the world off course", date: "2026-09-11", time: "11:00", url: "https://www.ft.com/content/b9a48a1b-5896-46fb-91a1-d7beb18a64b7" },
   { id: "1dbb63ef-359b-410e-8e86-5cd2df59fc3d", title: "Anglo nickel deal tests EU resolve over Chinese control of resources", date: "2026-09-11", time: "10:59", url: "https://www.ft.com/content/1dbb63ef-359b-410e-8e86-5cd2df59fc3d" },
   { id: "495e1b57-9b1a-483d-b776-3ac4aa05764c", title: "Desperately seeking UK data centre data", date: "2026-09-11", time: "10:17", url: "https://www.ft.com/content/495e1b57-9b1a-483d-b776-3ac4aa05764c" },
-  { id: "8310cf56-ce60-4e6e-8254-5bb470e9a880", title: "Yemeni militants used Anthropic AI to try to build ballistic missiles", date: "2026-09-11", time: "10:02", url: "https://www.ft.com/content/8310cf56-ce60-4e6e-8254-5bb470e9a880" },
-  { id: "ab6f6433-1f23-4153-a02b-7984d14734c6", title: "IEA warns of ‘lost period’ in global oil demand", date: "2026-09-11", time: "09:37", url: "https://www.ft.com/content/ab6f6433-1f23-4153-a02b-7984d14734c6" },
-  { id: "91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20", title: "Andy Burnham’s blind spot", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/91a15b04-e7f5-4a44-8a2d-4bf1dfeffb20" },
-  { id: "95717e6f-2cc0-4d25-856d-2817008806ac", title: "The perfect impracticality of the ‘wow’ shoe", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/95717e6f-2cc0-4d25-856d-2817008806ac" },
-  { id: "f1333f1c-a459-4992-8681-996c7727a981", title: "Celia Birtwell on Hockney, Carmen rollers and the feathers of Moulin Rouge", date: "2026-09-11", time: "09:30", url: "https://www.ft.com/content/f1333f1c-a459-4992-8681-996c7727a981" },
-  { id: "41fb2ff1-fb84-4ae4-8668-59d46842dcdb", title: "Citadel hands international equities leadership to Elliott veteran Nabeel Bhanji", date: "2026-09-11", time: "09:04", url: "https://www.ft.com/content/41fb2ff1-fb84-4ae4-8668-59d46842dcdb" },
-  { id: "ebfa69a3-323b-450d-8bfd-0b12e01d2a5b", title: "US diesel hits record $6 a gallon on Iran supply shock", date: "2026-09-11", time: "08:56", url: "https://www.ft.com/content/ebfa69a3-323b-450d-8bfd-0b12e01d2a5b" },
-  { id: "e1aacb1c-45d1-4d21-b5e9-0166c12c54cd", title: "UK economy unexpectedly grew 0.4 per cent in July", date: "2026-09-11", time: "07:02", url: "https://www.ft.com/content/e1aacb1c-45d1-4d21-b5e9-0166c12c54cd" },
-  { id: "f7ca7904-b0d8-428b-9bf7-883740ba9922", title: "Scott Bessent’s intervention risks damaging BoJ’s credibility, bankers warn", date: "2026-09-11", time: "06:51", url: "https://www.ft.com/content/f7ca7904-b0d8-428b-9bf7-883740ba9922" },
-  { id: "a525a00f-231f-4376-9ca6-645ed956ea69", title: "Oil is scary again", date: "2026-09-11", time: "06:30", url: "https://www.ft.com/content/a525a00f-231f-4376-9ca6-645ed956ea69" },
-  { id: "d8848ef1-e707-4b92-b46e-e3c289a6df19", title: "FTAV’s further reading", date: "2026-09-11", time: "06:30", url: "https://www.ft.com/content/d8848ef1-e707-4b92-b46e-e3c289a6df19" },
 ];
