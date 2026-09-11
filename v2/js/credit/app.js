@@ -8,7 +8,7 @@ import {
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager,
-  HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HEDGE_INTEL,
+  HEDGE_FUNDS, HEDGE_INTEL,
 } from "/credit/js/data.js";
 import {
   eur, pct, fmtDate, link, notFound,

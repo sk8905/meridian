@@ -283,4 +283,23 @@ check(!/[Ee]ach (index|country|fund) links its source/.test(dashboardApp),
 check(!/illustrative not exhaustive/.test(dashboardApp),
   "v2/js/dashboard/app.js captions do not carry the banned 'illustrative not exhaustive' methodology phrase (R20)");
 
+// R12 — the desktop topbar's section jump-links (.g-jump-link, Home's in-page
+// nav) must mark their active state with the orange bottom-border-only
+// convention (no fill, no tint), matching every other header nav control
+// (.ps-btn.is-active in the same file). It had drifted to a translucent white
+// background fill — a duplicate of the exact .ps-btn regression this file's
+// own header comment (home.css) already documents as fixed once.
+check(/\.g-jump-link\.active\s*\{[^}]*box-shadow:inset 0 -2px 0 var\(--accent,\s*#fb8b1e\)/.test(homeCss),
+  "home.css .g-jump-link.active uses the orange bottom-border-only marker (R12), not a background fill");
+check(!/\.g-jump-link\.active\s*\{[^}]*background:rgba\(255,255,255,\.15\)/.test(homeCss),
+  "home.css .g-jump-link.active no longer fills with a translucent white background");
+
+// R6 — the Macro cockpit's earnings-watch day-break (.ew-day) must set the
+// standard 10px day-break font-size like its .tw-day/.g-feed-dayhdr siblings;
+// it carried every other R6 property (weight, tracking, case, band) but the
+// rule's own adjacent comment claiming "10px/600" was never backed by an
+// actual font-size declaration, so the row inherited its container's size.
+check(/\.ew-day\s*\{[^}]*font-size:\s*10px/.test(macroCss),
+  "macro/css/styles.css .ew-day sets the standard 10px day-break font-size (R6)");
+
 finish();

@@ -293,7 +293,13 @@ export function mountAssistant(container, opts) {
     const h = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
     document.documentElement.style.setProperty("--kbd-h", h + "px");
   };
-  if (vv) { vv.addEventListener("resize", setKbd); vv.addEventListener("scroll", setKbd); }
+  let kbdQueued = false;
+  const queueSetKbd = () => {
+    if (kbdQueued) return;
+    kbdQueued = true;
+    requestAnimationFrame(() => { kbdQueued = false; setKbd(); });
+  };
+  if (vv) { vv.addEventListener("resize", queueSetKbd); vv.addEventListener("scroll", queueSetKbd); }
   container.addEventListener("focusin", (e) => {
     if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); setKbd(); }
   });

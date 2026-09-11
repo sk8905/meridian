@@ -68,7 +68,7 @@
     .g-jump-link { color:#cbd5e1; padding:.5rem .85rem; border-radius:0; font-weight:500;
       font-size:.9rem; white-space:nowrap; cursor:pointer; }
     .g-jump-link:hover { color:#fff; background:rgba(255,255,255,.08); }
-    .g-jump-link.active { color:#fff; background:rgba(255,255,255,.15); }
+    .g-jump-link.active { color:#fff; background:transparent; box-shadow:inset 0 -2px 0 var(--accent, #fb8b1e); }
     /* Primary sections emphasised (bold white); a thin divider separates them from
        the app section-jumps — mirrors the Credit/Legal/Macro nav. */
     .g-jump-link.g-jump-primary { color:#fff; font-weight:700; }
