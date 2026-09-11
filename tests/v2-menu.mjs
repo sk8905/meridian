@@ -97,16 +97,14 @@ async function menuState(pg) {
   });
   check(chipbar && (chipbar.pos === "sticky" || chipbar.viewPos === "fixed"), `direct /v2/menu/: the chip bar is locked (sticky or in the docked fixed view; chip ${chipbar && chipbar.pos}, view ${chipbar && chipbar.viewPos})`);
   check(chipbar && chipbar.top >= 40 && chipbar.top <= 80, `direct /v2/menu/: the chip bar pins below the header on phone (top ${chipbar && chipbar.top})`);
-  // Focusing the docked chat input arms keyboard mode AND presets --kbd-h to the
-  // keyboard height straight away (>0), so the input starts above the keyboard and
-  // iOS never scrolls the header/tabs off the top.
+  // Focusing the docked chat input arms keyboard mode (--kbd-h tracks the keyboard
+  // so the input glues just above it).
   const pin = await pg.evaluate(() => {
     const inp = document.querySelector('.v2-view[data-view="menu"] .na-ask-in');
     if (inp) inp.focus();
-    return { kbdOn: document.documentElement.classList.contains("chat-kbd"), kbdH: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--kbd-h")) || 0 };
+    return { kbdOn: document.documentElement.classList.contains("chat-kbd") };
   });
   check(pin.kbdOn, "docked chat: focusing the input arms keyboard mode (chat-kbd)");
-  check(pin.kbdH > 120, `docked chat: --kbd-h is preset on focus so the input sits above the keyboard (${pin.kbdH}px)`);
   // While the keyboard is up the docked view ends exactly at the keyboard top
   // (--kbd-h) so the Ask input stays visible just above it.
   const kb = await pg.evaluate(() => {

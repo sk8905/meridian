@@ -287,23 +287,10 @@ export function mountAssistant(container, opts) {
   // nav bar or dead space between the field and the keyboard. `--kbd-h` tracks the
   // on-screen keyboard height via visualViewport so the input glues above it.
   const vv = typeof window !== "undefined" && window.visualViewport;
-  // The docked view ends at the on-screen keyboard top (--kbd-h) so the input glues
-  // just above it. Crucially we PRESET --kbd-h to the last measured keyboard height
-  // the instant the field is focused — BEFORE the keyboard finishes opening — so the
-  // input is already above where the keyboard will be. iOS then has no
-  // under-keyboard input to reveal and doesn't scroll the layout viewport (which is
-  // what dragged the fixed header + tab bar off the top). visualViewport refines the
-  // exact height once the keyboard is up. The measured height is cached so the very
-  // first open is close too.
-  const KBD_KEY = "wire_kbd_h";
-  let lastKbdH = 0;
-  try { lastKbdH = parseInt(localStorage.getItem(KBD_KEY) || "", 10) || 0; } catch { /* ignore */ }
-  if (!(lastKbdH > 120)) lastKbdH = 300;   // sensible iOS default until measured
   const setKbd = () => {
     if (!vv || !document.documentElement.classList.contains("chat-kbd")) return;
     const h = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
-    if (h > 120) { lastKbdH = h; try { localStorage.setItem(KBD_KEY, String(h)); } catch { /* ignore */ } }
-    document.documentElement.style.setProperty("--kbd-h", (h > 120 ? h : lastKbdH) + "px");
+    document.documentElement.style.setProperty("--kbd-h", h + "px");
   };
   let kbdQueued = false;
   const queueSetKbd = () => {
@@ -313,11 +300,7 @@ export function mountAssistant(container, opts) {
   };
   if (vv) { vv.addEventListener("resize", queueSetKbd); vv.addEventListener("scroll", queueSetKbd); }
   container.addEventListener("focusin", (e) => {
-    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) {
-      document.documentElement.classList.add("chat-kbd");
-      document.documentElement.style.setProperty("--kbd-h", lastKbdH + "px");   // preset BEFORE the keyboard opens
-      setKbd();
-    }
+    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); setKbd(); }
   });
   container.addEventListener("focusout", (e) => {
     if (e.target.closest(".na-ask-in")) { document.documentElement.classList.remove("chat-kbd"); document.documentElement.style.setProperty("--kbd-h", "0px"); }
