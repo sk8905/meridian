@@ -12,8 +12,8 @@ export const UPDATED = "11 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-11",
-  lastCheckedTime: "21:17 BST",
+  lastChecked: "2026-09-12",
+  lastCheckedTime: "05:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -912,20 +912,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-11",
+  updated: "2026-09-12",
   us: [
-    { title: "Fed rate hike odds surge to 90% on monthly jump in core prices", source: "Yahoo Finance", date: "2026-09-11", time: "13:40", url: "https://finance.yahoo.com/economy/policy/article/fed-rate-hike-odds-surge-to-90-on-monthly-jump-in-core-prices-131206510.html" },
+    { title: "US budget deficit shrinks in August, year-to-date flat at $1.97 trillion", source: "Reuters (via Investing.com)", date: "2026-09-11", url: "https://www.investing.com/news/economy-news/us-budget-deficit-shrinks-in-august-yeartodate-flat-at-197-trillion-4898315" },
+    { title: "Week ahead – Fed, BoJ and BoE decide amid inflation dilemma", source: "FXStreet", date: "2026-09-11", time: "09:28", url: "https://www.fxstreet.com/analysis/week-ahead-fed-boj-and-boe-decide-amid-inflation-dilemma-202609110928" },
     { title: "US Core CPI Tops Forecasts, Bolstering Case for Rate Hike", source: "Bloomberg", date: "2026-09-11", time: "13:30", url: "https://www.bloomberg.com/news/articles/2026-09-11/us-core-cpi-rises-more-than-forecast-bolstering-case-for-hike" },
-    { title: "Bond Traders Price in Two Fed Hikes This Year After CPI Report", source: "Bloomberg", date: "2026-09-11", time: "14:10", url: "https://www.bloomberg.com/news/articles/2026-09-11/treasuries-fall-as-higher-than-expected-cpi-boosts-fed-hike-odds" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq end losing week on a high note as Fed rate-hike bets jump", source: "Yahoo Finance", date: "2026-09-11", time: "21:00", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-11-dow-sp-500-nasdaq-cpi-inflation-082201751.html" },
+    { title: "Global Bond Selloff Sends 10-Year Treasury Yields to Cusp of 5%", source: "Bloomberg", date: "2026-09-11", time: "06:00", url: "https://www.bloomberg.com/news/articles/2026-09-11/global-bond-selloff-sends-10-year-treasury-yields-to-cusp-of-5" },
     { title: "Oil prices fall sharply after double-digit weekly gains above $100", source: "CNBC", date: "2026-09-11", time: "15:20", url: "https://www.cnbc.com/2026/09/11/oil-price-today-iran-brent-wti-trump.html" },
   ],
   uk: [
     { title: "UK economy beats expectations in July with 0.4% growth", source: "Reuters (via Investing.com)", date: "2026-09-11", time: "06:03", url: "https://www.investing.com/news/economic-indicators/uk-economy-grew-04-in-july-4897234" },
-    { title: "FTSE 100 Live: Stocks rally as economy beats forecasts; oil falls", source: "CityAM", date: "2026-09-11", time: "16:30", url: "https://www.cityam.com/ftse-100-live-stocks-to-drop-economic-growth-set-to-vanish/" },
-    { title: "FTSE 100 closes up 0.5%, trailing DAX and CAC 40 gains", source: "24/7 Wall St.", date: "2026-09-11", time: "17:00", url: "https://247wallst.com/cards/the-dax-and-cac-40-both-added-about-0-8-while-london-manage-ftse-market-bell-01m28hmpczfvp018pfskvzq77f" },
-    { title: "Sterling today: Pound steady as UK GDP beats, dollar firms on CPI bets", source: "Reuters (via Investing.com)", date: "2026-09-11", time: "07:30", url: "https://za.investing.com/news/forex-news/sterling-today-pound-steady-as-uk-gdp-beats-dollar-firms-on-cpi-bets-4461479" },
+    { title: "UK 10-Year Gilt Yield Hits Highest Level Since 2007 on Bond Selloff", source: "Reuters (via Global Banking & Finance)", date: "2026-09-10", time: "10:30", url: "https://www.globalbankingandfinance.com/uk-10-year-gilt-yield-hits-new-19-year-high/" },
+    { title: "British Pound shakes off US CPI jolt as UK growth steals spotlight", source: "FXStreet", date: "2026-09-11", time: "15:31", url: "https://www.fxstreet.com/news/british-pound-shakes-off-us-cpi-jolt-as-uk-growth-steals-spotlight-202609111531" },
     { title: "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", source: "Reuters (via Investing.com)", date: "2026-09-10", time: "08:00", url: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672" },
+    { title: "Surge in borrowing costs could force Healey to deliver 'emergency Budget'", source: "CityAM", date: "2026-09-10", url: "https://www.cityam.com/surge-in-borrowing-costs-could-force-healey-to-deliver-emergency-budget/" },
   ],
 };
 
@@ -937,8 +937,10 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-11",
+  updated: "2026-09-12",
   items: [
+    {"title": "US budget deficit shrinks in August, year-to-date flat at $1.97 trillion", "source": "Reuters (via Investing.com)", "date": "2026-09-11", "url": "https://www.investing.com/news/economy-news/us-budget-deficit-shrinks-in-august-yeartodate-flat-at-197-trillion-4898315", "blurb": "The federal deficit hit $1.97tn for the first 11 months of fiscal 2026, roughly flat year-on-year on an adjusted basis, as spending rose 3% to $6.81tn against 3%-higher receipts of $4.85tn ahead of next week's decisive FOMC meeting.", "author": null},
+    {"title": "Week ahead – Fed, BoJ and BoE decide amid inflation dilemma", "source": "FXStreet", "date": "2026-09-11", "time": "09:28", "url": "https://www.fxstreet.com/analysis/week-ahead-fed-boj-and-boe-decide-amid-inflation-dilemma-202609110928", "blurb": "A pivotal week ahead sees the Fed, Bank of Japan and Bank of England all deliver rate decisions against a backdrop of surging oil prices and mounting inflation pressure from the widening Iran conflict, with markets pricing roughly 65-70% odds of a Fed hike to 3.75-4.00%.", "author": null},
     {"title": "Stock Market Today (Sept. 11, 2026): S&P 500, Dow recover as CPI report arrives in-line; oil falls", "source": "TheStreet", "date": "2026-09-11", "time": "21:00", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-11-2026", "blurb": "The Dow rose 1.15% to 53,414.25, the S&P 500 gained 0.96% to 7,718.60 and the Nasdaq added 0.88% to 26,506.99, ending a four-session losing streak as the in-line CPI headline eased fears of a hotter print even with core inflation running above forecast.", "author": null},
     {"title": "British Pound shakes off US CPI jolt as UK growth steals spotlight", "source": "FXStreet", "date": "2026-09-11", "time": "15:31", "url": "https://www.fxstreet.com/news/british-pound-shakes-off-us-cpi-jolt-as-uk-growth-steals-spotlight-202609111531", "blurb": "GBP/USD steadied near 1.3520 after dipping toward 1.3470 on the US CPI release, as the stronger-than-expected 0.4% UK July GDP print gave sterling a domestic offset even with gilt yields pushing toward 19-year highs.", "author": null},
     {"title": "Fed rate hike odds surge to 90% on monthly jump in core prices", "source": "Yahoo Finance", "date": "2026-09-11", "time": "13:40", "url": "https://finance.yahoo.com/economy/policy/article/fed-rate-hike-odds-surge-to-90-on-monthly-jump-in-core-prices-131206510.html", "blurb": "August core CPI rose 0.3% m/m, a tenth above forecast, pushing CME FedWatch-implied odds of a 16 September Fed hike to roughly 90% from about 70% before the release.", "author": null},
@@ -977,8 +979,6 @@ export const ARTICLES = {
     {"title": "Brent holds above $100 as tanker attacks dampen hopes for Hormuz traffic recovery", "source": "Reuters (via MSN)", "date": "2026-09-10", "time": "12:16", "url": "https://www.msn.com/en-us/news/other/brent-holds-above-100-as-tanker-attacks-dampen-hopes-for-hormuz-traffic-recovery/ar-AA2bWJDl", "blurb": "Oil held above the $100/bbl mark as traders concluded fresh tanker attacks near the Strait of Hormuz make an imminent recovery in shipping traffic — and any near-term relief for the oil-driven inflation scare — unlikely.", "author": null},
     {"title": "Trump says oil prices that spiked because of Iran war likely won't come down until after midterms", "source": "AP News", "date": "2026-09-10", "time": "12:16", "url": "https://apnews.com/article/trump-oil-prices-iran-midterms-22ffe753bb2d60c99024ca6cfbec4142", "blurb": "President Trump said he expects the Iran war, and the oil-price spike it has driven, to persist until after November's midterm elections, tying the inflation outlook directly to the political calendar.", "author": null},
     {"title": "Trump says Iran war to end after US midterm vote, Houthis close in on key Strait", "source": "Reuters", "date": "2026-09-10", "time": "12:16", "url": "https://www.reuters.com/world/middle-east/trump-says-iran-war-end-after-us-midterm-elections-threatens-attack-pickaxe-2026-09-10/", "blurb": "Trump said the conflict would end 'immediately' after the midterms as Houthi forces pressed closer to the Strait of Hormuz, keeping the oil-driven inflation risk that has shaped the Fed's September decision squarely alive.", "author": null},
-    {"title": "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", "source": "Reuters (via Cyprus Mail)", "date": "2026-09-10", "time": "08:00", "url": "https://cyprus-mail.com/2026/09/10/economists-predict-bank-of-england-will-hold-interest-rates-steady", "blurb": "All 65 economists in Reuters' latest poll expect the MPC to hold Bank Rate at 3.75% on 17 September, with inflation seen averaging 3.1% in 2026 before easing to 2.5% in 2027 — a more unanimous 'hold' consensus than markets, which are pricing hikes from November.", "author": null},
-    {"title": "Bank of Japan must raise rates further, board member says", "source": "Financial Times", "date": "2026-09-10", "time": "05:07", "url": "https://www.ft.com/content/8313accc-1de6-48a8-b184-e5e3b20c5b19", "blurb": "A Bank of Japan board member argued for further policy-rate increases to contain persistent inflation, keeping yen-policy divergence in focus as markets await the Fed's own September decision.", "author": null},
   ],
 };
 
@@ -989,8 +989,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-09-11", country: "US", title: "CPI (August)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
-  { date: "2026-09-11", country: "UK", title: "GDP monthly estimate (July)", url: "https://www.ons.gov.uk/releases/gdpmonthlyestimateukjuly2026" },
   { date: "2026-09-15", country: "UK", title: "ONS labour market & average earnings (September release)", url: "https://www.ons.gov.uk/releases/uklabourmarketseptember2026" },
   { date: "2026-09-16", country: "US", title: "FOMC rate decision (with Summary of Economic Projections)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-09-16", country: "UK", title: "CPI inflation (August)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukaugust2026" },
@@ -1008,6 +1006,7 @@ export const RELEASES = [
   { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-10-15", country: "US", title: "PPI (September)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-10-15", country: "US", title: "Retail sales (September)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
+  { date: "2026-10-15", country: "UK", title: "GDP monthly estimate (August)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/previousreleases" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
   { date: "2026-10-29", country: "US", title: "GDP (Q3 2026, Advance Estimate)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-29", country: "US", title: "Personal Income and Outlays / PCE inflation (September)", url: "https://www.bea.gov/news/schedule" },
