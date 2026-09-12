@@ -8,7 +8,6 @@
 .wire-net {
   --wn-accent:#fb8b1e; --wn-ink:#131b2c; --wn-mut:#5e6a84; --wn-down:#df4763;
   --wn-bd:#e4e7ef; --wn-surface:#ffffff; --wn-surface2:#f3f6fb;
-  --wn-linkedin:#0a66c2; /* LinkedIn's own brand blue — theme-independent by design */
   color:var(--wn-ink);
   /* Match the terminal menu chrome it sits in: mono, 11px, and inset to the same
      14px gutter as the .na-menu-recent-h headers so nothing bleeds to the edge. */

@@ -186,6 +186,26 @@ export function renderAsk(body, st, opts) {
     : formHTML + `<div class="na-ask-out">${addOut}</div>`;
 }
 
+// Docked-chat on-screen-keyboard tracking (see the focusin/focusout handlers in
+// mountAssistant below) — bound ONCE at module load, not per mount, since it only
+// ever touches document.documentElement and the page-lifetime visualViewport
+// singleton. Binding it inside mountAssistant() re-added a listener on every
+// re-render of a keep-alive host (menu.js recreates the container node each
+// render(), so the per-container idempotence guard never caught it).
+const _vv = typeof window !== "undefined" && window.visualViewport;
+const _setKbd = () => {
+  if (!_vv || !document.documentElement.classList.contains("chat-kbd")) return;
+  const h = Math.max(0, Math.round(window.innerHeight - _vv.height - _vv.offsetTop));
+  document.documentElement.style.setProperty("--kbd-h", h + "px");
+};
+let _kbdQueued = false;
+const _queueSetKbd = () => {
+  if (_kbdQueued) return;
+  _kbdQueued = true;
+  requestAnimationFrame(() => { _kbdQueued = false; _setKbd(); });
+};
+if (_vv) { _vv.addEventListener("resize", _queueSetKbd); _vv.addEventListener("scroll", _queueSetKbd); }
+
 // Mount the assistant into `container`, wiring "Ask" (→ /api/ask, feature B) when
 // opts.ask (default true) and "Add" (→ /api/propose, feature C) when opts.add.
 // The Menu mounts an Ask-only instance (Dialogue) and an Add-only instance
@@ -286,21 +306,12 @@ export function mountAssistant(container, opts) {
   // bottom tab bar hides and the fixed chat column ends at the keyboard top — no
   // nav bar or dead space between the field and the keyboard. `--kbd-h` tracks the
   // on-screen keyboard height via visualViewport so the input glues above it.
-  const vv = typeof window !== "undefined" && window.visualViewport;
-  const setKbd = () => {
-    if (!vv || !document.documentElement.classList.contains("chat-kbd")) return;
-    const h = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop));
-    document.documentElement.style.setProperty("--kbd-h", h + "px");
-  };
-  let kbdQueued = false;
-  const queueSetKbd = () => {
-    if (kbdQueued) return;
-    kbdQueued = true;
-    requestAnimationFrame(() => { kbdQueued = false; setKbd(); });
-  };
-  if (vv) { vv.addEventListener("resize", queueSetKbd); vv.addEventListener("scroll", queueSetKbd); }
+  // The listener is bound once at module scope (below), not per mount: menu.js
+  // recreates the container on every render() while the Dialogue/Coverage chip is
+  // open, and setKbd only ever touches document.documentElement, so one global
+  // listener on the page-lifetime visualViewport singleton covers every mount.
   container.addEventListener("focusin", (e) => {
-    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); setKbd(); }
+    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) { document.documentElement.classList.add("chat-kbd"); _setKbd(); }
   });
   container.addEventListener("focusout", (e) => {
     if (e.target.closest(".na-ask-in")) { document.documentElement.classList.remove("chat-kbd"); document.documentElement.style.setProperty("--kbd-h", "0px"); }

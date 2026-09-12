@@ -212,5 +212,41 @@ async function menuState(pg) {
   checkEq(homeUL, menuUL, "Home wire-tab underline matches the Menu chip underline (same weight)");
 }
 
+// 6) T17 regression: switching Menu chips re-renders host.innerHTML, so
+// mountAssistant() re-runs for a brand-new #v2-menu-omni node each time the
+// Dialogue chip is (re)shown. The keyboard-tracking listener it wires must be
+// bound ONCE at module scope, not per mount, else every chip round-trip leaks
+// another resize/scroll listener onto the page-lifetime visualViewport.
+{
+  const ctx = await b.newContext(PHONE);
+  const pg = await ctx.newPage();
+  const errs = [];
+  pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
+  await pg.addInitScript(() => {
+    window.__vvAddCount = 0;
+    const vv = window.visualViewport;
+    if (vv) {
+      const orig = vv.addEventListener.bind(vv);
+      vv.addEventListener = (type, fn, opts) => { if (type === "resize" || type === "scroll") window.__vvAddCount++; return orig(type, fn, opts); };
+    }
+  });
+  await pg.goto(base + "/v2/menu/", { waitUntil: "load" });
+  await pg.waitForTimeout(1200);
+  const before = await pg.evaluate(() => window.__vvAddCount);
+  // Round-trip the chips a few times, landing back on Dialogue each time (the
+  // section mountAssistant is attached to), the same way a user idly tapping
+  // the Menu tabs would.
+  for (let i = 0; i < 4; i++) {
+    await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="settings"]').click());
+    await pg.waitForTimeout(80);
+    await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="dialogue"]').click());
+    await pg.waitForTimeout(80);
+  }
+  const after = await pg.evaluate(() => window.__vvAddCount);
+  checkEq(after, before, `Menu chip round-trips add no new visualViewport listeners (before ${before}, after ${after})`);
+  checkErrs(errs, "menu chip round-trip listener leak");
+  await ctx.close();
+}
+
 await b.close(); srv.close();
 finish();
