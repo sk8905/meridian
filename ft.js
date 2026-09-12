@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "05e61eb8-9273-4b9a-a356-47f525b7d506", title: "Larry Ellison cancels $7.5bn Oracle share sale", date: "2026-09-12", time: "18:18", url: "https://www.ft.com/content/05e61eb8-9273-4b9a-a356-47f525b7d506" },
   { id: "6a173e7c-cfe8-4ab8-8c8f-b90871cc907e", title: "India’s central bank tells Tata Sons to take conglomerate public", date: "2026-09-12", time: "17:20", url: "https://www.ft.com/content/6a173e7c-cfe8-4ab8-8c8f-b90871cc907e" },
   { id: "f32bef26-d2b8-47a6-b938-3dcd5e870685", title: "Brics push for Gulf peace as war worries mount", date: "2026-09-12", time: "15:34", url: "https://www.ft.com/content/f32bef26-d2b8-47a6-b938-3dcd5e870685" },
   { id: "70bd4f6c-a5f4-4e59-b773-614f0a5efd58", title: "Trump says united Ireland ‘inevitable’ and ‘a very cool thing’", date: "2026-09-12", time: "13:56", url: "https://www.ft.com/content/70bd4f6c-a5f4-4e59-b773-614f0a5efd58" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "e070149c-70a4-41ee-a829-0630abb2ce35", title: "Military jet triggered UK’s latest air traffic meltdown", date: "2026-09-11", time: "17:26", url: "https://www.ft.com/content/e070149c-70a4-41ee-a829-0630abb2ce35" },
   { id: "bbdad57e-bd57-4c75-98b8-12fca7cbd268", title: "America remembers: twenty-five years after 9/11", date: "2026-09-11", time: "17:19", url: "https://www.ft.com/content/bbdad57e-bd57-4c75-98b8-12fca7cbd268" },
   { id: "b7fe0fe0-0463-4f55-9590-0a7d08d8fe66", title: "Why the AI race has its creators fearing human extinction", date: "2026-09-11", time: "17:11", url: "https://www.ft.com/content/b7fe0fe0-0463-4f55-9590-0a7d08d8fe66" },
-  { id: "df2d9bcc-59f9-4122-aa4d-2020bef77e0e", title: "Iran and Gulf states to meet in push for Hormuz deal", date: "2026-09-11", time: "17:03", url: "https://www.ft.com/content/df2d9bcc-59f9-4122-aa4d-2020bef77e0e" },
 ];
