@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6a173e7c-cfe8-4ab8-8c8f-b90871cc907e", title: "India’s central bank tells Tata Sons to take conglomerate public", date: "2026-09-12", time: "17:20", url: "https://www.ft.com/content/6a173e7c-cfe8-4ab8-8c8f-b90871cc907e" },
   { id: "f32bef26-d2b8-47a6-b938-3dcd5e870685", title: "Brics push for Gulf peace as war worries mount", date: "2026-09-12", time: "15:34", url: "https://www.ft.com/content/f32bef26-d2b8-47a6-b938-3dcd5e870685" },
   { id: "70bd4f6c-a5f4-4e59-b773-614f0a5efd58", title: "Trump says united Ireland ‘inevitable’ and ‘a very cool thing’", date: "2026-09-12", time: "13:56", url: "https://www.ft.com/content/70bd4f6c-a5f4-4e59-b773-614f0a5efd58" },
   { id: "936ac952-43a6-44d5-be69-afa344e042f5", title: "Reform UK receives two record £36mn donations", date: "2026-09-12", time: "13:25", url: "https://www.ft.com/content/936ac952-43a6-44d5-be69-afa344e042f5" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "bbdad57e-bd57-4c75-98b8-12fca7cbd268", title: "America remembers: twenty-five years after 9/11", date: "2026-09-11", time: "17:19", url: "https://www.ft.com/content/bbdad57e-bd57-4c75-98b8-12fca7cbd268" },
   { id: "b7fe0fe0-0463-4f55-9590-0a7d08d8fe66", title: "Why the AI race has its creators fearing human extinction", date: "2026-09-11", time: "17:11", url: "https://www.ft.com/content/b7fe0fe0-0463-4f55-9590-0a7d08d8fe66" },
   { id: "df2d9bcc-59f9-4122-aa4d-2020bef77e0e", title: "Iran and Gulf states to meet in push for Hormuz deal", date: "2026-09-11", time: "17:03", url: "https://www.ft.com/content/df2d9bcc-59f9-4122-aa4d-2020bef77e0e" },
-  { id: "cf77ca45-6e16-4232-836b-714293619822", title: "Monetary Policy Radar preview: BoE’s September meeting", date: "2026-09-11", time: "16:34", url: "https://www.ft.com/content/cf77ca45-6e16-4232-836b-714293619822" },
-  { id: "d7f197dd-a39a-43dc-a2f9-6204c5876e76", title: "How both sides lost after 9/11", date: "2026-09-11", time: "16:34", url: "https://www.ft.com/content/d7f197dd-a39a-43dc-a2f9-6204c5876e76" },
 ];
