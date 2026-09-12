@@ -42,6 +42,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-saudipipeline-20260912",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Saudi Arabia shuts East-West pipeline",
+    date: "2026-09-12",
+    time: "05:53",
+    summary: "Saudi Arabia shuts its East-West pipeline after a wave of attacks blamed on Iraq-launched drones and a Houthi seizure of Yemen's Perim island, while US core inflation cools to 2.4% but stays too hot to stop a Fed rate rise.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-singaporeedition-talentrace-20260912",
     publication: "Bloomberg",
     author: null,
@@ -469,16 +480,5 @@ export const NEWSLETTERS = [
     time: "08:20",
     summary: "Brent crosses $100 after the US destroys five Iranian tankers, Treasury Secretary Scott Bessent dares traders to bet against the yen, and UK flight chaos drags into a second day.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-09/brent-rises-to-100-after-us-destroys-five-iranian-tankers",
-  },
-  {
-    id: "nl-economist-worldinbrief-canadabooze-20260909",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: America bans Canadian booze (and more)",
-    date: "2026-09-09",
-    time: "06:32",
-    summary: "America moved to ban Canadian alcohol, dairy and motorcycles as the trade war escalates, Iran struck a US base in Jordan after strikes near Kharg Island, and Israel's messy election campaign begins in earnest.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
