@@ -42,6 +42,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-singaporeedition-talentrace-20260912",
+    publication: "Bloomberg",
+    author: null,
+    series: "Singapore Edition",
+    title: "Singapore Edition: The talent race",
+    date: "2026-09-12",
+    time: "02:00",
+    summary: "Singapore vs Hong Kong: the rivalry that never gets old, as both cities compete harder than ever for global finance talent.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-12/singapore-vs-hong-kong-which-city-is-the-best-to-move-to",
+  },
+  {
     id: "nl-matter-popularweek-childhood-20260911",
     publication: "Matter",
     author: null,
@@ -469,27 +480,5 @@ export const NEWSLETTERS = [
     time: "06:32",
     summary: "America moved to ban Canadian alcohol, dairy and motorcycles as the trade war escalates, Iran struck a US base in Jordan after strikes near Kharg Island, and Israel's messy election campaign begins in earnest.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-newyorker-trumprenovation-20260909",
-    publication: "The New Yorker",
-    author: null,
-    series: null,
-    title: "Inside Trump’s Renovation Obsession",
-    date: "2026-09-09",
-    time: "00:45",
-    summary: "A coterie of advisers and architects enables Trump's D.C. capital makeover, plus highlights from the Fall Style & Design Issue.",
-    url: "https://www.newyorker.com/magazine/2026/09/14/donald-trumps-capital-makeover",
-  },
-  {
-    id: "nl-reuters-tradingday-100barrel-20260908",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Roll out the $100 barrel",
-    date: "2026-09-08",
-    time: "22:00",
-    summary: "Yen rips to a seven-month high and Brent nears $100 a barrel on Middle East escalation, while McGeever pushes back on the narrative that the US bond market is cracking.",
-    url: "https://www.reuters.com/commentary/reuters-open-interest/unloved-unbroken-us-bond-market-is-working-it-should-2026-09-08/",
   },
 ];
