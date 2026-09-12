@@ -38,9 +38,21 @@ export const PUBLISHERS = {
   "infos.lemonde.fr": "Le Monde",
   "jpmpb.jpmorgan.com": "JP Morgan Private Bank",
   "the42.ie": "The 42",
+  "equitypartner.substack.com": "Equity Partner",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-equitypartner-biglawpaywar-20260912",
+    publication: "Equity Partner",
+    author: "David Morley",
+    series: null,
+    title: "Why BigLaw's pay war ends in equity, not cash",
+    date: "2026-09-12",
+    time: "10:51",
+    summary: "Law firms will shift from competing on cash to offering partners lasting equity stakes in AI-powered \"firm brain\" systems that capture institutional knowledge.",
+    url: "https://equitypartner.substack.com/p/why-biglaws-pay-war-ends-in-equity",
+  },
   {
     id: "nl-taxpolicyassociates-touristtax-20260912",
     publication: "Tax Policy Associates",
