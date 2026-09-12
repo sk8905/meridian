@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4dc6710b-7911-44c6-b57a-2fb47b6b04ed", title: "Canada seeks $1tn from investors looking for a haven from Donald Trump", date: "2026-09-12", time: "11:00", url: "https://www.ft.com/content/4dc6710b-7911-44c6-b57a-2fb47b6b04ed" },
+  { id: "be8d08d3-e3c1-413c-ab6e-5a38b19ce4b6", title: "Chart of the Week: the long shadow of quantitative easing", date: "2026-09-12", time: "10:30", url: "https://www.ft.com/content/be8d08d3-e3c1-413c-ab6e-5a38b19ce4b6" },
   { id: "d5584fd7-cc24-4d3e-813f-c65f041e2d0e", title: "LIV Golf’s bleak future shifts to the courtroom", date: "2026-09-12", time: "09:00", url: "https://www.ft.com/content/d5584fd7-cc24-4d3e-813f-c65f041e2d0e" },
   { id: "724f8ecb-1e2b-4c7f-bbb6-14239abd50dd", title: "We are setting up a generation to fail at school", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/724f8ecb-1e2b-4c7f-bbb6-14239abd50dd" },
   { id: "df60c0df-cd78-4dca-893b-1add0023e7e2", title: "Sweden’s election frontrunner faces tightening race", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/df60c0df-cd78-4dca-893b-1add0023e7e2" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "ce0606e7-3b6c-4475-a5c4-71d70e54383c", title: "Bond trouble", date: "2026-09-11", time: "16:30", url: "https://www.ft.com/content/ce0606e7-3b6c-4475-a5c4-71d70e54383c" },
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-11", time: "15:45", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "25102821-d86d-4ef0-a858-903e270df3f9", title: "Higher than expected core CPI gives Fed enough to tighten", date: "2026-09-11", time: "14:53", url: "https://www.ft.com/content/25102821-d86d-4ef0-a858-903e270df3f9" },
-  { id: "2c9ce5b0-32ae-4460-aa89-9c80eb05ee41", title: "Bond markets stabilise after global sell-off", date: "2026-09-11", time: "14:22", url: "https://www.ft.com/content/2c9ce5b0-32ae-4460-aa89-9c80eb05ee41" },
 ];
