@@ -61,51 +61,29 @@ check(views.on && views.sep, "Views is a content lens (activates; set apart from
 check(views.noOpen, "Views shows no Open link (a cross-desk lens, not a routable desk)");
 check(views.rows > 0, `Views surfaces commentary/research items (${views.rows})`);
 
-// F3 — a real desk shows an "Open <desk>" control that routes to its full view.
-const openBtn = await pg.evaluate(() => {
-  document.querySelector('.g-feed-deskchip[data-desk="c"]').click();
-  const b = document.querySelector(".g-feed-openbtn[data-open-desk]");
-  return { present: !!b, text: b ? b.textContent.trim() : "", route: b ? b.dataset.openDesk : "" };
+// No per-desk "Open …" button anywhere — the desk chips filter the wire in place;
+// the full desk views are reached through the app's own navigation, not from here.
+const noOpenAnywhere = await pg.evaluate(() => {
+  const seen = [];
+  for (const d of ["c", "l", "m", "hdg", "n", "all", "views"]) {
+    const chip = document.querySelector(`.g-feed-deskchip[data-desk="${d}"]`);
+    if (chip) chip.click();
+    if (document.querySelector(".g-feed-openbtn[data-open-desk]")) seen.push(d);
+  }
+  return seen;
 });
-check(openBtn.present, "Credit desk selected: an 'Open …' link into the full desk view appears");
-checkEq(openBtn.route, "/v2/credit/", "the Open link routes to the Credit desk view");
+check(noOpenAnywhere.length === 0, `no desk shows an "Open …" button (offenders: ${noOpenAnywhere.join(", ") || "none"})`);
 
-// Group-by-type and Open desk sit on the SAME line (the desk row) and share the
-// outlined-accent button styling.
+// Group-by-type stays — it now sits alone at the right edge of the desk row.
 const ctl = await pg.evaluate(() => {
+  document.querySelector('.g-feed-deskchip[data-desk="c"]').click();
   const row = document.querySelector(".g-feed-deskrow");
   const grp = row && row.querySelector(".g-feed-grpbtn");
-  const open = row && row.querySelector(".g-feed-openbtn:not(.g-feed-grpbtn)");
-  const sameLine = grp && open ? Math.abs(grp.getBoundingClientRect().top - open.getBoundingClientRect().top) <= 2 : false;
-  const accent = (el) => el && getComputedStyle(el).color;
-  return {
-    both: !!grp && !!open, sameLine,
-    grpStyled: grp ? grp.classList.contains("g-feed-openbtn") : false,
-    sameColour: grp && open ? accent(grp) === accent(open) : false,
-  };
+  const openLeft = row && row.querySelector(".g-feed-openbtn:not(.g-feed-grpbtn)");
+  return { hasGrp: !!grp, hasOpen: !!openLeft, grpStyled: grp ? grp.classList.contains("g-feed-openbtn") : false };
 });
-check(ctl.both && ctl.sameLine, "Group-by-type and Open desk are on the same line (the desk row)");
-check(ctl.grpStyled && ctl.sameColour, "both buttons share the outlined-accent styling (Open Macro look)");
-
-// The Newsletters filter narrows the wire; it has NO "Open …" button — the filter
-// chip alone is the newsletters surface (the separate open-the-page link was
-// redundant and removed).
-const nl = await pg.evaluate(() => {
-  document.querySelector('.g-feed-deskchip[data-desk="n"]').click();
-  const chip = document.querySelector('.g-feed-deskchip[data-desk="n"]');
-  const b = document.querySelector(".g-feed-openbtn[data-open-desk]");
-  return { on: chip.classList.contains("is-on"), hasOpen: !!b };
-});
-check(nl.on, "Newsletters filter activates");
-check(!nl.hasOpen, "Newsletters shows NO Open button — the filter chip is relied on instead");
-// Restore the Credit selection for the navigation test below.
-await pg.evaluate(() => document.querySelector('.g-feed-deskchip[data-desk="c"]').click());
-
-// Clicking it navigates to the Credit view (SPA route via the router).
-await pg.evaluate(() => document.querySelector(".g-feed-openbtn[data-open-desk]").click());
-await pg.waitForTimeout(900);
-checkEq(await pg.evaluate(() => new URL(location.href).pathname), "/v2/credit/", "Open Credit navigates to /v2/credit/");
-checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "credit", "the Credit desk view is now active");
+check(ctl.hasGrp && !ctl.hasOpen, "the desk row keeps only Group-by-type on its right edge (no Open button)");
+check(ctl.grpStyled, "Group-by-type keeps the outlined-accent styling");
 
 // "All" (the default) has no Open link — there's no single desk to open.
 await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/"); dispatchEvent(new PopStateEvent("popstate")); });

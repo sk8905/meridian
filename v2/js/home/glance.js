@@ -880,9 +880,6 @@ function renderFeed() {
     // only); the rest are topic desks. A separator after Views divides the two.
     const DESK_OPTS = [["all", "All"], ["views", "Views"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
     const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex", n: "amber" };   // pill-hue anchor
-    // Newsletters has no "Open …" button — the Newsletters desk chip already filters
-    // the wire to newsletters, so a separate open-the-page control is redundant.
-    const DESK_ROUTE = { m: "/v2/macro/", eq: "/v2/macro/", fi: "/v2/macro/", c: "/v2/credit/", hdg: "/v2/credit/", l: "/v2/legal/" };
     const activeDesk = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
     const chips = DESK_OPTS.map(([k, l]) => {
       const on = activeDesk === k;
@@ -890,18 +887,14 @@ function renderFeed() {
       const cls = "g-feed-deskchip" + (on ? " is-on" : "") + (k === "views" ? " g-feed-deskchip-sep" : "");
       return `<button type="button" class="${cls}" data-desk="${esc(k)}" role="tab" aria-selected="${on}">${dot}${esc(l)}</button>`;
     }).join("");
-    // For a real desk, a link into its full view — the discoverability path to
-    // Credit / Legal / Macro.
-    const openRoute = !_feedSrc && DESK_ROUTE[activeDesk];
-    const openBtn = openRoute
-      ? `<button type="button" class="g-feed-openbtn" data-open-desk="${esc(openRoute)}">Open ${esc(FEED_DESK_LABEL[activeDesk] || "desk")}</button>`
-      : "";
+    // No per-desk "Open …" button — the desk chips filter the wire in place, and
+    // the full desk views (Credit / Legal / Macro) are reached through the app's
+    // own navigation, not from here.
     const grpBtn = `<button type="button" class="g-feed-openbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
       + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
       + `<span>Group by type</span></button>`;
-    // Group-by-type + Open desk share the right edge of the desk row, both as the
-    // outlined accent control.
-    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${openBtn}${grpBtn}</div></div>`;
+    // Group-by-type sits alone at the right edge of the desk row.
+    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${grpBtn}</div></div>`;
     // Second-level type chips for the active desk (Credit / Hedge / Legal).
     const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
     const secondary = subDefs
@@ -923,9 +916,6 @@ function renderFeed() {
     });
     // A type chip narrows within the current desk.
     head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderFeed(); }));
-    // Open the full desk view (SPA navigation via the router; hard nav as a fallback).
-    const ob = head.querySelector("[data-open-desk]");
-    if (ob) ob.addEventListener("click", () => { const p = ob.dataset.openDesk; if (_ctx && _ctx.navigate) _ctx.navigate(p); else window.location.href = p; });
   }
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
