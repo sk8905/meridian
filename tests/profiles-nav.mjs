@@ -169,6 +169,25 @@ if (touchNav.ok) check(touchNav.hash === touchNav.href, `touch-only (no click) t
 const touchShown = await pg.evaluate(() => { const d = document.querySelector("#pf-detail"); return !!(d && !d.hidden && document.querySelector(".pf-detailing")); });
 check(!!touchShown, "touch-only: the profile detail is shown after a click-less tap");
 
+// The search row stays LOCKED under the chip bar while the league table scrolls —
+// on Managers, Hedge Funds AND Law firms (not just Managers).
+for (const pane of ["managers", "hedgefunds", "firms"]) {
+  await pg.evaluate((p) => { location.hash = ""; const c = document.querySelector(`#pf-chips .tchip[data-p="${p}"]`); if (c) c.click(); }, pane);
+  await pg.waitForTimeout(350);
+  const at = () => pg.evaluate((p) => {
+    const s = document.querySelector(`.tpane[data-pane="${p}"] .thead-search`);
+    return { top: s ? Math.round(s.getBoundingClientRect().top) : null, pos: s ? getComputedStyle(s).position : "", maxSY: document.documentElement.scrollHeight - window.innerHeight };
+  }, pane);
+  const rest = await at();
+  await pg.evaluate(() => window.scrollTo(0, 400));
+  await pg.waitForTimeout(250);
+  const scrolled = await at();
+  await pg.evaluate(() => window.scrollTo(0, 0));
+  check(rest.maxSY > 100, `${pane}: the list scrolls in this viewport (${rest.maxSY}px)`);
+  check(scrolled.pos === "sticky" && rest.top != null && Math.abs(rest.top - scrolled.top) <= 1,
+    `${pane}: the search bar stays locked on scroll (top ${rest.top}→${scrolled.top})`);
+}
+
 checkErrs(errs, "profiles navigation");
 await ctx.close();
 await b.close(); srv.close();

@@ -297,9 +297,12 @@
      pinned tabs. */
   .twire-head { position: sticky; top: var(--wire-head-h, 57px); z-index: 8; background: var(--head);
     transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-  /* Managers pane: lock the "Managers · search · AUM-toggle" row just under the
-     chip bar (chips are var(--chip-h, 34px) tall, so head + chip height). */
-  .tpane[data-pane="managers"] .thead-search { position: sticky; top: calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); z-index: 7; background: var(--head); }
+  /* Profiles panes (Managers · Hedge Funds · Law firms): lock the search row just
+     under the chip bar (chips are var(--chip-h, 34px) tall, so head + chip height)
+     so it stays put while the league table scrolls. */
+  .tpane[data-pane="managers"] .thead-search,
+  .tpane[data-pane="hedgefunds"] .thead-search,
+  .tpane[data-pane="firms"] .thead-search { position: sticky; top: calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); z-index: 7; background: var(--head); }
   /* A search band that sits DIRECTLY under the .twire-head tab row (Macro: tabs →
      search → wire) must pin beneath those tabs, not under the header — otherwise
      the global `.wire-band { top: --wire-head-h }` rule slides it up over the tabs
