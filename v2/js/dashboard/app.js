@@ -954,7 +954,7 @@ export function mount(host, ctx) {
     const rail = sec.news
       ? `<aside class="dsh-newsrail"><h3 class="dsh-term-lbl">${esc(sec.newsLabel || "Wire")}</h3>${sec.news}</aside>`
       : "";
-    host.innerHTML = `<div class="dsh">${bandHTML("Search…")}<div class="dsh-3z${sec.news ? "" : " dsh-norail"}">
+    host.innerHTML = `<div class="dsh">${bandHTML("Search…")}<div class="dsh-3z${sec.news ? "" : " dsh-norail"}" data-pane="${esc(pane)}">
       <nav class="dsh-railnav" aria-label="Dashboard sections">${nav}</nav>
       <main class="dsh-mid">${sec.mid}</main>
       ${rail}

@@ -3,7 +3,7 @@
 // (government) and the ICE BofA OAS spreads container (corporate). Legal is a
 // SEARCH interface over all alerts + case law: nothing lists until a keyword is
 // entered; practice-area chips limit the search; every result is sourced.
-import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, DESKTOP, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
@@ -113,5 +113,29 @@ check(hf.picker, "Hedge Funds: per-fund 13F picker lists the tracked filers");
 
 checkErrs(errs, "dashboard fixed-income + legal + hedge funds");
 await ctx.close();
+
+// PHONE: on the Hedge Funds pane the "Notable moves" wire reads ABOVE the holdings
+// boxes (the newsrail is ordered before the mid column on phones).
+{
+  const p = await open(b, PHONE, base + "/v2/dashboard/hedge-funds/");
+  await p.pg.waitForTimeout(1800);
+  const ord = await p.pg.evaluate(() => {
+    const rail = document.querySelector('.dsh-3z[data-pane="hedge-funds"] .dsh-newsrail');
+    const mid = document.querySelector('.dsh-3z[data-pane="hedge-funds"] .dsh-mid');
+    const moves = document.querySelector(".dsh-hf-dir");
+    const perFund = [...document.querySelectorAll(".dsh-h")].find((h) => /Per-fund holdings/.test(h.textContent));
+    return {
+      railTop: rail ? Math.round(rail.getBoundingClientRect().top) : null,
+      midTop: mid ? Math.round(mid.getBoundingClientRect().top) : null,
+      movesTop: moves ? Math.round(moves.getBoundingClientRect().top) : null,
+      perFundTop: perFund ? Math.round(perFund.getBoundingClientRect().top) : null,
+    };
+  });
+  check(ord.railTop != null && ord.midTop != null && ord.railTop < ord.midTop, `phone: Notable moves (newsrail ${ord.railTop}) sits above the holdings (mid ${ord.midTop})`);
+  check(ord.movesTop != null && ord.perFundTop != null && ord.movesTop < ord.perFundTop, `phone: a notable move (${ord.movesTop}) reads above Per-fund holdings (${ord.perFundTop})`);
+  checkErrs(p.errs, "dashboard hedge notable-moves order");
+  await p.ctx.close();
+}
+
 await b.close(); srv.close();
 finish();

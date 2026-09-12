@@ -40,6 +40,10 @@
   .dsh > .wire-band { background:var(--t-head); }
   /* Specificity must beat the base `.dsh-railnav { top:0 }` that follows it. */
   .dsh-3z > .dsh-railnav { top:calc(var(--wire-head-h, 57px) + var(--dsh-band-h, 43px)); z-index:8; }
+  /* Hedge Funds: the "Notable moves" wire (the newsrail) reads above the holdings
+     boxes on phones — the nav stays first, then Notable moves, then the mid column
+     (Consensus longs · Per-fund holdings). Desktop keeps the 3-zone side-by-side. */
+  .dsh-3z[data-pane="hedge-funds"] .dsh-mid { order: 1; }
 }
 /* Sub-tab labels: desktop shows the full label; the narrow iPhone tab bar shows
    the short one so "Fixed Income"/"Hedge Funds" don't wrap to two lines. */
