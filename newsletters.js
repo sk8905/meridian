@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-livgolflossloophole-20260912",
+    publication: "Bloomberg",
+    author: "Jonathan Randles",
+    series: "The Brink",
+    title: "The Brink: LIV Golf's loss loophole",
+    date: "2026-09-12",
+    time: "16:00",
+    summary: "When red ink turns into big tax benefits: BC Partners looks to turn LIV Golf's bankruptcy-era operating losses into tax shelter value as it tries to give the league a second act.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-12/liv-golf-s-big-losses-provide-fuel-for-a-second-act",
+  },
+  {
     id: "nl-equitypartner-biglawpaywar-20260912",
     publication: "Equity Partner",
     author: "David Morley",
