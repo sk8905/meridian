@@ -42,6 +42,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-taxpolicyassociates-touristtax-20260912",
+    publication: "Tax Policy Associates",
+    author: "Dan Neidle",
+    series: null,
+    title: "England's new tourist tax: what it raises, who pays, and what it costs",
+    date: "2026-09-12",
+    time: "08:11",
+    summary: "An independent, open model estimating what England's proposed ~5% tourist tax on overnight stays would raise, who bears the cost, and its impact on the hospitality industry.",
+    url: "https://newsletter.taxpolicy.org.uk/campaign/b97066b9-60cc-4386-aa7f-eafc829e7f97/e5358a8a-4e5b-4303-a7ce-dcf4d37cc11c",
+  },
+  {
     id: "nl-economist-worldinbrief-saudipipeline-20260912",
     publication: "The Economist",
     author: null,
