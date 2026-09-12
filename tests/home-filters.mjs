@@ -87,15 +87,17 @@ const ctl = await pg.evaluate(() => {
 check(ctl.both && ctl.sameLine, "Group-by-type and Open desk are on the same line (the desk row)");
 check(ctl.grpStyled && ctl.sameColour, "both buttons share the outlined-accent styling (Open Macro look)");
 
-// The Newsletters filter narrows the wire and offers its own reading surface.
+// The Newsletters filter narrows the wire; it has NO "Open …" button — the filter
+// chip alone is the newsletters surface (the separate open-the-page link was
+// redundant and removed).
 const nl = await pg.evaluate(() => {
   document.querySelector('.g-feed-deskchip[data-desk="n"]').click();
   const chip = document.querySelector('.g-feed-deskchip[data-desk="n"]');
   const b = document.querySelector(".g-feed-openbtn[data-open-desk]");
-  return { on: chip.classList.contains("is-on"), route: b ? b.dataset.openDesk : "", text: b ? b.textContent.trim() : "" };
+  return { on: chip.classList.contains("is-on"), hasOpen: !!b };
 });
 check(nl.on, "Newsletters filter activates");
-checkEq(nl.route, "/v2/newsletters/", "Newsletters shows an Open link to its reading surface");
+check(!nl.hasOpen, "Newsletters shows NO Open button — the filter chip is relied on instead");
 // Restore the Credit selection for the navigation test below.
 await pg.evaluate(() => document.querySelector('.g-feed-deskchip[data-desk="c"]').click());
 

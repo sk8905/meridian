@@ -880,7 +880,9 @@ function renderFeed() {
     // only); the rest are topic desks. A separator after Views divides the two.
     const DESK_OPTS = [["all", "All"], ["views", "Views"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
     const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex", n: "amber" };   // pill-hue anchor
-    const DESK_ROUTE = { m: "/v2/macro/", eq: "/v2/macro/", fi: "/v2/macro/", c: "/v2/credit/", hdg: "/v2/credit/", l: "/v2/legal/", n: "/v2/newsletters/" };
+    // Newsletters has no "Open …" button — the Newsletters desk chip already filters
+    // the wire to newsletters, so a separate open-the-page control is redundant.
+    const DESK_ROUTE = { m: "/v2/macro/", eq: "/v2/macro/", fi: "/v2/macro/", c: "/v2/credit/", hdg: "/v2/credit/", l: "/v2/legal/" };
     const activeDesk = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
     const chips = DESK_OPTS.map(([k, l]) => {
       const on = activeDesk === k;
