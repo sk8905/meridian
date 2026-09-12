@@ -1,7 +1,7 @@
 # Auto-refresh routine (Claude Routines)
 
 **Five identical routines** keep all three Meridian platforms current — scheduled
-at **05:00**, **08:00**, **12:00**, **17:00** and **21:00** (Claude Routines runs a single schedule per
+at **05:00**, **09:00**, **12:00**, **17:00** and **21:00** (Claude Routines runs a single schedule per
 routine, so create five routines that all use the prompt below). Each does a **full
 refresh of all three apps** — Credit (deals, fundraising, mandates/launches, manager website
 news, **fund-record reconciliation, new managers/funds, rotating manager-profile
@@ -111,8 +111,8 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   prior same-day run that should exist is absent — call it out at the top of the run
   summary. This turns a silently-dropped earlier run (e.g. one that lost the publish
   race) into something visible instead of letting it hide behind the next run.
-- **Window.** Add items published since the last run. The five runs are ~3h
-  (05:00→08:00), ~4h (08:00→12:00), ~5h (12:00→17:00), ~4h (17:00→21:00) and ~8h (21:00→05:00) apart,
+- **Window.** Add items published since the last run. The five runs are ~4h
+  (05:00→09:00), ~3h (09:00→12:00), ~5h (12:00→17:00), ~4h (17:00→21:00) and ~8h (21:00→05:00) apart,
   so look back ~24 hours to be safe — dedup removes any overlap. Verify each item's EXACT publication date from the
   source; never invent a URL, date, figure or quote. Dedupe every candidate by URL
   and normalised headline/citation against the data already in the file.
@@ -321,13 +321,13 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     as a pre-formatted `"HH:MM TZ"` string with a timezone label (London, e.g.
     `"05:22 BST"` / `"12:01 BST"`; use `GMT` in winter). It is pre-formatted (not a
     parsed Date) so it renders identically regardless of the viewer's browser
-    timezone. Because five runs land each day (~05:00, ~08:00, ~12:00, ~17:00 and ~21:00), this is
+    timezone. Because five runs land each day (~05:00, ~09:00, ~12:00, ~17:00 and ~21:00), this is
     what tells which run produced the shown data; it appears in the topbar and the
     notification header next to `LAST_CHECKED`. Keep both apps' value identical
     when a single run touches both.
     - **DERIVE it from the clock — never copy a value.** Read the real time with
       `TZ='Europe/London' date '+%H:%M %Z'` and use that. Do NOT reuse the example
-      strings above, the previous run's value, or a "05:00"/"08:00"/"12:00"/"17:00"/"21:00" schedule label:
+      strings above, the previous run's value, or a "05:00"/"09:00"/"12:00"/"17:00"/"21:00" schedule label:
       a manually-triggered run can fire at any time, and a routine fired at 15:41
       must stamp `"15:41 BST"`, not `"06:01 BST"`. (Real bug on 2026-06-24: a run
       executed ~15:41 wrote `LAST_CHECKED_TIME = "06:01 BST"` and titled its commit
@@ -464,7 +464,7 @@ quiet slot gets a short output, not padding.
 - **Tri-daily briefings — `briefings.js` (root; served no-cache, tokenless).**
   Three slots: `morning` (< 12:00), `afternoon` (12:00–17:00), `evening`
   (≥ 17:00 London). On each run, **regenerate the slot the current run-time falls
-  in** (so 05:00 & 08:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening);
+  in** (so 05:00 & 09:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening);
   leave the other two as they are. Each slot has a `lede` (one **authored** HTML
   sentence — entities like `&pound;`/`&mdash;` render, matching the bullets) and
   3–5 `bullets`, each `{ html, src, srcName }` where `html` is authored markup
@@ -520,7 +520,7 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 ## The routine prompt
 
 > Do a full refresh of ALL THREE Meridian platforms — Credit, Legal and Macro —
-> and publish the changes live. (This routine runs five times a day, at 05:00, 08:00, 12:00, 17:00 and 21:00.)
+> and publish the changes live. (This routine runs five times a day, at 05:00, 09:00, 12:00, 17:00 and 21:00.)
 > Follow the invariants in `docs/refresh-routines.md`. The repo has `credit/`,
 > `legal/` and `macro/` apps and deploys from `main`.
 >
