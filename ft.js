@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d5584fd7-cc24-4d3e-813f-c65f041e2d0e", title: "LIV Golf’s bleak future shifts to the courtroom", date: "2026-09-12", time: "09:00", url: "https://www.ft.com/content/d5584fd7-cc24-4d3e-813f-c65f041e2d0e" },
   { id: "724f8ecb-1e2b-4c7f-bbb6-14239abd50dd", title: "We are setting up a generation to fail at school", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/724f8ecb-1e2b-4c7f-bbb6-14239abd50dd" },
   { id: "df60c0df-cd78-4dca-893b-1add0023e7e2", title: "Sweden’s election frontrunner faces tightening race", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/df60c0df-cd78-4dca-893b-1add0023e7e2" },
   { id: "b7a64635-2dcd-4d07-be75-47cd682b59e1", title: "Why I, a non-billionaire, am not leaving the UK", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/b7a64635-2dcd-4d07-be75-47cd682b59e1" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-11", time: "15:45", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "25102821-d86d-4ef0-a858-903e270df3f9", title: "Higher than expected core CPI gives Fed enough to tighten", date: "2026-09-11", time: "14:53", url: "https://www.ft.com/content/25102821-d86d-4ef0-a858-903e270df3f9" },
   { id: "2c9ce5b0-32ae-4460-aa89-9c80eb05ee41", title: "Bond markets stabilise after global sell-off", date: "2026-09-11", time: "14:22", url: "https://www.ft.com/content/2c9ce5b0-32ae-4460-aa89-9c80eb05ee41" },
-  { id: "686b06a7-a041-49dc-88b1-2607a3ba8e11", title: "What we still haven’t learnt from 9/11", date: "2026-09-11", time: "14:00", url: "https://www.ft.com/content/686b06a7-a041-49dc-88b1-2607a3ba8e11" },
 ];
