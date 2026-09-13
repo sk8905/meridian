@@ -13,7 +13,7 @@ export const UPDATED = "13 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-13",
-  lastCheckedTime: "08:19 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -386,10 +386,10 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-09-12",
+  updated: "2026-09-13",
   us: [
+    { title: "FOMC preview: Fed set to hike 25bp in recalibration move", source: "ING THINK", author: "ING \u2014 James Knightley, Padhraic Garvey, Chris Turner", date: "2026-09-11", url: "https://think.ing.com/articles/fomc-preview-fed-set-to-hike-25bp-in-recalibration-move" },
     { title: "Fed rate hike in September is all but guaranteed after CPI report, economists say", source: "CBS News", author: "Goldman Sachs \u2014 David Mericle; Capital Economics \u2014 Stephen Brown", date: "2026-09-11", url: "https://www.cbsnews.com/news/fed-rate-hike-september-likelihood-cpi/" },
-    { title: "Inflation stayed hot in August with annual pace of 3.4%, raising the odds of a Fed hike", source: "CBS News", author: "Nationwide \u2014 Kathy Bostjancic", date: "2026-09-11", url: "https://www.cbsnews.com/news/august-cpi-report-inflation-fed-rates/" },
     { title: "The likelihood of a Fed interest rate hike next week just got a lot higher", source: "CNBC", author: "BofA \u2014 Stephen Juneau", date: "2026-09-10", url: "https://www.cnbc.com/2026/09/10/the-likelihood-of-a-fed-interest-rate-hike-next-week-just-got-a-lot-higher.html" },
   ],
   uk: [
@@ -917,17 +917,17 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-13",
   us: [
+    { title: "A highly anticipated Fed meeting, war worries, and an unblinking stock market: What to watch this week", source: "Yahoo Finance", date: "2026-09-13", url: "https://finance.yahoo.com/markets/article/a-highly-anticipated-fed-meeting-war-worries-and-an-unblinking-stock-market-what-to-watch-this-week-100000843.html" },
     { title: "Wall Street week ahead: Federal Reserve decision on interest rates, retail sales update", source: "Associated Press (via Washington Times)", date: "2026-09-12", url: "https://www.washingtontimes.com/news/2026/sep/12/wall-street-federal-reserve-decision-interest-rates-retail-sales/" },
-    { title: "Gulf States May Meet Iran Next Week to Discuss Future of Hormuz", source: "Bloomberg", date: "2026-09-11", url: "https://www.bloomberg.com/news/articles/2026-09-11/gulf-states-may-meet-iran-next-week-to-discuss-future-of-hormuz" },
     { title: "Stock market next week: Outlook for Sept. 14-18, 2026", source: "CNBC", date: "2026-09-11", url: "https://www.cnbc.com/2026/09/11/stock-market-next-week-outlook-for-sept-14-18-2026.html" },
-    { title: "Fed rate hike odds surge to 90% on monthly jump in core prices", source: "Yahoo Finance", date: "2026-09-11", time: "13:40", url: "https://finance.yahoo.com/economy/policy/article/fed-rate-hike-odds-surge-to-90-on-monthly-jump-in-core-prices-131206510.html" },
+    { title: "Gulf States May Meet Iran Next Week to Discuss Future of Hormuz", source: "Bloomberg", date: "2026-09-11", url: "https://www.bloomberg.com/news/articles/2026-09-11/gulf-states-may-meet-iran-next-week-to-discuss-future-of-hormuz" },
     { title: "US budget deficit shrinks in August, year-to-date flat at $1.97 trillion", source: "Reuters (via Investing.com)", date: "2026-09-11", url: "https://www.investing.com/news/economy-news/us-budget-deficit-shrinks-in-august-yeartodate-flat-at-197-trillion-4898315" },
   ],
   uk: [
     { title: "UK economy beats expectations in July with 0.4% growth", source: "Reuters (via Investing.com)", date: "2026-09-11", time: "06:03", url: "https://www.investing.com/news/economic-indicators/uk-economy-grew-04-in-july-4897234" },
     { title: "British Pound Forecast: Why ING Still Sees GBP/EUR Falling Towards 1.15", source: "exchangerates.org.uk", date: "2026-09-12", url: "https://www.exchangerates.org.uk/news/47164/2026-09-12-british-pound-forecast-why-ing-still-sees-gbp-eur-falling-towards-1-15.html" },
+    { title: "Bank of England's Bailey pushes back on rate hike expectations", source: "Reuters (via Investing.com)", date: "2026-09-08", url: "https://www.investing.com/news/economy-news/bank-of-englands-bailey-pushes-back-on-rate-hike-expectations-93CH-4892161" },
     { title: "UK Gilt Yields Ease Slightly but Stay Near 19-Year Highs", source: "FX.co (via InstaForex)", date: "2026-09-11", url: "https://www.fx.co/en/forex-news/3158765" },
-    { title: "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", source: "Reuters (via Investing.com)", date: "2026-09-10", time: "08:00", url: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672" },
     { title: "Surge in borrowing costs could force Healey to deliver 'emergency Budget'", source: "CityAM", date: "2026-09-10", url: "https://www.cityam.com/surge-in-borrowing-costs-could-force-healey-to-deliver-emergency-budget/" },
   ],
 };
@@ -942,6 +942,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-13",
   items: [
+    {"title": "A highly anticipated Fed meeting, war worries, and an unblinking stock market: What to watch this week", "source": "Yahoo Finance", "date": "2026-09-13", "url": "https://finance.yahoo.com/markets/article/a-highly-anticipated-fed-meeting-war-worries-and-an-unblinking-stock-market-what-to-watch-this-week-100000843.html", "blurb": "The Fed's Wednesday decision is the main event after last week's setup of hot inflation data and surging oil prices, with the war in Iran heating back up and the 10-year Treasury yield approaching 5% as markets weigh a hike against still near-record equities.", "author": null},
+    {"title": "Pezeshkian vows not to surrender as Iranian ship struck near Qeshm Island", "source": "The Jerusalem Post", "date": "2026-09-13", "url": "https://www.jpost.com/middle-east/iran-news/2026-09-13/live-updates-908436", "blurb": "One person was killed and three injured when an Iranian commercial vessel was struck near Hengam Island and the Shib Deraz coast of Qeshm Island, President Pezeshkian accusing the US of war crimes as the Strait of Hormuz standoff runs on with no resolution in sight days before the Fed's decision.", "author": null},
+    {"title": "Share Talk Weekly Stock Market News Review, Sunday 13th September 2026", "source": "Share Talk", "date": "2026-09-13", "url": "https://www.share-talk.com/share-talk-weekly-stock-market-news-review-sunday-13th-september-2026/", "blurb": "The FTSE 100 closed the week 0.39% higher at 10,650.44 and the FTSE 250 added 0.38% to 23,975.73 after Friday's stronger-than-expected UK GDP print, even as the wider AIM All-Share fell around 1.5% on continued retreat from riskier small-caps.", "author": null},
     {"title": "Wall Street week ahead: Federal Reserve decision on interest rates, retail sales update", "source": "Associated Press (via Washington Times)", "date": "2026-09-12", "url": "https://www.washingtontimes.com/news/2026/sep/12/wall-street-federal-reserve-decision-interest-rates-retail-sales/", "blurb": "The Fed wraps its two-day meeting Wednesday with markets pricing an almost-certain quarter-point hike after last week's hotter-than-forecast core CPI, with Wednesday's August retail-sales report the week's other major test of consumer resilience.", "author": null},
     {"title": "British Pound Forecast: Why ING Still Sees GBP/EUR Falling Towards 1.15", "source": "exchangerates.org.uk", "date": "2026-09-12", "url": "https://www.exchangerates.org.uk/news/47164/2026-09-12-british-pound-forecast-why-ing-still-sees-gbp-eur-falling-towards-1-15.html", "blurb": "ING maintains its case for GBP/EUR retreating toward 1.15 by Q4 2026 even as the pound holds up on resilient UK growth, with the Fed's Wednesday decision and Thursday's BoE meeting the week's key swing factors for sterling.", "author": null},
     {"title": "Forecasting the upcoming week: Fed, BoE and BoJ headline a central bank triple-header", "source": "FXStreet", "date": "2026-09-11", "time": "19:52", "url": "https://www.fxstreet.com/news/forecasting-the-upcoming-week-fed-boe-and-boj-headline-a-central-bank-triple-header-202609111952", "blurb": "A crunch central-bank week looms as the Fed, BoJ and BoE all decide within 48 hours of each other, with reduced Fed forward guidance and Chair Warsh's hawkish Jackson Hole tone leaving markets guessing whether a hike would be a one-off insurance move or the start of a longer cycle.", "author": null},
@@ -980,8 +983,6 @@ export const ARTICLES = {
     {"title": "UK Economy Grew 0.4% in July, Fastest G7 Growth in First Half 2026", "source": "Global Banking & Finance Review", "date": "2026-09-11", "time": "07:00", "url": "https://www.globalbankingandfinance.com/uk-economy-grew-0-4-july/", "blurb": "The ONS said July growth was broad-based across services, production and construction, putting the UK on track for the fastest H1 2026 expansion among G7 economies even as elevated gilt yields squeeze the government's fiscal headroom.", "author": null},
     {"title": "UK economy beats expectations with surprise 0.4 per cent growth", "source": "GB News", "date": "2026-09-11", "time": "07:15", "url": "https://www.gbnews.com/money/uk-economy-gdp-boost-rise", "blurb": "Computer programming and AI-related services drove the July upside surprise, the ONS said, even as Middle East-driven oil prices keep upward pressure on UK borrowing costs and inflation.", "author": null},
     {"title": "United States Dollar Index holds onto gains above 99 ahead of US CPI data", "source": "FXStreet", "date": "2026-09-11", "time": "03:24", "url": "https://www.fxstreet.com/news/united-states-dollar-index-holds-onto-gains-above-99-ahead-of-us-cpi-data-202609110324", "blurb": "The DXY held firm above the 99.00 handle in early Friday trading as the dollar clung to Thursday's PPI-driven gains heading into the decisive August CPI print, the last major test before the 16 September FOMC decision.", "author": null},
-    {"title": "investingLive Asia-Pacific market news: Oil holds near highs", "source": "investingLive", "date": "2026-09-11", "time": "04:35", "url": "https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-holds-near-highs/", "blurb": "Oil held near multi-year highs after satellite imagery reportedly showed fresh fire hotspots along Saudi Arabia's East-West pipeline; Asia-Pacific equities fell broadly (Nikkei down nearly 3%, Kospi down around 2.5%) and the US 10-year Treasury yield extended its rise above 4.97% as Japan's PPI reinforced bets on a BoJ hike.", "author": "Eamonn Sheridan"},
-    {"title": "British Pound holds steady above 1.3500 ahead of US CPI inflation release", "source": "FXStreet", "date": "2026-09-11", "time": "01:46", "url": "https://www.fxstreet.com/news/british-pound-holds-steady-above-13500-ahead-of-us-cpi-inflation-release-202609110146", "blurb": "GBP/USD traded flat near 1.3510 in early Asian hours as traders stayed on the sidelines ahead of Friday's UK July GDP print and the decisive US August CPI report due later in the session.", "author": null},
   ],
 };
 
