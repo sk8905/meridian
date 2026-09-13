@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9cd8cc79-e98a-449f-a903-609b034a56e3", title: "Canada seeks Ukraine loan role to deepen EU ties", date: "2026-09-13", time: "19:57", url: "https://www.ft.com/content/9cd8cc79-e98a-449f-a903-609b034a56e3" },
   { id: "7de7cc10-e7a5-414b-a40f-3296eaf49ce7", title: "Russians to vote, but the outcome is already decided", date: "2026-09-13", time: "18:15", url: "https://www.ft.com/content/7de7cc10-e7a5-414b-a40f-3296eaf49ce7" },
   { id: "d25e4152-afc5-4ff9-bfd9-3317413800ff", title: "Marine Le Pen vows to put French citizens first in campaign launch", date: "2026-09-13", time: "16:49", url: "https://www.ft.com/content/d25e4152-afc5-4ff9-bfd9-3317413800ff" },
   { id: "cae60732-f929-4735-a627-db8c14e7c7ed", title: "Donald Trump rejects calls from tech bosses for an AI slowdown", date: "2026-09-13", time: "16:42", url: "https://www.ft.com/content/cae60732-f929-4735-a627-db8c14e7c7ed" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "f32bef26-d2b8-47a6-b938-3dcd5e870685", title: "Brics push for Gulf peace as war worries mount", date: "2026-09-12", time: "15:34", url: "https://www.ft.com/content/f32bef26-d2b8-47a6-b938-3dcd5e870685" },
   { id: "70bd4f6c-a5f4-4e59-b773-614f0a5efd58", title: "Trump says united Ireland ‘inevitable’ and ‘a very cool thing’", date: "2026-09-12", time: "13:56", url: "https://www.ft.com/content/70bd4f6c-a5f4-4e59-b773-614f0a5efd58" },
   { id: "936ac952-43a6-44d5-be69-afa344e042f5", title: "Reform UK receives two record £36mn donations", date: "2026-09-12", time: "13:25", url: "https://www.ft.com/content/936ac952-43a6-44d5-be69-afa344e042f5" },
-  { id: "4dc6710b-7911-44c6-b57a-2fb47b6b04ed", title: "Canada seeks $1tn from investors looking for a haven from Donald Trump", date: "2026-09-12", time: "11:00", url: "https://www.ft.com/content/4dc6710b-7911-44c6-b57a-2fb47b6b04ed" },
 ];
