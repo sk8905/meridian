@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c49c583f-940c-4592-ad7e-7c206b6c3c75", title: "Brazil banking scandal engulfs Supreme Court", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/c49c583f-940c-4592-ad7e-7c206b6c3c75" },
+  { id: "21b663e4-60ee-4937-a561-5b0f505676a2", title: "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/21b663e4-60ee-4937-a561-5b0f505676a2" },
+  { id: "3204d65e-ae34-4ab3-a73f-a55d354f40ab", title: "Texas puts a brake on its data centre boom", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/3204d65e-ae34-4ab3-a73f-a55d354f40ab" },
+  { id: "2404d7db-002e-42d6-a746-183bb23c1234", title: "The coming robotaxi revolution", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/2404d7db-002e-42d6-a746-183bb23c1234" },
+  { id: "b11887d2-d40d-473d-ba5e-2f9fb8a73beb", title: "Trump’s vision of Alaska as LNG superpower confronts an $80bn test", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/b11887d2-d40d-473d-ba5e-2f9fb8a73beb" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-13", time: "08:50", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "183569b4-8102-4b38-8a20-a3597a442f26", title: "Boom-era PE funds will fall short on promises, executives warn", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/183569b4-8102-4b38-8a20-a3597a442f26" },
   { id: "b081fc93-3eb8-4adc-84cc-b5c5cf719003", title: "Sunderland football club looks to US post-industrial peers in bid to lift revenue", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/b081fc93-3eb8-4adc-84cc-b5c5cf719003" },
@@ -57,8 +62,4 @@ export const FT_ITEMS = [
   { id: "9040a3b5-c2a9-40ce-b7f2-c192453a7fd0", title: "St James’s Place looks to reassure advisers following departures", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/9040a3b5-c2a9-40ce-b7f2-c192453a7fd0" },
   { id: "ac02d67e-4576-48d9-b50f-69b38294ae67", title: "Exorbitant tennis tickets are the price of the sport’s success", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/ac02d67e-4576-48d9-b50f-69b38294ae67" },
   { id: "14f69775-f842-450c-ba18-e16812348499", title: "It’s time to scrap the triple lock", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/14f69775-f842-450c-ba18-e16812348499" },
-  { id: "6a5f7e88-d778-41d7-b53d-d9ac49f52f99", title: "European investment in LatAm stocks hits 15-year peak", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/6a5f7e88-d778-41d7-b53d-d9ac49f52f99" },
-  { id: "dcfe97fe-8935-497f-abfb-c51973614458", title: "Chinese crypto investor was seller of £190mn London mansion", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/dcfe97fe-8935-497f-abfb-c51973614458" },
-  { id: "294b1de0-b055-4703-b3f6-975f179aad54", title: "Booming Brics payments systems seek more cross-border links", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/294b1de0-b055-4703-b3f6-975f179aad54" },
-  { id: "34a0b3fa-1cd4-4743-8e28-3996836610ca", title: "The perils of prediction markets", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/34a0b3fa-1cd4-4743-8e28-3996836610ca" },
 ];
