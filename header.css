@@ -36,14 +36,14 @@
 .brand { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; text-decoration: none; color: #fff; }
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
-.brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
-.logo { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; box-sizing: border-box; border: 1px solid var(--border, #262626); background: #000; color: #fff; font-family: var(--t-mono, ui-monospace, monospace); font-weight: 700; font-size: 1.15rem; line-height: 1; border-radius: 0; }
+.brand-text strong { font-size: 1.08rem; letter-spacing: .3px; }
+.logo { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; box-sizing: border-box; border: 1px solid var(--border, #262626); background: #000; color: #fff; font-family: var(--t-mono, ui-monospace, monospace); font-weight: 700; font-size: 1.18rem; line-height: 1; border-radius: 0; }
 
 /* Platform switch (Home / Macro / Credit / Legal) */
 .platform-switch { display: inline-flex; align-items: stretch; gap: 0; background: transparent; border: 0; border-radius: 0; padding: 0; margin-right: .6rem; flex: 0 0 auto; }
 /* Each button reads black-on-header with white text; the selected one is marked
    by an orange bottom border only (no filled background). */
-.ps-btn { padding: .45rem .7rem; border: 0; border-radius: 0; font-size: .8rem; font-weight: 700; color: #fff; text-decoration: none; white-space: nowrap; background: transparent; border-bottom: 2px solid transparent; cursor: pointer; }
+.ps-btn { padding: .45rem .7rem; border: 0; border-radius: 0; font-size: .83rem; font-weight: 700; color: #fff; text-decoration: none; white-space: nowrap; background: transparent; border-bottom: 2px solid transparent; cursor: pointer; }
 .ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
 .ps-btn.is-active, .ps-btn.is-active:hover { background: transparent; color: #fff; border-bottom: 2px solid var(--accent, #fb8b1e); }
 /* Divider before the Profiles entry ("| Profiles") — a cross-desk directory set
@@ -54,19 +54,19 @@
    it + the identity/bell cluster to the right gutter. */
 .nav-search { display: inline-flex; align-items: center; gap: .55rem; justify-content: space-between; margin-left: auto; flex: 0 0 auto; min-width: 236px;
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); color: #c8d6ef;
-  font: inherit; font-size: .85rem; padding: .42rem .7rem; border-radius: 0; cursor: pointer; text-align: left; white-space: nowrap; }
+  font: inherit; font-size: .88rem; padding: .42rem .7rem; border-radius: 0; cursor: pointer; text-align: left; white-space: nowrap; }
 .nav-search:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
 .nav-search .ns-lbl { flex: 1 1 auto; color: inherit; }
-.nav-search kbd { background: rgba(255,255,255,.16); border-radius: 0; padding: .02rem .42rem; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.5; }
+.nav-search kbd { background: rgba(255,255,255,.16); border-radius: 0; padding: .02rem .42rem; font: inherit; font-size: .83rem; font-weight: 700; line-height: 1.5; }
 
 /* Right cluster: identity + last-refresh stacked, sitting in the right gutter. */
 .topbar-right { flex: 0 0 auto; margin-left: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
-.account-nav { font-size: .72rem; color: var(--muted, #8592ad); white-space: nowrap; }
+.account-nav { font-size: .75rem; color: var(--muted, #8592ad); white-space: nowrap; }
 .account-nav strong { color: #fff; font-weight: 600; }
 .account-nav a { color: #fff; font-weight: 600; }
 .account-nav a:hover { color: #fff; text-decoration: none; }
 .account-nav:empty { display: none; }
-.data-status { display: flex; align-items: center; gap: .4rem; font-size: .68rem; color: var(--muted, #8592ad); white-space: nowrap; }
+.data-status { display: flex; align-items: center; gap: .4rem; font-size: .71rem; color: var(--muted, #8592ad); white-space: nowrap; }
 .ds-part { white-space: nowrap; }
 /* The live-feed countdown ring sits beside the "Last refresh" marker (moved out
    of the header action cluster). It renders into every refresh slot — desktop
@@ -99,8 +99,8 @@
   .platform-switch, .nav-search { display: none; }
   .topbar-right { grid-area: account; align-items: flex-end; text-align: right; }
   .notif { grid-area: bell; justify-self: end; align-self: center; }
-  .logo { font-size: 1.55rem; }
-  .brand-text strong { font-size: 1.05rem; }
+  .logo { font-size: 1.58rem; }
+  .brand-text strong { font-size: 1.08rem; }
   /* Phones: drop the identity (email/sign-out) + last-refresh from the header
      entirely — they live in the /menu/ page instead. Hidden wherever they sit
      (header or the footer relocation); the menu reads their innerHTML, not their
@@ -118,13 +118,13 @@
    black --head band gone; the hairline --border keeps each strip legibly divided. */
 :root[data-theme="dark"] .wticker,
 :root[data-theme="dark"] .wbrief { background: var(--bg, #141414); }
-.wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size: 10.5px; font-weight: 600;
+.wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size: 11px; font-weight: 600;
   letter-spacing: .04em; color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap; }
 /* Flat: the live-status dot is a solid accent disc, no glow halo. */
 .wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .wtk-row { display: flex; align-items: center; overflow: hidden; flex: 1; }
 .wtk { display: flex; align-items: baseline; gap: 7px; padding: 0 13px; line-height: 26px;
-  font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; font-variant-numeric: tabular-nums;
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; font-variant-numeric: tabular-nums;
   border-right: 1px solid var(--border); white-space: nowrap; text-decoration: none; }
 .wtk .s { color: var(--muted); } .wtk .v { color: var(--ink); }
 .wtk .up { color: var(--t-up, #3fc08d); } .wtk .down { color: var(--t-down, #f26d84); } .wtk .flat { color: var(--faint); }
@@ -139,15 +139,15 @@
 .wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
 /* Briefing band colour map: the greeting reads ORANGE (--accent), the kicker
    labels BLUE (--wb-txt), and the actual headlines/stories WHITE (--ink). */
-.wb-hello { color: var(--accent, #fb8b1e); font-size: 12px; font-weight: 400; letter-spacing: 0; white-space: nowrap; }
-.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wb-hello { color: var(--accent, #fb8b1e); font-size: 12.5px; font-weight: 400; letter-spacing: 0; white-space: nowrap; }
+.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12.5px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wb-brief:empty { display: none; }
-.wb-lbl { font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; margin-right: .3rem; }
+.wb-lbl { font-size: 10.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; margin-right: .3rem; }
 .wb-link { color: var(--ink); font-weight: 400; text-decoration: none; }
 .wb-link:hover { color: var(--ink); text-decoration: none; }
 .wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
-.wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 11.5px; line-height: 1.4; color: var(--ink); overflow: hidden; }
-.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; }
+.wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 12px; line-height: 1.4; color: var(--ink); overflow: hidden; }
+.wb-gl-l { flex: 0 0 auto; font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; }
 .wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
 .wb-gl-v a { color: inherit; text-decoration: none; }
 .wb-gl-v a:hover { color: var(--ink); text-decoration: none; }

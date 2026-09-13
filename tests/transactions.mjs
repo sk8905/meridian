@@ -63,7 +63,7 @@ const ov = await pg.evaluate(() => ({
 }));
 check(ov.rows >= 6, `overview lists the transaction types as a league table (${ov.rows})`);
 check(ov.rowHs.length === 1, `overview rows share one uniform height, matching the Profiles league (${ov.rowHs.join(", ")}px)`);
-check(ov.nameFS === "11px" && (ov.nameFW === "400" || ov.nameFW === "normal"), `type names match the Profiles league type (11px regular, got ${ov.nameFS}/${ov.nameFW})`);
+check(ov.nameFS === "11.5px" && (ov.nameFW === "400" || ov.nameFW === "normal"), `type names match the Profiles league type (11.5px regular, got ${ov.nameFS}/${ov.nameFW})`);
 check(ov.aligns.length > 0 && ov.aligns.every((a) => a === "left" || a === "start"), `every header + cell is left-aligned, matching the Profiles league (${[...new Set(ov.aligns)].join(", ")})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the table body sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.headOffset === 0, `the column header sits flush at the top — no blank band above it (offset ${ov.headOffset}px)`);

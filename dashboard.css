@@ -80,7 +80,7 @@
     overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
   .dsh-term-col > .dsh-card{ flex:0 0 auto; }
   /* Per-column label above each pane's cards (Macro: Policy rates · Cycle · Wire). */
-  .dsh-term-lbl{ flex:0 0 auto; margin:0; font-size:10px; font-weight:700; letter-spacing:.06em;
+  .dsh-term-lbl{ flex:0 0 auto; margin:0; font-size:10.5px; font-weight:700; letter-spacing:.06em;
     text-transform:uppercase; color:var(--t-mut); padding-bottom:2px; }
   /* Stack the Fed/BoE FedWatch|dot-plot internals in a terminal column so they
      read cleanly at column width instead of cramping side by side. */
@@ -110,7 +110,7 @@
 .dsh-3z { display:flex; flex-direction:column; gap:var(--dsh-gap); }
 .dsh-railnav { display:flex; flex-flow:row nowrap; gap:0; position:sticky; top:0; z-index:3;
   background:var(--t-head); border-bottom:1px solid var(--t-grid); }
-.dsh-navchip { flex:1 1 0; min-width:0; text-align:center; display:block; padding:10px 4px; font-size:11px;
+.dsh-navchip { flex:1 1 0; min-width:0; text-align:center; display:block; padding:10px 4px; font-size:11.5px;
   font-weight:600; color:var(--t-mut); text-decoration:none; white-space:nowrap; overflow:hidden;
   text-overflow:ellipsis; cursor:pointer; }
 .dsh-navchip.is-on { color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--t-accent); }
@@ -124,7 +124,7 @@
   /* Same bar height as the Profiles/Transactions wire-head chips: a fixed
      --chip-h (34px) row with the chip centred, not the taller 10px-padded pill. */
   .dsh-railnav{ height:var(--chip-h, 34px); box-sizing:border-box; }
-  .dsh-navchip{ font-size:11px; font-weight:400; padding:0 4px; height:100%;
+  .dsh-navchip{ font-size:11.5px; font-weight:400; padding:0 4px; height:100%;
     display:flex; align-items:center; justify-content:center; }
   .dsh-navchip.is-on{ font-weight:600;
     box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
@@ -145,7 +145,7 @@
 .dsh-newsrail .dsh-km-t { white-space:normal; }
 /* Section label (also used by the stacked middle) — base rule so it reads right
    on mobile too, not only inside the desktop terminal block above. */
-.dsh-term-lbl { margin:0; font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); padding:2px 0 1px; }
+.dsh-term-lbl { margin:0; font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); padding:2px 0 1px; }
 
 @media (min-width:901px){
   .v2-view .dsh:has(.dsh-3z){ overflow:hidden; display:flex; flex-direction:column; padding:0; }
@@ -206,41 +206,41 @@
    the section header sits quiet and the data below carries the emphasis
    (HOUSE_STYLE R10/R11). */
 .dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 9px; padding:0 0 7px;
-  border-bottom:1px solid var(--t-grid); font-size:11px; font-weight:500; letter-spacing:.02em; color:var(--t-mut); }
-.dsh-h .dsh-n { color:var(--t-faint); font-weight:400; font-size:10px; }
+  border-bottom:1px solid var(--t-grid); font-size:11.5px; font-weight:500; letter-spacing:.02em; color:var(--t-mut); }
+.dsh-h .dsh-n { color:var(--t-faint); font-weight:400; font-size:10.5px; }
 /* Dark: lift tile/group headings off the muted grey so they read as headings on
    the flat charcoal — brighter ink + a touch more weight, no colour (see
    --t-headink). Keeps the hairline underline; the trailing count/asOf stay faint. */
 :root[data-theme="dark"] .dsh-h { color:var(--t-headink); font-weight:600; }
 :root[data-theme="dark"] .dsh-term-lbl { color:var(--t-headink); }
-.dsh-asof { margin-left:auto; color:var(--t-faint); font-size:11px; font-weight:400; }
-.dsh-src { color:var(--t-mut); text-decoration:none; font-size:.62rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:0; padding:0 3px; vertical-align:middle; }
+.dsh-asof { margin-left:auto; color:var(--t-faint); font-size:11.5px; font-weight:400; }
+.dsh-src { color:var(--t-mut); text-decoration:none; font-size:.65rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:0; padding:0 3px; vertical-align:middle; }
 .dsh-src:hover { color:var(--t-ink); border-color:var(--t-mut); }
-.dsh-live { color:var(--t-up); font-size:.66rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:0; padding:0 4px; }
+.dsh-live { color:var(--t-up); font-size:.69rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:0; padding:0 4px; }
 
 /* Index strip — horizontal scroll on phone, wraps on desktop */
 .dsh-strip { display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
 .dsh-strip::-webkit-scrollbar{ display:none; }
 .dsh-idx { flex:0 0 auto; min-width:120px; display:flex; flex-direction:column; gap:2px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:0; text-decoration:none; background:var(--t-panel2); }
-.dsh-idx-nm { color:var(--t-mut); font-size:11px; }
-.dsh-idx-lv { color:var(--t-ink); font-size:11px; font-weight:600; font-variant-numeric:tabular-nums; }
-.dsh-idx-yt { font-size:11px; font-variant-numeric:tabular-nums; }
+.dsh-idx-nm { color:var(--t-mut); font-size:11.5px; }
+.dsh-idx-lv { color:var(--t-ink); font-size:11.5px; font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-idx-yt { font-size:11.5px; font-variant-numeric:tabular-nums; }
 
 /* Sector ranked bars (diverging around a centre line) */
 .dsh-sectors { display:flex; flex-direction:column; gap:5px; }
 .dsh-sec { display:grid; grid-template-columns:120px 1fr 56px; align-items:center; gap:8px; }
-.dsh-sec-nm { color:var(--t-dim); font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-sec-nm { color:var(--t-dim); font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-sec-track { position:relative; height:14px; background:var(--t-panel2); border-radius:0; }
 .dsh-sec-track::before{ content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--t-grid2); }
 .dsh-sec-bar { position:absolute; top:2px; bottom:2px; min-width:2px; border-radius:0; }
 .dsh-sec-bar.up{ background:var(--t-up); } .dsh-sec-bar.down{ background:var(--t-down); }
-.dsh-sec-v { text-align:right; font-size:11px; font-variant-numeric:tabular-nums; }
+.dsh-sec-v { text-align:right; font-size:11.5px; font-variant-numeric:tabular-nums; }
 
 /* Sector heatmap grid (desktop toggle) */
 .dsh-heat { display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:4px; }
 .dsh-heat-t { display:flex; flex-direction:column; justify-content:center; gap:2px; padding:10px 8px; border-radius:0; min-height:56px; }
-.dsh-heat-t span{ color:var(--t-ink); font-size:11px; line-height:1.15; }
-.dsh-heat-t b{ color:var(--t-ink); font-size:11px; font-variant-numeric:tabular-nums; }
+.dsh-heat-t span{ color:var(--t-ink); font-size:11.5px; line-height:1.15; }
+.dsh-heat-t b{ color:var(--t-ink); font-size:11.5px; font-variant-numeric:tabular-nums; }
 
 .up { color:var(--t-up); } .down { color:var(--t-down); }
 
@@ -252,31 +252,31 @@
 .dsh-kvgrid { display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; }
 @media (max-width:520px){ .dsh-kvgrid{ grid-template-columns:1fr; } }
 .dsh-kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-kv-k { color:var(--t-dim); font-family:var(--t-mono); font-size:11px; }
-.dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:11px; font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
+.dsh-kv-k { color:var(--t-dim); font-family:var(--t-mono); font-size:11.5px; }
+.dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:11.5px; font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
 /* Private-credit card: one metric per SINGLE line (always full-width rows; the
    label truncates with an ellipsis + hover title, the value · SRC stay put). */
 .dsh-pc-grid { grid-template-columns:1fr; }
 .dsh-pc-grid .dsh-kv { flex-wrap:nowrap; }
 .dsh-pc-grid .dsh-kv-k { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:0 1 auto; }
 .dsh-pc-grid .dsh-kv-v { white-space:nowrap; flex:0 0 auto; }
-.dsh-band { color:var(--t-mut); font-weight:500; font-size:11px; border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; margin-left:4px; }
+.dsh-band { color:var(--t-mut); font-weight:500; font-size:11.5px; border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; margin-left:4px; }
 .dsh-band.up{ color:var(--t-up); border-color:var(--t-up); } .dsh-band.down{ color:var(--t-down); border-color:var(--t-down); }
 
 /* Spread rows */
 .dsh-spreads { display:flex; flex-direction:column; gap:4px; }
 .dsh-spread { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-spread-nm { flex:1; color:var(--t-dim); font-family:var(--t-mono); font-size:11px; }
+.dsh-spread-nm { flex:1; color:var(--t-dim); font-family:var(--t-mono); font-size:11.5px; }
 .dsh-spread-v { color:var(--t-ink); font-family:var(--t-mono); font-weight:600; font-variant-numeric:tabular-nums; }
-.dsh-spread-u { color:var(--t-faint); font-size:11px; margin-left:2px; }
-.dsh-load { color:var(--t-mut); font-size:11px; margin:2px 0; }
+.dsh-spread-u { color:var(--t-faint); font-size:11.5px; margin-left:2px; }
+.dsh-load { color:var(--t-mut); font-size:11.5px; margin:2px 0; }
 
 /* Key moments — sourced "why it moved" rows in the Equities pane. Fixed first
    column so every explanation lines up regardless of index-name length. */
 .dsh-km { display:grid; grid-template-columns:148px 1fr; gap:10px; align-items:baseline; padding:6px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-km:last-child { border-bottom:0; }
-.dsh-km-t { color:var(--accent); font-weight:600; font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.dsh-km-x { color:var(--t-dim); font-size:11px; line-height:1.4; }
+.dsh-km-t { color:var(--accent); font-weight:600; font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-km-x { color:var(--t-dim); font-size:11.5px; line-height:1.4; }
 @media (max-width:520px){ .dsh-km { grid-template-columns:118px 1fr; gap:8px; } }
 
 /* Sector flows heatmap (Equities) — diverging colour set inline per cell,
@@ -286,21 +286,21 @@
 .dsh-fl-tbl td.dsh-nm { text-align:left; }
 .dsh-fl { color:var(--t-ink); font-weight:600; }
 .dsh-fl-na { color:var(--t-faint); font-weight:400; }
-.dsh-fl-t { color:var(--t-mut); font-size:11px; margin-left:4px; }
-.dsh-fl-note { color:var(--t-faint); font-size:11px; line-height:1.5; margin:8px 0 0; }
+.dsh-fl-t { color:var(--t-mut); font-size:11.5px; margin-left:4px; }
+.dsh-fl-note { color:var(--t-faint); font-size:11.5px; line-height:1.5; margin:8px 0 0; }
 .dsh-fl-pos { color:var(--t-up); font-weight:700; }
 .dsh-fl-neg { color:var(--t-down); font-weight:700; }
 
 /* Legal database (Dashboard ▸ Legal) — searchable, practice-area-grouped list of
    all alerts + case law. */
-.dsh-lgl-search { width:100%; box-sizing:border-box; margin:0 0 8px; padding:7px 10px; font:inherit; font-size:11px;
+.dsh-lgl-search { width:100%; box-sizing:border-box; margin:0 0 8px; padding:7px 10px; font:inherit; font-size:11.5px;
   color:var(--t-ink); background:var(--t-panel2); border:1px solid var(--t-grid2); border-radius:0; }
 .dsh-lgl-search::placeholder { color:var(--t-faint); }
 .dsh-lgl-search:focus { outline:none; border-color:var(--t-accent); }
 .dsh-lgl-chips { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0 0 10px; }
-.dsh-lgl-lbl { color:var(--t-mut); font-size:11px; font-weight:600; margin-right:2px; }
+.dsh-lgl-lbl { color:var(--t-mut); font-size:11.5px; font-weight:600; margin-right:2px; }
 .dsh-lgl-chip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit;
-  font-size:11px; font-weight:600; padding:0 9px; border-radius:0; cursor:pointer; }
+  font-size:11.5px; font-weight:600; padding:0 9px; border-radius:0; cursor:pointer; }
 .dsh-lgl-chip:hover { color:var(--t-ink); }
 .dsh-lgl-chip.is-on { color:var(--t-ink); font-weight:700; box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .dsh-lgl-chip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
@@ -309,18 +309,18 @@
 .dsh-lgl-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-lgl-i:last-child { border-bottom:0; }
 .dsh-lgl-i-h { display:flex; align-items:center; gap:8px; margin-bottom:2px; }
-.dsh-lgl-d { color:var(--t-mut); font-size:11px; font-family:var(--t-mono); }
-.dsh-lgl-badge { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); }
+.dsh-lgl-d { color:var(--t-mut); font-size:11.5px; font-family:var(--t-mono); }
+.dsh-lgl-badge { font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); }
 .dsh-lgl-case { color:var(--t-lex); border-color:var(--t-lex); }
 .dsh-lgl-alert { color:var(--t-lex); border-color:var(--t-lex); }
-.dsh-lgl-t { display:block; color:var(--t-ink); font-size:11px; line-height:1.35; font-weight:500; }
+.dsh-lgl-t { display:block; color:var(--t-ink); font-size:11.5px; line-height:1.35; font-weight:500; }
 .dsh-lgl-t:hover { color:var(--t-ink); }
-.dsh-lgl-m { color:var(--t-mut); font-size:11px; margin-top:2px; }
+.dsh-lgl-m { color:var(--t-mut); font-size:11.5px; margin-top:2px; }
 
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
-.dsh-tbl { width:100%; border-collapse:collapse; font-size:11px; font-family:var(--t-mono); }
-.dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:11px; padding:4px 8px; border-bottom:1px solid var(--t-grid2); white-space:nowrap; vertical-align:top; }
+.dsh-tbl { width:100%; border-collapse:collapse; font-size:11.5px; font-family:var(--t-mono); }
+.dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:11.5px; padding:4px 8px; border-bottom:1px solid var(--t-grid2); white-space:nowrap; vertical-align:top; }
 /* Top-align cells: a wrapping cell (e.g. the Stress "Note") sets the row height,
    and without this the short single-line cells float in the vertical middle of
    that tall row, reading as big empty gaps ("stretched"). Top keeps every row
@@ -329,7 +329,7 @@
 .dsh-tbl .dsh-nm { color:var(--t-ink); font-weight:600; }
 /* Week sub-header row inside a grouped table (e.g. the earnings calendar's
    "This week" / "Last week" bands). */
-.dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:11px; text-transform:uppercase;
+.dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:11.5px; text-transform:uppercase;
   letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
 /* Dashboard tables read LEFT-ALIGNED throughout (headers + cells), including the
    value columns that .dsh-r used to right-align — a consistent left edge across
@@ -346,45 +346,45 @@
    release (ticker · company · session · date; sector; forecast→actual measures;
    price reaction; the "why" note). Replaces the old cramped 6-column table. */
 .dsh-earn { display:flex; flex-direction:column; }
-.dsh-earn-wk { font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+.dsh-earn-wk { font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
   color:var(--t-ink); background:var(--t-panel2); border-bottom:1px solid var(--t-grid2);
   padding:6px 8px; margin:10px -4px 2px; border-radius:0; }
 .dsh-earn-wk:first-child { margin-top:0; }
 .dsh-earn-rel { padding:8px 4px; border-bottom:1px solid var(--t-grid); }
 .dsh-earn-hd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
-.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:11px; font-variant-numeric:tabular-nums; }
-.dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:11px; min-width:0; }
-.dsh-earn-when { color:var(--t-mut); font-size:.64rem; border:1px solid var(--t-grid2); border-radius:0; padding:0 5px; }
-.dsh-earn-dt { color:var(--t-faint); font-size:11px; margin-left:auto; white-space:nowrap; }
-.dsh-earn-tag { color:var(--t-mut); font-size:11px; margin-top:2px; }
+.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:11.5px; font-variant-numeric:tabular-nums; }
+.dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:11.5px; min-width:0; }
+.dsh-earn-when { color:var(--t-mut); font-size:.67rem; border:1px solid var(--t-grid2); border-radius:0; padding:0 5px; }
+.dsh-earn-dt { color:var(--t-faint); font-size:11.5px; margin-left:auto; white-space:nowrap; }
+.dsh-earn-tag { color:var(--t-mut); font-size:11.5px; margin-top:2px; }
 .dsh-earn-ms { display:flex; flex-wrap:wrap; gap:5px 16px; margin-top:6px; align-items:baseline; }
-.dsh-earn-m { font-size:11px; color:var(--t-dim); display:inline-flex; align-items:baseline; gap:5px; }
-.dsh-earn-ml { font-style:normal; color:var(--t-mut); font-size:.64rem; text-transform:uppercase; letter-spacing:.03em; }
+.dsh-earn-m { font-size:11.5px; color:var(--t-dim); display:inline-flex; align-items:baseline; gap:5px; }
+.dsh-earn-ml { font-style:normal; color:var(--t-mut); font-size:.67rem; text-transform:uppercase; letter-spacing:.03em; }
 .dsh-earn-fct { color:var(--t-mut); font-variant-numeric:tabular-nums; }
 .dsh-earn-arw { color:var(--t-faint); }
 .dsh-earn-act { color:var(--t-ink); font-weight:700; font-variant-numeric:tabular-nums; }
-.dsh-earn-await { color:var(--t-faint); font-style:italic; font-size:11px; }
-.dsh-earn-px { font-weight:700; font-size:11px; font-variant-numeric:tabular-nums; color:var(--t-mut); }
+.dsh-earn-await { color:var(--t-faint); font-style:italic; font-size:11.5px; }
+.dsh-earn-px { font-weight:700; font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--t-mut); }
 .dsh-earn-px.up { color:var(--t-up); } .dsh-earn-px.down { color:var(--t-down); }
-.dsh-earn-metric { display:inline-block; font-size:.6rem; font-weight:600; text-transform:uppercase;
+.dsh-earn-metric { display:inline-block; font-size:.63rem; font-weight:600; text-transform:uppercase;
   letter-spacing:.03em; color:var(--t-mut); border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; }
-.dsh-earn-note { color:var(--t-mut); font-size:11px; line-height:1.45; margin-top:5px; }
+.dsh-earn-note { color:var(--t-mut); font-size:11.5px; line-height:1.45; margin-top:5px; }
 /* Hedge Funds section — consensus/moves lists + per-fund 13F picker. */
 .dsh-hf-list { margin:0 0 2px; }
 .dsh-hf-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-hf-i:last-child { border-bottom:0; }
 .dsh-hf-i-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; margin-bottom:2px; }
-.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:11px; font-variant-numeric:tabular-nums; }
-.dsh-hf-nm { color:var(--t-dim); font-size:11px; }
-.dsh-hf-by { color:var(--t-mut); font-size:11px; margin-left:auto; }
-.dsh-hf-note { color:var(--t-mut); font-size:11px; line-height:1.35; }
-.dsh-hf-dir { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); color:var(--t-mut); }
+.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:11.5px; font-variant-numeric:tabular-nums; }
+.dsh-hf-nm { color:var(--t-dim); font-size:11.5px; }
+.dsh-hf-by { color:var(--t-mut); font-size:11.5px; margin-left:auto; }
+.dsh-hf-note { color:var(--t-mut); font-size:11.5px; line-height:1.35; }
+.dsh-hf-dir { font-size:.63rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-hf-buy, .dsh-hf-new { color:var(--t-up); border-color:var(--t-up); }
 .dsh-hf-sell, .dsh-hf-trim { color:var(--t-down); border-color:var(--t-down); }
 .dsh-hf-pick { display:flex; align-items:center; gap:8px; margin:2px 0 8px; }
-.dsh-hf-sel { font:inherit; font-size:11px; color:var(--t-ink); background:var(--t-panel); border:1px solid var(--t-grid2); border-radius:0; padding:5px 8px; max-width:min(100%,320px); }
+.dsh-hf-sel { font:inherit; font-size:11.5px; color:var(--t-ink); background:var(--t-panel); border:1px solid var(--t-grid2); border-radius:0; padding:5px 8px; max-width:min(100%,320px); }
 .dsh-hf-body { min-height:40px; }
-.dsh-tag { font-size:11px; font-weight:600; border-radius:0; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
+.dsh-tag { font-size:11.5px; font-weight:600; border-radius:0; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-tag-priced{ color:var(--t-up); border-color:var(--t-up); }
 .dsh-tag-filed{ color:var(--t-mac); border-color:var(--t-mac); }
 .dsh-tag-rumoured{ color:var(--t-faint); }
@@ -393,10 +393,10 @@
 /* Maturity ladder — vertical bars, one per year (tallest near-term draws the eye) */
 .dsh-ladder { display:flex; align-items:flex-end; gap:6px; height:120px; margin:12px 0 4px; padding-top:14px; }
 .dsh-ladder-col { flex:1 1 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:3px; }
-.dsh-ladder-v { color:var(--t-mut); font-size:.64rem; font-variant-numeric:tabular-nums; }
+.dsh-ladder-v { color:var(--t-mut); font-size:.67rem; font-variant-numeric:tabular-nums; }
 .dsh-ladder-bar { width:100%; max-width:34px; background:var(--t-crd); border-radius:0; min-height:2px; }
-.dsh-ladder-y { color:var(--t-dim); font-size:11px; font-variant-numeric:tabular-nums; }
-.dsh-ladder-cap { color:var(--t-faint); font-size:11px; }
+.dsh-ladder-y { color:var(--t-dim); font-size:11.5px; font-variant-numeric:tabular-nums; }
+.dsh-ladder-cap { color:var(--t-faint); font-size:11.5px; }
 /* Maturity wall — the bar chart and the per-year table SIDE BY SIDE on desktop
    (chart left, table right) rather than stacked, which reads better in the wide
    card. Stacks back to one column on phones. */
@@ -410,18 +410,18 @@
 .dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
 .dsh-stress { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
 .dsh-stress-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
-.dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:600; font-size:11px; }
-.dsh-stress-debt { color:var(--t-ink); font-weight:700; font-size:11px; font-variant-numeric:tabular-nums; white-space:nowrap; }
-.dsh-stress-m { color:var(--t-mut); font-size:11px; margin:3px 0 4px; }
+.dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:600; font-size:11.5px; }
+.dsh-stress-debt { color:var(--t-ink); font-weight:700; font-size:11.5px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-stress-m { color:var(--t-mut); font-size:11.5px; margin:3px 0 4px; }
 /* Stress sort chip bar */
 .dsh-sortbar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:0 0 8px; }
-.dsh-sortlbl { color:var(--t-mut); font-size:11px; margin-right:2px; }
-.dsh-sortchip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font-size:11px; font-family:inherit; padding:0 8px; cursor:pointer; }
+.dsh-sortlbl { color:var(--t-mut); font-size:11.5px; margin-right:2px; }
+.dsh-sortchip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font-size:11.5px; font-family:inherit; padding:0 8px; cursor:pointer; }
 .dsh-sortchip.is-on { color:var(--t-ink); font-weight:600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .dsh-sortchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
-.dsh-stress-n { color:var(--t-dim); font-size:11px; line-height:1.35; }
+.dsh-stress-n { color:var(--t-dim); font-size:11.5px; line-height:1.35; }
 
-.dsh-more a { color:inherit; text-decoration:none; font-size:11px; }
+.dsh-more a { color:inherit; text-decoration:none; font-size:11.5px; }
 .dsh-more a:hover { text-decoration:none; }
 
 /* A full-width card spanning both desktop columns (hero rows: index strip,
@@ -432,11 +432,11 @@
 .dsh-pills { display:flex; flex-wrap:wrap; gap:8px; }
 /* Regime pills: title on the LEFT (dark ink), value on the RIGHT (muted grey). */
 .dsh-pill { display:flex; flex-direction:row; align-items:baseline; justify-content:space-between; gap:10px; flex:1 1 160px; min-width:0; padding:8px 11px; border:1px solid var(--t-grid2); border-radius: 0; background:var(--t-panel2); }
-.dsh-pill-k { color:var(--t-ink); font-size:.61rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
-.dsh-pill-v { color:var(--t-mut); font-size:11px; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; font-variant-numeric:tabular-nums; }
+.dsh-pill-k { color:var(--t-ink); font-size:.64rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
+.dsh-pill-v { color:var(--t-mut); font-size:11.5px; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; font-variant-numeric:tabular-nums; }
 .dsh-pill-v .dsh-pill-up, .dsh-pill-v.dsh-pill-up { color:var(--t-up); }
 .dsh-pill-v .dsh-pill-dn, .dsh-pill-v.dsh-pill-dn { color:var(--t-down); }
-.dsh-pill-win { color:var(--t-faint); font-size:.58rem; font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
+.dsh-pill-win { color:var(--t-faint); font-size:.61rem; font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
 /* Long-label pills (credit pulse): stack the label OVER the value so a long metric
    name ("PRIVATE CREDIT DEFAULT RATE") never clips or pushes the value off. */
 .dsh-pills-stack .dsh-pill { flex-direction:column; align-items:flex-start; gap:3px; }
@@ -448,8 +448,8 @@
    one line, NASDAQ on three). */
 .dsh-tape .dsh-pill { flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:2px; padding:9px 12px; }
 .dsh-tape .dsh-pill-k { flex:0 0 auto; white-space:normal; line-height:1.2; }
-.dsh-tape .dsh-pill-lv { color:var(--t-ink); font-size:14px; font-weight:600; line-height:1.15; font-variant-numeric:tabular-nums; }
-.dsh-tape .dsh-pill-chg { font-size:11px; font-weight:500; color:var(--t-mut); font-variant-numeric:tabular-nums; }
+.dsh-tape .dsh-pill-lv { color:var(--t-ink); font-size:14.5px; font-weight:600; line-height:1.15; font-variant-numeric:tabular-nums; }
+.dsh-tape .dsh-pill-chg { font-size:11.5px; font-weight:500; color:var(--t-mut); font-variant-numeric:tabular-nums; }
 .dsh-tape .dsh-pill-chg.dsh-pill-up { color:var(--t-up); }
 .dsh-tape .dsh-pill-chg.dsh-pill-dn { color:var(--t-down); }
 .dsh-tape .dsh-pill-win { margin-left:3px; }
@@ -459,18 +459,18 @@
 .dsh-rogrid { display:grid; grid-template-columns:1fr; gap:10px; }
 .dsh-ro { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
 .dsh-ro-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
-.dsh-ro-nm { color:var(--t-mut); font-size:11px; }
-.dsh-ro-rate { color:var(--t-ink); font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; }
-.dsh-ro-m { color:var(--t-dim); font-size:11px; margin:3px 0; }
+.dsh-ro-nm { color:var(--t-mut); font-size:11.5px; }
+.dsh-ro-rate { color:var(--t-ink); font-size:11.5px; font-weight:700; font-variant-numeric:tabular-nums; }
+.dsh-ro-m { color:var(--t-dim); font-size:11.5px; margin:3px 0; }
 /* Collapsed-by-default commentary (native <details>). */
 .dsh-ro-more { margin-top:4px; }
-.dsh-ro-sum { cursor:pointer; color:var(--t-accent); font-size:11px; font-weight:600; list-style:none;
+.dsh-ro-sum { cursor:pointer; color:var(--t-accent); font-size:11.5px; font-weight:600; list-style:none;
   display:inline-flex; align-items:center; gap:5px; user-select:none; }
 .dsh-ro-sum::-webkit-details-marker { display:none; }
 .dsh-ro-sum::before { content:"\25B8"; font-size:.72em; transition:transform .15s ease; }
 .dsh-ro-more[open] .dsh-ro-sum { margin-bottom:5px; }
 .dsh-ro-more[open] .dsh-ro-sum::before { transform:rotate(90deg); }
-.dsh-ro-b { color:var(--t-mut); font-size:11px; line-height:1.35; }
+.dsh-ro-b { color:var(--t-mut); font-size:11.5px; line-height:1.35; }
 
 /* Yield curve (Macro) — SVG term structure + key */
 .dsh-yc { margin-bottom:8px; }
@@ -479,19 +479,19 @@
    gutter, X-axis labels align under the plot. */
 .dsh-yc-plot { position:relative; padding-left:36px; }
 .dsh-yc-yax { position:absolute; left:0; top:0; width:36px; height:210px; }
-.dsh-yc-yax span { position:absolute; right:5px; transform:translateY(-50%); font-size:.62rem; color:var(--t-faint); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-yc-yax span { position:absolute; right:5px; transform:translateY(-50%); font-size:.65rem; color:var(--t-faint); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .dsh-yc-svg { width:100%; height:210px; display:block; }
 .dsh-yc-grid { stroke:var(--t-grid); stroke-width:1; }
 .dsh-yc-x { padding-left:36px; }
 .dsh-yc-us { stroke:var(--t-accent); stroke-width:2; } .dsh-yc-us-d { fill:var(--t-accent); }
 .dsh-yc-uk { stroke:var(--t-mac); stroke-width:2; } .dsh-yc-uk-d { fill:var(--t-mac); }
-.dsh-yc-x { display:flex; justify-content:space-between; color:var(--t-faint); font-size:.66rem; padding:2px 6px 0; }
+.dsh-yc-x { display:flex; justify-content:space-between; color:var(--t-faint); font-size:.69rem; padding:2px 6px 0; }
 /* Macro yield curve — dots, tenor axis labels and the value table share one
    column grid (92px label column + N equal tenor columns) so they line up. */
 .dsh-yc2-plot { padding-left:92px; }
 .dsh-yc2-svg { width:100%; height:118px; }
 .dsh-yc2-x { padding-left:92px; display:grid; grid-template-columns:repeat(var(--n,5),1fr); text-align:center;
-  color:var(--t-faint); font-size:.66rem; padding-top:4px; }
+  color:var(--t-faint); font-size:.69rem; padding-top:4px; }
 .dsh-yc2-tbl { table-layout:fixed; width:100%; margin-top:8px; }
 .dsh-yc2-tbl th, .dsh-yc2-tbl td { text-align:center; }
 .dsh-yc2-tbl th:first-child, .dsh-yc2-tbl td.dsh-nm { width:92px; text-align:left; }
@@ -500,31 +500,31 @@
 td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Multi-country curve legend (Fixed Income) + the yield-change tenor selector. */
 .dsh-yc-leg { display:flex; flex-wrap:wrap; gap:4px 12px; margin:6px 0 10px; }
-.dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-dim); font-size:11px; }
+.dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-dim); font-size:11.5px; }
 .dsh-yc-lg i { width:9px; height:9px; border-radius:0; display:inline-block; }
 .dsh-yld-selbar { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
-.dsh-yld-sellbl { color:var(--t-mut); font-size:11px; text-transform:uppercase; letter-spacing:.03em; }
+.dsh-yld-sellbl { color:var(--t-mut); font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; }
 
 /* Embedded news wires (Macro/Credit) — compact linked list */
 .dsh-news { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
-.dsh-news-i { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); font-size:11px; }
-.dsh-news-d { flex:0 0 auto; color:var(--t-faint); font-size:11px; font-variant-numeric:tabular-nums; min-width:44px; }
+.dsh-news-i { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); font-size:11.5px; }
+.dsh-news-d { flex:0 0 auto; color:var(--t-faint); font-size:11.5px; font-variant-numeric:tabular-nums; min-width:44px; }
 .dsh-news-i a { color:var(--t-dim); text-decoration:none; }
 .dsh-news-i a:hover { color:var(--t-ink); }
-.dsh-news-s { flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:11px; white-space:nowrap; }
+.dsh-news-s { flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:11.5px; white-space:nowrap; }
 
 /* Sortable Stress league table (Credit) */
 .dsh-tbl th.dsh-sortable { cursor:pointer; user-select:none; }
 .dsh-tbl th.dsh-sortable:hover { color:var(--t-dim); }
 .dsh-tbl th.dsh-sorted { color:var(--t-ink); }
-.dsh-stresstbl td.dsh-note { white-space:normal; color:var(--t-dim); font-size:11px; line-height:1.35; }
+.dsh-stresstbl td.dsh-note { white-space:normal; color:var(--t-dim); font-size:11.5px; line-height:1.35; }
 .dsh-stresstbl td.dsh-nm { white-space:normal; }
-.dsh-stress-sub { display:block; color:var(--t-mut); font-weight:400; font-size:11px; }
+.dsh-stress-sub { display:block; color:var(--t-mut); font-weight:400; font-size:11.5px; }
 /* Clamp an inline note to two lines so table rows stay compact; the SRC link
    after it opens the full story. */
 .dsh-clamp2 { display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 /* Rate-outlook table: the "Read" commentary column wraps to fit its space. */
-.dsh-ro-tbl td.dsh-ro-read { white-space:normal; color:var(--t-dim); font-size:11px; line-height:1.4; }
+.dsh-ro-tbl td.dsh-ro-read { white-space:normal; color:var(--t-dim); font-size:11.5px; line-height:1.4; }
 .dsh-tbl td.dsh-mut { color:var(--t-mut); }
 
 /* Two-up pair (spreads|maturity, earnings|IPO) — side by side from a small width */
@@ -535,13 +535,13 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Fed path — dot plot + CME FedWatch */
 .dsh-fed { display:grid; grid-template-columns:1fr; gap:12px; }
 @media (min-width:560px){ .dsh-fed{ grid-template-columns:1fr 1fr; } }
-.dsh-fed-h { color:var(--t-mut); font-size:11px; margin-bottom:6px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.dsh-fed-h { color:var(--t-mut); font-size:11.5px; margin-bottom:6px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .dsh-mut { color:var(--t-faint); font-weight:400; }
 .dsh-fw { display:grid; grid-template-columns:1fr 80px 42px; align-items:center; gap:8px; padding:3px 0; }
-.dsh-fw-l { color:var(--t-dim); font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-fw-l { color:var(--t-dim); font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-fw-track { position:relative; height:12px; background:var(--t-panel2); border-radius:0; }
 .dsh-fw-bar { position:absolute; left:0; top:0; bottom:0; background:var(--t-accent); border-radius:0; }
-.dsh-fw-p { text-align:right; font-size:11px; font-variant-numeric:tabular-nums; color:var(--t-ink); }
+.dsh-fw-p { text-align:right; font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--t-ink); }
 
 /* Cycle card (Macro): Dalio debt cycle + Marks market cycle side by side,
    each a labelled block with meter bars, framework prose and linked sources. */
@@ -549,20 +549,20 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
    paired cards with a break between them), so the block fills its card. */
 .dsh-cyc { display:block; }
 .dsh-cyc-blk { min-width:0; }
-.dsh-cyc-hd { font-size:11px; font-weight:700; color:var(--t-ink); margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
-.dsh-cyc-hd span { display:block; font-size:11px; font-weight:400; color:var(--t-mut); margin-top:2px; }
-.dsh-cyc-sub { font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--t-mut); margin:12px 0 0; }
-.dsh-cyc-note { font-size:11px; line-height:1.55; color:var(--t-ink); margin:8px 0 0; }
-.dsh-cyc-note.dsh-mut { color:var(--t-mut); font-size:11px; }
+.dsh-cyc-hd { font-size:11.5px; font-weight:700; color:var(--t-ink); margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
+.dsh-cyc-hd span { display:block; font-size:11.5px; font-weight:400; color:var(--t-mut); margin-top:2px; }
+.dsh-cyc-sub { font-size:11.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--t-mut); margin:12px 0 0; }
+.dsh-cyc-note { font-size:11.5px; line-height:1.55; color:var(--t-ink); margin:8px 0 0; }
+.dsh-cyc-note.dsh-mut { color:var(--t-mut); font-size:11.5px; }
 .dsh-cyc-srcs { display:flex; flex-wrap:wrap; gap:5px 14px; margin-top:10px; }
-.dsh-cyc-src { font-size:11px; color:var(--t-mut); text-decoration:none; }
+.dsh-cyc-src { font-size:11.5px; color:var(--t-mut); text-decoration:none; }
 .dsh-cyc-src:hover { color:var(--t-dim); }
 /* Per-block expand/collapse for the cycle narrative (collapsed by default). */
 .dsh-cyc-exp { margin-top:10px; }
 .dsh-cyc-sum { list-style:none; cursor:pointer; user-select:none; display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; font-weight:600; color:var(--t-accent); padding:4px 0; }
+  font-size:11.5px; font-weight:600; color:var(--t-accent); padding:4px 0; }
 .dsh-cyc-sum::-webkit-details-marker { display:none; }
-.dsh-cyc-sum::before { content:"\25B8"; font-size:11px; transition:transform .15s ease; }
+.dsh-cyc-sum::before { content:"\25B8"; font-size:11.5px; transition:transform .15s ease; }
 .dsh-cyc-exp[open] .dsh-cyc-sum::before { transform:rotate(90deg); }
 .dsh-cyc-more { display:inline; }
 .dsh-cyc-less { display:none; }

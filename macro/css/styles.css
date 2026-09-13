@@ -34,10 +34,10 @@ html { scrollbar-gutter: stable; }
 body { background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; }
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: none; }
-h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
-h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
+h1 { font-size: 1.63rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.08rem; margin: 0 0 .75rem; }
 .muted { color: var(--muted); }
-.small { font-size: .8rem; }
+.small { font-size: .83rem; }
 /* Neater multi-line wrapping: balance short headings; use "pretty" on feed
    headlines & prose so a single word never wraps alone on the last line. */
 h1, h2, .macro-country, .macro-label { text-wrap: balance; }
@@ -45,11 +45,11 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 
 /* Notifications bell */
 .notif { position: relative; flex: 0 0 auto; }
-.notif-bell { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 1rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); color: #fff; }
+.notif-bell { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 1.03rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); color: #fff; }
 .notif-bell:hover { background: rgba(255,255,255,.22); }
-.notif-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: #fff; border-radius: 999px; min-width: 16px; height: 16px; padding: 0 4px; font-size: .62rem; font-weight: 700; line-height: 16px; text-align: center; }
+.notif-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: #fff; border-radius: 999px; min-width: 16px; height: 16px; padding: 0 4px; font-size: .65rem; font-weight: 700; line-height: 16px; text-align: center; }
 .notif-panel { position: absolute; top: calc(100% + 6px); right: 0; width: 360px; max-width: 92vw; max-height: 70vh; overflow-y: auto; overscroll-behavior: contain; background: var(--surface, #fff); color: var(--ink); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(15,23,42,.18); z-index: 40; padding: .5rem; }
-.notif-head { font-weight: 700; font-size: .85rem; padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--border); margin-bottom: .25rem; }
+.notif-head { font-weight: 700; font-size: .88rem; padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--border); margin-bottom: .25rem; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
 .notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--border); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
@@ -77,13 +77,13 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 /* Plain-text toggle matching the "Key metrics" summary (.rk-toggle > summary):
    no pill/border/shadow — muted bold label + caret, underline on hover. */
 .rel-dd-btn { display: inline-flex; align-items: center; gap: .45rem; width: fit-content;
-  font-size: .95rem; font-weight: 700; color: var(--muted); padding: .15rem .1rem; }
+  font-size: .98rem; font-weight: 700; color: var(--muted); padding: .15rem .1rem; }
 .rel-dd-btn:hover { text-decoration: none; }
 .rel-dd[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
 .rel-dd-panel { position: absolute; right: 0; top: calc(100% + .45rem); z-index: 30; width: 320px; max-width: 84vw;
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 12px 34px rgba(15,23,42,.16);
   padding: .5rem; }
-.rel-dd-head { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: .3rem .5rem .45rem; }
+.rel-dd-head { font-size: .71rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: .3rem .5rem .45rem; }
 .rel-list { display: flex; flex-direction: column; }
 .rel-item { display: flex; flex-direction: column; gap: .2rem; padding: .5rem .5rem; border-radius: 8px; color: inherit; text-decoration: none; border-top: 1px solid var(--border); }
 .rel-list .rel-item:first-child { border-top: 0; }
@@ -92,16 +92,16 @@ a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--ink); 
 @media (max-width: 620px) { .rel-dd { align-self: flex-start; } .rel-dd-panel { right: auto; left: 0; } }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow); }
 .feature-card { border-top: 3px solid var(--macro); }
-.footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size: .78rem; }
+.footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size: .81rem; }
 .footer code { background: #eef1f5; padding: 0 .25rem; border-radius: 4px; }
 
 /* ---------- macro dashboard ---------- */
 /* US and UK side by side, each a single row of six compact tiles (2 × 1×6). */
 .macro-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1.5rem; align-items: start; margin-bottom: 1.6rem; }
 .macro-group { margin-bottom: 0; }
-.macro-country { font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 0 0 .6rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
+.macro-country { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin: 0 0 .6rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 /* Section divider heading inside the Cycle view (Debt cycle · Market cycle). */
-.macro-section-h { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin: 1.8rem 0 .9rem; padding-top: 1.3rem; border-top: 1px solid var(--border, #262626); }
+.macro-section-h { font-size: 1.13rem; font-weight: 700; color: var(--ink); margin: 1.8rem 0 .9rem; padding-top: 1.3rem; border-top: 1px solid var(--border, #262626); }
 .macro-section-h:first-of-type { border-top: 0; padding-top: 0; margin-top: .2rem; }
 .macro-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .4rem; }
 .macro-tile { position: relative; border: 1px solid var(--border); border-radius: 9px; padding: .48rem .5rem .55rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .26rem; }
@@ -109,7 +109,7 @@ a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--ink); 
 .macro-tile.flash { animation: tileflash 2.2s ease-out; }
 @keyframes tileflash { 0% { background: #fef9c3; border-color: #fde68a; } 100% { background: var(--surface); border-color: var(--border); } }
 /* Corner control to open the indicator in the Chart view. */
-.macro-chartlink { position: absolute; top: .4rem; right: .45rem; font-size: .8rem; line-height: 1; opacity: .4; cursor: pointer; padding: .2rem; border-radius: 5px; filter: grayscale(.3); }
+.macro-chartlink { position: absolute; top: .4rem; right: .45rem; font-size: .83rem; line-height: 1; opacity: .4; cursor: pointer; padding: .2rem; border-radius: 5px; filter: grayscale(.3); }
 .macro-tile:hover .macro-chartlink { opacity: .8; }
 .macro-chartlink:hover, .macro-chartlink:focus-visible { opacity: 1; filter: none; background: rgba(43,74,124,.16); outline: none; }
 /* The whole tile is a link to its source (matches Credit's key-rates tiles). */
@@ -119,24 +119,24 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 .macro-tile-head { display: flex; flex-direction: column; gap: .1rem; min-height: 1.95rem; }
 /* Tile text never wraps — it truncates with an ellipsis — so every tile keeps an
    identical fixed layout and the value/chart/source rows line up across tiles. */
-.macro-label { font-weight: 700; color: var(--ink); font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.macro-sub { display: block; line-height: 1.25; font-size: .64rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.macro-label { font-weight: 700; color: var(--ink); font-size: .77rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.macro-sub { display: block; line-height: 1.25; font-size: .67rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .macro-valrow { display: flex; align-items: baseline; gap: .4rem; }
-.macro-val { font-size: .98rem; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
-.macro-chg { font-size: .66rem; font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.macro-val { font-size: 1.01rem; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
+.macro-chg { font-size: .69rem; font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .macro-chg.up { color: var(--t-up); }
 .macro-chg.down { color: var(--t-down); }
 .macro-chg.flat { color: var(--muted); }
 .macro-chart { margin: .1rem 0 .15rem; min-height: 32px; }
 .spark { width: 100%; height: auto; display: block; cursor: pointer; }
-.spark-x { fill: var(--muted); font-size: 9px; }
+.spark-x { fill: var(--muted); font-size: 9.5px; }
 .spark-empty { padding: 1.1rem 0; text-align: center; }
 /* Hover tooltip shared by all tile sparklines (positioned at the cursor). */
 .spark-tip { position: fixed; z-index: 60; pointer-events: none; background: var(--macro-ink);
-  color: #fff; font-size: .68rem; line-height: 1.3; padding: .2rem .45rem; border-radius: 5px;
+  color: #fff; font-size: .71rem; line-height: 1.3; padding: .2rem .45rem; border-radius: 5px;
   white-space: nowrap; box-shadow: 0 4px 14px rgba(20, 12, 40, .28); }
 .spark-tip[hidden] { display: none; }
-.macro-foot { color: var(--muted); font-size: .62rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.macro-foot { color: var(--muted); font-size: .65rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .macro-src { color: var(--muted); }
 
 /* ---------- in-app view nav (in the top bar, matches Credit/Legal) ---------- */
@@ -160,7 +160,7 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
    collapsed by default. */
 .rk-toggle { margin: 0 0 1.5rem; }
 .rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
-  width: fit-content; font-weight: 700; font-size: .95rem; color: var(--muted); padding: .15rem .1rem; }
+  width: fit-content; font-weight: 700; font-size: .98rem; color: var(--muted); padding: .15rem .1rem; }
 .rk-toggle > summary::-webkit-details-marker { display: none; }
 .rk-toggle > summary:hover { text-decoration: none; }
 .rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
@@ -174,18 +174,18 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 a.cal-tile:hover { text-decoration: none; }
 a.cal-tile:hover .cal-title, a.cal-tile:hover .cal-country { color: var(--ink); }
 a.cal-tile:focus-visible { outline: 2px solid var(--macro); outline-offset: -2px; }
-.cal-date { display: flex; align-items: center; gap: .3rem; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .35px; color: var(--muted); white-space: nowrap; }
+.cal-date { display: flex; align-items: center; gap: .3rem; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .35px; color: var(--muted); white-space: nowrap; }
 .cal-country { font-weight: 800; color: var(--macro-ink); }
-.cal-title { font-size: .82rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
+.cal-title { font-size: .85rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .cal-empty { margin: 0; padding: .7rem 1rem; }
 
 /* ---------- key macro headlines (Latest-activity-style, US | UK columns) ---------- */
 .macro-news-panel { margin: 0 0 1.7rem; }
-.macro-news-panel h2 { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin: 0 0 .2rem; }
+.macro-news-panel h2 { font-size: 1.08rem; font-weight: 700; color: var(--ink); margin: 0 0 .2rem; }
 .news-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.75rem; margin-top: .7rem; }
-.news-more { display: inline-block; margin-top: .9rem; font-size: .82rem; font-weight: 600; color: var(--macro); }
+.news-more { display: inline-block; margin-top: .9rem; font-size: .85rem; font-weight: 600; color: var(--macro); }
 .news-more:hover { text-decoration: none; }
-.news-col-head { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--macro); margin: 0; padding-bottom: .35rem; border-bottom: 2px solid var(--macro); display: inline-block; }
+.news-col-head { font-size: .77rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--macro); margin: 0; padding-bottom: .35rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 .compact-list { list-style: none; margin: .1rem 0 0; padding: 0; }
 .compact-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
 .compact-item:last-child { border-bottom: none; }
@@ -202,19 +202,19 @@ a.compact-head:hover { text-decoration: none; }
    headline that ellipsizes to its content, then a muted inline source. */
 .intel-row { display: flex; align-items: baseline; gap: .7rem; padding: .62rem 0; border-bottom: 1px solid var(--border); flex-wrap: nowrap; }
 .intel-row:last-child { border-bottom: none; }
-.intel-date { flex: 0 0 auto; min-width: 4.9rem; white-space: nowrap; font-size: .76rem; }
-.intel-head { flex: 0 1 auto; min-width: 0; font-weight: 600; font-size: .9rem; line-height: 1.35; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.intel-date { flex: 0 0 auto; min-width: 4.9rem; white-space: nowrap; font-size: .79rem; }
+.intel-head { flex: 0 1 auto; min-width: 0; font-weight: 600; font-size: .93rem; line-height: 1.35; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 a.intel-head:hover { text-decoration: none; }
-.intel-src-inline { flex: 0 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; font-size: .76rem; }
+.intel-src-inline { flex: 0 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; font-size: .79rem; }
 .intel-row .save-btn { margin-left: auto; flex-shrink: 0; }
 /* Month-group headers (JULY 2026 …), styled like Credit's year headers. */
 .month-group + .month-group { margin-top: .4rem; }
-.month-head { font-size: .74rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 1.1rem 0 .1rem; padding-bottom: .35rem; border-bottom: 2px solid var(--border); }
+.month-head { font-size: .77rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 1.1rem 0 .1rem; padding-bottom: .35rem; border-bottom: 2px solid var(--border); }
 .month-group:first-child .month-head { margin-top: .15rem; }
 /* .save-btn colour/shape rules live in premium.css (single source of truth);
    only the layout override above (.intel-row .save-btn) stays here. */
 .comm-foot { padding-top: .9rem; text-align: center; }
-.load-more-btn { font: inherit; font-size: .85rem; font-weight: 600; color: var(--macro); background: none; border: 1px solid var(--border); border-radius: 8px; padding: .5rem 1.1rem; cursor: pointer; }
+.load-more-btn { font: inherit; font-size: .88rem; font-weight: 600; color: var(--macro); background: none; border: 1px solid var(--border); border-radius: 8px; padding: .5rem 1.1rem; cursor: pointer; }
 .load-more-btn:hover { background: #f4f1fb; border-color: var(--ink); }
 
 /* ---------- dashboard summaries ---------- */
@@ -222,12 +222,12 @@ a.intel-head:hover { text-decoration: none; }
 .macro-sum { display: block; border: 1px solid var(--border); border-left: 3px solid var(--macro); border-radius: 12px; padding: 1rem 1.1rem; background: var(--surface); box-shadow: var(--shadow); color: inherit; text-decoration: none; transition: box-shadow .15s ease, transform .15s ease; }
 .macro-sum:hover { text-decoration: none; box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(28,58,94,.12); }
 .macro-sum-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .55rem; }
-.macro-sum-icon { color: var(--macro); font-size: 1.05rem; }
-.macro-sum-title { font-weight: 700; color: var(--ink); font-size: .98rem; }
-.macro-sum-line { display: flex; gap: .45rem; align-items: baseline; margin: .25rem 0; color: var(--ink); font-size: .84rem; line-height: 1.4; }
-.macro-flag { flex: 0 0 1.7rem; font-weight: 800; font-size: .68rem; color: var(--macro-ink); letter-spacing: .5px; }
+.macro-sum-icon { color: var(--macro); font-size: 1.08rem; }
+.macro-sum-title { font-weight: 700; color: var(--ink); font-size: 1.01rem; }
+.macro-sum-line { display: flex; gap: .45rem; align-items: baseline; margin: .25rem 0; color: var(--ink); font-size: .87rem; line-height: 1.4; }
+.macro-flag { flex: 0 0 1.7rem; font-weight: 800; font-size: .71rem; color: var(--macro-ink); letter-spacing: .5px; }
 .macro-sum-txt { flex: 1 1 auto; min-width: 0; }
-.macro-sum-cta { display: inline-block; margin-top: .5rem; color: var(--macro); font-weight: 700; font-size: .82rem; }
+.macro-sum-cta { display: inline-block; margin-top: .5rem; color: var(--macro); font-weight: 700; font-size: .85rem; }
 
 /* ---------- commentary / cycle prose ---------- */
 /* Two full-width country columns so the content fills the page (matches the
@@ -236,7 +236,7 @@ a.intel-head:hover { text-decoration: none; }
 .macro-note { display: flex; flex-direction: column; }
 /* Quiet subtitle under the country/stage title — replaces the old purple pills
    to keep the Commentary and Cycle cards calm and uncluttered. */
-.macro-note-sub { margin: 0 0 .85rem; color: var(--muted); font-size: .84rem; line-height: 1.45; }
+.macro-note-sub { margin: 0 0 .85rem; color: var(--muted); font-size: .87rem; line-height: 1.45; }
 .macro-note-sub strong { color: var(--ink); font-weight: 700; }
 .macro-para { color: var(--ink); margin: 0 0 .8rem; line-height: 1.6; }
 .macro-para:last-child { margin-bottom: 0; }
@@ -244,23 +244,23 @@ a.intel-head:hover { text-decoration: none; }
 .macro-bottomline { margin: auto 0 0; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(43,74,124,.3); color: var(--ink); line-height: 1.55; }
 
 /* ---- Policy: CME FedWatch odds + Fed dot-plot cards ---------------------- */
-.macro-subhead { font-size: 1rem; font-weight: 700; color: var(--ink); margin: 1.6rem 0 .75rem; }
+.macro-subhead { font-size: 1.03rem; font-weight: 700; color: var(--ink); margin: 1.6rem 0 .75rem; }
 .macro-policy-mkts { align-items: start; }
 .pw-card { gap: 0; }
 .pw-head { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
 .pw-head .macro-country { margin: 0 0 .55rem; }
-.pw-src { flex: 0 0 auto; font-size: .74rem; font-weight: 700; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.pw-src { flex: 0 0 auto; font-size: .77rem; font-weight: 700; color: var(--muted); text-decoration: none; white-space: nowrap; }
 .pw-src:hover { text-decoration: none; }
 /* FedWatch outcome rows: label + % on one line, a track bar spanning below. */
 .pw-bars { display: flex; flex-direction: column; gap: .7rem; margin: .1rem 0 .9rem; }
 .pw-row { display: grid; grid-template-columns: 1fr auto; column-gap: .6rem; align-items: baseline; }
-.pw-lbl { font-size: .85rem; font-weight: 600; color: var(--ink); }
-.pw-pct { text-align: right; font-weight: 800; font-size: .95rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.pw-lbl { font-size: .88rem; font-weight: 600; color: var(--ink); }
+.pw-pct { text-align: right; font-weight: 800; font-size: .98rem; color: var(--ink); font-variant-numeric: tabular-nums; }
 .pw-track { grid-column: 1 / -1; margin-top: .3rem; height: .5rem; background: var(--border); border-radius: 999px; overflow: hidden; }
 .pw-fill { display: block; height: 100%; background: var(--macro); border-radius: 999px; }
 /* Dot-plot median table. */
 .pw-dots { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin: .1rem 0 .3rem; }
-.pw-dots th, .pw-dots td { padding: .34rem .1rem; border-bottom: 1px solid var(--border); font-size: .9rem; }
+.pw-dots th, .pw-dots td { padding: .34rem .1rem; border-bottom: 1px solid var(--border); font-size: .93rem; }
 .pw-dots th { text-align: left; color: var(--muted); font-weight: 600; }
 .pw-dots td { text-align: right; font-weight: 800; color: var(--ink); }
 .pw-dots tr:last-child th, .pw-dots tr:last-child td { border-bottom: 0; }
@@ -278,20 +278,20 @@ a.intel-head:hover { text-decoration: none; }
 .macro-sources { margin-top: 1.6rem; border-top: 1px solid var(--border); padding-top: 1rem; }
 .macro-sources-h { text-transform: uppercase; letter-spacing: .8px; font-weight: 700; }
 .macro-sources ul { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: .3rem 1.25rem; }
-.macro-sources a { color: var(--muted); font-size: .82rem; }
+.macro-sources a { color: var(--muted); font-size: .85rem; }
 .macro-sources a:hover { color: var(--ink); }
 
 /* ---------- cycle gauge ---------- */
 .macro-gauge-card { margin-bottom: 1.6rem; }
 .gauge { width: 100%; max-width: 640px; height: auto; display: block; margin: .4rem 0 .2rem; }
-.gauge-zone { fill: var(--muted); font-size: 8.5px; }
-.gauge-mark { fill: var(--macro-ink); font-size: 11px; font-weight: 800; }
+.gauge-zone { fill: var(--muted); font-size: 9px; }
+.gauge-mark { fill: var(--macro-ink); font-size: 11.5px; font-weight: 800; }
 /* Track + markers are theme-aware so the gauge reads in light mode (was white
    fills that vanished on the light surface). */
 .gauge-track { fill: color-mix(in srgb, var(--ink, #131a2b) 14%, transparent); }
 .gauge-mline { stroke: var(--ink, #131a2b); stroke-width: 1.5; }
 .gauge-mdot { fill: var(--macro, #2f6df6); stroke: var(--surface, #fff); stroke-width: 2; }
-.macro-gauge-note { margin: .6rem 0 0; font-size: .74rem; line-height: 1.5; }
+.macro-gauge-note { margin: .6rem 0 0; font-size: .77rem; line-height: 1.5; }
 
 /* ===================== Macro dashboard cockpit =====================
    The dense single-screen read behind the "Dashboard" chip: economic
@@ -305,21 +305,21 @@ a.intel-head:hover { text-decoration: none; }
 .ck-panel { background: var(--surface); min-width: 0; display: flex; flex-direction: column; }
 .ck-span2 { grid-column: 1 / -1; }
 .ck-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; background: var(--head); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
-.ck-h > span:first-child { font-size: 11px; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ck-h > span:first-child { font-size: 11.5px; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ck-h > *:nth-child(2) { margin-left: auto; }
-.ck-x { font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
-.ck-more { font-size: 10px; font-weight: 600; color: var(--macro); white-space: nowrap; }
+.ck-x { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
+.ck-more { font-size: 10.5px; font-weight: 600; color: var(--macro); white-space: nowrap; }
 .ck-more:hover { text-decoration: none; }
 .ck-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
-.ck-sub { font-size: 10px; color: var(--muted); margin: 0; }
+.ck-sub { font-size: 10.5px; color: var(--muted); margin: 0; }
 .ck-sub strong { color: var(--ink); font-weight: 600; }
 .ck-src { color: var(--muted); font-weight: 600; }
 .ck-sub2 { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
-.ck-srcs { font-size: 10px; color: var(--muted); margin: 3px 0 0; }
+.ck-srcs { font-size: 10.5px; color: var(--muted); margin: 3px 0 0; }
 .ck-srcs a { color: var(--muted); }
 .ck-srcs a:hover { text-decoration: none; }
 .ck-src-sep { opacity: .5; }
-.ck-note { font-size: 11px; line-height: 1.5; color: var(--muted); margin: 0; }
+.ck-note { font-size: 11.5px; line-height: 1.5; color: var(--muted); margin: 0; }
 .ck-note strong { color: var(--ink); font-weight: 600; }
 .ck-reads { padding: 9px 12px 12px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--border); }
 /* Economic indicators — comparison matrix beside the selected economy's detail,
@@ -332,8 +332,8 @@ a.intel-head:hover { text-decoration: none; }
 .ck-ind-col { background: var(--surface); min-width: 0; }
 /* FedWatch — tighten the reused .pw-* bars for the compact panel */
 .ck-body .pw-bars { gap: .5rem; margin: .1rem 0 0; }
-.ck-body .pw-lbl { font-size: 11px; }
-.ck-body .pw-pct { font-size: 12px; }
+.ck-body .pw-lbl { font-size: 11.5px; }
+.ck-body .pw-pct { font-size: 12.5px; }
 /* Sub-section menu: house underline chips above the cockpit; groups wrap the
    panels transparently (display:contents keeps the grid intact) and hide as a
    unit when filtered. Dividers only show on the All view. */
@@ -346,7 +346,7 @@ a.intel-head:hover { text-decoration: none; }
    on narrow screens. */
 .ck-ov { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.15fr) minmax(0, 1fr); gap: 1px; background: var(--border); align-items: start; }
 .ck-ov-c { display: flex; flex-direction: column; gap: 1px; background: var(--border); min-width: 0; }
-.ck-ov-h { background: var(--bg, #05080f); padding: 10px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.ck-ov-h { background: var(--bg, #05080f); padding: 10px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 /* In the narrower matrix column, stack the comparison matrix over its detail. */
 .ck-ov-mtx .ck-ind-wrap { grid-template-columns: 1fr; }
 /* Wide screens: give Rates & policy room and place the market-implied Fed path
@@ -374,21 +374,21 @@ a.intel-head:hover { text-decoration: none; }
 }
 /* Cockpit sub-section headers — full-width mono dividers grouping the panels */
 .ck-sec { grid-column: 1 / -1; background: var(--bg, #05080f); padding: 14px 12px 5px;
-  font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600;
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .mac-cockpit .ck-sec:first-child { padding-top: 4px; }
 /* Compact stat rows (rate outlook / cycle) — label · value · grey meta */
 .ck-stats2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .ck-stats { display: flex; flex-direction: column; gap: 6px; margin-top: 7px; }
 .ck-stat { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
-.ck-stat-l { font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600;
+.ck-stat-l { font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600;
   letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); flex: 0 0 auto; }
-.ck-stat-v { font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.ck-stat-m { font-size: 11px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ck-stat-v { font-size: 13.5px; font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ck-stat-m { font-size: 11.5px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* Key-value data rows (maturity wall) — grey label, white mono value */
 .ck-kv { display: flex; flex-direction: column; margin-top: 4px; }
 .ck-kv-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
-  padding: 3.5px 0; border-bottom: 1px solid var(--border); font-size: 11px; }
+  padding: 3.5px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
 .ck-kv-row:last-child { border-bottom: 0; }
 .ck-kv-l { color: var(--muted); min-width: 0; }
 .ck-kv-v { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
@@ -405,10 +405,10 @@ a.intel-head:hover { text-decoration: none; }
 /* Canon: monochrome marks, orange reserved for the riskier bucket only */
 .mw-seg.mw-ig, .mw-dot.mw-ig, .mw-fill-ig { background: color-mix(in srgb, var(--ink, #eaf0fb) 38%, transparent); }
 .mw-seg.mw-sg, .mw-dot.mw-sg, .mw-fill-sg { background: color-mix(in srgb, var(--macro, #fb8b1e) 75%, transparent); }
-.mw-legend { display: flex; gap: 14px; font-family: var(--t-mono); font-size: 9.5px; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
+.mw-legend { display: flex; gap: 14px; font-family: var(--t-mono); font-size: 10px; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
 /* Further-reading resources (refi / maturity walls), collapsed by default. */
 .mw-res { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 8px; }
-.mw-res > summary { cursor: pointer; font-family: var(--t-mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); list-style: none; }
+.mw-res > summary { cursor: pointer; font-family: var(--t-mono); font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); list-style: none; }
 .mw-res > summary::-webkit-details-marker { display: none; }
 .mw-res > summary::before { content: "▸ "; }
 .mw-res[open] > summary::before { content: "▾ "; }
@@ -427,10 +427,10 @@ a.intel-head:hover { text-decoration: none; }
 .mwc-base { stroke: var(--border); stroke-width: 1; }
 .mwc-loan { fill: color-mix(in srgb, var(--ink, #eaf0fb) 45%, transparent); background: color-mix(in srgb, var(--ink, #eaf0fb) 45%, transparent); }
 .mwc-hy { fill: color-mix(in srgb, var(--macro, #fb8b1e) 78%, transparent); background: color-mix(in srgb, var(--macro, #fb8b1e) 78%, transparent); }
-.mwc-t { font-family: var(--t-mono, ui-monospace, monospace); font-size: 8.5px; fill: var(--muted); }
-.mwc-v { fill: var(--ink); font-size: 9px; }
+.mwc-t { font-family: var(--t-mono, ui-monospace, monospace); font-size: 9px; fill: var(--muted); }
+.mwc-v { fill: var(--ink); font-size: 9.5px; }
 .mwc-np { opacity: .55; }
-.mwc-xl { font-size: 9.5px; }
+.mwc-xl { font-size: 10px; }
 .mwc-note { margin-top: 4px; }
 
 /* Earnings wall (Dashboard › Earnings). Canon: white values, grey meta; the
@@ -444,7 +444,7 @@ a.intel-head:hover { text-decoration: none; }
 .ew-off { display: none; }
 /* Day-break header — matches the standard wire day-break (R6): sans-serif,
    10px/600, uppercase, a grey band with the accent label (--macro dark / #2f6cae light). */
-.ew-day { margin: 10px -12px 2px; padding: 6px 12px; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: var(--head, var(--bg)); border-bottom: 1px solid var(--border); }
+.ew-day { margin: 10px -12px 2px; padding: 6px 12px; font-size: 10.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: var(--head, var(--bg)); border-bottom: 1px solid var(--border); }
 .ew-day:first-child { margin-top: 0; }
 .ew-day strong { color: #2f6cae; font-weight: inherit; }
 [data-theme="dark"] .ew-day strong { color: var(--t-accent, var(--macro)); }
@@ -452,11 +452,11 @@ a.intel-head:hover { text-decoration: none; }
 .ew-row:last-of-type { border-bottom: 0; }
 /* Left column: ticker + ETF label / name / tag; right column: the Fcst-Act table */
 .ew-l { flex: 0 0 40%; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.ew-t { font-family: var(--t-mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--ink); }
-.ew-n { font-size: 12px; color: var(--ink); }
-.ew-tag { font-family: var(--t-mono); font-size: 9.5px; color: var(--faint, #5c6a86); }
+.ew-t { font-family: var(--t-mono); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; color: var(--ink); }
+.ew-n { font-size: 12.5px; color: var(--ink); }
+.ew-tag { font-family: var(--t-mono); font-size: 10px; color: var(--faint, #5c6a86); }
 /* Release timing (Pre-mkt / After close) on its own line under the tag */
-.ew-when { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
+.ew-when { font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
 .ew-r { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 /* Per-company mini table: Fcst / Act columns x Rev / EBITDA / EPS rows */
 .ew-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
@@ -471,13 +471,13 @@ a.intel-head:hover { text-decoration: none; }
 .ew-tbl-note thead th:nth-child(3), .ew-tbl-note tbody td:nth-child(3) { width: 17%; }
 .ew-tbl-note thead th:nth-child(4) { width: 48%; text-align: right; padding-right: 4px; padding-left: 10px; }
 .ew-tbl-note td.ew-cnote { width: 48%; vertical-align: top; text-align: right; padding: 1px 4px 1px 10px;
-  font-family: var(--t-mono); font-size: 9.5px; font-weight: 400; color: var(--muted); line-height: 1.35;
+  font-family: var(--t-mono); font-size: 10px; font-weight: 400; color: var(--muted); line-height: 1.35;
   white-space: normal; overflow-wrap: break-word; border-left: 1px solid var(--border); }
-.ew-tbl tbody th, .ew-tbl thead th { font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.ew-tbl tbody th, .ew-tbl thead th { font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .ew-tbl tbody th { text-align: left; padding-left: 0; white-space: normal; overflow-wrap: break-word; }
 .ew-tbl thead th:first-child { text-align: left; }
-.ew-tbl td { font-size: 11px; color: var(--ink); white-space: normal; overflow-wrap: break-word; }
-.ew-note { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
+.ew-tbl td { font-size: 11.5px; color: var(--ink); white-space: normal; overflow-wrap: break-word; }
+.ew-note { font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
 .ew-nr { color: var(--faint, #5c6a86); font-weight: 400; }
 .ew-px.ew-up { color: var(--t-up, #3fc08d); }
 .ew-px.ew-dn { color: var(--t-down, #f26d84); }
@@ -485,7 +485,7 @@ a.intel-head:hover { text-decoration: none; }
    stock's index weight where the source publishes it. One colour per ETF so
    they're distinguishable at a glance (same tint recipe as the desk codes). */
 .ew-etf { display: inline-block; margin-left: 6px; padding: 1px 4px; vertical-align: 1px;
-  border: 0; font-family: var(--t-mono); font-size: 8.5px; font-weight: 700;
+  border: 0; font-family: var(--t-mono); font-size: 9px; font-weight: 700;
   letter-spacing: .05em; font-variant-numeric: tabular-nums; }
 .ew-etf-igwd { color: var(--t-hdg, #4aa3f0); background: color-mix(in srgb, var(--t-hdg, #4aa3f0) 16%, transparent); }
 .ew-etf-wmvg { color: var(--t-lex, #2fbf8a); background: color-mix(in srgb, var(--t-lex, #2fbf8a) 16%, transparent); }
@@ -495,7 +495,7 @@ a.intel-head:hover { text-decoration: none; }
    .ew-srcs links from the DOM whether or not the details is open. */
 .ew-srcwrap { margin-top: 10px; }
 .ew-srcwrap summary { cursor: pointer; list-style: none; font-family: var(--t-mono);
-  font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+  font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .ew-srcwrap summary::-webkit-details-marker { display: none; }
 .ew-srcwrap summary::after { content: " ▸"; }
 .ew-srcwrap[open] summary::after { content: " ▾"; }
@@ -537,31 +537,31 @@ a.intel-head:hover { text-decoration: none; }
 }
 /* Fed dot plot */
 .ck-dots { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
-.ck-dots th { text-align: left; font-weight: 400; color: var(--muted); font-size: 11px; padding: 3px 0; border-bottom: 1px solid var(--border); }
-.ck-dots td { text-align: right; color: var(--ink); font-size: 12px; font-weight: 600; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.ck-dots th { text-align: left; font-weight: 400; color: var(--muted); font-size: 11.5px; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.ck-dots td { text-align: right; color: var(--ink); font-size: 12.5px; font-weight: 600; padding: 3px 0; border-bottom: 1px solid var(--border); }
 .ck-dots tr:last-child th, .ck-dots tr:last-child td { border-bottom: 0; }
 /* Bubble dimensions */
 .ck-dims { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin: 6px 0 2px; }
 .ck-dim { border: 1px solid var(--border); padding: 8px 10px; min-width: 0; }
 .ck-dim-h { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; margin-bottom: 4px; }
-.ck-dim-n { font-size: 10.5px; font-weight: 600; color: var(--ink); }
-.ck-dim-s { font-family: var(--t-mono); font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
-.ck-dim-max { font-size: 9px; color: var(--muted); font-weight: 400; }
-.ck-dim-note { margin: 0; font-size: 10px; line-height: 1.45; }
+.ck-dim-n { font-size: 11px; font-weight: 600; color: var(--ink); }
+.ck-dim-s { font-family: var(--t-mono); font-size: 15.5px; font-weight: 700; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.ck-dim-max { font-size: 9.5px; color: var(--muted); font-weight: 400; }
+.ck-dim-note { margin: 0; font-size: 10.5px; line-height: 1.45; }
 /* Gauge inside a cockpit panel — capped so the zone labels don't balloon on a
    full-width (span-2) panel; left-aligned to match the panel's other content. */
 .ck-body .gauge { width: 100%; max-width: 300px; margin: 2px 0 8px; display: block; }
 /* Yield-curve chart */
 .yc { width: 100%; height: auto; display: block; margin: 2px 0 4px; }
 .yc-grid { stroke: var(--border, rgba(127,140,166,.25)); stroke-width: 1; }
-.yc-axis { fill: var(--muted); font-size: 8.5px; font-family: var(--t-mono); }
+.yc-axis { fill: var(--muted); font-size: 9px; font-family: var(--t-mono); }
 .yc-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 path.yc-us { stroke: var(--macro); }
 circle.yc-us { fill: var(--macro); }
 path.yc-uk { stroke: var(--ind-2y); stroke-dasharray: 4 3; }
 circle.yc-uk { fill: var(--ind-2y); }
 .yc-legend { display: flex; gap: 14px; padding: 0 0 2px; }
-.yc-key { font-size: 9.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; }
+.yc-key { font-size: 10px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; }
 .yc-key::before { content: ""; width: 15px; border-top: 2px solid var(--kc, #888); }
 .yc-key-us { --kc: var(--macro); }
 .yc-key-uk { --kc: var(--ind-2y); }
@@ -580,11 +580,11 @@ circle.yc-uk { fill: var(--ind-2y); }
 .macro-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .macro-dim-head { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-bottom: .8rem; }
 .macro-dim-head .macro-country { margin: 0; flex: 0 1 auto; }
-.macro-score { font-weight: 800; color: var(--macro-ink); font-size: 1.2rem; white-space: nowrap; flex: 0 0 auto; }
-.macro-score-max { color: var(--muted); font-weight: 600; font-size: .78rem; }
+.macro-score { font-weight: 800; color: var(--macro-ink); font-size: 1.23rem; white-space: nowrap; flex: 0 0 auto; }
+.macro-score-max { color: var(--muted); font-weight: 600; font-size: .81rem; }
 .macro-metrics { width: 100%; border-collapse: collapse; margin: .1rem 0 .7rem; }
-.macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size: .88rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
-.macro-metric-val { text-align: right; font-weight: 800; color: var(--ink); white-space: nowrap; font-size: .9rem; padding: .4rem 0 .1rem; vertical-align: baseline; font-variant-numeric: tabular-nums; }
+.macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size: .91rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
+.macro-metric-val { text-align: right; font-weight: 800; color: var(--ink); white-space: nowrap; font-size: .93rem; padding: .4rem 0 .1rem; vertical-align: baseline; font-variant-numeric: tabular-nums; }
 .macro-metric-ctx td { padding: 0 0 .5rem; border-bottom: 1px solid var(--border); line-height: 1.4; }
 .macro-metrics tr.macro-metric-ctx:last-child td { border-bottom: none; padding-bottom: 0; }
 .macro-dim-note { margin-top: auto; color: var(--muted); }
@@ -597,20 +597,20 @@ circle.yc-uk { fill: var(--ind-2y); }
 .chart-toolbar-l { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
 /* Value-mode segmented control (Actual / % change / Indexed) — matches the range control. */
 .chart-mode { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-.chart-mode-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size: .8rem; font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
+.chart-mode-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size: .83rem; font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
 .chart-mode-btn:first-child { border-left: 0; }
 .chart-mode-btn:hover { color: var(--macro-ink); background: #faf9fd; }
 .chart-mode-btn.is-on { background: var(--macro-ink); color: #fff; }
 /* Dashboard sparkline range toggle — right-aligned above the US/UK grids. */
 .macro-range-bar { display: flex; justify-content: flex-end; margin: 0 0 .85rem; }
 .chart-range { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-.chart-range-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size: .8rem; font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
+.chart-range-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size: .83rem; font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
 .chart-range-btn:first-child { border-left: 0; }
 .chart-range-btn:hover { color: var(--macro-ink); background: #faf9fd; }
 .chart-range-btn.is-on { background: var(--macro-ink); color: #fff; }
-.chart-export { border: 1px solid var(--border); background: var(--surface); color: var(--macro-ink); font: inherit; font-size: .8rem; font-weight: 700; padding: .35rem .8rem; border-radius: 8px; cursor: pointer; }
+.chart-export { border: 1px solid var(--border); background: var(--surface); color: var(--macro-ink); font: inherit; font-size: .83rem; font-weight: 700; padding: .35rem .8rem; border-radius: 8px; cursor: pointer; }
 .chart-export:hover { border-color: var(--ink); background: #faf9fd; }
-.chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size: .92rem; }
+.chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size: .95rem; }
 .chart-ind-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem; }
 .chart-ind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .05rem .7rem; }
 /* Chart stage: the plot on the left, the indicator selectors in a right sidebar. */
@@ -630,11 +630,11 @@ circle.yc-uk { fill: var(--ind-2y); }
   .chart-ind-side .chart-ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .1rem .9rem; }
   .chart-ind { min-width: 0; overflow-wrap: anywhere; }
 }
-.chart-ind-country { font-weight: 700; color: var(--macro-ink); font-size: .78rem; margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .5px; }
-.chart-line-key { font-weight: 600; color: var(--muted); text-transform: none; letter-spacing: 0; font-size: .72rem; }
+.chart-ind-country { font-weight: 700; color: var(--macro-ink); font-size: .81rem; margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .5px; }
+.chart-line-key { font-weight: 600; color: var(--muted); text-transform: none; letter-spacing: 0; font-size: .75rem; }
 .chart-ind-all { display: inline-flex; align-items: center; gap: .3rem; margin-right: .5rem; font-weight: 600;
-  color: var(--macro-ink); text-transform: none; letter-spacing: 0; font-size: .72rem; cursor: pointer; }
-.chart-ind { display: flex; align-items: center; gap: .45rem; padding: .18rem 0; font-size: .86rem; cursor: pointer; }
+  color: var(--macro-ink); text-transform: none; letter-spacing: 0; font-size: .75rem; cursor: pointer; }
+.chart-ind { display: flex; align-items: center; gap: .45rem; padding: .18rem 0; font-size: .89rem; cursor: pointer; }
 .chart-ind input { accent-color: var(--macro); }
 .chart-ind-sw { width: 16px; height: 0; border-top: 3px solid var(--c); flex: 0 0 auto; }
 .chart-ind-sw.dash { border-top-style: dashed; }
@@ -648,15 +648,15 @@ circle.yc-uk { fill: var(--ind-2y); }
 /* Right-hand price-scale divider (TradingView style). */
 .chart-axis { stroke: #cbd0da; stroke-width: 1; }
 .chart-tip .tip-real { color: var(--muted); }
-.chart-ylab, .chart-xlab { fill: var(--muted); font-size: 10px; }
+.chart-ylab, .chart-xlab { fill: var(--muted); font-size: 10.5px; }
 /* Year labels on the date axis read as the anchor points. */
 .chart-xlab-yr { fill: var(--ink); font-weight: 700; }
 /* Ticker tag pinned to each line's right end. */
-.chart-endtxt { fill: #fff; font-size: 10px; font-weight: 700; }
+.chart-endtxt { fill: #fff; font-size: 10.5px; font-weight: 700; }
 #chart-endtags { transition: opacity .12s ease; }
 /* Crosshair date tag on the bottom axis (follows the cursor). */
 .chart-datetag { fill: var(--macro-ink); }
-.chart-datetxt { fill: #fff; font-size: 10px; font-weight: 700; }
+.chart-datetxt { fill: #fff; font-size: 10.5px; font-weight: 700; }
 /* Event markers: a dot along the top per in-window event; the ones whose marker
    line is showing render solid + ringed. Click toggles the line. */
 .chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .5; }
@@ -666,16 +666,16 @@ circle.yc-uk { fill: var(--ind-2y); }
 .chart-evhit { pointer-events: all; cursor: pointer; }
 .chart-evmark:hover .chart-evdot { fill: var(--macro-ink); }
 .chart-evmark:hover .chart-evline { opacity: .8; }
-.chart-tip .evtip-desc { margin-top: .3rem; color: var(--muted); font-size: .76rem; line-height: 1.45; max-width: 240px; }
-.chart-tip .evtip-hint { margin-top: .35rem; color: var(--macro-ink); font-size: .7rem; font-weight: 700; }
+.chart-tip .evtip-desc { margin-top: .3rem; color: var(--muted); font-size: .79rem; line-height: 1.45; max-width: 240px; }
+.chart-tip .evtip-hint { margin-top: .35rem; color: var(--macro-ink); font-size: .73rem; font-weight: 700; }
 .chart-cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
 #chart-hit { cursor: crosshair; }
-.chart-tip { position: absolute; z-index: 5; pointer-events: none; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); padding: .5rem .6rem; font-size: .78rem; min-width: 130px; }
+.chart-tip { position: absolute; z-index: 5; pointer-events: none; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); padding: .5rem .6rem; font-size: .81rem; min-width: 130px; }
 .chart-tip .tip-date { font-weight: 700; margin-bottom: .3rem; color: var(--ink); }
 .chart-tip .tip-row { display: flex; align-items: center; gap: .35rem; color: var(--ink); padding: .05rem 0; }
 .chart-tip .tip-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 .chart-legend { display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; margin-top: .9rem; }
-.chart-leg { display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; color: var(--ink); }
+.chart-leg { display: inline-flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--ink); }
 .chart-leg b { color: var(--macro-ink); }
 .chart-swatch { width: 18px; height: 0; border-top: 3px solid var(--c); }
 .chart-swatch.dash { border-top-style: dashed; }
@@ -718,22 +718,22 @@ circle.yc-uk { fill: var(--ind-2y); }
   }
   .nav-search { grid-area: search; width: 100%; min-width: 0; margin-left: 0; justify-content: space-between; }
   .brand { grid-area: brand; justify-self: start; }
-  .brand-text strong { font-size: .95rem; }
-  .brand-sub { font-size: .58rem; }
-  .logo { font-size: 1.1rem; }
+  .brand-text strong { font-size: .98rem; }
+  .brand-sub { font-size: .61rem; }
+  .logo { font-size: 1.13rem; }
   .platform-switch { grid-area: toggle; justify-self: start; align-self: center; }
-  .ps-btn { padding: .24rem .5rem; font-size: .74rem; }
+  .ps-btn { padding: .24rem .5rem; font-size: .77rem; }
   .notif { grid-area: bell; justify-self: end; align-self: center; }
-  .notif-bell { width: 30px; height: 30px; font-size: .9rem; }
+  .notif-bell { width: 30px; height: 30px; font-size: .93rem; }
   .topbar-right { grid-area: account; justify-self: end; align-items: flex-end; text-align: right; margin-left: 0; }
-  .account-nav, .data-status { white-space: nowrap; font-size: .66rem; }
+  .account-nav, .data-status { white-space: nowrap; font-size: .69rem; }
   .account-nav .si-prefix { display: none; }
   .mainnav {
     grid-area: nav; display: flex; justify-content: flex-start; gap: .15rem;
     overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
   }
   .mainnav::-webkit-scrollbar { display: none; }
-  .nav-link { padding: .3rem .5rem; font-size: .86rem; flex: 0 0 auto; }
+  .nav-link { padding: .3rem .5rem; font-size: .89rem; flex: 0 0 auto; }
 }
 /* Phones: stack the header so nothing overflows on a ~390px screen — brand +
    bell on the top row, the signed-in identity on its own full-width row (so the
@@ -750,19 +750,19 @@ circle.yc-uk { fill: var(--ind-2y); }
   /* The platform switch and search move to the fixed bottom tab bar on phones. */
   .platform-switch, .nav-search { display: none; }
   .brand { grid-area: brand; justify-self: start; }
-  .brand-text strong { font-size: 1.05rem; }
-  .brand-sub { font-size: .62rem; }
-  .logo { font-size: 1.55rem; }
+  .brand-text strong { font-size: 1.08rem; }
+  .brand-sub { font-size: .65rem; }
+  .logo { font-size: 1.58rem; }
   .notif { grid-area: bell; justify-self: end; align-self: center; }
-  .notif-bell { width: 32px; height: 32px; font-size: .95rem; }
+  .notif-bell { width: 32px; height: 32px; font-size: .98rem; }
   /* Sign-in / refresh sits to the LEFT of the bell on the top row (saves height). */
   .topbar-right { grid-area: account; justify-self: end; align-items: flex-end; text-align: right; margin-left: 0; }
-  .account-nav, .data-status { white-space: nowrap; font-size: .6rem; }
+  .account-nav, .data-status { white-space: nowrap; font-size: .63rem; }
   .account-nav .si-prefix { display: none; }
-  .ps-btn { padding: .24rem .5rem; font-size: .74rem; }
+  .ps-btn { padding: .24rem .5rem; font-size: .77rem; }
   .mainnav { grid-area: nav; justify-self: stretch; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
   .mainnav::-webkit-scrollbar { display: none; }
-  .nav-link { padding: .3rem .5rem; font-size: .86rem; flex: 0 0 auto; }
+  .nav-link { padding: .3rem .5rem; font-size: .89rem; flex: 0 0 auto; }
   .container { padding: 1rem 1rem 2.5rem; }
   /* iPhone: keep each country as a compact 3-col × 2-row (2×3) block, stacked. */
   .macro-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
@@ -770,14 +770,14 @@ circle.yc-uk { fill: var(--ind-2y); }
   /* Reserve two lines for the label + sub so every head is the same height even
      where one is truncated; the whole tile stays conformed. */
   .macro-tile-head { min-height: 2.05rem; }
-  .macro-label { font-size: .72rem; }
-  .macro-sub { font-size: .66rem; }
+  .macro-label { font-size: .75rem; }
+  .macro-sub { font-size: .69rem; }
   /* Stack the value over its change (never inline/wrapping) so every tile has the
      same two-line value block and the charts + sources line up across the grid. */
   .macro-valrow { flex-direction: column; align-items: flex-start; gap: .05rem; min-height: 2.1rem; }
-  .macro-val { font-size: 1.05rem; }
-  .macro-chg { font-size: .66rem; }
-  .macro-chartlink { top: .25rem; right: .25rem; font-size: .7rem; }
+  .macro-val { font-size: 1.08rem; }
+  .macro-chg { font-size: .69rem; }
+  .macro-chartlink { top: .25rem; right: .25rem; font-size: .73rem; }
   .macro-summary { grid-template-columns: 1fr; gap: .7rem; }
   .cal-band { grid-template-columns: repeat(2, 1fr); }
   .cal-tile { padding: .55rem .8rem; }
@@ -797,8 +797,8 @@ circle.yc-uk { fill: var(--ind-2y); }
   body { padding-bottom: 5.65rem; }
 }
 @media (max-width: 480px) {
-  h1 { font-size: 1.35rem; }
-  .macro-val { font-size: 1.15rem; }
+  h1 { font-size: 1.38rem; }
+  .macro-val { font-size: 1.18rem; }
 }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */

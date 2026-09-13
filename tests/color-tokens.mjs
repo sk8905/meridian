@@ -299,7 +299,7 @@ check(!/\.g-jump-link\.active\s*\{[^}]*background:rgba\(255,255,255,\.15\)/.test
 // it carried every other R6 property (weight, tracking, case, band) but the
 // rule's own adjacent comment claiming "10px/600" was never backed by an
 // actual font-size declaration, so the row inherited its container's size.
-check(/\.ew-day\s*\{[^}]*font-size:\s*10px/.test(macroCss),
-  "macro/css/styles.css .ew-day sets the standard 10px day-break font-size (R6)");
+check(/\.ew-day\s*\{[^}]*font-size:\s*10.5px/.test(macroCss),
+  "macro/css/styles.css .ew-day sets the standard 10.5px day-break font-size (R6)");
 
 finish();

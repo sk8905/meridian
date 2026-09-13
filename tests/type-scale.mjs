@@ -22,7 +22,7 @@ const base = `http://localhost:${srv.port}`;
       nMono: n ? /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(getComputedStyle(n).fontFamily) : false,
     };
   });
-  checkEq(r.nmSize, "11px", "Profiles league: manager names anchor the scale at 11px");
+  checkEq(r.nmSize, "11.5px", "Profiles league: manager names anchor the scale at 11.5px");
   check(!/mono/i.test(r.nmFam), "Profiles league: names use the sans family (not mono)");
   check(r.nMono, "Profiles league: figures use the mono family");
   checkErrs(errs, "profiles");
@@ -37,9 +37,9 @@ const base = `http://localhost:${srv.port}`;
     const body = getComputedStyle(document.body).fontSize;
     return { feed: t ? parseFloat(getComputedStyle(t).fontSize) : 0, body: parseFloat(body) };
   });
-  check(r.feed > 0 && r.feed <= 12, `Home feed headlines sit at league density (≤12px, got ${r.feed}px)`);
-  check(r.feed >= 10.5, `Home feed headlines stay legible (≥10.5px, got ${r.feed}px)`);
-  check(r.body <= 11.6, `content default (--fs-content) is the terminal density, not 13.6px prose (got ${r.body}px)`);
+  check(r.feed > 0 && r.feed <= 12.5, `Home feed headlines sit at league density (≤12.5px, got ${r.feed}px)`);
+  check(r.feed >= 11, `Home feed headlines stay legible (≥11px, got ${r.feed}px)`);
+  check(r.body <= 12.1, `content default (--fs-content) is the terminal density, not 13.6px prose (got ${r.body}px)`);
   checkErrs(errs, "home");
 }
 

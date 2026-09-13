@@ -52,7 +52,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         fell back to the 16px body base and rendered noticeably larger than the
         Glance home nav (.g-jump-link is .9rem). Pin them to the home nav size so
         the top-bar nav is consistent across the home page and every app. ---- */
-.nav-link { font-size: .9rem; }
+.nav-link { font-size: .93rem; }
 
 /* ---- Pointer devices: a gentle shadow on hover (never fires on touch). No
         move/zoom transform — cards stay put. ---- */
@@ -78,7 +78,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         + hover instead of divider lines, a coloured platform tag, and a bold
         title over a muted meta line. Mirrors the home .g-np-* styling exactly. ---- */
 .notif-panel { border: 0; border-radius: 0; padding: .35rem; box-shadow: 0 22px 55px rgba(8,20,60,.35); }
-.notif-head { font-weight: 700; font-size: .82rem; padding: .45rem .55rem .5rem; margin-bottom: .2rem; }
+.notif-head { font-weight: 700; font-size: .85rem; padding: .45rem .55rem .5rem; margin-bottom: .2rem; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
 .notif-item { display: flex; gap: .55rem; align-items: flex-start; padding: .5rem .55rem; border: 0; border-radius: 0; }
 
@@ -128,14 +128,14 @@ h2, .brand-text strong { letter-spacing: -.011em; }
      uses — 11px sans names, mono figures. The whole app matches that list's
      font + size: content lands at ~11px, the rest steps proportionally off it.
      Sizes only — layout/spacing/padding are unchanged. */
-  --fs-section-title: 1.18rem; /* page / section heading (h1); .95rem on mobile */
-  --fs-card-title:    .82rem;  /* card / panel heading (h2, h3, .g-card-title) */
-  --fs-tagline:       .69rem;  /* lede / subtitle under a title (muted) */
-  --fs-item-title:    .72rem;  /* feed / list / card item headline */
-  --fs-item-meta:     .62rem;  /* item date · source · fine print (muted) */
-  --fs-content:       .69rem;  /* DEFAULT — summaries, descriptions, narrative */
+  --fs-section-title: 1.21rem; /* page / section heading (h1); .95rem on mobile */
+  --fs-card-title:    .85rem;  /* card / panel heading (h2, h3, .g-card-title) */
+  --fs-tagline:       .72rem;  /* lede / subtitle under a title (muted) */
+  --fs-item-title:    .75rem;  /* feed / list / card item headline */
+  --fs-item-meta:     .65rem;  /* item date · source · fine print (muted) */
+  --fs-content:       .72rem;  /* DEFAULT — summaries, descriptions, narrative */
 }
-@media (max-width: 760px) { :root { --fs-section-title: .95rem; } }
+@media (max-width: 760px) { :root { --fs-section-title: .98rem; } }
 
 /* Content is the platform's DEFAULT text size: every classless <p>, <td>, <li>
    and narrative block inherits it in place of the old 16px body base (rem-sized
@@ -349,19 +349,19 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
      column; flex:0 0 auto keeps this strip at the bottom, deal-flow scrolls above). */
   .g-side2 > .acct-foot { flex: 0 0 auto; margin-top: auto;
     border-top: 1px solid var(--t-grid2, #262626); padding: 7px 12px 8px; }
-  .g-side2 > .acct-foot .account-nav { font-size: 11px; line-height: 1.35; white-space: normal; color: var(--t-mut, #8592ad); }
+  .g-side2 > .acct-foot .account-nav { font-size: 11.5px; line-height: 1.35; white-space: normal; color: var(--t-mut, #8592ad); }
   .g-side2 > .acct-foot .account-nav strong { color: var(--t-ink, #eaf0fb); font-weight: 600; }
   .g-side2 > .acct-foot .account-nav a { color: var(--t-ink, #eaf0fb); font-weight: 600; }
-  .g-side2 > .acct-foot .data-status { font-size: 10.5px; color: var(--t-faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); }
+  .g-side2 > .acct-foot .data-status { font-size: 11px; color: var(--t-faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); }
 
   /* App pages (Macro/Credit/Legal/Menu) — no right rail, so tuck it into the
      page footer, right-aligned, compact. */
   .footer > .acct-foot { align-items: flex-end; text-align: right; }
   .footer:has(> .acct-foot) { padding: .7rem 1.5rem; }
-  .footer > .acct-foot .account-nav { font-size: 11.5px; color: var(--muted, #5e6a84); }
+  .footer > .acct-foot .account-nav { font-size: 12px; color: var(--muted, #5e6a84); }
   .footer > .acct-foot .account-nav strong { color: var(--ink, #131b2c); font-weight: 600; }
   .footer > .acct-foot .account-nav a { color: var(--ink, #131b2c); font-weight: 600; }
-  .footer > .acct-foot .data-status { font-size: 11px; color: var(--muted, #5e6a84); }
+  .footer > .acct-foot .data-status { font-size: 11.5px; color: var(--muted, #5e6a84); }
 }
 
 /* ---- Chart palette (credit/js/charts.js emits these as CSS vars so the Trends
@@ -422,14 +422,14 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   position: relative;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 2px; min-height: 42px; padding: 2px .1rem; border-radius: 0;
-  color: var(--muted, #7b8494); font-family: inherit; font-size: .58rem; font-weight: 600; letter-spacing: .02em;
+  color: var(--muted, #7b8494); font-family: inherit; font-size: .61rem; font-weight: 600; letter-spacing: .02em;
   text-decoration: none; background: none; border: 0; cursor: pointer;
   -webkit-appearance: none; appearance: none;
 }
 .mtab:hover { color: var(--muted, #4a5566); }
 /* Comfortable density (F7): a taller tab bar with slightly larger labels — an
    easier touch target than the compact ~9px default. Opt-in via data-density. */
-:root[data-density="comfortable"] .mtab { min-height: 52px; font-size: .64rem; gap: 3px; }
+:root[data-density="comfortable"] .mtab { min-height: 52px; font-size: .67rem; gap: 3px; }
 :root[data-density="comfortable"] svg.mtab-ico { width: 24px; height: 24px; }
 /* Active tab: darker ink + a top line (no pill background). In light mode the
    line is BLACK, matching every other selected-chip marker on a light surface
@@ -437,7 +437,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    accent, which reads on the black bar. */
 .mtab.is-active { color: var(--ink, #1f2733); background: none; }
 .mtab.is-active::before { content: ""; position: absolute; top: -6px; left: 0; right: 0; height: 2px; background: var(--chip-ul, #000); }
-.mtab-ico { display: block; font-size: 1.42rem; line-height: 1; }   /* diamond glyph → optically match the SVG icons */
+.mtab-ico { display: block; font-size: 1.45rem; line-height: 1; }   /* diamond glyph → optically match the SVG icons */
 svg.mtab-ico { width: 22px; height: 22px; }
 /* Dark variant — home dashboard + every app share it (one override covers all). */
 [data-theme="dark"] .mobile-tabbar { background: var(--bg, #000); border-top: 1px solid var(--border, #262626); box-shadow: none; }
@@ -499,7 +499,7 @@ html.wire-boot #out { visibility: hidden; }
   background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); border-top: 0;
   box-shadow: 0 6px 18px rgba(0,0,0,.35); }
 .tchip-menu-item { display: block; width: 100%; text-align: left; border: 0; background: transparent;
-  color: var(--ink, #e8e8e8); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px;
+  color: var(--ink, #e8e8e8); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px;
   font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; }
 .tchip-menu-item:hover { background: var(--hover, rgba(255,255,255,.05)); color: var(--accent, #fb8b1e); }
 /* Push toggle row (Notifications tab): label left, the on/off pill right. */
@@ -515,24 +515,24 @@ html.wire-boot #out { visibility: hidden; }
         centred card on desktop; rules apply in both). */
 .na-menu-row { display: flex; align-items: center; gap: 10px; width: 100%;
   padding: 13px 14px; border: 0; border-bottom: 1px solid var(--border, #262626);
-  background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size: 11px;
+  background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size: 11.5px;
   text-align: left; border-radius: 0; }
 .na-menu-search { color: var(--faint, #5c6a86); cursor: pointer; }
 .na-menu-search svg { width: 16px; height: 16px; flex: 0 0 auto; }
 .na-menu-search > span { flex: 1 1 auto; }
-.na-menu-search kbd { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px;
+.na-menu-search kbd { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px;
   border: 1px solid var(--border, #262626); padding: 0 5px; color: var(--muted, #8592ad); }
-.na-menu-acct { display: block; font-size: 11px; color: var(--muted, #8592ad); }
+.na-menu-acct { display: block; font-size: 11.5px; color: var(--muted, #8592ad); }
 .na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight: 600; }
 .na-menu-acct a { color: var(--muted, #8592ad); font-weight: 600; text-decoration: none; margin-left: .2em; }
 .na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
-  font-size: 11px; color: var(--faint, #5c6a86); border-bottom: 0; }
+  font-size: 11.5px; color: var(--faint, #5c6a86); border-bottom: 0; }
 /* Recent searches sit under the search bar; the account/refresh block is the
    panel FOOTER (pinned to the bottom via the flex column below). */
 #na-menu-panel:not([hidden]) { display: flex; flex-direction: column; }
 #na-menu-panel .na-body { display: flex; flex-direction: column; flex: 1 1 auto; }
 .na-menu-recent-h { padding: 12px 14px 4px; font-family: var(--t-mono, ui-monospace, monospace);
-  font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+  font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
   color: var(--faint, #5c6a86); }
 .na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
   border-bottom: 1px solid var(--border, #262626); }
@@ -556,7 +556,7 @@ html.wire-boot #out { visibility: hidden; }
 /* History-navigation diagnostic toast (nav-actions navDiag) */
 .wire-navdiag { position: fixed; left: 10px; right: 10px; bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   z-index: 9600; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); color: var(--muted, #8592ad);
-  font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.55; padding: 9px 11px; }
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; line-height: 1.55; padding: 9px 11px; }
 .wire-navdiag strong { color: var(--accent, #fb8b1e); font-weight: 700; }
 
 /* the page footer hardcodes a white background — dark it so it doesn't show as a
@@ -588,14 +588,14 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 .na-ring-stale { opacity: .35; }
 /* Menu → push-notifications row: current state right-aligned, mono terminal meta */
 .na-menu-push .na-push-state { margin-left: auto; font-family: var(--t-mono, ui-monospace, monospace);
-  font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); white-space: nowrap; }
+  font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); white-space: nowrap; }
 /* Menu → Appearance: three explicit theme toggles (System · Light · Dark) as a
    segmented control on the right of the Theme row. The active option carries the
    standard box-shadow underline marker (R14), not a pill fill. */
 .na-theme-seg { flex: 0 0 auto; display: inline-flex; align-items: stretch; border: 1px solid var(--border, #262626); }
 .na-theme-opt { flex: 0 0 auto; padding: 5px 10px; background: transparent; border: 0;
   border-left: 1px solid var(--border, #262626); color: var(--muted, #8592ad); cursor: pointer;
-  font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; }
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; }
 .na-theme-opt:first-child { border-left: 0; }
 .na-theme-opt.is-on { color: var(--ink, #e8edf5); box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-theme-opt.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
@@ -665,16 +665,16 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 .na-panel { position: fixed; left: 50%; top: 9vh; right: auto; transform: translateX(-50%); width: min(560px, 92vw); max-width: 92vw; max-height: 82vh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 .na-panel[hidden] { display: none; }
 .na-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; z-index: 3; }
-.na-h-t { font-size: 12px; font-weight: 700; letter-spacing: .02em; color: var(--ink, #eaf0fb); text-transform: uppercase; }
+.na-h-t { font-size: 12.5px; font-weight: 700; letter-spacing: .02em; color: var(--ink, #eaf0fb); text-transform: uppercase; }
 .na-h-n { color: var(--muted, #8592ad); font-weight: 600; text-transform: none; }
-.na-close { display: none; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; font-size: 14px; line-height: 1; }
+.na-close { display: none; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; font-size: 14.5px; line-height: 1; }
 .na-close:hover { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
 /* Markets rows — mirror the desktop left rail: mono type, section headers with a
    right-hand sub-label, and Top movers drawn as centre-anchored bars. Identical on
    every page (Markets · Macro · Portfolio share this one list grammar). */
-.na-sec { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; color: var(--ink, #eaf0fb); font-weight: 700; padding: 9px 12px 5px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
-.na-sec-x { font-weight: 600; font-size: 10px; color: var(--faint, #5c6a86); }
-.na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 11px; color: inherit; text-decoration: none; }
+.na-sec { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12.5px; color: var(--ink, #eaf0fb); font-weight: 700; padding: 9px 12px 5px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+.na-sec-x { font-weight: 600; font-size: 10.5px; color: var(--faint, #5c6a86); }
+.na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 11.5px; color: inherit; text-decoration: none; }
 a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-l { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
@@ -691,19 +691,19 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* FX matrix in the Markets panel (mirrors the desktop right-rail cross-rate grid,
    restyled with the panel's own tokens so it's self-contained off the Home page). */
 .na-fx-wrap { padding: 8px 12px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.na-fx-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 11px; }
+.na-fx-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 11.5px; }
 .na-fx-tbl th, .na-fx-tbl td { border: 1px solid var(--border, #262626); text-align: center; }
-.na-fx-tbl thead th, .na-fx-tbl tbody th { color: var(--mut, #8592ad); font-size: 9.5px; letter-spacing: .04em; background: var(--head, #0a0a0a); font-weight: 600; padding: 5px 4px; }
+.na-fx-tbl thead th, .na-fx-tbl tbody th { color: var(--mut, #8592ad); font-size: 10px; letter-spacing: .04em; background: var(--head, #0a0a0a); font-weight: 600; padding: 5px 4px; }
 .na-fx-tbl td { color: var(--ink, #eaf0fb); font-weight: 600; padding: 0; }
 .na-fx-tbl td.na-fx-diag { color: var(--faint, #5c6a86); font-weight: 400; padding: 5px 4px; }
 .na-fx-tbl td a { color: inherit; text-decoration: none; display: block; padding: 5px 4px; }
 /* FX key moment — a single sourced "why it moved" line under the matrix. */
-.na-fx-km { margin-top: 8px; color: var(--mut, #8592ad); font-size: 11px; line-height: 1.45; }
-.na-fx-km-l { color: var(--accent, #fb8b1e); font-weight: 700; font-size: 9px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
+.na-fx-km { margin-top: 8px; color: var(--mut, #8592ad); font-size: 11.5px; line-height: 1.45; }
+.na-fx-km-l { color: var(--accent, #fb8b1e); font-weight: 700; font-size: 9.5px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
 
 /* Portfolio Daily/Total P&L toggle, sat in the Holdings section header. */
 .na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }
-.na-pf-tgl, .na-pred-dir { padding: 1px 8px; font: inherit; font-size: 9.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }
+.na-pf-tgl, .na-pred-dir { padding: 1px 8px; font: inherit; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pf-tgl + .na-pf-tgl, .na-pred-dir + .na-pred-dir { border-left: 1px solid var(--border, #262626); }
 .na-pf-tgl.on, .na-pred-dir.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-pf-tgl.on, [data-theme="dark"] .na-pred-dir.on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
@@ -714,7 +714,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-dot.open { background: var(--t-up); }
 .na-dot.closed { background: var(--t-down); }
 /* Saved feed rows */
-.na-load, .na-empty { padding: 16px 12px; color: var(--muted, #8592ad); font-size: 11px; line-height: 1.5; }
+.na-load, .na-empty { padding: 16px 12px; color: var(--muted, #8592ad); font-size: 11.5px; line-height: 1.5; }
 /* Mobile scrim behind a full-screen overlay. Starts BELOW the top bar so the
    Markets/Saved/Notifications buttons are never covered by it — guarantees a tap
    on another button always hits the button (and switches) rather than the scrim. */
@@ -729,22 +729,22 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
         colour-coded desk tag + mono "time · source" line, hairline dividers. ---- */
 /* Group headings in the Notifications pane — "New" (unseen, at the top) then
    "Earlier". Shown only on the first view while there are fresh items. */
-.nf-grp { padding: 9px 12px 4px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); background: var(--head, #0a0a0a); }
+.nf-grp { padding: 9px 12px 4px; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); background: var(--head, #0a0a0a); }
 .nf-grp.nf-grp-earlier { border-top: 1px solid var(--border, #262626); }
 .nf-row { display: block; padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
 .nf-row:hover { background: var(--head, #0a0a0a); }
 /* Notifications panel section headers — the "N new updates" / "Recent" bands read
    as the SAME grey section-header band the Markets panel uses (.na-sec): mono,
    12px, grey --head background, hairline bottom border, 12px gutters. */
-.nf-head { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent, #fb8b1e); font-weight: 700; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+.nf-head { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent, #fb8b1e); font-weight: 700; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 .nf-head-quiet { color: var(--muted, #8592ad); }
-.nf-sub { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+.nf-sub { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 /* Titles clamp to two lines (the Wire-analysis guidance rows are full
    paragraphs); a tap goes straight to the full story via the row's link. */
 .nf-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
-  color: var(--ink, #eaf0fb); font-weight: 400; font-size: 11px; line-height: 1.35; margin-bottom: 4px; }
-.nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; color: var(--muted, #8592ad); }
-.nf-code { flex: 0 0 auto; font-size: 9.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 5px; }
+  color: var(--ink, #eaf0fb); font-weight: 400; font-size: 11.5px; line-height: 1.35; margin-bottom: 4px; }
+.nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; color: var(--muted, #8592ad); }
+.nf-code { flex: 0 0 auto; font-size: 10px; font-weight: 700; letter-spacing: .04em; padding: 2px 5px; }
 .nf-code.macro { color: var(--t-mac, #9b83e2); background: color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
 .nf-code.credit { color: var(--t-crd, #fb8b1e); background: color-mix(in srgb, var(--t-crd, #fb8b1e) 16%, transparent); }
 .nf-code.legal { color: var(--t-lex, #2fbf8a); background: color-mix(in srgb, var(--t-lex, #2fbf8a) 16%, transparent); }
@@ -758,7 +758,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    then the question on the left with the implied YES odds pinned top-right and
    the daily odds change stacked directly beneath it. */
 .na-pred-chips { position: sticky; top: 0; z-index: 2; display: flex; gap: 0; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
-.na-pred-fchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: var(--chip-h, 34px); font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .01em; padding: 0 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
+.na-pred-fchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; min-height: var(--chip-h, 34px); font: inherit; font-size: 11.5px; font-weight: 600; letter-spacing: .01em; padding: 0 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pred-fchip:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
 .na-pred-fchip.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-pred-fchip.on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
@@ -770,20 +770,20 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-pred-yes { flex: 0 0 auto; font-weight: 700; font-variant-numeric: tabular-nums; }
 .na-pred-yes.hi { color: var(--ink, #eaf0fb); }
 .na-pred-yes.lo { color: var(--muted, #8592ad); }
-.na-pred-chg { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 10px; }
+.na-pred-chg { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 10.5px; }
 .na-pred-chg.up { color: var(--t-up, #3fc08d); } .na-pred-chg.down { color: var(--t-down, #f26d84); } .na-pred-chg.flat { color: var(--faint, #5c6a86); }
 
 /* Notifications list: dark terminal panel (desktop dropdown & mobile page alike)
    with rows rendered in the shared .nf-row style above. */
 .notif-panel { background: var(--surface, #0d0d0d); color: var(--ink, #eaf0fb); border-color: var(--border, #262626); }
-.notif-head { background: var(--head, #0a0a0a); color: var(--ink, #eaf0fb); border-color: var(--border, #262626); border-radius: 0; margin: 0; padding: 10px 14px; font-size: 12px; }
+.notif-head { background: var(--head, #0a0a0a); color: var(--ink, #eaf0fb); border-color: var(--border, #262626); border-radius: 0; margin: 0; padding: 10px 14px; font-size: 12.5px; }
 .notif-head .muted, .notif-head .small { color: var(--muted, #8592ad); }
 .notif-list { padding: 0; margin: 0; }
 .notif-item { padding: 0; border: 0; background: transparent; list-style: none; }
 .notif-item.is-new .nf-row, .nf-row.nf-new { box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
 .nf-row.nf-new { background: color-mix(in srgb, var(--accent, #fb8b1e) 7%, transparent); }
 .notif-empty { padding: 16px 14px; color: var(--muted, #8592ad); }
-.na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 11px; }
+.na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 11.5px; }
 /* reserve room for the taller flat bar */
 @media (max-width: 760px) { body { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom, 0px)) !important; } }
 
@@ -794,12 +794,12 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 @media (max-width: 760px) {
   .acct-foot { display: flex; flex-direction: column; gap: .35rem; align-items: center; text-align: center;
     margin: 0 0 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(127,127,127,.25); }
-  .acct-foot .account-nav { position: static; color: var(--muted); font-size: .82rem; }
+  .acct-foot .account-nav { position: static; color: var(--muted); font-size: .85rem; }
   .acct-foot .account-nav[hidden] { display: none; }
   .acct-foot .account-nav strong { color: var(--ink); font-weight: 600; }
   .acct-foot .account-nav a { color: var(--muted); }
   .acct-foot .account-nav .si-prefix { display: inline; }
-  .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
+  .acct-foot .data-status { color: var(--muted); font-size: .81rem; }
   /* ---- Phones: Markets / Saved / Notifications each open as a FULL-SCREEN page
      below the sticky top bar, styled as terminal feed rows (mirrors Home). The
      top bar is raised above the scrim so its buttons stay tappable to close. ---- */
@@ -854,13 +854,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .save-btn {
   display: inline-flex; align-items: center; gap: .3rem;
   background: var(--head); border: 1px solid var(--line); color: var(--muted);
-  border-radius: 0; padding: .2rem .6rem; font-size: .74rem; font-weight: 600;
+  border-radius: 0; padding: .2rem .6rem; font-size: .77rem; font-weight: 600;
   line-height: 1.4; cursor: pointer; white-space: nowrap;
 }
 .save-btn:hover { background: color-mix(in srgb, var(--ink) 7%, var(--head)); color: var(--ink); }
 /* Saved = accent (R9: orange is the accent/active semantic), via the token — not a raw amber. */
 .save-btn.is-saved { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); border-color: color-mix(in srgb, var(--accent) 42%, var(--surface)); color: var(--accent); }
-.save-btn.big { margin: 0; padding: .2rem .6rem; font-size: .74rem; }
+.save-btn.big { margin: 0; padding: .2rem .6rem; font-size: .77rem; }
 [data-theme="dark"] .save-btn { background: rgba(255,255,255,.06); border-color: var(--border); color: var(--ink-soft); }
 [data-theme="dark"] .save-btn:hover { background: rgba(255,255,255,.12); color: var(--ink); }
 [data-theme="dark"] .save-btn.is-saved { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: color-mix(in srgb, var(--accent) 42%, transparent); color: var(--accent); }
@@ -877,8 +877,8 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .topbar { background: var(--navy, #000000); border-bottom: 1px solid rgba(255,255,255,.07); }
 @media (min-width: 901px) { .topbar .topbar-inner { height: 54px; } }
 .topbar .logo { color: #fff; }
-.topbar .brand-text strong { font-size: .92rem; font-weight: 600; }
-.topbar .brand-sub { color: #8ea6c8; font-size: .58rem; }
+.topbar .brand-text strong { font-size: .95rem; font-weight: 600; }
+.topbar .brand-sub { color: #8ea6c8; font-size: .61rem; }
 /* Top-bar action icons (Markets · Saved · Bell · Search + the refresh ring):
    ONE constant light colour — never brightens or dims, including on hover (the
    base .na-btn is --muted grey for the light chip bar, and its :hover brighten
@@ -892,18 +892,18 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* margin-right:auto pushes the identity/bell cluster to the right gutter — the
    role the removed search pill's margin-left:auto used to play. */
 .topbar .platform-switch { align-self: stretch; align-items: stretch; background: transparent; border: 0; border-radius: 0; padding: 0; gap: 0; margin-right: auto; }
-.topbar .ps-btn { display: inline-flex; align-items: center; padding: 6px 12px; border: 0; border-radius: 0; font-size: 12px; font-weight: 600; color: #fff; cursor: pointer; }
+.topbar .ps-btn { display: inline-flex; align-items: center; padding: 6px 12px; border: 0; border-radius: 0; font-size: 12.5px; font-weight: 600; color: #fff; cursor: pointer; }
 .topbar .ps-btn:hover { background: rgba(255,255,255,.06); color: #fff; }
 /* Selected platform: no filled background — just an orange bottom border. */
 .topbar .ps-btn.is-active, .topbar .ps-btn.is-active:hover { background: transparent; color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #fb8b1e); }
 .topbar .mainnav { align-self: stretch; align-items: stretch; gap: 0; }
-.topbar .nav-link { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12px; font-weight: 500; color: #9fb0cc; }
+.topbar .nav-link { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12.5px; font-weight: 500; color: #9fb0cc; }
 .topbar .nav-link:hover, .topbar .nav-link:focus-visible { background: rgba(255,255,255,.05); color: #fff; }
 .topbar .nav-link.active { color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #fb8b1e); }
 .topbar .nav-link.nav-primary { color: #dbe5f5; }
 .topbar .nav-link.nav-primary.active { color: #fff; }
 .topbar .nav-sep { background: rgba(255,255,255,.14); align-self: center; }
-.topbar .nav-search { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #9fb0cc; border-radius: 0; font-size: .8rem; }
+.topbar .nav-search { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #9fb0cc; border-radius: 0; font-size: .83rem; }
 .topbar .nav-search:hover { background: rgba(255,255,255,.11); color: #fff; border-color: rgba(255,255,255,.22); }
 .topbar .nav-search kbd { background: rgba(255,255,255,.1); font-weight: 600; border-radius: 0; }
 .topbar .topbar-tag { color: #8ea6c8; }
@@ -929,7 +929,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   bottom: calc(84px + env(safe-area-inset-bottom, 0px)); z-index: 9600;
   background: var(--surface, #191919); color: var(--ink, #eaf0fb);
   border: 1px solid var(--border, #262626); padding: 8px 14px;
-  font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px;
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px;
   opacity: 0; transition: opacity .18s ease; pointer-events: none; white-space: nowrap; }
 .wire-toast.on { opacity: 1; }
 @media (min-width: 761px) { .wire-toast { bottom: 28px; } }
@@ -940,14 +940,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626);
   box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 /* Small grey group header inside the row menu (e.g. the earnings Sources list) */
-.rowmenu-sub { padding: 8px 14px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px;
+.rowmenu-sub { padding: 8px 14px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px;
   font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86);
   border-top: 1px solid var(--border, #262626); }
-.rowmenu-title { padding: 10px 14px; font-size: 11px; line-height: 1.35; color: var(--muted, #8592ad);
+.rowmenu-title { padding: 10px 14px; font-size: 11.5px; line-height: 1.35; color: var(--muted, #8592ad);
   border-bottom: 1px solid var(--border, #262626);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .rowmenu-act { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 14px;
-  background: none; border: 0; color: var(--ink, #eaf0fb); font: inherit; font-size: 11px;
+  background: none; border: 0; color: var(--ink, #eaf0fb); font: inherit; font-size: 11.5px;
   text-align: left; cursor: pointer; border-radius: 0; }
 .rowmenu-act:hover { background: var(--panel2, rgba(255,255,255,.05)); }
 .rowmenu-act svg { width: 16px; height: 16px; flex: 0 0 auto; color: var(--accent, #fb8b1e); }
@@ -967,7 +967,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-chips { display: flex; gap: 0; height: var(--chip-h, 34px); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 33px; z-index: 2; background: var(--head, #0a0a0a); }
 .na-chip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 8px;
   border: 0; background: transparent;
-  color: var(--muted, #8592ad); font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .03em;
+  color: var(--muted, #8592ad); font: inherit; font-size: 11.5px; font-weight: 600; letter-spacing: .03em;
   cursor: pointer; border-radius: 0; }
 /* Active marker = the canonical 2-layer chip underline (matches .tchip): the inset
    -2px sits inside the chip's bottom edge and the 0 1px 0 layer lands ON the row's
@@ -980,12 +980,12 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* All briefing text is MONO on the terminal-panel scale (HOUSE_STYLE R11): 10px
    uppercase eyebrow · 12px lede · 10.5px body rows — no ad-hoc sizes, matching the
    Notifications panel's prose block and the .na-sec/.nf-sub chrome. */
-.na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
 /* Lede is clamped to 3 lines so a long authored summary can never push the panel
    past one screen (see renderBriefing — the bullet list is capped in lockstep). */
-.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 11px; line-height: 1.5; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 11.5px; line-height: 1.5; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .na-brief-list { list-style: none; margin: 6px 0 0; padding: 0; }
-.na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 10.5px; line-height: 1.55; }
+.na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 11px; line-height: 1.55; }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
 /* Briefing colour cues: the TOPIC heading (Macro / Fixed income / Equities …) is
    orange, and every NUMBER (5%, $100, 4.97% …) is blue — in the lede and bullets. */
@@ -994,48 +994,48 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    (See v2/js/nb-format.js, which wraps the .nb-topic / .nb-num spans.) */
 .nb-topic { color: var(--accent, #fb8b1e); }
 .nb-num { color: var(--wb-txt, #4aa3f0); }
-.na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
+.na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10.5px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
 .na-brief-src:hover { color: var(--ink); }
-.na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; line-height: 1.45; }
+.na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10.5px; line-height: 1.45; }
 
 /* ---- Ask Wire assistant panel (feature B) — a terminal Q&A box: an input row
    pinned under the panel head, the answer/sources below, a provenance footer. */
 .na-ask-form { display: flex; gap: 0; border-bottom: 1px solid var(--border, #262626); position: sticky; top: 33px; z-index: 2; background: var(--head, #0a0a0a); }
-.na-ask-in { flex: 1 1 auto; min-width: 0; border: 0; background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; padding: 9px 12px; outline: none; }
+.na-ask-in { flex: 1 1 auto; min-width: 0; border: 0; background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; padding: 9px 12px; outline: none; }
 .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
-.na-ask-go { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
+.na-ask-go { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
 .na-ask-go:disabled { color: var(--faint, #5c6a86); cursor: default; }
 /* Send button (bare menu Chat): an accent up-arrow that submits the typed line —
    the on-screen equivalent of pressing Enter. Squared, sits at the field's edge. */
 .na-ask-send { flex: 0 0 auto; display: grid; place-items: center; width: 40px; align-self: stretch; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); cursor: pointer; padding: 0; }
 .na-ask-send:disabled { color: var(--faint, #5c6a86); cursor: default; }
-.na-ask-add, .na-ask-search { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 0 12px; cursor: pointer; }
+.na-ask-add, .na-ask-search { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 0 12px; cursor: pointer; }
 .na-ask-add:hover:not(:disabled), .na-ask-search:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
 .na-ask-add:disabled, .na-ask-search:disabled { color: var(--faint, #5c6a86); cursor: default; }
 /* Clear-text ✕ — shows while the field has text, taps to empty it. In the menu
    Chat it floats inside the field's right edge; in the header it's a flex sibling. */
-.na-ask-clr { flex: 0 0 auto; display: grid; place-items: center; width: 26px; height: 24px; border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; line-height: 1; cursor: pointer; padding: 0; }
+.na-ask-clr { flex: 0 0 auto; display: grid; place-items: center; width: 26px; height: 24px; border: 0; background: transparent; color: var(--faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12.5px; line-height: 1; cursor: pointer; padding: 0; }
 .na-ask-clr:hover { color: var(--ink, #eaf0fb); }
 .na-ask-clr[hidden] { display: none; }
 .na-ask-out { padding: 0; }
-.na-ask-hint { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 11px; line-height: 1.5; }
-.na-ask-err { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--muted, #8592ad); font-size: 11px; line-height: 1.5; }
-.na-ask-answer { padding: 11px 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 11px; line-height: 1.55; word-wrap: break-word; }
+.na-ask-hint { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 11.5px; line-height: 1.5; }
+.na-ask-err { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--muted, #8592ad); font-size: 11.5px; line-height: 1.5; }
+.na-ask-answer { padding: 11px 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 11.5px; line-height: 1.55; word-wrap: break-word; }
 .na-ask-answer p { margin: 0 0 8px; }
 .na-ask-answer p:last-child { margin-bottom: 0; }
 .na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight: 600; }
-.na-ask-answer code { font-size: 11px; padding: 1px 4px; border-radius: 0; background: color-mix(in srgb, var(--ink, #eaf0fb) 10%, transparent); }
+.na-ask-answer code { font-size: 11.5px; padding: 1px 4px; border-radius: 0; background: color-mix(in srgb, var(--ink, #eaf0fb) 10%, transparent); }
 /* Ask CONVERSATION transcript (Menu Chat + desktop header): a running list of
    {question → answer} turns, newest first, each divided by a 1px line. The
    question sits in emphasised mono above its answer; a small "New chat" clears it. */
 .na-chat-turn { border-bottom: 1px solid var(--border, #262626); }
-.na-chat-q { padding: 10px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; color: var(--ink, #eaf0fb); line-height: 1.4; word-wrap: break-word; }
+.na-chat-q { padding: 10px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; font-weight: 700; color: var(--ink, #eaf0fb); line-height: 1.4; word-wrap: break-word; }
 /* New-chat EMPTY STATE: a centred accent spark + three one-word news topics as
    tappable pills — tapping one starts the chat on that topic. */
 .na-chat-empty { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 44px 16px; text-align: center; }
 .na-sugg-mark { color: var(--accent, #fb8b1e); flex: 0 0 auto; }
 .na-suggs { display: flex; flex-flow: row wrap; align-items: center; justify-content: center; gap: 8px; width: 100%; }
-.na-sugg { flex: 0 1 auto; border: 1px solid var(--border, #262626); background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; letter-spacing: .02em; padding: 8px 13px; border-radius: 0; cursor: pointer; white-space: nowrap; }
+.na-sugg { flex: 0 1 auto; border: 1px solid var(--border, #262626); background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 12.5px; letter-spacing: .02em; padding: 8px 13px; border-radius: 0; cursor: pointer; white-space: nowrap; }
 .na-sugg:hover { border-color: var(--accent, #fb8b1e); color: var(--accent, #fb8b1e); }
 /* The Ask assistant in the Menu → Dialogue chip is rendered to look EXACTLY like
    the shared search band (bandHTML → .tpanel-h.thead-search with a .tsearch
@@ -1045,7 +1045,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    Any answer renders as a framed card beneath, inset to the same gutter. */
 .menu-asst { border: 0; }
 .menu-asst .na-ask-form { position: relative; top: auto; display: flex; align-items: center; padding: 8px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
-.menu-asst .na-ask-in { flex: 1 1 auto; min-width: 0; background: var(--lift, #202020); border: 1px solid var(--border, #262626); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; height: 26px; padding: 2px 8px; border-radius: 0; }
+.menu-asst .na-ask-in { flex: 1 1 auto; min-width: 0; background: var(--lift, #202020); border: 1px solid var(--border, #262626); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; height: 26px; padding: 2px 8px; border-radius: 0; }
 .menu-asst .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
 .menu-asst .na-ask-out { padding: 0; }
 .menu-asst .na-ask-out:not(:empty) { margin: 8px 12px 0; border: 1px solid var(--border, #262626); }
@@ -1090,7 +1090,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     bottom: var(--kbd-h, 0px);
   }
 }
-.na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
 /* Sources COLLAPSE into a click-to-expand disclosure. The .na-ask-srch summary
    keeps its uppercase-eyebrow look; a chevron on the right rotates when open. */
@@ -1100,7 +1100,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-srcn { color: var(--faint, #5c6a86); font-weight: 700; margin-left: 4px; }
 .na-ask-srcd > summary::after { content: ""; width: 5px; height: 5px; margin-left: auto; margin-right: 2px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: .75; transform: rotate(-45deg); transition: transform .12s ease; }
 .na-ask-srcd[open] > summary::after { transform: rotate(45deg); }
-.na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.4; }
+.na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; line-height: 1.4; }
 
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links
         read by colour and context (hover keeps its colour shift only). ---- */

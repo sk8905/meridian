@@ -59,7 +59,7 @@ to keep pinned/full-height on these three sections.
 - **R5 — One feed engine, one `.g-feed-row` grid** across Home / Macro / Credit
   / Legal / Palette. No bespoke per-section list markup.
 - **R6 — Standard day breaks** on every dated list — the main wire *and*
-  sub-lists such as Legal Case Law (`.tw-day`): sans-serif, **10px / 600**,
+  sub-lists such as Legal Case Law (`.tw-day`): sans-serif, **10.5px / 600**,
   uppercase, `.04em` tracking, grey band (`--t-head`), label `--t-accent`
   (dark) / `#2f6cae` (light). No mono, no per-section variants.
 - **R7 — Every item is sourced + dated; never fabricated.** Each headline
@@ -141,15 +141,17 @@ notification badge red (`#ef4444`).
   (Markets / Saved / Notifications).
 - **R11 — Sizes come from the scale, not ad-hoc px:** the whole app is anchored
   to the **Profiles ▸ Managers league** (`.tleague`) — the agreed reference
-  density: **11px** sans names, mono figures. The scale: 8.5–10px (day breaks /
-  eyebrows / column heads, uppercase), ~10.5px (mono data rows), **11px** body /
-  content / list & feed item text (`--fs-content` ≈ .69rem; feed headlines a
-  hair up at 11.5px), 12px (panel headers), then a restrained heading step
-  (`--fs-card-title` .82rem, `--fs-section-title` 1.18rem / .95rem mobile).
+  density: **11.5px** sans names, mono figures. The scale: 9–10.5px (day breaks /
+  eyebrows / column heads, uppercase), ~11px (mono data rows), **11.5px** body /
+  content / list & feed item text (`--fs-content` ≈ .72rem; feed headlines a
+  hair up at 12px), 12.5px (panel headers), then a restrained heading step
+  (`--fs-card-title` .85rem, `--fs-section-title` 1.21rem / .98rem mobile).
   Prose, feed rows and info-page copy all sit at this league density — they do
   **not** run at the retired 13.6px prose scale. Numeric columns use
   `font-variant-numeric: tabular-nums`. Change a size once, in the `--fs-*`
-  token block (premium.css), so every surface moves in lockstep.
+  token block (premium.css), so every surface moves in lockstep. (The whole
+  scale was lifted a uniform **+0.5px** from its original 8.5–13.6→9–14px values
+  for legibility — hence the half-px steps; keep new sizes on that grid.)
 - **R11b — No new font family or weight** beyond the two stacks and the weights
   already in use (400 / 500 / 600 / 700 / 800). 500 is the inactive-chip/label
   weight, paired with 600 for the active state.

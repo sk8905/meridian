@@ -120,7 +120,7 @@ a { color: inherit; text-decoration: none; }
     bottom: calc(55px + env(safe-area-inset-bottom, 0px));
     z-index: 9490;
     padding: 8px 14px; min-height: 34px;
-    font-size: .7rem; line-height: 1.35; letter-spacing: .01em;
+    font-size: .73rem; line-height: 1.35; letter-spacing: .01em;
     background: var(--bg, #f4f6fb); color: var(--muted, #66708a);
     border-top: 1px solid rgba(15,23,42,.10);
   }
@@ -150,7 +150,7 @@ html[data-theme="dark"][data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
     margin-top: 0;    /* no gap above: the footer sits flush on the ground as one grey row */
     padding: 6px 1.5rem calc(6px + env(safe-area-inset-bottom, 0px));
-    font-size: .69rem; line-height: 1.35; color: var(--muted, #66708a);
+    font-size: .72rem; line-height: 1.35; color: var(--muted, #66708a);
     /* Single grey row (matches the app ground) rather than a white strip below an
        empty grey gap — the identity/refresh line reads as part of the chrome. */
     border-top: 1px solid var(--border, #e4e7ef); background: var(--head, #f4f7fb);

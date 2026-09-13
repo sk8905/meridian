@@ -113,10 +113,10 @@ const searchFont = await pg.evaluate(() => {
   const t = document.querySelector(".mcmdk-t");
   return { size: cs.fontSize, fam: cs.fontFamily, bg: cs.backgroundColor, rowSize: t ? getComputedStyle(t).fontSize : null };
 });
-check(searchFont && searchFont.size === "11px", `search box text is 11px like the app (${searchFont && searchFont.size})`);
+check(searchFont && searchFont.size === "11.5px", `search box text is 11.5px like the app (${searchFont && searchFont.size})`);
 check(searchFont && /mono/i.test(searchFont.fam), `search box uses the app mono family (${searchFont && searchFont.fam})`);
 check(searchFont && searchFont.bg === rgbLift, `search box is shaded grey (--lift): field ${searchFont && searchFont.bg} vs --lift ${rgbLift}`);
-check(searchFont && searchFont.rowSize === "11px", `palette result/recent rows are 11px, not oversized (${searchFont && searchFont.rowSize})`);
+check(searchFont && searchFont.rowSize === "11.5px", `palette result/recent rows are 11.5px, not oversized (${searchFont && searchFont.rowSize})`);
 await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
 await pg.waitForTimeout(120);
 

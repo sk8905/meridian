@@ -71,7 +71,7 @@
 .card:hover, .g-card:hover { box-shadow: none !important; }
 
 /* ---- denser headings (terminal scale) ---- */
-.container > h1:first-child, .view-title, .ph-title { font-size: 1.35rem; letter-spacing: -.01em; }
+.container > h1:first-child, .view-title, .ph-title { font-size: 1.38rem; letter-spacing: -.01em; }
 .card > h2, .card > h3, .g-card h2, .panel h2 { letter-spacing: .01em; }
 
 /* tabular figures on data-heavy elements */
@@ -105,9 +105,9 @@
 .tdash { display: flex; flex-direction: column; height: calc(100vh - 54px - 26px - 32px); background: var(--bg); overflow: hidden; }
 
 .tdash-head { display: flex; align-items: center; gap: 12px; padding: 6px 14px; border-bottom: 1px solid var(--border); flex: 0 0 auto; }
-.tdash-head h1 { font-size: 1.02rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
+.tdash-head h1 { font-size: 1.05rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
 .tdash-ticker { display: flex; align-items: stretch; height: 26px; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--head); flex: 0 0 auto; }
-.tmet { display: flex; align-items: center; gap: 6px; padding: 0 14px; font-size: 11.5px; white-space: nowrap; border-right: 1px solid var(--border); color: var(--muted); font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
+.tmet { display: flex; align-items: center; gap: 6px; padding: 0 14px; font-size: 12px; white-space: nowrap; border-right: 1px solid var(--border); color: var(--muted); font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
 .tmet b { color: var(--ink); font-weight: 700; }
 /* Rails removed platform-wide (Macro/Credit/Legal): the central wire owns the
    full width on every viewport. */
@@ -121,10 +121,10 @@
 .tpanel { border-bottom: 1px solid var(--border); background: var(--surface); }
 .twire { background: var(--surface); }
 .tpanel-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 11px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; flex: 0 0 auto; }
-.tpanel-h > span:first-child { font-size: 12px; font-weight: 600; color: var(--ink); }
-.tpanel-x { margin-left: auto; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+.tpanel-h > span:first-child { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.tpanel-x { margin-left: auto; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
 /* league €1–10bn focus toggle */
-.tfocus-btn { margin-left: auto; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 9.5px; font-weight: 600; padding: 2px 7px; cursor: pointer; border-radius: 0; font-family: var(--t-mono); }
+.tfocus-btn { margin-left: auto; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 10px; font-weight: 600; padding: 2px 7px; cursor: pointer; border-radius: 0; font-family: var(--t-mono); }
 .tfocus-btn.is-on { color: var(--ink); font-weight: 700; box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .tfocus-btn.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
 /* AUM focus toggles ($1–15bn) wear the orange treatment of the Home "Group by"
@@ -153,7 +153,7 @@
 .tchips { display: flex; gap: 0; height: 100%; width: 100%; flex: 1 1 auto; }
 .tchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 5px;
   border: 0; background: transparent; padding: 0 8px;
-  font-size: 11px; color: var(--muted); cursor: pointer; height: 100%; min-height: var(--chip-h, 34px); border-radius: 0; }
+  font-size: 11.5px; color: var(--muted); cursor: pointer; height: 100%; min-height: var(--chip-h, 34px); border-radius: 0; }
 /* Active tab-chip marker (HOUSE_STYLE R14a): ONE canonical treatment app-wide —
    a 2px bottom underline in --chip-ul (black in light, white in dark) EXTENDED
    1px below the chip so it always lands flush ON the row's 1px divider, never
@@ -175,8 +175,8 @@
 .twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
 /* single line, matching Home: date | CODE | headline (+ inline manager) | source */
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
-.tw-date { grid-column: 1; font-family: var(--t-mono); font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
+.tw-date { grid-column: 1; font-family: var(--t-mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 10px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
 /* Profile-wire labels take the manager-wire pastel scheme (not all credit-orange):
    DEAL green, FUND blue, CLO purple, NEWS slate. */
 .tw-tag.deal { color: var(--t-lex, #2fbf8a); }
@@ -184,12 +184,12 @@
 .tw-tag.clo { color: var(--t-mac, #9b83e2); }
 .tw-tag.news { color: var(--t-news, #8aa0c8); }
 .tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
-.tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11.5px; font-weight: 400; line-height: 1.35; color: var(--ink); }
+.tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 400; line-height: 1.35; color: var(--ink); }
 .tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
 .tw-mgr-w::before { content: "· "; color: var(--faint); }
 /* manager links inline in rows / rails: mono, light grey (not accent) */
-.tw-mgr, .compact-mgr { font-family: var(--t-mono); font-size: 11px; color: var(--muted); }
-.tw-src { grid-column: 4; text-align: right; white-space: nowrap; font-size: 10px; color: var(--faint); font-family: var(--t-mono); padding-left: 12px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
+.tw-mgr, .compact-mgr { font-family: var(--t-mono); font-size: 11.5px; color: var(--muted); }
+.tw-src { grid-column: 4; text-align: right; white-space: nowrap; font-size: 10.5px; color: var(--faint); font-family: var(--t-mono); padding-left: 12px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
 .tw-src a { color: var(--faint); }
 .tw-empty { padding: 12px; }
 
@@ -201,15 +201,15 @@
 .srcfilter-bar[hidden] { display: none; }
 .srcfilter-bar { display: flex; align-items: center; gap: 8px; padding: 7px 12px; margin: 0 0 8px;
   background: var(--surface); border: 1px solid var(--border, var(--line)); font-family: var(--t-mono);
-  font-size: 10px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
+  font-size: 10.5px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
 .srcfilter-bar strong { color: var(--ink); text-transform: none; letter-spacing: 0; }
 .srcfilter-clear { margin-left: auto; border: 0; background: transparent; cursor: pointer; color: var(--accent);
-  font: inherit; font-family: var(--t-mono); font-size: 10px; letter-spacing: .03em; text-transform: uppercase; padding: 0; }
+  font: inherit; font-family: var(--t-mono); font-size: 10.5px; letter-spacing: .03em; text-transform: uppercase; padding: 0; }
 .srcfilter-clear:hover { text-decoration: none; }
 
 /* left league table */
-.tleague { width: 100%; border-collapse: collapse; font-size: 11px; }
-.tleague th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; position: sticky; top: 28px; background: var(--head); border-bottom: 1px solid var(--border); }
+.tleague { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.tleague th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; position: sticky; top: 28px; background: var(--head); border-bottom: 1px solid var(--border); }
 .tleague td { padding: 6px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
 .tleague .tl-nm { color: var(--ink); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague .tl-n { text-align: right; color: var(--muted); font-family: var(--t-mono); }
@@ -233,9 +233,9 @@
 .tmini { list-style: none; margin: 0; padding: 0; }
 .tmini-row { display: block; padding: 6px 12px; border-bottom: 1px solid var(--border); }
 .tmini-row:last-child { border-bottom: 0; }
-.tmini-t { display: block; font-size: 11.5px; color: var(--ink); font-weight: 600; line-height: 1.3; }
+.tmini-t { display: block; font-size: 12px; color: var(--ink); font-weight: 600; line-height: 1.3; }
 .tmini-row.clickable { cursor: pointer; }
-.tmini-m { display: block; font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+.tmini-m { display: block; font-size: 10px; color: var(--muted); margin-top: 2px; }
 
 /* Hover affordances live behind (hover: hover) so a touch device NEVER shows the
    orange/tint hover state while a finger rests on a row mid-scroll — on phones a
@@ -359,11 +359,11 @@
     column-gap: 6px; row-gap: 4px; padding: 11px 14px;
   }
   .tw-body { display: contents; }
-  .tw-head { grid-area: head; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size: 11.5px; }
+  .tw-head { grid-area: head; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size: 12px; }
   /* the entity is already in the headline; drop it from the meta so the line
      stays clean and truncates only the source (like Bloomberg's mobile rows). */
   .tw-mgr-w { display: none; }
-  .tw-tag  { grid-area: tag; font-size: 9px; }
+  .tw-tag  { grid-area: tag; font-size: 9.5px; }
   .tw-date { grid-area: date; white-space: nowrap; }
   .tw-src  { grid-area: src; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; padding-left: 0; max-width: none; }
   .tw-src::before { content: "·"; color: var(--faint); margin-right: 5px; }
@@ -415,14 +415,14 @@
 /* The field sits a step off the panel ground so it reads as an editable search box,
    not flat chrome — via the scoped --lift token (lighter on dark, crisp white on
    light), not raw hex (R8). */
-.tsearch { margin-left: auto; background: var(--lift); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
+.tsearch { margin-left: auto; background: var(--lift); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11.5px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
 .tsearch::placeholder { color: var(--faint); }
 /* Shared search band on non-list pages: the "search" is a button styled like the
    .tsearch input (it opens the command palette); the $1–15bn button sits beside
    it, exactly as on the list pages. */
 .wire-band-q { text-align: left; color: var(--faint); cursor: pointer; line-height: 1; display: inline-flex; align-items: center; }
 .wire-band-q:hover { color: var(--muted); border-color: var(--muted); }
-.tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague-full th.tl-hq { text-align: left; }
 /* CLO indicator: right-align to sit under its right-aligned "CLOs" header (the
    other numeric columns are right-aligned too) and dim the bullet a touch. */
@@ -603,7 +603,7 @@
    while a profile is open, and only in the active pane's visible search row). */
 .pf-back-chev { display: none; flex: 0 0 auto; align-items: center; justify-content: center;
   width: 26px; height: 26px; padding: 0; background: transparent; border: 1px solid var(--border);
-  color: var(--ink); font-family: var(--t-mono); font-size: 16px; line-height: 1; cursor: pointer; border-radius: 0; }
+  color: var(--ink); font-family: var(--t-mono); font-size: 16.5px; line-height: 1; cursor: pointer; border-radius: 0; }
 .pf-back-chev:hover { border-color: var(--accent); color: var(--accent); }
 .pf-detailing .tpane:not([hidden]) .thead-search .pf-back-chev { display: inline-flex; }
 /* Mobile: the list search normally takes a full-width row (flex 1 1 100%); with a
@@ -618,7 +618,7 @@
    Profiles Managers & Hedge Funds panes and the Transactions tab so the control
    reads and looks the same across the app. */
 .aum-focus { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 4px 11px; background: var(--head); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
-.aum-focus-l { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
+.aum-focus-l { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
 .aum-focus .tfocus-btn { margin-left: 0; }
 /* A secondary control sharing the bar (e.g. Hedge Funds' Cross-holdings) sits at
    the LEFT while the AUM-focus label + $1–15bn button stay pinned right. */
@@ -647,26 +647,26 @@
 .tx-tbl tfoot .tx-tot td { border-top: 1px solid var(--border); border-bottom: 0; color: var(--ink); font-weight: 700; }
 /* Transactions back bar + type header. */
 .tx-back-bar { padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--head); }
-.tx-back { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; letter-spacing: .03em; padding: 5px 12px; cursor: pointer; border-radius: 0; }
+.tx-back { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11.5px; letter-spacing: .03em; padding: 5px 12px; cursor: pointer; border-radius: 0; }
 .tx-back:hover { border-color: var(--accent); color: var(--accent); }
 /* Credits sub-tab: the European credit universe by sector, name + issuer rating. */
 .tcr-meta { padding: 8px 12px 2px; }
 .tcr-grp + .tcr-grp { border-top: 1px solid var(--border); }
-.tcr-grp-h { padding: 9px 12px 4px; font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); }
+.tcr-grp-h { padding: 9px 12px 4px; font-family: var(--t-mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--faint); }
 .tcr-grp-n { color: var(--muted); }
 .tcr-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.tcr-nm { font-size: 12px; color: var(--ink); font-weight: 600; }
-.tcr-rt { flex: 0 0 auto; font-family: var(--t-mono); font-size: 10px; font-weight: 700; letter-spacing: .03em; color: var(--ink); border: 1px solid var(--border); padding: 1px 6px; text-decoration: none; }
+.tcr-nm { font-size: 12.5px; color: var(--ink); font-weight: 600; }
+.tcr-rt { flex: 0 0 auto; font-family: var(--t-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .03em; color: var(--ink); border: 1px solid var(--border); padding: 1px 6px; text-decoration: none; }
 a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tcr-nr { color: var(--faint); }
 .tx-head { padding: 12px 14px; border-bottom: 1px solid var(--border); }
-.tx-title { margin: 0; font-size: 1.05rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
-.tx-blurb { margin: 3px 0 11px; font-size: 11.5px; line-height: 1.5; color: var(--muted); max-width: 62ch; }
+.tx-title { margin: 0; font-size: 1.08rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+.tx-blurb { margin: 3px 0 11px; font-size: 12px; line-height: 1.5; color: var(--muted); max-width: 62ch; }
 .tx-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
 .tx-kpi { display: flex; flex-direction: column; gap: 1px; padding: 8px 11px; background: var(--surface); min-width: 0; }
-.tx-kpi-v { font-size: 1.2rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.15; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tx-kpi-l { font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
-.tx-kpi-s { font-size: 10px; color: var(--faint); }
+.tx-kpi-v { font-size: 1.23rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1.15; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tx-kpi-l { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; }
+.tx-kpi-s { font-size: 10.5px; color: var(--faint); }
 .tx-list td.tx-dt { color: var(--muted); font-family: var(--t-mono); white-space: nowrap; width: 74px; }
 .tx-list td.tx-hd { color: var(--ink); white-space: normal; line-height: 1.35; }
 /* Borrower / company cell: JUST the name (bold); the full headline is the hover
@@ -688,50 +688,50 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 }
 /* sub-category (asset-class) filter chips */
 .tx-secfilter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
-.tx-secchip { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--muted); font: inherit; font-size: 11px; padding: 3px 9px; border-radius: 0; cursor: pointer; white-space: nowrap; }
+.tx-secchip { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--muted); font: inherit; font-size: 11.5px; padding: 3px 9px; border-radius: 0; cursor: pointer; white-space: nowrap; }
 .tx-secchip:hover { color: var(--ink); border-color: var(--muted); }
 .tx-secchip.is-on { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
-.tx-secn { color: var(--faint); font-variant-numeric: tabular-nums; font-size: 10px; }
+.tx-secn { color: var(--faint); font-variant-numeric: tabular-nums; font-size: 10.5px; }
 .tx-secchip.is-on .tx-secn { color: var(--muted); }
 /* expandable transaction → borrower/advisers (prose) + structured fields */
 .tx-row { cursor: pointer; }
 .tx-caret { display: inline-block; margin-right: 5px; color: var(--faint); transition: transform .12s ease; }
 .tx-row.is-open .tx-caret { transform: rotate(90deg); color: var(--accent); }
-.tx-usd { color: var(--faint); font-size: 10px; }
+.tx-usd { color: var(--faint); font-size: 10.5px; }
 .tx-exp > td { background: var(--head); border-bottom: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 0; }
 /* A contained fact-sheet: prose on the left, a fixed metadata card on the right —
    capped so the fields don't sprawl across a wide desktop. Stacks on narrow. */
 .tx-exp-in { padding: 12px 16px 13px; display: flex; flex-wrap: wrap; gap: 8px 26px; align-items: flex-start; }
-.tx-sum { flex: 1 1 340px; margin: 0; font-size: 12px; line-height: 1.6; color: var(--ink-soft, var(--ink)); max-width: 70ch; }
+.tx-sum { flex: 1 1 340px; margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft, var(--ink)); max-width: 70ch; }
 .tx-fields { flex: 0 0 auto; display: grid; grid-template-columns: auto auto; gap: 8px 20px; margin: 0; padding: 9px 12px; border: 1px solid var(--border); background: var(--surface); align-self: flex-start; }
 .tx-fields > div { min-width: 0; }
-.tx-fields dt { font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; margin-bottom: 1px; }
-.tx-fields dd { margin: 0; font-size: 12.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tx-fields dt { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; margin-bottom: 1px; }
+.tx-fields dd { margin: 0; font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; }
 .tx-fields dd a { color: inherit; text-decoration: none; }
 .tx-fields dd a:hover { color: var(--accent); }
-.tx-src { flex: 1 1 100%; margin-top: 2px; font-size: 11px; color: var(--muted); font-family: var(--t-mono); text-decoration: none; }
+.tx-src { flex: 1 1 100%; margin-top: 2px; font-size: 11.5px; color: var(--muted); font-family: var(--t-mono); text-decoration: none; }
 .tx-src:hover { color: var(--ink); }
 
 .tpg { border-bottom: 1px solid var(--border); }
-.tpg-h { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 9px 12px 4px; }
+.tpg-h { font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 9px 12px 4px; }
 /* Consistent Business-tab primitives: a short lead note, a sources line, and the
    .tbiz stacked key/value list (label above, wrapping value below) — used for
    every fact so prose and short values read the same. Lists use .tmini. */
-.tpg-note { margin: 0; padding: 2px 12px 6px; font-size: 11px; line-height: 1.5; color: var(--muted); }
-.tpg-src { padding: 4px 12px 9px; font-family: var(--t-mono); font-size: 9.5px; color: var(--faint); }
+.tpg-note { margin: 0; padding: 2px 12px 6px; font-size: 11.5px; line-height: 1.5; color: var(--muted); }
+.tpg-src { padding: 4px 12px 9px; font-family: var(--t-mono); font-size: 10px; color: var(--faint); }
 .tpg-src a { color: var(--faint); } .tpg-src a:hover { color: var(--ink); }
 .tbiz { list-style: none; margin: 0; padding: 0; }
 .tbiz li { padding: 7px 12px; border-bottom: 1px solid var(--border); }
 .tbiz li:last-child { border-bottom: 0; }
-.tbiz-k { display: block; font-family: var(--t-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--faint); margin-bottom: 2px; }
-.tbiz-v { display: block; font-size: 11px; line-height: 1.5; color: var(--ink); }
+.tbiz-k { display: block; font-family: var(--t-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--faint); margin-bottom: 2px; }
+.tbiz-v { display: block; font-size: 11.5px; line-height: 1.5; color: var(--ink); }
 .tbiz-v a { color: inherit; }
 @media (max-width: 900px) {
   .tsearch { width: 150px; }
 }
 
 /* breadcrumb as the terminal detail's top strip (inside the fixed-height .tdash) */
-.tdash > .breadcrumb { flex: 0 0 auto; margin: 0; padding: 6px 16px; height: auto; background: var(--head); border-bottom: 1px solid var(--border); font-size: 11px; font-family: var(--t-mono); color: var(--muted); display: flex; align-items: center; gap: 7px; }
+.tdash > .breadcrumb { flex: 0 0 auto; margin: 0; padding: 6px 16px; height: auto; background: var(--head); border-bottom: 1px solid var(--border); font-size: 11.5px; font-family: var(--t-mono); color: var(--muted); display: flex; align-items: center; gap: 7px; }
 .tdash > .breadcrumb a { color: var(--muted); } .tdash > .breadcrumb a:hover { color: var(--ink); }
 .tdash > .breadcrumb .sep { color: var(--faint); }
 .tdash > .breadcrumb .crumb-back { display: inline-flex; align-items: center; gap: 2px; margin-right: 4px; padding: 2px 9px 3px; border: 1px solid var(--border, #e4e7ef); border-radius: 0; background: var(--bg, #fff); color: var(--ink) !important; font-weight: 600; text-decoration: none; line-height: 1.3; }
@@ -744,17 +744,17 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tdash > .tdet-secnav .tchip { text-decoration: none; }
 /* identity header — the record, centre-stage, above its activity wire */
 .tdet-id { padding: 13px 16px; background: var(--head, #f4f7fb); border-bottom: 1px solid var(--border, #e4e7ef); flex: 0 0 auto; }
-.tdet-id h1 { margin: 0 0 3px; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; color: var(--ink); line-height: 1.2; }
-.tdet-sub { font-family: var(--t-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.tdet-desc { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.tdet-id h1 { margin: 0 0 3px; font-size: 1.15rem; font-weight: 700; letter-spacing: -.01em; color: var(--ink); line-height: 1.2; }
+.tdet-sub { font-family: var(--t-mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tdet-desc { margin: 8px 0 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
 .tdet-chips { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 5px; }
-.tdet-chip { font-family: var(--t-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); border: 1px solid var(--border); padding: 2px 7px; white-space: nowrap; }
-.tdet-src { margin-top: 9px; font-size: 10px; color: var(--faint); }
+.tdet-chip { font-family: var(--t-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); border: 1px solid var(--border); padding: 2px 7px; white-space: nowrap; }
+.tdet-src { margin-top: 9px; font-size: 10.5px; color: var(--faint); }
 .tdet-src a { color: var(--faint); } .tdet-src a:hover { color: var(--ink); }
 /* Collapsible sources — a single "Sources" line that expands to the links. */
-.tdet-src-det { margin-top: 9px; font-size: 10px; }
+.tdet-src-det { margin-top: 9px; font-size: 10.5px; }
 .tdet-src-det > summary { display: inline-flex; align-items: center; gap: 5px; cursor: pointer; width: max-content;
-  color: var(--faint); font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; list-style: none; }
+  color: var(--faint); font-family: var(--t-mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; list-style: none; }
 .tdet-src-det > summary::-webkit-details-marker { display: none; }
 .tdet-src-det > summary::before { content: "›"; display: inline-block; transition: transform .15s ease; }
 .tdet-src-det[open] > summary::before { transform: rotate(90deg); }
@@ -763,24 +763,24 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tdet-src-body a { color: var(--faint); } .tdet-src-body a:hover { color: var(--ink); }
 /* Merged Vehicles tab groups (Funds / CLOs / Listed vehicles). */
 .tveh-grp + .tveh-grp { border-top: 1px solid var(--border); }
-.tveh-grp-h { padding: 9px 12px 4px; font-family: var(--t-mono); font-size: 9.5px; font-weight: 600;
+.tveh-grp-h { padding: 9px 12px 4px; font-family: var(--t-mono); font-size: 10px; font-weight: 600;
   text-transform: uppercase; letter-spacing: .05em; color: var(--faint); }
 .tveh-grp-n { color: var(--muted); }
 /* Investments tab — deal activity from surfaced news, tagged debt/equity. */
 .tinv { list-style: none; margin: 0; padding: 0; }
 .tinv-row { padding: 9px 12px; border-bottom: 1px solid var(--border); }
 .tinv-row:last-child { border-bottom: 0; }
-.tinv-head { display: block; font-size: 12px; line-height: 1.35; color: var(--ink); font-weight: 600; text-decoration: none; }
+.tinv-head { display: block; font-size: 12.5px; line-height: 1.35; color: var(--ink); font-weight: 600; text-decoration: none; }
 .tinv-head:hover { color: var(--accent); }
 /* Amount suffix on the company/borrower lead, and the verbatim sourced headline
    shown beneath it when the row leads with an extracted name. */
 .tinv-amt { font-family: var(--t-mono); font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
-.tinv-sub { margin-top: 3px; font-size: 10.5px; line-height: 1.4; color: var(--muted); }
-.tinv-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 5px; font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
+.tinv-sub { margin-top: 3px; font-size: 11px; line-height: 1.4; color: var(--muted); }
+.tinv-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 5px; font-family: var(--t-mono); font-size: 10.5px; color: var(--muted); }
 .tinv-when, .tinv-src { color: var(--faint); }
 /* Instrument tags are token-only (R8): a bordered mono chip, debt vs equity read
    from the LABEL text, not an ad-hoc colour (R9 keeps colour for deltas/accent). */
-.tinv-tag { display: inline-flex; align-items: center; gap: 3px; font-family: var(--t-mono); font-size: 9px; font-weight: 700;
+.tinv-tag { display: inline-flex; align-items: center; gap: 3px; font-family: var(--t-mono); font-size: 9.5px; font-weight: 700;
   text-transform: uppercase; letter-spacing: .03em; padding: 2px 6px; border: 1px solid var(--border); border-radius: 0; white-space: nowrap; color: var(--muted); }
 .tinv-tag.is-debt, .tinv-tag.is-equity { color: var(--ink); }
 .tinv-tag.is-unspec { color: var(--faint); }
@@ -801,32 +801,32 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 /* key-figure grid in the rail */
 .tkv { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
 .tkv > div { background: var(--surface); padding: 7px 11px; min-width: 0; }
-.tkv dt { font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tkv dd { margin: 2px 0 0; font-family: var(--t-mono); font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tkv dt { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tkv dd { margin: 2px 0 0; font-family: var(--t-mono); font-size: 13.5px; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* compact fact rows (owners, filings) in the rail */
 .tfacts { list-style: none; margin: 0; padding: 0; }
-.tfacts li { display: flex; justify-content: space-between; gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); font-size: 11px; }
+.tfacts li { display: flex; justify-content: space-between; gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); font-size: 11.5px; }
 .tfacts li:last-child { border-bottom: 0; }
 .tfacts .tf-k { color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tfacts .tf-v { color: var(--muted); font-family: var(--t-mono); font-variant-numeric: tabular-nums; white-space: nowrap; flex: 0 0 auto; }
-.tmini-r { color: var(--muted); font-family: var(--t-mono); font-size: 10px; float: right; margin-left: 8px; }
+.tmini-r { color: var(--muted); font-family: var(--t-mono); font-size: 10.5px; float: right; margin-left: 8px; }
 /* Ownership stakes sit INLINE, right after the owner's name on the same line —
    not floated out to the row's right edge (which left a wide, disconnected gap on
    a full-width iPad row). Scoped so the floated variant still serves the vehicle
    lists and rails. */
 .tmini-r-inline { float: none; margin-left: 6px; }
-.tfacts .tf-est { font-family: var(--t-mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
-.tfd-raise { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 11px; }
+.tfacts .tf-est { font-family: var(--t-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
+.tfd-raise { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 11.5px; }
 .tfacts a.tf-lnk, .tfacts .tf-v a { color: inherit; }
 /* readable article body (legal alert summary etc.) as the centre-stage panel */
 .tcol-c > .tdet-read { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-.tdet-read { padding: 12px 16px; font-size: 13px; line-height: 1.6; color: var(--muted); background: var(--surface); }
+.tdet-read { padding: 12px 16px; font-size: 13.5px; line-height: 1.6; color: var(--muted); background: var(--surface); }
 .tdet-read p { margin: 0 0 10px; }
-.tdet-read h4 { font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 15px 0 6px; font-weight: 600; }
+.tdet-read h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 15px 0 6px; font-weight: 600; }
 .tdet-read ul { margin: 0 0 10px; padding-left: 18px; } .tdet-read li { margin: 4px 0; }
-.tdet-read .source-box { margin-top: 12px; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); font-size: 11.5px; display: block; }
-.tdet-read .source-box .lbl { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); display: block; margin-bottom: 3px; }
-.tdet-read .source-note { font-size: 10.5px; color: var(--faint); margin: 5px 0 0; }
+.tdet-read .source-box { margin-top: 12px; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); font-size: 12px; display: block; }
+.tdet-read .source-box .lbl { font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); display: block; margin-bottom: 3px; }
+.tdet-read .source-note { font-size: 11px; color: var(--faint); margin: 5px 0 0; }
 .tdet-read .tags { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 5px; }
 /* mobile: detail collapses like the dashboard, identity + wire lead */
 @media (max-width: 900px) {
@@ -835,32 +835,32 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 
 /* macro dashboard — indicators rail + commentary tag */
 .tw-tag.comm { color: var(--t-mac, #9b83e2); }
-.mac-ind-cty { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); padding: 9px 12px 5px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-.mac-ind-cty-x { font-size: 8.5px; font-weight: 600; letter-spacing: .03em; color: var(--faint); text-transform: none; }
+.mac-ind-cty { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); padding: 9px 12px 5px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.mac-ind-cty-x { font-size: 9px; font-weight: 600; letter-spacing: .03em; color: var(--faint); text-transform: none; }
 /* Detail tiles fill the available width — 2-across in the narrow rail, up to
    6-across beside the wide cockpit matrix. */
 .mac-ind-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 1px; background: var(--border); margin: 0 0 1px; }
 .mac-ind { background: var(--surface); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.mac-ind-n { font-size: 9px; color: var(--muted); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mac-ind-v { font-family: var(--t-mono); font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
-.mac-ind-c-chg { font-family: var(--t-mono); font-size: 9.5px; font-variant-numeric: tabular-nums; }
+.mac-ind-n { font-size: 9.5px; color: var(--muted); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mac-ind-v { font-family: var(--t-mono); font-size: 14.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.mac-ind-c-chg { font-family: var(--t-mono); font-size: 10px; font-variant-numeric: tabular-nums; }
 .mac-ind-c-chg.up { color: var(--t-up, #3fc08d); } .mac-ind-c-chg.down { color: var(--t-down, #f26d84); } .mac-ind-c-chg.flat { color: var(--faint); }
 
 /* Key moments on the indicators rail — sourced "why it moved" lines for the
    selected country's rate movers (fixed first column so explanations align). */
 .mac-km-wrap { border-top: 1px solid var(--border); padding: 8px 12px 10px; }
-.mac-km-h { font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); margin-bottom: 5px; }
+.mac-km-h { font-size: 9.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); margin-bottom: 5px; }
 .mac-km-h span { color: var(--muted); font-weight: 600; margin-left: 6px; text-transform: none; letter-spacing: 0; }
 .mac-km { display: grid; grid-template-columns: 92px 1fr; gap: 8px; align-items: baseline; padding: 4px 0; }
-.mac-km-t { color: var(--accent); font-weight: 600; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.mac-km-x { color: color-mix(in srgb, var(--ink) 72%, transparent); font-size: 11px; line-height: 1.4; }
-.mac-km-src { color: var(--muted); font-size: 9.5px; font-weight: 600; white-space: nowrap; }
+.mac-km-t { color: var(--accent); font-weight: 600; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mac-km-x { color: color-mix(in srgb, var(--ink) 72%, transparent); font-size: 11.5px; line-height: 1.4; }
+.mac-km-src { color: var(--muted); font-size: 10px; font-weight: 600; white-space: nowrap; }
 .mac-km-src:hover { color: var(--ink); }
 /* G7 + Euro Area + Ireland comparison matrix (country × key indicators). Rows are
    the country selector — clicking one repoints the detail beside/beneath it. */
 .mac-mtx { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; table-layout: fixed; }
-.mac-mtx th, .mac-mtx td { padding: 7px 10px; text-align: right; font-size: 12.5px; border-bottom: 1px solid var(--border); }
-.mac-mtx thead th { font-size: 9.5px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); white-space: normal; line-height: 1.2; vertical-align: bottom; border-bottom: 1px solid var(--border); }
+.mac-mtx th, .mac-mtx td { padding: 7px 10px; text-align: right; font-size: 13px; border-bottom: 1px solid var(--border); }
+.mac-mtx thead th { font-size: 10px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); white-space: normal; line-height: 1.2; vertical-align: bottom; border-bottom: 1px solid var(--border); }
 .mac-mtx .mac-mtx-c { text-align: left; color: var(--ink); font-weight: 700; }
 .mac-mtx td { color: var(--ink); }
 .mac-mtx tbody tr:nth-child(2n) td, .mac-mtx tbody tr:nth-child(2n) th { background: color-mix(in srgb, var(--ink, #eaf0fb) 3%, transparent); }
@@ -885,7 +885,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .mac-dash-pane { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0; }
 .mac-dash-pane[hidden] { display: none; }
 /* Section sub-heads render as terminal panel headers (full-bleed hairline bars). */
-.mac-dash-pane .macro-subhead { font-size: 11px; font-weight: 600; letter-spacing: .02em;
+.mac-dash-pane .macro-subhead { font-size: 11.5px; font-weight: 600; letter-spacing: .02em;
   text-transform: uppercase; color: var(--muted); margin: 0; padding: 7px 12px;
   background: var(--head); border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
 .mac-dash-pane .macro-subhead:first-child { border-top: 0; }
@@ -893,25 +893,25 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .mac-dash-pane .macro-cols { display: block; gap: 0; margin: 0; }
 .mac-dash-pane .card { border: 0; border-bottom: 1px solid var(--border); border-radius: 0;
   margin: 0; padding: 11px 12px; box-shadow: none; background: var(--surface); }
-.mac-dash-pane .macro-country { font-size: 12px; font-weight: 600; color: var(--ink);
+.mac-dash-pane .macro-country { font-size: 12.5px; font-weight: 600; color: var(--ink);
   margin: 0 0 6px; padding-bottom: 5px; border-bottom: 1px solid var(--accent); }
-.mac-dash-pane .macro-note-sub { font-size: 11px; margin: 0 0 9px; line-height: 1.4; color: var(--muted); }
-.mac-dash-pane .pw-src { font-size: 10px; color: var(--muted); }
+.mac-dash-pane .macro-note-sub { font-size: 11.5px; margin: 0 0 9px; line-height: 1.4; color: var(--muted); }
+.mac-dash-pane .pw-src { font-size: 10.5px; color: var(--muted); }
 .mac-dash-pane .pw-head .macro-country { margin: 0 0 6px; }
 .mac-dash-pane .pw-row { margin-bottom: 9px; }
-.mac-dash-pane .pw-lbl { font-size: 11.5px; font-weight: 400; color: var(--ink); }
-.mac-dash-pane .pw-pct { font-size: 12px; font-weight: 700; font-family: var(--t-mono); color: var(--ink); font-variant-numeric: tabular-nums; }
+.mac-dash-pane .pw-lbl { font-size: 12px; font-weight: 400; color: var(--ink); }
+.mac-dash-pane .pw-pct { font-size: 12.5px; font-weight: 700; font-family: var(--t-mono); color: var(--ink); font-variant-numeric: tabular-nums; }
 .mac-dash-pane .pw-track { height: 4px; margin-top: 5px; border-radius: 0; background: var(--border); }
 .mac-dash-pane .pw-fill { background: var(--accent); border-radius: 0; }
 /* Wall of maturities: monochrome IG mark; orange stays on the riskier bucket */
 .mac-dash-pane .mw-fill-ig { background: color-mix(in srgb, var(--ink, #eaf0fb) 38%, transparent); }
 .mac-dash-pane .mw-fill-sg { background: color-mix(in srgb, var(--accent, #fb8b1e) 75%, transparent); }
-.mac-dash-pane .pw-note { font-size: 10.5px; color: var(--faint); margin-top: 8px; line-height: 1.45; }
-.mac-dash-pane .pw-dots th, .mac-dash-pane .pw-dots td { font-size: 12px; padding: 5px 2px; }
+.mac-dash-pane .pw-note { font-size: 11px; color: var(--faint); margin-top: 8px; line-height: 1.45; }
+.mac-dash-pane .pw-dots th, .mac-dash-pane .pw-dots td { font-size: 12.5px; padding: 5px 2px; }
 .mac-dash-pane .pw-dots th { font-weight: 600; color: var(--muted); }
 .mac-dash-pane .pw-dots td { font-family: var(--t-mono); font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
-.mac-dash-pane .gauge-zone { font-size: 8px; }
-.mac-dash-pane .macro-gauge-note { font-size: 10.5px; margin: 8px 0 0; }
+.mac-dash-pane .gauge-zone { font-size: 8.5px; }
+.mac-dash-pane .macro-gauge-note { font-size: 11px; margin: 8px 0 0; }
 .mac-dash-pane .macro-gauge-note a { color: inherit; }
 /* legal wire tags */
 .tw-tag.alert, .tw-tag.case, .tw-tag.rp { color: var(--t-lex, #2fbf8a); }
@@ -923,36 +923,36 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
    controls. Additive — the views' DOM is untouched.
    ============================================================================= */
 .page-head, .list-head { margin: 0 0 10px; padding: 6px 0 8px; border-bottom: 1px solid var(--border); }
-.page-head h1, .list-head h1 { font-size: 1.02rem; font-weight: 700; letter-spacing: -.01em; margin: 0; }
-.page-head p, .list-head p { font-family: var(--t-mono); font-size: 11px; color: var(--muted); margin: 3px 0 0; }
+.page-head h1, .list-head h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; margin: 0; }
+.page-head p, .list-head p { font-family: var(--t-mono); font-size: 11.5px; color: var(--muted); margin: 3px 0 0; }
 .ph-head-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.ff-lab { font-family: var(--t-mono); font-size: 10px; font-weight: 600; text-transform: uppercase;
+.ff-lab { font-family: var(--t-mono); font-size: 10.5px; font-weight: 600; text-transform: uppercase;
   letter-spacing: .05em; color: var(--muted); border: 1px solid var(--border); padding: 3px 9px;
   cursor: pointer; display: inline-block; background: transparent; }
 .filters { border: 1px solid var(--border); background: var(--surface); }
-.filter > span { font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; text-transform: uppercase;
+.filter > span { font-family: var(--t-mono); font-size: 10px; font-weight: 600; text-transform: uppercase;
   letter-spacing: .05em; color: var(--faint); }
-.filter input, .filter select { font-size: 12px; }
-.data-table { font-size: 12px; }
-.data-table thead th { font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; text-transform: uppercase;
+.filter input, .filter select { font-size: 12.5px; }
+.data-table { font-size: 12.5px; }
+.data-table thead th { font-family: var(--t-mono); font-size: 10px; font-weight: 600; text-transform: uppercase;
   letter-spacing: .04em; color: var(--muted); background: var(--head); border-bottom: 1px solid var(--border);
   padding: 6px 8px; }
 .data-table td { padding: 6px 8px; font-variant-numeric: tabular-nums; }
-.save-btn { font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; letter-spacing: .04em;
+.save-btn { font-family: var(--t-mono); font-size: 10px; font-weight: 600; letter-spacing: .04em;
   padding: 2px 7px; border: 1px solid var(--border); background: transparent; color: var(--muted); }
 .save-btn:hover { color: var(--ink); border-color: var(--muted); }
-.chip { font-family: var(--t-mono); font-size: 9.5px; letter-spacing: .02em; padding: 2px 6px; }
+.chip { font-family: var(--t-mono); font-size: 10px; letter-spacing: .02em; padding: 2px 6px; }
 /* table chips (strategies, statuses): ghost style — no light pill fills */
 :root[data-theme="dark"] .data-table .chip { background: transparent; border: 1px solid var(--border); color: var(--muted); }
 .active-filter, .srcfilter-bar { border: 1px solid var(--border); background: var(--head);
-  font-family: var(--t-mono); font-size: 11px; padding: 6px 10px; border-radius: 0; }
-.card > h2, .card > h3, .panel h2 { font-size: 12px; }
+  font-family: var(--t-mono); font-size: 11.5px; padding: 6px 10px; border-radius: 0; }
+.card > h2, .card > h3, .panel h2 { font-size: 12.5px; }
 
 /* Day-break separator rows in the wires — the same scanning aid as the Home
    feed: a darker mono band marking where one day ends and the next begins. */
 /* Day-break header — matches the standard wire day-break (.g-feed-dayhdr):
    sans-serif, 10px/600, uppercase, a grey band with the accent label. */
 .tw-day { list-style: none; padding: 6px 12px;
-  font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  font-size: 10.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
   color: var(--t-accent, var(--accent, #fb8b1e)); background: var(--t-head, #0a0a0a); border-bottom: 1px solid var(--border); }
 :root[data-theme="light"] .tw-day { color: #2f6cae; background: var(--t-head, #f4f7fb); border-bottom: 1px solid var(--border); }

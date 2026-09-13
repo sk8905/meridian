@@ -85,7 +85,7 @@ export function initChrome({ onTab }) {
   //   • pull-to-refresh (ptr.js) — self-guards, touch-only
   // All are idempotent single inits; failures never block the shell.
   import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
-  import("/palette.js?v=20260822-6").then((m) => m.mountPalette()).catch(() => {});
+  import("/palette.js?v=20260913-1").then((m) => m.mountPalette()).catch(() => {});
   import("/ptr.js?v=20260725-1").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own
