@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-greecehedgefundelite-20260913",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: null,
+    title: "From Bailout to Mayfair Rival: Greece Lures Hedge Fund Elite",
+    date: "2026-09-13",
+    time: "11:24",
+    summary: "Some of the world's top hedge funds opening Athens offices was the result of a plan nearly a year in the making by officials in the Greek capital.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-13/from-bailout-to-mayfair-rival-greece-lures-hedge-fund-elite?utm_medium=email&utm_source=author_alert&utm_term&0913&utm_campaign=author_19458291",
+  },
+  {
     id: "nl-guardian-therecap-weekinsport-20260913",
     publication: "The Guardian",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "12:11",
     summary: "European direct lenders are adopting tougher US-style workout tactics as the private credit cycle turns, with Lincoln International recording €4.5bn in debt foreclosures across eight issuers this year.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-09/america-s-distressed-debt-playbook-gaining-more-fans-in-europe",
-  },
-  {
-    id: "nl-bbg-econdaily-japansurprise-20260909",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: A Japan surprise?",
-    date: "2026-09-09",
-    time: "12:00",
-    summary: "A repeat of 2014's double act — a BOJ rate hike alongside a GPIF allocation shift — could give the yen a one-two punch, as Bessent dares traders to bet against him.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-09/japan-s-2014-playbook-shows-a-muscular-option-to-move-the-yen",
   },
 ];

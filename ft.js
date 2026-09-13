@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "dc5012ed-cb82-469e-9be8-e65ac7f6745c", title: "Why teenagers are doing worse at school", date: "2026-09-13", time: "12:00", url: "https://www.ft.com/content/dc5012ed-cb82-469e-9be8-e65ac7f6745c" },
+  { id: "1fd5bbf6-9bb6-4848-a01b-7c94b3e59b6e", title: "Will the Fed defy Trump and raise rates?", date: "2026-09-13", time: "12:00", url: "https://www.ft.com/content/1fd5bbf6-9bb6-4848-a01b-7c94b3e59b6e" },
+  { id: "d17cda71-1c35-4abd-b4d5-773550b109cc", title: "‘Trumpism’ spawns rare unity at Brics summit", date: "2026-09-13", time: "11:50", url: "https://www.ft.com/content/d17cda71-1c35-4abd-b4d5-773550b109cc" },
   { id: "c49c583f-940c-4592-ad7e-7c206b6c3c75", title: "Brazil banking scandal engulfs Supreme Court", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/c49c583f-940c-4592-ad7e-7c206b6c3c75" },
   { id: "21b663e4-60ee-4937-a561-5b0f505676a2", title: "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/21b663e4-60ee-4937-a561-5b0f505676a2" },
   { id: "3204d65e-ae34-4ab3-a73f-a55d354f40ab", title: "Texas puts a brake on its data centre boom", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/3204d65e-ae34-4ab3-a73f-a55d354f40ab" },
@@ -59,7 +62,4 @@ export const FT_ITEMS = [
   { id: "a83e620a-bb72-478a-ac77-10635ec653bd", title: "High oil prices could force ECB to raise rates further, warns top policymaker", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/a83e620a-bb72-478a-ac77-10635ec653bd" },
   { id: "4ee10e45-072d-40bc-a773-bcaa5539c7af", title: "Why the British glass industry could be Number 10 North’s first major test", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/4ee10e45-072d-40bc-a773-bcaa5539c7af" },
   { id: "6fa49d3c-e7b9-4bcd-9eb1-b737ff0c552e", title: "South Korea arms itself to protect chip secrets from foreign spies", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/6fa49d3c-e7b9-4bcd-9eb1-b737ff0c552e" },
-  { id: "9040a3b5-c2a9-40ce-b7f2-c192453a7fd0", title: "St James’s Place looks to reassure advisers following departures", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/9040a3b5-c2a9-40ce-b7f2-c192453a7fd0" },
-  { id: "ac02d67e-4576-48d9-b50f-69b38294ae67", title: "Exorbitant tennis tickets are the price of the sport’s success", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/ac02d67e-4576-48d9-b50f-69b38294ae67" },
-  { id: "14f69775-f842-450c-ba18-e16812348499", title: "It’s time to scrap the triple lock", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/14f69775-f842-450c-ba18-e16812348499" },
 ];
