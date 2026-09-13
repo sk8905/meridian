@@ -51,7 +51,7 @@ export const NEWSLETTERS = [
     date: "2026-09-13",
     time: "11:24",
     summary: "Some of the world's top hedge funds opening Athens offices was the result of a plan nearly a year in the making by officials in the Greek capital.",
-    url: "https://www.bloomberg.com/news/articles/2026-09-13/from-bailout-to-mayfair-rival-greece-lures-hedge-fund-elite?utm_medium=email&utm_source=author_alert&utm_term&0913&utm_campaign=author_19458291",
+    url: "https://www.bloomberg.com/news/articles/2026-09-13/from-bailout-to-mayfair-rival-greece-lures-hedge-fund-elite",
   },
   {
     id: "nl-guardian-therecap-weekinsport-20260913",

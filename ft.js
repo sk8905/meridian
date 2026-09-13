@@ -61,5 +61,4 @@ export const FT_ITEMS = [
   { id: "36dbe7cd-baa9-4474-9d31-14af67278a14", title: "Nick Train’s trust offers buyback in bid to boost weak share price", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/36dbe7cd-baa9-4474-9d31-14af67278a14" },
   { id: "a83e620a-bb72-478a-ac77-10635ec653bd", title: "High oil prices could force ECB to raise rates further, warns top policymaker", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/a83e620a-bb72-478a-ac77-10635ec653bd" },
   { id: "4ee10e45-072d-40bc-a773-bcaa5539c7af", title: "Why the British glass industry could be Number 10 North’s first major test", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/4ee10e45-072d-40bc-a773-bcaa5539c7af" },
-  { id: "6fa49d3c-e7b9-4bcd-9eb1-b737ff0c552e", title: "South Korea arms itself to protect chip secrets from foreign spies", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/6fa49d3c-e7b9-4bcd-9eb1-b737ff0c552e" },
 ];
