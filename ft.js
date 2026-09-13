@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d25e4152-afc5-4ff9-bfd9-3317413800ff", title: "Marine Le Pen vows to put French citizens first in campaign launch", date: "2026-09-13", time: "16:49", url: "https://www.ft.com/content/d25e4152-afc5-4ff9-bfd9-3317413800ff" },
+  { id: "cae60732-f929-4735-a627-db8c14e7c7ed", title: "Donald Trump rejects calls from tech bosses for an AI slowdown", date: "2026-09-13", time: "16:42", url: "https://www.ft.com/content/cae60732-f929-4735-a627-db8c14e7c7ed" },
   { id: "182365c4-a0ac-4670-97e0-22e88d3bc02d", title: "EU-UK reset talks delayed again amid tension over ‘Made in Europe’ rules", date: "2026-09-13", time: "16:00", url: "https://www.ft.com/content/182365c4-a0ac-4670-97e0-22e88d3bc02d" },
   { id: "e56e5e77-f131-46ea-a756-9431f1908b7d", title: "Angela Rayner suggests political donations cap on table after Reform’s £72mn boost", date: "2026-09-13", time: "14:42", url: "https://www.ft.com/content/e56e5e77-f131-46ea-a756-9431f1908b7d" },
   { id: "b60624fb-0a09-45e6-b148-b7a5ca38f83e", title: "Iraq’s militias grow bolder in Iran war", date: "2026-09-13", time: "13:39", url: "https://www.ft.com/content/b60624fb-0a09-45e6-b148-b7a5ca38f83e" },
@@ -58,8 +60,4 @@ export const FT_ITEMS = [
   { id: "936ac952-43a6-44d5-be69-afa344e042f5", title: "Reform UK receives two record £36mn donations", date: "2026-09-12", time: "13:25", url: "https://www.ft.com/content/936ac952-43a6-44d5-be69-afa344e042f5" },
   { id: "4dc6710b-7911-44c6-b57a-2fb47b6b04ed", title: "Canada seeks $1tn from investors looking for a haven from Donald Trump", date: "2026-09-12", time: "11:00", url: "https://www.ft.com/content/4dc6710b-7911-44c6-b57a-2fb47b6b04ed" },
   { id: "be8d08d3-e3c1-413c-ab6e-5a38b19ce4b6", title: "Chart of the Week: the long shadow of quantitative easing", date: "2026-09-12", time: "10:30", url: "https://www.ft.com/content/be8d08d3-e3c1-413c-ab6e-5a38b19ce4b6" },
-  { id: "d5584fd7-cc24-4d3e-813f-c65f041e2d0e", title: "LIV Golf’s bleak future shifts to the courtroom", date: "2026-09-12", time: "09:00", url: "https://www.ft.com/content/d5584fd7-cc24-4d3e-813f-c65f041e2d0e" },
-  { id: "724f8ecb-1e2b-4c7f-bbb6-14239abd50dd", title: "We are setting up a generation to fail at school", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/724f8ecb-1e2b-4c7f-bbb6-14239abd50dd" },
-  { id: "df60c0df-cd78-4dca-893b-1add0023e7e2", title: "Sweden’s election frontrunner faces tightening race", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/df60c0df-cd78-4dca-893b-1add0023e7e2" },
-  { id: "b7a64635-2dcd-4d07-be75-47cd682b59e1", title: "Why I, a non-billionaire, am not leaving the UK", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/b7a64635-2dcd-4d07-be75-47cd682b59e1" },
 ];
