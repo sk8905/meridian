@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "12 September 2026";
+export const UPDATED = "13 September 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-12",
-  lastCheckedTime: "21:14 BST",
+  lastChecked: "2026-09-13",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -915,7 +915,7 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-12",
+  updated: "2026-09-13",
   us: [
     { title: "Week ahead – Fed's, BoE's, BoJ's and BoC's interest rate decisions on the horizon", source: "FXStreet", date: "2026-09-12", time: "10:51", url: "https://www.fxstreet.com/analysis/week-ahead-feds-boes-bojs-and-bocs-interest-rate-decisions-on-the-horizon-202509121051" },
     { title: "US Consumer Sentiment Slides on Higher Gas, Trade Tensions", source: "Yahoo Finance", date: "2026-09-11", time: "14:00", url: "https://finance.yahoo.com/economy/articles/us-consumer-sentiment-slides-higher-140000478.html" },
@@ -940,8 +940,9 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-12",
+  updated: "2026-09-13",
   items: [
+    {"title": "USA & Canada Intelligence Brief — Saturday, September 12, 2026", "source": "The Rio Times", "date": "2026-09-12", "url": "https://www.riotimesonline.com/usa-canada-intelligence-brief-saturday-september-12-2026", "blurb": "Futures now price an 87% chance of a Fed hike at the 15-16 September meeting with the 10-year Treasury yield at 4.97%, as the Fed enters its blackout period and the US-Canada trade dispute deepens with 50% tariffs on ~$20bn of Canadian goods and the loonie at a nine-day low.", "author": null},
     {"title": "Week ahead – Fed's, BoE's, BoJ's and BoC's interest rate decisions on the horizon", "source": "FXStreet", "date": "2026-09-12", "time": "10:51", "url": "https://www.fxstreet.com/analysis/week-ahead-feds-boes-bojs-and-bocs-interest-rate-decisions-on-the-horizon-202509121051", "blurb": "A central-bank-heavy week arrives with the Fed and Bank of Canada deciding Wednesday, Norway's Norges Bank and the Bank of England on Thursday and the Bank of Japan on Friday, with Friday's in-line US CPI print the last major test before the Fed's move.", "author": null},
     {"title": "Global Economy Briefing — September 12, 2026", "source": "The Rio Times", "date": "2026-09-12", "url": "https://www.riotimesonline.com/global-economy-briefing-september-12-2026/", "blurb": "Wall Street snapped a four-session slide (Dow +0.98%, S&P 500 +0.86%, Nasdaq +0.96%) as inflation came in broadly in line and oil retreated, even as the 10-year Treasury yield held near 4.97% — its highest since 2023 — ahead of next week's FOMC decision.", "author": null},
     {"title": "Oil Pulls Back but Middle East Risk Holds WTI Near $100", "source": "The Rio Times", "date": "2026-09-12", "url": "https://www.riotimesonline.com/oil-markets-latam-saturday-september-12-2026/", "blurb": "Crude eased Friday as traders locked in profits after a week of sharp Middle East-driven gains, even as the IEA cut its 2026 global oil-supply outlook by a further 1.4 million barrels a day and said normal Gulf flows are unlikely to return this year.", "author": null},
