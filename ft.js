@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "00e3c084-06e3-47b4-8230-185760216e60", title: "Sweden’s left on course to retake power", date: "2026-09-13", time: "20:26", url: "https://www.ft.com/content/00e3c084-06e3-47b4-8230-185760216e60" },
+  { id: "e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd", title: "Trump calls on Ukraine to stop striking Russian diesel refineries", date: "2026-09-13", time: "20:08", url: "https://www.ft.com/content/e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd" },
   { id: "9cd8cc79-e98a-449f-a903-609b034a56e3", title: "Canada seeks Ukraine loan role to deepen EU ties", date: "2026-09-13", time: "19:57", url: "https://www.ft.com/content/9cd8cc79-e98a-449f-a903-609b034a56e3" },
   { id: "7de7cc10-e7a5-414b-a40f-3296eaf49ce7", title: "Russians to vote, but the outcome is already decided", date: "2026-09-13", time: "18:15", url: "https://www.ft.com/content/7de7cc10-e7a5-414b-a40f-3296eaf49ce7" },
   { id: "d25e4152-afc5-4ff9-bfd9-3317413800ff", title: "Marine Le Pen vows to put French citizens first in campaign launch", date: "2026-09-13", time: "16:49", url: "https://www.ft.com/content/d25e4152-afc5-4ff9-bfd9-3317413800ff" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "b7fe0fe0-0463-4f55-9590-0a7d08d8fe66", title: "Why the AI race has its creators fearing human extinction", date: "2026-09-12", time: "17:38", url: "https://www.ft.com/content/b7fe0fe0-0463-4f55-9590-0a7d08d8fe66" },
   { id: "6a173e7c-cfe8-4ab8-8c8f-b90871cc907e", title: "India’s central bank tells Tata Sons to take conglomerate public", date: "2026-09-12", time: "17:20", url: "https://www.ft.com/content/6a173e7c-cfe8-4ab8-8c8f-b90871cc907e" },
   { id: "f32bef26-d2b8-47a6-b938-3dcd5e870685", title: "Brics push for Gulf peace as war worries mount", date: "2026-09-12", time: "15:34", url: "https://www.ft.com/content/f32bef26-d2b8-47a6-b938-3dcd5e870685" },
-  { id: "70bd4f6c-a5f4-4e59-b773-614f0a5efd58", title: "Trump says united Ireland ‘inevitable’ and ‘a very cool thing’", date: "2026-09-12", time: "13:56", url: "https://www.ft.com/content/70bd4f6c-a5f4-4e59-b773-614f0a5efd58" },
-  { id: "936ac952-43a6-44d5-be69-afa344e042f5", title: "Reform UK receives two record £36mn donations", date: "2026-09-12", time: "13:25", url: "https://www.ft.com/content/936ac952-43a6-44d5-be69-afa344e042f5" },
 ];
