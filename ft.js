@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b60624fb-0a09-45e6-b148-b7a5ca38f83e", title: "Iraq’s militias grow bolder in Iran war", date: "2026-09-13", time: "13:39", url: "https://www.ft.com/content/b60624fb-0a09-45e6-b148-b7a5ca38f83e" },
   { id: "d4604abb-d357-4ebd-b709-23902d1e1868", title: "The calculated desperation of Trump-a-palooza", date: "2026-09-13", time: "13:00", url: "https://www.ft.com/content/d4604abb-d357-4ebd-b709-23902d1e1868" },
   { id: "cdce9cd6-4857-4332-af34-ffc9ce45eadf", title: "Russia hits evacuated Kyiv-Warsaw train on line used by foreign leaders", date: "2026-09-13", time: "12:47", url: "https://www.ft.com/content/cdce9cd6-4857-4332-af34-ffc9ce45eadf" },
   { id: "dc5012ed-cb82-469e-9be8-e65ac7f6745c", title: "Why teenagers are doing worse at school", date: "2026-09-13", time: "12:00", url: "https://www.ft.com/content/dc5012ed-cb82-469e-9be8-e65ac7f6745c" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "724f8ecb-1e2b-4c7f-bbb6-14239abd50dd", title: "We are setting up a generation to fail at school", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/724f8ecb-1e2b-4c7f-bbb6-14239abd50dd" },
   { id: "df60c0df-cd78-4dca-893b-1add0023e7e2", title: "Sweden’s election frontrunner faces tightening race", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/df60c0df-cd78-4dca-893b-1add0023e7e2" },
   { id: "b7a64635-2dcd-4d07-be75-47cd682b59e1", title: "Why I, a non-billionaire, am not leaving the UK", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/b7a64635-2dcd-4d07-be75-47cd682b59e1" },
-  { id: "0e25f645-4e80-4299-a6b6-c09c7d459871", title: "Windshield megadeal could fix Europe’s broken IPO window", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/0e25f645-4e80-4299-a6b6-c09c7d459871" },
 ];
