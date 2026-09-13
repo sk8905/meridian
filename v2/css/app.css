@@ -126,10 +126,10 @@ a { color: inherit; text-decoration: none; }
   }
   .v2-botmeta-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .v2-botmeta-acct:empty { display: none; }
-  .v2-botmeta-acct strong { color: var(--ink, #131a2b); font-weight: 600; }
+  .v2-botmeta-acct strong { color: var(--ink, #131b2c); font-weight: 600; }
   /* Sign out reads like the refresh time beside it — muted grey, normal weight. */
   .v2-botmeta-acct a { color: var(--muted, #66708a); font-weight: 400; text-decoration: none; }
-  .v2-botmeta-acct a:hover { color: var(--ink, #131a2b); }
+  .v2-botmeta-acct a:hover { color: var(--ink, #131b2c); }
   .v2-botmeta-status { flex: 0 0 auto; white-space: nowrap; }
   .v2-botmeta-status:empty { display: none; }
 }
@@ -156,10 +156,10 @@ html[data-theme="dark"][data-v2tab="menu"][data-menu-sec="settings"] .v2-botmeta
     border-top: 1px solid var(--border, #e4e7ef); background: var(--head, #f4f7fb);
   }
   #v2-footer .v2-foot-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  #v2-footer .v2-foot-acct strong { color: var(--ink, #131a2b); font-weight: 600; }
+  #v2-footer .v2-foot-acct strong { color: var(--ink, #131b2c); font-weight: 600; }
   /* Sign out reads as the same muted grey as the rest of the line, not orange. */
   #v2-footer .v2-foot-acct a { color: inherit; text-decoration: none; }
-  #v2-footer .v2-foot-acct a:hover { color: var(--ink, #131a2b); }
+  #v2-footer .v2-foot-acct a:hover { color: var(--ink, #131b2c); }
   #v2-footer .v2-foot-status { flex: 0 0 auto; white-space: nowrap; }
 }
 
