@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7de7cc10-e7a5-414b-a40f-3296eaf49ce7", title: "Russians to vote, but the outcome is already decided", date: "2026-09-13", time: "18:15", url: "https://www.ft.com/content/7de7cc10-e7a5-414b-a40f-3296eaf49ce7" },
   { id: "d25e4152-afc5-4ff9-bfd9-3317413800ff", title: "Marine Le Pen vows to put French citizens first in campaign launch", date: "2026-09-13", time: "16:49", url: "https://www.ft.com/content/d25e4152-afc5-4ff9-bfd9-3317413800ff" },
   { id: "cae60732-f929-4735-a627-db8c14e7c7ed", title: "Donald Trump rejects calls from tech bosses for an AI slowdown", date: "2026-09-13", time: "16:42", url: "https://www.ft.com/content/cae60732-f929-4735-a627-db8c14e7c7ed" },
   { id: "182365c4-a0ac-4670-97e0-22e88d3bc02d", title: "EU-UK reset talks delayed again amid tension over ‘Made in Europe’ rules", date: "2026-09-13", time: "16:00", url: "https://www.ft.com/content/182365c4-a0ac-4670-97e0-22e88d3bc02d" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "70bd4f6c-a5f4-4e59-b773-614f0a5efd58", title: "Trump says united Ireland ‘inevitable’ and ‘a very cool thing’", date: "2026-09-12", time: "13:56", url: "https://www.ft.com/content/70bd4f6c-a5f4-4e59-b773-614f0a5efd58" },
   { id: "936ac952-43a6-44d5-be69-afa344e042f5", title: "Reform UK receives two record £36mn donations", date: "2026-09-12", time: "13:25", url: "https://www.ft.com/content/936ac952-43a6-44d5-be69-afa344e042f5" },
   { id: "4dc6710b-7911-44c6-b57a-2fb47b6b04ed", title: "Canada seeks $1tn from investors looking for a haven from Donald Trump", date: "2026-09-12", time: "11:00", url: "https://www.ft.com/content/4dc6710b-7911-44c6-b57a-2fb47b6b04ed" },
-  { id: "be8d08d3-e3c1-413c-ab6e-5a38b19ce4b6", title: "Chart of the Week: the long shadow of quantitative easing", date: "2026-09-12", time: "10:30", url: "https://www.ft.com/content/be8d08d3-e3c1-413c-ab6e-5a38b19ce4b6" },
 ];
