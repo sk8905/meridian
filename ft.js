@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-13", time: "08:50", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "183569b4-8102-4b38-8a20-a3597a442f26", title: "Boom-era PE funds will fall short on promises, executives warn", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/183569b4-8102-4b38-8a20-a3597a442f26" },
   { id: "b081fc93-3eb8-4adc-84cc-b5c5cf719003", title: "Sunderland football club looks to US post-industrial peers in bid to lift revenue", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/b081fc93-3eb8-4adc-84cc-b5c5cf719003" },
   { id: "7f01b434-0209-4783-b8eb-5a095ca5bd4f", title: "How Russia’s new drones are changing the air war", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/7f01b434-0209-4783-b8eb-5a095ca5bd4f" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "dcfe97fe-8935-497f-abfb-c51973614458", title: "Chinese crypto investor was seller of £190mn London mansion", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/dcfe97fe-8935-497f-abfb-c51973614458" },
   { id: "294b1de0-b055-4703-b3f6-975f179aad54", title: "Booming Brics payments systems seek more cross-border links", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/294b1de0-b055-4703-b3f6-975f179aad54" },
   { id: "34a0b3fa-1cd4-4743-8e28-3996836610ca", title: "The perils of prediction markets", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/34a0b3fa-1cd4-4743-8e28-3996836610ca" },
-  { id: "4ac10680-bc93-4ab2-b010-d9844e7b8bdd", title: "MFS administrator steps down amid creditor pressure", date: "2026-09-12", time: "05:00", url: "https://www.ft.com/content/4ac10680-bc93-4ab2-b010-d9844e7b8bdd" },
 ];
