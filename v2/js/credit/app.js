@@ -104,7 +104,6 @@ function chip(text, cls = "") { return `<span class="chip ${cls}">${esc(text)}</
 // across devices. localStorage is kept as an instant cache / offline fallback,
 // so the app still works if the API isn't reachable (e.g. plain static hosting).
 const WATCHLIST_API = "/api/watchlist";
-let account = null;          // signed-in identity (email) when behind Access
 let cloudSync = false;       // true once the watchlist API responds
 let pushTimer = null;
 function persistLocal() { try { localStorage.setItem(FOLLOW_KEY, JSON.stringify(follows)); } catch { /* ignore */ } }
@@ -162,18 +161,6 @@ async function initSavedSync() {
 // was last loaded/refreshed, plus a manual Refresh button that reloads to pull
 // the latest deployed data and re-sync the watchlist.
 function renderDataStatus() { reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME); }   // v2: app-wide refresh
-// Fill the persistent topbar identity area once we know the signed-in user.
-// Hidden when not behind Access (device-local mode).
-function renderAccountNav() {
-  const el = document.getElementById("account-nav");
-  if (!el) return;
-  if (cloudSync && account) {
-    el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(account)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
-    el.hidden = false;
-  } else {
-    el.hidden = true;
-  }
-}
 // ---- Notifications bell: feed items new since the bell was last opened ------
 // Lives in the topbar (outside #app), so it persists across every tab. "New" is
 // detected by diffing current item ids against the set last acknowledged
@@ -296,11 +283,11 @@ async function initWatchlistSync() {
   if (!r || !r.ok) return;     // 404 on static hosting, 401 if not authed
   let d; try { d = await r.json(); } catch { return; }
   cloudSync = true;
-  account = d.email || null;
   // Remember verified sign-in so the Glance home can render optimistically
   // (skip its "Checking your sign-in…" splash) when the user navigates there.
+  // The identity chip itself is chrome.js's fillAccount() job (one #account-nav
+  // writer, app-wide) — this view only needs cloudSync for the watchlist push.
   if (d.email) { try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ } }
-  renderAccountNav();
   const sv = d.watchlist || {};
   const svCount = FOLLOW_TYPES.reduce((n, t) => n + ((sv[t] || []).length), 0);
   if (svCount > 0) {
@@ -309,7 +296,7 @@ async function initWatchlistSync() {
   } else if (followCount() > 0) {
     pushRemote();              // first-time migration of this device's list
   }
-  router();                    // re-render with synced data + account chip
+  router();                    // re-render with synced watchlist data
 }
 
 
