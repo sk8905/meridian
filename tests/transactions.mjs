@@ -74,24 +74,35 @@ check(ov.modeChips.join(",") === "Deal flow,Credits", `the Deal flow / Credits m
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 
-// ---- 3) drill into a type → stat header + transaction list ---------------
+// ---- 3) expand a type → an inline, indented sub-list of its deals --------
+// Clicking a transaction type opens its deals as an indented accordion IN PLACE
+// (the overview stays on the page) instead of navigating to a separate detail page.
 await pg.evaluate(() => { const r = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")].find((x) => /CLO issuance/.test(x.textContent)); (r || document.querySelector(".tx-tbl tbody tr.clickable")).click(); });
-await pg.waitForSelector(".tx-kpis .tx-kpi", { timeout: 4000 });
-const dt = await pg.evaluate(() => ({
-  title: (document.querySelector(".tx-title") || {}).textContent,
-  kpis: document.querySelectorAll(".tx-kpi").length,
-  // Table columns: Date · Borrower/company · Lender/investor · Type · Amount · Source.
-  heads: [...document.querySelectorAll(".tx-list thead th")].map((h) => h.textContent.trim()),
-  listRows: document.querySelectorAll(".tx-list tbody tr.tx-row").length,
-  anySize: [...document.querySelectorAll(".tx-list td.tx-sz")].some((td) => /[$€£]/.test(td.textContent)),
-  mgrLinks: document.querySelectorAll(".tx-list a.tx-mgr").length,
-  // Borrower cell is the NAME only (no link); the source link is its own column.
-  borrowerNamed: [...document.querySelectorAll(".tx-list td.tx-bd")].filter((td) => td.textContent.trim() && !td.querySelector("a")).length,
-  srcLinks: [...document.querySelectorAll(".tx-list td.tx-src2 a")].filter((a) => /^https?:/.test(a.getAttribute("href") || "")).length,
-  typed: [...document.querySelectorAll(".tx-list td.tx-cat")].filter((td) => td.textContent.trim() && td.textContent.trim() !== "—").length,
-}));
-check(dt.kpis === 6, `type detail shows the stat header (${dt.kpis} tiles)`);
-check(dt.listRows > 0, `type detail lists its transactions (${dt.listRows})`);
+await pg.waitForSelector(".tx-typeexp:not([hidden]) .tx-list tbody tr.tx-row", { timeout: 4000 });
+const dt = await pg.evaluate(() => {
+  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+  const openRow = exp && exp.previousElementSibling;
+  return {
+    overviewStays: document.querySelectorAll(".tx-tbl tbody tr.clickable").length,
+    noDetailPage: !document.querySelector(".tx-back") && !document.querySelector(".tx-kpi"),
+    rowOpen: !!(openRow && openRow.classList.contains("is-open") && openRow.getAttribute("aria-expanded") === "true"),
+    indentPx: parseInt(getComputedStyle(exp.querySelector(".tx-typeexp-in")).paddingLeft, 10) || 0,
+    // Table columns: Date · Borrower/company · Lender/investor · Type · Amount · Source.
+    heads: [...exp.querySelectorAll(".tx-list thead th")].map((h) => h.textContent.trim()),
+    listRows: exp.querySelectorAll(".tx-list tbody tr.tx-row").length,
+    anySize: [...exp.querySelectorAll(".tx-list td.tx-sz")].some((td) => /[$€£]/.test(td.textContent)),
+    mgrLinks: exp.querySelectorAll(".tx-list a.tx-mgr").length,
+    // Borrower cell is the NAME only (no link); the source link is its own column.
+    borrowerNamed: [...exp.querySelectorAll(".tx-list td.tx-bd")].filter((td) => td.textContent.trim() && !td.querySelector("a")).length,
+    srcLinks: [...exp.querySelectorAll(".tx-list td.tx-src2 a")].filter((a) => /^https?:/.test(a.getAttribute("href") || "")).length,
+    typed: [...exp.querySelectorAll(".tx-list td.tx-cat")].filter((td) => td.textContent.trim() && td.textContent.trim() !== "—").length,
+  };
+});
+check(dt.overviewStays >= 6, `the type overview stays — the deals open inline, not on a new page (${dt.overviewStays} types)`);
+check(dt.noDetailPage, "no separate detail page is rendered (no back bar, no KPI tiles)");
+check(dt.rowOpen, "the clicked type row is marked open (caret rotates, aria-expanded=true)");
+check(dt.indentPx > 0, `the sub-list is indented beneath its type (${dt.indentPx}px)`);
+check(dt.listRows > 0, `the sub-list lists the type's transactions (${dt.listRows})`);
 check(/Borrower/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Type/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
   `columns are Date · Borrower · Lender · Type · Amount · Source (${dt.heads.join(" · ")})`);
 check(dt.anySize, "transactions show their native disclosed size");
@@ -100,38 +111,58 @@ check(dt.srcLinks > 0, `the source link sits in its own Source column (${dt.srcL
 check(dt.typed > 0, `transactions carry a deal-type/category column (${dt.typed})`);
 
 // a manager link routes into the Profiles tab
-const nav = await pg.evaluate(() => (document.querySelector(".tx-list a.tx-mgr") || {}).getAttribute("href"));
+const nav = await pg.evaluate(() => (document.querySelector(".tx-typeexp:not([hidden]) .tx-list a.tx-mgr") || {}).getAttribute("href"));
 check(/\/profiles\/#\/manager\//.test(nav), `manager links point into Profiles (${nav})`);
 
-// ---- 3b) asset-class sub-category chips + expandable detail ---------------
+// ---- 3b) asset-class sub-category chips + expandable detail (in the sub-list)
 const sub = await pg.evaluate(() => {
-  const chips = [...document.querySelectorAll(".tx-secchip")];
+  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+  const chips = [...exp.querySelectorAll(".tx-secchip")];
   return { n: chips.length, hasAll: chips.some((c) => c.dataset.sec === "all"), labels: chips.slice(0, 5).map((c) => c.textContent.trim()) };
 });
-check(sub.n > 1 && sub.hasAll, `type detail shows asset-class sub-category chips (${sub.n}: ${sub.labels.join(" · ")})`);
+check(sub.n > 1 && sub.hasAll, `the sub-list shows asset-class sub-category chips (${sub.n}: ${sub.labels.join(" · ")})`);
 const filt = await pg.evaluate(() => {
-  const before = document.querySelectorAll(".tx-list tr.tx-row").length;
-  const chip = [...document.querySelectorAll(".tx-secchip")].find((c) => c.dataset.sec !== "all");
-  chip.click();
-  return { before, after: document.querySelectorAll(".tx-list tr.tx-row").length, on: [...document.querySelectorAll(".tx-secchip.is-on")].some((c) => c.dataset.sec !== "all") };
+  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+  const before = exp.querySelectorAll(".tx-list tr.tx-row").length;
+  [...exp.querySelectorAll(".tx-secchip")].find((c) => c.dataset.sec !== "all").click();
+  const exp2 = document.querySelector(".tx-typeexp:not([hidden])");
+  return { before, after: exp2.querySelectorAll(".tx-list tr.tx-row").length, on: [...exp2.querySelectorAll(".tx-secchip.is-on")].some((c) => c.dataset.sec !== "all") };
 });
-check(filt.on && filt.after > 0 && filt.after <= filt.before, `a sub-category chip filters the list (${filt.after}/${filt.before})`);
+check(filt.on && filt.after > 0 && filt.after <= filt.before, `a sub-category chip filters the sub-list (${filt.after}/${filt.before})`);
 const exp = await pg.evaluate(() => {
-  const allChip = document.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
-  const row = document.querySelector(".tx-list tr.tx-row"), det = row.nextElementSibling;
+  const e = document.querySelector(".tx-typeexp:not([hidden])");
+  const allChip = e.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
+  const e2 = document.querySelector(".tx-typeexp:not([hidden])");
+  const row = e2.querySelector(".tx-list tr.tx-row"), det = row.nextElementSibling;
   const before = det.hidden; row.click();
   return { before, after: row.nextElementSibling.hidden, fields: det.querySelectorAll(".tx-fields dt").length, isExp: det.classList.contains("tx-exp") };
 });
 check(exp.isExp && exp.before === true && exp.after === false && exp.fields >= 4, `a transaction expands to its detail — lender · amount · date · sub-category (${exp.fields} fields)`);
 
-// ---- 4) back to the overview ---------------------------------------------
-await pg.evaluate(() => document.querySelector("#tx-back").click());
-await pg.waitForSelector(".tx-tbl tbody tr.clickable", { timeout: 4000 });
-check(await pg.evaluate(() => document.querySelectorAll(".tx-tbl tbody tr.clickable").length) >= 6, "back returns to the transaction-type overview");
+// ---- 4) accordion: clicking the open type again collapses it -------------
+const collapse = await pg.evaluate(() => {
+  const e = document.querySelector(".tx-typeexp:not([hidden])");
+  const openRow = e.previousElementSibling;
+  openRow.click();                       // click the same type row again
+  return { collapsed: e.hidden, rowClosed: !openRow.classList.contains("is-open"), overview: document.querySelectorAll(".tx-tbl tbody tr.clickable").length };
+});
+check(collapse.collapsed && collapse.rowClosed, "clicking the open type again collapses its sub-list");
+check(collapse.overview >= 6, "the type overview is always present (nothing ever navigates away)");
+// single-open: opening a second type collapses the first
+const single = await pg.evaluate(() => {
+  const rows = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")];
+  rows[0].click(); rows[1].click();
+  const open = [...document.querySelectorAll(".tx-typeexp:not([hidden])")];
+  return { openCount: open.length, matches: open.length === 1 && open[0].dataset.for === rows[1].dataset.type };
+});
+check(single.openCount === 1 && single.matches, "single-open accordion: opening another type collapses the previous one");
+// collapse it so later sections start from a clean overview
+await pg.evaluate(() => { const e = document.querySelector(".tx-typeexp:not([hidden])"); if (e) e.previousElementSibling.click(); });
 
 // ---- 5) $1–15bn AUM focus toggle -----------------------------------------
 // A target-band filter (identical to the Profiles league toggle) narrows every
-// view — overview + type detail — to deals by managers whose group AUM is $1–15bn.
+// view — the overview totals + each type's inline sub-list — to deals by managers
+// whose group AUM is $1–15bn.
 const totOff = await pg.evaluate(() => parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10));
 const foc = await pg.evaluate(() => {
   const btn = document.querySelector("#tx-focus"); if (!btn) return { present: false };
@@ -153,15 +184,15 @@ const inband = await pg.evaluate(async () => {
   const D = await import("/credit/js/data.js");
   const aumOf = (m) => (!m || m.notAum) ? null : (m.aumTotal != null ? m.aumTotal : m.aum);
   const set = new Set(D.managers.filter((m) => { const a = aumOf(m); return a != null && a >= 1 && a <= 15; }).map((m) => m.id));
-  const r = document.querySelector(".tx-tbl tbody tr.clickable"); if (r) r.click();
+  const r = document.querySelector(".tx-tbl tbody tr.clickable"); if (r) r.click();  // expand a type inline
   await new Promise((res) => setTimeout(res, 120));
-  const ids = [...document.querySelectorAll(".tx-list a.tx-mgr")].map((a) => a.dataset.id).filter(Boolean);
+  const ids = [...document.querySelectorAll(".tx-typeexp:not([hidden]) .tx-list a.tx-mgr")].map((a) => a.dataset.id).filter(Boolean);
   return { n: ids.length, allIn: ids.length > 0 && ids.every((id) => set.has(id)) };
 });
 check(inband.allIn, `Transactions: with focus on, every listed deal is a $1–15bn manager's (${inband.n} links)`);
 
 // ---- 6) search — a flat list of matching deals across all types -----------
-await pg.evaluate(() => { const bk = document.querySelector("#tx-back"); if (bk) bk.click(); }); // back to the overview first
+// (Typing renders the flat search list, replacing whatever type was expanded.)
 await pg.waitForTimeout(120);
 const search = await pg.evaluate(async () => {
   const inp = document.querySelector("#tx-q"); if (!inp) return { present: false };

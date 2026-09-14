@@ -38,7 +38,7 @@ export function mount(host, ctx) {
 
   // No period toggle — the tab shows ALL transaction history (the overview's "12mo
   // vs prior" column still carries the recency trend).
-  const st = { period: "all", type: null, sector: "all", focus: false, q: "" };   // type=null → overview; q set → search
+  const st = { period: "all", focus: false, q: "" };   // q set → search; else the type overview (types expand inline)
   const inPeriod = () => true;
   // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
   // qualifies when its manager sits in the target band. Off → everything.
@@ -106,20 +106,23 @@ export function mount(host, ctx) {
 
   // ---- overview: a league table of the transaction types -------------------
   function renderOverview() {
-    st.type = null;
     const S = TX_TYPES.map((t) => statsFor(t.key)).filter((s) => s.n > 0);
     S.sort((a, b) => b.usd - a.usd || b.n - a.n);
     const totalN = S.reduce((s, x) => s + x.n, 0), totalUsd = S.reduce((s, x) => s + x.usd, 0);
     const row = (s) => {
       const t = TX_TYPES.find((x) => x.key === s.key);
-      return `<tr class="clickable" data-type="${esc(s.key)}">`
-        + `<td class="tl-nm tx-tnm">${esc(t.label)}</td>`
+      return `<tr class="clickable" data-type="${esc(s.key)}" aria-expanded="false">`
+        + `<td class="tl-nm tx-tnm"><span class="tx-tcaret" aria-hidden="true">▸</span>${esc(t.label)}</td>`
         + `<td class="tl-n">${s.n}</td>`
         + `<td class="tl-n tx-trend">${s.last12}<span class="tx-vs">/${s.prev12}</span> ${trendMark(s.last12, s.prev12)}</td>`
         + `<td class="tl-n">${fmtUsd(s.usd)}</td>`
         + `<td class="tl-n">${s.med != null ? fmtUsd(s.med) : "—"}</td>`
         + `<td class="tl-n">${s.managers}</td>`
-        + `<td class="tl-nm tx-top">${s.top ? esc(mgrName(s.top.id)) : "—"}</td></tr>`;
+        + `<td class="tl-nm tx-top">${s.top ? esc(mgrName(s.top.id)) : "—"}</td></tr>`
+        // Inline, indented sub-list of this type's deals — rendered lazily on first
+        // open (see the click handler), so the overview never pays to build every
+        // type's list up front.
+        + `<tr class="tx-typeexp" data-for="${esc(s.key)}" data-sec="all" hidden><td colspan="7"><div class="tx-typeexp-in"></div></td></tr>`;
     };
     body.innerHTML = `
       <div class="tleague-wrap"><table class="tleague tleague-full tx-tbl">
@@ -129,8 +132,7 @@ export function mount(host, ctx) {
       </table></div>`;
   }
 
-  // ---- type detail: stat tiles + the transaction list ----------------------
-  const kpi = (label, val, sub) => `<div class="tx-kpi"><span class="tx-kpi-v">${val}</span><span class="tx-kpi-l">${esc(label)}</span>${sub ? `<span class="tx-kpi-s">${sub}</span>` : ""}</div>`;
+  // ---- deal rows (shared by the inline type sub-list and the search list) ---
   const mgrLink = (id) => id ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(id)}" class="tx-mgr" data-id="${esc(id)}">${esc(mgrName(id))}</a>` : "—";
   // A transaction row + a hidden detail row (borrower/advisers live in the sourced
   // summary prose; the structured fields — type, lender, amount, date, sub-category
@@ -159,36 +161,28 @@ export function mount(host, ctx) {
       + `<td class="tx-src2">${srcCell}</td></tr>`
       + `<tr class="tx-exp" data-for="${esc(d.id)}" hidden><td colspan="6"><div class="tx-exp-in">${detail}</div></td></tr>`;
   };
-  function renderType(key) {
-    st.type = key;
+  // The inline sub-list shown when a transaction type is expanded in place: the
+  // sub-category filter (when the type spans more than one) over the type's deals,
+  // newest first. The headline stats (deals / volume / median / managers / most
+  // active) already sit on the overview row itself, so they are not repeated here —
+  // this is purely the indented drill-down of the individual deals. `sector`
+  // filters within the type; each open type keeps its own filter on its data-sec.
+  function typeSublist(key, sector) {
     const t = TX_TYPES.find((x) => x.key === key), s = statsFor(key);
+    const sec = sector || "all";
     // Asset-class SUB-CATEGORIES present within this type (+ their counts).
     const secCount = {}; s.list.forEach((r) => { secCount[r.sec] = (secCount[r.sec] || 0) + 1; });
     const present = SECTORS.filter((x) => secCount[x.key]);
-    const list = s.list.filter((r) => st.sector === "all" || r.sec === st.sector).sort((a, b) => b.ts - a.ts);
+    const list = s.list.filter((r) => sec === "all" || r.sec === sec).sort((a, b) => b.ts - a.ts);
     const secChip = (k, label, n, on) => `<button type="button" class="tx-secchip${on ? " is-on" : ""}" data-sec="${esc(k)}">${esc(label)}<span class="tx-secn">${n}</span></button>`;
     const chips = present.length > 1
-      ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", s.list.length, st.sector === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], st.sector === x.key)).join("")}</div>`
+      ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", s.list.length, sec === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], sec === x.key)).join("")}</div>`
       : "";
-    body.innerHTML = `
-      <div class="tx-back-bar"><button type="button" class="tx-back" id="tx-back">‹ All transaction types</button></div>
-      <div class="tx-head">
-        <h2 class="tx-title">${esc(t.label)}</h2>
-        <p class="tx-blurb">${esc(t.blurb)} <span class="muted">Tap a row for the borrower, advisers &amp; full detail.</span></p>
-        <div class="tx-kpis">
-          ${kpi("Deals", String(s.n), "all time")}
-          ${kpi("Volume ≈$", fmtUsd(s.usd), `${s.disclosed}% size disclosed`)}
-          ${kpi("Median ≈$", s.med != null ? fmtUsd(s.med) : "—", "per deal")}
-          ${kpi("Managers", String(s.managers), "active")}
-          ${kpi("12mo", `${s.last12} ${s.last12 > s.prev12 ? "▲" : s.last12 < s.prev12 ? "▼" : "·"}`, `vs ${s.prev12} prior 12mo`)}
-          ${kpi("Most active", s.top ? esc(mgrName(s.top.id)) : "—", s.top ? `${s.top.n} deals` : "")}
-        </div>
-        ${chips}
-      </div>
-      ${list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
+    return chips + (list.length
+      ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
         <thead><tr><th class="tx-dt-h">Date</th><th class="tx-bd-h">Borrower / company</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
         <tbody>${list.map(txRow).join("")}</tbody></table></div>`
-        : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${st.sector !== "all" ? " · " + esc(SECTOR_LABEL[st.sector]) : ""} transactions on record yet.</p>`}`;
+      : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${sec !== "all" ? " · " + esc(SECTOR_LABEL[sec]) : ""} transactions on record yet.</p>`);
   }
 
   // ---- search: a flat, dated list of matching deals across ALL types --------
@@ -263,7 +257,7 @@ export function mount(host, ctx) {
       : `<p class="tw-empty muted small">No credits match “${esc(_crQ)}”.</p>`;
   }
 
-  function render() { st.q ? renderSearch() : (st.type ? renderType(st.type) : renderOverview()); }
+  function render() { st.q ? renderSearch() : renderOverview(); }
 
   // ---- events (delegated) --------------------------------------------------
   // Primary mode: Deal flow (the transaction-type table) vs Credits (the ELLI
@@ -309,19 +303,44 @@ export function mount(host, ctx) {
     render();
   });
   host.addEventListener("click", (e) => {
-    const back = e.target.closest("#tx-back");
-    if (back) { st.sector = "all"; renderOverview(); return; }
     const mgr = e.target.closest(".tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
-    const trow = e.target.closest("tr.clickable[data-type]");
-    if (trow) { body.scrollTop = 0; st.sector = "all"; renderType(trow.dataset.type); return; }
+    // Sub-category filter INSIDE an open type — rebuild just that type's sub-list,
+    // keeping every other row (and any other open type) exactly where it is.
     const sec = e.target.closest(".tx-secchip");
-    if (sec) { st.sector = sec.dataset.sec; renderType(st.type); return; }
-    // Expand/collapse a transaction to reveal borrower/advisers/full detail.
+    if (sec) {
+      const exp = sec.closest(".tx-typeexp");
+      if (exp) { exp.dataset.sec = sec.dataset.sec; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec); }
+      return;
+    }
+    // Expand/collapse an individual transaction to reveal borrower/advisers/detail.
     const row = e.target.closest("tr.tx-row");
     if (row && !e.target.closest("a")) {
       const exp = row.nextElementSibling;
       if (exp && exp.classList.contains("tx-exp")) { const open = exp.hasAttribute("hidden"); exp.hidden = !open; row.classList.toggle("is-open", open); }
+      return;
+    }
+    // Click a transaction TYPE → open its deals as an indented sub-list in place
+    // (a single-open accordion), instead of navigating away to a detail page.
+    const trow = e.target.closest("tr.clickable[data-type]");
+    if (trow) {
+      const exp = trow.nextElementSibling;
+      if (!exp || !exp.classList.contains("tx-typeexp")) return;
+      const opening = exp.hasAttribute("hidden");
+      // Collapse any other open type first (keeps the page compact).
+      body.querySelectorAll("tr.tx-typeexp:not([hidden])").forEach((o) => {
+        if (o === exp) return;
+        o.hidden = true;
+        const otr = o.previousElementSibling;
+        if (otr) { otr.classList.remove("is-open"); otr.setAttribute("aria-expanded", "false"); }
+      });
+      if (opening) {
+        const inner = exp.querySelector(".tx-typeexp-in");
+        if (!inner.dataset.built) { inner.innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all"); inner.dataset.built = "1"; }
+      }
+      exp.hidden = !opening;
+      trow.classList.toggle("is-open", opening);
+      trow.setAttribute("aria-expanded", String(opening));
     }
   });
 
