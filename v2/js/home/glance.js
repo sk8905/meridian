@@ -3,7 +3,7 @@
 // owns chrome + search), and listeners self-guard on the active tab.
 
 import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
-import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-2";
+import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-3";
 // Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
@@ -333,7 +333,7 @@ function startLiveRefresh() {
 // the CLOs tab. `creditItemExt` says whether that destination is an external URL.
 const creditItemHref = (x) => x.sourceUrl
   ? x.sourceUrl
-  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/");
+  : (x.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(x.managerId)}` : "/v2/profiles/");
 const creditItemExt = (x) => !!x.sourceUrl;
 
 // ---- Highlight cards -------------------------------------------------------
@@ -514,7 +514,7 @@ function renderManagerWire() {
 
   const item = (r) => {
     const evs = (r.events || []).filter(_catOk);
-    const href = `/credit/#/manager/${encodeURIComponent(r.id)}`;
+    const href = `/v2/profiles/#/manager/${encodeURIComponent(r.id)}`;
     // One-tap follow ☆/★ (F2) — builds the watchlist straight from the wire, using
     // the same button/store as the Credit view.
     const fav = `<span class="g-mw-fav">${followBtn("manager", r.id)}</span>`;
@@ -552,7 +552,7 @@ function renderManagerWire() {
   // leads with the manager, so there is no separate manager-name label — just an
   // orange ★ before the headline when the manager is watchlisted.
   const flatEv = (x) => {
-    const to = x.ext ? x.source : `/credit/#/manager/${encodeURIComponent(x.mgrId)}`;
+    const to = x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`;
     const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
     return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
@@ -712,7 +712,7 @@ function renderFeed() {
   // maps the HEDGE_INTEL kind to the pill: fundraising/launch → RAISE, else NEWS.
   const hdgType = (t) => /fundrais|launch|close|capital rais/i.test(t || "") ? "fund" : "news";
   const hdg = [];
-  (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/credit/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "", type: hdgType(h.type) }));
+  (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/v2/profiles/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "", type: hdgType(h.type) }));
   // Live hedge-fund stories from /api/feed (e.g. Nishant Kumar's Bloomberg byline,
   // tagged hdg:true by the Worker) — picked up ~5 min after publication and folded
   // into the SAME Hedge (HDG) bucket; title-dedupe collapses the overlap with the
@@ -721,9 +721,9 @@ function renderFeed() {
 
   // `legal` is declared above (the live-wire loop folds The Lawyer / Legal
   // Business items into it); these are the committed Legal-app records.
-  items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "", type: i.type === "case" ? "case" : "alert" }); });
-  cases.forEach((c) => { if (c.date) legal.push({ ...mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id), type: "case" }); });
-  restructurings.forEach((r) => { if (r.date) legal.push({ ...mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id), type: "case" }); });
+  items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/v2/profiles/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "", type: i.type === "case" ? "case" : "alert" }); });
+  cases.forEach((c) => { if (c.date) legal.push({ ...mk("l", c.url || "/v2/profiles/#/?tab=firms", c.name, c.court, !!c.url, c.date, c.time, "l", c.id), type: "case" }); });
+  restructurings.forEach((r) => { if (r.date) legal.push({ ...mk("l", r.judgmentUrl || r.articleUrl || "/v2/profiles/#/?tab=firms", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id), type: "case" }); });
 
   // Reader's own aggregated email newsletters (Gmail-swept). By the stated
   // precedence these are LTR — even the Bloomberg / Economist ones — and only a

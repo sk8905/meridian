@@ -16,7 +16,7 @@ import {
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
-} from "/v2/js/legal/detail.js?v=v2-10";
+} from "/v2/js/legal/detail.js?v=v2-11";
 import { esc } from "/util.js?v=20260818-1";
 import { matchesFor, pendingFor } from "/v2/js/network/store.js?v=v2-2";
 

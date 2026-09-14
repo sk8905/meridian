@@ -18,13 +18,16 @@ for (const p of ["/", "/macro/", "/menu/"]) {
   await ctx.close();
 }
 
-// Standalone (installed PWA): entries redirect to their /v2/ equivalent.
-for (const [from, to] of [["/", "/v2/"], ["/macro/", "/v2/macro/"], ["/credit/", "/v2/credit/"], ["/menu/", "/v2/menu/"]]) {
+// Standalone (installed PWA): entries redirect to their v2 equivalent. The Credit
+// desk LANDING is retired — the flip lands on /v2/credit/ and the runtime then
+// redirects the bare desk route onward to /v2/profiles/, so the settled pathname
+// is /v2/profiles/ (a double hop). Macro keeps its own landing.
+for (const [from, to] of [["/", "/v2/"], ["/macro/", "/v2/macro/"], ["/credit/", "/v2/profiles/"], ["/menu/", "/v2/menu/"]]) {
   const ctx = await b.newContext({ ...PHONE });
   const pg = await ctx.newPage();
   await pg.addInitScript(() => { Object.defineProperty(navigator, "standalone", { get: () => true }); });
   await pg.goto(base + from, { waitUntil: "domcontentloaded" });
-  await pg.waitForTimeout(1000);
+  await pg.waitForTimeout(1800);
   checkEq(await pg.evaluate(() => location.pathname), to, `standalone ${from}: redirects to ${to}`);
   await ctx.close();
 }

@@ -107,7 +107,7 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
       items: items.length,
       btnOn: document.querySelector(".g-mw-grpbtn").classList.contains("is-on"),
       groups: [...box.querySelectorAll(".g-feed-dayhdr")].map((x) => x.textContent.trim()),
-      namesToMgr: names.length > 0 && names.every((a) => /\/credit\/#\/manager\//.test(a.getAttribute("href") || "")),
+      namesToMgr: names.length > 0 && names.every((a) => /\/v2\/profiles\/#\/manager\//.test(a.getAttribute("href") || "")),
       metas: box.querySelectorAll(".g-mw-meta").length,
       counts: [...box.querySelectorAll(".g-mw-meta .g-mw-m")].map((s) => s.textContent).filter((t) => /·30d/.test(t)).map((t) => parseInt(t, 10)),
       aum: box.querySelectorAll(".g-mw-aum").length, mix: box.querySelectorAll(".g-mw-mix").length,

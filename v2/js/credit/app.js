@@ -1313,7 +1313,19 @@ function router() {
   __detailSetHost(app);
   __detailSetProfilesMode(false);
   switch (route) {
-    case "": case undefined: return viewDashboard();
+    // The desk landing dashboard is retired. Every entity link across the app now
+    // opens in Profiles, so the only way to hit the bare desk route (or an old
+    // retired list route) is a typed/bookmarked /credit URL — send those to
+    // Profiles. GUARD on the active-tab flag: Profiles borrows this same desk as a
+    // data engine (ctx.view("credit") runs mount()→router() with the desk
+    // OFF-screen, dataset.v2tab==="profiles"), and that borrow must fall through to
+    // the normal viewDashboard() render into its hidden section, never redirect the
+    // whole app. Only redirect when Credit is genuinely the active tab.
+    case "": case undefined:
+    case "deals": case "intel": case "clos": case "watchlist": {
+      if (ROOT.dataset.v2tab === KEY) { location.replace(location.origin + "/v2/profiles/"); return; }
+      return viewDashboard();
+    }
     // Fund pages are retired — the fund list and every fund detail redirect to the
     // Managers list / the fund's manager, so nothing lands on a dead fund page.
     case "funds": location.hash = "#/managers"; return;
@@ -1326,11 +1338,6 @@ function router() {
     case "lp": return viewLp(arg);
     case "news": return viewNews();
     case "commentary": return viewNews(); // merged into News; keep legacy deep-links working
-    // Deal Activity (#/deals), Fundraising (#/intel), the old CLO list (#/clos) and
-    // the old Watchlist (#/watchlist, superseded by the Bookmarks panel) are retired
-    // — their view functions are deleted; a stray hit on any old route lands on the
-    // dashboard, whose Deals/Fundraising chips carry that content.
-    case "deals": case "intel": case "clos": case "watchlist": return viewDashboard();
     default: return notFound(app);
   }
 }

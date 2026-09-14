@@ -39,7 +39,11 @@ async function deepLink(url, view, min, label) {
 // corrupt "&" into the literal text "&amp;". The stat ticker was removed, so the
 // strategy now shows in the header's strategy chip — assert THAT stays single-escaped.
 {
-  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/credit/");
+  // Open a NON-BARE desk route (#/managers): the bare desk landing is retired and
+  // redirects to Profiles, but every detail/list deep-link still renders on the
+  // desk. This mounts Credit as the active tab, then deep-links to the hedge-fund
+  // header we're asserting on.
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/credit/#/managers");
   await pg.waitForTimeout(1200);
   const amp = await pg.evaluate(async () => {
     const c = await import("/credit/js/data.js?v=20260722-5");

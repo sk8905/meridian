@@ -292,7 +292,7 @@ export function viewFirm(id) {
       .map((d) => ({
         date: d.date, tag: "deal", code: d.clo ? "CLO" : (d.headline ? "DEAL" : "INTEL"),
         title: d.headline || d.title || "", ext: !!d.sourceUrl,
-        href: d.sourceUrl || (d.managerId ? `/credit/#/manager/${encodeURIComponent(d.managerId)}` : "/credit/#/"),
+        href: d.sourceUrl || (d.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(d.managerId)}` : "/v2/profiles/"),
         meta: mgr(d.managerId),
       }));
     renderFirmWire();

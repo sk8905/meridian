@@ -12,7 +12,7 @@ import {
   fmtDate, itemDate, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260730-2";
-import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-10";
+import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-11";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260808-1";
 import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES, srcHost } from "/util.js?v=20260818-1";
 
@@ -786,12 +786,22 @@ function router() {
   __detailSetHost(host);
   __detailSetProfilesMode(false);
 
-  if (path === "/" || path === "") viewDashboard();
+  // The desk landing dashboard is retired. Every entity link across the app now
+  // opens in Profiles, so the only way to hit the bare desk route (or an old
+  // retired list route such as #/cases or #/restructurings) is a typed/bookmarked
+  // /legal URL — send those to Profiles. GUARD on the active-tab flag: Profiles
+  // borrows this same desk as a data engine (ctx.view("legal") runs
+  // mount()→router() with the desk OFF-screen, dataset.v2tab==="profiles"), and
+  // that borrow must fall through to the normal viewDashboard() render into its
+  // hidden section, never redirect the whole app. Only redirect when Legal is
+  // genuinely the active tab. (#/list, #/item/, #/firm/ stay live: #/list is the
+  // updates list linked from detail + the dashboard KPIs, and Profiles borrows
+  // viewItem / viewFirm.)
+  const bare = path === "/" || path === "";
+  const known = bare || path === "/list" || path.startsWith("/item/") || path.startsWith("/firm/");
+  if ((bare || !known) && ROOT.dataset.v2tab === KEY) { location.replace(location.origin + "/v2/profiles/"); return; }
+  if (bare) viewDashboard();
   else if (path === "/list") viewList();
-  // Case-law (#/cases) and Schemes/RPs (#/restructurings) list pages are retired —
-  // their view functions are deleted; the dashboard's Case law / Schemes & RPs
-  // chips carry that content and every case/scheme links straight to its source
-  // (BAILII judgment / analysis). A stray hit on an old route lands on the dashboard.
   else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
   else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
   else viewDashboard();

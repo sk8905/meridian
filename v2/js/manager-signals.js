@@ -40,7 +40,7 @@ export const CAT_LABEL = {
   restructuring: "RX", clo: "CLO", team: "TEAM", strategy: "STRAT", mandate: "MANDATE", news: "NEWS",
 };
 
-const mgrHref = (id) => `/credit/#/manager/${encodeURIComponent(id)}`;
+const mgrHref = (id) => `/v2/profiles/#/manager/${encodeURIComponent(id)}`;
 
 // The full, date-desc event stream for one manager (deals + intel + press).
 export function managerEvents(managerId, { limit = 0 } = {}) {
