@@ -65,6 +65,8 @@ export function mount(host, ctx) {
   }
 
   // ---- shell (Profiles furniture) ------------------------------------------
+  // Group-by control icon — the same rows glyph the news/manager wires use.
+  const grpSvg = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`;
   host.innerHTML = `
     <div class="tdash tx-dash">
       <div class="tdash-grid tdash-1">
@@ -82,6 +84,10 @@ export function mount(host, ctx) {
             </header>
             <header class="tpanel-h thead-search" id="tx-credits-search">
               <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
+              <div class="tcr-grpctl" id="tx-cr-ctl" role="group" aria-label="Group the credit roster">
+                <button type="button" class="tcr-grpbtn is-on" data-crgroup="sector" aria-pressed="true">${grpSvg}<span>Group by sector</span></button>
+                <button type="button" class="tcr-grpbtn" data-crgroup="rating" aria-pressed="false">${grpSvg}<span>Group by rating</span></button>
+              </div>
             </header>
             <div class="tx-scroll" id="tx-body"></div>
             <div class="tx-scroll" id="tx-credits-body"></div>
@@ -91,7 +97,10 @@ export function mount(host, ctx) {
     </div>`;
   const body = host.querySelector("#tx-body");
   const creditsBody = host.querySelector("#tx-credits-body");
-  let _crMode = "flow", _crQ = "";
+  let _crMode = "flow", _crQ = "", _crGroup = "sector";
+  // S&P scale, best → worst — used to order the roster when grouping by rating.
+  const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "D"];
+  const ratingRank = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? 999 : i; };
 
   const trendMark = (a, b) => a > b ? `<span class="tx-up">▲</span>` : a < b ? `<span class="tx-dn">▼</span>` : `<span class="tx-fl">·</span>`;
 
@@ -211,9 +220,6 @@ export function mount(host, ctx) {
   // with its current issuer rating, borrower domicile and 12-month rating trend.
   // Real, sourced rows only — empty until the first verified batch lands (compiled
   // by the daily routine; see eu-credits.js).
-  // Borrower domicile → compact ISO alpha-2 code for the inline jurisdiction tag.
-  const JUR_CODE = { Netherlands: "NL", France: "FR", Norway: "NO", Spain: "ES", "United Kingdom": "GB", Germany: "DE", Portugal: "PT", Italy: "IT", Switzerland: "CH", Ireland: "IE", Sweden: "SE", Luxembourg: "LU", Belgium: "BE", Denmark: "DK", Finland: "FI", Austria: "AT", "Czech Republic": "CZ", Gibraltar: "GI", "United States": "US" };
-  const jurCode = (j) => JUR_CODE[j] || (j ? j.slice(0, 2).toUpperCase() : "");
   // Rating momentum over the trailing 12 months: ▲ up, ▼ down, – unchanged.
   const TREND = {
     up: { g: "▲", c: "tx-up", t: "Rating up over the past 12 months" },
@@ -226,10 +232,14 @@ export function mount(host, ctx) {
         ? `<a class="tcr-rt" href="${esc(c.source)}" target="_blank" rel="noopener noreferrer" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</a>`
         : `<span class="tcr-rt" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</span>`)
       : `<span class="tcr-rt tcr-nr" title="Rating pending verification">NR</span>`;
-    const jur = `<span class="tcr-jur" title="${esc(c.jurisdiction || "")}">${esc(jurCode(c.jurisdiction))}</span>`;
     const tr = TREND[c.trend] || TREND.flat;
     const trend = `<span class="tcr-tr ${tr.c}" title="${tr.t} (${esc(c.agency || EUR_CREDITS_META.agency)})">${tr.g}</span>`;
-    return `<li class="tmini-row tcr-row"><span class="tcr-nm">${esc(c.name)}</span>${jur}<span class="tcr-rr">${trend}${rt}</span></li>`;
+    return `<tr class="tcr-row">`
+      + `<td class="tcr-nm" title="${esc(c.name)}">${esc(c.name)}</td>`
+      + `<td class="tcr-jur">${esc(c.jurisdiction || "")}</td>`
+      + `<td class="tcr-sec">${esc(c.sector)}</td>`
+      + `<td class="tcr-rt-cell"><span class="tcr-rr">${trend}${rt}</span></td>`
+      + `</tr>`;
   };
   function renderCredits() {
     if (!EUR_CREDITS.length) {
@@ -238,10 +248,18 @@ export function mount(host, ctx) {
     }
     const q = _crQ.toLowerCase();
     const filtered = q ? EUR_CREDITS.filter((c) => `${c.name} ${c.sector} ${c.rating || ""} ${c.jurisdiction || ""}`.toLowerCase().includes(q)) : EUR_CREDITS;
-    const groups = creditsBySector(filtered);
-    creditsBody.innerHTML = groups.length
+    // One flat table — Borrower · Jurisdiction · Sector · Rating — ordered by the
+    // active grouping: by sector (canonical order, name-sorted within each) or by
+    // rating (best → worst, name-sorted within each) so like values read in blocks.
+    const rows = _crGroup === "rating"
+      ? filtered.slice().sort((a, b) => ratingRank(a.rating) - ratingRank(b.rating) || a.name.localeCompare(b.name))
+      : creditsBySector(filtered).flatMap(([, arr]) => arr);
+    creditsBody.innerHTML = rows.length
       ? `<div class="tcr-meta muted small">${filtered.length} of ${EUR_CREDITS.length} credits · issuer ratings ${esc(EUR_CREDITS_META.agency)}</div>`
-        + groups.map(([sec, arr]) => `<div class="tcr-grp"><div class="tcr-grp-h">${esc(sec)} <span class="tcr-grp-n">${arr.length}</span></div><ul class="tmini tcr-list">${arr.map(crRow).join("")}</ul></div>`).join("")
+        + `<div class="tleague-wrap tcr-wrap"><table class="tcr-tbl">`
+        + `<colgroup><col class="c-nm"><col class="c-jur"><col class="c-sec"><col class="c-rt"></colgroup>`
+        + `<thead><tr><th>Borrower</th><th>Jurisdiction</th><th>Sector</th><th>Rating</th></tr></thead>`
+        + `<tbody>${rows.map(crRow).join("")}</tbody></table></div>`
       : `<p class="tw-empty muted small">No credits match “${esc(_crQ)}”.</p>`;
   }
 
@@ -266,6 +284,14 @@ export function mount(host, ctx) {
     setMode(b.dataset.mode);
   });
   host.querySelector("#tx-cr-q").addEventListener("input", (e) => { _crQ = e.target.value.trim(); renderCredits(); });
+  // Group-by toggle (sector | rating): a mutually-exclusive pair, styled like the
+  // news/manager-wire group button. Re-orders the roster in place.
+  host.querySelector("#tx-cr-ctl").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-crgroup]"); if (!btn) return;
+    _crGroup = btn.dataset.crgroup === "rating" ? "rating" : "sector";
+    host.querySelectorAll("#tx-cr-ctl .tcr-grpbtn").forEach((b) => { const on = b.dataset.crgroup === _crGroup; b.classList.toggle("is-on", on); b.setAttribute("aria-pressed", String(on)); });
+    renderCredits();
+  });
   // Search box — typing switches the body to a flat list of matching deals; the
   // input lives in the shell (outside #tx-body) so it keeps focus across renders.
   host.querySelector("#tx-q").addEventListener("input", (e) => {
