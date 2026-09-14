@@ -233,8 +233,8 @@ function openRowMenu(r, x, y) {
     const ICO_STAR2 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.7 6.3.8-4.6 4.3 1.2 6.2-5.6-3.1-5.6 3.1 1.2-6.2L3 9.5l6.3-.8z"/></svg>';
     const ICO_GO3 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
     const openLabel = d.ptype === "firm" ? "Open firm page" : d.ptype === "hf" ? "Open fund page" : "Open manager page";
-    const profHref = d.ptype === "firm" ? "/legal/#/firm/" + encodeURIComponent(d.pid)
-      : "/credit/#/" + (d.ptype === "hf" ? "hf/" : "manager/") + encodeURIComponent(d.pid);
+    const profHref = d.ptype === "firm" ? "/v2/profiles/#/firm/" + encodeURIComponent(d.pid)
+      : "/v2/profiles/#/" + (d.ptype === "hf" ? "hf/" : "manager/") + encodeURIComponent(d.pid);
     _rmEl = document.createElement("div"); _rmEl.className = "rowmenu"; _rmEl.setAttribute("role", "menu");
     _rmEl.innerHTML = `<div class="rowmenu-title">${esc(d.title)}</div>`
       + `<button type="button" class="rowmenu-act" data-act="watch">${ICO_STAR2}<span>${isWatched(d.ptype, d.pid) ? "Remove from Watchlist" : "Add to Watchlist"}</span></button>`
@@ -283,8 +283,8 @@ function openRowMenu(r, x, y) {
       wireToast(added ? "Added to Watchlist" : "Removed from Watchlist");
     }
     else if (act === "src") { if (d.srcEl) d.srcEl.click(); }
-    else if (act === "mgr") { window.location.href = "/credit/#/manager/" + encodeURIComponent(mgr); }
-    else if (act === "firm") { window.location.href = "/legal/#/firm/" + encodeURIComponent(firm); }
+    else if (act === "mgr") { window.location.href = "/v2/profiles/#/manager/" + encodeURIComponent(mgr); }
+    else if (act === "firm") { window.location.href = "/v2/profiles/#/firm/" + encodeURIComponent(firm); }
     else if (act === "share") {
       if (navigator.share) navigator.share({ title, url: href }).catch(() => {});
       else navigator.clipboard.writeText(href).then(() => wireToast("Link copied")).catch(() => {});

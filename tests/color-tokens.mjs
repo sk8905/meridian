@@ -24,6 +24,8 @@ const legalCss = read("legal/css/styles.css");
 const premiumCss = read("premium.css");
 const dashboardCss = read("dashboard.css");
 const paletteJs = read("palette.js");
+const savedJs = read("saved.js");
+const rowmenuJs = read("rowmenu.js");
 const feedJs = read("feed.js");
 const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
 const statusJs = read(path.join("v2", "js", "status.js"));
@@ -205,6 +207,16 @@ check(/managers\.forEach.*\/v2\/profiles\/#\/manager\//.test(paletteJs) && /\(fi
   "palette.js: manager + law-firm search results open in the Profiles tab");
 check(!/add\("credit", m\.name.*\/credit\/#\/manager\//.test(paletteJs) && !/\(firms \|\| \[\]\)\.forEach.*\/legal\/#\/firm\//.test(paletteJs),
   "palette.js: no entity result targets the retired /credit/ or /legal/ desk");
+
+// Every entity link across the app opens in Profiles — not just search ENTITY
+// hits but content-item hits (news / alerts / cases), the Bookmarks + Watchlist +
+// notifications panels (saved.js) and the press-and-hold row menu (rowmenu.js).
+// The desk landings are retired, so NONE of these chrome surfaces may carry a
+// /credit/#/ or /legal/#/ link. Guard the whole set against a regression.
+for (const [name, src] of [["palette.js", paletteJs], ["saved.js", savedJs], ["rowmenu.js", rowmenuJs]]) {
+  check(!/\/credit\/#\//.test(src) && !/\/legal\/#\//.test(src),
+    `${name}: no link targets the retired /credit/ or /legal/ desk (every entity/item opens in Profiles)`);
+}
 
 // T12 — Managers/Investors search must not throw on a record with no `hq`
 // (an unset field is legitimately `null` per the refresh routine's "never

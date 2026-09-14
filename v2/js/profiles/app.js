@@ -17,6 +17,9 @@ import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
 } from "/v2/js/legal/detail.js?v=v2-11";
+// Same shared.js instance the detail views read (identical ?v= token), so seeding
+// the URL-driven row highlight here is the pending focus viewManager applies.
+import { setPendingFocus } from "/credit/js/shared.js?v=20260730-2";
 import { esc } from "/util.js?v=20260818-1";
 import { matchesFor, pendingFor } from "/v2/js/network/store.js?v=v2-2";
 
@@ -137,6 +140,19 @@ export async function mount(host, ctx) {
     const raw = location.hash || "#/";
     const seg = raw.split("?")[0].replace(/^#/, "").split("/").filter(Boolean);
     const route = seg[0], arg = seg[1];
+    // URL-driven row highlight (?focus=…) — same contract as the desks: a search
+    // result or a saved/watchlist row can deep-link to a manager's specific news
+    // story. Seed the pending focus BEFORE rendering (viewManager applies it), then
+    // drop the param so later re-renders don't keep re-scrolling. "k:" targets a
+    // row by its feed dedup key; otherwise by element id.
+    const q = raw.split("?")[1] || "";
+    const focusId = q ? new URLSearchParams(q).get("focus") : null;
+    if (focusId) {
+      setPendingFocus(focusId.startsWith("k:")
+        ? { view: route, fkey: dec(focusId.slice(2)), until: Date.now() + 4000 }
+        : { view: route, id: focusId, until: Date.now() + 4000 });
+      try { history.replaceState(null, "", location.pathname + location.search + raw.split("?")[0]); } catch { /* keep the param if replaceState is blocked */ }
+    }
     switch (route) {
       case "manager": renderCredit("managers", () => viewManager(arg)); return decorateNet("manager", arg);
       // The standalone fund page is retired — redirect to the fund's manager so no

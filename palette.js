@@ -29,11 +29,11 @@ import { esc } from "/util.js?v=20260818-1";
 import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire, fmtDay as fmt } from "/feed.js?v=20260808-1";
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 // The standalone Deals/Fundraising list pages are retired, so a deal/intel record
-// links to its source article when we have one, else the manager's page in Credit;
-// CLO items keep the CLOs tab.
+// links to its source article when we have one, else the manager's profile in the
+// Profiles tab (the desk landings are retired — no result lands on a desk surface).
 const creditItemHref = (x) => x.sourceUrl
   ? x.sourceUrl
-  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/");
+  : (x.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(x.managerId)}` : "/v2/profiles/");
 const MACRO_INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
@@ -77,9 +77,9 @@ function buildIndex() {
   const TIER_LBL = { magic: "Magic Circle", silver: "Silver Circle", "us-elite": "US elite", chambers: "Chambers" };
   (firms || []).forEach((f) => add("legal", f.name, `Law firm${TIER_LBL[f.tier] ? " · " + TIER_LBL[f.tier] : ""}`, `/v2/profiles/#/firm/${encodeURIComponent(f.id)}`, 0, "", "Firm"));
   const firmNm = Object.fromEntries((firms || []).map((f) => [f.id, f.name]));
-  items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + (firmNm[i.firm] || i.firm) : ""}${i.date ? " · " + fmt(i.date) : ""}`, i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
-  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || `/legal/#/`, 2, c.date, "Case"));
-  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, r.judgmentUrl || r.articleUrl || `/legal/#/`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
+  items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + (firmNm[i.firm] || i.firm) : ""}${i.date ? " · " + fmt(i.date) : ""}`, i.url || `/v2/profiles/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
+  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || `/v2/profiles/#/?tab=firms`, 2, c.date, "Case"));
+  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, r.judgmentUrl || r.articleUrl || `/v2/profiles/#/?tab=firms`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
   ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Open in Chart", `/macro/#/chart?add=${c}:${k}`, 3, "", "Chart")));
   // News items — so a search for e.g. "Federal Reserve" finds macro headlines too.
   const seenNews = new Set();
@@ -105,7 +105,7 @@ function buildIndex() {
     [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
       const k = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
       if (k && seen.has(k)) return; seen.add(k);
-      add("credit", w.title, `News${m.name ? " · " + m.name : ""}${w.date ? " · " + fmt(w.date) : ""}`, `/credit/#/manager/${encodeURIComponent(m.id)}?focus=k:${encodeURIComponent(feedDedupKey(w))}`, 2, w.date, "News", w.outlet || m.name);
+      add("credit", w.title, `News${m.name ? " · " + m.name : ""}${w.date ? " · " + fmt(w.date) : ""}`, `/v2/profiles/#/manager/${encodeURIComponent(m.id)}?focus=k:${encodeURIComponent(feedDedupKey(w))}`, 2, w.date, "News", w.outlet || m.name);
     });
   });
   // myFT stories + email newsletters — searchable, and the "/FT" / "/LETTER"

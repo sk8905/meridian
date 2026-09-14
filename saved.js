@@ -37,7 +37,7 @@ function feedDedupKey(x) {
 // (Deals/Fundraising list pages retired); CLOs keep the CLOs tab.
 const creditItemHref = (x) => x.sourceUrl
   ? x.sourceUrl
-  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/");
+  : (x.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(x.managerId)}` : "/v2/profiles/");
 const creditItemExt = (x) => !!x.sourceUrl;
 
 // ---- resolver ---------------------------------------------------------------
@@ -53,12 +53,12 @@ export function resolveSaved() {
   deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: creditSource(d) }); });
   intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: creditSource(i) }); });
   managers.forEach((m) => [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
-    if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
+    if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
   }));
   // Legal — items/cases/restructurings by raw id.
-  items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
-  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: c.url || "/legal/#/", ext: !!c.url, date: c.date, time: c.time, src: c.court }); });
-  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
+  items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: it.url || "/v2/profiles/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
+  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: c.url || "/v2/profiles/#/?tab=firms", ext: !!c.url, date: c.date, time: c.time, src: c.court }); });
+  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/v2/profiles/#/?tab=firms", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   // Home-feed long-press bookmarks (Letters, FT, live headlines — rows with no
   // app saved-id) live in a self-contained Home store; fold them in, deduped by
   // normalised title against the app-store items above.
@@ -115,7 +115,7 @@ function creditNotif() {
   const out = [];
   deals.forEach((d) => out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
   intel.forEach((i) => out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
-  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
+  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
   return recentNotif(dedupNotif(out));
 }
 // A "[law firm] advised …" deal announcement is noise for the NOTIFICATION bell
@@ -160,9 +160,9 @@ export const __suppressedAdvised = _suppressedAdvised;
 export const __caseInBell = _caseInBell;
 function legalNotif() {
   const out = [];
-  items.forEach((it) => { if (_suppressedAdvised(it.title)) return; out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }); });
-  cases.forEach((c) => { if (!_caseInBell(c)) return; out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/legal/#/", ext: !!c.url }); });
-  restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/legal/#/", ext: !!u }); });
+  items.forEach((it) => { if (_suppressedAdvised(it.title)) return; out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/v2/profiles/#/item/" + encodeURIComponent(it.id), ext: !!it.url }); });
+  cases.forEach((c) => { if (!_caseInBell(c)) return; out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/v2/profiles/#/?tab=firms", ext: !!c.url }); });
+  restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/v2/profiles/#/?tab=firms", ext: !!u }); });
   return recentNotif(dedupNotif(out));
 }
 export async function buildNotifs() {
@@ -182,7 +182,7 @@ export function resolveWatchlistNews() {
   if (hset.size) {
     (HEDGE_INTEL || []).forEach((h) => {
       if (!h.hfId || !hset.has(h.hfId)) return;
-      out.push({ desk: "c", title: h.headline, href: h.url || "/credit/#/hf/" + encodeURIComponent(h.hfId), ext: !!h.url, date: h.date, time: h.time, src: h.outlet || (_hfById.get(h.hfId) || {}).name || "" });
+      out.push({ desk: "c", title: h.headline, href: h.url || "/v2/profiles/#/hf/" + encodeURIComponent(h.hfId), ext: !!h.url, date: h.date, time: h.time, src: h.outlet || (_hfById.get(h.hfId) || {}).name || "" });
     });
   }
   if (mset.size) {
@@ -193,13 +193,13 @@ export function resolveWatchlistNews() {
       const seen = new Set();
       [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
         const k = feedDedupKey(w); if (seen.has(k)) return; seen.add(k);
-        out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(k), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
+        out.push({ desk: "c", title: w.title, href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(k), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
       });
     });
   }
   if (fset.size) {
-    items.forEach((i) => { if (fset.has(i.firm)) out.push({ desk: "l", title: i.title, href: i.url || "/legal/#/item/" + encodeURIComponent(i.id), ext: !!i.url, date: i.date, time: i.time, src: (_firmById.get(i.firm) || {}).name || "" }); });
-    restructurings.forEach((r) => { if (fset.has(r.firm)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
+    items.forEach((i) => { if (fset.has(i.firm)) out.push({ desk: "l", title: i.title, href: i.url || "/v2/profiles/#/item/" + encodeURIComponent(i.id), ext: !!i.url, date: i.date, time: i.time, src: (_firmById.get(i.firm) || {}).name || "" }); });
+    restructurings.forEach((r) => { if (fset.has(r.firm)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/v2/profiles/#/?tab=firms", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   }
   return dedupNotif(out)
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || String(b.time || "").localeCompare(String(a.time || "")))
@@ -225,10 +225,10 @@ export function resolveSavedWatchlist() {
   managers.forEach((m) => {
     if (!mset.has(m.id)) return;
     [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
-      if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
+      if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
     });
   });
-  items.forEach((it) => { if (lS.has(it.id) && fset.has(it.firm)) out.push({ desk: "l", title: it.title, href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
-  restructurings.forEach((r) => { if (lS.has(r.id) && fset.has(r.firm)) { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", title: r.company, href: u || "/legal/#/", ext: !!u, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); } });
+  items.forEach((it) => { if (lS.has(it.id) && fset.has(it.firm)) out.push({ desk: "l", title: it.title, href: it.url || "/v2/profiles/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
+  restructurings.forEach((r) => { if (lS.has(r.id) && fset.has(r.firm)) { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", title: r.company, href: u || "/v2/profiles/#/?tab=firms", ext: !!u, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); } });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
