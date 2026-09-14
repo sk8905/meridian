@@ -13,7 +13,7 @@ export const UPDATED = "14 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-14",
-  lastCheckedTime: "05:10 BST",
+  lastCheckedTime: "08:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -392,11 +392,11 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-09-13",
+  updated: "2026-09-14",
   us: [
     { title: "All Eyes on Warsh as Rate-Hike Fever Spreads Across G7 Central Banks", source: "Bloomberg", author: "Bloomberg Economics \u2014 Anna Wong, Andrew Sacher, Eliza Winger", date: "2026-09-12", url: "https://www.bloomberg.com/news/articles/2026-09-12/all-eyes-on-warsh-as-rate-hike-fever-spreads-across-g7-central-banks" },
     { title: "FOMC preview: Fed set to hike 25bp in recalibration move", source: "ING THINK", author: "ING \u2014 James Knightley, Padhraic Garvey, Chris Turner", date: "2026-09-11", url: "https://think.ing.com/articles/fomc-preview-fed-set-to-hike-25bp-in-recalibration-move" },
-    { title: "Fed rate hike in September is all but guaranteed after CPI report, economists say", source: "CBS News", author: "Goldman Sachs \u2014 David Mericle; Capital Economics \u2014 Stephen Brown", date: "2026-09-11", url: "https://www.cbsnews.com/news/fed-rate-hike-september-likelihood-cpi/" },
+    { title: "Goldman Sachs now expects Fed to hike rates in September", source: "Reuters (via Investing.com)", author: "Goldman Sachs \u2014 David Mericle; J.P. Morgan \u2014 Michael Feroli", date: "2026-09-13", url: "https://www.investing.com/news/economy-news/goldman-sachs-now-expects-fed-to-hike-rates-in-september-4898799" },
   ],
   uk: [
     { title: "Bank set to hold interest rates but 'needs to be ready' to act on inflation", source: "PA Media (via Irvine Times)", author: "Pantheon Macroeconomics", date: "2026-09-13", url: "https://www.irvinetimes.com/news/national/26545670.bank-set-hold-interest-rates-needs-ready-act-inflation/" },
@@ -937,17 +937,17 @@ export const NEWS = {
   updated: "2026-09-14",
   us: [
     { title: "CNBC Daily Open: Peace talks amid pipeline shocks", source: "CNBC", date: "2026-09-14", url: "https://www.cnbc.com/2026/09/14/cnbc-daily-open-peace-talks-amid-pipeline-shocks.html" },
-    { title: "Trump says U.S. may keep Iranian oil 'like Venezuela' as Gulf-Iran Hormuz talks stall", source: "CNBC", date: "2026-09-14", url: "https://www.cnbc.com/2026/09/14/us-iran-trump-hormuz-gulf-oil-crude-talks-.html" },
+    { title: "Latest Oil Market News and Analysis for Sept. 14", source: "Bloomberg", date: "2026-09-14", url: "https://www.bloomberg.com/news/articles/2026-09-13/latest-oil-market-news-and-analysis-for-sept-14" },
     { title: "The 10-year Treasury is closing in on 5%. How it gets there matters more", source: "CNBC", date: "2026-09-14", url: "https://www.cnbc.com/2026/09/14/10-year-us-treasury-is-closing-in-on-5percent.html" },
+    { title: "Goldman Sachs now expects Fed to hike rates in September", source: "Reuters (via Investing.com)", date: "2026-09-13", url: "https://www.investing.com/news/economy-news/goldman-sachs-now-expects-fed-to-hike-rates-in-september-4898799" },
     { title: "Amodei's AI Slowdown Warning Rattles Futures: Will Stocks Open Lower?", source: "Yahoo Finance", date: "2026-09-13", url: "https://finance.yahoo.com/markets/stocks/articles/amodeis-ai-slowdown-warning-rattles-020434313.html" },
-    { title: "Fundies Cheat Sheet: September 14–18, 2026", source: "Babypips", date: "2026-09-14", url: "https://www.babypips.com/analysis/fundies-cheat-sheet-2026-09-14-fomc-dot-plot-boj-hike-boe-hold-oil-de-escalation-levels" },
   ],
   uk: [
+    { title: "Pound to Dollar Week Ahead Forecast: 19-Year High Gilt Yields Put BoE in Focus", source: "Currency News UK", date: "2026-09-14", url: "https://www.currencynews.co.uk/forecast/20260914-47178_pound-to-dollar-week-ahead-forecast-19-year-high-gilt-yields-put-boe-in-focus.html" },
     { title: "Bank set to hold interest rates but 'needs to be ready' to act on inflation", source: "PA Media (via Irvine Times)", date: "2026-09-13", url: "https://www.irvinetimes.com/news/national/26545670.bank-set-hold-interest-rates-needs-ready-act-inflation/" },
     { title: "British Pound: Strong data clashes with dovish BoE view – ING", source: "FXStreet", date: "2026-09-11", url: "https://www.fxstreet.com/news/british-pound-strong-data-clashes-with-dovish-boe-view-ing-202609110829" },
     { title: "How much has UK fiscal headroom narrowed ahead of autumn budget?", source: "Investing.com", date: "2026-09-11", url: "https://www.investing.com/news/economy-news/how-much-has-uk-fiscal-headroom-narrowed-ahead-of-autumn-budget-4897694" },
     { title: "UK economy beats expectations with surprise 0.4 per cent growth", source: "GB News", date: "2026-09-11", time: "07:15", url: "https://www.gbnews.com/money/uk-economy-gdp-boost-rise" },
-    { title: "British Pound Forecast: Why ING Still Sees GBP/EUR Falling Towards 1.15", source: "exchangerates.org.uk", date: "2026-09-12", url: "https://www.exchangerates.org.uk/news/47164/2026-09-12-british-pound-forecast-why-ing-still-sees-gbp-eur-falling-towards-1-15.html" },
   ],
 };
 
@@ -961,6 +961,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-14",
   items: [
+    {"title": "Pound to Dollar Week Ahead Forecast: 19-Year High Gilt Yields Put BoE in Focus", "source": "Currency News UK", "date": "2026-09-14", "url": "https://www.currencynews.co.uk/forecast/20260914-47178_pound-to-dollar-week-ahead-forecast-19-year-high-gilt-yields-put-boe-in-focus.html", "blurb": "GBP/USD held close to 1.3500 as investors braced for Wednesday's Fed decision and Thursday's BoE meeting after another surge in UK borrowing costs left the 10-year gilt near 5.3% and the 30-year near 6% — a level last seen in 1998.", "author": null},
+    {"title": "Latest Oil Market News and Analysis for Sept. 14", "source": "Bloomberg", "date": "2026-09-14", "url": "https://www.bloomberg.com/news/articles/2026-09-13/latest-oil-market-news-and-analysis-for-sept-14", "blurb": "Brent rose toward $108 a barrel and WTI neared $103 after Saudi Arabia shut its East-West pipeline — a route used to bypass the Strait of Hormuz — following attacks, while European natural gas jumped as much as 3.8% on the deepening energy crunch.", "author": null},
     {"title": "CNBC Daily Open: Peace talks amid pipeline shocks", "source": "CNBC", "date": "2026-09-14", "url": "https://www.cnbc.com/2026/09/14/cnbc-daily-open-peace-talks-amid-pipeline-shocks.html", "blurb": "BRICS summit leaders voiced hope for a Middle East peace path even as Saudi Arabia shut its East-West pipeline — a key route bypassing the Strait of Hormuz — after a drone strike launched from Iraq, disrupting a crucial relief valve for crude exports.", "author": null},
     {"title": "Trump says U.S. may keep Iranian oil 'like Venezuela' as Gulf-Iran Hormuz talks stall", "source": "CNBC", "date": "2026-09-14", "url": "https://www.cnbc.com/2026/09/14/us-iran-trump-hormuz-gulf-oil-crude-talks-.html", "blurb": "President Trump said Washington could keep pressuring Tehran and 'stay and keep the oil like Venezuela' as Oman's planned Gulf-Iran meeting on reopening the Strait of Hormuz remained stalled.", "author": null},
     {"title": "The 10-year Treasury is closing in on 5%. How it gets there matters more", "source": "CNBC", "date": "2026-09-14", "url": "https://www.cnbc.com/2026/09/14/10-year-us-treasury-is-closing-in-on-5percent.html", "blurb": "The benchmark yield hovered around 4.96%, closing in on the 5% level last touched in October 2023, with strategists saying whether the move reflects growth optimism or fiscal/inflation stress matters more than the round number itself, two days before the Fed's decision.", "author": null},
@@ -969,6 +971,7 @@ export const ARTICLES = {
     {"title": "Hormuz Meeting With Iran and Gulf Nations Postponed, Oman Says", "source": "Bloomberg", "date": "2026-09-13", "url": "https://www.bloomberg.com/news/articles/2026-09-13/hormuz-meeting-with-iran-and-gulf-nations-postponed-oman-says", "blurb": "Oman's foreign minister Badr Albusaidi said Monday's planned Salalah meeting between Iran and Gulf states on a temporary Strait of Hormuz shipping-lane deal has been delayed 'in the interests of consensus', leaving the oil-driven inflation risk behind cycle-high Fed hike odds unresolved into Wednesday's FOMC decision.", "author": null},
     {"title": "Vessel struck in Strait of Hormuz, UKMTO says, as prospects for U.S.-Iran diplomacy appear elusive", "source": "CNBC", "date": "2026-09-13", "url": "https://www.cnbc.com/2026/09/13/vessel-struck-strait-of-hormuz-ukmto.html", "blurb": "An Iranian commercial vessel was struck near Qeshm Island overnight into Sunday with one person killed, the UK Maritime Trade Operations centre said, as direct US-Iran negotiations appear no nearer to resuming.", "author": null},
     {"title": "UAE, Iran Leaders Meet as Push to Resolve Hormuz Standoff Grows", "source": "Bloomberg", "date": "2026-09-13", "url": "https://www.bloomberg.com/news/articles/2026-09-13/uae-iran-leaders-meet-as-push-to-resolve-hormuz-standoff-grows", "blurb": "Iranian President Pezeshkian met Abu Dhabi Crown Prince Sheikh Khaled bin Mohamed bin Zayed Al Nahyan at the BRICS summit in New Delhi — the first Iran-UAE leaders' contact since the war began — as regional diplomacy around the Strait of Hormuz intensifies.", "author": null},
+    {"title": "Goldman Sachs now expects Fed to hike rates in September", "source": "Reuters (via Investing.com)", "date": "2026-09-13", "url": "https://www.investing.com/news/economy-news/goldman-sachs-now-expects-fed-to-hike-rates-in-september-4898799", "blurb": "Goldman Sachs abandoned its call for the Fed to hold in September and now expects a 25bp hike at Wednesday's meeting, saying the shift was driven less by its economic outlook than by market pricing — a move J.P. Morgan matched, forecasting hikes in both September and December.", "author": null},
     {"title": "Here are the 2 big things we're watching in this week's stock market", "source": "CNBC", "date": "2026-09-13", "url": "https://www.cnbc.com/2026/09/13/here-are-the-2-big-things-were-watching-in-this-weeks-stock-market.html", "blurb": "Wednesday's Fed decision arrives alongside August retail sales, with Thursday's housing starts and Friday's industrial-production report the week's other tests of the economy heading into the FOMC's first hike debate since 2023.", "author": null},
     {"title": "All Eyes on Warsh as Rate-Hike Fever Spreads Across G7 Central Banks", "source": "Bloomberg", "date": "2026-09-12", "url": "https://www.bloomberg.com/news/articles/2026-09-12/all-eyes-on-warsh-as-rate-hike-fever-spreads-across-g7-central-banks", "blurb": "The Fed, Bank of England and Bank of Japan all decide on rates within three days of each other this week, with Bloomberg Economics' Anna Wong, Andrew Sacher and Eliza Winger saying Chair Warsh looks set to hike 'probably in defiance of President Trump's wishes'.", "author": null},
     {"title": "Bank set to hold interest rates but 'needs to be ready' to act on inflation", "source": "PA Media (via Irvine Times)", "date": "2026-09-13", "url": "https://www.irvinetimes.com/news/national/26545670.bank-set-hold-interest-rates-needs-ready-act-inflation/", "blurb": "Most economists expect the MPC to hold Bank Rate at 3.75% for a sixth straight meeting on 17 September, though Pantheon Macroeconomics flags a chance the Bank 'toughens its language' to open the door to a November hike if energy prices keep rising.", "author": null},
