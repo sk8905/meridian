@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lemonde-lebrief-lepen2027-20260914",
+    publication: "Le Monde",
+    author: null,
+    series: "Le Brief",
+    title: "Enquête électorale présidentielle 2027 : Marine Le Pen entame la campagne sur un socle inédit au cœur d’un électorat inquiet et en colère",
+    date: "2026-09-14",
+    time: "17:34",
+    summary: "La candidate du RN bénéficie d’intentions de vote inédites dans l’enquête électorale réalisée pour Le Monde.",
+    url: "https://infos.lemonde.fr/optiext/optiextension.dll?ID=XsIPLy64Bocp-LmSKiFaPX3oTQNviRrfIRQ1WteI08tm8qAmx_FyCtGzI8qhUGFSwMdZzpA0yuG_XR0d0h9B2YGoxfXbf0yO",
+  },
+  {
     id: "nl-legalbusiness-offshorefirminvestment-20260914",
     publication: "Legal Business",
     author: null,
