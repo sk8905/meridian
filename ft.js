@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "68599310-58ae-4a11-b885-3e34ebaa8af9", title: "Britain’s assisted dying debate was hobbled by a lack of candour", date: "2026-09-14", time: "17:04", url: "https://www.ft.com/content/68599310-58ae-4a11-b885-3e34ebaa8af9" },
+  { id: "b78370c8-dc35-47ea-a254-a75421a46a85", title: "Syrians take to the streets over fuel price rise", date: "2026-09-14", time: "17:01", url: "https://www.ft.com/content/b78370c8-dc35-47ea-a254-a75421a46a85" },
   { id: "4205babe-1db0-4507-be8f-70b1e8954c7f", title: "America’s superheroes moved to Britain, but will they stay?", date: "2026-09-14", time: "15:53", url: "https://www.ft.com/content/4205babe-1db0-4507-be8f-70b1e8954c7f" },
   { id: "06cb850d-089a-4318-88d7-a410e9766b89", title: "Ten-year Treasury yield hits 5% for first time since 2023", date: "2026-09-14", time: "15:51", url: "https://www.ft.com/content/06cb850d-089a-4318-88d7-a410e9766b89" },
   { id: "24eda5dc-3a2c-489c-a304-1c1451f7c2a7", title: "Stoltenberg reneges on Munich Security Conference top job plan", date: "2026-09-14", time: "15:42", url: "https://www.ft.com/content/24eda5dc-3a2c-489c-a304-1c1451f7c2a7" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "4f6a427f-3975-470f-83bf-b21423df59c8", title: "Japan’s central bank set for pivotal moment on rates", date: "2026-09-14", time: "05:15", url: "https://www.ft.com/content/4f6a427f-3975-470f-83bf-b21423df59c8" },
   { id: "904c6d93-a6b3-47f4-8b12-3d418cc74fa2", title: "Warsh and Trump on collision course as investors expect Fed to raise rates", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/904c6d93-a6b3-47f4-8b12-3d418cc74fa2" },
   { id: "130f45b6-ee45-4fa0-83eb-5ea8f9bc4680", title: "Essar strikes deal to buy 118 UK petrol stations", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/130f45b6-ee45-4fa0-83eb-5ea8f9bc4680" },
-  { id: "0008bdb5-ac6c-4d72-b71f-e53a94a10f77", title: "A ‘lucky’ chancellor must also be a resolute one", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/0008bdb5-ac6c-4d72-b71f-e53a94a10f77" },
-  { id: "a45a2f1f-03d9-46aa-8307-fe89edd7e589", title: "Tokenised gold could be exempt from fund regulations under FCA proposal", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/a45a2f1f-03d9-46aa-8307-fe89edd7e589" },
-  { id: "639b4d2a-30c7-473c-a3ec-1fe96a7a7ac7", title: "How high might natural gas prices go?", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/639b4d2a-30c7-473c-a3ec-1fe96a7a7ac7" },
 ];
