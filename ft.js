@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2b8c8997-0a76-4c48-9384-aac94904b7fb", title: "UK government considering takeover of insolvent steelmaker", date: "2026-09-14", time: "14:37", url: "https://www.ft.com/content/2b8c8997-0a76-4c48-9384-aac94904b7fb" },
   { id: "5495d88b-b457-498a-bedd-64a954b538cd", title: "Michael Dell’s family office leads $7.7bn deal to take insurance broker private", date: "2026-09-14", time: "14:17", url: "https://www.ft.com/content/5495d88b-b457-498a-bedd-64a954b538cd" },
   { id: "2c143d02-7fbd-4aa2-922c-f9afc8044dbe", title: "Monetary Policy Radar preview: Fed September meeting", date: "2026-09-14", time: "14:03", url: "https://www.ft.com/content/2c143d02-7fbd-4aa2-922c-f9afc8044dbe" },
   { id: "296b56d1-a30e-43cf-ac15-8a42de5cd59a", title: "The politics of AI, part two", date: "2026-09-14", time: "14:00", url: "https://www.ft.com/content/296b56d1-a30e-43cf-ac15-8a42de5cd59a" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "203bc43f-8189-4156-b60d-28614e07245f", title: "Expanded ad ban on ‘less healthy’ foods could hit £1bn in UK media spending", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/203bc43f-8189-4156-b60d-28614e07245f" },
   { id: "898836da-322a-4bb8-9e62-f3c3d36b23b2", title: "European capitals barter over Christine Lagarde’s successor at ECB", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/898836da-322a-4bb8-9e62-f3c3d36b23b2" },
   { id: "cfcc5bc1-56cc-4e9f-8f0e-ef45932b76ab", title: "UK faces £258bn infrastructure spending gap, warns report", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/cfcc5bc1-56cc-4e9f-8f0e-ef45932b76ab" },
-  { id: "050b2863-a164-431f-bd04-2e416adf9a38", title: "Oil price surge revives prospect of Bank of England rate rise this year", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/050b2863-a164-431f-bd04-2e416adf9a38" },
 ];
