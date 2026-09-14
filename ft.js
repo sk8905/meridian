@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f2b75c8a-1060-4995-9c8d-00355aaffffc", title: "Europe’s disclosure push has gone ‘too far’, says Liechtenstein", date: "2026-09-14", time: "11:00", url: "https://www.ft.com/content/f2b75c8a-1060-4995-9c8d-00355aaffffc" },
+  { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-14", time: "10:40", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "00455942-ad2f-4c57-8ba4-341d42e8cfce", title: "And the FTAV charts quiz winner isn’t…", date: "2026-09-14", time: "10:01", url: "https://www.ft.com/content/00455942-ad2f-4c57-8ba4-341d42e8cfce" },
   { id: "8ec31da9-9922-44e2-98c2-3225c9eb0e21", title: "Beijing launches drone buyback in crackdown after Citic Tower crash", date: "2026-09-14", time: "09:52", url: "https://www.ft.com/content/8ec31da9-9922-44e2-98c2-3225c9eb0e21" },
   { id: "3e39baca-6450-47b5-ab61-a49741aa25f7", title: "Reform’s windfall changes the mood music", date: "2026-09-14", time: "09:34", url: "https://www.ft.com/content/3e39baca-6450-47b5-ab61-a49741aa25f7" },
