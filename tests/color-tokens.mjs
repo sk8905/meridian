@@ -198,6 +198,14 @@ check(/\.ew-day\s*\{[^}]*background:\s*var\(--head,/.test(macroCss),
 check(!/function viewFund\s*\(/.test(creditDetailJs) && /export function fundManagerId\s*\(/.test(creditDetailJs),
   "v2/js/credit/detail.js: fund page retired (no viewFund; fundManagerId resolver present)");
 
+// Search results for an ENTITY (manager / fund / hedge fund / law firm) open in
+// the PROFILES tab — its list nav + active chip — not the retired desk chrome.
+// Guard against a regression back to /credit/#/… or /legal/#/… entity links.
+check(/managers\.forEach.*\/v2\/profiles\/#\/manager\//.test(paletteJs) && /\(firms \|\| \[\]\)\.forEach.*\/v2\/profiles\/#\/firm\//.test(paletteJs),
+  "palette.js: manager + law-firm search results open in the Profiles tab");
+check(!/add\("credit", m\.name.*\/credit\/#\/manager\//.test(paletteJs) && !/\(firms \|\| \[\]\)\.forEach.*\/legal\/#\/firm\//.test(paletteJs),
+  "palette.js: no entity result targets the retired /credit/ or /legal/ desk");
+
 // T12 — Managers/Investors search must not throw on a record with no `hq`
 // (an unset field is legitimately `null` per the refresh routine's "never
 // fabricate — unknown fields are null" rule). hqRegions() already guards with

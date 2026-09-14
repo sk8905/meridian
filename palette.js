@@ -60,20 +60,22 @@ function buildIndex() {
   add("view", "Home", "Cross-desk briefing", "/", 4, "");
   [["commentary", "Commentary", "Commentary"], ["policy", "Rate outlook", "Policy"], ["cycle", "Cycle", "Cycle"], ["bubble", "Bubble risk", "Bubble"], ["chart", "Chart", "Chart"], ["saved", "Saved", "Saved"]]
     .forEach(([k, l, tl]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, "", tl));
-  managers.forEach((m) => add("credit", m.name, "Manager", `/credit/#/manager/${encodeURIComponent(m.id)}`, 0, "", "Manager"));
+  // Entity profiles (manager / hedge fund / law firm) open in the PROFILES tab —
+  // its list nav + active chip — not the retired desk chrome.
+  managers.forEach((m) => add("credit", m.name, "Manager", `/v2/profiles/#/manager/${encodeURIComponent(m.id)}`, 0, "", "Manager"));
   // A fund is searchable by name, but the standalone fund page is retired — the
   // result opens the fund's MANAGER profile (never a dead #/fund/ page).
-  funds.forEach((f) => { if (f.managerId) add("credit", f.name, `Fund${mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/credit/#/manager/${encodeURIComponent(f.managerId)}`, 1, "", "Fund"); });
+  funds.forEach((f) => { if (f.managerId) add("credit", f.name, `Fund${mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/v2/profiles/#/manager/${encodeURIComponent(f.managerId)}`, 1, "", "Fund"); });
   deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
   intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise"));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
   const hfNm = {};
-  (HEDGE_FUNDS || []).forEach((f) => { hfNm[f.id] = f.name; add("credit", f.name, `Hedge fund · ${f.strategy}`, `/credit/#/hf/${encodeURIComponent(f.id)}`, 1, "", "Hedge fund"); });
-  (HEDGE_INTEL || []).forEach((h) => add("credit", h.headline, `Hedge fund${hfNm[h.hfId] ? " · " + hfNm[h.hfId] : ""}${h.date ? " · " + fmt(h.date) : ""}`, h.url || `/credit/#/hf/${encodeURIComponent(h.hfId)}`, 2, h.date, "HDG", h.outlet));
+  (HEDGE_FUNDS || []).forEach((f) => { hfNm[f.id] = f.name; add("credit", f.name, `Hedge fund · ${f.strategy}`, `/v2/profiles/#/hf/${encodeURIComponent(f.id)}`, 1, "", "Hedge fund"); });
+  (HEDGE_INTEL || []).forEach((h) => add("credit", h.headline, `Hedge fund${hfNm[h.hfId] ? " · " + hfNm[h.hfId] : ""}${h.date ? " · " + fmt(h.date) : ""}`, h.url || `/v2/profiles/#/hf/${encodeURIComponent(h.hfId)}`, 2, h.date, "HDG", h.outlet));
   // Law firms — rank 0 (like managers) so "Freshfields" surfaces the firm page
   // first; the page compiles the firm's alerts, matters, cases and deal mentions.
   const TIER_LBL = { magic: "Magic Circle", silver: "Silver Circle", "us-elite": "US elite", chambers: "Chambers" };
-  (firms || []).forEach((f) => add("legal", f.name, `Law firm${TIER_LBL[f.tier] ? " · " + TIER_LBL[f.tier] : ""}`, `/legal/#/firm/${encodeURIComponent(f.id)}`, 0, "", "Firm"));
+  (firms || []).forEach((f) => add("legal", f.name, `Law firm${TIER_LBL[f.tier] ? " · " + TIER_LBL[f.tier] : ""}`, `/v2/profiles/#/firm/${encodeURIComponent(f.id)}`, 0, "", "Firm"));
   const firmNm = Object.fromEntries((firms || []).map((f) => [f.id, f.name]));
   items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + (firmNm[i.firm] || i.firm) : ""}${i.date ? " · " + fmt(i.date) : ""}`, i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
   cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || `/legal/#/`, 2, c.date, "Case"));
