@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-warshratestrap-20260914",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Warsh talked himself into a rates trap",
+    date: "2026-09-14",
+    time: "05:02",
+    summary: "No improvement leaves no choice but hike.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-14/inflation-warsh-talked-the-fed-into-a-rates-trap",
+  },
+  {
     id: "nl-bbg-authoralert-greecehedgefundelite-20260913",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "12:20",
     summary: "Wealth managers flag South Korean stocks, water companies and luxury goods and experiences as where to put $10,000 right now, plus Pilates and sailing vacations for personal spending.",
     url: "https://www.bloomberg.com/features/how-to-invest-10k-q3-2026/",
-  },
-  {
-    id: "nl-bbg-goingprivate-europedistresseddebt-20260909",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: Europe's new problem debt playbook",
-    date: "2026-09-09",
-    time: "12:11",
-    summary: "European direct lenders are adopting tougher US-style workout tactics as the private credit cycle turns, with Lincoln International recording €4.5bn in debt foreclosures across eight issuers this year.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-09/america-s-distressed-debt-playbook-gaining-more-fans-in-europe",
   },
 ];
