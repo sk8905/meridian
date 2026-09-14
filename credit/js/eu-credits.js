@@ -52,7 +52,10 @@ export const EUR_CREDITS_META = {
 // The roster. Populated with sourced rows by the daily routine (and seeded as
 // live sourcing allows). Empty until the first verified batch lands — the Credits
 // sub-tab reflects that honestly rather than showing invented data.
-export const EUR_CREDITS = [];
+export const EUR_CREDITS = [
+  { name: "Verisure", sector: "Business Services", rating: "BB+", agency: "S&P", asOf: "2025-10-08", source: "https://www.verisure.com/press-releases/verisure-credit-rating-upgraded-by-moody-s-and-s-p-following-initial-public-offering" },
+  { name: "Axactor ASA", sector: "Financials", rating: "B-", agency: "S&P", asOf: "2025-11-27", source: "https://www.tradingview.com/news/reuters.com,2025-11-28:newsml_ObiNY6Tva:0-axactor-asa-s-p-outlook-revised-to-stable-from-negative-b-ratings-is-affirmed" },
+];
 
 // Group the roster by sector, in CREDIT_SECTORS order; unknown sectors fall to
 // "Other". Returns [[sectorLabel, [entries…]], …] omitting empty sectors.
