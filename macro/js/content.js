@@ -1180,9 +1180,19 @@ export const EARNINGS = {
   // Kiplinger/Earnings Whispers/TipRanks calendars checked 14 Sep) \u2014 FedEx (17
   // Sep) is the week's only notable print but sits outside the priority groups
   // and consensus EPS varies too widely across trackers ($3.91-4.49) to quote
-  // verbatim, so the ahead week carries no rows rather than an unverified figure.
+  // verbatim, so it is excluded rather than an unverified figure. General Mills
+  // (23 Sep), Darden (24 Sep) and FactSet (30 Sep) were initially flagged as
+  // in-window by a search summary but each company's own IR page places its
+  // report the following week or later \u2014 excluded. Lennar (16 Sep, homebuilder)
+  // is the week's one broad-market-relevant print (rate-sensitive housing data
+  // alongside the week's 10-year-yield-at-5% narrative) with a consistent,
+  // multi-source-verified estimate.
   weeks: [
-    { label: "This week \u00b7 14\u201318 Sep", days: [] },
+    { label: "This week \u00b7 14\u201318 Sep", days: [
+      { date: "2026-09-16", rows: [
+        { t: "LEN", n: "Lennar", tag: "Homebuilder \u00b7 NYSE", when: "After close", held: [], estEps: "$1.30 (avg est)", estRev: "$8.33-8.37bn (avg est; co. guide $1.20-1.40 EPS issued with Q2 FY26 release)", actEps: null, actRev: null, px: null, note: "Consensus sees EPS down from $2.00 a year ago as affordability pressure and a high-rate housing market weigh on margins; reports 4:45pm ET.", km: null, guide: { est: "co. guided Q3 FY26 EPS to $1.20-1.40 with the Q2 FY26 release", act: null } },
+      ] },
+    ] },
     { label: "Last week \u00b7 7\u201311 Sep", days: [
       { date: "2026-09-10", rows: [
         { t: "ORCL", n: "Oracle", tag: "AI/cloud infrastructure \u00b7 NYSE", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$1.30 (avg est)", estRev: "$19.13bn (avg est; co. guide total revenue +27-29% y/y, cloud revenue +58-64% y/y)", actEps: "$1.92 non-GAAP (beat ~$1.74 consensus)", actRev: "$19.35bn (+30% y/y, beat $19.14bn est)", px: "+7% after hours", note: "Q1 FY27 beat on both lines; cloud infrastructure revenue +121% y/y to $7.4bn and total cloud revenue +62% y/y to $11.6bn. Raised FY27 guidance to $8.10 non-GAAP EPS on $90bn+ revenue.", km: { l: "Cloud infrastructure revenue", est: null, act: "$7.4bn (+121% y/y)" }, guide: { est: "co. guided Q1 FY27 non-GAAP EPS to $1.72-1.76 and total revenue growth of 27-29% y/y (cloud +58-64% y/y) with the Q4 FY26 release", act: "guided Q2 FY27 total revenue growth to 30-34% (cloud +64-71%) and non-GAAP EPS to $1.85-1.93; raised FY27 guidance to $8.10 non-GAAP EPS on $90bn+ revenue" } },
@@ -1191,6 +1201,9 @@ export const EARNINGS = {
     ] },
   ],
   srcs: [
+    { name: "Alphastreet — Lennar (LEN) Q3 2026 Preview: EPS Est. $1.30, Reports September 17", url: "https://news.alphastreet.com/lennar-len-q3-2026-preview-eps-est-1-30-reports-september-17/" },
+    { name: "Yahoo Finance — Here's What to Expect From Lennar Corporation's Next Earnings Report", url: "https://finance.yahoo.com/markets/stocks/articles/heres-expect-lennar-corporations-next-111202035.html" },
+    { name: "MarketBeat — Lennar (LEN) Projected to Post Earnings on Wednesday", url: "https://www.marketbeat.com/instant-alerts/upcoming-lennar-len-projected-to-post-earnings-on-wednesday-2026-09-09/" },
     { name: "Oracle Investor Relations — Sets the Date for its First Quarter Fiscal Year 2027 Earnings Announcement (Sept 10, after market close)", url: "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-First-Quarter-Fiscal-Year-2027-Earnings-Announcement/default.aspx" },
     { name: "Moomoo — Oracle (ORCL) earnings: what to expect this quarter (Q1 FY27 est. revenue $19.13bn, EPS $1.30)", url: "https://www.moomoo.com/ca/articles/oracle-stock-earnings" },
     { name: "CNBC — Oracle (ORCL) Q1 FY2027 earnings report, EPS $1.92 vs $1.74 est, shares +7% after hours", url: "https://www.cnbc.com/2026/09/10/oracle-orcl-q1-earnings-report-2027.html" },

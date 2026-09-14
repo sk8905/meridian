@@ -48,7 +48,11 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
     srcCollapsed: !!document.querySelector("details.ew-srcwrap:not([open])"),
     foot: !!document.querySelector(".ew-foot"),
   }));
-  check(ew.rows > 5, "earnings wall renders rows");
+  // Threshold tracks the INVARIANT (the wall renders multiple real releases),
+  // not a specific rich week — row count swings with the actual earnings
+  // calendar (see briefing.mjs's identical rationale for its own cards check),
+  // and a quiet week with only a couple of confirmed reports is valid.
+  check(ew.rows >= 3, "earnings wall renders rows");
   check(ew.srcLinks > 10, "earnings sources present in DOM");
   check(ew.srcCollapsed, "earnings sources collapsed by default");
   check(!ew.foot, "no earnings explainer footnote");
