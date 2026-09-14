@@ -18,7 +18,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-28";
+import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-29";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
 import { esc, fmtAum, byDateDesc } from "/util.js?v=20260818-1";
 
@@ -863,42 +863,6 @@ function fundTable(rows, key, sig) {
     </table></div>` + more;
 }
 
-function viewFunds() {
-  const f = filterState.funds;
-  const inMarket = (x) => !x.evergreen && (x.status === "Open" || x.status === "First Close");
-  const rows = funds.filter((x) =>
-    (!targetFocus || midInFocus(x.managerId)) &&
-    (!f.q || (x.name + (managerById[x.managerId] || {}).name).toLowerCase().includes(f.q.toLowerCase())) &&
-    (!f.strategy.length || f.strategy.includes(x.strategy)) &&
-    (!f.status.length || f.status.some((s) => (s === "in-market" ? inMarket(x) : fundCategory(x) === s))) &&
-    (!f.geo.length || f.geo.includes(x.geoFocus)) &&
-    (!f.period || (isClose(x) && fundQuarter(x) === f.period))
-  ).sort((a, b) => a.name.localeCompare(b.name));
-
-  // A single table (like the Managers/Investors tabs), ordered by status so the
-  // funds stay grouped by Open / First Close / Final Close / Evergreen /
-  // Pre-marketing (the Status column shows each fund's status; the Status filter
-  // narrows it) rather than being split into separate section tables.
-  const body = rows.length
-    ? fundTable(rows)
-    : '<p class="empty">No funds match these filters.</p>';
-
-  const periodBanner = f.period
-    ? `<div class="active-filter">Showing funds that reached a first/final close in <strong>${esc(f.period)}</strong> <button type="button" class="chip" data-clearfilter="period" title="Clear quarter filter">✕ clear</button></div>`
-    : "";
-
-  app.innerHTML = `
-    <div class="page-head"><div class="ph-head-top"><h1>Funds in Market</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${funds.length} funds${f.period ? ` · closing ${esc(f.period)}` : ""}</p></div>
-    ${periodBanner}
-    <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
-      <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Fund or manager…" value="${esc(f.q)}"></label>
-      ${multiFilter("funds:strategy", "Strategy", STRATEGIES, f.strategy)}
-      ${multiFilter("funds:status", "Status", [{ value: "in-market", label: "In market (Open + First Close)" }, ...FUND_CATEGORIES], f.status)}
-      ${multiFilter("funds:geo", "Geography", GEOS, f.geo)}
-    </div>
-    ${body}`;
-  wireFilters("funds");
-}
 
 
 // ================================ MANAGERS ==================================
@@ -1528,8 +1492,10 @@ function router() {
   __detailSetProfilesMode(false);
   switch (route) {
     case "": case undefined: return viewDashboard();
-    case "funds": return viewFunds();
-    case "fund": return viewFund(arg);
+    // Fund pages are retired — the fund list and every fund detail redirect to the
+    // Managers list / the fund's manager, so nothing lands on a dead fund page.
+    case "funds": location.hash = "#/managers"; return;
+    case "fund": { const mid = (fundById[arg] || {}).managerId; location.hash = mid ? `#/manager/${encodeURIComponent(mid)}` : "#/managers"; return; }
     case "managers": return viewManagers();
     case "manager": return viewManager(arg);
     case "clo": return viewClo(arg, hash.split("/")[3]);

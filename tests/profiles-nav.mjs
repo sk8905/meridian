@@ -188,6 +188,25 @@ for (const pane of ["managers", "hedgefunds", "firms"]) {
     `${pane}: the search bar stays locked on scroll (top ${rest.top}→${scrolled.top})`);
 }
 
+// Legacy guard: the standalone fund page is retired. A #/fund/<id> route must
+// redirect to the fund's MANAGER profile — nothing should land on a dead fund page.
+await pg.evaluate(() => { const c = document.querySelector('#pf-chips .tchip[data-p="managers"]'); if (c) c.click(); location.hash = ""; });
+await pg.waitForTimeout(200);
+const fundRedirect = await pg.evaluate(async () => {
+  const m = await import("/credit/js/data.js");
+  const f = (m.funds || [])[0];
+  if (!f) return { ok: false, why: "no funds in data" };
+  location.hash = "#/fund/" + f.id;
+  await new Promise((r) => setTimeout(r, 500));
+  const detail = document.querySelector("#pf-detail");
+  return { ok: true, hash: location.hash, want: "#/manager/" + f.managerId, detailShown: !!(detail && !detail.hidden), noFundPage: !/No activity linked to this fund/i.test(document.body.textContent || "") };
+});
+check(fundRedirect.ok, `fund redirect: a fund exists to test (${fundRedirect.why || "ok"})`);
+if (fundRedirect.ok) {
+  check(fundRedirect.hash === fundRedirect.want, `#/fund/<id> redirects to the manager (${fundRedirect.hash} → want ${fundRedirect.want})`);
+  check(fundRedirect.detailShown && fundRedirect.noFundPage, "fund redirect: the manager profile renders, not a dead fund page");
+}
+
 checkErrs(errs, "profiles navigation");
 await ctx.close();
 await b.close(); srv.close();

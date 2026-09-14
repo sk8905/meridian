@@ -190,12 +190,13 @@ check(/\.ck-dim-s\s*\{[^}]*color:\s*var\(--ink\)/.test(macroCss),
 check(/\.ew-day\s*\{[^}]*background:\s*var\(--head,/.test(macroCss),
   "macro/css/styles.css .ew-day day-break bands on --head, not --bg");
 
-// T12 — Credit detail's viewFund() must guard a fund whose managerId has no
-// matching manager record (mirrors the null-guard every sibling view function
-// — viewManager/viewClo/viewLp/viewHedgeFund — already has), so a dangling
-// reference renders the empty state instead of throwing on m.id/m.name.
-check(/function viewFund\(id\)\s*\{[^]*?const m = managerById\[x\.managerId\];\s*\n\s*if \(!m\) return notFound\(app\);/.test(creditDetailJs),
-  "v2/js/credit/detail.js viewFund() guards a missing manager record before use");
+// T12 — The standalone fund detail page is RETIRED: viewFund() is removed and a
+// fund is surfaced only through its manager. detail.js instead exposes
+// fundManagerId() so the routers can redirect #/fund/<id> to #/manager/<id> (the
+// runtime redirect is exercised in tests/profiles-nav.mjs). Guard against the
+// dead fund page — or a link into it — creeping back.
+check(!/function viewFund\s*\(/.test(creditDetailJs) && /export function fundManagerId\s*\(/.test(creditDetailJs),
+  "v2/js/credit/detail.js: fund page retired (no viewFund; fundManagerId resolver present)");
 
 // T12 — Managers/Investors search must not throw on a record with no `hq`
 // (an unset field is legitimately `null` per the refresh routine's "never

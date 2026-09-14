@@ -10,9 +10,9 @@
 // Profiles-owned host per render (see __setProfilesMode in the detail modules).
 
 import {
-  viewManager, viewFund, viewClo, viewLp, viewHedgeFund,
+  viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-28";
+} from "/v2/js/credit/detail.js?v=v2-29";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
@@ -138,7 +138,15 @@ export async function mount(host, ctx) {
     const route = seg[0], arg = seg[1];
     switch (route) {
       case "manager": renderCredit("managers", () => viewManager(arg)); return decorateNet("manager", arg);
-      case "fund": return renderCredit("managers", () => viewFund(arg));
+      // The standalone fund page is retired — redirect to the fund's manager so no
+      // link (search, peer lists, connections, feed items) can reach a dead page.
+      case "fund": {
+        const mid = fundManagerId(arg);
+        if (!mid) return showList("managers");
+        const mh = `#/manager/${encodeURIComponent(mid)}`;
+        try { history.replaceState(null, "", location.pathname + location.search + mh); } catch { location.hash = mh; }
+        renderCredit("managers", () => viewManager(mid)); return decorateNet("manager", mid);
+      }
       case "clo": return renderCredit("managers", () => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
       case "lp": return renderCredit("managers", () => viewLp(arg));
       case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg)); return decorateNet("hf", arg);
