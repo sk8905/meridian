@@ -97,7 +97,7 @@ export function mount(host, ctx) {
     </div>`;
   const body = host.querySelector("#tx-body");
   const creditsBody = host.querySelector("#tx-credits-body");
-  let _crMode = "flow", _crQ = "", _crGroup = "sector";
+  let _crMode = "flow", _crQ = "", _crGroup = null;   // null = neutral default (sector order, no button lit)
   // S&P scale, best → worst — used to order the roster when grouping by rating.
   const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
   const ratingRank = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? 999 : i; };
@@ -288,7 +288,8 @@ export function mount(host, ctx) {
   // news/manager-wire group button. Re-orders the roster in place.
   host.querySelector("#tx-cr-ctl").addEventListener("click", (e) => {
     const btn = e.target.closest("[data-crgroup]"); if (!btn) return;
-    _crGroup = btn.dataset.crgroup === "rating" ? "rating" : "sector";
+    const mode = btn.dataset.crgroup === "rating" ? "rating" : "sector";
+    _crGroup = (_crGroup === mode) ? null : mode;   // clicking the active button turns it off
     host.querySelectorAll("#tx-cr-ctl .tcr-grpbtn").forEach((b) => { const on = b.dataset.crgroup === _crGroup; b.classList.toggle("is-on", on); b.setAttribute("aria-pressed", String(on)); });
     renderCredits();
   });

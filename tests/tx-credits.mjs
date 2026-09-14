@@ -91,7 +91,11 @@ if (cr.rows > 0) {
   });
   check(g1.ratingOn && g1.sectorOff && g1.count === q.total, `Credits: group-by-rating becomes active and keeps every row (${g1.count})`);
   check(g1.sorted, "Credits: group-by-rating orders the roster best → worst");
-  await pg.evaluate(() => document.querySelector('#tx-cr-ctl [data-crgroup="sector"]').click());
+  // Clicking the active button again toggles it OFF, back to the neutral default.
+  await pg.evaluate(() => document.querySelector('#tx-cr-ctl [data-crgroup="rating"]').click());
+  await pg.waitForTimeout(120);
+  const g2 = await pg.evaluate(() => ({ anyOn: [...document.querySelectorAll("#tx-cr-ctl .tcr-grpbtn")].some((b) => b.classList.contains("is-on")), rows: document.querySelectorAll("#tx-credits-body .tcr-row").length }));
+  check(!g2.anyOn && g2.rows === q.total, `Credits: clicking the active group-by button again turns it off (${g2.rows} rows)`);
 }
 
 // Toggling back restores Deal flow.
