@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b9a2d02a-d240-4512-a7fa-a8fa6f0429c8", title: "EU and Canada to toast to closer bonds in bid to rally multilateral world order", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/b9a2d02a-d240-4512-a7fa-a8fa6f0429c8" },
+  { id: "8e434151-b6ca-492f-9aba-6775529f9545", title: "Druckenmiller: no US rate cuts needed", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/8e434151-b6ca-492f-9aba-6775529f9545" },
+  { id: "988e8cb5-da27-49a6-a9f5-377b515c02ba", title: "FTAV’s further reading", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/988e8cb5-da27-49a6-a9f5-377b515c02ba" },
+  { id: "4845a503-3ddd-4bb7-a469-c51f275bc873", title: "Oil hits $108 after Gulf states postpone talks with Iran over Hormuz", date: "2026-09-14", time: "05:42", url: "https://www.ft.com/content/4845a503-3ddd-4bb7-a469-c51f275bc873" },
+  { id: "e9d90dd1-0f3c-4771-8cc7-341b3c050d8f", title: "FirstFT: Oil surge stirs UK rate rise debate", date: "2026-09-14", time: "05:38", url: "https://www.ft.com/content/e9d90dd1-0f3c-4771-8cc7-341b3c050d8f" },
+  { id: "4f6a427f-3975-470f-83bf-b21423df59c8", title: "Japan’s central bank set for pivotal moment on rates", date: "2026-09-14", time: "05:15", url: "https://www.ft.com/content/4f6a427f-3975-470f-83bf-b21423df59c8" },
   { id: "aa8a1be7-abe0-44b7-bcd3-31fd0a44de08", title: "Global AI stocks slip on concerns over risks", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/aa8a1be7-abe0-44b7-bcd3-31fd0a44de08" },
   { id: "904c6d93-a6b3-47f4-8b12-3d418cc74fa2", title: "Warsh and Trump on collision course as investors expect Fed to raise rates", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/904c6d93-a6b3-47f4-8b12-3d418cc74fa2" },
   { id: "130f45b6-ee45-4fa0-83eb-5ea8f9bc4680", title: "Essar strikes deal to buy 118 UK petrol stations", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/130f45b6-ee45-4fa0-83eb-5ea8f9bc4680" },
@@ -55,9 +61,4 @@ export const FT_ITEMS = [
   { id: "21b663e4-60ee-4937-a561-5b0f505676a2", title: "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/21b663e4-60ee-4937-a561-5b0f505676a2" },
   { id: "3204d65e-ae34-4ab3-a73f-a55d354f40ab", title: "Texas puts a brake on its data centre boom", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/3204d65e-ae34-4ab3-a73f-a55d354f40ab" },
   { id: "2404d7db-002e-42d6-a746-183bb23c1234", title: "The coming robotaxi revolution", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/2404d7db-002e-42d6-a746-183bb23c1234" },
-  { id: "b11887d2-d40d-473d-ba5e-2f9fb8a73beb", title: "Trump’s vision of Alaska as LNG superpower confronts an $80bn test", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/b11887d2-d40d-473d-ba5e-2f9fb8a73beb" },
-  { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-13", time: "08:50", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
-  { id: "183569b4-8102-4b38-8a20-a3597a442f26", title: "Boom-era PE funds will fall short on promises, executives warn", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/183569b4-8102-4b38-8a20-a3597a442f26" },
-  { id: "b081fc93-3eb8-4adc-84cc-b5c5cf719003", title: "Sunderland football club looks to US post-industrial peers in bid to lift revenue", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/b081fc93-3eb8-4adc-84cc-b5c5cf719003" },
-  { id: "7f01b434-0209-4783-b8eb-5a095ca5bd4f", title: "How Russia’s new drones are changing the air war", date: "2026-09-13", time: "05:00", url: "https://www.ft.com/content/7f01b434-0209-4783-b8eb-5a095ca5bd4f" },
 ];
