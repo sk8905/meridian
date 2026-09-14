@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5495d88b-b457-498a-bedd-64a954b538cd", title: "Michael Dell’s family office leads $7.7bn deal to take insurance broker private", date: "2026-09-14", time: "14:17", url: "https://www.ft.com/content/5495d88b-b457-498a-bedd-64a954b538cd" },
+  { id: "2c143d02-7fbd-4aa2-922c-f9afc8044dbe", title: "Monetary Policy Radar preview: Fed September meeting", date: "2026-09-14", time: "14:03", url: "https://www.ft.com/content/2c143d02-7fbd-4aa2-922c-f9afc8044dbe" },
+  { id: "296b56d1-a30e-43cf-ac15-8a42de5cd59a", title: "The politics of AI, part two", date: "2026-09-14", time: "14:00", url: "https://www.ft.com/content/296b56d1-a30e-43cf-ac15-8a42de5cd59a" },
+  { id: "dd6af02e-9328-48f6-9054-4623cf65b8b1", title: "Keir Starmer approved £860,000 pay-off for sacked civil service chief", date: "2026-09-14", time: "14:00", url: "https://www.ft.com/content/dd6af02e-9328-48f6-9054-4623cf65b8b1" },
+  { id: "bd8a8a3f-220c-4f52-9a54-1eca0a4e0423", title: "Crispin Odey loses appeal against industry ban", date: "2026-09-14", time: "13:42", url: "https://www.ft.com/content/bd8a8a3f-220c-4f52-9a54-1eca0a4e0423" },
+  { id: "bab5c4c5-5377-4dd0-8b46-d8c4ce9a36d5", title: "Steve Bannon and Bernie Sanders unite in AI safety call", date: "2026-09-14", time: "13:40", url: "https://www.ft.com/content/bab5c4c5-5377-4dd0-8b46-d8c4ce9a36d5" },
+  { id: "d591b5ce-69b4-4bf7-ac05-95341076ac59", title: "Monetary Policy Radar preview: BoJ’s September meeting", date: "2026-09-14", time: "13:39", url: "https://www.ft.com/content/d591b5ce-69b4-4bf7-ac05-95341076ac59" },
+  { id: "f395dab5-29cd-401b-bbaa-a546da9908e3", title: "Zelenskyy imposes sanctions on former aide turned critic", date: "2026-09-14", time: "13:26", url: "https://www.ft.com/content/f395dab5-29cd-401b-bbaa-a546da9908e3" },
   { id: "f2a472e6-352a-4067-b9e5-56596a8ba215", title: "A spreading war threatens Trump and MBS", date: "2026-09-14", time: "12:48", url: "https://www.ft.com/content/f2a472e6-352a-4067-b9e5-56596a8ba215" },
   { id: "bdc77254-e491-4d9f-8537-6f04317d037f", title: "The Saudi relief valve is being closed", date: "2026-09-14", time: "12:31", url: "https://www.ft.com/content/bdc77254-e491-4d9f-8537-6f04317d037f" },
   { id: "ed47f038-a049-4987-b2d7-845ee7ee01d7", title: "A design quirk of Victorian pubs is back on the menu", date: "2026-09-14", time: "12:00", url: "https://www.ft.com/content/ed47f038-a049-4987-b2d7-845ee7ee01d7" },
@@ -52,12 +60,4 @@ export const FT_ITEMS = [
   { id: "898836da-322a-4bb8-9e62-f3c3d36b23b2", title: "European capitals barter over Christine Lagarde’s successor at ECB", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/898836da-322a-4bb8-9e62-f3c3d36b23b2" },
   { id: "cfcc5bc1-56cc-4e9f-8f0e-ef45932b76ab", title: "UK faces £258bn infrastructure spending gap, warns report", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/cfcc5bc1-56cc-4e9f-8f0e-ef45932b76ab" },
   { id: "050b2863-a164-431f-bd04-2e416adf9a38", title: "Oil price surge revives prospect of Bank of England rate rise this year", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/050b2863-a164-431f-bd04-2e416adf9a38" },
-  { id: "d545bae1-d770-46f3-9913-07e85d4ae34c", title: "Cyber criminals use AI to supercharge scams, watchdog warns", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/d545bae1-d770-46f3-9913-07e85d4ae34c" },
-  { id: "cf0ee7e3-8634-4c1d-8a44-3b71acee1417", title: "Euronext open to ‘big bang’ deal with rival Deutsche Börse", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/cf0ee7e3-8634-4c1d-8a44-3b71acee1417" },
-  { id: "d805fcf8-e0ff-463f-bc1c-974f878fae43", title: "Start-up opens factory a mile from Tower Bridge amid defence surge", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/d805fcf8-e0ff-463f-bc1c-974f878fae43" },
-  { id: "b15d9839-1d2e-4a38-9a5c-5424aeff2b3c", title: "Defence sales test Europe’s appetite for US investment", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/b15d9839-1d2e-4a38-9a5c-5424aeff2b3c" },
-  { id: "8b704ae0-1fa2-4303-925f-170fa5d935b3", title: "‘Offensively cheap’: solar power is looking up", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/8b704ae0-1fa2-4303-925f-170fa5d935b3" },
-  { id: "0688caee-f24f-4fa7-b04a-d1e8f9c0c03d", title: "Schroders considers acquisitions to grow wealth division", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/0688caee-f24f-4fa7-b04a-d1e8f9c0c03d" },
-  { id: "76a24fc8-b521-47d6-aec9-1bf6666afd60", title: "Fed and BoJ expect rate hikes as US bond market flails", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/76a24fc8-b521-47d6-aec9-1bf6666afd60" },
-  { id: "e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd", title: "Trump calls on Ukraine to stop striking Russian diesel refineries", date: "2026-09-13", time: "20:08", url: "https://www.ft.com/content/e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd" },
 ];
