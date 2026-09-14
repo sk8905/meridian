@@ -85,7 +85,7 @@ export function mount(host, ctx) {
             <header class="tpanel-h thead-search" id="tx-credits-search">
               <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
               <div class="tcr-grpctl" id="tx-cr-ctl" role="group" aria-label="Group the credit roster">
-                <button type="button" class="tcr-grpbtn is-on" data-crgroup="sector" aria-pressed="true">${grpSvg}<span>Group by sector</span></button>
+                <button type="button" class="tcr-grpbtn" data-crgroup="sector" aria-pressed="false">${grpSvg}<span>Group by sector</span></button>
                 <button type="button" class="tcr-grpbtn" data-crgroup="rating" aria-pressed="false">${grpSvg}<span>Group by rating</span></button>
               </div>
             </header>
@@ -99,7 +99,7 @@ export function mount(host, ctx) {
   const creditsBody = host.querySelector("#tx-credits-body");
   let _crMode = "flow", _crQ = "", _crGroup = "sector";
   // S&P scale, best → worst — used to order the roster when grouping by rating.
-  const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "D"];
+  const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
   const ratingRank = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? 999 : i; };
 
   const trendMark = (a, b) => a > b ? `<span class="tx-up">▲</span>` : a < b ? `<span class="tx-dn">▼</span>` : `<span class="tx-fl">·</span>`;

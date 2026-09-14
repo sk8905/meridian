@@ -655,9 +655,10 @@
    bar. The buttons mirror the news/manager-wire group button: outlined accent,
    filled tint when on. */
 .tcr-grpctl { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; }
-.tcr-grpbtn { display: inline-flex; align-items: center; gap: 6px; margin: 0; padding: 1px 9px; background: transparent; border: 1px solid var(--border); border-radius: 0; color: var(--accent); font: inherit; font-size: 11px; font-weight: 700; letter-spacing: .01em; cursor: pointer; white-space: nowrap; }
-.tcr-grpbtn:hover { border-color: var(--accent); }
-.tcr-grpbtn.is-on { background: color-mix(in srgb, var(--accent) 18%, transparent); }
+/* Neutral by default; the accent (colour + fill) appears ONLY on the selected one. */
+.tcr-grpbtn { display: inline-flex; align-items: center; gap: 6px; margin: 0; padding: 1px 9px; background: transparent; border: 1px solid var(--border); border-radius: 0; color: var(--muted); font: inherit; font-size: 11px; font-weight: 700; letter-spacing: .01em; cursor: pointer; white-space: nowrap; }
+.tcr-grpbtn:hover { border-color: var(--accent); color: var(--accent); }
+.tcr-grpbtn.is-on { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
 .tcr-grpbtn svg { flex: 0 0 auto; }
 /* The credit universe as one flat, evenly-spaced table: Borrower · Jurisdiction ·
    Sector · Rating (with the 12-month trend arrow in the Rating cell). Fixed layout

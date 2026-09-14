@@ -75,15 +75,15 @@ if (cr.rows > 0) {
   // news/manager-wire group button, defaulting to sector.
   const g0 = await pg.evaluate(() => {
     const btns = [...document.querySelectorAll("#tx-cr-ctl .tcr-grpbtn")];
-    return { n: btns.length, labels: btns.map((b) => b.textContent.trim()), sectorOn: !!document.querySelector('#tx-cr-ctl [data-crgroup="sector"].is-on') };
+    return { n: btns.length, labels: btns.map((b) => b.textContent.trim()), anyOn: btns.some((b) => b.classList.contains("is-on")) };
   });
   check(g0.n === 2 && /sector/i.test(g0.labels[0] || "") && /rating/i.test(g0.labels[1] || ""), `Credits: two group-by buttons (${g0.labels.join(", ")})`);
-  check(g0.sectorOn, "Credits: grouped by sector by default");
+  check(!g0.anyOn, "Credits: no group-by button carries the accent until one is picked");
   // Switching to group-by-rating re-orders the roster best → worst.
   await pg.evaluate(() => document.querySelector('#tx-cr-ctl [data-crgroup="rating"]').click());
   await pg.waitForTimeout(150);
   const g1 = await pg.evaluate(() => {
-    const ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "D"];
+    const ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
     const rk = (r) => { const i = ORDER.indexOf(r); return i === -1 ? 999 : i; };
     const ranks = [...document.querySelectorAll("#tx-credits-body .tcr-row .tcr-rt")].map((a) => rk(a.textContent.trim()));
     let sorted = true; for (let i = 1; i < ranks.length; i++) if (ranks[i] < ranks[i - 1]) { sorted = false; break; }

@@ -198,11 +198,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     Finance research** (~500 covered borrowers); **AFME** and **GlobalCapital**
     league tables give market/issuance context, not an issuer directory. Cite the
     specific S&P action URL as `source` and set `asOf` to the verification date.
-  - **Seeded (2026-09-14):** ~73 verified names are in place, spanning all the main
+  - **Seeded (2026-09-14):** ~104 verified names are in place, spanning 16 of the 17
     sectors (telecom, media, software, healthcare, chemicals, packaging, consumer,
-    food, gaming, business services, autos, transport, financials), each with its
-    `jurisdiction` and 12-month `trend`. This is still short of the full ~300 ELLI
-    universe — extend from here toward it, a few verified names per run, and
+    food, gaming, business services, autos, transport, financials, industrials,
+    energy, building), each with its `jurisdiction` and 12-month `trend`. This is
+    still short of the full ~300 ELLI universe — extend from here toward it, a few
+    verified names per run, and
     re-verify existing rows on new S&P actions (a new upgrade/downgrade flips
     `trend`; a rating that has held for 12 months settles back to `"flat"`).
     Discipline reminder from this batch: only add a name when a real search result
