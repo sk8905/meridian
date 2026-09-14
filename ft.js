@@ -20,17 +20,18 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
-  { id: "b3d01493-f0f5-491b-bcf8-2d414539fbe7", title: "Can AI’s leaders put aside rivalry for the common good?", date: "2026-09-14", time: "07:12", url: "https://www.ft.com/content/b3d01493-f0f5-491b-bcf8-2d414539fbe7" },
+  { id: "aa8a1be7-abe0-44b7-bcd3-31fd0a44de08", title: "Global AI stocks under pressure as safety fears erupt", date: "2026-09-14", time: "08:39", url: "https://www.ft.com/content/aa8a1be7-abe0-44b7-bcd3-31fd0a44de08" },
+  { id: "4845a503-3ddd-4bb7-a469-c51f275bc873", title: "Oil hits $108 as Gulf states postpone talks with Iran over Hormuz", date: "2026-09-14", time: "08:31", url: "https://www.ft.com/content/4845a503-3ddd-4bb7-a469-c51f275bc873" },
+  { id: "b3d01493-f0f5-491b-bcf8-2d414539fbe7", title: "Can AI’s leaders really put aside rivalry for the common good?", date: "2026-09-14", time: "07:12", url: "https://www.ft.com/content/b3d01493-f0f5-491b-bcf8-2d414539fbe7" },
   { id: "e1383b40-554a-445d-a431-a7068c68aa76", title: "Pressure over Japan nuclear restart led to data manipulation, report finds", date: "2026-09-14", time: "07:05", url: "https://www.ft.com/content/e1383b40-554a-445d-a431-a7068c68aa76" },
   { id: "b8f897e4-cb25-45a8-869d-ed5aa0919d08", title: "High inflation or low credibility?", date: "2026-09-14", time: "06:30", url: "https://www.ft.com/content/b8f897e4-cb25-45a8-869d-ed5aa0919d08" },
   { id: "8715d1c6-054d-4eab-bcad-147acebfd2a9", title: "China’s spy agency warns of AI risk to national security", date: "2026-09-14", time: "06:15", url: "https://www.ft.com/content/8715d1c6-054d-4eab-bcad-147acebfd2a9" },
   { id: "b9a2d02a-d240-4512-a7fa-a8fa6f0429c8", title: "EU and Canada to toast to closer bonds in bid to rally multilateral world order", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/b9a2d02a-d240-4512-a7fa-a8fa6f0429c8" },
   { id: "8e434151-b6ca-492f-9aba-6775529f9545", title: "Druckenmiller: no US rate cuts needed", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/8e434151-b6ca-492f-9aba-6775529f9545" },
   { id: "988e8cb5-da27-49a6-a9f5-377b515c02ba", title: "FTAV’s further reading", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/988e8cb5-da27-49a6-a9f5-377b515c02ba" },
-  { id: "4845a503-3ddd-4bb7-a469-c51f275bc873", title: "Oil hits $108 after Gulf states postpone talks with Iran over Hormuz", date: "2026-09-14", time: "05:42", url: "https://www.ft.com/content/4845a503-3ddd-4bb7-a469-c51f275bc873" },
+  { id: "00e3c084-06e3-47b4-8230-185760216e60", title: "Swedish election on a knife-edge", date: "2026-09-14", time: "05:47", url: "https://www.ft.com/content/00e3c084-06e3-47b4-8230-185760216e60" },
   { id: "e9d90dd1-0f3c-4771-8cc7-341b3c050d8f", title: "FirstFT: Oil surge stirs UK rate rise debate", date: "2026-09-14", time: "05:38", url: "https://www.ft.com/content/e9d90dd1-0f3c-4771-8cc7-341b3c050d8f" },
   { id: "4f6a427f-3975-470f-83bf-b21423df59c8", title: "Japan’s central bank set for pivotal moment on rates", date: "2026-09-14", time: "05:15", url: "https://www.ft.com/content/4f6a427f-3975-470f-83bf-b21423df59c8" },
-  { id: "aa8a1be7-abe0-44b7-bcd3-31fd0a44de08", title: "Global AI stocks slip on concerns over risks", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/aa8a1be7-abe0-44b7-bcd3-31fd0a44de08" },
   { id: "904c6d93-a6b3-47f4-8b12-3d418cc74fa2", title: "Warsh and Trump on collision course as investors expect Fed to raise rates", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/904c6d93-a6b3-47f4-8b12-3d418cc74fa2" },
   { id: "130f45b6-ee45-4fa0-83eb-5ea8f9bc4680", title: "Essar strikes deal to buy 118 UK petrol stations", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/130f45b6-ee45-4fa0-83eb-5ea8f9bc4680" },
   { id: "0008bdb5-ac6c-4d72-b71f-e53a94a10f77", title: "A ‘lucky’ chancellor must also be a resolute one", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/0008bdb5-ac6c-4d72-b71f-e53a94a10f77" },
@@ -47,7 +48,6 @@ export const FT_ITEMS = [
   { id: "8b704ae0-1fa2-4303-925f-170fa5d935b3", title: "‘Offensively cheap’: solar power is looking up", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/8b704ae0-1fa2-4303-925f-170fa5d935b3" },
   { id: "0688caee-f24f-4fa7-b04a-d1e8f9c0c03d", title: "Schroders considers acquisitions to grow wealth division", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/0688caee-f24f-4fa7-b04a-d1e8f9c0c03d" },
   { id: "76a24fc8-b521-47d6-aec9-1bf6666afd60", title: "Fed and BoJ expect rate hikes as US bond market flails", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/76a24fc8-b521-47d6-aec9-1bf6666afd60" },
-  { id: "00e3c084-06e3-47b4-8230-185760216e60", title: "Sweden’s left on course to retake power", date: "2026-09-13", time: "20:26", url: "https://www.ft.com/content/00e3c084-06e3-47b4-8230-185760216e60" },
   { id: "e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd", title: "Trump calls on Ukraine to stop striking Russian diesel refineries", date: "2026-09-13", time: "20:08", url: "https://www.ft.com/content/e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd" },
   { id: "9cd8cc79-e98a-449f-a903-609b034a56e3", title: "Canada seeks Ukraine loan role to deepen EU ties", date: "2026-09-13", time: "19:57", url: "https://www.ft.com/content/9cd8cc79-e98a-449f-a903-609b034a56e3" },
   { id: "7de7cc10-e7a5-414b-a40f-3296eaf49ce7", title: "Russians to vote, but the outcome is already decided", date: "2026-09-13", time: "18:15", url: "https://www.ft.com/content/7de7cc10-e7a5-414b-a40f-3296eaf49ce7" },
@@ -60,5 +60,4 @@ export const FT_ITEMS = [
   { id: "cdce9cd6-4857-4332-af34-ffc9ce45eadf", title: "Russia hits evacuated Kyiv-Warsaw train on line used by foreign leaders", date: "2026-09-13", time: "12:47", url: "https://www.ft.com/content/cdce9cd6-4857-4332-af34-ffc9ce45eadf" },
   { id: "dc5012ed-cb82-469e-9be8-e65ac7f6745c", title: "Why teenagers are doing worse at school", date: "2026-09-13", time: "12:00", url: "https://www.ft.com/content/dc5012ed-cb82-469e-9be8-e65ac7f6745c" },
   { id: "1fd5bbf6-9bb6-4848-a01b-7c94b3e59b6e", title: "Will the Fed defy Trump and raise rates?", date: "2026-09-13", time: "12:00", url: "https://www.ft.com/content/1fd5bbf6-9bb6-4848-a01b-7c94b3e59b6e" },
-  { id: "d17cda71-1c35-4abd-b4d5-773550b109cc", title: "‘Trumpism’ spawns rare unity at Brics summit", date: "2026-09-13", time: "11:50", url: "https://www.ft.com/content/d17cda71-1c35-4abd-b4d5-773550b109cc" },
 ];

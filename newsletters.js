@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-citylawyerpleadsnotguilty-20260914",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "City lawyer pleads not guilty",
+    date: "2026-09-14",
+    time: "09:06",
+    summary: "Former City M&A lawyer Richard Bloomfield pleads not guilty to insider dealing over Goodwin's Seraphine take-private, as Latham buys Nvidia GPUs to build its own in-house AI stack.",
+    url: "https://www.nonbillable.co.uk/news/city-lawyer-pleads-not-guilty-to-insider-dealing-charges-richard-bloomfield",
+  },
+  {
     id: "nl-businesspost-anthropicdublinambitions-20260914",
     publication: "Business Post",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "05:00",
     summary: "And then there's oil back above $100 — Bessent's tripled bond buyback failed to move yields, testing how far markets will push him and whether 5% on the 10-year could finally rattle stocks.",
     url: "https://links.message.bloomberg.com/a/sc/qjDDCHf-5glcfwt9BIwFatdbJ0xEcSZZuJvbYi-DTQz-_pgRn4D4HEGCZas3vE0qUWM95y17eE_7HRBnuRGIwhX41tJk6SyAhyApgfkQ18gwjyZexF9rYS96URfvy0q2fdQnPHdxyZqYRzC2e-2vZhDtlC1xBNdxF0lW_BopKThJ8uZv9MzfBw7zjZlSUHiK0juF377kxbWhx7WIvqVTGHD6eB66yzl9r_k4c1-REv8ILRHHrGmdUQLK1djibsV4fGB_2JS0bO8s8Eudim7VWV7T2EXadGDVWKdkN05S-pv_weTyFYXAfTp93WpuFjW94Gkk8COCgn71bzyOXvDvQ6Fngmr41dZEaFaDgiEZ2SngcY8DoFY2lCm0cppkhRQn8pTHxemN9ohIBNTp2HXIAm2AysBe0Ciz4R0p9Obkzo8OWgU2TvoEv199R2JEQxiAd0DF8yyCDtZACtrbvxwtRQ7rc8PvfJ3GNKDsysh23FIDNmy1ri0utJxT5Z30uK_KhKlOlzZR2Me1n8cFx3YM3ziu_UZp2T03",
-  },
-  {
-    id: "nl-lemonde-lebrief-netanyahoualert-20260909",
-    publication: "Le Monde",
-    author: null,
-    series: "Le Brief",
-    title: "Le Brief: En Israël, les révélations sur l'alerte reçue par Benyamin Nétanyahou avant le 7-Octobre provoquent un séisme politique",
-    date: "2026-09-09",
-    time: "17:34",
-    summary: "Haaretz reports Netanyahu was warned via the UAE of Hamas's Oct 7 attack plans ten days in advance — which he denies; plus Kyiv claims strikes on Russia's Novorossiysk naval base.",
-    url: "https://infos.lemonde.fr/optiext/optiextension.dll?IDj7TSfs0LBwoPHwnCFMId9FddIv-GNq1_km0WzxVIIgDjmlxXjwh9tfM8wK9A2MDp4CCLxi1ohLdXqRrHiIlZZzXcie1pNhgJWclvvM",
   },
 ];
