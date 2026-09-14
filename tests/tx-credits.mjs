@@ -38,6 +38,28 @@ check(cr.crSearchShown && cr.crBodyShown, "Credits mode shows the credit search 
 // Either the sourced roster (sector groups) or the honest "being compiled" state.
 check((cr.groups > 0) || (cr.empty && cr.text > 0), `Credits body shows the sector roster or the compiling state (groups ${cr.groups})`);
 
+// Once the roster has landed, every row must be REAL + SOURCED (R7/R22): a named
+// obligor, and a rating that is either a link to a public rating action or an
+// honest "NR" — never an unsourced rating. One agency, named in the meta line.
+if (cr.groups > 0) {
+  const q = await pg.evaluate(() => {
+    const cb = document.querySelector("#tx-credits-body");
+    const rows = [...cb.querySelectorAll(".tcr-row")];
+    const named = rows.filter((r) => (r.querySelector(".tcr-nm") || {}).textContent.trim()).length;
+    const rated = rows.map((r) => r.querySelector(".tcr-rt")).filter(Boolean);
+    const badRating = rated.filter((rt) => {
+      const nr = rt.classList.contains("tcr-nr");
+      const a = rt.tagName === "A" && /^https?:/.test(rt.getAttribute("href") || "");
+      return !nr && !a;                       // a real rating with no source link is illegal
+    }).length;
+    return { total: rows.length, named, sourced: rated.filter((rt) => rt.tagName === "A" && /^https?:/.test(rt.getAttribute("href") || "")).length, badRating, meta: (cb.querySelector(".tcr-meta") || {}).textContent || "" };
+  });
+  check(q.named === q.total, `Credits: every listed obligor is named (${q.named}/${q.total})`);
+  check(q.badRating === 0, `Credits: no unsourced ratings — each rating links its action or shows NR (${q.badRating} bad)`);
+  check(q.sourced > 0, `Credits: ratings link to their public source (${q.sourced} linked)`);
+  check(/issuer ratings\s+S&P/.test(q.meta), `Credits: one consistent rating agency named in the meta (${q.meta.trim().slice(0, 60)})`);
+}
+
 // Toggling back restores Deal flow.
 await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="flow"]').click());
 await pg.waitForTimeout(200);

@@ -50,11 +50,25 @@ export const EUR_CREDITS_META = {
 };
 
 // The roster. Populated with sourced rows by the daily routine (and seeded as
-// live sourcing allows). Empty until the first verified batch lands — the Credits
-// sub-tab reflects that honestly rather than showing invented data.
+// live sourcing allows). Every row carries a REAL, current S&P issuer rating tied
+// to a specific public S&P rating action (or coverage of one) — never invented.
+// `asOf` is the date the rating was last verified against its source. The routine
+// extends this toward the full ELLI universe and re-checks ratings on new actions.
 export const EUR_CREDITS = [
-  { name: "Verisure", sector: "Business Services", rating: "BB+", agency: "S&P", asOf: "2025-10-08", source: "https://www.verisure.com/press-releases/verisure-credit-rating-upgraded-by-moody-s-and-s-p-following-initial-public-offering" },
+  { name: "Action", sector: "Consumer & Retail", rating: "BB", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3196745" },
+  { name: "Altice France", sector: "Telecom", rating: "B-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3452736" },
   { name: "Axactor ASA", sector: "Financials", rating: "B-", agency: "S&P", asOf: "2025-11-27", source: "https://www.tradingview.com/news/reuters.com,2025-11-28:newsml_ObiNY6Tva:0-axactor-asa-s-p-outlook-revised-to-stable-from-negative-b-ratings-is-affirmed" },
+  { name: "Cerba HealthCare", sector: "Healthcare & Pharma", rating: "CCC-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3547297" },
+  { name: "Cirsa", sector: "Gaming & Leisure", rating: "BB-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101636696" },
+  { name: "INEOS Quattro", sector: "Chemicals", rating: "BB", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3348272" },
+  { name: "Kloeckner Pentaplast", sector: "Packaging", rating: "D", agency: "S&P", asOf: "2026-09-14", source: "https://cbonds.com/news/3768903/" },
+  { name: "Rovensa", sector: "Chemicals", rating: "B-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3459538" },
+  { name: "STADA (Nidda Healthcare)", sector: "Healthcare & Pharma", rating: "B", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3449395" },
+  { name: "Synlab", sector: "Healthcare & Pharma", rating: "B", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3097143" },
+  { name: "TeamSystem", sector: "Technology & Software", rating: "B-", agency: "S&P", asOf: "2026-09-14", source: "https://cbonds.com/news/3448861/" },
+  { name: "Techem", sector: "Business Services", rating: "B+", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3568419" },
+  { name: "Verisure", sector: "Business Services", rating: "BB+", agency: "S&P", asOf: "2025-10-08", source: "https://www.verisure.com/press-releases/verisure-credit-rating-upgraded-by-moody-s-and-s-p-following-initial-public-offering" },
+  { name: "VodafoneZiggo", sector: "Telecom", rating: "B+", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101626175" },
 ];
 
 // Group the roster by sector, in CREDIT_SECTORS order; unknown sectors fall to
