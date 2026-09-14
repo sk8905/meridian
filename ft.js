@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a8789270-aeee-4bfd-89a3-207c0a46730d", title: "Tories look at ways to cut UK inheritance tax", date: "2026-09-14", time: "19:35", url: "https://www.ft.com/content/a8789270-aeee-4bfd-89a3-207c0a46730d" },
   { id: "757da464-7102-4e69-9598-ba65b5a4c3e9", title: "Nigel Farage refuses to say if Reform UK’s £72mn gifts would comply with new cap", date: "2026-09-14", time: "19:06", url: "https://www.ft.com/content/757da464-7102-4e69-9598-ba65b5a4c3e9" },
   { id: "8a003048-468c-4bec-83a7-154d7cdbb24e", title: "Unions demand softening of UK immigration reforms", date: "2026-09-14", time: "18:49", url: "https://www.ft.com/content/8a003048-468c-4bec-83a7-154d7cdbb24e" },
   { id: "38ea0870-0100-4f4e-bd71-89074761095c", title: "Why delaying an AI doomsday would benefit investors too", date: "2026-09-14", time: "18:24", url: "https://www.ft.com/content/38ea0870-0100-4f4e-bd71-89074761095c" },
@@ -59,7 +60,4 @@ export const FT_ITEMS = [
   { id: "b3d01493-f0f5-491b-bcf8-2d414539fbe7", title: "Can AI’s leaders really put aside rivalry for the common good?", date: "2026-09-14", time: "07:12", url: "https://www.ft.com/content/b3d01493-f0f5-491b-bcf8-2d414539fbe7" },
   { id: "e1383b40-554a-445d-a431-a7068c68aa76", title: "Pressure over Japan nuclear restart led to data manipulation, report finds", date: "2026-09-14", time: "07:05", url: "https://www.ft.com/content/e1383b40-554a-445d-a431-a7068c68aa76" },
   { id: "b8f897e4-cb25-45a8-869d-ed5aa0919d08", title: "High inflation or low credibility?", date: "2026-09-14", time: "06:30", url: "https://www.ft.com/content/b8f897e4-cb25-45a8-869d-ed5aa0919d08" },
-  { id: "8715d1c6-054d-4eab-bcad-147acebfd2a9", title: "China’s spy agency warns of AI risk to national security", date: "2026-09-14", time: "06:15", url: "https://www.ft.com/content/8715d1c6-054d-4eab-bcad-147acebfd2a9" },
-  { id: "b9a2d02a-d240-4512-a7fa-a8fa6f0429c8", title: "EU and Canada to toast to closer bonds in bid to rally multilateral world order", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/b9a2d02a-d240-4512-a7fa-a8fa6f0429c8" },
-  { id: "8e434151-b6ca-492f-9aba-6775529f9545", title: "Druckenmiller: no US rate cuts needed", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/8e434151-b6ca-492f-9aba-6775529f9545" },
 ];
