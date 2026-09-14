@@ -212,7 +212,7 @@ export function mount(host, ctx) {
   // Real, sourced rows only — empty until the first verified batch lands (compiled
   // by the daily routine; see eu-credits.js).
   // Borrower domicile → compact ISO alpha-2 code for the inline jurisdiction tag.
-  const JUR_CODE = { Netherlands: "NL", France: "FR", Norway: "NO", Spain: "ES", "United Kingdom": "GB", Germany: "DE", Portugal: "PT", Italy: "IT", Switzerland: "CH", Ireland: "IE", Sweden: "SE", Luxembourg: "LU", Belgium: "BE", Denmark: "DK", Finland: "FI", Austria: "AT", "United States": "US" };
+  const JUR_CODE = { Netherlands: "NL", France: "FR", Norway: "NO", Spain: "ES", "United Kingdom": "GB", Germany: "DE", Portugal: "PT", Italy: "IT", Switzerland: "CH", Ireland: "IE", Sweden: "SE", Luxembourg: "LU", Belgium: "BE", Denmark: "DK", Finland: "FI", Austria: "AT", "Czech Republic": "CZ", Gibraltar: "GI", "United States": "US" };
   const jurCode = (j) => JUR_CODE[j] || (j ? j.slice(0, 2).toUpperCase() : "");
   // Rating momentum over the trailing 12 months: ▲ up, ▼ down, – unchanged.
   const TREND = {
@@ -226,10 +226,10 @@ export function mount(host, ctx) {
         ? `<a class="tcr-rt" href="${esc(c.source)}" target="_blank" rel="noopener noreferrer" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</a>`
         : `<span class="tcr-rt" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</span>`)
       : `<span class="tcr-rt tcr-nr" title="Rating pending verification">NR</span>`;
-    const jur = c.jurisdiction ? ` <span class="tcr-jur" title="${esc(c.jurisdiction)}">${esc(jurCode(c.jurisdiction))}</span>` : "";
+    const jur = `<span class="tcr-jur" title="${esc(c.jurisdiction || "")}">${esc(jurCode(c.jurisdiction))}</span>`;
     const tr = TREND[c.trend] || TREND.flat;
     const trend = `<span class="tcr-tr ${tr.c}" title="${tr.t} (${esc(c.agency || EUR_CREDITS_META.agency)})">${tr.g}</span>`;
-    return `<li class="tmini-row tcr-row"><span class="tcr-nm">${esc(c.name)}${jur}</span><span class="tcr-rr">${trend}${rt}</span></li>`;
+    return `<li class="tmini-row tcr-row"><span class="tcr-nm">${esc(c.name)}</span>${jur}<span class="tcr-rr">${trend}${rt}</span></li>`;
   };
   function renderCredits() {
     if (!EUR_CREDITS.length) {

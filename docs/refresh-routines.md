@@ -198,12 +198,18 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     Finance research** (~500 covered borrowers); **AFME** and **GlobalCapital**
     league tables give market/issuance context, not an issuer directory. Cite the
     specific S&P action URL as `source` and set `asOf` to the verification date.
-  - **Seeded (2026-09-14):** a first tranche of verified names is in place (Action,
-    Altice France, Axactor, Cerba HealthCare, Cirsa, INEOS Quattro, Kloeckner
-    Pentaplast, Rovensa, STADA, Synlab, TeamSystem, Techem, Verisure, VodafoneZiggo),
-    each with its `jurisdiction` and 12-month `trend`. Extend from here toward the
-    full universe and re-verify these on new S&P actions — a new upgrade/downgrade
-    flips `trend`, and a rating that has held for 12 months settles back to `"flat"`.
+  - **Seeded (2026-09-14):** ~73 verified names are in place, spanning all the main
+    sectors (telecom, media, software, healthcare, chemicals, packaging, consumer,
+    food, gaming, business services, autos, transport, financials), each with its
+    `jurisdiction` and 12-month `trend`. This is still short of the full ~300 ELLI
+    universe — extend from here toward it, a few verified names per run, and
+    re-verify existing rows on new S&P actions (a new upgrade/downgrade flips
+    `trend`; a rating that has held for 12 months settles back to `"flat"`).
+    Discipline reminder from this batch: only add a name when a real search result
+    states its S&P letter — skip (don't guess) issuers where only Moody's/Fitch
+    surfaces, where the post-restructuring level is unconfirmed, or where the domicile
+    is non-EMEA. A distressed exchange or default inside the trailing 12 months is
+    `trend: "down"` even if the post-event re-rating is nominally higher.
 - **Origination fields (`book` + `advisers`) — capture opportunistically.** The Radar
   tab reads two optional manager fields (spec: `docs/origination-radar-spec.md` Part H).
   When a run surfaces source-verifiable evidence for a manager it is already touching
