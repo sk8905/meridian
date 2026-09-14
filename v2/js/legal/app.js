@@ -145,8 +145,6 @@ on(document, "click", (e) => {
   pageShown[key] = pageCount(key) + PAGE;
   const y = window.scrollY;
   if (key === "alerts") renderResults();
-  else if (key === "cases") renderCaseResults();
-  else if (key === "rx") renderRxResults();
   window.scrollTo(0, y);
 });
 
@@ -239,8 +237,8 @@ function multiFilter(viewKey, label, options, selected) {
 // feed re-renders on a filter change, so the popover DOM (and its open state)
 // persists — no reopen dance needed. `openMs` tracks the currently-open dropdown.
 let openMs = null;
-const FILTER_STORES = () => ({ list: filterState, cases: caseFilter, rx: rxFilter });
-const FILTER_RENDER = { list: () => renderResults(), cases: () => renderCaseResults(), rx: () => renderRxResults() };
+const FILTER_STORES = () => ({ list: filterState });
+const FILTER_RENDER = { list: () => renderResults() };
 
 // Toggle a dropdown's popover open/closed.
 on(document, "click", (e) => {
@@ -312,28 +310,6 @@ function initClamps(root) {
     const p = w.querySelector(".feed-summary");
     if (p) btn.hidden = !(p.scrollHeight - p.clientHeight > 2);
   });
-}
-function caseRow(c) {
-  const summary = caseSummaries[c.id] || c.summary || "";
-  const saved = getSaved().has(c.id);
-  return `<div class="feed-row" id="row-${esc(c.id)}">
-    <div class="feed-meta">
-      <span class="feed-date">${c.date ? fmtDate(c.date) : "undated"}</span>
-    </div>
-    <div class="feed-body">
-      <div class="rx-title-line">
-        ${c.url
-          ? `<a class="feed-title rx-name" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.name)}</a>`
-          : `<span class="feed-title rx-name">${esc(c.name)}</span>`}
-        <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(c.id)}"
-          aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this case"}">${saved ? "★ Saved" : "☆ Save"}</button>
-      </div>
-      ${clampSum(summary)}
-      <div class="feed-foot">
-        <span>${esc(c.court)}</span>${c.citation ? ` · <span class="cite">${esc(c.citation)}</span>` : ""}
-      </div>
-    </div>
-  </div>`;
 }
 
 // Compact dashboard rows — headline + "date · source" line, matching Wire
@@ -799,258 +775,6 @@ function renderResults() {
 }
 
 // =============================================================================
-// VIEW: Case law (#/cases) — all BAILII cases with AI-generated summaries
-// =============================================================================
-const caseFilter = { areas: [], courts: [], years: [], q: "" };
-
-// Courts present in the data, in a sensible hierarchy order.
-const COURT_ORDER = ["Supreme Court", "Court of Appeal", "High Court (Ch)", "High Court (Comm)", "High Court (KB)", "High Court (QB)"];
-
-function viewCases() {
-  // Seed from the hash query (shareable deep links, e.g. #/cases?area=ri).
-  const q = parseHashQuery();
-  caseFilter.areas = q.area ? [q.area] : [];
-  caseFilter.courts = [];
-  caseFilter.years = q.year ? [q.year] : [];
-  caseFilter.q = q.q || "";
-
-  const courts = COURT_ORDER.filter((ct) => cases.some((c) => c.court === ct));
-  const years = [...new Set(cases.map((c) => c.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
-
-  app.innerHTML = `
-    <div class="list-head">
-      <h1>Case law</h1>
-      <p class="muted">English-law judgments from the Supreme Court, Court of Appeal (Civil Division) and the
-        High Court (Chancery, Commercial &amp; King's/Queen's Bench).</p>
-    </div>
-    <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label>
-    <div class="filters" aria-label="Filters">
-      <label class="filter search"><span>Search</span>
-        <input id="case-search" type="search" placeholder="Search cases, citations…"
-          value="${esc(caseFilter.q)}" aria-label="Search case law" autocomplete="off"/>
-      </label>
-      ${multiFilter("cases:areas", "Practice area", practiceAreas.map((a) => ({ value: a.id, label: a.name })), caseFilter.areas)}
-      ${multiFilter("cases:years", "Year", years.map((y) => ({ value: y, label: y })), caseFilter.years)}
-      ${multiFilter("cases:courts", "Court", courts.map((ct) => ({ value: ct, label: ct })), caseFilter.courts)}
-    </div>
-    <section class="card"><div id="case-results" class="feed"></div></section>
-  `;
-
-  const search = app.querySelector("#case-search");
-  search.addEventListener("input", () => { caseFilter.q = search.value; renderCaseResults(); });
-
-  renderCaseResults();
-
-  // Deep-link from the dashboard "Recent cases" list (or a shared URL): scroll to,
-  // open & flash it — revealing later pages first if needed.
-  const focusId = parseHashQuery().case;
-  if (focusId) focusCaseRow(focusId);
-}
-
-// Jump to a specific case: scroll to it, open it and flash it. If it's beyond the
-// current page, reveal all cases first so the jump always lands.
-function focusCaseRow(id) {
-  let el = document.getElementById("row-" + id);
-  if (!el) {
-    pageShown.cases = cases.length;
-    renderCaseResults();
-    el = document.getElementById("row-" + id);
-  }
-  if (!el) return;
-  el.scrollIntoView({ behavior: "smooth", block: "center" });
-  el.classList.add("flash");
-  setTimeout(() => el.classList.remove("flash"), 2200);
-}
-
-function renderCaseResults() {
-  const el = document.getElementById("case-results");
-  if (!el) return;
-  const matched = cases.filter((c) => {
-    if (caseFilter.areas.length && !caseFilter.areas.includes(c.area)) return false;
-    if (caseFilter.courts.length && !caseFilter.courts.includes(c.court)) return false;
-    if (caseFilter.years.length && !caseFilter.years.includes(c.date.slice(0, 4))) return false;
-    if (caseFilter.q.trim()) {
-      const hay = [c.name, c.citation, c.court, caseSummaries[c.id] || c.summary].join(" ").toLowerCase();
-      if (!hay.includes(caseFilter.q.trim().toLowerCase())) return false;
-    }
-    return true;
-  }).sort(byDateDesc);
-  el.innerHTML = matched.length ? feedHtml(matched, "cases", caseRow, JSON.stringify(caseFilter)) : `<div class="empty">No cases match these filters.</div>`;
-  initClamps(el);
-}
-
-
-// =============================================================================
-// =============================================================================
-// VIEW: Plans & Schemes (#/restructurings) — Part 26A restructuring plans and
-// distressed Part 26 schemes of arrangement since 2020, with an All / Plans /
-// Schemes type filter (plus search, outcome and year).
-// =============================================================================
-const rxFilter = { types: [], q: "", years: [], outcomes: [] };
-
-function rxOutcomeShort(o) {
-  const t = (o || "").toLowerCase();
-  if (t.includes("overturn") || (t.includes("appeal") && t.includes("allow"))) return "Overturned on appeal";
-  if (t.includes("upheld") || (t.includes("appeal") && t.includes("dismiss"))) return "Upheld on appeal";
-  if (t.includes("refus")) return "Refused";
-  if (t.includes("conven")) return "Convening";
-  if (t.includes("withdraw")) return "Withdrawn";
-  return "Sanctioned";
-}
-
-// Outcome as a verb phrase for the composed summary sentence.
-function rxOutcomeVerb(o) {
-  const t = (o || "").toLowerCase();
-  if (t.includes("refus")) return "was refused sanction";
-  if (t.includes("overturn") || (t.includes("appeal") && t.includes("allow"))) return "was sanctioned but overturned on appeal";
-  if (t.includes("upheld") || (t.includes("appeal") && t.includes("dismiss"))) return "was sanctioned and later upheld on appeal";
-  if (t.includes("conven")) return "is at the convening stage";
-  if (t.includes("withdraw")) return "was withdrawn";
-  return "was sanctioned";
-}
-
-// A short narrative summary composed from the matter's own fields (company, type,
-// the debt/deal description and outcome) — mirrors the AI-summary line shown on
-// case-law rows. Facts only; no fabrication beyond joining existing fields.
-function rxSummary(r) {
-  const kind = r.type === "scheme" ? "a Part 26 scheme of arrangement" : "a Part 26A restructuring plan";
-  let deal = "";
-  if (r.debt) {
-    const d = r.debt.trim();
-    // A bare figure ("~€7bn", ">$9bn") vs. a descriptive clause.
-    const bare = d.length < 16 && /[£$€\d]/.test(d) && !/\s[a-z]{4,}/i.test(d.replace(/(bn|m|billion|million)/ig, ""));
-    deal = bare ? ` The restructuring concerned debt of ${d}.` : ` ${d.replace(/[.;]\s*$/, "")}.`;
-  }
-  return `${r.company} pursued ${kind}.${deal} The ${r.type === "scheme" ? "scheme" : "plan"} ${rxOutcomeVerb(r.outcome)}.`;
-}
-
-// A restructuring matter as a feed row — same layout as the alerts/case-law
-// feeds: type chip + date in the meta column, company title (linking to the
-// judgment), key detail lines, and a muted footer with the citation and links.
-function rxRow(r) {
-  const firm = r.firm ? (firmById[r.firm] || { name: r.firm }) : null;
-  const saved = getSaved().has(r.id);
-  const typeFull = r.type === "scheme" ? "Part 26 scheme of arrangement" : "Part 26A restructuring plan";
-  const features = (r.features || []).length
-    ? `<ul class="rx-features">${r.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : "";
-  // The 2-line summary is the preview; all the structured detail below is tucked
-  // into the same expander, so a collapsed matter is genuinely just title +
-  // 2-line summary + "more".
-  const detail = [
-    (r.creditors || []).length ? `<p class="rx-line"><span class="rx-lbl">Largest creditors</span> ${esc(r.creditors.join("; "))}</p>` : "",
-    (r.advisers || []).length ? `<p class="rx-line"><span class="rx-lbl">Company advised by</span> ${esc(r.advisers.join(", "))}</p>` : "",
-    features,
-    r.notes ? `<p class="rx-line muted">${esc(r.notes)}</p>` : "",
-  ].filter(Boolean).join("");
-  const lines = `<div class="sum-clamp rx-clamp${detail ? " has-detail" : ""}">
-    <p class="feed-summary clamp2">${esc(rxSummary(r))}</p>
-    ${detail ? `<div class="rx-detail">${detail}</div>` : ""}
-    <button type="button" class="clamp-toggle" aria-expanded="false"${detail ? "" : " hidden"}>more</button>
-  </div>`;
-  // Foot: court / citation / sector metadata + the firm-analysis and judgment links
-  // (mirrors the alerts rows, where the source metadata sits in the footer line).
-  // The title links to the primary source (the judgment, else the firm analysis).
-  const srcUrl = r.judgmentUrl || r.articleUrl || "";
-  const foot = [
-    r.court ? esc(r.court) : "",
-    r.citation ? `<span class="cite">${esc(r.citation)}</span>` : "",
-    r.sector ? esc(r.sector) : "",
-    firm && r.firm ? firmLink(r.firm, firm.name) : "",
-    // Keep the firm-analysis link only when it isn't already the title's target.
-    r.articleUrl && r.articleUrl !== srcUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">analysis</a>` : "",
-  ].filter(Boolean).join(" · ");
-  // AI summary + detail shown inline (same layout as the alerts rows); the outcome
-  // chip and Save button sit on the title line.
-  return `<div class="feed-row rx-row" id="row-${esc(r.id)}">
-    <div class="feed-meta">
-      <span class="feed-date">${r.date ? esc(fmtDate(r.date)) : "undated"}</span>
-    </div>
-    <div class="feed-body">
-      <div class="rx-title-line">
-        ${srcUrl
-          ? `<a class="feed-title rx-name" href="${esc(srcUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.company)}</a>`
-          : `<a class="feed-title rx-name" href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a>`}
-        <span class="rx-out-text muted small" title="${esc(r.outcome)}">${esc(rxOutcomeShort(r.outcome))}</span>
-        <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(r.id)}"
-          aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this matter"}">${saved ? "★ Saved" : "☆ Save"}</button>
-      </div>
-      ${lines}
-      ${foot ? `<div class="feed-foot">${foot}</div>` : ""}
-    </div>
-  </div>`;
-}
-
-function viewRestructurings() {
-  const q = parseHashQuery();
-  rxFilter.types = ["plan", "scheme"].includes(q.type) ? [q.type] : [];
-  rxFilter.q = q.q || "";
-  rxFilter.years = [];
-  rxFilter.outcomes = [];
-  const years = [...new Set(restructurings.map((r) => (r.date || "").slice(0, 4)).filter(Boolean))].sort((a, b) => b.localeCompare(a));
-  const outcomes = [...new Set(restructurings.map((r) => r.outcome))].sort();
-
-  app.innerHTML = `
-    <div class="list-head">
-      <h1>Schemes</h1>
-      <p class="muted">English-law restructuring plans (Companies Act 2006 <strong>Part 26A</strong>) and
-        distressed schemes of arrangement (<strong>Part 26</strong>) before the court since 2020.</p>
-    </div>
-    <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label>
-    <div class="filters" aria-label="Filters">
-      <label class="filter search"><span>Search</span>
-        <input id="rx-search" type="search" placeholder="Search company, citation, sector, creditor…"
-          value="${esc(rxFilter.q)}" aria-label="Search plans and schemes" autocomplete="off"/>
-      </label>
-      ${multiFilter("rx:types", "Type", [{ value: "plan", label: "Plan (Part 26A)" }, { value: "scheme", label: "Scheme (Part 26)" }], rxFilter.types)}
-      ${multiFilter("rx:outcomes", "Outcome", outcomes.map((o) => ({ value: o, label: o })), rxFilter.outcomes)}
-      ${multiFilter("rx:years", "Year", years.map((y) => ({ value: y, label: y })), rxFilter.years)}
-    </div>
-    <section class="card"><div id="rx-results" class="feed"></div></section>`;
-
-  const search = app.querySelector("#rx-search");
-  search.addEventListener("input", () => { rxFilter.q = search.value; renderRxResults(); });
-  renderRxResults();
-
-  // Deep-link from the dashboard / a notification: scroll to & flash the matter.
-  // If it's paged out of the first page, reveal all matters and retry so the jump
-  // always lands.
-  if (q.m) focusRxMatter(q.m);
-}
-
-function renderRxResults() {
-  const el = document.getElementById("rx-results");
-  if (!el) return;
-  const matched = restructurings.filter((r) => {
-    if (rxFilter.types.length && !rxFilter.types.includes(r.type)) return false;
-    if (rxFilter.years.length && !rxFilter.years.includes((r.date || "").slice(0, 4))) return false;
-    if (rxFilter.outcomes.length && !rxFilter.outcomes.includes(r.outcome)) return false;
-    if (rxFilter.q.trim()) {
-      const hay = [r.company, r.citation, r.sector, r.debt, (r.creditors || []).join(" "),
-        (r.advisers || []).join(" "), (r.features || []).join(" ")].join(" ").toLowerCase();
-      if (!hay.includes(rxFilter.q.trim().toLowerCase())) return false;
-    }
-    return true;
-  }).sort(byDateDesc);
-  el.innerHTML = matched.length ? feedHtml(matched, "rx", rxRow, JSON.stringify(rxFilter)) : '<p class="empty">No matters match these filters.</p>';
-  initClamps(el);
-}
-
-// Jump to a specific matter (from a dashboard link or notification): scroll to &
-// flash it. If it's beyond the current page, reveal all matters first.
-function focusRxMatter(id) {
-  let el = document.getElementById("row-" + id);
-  if (!el) {
-    pageShown.rx = restructurings.length;
-    renderRxResults();
-    el = document.getElementById("row-" + id);
-  }
-  if (!el) return;
-  el.scrollIntoView({ behavior: "smooth", block: "center" });
-  el.classList.add("flash");
-  setTimeout(() => el.classList.remove("flash"), 2200);
-}
-
-// =============================================================================
 // Router + global click delegation
 // =============================================================================
 function router() {
@@ -1064,10 +788,10 @@ function router() {
 
   if (path === "/" || path === "") viewDashboard();
   else if (path === "/list") viewList();
-  // Case-law and Schemes/RPs list pages retired: the dashboard Case law / Schemes
-  // & RPs chips carry that content, and every case/scheme links straight to its
-  // source (BAILII judgment / analysis). viewCases/viewRestructurings are kept
-  // (dormant) for reuse; a stray hit on the old routes lands on the dashboard.
+  // Case-law (#/cases) and Schemes/RPs (#/restructurings) list pages are retired —
+  // their view functions are deleted; the dashboard's Case law / Schemes & RPs
+  // chips carry that content and every case/scheme links straight to its source
+  // (BAILII judgment / analysis). A stray hit on an old route lands on the dashboard.
   else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
   else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
   else viewDashboard();

@@ -28,10 +28,9 @@ import { esc } from "/util.js?v=20260818-1";
 // lives in Home, their market data in Dashboard, their entities in Profiles — but
 // they remain routable views (/v2/credit/…, /v2/legal/…, /v2/macro/…) for deep
 // links from feed rows and profile pages.
-// Newsletters is NOT a bottom-nav/platform tab — it's reached from the Home feed
-// banner's right-edge button (data-nav-tab="newsletters"); see glance.js. Keeping
-// it off the global bar frees a slot (for Transactions) and treats it as the
-// reading surface it is. The view itself stays routable (/v2/newsletters/).
+// The standalone Newsletters reading surface is retired — newsletters now live
+// only as items in the Home feed (its Newsletters desk filter); there is no
+// separate newsletters tab or view.
 // "transactions" is the deal-flow-by-transaction-type workspace (see
 // v2/js/transactions/app.js); it replaced the retired Origination radar in this
 // slot. The two-arrows icon reads as flow/transactions.
@@ -42,7 +41,6 @@ const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "P
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
-  newsletters: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.6"/><path d="M3.5 6.5 12 12.5 20.5 6.5"/></svg>',
   dashboard: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.2"/><rect x="13" y="3" width="8" height="5" rx="1.2"/><rect x="13" y="10" width="8" height="11" rx="1.2"/><rect x="3" y="13" width="8" height="8" rx="1.2"/></svg>',
   macro: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20V9"/></svg>',
   credit: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg>',

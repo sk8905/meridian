@@ -143,6 +143,7 @@ async function tapRow(pane, kind, hrefRe) {
 
 await tapRow("managers", "manager", /^#\/manager\//);
 await tapRow("hedgefunds", "hedge fund", /^#\/hf\//);
+await tapRow("investors", "investor", /^#\/lp\//);
 await tapRow("firms", "law firm", /^#\/firm\//);
 
 // The iOS-shaped case: a genuine touch tap on a plain <tr data-href> row that
@@ -171,7 +172,7 @@ check(!!touchShown, "touch-only: the profile detail is shown after a click-less 
 
 // The search row stays LOCKED under the chip bar while the league table scrolls —
 // on Managers, Hedge Funds AND Law firms (not just Managers).
-for (const pane of ["managers", "hedgefunds", "firms"]) {
+for (const pane of ["managers", "hedgefunds", "investors", "firms"]) {
   await pg.evaluate((p) => { location.hash = ""; const c = document.querySelector(`#pf-chips .tchip[data-p="${p}"]`); if (c) c.click(); }, pane);
   await pg.waitForTimeout(350);
   const at = () => pg.evaluate((p) => {

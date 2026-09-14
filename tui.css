@@ -302,6 +302,7 @@
      so it stays put while the league table scrolls. */
   .tpane[data-pane="managers"] .thead-search,
   .tpane[data-pane="hedgefunds"] .thead-search,
+  .tpane[data-pane="investors"] .thead-search,
   .tpane[data-pane="firms"] .thead-search { position: sticky; top: calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); z-index: 7; background: var(--head); }
   /* A search band that sits DIRECTLY under the .twire-head tab row (Macro: tabs →
      search → wire) must pin beneath those tabs, not under the header — otherwise

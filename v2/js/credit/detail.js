@@ -608,7 +608,7 @@ export function viewLp(id) {
 
   app.innerHTML = `
     <div class="tdash">
-      ${breadcrumb([["#/lps", "Investors"], [null, l.name]])}
+      ${breadcrumb([[profilesMode ? "#/?tab=investors" : "#/lps", "Investors"], [null, l.name]])}
       <div class="tdash-ticker">${metrics.map(([lab, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(lab)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">

@@ -5,14 +5,14 @@
 // profile detail pages itself. Tapping a row no longer bounces you into the
 // retired Credit/Legal desk tab: the manager / hedge-fund / law-firm page (and
 // everything it links to — funds, CLOs, investors, filings) renders right here,
-// inside Profiles, with a Managers · Hedge Funds · Law firms nav that returns to
-// the list. The detail views are the desks' own view functions, pointed at a
+// inside Profiles, with a Managers · Hedge Funds · Investors · Law firms nav that
+// returns to the list. The detail views are the desks' own view functions, at a
 // Profiles-owned host per render (see __setProfilesMode in the detail modules).
 
 import {
   viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-29";
+} from "/v2/js/credit/detail.js?v=v2-30";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
@@ -23,7 +23,7 @@ import { matchesFor, pendingFor } from "/v2/js/network/store.js?v=v2-2";
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
   const [credit, legal] = await Promise.all([ctx.view("credit"), ctx.view("legal")]);
-  const CHIPS = [["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["firms", "Law firms"]];
+  const CHIPS = [["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["investors", "Investors"], ["firms", "Law firms"]];
   host.innerHTML = `
     <div id="pf-list" class="tdash">
       <div class="tdash-grid tdash-1">
@@ -35,6 +35,7 @@ export async function mount(host, ctx) {
           <div class="tpanes" id="pf-panes">
             ${credit.buildManagers()}
             ${credit.buildHedgeFunds()}
+            ${credit.buildInvestors()}
             ${legal.buildLawFirms()}
             <div id="pf-detail" hidden></div>
           </div>
@@ -148,7 +149,7 @@ export async function mount(host, ctx) {
         renderCredit("managers", () => viewManager(mid)); return decorateNet("manager", mid);
       }
       case "clo": return renderCredit("managers", () => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
-      case "lp": return renderCredit("managers", () => viewLp(arg));
+      case "lp": return renderCredit("investors", () => viewLp(arg));
       case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg)); return decorateNet("hf", arg);
       case "firm": renderLegal("firms", () => viewFirm(dec(arg))); return decorateNet("firm", dec(arg));
       case "item": return renderLegal("firms", () => viewItem(dec(arg)));
@@ -255,9 +256,9 @@ export async function mount(host, ctx) {
   // Each list's search box filters its rows in place by the row's data-name.
   // Scoped to this host so it never touches the desks' own (hidden) copies.
   host.addEventListener("input", (e) => {
-    const inp = e.target.closest("#mgr-q, #hf-q, #lf-q"); if (!inp) return;
+    const inp = e.target.closest("#mgr-q, #hf-q, #lp-q, #lf-q"); if (!inp) return;
     if (host.classList.contains("pf-detailing")) exitDetail();   // typing a search returns to the list
-    const sel = inp.id === "mgr-q" ? "#mgr-rows tr" : inp.id === "hf-q" ? "#hf-rows tr" : "#lf-rows tr";
+    const sel = inp.id === "mgr-q" ? "#mgr-rows tr" : inp.id === "hf-q" ? "#hf-rows tr" : inp.id === "lp-q" ? "#lp-rows tr" : "#lf-rows tr";
     const v = inp.value.toLowerCase().trim();
     host.querySelectorAll(sel).forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
   });

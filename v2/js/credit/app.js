@@ -18,7 +18,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";
-import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-29";
+import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-30";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
 import { esc, fmtAum, byDateDesc } from "/util.js?v=20260818-1";
 
@@ -514,6 +514,39 @@ function hedgeFundsPaneHTML() {
             </div>`;
 }
 
+// Investors (LPs / allocators) — the same terminal league-table shape as the
+// Managers / Hedge Funds panes, borrowed by the Profiles tab (buildInvestors).
+// Sorted by AUM; each row opens the investor's profile (#/lp/<id>).
+function investorsPaneHTML() {
+  const fst = filterState.lps || { q: "" };
+  const q0 = (fst.q || "").toLowerCase();
+  const rows = [...lps]
+    .sort((a, b) => (b.aum == null ? -1 : b.aum) - (a.aum == null ? -1 : a.aum))
+    .filter((l) => !q0
+      || l.name.toLowerCase().includes(q0)
+      || String(l.hq || "").toLowerCase().includes(q0)
+      || String(l.type || "").toLowerCase().includes(q0));
+  const lpRow = (l) => `<tr class="clickable" data-href="#/lp/${esc(l.id)}" data-name="${esc((l.name + " " + (l.hq || "") + " " + (l.type || "") + " " + (l.strategies || []).join(" ")).toLowerCase())}">`
+    + `<td class="tl-nm">${esc(l.name)}</td>`
+    + `<td class="tl-hq">${esc(l.hq || "")}</td>`
+    + `<td>${esc(l.type || "")}</td>`
+    + `<td class="tl-n">${l.aum == null ? "—" : "€" + esc(l.aum) + "bn"}</td>`
+    + `<td class="tl-n">${l.pcAllocationPct == null ? "—" : pct(l.pcAllocationPct)}</td>`
+    + `<td class="tl-n">${l.typicalTicket == null ? "—" : eur(l.typicalTicket)}</td>`
+    + `<td class="tl-mnd">${mandateBadge(l.mandateStatus)}</td></tr>`;
+  return `<div class="tpane" data-pane="investors" hidden>
+              <header class="tpanel-h thead-search">
+                <input type="search" id="lp-q" class="tsearch" placeholder="Search name, HQ or type…" value="${esc(fst.q || "")}" aria-label="Search investors">
+              </header>
+              <div class="tleague-wrap">
+              <table class="tleague tleague-full">
+                <thead><tr><th>Investor</th><th class="tl-hq">HQ</th><th>Type</th><th>AUM</th><th title="Private-credit allocation">PC&nbsp;alloc.</th><th>Ticket</th><th class="tl-mnd">Mandate</th></tr></thead>
+                <tbody id="lp-rows">${rows.map(lpRow).join("")}</tbody>
+              </table>
+              </div>
+            </div>`;
+}
+
 // Cross-fund 13F consensus — the most widely-held names across our hedge-fund
 // universe. Fetches the latest 13F top-10 for the largest tracked funds (each via
 // the edge-cached /api/13f, so warm funds cost nothing) and aggregates by CUSIP:
@@ -1002,112 +1035,6 @@ function crToFeed(x, kind) {
 }
 function crFeed(rows, kind) { return `<div class="g-feed twire">${feedBodyHTML(rows.map((x) => crToFeed(x, kind)))}</div>`; }
 
-// =============================== INTELLIGENCE ===============================
-
-function viewIntel() {
-  const f = filterState.intel;
-  // CLO fundraising/platform news is carved out into its own #/clos section.
-  const base = intel.filter((i) => !i.clo && (!targetFocus || midInFocus(i.managerId)));
-  const rows = base.filter((i) =>
-    (!f.q || (i.headline + i.summary).toLowerCase().includes(f.q.toLowerCase())) &&
-    (!f.type.length || f.type.includes(i.type)) &&
-    (!f.year.length || f.year.includes(yearOf(i.date)))
-  ).sort(byDateDesc); // newest first
-
-  app.innerHTML = `
-    <div class="page-head"><div class="ph-head-top"><h1>Fundraising Intelligence</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${base.length} items · European private credit capital formation</p></div>
-    <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
-      <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Keyword…" value="${esc(f.q)}"></label>
-      ${multiFilter("intel:type", "Type", [...new Set(base.map((i) => i.type))].sort(), f.type)}
-      ${multiFilter("intel:year", "Year", [...new Set(base.map((i) => yearOf(i.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a)), f.year)}
-    </div>
-    <section class="card">
-      ${rows.length ? crFeed(rows, "intel") : '<p class="empty">No intelligence items match these filters.</p>'}
-    </section>
-    <section class="card">
-      <h2>Known LP → manager commitments <span class="muted">(${commitments.length})</span></h2>
-      <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>Investor</th><th>Manager</th><th>Detail</th></tr></thead>
-        <tbody>${commitments.map((c) => `<tr>
-          <td><strong>${link(`#/lp/${c.lpId}`, (lpById[c.lpId] || {}).name)}</strong><div class="muted small">${esc((lpById[c.lpId] || {}).type)}</div></td>
-          <td>${link(`#/manager/${c.managerId}`, (managerById[c.managerId] || {}).name)}${c.fundId ? `<div class="muted small">${link(`#/fund/${c.fundId}`, (fundById[c.fundId] || {}).name)}</div>` : ""}</td>
-          <td class="muted small">${esc(c.note)}</td>
-        </tr>`).join("")}</tbody>
-      </table></div>
-    </section>`;
-  wireFilters("intel");
-  applyPendingFocus("intel");
-}
-
-// ============================== DEAL ACTIVITY ==============================
-
-function viewDeals() {
-  const f = filterState.deals;
-  // CLO transactions are carved out into their own #/clos section.
-  const base = deals.filter((d) => !d.clo && (!targetFocus || midInFocus(d.managerId)));
-  // ---- quarter helper (also used by the by-quarter chart drill-down) ----
-  const quarterOf = (d) => { const m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? `${m[1]}-Q${Math.floor((+m[2] - 1) / 3) + 1}` : null; };
-  const rows = base.filter((d) =>
-    (!f.q || (d.headline + d.summary + (managerById[d.managerId] ? managerById[d.managerId].name : "")).toLowerCase().includes(f.q.toLowerCase())) &&
-    (!f.type.length || f.type.includes(d.type)) &&
-    (!f.year.length || f.year.includes(yearOf(d.date))) &&
-    (!f.period || quarterOf(d.date) === f.period)
-  ).sort(byDateDesc); // newest first
-
-  app.innerHTML = `
-    <div class="page-head"><div class="ph-head-top"><h1>Deal Activity</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${base.length} transactions · investments, exits, refinancings, restructurings &amp; distress${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
-    <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
-      <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Company, manager…" value="${esc(f.q)}"></label>
-      ${multiFilter("deals:type", "Type", [...new Set(base.map((d) => d.type))].sort(), f.type)}
-      ${multiFilter("deals:year", "Year", [...new Set(base.map((d) => yearOf(d.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a)), f.year)}
-    </div>
-    <section class="card">
-      ${rows.length ? crFeed(rows, "deal") : '<p class="empty">No deal items match these filters.</p>'}
-    </section>`;
-  wireFilters("deals");
-
-  // Clear the active quarter filter (set by a quarter click on the Trends page).
-  const clearPeriod = document.getElementById("clear-period");
-  if (clearPeriod) clearPeriod.addEventListener("click", () => { filterState.deals.period = ""; router(); });
-  applyPendingFocus("deals");
-}
-
-// ================================== CLOs ===================================
-// Collateralised loan obligations — pricings, new platforms/managers, CLO funds,
-// CLO ETFs, awards and CLO-team personnel — carved out of Deal Activity and
-// Fundraising Intelligence into one dedicated feed. Items keep their original
-// home array (deals / intel, tagged `clo:true`); this view simply gathers them.
-function viewClos() {
-  const f = filterState.clos;
-  const cloDeals = deals.filter((d) => d.clo).map((d) => ({ ...d, _kind: "deal" }));
-  const cloIntel = intel.filter((i) => i.clo).map((i) => ({ ...i, _kind: "intel" }));
-  const all = [...cloDeals, ...cloIntel].filter((x) => !targetFocus || midInFocus(x.managerId));
-  const quarterOf = (d) => { const m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? `${m[1]}-Q${Math.floor((+m[2] - 1) / 3) + 1}` : null; };
-  const rows = all.filter((x) =>
-    (!f.q || ((x.headline || "") + (x.summary || "")).toLowerCase().includes(f.q.toLowerCase())) &&
-    (!f.kind.length || f.kind.includes(x._kind === "deal" ? "Deal" : "Fundraising")) &&
-    (!f.year.length || f.year.includes(yearOf(x.date))) &&
-    (!f.period || quarterOf(x.date) === f.period)
-  ).sort(byDateDesc); // newest first
-
-  app.innerHTML = `
-    <div class="page-head"><div class="ph-head-top"><h1>CLOs</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
-    <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
-      <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Keyword…" value="${esc(f.q)}"></label>
-      ${multiFilter("clos:kind", "Source", ["Deal", "Fundraising"], f.kind)}
-      ${multiFilter("clos:year", "Year", [...new Set(all.map((x) => yearOf(x.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a)), f.year)}
-    </div>
-    <section class="card">
-      ${rows.length ? crFeed(rows) : '<p class="empty">No CLO items match these filters.</p>'}
-    </section>`;
-  wireFilters("clos");
-
-  // Clear the active quarter filter (set by a quarter click on the Trends page).
-  const clearPeriod = document.getElementById("clear-period");
-  if (clearPeriod) clearPeriod.addEventListener("click", () => { filterState.clos.period = ""; router(); });
-  applyPendingFocus("clos");
-}
-
 // ================================== NEWS ===================================
 // Aggregated manager/investor press across the whole tracked universe — the
 // `news` + `webNews` arrays on every manager, deduped and surfaced as a feed
@@ -1150,111 +1077,6 @@ function viewNews() {
     <section class="card">${rows.length ? `<div class="g-feed twire">${feedBodyHTML(rows.map((x) => ({ desk: x._type === "Commentary" ? "comm" : "news", href: x.url || "#/", ext: !!x.url, title: x.title, src: x._srcName || "", date: x.date || "", time: x.time || "", mgr: x._mid || "" })))}</div>` : '<p class="empty">No items match your search.</p>'}</section>`;
   wireFilters("news");
   applyPendingFocus("news");
-}
-
-// =============================== WATCHLIST =================================
-// The "Saved items" section — resolves the saved id set back to news / deal /
-// fundraising / CLO items (newest first), rendered with the same rows (so each
-// carries its ★ Saved / ☆ Save button) and paged at 25 with a Load-more button.
-function savedSectionHtml() {
-  const dById = {}; deals.forEach((d) => (dById[d.id] = d));
-  const iById = {}; intel.forEach((i) => (iById[i.id] = i));
-  const nById = {}; aggregateNews().forEach((x) => (nById[newsSaveId(x)] = x));
-  const items = [];
-  getSavedC().forEach((id) => {
-    if (dById[id]) items.push({ ...dById[id], _kind: "deal" });
-    else if (iById[id]) items.push({ ...iById[id], _kind: "intel" });
-    else if (nById[id]) items.push({ ...nById[id], _kind: "news" });
-  });
-  items.sort(byDateDesc);
-  return `<section class="card" id="saved-section"><h2>Saved items <span class="muted">(${items.length})</span></h2>${items.length
-    ? crFeed(items)
-    : '<p class="muted small">No saved items yet.</p>'}</section>`;
-}
-
-function viewWatchlist() {
-  // Pick up follows added elsewhere this session (e.g. a long-press "Add to
-  // Watchlist" via the shared row menu, which writes localStorage directly).
-  try { const _fr = loadFollows(); Object.keys(_fr).forEach((k) => { if (Array.isArray(_fr[k])) follows[k] = _fr[k]; }); } catch { /* ignore */ }
-  const byName = (a, b) => a.name.localeCompare(b.name);
-  const fm = followList("manager").map((id) => managerById[id]).filter(Boolean).sort(byName);
-  const ff = followList("fund").map((id) => fundById[id]).filter(Boolean).sort(byName);
-  const fl = followList("lp").map((id) => lpById[id]).filter(Boolean).sort(byName);
-  const fh = followList("hf").map((id) => HEDGE_FUNDS.find((x) => x.id === id)).filter(Boolean).sort(byName);
-  const hIds = new Set(fh.map((h) => h.id));
-  const mIds = new Set(fm.map((m) => m.id)), fIds = new Set(ff.map((f) => f.id));
-
-  // Combined feed for followed managers/funds: in the news, deal activity and
-  // fundraising intelligence — tagged so a single year-grouped list can render
-  // each item with its own row style.
-  const matches = (x) => (x.managerId && mIds.has(x.managerId)) || (x.fundId && fIds.has(x.fundId));
-  const dealItems = deals.filter((d) => !d.clo && matches(d)).map((d) => ({ ...d, _kind: "deal" }));
-  const intelItems = intel.filter((i) => !i.clo && matches(i)).map((i) => ({ ...i, _kind: "intel" }));
-  // CLO activity for followed managers/funds is merged into the combined feed.
-  const cloItems = [
-    ...deals.filter((d) => d.clo && matches(d)).map((d) => ({ ...d, _kind: "deal" })),
-    ...intel.filter((i) => i.clo && matches(i)).map((i) => ({ ...i, _kind: "intel" })),
-  ];
-  const newsItems = [];
-  fm.forEach((m) => {
-    const all = [...(m.news || []), ...(m.webNews || [])];
-    const seen = new Set();
-    all.forEach((x) => {
-      const k = (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/$/, "");
-      if (seen.has(k)) return;
-      seen.add(k);
-      newsItems.push({ ...x, _kind: "news", _mid: m.id, _mname: m.name });
-    });
-  });
-  // Hedge-fund news (HEDGE_INTEL) for followed funds, mapped to the news shape.
-  const hfItems = (HEDGE_INTEL || [])
-    .filter((h) => h.hfId && hIds.has(h.hfId))
-    .map((h) => ({ _kind: "news", title: h.headline, url: h.url, outlet: h.outlet, _mname: (HEDGE_FUNDS.find((x) => x.id === h.hfId) || {}).name || "", date: h.date, time: h.time || "" }));
-  // Sort the whole combined feed newest-first BEFORE it is paged/grouped —
-  // otherwise feedHtml slices the first 25 of a kind-ordered concatenation
-  // (all news, then deals, …) and recent deals/CLOs get pushed off page one.
-  const feed = [...newsItems, ...hfItems, ...dealItems, ...intelItems, ...cloItems]
-    .sort(byDateDesc);
-
-  if (fm.length + ff.length + fl.length + fh.length === 0) {
-    app.innerHTML = `<div class="page-head"><h1>My Watchlist</h1></div>
-      <section class="card"><p class="muted">You're not following anything yet. Click the ☆ star on any manager, fund or investor to add it here — your watchlist builds a personalised intelligence feed${cloudSync ? " and syncs across your devices" : ""}.</p></section>
-      ${savedSectionHtml()}`;
-    return;
-  }
-  const listCard = (title, items, type, render) =>
-    `<details class="wl-cat"><summary class="wl-cat-head"><h2>${title} <span class="muted">(${items.length})</span></h2><span class="wl-caret" aria-hidden="true"></span></summary><div class="wl-body">${items.length
-      ? `<ul class="link-list">${items.map((x) => `<li>${nameCell(type, x.id, render(x))}</li>`).join("")}</ul>`
-      : '<p class="muted small">None followed.</p>'}</div></details>`;
-  app.innerHTML = `
-    <div class="page-head"><h1>My Watchlist</h1><p class="muted">${fm.length + ff.length + fl.length + fh.length} followed · ${cloudSync ? "synced across devices" : "saved on this device"}</p></div>
-    <div class="wl-cats">
-      ${listCard("Managers", fm, "manager", (m) => link(`#/manager/${m.id}`, m.name))}
-      ${listCard("Hedge funds", fh, "hf", (h) => `${link(`#/hf/${h.id}`, h.name)} <span class="muted small">${esc(h.hq || "")}</span>`)}
-      ${listCard("Funds", ff, "fund", (f) => `${link(`#/fund/${f.id}`, f.name)} <span class="muted small">${esc(managerById[f.managerId]?.name || "")}</span>`)}
-      ${listCard("Investors", fl, "lp", (l) => `${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)}</span>`)}
-    </div>
-    <div id="wl-panel" class="wl-panel" hidden></div>
-    <section class="card"><h2>News, deals, fundraising &amp; CLOs <span class="muted">(${feed.length})</span></h2>${feed.length ? crFeed(feed) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>
-    ${savedSectionHtml()}`;
-
-  // Accordion (all viewports): only one category open at a time; the open one's
-  // followed names render into the full-width panel below the toggles, flowing
-  // across the available width. The in-cell body is hidden (see CSS).
-  const cats = app.querySelectorAll(".wl-cat");
-  const panel = document.getElementById("wl-panel");
-  const syncPanel = () => {
-    if (!panel) return;
-    const open = app.querySelector(".wl-cat[open]");
-    const body = open && open.querySelector(".wl-body");
-    if (body) { panel.innerHTML = body.innerHTML; panel.hidden = false; }
-    else { panel.innerHTML = ""; panel.hidden = true; }
-  };
-  cats.forEach((d) => d.addEventListener("toggle", () => {
-    if (d.open) cats.forEach((o) => { if (o !== d) o.open = false; });
-    syncPanel();
-  }));
-  syncPanel();
 }
 
 // ============================== shared bits ================================
@@ -1504,12 +1326,10 @@ function router() {
     case "lp": return viewLp(arg);
     case "news": return viewNews();
     case "commentary": return viewNews(); // merged into News; keep legacy deep-links working
-    // Deal Activity (#/deals) and Fundraising (#/intel) list pages retired — the
-    // dashboard Deals/Fundraising chips carry that content and each item links to
-    // the relevant manager's page. viewDeals/viewIntel are kept (dormant) for
-    // reuse; a stray hit on the old routes lands on the dashboard.
-    // #/clos (old CLO list) and #/watchlist (superseded by the Bookmarks
-    // panel's Watchlist tab) are retired the same way — views kept dormant.
+    // Deal Activity (#/deals), Fundraising (#/intel), the old CLO list (#/clos) and
+    // the old Watchlist (#/watchlist, superseded by the Bookmarks panel) are retired
+    // — their view functions are deleted; a stray hit on any old route lands on the
+    // dashboard, whose Deals/Fundraising chips carry that content.
     case "deals": case "intel": case "clos": case "watchlist": return viewDashboard();
     default: return notFound(app);
   }
@@ -1528,5 +1348,5 @@ initSavedSync();
 
   // Expose the list builders so the Profiles tab can render the EXACT same
   // Managers / Hedge Funds panes (one source — these close over this app's data).
-  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML, loadConsensus };
+  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML, buildInvestors: investorsPaneHTML, loadConsensus };
 }

@@ -1,6 +1,6 @@
 // The shared search band shows on every page. On list pages (Profiles,
 // Transactions) the search filters in place with the $1–15bn AUM button merged
-// into its row. On the info pages (Home, Dashboard, Macro, Newsletters) a matching
+// into its row. On the info pages (Home, Dashboard, Macro) a matching
 // band opens the global command palette — and carries NO AUM button (there is no
 // AUM list to filter there).
 import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./lib.mjs";
@@ -33,9 +33,10 @@ await pg.waitForTimeout(400);
 check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open, .mcmdk.open .mcmdk-input")), "band search opens the command palette");
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(200);
 
-// Dashboard, Macro and Newsletters carry the same band — search only, no AUM button.
-for (const [key, label] of [["dashboard", "Dashboard"], ["macro", "Macro"], ["newsletters", "Newsletters"]]) {
-  if (key === "macro" || key === "newsletters") { await pg.evaluate((k) => { history.pushState({ v2: true }, "", "/v2/" + k + "/"); dispatchEvent(new PopStateEvent("popstate")); }, key); await pg.waitForTimeout(1200); }
+// Dashboard and Macro carry the same band — search only, no AUM button. (The
+// standalone Newsletters surface is retired — newsletters live in the Home feed.)
+for (const [key, label] of [["dashboard", "Dashboard"], ["macro", "Macro"]]) {
+  if (key === "macro") { await pg.evaluate((k) => { history.pushState({ v2: true }, "", "/v2/" + k + "/"); dispatchEvent(new PopStateEvent("popstate")); }, key); await pg.waitForTimeout(1200); }
   else await tap(key);
   const st = await pg.evaluate((k) => { const v = document.querySelector(`.v2-view[data-view="${k}"]`); return { q: !!(v && v.querySelector(".wire-band .wire-band-q[data-open-search]")), aum: !!(v && v.querySelector(".wire-band .tfocus-aum, .wire-band [data-aum-jump]")) }; }, key);
   check(st.q && !st.aum, `${label}: search band present, no AUM button`);
