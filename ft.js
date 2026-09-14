@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5114d032-164b-4a7b-b71a-0b1f4c994af6", title: "Indonesia’s Prabowo Subianto fires finance minister after just a year", date: "2026-09-14", time: "11:06", url: "https://www.ft.com/content/5114d032-164b-4a7b-b71a-0b1f4c994af6" },
   { id: "f2b75c8a-1060-4995-9c8d-00355aaffffc", title: "Europe’s disclosure push has gone ‘too far’, says Liechtenstein", date: "2026-09-14", time: "11:00", url: "https://www.ft.com/content/f2b75c8a-1060-4995-9c8d-00355aaffffc" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-14", time: "10:40", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "00455942-ad2f-4c57-8ba4-341d42e8cfce", title: "And the FTAV charts quiz winner isn’t…", date: "2026-09-14", time: "10:01", url: "https://www.ft.com/content/00455942-ad2f-4c57-8ba4-341d42e8cfce" },
@@ -60,7 +61,4 @@ export const FT_ITEMS = [
   { id: "cae60732-f929-4735-a627-db8c14e7c7ed", title: "Donald Trump rejects calls from tech bosses for an AI slowdown", date: "2026-09-13", time: "16:42", url: "https://www.ft.com/content/cae60732-f929-4735-a627-db8c14e7c7ed" },
   { id: "182365c4-a0ac-4670-97e0-22e88d3bc02d", title: "EU-UK reset talks delayed again amid tension over ‘Made in Europe’ rules", date: "2026-09-13", time: "16:00", url: "https://www.ft.com/content/182365c4-a0ac-4670-97e0-22e88d3bc02d" },
   { id: "e56e5e77-f131-46ea-a756-9431f1908b7d", title: "Angela Rayner suggests political donations cap on table after Reform’s £72mn boost", date: "2026-09-13", time: "14:42", url: "https://www.ft.com/content/e56e5e77-f131-46ea-a756-9431f1908b7d" },
-  { id: "b60624fb-0a09-45e6-b148-b7a5ca38f83e", title: "Iraq’s militias grow bolder in Iran war", date: "2026-09-13", time: "13:39", url: "https://www.ft.com/content/b60624fb-0a09-45e6-b148-b7a5ca38f83e" },
-  { id: "d4604abb-d357-4ebd-b709-23902d1e1868", title: "The calculated desperation of Trump-a-palooza", date: "2026-09-13", time: "13:00", url: "https://www.ft.com/content/d4604abb-d357-4ebd-b709-23902d1e1868" },
-  { id: "cdce9cd6-4857-4332-af34-ffc9ce45eadf", title: "Russia hits evacuated Kyiv-Warsaw train on line used by foreign leaders", date: "2026-09-13", time: "12:47", url: "https://www.ft.com/content/cdce9cd6-4857-4332-af34-ffc9ce45eadf" },
 ];
