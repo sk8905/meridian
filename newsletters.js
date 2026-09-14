@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-businesspost-anthropicdublinambitions-20260914",
+    publication: "Business Post",
+    author: null,
+    series: "CRE",
+    title: "Anthropic’s huge Dublin ambitions",
+    date: "2026-09-14",
+    time: "08:00",
+    summary: "Anthropic’s Dublin office hunt reveals huge ambitions for Irish jobs, plus Johnny Ronan’s RGRE pitches a hotel above Bewley’s.",
+    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/763FBzUXofkJWC2uA1P2GYhw",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-stocksdropai-20260914",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "17:34",
     summary: "Haaretz reports Netanyahu was warned via the UAE of Hamas's Oct 7 attack plans ten days in advance — which he denies; plus Kyiv claims strikes on Russia's Novorossiysk naval base.",
     url: "https://infos.lemonde.fr/optiext/optiextension.dll?IDj7TSfs0LBwoPHwnCFMId9FddIv-GNq1_km0WzxVIIgDjmlxXjwh9tfM8wK9A2MDp4CCLxi1ohLdXqRrHiIlZZzXcie1pNhgJWclvvM",
-  },
-  {
-    id: "nl-legalbusiness-charlottebanking-20260909",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "How America's second-largest banking centre became Big Law's next big thing",
-    date: "2026-09-09",
-    time: "13:01",
-    summary: "Charlotte has seen a surge of recent activity, with a flurry of firms opening offices, as partners on the ground set out the city's attraction.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMR4hNa0hkBx2Mp9lq/wv",
   },
 ];
