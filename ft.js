@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b3d01493-f0f5-491b-bcf8-2d414539fbe7", title: "Can AI’s leaders put aside rivalry for the common good?", date: "2026-09-14", time: "07:12", url: "https://www.ft.com/content/b3d01493-f0f5-491b-bcf8-2d414539fbe7" },
+  { id: "e1383b40-554a-445d-a431-a7068c68aa76", title: "Pressure over Japan nuclear restart led to data manipulation, report finds", date: "2026-09-14", time: "07:05", url: "https://www.ft.com/content/e1383b40-554a-445d-a431-a7068c68aa76" },
+  { id: "b8f897e4-cb25-45a8-869d-ed5aa0919d08", title: "High inflation or low credibility?", date: "2026-09-14", time: "06:30", url: "https://www.ft.com/content/b8f897e4-cb25-45a8-869d-ed5aa0919d08" },
+  { id: "8715d1c6-054d-4eab-bcad-147acebfd2a9", title: "China’s spy agency warns of AI risk to national security", date: "2026-09-14", time: "06:15", url: "https://www.ft.com/content/8715d1c6-054d-4eab-bcad-147acebfd2a9" },
   { id: "b9a2d02a-d240-4512-a7fa-a8fa6f0429c8", title: "EU and Canada to toast to closer bonds in bid to rally multilateral world order", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/b9a2d02a-d240-4512-a7fa-a8fa6f0429c8" },
   { id: "8e434151-b6ca-492f-9aba-6775529f9545", title: "Druckenmiller: no US rate cuts needed", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/8e434151-b6ca-492f-9aba-6775529f9545" },
   { id: "988e8cb5-da27-49a6-a9f5-377b515c02ba", title: "FTAV’s further reading", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/988e8cb5-da27-49a6-a9f5-377b515c02ba" },
@@ -57,8 +61,4 @@ export const FT_ITEMS = [
   { id: "dc5012ed-cb82-469e-9be8-e65ac7f6745c", title: "Why teenagers are doing worse at school", date: "2026-09-13", time: "12:00", url: "https://www.ft.com/content/dc5012ed-cb82-469e-9be8-e65ac7f6745c" },
   { id: "1fd5bbf6-9bb6-4848-a01b-7c94b3e59b6e", title: "Will the Fed defy Trump and raise rates?", date: "2026-09-13", time: "12:00", url: "https://www.ft.com/content/1fd5bbf6-9bb6-4848-a01b-7c94b3e59b6e" },
   { id: "d17cda71-1c35-4abd-b4d5-773550b109cc", title: "‘Trumpism’ spawns rare unity at Brics summit", date: "2026-09-13", time: "11:50", url: "https://www.ft.com/content/d17cda71-1c35-4abd-b4d5-773550b109cc" },
-  { id: "c49c583f-940c-4592-ad7e-7c206b6c3c75", title: "Brazil banking scandal engulfs Supreme Court", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/c49c583f-940c-4592-ad7e-7c206b6c3c75" },
-  { id: "21b663e4-60ee-4937-a561-5b0f505676a2", title: "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/21b663e4-60ee-4937-a561-5b0f505676a2" },
-  { id: "3204d65e-ae34-4ab3-a73f-a55d354f40ab", title: "Texas puts a brake on its data centre boom", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/3204d65e-ae34-4ab3-a73f-a55d354f40ab" },
-  { id: "2404d7db-002e-42d6-a746-183bb23c1234", title: "The coming robotaxi revolution", date: "2026-09-13", time: "11:00", url: "https://www.ft.com/content/2404d7db-002e-42d6-a746-183bb23c1234" },
 ];
