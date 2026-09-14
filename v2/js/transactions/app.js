@@ -74,7 +74,7 @@ export function mount(host, ctx) {
           <header class="tpanel-h twire-head">
             <div class="tchips" id="tx-mode">
               <button type="button" class="tchip is-on" data-mode="flow">Deal flow</button>
-              <button type="button" class="tchip" data-mode="credits">Credits${EUR_CREDITS.length ? " " + EUR_CREDITS.length : ""}</button>
+              <button type="button" class="tchip" data-mode="credits">Credits</button>
             </div>
           </header>
           <div class="tcol-main">
