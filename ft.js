@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "757da464-7102-4e69-9598-ba65b5a4c3e9", title: "Nigel Farage refuses to say if Reform UK’s £72mn gifts would comply with new cap", date: "2026-09-14", time: "19:06", url: "https://www.ft.com/content/757da464-7102-4e69-9598-ba65b5a4c3e9" },
+  { id: "8a003048-468c-4bec-83a7-154d7cdbb24e", title: "Unions demand softening of UK immigration reforms", date: "2026-09-14", time: "18:49", url: "https://www.ft.com/content/8a003048-468c-4bec-83a7-154d7cdbb24e" },
+  { id: "38ea0870-0100-4f4e-bd71-89074761095c", title: "Why delaying an AI doomsday would benefit investors too", date: "2026-09-14", time: "18:24", url: "https://www.ft.com/content/38ea0870-0100-4f4e-bd71-89074761095c" },
+  { id: "d6f98d2e-9f0c-4414-a339-fe8462810276", title: "Donald Trump claims Russia and Ukraine have agreed energy truce", date: "2026-09-14", time: "18:18", url: "https://www.ft.com/content/d6f98d2e-9f0c-4414-a339-fe8462810276" },
+  { id: "b132d848-7d0b-4938-81ee-3683ef2004db", title: "Time for a pause on cutting-edge AI", date: "2026-09-14", time: "18:16", url: "https://www.ft.com/content/b132d848-7d0b-4938-81ee-3683ef2004db" },
+  { id: "905fb04b-f738-41b2-a571-604031a622da", title: "Germany tells Andrea Orcel to keep Commerzbank’s Frankfurt HQ after takeover", date: "2026-09-14", time: "18:13", url: "https://www.ft.com/content/905fb04b-f738-41b2-a571-604031a622da" },
   { id: "4845a503-3ddd-4bb7-a469-c51f275bc873", title: "Oil hits $109 after Saudi Arabia closes vital export pipeline", date: "2026-09-14", time: "17:31", url: "https://www.ft.com/content/4845a503-3ddd-4bb7-a469-c51f275bc873" },
   { id: "7beb54c6-ed34-40d8-baa8-f1c0a2e8f0c3", title: "We won’t solve young people’s worklessness without listening to them", date: "2026-09-14", time: "17:29", url: "https://www.ft.com/content/7beb54c6-ed34-40d8-baa8-f1c0a2e8f0c3" },
   { id: "b01682ae-1d49-46bb-b23a-d6212574214d", title: "France in ‘astonishing’ push to lift EU sanctions on Russian oligarch", date: "2026-09-14", time: "17:19", url: "https://www.ft.com/content/b01682ae-1d49-46bb-b23a-d6212574214d" },
@@ -56,8 +62,4 @@ export const FT_ITEMS = [
   { id: "8715d1c6-054d-4eab-bcad-147acebfd2a9", title: "China’s spy agency warns of AI risk to national security", date: "2026-09-14", time: "06:15", url: "https://www.ft.com/content/8715d1c6-054d-4eab-bcad-147acebfd2a9" },
   { id: "b9a2d02a-d240-4512-a7fa-a8fa6f0429c8", title: "EU and Canada to toast to closer bonds in bid to rally multilateral world order", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/b9a2d02a-d240-4512-a7fa-a8fa6f0429c8" },
   { id: "8e434151-b6ca-492f-9aba-6775529f9545", title: "Druckenmiller: no US rate cuts needed", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/8e434151-b6ca-492f-9aba-6775529f9545" },
-  { id: "988e8cb5-da27-49a6-a9f5-377b515c02ba", title: "FTAV’s further reading", date: "2026-09-14", time: "06:00", url: "https://www.ft.com/content/988e8cb5-da27-49a6-a9f5-377b515c02ba" },
-  { id: "00e3c084-06e3-47b4-8230-185760216e60", title: "Swedish election on a knife-edge", date: "2026-09-14", time: "05:47", url: "https://www.ft.com/content/00e3c084-06e3-47b4-8230-185760216e60" },
-  { id: "e9d90dd1-0f3c-4771-8cc7-341b3c050d8f", title: "FirstFT: Oil surge stirs UK rate rise debate", date: "2026-09-14", time: "05:38", url: "https://www.ft.com/content/e9d90dd1-0f3c-4771-8cc7-341b3c050d8f" },
-  { id: "4f6a427f-3975-470f-83bf-b21423df59c8", title: "Japan’s central bank set for pivotal moment on rates", date: "2026-09-14", time: "05:15", url: "https://www.ft.com/content/4f6a427f-3975-470f-83bf-b21423df59c8" },
 ];
