@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4205babe-1db0-4507-be8f-70b1e8954c7f", title: "America’s superheroes moved to Britain, but will they stay?", date: "2026-09-14", time: "15:53", url: "https://www.ft.com/content/4205babe-1db0-4507-be8f-70b1e8954c7f" },
+  { id: "06cb850d-089a-4318-88d7-a410e9766b89", title: "Ten-year Treasury yield hits 5% for first time since 2023", date: "2026-09-14", time: "15:51", url: "https://www.ft.com/content/06cb850d-089a-4318-88d7-a410e9766b89" },
+  { id: "24eda5dc-3a2c-489c-a304-1c1451f7c2a7", title: "Stoltenberg reneges on Munich Security Conference top job plan", date: "2026-09-14", time: "15:42", url: "https://www.ft.com/content/24eda5dc-3a2c-489c-a304-1c1451f7c2a7" },
+  { id: "ba38df40-9898-48a0-bc9e-39d8a3da4305", title: "How much should lenders charge hyperscalers?", date: "2026-09-14", time: "15:23", url: "https://www.ft.com/content/ba38df40-9898-48a0-bc9e-39d8a3da4305" },
   { id: "2b8c8997-0a76-4c48-9384-aac94904b7fb", title: "UK government considering takeover of insolvent steelmaker", date: "2026-09-14", time: "14:37", url: "https://www.ft.com/content/2b8c8997-0a76-4c48-9384-aac94904b7fb" },
   { id: "5495d88b-b457-498a-bedd-64a954b538cd", title: "Michael Dell’s family office leads $7.7bn deal to take insurance broker private", date: "2026-09-14", time: "14:17", url: "https://www.ft.com/content/5495d88b-b457-498a-bedd-64a954b538cd" },
   { id: "2c143d02-7fbd-4aa2-922c-f9afc8044dbe", title: "Monetary Policy Radar preview: Fed September meeting", date: "2026-09-14", time: "14:03", url: "https://www.ft.com/content/2c143d02-7fbd-4aa2-922c-f9afc8044dbe" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "0008bdb5-ac6c-4d72-b71f-e53a94a10f77", title: "A ‘lucky’ chancellor must also be a resolute one", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/0008bdb5-ac6c-4d72-b71f-e53a94a10f77" },
   { id: "a45a2f1f-03d9-46aa-8307-fe89edd7e589", title: "Tokenised gold could be exempt from fund regulations under FCA proposal", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/a45a2f1f-03d9-46aa-8307-fe89edd7e589" },
   { id: "639b4d2a-30c7-473c-a3ec-1fe96a7a7ac7", title: "How high might natural gas prices go?", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/639b4d2a-30c7-473c-a3ec-1fe96a7a7ac7" },
-  { id: "203bc43f-8189-4156-b60d-28614e07245f", title: "Expanded ad ban on ‘less healthy’ foods could hit £1bn in UK media spending", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/203bc43f-8189-4156-b60d-28614e07245f" },
-  { id: "898836da-322a-4bb8-9e62-f3c3d36b23b2", title: "European capitals barter over Christine Lagarde’s successor at ECB", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/898836da-322a-4bb8-9e62-f3c3d36b23b2" },
-  { id: "cfcc5bc1-56cc-4e9f-8f0e-ef45932b76ab", title: "UK faces £258bn infrastructure spending gap, warns report", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/cfcc5bc1-56cc-4e9f-8f0e-ef45932b76ab" },
 ];

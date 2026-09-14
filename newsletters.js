@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-offshorefirminvestment-20260914",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Trio of law firms advise as latest offshore firm takes investment",
+    date: "2026-09-14",
+    time: "16:01",
+    summary: "Deal marks second offshore firm to take external investment in just six weeks.",
+    url: "https://email.legalbusiness.co.uk/c/1dXnNWY81p0qdGlQUYd8us9Fhlt7",
+  },
+  {
     id: "nl-preqin-firstclose-europedefense-20260914",
     publication: "Preqin",
     author: null,
