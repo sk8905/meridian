@@ -208,15 +208,28 @@ export function mount(host, ctx) {
   }
 
   // ---- Credits: the European credit universe (ELLI), organised by sector, each
-  // with its current issuer rating. Real, sourced rows only — empty until the
-  // first verified batch lands (compiled by the daily routine; see eu-credits.js).
+  // with its current issuer rating, borrower domicile and 12-month rating trend.
+  // Real, sourced rows only — empty until the first verified batch lands (compiled
+  // by the daily routine; see eu-credits.js).
+  // Borrower domicile → compact ISO alpha-2 code for the inline jurisdiction tag.
+  const JUR_CODE = { Netherlands: "NL", France: "FR", Norway: "NO", Spain: "ES", "United Kingdom": "GB", Germany: "DE", Portugal: "PT", Italy: "IT", Switzerland: "CH", Ireland: "IE", Sweden: "SE", Luxembourg: "LU", Belgium: "BE", Denmark: "DK", Finland: "FI", Austria: "AT", "United States": "US" };
+  const jurCode = (j) => JUR_CODE[j] || (j ? j.slice(0, 2).toUpperCase() : "");
+  // Rating momentum over the trailing 12 months: ▲ up, ▼ down, – unchanged.
+  const TREND = {
+    up: { g: "▲", c: "tx-up", t: "Rating up over the past 12 months" },
+    down: { g: "▼", c: "tx-dn", t: "Rating down over the past 12 months" },
+    flat: { g: "–", c: "tx-fl", t: "Rating unchanged over the past 12 months" },
+  };
   const crRow = (c) => {
     const rt = c.rating
       ? (c.source
         ? `<a class="tcr-rt" href="${esc(c.source)}" target="_blank" rel="noopener noreferrer" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</a>`
         : `<span class="tcr-rt" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</span>`)
       : `<span class="tcr-rt tcr-nr" title="Rating pending verification">NR</span>`;
-    return `<li class="tmini-row tcr-row"><span class="tcr-nm">${esc(c.name)}</span>${rt}</li>`;
+    const jur = c.jurisdiction ? ` <span class="tcr-jur" title="${esc(c.jurisdiction)}">${esc(jurCode(c.jurisdiction))}</span>` : "";
+    const tr = TREND[c.trend] || TREND.flat;
+    const trend = `<span class="tcr-tr ${tr.c}" title="${tr.t} (${esc(c.agency || EUR_CREDITS_META.agency)})">${tr.g}</span>`;
+    return `<li class="tmini-row tcr-row"><span class="tcr-nm">${esc(c.name)}${jur}</span><span class="tcr-rr">${trend}${rt}</span></li>`;
   };
   function renderCredits() {
     if (!EUR_CREDITS.length) {
@@ -224,7 +237,7 @@ export function mount(host, ctx) {
       return;
     }
     const q = _crQ.toLowerCase();
-    const filtered = q ? EUR_CREDITS.filter((c) => `${c.name} ${c.sector} ${c.rating || ""}`.toLowerCase().includes(q)) : EUR_CREDITS;
+    const filtered = q ? EUR_CREDITS.filter((c) => `${c.name} ${c.sector} ${c.rating || ""} ${c.jurisdiction || ""}`.toLowerCase().includes(q)) : EUR_CREDITS;
     const groups = creditsBySector(filtered);
     creditsBody.innerHTML = groups.length
       ? `<div class="tcr-meta muted small">${filtered.length} of ${EUR_CREDITS.length} credits · issuer ratings ${esc(EUR_CREDITS_META.agency)}</div>`

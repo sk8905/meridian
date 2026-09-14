@@ -255,13 +255,17 @@ notification badge red (`#ef4444`).
 - **R22 — European credit universe (Transactions ▸ Credits).** The Credits sub-tab
   (`credit/js/eu-credits.js` → `EUR_CREDITS`, rendered in `v2/js/transactions/app.js`)
   lists the ~300 European leveraged-loan / CLO obligors **by sector** with their
-  current **issuer rating**, anchored to the Morningstar European Leveraged Loan
-  Index (ELLI). The constituent list + ratings are proprietary, so the roster is
-  **compiled incrementally from public rating actions** — every row real + sourced
-  (R7), one **rating agency kept consistent** across the whole roster
+  current **issuer rating**, its **borrower jurisdiction** and a **12-month rating
+  trend** (▲ up / ▼ down / – unchanged), anchored to the Morningstar European
+  Leveraged Loan Index (ELLI). The constituent list + ratings are proprietary, so
+  the roster is **compiled incrementally from public rating actions** — every row
+  real + sourced (R7), one **rating agency kept consistent** across the whole roster
   (`EUR_CREDITS_META.agency`). Never invent a name or a rating: an unknown rating is
   left off (shows "NR"), and the empty roster shows an honest "being compiled"
-  state — never fabricated placeholders. Growing it is a daily-refresh task.
+  state — never fabricated placeholders. `jurisdiction` is the borrower's country of
+  domicile; `trend` is the S&P rating's net direction over the trailing 12 months
+  and is `"up"`/`"down"` only against a verified rating change in that window,
+  `"flat"` otherwise. Growing it is a daily-refresh task.
 
 ---
 

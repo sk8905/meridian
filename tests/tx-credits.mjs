@@ -52,11 +52,18 @@ if (cr.groups > 0) {
       const a = rt.tagName === "A" && /^https?:/.test(rt.getAttribute("href") || "");
       return !nr && !a;                       // a real rating with no source link is illegal
     }).length;
-    return { total: rows.length, named, sourced: rated.filter((rt) => rt.tagName === "A" && /^https?:/.test(rt.getAttribute("href") || "")).length, badRating, meta: (cb.querySelector(".tcr-meta") || {}).textContent || "" };
+    // Each row carries a borrower domicile (a country code with a full-name title)
+    // and a 12-month rating-trend indicator (up ▲ / down ▼ / flat –).
+    const juris = rows.filter((r) => { const j = r.querySelector(".tcr-jur"); return j && j.textContent.trim() && (j.getAttribute("title") || "").trim(); }).length;
+    const trends = rows.map((r) => r.querySelector(".tcr-tr")).filter(Boolean);
+    const badTrend = trends.filter((t) => !(t.classList.contains("tx-up") || t.classList.contains("tx-dn") || t.classList.contains("tx-fl"))).length;
+    return { total: rows.length, named, sourced: rated.filter((rt) => rt.tagName === "A" && /^https?:/.test(rt.getAttribute("href") || "")).length, badRating, juris, trends: trends.length, badTrend, meta: (cb.querySelector(".tcr-meta") || {}).textContent || "" };
   });
   check(q.named === q.total, `Credits: every listed obligor is named (${q.named}/${q.total})`);
   check(q.badRating === 0, `Credits: no unsourced ratings — each rating links its action or shows NR (${q.badRating} bad)`);
   check(q.sourced > 0, `Credits: ratings link to their public source (${q.sourced} linked)`);
+  check(q.juris === q.total, `Credits: every obligor shows its jurisdiction (${q.juris}/${q.total})`);
+  check(q.trends === q.total && q.badTrend === 0, `Credits: every obligor shows a 12-month rating trend (${q.trends}/${q.total}, ${q.badTrend} bad)`);
   check(/issuer ratings\s+S&P/.test(q.meta), `Credits: one consistent rating agency named in the meta (${q.meta.trim().slice(0, 60)})`);
 }
 

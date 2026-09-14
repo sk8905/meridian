@@ -656,6 +656,12 @@
 .tcr-grp-n { color: var(--muted); }
 .tcr-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .tcr-nm { font-size: 12.5px; color: var(--ink); font-weight: 600; }
+/* Borrower domicile — a small muted country code sitting just after the name. */
+.tcr-jur { font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; color: var(--faint); vertical-align: middle; }
+/* The right cluster: 12-month rating trend arrow, then the rating badge. */
+.tcr-rr { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; }
+.tcr-tr { font-size: 9px; line-height: 1; }
+.tcr-tr.tx-fl { color: var(--faint); }
 .tcr-rt { flex: 0 0 auto; font-family: var(--t-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .03em; color: var(--ink); border: 1px solid var(--border); padding: 1px 6px; text-decoration: none; }
 a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tcr-nr { color: var(--faint); }

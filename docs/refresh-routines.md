@@ -172,13 +172,20 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   European Leveraged Loan Index (ELLI). The constituent list + ratings are
   proprietary, so build `EUR_CREDITS` from PUBLIC rating actions and coverage — a
   few verified names per run, working toward the full universe. Every row is real
-  and sourced (R7): `{ name, sector, rating, agency, asOf, source }` — `sector` one
-  of `CREDIT_SECTORS`, `rating` the issuer/corporate-family rating from a SINGLE
-  agency kept consistent across the roster (`EUR_CREDITS_META.agency`, currently
-  S&P), `asOf` the date it was verified, `source` a real URL. Never guess a rating;
-  omit it (leave the field off → shows "NR") rather than invent one. `eu-credits.js`
-  is imported tokenless (like `data.js`), so no cache-token bump is needed for a
-  data-only edit.
+  and sourced (R7): `{ name, sector, rating, agency, asOf, source, jurisdiction, trend }`
+  — `sector` one of `CREDIT_SECTORS`, `rating` the issuer/corporate-family rating
+  from a SINGLE agency kept consistent across the roster (`EUR_CREDITS_META.agency`,
+  currently S&P), `asOf` the date it was verified, `source` a real URL,
+  `jurisdiction` the borrower's country of domicile (full name — the UI maps it to
+  an ISO code), and `trend` the net direction of the S&P rating over the trailing
+  **12 months** (`"up"` | `"down"` | `"flat"`): the current rating vs the rating
+  ~12 months prior. Mark `"up"`/`"down"` only against a REAL, verified 12-month
+  rating change (an S&P upgrade/downgrade in the window — a distressed exchange or
+  default counts as down); use `"flat"` when the rating is unchanged, or when the
+  obligor was newly/initially rated with no comparable prior. Never infer a
+  direction without evidence. Never guess a rating; omit it (leave the field off →
+  shows "NR") rather than invent one. `eu-credits.js` is imported tokenless (like
+  `data.js`), so no cache-token bump is needed for a data-only edit.
   - **Where to source (public):** for the *rating* of a given obligor, search the
     agency directly — **S&P** "Find a Rating" / rating-action articles
     (`spglobal.com/ratings`) is the roster's canonical agency; **Fitch**, **Moody's**,
@@ -191,10 +198,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     Finance research** (~500 covered borrowers); **AFME** and **GlobalCapital**
     league tables give market/issuance context, not an issuer directory. Cite the
     specific S&P action URL as `source` and set `asOf` to the verification date.
-  - **Seeded (2026-09-14):** a first tranche of 13 verified names is in place
-    (Action, Altice France, Cerba HealthCare, Cirsa, INEOS Quattro, Kloeckner
-    Pentaplast, Rovensa, STADA, Synlab, TeamSystem, Techem, Verisure, VodafoneZiggo).
-    Extend from here toward the full universe and re-verify these on new S&P actions.
+  - **Seeded (2026-09-14):** a first tranche of verified names is in place (Action,
+    Altice France, Axactor, Cerba HealthCare, Cirsa, INEOS Quattro, Kloeckner
+    Pentaplast, Rovensa, STADA, Synlab, TeamSystem, Techem, Verisure, VodafoneZiggo),
+    each with its `jurisdiction` and 12-month `trend`. Extend from here toward the
+    full universe and re-verify these on new S&P actions — a new upgrade/downgrade
+    flips `trend`, and a rating that has held for 12 months settles back to `"flat"`.
 - **Origination fields (`book` + `advisers`) — capture opportunistically.** The Radar
   tab reads two optional manager fields (spec: `docs/origination-radar-spec.md` Part H).
   When a run surfaces source-verifiable evidence for a manager it is already touching

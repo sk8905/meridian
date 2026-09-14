@@ -13,13 +13,20 @@
 //
 // One agency, kept CONSISTENT across the roster (EUR_CREDITS_META.agency). Each
 // entry:
-//   { name, sector, rating, agency, asOf, source }
-//     name   — issuer / borrower name
-//     sector — one of CREDIT_SECTORS (industry, not the transaction sub-category)
-//     rating — the agency's current issuer/corporate-family rating (e.g. "B+")
-//     agency — "S&P" | "Moody's" (matches EUR_CREDITS_META.agency)
-//     asOf   — ISO date the rating was last verified
-//     source — a real URL for the rating (rating action / coverage)
+//   { name, sector, rating, agency, asOf, source, jurisdiction, trend }
+//     name         — issuer / borrower name
+//     sector       — one of CREDIT_SECTORS (industry, not the transaction sub-category)
+//     rating       — the agency's current issuer/corporate-family rating (e.g. "B+")
+//     agency       — "S&P" | "Moody's" (matches EUR_CREDITS_META.agency)
+//     asOf         — ISO date the rating was last verified
+//     source       — a real URL for the rating (rating action / coverage)
+//     jurisdiction — the borrower/issuer's country of domicile (full name)
+//     trend        — net direction of the S&P rating over the trailing 12 months
+//                    ("up" | "down" | "flat"): the current rating vs the rating
+//                    ~12 months prior. "flat" when unchanged, or when the issuer
+//                    was newly/initially rated with no comparable prior. Every
+//                    up/down is backed by a real, verified 12-month rating change
+//                    — never inferred without evidence (HOUSE_STYLE R7/R22).
 // =============================================================================
 
 // Canonical industry sectors, in display order. "Other" catches the long tail.
@@ -55,20 +62,20 @@ export const EUR_CREDITS_META = {
 // `asOf` is the date the rating was last verified against its source. The routine
 // extends this toward the full ELLI universe and re-checks ratings on new actions.
 export const EUR_CREDITS = [
-  { name: "Action", sector: "Consumer & Retail", rating: "BB", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3196745" },
-  { name: "Altice France", sector: "Telecom", rating: "B-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3452736" },
-  { name: "Axactor ASA", sector: "Financials", rating: "B-", agency: "S&P", asOf: "2025-11-27", source: "https://www.tradingview.com/news/reuters.com,2025-11-28:newsml_ObiNY6Tva:0-axactor-asa-s-p-outlook-revised-to-stable-from-negative-b-ratings-is-affirmed" },
-  { name: "Cerba HealthCare", sector: "Healthcare & Pharma", rating: "CCC-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3547297" },
-  { name: "Cirsa", sector: "Gaming & Leisure", rating: "BB-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101636696" },
-  { name: "INEOS Quattro", sector: "Chemicals", rating: "BB", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3348272" },
-  { name: "Kloeckner Pentaplast", sector: "Packaging", rating: "D", agency: "S&P", asOf: "2026-09-14", source: "https://cbonds.com/news/3768903/" },
-  { name: "Rovensa", sector: "Chemicals", rating: "B-", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3459538" },
-  { name: "STADA (Nidda Healthcare)", sector: "Healthcare & Pharma", rating: "B", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3449395" },
-  { name: "Synlab", sector: "Healthcare & Pharma", rating: "B", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3097143" },
-  { name: "TeamSystem", sector: "Technology & Software", rating: "B-", agency: "S&P", asOf: "2026-09-14", source: "https://cbonds.com/news/3448861/" },
-  { name: "Techem", sector: "Business Services", rating: "B+", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3568419" },
-  { name: "Verisure", sector: "Business Services", rating: "BB+", agency: "S&P", asOf: "2025-10-08", source: "https://www.verisure.com/press-releases/verisure-credit-rating-upgraded-by-moody-s-and-s-p-following-initial-public-offering" },
-  { name: "VodafoneZiggo", sector: "Telecom", rating: "B+", agency: "S&P", asOf: "2026-09-14", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101626175" },
+  { name: "Action", sector: "Consumer & Retail", rating: "BB", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Netherlands", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3196745" },
+  { name: "Altice France", sector: "Telecom", rating: "B-", agency: "S&P", asOf: "2026-09-14", jurisdiction: "France", trend: "down", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3452736" },
+  { name: "Axactor ASA", sector: "Financials", rating: "B-", agency: "S&P", asOf: "2025-11-27", jurisdiction: "Norway", trend: "flat", source: "https://www.tradingview.com/news/reuters.com,2025-11-28:newsml_ObiNY6Tva:0-axactor-asa-s-p-outlook-revised-to-stable-from-negative-b-ratings-is-affirmed" },
+  { name: "Cerba HealthCare", sector: "Healthcare & Pharma", rating: "CCC-", agency: "S&P", asOf: "2026-09-14", jurisdiction: "France", trend: "down", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3547297" },
+  { name: "Cirsa", sector: "Gaming & Leisure", rating: "BB-", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Spain", trend: "up", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101636696" },
+  { name: "INEOS Quattro", sector: "Chemicals", rating: "BB", agency: "S&P", asOf: "2026-09-14", jurisdiction: "United Kingdom", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3348272" },
+  { name: "Kloeckner Pentaplast", sector: "Packaging", rating: "D", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Germany", trend: "down", source: "https://cbonds.com/news/3768903/" },
+  { name: "Rovensa", sector: "Chemicals", rating: "B-", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Portugal", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3459538" },
+  { name: "STADA (Nidda Healthcare)", sector: "Healthcare & Pharma", rating: "B", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Germany", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3449395" },
+  { name: "Synlab", sector: "Healthcare & Pharma", rating: "B", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Germany", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3097143" },
+  { name: "TeamSystem", sector: "Technology & Software", rating: "B-", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Italy", trend: "flat", source: "https://cbonds.com/news/3448861/" },
+  { name: "Techem", sector: "Business Services", rating: "B+", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Germany", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3568419" },
+  { name: "Verisure", sector: "Business Services", rating: "BB+", agency: "S&P", asOf: "2025-10-08", jurisdiction: "Switzerland", trend: "up", source: "https://www.verisure.com/press-releases/verisure-credit-rating-upgraded-by-moody-s-and-s-p-following-initial-public-offering" },
+  { name: "VodafoneZiggo", sector: "Telecom", rating: "B+", agency: "S&P", asOf: "2026-09-14", jurisdiction: "Netherlands", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101626175" },
 ];
 
 // Group the roster by sector, in CREDIT_SECTORS order; unknown sectors fall to
