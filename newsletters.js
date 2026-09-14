@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-firstclose-europedefense-20260914",
+    publication: "Preqin",
+    author: null,
+    series: "First Close",
+    title: "Defense investment means a great deal to Europe",
+    date: "2026-09-14",
+    time: "12:35",
+    summary: "Changing geopolitical context triggers a shift toward defense investment opportunities in Europe for private equity and VC, though the region still trails the US and APAC in AUM.",
+    url: "https://go.preqin.com/webmail/909852/2169604361/a37b7380374cf2f3d0f926883036705c145c47a1b3fb9947952755ee7607cff9",
+  },
+  {
     id: "nl-bbg-econdaily-bessentsaibeefs-20260914",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "05:42",
     summary: "Trump floats a $5,000 payout for every American adult if Republicans win the midterms, the Treasury's disappointing bond-buyback plan, and Brent crude topping $100 a barrel amid US-Iran strikes.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-bessentdaresbondtraders-20260910",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Bessent dares bond traders to burn down the house",
-    date: "2026-09-10",
-    time: "05:00",
-    summary: "And then there's oil back above $100 — Bessent's tripled bond buyback failed to move yields, testing how far markets will push him and whether 5% on the 10-year could finally rattle stocks.",
-    url: "https://links.message.bloomberg.com/a/sc/qjDDCHf-5glcfwt9BIwFatdbJ0xEcSZZuJvbYi-DTQz-_pgRn4D4HEGCZas3vE0qUWM95y17eE_7HRBnuRGIwhX41tJk6SyAhyApgfkQ18gwjyZexF9rYS96URfvy0q2fdQnPHdxyZqYRzC2e-2vZhDtlC1xBNdxF0lW_BopKThJ8uZv9MzfBw7zjZlSUHiK0juF377kxbWhx7WIvqVTGHD6eB66yzl9r_k4c1-REv8ILRHHrGmdUQLK1djibsV4fGB_2JS0bO8s8Eudim7VWV7T2EXadGDVWKdkN05S-pv_weTyFYXAfTp93WpuFjW94Gkk8COCgn71bzyOXvDvQ6Fngmr41dZEaFaDgiEZ2SngcY8DoFY2lCm0cppkhRQn8pTHxemN9ohIBNTp2HXIAm2AysBe0Ciz4R0p9Obkzo8OWgU2TvoEv199R2JEQxiAd0DF8yyCDtZACtrbvxwtRQ7rc8PvfJ3GNKDsysh23FIDNmy1ri0utJxT5Z30uK_KhKlOlzZR2Me1n8cFx3YM3ziu_UZp2T03",
   },
 ];

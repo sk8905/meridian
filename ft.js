@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f2a472e6-352a-4067-b9e5-56596a8ba215", title: "A spreading war threatens Trump and MBS", date: "2026-09-14", time: "12:48", url: "https://www.ft.com/content/f2a472e6-352a-4067-b9e5-56596a8ba215" },
+  { id: "bdc77254-e491-4d9f-8537-6f04317d037f", title: "The Saudi relief valve is being closed", date: "2026-09-14", time: "12:31", url: "https://www.ft.com/content/bdc77254-e491-4d9f-8537-6f04317d037f" },
   { id: "ed47f038-a049-4987-b2d7-845ee7ee01d7", title: "A design quirk of Victorian pubs is back on the menu", date: "2026-09-14", time: "12:00", url: "https://www.ft.com/content/ed47f038-a049-4987-b2d7-845ee7ee01d7" },
   { id: "3df6d934-1ddf-4d56-b82d-bdd8807fc610", title: "Menswear has gone mad for mustard. Are you ready to dab?", date: "2026-09-14", time: "11:00", url: "https://www.ft.com/content/3df6d934-1ddf-4d56-b82d-bdd8807fc610" },
   { id: "8a92c5f1-a597-48f7-957a-9555d1654f0e", title: "An ode to North America’s longest saltwater pool", date: "2026-09-14", time: "09:31", url: "https://www.ft.com/content/8a92c5f1-a597-48f7-957a-9555d1654f0e" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "0688caee-f24f-4fa7-b04a-d1e8f9c0c03d", title: "Schroders considers acquisitions to grow wealth division", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/0688caee-f24f-4fa7-b04a-d1e8f9c0c03d" },
   { id: "76a24fc8-b521-47d6-aec9-1bf6666afd60", title: "Fed and BoJ expect rate hikes as US bond market flails", date: "2026-09-14", time: "05:00", url: "https://www.ft.com/content/76a24fc8-b521-47d6-aec9-1bf6666afd60" },
   { id: "e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd", title: "Trump calls on Ukraine to stop striking Russian diesel refineries", date: "2026-09-13", time: "20:08", url: "https://www.ft.com/content/e3ba3f9a-9312-4d0b-99fd-2c80728f2dcd" },
-  { id: "9cd8cc79-e98a-449f-a903-609b034a56e3", title: "Canada seeks Ukraine loan role to deepen EU ties", date: "2026-09-13", time: "19:57", url: "https://www.ft.com/content/9cd8cc79-e98a-449f-a903-609b034a56e3" },
-  { id: "7de7cc10-e7a5-414b-a40f-3296eaf49ce7", title: "Russians to vote, but the outcome is already decided", date: "2026-09-13", time: "18:15", url: "https://www.ft.com/content/7de7cc10-e7a5-414b-a40f-3296eaf49ce7" },
 ];
