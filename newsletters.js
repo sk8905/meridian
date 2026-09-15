@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lemonde-lebrief-catherineringer-20260915",
+    publication: "Le Monde",
+    author: null,
+    series: "Le Brief",
+    title: "Le brief | Catherine Ringer, célèbre voix des Rita Mitsouko, est morte à l'âge de 68 ans",
+    date: "2026-09-15",
+    time: "17:34",
+    summary: "La moitié du duo des Rita Mitsouko a été « emportée par un cancer foudroyant dans la nuit du 14 septembre 2026 », a annoncé sa famille.",
+    url: "https://infos.lemonde.fr/optiext/optiextension.dll?ID=PC5nQMm8awxK1-XSrCHtNjYfz7_ChAm2d6j1rBul1wqQM0boTuyMYC7rVMh0zGoRlF_-HPm_6zMF5RBLp0yYV4fSVeA1soogXLzqurSl",
+  },
+  {
     id: "nl-bbg-thebrink-miserymiddlemarket-20260915",
     publication: "Bloomberg",
     author: "Libby Cherry and Arno Schütze",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "15:29",
     summary: "Five other partners to join corporate chair Aiello in move to Cravath.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMR6JZEgXOQdYZ5gAX/wv",
-  },
-  {
-    id: "nl-mailbrew-fridaybrew13-20260911",
-    publication: "Mailbrew",
-    author: null,
-    series: null,
-    title: "Friday Brew #13",
-    date: "2026-09-11",
-    time: "13:58",
-    summary: "A curated digest on the data-center backlash despite 401(k) dependence on it, Drexel Burnham as the godfather of private credit, and shorting the dollar by drinking free first-growth Bordeaux.",
-    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/13",
   },
 ];

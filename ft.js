@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "cacaf167-5d13-420c-8624-4e5f9b227028", title: "Scotch producers fume over legal protection for English whisky", date: "2026-09-15", time: "17:59", url: "https://www.ft.com/content/cacaf167-5d13-420c-8624-4e5f9b227028" },
+  { id: "a3830162-2f40-46b7-8259-0db45fe2acef", title: "US prosecutors say Chinese groups used Binance to launder $61mn from Iranian oil deals", date: "2026-09-15", time: "17:52", url: "https://www.ft.com/content/a3830162-2f40-46b7-8259-0db45fe2acef" },
+  { id: "e89bfb29-2aef-40ec-9c9d-b9c1afa783a8", title: "Iran war has left US with munitions ‘shortfall’, Pentagon watchdog says", date: "2026-09-15", time: "17:10", url: "https://www.ft.com/content/e89bfb29-2aef-40ec-9c9d-b9c1afa783a8" },
   { id: "7e2ae9c8-4c94-4550-bdfb-bb003e4780d8", title: "Reform UK’s leader in Wales steps down after being ‘reported to the police’", date: "2026-09-15", time: "17:01", url: "https://www.ft.com/content/7e2ae9c8-4c94-4550-bdfb-bb003e4780d8" },
   { id: "08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9", title: "Saudi leader visits Egypt for security talks as war with Houthis intensifies", date: "2026-09-15", time: "16:27", url: "https://www.ft.com/content/08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9" },
   { id: "b3674c9d-9db2-448d-bd57-f1c040de2d54", title: "Supreme Court rejects Donald Trump’s restrictions on mail-in ballots for midterms", date: "2026-09-15", time: "14:55", url: "https://www.ft.com/content/b3674c9d-9db2-448d-bd57-f1c040de2d54" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "aafa05d0-db36-4a41-a79b-2bcc2bb9aae0", title: "Banco Santander opens its vaults — with some help from David Chipperfield", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/aafa05d0-db36-4a41-a79b-2bcc2bb9aae0" },
   { id: "a43e9050-f646-4d24-b650-b75ef589985c", title: "Private equity’s new AI overlords?", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/a43e9050-f646-4d24-b650-b75ef589985c" },
   { id: "410b768f-e739-45bb-9ef1-04fd571142a8", title: "Ben Delo: the crypto billionaire helping to bankroll Reform UK", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/410b768f-e739-45bb-9ef1-04fd571142a8" },
-  { id: "f00de325-5045-4e98-9068-9261bfe9eff3", title: "Luxembourg probes Gazprombank ex-managers", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/f00de325-5045-4e98-9068-9261bfe9eff3" },
-  { id: "3abf587d-af1b-4de4-b1fe-b5b4cb48a6cd", title: "Hyrox’s new owners hope to turn burpees into billions", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/3abf587d-af1b-4de4-b1fe-b5b4cb48a6cd" },
-  { id: "e14542d9-2bc5-49c8-8e7e-c9656b0a2d36", title: "US manufacturers hit by fresh burst of supply chain cost inflation", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/e14542d9-2bc5-49c8-8e7e-c9656b0a2d36" },
 ];
