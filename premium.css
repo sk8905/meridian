@@ -663,6 +663,10 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
    dependent centre. Phones keep the full-screen sheet (the max-width:760px block
    below resets top/transform). */
 .na-panel { position: fixed; left: 50%; top: 9vh; right: auto; transform: translateX(-50%); width: min(560px, 92vw); max-width: 92vw; max-height: 82vh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
+/* The Briefing reads as prose across three desks, so let it use the space a wide
+   monitor offers — ~half the viewport — while never dropping below the standard
+   560px panel width or spilling past the 92vw phone cap. */
+#na-brief-panel { width: min(max(560px, 50vw), 92vw); }
 .na-panel[hidden] { display: none; }
 .na-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; z-index: 3; }
 .na-h-t { font-size: 12.5px; font-weight: 700; letter-spacing: .02em; color: var(--ink, #eaf0fb); text-transform: uppercase; }
@@ -990,10 +994,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* Briefing colour cues: the TOPIC heading (Macro / Fixed income / Equities …) is
    orange, and every NUMBER (5%, $100, 4.97% …) is blue — in the lede and bullets. */
 /* Explainer colour marks — GLOBAL so every "Key moments" / "why it moved" line and
-   briefing bullet reads the same: topic headings orange, non-date numbers blue.
+   briefing bullet reads the same: topic headings orange; numbers read as plain body
+   text (the blue number accent was removed by request).
    (See v2/js/nb-format.js, which wraps the .nb-topic / .nb-num spans.) */
 .nb-topic { color: var(--accent, #fb8b1e); }
-.nb-num { color: var(--wb-txt, #4aa3f0); }
+.nb-num { color: inherit; }
 .na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10.5px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
 .na-brief-src:hover { color: var(--ink); }
 .na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10.5px; line-height: 1.45; }

@@ -398,6 +398,21 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     (A real bug seen 2026-06-29: an insert left `},\n,\n  {` in `deals` and
     `intel`; `node --check` and `.filter()` passed but the Credit app rendered
     blank — header/footer only.)
+- **Transactions ↔ Profiles cross-check (run every day).** Every transaction in the
+  Transactions tab is attributed to a counterparty **by id**, and the Profiles tab
+  renders that entity (Managers / Hedge Funds / Investors / Law firms). The two must
+  never drift apart: every id a `deal` (or `intel` / `HEDGE_INTEL` / `commitments` /
+  `funds`) points at MUST resolve to a real profile, so no transaction dangles
+  without the profile it links to. So when a run ADDS a deal, intel item or
+  hedge-fund story for an entity, first confirm that entity already exists in the
+  roster (`managers` / `HEDGE_FUNDS` / `lps`) — and if it doesn't, ADD the profile
+  in the same run (see §8's canonical roster). Never rename or delete an entity out
+  from under records that still reference its id. This is enforced by
+  **`tests/tx-profiles-coverage.mjs`**, which runs as part of the full suite
+  (`node tests/run.mjs`) — the daily consistency pass MUST run the suite and keep it
+  green, so an orphaned reference fails loudly instead of shipping a dead link. (The
+  reverse — a profile with no transaction yet — is fine: the roster is a directory,
+  and an entity may be listed before its first recorded deal.)
 - **Publish on every run.** Because `LAST_CHECKED` is bumped each run, every run
   produces a commit (even a "nothing new" run, which just advances `LAST_CHECKED`
   + cache-busters). Commit (message trailers below), then publish to `main` AND the
