@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-firstclose-spaceinvestment-20260915",
+    publication: "Preqin",
+    author: null,
+    series: "First Close",
+    title: "Space investment shifts orbit from moonshots to critical infrastructure",
+    date: "2026-09-15",
+    time: "12:23",
+    summary: "Defense, data and AI demand are turning space into a critical-infrastructure asset class, with Goldman Sachs pegging the global space economy at up to $1.8tn by 2035.",
+    url: "https://go.preqin.com/webmail/909852/2171561828/a37b7380374cf2f3d0f926883036705c145c47a1b3fb9947952755ee7607cff9",
+  },
+  {
     id: "nl-bbg-econdaily-chinaslowlane-20260915",
     publication: "Bloomberg",
     author: "Malcolm Scott",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "12:41",
     summary: "Slowing growth and an electoral cycle mean France's economy is heading into worrisome territory, after Insee slashed its 2026 growth forecast to 0.4%.",
     url: "https://links.message.bloomberg.com/a/sc/QZX1pw8y77M6FhQDEJSD3UJxIeXPcS1etRJKHYCU_Ldi-mzLPKqyBye81SZlV0Rz5evSQwUxg4L8QEofell66f34OEpNsYhy5F84z4o95_Z-JybQeeocyTNxfHata6p0D5qwduUlyJfaIbBQudUWWNzdwEP2zM6-CvmggCZFkZMgu-2BdydB4beJWV4ZGGO6F1Pv15xqQ5Cv2UGjfromY_flRo1WorPryTXXao3T0DvXqa89mzxS5B9IWcwHiIXT7qL2f10GzlwTREI7iaXcsZs37nr6CbFyCJ9NpzyjSowqyudSIgKJYn6pmJLM5dm2PEG8hJPc75zf9at3JnHXsSESmkFS8aWw0gs6c0ap8r3n24Ff7QUW9vTmp9jdcSrYrHrYaZR7FnXwWmQjpIQKhcOvwRCTthf9SXk7WGDibssqAc9qW1KwiaHpUzz8EAX7x28XDum9z1R_yjnnhhJ6MfnF7F8Pxv_SduSEU9hpHcGfIUGBFIzDNGSJY-fpEK6gnV9UsIjq1Dh8po5UnNZNhKaRJqMUgV9lfFE",
-  },
-  {
-    id: "nl-bbg-goingprivate-creditjengatower-20260911",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: Credit's Jenga tower in peril",
-    date: "2026-09-11",
-    time: "12:08",
-    summary: "Short-sellers circle as the global bond rout raises questions about risk-reward in direct lending; Andromeda's Alberto Gallo warns insurers and pensions are 'scaling a Jenga tower of debt' in the $1.8 trillion sector.",
-    url: "https://links.message.bloomberg.com/a/sc/Jgv6PDelEe0FrDuBAQslGOJRXzS2yM9Il7aUopUThPzSAV-yTB5C6B4NPLOL8VcBh5AzO4mnmT6F1XnX6MnEYleyUIrpWayb02Z832yRwFA2e9c-l1EU2TmLZYkGgz3TI2hRzB6M_ftsTy8uyyCMG91TFfaaHSGXUdi2Rl74cZvR6KRyjj45UQ8R59BEAlFbrNPXZR3ikchSasfxyPzgJz63S4jdVquHeBGnfWTBVupMkCVZhieG5mGfAQq58hgWk2Li1oQSMEri2P2GUhojm8o4Zc07w78f9adagWxB8HEs8e_NFy-UdnyFgwB9_DE-i4E76HIzGWNIjHjeZFAR_aHkLub8OXIYvvFhHb-bazv0SRY_aVYYsz8amCXFfOgYYQbRhKO79rliS7SZhINhCoMRZW7HuE-DCSrKr9jGfbWRwqCfTgI1ZMMBeTXT-2rmXVjblZqV8sDGqd_6hehajsZ5PSMGJmrjJ6dusK3KVSW8Db7Niu4WS3gHQg0aV-M0BYmBRduIZrfyur1fEweWqEj02XnljPdia1FS4UkRtwo",
   },
 ];

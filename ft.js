@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "51a381f2-cbff-4d2f-9ebd-9f0ec3996570", title: "Kevin Warsh needs to walk the walk", date: "2026-09-15", time: "12:22", url: "https://www.ft.com/content/51a381f2-cbff-4d2f-9ebd-9f0ec3996570" },
   { id: "2104f2c8-ba9b-4716-bc26-a69c7c46a450", title: "Trump’s Venezuela oil deal: deeply flawed or too big to fail?", date: "2026-09-15", time: "12:00", url: "https://www.ft.com/content/2104f2c8-ba9b-4716-bc26-a69c7c46a450" },
   { id: "76795dfc-2d44-421b-9665-5d86346af328", title: "Sullivan & Cromwell hires team of Kirkland partners in private equity push", date: "2026-09-15", time: "12:00", url: "https://www.ft.com/content/76795dfc-2d44-421b-9665-5d86346af328" },
   { id: "608a9f4e-0beb-4840-a37c-831a5265d7da", title: "Scott Bessent’s wobbly house", date: "2026-09-15", time: "11:59", url: "https://www.ft.com/content/608a9f4e-0beb-4840-a37c-831a5265d7da" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "439dfb20-cb9b-4db2-8d0a-ba7442281846", title: "The EU’s ‘Made in Europe’ policy spooks British industry", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/439dfb20-cb9b-4db2-8d0a-ba7442281846" },
   { id: "bdd5274a-bf02-4ca2-bd72-2c0558605707", title: "The $1.6bn IPO that could draw millions of Nigerians to the stock market", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/bdd5274a-bf02-4ca2-bd72-2c0558605707" },
   { id: "c4641e3b-a605-468e-841b-73a22eee0781", title: "Jaguar Land Rover targets Nato military budgets with revamped Defender", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/c4641e3b-a605-468e-841b-73a22eee0781" },
-  { id: "7265f15f-c1e4-49c5-b6e0-8c3a29e70892", title: "UK and Japan seek to fully benefit from ‘Made in Europe’ car sector rules", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/7265f15f-c1e4-49c5-b6e0-8c3a29e70892" },
 ];
