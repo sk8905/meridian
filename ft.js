@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2c206da5-63c9-405d-ae14-abe772ea32e0", title: "Santander wins £677mn legal appeal over PPI mis-selling bill", date: "2026-09-15", time: "13:10", url: "https://www.ft.com/content/2c206da5-63c9-405d-ae14-abe772ea32e0" },
+  { id: "3f2b2172-0c1a-4708-aba2-559eb37eabc8", title: "China tightens control of overseas travel in sweeping new law", date: "2026-09-15", time: "13:01", url: "https://www.ft.com/content/3f2b2172-0c1a-4708-aba2-559eb37eabc8" },
+  { id: "fa93720c-4df4-42dc-bee5-c1026fbd7f77", title: "BPRE’s extremely large, very huge, getting-bigger NAV discount", date: "2026-09-15", time: "12:37", url: "https://www.ft.com/content/fa93720c-4df4-42dc-bee5-c1026fbd7f77" },
+  { id: "f821d969-0eb3-44f5-baf7-96f5e434a1ed", title: "Bad decisions, difficult incentives and excitable markets", date: "2026-09-15", time: "12:30", url: "https://www.ft.com/content/f821d969-0eb3-44f5-baf7-96f5e434a1ed" },
+  { id: "66a5a8dc-0b79-48cd-a12a-ecef5b73db1a", title: "Managers at Lucy Letby hospital too slow to call police, inquiry finds", date: "2026-09-15", time: "12:30", url: "https://www.ft.com/content/66a5a8dc-0b79-48cd-a12a-ecef5b73db1a" },
   { id: "51a381f2-cbff-4d2f-9ebd-9f0ec3996570", title: "Kevin Warsh needs to walk the walk", date: "2026-09-15", time: "12:22", url: "https://www.ft.com/content/51a381f2-cbff-4d2f-9ebd-9f0ec3996570" },
   { id: "2104f2c8-ba9b-4716-bc26-a69c7c46a450", title: "Trump’s Venezuela oil deal: deeply flawed or too big to fail?", date: "2026-09-15", time: "12:00", url: "https://www.ft.com/content/2104f2c8-ba9b-4716-bc26-a69c7c46a450" },
   { id: "76795dfc-2d44-421b-9665-5d86346af328", title: "Sullivan & Cromwell hires team of Kirkland partners in private equity push", date: "2026-09-15", time: "12:00", url: "https://www.ft.com/content/76795dfc-2d44-421b-9665-5d86346af328" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "a143e08d-e979-410a-8e81-160fd4eba367", title: "Iran’s allies squeeze Saudi Arabia", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/a143e08d-e979-410a-8e81-160fd4eba367" },
   { id: "ebca8754-9546-4668-85dd-a0d793c54d3c", title: "Vladimir Putin moves summit over Ukrainian drone threat", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/ebca8754-9546-4668-85dd-a0d793c54d3c" },
   { id: "03e903dc-6936-45d6-bc76-997b2ad75ec5", title: "ECB staff demand clarity over Christine Lagarde’s potential early exit", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/03e903dc-6936-45d6-bc76-997b2ad75ec5" },
-  { id: "6c387cda-61b0-4396-9353-0d7d99781f9b", title: "How Poland lost $230mn trying to buy Venezuelan oil with crypto", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/6c387cda-61b0-4396-9353-0d7d99781f9b" },
-  { id: "59a0cd3e-62cf-45f5-9377-43429db5aefa", title: "Britain, Burnham and tax: the walls close in", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/59a0cd3e-62cf-45f5-9377-43429db5aefa" },
-  { id: "439dfb20-cb9b-4db2-8d0a-ba7442281846", title: "The EU’s ‘Made in Europe’ policy spooks British industry", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/439dfb20-cb9b-4db2-8d0a-ba7442281846" },
-  { id: "bdd5274a-bf02-4ca2-bd72-2c0558605707", title: "The $1.6bn IPO that could draw millions of Nigerians to the stock market", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/bdd5274a-bf02-4ca2-bd72-2c0558605707" },
-  { id: "c4641e3b-a605-468e-841b-73a22eee0781", title: "Jaguar Land Rover targets Nato military budgets with revamped Defender", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/c4641e3b-a605-468e-841b-73a22eee0781" },
 ];

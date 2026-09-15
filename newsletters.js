@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-btrollsroycelegalchief-20260915",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "BT names former Rolls-Royce GC as new legal chief",
+    date: "2026-09-15",
+    time: "13:08",
+    summary: "Mark Gregory set to become chief legal and public affairs officer at BT as group GC Sabine Chalmers prepares for 'rewirement'.",
+    url: "https://email.legalbusiness.co.uk/c/1dXCxQIeWfcZOG45APkfI6pgjg4A",
+  },
+  {
     id: "nl-preqin-firstclose-spaceinvestment-20260915",
     publication: "Preqin",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "13:30",
     summary: "Higher oil prices are back in focus, but consumers and investors appear better positioned to absorb this energy shock than past ones.",
     url: "https://go-jpmpb.jpmorgan.com/v/MzkyLUhLQy04NzYAAAGkL2vDyCAVIVx5Cv1z7xFThgPXq9FgFJgpoeROcg7hN9vV2y-H4n7_QhWPUScoWZp-9eWZ_pY=",
-  },
-  {
-    id: "nl-bbg-parisedition-orangealert-20260911",
-    publication: "Bloomberg",
-    author: "Lionel Laurent",
-    series: "Paris Edition",
-    title: "Paris Edition: An orange alert",
-    date: "2026-09-11",
-    time: "12:41",
-    summary: "Slowing growth and an electoral cycle mean France's economy is heading into worrisome territory, after Insee slashed its 2026 growth forecast to 0.4%.",
-    url: "https://links.message.bloomberg.com/a/sc/QZX1pw8y77M6FhQDEJSD3UJxIeXPcS1etRJKHYCU_Ldi-mzLPKqyBye81SZlV0Rz5evSQwUxg4L8QEofell66f34OEpNsYhy5F84z4o95_Z-JybQeeocyTNxfHata6p0D5qwduUlyJfaIbBQudUWWNzdwEP2zM6-CvmggCZFkZMgu-2BdydB4beJWV4ZGGO6F1Pv15xqQ5Cv2UGjfromY_flRo1WorPryTXXao3T0DvXqa89mzxS5B9IWcwHiIXT7qL2f10GzlwTREI7iaXcsZs37nr6CbFyCJ9NpzyjSowqyudSIgKJYn6pmJLM5dm2PEG8hJPc75zf9at3JnHXsSESmkFS8aWw0gs6c0ap8r3n24Ff7QUW9vTmp9jdcSrYrHrYaZR7FnXwWmQjpIQKhcOvwRCTthf9SXk7WGDibssqAc9qW1KwiaHpUzz8EAX7x28XDum9z1R_yjnnhhJ6MfnF7F8Pxv_SduSEU9hpHcGfIUGBFIzDNGSJY-fpEK6gnV9UsIjq1Dh8po5UnNZNhKaRJqMUgV9lfFE",
   },
 ];
