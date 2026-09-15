@@ -878,7 +878,7 @@ export function mount(host, ctx) {
       + `<td class="dsh-r">${esc(hfUsd(h.value))}</td>`
       + `<td class="dsh-r">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
     body.innerHTML = `<table class="dsh-tbl"><thead><tr><th class="dsh-r">#</th><th>Holding</th><th>Ticker</th><th class="dsh-r">Value</th><th class="dsh-r">Weight</th></tr></thead><tbody>${rows}</tbody></table>`
-      + `<p class="dsh-fl-note">Top ${Math.min(10, d.holdings.length)} US-listed positions by value${d.asOf ? `, as of ${esc(d.asOf)}` : ""}${d.source ? ` · <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer">latest 13F</a>` : ""}.</p>`;
+      + `<p class="dsh-fl-note">Top ${Math.min(50, d.holdings.length)} US-listed positions by value${d.asOf ? `, as of ${esc(d.asOf)}` : ""}${d.source ? ` · <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer">latest 13F</a>` : ""}.</p>`;
   }
   function wireHedgeFunds() {
     const sel = host.querySelector("#dsh-hf-sel"), body = host.querySelector("#dsh-hf-body");

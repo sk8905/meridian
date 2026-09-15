@@ -1168,7 +1168,7 @@ async function handle13F(request, env, ctx) {
 
   const cache = caches.default;
   // Long-lived, per-CIK edge key. Bump v when the endpoint's parsing code changes.
-  const cacheKey = new Request(new URL(`/api/13f?cik=${cik}&v=3`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/13f?cik=${cik}&v=4`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
