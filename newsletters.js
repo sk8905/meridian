@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-susquehannaputs-20260915",
+    publication: "Bloomberg",
+    author: null,
+    series: "Money Stuff",
+    title: "Money Stuff: Not All the Susquehanna Puts Were Bad",
+    date: "2026-09-15",
+    time: "18:17",
+    summary: "Puts, factors, USDT, dopamine.",
+    url: "https://bloom.bg/3Txwjev",
+  },
+  {
     id: "nl-lemonde-lebrief-catherineringer-20260915",
     publication: "Le Monde",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "16:20",
     summary: "After a run of bruising law firm collapses, the SRA is facing questions over how it can up its game – and what needs to change.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMR6OtbZdENfhCSepp/wv",
-  },
-  {
-    id: "nl-legalbusiness-sixmapartnersweilcravath-20260911",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Full details - the six M&A partners set to leave Weil for Cravath",
-    date: "2026-09-11",
-    time: "15:29",
-    summary: "Five other partners to join corporate chair Aiello in move to Cravath.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMR6JZEgXOQdYZ5gAX/wv",
   },
 ];
