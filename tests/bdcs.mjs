@@ -91,8 +91,15 @@ await ctx.close();
   await p2.waitForSelector("#tx-mode .tchip", { timeout: 8000 });
   await p2.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].find((c) => c.dataset.mode === "bdc").click());
   await p2.waitForSelector("#tx-bdc-body .tbdc-tbl tbody tr.tbdc-row", { timeout: 5000 });
-  const fit = await p2.evaluate(() => { const t = document.querySelector("#tx-bdc-body .tbdc-tbl"); return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width) }; });
+  const fit = await p2.evaluate(() => {
+    const t = document.querySelector("#tx-bdc-body .tbdc-tbl");
+    const wrap = t.closest(".tleague-wrap");
+    const se = document.scrollingElement;
+    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width),
+      wrapOverflow: wrap.scrollWidth - wrap.clientWidth, pageOverflow: se.scrollWidth - se.clientWidth };
+  });
   check(fit.tblW <= fit.vw + 1, `phone: the BDC table fits the screen (table ${fit.tblW} ≤ vw ${fit.vw})`);
+  check(fit.wrapOverflow <= 1 && fit.pageOverflow <= 1, `phone: no horizontal overflow — the liquidity cell wraps, nothing spills (wrap ${fit.wrapOverflow}, page ${fit.pageOverflow})`);
   checkErrs(e2, "BDC roster phone");
   await c2.close();
 }

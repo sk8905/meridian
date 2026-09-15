@@ -824,7 +824,9 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbdc-tbl td.tbdc-nm { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.25; }
 .tbdc-sub { display: block; color: var(--faint); font-weight: 400; font-size: 9.5px; letter-spacing: .02em; margin-top: 1px; }
 .tbdc-szt { margin-left: 3px; color: var(--faint); font-size: 8.5px; font-weight: 400; text-transform: uppercase; letter-spacing: .03em; vertical-align: 1px; }
-.tbdc-note { max-width: none; }
+/* Slim filter bar (no extra padding/margins around the chips). */
+.tbdc-filters { padding: 8px 12px; }
+.tbdc-filters .tx-secfilter { margin-top: 0; }
 .tbdc-ty-l, .tbdc-ty-p { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .tbdc-ty-l { color: var(--muted); }
 .tbdc-ty-p { color: var(--accent); }
@@ -869,8 +871,13 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
   .tbdc-tbl td.tbdc-mg, .tbdc-tbl th.tbdc-mg-h,
   .tbdc-tbl td.tbdc-ta, .tbdc-tbl th.tbdc-ta-h,
   .tbdc-tbl td.tbdc-nav, .tbdc-tbl th.tbdc-nav-h { display: none; }
-  .tbdc-tbl th.tbdc-na-h, .tbdc-tbl td.tbdc-na { width: 84px; }
-  .tbdc-tbl th.tbdc-lq-h, .tbdc-tbl td.tbdc-lq { width: 120px; }
+  .tbdc-tbl th.tbdc-na-h, .tbdc-tbl td.tbdc-na { width: 62px; }
+  .tbdc-tbl th.tbdc-lq-h, .tbdc-tbl td.tbdc-lq { width: 116px; }
+  /* The liquidity cell ("5% cap · 14.4% req GATED") must WRAP inside its column,
+     never spill past the viewport and force a horizontal scroll that clips the
+     fund names. Fund name already wraps. */
+  .tbdc-tbl td.tbdc-nm, .tbdc-tbl td.tbdc-lq { white-space: normal; overflow-wrap: anywhere; }
+  .tbdc-tbl td.tbdc-na { white-space: normal; }
   .tbdc-facts { grid-template-columns: 1fr; }
 }
 

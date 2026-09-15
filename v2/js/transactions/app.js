@@ -316,8 +316,8 @@ export function mount(host, ctx) {
     const list = BDCS.filter(match).filter((b) => _bdcFilter === "all" || b.structure === _bdcFilter)
       .sort((a, b) => (bdcSize(b) || 0) - (bdcSize(a) || 0) || a.name.localeCompare(b.name));
     const chip = (k, label) => `<button type="button" class="tx-secchip${_bdcFilter === k ? " is-on" : ""}" data-bdcf="${k}">${esc(label)}<span class="tx-secn">${cnt(k)}</span></button>`;
-    const filters = `<div class="tx-subhead"><div class="tx-secfilter" aria-label="Filter BDCs">${chip("all", "All")}${chip("listed", "Listed")}${chip("nontraded", "Interval / private")}</div></div>`;
-    bdcBody.innerHTML = `<div class="tx-head">${filters}</div>`
+    const filters = `<div class="tbdc-filters"><div class="tx-secfilter" aria-label="Filter BDCs">${chip("all", "All")}${chip("listed", "Listed")}${chip("nontraded", "Interval / private")}</div></div>`;
+    bdcBody.innerHTML = filters
       + (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
         <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
         <tbody>${list.map(bdcRow).join("")}</tbody></table></div>`
