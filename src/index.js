@@ -1138,8 +1138,16 @@ function secFetch(url) {
 // <infoTable>, others <ns1:infoTable>). Field readers pull the first numeric /
 // text child regardless of prefix.
 function xmlDecode(s) {
-  return String(s).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&apos;/g, "'");
+  // Named refs first, then numeric/hex character references (&#160;, &#x2019; …).
+  // SEC inline-XBRL filings lean on numeric refs — especially &#160; (nbsp) for
+  // empty spacer cells; leaving those undecoded keeps blank cells non-empty, which
+  // shifts SOI table columns and leaks the literal "&#160;" into parsed names.
+  const cp = (n) => (n > 0 && n <= 0x10FFFF ? String.fromCodePoint(n) : " ");
+  return String(s).replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, " ")
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => cp(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => cp(parseInt(d, 10)))
+    .replace(/&amp;/g, "&");
 }
 function xmlFirst(block, tag) {
   const m = block.match(new RegExp("<(?:\\w+:)?" + tag + "\\b[^>]*>([\\s\\S]*?)</(?:\\w+:)?" + tag + ">", "i"));
@@ -1382,7 +1390,7 @@ async function handleBDC(request, env, ctx) {
   const cik = raw.padStart(10, "0");
   const cikNoPad = String(Number(cik));
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/bdc?cik=${cik}&v=2`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/bdc?cik=${cik}&v=3`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const linkOnly = (dir, accession, asOf, err) => json({ cik, kind: "bdc", asOf, source: dir ? `${dir}/${accession}-index.htm` : null, holdings: null, error: err });

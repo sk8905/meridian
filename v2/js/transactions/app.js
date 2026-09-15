@@ -330,7 +330,7 @@ export function mount(host, ctx) {
       .then((d) => { if (d && d.quotes) { _bdcQuotes = d.quotes; if (_crMode === "bdc") renderBDCs(); } })
       .catch(() => { /* live ratio simply stays hidden */ });
   }
-  function loadBdcHoldings(cik, host2) {
+  function loadBdcHoldings(cik, host2, btn) {
     if (host2.dataset.state === "loading" || host2.dataset.state === "loaded") return;
     host2.dataset.state = "loading";
     host2.innerHTML = `<p class="tw-empty muted small">Fetching the latest SEC schedule of investments…</p>`;
@@ -338,13 +338,14 @@ export function mount(host, ctx) {
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
         host2.dataset.state = "loaded";
+        if (btn) btn.hidden = true;   // results render below — the CTA is now redundant
         const link = (d && d.source) ? ` — <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer" class="tx-src">latest filing</a>` : "";
         if (!d || !Array.isArray(d.holdings) || !d.holdings.length) { host2.innerHTML = `<p class="tw-empty muted small">Couldn't parse this filer's schedule of investments automatically${link}.</p>`; return; }
         const usd = (v) => v >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "bn" : v >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v || 0).toLocaleString("en-US");
         const rows = d.holdings.slice(0, 25).map((h, i) => `<tr><td class="tl-n">${i + 1}</td><td class="tl-nm">${esc(h.name || "—")}</td><td class="tl-n">${usd(h.value)}</td><td class="tl-n">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
         host2.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings"><thead><tr><th>#</th><th>Portfolio company</th><th>Fair value</th><th>% of book</th></tr></thead><tbody>${rows}</tbody></table></div><p class="muted small tbdc-hold-note">Top ${Math.min(25, d.holdings.length)} of ${d.holdings.length} parsed from the latest SEC filing${link}.</p>`;
       })
-      .catch(() => { host2.dataset.state = ""; host2.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`; });
+      .catch(() => { host2.dataset.state = ""; if (btn) { btn.disabled = false; btn.textContent = "Load latest holdings (SEC)"; } host2.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`; });
   }
 
   // ---- Credits: the European credit universe (ELLI), organised by sector, each
@@ -446,7 +447,7 @@ export function mount(host, ctx) {
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
     // BDC roster: row expand (detail + sources), holdings fetch.
     const hb = e.target.closest(".tbdc-hold-btn");
-    if (hb) { e.stopPropagation(); loadBdcHoldings(hb.dataset.cik, hb.nextElementSibling); hb.disabled = true; hb.textContent = "Loading…"; return; }
+    if (hb) { e.stopPropagation(); hb.disabled = true; hb.textContent = "Loading…"; loadBdcHoldings(hb.dataset.cik, hb.nextElementSibling, hb); return; }
     const brow = e.target.closest("tr.tbdc-row");
     if (brow && !e.target.closest("a")) {
       const exp = brow.nextElementSibling;
