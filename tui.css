@@ -824,6 +824,10 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbdc-tbl td.tbdc-nm { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.25; }
 .tbdc-sub { display: block; color: var(--faint); font-weight: 400; font-size: 9.5px; letter-spacing: .02em; margin-top: 1px; }
 .tbdc-szt { margin-left: 3px; color: var(--faint); font-size: 8.5px; font-weight: 400; text-transform: uppercase; letter-spacing: .03em; vertical-align: 1px; }
+.tbdc-note { max-width: none; }
+.tbdc-ty-l, .tbdc-ty-p { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.tbdc-ty-l { color: var(--muted); }
+.tbdc-ty-p { color: var(--accent); }
 .tbdc-tbl td.tbdc-mg { color: var(--muted); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tbdc-tbl td.tbdc-mg a { color: var(--muted); }
 .tbdc-tbl td.tbdc-mg a:hover { color: var(--ink); }
@@ -848,18 +852,20 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbdc-srcs a { color: var(--muted); }
 .tbdc-srcs a:hover { color: var(--ink); }
 @media (min-width: 761px) {
-  .tleague-full.tbdc-tbl th:nth-child(1) { width: 27%; }   /* Fund         */
-  .tleague-full.tbdc-tbl th:nth-child(2) { width: 20%; }   /* Manager      */
-  .tleague-full.tbdc-tbl th:nth-child(3) { width: 12%; }   /* Total assets */
-  .tleague-full.tbdc-tbl th:nth-child(4) { width: 11%; }   /* NAV          */
-  .tleague-full.tbdc-tbl th:nth-child(5) { width: 13%; }   /* Non-accrual  */
-  .tleague-full.tbdc-tbl th:nth-child(6) { width: 17%; }   /* Px/NAV       */
+  .tleague-full.tbdc-tbl th:nth-child(1) { width: 24%; }   /* Fund         */
+  .tleague-full.tbdc-tbl th:nth-child(2) { width: 8%; }    /* Type         */
+  .tleague-full.tbdc-tbl th:nth-child(3) { width: 19%; }   /* Manager      */
+  .tleague-full.tbdc-tbl th:nth-child(4) { width: 12%; }   /* Total assets */
+  .tleague-full.tbdc-tbl th:nth-child(5) { width: 10%; }   /* NAV          */
+  .tleague-full.tbdc-tbl th:nth-child(6) { width: 12%; }   /* Non-accrual  */
+  .tleague-full.tbdc-tbl th:nth-child(7) { width: 15%; }   /* Px/NAV       */
 }
 @media (max-width: 620px) {
   /* Fit the phone: keep Fund · Non-accrual · Px/NAV·liquidity; the rest is in the
      row's expand. Fixed layout so the fund name wraps instead of overflowing. */
   .tbdc-tbl { table-layout: fixed; width: 100%; }
   .tbdc-tbl th, .tbdc-tbl td { padding-left: 7px; padding-right: 7px; }
+  .tbdc-tbl td.tbdc-ty, .tbdc-tbl th.tbdc-ty-h,
   .tbdc-tbl td.tbdc-mg, .tbdc-tbl th.tbdc-mg-h,
   .tbdc-tbl td.tbdc-ta, .tbdc-tbl th.tbdc-ta-h,
   .tbdc-tbl td.tbdc-nav, .tbdc-tbl th.tbdc-nav-h { display: none; }

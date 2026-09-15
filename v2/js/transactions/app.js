@@ -265,7 +265,7 @@ export function mount(host, ctx) {
     if (b.repurchaseRequestedPct != null) parts.push(`${b.repurchaseRequestedPct}% req`);
     const gated = b.repurchaseProrated === true ? `<span class="tbdc-gated" title="Repurchase requests exceeded the cap and were prorated (gated)">GATED</span>`
       : b.repurchaseProrated === false ? `<span class="tbdc-open" title="Repurchase requests fully honoured last period">honoured</span>` : "";
-    if (!parts.length && !gated) return `<span class="muted">interval</span>`;
+    if (!parts.length && !gated) return `<span class="muted" title="No verified repurchase figures on file for the latest period">n/a</span>`;
     return `<span class="tbdc-rep">${parts.join(" · ")}${gated ? " " + gated : ""}</span>`;
   }
   function bdcDetail(b) {
@@ -293,16 +293,21 @@ export function mount(host, ctx) {
   function bdcRow(b) {
     const i = BDCS.indexOf(b);
     const mgr = b.managerId ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(b.managerId)}" class="tx-mgr" data-id="${esc(b.managerId)}">${esc(b.manager)}</a>` : esc(b.manager);
-    const sub = b.structure === "listed" ? `${esc(b.ticker)} · ${esc(b.exchange)}` : "Interval / private";
+    // The listed/private split now lives in its own Type column; the identity line
+    // under the name keeps only the ticker · exchange (listed funds have neither).
+    const sub = b.structure === "listed" ? `<span class="tbdc-sub">${esc(b.ticker)} · ${esc(b.exchange)}</span>` : "";
+    const ty = b.structure === "listed"
+      ? `<span class="tbdc-ty-l">Listed</span>` : `<span class="tbdc-ty-p">Private</span>`;
     const na = b.nonAccrualFV != null
       ? `<span title="${b.nonAccrualCost != null ? b.nonAccrualCost + "% at cost · " : ""}at fair value${b.nonAccrualAsOf ? ", " + esc(b.nonAccrualAsOf) : ""}">${b.nonAccrualFV}%</span>` : "n/a";
-    return `<tr class="tbdc-row" data-i="${i}"><td class="tbdc-nm"><span class="tx-caret" aria-hidden="true">▸</span>${esc(b.name)}<span class="tbdc-sub">${sub}</span></td>`
+    return `<tr class="tbdc-row" data-i="${i}"><td class="tbdc-nm"><span class="tx-caret" aria-hidden="true">▸</span>${esc(b.name)}${sub}</td>`
+      + `<td class="tbdc-ty">${ty}</td>`
       + `<td class="tbdc-mg">${mgr}</td>`
       + `<td class="tl-n tbdc-ta">${bdcSizeCell(b)}</td>`
       + `<td class="tl-n tbdc-nav">${b.nav != null ? "$" + b.nav.toFixed(2) : "n/a"}</td>`
       + `<td class="tl-n tbdc-na">${na}</td>`
       + `<td class="tl-n tbdc-lq">${bdcLiquidityCell(b)}</td></tr>`
-      + `<tr class="tbdc-exp" data-for="${i}" hidden><td colspan="6"><div class="tx-exp-in"></div></td></tr>`;
+      + `<tr class="tbdc-exp" data-for="${i}" hidden><td colspan="7"><div class="tx-exp-in"></div></td></tr>`;
   }
   function renderBDCs() {
     const q = _bdcQ.toLowerCase();
@@ -312,10 +317,10 @@ export function mount(host, ctx) {
       .sort((a, b) => (bdcSize(b) || 0) - (bdcSize(a) || 0) || a.name.localeCompare(b.name));
     const chip = (k, label) => `<button type="button" class="tx-secchip${_bdcFilter === k ? " is-on" : ""}" data-bdcf="${k}">${esc(label)}<span class="tx-secn">${cnt(k)}</span></button>`;
     const filters = `<div class="tx-subhead"><div class="tx-secfilter" aria-label="Filter BDCs">${chip("all", "All")}${chip("listed", "Listed")}${chip("nontraded", "Interval / private")}</div></div>`;
-    const note = `<p class="tx-blurb"><span class="muted">The largest US BDCs by total assets. Figures are from each fund's latest SEC filing / IR release (open a row for sources); the listed <strong>price÷NAV</strong> ratio is live. Certifiable data only — unverified fields read “n/a”. Roster updated ${esc(BDC_UPDATED)}.</span></p>`;
+    const note = `<p class="tx-blurb tbdc-note"><span class="muted">The largest US BDCs by total assets. Figures are from each fund's latest SEC filing / IR release (open a row for sources); the listed <strong>price÷NAV</strong> ratio is live. Certifiable data only — unverified fields read “n/a”. Roster updated ${esc(BDC_UPDATED)}.</span></p>`;
     bdcBody.innerHTML = `<div class="tx-head">${filters}${note}</div>`
       + (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
-        <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
+        <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
         <tbody>${list.map(bdcRow).join("")}</tbody></table></div>`
         : `<p class="tw-empty muted small">No BDCs match “${esc(_bdcQ)}”.</p>`);
   }

@@ -46,8 +46,10 @@ const view = await pg.evaluate(() => {
   };
 });
 check(view.rows >= 25, `the BDC table lists the roster (${view.rows})`);
-check(/Fund/.test(view.heads[0]) && view.heads.some((h) => /Manager/.test(h)) && view.heads.some((h) => /Total assets/i.test(h)) && view.heads.some((h) => /NAV/i.test(h)) && view.heads.some((h) => /Non-accrual/i.test(h)) && view.heads.some((h) => /Px\/NAV|liquidity/i.test(h)),
-  `columns: Fund · Manager · Total assets · NAV · Non-accrual · Px/NAV·liquidity (${view.heads.join(" · ")})`);
+check(/Fund/.test(view.heads[0]) && view.heads.some((h) => /Type/.test(h)) && view.heads.some((h) => /Manager/.test(h)) && view.heads.some((h) => /Total assets/i.test(h)) && view.heads.some((h) => /NAV/i.test(h)) && view.heads.some((h) => /Non-accrual/i.test(h)) && view.heads.some((h) => /Px\/NAV|liquidity/i.test(h)),
+  `columns: Fund · Type · Manager · Total assets · NAV · Non-accrual · Px/NAV·liquidity (${view.heads.join(" · ")})`);
+check(await pg.evaluate(() => { const rows = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")]; const listed = rows.filter((r) => /Listed/.test(r.querySelector(".tbdc-ty")?.textContent || "")); const priv = rows.filter((r) => /Private/.test(r.querySelector(".tbdc-ty")?.textContent || "")); return listed.length > 0 && priv.length > 0 && !rows.some((r) => /Interval \/ private/.test(r.querySelector(".tbdc-nm")?.textContent || "")); }),
+  "a Type column marks each fund Listed / Private (and the label is gone from under the name)");
 const fAll = view.filters.find((f) => f.k === "all"), fL = view.filters.find((f) => f.k === "listed"), fN = view.filters.find((f) => f.k === "nontraded");
 check(fAll && fL && fN && fL.n + fN.n === fAll.n && fL.n > 0 && fN.n > 0, `a filter splits listed vs interval/private (${fL && fL.n} + ${fN && fN.n} = ${fAll && fAll.n})`);
 check(/^1\.10×$/.test((view.arccPxNav || "").trim()) && view.arccPrem, `listed funds show a LIVE price÷NAV ratio, marked premium/discount (${view.arccPxNav})`);
@@ -57,9 +59,9 @@ await pg.evaluate(() => document.querySelector('#tx-bdc-body [data-bdcf="nontrad
 await pg.waitForTimeout(150);
 const nt = await pg.evaluate(() => {
   const rows = [...document.querySelectorAll("#tx-bdc-body .tbdc-tbl tbody tr.tbdc-row")];
-  return { n: rows.length, allInterval: rows.every((r) => /Interval \/ private/.test(r.querySelector(".tbdc-sub")?.textContent || "")) };
+  return { n: rows.length, allPrivate: rows.every((r) => /Private/.test(r.querySelector(".tbdc-ty")?.textContent || "")) };
 });
-check(nt.n > 0 && nt.allInterval, `the interval/private filter shows only non-traded funds (${nt.n})`);
+check(nt.n > 0 && nt.allPrivate, `the interval/private filter shows only non-traded funds, marked Private in the Type column (${nt.n})`);
 
 // Expand a listed row → sourced facts (total assets / NAV / non-accruals) + source links + holdings CTA.
 await pg.evaluate(() => document.querySelector('#tx-bdc-body [data-bdcf="all"]').click());
