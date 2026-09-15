@@ -13,7 +13,7 @@ export const UPDATED = "15 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-15",
-  lastCheckedTime: "08:12 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -397,14 +397,14 @@ export const OUTLOOK = {
 export const COMMENTARY = {
   updated: "2026-09-15",
   us: [
+    { title: "Morgan Stanley turns more hawkish, forecasts two Fed hikes and ECB move", source: "Reuters (via Investing.com)", author: "Morgan Stanley", date: "2026-09-14", url: "https://www.investing.com/news/economy-news/morgan-stanley-turns-more-hawkish-forecasts-two-fed-hikes-and-ecb-move-4900912" },
     { title: "Fed rate hike on Wednesday now likely, say economists, and at least one more to follow: Reuters poll", source: "Reuters (via Investing.com)", author: "Reuters poll \u2014 85% of 101 economists surveyed; Pantheon Macroeconomics, Capital Economics", date: "2026-09-14", url: "https://www.investing.com/news/economy-news/fed-rate-hike-on-wednesday-now-likely-say-economists-and-at-least-one-more-to-follow-4899032" },
-    { title: "All Eyes on Warsh as Rate-Hike Fever Spreads Across G7 Central Banks", source: "Bloomberg", author: "Bloomberg Economics \u2014 Anna Wong, Andrew Sacher, Eliza Winger", date: "2026-09-12", url: "https://www.bloomberg.com/news/articles/2026-09-12/all-eyes-on-warsh-as-rate-hike-fever-spreads-across-g7-central-banks" },
     { title: "Goldman Sachs now expects Fed to hike rates in September", source: "Reuters (via Investing.com)", author: "Goldman Sachs \u2014 David Mericle; J.P. Morgan \u2014 Michael Feroli", date: "2026-09-13", url: "https://www.investing.com/news/economy-news/goldman-sachs-now-expects-fed-to-hike-rates-in-september-4898799" },
   ],
   uk: [
+    { title: "Goldman Sachs sees BoE rate hike in November amid inflation concerns", source: "Reuters (via Kitco)", author: "Goldman Sachs", date: "2026-09-14", url: "https://www.kitco.com/news/off-the-wire/2026-09-14/goldman-sachs-sees-boe-rate-hike-november-amid-inflation-concerns" },
     { title: "Bank set to hold interest rates but 'needs to be ready' to act on inflation", source: "PA Media (via Irvine Times)", author: "Pantheon Macroeconomics", date: "2026-09-13", url: "https://www.irvinetimes.com/news/national/26545670.bank-set-hold-interest-rates-needs-ready-act-inflation/" },
     { title: "UK economy defies gravity with surprise July growth", source: "ING THINK", author: "ING \u2014 James Smith", date: "2026-09-11", url: "https://think.ing.com/snaps/uk-economy-defies-gravity-with-surprise-july-growth" },
-    { title: "UK locks in priciest 30-year gilt yield since 1998 as tax rises at the October Budget look 'near certain'", source: "Tech Times", author: "Handelsbanken — Daniel Mahoney", date: "2026-09-08", url: "https://www.techtimes.com/articles/326996/20260908/uk-locks-priciest-30-year-gilt-yield-since-1998-tax-rises-october-budget-now-near-certain.htm" },
   ],
 };
 
@@ -948,18 +948,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-15",
   us: [
+    { title: "US 10-Year Yield Tops 5% as Inflation and Supply Concerns Intensify", source: "Bloomberg", date: "2026-09-14", time: "12:20", url: "https://www.bloomberg.com/news/articles/2026-09-14/us-10-year-yield-breaches-5-as-inflation-supply-worries-mount" },
     { title: "10-year Treasury yield rises to highest since 2007 as Fed rate-hike expectations rise", source: "CNBC", date: "2026-09-15", time: "06:10", url: "https://www.cnbc.com/2026/09/15/10-year-treasury-yield-rises-to-highest-since-2007.html" },
-    { title: "Asian shares slip as oil and yields rise ahead of Fed, BOJ meetings", source: "Reuters (via Business Standard)", date: "2026-09-15", time: "05:19", url: "https://www.business-standard.com/markets/news/asian-shares-slip-as-oil-and-yields-rise-ahead-of-fed-boj-meetings-126091500073_1.html" },
+    { title: "Fed rate hike anticipated: What it means for your money", source: "CNBC", date: "2026-09-14", time: "12:20", url: "https://www.cnbc.com/2026/09/14/fed-rate-hike-anticipated-what-it-means-for-your-money.html" },
+    { title: "Morgan Stanley turns more hawkish, forecasts two Fed hikes and ECB move", source: "Reuters (via Investing.com)", date: "2026-09-14", time: "12:20", url: "https://www.investing.com/news/economy-news/morgan-stanley-turns-more-hawkish-forecasts-two-fed-hikes-and-ecb-move-4900912" },
     { title: "CNBC Daily Open: Beware AI naysayers, the 'Hoax Buster' is here", source: "CNBC", date: "2026-09-15", time: "05:19", url: "https://www.cnbc.com/2026/09/15/cnbc-daily-open-ai-trump-hoax-buster-nvidia.html" },
-    { title: "10-year Treasury yield reaches 5% as all eyes on Fed", source: "Nikkei Asia", date: "2026-09-15", time: "05:19", url: "https://asia.nikkei.com/business/markets/10-year-treasury-yield-reaches-5-as-all-eyes-on-fed" },
-    { title: "U.S. Retail Sales Arrive Wednesday, 5½ Hours Before the Fed Decides", source: "ts2.tech", date: "2026-09-15", time: "05:19", url: "https://ts2.tech/en/u-s-retail-sales-arrive-wednesday-5%C2%BD-hours-before-the-fed-decides/" },
   ],
   uk: [
     { title: "British Pound pushes against five-week lows following mixed UK employment data", source: "FXStreet", date: "2026-09-15", time: "06:28", url: "https://www.fxstreet.com/news/british-pound-pushes-against-five-week-lows-following-mixed-uk-employment-data-202609150628" },
+    { title: "Goldman Sachs sees BoE rate hike in November amid inflation concerns", source: "Reuters (via Kitco)", date: "2026-09-14", time: "12:20", url: "https://www.kitco.com/news/off-the-wire/2026-09-14/goldman-sachs-sees-boe-rate-hike-november-amid-inflation-concerns" },
     { title: "British Pound drops against Japanese Yen after UK labor market data", source: "FXStreet", date: "2026-09-15", time: "06:19", url: "https://www.fxstreet.com/news/british-pound-drops-against-japanese-yen-after-uk-labor-market-data-202609150619" },
     { title: "BoE decision preview: Goldman sees hold, but watches for hawkish hints", source: "investingLive", date: "2026-09-15", time: "05:19", url: "https://investinglive.com/central-banks/boe-decision-preview-goldman-sees-hold-but-watches-for-hawkish-hints/" },
-    { title: "British Pound: BoE risks in focus – Scotiabank", source: "FXStreet", date: "2026-09-14", time: "15:04", url: "https://www.fxstreet.com/news/british-pound-boe-risks-in-focus-scotiabank-202609141404" },
-    { title: "British Pound: BoE hold, slower QT and dovish repricing risk – BBH", source: "FXStreet", date: "2026-09-14", time: "12:52", url: "https://www.fxstreet.com/news/british-pound-boe-hold-slower-qt-and-dovish-repricing-risk-bbh-202609141152" },
+    { title: "Surging Gilt Yields Erode a Key Reason to Own UK Stocks", source: "Bloomberg", date: "2026-09-09", time: "12:20", url: "https://www.bloomberg.com/news/articles/2026-09-09/surging-gilt-yields-erode-a-key-reason-to-own-uk-stocks" },
   ],
 };
 
@@ -973,6 +973,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-15",
   items: [
+    {"title": "Latest Oil Market News and Analysis for Sept. 15", "source": "Bloomberg", "date": "2026-09-15", "time": "12:20", "url": "https://www.bloomberg.com/news/articles/2026-09-14/latest-oil-market-news-and-analysis-for-sept-15", "blurb": "Brent crude held near $107/bbl as Middle East supply disruptions continue to ripple through markets a day ahead of the Fed's decision.", "author": null},
+    {"title": "Morgan Stanley turns more hawkish, forecasts two Fed hikes and ECB move", "source": "Reuters (via Investing.com)", "date": "2026-09-14", "time": "12:20", "url": "https://www.investing.com/news/economy-news/morgan-stanley-turns-more-hawkish-forecasts-two-fed-hikes-and-ecb-move-4900912", "blurb": "Morgan Stanley now expects Fed hikes at both the September and December meetings as US disinflation stalls, abandoning its earlier hold call.", "author": null},
+    {"title": "Goldman Sachs sees BoE rate hike in November amid inflation concerns", "source": "Reuters (via Kitco)", "date": "2026-09-14", "time": "12:20", "url": "https://www.kitco.com/news/off-the-wire/2026-09-14/goldman-sachs-sees-boe-rate-hike-november-amid-inflation-concerns", "blurb": "Goldman Sachs now expects the Bank of England to hike Bank Rate to 4% in November 2026 as inflation risks build, even with Thursday's meeting expected to be a hold.", "author": null},
     {"title": "10-year Treasury yield rises to highest since 2007 as Fed rate-hike expectations rise", "source": "CNBC", "date": "2026-09-15", "time": "06:10", "url": "https://www.cnbc.com/2026/09/15/10-year-treasury-yield-rises-to-highest-since-2007.html", "blurb": "The benchmark 10-year Treasury yield jumped more than 6bp to 5.025% — its highest since 2007 — as the 30-year rose to 5.384% and the 2-year climbed to 4.68%, with money markets treating Wednesday's Fed decision as an almost certain 25bp hike amid a bruising global bond selloff driven by surging energy prices, debt and inflation.", "author": null},
     {"title": "Shares slip in Asia as oil climbs, rate hikes loom", "source": "Reuters (via Investing.com)", "date": "2026-09-15", "time": "05:30", "url": "https://www.investing.com/news/stock-market-news/shares-slip-in-asia-as-oil-climbs-rate-hikes-loom-4898763", "blurb": "MSCI's broadest Asia-Pacific index outside Japan slipped 0.12% as US crude rose 1.27% to $102.68/bbl and Brent gained 1.21% to $106.96 after fresh Houthi attacks on Saudi Arabia; markets now price an 86% chance of a 25bp Fed hike Wednesday (with another by December) and a 76% chance the BoJ lifts its own rate to 1.25% on Friday.", "author": null},
     {"title": "British Pound pushes against five-week lows following mixed UK employment data", "source": "FXStreet", "date": "2026-09-15", "time": "06:28", "url": "https://www.fxstreet.com/news/british-pound-pushes-against-five-week-lows-following-mixed-uk-employment-data-202609150628", "blurb": "GBP/USD hovered a few pips above a five-week low near 1.3465 after the ONS's September Labour Market release showed the ILO unemployment rate steady at 4.9% in the three months to July (vs 5% expected) even as the economy added just 67,000 jobs, down from 83,000 the prior quarter — mixed data that failed to offset dollar strength from firming Fed-hike bets ahead of Thursday's BoE decision.", "author": null},
@@ -1009,10 +1012,7 @@ export const ARTICLES = {
     {"title": "Goldman Sachs now expects Fed to hike rates in September", "source": "Reuters (via Investing.com)", "date": "2026-09-13", "url": "https://www.investing.com/news/economy-news/goldman-sachs-now-expects-fed-to-hike-rates-in-september-4898799", "blurb": "Goldman Sachs abandoned its call for the Fed to hold in September and now expects a 25bp hike at Wednesday's meeting, saying the shift was driven less by its economic outlook than by market pricing — a move J.P. Morgan matched, forecasting hikes in both September and December.", "author": null},
     {"title": "Here are the 2 big things we're watching in this week's stock market", "source": "CNBC", "date": "2026-09-13", "url": "https://www.cnbc.com/2026/09/13/here-are-the-2-big-things-were-watching-in-this-weeks-stock-market.html", "blurb": "Wednesday's Fed decision arrives alongside August retail sales, with Thursday's housing starts and Friday's industrial-production report the week's other tests of the economy heading into the FOMC's first hike debate since 2023.", "author": null},
     {"title": "Bank set to hold interest rates but 'needs to be ready' to act on inflation", "source": "PA Media (via Irvine Times)", "date": "2026-09-13", "url": "https://www.irvinetimes.com/news/national/26545670.bank-set-hold-interest-rates-needs-ready-act-inflation/", "blurb": "Most economists expect the MPC to hold Bank Rate at 3.75% for a sixth straight meeting on 17 September, though Pantheon Macroeconomics flags a chance the Bank 'toughens its language' to open the door to a November hike if energy prices keep rising.", "author": null},
-    {"title": "Why The Fed Is Likely To Raise Rates This Week", "source": "Forbes", "date": "2026-09-13", "url": "https://www.forbes.com/sites/bill_stone/2026/09/13/why-the-fed-is-likely-to-raise-rates-this-week/", "blurb": "A resilient US economy — strong corporate profits, capex and a firm labour market — alongside stubbornly above-target core PCE and CPI make a Wednesday Fed hike likely, with markets already pricing a quarter-point move and a further one in December.", "author": "Bill Stone"},
-    {"title": "Fed rate hike is about Wall Street, not inflation, says economist", "source": "CoinDesk", "date": "2026-09-13", "url": "https://www.coindesk.com/markets/2026/09/13/fed-rate-hike-is-about-wall-street-not-inflation-says-economist", "blurb": "One economist argues this week's expected hike is less about taming prices than managing market expectations, pointing to wage growth slowing to 3.1% y/y and core CPI's five-year low even as futures price an 85% chance of a move.", "author": null},
     {"title": "A highly anticipated Fed meeting, war worries, and an unblinking stock market: What to watch this week", "source": "Yahoo Finance", "date": "2026-09-13", "url": "https://finance.yahoo.com/markets/article/a-highly-anticipated-fed-meeting-war-worries-and-an-unblinking-stock-market-what-to-watch-this-week-100000843.html", "blurb": "The Fed's Wednesday decision is the main event after last week's setup of hot inflation data and surging oil prices, with the war in Iran heating back up and the 10-year Treasury yield approaching 5% as markets weigh a hike against still near-record equities.", "author": null},
-    {"title": "Pezeshkian vows not to surrender as Iranian ship struck near Qeshm Island", "source": "The Jerusalem Post", "date": "2026-09-13", "url": "https://www.jpost.com/middle-east/iran-news/2026-09-13/live-updates-908436", "blurb": "One person was killed and three injured when an Iranian commercial vessel was struck near Hengam Island and the Shib Deraz coast of Qeshm Island, President Pezeshkian accusing the US of war crimes as the Strait of Hormuz standoff runs on with no resolution in sight days before the Fed's decision.", "author": null},
   ],
 };
 
@@ -1023,7 +1023,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-09-15", country: "UK", title: "ONS labour market & average earnings (September release)", url: "https://www.ons.gov.uk/releases/uklabourmarketseptember2026" },
   { date: "2026-09-16", country: "US", title: "FOMC rate decision (with Summary of Economic Projections)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-09-16", country: "UK", title: "CPI inflation (August)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukaugust2026" },
   { date: "2026-09-16", country: "US", title: "Retail sales (August)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
