@@ -105,7 +105,7 @@ export function mount(host, ctx) {
   const creditsBody = host.querySelector("#tx-credits-body");
   const bdcBody = host.querySelector("#tx-bdc-body");
   let _crMode = "flow", _crQ = "", _crGroup = null;   // null = neutral default (sector order, no button lit)
-  let _bdcFilter = "all", _bdcQ = "", _bdcQuotes = null, _bdcQuotesTried = false;   // BDC roster state
+  let _bdcQ = "", _bdcQuotes = null, _bdcQuotesTried = false;   // BDC roster state
   // S&P scale, best → worst — used to order the roster when grouping by rating.
   const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
   const ratingRank = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? 999 : i; };
@@ -313,13 +313,9 @@ export function mount(host, ctx) {
   function renderBDCs() {
     const q = _bdcQ.toLowerCase();
     const match = (b) => !q || b.name.toLowerCase().includes(q) || (b.manager || "").toLowerCase().includes(q) || (b.ticker || "").toLowerCase().includes(q);
-    const cnt = (k) => BDCS.filter(match).filter((b) => k === "all" || b.structure === k).length;
-    const list = BDCS.filter(match).filter((b) => _bdcFilter === "all" || b.structure === _bdcFilter)
+    const list = BDCS.filter(match)
       .sort((a, b) => (bdcSize(b) || 0) - (bdcSize(a) || 0) || a.name.localeCompare(b.name));
-    const chip = (k, label) => `<button type="button" class="tx-secchip${_bdcFilter === k ? " is-on" : ""}" data-bdcf="${k}">${esc(label)}<span class="tx-secn">${cnt(k)}</span></button>`;
-    const filters = `<div class="tbdc-filters"><div class="tx-secfilter" aria-label="Filter BDCs">${chip("all", "All")}${chip("listed", "Listed")}${chip("nontraded", "Interval / private")}</div></div>`;
-    bdcBody.innerHTML = filters
-      + (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
+    bdcBody.innerHTML = (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
         <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-tk-h">Ticker</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
         <tbody>${list.map(bdcRow).join("")}</tbody></table></div>`
         : `<p class="tw-empty muted small">No BDCs match “${esc(_bdcQ)}”.</p>`);
@@ -448,9 +444,7 @@ export function mount(host, ctx) {
   host.addEventListener("click", (e) => {
     const mgr = e.target.closest(".tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
-    // BDC roster: structure filter, row expand (detail + sources), holdings fetch.
-    const bf = e.target.closest(".tx-secchip[data-bdcf]");
-    if (bf) { _bdcFilter = bf.dataset.bdcf; renderBDCs(); return; }
+    // BDC roster: row expand (detail + sources), holdings fetch.
     const hb = e.target.closest(".tbdc-hold-btn");
     if (hb) { e.stopPropagation(); loadBdcHoldings(hb.dataset.cik, hb.nextElementSibling); hb.disabled = true; hb.textContent = "Loading…"; return; }
     const brow = e.target.closest("tr.tbdc-row");

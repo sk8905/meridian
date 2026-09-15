@@ -824,9 +824,6 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbdc-tbl td.tbdc-nm { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.25; }
 .tbdc-sub { display: block; color: var(--faint); font-weight: 400; font-size: 9.5px; letter-spacing: .02em; margin-top: 1px; }
 .tbdc-szt { margin-left: 3px; color: var(--faint); font-size: 8.5px; font-weight: 400; text-transform: uppercase; letter-spacing: .03em; vertical-align: 1px; }
-/* Slim filter bar (no extra padding/margins around the chips). */
-.tbdc-filters { padding: 8px 12px; }
-.tbdc-filters .tx-secfilter { margin-top: 0; }
 .tbdc-ty-l, .tbdc-ty-p { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .tbdc-ty-l { color: var(--muted); }
 .tbdc-ty-p { color: var(--accent); }
