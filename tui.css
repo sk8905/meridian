@@ -231,15 +231,18 @@
 .tleague th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; position: sticky; top: 28px; background: var(--head); border-bottom: 1px solid var(--border); }
 .tleague td { padding: 6px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
 .tleague .tl-nm { color: var(--ink); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.tleague .tl-n { text-align: right; color: var(--muted); font-family: var(--t-mono); }
-.tleague th:not(:first-child) { text-align: right; }
-/* Transaction (Deal Flow / Credits: .tx-tbl / .tx-list) and profile (holdings:
-   .tl-holdings) league tables read LEFT-ALIGNED throughout — override .tleague's
-   right-aligned numeric columns + headers for these table families. */
-.tx-tbl th, .tx-tbl td, .tx-list th, .tx-list td,
-.tl-holdings th, .tl-holdings td,
-.tx-tbl th:not(:first-child), .tx-list th:not(:first-child),
-.tl-holdings th:not(:first-child) { text-align: left; }
+.tleague .tl-n { color: var(--muted); font-family: var(--t-mono); }
+/* Uniform format across EVERY league/data table family (profile leagues, Deal Flow
+   / Credits, holdings, Investments): LEFT-ALIGNED throughout, and ONLY the first
+   column is bold (the name) — every other column is normal-weight muted text. A
+   cell's own link/badge sets its colour on its own element, which still wins (up/
+   down arrows, rating badges, source links, sortable-header accents). */
+.tleague th, .tleague td, .tx-tbl th, .tx-tbl td, .tx-list th, .tx-list td,
+.tcr-tbl th, .tcr-tbl td, .tl-holdings th, .tl-holdings td { text-align: left; }
+.tleague td:first-child, .tx-tbl td:first-child, .tx-list td:first-child,
+.tcr-tbl td:first-child, .tl-holdings td:first-child { color: var(--ink); font-weight: 700; }
+.tleague td:not(:first-child), .tx-tbl td:not(:first-child), .tx-list td:not(:first-child),
+.tcr-tbl td:not(:first-child), .tl-holdings td:not(:first-child) { color: var(--muted); font-weight: 400; }
 .tleague tr.clickable { cursor: pointer; }
 /* Uniform league-row height: plain single-line rows grow to match the taller
    rows that carry a chip (Profiles' Secondaries badges are ~18px, ~3px over a
@@ -493,12 +496,14 @@
   .tinv-tbl th:nth-child(5) { width: 12%; }
   .tinv-tbl th:nth-child(6) { width: 19%; }
   /* Transaction credits list (transactions/app.js): Date · Borrower/company · Lender/investor · Type · Amount · Source */
-  .tx-list th:nth-child(1) { width: 9%; }
-  .tx-list th:nth-child(2) { width: 27%; }
-  .tx-list th:nth-child(3) { width: 22%; }
-  .tx-list th:nth-child(4) { width: 12%; }
-  .tx-list th:nth-child(5) { width: 12%; }
-  .tx-list th:nth-child(6) { width: 18%; }
+  /* Reordered: Borrower · Date · Lender · Type · Amount · Source — evenly spread
+     to fill the width (sums to 100%). */
+  .tx-list th:nth-child(1) { width: 20%; }   /* Borrower */
+  .tx-list th:nth-child(2) { width: 13%; }   /* Date     */
+  .tx-list th:nth-child(3) { width: 20%; }   /* Lender   */
+  .tx-list th:nth-child(4) { width: 16%; }   /* Type     */
+  .tx-list th:nth-child(5) { width: 13%; }   /* Amount   */
+  .tx-list th:nth-child(6) { width: 18%; }   /* Source   */
   /* Transaction type table (transactions/app.js): Type · Deals · 12mo · Volume · Median · Managers · Most active */
   .tx-tbl th:nth-child(1) { width: 19%; }
   .tx-tbl th:nth-child(2) { width: 8%; }
@@ -671,7 +676,7 @@
 .tx-tcaret { display: inline-block; margin-right: 6px; color: var(--faint); transition: transform .12s ease; }
 .tx-tbl tr.clickable.is-open .tx-tcaret { transform: rotate(90deg); color: var(--accent); }
 .tx-tbl tr.clickable.is-open > td { background: color-mix(in srgb, var(--accent) 7%, transparent); }
-.tx-typeexp > td { padding: 0; background: var(--head); border-bottom: 1px solid var(--border); border-left: 2px solid var(--accent); }
+.tx-typeexp > td { padding: 0; background: var(--head); border-bottom: 1px solid var(--border); }
 .tx-typeexp-in { padding: 4px 8px 10px 22px; }
 /* The sub-list header scrolls with its rows — no second sticky fighting the
    overview's own sticky column header. */

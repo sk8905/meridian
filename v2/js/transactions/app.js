@@ -153,8 +153,8 @@ export function mount(host, ctx) {
     const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
       + `<dl class="tx-fields">${fields.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`
       + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
-    return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-dt"><span class="tx-caret" aria-hidden="true">▸</span>${esc(fmtDay(d.date))}</td>`
-      + `<td class="tx-bd" title="${esc(d.headline || "")}">${esc(name)}</td>`
+    return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-bd" title="${esc(d.headline || "")}"><span class="tx-caret" aria-hidden="true">▸</span>${esc(name)}</td>`
+      + `<td class="tx-dt">${esc(fmtDay(d.date))}</td>`
       + `<td class="tx-mg">${mgrLink(d.managerId)}</td>`
       + `<td class="tx-cat">${cat}</td>`
       + `<td class="tl-n tx-sz"${r.amt ? ` title="≈ ${fmtUsd(r.usd)}"` : ""}>${r.amt ? esc(fmtAmt(r.amt)) : "—"}</td>`
@@ -180,7 +180,7 @@ export function mount(host, ctx) {
       : "";
     return chips + (list.length
       ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
-        <thead><tr><th class="tx-dt-h">Date</th><th class="tx-bd-h">Borrower / company</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
+        <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
         <tbody>${list.map(txRow).join("")}</tbody></table></div>`
       : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${sec !== "all" ? " · " + esc(SECTOR_LABEL[sec]) : ""} transactions on record yet.</p>`);
   }
@@ -205,7 +205,7 @@ export function mount(host, ctx) {
         <p class="tx-blurb"><span class="muted">${list.length} transaction${list.length === 1 ? "" : "s"} match “${esc(st.q)}”${st.focus ? " · $1–15bn AUM" : ""}${list.length > CAP ? ` — showing the first ${CAP}` : ""}. Tap a row for the full detail.</span></p>
       </div>
       ${shown.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
-        <thead><tr><th class="tx-dt-h">Date</th><th class="tx-bd-h">Borrower / company</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
+        <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
         <tbody>${shown.map(txRow).join("")}</tbody></table></div>`
         : `<p class="tw-empty muted small">No transactions match “${esc(st.q)}”.</p>`}`;
   }

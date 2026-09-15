@@ -48,7 +48,8 @@ const ov = await pg.evaluate(() => ({
   // Every league row is the SAME height (matches the Profiles panes — single-line
   // rows are normalised up to the chip-row height), so the vertical rhythm is even.
   rowHs: [...new Set([...document.querySelectorAll(".tx-tbl tbody tr.clickable")].map((tr) => Math.round(tr.getBoundingClientRect().height)))],
-  // Type names render at the same weight as the Profiles league names (regular),
+  // Type names render at the same weight as the Profiles league names (bold —
+  // the first column of every league/data table is the only bold column),
   // not bold — one type scale across the two tabs.
   nameFW: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontWeight : ""; })(),
   nameFS: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontSize : ""; })(),
@@ -63,7 +64,7 @@ const ov = await pg.evaluate(() => ({
 }));
 check(ov.rows >= 6, `overview lists the transaction types as a league table (${ov.rows})`);
 check(ov.rowHs.length === 1, `overview rows share one uniform height, matching the Profiles league (${ov.rowHs.join(", ")}px)`);
-check(ov.nameFS === "11.5px" && (ov.nameFW === "400" || ov.nameFW === "normal"), `type names match the Profiles league type (11.5px regular, got ${ov.nameFS}/${ov.nameFW})`);
+check(ov.nameFS === "11.5px" && (ov.nameFW === "700" || ov.nameFW === "bold"), `type names are the bold first column (11.5px bold, got ${ov.nameFS}/${ov.nameFW})`);
 check(ov.aligns.length > 0 && ov.aligns.every((a) => a === "left" || a === "start"), `every header + cell is left-aligned, matching the Profiles league (${[...new Set(ov.aligns)].join(", ")})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the table body sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.headOffset === 0, `the column header sits flush at the top — no blank band above it (offset ${ov.headOffset}px)`);
@@ -87,7 +88,7 @@ const dt = await pg.evaluate(() => {
     noDetailPage: !document.querySelector(".tx-back") && !document.querySelector(".tx-kpi"),
     rowOpen: !!(openRow && openRow.classList.contains("is-open") && openRow.getAttribute("aria-expanded") === "true"),
     indentPx: parseInt(getComputedStyle(exp.querySelector(".tx-typeexp-in")).paddingLeft, 10) || 0,
-    // Table columns: Date · Borrower/company · Lender/investor · Type · Amount · Source.
+    // Table columns (reordered): Borrower/company · Date · Lender/investor · Type · Amount · Source.
     heads: [...exp.querySelectorAll(".tx-list thead th")].map((h) => h.textContent.trim()),
     listRows: exp.querySelectorAll(".tx-list tbody tr.tx-row").length,
     anySize: [...exp.querySelectorAll(".tx-list td.tx-sz")].some((td) => /[$€£]/.test(td.textContent)),
@@ -103,8 +104,8 @@ check(dt.noDetailPage, "no separate detail page is rendered (no back bar, no KPI
 check(dt.rowOpen, "the clicked type row is marked open (caret rotates, aria-expanded=true)");
 check(dt.indentPx > 0, `the sub-list is indented beneath its type (${dt.indentPx}px)`);
 check(dt.listRows > 0, `the sub-list lists the type's transactions (${dt.listRows})`);
-check(/Borrower/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Type/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
-  `columns are Date · Borrower · Lender · Type · Amount · Source (${dt.heads.join(" · ")})`);
+check(/Borrower/i.test(dt.heads[0] || "") && /Date/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Type/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
+  `columns are Borrower · Date · Lender · Type · Amount · Source (${dt.heads.join(" · ")})`);
 check(dt.anySize, "transactions show their native disclosed size");
 check(dt.mgrLinks > 0 && dt.borrowerNamed > 0, `borrower cell is a plain name and the lender is named (${dt.borrowerNamed} borrower, ${dt.mgrLinks} lender)`);
 check(dt.srcLinks > 0, `the source link sits in its own Source column (${dt.srcLinks})`);

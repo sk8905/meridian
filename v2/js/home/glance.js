@@ -95,6 +95,18 @@ function initHomeMarketsRails() {
 export function initGlance(ctx) {
   _ctx = ctx || _ctx;
   if (_inited) return; _inited = true;
+  // A [data-godash] element (the "This week's earnings" header) deep-links into a
+  // Dashboard sub-tab in place (SPA nav), landing on that section's pane — e.g.
+  // the earnings calendar under Dashboard › Equities. The <a href> is the
+  // no-JS/full-reload fallback to the same route. Bound once (guarded above).
+  document.addEventListener("click", (e) => {
+    const go = e.target.closest("[data-godash]");
+    if (!go) return;
+    e.preventDefault();
+    const base = (_ctx && _ctx.base) || "/v2";
+    const to = base + "/dashboard/" + go.dataset.godash;
+    if (_ctx && _ctx.navigate) _ctx.navigate(to); else location.href = to;
+  });
   // F8 — restore the last-used wire filter + grouping before the first render.
   const _hp = _homePrefs();
   if (_DESK_KEYS.includes(_hp.desk)) _feedDesk = _hp.desk;

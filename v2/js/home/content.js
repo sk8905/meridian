@@ -39,7 +39,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
                its content (capped at 5 companies; the rest scroll internally). -->
           <div class="g-earn-scroll">
             <section class="tui-pnl g-earn">
-              <header class="tui-ph g-earn-head"><span>This week's earnings</span><span class="tui-px">est → act</span></header>
+              <header class="tui-ph g-earn-head"><a class="g-earn-golink" href="/v2/dashboard/equities" data-godash="equities" title="Open the earnings calendar in Dashboard › Equities">This week's earnings</a><span class="tui-px">est → act</span></header>
               <div class="g-earn-body">
                 <div id="g-earn" class="g-earn-pane" aria-label="This week's corporate earnings"><div class="g-loading">Loading earnings…</div></div>
               </div>

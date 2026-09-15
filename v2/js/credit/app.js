@@ -540,7 +540,7 @@ function investorsPaneHTML() {
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full">
-                <thead><tr><th>Investor</th><th class="tl-hq">HQ</th><th>Type</th><th>AUM</th><th title="Private-credit allocation">PC&nbsp;alloc.</th><th>Ticket</th><th class="tl-mnd">Mandate</th></tr></thead>
+                <thead><tr><th>Investor</th><th class="tl-hq">HQ</th><th>Type</th><th>AUM</th><th title="Private-credit allocation">PC&nbsp;alloc.</th><th>Ticket</th><th class="tl-mnd" title="Mandate">Mand</th></tr></thead>
                 <tbody id="lp-rows">${rows.map(lpRow).join("")}</tbody>
               </table>
               </div>
