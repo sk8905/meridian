@@ -130,6 +130,42 @@ const filt = await pg.evaluate(() => {
   return { before, after: exp2.querySelectorAll(".tx-list tr.tx-row").length, on: [...exp2.querySelectorAll(".tx-secchip.is-on")].some((c) => c.dataset.sec !== "all") };
 });
 check(filt.on && filt.after > 0 && filt.after <= filt.before, `a sub-category chip filters the sub-list (${filt.after}/${filt.before})`);
+
+// ---- 3c) "Group by lender / investor" toggle on the sub-category row ----------
+// A button on the far right of the chips row buckets the deals by lender, each
+// group headed by the lender name + count; toggling off restores the flat list.
+const grp = await pg.evaluate(() => {
+  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+  // reset the sub-category filter to All so the counts are the full set
+  const allChip = exp.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
+  const e = document.querySelector(".tx-typeexp:not([hidden])");
+  const btn = e.querySelector(".tx-grpbtn");
+  const sh = e.querySelector(".tx-subhead");
+  // the button sits at the far right of the sub-head row
+  const rightAligned = btn && sh ? (sh.getBoundingClientRect().right - btn.getBoundingClientRect().right) < 3 : false;
+  const rowsFlat = e.querySelectorAll(".tx-list tbody tr.tx-row").length;
+  const groupsFlat = e.querySelectorAll(".tx-list tr.tx-grp").length;
+  btn.click();
+  const e2 = document.querySelector(".tx-typeexp:not([hidden])");
+  const heads = [...e2.querySelectorAll(".tx-list tr.tx-grp")];
+  const counts = heads.map((h) => +(h.querySelector(".tx-grp-n")?.textContent || 0));
+  const named = heads.every((h) => (h.querySelector(".tx-grp-nm")?.textContent || "").trim().length > 0);
+  const sumCounts = counts.reduce((a, b) => a + b, 0);
+  const descending = counts.every((c, i) => i === 0 || c <= counts[i - 1]);
+  const on = e2.querySelector(".tx-grpbtn").classList.contains("is-on");
+  const rowsGrouped = e2.querySelectorAll(".tx-list tbody tr.tx-row").length;
+  e2.querySelector(".tx-grpbtn").click();   // toggle back off for later steps
+  const e3 = document.querySelector(".tx-typeexp:not([hidden])");
+  return { hasBtn: !!btn, label: (btn.textContent || "").trim(), rightAligned, groupsFlat, groupsAfter: heads.length,
+    named, sumCounts, rowsFlat, rowsGrouped, descending, on, offAgain: e3.querySelectorAll(".tx-list tr.tx-grp").length };
+});
+check(grp.hasBtn && /group by lender/i.test(grp.label), `a "Group by lender" button sits on the chips row (${grp.label})`);
+check(grp.rightAligned, "the group-by button is right-aligned on the chips row");
+check(grp.groupsFlat === 0 && grp.groupsAfter > 1, `toggling on buckets the deals into lender groups (${grp.groupsAfter})`);
+check(grp.named && grp.descending, "each group is headed by its lender name, most-active first");
+check(grp.sumCounts === grp.rowsFlat && grp.rowsGrouped === grp.rowsFlat, `grouping keeps every deal (${grp.rowsGrouped}/${grp.rowsFlat}, counts ${grp.sumCounts})`);
+check(grp.on && grp.offAgain === 0, "toggling the button off restores the flat list");
+
 const exp = await pg.evaluate(() => {
   const e = document.querySelector(".tx-typeexp:not([hidden])");
   const allChip = e.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();

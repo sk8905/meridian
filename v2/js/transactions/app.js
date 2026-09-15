@@ -167,9 +167,10 @@ export function mount(host, ctx) {
   // active) already sit on the overview row itself, so they are not repeated here —
   // this is purely the indented drill-down of the individual deals. `sector`
   // filters within the type; each open type keeps its own filter on its data-sec.
-  function typeSublist(key, sector) {
+  function typeSublist(key, sector, group) {
     const t = TX_TYPES.find((x) => x.key === key), s = statsFor(key);
     const sec = sector || "all";
+    const grp = group === "lender" ? "lender" : "";
     // Asset-class SUB-CATEGORIES present within this type (+ their counts).
     const secCount = {}; s.list.forEach((r) => { secCount[r.sec] = (secCount[r.sec] || 0) + 1; });
     const present = SECTORS.filter((x) => secCount[x.key]);
@@ -178,11 +179,26 @@ export function mount(host, ctx) {
     const chips = present.length > 1
       ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", s.list.length, sec === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], sec === x.key)).join("")}</div>`
       : "";
-    return chips + (list.length
-      ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
+    // Group-by-lender toggle, right-aligned on the same row as the sub-category
+    // chips (matching the Credits "Group by" button). Off = newest-first flat list.
+    const grpBtn = `<button type="button" class="tx-grpbtn${grp ? " is-on" : ""}" data-txgroup="lender" aria-pressed="${grp ? "true" : "false"}" title="Group the deals by lender / investor">${grpSvg}<span>Group by lender</span></button>`;
+    const subhead = `<div class="tx-subhead">${chips}${grpBtn}</div>`;
+    if (!list.length) return subhead + `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${sec !== "all" ? " · " + esc(SECTOR_LABEL[sec]) : ""} transactions on record yet.</p>`;
+    let rowsHtml;
+    if (grp === "lender") {
+      // Bucket by lender/investor id; most-active lender first, then alphabetical.
+      const groups = new Map();
+      for (const r of list) { const id = r.d.managerId || "_"; if (!groups.has(id)) groups.set(id, []); groups.get(id).push(r); }
+      rowsHtml = [...groups.entries()]
+        .sort((a, b) => b[1].length - a[1].length || mgrName(a[0]).localeCompare(mgrName(b[0])))
+        .map(([id, rs]) => `<tr class="tx-grp"><td colspan="6"><span class="tx-grp-nm">${esc(mgrName(id) || "—")}</span><span class="tx-grp-n">${rs.length}</span></td></tr>` + rs.map(txRow).join(""))
+        .join("");
+    } else {
+      rowsHtml = list.map(txRow).join("");
+    }
+    return subhead + `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
         <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
-        <tbody>${list.map(txRow).join("")}</tbody></table></div>`
-      : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${sec !== "all" ? " · " + esc(SECTOR_LABEL[sec]) : ""} transactions on record yet.</p>`);
+        <tbody>${rowsHtml}</tbody></table></div>`;
   }
 
   // ---- search: a flat, dated list of matching deals across ALL types --------
@@ -309,7 +325,15 @@ export function mount(host, ctx) {
     const sec = e.target.closest(".tx-secchip");
     if (sec) {
       const exp = sec.closest(".tx-typeexp");
-      if (exp) { exp.dataset.sec = sec.dataset.sec; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec); }
+      if (exp) { exp.dataset.sec = sec.dataset.sec; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec, exp.dataset.grp); }
+      return;
+    }
+    // Group-by-lender toggle inside an open type — rebuild just that sub-list,
+    // keeping its active sub-category filter.
+    const gbtn = e.target.closest(".tx-grpbtn");
+    if (gbtn) {
+      const exp = gbtn.closest(".tx-typeexp");
+      if (exp) { exp.dataset.grp = exp.dataset.grp === "lender" ? "" : "lender"; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all", exp.dataset.grp); }
       return;
     }
     // Expand/collapse an individual transaction to reveal borrower/advisers/detail.
@@ -335,7 +359,7 @@ export function mount(host, ctx) {
       });
       if (opening) {
         const inner = exp.querySelector(".tx-typeexp-in");
-        if (!inner.dataset.built) { inner.innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all"); inner.dataset.built = "1"; }
+        if (!inner.dataset.built) { inner.innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all", exp.dataset.grp); inner.dataset.built = "1"; }
       }
       exp.hidden = !opening;
       trow.classList.toggle("is-open", opening);
