@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8bc0d474-7252-4e38-b4b2-ceeb7800d10d", title: "UK employers cut jobs as labour market remains weak over summer", date: "2026-09-15", time: "07:56", url: "https://www.ft.com/content/8bc0d474-7252-4e38-b4b2-ceeb7800d10d" },
   { id: "696180f1-c9ad-4434-8ad2-b1dc30773e53", title: "Help to Buy scheme was ‘very high value for money’, says official review", date: "2026-09-15", time: "07:00", url: "https://www.ft.com/content/696180f1-c9ad-4434-8ad2-b1dc30773e53" },
   { id: "7ac9a299-1ba0-428c-9207-ecf959b386f1", title: "The great British (and American) fork in the road", date: "2026-09-15", time: "06:30", url: "https://www.ft.com/content/7ac9a299-1ba0-428c-9207-ecf959b386f1" },
   { id: "0b1b2875-fa2d-417b-8617-c6e51bebf083", title: "FTAV’s further reading", date: "2026-09-15", time: "06:30", url: "https://www.ft.com/content/0b1b2875-fa2d-417b-8617-c6e51bebf083" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "b01682ae-1d49-46bb-b23a-d6212574214d", title: "France in ‘astonishing’ push to lift EU sanctions on Russian oligarch", date: "2026-09-14", time: "17:19", url: "https://www.ft.com/content/b01682ae-1d49-46bb-b23a-d6212574214d" },
   { id: "2b8c8997-0a76-4c48-9384-aac94904b7fb", title: "UK government to take over insolvent steelmaker", date: "2026-09-14", time: "17:17", url: "https://www.ft.com/content/2b8c8997-0a76-4c48-9384-aac94904b7fb" },
   { id: "68599310-58ae-4a11-b885-3e34ebaa8af9", title: "Britain’s assisted dying debate was hobbled by a lack of candour", date: "2026-09-14", time: "17:04", url: "https://www.ft.com/content/68599310-58ae-4a11-b885-3e34ebaa8af9" },
-  { id: "b78370c8-dc35-47ea-a254-a75421a46a85", title: "Syrians take to the streets over fuel price rise", date: "2026-09-14", time: "17:01", url: "https://www.ft.com/content/b78370c8-dc35-47ea-a254-a75421a46a85" },
 ];
