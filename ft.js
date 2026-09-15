@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b3674c9d-9db2-448d-bd57-f1c040de2d54", title: "Supreme Court rejects Donald Trump’s restrictions on mail-in ballots for midterms", date: "2026-09-15", time: "14:55", url: "https://www.ft.com/content/b3674c9d-9db2-448d-bd57-f1c040de2d54" },
   { id: "86078ee7-0c8a-4d2b-8ce7-4fc47d965985", title: "The main Trump-Xi summit achievement will be it happening at all", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/86078ee7-0c8a-4d2b-8ce7-4fc47d965985" },
   { id: "4420bf7d-320f-431c-8ca9-5e554b356890", title: "AI fears spook Washington as more Republicans call for greater regulation", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/4420bf7d-320f-431c-8ca9-5e554b356890" },
   { id: "2c206da5-63c9-405d-ae14-abe772ea32e0", title: "Santander wins £677mn legal appeal over PPI mis-selling bill", date: "2026-09-15", time: "13:10", url: "https://www.ft.com/content/2c206da5-63c9-405d-ae14-abe772ea32e0" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "e14542d9-2bc5-49c8-8e7e-c9656b0a2d36", title: "US manufacturers hit by fresh burst of supply chain cost inflation", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/e14542d9-2bc5-49c8-8e7e-c9656b0a2d36" },
   { id: "0b2c5b87-c743-4c0f-9fbd-117ae27d6b0b", title: "AI is exciting audit firms — maybe too much", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/0b2c5b87-c743-4c0f-9fbd-117ae27d6b0b" },
   { id: "1212e333-9149-46bf-89fb-03081e9e63f2", title: "Oxford spin-off builds low-cost jet engines for drones", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/1212e333-9149-46bf-89fb-03081e9e63f2" },
-  { id: "a143e08d-e979-410a-8e81-160fd4eba367", title: "Iran’s allies squeeze Saudi Arabia", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/a143e08d-e979-410a-8e81-160fd4eba367" },
-  { id: "ebca8754-9546-4668-85dd-a0d793c54d3c", title: "Vladimir Putin moves summit over Ukrainian drone threat", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/ebca8754-9546-4668-85dd-a0d793c54d3c" },
 ];

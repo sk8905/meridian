@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-sccromwellkirklandpe-20260915",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Sullivan & Cromwell hires four-partner Kirkland team for PE push",
+    date: "2026-09-15",
+    time: "15:08",
+    summary: "Partner Meshki to become global PE head and Los Angeles office co-lead.",
+    url: "https://email.legalbusiness.co.uk/c/1dXFYP4vxZWmcvPEx5yQMG9dsIIO",
+  },
+  {
     id: "nl-bbg-authoralert-treasuryyields525-20260915",
     publication: "Bloomberg",
     author: "Simon White",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "13:54",
     summary: "Goldman Sachs Research expects the fiscal concerns pushing up global bond yields to persist even as some other drivers dissipate, with gold forecast to rally amid rising volatility.",
     url: "https://clicks.newsletter.mail.gs.com/ls/click?upn=u001.o42bWkJ9Wa3U2i4KUQa27grjrLjMzQMcWfPO76LXsYLjS42I57vtTnx-2FI5PtAUNpHGBtFfDa8WOQ9O4Qt-2B8hP63FFAHKJxIqVKPEqY0OHdgGtE-2B6rQGkBlWGiQUJi6UjRtltzSktj19m9XOpEi6BUESpHB9uRq87puBng5Dd91C7-2FOjB8c91JWppOT4gHRg0-y1Y_AV9-2BPRP7Uj5QvX1NLKvBo7mSghDIloonB1HrvLeIVHq293sOX0RtBmYEmcPgr17HBGV-2FkQX49yirl9R5louU2i-2BPSoYU46Qo-2FFOOVcKy4-2Fp64WQb4BhtrjfxrjSZXEgbVhOc8bnphQ7gyuhkT6Ul40JUf8G-2B7MpKkfjYZrQ7i3Y4LxXdjgW-2FqRRirpQ59wnc0c2kT6pY8eJRzxwB0c43SLa2hs7w82FXsDX3pABckkeifFWK4YnVIRyn-2BJZ7fFyu6dsRGGPKo2vjVCh9LZBlJK-2FTuiGd7CNIZoO-2F-2BY-2FEe8GwJGDSCbVp-2BeSWDiRoBoAoHafToOk5btspDFAI41lFH8Iwm-2B3bHwIBabIZ9DF24-2BnVAHX-2B-2FVn6G68tedfVfgKaTAffKqXJ1c4Q33uyCGObFuncV0DWv-2BXiXoFwLEPGzkyH0b3RlzwPT8ALXfwwQcvlVdMIj3WHbSmvRXehozptUBterWVFIbdLyOINzKLpdmbMQ8hwjgWZ8-2F-2FU7T4vdnDsr-2F1fmTWSOXXGK2oX47ZtBZixgR3jGJljdXmF7vGjv4yQqX2zPkPuoRcEIHZReaCxiMpB-2FnROmMsPVkZVfZNXBUYw3WzMhi2EaO9bb7UKqL33bwDi1ZoU0g8-2Bj23ucNLoHkox-2F59ST43KP6Ifg8vB-2BQCwhiTCfGYTVlZnGHGjzz5RwIqanMvZial7B74dJY8WlLIKJR0w48uDbcLqcNflrEs4Kz3RQu6NAO1yDsm0Z2A-3D",
-  },
-  {
-    id: "nl-bbg-authoralert-elancapitalgreece-20260911",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Dimitriou's Elan Joins Hedge Funds Mulling an Office in Greece",
-    date: "2026-09-11",
-    time: "13:44",
-    summary: "Renos Dimitriou's Elan Capital Management is exploring an Athens office, joining a cohort of hedge fund peers eyeing the Greek capital as a new base for staff.",
-    url: "https://links.message.bloomberg.com/a/sc/AOdCubO_lc_s54-_Ui2BpXfXLThWp7xQouYirihN9J28rb4qE1GDtE_vMMp-qsfpRPVT0r4daJilDwNgYyuAGjRcjesuEECgeSfN5pzQ3V4LNk4IkF2SWOAl6Y5ftaLZ_yvfvH-wM1EIDDbp-1XCjOj34PhvuqjZFQqliCUs2ypsYhrGdy2CzMyzYAPl_6xIo5jJ1aQ_tyD37O6WsQm8ziXIdcQ2RGh9jJ9wfGYqVJZa4LhXkGXXClkNIjGr5de8YO2Frn6zdUIq7GCFp3E7P-hcFafjhDd2BMYhrwaOiLIMwEc7Y8uiXXgqpl3VKTearYMZMGoZaj0MNY57OQo7fLDh1fePMY19e6vtyXoLy6xxiRbb4RPGI_ThciqUOiJGdocosTdjFmkAkqNRkmXakjQxi6_GiwNyzuClhBHkCaFQwMd0vjjXF5-1Pw_DMf_8fMTnTLff6WqYpMdJRu7ujfAVhoKK20qpgWaZl2sMxw1vMmSzNiBzlXB4tbFwCASBA97dxw",
   },
 ];
