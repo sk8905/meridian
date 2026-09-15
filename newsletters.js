@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-scotuspostalvote-20260915",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: SCOTUS rejects Trump’s postal-vote rules",
+    date: "2026-09-15",
+    time: "05:34",
+    summary: "SCOTUS keeps Trump's mail-in voting curbs blocked, the ten-year Treasury yield tops 5%, and Trump dismisses AI-safety calls ahead of Amodei and Altman's Salesforce appearance.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-marketsblinked5pct-20260915",
     publication: "Bloomberg",
     author: "Richard Abbey",

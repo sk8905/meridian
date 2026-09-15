@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "696180f1-c9ad-4434-8ad2-b1dc30773e53", title: "Help to Buy scheme was ‘very high value for money’, says official review", date: "2026-09-15", time: "07:00", url: "https://www.ft.com/content/696180f1-c9ad-4434-8ad2-b1dc30773e53" },
+  { id: "7ac9a299-1ba0-428c-9207-ecf959b386f1", title: "The great British (and American) fork in the road", date: "2026-09-15", time: "06:30", url: "https://www.ft.com/content/7ac9a299-1ba0-428c-9207-ecf959b386f1" },
+  { id: "0b1b2875-fa2d-417b-8617-c6e51bebf083", title: "FTAV’s further reading", date: "2026-09-15", time: "06:30", url: "https://www.ft.com/content/0b1b2875-fa2d-417b-8617-c6e51bebf083" },
   { id: "69b5bd51-c8e1-41c1-a139-c28aa4c795ef", title: "Carney calls for ‘unique alliance’ with EU in plea for closer trade ties", date: "2026-09-15", time: "06:00", url: "https://www.ft.com/content/69b5bd51-c8e1-41c1-a139-c28aa4c795ef" },
   { id: "b14ad3a8-f36c-4023-b619-c6e939165886", title: "It’s crunch time for BoneSupport, one of Europe’s most shorted stocks", date: "2026-09-15", time: "06:00", url: "https://www.ft.com/content/b14ad3a8-f36c-4023-b619-c6e939165886" },
   { id: "5e2327aa-dbd0-4a79-8c99-622a893876d7", title: "Global bonds follow US Treasuries lower", date: "2026-09-15", time: "05:37", url: "https://www.ft.com/content/5e2327aa-dbd0-4a79-8c99-622a893876d7" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "2b8c8997-0a76-4c48-9384-aac94904b7fb", title: "UK government to take over insolvent steelmaker", date: "2026-09-14", time: "17:17", url: "https://www.ft.com/content/2b8c8997-0a76-4c48-9384-aac94904b7fb" },
   { id: "68599310-58ae-4a11-b885-3e34ebaa8af9", title: "Britain’s assisted dying debate was hobbled by a lack of candour", date: "2026-09-14", time: "17:04", url: "https://www.ft.com/content/68599310-58ae-4a11-b885-3e34ebaa8af9" },
   { id: "b78370c8-dc35-47ea-a254-a75421a46a85", title: "Syrians take to the streets over fuel price rise", date: "2026-09-14", time: "17:01", url: "https://www.ft.com/content/b78370c8-dc35-47ea-a254-a75421a46a85" },
-  { id: "aa8a1be7-abe0-44b7-bcd3-31fd0a44de08", title: "US tech stocks fall after big AI groups call for slowdown", date: "2026-09-14", time: "16:51", url: "https://www.ft.com/content/aa8a1be7-abe0-44b7-bcd3-31fd0a44de08" },
-  { id: "4205babe-1db0-4507-be8f-70b1e8954c7f", title: "America’s superheroes moved to Britain, but will they stay?", date: "2026-09-14", time: "15:53", url: "https://www.ft.com/content/4205babe-1db0-4507-be8f-70b1e8954c7f" },
-  { id: "06cb850d-089a-4318-88d7-a410e9766b89", title: "Ten-year Treasury yield hits 5% for first time since 2023", date: "2026-09-14", time: "15:51", url: "https://www.ft.com/content/06cb850d-089a-4318-88d7-a410e9766b89" },
 ];
