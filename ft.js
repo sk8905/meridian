@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4b9952d5-3cc8-48ef-8619-daa15a0a6af1", title: "Exxon wins Texas approval for $5bn carbon capture project", date: "2026-09-15", time: "18:43", url: "https://www.ft.com/content/4b9952d5-3cc8-48ef-8619-daa15a0a6af1" },
+  { id: "97f3d2b7-0282-42a7-bbb7-538624441a8a", title: "Hackers say they breached Italian state email to target Revolut ‘crypto whales’", date: "2026-09-15", time: "18:27", url: "https://www.ft.com/content/97f3d2b7-0282-42a7-bbb7-538624441a8a" },
+  { id: "6bbec28d-7ccf-455b-932a-0edad91a6d0e", title: "Larry Ellison shows even billionaires struggle with liquidity", date: "2026-09-15", time: "18:24", url: "https://www.ft.com/content/6bbec28d-7ccf-455b-932a-0edad91a6d0e" },
+  { id: "69b514eb-d627-4d46-9218-0842706c7115", title: "Iron ore trader Radiant alleges Glencore hid their ties from audited records", date: "2026-09-15", time: "18:17", url: "https://www.ft.com/content/69b514eb-d627-4d46-9218-0842706c7115" },
+  { id: "e14542d9-2bc5-49c8-8e7e-c9656b0a2d36", title: "US manufacturers hit by fresh burst of supply chain cost inflation", date: "2026-09-15", time: "16:26", url: "https://www.ft.com/content/e14542d9-2bc5-49c8-8e7e-c9656b0a2d36" },
   { id: "cacaf167-5d13-420c-8624-4e5f9b227028", title: "Scotch producers fume over legal protection for English whisky", date: "2026-09-15", time: "17:59", url: "https://www.ft.com/content/cacaf167-5d13-420c-8624-4e5f9b227028" },
   { id: "a3830162-2f40-46b7-8259-0db45fe2acef", title: "US prosecutors say Chinese groups used Binance to launder $61mn from Iranian oil deals", date: "2026-09-15", time: "17:52", url: "https://www.ft.com/content/a3830162-2f40-46b7-8259-0db45fe2acef" },
   { id: "e89bfb29-2aef-40ec-9c9d-b9c1afa783a8", title: "Iran war has left US with munitions ‘shortfall’, Pentagon watchdog says", date: "2026-09-15", time: "17:10", url: "https://www.ft.com/content/e89bfb29-2aef-40ec-9c9d-b9c1afa783a8" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "69b5bd51-c8e1-41c1-a139-c28aa4c795ef", title: "Carney calls for ‘unique alliance’ with EU in plea for closer trade ties", date: "2026-09-15", time: "06:00", url: "https://www.ft.com/content/69b5bd51-c8e1-41c1-a139-c28aa4c795ef" },
   { id: "b14ad3a8-f36c-4023-b619-c6e939165886", title: "It’s crunch time for BoneSupport, one of Europe’s most shorted stocks", date: "2026-09-15", time: "06:00", url: "https://www.ft.com/content/b14ad3a8-f36c-4023-b619-c6e939165886" },
   { id: "5e2327aa-dbd0-4a79-8c99-622a893876d7", title: "Global bonds follow US Treasuries lower", date: "2026-09-15", time: "05:37", url: "https://www.ft.com/content/5e2327aa-dbd0-4a79-8c99-622a893876d7" },
-  { id: "18c9a381-1dc2-4b93-8326-405880586aa3", title: "FirstFT: UK fiscal realities close in on Downing Street", date: "2026-09-15", time: "05:31", url: "https://www.ft.com/content/18c9a381-1dc2-4b93-8326-405880586aa3" },
-  { id: "d9158802-5836-441a-9969-47409044c503", title: "China’s economy shows signs of weakness as investment slumps", date: "2026-09-15", time: "05:18", url: "https://www.ft.com/content/d9158802-5836-441a-9969-47409044c503" },
-  { id: "aafa05d0-db36-4a41-a79b-2bcc2bb9aae0", title: "Banco Santander opens its vaults — with some help from David Chipperfield", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/aafa05d0-db36-4a41-a79b-2bcc2bb9aae0" },
-  { id: "a43e9050-f646-4d24-b650-b75ef589985c", title: "Private equity’s new AI overlords?", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/a43e9050-f646-4d24-b650-b75ef589985c" },
-  { id: "410b768f-e739-45bb-9ef1-04fd571142a8", title: "Ben Delo: the crypto billionaire helping to bankroll Reform UK", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/410b768f-e739-45bb-9ef1-04fd571142a8" },
 ];
