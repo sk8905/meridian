@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2374a71b-1a31-444f-8221-6c73c7c1c251", title: "UK state pension will surpass income tax threshold next year", date: "2026-09-15", time: "09:37", url: "https://www.ft.com/content/2374a71b-1a31-444f-8221-6c73c7c1c251" },
+  { id: "2ec90cb4-5c67-4655-8ee3-43785d00d22a", title: "Wales, Scotland and unclear exits from the UK", date: "2026-09-15", time: "09:30", url: "https://www.ft.com/content/2ec90cb4-5c67-4655-8ee3-43785d00d22a" },
   { id: "6d169ac7-0d3a-4f21-91ee-b8119fc63e65", title: "China’s AI listings glut drags Hong Kong stocks lower", date: "2026-09-15", time: "08:10", url: "https://www.ft.com/content/6d169ac7-0d3a-4f21-91ee-b8119fc63e65" },
   { id: "8bc0d474-7252-4e38-b4b2-ceeb7800d10d", title: "UK employers cut jobs as labour market remains weak over summer", date: "2026-09-15", time: "07:56", url: "https://www.ft.com/content/8bc0d474-7252-4e38-b4b2-ceeb7800d10d" },
   { id: "696180f1-c9ad-4434-8ad2-b1dc30773e53", title: "Help to Buy scheme was ‘very high value for money’, says official review", date: "2026-09-15", time: "07:00", url: "https://www.ft.com/content/696180f1-c9ad-4434-8ad2-b1dc30773e53" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "905fb04b-f738-41b2-a571-604031a622da", title: "Germany tells Andrea Orcel to keep Commerzbank’s Frankfurt HQ after takeover", date: "2026-09-14", time: "18:13", url: "https://www.ft.com/content/905fb04b-f738-41b2-a571-604031a622da" },
   { id: "4845a503-3ddd-4bb7-a469-c51f275bc873", title: "Oil hits $109 after Saudi Arabia closes vital export pipeline", date: "2026-09-14", time: "17:31", url: "https://www.ft.com/content/4845a503-3ddd-4bb7-a469-c51f275bc873" },
   { id: "7beb54c6-ed34-40d8-baa8-f1c0a2e8f0c3", title: "We won’t solve young people’s worklessness without listening to them", date: "2026-09-14", time: "17:29", url: "https://www.ft.com/content/7beb54c6-ed34-40d8-baa8-f1c0a2e8f0c3" },
-  { id: "b01682ae-1d49-46bb-b23a-d6212574214d", title: "France in ‘astonishing’ push to lift EU sanctions on Russian oligarch", date: "2026-09-14", time: "17:19", url: "https://www.ft.com/content/b01682ae-1d49-46bb-b23a-d6212574214d" },
-  { id: "2b8c8997-0a76-4c48-9384-aac94904b7fb", title: "UK government to take over insolvent steelmaker", date: "2026-09-14", time: "17:17", url: "https://www.ft.com/content/2b8c8997-0a76-4c48-9384-aac94904b7fb" },
 ];
