@@ -872,7 +872,7 @@ export function mount(host, ctx) {
       return;
     }
     const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
-    const rows = d.holdings.slice(0, 10).map((h, i) => `<tr><td class="dsh-r">${i + 1}</td>`
+    const rows = d.holdings.slice(0, 50).map((h, i) => `<tr><td class="dsh-r">${i + 1}</td>`
       + `<td>${esc(h.name || "—")}</td>`
       + `<td>${h.ticker ? `<a href="${esc(yh(h.ticker))}" target="_blank" rel="noopener noreferrer">${esc(h.ticker)}</a>` : "—"}</td>`
       + `<td class="dsh-r">${esc(hfUsd(h.value))}</td>`
