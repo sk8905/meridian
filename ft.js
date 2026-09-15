@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7e2ae9c8-4c94-4550-bdfb-bb003e4780d8", title: "Reform UK’s leader in Wales steps down after being ‘reported to the police’", date: "2026-09-15", time: "17:01", url: "https://www.ft.com/content/7e2ae9c8-4c94-4550-bdfb-bb003e4780d8" },
+  { id: "08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9", title: "Saudi leader visits Egypt for security talks as war with Houthis intensifies", date: "2026-09-15", time: "16:27", url: "https://www.ft.com/content/08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9" },
   { id: "b3674c9d-9db2-448d-bd57-f1c040de2d54", title: "Supreme Court rejects Donald Trump’s restrictions on mail-in ballots for midterms", date: "2026-09-15", time: "14:55", url: "https://www.ft.com/content/b3674c9d-9db2-448d-bd57-f1c040de2d54" },
   { id: "86078ee7-0c8a-4d2b-8ce7-4fc47d965985", title: "The main Trump-Xi summit achievement will be it happening at all", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/86078ee7-0c8a-4d2b-8ce7-4fc47d965985" },
   { id: "4420bf7d-320f-431c-8ca9-5e554b356890", title: "AI fears spook Washington as more Republicans call for greater regulation", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/4420bf7d-320f-431c-8ca9-5e554b356890" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "f00de325-5045-4e98-9068-9261bfe9eff3", title: "Luxembourg probes Gazprombank ex-managers", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/f00de325-5045-4e98-9068-9261bfe9eff3" },
   { id: "3abf587d-af1b-4de4-b1fe-b5b4cb48a6cd", title: "Hyrox’s new owners hope to turn burpees into billions", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/3abf587d-af1b-4de4-b1fe-b5b4cb48a6cd" },
   { id: "e14542d9-2bc5-49c8-8e7e-c9656b0a2d36", title: "US manufacturers hit by fresh burst of supply chain cost inflation", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/e14542d9-2bc5-49c8-8e7e-c9656b0a2d36" },
-  { id: "0b2c5b87-c743-4c0f-9fbd-117ae27d6b0b", title: "AI is exciting audit firms — maybe too much", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/0b2c5b87-c743-4c0f-9fbd-117ae27d6b0b" },
-  { id: "1212e333-9149-46bf-89fb-03081e9e63f2", title: "Oxford spin-off builds low-cost jet engines for drones", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/1212e333-9149-46bf-89fb-03081e9e63f2" },
 ];

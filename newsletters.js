@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-miserymiddlemarket-20260915",
+    publication: "Bloomberg",
+    author: "Libby Cherry and Arno Schütze",
+    series: "The Brink",
+    title: "The Brink: Misery in the middle market",
+    date: "2026-09-15",
+    time: "16:15",
+    summary: "A more bullish climate for M&A is little comfort to middle market lenders.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-15/europe-s-dealmaking-revival-has-a-missing-middle",
+  },
+  {
     id: "nl-legalbusiness-sccromwellkirklandpe-20260915",
     publication: "Legal Business",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "13:58",
     summary: "A curated digest on the data-center backlash despite 401(k) dependence on it, Drexel Burnham as the godfather of private credit, and shorting the dollar by drinking free first-growth Bordeaux.",
     url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/13",
-  },
-  {
-    id: "nl-goldmansachs-briefings-outlookforlongbonds-20260911",
-    publication: "Goldman Sachs",
-    author: null,
-    series: "Briefings",
-    title: "The Outlook for Long Bonds",
-    date: "2026-09-11",
-    time: "13:54",
-    summary: "Goldman Sachs Research expects the fiscal concerns pushing up global bond yields to persist even as some other drivers dissipate, with gold forecast to rally amid rising volatility.",
-    url: "https://clicks.newsletter.mail.gs.com/ls/click?upn=u001.o42bWkJ9Wa3U2i4KUQa27grjrLjMzQMcWfPO76LXsYLjS42I57vtTnx-2FI5PtAUNpHGBtFfDa8WOQ9O4Qt-2B8hP63FFAHKJxIqVKPEqY0OHdgGtE-2B6rQGkBlWGiQUJi6UjRtltzSktj19m9XOpEi6BUESpHB9uRq87puBng5Dd91C7-2FOjB8c91JWppOT4gHRg0-y1Y_AV9-2BPRP7Uj5QvX1NLKvBo7mSghDIloonB1HrvLeIVHq293sOX0RtBmYEmcPgr17HBGV-2FkQX49yirl9R5louU2i-2BPSoYU46Qo-2FFOOVcKy4-2Fp64WQb4BhtrjfxrjSZXEgbVhOc8bnphQ7gyuhkT6Ul40JUf8G-2B7MpKkfjYZrQ7i3Y4LxXdjgW-2FqRRirpQ59wnc0c2kT6pY8eJRzxwB0c43SLa2hs7w82FXsDX3pABckkeifFWK4YnVIRyn-2BJZ7fFyu6dsRGGPKo2vjVCh9LZBlJK-2FTuiGd7CNIZoO-2F-2BY-2FEe8GwJGDSCbVp-2BeSWDiRoBoAoHafToOk5btspDFAI41lFH8Iwm-2B3bHwIBabIZ9DF24-2BnVAHX-2B-2FVn6G68tedfVfgKaTAffKqXJ1c4Q33uyCGObFuncV0DWv-2BXiXoFwLEPGzkyH0b3RlzwPT8ALXfwwQcvlVdMIj3WHbSmvRXehozptUBterWVFIbdLyOINzKLpdmbMQ8hwjgWZ8-2F-2FU7T4vdnDsr-2F1fmTWSOXXGK2oX47ZtBZixgR3jGJljdXmF7vGjv4yQqX2zPkPuoRcEIHZReaCxiMpB-2FnROmMsPVkZVfZNXBUYw3WzMhi2EaO9bb7UKqL33bwDi1ZoU0g8-2Bj23ucNLoHkox-2F59ST43KP6Ifg8vB-2BQCwhiTCfGYTVlZnGHGjzz5RwIqanMvZial7B74dJY8WlLIKJR0w48uDbcLqcNflrEs4Kz3RQu6NAO1yDsm0Z2A-3D",
   },
 ];
