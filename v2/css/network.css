@@ -7,6 +7,7 @@
    ============================================================================= */
 .wire-net {
   --wn-accent:#fb8b1e; --wn-accent-ink:#1b1200; --wn-ink:#131b2c; --wn-mut:#5e6a84; --wn-down:#df4763;
+  --wn-link:#2f6fd6;
   --wn-bd:#e4e7ef; --wn-surface:#ffffff; --wn-surface2:#f3f6fb;
   color:var(--wn-ink);
   /* Match the terminal menu chrome it sits in: mono, 11px, and inset to the same
@@ -19,7 +20,7 @@
    lines up with the gutter the container now provides. */
 .wire-net .na-menu-recent-h { padding-left:0; padding-right:0; }
 :root[data-theme="dark"] .wire-net {
-  --wn-ink:#eaf0fb; --wn-mut:#8592ad; --wn-down:#f26d84;
+  --wn-ink:#eaf0fb; --wn-mut:#8592ad; --wn-down:#f26d84; --wn-link:#6ca8ff;
   --wn-bd:#262626; --wn-surface:#0d0d0d; --wn-surface2:#191919;
 }
 
@@ -69,7 +70,7 @@
 .wn-ent > summary.wn-ent-nm:hover .wn-ent-t { color:var(--wn-accent); }
 .wn-ent-ct { flex:0 0 auto; min-width:1.4em; text-align:center; background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; color:var(--wn-mut); font-size:10px; font-weight:700; padding:0 6px; }
 .wn-ent-people { color:var(--wn-mut); font-size:10.5px; line-height:1.5; margin-top:5px; padding-left:1.1em; }
-.wn-ent-open { display:inline-block; margin-top:6px; margin-left:1.1em; font-size:10.5px; color:var(--wn-accent); text-decoration:none; }
+.wn-ent-open { display:inline-block; margin-top:6px; margin-left:1.1em; font-size:10.5px; color:var(--wn-link); text-decoration:none; }
 .wn-ent-open:hover { text-decoration:underline; }
 .wn-empty { color:var(--wn-mut); font-size:11.5px; margin:6px 0; }
 
