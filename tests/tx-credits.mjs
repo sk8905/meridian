@@ -12,7 +12,7 @@ await pg.waitForTimeout(1600);
 
 // The primary mode toggle: Deal flow (default, on) + Credits.
 const modes = await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].map((c) => ({ label: c.textContent.trim().replace(/\s+\d+$/, ""), on: c.classList.contains("is-on") })));
-check(modes.length === 2 && modes[0].label === "Deal flow" && modes[1].label === "Credits", `mode chips are Deal flow / Credits (${modes.map((m) => m.label).join("/")})`);
+check(modes.length === 3 && modes[0].label === "Deal flow" && modes[1].label === "Credits" && modes[2].label === "BDCs", `mode chips are Deal flow / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
 check(modes[0].on && !modes[1].on, "Deal flow is the default mode");
 
 // Deal-flow chrome shows the type table; the credits body is hidden.

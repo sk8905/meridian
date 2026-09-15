@@ -847,6 +847,25 @@ const DASH_INDEX_SERIES = [
   { id: "nkx",  label: "Nikkei 225",       symbol: "^N225", href: "https://finance.yahoo.com/quote/%5EN225" },
   { id: "hsi",  label: "Hang Seng",        symbol: "^HSI",  href: "https://finance.yahoo.com/quote/%5EHSI" },
 ];
+// Live last-trade prices for a list of tickers (used by the BDC roster to compute
+// a live price/NAV ratio for the LISTED funds). Read-only Yahoo quotes, 5-min edge
+// cache. Symbols are sanitised and capped so this can't be turned into an open proxy.
+async function handleQuotes(request, env, ctx) {
+  const url = new URL(request.url);
+  const syms = [...new Set((url.searchParams.get("symbols") || "").split(",").map((s) => s.trim().toUpperCase()).filter((s) => /^[A-Z][A-Z0-9.\-]{0,9}$/.test(s)))].slice(0, 60);
+  if (!syms.length) return json({ quotes: {}, asOf: new Date().toISOString() });
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/quotes?symbols=${syms.join(",")}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const entries = await Promise.all(syms.map(async (s) => { const q = await yahooQuote(s); return [s, { price: q.value, changePct: q.changePct, asOf: q.asOf, marketState: q.marketState }]; }));
+  const quotes = Object.fromEntries(entries.filter(([, q]) => q.price != null));
+  const resp = new Response(JSON.stringify({ quotes, asOf: new Date().toISOString() }), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
+  });
+  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
 async function handleEqIndices(request, env, ctx) {
   const cosd = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
   const cache = caches.default;
@@ -3367,6 +3386,7 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
+    if (url.pathname === "/api/quotes") return handleQuotes(request, env, ctx);
     if (url.pathname === "/api/eqindices") return handleEqIndices(request, env, ctx);
     if (url.pathname === "/api/worldindices") return handleWorldIndices(request, env, ctx);
     if (url.pathname === "/api/govyields") return handleGovYields(request, env, ctx);

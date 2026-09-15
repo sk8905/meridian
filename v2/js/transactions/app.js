@@ -9,8 +9,9 @@
 // .tleague) so the two tabs read as one app. mount(host, ctx) → {enter,leave}.
 // =============================================================================
 import { deals, managers } from "/credit/js/data.js";
+import { BDCS, BDC_UPDATED } from "/credit/js/bdcs.js";
 import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-credits.js";
-import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-1";
+import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-2";
 import { esc } from "/util.js?v=20260818-1";
 import { fmtDay } from "/feed.js?v=20260808-1";
 import { dealSubject, dealSponsor } from "../deal-parse.js?v=v2-4";
@@ -75,6 +76,7 @@ export function mount(host, ctx) {
             <div class="tchips" id="tx-mode">
               <button type="button" class="tchip is-on" data-mode="flow">Deal flow</button>
               <button type="button" class="tchip" data-mode="credits">Credits</button>
+              <button type="button" class="tchip" data-mode="bdc">BDCs</button>
             </div>
           </header>
           <div class="tcol-main">
@@ -89,15 +91,21 @@ export function mount(host, ctx) {
                 <button type="button" class="tcr-grpbtn" data-crgroup="rating" aria-pressed="false">${grpSvg}<span>Group by rating</span></button>
               </div>
             </header>
+            <header class="tpanel-h thead-search" id="tx-bdc-search">
+              <input type="search" id="tx-bdc-q" class="tsearch" placeholder="Search a BDC or manager…" aria-label="Search BDCs">
+            </header>
             <div class="tx-scroll" id="tx-body"></div>
             <div class="tx-scroll" id="tx-credits-body"></div>
+            <div class="tx-scroll" id="tx-bdc-body"></div>
           </div>
         </section>
       </div>
     </div>`;
   const body = host.querySelector("#tx-body");
   const creditsBody = host.querySelector("#tx-credits-body");
+  const bdcBody = host.querySelector("#tx-bdc-body");
   let _crMode = "flow", _crQ = "", _crGroup = null;   // null = neutral default (sector order, no button lit)
+  let _bdcFilter = "all", _bdcQ = "", _bdcQuotes = null, _bdcQuotesTried = false;   // BDC roster state
   // S&P scale, best → worst — used to order the roster when grouping by rating.
   const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
   const ratingRank = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? 999 : i; };
@@ -228,6 +236,116 @@ export function mount(host, ctx) {
         : `<p class="tw-empty muted small">No transactions match “${esc(st.q)}”.</p>`}`;
   }
 
+  // ---- BDCs: the largest US business development companies, split into LISTED
+  // (exchange-traded) and INTERVAL / PRIVATE (perpetual-life, non-traded). Every
+  // figure is from the fund's own latest SEC filing / IR release (linked per row);
+  // the listed price÷NAV ratio is computed live from /api/quotes. Certifiable data
+  // only — an unverified field reads "n/a" rather than a guess.
+  const bdcPxNav = (b) => {
+    if (b.structure !== "listed" || b.nav == null || !_bdcQuotes) return null;
+    const q = _bdcQuotes[b.ticker];
+    return (q && q.price != null) ? q.price / b.nav : null;
+  };
+  // Best certifiable size figure: total assets where a filing states it, else net
+  // assets (aggregate NAV) or portfolio fair value — labelled so it's never mistaken.
+  const bdcSize = (b) => b.totalAssets != null ? b.totalAssets : (b.netAssets != null ? b.netAssets : (b.portfolio != null ? b.portfolio : null));
+  const bdcSizeCell = (b) => b.totalAssets != null ? `$${b.totalAssets}bn`
+    : b.netAssets != null ? `$${b.netAssets}bn<span class="tbdc-szt" title="Net assets (aggregate NAV) — total assets not stated in filing">net</span>`
+    : b.portfolio != null ? `$${b.portfolio}bn<span class="tbdc-szt" title="Investment portfolio at fair value — total assets not stated in filing">port</span>`
+    : "n/a";
+  function bdcLiquidityCell(b) {
+    if (b.structure === "listed") {
+      const r = bdcPxNav(b);
+      if (r == null) return `<span class="muted">${b.ticker ? esc(b.ticker) : "listed"}</span>`;
+      const prem = r >= 1;
+      return `<span class="tbdc-pxnav ${prem ? "is-prem" : "is-disc"}" title="Live price ÷ latest reported NAV — ${prem ? "premium" : "discount"} to NAV">${r.toFixed(2)}×</span>`;
+    }
+    const parts = [];
+    if (b.repurchaseCapPct != null) parts.push(`${b.repurchaseCapPct}% cap`);
+    if (b.repurchaseRequestedPct != null) parts.push(`${b.repurchaseRequestedPct}% req`);
+    const gated = b.repurchaseProrated === true ? `<span class="tbdc-gated" title="Repurchase requests exceeded the cap and were prorated (gated)">GATED</span>`
+      : b.repurchaseProrated === false ? `<span class="tbdc-open" title="Repurchase requests fully honoured last period">honoured</span>` : "";
+    if (!parts.length && !gated) return `<span class="muted">interval</span>`;
+    return `<span class="tbdc-rep">${parts.join(" · ")}${gated ? " " + gated : ""}</span>`;
+  }
+  function bdcDetail(b) {
+    const rows = [];
+    if (b.totalAssets != null) rows.push(["Total assets", `$${b.totalAssets}bn${b.totalAssetsAsOf ? " (" + b.totalAssetsAsOf + ")" : ""}`]);
+    if (b.netAssets != null) rows.push(["Net assets", `$${b.netAssets}bn aggregate NAV${b.navAsOf ? " (" + b.navAsOf + ")" : ""}`]);
+    if (b.portfolio != null) rows.push(["Portfolio", `$${b.portfolio}bn at fair value${b.navAsOf ? " (" + b.navAsOf + ")" : ""}`]);
+    if (b.nav != null) rows.push(["NAV / share", `$${b.nav}${b.navAsOf ? " (" + b.navAsOf + ")" : ""}`]);
+    if (b.nonAccrualFV != null) rows.push(["Non-accruals", `${b.nonAccrualFV}% at fair value${b.nonAccrualCost != null ? ", " + b.nonAccrualCost + "% at cost" : ""}${b.nonAccrualAsOf ? " (" + b.nonAccrualAsOf + ")" : ""}`]);
+    if (b.structure === "nontraded" && (b.repurchaseCapPct != null || b.repurchaseRequestedPct != null || b.repurchaseProrated != null)) {
+      const bits = [];
+      if (b.repurchaseCapPct != null) bits.push(`${b.repurchaseCapPct}% of NAV quarterly cap`);
+      if (b.repurchaseRequestedPct != null) bits.push(`${b.repurchaseRequestedPct}% requested`);
+      if (b.repurchaseProrated === true) bits.push("prorated (gated)");
+      else if (b.repurchaseProrated === false) bits.push("fully honoured");
+      rows.push(["Repurchases", bits.join(" · ") + (b.repurchaseAsOf ? " (" + b.repurchaseAsOf + ")" : "")]);
+    }
+    const facts = rows.length ? `<dl class="tbdc-facts">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`
+      : `<p class="muted small">No certifiable figures on file yet — see the fund's SEC filings.</p>`;
+    const holdCta = b.cik ? `<button type="button" class="tbdc-hold-btn" data-cik="${esc(b.cik)}">Load latest holdings (SEC)</button><div class="tbdc-hold"></div>` : "";
+    const srcLinks = (b.sources || []).map((s) => `<a class="tx-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)}</a>`);
+    if (b.edgar) srcLinks.push(`<a class="tx-src" href="${esc(b.edgar)}" target="_blank" rel="noopener noreferrer">SEC EDGAR filings ›</a>`);
+    return facts + holdCta + `<div class="tbdc-srcs">${srcLinks.join("<br>")}</div>`;
+  }
+  function bdcRow(b) {
+    const i = BDCS.indexOf(b);
+    const mgr = b.managerId ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(b.managerId)}" class="tx-mgr" data-id="${esc(b.managerId)}">${esc(b.manager)}</a>` : esc(b.manager);
+    const sub = b.structure === "listed" ? `${esc(b.ticker)} · ${esc(b.exchange)}` : "Interval / private";
+    const na = b.nonAccrualFV != null
+      ? `<span title="${b.nonAccrualCost != null ? b.nonAccrualCost + "% at cost · " : ""}at fair value${b.nonAccrualAsOf ? ", " + esc(b.nonAccrualAsOf) : ""}">${b.nonAccrualFV}%</span>` : "n/a";
+    return `<tr class="tbdc-row" data-i="${i}"><td class="tbdc-nm"><span class="tx-caret" aria-hidden="true">▸</span>${esc(b.name)}<span class="tbdc-sub">${sub}</span></td>`
+      + `<td class="tbdc-mg">${mgr}</td>`
+      + `<td class="tl-n tbdc-ta">${bdcSizeCell(b)}</td>`
+      + `<td class="tl-n tbdc-nav">${b.nav != null ? "$" + b.nav.toFixed(2) : "n/a"}</td>`
+      + `<td class="tl-n tbdc-na">${na}</td>`
+      + `<td class="tl-n tbdc-lq">${bdcLiquidityCell(b)}</td></tr>`
+      + `<tr class="tbdc-exp" data-for="${i}" hidden><td colspan="6"><div class="tx-exp-in"></div></td></tr>`;
+  }
+  function renderBDCs() {
+    const q = _bdcQ.toLowerCase();
+    const match = (b) => !q || b.name.toLowerCase().includes(q) || (b.manager || "").toLowerCase().includes(q) || (b.ticker || "").toLowerCase().includes(q);
+    const cnt = (k) => BDCS.filter(match).filter((b) => k === "all" || b.structure === k).length;
+    const list = BDCS.filter(match).filter((b) => _bdcFilter === "all" || b.structure === _bdcFilter)
+      .sort((a, b) => (bdcSize(b) || 0) - (bdcSize(a) || 0) || a.name.localeCompare(b.name));
+    const chip = (k, label) => `<button type="button" class="tx-secchip${_bdcFilter === k ? " is-on" : ""}" data-bdcf="${k}">${esc(label)}<span class="tx-secn">${cnt(k)}</span></button>`;
+    const filters = `<div class="tx-subhead"><div class="tx-secfilter" aria-label="Filter BDCs">${chip("all", "All")}${chip("listed", "Listed")}${chip("nontraded", "Interval / private")}</div></div>`;
+    const note = `<p class="tx-blurb"><span class="muted">The largest US BDCs by total assets. Figures are from each fund's latest SEC filing / IR release (open a row for sources); the listed <strong>price÷NAV</strong> ratio is live. Certifiable data only — unverified fields read “n/a”. Roster updated ${esc(BDC_UPDATED)}.</span></p>`;
+    bdcBody.innerHTML = `<div class="tx-head">${filters}${note}</div>`
+      + (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
+        <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
+        <tbody>${list.map(bdcRow).join("")}</tbody></table></div>`
+        : `<p class="tw-empty muted small">No BDCs match “${esc(_bdcQ)}”.</p>`);
+  }
+  function loadBdcQuotes() {
+    if (_bdcQuotesTried) return;   // fetch once per mount
+    _bdcQuotesTried = true;
+    const syms = [...new Set(BDCS.filter((b) => b.structure === "listed" && b.ticker).map((b) => b.ticker))];
+    if (!syms.length) return;
+    fetch(`/api/quotes?symbols=${encodeURIComponent(syms.join(","))}`, { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (d && d.quotes) { _bdcQuotes = d.quotes; if (_crMode === "bdc") renderBDCs(); } })
+      .catch(() => { /* live ratio simply stays hidden */ });
+  }
+  function loadBdcHoldings(cik, host2) {
+    if (host2.dataset.state === "loading" || host2.dataset.state === "loaded") return;
+    host2.dataset.state = "loading";
+    host2.innerHTML = `<p class="tw-empty muted small">Fetching the latest SEC schedule of investments…</p>`;
+    fetch(`/api/bdc?cik=${encodeURIComponent(cik)}`, { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        host2.dataset.state = "loaded";
+        const link = (d && d.source) ? ` — <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer" class="tx-src">latest filing</a>` : "";
+        if (!d || !Array.isArray(d.holdings) || !d.holdings.length) { host2.innerHTML = `<p class="tw-empty muted small">Couldn't parse this filer's schedule of investments automatically${link}.</p>`; return; }
+        const usd = (v) => v >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "bn" : v >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v || 0).toLocaleString("en-US");
+        const rows = d.holdings.slice(0, 25).map((h, i) => `<tr><td class="tl-n">${i + 1}</td><td class="tl-nm">${esc(h.name || "—")}</td><td class="tl-n">${usd(h.value)}</td><td class="tl-n">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
+        host2.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings"><thead><tr><th>#</th><th>Portfolio company</th><th>Fair value</th><th>% of book</th></tr></thead><tbody>${rows}</tbody></table></div><p class="muted small tbdc-hold-note">Top ${Math.min(25, d.holdings.length)} of ${d.holdings.length} parsed from the latest SEC filing${link}.</p>`;
+      })
+      .catch(() => { host2.dataset.state = ""; host2.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`; });
+  }
+
   // ---- Credits: the European credit universe (ELLI), organised by sector, each
   // with its current issuer rating, borrower domicile and 12-month rating trend.
   // Real, sourced rows only — empty until the first verified batch lands (compiled
@@ -282,12 +400,14 @@ export function mount(host, ctx) {
   // inline display (not [hidden]) — the headers carry a CSS `display` that beats
   // the UA [hidden] rule, so the attribute alone wouldn't hide them.
   const setMode = (mode) => {
-    _crMode = mode === "credits" ? "credits" : "flow";
-    const credits = _crMode === "credits";
+    _crMode = ["credits", "bdc"].includes(mode) ? mode : "flow";
     host.querySelectorAll("#tx-mode .tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.mode === _crMode));
-    ["tx-flow-search", "tx-body"].forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = credits ? "none" : ""; });
-    ["tx-credits-search", "tx-credits-body"].forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = credits ? "" : "none"; });
-    if (credits) renderCredits();
+    const show = (ids, on) => ids.forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = on ? "" : "none"; });
+    show(["tx-flow-search", "tx-body"], _crMode === "flow");
+    show(["tx-credits-search", "tx-credits-body"], _crMode === "credits");
+    show(["tx-bdc-search", "tx-bdc-body"], _crMode === "bdc");
+    if (_crMode === "credits") renderCredits();
+    if (_crMode === "bdc") { renderBDCs(); loadBdcQuotes(); }
   };
   setMode("flow");   // initial (drives the display, replacing the [hidden] attrs)
   host.querySelector("#tx-mode").addEventListener("click", (e) => {
@@ -295,6 +415,7 @@ export function mount(host, ctx) {
     setMode(b.dataset.mode);
   });
   host.querySelector("#tx-cr-q").addEventListener("input", (e) => { _crQ = e.target.value.trim(); renderCredits(); });
+  host.querySelector("#tx-bdc-q").addEventListener("input", (e) => { _bdcQ = e.target.value.trim(); renderBDCs(); });
   // Group-by toggle (sector | rating): a mutually-exclusive pair, styled like the
   // news/manager-wire group button. Re-orders the roster in place.
   host.querySelector("#tx-cr-ctl").addEventListener("click", (e) => {
@@ -322,6 +443,21 @@ export function mount(host, ctx) {
   host.addEventListener("click", (e) => {
     const mgr = e.target.closest(".tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
+    // BDC roster: structure filter, row expand (detail + sources), holdings fetch.
+    const bf = e.target.closest(".tx-secchip[data-bdcf]");
+    if (bf) { _bdcFilter = bf.dataset.bdcf; renderBDCs(); return; }
+    const hb = e.target.closest(".tbdc-hold-btn");
+    if (hb) { e.stopPropagation(); loadBdcHoldings(hb.dataset.cik, hb.nextElementSibling); hb.disabled = true; hb.textContent = "Loading…"; return; }
+    const brow = e.target.closest("tr.tbdc-row");
+    if (brow && !e.target.closest("a")) {
+      const exp = brow.nextElementSibling;
+      if (exp && exp.classList.contains("tbdc-exp")) {
+        const opening = exp.hasAttribute("hidden");
+        if (opening) { const inner = exp.querySelector(".tx-exp-in"); if (!inner.dataset.built) { inner.innerHTML = bdcDetail(BDCS[+brow.dataset.i]); inner.dataset.built = "1"; } }
+        exp.hidden = !opening; brow.classList.toggle("is-open", opening);
+      }
+      return;
+    }
     // Sub-category filter INSIDE an open type — rebuild just that type's sub-list,
     // keeping every other row (and any other open type) exactly where it is.
     const sec = e.target.closest(".tx-secchip");

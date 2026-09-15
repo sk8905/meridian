@@ -266,6 +266,20 @@ notification badge red (`#ef4444`).
   domicile; `trend` is the S&P rating's net direction over the trailing 12 months
   and is `"up"`/`"down"` only against a verified rating change in that window,
   `"flat"` otherwise. Growing it is a daily-refresh task.
+- **R23 — BDC roster (Transactions ▸ BDCs).** The BDCs sub-tab
+  (`credit/js/bdcs.js` → `BDCS`, rendered in `v2/js/transactions/app.js`) lists the
+  largest US business development companies, split **listed** vs **interval/private**
+  (non-traded, perpetual-life). Every financial figure — total assets / net assets /
+  portfolio, NAV per share, non-accruals (at fair value AND cost), and, for
+  non-traded funds, the quarterly repurchase cap / requested %% / prorated ("gated")
+  flag — is **certifiable only (R7)**: it carries a real dated SEC filing / IR
+  source, and an unverified field is `null` and renders "n/a" (never a guess or a
+  proxy passed off as the real figure; net assets or portfolio FV shown in place of
+  total assets are explicitly labelled). Static identity (name/ticker/exchange/
+  manager/CIK/structure) is public fact. The **listed price÷NAV ratio is live**,
+  computed client-side from `/api/quotes` (Yahoo last trade) ÷ the reported NAV — it
+  is not stored. Refreshing the figures each quarter (new 10-Q/8-K season) and the
+  live-price wiring are daily-refresh concerns; enforced by `tests/bdcs.mjs`.
 
 ---
 

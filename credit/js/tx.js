@@ -39,6 +39,7 @@ export const TX_TAG = {
   // against each deal's own source — a purchase of fund LP stakes/interests).
   d689: "lp_sec",   // Federated Hermes buys ESR's LP stake in Penny Blue Capital's fund
   d667: "lp_sec",   // Ares bundles €3bn of private-credit LP stakes (credit-secondaries)
+  d754: "cfo",      // Ares Infrastructure Debt Fund VI rated-note feeder — a CFO, not direct lending
 };
 export const TX_AMT = {
   // dealId: { v: <native millions>, ccy: "USD"|"EUR"|"GBP"|... }  (or null to blank)
@@ -54,7 +55,7 @@ const _RX = {
   rescue: /rescue (financ|capital|package|loan)|\bbridge (financ|loan|facilit)\b|emergency (financ|loan|capital)|\blifeline\b|stop[- ]gap financ/i,
   abl: /asset[- ]based (lend|financ|loan|facilit)|\babl\b|\babf\b|asset[- ]backed (lend|financ|loan|facilit|secur)|receivables (financ|facilit|purchase)|forward[- ]flow|inventory financ|equipment financ|residential (transition|mortgage)[- ]?(loan )?secur|\brmbs\b|significant .{0,4}mortgage/i,
   clo: /\bclo\b|collateral(ised|ized) loan obligation/i,
-  cfo: /\bcfo\b|collateral(ised|ized) fund obligation|fund securitis|rated fund note/i,
+  cfo: /\bcfo\b|collateral(ised|ized)[- ]?fund[- ]?obligation|fund securitis|rated[- ]note[- ]feeder|rated fund note/i,
   srt: /significant risk transfer|\bsrt\b|synthetic securitis|capital[- ]relief|risk[- ]sharing (trade|transaction)|credit risk transfer/i,
   npl: /non[- ]performing|\bnpl(s)?\b|loan portfolio (sale|acquisition|deal)|distressed (loan|debt) portfolio/i,
   rx: /restructur|distress|chapter 11|administration|insolven|debt[- ]for[- ]equity|scheme of arrangement|liability management/i,

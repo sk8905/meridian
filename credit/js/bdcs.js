@@ -1,0 +1,131 @@
+// bdcs.js — the Business Development Company (BDC) roster for the Transactions ▸
+// BDCs sub-tab. The largest US BDCs by total assets, split into LISTED
+// (exchange-traded) and NON-TRADED (perpetual-life, continuously-offered) funds.
+//
+// CERTIFIABLE DATA ONLY (HOUSE_STYLE R7). Every financial figure carries a real,
+// dated primary source (SEC EDGAR 8-K/10-Q, or the fund's own IR release); an
+// unverified field is `null`, never guessed. Static identity (name/ticker/manager/
+// structure) is stable public fact. The LIVE price/NAV ratio for listed funds is
+// computed client-side from /api/quotes (Yahoo last trade) ÷ the reported `nav`.
+// All figures are as of the fund's latest available quarter (period ended
+// 2026-06-30 for most; open a row for the exact source + date).
+//
+// Fields: name, ticker (null if non-traded), exchange, manager, managerId (roster
+// id when the adviser has a Profiles page), structure "listed"|"nontraded", cik,
+// totalAssets ($bn), nav ($/share), nonAccrualFV/nonAccrualCost (% of portfolio),
+// each with an asOf. Non-traded also carry netAssets / portfolio ($bn, size where
+// total assets isn't stated) and the quarterly repurchase cap / requested %% /
+// prorated flag ("gated" = prorated true). edgar + sources[] hold the provenance.
+
+export const BDCS = [
+  // ==== LISTED ============================================================
+  { name: "Ares Capital Corporation", ticker: "ARCC", exchange: "NASDAQ", manager: "Ares Management", managerId: "m20", structure: "listed", cik: "1287750",
+    totalAssets: 30.5, totalAssetsAsOf: "2026-06-30", nav: 19.35, navAsOf: "2026-06-30", nonAccrualFV: 1.4, nonAccrualCost: 2.4, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1287750&type=10-Q", sources: [{ label: "ARCC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001287750/000162828026050303/arccq2-2026exhibit991.htm" }] },
+  { name: "Blue Owl Capital Corporation", ticker: "OBDC", exchange: "NYSE", manager: "Blue Owl Capital", managerId: null, structure: "listed", cik: "1655888",
+    totalAssets: 15.35, totalAssetsAsOf: "2026-06-30", nav: 14.26, navAsOf: "2026-06-30", nonAccrualFV: 0.8, nonAccrualCost: 2.8, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1655888&type=10-Q", sources: [{ label: "OBDC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/1655888/000165588826000055/exhibit991-obdcxpressrelea.htm" }] },
+  { name: "FS KKR Capital Corp", ticker: "FSK", exchange: "NYSE", manager: "FS Investments / KKR Credit", managerId: null, structure: "listed", cik: "1422183",
+    totalAssets: 11.99, totalAssetsAsOf: "2026-06-30", nav: 18.3, navAsOf: "2026-06-30", nonAccrualFV: 3.8, nonAccrualCost: 7.1, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1422183&type=10-Q", sources: [{ label: "FSK Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/1422183/000110465926091572/tm2622260d1_ex99-1.htm" }] },
+  { name: "Blackstone Secured Lending Fund", ticker: "BXSL", exchange: "NYSE", manager: "Blackstone Credit & Insurance", managerId: null, structure: "listed", cik: "1736035",
+    totalAssets: 13.25, totalAssetsAsOf: "2026-06-30", nav: 25.53, navAsOf: "2026-06-30", nonAccrualFV: 1.8, nonAccrualCost: 3.6, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1736035&type=10-Q", sources: [{ label: "BXSL Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/1736035/000121390026085889/ea0300654-01_ex991.htm" }] },
+  { name: "Hercules Capital", ticker: "HTGC", exchange: "NYSE", manager: "Hercules Capital (internally managed)", managerId: null, structure: "listed", cik: "1280784",
+    totalAssets: 4.69, totalAssetsAsOf: "2026-06-30", nav: 12.15, navAsOf: "2026-06-30", nonAccrualFV: 0.1, nonAccrualCost: 0.3, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1280784&type=10-Q", sources: [{ label: "HTGC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001280784/000128078426000043/htgcq22026release.htm" }] },
+  { name: "Golub Capital BDC", ticker: "GBDC", exchange: "NASDAQ", manager: "Golub Capital", managerId: null, structure: "listed", cik: "1476765",
+    totalAssets: 8.34, totalAssetsAsOf: "2026-06-30", nav: 14.25, navAsOf: "2026-06-30", nonAccrualFV: 1.9, nonAccrualCost: 2.9, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1476765&type=10-Q", sources: [{ label: "GBDC FY26 Q3 (30 Jun 2026) earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001476765/000147676526000047/gbdcfy2026q3epfinal.htm" }] },
+  { name: "Main Street Capital", ticker: "MAIN", exchange: "NYSE", manager: "Main Street Capital (internally managed)", managerId: null, structure: "listed", cik: "1396440",
+    totalAssets: 5.94, totalAssetsAsOf: "2026-06-30", nav: 33.92, navAsOf: "2026-06-30", nonAccrualFV: 1.1, nonAccrualCost: 4, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1396440&type=10-Q", sources: [{ label: "MAIN Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001396440/000139644026000090/main-q22026xearningsreleas.htm" }] },
+  { name: "Prospect Capital Corporation", ticker: "PSEC", exchange: "NASDAQ", manager: "Prospect Capital Management", managerId: null, structure: "listed", cik: "1287032",
+    totalAssets: 6.45, totalAssetsAsOf: "2026-06-30", nav: 5.71, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1287032&type=10-Q", sources: [{ label: "PSEC 30 Jun 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001287032/000128703226000270/a2026-6x30xpsecearningsrel.htm" }] },
+  { name: "Sixth Street Specialty Lending", ticker: "TSLX", exchange: "NYSE", manager: "Sixth Street", managerId: null, structure: "listed", cik: "1508655",
+    totalAssets: 3.54, totalAssetsAsOf: "2026-06-30", nav: 16.24, navAsOf: "2026-06-30", nonAccrualFV: 1.3, nonAccrualCost: null, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1508655&type=10-Q", sources: [{ label: "TSLX Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001508655/000119312526332772/tslx-ex99_1.htm" }] },
+  { name: "Barings BDC", ticker: "BBDC", exchange: "NYSE", manager: "Barings", managerId: null, structure: "listed", cik: "1379785",
+    totalAssets: 2.58, totalAssetsAsOf: "2026-06-30", nav: 10.94, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1379785&type=10-Q", sources: [{ label: "BBDC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001379785/000137978526000031/exhibit99120260805earnings.htm" }] },
+  { name: "Carlyle Secured Lending", ticker: "CGBD", exchange: "NASDAQ", manager: "Carlyle Global Credit", managerId: "m212", structure: "listed", cik: "1544206",
+    totalAssets: 2.44, totalAssetsAsOf: "2026-06-30", nav: 15.61, navAsOf: "2026-06-30", nonAccrualFV: 0.6, nonAccrualCost: 1.2, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1544206&type=10-Q", sources: [{ label: "CGBD Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/1544206/000154420626000056/cgbd_2026630xxex991earning.htm" }] },
+  { name: "New Mountain Finance", ticker: "NMFC", exchange: "NASDAQ", manager: "New Mountain Capital", managerId: null, structure: "listed", cik: "1496099",
+    totalAssets: 2.42, totalAssetsAsOf: "2026-06-30", nav: 10.89, navAsOf: "2026-06-30", nonAccrualFV: 1.5, nonAccrualCost: null, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1496099&type=10-Q", sources: [{ label: "NMFC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001496099/000149609926000027/nmfcearningspressreleaseq2.htm" }] },
+  { name: "Oaktree Specialty Lending", ticker: "OCSL", exchange: "NASDAQ", manager: "Oaktree Capital Management", managerId: null, structure: "listed", cik: "1414932",
+    totalAssets: 2.86, totalAssetsAsOf: "2026-06-30", nav: 15.7, navAsOf: "2026-06-30", nonAccrualFV: 1.8, nonAccrualCost: 4.2, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1414932&type=10-Q", sources: [{ label: "OCSL FY26 Q3 (30 Jun 2026) earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001414932/000119312526333737/d158058dex991.htm" }] },
+  { name: "BlackRock TCP Capital", ticker: "TCPC", exchange: "NASDAQ", manager: "BlackRock", managerId: null, structure: "listed", cik: "1370755",
+    totalAssets: 1.48, totalAssetsAsOf: "2026-06-30", nav: 6.58, navAsOf: "2026-06-30", nonAccrualFV: 1.6, nonAccrualCost: 7.4, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1370755&type=10-Q", sources: [{ label: "TCPC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001370755/000119312526336845/tcpc-ex99_2.htm" }] },
+  { name: "Capital Southwest", ticker: "CSWC", exchange: "NASDAQ", manager: "Capital Southwest (internally managed)", managerId: null, structure: "listed", cik: "17313",
+    totalAssets: 2.32, totalAssetsAsOf: "2026-06-30", nav: 16.61, navAsOf: "2026-06-30", nonAccrualFV: 1.1, nonAccrualCost: 2.9, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=17313&type=10-Q", sources: [{ label: "CSWC FY27 Q1 (30 Jun 2026) earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0000017313/000001731326000093/q12027earningsrelease.htm" }] },
+  { name: "Crescent Capital BDC", ticker: "CCAP", exchange: "NASDAQ", manager: "Crescent Capital", managerId: null, structure: "listed", cik: "1633336",
+    totalAssets: 1.62, totalAssetsAsOf: "2026-06-30", nav: 17.82, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1633336&type=10-Q", sources: [{ label: "CCAP Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001633336/000119312526342415/ccap-ex99_1.htm" }] },
+  { name: "Goldman Sachs BDC", ticker: "GSBD", exchange: "NYSE", manager: "Goldman Sachs Asset Management", managerId: null, structure: "listed", cik: "1572694",
+    totalAssets: 3.29, totalAssetsAsOf: "2026-06-30", nav: 12.06, navAsOf: "2026-06-30", nonAccrualFV: 2.9, nonAccrualCost: 5, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1572694&type=10-Q", sources: [{ label: "GSBD Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001572694/000119312526338524/d75612dex991.htm" }] },
+  { name: "MidCap Financial Investment Corp", ticker: "MFIC", exchange: "NASDAQ", manager: "Apollo (MidCap Financial)", managerId: null, structure: "listed", cik: "1278752",
+    totalAssets: 2.86, totalAssetsAsOf: "2026-06-30", nav: 13.37, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1278752&type=10-Q", sources: [{ label: "MFIC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001278752/000119312526336509/d120983dex991.htm" }] },
+  { name: "Bain Capital Specialty Finance", ticker: "BCSF", exchange: "NYSE", manager: "Bain Capital Credit", managerId: null, structure: "listed", cik: "1655050",
+    totalAssets: 2.62, totalAssetsAsOf: "2026-06-30", nav: 16.65, navAsOf: "2026-06-30", nonAccrualFV: 2.2, nonAccrualCost: 3.2, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1655050&type=10-Q", sources: [{ label: "BCSF Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001655050/000119312526342607/bcsf-ex99_1.htm" }] },
+  { name: "Fidus Investment", ticker: "FDUS", exchange: "NASDAQ", manager: "Fidus (internally managed)", managerId: null, structure: "listed", cik: "1513363",
+    totalAssets: 1.5, totalAssetsAsOf: "2026-06-30", nav: 19.46, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1513363&type=10-Q", sources: [{ label: "FDUS Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001513363/000119312526337972/fdus-ex99_1.htm" }] },
+  { name: "SLR Investment Corp", ticker: "SLRC", exchange: "NASDAQ", manager: "SLR Capital Partners", managerId: null, structure: "listed", cik: "1418076",
+    totalAssets: 2.56, totalAssetsAsOf: "2026-06-30", nav: 18, navAsOf: "2026-06-30", nonAccrualFV: 1.8, nonAccrualCost: 2.8, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1418076&type=10-Q", sources: [{ label: "SLRC Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/1418076/000117184326005207/exh_991.htm" }] },
+  { name: "Nuveen Churchill Direct Lending", ticker: "NCDL", exchange: "NYSE", manager: "Churchill Asset Management (Nuveen)", managerId: null, structure: "listed", cik: "1737924",
+    totalAssets: 1.99, totalAssetsAsOf: "2026-06-30", nav: 17.19, navAsOf: "2026-06-30", nonAccrualFV: 1.5, nonAccrualCost: 2.7, nonAccrualAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1737924&type=10-Q", sources: [{ label: "NCDL Q2 2026 earnings (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001737924/000173792426000086/ncdl2q26earningspressrelea.htm" }] },
+
+  // ==== NON-TRADED (perpetual-life, continuously offered) =================
+  // For non-traded funds the size shown is total assets where a filing states it,
+  // else net assets (aggregate NAV) or portfolio fair value — each certifiable and
+  // labelled. Repurchases: quarterly cap vs requested; "prorated" = gated.
+  { name: "Blackstone Private Credit Fund", ticker: null, exchange: null, manager: "Blackstone Credit & Insurance", managerId: null, structure: "nontraded", cik: "1803498",
+    totalAssets: null, totalAssetsAsOf: null, netAssets: 42.8, portfolio: 77.6, nav: 23.65, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    repurchaseCapPct: null, repurchaseRequestedPct: null, repurchaseProrated: null, repurchaseAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1803498&type=10-Q", sources: [{ label: "BCRED 30 Jun 2026 NAV (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001803498/000180349826000039/bcred-20260722.htm" }] },
+  { name: "Blue Owl Credit Income Corp", ticker: null, exchange: null, manager: "Blue Owl Capital", managerId: null, structure: "nontraded", cik: "1812554",
+    totalAssets: null, totalAssetsAsOf: null, netAssets: 18.4, portfolio: null, nav: 9.08, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    repurchaseCapPct: null, repurchaseRequestedPct: null, repurchaseProrated: null, repurchaseAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1812554&type=10-Q", sources: [{ label: "OCIC 30 Jun 2026 NAV, Class I (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001812554/000181255426000043/orcic-20260723.htm" }] },
+  { name: "HPS Corporate Lending Fund", ticker: null, exchange: null, manager: "HPS Investment Partners", managerId: "m31", structure: "nontraded", cik: "1838126",
+    totalAssets: null, totalAssetsAsOf: null, netAssets: null, portfolio: null, nav: 24.42, navAsOf: "2026-06-30", nonAccrualFV: 0.7, nonAccrualCost: 1.27, nonAccrualAsOf: "2026-06-30",
+    repurchaseCapPct: 5, repurchaseRequestedPct: 13.3, repurchaseProrated: true, repurchaseAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1838126&type=10-Q", sources: [{ label: "HLEND Q2 2026 10-Q (NAV, non-accruals)", url: "https://www.sec.gov/Archives/edgar/data/0001838126/000162828026056772/hps-20260630.htm" }, { label: "HLEND Q2 2026 tender letter (13.3% req vs 5% cap, prorated)", url: "https://www.sec.gov/Archives/edgar/data/1838126/000162828026042649/hlend2q2026tendersharehold.htm" }] },
+  { name: "Ares Strategic Income Fund", ticker: null, exchange: null, manager: "Ares Management", managerId: "m20", structure: "nontraded", cik: "1918712",
+    totalAssets: 23.0, totalAssetsAsOf: "2026-06-30", netAssets: 10.2, portfolio: 21.8, nav: 26.71, navAsOf: "2026-06-30", nonAccrualFV: null, nonAccrualCost: 0.3, nonAccrualAsOf: "2026-06-30",
+    repurchaseCapPct: 5, repurchaseRequestedPct: 14.4, repurchaseProrated: true, repurchaseAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1918712&type=10-Q", sources: [{ label: "ASIF Q2 2026 total assets $23.0bn (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001918712/000162828026052601/asif-20260804.htm" }, { label: "ASIF Q2 2026 10-Q (NAV, non-accruals)", url: "https://www.sec.gov/Archives/edgar/data/0001918712/000162828026054923/asif-20260630.htm" }, { label: "ASIF tender (14.4% req vs 5% cap, prorated)", url: "https://www.sec.gov/Archives/edgar/data/1918712/000110465926077545/tm2615016d4_exh-a1vii.htm" }] },
+  { name: "Apollo Debt Solutions BDC", ticker: null, exchange: null, manager: "Apollo Global Management", managerId: null, structure: "nontraded", cik: "1837532",
+    totalAssets: null, totalAssetsAsOf: null, netAssets: 14.0, portfolio: 25.4, nav: 23.83, navAsOf: "2026-06-30", nonAccrualFV: 0.4, nonAccrualCost: 0.8, nonAccrualAsOf: "2026-06-30",
+    repurchaseCapPct: 5, repurchaseRequestedPct: 16.8, repurchaseProrated: true, repurchaseAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1837532&type=10-Q", sources: [{ label: "ADS 30 Jun 2026 NAV + non-accruals (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001837532/000119312526314088/d131986d8k.htm" }, { label: "ADS Q2 2026 tender (16.8% req vs 5% cap, prorated)", url: "https://www.sec.gov/Archives/edgar/data/0001837532/000119312526277655/d66029d8k.htm" }] },
+  { name: "Golub Capital Private Credit Fund", ticker: null, exchange: null, manager: "Golub Capital", managerId: null, structure: "nontraded", cik: "1930087",
+    totalAssets: null, totalAssetsAsOf: null, netAssets: null, portfolio: 9.6, nav: 24.17, navAsOf: "2026-06-30", nonAccrualFV: 0.1, nonAccrualCost: null, nonAccrualAsOf: "2026-06-30",
+    repurchaseCapPct: null, repurchaseRequestedPct: null, repurchaseProrated: null, repurchaseAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1930087&type=10-Q", sources: [{ label: "GCRED Q2 2026 commentary (NAV, portfolio, non-accruals)", url: "https://www.sec.gov/Archives/edgar/data/1930087/000193008726000109/q22026gcredquarterlycomm.htm" }] },
+  { name: "T. Rowe Price OHA Select Private Credit Fund", ticker: null, exchange: null, manager: "Oak Hill Advisors (T. Rowe Price)", managerId: null, structure: "nontraded", cik: "1901164",
+    totalAssets: 3.21, totalAssetsAsOf: "2026-06-30", netAssets: 1.64, portfolio: 3.10, nav: 25.96, navAsOf: "2026-06-30", nonAccrualFV: 0.52, nonAccrualCost: null, nonAccrualAsOf: "2026-06-30",
+    repurchaseCapPct: null, repurchaseRequestedPct: null, repurchaseProrated: null, repurchaseAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1901164&type=10-Q", sources: [{ label: "OCREDIT Q2 2026 earnings (total assets, NAV, non-accrual)", url: "https://www.sec.gov/Archives/edgar/data/1901164/000190116426000023/ocreditearningsrelease63026.htm" }] },
+  { name: "AB Private Lending Fund", ticker: null, exchange: null, manager: "AllianceBernstein", managerId: null, structure: "nontraded", cik: "1982701",
+    totalAssets: null, totalAssetsAsOf: null, netAssets: null, portfolio: null, nav: 24.61, navAsOf: "2026-07-31", nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    repurchaseCapPct: null, repurchaseRequestedPct: null, repurchaseProrated: null, repurchaseAsOf: null,
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1982701&type=10-Q", sources: [{ label: "AB Private Lending Fund 31 Jul 2026 NAV, Class I (SEC 8-K)", url: "https://www.sec.gov/Archives/edgar/data/0001982701/000119312526358557/d163003d8k.htm" }] },
+  { name: "North Haven Private Income Fund", ticker: null, exchange: null, manager: "Morgan Stanley", managerId: null, structure: "nontraded", cik: "1851322",
+    totalAssets: null, totalAssetsAsOf: null, netAssets: 3.09, portfolio: null, nav: null, navAsOf: null, nonAccrualFV: null, nonAccrualCost: null, nonAccrualAsOf: null,
+    repurchaseCapPct: 5, repurchaseRequestedPct: 11.6, repurchaseProrated: true, repurchaseAsOf: "2026-06-30",
+    edgar: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1851322&type=10-Q", sources: [{ label: "North Haven Q2 2026 repurchase (11.6% req vs 5% cap, prorated ~43% fill)", url: "https://www.sec.gov/Archives/edgar/data/0001851322/000119312526279467/ck0001851322-ex99_1.htm" }] },
+];
+
+export const BDC_UPDATED = "2026-09-15";

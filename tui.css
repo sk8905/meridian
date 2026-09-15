@@ -820,6 +820,54 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-src { flex: 1 1 100%; margin-top: 2px; font-size: 11.5px; color: var(--muted); font-family: var(--t-mono); text-decoration: none; }
 .tx-src:hover { color: var(--ink); }
 
+/* ---- BDC roster (Transactions ▸ BDCs) ------------------------------------- */
+.tbdc-tbl td.tbdc-nm { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.25; }
+.tbdc-sub { display: block; color: var(--faint); font-weight: 400; font-size: 9.5px; letter-spacing: .02em; margin-top: 1px; }
+.tbdc-szt { margin-left: 3px; color: var(--faint); font-size: 8.5px; font-weight: 400; text-transform: uppercase; letter-spacing: .03em; vertical-align: 1px; }
+.tbdc-tbl td.tbdc-mg { color: var(--muted); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tbdc-tbl td.tbdc-mg a { color: var(--muted); }
+.tbdc-tbl td.tbdc-mg a:hover { color: var(--ink); }
+.tbdc-row { cursor: pointer; }
+.tbdc-row.is-open .tx-caret { transform: rotate(90deg); color: var(--accent); }
+.tbdc-pxnav { font-weight: 700; }
+.tbdc-pxnav.is-prem { color: var(--t-up, #3fc08d); }
+.tbdc-pxnav.is-disc { color: var(--t-down, #f26d84); }
+.tbdc-rep { color: var(--muted); }
+.tbdc-gated { display: inline-block; margin-left: 4px; padding: 0 5px; background: color-mix(in srgb, var(--t-down, #f26d84) 22%, transparent); color: var(--t-down, #f26d84); font-size: 9px; font-weight: 700; letter-spacing: .05em; }
+.tbdc-open { color: var(--muted); font-size: 10px; }
+.tbdc-exp > td { background: var(--head); border-bottom: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 0; }
+.tbdc-facts { margin: 0 0 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px 20px; }
+.tbdc-facts > div { display: flex; gap: 8px; font-size: 11.5px; line-height: 1.4; }
+.tbdc-facts dt { color: var(--faint); font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; min-width: 82px; padding-top: 1px; }
+.tbdc-facts dd { margin: 0; color: var(--ink); }
+.tbdc-hold-btn { margin: 2px 0 8px; background: transparent; border: 1px solid var(--border); color: var(--accent); font: inherit; font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 0; cursor: pointer; }
+.tbdc-hold-btn:hover { border-color: var(--accent); }
+.tbdc-hold-btn:disabled { color: var(--muted); cursor: default; }
+.tbdc-hold-note { margin: 5px 0 0; }
+.tbdc-srcs { font-family: var(--t-mono); font-size: 10.5px; line-height: 1.7; }
+.tbdc-srcs a { color: var(--muted); }
+.tbdc-srcs a:hover { color: var(--ink); }
+@media (min-width: 761px) {
+  .tleague-full.tbdc-tbl th:nth-child(1) { width: 27%; }   /* Fund         */
+  .tleague-full.tbdc-tbl th:nth-child(2) { width: 20%; }   /* Manager      */
+  .tleague-full.tbdc-tbl th:nth-child(3) { width: 12%; }   /* Total assets */
+  .tleague-full.tbdc-tbl th:nth-child(4) { width: 11%; }   /* NAV          */
+  .tleague-full.tbdc-tbl th:nth-child(5) { width: 13%; }   /* Non-accrual  */
+  .tleague-full.tbdc-tbl th:nth-child(6) { width: 17%; }   /* Px/NAV       */
+}
+@media (max-width: 620px) {
+  /* Fit the phone: keep Fund · Non-accrual · Px/NAV·liquidity; the rest is in the
+     row's expand. Fixed layout so the fund name wraps instead of overflowing. */
+  .tbdc-tbl { table-layout: fixed; width: 100%; }
+  .tbdc-tbl th, .tbdc-tbl td { padding-left: 7px; padding-right: 7px; }
+  .tbdc-tbl td.tbdc-mg, .tbdc-tbl th.tbdc-mg-h,
+  .tbdc-tbl td.tbdc-ta, .tbdc-tbl th.tbdc-ta-h,
+  .tbdc-tbl td.tbdc-nav, .tbdc-tbl th.tbdc-nav-h { display: none; }
+  .tbdc-tbl th.tbdc-na-h, .tbdc-tbl td.tbdc-na { width: 84px; }
+  .tbdc-tbl th.tbdc-lq-h, .tbdc-tbl td.tbdc-lq { width: 120px; }
+  .tbdc-facts { grid-template-columns: 1fr; }
+}
+
 .tpg { border-bottom: 1px solid var(--border); }
 .tpg-h { font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 9px 12px 4px; }
 /* Consistent Business-tab primitives: a short lead note, a sources line, and the
