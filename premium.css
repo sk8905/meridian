@@ -722,11 +722,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* Mobile scrim behind a full-screen overlay. Starts BELOW the top bar so the
    Markets/Saved/Notifications buttons are never covered by it — guarantees a tap
    on another button always hits the button (and switches) rather than the scrim. */
-.na-scrim { position: fixed; top: var(--na-top-b, 54px); left: 0; right: 0; bottom: 0; z-index: 58; background: rgba(0,0,0,.45); -webkit-tap-highlight-color: transparent; }
+.na-scrim { position: fixed; top: var(--na-top-b, 54px); left: 0; right: 0; bottom: 0; z-index: 58; background: rgba(0,0,0,.6); -webkit-tap-highlight-color: transparent; }
 .na-scrim[hidden] { display: none; }
 /* Desktop: the scrim is a full-page backdrop behind the centered modal, sitting
-   just under the panel (z200) and above the page. */
-@media (min-width: 761px) { .na-scrim { top: 0; z-index: 190; } }
+   just under the panel (z200) and above the page. A stronger dim there — the app
+   ground is already near-black, so the backdrop needs to go darker still to lift
+   every floating panel (Briefing / Bookmarks / Notifications / Ask / Markets)
+   clearly off the page behind it. */
+@media (min-width: 761px) { .na-scrim { top: 0; z-index: 190; background: rgba(0,0,0,.74); } }
 
 /* ---- Shared news-feed row — used by the Saved list AND the Notifications list
         so both read exactly like the Home news wire: bold headline on top, then a
