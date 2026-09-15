@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "69b5bd51-c8e1-41c1-a139-c28aa4c795ef", title: "Carney calls for ‘unique alliance’ with EU in plea for closer trade ties", date: "2026-09-15", time: "06:00", url: "https://www.ft.com/content/69b5bd51-c8e1-41c1-a139-c28aa4c795ef" },
+  { id: "b14ad3a8-f36c-4023-b619-c6e939165886", title: "It’s crunch time for BoneSupport, one of Europe’s most shorted stocks", date: "2026-09-15", time: "06:00", url: "https://www.ft.com/content/b14ad3a8-f36c-4023-b619-c6e939165886" },
+  { id: "5e2327aa-dbd0-4a79-8c99-622a893876d7", title: "Global bonds follow US Treasuries lower", date: "2026-09-15", time: "05:37", url: "https://www.ft.com/content/5e2327aa-dbd0-4a79-8c99-622a893876d7" },
+  { id: "18c9a381-1dc2-4b93-8326-405880586aa3", title: "FirstFT: UK fiscal realities close in on Downing Street", date: "2026-09-15", time: "05:31", url: "https://www.ft.com/content/18c9a381-1dc2-4b93-8326-405880586aa3" },
+  { id: "d9158802-5836-441a-9969-47409044c503", title: "China’s economy shows signs of weakness as investment slumps", date: "2026-09-15", time: "05:18", url: "https://www.ft.com/content/d9158802-5836-441a-9969-47409044c503" },
+  { id: "aafa05d0-db36-4a41-a79b-2bcc2bb9aae0", title: "Banco Santander opens its vaults — with some help from David Chipperfield", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/aafa05d0-db36-4a41-a79b-2bcc2bb9aae0" },
   { id: "a43e9050-f646-4d24-b650-b75ef589985c", title: "Private equity’s new AI overlords?", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/a43e9050-f646-4d24-b650-b75ef589985c" },
   { id: "410b768f-e739-45bb-9ef1-04fd571142a8", title: "Ben Delo: the crypto billionaire helping to bankroll Reform UK", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/410b768f-e739-45bb-9ef1-04fd571142a8" },
   { id: "f00de325-5045-4e98-9068-9261bfe9eff3", title: "Luxembourg probes Gazprombank ex-managers", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/f00de325-5045-4e98-9068-9261bfe9eff3" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "aa8a1be7-abe0-44b7-bcd3-31fd0a44de08", title: "US tech stocks fall after big AI groups call for slowdown", date: "2026-09-14", time: "16:51", url: "https://www.ft.com/content/aa8a1be7-abe0-44b7-bcd3-31fd0a44de08" },
   { id: "4205babe-1db0-4507-be8f-70b1e8954c7f", title: "America’s superheroes moved to Britain, but will they stay?", date: "2026-09-14", time: "15:53", url: "https://www.ft.com/content/4205babe-1db0-4507-be8f-70b1e8954c7f" },
   { id: "06cb850d-089a-4318-88d7-a410e9766b89", title: "Ten-year Treasury yield hits 5% for first time since 2023", date: "2026-09-14", time: "15:51", url: "https://www.ft.com/content/06cb850d-089a-4318-88d7-a410e9766b89" },
-  { id: "24eda5dc-3a2c-489c-a304-1c1451f7c2a7", title: "Stoltenberg reneges on Munich Security Conference top job plan", date: "2026-09-14", time: "15:42", url: "https://www.ft.com/content/24eda5dc-3a2c-489c-a304-1c1451f7c2a7" },
-  { id: "ba38df40-9898-48a0-bc9e-39d8a3da4305", title: "How much should lenders charge hyperscalers?", date: "2026-09-14", time: "15:23", url: "https://www.ft.com/content/ba38df40-9898-48a0-bc9e-39d8a3da4305" },
-  { id: "5495d88b-b457-498a-bedd-64a954b538cd", title: "Michael Dell’s family office leads $7.7bn deal to take insurance broker private", date: "2026-09-14", time: "14:17", url: "https://www.ft.com/content/5495d88b-b457-498a-bedd-64a954b538cd" },
-  { id: "2c143d02-7fbd-4aa2-922c-f9afc8044dbe", title: "Monetary Policy Radar preview: Fed September meeting", date: "2026-09-14", time: "14:03", url: "https://www.ft.com/content/2c143d02-7fbd-4aa2-922c-f9afc8044dbe" },
-  { id: "296b56d1-a30e-43cf-ac15-8a42de5cd59a", title: "The politics of AI, part two", date: "2026-09-14", time: "14:00", url: "https://www.ft.com/content/296b56d1-a30e-43cf-ac15-8a42de5cd59a" },
-  { id: "dd6af02e-9328-48f6-9054-4623cf65b8b1", title: "Keir Starmer approved £860,000 pay-off for sacked civil service chief", date: "2026-09-14", time: "14:00", url: "https://www.ft.com/content/dd6af02e-9328-48f6-9054-4623cf65b8b1" },
 ];
