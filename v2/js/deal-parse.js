@@ -20,7 +20,12 @@ const T = `(?:${DESC}\\s+){0,6}(${_NAME})`;
 // Connective patterns identify the TARGET party (borrower/company invested in),
 // tried in priority order; the first match wins.
 const SUBJ_PATTS = [
-  `acquisition of ${T}`,
+  // A sponsor-backed deal names the TARGET after "acquisition/buyout … of|for" —
+  // that target is the borrower/company, NOT the sponsor whose name leads the
+  // possessive ("backs Bridgepoint's acquisition financing for GBA Group" → GBA
+  // Group). These run first so the target wins over the "backs <sponsor>" parse.
+  `acquisition (?:financing |facility |loan |package |debt |and merger )?(?:of|for) ${T}`,
+  `(?:buyout|buy-out|purchase|take-?private|recapitalisation|recapitalization) (?:of|for) ${T}`,
   `buyout of ${T}`,
   `takeover of ${T}`,
   `carve-out (?:acquisition )?of ${T}`,
@@ -31,11 +36,18 @@ const SUBJ_PATTS = [
   `\\d+% (?:of|in) ${T}`,
   `refinanc(?:ing|e[ds]?) (?:of |for )?${T}`,
   `(?:stake|interest) in ${T}`,
-  `takes? (?:control|ownership) of ${T}`,
+  `takes? (?:\\w+ ){0,2}(?:control|ownership) of ${T}`,
   `(?:take control of|control of|to take over|takes? over) ${T}`,
   `\\bexits? ${T}`,
   `(?:to back|backs?|backing of) ${T}`,
-  `(?:facility|financing|loan|package|debt|credit line|notes) (?:to|for) ${T}`,
+  `(?:facility|financing|loan|package|debt|credit line|notes|commitment) (?:to|for) ${T}`,
+  // A lender that "acts as capital provider on/to X", "leads a commitment to X",
+  // or strikes a "facility/partnership with X" names the borrower X after that
+  // connector — reach it even though the lender's own name leads the headline.
+  `(?:capital provider|provider|arranger|placement agent|lead arranger) (?:on|to|for) ${T}`,
+  `\\bcommitment (?:to|for) ${T}`,
+  `partnership with ${T}`,
+  `(?:facility|financing|line|deal|loan) with ${T}`,
   `\\bprovides? (${_NAME})\\b`,
   `\\bprovides?\\b[^.]*?\\b(?:to|with|for) ${T}`,
   `\\blends?\\b[^.]*?\\bto ${T}`,
@@ -84,6 +96,31 @@ export function dealSubject(d) {
   if (lead && lead[1]) { const s = clean(lead[1]); if (s.length >= 2 && !STOP.test(s)) return s; }
   return "";
 }
+
+// The SPONSOR / private-equity backer behind a deal, when one is named — distinct
+// from the borrower (the target company) and the lender (which finances the
+// buyout). Found via the possessive that precedes an acquisition/buyout verb:
+// "backs Bridgepoint's … acquisition financing for GBA Group" → Bridgepoint. Empty
+// when no sponsor is named (a plain refinancing, a CLO, a direct loan). An explicit
+// `sponsor` field on the deal, or a SPONSOR_OVERRIDES entry, wins over the parse.
+const SPONSOR_RE = new RegExp(`(${_NAME})['’]s\\b(?:\\s+\\S+){0,8}?\\s+(?:acquisition|buyout|buy-out|purchase|take-?private|take-?over|takeover|LBO|MBO|bid|recapitalisation|recapitalization|merger|investment)\\b`);
+export function dealSponsor(d) {
+  if (d && typeof d.sponsor === "string") return d.sponsor.trim();      // explicit ("" = none)
+  if (d && d.id && SPONSOR_OVERRIDES[d.id] != null) return SPONSOR_OVERRIDES[d.id];
+  const subj = dealSubject(d);
+  for (const text of [String((d && d.headline) || ""), String((d && d.summary) || "")]) {
+    const m = text.match(SPONSOR_RE);
+    if (m && m[1]) {
+      const s = clean(m[1]);
+      // Not the target itself, and not a bare descriptor / money figure.
+      if (s.length >= 2 && !STOP.test(s) && !REJECT.test(s) && s !== subj) return s;
+    }
+  }
+  return "";
+}
+// Audited sponsor corrections (same discipline as COMPANY_OVERRIDES): a real party
+// from the deal's own sourced text, or "" to suppress a false positive.
+const SPONSOR_OVERRIDES = {};
 // Audited borrower/company corrections: deals whose headline leads with the LENDER
 // (often a manager or its affiliate) where the connective parse can't cleanly
 // recover the borrower. Each value is a real party named in that deal's own
@@ -117,6 +154,7 @@ const COMPANY_OVERRIDES = {
   d835: "Mohawk Day Camp", d569: "Corinthia Lake Como", d285: "10 Lime Street",
   d703: "1Box Group", d81: "Wolf IV securitisation", d595: "Very Group",
   d60: "Lyocontract", d613: "Hotel Don Juan Center",
+  d656: "HR Path", d622: "German healthcare RE portfolio (PATRIZIA)",
 };
 
 // First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn") — for

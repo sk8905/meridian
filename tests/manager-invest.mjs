@@ -44,7 +44,7 @@ const inv = await pg.evaluate(() => {
   const pane = document.querySelector('#mgr-panes .tpane[data-p="investments"]');
   const table = pane.querySelector("table.tinv-tbl");
   const heads = table ? [...table.querySelectorAll("thead th")].map((h) => h.textContent.trim()) : [];
-  const rows = table ? [...table.querySelectorAll("tbody tr")] : [];
+  const rows = table ? [...table.querySelectorAll("tbody tr.tinv-row")] : [];
   return {
     hasTable: !!table,
     // The table must actually be VISIBLE, not just present — a display:none
@@ -86,6 +86,25 @@ const tail = await pg.evaluate(() => {
   return Math.round(sec.getBoundingClientRect().bottom - tbl.getBoundingClientRect().bottom);
 });
 check(tail >= 0 && tail <= 120, `only one tab-bar clearance under the table, no stacked dead space (${tail}px)`);
+
+// An Investments row expands in place to show the short sourced narrative — the
+// same summary the Transactions tab carries.
+const narr = await pg.evaluate(() => {
+  const row = document.querySelector("#pf-detail .tinv-tbl tbody tr.tinv-row.is-exp");
+  if (!row) return { none: true };
+  const before = row.nextElementSibling && !row.nextElementSibling.hidden;
+  row.click();
+  const det = row.nextElementSibling;
+  return {
+    isExp: row.classList.contains("is-exp"), hadCaret: !!row.querySelector(".tx-caret"),
+    beforeHidden: !before, opened: det && det.classList.contains("tinv-exp") && !det.hidden,
+    hasSummary: !!det?.querySelector(".tx-sum"), sumLen: (det?.querySelector(".tx-sum")?.textContent || "").trim().length,
+    hasFullSource: !!det?.querySelector("a.tx-src"),
+  };
+});
+check(!narr.none && narr.hadCaret && narr.beforeHidden, "Investments rows carry an expand caret and start collapsed");
+check(narr.opened && narr.hasSummary && narr.sumLen > 20, `clicking a row reveals its sourced narrative (${narr.sumLen} chars)`);
+check(narr.hasFullSource, "the expanded narrative carries a Full source link");
 
 // Vehicles tab: Funds + CLOs + Listed vehicles merged into labelled groups.
 await pg.evaluate(() => { const t = document.querySelector('#mgr-tabs .tchip[data-p="vehicles"]'); if (t) t.click(); });

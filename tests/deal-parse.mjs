@@ -4,7 +4,7 @@
 // leads the headline, a bare descriptor ("Danish", "SME"), a money figure, or an
 // instrument acronym ("ABS", "CLO"). A pure-node spec (no browser).
 import { check, checkEq, finish } from "./lib.mjs";
-import { dealSubject } from "../v2/js/deal-parse.js";
+import { dealSubject, dealSponsor } from "../v2/js/deal-parse.js";
 import { managers, deals } from "../credit/js/data.js";
 
 // 1) The reported case + a spread of headline shapes resolve to the BORROWER.
@@ -25,6 +25,26 @@ for (const [id, want] of cases) {
   check(!!d, `deal ${id} exists`);
   if (d) checkEq(dealSubject(d), want, `deal ${id}: borrower is surfaced, not the lender`);
 }
+
+// 1b) Sponsor-backed deals: the borrower is the TARGET, and the SPONSOR is named
+//     separately — not conflated with the borrower or the lender.
+const spCases = [
+  ["d702", "GBA Group", "Bridgepoint"],   // "backs Bridgepoint's acquisition financing for GBA Group"
+];
+for (const [id, wantBorrower, wantSponsor] of spCases) {
+  const d = byId.get(id);
+  if (d) {
+    checkEq(dealSubject(d), wantBorrower, `deal ${id}: borrower is the acquisition target`);
+    checkEq(dealSponsor(d), wantSponsor, `deal ${id}: sponsor is identified separately`);
+  }
+}
+// A plain refinancing / CLO names no sponsor.
+const noSp = byId.get("d207");
+if (noSp) checkEq(dealSponsor(noSp), "", "a deal with no PE backer reports no sponsor");
+// The sponsor is never the same string as the borrower it backs.
+let conflated = [];
+for (const d of deals) { const sp = dealSponsor(d); if (sp && sp === dealSubject(d)) conflated.push(d.id); }
+check(conflated.length === 0, `sponsor is never the same as the borrower (${conflated.slice(0, 5).join(", ")})`);
 
 // 2) An explicit `company` on a deal always wins over the headline parse.
 checkEq(dealSubject({ id: "x1", company: "Acme Widgets", headline: "Some Lender provides a facility" }), "Acme Widgets",

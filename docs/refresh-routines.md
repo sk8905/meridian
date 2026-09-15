@@ -425,6 +425,19 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   (a real party from its own sourced headline/summary — never invented); it wins over
   the parse. Audited back-corrections live in the `COMPANY_OVERRIDES` map in
   `deal-parse.js`. Enforced by **`tests/deal-parse.mjs`** (part of the full suite).
+- **Borrower vs Sponsor vs Lender.** A sponsor-backed deal names three parties: the
+  BORROWER / target company ("Borrower / company"), the SPONSOR / PE backer
+  (`dealSponsor` → the Transactions "Sponsor" column), and the LENDER that provides
+  the financing (`managerId` → "Lender / investor"). The borrower is the acquisition
+  TARGET, never the sponsor whose name leads the possessive ("backs Bridgepoint's
+  acquisition financing for GBA Group" → borrower GBA Group, sponsor Bridgepoint).
+  When a new deal's sponsor can't be parsed, set an explicit `sponsor` field on the
+  `deal` (a real party from its sourced text; `""` suppresses a false positive),
+  mirrored by `SPONSOR_OVERRIDES` in `deal-parse.js`. The Transactions deal list also
+  carries a **Sector** column (`sectorOf` in `credit/js/tx.js` — Real estate /
+  Consumer / Infrastructure & energy / …) and a **Group by lender** toggle; the
+  manager profile **Investments** table shares the same extraction and expands each
+  row to the deal's short sourced narrative + sponsor.
 - **Publish on every run.** Because `LAST_CHECKED` is bumped each run, every run
   produces a commit (even a "nothing new" run, which just advances `LAST_CHECKED`
   + cache-busters). Commit (message trailers below), then publish to `main` AND the

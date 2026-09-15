@@ -13,7 +13,7 @@ import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-cr
 import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-1";
 import { esc } from "/util.js?v=20260818-1";
 import { fmtDay } from "/feed.js?v=20260808-1";
-import { dealSubject } from "../deal-parse.js?v=v2-3";
+import { dealSubject, dealSponsor } from "../deal-parse.js?v=v2-4";
 import { creditSource } from "/credit/js/shared.js?v=20260730-2";
 
 const _mById = new Map(managers.map((m) => [m.id, m]));
@@ -145,7 +145,8 @@ export function mount(host, ctx) {
     // Source column at the right.
     const subj = dealSubject(d);
     const name = subj || d.headline || "—";
-    const cat = esc(SECTOR_LABEL[r.sec] || (t && t.label) || "—");
+    const sponsor = dealSponsor(d);   // the PE backer, when the deal names one (else "")
+    const sector = esc(SECTOR_LABEL[r.sec] || (t && t.label) || "—");
     const outlet = creditSource(d) || "";
     const srcCell = u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(outlet || "source")}</a>` : "—";
     // The expanded detail is the sourced narrative at full width — the structured
@@ -154,12 +155,13 @@ export function mount(host, ctx) {
     const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
       + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
     return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-bd" title="${esc(d.headline || "")}"><span class="tx-caret" aria-hidden="true">▸</span>${esc(name)}</td>`
+      + `<td class="tx-sp">${sponsor ? esc(sponsor) : "—"}</td>`
       + `<td class="tx-dt">${esc(fmtDay(d.date))}</td>`
       + `<td class="tx-mg">${mgrLink(d.managerId)}</td>`
-      + `<td class="tx-cat">${cat}</td>`
+      + `<td class="tx-cat">${sector}</td>`
       + `<td class="tl-n tx-sz"${r.amt ? ` title="≈ ${fmtUsd(r.usd)}"` : ""}>${r.amt ? esc(fmtAmt(r.amt)) : "—"}</td>`
       + `<td class="tx-src2">${srcCell}</td></tr>`
-      + `<tr class="tx-exp" data-for="${esc(d.id)}" hidden><td colspan="6"><div class="tx-exp-in">${detail}</div></td></tr>`;
+      + `<tr class="tx-exp" data-for="${esc(d.id)}" hidden><td colspan="7"><div class="tx-exp-in">${detail}</div></td></tr>`;
   };
   // The inline sub-list shown when a transaction type is expanded in place: the
   // sub-category filter (when the type spans more than one) over the type's deals,
@@ -191,13 +193,13 @@ export function mount(host, ctx) {
       for (const r of list) { const id = r.d.managerId || "_"; if (!groups.has(id)) groups.set(id, []); groups.get(id).push(r); }
       rowsHtml = [...groups.entries()]
         .sort((a, b) => b[1].length - a[1].length || mgrName(a[0]).localeCompare(mgrName(b[0])))
-        .map(([id, rs]) => `<tr class="tx-grp"><td colspan="6"><span class="tx-grp-nm">${esc(mgrName(id) || "—")}</span><span class="tx-grp-n">${rs.length}</span></td></tr>` + rs.map(txRow).join(""))
+        .map(([id, rs]) => `<tr class="tx-grp"><td colspan="7"><span class="tx-grp-nm">${esc(mgrName(id) || "—")}</span><span class="tx-grp-n">${rs.length}</span></td></tr>` + rs.map(txRow).join(""))
         .join("");
     } else {
       rowsHtml = list.map(txRow).join("");
     }
     return subhead + `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
-        <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
+        <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-sp-h">Sponsor</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Sector</th><th class="tx-amt-h">Amount</th><th class="tx-src-h">Source</th></tr></thead>
         <tbody>${rowsHtml}</tbody></table></div>`;
   }
 
@@ -221,7 +223,7 @@ export function mount(host, ctx) {
         <p class="tx-blurb"><span class="muted">${list.length} transaction${list.length === 1 ? "" : "s"} match “${esc(st.q)}”${st.focus ? " · $1–15bn AUM" : ""}${list.length > CAP ? ` — showing the first ${CAP}` : ""}. Tap a row for the full detail.</span></p>
       </div>
       ${shown.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
-        <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Type</th><th>Amount</th><th class="tx-src-h">Source</th></tr></thead>
+        <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-sp-h">Sponsor</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Sector</th><th class="tx-amt-h">Amount</th><th class="tx-src-h">Source</th></tr></thead>
         <tbody>${shown.map(txRow).join("")}</tbody></table></div>`
         : `<p class="tw-empty muted small">No transactions match “${esc(st.q)}”.</p>`}`;
   }

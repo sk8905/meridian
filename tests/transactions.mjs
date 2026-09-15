@@ -104,12 +104,22 @@ check(dt.noDetailPage, "no separate detail page is rendered (no back bar, no KPI
 check(dt.rowOpen, "the clicked type row is marked open (caret rotates, aria-expanded=true)");
 check(dt.indentPx > 0, `the sub-list is indented beneath its type (${dt.indentPx}px)`);
 check(dt.listRows > 0, `the sub-list lists the type's transactions (${dt.listRows})`);
-check(/Borrower/i.test(dt.heads[0] || "") && /Date/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Type/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
-  `columns are Borrower · Date · Lender · Type · Amount · Source (${dt.heads.join(" · ")})`);
+check(/Borrower/i.test(dt.heads[0] || "") && /Sponsor/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Date/i.test(h)) && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Sector/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
+  `columns are Borrower · Sponsor · Date · Lender · Sector · Amount · Source (${dt.heads.join(" · ")})`);
 check(dt.anySize, "transactions show their native disclosed size");
 check(dt.mgrLinks > 0 && dt.borrowerNamed > 0, `borrower cell is a plain name and the lender is named (${dt.borrowerNamed} borrower, ${dt.mgrLinks} lender)`);
 check(dt.srcLinks > 0, `the source link sits in its own Source column (${dt.srcLinks})`);
-check(dt.typed > 0, `transactions carry a deal-type/category column (${dt.typed})`);
+check(dt.typed > 0, `transactions carry a Sector column (${dt.typed})`);
+// Sponsor column: at least some deals name a PE sponsor distinct from the borrower.
+const spon = await pg.evaluate(() => {
+  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+  const rows = [...exp.querySelectorAll(".tx-list tbody tr.tx-row")];
+  const withSp = rows.filter((r) => { const t = (r.querySelector(".tx-sp") || {}).textContent || ""; return t.trim() && t.trim() !== "—"; });
+  const s = withSp[0];
+  return { has: !!s.querySelector(".tx-sp"), n: withSp.length,
+    diff: s ? (s.querySelector(".tx-bd")?.textContent || "").replace("▸", "").trim() !== (s.querySelector(".tx-sp")?.textContent || "").trim() : false };
+});
+check(spon.n > 0 && spon.diff, `a Sponsor column names the PE backer, distinct from the borrower (${spon.n} sponsored)`);
 
 // a manager link routes into the Profiles tab
 const nav = await pg.evaluate(() => (document.querySelector(".tx-typeexp:not([hidden]) .tx-list a.tx-mgr") || {}).getAttribute("href"));
@@ -180,7 +190,7 @@ const exp = await pg.evaluate(() => {
   };
 });
 check(exp.isExp && exp.before === true && exp.after === false, "a transaction row expands to its detail");
-check(exp.noBox && exp.fullWidth === "6", `the expanded detail is a full-width narrative — no snapshot box (colspan ${exp.fullWidth})`);
+check(exp.noBox && exp.fullWidth === "7", `the expanded detail is a full-width narrative — no snapshot box (colspan ${exp.fullWidth})`);
 
 // ---- 4) accordion: clicking the open type again collapses it -------------
 const collapse = await pg.evaluate(() => {

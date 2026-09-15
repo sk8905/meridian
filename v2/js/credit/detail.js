@@ -16,7 +16,7 @@ import {
   HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
-import { dealSubject, dealAmount } from "../deal-parse.js?v=v2-3";
+import { dealSubject, dealSponsor, dealAmount } from "../deal-parse.js?v=v2-4";
 import {
   eur, pct, fmtDate, link, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
@@ -352,19 +352,28 @@ function invRow(d) {
     : `<span class="tinv-tag is-unspec">—</span>`;
   const outlet = creditSource(d) || "";
   const subj = dealSubject(d);
+  const sponsor = dealSponsor(d);   // the PE backer, when the deal names one
   const amt = dealAmount(d);
   const url = esc(d.sourceUrl);
   // Company/borrower cell shows JUST the name (full headline is the hover title);
   // the source link is its own column at the right.
   const name = subj || d.headline;
-  return `<tr>`
-    + `<td class="tinv-c-co" title="${esc(d.headline)}">${esc(name)}</td>`
+  // A click reveals the short sourced narrative (same summary the Transactions tab
+  // shows), plus the sponsor when one is named and a "Full source" link. Only rows
+  // that carry a summary or a source are made expandable.
+  const hasDetail = !!(d.summary || d.sourceUrl);
+  const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
+    + (sponsor ? `<p class="tinv-spon"><span class="tinv-spon-l">Sponsor</span> ${esc(sponsor)}</p>` : "")
+    + (url ? `<a class="tx-src" href="${url}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
+  return `<tr class="tinv-row${hasDetail ? " is-exp" : ""}" data-id="${esc(d.id)}">`
+    + `<td class="tinv-c-co" title="${esc(d.headline)}">${hasDetail ? `<span class="tx-caret" aria-hidden="true">▸</span>` : ""}${esc(name)}</td>`
     + `<td class="tinv-c-type">${esc(d.type || "—")}</td>`
     + `<td class="tinv-c-instr">${tag}</td>`
     + `<td class="tinv-c-amt">${amt ? esc(amt) : "—"}</td>`
     + `<td class="tinv-c-date">${esc(fmtDate(d.date))}</td>`
     + `<td class="tinv-c-src">${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${esc(outlet || "source")}</a>` : "—"}</td>`
-    + `</tr>`;
+    + `</tr>`
+    + (hasDetail ? `<tr class="tinv-exp" data-for="${esc(d.id)}" hidden><td colspan="6"><div class="tx-exp-in">${detail}</div></td></tr>` : "");
 }
 
 export function viewManager(id) {
@@ -497,6 +506,14 @@ export function viewManager(id) {
     const p = b.dataset.p;
     _chipMem[chipMemKey("mgr-tabs")] = p || "news";
     document.querySelectorAll("#mgr-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
+  });
+  // Investments rows expand in place to show the sourced narrative (+ sponsor).
+  const mgrPanes = document.getElementById("mgr-panes");
+  if (mgrPanes) mgrPanes.addEventListener("click", (e) => {
+    const row = e.target.closest("tr.tinv-row.is-exp");
+    if (!row || e.target.closest("a")) return;
+    const exp = row.nextElementSibling;
+    if (exp && exp.classList.contains("tinv-exp")) { const open = exp.hasAttribute("hidden"); exp.hidden = !open; row.classList.toggle("is-open", open); }
   });
   // Listed-vehicle holdings: tapping the row fetches the latest N-PORT (CEF) or
   // 10-Q SOI (BDC) and expands it inline; tapping again collapses/re-expands.
