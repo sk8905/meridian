@@ -241,5 +241,36 @@ await ctx.close();
   await p.ctx.close();
 }
 
+// ---- 8) phone: the deal-flow tables FIT the screen — three columns, no h-scroll --
+// The overview (Type · Deals · Volume) and, when a type is expanded, its inline
+// deal list (Borrower · Date · Amount) each fit the viewport width so all three
+// columns read at once, instead of the borrower column overflowing off the right.
+{
+  const p = await open(b, PHONE_SHORT, base + "/v2/transactions/");
+  await p.pg.waitForSelector(".tx-tbl thead th", { timeout: 8000 });
+  await p.pg.waitForTimeout(500);
+  const over = await p.pg.evaluate(() => {
+    const t = document.querySelector(".tx-tbl");
+    const vis = [...t.querySelectorAll("thead th")].filter((th) => getComputedStyle(th).display !== "none").map((th) => th.textContent.trim());
+    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width), vis };
+  });
+  check(over.tblW <= over.vw + 1, `phone: the deal-flow overview fits the screen — no horizontal scroll (table ${over.tblW} ≤ vw ${over.vw})`);
+  check(over.vis.length === 3, `phone: the overview shows exactly three columns (${over.vis.join(" · ")})`);
+  // Expand a type → its inline deal list fits too, with Borrower + Date + Amount all visible.
+  await p.pg.evaluate(() => { const r = document.querySelector(".tx-tbl tbody tr.clickable"); if (r) r.click(); });
+  await p.pg.waitForSelector(".tx-typeexp:not([hidden]) .tx-list tbody tr.tx-row", { timeout: 4000 });
+  const drill = await p.pg.evaluate(() => {
+    const t = document.querySelector(".tx-typeexp:not([hidden]) .tx-list");
+    const row = t.querySelector("tbody tr.tx-row");
+    const cells = [...row.children].filter((td) => getComputedStyle(td).display !== "none").map((td) => td.className.replace(/\s*tl-n\s*/, "").trim());
+    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width), cells };
+  });
+  check(drill.tblW <= drill.vw + 1, `phone: an expanded type's deal list fits the screen (table ${drill.tblW} ≤ vw ${drill.vw})`);
+  check(drill.cells.length === 3 && drill.cells.includes("tx-bd") && drill.cells.includes("tx-dt") && drill.cells.includes("tx-sz"),
+    `phone: the deal list shows Borrower · Date · Amount at once (${drill.cells.join(", ")})`);
+  checkErrs(p.errs, "transactions phone column fit");
+  await p.ctx.close();
+}
+
 await b.close(); srv.close();
 finish();

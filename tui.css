@@ -746,6 +746,32 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
   .tx-list td.tx-mg, .tx-list th.tx-mg-h { display: none; }
   .tx-list td.tx-cat, .tx-list th.tx-cat-h { display: none; }
   .tx-list td.tx-src2, .tx-list th.tx-src-h { display: none; }
+  /* Fit all THREE remaining columns (Borrower · Date · Amount) on-screen at once.
+     With auto table-layout the borrower column has no width cap and grows past the
+     viewport, pushing Date + Amount off the right edge (only column 1 shows). A
+     fixed layout pins Date + Amount to compact widths and lets the borrower name
+     WRAP into the remainder, so the table never exceeds the screen width. */
+  .tx-list { table-layout: fixed; width: 100%; }
+  .tx-list th, .tx-list td { padding-left: 7px; padding-right: 7px; }
+  .tx-list th.tx-dt-h, .tx-list td.tx-dt { width: 90px; }
+  .tx-list thead th:nth-child(5), .tx-list td.tx-sz { width: 68px; }
+  .tx-list td.tx-bd { white-space: normal; overflow-wrap: anywhere; }
+  /* Deal-flow overview (transaction types): the 7-column league can't fit a phone,
+     so show the three that matter — Type · Deals · Volume — and drop the rest. This
+     also lets the inline drill-down (its nested .tx-list) fit the screen instead of
+     inheriting a 680px-wide, horizontally-scrolling parent. */
+  /* Direct-child combinators only: the overview's OWN rows — never the nested
+     .tx-list inside a tx-typeexp cell (which is a descendant and keeps its own
+     column rules above). */
+  .tx-tbl { table-layout: fixed; width: 100%; }
+  .tx-tbl > thead > tr > th, .tx-tbl > tbody > tr > td, .tx-tbl > tfoot > tr > td { padding-left: 7px; padding-right: 7px; }
+  .tx-tbl > thead > tr > th:nth-child(3), .tx-tbl > tbody > tr > td:nth-child(3), .tx-tbl > tfoot > tr > td:nth-child(3),
+  .tx-tbl > thead > tr > th:nth-child(5), .tx-tbl > tbody > tr > td:nth-child(5), .tx-tbl > tfoot > tr > td:nth-child(5),
+  .tx-tbl > thead > tr > th:nth-child(6), .tx-tbl > tbody > tr > td:nth-child(6), .tx-tbl > tfoot > tr > td:nth-child(6),
+  .tx-tbl > thead > tr > th.tx-top-h, .tx-tbl > tbody > tr > td.tx-top, .tx-tbl > tfoot > tr > td:nth-child(7) { display: none; }
+  .tx-tbl > thead > tr > th:nth-child(2), .tx-tbl > tbody > tr > td:nth-child(2), .tx-tbl > tfoot > tr > td:nth-child(2) { width: 52px; }
+  .tx-tbl > thead > tr > th:nth-child(4), .tx-tbl > tbody > tr > td:nth-child(4), .tx-tbl > tfoot > tr > td:nth-child(4) { width: 84px; }
+  .tx-tbl > tbody > tr > td.tx-tnm { white-space: normal; overflow-wrap: anywhere; }
 }
 /* sub-category (asset-class) filter chips */
 .tx-secfilter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
