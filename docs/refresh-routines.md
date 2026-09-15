@@ -413,6 +413,18 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   green, so an orphaned reference fails loudly instead of shipping a dead link. (The
   reverse — a profile with no transaction yet — is fine: the roster is a directory,
   and an entity may be listed before its first recorded deal.)
+- **Borrower / company column shows the BORROWER, not the lender.** The Transactions
+  "Borrower / company" column and the manager Investments table both lead with the
+  OTHER named party in a deal — the borrower / portfolio company / target — via
+  `v2/js/deal-parse.js` (`dealSubject`), never the lender that opens the headline. It
+  parses the headline (connective verbs + a descriptor-skip), guarded so it never
+  surfaces a money figure, a geo adjective, or an instrument acronym (ABS/CLO/NPL…).
+  When a new deal's headline LEADS with the lender (often the manager or an affiliate,
+  e.g. "H.I.G. Bayside … refinances packaging maker Amerplast Group") and the parse
+  can't recover the borrower, set an explicit **`company`** field on that `deal`
+  (a real party from its own sourced headline/summary — never invented); it wins over
+  the parse. Audited back-corrections live in the `COMPANY_OVERRIDES` map in
+  `deal-parse.js`. Enforced by **`tests/deal-parse.mjs`** (part of the full suite).
 - **Publish on every run.** Because `LAST_CHECKED` is bumped each run, every run
   produces a commit (even a "nothing new" run, which just advances `LAST_CHECKED`
   + cache-busters). Commit (message trailers below), then publish to `main` AND the
