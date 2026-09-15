@@ -43,6 +43,25 @@
   --lift: #202020;     /* lifted shade for search inputs (R8: token, not literal) */
 }
 
+/* Desktop only — lift the dark terminal surfaces one shade so the wide desktop
+   view reads a touch less black. The iPhone PWA (a touch device) is deliberately
+   EXCLUDED via pointer:fine, so it keeps the deeper #141414 ground in every
+   orientation. Only backgrounds + structural greys move here; every ink/accent
+   token is unchanged. --navy also drives the html background (v2/css/app.css), so
+   it lifts too. The --t-* ramp is mirrored in dashboard.css / feed.css / home.css
+   (they define those tokens and load after this file). */
+@media (pointer: fine) and (min-width: 761px) {
+  :root[data-theme="dark"] {
+    --bg: #1b1b1b;
+    --surface: #1b1b1b;
+    --navy: #1b1b1b;
+    --head: #181818;
+    --line: #343434;
+    --border: #343434;
+    --lift: #272727;
+  }
+}
+
 /* ---- full-bleed content column ---- */
 .container {
   max-width: none;
