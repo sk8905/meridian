@@ -147,11 +147,36 @@ export function renderAsk(body, st, opts) {
       : `<div class="na-ask-answer">${askFmt(t.a || "")}</div>` + srcList(t.sources))
     + `</div>`;
 
-  // Add-only single-shot output (unchanged behaviour).
+  // Add-only single-shot output. Once a draft PR is open, PREVIEW the drafted
+  // fields inline so the reader can eyeball an obvious error (an off-by-1000
+  // AUM, a wrong HQ) before approving the merge in-app — no trip to GitHub. The
+  // "Review on GitHub" link stays for anyone who wants the full diff.
+  const fieldRow = (k, v) => v ? `<div class="na-firm-row"><span class="na-firm-k">${esc(k)}</span><span class="na-firm-v">${v}</span></div>` : "";
+  const firmPreview = (d) => {
+    d = d || {};
+    const aum = d.aumText || (typeof d.aum === "number" ? "~$" + d.aum + "bn" : "");
+    const owners = (d.owners || []).filter((o) => o && o.name).map((o) => esc(o.name) + (o.stake ? " (" + esc(o.stake) + ")" : "")).join(", ");
+    return `<div class="na-firm-preview">`
+      + fieldRow("HQ", d.hq ? esc(d.hq) : "")
+      + fieldRow("Founded", (typeof d.founded === "number") ? String(d.founded) : "")
+      + fieldRow("AUM", aum ? esc(aum) : "")
+      + fieldRow("Strategies", (d.strategies || []).length ? esc((d.strategies || []).join(" · ")) : "")
+      + fieldRow("Owners", owners)
+      + (d.description ? `<div class="na-firm-desc">${esc(d.description)}</div>` : "")
+      + `</div>`;
+  };
+  const prOut = st.approved
+    ? `<div class="na-ask-answer">Merged <strong>${esc(st.prName || "the entry")}</strong> — it’s now live in the roster.</div>` + srcList(st.sources)
+    : `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong>. Check the fields, then approve to merge — or review the full pull request on GitHub.</div>`
+      + firmPreview(st.draft)
+      + (st.approveError ? `<div class="na-ask-err">${esc(st.approveError)}</div>` : "")
+      + `<div class="na-approve-row"><button type="button" class="na-approve"${st.approving ? " disabled" : ""}>${st.approving ? "Merging…" : "Approve &amp; merge"}</button><a class="na-approve-gh" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">Review on GitHub →</a></div>`
+      + `<div class="na-approve-note">Merging publishes straight to the live site — verify every field first (HOUSE_STYLE R7).</div>`
+      + srcList(st.sources);
   const addOut = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`
     : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
     : st.notFound ? `<div class="na-ask-err">${esc(st.notFound)}</div>`
-    : st.pr ? `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong> and opened a pull request — verify every field before merging.</div><div class="na-ask-srch">Pull request</div><ul class="na-ask-srcs"><li><a class="na-brief-src" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">${esc(st.pr)}</a></li></ul>` + srcList(st.sources)
+    : st.pr ? prOut
     : "";
 
   // `bare` renders JUST the field (no action button) styled like the .tsearch
@@ -280,9 +305,24 @@ export function mountAssistant(container, opts) {
         if (d && d.unconfigured) setState({ q, error: d.message || "Proposing additions isn’t switched on yet." });
         else if (d && d.notFound) setState({ q, notFound: d.message || "Couldn’t verify that firm from public sources." });
         else if (!d || d.error || !d.prUrl) setState({ q, error: (d && d.message) || "Couldn’t open a PR — try again." });
-        else setState({ q, pr: d.prUrl, prName: d.name || q, sources: d.sources || [] });
+        else setState({ q, pr: d.prUrl, prName: d.name || q, prNumber: d.prNumber, draft: d.draft || null, sources: d.sources || [] });
       })
       .catch(() => setState({ q, error: "Network error — try again." }));
+  };
+  // Approve & merge the drafted PR in-app (→ /api/approve). Keeps the current
+  // state (pr/draft/prName) so the preview stays put; flips to `approved` on
+  // success, or surfaces `approveError` and leaves the button live to retry.
+  const runApprove = () => {
+    if (state.approving || !state.prNumber) return;
+    setState(Object.assign({}, state, { approving: true, approveError: null }));
+    fetch("/api/approve", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prNumber: state.prNumber }) })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && d.merged) setState(Object.assign({}, state, { approving: false, approved: true, approveError: null }));
+        else if (d && d.unconfigured) setState(Object.assign({}, state, { approving: false, approveError: d.message || "Merging isn’t switched on yet." }));
+        else setState(Object.assign({}, state, { approving: false, approveError: (d && d.message) || "Couldn’t merge — try again or use GitHub." }));
+      })
+      .catch(() => setState(Object.assign({}, state, { approving: false, approveError: "Network error — try again." })));
   };
 
   // Enter/submit runs Ask when present, else Add (so an Add-only field still works).
@@ -301,6 +341,7 @@ export function mountAssistant(container, opts) {
     if (isChat && sugg) { e.preventDefault(); e.stopPropagation(); const i = container.querySelector(".na-ask-in"); if (i) i.value = sugg.dataset.ask || sugg.textContent || ""; runAsk(); return; }
     if (withSearch && e.target.closest(".na-ask-search")) { e.preventDefault(); e.stopPropagation(); runSearch(); return; }
     if (withAdd && e.target.closest(".na-ask-add")) { e.preventDefault(); e.stopPropagation(); runAdd(); return; }
+    if (withAdd && e.target.closest(".na-approve")) { e.preventDefault(); e.stopPropagation(); runApprove(); return; }
   });
   // Docked chat only: while the input is focused (keyboard up), flag <html> so the
   // bottom tab bar hides and the fixed chat column ends at the keyboard top — no

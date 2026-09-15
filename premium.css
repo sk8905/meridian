@@ -1116,6 +1116,23 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-srcd[open] > summary::after { transform: rotate(45deg); }
 .na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; line-height: 1.4; }
 
+/* ---- "Add a firm" draft PREVIEW + in-app approve (feature C2) ---- */
+/* After a draft PR opens, its key fields show inline so the reader can eyeball an
+   obvious error (an off-by-1000 AUM, wrong HQ) before merging in-app. A solid
+   accent "Approve & merge" button sits beside a "Review on GitHub" escape hatch. */
+.na-firm-preview { padding: 2px 12px 8px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; line-height: 1.5; }
+.na-firm-row { display: flex; gap: 10px; padding: 2px 0; }
+.na-firm-k { flex: 0 0 72px; color: var(--faint, #5c6a86); text-transform: uppercase; font-size: 10px; letter-spacing: .04em; }
+.na-firm-v { flex: 1 1 auto; min-width: 0; color: var(--ink, #eaf0fb); word-wrap: break-word; }
+.na-firm-desc { margin-top: 6px; color: var(--muted, #8592ad); font-size: 11px; line-height: 1.55; }
+.na-approve-row { display: flex; align-items: center; gap: 14px; padding: 4px 12px 4px; }
+.na-approve { flex: 0 0 auto; border: 0; border-radius: 0; background: var(--accent, #fb8b1e); color: #1b1200; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 7px 15px; cursor: pointer; }
+.na-approve:hover { filter: brightness(1.05); }
+.na-approve:disabled { opacity: .6; cursor: default; filter: none; }
+.na-approve-gh { font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; color: var(--muted, #8592ad); white-space: nowrap; }
+.na-approve-gh:hover { color: var(--accent, #fb8b1e); }
+.na-approve-note { padding: 0 12px 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; line-height: 1.5; color: var(--faint, #5c6a86); }
+
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links
         read by colour and context (hover keeps its colour shift only). ---- */
 a, a:hover, a:focus { text-decoration: none !important; }

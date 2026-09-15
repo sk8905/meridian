@@ -3300,9 +3300,61 @@ async function handlePropose(request, env) {
 
   try {
     const pr = await proposeManagerPR(env, email, draft, ask);
-    return json({ prUrl: pr.html_url, prNumber: pr.number, name: draft.name || ask, sources: res.sources || [] });
+    // Return the drafted fields alongside the PR so the app can PREVIEW them for
+    // an eyeball check before the reader approves the merge in-app (no GitHub trip).
+    const preview = {
+      hq: draft.hq || null,
+      founded: (typeof draft.founded === "number") ? draft.founded : null,
+      aum: (typeof draft.aum === "number") ? draft.aum : null,
+      aumText: draft.aumText || null,
+      strategies: Array.isArray(draft.strategies) ? draft.strategies : [],
+      description: draft.description || null,
+      owners: Array.isArray(draft.owners) ? draft.owners.filter((o) => o && o.name) : [],
+    };
+    return json({ prUrl: pr.html_url, prNumber: pr.number, name: draft.name || ask, draft: preview, sources: res.sources || [] });
   } catch (e) {
     return json({ error: "pr_failed", message: "Drafted the entry but couldn’t open the PR: " + String((e && e.message) || e) });
+  }
+}
+
+// C2 — "Approve & merge": merge an assistant-drafted roster PR straight to the
+// deploy branch, so a reader who has eyeballed the previewed fields can publish
+// without leaving the app. Guarded so it can ONLY merge a PR this Worker itself
+// opened — a claude/add-… head branch onto the deploy base, still open — never an
+// arbitrary PR number. Merging main triggers the live deploy.
+async function mergeManagerPR(env, prNumber) {
+  const owner = env.GH_OWNER || "sk8905", repo = env.GH_REPO || "meridian", base = env.GH_BASE || "main";
+  const R = `repos/${owner}/${repo}`;
+  const pr = await gh(env, `${R}/pulls/${prNumber}`);
+  if (!pr || pr.state !== "open") throw new Error("that pull request is no longer open");
+  if (!/^claude\/add-/.test((pr.head && pr.head.ref) || "")) throw new Error("not an assistant-drafted branch");
+  if (((pr.base && pr.base.ref) || "") !== base) throw new Error("unexpected base branch");
+  const merged = await gh(env, `${R}/pulls/${prNumber}/merge`, {
+    method: "PUT",
+    body: JSON.stringify({ merge_method: "squash", commit_title: `${pr.title} (#${prNumber})` }),
+  });
+  // Tidy the merged draft branch (best-effort — a failure here doesn't undo the merge).
+  if (merged && merged.merged && pr.head && pr.head.ref) {
+    try { await gh(env, `${R}/git/refs/heads/${pr.head.ref}`, { method: "DELETE" }); } catch { /* ignore */ }
+  }
+  return merged;
+}
+async function handleApprove(request, env) {
+  if (request.method !== "POST") return json({ error: "method_not_allowed" }, 405);
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  if (!env.GITHUB_TOKEN) return json({ unconfigured: true, message: "Merging isn’t switched on yet." });
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "bad_request" }, 400); }
+  const prNumber = Number(body && body.prNumber);
+  if (!Number.isInteger(prNumber) || prNumber <= 0) return json({ error: "bad_request", message: "Missing PR number." }, 400);
+  if (!(await askRateLimit(env, email, 5, "approve:"))) return json({ error: "rate_limited", message: "Slow down — 5 merges an hour." }, 429);
+  try {
+    const merged = await mergeManagerPR(env, prNumber);
+    if (!merged || !merged.merged) return json({ error: "merge_failed", message: (merged && merged.message) || "GitHub declined the merge." });
+    return json({ merged: true, sha: merged.sha });
+  } catch (e) {
+    return json({ error: "merge_failed", message: "Couldn’t merge — " + String((e && e.message) || e) });
   }
 }
 
@@ -3345,6 +3397,7 @@ export default {
     if (url.pathname === "/api/me") return handleMe(request);
     if (url.pathname === "/api/ask") return handleAsk(request, env);
     if (url.pathname === "/api/propose") return handlePropose(request, env);
+    if (url.pathname === "/api/approve") return handleApprove(request, env);
     // v2 SPA (the ground-up rebuild, served alongside the current app). Every
     // /v2/ NAVIGATION route — anything with no file extension that isn't a real
     // asset — returns the single shell; the client router renders the right

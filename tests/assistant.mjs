@@ -221,16 +221,51 @@ check(await pg.evaluate(() => !!document.querySelector(".v2-menu .wire-net")), "
 
 await pg.route("**/api/propose", (route) => route.fulfill({
   status: 200, contentType: "application/json",
-  body: JSON.stringify({ prUrl: "https://github.com/sk8905/meridian/pull/123", prNumber: 123, name: "Example Capital", sources: [{ url: "https://example.com/", title: "Example" }] }),
+  body: JSON.stringify({ prUrl: "https://github.com/sk8905/meridian/pull/123", prNumber: 123, name: "Example Capital",
+    draft: { hq: "London, UK", founded: 2004, aum: 12, aumText: "$12 billion (2026)", strategies: ["Direct Lending", "Opportunistic Credit"], description: "A mid-market private-credit manager.", owners: [{ name: "Jane Founder", stake: "40%" }] },
+    sources: [{ url: "https://example.com/", title: "Example" }] }),
 }));
 await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); c.querySelector(".na-ask-in").value = "Example Capital"; c.querySelector(".na-ask-add").click(); });
 await pg.waitForTimeout(500);
+// The draft PR opens with a FIELD PREVIEW (name · HQ · AUM · strategies …) so the
+// reader can eyeball an obvious error before merging in-app — plus an "Approve &
+// merge" button and a "Review on GitHub" escape hatch.
 const proposed = await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); return {
   a: ((c.querySelector(".na-ask-answer") || {}).textContent || ""),
-  pr: [...c.querySelectorAll(".na-ask-srcs a[href]")].some((x) => x.href.includes("/pull/123")),
+  preview: (c.querySelector(".na-firm-preview") || {}).textContent || "",
+  hasApprove: !!c.querySelector(".na-approve"),
+  approveLabel: (c.querySelector(".na-approve") || {}).textContent || "",
+  gh: [...c.querySelectorAll(".na-approve-gh")].some((x) => x.href.includes("/pull/123")),
+  note: (c.querySelector(".na-approve-note") || {}).textContent || "",
 }; });
-check(proposed.a.includes("pull request"), "Add renders the drafted-and-PR-opened confirmation");
-check(proposed.pr, "renders the pull-request link");
+check(proposed.a.includes("Drafted") && proposed.a.includes("Example Capital"), "Add renders the drafted-entry confirmation");
+check(/London, UK/.test(proposed.preview) && /\$12 billion/.test(proposed.preview) && /Direct Lending/.test(proposed.preview),
+  `the drafted fields preview inline for an eyeball check (${proposed.preview.replace(/\s+/g, " ").trim().slice(0, 90)})`);
+check(proposed.hasApprove && /approve/i.test(proposed.approveLabel), "an 'Approve & merge' button is offered");
+check(proposed.gh, "a 'Review on GitHub' link points to the pull request");
+check(/verify every field/i.test(proposed.note), "a note warns that merging publishes live and to verify the fields first");
+
+// Approving merges the PR in-app (→ /api/approve) — no trip to GitHub. On success
+// the panel confirms the entry is live; the request carries the PR number.
+let approveReq = null;
+await pg.route("**/api/approve", (route) => { try { approveReq = JSON.parse(route.request().postData() || "{}"); } catch {} route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ merged: true, sha: "abc123" }) }); });
+await pg.evaluate(() => document.querySelector("#v2-menu-add .na-approve").click());
+await pg.waitForTimeout(400);
+check(approveReq && approveReq.prNumber === 123, `Approve posts the PR number to /api/approve (${approveReq && approveReq.prNumber})`);
+check(await pg.evaluate(() => { const a = document.querySelector("#v2-menu-add .na-ask-answer")?.textContent || ""; return /Merged/i.test(a) && /live/i.test(a) && !document.querySelector("#v2-menu-add .na-approve"); }),
+  "after merging, the panel confirms the entry is live and the button is gone");
+
+// A failed merge surfaces the reason and leaves the button live to retry.
+await pg.unroute("**/api/approve");
+await pg.route("**/api/approve", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ error: "merge_failed", message: "GitHub declined the merge." }) }));
+// Re-run the propose to restore the approve button, then fail the merge.
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); c.querySelector(".na-ask-in").value = "Example Capital"; c.querySelector(".na-ask-add").click(); });
+await pg.waitForTimeout(400);
+await pg.evaluate(() => document.querySelector("#v2-menu-add .na-approve").click());
+await pg.waitForTimeout(400);
+check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); return /declined/i.test(c.querySelector(".na-ask-err")?.textContent || "") && !!c.querySelector(".na-approve"); }),
+  "a failed merge shows the reason and keeps the Approve button to retry");
+await pg.unroute("**/api/approve");
 
 await pg.unroute("**/api/propose");
 await pg.route("**/api/propose", (route) => route.fulfill({
