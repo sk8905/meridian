@@ -72,8 +72,23 @@ const afterAccept = await pg.evaluate(() => {
 });
 check(afterAccept.includes("Citadel"), `Network: accepting an ambiguous match adds it to the list (${afterAccept.join(", ")})`);
 
+// Each firm is a collapse toggle: the connections are hidden until you expand it,
+// and only the firm you open reads bold.
+const collapse = await pg.evaluate(() => {
+  const ent = document.querySelector(".wn-ent");
+  const wOf = (t) => t ? getComputedStyle(t).fontWeight : null;
+  const before = { tag: ent.tagName, open: ent.open, weight: wOf(ent.querySelector(".wn-ent-t")) };
+  ent.querySelector("summary.wn-ent-nm").click();  // expand
+  const after = { open: ent.open, weight: wOf(ent.querySelector(".wn-ent-t")) };
+  ent.querySelector("summary.wn-ent-nm").click();  // collapse again for the nav step
+  return { before, after };
+});
+check(collapse.before.tag === "DETAILS" && collapse.before.open === false, "Network: each firm is a <details>, collapsed by default");
+check(collapse.after.open === true, "Network: clicking a firm expands its connections");
+check((collapse.before.weight === "400" || collapse.before.weight === "normal") && (collapse.after.weight === "700" || collapse.after.weight === "bold"), `Network: only the expanded firm's name is bold (${collapse.before.weight}→${collapse.after.weight})`);
+
 // Navigate to a matched hedge fund's profile → the collapsible badge appears.
-await pg.evaluate(() => document.querySelector('.wn-ent-nm[data-net-route="#/hf/h1"]').click());
+await pg.evaluate(() => document.querySelector('.wn-ent-open[data-net-route="#/hf/h1"]').click());
 await pg.waitForSelector("#pf-detail .wn-badge", { timeout: 8000 });
 const badge = await pg.evaluate(() => {
   const el = document.querySelector("#pf-detail .wn-badge");

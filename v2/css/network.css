@@ -58,10 +58,19 @@
 .wn-grp-ct { color:var(--wn-mut); font-weight:600; }
 .wn-ent { border-top:1px solid var(--wn-bd); padding:8px 0; }
 .wn-ent:first-of-type { border-top:0; }
-.wn-ent-nm { display:flex; align-items:baseline; justify-content:space-between; gap:10px; text-decoration:none; color:var(--wn-ink); font-weight:600; font-size:11.5px; }
-.wn-ent-nm:hover .wn-ent-t { color:var(--wn-accent); }
+/* Each firm is a collapse toggle (native <details>): the connections at that firm
+   stay hidden until you expand it, and the firm name is UNBOLDED until then — only
+   the firm you have opened reads bold. A caret marks the state. */
+.wn-ent > summary.wn-ent-nm { display:flex; align-items:baseline; justify-content:space-between; gap:10px; cursor:pointer; list-style:none; color:var(--wn-ink); font-weight:400; font-size:11.5px; }
+.wn-ent > summary.wn-ent-nm::-webkit-details-marker { display:none; }
+.wn-ent > summary .wn-ent-t::before { content:"▸"; display:inline-block; width:1.1em; color:var(--wn-mut); }
+.wn-ent[open] > summary .wn-ent-t::before { content:"▾"; }
+.wn-ent[open] > summary .wn-ent-t { font-weight:700; }
+.wn-ent > summary.wn-ent-nm:hover .wn-ent-t { color:var(--wn-accent); }
 .wn-ent-ct { flex:0 0 auto; min-width:1.4em; text-align:center; background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; color:var(--wn-mut); font-size:10px; font-weight:700; padding:0 6px; }
-.wn-ent-people { color:var(--wn-mut); font-size:10.5px; line-height:1.5; margin-top:3px; }
+.wn-ent-people { color:var(--wn-mut); font-size:10.5px; line-height:1.5; margin-top:5px; padding-left:1.1em; }
+.wn-ent-open { display:inline-block; margin-top:6px; margin-left:1.1em; font-size:10.5px; color:var(--wn-accent); text-decoration:none; }
+.wn-ent-open:hover { text-decoration:underline; }
 .wn-empty { color:var(--wn-mut); font-size:11.5px; margin:6px 0; }
 
 /* ---- footer (re-import + clear) ---- */

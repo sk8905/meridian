@@ -85,9 +85,10 @@ function netPaneHTML() {
     ? `<div class="wn-list">${NET_GROUPS.map(([k, label]) => {
         const arr = groups[k]; if (!arr.length) return "";
         return `<div class="wn-grp"><div class="wn-grp-h">${label} <span class="wn-grp-ct">${arr.length}</span></div>`
-          + arr.map((e) => `<div class="wn-ent">
-              <a class="wn-ent-nm" href="/v2/profiles/${esc(e.route)}" data-net-route="${esc(e.route)}"><span class="wn-ent-t">${esc(e.name)}</span><span class="wn-ent-ct">${e.people.length}</span></a>
-              <div class="wn-ent-people">${netPeople(e.people)}</div></div>`).join("")
+          + arr.map((e) => `<details class="wn-ent">
+              <summary class="wn-ent-nm"><span class="wn-ent-t">${esc(e.name)}</span><span class="wn-ent-ct">${e.people.length}</span></summary>
+              <div class="wn-ent-people">${netPeople(e.people)}</div>
+              <a class="wn-ent-open" href="/v2/profiles/${esc(e.route)}" data-net-route="${esc(e.route)}">Open ${esc(e.name)} profile →</a></details>`).join("")
           + `</div>`;
       }).join("")}</div>`
     : `<p class="wn-empty">None of your connections are at a firm Wire currently tracks.</p>`;
