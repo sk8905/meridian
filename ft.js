@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2104f2c8-ba9b-4716-bc26-a69c7c46a450", title: "Trump’s Venezuela oil deal: deeply flawed or too big to fail?", date: "2026-09-15", time: "12:00", url: "https://www.ft.com/content/2104f2c8-ba9b-4716-bc26-a69c7c46a450" },
+  { id: "76795dfc-2d44-421b-9665-5d86346af328", title: "Sullivan & Cromwell hires team of Kirkland partners in private equity push", date: "2026-09-15", time: "12:00", url: "https://www.ft.com/content/76795dfc-2d44-421b-9665-5d86346af328" },
+  { id: "608a9f4e-0beb-4840-a37c-831a5265d7da", title: "Scott Bessent’s wobbly house", date: "2026-09-15", time: "11:59", url: "https://www.ft.com/content/608a9f4e-0beb-4840-a37c-831a5265d7da" },
+  { id: "e1b2e9c2-9086-4ba1-bbda-58133c60f011", title: "Food crisis fears ease as fertiliser exporters fill gap left by Iran war", date: "2026-09-15", time: "11:38", url: "https://www.ft.com/content/e1b2e9c2-9086-4ba1-bbda-58133c60f011" },
   { id: "b49762b0-2f8a-457d-bd3a-2820f1fff346", title: "Russian warship fires flares at Danish helicopter over Baltic Sea", date: "2026-09-15", time: "11:03", url: "https://www.ft.com/content/b49762b0-2f8a-457d-bd3a-2820f1fff346" },
   { id: "01aaea22-f05a-498b-b6df-7075c11271d0", title: "Meloni presses ahead with election law that boosts her far-right rival", date: "2026-09-15", time: "11:00", url: "https://www.ft.com/content/01aaea22-f05a-498b-b6df-7075c11271d0" },
   { id: "6ec4a7e7-18f7-454f-94e9-1836af14b5e6", title: "Young workers trade the ladder for the lily pad", date: "2026-09-15", time: "11:00", url: "https://www.ft.com/content/6ec4a7e7-18f7-454f-94e9-1836af14b5e6" },
@@ -56,7 +60,4 @@ export const FT_ITEMS = [
   { id: "bdd5274a-bf02-4ca2-bd72-2c0558605707", title: "The $1.6bn IPO that could draw millions of Nigerians to the stock market", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/bdd5274a-bf02-4ca2-bd72-2c0558605707" },
   { id: "c4641e3b-a605-468e-841b-73a22eee0781", title: "Jaguar Land Rover targets Nato military budgets with revamped Defender", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/c4641e3b-a605-468e-841b-73a22eee0781" },
   { id: "7265f15f-c1e4-49c5-b6e0-8c3a29e70892", title: "UK and Japan seek to fully benefit from ‘Made in Europe’ car sector rules", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/7265f15f-c1e4-49c5-b6e0-8c3a29e70892" },
-  { id: "e565ce70-17ac-42ad-bc08-b9a69d75d5b1", title: "Foreign investors prefer US stocks to Treasuries as debt worries grow", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/e565ce70-17ac-42ad-bc08-b9a69d75d5b1" },
-  { id: "dab77b4d-9ee9-4bbe-8965-bc744f9529ea", title: "FTSE 100 bosses paid record average of £5mn", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/dab77b4d-9ee9-4bbe-8965-bc744f9529ea" },
-  { id: "905fb04b-f738-41b2-a571-604031a622da", title: "Germany tells Andrea Orcel to keep Commerzbank’s Frankfurt HQ after takeover", date: "2026-09-14", time: "18:13", url: "https://www.ft.com/content/905fb04b-f738-41b2-a571-604031a622da" },
 ];
