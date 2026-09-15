@@ -20,9 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4e14f546-332e-4723-b75c-8f6744329733", title: "UK ‘actively’ exploring joining Canada-led global defence bank", date: "2026-09-15", time: "20:13", url: "https://www.ft.com/content/4e14f546-332e-4723-b75c-8f6744329733" },
   { id: "8c8e7688-fae5-41d5-93d1-7be39dd2639f", title: "Iran uses spyware disguised as MRI scan results to hack critics, say western officials", date: "2026-09-15", time: "19:57", url: "https://www.ft.com/content/8c8e7688-fae5-41d5-93d1-7be39dd2639f" },
   { id: "b8b0e43d-3b5c-4531-9f7a-da65d516ea17", title: "UK bosses must ‘sit down’ with staff if they block WFH requests", date: "2026-09-15", time: "19:18", url: "https://www.ft.com/content/b8b0e43d-3b5c-4531-9f7a-da65d516ea17" },
   { id: "752e9694-9e47-4da1-a90a-ec1965665b08", title: "Colombian president fires statistics chief after three weeks", date: "2026-09-15", time: "19:17", url: "https://www.ft.com/content/752e9694-9e47-4da1-a90a-ec1965665b08" },
+  { id: "5e2327aa-dbd0-4a79-8c99-622a893876d7", title: "Ten-year Treasury yield hits highest level since 2007", date: "2026-09-15", time: "19:13", url: "https://www.ft.com/content/5e2327aa-dbd0-4a79-8c99-622a893876d7" },
   { id: "4b9952d5-3cc8-48ef-8619-daa15a0a6af1", title: "Exxon wins Texas approval for $5bn carbon capture project", date: "2026-09-15", time: "18:43", url: "https://www.ft.com/content/4b9952d5-3cc8-48ef-8619-daa15a0a6af1" },
   { id: "97f3d2b7-0282-42a7-bbb7-538624441a8a", title: "Hackers say they breached Italian state email to target Revolut ‘crypto whales’", date: "2026-09-15", time: "18:27", url: "https://www.ft.com/content/97f3d2b7-0282-42a7-bbb7-538624441a8a" },
   { id: "6bbec28d-7ccf-455b-932a-0edad91a6d0e", title: "Larry Ellison shows even billionaires struggle with liquidity", date: "2026-09-15", time: "18:24", url: "https://www.ft.com/content/6bbec28d-7ccf-455b-932a-0edad91a6d0e" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "8bc0d474-7252-4e38-b4b2-ceeb7800d10d", title: "UK employers cut jobs as labour market remains weak over summer", date: "2026-09-15", time: "07:56", url: "https://www.ft.com/content/8bc0d474-7252-4e38-b4b2-ceeb7800d10d" },
   { id: "696180f1-c9ad-4434-8ad2-b1dc30773e53", title: "Help to Buy scheme was ‘very high value for money’, says official review", date: "2026-09-15", time: "07:00", url: "https://www.ft.com/content/696180f1-c9ad-4434-8ad2-b1dc30773e53" },
   { id: "7ac9a299-1ba0-428c-9207-ecf959b386f1", title: "The great British (and American) fork in the road", date: "2026-09-15", time: "06:30", url: "https://www.ft.com/content/7ac9a299-1ba0-428c-9207-ecf959b386f1" },
-  { id: "0b1b2875-fa2d-417b-8617-c6e51bebf083", title: "FTAV’s further reading", date: "2026-09-15", time: "06:30", url: "https://www.ft.com/content/0b1b2875-fa2d-417b-8617-c6e51bebf083" },
 ];
