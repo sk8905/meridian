@@ -1245,9 +1245,9 @@ async function handle13F(request, env, ctx) {
     if (!agg.size) return fail("no holdings parsed");
     const holdings = [...agg.values()]
       .sort((a, b) => b.value - a.value)
-      .slice(0, 10)
+      .slice(0, 50)
       .map((h) => ({ name: h.name, cusip: h.cusip, value: h.value, shares: h.shares, weight: total ? h.value / total : null, opt: h.optVal > 0, prn: h.prnVal > 0 }));
-    // Resolve each top-10 holding's ticker from its CUSIP (best-effort) so the
+    // Resolve each top holding's ticker from its CUSIP (best-effort) so the
     // fund page can annotate rows with live price performance. Cached with the
     // holdings (24h) since tickers are stable.
     const tickers = await Promise.all(holdings.map((h) => yahooSymbol(h.cusip).catch(() => null)));
@@ -1522,7 +1522,7 @@ async function yahooPerf(symbol) {
 }
 async function handlePerf(request, env, ctx) {
   const url = new URL(request.url);
-  const syms = (url.searchParams.get("symbols") || "").split(",").map((s) => s.trim().toUpperCase()).filter(Boolean).slice(0, 15);
+  const syms = (url.searchParams.get("symbols") || "").split(",").map((s) => s.trim().toUpperCase()).filter(Boolean).slice(0, 50);
   if (!syms.length) return json({ perf: {} });
   const cache = caches.default;
   const cacheKey = new Request(new URL(`/api/perf?symbols=${syms.join(",")}&v=1`, request.url).toString());

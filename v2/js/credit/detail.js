@@ -649,7 +649,7 @@ export function viewLp(id) {
 
 // ================================ HEDGE FUNDS ================================
 // Per-fund detail: firm facts (AUM + source, strategy, region, performance) plus
-// a live Top-10 holdings table pulled from the fund's most recent SEC 13F-HR via
+// a live top-holdings table pulled from the fund's most recent SEC 13F-HR via
 // the Worker's /api/13f endpoint (edge-cached 24h — the holdings self-refresh as
 // the TTL lapses). Funds that don't file a US 13F (cik null) skip the call and
 // show a not-disclosed note. Escapes everything; every fetch has a .catch.
@@ -768,7 +768,7 @@ export function viewHedgeFund(id) {
     document.querySelectorAll("#hf-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
   });
 
-  // Live Top-10 holdings — edge-cached at /api/13f (24h TTL); cache-first via the
+  // Live top holdings — edge-cached at /api/13f (24h TTL); cache-first via the
   // edge + browser cache, with a .catch fallback so a failed fetch degrades to a
   // note rather than throwing.
   if (f.cik) {
