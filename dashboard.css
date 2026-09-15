@@ -296,6 +296,10 @@
 .dsh-fl-na { color:var(--t-faint); font-weight:400; }
 .dsh-fl-t { color:var(--t-mut); font-size:11.5px; margin-left:4px; }
 .dsh-fl-note { color:var(--t-faint); font-size:11.5px; line-height:1.5; margin:8px 0 0; }
+/* Geography bands: a small left-aligned label rule introducing each regional
+   block (United States, Europe, Asia-Pacific, …), set off by a top rule. */
+.dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid2); }
+.dsh-fl-tbl tbody tr.dsh-georow:first-child td.dsh-geo { border-top:0; padding-top:2px; }
 .dsh-fl-pos { color:var(--t-up); font-weight:700; }
 .dsh-fl-neg { color:var(--t-down); font-weight:700; }
 

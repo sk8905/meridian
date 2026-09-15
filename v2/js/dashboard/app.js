@@ -209,14 +209,16 @@ export function mount(host, ctx) {
     const heat = (v, k) => { if (v == null) return ""; const a = (Math.abs(v) / maxAbs[k]) * 0.62 + 0.10; return ` style="background:color-mix(in srgb, var(--t-${v >= 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`; };
     const fmtLv = (v) => (v == null ? "" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
     const cell = (r, k, l) => { const v = valK(r, k); return v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(v, k)} title="${esc(r.name)} · ${esc(l)}: ${pct1(v)}">${pct1(v)}</td>`; };
-    // Regions are separated by a thin grey rule (a top border on the first row of
-    // each new region), not a labelled band.
-    const row = (r, brk) => {
+    // Each geography is introduced by a labelled band and set off by a rule, so the
+    // table reads as regional blocks (United States, Europe, Asia-Pacific, …).
+    const REGION_LABEL = { US: "United States", "South America": "South America", UK: "United Kingdom", Europe: "Europe", APAC: "Asia-Pacific" };
+    const row = (r) => {
       const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a>` : esc(r.name);
       const lv = lvOf(r);
-      return `<tr${brk ? ' class="dsh-secbreak"' : ""}><td class="dsh-nm">${nm}${lv != null ? ` <span class="dsh-fl-t">${fmtLv(lv)}</span>` : ""}</td>${IDX_WINS.map(([k, l]) => cell(r, k, l)).join("")}</tr>`;
+      return `<tr><td class="dsh-nm">${nm}${lv != null ? ` <span class="dsh-fl-t">${fmtLv(lv)}</span>` : ""}</td>${IDX_WINS.map(([k, l]) => cell(r, k, l)).join("")}</tr>`;
     };
-    const group = (g, i) => (g.rows || []).map((r, ri) => row(r, i > 0 && ri === 0)).join("");
+    const group = (g) => `<tr class="dsh-georow"><td class="dsh-geo" colspan="${IDX_WINS.length + 1}">${esc(REGION_LABEL[g.region] || g.region)}</td></tr>`
+      + (g.rows || []).map(row).join("");
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Index</th>${IDX_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${W.regions.map(group).join("")}</tbody></table>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span>, price return shaded within each window; the grey figure is the latest index level (points).</p>`;
