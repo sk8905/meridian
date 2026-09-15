@@ -1173,7 +1173,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "GBP/USD tested a five-week low of 1.3464 Monday before paring losses to trade near $1.3492 as the dollar firmed on cycle-high (~90.7%) odds of a 16 September Fed hike, while UK gilts sat near 19-year highs (10-year ~5.3-5.4%) ahead of Thursday's BoE decision, which is widely expected to be a hold.", src: "https://www.fxstreet.com/news/pound-sterling-price-news-forecast-gbp-usd-tests-five-week-lows-as-us-treasury-yields-surge-202609141818", srcName: "FXStreet", date: "2026-09-14" };
+export const FX_KEYMOMENT = { text: "GBP/USD drifted below $1.3500 overnight as Fed-hike bets firmed further two days before Wednesday's decision, with traders now looking to Wednesday's UK employment report and Thursday's BoE decision (widely expected to be a hold) for the next catalyst.", src: "https://www.fxstreet.com/news/british-pound-drifts-lower-below-13500-as-fed-hike-bets-rise-uk-jobs-data-loom-202609150156", srcName: "FXStreet", date: "2026-09-15" };
 
 export const EARNINGS = {
   // Monday-transition sweep (14 Sep): no bank/broker, asset-manager, AI-relevant
