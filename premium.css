@@ -829,6 +829,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     overflow-y: auto; overscroll-behavior: contain;
     padding: 0 0 1.2rem;
   }
+  /* The Briefing carries a wider desktop width (#id rule ~50vw) that would
+     otherwise out-rank the full-screen phone treatment above and leave a dead
+     strip on the right — reset it here so it fills the screen like the others. */
+  #na-brief-panel { width: auto; max-width: none; }
   body.na-menu-open { overflow: hidden; }
   body.na-menu-open .topbar, body.na-menu-open .g-top { z-index: 90; }
   /* The "Signed in as … · Sign out / Last refresh" block moved from the page

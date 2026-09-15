@@ -55,6 +55,13 @@ const opened = await pg.evaluate(() => {
     nTopics: p.querySelectorAll(".na-brief-b .nb-topic").length, nNums: nums.length, srcHrefOk, yearBlue, dayBeforeMonth };
 });
 check(opened && opened.visible, "Briefing button opens the Briefing panel");
+// On phones the panel is a full-screen page — it must fill the viewport width
+// (guards the regression where a wide desktop #id width left a dead strip on the right).
+const span = await pg.evaluate(() => {
+  const r = document.getElementById("na-brief-panel").getBoundingClientRect();
+  return { left: r.left, right: r.right, vw: window.innerWidth };
+});
+check(span.left <= 2 && span.right >= span.vw - 2, `briefing panel fills the phone width (left ${span.left}, right ${span.right} vs ${span.vw})`);
 check(opened && opened.nTopics >= 1 && opened.topicColor === opened.accent, `briefing topic headings read orange (${opened && opened.topicColor})`);
 check(opened && opened.nNums >= 1 && opened.numColor !== opened.wbtxt, `briefing numbers read PLAIN, not the old blue accent (${opened && opened.numColor})`);
 check(opened && !opened.yearBlue && !opened.dayBeforeMonth, "briefing: date numbers (bare years, day-before-month) are NOT blue");
