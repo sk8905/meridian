@@ -11,7 +11,10 @@ await pg.waitForSelector("#g-earn .g-earn-row", { timeout: 8000 });
 await pg.waitForTimeout(400);
 
 const r = await pg.evaluate(() => {
-  const headers = [...document.querySelectorAll(".g-side2 .tui-ph span:first-child")].map((s) => s.textContent.trim());
+  // Panel titles are the header's first child — a <span>, or an <a> when the title
+  // deep-links into a Dashboard section (Policy rate / Yield curve / Key rates /
+  // Volatility). Match either.
+  const headers = [...document.querySelectorAll(".g-side2 .tui-ph > :first-child")].map((s) => s.textContent.trim());
   const rows = [...document.querySelectorAll("#g-earn .g-earn-row")];
   const first = rows[0];
   const side = document.querySelector(".g-side");

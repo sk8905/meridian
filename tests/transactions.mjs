@@ -134,11 +134,17 @@ const exp = await pg.evaluate(() => {
   const e = document.querySelector(".tx-typeexp:not([hidden])");
   const allChip = e.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
   const e2 = document.querySelector(".tx-typeexp:not([hidden])");
-  const row = e2.querySelector(".tx-list tr.tx-row"), det = row.nextElementSibling;
-  const before = det.hidden; row.click();
-  return { before, after: row.nextElementSibling.hidden, fields: det.querySelectorAll(".tx-fields dt").length, isExp: det.classList.contains("tx-exp") };
+  const row = e2.querySelector(".tx-list tr.tx-row"); let det = row.nextElementSibling;
+  const before = det.hidden; row.click(); det = row.nextElementSibling;
+  const td = det.querySelector("td");
+  return {
+    before, after: det.hidden, isExp: det.classList.contains("tx-exp"),
+    noBox: det.querySelectorAll(".tx-fields").length === 0,           // the snapshot box is gone
+    fullWidth: td ? td.getAttribute("colspan") : null,               // the detail spans every column
+  };
 });
-check(exp.isExp && exp.before === true && exp.after === false && exp.fields >= 4, `a transaction expands to its detail — lender · amount · date · sub-category (${exp.fields} fields)`);
+check(exp.isExp && exp.before === true && exp.after === false, "a transaction row expands to its detail");
+check(exp.noBox && exp.fullWidth === "6", `the expanded detail is a full-width narrative — no snapshot box (colspan ${exp.fullWidth})`);
 
 // ---- 4) accordion: clicking the open type again collapses it -------------
 const collapse = await pg.evaluate(() => {

@@ -496,14 +496,14 @@
   .tinv-tbl th:nth-child(5) { width: 12%; }
   .tinv-tbl th:nth-child(6) { width: 19%; }
   /* Transaction credits list (transactions/app.js): Date · Borrower/company · Lender/investor · Type · Amount · Source */
-  /* Reordered: Borrower · Date · Lender · Type · Amount · Source — evenly spread
-     to fill the width (sums to 100%). */
-  .tx-list th:nth-child(1) { width: 20%; }   /* Borrower */
-  .tx-list th:nth-child(2) { width: 13%; }   /* Date     */
-  .tx-list th:nth-child(3) { width: 20%; }   /* Lender   */
-  .tx-list th:nth-child(4) { width: 16%; }   /* Type     */
-  .tx-list th:nth-child(5) { width: 13%; }   /* Amount   */
-  .tx-list th:nth-child(6) { width: 18%; }   /* Source   */
+  /* Reordered: Borrower · Date · Lender · Type · Amount · Source — EVEN columns
+     across the full width (each ~1/6), so no column hogs slack. */
+  .tx-list th:nth-child(1) { width: 17%; }   /* Borrower */
+  .tx-list th:nth-child(2) { width: 16%; }   /* Date     */
+  .tx-list th:nth-child(3) { width: 17%; }   /* Lender   */
+  .tx-list th:nth-child(4) { width: 17%; }   /* Type     */
+  .tx-list th:nth-child(5) { width: 16%; }   /* Amount   */
+  .tx-list th:nth-child(6) { width: 17%; }   /* Source   */
   /* Transaction type table (transactions/app.js): Type · Deals · 12mo · Volume · Median · Managers · Most active */
   .tx-tbl th:nth-child(1) { width: 19%; }
   .tx-tbl th:nth-child(2) { width: 8%; }
@@ -735,7 +735,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-list td.tx-bd { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.3; }
 .tx-list td.tx-mg { color: var(--muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-list td.tx-cat { color: var(--muted); white-space: nowrap; }
-.tx-list td.tx-sz { color: var(--ink); white-space: nowrap; font-family: var(--t-mono); }
+.tx-list td.tx-sz { color: var(--muted); white-space: nowrap; font-family: var(--t-mono); }
 /* Source column at the right: a faint outlet link. */
 .tx-list td.tx-src2 { color: var(--faint); white-space: nowrap; max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
 .tx-list td.tx-src2 a { color: var(--faint); text-decoration: none; }
@@ -762,14 +762,10 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-exp > td { background: var(--head); border-bottom: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 0; }
 /* A contained fact-sheet: prose on the left, a fixed metadata card on the right —
    capped so the fields don't sprawl across a wide desktop. Stacks on narrow. */
-.tx-exp-in { padding: 12px 16px 13px; display: flex; flex-wrap: wrap; gap: 8px 26px; align-items: flex-start; }
-.tx-sum { flex: 1 1 340px; margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft, var(--ink)); max-width: 70ch; }
-.tx-fields { flex: 0 0 auto; display: grid; grid-template-columns: auto auto; gap: 8px 20px; margin: 0; padding: 9px 12px; border: 1px solid var(--border); background: var(--surface); align-self: flex-start; }
-.tx-fields > div { min-width: 0; }
-.tx-fields dt { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; margin-bottom: 1px; }
-.tx-fields dd { margin: 0; font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; }
-.tx-fields dd a { color: inherit; text-decoration: none; }
-.tx-fields dd a:hover { color: var(--accent); }
+/* Expanded deal detail: the sourced narrative at FULL WIDTH (the structured fields
+   already live in the row's columns, so there is no snapshot box). */
+.tx-exp-in { padding: 12px 16px 13px; }
+.tx-sum { margin: 0 0 8px; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft, var(--ink)); max-width: none; }
 .tx-src { flex: 1 1 100%; margin-top: 2px; font-size: 11.5px; color: var(--muted); font-family: var(--t-mono); text-decoration: none; }
 .tx-src:hover { color: var(--ink); }
 

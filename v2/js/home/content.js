@@ -31,7 +31,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <!-- Top movers grows to fill the rail; only its list scrolls, so the
                panels around it stay put. Sits directly under Markets. -->
           <section class="tui-pnl g-movers-pnl">
-            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/equities" data-godash="equities" title="Open Dashboard › Equities">Top movers</a><span class="tui-px">1D</span></header>
             <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
           <!-- This week's corporate earnings — date · pre/post-market · forecast
@@ -39,7 +39,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
                its content (capped at 5 companies; the rest scroll internally). -->
           <div class="g-earn-scroll">
             <section class="tui-pnl g-earn">
-              <header class="tui-ph g-earn-head"><a class="g-earn-golink" href="/v2/dashboard/equities" data-godash="equities" title="Open the earnings calendar in Dashboard › Equities">This week's earnings</a><span class="tui-px">est → act</span></header>
+              <header class="tui-ph g-earn-head"><a class="g-ph-link" href="/v2/dashboard/equities" data-godash="equities" title="Open the earnings calendar in Dashboard › Equities">This week's earnings</a><span class="tui-px">est → act</span></header>
               <div class="g-earn-body">
                 <div id="g-earn" class="g-earn-pane" aria-label="This week's corporate earnings"><div class="g-loading">Loading earnings…</div></div>
               </div>
@@ -78,7 +78,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->
         <aside class="g-side2">
           <section class="tui-pnl g-anchor" id="jump-macro">
-            <header class="tui-ph"><span>Policy rate</span><span class="tui-px">US · UK</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Policy rate</a><span class="tui-px">US · UK</span></header>
             <div id="g-macro-snap" class="g-snap" aria-label="Policy rate snapshot">
               <div class="g-loading">Loading policy rate…</div>
             </div>
@@ -86,7 +86,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <!-- Yield curve sits directly beneath Policy rate (the full economic-
                indicators grid lives on the Macro dashboard, /v2/macro/). -->
           <section class="tui-pnl g-anchor" id="jump-curve">
-            <header class="tui-ph"><span>Yield curve</span><span class="tui-px">UST</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Yield curve</a><span class="tui-px">UST</span></header>
             <div id="g-curve" class="rates-band" aria-label="US Treasury yield curve and 2s10s slope">
               <div class="g-loading">Loading curve…</div>
             </div>
@@ -94,13 +94,13 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <!-- Key rates & credit spreads and Volatility & risk sit with the macro /
                rates data they belong to. -->
           <section class="tui-pnl g-anchor" id="jump-rates">
-            <header class="tui-ph"><span>Key rates &amp; spreads</span><span class="tui-px">bp · %</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/fixed-income" data-godash="fixed-income" title="Open Dashboard › Fixed Income">Key rates &amp; spreads</a><span class="tui-px">bp · %</span></header>
             <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
               <div class="g-loading">Loading market rates…</div>
             </div>
           </section>
           <section class="tui-pnl g-anchor" id="jump-vol">
-            <header class="tui-ph"><span>Volatility &amp; risk</span><span class="tui-px">vol · spreads</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/credit" data-godash="credit" title="Open Dashboard › Credit">Volatility &amp; risk</a><span class="tui-px">vol · spreads</span></header>
             <div id="g-vol" class="rates-band" aria-label="Equity volatility and credit risk spreads">
               <div class="g-loading">Loading risk…</div>
             </div>

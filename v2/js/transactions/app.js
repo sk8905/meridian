@@ -148,10 +148,10 @@ export function mount(host, ctx) {
     const cat = esc(SECTOR_LABEL[r.sec] || (t && t.label) || "—");
     const outlet = creditSource(d) || "";
     const srcCell = u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(outlet || "source")}</a>` : "—";
-    const amtCell = r.amt ? `${esc(fmtAmt(r.amt))}${r.usd != null && r.amt.ccy !== "USD" ? ` <span class="tx-usd">≈${fmtUsd(r.usd)}</span>` : ""}` : "Not disclosed";
-    const fields = [["Type", esc((t && t.label) || "—")], ["Lender / investor", mgrLink(d.managerId)], ["Amount", amtCell], ["Date", esc(fmtDay(d.date))], ["Sub-category", esc(SECTOR_LABEL[r.sec] || "—")]];
+    // The expanded detail is the sourced narrative at full width — the structured
+    // fields (type / lender / amount / date / sub-category) already sit in the row's
+    // own columns, so no snapshot box is repeated here.
     const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
-      + `<dl class="tx-fields">${fields.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`
       + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
     return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-bd" title="${esc(d.headline || "")}"><span class="tx-caret" aria-hidden="true">▸</span>${esc(name)}</td>`
       + `<td class="tx-dt">${esc(fmtDay(d.date))}</td>`
