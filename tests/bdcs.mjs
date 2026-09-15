@@ -46,8 +46,10 @@ const view = await pg.evaluate(() => {
   };
 });
 check(view.rows >= 25, `the BDC table lists the roster (${view.rows})`);
-check(/Fund/.test(view.heads[0]) && view.heads.some((h) => /Type/.test(h)) && view.heads.some((h) => /Manager/.test(h)) && view.heads.some((h) => /Total assets/i.test(h)) && view.heads.some((h) => /NAV/i.test(h)) && view.heads.some((h) => /Non-accrual/i.test(h)) && view.heads.some((h) => /Px\/NAV|liquidity/i.test(h)),
-  `columns: Fund · Type · Manager · Total assets · NAV · Non-accrual · Px/NAV·liquidity (${view.heads.join(" · ")})`);
+check(/Fund/.test(view.heads[0]) && view.heads.some((h) => /Ticker/.test(h)) && view.heads.some((h) => /Type/.test(h)) && view.heads.some((h) => /Manager/.test(h)) && view.heads.some((h) => /Total assets/i.test(h)) && view.heads.some((h) => /NAV/i.test(h)) && view.heads.some((h) => /Non-accrual/i.test(h)) && view.heads.some((h) => /Px\/NAV|liquidity/i.test(h)),
+  `columns: Fund · Ticker · Type · Manager · Total assets · NAV · Non-accrual · Px/NAV·liquidity (${view.heads.join(" · ")})`);
+check(await pg.evaluate(() => { const rows = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")]; const arcc = rows.find((r) => /Ares Capital/.test(r.textContent)); const bcred = rows.find((r) => /Blackstone Private Credit/.test(r.textContent)); return /ARCC/.test(arcc?.querySelector(".tbdc-tk")?.textContent || "") && (bcred?.querySelector(".tbdc-tk")?.textContent || "").trim() === "—"; }),
+  "a Ticker column shows the listed fund's symbol and a dash for non-traded funds");
 check(await pg.evaluate(() => { const rows = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")]; const listed = rows.filter((r) => /Listed/.test(r.querySelector(".tbdc-ty")?.textContent || "")); const priv = rows.filter((r) => /Private/.test(r.querySelector(".tbdc-ty")?.textContent || "")); return listed.length > 0 && priv.length > 0 && !rows.some((r) => /Interval \/ private/.test(r.querySelector(".tbdc-nm")?.textContent || "")); }),
   "a Type column marks each fund Listed / Private (and the label is gone from under the name)");
 const fAll = view.filters.find((f) => f.k === "all"), fL = view.filters.find((f) => f.k === "listed"), fN = view.filters.find((f) => f.k === "nontraded");
@@ -98,8 +100,8 @@ await ctx.close();
     return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width),
       wrapOverflow: wrap.scrollWidth - wrap.clientWidth, pageOverflow: se.scrollWidth - se.clientWidth };
   });
-  check(fit.tblW <= fit.vw + 1, `phone: the BDC table fits the screen (table ${fit.tblW} ≤ vw ${fit.vw})`);
-  check(fit.wrapOverflow <= 1 && fit.pageOverflow <= 1, `phone: no horizontal overflow — the liquidity cell wraps, nothing spills (wrap ${fit.wrapOverflow}, page ${fit.pageOverflow})`);
+  check(fit.pageOverflow <= 1, `phone: the page itself does not scroll horizontally — only the table does (page ${fit.pageOverflow})`);
+  check(fit.wrapOverflow > 1, `phone: the full table extends and scrolls horizontally inside its wrapper (${fit.wrapOverflow}px)`);
   checkErrs(e2, "BDC roster phone");
   await c2.close();
 }

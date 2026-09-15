@@ -293,21 +293,22 @@ export function mount(host, ctx) {
   function bdcRow(b) {
     const i = BDCS.indexOf(b);
     const mgr = b.managerId ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(b.managerId)}" class="tx-mgr" data-id="${esc(b.managerId)}">${esc(b.manager)}</a>` : esc(b.manager);
-    // The listed/private split now lives in its own Type column; the identity line
-    // under the name keeps only the ticker · exchange (listed funds have neither).
-    const sub = b.structure === "listed" ? `<span class="tbdc-sub">${esc(b.ticker)} · ${esc(b.exchange)}</span>` : "";
+    // Ticker · exchange live in their own column now (listed only); the Type column
+    // carries the listed/private split.
+    const tk = b.ticker ? `${esc(b.ticker)}${b.exchange ? ` · ${esc(b.exchange)}` : ""}` : "—";
     const ty = b.structure === "listed"
       ? `<span class="tbdc-ty-l">Listed</span>` : `<span class="tbdc-ty-p">Private</span>`;
     const na = b.nonAccrualFV != null
       ? `<span title="${b.nonAccrualCost != null ? b.nonAccrualCost + "% at cost · " : ""}at fair value${b.nonAccrualAsOf ? ", " + esc(b.nonAccrualAsOf) : ""}">${b.nonAccrualFV}%</span>` : "n/a";
-    return `<tr class="tbdc-row" data-i="${i}"><td class="tbdc-nm"><span class="tx-caret" aria-hidden="true">▸</span>${esc(b.name)}${sub}</td>`
+    return `<tr class="tbdc-row" data-i="${i}"><td class="tbdc-nm"><span class="tx-caret" aria-hidden="true">▸</span>${esc(b.name)}</td>`
+      + `<td class="tbdc-tk">${tk}</td>`
       + `<td class="tbdc-ty">${ty}</td>`
       + `<td class="tbdc-mg">${mgr}</td>`
       + `<td class="tl-n tbdc-ta">${bdcSizeCell(b)}</td>`
       + `<td class="tl-n tbdc-nav">${b.nav != null ? "$" + b.nav.toFixed(2) : "n/a"}</td>`
       + `<td class="tl-n tbdc-na">${na}</td>`
       + `<td class="tl-n tbdc-lq">${bdcLiquidityCell(b)}</td></tr>`
-      + `<tr class="tbdc-exp" data-for="${i}" hidden><td colspan="7"><div class="tx-exp-in"></div></td></tr>`;
+      + `<tr class="tbdc-exp" data-for="${i}" hidden><td colspan="8"><div class="tx-exp-in"></div></td></tr>`;
   }
   function renderBDCs() {
     const q = _bdcQ.toLowerCase();
@@ -319,7 +320,7 @@ export function mount(host, ctx) {
     const filters = `<div class="tbdc-filters"><div class="tx-secfilter" aria-label="Filter BDCs">${chip("all", "All")}${chip("listed", "Listed")}${chip("nontraded", "Interval / private")}</div></div>`;
     bdcBody.innerHTML = filters
       + (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
-        <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
+        <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-tk-h">Ticker</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
         <tbody>${list.map(bdcRow).join("")}</tbody></table></div>`
         : `<p class="tw-empty muted small">No BDCs match “${esc(_bdcQ)}”.</p>`);
   }
