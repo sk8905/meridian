@@ -674,8 +674,8 @@
    accordion) instead of navigating to a detail page. The caret mirrors the
    per-deal row caret; the sub-list is inset with an accent rule down its left. */
 .tx-tcaret { display: inline-block; margin-right: 6px; color: var(--faint); transition: transform .12s ease; }
-.tx-tbl tr.clickable.is-open .tx-tcaret { transform: rotate(90deg); color: var(--accent); }
-.tx-tbl tr.clickable.is-open > td { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+.tx-tbl tr.clickable.is-open .tx-tcaret { transform: rotate(90deg); color: var(--ink); }
+.tx-tbl tr.clickable.is-open > td { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .tx-typeexp > td { padding: 0; background: var(--head); border-bottom: 1px solid var(--border); }
 .tx-typeexp-in { padding: 4px 8px 10px 22px; }
 /* The sub-list header scrolls with its rows — no second sticky fighting the
@@ -765,7 +765,9 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 /* Expanded deal detail: the sourced narrative at FULL WIDTH (the structured fields
    already live in the row's columns, so there is no snapshot box). */
 .tx-exp-in { padding: 12px 16px 13px; }
-.tx-sum { margin: 0 0 8px; font-size: 12.5px; line-height: 1.6; color: var(--ink-soft, var(--ink)); max-width: none; }
+/* The narrative reads at the same font + size as the borrower/company name in the
+   row above it (.tx-list td.tx-bd — 11.5px, weight 600, --ink). */
+.tx-sum { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; line-height: 1.5; color: var(--ink); max-width: none; }
 .tx-src { flex: 1 1 100%; margin-top: 2px; font-size: 11.5px; color: var(--muted); font-family: var(--t-mono); text-decoration: none; }
 .tx-src:hover { color: var(--ink); }
 
