@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "86078ee7-0c8a-4d2b-8ce7-4fc47d965985", title: "The main Trump-Xi summit achievement will be it happening at all", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/86078ee7-0c8a-4d2b-8ce7-4fc47d965985" },
+  { id: "4420bf7d-320f-431c-8ca9-5e554b356890", title: "AI fears spook Washington as more Republicans call for greater regulation", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/4420bf7d-320f-431c-8ca9-5e554b356890" },
   { id: "2c206da5-63c9-405d-ae14-abe772ea32e0", title: "Santander wins £677mn legal appeal over PPI mis-selling bill", date: "2026-09-15", time: "13:10", url: "https://www.ft.com/content/2c206da5-63c9-405d-ae14-abe772ea32e0" },
   { id: "3f2b2172-0c1a-4708-aba2-559eb37eabc8", title: "China tightens control of overseas travel in sweeping new law", date: "2026-09-15", time: "13:01", url: "https://www.ft.com/content/3f2b2172-0c1a-4708-aba2-559eb37eabc8" },
   { id: "fa93720c-4df4-42dc-bee5-c1026fbd7f77", title: "BPRE’s extremely large, very huge, getting-bigger NAV discount", date: "2026-09-15", time: "12:37", url: "https://www.ft.com/content/fa93720c-4df4-42dc-bee5-c1026fbd7f77" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "1212e333-9149-46bf-89fb-03081e9e63f2", title: "Oxford spin-off builds low-cost jet engines for drones", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/1212e333-9149-46bf-89fb-03081e9e63f2" },
   { id: "a143e08d-e979-410a-8e81-160fd4eba367", title: "Iran’s allies squeeze Saudi Arabia", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/a143e08d-e979-410a-8e81-160fd4eba367" },
   { id: "ebca8754-9546-4668-85dd-a0d793c54d3c", title: "Vladimir Putin moves summit over Ukrainian drone threat", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/ebca8754-9546-4668-85dd-a0d793c54d3c" },
-  { id: "03e903dc-6936-45d6-bc76-997b2ad75ec5", title: "ECB staff demand clarity over Christine Lagarde’s potential early exit", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/03e903dc-6936-45d6-bc76-997b2ad75ec5" },
 ];

@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-treasuryyields525-20260915",
+    publication: "Bloomberg",
+    author: "Simon White",
+    series: null,
+    title: "Treasury Yields Above 5.25% Change Everything",
+    date: "2026-09-15",
+    time: "13:31",
+    summary: "Treasury yields are closing in on an inflection point where, historically, stocks and bonds have reinforced losses in one another.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-15/treasury-yields-above-5-25-change-everything",
+  },
+  {
     id: "nl-legalbusiness-btrollsroycelegalchief-20260915",
     publication: "Legal Business",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "13:44",
     summary: "Renos Dimitriou's Elan Capital Management is exploring an Athens office, joining a cohort of hedge fund peers eyeing the Greek capital as a new base for staff.",
     url: "https://links.message.bloomberg.com/a/sc/AOdCubO_lc_s54-_Ui2BpXfXLThWp7xQouYirihN9J28rb4qE1GDtE_vMMp-qsfpRPVT0r4daJilDwNgYyuAGjRcjesuEECgeSfN5pzQ3V4LNk4IkF2SWOAl6Y5ftaLZ_yvfvH-wM1EIDDbp-1XCjOj34PhvuqjZFQqliCUs2ypsYhrGdy2CzMyzYAPl_6xIo5jJ1aQ_tyD37O6WsQm8ziXIdcQ2RGh9jJ9wfGYqVJZa4LhXkGXXClkNIjGr5de8YO2Frn6zdUIq7GCFp3E7P-hcFafjhDd2BMYhrwaOiLIMwEc7Y8uiXXgqpl3VKTearYMZMGoZaj0MNY57OQo7fLDh1fePMY19e6vtyXoLy6xxiRbb4RPGI_ThciqUOiJGdocosTdjFmkAkqNRkmXakjQxi6_GiwNyzuClhBHkCaFQwMd0vjjXF5-1Pw_DMf_8fMTnTLff6WqYpMdJRu7ujfAVhoKK20qpgWaZl2sMxw1vMmSzNiBzlXB4tbFwCASBA97dxw",
-  },
-  {
-    id: "nl-jpmorgan-topmarkettakeaways-oilat100-20260911",
-    publication: "JP Morgan Private Bank",
-    author: null,
-    series: "Top Market Takeaways",
-    title: "Oil at $100? Not scary.",
-    date: "2026-09-11",
-    time: "13:30",
-    summary: "Higher oil prices are back in focus, but consumers and investors appear better positioned to absorb this energy shock than past ones.",
-    url: "https://go-jpmpb.jpmorgan.com/v/MzkyLUhLQy04NzYAAAGkL2vDyCAVIVx5Cv1z7xFThgPXq9FgFJgpoeROcg7hN9vV2y-H4n7_QhWPUScoWZp-9eWZ_pY=",
   },
 ];
