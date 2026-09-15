@@ -683,7 +683,6 @@
 .tx-typeexp-in .tx-list th { position: static; }
 @media (max-width: 640px) { .tx-typeexp-in { padding-left: 14px; } }
 /* Credits sub-tab: the European credit universe by sector, name + issuer rating. */
-.tcr-meta { padding: 8px 12px 6px; }
 /* Group-by controls (sector | rating), inline at the right of the credit search
    bar. The buttons mirror the news/manager-wire group button: outlined accent,
    filled tint when on. */

@@ -249,8 +249,7 @@ export function mount(host, ctx) {
       ? filtered.slice().sort((a, b) => ratingRank(a.rating) - ratingRank(b.rating) || a.name.localeCompare(b.name))
       : creditsBySector(filtered).flatMap(([, arr]) => arr);
     creditsBody.innerHTML = rows.length
-      ? `<div class="tcr-meta muted small">${filtered.length} of ${EUR_CREDITS.length} credits · issuer ratings ${esc(EUR_CREDITS_META.agency)}</div>`
-        + `<div class="tleague-wrap tcr-wrap"><table class="tcr-tbl">`
+      ? `<div class="tleague-wrap tcr-wrap"><table class="tcr-tbl">`
         + `<colgroup><col class="c-nm"><col class="c-jur"><col class="c-sec"><col class="c-rt"></colgroup>`
         + `<thead><tr><th>Borrower</th><th>Jurisdiction</th><th>Sector</th><th>Rating</th></tr></thead>`
         + `<tbody>${rows.map(crRow).join("")}</tbody></table></div>`

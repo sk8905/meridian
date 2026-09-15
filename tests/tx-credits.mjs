@@ -60,7 +60,7 @@ if (cr.rows > 0) {
     const badTrend = trends.filter((t) => !(t.classList.contains("tx-up") || t.classList.contains("tx-dn") || t.classList.contains("tx-fl"))).length;
     // The roster is a real table with the four expected column headers.
     const heads = [...cb.querySelectorAll(".tcr-tbl thead th")].map((h) => h.textContent.trim());
-    return { total: rows.length, named, sourced: rated.filter((rt) => rt.tagName === "A" && /^https?:/.test(rt.getAttribute("href") || "")).length, badRating, juris, sectors, trends: trends.length, badTrend, heads, meta: (cb.querySelector(".tcr-meta") || {}).textContent || "" };
+    return { total: rows.length, named, sourced: rated.filter((rt) => rt.tagName === "A" && /^https?:/.test(rt.getAttribute("href") || "")).length, badRating, juris, sectors, trends: trends.length, badTrend, heads };
   });
   check(q.named === q.total, `Credits: every listed obligor is named (${q.named}/${q.total})`);
   check(q.badRating === 0, `Credits: no unsourced ratings — each rating links its action or shows NR (${q.badRating} bad)`);
@@ -69,7 +69,6 @@ if (cr.rows > 0) {
   check(q.sectors === q.total, `Credits: every obligor shows its sector column (${q.sectors}/${q.total})`);
   check(q.trends === q.total && q.badTrend === 0, `Credits: every obligor shows a 12-month rating trend (${q.trends}/${q.total}, ${q.badTrend} bad)`);
   check(q.heads.length === 4 && /Borrower/i.test(q.heads[0]) && /Jurisdiction/i.test(q.heads[1]) && /Sector/i.test(q.heads[2]) && /Rating/i.test(q.heads[3]), `Credits: four-column table header (${q.heads.join("/")})`);
-  check(/issuer ratings\s+S&P/.test(q.meta), `Credits: one consistent rating agency named in the meta (${q.meta.trim().slice(0, 60)})`);
 
   // Group-by controls (sector | rating) — a mutually-exclusive pair, styled like the
   // news/manager-wire group button, defaulting to sector.
