@@ -9,7 +9,7 @@
 // .tleague) so the two tabs read as one app. mount(host, ctx) → {enter,leave}.
 // =============================================================================
 import { deals, managers } from "/credit/js/data.js";
-import { BDCS, BDC_UPDATED } from "/credit/js/bdcs.js";
+import { BDCS } from "/credit/js/bdcs.js";
 import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-credits.js";
 import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-2";
 import { esc } from "/util.js?v=20260818-1";
@@ -317,8 +317,7 @@ export function mount(host, ctx) {
       .sort((a, b) => (bdcSize(b) || 0) - (bdcSize(a) || 0) || a.name.localeCompare(b.name));
     const chip = (k, label) => `<button type="button" class="tx-secchip${_bdcFilter === k ? " is-on" : ""}" data-bdcf="${k}">${esc(label)}<span class="tx-secn">${cnt(k)}</span></button>`;
     const filters = `<div class="tx-subhead"><div class="tx-secfilter" aria-label="Filter BDCs">${chip("all", "All")}${chip("listed", "Listed")}${chip("nontraded", "Interval / private")}</div></div>`;
-    const note = `<p class="tx-blurb tbdc-note"><span class="muted">The largest US BDCs by total assets. Figures are from each fund's latest SEC filing / IR release (open a row for sources); the listed <strong>price÷NAV</strong> ratio is live. Certifiable data only — unverified fields read “n/a”. Roster updated ${esc(BDC_UPDATED)}.</span></p>`;
-    bdcBody.innerHTML = `<div class="tx-head">${filters}${note}</div>`
+    bdcBody.innerHTML = `<div class="tx-head">${filters}</div>`
       + (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
         <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
         <tbody>${list.map(bdcRow).join("")}</tbody></table></div>`
