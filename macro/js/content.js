@@ -13,7 +13,7 @@ export const UPDATED = "15 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-15",
-  lastCheckedTime: "17:26 BST",
+  lastCheckedTime: "21:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1184,7 +1184,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "The 10-year Treasury yield rose to its highest level since 2007 early Tuesday — up more than 6bp to 5.025%, with the 30-year at 5.384% and the 2-year at 4.68% — as a deepening global bond selloff driven by surging energy prices and inflation fears left money markets treating Wednesday's Fed decision as an almost certain 25bp hike.", src: "https://www.cnbc.com/2026/09/15/10-year-treasury-yield-rises-to-highest-since-2007.html", srcName: "CNBC", date: "2026-09-15" },
+  "US:two_year": { text: "The 10-year Treasury yield hit an intraday high of 5.041% Tuesday — its highest since 2007 — before paring back into the close, as the one-month rolling correlation between oil and the 10-year yield climbed to 0.96, its tightest in seven years, ahead of Wednesday's Fed decision.", src: "https://www.cnbc.com/2026/09/14/stock-market-today-live-updates.html", srcName: "CNBC", date: "2026-09-15" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:two_year": { text: "The 2-year gilt yield rose to 4.742% Thursday — its highest since November 2023 — as the 10-year struck a fresh 19-year high of 5.295%, even as a unanimous Reuters poll of all 65 economists surveyed expects the MPC to hold Bank Rate at 3.75% on 17 September, a starker consensus than the market curve, which keeps pricing hikes from November.", src: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672", srcName: "Reuters (via Investing.com)", date: "2026-09-10" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
