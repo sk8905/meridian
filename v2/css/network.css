@@ -6,7 +6,7 @@
    depending on whichever --t-* scope happens to be in effect there.
    ============================================================================= */
 .wire-net {
-  --wn-accent:#fb8b1e; --wn-ink:#131b2c; --wn-mut:#5e6a84; --wn-down:#df4763;
+  --wn-accent:#fb8b1e; --wn-accent-ink:#1b1200; --wn-ink:#131b2c; --wn-mut:#5e6a84; --wn-down:#df4763;
   --wn-bd:#e4e7ef; --wn-surface:#ffffff; --wn-surface2:#f3f6fb;
   color:var(--wn-ink);
   /* Match the terminal menu chrome it sits in: mono, 11px, and inset to the same
@@ -27,7 +27,7 @@
 .wn-how { color:var(--wn-mut); font-size:10.5px; line-height:1.5; margin:12px 0 10px; }
 .wn-how code { background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; padding:0 4px; font-size:10.5px; }
 .wn-import { display:flex; flex-direction:column; gap:8px; margin:8px 0; }
-.wn-btn { display:inline-block; align-self:flex-start; background:var(--wn-accent); color:#1b1200; font-weight:600;
+.wn-btn { display:inline-block; align-self:flex-start; background:var(--wn-accent); color:var(--wn-accent-ink); font-weight:600;
   font-family:inherit; font-size:11.5px; border:0; border-radius:0; padding:6px 12px; cursor:pointer; }
 .wn-btn:hover { filter:brightness(1.05); }
 .wn-paste { font-size:11.5px; }
@@ -49,7 +49,7 @@
 .wn-pend-people { color:var(--wn-mut); font-size:10.5px; line-height:1.45; margin:5px 0 8px; }
 .wn-pend-acts { display:flex; gap:8px; }
 .wn-yes, .wn-no { font-family:inherit; font-size:11.5px; font-weight:600; border-radius:0; padding:5px 10px; cursor:pointer; border:1px solid var(--wn-bd); background:var(--wn-surface); color:var(--wn-ink); }
-.wn-yes { background:var(--wn-accent); color:#1b1200; border-color:var(--wn-accent); }
+.wn-yes { background:var(--wn-accent); color:var(--wn-accent-ink); border-color:var(--wn-accent); }
 
 /* ---- "My network" list ---- */
 .wn-list { margin-top:6px; }

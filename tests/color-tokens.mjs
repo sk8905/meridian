@@ -323,4 +323,12 @@ check(!/\.g-jump-link\.active\s*\{[^}]*background:rgba\(255,255,255,\.15\)/.test
 check(/\.ew-day\s*\{[^}]*font-size:\s*10.5px/.test(macroCss),
   "macro/css/styles.css .ew-day sets the standard 10.5px day-break font-size (R6)");
 
+// R8 — the Macro chart hover tooltip (.chart-tip) must read the themed
+// --surface token, not a hardcoded #fff. It had no [data-theme="dark"]
+// override (unlike its .chart-axis/.chart-grid/.chart-endtxt siblings), so in
+// dark mode its --ink text (near-white) painted on a permanently-white box —
+// an unreadable tooltip.
+check(/\.chart-tip\s*\{[^}]*background:\s*var\(--surface\)/.test(macroCss),
+  "macro/css/styles.css .chart-tip background reads var(--surface), not a hardcoded #fff");
+
 finish();
