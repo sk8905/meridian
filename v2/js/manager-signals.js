@@ -37,7 +37,7 @@ const INTEL_CAT = {
 // Short pill label per category.
 export const CAT_LABEL = {
   fundraising: "RAISE", deal: "DEAL", financing: "FIN", "m&a": "M&A", exit: "EXIT",
-  restructuring: "RX", clo: "CLO", team: "TEAM", strategy: "STRAT", mandate: "MANDATE", news: "NEWS",
+  restructuring: "RX", clo: "CLO", team: "TEAM", strategy: "STRAT", mandate: "MAND", news: "NEWS",
 };
 
 const mgrHref = (id) => `/v2/profiles/#/manager/${encodeURIComponent(id)}`;

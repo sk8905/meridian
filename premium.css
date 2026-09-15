@@ -618,6 +618,12 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 @media (min-width: 761px) { #na-mkt { display: none; } }
 .na-btn svg { width: 19px; height: 19px; }
 .na-btn:hover { color: var(--ink, #eaf0fb); }
+/* Never draw the browser focus box around these icon buttons — its `outline:auto`
+   ring read as a stray white square on the dark bar (e.g. after clicking Briefing).
+   Keyboard focus instead just brightens the icon; no box at any time. */
+.na-btn:focus, .na-btn:focus-visible, .na-actions .notif-bell:focus, .na-actions .notif-bell:focus-visible { outline: none; }
+.na-btn:focus-visible { color: var(--ink, #eaf0fb); }
+.na-actions .notif-bell:focus-visible { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
 /* Header notification markers are ONE system: an identical accent-orange dot on
    both the Briefing button (.na-brief-dot) and the Notifications bell (.na-badge)
    — same 7px size, colour and top-right position. The bell dot means "unread
