@@ -251,7 +251,8 @@ await ctx.close();
   await p.pg.waitForTimeout(500);
   const over = await p.pg.evaluate(() => {
     const t = document.querySelector(".tx-tbl");
-    const vis = [...t.querySelectorAll("thead th")].filter((th) => getComputedStyle(th).display !== "none").map((th) => th.textContent.trim());
+    // Count columns that actually take width — the unused ones are collapsed to 0.
+    const vis = [...t.querySelectorAll(":scope > thead > tr > th")].filter((th) => th.getBoundingClientRect().width > 1).map((th) => th.textContent.trim());
     return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width), vis };
   });
   check(over.tblW <= over.vw + 1, `phone: the deal-flow overview fits the screen — no horizontal scroll (table ${over.tblW} ≤ vw ${over.vw})`);

@@ -765,10 +765,16 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
      column rules above). */
   .tx-tbl { table-layout: fixed; width: 100%; }
   .tx-tbl > thead > tr > th, .tx-tbl > tbody > tr > td, .tx-tbl > tfoot > tr > td { padding-left: 7px; padding-right: 7px; }
+  /* Collapse the four unused columns to ZERO width rather than display:none: with
+     table-layout:fixed a display:none column keeps its share of the leftover space
+     (splitting it Type÷5 ≈ 51px each and dumping the rest as dead space). A width:0
+     cell that clips its content is honoured by the fixed algorithm, so the whole
+     remainder goes to the Type column. */
   .tx-tbl > thead > tr > th:nth-child(3), .tx-tbl > tbody > tr > td:nth-child(3), .tx-tbl > tfoot > tr > td:nth-child(3),
   .tx-tbl > thead > tr > th:nth-child(5), .tx-tbl > tbody > tr > td:nth-child(5), .tx-tbl > tfoot > tr > td:nth-child(5),
   .tx-tbl > thead > tr > th:nth-child(6), .tx-tbl > tbody > tr > td:nth-child(6), .tx-tbl > tfoot > tr > td:nth-child(6),
-  .tx-tbl > thead > tr > th.tx-top-h, .tx-tbl > tbody > tr > td.tx-top, .tx-tbl > tfoot > tr > td:nth-child(7) { display: none; }
+  .tx-tbl > thead > tr > th.tx-top-h, .tx-tbl > tbody > tr > td.tx-top, .tx-tbl > tfoot > tr > td:nth-child(7) { width: 0; padding: 0; border: 0; overflow: hidden; white-space: nowrap; }
+  .tx-tbl > thead > tr > th:nth-child(1), .tx-tbl > tbody > tr > td:nth-child(1), .tx-tbl > tfoot > tr > td:nth-child(1) { width: auto; }
   .tx-tbl > thead > tr > th:nth-child(2), .tx-tbl > tbody > tr > td:nth-child(2), .tx-tbl > tfoot > tr > td:nth-child(2) { width: 52px; }
   .tx-tbl > thead > tr > th:nth-child(4), .tx-tbl > tbody > tr > td:nth-child(4), .tx-tbl > tfoot > tr > td:nth-child(4) { width: 84px; }
   .tx-tbl > tbody > tr > td.tx-tnm { white-space: normal; overflow-wrap: anywhere; }
