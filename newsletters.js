@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guardian-thebreakdown-fertilitysupportrugby-20260915",
+    publication: "The Guardian",
+    author: "Sarah Rendell",
+    series: "The Breakdown",
+    title: "Meg Jones leads the call to provide fertility support for rugby players",
+    date: "2026-09-15",
+    time: "10:56",
+    summary: "The Red Roses captain says nobody should have to choose between their career and having a family.",
+    url: "https://www.theguardian.com/sport/rugby-union",
+  },
+  {
     id: "nl-bbg-authoralert-odeylifetimeban-20260915",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "11:48",
     summary: "Bond bears push 10-year Treasury yields to the cusp of 5% ahead of US inflation data, with US diesel topping $6 a gallon for the first time as traders weigh whether higher yields will finally hit stocks.",
     url: "https://links.message.bloomberg.com/a/sc/iIXvaBum6YhDw4QaPEHl1ZOG8QLYxEjERtMtQNR0OX0d9pjxnjcFcjJlVn2xTl1C4JFF1G2z5WMeswFxMUuY1ayK1XJFNiBKeDqmyohtj8wg7K-isd1TdZYG1J8r6k-PhmvW9cQz6RoYMqmnLZdUdTnf358lVWC1BA3XHPgXlSu33cRfSnurE3ops0AKtEcUd5XW7k2FkcfN1cUIwQFi2_LZ7wj6xXDDXmtwQ0F_k2YDzS5xq0-M4w3wopRX6oIL2A43ZSJQ5xs4WmaGPLGy75zQDv8tU5uYNvsPg-n0wjZURFJSBdAA_1dH7Ao38PtnssZW48OQUA7-NMsuPKyOy-yXrOaHP7KoQH0GwIMKkMz1RmEoQpxBASbgBj2Ab0AI_j5Gj0BDj71AeYem48a__JhfbyW1gO13icCfXAq466rPGQebV8jRAhJmn_MMPYPc_AyvboHgd8h_-Zbsyru24OQVVDd50r28bSRwQm8dhCYGdZOgvJHeSm4iPiBOcWgaDXpR2NwHbaw2A0QMAbhs-o56W0vsnrotDUNGaY3VIvzq",
-  },
-  {
-    id: "nl-legalbusiness-exgoodwininsidertrading-20260911",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Former Goodwin lawyer pleads not guilty to charges of insider trading",
-    date: "2026-09-11",
-    time: "11:09",
-    summary: "FCA charges relate to the take-private of now-collapsed maternity-wear brand Seraphine.",
-    url: "https://email.legalbusiness.co.uk/c/1dWGNJLpkQ7OzrMbl7ghEVJIlPvj",
   },
 ];

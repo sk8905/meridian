@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b49762b0-2f8a-457d-bd3a-2820f1fff346", title: "Russian warship fires flares at Danish helicopter over Baltic Sea", date: "2026-09-15", time: "11:03", url: "https://www.ft.com/content/b49762b0-2f8a-457d-bd3a-2820f1fff346" },
+  { id: "01aaea22-f05a-498b-b6df-7075c11271d0", title: "Meloni presses ahead with election law that boosts her far-right rival", date: "2026-09-15", time: "11:00", url: "https://www.ft.com/content/01aaea22-f05a-498b-b6df-7075c11271d0" },
+  { id: "6ec4a7e7-18f7-454f-94e9-1836af14b5e6", title: "Young workers trade the ladder for the lily pad", date: "2026-09-15", time: "11:00", url: "https://www.ft.com/content/6ec4a7e7-18f7-454f-94e9-1836af14b5e6" },
+  { id: "43729997-e516-45a9-893b-de7bd729bc2f", title: "The ex-JPMorgan banker facing Wall Street’s toughest turnaround job", date: "2026-09-15", time: "11:00", url: "https://www.ft.com/content/43729997-e516-45a9-893b-de7bd729bc2f" },
+  { id: "4b9a0db3-733b-4816-8931-de6bf49ffee6", title: "Telenor charged with aiding crimes against humanity in Myanmar", date: "2026-09-15", time: "10:57", url: "https://www.ft.com/content/4b9a0db3-733b-4816-8931-de6bf49ffee6" },
+  { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-15", time: "10:56", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
+  { id: "f651d61d-c4be-430c-bdc1-7bdbc0da5f0d", title: "Softer UK labour market will keep BoE on hold for now", date: "2026-09-15", time: "10:16", url: "https://www.ft.com/content/f651d61d-c4be-430c-bdc1-7bdbc0da5f0d" },
   { id: "2374a71b-1a31-444f-8221-6c73c7c1c251", title: "UK state pension will surpass income tax threshold next year", date: "2026-09-15", time: "09:37", url: "https://www.ft.com/content/2374a71b-1a31-444f-8221-6c73c7c1c251" },
   { id: "2ec90cb4-5c67-4655-8ee3-43785d00d22a", title: "Wales, Scotland and unclear exits from the UK", date: "2026-09-15", time: "09:30", url: "https://www.ft.com/content/2ec90cb4-5c67-4655-8ee3-43785d00d22a" },
   { id: "6d169ac7-0d3a-4f21-91ee-b8119fc63e65", title: "China’s AI listings glut drags Hong Kong stocks lower", date: "2026-09-15", time: "08:10", url: "https://www.ft.com/content/6d169ac7-0d3a-4f21-91ee-b8119fc63e65" },
@@ -51,13 +58,5 @@ export const FT_ITEMS = [
   { id: "7265f15f-c1e4-49c5-b6e0-8c3a29e70892", title: "UK and Japan seek to fully benefit from ‘Made in Europe’ car sector rules", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/7265f15f-c1e4-49c5-b6e0-8c3a29e70892" },
   { id: "e565ce70-17ac-42ad-bc08-b9a69d75d5b1", title: "Foreign investors prefer US stocks to Treasuries as debt worries grow", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/e565ce70-17ac-42ad-bc08-b9a69d75d5b1" },
   { id: "dab77b4d-9ee9-4bbe-8965-bc744f9529ea", title: "FTSE 100 bosses paid record average of £5mn", date: "2026-09-15", time: "05:00", url: "https://www.ft.com/content/dab77b4d-9ee9-4bbe-8965-bc744f9529ea" },
-  { id: "a8789270-aeee-4bfd-89a3-207c0a46730d", title: "Tories look at ways to cut UK inheritance tax", date: "2026-09-14", time: "19:35", url: "https://www.ft.com/content/a8789270-aeee-4bfd-89a3-207c0a46730d" },
-  { id: "757da464-7102-4e69-9598-ba65b5a4c3e9", title: "Nigel Farage refuses to say if Reform UK’s £72mn gifts would comply with new cap", date: "2026-09-14", time: "19:06", url: "https://www.ft.com/content/757da464-7102-4e69-9598-ba65b5a4c3e9" },
-  { id: "8a003048-468c-4bec-83a7-154d7cdbb24e", title: "Unions demand softening of UK immigration reforms", date: "2026-09-14", time: "18:49", url: "https://www.ft.com/content/8a003048-468c-4bec-83a7-154d7cdbb24e" },
-  { id: "38ea0870-0100-4f4e-bd71-89074761095c", title: "Why delaying an AI doomsday would benefit investors too", date: "2026-09-14", time: "18:24", url: "https://www.ft.com/content/38ea0870-0100-4f4e-bd71-89074761095c" },
-  { id: "d6f98d2e-9f0c-4414-a339-fe8462810276", title: "Donald Trump claims Russia and Ukraine have agreed energy truce", date: "2026-09-14", time: "18:18", url: "https://www.ft.com/content/d6f98d2e-9f0c-4414-a339-fe8462810276" },
-  { id: "b132d848-7d0b-4938-81ee-3683ef2004db", title: "Time for a pause on cutting-edge AI", date: "2026-09-14", time: "18:16", url: "https://www.ft.com/content/b132d848-7d0b-4938-81ee-3683ef2004db" },
   { id: "905fb04b-f738-41b2-a571-604031a622da", title: "Germany tells Andrea Orcel to keep Commerzbank’s Frankfurt HQ after takeover", date: "2026-09-14", time: "18:13", url: "https://www.ft.com/content/905fb04b-f738-41b2-a571-604031a622da" },
-  { id: "4845a503-3ddd-4bb7-a469-c51f275bc873", title: "Oil hits $109 after Saudi Arabia closes vital export pipeline", date: "2026-09-14", time: "17:31", url: "https://www.ft.com/content/4845a503-3ddd-4bb7-a469-c51f275bc873" },
-  { id: "7beb54c6-ed34-40d8-baa8-f1c0a2e8f0c3", title: "We won’t solve young people’s worklessness without listening to them", date: "2026-09-14", time: "17:29", url: "https://www.ft.com/content/7beb54c6-ed34-40d8-baa8-f1c0a2e8f0c3" },
 ];
