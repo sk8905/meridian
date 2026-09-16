@@ -12,8 +12,8 @@ export const UPDATED = "15 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-15",
-  lastCheckedTime: "21:23 BST",
+  lastChecked: "2026-09-16",
+  lastCheckedTime: "05:11 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -956,20 +956,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-15",
+  updated: "2026-09-16",
   us: [
-    { title: "Stocks fall as 10-year Treasury yield hits highest since 2007 ahead of Fed decision day", source: "CNBC", date: "2026-09-15", time: "21:00", url: "https://www.cnbc.com/2026/09/14/stock-market-today-live-updates.html" },
-    { title: "Soaring Oil Prices Put Fed on Track for September Rate Hike", source: "Yahoo Finance / Bloomberg", date: "2026-09-15", time: "13:00", url: "https://finance.yahoo.com/economy/policy/articles/soaring-oil-prices-put-fed-080000535.html" },
-    { title: "Oil and Treasury yields haven't moved this closely in seven years. That's bad news for markets", source: "CNBC", date: "2026-09-15", time: "17:00", url: "https://www.cnbc.com/2026/09/15/oil-us-treasurys-stocks-pressure.html" },
-    { title: "10-year Treasury yield hits highest level since 2007 as traders bet a Fed rate hike is coming", source: "CNBC", date: "2026-09-15", time: "06:10", url: "https://www.cnbc.com/2026/09/15/10-year-treasury-yield-rises-to-highest-since-2007.html" },
+    { title: "September Fed Meeting: Live Updates and Commentary", source: "Kiplinger", date: "2026-09-16", url: "https://www.kiplinger.com/investing/live/fed-meeting-updates-and-commentary-september-2026" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq fall as 10-year Treasury yield touches 2007 high ahead of Fed decision day", source: "Yahoo Finance", date: "2026-09-15", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-15-dow-sp-500-nasdaq-081307838.html" },
+    { title: "Stock Market Today (Sept. 15, 2026): Dow futures slide as oil prices surge and Treasury yields hit 2007 highs", source: "TheStreet", date: "2026-09-15", url: "https://www.thestreet.com/stock-market-today/stock-market-today-sept-15-2026-dow-futures-slide-as-oil-prices-surge-and-treasury-yields-hit-2007-highs" },
+    { title: "Experts agree: Fed will follow monetary tightening path even beyond September meeting", source: "FXStreet", date: "2026-09-15", url: "https://www.fxstreet.com/news/experts-agree-fed-will-follow-monetary-tightening-path-even-beyond-september-meeting-202609151129" },
     { title: "Counting the votes: Warsh faces a tough battle as the Fed girds for expected interest rate hike", source: "CNBC", date: "2026-09-14", time: "18:00", url: "https://www.cnbc.com/2026/09/14/counting-the-votes-warsh-faces-tough-battle-as-fed-girds-for-expected-rate-hike.html" },
   ],
   uk: [
     { title: "British Pound pushes against five-week lows following mixed UK employment data", source: "FXStreet", date: "2026-09-15", time: "06:28", url: "https://www.fxstreet.com/news/british-pound-pushes-against-five-week-lows-following-mixed-uk-employment-data-202609150628" },
-    { title: "Sterling slips to five-week low as Fed and Bank of England decisions loom, oil jumps", source: "VT Markets", date: "2026-09-15", time: "09:00", url: "https://www.vtmarkets.com/en-eu/live-updates/sterling-slips-to-five-week-low-as-fed-and-bank-of-england-decisions-loom-oil-jumps/" },
-    { title: "FX Daily Briefing: Pound Sterling Slips As Dollar Strengthens Before Fed Decision", source: "exchangerates.org.uk", date: "2026-09-15", time: "08:00", url: "https://www.exchangerates.org.uk/news/47188/2026-09-15-fx-daily-briefing-pound-sterling-slips-as-dollar-strengthens-before-fed-decision.html" },
-    { title: "EUR Edges Up on Weak UK Jobs & Expected BoE QT Slowdown", source: "Tradingpedia", date: "2026-09-15", time: "11:00", url: "https://www.tradingpedia.com/2026/09/15/eur-edges-up-on-weak-uk-jobs-expected-boe-qt-slowdown/" },
     { title: "BoE decision preview: Goldman sees hold, but watches for hawkish hints", source: "investingLive", date: "2026-09-15", time: "05:19", url: "https://investinglive.com/central-banks/boe-decision-preview-goldman-sees-hold-but-watches-for-hawkish-hints/" },
+    { title: "GBP/USD: Five-Week Low as Fed Hike Odds Hit 90% Ahead of BoE", source: "Vantage Markets", date: "2026-09-15", url: "https://www.vantagemarkets.com/market-analysis/gbpusd-forecast-fed-hike-boe-september-15-2026/" },
+    { title: "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", source: "Reuters (via Investing.com)", date: "2026-09-10", url: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672" },
+    { title: "Economists predict Bank of England will hold interest rates steady", source: "Cyprus Mail", date: "2026-09-10", url: "https://cyprus-mail.com/2026/09/10/economists-predict-bank-of-england-will-hold-interest-rates-steady" },
   ],
 };
 
@@ -981,8 +981,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-15",
+  updated: "2026-09-16",
   items: [
+    {"title": "September Fed Meeting: Live Updates and Commentary", "source": "Kiplinger", "date": "2026-09-16", "url": "https://www.kiplinger.com/investing/live/fed-meeting-updates-and-commentary-september-2026", "blurb": "Live decision-day coverage of the Fed's 2pm ET rate call and Chair Warsh's 2:30pm press conference, with an 85% Reuters-poll majority (86 of 101 economists) expecting a quarter-point hike to 3.75-4.00% — the first increase since July 2023 — alongside the new Summary of Economic Projections.", "author": null},
+    {"title": "Fed meeting live updates: Anticipation builds with Fed expected to hike interest rates for first time in 3 years", "source": "Yahoo Finance", "date": "2026-09-16", "url": "https://finance.yahoo.com/economy/policy/live/federal-reserve-meeting-live-updates-chairman-kevin-warsh-143452661.html", "blurb": "Markets price a hike to 3.75-4.00% as close to locked in, with focus decision day on the vote split, the updated dot plot and how Chair Warsh frames the inflation risk from oil, tariffs and AI-linked capex at his post-meeting press conference.", "author": null},
+    {"title": "Experts agree: Fed will follow monetary tightening path even beyond September meeting", "source": "FXStreet", "date": "2026-09-15", "url": "https://www.fxstreet.com/news/experts-agree-fed-will-follow-monetary-tightening-path-even-beyond-september-meeting-202609151129", "blurb": "Economists surveyed see Wednesday's hike as the start rather than the end of a renewed tightening cycle, with a further move still live for the 28 October or 16 December meetings if energy-driven inflation keeps running hot.", "author": null},
     {"title": "Stock market news for Sept. 15, 2026", "source": "CNBC", "date": "2026-09-15", "time": "21:00", "url": "https://www.cnbc.com/2026/09/14/stock-market-today-live-updates.html", "blurb": "The Dow fell 328.09 points (-0.63%) to 52,093.11, the S&P 500 dropped 0.45% to 7,585.73 and the Nasdaq lost 0.78% to 25,981.57 on the last full session before Wednesday's decision, as the 10-year Treasury yield hit an intraday high of 5.041% — its highest since 2007 — before paring back into the close.", "author": null},
     {"title": "Oil and Treasury yields haven't moved this closely in seven years. That's bad news for markets", "source": "CNBC", "date": "2026-09-15", "time": "17:00", "url": "https://www.cnbc.com/2026/09/15/oil-us-treasurys-stocks-pressure.html", "blurb": "The one-month rolling correlation between front-month WTI crude and the 10-year Treasury yield has climbed to 0.96 — its tightest in seven years — meaning the oil-driven inflation shock and the bond selloff are now moving as a single risk factor into Wednesday's Fed decision.", "author": null},
     {"title": "U.S. Inflation Flips Rate Outlook as 85% of Economists See Fed Hike", "source": "Seoul Economic Daily", "date": "2026-09-15", "time": "17:00", "url": "https://en.sedaily.com/international/2026/09/15/us-inflation-flips-rate-outlook-as-85-percent-of-economists", "blurb": "A Reuters poll found 85% of economists now expect Wednesday's Fed hike, up from under a third a week earlier, after hotter-than-expected August CPI and PPI prints alongside oil's climb above $100/bbl reversed the disinflation narrative that had prevailed through the summer.", "author": null},
@@ -1021,8 +1024,6 @@ export const ARTICLES = {
     {"title": "Trump says U.S. may keep Iranian oil 'like Venezuela' as Gulf-Iran Hormuz talks stall", "source": "CNBC", "date": "2026-09-14", "url": "https://www.cnbc.com/2026/09/14/us-iran-trump-hormuz-gulf-oil-crude-talks-.html", "blurb": "President Trump said Washington could keep pressuring Tehran and 'stay and keep the oil like Venezuela' as Oman's planned Gulf-Iran meeting on reopening the Strait of Hormuz remained stalled.", "author": null},
     {"title": "The 10-year Treasury is closing in on 5%. How it gets there matters more", "source": "CNBC", "date": "2026-09-14", "url": "https://www.cnbc.com/2026/09/14/10-year-us-treasury-is-closing-in-on-5percent.html", "blurb": "The benchmark yield hovered around 4.96%, closing in on the 5% level last touched in October 2023, with strategists saying whether the move reflects growth optimism or fiscal/inflation stress matters more than the round number itself, two days before the Fed's decision.", "author": null},
     {"title": "Asia-Pacific Markets Slide as Investors Assess Energy Risks and AI Industry Outlook Ahead of Fed Meeting", "source": "Kaohoon International", "date": "2026-09-14", "url": "https://www.kaohooninternational.com/markets/590596", "blurb": "Japan's Nikkei fell 1.06% to 63,330.91 and South Korea's Kospi slumped 2.57% to 6,732.00 as chip and AI-linked names (SK Hynix, Kioxia, Samsung, Advantest) sold off on the weekend AI-slowdown call, while Brent jumped 2.3% to $107.04/bbl after Saudi Arabia's East-West pipeline shutdown and a postponed Oman meeting on the Strait of Hormuz.", "author": null},
-    {"title": "US Stock Futures Fall on AI Warning, Oil Gains: Markets Wrap", "source": "Bloomberg", "date": "2026-09-13", "url": "https://www.bloomberg.com/news/articles/2026-09-13/us-stock-futures-fall-on-ai-warning-oil-gains-markets-wrap", "blurb": "Nasdaq 100 futures fell 1.2% and S&P 500 futures lost 0.6% in Sunday evening trading after Anthropic's Dario Amodei and OpenAI's Sam Altman both called for a slowdown in frontier AI development, while oil extended its advance on the still-unresolved Strait of Hormuz standoff.", "author": null},
-    {"title": "Goldman Sachs now expects Fed to hike rates in September", "source": "Reuters (via Investing.com)", "date": "2026-09-13", "url": "https://www.investing.com/news/economy-news/goldman-sachs-now-expects-fed-to-hike-rates-in-september-4898799", "blurb": "Goldman Sachs abandoned its call for the Fed to hold in September and now expects a 25bp hike at Wednesday's meeting, saying the shift was driven less by its economic outlook than by market pricing — a move J.P. Morgan matched, forecasting hikes in both September and December.", "author": null},
   ],
 };
 
