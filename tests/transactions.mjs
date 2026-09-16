@@ -315,6 +315,19 @@ await ctx.close();
   check(drill.tblW <= drill.vw + 1, `phone: an expanded type's deal list fits the screen (table ${drill.tblW} ≤ vw ${drill.vw})`);
   check(drill.cells.length === 3 && drill.cells.includes("tx-bd") && drill.cells.includes("tx-dt") && drill.cells.includes("tx-sz"),
     `phone: the deal list shows Borrower · Date · Amount at once (${drill.cells.join(", ")})`);
+  // The Group-by-lender button stays pinned to the TOP-right of the filter block —
+  // even when the sub-category chips wrap onto several rows below it (it floats,
+  // so its top hugs the subhead top and its right hugs the subhead right edge).
+  const gb = await p.pg.evaluate(() => {
+    const sh = document.querySelector(".tx-typeexp:not([hidden]) .tx-subhead");
+    const btn = sh && sh.querySelector(".tx-grpbtn");
+    const chips = sh ? [...sh.querySelectorAll(".tx-secchip")] : [];
+    if (!sh || !btn) return null;
+    const s = sh.getBoundingClientRect(), r = btn.getBoundingClientRect();
+    const maxChipBottom = chips.reduce((m, c) => Math.max(m, c.getBoundingClientRect().bottom), 0);
+    return { topAligned: Math.abs(r.top - s.top) <= 2, rightAligned: (s.right - r.right) <= 3, chips: chips.length, chipsWrap: maxChipBottom > r.bottom + 1 };
+  });
+  check(gb && gb.topAligned && gb.rightAligned, `phone: the Group-by button is pinned top-right of the filter block (top ${gb && gb.topAligned}, right ${gb && gb.rightAligned})`);
   checkErrs(p.errs, "transactions phone column fit");
   await p.ctx.close();
 }

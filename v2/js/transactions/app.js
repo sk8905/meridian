@@ -189,10 +189,12 @@ export function mount(host, ctx) {
     const chips = present.length > 1
       ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", s.list.length, sec === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], sec === x.key)).join("")}</div>`
       : "";
-    // Group-by-lender toggle, right-aligned on the same row as the sub-category
-    // chips (matching the Credits "Group by" button). Off = newest-first flat list.
+    // Group-by-lender toggle, pinned to the TOP-right of the sub-category filter
+    // block (it floats right, so the chips wrap around it and reclaim the width on
+    // the rows below). Must precede the chips in the DOM for the float to take.
+    // Off = newest-first flat list.
     const grpBtn = `<button type="button" class="tx-grpbtn${grp ? " is-on" : ""}" data-txgroup="lender" aria-pressed="${grp ? "true" : "false"}" title="Group the deals by lender / investor">${grpSvg}<span>Group by lender</span></button>`;
-    const subhead = `<div class="tx-subhead">${chips}${grpBtn}</div>`;
+    const subhead = `<div class="tx-subhead">${grpBtn}${chips}</div>`;
     if (!list.length) return subhead + `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${sec !== "all" ? " · " + esc(SECTOR_LABEL[sec]) : ""} transactions on record yet.</p>`;
     let rowsHtml;
     if (grp === "lender") {

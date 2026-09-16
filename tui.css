@@ -784,9 +784,12 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 }
 /* sub-category (asset-class) filter chips + the group-by-lender toggle on the
    same row (chips left, button pushed to the far right). */
-.tx-subhead { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 11px; }
-.tx-subhead .tx-secfilter { margin-top: 0; flex: 1 1 auto; }
-.tx-grpbtn { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 3px 10px; background: transparent; border: 1px solid var(--border); border-radius: 0; color: var(--accent); font: inherit; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; cursor: pointer; white-space: nowrap; }
+/* Float-root so the Group-by button can pin to the top-right while the sub-category
+   chips wrap AROUND it and reclaim the full width on the rows below (iPhone: the
+   button stays top-right however many rows the chips take). */
+.tx-subhead { display: flow-root; margin-top: 11px; }
+.tx-subhead .tx-secfilter { margin-top: 0; }
+.tx-grpbtn { display: inline-flex; align-items: center; gap: 6px; float: right; margin: 0 0 8px 8px; padding: 3px 10px; background: transparent; border: 1px solid var(--border); border-radius: 0; color: var(--accent); font: inherit; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; cursor: pointer; white-space: nowrap; }
 .tx-grpbtn:hover { border-color: var(--accent); }
 .tx-grpbtn.is-on { background: color-mix(in srgb, var(--accent) 18%, transparent); }
 .tx-grpbtn svg { flex: 0 0 auto; }
@@ -794,8 +797,10 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-list tr.tx-grp > td { background: var(--head); border-bottom: 1px solid var(--border); padding-top: 9px; padding-bottom: 5px; }
 .tx-grp-nm { color: var(--ink); font-weight: 700; font-size: 11px; letter-spacing: .01em; }
 .tx-grp-n { color: var(--faint); font-weight: 600; font-size: 10px; margin-left: 7px; font-variant-numeric: tabular-nums; }
-.tx-secfilter { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
-.tx-secchip { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--muted); font: inherit; font-size: 11.5px; padding: 3px 9px; border-radius: 0; cursor: pointer; white-space: nowrap; }
+/* Block (not flex) so the inline-flex chips flow as line boxes and wrap around the
+   floated Group-by button; per-chip margins stand in for the old flex `gap`. */
+.tx-secfilter { display: block; margin-top: 11px; }
+.tx-secchip { display: inline-flex; align-items: center; gap: 6px; margin: 0 6px 6px 0; background: transparent; border: 1px solid var(--border); color: var(--muted); font: inherit; font-size: 11.5px; padding: 3px 9px; border-radius: 0; cursor: pointer; white-space: nowrap; vertical-align: top; }
 .tx-secchip:hover { color: var(--ink); border-color: var(--muted); }
 .tx-secchip.is-on { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
 .tx-secn { color: var(--faint); font-variant-numeric: tabular-nums; font-size: 10.5px; }
