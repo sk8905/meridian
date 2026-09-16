@@ -46,7 +46,6 @@ export const FT_ITEMS = [
   { id: "97496b98-c749-4fde-88be-4ac95030a8c8", title: "Road fuels push UK inflation higher in August", date: "2026-09-16", time: "08:19", url: "https://www.ft.com/content/97496b98-c749-4fde-88be-4ac95030a8c8" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-16", time: "07:29", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "f082ea1d-112a-4278-aa4a-8783a9077755", title: "Freewheeling Hong Kong takes cue from China with first five-year plan", date: "2026-09-16", time: "07:13", url: "https://www.ft.com/content/f082ea1d-112a-4278-aa4a-8783a9077755" },
-  { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "07:01", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
   { id: "033b21e7-b5d5-4511-ae01-53edaa4e051e", title: "AI debt vs Treasuries", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/033b21e7-b5d5-4511-ae01-53edaa4e051e" },
   { id: "85f684e6-15df-4015-a626-73a5e2f2b438", title: "FTAV’s further reading", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/85f684e6-15df-4015-a626-73a5e2f2b438" },
   { id: "1f78b692-4389-49a1-bd48-903252cc282f", title: "Von der Leyen to paint EU as the only port in a global geopolitical storm", date: "2026-09-16", time: "06:00", url: "https://www.ft.com/content/1f78b692-4389-49a1-bd48-903252cc282f" },
