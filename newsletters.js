@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-weilmasctalks-20260916",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Weil London M&A stars in talks to join Sullivan & Cromwell as exits mount",
+    date: "2026-09-16",
+    time: "14:52",
+    summary: "London co-head in discussions to leave Weil alongside fellow M&A partner.",
+    url: "https://email.legalbusiness.co.uk/c/1dXXLqSECKsIFNk4hVKLclH9LM19",
+  },
+  {
     id: "nl-bbg-authoralert-balyasnyzugjobs-20260916",
     publication: "Bloomberg",
     author: "Nishant Kumar",
