@@ -138,7 +138,7 @@ function mountView(key) {
 const TOUCH = (typeof navigator !== "undefined" && (navigator.maxTouchPoints || 0) > 0)
   || (typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches);
 let _pending = null;                               // latest tap requested mid-swap
-async function navigate(path, { push = true, replace = false } = {}) {
+async function navigate(path, { push = true, replace = false, home = false } = {}) {
   const url = new URL(path, location.origin);
   const { key, sub } = parse(url.pathname);
   const same = key === _active;
@@ -154,8 +154,16 @@ async function navigate(path, { push = true, replace = false } = {}) {
     else if (push) history.pushState({ v2: true }, "", url.pathname + url.search + url.hash);
   }
 
-  // Same tab, different sub-route → let the view handle it in place (no swap).
-  if (same) { const r = _views.get(key); r && r.mounted && r.ctrl.enter && r.ctrl.enter(sub); setChromeActive(key); return; }
+  // Same tab: a nav-bar tap (home) resets the section to its first part; any other
+  // same-tab move is a sub-route the view handles in place (no swap).
+  if (same) {
+    const r = _views.get(key);
+    if (r && r.mounted && r.ctrl) {
+      if (home && r.ctrl.home) r.ctrl.home();
+      else if (r.ctrl.enter) r.ctrl.enter(sub);
+    }
+    setChromeActive(key); return;
+  }
   _busy = true;
 
   // INSTANT, CONSTANT-TIME swap. Deliberately NOT a view transition: capturing a
@@ -190,6 +198,10 @@ async function navigate(path, { push = true, replace = false } = {}) {
   if (!rec.mounted) {
     try { await mountView(key); }
     catch { if (_active === key) rec.section.innerHTML = '<div class="v2-loading">Could not load this view.</div>'; }
+  } else if (home && rec.ctrl && rec.ctrl.home) {
+    // A nav-bar tap onto a kept-alive view resets it to its first part (so, e.g.,
+    // tapping Home from the X wire lands on the news wire, not the preserved tab).
+    rec.ctrl.home();
   } else if (url.hash && url.hash !== "#/" && rec.ctrl && rec.ctrl.enter) {
     // Cross-tab deep link into an ALREADY-mounted view (e.g. a Profiles row →
     // a manager/firm profile in Credit/Legal): re-run the view's router so it
@@ -218,7 +230,7 @@ function onPop() {
 // ---- Boot ------------------------------------------------------------------
 async function boot() {
   const { initChrome } = await import(vurl("./chrome.js"));
-  _setActive = initChrome({ onTab: (key) => navigate(tabPath(key), { push: true }) });
+  _setActive = initChrome({ onTab: (key) => navigate(tabPath(key), { push: true, home: true }) });
   window.addEventListener("popstate", onPop);
   await navigate(location.pathname + location.search + location.hash, { push: false, replace: true });
 }

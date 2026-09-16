@@ -11,6 +11,17 @@ export function mount(host, ctx) {
     // Render on mount (revisits keep this DOM alive). initGlance self-guards
     // (runs once) and is wrapped so a render error keeps the briefing shell.
     try { glance.initGlance(ctx); } catch { /* keep shell */ }
-    return { enter() {}, leave() {} };
+    // home(): a nav-bar tap on Home resets it to its first part — the News wire
+    // (not a preserved Watchlist / X chip) — and scrolls back to the top.
+    const home = () => {
+      try {
+        const news = host.querySelector('.g-wiretab[data-wire="news"]');
+        if (news) news.click();   // setWire("news") via the delegated handler
+        const feed = host.querySelector("#g-feed");
+        if (feed) feed.scrollTop = 0;
+        window.scrollTo(0, 0);
+      } catch { /* best-effort reset */ }
+    };
+    return { enter() {}, leave() {}, home };
   });
 }

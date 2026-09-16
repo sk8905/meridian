@@ -507,5 +507,17 @@ export function mount(host, ctx) {
   });
 
   render();
-  return { enter() { render(); }, leave() {} };
+  return {
+    enter() { render(); },
+    leave() {},
+    // home(): a nav-bar tap resets Transactions to its first part — Deal flow, no
+    // search, default filters, scrolled to top.
+    home() {
+      st.q = ""; st.focus = false; st.period = "all"; _crGroup = null;
+      try { host.querySelectorAll("input").forEach((i) => { i.value = ""; }); } catch { /* */ }
+      setMode("flow");
+      render();
+      window.scrollTo(0, 0);
+    },
+  };
 }

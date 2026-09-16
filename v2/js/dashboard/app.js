@@ -1042,5 +1042,7 @@ export function mount(host, ctx) {
       render();
     },
     leave() {},
+    // home(): a nav-bar tap resets the Dashboard to its first sub-tab (Macro).
+    home() { pane = "macro"; render(); window.scrollTo(0, 0); },
   };
 }

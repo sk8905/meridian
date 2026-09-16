@@ -307,5 +307,11 @@ export async function mount(host, ctx) {
   // On re-entry, re-run the router (honours a deep link, else shows the list).
   // On leave, collapse any open detail back to the list so returning to Profiles
   // never flashes a stale profile before the router re-decides.
-  return { enter: () => router(), leave() { showList(); } };
+  return {
+    enter: () => router(),
+    leave() { showList(); },
+    // home(): a nav-bar tap resets Profiles to its first part — the Managers list
+    // (closing any open profile, first category tab, scrolled to top).
+    home() { showList("managers"); },
+  };
 }
