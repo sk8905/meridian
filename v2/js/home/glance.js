@@ -351,9 +351,10 @@ function renderXWire(host) {
   const list = X_LIST || {};
   const url = list.url || (list.id ? `https://x.com/i/lists/${list.id}` : "");
   const handles = (X_ACCOUNTS || []).map((a) => a.handle).filter(Boolean);
+  // The "Open list on X" link is kept only for the empty/error state (an escape
+  // hatch when the feed can't load); in normal use the posts start at the top.
   const openLink = url ? `<a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X ↗</a>` : "";
   host.innerHTML = `<div class="g-x-list">`
-    + `<div class="g-x-open">${openLink}</div>`
     + `<div id="g-x-feed" class="g-x-feed"><div class="g-loading">Loading X…</div></div></div>`;
   const feed = host.querySelector("#g-x-feed");
   if (!handles.length && !list.id) { feed.innerHTML = `<div class="g-x-empty">No accounts configured.</div>`; return; }
