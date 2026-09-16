@@ -337,24 +337,26 @@ function initXWire() {
 }
 function renderXWire(host) {
   const list = X_LIST || {};
-  const url = list.url || (list.id ? `https://x.com/i/lists/${list.id}` : "");
-  if (!list.id && !url) { host.innerHTML = `<div class="g-x-empty">No X list configured.</div>`; return; }
-  // The fallback link stands in until (and unless) X renders the live timeline in
-  // its place; the container is the widget's mount point.
-  host.innerHTML = `<div class="g-x-list"><div class="g-x-embed" id="g-x-timeline">`
-    + `<a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open the X list ↗</a></div></div>`;
+  const id = list.id;
+  const url = list.url || (id ? `https://x.com/i/lists/${id}` : "");
+  if (!id && !url) { host.innerHTML = `<div class="g-x-empty">No X list configured.</div>`; return; }
+  const dark = document.documentElement.dataset.theme === "dark"
+    || (document.documentElement.dataset.theme !== "light" && matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+  // X's CANONICAL list embed: the .twitter-timeline anchor its own publish tool
+  // emits, hydrated by widgets.load() — more reliable than the createTimeline({id})
+  // factory. A persistent "Open list on X" link sits above it as an escape hatch
+  // (kept whether or not the timeline paints — e.g. offline, or X blocks the embed).
+  host.innerHTML = `<div class="g-x-list">`
+    + `<div class="g-x-open"><a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X ↗</a></div>`
+    + `<div class="g-x-embed" id="g-x-timeline">`
+    + `<a class="twitter-timeline" data-dnt="true" data-theme="${dark ? "dark" : "light"}" data-chrome="noheader nofooter transparent" data-tweet-limit="20" href="${esc("https://twitter.com/i/lists/" + id)}">Wire list on X</a>`
+    + `</div></div>`;
   const slot = host.querySelector("#g-x-timeline");
   xLoadWidgets().then((twttr) => {
-    if (!twttr || !twttr.widgets || !twttr.widgets.createTimeline || !list.id) return;
-    const dark = document.documentElement.dataset.theme === "dark"
-      || (document.documentElement.dataset.theme !== "light" && matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
-    twttr.widgets.createTimeline(
-      { sourceType: "list", id: String(list.id) },
-      slot,
-      { theme: dark ? "dark" : "light", dnt: true, chrome: "noheader nofooter transparent", tweetLimit: 20 },
-    ).then((el) => { if (el) { const fb = slot.querySelector(".g-x-fallback"); if (fb) fb.remove(); } })
-      .catch(() => { /* keep the fallback link */ });
-  }).catch(() => { /* X unreachable — the fallback link remains */ });
+    if (!twttr || !twttr.widgets || !twttr.widgets.load || !id) return;
+    // Hydrate just this region's .twitter-timeline anchor into a live timeline.
+    try { twttr.widgets.load(slot); } catch { /* leave the anchor + open link */ }
+  }).catch(() => { /* X unreachable — the anchor + open link remain */ });
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every

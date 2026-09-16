@@ -23,11 +23,13 @@ const b = await launchChromium();
     const lft = (s) => { const el = document.querySelector(s); return el ? el.getBoundingClientRect().left : null; };
     const between = lft(".g-side3") < lft(".g-side-x") && lft(".g-side-x") < lft(".g-side2");
     const slot = document.querySelector("#g-xwire #g-x-timeline");
-    const fb = slot && slot.querySelector(".g-x-fallback");
+    const anchor = slot && slot.querySelector("a.twitter-timeline");
+    const fb = document.querySelector("#g-xwire .g-x-open .g-x-fallback");
     return {
       header: head ? head.textContent.trim() : null,
       inRail, between,
       hasSlot: !!slot,
+      anchorHref: anchor ? anchor.getAttribute("href") : null,
       fbHref: fb ? fb.getAttribute("href") : null,
       // The official widget script is wired in (loaded lazily on boot).
       widgetScript: !!document.querySelector('script[src*="platform.twitter.com/widgets.js"]'),
@@ -38,9 +40,10 @@ const b = await launchChromium();
   check(r.inRail, "X wire: panel sits in its own rail (g-side-x)");
   check(r.between, "X wire: the rail sits between the manager wire and the macro rail");
   check(r.hasSlot, "X wire: the List-timeline mount point renders");
-  check(r.fbHref === X_LIST.url, `X wire: the fallback links the real X List URL (${r.fbHref})`);
+  check(!!r.anchorHref && r.anchorHref.includes(`/i/lists/${X_LIST.id}`), `X wire: the canonical .twitter-timeline anchor targets the List (${r.anchorHref})`);
+  check(r.fbHref === X_LIST.url, `X wire: the "Open list on X" link points at the real List URL (${r.fbHref})`);
   check(/^https:\/\/x\.com\/i\/lists\/\d+$/.test(r.fbHref || ""), "X wire: the List URL is a real x.com list permalink");
-  check(r.widgetScript, "X wire: X's official widgets.js is loaded to render the live timeline");
+  check(r.widgetScript, "X wire: X's official widgets.js is loaded to hydrate the timeline");
   checkErrs(errs, "home X wire (desktop)");
   await ctx.close();
 }
@@ -55,8 +58,8 @@ const b = await launchChromium();
   await pg.evaluate(() => document.querySelector(".g-wiretab[data-wire='x']").click());
   await pg.waitForSelector("#g-xwire #g-x-timeline", { timeout: 8000 });
   const ok = await pg.evaluate(() => {
-    const fb = document.querySelector("#g-xwire #g-x-timeline .g-x-fallback");
-    return !!fb && /^https:\/\/x\.com\/i\/lists\/\d+$/.test(fb.getAttribute("href") || "");
+    const a = document.querySelector("#g-xwire #g-x-timeline a.twitter-timeline");
+    return !!a && /\/i\/lists\/\d+$/.test(a.getAttribute("href") || "");
   });
   check(ok, "phone: the X chip reveals and mounts the List timeline");
   await ctx.close();

@@ -924,6 +924,7 @@
     .g-x-embed{ min-height:0; }
     /* X inserts its own iframe/blockquote — clamp it to the rail width. */
     .g-x-embed iframe, .g-x-embed .twitter-tweet{ max-width:100% !important; margin:0 !important; }
+    .g-x-open{ padding:8px 14px; border-bottom:1px solid var(--t-grid); }
     .g-x-fallback, .g-x-acct .g-x-fallback{ display:inline-block; font-family:var(--t-mono); font-size:10.5px; color:var(--t-mut); text-decoration:none; padding:2px 0; }
     .g-x-fallback:hover{ color:var(--t-ink); text-decoration:underline; }
     .g-x-acct{ background:var(--t-panel2, transparent); }
