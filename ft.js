@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3f9013b1-11a8-4dbd-a985-b0577fd95313", title: "Turkish stocks slide in ‘fund run’ as investors withdraw $1bn", date: "2026-09-16", time: "17:39", url: "https://www.ft.com/content/3f9013b1-11a8-4dbd-a985-b0577fd95313" },
+  { id: "61b5fbae-9dd6-4980-bd1f-effe54b72d84", title: "Federal Reserve decision live: US central bank tipped to raise interest rates for first time in 3 years", date: "2026-09-16", time: "17:32", url: "https://www.ft.com/content/61b5fbae-9dd6-4980-bd1f-effe54b72d84" },
   { id: "fc08dba8-3e16-4262-9e2c-0d59d049efdc", title: "Bach choir is a rare symbol of unity in a swing state", date: "2026-09-16", time: "17:03", url: "https://www.ft.com/content/fc08dba8-3e16-4262-9e2c-0d59d049efdc" },
   { id: "1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e", title: "This is good for AI!!!! Aaargh!!!!", date: "2026-09-16", time: "16:32", url: "https://www.ft.com/content/1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e" },
   { id: "8abe8957-83c1-475a-b6d0-556d094f474d", title: "Oura will struggle to justify pulse-racing $16bn valuation", date: "2026-09-16", time: "16:00", url: "https://www.ft.com/content/8abe8957-83c1-475a-b6d0-556d094f474d" },

@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lemonde-lebrief-primairegauche-20260916",
+    publication: "Le Monde",
+    author: null,
+    series: "Le Brief",
+    title: "Le brief | Présidentielle 2027 : cinq candidats sur la ligne de départ de la primaire à gauche",
+    date: "2026-09-16",
+    time: "17:35",
+    summary: "Faure, Guedj, Royal, Glucksmann et Maurel concourront au premier tour des 9 et 10 octobre ; le PS suspend à titre provisoire le député Philippe Brun.",
+    url: "https://infos.lemonde.fr/optiext/optiextension.dll?ID=fJOe7kEHYpRDdbjypyEfq3KixPX01gfplWKhAfj7kaFHtoDi5v068ppV9GpedWVsdSXK91HRm6__VtXP5lNfSkzToTS_6dEsAP4Q-cYR",
+  },
+  {
     id: "nl-legalbusiness-pogustmariana-20260916",
     publication: "Legal Business",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "09:06",
     summary: "Former City M&A lawyer Richard Bloomfield pleads not guilty to insider dealing over Goodwin's Seraphine take-private, as Latham buys Nvidia GPUs to build its own in-house AI stack.",
     url: "https://www.nonbillable.co.uk/news/city-lawyer-pleads-not-guilty-to-insider-dealing-charges-richard-bloomfield",
-  },
-  {
-    id: "nl-businesspost-anthropicdublinambitions-20260914",
-    publication: "Business Post",
-    author: null,
-    series: "CRE",
-    title: "Anthropic’s huge Dublin ambitions",
-    date: "2026-09-14",
-    time: "08:00",
-    summary: "Anthropic’s Dublin office hunt reveals huge ambitions for Irish jobs, plus Johnny Ronan’s RGRE pitches a hotel above Bewley’s.",
-    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/763FBzUXofkJWC2uA1P2GYhw",
   },
 ];
