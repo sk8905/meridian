@@ -327,9 +327,12 @@ notification badge red (`#ef4444`).
   The roster of handles is `X_ACCOUNTS` in `v2/js/home/xposts.js` (`X_LIST` keeps the
   List link/id for the "Open list on X" escape hatch). `/api/xfeed` edge-caches a
   non-empty result briefly (keeps our syndication hits rare) and never pins an empty
-  one. Note X's syndication is undocumented and can rate-limit/block datacenter IPs,
-  so the feed can degrade to the message + link. Enforced by `tests/home-xwire.mjs`
-  (render) and `tests/xfeed-parse.mjs` (the Worker parser).
+  one. **Data source:** when the `XAPI_KEY` Worker secret is set, `/api/xfeed` pulls
+  the List live from **twitterapi.io** (its Get-List-Tweets endpoint — reliable,
+  truly current); with **no key** it falls back to X's free syndication scrape,
+  which X caches/degrades (so dates can lag). Either way the app just renders the
+  cards. Enforced by `tests/home-xwire.mjs` (render) and `tests/xfeed-parse.mjs`
+  (both Worker normalisers — free syndication + twitterapi.io shapes).
 
 ---
 

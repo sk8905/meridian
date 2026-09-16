@@ -1,7 +1,7 @@
 // Worker /api/xfeed parser: xCollectTweets deep-walks X's syndication JSON for
 // tweet-shaped records (defensive against envelope drift), xNormalizeTweet flattens
 // each into the card shape the app renders. Pure functions — no network.
-import { xCollectTweets, xNormalizeTweet } from "../src/index.js";
+import { xCollectTweets, xNormalizeTweet, xNormalizeApiTweet } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
 // A realistic __NEXT_DATA__-style envelope: two tweets under different shapes
@@ -61,5 +61,24 @@ checkEq(rd.id, "2097400000000000000", "normalize: numeric id (from `id`) is kept
 // Non-tweets normalise to null.
 check(xNormalizeTweet({ id_str: "x", text: "no id", created_at: "now", user: {} }) === null, "normalize: a non-numeric id is rejected");
 check(xNormalizeTweet(null) === null, "normalize: null input is safe");
+
+// --- twitterapi.io (paid) tweet shape --------------------------------------
+const apiTweet = {
+  id: "2100000000000000001",
+  url: "https://x.com/nishantkumar07/status/2100000000000000001",
+  text: "EXCLUSIVE: Millennium is taking back cash from Engineers Gate. https://t.co/zzz",
+  createdAt: "Wed Sep 16 20:15:00 +0000 2026",
+  author: { userName: "nishantkumar07", name: "Nishant Kumar", profilePicture: "https://pbs.twimg.com/profile_images/n.jpg" },
+  extendedEntities: { media: [{ media_url_https: "https://pbs.twimg.com/media/z.jpg" }] },
+};
+const api = xNormalizeApiTweet(apiTweet);
+check(!!api, "api-normalize: a twitterapi.io tweet normalises");
+checkEq(api.handle, "nishantkumar07", "api-normalize: author.userName → handle");
+checkEq(api.name, "Nishant Kumar", "api-normalize: author.name → name");
+check(!/t\.co/.test(api.text) && /Millennium/.test(api.text), "api-normalize: text kept, trailing t.co stripped");
+checkEq(api.url, "https://x.com/nishantkumar07/status/2100000000000000001", "api-normalize: post url preserved");
+check(api.media[0] === "https://pbs.twimg.com/media/z.jpg", "api-normalize: extendedEntities media extracted");
+check(api.ts > 0, "api-normalize: createdAt parses to a timestamp");
+check(xNormalizeApiTweet({ id: "nope", text: "x", createdAt: "now" }) === null, "api-normalize: non-numeric id rejected");
 
 finish();

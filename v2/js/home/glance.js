@@ -356,8 +356,9 @@ function renderXWire(host) {
     + `<div class="g-x-open">${openLink}</div>`
     + `<div id="g-x-feed" class="g-x-feed"><div class="g-loading">Loading X…</div></div></div>`;
   const feed = host.querySelector("#g-x-feed");
-  if (!handles.length) { feed.innerHTML = `<div class="g-x-empty">No accounts configured.</div>`; return; }
-  fetch(`/api/xfeed?handles=${encodeURIComponent(handles.join(","))}`, { headers: { accept: "application/json" } })
+  if (!handles.length && !list.id) { feed.innerHTML = `<div class="g-x-empty">No accounts configured.</div>`; return; }
+  const q = `handles=${encodeURIComponent(handles.join(","))}` + (list.id ? `&listId=${encodeURIComponent(list.id)}` : "");
+  fetch(`/api/xfeed?${q}`, { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null)
     .then((d) => {
       const tweets = (d && Array.isArray(d.tweets)) ? d.tweets : [];

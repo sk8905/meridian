@@ -3475,25 +3475,83 @@ async function fetchXProfile(handle) {
   return raw.map(xNormalizeTweet).filter(Boolean);
 }
 
+// Normalise one twitterapi.io tweet object → our flat card shape.
+// twitterapi.io fields: id, url, text, createdAt, author.{userName,name,profilePicture},
+// extendedEntities/entities.media[].media_url_https.
+export function xNormalizeApiTweet(t) {
+  try {
+    if (!t || typeof t !== "object") return null;
+    const id = String(t.id || t.id_str || "");
+    if (!/^\d{5,}$/.test(id)) return null;
+    const a = t.author || t.user || {};
+    const handle = a.userName || a.screen_name || a.username || "";
+    const name = a.name || handle;
+    const avatar = a.profilePicture || a.profile_image_url_https || a.profile_image_url || "";
+    let text = String(t.text != null ? t.text : (t.full_text != null ? t.full_text : ""));
+    text = text.replace(/\s+https:\/\/t\.co\/\w+\s*$/,"").trim();
+    const created = t.createdAt || t.created_at || "";
+    const ts = Date.parse(created) || 0;
+    if (!ts) return null;
+    const media = [];
+    const ents = (t.extendedEntities && t.extendedEntities.media)
+      || (t.entities && t.entities.media) || [];
+    if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
+    return { id, handle, name, avatar, text, date: created, ts,
+      url: t.url || (handle ? `https://x.com/${handle}/status/${id}` : `https://x.com/i/status/${id}`),
+      media: media.slice(0, 1) };
+  } catch { return null; }
+}
+
+// twitterapi.io "Get List Tweets" — a paid, reliable, always-current source. One
+// call per page (20 tweets, time-desc); we pull up to 2 pages (~40). Keyed by the
+// XAPI_KEY Worker secret.
+async function fetchXApiList(listId, apiKey) {
+  const out = [];
+  let cursor = "";
+  for (let page = 0; page < 2; page++) {
+    const u = `https://api.twitterapi.io/twitter/list/tweets?listId=${encodeURIComponent(listId)}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
+    let r;
+    try { r = await fetch(u, { headers: { "X-API-Key": apiKey, "accept": "application/json" } }); } catch { break; }
+    if (!r || !r.ok) break;
+    let d; try { d = await r.json(); } catch { break; }
+    const arr = (d && (d.tweets || d.data || d.results)) || [];
+    if (!Array.isArray(arr) || !arr.length) break;
+    for (const t of arr) { const n = xNormalizeApiTweet(t); if (n) out.push(n); }
+    cursor = (d && (d.next_cursor || d.cursor)) || "";
+    if (!cursor || (d && d.has_next_page === false)) break;
+  }
+  return out;
+}
+
 async function handleXFeed(request, env, ctx) {
   const url = new URL(request.url);
   const handles = (url.searchParams.get("handles") || "").split(",")
     .map((h) => h.trim().replace(/^@/, ""))
     .filter((h) => /^[A-Za-z0-9_]{1,15}$/.test(h))
     .slice(0, 12);
-  if (!handles.length) return json({ tweets: [], error: "no handles" });
+  const listId = (url.searchParams.get("listId") || "").replace(/\D/g, "");
+  if (!handles.length && !listId) return json({ tweets: [], error: "no handles" });
 
-  const key = handles.map((h) => h.toLowerCase()).sort().join(",");
+  const apiKey = env && env.XAPI_KEY;
+  const mode = (apiKey && listId) ? "api" : "syn";
+  const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + mode;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=2`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=3`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   const all = [];
-  await Promise.all(handles.map(async (h) => {
-    const tw = await fetchXProfile(h);
-    for (const t of tw) all.push(t);
-  }));
+  // Preferred: the paid twitterapi.io List endpoint (reliable + truly current).
+  if (mode === "api") {
+    try { const api = await fetchXApiList(listId, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
+  }
+  // Free fallback (no key, or the paid call came back empty): X syndication per handle.
+  if (!all.length && handles.length) {
+    await Promise.all(handles.map(async (h) => {
+      const tw = await fetchXProfile(h);
+      for (const t of tw) all.push(t);
+    }));
+  }
   const seen = new Set();
   const tweets = all
     .filter((t) => t && t.id && !seen.has(t.id) && seen.add(t.id))
