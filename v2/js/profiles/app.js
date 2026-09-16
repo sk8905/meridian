@@ -12,11 +12,11 @@
 import {
   viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-33";
+} from "/v2/js/credit/detail.js?v=v2-34";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
-} from "/v2/js/legal/detail.js?v=v2-13";
+} from "/v2/js/legal/detail.js?v=v2-14";
 // Same shared.js instance the detail views read (identical ?v= token), so seeding
 // the URL-driven row highlight here is the pending focus viewManager applies.
 import { setPendingFocus } from "/credit/js/shared.js?v=20260730-2";
@@ -117,11 +117,12 @@ export async function mount(host, ctx) {
       const el = document.createElement("details");
       el.className = "wire-net wn-badge";
       el.innerHTML = `<summary class="wn-badge-h">${label}</summary><div class="wn-badge-body">${confHTML}${pendHTML}</div>`;
-      // Sit the badge INSIDE the identity header, between the strategy chips and
-      // the Sources line — not floating above the whole profile. Fall back to the
-      // top of the detail host only if the header shape is unexpected.
+      // Sit the badge INSIDE the identity header, above the Sources line but BELOW
+      // the Peers dropdown (order: Peers · LinkedIn · Sources). The Peers dropdown
+      // reuses the .tdet-src-det chrome, so exclude it from the anchor or the badge
+      // would land above it. Fall back to the host end if the header shape is odd.
       const host = pfDetail.querySelector(".tdet-id");
-      const anchor = host && host.querySelector(":scope > .tdet-src-det, :scope > .tdet-src");
+      const anchor = host && host.querySelector(":scope > .tdet-src-det:not(.tdet-peers), :scope > .tdet-src");
       if (anchor) anchor.parentNode.insertBefore(el, anchor);
       else if (host) host.appendChild(el);
       else pfDetail.prepend(el);

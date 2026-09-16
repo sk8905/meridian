@@ -64,10 +64,13 @@ export function peersOf(target, roster, cfg) {
 export function peerDetails(peers, hrefOf, subOf, esc) {
   if (!peers || !peers.length) return "";
   const n = peers.length;
+  // One faint line per peer — "Name · rationale" — matching the Sources / LinkedIn
+  // rows (the body inherits .tdet-src-body's faint small type).
   const body = peers.map((p) => {
     const sub = subOf ? subOf(p) : "";
-    return `<a class="tdet-peer" href="${hrefOf(p.e)}">${esc(p.e.name)}</a>`
-      + (sub ? `<span class="tdet-peer-sub">${esc(sub)}</span>` : "");
+    return `<div class="tdet-peer-row"><a class="tdet-peer" href="${hrefOf(p.e)}">${esc(p.e.name)}</a>`
+      + (sub ? ` · <span class="tdet-peer-sub">${esc(sub)}</span>` : "")
+      + `</div>`;
   }).join("");
   return `<details class="tdet-src-det tdet-peers"><summary>Peers${n > 1 ? ` (${n})` : ""}</summary>`
     + `<div class="tdet-src-body tdet-peers-body">${body}</div></details>`;

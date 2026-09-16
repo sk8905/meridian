@@ -17,7 +17,7 @@ import {
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { dealSubject, dealSponsor, dealAmount } from "../deal-parse.js?v=v2-4";
-import { peersOf, peerDetails } from "../peers.js?v=v2-2";
+import { peersOf, peerDetails } from "../peers.js?v=v2-3";
 import {
   eur, pct, fmtDate, link, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,

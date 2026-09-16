@@ -96,6 +96,22 @@ const badge = await pg.evaluate(() => {
 });
 check(/connection/.test(badge.text), "Profile badge: renders 'N connection(s) here' on the matched profile");
 check(badge.hasPerson, `Profile badge: names the known connection (${badge.text.replace(/\s+/g, " ").slice(0, 80)})`);
+// Header dropdown order is Peers · LinkedIn · Sources (the Peers dropdown reuses
+// the Sources chrome, so the LinkedIn badge must land BELOW it, not above).
+const order = await pg.evaluate(() => {
+  const id = document.querySelector("#pf-detail .tdet-id");
+  const kids = [...id.children];
+  const peers = id.querySelector(":scope > .tdet-peers");
+  const net = id.querySelector(":scope > .wn-badge");
+  const src = id.querySelector(":scope > .tdet-src-det:not(.tdet-peers), :scope > .tdet-src");
+  return {
+    hasPeers: !!peers, hasNet: !!net,
+    peersBeforeNet: peers && net ? kids.indexOf(peers) < kids.indexOf(net) : null,
+    netBeforeSrc: net && src ? kids.indexOf(net) < kids.indexOf(src) : true,
+  };
+});
+check(order.hasPeers && order.hasNet && order.peersBeforeNet && order.netBeforeSrc,
+  `Profile badge: header order is Peers · LinkedIn · Sources`);
 checkEq(badge.tag, "DETAILS", "Profile badge: is a collapsible <details> element");
 checkEq(badge.open, false, "Profile badge: collapsed by default");
 // Clicking the summary expands it.

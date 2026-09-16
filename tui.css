@@ -917,14 +917,14 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tdet-src-det > summary:hover { color: var(--ink); }
 .tdet-src-body { margin-top: 5px; color: var(--faint); line-height: 1.5; }
 .tdet-src-body a { color: var(--faint); } .tdet-src-body a:hover { color: var(--ink); }
-/* Peers dropdown body: each peer is a name link (readable) over a muted one-line
-   strategy/size rationale, a little breathing room between them. Uses the Sources
-   .tdet-src-det chrome for the "Peers (n)" summary, so it matches that line. */
-.tdet-peers-body { margin-top: 6px; }
-.tdet-peers-body .tdet-peer { display: block; color: var(--ink); font-size: 11.5px; font-weight: 600; margin-top: 8px; text-decoration: none; }
-.tdet-peers-body .tdet-peer:first-child { margin-top: 0; }
-.tdet-peers-body .tdet-peer:hover { color: var(--accent); }
-.tdet-peers-body .tdet-peer-sub { display: block; color: var(--muted); font-size: 10px; margin-top: 1px; }
+/* Peers dropdown body: one faint "Name · rationale" line per peer, inheriting the
+   Sources body's font, size and colour (it carries .tdet-src-body) so it reads
+   identically to the Sources / LinkedIn rows. The name is a faint link (like a
+   source link) that brightens to ink on hover. */
+.tdet-peers-body .tdet-peer-row { line-height: 1.5; }
+.tdet-peers-body .tdet-peer { color: var(--faint); text-decoration: none; }
+.tdet-peers-body .tdet-peer:hover { color: var(--ink); }
+.tdet-peers-body .tdet-peer-sub { color: var(--faint); }
 /* Merged Vehicles tab groups (Funds / CLOs / Listed vehicles). */
 .tveh-grp + .tveh-grp { border-top: 1px solid var(--border); }
 .tveh-grp-h { padding: 9px 12px 4px; font-family: var(--t-mono); font-size: 10px; font-weight: 600;

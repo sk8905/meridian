@@ -12,7 +12,7 @@ import {
   fmtDate, itemDate, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260730-2";
-import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-13";
+import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-14";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260808-1";
 import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES, srcHost } from "/util.js?v=20260818-1";
 
