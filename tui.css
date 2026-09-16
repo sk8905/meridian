@@ -552,15 +552,24 @@
    tall profile (e.g. a manager's News feed) unscrollable. The inner containers all
    FLOW so the view is the single scroller; the detail's tab rail stays put via its
    own sticky rule. (≤760 the whole page scrolls, as before.) */
-/* DESKTOP (≥761px): the fixed shell (body + .v2-app overflow:hidden, app.css ≥761)
-   means a long Profiles list / profile scrolls internally. #pf-panes is the
-   scroller (its sibling nav rails + search stay put); the inner section panes flow
-   so they don't nest a wheel-trap and a tall profile reaches its bottom. As a
-   belt-and-suspenders against engines that don't bound #pf-panes via the flex
-   chain, cap it to the shell height so its overflow:auto always engages. */
+/* DESKTOP (≥761px): scroll the WHOLE Profiles view as one container — the SAME
+   model the Dashboard (.dsh) and Menu use, which scrolls reliably in every engine —
+   instead of an inner #pf-panes scroller that depended on a deep flex-height chain
+   that some Chrome setups didn't bound, leaving long profiles (a manager's News /
+   Investments) unscrollable. All inner containers flow; the two nav rails and the
+   search row stay put via sticky. (≤760 the whole page scrolls, as before.) */
 @media (min-width: 761px) {
-  #pf-panes { overflow-y: auto; min-height: 0; max-height: 100%; -webkit-overflow-scrolling: touch; }
-  #pf-detail .tpanes { overflow: visible; }
+  .v2-view[data-view="profiles"] { height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .v2-view[data-view="profiles"] > #pf-list { height: auto; min-height: 100%; overflow: visible; }
+  .v2-view[data-view="profiles"] #pf-panes,
+  .v2-view[data-view="profiles"] #pf-list > .tdash-grid > .tcol-c,
+  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed,
+  .v2-view[data-view="profiles"] #pf-detail .tpanes { overflow: visible; min-height: 0; }
+  /* Pin the Profiles sidebar (Managers/Hedge Funds/…), the profile's section tabs
+     (News/Vehicles/…) and the search row so they don't scroll away under the view. */
+  .v2-view[data-view="profiles"] #pf-list > .tdash-grid > .tcol-c > .twire-head { position: sticky !important; top: 0; align-self: start; z-index: 7; }
+  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .twire-head { position: sticky !important; top: 0; align-self: start; z-index: 5; }
+  .v2-view[data-view="profiles"] .tpane > .thead-search { position: sticky; top: 0; z-index: 6; background: var(--head); }
 }
 .tpanes .twire { overflow: visible; flex: none; }
 /* ---- DESKTOP left sidebar nav for Profiles + Transactions (mirrors the Dashboard
