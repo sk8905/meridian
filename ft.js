@@ -20,9 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d29a4116-0511-4a85-b005-b1b4b110cdcd", title: "The British right’s patriotism problem", date: "2026-09-16", time: "13:18", url: "https://www.ft.com/content/d29a4116-0511-4a85-b005-b1b4b110cdcd" },
   { id: "d085adc5-977b-4c7e-9641-9824d1d345d3", title: "AI bosses’ safety push sparks rift inside OpenAI and Anthropic", date: "2026-09-16", time: "13:00", url: "https://www.ft.com/content/d085adc5-977b-4c7e-9641-9824d1d345d3" },
   { id: "31f41c2e-084b-4bdf-a548-bf3d1139dbbe", title: "Hormuz crisis threatens to undermine long-term LNG demand", date: "2026-09-16", time: "12:00", url: "https://www.ft.com/content/31f41c2e-084b-4bdf-a548-bf3d1139dbbe" },
   { id: "7727d99d-dce5-48e9-aebd-7d09ab3aa608", title: "The Extended Farageverse is coming together", date: "2026-09-16", time: "11:31", url: "https://www.ft.com/content/7727d99d-dce5-48e9-aebd-7d09ab3aa608" },
+  { id: "96ea6daf-086f-49ff-bbe3-c42cf63561ec", title: "FirstFT: US mega-donors overwhelmingly back Republicans, FT analysis shows", date: "2026-09-16", time: "11:28", url: "https://www.ft.com/content/96ea6daf-086f-49ff-bbe3-c42cf63561ec" },
   { id: "1655b0eb-5f54-4ad0-afbb-cf9ffb09bc32", title: "Andy Burnham considers plan to give mayors greater oversight of water companies", date: "2026-09-16", time: "11:24", url: "https://www.ft.com/content/1655b0eb-5f54-4ad0-afbb-cf9ffb09bc32" },
   { id: "bad109a9-1a34-4663-9dd8-e757b3f38c62", title: "Scientists test new (and old) navigation systems to end GPS dependence", date: "2026-09-16", time: "11:00", url: "https://www.ft.com/content/bad109a9-1a34-4663-9dd8-e757b3f38c62" },
   { id: "c9f54d41-6617-480b-82ca-d5ffcb11669d", title: "What are the risks of using AI to draft my will?", date: "2026-09-16", time: "10:49", url: "https://www.ft.com/content/c9f54d41-6617-480b-82ca-d5ffcb11669d" },
