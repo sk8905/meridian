@@ -77,16 +77,16 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         </aside>
 
         <!-- X WIRE: its own rail between the manager wire and the macro rail — a
-             merged, newest-first column of REAL posts from a curated set of
-             accounts, rendered live by X's official widget (loaded lazily when the
-             panel nears view). Header pins; only the list scrolls. Like the manager
-             wire, it stays on phones (it is content, not the markets/rates data). -->
+             merged, newest-first live feed of the roster's public accounts (fetched
+             server-side via /api/xfeed, drawn as our own cards). No title row (the
+             X chip / rail is label enough) so posts start at the top. Only the list
+             scrolls. Like the manager wire, it stays on phones (it is content, not
+             the markets/rates data). -->
         <aside class="g-side-x">
           <div class="g-x-scroll">
             <section class="tui-pnl g-x g-anchor" id="jump-xwire">
-              <header class="tui-ph g-x-head"><span>X wire</span><span class="tui-px">tracked accounts · live</span></header>
               <div class="g-x-body">
-                <div id="g-xwire" class="g-x-pane" aria-label="Embedded posts from tracked X accounts"><div class="g-loading">Loading X…</div></div>
+                <div id="g-xwire" class="g-x-pane" aria-label="Live posts from tracked X accounts"><div class="g-loading">Loading X…</div></div>
               </div>
             </section>
           </div>

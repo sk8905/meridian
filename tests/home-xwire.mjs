@@ -23,7 +23,8 @@ const b = await launchChromium();
 
   const r = await pg.evaluate(() => {
     const panel = document.querySelector("#jump-xwire");
-    const head = panel && panel.querySelector(".tui-ph > :first-child");
+    // No title row — the X chip / rail labels it; posts start at the top.
+    const noHeader = !!panel && !panel.querySelector(".tui-ph");
     const inRail = !!document.querySelector(".g-side-x #g-xwire");
     const lft = (s) => { const el = document.querySelector(s); return el ? el.getBoundingClientRect().left : null; };
     const between = lft(".g-side3") < lft(".g-side-x") && lft(".g-side-x") < lft(".g-side2");
@@ -31,7 +32,7 @@ const b = await launchChromium();
     const first = cards[0];
     const fb = document.querySelector("#g-xwire .g-x-open .g-x-fallback");
     return {
-      header: head ? head.textContent.trim() : null,
+      noHeader,
       inRail, between,
       count: cards.length,
       handles: cards.map((c) => (c.querySelector(".g-x-h") || {}).textContent || ""),
@@ -43,7 +44,7 @@ const b = await launchChromium();
     };
   });
 
-  checkEq(r.header, "X wire", "X wire: panel renders with its header");
+  check(r.noHeader, "X wire: no title row (posts start at the top, saving space)");
   check(r.inRail, "X wire: panel sits in its own rail (g-side-x)");
   check(r.between, "X wire: the rail sits between the manager wire and the macro rail");
   checkEq(r.count, SAMPLE.tweets.length, `X wire: one card per tweet (${r.count})`);
