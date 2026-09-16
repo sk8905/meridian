@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d1f2c9bd-26ce-4e87-9da4-fe0238bd531d", title: "Revolut hackers demand $3mn ransom", date: "2026-09-16", time: "18:58", url: "https://www.ft.com/content/d1f2c9bd-26ce-4e87-9da4-fe0238bd531d" },
+  { id: "7be92efe-13d6-4d02-9f77-0e8229b3b8fa", title: "Trump oil ally Harold Hamm to invest in Venezuela", date: "2026-09-16", time: "18:39", url: "https://www.ft.com/content/7be92efe-13d6-4d02-9f77-0e8229b3b8fa" },
+  { id: "d4368014-a79f-4887-a839-1fc43b52fca1", title: "Britain’s unsustainable pensions lock", date: "2026-09-16", time: "18:21", url: "https://www.ft.com/content/d4368014-a79f-4887-a839-1fc43b52fca1" },
   { id: "3f9013b1-11a8-4dbd-a985-b0577fd95313", title: "Turkish stocks slide in ‘fund run’ as investors withdraw $1bn", date: "2026-09-16", time: "17:39", url: "https://www.ft.com/content/3f9013b1-11a8-4dbd-a985-b0577fd95313" },
   { id: "61b5fbae-9dd6-4980-bd1f-effe54b72d84", title: "Federal Reserve decision live: US central bank tipped to raise interest rates for first time in 3 years", date: "2026-09-16", time: "17:32", url: "https://www.ft.com/content/61b5fbae-9dd6-4980-bd1f-effe54b72d84" },
   { id: "fc08dba8-3e16-4262-9e2c-0d59d049efdc", title: "Bach choir is a rare symbol of unity in a swing state", date: "2026-09-16", time: "17:03", url: "https://www.ft.com/content/fc08dba8-3e16-4262-9e2c-0d59d049efdc" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "9dd894cd-dddd-4388-ac00-dbd14d40dc52", title: "With AI, ‘I told you so’ will be too late", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/9dd894cd-dddd-4388-ac00-dbd14d40dc52" },
   { id: "2e2e0c1e-51d6-49e2-9f4a-6ef793908b85", title: "EU rebuffs Mark Carney’s ‘unique alliance’ with Canada", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/2e2e0c1e-51d6-49e2-9f4a-6ef793908b85" },
   { id: "f62e467a-bcb6-423d-96f2-b2b1e08faaa8", title: "Fed should defy Donald Trump with rate rise, top economists say", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/f62e467a-bcb6-423d-96f2-b2b1e08faaa8" },
-  { id: "3c38362f-70c3-4275-bcfd-bea41a2bf473", title: "UK looks to ‘land drones’ to transform beleaguered Ajax fighting vehicles", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/3c38362f-70c3-4275-bcfd-bea41a2bf473" },
-  { id: "90fd247a-69a0-4066-aa9d-f51a3e659434", title: "Crispin Odey judgment is lesson for firms with ‘slapdash’ ethics, warns FCA", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/90fd247a-69a0-4066-aa9d-f51a3e659434" },
-  { id: "786b8ce5-3a11-4e34-b811-41ec165f5916", title: "Ørsted boss says Europe must act on ‘unfair’ Chinese wind turbine makers", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/786b8ce5-3a11-4e34-b811-41ec165f5916" },
 ];

@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-blackrockpensions-20260916",
+    publication: "Bloomberg",
+    author: null,
+    series: "Money Stuff",
+    title: "Money Stuff: BlackRock Wants Pensions",
+    date: "2026-09-16",
+    time: "17:59",
+    summary: "Crypto, Epstein, fifth grade.",
+    url: "https://bloom.bg/4reA7hh",
+  },
+  {
     id: "nl-lemonde-lebrief-primairegauche-20260916",
     publication: "Le Monde",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "11:31",
     summary: "Launch marks the firm's 14th office globally and first in the Middle East.",
     url: "https://email.legalbusiness.co.uk/c/1dX2YD5WMKagT6eREJjabwYXChIq",
-  },
-  {
-    id: "nl-nonbillable-citylawyerpleadsnotguilty-20260914",
-    publication: "Non-Billable",
-    author: null,
-    series: null,
-    title: "City lawyer pleads not guilty",
-    date: "2026-09-14",
-    time: "09:06",
-    summary: "Former City M&A lawyer Richard Bloomfield pleads not guilty to insider dealing over Goodwin's Seraphine take-private, as Latham buys Nvidia GPUs to build its own in-house AI stack.",
-    url: "https://www.nonbillable.co.uk/news/city-lawyer-pleads-not-guilty-to-insider-dealing-charges-richard-bloomfield",
   },
 ];
