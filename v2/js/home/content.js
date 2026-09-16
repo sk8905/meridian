@@ -75,6 +75,22 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           </div>
         </aside>
 
+        <!-- X WIRE: its own rail between the manager wire and the macro rail — a
+             merged, newest-first column of REAL posts from a curated set of
+             accounts, rendered live by X's official widget (loaded lazily when the
+             panel nears view). Header pins; only the list scrolls. Like the manager
+             wire, it stays on phones (it is content, not the markets/rates data). -->
+        <aside class="g-side-x">
+          <div class="g-x-scroll">
+            <section class="tui-pnl g-x g-anchor" id="jump-xwire">
+              <header class="tui-ph g-x-head"><span>X wire</span><span class="tui-px">tracked accounts · live</span></header>
+              <div class="g-x-body">
+                <div id="g-xwire" class="g-x-pane" aria-label="Embedded posts from tracked X accounts"><div class="g-loading">Loading X…</div></div>
+              </div>
+            </section>
+          </div>
+        </aside>
+
         <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->
         <aside class="g-side2">
           <section class="tui-pnl g-anchor" id="jump-macro">

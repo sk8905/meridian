@@ -525,6 +525,27 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
+## X wire (Home) — keep the roster's posts fresh
+
+`v2/js/home/xposts.js` (tokenless data file) drives the Home **X wire** — see
+HOUSE_STYLE **R26**. It holds `X_ACCOUNTS` (the fixed roster) and `X_POSTS`, a
+merged, newest-first list of **real tweet references** `{ handle, id, date }`
+rendered live by X's official widget.
+
+On a maintenance run, when you have verified newer posts:
+- **Add** each account's latest **real, source-verified** permalink to `X_POSTS`.
+  Store only `handle` + numeric `id`; derive `date` from the tweet's snowflake id
+  (`date = new Date((BigInt(id) >> 22n) + 1288834974657n)`, UTC `YYYY-MM-DD`) so the
+  ordering is deterministic, not guessed. **Never invent or construct an id** — if
+  you cannot verify a permalink, leave the account as-is.
+- **Prune** any reference X no longer serves (deleted/protected). It's fine for an
+  account to carry only a **profile card** (no `X_POSTS` entry) when nothing recent
+  is verifiable — that's the honest state for chronic deleters (`@michaeljburry`).
+- Keep the list a manageable length (a few most-recent per account); the wire sorts
+  by `date` and merges across accounts. **No tweet text is ever stored** — the embed
+  is the source. This is a **data file: tokenless, no `?v=` bump** (T1). Enforced by
+  `tests/home-xwire.mjs`.
+
 ## Briefings & Key Moments (regenerate each run)
 
 Two AI-generated surfaces are written **by this routine**, from the desks' own

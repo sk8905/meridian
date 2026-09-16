@@ -309,6 +309,25 @@ notification badge red (`#ef4444`).
   latest annual/quarterly release is a daily-refresh concern. Enforced by
   `tests/dashboard-heatmaps.mjs`.
 
+- **R26 — X wire (Home).** The Home terminal carries an **X wire** in its **own
+  rail, between the manager wire and the macro rail** (on phones it stacks in the
+  single-column flow, like the manager wire — it is content, not the markets/rates
+  data that phones hide). It is a **merged, newest-first** column of **real posts**
+  from a curated roster of accounts (`v2/js/home/xposts.js` → `X_ACCOUNTS` +
+  `X_POSTS`, rendered by `initXWire`/`renderXWire` in `v2/js/home/glance.js`). Each
+  post is a **native X embed rendered live by X's official `widgets.js`** (loaded
+  **lazily** — only when the panel nears view — from `platform.twitter.com`, never
+  bundled); the embed *is* the source, so **no tweet text is stored or invented
+  (R7)**. We store only a post's `{ handle, id }` plus the id's snowflake-derived
+  `date` (used solely for ordering). A post X cannot serve (deleted/protected/
+  offline, or X unreachable) keeps its **"View on X" permalink fallback**; an
+  account with **no verifiable recent status permalink** (e.g. `@michaeljburry`, a
+  chronic deleter; `@ArashMassoudi`, none found) shows a **profile card** linking
+  the real account — **never a fabricated tweet**. Every `id` is a real,
+  source-verified permalink. Topping the list up with each account's latest
+  verified post, and pruning anything X no longer serves, is a **daily-refresh
+  concern**. Enforced by `tests/home-xwire.mjs`.
+
 ---
 
 ## 7. Technical rules
@@ -475,3 +494,17 @@ item keeps a real outbound source link (R7).
 
 ### 8.7 Prediction markets
 - Polymarket (`polymarket.com`, `gamma-api.polymarket.com`)
+
+### 8.8 X wire (Home)
+Curated roster of X/Twitter accounts (`v2/js/home/xposts.js`), embedded live via
+X's official `platform.twitter.com/widgets.js` — see **R26**. Real, source-verified
+permalinks only; unverifiable accounts show a profile card, never a fabricated post.
+- `@elerianm` — Mohamed A. El-Erian (economist)
+- `@negligible_cap` — Negligible Capital (long/short equity)
+- `@LeylaKuni` — Leyla Kunimoto (private markets, LP view)
+- `@lcdnews` — LCD News (leveraged loans / private credit · PitchBook)
+- `@michaeljburry` — Michael Burry (Scion) — profile card only (chronic deleter)
+- `@RayDalio` — Ray Dalio (Bridgewater)
+- `@sindap` — Sujeet Indap (Wall Street editor · FT)
+- `@ArashMassoudi` — Arash Massoudi (finance & markets editor · FT)
+- `@nishantkumar07` — Nishant Kumar (hedge funds · Bloomberg)

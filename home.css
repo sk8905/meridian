@@ -803,12 +803,15 @@
 
     /* ---- workspace shell ---- */
     .g-main.tui{ padding:0; background:var(--t-ground); color:var(--t-ink); max-width:none; }
-    .tui .g-layout{ display:grid; grid-template-columns:322px minmax(0,1fr) minmax(0,1fr) 340px; gap:0;
+    /* Five rails: left data · news wire · manager wire · X wire · macro rail. The
+       X wire is its own column between the manager wire and the macro rail. */
+    .tui .g-layout{ display:grid; grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 304px 320px; gap:0;
       margin:0; align-items:start; }
     .tui .g-side{ order:1; display:block; border-right:1px solid var(--t-grid2); }
     .tui .g-feed-wrap{ order:2; min-width:0; }
     .tui .g-side3{ order:3; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
-    .tui .g-side2{ order:4; display:block; border-left:1px solid var(--t-grid2); }
+    .tui .g-side-x{ order:4; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
+    .tui .g-side2{ order:5; display:block; border-left:1px solid var(--t-grid2); }
     /* News / Watchlist swap chips — mobile only (shown in the max-width:900px
        block); on desktop both wire columns are visible so the chips are hidden. */
     .tui .g-wiretabs{ display:none; }
@@ -820,10 +823,13 @@
       .g-main.tui{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-hello{ flex:0 0 auto; }
       .tui .g-layout{ flex:1 1 auto; min-height:0; align-items:stretch; }
-      .tui .g-side,.tui .g-side2,.tui .g-side3{ height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-side,.tui .g-side2,.tui .g-side3,.tui .g-side-x{ height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       /* Manager column: the header pins and only the wire list scrolls, mirroring
          the prediction-markets well in the macro rail. */
       .tui .g-side3{ display:flex; flex-direction:column; overflow:hidden; }
+      /* X-wire column: same shape as the manager column — header pins, only the
+         list of embeds scrolls. */
+      .tui .g-side-x{ display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-mw-scroll{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-mw{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-mw-head{ flex:0 0 auto; }
@@ -859,6 +865,12 @@
       .tui .g-flow{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-flow-head{ flex:0 0 auto; }
       .tui .g-flow-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      /* X-wire column fill: the scroll wrapper fills the rail, its header pins and
+         only the list of embeds scrolls. */
+      .tui .g-side-x .g-x-scroll{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-side-x .g-x{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+      .tui .g-x-head{ flex:0 0 auto; }
+      .tui .g-side-x .g-x-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       /* Prediction-markets rail: sticky Macro/Politics/Finance tabs (grey ground +
          accent underline when active, matching the news-feed chips), section breaks. */
       .tui .g-pred-filter{ display:flex; gap:0; background:var(--t-panel2); border-bottom:1px solid var(--t-grid); position:sticky; top:0; z-index:2; }
@@ -891,8 +903,32 @@
       .tui .g-side, .tui .g-side2, .tui .g-side3{ overflow-y:auto; }
       .tui .g-movers-pnl{ min-height:96px; }
       .tui .g-flow-scroll{ min-height:96px; }
+      .tui .g-x-scroll{ min-height:140px; }
       .tui .g-mw-scroll{ min-height:120px; }
     }
+    /* ---- X wire (embedded tweets) ---- */
+    /* A merged, newest-first list of native X embeds. Each card carries a compact
+       source line (name · @handle · date) above the embed, matching the feed's
+       source-labelled rows; the embed itself is X's own card. Until X renders (or
+       if it can't), a "View on X" fallback link stands in its place. */
+    .g-x-body{ padding:0; }
+    .g-x-list{ display:flex; flex-direction:column; }
+    .g-x-card{ padding:10px 14px 12px; border-bottom:1px solid var(--t-grid); }
+    .g-x-card:last-child{ border-bottom:0; }
+    .g-x-meta{ display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 7px; margin-bottom:7px; }
+    .g-x-who{ font-size:11.5px; font-weight:700; color:var(--t-ink); text-decoration:none; }
+    .g-x-who:hover{ text-decoration:underline; }
+    .g-x-h{ font-family:var(--t-mono); font-size:10.5px; color:var(--t-mut); }
+    .g-x-d{ margin-left:auto; font-family:var(--t-mono); font-variant-numeric:tabular-nums; font-size:10px; color:var(--t-faint); }
+    .g-x-note{ font-size:10.5px; color:var(--t-mut); margin:-2px 0 7px; }
+    .g-x-embed{ min-height:0; }
+    /* X inserts its own iframe/blockquote — clamp it to the rail width. */
+    .g-x-embed iframe, .g-x-embed .twitter-tweet{ max-width:100% !important; margin:0 !important; }
+    .g-x-fallback, .g-x-acct .g-x-fallback{ display:inline-block; font-family:var(--t-mono); font-size:10.5px; color:var(--t-mut); text-decoration:none; padding:2px 0; }
+    .g-x-fallback:hover{ color:var(--t-ink); text-decoration:underline; }
+    .g-x-acct{ background:var(--t-panel2, transparent); }
+    .g-x-empty{ padding:14px; font-size:11px; color:var(--t-mut); }
+
     /* ---- Manager wire (Home manager column) ---- */
     /* Each manager is a mini-section: a header (name + fundraising to the right) ·
        an activity line · then its news stories together, feed-sized to match the
@@ -979,9 +1015,10 @@
          so you don't scroll past the markets/rates rail to reach the headlines */
       .tui .g-feed-wrap{ order:0; }
       .tui .g-side3{ order:1; }
-      .tui .g-side{ order:2; }
-      .tui .g-side2{ order:3; }
-      .tui .g-side,.tui .g-side2,.tui .g-side3{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); }
+      .tui .g-side-x{ order:2; }
+      .tui .g-side{ order:3; }
+      .tui .g-side2{ order:4; }
+      .tui .g-side,.tui .g-side2,.tui .g-side3,.tui .g-side-x{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); }
       /* The sticky stack under the fixed header is, top-to-bottom: the search band
          (.wire-band, --wire-band-h tall), then the News/Watchlist tabs, then the
          feed filter row. Each pins directly beneath the one above, so their `top`

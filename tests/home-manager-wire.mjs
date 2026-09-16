@@ -1,5 +1,5 @@
-// Home "Manager wire" column (4-column terminal: markets · feed · manager wire ·
-// macro). By DEFAULT it is a single flat chronological stream of every manager's
+// Home "Manager wire" column (5-column terminal: markets · feed · manager wire ·
+// X wire · macro). By DEFAULT it is a single flat chronological stream of every manager's
 // events, newest first, regardless of manager. A "Group by manager" toggle in the
 // header switches to a mini-section per manager, managers ordered most-active →
 // least-active; watchlisted managers lead, each row links to its profile, and a
@@ -26,7 +26,7 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
     const first = box.querySelector(".g-mw-fev");
     return {
       flatRows: rows.length,
-      cols: tracks.length, feedEq: tracks.length === 4 && tracks[1] === tracks[2],
+      cols: tracks.length, feedEq: tracks.length === 5 && tracks[1] === tracks[2],
       side3: !!document.querySelector(".g-side3 #g-mgrwire"),
       everyHasMgr: rows.length > 0 && rows.every((a) => a.getAttribute("data-mgr")),
       noNameLabel: box.querySelectorAll(".g-mw-fev-m").length === 0,
@@ -52,7 +52,7 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
     };
   });
   check(r.side3, "Home: manager wire lives in its own column (.g-side3)");
-  checkEq(r.cols, 4, "Home: desktop terminal is a 4-column grid");
+  checkEq(r.cols, 5, "Home: desktop terminal is a 5-column grid (markets · feed · manager · X wire · macro)");
   check(r.feedEq, "Home: the aggregated-feed and manager-wire columns are equal width");
   check(r.flatRows >= 8, `Home: the wire defaults to a flat event stream (${r.flatRows} rows)`);
   check(r.notGrouped, "Home: by default the wire is NOT grouped into per-manager cards");

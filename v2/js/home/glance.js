@@ -13,6 +13,7 @@ import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
+import { X_ACCOUNTS, X_POSTS } from "/v2/js/home/xposts.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js?v=20260808-1";
@@ -131,6 +132,7 @@ export function initGlance(ctx) {
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
   initHomeMarketsRails();   // v2: chrome is the shell's; skip nav-actions boot
   renderPredict();
+  initXWire();
   initFeedEntityNav();
   initFeedHeadLock();
   initMobileWireTabs();
@@ -280,6 +282,87 @@ function initJumpNav() {
   targets.forEach((t) => io.observe(t));
   // Clicking a link highlights it immediately and holds through the scroll.
   links.forEach((a) => a.addEventListener("click", () => { holdUntil = Date.now() + 900; setActive(a.dataset.jump); }));
+}
+
+// ---- X wire (embedded tweets) -----------------------------------------------
+// A merged, newest-first column of REAL posts from a curated set of accounts,
+// rendered live by X's official widgets.js. The widget script is third-party and
+// heavy, so it is loaded LAZILY — only when the panel first nears the viewport —
+// and never blocks the terminal's first paint. Each post renders as a native X
+// embed; anything X can't serve (deleted, protected, offline, or X unreachable)
+// keeps its "View on X" fallback link. Accounts with no post reference show a
+// profile card. Nothing here fabricates tweet content — the embed is the source.
+let _xwireBooted = false;
+function fmtXDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ""));
+  if (!m) return "";
+  return `${+m[3]} ${MONTHS[+m[2] - 1] || ""} ${m[1].slice(2)}`;
+}
+// Load platform.twitter.com/widgets.js once, resolving with window.twttr. A short
+// timeout rejects if X is unreachable so the fallback links simply remain.
+function xLoadWidgets() {
+  if (window.twttr && window.twttr.widgets) return Promise.resolve(window.twttr);
+  if (window.__xwireLoad) return window.__xwireLoad;
+  window.__xwireLoad = new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://platform.twitter.com/widgets.js";
+    s.async = true; s.charset = "utf-8";
+    s.onload = () => (window.twttr && window.twttr.widgets) ? resolve(window.twttr) : reject(new Error("x-widgets-missing"));
+    s.onerror = () => reject(new Error("x-widgets-failed"));
+    document.head.appendChild(s);
+    setTimeout(() => { if (!(window.twttr && window.twttr.widgets)) reject(new Error("x-widgets-timeout")); }, 9000);
+  });
+  return window.__xwireLoad;
+}
+function initXWire() {
+  const host = document.getElementById("g-xwire");
+  if (!host || _xwireBooted) return;
+  const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((ents) => {
+      if (ents.some((e) => e.isIntersecting)) { io.disconnect(); boot(); }
+    }, { rootMargin: "600px 0px" });
+    io.observe(host);
+    // Safety: if layout never intersects (e.g. always-visible desktop rail races
+    // the observer), boot on the next frame regardless.
+    requestAnimationFrame(() => { if (host.getBoundingClientRect().top < innerHeight + 600) boot(); });
+  } else { boot(); }
+}
+function renderXWire(host) {
+  const acct = new Map(X_ACCOUNTS.map((a) => [a.handle.toLowerCase(), a]));
+  const acctOf = (h) => acct.get(String(h || "").toLowerCase()) || { handle: h, name: "@" + h, note: "" };
+  const posts = (X_POSTS || []).filter((p) => p && p.id && p.handle)
+    .slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  const withPost = new Set(posts.map((p) => String(p.handle).toLowerCase()));
+  const orphans = (X_ACCOUNTS || []).filter((a) => !withPost.has(a.handle.toLowerCase()));
+  if (!posts.length && !orphans.length) { host.innerHTML = `<div class="g-x-empty">No posts yet.</div>`; return; }
+  const postCard = (p) => {
+    const a = acctOf(p.handle);
+    const url = `https://x.com/${esc(a.handle)}/status/${esc(p.id)}`;
+    return `<article class="g-x-card" data-tweet="${esc(p.id)}">`
+      + `<div class="g-x-meta"><a class="g-x-who" href="https://x.com/${esc(a.handle)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a>`
+      + `<span class="g-x-h">@${esc(a.handle)}</span><span class="g-x-d">${esc(fmtXDate(p.date))}</span></div>`
+      + `<div class="g-x-embed"><a class="g-x-fallback" href="${url}" target="_blank" rel="noopener noreferrer">View post on X ↗</a></div></article>`;
+  };
+  const acctCard = (a) => `<article class="g-x-card g-x-acct">`
+    + `<div class="g-x-meta"><a class="g-x-who" href="https://x.com/${esc(a.handle)}" target="_blank" rel="noopener noreferrer">${esc(a.name)}</a>`
+    + `<span class="g-x-h">@${esc(a.handle)}</span></div>`
+    + `${a.note ? `<div class="g-x-note">${esc(a.note)}</div>` : ""}`
+    + `<a class="g-x-fallback" href="https://x.com/${esc(a.handle)}" target="_blank" rel="noopener noreferrer">Latest posts on @${esc(a.handle)} ↗</a></article>`;
+  host.innerHTML = `<div class="g-x-list">${posts.map(postCard).join("")}${orphans.map(acctCard).join("")}</div>`;
+  // Hydrate each post with the official embed; the fallback link stays until (and
+  // unless) X renders the tweet in its place.
+  xLoadWidgets().then((twttr) => {
+    if (!twttr || !twttr.widgets || !twttr.widgets.createTweet) return;
+    const dark = document.documentElement.dataset.theme === "dark"
+      || (document.documentElement.dataset.theme !== "light" && matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+    host.querySelectorAll(".g-x-card[data-tweet] .g-x-embed").forEach((slot) => {
+      const id = slot.closest(".g-x-card").dataset.tweet;
+      twttr.widgets.createTweet(id, slot, { theme: dark ? "dark" : "light", dnt: true, conversation: "none", align: "left" })
+        .then((el) => { if (el) { const fb = slot.querySelector(".g-x-fallback"); if (fb) fb.remove(); } })
+        .catch(() => { /* keep the fallback link */ });
+    });
+  }).catch(() => { /* X unreachable — fallback links remain */ });
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every
