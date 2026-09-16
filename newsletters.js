@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-pogustmariana-20260916",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Ousted Pogust founder confirmed as member of rival firm on Mariana dispute",
+    date: "2026-09-16",
+    time: "16:49",
+    summary: "Tom Goodhead set to co-lead Bailey Glasser International team on £36bn group claim as fight for ownership continues.",
+    url: "https://email.legalbusiness.co.uk/c/1dY34kqg2Sh9ozdmKv2FWfEzC403",
+  },
+  {
     id: "nl-gs-trackingai-20260916",
     publication: "Goldman Sachs",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "08:00",
     summary: "Anthropic’s Dublin office hunt reveals huge ambitions for Irish jobs, plus Johnny Ronan’s RGRE pitches a hotel above Bewley’s.",
     url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/763FBzUXofkJWC2uA1P2GYhw",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-stocksdropai-20260914",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "Stocks drop on AI worries",
-    date: "2026-09-14",
-    time: "07:07",
-    summary: "Stocks tumble on AI slowdown concerns and oil jumps as Middle East woes deepen, while Sweden's election hangs on the final count.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-14/stocks-decline-after-call-to-slow-ai-development",
   },
 ];

@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fc08dba8-3e16-4262-9e2c-0d59d049efdc", title: "Bach choir is a rare symbol of unity in a swing state", date: "2026-09-16", time: "17:03", url: "https://www.ft.com/content/fc08dba8-3e16-4262-9e2c-0d59d049efdc" },
+  { id: "1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e", title: "This is good for AI!!!! Aaargh!!!!", date: "2026-09-16", time: "16:32", url: "https://www.ft.com/content/1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e" },
   { id: "8abe8957-83c1-475a-b6d0-556d094f474d", title: "Oura will struggle to justify pulse-racing $16bn valuation", date: "2026-09-16", time: "16:00", url: "https://www.ft.com/content/8abe8957-83c1-475a-b6d0-556d094f474d" },
   { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "15:57", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
   { id: "35b6c207-98b1-44fb-82b9-3c8c29507e0a", title: "The EU should not increase resilience at the expense of trusted partners", date: "2026-09-16", time: "15:16", url: "https://www.ft.com/content/35b6c207-98b1-44fb-82b9-3c8c29507e0a" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "3c38362f-70c3-4275-bcfd-bea41a2bf473", title: "UK looks to ‘land drones’ to transform beleaguered Ajax fighting vehicles", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/3c38362f-70c3-4275-bcfd-bea41a2bf473" },
   { id: "90fd247a-69a0-4066-aa9d-f51a3e659434", title: "Crispin Odey judgment is lesson for firms with ‘slapdash’ ethics, warns FCA", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/90fd247a-69a0-4066-aa9d-f51a3e659434" },
   { id: "786b8ce5-3a11-4e34-b811-41ec165f5916", title: "Ørsted boss says Europe must act on ‘unfair’ Chinese wind turbine makers", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/786b8ce5-3a11-4e34-b811-41ec165f5916" },
-  { id: "05dc65e9-0a60-4914-a39f-cf3cc2139513", title: "UK chancellor considering Budget tax raid on higher stake slot machines", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/05dc65e9-0a60-4914-a39f-cf3cc2139513" },
-  { id: "4d69377c-a2b6-4c20-a485-3dbbafc6daa3", title: "AI can forecast the future. Should we let it?", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/4d69377c-a2b6-4c20-a485-3dbbafc6daa3" },
 ];
