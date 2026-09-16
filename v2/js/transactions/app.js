@@ -161,7 +161,7 @@ export function mount(host, ctx) {
     // fields (type / lender / amount / date / sub-category) already sit in the row's
     // own columns, so no snapshot box is repeated here.
     const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
-      + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
+      + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source</a>` : "");
     return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-bd" title="${esc(d.headline || "")}"><span class="tx-caret" aria-hidden="true">▸</span>${esc(name)}</td>`
       + `<td class="tx-sp">${sponsor ? esc(sponsor) : "—"}</td>`
       + `<td class="tx-dt">${esc(fmtDay(d.date))}</td>`
@@ -287,7 +287,7 @@ export function mount(host, ctx) {
       : `<p class="muted small">No certifiable figures on file yet — see the fund's SEC filings.</p>`;
     const holdCta = b.cik ? `<button type="button" class="tbdc-hold-btn" data-cik="${esc(b.cik)}">Load latest holdings (SEC)</button><div class="tbdc-hold"></div>` : "";
     const srcLinks = (b.sources || []).map((s) => `<a class="tx-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)}</a>`);
-    if (b.edgar) srcLinks.push(`<a class="tx-src" href="${esc(b.edgar)}" target="_blank" rel="noopener noreferrer">SEC EDGAR filings ›</a>`);
+    if (b.edgar) srcLinks.push(`<a class="tx-src" href="${esc(b.edgar)}" target="_blank" rel="noopener noreferrer">SEC EDGAR filings</a>`);
     return facts + holdCta + `<div class="tbdc-srcs">${srcLinks.join("<br>")}</div>`;
   }
   function bdcRow(b) {

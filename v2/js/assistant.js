@@ -170,7 +170,7 @@ export function renderAsk(body, st, opts) {
     : `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong>. Check the fields, then approve to merge — or review the full pull request on GitHub.</div>`
       + firmPreview(st.draft)
       + (st.approveError ? `<div class="na-ask-err">${esc(st.approveError)}</div>` : "")
-      + `<div class="na-approve-row"><button type="button" class="na-approve"${st.approving ? " disabled" : ""}>${st.approving ? "Merging…" : "Approve &amp; merge"}</button><a class="na-approve-gh" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">Review on GitHub →</a></div>`
+      + `<div class="na-approve-row"><button type="button" class="na-approve"${st.approving ? " disabled" : ""}>${st.approving ? "Merging…" : "Approve &amp; merge"}</button><a class="na-approve-gh" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">Review on GitHub</a></div>`
       + `<div class="na-approve-note">Merging publishes straight to the live site — verify every field first (HOUSE_STYLE R7).</div>`
       + srcList(st.sources);
   const addOut = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`

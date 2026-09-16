@@ -364,7 +364,7 @@ function invRow(d) {
   const hasDetail = !!(d.summary || d.sourceUrl);
   const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
     + (sponsor ? `<p class="tinv-spon"><span class="tinv-spon-l">Sponsor</span> ${esc(sponsor)}</p>` : "")
-    + (url ? `<a class="tx-src" href="${url}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
+    + (url ? `<a class="tx-src" href="${url}" target="_blank" rel="noopener noreferrer">Full source</a>` : "");
   return `<tr class="tinv-row${hasDetail ? " is-exp" : ""}" data-id="${esc(d.id)}">`
     + `<td class="tinv-c-co" title="${esc(d.headline)}">${hasDetail ? `<span class="tx-caret" aria-hidden="true">▸</span>` : ""}${esc(name)}</td>`
     + `<td class="tinv-c-type">${esc(d.type || "—")}</td>`

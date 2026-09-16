@@ -31,6 +31,9 @@ const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
 const statusJs = read(path.join("v2", "js", "status.js"));
 const creditDetailJs = read(path.join("v2", "js", "credit", "detail.js"));
 const creditAppJs = read(path.join("v2", "js", "credit", "app.js"));
+const transactionsApp = read(path.join("v2", "js", "transactions", "app.js"));
+const assistantJs = read(path.join("v2", "js", "assistant.js"));
+const menuJs = read(path.join("v2", "js", "views", "menu.js"));
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
 // just a var(--t-news, #fallback) with nothing ever setting it.
@@ -330,5 +333,19 @@ check(/\.ew-day\s*\{[^}]*font-size:\s*10.5px/.test(macroCss),
 // an unreadable tooltip.
 check(/\.chart-tip\s*\{[^}]*background:\s*var\(--surface\)/.test(macroCss),
   "macro/css/styles.css .chart-tip background reads var(--surface), not a hardcoded #fff");
+
+// R7a — no decorative arrow glyph appended to link/source-marker text. Four
+// live surfaces had drifted to a trailing "›"/"→" ("Full source ›", "SEC EDGAR
+// filings ›", "Review on GitHub →", "Open <firm> profile →") — link the text
+// itself, no arrow noise. Guard the whole set against a reintroduced arrow.
+const ARROW_BEFORE_CLOSE_A = /[→›»]\s*<\/a>/;
+for (const [label, src] of [
+  ["v2/js/credit/detail.js", creditDetailJs],
+  ["v2/js/transactions/app.js", transactionsApp],
+  ["v2/js/assistant.js", assistantJs],
+  ["v2/js/views/menu.js", menuJs],
+]) {
+  check(!ARROW_BEFORE_CLOSE_A.test(src), `${label}: no link text ends in a decorative arrow glyph (R7a)`);
+}
 
 finish();
