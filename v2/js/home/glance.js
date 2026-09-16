@@ -172,10 +172,15 @@ function initFeedEntityNav() {
 function initMobileWireTabs() {
   const tabs = document.querySelector(".g-wiretabs");
   const layout = document.querySelector(".g-layout");
+  const main = document.querySelector(".g-main");
   if (!tabs || !layout) return;
   const setWire = (k) => {
     layout.classList.toggle("wire-watch", k === "watch");
     layout.classList.toggle("wire-x", k === "x");
+    // Mirror the state onto .g-main too: on phones initFeedHeadLock relocates the
+    // news feed's filter header OUT of .g-feed-wrap (up into .g-main), so the
+    // .g-layout class can't reach it — tag .g-main so Watchlist/X can hide it.
+    if (main) { main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); }
     tabs.querySelectorAll(".g-wiretab").forEach((t) => {
       const on = t.dataset.wire === k;
       t.classList.toggle("is-on", on);

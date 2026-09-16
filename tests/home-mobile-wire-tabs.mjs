@@ -93,6 +93,24 @@ const b = await launchChromium();
   await ctx.close();
 }
 
+// --- Phone: the news filter header must not sit above the Watchlist/X wire, even
+//     when initFeedHeadLock has relocated it out of .g-feed-wrap up into .g-main
+//     (as on iOS). Force that relocation, then swap to X, and confirm it hides. ---
+{
+  const ctx = await b.newContext({ viewport: { width: 430, height: 860 }, isMobile: true, hasTouch: true });
+  const pg = await ctx.newPage();
+  await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
+  await pg.waitForSelector(".g-wiretab[data-wire='x']", { timeout: 8000 });
+  const hidden = await pg.evaluate(() => {
+    const head = document.getElementById("g-feed-head"), main = document.querySelector(".g-main");
+    if (head && main && head.parentElement !== main) main.appendChild(head);   // simulate the iOS relocation
+    document.querySelector(".g-wiretab[data-wire='x']").click();
+    return getComputedStyle(document.getElementById("g-feed-head")).display === "none";
+  });
+  check(hidden, "phone: the news filter header is hidden under X even when relocated into .g-main");
+  await ctx.close();
+}
+
 // --- Desktop: chips hidden, both wire columns visible ------------------------
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);

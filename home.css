@@ -1051,6 +1051,9 @@
       .tui .g-layout.wire-watch .g-side3{ display:block; }
       .tui .g-layout.wire-x .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-x .g-side-x{ display:block; }
+      /* Hide the news feed's relocated filter header under Watchlist/X (it lives in
+         .g-main once initFeedHeadLock lifts it out of the hidden .g-feed-wrap). */
+      .g-main.wire-watch #g-feed-head, .g-main.wire-x #g-feed-head{ display:none; }
       /* Lock the feed filter tabs to the top (under the header, the search band AND
          the wire chips) while the headlines scroll. */
       .tui .g-feed-head{ position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:8; background:var(--t-head); box-shadow:0 -1px 0 var(--t-head); }
