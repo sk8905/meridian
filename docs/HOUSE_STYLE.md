@@ -313,21 +313,20 @@ notification badge red (`#ef4444`).
   rail, between the manager wire and the macro rail**. On **phones** it is the
   **third wire chip — News · Watchlist · X** — swapping onto the single-column
   workspace like the Watchlist (manager) wire (it is content, not the markets/rates
-  data that phones fold into the shared Markets panel). It is a **merged, newest-first** column of **real posts**
-  from a curated roster of accounts (`v2/js/home/xposts.js` → `X_ACCOUNTS` +
-  `X_POSTS`, rendered by `initXWire`/`renderXWire` in `v2/js/home/glance.js`). Each
-  post is a **native X embed rendered live by X's official `widgets.js`** (loaded
-  **lazily** — only when the panel nears view — from `platform.twitter.com`, never
-  bundled); the embed *is* the source, so **no tweet text is stored or invented
-  (R7)**. We store only a post's `{ handle, id }` plus the id's snowflake-derived
-  `date` (used solely for ordering). A post X cannot serve (deleted/protected/
-  offline, or X unreachable) keeps its **"View on X" permalink fallback**; an
-  account with **no verifiable recent status permalink** (e.g. `@michaeljburry`, a
-  chronic deleter; `@ArashMassoudi`, none found) shows a **profile card** linking
-  the real account — **never a fabricated tweet**. Every `id` is a real,
-  source-verified permalink. Topping the list up with each account's latest
-  verified post, and pruning anything X no longer serves, is a **daily-refresh
-  concern**. Enforced by `tests/home-xwire.mjs`.
+  data that phones fold into the shared Markets panel). It is a **single,
+  always-current, merged & newest-first stream** rendered **live by X's official
+  `widgets.js` as a List timeline** — a **public X List** (`v2/js/home/xposts.js` →
+  `X_LIST`, rendered by `initXWire`/`renderXWire` in `v2/js/home/glance.js`). X
+  serves each member account's latest posts, so the wire **never goes stale and
+  nothing is curated or stored in code** — the embed *is* the source, so **no tweet
+  text is stored or invented (R7)**. The widget script is loaded **lazily** — only
+  when the panel nears view — from `platform.twitter.com`, never bundled. Until (or
+  unless) X renders (offline, blocked, or the List made private) an **"Open the X
+  list" link** stands in its place. The only value pinned in code is the List's
+  numeric `id`; **membership is managed on X** (keep the List **public** — the widget
+  won't render a private List), which is what makes staleness impossible.
+  `X_ACCOUNTS` is kept only as the human roster (§8.8). Enforced by
+  `tests/home-xwire.mjs`.
 
 ---
 
@@ -497,14 +496,14 @@ item keeps a real outbound source link (R7).
 - Polymarket (`polymarket.com`, `gamma-api.polymarket.com`)
 
 ### 8.8 X wire (Home)
-Curated roster of X/Twitter accounts (`v2/js/home/xposts.js`), embedded live via
-X's official `platform.twitter.com/widgets.js` — see **R26**. Real, source-verified
-permalinks only; unverifiable accounts show a profile card, never a fabricated post.
+A **public X List** (`v2/js/home/xposts.js` → `X_LIST`, id `2100283810713649423`)
+embedded live via X's official `platform.twitter.com/widgets.js` List timeline —
+see **R26**. Membership is managed on X; the accounts in the List are:
 - `@elerianm` — Mohamed A. El-Erian (economist)
 - `@negligible_cap` — Negligible Capital (long/short equity)
 - `@LeylaKuni` — Leyla Kunimoto (private markets, LP view)
 - `@lcdnews` — LCD News (leveraged loans / private credit · PitchBook)
-- `@michaeljburry` — Michael Burry (Scion) — profile card only (chronic deleter)
+- `@michaeljburry` — Michael Burry (Scion)
 - `@RayDalio` — Ray Dalio (Bridgewater)
 - `@sindap` — Sujeet Indap (Wall Street editor · FT)
 - `@ArashMassoudi` — Arash Massoudi (finance & markets editor · FT)
