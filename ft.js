@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1f78b692-4389-49a1-bd48-903252cc282f", title: "Von der Leyen to paint EU as the only port in a global geopolitical storm", date: "2026-09-16", time: "06:00", url: "https://www.ft.com/content/1f78b692-4389-49a1-bd48-903252cc282f" },
+  { id: "3401a104-598d-4145-a03b-8bb08b2d7165", title: "The BoE’s three balance sheet problem", date: "2026-09-16", time: "06:00", url: "https://www.ft.com/content/3401a104-598d-4145-a03b-8bb08b2d7165" },
+  { id: "6b6a27bd-2725-4591-be8a-fda643c2ac5c", title: "World’s best-performing sovereign wealth fund expects equities pullback", date: "2026-09-16", time: "05:55", url: "https://www.ft.com/content/6b6a27bd-2725-4591-be8a-fda643c2ac5c" },
+  { id: "96ea6daf-086f-49ff-bbe3-c42cf63561ec", title: "FirstFT: EU rebuffs ‘unique alliance’ with Canada", date: "2026-09-16", time: "05:30", url: "https://www.ft.com/content/96ea6daf-086f-49ff-bbe3-c42cf63561ec" },
+  { id: "ef511d46-a689-4868-9654-15b96a71586d", title: "The precarious fusion boom", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/ef511d46-a689-4868-9654-15b96a71586d" },
   { id: "69a2a7a0-ecd2-4d05-915c-55a6352889ff", title: "Sullivan & Cromwell discovers private equity", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/69a2a7a0-ecd2-4d05-915c-55a6352889ff" },
   { id: "9dd894cd-dddd-4388-ac00-dbd14d40dc52", title: "With AI, ‘I told you so’ will be too late", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/9dd894cd-dddd-4388-ac00-dbd14d40dc52" },
   { id: "2e2e0c1e-51d6-49e2-9f4a-6ef793908b85", title: "EU rebuffs Mark Carney’s ‘unique alliance’ with Canada", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/2e2e0c1e-51d6-49e2-9f4a-6ef793908b85" },
@@ -57,7 +62,4 @@ export const FT_ITEMS = [
   { id: "86078ee7-0c8a-4d2b-8ce7-4fc47d965985", title: "The main Trump-Xi summit achievement will be it happening at all", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/86078ee7-0c8a-4d2b-8ce7-4fc47d965985" },
   { id: "4420bf7d-320f-431c-8ca9-5e554b356890", title: "AI fears spook Washington as more Republicans call for greater regulation", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/4420bf7d-320f-431c-8ca9-5e554b356890" },
   { id: "2c206da5-63c9-405d-ae14-abe772ea32e0", title: "Santander wins £677mn legal appeal over PPI mis-selling bill", date: "2026-09-15", time: "13:10", url: "https://www.ft.com/content/2c206da5-63c9-405d-ae14-abe772ea32e0" },
-  { id: "3f2b2172-0c1a-4708-aba2-559eb37eabc8", title: "China tightens control of overseas travel in sweeping new law", date: "2026-09-15", time: "13:01", url: "https://www.ft.com/content/3f2b2172-0c1a-4708-aba2-559eb37eabc8" },
-  { id: "fa93720c-4df4-42dc-bee5-c1026fbd7f77", title: "BPRE’s extremely large, very huge, getting-bigger NAV discount", date: "2026-09-15", time: "12:37", url: "https://www.ft.com/content/fa93720c-4df4-42dc-bee5-c1026fbd7f77" },
-  { id: "f821d969-0eb3-44f5-baf7-96f5e434a1ed", title: "Bad decisions, difficult incentives and excitable markets", date: "2026-09-15", time: "12:30", url: "https://www.ft.com/content/f821d969-0eb3-44f5-baf7-96f5e434a1ed" },
 ];

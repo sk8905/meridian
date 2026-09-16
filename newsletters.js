@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-treasuryyield9yrhigh-20260916",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Treasury yield hits nine-year high",
+    date: "2026-09-16",
+    time: "05:43",
+    summary: "Ten-year Treasury yields hit a nine-year high above 5% ahead of Wednesday's likely Fed rate rise, Brent crude tops $108 after Saudi Arabia curbs oil shipments following a drone attack, and the CBO puts the Iran war's cost to America at $38bn so far.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-bigbadbondyields-20260916",
     publication: "Bloomberg",
     author: "John Authers",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "17:17",
     summary: "This week's ten most-saved reads, led by Joshua Rothman's New Yorker essay on the vanishing of unsupervised childhood.",
     url: "https://u14128625.ct.sendgrid.net/ls/click?upn=u001.Tu2Ijs0AVAbbOOFi05GBHuSCWdZvULrvWUwfj6lZtznpOJ9-2BoEH2UiwpAUz3j2Q4HsPCt-2B3dMcWQ4vRZ7K4TDpuNu-2BjboO5JGrEAebTt3uJePpPHUpqFVuMVBU5qkDTKbQ6V_AV9-2BPRP7Uj5QvX1NLKvBo7mSghDIloonB1HrvLeIVHqAWH6timJNUuyrBmerUGYumxmqur1nBgU9SQWrQSFmCgou8c1mZXN-2Fn3tr2-2BL7da8kp5v6B8HbIkapBDlXa3LAtg0HLLCf7m-2BQjMgyu5WVSY7H-2FzP3c-2BfEE0TTPi47xzifqFUki6Ag6WwPapE5awirpNT3vcx1dw3ygm9iV0KX2xfFC6INzWcVetmb1UHXqosFj05A2mBXAJOyNBtey8s5gLBePHfOu2aK4CxYipTkYVM5eIO-2B5rOZzl8P3-2FFrnyFAIg-2BrHLvgY2-2BPBSwxzf4o",
-  },
-  {
-    id: "nl-bbg-moneystuffpodcast-whatstheconcern-20260911",
-    publication: "Bloomberg",
-    author: null,
-    series: "Money Stuff",
-    title: "Money Stuff: The Podcast: What’s the Concern?",
-    date: "2026-09-11",
-    time: "17:39",
-    summary: "Guest host Max Abelson on money and power, the DAT trade, meme-stock bazaars, and stock ledgers on the blockchain.",
-    url: "https://bloom.bg/4nhTnYV",
   },
 ];
