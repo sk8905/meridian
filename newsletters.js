@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-weilexits-20260916",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Breaking down the Weil exits as departures near 30 this year",
+    date: "2026-09-16",
+    time: "09:21",
+    summary: "The news that Weil corporate chief Michael Aiello is taking a team to Cravath means the firm has now seen almost 30 partners leave since the start of the year.",
+    url: "https://email.legalbusiness.co.uk/c/1dXO1yFK72DNuY4AMOq1c2BhbRCk",
+  },
+  {
     id: "nl-nonbillable-pecomesforoffshorelaw-20260916",
     publication: "Non-Billable",
     author: null,
@@ -470,27 +481,5 @@ export const NEWSLETTERS = [
     time: "08:11",
     summary: "An independent, open model estimating what England's proposed ~5% tourist tax on overnight stays would raise, who bears the cost, and its impact on the hospitality industry.",
     url: "https://newsletter.taxpolicy.org.uk/campaign/b97066b9-60cc-4386-aa7f-eafc829e7f97/e5358a8a-4e5b-4303-a7ce-dcf4d37cc11c",
-  },
-  {
-    id: "nl-economist-worldinbrief-saudipipeline-20260912",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: Saudi Arabia shuts East-West pipeline",
-    date: "2026-09-12",
-    time: "05:53",
-    summary: "Saudi Arabia shuts its East-West pipeline after a wave of attacks blamed on Iraq-launched drones and a Houthi seizure of Yemen's Perim island, while US core inflation cools to 2.4% but stays too hot to stop a Fed rate rise.",
-    url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-singaporeedition-talentrace-20260912",
-    publication: "Bloomberg",
-    author: null,
-    series: "Singapore Edition",
-    title: "Singapore Edition: The talent race",
-    date: "2026-09-12",
-    time: "02:00",
-    summary: "Singapore vs Hong Kong: the rivalry that never gets old, as both cities compete harder than ever for global finance talent.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-12/singapore-vs-hong-kong-which-city-is-the-best-to-move-to",
   },
 ];

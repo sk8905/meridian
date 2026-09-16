@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2262cdb5-aaab-4a24-8017-a16f154dc3d7", title: "Scrapping triple lock on pensions need not wreak political damage", date: "2026-09-16", time: "09:30", url: "https://www.ft.com/content/2262cdb5-aaab-4a24-8017-a16f154dc3d7" },
+  { id: "410db291-f133-4d72-b883-b2d5a32abbf8", title: "EU to restrict social media and chatbots for children under 15", date: "2026-09-16", time: "09:27", url: "https://www.ft.com/content/410db291-f133-4d72-b883-b2d5a32abbf8" },
   { id: "bb2c178f-08e8-4de2-af49-6c184217cfb3", title: "PwC revenues fall for first time in more than a decade", date: "2026-09-16", time: "09:01", url: "https://www.ft.com/content/bb2c178f-08e8-4de2-af49-6c184217cfb3" },
   { id: "26f03609-1d41-4556-aaa3-d32a880ce1bd", title: "McLaren to compete against Lamborghini and Ferrari with hybrid SUVs", date: "2026-09-16", time: "09:00", url: "https://www.ft.com/content/26f03609-1d41-4556-aaa3-d32a880ce1bd" },
   { id: "8fed428e-7bcc-435c-9487-cb4e6a795328", title: "Ursula von der Leyen backs Canada’s ‘associate membership’ bid", date: "2026-09-16", time: "08:55", url: "https://www.ft.com/content/8fed428e-7bcc-435c-9487-cb4e6a795328" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "752e9694-9e47-4da1-a90a-ec1965665b08", title: "Colombian president fires statistics chief after three weeks", date: "2026-09-15", time: "19:17", url: "https://www.ft.com/content/752e9694-9e47-4da1-a90a-ec1965665b08" },
   { id: "5e2327aa-dbd0-4a79-8c99-622a893876d7", title: "Ten-year Treasury yield hits highest level since 2007", date: "2026-09-15", time: "19:13", url: "https://www.ft.com/content/5e2327aa-dbd0-4a79-8c99-622a893876d7" },
   { id: "4b9952d5-3cc8-48ef-8619-daa15a0a6af1", title: "Exxon wins Texas approval for $5bn carbon capture project", date: "2026-09-15", time: "18:43", url: "https://www.ft.com/content/4b9952d5-3cc8-48ef-8619-daa15a0a6af1" },
-  { id: "97f3d2b7-0282-42a7-bbb7-538624441a8a", title: "Hackers say they breached Italian state email to target Revolut ‘crypto whales’", date: "2026-09-15", time: "18:27", url: "https://www.ft.com/content/97f3d2b7-0282-42a7-bbb7-538624441a8a" },
-  { id: "6bbec28d-7ccf-455b-932a-0edad91a6d0e", title: "Larry Ellison shows even billionaires struggle with liquidity", date: "2026-09-15", time: "18:24", url: "https://www.ft.com/content/6bbec28d-7ccf-455b-932a-0edad91a6d0e" },
-  { id: "69b514eb-d627-4d46-9218-0842706c7115", title: "Iron ore trader Radiant alleges Glencore hid their ties from audited records", date: "2026-09-15", time: "18:17", url: "https://www.ft.com/content/69b514eb-d627-4d46-9218-0842706c7115" },
 ];
