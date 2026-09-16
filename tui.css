@@ -544,16 +544,22 @@
 /* detail pane toggle (News / Funds / CLOs / Key personnel) */
 .tchips-l { margin-left: 0; }
 .tpanes { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--surface); }
-/* DESKTOP (≥761px): the fixed shell (body + .v2-app overflow:hidden, app.css
-   ≥761) means a long Profiles list / profile must scroll INSIDE the outer panes.
-   Make #pf-panes the definitive scroller at every desktop width and let the inner
-   section panes FLOW (so they don't nest a second scroll container that traps the
-   wheel, and so a tall profile — e.g. a manager's News/Investments — reaches its
-   bottom). This is stated explicitly rather than left to the base .tpanes rule +
-   the .tdet-tabbed :has() cascade, which didn't hold across the 761–900 band and
-   some browsers, leaving the tail rows unreachable. (≤760 the whole page scrolls.) */
+/* DESKTOP (≥761px): the fixed shell (body + .v2-app overflow:hidden, app.css ≥761)
+   means a long Profiles list / profile has to scroll internally. Scroll the WHOLE
+   Profiles view as one container — the SAME proven model the Dashboard (.dsh) and
+   Menu use (height:100% + overflow-y:auto on the view) — instead of relying on a
+   deep flex-height chain to bound #pf-panes, which some engines didn't, leaving a
+   tall profile (e.g. a manager's News feed) unscrollable. The inner containers all
+   FLOW so the view is the single scroller; the detail's tab rail stays put via its
+   own sticky rule. (≤760 the whole page scrolls, as before.) */
+/* DESKTOP (≥761px): the fixed shell (body + .v2-app overflow:hidden, app.css ≥761)
+   means a long Profiles list / profile scrolls internally. #pf-panes is the
+   scroller (its sibling nav rails + search stay put); the inner section panes flow
+   so they don't nest a wheel-trap and a tall profile reaches its bottom. As a
+   belt-and-suspenders against engines that don't bound #pf-panes via the flex
+   chain, cap it to the shell height so its overflow:auto always engages. */
 @media (min-width: 761px) {
-  #pf-panes { overflow-y: auto; min-height: 0; -webkit-overflow-scrolling: touch; }
+  #pf-panes { overflow-y: auto; min-height: 0; max-height: 100%; -webkit-overflow-scrolling: touch; }
   #pf-detail .tpanes { overflow: visible; }
 }
 .tpanes .twire { overflow: visible; flex: none; }

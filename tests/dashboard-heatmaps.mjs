@@ -138,23 +138,29 @@ const base = `http://localhost:${srv.port}`;
   // Market sizes matrix: asset-class bands over region rows, each with a size (or
   // "—") + 1Y/5Y/10Y trend arrows, every row source-linked (certifiable only).
   const ms = await pg.evaluate(() => {
-    const tbl = document.querySelector(".dsh-ms-tbl");
-    if (!tbl) return { present: false };
-    const bands = [...tbl.querySelectorAll(".dsh-geo")].map((x) => x.textContent.replace(/\s+/g, " ").trim());
-    const rows = [...tbl.querySelectorAll("tbody tr:not(.dsh-georow)")];
+    const grid = document.querySelector(".dsh-ms-grid");
+    if (!grid) return { present: false };
+    const cols = [...grid.querySelectorAll(".dsh-ms-col")];
+    const bands = cols.map((c) => (c.querySelector(".dsh-ms-col-h") || {}).textContent?.replace(/\s+/g, " ").trim());
+    const rows = [...grid.querySelectorAll(".dsh-ms-tbl tbody tr")];
+    const cells = [...grid.querySelectorAll(".dsh-ms-tbl tbody td.dsh-ms-a")];
     return {
-      present: true, bands, nRows: rows.length,
-      arrows: tbl.querySelectorAll(".dsh-ms-t").length,
+      present: true, nCols: cols.length, bands, nRows: rows.length,
+      horizonCells: cells.length,
+      filled: cells.filter((c) => c.querySelector(".dsh-ms-t") || c.querySelector(".dsh-ms-p")).length,
+      pcts: grid.querySelectorAll(".dsh-ms-p").length,
+      sideBySide: cols.length >= 2 && Math.abs(cols[0].getBoundingClientRect().top - cols[1].getBoundingClientRect().top) <= 2,
       sourced: rows.filter((r) => r.querySelector(".dsh-ms-nm a[href^='http']")).length,
       sized: rows.filter((r) => { const s = r.querySelector(".dsh-ms-sz"); return s && !/^—/.test(s.textContent.trim()); }).length,
-      regions: [...new Set(rows.map((r) => (r.querySelector(".dsh-ms-nm") || {}).textContent?.trim().split(" ")[0]))],
     };
   });
   check(ms.present, "Macro: market-sizes matrix renders");
-  check(ms.present && ms.bands.length === 4 && /Public equities/i.test(ms.bands[0]) && ms.bands.some((b) => /Private credit/i.test(b)),
-    `Macro: matrix bands the four asset classes (${(ms.bands || []).join(" · ")})`);
-  check(ms.present && ms.nRows === 16, `Macro: matrix has US·Europe·Asia·Global for each class (${ms.nRows} rows)`);
-  check(ms.present && ms.arrows === ms.nRows * 3, `Macro: every row shows 1Y/5Y/10Y trend arrows (${ms.arrows})`);
+  check(ms.present && ms.nCols === 4 && /Public equities/i.test(ms.bands[0] || "") && ms.bands.some((b) => /Private credit/i.test(b || "")),
+    `Macro: four asset-class blocks (${(ms.bands || []).join(" · ")})`);
+  check(ms.present && ms.sideBySide, "Macro: the asset-class blocks sit side by side (full width)");
+  check(ms.present && ms.nRows === 16, `Macro: US·Europe·Asia·Global for each class (${ms.nRows} rows)`);
+  check(ms.present && ms.horizonCells === 48 && ms.filled === 48, `Macro: every 1Y/5Y/10Y cell shows a % or a trend arrow (${ms.filled}/${ms.horizonCells})`);
+  check(ms.present && ms.pcts >= 6, `Macro: %% shown for the increases where sourced (${ms.pcts} cells)`);
   check(ms.present && ms.sourced === ms.nRows, `Macro: every market-size row links its source (${ms.sourced}/${ms.nRows})`);
   check(ms.present && ms.sized >= 10, `Macro: sizes shown where cleanly sourced, "—" otherwise (${ms.sized} sized)`);
   checkErrs(errs, "macro rate outlook + yield curve");

@@ -612,25 +612,33 @@ export function mount(host, ctx) {
   function marketSizesHTML() {
     const M = MARKET_SIZES;
     if (!M || !(M.classes || []).length) return "";
-    const arrow = (d) => d === 1 ? `<span class="dsh-ms-t up" title="Larger than a decade/year ago">▲</span>`
+    const arrow = (d) => d === 1 ? `<span class="dsh-ms-t up" title="Larger than a year/5y/10y ago">▲</span>`
       : d === -1 ? `<span class="dsh-ms-t down" title="Smaller">▼</span>`
       : d === 0 ? `<span class="dsh-ms-t flat" title="Broadly flat">–</span>`
-      : `<span class="dsh-ms-t na" title="Not available">·</span>`;
+      : `<span class="dsh-ms-t na" title="Exact change not published">·</span>`;
+    // A horizon cell: the sourced % where one is published (green/red by sign),
+    // otherwise the direction arrow (no fabricated number).
+    const cell = (pct, dir) => {
+      if (pct) { const cls = /^-/.test(pct) ? "down" : "up"; return `<td class="dsh-r dsh-ms-a"><span class="dsh-ms-p ${cls}">${esc(pct)}</span></td>`; }
+      return `<td class="dsh-r dsh-ms-a">${arrow(dir)}</td>`;
+    };
     const row = (r) => {
       const nm = r.source
         ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer"${r.note ? ` title="${esc(r.note)}"` : ""}>${esc(r.region)}</a>`
         : esc(r.region);
-      const up = r.up || [];
+      const up = r.up || [], pc = r.pct || [];
       return `<tr><td class="dsh-ms-nm">${nm}</td>`
         + `<td class="dsh-ms-sz">${r.size ? esc(r.size) : "—"}${r.asOf ? ` <span class="dsh-ms-as">${esc(r.asOf)}</span>` : ""}</td>`
-        + `<td class="dsh-r dsh-ms-a">${arrow(up[0])}</td><td class="dsh-r dsh-ms-a">${arrow(up[1])}</td><td class="dsh-r dsh-ms-a">${arrow(up[2])}</td></tr>`;
+        + cell(pc[0], up[0]) + cell(pc[1], up[1]) + cell(pc[2], up[2]) + `</tr>`;
     };
-    const grp = (c) => `<tr class="dsh-georow"><td class="dsh-geo" colspan="5">${esc(c.label)}${c.sub ? ` <span class="dsh-ms-sub">${esc(c.sub)}</span>` : ""}</td></tr>`
-      + (c.rows || []).map(row).join("");
-    return `<table class="dsh-fl-tbl dsh-ms-tbl"><thead><tr>`
-      + `<th class="dsh-ms-nm">Region</th><th class="dsh-ms-sz">Size</th>`
-      + `<th class="dsh-r dsh-ms-a">1Y</th><th class="dsh-r dsh-ms-a">5Y</th><th class="dsh-r dsh-ms-a">10Y</th>`
-      + `</tr></thead><tbody>${M.classes.map(grp).join("")}</tbody></table>`;
+    // Asset classes laid out SIDE BY SIDE (one block each), filling the full width;
+    // blocks wrap to fewer columns as the card narrows.
+    const block = (c) => `<div class="dsh-ms-col">`
+      + `<div class="dsh-ms-col-h">${esc(c.label)}${c.sub ? ` <span class="dsh-ms-sub">${esc(c.sub)}</span>` : ""}</div>`
+      + `<table class="dsh-fl-tbl dsh-ms-tbl"><thead><tr><th class="dsh-ms-nm"></th><th class="dsh-ms-sz">Size</th>`
+      + `<th class="dsh-r dsh-ms-a">1Y</th><th class="dsh-r dsh-ms-a">5Y</th><th class="dsh-r dsh-ms-a">10Y</th></tr></thead>`
+      + `<tbody>${(c.rows || []).map(row).join("")}</tbody></table></div>`;
+    return `<div class="dsh-ms-grid">${M.classes.map(block).join("")}</div>`;
   }
   function macroHTML() {
     const fed = fedHTML();
