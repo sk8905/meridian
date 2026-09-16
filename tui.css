@@ -138,6 +138,9 @@
 
 .tcol { background: var(--bg); }
 .tpanel { border-bottom: 1px solid var(--border); background: var(--surface); }
+/* Peers card below a tabbed profile's panes — a hairline separates it from the
+   pane content above (the desktop grid replaces this with a column gap). */
+.tdet-peers { border-top: 1px solid var(--border); }
 .twire { background: var(--surface); }
 .tpanel-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 11px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; flex: 0 0 auto; }
 .tpanel-h > span:first-child { font-size: 12.5px; font-weight: 600; color: var(--ink); }
@@ -590,9 +593,11 @@
   #pf-detail .tdet-tabbed {
     display: grid; column-gap: 12px; padding-right: 12px; align-items: start;
     grid-template-columns: 150px minmax(0, 1fr);
-    grid-template-areas: "id id" "nav panes"; }
+    grid-template-areas: "id id" "nav panes" "nav peers"; }
   #pf-detail .tdet-tabbed > .tdet-id { grid-area: id; }
   #pf-detail .tdet-tabbed > .tpanes { grid-area: panes; overflow: visible; min-height: 0; }
+  /* Peers card sits under the panes (same column), not in the 150px nav rail. */
+  #pf-detail .tdet-tabbed > .tdet-peers { grid-area: peers; margin-top: 12px; align-self: start; }
   #pf-detail .tdet-tabbed > .twire-head {
     grid-area: nav; align-self: start; height: auto !important; position: static !important;
     z-index: auto; padding: 12px 0 0 12px !important; background: transparent;

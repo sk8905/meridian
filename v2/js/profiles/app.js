@@ -12,11 +12,11 @@
 import {
   viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-31";
+} from "/v2/js/credit/detail.js?v=v2-32";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
-} from "/v2/js/legal/detail.js?v=v2-11";
+} from "/v2/js/legal/detail.js?v=v2-12";
 // Same shared.js instance the detail views read (identical ?v= token), so seeding
 // the URL-driven row highlight here is the pending focus viewManager applies.
 import { setPendingFocus } from "/credit/js/shared.js?v=20260730-2";

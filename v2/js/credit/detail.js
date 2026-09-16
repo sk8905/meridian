@@ -11,12 +11,13 @@
 // shared.js header) or the browser loads data.js twice as separate instances.
 // =============================================================================
 import {
-  managerById, fundById, lpById, funds, lps, intel, deals,
+  managers, managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
   HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { dealSubject, dealSponsor, dealAmount } from "../deal-parse.js?v=v2-4";
+import { peersOf, peerRows } from "../peers.js?v=v2-1";
 import {
   eur, pct, fmtDate, link, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
@@ -46,6 +47,12 @@ const STRATEGY_IRR = {
 function railPanel(title, meta, body) {
   return `<section class="tpanel"><header class="tpanel-h"><span>${title}</span>${meta ? `<span class="tpanel-x">${meta}</span>` : ""}</header>${body}</section>`;
 }
+
+// Hedge-fund strategy → comparable tokens, so "Multi (quant & discretionary)" and
+// "Multi-strategy" share "multi", two macro books share "macro", etc. Used to
+// score HF peers (peers.js) where the strategy is one free-text string.
+const _HF_STOP = new Set(["and", "the", "strategy", "strategies", "fund", "funds"]);
+const hfStrategyTokens = (s) => String(s || "").toLowerCase().split(/[^a-z]+/).filter((w) => w.length > 2 && !_HF_STOP.has(w));
 
 // The Credit desk's section chips (the same set the dashboard shows). Rendered at
 // the top of every detail view so you navigate the desk the same way from a
@@ -470,6 +477,18 @@ export function viewManager(id) {
     || `<p class="tw-empty muted small">${esc(m.fundsNote || "No funds, CLOs or listed vehicles tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
+  // Peers: nearest managers by strategy overlap + AUM proximity (see peers.js).
+  const mgrPeers = peersOf(m, managers, { tags: (x) => x.strategies || [], size: (x) => x.groupAum != null ? x.groupAum : x.aum, n: 5 });
+  const mgrPeersCard = mgrPeers.length
+    ? `<section class="tpanel tdet-peers"><header class="tpanel-h"><span>Peers</span><span class="tpanel-x">${mgrPeers.length}</span></header>`
+      + peerRows(mgrPeers, (e) => `#/manager/${e.id}`, (p) => {
+          const s = p.shared[0] || (p.e.strategies || [])[0] || "";
+          const a = p.e.aum != null ? `€${p.e.aum}bn` : "";
+          return [s, a].filter(Boolean).join(" · ");
+        }, esc)
+      + `</section>`
+    : "";
+
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Managers"], [null, m.name]])}
@@ -495,6 +514,7 @@ export function viewManager(id) {
             ${pane("investments", invPane)}
             ${hasBiz ? pane("business", businessPane) : ""}
           </div>
+          ${mgrPeersCard}
         </section>
       </div>
     </div>`;
@@ -623,6 +643,13 @@ export function viewLp(id) {
     ? `<ul class="tmini">${mf.shown.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}</span><span class="tmini-m">${esc((managerById[x.managerId] || {}).name)} · ${esc(x.strategy)} · ${esc(x.status)}</span></li>`).join("")}${mf.more}</ul>`
     : `<p class="tw-empty muted small">No matching live funds.</p>`;
 
+  // Peers: nearest investors by allocator type + strategy overlap + AUM proximity.
+  const lpPeers = peersOf(l, lps, { tags: (x) => x.strategies || [], cat: (x) => x.type, size: (x) => x.aum, n: 5 });
+  const lpPeersBody = peerRows(lpPeers, (e) => `#/lp/${e.id}`, (p) => {
+    const a = p.e.aum != null ? `€${p.e.aum}bn` : "";
+    return [p.e.type || "", a].filter(Boolean).join(" · ");
+  }, esc);
+
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([[profilesMode ? "#/?tab=investors" : "#/lps", "Investors"], [null, l.name]])}
@@ -642,6 +669,7 @@ export function viewLp(id) {
           ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([lab, v]) => `<div><dt>${esc(lab)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
           ${railPanel("Strategies of interest", "", `<div class="tdet-chips" style="padding:9px 12px">${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>`)}
           ${railPanel("Matching funds in market", String(matches.length), matchesBody)}
+          ${lpPeers.length ? railPanel("Peers", String(lpPeers.length), lpPeersBody) : ""}
         </aside>
       </div>
     </div>`;
@@ -729,6 +757,17 @@ export function viewHedgeFund(id) {
     : `<p class="tw-empty muted small">No US SEC filer.</p>`;
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
+  // Peers: nearest hedge funds by strategy (token + exact-class match) + AUM.
+  const hfPeers = peersOf(f, HEDGE_FUNDS, { tags: (x) => hfStrategyTokens(x.strategy), cat: (x) => x.strategy, size: (x) => x.aum, n: 5 });
+  const hfPeersCard = hfPeers.length
+    ? `<section class="tpanel tdet-peers"><header class="tpanel-h"><span>Peers</span><span class="tpanel-x">${hfPeers.length}</span></header>`
+      + peerRows(hfPeers, (e) => `#/hf/${e.id}`, (p) => {
+          const a = p.e.aum != null ? `$${p.e.aum}bn` : "";
+          return [p.e.strategy || "", a].filter(Boolean).join(" · ");
+        }, esc)
+      + `</section>`
+    : "";
+
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Hedge Funds"], [null, f.name]])}
@@ -753,6 +792,7 @@ export function viewHedgeFund(id) {
             ${pane("holdings", holdingsPane)}
             ${pane("filings", filingsPane)}
           </div>
+          ${hfPeersCard}
         </section>
       </div>
     </div>`;

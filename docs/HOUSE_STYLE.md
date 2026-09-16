@@ -281,6 +281,18 @@ notification badge red (`#ef4444`).
   is not stored. Refreshing the figures each quarter (new 10-Q/8-K season) and the
   live-price wiring are daily-refresh concerns; enforced by `tests/bdcs.mjs`.
 
+- **R24 — Profile Peers.** Every Profiles detail page (managers, hedge funds,
+  investors, law firms) carries a **Peers** card of **3–5 similar entities** from
+  the **same roster**, ranked by strategy/practice-area overlap and AUM/size
+  proximity (`v2/js/peers.js` → `peersOf` + `peerRows`; each detail view in
+  `v2/js/credit/detail.js` / `v2/js/legal/detail.js` maps its own fields into the
+  generic tags·category·size shape). Peers are **computed from real roster data,
+  never hand-curated** — so a peer is always an entity that exists and its chip
+  links to that entity's own profile (`#/manager|hf|lp/<id>`, `#/firm/<enc id>`);
+  no fabricated names, no dead links (R7). Each row shows the peer's name + a
+  one-line rationale (a shared strategy / its size). Enforced by
+  `tests/profile-peers.mjs`.
+
 ---
 
 ## 7. Technical rules
