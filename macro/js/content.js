@@ -1427,16 +1427,16 @@ export const MARKET_SIZES = {
   asOf: "2026-09",
   classes: [
     { label: "Public equities", sub: "listed market cap", rows: [
-      { region: "US",     size: "$68.9tn", asOf: "2025",     up: [1, 1, 1], pct: ["+11%", "+36%", null], note: "NYSE + Nasdaq listed market cap; 1Y $62.2tn→$68.9tn, 5Y from $50.8tn (2020)", source: "https://siblisresearch.com/data/us-stock-market-value/" },
-      { region: "Europe", size: "$24tn",   asOf: "2025",     up: [1, 1, 1], pct: [null, null, null], note: "FESE members — incl. UK & Switzerland", source: "https://www.fese.eu/statistics/capital-markets-fact-sheet/" },
-      { region: "Asia",   size: "$44tn",   asOf: "2025",     up: [1, 1, 1], pct: ["+7%", null, null], note: "WFE Asia-Pacific (+7.2% in 2025) / OECD ≈29% of world", source: "https://www.oecd.org/en/publications/asia-capital-markets-report-2025_02172cdc-en/full-report/equity-markets_21fa56c1.html" },
-      { region: "Global", size: "$152tn",  asOf: "end-2025", up: [1, 1, 1], pct: ["+19%", null, null], note: "WFE domestic market cap, FY2025 (+18.5% YoY)", source: "https://www.world-exchanges.org/news/articles/new-wfe-data-public-markets-post-strong-growth-2025-despite-geopolitical-instability" },
+      { region: "US",     size: "$68.9tn", asOf: "2025",     up: [1, 1, 1], pct: ["+11%", "+36%", "+175%"], note: "NYSE + Nasdaq listed market cap; 1Y $62.2tn→$68.9tn, 5Y from $50.8tn (2020), 10Y from ~$25tn (2015)", source: "https://siblisresearch.com/data/us-stock-market-value/" },
+      { region: "Europe", size: "$24tn",   asOf: "2025",     up: [1, 1, 1], pct: [null, null, null], note: "FESE members — incl. UK & Switzerland (EUR series; no clean USD 1/5/10Y change)", source: "https://www.fese.eu/statistics/capital-markets-fact-sheet/" },
+      { region: "Asia",   size: "$44tn",   asOf: "2025",     up: [1, 1, 1], pct: ["+7%", null, "+91%"], note: "WFE Asia-Pacific (+7.2% in 2025); 10Y from $23tn (WFE FY2015)", source: "https://www.world-exchanges.org/news/articles/wfe-publishes-full-year-2015-market-highlights" },
+      { region: "Global", size: "$152tn",  asOf: "end-2025", up: [1, 1, 1], pct: ["+19%", "+39%", "+127%"], note: "WFE domestic market cap, FY2025 (+18.5% YoY); 5Y from $109tn (2020), 10Y from ~$67tn (2015)", source: "https://www.world-exchanges.org/news/articles/new-wfe-data-public-markets-post-strong-growth-2025-despite-geopolitical-instability" },
     ] },
     { label: "Public fixed income", sub: "debt outstanding", rows: [
       { region: "US",     size: "$58tn",  asOf: "YE2024",  up: [1, 1, 1], pct: ["+6%", "+26%", "+45%"], note: "SIFMA — all sectors; 1Y +6.4%, 5Y from ~$46tn (2020), 10Y from ~$40tn (2015)", source: "https://www.sifma.org/research/statistics/us-fixed-income-securities-statistics/" },
       { region: "Europe", size: "$30tn",  asOf: "2024–25", up: [1, 1, 1], pct: [null, null, null], note: "Estimate — no single published EU aggregate; anchored to SIFMA (US ≈ 2.1× EU) + ICMA/AFME components", source: "https://www.icmagroup.org/market-practice-and-regulatory-policy/secondary-markets/bond-market-size/" },
-      { region: "Asia",   size: "$31tn",  asOf: "Dec-2025", up: [1, 1, 1], pct: [null, null, null], note: "ADB — emerging East Asia local-currency bonds (excludes Japan & hard-currency); ~$9tn in 2015", source: "https://asianbondsonline.adb.org/" },
-      { region: "Global", size: "$161tn", asOf: "YE2024",  up: [1, 1, 1], pct: ["+11%", "+52%", null], note: "SIFMA 2025 Fact Book; 1Y +10.6%, 5Y from ~$106tn (2019)", source: "https://www.sifma.org/research/statistics/fact-book/" },
+      { region: "Asia",   size: "$31tn",  asOf: "Dec-2025", up: [1, 1, 1], pct: ["+16%", "+52%", null], note: "ADB — emerging East Asia local-currency bonds ($30.6tn, excl. Japan & hard-currency); 1Y from $26.3tn (2024), 5Y from $20.1tn (2020)", source: "https://asianbondsonline.adb.org/" },
+      { region: "Global", size: "$161tn", asOf: "2025",    up: [1, 1, 1], pct: ["+11%", "+52%", "+81%"], note: "SIFMA — total debt securities ($160.7tn 2025); 1Y +10.6% (vs $145tn 2024), 5Y from ~$106tn (2019), 10Y from $89tn (2015)", source: "https://www.sifma.org/research/statistics/fact-book/" },
     ] },
     { label: "Private equity AUM", sub: "PE fund AUM", rows: [
       { region: "US",     size: null,     asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "PE-narrow US AUM not separately disclosed; North America is ~60–68% of global PE (Preqin)", source: "https://www.blackrock.com/aladdin/discover/press-release/preqin-private-markets-in-2030-report" },
@@ -1445,10 +1445,10 @@ export const MARKET_SIZES = {
       { region: "Global", size: "$8.6tn", asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "Preqin — private equity ex-venture, Dec-2024; AUM has grown every year over 1/5/10Y", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
     ] },
     { label: "Private credit / debt", sub: "private-debt AUM", rows: [
-      { region: "US",     size: "$1.6tn", asOf: "mid-2023", up: [1, 1, 1], pct: [null, null, null], note: "IMF GFSR — US private-credit managers, growing ~20%/yr; the majority of the global market", source: "https://www.imf.org/-/media/files/publications/gfsr/2024/april/english/ch2.pdf" },
-      { region: "Europe", size: "$0.5tn", asOf: "2024–25", up: [1, 1, 1], pct: [null, null, null], note: "Carlyle / AIMA — European private-credit AUM (≈30% of global)", source: "https://www.carlyle.com/up-close-with-carlyle/growth-private-credit-europe" },
-      { region: "Asia",   size: "$59bn",  asOf: "2024",     up: [1, 1, 1], pct: [null, null, null], note: "AIMA / Preqin — Asia-Pacific private-credit fund AUM, >20%/yr CAGR", source: "https://www.aima.org/article/press-release-report-highlights-asia-pacific-s-growing-global-private-credit-market" },
-      { region: "Global", size: "$2.0tn", asOf: "2024–25", up: [1, 1, 1], pct: ["+11%", null, null], note: "Preqin — strict fund AUM (+~11%/yr); IMF put it at $1.7tn YE2023, +137% since 2018", source: "https://www.preqin.com/insights/global-reports/2025-private-debt" },
+      { region: "US",     size: "$1.6tn", asOf: "mid-2023", up: [1, 1, 1], pct: [null, "+149%", null], note: "IMF GFSR — US private-credit managers (~20%/yr); 5Y from ~$0.64tn (2018). The majority of the global market", source: "https://www.imf.org/-/media/files/publications/gfsr/2024/april/english/ch2.pdf" },
+      { region: "Europe", size: "$0.5tn", asOf: "2024–25", up: [1, 1, 1], pct: [null, "+119%", null], note: "IMF GFSR — European private-credit AUM (~17%/yr); 5Y from ~$0.23tn (2018); ≈30% of global", source: "https://www.imf.org/-/media/files/publications/gfsr/2024/april/english/ch2.pdf" },
+      { region: "Asia",   size: "$59bn",  asOf: "2024",     up: [1, 1, 1], pct: [null, null, null], note: "AIMA / Preqin — Asia-Pacific private-credit fund AUM (forecast 16%/yr to $92bn by 2027)", source: "https://www.aima.org/article/press-release-report-highlights-asia-pacific-s-growing-global-private-credit-market" },
+      { region: "Global", size: "$2.0tn", asOf: "2024–25", up: [1, 1, 1], pct: ["+11%", "+70%", null], note: "Preqin — strict fund AUM (+~11%/yr); 5Y from ~$1.2tn (2019). IMF: +137% since 2018 ($1.7tn YE2023)", source: "https://www.preqin.com/insights/global-reports/2025-private-debt" },
     ] },
   ],
 };
