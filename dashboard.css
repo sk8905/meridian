@@ -307,6 +307,21 @@
 .dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid2); }
 .dsh-fl-tbl tbody tr.dsh-georow:first-child td.dsh-geo { border-top:0; padding-top:2px; }
 .dsh-fl-pos { color:var(--t-up); font-weight:700; }
+/* Market-sizes matrix (Macro): asset-class bands (dsh-georow) over region rows,
+   with a Size column and 1Y/5Y/10Y trend arrows. */
+.dsh-ms-tbl th, .dsh-ms-tbl td { padding:4px 6px; }
+.dsh-ms-tbl th { color:var(--t-mut); font-weight:600; font-size:10px; }
+.dsh-ms-tbl th.dsh-ms-nm, .dsh-ms-tbl td.dsh-ms-nm { text-align:left; }
+.dsh-ms-tbl th.dsh-ms-sz, .dsh-ms-tbl td.dsh-ms-sz { text-align:left; }
+.dsh-ms-tbl td.dsh-ms-nm a { color:var(--t-dim); text-decoration:none; }
+.dsh-ms-tbl td.dsh-ms-nm a:hover { color:var(--t-ink); }
+.dsh-ms-tbl td.dsh-ms-sz { color:var(--t-ink); font-weight:600; }
+.dsh-ms-as { color:var(--t-faint); font-weight:400; font-size:9.5px; margin-left:4px; }
+.dsh-ms-tbl th.dsh-ms-a, .dsh-ms-tbl td.dsh-ms-a { text-align:center; width:34px; }
+.dsh-ms-t { font-weight:700; }
+.dsh-ms-t.up { color:var(--t-up); } .dsh-ms-t.down { color:var(--t-down); }
+.dsh-ms-t.flat, .dsh-ms-t.na { color:var(--t-faint); font-weight:400; }
+.dsh-ms-sub { color:var(--t-faint); font-weight:400; text-transform:none; letter-spacing:0; font-size:9px; }
 .dsh-fl-neg { color:var(--t-down); font-weight:700; }
 
 /* Legal database (Dashboard ▸ Legal) — searchable, practice-area-grouped list of

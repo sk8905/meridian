@@ -83,7 +83,7 @@ const cardVisible = (sel) => d.pg.evaluate((s) => {
   return !!(el && el.offsetParent !== null);
 }, sel);
 const lbls = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-term-lbl")).map((b) => b.textContent.trim()));
-check(lbls.join(",") === "Policy rates,Cycle,Macro wire", `Macro is labelled Policy rates · Cycle (stacked middle) + Macro wire (right rail) (got ${lbls.join(",")})`);
+check(lbls.join(",") === "Policy rates,Cycle,Market sizes,Macro wire", `Macro is labelled Policy rates · Cycle · Market sizes (stacked middle) + Macro wire (right rail) (got ${lbls.join(",")})`);
 check(await cardVisible(".dsh-mid .dsh-h"), "the stacked Policy-rates cards are visible");
 check(await cardVisible(".dsh-mid .dsh-cyc"), "the Cycle block is visible in the stacked middle");
 

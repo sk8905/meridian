@@ -544,16 +544,16 @@
 /* detail pane toggle (News / Funds / CLOs / Key personnel) */
 .tchips-l { margin-left: 0; }
 .tpanes { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--surface); }
-/* 761–900px (small desktop / tablet): the fixed shell (body + .v2-app
-   overflow:hidden, from app.css ≥761) is in force, but the ≤900 "page scrolls"
-   rule above turned .tcol .tpanes visible — so nothing scrolled inside the fixed
-   shell and long Profiles lists / profiles (e.g. a manager's Investments) clipped
-   with no way to reach the bottom. Restore an internal scroller in this band: the
-   outer Profiles panes scroll; the inner section panes flow so they don't nest a
-   second scroll container that traps the wheel. (≥901 already does this via the
-   .tdet-tabbed grid; ≤760 the whole page scrolls.) */
-@media (min-width: 761px) and (max-width: 900px) {
-  #pf-panes { overflow-y: auto; }
+/* DESKTOP (≥761px): the fixed shell (body + .v2-app overflow:hidden, app.css
+   ≥761) means a long Profiles list / profile must scroll INSIDE the outer panes.
+   Make #pf-panes the definitive scroller at every desktop width and let the inner
+   section panes FLOW (so they don't nest a second scroll container that traps the
+   wheel, and so a tall profile — e.g. a manager's News/Investments — reaches its
+   bottom). This is stated explicitly rather than left to the base .tpanes rule +
+   the .tdet-tabbed :has() cascade, which didn't hold across the 761–900 band and
+   some browsers, leaving the tail rows unreachable. (≤760 the whole page scrolls.) */
+@media (min-width: 761px) {
+  #pf-panes { overflow-y: auto; min-height: 0; -webkit-overflow-scrolling: touch; }
   #pf-detail .tpanes { overflow: visible; }
 }
 .tpanes .twire { overflow: visible; flex: none; }

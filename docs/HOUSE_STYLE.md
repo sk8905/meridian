@@ -295,6 +295,20 @@ notification badge red (`#ef4444`).
   (R7). Each row shows the peer's name + a one-line rationale (a shared strategy /
   its size). Enforced by `tests/profile-peers.mjs`.
 
+- **R25 — Market-sizes matrix (Dashboard ▸ Macro).** The Macro dashboard carries a
+  **Market sizes** matrix (`MARKET_SIZES` in `macro/js/content.js`, rendered by
+  `marketSizesHTML` in `v2/js/dashboard/app.js`): four asset classes (public
+  equities, private equity AUM, public fixed income, private credit/debt) each
+  broken into **US · Europe · Asia · Global**, with the latest size and a
+  **1Y/5Y/10Y trend arrow** (▲ up · ▼ down · – flat). **Certifiable only (R7):**
+  every size carries a real dated source and, where the reported basis matters, a
+  scope `note` (tooltip); a size not cleanly published on a comparable basis is
+  `null` and renders "—" while its arrows stay (each independently sourced). Sizes
+  are the freshest single reported figure per cell; regions are NOT expected to sum
+  to Global (different compilers/coverage). Refreshing each figure from its source's
+  latest annual/quarterly release is a daily-refresh concern. Enforced by
+  `tests/dashboard-heatmaps.mjs`.
+
 ---
 
 ## 7. Technical rules

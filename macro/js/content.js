@@ -1404,3 +1404,46 @@ export const EARNINGS = {
     { name: "Investing.com — Estée Lauder beats Q4 2026 estimates, shares jump 16%", url: "https://www.investing.com/news/transcripts/earnings-call-transcript-estee-lauder-beats-q4-2026-estimates-shares-jump-16-93CH-4867678" },
   ],
 };
+
+// ---------------------------------------------------------------------------
+// MARKET_SIZES — a big-picture reference matrix of the world's investable
+// markets by ASSET CLASS × REGION (US · Europe · Asia · Global), each with the
+// latest total size and the DIRECTION of change over the past 1 / 5 / 10 years
+// (▲ up · ▼ down · – flat). Certifiable only (R7): every size carries a real,
+// dated source and a scope `note` where the reported basis matters; a size that
+// isn't cleanly published on a comparable basis is `null` and renders "—" (the
+// trend arrows are still shown, each independently sourced). Directions are
+// well-documented; sizes are the freshest single reported figure per cell.
+// Refresh: re-check each source's latest annual/quarterly release (see
+// docs/refresh-routines.md). Sources: WFE, SIFMA, FESE, OECD, Preqin, McKinsey,
+// ICMA, AFME, ADB AsianBondsOnline, IMF GFSR, Carlyle, AIMA.
+// ---------------------------------------------------------------------------
+export const MARKET_SIZES = {
+  asOf: "2026-09",
+  classes: [
+    { label: "Public equities", sub: "listed market cap", rows: [
+      { region: "US",     size: "$68.9tn", asOf: "2025",     up: [1, 1, 1], note: "NYSE + Nasdaq listed market cap", source: "https://siblisresearch.com/data/us-stock-market-value/" },
+      { region: "Europe", size: "$24tn",   asOf: "2025",     up: [1, 1, 1], note: "FESE members — incl. UK & Switzerland", source: "https://www.fese.eu/statistics/capital-markets-fact-sheet/" },
+      { region: "Asia",   size: "$44tn",   asOf: "2025",     up: [1, 1, 1], note: "WFE Asia-Pacific / OECD ≈29% of world", source: "https://www.oecd.org/en/publications/asia-capital-markets-report-2025_02172cdc-en/full-report/equity-markets_21fa56c1.html" },
+      { region: "Global", size: "$152tn",  asOf: "end-2025", up: [1, 1, 1], note: "WFE domestic market cap, FY2025", source: "https://www.world-exchanges.org/news/articles/new-wfe-data-public-markets-post-strong-growth-2025-despite-geopolitical-instability" },
+    ] },
+    { label: "Private equity AUM", sub: "PE fund AUM", rows: [
+      { region: "US",     size: null,     asOf: "2024", up: [1, 1, 1], note: "PE-narrow US AUM not separately disclosed; North America is ~60–68% of global PE (Preqin)", source: "https://www.blackrock.com/aladdin/discover/press-release/preqin-private-markets-in-2030-report" },
+      { region: "Europe", size: null,     asOf: "2024", up: [1, 1, 1], note: "PE-narrow European AUM not separately disclosed on a comparable basis (Preqin)", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
+      { region: "Asia",   size: null,     asOf: "2024", up: [1, 1, 1], note: "APAC PE-narrow AUM not separately disclosed; deal value +11% to $176bn in 2024 (Bain)", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
+      { region: "Global", size: "$8.6tn", asOf: "2024", up: [1, 1, 1], note: "Preqin — private equity ex-venture, Dec-2024", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
+    ] },
+    { label: "Public fixed income", sub: "debt outstanding", rows: [
+      { region: "US",     size: "$58tn",  asOf: "YE2024",  up: [1, 1, 1], note: "SIFMA — all sectors (Treasuries, corp, MBS/ABS, muni, money-markets)", source: "https://www.sifma.org/research/statistics/us-fixed-income-securities-statistics/" },
+      { region: "Europe", size: "$30tn",  asOf: "2024–25", up: [1, 1, 1], note: "Estimate — no single published EU aggregate; anchored to SIFMA (US ≈ 2.1× EU) + ICMA/AFME components", source: "https://www.icmagroup.org/market-practice-and-regulatory-policy/secondary-markets/bond-market-size/" },
+      { region: "Asia",   size: "$31tn",  asOf: "Dec-2025", up: [1, 1, 1], note: "ADB — emerging East Asia local-currency bonds (excludes Japan & hard-currency)", source: "https://asianbondsonline.adb.org/" },
+      { region: "Global", size: "$161tn", asOf: "YE2024",  up: [1, 1, 1], note: "SIFMA 2025 Capital Markets Fact Book", source: "https://www.sifma.org/research/statistics/fact-book/" },
+    ] },
+    { label: "Private credit / debt", sub: "private-debt AUM", rows: [
+      { region: "US",     size: "$1.6tn", asOf: "mid-2023", up: [1, 1, 1], note: "IMF GFSR — US private-credit managers; the majority of the global market", source: "https://www.imf.org/-/media/files/publications/gfsr/2024/april/english/ch2.pdf" },
+      { region: "Europe", size: "$0.5tn", asOf: "2024–25", up: [1, 1, 1], note: "Carlyle / AIMA — European private-credit AUM (≈30% of global)", source: "https://www.carlyle.com/up-close-with-carlyle/growth-private-credit-europe" },
+      { region: "Asia",   size: "$59bn",  asOf: "2024",     up: [1, 1, 1], note: "AIMA / Preqin — Asia-Pacific private-credit fund AUM", source: "https://www.aima.org/article/press-release-report-highlights-asia-pacific-s-growing-global-private-credit-market" },
+      { region: "Global", size: "$2.0tn", asOf: "2024–25", up: [1, 1, 1], note: "Preqin — strict fund AUM (IMF put it at $1.7tn YE2023, +137% since 2018)", source: "https://www.preqin.com/insights/global-reports/2025-private-debt" },
+    ] },
+  ],
+};

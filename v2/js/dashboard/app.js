@@ -13,7 +13,7 @@
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260818-1";
 import { fmtDay as fmtDate } from "/feed.js?v=20260808-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT } from "/dashboard/js/data.js";
-import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
+import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS, MARKET_SIZES } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { bandHTML } from "/v2/js/searchband.js?v=v2-2";
@@ -604,6 +604,34 @@ export function mount(host, ctx) {
   // panes that fill the screen and each scroll internally — Policy rates (Fed/BoE
   // paths, rate outlook, yield curve), Cycle (Dalio debt + Marks market cycle) and
   // the Macro wire rail. The regime pills strip spans the top as a shared read.
+  // Market sizes — a matrix of the world's investable markets by asset class ×
+  // region, with the latest size and 1Y/5Y/10Y trend arrows (▲/▼/–). Reuses the
+  // world-indices band + heat-table furniture. Every size/direction is sourced
+  // (MARKET_SIZES, macro/js/content.js); a size that isn't cleanly published on a
+  // comparable basis shows "—" while its arrows stay (each independently sourced).
+  function marketSizesHTML() {
+    const M = MARKET_SIZES;
+    if (!M || !(M.classes || []).length) return "";
+    const arrow = (d) => d === 1 ? `<span class="dsh-ms-t up" title="Larger than a decade/year ago">▲</span>`
+      : d === -1 ? `<span class="dsh-ms-t down" title="Smaller">▼</span>`
+      : d === 0 ? `<span class="dsh-ms-t flat" title="Broadly flat">–</span>`
+      : `<span class="dsh-ms-t na" title="Not available">·</span>`;
+    const row = (r) => {
+      const nm = r.source
+        ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer"${r.note ? ` title="${esc(r.note)}"` : ""}>${esc(r.region)}</a>`
+        : esc(r.region);
+      const up = r.up || [];
+      return `<tr><td class="dsh-ms-nm">${nm}</td>`
+        + `<td class="dsh-ms-sz">${r.size ? esc(r.size) : "—"}${r.asOf ? ` <span class="dsh-ms-as">${esc(r.asOf)}</span>` : ""}</td>`
+        + `<td class="dsh-r dsh-ms-a">${arrow(up[0])}</td><td class="dsh-r dsh-ms-a">${arrow(up[1])}</td><td class="dsh-r dsh-ms-a">${arrow(up[2])}</td></tr>`;
+    };
+    const grp = (c) => `<tr class="dsh-georow"><td class="dsh-geo" colspan="5">${esc(c.label)}${c.sub ? ` <span class="dsh-ms-sub">${esc(c.sub)}</span>` : ""}</td></tr>`
+      + (c.rows || []).map(row).join("");
+    return `<table class="dsh-fl-tbl dsh-ms-tbl"><thead><tr>`
+      + `<th class="dsh-ms-nm">Region</th><th class="dsh-ms-sz">Size</th>`
+      + `<th class="dsh-r dsh-ms-a">1Y</th><th class="dsh-r dsh-ms-a">5Y</th><th class="dsh-r dsh-ms-a">10Y</th>`
+      + `</tr></thead><tbody>${M.classes.map(grp).join("")}</tbody></table>`;
+  }
   function macroHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
@@ -616,7 +644,9 @@ export function mount(host, ctx) {
       <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
       <h3 class="dsh-term-lbl">Cycle</h3>
       <section class="dsh-card">${cyc.debt}</section>
-      <section class="dsh-card">${cyc.market}</section>`;
+      <section class="dsh-card">${cyc.market}</section>
+      <h3 class="dsh-term-lbl">Market sizes</h3>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Market sizes — by asset class &amp; region <span class="dsh-mut">${esc(MARKET_SIZES.asOf || "")}</span></h3><div class="dsh-scroll">${marketSizesHTML()}</div></section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Macro wire" };
   }

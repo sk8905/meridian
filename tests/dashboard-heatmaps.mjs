@@ -135,6 +135,28 @@ const base = `http://localhost:${srv.port}`;
     check(votes.tallySpread <= 2, `Macro: MPC vote tallies are column-aligned (${votes.tallySpread.toFixed(1)}px spread)`);
     check(votes.bandSpread <= 2, `Macro: MPC vote lean pills are column-aligned (${votes.bandSpread.toFixed(1)}px spread)`);
   } else check(true, "Macro: no MPC vote rows to align this cycle");
+  // Market sizes matrix: asset-class bands over region rows, each with a size (or
+  // "—") + 1Y/5Y/10Y trend arrows, every row source-linked (certifiable only).
+  const ms = await pg.evaluate(() => {
+    const tbl = document.querySelector(".dsh-ms-tbl");
+    if (!tbl) return { present: false };
+    const bands = [...tbl.querySelectorAll(".dsh-geo")].map((x) => x.textContent.replace(/\s+/g, " ").trim());
+    const rows = [...tbl.querySelectorAll("tbody tr:not(.dsh-georow)")];
+    return {
+      present: true, bands, nRows: rows.length,
+      arrows: tbl.querySelectorAll(".dsh-ms-t").length,
+      sourced: rows.filter((r) => r.querySelector(".dsh-ms-nm a[href^='http']")).length,
+      sized: rows.filter((r) => { const s = r.querySelector(".dsh-ms-sz"); return s && !/^—/.test(s.textContent.trim()); }).length,
+      regions: [...new Set(rows.map((r) => (r.querySelector(".dsh-ms-nm") || {}).textContent?.trim().split(" ")[0]))],
+    };
+  });
+  check(ms.present, "Macro: market-sizes matrix renders");
+  check(ms.present && ms.bands.length === 4 && /Public equities/i.test(ms.bands[0]) && ms.bands.some((b) => /Private credit/i.test(b)),
+    `Macro: matrix bands the four asset classes (${(ms.bands || []).join(" · ")})`);
+  check(ms.present && ms.nRows === 16, `Macro: matrix has US·Europe·Asia·Global for each class (${ms.nRows} rows)`);
+  check(ms.present && ms.arrows === ms.nRows * 3, `Macro: every row shows 1Y/5Y/10Y trend arrows (${ms.arrows})`);
+  check(ms.present && ms.sourced === ms.nRows, `Macro: every market-size row links its source (${ms.sourced}/${ms.nRows})`);
+  check(ms.present && ms.sized >= 10, `Macro: sizes shown where cleanly sourced, "—" otherwise (${ms.sized} sized)`);
   checkErrs(errs, "macro rate outlook + yield curve");
   await ctx.close();
 }

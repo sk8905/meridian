@@ -9,7 +9,7 @@ const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 
-for (const w of [780, 860, 900]) {
+for (const w of [780, 860, 900, 1280]) {
   const ctx = await b.newContext({ viewport: { width: w, height: 720 } });
   const pg = await ctx.newPage();
   await pg.goto(`${base}/v2/profiles/#/manager/m8`, { waitUntil: "load" });
