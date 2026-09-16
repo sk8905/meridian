@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-bettingonafedhike-20260916",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: Betting on a Fed hike",
+    date: "2026-09-16",
+    time: "11:09",
+    summary: "Plus, the UK's bond woes.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-16/bond-traders-are-convinced-the-fed-will-hike-interest-rates",
+  },
+  {
     id: "nl-legalbusiness-weilexits-20260916",
     publication: "Legal Business",
     author: null,

@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bad109a9-1a34-4663-9dd8-e757b3f38c62", title: "Scientists test new (and old) navigation systems to end GPS dependence", date: "2026-09-16", time: "11:00", url: "https://www.ft.com/content/bad109a9-1a34-4663-9dd8-e757b3f38c62" },
+  { id: "c9f54d41-6617-480b-82ca-d5ffcb11669d", title: "What are the risks of using AI to draft my will?", date: "2026-09-16", time: "10:49", url: "https://www.ft.com/content/c9f54d41-6617-480b-82ca-d5ffcb11669d" },
+  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-16", time: "10:26", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "2262cdb5-aaab-4a24-8017-a16f154dc3d7", title: "Scrapping triple lock on pensions need not wreak political damage", date: "2026-09-16", time: "09:30", url: "https://www.ft.com/content/2262cdb5-aaab-4a24-8017-a16f154dc3d7" },
   { id: "410db291-f133-4d72-b883-b2d5a32abbf8", title: "EU to restrict social media and chatbots for children under 15", date: "2026-09-16", time: "09:27", url: "https://www.ft.com/content/410db291-f133-4d72-b883-b2d5a32abbf8" },
   { id: "bb2c178f-08e8-4de2-af49-6c184217cfb3", title: "PwC revenues fall for first time in more than a decade", date: "2026-09-16", time: "09:01", url: "https://www.ft.com/content/bb2c178f-08e8-4de2-af49-6c184217cfb3" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "8c8e7688-fae5-41d5-93d1-7be39dd2639f", title: "Iran uses spyware disguised as MRI scan results to hack critics, say western officials", date: "2026-09-15", time: "19:57", url: "https://www.ft.com/content/8c8e7688-fae5-41d5-93d1-7be39dd2639f" },
   { id: "b8b0e43d-3b5c-4531-9f7a-da65d516ea17", title: "UK bosses must ‘sit down’ with staff if they block WFH requests", date: "2026-09-15", time: "19:18", url: "https://www.ft.com/content/b8b0e43d-3b5c-4531-9f7a-da65d516ea17" },
   { id: "752e9694-9e47-4da1-a90a-ec1965665b08", title: "Colombian president fires statistics chief after three weeks", date: "2026-09-15", time: "19:17", url: "https://www.ft.com/content/752e9694-9e47-4da1-a90a-ec1965665b08" },
-  { id: "5e2327aa-dbd0-4a79-8c99-622a893876d7", title: "Ten-year Treasury yield hits highest level since 2007", date: "2026-09-15", time: "19:13", url: "https://www.ft.com/content/5e2327aa-dbd0-4a79-8c99-622a893876d7" },
-  { id: "4b9952d5-3cc8-48ef-8619-daa15a0a6af1", title: "Exxon wins Texas approval for $5bn carbon capture project", date: "2026-09-15", time: "18:43", url: "https://www.ft.com/content/4b9952d5-3cc8-48ef-8619-daa15a0a6af1" },
 ];
