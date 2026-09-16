@@ -95,7 +95,9 @@
 .wn-badge[open] .wn-badge-h::before { transform:rotate(90deg); }
 .wn-badge-h strong { color:inherit; font-weight:600; }
 .wn-badge-body { margin-top:5px; }
-.wn-badge-people { color:var(--wn-mut); font-size:.81rem; line-height:1.5; }
-.wn-badge-pending { margin-top:8px; padding-top:7px; border-top:1px dashed var(--wn-bd); color:var(--wn-mut); font-size:.81rem; line-height:1.5; }
+/* In the profile header the connection rows read like the Sources / Peers lines
+   above them: faint, 10.5px, same mono, not the larger .81rem menu size. */
+.wn-badge-people { color:var(--faint, var(--wn-mut)); font-size:10.5px; line-height:1.5; }
+.wn-badge-pending { margin-top:8px; padding-top:7px; border-top:1px dashed var(--wn-bd); color:var(--faint, var(--wn-mut)); font-size:10.5px; line-height:1.5; }
 .wn-badge-plbl { display:block; color:var(--wn-accent); font-size:.71rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; margin-bottom:3px; }
 .wn-badge-co { color:var(--wn-mut); opacity:.85; }

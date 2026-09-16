@@ -112,6 +112,14 @@ const order = await pg.evaluate(() => {
 });
 check(order.hasPeers && order.hasNet && order.peersBeforeNet && order.netBeforeSrc,
   `Profile badge: header order is Peers · LinkedIn · Sources`);
+// The connection rows read at the same size as the Peers rows above them (both the
+// header's small 10.5px line, not the larger Menu-pane size).
+const fonts = await pg.evaluate(() => {
+  const net = document.querySelector("#pf-detail .wn-badge-people");
+  const peer = document.querySelector("#pf-detail .tdet-peers-body .tdet-peer");
+  return { net: net ? getComputedStyle(net).fontSize : null, peer: peer ? getComputedStyle(peer).fontSize : null };
+});
+check(fonts.net && fonts.net === fonts.peer, `Profile badge: connection rows match the Peers row size (${fonts.net} vs ${fonts.peer})`);
 checkEq(badge.tag, "DETAILS", "Profile badge: is a collapsible <details> element");
 checkEq(badge.open, false, "Profile badge: collapsed by default");
 // Clicking the summary expands it.
