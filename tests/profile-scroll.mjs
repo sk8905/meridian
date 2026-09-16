@@ -29,15 +29,18 @@ for (const w of [780, 860, 900, 1280]) {
   // them (only the list moves). They must NOT scroll off to a negative offset; the
   // section tabs sit just BELOW the sticky header.
   const pinned = await pg.evaluate(() => {
+    const sb = document.querySelector('#pf-panes > .tpane:not([hidden]) .thead-search');
     const hdr = document.querySelector('#pf-detail .tdet-id');
     const side = document.querySelector('#pf-list > .tdash-grid > .tcol-c > .twire-head');
     const tabs = document.querySelector('#pf-detail .tdet-tabbed > .twire-head');
     return {
+      searchTop: sb ? sb.getBoundingClientRect().top : -999, searchVis: sb ? sb.offsetParent !== null : false,
       hdrTop: hdr ? hdr.getBoundingClientRect().top : -999, hdrBot: hdr ? hdr.getBoundingClientRect().bottom : -999,
       sideTop: side ? side.getBoundingClientRect().top : -999, tabsTop: tabs ? tabs.getBoundingClientRect().top : -999,
     };
   });
-  check(pinned.hdrTop >= 0 && pinned.hdrTop <= 220, `${w}px: the identity header stays pinned on scroll (top ${Math.round(pinned.hdrTop)})`);
+  check(pinned.searchVis && pinned.searchTop >= 0 && pinned.searchTop <= 200, `${w}px: the search bar stays pinned (no general page scroll) (top ${Math.round(pinned.searchTop)})`);
+  check(pinned.hdrTop >= 0 && pinned.hdrTop <= 260, `${w}px: the identity header stays pinned on scroll (top ${Math.round(pinned.hdrTop)})`);
   check(pinned.sideTop >= 0 && pinned.sideTop <= 220 && pinned.tabsTop >= 0 && pinned.tabsTop <= 420 && pinned.tabsTop >= pinned.hdrBot - 4,
     `${w}px: sidebar pinned + section tabs pinned just below the header (side ${Math.round(pinned.sideTop)}, tabs ${Math.round(pinned.tabsTop)} ≥ header bottom ${Math.round(pinned.hdrBot)})`);
   await ctx.close();

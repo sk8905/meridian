@@ -95,13 +95,22 @@ export async function mount(host, ctx) {
   // live height as --pf-head-h so the tabs' sticky offset tracks it (it changes when
   // the Peers/Sources dropdowns expand). One ResizeObserver, reused across renders.
   let _headRO = null;
+  const activeSearch = () => [...panes.querySelectorAll(".tpane")].map((p) => (p.hidden ? null : p.querySelector(".thead-search"))).find(Boolean) || null;
+  const publishHeights = () => {
+    const id = pfDetail.querySelector(".tdet-id");
+    const sb = activeSearch();
+    pfDetail.style.setProperty("--pf-search-h", (sb ? sb.offsetHeight : 0) + "px");
+    if (id) pfDetail.style.setProperty("--pf-head-h", id.offsetHeight + "px");
+    else pfDetail.style.removeProperty("--pf-head-h");
+  };
   const syncHeadH = () => {
     const id = pfDetail.querySelector(".tdet-id");
-    if (!id) { pfDetail.style.removeProperty("--pf-head-h"); return; }
-    pfDetail.style.setProperty("--pf-head-h", id.offsetHeight + "px");
+    if (!id) { pfDetail.style.removeProperty("--pf-head-h"); pfDetail.style.removeProperty("--pf-search-h"); return; }
+    publishHeights();
     if (typeof ResizeObserver === "function") {
-      if (!_headRO) _headRO = new ResizeObserver(() => { const el = pfDetail.querySelector(".tdet-id"); if (el) pfDetail.style.setProperty("--pf-head-h", el.offsetHeight + "px"); });
+      if (!_headRO) _headRO = new ResizeObserver(() => publishHeights());
       _headRO.disconnect(); _headRO.observe(id);
+      const sb = activeSearch(); if (sb) _headRO.observe(sb);
     }
   };
   const renderCredit = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); syncHeadH(); };

@@ -566,13 +566,17 @@
   .v2-view[data-view="profiles"] #pf-list > .tdash-grid > .tcol-c,
   .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed,
   .v2-view[data-view="profiles"] #pf-detail .tpanes { overflow: visible; min-height: 0; }
-  /* Pin the identity header, the Profiles sidebar (Managers/Hedge Funds/…), the
-     profile's section tabs (News/Vehicles/…) and the search row so the content
-     scrolls under them — only the section list appears to move. */
-  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .tdet-id { position: sticky; top: 0; z-index: 6; background: var(--head); }
-  .v2-view[data-view="profiles"] #pf-list > .tdash-grid > .tcol-c > .twire-head { position: sticky !important; top: 0; align-self: start; z-index: 7; }
-  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .twire-head { position: sticky !important; top: var(--pf-head-h, 0px); align-self: start; z-index: 5; }
+  /* Pin the whole top chrome so ONLY the section list scrolls under it. Stacked
+     sticky offsets: search bar (top) → identity header → section tabs. The search
+     bar is pinned via its PANE (its own row's sticky was confined to that pane,
+     which is short in detail mode, so it scrolled off — "general page scroll"). The
+     header/search heights are published live as --pf-head-h / --pf-search-h by
+     profiles/app.js so the offsets track dropdown expansion. */
+  .v2-view[data-view="profiles"].pf-detailing #pf-panes > .tpane:not([hidden]) { position: sticky; top: 0; z-index: 8; background: var(--head); }
   .v2-view[data-view="profiles"] .tpane > .thead-search { position: sticky; top: 0; z-index: 8; background: var(--head); }
+  .v2-view[data-view="profiles"] #pf-list > .tdash-grid > .tcol-c > .twire-head { position: sticky !important; top: 0; align-self: start; z-index: 7; }
+  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .tdet-id { position: sticky; top: var(--pf-search-h, 0px); z-index: 6; background: var(--head); }
+  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .twire-head { position: sticky !important; top: calc(var(--pf-search-h, 0px) + var(--pf-head-h, 0px)); align-self: start; z-index: 5; }
 }
 .tpanes .twire { overflow: visible; flex: none; }
 /* ---- DESKTOP left sidebar nav for Profiles + Transactions (mirrors the Dashboard

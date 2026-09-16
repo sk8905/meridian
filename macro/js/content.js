@@ -1432,17 +1432,17 @@ export const MARKET_SIZES = {
       { region: "Asia",   size: "$44tn",   asOf: "2025",     up: [1, 1, 1], pct: ["+7%", null, null], note: "WFE Asia-Pacific (+7.2% in 2025) / OECD ≈29% of world", source: "https://www.oecd.org/en/publications/asia-capital-markets-report-2025_02172cdc-en/full-report/equity-markets_21fa56c1.html" },
       { region: "Global", size: "$152tn",  asOf: "end-2025", up: [1, 1, 1], pct: ["+19%", null, null], note: "WFE domestic market cap, FY2025 (+18.5% YoY)", source: "https://www.world-exchanges.org/news/articles/new-wfe-data-public-markets-post-strong-growth-2025-despite-geopolitical-instability" },
     ] },
-    { label: "Private equity AUM", sub: "PE fund AUM", rows: [
-      { region: "US",     size: null,     asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "PE-narrow US AUM not separately disclosed; North America is ~60–68% of global PE (Preqin)", source: "https://www.blackrock.com/aladdin/discover/press-release/preqin-private-markets-in-2030-report" },
-      { region: "Europe", size: null,     asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "PE-narrow European AUM not separately disclosed on a comparable basis (Preqin)", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
-      { region: "Asia",   size: null,     asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "APAC PE-narrow AUM not separately disclosed; deal value +11% to $176bn in 2024 (Bain)", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
-      { region: "Global", size: "$8.6tn", asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "Preqin — private equity ex-venture, Dec-2024; AUM has grown every year over 1/5/10Y", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
-    ] },
     { label: "Public fixed income", sub: "debt outstanding", rows: [
       { region: "US",     size: "$58tn",  asOf: "YE2024",  up: [1, 1, 1], pct: ["+6%", "+26%", "+45%"], note: "SIFMA — all sectors; 1Y +6.4%, 5Y from ~$46tn (2020), 10Y from ~$40tn (2015)", source: "https://www.sifma.org/research/statistics/us-fixed-income-securities-statistics/" },
       { region: "Europe", size: "$30tn",  asOf: "2024–25", up: [1, 1, 1], pct: [null, null, null], note: "Estimate — no single published EU aggregate; anchored to SIFMA (US ≈ 2.1× EU) + ICMA/AFME components", source: "https://www.icmagroup.org/market-practice-and-regulatory-policy/secondary-markets/bond-market-size/" },
       { region: "Asia",   size: "$31tn",  asOf: "Dec-2025", up: [1, 1, 1], pct: [null, null, null], note: "ADB — emerging East Asia local-currency bonds (excludes Japan & hard-currency); ~$9tn in 2015", source: "https://asianbondsonline.adb.org/" },
       { region: "Global", size: "$161tn", asOf: "YE2024",  up: [1, 1, 1], pct: ["+11%", "+52%", null], note: "SIFMA 2025 Fact Book; 1Y +10.6%, 5Y from ~$106tn (2019)", source: "https://www.sifma.org/research/statistics/fact-book/" },
+    ] },
+    { label: "Private equity AUM", sub: "PE fund AUM", rows: [
+      { region: "US",     size: null,     asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "PE-narrow US AUM not separately disclosed; North America is ~60–68% of global PE (Preqin)", source: "https://www.blackrock.com/aladdin/discover/press-release/preqin-private-markets-in-2030-report" },
+      { region: "Europe", size: null,     asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "PE-narrow European AUM not separately disclosed on a comparable basis (Preqin)", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
+      { region: "Asia",   size: null,     asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "APAC PE-narrow AUM not separately disclosed; deal value +11% to $176bn in 2024 (Bain)", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
+      { region: "Global", size: "$8.6tn", asOf: "2024", up: [1, 1, 1], pct: [null, null, null], note: "Preqin — private equity ex-venture, Dec-2024; AUM has grown every year over 1/5/10Y", source: "https://www.preqin.com/insights/global-reports/2025-private-equity" },
     ] },
     { label: "Private credit / debt", sub: "private-debt AUM", rows: [
       { region: "US",     size: "$1.6tn", asOf: "mid-2023", up: [1, 1, 1], pct: [null, null, null], note: "IMF GFSR — US private-credit managers, growing ~20%/yr; the majority of the global market", source: "https://www.imf.org/-/media/files/publications/gfsr/2024/april/english/ch2.pdf" },
