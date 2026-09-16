@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d085adc5-977b-4c7e-9641-9824d1d345d3", title: "AI bosses’ safety push sparks rift inside OpenAI and Anthropic", date: "2026-09-16", time: "13:00", url: "https://www.ft.com/content/d085adc5-977b-4c7e-9641-9824d1d345d3" },
   { id: "31f41c2e-084b-4bdf-a548-bf3d1139dbbe", title: "Hormuz crisis threatens to undermine long-term LNG demand", date: "2026-09-16", time: "12:00", url: "https://www.ft.com/content/31f41c2e-084b-4bdf-a548-bf3d1139dbbe" },
   { id: "7727d99d-dce5-48e9-aebd-7d09ab3aa608", title: "The Extended Farageverse is coming together", date: "2026-09-16", time: "11:31", url: "https://www.ft.com/content/7727d99d-dce5-48e9-aebd-7d09ab3aa608" },
   { id: "1655b0eb-5f54-4ad0-afbb-cf9ffb09bc32", title: "Andy Burnham considers plan to give mayors greater oversight of water companies", date: "2026-09-16", time: "11:24", url: "https://www.ft.com/content/1655b0eb-5f54-4ad0-afbb-cf9ffb09bc32" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "c11fd1dd-8783-4894-9f53-109d7edf376f", title: "How Switzerland turned tax competition into a national sport", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/c11fd1dd-8783-4894-9f53-109d7edf376f" },
   { id: "2e3ad452-cd81-4df0-8eec-09112033ea37", title: "The unravelling of Missoni", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/2e3ad452-cd81-4df0-8eec-09112033ea37" },
   { id: "6ec74be5-9e4c-49c0-a9dc-d3a0ae324a17", title: "Hedge fund warned ousted lawyer to settle £36bn BHP dam collapse claim", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/6ec74be5-9e4c-49c0-a9dc-d3a0ae324a17" },
-  { id: "ffe402ca-564a-457f-a861-18083a361e50", title: "Iran’s hidden leader stirs unease at home", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/ffe402ca-564a-457f-a861-18083a361e50" },
 ];
