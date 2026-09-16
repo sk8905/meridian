@@ -303,18 +303,25 @@ await ctx.close();
   });
   check(over.tblW <= over.vw + 1, `phone: the deal-flow overview fits the screen — no horizontal scroll (table ${over.tblW} ≤ vw ${over.vw})`);
   check(over.vis.length === 3, `phone: the overview shows exactly three columns (${over.vis.join(" · ")})`);
-  // Expand a type → its inline deal list fits too, with Borrower + Date + Amount all visible.
+  // Expand a type → its inline deal list keeps EVERY column and scrolls horizontally
+  // inside its own .tleague-wrap, rather than squashing the borrower into a ragged
+  // char-by-char wrap. The page itself must NOT gain a horizontal scrollbar.
   await p.pg.evaluate(() => { const r = document.querySelector(".tx-tbl tbody tr.clickable"); if (r) r.click(); });
   await p.pg.waitForSelector(".tx-typeexp:not([hidden]) .tx-list tbody tr.tx-row", { timeout: 4000 });
   const drill = await p.pg.evaluate(() => {
     const t = document.querySelector(".tx-typeexp:not([hidden]) .tx-list");
+    const wrap = t.closest(".tleague-wrap");
     const row = t.querySelector("tbody tr.tx-row");
     const cells = [...row.children].filter((td) => getComputedStyle(td).display !== "none").map((td) => td.className.replace(/\s*tl-n\s*/, "").trim());
-    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width), cells };
+    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width),
+      wrapScrolls: wrap ? wrap.scrollWidth > wrap.clientWidth + 1 : false,
+      wrapFits: wrap ? Math.round(wrap.getBoundingClientRect().width) <= window.innerWidth + 1 : false,
+      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, cells };
   });
-  check(drill.tblW <= drill.vw + 1, `phone: an expanded type's deal list fits the screen (table ${drill.tblW} ≤ vw ${drill.vw})`);
-  check(drill.cells.length === 3 && drill.cells.includes("tx-bd") && drill.cells.includes("tx-dt") && drill.cells.includes("tx-sz"),
-    `phone: the deal list shows Borrower · Date · Amount at once (${drill.cells.join(", ")})`);
+  check(drill.wrapScrolls && drill.wrapFits, `phone: the expanded deal list scrolls horizontally inside its wrap (tbl ${drill.tblW} > vw ${drill.vw}, wrap fits screen)`);
+  check(drill.pageOverflow <= 1, `phone: the page itself does not scroll sideways (overflow ${drill.pageOverflow}px)`);
+  check(drill.cells.length === 7 && ["tx-bd", "tx-sp", "tx-dt", "tx-mg", "tx-cat", "tx-sz", "tx-src2"].every((c) => drill.cells.includes(c)),
+    `phone: the deal list keeps all seven columns to scroll through (${drill.cells.join(", ")})`);
   // The Group-by-lender button stays pinned to the TOP-right of the filter block —
   // even when the sub-category chips wrap onto several rows below it (it floats,
   // so its top hugs the subhead top and its right hugs the subhead right edge).
