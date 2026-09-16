@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3dacfbb9-e7ec-4286-b161-1f86bcd761cb", title: "UK prepares for a ‘really challenging’ Budget as interest rate fears mount", date: "2026-09-16", time: "19:46", url: "https://www.ft.com/content/3dacfbb9-e7ec-4286-b161-1f86bcd761cb" },
+  { id: "b990fc74-9efe-4de0-a6ca-64427e6e4f84", title: "Federal Reserve raises fed funds rate with likely more to come", date: "2026-09-16", time: "19:35", url: "https://www.ft.com/content/b990fc74-9efe-4de0-a6ca-64427e6e4f84" },
   { id: "d1f2c9bd-26ce-4e87-9da4-fe0238bd531d", title: "Revolut hackers demand $3mn ransom", date: "2026-09-16", time: "18:58", url: "https://www.ft.com/content/d1f2c9bd-26ce-4e87-9da4-fe0238bd531d" },
   { id: "7be92efe-13d6-4d02-9f77-0e8229b3b8fa", title: "Trump oil ally Harold Hamm to invest in Venezuela", date: "2026-09-16", time: "18:39", url: "https://www.ft.com/content/7be92efe-13d6-4d02-9f77-0e8229b3b8fa" },
   { id: "d4368014-a79f-4887-a839-1fc43b52fca1", title: "Britain’s unsustainable pensions lock", date: "2026-09-16", time: "18:21", url: "https://www.ft.com/content/d4368014-a79f-4887-a839-1fc43b52fca1" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "6b6a27bd-2725-4591-be8a-fda643c2ac5c", title: "World’s best-performing sovereign wealth fund expects equities pullback", date: "2026-09-16", time: "05:55", url: "https://www.ft.com/content/6b6a27bd-2725-4591-be8a-fda643c2ac5c" },
   { id: "ef511d46-a689-4868-9654-15b96a71586d", title: "The precarious fusion boom", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/ef511d46-a689-4868-9654-15b96a71586d" },
   { id: "69a2a7a0-ecd2-4d05-915c-55a6352889ff", title: "Sullivan & Cromwell discovers private equity", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/69a2a7a0-ecd2-4d05-915c-55a6352889ff" },
-  { id: "9dd894cd-dddd-4388-ac00-dbd14d40dc52", title: "With AI, ‘I told you so’ will be too late", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/9dd894cd-dddd-4388-ac00-dbd14d40dc52" },
-  { id: "2e2e0c1e-51d6-49e2-9f4a-6ef793908b85", title: "EU rebuffs Mark Carney’s ‘unique alliance’ with Canada", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/2e2e0c1e-51d6-49e2-9f4a-6ef793908b85" },
-  { id: "f62e467a-bcb6-423d-96f2-b2b1e08faaa8", title: "Fed should defy Donald Trump with rate rise, top economists say", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/f62e467a-bcb6-423d-96f2-b2b1e08faaa8" },
 ];
