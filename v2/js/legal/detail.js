@@ -17,7 +17,7 @@ import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink,
   _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260730-2";
-import { peersOf, peerRows } from "../peers.js?v=v2-1";
+import { peersOf, peerDetails } from "../peers.js?v=v2-2";
 
 export let app = null;
 export function __setHost(h) { app = h; }
@@ -220,16 +220,13 @@ export function viewFirm(id) {
     + `</ul>`
     + (L.areas && L.areas.length ? `<div class="tdet-chips" style="padding:8px 12px 10px">${L.areas.map((a) => `<span class="tdet-chip">${esc(a)}</span>`).join("")}</div>` : "")
     + `</section>` : "";
-  // Peers: nearest London firms by practice-area overlap + tier + size (headcount).
+  // Peers: nearest London firms by practice-area overlap + tier + size (headcount) —
+  // a collapsible header dropdown, matching the manager/HF/LP profiles.
   const firmPeers = peersOf(firm, firms, { tags: (x) => (x.london && x.london.areas) || [], cat: (x) => x.tier, size: (x) => (x.london && x.london.lawyers) || null, n: 5 });
-  const firmPeersRail = firmPeers.length
-    ? `<section class="tpanel"><header class="tpanel-h"><span>Peers</span><span class="tpanel-x">${firmPeers.length}</span></header>`
-      + peerRows(firmPeers, (e) => `#/firm/${encodeURIComponent(e.id)}`, (p) => {
-          const n = p.e.london && p.e.london.lawyers;
-          return [tierLabel(p.e.tier), n ? `${n} London lawyers` : ""].filter(Boolean).join(" · ");
-        }, esc)
-      + `</section>`
-    : "";
+  const firmPeersDetails = peerDetails(firmPeers, (e) => `#/firm/${encodeURIComponent(e.id)}`, (p) => {
+    const n = p.e.london && p.e.london.lawyers;
+    return [tierLabel(p.e.tier), n ? `${n} London lawyers` : ""].filter(Boolean).join(" · ");
+  }, esc);
 
   // ---- One chip-filtered wire (matches the dashboard chips): All / Alerts /
   // Matters. "Matters" = everything the firm worked on or is named in — its
@@ -268,6 +265,7 @@ export function viewFirm(id) {
         <section class="tcol tcol-c">
           <div class="tdet-id">
             <h1>${esc(firm.name)}</h1>
+            ${firmPeersDetails}
             <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
           </div>
           <header class="tpanel-h twire-head">
@@ -278,7 +276,6 @@ export function viewFirm(id) {
         </section>
         <aside class="tcol tcol-r">
           ${londonRail}
-          ${firmPeersRail}
           ${areaRail ? `<section class="tpanel"><header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">alerts</span></header>${areaRail}</section>` : ""}
         </aside>
       </div>

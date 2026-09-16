@@ -56,16 +56,19 @@ export function peersOf(target, roster, cfg) {
   return [...kin, ...rest].slice(0, n);
 }
 
-// Render peers as a clickable .tmini list (name + a one-line "why"). hrefOf(e) →
-// the peer's profile route; subOf(peer) → the muted subtitle string. esc is passed
-// in so this module stays free of any DOM/util import (and any ?v= token lockstep).
-export function peerRows(peers, hrefOf, subOf, esc) {
+// Render peers as a COLLAPSIBLE header dropdown that matches the profile's
+// "Sources" line (same .tdet-src-det chrome — a "Peers (n)" summary that expands
+// to the list). hrefOf(e) → the peer's profile route (an anchor, so the router's
+// a[href^="#/"] handler navigates); subOf(peer) → the muted rationale after the
+// name. esc is passed in so this module needs no DOM/util import (or ?v= lockstep).
+export function peerDetails(peers, hrefOf, subOf, esc) {
   if (!peers || !peers.length) return "";
-  return `<ul class="tmini">` + peers.map((p) => {
+  const n = peers.length;
+  const body = peers.map((p) => {
     const sub = subOf ? subOf(p) : "";
-    return `<li class="tmini-row clickable" data-href="${hrefOf(p.e)}">`
-      + `<span class="tmini-t">${esc(p.e.name)}</span>`
-      + (sub ? `<span class="tmini-m">${esc(sub)}</span>` : "")
-      + `</li>`;
-  }).join("") + `</ul>`;
+    return `<a class="tdet-peer" href="${hrefOf(p.e)}">${esc(p.e.name)}</a>`
+      + (sub ? `<span class="tdet-peer-sub">${esc(sub)}</span>` : "");
+  }).join("");
+  return `<details class="tdet-src-det tdet-peers"><summary>Peers${n > 1 ? ` (${n})` : ""}</summary>`
+    + `<div class="tdet-src-body tdet-peers-body">${body}</div></details>`;
 }

@@ -24,7 +24,7 @@ check(JSON.stringify(tabs) === JSON.stringify(["news", "vehicles", "investments"
 
 // Sources are collapsed into a single expandable line — no long inline "Sources:" block.
 const src = await pg.evaluate(() => {
-  const det = document.querySelector("#pf-detail .tdet-src-det");
+  const det = document.querySelector("#pf-detail .tdet-src-det:not(.tdet-peers)");
   const sum = det && det.querySelector("summary");
   const wasOpen = det ? det.open : null;
   if (det) det.open = true;   // expand
@@ -77,17 +77,15 @@ check(inv.concise >= Math.ceil(inv.count * 0.6), `most rows show a concise extra
 check(inv.sourced === inv.count, `every investment links its source in the Source column (${inv.sourced}/${inv.count})`);
 check(inv.withAmount > 0, `deal amounts surface where known (${inv.withAmount})`);
 check(inv.withDate === inv.count, `every investment shows its date (${inv.withDate}/${inv.count})`);
-// No stacked dead space under the last content: the detail's own .tcol must not
-// re-add the mobile tab-bar clearance the list wrapper already provides (it doubled
-// to ~160px). The Peers card, when present, is the last real content in the column
-// (it sits below the tab panes), so measure the clearance below IT, not the table.
+// No stacked dead space under the table: the detail's own .tcol must not re-add the
+// mobile tab-bar clearance the list wrapper already provides (it doubled to ~160px).
 const tail = await pg.evaluate(() => {
-  const anchor = document.querySelector("#pf-detail .tdet-peers") || document.querySelector("#pf-detail .tinv-tbl");
+  const tbl = document.querySelector("#pf-detail .tinv-tbl");
   const sec = document.querySelector("#pf-list > .tdash-grid > .tcol-c");
-  if (!anchor || !sec) return -1;
-  return Math.round(sec.getBoundingClientRect().bottom - anchor.getBoundingClientRect().bottom);
+  if (!tbl || !sec) return -1;
+  return Math.round(sec.getBoundingClientRect().bottom - tbl.getBoundingClientRect().bottom);
 });
-check(tail >= 0 && tail <= 120, `only one tab-bar clearance under the last content, no stacked dead space (${tail}px)`);
+check(tail >= 0 && tail <= 120, `only one tab-bar clearance under the table, no stacked dead space (${tail}px)`);
 
 // An Investments row expands in place to show the short sourced narrative — the
 // same summary the Transactions tab carries.

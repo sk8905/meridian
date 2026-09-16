@@ -17,7 +17,7 @@ import {
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { dealSubject, dealSponsor, dealAmount } from "../deal-parse.js?v=v2-4";
-import { peersOf, peerRows } from "../peers.js?v=v2-1";
+import { peersOf, peerDetails } from "../peers.js?v=v2-2";
 import {
   eur, pct, fmtDate, link, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
@@ -477,17 +477,14 @@ export function viewManager(id) {
     || `<p class="tw-empty muted small">${esc(m.fundsNote || "No funds, CLOs or listed vehicles tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
-  // Peers: nearest managers by strategy overlap + AUM proximity (see peers.js).
+  // Peers: nearest managers by strategy overlap + AUM proximity (see peers.js) —
+  // a collapsible header dropdown above the LinkedIn/Sources lines.
   const mgrPeers = peersOf(m, managers, { tags: (x) => x.strategies || [], size: (x) => x.groupAum != null ? x.groupAum : x.aum, n: 5 });
-  const mgrPeersCard = mgrPeers.length
-    ? `<section class="tpanel tdet-peers"><header class="tpanel-h"><span>Peers</span><span class="tpanel-x">${mgrPeers.length}</span></header>`
-      + peerRows(mgrPeers, (e) => `#/manager/${e.id}`, (p) => {
-          const s = p.shared[0] || (p.e.strategies || [])[0] || "";
-          const a = p.e.aum != null ? `€${p.e.aum}bn` : "";
-          return [s, a].filter(Boolean).join(" · ");
-        }, esc)
-      + `</section>`
-    : "";
+  const mgrPeersDetails = peerDetails(mgrPeers, (e) => `#/manager/${e.id}`, (p) => {
+    const s = p.shared[0] || (p.e.strategies || [])[0] || "";
+    const a = p.e.aum != null ? `€${p.e.aum}bn` : "";
+    return [s, a].filter(Boolean).join(" · ");
+  }, esc);
 
   app.innerHTML = `
     <div class="tdash">
@@ -498,6 +495,7 @@ export function viewManager(id) {
             <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
             <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${m.aumText ? " · " + esc(aumHeadline(m)) + " AUM" : ""}</div>
             ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
+            ${mgrPeersDetails}
             ${srcDetails(m)}
           </div>
           <header class="tpanel-h twire-head">
@@ -514,7 +512,6 @@ export function viewManager(id) {
             ${pane("investments", invPane)}
             ${hasBiz ? pane("business", businessPane) : ""}
           </div>
-          ${mgrPeersCard}
         </section>
       </div>
     </div>`;
@@ -645,7 +642,7 @@ export function viewLp(id) {
 
   // Peers: nearest investors by allocator type + strategy overlap + AUM proximity.
   const lpPeers = peersOf(l, lps, { tags: (x) => x.strategies || [], cat: (x) => x.type, size: (x) => x.aum, n: 5 });
-  const lpPeersBody = peerRows(lpPeers, (e) => `#/lp/${e.id}`, (p) => {
+  const lpPeersDetails = peerDetails(lpPeers, (e) => `#/lp/${e.id}`, (p) => {
     const a = p.e.aum != null ? `€${p.e.aum}bn` : "";
     return [p.e.type || "", a].filter(Boolean).join(" · ");
   }, esc);
@@ -661,6 +658,7 @@ export function viewLp(id) {
             <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}</div>
             ${l.notes ? `<p class="tdet-desc">${esc(l.notes)}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(l.mandateStatus)}</span>${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>
+            ${lpPeersDetails}
           </div>
           <header class="tpanel-h twire-head"><span>Known commitments</span><span class="tpanel-x">${commits.length}</span></header>
           <div id="lp-commits">${commitsBody}</div>
@@ -669,7 +667,6 @@ export function viewLp(id) {
           ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([lab, v]) => `<div><dt>${esc(lab)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
           ${railPanel("Strategies of interest", "", `<div class="tdet-chips" style="padding:9px 12px">${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>`)}
           ${railPanel("Matching funds in market", String(matches.length), matchesBody)}
-          ${lpPeers.length ? railPanel("Peers", String(lpPeers.length), lpPeersBody) : ""}
         </aside>
       </div>
     </div>`;
@@ -759,14 +756,10 @@ export function viewHedgeFund(id) {
 
   // Peers: nearest hedge funds by strategy (token + exact-class match) + AUM.
   const hfPeers = peersOf(f, HEDGE_FUNDS, { tags: (x) => hfStrategyTokens(x.strategy), cat: (x) => x.strategy, size: (x) => x.aum, n: 5 });
-  const hfPeersCard = hfPeers.length
-    ? `<section class="tpanel tdet-peers"><header class="tpanel-h"><span>Peers</span><span class="tpanel-x">${hfPeers.length}</span></header>`
-      + peerRows(hfPeers, (e) => `#/hf/${e.id}`, (p) => {
-          const a = p.e.aum != null ? `$${p.e.aum}bn` : "";
-          return [p.e.strategy || "", a].filter(Boolean).join(" · ");
-        }, esc)
-      + `</section>`
-    : "";
+  const hfPeersDetails = peerDetails(hfPeers, (e) => `#/hf/${e.id}`, (p) => {
+    const a = p.e.aum != null ? `$${p.e.aum}bn` : "";
+    return [p.e.strategy || "", a].filter(Boolean).join(" · ");
+  }, esc);
 
   app.innerHTML = `
     <div class="tdash">
@@ -778,6 +771,7 @@ export function viewHedgeFund(id) {
             <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>
             ${f.perf && f.perf.text ? `<p class="tdet-desc">Performance: ${esc(f.perf.text)}${f.perf.asOf ? ` <span class="tf-est">${esc(f.perf.asOf)}</span>` : ""}${f.perf.source ? ` · <a href="${esc(f.perf.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : ""}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(f.aum.toFixed(2))}bn AUM</span>` : ""}</div>
+            ${hfPeersDetails}
             <div class="tdet-src">${f.aumSource ? `AUM: <a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer">source${f.aumAsOf ? " (as of " + esc(f.aumAsOf) + ")" : ""}</a>` : ""}${f.url ? `${f.aumSource ? " · " : ""}<a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Firm website</a>` : ""}${secUrl ? `${(f.aumSource || f.url) ? " · " : ""}<a href="${esc(secUrl)}" target="_blank" rel="noopener noreferrer">SEC EDGAR — 13F filings</a>` : ""}</div>
           </div>
           <header class="tpanel-h twire-head">
@@ -792,7 +786,6 @@ export function viewHedgeFund(id) {
             ${pane("holdings", holdingsPane)}
             ${pane("filings", filingsPane)}
           </div>
-          ${hfPeersCard}
         </section>
       </div>
     </div>`;

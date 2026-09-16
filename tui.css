@@ -138,9 +138,6 @@
 
 .tcol { background: var(--bg); }
 .tpanel { border-bottom: 1px solid var(--border); background: var(--surface); }
-/* Peers card below a tabbed profile's panes — a hairline separates it from the
-   pane content above (the desktop grid replaces this with a column gap). */
-.tdet-peers { border-top: 1px solid var(--border); }
 .twire { background: var(--surface); }
 .tpanel-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 11px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; flex: 0 0 auto; }
 .tpanel-h > span:first-child { font-size: 12.5px; font-weight: 600; color: var(--ink); }
@@ -593,11 +590,9 @@
   #pf-detail .tdet-tabbed {
     display: grid; column-gap: 12px; padding-right: 12px; align-items: start;
     grid-template-columns: 150px minmax(0, 1fr);
-    grid-template-areas: "id id" "nav panes" "nav peers"; }
+    grid-template-areas: "id id" "nav panes"; }
   #pf-detail .tdet-tabbed > .tdet-id { grid-area: id; }
   #pf-detail .tdet-tabbed > .tpanes { grid-area: panes; overflow: visible; min-height: 0; }
-  /* Peers card sits under the panes (same column), not in the 150px nav rail. */
-  #pf-detail .tdet-tabbed > .tdet-peers { grid-area: peers; margin-top: 12px; align-self: start; }
   #pf-detail .tdet-tabbed > .twire-head {
     grid-area: nav; align-self: start; height: auto !important; position: static !important;
     z-index: auto; padding: 12px 0 0 12px !important; background: transparent;
@@ -922,6 +917,14 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tdet-src-det > summary:hover { color: var(--ink); }
 .tdet-src-body { margin-top: 5px; color: var(--faint); line-height: 1.5; }
 .tdet-src-body a { color: var(--faint); } .tdet-src-body a:hover { color: var(--ink); }
+/* Peers dropdown body: each peer is a name link (readable) over a muted one-line
+   strategy/size rationale, a little breathing room between them. Uses the Sources
+   .tdet-src-det chrome for the "Peers (n)" summary, so it matches that line. */
+.tdet-peers-body { margin-top: 6px; }
+.tdet-peers-body .tdet-peer { display: block; color: var(--ink); font-size: 11.5px; font-weight: 600; margin-top: 8px; text-decoration: none; }
+.tdet-peers-body .tdet-peer:first-child { margin-top: 0; }
+.tdet-peers-body .tdet-peer:hover { color: var(--accent); }
+.tdet-peers-body .tdet-peer-sub { display: block; color: var(--muted); font-size: 10px; margin-top: 1px; }
 /* Merged Vehicles tab groups (Funds / CLOs / Listed vehicles). */
 .tveh-grp + .tveh-grp { border-top: 1px solid var(--border); }
 .tveh-grp-h { padding: 9px 12px 4px; font-family: var(--t-mono); font-size: 10px; font-weight: 600;

@@ -23,27 +23,34 @@ for (const c of CASES) {
   await pg.waitForSelector("#pf-detail .tdet-id h1", { timeout: 8000 });
   await pg.waitForTimeout(400);
   const r = await pg.evaluate(() => {
-    const det = document.querySelector("#pf-detail");
-    const card = [...det.querySelectorAll(".tpanel")].find((p) => {
-      const h = p.querySelector(".tpanel-h > span:first-child");
-      return h && /^peers$/i.test(h.textContent.trim());
-    });
-    if (!card) return { hasCard: false };
-    const rows = [...card.querySelectorAll(".tmini-row.clickable[data-href]")];
+    const id = document.querySelector("#pf-detail .tdet-id");
+    // The Peers dropdown is a collapsible <details> in the identity header, styled
+    // like Sources, and it sits ABOVE the LinkedIn-connections + Sources lines.
+    const det = id && id.querySelector("details.tdet-peers");
+    if (!det) return { has: false };
+    const sum = (det.querySelector("summary") || {}).textContent?.trim() || "";
+    const links = [...det.querySelectorAll("a.tdet-peer[href]")];
+    const kids = [...id.children];
+    const src = id.querySelector(":scope > .tdet-src-det:not(.tdet-peers), :scope > .tdet-src");
+    const net = id.querySelector(":scope > .wn-badge");
     return {
-      hasCard: true,
-      count: rows.length,
-      hrefs: rows.map((x) => x.getAttribute("data-href")),
-      names: rows.map((x) => (x.querySelector(".tmini-t") || {}).textContent?.trim() || ""),
-      allHaveSub: rows.every((x) => (x.querySelector(".tmini-m") || {}).textContent?.trim()),
+      has: true, summary: sum,
+      count: links.length,
+      hrefs: links.map((x) => x.getAttribute("href")),
+      names: links.map((x) => x.textContent.trim()),
+      allHaveSub: links.every((x) => (x.nextElementSibling && x.nextElementSibling.classList.contains("tdet-peer-sub") && x.nextElementSibling.textContent.trim())),
+      aboveSources: src ? kids.indexOf(det) < kids.indexOf(src) : true,
+      aboveNet: net ? kids.indexOf(det) < kids.indexOf(net) : true,
     };
   });
-  check(r.hasCard, `${c.label}: a "Peers" card renders on the profile`);
-  check(r.hasCard && r.count >= 3 && r.count <= 5, `${c.label}: shows 3–5 peers (${r.count})`);
-  check(r.hasCard && r.hrefs.every((h) => h.startsWith(c.prefix)), `${c.label}: every peer links to a ${c.prefix}… profile`);
-  check(r.hasCard && !r.hrefs.some((h) => h === c.prefix + c.selfId), `${c.label}: the profile is not listed as its own peer`);
-  check(r.hasCard && new Set(r.hrefs).size === r.hrefs.length, `${c.label}: peers are distinct (no duplicate rows)`);
-  check(r.hasCard && r.names.every(Boolean) && r.allHaveSub, `${c.label}: each peer shows a name + a strategy/size rationale`);
+  check(r.has, `${c.label}: a "Peers" dropdown renders in the profile header`);
+  check(r.has && /^peers/i.test(r.summary), `${c.label}: the dropdown summary reads "Peers" (${r.summary})`);
+  check(r.has && r.count >= 3 && r.count <= 5, `${c.label}: shows 3–5 peers (${r.count})`);
+  check(r.has && r.hrefs.every((h) => h.startsWith(c.prefix)), `${c.label}: every peer links to a ${c.prefix}… profile`);
+  check(r.has && !r.hrefs.some((h) => h === c.prefix + c.selfId), `${c.label}: the profile is not listed as its own peer`);
+  check(r.has && new Set(r.hrefs).size === r.hrefs.length, `${c.label}: peers are distinct (no duplicates)`);
+  check(r.has && r.names.every(Boolean) && r.allHaveSub, `${c.label}: each peer shows a name + a strategy/size rationale`);
+  check(r.has && r.aboveSources && r.aboveNet, `${c.label}: the Peers dropdown sits above the LinkedIn / Sources lines`);
   checkErrs(errs, `${c.label} peers`);
   await ctx.close();
 }
@@ -51,13 +58,15 @@ for (const c of CASES) {
 // Clicking a peer navigates to that peer's own profile (the links are live).
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, `${base}/v2/profiles/#/manager/m5`);
-  await pg.waitForSelector("#pf-detail .tdet-peers .tmini-row.clickable", { timeout: 8000 });
+  await pg.waitForSelector("#pf-detail .tdet-peers a.tdet-peer", { timeout: 8000, state: "attached" });
   await pg.waitForTimeout(300);
   const target = await pg.evaluate(() => {
-    const row = document.querySelector("#pf-detail .tdet-peers .tmini-row.clickable[data-href]");
-    return { href: row.getAttribute("data-href"), name: (row.querySelector(".tmini-t") || {}).textContent?.trim() };
+    const det = document.querySelector("#pf-detail .tdet-peers");
+    det.open = true;   // expand the dropdown so its links are interactive
+    const a = det.querySelector("a.tdet-peer[href]");
+    return { href: a.getAttribute("href"), name: a.textContent.trim() };
   });
-  await pg.evaluate(() => { document.querySelector("#pf-detail .tdet-peers .tmini-row.clickable").click(); });
+  await pg.evaluate(() => { document.querySelector("#pf-detail .tdet-peers a.tdet-peer").click(); });
   await pg.waitForTimeout(600);
   const landed = await pg.evaluate(() => ({ hash: location.hash, h1: (document.querySelector("#pf-detail .tdet-id h1") || {}).textContent?.trim() || "" }));
   check(landed.hash === target.href, `clicking a peer navigates to its route (${landed.hash})`);
