@@ -3385,6 +3385,116 @@ async function handleApprove(request, env) {
   }
 }
 
+// ============================================================================
+// X feed — a merged, newest-first, LIVE timeline of a roster of PUBLIC accounts,
+// fetched server-side from X's public syndication endpoint (the one that powers
+// embedded profile timelines). No API key, no login. Server-side so it works for
+// logged-out clients (X gates the client-side List/timeline widgets) and we draw
+// our own cards. X's syndication is undocumented, rate-limited and can block
+// datacenter IPs, so we: (a) edge-cache a non-empty result for a few minutes to
+// keep our request volume tiny, and (b) never pin an empty response.
+// ============================================================================
+
+// Deep-walk arbitrary JSON collecting tweet-shaped objects — defensive against
+// X changing the envelope shape around the tweet records.
+export function xCollectTweets(node, out, depth) {
+  depth = depth || 0;
+  if (!node || depth > 10 || out.length > 400) return;
+  if (Array.isArray(node)) { for (let i = 0; i < node.length; i++) xCollectTweets(node[i], out, depth + 1); return; }
+  if (typeof node === "object") {
+    const hasId = node.id_str || node.id;
+    const hasText = node.full_text != null || node.text != null;
+    const hasWhen = node.created_at != null;
+    const hasUser = node.user || node.core || node.author || node.user_results;
+    if (hasId && hasText && hasWhen && hasUser) out.push(node);
+    for (const k in node) { if (Object.prototype.hasOwnProperty.call(node, k)) xCollectTweets(node[k], out, depth + 1); }
+  }
+}
+
+// Normalise one raw syndication tweet record into the flat shape the app renders.
+// Returns null for anything that isn't a real, dated tweet with a numeric id.
+export function xNormalizeTweet(t) {
+  try {
+    const id = String((t && (t.id_str || t.id)) || "");
+    if (!/^\d{5,}$/.test(id)) return null;
+    const u = t.user
+      || (t.core && t.core.user_results && t.core.user_results.result && t.core.user_results.result.legacy)
+      || (t.author) || {};
+    const handle = u.screen_name || u.screenName || "";
+    const name = u.name || handle;
+    const avatar = u.profile_image_url_https || u.profile_image_url || "";
+    let text = String(t.full_text != null ? t.full_text : (t.text != null ? t.text : ""));
+    // Trim a trailing t.co (the tweet's own permalink / media shortlink).
+    text = text.replace(/\s+https:\/\/t\.co\/\w+\s*$/,"").trim();
+    const created = t.created_at || "";
+    const ts = Date.parse(created) || 0;
+    if (!ts) return null;
+    const media = [];
+    const ents = (t.extended_entities && t.extended_entities.media)
+      || (t.entities && t.entities.media) || t.photos || t.mediaDetails || [];
+    if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url || m.url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
+    return { id, handle, name, avatar, text, date: created, ts,
+      url: handle ? `https://x.com/${handle}/status/${id}` : `https://x.com/i/status/${id}`,
+      media: media.slice(0, 1) };
+  } catch { return null; }
+}
+
+async function fetchXProfile(handle) {
+  const u = `https://syndication.twitter.com/srv/timeline-profile/screen-name/${encodeURIComponent(handle)}?showReplies=false&dnt=true&lang=en`;
+  let r;
+  try {
+    r = await fetch(u, { headers: {
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "accept-language": "en-US,en;q=0.9",
+      "referer": "https://platform.twitter.com/",
+    }, cf: { cacheTtl: 300 } });
+  } catch { return []; }
+  if (!r || !r.ok) return [];
+  const html = await r.text();
+  const m = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
+  if (!m) return [];
+  let data; try { data = JSON.parse(m[1]); } catch { return []; }
+  const raw = [];
+  xCollectTweets(data, raw);
+  return raw.map(xNormalizeTweet).filter(Boolean);
+}
+
+async function handleXFeed(request, env, ctx) {
+  const url = new URL(request.url);
+  const handles = (url.searchParams.get("handles") || "").split(",")
+    .map((h) => h.trim().replace(/^@/, ""))
+    .filter((h) => /^[A-Za-z0-9_]{1,15}$/.test(h))
+    .slice(0, 12);
+  if (!handles.length) return json({ tweets: [], error: "no handles" });
+
+  const key = handles.map((h) => h.toLowerCase()).sort().join(",");
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const all = [];
+  await Promise.all(handles.map(async (h) => {
+    const tw = await fetchXProfile(h);
+    for (const t of tw) all.push(t);
+  }));
+  const seen = new Set();
+  const tweets = all
+    .filter((t) => t && t.id && !seen.has(t.id) && seen.add(t.id))
+    .sort((a, b) => (b.ts || 0) - (a.ts || 0))
+    .slice(0, 40);
+
+  const body = JSON.stringify({ tweets, asOf: new Date().toISOString() });
+  // Cache a non-empty result ~5 min (keeps our syndication hits rare); never pin empty.
+  if (tweets.length) {
+    const cacheable = new Response(body, { headers: { "content-type": "application/json", "cache-control": "public, max-age=300" } });
+    ctx.waitUntil(cache.put(cacheKey, cacheable.clone()));
+    return cacheable;
+  }
+  return new Response(body, { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+}
+
 export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil(pushScheduled(env));
@@ -3405,6 +3515,7 @@ export default {
     if (url.pathname === "/api/filings") return handleFilings(request, env, ctx);
     if (url.pathname === "/api/nport") return handleNPort(request, env, ctx);
     if (url.pathname === "/api/bdc") return handleBDC(request, env, ctx);
+    if (url.pathname === "/api/xfeed") return handleXFeed(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);

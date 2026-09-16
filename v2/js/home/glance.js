@@ -13,7 +13,7 @@ import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
-import { X_LIST } from "/v2/js/home/xposts.js";
+import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js?v=20260808-1";
@@ -294,31 +294,14 @@ function initJumpNav() {
   links.forEach((a) => a.addEventListener("click", () => { holdUntil = Date.now() + 900; setActive(a.dataset.jump); }));
 }
 
-// ---- X wire (embedded X List timeline) --------------------------------------
-// A single, always-current, merged & newest-first stream, rendered live by X's
-// official widgets.js as a List timeline (a public X List — see xposts.js). X
-// serves each member account's latest posts, so the wire never goes stale and
-// nothing is curated here. The widget script is third-party and heavy, so it is
-// loaded LAZILY — only when the panel first nears the viewport — and never blocks
-// the terminal's first paint. Until (or unless) X renders — offline, blocked, or
-// the List made private — a "Open the X list" link stands in its place.
+// ---- X wire (server-rendered live feed) -------------------------------------
+// A merged, newest-first, LIVE feed of the roster's PUBLIC accounts, fetched by
+// the Worker from X's public syndication endpoint (/api/xfeed) and drawn as our
+// OWN cards. This deliberately avoids X's client-side List/timeline widget, which
+// X blanks for logged-out webviews (the iPhone PWA). Fetched lazily — only when
+// the panel nears view — with a persistent "Open list on X" escape hatch, and a
+// clear message if X's server-side read is unavailable.
 let _xwireBooted = false, _xwireWatching = false;
-// Load platform.twitter.com/widgets.js once, resolving with window.twttr. A short
-// timeout rejects if X is unreachable so the fallback link simply remains.
-function xLoadWidgets() {
-  if (window.twttr && window.twttr.widgets) return Promise.resolve(window.twttr);
-  if (window.__xwireLoad) return window.__xwireLoad;
-  window.__xwireLoad = new Promise((resolve, reject) => {
-    const s = document.createElement("script");
-    s.src = "https://platform.twitter.com/widgets.js";
-    s.async = true; s.charset = "utf-8";
-    s.onload = () => (window.twttr && window.twttr.widgets) ? resolve(window.twttr) : reject(new Error("x-widgets-missing"));
-    s.onerror = () => reject(new Error("x-widgets-failed"));
-    document.head.appendChild(s);
-    setTimeout(() => { if (!(window.twttr && window.twttr.widgets)) reject(new Error("x-widgets-timeout")); }, 9000);
-  });
-  return window.__xwireLoad;
-}
 function initXWire() {
   const host = document.getElementById("g-xwire");
   if (!host || _xwireBooted) return;
@@ -335,28 +318,53 @@ function initXWire() {
     io.observe(host);
   } else { boot(); }
 }
+// Relative "29m / 3h / 2d", falling back to a short date.
+function fmtXWhen(s) {
+  const t = Date.parse(s || ""); if (!t) return "";
+  const d = Math.max(0, Date.now() - t), m = Math.floor(d / 60000);
+  if (m < 1) return "now";
+  if (m < 60) return m + "m";
+  const h = Math.floor(m / 60); if (h < 24) return h + "h";
+  const days = Math.floor(h / 24); if (days < 7) return days + "d";
+  const dt = new Date(t); return `${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`;
+}
+// Escape, then linkify URLs · @handles · #hashtags (opened on X, new tab).
+function xLinkify(text) {
+  let s = esc(String(text || ""));
+  s = s.replace(/https?:\/\/[^\s<]+/g, (u) => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u.replace(/^https?:\/\//, "")}</a>`);
+  s = s.replace(/(^|[^\w@\/])@([A-Za-z0-9_]{1,15})/g, (_m, p, h) => `${p}<a href="https://x.com/${h}" target="_blank" rel="noopener noreferrer">@${h}</a>`);
+  s = s.replace(/(^|\s)#(\w{1,60})/g, (_m, p, h) => `${p}<a href="https://x.com/hashtag/${h}" target="_blank" rel="noopener noreferrer">#${h}</a>`);
+  return s.replace(/\n/g, "<br>");
+}
+function xCard(t) {
+  const h = esc(t.handle || ""), name = esc(t.name || ("@" + (t.handle || "")));
+  const perma = esc(t.url || (t.handle ? `https://x.com/${t.handle}/status/${t.id}` : "#"));
+  const av = t.avatar ? `<img class="g-x-av" loading="lazy" src="${esc(t.avatar)}" alt="" referrerpolicy="no-referrer">` : `<span class="g-x-av g-x-av-ph"></span>`;
+  const media = (t.media && t.media[0]) ? `<a class="g-x-media" href="${perma}" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="${esc(t.media[0])}" alt="" referrerpolicy="no-referrer"></a>` : "";
+  return `<article class="g-x-card">`
+    + `<div class="g-x-meta">${av}<a class="g-x-who" href="https://x.com/${h}" target="_blank" rel="noopener noreferrer">${name}</a>`
+    + `<span class="g-x-h">@${h}</span><span class="g-x-d">${esc(fmtXWhen(t.date))}</span></div>`
+    + `<div class="g-x-txt">${xLinkify(t.text)}</div>${media}`
+    + `<a class="g-x-permalink" href="${perma}" target="_blank" rel="noopener noreferrer">View on X ↗</a></article>`;
+}
 function renderXWire(host) {
   const list = X_LIST || {};
-  const id = list.id;
-  const url = list.url || (id ? `https://x.com/i/lists/${id}` : "");
-  if (!id && !url) { host.innerHTML = `<div class="g-x-empty">No X list configured.</div>`; return; }
-  const dark = document.documentElement.dataset.theme === "dark"
-    || (document.documentElement.dataset.theme !== "light" && matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
-  // X's CANONICAL list embed: the .twitter-timeline anchor its own publish tool
-  // emits, hydrated by widgets.load() — more reliable than the createTimeline({id})
-  // factory. A persistent "Open list on X" link sits above it as an escape hatch
-  // (kept whether or not the timeline paints — e.g. offline, or X blocks the embed).
+  const url = list.url || (list.id ? `https://x.com/i/lists/${list.id}` : "");
+  const handles = (X_ACCOUNTS || []).map((a) => a.handle).filter(Boolean);
+  const openLink = url ? `<a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X ↗</a>` : "";
   host.innerHTML = `<div class="g-x-list">`
-    + `<div class="g-x-open"><a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X ↗</a></div>`
-    + `<div class="g-x-embed" id="g-x-timeline">`
-    + `<a class="twitter-timeline" data-dnt="true" data-theme="${dark ? "dark" : "light"}" data-chrome="noheader nofooter transparent" data-tweet-limit="20" href="${esc("https://twitter.com/i/lists/" + id)}">Wire list on X</a>`
-    + `</div></div>`;
-  const slot = host.querySelector("#g-x-timeline");
-  xLoadWidgets().then((twttr) => {
-    if (!twttr || !twttr.widgets || !twttr.widgets.load || !id) return;
-    // Hydrate just this region's .twitter-timeline anchor into a live timeline.
-    try { twttr.widgets.load(slot); } catch { /* leave the anchor + open link */ }
-  }).catch(() => { /* X unreachable — the anchor + open link remain */ });
+    + `<div class="g-x-open">${openLink}</div>`
+    + `<div id="g-x-feed" class="g-x-feed"><div class="g-loading">Loading X…</div></div></div>`;
+  const feed = host.querySelector("#g-x-feed");
+  if (!handles.length) { feed.innerHTML = `<div class="g-x-empty">No accounts configured.</div>`; return; }
+  fetch(`/api/xfeed?handles=${encodeURIComponent(handles.join(","))}`, { headers: { accept: "application/json" } })
+    .then((r) => (r && r.ok) ? r.json() : null)
+    .then((d) => {
+      const tweets = (d && Array.isArray(d.tweets)) ? d.tweets : [];
+      if (!tweets.length) { feed.innerHTML = `<div class="g-x-empty">Live posts are unavailable right now. ${openLink}</div>`; return; }
+      feed.innerHTML = tweets.map(xCard).join("");
+    })
+    .catch(() => { feed.innerHTML = `<div class="g-x-empty">Couldn't load live posts. ${openLink}</div>`; });
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every

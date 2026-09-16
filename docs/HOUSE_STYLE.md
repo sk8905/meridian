@@ -314,19 +314,22 @@ notification badge red (`#ef4444`).
   **third wire chip — News · Watchlist · X** — swapping onto the single-column
   workspace like the Watchlist (manager) wire (it is content, not the markets/rates
   data that phones fold into the shared Markets panel). It is a **single,
-  always-current, merged & newest-first stream** rendered **live by X's official
-  `widgets.js` as a List timeline** — a **public X List** (`v2/js/home/xposts.js` →
-  `X_LIST`, rendered by `initXWire`/`renderXWire` in `v2/js/home/glance.js`). X
-  serves each member account's latest posts, so the wire **never goes stale and
-  nothing is curated or stored in code** — the embed *is* the source, so **no tweet
-  text is stored or invented (R7)**. The widget script is loaded **lazily** — only
-  when the panel nears view — from `platform.twitter.com`, never bundled. Until (or
-  unless) X renders (offline, blocked, or the List made private) an **"Open the X
-  list" link** stands in its place. The only value pinned in code is the List's
-  numeric `id`; **membership is managed on X** (keep the List **public** — the widget
-  won't render a private List), which is what makes staleness impossible.
-  `X_ACCOUNTS` is kept only as the human roster (§8.8). Enforced by
-  `tests/home-xwire.mjs`.
+  always-current, merged & newest-first** feed of the roster's **public** accounts,
+  fetched **server-side by the Worker** (`/api/xfeed` in `src/index.js`) from X's
+  public **syndication** endpoint and drawn as **our own cards** (`renderXWire` in
+  `v2/js/home/glance.js`). This is deliberate: X **blanks its client-side
+  List/timeline widgets for logged-out webviews** (the iPhone PWA), so an in-app
+  embed cannot use them — the Worker reads the public feed with no login and no API
+  key, which also sidesteps ITP and the List owner's account privacy. The feed is
+  fetched **lazily** (only when the panel nears view); every card is a **real post**
+  (no tweet text stored or invented — R7) linking its permalink, with a persistent
+  **"Open list on X"** link and a clear message when X's server read is unavailable.
+  The roster of handles is `X_ACCOUNTS` in `v2/js/home/xposts.js` (`X_LIST` keeps the
+  List link/id for the "Open list on X" escape hatch). `/api/xfeed` edge-caches a
+  non-empty result briefly (keeps our syndication hits rare) and never pins an empty
+  one. Note X's syndication is undocumented and can rate-limit/block datacenter IPs,
+  so the feed can degrade to the message + link. Enforced by `tests/home-xwire.mjs`
+  (render) and `tests/xfeed-parse.mjs` (the Worker parser).
 
 ---
 
@@ -496,9 +499,10 @@ item keeps a real outbound source link (R7).
 - Polymarket (`polymarket.com`, `gamma-api.polymarket.com`)
 
 ### 8.8 X wire (Home)
-A **public X List** (`v2/js/home/xposts.js` → `X_LIST`, id `2100283810713649423`)
-embedded live via X's official `platform.twitter.com/widgets.js` List timeline —
-see **R26**. Membership is managed on X; the accounts in the List are:
+A merged, live feed of these **public** X accounts, fetched server-side by the
+Worker (`/api/xfeed`) from X's public syndication endpoint — see **R26**. The
+handles live in `v2/js/home/xposts.js` (`X_ACCOUNTS`); `X_LIST`
+(id `2100283810713649423`) is kept only for the "Open list on X" link. Roster:
 - `@elerianm` — Mohamed A. El-Erian (economist)
 - `@negligible_cap` — Negligible Capital (long/short equity)
 - `@LeylaKuni` — Leyla Kunimoto (private markets, LP view)

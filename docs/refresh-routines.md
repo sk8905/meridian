@@ -525,21 +525,24 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
-## X wire (Home) — a live X List, maintained on X
+## X wire (Home) — a live server-fetched feed, roster in code
 
-The Home **X wire** embeds a **public X List** live via X's official widget (see
-HOUSE_STYLE **R26**); `v2/js/home/xposts.js` pins only the List's numeric `id`
-(`X_LIST`). Because X serves the List's latest posts directly, **the wire is always
-current with no refresh work** — there is nothing to top up in code.
+The Home **X wire** is a live, merged feed fetched **server-side** by the Worker
+(`/api/xfeed`) from X's public syndication endpoint and drawn as our own cards
+(see HOUSE_STYLE **R26**). It is **always current with no refresh work** — nothing
+is topped up in code.
 
-Maintenance is done **on X, not here**:
-- To add/remove an account, edit the **List membership** on X. Keep the List
-  **PUBLIC** — the widget will not render a private List.
-- `X_ACCOUNTS` in `xposts.js` is just the human roster mirror (keep it and
-  HOUSE_STYLE §8.8 in step with the List for documentation). Changing it does **not**
-  change what renders — the List does.
-- Only touch `X_LIST.id` if the embedded List itself changes. No tweet text or
-  permalinks are stored — the embed is the source. Enforced by `tests/home-xwire.mjs`.
+- To add/remove an account, edit the roster **`X_ACCOUNTS`** in
+  `v2/js/home/xposts.js` (and mirror HOUSE_STYLE §8.8). The client passes those
+  handles to `/api/xfeed`, so the roster in code is the source of truth for who
+  appears — not the X List (the List/`X_LIST` is kept only for the "Open list on X"
+  link).
+- No tweet text or permalinks are stored — the Worker reads them live. `/api/xfeed`
+  edge-caches a non-empty result briefly; a `&v=` bump on the cache key is only
+  needed if the Worker's **parsing** changes.
+- If the wire shows "Live posts are unavailable", X's syndication is rate-limiting
+  or blocking the Worker's datacenter IP — that is an X-side condition, not a data
+  gap to fill. Enforced by `tests/home-xwire.mjs` + `tests/xfeed-parse.mjs`.
 
 ## Briefings & Key Moments (regenerate each run)
 

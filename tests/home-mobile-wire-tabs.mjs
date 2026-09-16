@@ -49,19 +49,19 @@ const b = await launchChromium();
   check(watchState.watchOn && watchState.aria === "true", "phone: the Watchlist chip is active + aria-selected after tap");
   check(watchState.hasMgr, "phone: the manager wire has rendered content under Watchlist");
 
-  // Tap X → the X wire is revealed (feed + manager hidden) and mounts the timeline.
+  // Tap X → the X wire is revealed (feed + manager hidden) and mounts the feed.
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').click());
-  await pg.waitForSelector("#g-xwire #g-x-timeline", { timeout: 8000 });
+  await pg.waitForSelector("#g-xwire #g-x-feed", { timeout: 8000 });
   check(await vis(".g-side-x"), "phone: tapping X reveals the X wire");
   check(!(await vis(".g-feed-wrap")), "phone: tapping X hides the news feed");
   check(!(await vis(".g-side3")), "phone: tapping X keeps the manager wire hidden");
   const xState = await pg.evaluate(() => ({
     xOn: document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on"),
     aria: document.querySelector('.g-wiretab[data-wire="x"]').getAttribute("aria-selected"),
-    mounted: !!document.querySelector("#g-xwire #g-x-timeline"),
+    mounted: !!document.querySelector("#g-xwire #g-x-feed"),
   }));
   check(xState.xOn && xState.aria === "true", "phone: the X chip is active + aria-selected after tap");
-  check(xState.mounted, "phone: the X wire List timeline is mounted");
+  check(xState.mounted, "phone: the X wire feed is mounted");
 
   // Tap News → back to the feed.
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
