@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "31f41c2e-084b-4bdf-a548-bf3d1139dbbe", title: "Hormuz crisis threatens to undermine long-term LNG demand", date: "2026-09-16", time: "12:00", url: "https://www.ft.com/content/31f41c2e-084b-4bdf-a548-bf3d1139dbbe" },
+  { id: "7727d99d-dce5-48e9-aebd-7d09ab3aa608", title: "The Extended Farageverse is coming together", date: "2026-09-16", time: "11:31", url: "https://www.ft.com/content/7727d99d-dce5-48e9-aebd-7d09ab3aa608" },
+  { id: "1655b0eb-5f54-4ad0-afbb-cf9ffb09bc32", title: "Andy Burnham considers plan to give mayors greater oversight of water companies", date: "2026-09-16", time: "11:24", url: "https://www.ft.com/content/1655b0eb-5f54-4ad0-afbb-cf9ffb09bc32" },
   { id: "bad109a9-1a34-4663-9dd8-e757b3f38c62", title: "Scientists test new (and old) navigation systems to end GPS dependence", date: "2026-09-16", time: "11:00", url: "https://www.ft.com/content/bad109a9-1a34-4663-9dd8-e757b3f38c62" },
   { id: "c9f54d41-6617-480b-82ca-d5ffcb11669d", title: "What are the risks of using AI to draft my will?", date: "2026-09-16", time: "10:49", url: "https://www.ft.com/content/c9f54d41-6617-480b-82ca-d5ffcb11669d" },
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-16", time: "10:26", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "2e3ad452-cd81-4df0-8eec-09112033ea37", title: "The unravelling of Missoni", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/2e3ad452-cd81-4df0-8eec-09112033ea37" },
   { id: "6ec74be5-9e4c-49c0-a9dc-d3a0ae324a17", title: "Hedge fund warned ousted lawyer to settle £36bn BHP dam collapse claim", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/6ec74be5-9e4c-49c0-a9dc-d3a0ae324a17" },
   { id: "ffe402ca-564a-457f-a861-18083a361e50", title: "Iran’s hidden leader stirs unease at home", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/ffe402ca-564a-457f-a861-18083a361e50" },
-  { id: "4e14f546-332e-4723-b75c-8f6744329733", title: "UK ‘actively’ exploring joining Canada-led global defence bank", date: "2026-09-15", time: "20:13", url: "https://www.ft.com/content/4e14f546-332e-4723-b75c-8f6744329733" },
-  { id: "8c8e7688-fae5-41d5-93d1-7be39dd2639f", title: "Iran uses spyware disguised as MRI scan results to hack critics, say western officials", date: "2026-09-15", time: "19:57", url: "https://www.ft.com/content/8c8e7688-fae5-41d5-93d1-7be39dd2639f" },
-  { id: "b8b0e43d-3b5c-4531-9f7a-da65d516ea17", title: "UK bosses must ‘sit down’ with staff if they block WFH requests", date: "2026-09-15", time: "19:18", url: "https://www.ft.com/content/b8b0e43d-3b5c-4531-9f7a-da65d516ea17" },
-  { id: "752e9694-9e47-4da1-a90a-ec1965665b08", title: "Colombian president fires statistics chief after three weeks", date: "2026-09-15", time: "19:17", url: "https://www.ft.com/content/752e9694-9e47-4da1-a90a-ec1965665b08" },
 ];

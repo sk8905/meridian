@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-aesopfedhike-20260916",
+    publication: "Bloomberg",
+    author: null,
+    series: "Economics Daily",
+    title: "Economics Daily: The Aesop Fed hike",
+    date: "2026-09-16",
+    time: "12:07",
+    summary: "Fed Chair Warsh is under pressure to deliver on his tough line on inflation by raising rates.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-16/after-talking-the-talk-on-inflation-fed-s-warsh-may-be-made-to-walk",
+  },
+  {
     id: "nl-bbg-marketsdaily-bettingonafedhike-20260916",
     publication: "Bloomberg",
     author: null,
@@ -470,27 +481,5 @@ export const NEWSLETTERS = [
     time: "16:00",
     summary: "When red ink turns into big tax benefits: BC Partners looks to turn LIV Golf's bankruptcy-era operating losses into tax shelter value as it tries to give the league a second act.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-12/liv-golf-s-big-losses-provide-fuel-for-a-second-act",
-  },
-  {
-    id: "nl-equitypartner-biglawpaywar-20260912",
-    publication: "Equity Partner",
-    author: "David Morley",
-    series: null,
-    title: "Why BigLaw's pay war ends in equity, not cash",
-    date: "2026-09-12",
-    time: "10:51",
-    summary: "Law firms will shift from competing on cash to offering partners lasting equity stakes in AI-powered \"firm brain\" systems that capture institutional knowledge.",
-    url: "https://equitypartner.substack.com/p/why-biglaws-pay-war-ends-in-equity",
-  },
-  {
-    id: "nl-taxpolicyassociates-touristtax-20260912",
-    publication: "Tax Policy Associates",
-    author: "Dan Neidle",
-    series: null,
-    title: "England's new tourist tax: what it raises, who pays, and what it costs",
-    date: "2026-09-12",
-    time: "08:11",
-    summary: "An independent, open model estimating what England's proposed ~5% tourist tax on overnight stays would raise, who bears the cost, and its impact on the hospitality industry.",
-    url: "https://newsletter.taxpolicy.org.uk/campaign/b97066b9-60cc-4386-aa7f-eafc829e7f97/e5358a8a-4e5b-4303-a7ce-dcf4d37cc11c",
   },
 ];
