@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8abe8957-83c1-475a-b6d0-556d094f474d", title: "Oura will struggle to justify pulse-racing $16bn valuation", date: "2026-09-16", time: "16:00", url: "https://www.ft.com/content/8abe8957-83c1-475a-b6d0-556d094f474d" },
+  { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "15:57", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
+  { id: "35b6c207-98b1-44fb-82b9-3c8c29507e0a", title: "The EU should not increase resilience at the expense of trusted partners", date: "2026-09-16", time: "15:16", url: "https://www.ft.com/content/35b6c207-98b1-44fb-82b9-3c8c29507e0a" },
+  { id: "0a6dbcf3-adb9-493a-83d7-b1f43a2f75b3", title: "Salary stand-off delays abolition of NHS quango", date: "2026-09-16", time: "15:12", url: "https://www.ft.com/content/0a6dbcf3-adb9-493a-83d7-b1f43a2f75b3" },
   { id: "29f0dac0-0523-46c4-a573-cd681a69b445", title: "Anthropic’s mother of all risk factors", date: "2026-09-16", time: "14:27", url: "https://www.ft.com/content/29f0dac0-0523-46c4-a573-cd681a69b445" },
   { id: "3a88d016-9575-4c11-bd34-14606964a867", title: "Chinese oil prices hit record highs after attacks on Saudi pipeline", date: "2026-09-16", time: "14:24", url: "https://www.ft.com/content/3a88d016-9575-4c11-bd34-14606964a867" },
   { id: "f02d60d3-50fc-4fa8-9c49-2e4d3d14ea05", title: "Dario Vitale appointed to lead Emporio Armani", date: "2026-09-16", time: "11:52", url: "https://www.ft.com/content/f02d60d3-50fc-4fa8-9c49-2e4d3d14ea05" },
@@ -56,12 +60,4 @@ export const FT_ITEMS = [
   { id: "786b8ce5-3a11-4e34-b811-41ec165f5916", title: "Ørsted boss says Europe must act on ‘unfair’ Chinese wind turbine makers", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/786b8ce5-3a11-4e34-b811-41ec165f5916" },
   { id: "05dc65e9-0a60-4914-a39f-cf3cc2139513", title: "UK chancellor considering Budget tax raid on higher stake slot machines", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/05dc65e9-0a60-4914-a39f-cf3cc2139513" },
   { id: "4d69377c-a2b6-4c20-a485-3dbbafc6daa3", title: "AI can forecast the future. Should we let it?", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/4d69377c-a2b6-4c20-a485-3dbbafc6daa3" },
-  { id: "3a216d29-6ed0-46a2-9835-2d9b427b7e88", title: "‘Buy British’ military procurement is a poor way to defend the realm", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/3a216d29-6ed0-46a2-9835-2d9b427b7e88" },
-  { id: "9e7aa9ce-6c02-49fc-9224-62fb5767f1b1", title: "A hotter planet meets dearer money", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/9e7aa9ce-6c02-49fc-9224-62fb5767f1b1" },
-  { id: "0aa2e6af-195d-40cc-a813-3e130cbb5553", title: "In Germany’s east, old ties to Moscow fuel AfD rise", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/0aa2e6af-195d-40cc-a813-3e130cbb5553" },
-  { id: "2285c111-b103-4b04-96c7-fe26a3c04c3e", title: "US billionaires line up to bankroll Republicans’ election push", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/2285c111-b103-4b04-96c7-fe26a3c04c3e" },
-  { id: "a4d98da2-12e2-4c6a-a60c-46aaeb69ff2a", title: "A top London lawyer wants to create ‘the California of Europe’ in the Algarve", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/a4d98da2-12e2-4c6a-a60c-46aaeb69ff2a" },
-  { id: "c11fd1dd-8783-4894-9f53-109d7edf376f", title: "How Switzerland turned tax competition into a national sport", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/c11fd1dd-8783-4894-9f53-109d7edf376f" },
-  { id: "2e3ad452-cd81-4df0-8eec-09112033ea37", title: "The unravelling of Missoni", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/2e3ad452-cd81-4df0-8eec-09112033ea37" },
-  { id: "6ec74be5-9e4c-49c0-a9dc-d3a0ae324a17", title: "Hedge fund warned ousted lawyer to settle £36bn BHP dam collapse claim", date: "2026-09-16", time: "05:00", url: "https://www.ft.com/content/6ec74be5-9e4c-49c0-a9dc-d3a0ae324a17" },
 ];
