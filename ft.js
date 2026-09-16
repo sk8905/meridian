@@ -20,8 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
-  { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "07:01", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-16", time: "07:29", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
+  { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "07:01", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
   { id: "033b21e7-b5d5-4511-ae01-53edaa4e051e", title: "AI debt vs Treasuries", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/033b21e7-b5d5-4511-ae01-53edaa4e051e" },
   { id: "85f684e6-15df-4015-a626-73a5e2f2b438", title: "FTAV’s further reading", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/85f684e6-15df-4015-a626-73a5e2f2b438" },
   { id: "1f78b692-4389-49a1-bd48-903252cc282f", title: "Von der Leyen to paint EU as the only port in a global geopolitical storm", date: "2026-09-16", time: "06:00", url: "https://www.ft.com/content/1f78b692-4389-49a1-bd48-903252cc282f" },
@@ -60,6 +60,4 @@ export const FT_ITEMS = [
   { id: "cacaf167-5d13-420c-8624-4e5f9b227028", title: "Scotch producers fume over legal protection for English whisky", date: "2026-09-15", time: "17:59", url: "https://www.ft.com/content/cacaf167-5d13-420c-8624-4e5f9b227028" },
   { id: "a3830162-2f40-46b7-8259-0db45fe2acef", title: "US prosecutors say Chinese groups used Binance to launder $61mn from Iranian oil deals", date: "2026-09-15", time: "17:52", url: "https://www.ft.com/content/a3830162-2f40-46b7-8259-0db45fe2acef" },
   { id: "e89bfb29-2aef-40ec-9c9d-b9c1afa783a8", title: "Iran war has left US with munitions ‘shortfall’, Pentagon watchdog says", date: "2026-09-15", time: "17:10", url: "https://www.ft.com/content/e89bfb29-2aef-40ec-9c9d-b9c1afa783a8" },
-  { id: "7e2ae9c8-4c94-4550-bdfb-bb003e4780d8", title: "Reform UK’s leader in Wales steps down after being ‘reported to the police’", date: "2026-09-15", time: "17:01", url: "https://www.ft.com/content/7e2ae9c8-4c94-4550-bdfb-bb003e4780d8" },
-  { id: "08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9", title: "Saudi leader visits Egypt for security talks as war with Houthis intensifies", date: "2026-09-15", time: "16:27", url: "https://www.ft.com/content/08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9" },
 ];
