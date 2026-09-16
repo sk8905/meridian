@@ -20,7 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bb2c178f-08e8-4de2-af49-6c184217cfb3", title: "PwC revenues fall for first time in more than a decade", date: "2026-09-16", time: "09:01", url: "https://www.ft.com/content/bb2c178f-08e8-4de2-af49-6c184217cfb3" },
+  { id: "26f03609-1d41-4556-aaa3-d32a880ce1bd", title: "McLaren to compete against Lamborghini and Ferrari with hybrid SUVs", date: "2026-09-16", time: "09:00", url: "https://www.ft.com/content/26f03609-1d41-4556-aaa3-d32a880ce1bd" },
+  { id: "8fed428e-7bcc-435c-9487-cb4e6a795328", title: "Ursula von der Leyen backs Canada’s ‘associate membership’ bid", date: "2026-09-16", time: "08:55", url: "https://www.ft.com/content/8fed428e-7bcc-435c-9487-cb4e6a795328" },
+  { id: "97496b98-c749-4fde-88be-4ac95030a8c8", title: "Road fuels push UK inflation higher in August", date: "2026-09-16", time: "08:19", url: "https://www.ft.com/content/97496b98-c749-4fde-88be-4ac95030a8c8" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "Submit a question: What do British businesses need from the Budget?", date: "2026-09-16", time: "07:29", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
+  { id: "f082ea1d-112a-4278-aa4a-8783a9077755", title: "Freewheeling Hong Kong takes cue from China with first five-year plan", date: "2026-09-16", time: "07:13", url: "https://www.ft.com/content/f082ea1d-112a-4278-aa4a-8783a9077755" },
   { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "07:01", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
   { id: "033b21e7-b5d5-4511-ae01-53edaa4e051e", title: "AI debt vs Treasuries", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/033b21e7-b5d5-4511-ae01-53edaa4e051e" },
   { id: "85f684e6-15df-4015-a626-73a5e2f2b438", title: "FTAV’s further reading", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/85f684e6-15df-4015-a626-73a5e2f2b438" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "97f3d2b7-0282-42a7-bbb7-538624441a8a", title: "Hackers say they breached Italian state email to target Revolut ‘crypto whales’", date: "2026-09-15", time: "18:27", url: "https://www.ft.com/content/97f3d2b7-0282-42a7-bbb7-538624441a8a" },
   { id: "6bbec28d-7ccf-455b-932a-0edad91a6d0e", title: "Larry Ellison shows even billionaires struggle with liquidity", date: "2026-09-15", time: "18:24", url: "https://www.ft.com/content/6bbec28d-7ccf-455b-932a-0edad91a6d0e" },
   { id: "69b514eb-d627-4d46-9218-0842706c7115", title: "Iron ore trader Radiant alleges Glencore hid their ties from audited records", date: "2026-09-15", time: "18:17", url: "https://www.ft.com/content/69b514eb-d627-4d46-9218-0842706c7115" },
-  { id: "e14542d9-2bc5-49c8-8e7e-c9656b0a2d36", title: "US manufacturers hit by fresh burst of supply chain cost inflation", date: "2026-09-15", time: "16:26", url: "https://www.ft.com/content/e14542d9-2bc5-49c8-8e7e-c9656b0a2d36" },
-  { id: "cacaf167-5d13-420c-8624-4e5f9b227028", title: "Scotch producers fume over legal protection for English whisky", date: "2026-09-15", time: "17:59", url: "https://www.ft.com/content/cacaf167-5d13-420c-8624-4e5f9b227028" },
-  { id: "a3830162-2f40-46b7-8259-0db45fe2acef", title: "US prosecutors say Chinese groups used Binance to launder $61mn from Iranian oil deals", date: "2026-09-15", time: "17:52", url: "https://www.ft.com/content/a3830162-2f40-46b7-8259-0db45fe2acef" },
-  { id: "e89bfb29-2aef-40ec-9c9d-b9c1afa783a8", title: "Iran war has left US with munitions ‘shortfall’, Pentagon watchdog says", date: "2026-09-15", time: "17:10", url: "https://www.ft.com/content/e89bfb29-2aef-40ec-9c9d-b9c1afa783a8" },
 ];

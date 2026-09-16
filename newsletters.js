@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-pecomesforoffshorelaw-20260916",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "PE comes for offshore law",
+    date: "2026-09-16",
+    time: "09:05",
+    summary: "Sullivan & Cromwell makes a four-partner Kirkland hire and launches in the Middle East.",
+    url: "https://non-billable.beehiiv.com/p/draft-5e4a",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-pressuringthefed-20260916",
     publication: "Bloomberg",
     author: "Samson Ellis",
