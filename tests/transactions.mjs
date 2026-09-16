@@ -322,19 +322,26 @@ await ctx.close();
   check(drill.pageOverflow <= 1, `phone: the page itself does not scroll sideways (overflow ${drill.pageOverflow}px)`);
   check(drill.cells.length === 7 && ["tx-bd", "tx-sp", "tx-dt", "tx-mg", "tx-cat", "tx-sz", "tx-src2"].every((c) => drill.cells.includes(c)),
     `phone: the deal list keeps all seven columns to scroll through (${drill.cells.join(", ")})`);
-  // The Group-by-lender button stays pinned to the TOP-right of the filter block —
-  // even when the sub-category chips wrap onto several rows below it (it floats,
-  // so its top hugs the subhead top and its right hugs the subhead right edge).
+  // The sub-category chips sit on ONE row that scrolls horizontally (like the
+  // home-page wire filters); the Group-by-lender button stays pinned to the right
+  // of that row, on the same line, never overlapping a chip.
   const gb = await p.pg.evaluate(() => {
     const sh = document.querySelector(".tx-typeexp:not([hidden]) .tx-subhead");
     const btn = sh && sh.querySelector(".tx-grpbtn");
+    const strip = sh && sh.querySelector(".tx-secfilter");
     const chips = sh ? [...sh.querySelectorAll(".tx-secchip")] : [];
-    if (!sh || !btn) return null;
-    const s = sh.getBoundingClientRect(), r = btn.getBoundingClientRect();
-    const maxChipBottom = chips.reduce((m, c) => Math.max(m, c.getBoundingClientRect().bottom), 0);
-    return { topAligned: Math.abs(r.top - s.top) <= 2, rightAligned: (s.right - r.right) <= 3, chips: chips.length, chipsWrap: maxChipBottom > r.bottom + 1 };
+    if (!sh || !btn || !strip) return null;
+    const s = sh.getBoundingClientRect(), r = btn.getBoundingClientRect(), st = strip.getBoundingClientRect();
+    const oneRow = chips.every((c) => Math.abs(c.getBoundingClientRect().top - chips[0].getBoundingClientRect().top) <= 1);
+    return {
+      sameRow: Math.abs(r.top - s.top) <= 2, rightPinned: (s.right - r.right) <= 3,
+      stripScrolls: strip.scrollWidth > strip.clientWidth + 1,   // chips overflow → horizontal scroll
+      noOverlap: st.right <= r.left + 1,                          // strip ends before the button starts
+      oneRow, chips: chips.length,
+    };
   });
-  check(gb && gb.topAligned && gb.rightAligned, `phone: the Group-by button is pinned top-right of the filter block (top ${gb && gb.topAligned}, right ${gb && gb.rightAligned})`);
+  check(gb && gb.sameRow && gb.rightPinned, `phone: the Group-by button is pinned right of the filter row (sameRow ${gb && gb.sameRow}, right ${gb && gb.rightPinned})`);
+  check(gb && gb.oneRow && gb.stripScrolls && gb.noOverlap, `phone: the sub-category chips are one horizontally-scrolling row, not overlapping the button (oneRow ${gb && gb.oneRow}, scrolls ${gb && gb.stripScrolls})`);
   checkErrs(p.errs, "transactions phone column fit");
   await p.ctx.close();
 }
