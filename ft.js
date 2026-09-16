@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "07:01", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
+  { id: "033b21e7-b5d5-4511-ae01-53edaa4e051e", title: "AI debt vs Treasuries", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/033b21e7-b5d5-4511-ae01-53edaa4e051e" },
+  { id: "85f684e6-15df-4015-a626-73a5e2f2b438", title: "FTAV’s further reading", date: "2026-09-16", time: "06:30", url: "https://www.ft.com/content/85f684e6-15df-4015-a626-73a5e2f2b438" },
   { id: "1f78b692-4389-49a1-bd48-903252cc282f", title: "Von der Leyen to paint EU as the only port in a global geopolitical storm", date: "2026-09-16", time: "06:00", url: "https://www.ft.com/content/1f78b692-4389-49a1-bd48-903252cc282f" },
   { id: "3401a104-598d-4145-a03b-8bb08b2d7165", title: "The BoE’s three balance sheet problem", date: "2026-09-16", time: "06:00", url: "https://www.ft.com/content/3401a104-598d-4145-a03b-8bb08b2d7165" },
   { id: "6b6a27bd-2725-4591-be8a-fda643c2ac5c", title: "World’s best-performing sovereign wealth fund expects equities pullback", date: "2026-09-16", time: "05:55", url: "https://www.ft.com/content/6b6a27bd-2725-4591-be8a-fda643c2ac5c" },
@@ -58,8 +61,4 @@ export const FT_ITEMS = [
   { id: "e89bfb29-2aef-40ec-9c9d-b9c1afa783a8", title: "Iran war has left US with munitions ‘shortfall’, Pentagon watchdog says", date: "2026-09-15", time: "17:10", url: "https://www.ft.com/content/e89bfb29-2aef-40ec-9c9d-b9c1afa783a8" },
   { id: "7e2ae9c8-4c94-4550-bdfb-bb003e4780d8", title: "Reform UK’s leader in Wales steps down after being ‘reported to the police’", date: "2026-09-15", time: "17:01", url: "https://www.ft.com/content/7e2ae9c8-4c94-4550-bdfb-bb003e4780d8" },
   { id: "08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9", title: "Saudi leader visits Egypt for security talks as war with Houthis intensifies", date: "2026-09-15", time: "16:27", url: "https://www.ft.com/content/08ddd08c-97b2-46a0-a4ed-b3b4ff5ebfd9" },
-  { id: "b3674c9d-9db2-448d-bd57-f1c040de2d54", title: "Supreme Court rejects Donald Trump’s restrictions on mail-in ballots for midterms", date: "2026-09-15", time: "14:55", url: "https://www.ft.com/content/b3674c9d-9db2-448d-bd57-f1c040de2d54" },
-  { id: "86078ee7-0c8a-4d2b-8ce7-4fc47d965985", title: "The main Trump-Xi summit achievement will be it happening at all", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/86078ee7-0c8a-4d2b-8ce7-4fc47d965985" },
-  { id: "4420bf7d-320f-431c-8ca9-5e554b356890", title: "AI fears spook Washington as more Republicans call for greater regulation", date: "2026-09-15", time: "14:00", url: "https://www.ft.com/content/4420bf7d-320f-431c-8ca9-5e554b356890" },
-  { id: "2c206da5-63c9-405d-ae14-abe772ea32e0", title: "Santander wins £677mn legal appeal over PPI mis-selling bill", date: "2026-09-15", time: "13:10", url: "https://www.ft.com/content/2c206da5-63c9-405d-ae14-abe772ea32e0" },
 ];
