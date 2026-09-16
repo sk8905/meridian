@@ -20,17 +20,32 @@ const envelope = { props: { pageProps: { timeline: { entries: [
     created_at: "Wed Sep 16 17:30:00 +0000 2026",
     core: { user_results: { result: { legacy: { name: "Ray Dalio", screen_name: "RayDalio", profile_image_url_https: "https://pbs.twimg.com/profile_images/r.jpg" } } } },
   } } },
+  // Newer GraphQL shape: tweet fields under `legacy`, user under core.user_results.
+  { content: { tweetResult: { result: {
+    rest_id: "2099999999999999999",
+    core: { user_results: { result: {
+      rest_id: "111",
+      legacy: { screen_name: "sindap", name: "Sujeet Indap", profile_image_url_https: "https://pbs.twimg.com/profile_images/s.jpg" },
+    } } },
+    legacy: { full_text: "LIV ch 11 petition hits the docket.", created_at: "Wed Sep 16 19:00:00 +0000 2026", entities: { media: [] } },
+  } } } },
   { type: "timelineCursor", content: { cursor: { value: "abc" } } },   // noise, not a tweet
 ] } } } };
 
 const raw = [];
 xCollectTweets(envelope, raw);
-check(raw.length === 2, `collect: found the two tweet records, skipped the cursor (${raw.length})`);
+check(raw.length === 3, `collect: found all three tweet records (2 old-shape + 1 GraphQL), skipped the cursor (${raw.length})`);
 
 const tweets = raw.map(xNormalizeTweet).filter(Boolean).sort((a, b) => b.ts - a.ts);
-checkEq(tweets.length, 2, "normalize: both tweets normalise to card shape");
+checkEq(tweets.length, 3, "normalize: all three tweets normalise to card shape");
 
-const el = tweets[0];
+// The GraphQL/legacy-shaped tweet is the newest — it must be captured, not skipped.
+const gql = tweets[0];
+checkEq(gql.handle, "sindap", "normalize: GraphQL core.user_results.result.legacy.screen_name is read");
+checkEq(gql.id, "2099999999999999999", "normalize: GraphQL rest_id is used as the id");
+check(/LIV ch 11/.test(gql.text), "normalize: GraphQL legacy.full_text is read");
+
+const el = tweets.find((t) => t.handle === "elerianm");
 checkEq(el.handle, "elerianm", "normalize: inline user.screen_name is read");
 checkEq(el.name, "Mohamed A. El-Erian", "normalize: display name is read");
 check(!/t\.co/.test(el.text), "normalize: trailing t.co shortlink is stripped from the body");
@@ -39,7 +54,7 @@ checkEq(el.url, "https://x.com/elerianm/status/2097419714045624433", "normalize:
 check(el.media[0] === "https://pbs.twimg.com/media/x.jpg", "normalize: media_url_https extracted");
 check(el.ts > 0, "normalize: created_at parses to a sortable timestamp");
 
-const rd = tweets[1];
+const rd = tweets.find((t) => t.handle === "RayDalio");
 checkEq(rd.handle, "RayDalio", "normalize: newer core.user_results.result.legacy shape is read");
 checkEq(rd.id, "2097400000000000000", "normalize: numeric id (from `id`) is kept");
 

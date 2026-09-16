@@ -3399,12 +3399,15 @@ async function handleApprove(request, env) {
 // X changing the envelope shape around the tweet records.
 export function xCollectTweets(node, out, depth) {
   depth = depth || 0;
-  if (!node || depth > 10 || out.length > 400) return;
+  if (!node || depth > 12 || out.length > 600) return;
   if (Array.isArray(node)) { for (let i = 0; i < node.length; i++) xCollectTweets(node[i], out, depth + 1); return; }
   if (typeof node === "object") {
-    const hasId = node.id_str || node.id;
-    const hasText = node.full_text != null || node.text != null;
-    const hasWhen = node.created_at != null;
+    // Tweet fields sit at the top level (old syndication shape) OR nested under
+    // `legacy` (newer GraphQL shape). Match either so recent posts aren't skipped.
+    const lg = (node.legacy && typeof node.legacy === "object") ? node.legacy : node;
+    const hasId = node.id_str || node.id || node.rest_id || lg.id_str;
+    const hasText = lg.full_text != null || lg.text != null || node.full_text != null || node.text != null;
+    const hasWhen = lg.created_at != null || node.created_at != null;
     const hasUser = node.user || node.core || node.author || node.user_results;
     if (hasId && hasText && hasWhen && hasUser) out.push(node);
     for (const k in node) { if (Object.prototype.hasOwnProperty.call(node, k)) xCollectTweets(node[k], out, depth + 1); }
@@ -3415,22 +3418,30 @@ export function xCollectTweets(node, out, depth) {
 // Returns null for anything that isn't a real, dated tweet with a numeric id.
 export function xNormalizeTweet(t) {
   try {
-    const id = String((t && (t.id_str || t.id)) || "");
+    if (!t || typeof t !== "object") return null;
+    // Tweet fields live at the top level (old shape) or under `legacy` (GraphQL).
+    const lg = (t.legacy && typeof t.legacy === "object") ? t.legacy : t;
+    const id = String(t.rest_id || t.id_str || t.id || lg.id_str || "");
     if (!/^\d{5,}$/.test(id)) return null;
-    const u = t.user
-      || (t.core && t.core.user_results && t.core.user_results.result && t.core.user_results.result.legacy)
-      || (t.author) || {};
-    const handle = u.screen_name || u.screenName || "";
-    const name = u.name || handle;
-    const avatar = u.profile_image_url_https || u.profile_image_url || "";
-    let text = String(t.full_text != null ? t.full_text : (t.text != null ? t.text : ""));
+    // User: inline `user`, or GraphQL core.user_results.result.{legacy|core}, or author.
+    const ur = t.core && t.core.user_results && t.core.user_results.result;
+    const uleg = (ur && ur.legacy) || t.user || lg.user || t.author || {};
+    const ucore = ur && ur.core;   // newest GraphQL user shape (screen_name/name on .core)
+    const handle = uleg.screen_name || uleg.screenName || (ucore && ucore.screen_name) || "";
+    const name = uleg.name || (ucore && ucore.name) || handle;
+    const avatar = uleg.profile_image_url_https || uleg.profile_image_url
+      || (ur && ur.avatar && ur.avatar.image_url) || "";
+    let text = String(lg.full_text != null ? lg.full_text : (lg.text != null ? lg.text
+      : (t.full_text != null ? t.full_text : (t.text != null ? t.text : ""))));
     // Trim a trailing t.co (the tweet's own permalink / media shortlink).
     text = text.replace(/\s+https:\/\/t\.co\/\w+\s*$/,"").trim();
-    const created = t.created_at || "";
+    const created = lg.created_at || t.created_at || "";
     const ts = Date.parse(created) || 0;
     if (!ts) return null;
     const media = [];
-    const ents = (t.extended_entities && t.extended_entities.media)
+    const ents = (lg.extended_entities && lg.extended_entities.media)
+      || (lg.entities && lg.entities.media)
+      || (t.extended_entities && t.extended_entities.media)
       || (t.entities && t.entities.media) || t.photos || t.mediaDetails || [];
     if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url || m.url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
     return { id, handle, name, avatar, text, date: created, ts,
@@ -3440,7 +3451,11 @@ export function xNormalizeTweet(t) {
 }
 
 async function fetchXProfile(handle) {
-  const u = `https://syndication.twitter.com/srv/timeline-profile/screen-name/${encodeURIComponent(handle)}?showReplies=false&dnt=true&lang=en`;
+  // Time-bucketed cache-buster (~3-min buckets) to slip past X's per-account CDN
+  // cache — the syndication endpoint otherwise hands back stale embed snapshots.
+  // Our own /api/xfeed edge cache still keeps request volume to X tiny.
+  const bust = Math.floor(Date.now() / 180000);
+  const u = `https://syndication.twitter.com/srv/timeline-profile/screen-name/${encodeURIComponent(handle)}?showReplies=false&dnt=true&lang=en&_=${bust}`;
   let r;
   try {
     r = await fetch(u, { headers: {
@@ -3448,7 +3463,7 @@ async function fetchXProfile(handle) {
       "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
       "accept-language": "en-US,en;q=0.9",
       "referer": "https://platform.twitter.com/",
-    }, cf: { cacheTtl: 300 } });
+    }, cf: { cacheTtl: 0, cacheEverything: false } });
   } catch { return []; }
   if (!r || !r.ok) return [];
   const html = await r.text();
@@ -3470,7 +3485,7 @@ async function handleXFeed(request, env, ctx) {
 
   const key = handles.map((h) => h.toLowerCase()).sort().join(",");
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=1`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=2`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
