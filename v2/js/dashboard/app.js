@@ -591,8 +591,11 @@ export function mount(host, ctx) {
       + `<p class="dsh-cyc-sub">Where we stand</p>` + paras(mc.stand)
       + srcRow(mc.sources)
       + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p>`;
+    // US / UK meters + a grey per-region descriptor, matching the Debt cycle block.
+    const mcUs = mc.us || { pos: mc.pos, shortStage: mc.short }, mcUk = mc.uk || {};
     const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
-      + meter("Equities", mc.pos) + `<p class="dsh-cyc-note"><strong>${esc(mc.stage || "")}</strong></p>`
+      + meter("US", mcUs.pos) + meter("UK", mcUk.pos)
+      + `<p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(mcUs.shortStage || "")))} (US) · ${esc(stripTags(String(mcUk.shortStage || "")))} (UK)</p>`
       + details(mktNarr) + `</div>`;
     // Two blocks, returned separately so the Macro pane can place each in its own
     // tile (a break down the middle, like the paired rows above) — each keeps the

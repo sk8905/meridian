@@ -475,6 +475,12 @@ export const MARKET_CYCLE = {
   pos: 68,
   stage: "Late expansion, tilting to euphoria — the pendulum well toward greed on US large-cap & AI",
   short: "Late expansion → euphoria",
+  // Per-market readings on the same pendulum (mirrors the debt cycle's US/UK
+  // split). The published narrative is US-centric; UK equities sit materially
+  // lower — cheap and persistently unloved (see the "UK" line in `stand`). Both
+  // are Wire's synthesis, not figures Marks publishes (see `note`).
+  us: { pos: 68, shortStage: "Late expansion → euphoria — greed on US large-cap & AI" },
+  uk: { pos: 46, shortStage: "Mid-expansion — cheap, unloved; low tech exposure vs the US" },
   // Own gauge zones (the despair→euphoria pendulum), kept here so the shared
   // gauge module needs no new export.
   zones: [[10, "Capitulation"], [33, "Recovery"], [56, "Expansion"], [80, "Euphoria"], [96, "Mania"]],
@@ -488,14 +494,16 @@ export const MARKET_CYCLE = {
     "<strong>Psychology — toward the greedy end.</strong> In <em>On Bubble Watch</em> (Jan 2025) Marks flagged above-average S&amp;P 500 valuations, the US premium to the rest of the world, AI enthusiasm and heavy concentration in the “Magnificent Seven”. Cautionary signs — though he stressed the market looked high-priced rather than “nutty”, and he did not hear investors claiming “there's no price too high”.",
     "<strong>AI — an “inflection”, not yet a mania.</strong> His latest memo, <em>Is It a Bubble?</em> (9 Dec 2025), notes AI-linked names drove roughly <strong>75% of the S&amp;P 500's gains, ~80% of its earnings and ~90% of capex</strong>, and warns on “circular” financing and the aggressive debt funding a projected ~$5tn of AI infrastructure — while distinguishing self-correcting “mean-reversion” bubbles from “inflection” bubbles built around genuine breakthroughs. His read: elevated risk and rich prices, but not (yet) a definitive bubble.",
     "<strong>Net read (Wire synthesis of his memos):</strong> late in the psychology cycle — the pendulum has swung well toward greed on US large-cap and AI, which argues for <strong>defensiveness</strong> there — even as the post-Sea-Change credit cycle is more disciplined (higher rates, positive real yields) than the 2021 peak, which is why Marks leans toward <strong>credit</strong> over equity ownership. The gauge sits in late expansion, tilting to euphoria.",
+    "<strong>UK — cheaper, and far less loved.</strong> The greed the pendulum registers is concentrated in the US; UK equities sit much lower on the same swing. The FTSE 100 trades near <strong>13x</strong> forward earnings versus roughly <strong>21x</strong> for the S&amp;P 500 — about a <strong>37% discount</strong> — with only ~3.5% in technology against roughly a third for the US. Years of being “unloved” leave UK sentiment closer to mid-expansion than euphoria, even as strong cash generation and high dividend yields make the discount look more like opportunity than structural rot.",
   ],
-  note: "The 0–100 market-cycle position is Wire's synthesis of Howard Marks' published memos and books, not a figure he publishes. Educational only — not investment advice.",
+  note: "The 0–100 market-cycle positions (US and UK) are Wire's synthesis of Howard Marks' published memos and books plus the UK/US valuation gap, not figures he publishes. Educational only — not investment advice.",
   sources: [
     ["Marks — Mastering the Market Cycle (2018)", "https://www.amazon.com/Mastering-Market-Cycle-Getting-Odds/dp/1328479250"],
     ["Marks — Sea Change (Oaktree, Dec 2022)", "https://www.oaktreecapital.com/insights/memo/sea-change"],
     ["Marks — On Bubble Watch (Oaktree, Jan 2025)", "https://www.oaktreecapital.com/insights/memo/on-bubble-watch"],
     ["Marks — Is It a Bubble? (Oaktree, Dec 2025)", "https://www.oaktreecapital.com/insights/memo/is-it-a-bubble"],
     ["CNBC — Marks: AI frenzy isn't a bubble, at least not yet (Oct 2025)", "https://www.cnbc.com/2025/10/13/oaktrees-howard-marks-says-ai-frenzy-isnt-a-bubble-at-least-not-yet.html"],
+    ["AJ Bell — Why the UK beats the US on value and dividends", "https://www.ajbell.co.uk/news/why-uk-beats-us-value-and-dividends"],
   ],
 };
 

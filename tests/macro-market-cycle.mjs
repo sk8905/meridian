@@ -66,6 +66,15 @@ const dash = await d.pg.evaluate(() => {
     mentionsStand: /where we stand/i.test(txt),
     hasOaktree: links.some((h) => /oaktreecapital\.com/i.test(h || "")),
     meters: document.querySelectorAll(".dsh-cyc .dsh-fw-bar").length,
+    // The Market cycle block mirrors the Debt cycle block: US + UK meters and a
+    // grey (muted) per-region descriptor — not a single bold "Equities" reading.
+    mkt: (() => {
+      const blk = [...document.querySelectorAll(".dsh-cyc-blk")].find((b2) => /market cycle/i.test((b2.querySelector(".dsh-cyc-hd") || {}).textContent || ""));
+      if (!blk) return null;
+      const labels = [...blk.querySelectorAll(".dsh-fw-l")].map((l) => l.textContent.trim());
+      const note = blk.querySelector(".dsh-cyc-note");
+      return { labels, mutedNote: !!(note && note.classList.contains("dsh-mut")), noBold: !blk.querySelector(".dsh-cyc-note strong") };
+    })(),
   };
 });
 check(dash.hasDebt, "Dashboard→Macro shows the Dalio debt-cycle block");
@@ -73,7 +82,9 @@ check(dash.hasMarket, "Dashboard→Macro shows the Howard Marks market-cycle blo
 check(dash.mentionsPendulum, "Dashboard→Macro market cycle explains the pendulum");
 check(dash.mentionsStand, "Dashboard→Macro market cycle has a 'where we stand' read");
 check(dash.hasOaktree, "Dashboard→Macro market cycle links a real Oaktree memo");
-check(dash.meters >= 3, `Dashboard→Macro renders position meters (${dash.meters})`);
+check(dash.meters >= 4, `Dashboard→Macro renders position meters (${dash.meters})`);
+check(dash.mkt && dash.mkt.labels.join(",") === "US,UK", `Dashboard→Macro market cycle shows US + UK meters (${dash.mkt && dash.mkt.labels.join(",")})`);
+check(dash.mkt && dash.mkt.mutedNote && dash.mkt.noBold, "Dashboard→Macro market-cycle descriptor is grey (muted), not bold");
 
 // The Macro pane is a fixed-viewport terminal with three side-by-side panes —
 // Policy rates, Cycle and the Macro wire — all visible at once (no sub-tabs). The
