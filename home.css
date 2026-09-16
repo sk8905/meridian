@@ -1042,9 +1042,15 @@
         color:var(--t-mut); cursor:pointer; }
       .tui .g-wiretab.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
       [data-theme="dark"] .tui .g-wiretab.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
+      /* One wire on screen at a time: News (feed) is default; Watchlist swaps in
+         the manager wire; X swaps in the X wire. The manager + X rails are hidden
+         until their chip is chosen. */
       .tui .g-side3{ display:none; }
+      .tui .g-side-x{ display:none; }
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
+      .tui .g-layout.wire-x .g-feed-wrap{ display:none; }
+      .tui .g-layout.wire-x .g-side-x{ display:block; }
       /* Lock the feed filter tabs to the top (under the header, the search band AND
          the wire chips) while the headlines scroll. */
       .tui .g-feed-head{ position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:8; background:var(--t-head); box-shadow:0 -1px 0 var(--t-head); }

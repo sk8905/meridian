@@ -175,14 +175,19 @@ function initMobileWireTabs() {
   if (!tabs || !layout) return;
   const setWire = (k) => {
     layout.classList.toggle("wire-watch", k === "watch");
+    layout.classList.toggle("wire-x", k === "x");
     tabs.querySelectorAll(".g-wiretab").forEach((t) => {
       const on = t.dataset.wire === k;
       t.classList.toggle("is-on", on);
       t.setAttribute("aria-selected", on ? "true" : "false");
     });
+    // The X wire renders lazily; revealing its (previously hidden) rail lets the
+    // observer boot it, but also kick it directly so it never lands on a blank.
+    if (k === "x") initXWire();
   };
-  // F8 — restore the last-used wire tab (News vs Watchlist) on load.
-  if (_homePrefs().wire === "watch") setWire("watch");
+  // F8 — restore the last-used wire tab (News · Watchlist · X) on load.
+  const _wp = _homePrefs().wire;
+  if (_wp === "watch" || _wp === "x") setWire(_wp);
   tabs.addEventListener("click", (e) => {
     const btn = e.target.closest(".g-wiretab");
     if (!btn) return;
@@ -292,7 +297,7 @@ function initJumpNav() {
 // embed; anything X can't serve (deleted, protected, offline, or X unreachable)
 // keeps its "View on X" fallback link. Accounts with no post reference show a
 // profile card. Nothing here fabricates tweet content — the embed is the source.
-let _xwireBooted = false;
+let _xwireBooted = false, _xwireWatching = false;
 function fmtXDate(iso) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ""));
   if (!m) return "";
@@ -318,14 +323,16 @@ function initXWire() {
   const host = document.getElementById("g-xwire");
   if (!host || _xwireBooted) return;
   const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); };
+  // Boot as soon as the panel is actually on screen — the always-visible desktop
+  // rail, or the mobile X-wire rail the moment its chip reveals it. A hidden rail
+  // (display:none) has no offsetParent, so it stays lazy until shown.
+  if (host.offsetParent !== null && host.getBoundingClientRect().top < innerHeight + 800) { boot(); return; }
+  if (_xwireWatching) return; _xwireWatching = true;
   if ("IntersectionObserver" in window) {
     const io = new IntersectionObserver((ents) => {
       if (ents.some((e) => e.isIntersecting)) { io.disconnect(); boot(); }
     }, { rootMargin: "600px 0px" });
     io.observe(host);
-    // Safety: if layout never intersects (e.g. always-visible desktop rail races
-    // the observer), boot on the next frame regardless.
-    requestAnimationFrame(() => { if (host.getBoundingClientRect().top < innerHeight + 600) boot(); });
   } else { boot(); }
 }
 function renderXWire(host) {

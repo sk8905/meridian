@@ -1,6 +1,7 @@
 // Home X wire: a merged, newest-first column of REAL X posts rendered live by X's
-// official widgets.js. The panel sits in the right rail (above Prediction markets)
-// and, on the primary phone surface, stacks in the single-column flow. The widget
+// official widgets.js. The panel is its own rail (between the manager wire and the
+// macro rail) on desktop, and the third wire chip (News · Watchlist · X) on phones.
+// The widget
 // script is third-party and loaded LAZILY; in this offline harness X is
 // unreachable, so every post keeps its "View on X" fallback link and the two
 // unverifiable accounts (@michaeljburry, @ArashMassoudi) show a profile card.
@@ -63,17 +64,17 @@ const orphans = X_ACCOUNTS.filter((a) => !withPost.has(a.handle.toLowerCase()));
   await ctx.close();
 }
 
-// Phone: the panel stacks in the single-column flow and is reachable/renders.
+// Phone: the X wire is a third chip (News · Watchlist · X); tapping it reveals
+// and renders the wire.
 {
   const ctx = await b.newContext({ viewport: { width: 430, height: 860 }, isMobile: true, hasTouch: true });
   const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
-  await pg.waitForSelector("#g-xwire", { timeout: 8000 });
-  // Scroll the panel into view so the lazy boot fires, then confirm it renders.
-  await pg.evaluate(() => document.querySelector("#g-xwire").scrollIntoView());
+  await pg.waitForSelector(".g-wiretab[data-wire='x']", { timeout: 8000 });
+  await pg.evaluate(() => document.querySelector(".g-wiretab[data-wire='x']").click());
   await pg.waitForSelector("#g-xwire .g-x-card", { timeout: 8000 });
   const n = await pg.evaluate(() => document.querySelectorAll("#g-xwire .g-x-card").length);
-  check(n >= postsSorted.length, `phone: X wire stacks and renders its cards (${n})`);
+  check(n >= postsSorted.length, `phone: the X chip reveals and renders the wire (${n})`);
   await ctx.close();
 }
 

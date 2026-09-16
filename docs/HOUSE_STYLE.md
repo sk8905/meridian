@@ -310,9 +310,10 @@ notification badge red (`#ef4444`).
   `tests/dashboard-heatmaps.mjs`.
 
 - **R26 — X wire (Home).** The Home terminal carries an **X wire** in its **own
-  rail, between the manager wire and the macro rail** (on phones it stacks in the
-  single-column flow, like the manager wire — it is content, not the markets/rates
-  data that phones hide). It is a **merged, newest-first** column of **real posts**
+  rail, between the manager wire and the macro rail**. On **phones** it is the
+  **third wire chip — News · Watchlist · X** — swapping onto the single-column
+  workspace like the Watchlist (manager) wire (it is content, not the markets/rates
+  data that phones fold into the shared Markets panel). It is a **merged, newest-first** column of **real posts**
   from a curated roster of accounts (`v2/js/home/xposts.js` → `X_ACCOUNTS` +
   `X_POSTS`, rendered by `initXWire`/`renderXWire` in `v2/js/home/glance.js`). Each
   post is a **native X embed rendered live by X's official `widgets.js`** (loaded

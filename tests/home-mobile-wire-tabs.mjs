@@ -27,11 +27,12 @@ const b = await launchChromium();
   check(chipsShown, "phone: the News / Watchlist chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "News · Watchlist", `phone: chips read 'News' and 'Watchlist' (${labels.join(", ")})`);
+  check(labels.join(" · ") === "News · Watchlist · X", `phone: chips read 'News', 'Watchlist' and 'X' (${labels.join(", ")})`);
 
-  // Default: News on, feed visible, manager wire hidden.
+  // Default: News on, feed visible, manager + X wires hidden.
   check(await vis(".g-feed-wrap"), "phone: news feed is visible by default");
   check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (News selected)");
+  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (News selected)");
   const newsOn = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on"));
   check(newsOn, "phone: the News chip is active by default");
 
@@ -48,11 +49,26 @@ const b = await launchChromium();
   check(watchState.watchOn && watchState.aria === "true", "phone: the Watchlist chip is active + aria-selected after tap");
   check(watchState.hasMgr, "phone: the manager wire has rendered content under Watchlist");
 
+  // Tap X → the X wire is revealed (feed + manager hidden) and it renders.
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').click());
+  await pg.waitForSelector("#g-xwire .g-x-card", { timeout: 8000 });
+  check(await vis(".g-side-x"), "phone: tapping X reveals the X wire");
+  check(!(await vis(".g-feed-wrap")), "phone: tapping X hides the news feed");
+  check(!(await vis(".g-side3")), "phone: tapping X keeps the manager wire hidden");
+  const xState = await pg.evaluate(() => ({
+    xOn: document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on"),
+    aria: document.querySelector('.g-wiretab[data-wire="x"]').getAttribute("aria-selected"),
+    cards: document.querySelectorAll("#g-xwire .g-x-card").length,
+  }));
+  check(xState.xOn && xState.aria === "true", "phone: the X chip is active + aria-selected after tap");
+  check(xState.cards > 0, `phone: the X wire has rendered its posts (${xState.cards})`);
+
   // Tap News → back to the feed.
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
   await pg.waitForTimeout(200);
   check(await vis(".g-feed-wrap"), "phone: tapping News returns to the feed");
   check(!(await vis(".g-side3")), "phone: the manager wire is hidden again under News");
+  check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
 
   // The whole top cluster (header · search band · News/Watchlist tabs · feed
   // filter row) stays LOCKED when the headlines scroll — each pins directly under
