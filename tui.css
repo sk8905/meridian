@@ -544,6 +544,18 @@
 /* detail pane toggle (News / Funds / CLOs / Key personnel) */
 .tchips-l { margin-left: 0; }
 .tpanes { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--surface); }
+/* 761–900px (small desktop / tablet): the fixed shell (body + .v2-app
+   overflow:hidden, from app.css ≥761) is in force, but the ≤900 "page scrolls"
+   rule above turned .tcol .tpanes visible — so nothing scrolled inside the fixed
+   shell and long Profiles lists / profiles (e.g. a manager's Investments) clipped
+   with no way to reach the bottom. Restore an internal scroller in this band: the
+   outer Profiles panes scroll; the inner section panes flow so they don't nest a
+   second scroll container that traps the wheel. (≥901 already does this via the
+   .tdet-tabbed grid; ≤760 the whole page scrolls.) */
+@media (min-width: 761px) and (max-width: 900px) {
+  #pf-panes { overflow-y: auto; }
+  #pf-detail .tpanes { overflow: visible; }
+}
 .tpanes .twire { overflow: visible; flex: none; }
 /* ---- DESKTOP left sidebar nav for Profiles + Transactions (mirrors the Dashboard
    rail). The .twire-head tab bar becomes a fixed-width vertical rail on the left and

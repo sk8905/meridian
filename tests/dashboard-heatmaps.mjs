@@ -123,6 +123,18 @@ const base = `http://localhost:${srv.port}`;
   check(m.ycHeader, "Macro: Yield-curve card renders with its header");
   checkEq(m.ycLines, 2, "Macro: Yield curve draws US Treasury + UK gilt lines");
   check(m.rowLabels.some((l) => /US Treasury/.test(l)) && m.rowLabels.some((l) => /UK gilts/.test(l)), "Macro: Yield-curve table has US Treasury + UK gilts rows");
+  // MPC vote rows: the tally (6-3, 5-4) and the lean pill (3 → hike, 4 → cut) each
+  // sit in a fixed column, so every row lines up regardless of pill text width.
+  const votes = await pg.evaluate(() => {
+    const rows = [...document.querySelectorAll(".dsh-kv-vote")];
+    const lefts = (sel) => rows.map((r) => { const e = r.querySelector(sel); return e ? e.getBoundingClientRect().left : null; }).filter((x) => x != null);
+    const spread = (xs) => xs.length ? Math.max(...xs) - Math.min(...xs) : 0;
+    return { n: rows.length, tallySpread: spread(lefts(".dsh-tally")), bandSpread: spread(lefts(".dsh-band")) };
+  });
+  if (votes.n >= 2) {
+    check(votes.tallySpread <= 2, `Macro: MPC vote tallies are column-aligned (${votes.tallySpread.toFixed(1)}px spread)`);
+    check(votes.bandSpread <= 2, `Macro: MPC vote lean pills are column-aligned (${votes.bandSpread.toFixed(1)}px spread)`);
+  } else check(true, "Macro: no MPC vote rows to align this cycle");
   checkErrs(errs, "macro rate outlook + yield curve");
   await ctx.close();
 }

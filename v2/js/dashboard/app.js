@@ -452,7 +452,7 @@ export function mount(host, ctx) {
     }
     let votes = "";
     if (v && Array.isArray(v.history) && v.history.length) {
-      const row = (r) => `<div class="dsh-kv" title="${esc(stripTags(r.decision || ""))}${r.dissent ? " · " + esc(r.dissent) : " · unanimous"}"><span class="dsh-kv-k">${esc(r.date)}</span><span class="dsh-kv-v">${esc(r.tally)}${r.lean ? ` <span class="dsh-band">${esc(r.lean)}</span>` : ""}</span></div>`;
+      const row = (r) => `<div class="dsh-kv dsh-kv-vote" title="${esc(stripTags(r.decision || ""))}${r.dissent ? " · " + esc(r.dissent) : " · unanimous"}"><span class="dsh-kv-k">${esc(r.date)}</span><span class="dsh-kv-v"><span class="dsh-tally">${esc(r.tally)}</span>${r.lean ? `<span class="dsh-band">${esc(r.lean)}</span>` : ""}</span></div>`;
       votes = `<div class="dsh-fed-blk"><div class="dsh-fed-h">MPC vote splits <span class="dsh-mut">${esc(v.latestMeeting || "")}</span>${srcLink(v.href, "BoE minutes")}</div>`
         + `<div class="dsh-kvgrid">${v.history.map(row).join("")}</div></div>`;
     }

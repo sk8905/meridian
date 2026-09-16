@@ -269,6 +269,12 @@
 .dsh-pc-grid .dsh-kv-k { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:0 1 auto; }
 .dsh-pc-grid .dsh-kv-v { white-space:nowrap; flex:0 0 auto; }
 .dsh-band { color:var(--t-mut); font-weight:500; font-size:11.5px; border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; margin-left:4px; }
+/* MPC vote rows: the tally (6-3, 5-4) and the lean pill (3 → hike, 4 → cut) each
+   take a FIXED column so every row lines up — otherwise the varying pill width
+   (hike/hold/cut) shifted the right-aligned tally, so "5-4" sat off from "6-3". */
+.dsh-kv-vote .dsh-kv-v { display:inline-flex; align-items:baseline; justify-content:flex-end; gap:0; }
+.dsh-kv-vote .dsh-tally { font-variant-numeric:tabular-nums; }
+.dsh-kv-vote .dsh-band { min-width:64px; box-sizing:border-box; text-align:center; }
 .dsh-band.up{ color:var(--t-up); border-color:var(--t-up); } .dsh-band.down{ color:var(--t-down); border-color:var(--t-down); }
 
 /* Spread rows */
