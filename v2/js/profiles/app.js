@@ -90,8 +90,22 @@ export async function mount(host, ctx) {
   // host at #pf-detail and flip Profiles mode on right before the synchronous
   // render. selectChip(p) first, so the persistent frame above the profile is the
   // RIGHT list (its search box + AUM focus), and the active tab highlights.
-  const renderCredit = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); };
-  const renderLegal = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); };
+  // On desktop the identity header is sticky; the section-tab rail sticks just
+  // BELOW it — so the list scrolls under a fixed header + tabs. Publish the header's
+  // live height as --pf-head-h so the tabs' sticky offset tracks it (it changes when
+  // the Peers/Sources dropdowns expand). One ResizeObserver, reused across renders.
+  let _headRO = null;
+  const syncHeadH = () => {
+    const id = pfDetail.querySelector(".tdet-id");
+    if (!id) { pfDetail.style.removeProperty("--pf-head-h"); return; }
+    pfDetail.style.setProperty("--pf-head-h", id.offsetHeight + "px");
+    if (typeof ResizeObserver === "function") {
+      if (!_headRO) _headRO = new ResizeObserver(() => { const el = pfDetail.querySelector(".tdet-id"); if (el) pfDetail.style.setProperty("--pf-head-h", el.offsetHeight + "px"); });
+      _headRO.disconnect(); _headRO.observe(id);
+    }
+  };
+  const renderCredit = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); syncHeadH(); };
+  const renderLegal = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); syncHeadH(); };
 
   // If the viewer has imported their LinkedIn connections (menu ▸ Network) and
   // knows anyone at this entity, prepend a COLLAPSIBLE badge to the freshly-

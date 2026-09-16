@@ -25,15 +25,21 @@ for (const w of [780, 860, 900, 1280]) {
   await pg.waitForTimeout(300);
   const moved = await pg.evaluate(() => document.querySelector('.v2-view[data-view="profiles"]').scrollTop);
   check(moved > 40, `${w}px: scrolling reaches the bottom rows (view scrolled to ${moved})`);
-  // Both nav rails stay pinned (on-screen near the top) while the content scrolls
-  // under them — they must NOT scroll off to a negative offset.
+  // The identity header + both nav rails stay pinned while the list scrolls under
+  // them (only the list moves). They must NOT scroll off to a negative offset; the
+  // section tabs sit just BELOW the sticky header.
   const pinned = await pg.evaluate(() => {
+    const hdr = document.querySelector('#pf-detail .tdet-id');
     const side = document.querySelector('#pf-list > .tdash-grid > .tcol-c > .twire-head');
     const tabs = document.querySelector('#pf-detail .tdet-tabbed > .twire-head');
-    return { sideTop: side ? side.getBoundingClientRect().top : -999, tabsTop: tabs ? tabs.getBoundingClientRect().top : -999 };
+    return {
+      hdrTop: hdr ? hdr.getBoundingClientRect().top : -999, hdrBot: hdr ? hdr.getBoundingClientRect().bottom : -999,
+      sideTop: side ? side.getBoundingClientRect().top : -999, tabsTop: tabs ? tabs.getBoundingClientRect().top : -999,
+    };
   });
-  check(pinned.sideTop >= 0 && pinned.sideTop <= 220 && pinned.tabsTop >= 0 && pinned.tabsTop <= 220,
-    `${w}px: the sidebar + section tabs stay pinned on scroll (side ${Math.round(pinned.sideTop)}, tabs ${Math.round(pinned.tabsTop)})`);
+  check(pinned.hdrTop >= 0 && pinned.hdrTop <= 220, `${w}px: the identity header stays pinned on scroll (top ${Math.round(pinned.hdrTop)})`);
+  check(pinned.sideTop >= 0 && pinned.sideTop <= 220 && pinned.tabsTop >= 0 && pinned.tabsTop <= 420 && pinned.tabsTop >= pinned.hdrBot - 4,
+    `${w}px: sidebar pinned + section tabs pinned just below the header (side ${Math.round(pinned.sideTop)}, tabs ${Math.round(pinned.tabsTop)} ≥ header bottom ${Math.round(pinned.hdrBot)})`);
   await ctx.close();
 }
 

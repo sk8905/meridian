@@ -553,11 +553,12 @@
    FLOW so the view is the single scroller; the detail's tab rail stays put via its
    own sticky rule. (≤760 the whole page scrolls, as before.) */
 /* DESKTOP (≥761px): scroll the WHOLE Profiles view as one container — the SAME
-   model the Dashboard (.dsh) and Menu use, which scrolls reliably in every engine —
-   instead of an inner #pf-panes scroller that depended on a deep flex-height chain
-   that some Chrome setups didn't bound, leaving long profiles (a manager's News /
-   Investments) unscrollable. All inner containers flow; the two nav rails and the
-   search row stay put via sticky. (≤760 the whole page scrolls, as before.) */
+   model the Dashboard (.dsh) and Menu use, which scrolls reliably in every engine.
+   (An inner #pf-panes scroller depended on .tdash's hardcoded `calc(100vh - …)`
+   height, whose fixed chrome offset was wrong on some setups — the tail sat below
+   the fold, "unscrollable".) All inner containers flow; the profile identity header
+   stays put with the two nav rails and the search row via sticky, so in practice
+   the section list is what scrolls. (≤760 the whole page scrolls, as before.) */
 @media (min-width: 761px) {
   .v2-view[data-view="profiles"] { height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .v2-view[data-view="profiles"] > #pf-list { height: auto; min-height: 100%; overflow: visible; }
@@ -565,11 +566,13 @@
   .v2-view[data-view="profiles"] #pf-list > .tdash-grid > .tcol-c,
   .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed,
   .v2-view[data-view="profiles"] #pf-detail .tpanes { overflow: visible; min-height: 0; }
-  /* Pin the Profiles sidebar (Managers/Hedge Funds/…), the profile's section tabs
-     (News/Vehicles/…) and the search row so they don't scroll away under the view. */
+  /* Pin the identity header, the Profiles sidebar (Managers/Hedge Funds/…), the
+     profile's section tabs (News/Vehicles/…) and the search row so the content
+     scrolls under them — only the section list appears to move. */
+  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .tdet-id { position: sticky; top: 0; z-index: 6; background: var(--head); }
   .v2-view[data-view="profiles"] #pf-list > .tdash-grid > .tcol-c > .twire-head { position: sticky !important; top: 0; align-self: start; z-index: 7; }
-  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .twire-head { position: sticky !important; top: 0; align-self: start; z-index: 5; }
-  .v2-view[data-view="profiles"] .tpane > .thead-search { position: sticky; top: 0; z-index: 6; background: var(--head); }
+  .v2-view[data-view="profiles"] #pf-detail .tdet-tabbed > .twire-head { position: sticky !important; top: var(--pf-head-h, 0px); align-self: start; z-index: 5; }
+  .v2-view[data-view="profiles"] .tpane > .thead-search { position: sticky; top: 0; z-index: 8; background: var(--head); }
 }
 .tpanes .twire { overflow: visible; flex: none; }
 /* ---- DESKTOP left sidebar nav for Profiles + Transactions (mirrors the Dashboard
