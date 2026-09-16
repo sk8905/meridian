@@ -543,8 +543,10 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-yc-leg { display:flex; flex-wrap:wrap; gap:4px 12px; margin:6px 0 10px; }
 .dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-dim); font-size:11.5px; }
 .dsh-yc-lg i { width:9px; height:9px; border-radius:0; display:inline-block; }
-.dsh-yld-selbar { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
-.dsh-yld-sellbl { color:var(--t-mut); font-size:11.5px; text-transform:uppercase; letter-spacing:.03em; }
+/* Bond-duration selector: pushed to the top-right of the card header, compact so
+   it sits in line with the title. */
+.dsh-h-sel .dsh-yld-sel { margin-left:auto; }
+.dsh-yld-sel { flex:0 0 auto; font-size:11px; padding:2px 6px; max-width:none; }
 
 /* Embedded news wires (Macro/Credit) — compact linked list */
 .dsh-news { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }

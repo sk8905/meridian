@@ -545,8 +545,7 @@ export function mount(host, ctx) {
     const G = GOVT_YIELDS; if (!G || !(G.regions || []).length) return "";
     const rows = G.regions.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
     if (!rows.length) return "";
-    const color = (i) => `hsl(${Math.round((i * 360) / rows.length)},68%,52%)`;
-    const rowFor = (r, i) => `<tr><td class="dsh-nm"><span class="dsh-yc-key" style="background:${color(i)}"></span>`
+    const rowFor = (r) => `<tr><td class="dsh-nm">`
       + `${r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country)}</td>`
       + `${YC_TENORS.map(([k]) => `<td class="dsh-r">${r[k] != null ? esc(r[k].toFixed(2)) : "—"}</td>`).join("")}</tr>`;
     return `<table class="dsh-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`;
@@ -700,16 +699,22 @@ export function mount(host, ctx) {
       return `<tr${brk ? ' class="dsh-secbreak"' : ""}><td class="dsh-nm">${nm}${lv != null ? ` <span class="dsh-fl-t">${fmtLv(lv)}</span>` : ""}</td>${YCHG_WINS.map(([w, l]) => cell(r, w, l)).join("")}</tr>`;
     };
     const group = (g, i) => (g.rows || []).map((r, ri) => row(r, i > 0 && ri === 0)).join("");
-    const sel = `<div class="dsh-yld-selbar"><label class="dsh-yld-sellbl" for="dsh-yld-tenor">Bond duration</label>`
-      + `<select id="dsh-yld-tenor" class="dsh-hf-sel">${YLD_TENORS.map(([k, l]) => `<option value="${k}"${k === tk ? " selected" : ""}>${l}</option>`).join("")}</select></div>`;
-    return sel + `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YCHG_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
+    return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YCHG_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${G.regions.map(group).join("")}</tbody></table>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = yield fell</span> · <span class="dsh-fl-neg">red = yield rose</span> over each window (${esc(tl)} change in basis points, shaded per column); the grey figure is the current ${esc(tl)} yield.</p>`;
+  }
+  // Bond-duration selector — lives in the card HEADER (top-right, in line with the
+  // title), not the table body, so it survives the body's live re-renders.
+  function yldSelectHTML() {
+    return `<select id="dsh-yld-tenor" class="dsh-hf-sel dsh-yld-sel" aria-label="Bond duration">`
+      + `${YLD_TENORS.map(([k, l]) => `<option value="${k}"${k === _yldTenor ? " selected" : ""}>${l}</option>`).join("")}</select>`;
   }
   function wireYields() {
     const box = host.querySelector("#dsh-yld");
     if (!box) return;
-    box.addEventListener("change", (e) => {
+    // The select sits in the header (outside #dsh-yld), so listen on the card.
+    const card = box.closest(".dsh-card") || host;
+    card.addEventListener("change", (e) => {
       const s = e.target.closest("#dsh-yld-tenor");
       if (!s) return;
       _yldTenor = s.value;
@@ -775,7 +780,7 @@ export function mount(host, ctx) {
     const km = fixedKeyMomentsBody();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <h3 class="dsh-term-lbl">Sovereign</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h dsh-h-sel">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span>${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
       <h3 class="dsh-term-lbl">Corporate &amp; curve</h3>
       <section class="dsh-card"><h3 class="dsh-h">Curve shape <span class="dsh-n">2s10s · 2s30s</span></h3>${curveShapeHTML()}</section>

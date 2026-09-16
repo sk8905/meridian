@@ -44,7 +44,7 @@ const base = `http://localhost:${srv.port}`;
     const box = document.querySelector("#dsh-yld");
     const cols = [...box.querySelectorAll("thead th.dsh-r")].map((t) => t.textContent.trim());
     const rows = [...box.querySelectorAll("tbody tr")];
-    const sel = box.querySelector("#dsh-yld-tenor");
+    const sel = document.querySelector("#dsh-yld-tenor");
     return {
       cols, rows: rows.length,
       tenors: sel ? [...sel.options].map((o) => o.textContent.trim()) : [],
@@ -72,19 +72,29 @@ const base = `http://localhost:${srv.port}`;
     const sel = document.querySelector("#dsh-yld-tenor");
     sel.value = "y2"; sel.dispatchEvent(new Event("change", { bubbles: true }));
     const box = document.querySelector("#dsh-yld");
-    return { val: box.querySelector("#dsh-yld-tenor").value, rows: box.querySelectorAll("tbody tr").length };
+    return { val: document.querySelector("#dsh-yld-tenor").value, rows: box.querySelectorAll("tbody tr").length };
   });
   checkEq(after.val, "y2", "Govt yields: selecting a duration switches + re-renders");
   check(after.rows >= 10, `Govt yields: heatmap re-renders on duration change (${after.rows})`);
 
-  // Multi-country term structure: a table row per country, each with its colour key.
+  // Multi-country term structure: a table row per country — plain country names,
+  // no colour key beside them.
   const curve = await pg.evaluate(() => {
     const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => /yield curves \(all countries\)/i.test(c.textContent));
     if (!card) return null;
     return { keys: card.querySelectorAll(".dsh-yc-key").length, rows: card.querySelectorAll("table tbody tr").length };
   });
   check(curve && curve.rows >= 10, `Fixed Income: term-structure table covers every country (${curve && curve.rows} rows)`);
-  check(curve && curve.keys >= 10 && curve.keys === curve.rows, "Fixed Income: each country row carries its colour key");
+  check(curve && curve.keys === 0, "Fixed Income: no colour key beside each country name");
+  // The bond-duration selector sits in the card HEADER (top-right), not the body.
+  const durSel = await pg.evaluate(() => {
+    const sel = document.querySelector("#dsh-yld-tenor");
+    if (!sel) return null;
+    const inHeader = !!sel.closest(".dsh-h");
+    const inBody = !!sel.closest("#dsh-yld");
+    return { inHeader, inBody, defVal: sel.value };
+  });
+  check(durSel && durSel.inHeader && !durSel.inBody, "Fixed Income: the bond-duration selector is in the header, not the table body");
 
   // "Why it moved" box mirrors the Equities Key-moments card, each note sourced.
   const km = await pg.evaluate(() => {

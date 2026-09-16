@@ -17,13 +17,14 @@ const fi = await pg.evaluate(() => {
   const curveCard = [...document.querySelectorAll(".dsh-mid .dsh-card")].find((c) => {
     const h = c.querySelector(".dsh-h"); return h && /curve shape/i.test(h.textContent);
   });
-  // Sovereign term-structure card: header + a table row per country with a colour key.
+  // Sovereign term-structure card: header + a table row per country (plain country
+  // names, no colour key beside them).
   const ycCard = [...document.querySelectorAll(".dsh-mid .dsh-card")].find((c) => {
     const h = c.querySelector(".dsh-h"); return h && /yield curves \(all countries\)/i.test(h.textContent);
   });
   return {
     tabs: [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].map((c) => c.dataset.sub),
-    yc: !!ycCard && ycCard.querySelectorAll("table tbody tr .dsh-yc-key").length >= 10,
+    yc: !!ycCard && ycCard.querySelectorAll("table tbody tr").length >= 10 && ycCard.querySelectorAll(".dsh-yc-key").length === 0,
     spreads: !!document.querySelector("#dsh-spreads"),
     // Curve-shape companion tile: a 2s10s/2s30s table derived from the yield snapshot.
     curve: !!curveCard && /2s10s/i.test(curveCard.textContent) && /\d/.test(curveCard.querySelector("td.dsh-r")?.textContent || ""),
