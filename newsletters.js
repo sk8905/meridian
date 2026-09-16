@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-pressuringthefed-20260916",
+    publication: "Bloomberg",
+    author: "Samson Ellis",
+    series: "Morning Briefing Europe",
+    title: "Pressuring the Fed",
+    date: "2026-09-16",
+    time: "07:27",
+    summary: "Bond traders pile pressure on the Fed to deliver a rate hike, a landmark crypto bill stalls in the Senate, and Germany preps hospitals for a possible war with Russia.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-16/bond-traders-bet-on-fed-delivering-25-bp-rate-increase",
+  },
+  {
     id: "nl-economist-worldinbrief-treasuryyield9yrhigh-20260916",
     publication: "The Economist",
     author: null,
