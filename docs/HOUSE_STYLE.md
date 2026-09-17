@@ -362,7 +362,10 @@ notification badge red (`#ef4444`).
   toggle **on/off the chart** (**multi-select**, one to all six, at least one kept),
   its **colour dot FILLED when plotted and HOLLOW when off**. That single row is
   also the chart legend — there is **no separate chip selector** to duplicate it.
-  Below it sit the **1M / 6M / 1Y / YTD** range toggle (**right-aligned**), then the
+  Below it sit the **1D / 1W / 1M / 6M / 1Y / YTD** range toggle (**right-aligned**;
+  1D/1W read an INTRADAY series — ~5 trading days of 15-min bars, the 10Y's from
+  Yahoo `^TNX` since FRED has no intraday — while the longer ranges read the daily
+  closes; the time axis reads HH:MM on 1D, day+month on 1W/1M/6M), then the
   chart. Colour follows the instrument (its fixed basket slot), **never its
   selection rank**. It carries **axes, terminal-style**: a **right value axis**
   (round-number ticks; on the single view the current level sits in a colour-coded

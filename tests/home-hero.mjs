@@ -15,13 +15,21 @@ function series(seed, base, vol) {
   for (let i = 0; i < 260; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 864e5 * (364 / 260), +x.toFixed(2)]); }
   return out;
 }
+// ~2 days of 15-min bars ending now — the intraday series behind 1D / 1W.
+function intra(seed, base, vol) {
+  const out = []; let x = base, s = seed;
+  const rnd = () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
+  const start = Date.now() - 200 * 15 * 60000;
+  for (let i = 0; i < 200; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 15 * 60000, +x.toFixed(2)]); }
+  return out;
+}
 const HERO = { asOf: new Date().toISOString().slice(0, 10), instruments: [
-  { key: "spx", label: "S&P 500", unit: "", pre: "", dp: 1, fi: false, value: 7552.4, history: series(7, 7000, 0.01) },
-  { key: "ndx", label: "Nasdaq", unit: "", pre: "", dp: 0, fi: false, value: 25978, history: series(19, 24000, 0.013) },
-  { key: "ust10", label: "US 10Y", unit: "%", pre: "", dp: 2, fi: true, value: 5.01, history: series(29, 4.6, 0.01) },
-  { key: "oil", label: "Oil", unit: "", pre: "$", dp: 2, fi: false, value: 99.85, history: series(41, 90, 0.015) },
-  { key: "gold", label: "Gold", unit: "", pre: "$", dp: 0, fi: false, value: 4415, history: series(53, 4000, 0.009) },
-  { key: "btc", label: "Bitcoin", unit: "", pre: "$", dp: 0, fi: false, value: 76610, history: series(67, 70000, 0.02) },
+  { key: "spx", label: "S&P 500", unit: "", pre: "", dp: 1, fi: false, value: 7552.4, history: series(7, 7000, 0.01), intraday: intra(7, 7550, 0.002) },
+  { key: "ndx", label: "Nasdaq", unit: "", pre: "", dp: 0, fi: false, value: 25978, history: series(19, 24000, 0.013), intraday: intra(19, 25900, 0.002) },
+  { key: "ust10", label: "US 10Y", unit: "%", pre: "", dp: 2, fi: true, value: 5.01, history: series(29, 4.6, 0.01), intraday: intra(29, 5.0, 0.003) },
+  { key: "oil", label: "Oil", unit: "", pre: "$", dp: 2, fi: false, value: 99.85, history: series(41, 90, 0.015), intraday: intra(41, 99, 0.003) },
+  { key: "gold", label: "Gold", unit: "", pre: "$", dp: 0, fi: false, value: 4415, history: series(53, 4000, 0.009), intraday: intra(53, 4400, 0.002) },
+  { key: "btc", label: "Bitcoin", unit: "", pre: "$", dp: 0, fi: false, value: 76610, history: series(67, 70000, 0.02), intraday: intra(67, 76000, 0.004) },
 ] };
 
 // Related-news stub (newest-first): the Worker returns real Yahoo Finance items.
@@ -87,6 +95,32 @@ const b = await launchChromium();
   checkEq(y.on, "1Y", "hero: the range toggle switches to 1Y");
   check(y.d !== d1m, "hero: changing the range redraws the chart (different path)");
   check(/'\d\d/.test(y.xl), `hero: the 1Y time axis switches to month-'YY ticks (${y.xl})`);
+
+  // 1D uses the intraday series — the time axis reads HH:MM and the chart redraws.
+  const dPrev = await pg.evaluate(() => document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"));
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1D"]').click());
+  await pg.waitForTimeout(150);
+  const d1 = await pg.evaluate(() => ({
+    on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
+    d: document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"),
+    xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
+  }));
+  checkEq(d1.on, "1D", "hero: the range toggle switches to 1D");
+  check(d1.d !== dPrev, "hero: 1D redraws from the intraday series (different path)");
+  check(/\d{1,2}:\d\d/.test(d1.xl), `hero: the 1D time axis reads HH:MM (${d1.xl})`);
+
+  // 1W also uses intraday, with day+month ticks.
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1W"]').click());
+  await pg.waitForTimeout(150);
+  const w1 = await pg.evaluate(() => ({
+    on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
+    xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
+  }));
+  checkEq(w1.on, "1W", "hero: the range toggle switches to 1W");
+  check(/\d/.test(w1.xl) && !/:/.test(w1.xl), `hero: the 1W time axis reads day+month, not times (${w1.xl})`);
+  // Back to 1M for the pare-down assertions below.
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click());
+  await pg.waitForTimeout(150);
 
   // Pare down to ONE security → the single price view returns (line + price tag).
   await pg.evaluate(() => ["ndx", "ust10", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"]`).click()));

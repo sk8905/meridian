@@ -425,7 +425,7 @@ let _heroSel = [];         // selected instrument keys (1..all); at least one is
 let _heroRange = "1M";     // 1M | 6M | 1Y | YTD
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
-const HERO_RLBL = { "1M": "1-month", "6M": "6-month", "1Y": "1-year", "YTD": "year-to-date" };
+const HERO_RLBL = { "1D": "1-day", "1W": "1-week", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "YTD": "year-to-date" };
 // Categorical series colours for the multi-select overlay — the dataviz reference
 // palette's dark hues, validated (worst adjacent CVD ΔE 8.4). The green/red slots
 // are deliberately skipped: on this terminal they read as up/down, not identity.
@@ -522,16 +522,26 @@ function heroFmt(v, m) {
   const s = Number(v).toLocaleString("en-US", { minimumFractionDigits: m.dp, maximumFractionDigits: m.dp });
   return (m.pre || "") + s + (m.unit || "");
 }
-// Slice the 1-year series to the selected window (client-side; no refetch).
-function heroSlice(hist) {
-  if (!Array.isArray(hist) || hist.length < 2) return hist || [];
-  const now = hist[hist.length - 1][0];
+// Slice an instrument's series to the selected window (client-side; no refetch).
+// 1D/1W read the INTRADAY series (~5 trading days of 15-min bars); the longer
+// ranges read the daily-close series.
+function heroSlice(m) {
+  const intraday = _heroRange === "1D" || _heroRange === "1W";
+  const src = (intraday && Array.isArray(m.intraday) && m.intraday.length >= 2) ? m.intraday : m.history;
+  if (!Array.isArray(src) || src.length < 2) return src || [];
+  const now = src[src.length - 1][0];
+  if (_heroRange === "1D") {                                // just the last trading session
+    const day = new Date(now).toDateString();
+    const pts = src.filter((p) => new Date(p[0]).toDateString() === day);
+    return pts.length >= 2 ? pts : src.slice(-2);
+  }
   let start = -Infinity;                                    // 1Y → everything we hold
-  if (_heroRange === "1M") start = now - 31 * 864e5;
+  if (_heroRange === "1W") start = now - 7 * 864e5;
+  else if (_heroRange === "1M") start = now - 31 * 864e5;
   else if (_heroRange === "6M") start = now - 183 * 864e5;
   else if (_heroRange === "YTD") start = Date.UTC(new Date(now).getUTCFullYear(), 0, 1);
-  const pts = hist.filter((p) => p[0] >= start);
-  return pts.length >= 2 ? pts : hist.slice(-2);
+  const pts = src.filter((p) => p[0] >= start);
+  return pts.length >= 2 ? pts : src.slice(-2);
 }
 // Round "nice" tick values inside [lo,hi] (1/2/5 × 10ⁿ steps) for the value axis.
 function heroNiceTicks(lo, hi, n) {
@@ -552,10 +562,11 @@ function heroFmtAxis(v, m) {
     : v.toFixed(m.fi ? 2 : (a >= 100 ? 1 : 2));
   return s + (m.unit || "");
 }
-// Axis date: day+month on the short ranges, month+'YY on the long ones.
+// Axis label: time-of-day on 1D, day+month on 1W/1M/6M, month+'YY on the long ones.
 function heroFmtDate(ms) {
   const d = new Date(ms);
-  if (_heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
+  if (_heroRange === "1D") { try { return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); } catch { return `${d.getHours()}:00`; } }
+  if (_heroRange === "1W" || _heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
   return `${MONTHS[d.getMonth()] || ""} '${String(d.getFullYear()).slice(2)}`;
 }
 function drawHero(svg, pts, m) {
@@ -654,7 +665,7 @@ function drawHeroMulti(svg, series) {
 function heroTickerRow(sel) {
   sel.innerHTML = _heroData.map((it, i) => {
     const on = _heroSel.includes(it.key);
-    const pts = heroSlice(it.history);
+    const pts = heroSlice(it);
     const first = pts.length >= 2 ? pts[0][1] : null, last = pts.length >= 2 ? pts[pts.length - 1][1] : null;
     const pct = (first) ? (last / first - 1) * 100 : 0;
     const c = heroColor(it.key, i);
@@ -712,7 +723,7 @@ function renderHero() {
   heroTickerRow(sel);
   const rng = document.getElementById("g-hero-range");
   if (rng) rng.querySelectorAll(".g-hero-rg").forEach((b) => { const on = b.dataset.r === _heroRange; b.classList.toggle("is-on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
-  const series = chosen.map((c, i) => ({ key: c.key, label: c.label, m: c, color: heroColor(c.key, _heroData.findIndex((d) => d.key === c.key)), pts: heroSlice(c.history) })).filter((s) => s.pts.length >= 2);
+  const series = chosen.map((c, i) => ({ key: c.key, label: c.label, m: c, color: heroColor(c.key, _heroData.findIndex((d) => d.key === c.key)), pts: heroSlice(c) })).filter((s) => s.pts.length >= 2);
   if (!series.length) return;
   svg._multi = null;
   if (series.length >= 2) drawHeroMulti(svg, series);   // ≥2 → indexed % overlay

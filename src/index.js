@@ -1563,8 +1563,8 @@ const HERO_BASKET = [
 // A full year of daily closes for one Yahoo symbol → { value, asOf, history:[[ms,close],…] }
 // (ascending). LSE GBp instruments are rescaled to the major unit; the basket has
 // none, but the scale is kept so the helper is reusable.
-async function yahooSeries(symbol) {
-  const txt = await fetchText(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1y&interval=1d`);
+async function yahooSeries(symbol, range, interval) {
+  const txt = await fetchText(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range || "1y"}&interval=${interval || "1d"}`);
   if (!txt) return null;
   let j; try { j = JSON.parse(txt); } catch { return null; }
   const res = j && j.chart && j.chart.result && j.chart.result[0];
@@ -1582,24 +1582,29 @@ async function yahooSeries(symbol) {
 }
 async function handleHero(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/hero?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/hero?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const cutoff = Date.now() - 372 * 864e5;   // ~1y (a little slack over 365)
+  const rnd = (v, b) => +v.toFixed(b.dp <= 1 ? 3 : 2);
   const out = await Promise.all(HERO_BASKET.map(async (b) => {
-    let s = null;
-    if (b.fred) {
-      const h = await fredHistory(b.fred, env).catch(() => []);
-      if (h && h.length) s = { value: h[h.length - 1][1], asOf: new Date(h[h.length - 1][0]).toISOString().slice(0, 10), history: h };
-    } else {
-      s = await yahooSeries(b.symbol).catch(() => null);
-    }
+    // DAILY (1y) for 1M/6M/1Y/YTD, and INTRADAY (~5 trading days, 15-min bars) for
+    // the 1D/1W ranges. FRED has no intraday, so the 10Y yield's intraday comes from
+    // Yahoo's ^TNX (a ×10 quote is normalised back to a percent).
+    const dailyP = b.fred
+      ? fredHistory(b.fred, env).catch(() => []).then((h) => (h && h.length) ? { value: h[h.length - 1][1], asOf: new Date(h[h.length - 1][0]).toISOString().slice(0, 10), history: h } : null)
+      : yahooSeries(b.symbol, "1y", "1d").catch(() => null);
+    const intraP = (b.fred ? yahooSeries("^TNX", "5d", "15m") : yahooSeries(b.symbol, "5d", "15m")).catch(() => null);
+    const [s, si] = await Promise.all([dailyP, intraP]);
     if (!s || !Array.isArray(s.history) || s.history.length < 2) return null;
     let hist = s.history.filter((p) => p[0] >= cutoff);
     if (hist.length < 2) hist = s.history.slice(-260);
-    // Round closes to a sane precision so the payload stays compact.
-    hist = hist.map(([t, v]) => [t, +v.toFixed(b.dp <= 1 ? 3 : 2)]);
-    return { key: b.key, label: b.label, unit: b.unit || "", pre: b.pre || "", dp: b.dp, fi: !!b.fi, value: s.value, asOf: s.asOf, history: hist };
+    hist = hist.map(([t, v]) => [t, rnd(v, b)]);
+    let intraday = [];
+    if (si && Array.isArray(si.history) && si.history.length >= 2) {
+      intraday = si.history.map(([t, v]) => [t, b.fred ? (v > 20 ? +(v / 10).toFixed(3) : +v.toFixed(3)) : rnd(v, b)]);
+    }
+    return { key: b.key, label: b.label, unit: b.unit || "", pre: b.pre || "", dp: b.dp, fi: !!b.fi, value: s.value, asOf: s.asOf, history: hist, intraday };
   }));
   const instruments = out.filter(Boolean);
   const resp = json({ asOf: new Date().toISOString().slice(0, 10), instruments });

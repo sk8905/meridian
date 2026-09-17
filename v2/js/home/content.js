@@ -61,6 +61,8 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
                there is no separate chip selector to duplicate it. -->
           <div class="g-hero-sel" id="g-hero-sel" role="group" aria-label="Securities — tap to add or remove"></div>
           <div class="g-hero-range" id="g-hero-range" role="tablist" aria-label="Chart range">
+            <button type="button" class="g-hero-rg" data-r="1D" role="tab">1D</button>
+            <button type="button" class="g-hero-rg" data-r="1W" role="tab">1W</button>
             <button type="button" class="g-hero-rg is-on" data-r="1M" role="tab">1M</button>
             <button type="button" class="g-hero-rg" data-r="6M" role="tab">6M</button>
             <button type="button" class="g-hero-rg" data-r="1Y" role="tab">1Y</button>
