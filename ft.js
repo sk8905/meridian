@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4660a6cc-008b-4a3e-947e-18545371eda7", title: "Kevin Warsh defies Donald Trump’s calls for lower borrowing costs", date: "2026-09-17", time: "14:00", url: "https://www.ft.com/content/4660a6cc-008b-4a3e-947e-18545371eda7" },
+  { id: "3c73f212-b26d-410c-b944-e75627a735df", title: "Merz battles party revolt ahead of German regional elections", date: "2026-09-17", time: "13:52", url: "https://www.ft.com/content/3c73f212-b26d-410c-b944-e75627a735df" },
+  { id: "a65f3f5d-e8ec-44b1-8529-24651e6254c3", title: "Leading Iranian airline cuts flights as US sanctions hit", date: "2026-09-17", time: "13:46", url: "https://www.ft.com/content/a65f3f5d-e8ec-44b1-8529-24651e6254c3" },
   { id: "ef54585a-4d2f-4538-b185-9bff75ef2f5e", title: "Turkish authorities rush to stem fallout from stock-market scandal", date: "2026-09-17", time: "12:59", url: "https://www.ft.com/content/ef54585a-4d2f-4538-b185-9bff75ef2f5e" },
   { id: "f270a99f-3abc-4a78-a2b3-8083609c5ef1", title: "Mega-donors obscure the wider threats to British democracy", date: "2026-09-17", time: "12:55", url: "https://www.ft.com/content/f270a99f-3abc-4a78-a2b3-8083609c5ef1" },
   { id: "07f8c0d7-c134-4f83-a910-029756616ee4", title: "Is Britain’s migration debate asking the wrong question?", date: "2026-09-17", time: "12:54", url: "https://www.ft.com/content/07f8c0d7-c134-4f83-a910-029756616ee4" },
@@ -59,5 +62,4 @@ export const FT_ITEMS = [
   { id: "8eda412f-caed-4b31-bdee-b76fc9f3ba82", title: "Heatwave triggers potato shortage in Europe", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/8eda412f-caed-4b31-bdee-b76fc9f3ba82" },
   { id: "f5325951-7049-4d3a-97e4-cbe34f9058d8", title: "The Apple trust premium in the age of AI", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/f5325951-7049-4d3a-97e4-cbe34f9058d8" },
   { id: "73b7c439-8905-4509-bc09-1a8965146da2", title: "St James’s Place looks smartly attired for the AI wealth party", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/73b7c439-8905-4509-bc09-1a8965146da2" },
-  { id: "23d35821-2d3f-4e55-8ada-99bcbacdc066", title: "Do inflation expectations matter in a social-media echo chamber?", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/23d35821-2d3f-4e55-8ada-99bcbacdc066" },
 ];

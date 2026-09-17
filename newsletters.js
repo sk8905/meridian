@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-trumpevuturn-20260917",
+    publication: "Thomson Reuters",
+    author: "Carmel Crimmins",
+    series: "Econ World",
+    title: "Trump's EV U-turn",
+    date: "2026-09-17",
+    time: "13:01",
+    summary: "Reuters' autos team tallies the billions in cancelled EV investment and lost jobs since Trump gutted support for electric vehicles.",
+    url: "https://www.reuters.com/newsletters/reuters-econ-world",
+  },
+  {
     id: "nl-preqin-firstclose-aiinfraallocations-20260917",
     publication: "Preqin",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "05:34",
     summary: "SCOTUS keeps Trump's mail-in voting curbs blocked, the ten-year Treasury yield tops 5%, and Trump dismisses AI-safety calls ahead of Amodei and Altman's Salesforce appearance.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-marketsblinked5pct-20260915",
-    publication: "Bloomberg",
-    author: "Richard Abbey",
-    series: "Points of Return",
-    title: "Markets blinked at 5% yields. They'll be back",
-    date: "2026-09-15",
-    time: "05:00",
-    summary: "Bond yields still have higher to rise.",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-15/markets-blinked-at-5-yields-they-ll-be-back",
   },
 ];
