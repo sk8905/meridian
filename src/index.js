@@ -3554,7 +3554,18 @@ async function fetchXApiListMembers(listId, apiKey, request, ctx) {
     try { r = await fetch(u, { headers: { "X-API-Key": apiKey, "accept": "application/json" } }); } catch { break; }
     if (!r || !r.ok) break;
     let d; try { d = await r.json(); } catch { break; }
-    const arr = (d && (d.members || d.users || (d.data && (d.data.members || d.data.users)))) || [];
+    let arr = (d && (d.members || d.users || (d.data && (d.data.members || d.data.users)))) || [];
+    // Fallback: deep-walk the response for user objects carrying a handle, so an
+    // unexpected envelope shape doesn't silently drop the whole membership.
+    if ((!Array.isArray(arr) || !arr.length) && d && typeof d === "object") {
+      arr = [];
+      const walk = (n, depth) => {
+        if (!n || depth > 6) return;
+        if (Array.isArray(n)) { for (const x of n) walk(x, depth + 1); return; }
+        if (typeof n === "object") { if (n.userName || n.screen_name || n.username) arr.push(n); for (const k in n) walk(n[k], depth + 1); }
+      };
+      walk(d, 0);
+    }
     if (!Array.isArray(arr) || !arr.length) break;
     for (const m of arr) {
       const h = m && (m.userName || m.screen_name || m.username);
@@ -3581,12 +3592,25 @@ async function handleXFeed(request, env, ctx) {
   if (!handles.length && !listId) return json({ tweets: [], error: "no handles" });
 
   const apiKey = env && env.XAPI_KEY;
-  // Diagnostic: ?debug=1 returns the RAW twitterapi.io response for one handle, so
-  // the exact tweet/repost shape can be inspected without guessing. Key required.
-  if (url.searchParams.get("debug") === "1" && apiKey && handles[0]) {
+  const dbg = url.searchParams.get("debug");
+  // Diagnostics (key required, never cached):
+  //   ?debug=1        raw last_tweets for handles[0] (tweet/repost shape)
+  //   ?debug=members  raw Get-List-Members response (membership shape)
+  //   ?debug=roster   the resolved roster the feed will fetch, and its source
+  if (dbg && apiKey) {
     try {
-      const dr = await fetch(`https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handles[0])}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
-      return new Response(await dr.text(), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+      if (dbg === "members" && listId) {
+        const dr = await fetch(`https://api.twitterapi.io/twitter/list/members?listId=${encodeURIComponent(listId)}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
+        return new Response(await dr.text(), { status: dr.status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
+      }
+      if (dbg === "roster") {
+        const mem = listId ? await fetchXApiListMembers(listId, apiKey, request, ctx) : [];
+        return json({ source: mem.length ? "list-members" : "fallback-X_ACCOUNTS", listId, roster: mem.length ? mem : handles });
+      }
+      if (dbg === "1" && handles[0]) {
+        const dr = await fetch(`https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handles[0])}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
+        return new Response(await dr.text(), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+      }
     } catch (e) { return json({ error: "debug fetch failed", message: String((e && e.message) || e) }); }
   }
   const mode = (apiKey && (handles.length || listId)) ? "api" : "syn";
