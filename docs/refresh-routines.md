@@ -541,10 +541,12 @@ is topped up in code.
   edge-caches a non-empty result briefly; a `&v=` bump on the cache key is only
   needed if the Worker's **parsing** changes.
 - **Data source:** if the `XAPI_KEY` Worker secret is set, `/api/xfeed` uses
-  **twitterapi.io** (Get List Tweets, keyed by `X_LIST.id`) — reliable + current;
+  **twitterapi.io** (Get User Last Tweets, one call per roster handle, merged) —
+  reliable + current and **includes reposts** (the List endpoint strips them);
   otherwise it falls back to X's free syndication scrape (which X caches, so dates
   can lag). The key is a Cloudflare **secret** (dashboard → the Worker → Settings →
-  Variables and Secrets → add `XAPI_KEY`), never committed.
+  Variables and Secrets → add `XAPI_KEY`), never committed. `?debug=1` on `/api/xfeed`
+  returns the raw upstream JSON for the first handle (key required) for diagnosis.
 - If the wire shows "Live posts are unavailable", the source (paid or free) returned
   nothing — an upstream condition, not a data gap to fill in code. Enforced by
   `tests/home-xwire.mjs` + `tests/xfeed-parse.mjs`.

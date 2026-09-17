@@ -81,4 +81,27 @@ check(api.media[0] === "https://pbs.twimg.com/media/z.jpg", "api-normalize: exte
 check(api.ts > 0, "api-normalize: createdAt parses to a timestamp");
 check(xNormalizeApiTweet({ id: "nope", text: "x", createdAt: "now" }) === null, "api-normalize: non-numeric id rejected");
 
+// A repost (retweet): render the ORIGINAL's content, attributed with repostedBy,
+// ordered by the repost time, linking the original permalink.
+const repost = xNormalizeApiTweet({
+  id: "2100000000000000099",
+  createdAt: "Wed Sep 17 06:00:00 +0000 2026",
+  author: { userName: "elerianm", name: "Mohamed A. El-Erian", profilePicture: "https://pbs.twimg.com/e.jpg" },
+  retweeted_tweet: {
+    id: "2099999999999999000",
+    text: "The most important factor driving up bond yields is the fundamental imbalance...",
+    createdAt: "Wed Sep 17 00:00:00 +0000 2026",
+    author: { userName: "TheEconomist", name: "The Economist", profilePicture: "https://pbs.twimg.com/econ.jpg" },
+    extendedEntities: { media: [{ media_url_https: "https://pbs.twimg.com/media/e.jpg" }] },
+  },
+});
+check(!!repost, "repost: a retweet normalises (not dropped)");
+checkEq(repost.handle, "TheEconomist", "repost: content is attributed to the ORIGINAL author");
+checkEq(repost.repostedBy, "Mohamed A. El-Erian", "repost: repostedBy names the account that reposted it");
+check(/driving up bond yields/.test(repost.text), "repost: the original tweet's text is shown");
+checkEq(repost.id, "2100000000000000099", "repost: the retweet's own id is used for dedupe");
+checkEq(repost.url, "https://x.com/TheEconomist/status/2099999999999999000", "repost: links the original post");
+check(repost.media[0] === "https://pbs.twimg.com/media/e.jpg", "repost: original media is carried through");
+check(repost.date === "Wed Sep 17 06:00:00 +0000 2026", "repost: ordered by the repost time");
+
 finish();

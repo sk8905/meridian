@@ -341,7 +341,8 @@ function xCard(t) {
   const perma = esc(t.url || (t.handle ? `https://x.com/${t.handle}/status/${t.id}` : "#"));
   const av = t.avatar ? `<img class="g-x-av" loading="lazy" src="${esc(t.avatar)}" alt="" referrerpolicy="no-referrer">` : `<span class="g-x-av g-x-av-ph"></span>`;
   const media = (t.media && t.media[0]) ? `<a class="g-x-media" href="${perma}" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="${esc(t.media[0])}" alt="" referrerpolicy="no-referrer"></a>` : "";
-  return `<article class="g-x-card">`
+  const repost = t.repostedBy ? `<div class="g-x-rt">↻ ${esc(t.repostedBy)} reposted</div>` : "";
+  return `<article class="g-x-card">${repost}`
     + `<div class="g-x-meta">${av}<a class="g-x-who" href="https://x.com/${h}" target="_blank" rel="noopener noreferrer">${name}</a>`
     + `<span class="g-x-h">@${h}</span><span class="g-x-d">${esc(fmtXWhen(t.date))}</span></div>`
     + `<div class="g-x-txt">${xLinkify(t.text)}</div>${media}`

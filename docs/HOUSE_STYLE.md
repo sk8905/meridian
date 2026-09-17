@@ -328,10 +328,13 @@ notification badge red (`#ef4444`).
   List link/id for the "Open list on X" escape hatch). `/api/xfeed` edge-caches a
   non-empty result briefly (keeps our syndication hits rare) and never pins an empty
   one. **Data source:** when the `XAPI_KEY` Worker secret is set, `/api/xfeed` pulls
-  the List live from **twitterapi.io** (its Get-List-Tweets endpoint — reliable,
-  truly current); with **no key** it falls back to X's free syndication scrape,
-  which X caches/degrades (so dates can lag). Either way the app just renders the
-  cards. Enforced by `tests/home-xwire.mjs` (render) and `tests/xfeed-parse.mjs`
+  each roster account's own timeline live from **twitterapi.io** (its
+  Get-User-Last-Tweets endpoint, merged across the roster — this **includes reposts**,
+  which the List endpoint strips) and orders newest-first; **reposts** render the
+  original post with a "reposted by …" line. With **no key** it falls back to X's
+  free syndication scrape, which X caches/degrades (so dates can lag). Either way the
+  app just renders the cards. (`?debug=1` returns the raw upstream JSON for one
+  handle — key required — for diagnosing shape changes.) Enforced by `tests/home-xwire.mjs` (render) and `tests/xfeed-parse.mjs`
   (both Worker normalisers — free syndication + twitterapi.io shapes).
 
 ---

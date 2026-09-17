@@ -10,6 +10,7 @@ import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish
 const SAMPLE = { tweets: [
   { id: "2097419714045624433", handle: "elerianm", name: "Mohamed A. El-Erian", avatar: "https://pbs.twimg.com/x.jpg", text: "The Fed delivered a 25bp hike, its first since 2023.", date: new Date(Date.now() - 29 * 60000).toUTCString(), ts: Date.now() - 29 * 60000, url: "https://x.com/elerianm/status/2097419714045624433", media: [] },
   { id: "2097400000000000000", handle: "RayDalio", name: "Ray Dalio", avatar: "https://pbs.twimg.com/y.jpg", text: "At this stage in my life my main goal is to pass along principles.", date: new Date(Date.now() - 53 * 60000).toUTCString(), ts: Date.now() - 53 * 60000, url: "https://x.com/RayDalio/status/2097400000000000000", media: [] },
+  { id: "2097300000000000000", handle: "TheEconomist", name: "The Economist", avatar: "https://pbs.twimg.com/e.jpg", text: "The most important factor driving up bond yields.", date: new Date(Date.now() - 70 * 60000).toUTCString(), ts: Date.now() - 70 * 60000, url: "https://x.com/TheEconomist/status/2097300000000000000", media: [], repostedBy: "Mohamed A. El-Erian" },
 ] };
 
 const srv = await serve({ "/api/xfeed": () => [200, JSON.stringify(SAMPLE)] });
@@ -38,6 +39,8 @@ const b = await launchChromium();
       handles: cards.map((c) => (c.querySelector(".g-x-h") || {}).textContent || ""),
       firstText: first ? (first.querySelector(".g-x-txt") || {}).textContent || "" : "",
       firstPerma: first ? (first.querySelector(".g-x-permalink") || {}).getAttribute("href") : null,
+      // The repost card shows a "reposted" line naming the account that reposted it.
+      repostLine: (() => { const c = [...cards].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@TheEconomist"); const r = c && c.querySelector(".g-x-rt"); return r ? r.textContent : ""; })(),
       // We render our own cards — no dependency on X's client widget script.
       noWidgetScript: !document.querySelector('script[src*="platform.twitter.com"]'),
     };
@@ -48,7 +51,8 @@ const b = await launchChromium();
   check(r.inRail, "X wire: panel sits in its own rail (g-side-x)");
   check(r.between, "X wire: the rail sits between the manager wire and the macro rail");
   checkEq(r.count, SAMPLE.tweets.length, `X wire: one card per tweet (${r.count})`);
-  checkEq(r.handles.join(","), "@elerianm,@RayDalio", "X wire: cards render in the order served (newest-first, merged)");
+  checkEq(r.handles.join(","), "@elerianm,@RayDalio,@TheEconomist", "X wire: cards render in the order served (newest-first, merged)");
+  check(/Mohamed A\. El-Erian reposted/.test(r.repostLine), `X wire: reposts show a "reposted" line (${r.repostLine})`);
   check(/25bp hike/.test(r.firstText), "X wire: the tweet body text renders in the card");
   check(/^https:\/\/x\.com\/elerianm\/status\/\d+$/.test(r.firstPerma || ""), `X wire: each card links the real post permalink (${r.firstPerma})`);
   check(r.noWidgetScript, "X wire: renders our own cards (no client-side X widget script)");

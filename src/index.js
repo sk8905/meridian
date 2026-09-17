@@ -3475,52 +3475,66 @@ async function fetchXProfile(handle) {
   return raw.map(xNormalizeTweet).filter(Boolean);
 }
 
-// Normalise one twitterapi.io tweet object → our flat card shape.
+// Normalise one twitterapi.io tweet object → our flat card shape. Handles reposts:
+// a retweet nests the original under retweeted_tweet — we render the ORIGINAL's
+// content, attributed with `repostedBy` (the account that reposted it), ordered by
+// when it appeared in the timeline (the repost time).
 // twitterapi.io fields: id, url, text, createdAt, author.{userName,name,profilePicture},
 // extendedEntities/entities.media[].media_url_https.
 export function xNormalizeApiTweet(t) {
   try {
     if (!t || typeof t !== "object") return null;
-    const id = String(t.id || t.id_str || "");
-    if (!/^\d{5,}$/.test(id)) return null;
-    const a = t.author || t.user || {};
+    const rt = t.retweeted_tweet || t.retweetedTweet || t.retweet || null;
+    const src = (rt && typeof rt === "object") ? rt : t;   // content from the original on a repost
+    // Unique id for dedupe: the outer (retweet) id; permalink points at the original.
+    const uid = String(t.id || t.id_str || src.id || src.id_str || "");
+    const origId = String(src.id || src.id_str || uid || "");
+    if (!/^\d{5,}$/.test(uid)) return null;
+    const a = src.author || src.user || {};
     const handle = a.userName || a.screen_name || a.username || "";
     const name = a.name || handle;
     const avatar = a.profilePicture || a.profile_image_url_https || a.profile_image_url || "";
-    let text = String(t.text != null ? t.text : (t.full_text != null ? t.full_text : ""));
+    let text = String(src.text != null ? src.text : (src.full_text != null ? src.full_text : ""));
     text = text.replace(/\s+https:\/\/t\.co\/\w+\s*$/,"").trim();
-    const created = t.createdAt || t.created_at || "";
+    // Order by when it hit the timeline (repost time for reposts).
+    const created = t.createdAt || t.created_at || src.createdAt || src.created_at || "";
     const ts = Date.parse(created) || 0;
     if (!ts) return null;
     const media = [];
-    const ents = (t.extendedEntities && t.extendedEntities.media)
-      || (t.entities && t.entities.media) || [];
+    const ents = (src.extendedEntities && src.extendedEntities.media)
+      || (src.entities && src.entities.media) || [];
     if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
-    return { id, handle, name, avatar, text, date: created, ts,
-      url: t.url || (handle ? `https://x.com/${handle}/status/${id}` : `https://x.com/i/status/${id}`),
+    const out = { id: uid, handle, name, avatar, text, date: created, ts,
+      url: src.url || (handle ? `https://x.com/${handle}/status/${origId}` : `https://x.com/i/status/${origId}`),
       media: media.slice(0, 1) };
+    if (rt) { const ra = t.author || t.user || {}; const rn = ra.name || ra.userName || ""; if (rn) out.repostedBy = rn; }
+    return out;
   } catch { return null; }
 }
 
-// twitterapi.io "Get List Tweets" — a paid, reliable, always-current source. One
-// call per page (20 tweets, time-desc); we pull up to 2 pages (~40). Keyed by the
-// XAPI_KEY Worker secret.
-async function fetchXApiList(listId, apiKey) {
-  const out = [];
-  let cursor = "";
-  for (let page = 0; page < 2; page++) {
-    const u = `https://api.twitterapi.io/twitter/list/tweets?listId=${encodeURIComponent(listId)}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
-    let r;
-    try { r = await fetch(u, { headers: { "X-API-Key": apiKey, "accept": "application/json" } }); } catch { break; }
-    if (!r || !r.ok) break;
-    let d; try { d = await r.json(); } catch { break; }
-    const arr = (d && (d.tweets || d.data || d.results)) || [];
-    if (!Array.isArray(arr) || !arr.length) break;
-    for (const t of arr) { const n = xNormalizeApiTweet(t); if (n) out.push(n); }
-    cursor = (d && (d.next_cursor || d.cursor)) || "";
-    if (!cursor || (d && d.has_next_page === false)) break;
-  }
-  return out;
+// twitterapi.io "Get User Last Tweets" — each account's own timeline (which, unlike
+// the List endpoint, INCLUDES their reposts). One call per handle (~20 tweets each),
+// merged across the roster. Keyed by the XAPI_KEY Worker secret.
+async function fetchXApiUser(handle, apiKey) {
+  const u = `https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handle)}`;
+  let r;
+  try { r = await fetch(u, { headers: { "X-API-Key": apiKey, "accept": "application/json" } }); } catch { return []; }
+  if (!r || !r.ok) return [];
+  let d; try { d = await r.json(); } catch { return []; }
+  // Tweets sit at .tweets, or nested under .data.tweets / .data (shape varies).
+  const arr = (d && (d.tweets
+    || (d.data && (d.data.tweets || (Array.isArray(d.data) ? d.data : null)))
+    || d.results)) || [];
+  if (!Array.isArray(arr)) return [];
+  return arr.map(xNormalizeApiTweet).filter(Boolean);
+}
+async function fetchXApiUsers(handles, apiKey) {
+  const all = [];
+  await Promise.all((handles || []).map(async (h) => {
+    const tw = await fetchXApiUser(h, apiKey);
+    for (const t of tw) all.push(t);
+  }));
+  return all;
 }
 
 async function handleXFeed(request, env, ctx) {
@@ -3533,17 +3547,25 @@ async function handleXFeed(request, env, ctx) {
   if (!handles.length && !listId) return json({ tweets: [], error: "no handles" });
 
   const apiKey = env && env.XAPI_KEY;
-  const mode = (apiKey && listId) ? "api" : "syn";
+  // Diagnostic: ?debug=1 returns the RAW twitterapi.io response for one handle, so
+  // the exact tweet/repost shape can be inspected without guessing. Key required.
+  if (url.searchParams.get("debug") === "1" && apiKey && handles[0]) {
+    try {
+      const dr = await fetch(`https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handles[0])}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
+      return new Response(await dr.text(), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+    } catch (e) { return json({ error: "debug fetch failed", message: String((e && e.message) || e) }); }
+  }
+  const mode = (apiKey && handles.length) ? "api" : "syn";
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + mode;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=3`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=4`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   const all = [];
-  // Preferred: the paid twitterapi.io List endpoint (reliable + truly current).
+  // Preferred: the paid twitterapi.io per-account timelines (include reposts).
   if (mode === "api") {
-    try { const api = await fetchXApiList(listId, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
+    try { const api = await fetchXApiUsers(handles, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
   }
   // Free fallback (no key, or the paid call came back empty): X syndication per handle.
   if (!all.length && handles.length) {
