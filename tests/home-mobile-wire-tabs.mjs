@@ -27,7 +27,7 @@ const b = await launchChromium();
   check(chipsShown, "phone: the News / Watchlist chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "News · Watchlist · Chart · X", `phone: chips read 'News', 'Watchlist', 'Chart' and 'X' in order (${labels.join(", ")})`);
+  check(labels.join(" · ") === "News · Managers · Chart · X", `phone: chips read 'News', 'Managers', 'Chart' and 'X' in order (${labels.join(", ")})`);
 
   // Default: News on, feed visible, manager + chart + X panes hidden.
   check(await vis(".g-feed-wrap"), "phone: news feed is visible by default");

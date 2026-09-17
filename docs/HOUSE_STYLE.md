@@ -21,7 +21,7 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   5-column wire terminal (markets · news wire · manager wire · X wire · macro)
   needs real width for its two flexible middle columns, so it only engages at
   ≥1201px; from 761–1200px (iPad mini/Air/Pro-11 landscape) Home uses the
-  single-column chip-swap layout instead** (News · Watchlist · Chart · X), which
+  single-column chip-swap layout instead** (News · Managers · Chart · X), which
   is what the phone uses — otherwise the two middle wires crush to ~50px and the
   headlines wrap one word per line. The other desks (Macro/Credit/Legal) are
   single-column and keep the ≥761px terminal.
@@ -318,8 +318,8 @@ notification badge red (`#ef4444`).
 
 - **R26 — X wire (Home).** The Home terminal carries an **X wire** in its **own
   rail, between the manager wire and the macro rail**. On **phones** it is the
-  **third wire chip — News · Watchlist · X** — swapping onto the single-column
-  workspace like the Watchlist (manager) wire (it is content, not the markets/rates
+  **wire chip (News · Managers · Chart · X)** — swapping onto the single-column
+  workspace like the Managers wire (it is content, not the markets/rates
   data that phones fold into the shared Markets panel). It is a **single,
   always-current, merged & newest-first** feed of the roster's **public** accounts,
   fetched **server-side by the Worker** (`/api/xfeed` in `src/index.js`) from X's
@@ -353,7 +353,7 @@ notification badge red (`#ef4444`).
   chart band** that, on desktop, **spans the two middle columns (news + manager
   wire)** and sits **above** them (both wires start beneath it); the left rail and
   both right rails stay full-height (CSS grid `grid-template-areas`). On **phones**
-  it is the **Chart wire chip — the tab strip reads News · Watchlist · Chart · X, in
+  it is the **Chart wire chip — the tab strip reads News · Managers · Chart · X, in
   that order, and News stays the default** — swapping onto the single-column
   workspace like the other wires. The band plots a fixed basket —
   **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — from **one unified
