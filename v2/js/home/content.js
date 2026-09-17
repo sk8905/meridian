@@ -18,13 +18,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
         <aside class="g-side">
           <section class="tui-pnl g-anchor" id="jump-markets">
-            <header class="tui-ph g-mkt-head">
-              <span class="g-mkt-tabs" role="tablist" aria-label="Markets or portfolio">
-                <button type="button" class="g-mkt-tab is-on" data-k="markets" role="tab">Markets</button>
-                <button type="button" class="g-mkt-tab" data-k="portfolio" role="tab">Portfolio</button>
-              </span>
-              <span class="tui-px" id="g-mkt-meta">live</span>
-            </header>
+            <header class="tui-ph"><span>Markets</span><span class="tui-px" id="g-mkt-meta">live</span></header>
             <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
               <div class="g-loading">Loading markets…</div>
             </div>

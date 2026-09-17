@@ -88,14 +88,14 @@ for (const [label, sel] of [[".kpi-value", /\.kpi-value\s*\{[^}]*font-variant-nu
   check(sel.test(creditCss), `credit/css/styles.css ${label} uses tabular-nums`);
 }
 
-// R14a — the portfolio Daily/Total and prediction-market Up/Down toggles are
-// part of the ONE selection-marker family named by R14a ("the prediction and
-// markets chips"); their .on state must use the shared underline, not a
-// fill/colour-swap.
-check(/\.g-pf-tgl\.on,\s*\.tui \.g-pred-dir\.on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul/.test(homeCss),
-  "home.css .g-pf-tgl.on/.g-pred-dir.on use the chip-underline box-shadow, not a background fill");
-check(!/\.g-pf-tgl\.on,\s*\.tui \.g-pred-dir\.on\{\s*background:var\(--t-panel2\)/.test(homeCss),
-  "home.css .g-pf-tgl.on/.g-pred-dir.on no longer swap background on select");
+// R14a — the prediction-market Up/Down toggle is part of the ONE selection-marker
+// family named by R14a ("the prediction and markets chips"); its .on state must use
+// the shared underline, not a fill/colour-swap. (The home-rail portfolio Daily/Total
+// toggle was retired with the Markets|Portfolio band, so only .g-pred-dir remains.)
+check(/\.tui \.g-pred-dir\.on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul/.test(homeCss),
+  "home.css .g-pred-dir.on uses the chip-underline box-shadow, not a background fill");
+check(!/\.tui \.g-pred-dir\.on\{\s*background:var\(--t-panel2\)/.test(homeCss),
+  "home.css .g-pred-dir.on no longer swaps background on select");
 check(/\.na-pf-tgl\.on,\s*\.na-pred-dir\.on\s*\{[^}]*box-shadow:\s*inset 0 -2px 0 var\(--chip-ul/.test(premiumCss),
   "premium.css .na-pf-tgl.on/.na-pred-dir.on use the chip-underline box-shadow, not a background fill");
 check(!/\.na-pf-tgl\.on,\s*\.na-pred-dir\.on\s*\{\s*background:\s*color-mix/.test(premiumCss),
