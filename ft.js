@@ -20,12 +20,18 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "44bc4245-f235-4c1d-af93-deb5810f635a", title: "Bank of England holds interest rates at 3.75%", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44bc4245-f235-4c1d-af93-deb5810f635a" },
+  { id: "24d417c5-4bd4-4611-a04f-489a09450006", title: "Lax Deutsche Bank controls enabled banker to embezzle €600,000, court finds", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/24d417c5-4bd4-4611-a04f-489a09450006" },
+  { id: "44702d5a-b4b9-4aa8-88cf-5436f3d24311", title: "There is no ‘one size fits all’ solution for the energy transition", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44702d5a-b4b9-4aa8-88cf-5436f3d24311" },
+  { id: "b4d3b969-76e8-49f2-8528-4d34a810e7a4", title: "Chattering central bankers are good, actually", date: "2026-09-17", time: "11:35", url: "https://www.ft.com/content/b4d3b969-76e8-49f2-8528-4d34a810e7a4" },
+  { id: "d719d59e-cb2a-4488-a4cf-2f291a85e9ca", title: "FirstFT: Warsh defies Trump", date: "2026-09-17", time: "11:13", url: "https://www.ft.com/content/d719d59e-cb2a-4488-a4cf-2f291a85e9ca" },
   { id: "b1696209-2080-4714-9d5e-e5724200ac4d", title: "No country for independent central bankers", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/b1696209-2080-4714-9d5e-e5724200ac4d" },
   { id: "3bb7e0e8-6aef-4b6b-a5f0-f472a2655c1f", title: "Wall Street warns trading boom is losing steam", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/3bb7e0e8-6aef-4b6b-a5f0-f472a2655c1f" },
   { id: "61f61355-5b21-4a48-b324-9bd4b5b6777b", title: "AI boom obscuring global trade disruptions, warns WTO chief", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/61f61355-5b21-4a48-b324-9bd4b5b6777b" },
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-17", time: "09:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "What do British businesses need from the Budget? Submit a question", date: "2026-09-17", time: "09:41", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "c5843a3d-51a3-4508-915c-6206351aeb97", title: "Thanks to Rishi Sunak, the UK is helping put the brakes on AI", date: "2026-09-17", time: "09:30", url: "https://www.ft.com/content/c5843a3d-51a3-4508-915c-6206351aeb97" },
+  { id: "5226dcb7-d89d-4b68-981f-b2736d7e4dca", title: "US rate rise jolts yen ahead of Bank of Japan meeting", date: "2026-09-17", time: "09:26", url: "https://www.ft.com/content/5226dcb7-d89d-4b68-981f-b2736d7e4dca" },
   { id: "42ab32f0-8c22-4912-a928-c73552305b7e", title: "US passes bill targeting importers of Russian oil", date: "2026-09-17", time: "09:04", url: "https://www.ft.com/content/42ab32f0-8c22-4912-a928-c73552305b7e" },
   { id: "69f02abc-e0dc-46e5-aa6c-61d209e095d9", title: "China’s US Treasury holdings fall to lowest level since 2008", date: "2026-09-17", time: "08:43", url: "https://www.ft.com/content/69f02abc-e0dc-46e5-aa6c-61d209e095d9" },
   { id: "2c34414a-5381-4083-ac34-00bbe67ef8db", title: "OpenAI discloses new ‘concerning’ model behaviour", date: "2026-09-17", time: "08:42", url: "https://www.ft.com/content/2c34414a-5381-4083-ac34-00bbe67ef8db" },
@@ -35,8 +41,6 @@ export const FT_ITEMS = [
   { id: "094d8a79-e0d0-47b7-8b0d-d4e72e079dbe", title: "FTAV’s further reading", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/094d8a79-e0d0-47b7-8b0d-d4e72e079dbe" },
   { id: "5d1dba1a-db81-464d-b2d0-9e0741010560", title: "Von der Leyen advances EU defence pitch with army of new ideas", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/5d1dba1a-db81-464d-b2d0-9e0741010560" },
   { id: "2739954a-816a-465a-ae21-7d846bb70365", title: "Either Meta Glasses are selling extremely well or this Citi survey might have some issues", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/2739954a-816a-465a-ae21-7d846bb70365" },
-  { id: "d719d59e-cb2a-4488-a4cf-2f291a85e9ca", title: "FirstFT: How AI is transforming warfare", date: "2026-09-17", time: "05:30", url: "https://www.ft.com/content/d719d59e-cb2a-4488-a4cf-2f291a85e9ca" },
-  { id: "5226dcb7-d89d-4b68-981f-b2736d7e4dca", title: "US rate rise jolts yen ahead of Bank of Japan meeting", date: "2026-09-17", time: "05:15", url: "https://www.ft.com/content/5226dcb7-d89d-4b68-981f-b2736d7e4dca" },
   { id: "5b2a7780-270b-4679-9229-3ad88395de95", title: "Business of Sailing", date: "2026-09-17", time: "05:09", url: "https://www.ft.com/content/5b2a7780-270b-4679-9229-3ad88395de95" },
   { id: "fb8e1037-8c48-49d2-809e-950472bcbae5", title: "Donald Trump fails to bend the Federal Reserve to his will", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/fb8e1037-8c48-49d2-809e-950472bcbae5" },
   { id: "8767b80b-3fd8-4747-b538-98ed8a4afe11", title: "Vue explores London IPO as cinemas emerge from ‘six years of hell’", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/8767b80b-3fd8-4747-b538-98ed8a4afe11" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "686429c0-daf3-42a5-9b7c-7ff06eb291ef", title: "The era of AI warfare has arrived", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/686429c0-daf3-42a5-9b7c-7ff06eb291ef" },
   { id: "c7d5e68a-1e79-478f-83fe-1307a65aaa96", title: "Exclusive: a first look at The Horses, London’s most keenly awaited new pub", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/c7d5e68a-1e79-478f-83fe-1307a65aaa96" },
   { id: "1dbc97ca-0277-4599-abe4-57ac82b85b49", title: "Partner to The Ocean Race pushes contest to rewrite rules", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/1dbc97ca-0277-4599-abe4-57ac82b85b49" },
-  { id: "16781206-42cd-4af2-9904-a2a3155da83d", title: "Australia fights to reclaim SailGP racing title", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/16781206-42cd-4af2-9904-a2a3155da83d" },
-  { id: "3dacfbb9-e7ec-4286-b161-1f86bcd761cb", title: "UK prepares for a ‘really challenging’ Budget as interest rate fears mount", date: "2026-09-16", time: "19:46", url: "https://www.ft.com/content/3dacfbb9-e7ec-4286-b161-1f86bcd761cb" },
-  { id: "b990fc74-9efe-4de0-a6ca-64427e6e4f84", title: "Federal Reserve raises fed funds rate with likely more to come", date: "2026-09-16", time: "19:35", url: "https://www.ft.com/content/b990fc74-9efe-4de0-a6ca-64427e6e4f84" },
-  { id: "d1f2c9bd-26ce-4e87-9da4-fe0238bd531d", title: "Revolut hackers demand $3mn ransom", date: "2026-09-16", time: "18:58", url: "https://www.ft.com/content/d1f2c9bd-26ce-4e87-9da4-fe0238bd531d" },
 ];
