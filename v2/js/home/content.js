@@ -14,7 +14,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <button type="button" class="g-wiretab is-on" data-wire="news" role="tab" aria-selected="true">News</button>
           <button type="button" class="g-wiretab" data-wire="watch" role="tab" aria-selected="false">Managers</button>
           <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
-          <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X</button>
+          <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
         </div>
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
         <aside class="g-side">
