@@ -863,6 +863,15 @@
     .tui .g-hero-tip[hidden]{ display:none; }
     .tui .g-hero-tip-v{ font-size:11px; color:var(--t-ink); font-weight:600; }
     .tui .g-hero-tip-d{ font-size:9px; color:var(--t-mut); }
+    /* Phones/tablets (the full-width Chart pane) have vertical room, so stack the
+       controls: the securities row along the top, the duration toggle on its own
+       row below them, then the readout and the chart — instead of squeezing the
+       securities and the duration onto one row (which wraps awkwardly). Desktop
+       (≥1201px) keeps them side by side to save the height-boxed terminal. */
+    @media (max-width:1200px){
+      .tui .g-hero-top{ flex-direction:column; align-items:stretch; gap:3px; }
+      .tui .g-hero-range{ margin-left:0; }
+    }
     /* News / Watchlist swap chips — phones AND tablets (shown in the
        max-width:1200px block); only on a wide desktop (≥1201px) are both wire
        columns roomy enough to sit side by side, so the chips are hidden there.
