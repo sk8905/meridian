@@ -142,5 +142,28 @@ const b = await launchChromium();
   await ctx.close();
 }
 
+// --- Tablet (iPad mini landscape, 1024px): the 5-column terminal crushes the two
+//     middle wires to ~50px each, so below 1201px we use the single-column chip
+//     swap. Assert the chips are shown and the feed is a full-width single column
+//     (the manager wire is NOT side-by-side). ------------------------------------
+{
+  const ctx = await b.newContext({ viewport: { width: 1024, height: 768 } });
+  const pg = await ctx.newPage();
+  await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
+  await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
+  await pg.waitForTimeout(300);
+  const t = await pg.evaluate(() => {
+    const tabs = document.querySelector(".g-wiretabs");
+    const feed = document.querySelector(".g-feed-wrap"), mgr = document.querySelector(".g-side3");
+    const shown = (el) => el && getComputedStyle(el).display !== "none" && el.getBoundingClientRect().width > 0;
+    const fw = feed ? feed.getBoundingClientRect().width : 0;
+    return { chipsShown: tabs && getComputedStyle(tabs).display !== "none", feedShown: shown(feed), feedW: Math.round(fw), mgrShown: shown(mgr) };
+  });
+  check(t.chipsShown, "ipad(1024): the wire chips are shown (chip-swap, not the crushed 5-col terminal)");
+  check(t.feedShown && !t.mgrShown, "ipad(1024): the news feed is the single visible pane (manager wire not squeezed alongside)");
+  check(t.feedW > 700, `ipad(1024): the news feed spans a readable full-width column (${t.feedW}px)`);
+  await ctx.close();
+}
+
 await b.close(); srv.close();
 finish();

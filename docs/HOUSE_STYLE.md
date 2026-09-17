@@ -17,7 +17,14 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
 
 - **R1 — Desktop = fixed-viewport terminal (≥761px).** The whole app is one
   viewport-height flex column; the page itself never scrolls; **only the centre
-  wire scrolls internally.** (Bloomberg-terminal model.)
+  wire scrolls internally.** (Bloomberg-terminal model.) **Exception — the Home
+  5-column wire terminal (markets · news wire · manager wire · X wire · macro)
+  needs real width for its two flexible middle columns, so it only engages at
+  ≥1201px; from 761–1200px (iPad mini/Air/Pro-11 landscape) Home uses the
+  single-column chip-swap layout instead** (News · Watchlist · Chart · X), which
+  is what the phone uses — otherwise the two middle wires crush to ~50px and the
+  headlines wrap one word per line. The other desks (Macro/Credit/Legal) are
+  single-column and keep the ≥761px terminal.
 - **R2 — Phone = scrolling document (≤760px).** Content scrolls under pinned
   chrome.
 - **R2b — Chrome is anchored and never moves.** The top header strips

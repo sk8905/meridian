@@ -849,10 +849,14 @@
     .tui .g-hero-tip[hidden]{ display:none; }
     .tui .g-hero-tip-v{ font-size:11px; color:var(--t-ink); font-weight:600; }
     .tui .g-hero-tip-d{ font-size:9px; color:var(--t-mut); }
-    /* News / Watchlist swap chips — mobile only (shown in the max-width:900px
-       block); on desktop both wire columns are visible so the chips are hidden. */
+    /* News / Watchlist swap chips — phones AND tablets (shown in the
+       max-width:1200px block); only on a wide desktop (≥1201px) are both wire
+       columns roomy enough to sit side by side, so the chips are hidden there.
+       Below that (iPad mini/Air/Pro-11 landscape included) the 5-column terminal
+       crushes the two flexible middle wires, so we use the single-column chip
+       swap instead. */
     .tui .g-wiretabs{ display:none; }
-    @media (min-width:901px){
+    @media (min-width:1201px){
       /* Fixed-height terminal: the PAGE never scrolls. The command bar, ticker and
          briefing stay put; the workspace fills the rest of the viewport and each
          column (left rail · news wire · right rail) scrolls on its own. */
@@ -936,7 +940,7 @@
        panels can't all fit, so the rails scroll as a whole (each already has
        overflow-y:auto) and the fill regions give up their tall min-height floors
        first — so content stays reachable instead of clipping. */
-    @media (min-width:901px) and (max-height:760px){
+    @media (min-width:1201px) and (max-height:760px){
       .tui .g-side, .tui .g-side2, .tui .g-side3{ overflow-y:auto; }
       .tui .g-movers-pnl{ min-height:96px; }
       .tui .g-flow-scroll{ min-height:96px; }
@@ -1056,7 +1060,7 @@
     .g-earn-k{ color:var(--t-faint); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-right:.25rem; }
     .g-earn-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.83rem; }
 
-    @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; grid-template-areas:none; grid-template-rows:none; }
+    @media (max-width:1200px){ .tui .g-layout{ grid-template-columns:1fr; grid-template-areas:none; grid-template-rows:none; }
       /* content-first on phones: the news wire leads, the data rails follow —
          so you don't scroll past the markets/rates rail to reach the headlines */
       /* Drop the desktop named-area placement so the panes flow in one column by
@@ -1217,9 +1221,9 @@
     /* Terminal (desktop): line the news-wire header bar up with the manager-wire
        column header (.tui-ph, 30px) — the SMALLER of the two — so the two column
        headings share one baseline. The desk chips shed their --chip-h tap-target
-       floor and stretch to the 30px bar (mobile keeps the taller touch target,
-       since below 901px the columns stack and never sit side by side). */
-    @media (min-width:901px){
+       floor and stretch to the 30px bar (mobile/tablet keeps the taller touch
+       target, since below 1201px the columns stack and never sit side by side). */
+    @media (min-width:1201px){
       .tui .g-feed-head{ min-height:30px; border-bottom:0; }
       .tui .g-feed-deskrow{ min-height:30px; }
       .tui .g-feed-deskchip{ min-height:0; }
