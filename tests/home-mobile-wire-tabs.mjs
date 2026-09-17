@@ -27,11 +27,12 @@ const b = await launchChromium();
   check(chipsShown, "phone: the News / Watchlist chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "News · Watchlist · X", `phone: chips read 'News', 'Watchlist' and 'X' (${labels.join(", ")})`);
+  check(labels.join(" · ") === "News · Watchlist · Chart · X", `phone: chips read 'News', 'Watchlist', 'Chart' and 'X' in order (${labels.join(", ")})`);
 
-  // Default: News on, feed visible, manager + X wires hidden.
+  // Default: News on, feed visible, manager + chart + X panes hidden.
   check(await vis(".g-feed-wrap"), "phone: news feed is visible by default");
   check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (News selected)");
+  check(!(await vis(".g-hero")), "phone: the chart is hidden by default (News selected)");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (News selected)");
   const newsOn = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on"));
   check(newsOn, "phone: the News chip is active by default");
@@ -48,6 +49,18 @@ const b = await launchChromium();
   }));
   check(watchState.watchOn && watchState.aria === "true", "phone: the Watchlist chip is active + aria-selected after tap");
   check(watchState.hasMgr, "phone: the manager wire has rendered content under Watchlist");
+
+  // Tap Chart → the hero chart pane is revealed (feed + manager hidden).
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
+  await pg.waitForTimeout(200);
+  check(await vis(".g-hero"), "phone: tapping Chart reveals the hero chart");
+  check(!(await vis(".g-feed-wrap")), "phone: tapping Chart hides the news feed");
+  check(!(await vis(".g-side3")), "phone: tapping Chart keeps the manager wire hidden");
+  const chartState = await pg.evaluate(() => ({
+    on: document.querySelector('.g-wiretab[data-wire="chart"]').classList.contains("is-on"),
+    aria: document.querySelector('.g-wiretab[data-wire="chart"]').getAttribute("aria-selected"),
+  }));
+  check(chartState.on && chartState.aria === "true", "phone: the Chart chip is active + aria-selected after tap");
 
   // Tap X → the X wire is revealed (feed + manager hidden) and mounts the feed.
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').click());
@@ -68,6 +81,7 @@ const b = await launchChromium();
   await pg.waitForTimeout(200);
   check(await vis(".g-feed-wrap"), "phone: tapping News returns to the feed");
   check(!(await vis(".g-side3")), "phone: the manager wire is hidden again under News");
+  check(!(await vis(".g-hero")), "phone: the chart is hidden again under News");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
 
   // The whole top cluster (header · search band · News/Watchlist tabs · feed

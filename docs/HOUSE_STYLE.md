@@ -342,6 +342,30 @@ notification badge red (`#ef4444`).
   handle — key required — for diagnosing shape changes.) Enforced by `tests/home-xwire.mjs` (render) and `tests/xfeed-parse.mjs`
   (both Worker normalisers — free syndication + twitterapi.io shapes).
 
+- **R27 — Hero chart band (Home).** The Home terminal carries a **price/performance
+  chart band** that, on desktop, **spans the two middle columns (news + manager
+  wire)** and sits **above** them (both wires start beneath it); the left rail and
+  both right rails stay full-height (CSS grid `grid-template-areas`). On **phones**
+  it is the **Chart wire chip — the tab strip reads News · Watchlist · Chart · X, in
+  that order, and News stays the default** — swapping onto the single-column
+  workspace like the other wires. The band shows **one instrument at a time** from a
+  fixed basket — **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — picked by a
+  chip row, with a **1M / 6M / 1Y / YTD** range toggle, a big value + change readout
+  (coloured; for the **10Y yield a *fall* is green/risk-on** and the change reads in
+  **pp**, not %), and a hover crosshair. **One fetch, all ranges:** the Worker
+  (`/api/hero` in `src/index.js`) returns a **full year of daily closes per
+  instrument** and the client **slices that single series** for the range toggle — no
+  refetch on range/instrument change. Equities/commodities/Bitcoin come from
+  **Yahoo Finance's** keyless chart API (same source as the markets band); the **10Y
+  yield from FRED `DGS10`** (validated daily %, no scaling ambiguity). Every point is
+  **real + sourced (R7)** — no invented prices. Fetched **lazily** and
+  **auto-refreshes every ~5 min while on screen**, seeded from a per-viewer
+  localStorage cache so a reload paints the last chart instantly (never a blank).
+  `renderHero`/`drawHero` in `v2/js/home/glance.js`; `/api/hero` edge-caches ~10 min
+  and never pins a broken partial (needs ≥4 of the basket). Enforced by
+  `tests/home-hero.mjs` (chips, readout, range + instrument switch, Option-C
+  geometry, phone Chart chip) and the chip order/default by `tests/home-mobile-wire-tabs.mjs`.
+
 ---
 
 ## 7. Technical rules
@@ -413,7 +437,10 @@ legal items are curated in the content/data files
 item keeps a real outbound source link (R7).
 
 ### 8.1 Markets & pricing
-- Yahoo Finance (`finance.yahoo.com`, `uk.finance.yahoo.com`) — equity, ETF & FX quotes
+- Yahoo Finance (`finance.yahoo.com`, `uk.finance.yahoo.com`) — equity, ETF & FX quotes;
+  also the daily-close **series** behind the markets-band sparkline and the Home
+  **hero chart band** (`/api/hero` — S&P 500, Nasdaq, Oil, Gold, Bitcoin; the 10Y
+  yield in that basket comes from FRED `DGS10`, §8.2). See **R27**.
 - Stooq (`stooq.com`) — index & price series
 - CNBC quotes (`quote.cnbc.com`)
 - Investing.com / Investing.com UK

@@ -1545,6 +1545,72 @@ async function handlePerf(request, env, ctx) {
   return resp;
 }
 
+// ============================ HOME HERO CHART =============================
+// The home page's price/performance chart band (Option C). A small basket —
+// equities, the 10Y yield, commodities and bitcoin — each fetched ONCE as a full
+// year of daily closes; the client slices that single series for its 1M/6M/1Y/YTD
+// toggle, so the range switch costs no extra request. Equities/commodities/BTC
+// come from Yahoo's keyless chart API (same source as the markets band); the 10Y
+// yield comes from FRED DGS10 (validated daily series in %, no scaling ambiguity).
+const HERO_BASKET = [
+  { key: "spx", label: "S&P 500", symbol: "^GSPC", dp: 1 },
+  { key: "ndx", label: "Nasdaq", symbol: "^IXIC", dp: 0 },
+  { key: "ust10", label: "US 10Y", fred: "DGS10", unit: "%", dp: 2, fi: true },
+  { key: "oil", label: "Oil", symbol: "CL=F", pre: "$", dp: 2 },
+  { key: "gold", label: "Gold", symbol: "GC=F", pre: "$", dp: 0 },
+  { key: "btc", label: "Bitcoin", symbol: "BTC-USD", pre: "$", dp: 0 },
+];
+// A full year of daily closes for one Yahoo symbol → { value, asOf, history:[[ms,close],…] }
+// (ascending). LSE GBp instruments are rescaled to the major unit; the basket has
+// none, but the scale is kept so the helper is reusable.
+async function yahooSeries(symbol) {
+  const txt = await fetchText(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1y&interval=1d`);
+  if (!txt) return null;
+  let j; try { j = JSON.parse(txt); } catch { return null; }
+  const res = j && j.chart && j.chart.result && j.chart.result[0];
+  if (!res) return null;
+  const meta = res.meta || {};
+  const ts = res.timestamp || [];
+  const closes = ((((res.indicators || {}).quote || [])[0] || {}).close) || [];
+  const scale = meta.currency === "GBp" ? 0.01 : 1;
+  const pts = [];
+  for (let i = 0; i < ts.length; i++) if (Number.isFinite(closes[i])) pts.push([ts[i] * 1000, +(closes[i] * scale)]);
+  if (pts.length < 2) return null;
+  const value = Number.isFinite(meta.regularMarketPrice) ? +(meta.regularMarketPrice * scale) : pts[pts.length - 1][1];
+  const asOf = meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString().slice(0, 10) : new Date(pts[pts.length - 1][0]).toISOString().slice(0, 10);
+  return { value, asOf, history: pts };
+}
+async function handleHero(request, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/hero?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const cutoff = Date.now() - 372 * 864e5;   // ~1y (a little slack over 365)
+  const out = await Promise.all(HERO_BASKET.map(async (b) => {
+    let s = null;
+    if (b.fred) {
+      const h = await fredHistory(b.fred, env).catch(() => []);
+      if (h && h.length) s = { value: h[h.length - 1][1], asOf: new Date(h[h.length - 1][0]).toISOString().slice(0, 10), history: h };
+    } else {
+      s = await yahooSeries(b.symbol).catch(() => null);
+    }
+    if (!s || !Array.isArray(s.history) || s.history.length < 2) return null;
+    let hist = s.history.filter((p) => p[0] >= cutoff);
+    if (hist.length < 2) hist = s.history.slice(-260);
+    // Round closes to a sane precision so the payload stays compact.
+    hist = hist.map(([t, v]) => [t, +v.toFixed(b.dp <= 1 ? 3 : 2)]);
+    return { key: b.key, label: b.label, unit: b.unit || "", pre: b.pre || "", dp: b.dp, fi: !!b.fi, value: s.value, asOf: s.asOf, history: hist };
+  }));
+  const instruments = out.filter(Boolean);
+  const resp = json({ asOf: new Date().toISOString().slice(0, 10), instruments });
+  // Cache ~10 min, but only once we have most of the basket (never pin a broken partial).
+  if (ctx && ctx.waitUntil && instruments.length >= 4) {
+    resp.headers.set("cache-control", "public, max-age=600");
+    ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  }
+  return resp;
+}
+
 // ============================ MACRO DASHBOARD ==============================
 // Key economic indicators (US + UK) with ~5y monthly history, fetched server-
 // side so there's no CORS issue or browser-visible key. Most series come from
@@ -3731,6 +3797,7 @@ export default {
     if (url.pathname === "/api/bdc") return handleBDC(request, env, ctx);
     if (url.pathname === "/api/xfeed") return handleXFeed(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
+    if (url.pathname === "/api/hero") return handleHero(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);

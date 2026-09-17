@@ -805,13 +805,50 @@
     .g-main.tui{ padding:0; background:var(--t-ground); color:var(--t-ink); max-width:none; }
     /* Five rails: left data · news wire · manager wire · X wire · macro rail. The
        X wire is its own column between the manager wire and the macro rail. */
-    .tui .g-layout{ display:grid; grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 304px 320px; gap:0;
-      margin:0; align-items:start; }
-    .tui .g-side{ order:1; display:block; border-right:1px solid var(--t-grid2); }
-    .tui .g-feed-wrap{ order:2; min-width:0; }
-    .tui .g-side3{ order:3; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
-    .tui .g-side-x{ order:4; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
-    .tui .g-side2{ order:5; display:block; border-left:1px solid var(--t-grid2); }
+    /* Two rows: the hero chart band spans the news + manager columns on top; the
+       two wires sit beneath it. The left rail and both right rails span both rows
+       so they stay full-height (Option C). */
+    .tui .g-layout{ display:grid; grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 304px 320px;
+      grid-template-rows:auto minmax(0,1fr);
+      grid-template-areas:"side hero hero sidex side2" "side feed mgr sidex side2";
+      gap:0; margin:0; align-items:start; }
+    .tui .g-side{ grid-area:side; display:block; border-right:1px solid var(--t-grid2); }
+    .tui .g-hero{ grid-area:hero; min-width:0; }
+    .tui .g-feed-wrap{ grid-area:feed; min-width:0; }
+    .tui .g-side3{ grid-area:mgr; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
+    .tui .g-side-x{ grid-area:sidex; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
+    .tui .g-side2{ grid-area:side2; display:block; border-left:1px solid var(--t-grid2); }
+    /* ---- HERO CHART BAND (Option C) ---- */
+    .tui .g-hero{ display:flex; flex-direction:column; background:var(--t-panel); border-bottom:2px solid var(--accent, #fb8b1e); }
+    .tui .g-hero-top{ display:flex; align-items:center; gap:10px; padding:6px 12px 4px; }
+    .tui .g-hero-sel{ display:flex; flex-wrap:wrap; gap:2px; min-width:0; }
+    .tui .g-hero-chip{ font:inherit; font-size:11px; font-weight:600; letter-spacing:.005em; color:var(--t-mut);
+      background:transparent; border:0; padding:3px 8px; cursor:pointer; white-space:nowrap; }
+    .tui .g-hero-chip:hover{ color:var(--t-ink); }
+    .tui .g-hero-chip.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
+    [data-theme="dark"] .tui .g-hero-chip.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
+    .tui .g-hero-range{ margin-left:auto; display:flex; gap:2px; flex:0 0 auto; }
+    .tui .g-hero-rg{ font:inherit; font-size:10px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
+      color:var(--t-faint); background:transparent; border:1px solid var(--t-grid2); padding:1px 7px; cursor:pointer; }
+    .tui .g-hero-rg:hover{ color:var(--t-dim); }
+    .tui .g-hero-rg.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
+    [data-theme="dark"] .tui .g-hero-rg.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
+    .tui .g-hero-read{ display:flex; align-items:flex-end; gap:12px; padding:0 14px 3px; min-width:0; }
+    .tui .g-hero-name{ font-size:11.5px; font-weight:600; color:var(--t-dim); flex:0 0 auto; }
+    .tui .g-hero-px{ font-size:22px; font-weight:700; line-height:1; letter-spacing:-.01em; color:var(--t-ink);
+      font-variant-numeric:tabular-nums; flex:0 0 auto; }
+    .tui .g-hero-delta{ font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums; padding-bottom:2px; flex:0 0 auto; }
+    .tui .g-hero-delta.up{ color:var(--t-up); } .tui .g-hero-delta.down{ color:var(--t-down); }
+    .tui .g-hero-sub{ margin-left:auto; font-size:10px; color:var(--t-mut); padding-bottom:3px; text-align:right;
+      white-space:nowrap; flex:0 1 auto; overflow:hidden; text-overflow:ellipsis; }
+    .tui .g-hero-plot{ position:relative; padding:2px 6px 8px; }
+    .tui #g-hero-svg{ display:block; width:100%; height:150px; }
+    .tui .g-hero-tip{ position:absolute; pointer-events:none; transform:translate(-50%,-118%); z-index:2;
+      background:var(--t-ground, #000); border:1px solid var(--t-grid2); padding:2px 7px; white-space:nowrap;
+      font-variant-numeric:tabular-nums; display:flex; flex-direction:column; align-items:center; }
+    .tui .g-hero-tip[hidden]{ display:none; }
+    .tui .g-hero-tip-v{ font-size:11px; color:var(--t-ink); font-weight:600; }
+    .tui .g-hero-tip-d{ font-size:9px; color:var(--t-mut); }
     /* News / Watchlist swap chips — mobile only (shown in the max-width:900px
        block); on desktop both wire columns are visible so the chips are hidden. */
     .tui .g-wiretabs{ display:none; }
@@ -1019,10 +1056,14 @@
     .g-earn-k{ color:var(--t-faint); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-right:.25rem; }
     .g-earn-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.83rem; }
 
-    @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
+    @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; grid-template-areas:none; grid-template-rows:none; }
       /* content-first on phones: the news wire leads, the data rails follow —
          so you don't scroll past the markets/rates rail to reach the headlines */
+      /* Drop the desktop named-area placement so the panes flow in one column by
+         `order` (a leftover grid-area would strand them in phantom 0-width tracks). */
+      .tui .g-side,.tui .g-hero,.tui .g-feed-wrap,.tui .g-side3,.tui .g-side-x,.tui .g-side2{ grid-area:auto; }
       .tui .g-feed-wrap{ order:0; }
+      .tui .g-hero{ order:0; }
       .tui .g-side3{ order:1; }
       .tui .g-side-x{ order:2; }
       .tui .g-side{ order:3; }
@@ -1051,18 +1092,23 @@
         color:var(--t-mut); cursor:pointer; }
       .tui .g-wiretab.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
       [data-theme="dark"] .tui .g-wiretab.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
-      /* One wire on screen at a time: News (feed) is default; Watchlist swaps in
-         the manager wire; X swaps in the X wire. The manager + X rails are hidden
-         until their chip is chosen. */
+      /* One pane on screen at a time: News (feed) is default; Watchlist swaps in the
+         manager wire; Chart swaps in the hero chart; X swaps in the X wire. The
+         manager, chart + X panes are hidden until their chip is chosen. */
       .tui .g-side3{ display:none; }
       .tui .g-side-x{ display:none; }
+      .tui .g-hero{ display:none; }
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
+      .tui .g-layout.wire-chart .g-feed-wrap{ display:none; }
+      .tui .g-layout.wire-chart .g-hero{ display:flex; }
       .tui .g-layout.wire-x .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-x .g-side-x{ display:block; }
-      /* Hide the news feed's relocated filter header under Watchlist/X (it lives in
-         .g-main once initFeedHeadLock lifts it out of the hidden .g-feed-wrap). */
-      .g-main.wire-watch #g-feed-head, .g-main.wire-x #g-feed-head{ display:none; }
+      /* On phones the chart pane gets a taller plot for legibility. */
+      .tui .g-layout.wire-chart #g-hero-svg{ height:200px; }
+      /* Hide the news feed's relocated filter header under Watchlist/Chart/X (it
+         lives in .g-main once initFeedHeadLock lifts it out of the hidden .g-feed-wrap). */
+      .g-main.wire-watch #g-feed-head, .g-main.wire-chart #g-feed-head, .g-main.wire-x #g-feed-head{ display:none; }
       /* Lock the feed filter tabs to the top (under the header, the search band AND
          the wire chips) while the headlines scroll. */
       .tui .g-feed-head{ position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:8; background:var(--t-head); box-shadow:0 -1px 0 var(--t-head); }

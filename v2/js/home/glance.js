@@ -133,6 +133,7 @@ export function initGlance(ctx) {
   initHomeMarketsRails();   // v2: chrome is the shell's; skip nav-actions boot
   renderPredict();
   initXWire();
+  initHero();
   initFeedEntityNav();
   initFeedHeadLock();
   initMobileWireTabs();
@@ -177,22 +178,25 @@ function initMobileWireTabs() {
   const setWire = (k) => {
     layout.classList.toggle("wire-watch", k === "watch");
     layout.classList.toggle("wire-x", k === "x");
+    layout.classList.toggle("wire-chart", k === "chart");
     // Mirror the state onto .g-main too: on phones initFeedHeadLock relocates the
     // news feed's filter header OUT of .g-feed-wrap (up into .g-main), so the
-    // .g-layout class can't reach it — tag .g-main so Watchlist/X can hide it.
-    if (main) { main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); }
+    // .g-layout class can't reach it — tag .g-main so Watchlist/Chart/X can hide it.
+    if (main) { main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); main.classList.toggle("wire-chart", k === "chart"); }
     tabs.querySelectorAll(".g-wiretab").forEach((t) => {
       const on = t.dataset.wire === k;
       t.classList.toggle("is-on", on);
       t.setAttribute("aria-selected", on ? "true" : "false");
     });
-    // The X wire renders lazily; revealing its (previously hidden) rail lets the
-    // observer boot it, but also kick it directly so it never lands on a blank.
+    // The X wire and hero chart render lazily; revealing their (previously hidden)
+    // pane lets the observer boot them, but also kick directly so no blank frame.
     if (k === "x") initXWire();
+    if (k === "chart") initHero();
   };
-  // F8 — restore the last-used wire tab (News · Watchlist · X) on load.
+  // F8 — restore the last-used wire tab (News · Watchlist · Chart · X) on load.
+  // News stays the default: only a saved non-News pane is restored.
   const _wp = _homePrefs().wire;
-  if (_wp === "watch" || _wp === "x") setWire(_wp);
+  if (_wp === "watch" || _wp === "x" || _wp === "chart") setWire(_wp);
   tabs.addEventListener("click", (e) => {
     const btn = e.target.closest(".g-wiretab");
     if (!btn) return;
@@ -405,6 +409,164 @@ function renderXWire(host) {
       if (feed.querySelector(".g-x-card")) return;      // keep whatever is showing
       feed.innerHTML = `<div class="g-x-empty">Couldn't load live posts. ${openLink}</div>`;
     });
+}
+
+// ===== HERO CHART BAND (Option C) ==========================================
+// A price/performance chart for the market basket (equities, the 10Y yield,
+// commodities, bitcoin). The Worker (/api/hero) returns a FULL YEAR of daily
+// closes per instrument in one shot; the client slices that single series for the
+// 1M/6M/1Y/YTD toggle, so switching range costs no request. Fetched lazily (like
+// the X wire) and seeded from a per-viewer localStorage cache so a fresh load
+// paints the last-known chart instantly rather than a blank.
+const _HERO_KEY = "wire.hero.v1";
+let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
+let _heroCur = null;       // selected instrument key
+let _heroRange = "1M";     // 1M | 6M | 1Y | YTD
+let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
+const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
+const HERO_RLBL = { "1M": "1-month", "6M": "6-month", "1Y": "1-year", "YTD": "year-to-date" };
+
+function heroReadCache() { try { const d = JSON.parse(localStorage.getItem(_HERO_KEY) || "null"); return d && Array.isArray(d.instruments) ? d.instruments : null; } catch { return null; } }
+function heroWriteCache(insts) { try { localStorage.setItem(_HERO_KEY, JSON.stringify({ instruments: insts, at: Date.now() })); } catch { /* private mode / quota */ } }
+
+function initHero() {
+  const host = document.getElementById("jump-hero");
+  if (!host) return;
+  if (_heroBooted) { fetchHero(); return; }   // re-entry (e.g. the Chart chip tapped): just refresh
+  const boot = () => {
+    if (_heroBooted) return; _heroBooted = true;
+    const cached = heroReadCache();
+    if (cached && cached.length) { _heroData = cached; if (!_heroCur) _heroCur = cached[0].key; renderHero(); }
+    wireHeroControls();
+    fetchHero();
+    startHeroAuto();
+  };
+  if (host.offsetParent !== null) { boot(); return; }   // visible now (desktop, or revealed by the Chart chip)
+  if (_heroWatching) return; _heroWatching = true;        // hidden: wait until it nears view
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((ents) => { if (ents.some((e) => e.isIntersecting)) { io.disconnect(); boot(); } }, { rootMargin: "400px 0px" });
+    io.observe(host);
+  } else boot();
+}
+function fetchHero() {
+  fetch("/api/hero", { headers: { accept: "application/json" } })
+    .then((r) => (r && r.ok) ? r.json() : null)
+    .then((d) => {
+      const insts = (d && Array.isArray(d.instruments)) ? d.instruments : [];
+      if (!insts.length) return;                            // keep whatever is showing
+      _heroData = insts;
+      if (!_heroCur || !insts.some((i) => i.key === _heroCur)) _heroCur = insts[0].key;
+      heroWriteCache(insts);
+      renderHero();
+    })
+    .catch(() => { /* keep last-good chart */ });
+}
+// Refresh the series every 5 min while Home is active and the band is visible —
+// never in the background (mirrors the markets/X-wire cadence).
+function startHeroAuto() {
+  if (_heroAuto) return;
+  _heroAuto = setInterval(() => {
+    if (__ROOT.dataset.v2tab !== __KEY) return;
+    const host = document.getElementById("jump-hero");
+    if (!host || host.offsetParent === null || document.hidden) return;
+    fetchHero();
+  }, 5 * 60 * 1000);
+}
+function wireHeroControls() {
+  if (_heroWired) return; _heroWired = true;
+  const sel = document.getElementById("g-hero-sel");
+  const rng = document.getElementById("g-hero-range");
+  const svg = document.getElementById("g-hero-svg");
+  if (sel) sel.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-chip"); if (!b) return; _heroCur = b.dataset.k; renderHero(); });
+  if (rng) rng.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-rg"); if (!b) return; _heroRange = b.dataset.r; renderHero(); });
+  if (svg) {
+    svg.addEventListener("mousemove", heroHover);
+    svg.addEventListener("mouseleave", () => {
+      const tip = document.getElementById("g-hero-tip"); if (tip) tip.hidden = true;
+      const cr = svg.querySelector(".g-hero-cross"); if (cr) cr.style.display = "none";
+      const dot = svg.querySelector(".g-hero-hoverdot"); if (dot) dot.style.display = "none";
+    });
+  }
+}
+function heroFmt(v, m) {
+  if (v == null || !isFinite(v)) return "—";
+  const s = Number(v).toLocaleString("en-US", { minimumFractionDigits: m.dp, maximumFractionDigits: m.dp });
+  return (m.pre || "") + s + (m.unit || "");
+}
+// Slice the 1-year series to the selected window (client-side; no refetch).
+function heroSlice(hist) {
+  if (!Array.isArray(hist) || hist.length < 2) return hist || [];
+  const now = hist[hist.length - 1][0];
+  let start = -Infinity;                                    // 1Y → everything we hold
+  if (_heroRange === "1M") start = now - 31 * 864e5;
+  else if (_heroRange === "6M") start = now - 183 * 864e5;
+  else if (_heroRange === "YTD") start = Date.UTC(new Date(now).getUTCFullYear(), 0, 1);
+  const pts = hist.filter((p) => p[0] >= start);
+  return pts.length >= 2 ? pts : hist.slice(-2);
+}
+function drawHero(svg, pts, m) {
+  const n = pts.length, vals = pts.map((p) => p[1]);
+  let lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const span = hi - lo, plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
+  const X = (i) => HERO_PX + plotW * i / (n - 1);
+  const Y = (v) => HERO_PT + plotH - ((v - lo) / span) * plotH;
+  const up = vals[n - 1] >= vals[0];
+  // For a yield a FALL is "risk-on"/green; for a price a RISE is green.
+  const good = m.fi ? !up : up;
+  const col = good ? "var(--t-up)" : "var(--t-down)";
+  let line = "", area = "M " + X(0).toFixed(1) + " " + Y(vals[0]).toFixed(1);
+  for (let i = 0; i < n; i++) { const px = X(i), py = Y(vals[i]); line += (i ? " L " : "M ") + px.toFixed(1) + " " + py.toFixed(1); area += " L " + px.toFixed(1) + " " + py.toFixed(1); }
+  area += " L " + X(n - 1).toFixed(1) + " " + (HERO_H - HERO_PB) + " L " + X(0).toFixed(1) + " " + (HERO_H - HERO_PB) + " Z";
+  let grid = "";
+  for (let g = 0; g <= 3; g++) { const gy = (HERO_PT + plotH * g / 3).toFixed(1); grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${HERO_W - HERO_PX}" y2="${gy}" style="stroke:var(--t-grid)" stroke-width="1"/>`; }
+  svg.innerHTML = `<title>Price chart</title>${grid}`
+    + `<path d="${area}" style="fill:${col};fill-opacity:.12" stroke="none"/>`
+    + `<path d="${line}" style="fill:none;stroke:${col};stroke-width:1.6;stroke-linejoin:round"/>`
+    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${HERO_H - HERO_PB}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none"/>`
+    + `<circle class="g-hero-hoverdot" r="3" style="fill:${col};display:none"/>`
+    + `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(vals[n - 1]).toFixed(1)}" r="2.6" style="fill:${col}"/>`;
+  svg._pts = pts; svg._m = m; svg._X = X; svg._Y = Y;
+}
+function heroHover(e) {
+  const svg = e.currentTarget, pts = svg._pts; if (!pts || !pts.length) return;
+  const r = svg.getBoundingClientRect(); if (!r.width) return;
+  let i = Math.round(((e.clientX - r.left) / r.width) * (pts.length - 1));
+  i = Math.max(0, Math.min(pts.length - 1, i));
+  const m = svg._m, px = svg._X(i), py = svg._Y(pts[i][1]);
+  const cross = svg.querySelector(".g-hero-cross"), dot = svg.querySelector(".g-hero-hoverdot");
+  if (cross) { cross.setAttribute("x1", px); cross.setAttribute("x2", px); cross.style.display = ""; }
+  if (dot) { dot.setAttribute("cx", px); dot.setAttribute("cy", py); dot.style.display = ""; }
+  const tip = document.getElementById("g-hero-tip");
+  if (tip) {
+    tip.hidden = false;
+    tip.style.left = ((px / HERO_W) * r.width) + "px";
+    tip.style.top = ((py / HERO_H) * r.height) + "px";
+    const dt = new Date(pts[i][0]);
+    tip.innerHTML = `<span class="g-hero-tip-v">${esc(heroFmt(pts[i][1], m))}</span><span class="g-hero-tip-d">${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}</span>`;
+  }
+}
+function renderHero() {
+  if (!_heroData || !_heroData.length) return;
+  const sel = document.getElementById("g-hero-sel"), svg = document.getElementById("g-hero-svg");
+  if (!sel || !svg) return;
+  const cur = _heroData.find((i) => i.key === _heroCur) || _heroData[0];
+  _heroCur = cur.key;
+  sel.innerHTML = _heroData.map((i) => `<button type="button" class="g-hero-chip${i.key === _heroCur ? " is-on" : ""}" data-k="${esc(i.key)}" role="tab" aria-selected="${i.key === _heroCur ? "true" : "false"}">${esc(i.label)}</button>`).join("");
+  const rng = document.getElementById("g-hero-range");
+  if (rng) rng.querySelectorAll(".g-hero-rg").forEach((b) => { const on = b.dataset.r === _heroRange; b.classList.toggle("is-on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
+  const pts = heroSlice(cur.history);
+  if (pts.length < 2) return;
+  drawHero(svg, pts, cur);
+  const first = pts[0][1], last = pts[pts.length - 1][1];
+  const abs = last - first, pct = first ? (abs / first) * 100 : 0, up = pct >= 0;
+  const good = cur.fi ? !up : up;                           // yield: falling = green
+  const nameEl = document.getElementById("g-hero-name"), pxEl = document.getElementById("g-hero-px"),
+    dEl = document.getElementById("g-hero-delta"), subEl = document.getElementById("g-hero-sub");
+  if (nameEl) nameEl.textContent = cur.label;
+  if (pxEl) pxEl.textContent = heroFmt(cur.value != null ? cur.value : last, cur);
+  if (dEl) { dEl.textContent = (up ? "▲ " : "▼ ") + (cur.fi ? Math.abs(abs).toFixed(2) + " pp" : Math.abs(pct).toFixed(1) + "%"); dEl.className = "g-hero-delta " + (good ? "up" : "down"); }
+  if (subEl) subEl.textContent = `${HERO_RLBL[_heroRange]} · ${cur.fi ? "FRED (daily)" : "Yahoo Finance"}`;
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every

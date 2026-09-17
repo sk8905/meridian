@@ -10,9 +10,10 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
              manager (watchlist) wire can't sit side by side, so a chip pair at
              the very top swaps between them. Hidden on desktop, where both
              columns show at once. -->
-        <div class="g-wiretabs" role="tablist" aria-label="News, watchlist or X wire">
+        <div class="g-wiretabs" role="tablist" aria-label="News, watchlist, chart or X wire">
           <button type="button" class="g-wiretab is-on" data-wire="news" role="tab" aria-selected="true">News</button>
           <button type="button" class="g-wiretab" data-wire="watch" role="tab" aria-selected="false">Watchlist</button>
+          <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X</button>
         </div>
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
@@ -47,6 +48,33 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
             </div>
           </section>
         </aside>
+
+        <!-- HERO CHART BAND (Option C): a price/performance chart for the market
+             basket. On desktop it spans the news + manager wire columns (the two
+             flexible mid-panes), which start beneath it; on phones it is the
+             swappable "Chart" pane in the wire-tab strip. The instrument chips and
+             range toggle are rendered by glance.js (renderHero). -->
+        <section class="g-hero g-anchor" id="jump-hero" aria-label="Price and performance chart">
+          <div class="g-hero-top">
+            <div class="g-hero-sel" id="g-hero-sel" role="tablist" aria-label="Chart instrument"></div>
+            <div class="g-hero-range" id="g-hero-range" role="tablist" aria-label="Chart range">
+              <button type="button" class="g-hero-rg is-on" data-r="1M" role="tab">1M</button>
+              <button type="button" class="g-hero-rg" data-r="6M" role="tab">6M</button>
+              <button type="button" class="g-hero-rg" data-r="1Y" role="tab">1Y</button>
+              <button type="button" class="g-hero-rg" data-r="YTD" role="tab">YTD</button>
+            </div>
+          </div>
+          <div class="g-hero-read">
+            <span class="g-hero-name" id="g-hero-name">—</span>
+            <span class="g-hero-px" id="g-hero-px">—</span>
+            <span class="g-hero-delta" id="g-hero-delta"></span>
+            <span class="g-hero-sub" id="g-hero-sub"></span>
+          </div>
+          <div class="g-hero-plot">
+            <svg id="g-hero-svg" viewBox="0 0 900 150" preserveAspectRatio="none" role="img" aria-label="Price chart"><title>Price chart</title></svg>
+            <div class="g-hero-tip" id="g-hero-tip" hidden></div>
+          </div>
+        </section>
 
         <!-- CENTER: news wire -->
         <section class="g-feed-wrap g-anchor" id="jump-feed">
