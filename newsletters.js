@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lemonde-lebrief-budget2027lecornu-20260917",
+    publication: "Le Monde",
+    author: null,
+    series: "Le Brief",
+    title: "Le brief | Sébastien Lecornu propose un « effort budgétaire d’environ 54 milliards d’euros » pour 2027",
+    date: "2026-09-17",
+    time: "17:34",
+    summary: "Après un séminaire gouvernemental sur le budget 2027, le premier ministre propose, dans un entretien au Figaro, un « effort budgétaire d’environ 54 milliards d’euros ».",
+    url: "https://infos.lemonde.fr/optiext/optiextension.dll?ID=U2FQuleiWCD_kTVEbCGPwCZBBs7b0NPKmpR2M3vY45pGZZEIu-QkqHEz0OiGJ-WRfIV8GHz7Ip0JBQdBNHxIod0yzrI7USN6we6ED6hL",
+  },
+  {
     id: "nl-reuters-econworld-trumpevuturn-20260917",
     publication: "Thomson Reuters",
     author: "Carmel Crimmins",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "06:26",
     summary: "Trump dismisses AI fears as warnings mount, the 10-year Treasury yield hits its highest since 2007, and oil pushes higher on Saudi pipeline disruption.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-15/trump-dismisses-ai-risks-as-safety-warnings-mount",
-  },
-  {
-    id: "nl-economist-worldinbrief-scotuspostalvote-20260915",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: SCOTUS rejects Trump’s postal-vote rules",
-    date: "2026-09-15",
-    time: "05:34",
-    summary: "SCOTUS keeps Trump's mail-in voting curbs blocked, the ten-year Treasury yield tops 5%, and Trump dismisses AI-safety calls ahead of Amodei and Altman's Salesforce appearance.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];

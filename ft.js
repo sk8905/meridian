@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fc324c65-11d6-473d-b15b-deef27cbadc2", title: "Sun, stats and suspicious productivity", date: "2026-09-17", time: "17:55", url: "https://www.ft.com/content/fc324c65-11d6-473d-b15b-deef27cbadc2" },
+  { id: "49b61634-7a5d-46c4-8c43-c20ed2196ca9", title: "Addison Lee founder loses £20mn tax battle over ‘non-dom’ status", date: "2026-09-17", time: "17:54", url: "https://www.ft.com/content/49b61634-7a5d-46c4-8c43-c20ed2196ca9" },
+  { id: "8c4143c7-f846-43a0-807a-b460fff7cd75", title: "Has AI broken the old VC model?", date: "2026-09-17", time: "17:46", url: "https://www.ft.com/content/8c4143c7-f846-43a0-807a-b460fff7cd75" },
+  { id: "755798b8-c16a-4d3f-b01f-47c3e334839a", title: "Glencore suspends senior executive in review of ties to iron ore trader", date: "2026-09-17", time: "17:44", url: "https://www.ft.com/content/755798b8-c16a-4d3f-b01f-47c3e334839a" },
+  { id: "d458070f-fbe4-477d-8574-60a3dddce149", title: "Carney is playing a bad hand well", date: "2026-09-17", time: "17:41", url: "https://www.ft.com/content/d458070f-fbe4-477d-8574-60a3dddce149" },
+  { id: "0480bd32-41e7-465d-b828-156edae94ecb", title: "Rising rates throw a spanner in investment bankers’ spreadsheets", date: "2026-09-17", time: "17:39", url: "https://www.ft.com/content/0480bd32-41e7-465d-b828-156edae94ecb" },
+  { id: "cd58a4c3-3a62-41f2-a7b9-a0da73d6e5f4", title: "Bank of England’s bond plan brings finality to quantitative tightening", date: "2026-09-17", time: "17:27", url: "https://www.ft.com/content/cd58a4c3-3a62-41f2-a7b9-a0da73d6e5f4" },
+  { id: "b97ac029-271b-44d2-8641-bd8eb1dc7ab1", title: "Accelerationism will only slow AI’s progress", date: "2026-09-17", time: "17:27", url: "https://www.ft.com/content/b97ac029-271b-44d2-8641-bd8eb1dc7ab1" },
   { id: "44bc4245-f235-4c1d-af93-deb5810f635a", title: "Bank of England says rates likely to rise as it overhauls gilt sales", date: "2026-09-17", time: "17:12", url: "https://www.ft.com/content/44bc4245-f235-4c1d-af93-deb5810f635a" },
   { id: "1f51ef4d-fe4d-484c-ba4c-9b0048f03ce2", title: "Workers at Diageo’s largest distillery to go on strike as demand slumps", date: "2026-09-17", time: "16:07", url: "https://www.ft.com/content/1f51ef4d-fe4d-484c-ba4c-9b0048f03ce2" },
   { id: "f2c2e267-1e2e-457c-b08b-8a6a933ec285", title: "King Charles raises alarm over AI advances ahead of Burnham’s first meeting with Trump", date: "2026-09-17", time: "15:52", url: "https://www.ft.com/content/f2c2e267-1e2e-457c-b08b-8a6a933ec285" },
@@ -52,13 +60,4 @@ export const FT_ITEMS = [
   { id: "c5843a3d-51a3-4508-915c-6206351aeb97", title: "Thanks to Rishi Sunak, the UK is helping put the brakes on AI", date: "2026-09-17", time: "09:30", url: "https://www.ft.com/content/c5843a3d-51a3-4508-915c-6206351aeb97" },
   { id: "5226dcb7-d89d-4b68-981f-b2736d7e4dca", title: "US rate rise jolts yen ahead of Bank of Japan meeting", date: "2026-09-17", time: "09:26", url: "https://www.ft.com/content/5226dcb7-d89d-4b68-981f-b2736d7e4dca" },
   { id: "42ab32f0-8c22-4912-a928-c73552305b7e", title: "US passes bill targeting importers of Russian oil", date: "2026-09-17", time: "09:04", url: "https://www.ft.com/content/42ab32f0-8c22-4912-a928-c73552305b7e" },
-  { id: "69f02abc-e0dc-46e5-aa6c-61d209e095d9", title: "China’s US Treasury holdings fall to lowest level since 2008", date: "2026-09-17", time: "08:43", url: "https://www.ft.com/content/69f02abc-e0dc-46e5-aa6c-61d209e095d9" },
-  { id: "2c34414a-5381-4083-ac34-00bbe67ef8db", title: "OpenAI discloses new ‘concerning’ model behaviour", date: "2026-09-17", time: "08:42", url: "https://www.ft.com/content/2c34414a-5381-4083-ac34-00bbe67ef8db" },
-  { id: "7b0f8f90-b3ad-4640-916a-f8b5495920a3", title: "Donald Trump suggests EU-Canada associate member deal would be ‘hostile act’", date: "2026-09-17", time: "08:20", url: "https://www.ft.com/content/7b0f8f90-b3ad-4640-916a-f8b5495920a3" },
-  { id: "3ab370c5-2ea2-43c8-835c-977d8f0b51f4", title: "Japan’s Sanae Takaichi reshuffles cabinet in signal of confidence to markets", date: "2026-09-17", time: "07:43", url: "https://www.ft.com/content/3ab370c5-2ea2-43c8-835c-977d8f0b51f4" },
-  { id: "be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2", title: "Getting to know Mr Warsh", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2" },
-  { id: "094d8a79-e0d0-47b7-8b0d-d4e72e079dbe", title: "FTAV’s further reading", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/094d8a79-e0d0-47b7-8b0d-d4e72e079dbe" },
-  { id: "5d1dba1a-db81-464d-b2d0-9e0741010560", title: "Von der Leyen advances EU defence pitch with army of new ideas", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/5d1dba1a-db81-464d-b2d0-9e0741010560" },
-  { id: "2739954a-816a-465a-ae21-7d846bb70365", title: "Either Meta Glasses are selling extremely well or this Citi survey might have some issues", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/2739954a-816a-465a-ae21-7d846bb70365" },
-  { id: "5b2a7780-270b-4679-9229-3ad88395de95", title: "Business of Sailing", date: "2026-09-17", time: "05:09", url: "https://www.ft.com/content/5b2a7780-270b-4679-9229-3ad88395de95" },
 ];
