@@ -13,7 +13,7 @@ export const UPDATED = "17 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-17",
-  lastCheckedTime: "12:00 BST",
+  lastCheckedTime: "17:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -987,7 +987,7 @@ export const NEWS = {
     { title: "Bank of England set to defy Fed's rate-hike lead, despite rising inflation", source: "CNBC", date: "2026-09-17", url: "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html" },
     { title: "FTSE 100's early promise fades as Bank of England holds rates", source: "Yahoo Finance UK", date: "2026-09-17", url: "https://uk.finance.yahoo.com/news/ftse-100-early-promise-fades-162104275.html" },
     { title: "Base rate held AGAIN at 3.75% – here's what it means for you and when it might change", source: "MoneySavingExpert", date: "2026-09-17", url: "https://www.moneysavingexpert.com/news/2026/09/base-rate-held-again-bank-of-england/" },
-    { title: "Bank of England to hold rates but energy shock stirs talk of a hike", source: "Reuters (via Investing.com)", date: "2026-09-17", url: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-but-energy-shock-stirs-talk-of-a-hike-4904677" },
+    { title: "Bank of England Holds Rates, Warns of Hike if Iran War Persists", source: "Bloomberg", date: "2026-09-17", url: "https://www.bloomberg.com/news/articles/2026-09-17/bank-of-england-holds-rates-warns-of-hike-if-iran-war-persists" },
     { title: "British Pound hovers near July lows as hawkish Fed underpins USD ahead of BoE", source: "FXStreet", date: "2026-09-17", url: "https://www.fxstreet.com/news/british-pound-languishes-near-late-july-lows-as-hawkish-fed-underpins-usd-ahead-of-boe-202609170104" },
   ],
 };
@@ -1002,6 +1002,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-17",
   items: [
+    {"title": "Bank of England Holds Rates, Warns of Hike if Iran War Persists", "source": "Bloomberg", "date": "2026-09-17", "url": "https://www.bloomberg.com/news/articles/2026-09-17/bank-of-england-holds-rates-warns-of-hike-if-iran-war-persists", "blurb": "The MPC held Bank Rate at 3.75% (6-3) and slowed QT to roughly £50bn/year, with Governor Bailey saying a hike would be needed if the Iran-war energy shock keeps inflation elevated.", "author": null},
     {"title": "Bank of England set to defy Fed's rate-hike lead, despite rising inflation", "source": "CNBC", "date": "2026-09-17", "url": "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html", "blurb": "The Bank of England held Bank Rate at 3.75% on Thursday, a day after the Fed's own hike, with the MPC also voting to slow quantitative tightening to roughly £50bn a year from £70bn.", "author": null},
     {"title": "FTSE 100's early promise fades as Bank of England holds rates", "source": "Yahoo Finance UK", "date": "2026-09-17", "url": "https://uk.finance.yahoo.com/news/ftse-100-early-promise-fades-162104275.html", "blurb": "The FTSE 100's early gains faded after the MPC's 6-3 hold, with Governor Bailey flagging upside energy-price risk even as two more sell-side houses moved to explicit November-hike calls.", "author": null},
     {"title": "CNBC Daily Open: The Fed rate hikes might not be one-and-done", "source": "CNBC", "date": "2026-09-17", "url": "https://www.cnbc.com/2026/09/17/cnbc-daily-open-fed-rate-hike-oil-eu-canada.html", "blurb": "Asian markets steadied and Wall Street futures firmed as investors digested the Fed's quarter-point hike to 3.75-4.00%, with Goldman Sachs now pencilling in a second hike in October and oil easing on signs Saudi Arabia's damaged pipeline will restart within days.", "author": null},
@@ -1041,7 +1042,6 @@ export const ARTICLES = {
     {"title": "FTSE 100 Live: London rallies despite renewed oil shock", "source": "Proactive Investors", "date": "2026-09-14", "time": "17:30", "url": "https://www.proactiveinvestors.com/companies/news/1098474/ftse-100-live-london-rallies-despite-renewed-oil-shock-1098474.html", "blurb": "The FTSE 100 closed up around 0.4% at roughly 10,697, outperforming a falling Wall Street as energy majors gained on Brent's advance and the index's defensive, low-tech composition sheltered it from the AI-slowdown selloff.", "author": null},
     {"title": "AI stocks slide after Anthropic, OpenAI CEOs urge slowdown", "source": "CNBC", "date": "2026-09-14", "time": "17:15", "url": "https://www.cnbc.com/2026/09/14/ai-stocks-slowdown-amodei-altman.html", "blurb": "Memory chipmaker Micron fell 7%, Intel dropped 6% and Nvidia declined more than 3% after Anthropic's Dario Amodei called for a slowdown in frontier AI development, with OpenAI's Sam Altman and SpaceX's Elon Musk both publicly agreeing; President Trump dismissed the warning as unnecessary and a risk to the US AI lead over China.", "author": null},
     {"title": "10-year Treasury yield tops 5% as oil surges and diesel hits new all-time high", "source": "NBC News", "date": "2026-09-14", "time": "17:15", "url": "https://www.nbcnews.com/business/business-news/diesel-oil-prices-jump-saudi-pipeline-shut-hormuz-talks-postponed-iran-rcna597579", "blurb": "The 10-year Treasury yield touched 5.014% — its highest since October 2023 — as Brent surged past $109 and the US diesel average hit $6.23/gallon, a record, after Saudi Arabia's pipeline shutdown and the postponed Oman Hormuz talks stoked inflation fears ahead of Wednesday's Fed decision.", "author": null},
-    {"title": "Brent Hits $108 as Saudi Pipeline Shutdown Deepens Supply Fears", "source": "Yahoo Finance / Bloomberg", "date": "2026-09-14", "time": "17:15", "url": "https://finance.yahoo.com/energy/articles/brent-hits-108-saudi-pipeline-053704663.html", "blurb": "Brent climbed toward $109 a barrel, its highest in four months, as Saudi Arabia's Yanbu export hub was left with reportedly just five to seven days of stockpiled oil after the East-West pipeline closure compounded existing Strait of Hormuz shipping disruptions.", "author": null},
   ],
 };
 

@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "44bc4245-f235-4c1d-af93-deb5810f635a", title: "Bank of England says rates likely to rise as it overhauls gilt sales", date: "2026-09-17", time: "17:12", url: "https://www.ft.com/content/44bc4245-f235-4c1d-af93-deb5810f635a" },
   { id: "1f51ef4d-fe4d-484c-ba4c-9b0048f03ce2", title: "Workers at Diageo’s largest distillery to go on strike as demand slumps", date: "2026-09-17", time: "16:07", url: "https://www.ft.com/content/1f51ef4d-fe4d-484c-ba4c-9b0048f03ce2" },
   { id: "f2c2e267-1e2e-457c-b08b-8a6a933ec285", title: "King Charles raises alarm over AI advances ahead of Burnham’s first meeting with Trump", date: "2026-09-17", time: "15:52", url: "https://www.ft.com/content/f2c2e267-1e2e-457c-b08b-8a6a933ec285" },
   { id: "8907649b-4096-4b0b-b92e-86c755217126", title: "Ed Sheeran asks billionaire Robert Kraft to donate $2mn after tour debacle", date: "2026-09-17", time: "15:36", url: "https://www.ft.com/content/8907649b-4096-4b0b-b92e-86c755217126" },
@@ -39,7 +40,6 @@ export const FT_ITEMS = [
   { id: "cc14705c-22a9-431c-a98d-b9577be8aab5", title: "Bank of England holds rates steady but hints at tightening ahead", date: "2026-09-17", time: "12:29", url: "https://www.ft.com/content/cc14705c-22a9-431c-a98d-b9577be8aab5" },
   { id: "f6a3f875-ddfa-4fd7-8232-cb5a3699a5df", title: "EU alliance to make Canada ‘better partner for the US’, says Mark Carney", date: "2026-09-17", time: "12:02", url: "https://www.ft.com/content/f6a3f875-ddfa-4fd7-8232-cb5a3699a5df" },
   { id: "6c42f15a-54cf-457c-b2f5-7004000e08c9", title: "Bricks are no longer just for walls", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/6c42f15a-54cf-457c-b2f5-7004000e08c9" },
-  { id: "44bc4245-f235-4c1d-af93-deb5810f635a", title: "Bank of England holds interest rates at 3.75%", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44bc4245-f235-4c1d-af93-deb5810f635a" },
   { id: "24d417c5-4bd4-4611-a04f-489a09450006", title: "Lax Deutsche Bank controls enabled banker to embezzle €600,000, court finds", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/24d417c5-4bd4-4611-a04f-489a09450006" },
   { id: "44702d5a-b4b9-4aa8-88cf-5436f3d24311", title: "There is no ‘one size fits all’ solution for the energy transition", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44702d5a-b4b9-4aa8-88cf-5436f3d24311" },
   { id: "b4d3b969-76e8-49f2-8528-4d34a810e7a4", title: "Chattering central bankers are good, actually", date: "2026-09-17", time: "11:35", url: "https://www.ft.com/content/b4d3b969-76e8-49f2-8528-4d34a810e7a4" },
