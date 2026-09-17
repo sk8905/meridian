@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1f51ef4d-fe4d-484c-ba4c-9b0048f03ce2", title: "Workers at Diageo’s largest distillery to go on strike as demand slumps", date: "2026-09-17", time: "16:07", url: "https://www.ft.com/content/1f51ef4d-fe4d-484c-ba4c-9b0048f03ce2" },
+  { id: "f2c2e267-1e2e-457c-b08b-8a6a933ec285", title: "King Charles raises alarm over AI advances ahead of Burnham’s first meeting with Trump", date: "2026-09-17", time: "15:52", url: "https://www.ft.com/content/f2c2e267-1e2e-457c-b08b-8a6a933ec285" },
+  { id: "8907649b-4096-4b0b-b92e-86c755217126", title: "Ed Sheeran asks billionaire Robert Kraft to donate $2mn after tour debacle", date: "2026-09-17", time: "15:36", url: "https://www.ft.com/content/8907649b-4096-4b0b-b92e-86c755217126" },
   { id: "3aa5dd8a-90a6-48e2-bf7e-bc6557731a3b", title: "Sweden’s leftwing opposition parties narrowly win election", date: "2026-09-17", time: "14:54", url: "https://www.ft.com/content/3aa5dd8a-90a6-48e2-bf7e-bc6557731a3b" },
   { id: "dfdea19d-588e-4938-87cb-be14d14a54f4", title: "After Warsh’s strong start, how high will rates need to go?", date: "2026-09-17", time: "14:43", url: "https://www.ft.com/content/dfdea19d-588e-4938-87cb-be14d14a54f4" },
   { id: "560fc2ad-5c7e-4878-ae9b-a3183004c394", title: "UK productivity rose faster than thought after 2008 financial crisis", date: "2026-09-17", time: "14:14", url: "https://www.ft.com/content/560fc2ad-5c7e-4878-ae9b-a3183004c394" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "5d1dba1a-db81-464d-b2d0-9e0741010560", title: "Von der Leyen advances EU defence pitch with army of new ideas", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/5d1dba1a-db81-464d-b2d0-9e0741010560" },
   { id: "2739954a-816a-465a-ae21-7d846bb70365", title: "Either Meta Glasses are selling extremely well or this Citi survey might have some issues", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/2739954a-816a-465a-ae21-7d846bb70365" },
   { id: "5b2a7780-270b-4679-9229-3ad88395de95", title: "Business of Sailing", date: "2026-09-17", time: "05:09", url: "https://www.ft.com/content/5b2a7780-270b-4679-9229-3ad88395de95" },
-  { id: "fb8e1037-8c48-49d2-809e-950472bcbae5", title: "Donald Trump fails to bend the Federal Reserve to his will", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/fb8e1037-8c48-49d2-809e-950472bcbae5" },
-  { id: "8767b80b-3fd8-4747-b538-98ed8a4afe11", title: "Vue explores London IPO as cinemas emerge from ‘six years of hell’", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/8767b80b-3fd8-4747-b538-98ed8a4afe11" },
 ];
