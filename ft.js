@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3aa5dd8a-90a6-48e2-bf7e-bc6557731a3b", title: "Sweden’s leftwing opposition parties narrowly win election", date: "2026-09-17", time: "14:54", url: "https://www.ft.com/content/3aa5dd8a-90a6-48e2-bf7e-bc6557731a3b" },
+  { id: "dfdea19d-588e-4938-87cb-be14d14a54f4", title: "After Warsh’s strong start, how high will rates need to go?", date: "2026-09-17", time: "14:43", url: "https://www.ft.com/content/dfdea19d-588e-4938-87cb-be14d14a54f4" },
+  { id: "560fc2ad-5c7e-4878-ae9b-a3183004c394", title: "UK productivity rose faster than thought after 2008 financial crisis", date: "2026-09-17", time: "14:14", url: "https://www.ft.com/content/560fc2ad-5c7e-4878-ae9b-a3183004c394" },
   { id: "4660a6cc-008b-4a3e-947e-18545371eda7", title: "Kevin Warsh defies Donald Trump’s calls for lower borrowing costs", date: "2026-09-17", time: "14:00", url: "https://www.ft.com/content/4660a6cc-008b-4a3e-947e-18545371eda7" },
   { id: "3c73f212-b26d-410c-b944-e75627a735df", title: "Merz battles party revolt ahead of German regional elections", date: "2026-09-17", time: "13:52", url: "https://www.ft.com/content/3c73f212-b26d-410c-b944-e75627a735df" },
   { id: "a65f3f5d-e8ec-44b1-8529-24651e6254c3", title: "Leading Iranian airline cuts flights as US sanctions hit", date: "2026-09-17", time: "13:46", url: "https://www.ft.com/content/a65f3f5d-e8ec-44b1-8529-24651e6254c3" },
@@ -32,6 +35,7 @@ export const FT_ITEMS = [
   { id: "c947c940-b703-4a91-9397-bdb2347d7922", title: "What a maths fracas tells us about AI and innovation", date: "2026-09-17", time: "12:30", url: "https://www.ft.com/content/c947c940-b703-4a91-9397-bdb2347d7922" },
   { id: "cc14705c-22a9-431c-a98d-b9577be8aab5", title: "Bank of England holds rates steady but hints at tightening ahead", date: "2026-09-17", time: "12:29", url: "https://www.ft.com/content/cc14705c-22a9-431c-a98d-b9577be8aab5" },
   { id: "f6a3f875-ddfa-4fd7-8232-cb5a3699a5df", title: "EU alliance to make Canada ‘better partner for the US’, says Mark Carney", date: "2026-09-17", time: "12:02", url: "https://www.ft.com/content/f6a3f875-ddfa-4fd7-8232-cb5a3699a5df" },
+  { id: "6c42f15a-54cf-457c-b2f5-7004000e08c9", title: "Bricks are no longer just for walls", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/6c42f15a-54cf-457c-b2f5-7004000e08c9" },
   { id: "44bc4245-f235-4c1d-af93-deb5810f635a", title: "Bank of England holds interest rates at 3.75%", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44bc4245-f235-4c1d-af93-deb5810f635a" },
   { id: "24d417c5-4bd4-4611-a04f-489a09450006", title: "Lax Deutsche Bank controls enabled banker to embezzle €600,000, court finds", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/24d417c5-4bd4-4611-a04f-489a09450006" },
   { id: "44702d5a-b4b9-4aa8-88cf-5436f3d24311", title: "There is no ‘one size fits all’ solution for the energy transition", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44702d5a-b4b9-4aa8-88cf-5436f3d24311" },
@@ -56,10 +60,4 @@ export const FT_ITEMS = [
   { id: "5b2a7780-270b-4679-9229-3ad88395de95", title: "Business of Sailing", date: "2026-09-17", time: "05:09", url: "https://www.ft.com/content/5b2a7780-270b-4679-9229-3ad88395de95" },
   { id: "fb8e1037-8c48-49d2-809e-950472bcbae5", title: "Donald Trump fails to bend the Federal Reserve to his will", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/fb8e1037-8c48-49d2-809e-950472bcbae5" },
   { id: "8767b80b-3fd8-4747-b538-98ed8a4afe11", title: "Vue explores London IPO as cinemas emerge from ‘six years of hell’", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/8767b80b-3fd8-4747-b538-98ed8a4afe11" },
-  { id: "6e418231-33f5-4fda-83a0-28ceb0a64d6a", title: "The private equity hand rolling up the Algarve", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/6e418231-33f5-4fda-83a0-28ceb0a64d6a" },
-  { id: "7b1a00f1-6842-4f5e-ace4-d6a57e98b21e", title: "Why Mark Carney’s romance with Europe can only go so far ", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/7b1a00f1-6842-4f5e-ace4-d6a57e98b21e" },
-  { id: "0b45cb01-7f62-41c5-8c48-10c47f2e1ae6", title: "EU asks China to voluntarily limit car exports ", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/0b45cb01-7f62-41c5-8c48-10c47f2e1ae6" },
-  { id: "8eda412f-caed-4b31-bdee-b76fc9f3ba82", title: "Heatwave triggers potato shortage in Europe", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/8eda412f-caed-4b31-bdee-b76fc9f3ba82" },
-  { id: "f5325951-7049-4d3a-97e4-cbe34f9058d8", title: "The Apple trust premium in the age of AI", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/f5325951-7049-4d3a-97e4-cbe34f9058d8" },
-  { id: "73b7c439-8905-4509-bc09-1a8965146da2", title: "St James’s Place looks smartly attired for the AI wealth party", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/73b7c439-8905-4509-bc09-1a8965146da2" },
 ];
