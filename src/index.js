@@ -3496,10 +3496,15 @@ export function xNormalizeApiTweet(t) {
     const avatar = a.profilePicture || a.profile_image_url_https || a.profile_image_url || "";
     let text = String(src.text != null ? src.text : (src.full_text != null ? src.full_text : ""));
     text = text.replace(/\s+https:\/\/t\.co\/\w+\s*$/,"").trim();
-    // Order by when it hit the timeline (repost time for reposts).
-    const created = t.createdAt || t.created_at || src.createdAt || src.created_at || "";
-    const ts = Date.parse(created) || 0;
-    if (!ts) return null;
+    // Two distinct times on a repost: ORDER the feed by when it hit the timeline
+    // (the repost action), but DISPLAY the ORIGINAL tweet's own timestamp — that's
+    // what X shows next to the original author ("· 1h" is the original's age, not
+    // the repost action's). For an ordinary tweet src === t so the two coincide.
+    const outerCreated = t.createdAt || t.created_at || "";
+    const origCreated = src.createdAt || src.created_at || "";
+    const ts = Date.parse(outerCreated || origCreated) || 0;   // ordering key
+    const created = origCreated || outerCreated;               // shown to the reader
+    if (!ts || !created) return null;
     const media = [];
     const ents = (src.extendedEntities && src.extendedEntities.media)
       || (src.entities && src.entities.media) || [];
@@ -3665,7 +3670,7 @@ async function handleXFeed(request, env, ctx) {
   const mode = (apiKey && (handles.length || listId)) ? "api" : "syn";
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + mode;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=6`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=7`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

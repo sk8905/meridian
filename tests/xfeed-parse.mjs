@@ -102,6 +102,12 @@ check(/driving up bond yields/.test(repost.text), "repost: the original tweet's 
 checkEq(repost.id, "2100000000000000099", "repost: the retweet's own id is used for dedupe");
 checkEq(repost.url, "https://x.com/TheEconomist/status/2099999999999999000", "repost: links the original post");
 check(repost.media[0] === "https://pbs.twimg.com/media/e.jpg", "repost: original media is carried through");
-check(repost.date === "Wed Sep 17 06:00:00 +0000 2026", "repost: ordered by the repost time");
+// The feed ORDERS by the repost time (when it hit the timeline) …
+checkEq(repost.ts, Date.parse("Wed Sep 17 06:00:00 +0000 2026"), "repost: ordered (ts) by the repost time");
+// … but DISPLAYS the ORIGINAL tweet's timestamp, matching how X shows "· 1h" next
+// to the original author (not the age of the repost action).
+check(repost.date === "Wed Sep 17 00:00:00 +0000 2026", "repost: displays the ORIGINAL tweet's timestamp (like X)");
+// The two must genuinely differ here, or the assertion above proves nothing.
+check(repost.ts !== Date.parse(repost.date), "repost: display time and ordering time are distinct on a repost");
 
 finish();
