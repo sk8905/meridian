@@ -13,7 +13,7 @@ export const UPDATED = "17 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-17",
-  lastCheckedTime: "17:13 BST",
+  lastCheckedTime: "21:09 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -977,18 +977,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-17",
   us: [
+    { title: "CNBC Daily Open: The Fed rate hikes might not be one-and-done", source: "CNBC", date: "2026-09-17", url: "https://www.cnbc.com/2026/09/17/cnbc-daily-open-fed-rate-hike-oil-eu-canada.html" },
+    { title: "US Stocks Primed to Rebound From Fed Day Slump as Futures Rally", source: "Bloomberg", date: "2026-09-17", url: "https://www.bloomberg.com/news/articles/2026-09-17/us-stocks-primed-to-rebound-from-fed-day-slump-as-futures-rally" },
     { title: "Warsh Defies Trump's Calls for Rate Cut as War Stokes Inflation", source: "Bloomberg", date: "2026-09-17", url: "https://www.bloomberg.com/news/articles/2026-09-17/trump-denied-rate-cut-as-federal-reserve-targets-war-stoked-inflation" },
-    { title: "Stock Market Today (Sept. 17, 2026): Nasdaq climbs after Fed rate hike decision", source: "TheStreet", date: "2026-09-17", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-17-2026" },
-    { title: "Dollar Rises as Fed Hikes Rates, Signals Possible Further Increase This Year", source: "Bloomberg", date: "2026-09-16", url: "https://www.bloomberg.com/news/articles/2026-09-16/dollar-jumps-after-fed-raises-rates-sends-hawkish-signal" },
-    { title: "Fed raises interest rates for the first time since 2023", source: "CNN Business", date: "2026-09-16", url: "https://www.cnn.com/2026/09/16/business/live-news/federal-reserve-interest-rate-september" },
-    { title: "Fed rate decision September 2026: Rates rise to 3.75%-4%", source: "CNBC", date: "2026-09-16", url: "https://www.cnbc.com/2026/09/16/fed-rate-decision-september-2026.html" },
+    { title: "Investors react to Fed hike and market sell-off: Brace for 'higher for longer' rates", source: "CNBC", date: "2026-09-16", url: "https://www.cnbc.com/2026/09/16/investors-react-to-fed-hike-market-sell-off-brace-for-higher-rates-for-longer.html" },
+    { title: "Goldman Sachs now sees Fed hiking again in October", source: "Reuters (via Business Recorder)", date: "2026-09-16", url: "https://www.brecorder.com/news/40439917/goldman-sachs-now-sees-fed-hiking-again-in-october" },
   ],
   uk: [
-    { title: "Bank of England set to defy Fed's rate-hike lead, despite rising inflation", source: "CNBC", date: "2026-09-17", url: "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html" },
-    { title: "FTSE 100's early promise fades as Bank of England holds rates", source: "Yahoo Finance UK", date: "2026-09-17", url: "https://uk.finance.yahoo.com/news/ftse-100-early-promise-fades-162104275.html" },
+    { title: "Bank of England holds rates at 3.75% in 6-3 split vote as inflation hits five-month high", source: "Euronews", date: "2026-09-17", url: "https://www.euronews.com/business/2026/09/17/bank-of-england-holds-rates-at-375-in-6-3-split-vote-as-inflation-hits-five-month-high" },
+    { title: "BOE's QT Plans May Eclipse Rates as Key Decision for Bond Market", source: "Bloomberg", date: "2026-09-17", url: "https://www.bloomberg.com/news/articles/2026-09-17/boe-s-qt-plans-may-eclipse-rates-as-key-decision-for-bond-market" },
+    { title: "Bank of England floats a November rate hike if energy prices don't come down", source: "FXStreet", date: "2026-09-17", url: "https://www.fxstreet.com/analysis/bank-of-england-floats-a-november-rate-hike-if-energy-prices-dont-come-down-202609171321" },
     { title: "Base rate held AGAIN at 3.75% – here's what it means for you and when it might change", source: "MoneySavingExpert", date: "2026-09-17", url: "https://www.moneysavingexpert.com/news/2026/09/base-rate-held-again-bank-of-england/" },
-    { title: "Bank of England Holds Rates, Warns of Hike if Iran War Persists", source: "Bloomberg", date: "2026-09-17", url: "https://www.bloomberg.com/news/articles/2026-09-17/bank-of-england-holds-rates-warns-of-hike-if-iran-war-persists" },
-    { title: "British Pound hovers near July lows as hawkish Fed underpins USD ahead of BoE", source: "FXStreet", date: "2026-09-17", url: "https://www.fxstreet.com/news/british-pound-languishes-near-late-july-lows-as-hawkish-fed-underpins-usd-ahead-of-boe-202609170104" },
+    { title: "UK Inflation Rises to 3.1% in August, Highest Since March, ONS Reports", source: "Bloomberg", date: "2026-09-16", url: "https://www.bloomberg.com/news/articles/2026-09-16/uk-inflation-rises-to-five-month-high-ahead-of-boe-rate-decision" },
   ],
 };
 
@@ -1002,6 +1002,10 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-17",
   items: [
+    {"title": "US regulator opens markets to tokenised stock trading", "source": "Financial Times", "date": "2026-09-17", "url": "https://www.ft.com/content/b528698e-9b04-4497-9d22-67e401be21d3", "blurb": "US regulators cleared the way for tokenised trading of listed equities, a milestone for blockchain-based market infrastructure.", "author": null},
+    {"title": "BOE's QT Plans May Eclipse Rates as Key Decision for Bond Market", "source": "Bloomberg", "date": "2026-09-17", "url": "https://www.bloomberg.com/news/articles/2026-09-17/boe-s-qt-plans-may-eclipse-rates-as-key-decision-for-bond-market", "blurb": "The Bank of England's decision to slow quantitative tightening to roughly £50bn a year may matter more for gilts than Thursday's widely-expected rate hold.", "author": null},
+    {"title": "The Fed Never Hikes Just Once? Alan Greenspan Disagreed", "source": "Bloomberg Opinion", "date": "2026-09-17", "url": "https://www.bloomberg.com/opinion/articles/2026-09-17/the-fed-never-hikes-just-once-alan-greenspan-disagreed", "blurb": "A Bloomberg Opinion column argues the Fed's first hike since 2023 is unlikely to be a one-off, drawing on Fed-official folk wisdom and pricing for further hikes into 2027.", "author": "Jonathan Levin"},
+    {"title": "Major brokerages see one more Fed rate hike in 2026 after policy meeting", "source": "BNN Bloomberg", "date": "2026-09-17", "url": "https://www.bnnbloomberg.ca/business/economics/2026/09/17/major-brokerages-see-one-more-fed-rate-hike-in-2026-after-policy-meeting/", "blurb": "Wall Street's major dealers converge on at least one further 2026 Fed hike after Wednesday's hawkish dot plot.", "author": null},
     {"title": "Bank of England Holds Rates, Warns of Hike if Iran War Persists", "source": "Bloomberg", "date": "2026-09-17", "url": "https://www.bloomberg.com/news/articles/2026-09-17/bank-of-england-holds-rates-warns-of-hike-if-iran-war-persists", "blurb": "The MPC held Bank Rate at 3.75% (6-3) and slowed QT to roughly £50bn/year, with Governor Bailey saying a hike would be needed if the Iran-war energy shock keeps inflation elevated.", "author": null},
     {"title": "Bank of England set to defy Fed's rate-hike lead, despite rising inflation", "source": "CNBC", "date": "2026-09-17", "url": "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html", "blurb": "The Bank of England held Bank Rate at 3.75% on Thursday, a day after the Fed's own hike, with the MPC also voting to slow quantitative tightening to roughly £50bn a year from £70bn.", "author": null},
     {"title": "FTSE 100's early promise fades as Bank of England holds rates", "source": "Yahoo Finance UK", "date": "2026-09-17", "url": "https://uk.finance.yahoo.com/news/ftse-100-early-promise-fades-162104275.html", "blurb": "The FTSE 100's early gains faded after the MPC's 6-3 hold, with Governor Bailey flagging upside energy-price risk even as two more sell-side houses moved to explicit November-hike calls.", "author": null},
@@ -1038,10 +1042,6 @@ export const ARTICLES = {
     {"title": "British Pound drifts lower below 1.3500 as Fed hike bets rise, UK jobs data loom", "source": "FXStreet", "date": "2026-09-15", "time": "02:56", "url": "https://www.fxstreet.com/news/british-pound-drifts-lower-below-13500-as-fed-hike-bets-rise-uk-jobs-data-loom-202609150156", "blurb": "GBP/USD softened to near 1.3490 in early Tuesday Asian trade as Fed hike bets firm ahead of Wednesday's decision, with the BoE expected to hold at 3.75% Thursday and the UK's own labour-market release due later Tuesday.", "author": null},
     {"title": "BoE decision preview: Goldman sees hold, but watches for hawkish hints", "source": "investingLive", "date": "2026-09-15", "time": "05:19", "url": "https://investinglive.com/central-banks/boe-decision-preview-goldman-sees-hold-but-watches-for-hawkish-hints/", "blurb": "Goldman Sachs expects the MPC to hold Bank Rate at 3.75% on Thursday before a 25bp hike in November, saying the outcome hinges less on the vote — widely expected 6-3 for a hold — than on how strongly the central bloc emphasises Middle East-driven inflation risk.", "author": null},
     {"title": "Stock Market Today (Sept. 14, 2026): S&P 500 falls on rising oil prices, sagging AI stocks", "source": "Yahoo Finance", "date": "2026-09-14", "time": "20:30", "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-sept-14-133832281.html", "blurb": "The S&P 500 closed down 0.48% at 7,619.98, the Dow fell 0.29% to 52,421.20 and the Nasdaq lost 0.56% to 26,186.41 as surging oil prices, sinking AI stocks and escalating Middle East hostilities weighed heading into Wednesday's Fed decision.", "author": null},
-    {"title": "Pound Sterling Price News & Forecast: GBP/USD tests five-week lows as US Treasury yields surge", "source": "FXStreet", "date": "2026-09-14", "time": "18:18", "url": "https://www.fxstreet.com/news/pound-sterling-price-news-forecast-gbp-usd-tests-five-week-lows-as-us-treasury-yields-surge-202609141818", "blurb": "GBP/USD touched a five-week low of 1.3464 before paring losses to trade near 1.3492, down 0.23% on the day, as the dollar firmed on nearly 87% odds of a Wednesday Fed hike even as the BoE is widely expected to hold on Thursday.", "author": null},
-    {"title": "FTSE 100 Live: London rallies despite renewed oil shock", "source": "Proactive Investors", "date": "2026-09-14", "time": "17:30", "url": "https://www.proactiveinvestors.com/companies/news/1098474/ftse-100-live-london-rallies-despite-renewed-oil-shock-1098474.html", "blurb": "The FTSE 100 closed up around 0.4% at roughly 10,697, outperforming a falling Wall Street as energy majors gained on Brent's advance and the index's defensive, low-tech composition sheltered it from the AI-slowdown selloff.", "author": null},
-    {"title": "AI stocks slide after Anthropic, OpenAI CEOs urge slowdown", "source": "CNBC", "date": "2026-09-14", "time": "17:15", "url": "https://www.cnbc.com/2026/09/14/ai-stocks-slowdown-amodei-altman.html", "blurb": "Memory chipmaker Micron fell 7%, Intel dropped 6% and Nvidia declined more than 3% after Anthropic's Dario Amodei called for a slowdown in frontier AI development, with OpenAI's Sam Altman and SpaceX's Elon Musk both publicly agreeing; President Trump dismissed the warning as unnecessary and a risk to the US AI lead over China.", "author": null},
-    {"title": "10-year Treasury yield tops 5% as oil surges and diesel hits new all-time high", "source": "NBC News", "date": "2026-09-14", "time": "17:15", "url": "https://www.nbcnews.com/business/business-news/diesel-oil-prices-jump-saudi-pipeline-shut-hormuz-talks-postponed-iran-rcna597579", "blurb": "The 10-year Treasury yield touched 5.014% — its highest since October 2023 — as Brent surged past $109 and the US diesel average hit $6.23/gallon, a record, after Saudi Arabia's pipeline shutdown and the postponed Oman Hormuz talks stoked inflation fears ahead of Wednesday's Fed decision.", "author": null},
   ],
 };
 
@@ -1070,6 +1070,7 @@ export const RELEASES = [
   { date: "2026-10-28", country: "US", title: "FOMC rate decision", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-10-29", country: "US", title: "GDP (Q3 2026, Advance Estimate)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-29", country: "US", title: "Personal Income and Outlays / PCE inflation (September)", url: "https://www.bea.gov/news/schedule" },
+  { date: "2026-11-05", country: "UK", title: "BoE MPC decision & Monetary Policy Report", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
 ];
 
 // ---- Wall of maturities — corporate credit due over the next five years ----
