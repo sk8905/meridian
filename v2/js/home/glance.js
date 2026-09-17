@@ -420,11 +420,34 @@ function renderXWire(host) {
 // paints the last-known chart instantly rather than a blank.
 const _HERO_KEY = "wire.hero.v1";
 let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
-let _heroCur = null;       // selected instrument key
+let _heroSel = [];         // selected instrument keys (1..all); at least one is always kept
 let _heroRange = "1M";     // 1M | 6M | 1Y | YTD
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
 const HERO_RLBL = { "1M": "1-month", "6M": "6-month", "1Y": "1-year", "YTD": "year-to-date" };
+// Categorical series colours for the multi-select overlay — the dataviz reference
+// palette's dark hues, validated (worst adjacent CVD ΔE 8.4). The green/red slots
+// are deliberately skipped: on this terminal they read as up/down, not identity.
+// A single selected series keeps the up/down price line instead of a series colour.
+const HERO_COLORS = { spx: "#3987e5", ndx: "#d95926", ust10: "#199e70", oil: "#c98500", gold: "#d55181", btc: "#9085e9" };
+const HERO_FALLBACK = ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#9085e9"];
+function heroColor(key, i) { return HERO_COLORS[key] || HERO_FALLBACK[i % HERO_FALLBACK.length]; }
+// The selected instruments, in basket order — never empty once data has loaded.
+function heroSelected() {
+  if (!_heroData || !_heroData.length) return [];
+  let s = _heroData.filter((it) => _heroSel.includes(it.key));
+  if (!s.length) { _heroSel = [_heroData[0].key]; s = [_heroData[0]]; }
+  return s;
+}
+// Toggle a security in/out of the selection; never let it fall below one.
+function heroToggle(key) {
+  if (!key) return;
+  const i = _heroSel.indexOf(key);
+  if (i >= 0) { if (_heroSel.length > 1) _heroSel.splice(i, 1); }
+  else _heroSel.push(key);
+}
+// Signed percent, e.g. "+3.4%" / "−1.2%" (real minus glyph).
+function heroPctStr(v) { const a = Math.abs(v); return (v > 0 ? "+" : v < 0 ? "−" : "") + (a >= 100 ? Math.round(a) : a.toFixed(1)) + "%"; }
 
 function heroReadCache() { try { const d = JSON.parse(localStorage.getItem(_HERO_KEY) || "null"); return d && Array.isArray(d.instruments) ? d.instruments : null; } catch { return null; } }
 function heroWriteCache(insts) { try { localStorage.setItem(_HERO_KEY, JSON.stringify({ instruments: insts, at: Date.now() })); } catch { /* private mode / quota */ } }
@@ -436,7 +459,7 @@ function initHero() {
   const boot = () => {
     if (_heroBooted) return; _heroBooted = true;
     const cached = heroReadCache();
-    if (cached && cached.length) { _heroData = cached; if (!_heroCur) _heroCur = cached[0].key; renderHero(); }
+    if (cached && cached.length) { _heroData = cached; if (!_heroSel.length) _heroSel = [cached[0].key]; renderHero(); }
     wireHeroControls();
     fetchHero();
     startHeroAuto();
@@ -455,7 +478,8 @@ function fetchHero() {
       const insts = (d && Array.isArray(d.instruments)) ? d.instruments : [];
       if (!insts.length) return;                            // keep whatever is showing
       _heroData = insts;
-      if (!_heroCur || !insts.some((i) => i.key === _heroCur)) _heroCur = insts[0].key;
+      _heroSel = _heroSel.filter((k) => insts.some((i) => i.key === k));   // prune stale keys
+      if (!_heroSel.length) _heroSel = [insts[0].key];
       heroWriteCache(insts);
       renderHero();
     })
@@ -477,7 +501,8 @@ function wireHeroControls() {
   const sel = document.getElementById("g-hero-sel");
   const rng = document.getElementById("g-hero-range");
   const svg = document.getElementById("g-hero-svg");
-  if (sel) sel.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-chip"); if (!b) return; _heroCur = b.dataset.k; renderHero(); });
+  // A chip TOGGLES its security in/out of the selection (multi-select, ≥1 kept).
+  if (sel) sel.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-chip"); if (!b) return; heroToggle(b.dataset.k); renderHero(); });
   if (rng) rng.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-rg"); if (!b) return; _heroRange = b.dataset.r; renderHero(); });
   if (svg) {
     svg.addEventListener("mousemove", heroHover);
@@ -485,6 +510,7 @@ function wireHeroControls() {
       const tip = document.getElementById("g-hero-tip"); if (tip) tip.hidden = true;
       const cr = svg.querySelector(".g-hero-cross"); if (cr) cr.style.display = "none";
       const dot = svg.querySelector(".g-hero-hoverdot"); if (dot) dot.style.display = "none";
+      if (svg._multi) heroRestoreLegend(svg);
     });
   }
 }
@@ -580,13 +606,94 @@ function drawHero(svg, pts, m) {
   }
   svg._pts = pts; svg._m = m; svg._X = X; svg._Y = Y;
 }
+// The INDEX overlay drawn when ≥2 securities are selected: each series rebased to
+// % from the window start onto ONE shared % axis (never a dual axis — see the
+// dataviz rule), in its categorical colour, with a stronger baseline at 0%.
+function drawHeroMulti(svg, series) {
+  const plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
+  const ref = series.reduce((a, b) => (b.pts.length > a.pts.length ? b : a), series[0]);
+  let lo = 0, hi = 0;
+  const S = series.map((s) => {
+    const base = s.pts[0][1] || 1;
+    const pct = s.pts.map((p) => (p[1] / base - 1) * 100);
+    for (const v of pct) { if (v < lo) lo = v; if (v > hi) hi = v; }
+    return { key: s.key, label: s.label, color: s.color, pct };
+  });
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const p = (hi - lo) * 0.08, dlo = lo - p, dhi = hi + p;
+  const Xof = (n) => (i) => HERO_PX + plotW * i / Math.max(1, n - 1);
+  const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
+  const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= HERO_H - HERO_PB + 0.5);
+  const xn = ref.pts.length, Xr = Xof(xn), xCount = Math.min(5, xn);
+  const xi = []; for (let k = 0; k < xCount; k++) { const idx = Math.round((xn - 1) * k / Math.max(1, xCount - 1)); if (xi[xi.length - 1] !== idx) xi.push(idx); }
+  let grid = "";
+  for (const t of yt) { const gy = Y(t).toFixed(1), zero = Math.abs(t) < 1e-6; grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--${zero ? "t-faint" : "t-grid"})" stroke-width="${zero ? 1.2 : 1}" vector-effect="non-scaling-stroke"/>`; }
+  for (const idx of xi) { const gx = Xr(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid);stroke-dasharray:1 3" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  let paths = "";
+  const drawn = S.map((s) => {
+    const n = s.pct.length, X = Xof(n);
+    let d = ""; for (let i = 0; i < n; i++) d += (i ? " L " : "M ") + X(i).toFixed(1) + " " + Y(s.pct[i]).toFixed(1);
+    paths += `<path class="g-hero-line" d="${d}" style="fill:none;stroke:${s.color}" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`
+      + `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(s.pct[n - 1]).toFixed(1)}" r="2.2" style="fill:${s.color}" vector-effect="non-scaling-stroke"/>`;
+    return s;
+  });
+  svg.innerHTML = `<title>Indexed performance</title>${grid}${paths}`
+    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${HERO_H - HERO_PB}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none" vector-effect="non-scaling-stroke"/>`;
+  const yax = document.getElementById("g-hero-yaxis");
+  if (yax) yax.innerHTML = yt.map((t) => `<span class="g-hero-ylab" style="top:${((Y(t) / HERO_H) * 100).toFixed(2)}%">${esc(heroPctStr(t))}</span>`).join("");
+  const xax = document.getElementById("g-hero-xaxis");
+  if (xax) xax.innerHTML = xi.map((idx, k) => { const pos = k === 0 ? "left:0" : k === xi.length - 1 ? "right:0" : `left:${((Xr(idx) / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`; return `<span class="g-hero-xlab" style="${pos}">${esc(heroFmtDate(ref.pts[idx][0]))}</span>`; }).join("");
+  svg._multi = drawn; svg._ref = ref; svg._pts = null;
+}
+// Single-series readout (name · price · change), keeping the fixed span ids.
+function heroReadHTML(s) {
+  const pts = s.pts, m = s.m, first = pts[0][1], last = pts[pts.length - 1][1];
+  const abs = last - first, pct = first ? (abs / first) * 100 : 0, up = pct >= 0, good = m.fi ? !up : up;
+  const price = esc(heroFmt(m.value != null ? m.value : last, m));
+  const delta = (up ? "▲ " : "▼ ") + (m.fi ? Math.abs(abs).toFixed(2) + " pp" : Math.abs(pct).toFixed(1) + "%");
+  return `<span class="g-hero-name" id="g-hero-name">${esc(m.label)}</span>`
+    + `<span class="g-hero-px" id="g-hero-px">${price}</span>`
+    + `<span class="g-hero-delta ${good ? "up" : "down"}" id="g-hero-delta">${delta}</span>`
+    + `<span class="g-hero-sub" id="g-hero-sub">${HERO_RLBL[_heroRange]} · ${m.fi ? "FRED (daily)" : "Yahoo Finance"}</span>`;
+}
+// Multi-series legend (colour dot · name · indexed %) — identity is the dot, the
+// value stays semantic (up/down). Doubles as the readout while indexed.
+function heroLegendHTML(series) {
+  const items = series.map((s) => {
+    const first = s.pts[0][1], last = s.pts[s.pts.length - 1][1], pct = first ? (last / first - 1) * 100 : 0;
+    return `<span class="g-hero-leg"><i class="g-hero-cdot" style="background:${s.color}"></i>`
+      + `<span class="g-hero-leg-nm">${esc(s.label)}</span>`
+      + `<span class="g-hero-leg-pct ${pct >= 0 ? "up" : "down"}">${esc(heroPctStr(pct))}</span></span>`;
+  }).join("");
+  return `<div class="g-hero-legend"><span class="g-hero-idx" id="g-hero-idx">Indexed · ${HERO_RLBL[_heroRange]}</span>${items}</div>`;
+}
+// Put the legend %s (and the date tag) back to the window-end values after a hover.
+function heroRestoreLegend(svg) {
+  const legs = document.querySelectorAll("#g-hero-read .g-hero-leg-pct");
+  (svg._multi || []).forEach((s, k) => { const v = s.pct[s.pct.length - 1], el = legs[k]; if (el) { el.textContent = heroPctStr(v); el.className = "g-hero-leg-pct " + (v >= 0 ? "up" : "down"); } });
+  const idx = document.getElementById("g-hero-idx"); if (idx) idx.textContent = `Indexed · ${HERO_RLBL[_heroRange]}`;
+}
 function heroHover(e) {
-  const svg = e.currentTarget, pts = svg._pts; if (!pts || !pts.length) return;
+  const svg = e.currentTarget;
   const r = svg.getBoundingClientRect(); if (!r.width) return;
+  const cross = svg.querySelector(".g-hero-cross");
+  // Multi (indexed) mode: crosshair drives the LEGEND values (no floating tooltip).
+  if (svg._multi) {
+    const ref = svg._ref, n = ref.pts.length;
+    let i = Math.round(((e.clientX - r.left) / r.width) * (n - 1)); i = Math.max(0, Math.min(n - 1, i));
+    const px = HERO_PX + (HERO_W - HERO_PX * 2) * i / Math.max(1, n - 1);
+    if (cross) { cross.setAttribute("x1", px); cross.setAttribute("x2", px); cross.style.display = ""; }
+    const legs = document.querySelectorAll("#g-hero-read .g-hero-leg-pct");
+    svg._multi.forEach((s, k) => { const v = s.pct[Math.min(i, s.pct.length - 1)], el = legs[k]; if (el) { el.textContent = heroPctStr(v); el.className = "g-hero-leg-pct " + (v >= 0 ? "up" : "down"); } });
+    const idx = document.getElementById("g-hero-idx");
+    if (idx) { const dt = new Date(ref.pts[i][0]); idx.textContent = `Indexed · ${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`; }
+    return;
+  }
+  const pts = svg._pts; if (!pts || !pts.length) return;
   let i = Math.round(((e.clientX - r.left) / r.width) * (pts.length - 1));
   i = Math.max(0, Math.min(pts.length - 1, i));
   const m = svg._m, px = svg._X(i), py = svg._Y(pts[i][1]);
-  const cross = svg.querySelector(".g-hero-cross"), dot = svg.querySelector(".g-hero-hoverdot");
+  const dot = svg.querySelector(".g-hero-hoverdot");
   if (cross) { cross.setAttribute("x1", px); cross.setAttribute("x2", px); cross.style.display = ""; }
   if (dot) { dot.setAttribute("cx", px); dot.setAttribute("cy", py); dot.style.display = ""; }
   const tip = document.getElementById("g-hero-tip");
@@ -600,25 +707,23 @@ function heroHover(e) {
 }
 function renderHero() {
   if (!_heroData || !_heroData.length) return;
-  const sel = document.getElementById("g-hero-sel"), svg = document.getElementById("g-hero-svg");
+  const sel = document.getElementById("g-hero-sel"), svg = document.getElementById("g-hero-svg"), read = document.getElementById("g-hero-read");
   if (!sel || !svg) return;
-  const cur = _heroData.find((i) => i.key === _heroCur) || _heroData[0];
-  _heroCur = cur.key;
-  sel.innerHTML = _heroData.map((i) => `<button type="button" class="g-hero-chip${i.key === _heroCur ? " is-on" : ""}" data-k="${esc(i.key)}" role="tab" aria-selected="${i.key === _heroCur ? "true" : "false"}">${esc(i.label)}</button>`).join("");
+  const chosen = heroSelected(), selKeys = chosen.map((c) => c.key), multi = chosen.length >= 2;
+  const colorOf = (key) => heroColor(key, chosen.findIndex((c) => c.key === key));
+  // Chips: active = selected; in multi mode each active chip shows its series dot.
+  sel.innerHTML = _heroData.map((it) => {
+    const on = selKeys.includes(it.key);
+    const dot = (on && multi) ? `<i class="g-hero-cdot" style="background:${colorOf(it.key)}"></i>` : "";
+    return `<button type="button" class="g-hero-chip${on ? " is-on" : ""}" data-k="${esc(it.key)}" role="tab" aria-selected="${on ? "true" : "false"}">${dot}${esc(it.label)}</button>`;
+  }).join("");
   const rng = document.getElementById("g-hero-range");
   if (rng) rng.querySelectorAll(".g-hero-rg").forEach((b) => { const on = b.dataset.r === _heroRange; b.classList.toggle("is-on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
-  const pts = heroSlice(cur.history);
-  if (pts.length < 2) return;
-  drawHero(svg, pts, cur);
-  const first = pts[0][1], last = pts[pts.length - 1][1];
-  const abs = last - first, pct = first ? (abs / first) * 100 : 0, up = pct >= 0;
-  const good = cur.fi ? !up : up;                           // yield: falling = green
-  const nameEl = document.getElementById("g-hero-name"), pxEl = document.getElementById("g-hero-px"),
-    dEl = document.getElementById("g-hero-delta"), subEl = document.getElementById("g-hero-sub");
-  if (nameEl) nameEl.textContent = cur.label;
-  if (pxEl) pxEl.textContent = heroFmt(cur.value != null ? cur.value : last, cur);
-  if (dEl) { dEl.textContent = (up ? "▲ " : "▼ ") + (cur.fi ? Math.abs(abs).toFixed(2) + " pp" : Math.abs(pct).toFixed(1) + "%"); dEl.className = "g-hero-delta " + (good ? "up" : "down"); }
-  if (subEl) subEl.textContent = `${HERO_RLBL[_heroRange]} · ${cur.fi ? "FRED (daily)" : "Yahoo Finance"}`;
+  const series = chosen.map((c) => ({ key: c.key, label: c.label, m: c, color: colorOf(c.key), pts: heroSlice(c.history) })).filter((s) => s.pts.length >= 2);
+  if (!series.length) return;
+  svg._multi = null;
+  if (series.length >= 2) { drawHeroMulti(svg, series); if (read) read.innerHTML = heroLegendHTML(series); }
+  else { drawHero(svg, series[0].pts, series[0].m); if (read) read.innerHTML = heroReadHTML(series[0]); }
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every

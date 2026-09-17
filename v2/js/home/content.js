@@ -64,7 +64,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
               <button type="button" class="g-hero-rg" data-r="YTD" role="tab">YTD</button>
             </div>
           </div>
-          <div class="g-hero-read">
+          <div class="g-hero-read" id="g-hero-read">
             <span class="g-hero-name" id="g-hero-name">—</span>
             <span class="g-hero-px" id="g-hero-px">—</span>
             <span class="g-hero-delta" id="g-hero-delta"></span>

@@ -84,19 +84,50 @@ const b = await launchChromium();
   check(y.d !== d1m, "hero: changing the range redraws the chart (different path)");
   check(/'\d\d/.test(y.xl), `hero: the 1Y time axis switches to month-'YY ticks (${y.xl})`);
 
-  // Instrument switch: pick US 10Y → readout follows, yield shows a pp change + FRED source.
-  await pg.evaluate(() => [...document.querySelectorAll("#g-hero-sel .g-hero-chip")].find((c) => c.dataset.k === "ust10").click());
+  // --- Multi-select: adding a 2nd security switches to the INDEXED overlay ------
+  // A single price axis can't hold S&P and the 10Y together, so ≥2 series are
+  // rebased to % from the window start onto one shared % axis (dataviz rule).
+  await pg.evaluate(() => document.querySelector('#g-hero-sel .g-hero-chip[data-k="ndx"]').click());
+  await pg.waitForTimeout(150);
+  const mm = await pg.evaluate(() => ({
+    onCount: document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on").length,
+    lines: document.querySelectorAll("#g-hero-svg .g-hero-line").length,
+    legs: [...document.querySelectorAll("#g-hero-read .g-hero-leg-nm")].map((e) => e.textContent.trim()),
+    dots: document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on .g-hero-cdot").length,
+    yPct: [...document.querySelectorAll("#g-hero-yaxis .g-hero-ylab")].some((e) => /%/.test(e.textContent)),
+    sub: (document.getElementById("g-hero-idx") || {}).textContent || "",
+  }));
+  checkEq(mm.onCount, 2, "hero(multi): two securities are selected at once");
+  check(mm.lines >= 2, `hero(multi): a line is drawn per selected security (${mm.lines})`);
+  check(mm.legs.join(",") === "S&P 500,Nasdaq", `hero(multi): the legend names both series (${mm.legs.join(", ")})`);
+  check(mm.dots === 2, "hero(multi): each active chip carries its series colour dot");
+  check(mm.yPct, "hero(multi): the value axis switches to indexed % ticks");
+  check(/Indexed/.test(mm.sub), `hero(multi): the readout notes it is indexed (${mm.sub})`);
+
+  // All six at once.
+  await pg.evaluate(() => ["ust10", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-chip[data-k="${k}"]`).click()));
+  await pg.waitForTimeout(150);
+  checkEq(await pg.evaluate(() => document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on").length), 6, "hero(multi): all six can be selected together");
+  check(await pg.evaluate(() => document.querySelectorAll("#g-hero-svg .g-hero-line").length) >= 6, "hero(multi): all six lines draw");
+
+  // Pare back to only the 10Y → the single price view returns (pp change, FRED).
+  await pg.evaluate(() => ["spx", "ndx", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-chip[data-k="${k}"]`).click()));
   await pg.waitForTimeout(150);
   const fi = await pg.evaluate(() => ({
+    on: document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on").length,
     name: (document.getElementById("g-hero-name") || {}).textContent || "",
     delta: (document.getElementById("g-hero-delta") || {}).textContent || "",
     sub: (document.getElementById("g-hero-sub") || {}).textContent || "",
     px: (document.getElementById("g-hero-px") || {}).textContent || "",
   }));
-  checkEq(fi.name, "US 10Y", "hero: switching instrument updates the readout name");
+  checkEq(fi.on, 1, "hero: paring back to one security returns to the single price view");
+  checkEq(fi.name, "US 10Y", "hero: the single readout names the remaining security");
   check(/pp$/.test(fi.delta.trim()), `hero: the 10Y yield reports a pp change, not a % (${fi.delta})`);
   check(/%$/.test(fi.px.trim()), `hero: the 10Y value carries its % unit (${fi.px})`);
   check(/FRED/.test(fi.sub), `hero: the 10Y sub-label cites FRED (${fi.sub})`);
+  // Restore a single default so the geometry assertions below read a clean chart.
+  await pg.evaluate(() => { const s = document.querySelector('#g-hero-sel .g-hero-chip[data-k="spx"]'); s.click(); document.querySelector('#g-hero-sel .g-hero-chip[data-k="ust10"]').click(); });
+  await pg.waitForTimeout(150);
 
   // Option C geometry: the band spans the two MIDDLE columns (news + manager),
   // sits to the right of the left rail and left of the X rail, and above the wires.

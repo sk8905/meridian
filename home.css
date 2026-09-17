@@ -841,6 +841,17 @@
     .tui .g-hero-delta.up{ color:var(--t-up); } .tui .g-hero-delta.down{ color:var(--t-down); }
     .tui .g-hero-sub{ margin-left:auto; font-size:10px; color:var(--t-mut); padding-bottom:3px; text-align:right;
       white-space:nowrap; flex:0 1 auto; overflow:hidden; text-overflow:ellipsis; }
+    /* Multi-select overlay: a categorical colour dot carries series identity (on
+       the active chips and in the legend); the legend doubles as the readout. */
+    .tui .g-hero-cdot{ display:inline-block; width:7px; height:7px; border-radius:50%; flex:0 0 auto;
+      margin-right:5px; vertical-align:baseline; }
+    .tui .g-hero-chip .g-hero-cdot{ margin-right:4px; }
+    .tui .g-hero-legend{ display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 14px; min-width:0; flex:1 1 auto; padding-bottom:2px; }
+    .tui .g-hero-idx{ font-size:10px; color:var(--t-mut); white-space:nowrap; }
+    .tui .g-hero-leg{ display:inline-flex; align-items:baseline; gap:0; white-space:nowrap; }
+    .tui .g-hero-leg-nm{ font-size:11px; font-weight:600; color:var(--t-dim); }
+    .tui .g-hero-leg-pct{ font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; margin-left:6px; }
+    .tui .g-hero-leg-pct.up{ color:var(--t-up); } .tui .g-hero-leg-pct.down{ color:var(--t-down); }
     .tui .g-hero-plot{ display:grid; grid-template-columns:minmax(0,1fr) 52px; grid-template-rows:auto auto;
       column-gap:5px; padding:2px 6px 5px; }
     .tui .g-hero-canvas{ position:relative; grid-column:1; grid-row:1; }
@@ -870,7 +881,7 @@
        (≥1201px) keeps them side by side to save the height-boxed terminal. */
     @media (max-width:1200px){
       .tui .g-hero-top{ flex-direction:column; align-items:stretch; gap:3px; }
-      .tui .g-hero-range{ margin-left:0; }
+      .tui .g-hero-range{ margin-left:0; justify-content:flex-end; }
     }
     /* News / Watchlist swap chips — phones AND tablets (shown in the
        max-width:1200px block); only on a wide desktop (≥1201px) are both wire
