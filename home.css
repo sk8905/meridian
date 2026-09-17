@@ -829,7 +829,7 @@
     [data-theme="dark"] .tui .g-hero-chip.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
     .tui .g-hero-range{ margin-left:auto; display:flex; gap:2px; flex:0 0 auto; }
     .tui .g-hero-rg{ font:inherit; font-size:10px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
-      color:var(--t-faint); background:transparent; border:1px solid var(--t-grid2); padding:1px 7px; cursor:pointer; }
+      color:var(--t-faint); background:transparent; border:0; padding:2px 7px; cursor:pointer; }
     .tui .g-hero-rg:hover{ color:var(--t-dim); }
     .tui .g-hero-rg.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
     [data-theme="dark"] .tui .g-hero-rg.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
