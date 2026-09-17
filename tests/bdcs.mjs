@@ -60,15 +60,22 @@ const exp = await pg.evaluate(() => {
   const row = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")].find((x) => /Ares Capital/.test(x.textContent));
   row.click();
   const d = row.nextElementSibling;
+  const fl = d.querySelector(".tbdc-facts");
+  const cols = fl ? getComputedStyle(fl).gridTemplateColumns.trim().split(/\s+/).length : 0;
   return {
     open: d && d.classList.contains("tbdc-exp") && !d.hidden,
-    facts: (d.querySelector(".tbdc-facts") || {}).textContent || "",
+    facts: (fl || {}).textContent || "",
+    cols,
+    // NAV/share is stacked BENEATH non-accruals (single column), not beside it.
+    navAfterNa: fl ? fl.textContent.indexOf("Non-accruals") < fl.textContent.indexOf("NAV / share") : false,
     srcs: d.querySelectorAll(".tbdc-srcs a[href^='https://www.sec.gov']").length,
     holdBtn: !!d.querySelector(".tbdc-hold-btn"),
   };
 });
 check(exp.open, "clicking a BDC row expands its detail");
 check(/Total assets/.test(exp.facts) && /Non-accruals/.test(exp.facts) && /fair value/.test(exp.facts), "the detail lists total assets + non-accruals (at fair value / cost)");
+check(exp.cols === 1, `the facts stack in a single column (${exp.cols})`);
+check(exp.navAfterNa, "NAV / share sits beneath Non-accruals (stacked)");
 check(exp.srcs > 0, `the detail links its SEC source(s) (${exp.srcs})`);
 check(exp.holdBtn, "a listed BDC offers a live SEC holdings fetch");
 
