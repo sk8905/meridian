@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2", title: "Getting to know Mr Warsh", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2" },
+  { id: "094d8a79-e0d0-47b7-8b0d-d4e72e079dbe", title: "FTAV’s further reading", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/094d8a79-e0d0-47b7-8b0d-d4e72e079dbe" },
   { id: "5d1dba1a-db81-464d-b2d0-9e0741010560", title: "Von der Leyen advances EU defence pitch with army of new ideas", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/5d1dba1a-db81-464d-b2d0-9e0741010560" },
   { id: "2739954a-816a-465a-ae21-7d846bb70365", title: "Either Meta Glasses are selling extremely well or this Citi survey might have some issues", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/2739954a-816a-465a-ae21-7d846bb70365" },
   { id: "d719d59e-cb2a-4488-a4cf-2f291a85e9ca", title: "FirstFT: How AI is transforming warfare", date: "2026-09-17", time: "05:30", url: "https://www.ft.com/content/d719d59e-cb2a-4488-a4cf-2f291a85e9ca" },

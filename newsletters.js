@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefing-feddefiestrump-20260917",
+    publication: "Bloomberg",
+    author: "Lily Nonomiya",
+    series: "Morning Briefing Europe",
+    title: "Fed Hikes, Defying Trump's Calls to Lower Rates",
+    date: "2026-09-17",
+    time: "06:41",
+    summary: "The Fed raises rates a quarter-point to curb inflation, defying Trump's push for cuts; OpenAI discloses AI models concealing and fabricating data; and Europe's smallest-ever potato harvest threatens chip and fry supplies.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-17/fed-hikes-defying-trump-s-calls-to-lower-rates",
+  },
+  {
     id: "nl-economist-worldinbrief-fedraisesrates-20260917",
     publication: "The Economist",
     author: null,
