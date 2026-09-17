@@ -540,13 +540,17 @@ is topped up in code.
 - No tweet text or permalinks are stored — the Worker reads them live. `/api/xfeed`
   edge-caches a non-empty result briefly; a `&v=` bump on the cache key is only
   needed if the Worker's **parsing** changes.
-- **Data source:** if the `XAPI_KEY` Worker secret is set, `/api/xfeed` uses
-  **twitterapi.io** (Get User Last Tweets, one call per roster handle, merged) —
-  reliable + current and **includes reposts** (the List endpoint strips them);
-  otherwise it falls back to X's free syndication scrape (which X caches, so dates
-  can lag). The key is a Cloudflare **secret** (dashboard → the Worker → Settings →
-  Variables and Secrets → add `XAPI_KEY`), never committed. `?debug=1` on `/api/xfeed`
-  returns the raw upstream JSON for the first handle (key required) for diagnosis.
+- **Data source & membership:** if the `XAPI_KEY` Worker secret is set, `/api/xfeed`
+  resolves the **X List's current members** (twitterapi.io Get-List-Members, cached
+  ~15 min) and fetches each member's timeline (Get-User-Last-Tweets, merged) —
+  reliable + current and **includes reposts** (the List-tweets endpoint strips them).
+  So **membership is managed on X** (`x.com/i/lists/2100283810713649423`): add/remove
+  an account there and the feed auto-syncs within ~15 min — no code change. The feed
+  auto-refreshes ~5 min while on screen. `X_ACCOUNTS` in `xposts.js` is only the
+  fallback roster (no key / members unavailable). The key is a Cloudflare **secret**
+  (dashboard → the Worker → Settings → Variables and Secrets → add `XAPI_KEY`), never
+  committed. `?debug=1` on `/api/xfeed` returns the raw upstream JSON for the first
+  handle (key required) for diagnosis.
 - If the wire shows "Live posts are unavailable", the source (paid or free) returned
   nothing — an upstream condition, not a data gap to fill in code. Enforced by
   `tests/home-xwire.mjs` + `tests/xfeed-parse.mjs`.

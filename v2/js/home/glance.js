@@ -308,7 +308,7 @@ function initXWire() {
   // Re-entry (the X chip tapped again): refresh in place. renderXWire keeps the
   // existing cards on screen while it re-fetches, so there is never a blank.
   if (_xwireBooted) { renderXWire(host); return; }
-  const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); };
+  const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); startXWireAuto(host); };
   // Boot as soon as the panel is actually on screen — the always-visible desktop
   // rail, or the mobile X-wire rail the moment its chip reveals it. A hidden rail
   // (display:none) has no offsetParent, so it stays lazy until shown.
@@ -320,6 +320,19 @@ function initXWire() {
     }, { rootMargin: "600px 0px" });
     io.observe(host);
   } else { boot(); }
+}
+// Keep the feed live while it's on screen: re-fetch every 5 minutes, but ONLY when
+// the panel is actually visible (offsetParent) and the tab is on Home — so it never
+// burns API calls in the background. renderXWire keeps the cards during the refresh.
+let _xwireAuto = 0;
+function startXWireAuto(host) {
+  if (_xwireAuto) return;
+  _xwireAuto = setInterval(() => {
+    if (__ROOT.dataset.v2tab !== __KEY) return;                 // Home not active
+    if (!host.isConnected || host.offsetParent === null) return; // X wire not visible
+    if (document.hidden) return;                                 // app backgrounded
+    renderXWire(host);
+  }, 5 * 60 * 1000);
 }
 // Relative "29m / 3h / 2d", falling back to a short date.
 function fmtXWhen(s) {

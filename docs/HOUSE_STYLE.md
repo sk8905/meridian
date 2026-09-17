@@ -321,18 +321,23 @@ notification badge red (`#ef4444`).
   List/timeline widgets for logged-out webviews** (the iPhone PWA), so an in-app
   embed cannot use them — the Worker reads the public feed with no login and no API
   key, which also sidesteps ITP and the List owner's account privacy. The feed is
-  fetched **lazily** (only when the panel nears view); every card is a **real post**
-  (no tweet text stored or invented — R7) linking its permalink, with a persistent
-  **"Open list on X"** link and a clear message when X's server read is unavailable.
-  The roster of handles is `X_ACCOUNTS` in `v2/js/home/xposts.js` (`X_LIST` keeps the
-  List link/id for the "Open list on X" escape hatch). `/api/xfeed` edge-caches a
-  non-empty result briefly (keeps our syndication hits rare) and never pins an empty
-  one. **Data source:** when the `XAPI_KEY` Worker secret is set, `/api/xfeed` pulls
-  each roster account's own timeline live from **twitterapi.io** (its
-  Get-User-Last-Tweets endpoint, merged across the roster — this **includes reposts**,
-  which the List endpoint strips) and orders newest-first; **reposts** render the
-  original post with a "reposted by …" line. With **no key** it falls back to X's
-  free syndication scrape, which X caches/degrades (so dates can lag). Either way the
+  fetched **lazily** (only when the panel nears view) and **auto-refreshes every ~5
+  min while it is on screen** (kept-alive, so the cards never blank — see the
+  no-blank persistence below); every card is a **real post** (no tweet text stored or
+  invented — R7) linking its permalink, with a persistent **"Open list on X"** link
+  and a clear message when X's server read is unavailable. **Membership auto-syncs
+  from the X List:** with a key set, the Worker resolves the List's **current
+  members** (twitterapi.io Get-List-Members, cached ~15 min) and fetches those — so
+  adding/removing an account on the List (`x.com/i/lists/…`) flows into the feed with
+  no code change. `X_ACCOUNTS` in `v2/js/home/xposts.js` is the **fallback roster**
+  (used when membership can't be read or no key); `X_LIST` holds the List id/link.
+  `/api/xfeed` edge-caches a non-empty result ~5 min and never pins an empty one.
+  **Data source:** when the `XAPI_KEY` Worker secret is set, `/api/xfeed` pulls each
+  member's own timeline live from **twitterapi.io** (Get-User-Last-Tweets, merged —
+  this **includes reposts**, which the List-tweets endpoint strips) and orders
+  newest-first; **reposts** render the original post with a "reposted by …" line. With
+  **no key** it falls back to X's free syndication scrape, which X caches/degrades (so
+  dates can lag). Either way the
   app just renders the cards. (`?debug=1` returns the raw upstream JSON for one
   handle — key required — for diagnosing shape changes.) Enforced by `tests/home-xwire.mjs` (render) and `tests/xfeed-parse.mjs`
   (both Worker normalisers — free syndication + twitterapi.io shapes).

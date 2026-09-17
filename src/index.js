@@ -3536,6 +3536,40 @@ async function fetchXApiUsers(handles, apiKey) {
   }));
   return all;
 }
+// Resolve a public X List's CURRENT members (their @handles) via twitterapi.io, so
+// adding/removing an account on the List auto-syncs the feed with no code change.
+// Membership changes rarely, so it is cached ~15 min under its own key (keeps the
+// list-members call count tiny); a page (20) at a time, a few pages.
+async function fetchXApiListMembers(listId, apiKey, request, ctx) {
+  const cache = caches.default;
+  const memKey = new Request(new URL(`/api/xfeed-members?l=${encodeURIComponent(listId)}&v=1`, request.url).toString());
+  const hit = await cache.match(memKey);
+  if (hit) { try { const j = await hit.json(); if (Array.isArray(j)) return j; } catch { /* refetch */ } }
+  const handles = [];
+  const seen = new Set();
+  let cursor = "";
+  for (let page = 0; page < 4; page++) {
+    const u = `https://api.twitterapi.io/twitter/list/members?listId=${encodeURIComponent(listId)}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
+    let r;
+    try { r = await fetch(u, { headers: { "X-API-Key": apiKey, "accept": "application/json" } }); } catch { break; }
+    if (!r || !r.ok) break;
+    let d; try { d = await r.json(); } catch { break; }
+    const arr = (d && (d.members || d.users || (d.data && (d.data.members || d.data.users)))) || [];
+    if (!Array.isArray(arr) || !arr.length) break;
+    for (const m of arr) {
+      const h = m && (m.userName || m.screen_name || m.username);
+      if (h && /^[A-Za-z0-9_]{1,15}$/.test(h) && !seen.has(h.toLowerCase())) { seen.add(h.toLowerCase()); handles.push(h); }
+    }
+    cursor = (d && (d.next_cursor || d.cursor)) || "";
+    if (!cursor || (d && d.has_next_page === false)) break;
+  }
+  if (handles.length) {
+    const resp = new Response(JSON.stringify(handles), { headers: { "content-type": "application/json", "cache-control": "public, max-age=900" } });
+    if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(memKey, resp.clone()));
+    return handles;
+  }
+  return [];
+}
 
 async function handleXFeed(request, env, ctx) {
   const url = new URL(request.url);
@@ -3555,17 +3589,24 @@ async function handleXFeed(request, env, ctx) {
       return new Response(await dr.text(), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
     } catch (e) { return json({ error: "debug fetch failed", message: String((e && e.message) || e) }); }
   }
-  const mode = (apiKey && handles.length) ? "api" : "syn";
+  const mode = (apiKey && (handles.length || listId)) ? "api" : "syn";
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + mode;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=4`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=5`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   const all = [];
   // Preferred: the paid twitterapi.io per-account timelines (include reposts).
   if (mode === "api") {
-    try { const api = await fetchXApiUsers(handles, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
+    // Resolve the roster from the X LIST's live membership when a listId is given,
+    // so adding/removing an account on the List auto-syncs the feed. Fall back to
+    // the client-passed roster if the members lookup is empty/unavailable.
+    let roster = handles;
+    if (listId) {
+      try { const mem = await fetchXApiListMembers(listId, apiKey, request, ctx); if (mem.length) roster = mem.slice(0, 30); } catch { /* keep client roster */ }
+    }
+    try { const api = await fetchXApiUsers(roster, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
   }
   // Free fallback (no key, or the paid call came back empty): X syndication per handle.
   if (!all.length && handles.length) {

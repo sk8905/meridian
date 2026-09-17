@@ -27,7 +27,9 @@ async function deepLink(url, view, min, label) {
     return { mgr: c.managers[0].id, item: l.items[0].id };
   });
   await ctx.close();
-  await deepLink(`/v2/credit/#/manager/${ids.mgr}`, "credit", 800, "credit #/manager");
+  // 400 (not a tight 800): managers[0] is data-driven (the daily routine reorders
+  // the roster), so assert a real, non-blank render rather than a magic length.
+  await deepLink(`/v2/credit/#/manager/${ids.mgr}`, "credit", 400, "credit #/manager");
   await deepLink(`/v2/legal/#/item/${ids.item}`, "legal", 400, "legal #/item");
   await deepLink(`/v2/macro/#/policy`, "macro", 400, "macro #/policy");
   await deepLink(`/v2/`, "home", 2000, "home");
