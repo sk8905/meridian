@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-firstclose-aiinfraallocations-20260917",
+    publication: "Preqin",
+    author: null,
+    series: "First Close",
+    title: "Are investors upping allocations to meet the infrastructure challenge?",
+    date: "2026-09-17",
+    time: "12:16",
+    summary: "Institutional infrastructure allocations rose from 1.4% to 2.4% of AUM since 2021 as investors chase financing opportunities in renewables and AI power demand.",
+    url: "https://go.preqin.com/webmail/909852/2173885793/a37b7380374cf2f3d0f926883036705c145c47a1b3fb9947952755ee7607cff9",
+  },
+  {
     id: "nl-bbg-econdaily-goodnewsfedhike-20260917",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "05:00",
     summary: "Bond yields still have higher to rise.",
     url: "https://www.bloomberg.com/opinion/newsletters/2026-09-15/markets-blinked-at-5-yields-they-ll-be-back",
-  },
-  {
-    id: "nl-newyorker-weekly-horsemanviolentrevenge-20260915",
-    publication: "The New Yorker",
-    author: "Ian Parker",
-    series: "The Weekly",
-    title: "A Horseman's Violent Revenge",
-    date: "2026-09-15",
-    time: "00:41",
-    summary: "A prominent dressage trainer shot a belligerent student—and now maintains that he's the real victim.",
-    url: "https://www.newyorker.com/magazine/2026/09/21/the-violent-feud-that-shocked-the-horse-world",
   },
 ];

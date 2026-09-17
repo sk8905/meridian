@@ -20,6 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ef54585a-4d2f-4538-b185-9bff75ef2f5e", title: "Turkish authorities rush to stem fallout from stock-market scandal", date: "2026-09-17", time: "12:59", url: "https://www.ft.com/content/ef54585a-4d2f-4538-b185-9bff75ef2f5e" },
+  { id: "f270a99f-3abc-4a78-a2b3-8083609c5ef1", title: "Mega-donors obscure the wider threats to British democracy", date: "2026-09-17", time: "12:55", url: "https://www.ft.com/content/f270a99f-3abc-4a78-a2b3-8083609c5ef1" },
+  { id: "07f8c0d7-c134-4f83-a910-029756616ee4", title: "Is Britain’s migration debate asking the wrong question?", date: "2026-09-17", time: "12:54", url: "https://www.ft.com/content/07f8c0d7-c134-4f83-a910-029756616ee4" },
+  { id: "ee1b5a66-24f2-49b8-b26f-895644ebe3f1", title: "Revolut planning dual listing in New York and London, says Storonsky", date: "2026-09-17", time: "12:34", url: "https://www.ft.com/content/ee1b5a66-24f2-49b8-b26f-895644ebe3f1" },
+  { id: "72e4a91f-5d56-4971-8083-f7ea919c2a29", title: "UK lenders raise mortgage rates as inflation fears intensify", date: "2026-09-17", time: "12:33", url: "https://www.ft.com/content/72e4a91f-5d56-4971-8083-f7ea919c2a29" },
+  { id: "a9e7a625-9dab-4064-bf12-0498f2256792", title: "European carmakers warn EU-UK tariffs could be ‘catastrophic’", date: "2026-09-17", time: "12:33", url: "https://www.ft.com/content/a9e7a625-9dab-4064-bf12-0498f2256792" },
+  { id: "c947c940-b703-4a91-9397-bdb2347d7922", title: "What a maths fracas tells us about AI and innovation", date: "2026-09-17", time: "12:30", url: "https://www.ft.com/content/c947c940-b703-4a91-9397-bdb2347d7922" },
+  { id: "cc14705c-22a9-431c-a98d-b9577be8aab5", title: "Bank of England holds rates steady but hints at tightening ahead", date: "2026-09-17", time: "12:29", url: "https://www.ft.com/content/cc14705c-22a9-431c-a98d-b9577be8aab5" },
+  { id: "f6a3f875-ddfa-4fd7-8232-cb5a3699a5df", title: "EU alliance to make Canada ‘better partner for the US’, says Mark Carney", date: "2026-09-17", time: "12:02", url: "https://www.ft.com/content/f6a3f875-ddfa-4fd7-8232-cb5a3699a5df" },
   { id: "44bc4245-f235-4c1d-af93-deb5810f635a", title: "Bank of England holds interest rates at 3.75%", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44bc4245-f235-4c1d-af93-deb5810f635a" },
   { id: "24d417c5-4bd4-4611-a04f-489a09450006", title: "Lax Deutsche Bank controls enabled banker to embezzle €600,000, court finds", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/24d417c5-4bd4-4611-a04f-489a09450006" },
   { id: "44702d5a-b4b9-4aa8-88cf-5436f3d24311", title: "There is no ‘one size fits all’ solution for the energy transition", date: "2026-09-17", time: "12:00", url: "https://www.ft.com/content/44702d5a-b4b9-4aa8-88cf-5436f3d24311" },
@@ -51,13 +60,4 @@ export const FT_ITEMS = [
   { id: "f5325951-7049-4d3a-97e4-cbe34f9058d8", title: "The Apple trust premium in the age of AI", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/f5325951-7049-4d3a-97e4-cbe34f9058d8" },
   { id: "73b7c439-8905-4509-bc09-1a8965146da2", title: "St James’s Place looks smartly attired for the AI wealth party", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/73b7c439-8905-4509-bc09-1a8965146da2" },
   { id: "23d35821-2d3f-4e55-8ada-99bcbacdc066", title: "Do inflation expectations matter in a social-media echo chamber?", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/23d35821-2d3f-4e55-8ada-99bcbacdc066" },
-  { id: "25c69be0-d2f5-4341-bc7f-f671c01ddb39", title: "Nick Candy-linked company won mining rights in Nicaragua days after he met dictator’s son", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/25c69be0-d2f5-4341-bc7f-f671c01ddb39" },
-  { id: "d0009033-b45a-4e88-86a0-45bbdfc9ac8c", title: "Designer Kim Jones is Aman for all seasons", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/d0009033-b45a-4e88-86a0-45bbdfc9ac8c" },
-  { id: "7091cca7-4035-44b2-a0fd-d0b8b1fff997", title: "‘Our first trial batch got contaminated. We wasted thousands’ — Dash Water co-founder", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/7091cca7-4035-44b2-a0fd-d0b8b1fff997" },
-  { id: "5f9d24ee-f51c-47d1-9a39-d1b28dfaac43", title: "Home renovation on a tight budget? Try dragons, rocks and silk offcuts ", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/5f9d24ee-f51c-47d1-9a39-d1b28dfaac43" },
-  { id: "d95a04c2-6d6a-4622-a3db-2abf9e4680a4", title: "A seafood odyssey in Canada’s maritime east", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/d95a04c2-6d6a-4622-a3db-2abf9e4680a4" },
-  { id: "ca551e46-8ced-4e63-ace1-bdf20caedce7", title: "Barclays hit by staff backlash over return-to-office rules", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/ca551e46-8ced-4e63-ace1-bdf20caedce7" },
-  { id: "686429c0-daf3-42a5-9b7c-7ff06eb291ef", title: "The era of AI warfare has arrived", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/686429c0-daf3-42a5-9b7c-7ff06eb291ef" },
-  { id: "c7d5e68a-1e79-478f-83fe-1307a65aaa96", title: "Exclusive: a first look at The Horses, London’s most keenly awaited new pub", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/c7d5e68a-1e79-478f-83fe-1307a65aaa96" },
-  { id: "1dbc97ca-0277-4599-abe4-57ac82b85b49", title: "Partner to The Ocean Race pushes contest to rewrite rules", date: "2026-09-17", time: "05:00", url: "https://www.ft.com/content/1dbc97ca-0277-4599-abe4-57ac82b85b49" },
 ];
