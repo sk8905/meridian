@@ -867,8 +867,11 @@
        .g-feed-row). Shown on the phone/tablet Chart pane (there's room below the
        chart); on the ≥1201px terminal the full News column already exists, and the
        hero is a height-boxed band, so it's hidden there. */
-    .tui .g-hero-news{ display:none; border-top:1px solid var(--t-grid2); margin-top:2px; padding:0 12px 10px;
+    .tui .g-hero-news{ display:none; border-top:1px solid var(--t-grid2); margin-top:2px; padding:0 8px 10px;
       container:feedwrap / inline-size; }   /* so .g-feed-row stacks (news-wire mobile layout) when narrow */
+    /* Use the full width: a single small gutter, not the row's 12px on top of the
+       container's — headlines run edge-to-edge like the chart above. */
+    .tui .g-hero-news .g-feed-row{ padding-left:2px; padding-right:2px; }
     .tui .g-hero-news-head{ font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
       color:var(--t-dim); padding:8px 2px 4px; }
     .tui .g-hero-news-empty{ padding:10px 2px; color:var(--t-mut); font-size:11.5px; }
