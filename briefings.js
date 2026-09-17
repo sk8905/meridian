@@ -32,7 +32,7 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-17",
-      time: "05:19 BST",
+      time: "08:19 BST",
       lede: "The Fed hiked 25bp to 3.75&ndash;4.00% Wednesday and Goldman Sachs now sees a second hike in October, Asian markets steadied overnight as oil eased toward $102/bbl, and sterling sank below $1.3400 ahead of the Bank of England's own decision at noon.",
       bullets: [
         { html: "<strong>Macro &mdash; Goldman Sachs abandoned its 'one-and-done' call overnight</strong>, now expecting a second 25bp Fed hike in October after Wednesday's dot plot showed a 16-to-2 majority for at least one more 2026 move.", src: "https://www.brecorder.com/news/40439917/goldman-sachs-now-sees-fed-hiking-again-in-october", srcName: "Business Recorder (Reuters)" },
