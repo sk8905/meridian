@@ -2,15 +2,20 @@
 // News / Watchlist chip pair at the top swaps the visible wire — the aggregated
 // news feed vs. the watchlist (manager) wire. On desktop both columns show at
 // once and the chips are hidden.
-import { serve, launchChromium, open, PHONE, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
-const srv = await serve();
+// A minimal hero stub so the Chart pane (the default) has its ticker row.
+const HERO = { asOf: "2026-09-17", instruments: ["spx", "ndx", "ust10", "oil", "gold", "btc"].map((k, i) => ({
+  key: k, label: k.toUpperCase(), unit: "", pre: "", dp: 2, fi: false, value: 100 + i,
+  history: Array.from({ length: 30 }, (_, j) => [Date.now() - (29 - j) * 864e5, 100 + i + j * 0.1]),
+})) };
+const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)] });
 const b = await launchChromium();
 
-// --- Phone: chips visible; News is default; Watchlist swaps the wire ---------
+// --- Phone: chips visible; Chart is default (first chip); chips swap the pane --
 {
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
-  await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
+  await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
   await pg.waitForTimeout(300);
 
   const vis = (sel) => pg.evaluate((s) => {
@@ -24,18 +29,21 @@ const b = await launchChromium();
     const t = document.querySelector(".g-wiretabs");
     return t && getComputedStyle(t).display !== "none";
   });
-  check(chipsShown, "phone: the News / Watchlist chips are shown");
+  check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "News · Managers · Chart · X Feed", `phone: chips read 'News', 'Managers', 'Chart' and 'X Feed' in order (${labels.join(", ")})`);
+  check(labels.join(" · ") === "Chart · News · Managers · X Feed", `phone: chips read 'Chart', 'News', 'Managers' and 'X Feed' in order (${labels.join(", ")})`);
 
-  // Default: News on, feed visible, manager + chart + X panes hidden.
-  check(await vis(".g-feed-wrap"), "phone: news feed is visible by default");
-  check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (News selected)");
-  check(!(await vis(".g-hero")), "phone: the chart is hidden by default (News selected)");
-  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (News selected)");
-  const newsOn = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on"));
-  check(newsOn, "phone: the News chip is active by default");
+  // Default: Chart on (the first chip), the chart pane visible, the rest hidden.
+  check(await vis(".g-hero"), "phone: the chart pane is visible by default");
+  check(!(await vis(".g-feed-wrap")), "phone: the news feed is hidden by default (Chart selected)");
+  check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (Chart selected)");
+  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (Chart selected)");
+  const chartDefault = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').classList.contains("is-on"));
+  check(chartDefault, "phone: the Chart chip is active by default");
+  // All six tickers are plotted by default.
+  const defaultSel = await pg.evaluate(() => document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on").length);
+  checkEq(defaultSel, 6, "phone: all six tickers are selected on the chart by default");
 
   // Tap Watchlist → manager wire visible, feed hidden.
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="watch"]').click());
@@ -150,7 +158,9 @@ const b = await launchChromium();
   const ctx = await b.newContext({ viewport: { width: 1024, height: 768 } });
   const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
-  await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
+  await pg.waitForSelector("#g-feed .g-feed-row", { state: "attached", timeout: 8000 });
+  // Chart is the default pane; tap News so the feed is the visible single column here.
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
   await pg.waitForTimeout(300);
   const t = await pg.evaluate(() => {
     const tabs = document.querySelector(".g-wiretabs");

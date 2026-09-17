@@ -193,10 +193,11 @@ function initMobileWireTabs() {
     if (k === "x") initXWire();
     if (k === "chart") initHero();
   };
-  // F8 — restore the last-used wire tab (News · Watchlist · Chart · X) on load.
-  // News stays the default: only a saved non-News pane is restored.
+  // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane,
+  // which is the Chart (the first chip). Always call setWire so the default
+  // Chart pane is applied (the CSS default with no wire class shows the feed).
   const _wp = _homePrefs().wire;
-  if (_wp === "watch" || _wp === "x" || _wp === "chart") setWire(_wp);
+  setWire(["news", "watch", "chart", "x"].includes(_wp) ? _wp : "chart");
   tabs.addEventListener("click", (e) => {
     const btn = e.target.closest(".g-wiretab");
     if (!btn) return;
@@ -459,7 +460,7 @@ function initHero() {
   const boot = () => {
     if (_heroBooted) return; _heroBooted = true;
     const cached = heroReadCache();
-    if (cached && cached.length) { _heroData = cached; if (!_heroSel.length) _heroSel = [cached[0].key]; renderHero(); }
+    if (cached && cached.length) { _heroData = cached; if (!_heroSel.length) _heroSel = cached.map((c) => c.key); renderHero(); }
     wireHeroControls();
     fetchHero();
     renderHeroNews();
@@ -480,7 +481,7 @@ function fetchHero() {
       if (!insts.length) return;                            // keep whatever is showing
       _heroData = insts;
       _heroSel = _heroSel.filter((k) => insts.some((i) => i.key === k));   // prune stale keys
-      if (!_heroSel.length) _heroSel = [insts[0].key];
+      if (!_heroSel.length) _heroSel = insts.map((i) => i.key);            // default: all tickers
       heroWriteCache(insts);
       renderHero();
     })

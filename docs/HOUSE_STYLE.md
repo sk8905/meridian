@@ -21,7 +21,7 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   5-column wire terminal (markets · news wire · manager wire · X wire · macro)
   needs real width for its two flexible middle columns, so it only engages at
   ≥1201px; from 761–1200px (iPad mini/Air/Pro-11 landscape) Home uses the
-  single-column chip-swap layout instead** (News · Managers · Chart · X Feed), which
+  single-column chip-swap layout instead** (Chart · News · Managers · X Feed), which
   is what the phone uses — otherwise the two middle wires crush to ~50px and the
   headlines wrap one word per line. The other desks (Macro/Credit/Legal) are
   single-column and keep the ≥761px terminal.
@@ -318,7 +318,7 @@ notification badge red (`#ef4444`).
 
 - **R26 — X wire (Home).** The Home terminal carries an **X wire** in its **own
   rail, between the manager wire and the macro rail**. On **phones** it is the
-  **wire chip (News · Managers · Chart · X Feed)** — swapping onto the single-column
+  **wire chip (Chart · News · Managers · X Feed)** — swapping onto the single-column
   workspace like the Managers wire (it is content, not the markets/rates
   data that phones fold into the shared Markets panel). It is a **single,
   always-current, merged & newest-first** feed of the roster's **public** accounts,
@@ -353,9 +353,10 @@ notification badge red (`#ef4444`).
   chart band** that, on desktop, **spans the two middle columns (news + manager
   wire)** and sits **above** them (both wires start beneath it); the left rail and
   both right rails stay full-height (CSS grid `grid-template-areas`). On **phones**
-  it is the **Chart wire chip — the tab strip reads News · Managers · Chart · X Feed, in
-  that order, and News stays the default** — swapping onto the single-column
-  workspace like the other wires. The band plots a fixed basket —
+  it is the **first wire chip — the tab strip reads Chart · News · Managers · X Feed,
+  in that order, and Chart is the default landing pane** (with **all six tickers
+  plotted** by default), and a Home-nav tap resets to it — swapping onto the
+  single-column workspace like the other wires. The band plots a fixed basket —
   **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — from **one unified
   securities row**: every instrument with its window **change indicator**, tapped to
   toggle **on/off the chart** (**multi-select**, one to all six, at least one kept),

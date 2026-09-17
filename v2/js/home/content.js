@@ -10,10 +10,10 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
              manager (watchlist) wire can't sit side by side, so a chip pair at
              the very top swaps between them. Hidden on desktop, where both
              columns show at once. -->
-        <div class="g-wiretabs" role="tablist" aria-label="News, managers, chart or X wire">
-          <button type="button" class="g-wiretab is-on" data-wire="news" role="tab" aria-selected="true">News</button>
+        <div class="g-wiretabs" role="tablist" aria-label="Chart, news, managers or X wire">
+          <button type="button" class="g-wiretab is-on" data-wire="chart" role="tab" aria-selected="true">Chart</button>
+          <button type="button" class="g-wiretab" data-wire="news" role="tab" aria-selected="false">News</button>
           <button type="button" class="g-wiretab" data-wire="watch" role="tab" aria-selected="false">Managers</button>
-          <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
         </div>
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
