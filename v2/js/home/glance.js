@@ -304,7 +304,10 @@ function initJumpNav() {
 let _xwireBooted = false, _xwireWatching = false;
 function initXWire() {
   const host = document.getElementById("g-xwire");
-  if (!host || _xwireBooted) return;
+  if (!host) return;
+  // Re-entry (the X chip tapped again): refresh in place. renderXWire keeps the
+  // existing cards on screen while it re-fetches, so there is never a blank.
+  if (_xwireBooted) { renderXWire(host); return; }
   const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); };
   // Boot as soon as the panel is actually on screen — the always-visible desktop
   // rail, or the mobile X-wire rail the moment its chip reveals it. A hidden rail
@@ -348,6 +351,11 @@ function xCard(t) {
     + `<div class="g-x-txt">${xLinkify(t.text)}</div>${media}`
     + `<a class="g-x-permalink" href="${perma}" target="_blank" rel="noopener noreferrer">View on X ↗</a></article>`;
 }
+// Persist the last feed (per viewer) so a fresh load / full reload paints the
+// last-known posts INSTANTLY instead of a blank "Loading" state, then refreshes.
+const _XFEED_KEY = "wire.xfeed.v1";
+function xReadCache() { try { const d = JSON.parse(localStorage.getItem(_XFEED_KEY) || "null"); return d && Array.isArray(d.tweets) ? d.tweets : null; } catch { return null; } }
+function xWriteCache(tweets) { try { localStorage.setItem(_XFEED_KEY, JSON.stringify({ tweets: tweets.slice(0, 40), at: Date.now() })); } catch { /* private mode / quota */ } }
 function renderXWire(host) {
   const list = X_LIST || {};
   const url = list.url || (list.id ? `https://x.com/i/lists/${list.id}` : "");
@@ -355,19 +363,35 @@ function renderXWire(host) {
   // The "Open list on X" link is kept only for the empty/error state (an escape
   // hatch when the feed can't load); in normal use the posts start at the top.
   const openLink = url ? `<a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X ↗</a>` : "";
-  host.innerHTML = `<div class="g-x-list">`
-    + `<div id="g-x-feed" class="g-x-feed"><div class="g-loading">Loading X…</div></div></div>`;
-  const feed = host.querySelector("#g-x-feed");
-  if (!handles.length && !list.id) { feed.innerHTML = `<div class="g-x-empty">No accounts configured.</div>`; return; }
+  // Never blank the feed once it has posts: keep the live cards (kept-alive
+  // re-render) or, on a fresh mount, paint the persisted last feed immediately —
+  // only fall back to the "Loading" state when there is genuinely nothing to show.
+  let feed = host.querySelector("#g-x-feed");
+  const hasCards = !!(feed && feed.querySelector(".g-x-card"));
+  if (!hasCards) {
+    const cached = xReadCache();
+    const seed = (cached && cached.length) ? cached.map(xCard).join("") : `<div class="g-loading">Loading X…</div>`;
+    host.innerHTML = `<div class="g-x-list"><div id="g-x-feed" class="g-x-feed">${seed}</div></div>`;
+    feed = host.querySelector("#g-x-feed");
+  }
+  if (!handles.length && !list.id) { if (!feed.querySelector(".g-x-card")) feed.innerHTML = `<div class="g-x-empty">No accounts configured.</div>`; return; }
   const q = `handles=${encodeURIComponent(handles.join(","))}` + (list.id ? `&listId=${encodeURIComponent(list.id)}` : "");
   fetch(`/api/xfeed?${q}`, { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null)
     .then((d) => {
       const tweets = (d && Array.isArray(d.tweets)) ? d.tweets : [];
-      if (!tweets.length) { feed.innerHTML = `<div class="g-x-empty">Live posts are unavailable right now. ${openLink}</div>`; return; }
+      if (!tweets.length) {
+        if (feed.querySelector(".g-x-card")) return;   // keep whatever is showing
+        feed.innerHTML = `<div class="g-x-empty">Live posts are unavailable right now. ${openLink}</div>`;
+        return;
+      }
       feed.innerHTML = tweets.map(xCard).join("");
+      xWriteCache(tweets);
     })
-    .catch(() => { feed.innerHTML = `<div class="g-x-empty">Couldn't load live posts. ${openLink}</div>`; });
+    .catch(() => {
+      if (feed.querySelector(".g-x-card")) return;      // keep whatever is showing
+      feed.innerHTML = `<div class="g-x-empty">Couldn't load live posts. ${openLink}</div>`;
+    });
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every
