@@ -43,6 +43,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-warshfedhikingcycle-20260917",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Warsh's Fed soars like a hawk into a hiking cycle",
+    date: "2026-09-17",
+    time: "05:06",
+    summary: "Trump claims that Warsh had to go along.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-17/warsh-s-fed-soars-like-a-hawk-into-a-hiking-cycle",
+  },
+  {
+    id: "nl-reuters-tradingday-liftoff-20260916",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Lift off!",
+    date: "2026-09-16",
+    time: "22:00",
+    summary: "One down, how many to go?",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/move-over-real-estate-wall-st-now-drives-us-spending-mcgeever-2026-09-16/",
+  },
+  {
     id: "nl-bbg-moneystuff-blackrockpensions-20260916",
     publication: "Bloomberg",
     author: null,
@@ -450,17 +472,6 @@ export const NEWSLETTERS = [
     url: "https://go.preqin.com/webmail/909852/2169604361/a37b7380374cf2f3d0f926883036705c145c47a1b3fb9947952755ee7607cff9",
   },
   {
-    id: "nl-bbg-econdaily-bessentsaibeefs-20260914",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: Bessent's AI beefs",
-    date: "2026-09-14",
-    time: "12:04",
-    summary: "Treasury chief wants no pause in AI development, and blasts AI firms over their communication, even as leaders of the biggest US AI platforms call for a slowdown.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-14/bessent-touts-american-ai-superiority-but-has-beefs-with-its-champs",
-  },
-  {
     id: "nl-bbg-marketsdaily-aiboomquestion-20260914",
     publication: "Bloomberg",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "11:16",
     summary: "AI bellwethers from SoftBank to Nvidia slide after industry leaders call for a slowdown, adding to jitters over oil, a 5% Treasury yield and the Fed's pivotal week.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-14/risk-of-ai-slowdown-prompts-angst-among-tech-investors",
-  },
-  {
-    id: "nl-legalbusiness-sullivancromwellabudhabi-20260914",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Sullivan & Cromwell launches in Abu Dhabi with Latham Middle East corporate chair",
-    date: "2026-09-14",
-    time: "11:31",
-    summary: "Launch marks the firm's 14th office globally and first in the Middle East.",
-    url: "https://email.legalbusiness.co.uk/c/1dX2YD5WMKagT6eREJjabwYXChIq",
   },
 ];
