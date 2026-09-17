@@ -3581,6 +3581,53 @@ async function fetchXApiListMembers(listId, apiKey, request, ctx) {
   }
   return [];
 }
+// The DISTINCT AUTHORS in the List's own timeline (Get-List-Tweets) — a second,
+// independent way to discover List members that works even if Get-List-Members
+// doesn't: anyone posting originals in the List (e.g. a newly-added account) shows
+// up here, so it auto-syncs membership. Reposts are added later via per-account.
+async function fetchXApiListTweetAuthors(listId, apiKey) {
+  const out = [];
+  const seen = new Set();
+  let cursor = "";
+  for (let page = 0; page < 2; page++) {
+    const u = `https://api.twitterapi.io/twitter/list/tweets?listId=${encodeURIComponent(listId)}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
+    let r;
+    try { r = await fetch(u, { headers: { "X-API-Key": apiKey, "accept": "application/json" } }); } catch { break; }
+    if (!r || !r.ok) break;
+    let d; try { d = await r.json(); } catch { break; }
+    const arr = (d && (d.tweets || (d.data && (d.data.tweets || (Array.isArray(d.data) ? d.data : null))) || d.results)) || [];
+    if (!Array.isArray(arr) || !arr.length) break;
+    for (const t of arr) {
+      const a = t && (t.author || t.user || (t.retweeted_tweet && t.retweeted_tweet.author) || {});
+      const h = a && (a.userName || a.screen_name || a.username);
+      if (h && /^[A-Za-z0-9_]{1,15}$/.test(h) && !seen.has(h.toLowerCase())) { seen.add(h.toLowerCase()); out.push(h); }
+    }
+    cursor = (d && (d.next_cursor || d.cursor)) || "";
+    if (!cursor || (d && d.has_next_page === false)) break;
+  }
+  return out;
+}
+// Resolve the roster to fetch: the client roster (X_ACCOUNTS floor) UNION the List's
+// members UNION the List's recent tweet authors — so membership auto-syncs even if
+// one source is unavailable. Cached ~10 min under its own key.
+async function resolveXRoster(listId, apiKey, handles, request, ctx) {
+  const cache = caches.default;
+  const rk = new Request(new URL(`/api/xfeed-roster?l=${encodeURIComponent(listId)}&v=1`, request.url).toString());
+  const hit = await cache.match(rk);
+  if (hit) { try { const j = await hit.json(); if (Array.isArray(j) && j.length) return j; } catch { /* rebuild */ } }
+  const set = new Set();
+  const roster = [];
+  const add = (arr) => { for (const h of (arr || [])) { const k = String(h || "").toLowerCase(); if (k && /^[a-z0-9_]{1,15}$/.test(k) && !set.has(k)) { set.add(k); roster.push(h); } } };
+  add(handles);
+  try { add(await fetchXApiListMembers(listId, apiKey, request, ctx)); } catch { /* keep going */ }
+  try { add(await fetchXApiListTweetAuthors(listId, apiKey)); } catch { /* keep going */ }
+  const out = roster.slice(0, 30);
+  if (out.length) {
+    const resp = new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": "public, max-age=600" } });
+    if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(rk, resp.clone()));
+  }
+  return out;
+}
 
 async function handleXFeed(request, env, ctx) {
   const url = new URL(request.url);
@@ -3605,7 +3652,9 @@ async function handleXFeed(request, env, ctx) {
       }
       if (dbg === "roster") {
         const mem = listId ? await fetchXApiListMembers(listId, apiKey, request, ctx) : [];
-        return json({ source: mem.length ? "list-members" : "fallback-X_ACCOUNTS", listId, roster: mem.length ? mem : handles });
+        const auth = listId ? await fetchXApiListTweetAuthors(listId, apiKey) : [];
+        const resolved = listId ? await resolveXRoster(listId, apiKey, handles, request, ctx) : handles;
+        return json({ listId, clientHandles: handles, members: mem, tweetAuthors: auth, resolved });
       }
       if (dbg === "1" && handles[0]) {
         const dr = await fetch(`https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handles[0])}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
@@ -3616,19 +3665,19 @@ async function handleXFeed(request, env, ctx) {
   const mode = (apiKey && (handles.length || listId)) ? "api" : "syn";
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + mode;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=5`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=6`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   const all = [];
   // Preferred: the paid twitterapi.io per-account timelines (include reposts).
   if (mode === "api") {
-    // Resolve the roster from the X LIST's live membership when a listId is given,
-    // so adding/removing an account on the List auto-syncs the feed. Fall back to
-    // the client-passed roster if the members lookup is empty/unavailable.
+    // Resolve the roster from the X LIST (members ∪ recent tweet authors ∪ the
+    // client roster) when a listId is given, so adding/removing an account on the
+    // List auto-syncs the feed even if one lookup is unavailable.
     let roster = handles;
     if (listId) {
-      try { const mem = await fetchXApiListMembers(listId, apiKey, request, ctx); if (mem.length) roster = mem.slice(0, 30); } catch { /* keep client roster */ }
+      try { const r = await resolveXRoster(listId, apiKey, handles, request, ctx); if (r.length) roster = r; } catch { /* keep client roster */ }
     }
     try { const api = await fetchXApiUsers(roster, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
   }
