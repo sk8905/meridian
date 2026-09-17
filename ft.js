@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9934acc6-6b06-4f2e-a37a-6cf0869092cb", title: "Trump administration approves $24bn sale of F-35 jets to Saudi Arabia", date: "2026-09-17", time: "19:58", url: "https://www.ft.com/content/9934acc6-6b06-4f2e-a37a-6cf0869092cb" },
+  { id: "b528698e-9b04-4497-9d22-67e401be21d3", title: "US regulator opens markets to tokenised stock trading", date: "2026-09-17", time: "19:29", url: "https://www.ft.com/content/b528698e-9b04-4497-9d22-67e401be21d3" },
+  { id: "3df8edae-ae3b-4f56-83a3-40602edc17a3", title: "OpenAI staff knew the ‘existential threat’ AI posed to publishers, New York Times claims", date: "2026-09-17", time: "19:09", url: "https://www.ft.com/content/3df8edae-ae3b-4f56-83a3-40602edc17a3" },
   { id: "46e25252-9e1e-4ead-aa56-293a0f09a393", title: "Bank of England follows FTAV advice", date: "2026-09-17", time: "18:53", url: "https://www.ft.com/content/46e25252-9e1e-4ead-aa56-293a0f09a393" },
   { id: "21aa563b-2cd1-4f09-b505-fcf579248fe6", title: "Reform UK’s mega-donor backed a friend’s libel claim. Now he controls her home", date: "2026-09-17", time: "18:24", url: "https://www.ft.com/content/21aa563b-2cd1-4f09-b505-fcf579248fe6" },
   { id: "0b3d10cb-a321-429f-879d-86e1bee82efe", title: "Hispanics feel ‘betrayed’ by Trump, top Republican says", date: "2026-09-17", time: "18:10", url: "https://www.ft.com/content/0b3d10cb-a321-429f-879d-86e1bee82efe" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "d719d59e-cb2a-4488-a4cf-2f291a85e9ca", title: "FirstFT: Warsh defies Trump", date: "2026-09-17", time: "11:13", url: "https://www.ft.com/content/d719d59e-cb2a-4488-a4cf-2f291a85e9ca" },
   { id: "b1696209-2080-4714-9d5e-e5724200ac4d", title: "No country for independent central bankers", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/b1696209-2080-4714-9d5e-e5724200ac4d" },
   { id: "3bb7e0e8-6aef-4b6b-a5f0-f472a2655c1f", title: "Wall Street warns trading boom is losing steam", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/3bb7e0e8-6aef-4b6b-a5f0-f472a2655c1f" },
-  { id: "61f61355-5b21-4a48-b324-9bd4b5b6777b", title: "AI boom obscuring global trade disruptions, warns WTO chief", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/61f61355-5b21-4a48-b324-9bd4b5b6777b" },
-  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-17", time: "09:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
-  { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "What do British businesses need from the Budget? Submit a question", date: "2026-09-17", time: "09:41", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
-  { id: "c5843a3d-51a3-4508-915c-6206351aeb97", title: "Thanks to Rishi Sunak, the UK is helping put the brakes on AI", date: "2026-09-17", time: "09:30", url: "https://www.ft.com/content/c5843a3d-51a3-4508-915c-6206351aeb97" },
 ];

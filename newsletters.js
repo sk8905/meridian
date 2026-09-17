@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-indianoptionstradetoogood-20260917",
+    publication: "Bloomberg",
+    author: null,
+    series: "Money Stuff",
+    title: "Money Stuff: The Whole Indian Options Trade Was Too Good",
+    date: "2026-09-17",
+    time: "18:48",
+    summary: "Options, futures, addbacks, rationalists.",
+    url: "https://bloom.bg/4iTfa9B",
+  },
+  {
     id: "nl-taxpolicy-corptaxreturncomplexity-20260917",
     publication: "Tax Policy Associates",
     author: "Dan Neidle",
@@ -470,27 +481,5 @@ export const NEWSLETTERS = [
     time: "10:56",
     summary: "The Red Roses captain says nobody should have to choose between their career and having a family.",
     url: "https://www.theguardian.com/sport/rugby-union",
-  },
-  {
-    id: "nl-bbg-authoralert-odeylifetimeban-20260915",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Crispin Odey's Lifetime Ban Blocks Routes Back to City of London",
-    date: "2026-09-15",
-    time: "07:11",
-    summary: "The hedge fund manager was accused of sexual misconduct stretching back years, and barred from finance by the Financial Conduct Authority.",
-    url: "https://www.bloomberg.com/news/articles/2026-09-15/crispin-odey-s-lifetime-ban-blocks-routes-back-to-city-of-london",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-trumpdismissesairisks-20260915",
-    publication: "Bloomberg",
-    author: "Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "Trump dismisses AI risks as safety warnings mount",
-    date: "2026-09-15",
-    time: "06:26",
-    summary: "Trump dismisses AI fears as warnings mount, the 10-year Treasury yield hits its highest since 2007, and oil pushes higher on Saudi pipeline disruption.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-15/trump-dismisses-ai-risks-as-safety-warnings-mount",
   },
 ];
