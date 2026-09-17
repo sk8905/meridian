@@ -359,7 +359,12 @@ notification badge red (`#ef4444`).
   fixed basket — **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — picked by a
   chip row, with a **1M / 6M / 1Y / YTD** range toggle, a big value + change readout
   (coloured; for the **10Y yield a *fall* is green/risk-on** and the change reads in
-  **pp**, not %), and a hover crosshair. **One fetch, all ranges:** the Worker
+  **pp**, not %), and a hover crosshair. It carries **axes, terminal-style**: a
+  **right value axis** (round-number ticks, with the current level in a
+  colour-coded tag on the axis) and a **bottom time axis** (dated ticks — day+month
+  on 1M/6M, month-'YY on 1Y/YTD), over a faint grid and a thin non-scaling line.
+  Axis **labels are HTML positioned by %** so they stay crisp against the stretched
+  (`preserveAspectRatio:none`) SVG. **One fetch, all ranges:** the Worker
   (`/api/hero` in `src/index.js`) returns a **full year of daily closes per
   instrument** and the client **slices that single series** for the range toggle — no
   refetch on range/instrument change. Equities/commodities/Bitcoin come from

@@ -841,8 +841,22 @@
     .tui .g-hero-delta.up{ color:var(--t-up); } .tui .g-hero-delta.down{ color:var(--t-down); }
     .tui .g-hero-sub{ margin-left:auto; font-size:10px; color:var(--t-mut); padding-bottom:3px; text-align:right;
       white-space:nowrap; flex:0 1 auto; overflow:hidden; text-overflow:ellipsis; }
-    .tui .g-hero-plot{ position:relative; padding:2px 6px 8px; }
+    .tui .g-hero-plot{ display:grid; grid-template-columns:minmax(0,1fr) 52px; grid-template-rows:auto auto;
+      column-gap:5px; padding:2px 6px 5px; }
+    .tui .g-hero-canvas{ position:relative; grid-column:1; grid-row:1; }
     .tui #g-hero-svg{ display:block; width:100%; height:150px; }
+    /* Right value axis: crisp HTML labels in a fixed gutter, positioned by % so
+       they line up with the stretched (preserveAspectRatio:none) SVG grid. */
+    .tui .g-hero-yaxis{ grid-column:2; grid-row:1; position:relative; }
+    .tui .g-hero-ylab{ position:absolute; right:1px; transform:translateY(-50%); font-size:9.5px; line-height:1;
+      color:var(--t-mut); font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .tui .g-hero-ytag{ position:absolute; right:0; transform:translateY(-50%); font-size:9.5px; line-height:1.35;
+      font-weight:700; font-variant-numeric:tabular-nums; padding:1px 3px; color:var(--t-ground, #000); white-space:nowrap; }
+    .tui .g-hero-ytag.up{ background:var(--t-up); } .tui .g-hero-ytag.down{ background:var(--t-down); }
+    /* Bottom time axis. */
+    .tui .g-hero-xaxis{ grid-column:1; grid-row:2; position:relative; height:12px; margin-top:2px; }
+    .tui .g-hero-xlab{ position:absolute; top:0; font-size:9.5px; line-height:1; color:var(--t-mut);
+      font-variant-numeric:tabular-nums; white-space:nowrap; }
     .tui .g-hero-tip{ position:absolute; pointer-events:none; transform:translate(-50%,-118%); z-index:2;
       background:var(--t-ground, #000); border:1px solid var(--t-grid2); padding:2px 7px; white-space:nowrap;
       font-variant-numeric:tabular-nums; display:flex; flex-direction:column; align-items:center; }

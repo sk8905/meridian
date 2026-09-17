@@ -504,28 +504,80 @@ function heroSlice(hist) {
   const pts = hist.filter((p) => p[0] >= start);
   return pts.length >= 2 ? pts : hist.slice(-2);
 }
+// Round "nice" tick values inside [lo,hi] (1/2/5 × 10ⁿ steps) for the value axis.
+function heroNiceTicks(lo, hi, n) {
+  if (!(hi > lo)) { hi = lo + 1; lo = lo - 1; }
+  const raw = (hi - lo) / Math.max(1, n);
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const norm = raw / mag;
+  const step = (norm >= 5 ? 10 : norm >= 2 ? 5 : norm >= 1 ? 2 : 1) * mag;
+  const out = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi + step * 1e-6; v += step) out.push(+v.toFixed(6));
+  return out;
+}
+// Compact axis number (thousands-separated; no currency prefix; carries a % unit
+// for the yield). Kept short so the value gutter stays narrow.
+function heroFmtAxis(v, m) {
+  const a = Math.abs(v);
+  const s = a >= 1000 ? Math.round(v).toLocaleString("en-US")
+    : v.toFixed(m.fi ? 2 : (a >= 100 ? 1 : 2));
+  return s + (m.unit || "");
+}
+// Axis date: day+month on the short ranges, month+'YY on the long ones.
+function heroFmtDate(ms) {
+  const d = new Date(ms);
+  if (_heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
+  return `${MONTHS[d.getMonth()] || ""} '${String(d.getFullYear()).slice(2)}`;
+}
 function drawHero(svg, pts, m) {
   const n = pts.length, vals = pts.map((p) => p[1]);
   let lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
   if (lo === hi) { lo -= 1; hi += 1; }
-  const span = hi - lo, plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
+  const pad = (hi - lo) * 0.08;              // breathing room so the line clears the frame
+  const dlo = lo - pad, dhi = hi + pad;      // padded value domain
+  const plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
   const X = (i) => HERO_PX + plotW * i / (n - 1);
-  const Y = (v) => HERO_PT + plotH - ((v - lo) / span) * plotH;
-  const up = vals[n - 1] >= vals[0];
+  const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
+  const last = vals[n - 1], up = last >= vals[0];
   // For a yield a FALL is "risk-on"/green; for a price a RISE is green.
   const good = m.fi ? !up : up;
   const col = good ? "var(--t-up)" : "var(--t-down)";
+  // Value ticks (right axis) and time ticks (bottom axis).
+  const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= HERO_H - HERO_PB + 0.5);
+  const xCount = Math.min(5, n);
+  const xi = []; for (let k = 0; k < xCount; k++) { const idx = Math.round((n - 1) * k / Math.max(1, xCount - 1)); if (xi[xi.length - 1] !== idx) xi.push(idx); }
+  // Bloomberg-style furniture: faint horizontal grid at each value tick, faint
+  // dotted verticals at each time tick, the line (thin, non-scaling stroke) over a
+  // whisper of fill, plus a baseline frame.
+  let grid = "";
+  for (const t of yt) { const gy = Y(t).toFixed(1); grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  for (const idx of xi) { const gx = X(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid);stroke-dasharray:1 3" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
   let line = "", area = "M " + X(0).toFixed(1) + " " + Y(vals[0]).toFixed(1);
   for (let i = 0; i < n; i++) { const px = X(i), py = Y(vals[i]); line += (i ? " L " : "M ") + px.toFixed(1) + " " + py.toFixed(1); area += " L " + px.toFixed(1) + " " + py.toFixed(1); }
   area += " L " + X(n - 1).toFixed(1) + " " + (HERO_H - HERO_PB) + " L " + X(0).toFixed(1) + " " + (HERO_H - HERO_PB) + " Z";
-  let grid = "";
-  for (let g = 0; g <= 3; g++) { const gy = (HERO_PT + plotH * g / 3).toFixed(1); grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${HERO_W - HERO_PX}" y2="${gy}" style="stroke:var(--t-grid)" stroke-width="1"/>`; }
   svg.innerHTML = `<title>Price chart</title>${grid}`
-    + `<path d="${area}" style="fill:${col};fill-opacity:.12" stroke="none"/>`
-    + `<path d="${line}" style="fill:none;stroke:${col};stroke-width:1.6;stroke-linejoin:round"/>`
-    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${HERO_H - HERO_PB}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none"/>`
+    + `<path d="${area}" style="fill:${col};fill-opacity:.07" stroke="none"/>`
+    + `<path class="g-hero-line" d="${line}" style="fill:none;stroke:${col}" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`
+    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${HERO_H - HERO_PB}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none" vector-effect="non-scaling-stroke"/>`
     + `<circle class="g-hero-hoverdot" r="3" style="fill:${col};display:none"/>`
-    + `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(vals[n - 1]).toFixed(1)}" r="2.6" style="fill:${col}"/>`;
+    + `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="2.4" style="fill:${col}" vector-effect="non-scaling-stroke"/>`;
+  // Right value axis (HTML — crisp text; % positions map 1:1 onto the stretched
+  // SVG). The last value sits in a colour-coded tag; nearby ticks are dropped so
+  // it never collides.
+  const yax = document.getElementById("g-hero-yaxis");
+  if (yax) {
+    const tagTop = (Y(last) / HERO_H) * 100;
+    const labs = yt.map((t) => { const top = (Y(t) / HERO_H) * 100; return Math.abs(top - tagTop) < 7 ? "" : `<span class="g-hero-ylab" style="top:${top.toFixed(2)}%">${esc(heroFmtAxis(t, m))}</span>`; }).join("");
+    yax.innerHTML = labs + `<span class="g-hero-ytag ${good ? "up" : "down"}" style="top:${tagTop.toFixed(2)}%">${esc(heroFmtAxis(last, m))}</span>`;
+  }
+  // Bottom time axis (HTML). First/last labels hug the edges so they don't clip.
+  const xax = document.getElementById("g-hero-xaxis");
+  if (xax) {
+    xax.innerHTML = xi.map((idx, k) => {
+      const pos = k === 0 ? "left:0" : k === xi.length - 1 ? "right:0" : `left:${((X(idx) / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`;
+      return `<span class="g-hero-xlab" style="${pos}">${esc(heroFmtDate(pts[idx][0]))}</span>`;
+    }).join("");
+  }
   svg._pts = pts; svg._m = m; svg._X = X; svg._Y = Y;
 }
 function heroHover(e) {

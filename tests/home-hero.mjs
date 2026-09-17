@@ -58,17 +58,31 @@ const b = await launchChromium();
   checkEq(init.rangeOn, "1M", "hero: 1M is the default range");
   check(/1-month/.test(init.sub), `hero: the sub-label states the range (${init.sub})`);
 
+  // Axes: a right value axis (labels + a coloured last-value tag) and a bottom
+  // time axis with dated ticks.
+  const ax = await pg.evaluate(() => ({
+    yl: document.querySelectorAll("#g-hero-yaxis .g-hero-ylab").length,
+    tag: (document.querySelector("#g-hero-yaxis .g-hero-ytag") || {}).textContent || "",
+    tagDown: !!document.querySelector("#g-hero-yaxis .g-hero-ytag.down") || !!document.querySelector("#g-hero-yaxis .g-hero-ytag.up"),
+    xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()),
+  }));
+  check(ax.yl >= 2, `hero: the right value axis draws tick labels (${ax.yl})`);
+  check(ax.tag.trim().length > 0 && ax.tagDown, `hero: the last value sits in a coloured axis tag (${ax.tag})`);
+  check(ax.xl.length >= 2 && /\d/.test(ax.xl.join("")), `hero: the bottom time axis draws dated ticks (${ax.xl.join(" · ")})`);
+
   // Range toggle: 1M → 1Y redraws (the line path changes) and relabels.
-  const d1m = await pg.evaluate(() => document.querySelector("#g-hero-svg path:nth-of-type(2)").getAttribute("d"));
+  const d1m = await pg.evaluate(() => document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"));
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1Y"]').click());
   await pg.waitForTimeout(150);
   const y = await pg.evaluate(() => ({
-    d: document.querySelector("#g-hero-svg path:nth-of-type(2)").getAttribute("d"),
+    d: document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"),
     sub: (document.getElementById("g-hero-sub") || {}).textContent || "",
     on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
+    xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
   }));
   check(y.on === "1Y" && /1-year/.test(y.sub), `hero: the range toggle switches to 1Y (${y.sub})`);
   check(y.d !== d1m, "hero: changing the range redraws the chart (different path)");
+  check(/'\d\d/.test(y.xl), `hero: the 1Y time axis switches to month-'YY ticks (${y.xl})`);
 
   // Instrument switch: pick US 10Y → readout follows, yield shows a pp change + FRED source.
   await pg.evaluate(() => [...document.querySelectorAll("#g-hero-sel .g-hero-chip")].find((c) => c.dataset.k === "ust10").click());
