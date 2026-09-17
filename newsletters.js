@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-taxpolicy-corptaxreturncomplexity-20260917",
+    publication: "Tax Policy Associates",
+    author: "Dan Neidle",
+    series: null,
+    title: "How complex is the corporation tax return? And is it getting worse?",
+    date: "2026-09-17",
+    time: "17:31",
+    summary: "Andrew Griffith cited 985 boxes on the UK corporate tax return; the real count is probably 908, and it's been growing exponentially since 2015.",
+    url: "https://newsletter.taxpolicy.org.uk/campaign/f10ef68e-be4c-4088-964d-c0cf29cde9ad/e5358a8a-4e5b-4303-a7ce-dcf4d37cc11c",
+  },
+  {
     id: "nl-lemonde-lebrief-budget2027lecornu-20260917",
     publication: "Le Monde",
     author: null,

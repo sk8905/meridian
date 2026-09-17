@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "46e25252-9e1e-4ead-aa56-293a0f09a393", title: "Bank of England follows FTAV advice", date: "2026-09-17", time: "18:53", url: "https://www.ft.com/content/46e25252-9e1e-4ead-aa56-293a0f09a393" },
+  { id: "21aa563b-2cd1-4f09-b505-fcf579248fe6", title: "Reform UK’s mega-donor backed a friend’s libel claim. Now he controls her home", date: "2026-09-17", time: "18:24", url: "https://www.ft.com/content/21aa563b-2cd1-4f09-b505-fcf579248fe6" },
+  { id: "0b3d10cb-a321-429f-879d-86e1bee82efe", title: "Hispanics feel ‘betrayed’ by Trump, top Republican says", date: "2026-09-17", time: "18:10", url: "https://www.ft.com/content/0b3d10cb-a321-429f-879d-86e1bee82efe" },
   { id: "fc324c65-11d6-473d-b15b-deef27cbadc2", title: "Sun, stats and suspicious productivity", date: "2026-09-17", time: "17:55", url: "https://www.ft.com/content/fc324c65-11d6-473d-b15b-deef27cbadc2" },
   { id: "49b61634-7a5d-46c4-8c43-c20ed2196ca9", title: "Addison Lee founder loses £20mn tax battle over ‘non-dom’ status", date: "2026-09-17", time: "17:54", url: "https://www.ft.com/content/49b61634-7a5d-46c4-8c43-c20ed2196ca9" },
   { id: "8c4143c7-f846-43a0-807a-b460fff7cd75", title: "Has AI broken the old VC model?", date: "2026-09-17", time: "17:46", url: "https://www.ft.com/content/8c4143c7-f846-43a0-807a-b460fff7cd75" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-17", time: "09:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "What do British businesses need from the Budget? Submit a question", date: "2026-09-17", time: "09:41", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "c5843a3d-51a3-4508-915c-6206351aeb97", title: "Thanks to Rishi Sunak, the UK is helping put the brakes on AI", date: "2026-09-17", time: "09:30", url: "https://www.ft.com/content/c5843a3d-51a3-4508-915c-6206351aeb97" },
-  { id: "5226dcb7-d89d-4b68-981f-b2736d7e4dca", title: "US rate rise jolts yen ahead of Bank of Japan meeting", date: "2026-09-17", time: "09:26", url: "https://www.ft.com/content/5226dcb7-d89d-4b68-981f-b2736d7e4dca" },
-  { id: "42ab32f0-8c22-4912-a928-c73552305b7e", title: "US passes bill targeting importers of Russian oil", date: "2026-09-17", time: "09:04", url: "https://www.ft.com/content/42ab32f0-8c22-4912-a928-c73552305b7e" },
 ];
