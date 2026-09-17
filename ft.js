@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "42ab32f0-8c22-4912-a928-c73552305b7e", title: "US passes bill targeting importers of Russian oil", date: "2026-09-17", time: "09:04", url: "https://www.ft.com/content/42ab32f0-8c22-4912-a928-c73552305b7e" },
+  { id: "69f02abc-e0dc-46e5-aa6c-61d209e095d9", title: "China’s US Treasury holdings fall to lowest level since 2008", date: "2026-09-17", time: "08:43", url: "https://www.ft.com/content/69f02abc-e0dc-46e5-aa6c-61d209e095d9" },
+  { id: "2c34414a-5381-4083-ac34-00bbe67ef8db", title: "OpenAI discloses new ‘concerning’ model behaviour", date: "2026-09-17", time: "08:42", url: "https://www.ft.com/content/2c34414a-5381-4083-ac34-00bbe67ef8db" },
   { id: "7b0f8f90-b3ad-4640-916a-f8b5495920a3", title: "Donald Trump suggests EU-Canada associate member deal would be ‘hostile act’", date: "2026-09-17", time: "08:20", url: "https://www.ft.com/content/7b0f8f90-b3ad-4640-916a-f8b5495920a3" },
   { id: "3ab370c5-2ea2-43c8-835c-977d8f0b51f4", title: "Japan’s Sanae Takaichi reshuffles cabinet in signal of confidence to markets", date: "2026-09-17", time: "07:43", url: "https://www.ft.com/content/3ab370c5-2ea2-43c8-835c-977d8f0b51f4" },
   { id: "be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2", title: "Getting to know Mr Warsh", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2" },
@@ -57,9 +60,4 @@ export const FT_ITEMS = [
   { id: "61b5fbae-9dd6-4980-bd1f-effe54b72d84", title: "Federal Reserve decision live: US central bank tipped to raise interest rates for first time in 3 years", date: "2026-09-16", time: "17:32", url: "https://www.ft.com/content/61b5fbae-9dd6-4980-bd1f-effe54b72d84" },
   { id: "fc08dba8-3e16-4262-9e2c-0d59d049efdc", title: "Bach choir is a rare symbol of unity in a swing state", date: "2026-09-16", time: "17:03", url: "https://www.ft.com/content/fc08dba8-3e16-4262-9e2c-0d59d049efdc" },
   { id: "1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e", title: "This is good for AI!!!! Aaargh!!!!", date: "2026-09-16", time: "16:32", url: "https://www.ft.com/content/1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e" },
-  { id: "8abe8957-83c1-475a-b6d0-556d094f474d", title: "Oura will struggle to justify pulse-racing $16bn valuation", date: "2026-09-16", time: "16:00", url: "https://www.ft.com/content/8abe8957-83c1-475a-b6d0-556d094f474d" },
-  { id: "57c085c9-741e-4202-8be7-812ea7bd6d19", title: "UK inflation rose to 3.1% in August", date: "2026-09-16", time: "15:57", url: "https://www.ft.com/content/57c085c9-741e-4202-8be7-812ea7bd6d19" },
-  { id: "35b6c207-98b1-44fb-82b9-3c8c29507e0a", title: "The EU should not increase resilience at the expense of trusted partners", date: "2026-09-16", time: "15:16", url: "https://www.ft.com/content/35b6c207-98b1-44fb-82b9-3c8c29507e0a" },
-  { id: "0a6dbcf3-adb9-493a-83d7-b1f43a2f75b3", title: "Salary stand-off delays abolition of NHS quango", date: "2026-09-16", time: "15:12", url: "https://www.ft.com/content/0a6dbcf3-adb9-493a-83d7-b1f43a2f75b3" },
-  { id: "29f0dac0-0523-46c4-a573-cd681a69b445", title: "Anthropic’s mother of all risk factors", date: "2026-09-16", time: "14:27", url: "https://www.ft.com/content/29f0dac0-0523-46c4-a573-cd681a69b445" },
 ];
