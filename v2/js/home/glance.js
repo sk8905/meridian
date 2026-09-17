@@ -501,8 +501,8 @@ function wireHeroControls() {
   const sel = document.getElementById("g-hero-sel");
   const rng = document.getElementById("g-hero-range");
   const svg = document.getElementById("g-hero-svg");
-  // A chip TOGGLES its security in/out of the selection (multi-select, ≥1 kept).
-  if (sel) sel.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-chip"); if (!b) return; heroToggle(b.dataset.k); renderHero(); });
+  // A ticker TOGGLES its security on/off the chart (multi-select, ≥1 kept).
+  if (sel) sel.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-tk"); if (!b) return; heroToggle(b.dataset.k); renderHero(); });
   if (rng) rng.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-rg"); if (!b) return; _heroRange = b.dataset.r; renderHero(); });
   if (svg) {
     svg.addEventListener("mousemove", heroHover);
@@ -510,7 +510,7 @@ function wireHeroControls() {
       const tip = document.getElementById("g-hero-tip"); if (tip) tip.hidden = true;
       const cr = svg.querySelector(".g-hero-cross"); if (cr) cr.style.display = "none";
       const dot = svg.querySelector(".g-hero-hoverdot"); if (dot) dot.style.display = "none";
-      if (svg._multi) heroRestoreLegend(svg);
+      if (svg._multi) heroRestoreTickers();
     });
   }
 }
@@ -577,7 +577,7 @@ function drawHero(svg, pts, m) {
   // whisper of fill, plus a baseline frame.
   let grid = "";
   for (const t of yt) { const gy = Y(t).toFixed(1); grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
-  for (const idx of xi) { const gx = X(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid);stroke-dasharray:1 3" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  for (const idx of xi) { const gx = X(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
   let line = "", area = "M " + X(0).toFixed(1) + " " + Y(vals[0]).toFixed(1);
   for (let i = 0; i < n; i++) { const px = X(i), py = Y(vals[i]); line += (i ? " L " : "M ") + px.toFixed(1) + " " + py.toFixed(1); area += " L " + px.toFixed(1) + " " + py.toFixed(1); }
   area += " L " + X(n - 1).toFixed(1) + " " + (HERO_H - HERO_PB) + " L " + X(0).toFixed(1) + " " + (HERO_H - HERO_PB) + " Z";
@@ -628,7 +628,7 @@ function drawHeroMulti(svg, series) {
   const xi = []; for (let k = 0; k < xCount; k++) { const idx = Math.round((xn - 1) * k / Math.max(1, xCount - 1)); if (xi[xi.length - 1] !== idx) xi.push(idx); }
   let grid = "";
   for (const t of yt) { const gy = Y(t).toFixed(1), zero = Math.abs(t) < 1e-6; grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--${zero ? "t-faint" : "t-grid"})" stroke-width="${zero ? 1.2 : 1}" vector-effect="non-scaling-stroke"/>`; }
-  for (const idx of xi) { const gx = Xr(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid);stroke-dasharray:1 3" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  for (const idx of xi) { const gx = Xr(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
   let paths = "";
   const drawn = S.map((s) => {
     const n = s.pct.length, X = Xof(n);
@@ -645,48 +645,44 @@ function drawHeroMulti(svg, series) {
   if (xax) xax.innerHTML = xi.map((idx, k) => { const pos = k === 0 ? "left:0" : k === xi.length - 1 ? "right:0" : `left:${((Xr(idx) / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`; return `<span class="g-hero-xlab" style="${pos}">${esc(heroFmtDate(ref.pts[idx][0]))}</span>`; }).join("");
   svg._multi = drawn; svg._ref = ref; svg._pts = null;
 }
-// Single-series readout (name · price · change), keeping the fixed span ids.
-function heroReadHTML(s) {
-  const pts = s.pts, m = s.m, first = pts[0][1], last = pts[pts.length - 1][1];
-  const abs = last - first, pct = first ? (abs / first) * 100 : 0, up = pct >= 0, good = m.fi ? !up : up;
-  const price = esc(heroFmt(m.value != null ? m.value : last, m));
-  const delta = (up ? "▲ " : "▼ ") + (m.fi ? Math.abs(abs).toFixed(2) + " pp" : Math.abs(pct).toFixed(1) + "%");
-  return `<span class="g-hero-name" id="g-hero-name">${esc(m.label)}</span>`
-    + `<span class="g-hero-px" id="g-hero-px">${price}</span>`
-    + `<span class="g-hero-delta ${good ? "up" : "down"}" id="g-hero-delta">${delta}</span>`
-    + `<span class="g-hero-sub" id="g-hero-sub">${HERO_RLBL[_heroRange]} · ${m.fi ? "FRED (daily)" : "Yahoo Finance"}</span>`;
-}
-// Multi-series legend (colour dot · name · indexed %) — identity is the dot, the
-// value stays semantic (up/down). Doubles as the readout while indexed.
-function heroLegendHTML(series) {
-  const items = series.map((s) => {
-    const first = s.pts[0][1], last = s.pts[s.pts.length - 1][1], pct = first ? (last / first - 1) * 100 : 0;
-    return `<span class="g-hero-leg"><i class="g-hero-cdot" style="background:${s.color}"></i>`
-      + `<span class="g-hero-leg-nm">${esc(s.label)}</span>`
-      + `<span class="g-hero-leg-pct ${pct >= 0 ? "up" : "down"}">${esc(heroPctStr(pct))}</span></span>`;
+// The single securities row — EVERY instrument with its window change, a colour
+// dot (filled = plotted, hollow = off), tap to toggle. Doubles as the chart legend.
+// Colour follows the instrument (fixed basket slot), never its selection rank.
+function heroTickerRow(sel) {
+  sel.innerHTML = _heroData.map((it, i) => {
+    const on = _heroSel.includes(it.key);
+    const pts = heroSlice(it.history);
+    const first = pts.length >= 2 ? pts[0][1] : null, last = pts.length >= 2 ? pts[pts.length - 1][1] : null;
+    const pct = (first) ? (last / first - 1) * 100 : 0;
+    const c = heroColor(it.key, i);
+    return `<button type="button" class="g-hero-tk${on ? " is-on" : ""}" data-k="${esc(it.key)}" aria-pressed="${on ? "true" : "false"}" style="--c:${c}">`
+      + `<i class="g-hero-cdot${on ? " on" : ""}"></i>`
+      + `<span class="g-hero-tk-nm">${esc(it.label)}</span>`
+      + `<span class="g-hero-tk-pct ${pct >= 0 ? "up" : "down"}" data-pct="${pct.toFixed(4)}">${esc(heroPctStr(pct))}</span></button>`;
   }).join("");
-  return `<div class="g-hero-legend"><span class="g-hero-idx" id="g-hero-idx">Indexed · ${HERO_RLBL[_heroRange]}</span>${items}</div>`;
 }
-// Put the legend %s (and the date tag) back to the window-end values after a hover.
-function heroRestoreLegend(svg) {
-  const legs = document.querySelectorAll("#g-hero-read .g-hero-leg-pct");
-  (svg._multi || []).forEach((s, k) => { const v = s.pct[s.pct.length - 1], el = legs[k]; if (el) { el.textContent = heroPctStr(v); el.className = "g-hero-leg-pct " + (v >= 0 ? "up" : "down"); } });
-  const idx = document.getElementById("g-hero-idx"); if (idx) idx.textContent = `Indexed · ${HERO_RLBL[_heroRange]}`;
+// After a hover, put every ticker's % back to its window-end value.
+function heroRestoreTickers() {
+  document.querySelectorAll("#g-hero-sel .g-hero-tk-pct").forEach((el) => {
+    const v = parseFloat(el.dataset.pct || "0");
+    el.textContent = heroPctStr(v); el.className = "g-hero-tk-pct " + (v >= 0 ? "up" : "down");
+  });
 }
 function heroHover(e) {
   const svg = e.currentTarget;
   const r = svg.getBoundingClientRect(); if (!r.width) return;
   const cross = svg.querySelector(".g-hero-cross");
-  // Multi (indexed) mode: crosshair drives the LEGEND values (no floating tooltip).
+  // Multi (indexed) mode: the crosshair drives the plotted tickers' % values.
   if (svg._multi) {
     const ref = svg._ref, n = ref.pts.length;
     let i = Math.round(((e.clientX - r.left) / r.width) * (n - 1)); i = Math.max(0, Math.min(n - 1, i));
     const px = HERO_PX + (HERO_W - HERO_PX * 2) * i / Math.max(1, n - 1);
     if (cross) { cross.setAttribute("x1", px); cross.setAttribute("x2", px); cross.style.display = ""; }
-    const legs = document.querySelectorAll("#g-hero-read .g-hero-leg-pct");
-    svg._multi.forEach((s, k) => { const v = s.pct[Math.min(i, s.pct.length - 1)], el = legs[k]; if (el) { el.textContent = heroPctStr(v); el.className = "g-hero-leg-pct " + (v >= 0 ? "up" : "down"); } });
-    const idx = document.getElementById("g-hero-idx");
-    if (idx) { const dt = new Date(ref.pts[i][0]); idx.textContent = `Indexed · ${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`; }
+    svg._multi.forEach((s) => {
+      const v = s.pct[Math.min(i, s.pct.length - 1)];
+      const el = document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${s.key}"] .g-hero-tk-pct`);
+      if (el) { el.textContent = heroPctStr(v); el.className = "g-hero-tk-pct " + (v >= 0 ? "up" : "down"); }
+    });
     return;
   }
   const pts = svg._pts; if (!pts || !pts.length) return;
@@ -707,23 +703,17 @@ function heroHover(e) {
 }
 function renderHero() {
   if (!_heroData || !_heroData.length) return;
-  const sel = document.getElementById("g-hero-sel"), svg = document.getElementById("g-hero-svg"), read = document.getElementById("g-hero-read");
+  const sel = document.getElementById("g-hero-sel"), svg = document.getElementById("g-hero-svg");
   if (!sel || !svg) return;
-  const chosen = heroSelected(), selKeys = chosen.map((c) => c.key), multi = chosen.length >= 2;
-  const colorOf = (key) => heroColor(key, chosen.findIndex((c) => c.key === key));
-  // Chips: active = selected; in multi mode each active chip shows its series dot.
-  sel.innerHTML = _heroData.map((it) => {
-    const on = selKeys.includes(it.key);
-    const dot = (on && multi) ? `<i class="g-hero-cdot" style="background:${colorOf(it.key)}"></i>` : "";
-    return `<button type="button" class="g-hero-chip${on ? " is-on" : ""}" data-k="${esc(it.key)}" role="tab" aria-selected="${on ? "true" : "false"}">${dot}${esc(it.label)}</button>`;
-  }).join("");
+  const chosen = heroSelected();
+  heroTickerRow(sel);
   const rng = document.getElementById("g-hero-range");
   if (rng) rng.querySelectorAll(".g-hero-rg").forEach((b) => { const on = b.dataset.r === _heroRange; b.classList.toggle("is-on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
-  const series = chosen.map((c) => ({ key: c.key, label: c.label, m: c, color: colorOf(c.key), pts: heroSlice(c.history) })).filter((s) => s.pts.length >= 2);
+  const series = chosen.map((c, i) => ({ key: c.key, label: c.label, m: c, color: heroColor(c.key, _heroData.findIndex((d) => d.key === c.key)), pts: heroSlice(c.history) })).filter((s) => s.pts.length >= 2);
   if (!series.length) return;
   svg._multi = null;
-  if (series.length >= 2) { drawHeroMulti(svg, series); if (read) read.innerHTML = heroLegendHTML(series); }
-  else { drawHero(svg, series[0].pts, series[0].m); if (read) read.innerHTML = heroReadHTML(series[0]); }
+  if (series.length >= 2) drawHeroMulti(svg, series);   // ≥2 → indexed % overlay
+  else drawHero(svg, series[0].pts, series[0].m);        // 1 → price line + price axis
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every

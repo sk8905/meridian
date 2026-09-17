@@ -819,39 +819,28 @@
     .tui .g-side-x{ grid-area:sidex; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
     .tui .g-side2{ grid-area:side2; display:block; border-left:1px solid var(--t-grid2); }
     /* ---- HERO CHART BAND (Option C) ---- */
-    .tui .g-hero{ display:flex; flex-direction:column; background:var(--t-panel); border-bottom:2px solid var(--accent, #fb8b1e); }
-    .tui .g-hero-top{ display:flex; align-items:center; gap:10px; padding:6px 12px 4px; }
-    .tui .g-hero-sel{ display:flex; flex-wrap:wrap; gap:2px; min-width:0; }
-    .tui .g-hero-chip{ font:inherit; font-size:11px; font-weight:600; letter-spacing:.005em; color:var(--t-mut);
-      background:transparent; border:0; padding:3px 8px; cursor:pointer; white-space:nowrap; }
-    .tui .g-hero-chip:hover{ color:var(--t-ink); }
-    .tui .g-hero-chip.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
-    [data-theme="dark"] .tui .g-hero-chip.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
-    .tui .g-hero-range{ margin-left:auto; display:flex; gap:2px; flex:0 0 auto; }
+    .tui .g-hero{ display:flex; flex-direction:column; background:var(--t-panel); }
+    /* One securities row: every instrument with its window change; tapping toggles
+       it on/off the chart. A FILLED colour dot = plotted, HOLLOW = off. Doubles as
+       the chart legend (so there's no separate chip row to duplicate it). */
+    .tui .g-hero-sel{ display:flex; flex-wrap:wrap; align-items:baseline; gap:1px 4px; padding:5px 10px 2px; min-width:0; }
+    .tui .g-hero-tk{ font:inherit; display:inline-flex; align-items:baseline; white-space:nowrap;
+      background:transparent; border:0; padding:2px 6px; cursor:pointer; }
+    .tui .g-hero-cdot{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; align-self:center; margin-right:5px;
+      border:1.5px solid var(--c, var(--t-mut)); background:transparent; }        /* hollow = not plotted */
+    .tui .g-hero-tk.is-on .g-hero-cdot, .tui .g-hero-cdot.on{ background:var(--c, var(--t-mut)); }  /* filled = plotted */
+    .tui .g-hero-tk-nm{ font-size:11.5px; font-weight:600; color:var(--t-faint); }
+    .tui .g-hero-tk.is-on .g-hero-tk-nm{ color:var(--t-ink); }
+    .tui .g-hero-tk:hover .g-hero-tk-nm{ color:var(--t-dim); }
+    .tui .g-hero-tk-pct{ font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; margin-left:6px; }
+    .tui .g-hero-tk-pct.up{ color:var(--t-up); } .tui .g-hero-tk-pct.down{ color:var(--t-down); }
+    /* Duration toggle: its own row below the securities, right-aligned. */
+    .tui .g-hero-range{ display:flex; gap:2px; justify-content:flex-end; padding:0 10px 3px; }
     .tui .g-hero-rg{ font:inherit; font-size:10px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
       color:var(--t-faint); background:transparent; border:0; padding:2px 7px; cursor:pointer; }
     .tui .g-hero-rg:hover{ color:var(--t-dim); }
     .tui .g-hero-rg.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
     [data-theme="dark"] .tui .g-hero-rg.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
-    .tui .g-hero-read{ display:flex; align-items:flex-end; gap:12px; padding:0 14px 3px; min-width:0; }
-    .tui .g-hero-name{ font-size:11.5px; font-weight:600; color:var(--t-dim); flex:0 0 auto; }
-    .tui .g-hero-px{ font-size:22px; font-weight:700; line-height:1; letter-spacing:-.01em; color:var(--t-ink);
-      font-variant-numeric:tabular-nums; flex:0 0 auto; }
-    .tui .g-hero-delta{ font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums; padding-bottom:2px; flex:0 0 auto; }
-    .tui .g-hero-delta.up{ color:var(--t-up); } .tui .g-hero-delta.down{ color:var(--t-down); }
-    .tui .g-hero-sub{ margin-left:auto; font-size:10px; color:var(--t-mut); padding-bottom:3px; text-align:right;
-      white-space:nowrap; flex:0 1 auto; overflow:hidden; text-overflow:ellipsis; }
-    /* Multi-select overlay: a categorical colour dot carries series identity (on
-       the active chips and in the legend); the legend doubles as the readout. */
-    .tui .g-hero-cdot{ display:inline-block; width:7px; height:7px; border-radius:50%; flex:0 0 auto;
-      margin-right:5px; vertical-align:baseline; }
-    .tui .g-hero-chip .g-hero-cdot{ margin-right:4px; }
-    .tui .g-hero-legend{ display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 14px; min-width:0; flex:1 1 auto; padding-bottom:2px; }
-    .tui .g-hero-idx{ font-size:10px; color:var(--t-mut); white-space:nowrap; }
-    .tui .g-hero-leg{ display:inline-flex; align-items:baseline; gap:0; white-space:nowrap; }
-    .tui .g-hero-leg-nm{ font-size:11px; font-weight:600; color:var(--t-dim); }
-    .tui .g-hero-leg-pct{ font-size:11px; font-weight:700; font-variant-numeric:tabular-nums; margin-left:6px; }
-    .tui .g-hero-leg-pct.up{ color:var(--t-up); } .tui .g-hero-leg-pct.down{ color:var(--t-down); }
     .tui .g-hero-plot{ display:grid; grid-template-columns:minmax(0,1fr) 52px; grid-template-rows:auto auto;
       column-gap:5px; padding:2px 6px 5px; }
     .tui .g-hero-canvas{ position:relative; grid-column:1; grid-row:1; }
@@ -874,15 +863,6 @@
     .tui .g-hero-tip[hidden]{ display:none; }
     .tui .g-hero-tip-v{ font-size:11px; color:var(--t-ink); font-weight:600; }
     .tui .g-hero-tip-d{ font-size:9px; color:var(--t-mut); }
-    /* Phones/tablets (the full-width Chart pane) have vertical room, so stack the
-       controls: the securities row along the top, the duration toggle on its own
-       row below them, then the readout and the chart — instead of squeezing the
-       securities and the duration onto one row (which wraps awkwardly). Desktop
-       (≥1201px) keeps them side by side to save the height-boxed terminal. */
-    @media (max-width:1200px){
-      .tui .g-hero-top{ flex-direction:column; align-items:stretch; gap:3px; }
-      .tui .g-hero-range{ margin-left:0; justify-content:flex-end; }
-    }
     /* News / Watchlist swap chips — phones AND tablets (shown in the
        max-width:1200px block); only on a wide desktop (≥1201px) are both wire
        columns roomy enough to sit side by side, so the chips are hidden there.

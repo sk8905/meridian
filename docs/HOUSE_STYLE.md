@@ -355,23 +355,27 @@ notification badge red (`#ef4444`).
   both right rails stay full-height (CSS grid `grid-template-areas`). On **phones**
   it is the **Chart wire chip — the tab strip reads News · Watchlist · Chart · X, in
   that order, and News stays the default** — swapping onto the single-column
-  workspace like the other wires. The band shows **one instrument at a time** from a
-  fixed basket — **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — picked by a
-  chip row (**multi-select** — the chips toggle, so one to all six can be shown at
-  once; at least one is always kept), with a **1M / 6M / 1Y / YTD** range toggle, a big value + change readout
-  (coloured; for the **10Y yield a *fall* is green/risk-on** and the change reads in
-  **pp**, not %), and a hover crosshair. It carries **axes, terminal-style**: a
-  **right value axis** (round-number ticks, with the current level in a
-  colour-coded tag on the axis) and a **bottom time axis** (dated ticks — day+month
-  on 1M/6M, month-'YY on 1Y/YTD), over a faint grid and a thin non-scaling line.
-  Axis **labels are HTML positioned by %** so they stay crisp against the stretched
-  (`preserveAspectRatio:none`) SVG. **Two selected securities or more → an INDEXED
-  overlay:** each series is **rebased to % from the window start** onto ONE shared
-  % axis (never a dual axis — you cannot put S&P and the 10Y on one price scale),
-  drawn in a **categorical colour** (the dataviz reference palette's validated dark
-  hues, green/red skipped as they read as up/down here), with a **legend** (colour
-  dot · name · indexed %) that doubles as the readout and a 0% baseline. A single
-  selection keeps the up/down **price** line + price axis. **One fetch, all ranges:** the Worker
+  workspace like the other wires. The band plots a fixed basket —
+  **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — from **one unified
+  securities row**: every instrument with its window **change indicator**, tapped to
+  toggle **on/off the chart** (**multi-select**, one to all six, at least one kept),
+  its **colour dot FILLED when plotted and HOLLOW when off**. That single row is
+  also the chart legend — there is **no separate chip selector** to duplicate it.
+  Below it sit the **1M / 6M / 1Y / YTD** range toggle (**right-aligned**), then the
+  chart. Colour follows the instrument (its fixed basket slot), **never its
+  selection rank**. It carries **axes, terminal-style**: a **right value axis**
+  (round-number ticks; on the single view the current level sits in a colour-coded
+  tag on the axis) and a **bottom time axis** (dated ticks — day+month on 1M/6M,
+  month-'YY on 1Y/YTD), over a faint grid with **horizontal and vertical** grid
+  lines and thin non-scaling lines. Axis **labels are HTML positioned by %** so they
+  stay crisp against the stretched (`preserveAspectRatio:none`) SVG. **One selected
+  security → the up/down price line + price axis** (the 10Y yield reads a *fall* as
+  green/risk-on). **Two or more → an INDEXED overlay:** each series **rebased to %
+  from the window start** onto ONE shared % axis (never a dual axis — you cannot put
+  S&P and the 10Y on one price scale), drawn in a **categorical colour** (the dataviz
+  reference palette's validated dark hues, green/red skipped as they read as up/down
+  here) over a 0% baseline; the crosshair drives each plotted ticker's % value.
+  **One fetch, all ranges:** the Worker
   (`/api/hero` in `src/index.js`) returns a **full year of daily closes per
   instrument** and the client **slices that single series** for the range toggle — no
   refetch on range/instrument change. Equities/commodities/Bitcoin come from
@@ -382,8 +386,9 @@ notification badge red (`#ef4444`).
   localStorage cache so a reload paints the last chart instantly (never a blank).
   `renderHero`/`drawHero` in `v2/js/home/glance.js`; `/api/hero` edge-caches ~10 min
   and never pins a broken partial (needs ≥4 of the basket). Enforced by
-  `tests/home-hero.mjs` (chips, readout, range + instrument switch, Option-C
-  geometry, phone Chart chip) and the chip order/default by `tests/home-mobile-wire-tabs.mjs`.
+  `tests/home-hero.mjs` (the securities row + filled/hollow dots, range toggle,
+  single→indexed-overlay multi-select, axes + vertical grid, Option-C geometry,
+  phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.
 
 ---
 

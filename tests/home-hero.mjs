@@ -30,103 +30,97 @@ const b = await launchChromium();
 // --- Desktop: chips + readout + chart, then range & instrument switch ---------
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
-  await pg.waitForSelector("#g-hero-sel .g-hero-chip", { timeout: 8000 });
+  await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
   await pg.waitForTimeout(200);
 
   const init = await pg.evaluate(() => {
-    const chips = [...document.querySelectorAll("#g-hero-sel .g-hero-chip")];
-    const on = chips.find((c) => c.classList.contains("is-on"));
-    const paths = document.querySelectorAll("#g-hero-svg path").length;
+    const tk = [...document.querySelectorAll("#g-hero-sel .g-hero-tk")];
+    const on = tk.filter((t) => t.classList.contains("is-on"));
+    const dotFilled = (k) => document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"] .g-hero-cdot`).classList.contains("on");
     return {
-      labels: chips.map((c) => c.textContent.trim()),
-      onLabel: on ? on.textContent.trim() : "",
-      name: (document.getElementById("g-hero-name") || {}).textContent || "",
-      px: (document.getElementById("g-hero-px") || {}).textContent || "",
-      delta: (document.getElementById("g-hero-delta") || {}).textContent || "",
-      sub: (document.getElementById("g-hero-sub") || {}).textContent || "",
-      paths,
+      labels: tk.map((t) => (t.querySelector(".g-hero-tk-nm") || {}).textContent.trim()),
+      onKeys: on.map((t) => t.dataset.k),
+      pcts: tk.map((t) => (t.querySelector(".g-hero-tk-pct") || {}).textContent.trim()),
+      spxFilled: dotFilled("spx"), goldFilled: dotFilled("gold"),
+      lines: document.querySelectorAll("#g-hero-svg .g-hero-line").length,
       rangeOn: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
     };
   });
-  checkEq(init.labels.length, 6, "hero: six instrument chips render");
-  check(init.labels.join(",") === "S&P 500,Nasdaq,US 10Y,Oil,Gold,Bitcoin", `hero: basket is S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin (${init.labels.join(", ")})`);
-  checkEq(init.onLabel, "S&P 500", "hero: the first instrument (S&P 500) is selected by default");
-  checkEq(init.name, "S&P 500", "hero: the readout names the selected instrument");
-  check(init.px.trim().length > 0 && init.px !== "—", `hero: the price readout is populated (${init.px})`);
-  check(/[▲▼]/.test(init.delta), `hero: the change readout shows a direction arrow (${init.delta})`);
-  check(init.paths >= 2, "hero: the chart draws an area + line path");
+  checkEq(init.labels.length, 6, "hero: the securities row lists all six instruments");
+  check(init.labels.join(",") === "S&P 500,Nasdaq,US 10Y,Oil,Gold,Bitcoin", `hero: the row reads S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin (${init.labels.join(", ")})`);
+  check(init.onKeys.length === 1 && init.onKeys[0] === "spx", `hero: one security (S&P 500) is selected by default (${init.onKeys.join(", ")})`);
+  check(init.pcts.every((p) => /%$/.test(p)), `hero: every ticker shows a % change indicator (${init.pcts.join(" · ")})`);
+  check(init.spxFilled && !init.goldFilled, "hero: the selected dot is FILLED, an unselected dot is HOLLOW");
+  checkEq(init.lines, 1, "hero: one security → a single line");
   checkEq(init.rangeOn, "1M", "hero: 1M is the default range");
-  check(/1-month/.test(init.sub), `hero: the sub-label states the range (${init.sub})`);
 
-  // Axes: a right value axis (labels + a coloured last-value tag) and a bottom
-  // time axis with dated ticks.
+  // Axes: a right value axis (labels + a coloured last-value tag on the single
+  // view), a bottom dated time axis, and vertical grid lines.
   const ax = await pg.evaluate(() => ({
     yl: document.querySelectorAll("#g-hero-yaxis .g-hero-ylab").length,
     tag: (document.querySelector("#g-hero-yaxis .g-hero-ytag") || {}).textContent || "",
-    tagDown: !!document.querySelector("#g-hero-yaxis .g-hero-ytag.down") || !!document.querySelector("#g-hero-yaxis .g-hero-ytag.up"),
     xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()),
+    verticals: [...document.querySelectorAll("#g-hero-svg line:not(.g-hero-cross)")].filter((l) => l.getAttribute("x1") === l.getAttribute("x2")).length,
   }));
   check(ax.yl >= 2, `hero: the right value axis draws tick labels (${ax.yl})`);
-  check(ax.tag.trim().length > 0 && ax.tagDown, `hero: the last value sits in a coloured axis tag (${ax.tag})`);
+  check(ax.tag.trim().length > 0, `hero: the single view shows the current level in an axis tag (${ax.tag})`);
   check(ax.xl.length >= 2 && /\d/.test(ax.xl.join("")), `hero: the bottom time axis draws dated ticks (${ax.xl.join(" · ")})`);
+  check(ax.verticals >= 3, `hero: the chart draws vertical grid lines (${ax.verticals})`);
 
-  // Range toggle: 1M → 1Y redraws (the line path changes) and relabels.
+  // Range toggle: 1M → 1Y redraws (the line path changes) and relabels the axis.
   const d1m = await pg.evaluate(() => document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"));
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1Y"]').click());
   await pg.waitForTimeout(150);
   const y = await pg.evaluate(() => ({
     d: document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"),
-    sub: (document.getElementById("g-hero-sub") || {}).textContent || "",
     on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
     xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
   }));
-  check(y.on === "1Y" && /1-year/.test(y.sub), `hero: the range toggle switches to 1Y (${y.sub})`);
+  checkEq(y.on, "1Y", "hero: the range toggle switches to 1Y");
   check(y.d !== d1m, "hero: changing the range redraws the chart (different path)");
   check(/'\d\d/.test(y.xl), `hero: the 1Y time axis switches to month-'YY ticks (${y.xl})`);
 
   // --- Multi-select: adding a 2nd security switches to the INDEXED overlay ------
   // A single price axis can't hold S&P and the 10Y together, so ≥2 series are
   // rebased to % from the window start onto one shared % axis (dataviz rule).
-  await pg.evaluate(() => document.querySelector('#g-hero-sel .g-hero-chip[data-k="ndx"]').click());
+  await pg.evaluate(() => document.querySelector('#g-hero-sel .g-hero-tk[data-k="ndx"]').click());
   await pg.waitForTimeout(150);
   const mm = await pg.evaluate(() => ({
-    onCount: document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on").length,
+    onKeys: [...document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on")].map((t) => t.dataset.k),
     lines: document.querySelectorAll("#g-hero-svg .g-hero-line").length,
-    legs: [...document.querySelectorAll("#g-hero-read .g-hero-leg-nm")].map((e) => e.textContent.trim()),
-    dots: document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on .g-hero-cdot").length,
+    filled: document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on .g-hero-cdot.on").length,
+    ndxFilled: document.querySelector('#g-hero-sel .g-hero-tk[data-k="ndx"] .g-hero-cdot').classList.contains("on"),
+    oilFilled: document.querySelector('#g-hero-sel .g-hero-tk[data-k="oil"] .g-hero-cdot').classList.contains("on"),
     yPct: [...document.querySelectorAll("#g-hero-yaxis .g-hero-ylab")].some((e) => /%/.test(e.textContent)),
-    sub: (document.getElementById("g-hero-idx") || {}).textContent || "",
+    noTag: !document.querySelector("#g-hero-yaxis .g-hero-ytag"),
   }));
-  checkEq(mm.onCount, 2, "hero(multi): two securities are selected at once");
+  check(mm.onKeys.length === 2 && mm.onKeys.includes("spx") && mm.onKeys.includes("ndx"), `hero(multi): two securities selected at once (${mm.onKeys.join(", ")})`);
   check(mm.lines >= 2, `hero(multi): a line is drawn per selected security (${mm.lines})`);
-  check(mm.legs.join(",") === "S&P 500,Nasdaq", `hero(multi): the legend names both series (${mm.legs.join(", ")})`);
-  check(mm.dots === 2, "hero(multi): each active chip carries its series colour dot");
+  check(mm.filled === 2 && mm.ndxFilled && !mm.oilFilled, "hero(multi): selected dots FILLED, unselected HOLLOW");
   check(mm.yPct, "hero(multi): the value axis switches to indexed % ticks");
-  check(/Indexed/.test(mm.sub), `hero(multi): the readout notes it is indexed (${mm.sub})`);
+  check(mm.noTag, "hero(multi): the single-view price tag is gone in the indexed overlay");
 
   // All six at once.
-  await pg.evaluate(() => ["ust10", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-chip[data-k="${k}"]`).click()));
+  await pg.evaluate(() => ["ust10", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"]`).click()));
   await pg.waitForTimeout(150);
-  checkEq(await pg.evaluate(() => document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on").length), 6, "hero(multi): all six can be selected together");
+  checkEq(await pg.evaluate(() => document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on").length), 6, "hero(multi): all six can be selected together");
   check(await pg.evaluate(() => document.querySelectorAll("#g-hero-svg .g-hero-line").length) >= 6, "hero(multi): all six lines draw");
 
-  // Pare back to only the 10Y → the single price view returns (pp change, FRED).
-  await pg.evaluate(() => ["spx", "ndx", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-chip[data-k="${k}"]`).click()));
+  // Pare back to only the 10Y → the single price view returns (pp change, FRED tag).
+  await pg.evaluate(() => ["spx", "ndx", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"]`).click()));
   await pg.waitForTimeout(150);
   const fi = await pg.evaluate(() => ({
-    on: document.querySelectorAll("#g-hero-sel .g-hero-chip.is-on").length,
-    name: (document.getElementById("g-hero-name") || {}).textContent || "",
-    delta: (document.getElementById("g-hero-delta") || {}).textContent || "",
-    sub: (document.getElementById("g-hero-sub") || {}).textContent || "",
-    px: (document.getElementById("g-hero-px") || {}).textContent || "",
+    onKeys: [...document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on")].map((t) => t.dataset.k),
+    lines: document.querySelectorAll("#g-hero-svg .g-hero-line").length,
+    tag: (document.querySelector("#g-hero-yaxis .g-hero-ytag") || {}).textContent || "",
+    pct10: (document.querySelector('#g-hero-sel .g-hero-tk[data-k="ust10"] .g-hero-tk-pct') || {}).textContent || "",
   }));
-  checkEq(fi.on, 1, "hero: paring back to one security returns to the single price view");
-  checkEq(fi.name, "US 10Y", "hero: the single readout names the remaining security");
-  check(/pp$/.test(fi.delta.trim()), `hero: the 10Y yield reports a pp change, not a % (${fi.delta})`);
-  check(/%$/.test(fi.px.trim()), `hero: the 10Y value carries its % unit (${fi.px})`);
-  check(/FRED/.test(fi.sub), `hero: the 10Y sub-label cites FRED (${fi.sub})`);
-  // Restore a single default so the geometry assertions below read a clean chart.
-  await pg.evaluate(() => { const s = document.querySelector('#g-hero-sel .g-hero-chip[data-k="spx"]'); s.click(); document.querySelector('#g-hero-sel .g-hero-chip[data-k="ust10"]').click(); });
+  check(fi.onKeys.length === 1 && fi.onKeys[0] === "ust10", `hero: paring back to one returns the single view (${fi.onKeys.join(", ")})`);
+  checkEq(fi.lines, 1, "hero: back to a single line");
+  check(/%$/.test(fi.tag.trim()), `hero: the 10Y single view carries its % unit on the axis tag (${fi.tag})`);
+  check(/%$/.test(fi.pct10.trim()), `hero: the 10Y ticker shows a % change (${fi.pct10})`);
+  // Restore a single spx default so the geometry assertions read a clean chart.
+  await pg.evaluate(() => { document.querySelector('#g-hero-sel .g-hero-tk[data-k="spx"]').click(); document.querySelector('#g-hero-sel .g-hero-tk[data-k="ust10"]').click(); });
   await pg.waitForTimeout(150);
 
   // Option C geometry: the band spans the two MIDDLE columns (news + manager),
@@ -149,15 +143,15 @@ const b = await launchChromium();
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
   await pg.waitForSelector(".g-wiretab[data-wire='chart']", { timeout: 8000 });
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
-  await pg.waitForSelector("#g-hero-sel .g-hero-chip", { timeout: 8000 });
+  await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
   await pg.waitForTimeout(150);
   const r = await pg.evaluate(() => {
     const hero = document.querySelector(".g-hero");
     const shown = hero && getComputedStyle(hero).display !== "none" && hero.getBoundingClientRect().height > 0;
-    return { shown, chips: document.querySelectorAll("#g-hero-sel .g-hero-chip").length, paths: document.querySelectorAll("#g-hero-svg path").length };
+    return { shown, tk: document.querySelectorAll("#g-hero-sel .g-hero-tk").length, paths: document.querySelectorAll("#g-hero-svg path").length };
   });
   check(r.shown, "phone: the hero chart pane is visible under the Chart chip");
-  check(r.chips === 6 && r.paths >= 2, "phone: the chart renders its chips + line under the Chart chip");
+  check(r.tk === 6 && r.paths >= 2, "phone: the chart renders its securities row + line under the Chart chip");
   checkErrs(errs, "home hero phone");
   await ctx.close();
 }

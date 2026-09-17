@@ -55,20 +55,16 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
              swappable "Chart" pane in the wire-tab strip. The instrument chips and
              range toggle are rendered by glance.js (renderHero). -->
         <section class="g-hero g-anchor" id="jump-hero" aria-label="Price and performance chart">
-          <div class="g-hero-top">
-            <div class="g-hero-sel" id="g-hero-sel" role="tablist" aria-label="Chart instrument"></div>
-            <div class="g-hero-range" id="g-hero-range" role="tablist" aria-label="Chart range">
-              <button type="button" class="g-hero-rg is-on" data-r="1M" role="tab">1M</button>
-              <button type="button" class="g-hero-rg" data-r="6M" role="tab">6M</button>
-              <button type="button" class="g-hero-rg" data-r="1Y" role="tab">1Y</button>
-              <button type="button" class="g-hero-rg" data-r="YTD" role="tab">YTD</button>
-            </div>
-          </div>
-          <div class="g-hero-read" id="g-hero-read">
-            <span class="g-hero-name" id="g-hero-name">—</span>
-            <span class="g-hero-px" id="g-hero-px">—</span>
-            <span class="g-hero-delta" id="g-hero-delta"></span>
-            <span class="g-hero-sub" id="g-hero-sub"></span>
+          <!-- One unified securities row (rendered by glance.js): every instrument
+               with its window change, a colour dot (filled = plotted, hollow = off);
+               tapping toggles it on/off the chart. Doubles as the chart legend, so
+               there is no separate chip selector to duplicate it. -->
+          <div class="g-hero-sel" id="g-hero-sel" role="group" aria-label="Securities — tap to add or remove"></div>
+          <div class="g-hero-range" id="g-hero-range" role="tablist" aria-label="Chart range">
+            <button type="button" class="g-hero-rg is-on" data-r="1M" role="tab">1M</button>
+            <button type="button" class="g-hero-rg" data-r="6M" role="tab">6M</button>
+            <button type="button" class="g-hero-rg" data-r="1Y" role="tab">1Y</button>
+            <button type="button" class="g-hero-rg" data-r="YTD" role="tab">YTD</button>
           </div>
           <div class="g-hero-plot">
             <div class="g-hero-canvas">
