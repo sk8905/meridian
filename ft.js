@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3ab370c5-2ea2-43c8-835c-977d8f0b51f4", title: "Japan’s Sanae Takaichi reshuffles cabinet in signal of confidence to markets", date: "2026-09-17", time: "07:43", url: "https://www.ft.com/content/3ab370c5-2ea2-43c8-835c-977d8f0b51f4" },
   { id: "be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2", title: "Getting to know Mr Warsh", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/be4a0acf-f4e8-41da-ba04-2ed6d44b7fc2" },
   { id: "094d8a79-e0d0-47b7-8b0d-d4e72e079dbe", title: "FTAV’s further reading", date: "2026-09-17", time: "06:30", url: "https://www.ft.com/content/094d8a79-e0d0-47b7-8b0d-d4e72e079dbe" },
   { id: "5d1dba1a-db81-464d-b2d0-9e0741010560", title: "Von der Leyen advances EU defence pitch with army of new ideas", date: "2026-09-17", time: "06:00", url: "https://www.ft.com/content/5d1dba1a-db81-464d-b2d0-9e0741010560" },
@@ -60,8 +61,4 @@ export const FT_ITEMS = [
   { id: "35b6c207-98b1-44fb-82b9-3c8c29507e0a", title: "The EU should not increase resilience at the expense of trusted partners", date: "2026-09-16", time: "15:16", url: "https://www.ft.com/content/35b6c207-98b1-44fb-82b9-3c8c29507e0a" },
   { id: "0a6dbcf3-adb9-493a-83d7-b1f43a2f75b3", title: "Salary stand-off delays abolition of NHS quango", date: "2026-09-16", time: "15:12", url: "https://www.ft.com/content/0a6dbcf3-adb9-493a-83d7-b1f43a2f75b3" },
   { id: "29f0dac0-0523-46c4-a573-cd681a69b445", title: "Anthropic’s mother of all risk factors", date: "2026-09-16", time: "14:27", url: "https://www.ft.com/content/29f0dac0-0523-46c4-a573-cd681a69b445" },
-  { id: "3a88d016-9575-4c11-bd34-14606964a867", title: "Chinese oil prices hit record highs after attacks on Saudi pipeline", date: "2026-09-16", time: "14:24", url: "https://www.ft.com/content/3a88d016-9575-4c11-bd34-14606964a867" },
-  { id: "d29a4116-0511-4a85-b005-b1b4b110cdcd", title: "The British right’s patriotism problem", date: "2026-09-16", time: "13:18", url: "https://www.ft.com/content/d29a4116-0511-4a85-b005-b1b4b110cdcd" },
-  { id: "d085adc5-977b-4c7e-9641-9824d1d345d3", title: "AI bosses’ safety push sparks rift inside OpenAI and Anthropic", date: "2026-09-16", time: "13:00", url: "https://www.ft.com/content/d085adc5-977b-4c7e-9641-9824d1d345d3" },
-  { id: "31f41c2e-084b-4bdf-a548-bf3d1139dbbe", title: "Hormuz crisis threatens to undermine long-term LNG demand", date: "2026-09-16", time: "12:00", url: "https://www.ft.com/content/31f41c2e-084b-4bdf-a548-bf3d1139dbbe" },
 ];
