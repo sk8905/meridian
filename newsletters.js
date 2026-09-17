@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-makhloufecblive-20260917",
+    publication: "Bloomberg",
+    author: "Jennifer Duggan",
+    series: null,
+    title: "ECB's Makhlouf Says Every Meeting Is 'Live' Including October",
+    date: "2026-09-17",
+    time: "08:45",
+    summary: "European Central Bank Governing Council member Gabriel Makhlouf declined to rule out an interest-rate hike in October if circumstances require it.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-17/ecb-s-makhlouf-says-every-meeting-is-live-including-october",
+  },
+  {
     id: "nl-bbg-morningbriefing-feddefiestrump-20260917",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
@@ -459,28 +470,6 @@ export const NEWSLETTERS = [
     time: "19:42",
     summary: "Lockups, annuities, pre-K, exits.",
     url: "https://bloom.bg/4rg8tR4",
-  },
-  {
-    id: "nl-lemonde-lebrief-lepen2027-20260914",
-    publication: "Le Monde",
-    author: null,
-    series: "Le Brief",
-    title: "Enquête électorale présidentielle 2027 : Marine Le Pen entame la campagne sur un socle inédit au cœur d’un électorat inquiet et en colère",
-    date: "2026-09-14",
-    time: "17:34",
-    summary: "La candidate du RN bénéficie d’intentions de vote inédites dans l’enquête électorale réalisée pour Le Monde.",
-    url: "https://infos.lemonde.fr/optiext/optiextension.dll?ID=XsIPLy64Bocp-LmSKiFaPX3oTQNviRrfIRQ1WteI08tm8qAmx_FyCtGzI8qhUGFSwMdZzpA0yuG_XR0d0h9B2YGoxfXbf0yO",
-  },
-  {
-    id: "nl-legalbusiness-offshorefirminvestment-20260914",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Trio of law firms advise as latest offshore firm takes investment",
-    date: "2026-09-14",
-    time: "16:01",
-    summary: "Deal marks second offshore firm to take external investment in just six weeks.",
-    url: "https://email.legalbusiness.co.uk/c/1dXnNWY81p0qdGlQUYd8us9Fhlt7",
   },
   {
     id: "nl-preqin-firstclose-europedefense-20260914",

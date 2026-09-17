@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-17", time: "09:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
+  { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "What do British businesses need from the Budget? Submit a question", date: "2026-09-17", time: "09:41", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
+  { id: "c5843a3d-51a3-4508-915c-6206351aeb97", title: "Thanks to Rishi Sunak, the UK is helping put the brakes on AI", date: "2026-09-17", time: "09:30", url: "https://www.ft.com/content/c5843a3d-51a3-4508-915c-6206351aeb97" },
   { id: "42ab32f0-8c22-4912-a928-c73552305b7e", title: "US passes bill targeting importers of Russian oil", date: "2026-09-17", time: "09:04", url: "https://www.ft.com/content/42ab32f0-8c22-4912-a928-c73552305b7e" },
   { id: "69f02abc-e0dc-46e5-aa6c-61d209e095d9", title: "China’s US Treasury holdings fall to lowest level since 2008", date: "2026-09-17", time: "08:43", url: "https://www.ft.com/content/69f02abc-e0dc-46e5-aa6c-61d209e095d9" },
   { id: "2c34414a-5381-4083-ac34-00bbe67ef8db", title: "OpenAI discloses new ‘concerning’ model behaviour", date: "2026-09-17", time: "08:42", url: "https://www.ft.com/content/2c34414a-5381-4083-ac34-00bbe67ef8db" },
@@ -56,8 +59,6 @@ export const FT_ITEMS = [
   { id: "d1f2c9bd-26ce-4e87-9da4-fe0238bd531d", title: "Revolut hackers demand $3mn ransom", date: "2026-09-16", time: "18:58", url: "https://www.ft.com/content/d1f2c9bd-26ce-4e87-9da4-fe0238bd531d" },
   { id: "7be92efe-13d6-4d02-9f77-0e8229b3b8fa", title: "Trump oil ally Harold Hamm to invest in Venezuela", date: "2026-09-16", time: "18:39", url: "https://www.ft.com/content/7be92efe-13d6-4d02-9f77-0e8229b3b8fa" },
   { id: "d4368014-a79f-4887-a839-1fc43b52fca1", title: "Britain’s unsustainable pensions lock", date: "2026-09-16", time: "18:21", url: "https://www.ft.com/content/d4368014-a79f-4887-a839-1fc43b52fca1" },
-  { id: "3f9013b1-11a8-4dbd-a985-b0577fd95313", title: "Turkish stocks slide in ‘fund run’ as investors withdraw $1bn", date: "2026-09-16", time: "17:39", url: "https://www.ft.com/content/3f9013b1-11a8-4dbd-a985-b0577fd95313" },
-  { id: "61b5fbae-9dd6-4980-bd1f-effe54b72d84", title: "Federal Reserve decision live: US central bank tipped to raise interest rates for first time in 3 years", date: "2026-09-16", time: "17:32", url: "https://www.ft.com/content/61b5fbae-9dd6-4980-bd1f-effe54b72d84" },
   { id: "fc08dba8-3e16-4262-9e2c-0d59d049efdc", title: "Bach choir is a rare symbol of unity in a swing state", date: "2026-09-16", time: "17:03", url: "https://www.ft.com/content/fc08dba8-3e16-4262-9e2c-0d59d049efdc" },
   { id: "1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e", title: "This is good for AI!!!! Aaargh!!!!", date: "2026-09-16", time: "16:32", url: "https://www.ft.com/content/1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e" },
 ];
