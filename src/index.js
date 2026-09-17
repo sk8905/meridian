@@ -1611,6 +1611,54 @@ async function handleHero(request, env, ctx) {
   return resp;
 }
 
+// News for the hero basket — REAL, sourced headlines per instrument from Yahoo
+// Finance's keyless search endpoint (title · publisher · link · publish time), so
+// each row keeps a verified source and date (R7). Tagged with the instrument it was
+// searched for; the client renders them in the news-wire row format.
+const HERO_NEWS_Q = [
+  { key: "spx", code: "SPX", label: "S&P 500", q: "S&P 500 index" },
+  { key: "ndx", code: "NDX", label: "Nasdaq", q: "Nasdaq" },
+  { key: "ust10", code: "10Y", label: "US 10Y", q: "10-year Treasury yield" },
+  { key: "oil", code: "OIL", label: "Oil", q: "crude oil price" },
+  { key: "gold", code: "GOLD", label: "Gold", q: "gold price" },
+  { key: "btc", code: "BTC", label: "Bitcoin", q: "bitcoin" },
+];
+async function yahooNews(q, n) {
+  const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=0&newsCount=${n}&newsQueryId=news_ss_symbols`);
+  if (!txt) return [];
+  let j; try { j = JSON.parse(txt); } catch { return []; }
+  const arr = (j && Array.isArray(j.news)) ? j.news : [];
+  return arr.map((it) => ({
+    title: String((it && it.title) || "").trim(),
+    url: (it && it.link) || "",
+    source: (it && it.publisher) || "",
+    ts: ((it && it.providerPublishTime) || 0) * 1000,
+    uuid: (it && it.uuid) || "",
+  })).filter((it) => it.title && /^https?:\/\//.test(it.url) && it.ts);
+}
+async function handleHeroNews(request, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/hero-news?v=1", request.url).toString());
+  const hit = await cache.match(cacheKey);
+  if (hit) return hit;
+  const per = await Promise.all(HERO_NEWS_Q.map((g) =>
+    yahooNews(g.q, 6).catch(() => []).then((items) => items.map((it) => ({ ...it, key: g.key, code: g.code, ticker: g.label })))));
+  const seen = new Set(), out = [];
+  for (const list of per) for (const it of list) {
+    const k = it.uuid || it.url || it.title;
+    if (seen.has(k)) continue; seen.add(k);
+    out.push({ title: it.title, url: it.url, source: it.source, date: new Date(it.ts).toISOString(), ts: it.ts, key: it.key, code: it.code, ticker: it.ticker });
+  }
+  out.sort((a, b) => b.ts - a.ts);
+  const items = out.slice(0, 30);
+  const resp = json({ items });
+  if (ctx && ctx.waitUntil && items.length) {
+    resp.headers.set("cache-control", "public, max-age=1200");   // ~20 min
+    ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  }
+  return resp;
+}
+
 // ============================ MACRO DASHBOARD ==============================
 // Key economic indicators (US + UK) with ~5y monthly history, fetched server-
 // side so there's no CORS issue or browser-visible key. Most series come from
@@ -3798,6 +3846,7 @@ export default {
     if (url.pathname === "/api/xfeed") return handleXFeed(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/hero") return handleHero(request, env, ctx);
+    if (url.pathname === "/api/hero-news") return handleHeroNews(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);

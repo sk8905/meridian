@@ -863,6 +863,16 @@
     .tui .g-hero-tip[hidden]{ display:none; }
     .tui .g-hero-tip-v{ font-size:11px; color:var(--t-ink); font-weight:600; }
     .tui .g-hero-tip-d{ font-size:9px; color:var(--t-mut); }
+    /* Related-news list beneath the chart — the news-wire row format (feed.css
+       .g-feed-row). Shown on the phone/tablet Chart pane (there's room below the
+       chart); on the ≥1201px terminal the full News column already exists, and the
+       hero is a height-boxed band, so it's hidden there. */
+    .tui .g-hero-news{ display:none; border-top:1px solid var(--t-grid2); margin-top:2px; padding:0 12px 10px;
+      container:feedwrap / inline-size; }   /* so .g-feed-row stacks (news-wire mobile layout) when narrow */
+    .tui .g-hero-news-head{ font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+      color:var(--t-dim); padding:8px 2px 4px; }
+    .tui .g-hero-news-empty{ padding:10px 2px; color:var(--t-mut); font-size:11.5px; }
+    @media (max-width:1200px){ .tui .g-hero-news{ display:block; } }
     /* News / Watchlist swap chips — phones AND tablets (shown in the
        max-width:1200px block); only on a wide desktop (≥1201px) are both wire
        columns roomy enough to sit side by side, so the chips are hidden there.

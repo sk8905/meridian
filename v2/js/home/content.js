@@ -74,6 +74,11 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
             <div class="g-hero-yaxis" id="g-hero-yaxis" aria-hidden="true"></div>
             <div class="g-hero-xaxis" id="g-hero-xaxis" aria-hidden="true"></div>
           </div>
+          <!-- Related news for the six charted tickers, rendered by glance.js in the
+               news-wire row format (real Yahoo Finance headlines via /api/hero-news).
+               Shown on the phone/tablet Chart pane, where there is room beneath the
+               chart; the desktop terminal already carries the full News column. -->
+          <div class="g-hero-news" id="g-hero-news" aria-label="News for the charted securities"></div>
         </section>
 
         <!-- CENTER: news wire -->

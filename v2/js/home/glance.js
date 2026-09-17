@@ -455,13 +455,14 @@ function heroWriteCache(insts) { try { localStorage.setItem(_HERO_KEY, JSON.stri
 function initHero() {
   const host = document.getElementById("jump-hero");
   if (!host) return;
-  if (_heroBooted) { fetchHero(); return; }   // re-entry (e.g. the Chart chip tapped): just refresh
+  if (_heroBooted) { fetchHero(); renderHeroNews(); return; }   // re-entry (Chart chip tapped): refresh
   const boot = () => {
     if (_heroBooted) return; _heroBooted = true;
     const cached = heroReadCache();
     if (cached && cached.length) { _heroData = cached; if (!_heroSel.length) _heroSel = [cached[0].key]; renderHero(); }
     wireHeroControls();
     fetchHero();
+    renderHeroNews();
     startHeroAuto();
   };
   if (host.offsetParent !== null) { boot(); return; }   // visible now (desktop, or revealed by the Chart chip)
@@ -494,6 +495,7 @@ function startHeroAuto() {
     const host = document.getElementById("jump-hero");
     if (!host || host.offsetParent === null || document.hidden) return;
     fetchHero();
+    renderHeroNews();
   }, 5 * 60 * 1000);
 }
 function wireHeroControls() {
@@ -714,6 +716,47 @@ function renderHero() {
   svg._multi = null;
   if (series.length >= 2) drawHeroMulti(svg, series);   // ≥2 → indexed % overlay
   else drawHero(svg, series[0].pts, series[0].m);        // 1 → price line + price axis
+}
+
+// ---- Related news for the charted tickers -----------------------------------
+// Real, sourced Yahoo Finance headlines for the six basket instruments (via
+// /api/hero-news), drawn in the news-wire row format (time · ticker tag · headline
+// · source · ticker) so it matches the Home news wire exactly. Seeded from a
+// per-viewer localStorage cache so it never blanks on refresh.
+const _HERONEWS_KEY = "wire.heronews.v1";
+function heroNewsReadCache() { try { const d = JSON.parse(localStorage.getItem(_HERONEWS_KEY) || "null"); return d && Array.isArray(d.items) ? d.items : null; } catch { return null; } }
+function heroNewsWriteCache(items) { try { localStorage.setItem(_HERONEWS_KEY, JSON.stringify({ items: items.slice(0, 30), at: Date.now() })); } catch { /* private mode / quota */ } }
+// Short time: today → HH:MM (Europe/London), else → "D Mon" (mirrors the wire's time slot).
+function heroNewsWhen(iso) {
+  const t = Date.parse(iso || ""); if (!t) return "";
+  const d = new Date(t), now = new Date();
+  if (d.toDateString() === now.toDateString()) { try { return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" }); } catch { /* fall through */ } }
+  return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
+}
+function heroNewsRow(it) {
+  const c = heroColor(it.key, 0);
+  const src = it.source ? `<span class="g-feed-src">${esc(it.source)}</span>` : "";
+  return `<a class="g-feed-row g-hero-news-row" href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">`
+    + `<span class="g-feed-time">${esc(heroNewsWhen(it.date))}</span>`
+    + `<span class="g-feed-code" style="color:${c};background:color-mix(in srgb, ${c} 15%, transparent)">${esc(it.code || "")}</span>`
+    + `<span class="g-feed-title">${esc(it.title)}</span>${src}`
+    + `<span class="g-feed-desk">${esc(it.ticker || "")}</span></a>`;
+}
+function renderHeroNews() {
+  const host = document.getElementById("g-hero-news"); if (!host) return;
+  const paint = (items) => {
+    if (!items || !items.length) { if (!host.querySelector(".g-feed-row")) host.innerHTML = `<div class="g-hero-news-empty">No ticker news right now.</div>`; return; }
+    host.innerHTML = `<div class="g-hero-news-head">Related news</div>` + items.map(heroNewsRow).join("");
+  };
+  if (!host.querySelector(".g-feed-row")) {
+    const cached = heroNewsReadCache();
+    if (cached && cached.length) paint(cached);
+    else host.innerHTML = `<div class="g-hero-news-head">Related news</div><div class="g-loading">Loading news…</div>`;
+  }
+  fetch("/api/hero-news", { headers: { accept: "application/json" } })
+    .then((r) => (r && r.ok) ? r.json() : null)
+    .then((d) => { const items = (d && Array.isArray(d.items)) ? d.items : []; if (!items.length) return; paint(items); heroNewsWriteCache(items); })
+    .catch(() => { /* keep whatever is showing */ });
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every

@@ -385,7 +385,14 @@ notification badge red (`#ef4444`).
   **auto-refreshes every ~5 min while on screen**, seeded from a per-viewer
   localStorage cache so a reload paints the last chart instantly (never a blank).
   `renderHero`/`drawHero` in `v2/js/home/glance.js`; `/api/hero` edge-caches ~10 min
-  and never pins a broken partial (needs ≥4 of the basket). Enforced by
+  and never pins a broken partial (needs ≥4 of the basket). **Beneath the chart, a
+  RELATED-NEWS list** for the six tickers — **real, sourced** Yahoo Finance
+  headlines (`/api/hero-news`, title · publisher · link · time, R7) drawn in the
+  **news-wire row format** (`.g-feed-row`; time · ticker tag coloured per series ·
+  headline · source · ticker), newest-first, localStorage-seeded. It shows on the
+  **phone/tablet Chart pane** (room beneath the chart); the ≥1201px terminal hides
+  it (the full News column already exists, and the hero is a height-boxed band).
+  Enforced by
   `tests/home-hero.mjs` (the securities row + filled/hollow dots, range toggle,
   single→indexed-overlay multi-select, axes + vertical grid, Option-C geometry,
   phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.

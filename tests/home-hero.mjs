@@ -24,7 +24,14 @@ const HERO = { asOf: new Date().toISOString().slice(0, 10), instruments: [
   { key: "btc", label: "Bitcoin", unit: "", pre: "$", dp: 0, fi: false, value: 76610, history: series(67, 70000, 0.02) },
 ] };
 
-const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)] });
+// Related-news stub (newest-first): the Worker returns real Yahoo Finance items.
+const NEWS = { items: [
+  { title: "Stocks rise as the Fed's rate decision lands", url: "https://finance.yahoo.com/a", source: "Yahoo Finance", date: new Date(Date.now() - 20 * 60000).toISOString(), ts: Date.now() - 20 * 60000, key: "spx", code: "SPX", ticker: "S&P 500" },
+  { title: "Crude oil slips on the supply outlook", url: "https://finance.yahoo.com/b", source: "Reuters", date: new Date(Date.now() - 90 * 60000).toISOString(), ts: Date.now() - 90 * 60000, key: "oil", code: "OIL", ticker: "Oil" },
+  { title: "Bitcoin extends its rally past resistance", url: "https://finance.yahoo.com/c", source: "CoinDesk", date: new Date(Date.now() - 5 * 3600000).toISOString(), ts: Date.now() - 5 * 3600000, key: "btc", code: "BTC", ticker: "Bitcoin" },
+] };
+
+const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)], "/api/hero-news": () => [200, JSON.stringify(NEWS)] });
 const b = await launchChromium();
 
 // --- Desktop: chips + readout + chart, then range & instrument switch ---------
@@ -134,6 +141,11 @@ const b = await launchChromium();
   check(geo.hero.r <= geo.sidex.l + 2, "hero: the band ends before the X rail");
   check(geo.hero.b <= geo.feed.t + 2 && geo.hero.b <= geo.mgr.t + 2, "hero: the two wires sit beneath the band (Option C)");
 
+  // The related-news list is hidden on the desktop terminal (the News column
+  // already exists and the hero is a height-boxed band).
+  const newsHidden = await pg.evaluate(() => { const n = document.getElementById("g-hero-news"); return !n || getComputedStyle(n).display === "none"; });
+  check(newsHidden, "hero: the related-news list is hidden on the desktop terminal");
+
   checkErrs(errs, "home hero desktop");
   await ctx.close();
 }
@@ -152,6 +164,31 @@ const b = await launchChromium();
   });
   check(r.shown, "phone: the hero chart pane is visible under the Chart chip");
   check(r.tk === 6 && r.paths >= 2, "phone: the chart renders its securities row + line under the Chart chip");
+
+  // Related news beneath the chart — real Yahoo items, in the news-wire row format.
+  await pg.waitForSelector("#g-hero-news .g-feed-row", { timeout: 8000 });
+  const news = await pg.evaluate(() => {
+    const rows = [...document.querySelectorAll("#g-hero-news .g-feed-row")];
+    const t = (r, s) => (r.querySelector(s) || {}).textContent ? r.querySelector(s).textContent.trim() : "";
+    const chart = document.querySelector(".g-hero-plot"), host = document.getElementById("g-hero-news");
+    return {
+      count: rows.length,
+      shown: host && getComputedStyle(host).display !== "none" && host.getBoundingClientRect().height > 0,
+      belowChart: chart && host && host.getBoundingClientRect().top >= chart.getBoundingClientRect().bottom - 2,
+      firstTitle: rows[0] ? t(rows[0], ".g-feed-title") : "",
+      firstTag: rows[0] ? t(rows[0], ".g-feed-code") : "",
+      firstTicker: rows[0] ? t(rows[0], ".g-feed-desk") : "",
+      allTagged: rows.every((r) => t(r, ".g-feed-code").length > 0),
+      allSourced: rows.every((r) => t(r, ".g-feed-src").length > 0),
+      allLinked: rows.every((r) => /^https?:\/\//.test(r.getAttribute("href") || "")),
+    };
+  });
+  check(news.shown && news.belowChart, "phone: the related-news list shows beneath the chart");
+  checkEq(news.count, 3, "phone: the related-news rows render");
+  check(news.firstTitle.includes("Fed's rate decision"), `phone: news is newest-first (${news.firstTitle})`);
+  check(news.allTagged && /^(SPX|OIL|BTC)$/.test(news.firstTag), `phone: each row carries a ticker tag (${news.firstTag})`);
+  check(news.allSourced && news.allLinked, "phone: each row carries a source + real link (news-wire format, R7)");
+  check(news.firstTicker.length > 0, `phone: the row is labelled with its ticker (${news.firstTicker})`);
   checkErrs(errs, "home hero phone");
   await ctx.close();
 }
