@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b1696209-2080-4714-9d5e-e5724200ac4d", title: "No country for independent central bankers", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/b1696209-2080-4714-9d5e-e5724200ac4d" },
+  { id: "3bb7e0e8-6aef-4b6b-a5f0-f472a2655c1f", title: "Wall Street warns trading boom is losing steam", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/3bb7e0e8-6aef-4b6b-a5f0-f472a2655c1f" },
+  { id: "61f61355-5b21-4a48-b324-9bd4b5b6777b", title: "AI boom obscuring global trade disruptions, warns WTO chief", date: "2026-09-17", time: "11:00", url: "https://www.ft.com/content/61f61355-5b21-4a48-b324-9bd4b5b6777b" },
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-17", time: "09:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "a491245d-6f6a-4218-9289-3fa8e43632ad", title: "What do British businesses need from the Budget? Submit a question", date: "2026-09-17", time: "09:41", url: "https://www.ft.com/content/a491245d-6f6a-4218-9289-3fa8e43632ad" },
   { id: "c5843a3d-51a3-4508-915c-6206351aeb97", title: "Thanks to Rishi Sunak, the UK is helping put the brakes on AI", date: "2026-09-17", time: "09:30", url: "https://www.ft.com/content/c5843a3d-51a3-4508-915c-6206351aeb97" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "3dacfbb9-e7ec-4286-b161-1f86bcd761cb", title: "UK prepares for a ‘really challenging’ Budget as interest rate fears mount", date: "2026-09-16", time: "19:46", url: "https://www.ft.com/content/3dacfbb9-e7ec-4286-b161-1f86bcd761cb" },
   { id: "b990fc74-9efe-4de0-a6ca-64427e6e4f84", title: "Federal Reserve raises fed funds rate with likely more to come", date: "2026-09-16", time: "19:35", url: "https://www.ft.com/content/b990fc74-9efe-4de0-a6ca-64427e6e4f84" },
   { id: "d1f2c9bd-26ce-4e87-9da4-fe0238bd531d", title: "Revolut hackers demand $3mn ransom", date: "2026-09-16", time: "18:58", url: "https://www.ft.com/content/d1f2c9bd-26ce-4e87-9da4-fe0238bd531d" },
-  { id: "7be92efe-13d6-4d02-9f77-0e8229b3b8fa", title: "Trump oil ally Harold Hamm to invest in Venezuela", date: "2026-09-16", time: "18:39", url: "https://www.ft.com/content/7be92efe-13d6-4d02-9f77-0e8229b3b8fa" },
-  { id: "d4368014-a79f-4887-a839-1fc43b52fca1", title: "Britain’s unsustainable pensions lock", date: "2026-09-16", time: "18:21", url: "https://www.ft.com/content/d4368014-a79f-4887-a839-1fc43b52fca1" },
-  { id: "fc08dba8-3e16-4262-9e2c-0d59d049efdc", title: "Bach choir is a rare symbol of unity in a swing state", date: "2026-09-16", time: "17:03", url: "https://www.ft.com/content/fc08dba8-3e16-4262-9e2c-0d59d049efdc" },
-  { id: "1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e", title: "This is good for AI!!!! Aaargh!!!!", date: "2026-09-16", time: "16:32", url: "https://www.ft.com/content/1b95b8c0-3563-4c3d-93f2-9d4d9fe3bc2e" },
 ];

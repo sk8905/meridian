@@ -43,6 +43,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-warshwinsapplause-20260917",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: Warsh wins applause",
+    date: "2026-09-17",
+    time: "10:57",
+    summary: "The Fed's rate hike lifts stocks and bonds as investors decide Warsh's inflation fight makes him a more credible chair.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-17/traders-applaud-warsh-s-fight-against-inflation",
+  },
+  {
+    id: "nl-the42-rugbydrugaddiction-20260917",
+    publication: "The 42",
+    author: "Declan Bogue",
+    series: null,
+    title: "Rugby, drug addiction, prison, and recovery",
+    date: "2026-09-17",
+    time: "10:44",
+    summary: "Former Ulster and Ireland lock Ryan Caldwell discusses his memoir on addiction, prison and recovery with Declan Bogue.",
+    url: "https://mailchi.mp/the42/rugby-drug-addiction-prison-and-recovery",
+  },
+  {
     id: "nl-bbg-authoralert-makhloufecblive-20260917",
     publication: "Bloomberg",
     author: "Jennifer Duggan",
@@ -450,17 +472,6 @@ export const NEWSLETTERS = [
     url: "https://www.reuters.com/business/what-amodei-altman-musk-have-said-about-ai-risks-stoking-doom-fears-2026-09-14/",
   },
   {
-    id: "nl-cf-marketupdate-energyshockfed-20260914",
-    publication: "Chatham Financial",
-    author: null,
-    series: "Market Update",
-    title: "The energy shock meets the Fed",
-    date: "2026-09-14",
-    time: "19:42",
-    summary: "Brent crude rose 8.65% last week to $104.61, while the 10-year Treasury yield climbed 16 basis points to 4.96%, tightening financial conditions.",
-    url: "https://go.cf.com/e3t/Ctc/ZZ+113/d5Z2Pb04/MW6NprFzDM9W460FR_7D6vzcW7Wb0M15TYx3_N72QT-K3prCCW7Y8-PT6lZ3m8N24cg3ZB_JbwN3CNnVGT81PGW6KRJQc8D1nszW7J0JTR6K4cmDN61lZJG4fgpYVD7Skf2gn9gmW7jxmKx6dwdGnW3hc_l97pzYPhN84gZL_VQtzHW5zYbcy9hyYbzW4kdf3c2kHddNW3fxwb_3S3WJMW8wxs7r6H9MqFW7-Q3BP7XKF44W2SfrDv5bJSsnW3nSrwY5HL3fcW71rWyc5tfclcVrVpV84Z7q0_W8f1Pgw5mZnv8N2F-gRpChYf6W7crbsl9flZfbF4Ryw-nJ9vcW5mSTv52W3rrZW8tMwKN3M07LrW6Sm1_G1f8ZfZW6p-66x3Mmp7RdTh9Wn04",
-  },
-  {
     id: "nl-bbg-moneystuff-ailabsstop-20260914",
     publication: "Bloomberg",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "19:42",
     summary: "Lockups, annuities, pre-K, exits.",
     url: "https://bloom.bg/4rg8tR4",
-  },
-  {
-    id: "nl-preqin-firstclose-europedefense-20260914",
-    publication: "Preqin",
-    author: null,
-    series: "First Close",
-    title: "Defense investment means a great deal to Europe",
-    date: "2026-09-14",
-    time: "12:35",
-    summary: "Changing geopolitical context triggers a shift toward defense investment opportunities in Europe for private equity and VC, though the region still trails the US and APAC in AUM.",
-    url: "https://go.preqin.com/webmail/909852/2169604361/a37b7380374cf2f3d0f926883036705c145c47a1b3fb9947952755ee7607cff9",
   },
 ];
