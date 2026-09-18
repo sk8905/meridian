@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3e72dc10-5733-4623-9c4d-1beaab3dd5cf", title: "Sports brand On signs Kylian Mbappé from Nike to lead new football push", date: "2026-09-18", time: "13:00", url: "https://www.ft.com/content/3e72dc10-5733-4623-9c4d-1beaab3dd5cf" },
+  { id: "6584e52f-5a8c-4427-ba39-b401a808850d", title: "Britons say they’re taking less annual leave. The ONS doesn’t believe them", date: "2026-09-18", time: "12:14", url: "https://www.ft.com/content/6584e52f-5a8c-4427-ba39-b401a808850d" },
   { id: "c70c275b-cd6d-47ef-a23f-cb374b98d001", title: "On the EU, let Canada and Odysseus inspire Burnham", date: "2026-09-18", time: "12:11", url: "https://www.ft.com/content/c70c275b-cd6d-47ef-a23f-cb374b98d001" },
   { id: "ff7ca130-d25c-4294-b654-0aa8a79268ab", title: "Why Al Gore welcomes China’s ‘unilateral leadership’ on climate", date: "2026-09-18", time: "12:00", url: "https://www.ft.com/content/ff7ca130-d25c-4294-b654-0aa8a79268ab" },
   { id: "3d1234ea-081e-41b3-a2e5-bbd7a81cdb0d", title: "FTAV’s Friday charts quiz", date: "2026-09-18", time: "11:48", url: "https://www.ft.com/content/3d1234ea-081e-41b3-a2e5-bbd7a81cdb0d" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "97999668-dd71-41b8-b0e5-f540902abc45", title: "How money moved across Mark Walter’s empire", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/97999668-dd71-41b8-b0e5-f540902abc45" },
   { id: "34319b00-f874-4119-aa28-8376d81e7190", title: "Medical AI has a proof problem", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/34319b00-f874-4119-aa28-8376d81e7190" },
   { id: "9c6fac10-9f3f-4503-9765-b9e29e18c68d", title: "Private equity turns to financial engineering to lure insurance billions", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/9c6fac10-9f3f-4503-9765-b9e29e18c68d" },
-  { id: "c4aa118e-a258-48bc-b50e-28e453a95db8", title: "OpenAI breached by researchers using Anthropic models", date: "2026-09-18", time: "04:31", url: "https://www.ft.com/content/c4aa118e-a258-48bc-b50e-28e453a95db8" },
-  { id: "9934acc6-6b06-4f2e-a37a-6cf0869092cb", title: "Trump administration approves $24bn sale of F-35 jets to Saudi Arabia", date: "2026-09-17", time: "19:58", url: "https://www.ft.com/content/9934acc6-6b06-4f2e-a37a-6cf0869092cb" },
 ];
