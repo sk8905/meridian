@@ -7,8 +7,6 @@
 // PUBLIC (the widget only renders public Lists). The only thing pinned here is the
 // List's numeric id. See HOUSE_STYLE R26 + refresh-routines.
 
-export const X_ASOF = "2026-09-16";
-
 // The embedded public X List. `id` is the numeric list id from its URL
 // (x.com/i/lists/<id>); `url` is the human link used as the offline fallback.
 export const X_LIST = {
