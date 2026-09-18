@@ -492,14 +492,14 @@ function renderXWire(host) {
 const _HERO_KEY = "wire.hero.v1";
 let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
 let _heroSel = [];         // selected instrument keys (1..all); at least one is always kept
-let _heroRange = "1M";     // 1D | 1W | 1M | 6M | 1Y | YTD
+let _heroRange = "1M";     // 1D | 5D | 1M | 6M | 1Y | ALL
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
 // Intraday ranges (1D/1W) read the 15-min bar series and plot on a real wall-clock
 // X axis; any run of >45 min between consecutive bars is a closed market (overnight
 // / weekend) and is drawn as a BREAK in the line, not a straight fill across it.
 const HERO_GAP_MS = 45 * 60000;
-function heroIntraday() { return _heroRange === "1D" || _heroRange === "1W"; }
+function heroIntraday() { return _heroRange === "1D" || _heroRange === "5D"; }
 // Split a point series into contiguous segments, breaking wherever an intraday gap
 // exceeds HERO_GAP_MS. Daily ranges are one unbroken segment. Returns arrays of
 // point indices.
@@ -513,7 +513,7 @@ function heroSegments(pts, intraday) {
   if (cur.length) segs.push(cur);
   return segs;
 }
-const HERO_RLBL = { "1D": "1-day", "1W": "1-week", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "YTD": "year-to-date" };
+const HERO_RLBL = { "1D": "1-day", "5D": "5-day", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "ALL": "all" };
 // Categorical series colours for the multi-select overlay — the dataviz reference
 // palette's dark hues, validated (worst adjacent CVD ΔE 8.4). The green/red slots
 // are deliberately skipped: on this terminal they read as up/down, not identity.
@@ -611,19 +611,18 @@ function heroFmt(v, m) {
   return (m.pre || "") + s + (m.unit || "");
 }
 // Slice an instrument's series to the selected window (client-side; no refetch).
-// 1D/1W read the INTRADAY series (~5 trading days of 15-min bars); the longer
-// ranges read the daily-close series.
+// 1D/5D read the INTRADAY series (~5 trading days of 15-min bars); the longer
+// ranges read the daily-close series (ALL = everything we hold).
 function heroSlice(m) {
   const intraday = heroIntraday();
   const src = (intraday && Array.isArray(m.intraday) && m.intraday.length >= 2) ? m.intraday : m.history;
   if (!Array.isArray(src) || src.length < 2) return src || [];
   const now = src[src.length - 1][0];
-  let start = -Infinity;                                    // 1Y → everything we hold
+  let start = -Infinity;                                    // 5D / ALL → everything the series holds
   if (_heroRange === "1D") start = now - 24 * 3600e3;       // rolling last 24 hours
-  else if (_heroRange === "1W") start = now - 7 * 864e5;
   else if (_heroRange === "1M") start = now - 31 * 864e5;
   else if (_heroRange === "6M") start = now - 183 * 864e5;
-  else if (_heroRange === "YTD") start = Date.UTC(new Date(now).getUTCFullYear(), 0, 1);
+  else if (_heroRange === "1Y") start = now - 366 * 864e5;
   const pts = src.filter((p) => p[0] >= start);
   return pts.length >= 2 ? pts : src.slice(-2);
 }
@@ -650,8 +649,8 @@ function heroFmtAxis(v, m) {
 function heroFmtDate(ms) {
   const d = new Date(ms);
   if (_heroRange === "1D") { try { return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); } catch { return `${d.getHours()}:00`; } }
-  if (_heroRange === "1W" || _heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
-  return `${MONTHS[d.getMonth()] || ""} '${String(d.getFullYear()).slice(2)}`;
+  if (_heroRange === "5D" || _heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
+  return `${MONTHS[d.getMonth()] || ""} '${String(d.getFullYear()).slice(2)}`;   // 1Y / ALL
 }
 function drawHero(svg, pts, m) {
   const n = pts.length, vals = pts.map((p) => p[1]);

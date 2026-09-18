@@ -1,6 +1,6 @@
 // Home HERO CHART BAND (Option C): a price/performance chart for the market
 // basket. The Worker (/api/hero) returns a full year of daily closes per
-// instrument; the client draws the chart, and the 1M/6M/1Y/YTD toggle slices that
+// instrument; the client draws the chart, and the 1M/6M/1Y/ALL toggle slices that
 // one series client-side (no refetch). On desktop the band spans the news +
 // manager wire columns (the two mid-panes) and sits above them. Here /api/hero is
 // stubbed, so we assert the chips render, the readout + chart draw, the range and
@@ -15,7 +15,7 @@ function series(seed, base, vol) {
   for (let i = 0; i < 260; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 864e5 * (364 / 260), +x.toFixed(2)]); }
   return out;
 }
-// Intraday 15-min bars behind 1D / 1W: three ~6.5h sessions across ~2 days, each
+// Intraday 15-min bars behind 1D / 5D: three ~6.5h sessions across ~2 days, each
 // separated by an overnight GAP (~13.5h > 45 min) so the client draws a real market
 // break — never a straight line across the close. Ends now.
 function intra(seed, base, vol) {
@@ -117,17 +117,26 @@ const b = await launchChromium();
   // path is drawn in ≥2 sub-segments (≥2 "M" move commands).
   check((d1.d.match(/M /g) || []).length >= 2, `hero: 1D breaks the line across the overnight market gap (${(d1.d.match(/M /g) || []).length} segments)`);
 
-  // 1W also uses intraday, with day+month ticks and breaks at each overnight close.
-  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1W"]').click());
+  // 5D also uses intraday, with day+month ticks and breaks at each overnight close.
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="5D"]').click());
   await pg.waitForTimeout(150);
   const w1 = await pg.evaluate(() => ({
     on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
     d: document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"),
     xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
   }));
-  checkEq(w1.on, "1W", "hero: the range toggle switches to 1W");
-  check(/\d/.test(w1.xl) && !/:/.test(w1.xl), `hero: the 1W time axis reads day+month, not times (${w1.xl})`);
-  check((w1.d.match(/M /g) || []).length >= 2, `hero: 1W breaks the line at each overnight close (${(w1.d.match(/M /g) || []).length} segments)`);
+  checkEq(w1.on, "5D", "hero: the range toggle switches to 5D");
+  check(/\d/.test(w1.xl) && !/:/.test(w1.xl), `hero: the 5D time axis reads day+month, not times (${w1.xl})`);
+  check((w1.d.match(/M /g) || []).length >= 2, `hero: 5D breaks the line at each overnight close (${(w1.d.match(/M /g) || []).length} segments)`);
+  // ALL reads the full daily history (month-'YY ticks, continuous line).
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="ALL"]').click());
+  await pg.waitForTimeout(150);
+  const al = await pg.evaluate(() => ({
+    on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
+    xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
+  }));
+  checkEq(al.on, "ALL", "hero: the range toggle switches to ALL");
+  check(/'\d\d/.test(al.xl), `hero: the ALL time axis reads month-'YY ticks (${al.xl})`);
   // Back to 1M for the pare-down assertions below.
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click());
   await pg.waitForTimeout(150);

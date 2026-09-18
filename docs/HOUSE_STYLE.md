@@ -368,21 +368,25 @@ notification badge red (`#ef4444`).
   toggle **on/off the chart** (**multi-select**, one to all six, at least one kept),
   its **colour dot FILLED when plotted and HOLLOW when off**. That single row is
   also the chart legend — there is **no separate chip selector** to duplicate it.
-  Below it sit the **1D / 1W / 1M / 6M / 1Y / YTD** range toggle (**right-aligned**;
-  1D/1W read an INTRADAY series — ~5 trading days of 15-min bars, the 10Y's from
-  Yahoo `^TNX` since FRED has no intraday — while the longer ranges read the daily
-  closes. **1D is a rolling last-24-hours window, 1W a rolling last-week window**
-  (not a calendar session), plotted on a **real wall-clock X axis**: where the
-  market is closed overnight or over a weekend the line **breaks — a gap, never a
-  straight line** across the shut period (any run >45 min between bars; 24/7
-  instruments like Bitcoin stay continuous). Multi-select intraday overlays share
-  ONE wall-clock domain so instruments on different trading hours line up in real
-  time. The time axis reads HH:MM on 1D, day+month on 1W/1M/6M. Then the
+  Below it sits the **1D / 5D / 1M / 6M / 1Y / ALL** range toggle — the
+  **Google-Finance style**: the six labels **spread evenly across the full width
+  over a hairline track**, the active one **blue with a blue under-bar** on the
+  track (`--wb-txt`; `.g-hero-range`/`.g-hero-rg` in `home.css`). **1D/5D read an
+  INTRADAY series** — ~5 trading days of 15-min bars, the 10Y's from Yahoo `^TNX`
+  since FRED has no intraday — while the longer ranges read the **daily closes
+  (~5 years; `ALL` = everything held)**. **1D is a rolling last-24-hours window;
+  5D is the full intraday series (~5 trading days)**, plotted on a **real wall-clock
+  X axis**: where the market is closed overnight or over a weekend the line
+  **breaks — a gap, never a straight line** across the shut period (any run >45 min
+  between bars; 24/7 instruments like Bitcoin stay continuous). Multi-select
+  intraday overlays share ONE wall-clock domain so instruments on different trading
+  hours line up in real time. The time axis reads HH:MM on 1D, day+month on
+  5D/1M/6M, month-'YY on 1Y/ALL. Then the
   chart. Colour follows the instrument (its fixed basket slot), **never its
   selection rank**. It carries **axes, terminal-style**: a **right value axis**
   (round-number ticks; on the single view the current level sits in a colour-coded
-  tag on the axis) and a **bottom time axis** (dated ticks — day+month on 1M/6M,
-  month-'YY on 1Y/YTD), over a faint grid with **horizontal and vertical** grid
+  tag on the axis) and a **bottom time axis** (dated ticks — day+month on 5D/1M/6M,
+  month-'YY on 1Y/ALL), over a faint grid with **horizontal and vertical** grid
   lines and thin non-scaling lines. Axis **labels are HTML positioned by %** so they
   stay crisp against the stretched (`preserveAspectRatio:none`) SVG. **One selected
   security → the up/down price line + price axis** (the 10Y yield reads a *fall* as
@@ -392,9 +396,9 @@ notification badge red (`#ef4444`).
   reference palette's validated dark hues, green/red skipped as they read as up/down
   here) over a 0% baseline; the crosshair drives each plotted ticker's % value.
   **One fetch, all ranges:** the Worker
-  (`/api/hero` in `src/index.js`) returns a **full year of daily closes per
-  instrument** and the client **slices that single series** for the range toggle — no
-  refetch on range/instrument change. Equities/commodities/Bitcoin come from
+  (`/api/hero` in `src/index.js`) returns **~5 years of daily closes per instrument**
+  (plus the ~5-day intraday series) and the client **slices those** for the range
+  toggle — no refetch on range/instrument change. Equities/commodities/Bitcoin come from
   **Yahoo Finance's** keyless chart API (same source as the markets band); the **10Y
   yield from FRED `DGS10`** (validated daily %, no scaling ambiguity). Every point is
   **real + sourced (R7)** — no invented prices. Fetched **lazily** and

@@ -947,9 +947,9 @@ async function handleWorldIndices(request, env, ctx) {
 // snapshot (client-side), so the heatmap is populated for every economy.
 const GY_US_SERIES = [["y2", "DGS2"], ["y5", "DGS5"], ["y10", "DGS10"], ["y30", "DGS30"]];
 // Full daily observation history for a FRED series (ascending [ms, value]).
-async function fredHistory(id, env) {
+async function fredHistory(id, env, limit) {
   if (env && env.FRED_API_KEY) {
-    const txt = await fetchText(`https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${env.FRED_API_KEY}&file_type=json&sort_order=desc&limit=400`);
+    const txt = await fetchText(`https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${env.FRED_API_KEY}&file_type=json&sort_order=desc&limit=${limit || 400}`);
     if (txt) {
       try {
         const obs = (JSON.parse(txt).observations || [])
@@ -1582,23 +1582,23 @@ async function yahooSeries(symbol, range, interval) {
 }
 async function handleHero(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/hero?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/hero?v=3", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-  const cutoff = Date.now() - 372 * 864e5;   // ~1y (a little slack over 365)
+  const cutoff = Date.now() - 1855 * 864e5;   // ~5y (a little slack) — for the ALL range
   const rnd = (v, b) => +v.toFixed(b.dp <= 1 ? 3 : 2);
   const out = await Promise.all(HERO_BASKET.map(async (b) => {
-    // DAILY (1y) for 1M/6M/1Y/YTD, and INTRADAY (~5 trading days, 15-min bars) for
-    // the 1D/1W ranges. FRED has no intraday, so the 10Y yield's intraday comes from
+    // DAILY (~5y) for 1M/6M/1Y/ALL, and INTRADAY (~5 trading days, 15-min bars) for
+    // the 1D/5D ranges. FRED has no intraday, so the 10Y yield's intraday comes from
     // Yahoo's ^TNX (a ×10 quote is normalised back to a percent).
     const dailyP = b.fred
-      ? fredHistory(b.fred, env).catch(() => []).then((h) => (h && h.length) ? { value: h[h.length - 1][1], asOf: new Date(h[h.length - 1][0]).toISOString().slice(0, 10), history: h } : null)
-      : yahooSeries(b.symbol, "1y", "1d").catch(() => null);
+      ? fredHistory(b.fred, env, 1300).catch(() => []).then((h) => (h && h.length) ? { value: h[h.length - 1][1], asOf: new Date(h[h.length - 1][0]).toISOString().slice(0, 10), history: h } : null)
+      : yahooSeries(b.symbol, "5y", "1d").catch(() => null);
     const intraP = (b.fred ? yahooSeries("^TNX", "5d", "15m") : yahooSeries(b.symbol, "5d", "15m")).catch(() => null);
     const [s, si] = await Promise.all([dailyP, intraP]);
     if (!s || !Array.isArray(s.history) || s.history.length < 2) return null;
     let hist = s.history.filter((p) => p[0] >= cutoff);
-    if (hist.length < 2) hist = s.history.slice(-260);
+    if (hist.length < 2) hist = s.history.slice(-1300);
     hist = hist.map(([t, v]) => [t, rnd(v, b)]);
     let intraday = [];
     if (si && Array.isArray(si.history) && si.history.length >= 2) {
