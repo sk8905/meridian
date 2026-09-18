@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c70c275b-cd6d-47ef-a23f-cb374b98d001", title: "On the EU, let Canada and Odysseus inspire Burnham", date: "2026-09-18", time: "12:11", url: "https://www.ft.com/content/c70c275b-cd6d-47ef-a23f-cb374b98d001" },
+  { id: "ff7ca130-d25c-4294-b654-0aa8a79268ab", title: "Why Al Gore welcomes China’s ‘unilateral leadership’ on climate", date: "2026-09-18", time: "12:00", url: "https://www.ft.com/content/ff7ca130-d25c-4294-b654-0aa8a79268ab" },
+  { id: "3d1234ea-081e-41b3-a2e5-bbd7a81cdb0d", title: "FTAV’s Friday charts quiz", date: "2026-09-18", time: "11:48", url: "https://www.ft.com/content/3d1234ea-081e-41b3-a2e5-bbd7a81cdb0d" },
+  { id: "e26d8335-426a-4405-ae4c-433bd2696994", title: "Howard Buffett to succeed father Warren as Berkshire Hathaway chair", date: "2026-09-18", time: "11:16", url: "https://www.ft.com/content/e26d8335-426a-4405-ae4c-433bd2696994" },
+  { id: "92835f21-2d6c-412d-a9b3-cbbfc44fa333", title: "Can Scottish Labour be revived by new leader?", date: "2026-09-18", time: "11:15", url: "https://www.ft.com/content/92835f21-2d6c-412d-a9b3-cbbfc44fa333" },
+  { id: "35f6bcf0-ba88-4a82-9575-9dae232d1b54", title: "Russia seizes control of Nestlé and Auchan operations", date: "2026-09-18", time: "11:09", url: "https://www.ft.com/content/35f6bcf0-ba88-4a82-9575-9dae232d1b54" },
   { id: "91b94aa4-d432-4401-9a60-572d518a4972", title: "Is the Antichrist really walking among us?", date: "2026-09-18", time: "11:00", url: "https://www.ft.com/content/91b94aa4-d432-4401-9a60-572d518a4972" },
   { id: "f89ed081-c025-4d69-bc41-9f5564c8b441", title: "FirstFT: Venezuela nears deal to transfer $4bn gold reserve to New York", date: "2026-09-18", time: "10:57", url: "https://www.ft.com/content/f89ed081-c025-4d69-bc41-9f5564c8b441" },
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-18", time: "10:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "9c6fac10-9f3f-4503-9765-b9e29e18c68d", title: "Private equity turns to financial engineering to lure insurance billions", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/9c6fac10-9f3f-4503-9765-b9e29e18c68d" },
   { id: "c4aa118e-a258-48bc-b50e-28e453a95db8", title: "OpenAI breached by researchers using Anthropic models", date: "2026-09-18", time: "04:31", url: "https://www.ft.com/content/c4aa118e-a258-48bc-b50e-28e453a95db8" },
   { id: "9934acc6-6b06-4f2e-a37a-6cf0869092cb", title: "Trump administration approves $24bn sale of F-35 jets to Saudi Arabia", date: "2026-09-17", time: "19:58", url: "https://www.ft.com/content/9934acc6-6b06-4f2e-a37a-6cf0869092cb" },
-  { id: "b528698e-9b04-4497-9d22-67e401be21d3", title: "US regulator opens markets to tokenised stock trading", date: "2026-09-17", time: "19:29", url: "https://www.ft.com/content/b528698e-9b04-4497-9d22-67e401be21d3" },
-  { id: "3df8edae-ae3b-4f56-83a3-40602edc17a3", title: "OpenAI staff knew the ‘existential threat’ AI posed to publishers, New York Times claims", date: "2026-09-17", time: "19:09", url: "https://www.ft.com/content/3df8edae-ae3b-4f56-83a3-40602edc17a3" },
-  { id: "46e25252-9e1e-4ead-aa56-293a0f09a393", title: "Bank of England follows FTAV advice", date: "2026-09-17", time: "18:53", url: "https://www.ft.com/content/46e25252-9e1e-4ead-aa56-293a0f09a393" },
-  { id: "21aa563b-2cd1-4f09-b505-fcf579248fe6", title: "Reform UK’s mega-donor backed a friend’s libel claim. Now he controls her home", date: "2026-09-17", time: "18:24", url: "https://www.ft.com/content/21aa563b-2cd1-4f09-b505-fcf579248fe6" },
-  { id: "0b3d10cb-a321-429f-879d-86e1bee82efe", title: "Hispanics feel ‘betrayed’ by Trump, top Republican says", date: "2026-09-17", time: "18:10", url: "https://www.ft.com/content/0b3d10cb-a321-429f-879d-86e1bee82efe" },
-  { id: "fc324c65-11d6-473d-b15b-deef27cbadc2", title: "Sun, stats and suspicious productivity", date: "2026-09-17", time: "17:55", url: "https://www.ft.com/content/fc324c65-11d6-473d-b15b-deef27cbadc2" },
 ];
