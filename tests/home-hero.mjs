@@ -15,12 +15,17 @@ function series(seed, base, vol) {
   for (let i = 0; i < 260; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 864e5 * (364 / 260), +x.toFixed(2)]); }
   return out;
 }
-// ~2 days of 15-min bars ending now — the intraday series behind 1D / 1W.
+// Intraday 15-min bars behind 1D / 1W: three ~6.5h sessions across ~2 days, each
+// separated by an overnight GAP (~13.5h > 45 min) so the client draws a real market
+// break — never a straight line across the close. Ends now.
 function intra(seed, base, vol) {
   const out = []; let x = base, s = seed;
   const rnd = () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
-  const start = Date.now() - 200 * 15 * 60000;
-  for (let i = 0; i < 200; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 15 * 60000, +x.toFixed(2)]); }
+  const now = Date.now(), BAR = 15 * 60000, SESSION = 26, SPACING = 20 * 3600e3;
+  for (let d = 2; d >= 0; d--) {
+    const sessEnd = now - d * SPACING;
+    for (let i = SESSION - 1; i >= 0; i--) { x = x * (1 + (rnd() - 0.5) * vol); out.push([sessEnd - i * BAR, +x.toFixed(2)]); }
+  }
   return out;
 }
 const HERO = { asOf: new Date().toISOString().slice(0, 10), instruments: [
@@ -34,9 +39,9 @@ const HERO = { asOf: new Date().toISOString().slice(0, 10), instruments: [
 
 // Related-news stub (newest-first): the Worker returns real Yahoo Finance items.
 const NEWS = { items: [
-  { title: "Stocks rise as the Fed's rate decision lands", url: "https://finance.yahoo.com/a", source: "Yahoo Finance", date: new Date(Date.now() - 20 * 60000).toISOString(), ts: Date.now() - 20 * 60000, key: "spx", code: "SPX", ticker: "S&P 500" },
-  { title: "Crude oil slips on the supply outlook", url: "https://finance.yahoo.com/b", source: "Reuters", date: new Date(Date.now() - 90 * 60000).toISOString(), ts: Date.now() - 90 * 60000, key: "oil", code: "OIL", ticker: "Oil" },
-  { title: "Bitcoin extends its rally past resistance", url: "https://finance.yahoo.com/c", source: "CoinDesk", date: new Date(Date.now() - 5 * 3600000).toISOString(), ts: Date.now() - 5 * 3600000, key: "btc", code: "BTC", ticker: "Bitcoin" },
+  { title: "Stocks rise as the Fed's rate decision lands", url: "https://www.bloomberg.com/a", source: "Bloomberg", date: new Date(Date.now() - 20 * 60000).toISOString(), ts: Date.now() - 20 * 60000, key: "spx", code: "SPX", ticker: "S&P 500" },
+  { title: "Crude oil slips on the supply outlook", url: "https://www.reuters.com/b", source: "Reuters", date: new Date(Date.now() - 90 * 60000).toISOString(), ts: Date.now() - 90 * 60000, key: "oil", code: "OIL", ticker: "Oil" },
+  { title: "Bitcoin extends its rally past resistance", url: "https://www.cnbc.com/c", source: "CNBC", date: new Date(Date.now() - 5 * 3600000).toISOString(), ts: Date.now() - 5 * 3600000, key: "btc", code: "BTC", ticker: "Bitcoin" },
 ] };
 
 const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)], "/api/hero-news": () => [200, JSON.stringify(NEWS)] });
@@ -108,16 +113,21 @@ const b = await launchChromium();
   checkEq(d1.on, "1D", "hero: the range toggle switches to 1D");
   check(d1.d !== dPrev, "hero: 1D redraws from the intraday series (different path)");
   check(/\d{1,2}:\d\d/.test(d1.xl), `hero: the 1D time axis reads HH:MM (${d1.xl})`);
+  // The overnight close inside the last 24h is a BREAK, not a straight line — the
+  // path is drawn in ≥2 sub-segments (≥2 "M" move commands).
+  check((d1.d.match(/M /g) || []).length >= 2, `hero: 1D breaks the line across the overnight market gap (${(d1.d.match(/M /g) || []).length} segments)`);
 
-  // 1W also uses intraday, with day+month ticks.
+  // 1W also uses intraday, with day+month ticks and breaks at each overnight close.
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1W"]').click());
   await pg.waitForTimeout(150);
   const w1 = await pg.evaluate(() => ({
     on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
+    d: document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"),
     xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
   }));
   checkEq(w1.on, "1W", "hero: the range toggle switches to 1W");
   check(/\d/.test(w1.xl) && !/:/.test(w1.xl), `hero: the 1W time axis reads day+month, not times (${w1.xl})`);
+  check((w1.d.match(/M /g) || []).length >= 2, `hero: 1W breaks the line at each overnight close (${(w1.d.match(/M /g) || []).length} segments)`);
   // Back to 1M for the pare-down assertions below.
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click());
   await pg.waitForTimeout(150);

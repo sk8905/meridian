@@ -1628,6 +1628,24 @@ const HERO_NEWS_Q = [
   { key: "gold", code: "GOLD", label: "Gold", q: "gold price" },
   { key: "btc", code: "BTC", label: "Bitcoin", q: "bitcoin" },
 ];
+// Hero related-news is held to the SAME authorised financial-press roster as the
+// rest of the app (HOUSE_STYLE §8.3) — a strict allowlist, not the general wire's
+// blocklist, so aggregator/SEO shops the wire never sources from (Zacks,
+// BeInCrypto, Insider Monkey, GuruFocus, Benzinga, …) can never appear here even
+// though Yahoo's search returns them. Match is a case-insensitive substring on the
+// item's publisher name (Yahoo returns e.g. "Bloomberg", "The Wall Street Journal",
+// "Barrons.com"), covering each source's common publisher spellings.
+const HERO_NEWS_ALLOW = [
+  "bloomberg", "financial times", "ft.com", "alphaville",
+  "wall street journal", "dow jones", "barron", "marketwatch",
+  "reuters", "cnbc", "economist", "guardian", "axios", "nbc news",
+  "nikkei", "south china morning post", "scmp", "straits times",
+  "financial news", "new york times", "nytimes", "dealbook",
+];
+function heroNewsAllowed(source) {
+  const s = String(source || "").toLowerCase();
+  return !!s && HERO_NEWS_ALLOW.some((a) => s.includes(a));
+}
 async function yahooNews(q, n) {
   const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=0&newsCount=${n}&newsQueryId=news_ss_symbols`);
   if (!txt) return [];
@@ -1643,13 +1661,16 @@ async function yahooNews(q, n) {
 }
 async function handleHeroNews(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/hero-news?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/hero-news?v=2", request.url).toString());
   const hit = await cache.match(cacheKey);
   if (hit) return hit;
+  // Over-fetch (Yahoo mixes in aggregators) so enough authorised items survive the
+  // §8.3 allowlist cull below.
   const per = await Promise.all(HERO_NEWS_Q.map((g) =>
-    yahooNews(g.q, 6).catch(() => []).then((items) => items.map((it) => ({ ...it, key: g.key, code: g.code, ticker: g.label })))));
+    yahooNews(g.q, 15).catch(() => []).then((items) => items.map((it) => ({ ...it, key: g.key, code: g.code, ticker: g.label })))));
   const seen = new Set(), out = [];
   for (const list of per) for (const it of list) {
+    if (!heroNewsAllowed(it.source)) continue;          // authorised financial press only (§8.3)
     const k = it.uuid || it.url || it.title;
     if (seen.has(k)) continue; seen.add(k);
     out.push({ title: it.title, url: it.url, source: it.source, date: new Date(it.ts).toISOString(), ts: it.ts, key: it.key, code: it.code, ticker: it.ticker });

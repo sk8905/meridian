@@ -365,7 +365,13 @@ notification badge red (`#ef4444`).
   Below it sit the **1D / 1W / 1M / 6M / 1Y / YTD** range toggle (**right-aligned**;
   1D/1W read an INTRADAY series — ~5 trading days of 15-min bars, the 10Y's from
   Yahoo `^TNX` since FRED has no intraday — while the longer ranges read the daily
-  closes; the time axis reads HH:MM on 1D, day+month on 1W/1M/6M), then the
+  closes. **1D is a rolling last-24-hours window, 1W a rolling last-week window**
+  (not a calendar session), plotted on a **real wall-clock X axis**: where the
+  market is closed overnight or over a weekend the line **breaks — a gap, never a
+  straight line** across the shut period (any run >45 min between bars; 24/7
+  instruments like Bitcoin stay continuous). Multi-select intraday overlays share
+  ONE wall-clock domain so instruments on different trading hours line up in real
+  time. The time axis reads HH:MM on 1D, day+month on 1W/1M/6M. Then the
   chart. Colour follows the instrument (its fixed basket slot), **never its
   selection rank**. It carries **axes, terminal-style**: a **right value axis**
   (round-number ticks; on the single view the current level sits in a colour-coded
@@ -391,9 +397,14 @@ notification badge red (`#ef4444`).
   `renderHero`/`drawHero` in `v2/js/home/glance.js`; `/api/hero` edge-caches ~10 min
   and never pins a broken partial (needs ≥4 of the basket). **Beneath the chart, a
   RELATED-NEWS list** for the six tickers — **real, sourced** Yahoo Finance
-  headlines (`/api/hero-news`, title · publisher · link · time, R7) drawn in the
-  **news-wire row format** (`.g-feed-row`; time · ticker tag coloured per series ·
-  headline · source · ticker), newest-first, localStorage-seeded. It shows on the
+  search headlines (`/api/hero-news`, title · publisher · link · time, R7) **held to
+  the same authorised financial-press roster as the rest of the app (§8.3)** — a
+  strict publisher allowlist (Bloomberg, FT, WSJ/Dow Jones, Reuters, CNBC, the
+  Economist, the Guardian, Axios, NBC News, MarketWatch, Nikkei, SCMP, Straits
+  Times, Financial News, DealBook/NYT), so aggregator/SEO shops Yahoo mixes in
+  (Zacks, BeInCrypto, Insider Monkey, GuruFocus, Benzinga, …) never appear here —
+  drawn in the **news-wire row format** (`.g-feed-row`; time · ticker tag coloured
+  per series · headline · source · ticker), newest-first, localStorage-seeded. It shows on the
   **phone/tablet Chart pane** (room beneath the chart); the ≥1201px terminal hides
   it (the full News column already exists, and the hero is a height-boxed band).
   Enforced by

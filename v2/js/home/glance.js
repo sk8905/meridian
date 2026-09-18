@@ -422,9 +422,27 @@ function renderXWire(host) {
 const _HERO_KEY = "wire.hero.v1";
 let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
 let _heroSel = [];         // selected instrument keys (1..all); at least one is always kept
-let _heroRange = "1M";     // 1M | 6M | 1Y | YTD
+let _heroRange = "1M";     // 1D | 1W | 1M | 6M | 1Y | YTD
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
+// Intraday ranges (1D/1W) read the 15-min bar series and plot on a real wall-clock
+// X axis; any run of >45 min between consecutive bars is a closed market (overnight
+// / weekend) and is drawn as a BREAK in the line, not a straight fill across it.
+const HERO_GAP_MS = 45 * 60000;
+function heroIntraday() { return _heroRange === "1D" || _heroRange === "1W"; }
+// Split a point series into contiguous segments, breaking wherever an intraday gap
+// exceeds HERO_GAP_MS. Daily ranges are one unbroken segment. Returns arrays of
+// point indices.
+function heroSegments(pts, intraday) {
+  if (!intraday) return [pts.map((_, i) => i)];
+  const segs = []; let cur = [];
+  for (let i = 0; i < pts.length; i++) {
+    if (i > 0 && pts[i][0] - pts[i - 1][0] > HERO_GAP_MS) { if (cur.length) segs.push(cur); cur = []; }
+    cur.push(i);
+  }
+  if (cur.length) segs.push(cur);
+  return segs;
+}
 const HERO_RLBL = { "1D": "1-day", "1W": "1-week", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "YTD": "year-to-date" };
 // Categorical series colours for the multi-select overlay — the dataviz reference
 // palette's dark hues, validated (worst adjacent CVD ΔE 8.4). The green/red slots
@@ -526,17 +544,13 @@ function heroFmt(v, m) {
 // 1D/1W read the INTRADAY series (~5 trading days of 15-min bars); the longer
 // ranges read the daily-close series.
 function heroSlice(m) {
-  const intraday = _heroRange === "1D" || _heroRange === "1W";
+  const intraday = heroIntraday();
   const src = (intraday && Array.isArray(m.intraday) && m.intraday.length >= 2) ? m.intraday : m.history;
   if (!Array.isArray(src) || src.length < 2) return src || [];
   const now = src[src.length - 1][0];
-  if (_heroRange === "1D") {                                // just the last trading session
-    const day = new Date(now).toDateString();
-    const pts = src.filter((p) => new Date(p[0]).toDateString() === day);
-    return pts.length >= 2 ? pts : src.slice(-2);
-  }
   let start = -Infinity;                                    // 1Y → everything we hold
-  if (_heroRange === "1W") start = now - 7 * 864e5;
+  if (_heroRange === "1D") start = now - 24 * 3600e3;       // rolling last 24 hours
+  else if (_heroRange === "1W") start = now - 7 * 864e5;
   else if (_heroRange === "1M") start = now - 31 * 864e5;
   else if (_heroRange === "6M") start = now - 183 * 864e5;
   else if (_heroRange === "YTD") start = Date.UTC(new Date(now).getUTCFullYear(), 0, 1);
@@ -576,25 +590,42 @@ function drawHero(svg, pts, m) {
   const pad = (hi - lo) * 0.08;              // breathing room so the line clears the frame
   const dlo = lo - pad, dhi = hi + pad;      // padded value domain
   const plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
-  const X = (i) => HERO_PX + plotW * i / (n - 1);
+  // Intraday (1D/1W) → real wall-clock X so gaps show as gaps; daily → even by index.
+  const intraday = heroIntraday();
+  const t0 = pts[0][0], t1 = pts[n - 1][0], span = (t1 - t0) || 1;
+  const X = intraday ? (i) => HERO_PX + plotW * (pts[i][0] - t0) / span
+                     : (i) => HERO_PX + plotW * i / (n - 1);
   const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
   const last = vals[n - 1], up = last >= vals[0];
   // For a yield a FALL is "risk-on"/green; for a price a RISE is green.
   const good = m.fi ? !up : up;
   const col = good ? "var(--t-up)" : "var(--t-down)";
-  // Value ticks (right axis) and time ticks (bottom axis).
+  // Value ticks (right axis) and time ticks (bottom axis). Intraday ticks are even
+  // fractions of the wall-clock window; daily ticks are even data indices.
   const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= HERO_H - HERO_PB + 0.5);
   const xCount = Math.min(5, n);
-  const xi = []; for (let k = 0; k < xCount; k++) { const idx = Math.round((n - 1) * k / Math.max(1, xCount - 1)); if (xi[xi.length - 1] !== idx) xi.push(idx); }
+  const xt = [];   // { gx, label, edge }
+  if (intraday) {
+    for (let k = 0; k < xCount; k++) { const tk = t0 + span * k / Math.max(1, xCount - 1); xt.push({ gx: HERO_PX + plotW * (tk - t0) / span, label: heroFmtDate(tk) }); }
+  } else {
+    const seen = [];
+    for (let k = 0; k < xCount; k++) { const idx = Math.round((n - 1) * k / Math.max(1, xCount - 1)); if (seen[seen.length - 1] !== idx) { seen.push(idx); xt.push({ gx: X(idx), label: heroFmtDate(pts[idx][0]) }); } }
+  }
   // Bloomberg-style furniture: faint horizontal grid at each value tick, faint
   // dotted verticals at each time tick, the line (thin, non-scaling stroke) over a
   // whisper of fill, plus a baseline frame.
   let grid = "";
   for (const t of yt) { const gy = Y(t).toFixed(1); grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
-  for (const idx of xi) { const gx = X(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
-  let line = "", area = "M " + X(0).toFixed(1) + " " + Y(vals[0]).toFixed(1);
-  for (let i = 0; i < n; i++) { const px = X(i), py = Y(vals[i]); line += (i ? " L " : "M ") + px.toFixed(1) + " " + py.toFixed(1); area += " L " + px.toFixed(1) + " " + py.toFixed(1); }
-  area += " L " + X(n - 1).toFixed(1) + " " + (HERO_H - HERO_PB) + " L " + X(0).toFixed(1) + " " + (HERO_H - HERO_PB) + " Z";
+  for (const xk of xt) { const gx = xk.gx.toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  // Line + fill, broken into segments at overnight/weekend gaps (intraday only).
+  let line = "", area = "";
+  for (const seg of heroSegments(pts, intraday)) {
+    for (let j = 0; j < seg.length; j++) { const i = seg[j]; line += (j ? " L " : " M ") + X(i).toFixed(1) + " " + Y(vals[i]).toFixed(1); }
+    const a = seg[0], b = seg[seg.length - 1];
+    area += " M " + X(a).toFixed(1) + " " + (HERO_H - HERO_PB);
+    for (let j = 0; j < seg.length; j++) { const i = seg[j]; area += " L " + X(i).toFixed(1) + " " + Y(vals[i]).toFixed(1); }
+    area += " L " + X(b).toFixed(1) + " " + (HERO_H - HERO_PB) + " Z";
+  }
   svg.innerHTML = `<title>Price chart</title>${grid}`
     + `<path d="${area}" style="fill:${col};fill-opacity:.07" stroke="none"/>`
     + `<path class="g-hero-line" d="${line}" style="fill:none;stroke:${col}" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`
@@ -613,40 +644,58 @@ function drawHero(svg, pts, m) {
   // Bottom time axis (HTML). First/last labels hug the edges so they don't clip.
   const xax = document.getElementById("g-hero-xaxis");
   if (xax) {
-    xax.innerHTML = xi.map((idx, k) => {
-      const pos = k === 0 ? "left:0" : k === xi.length - 1 ? "right:0" : `left:${((X(idx) / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`;
-      return `<span class="g-hero-xlab" style="${pos}">${esc(heroFmtDate(pts[idx][0]))}</span>`;
+    xax.innerHTML = xt.map((xk, k) => {
+      const pos = k === 0 ? "left:0" : k === xt.length - 1 ? "right:0" : `left:${((xk.gx / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`;
+      return `<span class="g-hero-xlab" style="${pos}">${esc(xk.label)}</span>`;
     }).join("");
   }
   svg._pts = pts; svg._m = m; svg._X = X; svg._Y = Y;
+  svg._intraday = intraday; svg._t0 = t0; svg._span = span;
 }
 // The INDEX overlay drawn when ≥2 securities are selected: each series rebased to
 // % from the window start onto ONE shared % axis (never a dual axis — see the
 // dataviz rule), in its categorical colour, with a stronger baseline at 0%.
 function drawHeroMulti(svg, series) {
   const plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
+  const intraday = heroIntraday();
   const ref = series.reduce((a, b) => (b.pts.length > a.pts.length ? b : a), series[0]);
+  // Intraday overlays share ONE wall-clock domain so the lines line up in real time
+  // across instruments that trade different hours (24/7 crypto vs market-hours
+  // indices); daily overlays keep the index-normalised layout.
+  let t0 = Infinity, t1 = -Infinity;
+  for (const s of series) { if (s.pts[0][0] < t0) t0 = s.pts[0][0]; const e = s.pts[s.pts.length - 1][0]; if (e > t1) t1 = e; }
+  const span = (t1 - t0) || 1;
+  const Xtime = (ms) => HERO_PX + plotW * (ms - t0) / span;
   let lo = 0, hi = 0;
   const S = series.map((s) => {
     const base = s.pts[0][1] || 1;
     const pct = s.pts.map((p) => (p[1] / base - 1) * 100);
     for (const v of pct) { if (v < lo) lo = v; if (v > hi) hi = v; }
-    return { key: s.key, label: s.label, color: s.color, pct };
+    return { key: s.key, label: s.label, color: s.color, pct, pts: s.pts };
   });
   if (lo === hi) { lo -= 1; hi += 1; }
   const p = (hi - lo) * 0.08, dlo = lo - p, dhi = hi + p;
   const Xof = (n) => (i) => HERO_PX + plotW * i / Math.max(1, n - 1);
   const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
   const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= HERO_H - HERO_PB + 0.5);
+  // Time ticks: even wall-clock fractions (intraday) or even ref-index steps (daily).
   const xn = ref.pts.length, Xr = Xof(xn), xCount = Math.min(5, xn);
-  const xi = []; for (let k = 0; k < xCount; k++) { const idx = Math.round((xn - 1) * k / Math.max(1, xCount - 1)); if (xi[xi.length - 1] !== idx) xi.push(idx); }
+  const xt = [];   // { gx, label }
+  if (intraday) {
+    for (let k = 0; k < xCount; k++) { const tk = t0 + span * k / Math.max(1, xCount - 1); xt.push({ gx: Xtime(tk), label: heroFmtDate(tk) }); }
+  } else {
+    const seen = [];
+    for (let k = 0; k < xCount; k++) { const idx = Math.round((xn - 1) * k / Math.max(1, xCount - 1)); if (seen[seen.length - 1] !== idx) { seen.push(idx); xt.push({ gx: Xr(idx), label: heroFmtDate(ref.pts[idx][0]) }); } }
+  }
   let grid = "";
   for (const t of yt) { const gy = Y(t).toFixed(1), zero = Math.abs(t) < 1e-6; grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--${zero ? "t-faint" : "t-grid"})" stroke-width="${zero ? 1.2 : 1}" vector-effect="non-scaling-stroke"/>`; }
-  for (const idx of xi) { const gx = Xr(idx).toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  for (const xk of xt) { const gx = xk.gx.toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
   let paths = "";
   const drawn = S.map((s) => {
-    const n = s.pct.length, X = Xof(n);
-    let d = ""; for (let i = 0; i < n; i++) d += (i ? " L " : "M ") + X(i).toFixed(1) + " " + Y(s.pct[i]).toFixed(1);
+    const n = s.pct.length;
+    const X = intraday ? (i) => Xtime(s.pts[i][0]) : Xof(n);
+    let d = "";
+    for (const seg of heroSegments(s.pts, intraday)) for (let j = 0; j < seg.length; j++) { const i = seg[j]; d += (j ? " L " : " M ") + X(i).toFixed(1) + " " + Y(s.pct[i]).toFixed(1); }
     paths += `<path class="g-hero-line" d="${d}" style="fill:none;stroke:${s.color}" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`
       + `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(s.pct[n - 1]).toFixed(1)}" r="2.2" style="fill:${s.color}" vector-effect="non-scaling-stroke"/>`;
     return s;
@@ -656,8 +705,9 @@ function drawHeroMulti(svg, series) {
   const yax = document.getElementById("g-hero-yaxis");
   if (yax) yax.innerHTML = yt.map((t) => `<span class="g-hero-ylab" style="top:${((Y(t) / HERO_H) * 100).toFixed(2)}%">${esc(heroPctStr(t))}</span>`).join("");
   const xax = document.getElementById("g-hero-xaxis");
-  if (xax) xax.innerHTML = xi.map((idx, k) => { const pos = k === 0 ? "left:0" : k === xi.length - 1 ? "right:0" : `left:${((Xr(idx) / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`; return `<span class="g-hero-xlab" style="${pos}">${esc(heroFmtDate(ref.pts[idx][0]))}</span>`; }).join("");
+  if (xax) xax.innerHTML = xt.map((xk, k) => { const pos = k === 0 ? "left:0" : k === xt.length - 1 ? "right:0" : `left:${((xk.gx / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`; return `<span class="g-hero-xlab" style="${pos}">${esc(xk.label)}</span>`; }).join("");
   svg._multi = drawn; svg._ref = ref; svg._pts = null;
+  svg._intraday = intraday; svg._t0 = t0; svg._span = span;
 }
 // The single securities row — EVERY instrument with its window change, a colour
 // dot (filled = plotted, hollow = off), tap to toggle. Doubles as the chart legend.
@@ -682,25 +732,36 @@ function heroRestoreTickers() {
     el.textContent = heroPctStr(v); el.className = "g-hero-tk-pct " + (v >= 0 ? "up" : "down");
   });
 }
+// Nearest point index to a wall-clock time (for intraday hover, where X is by time).
+function heroNearestByTime(pts, tms) {
+  let bi = 0, best = Infinity;
+  for (let k = 0; k < pts.length; k++) { const d = Math.abs(pts[k][0] - tms); if (d < best) { best = d; bi = k; } }
+  return bi;
+}
 function heroHover(e) {
   const svg = e.currentTarget;
   const r = svg.getBoundingClientRect(); if (!r.width) return;
   const cross = svg.querySelector(".g-hero-cross");
+  const frac = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+  const tms = svg._intraday ? (svg._t0 + svg._span * frac) : null;
   // Multi (indexed) mode: the crosshair drives the plotted tickers' % values.
   if (svg._multi) {
     const ref = svg._ref, n = ref.pts.length;
-    let i = Math.round(((e.clientX - r.left) / r.width) * (n - 1)); i = Math.max(0, Math.min(n - 1, i));
-    const px = HERO_PX + (HERO_W - HERO_PX * 2) * i / Math.max(1, n - 1);
+    let px;
+    if (tms != null) px = HERO_PX + (HERO_W - HERO_PX * 2) * frac;   // time is linear in X
+    else { const i = Math.max(0, Math.min(n - 1, Math.round(frac * (n - 1)))); px = HERO_PX + (HERO_W - HERO_PX * 2) * i / Math.max(1, n - 1); }
     if (cross) { cross.setAttribute("x1", px); cross.setAttribute("x2", px); cross.style.display = ""; }
+    const refI = tms != null ? heroNearestByTime(ref.pts, tms) : Math.max(0, Math.min(n - 1, Math.round(frac * (n - 1))));
     svg._multi.forEach((s) => {
-      const v = s.pct[Math.min(i, s.pct.length - 1)];
+      const si = tms != null ? heroNearestByTime(s.pts, tms) : Math.min(refI, s.pct.length - 1);
+      const v = s.pct[si];
       const el = document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${s.key}"] .g-hero-tk-pct`);
       if (el) { el.textContent = heroPctStr(v); el.className = "g-hero-tk-pct " + (v >= 0 ? "up" : "down"); }
     });
     return;
   }
   const pts = svg._pts; if (!pts || !pts.length) return;
-  let i = Math.round(((e.clientX - r.left) / r.width) * (pts.length - 1));
+  let i = tms != null ? heroNearestByTime(pts, tms) : Math.round(frac * (pts.length - 1));
   i = Math.max(0, Math.min(pts.length - 1, i));
   const m = svg._m, px = svg._X(i), py = svg._Y(pts[i][1]);
   const dot = svg.querySelector(".g-hero-hoverdot");
@@ -711,8 +772,7 @@ function heroHover(e) {
     tip.hidden = false;
     tip.style.left = ((px / HERO_W) * r.width) + "px";
     tip.style.top = ((py / HERO_H) * r.height) + "px";
-    const dt = new Date(pts[i][0]);
-    tip.innerHTML = `<span class="g-hero-tip-v">${esc(heroFmt(pts[i][1], m))}</span><span class="g-hero-tip-d">${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}</span>`;
+    tip.innerHTML = `<span class="g-hero-tip-v">${esc(heroFmt(pts[i][1], m))}</span><span class="g-hero-tip-d">${esc(heroFmtDate(pts[i][0]))}</span>`;
   }
 }
 function renderHero() {
