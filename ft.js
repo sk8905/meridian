@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "28af636d-7551-4250-a89b-01c068534356", title: "Budget blues", date: "2026-09-18", time: "14:09", url: "https://www.ft.com/content/28af636d-7551-4250-a89b-01c068534356" },
+  { id: "a528adc7-3a8c-4a00-826f-1fdde748efb5", title: "Xi’s edge over Trump on AI", date: "2026-09-18", time: "14:00", url: "https://www.ft.com/content/a528adc7-3a8c-4a00-826f-1fdde748efb5" },
+  { id: "3943277e-eaf8-4faf-9f9c-1c05cb2ba992", title: "Turkey moves to liquidate funds at centre of ‘Ponzi-like scheme’", date: "2026-09-18", time: "13:38", url: "https://www.ft.com/content/3943277e-eaf8-4faf-9f9c-1c05cb2ba992" },
   { id: "3e72dc10-5733-4623-9c4d-1beaab3dd5cf", title: "Sports brand On signs Kylian Mbappé from Nike to lead new football push", date: "2026-09-18", time: "13:00", url: "https://www.ft.com/content/3e72dc10-5733-4623-9c4d-1beaab3dd5cf" },
   { id: "6584e52f-5a8c-4427-ba39-b401a808850d", title: "Britons say they’re taking less annual leave. The ONS doesn’t believe them", date: "2026-09-18", time: "12:14", url: "https://www.ft.com/content/6584e52f-5a8c-4427-ba39-b401a808850d" },
   { id: "c70c275b-cd6d-47ef-a23f-cb374b98d001", title: "On the EU, let Canada and Odysseus inspire Burnham", date: "2026-09-18", time: "12:11", url: "https://www.ft.com/content/c70c275b-cd6d-47ef-a23f-cb374b98d001" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "aca1e562-9a12-4140-a8a2-0f21ff827f49", title: "The people who enabled Trump", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/aca1e562-9a12-4140-a8a2-0f21ff827f49" },
   { id: "5b08fae3-51b5-465b-acb5-e842c30ebd0c", title: "The west must hurry to catch up with Ukraine on AI combat", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/5b08fae3-51b5-465b-acb5-e842c30ebd0c" },
   { id: "6fd9f78e-f822-4e48-b8e2-968a3e4d2181", title: "Liechtenstein royals threaten lawsuit over dynasty reforms", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/6fd9f78e-f822-4e48-b8e2-968a3e4d2181" },
-  { id: "97999668-dd71-41b8-b0e5-f540902abc45", title: "How money moved across Mark Walter’s empire", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/97999668-dd71-41b8-b0e5-f540902abc45" },
-  { id: "34319b00-f874-4119-aa28-8376d81e7190", title: "Medical AI has a proof problem", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/34319b00-f874-4119-aa28-8376d81e7190" },
-  { id: "9c6fac10-9f3f-4503-9765-b9e29e18c68d", title: "Private equity turns to financial engineering to lure insurance billions", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/9c6fac10-9f3f-4503-9765-b9e29e18c68d" },
 ];
