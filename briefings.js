@@ -32,13 +32,13 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-18",
-      time: "05:10 BST",
-      lede: "The Bank of Japan hiked 25bp to 1.25% &mdash; a 31-year high &mdash; in a 7&ndash;2 vote overnight, sending the yen down to around &yen;156.64 even as the 10-year JGB yield eased; Asian equities firmed into Friday while the US 10-year Treasury yield stays pinned near its highest since July 2007 after Wednesday's Fed hike.",
+      time: "08:34 BST",
+      lede: "The Bank of Japan hiked 25bp to 1.25% &mdash; a 31-year high &mdash; in a 7&ndash;2 vote overnight, weakening the yen further, as Wall Street closed out Thursday with its best rally since Wednesday's Fed-hike selloff; a surprise 0.5% August bounce in UK retail sales added a bright spot in the G7 rate-hike week's aftermath.",
       bullets: [
-        { html: "<strong>Macro &mdash; the Bank of Japan hiked 25bp to 1.25% overnight</strong>, the highest since 1995, in a 7&ndash;2 vote as two reflationist board members appointed by PM Takaichi dissented, with the bank flagging upside inflation risk.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; the yen weakened 0.45% to &yen;156.64 on a 'buy the rumour, sell the fact' reaction</strong> to the BoJ hike, while the 10-year JGB yield fell 4.9bp to 2.947%.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
-        { html: "<strong>Equities &mdash; Asian shares jumped into Friday</strong> (Nikkei +1.6%, Kospi +2.9%) as markets digested both the BoJ hike and a hawkish tilt from RBA Governor Michele Bullock, who said upside inflation risks flagged in August are 'now materialising'.", src: "https://investinglive.com/news/investinglive-asia-pacific-market-news-boj-hike-and-rba-hawkish-tilt/", srcName: "investingLive" },
-        { html: "<strong>Fixed income &mdash; the US 10-year Treasury yield remains pinned above 5.01%, its highest since July 2007</strong>, after Wednesday's Fed hike, with Chair Warsh flagging still-elevated inflation risk.", src: "https://www.cnbc.com/2026/09/16/treasury-yield-bond-market-fed-decision.html", srcName: "CNBC" },
+        { html: "<strong>Macro &mdash; the Bank of Japan hiked 25bp to 1.25% overnight</strong>, the highest since 1995, in a 7&ndash;2 vote as two reflationist board members appointed by PM Takaichi dissented, flagging upside inflation risk &mdash; the third G7 central-bank move in three days after the Fed's hike and the BoE's hold.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
+        { html: "<strong>Fixed income &mdash; the yen weakened further after the BoJ's split-vote hike</strong>, while UK gilts extended Thursday's rally after the Bank of England paused long-dated gilt sales to ease pressure on yields.", src: "https://www.bloomberg.com/news/articles/2026-09-17/boe-scraps-long-end-gilt-sales-in-plan-to-unwind-qe-by-2034", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; Wall Street rebounded Thursday from Wednesday's Fed-hike selloff</strong>, with the S&amp;P 500 up 1.14% to 7,637.71, the Nasdaq up 1.69% to 26,418.29 and the Dow up 0.62% to 51,779.85, as Treasury yields eased and oil fell.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-17-2026", srcName: "TheStreet" },
+        { html: "<strong>Macro &mdash; UK retail sales rose 0.5% in August</strong>, defying a Reuters-polled forecast for a 0.2% decline, as warm weather and a brighter mood lifted spending despite rising energy bills &mdash; a rare upside surprise following Thursday's BoE hold.", src: "https://www.bloomberg.com/news/articles/2026-09-18/uk-retail-sales-bounce-back-with-0-5-gain-in-august", srcName: "Bloomberg" },
       ],
     },
     afternoon: {
