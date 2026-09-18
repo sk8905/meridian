@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-dccenergy-kkrbid-20260918",
+    publication: "Bloomberg",
+    author: "Jennifer Duggan",
+    series: null,
+    title: "DCC Energy Shareholders Approve £5.7 Billion Bid by KKR, ECP",
+    date: "2026-09-18",
+    time: "18:47",
+    summary: "DCC Energy Plc shareholders approved a takeover deal by KKR & Co. and Energy Capital Partners valued at more than £5.7 billion ($7.6 billion) following a drawn-out chase for the energy distributor.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-18/dcc-energy-shareholders-approve-5-7-billion-bid-by-kkr-ecp",
+  },
+  {
     id: "nl-lemonde-lebrief-ukraineelections-20260918",
     publication: "Le Monde",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "14:52",
     summary: "London co-head in discussions to leave Weil alongside fellow M&A partner.",
     url: "https://email.legalbusiness.co.uk/c/1dXXLqSECKsIFNk4hVKLclH9LM19",
-  },
-  {
-    id: "nl-bbg-authoralert-balyasnyzugjobs-20260916",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Balyasny Boosts Swiss Hedge Fund Scene With Zug Commodities Jobs",
-    date: "2026-09-16",
-    time: "13:35",
-    summary: "Balyasny Asset Management is opening a presence in the Swiss tax haven of Zug, adding to the numbers of global hedge fund roles located in the country.",
-    url: "https://www.bloomberg.com/news/articles/2026-09-16/balyasny-boosts-swiss-hedge-fund-scene-with-zug-commodities-jobs",
   },
 ];
