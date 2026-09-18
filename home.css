@@ -1001,8 +1001,10 @@
     .g-x-media img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--t-grid); }
     /* Quote tweet: the embedded original, nested as a bordered card beneath the
        quoter's own text (mirrors X's quote embed). The whole card is the link. */
-    .g-x-quote{ display:block; margin-top:8px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:8px; text-decoration:none; }
-    .g-x-quote:hover{ border-color:var(--t-mut); }
+    .g-x-quote{ display:block; margin-top:8px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:8px; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+    /* Brighten the border only on real hover (pointer devices) — never on a touch,
+       where :hover/:active would otherwise stick a white box around the card. */
+    @media (hover:hover){ .g-x-quote:hover{ border-color:var(--t-mut); } }
     .g-x-qhead{ display:flex; align-items:center; flex-wrap:wrap; gap:2px 6px; margin-bottom:3px; }
     .g-x-qwho{ font-size:11px; font-weight:700; color:var(--t-ink); }
     .g-x-qh{ font-family:var(--t-mono); font-size:10px; color:var(--t-mut); }
