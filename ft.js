@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7a285c59-2a2f-4e8b-9456-d4b92334fec7", title: "‘Greek finance minister encourages Germany to implement reforms’", date: "2026-09-18", time: "10:00", url: "https://www.ft.com/content/7a285c59-2a2f-4e8b-9456-d4b92334fec7" },
+  { id: "97a0bed5-0580-4ccc-bd3c-fe9a714259e2", title: "Yen sinks after Bank of Japan raises rates to highest since 1995", date: "2026-09-18", time: "09:32", url: "https://www.ft.com/content/97a0bed5-0580-4ccc-bd3c-fe9a714259e2" },
+  { id: "c403656f-9237-4d16-b6c2-685cfb1e989e", title: "Number 10 North is still a ‘jigsaw’ with a tricky growth agenda", date: "2026-09-18", time: "09:30", url: "https://www.ft.com/content/c403656f-9237-4d16-b6c2-685cfb1e989e" },
+  { id: "9937d230-9ce7-4847-814b-cc99fe8ded37", title: "FTAV’s further reading", date: "2026-09-18", time: "09:08", url: "https://www.ft.com/content/9937d230-9ce7-4847-814b-cc99fe8ded37" },
   { id: "cfc2c898-da5a-4387-92f4-6ae1274705b6", title: "South Korea’s Lee suffering ‘sleepless nights’ as US pressure grows", date: "2026-09-18", time: "09:05", url: "https://www.ft.com/content/cfc2c898-da5a-4387-92f4-6ae1274705b6" },
   { id: "76616441-6419-4792-9d27-31c5fa436dc4", title: "Thames Water should be temporarily placed under public ownership, MPs warn", date: "2026-09-18", time: "08:11", url: "https://www.ft.com/content/76616441-6419-4792-9d27-31c5fa436dc4" },
   { id: "5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a", title: "British retail sales rose 0.5% in August as hot weather boosted spending", date: "2026-09-18", time: "07:32", url: "https://www.ft.com/content/5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "8c4143c7-f846-43a0-807a-b460fff7cd75", title: "Has AI broken the old VC model?", date: "2026-09-17", time: "17:46", url: "https://www.ft.com/content/8c4143c7-f846-43a0-807a-b460fff7cd75" },
   { id: "755798b8-c16a-4d3f-b01f-47c3e334839a", title: "Glencore suspends senior executive in review of ties to iron ore trader", date: "2026-09-17", time: "17:44", url: "https://www.ft.com/content/755798b8-c16a-4d3f-b01f-47c3e334839a" },
   { id: "d458070f-fbe4-477d-8574-60a3dddce149", title: "Carney is playing a bad hand well", date: "2026-09-17", time: "17:41", url: "https://www.ft.com/content/d458070f-fbe4-477d-8574-60a3dddce149" },
-  { id: "0480bd32-41e7-465d-b828-156edae94ecb", title: "Rising rates throw a spanner in investment bankers’ spreadsheets", date: "2026-09-17", time: "17:39", url: "https://www.ft.com/content/0480bd32-41e7-465d-b828-156edae94ecb" },
-  { id: "cd58a4c3-3a62-41f2-a7b9-a0da73d6e5f4", title: "Bank of England’s bond plan brings finality to quantitative tightening", date: "2026-09-17", time: "17:27", url: "https://www.ft.com/content/cd58a4c3-3a62-41f2-a7b9-a0da73d6e5f4" },
-  { id: "b97ac029-271b-44d2-8641-bd8eb1dc7ab1", title: "Accelerationism will only slow AI’s progress", date: "2026-09-17", time: "17:27", url: "https://www.ft.com/content/b97ac029-271b-44d2-8641-bd8eb1dc7ab1" },
-  { id: "44bc4245-f235-4c1d-af93-deb5810f635a", title: "Bank of England says rates likely to rise as it overhauls gilt sales", date: "2026-09-17", time: "17:12", url: "https://www.ft.com/content/44bc4245-f235-4c1d-af93-deb5810f635a" },
 ];
