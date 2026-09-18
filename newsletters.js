@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-bojhikesplit-20260918",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "Bank of Japan Hikes Interest Rates in a Split Vote; Yen Drops",
+    date: "2026-09-18",
+    time: "07:53",
+    summary: "The BOJ raises its key rate a quarter point to 1.25% in a split vote as the yen drops; the ECB waits until December for its next hike.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-18/bank-of-japan-hikes-interest-rates-in-a-split-vote-yen-drops",
+  },
+  {
     id: "nl-economist-worldinbrief-f35saudiarabia-20260918",
     publication: "The Economist",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "12:23",
     summary: "Defense, data and AI demand are turning space into a critical-infrastructure asset class, with Goldman Sachs pegging the global space economy at up to $1.8tn by 2035.",
     url: "https://go.preqin.com/webmail/909852/2171561828/a37b7380374cf2f3d0f926883036705c145c47a1b3fb9947952755ee7607cff9",
-  },
-  {
-    id: "nl-bbg-econdaily-chinaslowlane-20260915",
-    publication: "Bloomberg",
-    author: "Malcolm Scott",
-    series: "Economics Daily",
-    title: "Economics Daily: China's slow lane",
-    date: "2026-09-15",
-    time: "12:00",
-    summary: "China's domestic economy remains stuck in the slow lane with the AI boom keeping exports afloat.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-15/china-stuck-in-economic-slow-lane-relies-on-ai-fueled-export-boom",
   },
 ];
