@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2660e844-6aaa-49a4-ab7a-aafdf6a3d805", title: "Labour conference set to vote on new AI regulator as cabinet concerns grow", date: "2026-09-18", time: "15:01", url: "https://www.ft.com/content/2660e844-6aaa-49a4-ab7a-aafdf6a3d805" },
+  { id: "d6adb7bb-72b4-47d1-b3bd-11e908d06b60", title: "Why Scott Bessent should pay attention to Turkey’s market scandal", date: "2026-09-18", time: "14:45", url: "https://www.ft.com/content/d6adb7bb-72b4-47d1-b3bd-11e908d06b60" },
+  { id: "1785c976-109d-47b4-9aa3-1c4d839086c6", title: "Business and unions clash over how to fix UK’s youth jobs shortage", date: "2026-09-18", time: "14:32", url: "https://www.ft.com/content/1785c976-109d-47b4-9aa3-1c4d839086c6" },
+  { id: "0649f3dd-e473-4174-ad1d-b01a93923bd3", title: "Come on Latin America, you owe me one", date: "2026-09-18", time: "14:29", url: "https://www.ft.com/content/0649f3dd-e473-4174-ad1d-b01a93923bd3" },
+  { id: "fc7438b6-2d58-4a4f-b296-86d75ecaaf2d", title: "UK air traffic outage caused by ‘legacy’ software bug, says review", date: "2026-09-18", time: "14:21", url: "https://www.ft.com/content/fc7438b6-2d58-4a4f-b296-86d75ecaaf2d" },
   { id: "28af636d-7551-4250-a89b-01c068534356", title: "Budget blues", date: "2026-09-18", time: "14:09", url: "https://www.ft.com/content/28af636d-7551-4250-a89b-01c068534356" },
   { id: "a528adc7-3a8c-4a00-826f-1fdde748efb5", title: "Xi’s edge over Trump on AI", date: "2026-09-18", time: "14:00", url: "https://www.ft.com/content/a528adc7-3a8c-4a00-826f-1fdde748efb5" },
   { id: "3943277e-eaf8-4faf-9f9c-1c05cb2ba992", title: "Turkey moves to liquidate funds at centre of ‘Ponzi-like scheme’", date: "2026-09-18", time: "13:38", url: "https://www.ft.com/content/3943277e-eaf8-4faf-9f9c-1c05cb2ba992" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "fa36c637-05fd-4669-8784-0ada6f671f39", title: "Europe can attract more stock trading with fewer, better markets", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/fa36c637-05fd-4669-8784-0ada6f671f39" },
   { id: "19309369-2741-4caf-91f9-a45505f82148", title: "Will El Niño be the saviour of Europe’s energy market?", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/19309369-2741-4caf-91f9-a45505f82148" },
   { id: "350df9ff-fa41-4984-a1ee-248d8335b213", title: "How Glencore became entangled in $2bn battle with iron ore trader Radiant", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/350df9ff-fa41-4984-a1ee-248d8335b213" },
-  { id: "f69943f7-b173-444c-a79e-c9396a0380bd", title: "Iran switches from ships to trucks to evade US blockade", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/f69943f7-b173-444c-a79e-c9396a0380bd" },
-  { id: "b420f86e-4266-432a-b2a1-cf1cde516463", title: "The real risk of private credit’s involvement in the annuity business", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/b420f86e-4266-432a-b2a1-cf1cde516463" },
-  { id: "aca1e562-9a12-4140-a8a2-0f21ff827f49", title: "The people who enabled Trump", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/aca1e562-9a12-4140-a8a2-0f21ff827f49" },
-  { id: "5b08fae3-51b5-465b-acb5-e842c30ebd0c", title: "The west must hurry to catch up with Ukraine on AI combat", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/5b08fae3-51b5-465b-acb5-e842c30ebd0c" },
-  { id: "6fd9f78e-f822-4e48-b8e2-968a3e4d2181", title: "Liechtenstein royals threaten lawsuit over dynasty reforms", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/6fd9f78e-f822-4e48-b8e2-968a3e4d2181" },
 ];
