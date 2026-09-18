@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-f35saudiarabia-20260918",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Trump approves F-35 sale to Saudi Arabia",
+    date: "2026-09-18",
+    time: "06:43",
+    summary: "The Trump administration approves a $24.3bn F-35 sale to Saudi Arabia; a UN fact-finding mission finds \"reasonable grounds\" that America committed war crimes in Iran; and the Bank of Japan raises rates to 1.25%, its highest since 1995.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-loweroil-20260917",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "China's domestic economy remains stuck in the slow lane with the AI boom keeping exports afloat.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-15/china-stuck-in-economic-slow-lane-relies-on-ai-fueled-export-boom",
-  },
-  {
-    id: "nl-bbg-marketsdaily-techtakesahit-20260915",
-    publication: "Bloomberg",
-    author: null,
-    series: "Markets Daily",
-    title: "Markets Daily: Tech takes a hit",
-    date: "2026-09-15",
-    time: "11:16",
-    summary: "Plus, getting ahead of rate hikes.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-15/lopsided-tech-bets-get-hit-in-ai-stock-selloff",
   },
 ];

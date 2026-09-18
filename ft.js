@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "901d5aca-e0ab-4728-8a24-6b0e616c5139", title: "The QT endgame at the BoE", date: "2026-09-18", time: "06:30", url: "https://www.ft.com/content/901d5aca-e0ab-4728-8a24-6b0e616c5139" },
   { id: "12d6fd02-c2de-4774-8bea-4d9ddbae643d", title: "EU mulls compromise options on Usmanov sanctions to end French stand-off", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/12d6fd02-c2de-4774-8bea-4d9ddbae643d" },
   { id: "8475dc9b-b2d4-4e10-a6b6-12796b11758a", title: "Joining the dots between big AI", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/8475dc9b-b2d4-4e10-a6b6-12796b11758a" },
   { id: "f89ed081-c025-4d69-bc41-9f5564c8b441", title: "FirstFT: Merz fights for survival", date: "2026-09-18", time: "05:31", url: "https://www.ft.com/content/f89ed081-c025-4d69-bc41-9f5564c8b441" },
