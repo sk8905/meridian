@@ -45,15 +45,15 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-09-17",
-      time: "12:00 BST",
-      lede: "The Bank of England held Bank Rate at 3.75% by the same 6&ndash;3 vote as July and voted to slow QT to about &pound;50bn a year, a day after the Fed's own hike lifted the US policy midpoint above Bank Rate for the first time this year; sterling stays pinned near six-week lows and Goldman Sachs and Citigroup have both moved to explicit November hike calls.",
+      date: "2026-09-18",
+      time: "12:26 BST",
+      lede: "The Bank of Japan hiked 25bp to a 31-year high of 1.25% overnight, weakening the yen further, as chip stocks led US futures higher and Treasury yields retreated; UK retail sales beat forecasts with a 0.5% August bounce, but sterling stayed on the back foot and the FTSE 100 retreated on banks and energy even as it eyes a weekly gain.",
       bullets: [
-        { html: "<strong>Macro &mdash; the MPC held Bank Rate at 3.75% today</strong>, by the same 6&ndash;3 vote as July (Greene, Mann and Pill again dissenting for a hike), and voted to slow quantitative tightening to roughly &pound;50bn a year from &pound;70bn.", src: "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; sterling stayed pinned near six-week lows around $1.3375-1.3400</strong>, as dollar strength from Wednesday's Fed hike outweighed today's widely-expected BoE hold.", src: "https://www.fxstreet.com/news/british-pound-languishes-near-late-july-lows-as-hawkish-fed-underpins-usd-ahead-of-boe-202609170104", srcName: "FXStreet" },
-        { html: "<strong>Equities &mdash; the FTSE 100's early gains faded through the session</strong> after the MPC's hold, with Governor Bailey flagging upside energy-price risk even as two more sell-side houses moved to explicit November-hike calls.", src: "https://uk.finance.yahoo.com/news/ftse-100-early-promise-fades-162104275.html", srcName: "Yahoo Finance UK" },
-        { html: "<strong>Macro &mdash; Goldman Sachs and Citigroup both hardened their BoE calls around today's decision</strong> &mdash; Goldman now sees a 25bp hike in November before a hold, Citi looks for hikes in both November 2026 and February 2027 &mdash; joining Deutsche Bank and Barclays in a firming hawkish consensus.", src: "https://www.kitco.com/news/off-the-wire/2026-09-14/goldman-sachs-sees-boe-rate-hike-november-amid-inflation-concerns", srcName: "Reuters (via Kitco)" },
-        { html: "<strong>Macro &mdash; Fed Chair Warsh defended Wednesday's hike as a good-news, growth story</strong> rather than a concession to Trump's pressure for cuts, in his first extended remarks since the decision.", src: "https://www.bloomberg.com/news/articles/2026-09-17/trump-denied-rate-cut-as-federal-reserve-targets-war-stoked-inflation", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; the Bank of Japan hiked 25bp to 1.25% overnight</strong>, the highest since 1995, flagging continued concern over inflation as the yen weakened further on the move.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
+        { html: "<strong>Fixed income &mdash; sterling stayed on the back foot despite yesterday's BoE hold</strong>, with MUFG and Pantheon Macroeconomics both flagging that the door is open for a November hike even as the pound slipped against a broadly firm dollar.", src: "https://www.babypips.com/news/headline-why-the-british-pound-fell-after-the-boe-held-rates-at-3-75-percent-2026-09-18", srcName: "Babypips" },
+        { html: "<strong>Equities &mdash; chip stocks led a rebound in US futures as Treasury yields retreated</strong>, with the market steadying after this week's Fed-hike volatility.", src: "https://www.home.saxo/content/articles/macro/market-quick-take---chips-lead-a-rebound-as-treasury-yields-retreat---18-september-2026-18092026", srcName: "Saxo Bank" },
+        { html: "<strong>Equities &mdash; the FTSE 100 retreated as banks and energy stocks weighed</strong>, though the index still eyes a gain for the week.", src: "https://www.globalbankingandfinance.com/londons-ftse-100-retreats-banks-energy-weigh-eyes-weekly/", srcName: "Global Banking & Finance" },
+        { html: "<strong>Macro &mdash; UK retail sales rose 0.5% in August, defying a forecast decline</strong>, a rare upside surprise in the same week the Bank of England held Bank Rate at 3.75%.", src: "https://www.bloomberg.com/news/articles/2026-09-18/uk-retail-sales-bounce-back-with-0-5-gain-in-august", srcName: "Bloomberg" },
       ],
     },
     evening: {
