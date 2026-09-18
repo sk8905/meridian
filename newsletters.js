@@ -45,12 +45,12 @@ export const NEWSLETTERS = [
   {
     id: "nl-bbg-moneystuffpodcast-savetheworld-20260918",
     publication: "Bloomberg",
-    author: null,
-    series: "Money Stuff",
+    author: "Matt Levine",
+    series: "Money Stuff: The Podcast",
     title: "Money Stuff: The Podcast: Trying to Save the World Is No Excuse",
     date: "2026-09-18",
     time: "17:02",
-    summary: "Silvia Killingsworth co-hosts on late-summer nostalgia, options market making and the case for slowing AI training.",
+    summary: "Matt Levine and guest co-host Silvia Killingsworth on late-summer nostalgia, options market making and putting pensions back into 401(k)s.",
     url: "https://bloom.bg/4nhTnYV",
   },
   {

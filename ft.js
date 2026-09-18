@@ -60,7 +60,4 @@ export const FT_ITEMS = [
   { id: "76616441-6419-4792-9d27-31c5fa436dc4", title: "Thames Water should be temporarily placed under public ownership, MPs warn", date: "2026-09-18", time: "08:11", url: "https://www.ft.com/content/76616441-6419-4792-9d27-31c5fa436dc4" },
   { id: "901d5aca-e0ab-4728-8a24-6b0e616c5139", title: "The QT endgame at the BoE", date: "2026-09-18", time: "06:30", url: "https://www.ft.com/content/901d5aca-e0ab-4728-8a24-6b0e616c5139" },
   { id: "12d6fd02-c2de-4774-8bea-4d9ddbae643d", title: "EU mulls compromise options on Usmanov sanctions to end French stand-off", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/12d6fd02-c2de-4774-8bea-4d9ddbae643d" },
-  { id: "8475dc9b-b2d4-4e10-a6b6-12796b11758a", title: "Joining the dots between big AI", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/8475dc9b-b2d4-4e10-a6b6-12796b11758a" },
-  { id: "63bfdeb2-efb1-4e3a-8c89-a884eb5bd618", title: "NHS executive lobbied data watchdog to rewrite criticism before Palantir deal", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/63bfdeb2-efb1-4e3a-8c89-a884eb5bd618" },
-  { id: "7cf54faa-90d7-4f2b-a626-a57fb402be61", title: "Red lipstick and expropriation: anti-capitalist seeks power in Berlin", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/7cf54faa-90d7-4f2b-a626-a57fb402be61" },
 ];
