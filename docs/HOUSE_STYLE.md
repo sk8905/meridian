@@ -342,7 +342,10 @@ notification badge red (`#ef4444`).
   **Data source:** when the `XAPI_KEY` Worker secret is set, `/api/xfeed` pulls each
   member's own timeline live from **twitterapi.io** (Get-User-Last-Tweets, merged —
   this **includes reposts**, which the List-tweets endpoint strips) and orders
-  newest-first; **reposts** render the original post with a "reposted by …" line. With
+  newest-first; **reposts** render the original post with a "reposted by …" line, and
+  **quote tweets** keep the quoter's own commentary **and nest the embedded original**
+  as a bordered sub-card (author · text · media, linking the quoted post) — the
+  original is never dropped (`xQuotedCard` in `src/index.js`, `.g-x-quote`). With
   **no key** it falls back to X's free syndication scrape, which X caches/degrades (so
   dates can lag). Either way the
   app just renders the cards. (`?debug=1` returns the raw upstream JSON for one

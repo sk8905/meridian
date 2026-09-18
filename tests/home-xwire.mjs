@@ -11,6 +11,8 @@ const SAMPLE = { tweets: [
   { id: "2097419714045624433", handle: "elerianm", name: "Mohamed A. El-Erian", avatar: "https://pbs.twimg.com/x.jpg", text: "The Fed delivered a 25bp hike, its first since 2023.", date: new Date(Date.now() - 29 * 60000).toUTCString(), ts: Date.now() - 29 * 60000, url: "https://x.com/elerianm/status/2097419714045624433", media: [] },
   { id: "2097400000000000000", handle: "RayDalio", name: "Ray Dalio", avatar: "https://pbs.twimg.com/y.jpg", text: "At this stage in my life my main goal is to pass along principles.", date: new Date(Date.now() - 53 * 60000).toUTCString(), ts: Date.now() - 53 * 60000, url: "https://x.com/RayDalio/status/2097400000000000000", media: [] },
   { id: "2097300000000000000", handle: "TheEconomist", name: "The Economist", avatar: "https://pbs.twimg.com/e.jpg", text: "The most important factor driving up bond yields.", date: new Date(Date.now() - 70 * 60000).toUTCString(), ts: Date.now() - 70 * 60000, url: "https://x.com/TheEconomist/status/2097300000000000000", media: [], repostedBy: "Mohamed A. El-Erian" },
+  // A quote tweet: the quoter's own commentary + the embedded ORIGINAL (nested).
+  { id: "2097200000000000000", handle: "AntoineGara", name: "Antoine Gara", avatar: "https://pbs.twimg.com/a.jpg", text: "What kind of DCF are we using here??? The cutoff is $4.4bn...", date: new Date(Date.now() - 80 * 60000).toUTCString(), ts: Date.now() - 80 * 60000, url: "https://x.com/AntoineGara/status/2097200000000000000", media: [], quoted: { handle: "Forbes", name: "Forbes", text: "Taylor Swift joined the billionaire ranks in 2023, on the back of her record-breaking global Eras Tour.", media: [], url: "https://x.com/Forbes/status/2097199999999999999" } },
 ] };
 
 const srv = await serve({ "/api/xfeed": () => [200, JSON.stringify(SAMPLE)] });
@@ -41,6 +43,8 @@ const b = await launchChromium();
       firstPerma: first ? (first.querySelector(".g-x-permalink") || {}).getAttribute("href") : null,
       // The repost card shows a "reposted" line naming the account that reposted it.
       repostLine: (() => { const c = [...cards].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@TheEconomist"); const r = c && c.querySelector(".g-x-rt"); return r ? r.textContent : ""; })(),
+      // The quote card nests the embedded original (author · text · link to it).
+      quote: (() => { const c = [...cards].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@AntoineGara"); const q = c && c.querySelector(".g-x-quote"); return q ? { who: (q.querySelector(".g-x-qwho") || {}).textContent || "", txt: (q.querySelector(".g-x-qtxt") || {}).textContent || "", href: q.getAttribute("href") || "" } : null; })(),
       // We render our own cards — no dependency on X's client widget script.
       noWidgetScript: !document.querySelector('script[src*="platform.twitter.com"]'),
     };
@@ -51,8 +55,12 @@ const b = await launchChromium();
   check(r.inRail, "X wire: panel sits in its own rail (g-side-x)");
   check(r.between, "X wire: the rail sits between the manager wire and the macro rail");
   checkEq(r.count, SAMPLE.tweets.length, `X wire: one card per tweet (${r.count})`);
-  checkEq(r.handles.join(","), "@elerianm,@RayDalio,@TheEconomist", "X wire: cards render in the order served (newest-first, merged)");
+  checkEq(r.handles.join(","), "@elerianm,@RayDalio,@TheEconomist,@AntoineGara", "X wire: cards render in the order served (newest-first, merged)");
   check(/Mohamed A\. El-Erian reposted/.test(r.repostLine), `X wire: reposts show a "reposted" line (${r.repostLine})`);
+  check(!!r.quote, "X wire: a quote tweet nests the quoted original as a card");
+  check(/Forbes/.test((r.quote || {}).who || ""), `X wire: the quoted card names the original author (${(r.quote || {}).who})`);
+  check(/Taylor Swift/.test((r.quote || {}).txt || ""), "X wire: the quoted original's text renders (previously dropped)");
+  check(/^https:\/\/x\.com\/Forbes\/status\/\d+$/.test((r.quote || {}).href || ""), `X wire: the quoted card links the original tweet (${(r.quote || {}).href})`);
   check(/25bp hike/.test(r.firstText), "X wire: the tweet body text renders in the card");
   check(/^https:\/\/x\.com\/elerianm\/status\/\d+$/.test(r.firstPerma || ""), `X wire: each card links the real post permalink (${r.firstPerma})`);
   check(r.noWidgetScript, "X wire: renders our own cards (no client-side X widget script)");

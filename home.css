@@ -997,6 +997,16 @@
     .g-x-txt a:hover{ text-decoration:underline; }
     .g-x-media{ display:block; margin-top:8px; }
     .g-x-media img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--t-grid); }
+    /* Quote tweet: the embedded original, nested as a bordered card beneath the
+       quoter's own text (mirrors X's quote embed). The whole card is the link. */
+    .g-x-quote{ display:block; margin-top:8px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:8px; text-decoration:none; }
+    .g-x-quote:hover{ border-color:var(--t-mut); }
+    .g-x-qhead{ display:flex; align-items:center; flex-wrap:wrap; gap:2px 6px; margin-bottom:3px; }
+    .g-x-qwho{ font-size:11px; font-weight:700; color:var(--t-ink); }
+    .g-x-qh{ font-family:var(--t-mono); font-size:10px; color:var(--t-mut); }
+    .g-x-qtxt{ font-size:11.5px; line-height:1.4; color:var(--t-mut); white-space:normal; overflow-wrap:anywhere; }
+    .g-x-qmedia{ display:block; margin-top:6px; }
+    .g-x-qmedia img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--t-grid); }
     .g-x-permalink{ display:inline-block; margin-top:7px; font-family:var(--t-mono); font-size:10px; color:var(--t-faint); text-decoration:none; }
     .g-x-permalink:hover{ color:var(--t-ink); text-decoration:underline; }
     .g-x-note{ font-size:10.5px; color:var(--t-mut); margin:-2px 0 7px; }

@@ -3554,6 +3554,36 @@ export function xCollectTweets(node, out, depth) {
   }
 }
 
+// Flatten a QUOTED tweet (the original embedded inside a quote-tweet) into the
+// compact card the client nests under the quoter's own text. Handles both the
+// twitterapi.io shape (author.{userName,name}, text, extendedEntities) and the
+// syndication/GraphQL shape (fields under `legacy`, user under
+// core.user_results.result). Returns null when there's nothing renderable.
+export function xQuotedCard(q) {
+  try {
+    if (!q || typeof q !== "object") return null;
+    const lg = (q.legacy && typeof q.legacy === "object") ? q.legacy : q;
+    const ur = q.core && q.core.user_results && q.core.user_results.result;
+    const uleg = (ur && ur.legacy) || q.author || q.user || lg.user || {};
+    const ucore = ur && ur.core;
+    const handle = uleg.userName || uleg.screen_name || uleg.screenName || uleg.username || (ucore && ucore.screen_name) || "";
+    const name = uleg.name || (ucore && ucore.name) || handle;
+    const id = String(q.rest_id || q.id_str || q.id || lg.id_str || "");
+    let text = String(lg.full_text != null ? lg.full_text : (lg.text != null ? lg.text
+      : (q.full_text != null ? q.full_text : (q.text != null ? q.text : ""))));
+    text = text.replace(/\s+https:\/\/t\.co\/\w+\s*$/, "").trim();
+    const media = [];
+    const ents = (lg.extended_entities && lg.extended_entities.media)
+      || (lg.entities && lg.entities.media)
+      || (q.extendedEntities && q.extendedEntities.media)
+      || (q.entities && q.entities.media) || [];
+    if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
+    if (!handle && !text && !media.length) return null;
+    const url = q.url || (handle && /^\d{5,}$/.test(id) ? `https://x.com/${handle}/status/${id}` : (handle ? `https://x.com/${handle}` : ""));
+    return { handle, name, text, media: media.slice(0, 1), url };
+  } catch { return null; }
+}
+
 // Normalise one raw syndication tweet record into the flat shape the app renders.
 // Returns null for anything that isn't a real, dated tweet with a numeric id.
 export function xNormalizeTweet(t) {
@@ -3584,9 +3614,16 @@ export function xNormalizeTweet(t) {
       || (t.extended_entities && t.extended_entities.media)
       || (t.entities && t.entities.media) || t.photos || t.mediaDetails || [];
     if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url || m.url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
-    return { id, handle, name, avatar, text, date: created, ts,
+    const out = { id, handle, name, avatar, text, date: created, ts,
       url: handle ? `https://x.com/${handle}/status/${id}` : `https://x.com/i/status/${id}`,
       media: media.slice(0, 1) };
+    // Quote tweet: carry the embedded original so the client nests it (GraphQL puts
+    // it under quoted_status_result.result; older shapes under quoted_status).
+    const q = (t.quoted_status_result && t.quoted_status_result.result)
+      || lg.quoted_status || t.quoted_status || t.quoted_tweet || null;
+    const quoted = xQuotedCard(q);
+    if (quoted) out.quoted = quoted;
+    return out;
   } catch { return null; }
 }
 
@@ -3653,6 +3690,10 @@ export function xNormalizeApiTweet(t) {
       url: src.url || (handle ? `https://x.com/${handle}/status/${origId}` : `https://x.com/i/status/${origId}`),
       media: media.slice(0, 1) };
     if (rt) { const ra = t.author || t.user || {}; const rn = ra.name || ra.userName || ""; if (rn) out.repostedBy = rn; }
+    // Quote tweet: the commentary is `src`'s own text; carry the embedded original
+    // (from the content source, so a reposted quote tweet still nests it).
+    const quoted = xQuotedCard(src.quoted_tweet || src.quotedTweet || src.quoted_status || null);
+    if (quoted) out.quoted = quoted;
     return out;
   } catch { return null; }
 }

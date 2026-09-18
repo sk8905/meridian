@@ -1,7 +1,7 @@
 // Worker /api/xfeed parser: xCollectTweets deep-walks X's syndication JSON for
 // tweet-shaped records (defensive against envelope drift), xNormalizeTweet flattens
 // each into the card shape the app renders. Pure functions — no network.
-import { xCollectTweets, xNormalizeTweet, xNormalizeApiTweet } from "../src/index.js";
+import { xCollectTweets, xNormalizeTweet, xNormalizeApiTweet, xQuotedCard } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
 // A realistic __NEXT_DATA__-style envelope: two tweets under different shapes
@@ -109,5 +109,57 @@ checkEq(repost.ts, Date.parse("Wed Sep 17 06:00:00 +0000 2026"), "repost: ordere
 check(repost.date === "Wed Sep 17 00:00:00 +0000 2026", "repost: displays the ORIGINAL tweet's timestamp (like X)");
 // The two must genuinely differ here, or the assertion above proves nothing.
 check(repost.ts !== Date.parse(repost.date), "repost: display time and ordering time are distinct on a repost");
+// An ordinary tweet / a plain repost carries no quoted card.
+check(api.quoted === undefined, "quote: an ordinary tweet has no quoted card");
+check(repost.quoted === undefined, "quote: a plain repost has no quoted card");
+
+// --- Quote tweet: the quoter's own commentary + the embedded ORIGINAL ----------
+// twitterapi.io nests the quoted tweet under `quoted_tweet`; we keep the outer card
+// as the quoter's commentary and carry the original through as `quoted` so the
+// client nests it (the original was previously dropped entirely).
+const quote = xNormalizeApiTweet({
+  id: "2100000000000000200",
+  url: "https://x.com/AntoineGara/status/2100000000000000200",
+  text: "What kind of DCF are we using here??? The cutoff is $4.4bn...",
+  createdAt: "Wed Sep 17 07:00:00 +0000 2026",
+  author: { userName: "AntoineGara", name: "Antoine Gara", profilePicture: "https://pbs.twimg.com/a.jpg" },
+  quoted_tweet: {
+    id: "2099999999999999500",
+    url: "https://x.com/Forbes/status/2099999999999999500",
+    text: "Taylor Swift joined the billionaire ranks in 2023, on the back of her record-breaking global Eras Tour. https://t.co/xyz",
+    createdAt: "Wed Sep 17 01:00:00 +0000 2026",
+    author: { userName: "Forbes", name: "Forbes" },
+    extendedEntities: { media: [{ media_url_https: "https://pbs.twimg.com/media/ts.jpg" }] },
+  },
+});
+check(!!quote, "quote: a quote tweet normalises");
+checkEq(quote.handle, "AntoineGara", "quote: the OUTER card stays the quoter (their own commentary)");
+check(/DCF/.test(quote.text), "quote: the quoter's own text is shown on the card");
+check(!!quote.quoted, "quote: the embedded original is carried through as `quoted` (was dropped before)");
+checkEq(quote.quoted.handle, "Forbes", "quote: the quoted card names the original author");
+checkEq(quote.quoted.name, "Forbes", "quote: the quoted author display name is read");
+check(/Taylor Swift/.test(quote.quoted.text), "quote: the quoted original's text comes through");
+check(!/t\.co/.test(quote.quoted.text), "quote: the quoted text strips its trailing t.co");
+check(quote.quoted.media[0] === "https://pbs.twimg.com/media/ts.jpg", "quote: the quoted media is carried");
+checkEq(quote.quoted.url, "https://x.com/Forbes/status/2099999999999999500", "quote: the quoted card links the original tweet");
+
+// Syndication/GraphQL shape: the original lives under quoted_status_result.result.
+const synQuote = xNormalizeTweet({
+  rest_id: "2099999999999999600",
+  core: { user_results: { result: { legacy: { screen_name: "sindap", name: "Sujeet Indap" } } } },
+  legacy: { full_text: "This is worth reading.", created_at: "Wed Sep 16 21:00:00 +0000 2026" },
+  quoted_status_result: { result: {
+    rest_id: "2099999999999999601",
+    core: { user_results: { result: { legacy: { screen_name: "FT", name: "Financial Times" } } } },
+    legacy: { full_text: "Private equity's next reckoning.", created_at: "Wed Sep 16 20:00:00 +0000 2026" },
+  } },
+});
+check(!!synQuote && !!synQuote.quoted, "quote: a GraphQL quoted_status_result original is carried");
+checkEq(synQuote.quoted.handle, "FT", "quote: the GraphQL quoted author handle is read");
+check(/next reckoning/.test(synQuote.quoted.text), "quote: the GraphQL quoted text comes through");
+
+// Direct guards.
+check(xQuotedCard(null) === null, "quote: xQuotedCard(null) is safe");
+check(xQuotedCard({}) === null, "quote: an empty quoted object yields nothing to render");
 
 finish();

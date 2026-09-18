@@ -366,8 +366,24 @@ function xCard(t) {
   return `<article class="g-x-card">${repost}`
     + `<div class="g-x-meta">${av}<a class="g-x-who" href="https://x.com/${h}" target="_blank" rel="noopener noreferrer">${name}</a>`
     + `<span class="g-x-h">@${h}</span><span class="g-x-d">${esc(fmtXWhen(t.date))}</span></div>`
-    + `<div class="g-x-txt">${xLinkify(t.text)}</div>${media}`
+    + `<div class="g-x-txt">${xLinkify(t.text)}</div>${xQuoteCard(t.quoted)}${media}`
     + `<a class="g-x-permalink" href="${perma}" target="_blank" rel="noopener noreferrer">View on X ↗</a></article>`;
+}
+// A quote tweet's embedded ORIGINAL, nested beneath the quoter's own text as a
+// bordered card (like X's quote embed). The whole card links to the quoted tweet,
+// so its body is plain text (no inner anchors) to keep the markup valid.
+function xQuoteCard(q) {
+  if (!q || (!q.text && !(q.media && q.media[0]) && !q.handle)) return "";
+  const qh = esc(q.handle || ""), qn = esc(q.name || (q.handle ? "@" + q.handle : ""));
+  const href = esc(q.url || (q.handle ? `https://x.com/${q.handle}` : "#"));
+  const head = (qn || qh)
+    ? `<div class="g-x-qhead"><span class="g-x-qwho">${qn}</span>${qh ? `<span class="g-x-qh">@${qh}</span>` : ""}</div>`
+    : "";
+  const body = q.text ? `<div class="g-x-qtxt">${esc(q.text).replace(/\n/g, "<br>")}</div>` : "";
+  const qmedia = (q.media && q.media[0])
+    ? `<span class="g-x-qmedia"><img loading="lazy" src="${esc(q.media[0])}" alt="" referrerpolicy="no-referrer"></span>`
+    : "";
+  return `<a class="g-x-quote" href="${href}" target="_blank" rel="noopener noreferrer">${head}${body}${qmedia}</a>`;
 }
 // Persist the last feed (per viewer) so a fresh load / full reload paints the
 // last-known posts INSTANTLY instead of a blank "Loading" state, then refreshes.
