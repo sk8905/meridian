@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-loweroil-20260917",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Lower oil, yields boost stocks",
+    date: "2026-09-17",
+    time: "22:00",
+    summary: "Bank of Japan up next.",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/trump-may-not-see-another-rate-cut-president-mcgeever-2026-09-17/",
+  },
+  {
     id: "nl-bbg-moneystuff-indianoptionstradetoogood-20260917",
     publication: "Bloomberg",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "11:16",
     summary: "Plus, getting ahead of rate hikes.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-15/lopsided-tech-bets-get-hit-in-ai-stock-selloff",
-  },
-  {
-    id: "nl-guardian-thebreakdown-fertilitysupportrugby-20260915",
-    publication: "The Guardian",
-    author: "Sarah Rendell",
-    series: "The Breakdown",
-    title: "Meg Jones leads the call to provide fertility support for rugby players",
-    date: "2026-09-15",
-    time: "10:56",
-    summary: "The Red Roses captain says nobody should have to choose between their career and having a family.",
-    url: "https://www.theguardian.com/sport/rugby-union",
   },
 ];

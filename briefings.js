@@ -31,15 +31,14 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-09-17",
-      time: "08:19 BST",
-      lede: "The Fed hiked 25bp to 3.75&ndash;4.00% Wednesday and Goldman Sachs now sees a second hike in October, Asian markets steadied overnight as oil eased toward $102/bbl, and sterling sank below $1.3400 ahead of the Bank of England's own decision at noon.",
+      date: "2026-09-18",
+      time: "05:10 BST",
+      lede: "The Bank of Japan hiked 25bp to 1.25% &mdash; a 31-year high &mdash; in a 7&ndash;2 vote overnight, sending the yen down to around &yen;156.64 even as the 10-year JGB yield eased; Asian equities firmed into Friday while the US 10-year Treasury yield stays pinned near its highest since July 2007 after Wednesday's Fed hike.",
       bullets: [
-        { html: "<strong>Macro &mdash; Goldman Sachs abandoned its 'one-and-done' call overnight</strong>, now expecting a second 25bp Fed hike in October after Wednesday's dot plot showed a 16-to-2 majority for at least one more 2026 move.", src: "https://www.brecorder.com/news/40439917/goldman-sachs-now-sees-fed-hiking-again-in-october", srcName: "Business Recorder (Reuters)" },
-        { html: "<strong>Equities &mdash; Asian markets rose Thursday</strong> (Nikkei, Topix, Kospi and Kosdaq all gained) as the widely-expected Fed hike removed uncertainty, though Tokyo tech lagged ahead of Friday's own BoJ decision.", src: "https://investinglive.com/news/investinglive-asia-pacific-market-news-fed-hike-fallout-dominates/", srcName: "investingLive" },
-        { html: "<strong>Fixed income &mdash; sterling sank to just under $1.3400 overnight</strong>, as the Fed's hike lifted the midpoint of the US policy rate above the Bank of England's 3.75% for the first time this year, ahead of the BoE's own decision at 11:00 GMT today.", src: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-sinks-as-the-fed-overtakes-the-boe-202609161939", srcName: "FXStreet" },
-        { html: "<strong>Macro &mdash; the Bank of England is widely expected to hold Bank Rate at 3.75% at today's decision</strong>, a day after the Fed's own hike, though markets still price roughly an 80% chance of a follow-up BoE hike in November given the Iran-war energy shock.", src: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-but-energy-shock-stirs-talk-of-a-hike-4904677", srcName: "Reuters (via Investing.com)" },
-        { html: "<strong>Fixed income &mdash; Brent crude eased toward $102/bbl overnight</strong>, pulling back further from Tuesday's $109 peak, on signs Saudi Arabia's damaged East-West pipeline will restart operations within days.", src: "https://www.cnbc.com/2026/09/16/oil-prices-today-brent-wti-hormuz-iran-war.html", srcName: "CNBC" },
+        { html: "<strong>Macro &mdash; the Bank of Japan hiked 25bp to 1.25% overnight</strong>, the highest since 1995, in a 7&ndash;2 vote as two reflationist board members appointed by PM Takaichi dissented, with the bank flagging upside inflation risk.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
+        { html: "<strong>Fixed income &mdash; the yen weakened 0.45% to &yen;156.64 on a 'buy the rumour, sell the fact' reaction</strong> to the BoJ hike, while the 10-year JGB yield fell 4.9bp to 2.947%.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
+        { html: "<strong>Equities &mdash; Asian shares jumped into Friday</strong> (Nikkei +1.6%, Kospi +2.9%) as markets digested both the BoJ hike and a hawkish tilt from RBA Governor Michele Bullock, who said upside inflation risks flagged in August are 'now materialising'.", src: "https://investinglive.com/news/investinglive-asia-pacific-market-news-boj-hike-and-rba-hawkish-tilt/", srcName: "investingLive" },
+        { html: "<strong>Fixed income &mdash; the US 10-year Treasury yield remains pinned above 5.01%, its highest since July 2007</strong>, after Wednesday's Fed hike, with Chair Warsh flagging still-elevated inflation risk.", src: "https://www.cnbc.com/2026/09/16/treasury-yield-bond-market-fed-decision.html", srcName: "CNBC" },
       ],
     },
     afternoon: {
