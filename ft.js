@@ -20,17 +20,21 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "91b94aa4-d432-4401-9a60-572d518a4972", title: "Is the Antichrist really walking among us?", date: "2026-09-18", time: "11:00", url: "https://www.ft.com/content/91b94aa4-d432-4401-9a60-572d518a4972" },
+  { id: "f89ed081-c025-4d69-bc41-9f5564c8b441", title: "FirstFT: Venezuela nears deal to transfer $4bn gold reserve to New York", date: "2026-09-18", time: "10:57", url: "https://www.ft.com/content/f89ed081-c025-4d69-bc41-9f5564c8b441" },
+  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-18", time: "10:57", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
+  { id: "97a0bed5-0580-4ccc-bd3c-fe9a714259e2", title: "Yen sinks after Bank of Japan raises rates to highest level since 1995", date: "2026-09-18", time: "10:46", url: "https://www.ft.com/content/97a0bed5-0580-4ccc-bd3c-fe9a714259e2" },
+  { id: "b1bf57db-c66f-4086-a0be-531e7a5dcd31", title: "Fuel queues and conscription fears unsettle Russian voters", date: "2026-09-18", time: "10:38", url: "https://www.ft.com/content/b1bf57db-c66f-4086-a0be-531e7a5dcd31" },
+  { id: "14f9df6a-5a70-42d9-86ee-37e6242aae6e", title: "Bank of Japan raises rates and accelerates tightening", date: "2026-09-18", time: "10:32", url: "https://www.ft.com/content/14f9df6a-5a70-42d9-86ee-37e6242aae6e" },
   { id: "7a285c59-2a2f-4e8b-9456-d4b92334fec7", title: "‘Greek finance minister encourages Germany to implement reforms’", date: "2026-09-18", time: "10:00", url: "https://www.ft.com/content/7a285c59-2a2f-4e8b-9456-d4b92334fec7" },
-  { id: "97a0bed5-0580-4ccc-bd3c-fe9a714259e2", title: "Yen sinks after Bank of Japan raises rates to highest since 1995", date: "2026-09-18", time: "09:32", url: "https://www.ft.com/content/97a0bed5-0580-4ccc-bd3c-fe9a714259e2" },
   { id: "c403656f-9237-4d16-b6c2-685cfb1e989e", title: "Number 10 North is still a ‘jigsaw’ with a tricky growth agenda", date: "2026-09-18", time: "09:30", url: "https://www.ft.com/content/c403656f-9237-4d16-b6c2-685cfb1e989e" },
   { id: "9937d230-9ce7-4847-814b-cc99fe8ded37", title: "FTAV’s further reading", date: "2026-09-18", time: "09:08", url: "https://www.ft.com/content/9937d230-9ce7-4847-814b-cc99fe8ded37" },
   { id: "cfc2c898-da5a-4387-92f4-6ae1274705b6", title: "South Korea’s Lee suffering ‘sleepless nights’ as US pressure grows", date: "2026-09-18", time: "09:05", url: "https://www.ft.com/content/cfc2c898-da5a-4387-92f4-6ae1274705b6" },
+  { id: "5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a", title: "UK retail sales rose more than forecast in August", date: "2026-09-18", time: "08:14", url: "https://www.ft.com/content/5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a" },
   { id: "76616441-6419-4792-9d27-31c5fa436dc4", title: "Thames Water should be temporarily placed under public ownership, MPs warn", date: "2026-09-18", time: "08:11", url: "https://www.ft.com/content/76616441-6419-4792-9d27-31c5fa436dc4" },
-  { id: "5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a", title: "British retail sales rose 0.5% in August as hot weather boosted spending", date: "2026-09-18", time: "07:32", url: "https://www.ft.com/content/5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a" },
   { id: "901d5aca-e0ab-4728-8a24-6b0e616c5139", title: "The QT endgame at the BoE", date: "2026-09-18", time: "06:30", url: "https://www.ft.com/content/901d5aca-e0ab-4728-8a24-6b0e616c5139" },
   { id: "12d6fd02-c2de-4774-8bea-4d9ddbae643d", title: "EU mulls compromise options on Usmanov sanctions to end French stand-off", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/12d6fd02-c2de-4774-8bea-4d9ddbae643d" },
   { id: "8475dc9b-b2d4-4e10-a6b6-12796b11758a", title: "Joining the dots between big AI", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/8475dc9b-b2d4-4e10-a6b6-12796b11758a" },
-  { id: "f89ed081-c025-4d69-bc41-9f5564c8b441", title: "FirstFT: Merz fights for survival", date: "2026-09-18", time: "05:31", url: "https://www.ft.com/content/f89ed081-c025-4d69-bc41-9f5564c8b441" },
   { id: "63bfdeb2-efb1-4e3a-8c89-a884eb5bd618", title: "NHS executive lobbied data watchdog to rewrite criticism before Palantir deal", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/63bfdeb2-efb1-4e3a-8c89-a884eb5bd618" },
   { id: "7cf54faa-90d7-4f2b-a626-a57fb402be61", title: "Red lipstick and expropriation: anti-capitalist seeks power in Berlin", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/7cf54faa-90d7-4f2b-a626-a57fb402be61" },
   { id: "a2f2ba6b-dc26-40d5-87ff-839d864c909b", title: "Lib Dems hope EU single market campaign will reignite political fortunes", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/a2f2ba6b-dc26-40d5-87ff-839d864c909b" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "21aa563b-2cd1-4f09-b505-fcf579248fe6", title: "Reform UK’s mega-donor backed a friend’s libel claim. Now he controls her home", date: "2026-09-17", time: "18:24", url: "https://www.ft.com/content/21aa563b-2cd1-4f09-b505-fcf579248fe6" },
   { id: "0b3d10cb-a321-429f-879d-86e1bee82efe", title: "Hispanics feel ‘betrayed’ by Trump, top Republican says", date: "2026-09-17", time: "18:10", url: "https://www.ft.com/content/0b3d10cb-a321-429f-879d-86e1bee82efe" },
   { id: "fc324c65-11d6-473d-b15b-deef27cbadc2", title: "Sun, stats and suspicious productivity", date: "2026-09-17", time: "17:55", url: "https://www.ft.com/content/fc324c65-11d6-473d-b15b-deef27cbadc2" },
-  { id: "49b61634-7a5d-46c4-8c43-c20ed2196ca9", title: "Addison Lee founder loses £20mn tax battle over ‘non-dom’ status", date: "2026-09-17", time: "17:54", url: "https://www.ft.com/content/49b61634-7a5d-46c4-8c43-c20ed2196ca9" },
-  { id: "8c4143c7-f846-43a0-807a-b460fff7cd75", title: "Has AI broken the old VC model?", date: "2026-09-17", time: "17:46", url: "https://www.ft.com/content/8c4143c7-f846-43a0-807a-b460fff7cd75" },
-  { id: "755798b8-c16a-4d3f-b01f-47c3e334839a", title: "Glencore suspends senior executive in review of ties to iron ore trader", date: "2026-09-17", time: "17:44", url: "https://www.ft.com/content/755798b8-c16a-4d3f-b01f-47c3e334839a" },
-  { id: "d458070f-fbe4-477d-8574-60a3dddce149", title: "Carney is playing a bad hand well", date: "2026-09-17", time: "17:41", url: "https://www.ft.com/content/d458070f-fbe4-477d-8574-60a3dddce149" },
 ];
