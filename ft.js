@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "31c53c3c-5cc1-4248-98dc-68fc8956e8cc", title: "France calls G7 summit on releasing more oil reserves", date: "2026-09-18", time: "16:51", url: "https://www.ft.com/content/31c53c3c-5cc1-4248-98dc-68fc8956e8cc" },
+  { id: "e2d2b86f-4f22-477f-9578-75c72683f1e9", title: "Anthropic and the golden rules of business", date: "2026-09-18", time: "16:40", url: "https://www.ft.com/content/e2d2b86f-4f22-477f-9578-75c72683f1e9" },
+  { id: "24dc8ce0-5331-4280-ad85-c2dddcef429d", title: "Court shines a further light on who was at fault in SVB implosion", date: "2026-09-18", time: "16:34", url: "https://www.ft.com/content/24dc8ce0-5331-4280-ad85-c2dddcef429d" },
+  { id: "993a41e7-8bc6-47dd-87c4-88b2ff5afcec", title: "The merits of friction-maxxing", date: "2026-09-18", time: "16:33", url: "https://www.ft.com/content/993a41e7-8bc6-47dd-87c4-88b2ff5afcec" },
+  { id: "5bf1b218-bd69-430e-8544-93e0ef87d10f", title: "Ministers explore limiting political party spending outside UK elections", date: "2026-09-18", time: "16:31", url: "https://www.ft.com/content/5bf1b218-bd69-430e-8544-93e0ef87d10f" },
+  { id: "7832ff53-1607-471c-bc9d-9f62c193b641", title: "Warshing the walk", date: "2026-09-18", time: "16:30", url: "https://www.ft.com/content/7832ff53-1607-471c-bc9d-9f62c193b641" },
+  { id: "72957f1d-5e28-4303-9bb9-e72781ce245f", title: "Canada plays down EU ‘associate member’ label", date: "2026-09-18", time: "16:26", url: "https://www.ft.com/content/72957f1d-5e28-4303-9bb9-e72781ce245f" },
   { id: "98c6db91-44c7-487e-a733-331a58766ba1", title: "Fed report finds it was ‘too timid’ in tackling risks at Silicon Valley Bank", date: "2026-09-18", time: "16:03", url: "https://www.ft.com/content/98c6db91-44c7-487e-a733-331a58766ba1" },
   { id: "1270032d-25e9-4be0-aa2f-5205b9bedd08", title: "Former Wells Fargo asset manager Allspring explores $4bn sale", date: "2026-09-18", time: "15:12", url: "https://www.ft.com/content/1270032d-25e9-4be0-aa2f-5205b9bedd08" },
   { id: "2660e844-6aaa-49a4-ab7a-aafdf6a3d805", title: "Labour conference set to vote on new AI regulator as cabinet concerns grow", date: "2026-09-18", time: "15:01", url: "https://www.ft.com/content/2660e844-6aaa-49a4-ab7a-aafdf6a3d805" },
@@ -56,9 +63,4 @@ export const FT_ITEMS = [
   { id: "8475dc9b-b2d4-4e10-a6b6-12796b11758a", title: "Joining the dots between big AI", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/8475dc9b-b2d4-4e10-a6b6-12796b11758a" },
   { id: "63bfdeb2-efb1-4e3a-8c89-a884eb5bd618", title: "NHS executive lobbied data watchdog to rewrite criticism before Palantir deal", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/63bfdeb2-efb1-4e3a-8c89-a884eb5bd618" },
   { id: "7cf54faa-90d7-4f2b-a626-a57fb402be61", title: "Red lipstick and expropriation: anti-capitalist seeks power in Berlin", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/7cf54faa-90d7-4f2b-a626-a57fb402be61" },
-  { id: "a2f2ba6b-dc26-40d5-87ff-839d864c909b", title: "Lib Dems hope EU single market campaign will reignite political fortunes", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/a2f2ba6b-dc26-40d5-87ff-839d864c909b" },
-  { id: "8f1f3047-372d-425f-bcd6-cfe9d5d4890c", title: "Venezuela nears deal to move $4bn gold reserve to New York", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/8f1f3047-372d-425f-bcd6-cfe9d5d4890c" },
-  { id: "a117a105-545e-45a9-b4a1-7d03f7b4082b", title: "The new credit debacle gripping Wall Street", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/a117a105-545e-45a9-b4a1-7d03f7b4082b" },
-  { id: "0e64746c-d531-4ceb-a700-e5e47289bfb3", title: "Democrats vow to pursue ‘Trump crime family’ after midterm elections", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/0e64746c-d531-4ceb-a700-e5e47289bfb3" },
-  { id: "fa36c637-05fd-4669-8784-0ada6f671f39", title: "Europe can attract more stock trading with fewer, better markets", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/fa36c637-05fd-4669-8784-0ada6f671f39" },
 ];

@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuffpodcast-savetheworld-20260918",
+    publication: "Bloomberg",
+    author: null,
+    series: "Money Stuff",
+    title: "Money Stuff: The Podcast: Trying to Save the World Is No Excuse",
+    date: "2026-09-18",
+    time: "17:02",
+    summary: "Silvia Killingsworth co-hosts on late-summer nostalgia, options market making and the case for slowing AI training.",
+    url: "https://bloom.bg/4nhTnYV",
+  },
+  {
     id: "nl-gs-fedhikesimpactstocks-20260918",
     publication: "Goldman Sachs",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "12:10",
     summary: "Entrepreneurs look beyond IPOs to tap cash from feast-or-famine money markets via a nascent VC-secondaries scene.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-16/venture-investors-find-liquidity-fix-outside-ipo-market",
-  },
-  {
-    id: "nl-bbg-economicsdaily-aesopfedhike-20260916",
-    publication: "Bloomberg",
-    author: null,
-    series: "Economics Daily",
-    title: "Economics Daily: The Aesop Fed hike",
-    date: "2026-09-16",
-    time: "12:07",
-    summary: "Fed Chair Warsh is under pressure to deliver on his tough line on inflation by raising rates.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-16/after-talking-the-talk-on-inflation-fed-s-warsh-may-be-made-to-walk",
   },
 ];
