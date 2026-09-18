@@ -238,7 +238,7 @@ function renderHomeBriefing() {
   const key = _briefLatest();
   const s = slots[key];
   if (!s) { host.hidden = true; return; }
-  const open = _homePrefs().briefOpen !== false;          // default expanded
+  const open = _homePrefs().briefOpen === true;           // default collapsed (opt-in expand)
   if (open) _markBriefRead(key);                          // visible + expanded = read
   const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;

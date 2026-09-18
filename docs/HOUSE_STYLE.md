@@ -434,9 +434,9 @@ notification badge red (`#ef4444`).
   `briefMarkup` colour marking (**orange desk kicker** `.nb-topic`; numbers read as
   plain body text here), capped to **four bullets** (one screen), each linking its
   real source (grounding, R7); the header shows the brief's time · date stamp. It
-  is **collapsible per viewer** (`briefOpen` in the Home prefs) — a header row folds
-  it to one line — with an **unread dot** (`localStorage m_brief_read`) shown only
-  while collapsed. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
+  is **collapsible per viewer** (`briefOpen` in the Home prefs) — **collapsed by
+  default** (a one-line header; tap to expand) — with an **unread dot** (`localStorage
+  m_brief_read`) shown only while collapsed. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
   `v2/js/home/glance.js` (`#g-hbrief` in `content.js`); enforced by
   `tests/home-briefing.mjs`. The News feed's **day-break marker** (`.g-feed-dayhdr`)
   sticks directly beneath the filter row as the feed scrolls (Home-scoped offset in

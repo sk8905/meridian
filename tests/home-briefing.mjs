@@ -46,19 +46,19 @@ const b = await launchChromium();
   check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
   check(r.allSourced, "desktop: every bullet links a real source (grounding, R7)");
   check(r.insideWrap && r.belowFilter, "desktop: the card sits inside the News column, below the 'Today' filter row");
-  check(r.open === "true", "desktop: the card is expanded by default");
+  check(r.open === "false", "desktop: the card is collapsed by default");
 
-  // Collapse: clicking the header folds the body away; clicking again restores it.
+  // Collapsed by default; clicking the header expands the body, clicking again folds it.
   const bodyVis = () => pg.evaluate(() => { const bd = document.querySelector("#g-hbrief .g-hbrief-body"); return !!bd && getComputedStyle(bd).display !== "none"; });
-  check(await bodyVis(), "desktop: the briefing body is visible before collapse");
+  check(!(await bodyVis()), "desktop: the briefing body is collapsed by default");
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(120);
-  check(!(await bodyVis()), "desktop: clicking the header collapses the briefing body");
-  const collapsedFlag = await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open);
-  checkEq(collapsedFlag, "false", "desktop: the collapsed state is flagged (data-open=false)");
+  check(await bodyVis(), "desktop: clicking the header expands the briefing body");
+  const openFlag = await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open);
+  checkEq(openFlag, "true", "desktop: the expanded state is flagged (data-open=true)");
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(120);
-  check(await bodyVis(), "desktop: clicking the header again expands it");
+  check(!(await bodyVis()), "desktop: clicking the header again collapses it");
 
   // The briefing shows the latest available version (freshest by date·time stamp).
   const latest = await pg.evaluate(async () => {
