@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2c59513f-e323-4b29-a3b1-d9e083946978", title: "Keir Starmer looked at softening £100,000 ‘tax trap’ for higher earners", date: "2026-09-18", time: "18:39", url: "https://www.ft.com/content/2c59513f-e323-4b29-a3b1-d9e083946978" },
+  { id: "99b7000e-d977-457b-baf3-64f2931b044c", title: "PizzaExpress cooks up sale at up to £500mn valuation", date: "2026-09-18", time: "18:24", url: "https://www.ft.com/content/99b7000e-d977-457b-baf3-64f2931b044c" },
+  { id: "cd4e4514-944b-4919-a245-d8013734b8a0", title: "Gavin Newsom advances AI ‘kill switch’ in response to safety fears", date: "2026-09-18", time: "18:12", url: "https://www.ft.com/content/cd4e4514-944b-4919-a245-d8013734b8a0" },
   { id: "f21f5ebd-b84c-476d-9975-f9f317ca8afa", title: "Stockpickers: Glenveagh, Wickes, Big Technologies", date: "2026-09-18", time: "18:00", url: "https://www.ft.com/content/f21f5ebd-b84c-476d-9975-f9f317ca8afa" },
   { id: "c57e73d1-547d-4f69-addb-6516845fbe6d", title: "Ex-Apollo executive admits to improperly using company documents", date: "2026-09-18", time: "17:41", url: "https://www.ft.com/content/c57e73d1-547d-4f69-addb-6516845fbe6d" },
   { id: "67500397-ec06-4027-a4de-fc004b06e642", title: "The relentless creep of Britain’s compliance state", date: "2026-09-18", time: "17:20", url: "https://www.ft.com/content/67500397-ec06-4027-a4de-fc004b06e642" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "14f9df6a-5a70-42d9-86ee-37e6242aae6e", title: "Bank of Japan raises rates and accelerates tightening", date: "2026-09-18", time: "10:32", url: "https://www.ft.com/content/14f9df6a-5a70-42d9-86ee-37e6242aae6e" },
   { id: "7a285c59-2a2f-4e8b-9456-d4b92334fec7", title: "‘Greek finance minister encourages Germany to implement reforms’", date: "2026-09-18", time: "10:00", url: "https://www.ft.com/content/7a285c59-2a2f-4e8b-9456-d4b92334fec7" },
   { id: "c403656f-9237-4d16-b6c2-685cfb1e989e", title: "Number 10 North is still a ‘jigsaw’ with a tricky growth agenda", date: "2026-09-18", time: "09:30", url: "https://www.ft.com/content/c403656f-9237-4d16-b6c2-685cfb1e989e" },
-  { id: "9937d230-9ce7-4847-814b-cc99fe8ded37", title: "FTAV’s further reading", date: "2026-09-18", time: "09:08", url: "https://www.ft.com/content/9937d230-9ce7-4847-814b-cc99fe8ded37" },
-  { id: "cfc2c898-da5a-4387-92f4-6ae1274705b6", title: "South Korea’s Lee suffering ‘sleepless nights’ as US pressure grows", date: "2026-09-18", time: "09:05", url: "https://www.ft.com/content/cfc2c898-da5a-4387-92f4-6ae1274705b6" },
-  { id: "5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a", title: "UK retail sales rose more than forecast in August", date: "2026-09-18", time: "08:14", url: "https://www.ft.com/content/5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a" },
 ];
