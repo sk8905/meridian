@@ -98,11 +98,13 @@ await pg.waitForTimeout(700);
 const anchored = await pg.evaluate(async () => {
   const bar = document.querySelector(".topbar");
   const top0 = Math.round(bar.getBoundingClientRect().top);
-  window.scrollTo(0, 600);
+  // Scroll well past the briefing (which now leads the News pane) so the feed
+  // filter row reaches its pinned position beneath the chips.
+  window.scrollTo(0, 3000);
   await new Promise((r) => setTimeout(r, 300));
   const top1 = Math.round(bar.getBoundingClientRect().top);
   // On mobile Home the sticky stack under the fixed header is, top-to-bottom:
-  // the search band, the News/Watchlist chip bar, then the feed filter head —
+  // the search band, the News/Managers chip bar, then the feed filter head —
   // each pinned flush beneath the one above (no bleed through the seams).
   const rect = (s) => { const e = document.querySelector(s); if (!e || getComputedStyle(e).display === "none") return null; const r = e.getBoundingClientRect(); return { top: Math.round(r.top), bot: Math.round(r.bottom) }; };
   const band = rect(".g-main .wire-band");

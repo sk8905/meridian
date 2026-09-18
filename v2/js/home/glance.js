@@ -182,9 +182,8 @@ function initMobileWireTabs() {
     layout.classList.toggle("wire-watch", k === "watch");
     layout.classList.toggle("wire-x", k === "x");
     layout.classList.toggle("wire-chart", k === "chart");
-    // Mirror the state onto .g-main too: on phones initFeedHeadLock relocates the
-    // news feed's filter header OUT of .g-feed-wrap (up into .g-main), so the
-    // .g-layout class can't reach it — tag .g-main so Watchlist/Chart/X can hide it.
+    // Mirror the state onto .g-main too (kept for any .g-main.wire-* rules that
+    // target content lifted out of the hidden panes on phones).
     if (main) { main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); main.classList.toggle("wire-chart", k === "chart"); }
     tabs.querySelectorAll(".g-wiretab").forEach((t) => {
       const on = t.dataset.wire === k;
@@ -329,36 +328,21 @@ function initGlanceTickerToggle() {
   });
 }
 
-// On phones the briefing leads and the filter-chip bar sits directly BELOW it,
-// then locks beneath the sticky command bar once the briefing scrolls away — so
-// the greeting/top-story read first and the chips take over the top as you scroll
-// into the feed. On desktop the bar stays at the top of the internally-scrolling
-// feed column.
+// Keep the news-feed filter row (#g-feed-head) directly BELOW the briefing card
+// and ABOVE the feed list, in .g-feed-wrap. On phones the whole page scrolls, so
+// its `position:sticky` (home.css) lets it scroll up with the briefing and then
+// PIN beneath the wire chips once the briefing has scrolled away — the "sticks to
+// the top of the news wire" behaviour. It hides with .g-feed-wrap under the
+// Managers/Chart/X chips, so no relocation is needed. On desktop it is the fixed
+// header above the internally-scrolling feed list.
 function initFeedHeadLock() {
   const head = document.getElementById("g-feed-head");
-  const main = document.querySelector(".g-main");
   const wrap = document.querySelector(".g-feed-wrap");
-  const layout = main && main.querySelector(".g-layout");
-  const tabs = layout && layout.querySelector(".g-wiretabs");
-  if (!head || !main || !wrap) return;
-  const mq = matchMedia("(max-width:900px)");
-  const place = () => {
-    if (mq.matches) {
-      // Pin the filter row directly under the wire chips: sit right AFTER the chips
-      // in the layout's flow, so its sticky slot leaves NO gap at rest (now that
-      // News — with a visible filter row — is the default pane). It is hidden under
-      // the Managers/Chart/X chips by the .g-main.wire-* rules in home.css.
-      const parent = tabs ? tabs.parentElement : main;
-      const ref = tabs ? tabs.nextElementSibling : main.firstElementChild;
-      if (head.previousElementSibling !== tabs || head.parentElement !== parent) parent.insertBefore(head, ref);
-    } else if (head.parentElement !== wrap) {
-      // Desktop: the filter row belongs to the feed column, BELOW the briefing card
-      // (before the feed list), so a mobile→desktop resize keeps the brief on top.
-      wrap.insertBefore(head, wrap.querySelector("#g-feed") || wrap.firstElementChild);
-    }
-  };
-  place();
-  mq.addEventListener("change", place);
+  const feed = wrap && wrap.querySelector("#g-feed");
+  if (!head || !wrap || !feed) return;
+  // Idempotent: ensure the filter row sits right before the feed list (after the
+  // briefing). This is already the HOME_HTML order; guarded in case it was moved.
+  if (head.parentElement !== wrap || head.nextElementSibling !== feed) wrap.insertBefore(head, feed);
 }
 
 // ---- Section jump-links ----------------------------------------------------

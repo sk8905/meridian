@@ -112,44 +112,54 @@ const b = await launchChromium();
   check(!(await vis(".g-hero")), "phone: the chart is hidden again under News");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
 
-  // The whole top cluster (header · search band · News/Watchlist tabs · feed
-  // filter row) stays LOCKED when the headlines scroll — each pins directly under
-  // the one above with no overlap. Regression guard for the band-height omission
-  // that let the tabs slide up over the search band.
-  const stackAt = () => pg.evaluate(() => {
+  // The header · search band · wire chips stay LOCKED when the page scrolls. The
+  // news filter row sits BELOW the briefing at rest, scrolls up with it, and then
+  // PINS directly beneath the chips (sticks to the top of the news wire).
+  const at = () => pg.evaluate(() => {
     const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bot: Math.round(b.bottom) }; };
-    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), feedhead: r("#g-feed-head") };
+    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), brief: r("#g-hbrief"), feedhead: r("#g-feed-head") };
   });
-  const rest = await stackAt();
-  await pg.evaluate(() => window.scrollTo(0, 700));
+  const rest = await at();
+  // At rest the briefing leads the pane and the filter row sits below it, unpinned.
+  check(rest.brief && rest.feedhead && rest.feedhead.top >= rest.brief.bot - 1,
+    `phone: at rest the filter row sits BELOW the briefing (brief.bot ${rest.brief?.bot}, filter.top ${rest.feedhead?.top})`);
+  check(rest.feedhead.top > rest.tabs.bot + 1, "phone: at rest the filter row is not yet pinned (below the chips, in the scroll)");
+  // Scroll well past the briefing → chips stay pinned, and the filter row pins to
+  // the top of the wire directly beneath them.
+  await pg.evaluate(() => window.scrollTo(0, 3000));
   await pg.waitForTimeout(300);
-  const scrolled = await stackAt();
-  const same = (a, b) => a && b && Math.abs(a.top - b.top) <= 1;
-  check(same(rest.band, scrolled.band) && same(rest.tabs, scrolled.tabs) && same(rest.feedhead, scrolled.feedhead),
-    `phone: search band + tabs + filter row stay pinned on scroll (band ${rest.band?.top}→${scrolled.band?.top}, tabs ${rest.tabs?.top}→${scrolled.tabs?.top}, filter ${rest.feedhead?.top}→${scrolled.feedhead?.top})`);
-  // No overlap: each element sits fully below the previous one's bottom edge.
-  const stacked = scrolled.header.bot <= scrolled.band.top + 1 && scrolled.band.bot <= scrolled.tabs.top + 1 && scrolled.tabs.bot <= scrolled.feedhead.top + 1;
-  check(stacked, `phone: the locked cluster stacks without overlap (header→${scrolled.band.top}, band→${scrolled.tabs.top}, tabs→${scrolled.feedhead.top})`);
+  const scr = await at();
+  const same = (a, c) => a && c && Math.abs(a.top - c.top) <= 1;
+  check(same(rest.band, scr.band) && same(rest.tabs, scr.tabs),
+    `phone: the search band + chips stay pinned on scroll (band ${rest.band?.top}→${scr.band?.top}, tabs ${rest.tabs?.top}→${scr.tabs?.top})`);
+  check(Math.abs(scr.feedhead.top - scr.tabs.bot) <= 2,
+    `phone: the filter row pins to the top of the wire, beneath the chips (filter.top ${scr.feedhead?.top}, chips.bot ${scr.tabs?.bot})`);
+  // No overlap in the pinned cluster.
+  const stacked = scr.header.bot <= scr.band.top + 1 && scr.band.bot <= scr.tabs.top + 1 && scr.tabs.bot <= scr.feedhead.top + 1;
+  check(stacked, `phone: the pinned cluster stacks without overlap (header→${scr.band.top}, band→${scr.tabs.top}, tabs→${scr.feedhead.top})`);
 
   checkErrs(errs, "home mobile wire tabs");
   await ctx.close();
 }
 
-// --- Phone: the news filter header must not sit above the Watchlist/X wire, even
-//     when initFeedHeadLock has relocated it out of .g-feed-wrap up into .g-main
-//     (as on iOS). Force that relocation, then swap to X, and confirm it hides. ---
+// --- Phone: the filter row lives in the news column (below the briefing) and hides
+//     with that pane when a non-News chip is chosen. ---------------------------
 {
   const ctx = await b.newContext({ viewport: { width: 430, height: 860 }, isMobile: true, hasTouch: true });
   const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
   await pg.waitForSelector(".g-wiretab[data-wire='x']", { timeout: 8000 });
-  const hidden = await pg.evaluate(() => {
-    const head = document.getElementById("g-feed-head"), main = document.querySelector(".g-main");
-    if (head && main && head.parentElement !== main) main.appendChild(head);   // simulate the iOS relocation
+  const r = await pg.evaluate(() => {
+    const head = document.getElementById("g-feed-head");
+    const brief = document.getElementById("g-hbrief");
+    const inWrap = !!head.closest(".g-feed-wrap");
+    // The filter row follows the briefing in the news column's flow.
+    const belowBrief = !!brief && !!(brief.compareDocumentPosition(head) & Node.DOCUMENT_POSITION_FOLLOWING);
     document.querySelector(".g-wiretab[data-wire='x']").click();
-    return getComputedStyle(document.getElementById("g-feed-head")).display === "none";
+    return { inWrap, belowBrief, hidden: getComputedStyle(head).display === "none" || head.offsetParent === null };
   });
-  check(hidden, "phone: the news filter header is hidden under X even when relocated into .g-main");
+  check(r.inWrap && r.belowBrief, "phone: the filter row lives in the news column, after the briefing");
+  check(r.hidden, "phone: switching to X hides the filter row with the news pane");
   await ctx.close();
 }
 
