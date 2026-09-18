@@ -14,6 +14,8 @@ import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/m
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
+import { BRIEFINGS } from "/briefings.js";
+import { briefMarkup } from "/v2/js/nb-format.js?v=v2-2";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js?v=20260808-1";
@@ -116,6 +118,7 @@ export function initGlance(ctx) {
   if (typeof _hp.mgrCat === "string") _mwCat = _hp.mgrCat;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
   renderFeed();
+  initHomeBriefing();                                    // the tri-daily brief atop the News wire
   renderManagerWire();
   refreshLiveFeed();                                     // then pull fresh headlines
   renderMacroSnapshot();
@@ -132,7 +135,7 @@ export function initGlance(ctx) {
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
   initHomeMarketsRails();   // v2: chrome is the shell's; skip nav-actions boot
   renderPredict();
-  initXWire();
+  initXWire(true);   // eager: preload the X feed on Home load so it's ready when its chip is opened
   initHero();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -194,15 +197,90 @@ function initMobileWireTabs() {
     if (k === "chart") initHero();
   };
   // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane,
-  // which is the Chart (the first chip). Always call setWire so the default
-  // Chart pane is applied (the CSS default with no wire class shows the feed).
+  // which is News (the first chip; its briefing + feed). Always call setWire so a
+  // stored chart/watch/x class is cleared back to the feed on a fresh visit.
   const _wp = _homePrefs().wire;
-  setWire(["news", "watch", "chart", "x"].includes(_wp) ? _wp : "chart");
+  setWire(["news", "watch", "chart", "x"].includes(_wp) ? _wp : "news");
   tabs.addEventListener("click", (e) => {
     const btn = e.target.closest(".g-wiretab");
     if (!btn) return;
     setWire(btn.dataset.wire);
     _saveHomePref({ wire: btn.dataset.wire });
+  });
+}
+
+// ---- Home briefing (the tri-daily market brief, at the head of the News wire) --
+// The SAME grounded Morning/Afternoon/Evening brief the header ◲ button opens,
+// surfaced atop the News pane so it reads as the day's lede over the feed it
+// summarises. Data: BRIEFINGS (tokenless / no-cache — regenerated 5×/day by the
+// refresh routine, so a new brief appears with no code push). Colour marking is
+// the shared briefMarkup (orange desk kicker). The card is collapsible per viewer,
+// and its unread dot shares the header button's read-state (localStorage
+// m_brief_read), so reading it in either place clears both. Kept to one screen:
+// the same BRIEF_MAX_BULLETS cap the header panel uses.
+const _BRIEF_READ_KEY = "m_brief_read";
+const HB_MAX_BULLETS = 4;
+let _briefSlot = "";
+function _briefStamp(k) {
+  const s = ((BRIEFINGS || {}).slots || {})[k]; if (!s) return "";
+  const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
+  return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
+}
+function _briefOrder() { const B = BRIEFINGS || {}; const slots = B.slots || {}; return (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]); }
+// Freshest slot by (date·time) stamp, not the wall-clock slot — matches the header
+// button (nav-actions briefLatestSlot), so both open the same brief overnight.
+function _briefLatest() { const o = _briefOrder(); return o.length ? o.reduce((best, k) => (_briefStamp(k) > _briefStamp(best) ? k : best), o[0]) : ""; }
+function _briefIdentity(k) { const s = ((BRIEFINGS || {}).slots || {})[k]; return s ? `${s.date || ""}|${s.time || ""}` : ""; }
+function _briefReadMap() { try { return JSON.parse(localStorage.getItem(_BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; } }
+function _markBriefRead(k) { const id = _briefIdentity(k); if (!id) return; const m = _briefReadMap(); if (m[k] === id) return; m[k] = id; try { localStorage.setItem(_BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ } }
+function _briefUnread() { const k = _briefLatest(); const id = _briefIdentity(k); return !!id && _briefReadMap()[k] !== id; }
+function renderHomeBriefing() {
+  const host = document.getElementById("g-hbrief");
+  if (!host) return;
+  const slots = (BRIEFINGS || {}).slots || {};
+  const order = _briefOrder();
+  if (!order.length) { host.hidden = true; return; }
+  const key = slots[_briefSlot] ? _briefSlot : _briefLatest();
+  _briefSlot = key;
+  const s = slots[key];
+  const open = _homePrefs().briefOpen !== false;          // default expanded
+  if (open) _markBriefRead(key);                          // visible + expanded = read (syncs header dot)
+  const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
+  const chips = order.map((k) => `<button type="button" class="g-hbrief-slot${k === key ? " is-on" : ""}" data-slot="${esc(k)}" role="tab" aria-selected="${k === key ? "true" : "false"}">${esc(slots[k].label || k)}</button>`).join("");
+  const bullets = (s.bullets || []).slice(0, HB_MAX_BULLETS).map((b) =>
+    `<li class="g-hbrief-b">${briefMarkup(b.html)}${b.src ? ` <a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")} ↗</a>` : ""}</li>`).join("");
+  host.hidden = false;
+  host.dataset.open = open ? "true" : "false";
+  host.innerHTML =
+    `<button type="button" class="g-hbrief-head" aria-expanded="${open ? "true" : "false"}" aria-label="Market briefing — tap to ${open ? "collapse" : "expand"}">`
+    + `<span class="g-hbrief-ic" aria-hidden="true">◲</span>`
+    + `<span class="g-hbrief-ttl">Market briefing</span>`
+    + `<span class="g-hbrief-when">${esc(s.label || "")}${s.time ? " · " + esc(s.time) : ""}</span>`
+    + `<span class="g-hbrief-dot"${showDot ? "" : " hidden"} aria-hidden="true"></span>`
+    + `<span class="g-hbrief-chev" aria-hidden="true">▾</span></button>`
+    + `<div class="g-hbrief-body">`
+    + `<div class="g-hbrief-slots" role="tablist" aria-label="Briefing slot">${chips}</div>`
+    + (s.lede ? `<p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
+    + `<ul class="g-hbrief-list">${bullets}</ul>`
+    + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`
+    + `</div>`;
+}
+function initHomeBriefing() {
+  const host = document.getElementById("g-hbrief");
+  if (!host) return;
+  _briefSlot = _briefLatest();
+  renderHomeBriefing();
+  host.addEventListener("click", (e) => {
+    const slot = e.target.closest(".g-hbrief-slot");
+    if (slot) { _briefSlot = slot.dataset.slot || _briefSlot; _markBriefRead(_briefSlot); renderHomeBriefing(); return; }
+    if (e.target.closest(".g-hbrief-head")) {
+      const open = host.dataset.open !== "true";          // toggle
+      host.dataset.open = open ? "true" : "false";
+      const head = host.querySelector(".g-hbrief-head");
+      if (head) head.setAttribute("aria-expanded", open ? "true" : "false");
+      _saveHomePref({ briefOpen: open });
+      if (open) { _markBriefRead(_briefSlot); const dot = host.querySelector(".g-hbrief-dot"); if (dot) dot.hidden = true; }
+    }
   });
 }
 
@@ -260,12 +338,24 @@ function initFeedHeadLock() {
   const head = document.getElementById("g-feed-head");
   const main = document.querySelector(".g-main");
   const wrap = document.querySelector(".g-feed-wrap");
-  const hello = document.querySelector(".g-hello");
+  const layout = main && main.querySelector(".g-layout");
+  const tabs = layout && layout.querySelector(".g-wiretabs");
   if (!head || !main || !wrap) return;
   const mq = matchMedia("(max-width:900px)");
   const place = () => {
-    if (mq.matches) { if (head.previousElementSibling !== hello) main.insertBefore(head, hello ? hello.nextElementSibling : main.firstElementChild); }
-    else if (head.parentElement !== wrap) wrap.insertBefore(head, wrap.firstElementChild);
+    if (mq.matches) {
+      // Pin the filter row directly under the wire chips: sit right AFTER the chips
+      // in the layout's flow, so its sticky slot leaves NO gap at rest (now that
+      // News — with a visible filter row — is the default pane). It is hidden under
+      // the Managers/Chart/X chips by the .g-main.wire-* rules in home.css.
+      const parent = tabs ? tabs.parentElement : main;
+      const ref = tabs ? tabs.nextElementSibling : main.firstElementChild;
+      if (head.previousElementSibling !== tabs || head.parentElement !== parent) parent.insertBefore(head, ref);
+    } else if (head.parentElement !== wrap) {
+      // Desktop: the filter row belongs to the feed column, BELOW the briefing card
+      // (before the feed list), so a mobile→desktop resize keeps the brief on top.
+      wrap.insertBefore(head, wrap.querySelector("#g-feed") || wrap.firstElementChild);
+    }
   };
   place();
   mq.addEventListener("change", place);
@@ -307,13 +397,16 @@ function initJumpNav() {
 // the panel nears view — with a persistent "Open list on X" escape hatch, and a
 // clear message if X's server-side read is unavailable.
 let _xwireBooted = false, _xwireWatching = false;
-function initXWire() {
+function initXWire(eager) {
   const host = document.getElementById("g-xwire");
   if (!host) return;
   // Re-entry (the X chip tapped again): refresh in place. renderXWire keeps the
   // existing cards on screen while it re-fetches, so there is never a blank.
   if (_xwireBooted) { renderXWire(host); return; }
   const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); startXWireAuto(host); };
+  // Eager preload (Home load): boot even while the X pane is hidden behind a mobile
+  // chip, so the feed is already populated the instant the X chip is opened.
+  if (eager) { boot(); return; }
   // Boot as soon as the panel is actually on screen — the always-visible desktop
   // rail, or the mobile X-wire rail the moment its chip reveals it. A hidden rail
   // (display:none) has no offsetParent, so it stays lazy until shown.
@@ -326,17 +419,19 @@ function initXWire() {
     io.observe(host);
   } else { boot(); }
 }
-// Keep the feed live while it's on screen: re-fetch every 5 minutes, but ONLY when
-// the panel is actually visible (offsetParent) and the tab is on Home — so it never
-// burns API calls in the background. renderXWire keeps the cards during the refresh.
+// Keep the feed live & PRELOADED: re-fetch every 5 minutes whenever Home is active
+// and the app is foregrounded — even while the X pane is hidden behind another wire
+// chip, so switching to the X chip always shows a current feed with no blank. Still
+// pauses when another tab is open or the app is backgrounded, so it never burns API
+// calls off-Home. renderXWire keeps the cards during the refresh.
 let _xwireAuto = 0;
 function startXWireAuto(host) {
   if (_xwireAuto) return;
   _xwireAuto = setInterval(() => {
-    if (__ROOT.dataset.v2tab !== __KEY) return;                 // Home not active
-    if (!host.isConnected || host.offsetParent === null) return; // X wire not visible
-    if (document.hidden) return;                                 // app backgrounded
-    renderXWire(host);
+    if (__ROOT.dataset.v2tab !== __KEY) return;   // Home not active
+    if (!host.isConnected) return;                // host gone (view torn down)
+    if (document.hidden) return;                  // app backgrounded
+    renderXWire(host);                            // refresh even if the X pane is hidden (preload)
   }, 5 * 60 * 1000);
 }
 // Relative "29m / 3h / 2d", falling back to a short date.

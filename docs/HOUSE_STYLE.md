@@ -21,7 +21,7 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   5-column wire terminal (markets · news wire · manager wire · X wire · macro)
   needs real width for its two flexible middle columns, so it only engages at
   ≥1201px; from 761–1200px (iPad mini/Air/Pro-11 landscape) Home uses the
-  single-column chip-swap layout instead** (Chart · News · Managers · X Feed), which
+  single-column chip-swap layout instead** (News · Managers · Chart · X Feed), which
   is what the phone uses — otherwise the two middle wires crush to ~50px and the
   headlines wrap one word per line. The other desks (Macro/Credit/Legal) are
   single-column and keep the ≥761px terminal.
@@ -318,7 +318,7 @@ notification badge red (`#ef4444`).
 
 - **R26 — X wire (Home).** The Home terminal carries an **X wire** in its **own
   rail, between the manager wire and the macro rail**. On **phones** it is the
-  **wire chip (Chart · News · Managers · X Feed)** — swapping onto the single-column
+  **wire chip (News · Managers · Chart · X Feed)** — swapping onto the single-column
   workspace like the Managers wire (it is content, not the markets/rates
   data that phones fold into the shared Markets panel). It is a **single,
   always-current, merged & newest-first** feed of the roster's **public** accounts,
@@ -328,9 +328,12 @@ notification badge red (`#ef4444`).
   List/timeline widgets for logged-out webviews** (the iPhone PWA), so an in-app
   embed cannot use them — the Worker reads the public feed with no login and no API
   key, which also sidesteps ITP and the List owner's account privacy. The feed is
-  fetched **lazily** (only when the panel nears view) and **auto-refreshes every ~5
-  min while it is on screen** (kept-alive, so the cards never blank — see the
-  no-blank persistence below); every card is a **real post** (no tweet text stored or
+  **preloaded on Home load** (`initXWire(true)` — booted even while the X pane is
+  hidden behind another chip, so the feed is populated the instant its chip is
+  opened) and **auto-refreshes every ~5 min whenever Home is active and the app is
+  foregrounded**, even when its pane is hidden (kept-alive, so the cards never blank);
+  it still pauses off-Home and when backgrounded so it never burns calls. Every card
+  is a **real post** (no tweet text stored or
   invented — R7) linking its permalink, with a persistent **"Open list on X"** link
   and a clear message when X's server read is unavailable. **Membership auto-syncs
   from the X List:** with a key set, the Worker resolves the List's **current
@@ -356,10 +359,10 @@ notification badge red (`#ef4444`).
   chart band** that, on desktop, **spans the two middle columns (news + manager
   wire)** and sits **above** them (both wires start beneath it); the left rail and
   both right rails stay full-height (CSS grid `grid-template-areas`). On **phones**
-  it is the **first wire chip — the tab strip reads Chart · News · Managers · X Feed,
-  in that order, and Chart is the default landing pane** (with **all six tickers
-  plotted** by default), and a Home-nav tap resets to it — swapping onto the
-  single-column workspace like the other wires. The band plots a fixed basket —
+  it is a **wire chip — the tab strip reads News · Managers · Chart · X Feed, in
+  that order; News is the default landing pane** and the Chart chip opens the band
+  (with **all six tickers plotted** by default). A Home-nav tap resets to News —
+  swapping onto the single-column workspace like the other wires. The band plots a fixed basket —
   **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — from **one unified
   securities row**: every instrument with its window **change indicator**, tapped to
   toggle **on/off the chart** (**multi-select**, one to all six, at least one kept),
@@ -414,6 +417,25 @@ notification badge red (`#ef4444`).
   `tests/home-hero.mjs` (the securities row + filled/hollow dots, range toggle,
   single→indexed-overlay multi-select, axes + vertical grid, Option-C geometry,
   phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.
+
+- **R28 — Home briefing card (News wire).** The tri-daily market brief
+  (`BRIEFINGS` — Morning/Afternoon/Evening, Macro · Equities · Fixed income) is
+  surfaced at the **head of the News wire**, above the "Today" feed head, so it
+  reads as the day's **lede over the live feed it summarises** — on desktop atop
+  the centre News column, on phones atop the News chip pane (the default landing).
+  It is the **same data and treatment** as the header ◲ button's panel: `BRIEFINGS`
+  (tokenless / no-cache — regenerated 5×/day by the routine, so a new brief appears
+  with no code push), the shared `briefMarkup` colour marking (**orange desk
+  kicker** `.nb-topic`; numbers read as plain body text here), capped to
+  **four bullets** (one screen), each linking its real source (grounding, R7). It
+  opens on the **freshest slot by (date·time) stamp** (matching the header button),
+  with Morning/Afternoon/Evening chips to switch. It is **collapsible per viewer**
+  (`briefOpen` in the Home prefs) — a header row folds it to one line — and carries
+  an **unread dot that shares the header button's read-state** (`localStorage
+  m_brief_read`), shown only while collapsed, so reading it in either place clears
+  both. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
+  `v2/js/home/glance.js` (`#g-hbrief` in `content.js`); enforced by
+  `tests/home-briefing.mjs`.
 
 ---
 

@@ -9,13 +9,17 @@ const HERO = { asOf: "2026-09-17", instruments: ["spx", "ndx", "ust10", "oil", "
   key: k, label: k.toUpperCase(), unit: "", pre: "", dp: 2, fi: false, value: 100 + i,
   history: Array.from({ length: 30 }, (_, j) => [Date.now() - (29 - j) * 864e5, 100 + i + j * 0.1]),
 })) };
-const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)] });
+// One preloaded tweet so the X feed can be asserted as ready before its chip is tapped.
+const XFEED = { tweets: [
+  { id: "2097419714045624433", handle: "elerianm", name: "Mohamed A. El-Erian", avatar: "", text: "Preloaded tweet.", date: new Date(Date.now() - 20 * 60000).toUTCString(), ts: Date.now() - 20 * 60000, url: "https://x.com/elerianm/status/2097419714045624433", media: [] },
+] };
+const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)], "/api/xfeed": () => [200, JSON.stringify(XFEED)] });
 const b = await launchChromium();
 
-// --- Phone: chips visible; Chart is default (first chip); chips swap the pane --
+// --- Phone: chips visible; News is default (first chip); chips swap the pane --
 {
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
-  await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
+  await pg.waitForSelector("#g-feed .g-feed-row", { state: "attached", timeout: 8000 });
   await pg.waitForTimeout(300);
 
   const vis = (sel) => pg.evaluate((s) => {
@@ -32,18 +36,30 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "Chart · News · Managers · X Feed", `phone: chips read 'Chart', 'News', 'Managers' and 'X Feed' in order (${labels.join(", ")})`);
+  check(labels.join(" · ") === "News · Managers · Chart · X Feed", `phone: chips read 'News', 'Managers', 'Chart' and 'X Feed' in order (${labels.join(", ")})`);
 
-  // Default: Chart on (the first chip), the chart pane visible, the rest hidden.
-  check(await vis(".g-hero"), "phone: the chart pane is visible by default");
-  check(!(await vis(".g-feed-wrap")), "phone: the news feed is hidden by default (Chart selected)");
-  check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (Chart selected)");
-  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (Chart selected)");
-  const chartDefault = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').classList.contains("is-on"));
-  check(chartDefault, "phone: the Chart chip is active by default");
-  // All six tickers are plotted by default.
-  const defaultSel = await pg.evaluate(() => document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on").length);
-  checkEq(defaultSel, 6, "phone: all six tickers are selected on the chart by default");
+  // Default: News on (the first chip), the feed pane visible, the rest hidden.
+  check(await vis(".g-feed-wrap"), "phone: the news feed is visible by default");
+  check(!(await vis(".g-hero")), "phone: the chart pane is hidden by default (News selected)");
+  check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (News selected)");
+  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (News selected)");
+  const newsDefault = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on"));
+  check(newsDefault, "phone: the News chip is active by default");
+
+  // The tri-daily briefing rides the top of the News pane.
+  const brief = await pg.evaluate(() => {
+    const el = document.getElementById("g-hbrief");
+    if (!el || el.hidden) return null;
+    return { hasHead: !!el.querySelector(".g-hbrief-head"), slots: el.querySelectorAll(".g-hbrief-slot").length, bullets: el.querySelectorAll(".g-hbrief-b").length, hasLede: !!el.querySelector(".g-hbrief-lede") };
+  });
+  check(brief && brief.hasHead && brief.slots === 3, `phone: the briefing card leads the News pane with 3 slot chips (${brief && brief.slots})`);
+  check(brief && brief.bullets >= 1 && brief.bullets <= 4 && brief.hasLede, `phone: the briefing shows a lede + capped bullets (${brief && brief.bullets})`);
+
+  // The X feed is PRELOADED while its pane is hidden, so it's ready the instant its
+  // chip is tapped (no blank frame).
+  await pg.waitForSelector("#g-xwire .g-x-card", { state: "attached", timeout: 8000 });
+  const preloaded = await pg.evaluate(() => document.querySelectorAll("#g-xwire .g-x-card").length);
+  check(preloaded >= 1, `phone: the X feed is preloaded while hidden (${preloaded} card[s]) — ready before its chip is tapped`);
 
   // Tap Watchlist → manager wire visible, feed hidden.
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="watch"]').click());
@@ -64,6 +80,10 @@ const b = await launchChromium();
   check(await vis(".g-hero"), "phone: tapping Chart reveals the hero chart");
   check(!(await vis(".g-feed-wrap")), "phone: tapping Chart hides the news feed");
   check(!(await vis(".g-side3")), "phone: tapping Chart keeps the manager wire hidden");
+  // All six tickers are plotted by default on the chart.
+  await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
+  const chartSel = await pg.evaluate(() => document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on").length);
+  checkEq(chartSel, 6, "phone: all six tickers are selected on the chart by default");
   const chartState = await pg.evaluate(() => ({
     on: document.querySelector('.g-wiretab[data-wire="chart"]').classList.contains("is-on"),
     aria: document.querySelector('.g-wiretab[data-wire="chart"]').getAttribute("aria-selected"),

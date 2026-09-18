@@ -10,10 +10,10 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
              manager (watchlist) wire can't sit side by side, so a chip pair at
              the very top swaps between them. Hidden on desktop, where both
              columns show at once. -->
-        <div class="g-wiretabs" role="tablist" aria-label="Chart, news, managers or X wire">
-          <button type="button" class="g-wiretab is-on" data-wire="chart" role="tab" aria-selected="true">Chart</button>
-          <button type="button" class="g-wiretab" data-wire="news" role="tab" aria-selected="false">News</button>
+        <div class="g-wiretabs" role="tablist" aria-label="News, managers, chart or X wire">
+          <button type="button" class="g-wiretab is-on" data-wire="news" role="tab" aria-selected="true">News</button>
           <button type="button" class="g-wiretab" data-wire="watch" role="tab" aria-selected="false">Managers</button>
+          <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
         </div>
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
@@ -83,8 +83,11 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <div class="g-hero-news" id="g-hero-news" aria-label="News for the charted securities"></div>
         </section>
 
-        <!-- CENTER: news wire -->
+        <!-- CENTER: news wire — led by the tri-daily market briefing (rendered by
+             glance.js renderHomeBriefing from BRIEFINGS; collapsible), so the day's
+             brief reads as the lede over the live feed it summarises. -->
         <section class="g-feed-wrap g-anchor" id="jump-feed">
+          <div class="g-hbrief" id="g-hbrief" aria-label="Market briefing" hidden></div>
           <div class="g-feed-head" id="g-feed-head">Today</div>
           <div class="g-feed wire-ptr-list" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>

@@ -1013,6 +1013,39 @@
     .g-x-open{ padding:8px 14px; border-bottom:1px solid var(--t-grid); }
     .g-x-fallback, .g-x-acct .g-x-fallback{ display:inline-block; font-family:var(--t-mono); font-size:10.5px; color:var(--t-mut); text-decoration:none; padding:2px 0; }
     .g-x-fallback:hover{ color:var(--t-ink); text-decoration:underline; }
+
+    /* ---- Home briefing card — the tri-daily market brief at the head of the News
+       wire (rendered by glance.js renderHomeBriefing). Orange desk kickers (shared
+       .nb-topic); numbers read as plain body text (matching the header panel).
+       Collapsible via the header row; folds to a single line. ---- */
+    .tui .g-hbrief{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
+    .tui .g-hbrief[hidden]{ display:none; }
+    .tui .g-hbrief-head{ display:flex; align-items:center; gap:8px; width:100%; box-sizing:border-box;
+      padding:9px 12px; background:transparent; border:0; cursor:pointer; text-align:left; font:inherit; color:var(--t-ink); }
+    .tui .g-hbrief-ic{ color:var(--accent, #fb8b1e); font-size:12px; line-height:1; flex:0 0 auto; }
+    .tui .g-hbrief-ttl{ font-family:var(--t-mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; font-weight:600; color:var(--t-ink); }
+    .tui .g-hbrief-when{ font-family:var(--t-mono); font-size:10px; letter-spacing:.04em; text-transform:uppercase; color:var(--t-faint); }
+    .tui .g-hbrief-dot{ width:6px; height:6px; border-radius:50%; background:var(--accent, #fb8b1e); flex:0 0 auto; }
+    .tui .g-hbrief-dot[hidden]{ display:none; }
+    .tui .g-hbrief-chev{ margin-left:auto; color:var(--t-faint); font-size:11px; line-height:1; transition:transform .15s ease; }
+    .tui .g-hbrief[data-open="false"] .g-hbrief-chev{ transform:rotate(-90deg); }
+    .tui .g-hbrief[data-open="false"] .g-hbrief-body{ display:none; }
+    .tui .g-hbrief-body{ padding:0 12px 11px; }
+    .tui .g-hbrief-slots{ display:flex; gap:6px; margin-bottom:9px; flex-wrap:wrap; }
+    .tui .g-hbrief-slot{ font-family:var(--t-mono); font-size:10px; letter-spacing:.03em; padding:3px 10px; border-radius:999px;
+      border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); cursor:pointer; }
+    .tui .g-hbrief-slot.is-on{ color:#161513; background:var(--accent, #fb8b1e); border-color:var(--accent, #fb8b1e); font-weight:600; }
+    .tui .g-hbrief-lede{ margin:0; font-size:12px; line-height:1.5; color:var(--t-ink); }
+    .tui .g-hbrief-list{ list-style:none; margin:6px 0 0; padding:0; }
+    .tui .g-hbrief-b{ padding:9px 0; border-top:1px solid var(--t-grid); font-size:11.5px; line-height:1.5; color:var(--t-ink); }
+    .tui .g-hbrief-b:first-child{ border-top:0; }
+    .tui .g-hbrief-src{ display:inline-block; margin-left:3px; font-family:var(--t-mono); font-size:10px; letter-spacing:.02em;
+      color:var(--t-mut); text-decoration:none; white-space:nowrap; }
+    .tui .g-hbrief-src:hover{ color:var(--t-ink); text-decoration:underline; }
+    .tui .g-hbrief-foot{ margin-top:9px; font-family:var(--t-mono); font-size:9.5px; color:var(--t-faint); }
+    /* Numbers read as plain body text here (as in the header briefing panel), while
+       the orange desk kicker (.nb-topic) is kept. */
+    .tui .g-hbrief .nb-num{ color:inherit; }
     .g-x-acct{ background:var(--t-panel2, transparent); }
     .g-x-empty{ padding:14px; font-size:11px; color:var(--t-mut); }
 
@@ -1097,7 +1130,7 @@
     .g-earn-k{ color:var(--t-faint); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-right:.25rem; }
     .g-earn-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.83rem; }
 
-    @media (max-width:1200px){ .tui .g-layout{ grid-template-columns:1fr; grid-template-areas:none; grid-template-rows:none; }
+    @media (max-width:1200px){ .tui .g-layout{ grid-template-columns:minmax(0,1fr); grid-template-areas:none; grid-template-rows:none; }
       /* content-first on phones: the news wire leads, the data rails follow —
          so you don't scroll past the markets/rates rail to reach the headlines */
       /* Drop the desktop named-area placement so the panes flow in one column by
