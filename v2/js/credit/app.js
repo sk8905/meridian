@@ -849,8 +849,8 @@ function multiFilter(viewKey, label, options, selected) {
   const opts = options.map((o) => (typeof o === "string" ? { value: o, label: o } : o));
   const n = selected.length;
   const summary = n === 0 ? "All" : (n === 1 ? (opts.find((o) => o.value === selected[0]) || { label: selected[0] }).label : `${n} selected`);
-  return `<div class="filter ms" data-ms="${viewKey}">
-    <span>${label}</span>
+  return `<div class="filter ms" data-ms="${esc(viewKey)}">
+    <span>${esc(label)}</span>
     <button type="button" class="ms-btn" aria-haspopup="true" aria-expanded="false">${esc(summary)} <span class="ms-caret" aria-hidden="true">▾</span></button>
     <div class="ms-pop" hidden>
       ${opts.map((o) => `<label class="ms-opt"><input type="checkbox" value="${esc(o.value)}" ${selected.includes(o.value) ? "checked" : ""}> ${esc(o.label)}</label>`).join("")}
