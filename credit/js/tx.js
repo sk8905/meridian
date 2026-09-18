@@ -40,6 +40,7 @@ export const TX_TAG = {
   d689: "lp_sec",   // Federated Hermes buys ESR's LP stake in Penny Blue Capital's fund
   d667: "lp_sec",   // Ares bundles €3bn of private-credit LP stakes (credit-secondaries)
   d754: "cfo",      // Ares Infrastructure Debt Fund VI rated-note feeder — a CFO, not direct lending
+  d874: "other",    // Apollo's BMG-Concord equity capital solution mentions Concord's legacy ABS in passing — not an ABL financing
 };
 export const TX_AMT = {
   // dealId: { v: <native millions>, ccy: "USD"|"EUR"|"GBP"|... }  (or null to blank)
@@ -94,7 +95,9 @@ export const SECTORS = [
   { key: "other", label: "Diversified / other" },
 ];
 export const SECTOR_LABEL = Object.fromEntries(SECTORS.map((s) => [s.key, s.label]));
-export const SEC_TAG = { /* dealId: sectorKey (curated) */ };
+export const SEC_TAG = {
+  d874: "sponsor",  // Apollo's BMG-Concord equity capital solution — a corporate structured-capital deal, not asset-backed finance
+};
 const _SEC = {
   re: /real[- ]?estate|\bcre\b|\brmbs\b|\bcmbs\b|property|resi(dential)?|hotel|housing|logistics|office|warehouse|commercial mortgage/i,
   abf: /asset[- ]based|asset[- ]backed|receivabl|\babl\b|\babf\b|\babs\b|securitis|forward[- ]flow|equipment financ|inventory|trade finance|royalt|aviation (finance|leasing|debt)|fleet|specialty finance/i,
