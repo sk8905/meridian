@@ -421,7 +421,7 @@ function xCard(t) {
     + `<div class="g-x-meta">${av}<a class="g-x-who" href="https://x.com/${h}" target="_blank" rel="noopener noreferrer">${name}</a>`
     + `<span class="g-x-h">@${h}</span><span class="g-x-d">${esc(fmtXWhen(t.date))}</span></div>`
     + `<div class="g-x-txt">${xLinkify(t.text)}</div>${xQuoteCard(t.quoted)}${media}`
-    + `<a class="g-x-permalink" href="${perma}" target="_blank" rel="noopener noreferrer">View on X ↗</a></article>`;
+    + `<a class="g-x-permalink" href="${perma}" target="_blank" rel="noopener noreferrer">View on X</a></article>`;
 }
 // A quote tweet's embedded ORIGINAL, nested beneath the quoter's own text as a
 // bordered card (like X's quote embed). The whole card links to the quoted tweet,
@@ -450,7 +450,7 @@ function renderXWire(host) {
   const handles = (X_ACCOUNTS || []).map((a) => a.handle).filter(Boolean);
   // The "Open list on X" link is kept only for the empty/error state (an escape
   // hatch when the feed can't load); in normal use the posts start at the top.
-  const openLink = url ? `<a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X ↗</a>` : "";
+  const openLink = url ? `<a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X</a>` : "";
   // Never blank the feed once it has posts: keep the live cards (kept-alive
   // re-render) or, on a fresh mount, paint the persisted last feed immediately —
   // only fall back to the "Loading" state when there is genuinely nothing to show.
