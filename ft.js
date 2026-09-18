@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f21f5ebd-b84c-476d-9975-f9f317ca8afa", title: "Stockpickers: Glenveagh, Wickes, Big Technologies", date: "2026-09-18", time: "18:00", url: "https://www.ft.com/content/f21f5ebd-b84c-476d-9975-f9f317ca8afa" },
+  { id: "c57e73d1-547d-4f69-addb-6516845fbe6d", title: "Ex-Apollo executive admits to improperly using company documents", date: "2026-09-18", time: "17:41", url: "https://www.ft.com/content/c57e73d1-547d-4f69-addb-6516845fbe6d" },
+  { id: "67500397-ec06-4027-a4de-fc004b06e642", title: "The relentless creep of Britain’s compliance state", date: "2026-09-18", time: "17:20", url: "https://www.ft.com/content/67500397-ec06-4027-a4de-fc004b06e642" },
   { id: "31c53c3c-5cc1-4248-98dc-68fc8956e8cc", title: "France calls G7 summit on releasing more oil reserves", date: "2026-09-18", time: "16:51", url: "https://www.ft.com/content/31c53c3c-5cc1-4248-98dc-68fc8956e8cc" },
   { id: "e2d2b86f-4f22-477f-9578-75c72683f1e9", title: "Anthropic and the golden rules of business", date: "2026-09-18", time: "16:40", url: "https://www.ft.com/content/e2d2b86f-4f22-477f-9578-75c72683f1e9" },
   { id: "24dc8ce0-5331-4280-ad85-c2dddcef429d", title: "Court shines a further light on who was at fault in SVB implosion", date: "2026-09-18", time: "16:34", url: "https://www.ft.com/content/24dc8ce0-5331-4280-ad85-c2dddcef429d" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "9937d230-9ce7-4847-814b-cc99fe8ded37", title: "FTAV’s further reading", date: "2026-09-18", time: "09:08", url: "https://www.ft.com/content/9937d230-9ce7-4847-814b-cc99fe8ded37" },
   { id: "cfc2c898-da5a-4387-92f4-6ae1274705b6", title: "South Korea’s Lee suffering ‘sleepless nights’ as US pressure grows", date: "2026-09-18", time: "09:05", url: "https://www.ft.com/content/cfc2c898-da5a-4387-92f4-6ae1274705b6" },
   { id: "5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a", title: "UK retail sales rose more than forecast in August", date: "2026-09-18", time: "08:14", url: "https://www.ft.com/content/5aef2e95-4a0f-4bc7-bb79-66e8f8c0247a" },
-  { id: "76616441-6419-4792-9d27-31c5fa436dc4", title: "Thames Water should be temporarily placed under public ownership, MPs warn", date: "2026-09-18", time: "08:11", url: "https://www.ft.com/content/76616441-6419-4792-9d27-31c5fa436dc4" },
-  { id: "901d5aca-e0ab-4728-8a24-6b0e616c5139", title: "The QT endgame at the BoE", date: "2026-09-18", time: "06:30", url: "https://www.ft.com/content/901d5aca-e0ab-4728-8a24-6b0e616c5139" },
-  { id: "12d6fd02-c2de-4774-8bea-4d9ddbae643d", title: "EU mulls compromise options on Usmanov sanctions to end French stand-off", date: "2026-09-18", time: "06:00", url: "https://www.ft.com/content/12d6fd02-c2de-4774-8bea-4d9ddbae643d" },
 ];
