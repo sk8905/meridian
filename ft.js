@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "98c6db91-44c7-487e-a733-331a58766ba1", title: "Fed report finds it was ‘too timid’ in tackling risks at Silicon Valley Bank", date: "2026-09-18", time: "16:03", url: "https://www.ft.com/content/98c6db91-44c7-487e-a733-331a58766ba1" },
+  { id: "1270032d-25e9-4be0-aa2f-5205b9bedd08", title: "Former Wells Fargo asset manager Allspring explores $4bn sale", date: "2026-09-18", time: "15:12", url: "https://www.ft.com/content/1270032d-25e9-4be0-aa2f-5205b9bedd08" },
   { id: "2660e844-6aaa-49a4-ab7a-aafdf6a3d805", title: "Labour conference set to vote on new AI regulator as cabinet concerns grow", date: "2026-09-18", time: "15:01", url: "https://www.ft.com/content/2660e844-6aaa-49a4-ab7a-aafdf6a3d805" },
   { id: "d6adb7bb-72b4-47d1-b3bd-11e908d06b60", title: "Why Scott Bessent should pay attention to Turkey’s market scandal", date: "2026-09-18", time: "14:45", url: "https://www.ft.com/content/d6adb7bb-72b4-47d1-b3bd-11e908d06b60" },
   { id: "1785c976-109d-47b4-9aa3-1c4d839086c6", title: "Business and unions clash over how to fix UK’s youth jobs shortage", date: "2026-09-18", time: "14:32", url: "https://www.ft.com/content/1785c976-109d-47b4-9aa3-1c4d839086c6" },
@@ -34,6 +36,7 @@ export const FT_ITEMS = [
   { id: "ff7ca130-d25c-4294-b654-0aa8a79268ab", title: "Why Al Gore welcomes China’s ‘unilateral leadership’ on climate", date: "2026-09-18", time: "12:00", url: "https://www.ft.com/content/ff7ca130-d25c-4294-b654-0aa8a79268ab" },
   { id: "3d1234ea-081e-41b3-a2e5-bbd7a81cdb0d", title: "FTAV’s Friday charts quiz", date: "2026-09-18", time: "11:48", url: "https://www.ft.com/content/3d1234ea-081e-41b3-a2e5-bbd7a81cdb0d" },
   { id: "e26d8335-426a-4405-ae4c-433bd2696994", title: "Howard Buffett to succeed father Warren as Berkshire Hathaway chair", date: "2026-09-18", time: "11:16", url: "https://www.ft.com/content/e26d8335-426a-4405-ae4c-433bd2696994" },
+  { id: "07acddb2-9a2f-4646-b7dd-2cb4ebe0257d", title: "Raspberry Pi founder Eben Upton: ‘I’m an omni-geek’", date: "2026-09-18", time: "12:30", url: "https://www.ft.com/content/07acddb2-9a2f-4646-b7dd-2cb4ebe0257d" },
   { id: "92835f21-2d6c-412d-a9b3-cbbfc44fa333", title: "Can Scottish Labour be revived by new leader?", date: "2026-09-18", time: "11:15", url: "https://www.ft.com/content/92835f21-2d6c-412d-a9b3-cbbfc44fa333" },
   { id: "35f6bcf0-ba88-4a82-9575-9dae232d1b54", title: "Russia seizes control of Nestlé and Auchan operations", date: "2026-09-18", time: "11:09", url: "https://www.ft.com/content/35f6bcf0-ba88-4a82-9575-9dae232d1b54" },
   { id: "91b94aa4-d432-4401-9a60-572d518a4972", title: "Is the Antichrist really walking among us?", date: "2026-09-18", time: "11:00", url: "https://www.ft.com/content/91b94aa4-d432-4401-9a60-572d518a4972" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "a117a105-545e-45a9-b4a1-7d03f7b4082b", title: "The new credit debacle gripping Wall Street", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/a117a105-545e-45a9-b4a1-7d03f7b4082b" },
   { id: "0e64746c-d531-4ceb-a700-e5e47289bfb3", title: "Democrats vow to pursue ‘Trump crime family’ after midterm elections", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/0e64746c-d531-4ceb-a700-e5e47289bfb3" },
   { id: "fa36c637-05fd-4669-8784-0ada6f671f39", title: "Europe can attract more stock trading with fewer, better markets", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/fa36c637-05fd-4669-8784-0ada6f671f39" },
-  { id: "19309369-2741-4caf-91f9-a45505f82148", title: "Will El Niño be the saviour of Europe’s energy market?", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/19309369-2741-4caf-91f9-a45505f82148" },
-  { id: "350df9ff-fa41-4984-a1ee-248d8335b213", title: "How Glencore became entangled in $2bn battle with iron ore trader Radiant", date: "2026-09-18", time: "05:00", url: "https://www.ft.com/content/350df9ff-fa41-4984-a1ee-248d8335b213" },
 ];
