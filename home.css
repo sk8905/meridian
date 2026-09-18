@@ -1031,10 +1031,6 @@
     .tui .g-hbrief[data-open="false"] .g-hbrief-chev{ transform:rotate(-90deg); }
     .tui .g-hbrief[data-open="false"] .g-hbrief-body{ display:none; }
     .tui .g-hbrief-body{ padding:0 12px 11px; }
-    .tui .g-hbrief-slots{ display:flex; gap:6px; margin-bottom:9px; flex-wrap:wrap; }
-    .tui .g-hbrief-slot{ font-family:var(--t-mono); font-size:10px; letter-spacing:.03em; padding:3px 10px; border-radius:999px;
-      border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); cursor:pointer; }
-    .tui .g-hbrief-slot.is-on{ color:#161513; background:var(--accent, #fb8b1e); border-color:var(--accent, #fb8b1e); font-weight:600; }
     .tui .g-hbrief-lede{ margin:0; font-size:12px; line-height:1.5; color:var(--t-ink); }
     .tui .g-hbrief-list{ list-style:none; margin:6px 0 0; padding:0; }
     .tui .g-hbrief-b{ padding:9px 0; border-top:1px solid var(--t-grid); font-size:11.5px; line-height:1.5; color:var(--t-ink); }
@@ -1184,8 +1180,13 @@
          lives in .g-main once initFeedHeadLock lifts it out of the hidden .g-feed-wrap). */
       .g-main.wire-watch #g-feed-head, .g-main.wire-chart #g-feed-head, .g-main.wire-x #g-feed-head{ display:none; }
       /* Lock the feed filter tabs to the top (under the header, the search band AND
-         the wire chips) while the headlines scroll. */
+         the wire chips) while the headlines scroll — above the briefing, which
+         scrolls beneath it. */
       .tui .g-feed-head{ position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:8; background:var(--t-head); box-shadow:0 -1px 0 var(--t-head); }
+      /* The feed's day-break marker (18 Sep …) sticks directly beneath the filter
+         row once the briefing scrolls past — one extra chip-height below it. Scoped
+         to the Home feed (#g-feed) so other desks' day markers keep their offset. */
+      .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px) + var(--chip-h, 34px)); z-index:7; }
       }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */

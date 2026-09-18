@@ -1,17 +1,19 @@
 // =============================================================================
-// briefings.js — the tri-daily AI market briefings (Morning · Afternoon ·
-// Evening) surfaced by the header "Briefing" button (v2/js/nav-actions.js).
+// briefings.js — the AI market briefing surfaced at the head of the Home News
+// wire (v2/js/home/glance.js renderHomeBriefing). Only the LATEST (freshest-
+// stamped) slot is shown — there is no header button and no slot selector.
 //
 // GENERATION (see docs/refresh-routines.md): these are written by the 5×/day
-// refresh routine, NOT at runtime. Each run regenerates whichever slot the clock
-// is in (morning < 12:00 · afternoon 12:00–17:00 · evening ≥ 17:00 BST), so the
-// current slot is always freshest and every slot is refreshed at least once a day.
+// refresh routine, NOT at runtime. Three rolling slots are kept as the store;
+// each run regenerates whichever slot the clock is in (morning < 12:00 · afternoon
+// 12:00–17:00 · evening ≥ 17:00 BST) and restamps it, so the freshest slot — the
+// one the reader sees — is renewed on every run (up to 5× a day).
 //
 // DESK FOCUS: the briefings cover the three MARKET desks — Macro, Equities and
 // Fixed income — and ONLY those (no Credit or Legal; those have their own
 // surfaces). Every slot touches all three, and each bullet's <strong> lead is
-// tagged with its desk. The first four bullets are the ones the panel renders
-// (BRIEF_MAX_BULLETS — one iPhone screen), so they carry the three-desk spread.
+// tagged with its desk. The first four bullets are the ones the Home card renders
+// (HB_MAX_BULLETS — one iPhone screen), so they carry the three-desk spread.
 // Equities & Fixed income bullets LEAD WITH THE MOVE AND ITS DRIVER — the index
 // or yield change, then the specific catalyst behind it (a stock, a data print,
 // an issuance event) — not a standing description.

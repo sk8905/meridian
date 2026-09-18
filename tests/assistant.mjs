@@ -14,11 +14,11 @@ await pg.waitForTimeout(1500);
 
 check(await pg.evaluate(() => !!document.getElementById("na-ask")), "Ask Wire button present in the header cluster");
 check(await pg.evaluate(() => !!document.getElementById("na-ask-panel")), "Ask Wire panel built");
-// Desktop cluster order: Chat(Ask) · Markets · Saved · Briefing · Notifications,
-// and NO theme toggle in the nav bar (theme lives in Menu → Settings on both
-// surfaces now).
-check(await pg.evaluate(() => [...document.querySelectorAll(".na-actions .na-btn")].map((b) => b.id).join(",") === "na-ask,na-mkt,na-saved,na-brief,na-notif"),
-  "desktop header cluster order is Chat · Markets · Saved · Briefing · Notifications");
+// Desktop cluster order: Chat(Ask) · Markets · Saved · Notifications (the Briefing
+// button was removed — the brief lives on the Home News pane), and NO theme toggle
+// in the nav bar (theme lives in Menu → Settings on both surfaces now).
+check(await pg.evaluate(() => [...document.querySelectorAll(".na-actions .na-btn")].map((b) => b.id).join(",") === "na-ask,na-mkt,na-saved,na-notif"),
+  "desktop header cluster order is Chat · Markets · Saved · Notifications (no Briefing button)");
 check(await pg.evaluate(() => !document.getElementById("na-theme")), "the nav-bar theme toggle is gone (theme moved to Menu → Settings)");
 
 // Stub the endpoint with a canned answer + one source.
@@ -63,7 +63,7 @@ check(await pg.evaluate(() => !document.querySelector(".na-actions .na-ring")), 
 check(await pg.evaluate(() => !!document.querySelector(".ds-text .na-ring")), "countdown ring renders beside the Last refresh marker");
 
 // ---- Panels are TOP-ALIGNED with the search box (all open top-anchored at 9vh) --
-// Chat (Ask), Markets, Saved, Briefing & Notifications share ONE top edge rather
+// Chat (Ask), Markets, Saved & Notifications share ONE top edge rather
 // than each floating to its own height-dependent centre — matching the command
 // palette. Close whatever is open, then open two panels of different heights and
 // confirm both tops equal ~9vh.

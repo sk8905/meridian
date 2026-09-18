@@ -418,24 +418,25 @@ notification badge red (`#ef4444`).
   single→indexed-overlay multi-select, axes + vertical grid, Option-C geometry,
   phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.
 
-- **R28 — Home briefing card (News wire).** The tri-daily market brief
-  (`BRIEFINGS` — Morning/Afternoon/Evening, Macro · Equities · Fixed income) is
-  surfaced at the **head of the News wire**, above the "Today" feed head, so it
-  reads as the day's **lede over the live feed it summarises** — on desktop atop
-  the centre News column, on phones atop the News chip pane (the default landing).
-  It is the **same data and treatment** as the header ◲ button's panel: `BRIEFINGS`
-  (tokenless / no-cache — regenerated 5×/day by the routine, so a new brief appears
-  with no code push), the shared `briefMarkup` colour marking (**orange desk
-  kicker** `.nb-topic`; numbers read as plain body text here), capped to
-  **four bullets** (one screen), each linking its real source (grounding, R7). It
-  opens on the **freshest slot by (date·time) stamp** (matching the header button),
-  with Morning/Afternoon/Evening chips to switch. It is **collapsible per viewer**
-  (`briefOpen` in the Home prefs) — a header row folds it to one line — and carries
-  an **unread dot that shares the header button's read-state** (`localStorage
-  m_brief_read`), shown only while collapsed, so reading it in either place clears
-  both. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
+- **R28 — Home briefing card (News wire).** The market brief (`BRIEFINGS` —
+  Macro · Equities · Fixed income) is surfaced **only on the Home News wire** —
+  there is **no header button / panel**. It sits **below the "Today" filter row**
+  (which stays pinned at the top of the wire) as the day's **lede over the live
+  feed it summarises** — on desktop atop the centre News column, on phones on the
+  News chip pane (the default landing). **Only the LATEST available version is
+  shown — no slot selector**; the card picks the freshest brief by (date·time)
+  stamp. Data: `BRIEFINGS` (tokenless / no-cache — regenerated on **each of the ~5
+  daily refresh runs**, so a fresh brief appears with no code push), the shared
+  `briefMarkup` colour marking (**orange desk kicker** `.nb-topic`; numbers read as
+  plain body text here), capped to **four bullets** (one screen), each linking its
+  real source (grounding, R7); the header shows the brief's time · date stamp. It
+  is **collapsible per viewer** (`briefOpen` in the Home prefs) — a header row folds
+  it to one line — with an **unread dot** (`localStorage m_brief_read`) shown only
+  while collapsed. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
   `v2/js/home/glance.js` (`#g-hbrief` in `content.js`); enforced by
-  `tests/home-briefing.mjs`.
+  `tests/home-briefing.mjs`. The News feed's **day-break marker** (`.g-feed-dayhdr`)
+  sticks directly beneath the filter row as the feed scrolls (Home-scoped offset in
+  `home.css`).
 
 ---
 

@@ -20,7 +20,6 @@ const b = await launchChromium();
 
   const r = await pg.evaluate(() => {
     const el = document.getElementById("g-hbrief");
-    const head = el.querySelector(".g-hbrief-head");
     const feedHead = document.getElementById("g-feed-head");
     const wrap = document.querySelector(".g-feed-wrap");
     const bullets = [...el.querySelectorAll(".g-hbrief-b")];
@@ -29,24 +28,24 @@ const b = await launchChromium();
       shown: !el.hidden && getComputedStyle(el).display !== "none",
       title: (el.querySelector(".g-hbrief-ttl") || {}).textContent || "",
       slots: el.querySelectorAll(".g-hbrief-slot").length,
-      slotOn: (el.querySelector(".g-hbrief-slot.is-on") || {}).textContent || "",
+      when: (el.querySelector(".g-hbrief-when") || {}).textContent || "",
       hasLede: !!el.querySelector(".g-hbrief-lede"),
       bullets: bullets.length,
       hasKicker: !!el.querySelector(".g-hbrief-b .nb-topic"),
       allSourced: bullets.length > 0 && bullets.every((li) => /^https?:\/\//.test((li.querySelector(".g-hbrief-src") || {}).getAttribute?.("href") || "")),
       insideWrap: !!wrap && wrap.contains(el),
-      aboveFeed: feedHead ? box(el).bottom <= box(feedHead).top + 2 : false,
+      belowFilter: feedHead ? box(el).top >= box(feedHead).bottom - 2 : false,
       open: el.dataset.open,
     };
   });
   check(r.shown, "desktop: the briefing card renders on the News column");
   check(/briefing/i.test(r.title), `desktop: the card is titled "Market briefing" (${r.title})`);
-  checkEq(r.slots, 3, "desktop: three slot chips (Morning · Afternoon · Evening)");
-  check(/morning/i.test(r.slotOn), `desktop: it opens on the freshest slot — Morning (${r.slotOn})`);
+  checkEq(r.slots, 0, "desktop: NO slot selector — only the latest brief is shown");
+  check(/\d/.test(r.when), `desktop: the header shows the brief's freshness stamp (${r.when})`);
   check(r.hasLede && r.bullets >= 1 && r.bullets <= 4, `desktop: a lede + up to four bullets (${r.bullets})`);
   check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
   check(r.allSourced, "desktop: every bullet links a real source (grounding, R7)");
-  check(r.insideWrap && r.aboveFeed, "desktop: the card sits inside the News column, above the 'Today' feed head");
+  check(r.insideWrap && r.belowFilter, "desktop: the card sits inside the News column, below the 'Today' filter row");
   check(r.open === "true", "desktop: the card is expanded by default");
 
   // Collapse: clicking the header folds the body away; clicking again restores it.
@@ -61,16 +60,18 @@ const b = await launchChromium();
   await pg.waitForTimeout(120);
   check(await bodyVis(), "desktop: clicking the header again expands it");
 
-  // Slot switch: tapping Afternoon changes the active chip and the lede content.
-  const ledeBefore = await pg.evaluate(() => (document.querySelector("#g-hbrief .g-hbrief-lede") || {}).textContent || "");
-  await pg.evaluate(() => { const c = [...document.querySelectorAll("#g-hbrief .g-hbrief-slot")].find((x) => /afternoon/i.test(x.textContent)); if (c) c.click(); });
-  await pg.waitForTimeout(120);
-  const afterSwitch = await pg.evaluate(() => ({
-    on: (document.querySelector("#g-hbrief .g-hbrief-slot.is-on") || {}).textContent || "",
-    lede: (document.querySelector("#g-hbrief .g-hbrief-lede") || {}).textContent || "",
-  }));
-  check(/afternoon/i.test(afterSwitch.on), `desktop: tapping a slot switches the active chip (${afterSwitch.on})`);
-  check(afterSwitch.lede && afterSwitch.lede !== ledeBefore, "desktop: switching the slot swaps in that slot's briefing");
+  // The briefing shows the latest available version (freshest by date·time stamp).
+  const latest = await pg.evaluate(async () => {
+    const m = await import("/briefings.js");
+    const B = m.BRIEFINGS || {}, slots = B.slots || {};
+    const order = (B.order || []).filter((k) => slots[k]);
+    const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
+    const freshest = order.reduce((b, k) => (stamp(k) > stamp(b) ? k : b), order[0]);
+    const key12 = (str) => String(str || "").replace(/<[^>]+>/g, "").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/[^A-Za-z]/g, "").slice(0, 12).toLowerCase();
+    const shown = (document.querySelector("#g-hbrief .g-hbrief-lede") || {}).textContent || "";
+    return { shownLen: shown.trim().length, match: !!slots[freshest] && key12(shown) === key12(slots[freshest].lede) };
+  });
+  check(latest.shownLen > 0 && latest.match, "desktop: the shown briefing is the latest available version");
 
   checkErrs(errs, "home briefing (desktop)");
   await ctx.close();

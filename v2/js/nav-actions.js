@@ -18,16 +18,14 @@
 // =============================================================================
 import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { mountAssistant } from "/v2/js/assistant.js?v=v2-21";
-import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
-import { briefMarkup, nbNums } from "./nb-format.js?v=v2-2";
+import { nbNums } from "./nb-format.js?v=v2-2";
 import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
-const ICO_BRIEF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 12h8M8 16h6"/></svg>';
 const ICO_ASK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6a8.5 8.5 0 0 1-.9-3.9A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 
@@ -145,82 +143,6 @@ let _mktLoaded = false;
 // Byte-identical on every page (Home included) — the shared dropdown.
 let _mktTab = "markets";
 let _pfMode = "daily";   // portfolio holdings P&L column: daily (default) | total
-// The DEFAULT briefing slot is always the MOST RECENT one written — the slot with
-// the newest (date · time) stamp — not the one matching the wall clock. They
-// usually coincide (the refresh routine regenerates the current-by-clock slot),
-// but diverge overnight: at 02:00 the clock reads "morning" while last evening's
-// briefing is genuinely the freshest, so the clock rule would open a stale slot.
-// Comparing "YYYY-MM-DD HH:MM" strings lexicographically orders them chronologically.
-function briefStamp(slotKey) {
-  const s = ((BRIEFINGS || {}).slots || {})[slotKey];
-  if (!s) return "";
-  const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
-  return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
-}
-function briefLatestSlot() {
-  const B = BRIEFINGS || {};
-  const slots = B.slots || {};
-  const order = (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]);
-  if (!order.length) return "";
-  return order.reduce((best, k) => (briefStamp(k) > briefStamp(best) ? k : best), order[0]);
-}
-
-// ---- Unread-briefing marker -------------------------------------------------
-// A briefing's identity is its (date · time) stamp — the refresh routine rewrites
-// that whenever it regenerates a slot, so a fresh briefing gets a new identity.
-// We remember, per slot, the identity the reader last OPENED (localStorage), and
-// show an accent dot on the Briefing button while the MOST RECENT slot holds an
-// identity they haven't opened yet. Opening the panel on that slot clears it.
-const BRIEF_READ_KEY = "m_brief_read";
-function briefIdentity(slotKey) {
-  const s = ((BRIEFINGS || {}).slots || {})[slotKey];
-  return s ? `${s.date || ""}|${s.time || ""}` : "";
-}
-function briefReadMap() {
-  try { return JSON.parse(localStorage.getItem(BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; }
-}
-function markBriefRead(slotKey) {
-  const id = briefIdentity(slotKey);
-  if (!id) return;
-  const m = briefReadMap();
-  if (m[slotKey] === id) return;
-  m[slotKey] = id;
-  try { localStorage.setItem(BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ }
-}
-// The most-recent slot carries a briefing the reader hasn't opened since it was written.
-function briefHasUnread() {
-  const slot = briefLatestSlot();
-  const id = briefIdentity(slot);
-  return !!id && briefReadMap()[slot] !== id;
-}
-
-// Render one briefing slot into the panel body, with Morning/Afternoon/Evening
-// chips to switch. Bullets carry their own source link (grounding — see
-// briefings.js). Both the bullet `html` and the `lede` are authored, trusted
-// content (like the macro narrative), injected as-is — so authored typography
-// (£, —, ä …) renders instead of showing raw HTML entities.
-// The briefing is kept to ONE screen: the lede is clamped (see .na-brief-lede in
-// premium.css) and the bullet list is capped, so the panel never becomes a long
-// scroll — it reads at a glance.
-const BRIEF_MAX_BULLETS = 4;
-// Briefing lines + every explainer share ONE colour treatment (orange topic,
-// blue non-date numbers) — see v2/js/nb-format.js (briefMarkup / nbNums).
-function renderBriefing(body, slotKey) {
-  const B = BRIEFINGS || {};
-  const slots = B.slots || {};
-  const order = (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]);
-  const key = slots[slotKey] ? slotKey : (order[0] || "");
-  const s = slots[key];
-  const chips = order.map((k) => `<button type="button" class="na-chip${k === key ? " is-on" : ""}" data-slot="${esc(k)}">${esc(slots[k].label || k)}</button>`).join("");
-  if (!s) { body.innerHTML = `<div class="na-chips">${chips}</div><div class="na-load">No briefing yet.</div>`; return; }
-  const bullets = (s.bullets || []).slice(0, BRIEF_MAX_BULLETS).map((b) => `<li class="na-brief-b">${briefMarkup(b.html)}${b.src ? ` <a class="na-brief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
-  body.innerHTML = `<div class="na-chips">${chips}</div>`
-    + `<div class="na-brief-when">${esc(s.label || "")}${s.time ? " · " + esc(s.time) : ""}${s.date ? " · " + esc(s.date) : ""}</div>`
-    + (s.lede ? `<p class="na-brief-lede">${briefMarkup(s.lede)}</p>` : "")
-    + `<ul class="na-brief-list">${bullets}</ul>`
-    + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
-}
-
 // "Ask Wire" (B) + "Add a firm" (C) now live in the shared assistant module
 // (v2/js/assistant.js), mounted both here (desktop header, Ask only) and in the
 // Menu → Dialogue chip (Ask + Add). See mountAssistant().
@@ -743,7 +665,7 @@ export function initNavActions() {
       // Cluster order (left→right): Ask/Chat (desktop only) · Markets · Bookmarks ·
       // Briefing · Notifications. Ask (Chat) leads on desktop; on phones it lives
       // in the Menu → Chat chip, so the phone header stays Markets · Bookmarks ·
-      // Briefing · Notifications. The Theme toggle no longer lives here on EITHER
+      // Notifications. The Theme toggle no longer lives here on EITHER
       // surface — it is reached via the Menu → Settings segmented control (the OS
       // "system" follow is still wired below). The refresh-countdown ring moved OUT
       // of this cluster (now beside the "Last refresh" marker, status.js), and
@@ -752,7 +674,6 @@ export function initNavActions() {
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire ( ' )">${ICO_ASK}</button>`) +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
-      `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>`;
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
@@ -830,7 +751,6 @@ export function initNavActions() {
       document.body.appendChild(p);
       return p;
     };
-    const briefPanel = mkPanel("na-brief-panel", "Briefing");
     const askPanel = mkPanel("na-ask-panel", "Ask Wire");
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const savedPanel = mkPanel("na-saved-panel", "Bookmarks");
@@ -959,24 +879,6 @@ export function initNavActions() {
       paint();
     };
 
-    // Unread-briefing dot: lit while the current slot holds a briefing the reader
-    // hasn't opened. Re-evaluated on load, on a 60s tick (the current slot rolls
-    // over at noon/17:00) and on tab focus; cleared as each slot is opened below.
-    const briefDot = wrap.querySelector("#na-brief .na-brief-dot");
-    const refreshBriefDot = () => { if (briefDot) briefDot.hidden = !briefHasUnread(); };
-    refreshBriefDot();
-    setInterval(refreshBriefDot, 60000);
-    document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshBriefDot(); });
-
-    // Briefing panel: chip-switch between slots survives the .na-body re-render
-    // because this listener is bound to the persistent panel, not its body.
-    // Opening a slot marks it read and clears the dot when the current slot is
-    // the one that was unread.
-    briefPanel.addEventListener("click", (e) => {
-      const c = e.target.closest(".na-chip[data-slot]");
-      if (c) { e.stopPropagation(); renderBriefing(briefPanel.querySelector(".na-body"), c.dataset.slot); markBriefRead(c.dataset.slot); refreshBriefDot(); }
-    });
-
     // Ask Wire (feature B) in the desktop header: mounted from the shared
     // assistant module (Ask only — the "Add"/propose flow (C) lives in the Menu →
     // Dialogue chip). State persists across opens via _headerAskState so reopening
@@ -985,7 +887,6 @@ export function initNavActions() {
     const _headerAskState = {};
 
     const panels = [
-      { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => { const slot = briefLatestSlot(); renderBriefing(p.querySelector(".na-body"), slot); markBriefRead(slot); refreshBriefDot(); } },
       // Ask panel: desktop-only (no #na-ask button on phones), so include the rec
       // only when the button exists.
       ...(wrap.querySelector("#na-ask") ? [{ btn: wrap.querySelector("#na-ask"), panel: askPanel, onOpen: (p) => { mountAssistant(p.querySelector(".na-body"), { add: false, state: _headerAskState }); const i = p.querySelector(".na-ask-in"); if (i && !isPhone()) setTimeout(() => i.focus(), 40); } }] : []),

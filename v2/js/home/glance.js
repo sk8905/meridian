@@ -138,7 +138,6 @@ export function initGlance(ctx) {
   initXWire(true);   // eager: preload the X feed on Home load so it's ready when its chip is opened
   initHero();
   initFeedEntityNav();
-  initFeedHeadLock();
   initMobileWireTabs();
   initJumpNav();
   // v2: search is the shell palette (palette.js); glance palette skipped
@@ -208,44 +207,41 @@ function initMobileWireTabs() {
   });
 }
 
-// ---- Home briefing (the tri-daily market brief, at the head of the News wire) --
-// The SAME grounded Morning/Afternoon/Evening brief the header ◲ button opens,
-// surfaced atop the News pane so it reads as the day's lede over the feed it
-// summarises. Data: BRIEFINGS (tokenless / no-cache — regenerated 5×/day by the
-// refresh routine, so a new brief appears with no code push). Colour marking is
-// the shared briefMarkup (orange desk kicker). The card is collapsible per viewer,
-// and its unread dot shares the header button's read-state (localStorage
-// m_brief_read), so reading it in either place clears both. Kept to one screen:
-// the same BRIEF_MAX_BULLETS cap the header panel uses.
+// ---- Home briefing (the market brief, at the head of the News wire) ----------
+// The grounded market brief, surfaced atop the News pane so it reads as the day's
+// lede over the feed it summarises. Only the LATEST available version is shown
+// (no slot selector). Data: BRIEFINGS (tokenless / no-cache — regenerated on each
+// of the ~5 daily refresh runs, so a new brief appears with no code push). Colour
+// marking is the shared briefMarkup (orange desk kicker). The card is collapsible
+// per viewer, with an unread dot (localStorage m_brief_read) shown only when a new
+// brief has landed and the card is collapsed. Kept to one screen (HB_MAX_BULLETS).
 const _BRIEF_READ_KEY = "m_brief_read";
 const HB_MAX_BULLETS = 4;
-let _briefSlot = "";
 function _briefStamp(k) {
   const s = ((BRIEFINGS || {}).slots || {})[k]; if (!s) return "";
   const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
   return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
 }
 function _briefOrder() { const B = BRIEFINGS || {}; const slots = B.slots || {}; return (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]); }
-// Freshest slot by (date·time) stamp, not the wall-clock slot — matches the header
-// button (nav-actions briefLatestSlot), so both open the same brief overnight.
+// The freshest brief by (date·time) stamp — the only version surfaced.
 function _briefLatest() { const o = _briefOrder(); return o.length ? o.reduce((best, k) => (_briefStamp(k) > _briefStamp(best) ? k : best), o[0]) : ""; }
 function _briefIdentity(k) { const s = ((BRIEFINGS || {}).slots || {})[k]; return s ? `${s.date || ""}|${s.time || ""}` : ""; }
 function _briefReadMap() { try { return JSON.parse(localStorage.getItem(_BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; } }
 function _markBriefRead(k) { const id = _briefIdentity(k); if (!id) return; const m = _briefReadMap(); if (m[k] === id) return; m[k] = id; try { localStorage.setItem(_BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ } }
 function _briefUnread() { const k = _briefLatest(); const id = _briefIdentity(k); return !!id && _briefReadMap()[k] !== id; }
+// Compact freshness date: "18 Sep".
+function _briefDate(d) { const t = Date.parse((d || "") + "T00:00:00"); if (!t) return d || ""; const dt = new Date(t); return `${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`; }
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
   const slots = (BRIEFINGS || {}).slots || {};
-  const order = _briefOrder();
-  if (!order.length) { host.hidden = true; return; }
-  const key = slots[_briefSlot] ? _briefSlot : _briefLatest();
-  _briefSlot = key;
+  const key = _briefLatest();
   const s = slots[key];
+  if (!s) { host.hidden = true; return; }
   const open = _homePrefs().briefOpen !== false;          // default expanded
-  if (open) _markBriefRead(key);                          // visible + expanded = read (syncs header dot)
+  if (open) _markBriefRead(key);                          // visible + expanded = read
   const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
-  const chips = order.map((k) => `<button type="button" class="g-hbrief-slot${k === key ? " is-on" : ""}" data-slot="${esc(k)}" role="tab" aria-selected="${k === key ? "true" : "false"}">${esc(slots[k].label || k)}</button>`).join("");
+  const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
   const bullets = (s.bullets || []).slice(0, HB_MAX_BULLETS).map((b) =>
     `<li class="g-hbrief-b">${briefMarkup(b.html)}${b.src ? ` <a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")} ↗</a>` : ""}</li>`).join("");
   host.hidden = false;
@@ -254,11 +250,10 @@ function renderHomeBriefing() {
     `<button type="button" class="g-hbrief-head" aria-expanded="${open ? "true" : "false"}" aria-label="Market briefing — tap to ${open ? "collapse" : "expand"}">`
     + `<span class="g-hbrief-ic" aria-hidden="true">◲</span>`
     + `<span class="g-hbrief-ttl">Market briefing</span>`
-    + `<span class="g-hbrief-when">${esc(s.label || "")}${s.time ? " · " + esc(s.time) : ""}</span>`
+    + `<span class="g-hbrief-when">${when}</span>`
     + `<span class="g-hbrief-dot"${showDot ? "" : " hidden"} aria-hidden="true"></span>`
     + `<span class="g-hbrief-chev" aria-hidden="true">▾</span></button>`
     + `<div class="g-hbrief-body">`
-    + `<div class="g-hbrief-slots" role="tablist" aria-label="Briefing slot">${chips}</div>`
     + (s.lede ? `<p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
     + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`
@@ -267,18 +262,15 @@ function renderHomeBriefing() {
 function initHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
-  _briefSlot = _briefLatest();
   renderHomeBriefing();
   host.addEventListener("click", (e) => {
-    const slot = e.target.closest(".g-hbrief-slot");
-    if (slot) { _briefSlot = slot.dataset.slot || _briefSlot; _markBriefRead(_briefSlot); renderHomeBriefing(); return; }
     if (e.target.closest(".g-hbrief-head")) {
       const open = host.dataset.open !== "true";          // toggle
       host.dataset.open = open ? "true" : "false";
       const head = host.querySelector(".g-hbrief-head");
       if (head) head.setAttribute("aria-expanded", open ? "true" : "false");
       _saveHomePref({ briefOpen: open });
-      if (open) { _markBriefRead(_briefSlot); const dot = host.querySelector(".g-hbrief-dot"); if (dot) dot.hidden = true; }
+      if (open) { _markBriefRead(_briefLatest()); const dot = host.querySelector(".g-hbrief-dot"); if (dot) dot.hidden = true; }
     }
   });
 }
@@ -326,23 +318,6 @@ function initGlanceTickerToggle() {
     if (e.key !== "Escape") return;
     glance.querySelectorAll(".g-gl-block.is-open").forEach(closeBlock);
   });
-}
-
-// Keep the news-feed filter row (#g-feed-head) directly BELOW the briefing card
-// and ABOVE the feed list, in .g-feed-wrap. On phones the whole page scrolls, so
-// its `position:sticky` (home.css) lets it scroll up with the briefing and then
-// PIN beneath the wire chips once the briefing has scrolled away — the "sticks to
-// the top of the news wire" behaviour. It hides with .g-feed-wrap under the
-// Managers/Chart/X chips, so no relocation is needed. On desktop it is the fixed
-// header above the internally-scrolling feed list.
-function initFeedHeadLock() {
-  const head = document.getElementById("g-feed-head");
-  const wrap = document.querySelector(".g-feed-wrap");
-  const feed = wrap && wrap.querySelector("#g-feed");
-  if (!head || !wrap || !feed) return;
-  // Idempotent: ensure the filter row sits right before the feed list (after the
-  // briefing). This is already the HOME_HTML order; guarded in case it was moved.
-  if (head.parentElement !== wrap || head.nextElementSibling !== feed) wrap.insertBefore(head, feed);
 }
 
 // ---- Section jump-links ----------------------------------------------------

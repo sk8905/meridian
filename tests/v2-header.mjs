@@ -13,7 +13,7 @@ await pg.waitForTimeout(1800);
 
 const present = await pg.evaluate(() => ({
   cluster: !!document.querySelector("#wire-header .na-actions"),
-  brief: !!document.getElementById("na-brief"),
+  briefAbsent: !document.getElementById("na-brief") && !document.getElementById("na-brief-panel"),
   mkt: !!document.getElementById("na-mkt"),
   saved: !!document.getElementById("na-saved"),
   notif: !!document.getElementById("na-notif"),
@@ -24,12 +24,12 @@ const present = await pg.evaluate(() => ({
   refresh: ((document.getElementById("data-status") || {}).textContent || "").trim().length,
 }));
 check(present.cluster, "header action cluster mounted (.na-actions in the header)");
-check(present.brief, "Briefing button present");
+check(present.briefAbsent, "Briefing button removed from the header (the brief lives on the Home News pane)");
 check(present.mkt, "Markets button present");
 check(present.saved, "Saved (bookmarks) button present");
 check(present.notif, "Notifications button present");
-// Phone header keeps Briefing/Markets/Bookmarks/Notifications; Search moved to
-// the Menu → Dialogue chip, and the countdown ring moved beside "Last refresh".
+// Phone header keeps Markets/Bookmarks/Notifications; Search moved to the Menu →
+// Dialogue chip, and the countdown ring moved beside "Last refresh".
 check(present.searchAbsent, "Search button NOT in the phone header (it moved to the Menu → Dialogue chip)");
 check(present.ringOutOfCluster, "countdown ring moved out of the header action cluster (now beside Last refresh)");
 check(present.panels >= 3, `Markets/Saved/Notifications panels built (${present.panels})`);

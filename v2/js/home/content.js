@@ -83,12 +83,13 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <div class="g-hero-news" id="g-hero-news" aria-label="News for the charted securities"></div>
         </section>
 
-        <!-- CENTER: news wire — led by the tri-daily market briefing (rendered by
-             glance.js renderHomeBriefing from BRIEFINGS; collapsible), so the day's
-             brief reads as the lede over the live feed it summarises. -->
+        <!-- CENTER: news wire. The filter row leads (pinned under the chips), then
+             the tri-daily market briefing (rendered by glance.js renderHomeBriefing
+             from BRIEFINGS; collapsible) as the day's lede over the live feed; the
+             feed's day-break marker sticks beneath the filter row on scroll. -->
         <section class="g-feed-wrap g-anchor" id="jump-feed">
-          <div class="g-hbrief" id="g-hbrief" aria-label="Market briefing" hidden></div>
           <div class="g-feed-head" id="g-feed-head">Today</div>
+          <div class="g-hbrief" id="g-hbrief" aria-label="Market briefing" hidden></div>
           <div class="g-feed wire-ptr-list" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
 

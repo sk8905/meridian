@@ -52,7 +52,7 @@ const b = await launchChromium();
     if (!el || el.hidden) return null;
     return { hasHead: !!el.querySelector(".g-hbrief-head"), slots: el.querySelectorAll(".g-hbrief-slot").length, bullets: el.querySelectorAll(".g-hbrief-b").length, hasLede: !!el.querySelector(".g-hbrief-lede") };
   });
-  check(brief && brief.hasHead && brief.slots === 3, `phone: the briefing card leads the News pane with 3 slot chips (${brief && brief.slots})`);
+  check(brief && brief.hasHead && brief.slots === 0, `phone: the briefing card leads the News pane, latest only — no slot chips (${brief && brief.slots})`);
   check(brief && brief.bullets >= 1 && brief.bullets <= 4 && brief.hasLede, `phone: the briefing shows a lede + capped bullets (${brief && brief.bullets})`);
 
   // The X feed is PRELOADED while its pane is hidden, so it's ready the instant its
@@ -112,28 +112,30 @@ const b = await launchChromium();
   check(!(await vis(".g-hero")), "phone: the chart is hidden again under News");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
 
-  // The header · search band · wire chips stay LOCKED when the page scrolls. The
-  // news filter row sits BELOW the briefing at rest, scrolls up with it, and then
-  // PINS directly beneath the chips (sticks to the top of the news wire).
+  // The header · search band · wire chips · filter row stay LOCKED when the page
+  // scrolls. The filter row pins directly beneath the chips (above the briefing),
+  // and the feed's day-break marker pins beneath the filter once the briefing
+  // scrolls past — "sticks to the top of the news wire".
   const at = () => pg.evaluate(() => {
     const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bot: Math.round(b.bottom) }; };
-    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), brief: r("#g-hbrief"), feedhead: r("#g-feed-head") };
+    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), feedhead: r("#g-feed-head"), brief: r("#g-hbrief"), day: r("#g-feed .g-feed-dayhdr") };
   });
   const rest = await at();
-  // At rest the briefing leads the pane and the filter row sits below it, unpinned.
-  check(rest.brief && rest.feedhead && rest.feedhead.top >= rest.brief.bot - 1,
-    `phone: at rest the filter row sits BELOW the briefing (brief.bot ${rest.brief?.bot}, filter.top ${rest.feedhead?.top})`);
-  check(rest.feedhead.top > rest.tabs.bot + 1, "phone: at rest the filter row is not yet pinned (below the chips, in the scroll)");
-  // Scroll well past the briefing → chips stay pinned, and the filter row pins to
-  // the top of the wire directly beneath them.
-  await pg.evaluate(() => window.scrollTo(0, 3000));
+  // At rest the filter row is pinned under the chips, ABOVE the briefing.
+  check(rest.feedhead && rest.tabs && Math.abs(rest.feedhead.top - rest.tabs.bot) <= 2,
+    `phone: at rest the filter row is pinned beneath the chips (filter.top ${rest.feedhead?.top}, chips.bot ${rest.tabs?.bot})`);
+  check(rest.brief && rest.feedhead && rest.brief.top >= rest.feedhead.bot - 2,
+    `phone: the briefing sits BELOW the filter row (filter.bot ${rest.feedhead?.bot}, brief.top ${rest.brief?.top})`);
+  // Scroll well past the briefing → the band + chips + filter stay pinned, and the
+  // day-break marker pins directly beneath the filter row.
+  await pg.evaluate(() => window.scrollTo(0, 5000));
   await pg.waitForTimeout(300);
   const scr = await at();
   const same = (a, c) => a && c && Math.abs(a.top - c.top) <= 1;
-  check(same(rest.band, scr.band) && same(rest.tabs, scr.tabs),
-    `phone: the search band + chips stay pinned on scroll (band ${rest.band?.top}→${scr.band?.top}, tabs ${rest.tabs?.top}→${scr.tabs?.top})`);
-  check(Math.abs(scr.feedhead.top - scr.tabs.bot) <= 2,
-    `phone: the filter row pins to the top of the wire, beneath the chips (filter.top ${scr.feedhead?.top}, chips.bot ${scr.tabs?.bot})`);
+  check(same(rest.band, scr.band) && same(rest.tabs, scr.tabs) && same(rest.feedhead, scr.feedhead),
+    `phone: band + chips + filter stay pinned on scroll (band ${rest.band?.top}→${scr.band?.top}, filter ${rest.feedhead?.top}→${scr.feedhead?.top})`);
+  check(scr.day && scr.day.top <= scr.feedhead.bot + 1 && scr.day.top >= scr.feedhead.bot - 4,
+    `phone: the day-break marker sticks just beneath the filter row (day.top ${scr.day?.top}, filter.bot ${scr.feedhead?.bot})`);
   // No overlap in the pinned cluster.
   const stacked = scr.header.bot <= scr.band.top + 1 && scr.band.bot <= scr.tabs.top + 1 && scr.tabs.bot <= scr.feedhead.top + 1;
   check(stacked, `phone: the pinned cluster stacks without overlap (header→${scr.band.top}, band→${scr.tabs.top}, tabs→${scr.feedhead.top})`);
@@ -142,7 +144,7 @@ const b = await launchChromium();
   await ctx.close();
 }
 
-// --- Phone: the filter row lives in the news column (below the briefing) and hides
+// --- Phone: the filter row leads the news column (above the briefing) and hides
 //     with that pane when a non-News chip is chosen. ---------------------------
 {
   const ctx = await b.newContext({ viewport: { width: 430, height: 860 }, isMobile: true, hasTouch: true });
@@ -153,12 +155,12 @@ const b = await launchChromium();
     const head = document.getElementById("g-feed-head");
     const brief = document.getElementById("g-hbrief");
     const inWrap = !!head.closest(".g-feed-wrap");
-    // The filter row follows the briefing in the news column's flow.
-    const belowBrief = !!brief && !!(brief.compareDocumentPosition(head) & Node.DOCUMENT_POSITION_FOLLOWING);
+    // The filter row precedes the briefing in the news column's flow.
+    const aboveBrief = !!brief && !!(brief.compareDocumentPosition(head) & Node.DOCUMENT_POSITION_PRECEDING);
     document.querySelector(".g-wiretab[data-wire='x']").click();
-    return { inWrap, belowBrief, hidden: getComputedStyle(head).display === "none" || head.offsetParent === null };
+    return { inWrap, aboveBrief, hidden: getComputedStyle(head).display === "none" || head.offsetParent === null };
   });
-  check(r.inWrap && r.belowBrief, "phone: the filter row lives in the news column, after the briefing");
+  check(r.inWrap && r.aboveBrief, "phone: the filter row leads the news column, above the briefing");
   check(r.hidden, "phone: switching to X hides the filter row with the news pane");
   await ctx.close();
 }
