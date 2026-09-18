@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "85bb8ebe-4363-4a2c-920c-93fee2d128a7", title: "UK’s top taxpayer says he would ‘not wish to be reborn’ in Britain", date: "2026-09-18", time: "21:00", url: "https://www.ft.com/content/85bb8ebe-4363-4a2c-920c-93fee2d128a7" },
+  { id: "4cd82226-3d4a-474d-bc3e-de2ed0b1e6f8", title: "Donald Trump bans major US news outlets from White House", date: "2026-09-18", time: "20:20", url: "https://www.ft.com/content/4cd82226-3d4a-474d-bc3e-de2ed0b1e6f8" },
   { id: "2c59513f-e323-4b29-a3b1-d9e083946978", title: "Keir Starmer looked at softening £100,000 ‘tax trap’ for higher earners", date: "2026-09-18", time: "18:39", url: "https://www.ft.com/content/2c59513f-e323-4b29-a3b1-d9e083946978" },
   { id: "99b7000e-d977-457b-baf3-64f2931b044c", title: "PizzaExpress cooks up sale at up to £500mn valuation", date: "2026-09-18", time: "18:24", url: "https://www.ft.com/content/99b7000e-d977-457b-baf3-64f2931b044c" },
   { id: "cd4e4514-944b-4919-a245-d8013734b8a0", title: "Gavin Newsom advances AI ‘kill switch’ in response to safety fears", date: "2026-09-18", time: "18:12", url: "https://www.ft.com/content/cd4e4514-944b-4919-a245-d8013734b8a0" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "b1bf57db-c66f-4086-a0be-531e7a5dcd31", title: "Fuel queues and conscription fears unsettle Russian voters", date: "2026-09-18", time: "10:38", url: "https://www.ft.com/content/b1bf57db-c66f-4086-a0be-531e7a5dcd31" },
   { id: "14f9df6a-5a70-42d9-86ee-37e6242aae6e", title: "Bank of Japan raises rates and accelerates tightening", date: "2026-09-18", time: "10:32", url: "https://www.ft.com/content/14f9df6a-5a70-42d9-86ee-37e6242aae6e" },
   { id: "7a285c59-2a2f-4e8b-9456-d4b92334fec7", title: "‘Greek finance minister encourages Germany to implement reforms’", date: "2026-09-18", time: "10:00", url: "https://www.ft.com/content/7a285c59-2a2f-4e8b-9456-d4b92334fec7" },
-  { id: "c403656f-9237-4d16-b6c2-685cfb1e989e", title: "Number 10 North is still a ‘jigsaw’ with a tricky growth agenda", date: "2026-09-18", time: "09:30", url: "https://www.ft.com/content/c403656f-9237-4d16-b6c2-685cfb1e989e" },
 ];
