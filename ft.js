@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0f972258-ee7d-4742-816a-b1dd7fa29d0e", title: "Forget ‘associate member’, Canada can forge collective resilience with the EU", date: "2026-09-19", time: "11:00", url: "https://www.ft.com/content/0f972258-ee7d-4742-816a-b1dd7fa29d0e" },
+  { id: "4e7be0a6-a1fd-4161-9656-faff899e938f", title: "Mark Carney takes his investment pitch from ‘Maple Davos’ to Strasbourg", date: "2026-09-19", time: "11:00", url: "https://www.ft.com/content/4e7be0a6-a1fd-4161-9656-faff899e938f" },
+  { id: "4d6a552e-67de-4c62-a928-c3e7b48827fc", title: "Chart of the Week: Higher rates, meet indebted consumers", date: "2026-09-19", time: "10:30", url: "https://www.ft.com/content/4d6a552e-67de-4c62-a928-c3e7b48827fc" },
   { id: "40222e79-3ee7-4388-8362-7d06c7f71f69", title: "On takes aim at ailing Nike with Mbappé transfer coup", date: "2026-09-19", time: "09:00", url: "https://www.ft.com/content/40222e79-3ee7-4388-8362-7d06c7f71f69" },
   { id: "12ea81a9-d806-4997-b0da-ddec093bbe20", title: "Over-80s turn to annuities as rates climb", date: "2026-09-19", time: "06:13", url: "https://www.ft.com/content/12ea81a9-d806-4997-b0da-ddec093bbe20" },
   { id: "d6f2132e-bc98-44cb-add0-aa306909ce6b", title: "Admit it — is this your worst financial habit?", date: "2026-09-19", time: "05:54", url: "https://www.ft.com/content/d6f2132e-bc98-44cb-add0-aa306909ce6b" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "d6adb7bb-72b4-47d1-b3bd-11e908d06b60", title: "Why Scott Bessent should pay attention to Turkey’s market scandal", date: "2026-09-18", time: "14:45", url: "https://www.ft.com/content/d6adb7bb-72b4-47d1-b3bd-11e908d06b60" },
   { id: "1785c976-109d-47b4-9aa3-1c4d839086c6", title: "Business and unions clash over how to fix UK’s youth jobs shortage", date: "2026-09-18", time: "14:32", url: "https://www.ft.com/content/1785c976-109d-47b4-9aa3-1c4d839086c6" },
   { id: "0649f3dd-e473-4174-ad1d-b01a93923bd3", title: "Come on Latin America, you owe me one", date: "2026-09-18", time: "14:29", url: "https://www.ft.com/content/0649f3dd-e473-4174-ad1d-b01a93923bd3" },
-  { id: "fc7438b6-2d58-4a4f-b296-86d75ecaaf2d", title: "UK air traffic outage caused by ‘legacy’ software bug, says review", date: "2026-09-18", time: "14:21", url: "https://www.ft.com/content/fc7438b6-2d58-4a4f-b296-86d75ecaaf2d" },
-  { id: "28af636d-7551-4250-a89b-01c068534356", title: "Budget blues", date: "2026-09-18", time: "14:09", url: "https://www.ft.com/content/28af636d-7551-4250-a89b-01c068534356" },
-  { id: "a528adc7-3a8c-4a00-826f-1fdde748efb5", title: "Xi’s edge over Trump on AI", date: "2026-09-18", time: "14:00", url: "https://www.ft.com/content/a528adc7-3a8c-4a00-826f-1fdde748efb5" },
 ];
