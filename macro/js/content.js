@@ -13,7 +13,7 @@ export const UPDATED = "17 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-19",
-  lastCheckedTime: "12:18 BST",
+  lastCheckedTime: "17:09 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -981,18 +981,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-19",
   us: [
+    { title: "World Economy Latest: Fed Boosts Interest Rates, Signals Another 2026 Hike", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/world-economy-latest-fed-boosts-interest-rates-signals-another-2026-hike" },
     { title: "US, China Trade Teams Set to Huddle in New York on AI, Iran", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/us-china-trade-teams-set-to-huddle-in-new-york-on-ai-iran" },
+    { title: "Hormuz Oil Shipments Hit Six-Month High, US Commander Says", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/hormuz-oil-shipments-hit-six-month-high-us-commander-says" },
     { title: "Three words from Kevin Warsh have Wall Street wondering how far the Fed will go with rate hikes", source: "CNBC", date: "2026-09-18", url: "https://www.cnbc.com/2026/09/18/three-words-from-kevin-warsh-have-wall-street-wondering-how-far-the-fed-will-go-with-rate-hikes.html" },
-    { title: "Trading Day: Lower oil, yields boost stocks", source: "Reuters (via Investing.com)", date: "2026-09-18", url: "https://www.investing.com/news/economy-news/trading-day-lower-oil-yields-boost-stocks-4906478" },
-    { title: "Forecasting the upcoming week: Trump, Xi, oil, tariffs and PMIs", source: "FXStreet", date: "2026-09-18", url: "https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-trump-xi-oil-tariffs-and-pmis-202609181831" },
     { title: "Stock market today: Dow, S&P 500 post weekly losses as 10-year Treasury yield hovers near 5%", source: "Yahoo Finance", date: "2026-09-18", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html" },
   ],
   uk: [
+    { title: "UK Mansion Tax May Expand to Homes Worth Over £1.5 Million", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/uk-mansion-tax-may-expand-to-homes-worth-over-1-5-million" },
     { title: "Pound Sterling price news and forecast: GBP declines on rising UK fiscal worries", source: "FXStreet", date: "2026-09-19", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-declines-on-rising-uk-fiscal-worries-202509191207" },
     { title: "United Kingdom: BoE holds rate steady in September – UOB Group", source: "FXStreet", date: "2026-09-19", url: "https://www.fxstreet.com/news/united-kingdom-boe-holds-rate-steady-in-september-uob-group-202509190936" },
     { title: "UK retail sales rebound in August as department stores recover", source: "Reuters (via Investing.com)", date: "2026-09-18", url: "https://www.investing.com/news/economic-indicators/uk-retail-sales-rebound-in-august-as-department-stores-recover-4906728" },
     { title: "BOE's Balance Sheet Move Eases Repo Pressure, Barclays Says", source: "Bloomberg", date: "2026-09-18", url: "https://www.bloomberg.com/news/articles/2026-09-18/boe-s-balance-sheet-move-eases-repo-pressure-barclays-says" },
-    { title: "Bank of England set to defy Fed's rate-hike lead, despite rising inflation", source: "CNBC", date: "2026-09-17", url: "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html" },
   ],
 };
 
@@ -1006,6 +1006,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-19",
   items: [
+    {"title": "World Economy Latest: Fed Boosts Interest Rates, Signals Another 2026 Hike", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/world-economy-latest-fed-boosts-interest-rates-signals-another-2026-hike", "blurb": "A global round-up of the fallout from Wednesday's Fed hike, with the dot plot signalling at least one more 2026 move and other G7 central banks (BoJ, BoE) also in play this week.", "author": null},
+    {"title": "Hormuz Oil Shipments Hit Six-Month High, US Commander Says", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/hormuz-oil-shipments-hit-six-month-high-us-commander-says", "blurb": "The top US military commander for the Middle East says oil-tanker traffic through the Strait of Hormuz has climbed to its highest in six months, a tentative sign the Iran-war shipping disruption is easing.", "author": null},
+    {"title": "UK Mansion Tax May Expand to Homes Worth Over £1.5 Million", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/uk-mansion-tax-may-expand-to-homes-worth-over-1-5-million", "blurb": "Chancellor Healey is weighing a wider mansion-tax band ahead of the 28 October Budget as the government hunts for revenue to fill the fiscal gap flagged by the OBR and OECD.", "author": null},
     {"title": "US, China Trade Teams Set to Huddle in New York on AI, Iran", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/us-china-trade-teams-set-to-huddle-in-new-york-on-ai-iran", "blurb": "Treasury Secretary Bessent and Chinese Vice Premier He Lifeng lead talks in New York on tariffs, AI and Iran's economic ties, laying the groundwork for the 24 September Trump-Xi summit in Washington.", "author": null},
     {"title": "Pound Sterling price news and forecast: GBP declines on rising UK fiscal worries", "source": "FXStreet", "date": "2026-09-19", "url": "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-declines-on-rising-uk-fiscal-worries-202509191207", "blurb": "Sterling extends its retreat as UK gilt-market and fiscal jitters persist in the wake of Thursday's BoE hold, with investors watching for further detail ahead of Chancellor Healey's 28 October Budget.", "author": null},
     {"title": "United Kingdom: BoE holds rate steady in September – UOB Group", "source": "FXStreet", "date": "2026-09-19", "url": "https://www.fxstreet.com/news/united-kingdom-boe-holds-rate-steady-in-september-uob-group-202509190936", "blurb": "UOB Group's post-decision note recaps Thursday's 6-3 MPC hold — the same split as July — with three members again dissenting for an immediate hike, and the Bank's warning that a prolonged Iran-war energy shock could still force a move.", "author": "UOB Group"},
