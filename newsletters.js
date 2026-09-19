@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-greenlandagreement-20260919",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: America and Denmark reach Greenland agreement",
+    date: "2026-09-19",
+    time: "05:45",
+    summary: "America and Denmark agree a deal expanding US military access to Greenland; Trump bans CNN, MSNBC and Politico from the White House; Macron calls a G7 summit on releasing oil reserves; and Warren Buffett steps down as Berkshire Hathaway's chairman after six decades.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-singaporeedition-indonesiadrama-20260919",
     publication: "Bloomberg",
     author: "Ramsey Al-Rikabi",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "17:35",
     summary: "Faure, Guedj, Royal, Glucksmann et Maurel concourront au premier tour des 9 et 10 octobre ; le PS suspend à titre provisoire le député Philippe Brun.",
     url: "https://infos.lemonde.fr/optiext/optiextension.dll?ID=fJOe7kEHYpRDdbjypyEfq3KixPX01gfplWKhAfj7kaFHtoDi5v068ppV9GpedWVsdSXK91HRm6__VtXP5lNfSkzToTS_6dEsAP4Q-cYR",
-  },
-  {
-    id: "nl-legalbusiness-pogustmariana-20260916",
-    publication: "Legal Business",
-    author: null,
-    series: "Legal Business Alert",
-    title: "Ousted Pogust founder confirmed as member of rival firm on Mariana dispute",
-    date: "2026-09-16",
-    time: "16:49",
-    summary: "Tom Goodhead set to co-lead Bailey Glasser International team on £36bn group claim as fight for ownership continues.",
-    url: "https://email.legalbusiness.co.uk/c/1dY34kqg2Sh9ozdmKv2FWfEzC403",
   },
 ];
