@@ -34,6 +34,7 @@ const creditAppJs = read(path.join("v2", "js", "credit", "app.js"));
 const transactionsApp = read(path.join("v2", "js", "transactions", "app.js"));
 const assistantJs = read(path.join("v2", "js", "assistant.js"));
 const menuJs = read(path.join("v2", "js", "views", "menu.js"));
+const glanceJs = read(path.join("v2", "js", "home", "glance.js"));
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
 // just a var(--t-news, #fallback) with nothing ever setting it.
@@ -334,16 +335,18 @@ check(/\.ew-day\s*\{[^}]*font-size:\s*10.5px/.test(macroCss),
 check(/\.chart-tip\s*\{[^}]*background:\s*var\(--surface\)/.test(macroCss),
   "macro/css/styles.css .chart-tip background reads var(--surface), not a hardcoded #fff");
 
-// R7a — no decorative arrow glyph appended to link/source-marker text. Four
-// live surfaces had drifted to a trailing "›"/"→" ("Full source ›", "SEC EDGAR
-// filings ›", "Review on GitHub →", "Open <firm> profile →") — link the text
-// itself, no arrow noise. Guard the whole set against a reintroduced arrow.
-const ARROW_BEFORE_CLOSE_A = /[→›»]\s*<\/a>/;
+// R7a — no decorative arrow glyph appended to link/source-marker text. Live
+// surfaces had drifted to a trailing "›"/"→"/"↗" ("Full source ›", "SEC EDGAR
+// filings ›", "Review on GitHub →", "Open <firm> profile →", "View on X ↗",
+// a briefing bullet's source link "<name> ↗") — link the text itself, no
+// arrow noise. Guard the whole set against a reintroduced arrow.
+const ARROW_BEFORE_CLOSE_A = /[→›»↗]\s*<\/a>/;
 for (const [label, src] of [
   ["v2/js/credit/detail.js", creditDetailJs],
   ["v2/js/transactions/app.js", transactionsApp],
   ["v2/js/assistant.js", assistantJs],
   ["v2/js/views/menu.js", menuJs],
+  ["v2/js/home/glance.js", glanceJs],
 ]) {
   check(!ARROW_BEFORE_CLOSE_A.test(src), `${label}: no link text ends in a decorative arrow glyph (R7a)`);
 }
