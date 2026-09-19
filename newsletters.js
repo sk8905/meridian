@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-kennedycentertugofwar-20260919",
+    publication: "Bloomberg",
+    author: "Suzanne Monyak",
+    series: "The Brink",
+    title: "The Brink: The Kennedy Center tug of war",
+    date: "2026-09-19",
+    time: "16:00",
+    summary: "A federal judge ordered the Trump-picked Kennedy Center board to detail its closure and any \"demolition\" or renovation plans by Sept. 23, the latest twist in the legal fight over the venue's fate.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-19/judge-halts-big-renovations-from-kennedy-center-s-trump-picked-board",
+  },
+  {
     id: "nl-taxpolicy-inheritancetaxpensioners-20260919",
     publication: "Tax Policy Associates",
     author: "Dan Neidle",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "22:00",
     summary: "One down, how many to go?",
     url: "https://www.reuters.com/commentary/reuters-open-interest/move-over-real-estate-wall-st-now-drives-us-spending-mcgeever-2026-09-16/",
-  },
-  {
-    id: "nl-bbg-moneystuff-blackrockpensions-20260916",
-    publication: "Bloomberg",
-    author: null,
-    series: "Money Stuff",
-    title: "Money Stuff: BlackRock Wants Pensions",
-    date: "2026-09-16",
-    time: "17:59",
-    summary: "Crypto, Epstein, fifth grade.",
-    url: "https://bloom.bg/4reA7hh",
   },
 ];
