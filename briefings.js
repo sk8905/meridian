@@ -46,15 +46,15 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-09-18",
-      time: "12:26 BST",
-      lede: "The Bank of Japan hiked 25bp to a 31-year high of 1.25% overnight, weakening the yen further, as chip stocks led US futures higher and Treasury yields retreated; UK retail sales beat forecasts with a 0.5% August bounce, but sterling stayed on the back foot and the FTSE 100 retreated on banks and energy even as it eyes a weekly gain.",
+      date: "2026-09-19",
+      time: "12:20 BST",
+      lede: "US and Chinese trade teams are set to huddle in New York on AI and Iran ahead of next week's Trump-Xi summit, while Goldman Sachs has dropped its &ldquo;one-and-done&rdquo; call and now sees a second Fed hike in October; sterling stayed on the back foot on rising UK fiscal worries even after the Bank of England reiterated Thursday's hold, with Wall Street still nursing a third straight losing week and the 10-year Treasury yield near 5%.",
       bullets: [
-        { html: "<strong>Macro &mdash; the Bank of Japan hiked 25bp to 1.25% overnight</strong>, the highest since 1995, flagging continued concern over inflation as the yen weakened further on the move.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; sterling stayed on the back foot despite yesterday's BoE hold</strong>, with MUFG and Pantheon Macroeconomics both flagging that the door is open for a November hike even as the pound slipped against a broadly firm dollar.", src: "https://www.babypips.com/news/headline-why-the-british-pound-fell-after-the-boe-held-rates-at-3-75-percent-2026-09-18", srcName: "Babypips" },
-        { html: "<strong>Equities &mdash; chip stocks led a rebound in US futures as Treasury yields retreated</strong>, with the market steadying after this week's Fed-hike volatility.", src: "https://www.home.saxo/content/articles/macro/market-quick-take---chips-lead-a-rebound-as-treasury-yields-retreat---18-september-2026-18092026", srcName: "Saxo Bank" },
-        { html: "<strong>Equities &mdash; the FTSE 100 retreated as banks and energy stocks weighed</strong>, though the index still eyes a gain for the week.", src: "https://www.globalbankingandfinance.com/londons-ftse-100-retreats-banks-energy-weigh-eyes-weekly/", srcName: "Global Banking & Finance" },
-        { html: "<strong>Macro &mdash; UK retail sales rose 0.5% in August, defying a forecast decline</strong>, a rare upside surprise in the same week the Bank of England held Bank Rate at 3.75%.", src: "https://www.bloomberg.com/news/articles/2026-09-18/uk-retail-sales-bounce-back-with-0-5-gain-in-august", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; US and Chinese trade teams are set to huddle in New York on AI and Iran</strong> ahead of next week's Trump-Xi summit, where a possible $30bn trade deal remains on the table.", src: "https://www.bloomberg.com/news/articles/2026-09-19/us-china-trade-teams-set-to-huddle-in-new-york-on-ai-iran", srcName: "Bloomberg" },
+        { html: "<strong>Fixed income &mdash; Goldman Sachs dropped its &ldquo;one-and-done&rdquo; call and now sees a second Fed hike in October</strong>, adding to Wall Street's debate &mdash; sparked by Fed governor Kevin Warsh's remarks this week &mdash; over how far the tightening cycle still has to run.", src: "https://investinglive.com/central-banks/goldman-ditches-one-and-done-call-now-sees-a-second-fed-hike-in-october/", srcName: "investingLive" },
+        { html: "<strong>Macro &mdash; sterling stayed on the back foot on rising UK fiscal worries</strong>, even as UOB Group noted the Bank of England's reiterated Thursday hold at 3.75% left the door open to a later move.", src: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-declines-on-rising-uk-fiscal-worries-202509191207", srcName: "FXStreet" },
+        { html: "<strong>Equities &mdash; Wall Street is still nursing a third straight losing week</strong>, with the S&amp;P 500 up just 0.17% and the Dow down 0.18% on Friday as the 10-year Treasury yield held near 5% heading into next week's Trump-Xi summit.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Macro &mdash; FXStreet's week-ahead flags Trump-Xi, oil, tariffs and PMIs</strong> as the catalysts to watch, with the excess-capacity tariff delay and the trade-team meeting setting the tone into the summit.", src: "https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-trump-xi-oil-tariffs-and-pmis-202609181831", srcName: "FXStreet" },
       ],
     },
     evening: {
