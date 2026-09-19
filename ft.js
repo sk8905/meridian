@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "40222e79-3ee7-4388-8362-7d06c7f71f69", title: "On takes aim at ailing Nike with Mbappé transfer coup", date: "2026-09-19", time: "09:00", url: "https://www.ft.com/content/40222e79-3ee7-4388-8362-7d06c7f71f69" },
   { id: "12ea81a9-d806-4997-b0da-ddec093bbe20", title: "Over-80s turn to annuities as rates climb", date: "2026-09-19", time: "06:13", url: "https://www.ft.com/content/12ea81a9-d806-4997-b0da-ddec093bbe20" },
   { id: "d6f2132e-bc98-44cb-add0-aa306909ce6b", title: "Admit it — is this your worst financial habit?", date: "2026-09-19", time: "05:54", url: "https://www.ft.com/content/d6f2132e-bc98-44cb-add0-aa306909ce6b" },
   { id: "c0cd359d-df84-4208-a789-ffa864b43666", title: "AI chatbots give wrong answers to financial queries ‘most of the time’", date: "2026-09-19", time: "05:49", url: "https://www.ft.com/content/c0cd359d-df84-4208-a789-ffa864b43666" },
@@ -27,7 +28,9 @@ export const FT_ITEMS = [
   { id: "124c1cf0-4885-495c-a907-a5217d589f9d", title: "Unpacking the real fiscal costs of immigration", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/124c1cf0-4885-495c-a907-a5217d589f9d" },
   { id: "b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5", title: "The Anglo-French moment", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5" },
   { id: "a82a42a4-8f80-4569-a706-e7278c088d4d", title: "South Africa’s ANC fails to register 181 local election candidates", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/a82a42a4-8f80-4569-a706-e7278c088d4d" },
+  { id: "527bad1f-53a2-482c-b06b-ae3484993144", title: "Dry British summers raise hopes of homegrown chickpeas", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/527bad1f-53a2-482c-b06b-ae3484993144" },
   { id: "129a5052-ac31-4975-8a88-91ce09740a0b", title: "How should investors position for the robot apocalypse?", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/129a5052-ac31-4975-8a88-91ce09740a0b" },
+  { id: "81064dde-d1eb-49db-ba38-b6e28f334798", title: "Passport to Piddington: a short history of micronations", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/81064dde-d1eb-49db-ba38-b6e28f334798" },
   { id: "64ee1dec-7b98-40b1-8f50-5fa6bb760cfd", title: "Housebuilders aren’t the only ones who benefit from ‘Help to Buy’", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/64ee1dec-7b98-40b1-8f50-5fa6bb760cfd" },
   { id: "09c2e11c-1632-42e3-8fc6-809468b7f87e", title: "Five ways the Iran energy shock is wrongfooting the world", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/09c2e11c-1632-42e3-8fc6-809468b7f87e" },
   { id: "96d0a206-a37b-4166-b78d-b27ed24f7d57", title: "Investors weigh whether Anthropic can sustain surging revenues post-IPO", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/96d0a206-a37b-4166-b78d-b27ed24f7d57" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "fc7438b6-2d58-4a4f-b296-86d75ecaaf2d", title: "UK air traffic outage caused by ‘legacy’ software bug, says review", date: "2026-09-18", time: "14:21", url: "https://www.ft.com/content/fc7438b6-2d58-4a4f-b296-86d75ecaaf2d" },
   { id: "28af636d-7551-4250-a89b-01c068534356", title: "Budget blues", date: "2026-09-18", time: "14:09", url: "https://www.ft.com/content/28af636d-7551-4250-a89b-01c068534356" },
   { id: "a528adc7-3a8c-4a00-826f-1fdde748efb5", title: "Xi’s edge over Trump on AI", date: "2026-09-18", time: "14:00", url: "https://www.ft.com/content/a528adc7-3a8c-4a00-826f-1fdde748efb5" },
-  { id: "3943277e-eaf8-4faf-9f9c-1c05cb2ba992", title: "Turkey moves to liquidate funds at centre of ‘Ponzi-like scheme’", date: "2026-09-18", time: "13:38", url: "https://www.ft.com/content/3943277e-eaf8-4faf-9f9c-1c05cb2ba992" },
-  { id: "3e72dc10-5733-4623-9c4d-1beaab3dd5cf", title: "Sports brand On signs Kylian Mbappé from Nike to lead new football push", date: "2026-09-18", time: "13:00", url: "https://www.ft.com/content/3e72dc10-5733-4623-9c4d-1beaab3dd5cf" },
-  { id: "6584e52f-5a8c-4427-ba39-b401a808850d", title: "Britons say they’re taking less annual leave. The ONS doesn’t believe them", date: "2026-09-18", time: "12:14", url: "https://www.ft.com/content/6584e52f-5a8c-4427-ba39-b401a808850d" },
 ];
