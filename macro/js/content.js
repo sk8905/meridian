@@ -13,7 +13,7 @@ export const UPDATED = "17 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-19",
-  lastCheckedTime: "05:19 BST",
+  lastCheckedTime: "08:14 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -985,14 +985,14 @@ export const NEWS = {
     { title: "Stock market next week: Outlook for Sept. 21-25, 2026", source: "CNBC", date: "2026-09-18", url: "https://www.cnbc.com/2026/09/18/stock-market-next-week-outlook-for-sept-21-25-2026.html" },
     { title: "Stock market today: Dow, S&P 500 post weekly losses as 10-year Treasury yield hovers near 5%", source: "Yahoo Finance", date: "2026-09-18", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html" },
     { title: "What to expect from the Trump-Xi summit, from tariffs to a possible $30 billion deal", source: "Euronews", date: "2026-09-18", url: "https://www.euronews.com/business/2026/09/18/what-to-expect-from-the-trump-xi-summit-from-tariffs-to-a-possible-30-billion-deal" },
-    { title: "Trump says he told Warsh to vote for hike with the rest of Fed board: 'It's not going to matter'", source: "CNBC", date: "2026-09-16", url: "https://www.cnbc.com/2026/09/16/trump-fed-interest-rate-warsh.html" },
+    { title: "Fed rate decision September 2026: Rates rise to 3.75%-4%", source: "CNBC", date: "2026-09-16", url: "https://www.cnbc.com/2026/09/16/fed-rate-decision-september-2026.html" },
   ],
   uk: [
     { title: "UK retail sales rebound in August as department stores recover", source: "Reuters (via Investing.com)", date: "2026-09-18", url: "https://www.investing.com/news/economic-indicators/uk-retail-sales-rebound-in-august-as-department-stores-recover-4906728" },
     { title: "BOE's Balance Sheet Move Eases Repo Pressure, Barclays Says", source: "Bloomberg", date: "2026-09-18", url: "https://www.bloomberg.com/news/articles/2026-09-18/boe-s-balance-sheet-move-eases-repo-pressure-barclays-says" },
     { title: "Bank of England set to defy Fed's rate-hike lead, despite rising inflation", source: "CNBC", date: "2026-09-17", url: "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html" },
-    { title: "Explainer-Options for UK Finance Minister Healey to Tax Wealth in October's Budget", source: "Reuters (via U.S. News)", date: "2026-09-07", url: "https://www.usnews.com/news/world/articles/2026-09-07/explainer-options-for-uk-finance-minister-healey-to-tax-wealth-in-octobers-budget" },
-    { title: "Why the British Pound Fell After the BOE Held Rates at 3.75%", source: "Babypips", date: "2026-09-18", url: "https://www.babypips.com/news/headline-why-the-british-pound-fell-after-the-boe-held-rates-at-3-75-percent-2026-09-18" },
+    { title: "Bank Rate maintained at 3.75% — September 2026 Monetary Policy Summary and Minutes", source: "Bank of England", date: "2026-09-16", url: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026" },
+    { title: "UK stock market forecast: FTSE 100 outlook as oil falls, BoE turns hawkish and retail sales rise", source: "MoneyWeek", date: "2026-09-18", url: "https://moneyweek.com/economy/news/live/uk-interest-rates-september-bank-of-england" },
   ],
 };
 

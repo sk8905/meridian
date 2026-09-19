@@ -34,14 +34,14 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-19",
-      time: "05:19 BST",
-      lede: "Wall Street closed out a third straight losing week Friday with the 10-year Treasury yield still near 5%, two days after the Fed's hike, while attention turns to next week's Trump-Xi summit after Washington delayed excess-capacity tariffs; in the UK, the Bank of England's gilt-sale pause is easing repo-market pressure following August's surprise retail-sales bounce.",
+      time: "08:14 BST",
+      lede: "Wall Street closed out a third straight losing week Friday with the 10-year Treasury yield still near 5%, two days after the Fed's hike to 3.75&ndash;4.00%, while attention turns to next week's Trump-Xi summit after Washington delayed excess-capacity tariffs; in the UK, the Bank of England held Bank Rate at 3.75% and its gilt-sale pause is easing repo-market pressure following August's surprise retail-sales bounce.",
       bullets: [
         { html: "<strong>Equities &mdash; Wall Street posted a third straight weekly loss</strong>: the S&amp;P 500 rose 0.17% to 7,650.50 and the Nasdaq gained 0.39% to 26,522.55 Friday, but the Dow slipped 0.18% to 51,682.64, with the 10-year Treasury yield still hovering near 5%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Fixed income &mdash; the Bank of England's gilt-sale pause is easing repo-market pressure</strong>, Barclays said, after Thursday's decision to halt long-dated sales and slow QT to about &pound;50bn a year.", src: "https://www.bloomberg.com/news/articles/2026-09-18/boe-s-balance-sheet-move-eases-repo-pressure-barclays-says", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; the Fed raised its funds-rate target to 3.75&ndash;4.00% on Wednesday</strong>, its first hike since 2023, with markets now pricing further tightening into 2027.", src: "https://www.cnbc.com/2026/09/16/fed-rate-decision-september-2026.html", srcName: "CNBC" },
+        { html: "<strong>Fixed income &mdash; the Bank of England's gilt-sale pause is easing repo-market pressure</strong>, Barclays said, after Thursday's decision to halt long-dated sales and slow QT to about &pound;50bn a year, even as the BoE held Bank Rate at 3.75% this week.", src: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026", srcName: "Bank of England" },
         { html: "<strong>Macro &mdash; Washington is delaying excess-capacity tariffs until after next week's Trump-Xi summit</strong>, where a possible $30bn trade deal is on the table alongside the tariff dispute.", src: "https://www.bloomberg.com/news/articles/2026-09-17/us-said-to-delay-excess-capacity-tariffs-until-after-xi-summit", srcName: "Bloomberg" },
-        { html: "<strong>Macro &mdash; UK retail sales rebounded in August as department stores recovered</strong>, a rare upside surprise in the same week the Bank of England held Bank Rate at 3.75%.", src: "https://www.investing.com/news/economic-indicators/uk-retail-sales-rebound-in-august-as-department-stores-recover-4906728", srcName: "Reuters (via Investing.com)" },
-        { html: "<strong>Equities &mdash; CNBC previews next week's session (Sept 21&ndash;25)</strong>, with the Trump-Xi summit and continued Fed fallout from Wednesday's hike set to dominate trading.", src: "https://www.cnbc.com/2026/09/18/stock-market-next-week-outlook-for-sept-21-25-2026.html", srcName: "CNBC" },
+        { html: "<strong>Macro &mdash; UK retail sales rebounded in August as department stores recovered</strong>, a rare upside surprise in the same week the Bank of England held rates.", src: "https://www.investing.com/news/economic-indicators/uk-retail-sales-rebound-in-august-as-department-stores-recover-4906728", srcName: "Reuters (via Investing.com)" },
       ],
     },
     afternoon: {
