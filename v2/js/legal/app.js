@@ -9,7 +9,7 @@ import {
   rxAdvisers,
 } from "/legal/js/data.js";
 import {
-  fmtDate, itemDate, firmLink, getSaved, SAVED_KEY,
+  fmtDate, itemDate, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260730-2";
 import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-14";
