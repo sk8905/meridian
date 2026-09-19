@@ -33,14 +33,15 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-09-18",
-      time: "08:34 BST",
-      lede: "The Bank of Japan hiked 25bp to 1.25% &mdash; a 31-year high &mdash; in a 7&ndash;2 vote overnight, weakening the yen further, as Wall Street closed out Thursday with its best rally since Wednesday's Fed-hike selloff; a surprise 0.5% August bounce in UK retail sales added a bright spot in the G7 rate-hike week's aftermath.",
+      date: "2026-09-19",
+      time: "05:19 BST",
+      lede: "Wall Street closed out a third straight losing week Friday with the 10-year Treasury yield still near 5%, two days after the Fed's hike, while attention turns to next week's Trump-Xi summit after Washington delayed excess-capacity tariffs; in the UK, the Bank of England's gilt-sale pause is easing repo-market pressure following August's surprise retail-sales bounce.",
       bullets: [
-        { html: "<strong>Macro &mdash; the Bank of Japan hiked 25bp to 1.25% overnight</strong>, the highest since 1995, in a 7&ndash;2 vote as two reflationist board members appointed by PM Takaichi dissented, flagging upside inflation risk &mdash; the third G7 central-bank move in three days after the Fed's hike and the BoE's hold.", src: "https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; the yen weakened further after the BoJ's split-vote hike</strong>, while UK gilts extended Thursday's rally after the Bank of England paused long-dated gilt sales to ease pressure on yields.", src: "https://www.bloomberg.com/news/articles/2026-09-17/boe-scraps-long-end-gilt-sales-in-plan-to-unwind-qe-by-2034", srcName: "Bloomberg" },
-        { html: "<strong>Equities &mdash; Wall Street rebounded Thursday from Wednesday's Fed-hike selloff</strong>, with the S&amp;P 500 up 1.14% to 7,637.71, the Nasdaq up 1.69% to 26,418.29 and the Dow up 0.62% to 51,779.85, as Treasury yields eased and oil fell.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-17-2026", srcName: "TheStreet" },
-        { html: "<strong>Macro &mdash; UK retail sales rose 0.5% in August</strong>, defying a Reuters-polled forecast for a 0.2% decline, as warm weather and a brighter mood lifted spending despite rising energy bills &mdash; a rare upside surprise following Thursday's BoE hold.", src: "https://www.bloomberg.com/news/articles/2026-09-18/uk-retail-sales-bounce-back-with-0-5-gain-in-august", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; Wall Street posted a third straight weekly loss</strong>: the S&amp;P 500 rose 0.17% to 7,650.50 and the Nasdaq gained 0.39% to 26,522.55 Friday, but the Dow slipped 0.18% to 51,682.64, with the 10-year Treasury yield still hovering near 5%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Fixed income &mdash; the Bank of England's gilt-sale pause is easing repo-market pressure</strong>, Barclays said, after Thursday's decision to halt long-dated sales and slow QT to about &pound;50bn a year.", src: "https://www.bloomberg.com/news/articles/2026-09-18/boe-s-balance-sheet-move-eases-repo-pressure-barclays-says", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; Washington is delaying excess-capacity tariffs until after next week's Trump-Xi summit</strong>, where a possible $30bn trade deal is on the table alongside the tariff dispute.", src: "https://www.bloomberg.com/news/articles/2026-09-17/us-said-to-delay-excess-capacity-tariffs-until-after-xi-summit", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; UK retail sales rebounded in August as department stores recovered</strong>, a rare upside surprise in the same week the Bank of England held Bank Rate at 3.75%.", src: "https://www.investing.com/news/economic-indicators/uk-retail-sales-rebound-in-august-as-department-stores-recover-4906728", srcName: "Reuters (via Investing.com)" },
+        { html: "<strong>Equities &mdash; CNBC previews next week's session (Sept 21&ndash;25)</strong>, with the Trump-Xi summit and continued Fed fallout from Wednesday's hike set to dominate trading.", src: "https://www.cnbc.com/2026/09/18/stock-market-next-week-outlook-for-sept-21-25-2026.html", srcName: "CNBC" },
       ],
     },
     afternoon: {
