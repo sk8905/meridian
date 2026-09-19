@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "12ea81a9-d806-4997-b0da-ddec093bbe20", title: "Over-80s turn to annuities as rates climb", date: "2026-09-19", time: "06:13", url: "https://www.ft.com/content/12ea81a9-d806-4997-b0da-ddec093bbe20" },
   { id: "d6f2132e-bc98-44cb-add0-aa306909ce6b", title: "Admit it — is this your worst financial habit?", date: "2026-09-19", time: "05:54", url: "https://www.ft.com/content/d6f2132e-bc98-44cb-add0-aa306909ce6b" },
   { id: "c0cd359d-df84-4208-a789-ffa864b43666", title: "AI chatbots give wrong answers to financial queries ‘most of the time’", date: "2026-09-19", time: "05:49", url: "https://www.ft.com/content/c0cd359d-df84-4208-a789-ffa864b43666" },
   { id: "77f042f0-80c2-40ad-a4d1-9da0367827ee", title: "Thirty years of buy-to-let: does it have a future?", date: "2026-09-19", time: "05:24", url: "https://www.ft.com/content/77f042f0-80c2-40ad-a4d1-9da0367827ee" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "3943277e-eaf8-4faf-9f9c-1c05cb2ba992", title: "Turkey moves to liquidate funds at centre of ‘Ponzi-like scheme’", date: "2026-09-18", time: "13:38", url: "https://www.ft.com/content/3943277e-eaf8-4faf-9f9c-1c05cb2ba992" },
   { id: "3e72dc10-5733-4623-9c4d-1beaab3dd5cf", title: "Sports brand On signs Kylian Mbappé from Nike to lead new football push", date: "2026-09-18", time: "13:00", url: "https://www.ft.com/content/3e72dc10-5733-4623-9c4d-1beaab3dd5cf" },
   { id: "6584e52f-5a8c-4427-ba39-b401a808850d", title: "Britons say they’re taking less annual leave. The ONS doesn’t believe them", date: "2026-09-18", time: "12:14", url: "https://www.ft.com/content/6584e52f-5a8c-4427-ba39-b401a808850d" },
-  { id: "c70c275b-cd6d-47ef-a23f-cb374b98d001", title: "On the EU, let Canada and Odysseus inspire Burnham", date: "2026-09-18", time: "12:11", url: "https://www.ft.com/content/c70c275b-cd6d-47ef-a23f-cb374b98d001" },
 ];

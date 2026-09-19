@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-taxpolicy-inheritancetaxpensioners-20260919",
+    publication: "Tax Policy Associates",
+    author: "Dan Neidle",
+    series: null,
+    title: "The hidden reach of inheritance tax: one in five pensioner households",
+    date: "2026-09-19",
+    time: "06:09",
+    summary: "By April 2027, one in five pensioner households in England and Wales will have an inheritance tax liability under a new constituency-level model — 52% in Wimbledon, 9% in Durham.",
+    url: "https://newsletter.taxpolicy.org.uk/campaign/8499a0aa-430f-491a-9084-f78afced0ed8/e5358a8a-4e5b-4303-a7ce-dcf4d37cc11c",
+  },
+  {
     id: "nl-economist-worldinbrief-greenlandagreement-20260919",
     publication: "The Economist",
     author: null,
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "17:59",
     summary: "Crypto, Epstein, fifth grade.",
     url: "https://bloom.bg/4reA7hh",
-  },
-  {
-    id: "nl-lemonde-lebrief-primairegauche-20260916",
-    publication: "Le Monde",
-    author: null,
-    series: "Le Brief",
-    title: "Le brief | Présidentielle 2027 : cinq candidats sur la ligne de départ de la primaire à gauche",
-    date: "2026-09-16",
-    time: "17:35",
-    summary: "Faure, Guedj, Royal, Glucksmann et Maurel concourront au premier tour des 9 et 10 octobre ; le PS suspend à titre provisoire le député Philippe Brun.",
-    url: "https://infos.lemonde.fr/optiext/optiextension.dll?ID=fJOe7kEHYpRDdbjypyEfq3KixPX01gfplWKhAfj7kaFHtoDi5v068ppV9GpedWVsdSXK91HRm6__VtXP5lNfSkzToTS_6dEsAP4Q-cYR",
   },
 ];
