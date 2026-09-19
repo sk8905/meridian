@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bcbfe352-9e9f-4ef5-81b2-2e01505b8477", title: "Trump announces ‘AI Force’ as alarm grows over technology’s advance", date: "2026-09-19", time: "20:49", url: "https://www.ft.com/content/bcbfe352-9e9f-4ef5-81b2-2e01505b8477" },
   { id: "3d23b523-e4ae-4917-99bd-9bb5cddf42c2", title: "Michael Marra wins Scottish Labour leadership election", date: "2026-09-19", time: "13:55", url: "https://www.ft.com/content/3d23b523-e4ae-4917-99bd-9bb5cddf42c2" },
   { id: "07fd42b5-0610-470c-8fb8-4840b5401271", title: "Saudi Arabia sounds air-raid alerts as missile and drone assault intensifies", date: "2026-09-19", time: "13:42", url: "https://www.ft.com/content/07fd42b5-0610-470c-8fb8-4840b5401271" },
   { id: "94ec0fee-53ab-4d7e-9b17-6b05608ad974", title: "Nobel economists throw support behind California billionaire tax", date: "2026-09-19", time: "12:00", url: "https://www.ft.com/content/94ec0fee-53ab-4d7e-9b17-6b05608ad974" },
