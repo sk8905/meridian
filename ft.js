@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "94ec0fee-53ab-4d7e-9b17-6b05608ad974", title: "Nobel economists throw support behind California billionaire tax", date: "2026-09-19", time: "12:00", url: "https://www.ft.com/content/94ec0fee-53ab-4d7e-9b17-6b05608ad974" },
   { id: "0f972258-ee7d-4742-816a-b1dd7fa29d0e", title: "Forget ‘associate member’, Canada can forge collective resilience with the EU", date: "2026-09-19", time: "11:00", url: "https://www.ft.com/content/0f972258-ee7d-4742-816a-b1dd7fa29d0e" },
   { id: "4e7be0a6-a1fd-4161-9656-faff899e938f", title: "Mark Carney takes his investment pitch from ‘Maple Davos’ to Strasbourg", date: "2026-09-19", time: "11:00", url: "https://www.ft.com/content/4e7be0a6-a1fd-4161-9656-faff899e938f" },
   { id: "4d6a552e-67de-4c62-a928-c3e7b48827fc", title: "Chart of the Week: Higher rates, meet indebted consumers", date: "2026-09-19", time: "10:30", url: "https://www.ft.com/content/4d6a552e-67de-4c62-a928-c3e7b48827fc" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "2660e844-6aaa-49a4-ab7a-aafdf6a3d805", title: "Labour conference set to vote on new AI regulator as cabinet concerns grow", date: "2026-09-18", time: "15:01", url: "https://www.ft.com/content/2660e844-6aaa-49a4-ab7a-aafdf6a3d805" },
   { id: "d6adb7bb-72b4-47d1-b3bd-11e908d06b60", title: "Why Scott Bessent should pay attention to Turkey’s market scandal", date: "2026-09-18", time: "14:45", url: "https://www.ft.com/content/d6adb7bb-72b4-47d1-b3bd-11e908d06b60" },
   { id: "1785c976-109d-47b4-9aa3-1c4d839086c6", title: "Business and unions clash over how to fix UK’s youth jobs shortage", date: "2026-09-18", time: "14:32", url: "https://www.ft.com/content/1785c976-109d-47b4-9aa3-1c4d839086c6" },
-  { id: "0649f3dd-e473-4174-ad1d-b01a93923bd3", title: "Come on Latin America, you owe me one", date: "2026-09-18", time: "14:29", url: "https://www.ft.com/content/0649f3dd-e473-4174-ad1d-b01a93923bd3" },
 ];
