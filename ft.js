@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3fcee89f-b69d-4f4b-a944-39fe1c214fb8", title: "Wall Street expects US to issue about $1tn of short-term debt as borrowing costs climb", date: "2026-09-20", time: "16:00", url: "https://www.ft.com/content/3fcee89f-b69d-4f4b-a944-39fe1c214fb8" },
+  { id: "70edaf6d-0f25-47a8-a1a4-8724cf92c2d9", title: "Disability-related disputes drive surge in demand for workplace conciliation", date: "2026-09-20", time: "16:00", url: "https://www.ft.com/content/70edaf6d-0f25-47a8-a1a4-8724cf92c2d9" },
   { id: "05a7292e-4931-4631-8f77-164fb727c203", title: "AI is a powerful but problematic new collaborator in mathematics", date: "2026-09-20", time: "14:00", url: "https://www.ft.com/content/05a7292e-4931-4631-8f77-164fb727c203" },
   { id: "bbf1d846-7d89-45f6-8c0f-1fba1e334b4b", title: "Chevron plans drilling spree as it overhauls oil and gas search", date: "2026-09-20", time: "13:00", url: "https://www.ft.com/content/bbf1d846-7d89-45f6-8c0f-1fba1e334b4b" },
   { id: "bfe6fc60-51b3-41f0-b6c9-32583735150e", title: "CATL develops pick-up truck batteries for US despite trade barriers", date: "2026-09-20", time: "12:58", url: "https://www.ft.com/content/bfe6fc60-51b3-41f0-b6c9-32583735150e" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "77f042f0-80c2-40ad-a4d1-9da0367827ee", title: "Thirty years of buy-to-let: does it have a future?", date: "2026-09-19", time: "05:24", url: "https://www.ft.com/content/77f042f0-80c2-40ad-a4d1-9da0367827ee" },
   { id: "124c1cf0-4885-495c-a907-a5217d589f9d", title: "Unpacking the real fiscal costs of immigration", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/124c1cf0-4885-495c-a907-a5217d589f9d" },
   { id: "b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5", title: "The Anglo-French moment", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5" },
-  { id: "a82a42a4-8f80-4569-a706-e7278c088d4d", title: "South Africa’s ANC fails to register 181 local election candidates", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/a82a42a4-8f80-4569-a706-e7278c088d4d" },
 ];
