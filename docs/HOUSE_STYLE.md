@@ -407,8 +407,11 @@ notification badge red (`#ef4444`).
   `renderHero`/`drawHero` in `v2/js/home/glance.js`; `/api/hero` edge-caches ~10 min
   and never pins a broken partial (needs ≥4 of the basket). **Beneath the chart, a
   RELATED-NEWS list** for the six tickers — **real, sourced** Yahoo Finance
-  search headlines (`/api/hero-news`, title · publisher · link · time, R7) **held to
-  the same authorised financial-press roster as the rest of the app (§8.3)** — a
+  search headlines (`/api/hero-news`, title · publisher · link · time, R7). Each
+  instrument runs **both a spot and a futures query** (e.g. "S&P 500 index" +
+  "S&P 500 futures", "crude oil price" + "crude oil futures"), merged under the same
+  ticker tag, so the **futures market is covered** too. **Held to the same
+  authorised financial-press roster as the rest of the app (§8.3)** — a
   strict publisher allowlist (Bloomberg, FT, WSJ/Dow Jones, Reuters, CNBC, the
   Economist, the Guardian, Axios, NBC News, MarketWatch, Nikkei, SCMP, Straits
   Times, Financial News, DealBook/NYT), so aggregator/SEO shops Yahoo mixes in

@@ -1620,13 +1620,17 @@ async function handleHero(request, env, ctx) {
 // Finance's keyless search endpoint (title · publisher · link · publish time), so
 // each row keeps a verified source and date (R7). Tagged with the instrument it was
 // searched for; the client renders them in the news-wire row format.
+// Each basket instrument carries a SPOT query `q` and a FUTURES query `qf`, both
+// searched and merged, so the wire covers the futures market too (index / commodity
+// / bond / crypto futures dominate the overnight & pre-market tape). Both feed the
+// same ticker tag; duplicates dedupe away.
 const HERO_NEWS_Q = [
-  { key: "spx", code: "SPX", label: "S&P 500", q: "S&P 500 index" },
-  { key: "ndx", code: "NDX", label: "Nasdaq", q: "Nasdaq" },
-  { key: "ust10", code: "10Y", label: "US 10Y", q: "10-year Treasury yield" },
-  { key: "oil", code: "OIL", label: "Oil", q: "crude oil price" },
-  { key: "gold", code: "GOLD", label: "Gold", q: "gold price" },
-  { key: "btc", code: "BTC", label: "Bitcoin", q: "bitcoin" },
+  { key: "spx", code: "SPX", label: "S&P 500", q: "S&P 500 index", qf: "S&P 500 futures" },
+  { key: "ndx", code: "NDX", label: "Nasdaq", q: "Nasdaq", qf: "Nasdaq 100 futures" },
+  { key: "ust10", code: "10Y", label: "US 10Y", q: "10-year Treasury yield", qf: "Treasury futures" },
+  { key: "oil", code: "OIL", label: "Oil", q: "crude oil price", qf: "crude oil futures" },
+  { key: "gold", code: "GOLD", label: "Gold", q: "gold price", qf: "gold futures" },
+  { key: "btc", code: "BTC", label: "Bitcoin", q: "bitcoin", qf: "bitcoin futures" },
 ];
 // Hero related-news is held to the SAME authorised financial-press roster as the
 // rest of the app (HOUSE_STYLE §8.3) — a strict allowlist, not the general wire's
@@ -1661,13 +1665,19 @@ async function yahooNews(q, n) {
 }
 async function handleHeroNews(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/hero-news?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/hero-news?v=3", request.url).toString());
   const hit = await cache.match(cacheKey);
   if (hit) return hit;
   // Over-fetch (Yahoo mixes in aggregators) so enough authorised items survive the
-  // §8.3 allowlist cull below.
-  const per = await Promise.all(HERO_NEWS_Q.map((g) =>
-    yahooNews(g.q, 15).catch(() => []).then((items) => items.map((it) => ({ ...it, key: g.key, code: g.code, ticker: g.label })))));
+  // §8.3 allowlist cull below. Each instrument runs BOTH its spot and futures query,
+  // tagged to the same instrument, so the wire covers the futures market too.
+  const queries = [];
+  for (const g of HERO_NEWS_Q) {
+    queries.push({ q: g.q, key: g.key, code: g.code, ticker: g.label });
+    if (g.qf) queries.push({ q: g.qf, key: g.key, code: g.code, ticker: g.label });
+  }
+  const per = await Promise.all(queries.map((g) =>
+    yahooNews(g.q, 10).catch(() => []).then((items) => items.map((it) => ({ ...it, key: g.key, code: g.code, ticker: g.ticker })))));
   const seen = new Set(), out = [];
   for (const list of per) for (const it of list) {
     if (!heroNewsAllowed(it.source)) continue;          // authorised financial press only (§8.3)
