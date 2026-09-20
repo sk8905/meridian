@@ -20,10 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "90714056-d364-43d9-9411-9bde92f966b3", title: "Jon Ossoff’s Georgia race stirs talk of 2028 US presidential audition", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/90714056-d364-43d9-9411-9bde92f966b3" },
+  { id: "64f90ab8-5fb0-4594-a900-d03e5ca051e3", title: "US retailer rations motor oil as prices quadruple and supplies run dry", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/64f90ab8-5fb0-4594-a900-d03e5ca051e3" },
+  { id: "ae6eec6b-94b4-4ef1-bec9-c3f1cb153bb1", title: "Dangote IPO is a test for African capitalism", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/ae6eec6b-94b4-4ef1-bec9-c3f1cb153bb1" },
+  { id: "b455ab48-76ef-4fd4-9137-1f666344ab45", title: "Trump’s regulatory rollback puts $400mn in US audit fees at risk", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/b455ab48-76ef-4fd4-9137-1f666344ab45" },
+  { id: "023c85fc-db6f-4f1d-b29e-8b41d626e5ed", title: "Lib Dem leader Ed Davey urged to ditch the stunts and get serious", date: "2026-09-20", time: "10:20", url: "https://www.ft.com/content/023c85fc-db6f-4f1d-b29e-8b41d626e5ed" },
+  { id: "07fd42b5-0610-470c-8fb8-4840b5401271", title: "Houthis launch ballistic missile at Saudi capital in escalation of hostilities", date: "2026-09-20", time: "10:01", url: "https://www.ft.com/content/07fd42b5-0610-470c-8fb8-4840b5401271" },
   { id: "fcab43da-63ac-49e1-959d-aa4334528017", title: "German states go to the polls in high-stakes test for Friedrich Merz", date: "2026-09-20", time: "09:22", url: "https://www.ft.com/content/fcab43da-63ac-49e1-959d-aa4334528017" },
   { id: "7f11afae-c4e3-4054-a65b-873f3647f563", title: "Big Tech uses guarantees to keep $300bn of AI exposure off balance sheets", date: "2026-09-20", time: "08:00", url: "https://www.ft.com/content/7f11afae-c4e3-4054-a65b-873f3647f563" },
   { id: "5b315540-3622-4b6b-b305-688668544252", title: "Freedom in adulthood isn’t what you think", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/5b315540-3622-4b6b-b305-688668544252" },
-  { id: "023c85fc-db6f-4f1d-b29e-8b41d626e5ed", title: "Lib Dem leader Ed Davey urged to ditch the stunts and get serious", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/023c85fc-db6f-4f1d-b29e-8b41d626e5ed" },
   { id: "44433853-1d29-4b42-b13b-846abe9ffa3b", title: "Chinese owners launch €2.5bn sale of Luxembourg’s oldest bank", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/44433853-1d29-4b42-b13b-846abe9ffa3b" },
   { id: "c1ba743f-7330-4419-bc8d-a8b5ce4420a0", title: "Meta launches fresh legal challenge over UK’s Online Safety Act", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/c1ba743f-7330-4419-bc8d-a8b5ce4420a0" },
   { id: "f780b2a4-13ff-44ec-8225-cf38d4f0c966", title: "Israel’s settler economy braces for European sanctions", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/f780b2a4-13ff-44ec-8225-cf38d4f0c966" },
@@ -37,7 +42,6 @@ export const FT_ITEMS = [
   { id: "775888b2-47e6-42b4-8146-cfb9caee52d6", title: "AI influx puts Singapore office rents under pressure", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/775888b2-47e6-42b4-8146-cfb9caee52d6" },
   { id: "bcbfe352-9e9f-4ef5-81b2-2e01505b8477", title: "Trump announces ‘AI Force’ as alarm grows over technology’s advance", date: "2026-09-19", time: "20:49", url: "https://www.ft.com/content/bcbfe352-9e9f-4ef5-81b2-2e01505b8477" },
   { id: "3d23b523-e4ae-4917-99bd-9bb5cddf42c2", title: "Michael Marra wins Scottish Labour leadership election", date: "2026-09-19", time: "13:55", url: "https://www.ft.com/content/3d23b523-e4ae-4917-99bd-9bb5cddf42c2" },
-  { id: "07fd42b5-0610-470c-8fb8-4840b5401271", title: "Saudi Arabia sounds air-raid alerts as missile and drone assault intensifies", date: "2026-09-19", time: "13:42", url: "https://www.ft.com/content/07fd42b5-0610-470c-8fb8-4840b5401271" },
   { id: "94ec0fee-53ab-4d7e-9b17-6b05608ad974", title: "Nobel economists throw support behind California billionaire tax", date: "2026-09-19", time: "12:00", url: "https://www.ft.com/content/94ec0fee-53ab-4d7e-9b17-6b05608ad974" },
   { id: "0f972258-ee7d-4742-816a-b1dd7fa29d0e", title: "Forget ‘associate member’, Canada can forge collective resilience with the EU", date: "2026-09-19", time: "11:00", url: "https://www.ft.com/content/0f972258-ee7d-4742-816a-b1dd7fa29d0e" },
   { id: "4e7be0a6-a1fd-4161-9656-faff899e938f", title: "Mark Carney takes his investment pitch from ‘Maple Davos’ to Strasbourg", date: "2026-09-19", time: "11:00", url: "https://www.ft.com/content/4e7be0a6-a1fd-4161-9656-faff899e938f" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "64ee1dec-7b98-40b1-8f50-5fa6bb760cfd", title: "Housebuilders aren’t the only ones who benefit from ‘Help to Buy’", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/64ee1dec-7b98-40b1-8f50-5fa6bb760cfd" },
   { id: "09c2e11c-1632-42e3-8fc6-809468b7f87e", title: "Five ways the Iran energy shock is wrongfooting the world", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/09c2e11c-1632-42e3-8fc6-809468b7f87e" },
   { id: "96d0a206-a37b-4166-b78d-b27ed24f7d57", title: "Investors weigh whether Anthropic can sustain surging revenues post-IPO", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/96d0a206-a37b-4166-b78d-b27ed24f7d57" },
-  { id: "05887f92-c777-48ab-8efa-9a39e7e18a9f", title: "US state department under pressure to disclose Venezuelan oil takings", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/05887f92-c777-48ab-8efa-9a39e7e18a9f" },
-  { id: "e5a76494-71df-4ee0-a85f-b28f2c94ded6", title: "Brussels rebuffs calls for EU-wide digital services tax", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/e5a76494-71df-4ee0-a85f-b28f2c94ded6" },
-  { id: "85bb8ebe-4363-4a2c-920c-93fee2d128a7", title: "UK’s top taxpayer says he would ‘not wish to be reborn’ in Britain", date: "2026-09-18", time: "21:00", url: "https://www.ft.com/content/85bb8ebe-4363-4a2c-920c-93fee2d128a7" },
-  { id: "4cd82226-3d4a-474d-bc3e-de2ed0b1e6f8", title: "Donald Trump bans major US news outlets from White House", date: "2026-09-18", time: "20:20", url: "https://www.ft.com/content/4cd82226-3d4a-474d-bc3e-de2ed0b1e6f8" },
 ];

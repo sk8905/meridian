@@ -39,9 +39,21 @@ export const PUBLISHERS = {
   "jpmpb.jpmorgan.com": "JP Morgan Private Bank",
   "the42.ie": "The 42",
   "equitypartner.substack.com": "Equity Partner",
+  "go.reuters.com": "Reuters",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-reuters-taketrip-hanoilikealocal-20260920",
+    publication: "Reuters",
+    author: null,
+    series: "Take A Trip",
+    title: "Take a trip with Reuters",
+    date: "2026-09-20",
+    time: "09:00",
+    summary: "Your insider's guide to visiting cities around the world — this edition: Dublin, Houston and Paris like a local.",
+    url: "https://app.assets.reuters.com/e/es?s=2124157686&e=835153&elqTrackId=0963df005f1a4a6fadc6e4b76aea8918&elq=07eafbd16889485db3f7e50e695708c4&elqaid=4432&elqat=1&elqak=8AF55B73FA8096E36EC25A2C212F52DD0223BBDA11C6B70450A9FFEEEC5F2D5B4560",
+  },
   {
     id: "nl-guardian-therecap-sweeneymanutdaicricket-20260920",
     publication: "The Guardian",
@@ -470,16 +482,5 @@ export const NEWSLETTERS = [
     time: "05:30",
     summary: "The Fed raises its benchmark rate a quarter-point to 3.75-4%, its first hike since 2023, as Trump demands lower rates; the House passes tougher sanctions and tariff powers on Russian oil buyers; and Trump calls the EU's Canada associate-membership offer a \"hostile act\".",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-warshfedhikingcycle-20260917",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Warsh's Fed soars like a hawk into a hiking cycle",
-    date: "2026-09-17",
-    time: "05:06",
-    summary: "Trump claims that Warsh had to go along.",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-17/warsh-s-fed-soars-like-a-hawk-into-a-hiking-cycle",
   },
 ];
