@@ -43,6 +43,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guardian-therecap-sweeneymanutdaicricket-20260920",
+    publication: "The Guardian",
+    author: null,
+    series: "The Recap",
+    title: "Sydney Sweeney, Manchester United’s form and AI in cricket",
+    date: "2026-09-20",
+    time: "07:46",
+    summary: "The week in sport recapped: England win the Women's Rugby World Cup on home soil, Ryder Cup fallout over abuse of McIlroy, and Palace's late win over Liverpool.",
+    url: "https://www.theguardian.com/email-newsletters",
+  },
+  {
     id: "nl-bbg-thebrink-kennedycentertugofwar-20260919",
     publication: "Bloomberg",
     author: "Suzanne Monyak",
@@ -470,16 +481,5 @@ export const NEWSLETTERS = [
     time: "05:06",
     summary: "Trump claims that Warsh had to go along.",
     url: "https://www.bloomberg.com/opinion/newsletters/2026-09-17/warsh-s-fed-soars-like-a-hawk-into-a-hiking-cycle",
-  },
-  {
-    id: "nl-reuters-tradingday-liftoff-20260916",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Lift off!",
-    date: "2026-09-16",
-    time: "22:00",
-    summary: "One down, how many to go?",
-    url: "https://www.reuters.com/commentary/reuters-open-interest/move-over-real-estate-wall-st-now-drives-us-spending-mcgeever-2026-09-16/",
   },
 ];
