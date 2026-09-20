@@ -1035,10 +1035,11 @@
     .tui .g-hbrief[data-open="false"] .g-hbrief-chev{ transform:rotate(-90deg); }
     .tui .g-hbrief[data-open="false"] .g-hbrief-body{ display:none; }
     .tui .g-hbrief-body{ padding:0 12px 10px; }
-    /* Full summaries — never truncated. To keep the expanded card to one screen
-       (fill it, don't overflow past the feed) the body itself becomes a bounded
-       scroll region; the lede and each bullet show their complete text. */
-    .tui .g-hbrief[data-open="true"] .g-hbrief-body{ max-height:46vh; overflow-y:auto; }
+    /* Full summaries — never truncated and never clipped. The expanded body flows
+       at its natural height (lede + up to four bullets ≈ one screenful): the page
+       scrolls to reveal any remainder, so nothing is ever hidden. An internal
+       scroll region was tried but stranded its scroll position on touch (leaving
+       the top of the lede scrolled out of view), so the body is plain flow. */
     .tui .g-hbrief-lede{ margin:0; font-size:12px; line-height:1.45; color:var(--t-ink); }
     .tui .g-hbrief-list{ list-style:none; margin:6px 0 0; padding:0; }
     .tui .g-hbrief-b{ padding:7px 0; border-top:1px solid var(--t-grid); font-size:11.5px; line-height:1.45; color:var(--t-ink); }
@@ -1196,14 +1197,6 @@
          row once the briefing scrolls past — one extra chip-height below it. Scoped
          to the Home feed (#g-feed) so other desks' day markers keep their offset. */
       .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px) + var(--chip-h, 34px)); z-index:7; }
-      /* Phone: the expanded briefing body fills exactly the space between its own
-         header and the bottom tab bar, then scrolls internally — full summaries,
-         no overflow past the nav. The subtracted stack is header + search band +
-         chips + filter row + briefing header + bottom nav + gaps. The 100vh line
-         is a fallback for engines without dvh. */
-      .tui .g-hbrief[data-open="true"] .g-hbrief-body{
-        max-height:calc(100vh - var(--wire-head-h,60px) - var(--wire-band-h,43px) - var(--chip-h,34px) - 133px);
-        max-height:calc(100dvh - var(--wire-head-h,60px) - var(--wire-band-h,43px) - var(--chip-h,34px) - 133px - env(safe-area-inset-bottom,0px)); }
       }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
