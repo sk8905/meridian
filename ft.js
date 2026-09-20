@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7db29c44-bff4-4fca-9de4-88356a207b01", title: "The perils of productivity numbers", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/7db29c44-bff4-4fca-9de4-88356a207b01" },
+  { id: "6a5789f3-1bf3-4a46-b570-eee84704dd68", title: "Is the Bank of Japan right to fear an overshoot in inflation?", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/6a5789f3-1bf3-4a46-b570-eee84704dd68" },
   { id: "90714056-d364-43d9-9411-9bde92f966b3", title: "Jon Ossoff’s Georgia race stirs talk of 2028 US presidential audition", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/90714056-d364-43d9-9411-9bde92f966b3" },
   { id: "64f90ab8-5fb0-4594-a900-d03e5ca051e3", title: "US retailer rations motor oil as prices quadruple and supplies run dry", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/64f90ab8-5fb0-4594-a900-d03e5ca051e3" },
   { id: "ae6eec6b-94b4-4ef1-bec9-c3f1cb153bb1", title: "Dangote IPO is a test for African capitalism", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/ae6eec6b-94b4-4ef1-bec9-c3f1cb153bb1" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "129a5052-ac31-4975-8a88-91ce09740a0b", title: "How should investors position for the robot apocalypse?", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/129a5052-ac31-4975-8a88-91ce09740a0b" },
   { id: "81064dde-d1eb-49db-ba38-b6e28f334798", title: "Passport to Piddington: a short history of micronations", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/81064dde-d1eb-49db-ba38-b6e28f334798" },
   { id: "64ee1dec-7b98-40b1-8f50-5fa6bb760cfd", title: "Housebuilders aren’t the only ones who benefit from ‘Help to Buy’", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/64ee1dec-7b98-40b1-8f50-5fa6bb760cfd" },
-  { id: "09c2e11c-1632-42e3-8fc6-809468b7f87e", title: "Five ways the Iran energy shock is wrongfooting the world", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/09c2e11c-1632-42e3-8fc6-809468b7f87e" },
-  { id: "96d0a206-a37b-4166-b78d-b27ed24f7d57", title: "Investors weigh whether Anthropic can sustain surging revenues post-IPO", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/96d0a206-a37b-4166-b78d-b27ed24f7d57" },
 ];
