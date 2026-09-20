@@ -243,7 +243,7 @@ function renderHomeBriefing() {
   const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
   const bullets = (s.bullets || []).slice(0, HB_MAX_BULLETS).map((b) =>
-    `<li class="g-hbrief-b">${briefMarkup(b.html)}${b.src ? ` <a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
+    `<li class="g-hbrief-b"><span class="g-hbrief-bt">${briefMarkup(b.html)}</span>${b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
   host.hidden = false;
   host.dataset.open = open ? "true" : "false";
   host.innerHTML =
