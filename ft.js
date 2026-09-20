@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5b315540-3622-4b6b-b305-688668544252", title: "Freedom in adulthood isn’t what you think", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/5b315540-3622-4b6b-b305-688668544252" },
   { id: "023c85fc-db6f-4f1d-b29e-8b41d626e5ed", title: "Lib Dem leader Ed Davey urged to ditch the stunts and get serious", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/023c85fc-db6f-4f1d-b29e-8b41d626e5ed" },
   { id: "44433853-1d29-4b42-b13b-846abe9ffa3b", title: "Chinese owners launch €2.5bn sale of Luxembourg’s oldest bank", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/44433853-1d29-4b42-b13b-846abe9ffa3b" },
   { id: "c1ba743f-7330-4419-bc8d-a8b5ce4420a0", title: "Meta launches fresh legal challenge over UK’s Online Safety Act", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/c1ba743f-7330-4419-bc8d-a8b5ce4420a0" },
