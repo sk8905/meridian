@@ -12,8 +12,8 @@ export const UPDATED = "17 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-19",
-  lastCheckedTime: "21:11 BST",
+  lastChecked: "2026-09-20",
+  lastCheckedTime: "05:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -979,18 +979,18 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-19",
+  updated: "2026-09-20",
   us: [
+    { title: "Trump Says He Expects 'A Lot' of Deals During Xi Summit", source: "Bloomberg", date: "2026-09-18", url: "https://www.bloomberg.com/news/articles/2026-09-18/trump-says-he-expects-a-lot-of-deals-during-xi-summit" },
+    { title: "Stock market next week: Outlook for Sept. 21-25, 2026", source: "CNBC", date: "2026-09-18", url: "https://www.cnbc.com/2026/09/18/stock-market-next-week-outlook-for-sept-21-25-2026.html" },
+    { title: "Stock Market Today (Sept. 18, 2026): Nasdaq, S&P 500 close a touch higher to end Fed hike week", source: "TheStreet", date: "2026-09-18", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-18-2026" },
     { title: "World Economy Latest: Fed Boosts Interest Rates, Signals Another 2026 Hike", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/world-economy-latest-fed-boosts-interest-rates-signals-another-2026-hike" },
     { title: "Hormuz Oil Shipments Hit Six-Month High, US Commander Says", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/hormuz-oil-shipments-hit-six-month-high-us-commander-says" },
-    { title: "Three words from Kevin Warsh have Wall Street wondering how far the Fed will go with rate hikes", source: "CNBC", date: "2026-09-18", url: "https://www.cnbc.com/2026/09/18/three-words-from-kevin-warsh-have-wall-street-wondering-how-far-the-fed-will-go-with-rate-hikes.html" },
-    { title: "Wall Street slips as higher Treasury yields weigh on sentiment", source: "Reuters (via Detroit News)", date: "2026-09-18", url: "https://www.detroitnews.com/story/business/2026/09/18/wall-street-slips-as-higher-treasury-yields-weigh-on-sentiment/91824508007/" },
-    { title: "Triple witching event sees $7 trillion in US options expire", source: "Investing.com", date: "2026-09-18", url: "https://www.investing.com/news/stock-market-news/triple-witching-event-sees-7-trillion-in-us-options-expire-93CH-4907480" },
   ],
   uk: [
     { title: "UK Mansion Tax May Expand to Homes Worth Over £1.5 Million", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/uk-mansion-tax-may-expand-to-homes-worth-over-1-5-million" },
     { title: "Pound Sterling price news and forecast: GBP declines on rising UK fiscal worries", source: "FXStreet", date: "2026-09-19", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-declines-on-rising-uk-fiscal-worries-202509191207" },
-    { title: "BOE Scraps Long-End Gilt Sales in Plan to Unwind QE by 2034", source: "Bloomberg", date: "2026-09-17", url: "https://www.bloomberg.com/news/articles/2026-09-17/boe-scraps-long-end-gilt-sales-in-plan-to-unwind-qe-by-2034" },
+    { title: "Barclays backs November BoE hike, warns Middle East conflict could spur more", source: "Reuters (via Investing.com)", date: "2026-09-18", url: "https://www.investing.com/news/economy-news/barclays-backs-november-boe-hike-warns-middle-east-conflict-could-spur-more-4906680" },
     { title: "UK retail sales rebound in August as department stores recover", source: "Reuters (via Investing.com)", date: "2026-09-18", url: "https://www.investing.com/news/economic-indicators/uk-retail-sales-rebound-in-august-as-department-stores-recover-4906728" },
     { title: "BOE's Balance Sheet Move Eases Repo Pressure, Barclays Says", source: "Bloomberg", date: "2026-09-18", url: "https://www.bloomberg.com/news/articles/2026-09-18/boe-s-balance-sheet-move-eases-repo-pressure-barclays-says" },
   ],
@@ -1004,8 +1004,10 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-19",
+  updated: "2026-09-20",
   items: [
+    {"title": "Trump Says He Expects 'A Lot' of Deals During Xi Summit", "source": "Bloomberg", "date": "2026-09-18", "url": "https://www.bloomberg.com/news/articles/2026-09-18/trump-says-he-expects-a-lot-of-deals-during-xi-summit", "blurb": "President Trump said he expects a raft of agreements when Xi Jinping visits the White House on 24 September, though the May Beijing summit similarly raised expectations for concrete deliverables that largely failed to materialise.", "author": null},
+    {"title": "Stock market next week: Outlook for Sept. 21-25, 2026", "source": "CNBC", "date": "2026-09-18", "url": "https://www.cnbc.com/2026/09/18/stock-market-next-week-outlook-for-sept-21-25-2026.html", "blurb": "Wall Street heads into the week digesting the Fed's hike, with flash September PMIs, a heavy Fed-speaker slate and the Trump-Xi summit as the key catalysts investors are watching for direction.", "author": null},
     {"title": "Trump-Xi summit: What to expect on tariffs, Taiwan, Iran and AI", "source": "Invezz", "date": "2026-09-19", "url": "https://invezz.com/news/2026/09/19/trump-xi-summit-what-to-expect-on-tariffs-taiwan-iran-and-ai/", "blurb": "A curtain-raiser on next week's Washington summit — the expiring Busan tariff truce, rare-earth export controls, AI-safety cooperation and Iran all on the agenda, with Beijing said to be weighing whether a pending Taiwan arms sale derails the visit.", "author": null},
     {"title": "Global Economy Briefing for Saturday, September 19, 2026", "source": "Rio Times Online", "date": "2026-09-19", "url": "https://www.riotimesonline.com/global-economy-briefing-september-19-2026/", "blurb": "A wrap of Friday's close — Wall Street little changed (S&P 500 +0.17%, Dow -0.18%) in a triple-witching session, the 10-year Treasury yield near 5%, gold at a fresh record above $4,380/oz and a busy week ahead including flash PMIs.", "author": null},
     {"title": "World Economy Latest: Fed Boosts Interest Rates, Signals Another 2026 Hike", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/world-economy-latest-fed-boosts-interest-rates-signals-another-2026-hike", "blurb": "A global round-up of the fallout from Wednesday's Fed hike, with the dot plot signalling at least one more 2026 move and other G7 central banks (BoJ, BoE) also in play this week.", "author": null},
@@ -1041,10 +1043,7 @@ export const ARTICLES = {
     {"title": "Bank of England set to defy Fed's rate-hike lead, despite rising inflation", "source": "CNBC", "date": "2026-09-17", "url": "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html", "blurb": "The Bank of England held Bank Rate at 3.75% on Thursday, a day after the Fed's own hike, with the MPC also voting to slow quantitative tightening to roughly £50bn a year from £70bn.", "author": null},
     {"title": "FTSE 100's early promise fades as Bank of England holds rates", "source": "Yahoo Finance UK", "date": "2026-09-17", "url": "https://uk.finance.yahoo.com/news/ftse-100-early-promise-fades-162104275.html", "blurb": "The FTSE 100's early gains faded after the MPC's 6-3 hold, with Governor Bailey flagging upside energy-price risk even as two more sell-side houses moved to explicit November-hike calls.", "author": null},
     {"title": "CNBC Daily Open: The Fed rate hikes might not be one-and-done", "source": "CNBC", "date": "2026-09-17", "url": "https://www.cnbc.com/2026/09/17/cnbc-daily-open-fed-rate-hike-oil-eu-canada.html", "blurb": "Asian markets steadied and Wall Street futures firmed as investors digested the Fed's quarter-point hike to 3.75-4.00%, with Goldman Sachs now pencilling in a second hike in October and oil easing on signs Saudi Arabia's damaged pipeline will restart within days.", "author": null},
-    {"title": "investingLive Asia-Pacific market news: Fed hike fallout dominates", "source": "investingLive", "date": "2026-09-17", "url": "https://investinglive.com/news/investinglive-asia-pacific-market-news-fed-hike-fallout-dominates/", "blurb": "Asian equities rose as the widely-expected Fed hike removed uncertainty and oil steadied on a Saudi pipeline-repair timeline; Goldman Sachs moved its next-hike call to October, Trump plans Gulf talks on Iran next week, and the BoE and BoJ decisions are still to come.", "author": null},
-    {"title": "Bank of England to hold rates but energy shock stirs talk of a hike", "source": "Reuters (via Investing.com)", "date": "2026-09-17", "url": "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-but-energy-shock-stirs-talk-of-a-hike-4904677", "blurb": "The Bank of England looks set to hold Bank Rate at 3.75% on Thursday, a day after the Fed's own hike, but investors are watching for any hint the Iran-war energy shock could force a follow-up move; markets price roughly an 80% chance of a November hike.", "author": null},
     {"title": "US Said to Delay Excess Capacity Tariffs Until After Xi Summit", "source": "Bloomberg", "date": "2026-09-17", "url": "https://www.bloomberg.com/news/articles/2026-09-17/us-said-to-delay-excess-capacity-tariffs-until-after-xi-summit", "blurb": "The US plans to hold off announcing new tariffs on China and other trading partners tied to an 'excess capacity' report — which would recommend a 7.5% tariff on Chinese goods — until after next week's Trump-Xi summit, preserving the threat as negotiating leverage.", "author": null},
-    {"title": "Fed Raises Rates as Warsh Bucks Trump to Contain Inflation", "source": "Bloomberg", "date": "2026-09-16", "url": "https://www.bloomberg.com/news/articles/2026-09-16/fed-raises-rates-as-warsh-bucks-trump-to-contain-inflation", "blurb": "The FOMC hiked 25bp to 3.75-4.00% — its first increase since 2023 — with Chair Warsh's committee citing the Iran-war energy shock and above-target inflation even as President Trump kept pressing for cuts.", "author": null},
   ],
 };
 
