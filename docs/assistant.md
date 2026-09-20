@@ -62,26 +62,33 @@ key at request time. Optional `MISTRAL_MODEL` overrides the default
 > POST `/api/ask` with `{"question":"…","debug":true}` — the response then
 > includes `_debug` (the raw `/v1/conversations` JSON) to inspect the shape.
 
-## C — Propose an edit → PR (research + draft a manager) — LIVE (dormant until keyed)
+## C — Propose an edit → PR (research + draft a manager OR law firm) — LIVE (dormant until keyed)
 
 - **UI:** the **Menu → Coverage** chip (beside the Network importer) — type a
   firm's name and press **Add**. It shows "Researching & drafting…", then the
   opened PR link (or a "couldn't verify that firm" note — it refuses to invent).
   Add is Menu-only (never in the header), so a proposal is a deliberate act.
+- **Both desks:** the flow adds either a **Credit manager** (asset manager / hedge
+  fund / private-credit manager) **or a Legal law firm** — Claude classifies which
+  via a `kind` field (`"manager"` | `"lawfirm"`) and drafts into the matching
+  roster. Only a firm that is neither (a bank, a corporate, a person) or can't be
+  verified returns `found:false`.
 - **Flow (`/api/propose`):** Claude (`claude-opus-5`, `web_search`) researches the
-  firm and returns a JSON draft (`found`, `name`, `hq`, `founded`, `aum`,
-  `aumText`, `strategies`, `description`, `owners`, `sources`, `note`) — every
-  field sourced or `null`; `found:false` if it can't verify a real firm. The
-  Worker then, via the GitHub **Git Data API** (blob → tree → commit → ref —
-  `credit/js/data.js` is ~2.3 MB, over the Contents API's 1 MB read cap, so it is
-  read by blob sha and written as a new tree):
-  1. inserts the draft at the **top** of the `managers` array in
-     `credit/js/data.js` (a stable anchor; next free `m<N>` id; marked
-     `_draft:true`),
+  firm and returns a JSON draft (`found`, `kind`, `name`, `hq`, `founded`, `aum`,
+  `aumText`, `strategies`, `practiceAreas`, `description`, `owners`, `sources`,
+  `note`) — every field sourced or `null`/`[]`; `found:false` if it can't verify a
+  real firm. The Worker then, via the GitHub **Git Data API** (blob → tree →
+  commit → ref — the data files are >1 MB, over the Contents API's read cap, so
+  they are read by blob sha and written as a new tree):
+  1. inserts the draft at the **top** of the matching roster —
+     `managers` in `credit/js/data.js` (next free `m<N>` id) for a manager, or
+     `firms` in `legal/js/data.js` (a name-slug id; `tier`/`london.*`/`pcDeals`
+     left for a reviewer to fill) for a law firm — marked `_draft:true`,
   2. commits that tree and creates branch `claude/add-<slug>-<ts>` pointing at it
      (the insert precedes the branch, so a parse failure leaves no orphan branch),
-  3. opens a **PR against `main` — never committed to `main`, never auto-merged**,
-     with the sources and a "verify every field before merging" warning.
+  3. opens a **PR against `main` — never committed to `main`, never auto-merged**
+     (`Add manager: …` / `Add law firm: …`), with the sources and a "verify every
+     field before merging" warning.
 - **Guards:** POST + verified email; 5 proposals/rolling hour (`propose:<email>`);
   firm string capped at 300 chars. It never touches live data — only a review PR.
 

@@ -154,14 +154,15 @@ export function renderAsk(body, st, opts) {
   const fieldRow = (k, v) => v ? `<div class="na-firm-row"><span class="na-firm-k">${esc(k)}</span><span class="na-firm-v">${v}</span></div>` : "";
   const firmPreview = (d) => {
     d = d || {};
+    const isLaw = d.kind === "lawfirm";
     const aum = d.aumText || (typeof d.aum === "number" ? "~$" + d.aum + "bn" : "");
     const owners = (d.owners || []).filter((o) => o && o.name).map((o) => esc(o.name) + (o.stake ? " (" + esc(o.stake) + ")" : "")).join(", ");
     return `<div class="na-firm-preview">`
-      + fieldRow("HQ", d.hq ? esc(d.hq) : "")
+      + fieldRow(isLaw ? "Head office" : "HQ", d.hq ? esc(d.hq) : "")
       + fieldRow("Founded", (typeof d.founded === "number") ? String(d.founded) : "")
-      + fieldRow("AUM", aum ? esc(aum) : "")
-      + fieldRow("Strategies", (d.strategies || []).length ? esc((d.strategies || []).join(" · ")) : "")
-      + fieldRow("Owners", owners)
+      + (isLaw
+        ? fieldRow("Practice areas", (d.practiceAreas || []).length ? esc((d.practiceAreas || []).join(" · ")) : "")
+        : fieldRow("AUM", aum ? esc(aum) : "") + fieldRow("Strategies", (d.strategies || []).length ? esc((d.strategies || []).join(" · ")) : "") + fieldRow("Owners", owners))
       + (d.description ? `<div class="na-firm-desc">${esc(d.description)}</div>` : "")
       + `</div>`;
   };

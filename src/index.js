@@ -3334,21 +3334,30 @@ async function handleAsk(request, env) {
   return json(out);
 }
 
-// C — "Propose an edit": research a firm, draft a `managers` roster entry, and
-// open a GitHub PR against a claude/… branch for human review. Never writes to
-// main, never auto-merges — so the never-fabricate + test + cache-token discipline
-// stays intact. Dormant until BOTH ANTHROPIC_API_KEY and GITHUB_TOKEN are set.
+// C — "Propose an edit": research a firm, draft a roster entry (a Credit `managers`
+// entry OR a Legal `firms` entry, whichever the firm actually is), and open a GitHub
+// PR against a claude/… branch for human review. Never writes to main, never
+// auto-merges — so the never-fabricate + test + cache-token discipline stays intact.
+// Dormant until BOTH ANTHROPIC_API_KEY and GITHUB_TOKEN are set.
 const PROPOSE_MODEL = "claude-opus-5";
 const PROPOSE_SYSTEM = [
-  "You research a financial firm and draft a Wire 'managers' roster entry as JSON.",
-  "Wire tracks private-credit managers and hedge funds with REAL, sourced data only.",
+  "You research a firm and draft a Wire roster entry as JSON.",
+  "Wire tracks two kinds of firm, with REAL, sourced data only:",
+  '- "manager": an asset manager, hedge fund, or private-credit manager (Credit desk).',
+  '- "lawfirm": a law firm active in private capital / finance / restructuring (Legal desk).',
   "Rules:",
   "- Use web search to find the firm. Every non-null field must be backed by a source.",
-  "- If you cannot verify the firm exists as a real asset manager / hedge fund, set",
-  '  "found": false and explain in "note". NEVER invent a firm or a figure.',
-  "- Unknown fields are null. Keep the description to one or two sentences.",
+  '- Set "kind" to "manager" or "lawfirm" for what the firm ACTUALLY is (a law firm is',
+  '  "lawfirm", NOT found:false).',
+  '- Only if the firm is neither of those (e.g. a bank, a corporate, an index, a person)',
+  '  or you cannot verify it exists, set "found": false and explain in "note". NEVER',
+  "  invent a firm or a figure.",
+  "- Unknown fields are null/[]. Keep the description to one or two sentences.",
+  '- For a "manager", fill aum/aumText/strategies/owners (leave practiceAreas []).',
+  '- For a "lawfirm", fill practiceAreas (leave aum/aumText/strategies/owners empty); hq is',
+  "  the head-office city.",
   "Output ONLY one JSON object, no prose, of exactly this shape:",
-  '{"found":true,"name":"","hq":"","founded":null,"aum":null,"aumText":"","strategies":[],"description":"","owners":[{"name":"","stake":""}],"sources":[{"label":"","url":""}],"note":""}',
+  '{"found":true,"kind":"manager","name":"","hq":"","founded":null,"aum":null,"aumText":"","strategies":[],"practiceAreas":[],"description":"","owners":[{"name":"","stake":""}],"sources":[{"label":"","url":""}],"note":""}',
 ].join("\n");
 
 function parseJsonObject(text) {
@@ -3405,13 +3414,36 @@ function insertManagerDraft(fileText, draft) {
   const insertAt = at + anchor.length;
   return { text: fileText.slice(0, insertAt) + literal + fileText.slice(insertAt), id };
 }
+// Insert a drafted LAW-FIRM entry at the TOP of the legal `firms` array. Legal ids
+// are lowercase slugs (e.g. "cliffordchance"), so slug the name and de-dupe. The
+// nested `london`/`pcDeals` shape is left mostly null for a reviewer to complete;
+// _draft:true marks it, estimated:true flags the figures.
+function insertLawFirmDraft(fileText, draft) {
+  const anchor = "export const firms = [";
+  const at = fileText.indexOf(anchor);
+  if (at < 0) throw new Error("firms array not found in legal/js/data.js");
+  const slug = String(draft.name || "firm").toLowerCase().replace(/\b(llp|ltd|llc|inc|plc|law)\b/g, "").replace(/[^a-z0-9]/g, "").slice(0, 24) || "firm";
+  let id = slug, n = 2;
+  while (new RegExp(`id:\\s*"${id}"`).test(fileText)) { id = slug + n; n++; }
+  const areas = Array.isArray(draft.practiceAreas) ? draft.practiceAreas.filter(Boolean) : [];
+  const sources = Array.isArray(draft.sources) ? draft.sources.filter((s) => s && s.url).map((s) => s.url) : [];
+  const obj = {
+    id, name: draft.name || "", tier: null, insightsUrl: null,
+    london: { lawyers: null, lawyersAsOf: null, areas, revenue: null, revenueBasis: null, revenueAsOf: null, pep: null, pepBasis: null, pepAsOf: null, estimated: true, sources },
+    pcDeals: [], _draft: true,
+  };
+  const literal = "\n  " + JSON.stringify(obj) + ",";
+  const insertAt = at + anchor.length;
+  return { text: fileText.slice(0, insertAt) + literal + fileText.slice(insertAt), id };
+}
 async function proposeManagerPR(env, email, draft, ask) {
   const owner = env.GH_OWNER || "sk8905", repo = env.GH_REPO || "meridian", base = env.GH_BASE || "main";
-  const R = `repos/${owner}/${repo}`, FILE = "credit/js/data.js";
-  // Use the Git Data API throughout: credit/js/data.js is ~2.3 MB, over the
-  // Contents API's 1 MB read cap (which returns empty content), so we read the
-  // blob by sha and write via blob → tree → commit → ref. Do the insert BEFORE
-  // creating the branch so a parse failure never leaves an orphan branch.
+  const isLaw = draft.kind === "lawfirm";
+  const R = `repos/${owner}/${repo}`, FILE = isLaw ? "legal/js/data.js" : "credit/js/data.js";
+  // Use the Git Data API throughout: the data files are >1 MB (over the Contents
+  // API's inline read cap, which returns empty content), so we read the blob by sha
+  // and write via blob → tree → commit → ref. Do the insert BEFORE creating the
+  // branch so a parse failure never leaves an orphan branch.
   const headRef = await gh(env, `${R}/git/ref/heads/${base}`);
   const baseSha = headRef.object.sha;
   const baseCommit = await gh(env, `${R}/git/commits/${baseSha}`);
@@ -3420,7 +3452,7 @@ async function proposeManagerPR(env, email, draft, ask) {
   const meta = await gh(env, `${R}/contents/${FILE}?ref=${base}`);
   let cur = (meta.content && meta.encoding === "base64") ? b64decodeUtf8(meta.content) : "";
   if (!cur && meta.sha) { const blob = await gh(env, `${R}/git/blobs/${meta.sha}`); cur = b64decodeUtf8(blob.content); }
-  const { text: next, id } = insertManagerDraft(cur, draft);
+  const { text: next, id } = isLaw ? insertLawFirmDraft(cur, draft) : insertManagerDraft(cur, draft);
   const newBlob = await gh(env, `${R}/git/blobs`, {
     method: "POST", body: JSON.stringify({ content: b64encodeUtf8(next), encoding: "base64" }),
   });
@@ -3430,20 +3462,27 @@ async function proposeManagerPR(env, email, draft, ask) {
   });
   const commit = await gh(env, `${R}/git/commits`, {
     method: "POST",
-    body: JSON.stringify({ message: `Assistant: draft roster entry for ${draft.name || ask} (${id})`, tree: newTree.sha, parents: [baseSha] }),
+    body: JSON.stringify({ message: `Assistant: draft ${isLaw ? "law-firm" : "roster"} entry for ${draft.name || ask} (${id})`, tree: newTree.sha, parents: [baseSha] }),
   });
-  const slug = (draft.name || ask).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 40) || "manager";
+  const slug = (draft.name || ask).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 40) || (isLaw ? "lawfirm" : "manager");
   const branch = `claude/add-${slug}-${Date.now().toString(36)}`;
   await gh(env, `${R}/git/refs`, { method: "POST", body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: commit.sha }) });
+  const headline = isLaw
+    ? `**${draft.name || ask}** — ${draft.hq || "HQ n/a"}${(draft.practiceAreas || []).length ? " · " + (draft.practiceAreas || []).join(", ") : ""} (${id})`
+    : `**${draft.name || ask}** — ${draft.hq || "HQ n/a"} · AUM ${draft.aumText || (draft.aum ? "~$" + draft.aum + "bn" : "n/a")} (${id})`;
+  const followUp = isLaw
+    ? "> ⚠️ Claude-drafted from public sources. **Verify every field and its citation before merging** (HOUSE_STYLE R7): set the `tier`, fill `london.*` (lawyers, revenue, PEP), add `pcDeals`, reformat to house style, and remove the `_draft` marker. Do not merge unverified."
+    : "> ⚠️ Claude-drafted from public sources. **Verify every field and its citation before merging** (HOUSE_STYLE R7): confirm the figures, fill the `null`s, reformat to house style, and remove the `_draft` marker. Do not merge unverified.";
   const prBody = [
-    `Draft roster entry proposed via **Ask Wire** by ${email}.`, "",
-    `**${draft.name || ask}** — ${draft.hq || "HQ n/a"} · AUM ${draft.aumText || (draft.aum ? "~$" + draft.aum + "bn" : "n/a")} (${id})`,
+    `Draft ${isLaw ? "law-firm (Legal)" : "manager (Credit)"} roster entry proposed via **Ask Wire** by ${email}.`, "",
+    headline,
     draft.description ? "\n" + draft.description : "",
     "", "**Sources**",
     ...((draft.sources || []).filter((s) => s && s.url).map((s) => `- ${s.label || s.url}: ${s.url}`)),
-    "", "> ⚠️ Claude-drafted from public sources. **Verify every field and its citation before merging** (HOUSE_STYLE R7): confirm the figures, fill the `null`s, reformat to house style, and remove the `_draft` marker. Do not merge unverified.",
+    "", followUp,
   ].join("\n");
-  return gh(env, `${R}/pulls`, { method: "POST", body: JSON.stringify({ title: `Add manager: ${draft.name || ask}`, head: branch, base, body: prBody }) });
+  const title = isLaw ? `Add law firm: ${draft.name || ask}` : `Add manager: ${draft.name || ask}`;
+  return gh(env, `${R}/pulls`, { method: "POST", body: JSON.stringify({ title, head: branch, base, body: prBody }) });
 }
 async function handlePropose(request, env) {
   if (request.method !== "POST") return json({ error: "method_not_allowed" }, 405);
@@ -3465,20 +3504,23 @@ async function handlePropose(request, env) {
   if (!draft) return json({ error: "no_draft", message: "Couldn’t draft an entry — try a clearer firm name." });
   if (draft.found === false) return json({ notFound: true, message: draft.note || "Couldn’t verify that firm from public sources." });
 
+  const kind = draft.kind === "lawfirm" ? "lawfirm" : "manager";
   try {
     const pr = await proposeManagerPR(env, email, draft, ask);
     // Return the drafted fields alongside the PR so the app can PREVIEW them for
     // an eyeball check before the reader approves the merge in-app (no GitHub trip).
     const preview = {
+      kind,
       hq: draft.hq || null,
       founded: (typeof draft.founded === "number") ? draft.founded : null,
       aum: (typeof draft.aum === "number") ? draft.aum : null,
       aumText: draft.aumText || null,
       strategies: Array.isArray(draft.strategies) ? draft.strategies : [],
+      practiceAreas: Array.isArray(draft.practiceAreas) ? draft.practiceAreas : [],
       description: draft.description || null,
       owners: Array.isArray(draft.owners) ? draft.owners.filter((o) => o && o.name) : [],
     };
-    return json({ prUrl: pr.html_url, prNumber: pr.number, name: draft.name || ask, draft: preview, sources: res.sources || [] });
+    return json({ prUrl: pr.html_url, prNumber: pr.number, name: draft.name || ask, kind, draft: preview, sources: res.sources || [] });
   } catch (e) {
     return json({ error: "pr_failed", message: "Drafted the entry but couldn’t open the PR: " + String((e && e.message) || e) });
   }

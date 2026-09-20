@@ -267,6 +267,25 @@ check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add")
   "a failed merge shows the reason and keeps the Approve button to retry");
 await pg.unroute("**/api/approve");
 
+// A LAW FIRM can also be added (Legal desk) — the preview shows its practice areas,
+// not AUM/strategies.
+await pg.unroute("**/api/propose");
+await pg.route("**/api/propose", (route) => route.fulfill({
+  status: 200, contentType: "application/json",
+  body: JSON.stringify({ prUrl: "https://github.com/sk8905/meridian/pull/124", prNumber: 124, name: "Proskauer Rose LLP", kind: "lawfirm",
+    draft: { kind: "lawfirm", hq: "New York", founded: 1875, practiceAreas: ["Private credit", "Fund finance", "Restructuring"], description: "A law firm active in private capital and restructuring." },
+    sources: [{ url: "https://example.com/", title: "Example" }] }),
+}));
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); c.querySelector(".na-ask-in").value = "Proskauer Rose LLP"; c.querySelector(".na-ask-add").click(); });
+await pg.waitForTimeout(500);
+const lawPreview = await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); return {
+  a: (c.querySelector(".na-ask-answer") || {}).textContent || "",
+  preview: (c.querySelector(".na-firm-preview") || {}).textContent || "",
+}; });
+check(lawPreview.a.includes("Proskauer"), "Add accepts a law firm (drafts a Legal-desk entry)");
+check(/Practice areas/i.test(lawPreview.preview) && /Private credit/.test(lawPreview.preview) && !/AUM/i.test(lawPreview.preview),
+  `the law-firm preview shows practice areas, not AUM (${lawPreview.preview.replace(/\s+/g, " ").trim().slice(0, 90)})`);
+
 await pg.unroute("**/api/propose");
 await pg.route("**/api/propose", (route) => route.fulfill({
   status: 200, contentType: "application/json",
