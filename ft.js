@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "05a7292e-4931-4631-8f77-164fb727c203", title: "AI is a powerful but problematic new collaborator in mathematics", date: "2026-09-20", time: "14:00", url: "https://www.ft.com/content/05a7292e-4931-4631-8f77-164fb727c203" },
   { id: "bbf1d846-7d89-45f6-8c0f-1fba1e334b4b", title: "Chevron plans drilling spree as it overhauls oil and gas search", date: "2026-09-20", time: "13:00", url: "https://www.ft.com/content/bbf1d846-7d89-45f6-8c0f-1fba1e334b4b" },
   { id: "bfe6fc60-51b3-41f0-b6c9-32583735150e", title: "CATL develops pick-up truck batteries for US despite trade barriers", date: "2026-09-20", time: "12:58", url: "https://www.ft.com/content/bfe6fc60-51b3-41f0-b6c9-32583735150e" },
   { id: "2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae", title: "Ukraine hits Moscow with ‘largest ever’ drone attack", date: "2026-09-20", time: "12:32", url: "https://www.ft.com/content/2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae" },
@@ -59,7 +60,4 @@ export const FT_ITEMS = [
   { id: "124c1cf0-4885-495c-a907-a5217d589f9d", title: "Unpacking the real fiscal costs of immigration", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/124c1cf0-4885-495c-a907-a5217d589f9d" },
   { id: "b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5", title: "The Anglo-French moment", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5" },
   { id: "a82a42a4-8f80-4569-a706-e7278c088d4d", title: "South Africa’s ANC fails to register 181 local election candidates", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/a82a42a4-8f80-4569-a706-e7278c088d4d" },
-  { id: "527bad1f-53a2-482c-b06b-ae3484993144", title: "Dry British summers raise hopes of homegrown chickpeas", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/527bad1f-53a2-482c-b06b-ae3484993144" },
-  { id: "129a5052-ac31-4975-8a88-91ce09740a0b", title: "How should investors position for the robot apocalypse?", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/129a5052-ac31-4975-8a88-91ce09740a0b" },
-  { id: "81064dde-d1eb-49db-ba38-b6e28f334798", title: "Passport to Piddington: a short history of micronations", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/81064dde-d1eb-49db-ba38-b6e28f334798" },
 ];
