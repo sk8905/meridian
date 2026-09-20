@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "66623b14-f679-48ad-85a5-5d75f1cc8c17", title: "A UN gathering notable for its absences", date: "2026-09-20", time: "18:15", url: "https://www.ft.com/content/66623b14-f679-48ad-85a5-5d75f1cc8c17" },
   { id: "d9e6c07e-7d84-4e41-a9a2-0d0ac2319dd2", title: "Multilateralism is not idealism, it is a necessity", date: "2026-09-20", time: "18:00", url: "https://www.ft.com/content/d9e6c07e-7d84-4e41-a9a2-0d0ac2319dd2" },
   { id: "d74ce82a-2a15-404a-ae3a-3921e887bab3", title: "German chancellor Merz's CDU party set to suffer heavy losses in regional elections", date: "2026-09-20", time: "17:24", url: "https://www.ft.com/content/d74ce82a-2a15-404a-ae3a-3921e887bab3" },
   { id: "33b317b4-cd7b-486a-8707-4d65db837c6d", title: "Trump says 250ft arch will be ‘military complex’ with drones and snipers", date: "2026-09-20", time: "16:43", url: "https://www.ft.com/content/33b317b4-cd7b-486a-8707-4d65db837c6d" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "4e7be0a6-a1fd-4161-9656-faff899e938f", title: "Mark Carney takes his investment pitch from ‘Maple Davos’ to Strasbourg", date: "2026-09-19", time: "11:00", url: "https://www.ft.com/content/4e7be0a6-a1fd-4161-9656-faff899e938f" },
   { id: "4d6a552e-67de-4c62-a928-c3e7b48827fc", title: "Chart of the Week: Higher rates, meet indebted consumers", date: "2026-09-19", time: "10:30", url: "https://www.ft.com/content/4d6a552e-67de-4c62-a928-c3e7b48827fc" },
   { id: "40222e79-3ee7-4388-8362-7d06c7f71f69", title: "On takes aim at ailing Nike with Mbappé transfer coup", date: "2026-09-19", time: "09:00", url: "https://www.ft.com/content/40222e79-3ee7-4388-8362-7d06c7f71f69" },
-  { id: "12ea81a9-d806-4997-b0da-ddec093bbe20", title: "Over-80s turn to annuities as rates climb", date: "2026-09-19", time: "06:13", url: "https://www.ft.com/content/12ea81a9-d806-4997-b0da-ddec093bbe20" },
 ];
