@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7f11afae-c4e3-4054-a65b-873f3647f563", title: "Big Tech uses guarantees to keep $300bn of AI exposure off balance sheets", date: "2026-09-20", time: "08:00", url: "https://www.ft.com/content/7f11afae-c4e3-4054-a65b-873f3647f563" },
   { id: "5b315540-3622-4b6b-b305-688668544252", title: "Freedom in adulthood isn’t what you think", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/5b315540-3622-4b6b-b305-688668544252" },
   { id: "023c85fc-db6f-4f1d-b29e-8b41d626e5ed", title: "Lib Dem leader Ed Davey urged to ditch the stunts and get serious", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/023c85fc-db6f-4f1d-b29e-8b41d626e5ed" },
   { id: "44433853-1d29-4b42-b13b-846abe9ffa3b", title: "Chinese owners launch €2.5bn sale of Luxembourg’s oldest bank", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/44433853-1d29-4b42-b13b-846abe9ffa3b" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "4cd82226-3d4a-474d-bc3e-de2ed0b1e6f8", title: "Donald Trump bans major US news outlets from White House", date: "2026-09-18", time: "20:20", url: "https://www.ft.com/content/4cd82226-3d4a-474d-bc3e-de2ed0b1e6f8" },
   { id: "2c59513f-e323-4b29-a3b1-d9e083946978", title: "Keir Starmer looked at softening £100,000 ‘tax trap’ for higher earners", date: "2026-09-18", time: "18:39", url: "https://www.ft.com/content/2c59513f-e323-4b29-a3b1-d9e083946978" },
   { id: "99b7000e-d977-457b-baf3-64f2931b044c", title: "PizzaExpress cooks up sale at up to £500mn valuation", date: "2026-09-18", time: "18:24", url: "https://www.ft.com/content/99b7000e-d977-457b-baf3-64f2931b044c" },
-  { id: "cd4e4514-944b-4919-a245-d8013734b8a0", title: "Gavin Newsom advances AI ‘kill switch’ in response to safety fears", date: "2026-09-18", time: "18:12", url: "https://www.ft.com/content/cd4e4514-944b-4919-a245-d8013734b8a0" },
 ];
