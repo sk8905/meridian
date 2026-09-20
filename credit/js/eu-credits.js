@@ -172,6 +172,10 @@ export const EUR_CREDITS = [
   { name: "TITAN Cement Group", sector: "Building & Construction", rating: "BB+", agency: "S&P", asOf: "2025-11-07", jurisdiction: "Greece", trend: "up", source: "https://www.businesswire.com/news/home/20251107706563/en/TITAN-Groups-Credit-Rating-Improved-to-BB-with-Positive-Outlook-by-SP-Global-Ratings" },
   { name: "TK Elevator", sector: "Industrials", rating: "B", agency: "S&P", asOf: "2026-05-06", jurisdiction: "Germany", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3557474" },
   { name: "Aston Martin Lagonda", sector: "Automotive", rating: "CCC+", agency: "S&P", asOf: "2026-08-07", jurisdiction: "United Kingdom", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3607639" },
+  // —— Sector-sweep additions (2026-09-20).
+  { name: "Rexel", sector: "Industrials", rating: "BB+", agency: "S&P", asOf: "2025-07-08", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3483175/" },
+  { name: "Aggreko (Albion Holdco)", sector: "Energy & Utilities", rating: "BB-", agency: "S&P", asOf: "2025-05-13", jurisdiction: "United Kingdom", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101623864" },
+  { name: "Trivium Packaging", sector: "Packaging", rating: "B", agency: "S&P", asOf: "2024-11-14", jurisdiction: "Netherlands", trend: "flat", source: "https://cbonds.com/news/3166305/" },
 ];
 
 // Group the roster by sector, in CREDIT_SECTORS order; unknown sectors fall to
