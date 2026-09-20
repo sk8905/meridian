@@ -581,11 +581,17 @@ quiet slot gets a short output, not padding.
   bullets — they have their own surfaces). Tag each bullet's `<strong>` lead with
   its desk (`Macro — …`, `Equities — …`, `Fixed income — …`). Order the bullets
   so the first four — the only ones the Home card renders (`HB_MAX_BULLETS`, one
-  iPhone screen) — cover all three desks. Draw material from the macro `SUMMARY`/
+  iPhone screen) — cover all three desks. **One section per desk:** the card groups
+  same-desk bullets under a SINGLE kicker, so a desk with two stories (e.g. two
+  `Macro —` items) shows one "Macro" section with both items beneath — never a
+  repeated kicker. Keep same-desk items adjacent so they group cleanly; each keeps
+  its own `src`. Draw material from the macro `SUMMARY`/
   `COMMENTARY`/`IND_KEYMOMENTS`/`FX_KEYMOMENT`, the `EQ_INDICES` key moments and
   earnings calendar, and public rates/gilt/Treasury items — all already sourced.
-  Keep the lede tight: it is clamped to three lines, so lead with the day's arc,
-  not a comma-spliced list.
+  **The lede is a top-line synthesis of the day's arc — NOT a restatement of the
+  bullets:** never repeat a bullet's lead sentence or specific claim verbatim in the
+  lede. Keep it tight (the card shows it in full), and lead with the arc, not a
+  comma-spliced list.
   The Home briefing card shows an **accent unread dot** (while collapsed) whenever
   the latest slot's `(date · time)` stamp differs from the one the reader last saw,
   so bumping a slot's `time` on regenerate is what re-lights the dot — always stamp

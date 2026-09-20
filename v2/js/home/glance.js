@@ -231,6 +231,12 @@ function _markBriefRead(k) { const id = _briefIdentity(k); if (!id) return; cons
 function _briefUnread() { const k = _briefLatest(); const id = _briefIdentity(k); return !!id && _briefReadMap()[k] !== id; }
 // Compact freshness date: "18 Sep".
 function _briefDate(d) { const t = Date.parse((d || "") + "T00:00:00"); if (!t) return d || ""; const dt = new Date(t); return `${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`; }
+// A bullet's desk = the "<strong>Macro &mdash; …</strong>" lead word(s), lower-cased,
+// used only to group same-desk bullets into one section. No kicker → its own group.
+function _briefDesk(html) { const m = String(html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/); return m ? m[1].trim().toLowerCase() : "\0" + String(html || "").slice(0, 40); }
+// Drop the leading "Desk &mdash; " label from a same-desk follow-on item, keeping the
+// rest of its bold headline — so the kicker isn't repeated within a grouped section.
+function _stripDesk(html) { return String(html || "").replace(/^(\s*<strong>)\s*[^<]*?\s*(?:&mdash;|—)\s*/, "$1"); }
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
@@ -242,8 +248,24 @@ function renderHomeBriefing() {
   if (open) _markBriefRead(key);                          // visible + expanded = read
   const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
-  const bullets = (s.bullets || []).slice(0, HB_MAX_BULLETS).map((b) =>
-    `<li class="g-hbrief-b"><span class="g-hbrief-bt">${briefMarkup(b.html)}</span>${b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
+  // Group the rendered bullets by desk so each desk is ONE section (Macro,
+  // Equities, Fixed income) even when a desk carries more than one story: the
+  // orange kicker shows once, and every item keeps its own sourced line so
+  // grounding (R7) is never lost. Desk order follows first appearance.
+  const groups = [];
+  const byDesk = new Map();
+  for (const b of (s.bullets || []).slice(0, HB_MAX_BULLETS)) {
+    const desk = _briefDesk(b.html);
+    let g = byDesk.get(desk);
+    if (!g) { g = { items: [] }; byDesk.set(desk, g); groups.push(g); }
+    g.items.push(b);
+  }
+  const _src = (b) => b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : "";
+  const bullets = groups.map((g) => {
+    const lines = g.items.map((b, i) =>
+      `<span class="g-hbrief-bt${i ? " g-hbrief-sub" : ""}">${briefMarkup(i ? _stripDesk(b.html) : b.html)}</span>${_src(b)}`).join("");
+    return `<li class="g-hbrief-b">${lines}</li>`;
+  }).join("");
   host.hidden = false;
   host.dataset.open = open ? "true" : "false";
   host.innerHTML =

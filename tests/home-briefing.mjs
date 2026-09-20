@@ -22,7 +22,10 @@ const b = await launchChromium();
     const el = document.getElementById("g-hbrief");
     const feedHead = document.getElementById("g-feed-head");
     const wrap = document.querySelector(".g-feed-wrap");
-    const bullets = [...el.querySelectorAll(".g-hbrief-b")];
+    const sections = [...el.querySelectorAll(".g-hbrief-b")];
+    const items = [...el.querySelectorAll(".g-hbrief-bt")];
+    const srcs = [...el.querySelectorAll(".g-hbrief-src")];
+    const kickers = [...el.querySelectorAll(".g-hbrief-b .nb-topic")].map((k) => k.textContent.trim().toLowerCase());
     const box = (n) => { const b = n.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom) }; };
     return {
       shown: !el.hidden && getComputedStyle(el).display !== "none",
@@ -30,9 +33,15 @@ const b = await launchChromium();
       slots: el.querySelectorAll(".g-hbrief-slot").length,
       when: (el.querySelector(".g-hbrief-when") || {}).textContent || "",
       hasLede: !!el.querySelector(".g-hbrief-lede"),
-      bullets: bullets.length,
-      hasKicker: !!el.querySelector(".g-hbrief-b .nb-topic"),
-      allSourced: bullets.length > 0 && bullets.every((li) => /^https?:\/\//.test((li.querySelector(".g-hbrief-src") || {}).getAttribute?.("href") || "")),
+      sections: sections.length,
+      itemCount: items.length,
+      hasKicker: kickers.length > 0,
+      // Every item (including a grouped desk's follow-on items) links a real source.
+      allSourced: items.length > 0 && srcs.length === items.length && srcs.every((a) => /^https?:\/\//.test(a.getAttribute("href") || "")),
+      // ONE section per desk: exactly one kicker per section, and no desk repeats.
+      kickers,
+      oneKickerPerSection: kickers.length === sections.length,
+      kickersUnique: new Set(kickers).size === kickers.length,
       insideWrap: !!wrap && wrap.contains(el),
       belowFilter: feedHead ? box(el).top >= box(feedHead).bottom - 2 : false,
       open: el.dataset.open,
@@ -42,9 +51,10 @@ const b = await launchChromium();
   check(/briefing/i.test(r.title), `desktop: the card is titled "Market briefing" (${r.title})`);
   checkEq(r.slots, 0, "desktop: NO slot selector — only the latest brief is shown");
   check(/\d/.test(r.when), `desktop: the header shows the brief's freshness stamp (${r.when})`);
-  check(r.hasLede && r.bullets >= 1 && r.bullets <= 4, `desktop: a lede + up to four bullets (${r.bullets})`);
+  check(r.hasLede && r.sections >= 1 && r.sections <= 3, `desktop: a lede + one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
   check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
-  check(r.allSourced, "desktop: every bullet links a real source (grounding, R7)");
+  check(r.allSourced, "desktop: every item links a real source (grounding, R7)");
+  check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated kicker (${r.kickers.join(", ")})`);
   check(r.insideWrap && r.belowFilter, "desktop: the card sits inside the News column, below the 'Today' filter row");
   check(r.open === "false", "desktop: the card is collapsed by default");
 
@@ -72,6 +82,27 @@ const b = await launchChromium();
     return { shownLen: shown.trim().length, match: !!slots[freshest] && key12(shown) === key12(slots[freshest].lede) };
   });
   check(latest.shownLen > 0 && latest.match, "desktop: the shown briefing is the latest available version");
+
+  // The lede is a synthesis, NOT a restatement: no bullet's lead sentence (after its
+  // "Desk —" kicker) is copied verbatim into the lede. A ~28-char normalised run of a
+  // bullet lead appearing in the lede would mean ~5+ words lifted straight in.
+  const restate = await pg.evaluate(async () => {
+    const m = await import("/briefings.js");
+    const B = m.BRIEFINGS || {}, slots = B.slots || {};
+    const order = (B.order || []).filter((k) => slots[k]);
+    const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
+    const k = order.reduce((b, x) => (stamp(x) > stamp(b) ? x : b), order[0]);
+    const s = slots[k]; if (!s) return { ok: true, hit: "" };
+    const norm = (t) => String(t || "").replace(/<[^>]+>/g, " ").replace(/&[a-z]+;|&#\d+;/gi, " ").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const lede = norm(s.lede);
+    let hit = "";
+    for (const b of (s.bullets || [])) {
+      const lead = norm(String(b.html || "").replace(/^\s*<strong>\s*[^<]*?\s*(?:&mdash;|—)\s*/, "")).slice(0, 28);
+      if (lead.length >= 20 && lede.includes(lead)) { hit = lead; break; }
+    }
+    return { ok: !hit, hit };
+  });
+  check(restate.ok, `desktop: the lede does not restate a bullet verbatim${restate.hit ? ` (found "${restate.hit}")` : ""}`);
 
   checkErrs(errs, "home briefing (desktop)");
   await ctx.close();

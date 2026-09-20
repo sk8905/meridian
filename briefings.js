@@ -14,6 +14,10 @@
 // surfaces). Every slot touches all three, and each bullet's <strong> lead is
 // tagged with its desk. The first four bullets are the ones the Home card renders
 // (HB_MAX_BULLETS — one iPhone screen), so they carry the three-desk spread.
+// ONE SECTION PER DESK: the card groups bullets by their desk lead, so a desk that
+// carries two stories (e.g. two Macro items) shows a SINGLE "Macro" kicker with both
+// items beneath it — never a repeated kicker. Author each item with its own desk
+// lead and source; the render folds same-desk items into one section.
 // Equities & Fixed income bullets LEAD WITH THE MOVE AND ITS DRIVER — the index
 // or yield change, then the specific catalyst behind it (a stock, a data print,
 // an issuance event) — not a standing description.
@@ -24,7 +28,9 @@
 // short briefing, never padding. Both the `lede` and each bullet `html` are
 // authored, trusted HTML (entities like &pound;/&mdash; render). Served no-cache +
 // tokenless (see _headers), so a routine refresh is picked up without a code token
-// bump (HOUSE_STYLE T1); the lede is clamped to three lines, so lead with the arc.
+// bump (HOUSE_STYLE T1). The lede is a TOP-LINE SYNTHESIS of the day's arc — it must
+// NOT restate the bullets: no bullet's lead sentence or specific claim is repeated
+// verbatim in the lede. Keep it tight (the card shows it in full).
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
@@ -35,7 +41,7 @@ export const BRIEFINGS = {
       label: "Morning",
       date: "2026-09-20",
       time: "08:22 BST",
-      lede: "Treasury Secretary Bessent and China's He Lifeng opened talks on AI, trade and critical minerals in New York ahead of Thursday's Trump-Xi summit, as Wall Street heads into the week still digesting the Fed's hike to 3.75&ndash;4.00% with 30-year mortgage rates near 7% and the 10-year Treasury yield still close to 5%, while the Bank of England's gilt-sale pause keeps easing repo-market pressure.",
+      lede: "The week opens with US-China negotiators meeting in New York before Thursday's Trump-Xi summit, a heavy slate of flash PMIs and Fed speakers ahead; markets are still digesting last week's Fed hike, with long-term borrowing costs elevated and US stocks coming off a third losing week.",
       bullets: [
         { html: "<strong>Macro &mdash; Treasury Secretary Bessent and China's He Lifeng opened talks on AI, trade and critical minerals in New York</strong>, at JPMorgan's Manhattan headquarters, teeing up potential agreements ahead of Thursday's Trump-Xi summit, with the expiring US-China trade truce and China's rare-earth supply among the key sticking points.", src: "https://www.cnbc.com/2026/09/20/bessent-chinas-he-to-hold-talks-on-ai-trade-minerals-reuters.html", srcName: "CNBC (Reuters)" },
         { html: "<strong>Equities &mdash; Wall Street closed a third straight losing week Friday</strong>: the S&amp;P 500 rose 0.17% to 7,650.50 and the Nasdaq gained 0.39% to 26,522.55, but the Dow slipped 0.18% to 51,682.64 in a ~$7tn triple-witching session, with the 10-year Treasury yield still near 5%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html", srcName: "Yahoo Finance" },
@@ -48,7 +54,7 @@ export const BRIEFINGS = {
       label: "Afternoon",
       date: "2026-09-20",
       time: "12:20 BST",
-      lede: "Treasury Secretary Bessent and China's He Lifeng are holding talks on AI, trade and critical minerals in New York, with Trump saying he expects &ldquo;a lot&rdquo; of deals at Thursday's Trump-Xi summit, as Hormuz oil shipments hit a six-month high and the Fed's dot plot keeps a second 2026 hike live; Wall Street heads into the new week nursing a third straight losing week and Treasury yields near 5%, while Barclays now backs a November Bank of England hike even as sterling stays pressured by UK fiscal worries.",
+      lede: "US-China talks in New York set up Thursday's Trump-Xi summit as the week's pivot, while a hawkish Fed dot plot and firmer Gulf oil flows underpin yields; Wall Street limps in from a third down week with Treasury yields near 5%.",
       bullets: [
         { html: "<strong>Macro &mdash; Treasury Secretary Bessent and China's He Lifeng opened talks on AI, trade and critical minerals in New York</strong>, at JPMorgan's Manhattan headquarters, teeing up potential agreements ahead of Thursday's Trump-Xi summit, with the expiring US-China trade truce and China's rare-earth supply among the key sticking points.", src: "https://www.cnbc.com/2026/09/20/bessent-chinas-he-to-hold-talks-on-ai-trade-minerals-reuters.html", srcName: "CNBC (Reuters)" },
         { html: "<strong>Equities &mdash; Wall Street closed a third straight losing week Friday</strong>: the S&amp;P 500 rose 0.17% to 7,650.50 and the Nasdaq gained 0.39% to 26,522.55, but the Dow slipped 0.18% to 51,682.64 in a ~$7tn triple-witching session, with the 10-year Treasury yield still near 5%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html", srcName: "Yahoo Finance" },
@@ -61,7 +67,7 @@ export const BRIEFINGS = {
       label: "Evening",
       date: "2026-09-20",
       time: "21:11 BST",
-      lede: "Bessent and China's He Lifeng resumed trade talks in New York on Sunday ahead of Thursday's Trump-Xi summit, as Wall Street sits on a third straight losing week and elevated Treasury yields into the new week, Barclays doubles down on its call for a November Bank of England hike, and UK 30-year gilts near their highest since 1998 keep squeezing Chancellor Healey's Budget headroom.",
+      lede: "Trade dominates the run-up to Thursday's Trump-Xi summit, with US-China officials back at the table in New York; underneath, a third straight down week for US stocks, soft consumer confidence and UK borrowing costs at multi-decade highs frame a cautious, tightening-tilted backdrop into the autumn Budget.",
       bullets: [
         { html: "<strong>Macro &mdash; US and Chinese officials resumed trade talks in New York on Sunday</strong> ahead of Thursday's Trump-Xi summit in Washington, with AI guardrails, critical minerals and the expiring tariff truce among the open items, Reuters reports.", src: "https://www.bloomberg.com/news/articles/2026-09-20/us-china-begin-trade-talks-in-new-york-ahead-of-trump-xi-summit", srcName: "Bloomberg" },
         { html: "<strong>Equities &mdash; Wall Street closed a third straight losing week Friday in a ~$7tn triple-witching session</strong>: the S&amp;P 500 rose 0.17% to 7,650.50 and the Nasdaq gained 0.39% to 26,522.55, but the Dow slipped 0.18% to 51,682.64.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html", srcName: "Yahoo Finance" },
