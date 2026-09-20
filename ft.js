@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bbf1d846-7d89-45f6-8c0f-1fba1e334b4b", title: "Chevron plans drilling spree as it overhauls oil and gas search", date: "2026-09-20", time: "13:00", url: "https://www.ft.com/content/bbf1d846-7d89-45f6-8c0f-1fba1e334b4b" },
+  { id: "bfe6fc60-51b3-41f0-b6c9-32583735150e", title: "CATL develops pick-up truck batteries for US despite trade barriers", date: "2026-09-20", time: "12:58", url: "https://www.ft.com/content/bfe6fc60-51b3-41f0-b6c9-32583735150e" },
+  { id: "2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae", title: "Ukraine hits Moscow with ‘largest ever’ drone attack", date: "2026-09-20", time: "12:32", url: "https://www.ft.com/content/2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae" },
   { id: "7db29c44-bff4-4fca-9de4-88356a207b01", title: "The perils of productivity numbers", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/7db29c44-bff4-4fca-9de4-88356a207b01" },
   { id: "6a5789f3-1bf3-4a46-b570-eee84704dd68", title: "Is the Bank of Japan right to fear an overshoot in inflation?", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/6a5789f3-1bf3-4a46-b570-eee84704dd68" },
   { id: "90714056-d364-43d9-9411-9bde92f966b3", title: "Jon Ossoff’s Georgia race stirs talk of 2028 US presidential audition", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/90714056-d364-43d9-9411-9bde92f966b3" },
@@ -59,5 +62,4 @@ export const FT_ITEMS = [
   { id: "527bad1f-53a2-482c-b06b-ae3484993144", title: "Dry British summers raise hopes of homegrown chickpeas", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/527bad1f-53a2-482c-b06b-ae3484993144" },
   { id: "129a5052-ac31-4975-8a88-91ce09740a0b", title: "How should investors position for the robot apocalypse?", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/129a5052-ac31-4975-8a88-91ce09740a0b" },
   { id: "81064dde-d1eb-49db-ba38-b6e28f334798", title: "Passport to Piddington: a short history of micronations", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/81064dde-d1eb-49db-ba38-b6e28f334798" },
-  { id: "64ee1dec-7b98-40b1-8f50-5fa6bb760cfd", title: "Housebuilders aren’t the only ones who benefit from ‘Help to Buy’", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/64ee1dec-7b98-40b1-8f50-5fa6bb760cfd" },
 ];
