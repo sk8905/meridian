@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "33b317b4-cd7b-486a-8707-4d65db837c6d", title: "Trump says 250ft arch will be ‘military complex’ with drones and snipers", date: "2026-09-20", time: "16:43", url: "https://www.ft.com/content/33b317b4-cd7b-486a-8707-4d65db837c6d" },
+  { id: "f4535bd7-7c23-4eb7-b306-43dab2772dd3", title: "Andy Burnham hopes to build bridges with Donald Trump at first meeting", date: "2026-09-20", time: "16:37", url: "https://www.ft.com/content/f4535bd7-7c23-4eb7-b306-43dab2772dd3" },
+  { id: "f37d9712-009a-4573-b268-a438b4c7502b", title: "Labour MPs warn against mansion tax change in Budget", date: "2026-09-20", time: "16:27", url: "https://www.ft.com/content/f37d9712-009a-4573-b268-a438b4c7502b" },
   { id: "3fcee89f-b69d-4f4b-a944-39fe1c214fb8", title: "Wall Street expects US to issue about $1tn of short-term debt as borrowing costs climb", date: "2026-09-20", time: "16:00", url: "https://www.ft.com/content/3fcee89f-b69d-4f4b-a944-39fe1c214fb8" },
   { id: "70edaf6d-0f25-47a8-a1a4-8724cf92c2d9", title: "Disability-related disputes drive surge in demand for workplace conciliation", date: "2026-09-20", time: "16:00", url: "https://www.ft.com/content/70edaf6d-0f25-47a8-a1a4-8724cf92c2d9" },
   { id: "05a7292e-4931-4631-8f77-164fb727c203", title: "AI is a powerful but problematic new collaborator in mathematics", date: "2026-09-20", time: "14:00", url: "https://www.ft.com/content/05a7292e-4931-4631-8f77-164fb727c203" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "40222e79-3ee7-4388-8362-7d06c7f71f69", title: "On takes aim at ailing Nike with Mbappé transfer coup", date: "2026-09-19", time: "09:00", url: "https://www.ft.com/content/40222e79-3ee7-4388-8362-7d06c7f71f69" },
   { id: "12ea81a9-d806-4997-b0da-ddec093bbe20", title: "Over-80s turn to annuities as rates climb", date: "2026-09-19", time: "06:13", url: "https://www.ft.com/content/12ea81a9-d806-4997-b0da-ddec093bbe20" },
   { id: "d6f2132e-bc98-44cb-add0-aa306909ce6b", title: "Admit it — is this your worst financial habit?", date: "2026-09-19", time: "05:54", url: "https://www.ft.com/content/d6f2132e-bc98-44cb-add0-aa306909ce6b" },
-  { id: "c0cd359d-df84-4208-a789-ffa864b43666", title: "AI chatbots give wrong answers to financial queries ‘most of the time’", date: "2026-09-19", time: "05:49", url: "https://www.ft.com/content/c0cd359d-df84-4208-a789-ffa864b43666" },
-  { id: "77f042f0-80c2-40ad-a4d1-9da0367827ee", title: "Thirty years of buy-to-let: does it have a future?", date: "2026-09-19", time: "05:24", url: "https://www.ft.com/content/77f042f0-80c2-40ad-a4d1-9da0367827ee" },
-  { id: "124c1cf0-4885-495c-a907-a5217d589f9d", title: "Unpacking the real fiscal costs of immigration", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/124c1cf0-4885-495c-a907-a5217d589f9d" },
-  { id: "b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5", title: "The Anglo-French moment", date: "2026-09-19", time: "05:00", url: "https://www.ft.com/content/b6c4501e-76fe-4559-a3c3-6ad7aa07eaa5" },
 ];
