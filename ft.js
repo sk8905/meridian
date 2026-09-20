@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d9e6c07e-7d84-4e41-a9a2-0d0ac2319dd2", title: "Multilateralism is not idealism, it is a necessity", date: "2026-09-20", time: "18:00", url: "https://www.ft.com/content/d9e6c07e-7d84-4e41-a9a2-0d0ac2319dd2" },
+  { id: "d74ce82a-2a15-404a-ae3a-3921e887bab3", title: "German chancellor Merz's CDU party set to suffer heavy losses in regional elections", date: "2026-09-20", time: "17:24", url: "https://www.ft.com/content/d74ce82a-2a15-404a-ae3a-3921e887bab3" },
   { id: "33b317b4-cd7b-486a-8707-4d65db837c6d", title: "Trump says 250ft arch will be ‘military complex’ with drones and snipers", date: "2026-09-20", time: "16:43", url: "https://www.ft.com/content/33b317b4-cd7b-486a-8707-4d65db837c6d" },
   { id: "f4535bd7-7c23-4eb7-b306-43dab2772dd3", title: "Andy Burnham hopes to build bridges with Donald Trump at first meeting", date: "2026-09-20", time: "16:37", url: "https://www.ft.com/content/f4535bd7-7c23-4eb7-b306-43dab2772dd3" },
   { id: "f37d9712-009a-4573-b268-a438b4c7502b", title: "Labour MPs warn against mansion tax change in Budget", date: "2026-09-20", time: "16:27", url: "https://www.ft.com/content/f37d9712-009a-4573-b268-a438b4c7502b" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "4d6a552e-67de-4c62-a928-c3e7b48827fc", title: "Chart of the Week: Higher rates, meet indebted consumers", date: "2026-09-19", time: "10:30", url: "https://www.ft.com/content/4d6a552e-67de-4c62-a928-c3e7b48827fc" },
   { id: "40222e79-3ee7-4388-8362-7d06c7f71f69", title: "On takes aim at ailing Nike with Mbappé transfer coup", date: "2026-09-19", time: "09:00", url: "https://www.ft.com/content/40222e79-3ee7-4388-8362-7d06c7f71f69" },
   { id: "12ea81a9-d806-4997-b0da-ddec093bbe20", title: "Over-80s turn to annuities as rates climb", date: "2026-09-19", time: "06:13", url: "https://www.ft.com/content/12ea81a9-d806-4997-b0da-ddec093bbe20" },
-  { id: "d6f2132e-bc98-44cb-add0-aa306909ce6b", title: "Admit it — is this your worst financial habit?", date: "2026-09-19", time: "05:54", url: "https://www.ft.com/content/d6f2132e-bc98-44cb-add0-aa306909ce6b" },
 ];
