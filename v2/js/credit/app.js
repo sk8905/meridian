@@ -18,7 +18,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";
-import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-35";
+import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-36";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
 import { esc, fmtAum, byDateDesc } from "/util.js?v=20260818-1";
 
@@ -78,14 +78,6 @@ const isClose = (f) => f.status === "Final Close" || f.status === "First Close";
 // rather than raising a vintage, so they get their own category — never "Open".
 const FUND_CATEGORIES = ["Open", "First Close", "Final Close", "Evergreen", "Pre-marketing"];
 const fundCategory = (x) => (x.evergreen ? "Evergreen" : x.status);
-// Fundraising status shows as plain text (no colour pill), per house style.
-const fundStatusChip = (x) => `<span class="fund-status">${esc(fundCategory(x))}</span>`;
-// Lifecycle status (wound down / liquidated / fully realised) — plain text too.
-function lifecycleBadge(x) {
-  if (!x.lifecycle) return "";
-  const s = typeof x.lifecycle === "string" ? x.lifecycle : x.lifecycle.status;
-  return `<span class="fund-status" title="${esc(typeof x.lifecycle === "object" && x.lifecycle.note ? x.lifecycle.note : s)}">${esc(s)}</span>`;
-}
 // LP mandate status shows as plain text (no colour pill), same as fund status above.
 const mandateBadge = (s) => `<span class="fund-status">${esc(s)}</span>`;
 
@@ -875,27 +867,6 @@ function aggregateNews() {
   });
   return out.sort(byDateDesc);
 }
-
-
-function fundTable(rows, key, sig) {
-  rows = applySort(rows, "funds");
-  let more = "";
-  if (key) { pageReset(key, sig); const n = pageCount(key); more = loadMoreBtn(key, rows.length - n); rows = rows.slice(0, n); }
-  return `<div class="table-wrap"><table class="data-table">
-      <thead><tr>${sortTh("funds", "name", "Fund")}${sortTh("funds", "manager", "Manager")}${sortTh("funds", "strategy", "Strategy")}${sortTh("funds", "geo", "Geography")}${sortTh("funds", "status", "Status")}${sortTh("funds", "target", "Target")}</tr></thead>
-      <tbody>
-        ${rows.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
-          <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td>
-          <td>${link(`#/manager/${x.managerId}`, (managerById[x.managerId] || {}).name)}</td>
-          <td>${esc(x.strategy)}</td>
-          <td>${esc(x.geoFocus)}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td>
-          <td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
-        </tr>`).join("")}
-      </tbody>
-    </table></div>` + more;
-}
-
 
 
 // ================================ MANAGERS ==================================

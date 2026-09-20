@@ -68,7 +68,7 @@ export function peerDetails(peers, hrefOf, subOf, esc) {
   // rows (the body inherits .tdet-src-body's faint small type).
   const body = peers.map((p) => {
     const sub = subOf ? subOf(p) : "";
-    return `<div class="tdet-peer-row"><a class="tdet-peer" href="${hrefOf(p.e)}">${esc(p.e.name)}</a>`
+    return `<div class="tdet-peer-row"><a class="tdet-peer" href="${esc(hrefOf(p.e))}">${esc(p.e.name)}</a>`
       + (sub ? ` · <span class="tdet-peer-sub">${esc(sub)}</span>` : "")
       + `</div>`;
   }).join("");

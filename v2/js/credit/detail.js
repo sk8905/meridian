@@ -17,31 +17,16 @@ import {
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { dealSubject, dealSponsor, dealAmount } from "../deal-parse.js?v=v2-4";
-import { peersOf, peerDetails } from "../peers.js?v=v2-3";
+import { peersOf, peerDetails } from "../peers.js?v=v2-4";
 import {
   eur, pct, fmtDate, link, nameCell,
   notFound, applyPendingFocus, commitmentsForLp,
-  investorsForFund, pageList, feedDedupKey, creditSource,
+  pageList, feedDedupKey, creditSource,
   _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";
 
 export let app = null;
 export function __setHost(h) { app = h; }
-
-// Indicative NET target IRR ranges by strategy — market-typical conventions, NOT
-// a specific fund's disclosed target. Used only where a fund discloses no target.
-const STRATEGY_IRR = {
-  "Senior Direct Lending": "8–10%",
-  "Unitranche": "9–12%",
-  "Mezzanine / Junior Debt": "12–15%",
-  "Distressed & Special Situations": "15–20%+",
-  "Structured Credit / CLO": "12–16%",
-  "Real Estate Debt": "7–10%",
-  "Infrastructure Debt": "6–9%",
-  "Asset-Based Lending": "8–12%",
-  "Opportunistic Credit": "10–14%",
-  "NAV / Fund Finance": "8–12%",
-};
 
 // Small reusable terminal rail panel.
 function railPanel(title, meta, body) {
@@ -81,30 +66,6 @@ function breadcrumb(parts) {
     .map(([k, l]) => `<a class="tchip${k === active ? " is-on" : ""}" href="${esc(crSecHref(k))}">${esc(l)}</a>`).join("")}</div></header>`;
 }
 
-// Generic in-place wire filter: chips toggle which kinds (data-kind) show,
-// without leaving the screen. Shared by the dashboard and terminal detail pages.
-function wireSimpleChips(chipsId, wireId) {
-  const chips = document.getElementById(chipsId);
-  const wire = document.getElementById(wireId);
-  if (!chips || !wire) return;
-  const KEY = chipMemKey(chipsId);
-  chips.addEventListener("click", (e) => {
-    const b = e.target.closest(".tchip");
-    if (!b) return;
-    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    const k = b.dataset.k;
-    _chipMem[KEY] = k || "all";
-    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
-  });
-  // In-page selection survives the async-sync re-renders (All is hardcoded
-  // active in the templates).
-  {
-    const k0 = _chipMem[KEY];
-    const b0 = k0 && k0 !== "all" ? chips.querySelector(`.tchip[data-k="${k0}"]`) : null;
-    if (b0 && !b0.classList.contains("is-on")) b0.click();
-  }
-}
-
 // Shared terminal wire row for credit detail pages (manager / fund / CLO). Builds
 // one dense line — date · CODE · headline (+ optional inline entity) · source —
 // from a feed item tagged with _kind (deal / intel / news). data-fkey (news) or
@@ -127,57 +88,6 @@ function crWireRow(x, inline) {
 }
 
 // ================================== FUNDS ===================================
-// ---- Data provenance & completeness -----------------------------------------
-// Honest, at-a-glance view of WHICH data points are disclosed for a fund, which
-// are estimates/indicative, and which are simply not public — so gaps are
-// explicit rather than hidden. States: yes (disclosed) · est (estimate) ·
-// indicative (strategy proxy, not this fund's figure) · no (gap) · na (n/a).
-function dataDimensions(x) {
-  const inv = investorsForFund(x);
-  const notable = (x.notableInvestments || []).length;
-  return [
-    { key: "Fundraising target",
-      state: x.evergreen ? "na" : (x.targetSize != null ? "yes" : "no"),
-      detail: x.evergreen ? "evergreen — no fixed target" : (x.targetSize != null ? eur(x.targetSize) + " target" : "target not disclosed") },
-    { key: x.evergreen ? "Current AUM/NAV" : "Amount raised",
-      state: x.raised != null ? "yes" : "no",
-      detail: x.raised != null ? eur(x.raised) : "not disclosed" },
-    { key: "Deployment",
-      state: x.evergreen ? "na" : (x.deployedPct != null ? (x.deployedEstimated ? "est" : "yes") : "no"),
-      detail: x.evergreen ? "rolling (evergreen)" : (x.deployedPct != null ? `${x.deployedPct}% invested${x.deployedEstimated ? " (est.)" : ""}${x.deployedAsOf ? ` · as of ${x.deployedAsOf}` : ""}` : "not separately disclosed") },
-    { key: "Target IRR",
-      state: x.targetIRR ? "yes" : "indicative",
-      detail: x.targetIRR ? `${x.targetIRR.range}${x.targetIRR.basis ? " " + x.targetIRR.basis : ""} — disclosed` : `${STRATEGY_IRR[x.strategy] || "—"} — indicative strategy range, not this fund's figure` },
-    { key: "Actual performance",
-      state: x.performance ? "yes" : "no",
-      detail: x.performance ? "net IRR / multiples disclosed" : "not publicly disclosed" },
-    { key: "Named investors",
-      state: inv.length ? "yes" : "no",
-      detail: inv.length ? `${inv.length} disclosed` : "none publicly disclosed" },
-    { key: "Notable investments",
-      state: notable ? "yes" : "no",
-      detail: notable ? `${notable} compiled` : "none compiled / disclosed" },
-  ];
-}
-// Disclosed = hard facts (yes) + flagged estimates (est). Indicative/no/na are not
-// counted as disclosed; na is excluded from the denominator (not applicable).
-function completeness(x) {
-  const dims = dataDimensions(x);
-  const applicable = dims.filter((d) => d.state !== "na");
-  const disclosed = applicable.filter((d) => d.state === "yes" || d.state === "est");
-  return { disclosed: disclosed.length, total: applicable.length, gaps: applicable.filter((d) => d.state === "no" || d.state === "indicative").map((d) => d.key) };
-}
-// Compact inline meter for tables/headers; tooltip spells out the gaps.
-function completenessPill(x) {
-  const c = completeness(x);
-  const lvl = c.disclosed / c.total;
-  const cls = lvl >= 0.66 ? "dm-hi" : lvl >= 0.34 ? "dm-mid" : "dm-lo";
-  const title = c.gaps.length ? `Not disclosed: ${c.gaps.join(", ")}` : "All tracked data points disclosed";
-  return `<span class="data-meter ${cls}" title="${esc(title)}"><span class="dm-bar"><span class="dm-fill" style="width:${Math.round(lvl * 100)}%"></span></span>${c.disclosed}/${c.total} data</span>`;
-}
-const STATE_ICON = { yes: "✓", est: "~", indicative: "~", no: "—", na: "·" };
-const STATE_LABEL = { yes: "Disclosed", est: "Estimate", indicative: "Indicative", no: "Not disclosed", na: "N/A" };
-
 // The standalone fund detail page is retired — a fund is now surfaced only through
 // its manager's profile. This resolves a fund id to its parent manager id so the
 // routers can redirect #/fund/<id> to #/manager/<managerId>. null if unknown.

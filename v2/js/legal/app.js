@@ -122,11 +122,6 @@ function loadMoreBtn(key, remaining) {
   if (remaining <= 0) return "";
   return `<div class="load-more-wrap"><button type="button" class="load-more" data-more="${esc(key)}">Load ${Math.min(PAGE, remaining)} more <span class="lm-rem">· ${remaining} remaining</span></button></div>`;
 }
-function feedHtml(rows, key, rowFn, sig) {
-  pageReset(key, sig);
-  const shown = rows.slice(0, pageCount(key));
-  return withDayBreaks(shown, rowFn) + loadMoreBtn(key, rows.length - shown.length);
-}
 // "Load more" reveals the next page and re-renders the affected list in place
 // (a local re-render, so the sidebar filters keep their selected state).
 // Expand / collapse a clamped summary preview inline.
@@ -290,13 +285,6 @@ on(document, "change", (e) => {
 // toggle; the Save button sits top-right of that line (always visible; the global
 // AI summary shown inline (same layout as the alerts rows); the title links out
 // to the BAILII judgment and the Save button sits top-right of the title line.
-// A summary preview clamped to 2 lines, with a "more" toggle (revealed only when
-// the text actually overflows — see initClamps) that expands the full text inline.
-function clampSum(text) {
-  const t = esc(text || "");
-  if (!t) return "";
-  return `<div class="sum-clamp"><p class="feed-summary clamp2">${t}</p><button type="button" class="clamp-toggle" aria-expanded="false" hidden>more</button></div>`;
-}
 // Reveal the "more" toggle only where the clamped text is actually truncated.
 // Skips already-expanded rows so a resize doesn't strip their "less" control.
 function initClamps(root) {

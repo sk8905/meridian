@@ -9,10 +9,11 @@
 // list to filter (Profiles Managers/Hedge Funds, Transactions), which render
 // their own .thead-search with the button merged in.
 // =============================================================================
+import { esc } from "/util.js?v=20260818-1";
 
 // The band markup for non-list pages. `ph` overrides the placeholder text.
 export function bandHTML(ph) {
   return `<header class="tpanel-h thead-search wire-band">`
-    + `<button type="button" class="tsearch wire-band-q" data-open-search aria-label="Search Wire">${ph || "Search everything…"}</button>`
+    + `<button type="button" class="tsearch wire-band-q" data-open-search aria-label="Search Wire">${esc(ph || "Search everything…")}</button>`
     + `</header>`;
 }
