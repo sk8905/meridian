@@ -328,21 +328,19 @@ export function mount(host, ctx) {
     let ladder = "";
     if (wall && Array.isArray(wall.buckets) && wall.buckets.length) {
       const max = wall.max || Math.max(...wall.buckets.map((b) => b.amt));
-      const col = (b) => `<div class="dsh-ladder-col"><span class="dsh-ladder-v">$${(b.amt / 1000).toFixed(1)}tn</span>`
-        + `<span class="dsh-ladder-bar" style="height:${Math.max(2, Math.round((b.amt / max) * 100))}%"></span>`
-        + `<span class="dsh-ladder-y">${esc(b.y)}</span></div>`;
-      const bars = `<div class="dsh-ladder" role="img" aria-label="Maturity wall by year">${wall.buckets.map(col).join("")}</div>`
-        + `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
-      // Per-year breakdown: the exact figure and the running cumulative share of the
-      // wall — the same sourced buckets as the bars, as a scannable table. Laid out
-      // to the RIGHT of the chart on desktop (dsh-mw-split), stacked on phones.
+      // Per-year breakdown with the bar chart integrated horizontally INTO the table:
+      // each row's Maturing cell carries an inline proportional bar (width = amt/max)
+      // behind the figure, so the ladder and the exact numbers read as one object.
+      // Same sourced buckets — no separate vertical chart. Cumulative share trails.
       const tot = wall.buckets.reduce((s, b) => s + (b.amt || 0), 0) || 1;
       let cum = 0;
-      const trow = (b) => { cum += b.amt || 0; return `<tr><td class="dsh-nm">${esc(b.y)}</td>`
-        + `<td class="dsh-r">$${(b.amt / 1000).toFixed(2)}tn</td>`
+      const trow = (b) => { cum += b.amt || 0; const pct = Math.max(2, Math.round((b.amt / max) * 100));
+        return `<tr><td class="dsh-nm">${esc(b.y)}</td>`
+        + `<td class="dsh-mw-barcell"><span class="dsh-mw-track"><span class="dsh-mw-fill" style="width:${pct}%"></span><span class="dsh-mw-hval">$${(b.amt / 1000).toFixed(2)}tn</span></span></td>`
         + `<td class="dsh-r">${Math.round((cum / tot) * 100)}%</td></tr>`; };
-      const table = `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th class="dsh-r">Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
-      ladder = `<div class="dsh-mw-split"><div class="dsh-mw-bars">${bars}</div><div class="dsh-mw-tblwrap">${table}</div></div>`;
+      const table = `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th>Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
+      const cap = `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
+      ladder = `<div class="dsh-mw-wall">${table}${cap}</div>`;
     }
     return summary + ladder;
   }

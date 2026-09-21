@@ -442,21 +442,20 @@
 .dsh-tag-rumoured{ color:var(--t-faint); }
 .dsh-tag-stress{ color:var(--t-down); border-color:var(--t-down); }
 
-/* Maturity ladder — vertical bars, one per year (tallest near-term draws the eye) */
-.dsh-ladder { display:flex; align-items:flex-end; gap:6px; height:120px; margin:12px 0 4px; padding-top:14px; }
-.dsh-ladder-col { flex:1 1 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:3px; }
-.dsh-ladder-v { color:var(--t-mut); font-size:.67rem; font-variant-numeric:tabular-nums; }
-.dsh-ladder-bar { width:100%; max-width:34px; background:var(--t-crd); border-radius:0; min-height:2px; }
-.dsh-ladder-y { color:var(--t-dim); font-size:11.5px; font-variant-numeric:tabular-nums; }
-.dsh-ladder-cap { color:var(--t-faint); font-size:11.5px; }
-/* Maturity wall — the bar chart and the per-year table SIDE BY SIDE on desktop
-   (chart left, table right) rather than stacked, which reads better in the wide
-   card. Stacks back to one column on phones. */
-.dsh-mw-split { display:flex; align-items:flex-start; gap:22px; }
-.dsh-mw-bars { flex:1 1 55%; min-width:0; }
-.dsh-mw-tblwrap { flex:1 1 45%; min-width:0; align-self:center; }
-.dsh-mw-split .dsh-ladder { margin-top:2px; }
-@media (max-width:760px){ .dsh-mw-split { flex-direction:column; gap:8px; } .dsh-mw-bars, .dsh-mw-tblwrap { flex:1 1 auto; width:100%; } }
+.dsh-ladder-cap { color:var(--t-faint); font-size:11.5px; margin-top:4px; }
+/* Maturity wall — the bar chart is integrated HORIZONTALLY into the per-year
+   table: each Maturing cell holds a proportional bar (width = amt/max) with the
+   figure sitting on it, so the ladder and the numbers are a single object and
+   the wide card's width does real work. */
+.dsh-mw-wall { margin-top:10px; }
+.dsh-mw-tbl { table-layout:fixed; width:100%; }
+.dsh-mw-tbl th, .dsh-mw-tbl td { vertical-align:middle; }
+.dsh-mw-tbl th:first-child, .dsh-mw-tbl td:first-child { width:64px; }
+.dsh-mw-tbl th:last-child, .dsh-mw-tbl td.dsh-r { width:96px; }
+.dsh-mw-barcell { padding:5px 12px 5px 0; }
+.dsh-mw-track { position:relative; display:block; width:100%; height:22px; background:var(--t-panel2); border-radius:0; }
+.dsh-mw-fill { position:absolute; inset:0 auto 0 0; height:100%; background:var(--t-crd); border-radius:0; min-width:2px; }
+.dsh-mw-hval { position:absolute; top:0; left:9px; height:100%; display:flex; align-items:center; color:var(--t-ink); font-size:11.5px; font-weight:600; font-variant-numeric:tabular-nums; }
 
 /* Stress cards */
 .dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
