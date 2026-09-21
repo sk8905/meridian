@@ -11,7 +11,7 @@
 import { deals, managers } from "/credit/js/data.js";
 import { BDCS } from "/credit/js/bdcs.js";
 import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-credits.js";
-import { TX_TYPES, TX_GROUPS, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-3";
+import { TX_TYPES, TX_GROUPS, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-4";
 import { esc } from "/util.js?v=20260818-1";
 import { fmtDay } from "/feed.js?v=20260808-1";
 import { dealSubject, dealSponsor } from "../deal-parse.js?v=v2-4";
@@ -79,7 +79,7 @@ export function mount(host, ctx) {
         <section class="tcol tcol-c tcol-full">
           <header class="tpanel-h twire-head">
             <div class="tchips" id="tx-mode">
-              <button type="button" class="tchip is-on" data-mode="primary">Primary issuance</button>
+              <button type="button" class="tchip is-on" data-mode="primary">Primary</button>
               <button type="button" class="tchip" data-mode="secondary">Secondaries</button>
               <button type="button" class="tchip" data-mode="credits">Credits</button>
               <button type="button" class="tchip" data-mode="bdc">BDCs</button>
@@ -123,17 +123,37 @@ export function mount(host, ctx) {
     .map((t) => statsFor(t.key)).filter((s) => s.n > 0)
     .sort((a, b) => b.usd - a.usd || b.n - a.n);
 
-  // ---- flow view: a blue sub-tab rail (one per transaction type, each with its
-  // deal count) beside the active type's dated deals. On desktop the rail is a
-  // second-level vertical sidebar (like a profile's News/Vehicles/… tabs); on phones
-  // it is a horizontal chip strip. Selecting a type shows that type's deals.
+  const _txDesktop = () => { try { return window.matchMedia("(min-width:901px)").matches; } catch { return true; } };
+  const typeLabel = (key) => (TX_TYPES.find((x) => x.key === key) || {}).label || key;
+
+  // ---- flow view. DESKTOP: a blue sub-tab rail (one per transaction type, each
+  // with its deal count) beside the active type's dated deals, second-level vertical
+  // sidebar like a profile's News/Vehicles/… tabs. iPHONE: no sub-tab strip — the
+  // transaction types are the on-screen options (a tappable list); selecting one
+  // opens its deals with a back control.
   function renderFlow() {
     const types = flowTypes();
     if (!types.length) { body.innerHTML = `<p class="tw-empty muted small">No transactions on record yet.</p>`; return; }
-    // Default to the first (largest) type when the remembered sub-tab isn't a live
-    // type in this group / under the active focus.
+    const g = TX_GROUPS.find((x) => x.key === st.group) || TX_GROUPS[0];
+    if (!_txDesktop()) {
+      if (st.sub && types.some((s) => s.key === st.sub)) {
+        // Drilled into a type: back to the option list + that type's deals.
+        const n = (types.find((s) => s.key === st.sub) || {}).n;
+        body.innerHTML = `<div class="tx-phone">`
+          + `<button type="button" class="tx-phone-back" data-sub="">‹ ${esc(g.label)}</button>`
+          + `<h3 class="tx-phone-h">${esc(typeLabel(st.sub))}<span class="tx-phone-n">${n}</span></h3>`
+          + `<div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div>`;
+      } else {
+        // The options: one row per transaction type, tapped to open its deals.
+        const opt = (s) => `<button type="button" class="tx-typeopt" data-sub="${esc(s.key)}"><span class="tx-typeopt-l">${esc(typeLabel(s.key))}</span><span class="tx-typeopt-n">${s.n}</span><span class="tx-typeopt-caret" aria-hidden="true">›</span></button>`;
+        body.innerHTML = `<div class="tx-typelist">${types.map(opt).join("")}</div>`;
+      }
+      return;
+    }
+    // Desktop: default to the first (largest) type when the remembered sub-tab isn't
+    // a live type in this group / under the active focus.
     if (!types.some((s) => s.key === st.sub)) st.sub = types[0].key;
-    const chip = (s) => `<button type="button" class="tchip${st.sub === s.key ? " is-on" : ""}" data-sub="${esc(s.key)}">${esc((TX_TYPES.find((x) => x.key === s.key) || {}).label || s.key)}<span class="tx-subn">${s.n}</span></button>`;
+    const chip = (s) => `<button type="button" class="tchip${st.sub === s.key ? " is-on" : ""}" data-sub="${esc(s.key)}">${esc(typeLabel(s.key))}<span class="tx-subn">${s.n}</span></button>`;
     const subnav = `<header class="tpanel-h twire-head tx-subnav"><div class="tchips">${types.map(chip).join("")}</div></header>`;
     body.innerHTML = `<div class="tx-tabbed">${subnav}<div class="tx-panes"><div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div></div>`;
   }
@@ -467,9 +487,10 @@ export function mount(host, ctx) {
   host.addEventListener("click", (e) => {
     const mgr = e.target.closest(".tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
-    // Sub-tab rail (Primary/Secondaries): switch the active transaction type,
-    // resetting the pane's sub-category filter + lender grouping.
-    const subt = e.target.closest(".tx-subnav [data-sub]");
+    // Type navigation (Primary/Secondaries): the desktop sub-tab rail, the iPhone
+    // type-option list, or the iPhone back control — all carry data-sub. Switching
+    // resets the pane's sub-category filter + lender grouping. Back uses data-sub="".
+    const subt = e.target.closest(".tx-subnav [data-sub], .tx-typeopt, .tx-phone-back");
     if (subt) { const k = subt.dataset.sub; if (k !== st.sub) { st.sub = k; _subSec = "all"; _subGrp = ""; renderFlow(); } return; }
     // BDC roster: row expand (detail + sources), holdings fetch.
     const hb = e.target.closest(".tbdc-hold-btn");

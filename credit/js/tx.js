@@ -36,7 +36,7 @@ export const TX_TYPES = [
 ];
 // Top-level grouping of the transaction types on the Deal-flow overview.
 export const TX_GROUPS = [
-  { key: "primary", label: "Primary issuance" },
+  { key: "primary", label: "Primary" },
   { key: "secondary", label: "Secondaries" },
 ];
 export const TX_LABEL = Object.fromEntries(TX_TYPES.map((t) => [t.key, t.label]));

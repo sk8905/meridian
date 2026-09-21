@@ -826,6 +826,18 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-subnav .tchips { gap: 4px; }
 .tx-subn { font-weight: 400; font-variant-numeric: tabular-nums; color: var(--faint); margin-left: 6px; font-size: 11px; }
 .tx-panes { min-width: 0; }
+/* iPhone: the transaction types are the on-screen options — a tappable list — with
+   no sub-tab strip. Selecting one drills into its deals behind a back control.
+   (Desktop keeps the vertical sub-tab rail; see the ≥901px block below.) */
+.tx-typelist { display: flex; flex-direction: column; }
+.tx-typeopt { display: flex; align-items: center; gap: 12px; width: 100%; padding: 15px 12px; background: transparent; border: 0; border-bottom: 1px solid var(--border); color: var(--ink); font: inherit; font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+.tx-typeopt:active { background: var(--lift, rgba(255,255,255,.05)); }
+.tx-typeopt-l { flex: 1 1 auto; min-width: 0; }
+.tx-typeopt-n { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+.tx-typeopt-caret { color: var(--faint); font-size: 18px; line-height: 1; }
+.tx-phone-back { display: inline-flex; align-items: center; margin: 8px 0 2px; padding: 4px 2px; background: transparent; border: 0; color: var(--accent); font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+.tx-phone-h { margin: 2px 0 8px; padding: 0 2px; font-size: 14px; font-weight: 700; color: var(--ink); display: flex; align-items: baseline; gap: 8px; }
+.tx-phone-n { color: var(--muted); font-weight: 600; font-size: 12px; font-variant-numeric: tabular-nums; }
 @media (min-width: 901px) {
   .tx-tabbed { display: grid; column-gap: 14px; align-items: start; grid-template-columns: 158px minmax(0, 1fr); grid-template-areas: "nav panes"; }
   .tx-tabbed > .tx-subnav { grid-area: nav; align-self: start; padding: 2px 0 0; border-bottom: 0; overflow: visible; }

@@ -10,14 +10,14 @@ const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/
 await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await pg.waitForTimeout(1600);
 
-// The top-level nav: Primary issuance (default, on) + Secondaries + Credits + BDCs.
+// The top-level nav: Primary (default, on) + Secondaries + Credits + BDCs.
 const modes = await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].map((c) => ({ label: c.textContent.trim().replace(/\s+\d+$/, ""), on: c.classList.contains("is-on") })));
-check(modes.length === 4 && modes[0].label === "Primary issuance" && modes[1].label === "Secondaries" && modes[2].label === "Credits" && modes[3].label === "BDCs", `nav chips are Primary issuance / Secondaries / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
-check(modes[0].on && !modes[1].on, "Primary issuance is the default mode");
+check(modes.length === 4 && modes[0].label === "Primary" && modes[1].label === "Secondaries" && modes[2].label === "Credits" && modes[3].label === "BDCs", `nav chips are Primary / Secondaries / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
+check(modes[0].on && !modes[1].on, "Primary is the default mode");
 
 // Deal-flow chrome (shared by Primary/Secondaries) shows the type table; the credits body is hidden.
 const flow = await pg.evaluate(() => { const d = (id) => getComputedStyle(document.querySelector("#" + id)).display; return { search: d("tx-flow-search"), body: d("tx-body"), credits: d("tx-credits-body") }; });
-check(flow.search !== "none" && flow.body !== "none" && flow.credits === "none", "Primary issuance mode shows the type table, hides the credits body");
+check(flow.search !== "none" && flow.body !== "none" && flow.credits === "none", "Primary mode shows the deal-flow body, hides the credits body");
 
 // Switch to Credits.
 await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="credits"]').click());

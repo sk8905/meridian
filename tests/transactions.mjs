@@ -56,14 +56,14 @@ const ov = await pg.evaluate(() => {
     bodyBg: getComputedStyle(document.querySelector("#tx-body")).backgroundColor,
   };
 });
-check(ov.subs.length >= 4, `Primary issuance shows a sub-tab per transaction type (${ov.subs.join(", ")})`);
+check(ov.subs.length >= 4, `Primary shows a sub-tab per transaction type (${ov.subs.join(", ")})`);
 check(ov.noOverview, "the Overview sub-tab is removed from Primary/Secondaries");
 check(ov.activeIsFirst && ov.paneRows > 0, `it lands on the first (largest) type's deals (${ov.paneRows} rows)`);
 check(ov.subsHaveCounts, "each sub-tab carries its deal count");
 check(ov.subStacked > 10, `desktop: the sub-tabs stack as a second vertical rail (Δtop ${ov.subStacked}px)`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed");
-check(ov.modeChips.join(",") === "Primary issuance,Secondaries,Credits,BDCs", `the Primary issuance / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
+check(ov.modeChips.join(",") === "Primary,Secondaries,Credits,BDCs", `the Primary / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 
@@ -253,15 +253,24 @@ await ctx.close();
   await p.ctx.close();
 }
 
-// ---- 7) phone: the type deal list FITS the screen — all columns scroll ----
-// The default type's deal list (Borrower · Date · Amount · …) keeps every column
-// and scrolls horizontally inside its own .tleague-wrap, rather than squashing the
-// borrower into a ragged char-by-char wrap. The page itself must NOT gain a
-// horizontal scrollbar.
+// ---- 7) phone: types are on-screen OPTIONS (no sub-tab strip); a picked type's
+// deal list FITS the screen — all columns scroll inside its own .tleague-wrap,
+// not squashing the borrower into a ragged char-by-char wrap, and the page itself
+// must NOT gain a horizontal scrollbar.
 {
   const p = await open(b, PHONE_SHORT, base + "/v2/transactions/");
+  await p.pg.waitForSelector(".tx-typelist .tx-typeopt", { timeout: 8000 });
+  const opts = await p.pg.evaluate(() => {
+    const o = [...document.querySelectorAll(".tx-typelist .tx-typeopt")];
+    const r = { n: o.length, noStrip: !document.querySelector(".tx-subnav") };
+    (o.find((x) => /Direct lending/.test(x.textContent)) || o[0]).click();
+    return r;
+  });
+  check(opts.n >= 4 && opts.noStrip, `phone: transaction types shown as on-screen options, no sub-tab strip (${opts.n} options)`);
   await p.pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
-  await p.pg.waitForTimeout(500);
+  await p.pg.waitForTimeout(400);
+  const hasBack = await p.pg.evaluate(() => !!document.querySelector(".tx-phone-back"));
+  check(hasBack, "phone: a back control returns from a type's deals to the options list");
   const drill = await p.pg.evaluate(() => {
     const t = document.querySelector(".tx-panes-in .tx-list");
     const wrap = t.closest(".tleague-wrap");
