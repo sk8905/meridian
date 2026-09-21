@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3848a4ad-1426-4352-ba86-ef1279c4ffd1", title: "Kremlin-backed forgery scheme moved $6.9bn through global banks", date: "2026-09-21", time: "21:00", url: "https://www.ft.com/content/3848a4ad-1426-4352-ba86-ef1279c4ffd1" },
+  { id: "789c2d18-d6ce-4556-bbfb-877233b12aee", title: "UK homeowners take £840-a-year mortgage hit from Iran war", date: "2026-09-21", time: "21:00", url: "https://www.ft.com/content/789c2d18-d6ce-4556-bbfb-877233b12aee" },
   { id: "a1e0707a-326a-4c7c-a608-d73abab32d82", title: "Five UK police forces end Palantir project after two years", date: "2026-09-21", time: "19:25", url: "https://www.ft.com/content/a1e0707a-326a-4c7c-a608-d73abab32d82" },
   { id: "319c7b67-b585-407e-a0da-6e23b1612180", title: "Top Republicans tell Donald Trump to ban US diesel exports ahead of midterms", date: "2026-09-21", time: "19:15", url: "https://www.ft.com/content/319c7b67-b585-407e-a0da-6e23b1612180" },
   { id: "f0b37ddf-3a4f-4631-b664-887b0cdd281c", title: "Merz’s last chance to reform Germany", date: "2026-09-21", time: "18:33", url: "https://www.ft.com/content/f0b37ddf-3a4f-4631-b664-887b0cdd281c" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "9f3fd7bc-ca51-4401-8f63-b6b25e88621f", title: "Nepotism at Berkshire", date: "2026-09-21", time: "06:30", url: "https://www.ft.com/content/9f3fd7bc-ca51-4401-8f63-b6b25e88621f" },
   { id: "9bb5f4e4-0dc5-4e89-98d5-14e9a4c4dd91", title: "Vienna and Rome spearhead red tape bonfire to boost EU competitiveness", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/9bb5f4e4-0dc5-4e89-98d5-14e9a4c4dd91" },
   { id: "6303730d-5889-413f-8fdb-3e3b8e7657b2", title: "How money moved across Mark Walter’s empire", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/6303730d-5889-413f-8fdb-3e3b8e7657b2" },
-  { id: "13cb8980-e8fa-4848-953f-8aa6e98ca219", title: "Octopus still won’t give investors their money back", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/13cb8980-e8fa-4848-953f-8aa6e98ca219" },
-  { id: "d29d769e-039c-4d11-9152-e63ccd397b32", title: "Scott Bessent hails US-China AI dialogue ahead of Trump-Xi meeting", date: "2026-09-21", time: "05:11", url: "https://www.ft.com/content/d29d769e-039c-4d11-9152-e63ccd397b32" },
-  { id: "188611f3-2536-4bed-a2c0-bbc074e6f783", title: "Volkswagen ejected from European blue-chip index in blow to crisis-hit carmaker", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/188611f3-2536-4bed-a2c0-bbc074e6f783" },
 ];
