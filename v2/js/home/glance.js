@@ -3,7 +3,7 @@
 // owns chrome + search), and listeners self-guard on the active tab.
 
 import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
-import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-4";
+import { managerWire, CAT_LABEL, dedupeEvents } from "/v2/js/manager-signals.js?v=v2-5";
 // Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
@@ -1254,9 +1254,14 @@ function renderManagerWire() {
     // e.g. in September it runs back through all of August), rather than a fixed
     // item count, so the wire always shows the same span of history.
     const _nd = new Date(), _winStart = Date.UTC(_nd.getUTCFullYear(), _nd.getUTCMonth() - 1, 1);
-    const flat = rows
-      .flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
-      .filter((e) => e.ts && e.ts >= _winStart && _catOk(e))
+    // Per-manager events are already de-duplicated; a conservative CROSS-manager pass
+    // (same source URL / identical headline only — no fuzzy matching) then collapses a
+    // story attributed to several managers (e.g. a club deal listed under each lender)
+    // into one row, without ever merging two managers' genuinely different stories.
+    const flat = dedupeEvents(
+      rows.flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
+        .filter((e) => e.ts && e.ts >= _winStart && _catOk(e)),
+      { fuzzy: false })
       .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
     let out = "", lastMonth = "";
     flat.forEach((r) => {

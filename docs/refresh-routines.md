@@ -687,7 +687,11 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >    - **Manager website news** → for managers with an active news/press page, add
 >      new announcements to that manager's `webNews` array ({date, outlet, title,
 >      url}), deduped against their existing `news` + `webNews`; prefer the
->      manager's own press-release URL.
+>      manager's own press-release URL. (The Home Manager wire also collapses
+>      duplicates at render time — `manager-signals.dedupeEvents` folds the same
+>      story recorded under several tags or outlets into one row, keeping the most
+>      specific tag — so a story landing as both a `deals`/`intel` item and `webNews`
+>      won't show twice; still avoid gratuitous exact repeats.)
 >    - **SLS column (`structured` on managers) — PRESERVE and EXTEND.** The
 >      managers league table renders an **SLS** column ("Structured Liquidity
 >      Solutions") of chips — NAV / SRT / CFO / CONT / OTH — from each manager's

@@ -231,5 +231,49 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   await ctx.close();
 }
 
+// --- De-duplication: the same story recorded under several tags / outlets is
+//     collapsed to ONE row (keeping the most specific tag), while genuinely
+//     distinct stories are kept. Exercises manager-signals.dedupeEvents directly. -
+{
+  const { ctx, pg, errs } = await open(b, DESKTOP, `${base}/v2/`);
+  await pg.waitForTimeout(300);
+  const d = await pg.evaluate(async () => {
+    const m = await import("/v2/js/manager-signals.js?v=v2-5");
+    const ev = (cat, title, source) => ({ cat, title, source: source || "", ext: !!source, ts: Date.parse("2026-09-18"), date: "2026-09-18" });
+    const n = (arr) => { const r = m.dedupeEvents(arr); return { out: r.length, cats: r.map((e) => e.cat) }; };
+    return {
+      sameTitleMultiTag: n([ev("fundraising", "Partners Group explores €800m continuation vehicle for private-credit loans", "https://x/a"), ev("strategy", "Partners Group explores €800m continuation vehicle for private-credit loans", "https://x/a"), ev("news", "Partners Group explores €800 million continuation fund for private credit loans", "https://y/b")]),
+      rewordedFinancing: n([ev("financing", "Triple Point provides Ayan Capital £75m Shariah-compliant facility", "https://a"), ev("news", "UK Islamic fintech Ayan Capital secures £75m facility originated by Triple Point", "https://b")]),
+      launchVsNews: n([ev("fundraising", "Stockdale Capital Partners launches real estate credit platform", "https://a"), ev("news", "Stockdale launches real estate credit platform", "https://b")]),
+      distinctKept: n([ev("deal", "Apollo provides $1.25bn equity capital solution for BMG-Concord combination", "https://a"), ev("deal", "Apollo and KKR complete €3bn capital solution for Bayer LARC business", "https://b")]),
+    };
+  });
+  check(d.sameTitleMultiTag.out === 1 && d.sameTitleMultiTag.cats[0] === "fundraising", `dedup: one story tagged 3 ways collapses to 1, keeping the specific tag (${d.sameTitleMultiTag.out}, ${d.sameTitleMultiTag.cats.join("/")})`);
+  check(d.rewordedFinancing.out === 1, `dedup: the same financing reworded by two outlets collapses to 1 (${d.rewordedFinancing.out})`);
+  check(d.launchVsNews.out === 1, `dedup: a launch carried as a deal + as press collapses to 1 (${d.launchVsNews.out})`);
+  check(d.distinctKept.out === 2, `dedup: two genuinely distinct deals are NOT merged (${d.distinctKept.out})`);
+  // Cross-manager pass (fuzzy:false) merges identical headlines but keeps reworded ones.
+  const cm = await pg.evaluate(async () => {
+    const m = await import("/v2/js/manager-signals.js?v=v2-5");
+    const ev = (cat, title, src) => ({ cat, title, source: src || "", ext: !!src, ts: Date.now(), date: "2026-09-18" });
+    return {
+      same: m.dedupeEvents([ev("deal", "Affordable Care completes $1bn restructuring", "https://a"), ev("news", "Affordable Care completes $1bn restructuring", "https://b")], { fuzzy: false }).length,
+      reworded: m.dedupeEvents([ev("deal", "Affordable Care completes $1bn restructuring", "https://a"), ev("news", "Blackstone and KKR take control of Affordable Care", "https://b")], { fuzzy: false }).length,
+    };
+  });
+  check(cm.same === 1, `dedup (cross-manager): identical headlines from two managers merge (${cm.same})`);
+  check(cm.reworded === 2, `dedup (cross-manager): differently-worded stories are kept — conservative (${cm.reworded})`);
+  // On the live flat wire, no exact-duplicate headline survives.
+  await pg.waitForSelector("#g-mgrwire .g-feed-title", { timeout: 8000 });
+  const wireDups = await pg.evaluate(() => {
+    const t = [...document.querySelectorAll("#g-mgrwire .g-feed-title")].map((x) => x.textContent.replace(/^★\s*/, "").trim());
+    const c = {}; t.forEach((x) => { c[x] = (c[x] || 0) + 1; });
+    return { rows: t.length, dups: Object.values(c).filter((v) => v > 1).length };
+  });
+  check(wireDups.rows > 0 && wireDups.dups === 0, `dedup: the live manager wire shows no exact-duplicate headline (${wireDups.dups} dups in ${wireDups.rows} rows)`);
+  checkErrs(errs, "manager wire dedup");
+  await ctx.close();
+}
+
 await b.close(); srv.close();
 finish();

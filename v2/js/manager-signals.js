@@ -42,15 +42,71 @@ export const CAT_LABEL = {
 
 const mgrHref = (id) => `/v2/profiles/#/manager/${encodeURIComponent(id)}`;
 
-// The full, date-desc event stream for one manager (deals + intel + press).
+// ---- De-duplication -------------------------------------------------------
+// The same story is routinely recorded more than once for a manager: a raise
+// ALSO tagged strategy, a structured deal ALSO carried as press, or two outlets
+// with near-identical wording. Collapse them so the wire shows each story ONCE.
+// Signals (any one): the same source URL, the same normalised headline, high
+// word overlap, or a shared money figure plus other shared words. The kept
+// "representative" prefers a specific tag over generic NEWS, then a linked
+// source, then the most recent. Applied per-manager, so matching can be
+// aggressive without risking a cross-manager false merge.
+const _STOP = new Set("the a an of for in to and or on at as with into from by is are was were be been over under after amid via".split(" "));
+function _normEvTitle(t) {
+  return String(t || "").toLowerCase()
+    .replace(/([€$£])\s?([\d.,]+)\s?(?:billion|bn)\b/g, "$1$2bn")
+    .replace(/([€$£])\s?([\d.,]+)\s?(?:million|mn|m)\b/g, "$1$2m")
+    .replace(/[^\w€$£%.\s-]/g, " ")
+    .replace(/\s+/g, " ").trim();
+}
+function _evTokens(nt) { return new Set(nt.split(/[\s-]+/).filter((w) => w.length > 2 && !_STOP.has(w))); }
+function _jac(a, b) { if (!a.size || !b.size) return 0; let n = 0; a.forEach((x) => { if (b.has(x)) n++; }); return n / (a.size + b.size - n); }
+function _isMoney(x) { return /^[€$£][\d.]/.test(x); }
+// Shared money figure + ≥2 other shared words (catches re-worded reports of the
+// same financing that fall below the word-overlap bar).
+function _moneyMatch(a, b) {
+  let money = false, other = 0;
+  a.forEach((x) => { if (b.has(x)) { if (_isMoney(x)) money = true; else other++; } });
+  return money && other >= 2;
+}
+function _normEvSrc(u) { const s = String(u || "").trim().toLowerCase(); return s ? s.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/[?#].*$/, "").replace(/\/+$/, "") : ""; }
+const _catRank = (c) => (c === "news" ? 0 : 1);
+function _betterEv(a, b) {
+  const r = _catRank(a.cat) - _catRank(b.cat); if (r) return r > 0 ? a : b;
+  if (!!a.ext !== !!b.ext) return a.ext ? a : b;
+  return (a.ts || 0) >= (b.ts || 0) ? a : b;
+}
+// `fuzzy` (default true) enables word-overlap + money matching — safe per-manager.
+// Pass `{ fuzzy: false }` for a CROSS-manager pass (e.g. the flat wire), where only
+// the high-confidence signals (same source URL, identical headline) should merge, so
+// two managers' genuinely different stories are never collapsed.
+export function dedupeEvents(list, { fuzzy = true } = {}) {
+  const groups = [];
+  for (const e of (list || [])) {
+    const nt = _normEvTitle(e.title);
+    const toks = _evTokens(nt);
+    const su = _normEvSrc(e.source);
+    let g = null;
+    for (const c of groups) {
+      if ((su && c.src && su === c.src) || (nt && c.nt === nt) || (fuzzy && (_jac(c.toks, toks) >= 0.55 || _moneyMatch(c.toks, toks)))) { g = c; break; }
+    }
+    if (g) { g.rep = _betterEv(g.rep, e); if (su && !g.src) g.src = su; if (toks.size > g.toks.size) { g.toks = toks; g.nt = nt; } }
+    else groups.push({ nt, toks, src: su, rep: e });
+  }
+  return groups.map((g) => g.rep);
+}
+
+// The full, date-desc event stream for one manager (deals + intel + press),
+// de-duplicated so each story appears once.
 export function managerEvents(managerId, { limit = 0 } = {}) {
   const out = [];
   deals.forEach((d) => { if (d.managerId === managerId) out.push({ ts: tsOf(d.date, d.time), date: d.date || "", cat: DEAL_CAT[d.type] || "deal", title: d.headline || "", href: d.sourceUrl || mgrHref(managerId), ext: !!d.sourceUrl, source: d.sourceUrl || "", kind: "deal" }); });
   intel.forEach((i) => { if (i.managerId === managerId) out.push({ ts: tsOf(i.date, i.time), date: i.date || "", cat: INTEL_CAT[i.type] || "news", title: i.headline || "", href: i.sourceUrl || mgrHref(managerId), ext: !!i.sourceUrl, source: i.sourceUrl || "", kind: "intel" }); });
   const m = _mById.get(managerId);
   ((m && m.webNews) || []).forEach((w) => out.push({ ts: tsOf(w.date), date: w.date || "", cat: "news", title: w.title || "", href: w.url || mgrHref(managerId), ext: !!w.url, source: w.url || "", outlet: w.outlet || "", kind: "press" }));
-  out.sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
-  return limit > 0 ? out.slice(0, limit) : out;
+  const dd = dedupeEvents(out);
+  dd.sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
+  return limit > 0 ? dd.slice(0, limit) : dd;
 }
 
 // Funds a manager is actively raising (in-market fundraising statuses).
