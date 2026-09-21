@@ -97,33 +97,6 @@ function wireDays(rows, rowFn, getDate) {
   }).join("");
 }
 
-// Insert the standard day-break header (HOUSE_STYLE R6, same look as .tw-day /
-// .g-feed-dayhdr) whenever the day changes from the previous item.
-function withDayBreaks(items, rowFn) {
-  let prevDay = null;
-  return items.map((x) => {
-    const day = String(x.date || "").slice(0, 10);
-    const hdr = day && day !== prevDay ? `<div class="tw-day">${esc(fmtDate(day))}</div>` : "";
-    prevDay = day;
-    return hdr + rowFn(x);
-  }).join("");
-}
-
-// ---- Feed pagination --------------------------------------------------------
-// Long feeds render the first PAGE items with a "Load more" button that reveals
-// the next PAGE. The shown count resets to PAGE whenever the filter signature
-// for that feed changes (so a new search/filter starts from the top again).
-const PAGE = 25;
-const pageShown = {};
-const pageSig = {};
-function pageReset(key, sig) { if (pageSig[key] !== sig) { pageSig[key] = sig; pageShown[key] = PAGE; } }
-function pageCount(key) { return pageShown[key] || PAGE; }
-function loadMoreBtn(key, remaining) {
-  if (remaining <= 0) return "";
-  return `<div class="load-more-wrap"><button type="button" class="load-more" data-more="${esc(key)}">Load ${Math.min(PAGE, remaining)} more <span class="lm-rem">· ${remaining} remaining</span></button></div>`;
-}
-// "Load more" reveals the next page and re-renders the affected list in place
-// (a local re-render, so the sidebar filters keep their selected state).
 // Expand / collapse a clamped summary preview inline.
 on(document, "click", (e) => {
   const t = e.target.closest(".clamp-toggle");
@@ -133,16 +106,6 @@ on(document, "click", (e) => {
   t.textContent = open ? "less" : "more";
   t.setAttribute("aria-expanded", open ? "true" : "false");
 });
-on(document, "click", (e) => {
-  const b = e.target.closest(".load-more");
-  if (!b) return;
-  const key = b.getAttribute("data-more");
-  pageShown[key] = pageCount(key) + PAGE;
-  const y = window.scrollY;
-  if (key === "alerts") renderResults();
-  window.scrollTo(0, y);
-});
-
 // On phones, the filter sidebar is collapsed behind a "Filters" toggle to save
 // space. Open on desktop; collapsed by default on mobile (the sidebar DOM isn't
 // re-rendered while filtering, so the user's choice sticks during a session).

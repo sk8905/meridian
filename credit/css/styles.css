@@ -177,8 +177,10 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 /* ---------- chips ---------- */
 .chip {
   display: inline-block; padding: .12rem .5rem; border-radius: 999px;
-  background: #eef2ff; color: #3730a3; font-size: .75rem; font-weight: 600;
-  border: 1px solid #e0e7ff; margin: 0 .15rem .25rem 0; white-space: nowrap;
+  background: color-mix(in srgb, var(--muted) 14%, #fff);
+  color: color-mix(in srgb, var(--muted) 74%, var(--ink));
+  font-size: .75rem; font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--muted) 30%, #fff); margin: 0 .15rem .25rem 0; white-space: nowrap;
 }
 /* Fundraising status as plain text (no colour pill), per house style. */
 .fund-status { font-size: .81rem; font-weight: 400; color: var(--muted); white-space: nowrap; }

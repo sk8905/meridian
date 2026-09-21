@@ -119,7 +119,6 @@ img, svg { max-width: 100%; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
 .notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--line); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
-.notif-item.is-new { background: #f0fdfa; }
 .notif-empty { padding: .6rem .5rem; }
 .nav-toggle {
   display: none; background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.22);
@@ -323,8 +322,8 @@ a.compact-head:hover { text-decoration: none; }
 .chip.area { background: color-mix(in srgb, var(--c, var(--primary)) 14%, #fff);
   color: color-mix(in srgb, var(--c, var(--primary)) 64%, #22263a);
   border: 1px solid color-mix(in srgb, var(--c, var(--primary)) 26%, #fff); }
-.chip.type { background: #ccfbf1; color: var(--primary-ink); border: 1px solid #99f6e4; }
-.chip.new { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+.chip.type { background: color-mix(in srgb, var(--muted) 14%, #fff); color: var(--primary-ink); border: 1px solid color-mix(in srgb, var(--muted) 30%, #fff); }
+.chip.new { background: color-mix(in srgb, var(--muted) 14%, #fff); color: color-mix(in srgb, var(--muted) 74%, var(--ink)); border: 1px solid color-mix(in srgb, var(--muted) 30%, #fff); }
 .card-date { font-size: .77rem; color: var(--muted); white-space: nowrap; }
 .card-title { margin: 0 0 .5rem; font-size: 1.03rem; color: var(--ink); }
 .card-summary { margin: 0 0 .8rem; font-size: .89rem; color: var(--ink-soft); }
@@ -435,9 +434,9 @@ a.compact-head:hover { text-decoration: none; }
 .points { padding-left: 1.2rem; }
 .points li { margin-bottom: .4rem; }
 .tags { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0; }
-.tag { font-size: .83rem; background: #ccfbf1; color: var(--primary-ink); border: 1px solid #99f6e4; padding: .2rem .6rem; border-radius: 999px; text-decoration: none; }
-.tag:hover { background: #99f6e4; text-decoration: none; }
-.source-box { background: #f1f5f9; border-radius: 8px; padding: 1rem 1.2rem; margin-top: 1.4rem; }
+.tag { font-size: .83rem; background: color-mix(in srgb, var(--muted) 14%, #fff); color: var(--primary-ink); border: 1px solid color-mix(in srgb, var(--muted) 30%, #fff); padding: .2rem .6rem; border-radius: 999px; text-decoration: none; }
+.tag:hover { background: color-mix(in srgb, var(--muted) 30%, #fff); text-decoration: none; }
+.source-box { background: var(--bg); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 1.4rem; }
 .source-box a { font-weight: 600; word-break: break-word; }
 .source-note { margin: .5rem 0 0; font-size: .81rem; color: var(--muted); }
 .related { margin-top: 2rem; }

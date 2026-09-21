@@ -15,7 +15,6 @@ import {
   FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell,
   SAVEDC_KEY, getSavedC,
   creditSource, feedDedupKey,
-  PAGE, pageShown, pageCount, pageReset, loadMoreBtn,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";
 import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-36";
@@ -306,10 +305,6 @@ const filterState = {
   news: { q: "", src: "" },
 };
 
-// Calendar year (string) from an item's date; "" if none.
-const yearOf = (d) => (String(d).match(/^(\d{4})/) || [])[1] || "";
-
-
 // ---- Mobile filter collapse -------------------------------------------------
 // On phones, filter bars are collapsed behind a "Filters" toggle to save space.
 // mfOpen() seeds the toggle: always open on desktop; collapsed by default on
@@ -320,17 +315,6 @@ function mfOpen() {
   if (!window.matchMedia(MOBILE_Q).matches) return true; // desktop: always expanded
   return mFiltersOpen === null ? false : mFiltersOpen;    // mobile: collapsed by default
 }
-// "Load more" reveals the next page and re-renders in place (keeps scroll).
-on(document, "click", (e) => {
-  const b = e.target.closest(".load-more");
-  if (!b) return;
-  const key = b.getAttribute("data-more");
-  pageShown[key] = pageCount(key) + PAGE;
-  const y = window.scrollY;
-  router();
-  window.scrollTo(0, y);
-});
-
 // ---- Target focus (€1–15bn AUM) --------------------------------------------
 // A global toggle that narrows the News/Deals/Fundraising/CLOs/Managers pages to
 // managers (or content whose manager sits) in the €1–15bn AUM band. Persists.
@@ -983,28 +967,6 @@ function viewLps() {
   wireFilters("lps");
 }
 
-
-// Map a credit record (deal / intel / clo / news / comm) to the shared wire's
-// item shape so every credit list renders through the ONE feed engine
-// (feedBodyHTML → one-line rows + standard day breaks, R5/R6). Mirrors the
-// dashboard-wire taxonomy: deal→DEAL, intel→FUND, clo→CLO, news→NEWS, comm→COMM;
-// the source (outlet, else manager) becomes the row's source label, and the
-// manager id rides along as the row's entity link.
-function crToFeed(x, kind) {
-  const k = kind || x._kind || "intel";
-  if (k === "comm") {
-    return { desk: "comm", href: x.url || "#/", ext: !!x.url, title: x.title, src: x.institution || "", date: x.date || "", time: x.time || "" };
-  }
-  if (k === "news") {
-    const mid = x._mid;
-    const mname = mid && managerById[mid] ? managerById[mid].name : (x._mname || "");
-    return { desk: "news", href: x.url || (mid ? `#/manager/${mid}` : "#/"), ext: !!x.url, title: x.title, src: x.outlet || mname || "", date: x.date || "", time: x.time || "", mgr: mid || "" };
-  }
-  const mid = x.managerId, url = x.sourceUrl;
-  const desk = x.clo ? "clo" : ({ deal: "deal", intel: "fund" }[k] || "fund");
-  return { desk, href: url || (mid ? `#/manager/${mid}` : "#/"), ext: !!url, title: x.headline, src: creditSource(x), date: x.date || "", time: x.time || "", mgr: mid || "" };
-}
-function crFeed(rows, kind) { return `<div class="g-feed twire">${feedBodyHTML(rows.map((x) => crToFeed(x, kind)))}</div>`; }
 
 // ================================== NEWS ===================================
 // Aggregated manager/investor press across the whole tracked universe — the
