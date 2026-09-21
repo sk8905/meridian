@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-aindicators-hikingcycleredflag-20260921",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "AIndicators: Hiking Cycle Is a Red-Flag Moment",
+    date: "2026-09-21",
+    time: "05:00",
+    summary: "Credit markets have stayed calm on the AI buildout so far, but a Fed hiking cycle driven by an energy shock rather than a boom — plus a Barclays DTS measure showing six Big Tech names now dominate investment-grade spread risk — raises the question of whether that calm can hold.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-21/aindicators-fed-hiking-cycle-is-a-red-flag-moment",
+  },
+  {
     id: "nl-reuters-taketrip-hanoilikealocal-20260920",
     publication: "Reuters",
     author: null,

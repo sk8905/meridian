@@ -12,8 +12,8 @@ export const UPDATED = "20 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-20",
-  lastCheckedTime: "21:11 BST",
+  lastChecked: "2026-09-21",
+  lastCheckedTime: "05:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -979,20 +979,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-20",
+  updated: "2026-09-21",
   us: [
+    { title: "US Stock Futures Up Ahead of Talks, Dollar Steady: Markets Wrap", source: "Bloomberg", date: "2026-09-20", url: "https://www.bloomberg.com/news/articles/2026-09-20/us-stock-futures-up-ahead-of-talks-dollar-steady-markets-wrap" },
+    { title: "Stock market today: Live updates", source: "CNBC", date: "2026-09-20", url: "https://www.cnbc.com/2026/09/20/stock-market-today-live-updates.html" },
     { title: "US, China Begin Trade Talks in New York Ahead of Trump-Xi Summit", source: "Bloomberg", date: "2026-09-20", time: "12:00", url: "https://www.bloomberg.com/news/articles/2026-09-20/us-china-begin-trade-talks-in-new-york-ahead-of-trump-xi-summit" },
-    { title: "U.S. Treasury's Bessent, China's He to hold talks on AI, trade, critical minerals: Reuters", source: "CNBC (Reuters)", date: "2026-09-20", url: "https://www.cnbc.com/2026/09/20/bessent-chinas-he-to-hold-talks-on-ai-trade-minerals-reuters.html" },
-    { title: "Tariffs, fuel prices and interest rates squeeze U.S. companies", source: "CNBC", date: "2026-09-20", url: "https://www.cnbc.com/2026/09/20/tariffs-fuel-prices-and-interest-rates-squeeze-us-companies.html" },
-    { title: "Why Record Diesel Prices Don't Equal Price Gouging", source: "Forbes", date: "2026-09-20", url: "https://www.forbes.com/sites/rrapier/2026/09/20/why-record-diesel-prices-dont-equal-price-gouging/" },
+    { title: "Three words from Kevin Warsh have Wall Street wondering how far the Fed will go with rate hikes", source: "CNBC", date: "2026-09-18", url: "https://www.cnbc.com/2026/09/18/three-words-from-kevin-warsh-have-wall-street-wondering-how-far-the-fed-will-go-with-rate-hikes.html" },
     { title: "Consumer sentiment is in the dumps despite a solid economy. Goldman Sachs blames 'lower happiness'", source: "CNBC", date: "2026-09-19", url: "https://www.cnbc.com/2026/09/19/goldman-sachs-happiness-struggling-consumer-sentiment.html" },
   ],
   uk: [
-    { title: "British Pound Forecast: Higher UK Rates May Not Be Enough To Rescue GBP", source: "Exchange Rates UK", date: "2026-09-20", url: "https://www.exchangerates.org.uk/news/47221/2026-09-20-british-pound-forecast-higher-uk-rates-may-not-be-enough-to-rescue-gbp.html" },
-    { title: "Pound-to-Euro Forecast 2026: 1.15 Risk Before A 2027 Recovery", source: "Exchange Rates UK", date: "2026-09-20", url: "https://www.exchangerates.org.uk/news/47222/2026-09-20-pound-to-euro-forecast-2026-1-15-risk-before-a-2027-recovery.html" },
+    { title: "FTSE 100 Posts Worst Session Since July As Hormuz Attack And Rate Fears Overwhelm Retail Strength", source: "Foreign Policy Journal", date: "2026-09-19", url: "https://www.foreignpolicyjournal.com/2026/09/19/ftse-100-ftse-posts-worst-session-since-july-as-hormuz-attack-and-rate-fears-overwhelm-retail-strength/" },
     { title: "UK Mansion Tax May Expand to Homes Worth Over £1.5 Million", source: "Bloomberg", date: "2026-09-19", url: "https://www.bloomberg.com/news/articles/2026-09-19/uk-mansion-tax-may-expand-to-homes-worth-over-1-5-million" },
     { title: "Barclays backs November BoE hike, warns Middle East conflict could spur more", source: "Reuters (via Investing.com)", date: "2026-09-18", url: "https://www.investing.com/news/economy-news/barclays-backs-november-boe-hike-warns-middle-east-conflict-could-spur-more-4906680" },
     { title: "UK retail sales rebound in August as department stores recover", source: "Reuters (via Investing.com)", date: "2026-09-18", url: "https://www.investing.com/news/economic-indicators/uk-retail-sales-rebound-in-august-as-department-stores-recover-4906728" },
+    { title: "British Pound Forecast: Higher UK Rates May Not Be Enough To Rescue GBP", source: "Exchange Rates UK", date: "2026-09-20", url: "https://www.exchangerates.org.uk/news/47221/2026-09-20-british-pound-forecast-higher-uk-rates-may-not-be-enough-to-rescue-gbp.html" },
   ],
 };
 
@@ -1004,8 +1004,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-20",
+  updated: "2026-09-21",
   items: [
+    {"title": "US Stock Futures Up Ahead of Talks, Dollar Steady: Markets Wrap", "source": "Bloomberg", "date": "2026-09-20", "url": "https://www.bloomberg.com/news/articles/2026-09-20/us-stock-futures-up-ahead-of-talks-dollar-steady-markets-wrap", "blurb": "US equity futures ticked higher and the dollar held steady as traders awaited the outcome of US-China trade talks in New York ahead of Thursday's Trump-Xi summit, with oil holding recent losses.", "author": null},
+    {"title": "Stock market today: Live updates", "source": "CNBC", "date": "2026-09-20", "url": "https://www.cnbc.com/2026/09/20/stock-market-today-live-updates.html", "blurb": "Wall Street traded in a mixed, range-bound session as the Nasdaq led on tech strength while the Dow lagged; the 10-year Treasury yield held near 5.00% and the VIX cooled as investors stayed cautious into the Trump-Xi summit week.", "author": null},
+    {"title": "FTSE 100 Posts Worst Session Since July As Hormuz Attack And Rate Fears Overwhelm Retail Strength", "source": "Foreign Policy Journal", "date": "2026-09-19", "url": "https://www.foreignpolicyjournal.com/2026/09/19/ftse-100-ftse-posts-worst-session-since-july-as-hormuz-attack-and-rate-fears-overwhelm-retail-strength/", "blurb": "The FTSE 100 closed 1.45% lower at 10,659.13 — its weakest session since July — after a tanker was struck by an unidentified projectile in the Strait of Hormuz, rattling energy-sensitive markets already on edge over BoE rate-path risk.", "author": null},
     {"title": "Tariffs, fuel prices and interest rates squeeze U.S. companies", "source": "CNBC", "date": "2026-09-20", "url": "https://www.cnbc.com/2026/09/20/tariffs-fuel-prices-and-interest-rates-squeeze-us-companies.html", "blurb": "Manufacturers, auto suppliers, retailers and transportation firms face a three-way squeeze from tariffs, record diesel/fuel costs and pricier inventory financing after the Fed's hike, with smaller, more leveraged businesses hit hardest.", "author": null},
     {"title": "Why Record Diesel Prices Don't Equal Price Gouging", "source": "Forbes", "date": "2026-09-20", "url": "https://www.forbes.com/sites/rrapier/2026/09/20/why-record-diesel-prices-dont-equal-price-gouging/", "blurb": "AAA put the national average diesel price at about $6.50/gallon (above $8.40 in California) as the Middle East war and Ukrainian strikes on Russian refineries tighten supply; the column argues the surge reflects genuine scarcity, not gouging.", "author": "Robert Rapier"},
     {"title": "British Pound Forecast: Higher UK Rates May Not Be Enough To Rescue GBP", "source": "Exchange Rates UK", "date": "2026-09-20", "url": "https://www.exchangerates.org.uk/news/47221/2026-09-20-british-pound-forecast-higher-uk-rates-may-not-be-enough-to-rescue-gbp.html", "blurb": "Forecasters argue the BoE's higher-for-longer Bank Rate may not be enough to lift sterling given persistent gilt-market and fiscal-headroom concerns ahead of Chancellor Healey's 28 October Budget.", "author": null},
@@ -1043,9 +1046,6 @@ export const ARTICLES = {
     {"title": "Oil prices today: Brent, WTI, Saudi Arabia, Houthi", "source": "CNBC", "date": "2026-09-18", "url": "https://www.cnbc.com/2026/09/18/oil-prices-today-brent-wti-saudi-arabia-houthi.html", "blurb": "Brent eased to around $103.83/bbl and WTI to $101.01 as immediate Middle East supply anxieties cooled, even as Saudi Arabia and Yemen's Houthis traded fresh cross-border strikes.", "author": null},
     {"title": "Stock market next week: Outlook for Sept. 21-25, 2026", "source": "CNBC", "date": "2026-09-18", "url": "https://www.cnbc.com/2026/09/18/stock-market-next-week-outlook-for-sept-21-25-2026.html", "blurb": "Wall Street heads into the week of 21-25 September digesting the Fed's hike, with flash September PMIs, a heavy slate of Fed speakers (Goolsbee, Jefferson, Williams, Barkin, Barr, Hammack) and the run-up to the Trump-Xi summit as the key catalysts.", "author": null},
     {"title": "What to expect from the Trump-Xi summit, from tariffs to a possible $30 billion deal", "source": "Euronews", "date": "2026-09-18", "url": "https://www.euronews.com/business/2026/09/18/what-to-expect-from-the-trump-xi-summit-from-tariffs-to-a-possible-30-billion-deal", "blurb": "Xi Jinping is due in Washington for a state visit with an expiring trade truce, tariff relief and AI all on the table; agriculture and aircraft deals — possibly including Boeing — are seen as the likeliest deliverables.", "author": null},
-    {"title": "Oil prices fall as Saudi Arabia reportedly offers more crude via Hormuz after pipeline attack", "source": "CNBC", "date": "2026-09-17", "url": "https://www.cnbc.com/2026/09/17/oil-prices-today-wti-brent-hormuz-iran-war.html", "blurb": "Brent and WTI eased further after Saudi Arabia reportedly began offering additional crude to Asian refiners via ship-to-ship transfers near Oman's Sohar port to work around the still-shut East-West pipeline.", "author": null},
-    {"title": "Bank of England halts long-dated gilt sales, rewrites plan to unwind QE", "source": "Reuters (via Investing.com)", "date": "2026-09-17", "url": "https://www.investing.com/news/economy-news/bank-of-england-halts-longdated-gilt-sales-rewrites-plan-to-unwind-qe-4906037", "blurb": "Alongside Thursday's hold, the MPC paused all gilt sales until April and halted long-dated sales entirely, setting out a multi-year plan to offload most of its remaining £488bn gilt stock by 2034.", "author": null},
-    {"title": "US regulator opens markets to tokenised stock trading", "source": "Financial Times", "date": "2026-09-17", "url": "https://www.ft.com/content/b528698e-9b04-4497-9d22-67e401be21d3", "blurb": "US regulators cleared the way for tokenised trading of listed equities, a milestone for blockchain-based market infrastructure.", "author": null},
   ],
 };
 
@@ -1204,7 +1204,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "US equities closed Friday's ~$7tn triple-witching session mixed — the S&P 500 up 0.17% to 7,650.50 and the Nasdaq up 0.39% to 26,522.55, but the Dow down 0.18% to 51,682.64 — a third straight losing week with the 10-year Treasury yield still near 5%, two days after the Fed's hike.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-september-18-dow-sp-500-nasdaq-080504071.html", srcName: "Yahoo Finance", date: "2026-09-18" },
+  "US:two_year": { text: "US equities traded mixed Monday — the Nasdaq leading on tech strength, the Dow lagging — as investors awaited the outcome of US-China trade talks in New York ahead of Thursday's Trump-Xi summit, with the 10-year Treasury yield holding near 5.00%.", src: "https://www.cnbc.com/2026/09/20/stock-market-today-live-updates.html", srcName: "CNBC", date: "2026-09-20" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:two_year": { text: "Barclays' Moyeen Islam said the BoE's Thursday move to pause gilt sales and halt long-dated sales has created 'a genuine shortage of paper' at the long end, easing repo-market pressure and sending 30-year gilt yields to their largest one-day fall since April — a three-week low — a day after the MPC held Bank Rate at 3.75% (6-3) and slowed QT to roughly £50bn/year.", src: "https://www.bloomberg.com/news/articles/2026-09-18/boe-s-balance-sheet-move-eases-repo-pressure-barclays-says", srcName: "Bloomberg", date: "2026-09-18" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
