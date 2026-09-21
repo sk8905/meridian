@@ -968,10 +968,16 @@ async function handleChokepoint(request, env, ctx) {
   const txt = await fetchText(src);
   if (txt) {
     try {
+      // ArcGIS field names/casing can vary between service revisions, so pick the
+      // date + transit-count fields case-insensitively from a set of known aliases
+      // rather than assuming exact keys.
+      const pick = (a, names) => { for (const k of Object.keys(a)) { if (names.includes(k.toLowerCase())) return a[k]; } return undefined; };
+      const DATE_KEYS = ["date", "period", "day", "obs_date", "record_date", "time"];
+      const N_KEYS = ["n_transits", "transits", "n_transit", "transit_calls", "vessel_count", "n_vessels", "ships", "count"];
       const rows = (JSON.parse(txt).features || [])
         .map((f) => (f && f.attributes) ? f.attributes : null)
         .filter(Boolean)
-        .map((a) => ({ t: (typeof a.date === "number" ? a.date : Date.parse(a.date)), n: Number(a.n_transits) }))
+        .map((a) => { const dv = pick(a, DATE_KEYS), nv = pick(a, N_KEYS); return { t: (typeof dv === "number" ? dv : Date.parse(dv)), n: Number(nv) }; })
         .filter((r) => Number.isFinite(r.t) && Number.isFinite(r.n))
         .sort((a, b) => a.t - b.t);
       if (rows.length) {
