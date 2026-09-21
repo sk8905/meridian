@@ -15,7 +15,7 @@ async function menuState(pg) {
     const cs = getComputedStyle(m);
     const chips = [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')]
       .map((c) => { const cr = c.getBoundingClientRect(); return cr.width > 0 && cr.height > 0; });
-    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 3 && chips.every(Boolean), labels: [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].map((c) => c.textContent.trim()) };
+    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 4 && chips.every(Boolean), labels: [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].map((c) => c.textContent.trim()) };
   });
 }
 
@@ -27,8 +27,8 @@ async function menuState(pg) {
   check(s.hasMenu, "direct /v2/menu/: menu container present");
   check(s.w >= 300, `direct /v2/menu/: menu is full-width (${s.w}px), not a dropdown sliver`);
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
-  check(s.visible, `direct /v2/menu/: the three chips (Chat/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
-  checkEq((s.labels || []).join("/"), "Chat/Coverage/Settings", "direct /v2/menu/: chips are Chat / Coverage / Settings");
+  check(s.visible, `direct /v2/menu/: the four chips (Chat/Watchlist/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
+  checkEq((s.labels || []).join("/"), "Chat/Watchlist/Coverage/Settings", "direct /v2/menu/: chips are Chat / Watchlist / Coverage / Settings (Watchlist 2nd)");
   // Dialogue is a BARE Ask field rendered EXACTLY like the search band: one input,
   // NO action button, placeholder "Ask…". The band form sits on the --head ground
   // with a bottom divider; the FIELD (.na-ask-in) takes the lifted --lift ground
@@ -245,6 +245,70 @@ async function menuState(pg) {
   const after = await pg.evaluate(() => window.__vvAddCount);
   checkEq(after, before, `Menu chip round-trips add no new visualViewport listeners (before ${before}, after ${after})`);
   checkErrs(errs, "menu chip round-trip listener leak");
+  await ctx.close();
+}
+
+// 7) Watchlist chip: everything the reader follows across the app, grouped by
+// kind (Managers / Hedge funds / Investors / Law firms), each row a link to its
+// profile. Reads meridian.follows (local) and UNIONS the /api/watchlist cloud
+// copy — so a follow made on another device (seeded here via the mocked API)
+// shows up without a Credit visit first.
+{
+  const ctx = await b.newContext(PHONE);
+  const pg = await ctx.newPage();
+  const errs = [];
+  pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
+  // Seed the local follow store BEFORE any app script runs: one of each kind.
+  await pg.addInitScript(() => {
+    try { localStorage.setItem("meridian.follows", JSON.stringify({ manager: ["m226"], hf: ["h1"], lp: ["l1"], firm: ["proskauerrose"] })); } catch { /* */ }
+  });
+  // The cloud copy adds a SECOND manager (Andromeda, m225) the device never saw.
+  await pg.route("**/api/watchlist", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ watchlist: { manager: ["m225"], fund: [], lp: [], hf: [], firm: [] } }) }));
+  await pg.goto(base + "/v2/menu/", { waitUntil: "load" });
+  await pg.waitForTimeout(900);
+  // Tap the Watchlist chip (2nd).
+  await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="watchlist"]').click());
+  await pg.waitForSelector(".wire-watch .watch-grp .watch-row", { timeout: 6000 });
+  // Wait for the server union to land (Managers group grows to 2 rows).
+  await pg.waitForFunction(() => {
+    const g = [...document.querySelectorAll(".wire-watch .watch-grp")].find((x) => /Managers/i.test(x.querySelector(".watch-grp-h")?.textContent || ""));
+    return g && g.querySelectorAll(".watch-row").length >= 2;
+  }, { timeout: 6000 }).catch(() => {});
+  const w = await pg.evaluate(() => {
+    const grps = [...document.querySelectorAll(".wire-watch .watch-grp")].map((g) => ({
+      head: (g.querySelector(".watch-grp-h")?.textContent || "").replace(/\s+/g, " ").trim(),
+      rows: [...g.querySelectorAll(".watch-row")].map((r) => ({ nm: (r.querySelector(".watch-nm")?.textContent || "").trim(), href: r.getAttribute("href") })),
+    }));
+    return { grps, order: grps.map((g) => g.head.replace(/\s*\d+\s*$/, "").trim()) };
+  });
+  const grp = (name) => w.grps.find((g) => new RegExp(name, "i").test(g.head));
+  check(grp("Managers") && grp("Managers").rows.length === 2, `Watchlist: Managers group unions the local + cloud follows (${grp("Managers")?.rows.length})`);
+  check(grp("Managers") && grp("Managers").rows.some((r) => /Situational Awareness/.test(r.nm)) && grp("Managers").rows.some((r) => /Andromeda/.test(r.nm)), "Watchlist: the local manager and the cloud-only manager both appear");
+  check(grp("Hedge funds") && grp("Hedge funds").rows.some((r) => /Bridgewater/.test(r.nm)), "Watchlist: a followed hedge fund appears under Hedge funds");
+  check(grp("Investors") && grp("Investors").rows.some((r) => /APG/.test(r.nm)), "Watchlist: a followed investor (LP) appears under Investors");
+  check(grp("Law firms") && grp("Law firms").rows.some((r) => /Proskauer/.test(r.nm)), "Watchlist: a followed law firm appears under Law firms");
+  check(grp("Managers") && grp("Managers").rows.some((r) => r.href === "/v2/profiles/#/manager/m226"), `Watchlist: each row links its profile (${grp("Managers")?.rows[0]?.href})`);
+  check(w.order[0] === "Managers", `Watchlist: Managers is the first group (${w.order.join("/")})`);
+  checkErrs(errs, "watchlist chip");
+  await ctx.close();
+}
+
+// 8) Watchlist chip with NO follows → a clear empty state, no group scaffold.
+{
+  const ctx = await b.newContext(PHONE);
+  const pg = await ctx.newPage();
+  const errs = [];
+  pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
+  await pg.addInitScript(() => { try { localStorage.removeItem("meridian.follows"); } catch { /* */ } });
+  await pg.route("**/api/watchlist", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ watchlist: {} }) }));
+  await pg.goto(base + "/v2/menu/", { waitUntil: "load" });
+  await pg.waitForTimeout(900);
+  await pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="watchlist"]').click());
+  await pg.waitForSelector(".wire-watch", { timeout: 6000 });
+  await pg.waitForTimeout(400);
+  const empty = await pg.evaluate(() => ({ hasEmpty: !!document.querySelector(".wire-watch .watch-empty"), grps: document.querySelectorAll(".wire-watch .watch-grp").length }));
+  check(empty.hasEmpty && empty.grps === 0, `Watchlist (no follows): a plain empty state, no group scaffold (empty=${empty.hasEmpty}, grps=${empty.grps})`);
+  checkErrs(errs, "watchlist empty");
   await ctx.close();
 }
 

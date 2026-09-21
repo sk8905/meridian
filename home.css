@@ -974,7 +974,14 @@
          news wire below it. A hairline underline divides it from the news row. */
       .tui .g-hbrief:not([hidden]){ display:flex; flex-direction:column; min-height:0; max-height:300px;
         overflow:hidden; border-bottom:1px solid var(--t-grid2); }
-      .tui .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      /* The body is a column: the lede + the "AI-generated…" foot are PINNED (they
+         never scroll), and ONLY the bullet list scrolls when a long brief overruns
+         (the exception, not the norm). So the source-credit line is always locked at
+         the bottom of the quadrant. */
+      .tui .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-hbrief .g-hbrief-lede{ flex:0 0 auto; }
+      .tui .g-hbrief .g-hbrief-list{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-hbrief .g-hbrief-foot{ flex:0 0 auto; }
       /* Desktop: the briefing is permanently open — no collapse control. Drop the
          chevron and the button affordance so the header reads as a static title row.
          (`.g-hbrief .g-hbrief-head` outranks the base `.g-hbrief-head` cursor rule.) */

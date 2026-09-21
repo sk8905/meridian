@@ -8,7 +8,7 @@
 // =============================================================================
 import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
 import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260818-1";
-import { deals, intel, managers, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
+import { deals, intel, managers, HEDGE_FUNDS, HEDGE_INTEL, lps } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 
 // ---- id schemes -------------------------------------------------------------
@@ -39,6 +39,27 @@ const creditItemHref = (x) => x.sourceUrl
   ? x.sourceUrl
   : (x.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(x.managerId)}` : "/v2/profiles/");
 const creditItemExt = (x) => !!x.sourceUrl;
+
+// ---- watchlist (followed profiles) -----------------------------------------
+// The WATCHLIST = every profile the reader has starred (★) across the app —
+// managers, hedge funds, investors (LPs) and law firms. Reads meridian.follows
+// (the same store the ★ buttons write) and resolves each id to a linked row.
+const _lpById = new Map((lps || []).map((l) => [l.id, l]));
+export function resolveFollows() {
+  let f = {};
+  try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
+  const out = [];
+  const arr = (t) => (Array.isArray(f[t]) ? f[t] : []);
+  const push = (kind, id, rec, name, sub, href) => { if (id && rec) out.push({ kind, id, name: name || id, sub: sub || "", href }); };
+  arr("manager").forEach((id) => { const m = _mgrById.get(id); push("Managers", id, m, m && m.name, m && (m.hq || m.aumText), "/v2/profiles/#/manager/" + encodeURIComponent(id)); });
+  arr("hf").forEach((id) => { const h = _hfById.get(id); push("Hedge funds", id, h, h && h.name, h && (h.strategy || h.hq), "/v2/profiles/#/hf/" + encodeURIComponent(id)); });
+  arr("lp").forEach((id) => { const l = _lpById.get(id); push("Investors", id, l, l && l.name, l && (l.type || l.hq), "/v2/profiles/#/lp/" + encodeURIComponent(id)); });
+  arr("firm").forEach((id) => { const fm = _firmById.get(id); push("Law firms", id, fm, fm && fm.name, "", "/v2/profiles/#/firm/" + encodeURIComponent(id)); });
+  // Legacy "fund" follows resolve to their manager page (the standalone fund page
+  // was retired).
+  arr("fund").forEach((id) => { const m = _mgrById.get(id); if (m) push("Managers", id, m, m.name, m.hq, "/v2/profiles/#/manager/" + encodeURIComponent(id)); });
+  return out;
+}
 
 // ---- resolver ---------------------------------------------------------------
 export function resolveSaved() {

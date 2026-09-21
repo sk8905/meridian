@@ -1,8 +1,11 @@
-// Menu view — THREE chips:
+// Menu view — FOUR chips:
 //   • Chat (key "dialogue") — Ask Wire (B): a conversational assistant. The input
 //     is styled like the .tsearch search fields; Enter answers inline via AI and
 //     keeps a transcript, so follow-up questions carry the earlier turns as
 //     context. Ask only — search lives in the global palette. No explainer copy.
+//   • Watchlist — every firm/manager/fund/investor you follow across the app,
+//     grouped by kind, each a link to its profile. Reads the local follow store
+//     (meridian.follows) and unions the per-user cloud copy (/api/watchlist).
 //   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
 //   • Settings — Notifications (push toggle) + Appearance (theme). Sign out and
 //     density live elsewhere: sign out in the phone bottom strip; density is not
@@ -36,9 +39,9 @@ function applyTheme(pref) {
   try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
   setThemeColorMeta(t);
 }
-// Three chips: Chat (Ask), Coverage (Add a firm + Network) and
-// Settings (Notifications + Appearance).
-const SECTIONS = [["dialogue", "Chat"], ["coverage", "Coverage"], ["settings", "Settings"]];
+// Four chips: Chat (Ask), Watchlist (follows), Coverage (Add a firm + Network)
+// and Settings (Notifications + Appearance).
+const SECTIONS = [["dialogue", "Chat"], ["watchlist", "Watchlist"], ["coverage", "Coverage"], ["settings", "Settings"]];
 
 // ---- Network (LinkedIn connections) ---------------------------------------
 // The importer + "My network" list. All state comes from network/store.js
@@ -109,6 +112,32 @@ function dialoguePaneHTML() {
   // No idle explainer copy — the placeholder carries it.
   return `<div class="menu-asst" id="v2-menu-omni"></div>`;
 }
+// ---- Watchlist ------------------------------------------------------------
+// Everything you follow across the app (managers, hedge funds, investors, law
+// firms), grouped by kind. The rows come from saved.js/resolveFollows(), which
+// resolves the meridian.follows id-store against the roster; mount() lazy-loads
+// that module, unions the /api/watchlist cloud copy, then paints. Order the
+// groups the same way the profiles tabs read.
+const WATCH_GROUPS = ["Managers", "Hedge funds", "Investors", "Law firms"];
+function watchPaneHTML() {
+  return `<div class="wire-watch" id="v2-menu-watch"><p class="watch-loading">Loading your watchlist…</p></div>`;
+}
+function renderWatch(rows) {
+  if (!rows || !rows.length) {
+    return `<p class="watch-empty">You haven’t followed anything yet. Tap <strong>Follow</strong> on any manager, hedge fund, investor or law firm and it collects here.</p>`;
+  }
+  const groups = {};
+  rows.forEach((r) => { (groups[r.kind] = groups[r.kind] || []).push(r); });
+  const order = [...WATCH_GROUPS, ...Object.keys(groups).filter((k) => !WATCH_GROUPS.includes(k))];
+  return order.map((g) => {
+    const arr = groups[g]; if (!arr || !arr.length) return "";
+    arr.sort((a, b) => String(a.name).localeCompare(String(b.name)));
+    return `<div class="watch-grp"><div class="watch-grp-h">${esc(g)} <span class="watch-grp-ct">${arr.length}</span></div>`
+      + arr.map((e) => `<a class="watch-row" href="${esc(e.href)}" data-watch-href="${esc(e.href)}">`
+          + `<span class="watch-nm">${esc(e.name)}</span>${e.sub ? `<span class="watch-sub">${esc(e.sub)}</span>` : ""}</a>`).join("")
+      + `</div>`;
+  }).join("");
+}
 function coveragePaneHTML() {
   // "Add a firm" (C) drafts a roster entry and opens a review PR; the Add (C)
   // assistant mounts into #v2-menu-add after render(). Network is the LinkedIn
@@ -133,6 +162,7 @@ function settingsPaneHTML() {
 function paneHTML(sec) {
   if (sec === "settings") return settingsPaneHTML();
   if (sec === "coverage") return coveragePaneHTML();
+  if (sec === "watchlist") return watchPaneHTML();
   return dialoguePaneHTML();
 }
 
@@ -173,7 +203,38 @@ export function mount(host, ctx) {
     </div>`;
     if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, bare: true, placeholder: "Ask…", state: askState });
     if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
+    if (sec === "watchlist") mountWatchlist();
   };
+
+  // Lazy-load saved.js (resolveFollows resolves the follow id-store against the
+  // roster), paint the grouped rows, then union the /api/watchlist cloud copy
+  // and repaint if it added anything. Guarded so a re-render mid-load is a no-op.
+  let watchToken = 0;
+  async function mountWatchlist() {
+    const tok = ++watchToken;
+    let resolveFollows;
+    try { ({ resolveFollows } = await import("/saved.js?v=20260921-1")); }
+    catch { const b = host.querySelector("#v2-menu-watch"); if (b) b.innerHTML = `<p class="watch-empty">Couldn’t load your watchlist.</p>`; return; }
+    const paint = () => { if (tok !== watchToken) return; const b = host.querySelector("#v2-menu-watch"); if (b) b.innerHTML = renderWatch(resolveFollows()); };
+    paint();
+    try {
+      const r = await fetch("/api/watchlist", { headers: { accept: "application/json" } });
+      if (!r || !r.ok) return;
+      const d = await r.json();
+      const server = (d && d.watchlist) || {};
+      let local = {};
+      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
+      let grew = false;
+      ["manager", "fund", "lp", "hf", "firm"].forEach((t) => {
+        const set = new Set(Array.isArray(local[t]) ? local[t] : []);
+        const before = set.size;
+        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => set.add(x));
+        if (set.size !== before) grew = true;
+        local[t] = [...set];
+      });
+      if (grew) { try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* ignore */ } paint(); }
+    } catch { /* offline / not on cloud — local follows already painted */ }
+  }
 
   render();   // initial render on mount (revisits keep this DOM alive)
 
@@ -224,6 +285,9 @@ export function mount(host, ctx) {
     if (clr) { netClear(); render(); return; }
     const netrow = e.target.closest("[data-net-route]");
     if (netrow) { e.preventDefault(); ctx.navigate("/v2/profiles/" + netrow.dataset.netRoute); return; }
+    // A watchlist row → open that profile (cross-page to /v2/profiles/).
+    const wrow = e.target.closest("[data-watch-href]");
+    if (wrow) { e.preventDefault(); ctx.navigate(wrow.dataset.watchHref); return; }
   });
 
   return {

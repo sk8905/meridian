@@ -127,7 +127,7 @@ await pg.keyboard.press("Escape");
 await pg.waitForTimeout(150);
 await pg.evaluate(() => { const b = document.querySelector(".nav-menu-btn") || document.querySelector('.mtab[data-key="menu"]'); if (b) b.click(); });
 await pg.waitForTimeout(700);
-check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Chat/Coverage/Settings"), "Menu shows the Chat/Coverage/Settings chips");
+check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Chat/Watchlist/Coverage/Settings"), "Menu shows the Chat/Watchlist/Coverage/Settings chips");
 // Dialogue chip (default): a BARE Ask field — one input styled like .tsearch,
 // no Search/Add/Ask buttons, just a dedicated Send button; Enter also submits.
 check(await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); return !!c && c.querySelectorAll(".na-ask-in").length === 1 && !c.querySelector(".na-ask-search") && !c.querySelector(".na-ask-go") && !c.querySelector(".na-ask-add"); }), "Dialogue chip is a bare Ask field: one input, no Search/Add/Ask buttons");
