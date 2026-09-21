@@ -1101,14 +1101,19 @@ export const MATWALL = {
     unit: "$bn", asOf: "data as of 1 Jan 2025",
     max: 3000, grid: [0, 1000, 2000, 3000], w: 372, l: 40,
     series: [{ key: "amt", cls: "mwc-loan", alt: "rated corporate debt" }],
+    // `comp` = how each year's maturities break down. S&P publishes NO per-year
+    // industry-sector split (only a qualitative note on the lowest-rated slice), so
+    // the real per-year decomposition is by REGION (US / Europe / Rest of world) \u2014
+    // US & Europe sourced, RoW the exact residual; each year's comp sums to `amt`.
+    compBy: "by region",
     buckets: [
-      { y: "2025", amt: 2075 },
-      { y: "2026", amt: 2624 },
-      { y: "2027", amt: 2509 },
-      { y: "2028", amt: 2783 },
-      { y: "2029", amt: 2360 },
+      { y: "2025", amt: 2075, comp: [{ label: "US", amt: 816 }, { label: "Europe", amt: 804 }, { label: "RoW", amt: 455 }] },
+      { y: "2026", amt: 2624, comp: [{ label: "US", amt: 1167 }, { label: "Europe", amt: 1012 }, { label: "RoW", amt: 445 }] },
+      { y: "2027", amt: 2509, comp: [{ label: "US", amt: 1201 }, { label: "Europe", amt: 890 }, { label: "RoW", amt: 418 }] },
+      { y: "2028", amt: 2783, comp: [{ label: "US", amt: 1461 }, { label: "Europe", amt: 997 }, { label: "RoW", amt: 325 }] },
+      { y: "2029", amt: 2360, comp: [{ label: "US", amt: 1254 }, { label: "Europe", amt: 806 }, { label: "RoW", amt: 300 }] },
     ],
-    note: "Global corporate debt rated by S&P due 2025\u20132029: $12.4tn total \u2014 ~73% investment grade, $3.4tn speculative grade. Data as of 1 Jan 2025 (the factbook's own vintage; S&P's later refinancing studies update the totals but publish no fresher per-year split).",
+    note: "Global corporate debt rated by S&P due 2025\u20132029: $12.4tn total \u2014 ~73% investment grade, $3.4tn speculative grade; ~48% US, ~37% Europe, ~16% rest of world. Data as of 1 Jan 2025. S&P publishes the per-year split by region (shown) but NO per-year industry-sector breakdown \u2014 only a qualitative note that 2028's lowest-rated ('B-' and below, ~$269bn) maturities cluster in US healthcare, high technology and media.",
     src: { name: "S&P investor factbook", url: "https://investorfactbook.spglobal.com/sp-global-ratings/global-corporate-debt-maturities-through-2029/" },
   },
   near: {

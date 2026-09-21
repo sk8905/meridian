@@ -328,18 +328,26 @@ export function mount(host, ctx) {
     let ladder = "";
     if (wall && Array.isArray(wall.buckets) && wall.buckets.length) {
       const max = wall.max || Math.max(...wall.buckets.map((b) => b.amt));
-      // Per-year breakdown with the bar chart integrated horizontally INTO the table:
-      // each row's Maturing cell carries an inline proportional bar (width = amt/max)
-      // behind the figure, so the ladder and the exact numbers read as one object.
-      // Same sourced buckets — no separate vertical chart. Cumulative share trails.
+      // Per-year breakdown: a SHORT integrated bar + the $ figure on the left, then a
+      // Composition column that sets out how each year's maturities break down (real
+      // sourced components in `b.comp` — S&P's per-year sector split; never invented),
+      // then the running cumulative share.
       const tot = wall.buckets.reduce((s, b) => s + (b.amt || 0), 0) || 1;
+      const fmtB = (v) => v >= 1000 ? "$" + (v / 1000).toFixed(2) + "tn" : "$" + Math.round(v) + "bn";
+      const compCell = (b) => {
+        const c = Array.isArray(b.comp) ? b.comp.filter((x) => x && x.label && x.amt != null) : [];
+        if (!c.length) return `<span class="dsh-mw-comp-na">—</span>`;
+        return c.map((x) => `<span class="dsh-mw-comp-i"><span class="dsh-mw-comp-l">${esc(x.label)}</span> <span class="dsh-mw-comp-v">${esc(fmtB(x.amt))}</span></span>`).join("");
+      };
       let cum = 0;
-      const trow = (b) => { cum += b.amt || 0; const pct = Math.max(2, Math.round((b.amt / max) * 100));
+      const trow = (b) => { cum += b.amt || 0; const pct = Math.max(6, Math.round((b.amt / max) * 100));
         return `<tr><td class="dsh-nm">${esc(b.y)}</td>`
-        + `<td class="dsh-mw-barcell"><span class="dsh-mw-track"><span class="dsh-mw-fill" style="width:${pct}%"></span><span class="dsh-mw-hval">$${(b.amt / 1000).toFixed(2)}tn</span></span></td>`
+        + `<td class="dsh-mw-barcell"><span class="dsh-mw-track"><span class="dsh-mw-fill" style="width:${pct}%"></span></span><span class="dsh-mw-hval">$${(b.amt / 1000).toFixed(2)}tn</span></td>`
+        + `<td class="dsh-mw-comp">${compCell(b)}</td>`
         + `<td class="dsh-r">${Math.round((cum / tot) * 100)}%</td></tr>`; };
-      const table = `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th>Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
-      const cap = `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
+      const anyComp = wall.buckets.some((b) => Array.isArray(b.comp) && b.comp.length);
+      const table = `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th>Maturing</th><th>Composition${anyComp && wall.compBy ? ` <span class="dsh-mw-comp-by">${esc(wall.compBy)}</span>` : ""}</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
+      const cap = `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${wall.compNote ? ` · ${esc(wall.compNote)}` : ""}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
       ladder = `<div class="dsh-mw-wall">${table}${cap}</div>`;
     }
     return summary + ladder;
