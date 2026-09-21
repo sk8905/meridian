@@ -1,6 +1,7 @@
-// Dashboard heatmaps: (1) Equities ▸ World indices — local index points grouped
-// by jurisdiction (US · South America · UK · Europe · APAC), heat-shaded by the
-// latest session move, each tile sourced. (2) Fixed Income ▸ Government bond
+// Dashboard heatmaps: (1) Equities ▸ World indices — the most-watched global
+// benchmarks grouped by jurisdiction (US · UK · Europe · APAC), trimmed so the box
+// matches the ETF-flows box height, heat-shaded by the latest session move, each
+// tile sourced. (2) Fixed Income ▸ Government bond
 // yields — a heatmap of one tenor with a 2Y/5Y/10Y/30Y toggle that re-renders.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
@@ -26,12 +27,19 @@ const base = `http://localhost:${srv.port}`;
     };
   });
   checkEq(wi.cols.join(","), "1W,1M,3M,6M,1Y", "World indices: same 1W/1M/3M/6M/1Y windows as the ETF-flows heatmap");
-  check(wi.rows >= 15, `World indices: rows render (${wi.rows})`);
-  check(wi.geos.length === 5 && wi.geos.includes("United States") && wi.geos.includes("Europe") && wi.geos.includes("Asia-Pacific"),
+  check(wi.rows >= 12, `World indices: rows render (${wi.rows})`);
+  check(wi.geos.length === 4 && wi.geos.includes("United States") && wi.geos.includes("Europe") && wi.geos.includes("Asia-Pacific"),
     `World indices: organised into labelled geography bands (${wi.geos.join(", ")})`);
   check(wi.sourced, "World indices: every index row links its source");
-  check(wi.levels >= 15, `World indices: rows show the index level (points) in the label (${wi.levels})`);
+  check(wi.levels >= 12, `World indices: rows show the index level (points) in the label (${wi.levels})`);
   check(wi.hasSP, "World indices: includes the S&P 500");
+  // The list is trimmed so its box matches the ETF-flows box height (same-size pair).
+  const heights = await pg.evaluate(() => {
+    const wiB = document.querySelector("#dsh-wi-box"), flB = document.querySelector("#dsh-flows-box");
+    const h = (el) => el ? Math.round(el.getBoundingClientRect().height) : 0;
+    return { wi: h(wiB), fl: h(flB) };
+  });
+  check(heights.wi > 0 && heights.fl > 0 && Math.abs(heights.wi - heights.fl) <= 40, `World indices box matches the ETF-flows box height (${heights.wi} vs ${heights.fl}px)`);
   checkErrs(errs, "world indices heatmap");
   await ctx.close();
 }

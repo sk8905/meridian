@@ -358,8 +358,14 @@ export function mount(host, ctx) {
     if (!P || !(P.metrics || []).length) return "";
     // Clean: label · value · SRC only — no explainer paragraph, no per-row context
     // note. Each metric stays on ONE line (label truncates with a hover title).
+    // A metric may carry a `prev` (value a year earlier) — shown as a faint "vs X"
+    // year-ago comparison that links its own source, so the trend over the prior 12
+    // months is visible at a glance.
+    const yoy = (x) => x.prev
+      ? `<a class="dsh-kv-yoy" href="${esc(x.prevSrc || x.src)}" target="_blank" rel="noopener noreferrer" title="a year earlier${x.prevAsOf ? ` (${esc(x.prevAsOf)})` : ""} — source">vs ${esc(x.prev)}${x.prevAsOf ? ` ${esc(x.prevAsOf)}` : ""}</a>`
+      : "";
     const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}">${esc(x.k)}</span>`
-      + `<span class="dsh-kv-v">${esc(x.v)}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
+      + `<span class="dsh-kv-v">${esc(x.v)}${yoy(x)}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
     // Tracked industry research the pulse draws on (KBRA MM Compendium, AIMA/ACC),
     // each linking the report — rolled to the newest quarterly edition each cycle.
     const rpt = (r) => `<a class="dsh-pc-report" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)}">`

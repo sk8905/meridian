@@ -113,11 +113,6 @@ export const WORLD_INDICES = {
       { name: "Dow Jones",        level: 51594.14,  w1: null,  m1: null,   m3: null, m6: null, y1: 20.1,  asOf: "2026-07-29", source: "https://www.investing.com/indices/us-30-historical-data" },
       { name: "Russell 2000",     level: 2906.44,   w1: null,  m1: -3.45,  m3: null, m6: null, y1: 31.4,  asOf: "2026-07-29", source: "https://www.gurufocus.com/economic_indicators/4448/russell-2000-index" },
     ] },
-    { region: "South America", rows: [
-      { name: "Ibovespa",   level: 176565,  w1: null, m1: 1.88, m3: null, m6: null, y1: 32.95, asOf: "2026-07-29", source: "https://tradingeconomics.com/brazil/stock-market" },
-      { name: "S&P Merval", level: 3305316, w1: null, m1: null, m3: null, m6: null, y1: null,  asOf: "2026-07-28", source: "https://www.riotimesonline.com/argentina-markets-merval-peso-tuesday-july-28-2026/" },
-      { name: "IPSA",       level: 10880,   w1: null, m1: null, m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://www.riotimesonline.com/chile-markets-ipsa-peso-wednesday-july-29-2026/" },
-    ] },
     { region: "UK", rows: [
       { name: "FTSE 100", level: 10908.41, w1: null, m1: 3.92, m3: null, m6: null, y1: 18.22, asOf: "2026-07-29", source: "https://tradingeconomics.com/united-kingdom/stock-market" },
       { name: "FTSE 250", level: 23996.81, w1: null, m1: null, m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://www.fidelity.co.uk/shares/ftse-250/" },
@@ -127,20 +122,12 @@ export const WORLD_INDICES = {
       { name: "DAX",           level: 25411.08, w1: null,  m1: 3.21,  m3: null, m6: null, y1: 5.17,  asOf: "2026-07-29", source: "https://tradingeconomics.com/germany/stock-market" },
       { name: "CAC 40",        level: 8429.26,  w1: null,  m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/france/stock-market" },
       { name: "IBEX 35",       level: 19743,    w1: 2.0,   m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/spain/stock-market" },
-      { name: "FTSE MIB",      level: 51710,    w1: -0.15, m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/italy/stock-market" },
-      { name: "SMI",           level: 14576,    w1: null,  m1: null,  m3: null, m6: null, y1: 20.08, asOf: "2026-07-29", source: "https://finance.yahoo.com/quote/%5ESSMI/history/" },
-      { name: "AEX",           level: 1093,     w1: null,  m1: 1.01,  m3: null, m6: null, y1: 19.70, asOf: "2026-07-29", source: "https://tradingeconomics.com/aex:ind" },
     ] },
     { region: "APAC", rows: [
       { name: "Nikkei 225",         level: 61434.19, w1: null, m1: -10.85, m3: null, m6: null, y1: 53.64, asOf: "2026-07-29", source: "https://tradingeconomics.com/japan/stock-market" },
       { name: "Hang Seng",          level: 25807.92, w1: null, m1: 12.22,  m3: null, m6: null, y1: 1.99,  asOf: "2026-07-29", source: "https://tradingeconomics.com/hong-kong/stock-market" },
       { name: "Shanghai Composite", level: 3828.5,   w1: null, m1: -6.49,  m3: null, m6: null, y1: 5.88,  asOf: "2026-07-29", source: "https://tradingeconomics.com/china/stock-market" },
-      { name: "CSI 300",            level: 4549.72,  w1: null, m1: null,   m3: null, m6: null, y1: 23.63, asOf: "2026-07-29", source: "https://www.gurufocus.com/economic_indicators/4424/csi-300-index" },
-      { name: "Nifty 50",           level: 24250.20, w1: -1.9, m1: 1.36,   m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://hdfcsky.com/news/market-close-report-july-29-2026-sensex-nifty-rise-1-percent-it-stocks" },
-      { name: "BSE Sensex",         level: 77654.60, w1: null, m1: null,   m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://hdfcsky.com/news/market-close-report-july-29-2026-sensex-nifty-rise-1-percent-it-stocks" },
-      { name: "S&P/ASX 200",        level: 9038.6,   w1: null, m1: 0.56,   m3: null, m6: null, y1: 3.21,  asOf: "2026-07-29", source: "https://tradingeconomics.com/australia/stock-market" },
       { name: "KOSPI",              level: 5593.56,  w1: null, m1: -31.56, m3: null, m6: null, y1: 75.10, asOf: "2026-07-29", source: "https://tradingeconomics.com/south-korea/stock-market" },
-      { name: "TAIEX",              level: 40039.18, w1: null, m1: null,   m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://www.taiwannews.com.tw/news/6410537" },
     ] },
   ],
 };
@@ -217,7 +204,7 @@ export const PRIVATE_CREDIT = {
   asOf: "2026-07",
   headline: "Fitch's U.S. Private Credit Default Rate (PCDR) hit a record 6.0% for the trailing 12 months ended 2Q26 — up from the prior high of 5.7% in 1Q26, and roughly double the ~3% broadly-syndicated loan default rate.",
   metrics: [
-    { k: "Private Credit Default Rate", v: "6.0%", sub: "TTM 2Q26 · record · up from 5.7% (1Q26)", src: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/", srcName: "Fitch 2Q26 Monitor (via Funds Society)" },
+    { k: "Private Credit Default Rate", v: "6.0%", sub: "TTM 2Q26 · record · up from 5.7% (1Q26)", src: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/", srcName: "Fitch 2Q26 Monitor (via Funds Society)", prev: "5.5%", prevAsOf: "2Q25", prevSrc: "https://www.investmentexecutive.com/news/research-and-markets/u-s-private-credit-default-rate-rises-fitch/" },
     { k: "Defaults recorded (TTM)", v: "32", sub: "private-credit issuers, 2Q26", src: "https://www.tradingview.com/news/reuters.com,2026:newsml_FWN41V0W8:0-fitch-ratings-u-s-private-credit-default-rate-hits-a-high-of-6-0-in-april-2026/", srcName: "Fitch (via Reuters/TradingView)" },
     { k: "KBRA MM default monitor", v: "3.3%", sub: "by count, 2Q26 · first rise in a year · 2.4% by debt (record)", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
     { k: "MM debt assessed (KBRA)", v: "$1.2tn", sub: "2,785 borrowers, TTM 2Q26 · EBITDA growth fading", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },

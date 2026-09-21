@@ -29,6 +29,10 @@ const pc = await pg.evaluate(() => {
     reportsSourced: [...card.querySelectorAll(".dsh-pc-report")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "")),
     hasKbra: /KBRA/i.test(card.textContent) && /Middle Market Compendium/i.test(card.textContent),
     hasAima: /AIMA/i.test(card.textContent),
+    // Prior-12-months comparison — at least one metric shows a year-ago "vs X" value
+    // that links its own source.
+    yoy: [...card.querySelectorAll(".dsh-pc-grid .dsh-kv-yoy")].length,
+    yoySourced: [...card.querySelectorAll(".dsh-pc-grid .dsh-kv-yoy")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "")),
   };
 });
 check(!!pc, "Credit: Private credit card renders");
@@ -40,6 +44,7 @@ check(pc && !pc.descriptor, "Credit: the 'Fitch PCDR & market pulse' descriptor 
 check(pc && pc.notes === 0, `Credit: each source is just the SRC label, no context note (${pc && pc.notes} notes)`);
 check(pc && pc.reports >= 2 && pc.reportsSourced, `Credit: tracked private-credit research renders + links out (${pc && pc.reports})`);
 check(pc && pc.hasKbra && pc.hasAima, "Credit: incorporates the KBRA MM Compendium and AIMA/ACC research");
+check(pc && pc.yoy >= 1 && pc.yoySourced, `Credit: a metric shows the year-ago comparison, sourced (${pc && pc.yoy})`);
 
 // Stress table: a clean data grid (Debtor · Debt · Status · Src) — the prose note
 // column is reduced to just the SRC link (no .dsh-clamp2 note text).
