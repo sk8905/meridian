@@ -961,33 +961,35 @@ async function handleChokepoint(request, env, ctx) {
     return new Response(t || "{}", { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/hormuz?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/hormuz?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-  let out = { latest: null, date: null, avg30: null, days: 0, ts: Date.now() };
+  let out = { date: null, total: null, tanker: null, ts: Date.now() };
   const txt = await fetchText(src);
   if (txt) {
     try {
-      // ArcGIS field names/casing can vary between service revisions, so pick the
-      // date + transit-count fields case-insensitively from a set of known aliases
-      // rather than assuming exact keys.
       // Priority-ordered field match: build a lowercase key map, then take the first
-      // of OUR preferred names that exists (PortWatch's total-transits field is
-      // n_total; date is `date`, which ArcGIS returns as epoch ms).
+      // of OUR preferred names that exists. PortWatch splits daily transits into
+      // n_total (all vessels) and n_tanker (oil/product tankers); date is epoch ms.
       const pick = (a, names) => { const lk = {}; for (const k of Object.keys(a)) lk[k.toLowerCase()] = a[k]; for (const n of names) if (n in lk && lk[n] != null) return lk[n]; return undefined; };
       const DATE_KEYS = ["date", "period", "day", "obs_date", "record_date", "time"];
-      const N_KEYS = ["n_total", "n_transits", "transits", "n_transit", "transit_calls", "vessel_count", "n_vessels", "ships", "count"];
+      const TOTAL_KEYS = ["n_total", "n_transits", "transits", "n_transit", "transit_calls", "vessel_count", "n_vessels", "ships", "count"];
+      const TANKER_KEYS = ["n_tanker", "n_tankers", "tanker", "tankers", "n_oil_tanker", "n_tanker_transits"];
       const rows = (JSON.parse(txt).features || [])
         .map((f) => (f && f.attributes) ? f.attributes : null)
         .filter(Boolean)
-        .map((a) => { const dv = pick(a, DATE_KEYS), nv = pick(a, N_KEYS); return { t: (typeof dv === "number" ? dv : Date.parse(dv)), n: Number(nv) }; })
-        .filter((r) => Number.isFinite(r.t) && Number.isFinite(r.n))
+        .map((a) => { const dv = pick(a, DATE_KEYS); return { t: (typeof dv === "number" ? dv : Date.parse(dv)), total: Number(pick(a, TOTAL_KEYS)), tanker: Number(pick(a, TANKER_KEYS)) }; })
+        .filter((r) => Number.isFinite(r.t))
         .sort((a, b) => a.t - b.t);
+      // Latest value + trailing 30-day average for one series (rows carrying it).
+      const series = (key) => {
+        const withVal = rows.filter((r) => Number.isFinite(r[key]));
+        if (!withVal.length) return null;
+        const win = withVal.slice(-30);
+        return { latest: Math.round(withVal[withVal.length - 1][key]), avg30: Math.round(win.reduce((s, r) => s + r[key], 0) / win.length), days: win.length };
+      };
       if (rows.length) {
-        const latest = rows[rows.length - 1];
-        const win = rows.slice(-30);
-        const avg = win.reduce((s, r) => s + r.n, 0) / win.length;
-        out = { latest: Math.round(latest.n), date: new Date(latest.t).toISOString().slice(0, 10), avg30: Math.round(avg), days: win.length, ts: Date.now() };
+        out = { date: new Date(rows[rows.length - 1].t).toISOString().slice(0, 10), total: series("total"), tanker: series("tanker"), ts: Date.now() };
       }
     } catch { /* graceful: leave latest null */ }
   }
@@ -995,7 +997,7 @@ async function handleChokepoint(request, env, ctx) {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" },
   });
   // Cache only a good read, so a transient upstream failure isn't pinned for an hour.
-  if (ctx && ctx.waitUntil && out.latest != null) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  if (ctx && ctx.waitUntil && (out.total || out.tanker)) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;
 }
 

@@ -1791,25 +1791,25 @@ function initRates() {
     .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_briefLeads.rates) setGlance("gl-rates", "Rates data unavailable right now."); } });
 }
 // ---- Strait of Hormuz vessel transits (IMF PortWatch) ----------------------
-// The latest day's transit count and the trailing ~30-day average, so the tile
-// shows whether traffic through the strait is running above or below normal — an
-// oil / geopolitical chokepoint read. Real data only (from /api/hormuz); if the
-// feed can't be reached the tile says so rather than inventing a number.
+// Two separate daily counts — ALL vessels (n_total) and OIL TANKERS (n_tanker) —
+// each vs its own trailing ~30-day average, so the tile shows whether traffic
+// through the strait is running above or below normal. Real data only (from
+// /api/hormuz); if the feed can't be reached the tile says so, never a guess.
 function renderHormuz(el, d) {
-  if (!el || !d || d.latest == null) return false;
-  const avg = d.avg30, w = d.days || 30;
-  const dir = avg == null ? "flat" : d.latest > avg ? "up" : d.latest < avg ? "down" : "flat";
-  const delta = avg == null ? null : Math.abs(d.latest - avg);
+  if (!el || !d || (!d.total && !d.tanker)) return false;
   const dm = /^(\d{4})-(\d{2})-(\d{2})/.exec(d.date || "");
   const dstr = dm ? `${+dm[3]} ${MONTHS[+dm[2] - 1]}` : "";
-  const rows = [
-    riskTile({ label: "Transits", val: String(d.latest),
-      chg: delta == null ? null : `${delta} vs avg`, dir,
+  const tile = (label, s, what) => {
+    if (!s || s.latest == null) return "";
+    const avg = s.avg30, w = s.days || 30;
+    const dir = avg == null ? "flat" : s.latest > avg ? "up" : s.latest < avg ? "down" : "flat";
+    const delta = avg == null ? null : Math.abs(s.latest - avg);
+    return riskTile({ label, val: String(s.latest), chg: delta == null ? null : `${delta} vs avg`, dir,
       href: "https://portwatch.imf.org/pages/chokepoint6",
-      title: `Vessel transits${dstr ? " on " + dstr : ""} vs the ${w}-day average (${avg}) — IMF PortWatch, AIS-derived` }),
-    riskTile({ label: `${w}d avg`, val: avg == null ? "—" : String(avg), chg: null, dir: "flat",
-      href: "https://portwatch.imf.org/pages/chokepoint6", title: `Trailing ${w}-day average daily transits — IMF PortWatch` }),
-  ];
+      title: `${what}${dstr ? " on " + dstr : ""} vs the ${w}-day average (${avg}) — IMF PortWatch, AIS-derived` });
+  };
+  const rows = [tile("Transits", d.total, "All vessel transits"), tile("Tankers", d.tanker, "Oil-tanker transits")].filter(Boolean);
+  if (!rows.length) return false;
   el.innerHTML = rows.join("");
   return true;
 }
