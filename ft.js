@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "23398237-6cfb-436a-bb68-b991dc415088", title: "Banks face regulatory barriers to rapid AI reform, says SocGen chief", date: "2026-09-21", time: "10:00", url: "https://www.ft.com/content/23398237-6cfb-436a-bb68-b991dc415088" },
+  { id: "984d32cd-184a-4334-8b40-93608c8c0fbc", title: "Rising bond yields should prompt central banks to tighten further", date: "2026-09-21", time: "09:47", url: "https://www.ft.com/content/984d32cd-184a-4334-8b40-93608c8c0fbc" },
+  { id: "59da7ce1-d933-4c8c-a35d-14800b175411", title: "Ed Davey leads Liberal Democrats with firm hand", date: "2026-09-21", time: "09:30", url: "https://www.ft.com/content/59da7ce1-d933-4c8c-a35d-14800b175411" },
   { id: "eeef7db4-b26d-426f-896b-f7b95bb84223", title: "Chinese rare earth shipments to US drop ahead of Trump-Xi summit", date: "2026-09-21", time: "08:45", url: "https://www.ft.com/content/eeef7db4-b26d-426f-896b-f7b95bb84223" },
   { id: "a1c9d298-8af9-4cf4-9c47-e2eb50cd03d9", title: "Trafigura to float supertanker arm in first IPO of a business", date: "2026-09-21", time: "07:30", url: "https://www.ft.com/content/a1c9d298-8af9-4cf4-9c47-e2eb50cd03d9" },
   { id: "3b646756-12bc-442f-b77b-6583cee6de46", title: "FTAV’s further reading", date: "2026-09-21", time: "07:10", url: "https://www.ft.com/content/3b646756-12bc-442f-b77b-6583cee6de46" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "bbf1d846-7d89-45f6-8c0f-1fba1e334b4b", title: "Chevron plans drilling spree as it overhauls oil and gas search", date: "2026-09-20", time: "13:00", url: "https://www.ft.com/content/bbf1d846-7d89-45f6-8c0f-1fba1e334b4b" },
   { id: "bfe6fc60-51b3-41f0-b6c9-32583735150e", title: "CATL develops pick-up truck batteries for US despite trade barriers", date: "2026-09-20", time: "12:58", url: "https://www.ft.com/content/bfe6fc60-51b3-41f0-b6c9-32583735150e" },
   { id: "2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae", title: "Ukraine hits Moscow with ‘largest ever’ drone attack", date: "2026-09-20", time: "12:32", url: "https://www.ft.com/content/2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae" },
-  { id: "7db29c44-bff4-4fca-9de4-88356a207b01", title: "The perils of productivity numbers", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/7db29c44-bff4-4fca-9de4-88356a207b01" },
-  { id: "6a5789f3-1bf3-4a46-b570-eee84704dd68", title: "Is the Bank of Japan right to fear an overshoot in inflation?", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/6a5789f3-1bf3-4a46-b570-eee84704dd68" },
-  { id: "90714056-d364-43d9-9411-9bde92f966b3", title: "Jon Ossoff’s Georgia race stirs talk of 2028 US presidential audition", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/90714056-d364-43d9-9411-9bde92f966b3" },
 ];
