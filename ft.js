@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f29de45a-3d32-4d9f-90cd-615f7466c1de", title: "US data centres ‘are short six NYCs of electricity’", date: "2026-09-21", time: "17:01", url: "https://www.ft.com/content/f29de45a-3d32-4d9f-90cd-615f7466c1de" },
+  { id: "f3092492-9e70-4987-a359-22e31f93b77b", title: "Changing leader is not the panacea many Lib Dems think it is", date: "2026-09-21", time: "16:28", url: "https://www.ft.com/content/f3092492-9e70-4987-a359-22e31f93b77b" },
+  { id: "0bfc882f-fe1b-40cb-a356-162e833f2008", title: "Paramount reaches settlement to clear path for $110bn Warner Bros deal", date: "2026-09-21", time: "16:15", url: "https://www.ft.com/content/0bfc882f-fe1b-40cb-a356-162e833f2008" },
+  { id: "e173bec6-352b-4b51-b3a4-382a9229bc86", title: "Federal Reserve will need to be ‘aggressive’ on inflation, says top official", date: "2026-09-21", time: "16:10", url: "https://www.ft.com/content/e173bec6-352b-4b51-b3a4-382a9229bc86" },
   { id: "2f8ea519-9e2e-4ab2-9061-18729503ff24", title: "Spanish PM’s wife to stand trial over corruption charges", date: "2026-09-21", time: "16:04", url: "https://www.ft.com/content/2f8ea519-9e2e-4ab2-9061-18729503ff24" },
   { id: "378926f5-0494-4f5e-8bd1-e1775980ab82", title: "China accuses ousted top generals of ‘disloyalty’", date: "2026-09-21", time: "15:54", url: "https://www.ft.com/content/378926f5-0494-4f5e-8bd1-e1775980ab82" },
   { id: "e40691e8-e96e-444a-baf7-ae3dfef99bce", title: "Germany’s Merz hits out at ‘destructive’ forces as he fights for survival", date: "2026-09-21", time: "15:41", url: "https://www.ft.com/content/e40691e8-e96e-444a-baf7-ae3dfef99bce" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "960f930b-1f1f-4161-ae6c-fc8ed5ec4ed9", title: "Private ADHD clinics are misdiagnosing children, report will say", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/960f930b-1f1f-4161-ae6c-fc8ed5ec4ed9" },
   { id: "fdb3a153-4b10-4ac0-987a-c4e0b02a5b3a", title: "AI in finance must be policed differently", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/fdb3a153-4b10-4ac0-987a-c4e0b02a5b3a" },
   { id: "f88b1f1b-d00b-4aae-8ad6-de1302755333", title: "Europe must not cut US arms ties, warns defence boss", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/f88b1f1b-d00b-4aae-8ad6-de1302755333" },
-  { id: "2cf96368-8f17-4b5d-88e0-9c5e4058ffe4", title: "Fuel subsidies weigh on public finances as energy crisis deepens", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/2cf96368-8f17-4b5d-88e0-9c5e4058ffe4" },
-  { id: "6f0ceb7d-597d-4c83-ac8b-0fe7c8bd74f9", title: "Why the world’s hottest stock market is a national liability", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/6f0ceb7d-597d-4c83-ac8b-0fe7c8bd74f9" },
-  { id: "f2dca0b0-6387-4022-8dba-dc8015823dfe", title: "The cartel civil war tearing apart a Mexican state", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/f2dca0b0-6387-4022-8dba-dc8015823dfe" },
-  { id: "01a7b883-452c-4902-b40e-e3957de5d89e", title: "Lex in depth: Anthropic at $2tn isn’t far-fetched", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/01a7b883-452c-4902-b40e-e3957de5d89e" },
 ];

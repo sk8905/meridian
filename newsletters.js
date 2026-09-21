@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-chatham-tighterpolicytests-20260921",
+    publication: "Chatham Financial",
+    author: null,
+    series: "Market Update",
+    title: "Tighter policy tests market conviction",
+    date: "2026-09-21",
+    time: "15:13",
+    summary: "The Federal Reserve raised rates 25 basis points last week, while the 10-year Treasury yield closed at 5.01% and the S&P 500 Total Return Index edged down 0.06%.",
+    url: "https://www.chathamfinancial.com/insights",
+  },
+  {
     id: "nl-legalbusiness-weilfrankfurt-20260921",
     publication: "Legal Business",
     author: null,
