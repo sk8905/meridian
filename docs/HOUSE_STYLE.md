@@ -331,9 +331,12 @@ notification badge red (`#ef4444`).
   key, which also sidesteps ITP and the List owner's account privacy. The feed is
   **preloaded on Home load** (`initXWire(true)` — booted even while the X pane is
   hidden behind another chip, so the feed is populated the instant its chip is
-  opened) and **auto-refreshes every ~5 min whenever Home is active and the app is
-  foregrounded**, even when its pane is hidden (kept-alive, so the cards never blank);
-  it still pauses off-Home and when backgrounded so it never burns calls. Every card
+  opened) and **auto-refreshes at least every ~5 min for as long as the app is
+  foregrounded — on ANY view**, not just Home (the Home DOM is kept in memory so
+  `#g-xwire` persists), and **refreshes the moment the app returns to the
+  foreground** if it aged while hidden; the cards never blank during a refresh. It
+  **pauses only while the app is backgrounded**, so it never burns calls when nothing
+  is watching. Every card
   is a **real post** (no tweet text stored or
   invented — R7) linking its permalink, with a persistent **"Open list on X"** link
   and a clear message when X's server read is unavailable. **Membership auto-syncs

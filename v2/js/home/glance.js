@@ -389,7 +389,7 @@ function initXWire(eager) {
   // Re-entry (the X chip tapped again): refresh in place. renderXWire keeps the
   // existing cards on screen while it re-fetches, so there is never a blank.
   if (_xwireBooted) { renderXWire(host); return; }
-  const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); startXWireAuto(host); };
+  const boot = () => { if (_xwireBooted) return; _xwireBooted = true; renderXWire(host); _xwireLast = Date.now(); startXWireAuto(); };
   // Eager preload (Home load): boot even while the X pane is hidden behind a mobile
   // chip, so the feed is already populated the instant the X chip is opened.
   if (eager) { boot(); return; }
@@ -405,20 +405,30 @@ function initXWire(eager) {
     io.observe(host);
   } else { boot(); }
 }
-// Keep the feed live & PRELOADED: re-fetch every 5 minutes whenever Home is active
-// and the app is foregrounded — even while the X pane is hidden behind another wire
-// chip, so switching to the X chip always shows a current feed with no blank. Still
-// pauses when another tab is open or the app is backgrounded, so it never burns API
-// calls off-Home. renderXWire keeps the cards during the refresh.
+// Keep the feed live & PRELOADED: re-fetch at least every 5 minutes for as long as
+// the app is open and foregrounded — on ANY view, not just Home (the Home DOM is
+// kept in memory, so #g-xwire persists), so the feed is always current the moment
+// its pane/chip is shown, with no blank. It also refreshes the instant the app
+// returns to the foreground if it went stale while hidden. It pauses only while the
+// app is backgrounded, so it never burns calls when nothing is watching.
+// renderXWire keeps the existing cards during each refresh.
 let _xwireAuto = 0;
-function startXWireAuto(host) {
+let _xwireLast = 0;
+function startXWireAuto() {
   if (_xwireAuto) return;
-  _xwireAuto = setInterval(() => {
-    if (__ROOT.dataset.v2tab !== __KEY) return;   // Home not active
-    if (!host.isConnected) return;                // host gone (view torn down)
-    if (document.hidden) return;                  // app backgrounded
-    renderXWire(host);                            // refresh even if the X pane is hidden (preload)
-  }, 5 * 60 * 1000);
+  const refresh = () => {
+    const h = document.getElementById("g-xwire");   // resolve live, so a re-mounted Home is followed
+    if (!h || !h.isConnected) return;               // X wire not in the DOM
+    if (document.hidden) return;                     // app backgrounded — pause
+    _xwireLast = Date.now();
+    renderXWire(h);
+  };
+  _xwireAuto = setInterval(refresh, 5 * 60 * 1000);
+  // On resume, if the feed has aged past ~1 min while hidden, refresh at once (and
+  // the 5-min cadence carries on). Not gated on Home being active.
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && Date.now() - _xwireLast > 60 * 1000) refresh();
+  });
 }
 // Relative "29m / 3h / 2d", falling back to a short date.
 function fmtXWhen(s) {
