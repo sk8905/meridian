@@ -29,7 +29,7 @@ await pg.waitForSelector("#tx-mode .tchip", { timeout: 8000 });
 // Deterministic quotes so the price/NAV ratio is stable (ARCC NAV 19.35 → 21.30/19.35 ≈ 1.10×).
 await pg.route("**/api/quotes**", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ quotes: { ARCC: { price: 21.30 }, FSK: { price: 15.50 }, MAIN: { price: 52.00 } }, asOf: "2026-09-15" }) }));
 
-check(await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].some((c) => c.dataset.mode === "bdc" && /BDC/i.test(c.textContent))), "a BDCs sub-tab chip sits beside Deal flow / Credits");
+check(await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].some((c) => c.dataset.mode === "bdc" && /BDC/i.test(c.textContent))), "a BDCs nav chip sits beside Primary issuance / Secondaries / Credits");
 await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].find((c) => c.dataset.mode === "bdc").click());
 await pg.waitForSelector("#tx-bdc-body .tbdc-tbl tbody tr.tbdc-row", { timeout: 5000 });
 await pg.waitForTimeout(400);

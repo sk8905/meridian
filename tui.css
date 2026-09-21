@@ -705,10 +705,6 @@
 .tx-up { color: var(--t-up, #3fc08d); } .tx-dn { color: var(--t-down, #f26d84); } .tx-fl { color: var(--faint); }
 .tx-tbl tfoot .tx-tot { position: sticky; bottom: 0; background: var(--head); }
 .tx-tbl tfoot .tx-tot td { border-top: 1px solid var(--border); border-bottom: 0; color: var(--ink); font-weight: 700; }
-/* Top-level grouping band — "Primary issuance" / "Secondaries" — over its types. */
-.tx-tbl .tx-grouphdr td { background: var(--head); border-top: 1px solid var(--border); }
-.tx-tbl .tx-grouphdr-c { text-align: left; font-family: var(--t-mono); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); padding-top: 9px; padding-bottom: 5px; }
-.tx-tbl .tx-grouphdr-n { margin-left: 10px; font-weight: 400; letter-spacing: .02em; text-transform: none; color: var(--faint); }
 /* A transaction type expands to an indented, in-place sub-list of its deals (an
    accordion) instead of navigating to a detail page. The caret mirrors the
    per-deal row caret; the sub-list is inset with an accent rule down its left. */

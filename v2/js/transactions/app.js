@@ -39,11 +39,16 @@ export function mount(host, ctx) {
 
   // No period toggle — the tab shows ALL transaction history (the overview's "12mo
   // vs prior" column still carries the recency trend).
-  const st = { period: "all", focus: false, q: "" };   // q set → search; else the type overview (types expand inline)
+  // group is the top-level split — Primary issuance vs Secondaries — now its own
+  // nav entry (replacing the old single "Deal flow"). Each shows only its group's
+  // transaction types. q set → search (scoped to the active group).
+  const st = { period: "all", group: "primary", focus: false, q: "" };
   const inPeriod = () => true;
   // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
   // qualifies when its manager sits in the target band. Off → everything.
   const inFocus = (r) => !st.focus || mInFocus(_mById.get(r.d.managerId));
+  // Which top-level group a transaction type belongs to (primary | secondary).
+  const groupOf = (key) => (TX_TYPES.find((x) => x.key === key) || {}).group || "primary";
 
   // ---- per-type stats over the active period -------------------------------
   const median = (arr) => { if (!arr.length) return null; const a = [...arr].sort((x, y) => x - y); const m = a.length >> 1; return a.length % 2 ? a[m] : Math.round((a[m - 1] + a[m]) / 2); };
@@ -74,7 +79,8 @@ export function mount(host, ctx) {
         <section class="tcol tcol-c tcol-full">
           <header class="tpanel-h twire-head">
             <div class="tchips" id="tx-mode">
-              <button type="button" class="tchip is-on" data-mode="flow">Deal flow</button>
+              <button type="button" class="tchip is-on" data-mode="primary">Primary issuance</button>
+              <button type="button" class="tchip" data-mode="secondary">Secondaries</button>
               <button type="button" class="tchip" data-mode="credits">Credits</button>
               <button type="button" class="tchip" data-mode="bdc">BDCs</button>
             </div>
@@ -104,7 +110,7 @@ export function mount(host, ctx) {
   const body = host.querySelector("#tx-body");
   const creditsBody = host.querySelector("#tx-credits-body");
   const bdcBody = host.querySelector("#tx-bdc-body");
-  let _crMode = "flow", _crQ = "", _crGroup = null;   // null = neutral default (sector order, no button lit)
+  let _crMode = "primary", _crQ = "", _crGroup = null;   // null = neutral default (sector order, no button lit)
   let _bdcQ = "", _bdcQuotes = null, _bdcQuotesTried = false;   // BDC roster state
   // S&P scale, best → worst — used to order the roster when grouping by rating.
   const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
@@ -114,9 +120,13 @@ export function mount(host, ctx) {
 
   // ---- overview: a league table of the transaction types -------------------
   function renderOverview() {
-    const S = TX_TYPES.map((t) => statsFor(t.key)).filter((s) => s.n > 0);
+    // Only the active top-level group's types (Primary issuance OR Secondaries) —
+    // the group is now the selected nav chip, so there is no in-body group band.
+    const g = TX_GROUPS.find((x) => x.key === st.group) || TX_GROUPS[0];
+    const S = TX_TYPES.filter((t) => groupOf(t.key) === st.group)
+      .map((t) => statsFor(t.key)).filter((s) => s.n > 0)
+      .sort((a, b) => b.usd - a.usd || b.n - a.n);
     const totalN = S.reduce((s, x) => s + x.n, 0), totalUsd = S.reduce((s, x) => s + x.usd, 0);
-    const groupOf = (key) => (TX_TYPES.find((x) => x.key === key) || {}).group || "primary";
     const row = (s) => {
       const t = TX_TYPES.find((x) => x.key === s.key);
       return `<tr class="clickable" data-type="${esc(s.key)}" aria-expanded="false">`
@@ -132,20 +142,11 @@ export function mount(host, ctx) {
         // type's list up front.
         + `<tr class="tx-typeexp" data-for="${esc(s.key)}" data-sec="all" hidden><td colspan="7"><div class="tx-typeexp-in"></div></td></tr>`;
     };
-    // Two top-level sections — Primary issuance, then Secondaries — each a labelled
-    // band carrying its aggregate deal count + volume, over its types (by volume).
-    const section = (g) => {
-      const gs = S.filter((s) => groupOf(s.key) === g.key).sort((a, b) => b.usd - a.usd || b.n - a.n);
-      if (!gs.length) return "";
-      const gn = gs.reduce((n, x) => n + x.n, 0), gusd = gs.reduce((n, x) => n + x.usd, 0);
-      return `<tr class="tx-grouphdr"><td class="tx-grouphdr-c" colspan="7">${esc(g.label)}<span class="tx-grouphdr-n">${gn} deals · ${fmtUsd(gusd)}</span></td></tr>`
-        + gs.map(row).join("");
-    };
     body.innerHTML = `
       <div class="tleague-wrap"><table class="tleague tleague-full tx-tbl">
         <thead><tr><th>Transaction type</th><th>Deals</th><th>12mo vs prior</th><th>Volume ≈$</th><th>Median ≈$</th><th>Managers</th><th class="tx-top-h">Most active</th></tr></thead>
-        <tbody>${TX_GROUPS.map(section).join("")}</tbody>
-        <tfoot><tr class="tx-tot"><td class="tl-nm">All types</td><td class="tl-n">${totalN}</td><td></td><td class="tl-n">${fmtUsd(totalUsd)}</td><td></td><td></td><td></td></tr></tfoot>
+        <tbody>${S.map(row).join("")}</tbody>
+        <tfoot><tr class="tx-tot"><td class="tl-nm">${esc(g.label)}</td><td class="tl-n">${totalN}</td><td></td><td class="tl-n">${fmtUsd(totalUsd)}</td><td></td><td></td><td></td></tr></tfoot>
       </table></div>`;
   }
 
@@ -233,12 +234,13 @@ export function mount(host, ctx) {
         || (d.summary || "").toLowerCase().includes(q)
         || !!(t && t.label.toLowerCase().includes(q));
     };
-    const list = rows.filter((r) => inPeriod(r) && inFocus(r) && hit(r)).sort((a, b) => b.ts - a.ts);
+    const g = TX_GROUPS.find((x) => x.key === st.group) || TX_GROUPS[0];
+    const list = rows.filter((r) => inPeriod(r) && inFocus(r) && groupOf(r.tx) === st.group && hit(r)).sort((a, b) => b.ts - a.ts);
     const CAP = 200, shown = list.slice(0, CAP);
     body.innerHTML = `
       <div class="tx-head">
-        <h2 class="tx-title">Search</h2>
-        <p class="tx-blurb"><span class="muted">${list.length} transaction${list.length === 1 ? "" : "s"} match “${esc(st.q)}”${st.focus ? " · $1–15bn AUM" : ""}${list.length > CAP ? ` — showing the first ${CAP}` : ""}. Tap a row for the full detail.</span></p>
+        <h2 class="tx-title">Search · ${esc(g.label)}</h2>
+        <p class="tx-blurb"><span class="muted">${list.length} ${esc(g.label.toLowerCase())} transaction${list.length === 1 ? "" : "s"} match “${esc(st.q)}”${st.focus ? " · $1–15bn AUM" : ""}${list.length > CAP ? ` — showing the first ${CAP}` : ""}. Tap a row for the full detail.</span></p>
       </div>
       ${shown.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
         <thead><tr><th class="tx-bd-h">Borrower / company</th><th class="tx-sp-h">Sponsor</th><th class="tx-dt-h">Date</th><th class="tx-mg-h">Lender / investor</th><th class="tx-cat-h">Sector</th><th class="tx-amt-h">Amount</th><th class="tx-src-h">Source</th></tr></thead>
@@ -407,21 +409,26 @@ export function mount(host, ctx) {
   function render() { st.q ? renderSearch() : renderOverview(); }
 
   // ---- events (delegated) --------------------------------------------------
-  // Primary mode: Deal flow (the transaction-type table) vs Credits (the ELLI
-  // issuer universe). Toggling swaps which chrome + body is shown. Drive it with
-  // inline display (not [hidden]) — the headers carry a CSS `display` that beats
-  // the UA [hidden] rule, so the attribute alone wouldn't hide them.
+  // Top-level nav: Primary issuance / Secondaries (the two deal-flow groups, each a
+  // transaction-type table) vs Credits (the ELLI issuer universe) vs BDCs. Toggling
+  // swaps which chrome + body is shown. Primary & Secondaries share the flow chrome
+  // (search + #tx-body) and differ only by st.group. Drive it with inline display
+  // (not [hidden]) — the headers carry a CSS `display` that beats the UA [hidden]
+  // rule, so the attribute alone wouldn't hide them.
   const setMode = (mode) => {
-    _crMode = ["credits", "bdc"].includes(mode) ? mode : "flow";
+    _crMode = ["primary", "secondary", "credits", "bdc"].includes(mode) ? mode : "primary";
+    const flow = _crMode === "primary" || _crMode === "secondary";
+    if (flow) st.group = _crMode;
     host.querySelectorAll("#tx-mode .tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.mode === _crMode));
     const show = (ids, on) => ids.forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = on ? "" : "none"; });
-    show(["tx-flow-search", "tx-body"], _crMode === "flow");
+    show(["tx-flow-search", "tx-body"], flow);
     show(["tx-credits-search", "tx-credits-body"], _crMode === "credits");
     show(["tx-bdc-search", "tx-bdc-body"], _crMode === "bdc");
+    if (flow) render();   // Primary ↔ Secondaries change the body, so re-render
     if (_crMode === "credits") renderCredits();
     if (_crMode === "bdc") { renderBDCs(); loadBdcQuotes(); }
   };
-  setMode("flow");   // initial (drives the display, replacing the [hidden] attrs)
+  setMode("primary");   // initial (drives the display, replacing the [hidden] attrs)
   host.querySelector("#tx-mode").addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     setMode(b.dataset.mode);
@@ -519,12 +526,12 @@ export function mount(host, ctx) {
   return {
     enter() { render(); },
     leave() {},
-    // home(): a nav-bar tap resets Transactions to its first part — Deal flow, no
-    // search, default filters, scrolled to top.
+    // home(): a nav-bar tap resets Transactions to its first part — Primary
+    // issuance, no search, default filters, scrolled to top.
     home() {
-      st.q = ""; st.focus = false; st.period = "all"; _crGroup = null;
+      st.q = ""; st.focus = false; st.period = "all"; st.group = "primary"; _crGroup = null;
       try { host.querySelectorAll("input").forEach((i) => { i.value = ""; }); } catch { /* */ }
-      setMode("flow");
+      setMode("primary");
       render();
       window.scrollTo(0, 0);
     },

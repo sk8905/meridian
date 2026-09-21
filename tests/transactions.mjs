@@ -36,7 +36,7 @@ await pg.goto(base + "/v2/transactions/", { waitUntil: "load" });
 await pg.waitForSelector(".tx-tbl tbody tr.clickable", { timeout: 8000 });
 const ov = await pg.evaluate(() => ({
   rows: document.querySelectorAll(".tx-tbl tbody tr.clickable").length,
-  hasTotal: /All types/.test((document.querySelector(".tx-tbl tfoot") || {}).textContent || ""),
+  hasTotal: !!document.querySelector(".tx-tbl tfoot .tx-tot") && /\$/.test((document.querySelector(".tx-tbl tfoot") || {}).textContent || ""),
   hasTrend: document.querySelectorAll(".tx-tbl .tx-up, .tx-tbl .tx-fl, .tx-tbl .tx-dn").length > 0,
   hasVol: /\$/.test((document.querySelector(".tx-tbl tbody tr") || {}).textContent || ""),
   noPeriodChips: !document.querySelector("#tx-period"),
@@ -68,17 +68,17 @@ check(ov.nameFS === "11.5px" && (ov.nameFW === "700" || ov.nameFW === "bold"), `
 check(ov.aligns.length > 0 && ov.aligns.every((a) => a === "left" || a === "start"), `every header + cell is left-aligned, matching the Profiles league (${[...new Set(ov.aligns)].join(", ")})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the table body sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.headOffset === 0, `the column header sits flush at the top — no blank band above it (offset ${ov.headOffset}px)`);
-check(ov.hasTotal, "overview carries an 'All types' total row");
+check(ov.hasTotal, "overview carries a group total row (deal count + volume)");
 check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
 check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed");
-check(ov.modeChips.join(",") === "Deal flow,Credits,BDCs", `the Deal flow / Credits / BDCs mode chips are present (${ov.modeChips.join(",")})`);
+check(ov.modeChips.join(",") === "Primary issuance,Secondaries,Credits,BDCs", `the Primary issuance / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 
 // ---- 3) expand a type → an inline, indented sub-list of its deals --------
 // Clicking a transaction type opens its deals as an indented accordion IN PLACE
 // (the overview stays on the page) instead of navigating to a separate detail page.
-await pg.evaluate(() => { const r = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")].find((x) => /CLO issuance/.test(x.textContent)); (r || document.querySelector(".tx-tbl tbody tr.clickable")).click(); });
+await pg.evaluate(() => { const r = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")].find((x) => /Direct lending/.test(x.textContent)); (r || document.querySelector(".tx-tbl tbody tr.clickable")).click(); });
 await pg.waitForSelector(".tx-typeexp:not([hidden]) .tx-list tbody tr.tx-row", { timeout: 4000 });
 const dt = await pg.evaluate(() => {
   const exp = document.querySelector(".tx-typeexp:not([hidden])");
@@ -260,7 +260,7 @@ const cleared = await pg.evaluate(async () => {
   await new Promise((r) => setTimeout(r, 160));
   return { league: document.querySelectorAll(".tx-tbl tbody tr.clickable").length };
 });
-check(cleared.league >= 6, `Transactions: clearing the search restores the type overview (${cleared.league})`);
+check(cleared.league >= 4, `Transactions: clearing the search restores the type overview (${cleared.league})`);
 
 checkErrs(errs, "transactions tab");
 await ctx.close();
@@ -282,7 +282,7 @@ await ctx.close();
   await p.pg.waitForTimeout(300);
   const scrolled = await at();
   check(Math.abs(rest.search.top - scrolled.search.top) <= 1 && scrolled.search.top >= 0, `phone: the search bar stays pinned on scroll (top ${rest.search.top}→${scrolled.search.top})`);
-  check(Math.abs(scrolled.search.top - scrolled.tabs.bot) <= 2, `phone: the search bar pins flush under the Deal flow / Credits tabs (search ${scrolled.search.top} ≈ tabs bottom ${scrolled.tabs.bot})`);
+  check(Math.abs(scrolled.search.top - scrolled.tabs.bot) <= 2, `phone: the search bar pins flush under the Primary / Secondaries / Credits tabs (search ${scrolled.search.top} ≈ tabs bottom ${scrolled.tabs.bot})`);
   checkErrs(p.errs, "transactions phone sticky search");
   await p.ctx.close();
 }

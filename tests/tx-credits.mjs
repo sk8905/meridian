@@ -1,4 +1,4 @@
-// Transactions ▸ Credits sub-tab: a Deal flow / Credits mode toggle. Credits mode
+// Transactions ▸ Credits sub-tab: a Primary/Secondaries/Credits/BDCs nav. Credits mode
 // shows the European credit universe (ELLI) organised by sector with issuer
 // ratings — or, until the sourced roster has landed, an honest "being compiled"
 // state. Toggling swaps the chrome + body (no leftover deal-flow controls).
@@ -10,14 +10,14 @@ const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/
 await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await pg.waitForTimeout(1600);
 
-// The primary mode toggle: Deal flow (default, on) + Credits.
+// The top-level nav: Primary issuance (default, on) + Secondaries + Credits + BDCs.
 const modes = await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].map((c) => ({ label: c.textContent.trim().replace(/\s+\d+$/, ""), on: c.classList.contains("is-on") })));
-check(modes.length === 3 && modes[0].label === "Deal flow" && modes[1].label === "Credits" && modes[2].label === "BDCs", `mode chips are Deal flow / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
-check(modes[0].on && !modes[1].on, "Deal flow is the default mode");
+check(modes.length === 4 && modes[0].label === "Primary issuance" && modes[1].label === "Secondaries" && modes[2].label === "Credits" && modes[3].label === "BDCs", `nav chips are Primary issuance / Secondaries / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
+check(modes[0].on && !modes[1].on, "Primary issuance is the default mode");
 
-// Deal-flow chrome shows the type table; the credits body is hidden.
+// Deal-flow chrome (shared by Primary/Secondaries) shows the type table; the credits body is hidden.
 const flow = await pg.evaluate(() => { const d = (id) => getComputedStyle(document.querySelector("#" + id)).display; return { search: d("tx-flow-search"), body: d("tx-body"), credits: d("tx-credits-body") }; });
-check(flow.search !== "none" && flow.body !== "none" && flow.credits === "none", "Deal flow mode shows the type table, hides the credits body");
+check(flow.search !== "none" && flow.body !== "none" && flow.credits === "none", "Primary issuance mode shows the type table, hides the credits body");
 
 // Switch to Credits.
 await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="credits"]').click());
@@ -97,10 +97,10 @@ if (cr.rows > 0) {
   check(!g2.anyOn && g2.rows === q.total, `Credits: clicking the active group-by button again turns it off (${g2.rows} rows)`);
 }
 
-// Toggling back restores Deal flow.
-await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="flow"]').click());
+// Toggling back restores the deal-flow table (Primary issuance).
+await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="primary"]').click());
 await pg.waitForTimeout(200);
-checkEq(await pg.evaluate(() => getComputedStyle(document.querySelector("#tx-body")).display !== "none" && getComputedStyle(document.querySelector("#tx-credits-body")).display === "none"), true, "toggling back restores Deal flow");
+checkEq(await pg.evaluate(() => getComputedStyle(document.querySelector("#tx-body")).display !== "none" && getComputedStyle(document.querySelector("#tx-credits-body")).display === "none"), true, "toggling back restores the deal-flow table");
 
 checkErrs(errs, "transactions credits");
 await ctx.close();
