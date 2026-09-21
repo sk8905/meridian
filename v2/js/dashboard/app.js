@@ -284,12 +284,14 @@ export function mount(host, ctx) {
   };
   // Default: largest debt first (item h). Header clicks re-sort; the "debt" column
   // sorts numerically, everything else alphabetically.
-  let _stressSort = { key: "debt", dir: -1 };
+  let _stressSort = { key: "status", dir: 1 };   // grouped by status by default
   function stressRows() {
     const rows = CR_STRESS.map((s, i) => ({ ...s, _i: i }));
-    const k = _stressSort.key;
-    if (k === "debt") rows.sort((a, b) => (debtNum(a.debt) - debtNum(b.debt)) * _stressSort.dir);
-    else if (k) rows.sort((a, b) => String(a[k] || "").localeCompare(String(b[k] || "")) * _stressSort.dir);
+    const k = _stressSort.key, dir = _stressSort.dir;
+    if (k === "debt") rows.sort((a, b) => (debtNum(a.debt) - debtNum(b.debt)) * dir);
+    // Group by status: cluster same statuses, then biggest debt first inside a group.
+    else if (k === "status") rows.sort((a, b) => (String(a.status || "").localeCompare(String(b.status || "")) * dir) || (debtNum(b.debt) - debtNum(a.debt)));
+    else if (k) rows.sort((a, b) => String(a[k] || "").localeCompare(String(b[k] || "")) * dir);
     return rows;
   }
   // Compact stacked cards (not a 7-column table, which on a phone scrolls
@@ -302,14 +304,18 @@ export function mount(host, ctx) {
     // Table format (matching the other tiles): debtor + debt + status, and the note
     // clamped to two lines inline so it fits the space (short is fine — the source
     // link opens the full story).
+    // Debtor / sector / HQ split into their own columns (was one stacked cell); all
+    // left-aligned. Rows group by status by default.
     const row = (s) => `<tr>`
-      + `<td class="dsh-nm">${esc(s.name)}<span class="dsh-stress-sub">${esc(s.sector)} · ${esc(s.hq)}</span></td>`
-      + `<td class="dsh-r">${esc(s.debt)}</td>`
+      + `<td class="dsh-nm">${esc(s.name)}</td>`
+      + `<td class="dsh-stress-sec">${esc(s.sector || "")}</td>`
+      + `<td class="dsh-stress-hq">${esc(s.hq || "")}</td>`
+      + `<td class="dsh-stress-debt">${esc(s.debt)}</td>`
       + `<td><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
       + `<td class="dsh-note">${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
-      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("debt", "Debt")}${chip("name", "Debtor")}${chip("sector", "Sector")}</div>`
-      + `<table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th class="dsh-r">Debt</th><th>Status</th><th>Src</th></tr></thead>`
+      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("status", "Status")}${chip("debt", "Debt")}${chip("name", "Debtor")}${chip("sector", "Sector")}</div>`
+      + `<table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Src</th></tr></thead>`
       + `<tbody>${stressRows().map(row).join("")}</tbody></table></div>`;
   }
   function maturityHTML() {

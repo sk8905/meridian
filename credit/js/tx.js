@@ -14,19 +14,30 @@
 // =============================================================================
 
 // ---- Canonical taxonomy (order = display order). Each: key, label, short blurb.
+// Each type belongs to one of two top-level GROUPS on the Deal-flow overview:
+//   • primary   — new credit ORIGINATION (direct lending, ABL, NAV/fund finance,
+//                 rescue/bridge, restructuring/distressed, other financings)
+//   • secondary — existing assets/risk/fund-stakes changing hands: securitisation
+//                 (CLO, CFO), risk transfer (SRT), fund secondaries (GP-/LP-led),
+//                 and loan-portfolio (NPL) trades.
 export const TX_TYPES = [
-  { key: "gp_sec", label: "GP-led secondaries", blurb: "Continuation vehicles & GP-led fund restructurings — sponsors rolling assets into a new vehicle so existing LPs can cash out." },
-  { key: "lp_sec", label: "LP-led secondaries", blurb: "LP portfolio sales — investors selling their fund stakes on the secondary market." },
-  { key: "nav", label: "NAV / fund finance", blurb: "Financing secured against a fund's net asset value (NAV loans) and other fund-level facilities." },
-  { key: "rescue", label: "Rescue / bridge financing", blurb: "Rescue capital, bridge and emergency financings for stressed borrowers and sponsors." },
-  { key: "abl", label: "Asset-based lending", blurb: "Lending secured on assets & receivables — asset-based / asset-backed finance (ABL/ABF)." },
-  { key: "clo", label: "CLO issuance", blurb: "New collateralised loan obligation pricings & resets across the covered managers' platforms." },
-  { key: "cfo", label: "CFO / fund securitisation", blurb: "Collateralised fund obligations and rated-note fund securitisations." },
-  { key: "srt", label: "Significant risk transfer", blurb: "SRT / synthetic securitisations & capital-relief risk-sharing trades." },
-  { key: "lend", label: "Direct lending / unitranche", blurb: "Senior & unitranche direct-lending financings and refinancings — the core private-credit flow." },
-  { key: "rx", label: "Restructuring & distressed", blurb: "Restructurings, distressed situations, debt-for-equity and insolvency processes." },
-  { key: "npl", label: "NPL / loan portfolios", blurb: "Non-performing and performing loan-portfolio acquisitions & disposals." },
-  { key: "other", label: "Other financings", blurb: "Other tracked transactions — corporate acquisitions, investments and exits that fall outside the categories above." },
+  { key: "gp_sec", label: "GP-led secondaries", group: "secondary", blurb: "Continuation vehicles & GP-led fund restructurings — sponsors rolling assets into a new vehicle so existing LPs can cash out." },
+  { key: "lp_sec", label: "LP-led secondaries", group: "secondary", blurb: "LP portfolio sales — investors selling their fund stakes on the secondary market." },
+  { key: "nav", label: "NAV / fund finance", group: "primary", blurb: "Financing secured against a fund's net asset value (NAV loans) and other fund-level facilities." },
+  { key: "rescue", label: "Rescue / bridge financing", group: "primary", blurb: "Rescue capital, bridge and emergency financings for stressed borrowers and sponsors." },
+  { key: "abl", label: "Asset-based lending", group: "primary", blurb: "Lending secured on assets & receivables — asset-based / asset-backed finance (ABL/ABF)." },
+  { key: "clo", label: "CLO issuance", group: "secondary", blurb: "New collateralised loan obligation pricings & resets across the covered managers' platforms." },
+  { key: "cfo", label: "CFO / fund securitisation", group: "secondary", blurb: "Collateralised fund obligations and rated-note fund securitisations." },
+  { key: "srt", label: "Significant risk transfer", group: "secondary", blurb: "SRT / synthetic securitisations & capital-relief risk-sharing trades." },
+  { key: "lend", label: "Direct lending / unitranche", group: "primary", blurb: "Senior & unitranche direct-lending financings and refinancings — the core private-credit flow." },
+  { key: "rx", label: "Restructuring & distressed", group: "primary", blurb: "Restructurings, distressed situations, debt-for-equity and insolvency processes." },
+  { key: "npl", label: "NPL / loan portfolios", group: "secondary", blurb: "Non-performing and performing loan-portfolio acquisitions & disposals." },
+  { key: "other", label: "Other financings", group: "primary", blurb: "Other tracked transactions — corporate acquisitions, investments and exits that fall outside the categories above." },
+];
+// Top-level grouping of the transaction types on the Deal-flow overview.
+export const TX_GROUPS = [
+  { key: "primary", label: "Primary issuance" },
+  { key: "secondary", label: "Secondaries" },
 ];
 export const TX_LABEL = Object.fromEntries(TX_TYPES.map((t) => [t.key, t.label]));
 const _reTest = (re, s) => re.test(s);

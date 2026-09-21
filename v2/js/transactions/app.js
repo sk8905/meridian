@@ -11,7 +11,7 @@
 import { deals, managers } from "/credit/js/data.js";
 import { BDCS } from "/credit/js/bdcs.js";
 import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-credits.js";
-import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-2";
+import { TX_TYPES, TX_GROUPS, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-3";
 import { esc } from "/util.js?v=20260818-1";
 import { fmtDay } from "/feed.js?v=20260808-1";
 import { dealSubject, dealSponsor } from "../deal-parse.js?v=v2-4";
@@ -115,8 +115,8 @@ export function mount(host, ctx) {
   // ---- overview: a league table of the transaction types -------------------
   function renderOverview() {
     const S = TX_TYPES.map((t) => statsFor(t.key)).filter((s) => s.n > 0);
-    S.sort((a, b) => b.usd - a.usd || b.n - a.n);
     const totalN = S.reduce((s, x) => s + x.n, 0), totalUsd = S.reduce((s, x) => s + x.usd, 0);
+    const groupOf = (key) => (TX_TYPES.find((x) => x.key === key) || {}).group || "primary";
     const row = (s) => {
       const t = TX_TYPES.find((x) => x.key === s.key);
       return `<tr class="clickable" data-type="${esc(s.key)}" aria-expanded="false">`
@@ -132,10 +132,19 @@ export function mount(host, ctx) {
         // type's list up front.
         + `<tr class="tx-typeexp" data-for="${esc(s.key)}" data-sec="all" hidden><td colspan="7"><div class="tx-typeexp-in"></div></td></tr>`;
     };
+    // Two top-level sections — Primary issuance, then Secondaries — each a labelled
+    // band carrying its aggregate deal count + volume, over its types (by volume).
+    const section = (g) => {
+      const gs = S.filter((s) => groupOf(s.key) === g.key).sort((a, b) => b.usd - a.usd || b.n - a.n);
+      if (!gs.length) return "";
+      const gn = gs.reduce((n, x) => n + x.n, 0), gusd = gs.reduce((n, x) => n + x.usd, 0);
+      return `<tr class="tx-grouphdr"><td class="tx-grouphdr-c" colspan="7">${esc(g.label)}<span class="tx-grouphdr-n">${gn} deals · ${fmtUsd(gusd)}</span></td></tr>`
+        + gs.map(row).join("");
+    };
     body.innerHTML = `
       <div class="tleague-wrap"><table class="tleague tleague-full tx-tbl">
         <thead><tr><th>Transaction type</th><th>Deals</th><th>12mo vs prior</th><th>Volume ≈$</th><th>Median ≈$</th><th>Managers</th><th class="tx-top-h">Most active</th></tr></thead>
-        <tbody>${S.map(row).join("")}</tbody>
+        <tbody>${TX_GROUPS.map(section).join("")}</tbody>
         <tfoot><tr class="tx-tot"><td class="tl-nm">All types</td><td class="tl-n">${totalN}</td><td></td><td class="tl-n">${fmtUsd(totalUsd)}</td><td></td><td></td><td></td></tr></tfoot>
       </table></div>`;
   }

@@ -573,7 +573,10 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-tbl th.dsh-sorted { color:var(--t-ink); }
 .dsh-stresstbl td.dsh-note { white-space:normal; color:var(--t-dim); font-size:11.5px; line-height:1.35; }
 .dsh-stresstbl td.dsh-nm { white-space:normal; }
-.dsh-stress-sub { display:block; color:var(--t-mut); font-weight:400; font-size:11.5px; }
+/* Debtor / Sector / HQ / Debt are their own columns now, all left-aligned. */
+.dsh-stresstbl th, .dsh-stresstbl td { text-align:left; }
+.dsh-stresstbl td.dsh-stress-sec, .dsh-stresstbl td.dsh-stress-hq { color:var(--t-mut); font-weight:400; font-size:11.5px; white-space:nowrap; }
+.dsh-stresstbl td.dsh-stress-debt { color:var(--t-ink); font-weight:600; font-size:11.5px; font-variant-numeric:tabular-nums; white-space:nowrap; }
 /* Clamp an inline note to two lines so table rows stay compact; the SRC link
    after it opens the full story. */
 .dsh-clamp2 { display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }

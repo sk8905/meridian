@@ -46,20 +46,33 @@ check(pc && pc.reports >= 2 && pc.reportsSourced, `Credit: tracked private-credi
 check(pc && pc.hasKbra && pc.hasAima, "Credit: incorporates the KBRA MM Compendium and AIMA/ACC research");
 check(pc && pc.yoy >= 1 && pc.yoySourced, `Credit: a metric shows the year-ago comparison, sourced (${pc && pc.yoy})`);
 
-// Stress table: a clean data grid (Debtor · Debt · Status · Src) — the prose note
-// column is reduced to just the SRC link (no .dsh-clamp2 note text).
+// Stress table: Debtor / Sector / HQ / Debt / Status / Src, all left-aligned, rows
+// grouped by status by default; the note column is just the SRC link (no prose).
 const stress = await pg.evaluate(() => {
   const tbl = document.querySelector('.v2-view[data-view="dashboard"] .dsh-stresstbl');
   if (!tbl) return null;
   const rows = [...tbl.querySelectorAll("tbody tr")];
+  const ths = [...tbl.querySelectorAll("thead th")].map((t) => t.textContent.trim());
+  const statuses = rows.map((r) => (r.querySelector(".dsh-tag-stress") || {}).textContent || "");
+  // Grouped by status = a status never reappears after a different one intervened.
+  const seen = new Set(); let grouped = true, prev = null;
+  for (const s of statuses) { if (s !== prev) { if (seen.has(s)) grouped = false; seen.add(s); prev = s; } }
+  const leftAligned = rows.length > 0 && ["td.dsh-nm", "td.dsh-stress-sec", "td.dsh-stress-hq", "td.dsh-stress-debt"].every((sel) => { const c = tbl.querySelector(sel); return !c || getComputedStyle(c).textAlign === "left" || getComputedStyle(c).textAlign === "start"; });
   return {
     rows: rows.length,
+    ths,
+    grouped,
+    leftAligned,
+    hasSplitCols: !!tbl.querySelector("td.dsh-stress-sec") && !!tbl.querySelector("td.dsh-stress-hq") && !tbl.querySelector(".dsh-stress-sub"),
     proseNotes: tbl.querySelectorAll(".dsh-clamp2").length,
     srcOnly: rows.length > 0 && rows.every((r) => { const c = r.querySelector("td.dsh-note"); return c && c.querySelector('.dsh-src[href^="http"]') && !c.querySelector(".dsh-clamp2"); }),
   };
 });
 check(stress && stress.rows > 0, `Credit: stress table renders (${stress && stress.rows})`);
 check(stress && stress.proseNotes === 0 && stress.srcOnly, "Credit: stress rows carry just an SRC link, no prose note");
+check(stress && stress.ths.join("|") === "Debtor|Sector|HQ|Debt|Status|Src" && stress.hasSplitCols, `Credit: stress table splits debtor/sector/HQ/debt into columns (${stress && stress.ths.join(", ")})`);
+check(stress && stress.grouped, "Credit: stress rows are grouped by status (same statuses adjacent)");
+check(stress && stress.leftAligned, "Credit: stress table columns are left-aligned");
 
 // Top pulse pills: long metric labels stack over the value (no clipped text) and
 // the private-credit rows each sit on a single line.
