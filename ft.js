@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "eeef7db4-b26d-426f-896b-f7b95bb84223", title: "Chinese rare earth shipments to US drop ahead of Trump-Xi summit", date: "2026-09-21", time: "08:45", url: "https://www.ft.com/content/eeef7db4-b26d-426f-896b-f7b95bb84223" },
   { id: "a1c9d298-8af9-4cf4-9c47-e2eb50cd03d9", title: "Trafigura to float supertanker arm in first IPO of a business", date: "2026-09-21", time: "07:30", url: "https://www.ft.com/content/a1c9d298-8af9-4cf4-9c47-e2eb50cd03d9" },
   { id: "3b646756-12bc-442f-b77b-6583cee6de46", title: "FTAV’s further reading", date: "2026-09-21", time: "07:10", url: "https://www.ft.com/content/3b646756-12bc-442f-b77b-6583cee6de46" },
   { id: "9f3fd7bc-ca51-4401-8f63-b6b25e88621f", title: "Nepotism at Berkshire", date: "2026-09-21", time: "06:30", url: "https://www.ft.com/content/9f3fd7bc-ca51-4401-8f63-b6b25e88621f" },

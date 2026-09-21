@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-openaibiglawplay-20260921",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "OpenAI's Big Law play",
+    date: "2026-09-21",
+    time: "09:06",
+    summary: "OpenAI launches Astra for Law and teams up with Latham, Ropes & Gray, Sullivan & Cromwell, Cooley and Wachtell as Big Tech's race into legal AI intensifies.",
+    url: "https://non-billable.beehiiv.com/p/draft-ad28",
+  },
+  {
     id: "nl-businesspost-investorscaughtnewcrisis-20260921",
     publication: "Business Post",
     author: null,
@@ -471,16 +482,5 @@ export const NEWSLETTERS = [
     time: "10:11",
     summary: "Macfarlanes and Winston Taylor also advise as Clearlake Capital takes full control of the club.",
     url: "https://email.legalbusiness.co.uk/c/1dY4Lt1VZxoDhDUbYK45vymT6ODG",
-  },
-  {
-    id: "nl-bbg-marketsdaily-warshwinsapplause-20260917",
-    publication: "Bloomberg",
-    author: null,
-    series: "Markets Daily",
-    title: "Markets Daily: Warsh wins applause",
-    date: "2026-09-17",
-    time: "10:57",
-    summary: "The Fed's rate hike lifts stocks and bonds as investors decide Warsh's inflation fight makes him a more credible chair.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-17/traders-applaud-warsh-s-fight-against-inflation",
   },
 ];
