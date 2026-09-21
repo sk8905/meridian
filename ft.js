@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1053717b-be89-4044-bf43-59603247dd3f", title: "How a murder trial became a booming business for online creators", date: "2026-09-21", time: "11:00", url: "https://www.ft.com/content/1053717b-be89-4044-bf43-59603247dd3f" },
+  { id: "9f57e612-1068-43ab-889a-febad1602c4a", title: "Digital euro makes debut in wholesale financial markets", date: "2026-09-21", time: "11:00", url: "https://www.ft.com/content/9f57e612-1068-43ab-889a-febad1602c4a" },
+  { id: "18f9e0ac-b7d9-4648-803f-3e894990c626", title: "Slide in oil prices drives rebound in battered government bonds", date: "2026-09-21", time: "10:54", url: "https://www.ft.com/content/18f9e0ac-b7d9-4648-803f-3e894990c626" },
+  { id: "4e7004b7-d262-40c8-b979-fdf7f237adda", title: "SoftBank launches one of biggest junk bond deals to fund OpenAI bet", date: "2026-09-21", time: "10:32", url: "https://www.ft.com/content/4e7004b7-d262-40c8-b979-fdf7f237adda" },
+  { id: "946b1b1e-292d-40ec-9cd8-dbf0475f4141", title: "UK flights disrupted by latest air traffic control problem", date: "2026-09-21", time: "10:14", url: "https://www.ft.com/content/946b1b1e-292d-40ec-9cd8-dbf0475f4141" },
   { id: "23398237-6cfb-436a-bb68-b991dc415088", title: "Banks face regulatory barriers to rapid AI reform, says SocGen chief", date: "2026-09-21", time: "10:00", url: "https://www.ft.com/content/23398237-6cfb-436a-bb68-b991dc415088" },
   { id: "984d32cd-184a-4334-8b40-93608c8c0fbc", title: "Rising bond yields should prompt central banks to tighten further", date: "2026-09-21", time: "09:47", url: "https://www.ft.com/content/984d32cd-184a-4334-8b40-93608c8c0fbc" },
   { id: "59da7ce1-d933-4c8c-a35d-14800b175411", title: "Ed Davey leads Liberal Democrats with firm hand", date: "2026-09-21", time: "09:30", url: "https://www.ft.com/content/59da7ce1-d933-4c8c-a35d-14800b175411" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "f37d9712-009a-4573-b268-a438b4c7502b", title: "Labour MPs warn against mansion tax change in Budget", date: "2026-09-20", time: "16:27", url: "https://www.ft.com/content/f37d9712-009a-4573-b268-a438b4c7502b" },
   { id: "3fcee89f-b69d-4f4b-a944-39fe1c214fb8", title: "Wall Street expects US to issue about $1tn of short-term debt as borrowing costs climb", date: "2026-09-20", time: "16:00", url: "https://www.ft.com/content/3fcee89f-b69d-4f4b-a944-39fe1c214fb8" },
   { id: "70edaf6d-0f25-47a8-a1a4-8724cf92c2d9", title: "Disability-related disputes drive surge in demand for workplace conciliation", date: "2026-09-20", time: "16:00", url: "https://www.ft.com/content/70edaf6d-0f25-47a8-a1a4-8724cf92c2d9" },
-  { id: "05a7292e-4931-4631-8f77-164fb727c203", title: "AI is a powerful but problematic new collaborator in mathematics", date: "2026-09-20", time: "14:00", url: "https://www.ft.com/content/05a7292e-4931-4631-8f77-164fb727c203" },
-  { id: "bbf1d846-7d89-45f6-8c0f-1fba1e334b4b", title: "Chevron plans drilling spree as it overhauls oil and gas search", date: "2026-09-20", time: "13:00", url: "https://www.ft.com/content/bbf1d846-7d89-45f6-8c0f-1fba1e334b4b" },
-  { id: "bfe6fc60-51b3-41f0-b6c9-32583735150e", title: "CATL develops pick-up truck batteries for US despite trade barriers", date: "2026-09-20", time: "12:58", url: "https://www.ft.com/content/bfe6fc60-51b3-41f0-b6c9-32583735150e" },
-  { id: "2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae", title: "Ukraine hits Moscow with ‘largest ever’ drone attack", date: "2026-09-20", time: "12:32", url: "https://www.ft.com/content/2b6f1b4b-4010-4e95-8b5c-dfb2e32cd7ae" },
 ];

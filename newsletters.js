@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-quinnmarianadam-20260921",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Quinn London head joins Mariana Dam team amid fight over Pogust role",
+    date: "2026-09-21",
+    time: "10:16",
+    summary: "Richard East joins the Quinn team representing Mariana Dam claimants as scrutiny over Sanjay Pogust's role in the group claim intensifies.",
+    url: "https://email.legalbusiness.co.uk/c/1dYYR8w0mHQJhAW3qwVN9ijcYj7D",
+  },
+  {
     id: "nl-nonbillable-openaibiglawplay-20260921",
     publication: "Non-Billable",
     author: null,
@@ -471,16 +482,5 @@ export const NEWSLETTERS = [
     time: "11:04",
     summary: "Fed Chair Warsh sells the Fed's interest rate hike as a reflection of a strengthening economy.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-17/warsh-suggests-fed-rate-hike-is-good-news-story-touting-growth",
-  },
-  {
-    id: "nl-legalbusiness-chelseaexit-20260917",
-    publication: "Legal Business",
-    author: null,
-    series: "Legal Business Alert",
-    title: "Latham and Sidley lead as Boehly and Walter exit Chelsea investment",
-    date: "2026-09-17",
-    time: "10:11",
-    summary: "Macfarlanes and Winston Taylor also advise as Clearlake Capital takes full control of the club.",
-    url: "https://email.legalbusiness.co.uk/c/1dY4Lt1VZxoDhDUbYK45vymT6ODG",
   },
 ];
