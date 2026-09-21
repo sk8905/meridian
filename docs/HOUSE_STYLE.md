@@ -381,7 +381,8 @@ notification badge red (`#ef4444`).
   track (`--wb-txt`; `.g-hero-range`/`.g-hero-rg` in `home.css`). **1D/5D read an
   INTRADAY series** — ~5 trading days of 15-min bars, the 10Y's from Yahoo `^TNX`
   since FRED has no intraday — while the longer ranges read the **daily closes
-  (~5 years; `ALL` = everything held)**. **1D is a rolling last-24-hours window;
+  (~5 years; `ALL` = everything held)**. **1D is the default range on load**
+  (`_heroRange` in `glance.js`). **1D is a rolling last-24-hours window;
   5D is the full intraday series (~5 trading days)**, plotted on a **real wall-clock
   X axis**: where the market is closed overnight or over a weekend the line
   **breaks — a gap, never a straight line** across the shut period (any run >45 min
@@ -458,6 +459,24 @@ notification badge red (`#ef4444`).
   `tests/home-briefing.mjs`. The News feed's **day-break marker** (`.g-feed-dayhdr`)
   sticks directly beneath the filter row as the feed scrolls (Home-scoped offset in
   `home.css`).
+
+- **R29 — Adding a roster name (Coverage tab → `/api/propose`).** When a new firm
+  is added via the in-app Coverage tab, the drafted entry (`credit/js/data.js`
+  `managers` for a manager, `legal/js/data.js` `firms` for a law firm) MUST:
+  - carry a **unique** id — `m<N>` = the current max **+ 1**, scanning **both** the
+    hand-written `id: "mN"` and the JSON-serialised `"id":"mN"` forms (the draft the
+    routine inserts is JSON-serialised, so a scanner that misses that form collides —
+    the Situational Awareness / Andromeda `m225` clash). One id per manager, ever;
+    a duplicate id makes the profile route to the wrong firm.
+  - store **`aum` as a NUMBER IN BILLIONS OF USD** (e.g. `9.28`, not `9278344000`) —
+    the whole roster is in `$bn`, and a raw-dollar figure renders as absurd trillions.
+    `normAum()` in `src/index.js` folds a stray raw value back to billions; the
+    `/api/propose` prompt states the unit. `aumText` is the human string.
+  - be marked `_draft:true` + `estimated:true` so the daily routine finds it.
+  **Every new `_draft` name must then be researched and filled out** — real, sourced
+  AUM/strategies/owners/description and, where verifiable, deals & news (never
+  fabricated, R7) — and `_draft` cleared once the profile is solid. New names are
+  never left as a bare stub.
 
 ---
 

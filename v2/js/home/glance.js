@@ -529,7 +529,7 @@ function renderXWire(host) {
 const _HERO_KEY = "wire.hero.v1";
 let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
 let _heroSel = [];         // selected instrument keys (1..all); at least one is always kept
-let _heroRange = "1M";     // 1D | 5D | 1M | 6M | 1Y | ALL
+let _heroRange = "1D";     // 1D | 5D | 1M | 6M | 1Y | ALL — default to the intraday view
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
 // Intraday ranges (1D/1W) read the 15-min bar series and plot on a real wall-clock
@@ -2293,6 +2293,21 @@ function renderVolRisk() {
   if (ccc && hy && ccc.value != null && hy.value != null) {
     const v = ccc.value - hy.value, c = (ccc.change != null && hy.change != null) ? ccc.change - hy.change : null;
     rows.push(riskTile({ label: "CCC − HY", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: ccc.href, title: "Distress premium — CCC minus high-yield OAS" }));
+  }
+  // MOVE — ICE BofAML US Treasury option-vol index (the "bond-market VIX"): a level
+  // in points, its daily move shown like VIX.
+  const move = findExtra("MOVE");
+  if (move && move.value != null) {
+    const cp = typeof move.changePct === "number" ? move.changePct : null;
+    const pts = cp == null ? null : +move.value - (+move.value) / (1 + cp / 100);
+    rows.push(riskTile({ label: "MOVE", val: (+move.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EMOVE", title: "ICE BofAML MOVE Index — US Treasury option-implied volatility (the bond-market VIX)" }));
+  }
+  // CDX HY — Simplify High Yield ETF (ticker CDX), a tradeable proxy for the
+  // CDX.NA.HY credit-default-swap index; live price + daily % move.
+  const cdx = findExtra("CDX HY");
+  if (cdx && cdx.value != null) {
+    const cp = typeof cdx.changePct === "number" ? cdx.changePct : null;
+    rows.push(riskTile({ label: "CDX HY", val: "$" + (+cdx.value).toFixed(2), chg: cp == null ? null : Math.abs(cp).toFixed(2) + "%", dir: dSign(cp), href: "https://finance.yahoo.com/quote/CDX", title: "Simplify High Yield ETF (CDX) — tracks the CDX.NA.HY credit-default-swap index" }));
   }
   if (rows.length) el.innerHTML = rows.join("");
 }

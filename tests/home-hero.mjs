@@ -72,7 +72,7 @@ const b = await launchChromium();
   check(init.pcts.every((p) => /%$/.test(p)), `hero: every ticker shows a % change indicator (${init.pcts.join(" · ")})`);
   check(init.spxFilled && init.goldFilled, "hero: all default dots are FILLED (every ticker selected)");
   check(init.lines >= 6, `hero: six securities → six lines (${init.lines})`);
-  checkEq(init.rangeOn, "1M", "hero: 1M is the default range");
+  checkEq(init.rangeOn, "1D", "hero: 1D is the default range");
 
   // Default is the INDEXED overlay: a shared % axis, no single-view price tag,
   // a bottom dated time axis, and vertical grid lines.
@@ -88,7 +88,7 @@ const b = await launchChromium();
   check(ax.xl.length >= 2 && /\d/.test(ax.xl.join("")), `hero: the bottom time axis draws dated ticks (${ax.xl.join(" · ")})`);
   check(ax.verticals >= 3, `hero: the chart draws vertical grid lines (${ax.verticals})`);
 
-  // Range toggle: 1M → 1Y redraws (a line path changes) and relabels the axis.
+  // Range toggle: 1D → 1Y redraws (a line path changes) and relabels the axis.
   const d1m = await pg.evaluate(() => document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"));
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1Y"]').click());
   await pg.waitForTimeout(150);

@@ -133,22 +133,8 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
 
         <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->
         <aside class="g-side2">
-          <section class="tui-pnl g-anchor" id="jump-macro">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Policy rate</a><span class="tui-px">US · UK</span></header>
-            <div id="g-macro-snap" class="g-snap" aria-label="Policy rate snapshot">
-              <div class="g-loading">Loading policy rate…</div>
-            </div>
-          </section>
-          <!-- Yield curve sits directly beneath Policy rate (the full economic-
-               indicators grid lives on the Macro dashboard, /v2/macro/). -->
-          <section class="tui-pnl g-anchor" id="jump-curve">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Yield curve</a><span class="tui-px">UST</span></header>
-            <div id="g-curve" class="rates-band" aria-label="US Treasury yield curve and 2s10s slope">
-              <div class="g-loading">Loading curve…</div>
-            </div>
-          </section>
-          <!-- Key rates & credit spreads and Volatility & risk sit with the macro /
-               rates data they belong to. -->
+          <!-- Order: Rates & spreads → Volatility & risk → Policy rate → Yield curve
+               (the live market gauges lead; the central-bank read follows). -->
           <section class="tui-pnl g-anchor" id="jump-rates">
             <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/fixed-income" data-godash="fixed-income" title="Open Dashboard › Fixed Income">Key rates &amp; spreads</a><span class="tui-px">bp · %</span></header>
             <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
@@ -159,6 +145,20 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
             <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/credit" data-godash="credit" title="Open Dashboard › Credit">Volatility &amp; risk</a><span class="tui-px">vol · spreads</span></header>
             <div id="g-vol" class="rates-band" aria-label="Equity volatility and credit risk spreads">
               <div class="g-loading">Loading risk…</div>
+            </div>
+          </section>
+          <section class="tui-pnl g-anchor" id="jump-macro">
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Policy rate</a><span class="tui-px">US · UK</span></header>
+            <div id="g-macro-snap" class="g-snap" aria-label="Policy rate snapshot">
+              <div class="g-loading">Loading policy rate…</div>
+            </div>
+          </section>
+          <!-- Yield curve (the full economic-indicators grid lives on the Macro
+               dashboard, /v2/macro/). -->
+          <section class="tui-pnl g-anchor" id="jump-curve">
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Yield curve</a><span class="tui-px">UST</span></header>
+            <div id="g-curve" class="rates-band" aria-label="US Treasury yield curve and 2s10s slope">
+              <div class="g-loading">Loading curve…</div>
             </div>
           </section>
           <!-- Prediction markets — finance & finance-adjacent implied odds

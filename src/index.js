@@ -622,6 +622,10 @@ const MOVERS_EXTRA = [
   { label: "USD/JPY", symbol: "JPY=X" },
   { label: "Ether", symbol: "ETH-USD" },
   { label: "VIX", symbol: "^VIX" },
+  // Bond-market volatility (the "VIX for bonds") + a tradeable CDX high-yield CDS
+  // index proxy — both feed the Home "Volatility & risk" panel.
+  { label: "MOVE", symbol: "^MOVE" },
+  { label: "CDX HY", symbol: "CDX" },
 ];
 
 // The Top Movers board is a cross-asset ETF universe — every asset class expressed
@@ -3364,6 +3368,8 @@ const PROPOSE_SYSTEM = [
   "  invent a firm or a figure.",
   "- Unknown fields are null/[]. Keep the description to one or two sentences.",
   '- For a "manager", fill aum/aumText/strategies/owners (leave practiceAreas []).',
+  '  "aum" is a NUMBER IN BILLIONS OF USD (e.g. 9.28 for $9.28bn, 120 for $120bn) —',
+  '  never raw dollars/millions. "aumText" is the human string (e.g. "$9.28bn").',
   '- For a "lawfirm", fill practiceAreas (leave aum/aumText/strategies/owners empty); hq is',
   "  the head-office city.",
   "Output ONLY one JSON object, no prose, of exactly this shape:",
@@ -3402,18 +3408,31 @@ async function gh(env, path, init) {
 // Insert the drafted object at the TOP of the managers array (a stable anchor —
 // far safer than locating the array's end); assign the next free m<N> id. The
 // object is marked _draft:true so a reviewer can find and finish it.
+// The roster's `aum` is in $bn. Research sometimes returns the figure in raw
+// dollars (e.g. 9_278_344_000 for $9.28bn), which renders as an absurd trillions
+// value. No real manager holds >$100tn (1e5 bn), so anything at/above that is a
+// unit error — fold it down by 1e9 (dollars → billions) and round to 2dp.
+function normAum(v) {
+  if (typeof v !== "number" || !isFinite(v) || v <= 0) return null;
+  const bn = v >= 1e5 ? v / 1e9 : v;
+  return Math.round(bn * 100) / 100;
+}
 function insertManagerDraft(fileText, draft) {
   const anchor = "export const managers = [";
   const at = fileText.indexOf(anchor);
   if (at < 0) throw new Error("managers array not found in data.js");
   const end = fileText.indexOf("\nexport const ", at + anchor.length);
   const seg = fileText.slice(at, end < 0 ? undefined : end);
-  let max = 0; for (const m of seg.matchAll(/id:\s*"m(\d+)"/g)) max = Math.max(max, +m[1]);
+  // Match BOTH the hand-written `id: "m1"` form AND the JSON-serialised `"id":"m1"`
+  // form this same routine inserts — otherwise each draft is invisible to the next
+  // one's max and two adds collide on the same id (the Situational Awareness /
+  // Andromeda m225 clash). Optional quotes + optional whitespace covers every case.
+  let max = 0; for (const m of seg.matchAll(/"?id"?\s*:\s*"m(\d+)"/g)) max = Math.max(max, +m[1]);
   const id = "m" + (max + 1);
   const obj = {
     id, name: draft.name || "", hq: draft.hq || null,
     founded: (typeof draft.founded === "number") ? draft.founded : null,
-    aum: (typeof draft.aum === "number") ? draft.aum : null, aumText: draft.aumText || null,
+    aum: normAum(draft.aum), aumText: draft.aumText || null,
     strategies: Array.isArray(draft.strategies) ? draft.strategies : [],
     description: draft.description || null,
     owners: Array.isArray(draft.owners) ? draft.owners.filter((o) => o && o.name) : [],
@@ -3523,7 +3542,7 @@ async function handlePropose(request, env) {
       kind,
       hq: draft.hq || null,
       founded: (typeof draft.founded === "number") ? draft.founded : null,
-      aum: (typeof draft.aum === "number") ? draft.aum : null,
+      aum: normAum(draft.aum),
       aumText: draft.aumText || null,
       strategies: Array.isArray(draft.strategies) ? draft.strategies : [],
       practiceAreas: Array.isArray(draft.practiceAreas) ? draft.practiceAreas : [],
