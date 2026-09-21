@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ba07e411-1d76-4289-83b0-96d694f95d08", title: "The food safety sheriff on a hygiene crusade in Mumbai", date: "2026-09-21", time: "13:08", url: "https://www.ft.com/content/ba07e411-1d76-4289-83b0-96d694f95d08" },
+  { id: "aa1dbf18-eaa3-411a-9bf0-52c99adcb7a8", title: "Trump and Xi are the wrong men at the wrong time", date: "2026-09-21", time: "12:59", url: "https://www.ft.com/content/aa1dbf18-eaa3-411a-9bf0-52c99adcb7a8" },
+  { id: "b0125efa-396b-4650-be90-a8a5a7fc51e6", title: "Saudi wealth fund presses LIV Golf’s saviour to prove its commitment to tour", date: "2026-09-21", time: "12:41", url: "https://www.ft.com/content/b0125efa-396b-4650-be90-a8a5a7fc51e6" },
+  { id: "f9ddd64e-1656-4a15-a67a-f68087cefa79", title: "Meta gives union access to recruit UK staff for first time", date: "2026-09-21", time: "12:34", url: "https://www.ft.com/content/f9ddd64e-1656-4a15-a67a-f68087cefa79" },
+  { id: "71016c06-d9bb-49ab-8584-6989d974d2f7", title: "Donald Trump’s crusade against tariff cheats may tangle up trade in red tape", date: "2026-09-21", time: "12:31", url: "https://www.ft.com/content/71016c06-d9bb-49ab-8584-6989d974d2f7" },
   { id: "18f9e0ac-b7d9-4648-803f-3e894990c626", title: "Slide in oil prices drives rebound in battered government bonds", date: "2026-09-21", time: "11:55", url: "https://www.ft.com/content/18f9e0ac-b7d9-4648-803f-3e894990c626" },
   { id: "63140a82-8af6-4af8-90bd-0325c5724e74", title: "News outlets to sue Trump administration over White House ban", date: "2026-09-21", time: "11:50", url: "https://www.ft.com/content/63140a82-8af6-4af8-90bd-0325c5724e74" },
   { id: "2f2c4fa1-974f-46dd-9b99-beeee991969b", title: "FirstFT: Bank exposure to trading firms scrutinised", date: "2026-09-21", time: "11:20", url: "https://www.ft.com/content/2f2c4fa1-974f-46dd-9b99-beeee991969b" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "df52a49a-ab6a-4997-a609-169e830a26fa", title: "Nik Storonsky’s plan for Revolut: a global bank with ‘effectively zero risk’", date: "2026-09-21", time: "04:00", url: "https://www.ft.com/content/df52a49a-ab6a-4997-a609-169e830a26fa" },
   { id: "a4901983-10a2-488d-8725-66177d6f9ea2", title: "Germany’s Merz stands his ground but for how long?", date: "2026-09-21", time: "03:05", url: "https://www.ft.com/content/a4901983-10a2-488d-8725-66177d6f9ea2" },
   { id: "0e4ab05c-93f9-400f-bf42-22074c184ee7", title: "Is this Indonesia’s next president?", date: "2026-09-21", time: "02:54", url: "https://www.ft.com/content/0e4ab05c-93f9-400f-bf42-22074c184ee7" },
-  { id: "d74ce82a-2a15-404a-ae3a-3921e887bab3", title: "German chancellor Merz vows to stay on despite ‘disaster’ in regional elections", date: "2026-09-20", time: "18:49", url: "https://www.ft.com/content/d74ce82a-2a15-404a-ae3a-3921e887bab3" },
-  { id: "66623b14-f679-48ad-85a5-5d75f1cc8c17", title: "A UN gathering notable for its absences", date: "2026-09-20", time: "18:15", url: "https://www.ft.com/content/66623b14-f679-48ad-85a5-5d75f1cc8c17" },
-  { id: "d9e6c07e-7d84-4e41-a9a2-0d0ac2319dd2", title: "Multilateralism is not idealism, it is a necessity", date: "2026-09-20", time: "18:00", url: "https://www.ft.com/content/d9e6c07e-7d84-4e41-a9a2-0d0ac2319dd2" },
-  { id: "33b317b4-cd7b-486a-8707-4d65db837c6d", title: "Trump says 250ft arch will be ‘military complex’ with drones and snipers", date: "2026-09-20", time: "16:43", url: "https://www.ft.com/content/33b317b4-cd7b-486a-8707-4d65db837c6d" },
-  { id: "f4535bd7-7c23-4eb7-b306-43dab2772dd3", title: "Andy Burnham hopes to build bridges with Donald Trump at first meeting", date: "2026-09-20", time: "16:37", url: "https://www.ft.com/content/f4535bd7-7c23-4eb7-b306-43dab2772dd3" },
 ];

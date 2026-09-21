@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-weilfrankfurt-20260921",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Weil recruits Frankfurt corporate partner in latest European exit for Freshfields",
+    date: "2026-09-21",
+    time: "12:37",
+    summary: "US firm offsets recent corporate losses with hire of German dealmaker from Freshfields.",
+    url: "https://email.legalbusiness.co.uk/c/1dZda4OY7h9kLmgZLkHh4KnYT6jk",
+  },
+  {
     id: "nl-bbg-econdaily-betterguardrails-20260921",
     publication: "Bloomberg",
     author: "Malcolm Scott",
