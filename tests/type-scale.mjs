@@ -43,6 +43,37 @@ const base = `http://localhost:${srv.port}`;
   checkErrs(errs, "home");
 }
 
+// ---- 3) Transactions ▸ iPhone type-list reads at the SAME league density ----
+// The on-screen type options (Primary ▸ Direct lending / unitranche, …) must be
+// the app's 11.5px list-row scale — name in sans, count in mono — NOT a bespoke
+// oversized 14px. This is exactly the drift the user has repeatedly flagged, so
+// it is pinned here alongside the league anchor.
+{
+  const { pg, errs } = await open(b, PHONE, base + "/v2/transactions/");
+  await pg.waitForSelector(".tx-typelist .tx-typeopt", { timeout: 8000 });
+  await pg.waitForTimeout(300);
+  const r = await pg.evaluate(() => {
+    const opt = document.querySelector(".tx-typeopt");
+    const lbl = document.querySelector(".tx-typeopt .tx-typeopt-l") || opt;
+    const n = document.querySelector(".tx-typeopt .tx-typeopt-n");
+    const caret = document.querySelector(".tx-typeopt .tx-typeopt-caret");
+    const mono = (el) => (el ? /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(getComputedStyle(el).fontFamily) : false);
+    return {
+      rowSize: opt ? getComputedStyle(opt).fontSize : "",
+      lblSize: lbl ? getComputedStyle(lbl).fontSize : "",
+      lblMono: mono(lbl),
+      nMono: mono(n),
+      caretSize: caret ? parseFloat(getComputedStyle(caret).fontSize) : 0,
+    };
+  });
+  checkEq(r.rowSize, "11.5px", "Transactions type-list: the option row sits at the 11.5px league density (not 14px)");
+  checkEq(r.lblSize, "11.5px", "Transactions type-list: the type name is 11.5px, like every other app row");
+  check(!r.lblMono, "Transactions type-list: the type name uses the sans family (matches league names)");
+  check(r.nMono, "Transactions type-list: the count uses the mono family (every figure in the app is mono)");
+  check(r.caretSize <= 14, `Transactions type-list: the drill caret is app-scaled, not oversized (${r.caretSize}px)`);
+  checkErrs(errs, "transactions type-list");
+}
+
 await b.close();
 srv.close();
 finish();

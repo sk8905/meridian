@@ -159,6 +159,12 @@ notification badge red (`#ef4444`).
   token block (premium.css), so every surface moves in lockstep. (The whole
   scale was lifted a uniform **+0.5px** from its original 8.5–13.6→9–14px values
   for legibility — hence the half-px steps; keep new sizes on that grid.)
+  **This binds every NEW surface too** — mobile tap-lists, option rows, drill
+  headers, empty states. A tappable row is still a list row: **11.5px sans name,
+  mono figure**, never a bespoke 14/16px "because it's a big touch target"
+  (padding gives the touch target, not font-size). When you add such a row,
+  copy an existing `.tx-*`/`.tleague-*` row's `font-size`/`font-family` rather
+  than typing a fresh px, and add it to `tests/type-scale.mjs` so it is pinned.
 - **R11b — No new font family or weight** beyond the two stacks and the weights
   already in use (400 / 500 / 600 / 700 / 800). 500 is the inactive-chip/label
   weight, paired with 600 for the active state.
