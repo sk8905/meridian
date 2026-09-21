@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-weilexitslondon-20260921",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Unpacking the latest Weil exits: the London story",
+    date: "2026-09-21",
+    time: "18:41",
+    summary: "With news of another funds partner heading to Simpson Thacher, nearly a quarter of Weil's London partnership has left since January.",
+    url: "https://email.legalbusiness.co.uk/c/1dZPqrlYHgAFGLDvmBUM3DpnToZT",
+  },
+  {
     id: "nl-lemonde-lebrief-foxcnnpool-20260921",
     publication: "Le Monde",
     author: null,
@@ -471,16 +482,5 @@ export const NEWSLETTERS = [
     time: "22:00",
     summary: "Bank of Japan up next.",
     url: "https://www.reuters.com/commentary/reuters-open-interest/trump-may-not-see-another-rate-cut-president-mcgeever-2026-09-17/",
-  },
-  {
-    id: "nl-bbg-moneystuff-indianoptionstradetoogood-20260917",
-    publication: "Bloomberg",
-    author: null,
-    series: "Money Stuff",
-    title: "Money Stuff: The Whole Indian Options Trade Was Too Good",
-    date: "2026-09-17",
-    time: "18:48",
-    summary: "Options, futures, addbacks, rationalists.",
-    url: "https://bloom.bg/4iTfa9B",
   },
 ];

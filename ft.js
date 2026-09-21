@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f0b37ddf-3a4f-4631-b664-887b0cdd281c", title: "Merz’s last chance to reform Germany", date: "2026-09-21", time: "18:33", url: "https://www.ft.com/content/f0b37ddf-3a4f-4631-b664-887b0cdd281c" },
+  { id: "4e502288-b611-4193-acdb-46ef34b1e3b0", title: "OpenAI joins call for US-led global AI standards", date: "2026-09-21", time: "18:24", url: "https://www.ft.com/content/4e502288-b611-4193-acdb-46ef34b1e3b0" },
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-09-21", time: "17:39", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
   { id: "f29de45a-3d32-4d9f-90cd-615f7466c1de", title: "US data centres ‘are short six NYCs of electricity’", date: "2026-09-21", time: "17:01", url: "https://www.ft.com/content/f29de45a-3d32-4d9f-90cd-615f7466c1de" },
   { id: "f3092492-9e70-4987-a359-22e31f93b77b", title: "Changing leader is not the panacea many Lib Dems think it is", date: "2026-09-21", time: "16:28", url: "https://www.ft.com/content/f3092492-9e70-4987-a359-22e31f93b77b" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "d29d769e-039c-4d11-9152-e63ccd397b32", title: "Scott Bessent hails US-China AI dialogue ahead of Trump-Xi meeting", date: "2026-09-21", time: "05:11", url: "https://www.ft.com/content/d29d769e-039c-4d11-9152-e63ccd397b32" },
   { id: "188611f3-2536-4bed-a2c0-bbc074e6f783", title: "Volkswagen ejected from European blue-chip index in blow to crisis-hit carmaker", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/188611f3-2536-4bed-a2c0-bbc074e6f783" },
   { id: "708699ba-442b-46a2-9de7-805fb3ddaf24", title: "Carlyle’s stalled Lukoil deal leaves refineries idle in tight market", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/708699ba-442b-46a2-9de7-805fb3ddaf24" },
-  { id: "960f930b-1f1f-4161-ae6c-fc8ed5ec4ed9", title: "Private ADHD clinics are misdiagnosing children, report will say", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/960f930b-1f1f-4161-ae6c-fc8ed5ec4ed9" },
-  { id: "fdb3a153-4b10-4ac0-987a-c4e0b02a5b3a", title: "AI in finance must be policed differently", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/fdb3a153-4b10-4ac0-987a-c4e0b02a5b3a" },
 ];
