@@ -24,6 +24,11 @@ const pc = await pg.evaluate(() => {
     headline: !!card.querySelector(".dsh-fl-note"),
     descriptor: !!card.querySelector(".dsh-h .dsh-n"),
     notes: card.querySelectorAll(".dsh-kv .dsh-band").length,
+    // Tracked industry research (KBRA MM Compendium + AIMA/ACC) — a linked list.
+    reports: [...card.querySelectorAll(".dsh-pc-report")].length,
+    reportsSourced: [...card.querySelectorAll(".dsh-pc-report")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "")),
+    hasKbra: /KBRA/i.test(card.textContent) && /Middle Market Compendium/i.test(card.textContent),
+    hasAima: /AIMA/i.test(card.textContent),
   };
 });
 check(!!pc, "Credit: Private credit card renders");
@@ -33,6 +38,8 @@ check(pc && pc.pcdr, "Credit: shows the Fitch Private Credit Default Rate (6.0%)
 check(pc && !pc.headline, "Credit: the explainer paragraph is removed");
 check(pc && !pc.descriptor, "Credit: the 'Fitch PCDR & market pulse' descriptor is removed");
 check(pc && pc.notes === 0, `Credit: each source is just the SRC label, no context note (${pc && pc.notes} notes)`);
+check(pc && pc.reports >= 2 && pc.reportsSourced, `Credit: tracked private-credit research renders + links out (${pc && pc.reports})`);
+check(pc && pc.hasKbra && pc.hasAima, "Credit: incorporates the KBRA MM Compendium and AIMA/ACC research");
 
 // Stress table: a clean data grid (Debtor · Debt · Status · Src) — the prose note
 // column is reduced to just the SRC link (no .dsh-clamp2 note text).

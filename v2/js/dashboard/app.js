@@ -360,7 +360,14 @@ export function mount(host, ctx) {
     // note. Each metric stays on ONE line (label truncates with a hover title).
     const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}">${esc(x.k)}</span>`
       + `<span class="dsh-kv-v">${esc(x.v)}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
-    return `<div class="dsh-kvgrid dsh-pc-grid">${P.metrics.map(kv).join("")}</div>`;
+    // Tracked industry research the pulse draws on (KBRA MM Compendium, AIMA/ACC),
+    // each linking the report — rolled to the newest quarterly edition each cycle.
+    const rpt = (r) => `<a class="dsh-pc-report" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)}">`
+      + `<span class="dsh-pc-report-t">${esc(r.title)}</span><span class="dsh-pc-report-d">${esc(r.date || r.srcName || "")}</span></a>`;
+    const reports = (P.reports || []).length
+      ? `<div class="dsh-pc-reports"><div class="dsh-pc-reports-h">Research</div>${P.reports.map(rpt).join("")}</div>`
+      : "";
+    return `<div class="dsh-kvgrid dsh-pc-grid">${P.metrics.map(kv).join("")}</div>${reports}`;
   }
   // Compact credit pulse strip — the Fitch PCDR + market-context metrics as pills.
   function crTapeHTML() {

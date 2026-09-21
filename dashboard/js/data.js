@@ -207,17 +207,29 @@ export const GOVT_YIELD_CHG = {
 };
 
 // Private-credit pulse for the Credit dashboard — Fitch's U.S. Private Credit
-// Default Rate (PCDR) and market-context metrics. Every figure is real + sourced
-// (never fabricated); refreshed by the routine. PCDR is Fitch's "U.S. Private
-// Credit and Middle Market Performance Monitor" (2Q26).
+// Default Rate (PCDR), KBRA's middle-market surveillance and market-context
+// metrics. Every figure is real + sourced (never fabricated); refreshed by the
+// routine. `reports` tracks the recurring industry research the pulse draws on —
+// KBRA's quarterly Middle Market Compendium and AIMA/ACC's Private Credit
+// Performance & Valuation Trends — so each cycle rolls to the newest edition (see
+// docs/refresh-routines.md, "Private-credit research").
 export const PRIVATE_CREDIT = {
   asOf: "2026-07",
   headline: "Fitch's U.S. Private Credit Default Rate (PCDR) hit a record 6.0% for the trailing 12 months ended 2Q26 — up from the prior high of 5.7% in 1Q26, and roughly double the ~3% broadly-syndicated loan default rate.",
   metrics: [
     { k: "Private Credit Default Rate", v: "6.0%", sub: "TTM 2Q26 · record · up from 5.7% (1Q26)", src: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/", srcName: "Fitch 2Q26 Monitor (via Funds Society)" },
     { k: "Defaults recorded (TTM)", v: "32", sub: "private-credit issuers, 2Q26", src: "https://www.tradingview.com/news/reuters.com,2026:newsml_FWN41V0W8:0-fitch-ratings-u-s-private-credit-default-rate-hits-a-high-of-6-0-in-april-2026/", srcName: "Fitch (via Reuters/TradingView)" },
+    { k: "KBRA MM default monitor", v: "3.3%", sub: "by count, 2Q26 · first rise in a year · 2.4% by debt (record)", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
+    { k: "MM debt assessed (KBRA)", v: "$1.2tn", sub: "2,785 borrowers, TTM 2Q26 · EBITDA growth fading", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
     { k: "Broadly-syndicated loan default (fcst)", v: "3.0–3.5%", sub: "2026, Fitch — set to ease", src: "https://www.investmentexecutive.com/news/research-and-markets/u-s-leveraged-loan-defaults-to-ease-in-2026-fitch/", srcName: "Fitch (via Investment Executive)" },
     { k: "Market size (AUM)", v: "~$2.0tn", sub: "2026 est. · ~$4tn by 2030", src: "https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/private-credit-2026.html", srcName: "Moody's" },
     { k: "BDC non-accruals", v: "~1.2%", sub: "of portfolios (Q2'25)", src: "https://www.withintelligence.com/insights/what-is-actually-going-on-in-bdc-portfolios/", srcName: "With Intelligence" },
+  ],
+  // Recurring industry research the pulse tracks — refreshed to the newest quarterly
+  // edition each cycle. (KBRA's is public; AIMA/ACC's quarterly is members' research,
+  // so it links the ACC's public private-credit research hub.)
+  reports: [
+    { title: "KBRA — Private Credit: Q2 2026 Middle Market Compendium (EBITDA's Fading Tailwinds)", date: "2026-07-28", url: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA" },
+    { title: "AIMA/ACC — Private Credit Performance & Valuation Trends (quarterly)", date: "2026-Q2", url: "https://acc.aima.org/article/press-release-private-credit-market-surpasses-us-3trn-and-maintains-resilience-despite-growing-stress.html", srcName: "AIMA/ACC" },
   ],
 };

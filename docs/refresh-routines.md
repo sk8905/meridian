@@ -245,6 +245,24 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   PAI Partners, TDR Capital, Astorg, BlackRock Private Equity Partners, Amro
   Partners, Equitix, Greycoat Real Estate.** If a candidate deal/raise is attributed
   only to one of these, skip the item rather than re-creating the manager.
+- **Private-credit research (Credit dashboard pulse — `PRIVATE_CREDIT` in
+  `dashboard/js/data.js`).** The pulse's `metrics` and its `reports` list track the
+  recurring industry research the desk follows, and **roll to the newest edition each
+  quarter** as successor reports publish:
+  - **KBRA — "Private Credit: Q_ 20__ Middle Market Compendium"** (quarterly; public
+    on kbra.com). Pull the headline middle-market figures — the KBRA Middle Market
+    Default Monitor (KMDM) rate by count/by debt, borrowers & debt assessed, the
+    EBITDA-growth trend — into `metrics`, each linking that quarter's release, and
+    update the `reports` entry to the new URL/date. Current: Q2 2026 ("EBITDA's
+    Fading Tailwinds", 2026-07-28).
+  - **AIMA/ACC — "Private Credit Performance & Valuation Trends"** (quarterly). AIMA/
+    ACC's quarterly is **members' research** (no public per-issue URL), so the
+    `reports` entry links the ACC's public private-credit research; only add a
+    numeric `metric` from it when a real, publicly citable figure exists (never
+    fabricate a members-only number). If the desk supplies the members' PDF, add its
+    figures with that citation.
+  Both are already in the canonical roster (HOUSE_STYLE §8). Same grounding rule as
+  everywhere: real figure, real source URL, real date, or omit.
 - **Sourcing.** Prefer primary/verifiable public sources. Most firm/manager sites
   block automated fetching, so enumerate new article URLs with `site:<domain>` web
   searches and verify dates. Skip data-aggregators (GuruFocus, Tracxn, ZoomInfo,

@@ -268,6 +268,14 @@
 .dsh-pc-grid .dsh-kv { flex-wrap:nowrap; }
 .dsh-pc-grid .dsh-kv-k { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:0 1 auto; }
 .dsh-pc-grid .dsh-kv-v { white-space:nowrap; flex:0 0 auto; }
+/* Tracked industry research the private-credit pulse draws on (KBRA MM Compendium,
+   AIMA/ACC) — a compact list of linked report titles beneath the metric grid. */
+.dsh-pc-reports { margin-top:8px; }
+.dsh-pc-reports-h { font-family:var(--t-mono); font-size:9.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--t-faint); margin-bottom:3px; }
+.dsh-pc-report { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:4px 0; border-top:1px solid var(--t-grid); text-decoration:none; }
+.dsh-pc-report-t { color:var(--t-ink); font-size:11.5px; line-height:1.35; min-width:0; }
+.dsh-pc-report:hover .dsh-pc-report-t { color:var(--t-accent); }
+.dsh-pc-report-d { color:var(--t-faint); font-family:var(--t-mono); font-size:10px; white-space:nowrap; flex:0 0 auto; }
 .dsh-band { color:var(--t-mut); font-weight:500; font-size:11.5px; border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; margin-left:4px; }
 /* MPC vote rows: the tally (6-3, 5-4) and the lean pill (3 → hike, 4 → cut) each
    take a FIXED column so every row lines up — otherwise the varying pill width

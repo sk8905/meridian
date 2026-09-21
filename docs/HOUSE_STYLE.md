@@ -616,6 +616,9 @@ item keeps a real outbound source link (R7).
 - Moody's
 - S&P (Global Ratings)
 - Morningstar
+- KBRA (Kroll Bond Rating Agency) — incl. the quarterly "Private Credit: Middle Market Compendium"
+- AIMA / Alternative Credit Council (ACC) — private-credit research incl. "Private Credit Performance & Valuation Trends"
+- Fitch Ratings (private-credit & leveraged-finance research)
 
 ### 8.6 Legal & courts
 - UK courts: High Court (Chancery · Commercial · King's Bench · Administrative;
