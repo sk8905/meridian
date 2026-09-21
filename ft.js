@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9bb5f4e4-0dc5-4e89-98d5-14e9a4c4dd91", title: "Vienna and Rome spearhead red tape bonfire to boost EU competitiveness", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/9bb5f4e4-0dc5-4e89-98d5-14e9a4c4dd91" },
+  { id: "6303730d-5889-413f-8fdb-3e3b8e7657b2", title: "How money moved across Mark Walter’s empire", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/6303730d-5889-413f-8fdb-3e3b8e7657b2" },
+  { id: "13cb8980-e8fa-4848-953f-8aa6e98ca219", title: "Octopus still won’t give investors their money back", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/13cb8980-e8fa-4848-953f-8aa6e98ca219" },
+  { id: "2f2c4fa1-974f-46dd-9b99-beeee991969b", title: "FirstFT: Merz vows to stay on despite German election ‘disaster’", date: "2026-09-21", time: "05:32", url: "https://www.ft.com/content/2f2c4fa1-974f-46dd-9b99-beeee991969b" },
   { id: "d29d769e-039c-4d11-9152-e63ccd397b32", title: "US and China agree to AI dialogue ahead of Trump-Xi meeting", date: "2026-09-21", time: "05:11", url: "https://www.ft.com/content/d29d769e-039c-4d11-9152-e63ccd397b32" },
   { id: "188611f3-2536-4bed-a2c0-bbc074e6f783", title: "Volkswagen ejected from European blue-chip index in blow to crisis-hit carmaker", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/188611f3-2536-4bed-a2c0-bbc074e6f783" },
   { id: "708699ba-442b-46a2-9de7-805fb3ddaf24", title: "Carlyle’s stalled Lukoil deal leaves refineries idle in tight market", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/708699ba-442b-46a2-9de7-805fb3ddaf24" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "b455ab48-76ef-4fd4-9137-1f666344ab45", title: "Trump’s regulatory rollback puts $400mn in US audit fees at risk", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/b455ab48-76ef-4fd4-9137-1f666344ab45" },
   { id: "023c85fc-db6f-4f1d-b29e-8b41d626e5ed", title: "Lib Dem leader Ed Davey urged to ditch the stunts and get serious", date: "2026-09-20", time: "10:20", url: "https://www.ft.com/content/023c85fc-db6f-4f1d-b29e-8b41d626e5ed" },
   { id: "07fd42b5-0610-470c-8fb8-4840b5401271", title: "Houthis launch ballistic missile at Saudi capital in escalation of hostilities", date: "2026-09-20", time: "10:01", url: "https://www.ft.com/content/07fd42b5-0610-470c-8fb8-4840b5401271" },
-  { id: "fcab43da-63ac-49e1-959d-aa4334528017", title: "German states go to the polls in high-stakes test for Friedrich Merz", date: "2026-09-20", time: "09:22", url: "https://www.ft.com/content/fcab43da-63ac-49e1-959d-aa4334528017" },
-  { id: "7f11afae-c4e3-4054-a65b-873f3647f563", title: "Big Tech uses guarantees to keep $300bn of AI exposure off balance sheets", date: "2026-09-20", time: "08:00", url: "https://www.ft.com/content/7f11afae-c4e3-4054-a65b-873f3647f563" },
-  { id: "5b315540-3622-4b6b-b305-688668544252", title: "Freedom in adulthood isn’t what you think", date: "2026-09-20", time: "05:00", url: "https://www.ft.com/content/5b315540-3622-4b6b-b305-688668544252" },
 ];
