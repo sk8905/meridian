@@ -42,7 +42,7 @@ export function mount(host, ctx) {
   // group is the top-level split — Primary issuance vs Secondaries — now its own
   // nav entry (replacing the old single "Deal flow"). Each shows only its group's
   // transaction types. q set → search (scoped to the active group).
-  const st = { period: "all", group: "primary", focus: false, q: "" };
+  const st = { period: "all", group: "primary", sub: "overview", focus: false, q: "" };
   const inPeriod = () => true;
   // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
   // qualifies when its manager sits in the target band. Off → everything.
@@ -111,6 +111,7 @@ export function mount(host, ctx) {
   const creditsBody = host.querySelector("#tx-credits-body");
   const bdcBody = host.querySelector("#tx-bdc-body");
   let _crMode = "primary", _crQ = "", _crGroup = null;   // null = neutral default (sector order, no button lit)
+  let _subSec = "all", _subGrp = "";   // sub-category filter + group-by-lender within an active type sub-tab pane
   let _bdcQ = "", _bdcQuotes = null, _bdcQuotesTried = false;   // BDC roster state
   // S&P scale, best → worst — used to order the roster when grouping by rating.
   const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
@@ -118,14 +119,17 @@ export function mount(host, ctx) {
 
   const trendMark = (a, b) => a > b ? `<span class="tx-up">▲</span>` : a < b ? `<span class="tx-dn">▼</span>` : `<span class="tx-fl">·</span>`;
 
+  // The active group's types (by volume) that carry deals under the active focus —
+  // shared by the overview league table and the sub-tab rail.
+  const flowTypes = () => TX_TYPES.filter((t) => groupOf(t.key) === st.group)
+    .map((t) => statsFor(t.key)).filter((s) => s.n > 0)
+    .sort((a, b) => b.usd - a.usd || b.n - a.n);
+
   // ---- overview: a league table of the transaction types -------------------
-  function renderOverview() {
-    // Only the active top-level group's types (Primary issuance OR Secondaries) —
-    // the group is now the selected nav chip, so there is no in-body group band.
+  // Returns the league-table HTML (the "Overview" sub-tab's pane).
+  function overviewTableHTML() {
     const g = TX_GROUPS.find((x) => x.key === st.group) || TX_GROUPS[0];
-    const S = TX_TYPES.filter((t) => groupOf(t.key) === st.group)
-      .map((t) => statsFor(t.key)).filter((s) => s.n > 0)
-      .sort((a, b) => b.usd - a.usd || b.n - a.n);
+    const S = flowTypes();
     const totalN = S.reduce((s, x) => s + x.n, 0), totalUsd = S.reduce((s, x) => s + x.usd, 0);
     const row = (s) => {
       const t = TX_TYPES.find((x) => x.key === s.key);
@@ -142,12 +146,30 @@ export function mount(host, ctx) {
         // type's list up front.
         + `<tr class="tx-typeexp" data-for="${esc(s.key)}" data-sec="all" hidden><td colspan="7"><div class="tx-typeexp-in"></div></td></tr>`;
     };
-    body.innerHTML = `
+    return `
       <div class="tleague-wrap"><table class="tleague tleague-full tx-tbl">
         <thead><tr><th>Transaction type</th><th>Deals</th><th>12mo vs prior</th><th>Volume ≈$</th><th>Median ≈$</th><th>Managers</th><th class="tx-top-h">Most active</th></tr></thead>
         <tbody>${S.map(row).join("")}</tbody>
         <tfoot><tr class="tx-tot"><td class="tl-nm">${esc(g.label)}</td><td class="tl-n">${totalN}</td><td></td><td class="tl-n">${fmtUsd(totalUsd)}</td><td></td><td></td><td></td></tr></tfoot>
       </table></div>`;
+  }
+
+  // ---- flow view: a blue sub-tab rail (Overview + one per transaction type, each
+  // with its deal count) beside the active sub-tab's pane. On desktop the rail is a
+  // second-level vertical sidebar (like a profile's News/Vehicles/… tabs); on phones
+  // it is a horizontal chip strip. Overview = the league table; a type = its deals.
+  function renderFlow() {
+    const types = flowTypes();
+    // Guard: if the remembered sub-tab isn't a live type under the active focus/group,
+    // fall back to Overview.
+    if (st.sub !== "overview" && !types.some((s) => s.key === st.sub)) st.sub = "overview";
+    const chip = (key, label, n, on) => `<button type="button" class="tchip${on ? " is-on" : ""}" data-sub="${esc(key)}">${esc(label)}${n != null ? `<span class="tx-subn">${n}</span>` : ""}</button>`;
+    const subnav = `<header class="tpanel-h twire-head tx-subnav"><div class="tchips">`
+      + chip("overview", "Overview", null, st.sub === "overview")
+      + types.map((s) => chip(s.key, (TX_TYPES.find((x) => x.key === s.key) || {}).label || s.key, s.n, st.sub === s.key)).join("")
+      + `</div></header>`;
+    const pane = st.sub === "overview" ? overviewTableHTML() : typeSublist(st.sub, _subSec, _subGrp);
+    body.innerHTML = `<div class="tx-tabbed">${subnav}<div class="tx-panes"><div class="tx-panes-in">${pane}</div></div></div>`;
   }
 
   // ---- deal rows (shared by the inline type sub-list and the search list) ---
@@ -417,7 +439,13 @@ export function mount(host, ctx) {
       : `<p class="tw-empty muted small">No credits match “${esc(_crQ)}”.</p>`;
   }
 
-  function render() { st.q ? renderSearch() : renderOverview(); }
+  function render() { st.q ? renderSearch() : renderFlow(); }
+  // Re-render just the active type sub-tab's pane (keeps the rail; used when the
+  // pane's sub-category filter or group-by-lender toggle changes).
+  function renderPane() {
+    const host2 = body.querySelector(".tx-panes-in");
+    if (host2 && st.sub !== "overview") host2.innerHTML = typeSublist(st.sub, _subSec, _subGrp);
+  }
 
   // ---- events (delegated) --------------------------------------------------
   // Top-level nav: Primary issuance / Secondaries (the two deal-flow groups, each a
@@ -473,6 +501,10 @@ export function mount(host, ctx) {
   host.addEventListener("click", (e) => {
     const mgr = e.target.closest(".tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
+    // Sub-tab rail (Primary/Secondaries): switch the active sub-tab (Overview or a
+    // transaction type), resetting the pane's sub-category filter + lender grouping.
+    const subt = e.target.closest(".tx-subnav [data-sub]");
+    if (subt) { const k = subt.dataset.sub; if (k !== st.sub) { st.sub = k; _subSec = "all"; _subGrp = ""; renderFlow(); } return; }
     // BDC roster: row expand (detail + sources), holdings fetch.
     const hb = e.target.closest(".tbdc-hold-btn");
     if (hb) { e.stopPropagation(); hb.disabled = true; hb.textContent = "Loading…"; loadBdcHoldings(hb.dataset.cik, hb.nextElementSibling, hb); return; }
@@ -491,7 +523,9 @@ export function mount(host, ctx) {
     const sec = e.target.closest(".tx-secchip");
     if (sec) {
       const exp = sec.closest(".tx-typeexp");
-      if (exp) { exp.dataset.sec = sec.dataset.sec; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec, exp.dataset.grp); }
+      if (exp) { exp.dataset.sec = sec.dataset.sec; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec, exp.dataset.grp); return; }
+      // In a sub-tab pane (no accordion wrapper) → drive the pane-level filter.
+      if (sec.closest(".tx-panes-in")) { _subSec = sec.dataset.sec; renderPane(); }
       return;
     }
     // Group-by-lender toggle inside an open type — rebuild just that sub-list,
@@ -499,7 +533,8 @@ export function mount(host, ctx) {
     const gbtn = e.target.closest(".tx-grpbtn");
     if (gbtn) {
       const exp = gbtn.closest(".tx-typeexp");
-      if (exp) { exp.dataset.grp = exp.dataset.grp === "lender" ? "" : "lender"; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all", exp.dataset.grp); }
+      if (exp) { exp.dataset.grp = exp.dataset.grp === "lender" ? "" : "lender"; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all", exp.dataset.grp); return; }
+      if (gbtn.closest(".tx-panes-in")) { _subGrp = _subGrp === "lender" ? "" : "lender"; renderPane(); }
       return;
     }
     // Expand/collapse an individual transaction to reveal borrower/advisers/detail.
@@ -540,7 +575,7 @@ export function mount(host, ctx) {
     // home(): a nav-bar tap resets Transactions to its first part — Primary
     // issuance, no search, default filters, scrolled to top.
     home() {
-      st.q = ""; st.focus = false; st.period = "all"; st.group = "primary"; _crGroup = null;
+      st.q = ""; st.focus = false; st.period = "all"; st.group = "primary"; st.sub = "overview"; _subSec = "all"; _subGrp = ""; _crGroup = null;
       try { host.querySelectorAll("input").forEach((i) => { i.value = ""; }); } catch { /* */ }
       setMode("primary");
       render();

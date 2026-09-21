@@ -809,6 +809,31 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
   .tx-tbl > thead > tr > th:nth-child(4), .tx-tbl > tbody > tr > td:nth-child(4), .tx-tbl > tfoot > tr > td:nth-child(4) { width: 84px; }
   .tx-tbl > tbody > tr > td.tx-tnm { white-space: normal; overflow-wrap: anywhere; }
 }
+/* ---- Primary/Secondaries SUB-TAB rail (Overview + one per transaction type).
+   Phones: a horizontal chip strip above the pane. Desktop (≥901px): a second-level
+   VERTICAL sidebar tinted BLUE (--wb-txt) — the same treatment as a profile's
+   News/Vehicles/Investments sub-tabs — nested to the right of the orange nav. ---- */
+.tx-subnav { position: static !important; height: auto; min-height: 0; padding: 6px 0; background: transparent; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; flex: 0 0 auto; z-index: auto; }
+.tx-subnav::-webkit-scrollbar { display: none; }
+.tx-subnav .tchips { gap: 4px; }
+.tx-subn { font-weight: 400; font-variant-numeric: tabular-nums; color: var(--faint); margin-left: 6px; font-size: 11px; }
+.tx-panes { min-width: 0; }
+@media (min-width: 901px) {
+  .tx-tabbed { display: grid; column-gap: 14px; align-items: start; grid-template-columns: 158px minmax(0, 1fr); grid-template-areas: "nav panes"; }
+  .tx-tabbed > .tx-subnav { grid-area: nav; align-self: start; padding: 2px 0 0; border-bottom: 0; overflow: visible; }
+  .tx-tabbed > .tx-subnav .tchips { flex-direction: column; height: auto; width: 100%; gap: 3px; }
+  .tx-tabbed > .tx-subnav .tchip {
+    display: block; flex: 0 0 auto; text-align: left; max-width: none; width: 100%;
+    padding: 7px 10px; border: 1px solid transparent; box-shadow: none; font-weight: 600;
+    color: var(--muted, #8592ad); white-space: normal; line-height: 1.25; }
+  .tx-tabbed > .tx-subnav .tchip .tx-subn { margin-left: 6px; }
+  .tx-tabbed > .tx-subnav .tchip:hover { color: var(--ink); background: var(--lift, #202020); }
+  /* Active sub-section: BLUE text + a 3px blue left bar (vs the orange top-level nav). */
+  .tx-tabbed > .tx-subnav .tchip.is-on {
+    color: var(--wb-txt, #4aa3f0); background: transparent; border-color: var(--border, #2d2d2d);
+    box-shadow: inset 3px 0 0 var(--wb-txt, #4aa3f0); }
+  .tx-tabbed > .tx-panes { grid-area: panes; min-width: 0; }
+}
 /* sub-category (asset-class) filter chips + the group-by-lender toggle on the
    same row (chips left, button pushed to the far right). */
 /* Single row: the sub-category chip strip scrolls HORIZONTALLY (like the home-page
