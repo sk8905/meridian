@@ -975,6 +975,11 @@
       .tui .g-hbrief:not([hidden]){ display:flex; flex-direction:column; min-height:0; max-height:300px;
         overflow:hidden; border-bottom:1px solid var(--t-grid2); }
       .tui .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      /* Desktop: the briefing is permanently open — no collapse control. Drop the
+         chevron and the button affordance so the header reads as a static title row.
+         (`.g-hbrief .g-hbrief-head` outranks the base `.g-hbrief-head` cursor rule.) */
+      .tui .g-hbrief .g-hbrief-head{ cursor:default; }
+      .tui .g-hbrief .g-hbrief-chev{ display:none; }
       /* The chart quadrant sits over the manager wire; divide the two rows to match. */
       .tui .g-hero{ border-bottom:1px solid var(--t-grid2); }
     }
@@ -1038,14 +1043,17 @@
        Collapsible via the header row; folds to a single line. ---- */
     .tui .g-hbrief{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
     .tui .g-hbrief[hidden]{ display:none; }
-    .tui .g-hbrief-head{ display:flex; align-items:center; gap:8px; width:100%; box-sizing:border-box;
-      padding:9px 12px; background:transparent; border:0; cursor:pointer; text-align:left; font:inherit; color:var(--t-ink); }
-    .tui .g-hbrief-ic{ color:var(--accent, #fb8b1e); font-size:12px; line-height:1; flex:0 0 auto; }
-    .tui .g-hbrief-ttl{ font-family:var(--t-mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; font-weight:600; color:var(--t-ink); }
-    .tui .g-hbrief-when{ font-family:var(--t-mono); font-size:10px; letter-spacing:.04em; text-transform:uppercase; color:var(--t-faint); }
+    /* Header row matches the other panes' .tui-ph (Chart / X feed / Policy rate):
+       title-case title left, faint timestamp sub-label right, 30px, same ground +
+       hairline. It stays a toggle (chevron + unread dot) so the card still collapses. */
+    .tui .g-hbrief-head{ display:flex; flex:0 0 auto; align-items:center; gap:8px; width:100%; box-sizing:border-box;
+      height:30px; padding:0 12px; background:var(--t-head); border:0; border-bottom:1px solid var(--t-grid);
+      cursor:pointer; text-align:left; font:inherit; color:var(--t-ink); }
+    .tui .g-hbrief-ttl{ font-size:12px; font-weight:600; letter-spacing:.005em; color:var(--t-ink); }
+    .tui .g-hbrief-when{ margin-left:auto; font-size:10.5px; letter-spacing:.01em; color:var(--t-faint); }
     .tui .g-hbrief-dot{ width:6px; height:6px; border-radius:50%; background:var(--accent, #fb8b1e); flex:0 0 auto; }
     .tui .g-hbrief-dot[hidden]{ display:none; }
-    .tui .g-hbrief-chev{ margin-left:auto; color:var(--t-faint); font-size:11px; line-height:1; transition:transform .15s ease; }
+    .tui .g-hbrief-chev{ flex:0 0 auto; color:var(--t-faint); font-size:11px; line-height:1; transition:transform .15s ease; }
     .tui .g-hbrief[data-open="false"] .g-hbrief-chev{ transform:rotate(-90deg); }
     .tui .g-hbrief[data-open="false"] .g-hbrief-body{ display:none; }
     .tui .g-hbrief-body{ padding:0 12px 10px; }

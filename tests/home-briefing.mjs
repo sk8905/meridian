@@ -62,17 +62,22 @@ const b = await launchChromium();
   check(r.leftOfHero && r.aboveFeed && r.rowAlignedWithHero, "desktop: the briefing is the top-left quadrant of the 2×2 (left of the chart, above the news wire)");
   check(r.open === "true", "desktop: the card is OPEN by default (it is a full quadrant, not a slim bar)");
 
-  // Open by default on the terminal; clicking the header collapses the body, clicking again re-opens.
+  // Desktop: the briefing is PERMANENTLY open — no collapse control. Its header
+  // matches the other panes (.tui-ph look: title-case, faint sub-label, no chevron),
+  // and clicking it does NOT collapse the card.
   const bodyVis = () => pg.evaluate(() => { const bd = document.querySelector("#g-hbrief .g-hbrief-body"); return !!bd && getComputedStyle(bd).display !== "none"; });
-  check(await bodyVis(), "desktop: the briefing body is expanded by default");
+  check(await bodyVis(), "desktop: the briefing body is expanded");
+  const hdr = await pg.evaluate(() => {
+    const t = document.querySelector(".g-hbrief-ttl"); const cs = t && getComputedStyle(t);
+    const chev = document.querySelector(".g-hbrief-chev");
+    return { title: (t && t.textContent) || "", notMono: !!cs && !/mono/i.test(cs.fontFamily), notUpper: !!cs && cs.textTransform === "none", chevHidden: !chev || getComputedStyle(chev).display === "none" };
+  });
+  check(/market briefing/i.test(hdr.title) && hdr.notMono && hdr.notUpper, "desktop: the header matches the panel style (title-case 'Market briefing', not mono/uppercase)");
+  check(hdr.chevHidden, "desktop: no collapse chevron — the card is permanently open");
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(120);
-  check(!(await bodyVis()), "desktop: clicking the header collapses the briefing body");
-  const collapsedFlag = await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open);
-  checkEq(collapsedFlag, "false", "desktop: the collapsed state is flagged (data-open=false)");
-  await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
-  await pg.waitForTimeout(120);
-  check(await bodyVis(), "desktop: clicking the header again re-opens it");
+  const stillOpen = await bodyVis() && (await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open)) === "true";
+  check(stillOpen, "desktop: clicking the header does NOT collapse it");
 
   // The briefing shows the latest available version (freshest by date·time stamp).
   const latest = await pg.evaluate(async () => {
@@ -119,9 +124,23 @@ const b = await launchChromium();
   const p = await pg.evaluate(() => {
     const el = document.getElementById("g-hbrief");
     const shown = !el.hidden && getComputedStyle(el).display !== "none" && el.getBoundingClientRect().height > 0;
-    return { shown, bullets: el.querySelectorAll(".g-hbrief-b").length };
+    const chev = el.querySelector(".g-hbrief-chev");
+    return { shown, bullets: el.querySelectorAll(".g-hbrief-b").length, open: el.dataset.open, chevShown: !!chev && getComputedStyle(chev).display !== "none" };
   });
   check(p.shown && p.bullets >= 1, `phone: the briefing card shows on the News pane (${p.bullets} bullet[s])`);
+
+  // Collapse is RETAINED on the phone: default collapsed, with the chevron, and the
+  // header toggles the body.
+  check(p.open === "false", "phone: the briefing is collapsed by default");
+  check(p.chevShown, "phone: the collapse chevron is shown (the card is collapsible)");
+  const bodyVisP = () => pg.evaluate(() => { const bd = document.querySelector("#g-hbrief .g-hbrief-body"); return !!bd && getComputedStyle(bd).display !== "none"; });
+  check(!(await bodyVisP()), "phone: the body is collapsed by default");
+  await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
+  await pg.waitForTimeout(120);
+  check(await bodyVisP() && (await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open)) === "true", "phone: tapping the header expands the briefing");
+  await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
+  await pg.waitForTimeout(120);
+  check(!(await bodyVisP()), "phone: tapping again collapses it");
   checkErrs(errs, "home briefing (phone)");
   await ctx.close();
 }

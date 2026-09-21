@@ -246,12 +246,10 @@ function renderHomeBriefing() {
   const key = _briefLatest();
   const s = slots[key];
   if (!s) { host.hidden = true; return; }
-  // Default open on the desktop terminal (the briefing is its own 2×2 quadrant, so a
-  // collapsed bar would leave the cell empty); default collapsed on phones (it sits
-  // in the News stack, where a slim bar saves vertical space). An explicit toggle
-  // (stored true/false) always wins.
-  const _bp = _homePrefs().briefOpen;
-  const open = _bp === true || (_bp !== false && _briefDesktop());
+  // Desktop terminal: the briefing is a permanent 2×2 quadrant — ALWAYS open, with
+  // no collapse control. iPhone: collapsible, default collapsed (a slim bar saves
+  // stack height; tap to expand). So the stored pref only applies on phones.
+  const open = _briefDesktop() || _homePrefs().briefOpen === true;
   if (open) _markBriefRead(key);                          // visible + expanded = read
   const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
@@ -277,7 +275,6 @@ function renderHomeBriefing() {
   host.dataset.open = open ? "true" : "false";
   host.innerHTML =
     `<button type="button" class="g-hbrief-head" aria-expanded="${open ? "true" : "false"}" aria-label="Market briefing — tap to ${open ? "collapse" : "expand"}">`
-    + `<span class="g-hbrief-ic" aria-hidden="true">◲</span>`
     + `<span class="g-hbrief-ttl">Market briefing</span>`
     + `<span class="g-hbrief-when">${when}</span>`
     + `<span class="g-hbrief-dot"${showDot ? "" : " hidden"} aria-hidden="true"></span>`
@@ -293,6 +290,7 @@ function initHomeBriefing() {
   if (!host) return;
   renderHomeBriefing();
   host.addEventListener("click", (e) => {
+    if (_briefDesktop()) return;                           // desktop: no collapse — the header is not a toggle
     if (e.target.closest(".g-hbrief-head")) {
       const open = host.dataset.open !== "true";          // toggle
       host.dataset.open = open ? "true" : "false";

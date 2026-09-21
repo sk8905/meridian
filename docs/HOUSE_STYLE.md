@@ -445,9 +445,12 @@ notification badge red (`#ef4444`).
   `briefMarkup` colour marking (**orange desk kicker** `.nb-topic`; numbers read as
   plain body text here), capped to **four bullets** (one screen), each linking its
   real source (grounding, R7); the header shows the brief's time · date stamp. It
-  is **collapsible per viewer** (`briefOpen` in the Home prefs) — **default open on
-  the desktop quadrant, collapsed on phones**; an explicit toggle always wins — with
-  an **unread dot** (`localStorage m_brief_read`) shown only while collapsed. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
+  On the **desktop quadrant it is permanently open — no collapse control** (its header
+  is a static title row, no chevron). On **phones it is collapsible** (`briefOpen` in
+  the Home prefs), **default collapsed** (tap to expand), with an **unread dot**
+  (`localStorage m_brief_read`) shown only while collapsed. **The header row matches
+  the other panes** (`.tui-ph`: title-case "Market briefing" left, faint time·date
+  sub-label right — like Chart / X feed / Policy rate). `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
   `v2/js/home/glance.js` (`#g-hbrief` in `content.js`); enforced by
   `tests/home-briefing.mjs`. The News feed's **day-break marker** (`.g-feed-dayhdr`)
   sticks directly beneath the filter row as the feed scrolls (Home-scoped offset in
