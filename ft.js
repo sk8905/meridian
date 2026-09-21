@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "79976fed-30c3-46e7-ba90-59e0633575d5", title: "Submit your questions: Where are the biggest market risks?", date: "2026-09-21", time: "14:57", url: "https://www.ft.com/content/79976fed-30c3-46e7-ba90-59e0633575d5" },
   { id: "be0ac16e-2357-45f8-8f4f-42c009e70a6f", title: "Trump vs the US Supreme Court", date: "2026-09-21", time: "14:00", url: "https://www.ft.com/content/be0ac16e-2357-45f8-8f4f-42c009e70a6f" },
   { id: "36175b45-b177-448c-95d0-3221d539ab89", title: "And the charts quiz winner is . . . ", date: "2026-09-21", time: "13:58", url: "https://www.ft.com/content/36175b45-b177-448c-95d0-3221d539ab89" },
   { id: "2a0d724d-b2be-4539-a4ab-30ba919cd253", title: "Gulf states urge reset with Iran as conflict drags on", date: "2026-09-21", time: "13:44", url: "https://www.ft.com/content/2a0d724d-b2be-4539-a4ab-30ba919cd253" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "5997a562-f343-4699-abd4-b86d4493d259", title: "Lobbyists move to Manchester for closer access to Number 10 North", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/5997a562-f343-4699-abd4-b86d4493d259" },
   { id: "f1d9d398-0666-44cf-96f4-390e6c3f5173", title: "Fed and BoE step up scrutiny of bank exposure to trading firms after Jane Street loss", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/f1d9d398-0666-44cf-96f4-390e6c3f5173" },
   { id: "3ce6132f-d2c0-4bdd-b995-628aa2da25d2", title: "Grant Thornton boss defends private equity ownership", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/3ce6132f-d2c0-4bdd-b995-628aa2da25d2" },
-  { id: "ac00f93b-4554-419b-bd30-9ca2316d8c2c", title: "Germany’s Merz vows to stay despite ‘disaster’", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/ac00f93b-4554-419b-bd30-9ca2316d8c2c" },
-  { id: "df52a49a-ab6a-4997-a609-169e830a26fa", title: "Nik Storonsky’s plan for Revolut: a global bank with ‘effectively zero risk’", date: "2026-09-21", time: "04:00", url: "https://www.ft.com/content/df52a49a-ab6a-4997-a609-169e830a26fa" },
 ];
