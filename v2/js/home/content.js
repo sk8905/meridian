@@ -83,13 +83,18 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <div class="g-hero-news" id="g-hero-news" aria-label="News for the charted securities"></div>
         </section>
 
-        <!-- CENTER: news wire. The filter row leads (pinned under the chips), then
-             the tri-daily market briefing (rendered by glance.js renderHomeBriefing
-             from BRIEFINGS; collapsible) as the day's lede over the live feed; the
+        <!-- MARKET BRIEFING: on the desktop terminal this is its own quadrant (top-
+             left of the 2×2 centre: Briefing · Chart over News · Managers). On phones
+             it flows inside the News pane, beneath the filter row and above the feed
+             (the feed-wrap is display:contents there so the briefing sits between the
+             pinned filter and the live feed). Rendered by glance.js renderHomeBriefing
+             from BRIEFINGS; collapsible. -->
+        <div class="g-hbrief g-anchor" id="g-hbrief" aria-label="Market briefing" hidden></div>
+
+        <!-- CENTER: news wire. The filter row leads (pinned under the chips); the
              feed's day-break marker sticks beneath the filter row on scroll. -->
         <section class="g-feed-wrap g-anchor" id="jump-feed">
           <div class="g-feed-head" id="g-feed-head">Today</div>
-          <div class="g-hbrief" id="g-hbrief" aria-label="Market briefing" hidden></div>
           <div class="g-feed wire-ptr-list" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
 

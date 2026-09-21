@@ -39,7 +39,7 @@ const b = await launchChromium();
   check(labels.join(" · ") === "News · Managers · Chart · X Feed", `phone: chips read 'News', 'Managers', 'Chart' and 'X Feed' in order (${labels.join(", ")})`);
 
   // Default: News on (the first chip), the feed pane visible, the rest hidden.
-  check(await vis(".g-feed-wrap"), "phone: the news feed is visible by default");
+  check(await vis("#g-feed"), "phone: the news feed is visible by default");
   check(!(await vis(".g-hero")), "phone: the chart pane is hidden by default (News selected)");
   check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (News selected)");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (News selected)");
@@ -65,7 +65,7 @@ const b = await launchChromium();
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="watch"]').click());
   await pg.waitForTimeout(200);
   check(await vis(".g-side3"), "phone: tapping Watchlist reveals the manager wire");
-  check(!(await vis(".g-feed-wrap")), "phone: tapping Watchlist hides the news feed");
+  check(!(await vis("#g-feed")), "phone: tapping Watchlist hides the news feed");
   const watchState = await pg.evaluate(() => ({
     watchOn: document.querySelector('.g-wiretab[data-wire="watch"]').classList.contains("is-on"),
     aria: document.querySelector('.g-wiretab[data-wire="watch"]').getAttribute("aria-selected"),
@@ -78,7 +78,7 @@ const b = await launchChromium();
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
   await pg.waitForTimeout(200);
   check(await vis(".g-hero"), "phone: tapping Chart reveals the hero chart");
-  check(!(await vis(".g-feed-wrap")), "phone: tapping Chart hides the news feed");
+  check(!(await vis("#g-feed")), "phone: tapping Chart hides the news feed");
   check(!(await vis(".g-side3")), "phone: tapping Chart keeps the manager wire hidden");
   // All six tickers are plotted by default on the chart.
   await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
@@ -94,7 +94,7 @@ const b = await launchChromium();
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').click());
   await pg.waitForSelector("#g-xwire #g-x-feed", { timeout: 8000 });
   check(await vis(".g-side-x"), "phone: tapping X reveals the X wire");
-  check(!(await vis(".g-feed-wrap")), "phone: tapping X hides the news feed");
+  check(!(await vis("#g-feed")), "phone: tapping X hides the news feed");
   check(!(await vis(".g-side3")), "phone: tapping X keeps the manager wire hidden");
   const xState = await pg.evaluate(() => ({
     xOn: document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on"),
@@ -107,7 +107,7 @@ const b = await launchChromium();
   // Tap News → back to the feed.
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
   await pg.waitForTimeout(200);
-  check(await vis(".g-feed-wrap"), "phone: tapping News returns to the feed");
+  check(await vis("#g-feed"), "phone: tapping News returns to the feed");
   check(!(await vis(".g-side3")), "phone: the manager wire is hidden again under News");
   check(!(await vis(".g-hero")), "phone: the chart is hidden again under News");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
@@ -155,8 +155,11 @@ const b = await launchChromium();
     const head = document.getElementById("g-feed-head");
     const brief = document.getElementById("g-hbrief");
     const inWrap = !!head.closest(".g-feed-wrap");
-    // The filter row precedes the briefing in the news column's flow.
-    const aboveBrief = !!brief && !!(brief.compareDocumentPosition(head) & Node.DOCUMENT_POSITION_PRECEDING);
+    // The filter row sits visually ABOVE the briefing in the news column. (The
+    // briefing is its own grid cell now, ordered via CSS, so compare geometry, not
+    // DOM order.)
+    const hb = head.getBoundingClientRect(), bb = brief && brief.getBoundingClientRect();
+    const aboveBrief = !!bb && hb.top <= bb.top + 1;
     document.querySelector(".g-wiretab[data-wire='x']").click();
     return { inWrap, aboveBrief, hidden: getComputedStyle(head).display === "none" || head.offsetParent === null };
   });
@@ -172,7 +175,7 @@ const b = await launchChromium();
   await pg.waitForTimeout(300);
   const d = await pg.evaluate(() => {
     const t = document.querySelector(".g-wiretabs");
-    const feed = document.querySelector(".g-feed-wrap"), mgr = document.querySelector(".g-side3");
+    const feed = document.querySelector("#g-feed"), mgr = document.querySelector(".g-side3");
     const shown = (el) => el && getComputedStyle(el).display !== "none" && el.getBoundingClientRect().width > 0;
     return { chipsHidden: !t || getComputedStyle(t).display === "none", feedShown: shown(feed), mgrShown: shown(mgr) };
   });
@@ -196,7 +199,7 @@ const b = await launchChromium();
   await pg.waitForTimeout(300);
   const t = await pg.evaluate(() => {
     const tabs = document.querySelector(".g-wiretabs");
-    const feed = document.querySelector(".g-feed-wrap"), mgr = document.querySelector(".g-side3");
+    const feed = document.querySelector("#g-feed"), mgr = document.querySelector(".g-side3");
     const shown = (el) => el && getComputedStyle(el).display !== "none" && el.getBoundingClientRect().width > 0;
     const fw = feed ? feed.getBoundingClientRect().width : 0;
     return { chipsShown: tabs && getComputedStyle(tabs).display !== "none", feedShown: shown(feed), feedW: Math.round(fw), mgrShown: shown(mgr) };

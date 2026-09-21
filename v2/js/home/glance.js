@@ -237,6 +237,8 @@ function _briefDesk(html) { const m = String(html || "").match(/^\s*<strong>\s*(
 // Drop the leading "Desk &mdash; " label from a same-desk follow-on item, keeping the
 // rest of its bold headline — so the kicker isn't repeated within a grouped section.
 function _stripDesk(html) { return String(html || "").replace(/^(\s*<strong>)\s*[^<]*?\s*(?:&mdash;|—)\s*/, "$1"); }
+// True on the desktop terminal (≥1201px), where the briefing is its own 2×2 quadrant.
+function _briefDesktop() { try { return window.matchMedia("(min-width:1201px)").matches; } catch { return false; } }
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
@@ -244,7 +246,12 @@ function renderHomeBriefing() {
   const key = _briefLatest();
   const s = slots[key];
   if (!s) { host.hidden = true; return; }
-  const open = _homePrefs().briefOpen === true;           // default collapsed (opt-in expand)
+  // Default open on the desktop terminal (the briefing is its own 2×2 quadrant, so a
+  // collapsed bar would leave the cell empty); default collapsed on phones (it sits
+  // in the News stack, where a slim bar saves vertical space). An explicit toggle
+  // (stored true/false) always wins.
+  const _bp = _homePrefs().briefOpen;
+  const open = _bp === true || (_bp !== false && _briefDesktop());
   if (open) _markBriefRead(key);                          // visible + expanded = read
   const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;

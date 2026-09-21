@@ -16,12 +16,12 @@ await pg.goto(`${base}/v2/`, { waitUntil: "load" });
 await pg.waitForSelector("#g-feed .g-feed-row", { state: "attached", timeout: 8000 });   // present (News is the default pane, so the feed shows)
 await pg.click('.g-wiretab[data-wire="x"]');
 await pg.waitForTimeout(200);
-check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on")) && !(await vis(".g-feed-wrap")),
+check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on")) && !(await vis("#g-feed")),
   "setup: the X wire is active and the news feed hidden");
 await pg.click('.mtab[data-key="home"]');
 await pg.waitForTimeout(250);
 check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on")), "Home tab: resets to the News chip (the first part)");
-check(await vis(".g-feed-wrap"), "Home tab: the news feed is shown again");
+check(await vis("#g-feed"), "Home tab: the news feed is shown again");
 check(!(await vis(".g-side-x")), "Home tab: the X wire is hidden");
 
 // --- Dashboard: non-default sub-tab → tap Dashboard → Macro -----------------

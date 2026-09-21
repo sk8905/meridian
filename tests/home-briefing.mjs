@@ -20,13 +20,14 @@ const b = await launchChromium();
 
   const r = await pg.evaluate(() => {
     const el = document.getElementById("g-hbrief");
-    const feedHead = document.getElementById("g-feed-head");
-    const wrap = document.querySelector(".g-feed-wrap");
+    const hero = document.querySelector(".g-hero");
+    const feedWrap = document.querySelector(".g-feed-wrap");
     const sections = [...el.querySelectorAll(".g-hbrief-b")];
     const items = [...el.querySelectorAll(".g-hbrief-bt")];
     const srcs = [...el.querySelectorAll(".g-hbrief-src")];
     const kickers = [...el.querySelectorAll(".g-hbrief-b .nb-topic")].map((k) => k.textContent.trim().toLowerCase());
-    const box = (n) => { const b = n.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom) }; };
+    const box = (n) => { const b = n.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right) }; };
+    const eb = box(el), hb = hero && box(hero), fb = feedWrap && box(feedWrap);
     return {
       shown: !el.hidden && getComputedStyle(el).display !== "none",
       title: (el.querySelector(".g-hbrief-ttl") || {}).textContent || "",
@@ -42,8 +43,11 @@ const b = await launchChromium();
       kickers,
       oneKickerPerSection: kickers.length === sections.length,
       kickersUnique: new Set(kickers).size === kickers.length,
-      insideWrap: !!wrap && wrap.contains(el),
-      belowFilter: feedHead ? box(el).top >= box(feedHead).bottom - 2 : false,
+      // 2×2 centre: the briefing is the top-LEFT quadrant — left of the chart (same
+      // row) and above the news wire (same column).
+      leftOfHero: !!hb && eb.right <= hb.left + 2,
+      aboveFeed: !!fb && eb.bottom <= fb.top + 2,
+      rowAlignedWithHero: !!hb && Math.abs(eb.top - hb.top) <= 2,
       open: el.dataset.open,
     };
   });
@@ -55,20 +59,20 @@ const b = await launchChromium();
   check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
   check(r.allSourced, "desktop: every item links a real source (grounding, R7)");
   check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated kicker (${r.kickers.join(", ")})`);
-  check(r.insideWrap && r.belowFilter, "desktop: the card sits inside the News column, below the 'Today' filter row");
-  check(r.open === "false", "desktop: the card is collapsed by default");
+  check(r.leftOfHero && r.aboveFeed && r.rowAlignedWithHero, "desktop: the briefing is the top-left quadrant of the 2×2 (left of the chart, above the news wire)");
+  check(r.open === "true", "desktop: the card is OPEN by default (it is a full quadrant, not a slim bar)");
 
-  // Collapsed by default; clicking the header expands the body, clicking again folds it.
+  // Open by default on the terminal; clicking the header collapses the body, clicking again re-opens.
   const bodyVis = () => pg.evaluate(() => { const bd = document.querySelector("#g-hbrief .g-hbrief-body"); return !!bd && getComputedStyle(bd).display !== "none"; });
-  check(!(await bodyVis()), "desktop: the briefing body is collapsed by default");
+  check(await bodyVis(), "desktop: the briefing body is expanded by default");
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(120);
-  check(await bodyVis(), "desktop: clicking the header expands the briefing body");
-  const openFlag = await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open);
-  checkEq(openFlag, "true", "desktop: the expanded state is flagged (data-open=true)");
+  check(!(await bodyVis()), "desktop: clicking the header collapses the briefing body");
+  const collapsedFlag = await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open);
+  checkEq(collapsedFlag, "false", "desktop: the collapsed state is flagged (data-open=false)");
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(120);
-  check(!(await bodyVis()), "desktop: clicking the header again collapses it");
+  check(await bodyVis(), "desktop: clicking the header again re-opens it");
 
   // The briefing shows the latest available version (freshest by date·time stamp).
   const latest = await pg.evaluate(async () => {

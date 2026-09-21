@@ -171,16 +171,17 @@ const b = await launchChromium();
   await pg.evaluate(() => { document.querySelector('#g-hero-sel .g-hero-tk[data-k="spx"]').click(); document.querySelector('#g-hero-sel .g-hero-tk[data-k="ust10"]').click(); });
   await pg.waitForTimeout(150);
 
-  // Option C geometry: the band spans the two MIDDLE columns (news + manager),
-  // sits to the right of the left rail and left of the X rail, and above the wires.
+  // 2×2 geometry: the chart is the top-RIGHT quadrant — right of the briefing (same
+  // row), sharing its column with the manager wire (directly above it), and left of
+  // the X rail.
   const geo = await pg.evaluate(() => {
     const box = (s) => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return { l: Math.round(r.left), r: Math.round(r.right), t: Math.round(r.top), b: Math.round(r.bottom) }; };
-    return { hero: box(".g-hero"), side: box(".g-side"), feed: box(".g-feed-wrap"), mgr: box(".g-side3"), sidex: box(".g-side-x") };
+    return { hero: box(".g-hero"), side: box(".g-side"), brief: box("#g-hbrief"), mgr: box(".g-side3"), sidex: box(".g-side-x") };
   });
-  check(geo.hero.l >= geo.side.r - 2, "hero: the band starts to the right of the left rail");
-  check(geo.hero.l <= geo.feed.l + 2 && geo.hero.r >= geo.mgr.r - 2, "hero: the band spans the news + manager wire columns");
-  check(geo.hero.r <= geo.sidex.l + 2, "hero: the band ends before the X rail");
-  check(geo.hero.b <= geo.feed.t + 2 && geo.hero.b <= geo.mgr.t + 2, "hero: the two wires sit beneath the band (Option C)");
+  check(geo.brief.l >= geo.side.r - 2, "hero: the briefing quadrant starts to the right of the left rail");
+  check(geo.hero.l >= geo.brief.r - 2, "hero: the chart sits to the right of the briefing (top row of the 2×2)");
+  check(Math.abs(geo.hero.l - geo.mgr.l) <= 2 && geo.hero.b <= geo.mgr.t + 2, "hero: the chart shares its column with the manager wire, directly above it");
+  check(geo.hero.r <= geo.sidex.l + 2, "hero: the chart ends before the X rail");
 
   // The related-news list is hidden on the desktop terminal (the News column
   // already exists and the hero is a height-boxed band).

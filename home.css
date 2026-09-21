@@ -803,18 +803,23 @@
 
     /* ---- workspace shell ---- */
     .g-main.tui{ padding:0; background:var(--t-ground); color:var(--t-ink); max-width:none; }
-    /* Five rails: left data · news wire · manager wire · X wire · macro rail. The
-       X wire is its own column between the manager wire and the macro rail. */
-    /* Two rows: the hero chart band spans the news + manager columns on top; the
-       two wires sit beneath it. The left rail and both right rails span both rows
-       so they stay full-height (Option C). */
+    /* Five columns: left data rail · [2×2 centre] · X wire · macro rail. The centre
+       two columns form a 2×2 — Briefing over News wire on the left, Chart over
+       Manager wire on the right. The left rail and both right rails span both rows
+       so they stay full-height. */
     .tui .g-layout{ display:grid; grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 304px 320px;
       grid-template-rows:auto minmax(0,1fr);
-      grid-template-areas:"side hero hero sidex side2" "side feed mgr sidex side2";
+      grid-template-areas:"side brief hero sidex side2" "side feed mgr sidex side2";
       gap:0; margin:0; align-items:start; }
     .tui .g-side{ grid-area:side; display:block; border-right:1px solid var(--t-grid2); }
-    .tui .g-hero{ grid-area:hero; min-width:0; }
+    .tui .g-hbrief{ grid-area:brief; min-width:0; }
+    .tui .g-hero{ grid-area:hero; min-width:0; border-left:1px solid var(--t-grid2); }
     .tui .g-feed-wrap{ grid-area:feed; min-width:0; }
+    /* The narrow-wire row layout (@container feedwrap) normally keys off .g-feed-wrap.
+       On phones the feed-wrap becomes display:contents (so the briefing can sit
+       between the filter and the feed), which removes its container box — so declare
+       the container on #g-feed itself, keeping the stacked row layout in both modes. */
+    .tui .g-feed{ container:feedwrap / inline-size; }
     .tui .g-side3{ grid-area:mgr; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
     .tui .g-side-x{ grid-area:sidex; display:block; min-width:0; border-left:1px solid var(--t-grid2); }
     .tui .g-side2{ grid-area:side2; display:block; border-left:1px solid var(--t-grid2); }
@@ -963,6 +968,14 @@
       .tui .g-feed-wrap{ height:100%; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-feed-head{ flex:0 0 auto; }
       .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+      /* Briefing quadrant (top-left of the 2×2). The header pins and the summary
+         body scrolls within the cell, so a long brief never steals height from the
+         news wire below it. A hairline underline divides it from the news row. */
+      .tui .g-hbrief:not([hidden]){ display:flex; flex-direction:column; min-height:0; max-height:300px;
+        overflow:hidden; border-bottom:1px solid var(--t-grid2); }
+      .tui .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      /* The chart quadrant sits over the manager wire; divide the two rows to match. */
+      .tui .g-hero{ border-bottom:1px solid var(--t-grid2); }
     }
     /* F10 — short-laptop fallback. On a tall viewport the rails fit exactly and
        only their one designated region scrolls; on a SHORT viewport the pinned
@@ -1144,13 +1157,20 @@
          so you don't scroll past the markets/rates rail to reach the headlines */
       /* Drop the desktop named-area placement so the panes flow in one column by
          `order` (a leftover grid-area would strand them in phantom 0-width tracks). */
-      .tui .g-side,.tui .g-hero,.tui .g-feed-wrap,.tui .g-side3,.tui .g-side-x,.tui .g-side2{ grid-area:auto; }
-      .tui .g-feed-wrap{ order:0; }
-      .tui .g-hero{ order:0; }
-      .tui .g-side3{ order:1; }
-      .tui .g-side-x{ order:2; }
-      .tui .g-side{ order:3; }
-      .tui .g-side2{ order:4; }
+      .tui .g-side,.tui .g-hero,.tui .g-hbrief,.tui .g-feed-wrap,.tui .g-side3,.tui .g-side-x,.tui .g-side2{ grid-area:auto; }
+      /* The briefing is its own grid cell on desktop; on phones the feed-wrap
+         becomes display:contents so the pinned filter (#g-feed-head) and the live
+         feed (#g-feed) split around the briefing — keeping the News-pane order
+         filter → briefing → feed exactly as before. */
+      .tui .g-feed-wrap{ display:contents; }
+      .tui #g-feed-head{ order:0; }
+      .tui .g-hbrief{ order:1; }
+      .tui #g-feed{ order:2; }
+      .tui .g-hero{ order:2; }
+      .tui .g-side3{ order:3; }
+      .tui .g-side-x{ order:4; }
+      .tui .g-side{ order:5; }
+      .tui .g-side2{ order:6; }
       .tui .g-side,.tui .g-side2,.tui .g-side3,.tui .g-side-x{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); }
       /* The sticky stack under the fixed header is, top-to-bottom: the search band
          (.wire-band, --wire-band-h tall), then the News/Watchlist tabs, then the
@@ -1181,11 +1201,13 @@
       .tui .g-side3{ display:none; }
       .tui .g-side-x{ display:none; }
       .tui .g-hero{ display:none; }
-      .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
+      /* Managers/Chart/X panes hide the whole News stack — the feed-wrap (filter +
+         feed) AND the now-separate briefing cell. */
+      .tui .g-layout.wire-watch .g-feed-wrap, .tui .g-layout.wire-watch .g-hbrief{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
-      .tui .g-layout.wire-chart .g-feed-wrap{ display:none; }
+      .tui .g-layout.wire-chart .g-feed-wrap, .tui .g-layout.wire-chart .g-hbrief{ display:none; }
       .tui .g-layout.wire-chart .g-hero{ display:flex; }
-      .tui .g-layout.wire-x .g-feed-wrap{ display:none; }
+      .tui .g-layout.wire-x .g-feed-wrap, .tui .g-layout.wire-x .g-hbrief{ display:none; }
       .tui .g-layout.wire-x .g-side-x{ display:block; }
       /* On phones the chart pane gets a taller plot for legibility. */
       .tui .g-layout.wire-chart #g-hero-svg{ height:200px; }

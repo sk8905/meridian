@@ -18,8 +18,8 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
 - **R1 — Desktop = fixed-viewport terminal (≥761px).** The whole app is one
   viewport-height flex column; the page itself never scrolls; **only the centre
   wire scrolls internally.** (Bloomberg-terminal model.) **Exception — the Home
-  5-column wire terminal (markets · news wire · manager wire · X wire · macro)
-  needs real width for its two flexible middle columns, so it only engages at
+  5-column wire terminal (markets rail · [2×2 centre] · X wire · macro rail)
+  needs real width for its centre, so it only engages at
   ≥1201px; from 761–1200px (iPad mini/Air/Pro-11 landscape) Home uses the
   single-column chip-swap layout instead** (News · Managers · Chart · X Feed), which
   is what the phone uses — otherwise the two middle wires crush to ~50px and the
@@ -356,9 +356,11 @@ notification badge red (`#ef4444`).
   (both Worker normalisers — free syndication + twitterapi.io shapes).
 
 - **R27 — Hero chart band (Home).** The Home terminal carries a **price/performance
-  chart band** that, on desktop, **spans the two middle columns (news + manager
-  wire)** and sits **above** them (both wires start beneath it); the left rail and
-  both right rails stay full-height (CSS grid `grid-template-areas`). On **phones**
+  chart band** that, on desktop, is the **top-right quadrant of the 2×2 centre**:
+  Briefing over News wire on the left, **Chart over Manager wire on the right** (the
+  chart sits directly above the manager wire, the briefing above the news wire); the
+  left rail and both right rails stay full-height (CSS grid `grid-template-areas`).
+  On **phones**
   it is a **wire chip — the tab strip reads News · Managers · Chart · X Feed, in
   that order; News is the default landing pane** and the Chart chip opens the band
   (with **all six tickers plotted** by default). A Home-nav tap resets to News —
@@ -425,21 +427,25 @@ notification badge red (`#ef4444`).
   single→indexed-overlay multi-select, axes + vertical grid, Option-C geometry,
   phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.
 
-- **R28 — Home briefing card (News wire).** The market brief (`BRIEFINGS` —
-  Macro · Equities · Fixed income) is surfaced **only on the Home News wire** —
-  there is **no header button / panel**. It sits **below the "Today" filter row**
-  (which stays pinned at the top of the wire) as the day's **lede over the live
-  feed it summarises** — on desktop atop the centre News column, on phones on the
-  News chip pane (the default landing). **Only the LATEST available version is
+- **R28 — Home briefing card.** The market brief (`BRIEFINGS` —
+  Macro · Equities · Fixed income) is surfaced **only on Home** — there is **no
+  header button / panel**. On the **desktop terminal** it is the **top-left quadrant
+  of the 2×2 centre** (its own cell above the news wire, left of the chart), and
+  **defaults OPEN** there (a collapsed bar would leave the cell empty). On **phones**
+  it flows **inside the News chip pane, below the "Today" filter row** (which stays
+  pinned) and **above the live feed** — the `.g-feed-wrap` is `display:contents`
+  there so the briefing sits between the pinned filter and the feed — and **defaults
+  collapsed** (a slim bar saves stack height). **One section per desk:** the render
+  groups same-desk bullets under a single kicker (see R7/grounding). **Only the LATEST available version is
   shown — no slot selector**; the card picks the freshest brief by (date·time)
   stamp. Data: `BRIEFINGS` (tokenless / no-cache — regenerated on **each of the ~5
   daily refresh runs**, so a fresh brief appears with no code push), the shared
   `briefMarkup` colour marking (**orange desk kicker** `.nb-topic`; numbers read as
   plain body text here), capped to **four bullets** (one screen), each linking its
   real source (grounding, R7); the header shows the brief's time · date stamp. It
-  is **collapsible per viewer** (`briefOpen` in the Home prefs) — **collapsed by
-  default** (a one-line header; tap to expand) — with an **unread dot** (`localStorage
-  m_brief_read`) shown only while collapsed. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
+  is **collapsible per viewer** (`briefOpen` in the Home prefs) — **default open on
+  the desktop quadrant, collapsed on phones**; an explicit toggle always wins — with
+  an **unread dot** (`localStorage m_brief_read`) shown only while collapsed. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
   `v2/js/home/glance.js` (`#g-hbrief` in `content.js`); enforced by
   `tests/home-briefing.mjs`. The News feed's **day-break marker** (`.g-feed-dayhdr`)
   sticks directly beneath the filter row as the feed scrolls (Home-scoped offset in
