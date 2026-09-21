@@ -953,7 +953,7 @@ async function handleChokepoint(request, env, ctx) {
   const url = new URL(request.url);
   const src = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/ArcGIS/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query"
     + "?where=" + encodeURIComponent("portid='chokepoint6'")
-    + "&outFields=" + encodeURIComponent("date,n_transits")
+    + "&outFields=*"                                          // all fields — the count field is n_total, not n_transits
     + "&orderByFields=" + encodeURIComponent("date DESC")
     + "&resultRecordCount=45&returnGeometry=false&f=json";
   if (url.searchParams.get("debug")) {
@@ -971,9 +971,12 @@ async function handleChokepoint(request, env, ctx) {
       // ArcGIS field names/casing can vary between service revisions, so pick the
       // date + transit-count fields case-insensitively from a set of known aliases
       // rather than assuming exact keys.
-      const pick = (a, names) => { for (const k of Object.keys(a)) { if (names.includes(k.toLowerCase())) return a[k]; } return undefined; };
+      // Priority-ordered field match: build a lowercase key map, then take the first
+      // of OUR preferred names that exists (PortWatch's total-transits field is
+      // n_total; date is `date`, which ArcGIS returns as epoch ms).
+      const pick = (a, names) => { const lk = {}; for (const k of Object.keys(a)) lk[k.toLowerCase()] = a[k]; for (const n of names) if (n in lk && lk[n] != null) return lk[n]; return undefined; };
       const DATE_KEYS = ["date", "period", "day", "obs_date", "record_date", "time"];
-      const N_KEYS = ["n_transits", "transits", "n_transit", "transit_calls", "vessel_count", "n_vessels", "ships", "count"];
+      const N_KEYS = ["n_total", "n_transits", "transits", "n_transit", "transit_calls", "vessel_count", "n_vessels", "ships", "count"];
       const rows = (JSON.parse(txt).features || [])
         .map((f) => (f && f.attributes) ? f.attributes : null)
         .filter(Boolean)
