@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "be0ac16e-2357-45f8-8f4f-42c009e70a6f", title: "Trump vs the US Supreme Court", date: "2026-09-21", time: "14:00", url: "https://www.ft.com/content/be0ac16e-2357-45f8-8f4f-42c009e70a6f" },
+  { id: "36175b45-b177-448c-95d0-3221d539ab89", title: "And the charts quiz winner is . . . ", date: "2026-09-21", time: "13:58", url: "https://www.ft.com/content/36175b45-b177-448c-95d0-3221d539ab89" },
+  { id: "2a0d724d-b2be-4539-a4ab-30ba919cd253", title: "Gulf states urge reset with Iran as conflict drags on", date: "2026-09-21", time: "13:44", url: "https://www.ft.com/content/2a0d724d-b2be-4539-a4ab-30ba919cd253" },
   { id: "ba07e411-1d76-4289-83b0-96d694f95d08", title: "The food safety sheriff on a hygiene crusade in Mumbai", date: "2026-09-21", time: "13:08", url: "https://www.ft.com/content/ba07e411-1d76-4289-83b0-96d694f95d08" },
   { id: "aa1dbf18-eaa3-411a-9bf0-52c99adcb7a8", title: "Trump and Xi are the wrong men at the wrong time", date: "2026-09-21", time: "12:59", url: "https://www.ft.com/content/aa1dbf18-eaa3-411a-9bf0-52c99adcb7a8" },
   { id: "b0125efa-396b-4650-be90-a8a5a7fc51e6", title: "Saudi wealth fund presses LIV Golf’s saviour to prove its commitment to tour", date: "2026-09-21", time: "12:41", url: "https://www.ft.com/content/b0125efa-396b-4650-be90-a8a5a7fc51e6" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "3ce6132f-d2c0-4bdd-b995-628aa2da25d2", title: "Grant Thornton boss defends private equity ownership", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/3ce6132f-d2c0-4bdd-b995-628aa2da25d2" },
   { id: "ac00f93b-4554-419b-bd30-9ca2316d8c2c", title: "Germany’s Merz vows to stay despite ‘disaster’", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/ac00f93b-4554-419b-bd30-9ca2316d8c2c" },
   { id: "df52a49a-ab6a-4997-a609-169e830a26fa", title: "Nik Storonsky’s plan for Revolut: a global bank with ‘effectively zero risk’", date: "2026-09-21", time: "04:00", url: "https://www.ft.com/content/df52a49a-ab6a-4997-a609-169e830a26fa" },
-  { id: "a4901983-10a2-488d-8725-66177d6f9ea2", title: "Germany’s Merz stands his ground but for how long?", date: "2026-09-21", time: "03:05", url: "https://www.ft.com/content/a4901983-10a2-488d-8725-66177d6f9ea2" },
-  { id: "0e4ab05c-93f9-400f-bf42-22074c184ee7", title: "Is this Indonesia’s next president?", date: "2026-09-21", time: "02:54", url: "https://www.ft.com/content/0e4ab05c-93f9-400f-bf42-22074c184ee7" },
 ];
