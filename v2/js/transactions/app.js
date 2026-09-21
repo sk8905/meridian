@@ -327,9 +327,20 @@ export function mount(host, ctx) {
     const match = (b) => !q || b.name.toLowerCase().includes(q) || (b.manager || "").toLowerCase().includes(q) || (b.ticker || "").toLowerCase().includes(q);
     const list = BDCS.filter(match)
       .sort((a, b) => (bdcSize(b) || 0) - (bdcSize(a) || 0) || a.name.localeCompare(b.name));
-    bdcBody.innerHTML = (list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">
-        <thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-tk-h">Ticker</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>
-        <tbody>${list.map(bdcRow).join("")}</tbody></table></div>`
+    // Two sections within the roster — LISTED (exchange-traded) then PRIVATE
+    // (interval / non-traded) — each its own labelled table (largest first). Kept as
+    // separate tables (not in-table bands) so each section's sticky column header
+    // pins cleanly. The per-row Type tag still confirms each fund's status.
+    const groups = [
+      { key: "listed", label: "Listed", rows: list.filter((b) => b.structure === "listed") },
+      { key: "private", label: "Private", rows: list.filter((b) => b.structure !== "listed") },
+    ];
+    const head = `<thead><tr><th class="tbdc-nm-h">Fund</th><th class="tbdc-tk-h">Ticker</th><th class="tbdc-ty-h">Type</th><th class="tbdc-mg-h">Manager</th><th class="tbdc-ta-h">Total assets</th><th class="tbdc-nav-h">NAV / sh</th><th class="tbdc-na-h">Non-accrual</th><th class="tbdc-lq-h">Px/NAV · liquidity</th></tr></thead>`;
+    const section = (g) => g.rows.length
+      ? `<section class="tbdc-sec"><h4 class="tbdc-seclbl">${esc(g.label)}<span class="tbdc-seclbl-n">${g.rows.length}</span></h4>`
+        + `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">${head}<tbody>${g.rows.map(bdcRow).join("")}</tbody></table></div></section>`
+      : "";
+    bdcBody.innerHTML = (list.length ? groups.map(section).join("")
         : `<p class="tw-empty muted small">No BDCs match “${esc(_bdcQ)}”.</p>`);
   }
   function loadBdcQuotes() {

@@ -859,7 +859,11 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbdc-szt { margin-left: 3px; color: var(--faint); font-size: 8.5px; font-weight: 400; text-transform: uppercase; letter-spacing: .03em; vertical-align: 1px; }
 .tbdc-ty-l, .tbdc-ty-p { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .tbdc-ty-l { color: var(--muted); }
-.tbdc-ty-p { color: var(--accent); }
+.tbdc-ty-p { color: var(--muted); }
+/* Roster sections — LISTED / PRIVATE — each its own labelled table. */
+.tbdc-sec + .tbdc-sec { margin-top: 14px; }
+.tbdc-seclbl { margin: 0 0 3px; padding: 0 2px; font-family: var(--t-mono); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+.tbdc-seclbl-n { margin-left: 9px; font-weight: 400; letter-spacing: .02em; color: var(--faint); }
 .tbdc-tbl td.tbdc-tk { color: var(--muted); font-family: var(--t-mono); white-space: nowrap; }
 .tbdc-tbl td.tbdc-mg { color: var(--muted); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tbdc-tbl td.tbdc-mg a { color: var(--muted); }
