@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2f8ea519-9e2e-4ab2-9061-18729503ff24", title: "Spanish PM’s wife to stand trial over corruption charges", date: "2026-09-21", time: "16:04", url: "https://www.ft.com/content/2f8ea519-9e2e-4ab2-9061-18729503ff24" },
+  { id: "378926f5-0494-4f5e-8bd1-e1775980ab82", title: "China accuses ousted top generals of ‘disloyalty’", date: "2026-09-21", time: "15:54", url: "https://www.ft.com/content/378926f5-0494-4f5e-8bd1-e1775980ab82" },
+  { id: "e40691e8-e96e-444a-baf7-ae3dfef99bce", title: "Germany’s Merz hits out at ‘destructive’ forces as he fights for survival", date: "2026-09-21", time: "15:41", url: "https://www.ft.com/content/e40691e8-e96e-444a-baf7-ae3dfef99bce" },
   { id: "79976fed-30c3-46e7-ba90-59e0633575d5", title: "Submit your questions: Where are the biggest market risks?", date: "2026-09-21", time: "14:57", url: "https://www.ft.com/content/79976fed-30c3-46e7-ba90-59e0633575d5" },
   { id: "be0ac16e-2357-45f8-8f4f-42c009e70a6f", title: "Trump vs the US Supreme Court", date: "2026-09-21", time: "14:00", url: "https://www.ft.com/content/be0ac16e-2357-45f8-8f4f-42c009e70a6f" },
   { id: "36175b45-b177-448c-95d0-3221d539ab89", title: "And the charts quiz winner is . . . ", date: "2026-09-21", time: "13:58", url: "https://www.ft.com/content/36175b45-b177-448c-95d0-3221d539ab89" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "6f0ceb7d-597d-4c83-ac8b-0fe7c8bd74f9", title: "Why the world’s hottest stock market is a national liability", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/6f0ceb7d-597d-4c83-ac8b-0fe7c8bd74f9" },
   { id: "f2dca0b0-6387-4022-8dba-dc8015823dfe", title: "The cartel civil war tearing apart a Mexican state", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/f2dca0b0-6387-4022-8dba-dc8015823dfe" },
   { id: "01a7b883-452c-4902-b40e-e3957de5d89e", title: "Lex in depth: Anthropic at $2tn isn’t far-fetched", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/01a7b883-452c-4902-b40e-e3957de5d89e" },
-  { id: "5997a562-f343-4699-abd4-b86d4493d259", title: "Lobbyists move to Manchester for closer access to Number 10 North", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/5997a562-f343-4699-abd4-b86d4493d259" },
-  { id: "f1d9d398-0666-44cf-96f4-390e6c3f5173", title: "Fed and BoE step up scrutiny of bank exposure to trading firms after Jane Street loss", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/f1d9d398-0666-44cf-96f4-390e6c3f5173" },
-  { id: "3ce6132f-d2c0-4bdd-b995-628aa2da25d2", title: "Grant Thornton boss defends private equity ownership", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/3ce6132f-d2c0-4bdd-b995-628aa2da25d2" },
 ];
