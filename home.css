@@ -457,7 +457,7 @@
     .g-snap-colh-r { text-align:right; }
     .g-snap-cc { color:var(--muted); font-weight:700; font-size:.69rem; }
     .g-snap-pv { font-weight:700; color:var(--ink); white-space:nowrap; font-variant-numeric:tabular-nums; }
-    .g-snap-nx { color:var(--ink); font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums; text-align:center; }
+    .g-snap-nx { color:var(--ink); font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums; text-align:center; min-width:0; overflow:hidden; text-overflow:ellipsis; }
     .g-snap-ps { min-width:0; font-size:.75rem; text-align:right; white-space:nowrap;
       display:inline-flex; align-items:baseline; justify-content:flex-end; gap:.32rem; }
     .g-snap-fc { color:var(--ink); font-weight:700; }
@@ -1418,6 +1418,7 @@
     .tui .g-snap-cc{ font-size:11.5px; color:var(--t-dim); font-family:var(--t-mono); }
     .tui .g-snap-pv{ font-size:12.5px; color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .tui .g-snap-nx,.tui .g-snap-ps{ font-size:10.5px; color:var(--t-dim); font-family:var(--t-mono); }
+    .tui .g-snap-nx{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .tui .g-snap-mood{ color:var(--t-accent); }
     .tui .g-snap-h{ display:flex; align-items:baseline; gap:8px; margin-bottom:5px; }
     .tui .g-snap-cap{ margin-left:auto; font-family:var(--t-mono); font-size:11.5px; color:var(--t-amber); }

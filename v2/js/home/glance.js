@@ -1615,9 +1615,13 @@ function renderMacroSnapshot() {
     const tag = mood
       ? ` <span class="g-snap-mood">· ${mood[0].toUpperCase()}${mood.slice(1)}</span>`
       : "";
+    // The "Next" column is a bare meeting date — strip any parenthetical outcome
+    // note (e.g. "(resolved 17 Sep: hold)") a refresh may have appended, so a stale
+    // annotation can never spill across into the Forecast column.
+    const nx = String(o.next || "").replace(/\s*\((?:resolved|held?|decided)\b[^)]*\)/gi, "").trim();
     return `<span class="g-snap-cc">${cc}</span>`
       + `<span class="g-snap-pv">${esc(o.rate)}</span>`
-      + `<span class="g-snap-nx">${esc(o.next || "")}</span>`
+      + `<span class="g-snap-nx">${esc(nx)}</span>`
       + `<span class="g-snap-ps"><span class="g-snap-fc">${esc(fc)}</span>${tag}</span>`;
   };
   // Meter row: the scale end-labels sit inline either side of the gauge; the

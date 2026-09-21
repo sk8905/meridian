@@ -1,7 +1,7 @@
 // Transactions tab — the covered managers' deal flow by transaction type. Checks
 // the shared classifier/amount enrichment (credit/js/tx.js) against the live deal
-// ledger, then the tab UI: an overview league table of the types → a per-type
-// stat header + dated transaction list, in the Profiles terminal look.
+// ledger, then the tab UI: a blue sub-tab rail (one per transaction type) → a dated
+// transaction list per type, in the Profiles terminal look.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 const PHONE_SHORT = { viewport: { width: 390, height: 460 }, isMobile: true, hasTouch: true, userAgent: "Mozilla/5.0 (iPhone)" };
 
@@ -31,64 +31,51 @@ check(tx.cloOk, `CLO-flagged deals classify as CLO issuance (${tx.cloN})`);
 check(tx.amtN > 200 && tx.usdN > 200, `deal sizes parse from the sourced text and normalise to USD (${tx.amtN} sized, ${tx.usdN} in USD)`);
 check((tx.dist.clo || 0) > 50 && (tx.dist.lend || 0) > 50, `the data-rich types are well populated (clo ${tx.dist.clo}, lend ${tx.dist.lend})`);
 
-// ---- 2) overview league table --------------------------------------------
+// ---- 2) the sub-tab rail + the default (largest) type's deal list --------
+// Primary/Secondaries carry a blue sub-tab rail — one sub-tab per transaction type,
+// each with its deal count, NO "Overview" — landing on the largest type's deals.
 await pg.goto(base + "/v2/transactions/", { waitUntil: "load" });
-await pg.waitForSelector(".tx-tbl tbody tr.clickable", { timeout: 8000 });
-const ov = await pg.evaluate(() => ({
-  rows: document.querySelectorAll(".tx-tbl tbody tr.clickable").length,
-  hasTotal: !!document.querySelector(".tx-tbl tfoot .tx-tot") && /\$/.test((document.querySelector(".tx-tbl tfoot") || {}).textContent || ""),
-  hasTrend: document.querySelectorAll(".tx-tbl .tx-up, .tx-tbl .tx-fl, .tx-tbl .tx-dn").length > 0,
-  hasVol: /\$/.test((document.querySelector(".tx-tbl tbody tr") || {}).textContent || ""),
-  noPeriodChips: !document.querySelector("#tx-period"),
-  modeChips: [...document.querySelectorAll("#tx-mode .tchip")].map((c) => c.textContent.trim().replace(/\s+\d+$/, "")),
-  // Desktop: the mode tabs form a vertical LEFT sidebar (like the Dashboard rail) —
-  // chips stack (differing tops) and the .twire-head rail sits left of the content.
-  railStacked: (() => { const c = [...document.querySelectorAll("#tx-mode .tchip")]; return c.length > 1 ? Math.round(c[1].getBoundingClientRect().top - c[0].getBoundingClientRect().top) : 0; })(),
-  railLeft: (() => { const h = document.querySelector(".tx-dash .twire-head"), m = document.querySelector(".tx-dash .tcol-main"); return !!(h && m) && h.getBoundingClientRect().right <= m.getBoundingClientRect().left + 5 && Math.round(h.getBoundingClientRect().width) < 220; })(),
-  // Every league row is the SAME height (matches the Profiles panes — single-line
-  // rows are normalised up to the chip-row height), so the vertical rhythm is even.
-  rowHs: [...new Set([...document.querySelectorAll(".tx-tbl tbody tr.clickable")].map((tr) => Math.round(tr.getBoundingClientRect().height)))],
-  // Type names render at the same weight as the Profiles league names (bold —
-  // the first column of every league/data table is the only bold column),
-  // not bold — one type scale across the two tabs.
-  nameFW: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontWeight : ""; })(),
-  nameFS: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontSize : ""; })(),
-  // Cells + headers are LEFT-aligned, matching the Profiles league format (which
-  // left-aligns its whole table) rather than right-aligned numeric columns.
-  aligns: [...document.querySelectorAll(".tx-tbl thead th, .tx-tbl tbody tr.clickable:first-child td")].map((c) => getComputedStyle(c).textAlign),
-  // The body sits on the opaque surface (like the Profiles panes), not the
-  // transparent grey ground; and the sticky column header sits flush at the top
-  // of the body — no 28px blank band above it.
-  bodyBg: getComputedStyle(document.querySelector("#tx-body")).backgroundColor,
-  headOffset: (() => { const th = document.querySelector(".tx-tbl thead th"), thead = document.querySelector(".tx-tbl thead"); return th && thead ? Math.round(th.getBoundingClientRect().top - thead.getBoundingClientRect().top) : -1; })(),
-}));
-check(ov.rows >= 6, `overview lists the transaction types as a league table (${ov.rows})`);
-check(ov.rowHs.length === 1, `overview rows share one uniform height, matching the Profiles league (${ov.rowHs.join(", ")}px)`);
-check(ov.nameFS === "11.5px" && (ov.nameFW === "700" || ov.nameFW === "bold"), `type names are the bold first column (11.5px bold, got ${ov.nameFS}/${ov.nameFW})`);
-check(ov.aligns.length > 0 && ov.aligns.every((a) => a === "left" || a === "start"), `every header + cell is left-aligned, matching the Profiles league (${[...new Set(ov.aligns)].join(", ")})`);
-check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the table body sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
-check(ov.headOffset === 0, `the column header sits flush at the top — no blank band above it (offset ${ov.headOffset}px)`);
-check(ov.hasTotal, "overview carries a group total row (deal count + volume)");
-check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
+await pg.waitForSelector(".tx-subnav [data-sub]", { timeout: 8000 });
+await pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
+const ov = await pg.evaluate(() => {
+  const subChips = [...document.querySelectorAll(".tx-subnav [data-sub]")];
+  const on = document.querySelector(".tx-subnav .tchip.is-on");
+  return {
+    subs: subChips.map((c) => c.textContent.trim().replace(/\s*\d+$/, "")),
+    noOverview: !subChips.some((c) => /overview/i.test(c.textContent)),
+    activeIsFirst: subChips.length > 0 && on === subChips[0],
+    subsHaveCounts: document.querySelectorAll(".tx-subnav [data-sub] .tx-subn").length === subChips.length && subChips.length > 0,
+    paneRows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length,
+    // Desktop: the sub-tabs stack as a SECOND vertical rail (differing tops) beside the pane.
+    subStacked: subChips.length > 1 ? Math.round(subChips[1].getBoundingClientRect().top - subChips[0].getBoundingClientRect().top) : 0,
+    noPeriodChips: !document.querySelector("#tx-period"),
+    modeChips: [...document.querySelectorAll("#tx-mode .tchip")].map((c) => c.textContent.trim().replace(/\s+\d+$/, "")),
+    // Desktop: the mode tabs form a vertical LEFT sidebar (chips stack; rail sits left).
+    railStacked: (() => { const c = [...document.querySelectorAll("#tx-mode .tchip")]; return c.length > 1 ? Math.round(c[1].getBoundingClientRect().top - c[0].getBoundingClientRect().top) : 0; })(),
+    railLeft: (() => { const h = document.querySelector(".tx-dash .twire-head"), m = document.querySelector(".tx-dash .tcol-main"); return !!(h && m) && h.getBoundingClientRect().right <= m.getBoundingClientRect().left + 5 && Math.round(h.getBoundingClientRect().width) < 220; })(),
+    bodyBg: getComputedStyle(document.querySelector("#tx-body")).backgroundColor,
+  };
+});
+check(ov.subs.length >= 4, `Primary issuance shows a sub-tab per transaction type (${ov.subs.join(", ")})`);
+check(ov.noOverview, "the Overview sub-tab is removed from Primary/Secondaries");
+check(ov.activeIsFirst && ov.paneRows > 0, `it lands on the first (largest) type's deals (${ov.paneRows} rows)`);
+check(ov.subsHaveCounts, "each sub-tab carries its deal count");
+check(ov.subStacked > 10, `desktop: the sub-tabs stack as a second vertical rail (Δtop ${ov.subStacked}px)`);
+check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed");
 check(ov.modeChips.join(",") === "Primary issuance,Secondaries,Credits,BDCs", `the Primary issuance / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 
-// ---- 3) expand a type → an inline, indented sub-list of its deals --------
-// Clicking a transaction type opens its deals as an indented accordion IN PLACE
-// (the overview stays on the page) instead of navigating to a separate detail page.
-await pg.evaluate(() => { const r = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")].find((x) => /Direct lending/.test(x.textContent)); (r || document.querySelector(".tx-tbl tbody tr.clickable")).click(); });
-await pg.waitForSelector(".tx-typeexp:not([hidden]) .tx-list tbody tr.tx-row", { timeout: 4000 });
+// ---- 3) selecting a type sub-tab → its dated deal list -------------------
+await pg.evaluate(() => { const c = [...document.querySelectorAll(".tx-subnav [data-sub]")].find((x) => /Direct lending/.test(x.textContent)); if (c) c.click(); });
+await pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 4000 });
 const dt = await pg.evaluate(() => {
-  const exp = document.querySelector(".tx-typeexp:not([hidden])");
-  const openRow = exp && exp.previousElementSibling;
+  const exp = document.querySelector(".tx-panes-in");
   return {
-    overviewStays: document.querySelectorAll(".tx-tbl tbody tr.clickable").length,
+    activeName: (document.querySelector(".tx-subnav .tchip.is-on") || {}).textContent || "",
+    activeBar: (() => { const on = document.querySelector(".tx-subnav .tchip.is-on"); return on ? getComputedStyle(on).boxShadow : ""; })(),
     noDetailPage: !document.querySelector(".tx-back") && !document.querySelector(".tx-kpi"),
-    rowOpen: !!(openRow && openRow.classList.contains("is-open") && openRow.getAttribute("aria-expanded") === "true"),
-    indentPx: parseInt(getComputedStyle(exp.querySelector(".tx-typeexp-in")).paddingLeft, 10) || 0,
-    // Table columns (reordered): Borrower/company · Date · Lender/investor · Type · Amount · Source.
     heads: [...exp.querySelectorAll(".tx-list thead th")].map((h) => h.textContent.trim()),
     listRows: exp.querySelectorAll(".tx-list tbody tr.tx-row").length,
     anySize: [...exp.querySelectorAll(".tx-list td.tx-sz")].some((td) => /[$€£]/.test(td.textContent)),
@@ -99,11 +86,10 @@ const dt = await pg.evaluate(() => {
     typed: [...exp.querySelectorAll(".tx-list td.tx-cat")].filter((td) => td.textContent.trim() && td.textContent.trim() !== "—").length,
   };
 });
-check(dt.overviewStays >= 6, `the type overview stays — the deals open inline, not on a new page (${dt.overviewStays} types)`);
+check(dt.activeName.includes("Direct lending"), `selecting a sub-tab activates it (${dt.activeName.trim()})`);
+check(dt.activeBar && dt.activeBar !== "none" && /inset/.test(dt.activeBar), "the active sub-tab carries the blue left bar");
 check(dt.noDetailPage, "no separate detail page is rendered (no back bar, no KPI tiles)");
-check(dt.rowOpen, "the clicked type row is marked open (caret rotates, aria-expanded=true)");
-check(dt.indentPx > 0, `the sub-list is indented beneath its type (${dt.indentPx}px)`);
-check(dt.listRows > 0, `the sub-list lists the type's transactions (${dt.listRows})`);
+check(dt.listRows > 0, `the pane lists the type's transactions (${dt.listRows})`);
 check(/Borrower/i.test(dt.heads[0] || "") && /Sponsor/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Date/i.test(h)) && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Sector/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
   `columns are Borrower · Sponsor · Date · Lender · Sector · Amount · Source (${dt.heads.join(" · ")})`);
 check(dt.anySize, "transactions show their native disclosed size");
@@ -112,51 +98,50 @@ check(dt.srcLinks > 0, `the source link sits in its own Source column (${dt.srcL
 check(dt.typed > 0, `transactions carry a Sector column (${dt.typed})`);
 // Sponsor column: at least some deals name a PE sponsor distinct from the borrower.
 const spon = await pg.evaluate(() => {
-  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+  const exp = document.querySelector(".tx-panes-in");
   const rows = [...exp.querySelectorAll(".tx-list tbody tr.tx-row")];
   const withSp = rows.filter((r) => { const t = (r.querySelector(".tx-sp") || {}).textContent || ""; return t.trim() && t.trim() !== "—"; });
   const s = withSp[0];
-  return { has: !!s.querySelector(".tx-sp"), n: withSp.length,
-    diff: s ? (s.querySelector(".tx-bd")?.textContent || "").replace("▸", "").trim() !== (s.querySelector(".tx-sp")?.textContent || "").trim() : false };
+  return { n: withSp.length, diff: s ? (s.querySelector(".tx-bd")?.textContent || "").replace("▸", "").trim() !== (s.querySelector(".tx-sp")?.textContent || "").trim() : false };
 });
 check(spon.n > 0 && spon.diff, `a Sponsor column names the PE backer, distinct from the borrower (${spon.n} sponsored)`);
-
 // a manager link routes into the Profiles tab
-const nav = await pg.evaluate(() => (document.querySelector(".tx-typeexp:not([hidden]) .tx-list a.tx-mgr") || {}).getAttribute("href"));
+const nav = await pg.evaluate(() => (document.querySelector(".tx-panes-in .tx-list a.tx-mgr") || {}).getAttribute("href"));
 check(/\/profiles\/#\/manager\//.test(nav), `manager links point into Profiles (${nav})`);
 
-// ---- 3b) asset-class sub-category chips + expandable detail (in the sub-list)
+// ---- 3b) asset-class sub-category chips filter the pane ------------------
 const sub = await pg.evaluate(() => {
-  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+  const exp = document.querySelector(".tx-panes-in");
   const chips = [...exp.querySelectorAll(".tx-secchip")];
   return { n: chips.length, hasAll: chips.some((c) => c.dataset.sec === "all"), labels: chips.slice(0, 5).map((c) => c.textContent.trim()) };
 });
-check(sub.n > 1 && sub.hasAll, `the sub-list shows asset-class sub-category chips (${sub.n}: ${sub.labels.join(" · ")})`);
-const filt = await pg.evaluate(() => {
-  const exp = document.querySelector(".tx-typeexp:not([hidden])");
+check(sub.n > 1 && sub.hasAll, `the pane shows asset-class sub-category chips (${sub.n}: ${sub.labels.join(" · ")})`);
+const filt = await pg.evaluate(async () => {
+  const exp = document.querySelector(".tx-panes-in");
   const before = exp.querySelectorAll(".tx-list tr.tx-row").length;
   [...exp.querySelectorAll(".tx-secchip")].find((c) => c.dataset.sec !== "all").click();
-  const exp2 = document.querySelector(".tx-typeexp:not([hidden])");
+  await new Promise((r) => setTimeout(r, 80));
+  const exp2 = document.querySelector(".tx-panes-in");
   return { before, after: exp2.querySelectorAll(".tx-list tr.tx-row").length, on: [...exp2.querySelectorAll(".tx-secchip.is-on")].some((c) => c.dataset.sec !== "all") };
 });
-check(filt.on && filt.after > 0 && filt.after <= filt.before, `a sub-category chip filters the sub-list (${filt.after}/${filt.before})`);
+check(filt.on && filt.after > 0 && filt.after <= filt.before, `a sub-category chip filters the pane (${filt.after}/${filt.before})`);
 
-// ---- 3c) "Group by lender / investor" toggle on the sub-category row ----------
+// ---- 3c) "Group by lender / investor" toggle on the sub-category row ------
 // A button on the far right of the chips row buckets the deals by lender, each
 // group headed by the lender name + count; toggling off restores the flat list.
-const grp = await pg.evaluate(() => {
-  const exp = document.querySelector(".tx-typeexp:not([hidden])");
-  // reset the sub-category filter to All so the counts are the full set
+const grp = await pg.evaluate(async () => {
+  let exp = document.querySelector(".tx-panes-in");
   const allChip = exp.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
-  const e = document.querySelector(".tx-typeexp:not([hidden])");
-  const btn = e.querySelector(".tx-grpbtn");
-  const sh = e.querySelector(".tx-subhead");
-  // the button sits at the far right of the sub-head row
+  await new Promise((r) => setTimeout(r, 80));
+  exp = document.querySelector(".tx-panes-in");
+  const btn = exp.querySelector(".tx-grpbtn");
+  const sh = exp.querySelector(".tx-subhead");
   const rightAligned = btn && sh ? (sh.getBoundingClientRect().right - btn.getBoundingClientRect().right) < 3 : false;
-  const rowsFlat = e.querySelectorAll(".tx-list tbody tr.tx-row").length;
-  const groupsFlat = e.querySelectorAll(".tx-list tr.tx-grp").length;
+  const rowsFlat = exp.querySelectorAll(".tx-list tbody tr.tx-row").length;
+  const groupsFlat = exp.querySelectorAll(".tx-list tr.tx-grp").length;
   btn.click();
-  const e2 = document.querySelector(".tx-typeexp:not([hidden])");
+  await new Promise((r) => setTimeout(r, 80));
+  const e2 = document.querySelector(".tx-panes-in");
   const heads = [...e2.querySelectorAll(".tx-list tr.tx-grp")];
   const counts = heads.map((h) => +(h.querySelector(".tx-grp-n")?.textContent || 0));
   const named = heads.every((h) => (h.querySelector(".tx-grp-nm")?.textContent || "").trim().length > 0);
@@ -165,7 +150,8 @@ const grp = await pg.evaluate(() => {
   const on = e2.querySelector(".tx-grpbtn").classList.contains("is-on");
   const rowsGrouped = e2.querySelectorAll(".tx-list tbody tr.tx-row").length;
   e2.querySelector(".tx-grpbtn").click();   // toggle back off for later steps
-  const e3 = document.querySelector(".tx-typeexp:not([hidden])");
+  await new Promise((r) => setTimeout(r, 80));
+  const e3 = document.querySelector(".tx-panes-in");
   return { hasBtn: !!btn, label: (btn.textContent || "").trim(), rightAligned, groupsFlat, groupsAfter: heads.length,
     named, sumCounts, rowsFlat, rowsGrouped, descending, on, offAgain: e3.querySelectorAll(".tx-list tr.tx-grp").length };
 });
@@ -176,11 +162,13 @@ check(grp.named && grp.descending, "each group is headed by its lender name, mos
 check(grp.sumCounts === grp.rowsFlat && grp.rowsGrouped === grp.rowsFlat, `grouping keeps every deal (${grp.rowsGrouped}/${grp.rowsFlat}, counts ${grp.sumCounts})`);
 check(grp.on && grp.offAgain === 0, "toggling the button off restores the flat list");
 
-const exp = await pg.evaluate(() => {
-  const e = document.querySelector(".tx-typeexp:not([hidden])");
+// a transaction row expands to its full-width narrative detail
+const expd = await pg.evaluate(async () => {
+  let e = document.querySelector(".tx-panes-in");
   const allChip = e.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
-  const e2 = document.querySelector(".tx-typeexp:not([hidden])");
-  const row = e2.querySelector(".tx-list tr.tx-row"); let det = row.nextElementSibling;
+  await new Promise((r) => setTimeout(r, 80));
+  e = document.querySelector(".tx-panes-in");
+  const row = e.querySelector(".tx-list tr.tx-row"); let det = row.nextElementSibling;
   const before = det.hidden; row.click(); det = row.nextElementSibling;
   const td = det.querySelector("td");
   return {
@@ -189,34 +177,14 @@ const exp = await pg.evaluate(() => {
     fullWidth: td ? td.getAttribute("colspan") : null,               // the detail spans every column
   };
 });
-check(exp.isExp && exp.before === true && exp.after === false, "a transaction row expands to its detail");
-check(exp.noBox && exp.fullWidth === "7", `the expanded detail is a full-width narrative — no snapshot box (colspan ${exp.fullWidth})`);
+check(expd.isExp && expd.before === true && expd.after === false, "a transaction row expands to its detail");
+check(expd.noBox && expd.fullWidth === "7", `the expanded detail is a full-width narrative — no snapshot box (colspan ${expd.fullWidth})`);
 
-// ---- 4) accordion: clicking the open type again collapses it -------------
-const collapse = await pg.evaluate(() => {
-  const e = document.querySelector(".tx-typeexp:not([hidden])");
-  const openRow = e.previousElementSibling;
-  openRow.click();                       // click the same type row again
-  return { collapsed: e.hidden, rowClosed: !openRow.classList.contains("is-open"), overview: document.querySelectorAll(".tx-tbl tbody tr.clickable").length };
-});
-check(collapse.collapsed && collapse.rowClosed, "clicking the open type again collapses its sub-list");
-check(collapse.overview >= 6, "the type overview is always present (nothing ever navigates away)");
-// single-open: opening a second type collapses the first
-const single = await pg.evaluate(() => {
-  const rows = [...document.querySelectorAll(".tx-tbl tbody tr.clickable")];
-  rows[0].click(); rows[1].click();
-  const open = [...document.querySelectorAll(".tx-typeexp:not([hidden])")];
-  return { openCount: open.length, matches: open.length === 1 && open[0].dataset.for === rows[1].dataset.type };
-});
-check(single.openCount === 1 && single.matches, "single-open accordion: opening another type collapses the previous one");
-// collapse it so later sections start from a clean overview
-await pg.evaluate(() => { const e = document.querySelector(".tx-typeexp:not([hidden])"); if (e) e.previousElementSibling.click(); });
-
-// ---- 5) $1–15bn AUM focus toggle -----------------------------------------
+// ---- 4) $1–15bn AUM focus toggle -----------------------------------------
 // A target-band filter (identical to the Profiles league toggle) narrows every
-// view — the overview totals + each type's inline sub-list — to deals by managers
-// whose group AUM is $1–15bn.
-const totOff = await pg.evaluate(() => parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10));
+// view — the sub-tab counts + each type's list — to deals by managers whose group
+// AUM is $1–15bn.
+const totOff = await pg.evaluate(() => [...document.querySelectorAll(".tx-subnav [data-sub] .tx-subn")].reduce((a, e) => a + (+e.textContent || 0), 0));
 const foc = await pg.evaluate(() => {
   const btn = document.querySelector("#tx-focus"); if (!btn) return { present: false };
   btn.click();
@@ -225,50 +193,48 @@ const foc = await pg.evaluate(() => {
     on: btn.getAttribute("aria-pressed") === "true" && btn.classList.contains("is-on"),
     label: btn.textContent.trim(),
     inSearch: !!btn.closest(".thead-search"), noBar: !document.querySelector(".aum-focus .aum-focus-l"),
-    tot: parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10),
+    tot: [...document.querySelectorAll(".tx-subnav [data-sub] .tx-subn")].reduce((a, e) => a + (+e.textContent || 0), 0),
   };
 });
 check(foc.present && foc.on, "Transactions: a $1–15bn AUM focus toggle is present and turns on (active state marks the filter)");
-// The $1–15bn button is now merged into the search row (the "AUM focus" label dropped), matching the Profiles panes.
+// The $1–15bn button is merged into the search row (the "AUM focus" label dropped), matching the Profiles panes.
 check(foc.label === "$1–15bn" && foc.inSearch && foc.noBar, `Transactions: the AUM focus button is merged into the search row ("${foc.label}")`);
 check(foc.tot > 0 && foc.tot <= totOff, `Transactions: the focus narrows the deal universe to the target band (${foc.tot} ≤ ${totOff})`);
-// with the focus on, every deal listed under a type is by an in-band manager
+// with the focus on, every deal listed in the active type pane is by an in-band manager
 const inband = await pg.evaluate(async () => {
   const D = await import("/credit/js/data.js");
   const aumOf = (m) => (!m || m.notAum) ? null : (m.aumTotal != null ? m.aumTotal : m.aum);
   const set = new Set(D.managers.filter((m) => { const a = aumOf(m); return a != null && a >= 1 && a <= 15; }).map((m) => m.id));
-  const r = document.querySelector(".tx-tbl tbody tr.clickable"); if (r) r.click();  // expand a type inline
-  await new Promise((res) => setTimeout(res, 120));
-  const ids = [...document.querySelectorAll(".tx-typeexp:not([hidden]) .tx-list a.tx-mgr")].map((a) => a.dataset.id).filter(Boolean);
+  const ids = [...document.querySelectorAll(".tx-panes-in .tx-list a.tx-mgr")].map((a) => a.dataset.id).filter(Boolean);
   return { n: ids.length, allIn: ids.length > 0 && ids.every((id) => set.has(id)) };
 });
 check(inband.allIn, `Transactions: with focus on, every listed deal is a $1–15bn manager's (${inband.n} links)`);
 
-// ---- 6) search — a flat list of matching deals across all types -----------
-// (Typing renders the flat search list, replacing whatever type was expanded.)
+// ---- 5) search — a flat list of matching deals across the group ----------
+// (Typing renders the flat search list, replacing the sub-tab view.)
 await pg.waitForTimeout(120);
 const search = await pg.evaluate(async () => {
   const inp = document.querySelector("#tx-q"); if (!inp) return { present: false };
   inp.value = "lending"; inp.dispatchEvent(new Event("input", { bubbles: true }));
   await new Promise((r) => setTimeout(r, 160));
-  return { present: true, rows: document.querySelectorAll(".tx-list tr.tx-row").length, title: (document.querySelector(".tx-title") || {}).textContent || "", overviewGone: !document.querySelector(".tx-tbl tbody tr.clickable") };
+  return { present: true, rows: document.querySelectorAll(".tx-list tr.tx-row").length, title: (document.querySelector(".tx-title") || {}).textContent || "", tabbedGone: !document.querySelector(".tx-tabbed") };
 });
 check(search.present, "Transactions: a search box is present");
-check(/search/i.test(search.title) && search.rows > 0 && search.overviewGone, `Transactions: typing filters to a flat list of matching deals (${search.rows} rows)`);
+check(/search/i.test(search.title) && search.rows > 0 && search.tabbedGone, `Transactions: typing filters to a flat list of matching deals (${search.rows} rows)`);
 const cleared = await pg.evaluate(async () => {
   const inp = document.querySelector("#tx-q"); inp.value = ""; inp.dispatchEvent(new Event("input", { bubbles: true }));
   await new Promise((r) => setTimeout(r, 160));
-  return { league: document.querySelectorAll(".tx-tbl tbody tr.clickable").length };
+  return { rows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length, tabbed: !!document.querySelector(".tx-tabbed") };
 });
-check(cleared.league >= 4, `Transactions: clearing the search restores the type overview (${cleared.league})`);
+check(cleared.tabbed && cleared.rows > 0, `Transactions: clearing the search restores the type view (${cleared.rows} rows)`);
 
 checkErrs(errs, "transactions tab");
 await ctx.close();
 
-// ---- 7) phone: the search bar stays pinned on scroll ---------------------
-// A short viewport forces the page to scroll; the search row (and the Deal flow /
-// Credits tabs above it) must stay locked at the top rather than scrolling away —
-// the inner terminal scroll container used to trap the sticky and it vanished.
+// ---- 6) phone: the search bar stays pinned on scroll ---------------------
+// A short viewport forces the page to scroll; the search row (and the Primary /
+// Secondaries / Credits tabs above it) must stay locked at the top rather than
+// scrolling away — the inner terminal scroll container used to trap the sticky.
 {
   const p = await open(b, PHONE_SHORT, base + "/v2/transactions/");
   await p.pg.waitForTimeout(1200);
@@ -287,29 +253,17 @@ await ctx.close();
   await p.ctx.close();
 }
 
-// ---- 8) phone: the deal-flow tables FIT the screen — three columns, no h-scroll --
-// The overview (Type · Deals · Volume) and, when a type is expanded, its inline
-// deal list (Borrower · Date · Amount) each fit the viewport width so all three
-// columns read at once, instead of the borrower column overflowing off the right.
+// ---- 7) phone: the type deal list FITS the screen — all columns scroll ----
+// The default type's deal list (Borrower · Date · Amount · …) keeps every column
+// and scrolls horizontally inside its own .tleague-wrap, rather than squashing the
+// borrower into a ragged char-by-char wrap. The page itself must NOT gain a
+// horizontal scrollbar.
 {
   const p = await open(b, PHONE_SHORT, base + "/v2/transactions/");
-  await p.pg.waitForSelector(".tx-tbl thead th", { timeout: 8000 });
+  await p.pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
   await p.pg.waitForTimeout(500);
-  const over = await p.pg.evaluate(() => {
-    const t = document.querySelector(".tx-tbl");
-    // Count columns that actually take width — the unused ones are collapsed to 0.
-    const vis = [...t.querySelectorAll(":scope > thead > tr > th")].filter((th) => th.getBoundingClientRect().width > 1).map((th) => th.textContent.trim());
-    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width), vis };
-  });
-  check(over.tblW <= over.vw + 1, `phone: the deal-flow overview fits the screen — no horizontal scroll (table ${over.tblW} ≤ vw ${over.vw})`);
-  check(over.vis.length === 3, `phone: the overview shows exactly three columns (${over.vis.join(" · ")})`);
-  // Expand a type → its inline deal list keeps EVERY column and scrolls horizontally
-  // inside its own .tleague-wrap, rather than squashing the borrower into a ragged
-  // char-by-char wrap. The page itself must NOT gain a horizontal scrollbar.
-  await p.pg.evaluate(() => { const r = document.querySelector(".tx-tbl tbody tr.clickable"); if (r) r.click(); });
-  await p.pg.waitForSelector(".tx-typeexp:not([hidden]) .tx-list tbody tr.tx-row", { timeout: 4000 });
   const drill = await p.pg.evaluate(() => {
-    const t = document.querySelector(".tx-typeexp:not([hidden]) .tx-list");
+    const t = document.querySelector(".tx-panes-in .tx-list");
     const wrap = t.closest(".tleague-wrap");
     const row = t.querySelector("tbody tr.tx-row");
     const cells = [...row.children].filter((td) => getComputedStyle(td).display !== "none").map((td) => td.className.replace(/\s*tl-n\s*/, "").trim());
@@ -318,7 +272,7 @@ await ctx.close();
       wrapFits: wrap ? Math.round(wrap.getBoundingClientRect().width) <= window.innerWidth + 1 : false,
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, cells };
   });
-  check(drill.wrapScrolls && drill.wrapFits, `phone: the expanded deal list scrolls horizontally inside its wrap (tbl ${drill.tblW} > vw ${drill.vw}, wrap fits screen)`);
+  check(drill.wrapScrolls && drill.wrapFits, `phone: the deal list scrolls horizontally inside its wrap (tbl ${drill.tblW} > vw ${drill.vw}, wrap fits screen)`);
   check(drill.pageOverflow <= 1, `phone: the page itself does not scroll sideways (overflow ${drill.pageOverflow}px)`);
   check(drill.cells.length === 7 && ["tx-bd", "tx-sp", "tx-dt", "tx-mg", "tx-cat", "tx-sz", "tx-src2"].every((c) => drill.cells.includes(c)),
     `phone: the deal list keeps all seven columns to scroll through (${drill.cells.join(", ")})`);
@@ -326,7 +280,7 @@ await ctx.close();
   // home-page wire filters); the Group-by-lender button stays pinned to the right
   // of that row, on the same line, never overlapping a chip.
   const gb = await p.pg.evaluate(() => {
-    const sh = document.querySelector(".tx-typeexp:not([hidden]) .tx-subhead");
+    const sh = document.querySelector(".tx-panes-in .tx-subhead");
     const btn = sh && sh.querySelector(".tx-grpbtn");
     const strip = sh && sh.querySelector(".tx-secfilter");
     const chips = sh ? [...sh.querySelectorAll(".tx-secchip")] : [];

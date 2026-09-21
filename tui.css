@@ -271,10 +271,18 @@
   .intel-row:hover, .feed-row:hover { background: rgba(255,255,255,.045); }
   .tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: none; }
   .tw-src a:hover { color: var(--ink); text-decoration: none; }
-  .tleague tr.clickable:hover { background: rgba(255,255,255,.045); }
+  /* Every clickable table row app-wide takes the same subtle grey as the home
+     feed/league rows — deal lists, the BDC roster, profile investments and the
+     macro matrix, not just the league tables. */
+  .tleague tr.clickable:hover,
+  .tx-row:hover, .tbdc-row:hover, .tinv-row.is-exp:hover, .mac-mtx-r:hover { background: rgba(255,255,255,.045); }
   .tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.045); }
   :root[data-theme="light"] .twire .compact-item:hover,
   :root[data-theme="light"] .tleague tr.clickable:hover,
+  :root[data-theme="light"] .tx-row:hover,
+  :root[data-theme="light"] .tbdc-row:hover,
+  :root[data-theme="light"] .tinv-row.is-exp:hover,
+  :root[data-theme="light"] .mac-mtx-r:hover,
   :root[data-theme="light"] .tmini-row:hover { background: rgba(11,31,68,.04); }
 }
 

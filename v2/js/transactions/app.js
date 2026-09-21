@@ -42,7 +42,7 @@ export function mount(host, ctx) {
   // group is the top-level split — Primary issuance vs Secondaries — now its own
   // nav entry (replacing the old single "Deal flow"). Each shows only its group's
   // transaction types. q set → search (scoped to the active group).
-  const st = { period: "all", group: "primary", sub: "overview", focus: false, q: "" };
+  const st = { period: "all", group: "primary", sub: "", focus: false, q: "" };   // sub "" → renderFlow picks the first (largest) type
   const inPeriod = () => true;
   // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
   // qualifies when its manager sits in the target band. Off → everything.
@@ -117,59 +117,25 @@ export function mount(host, ctx) {
   const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
   const ratingRank = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? 999 : i; };
 
-  const trendMark = (a, b) => a > b ? `<span class="tx-up">▲</span>` : a < b ? `<span class="tx-dn">▼</span>` : `<span class="tx-fl">·</span>`;
-
   // The active group's types (by volume) that carry deals under the active focus —
-  // shared by the overview league table and the sub-tab rail.
+  // the sub-tab rail lists these (Primary issuance / Secondaries each show their own).
   const flowTypes = () => TX_TYPES.filter((t) => groupOf(t.key) === st.group)
     .map((t) => statsFor(t.key)).filter((s) => s.n > 0)
     .sort((a, b) => b.usd - a.usd || b.n - a.n);
 
-  // ---- overview: a league table of the transaction types -------------------
-  // Returns the league-table HTML (the "Overview" sub-tab's pane).
-  function overviewTableHTML() {
-    const g = TX_GROUPS.find((x) => x.key === st.group) || TX_GROUPS[0];
-    const S = flowTypes();
-    const totalN = S.reduce((s, x) => s + x.n, 0), totalUsd = S.reduce((s, x) => s + x.usd, 0);
-    const row = (s) => {
-      const t = TX_TYPES.find((x) => x.key === s.key);
-      return `<tr class="clickable" data-type="${esc(s.key)}" aria-expanded="false">`
-        + `<td class="tl-nm tx-tnm"><span class="tx-tcaret" aria-hidden="true">▸</span>${esc(t.label)}</td>`
-        + `<td class="tl-n">${s.n}</td>`
-        + `<td class="tl-n tx-trend">${s.last12}<span class="tx-vs">/${s.prev12}</span> ${trendMark(s.last12, s.prev12)}</td>`
-        + `<td class="tl-n">${fmtUsd(s.usd)}</td>`
-        + `<td class="tl-n">${s.med != null ? fmtUsd(s.med) : "—"}</td>`
-        + `<td class="tl-n">${s.managers}</td>`
-        + `<td class="tl-nm tx-top">${s.top ? esc(mgrName(s.top.id)) : "—"}</td></tr>`
-        // Inline, indented sub-list of this type's deals — rendered lazily on first
-        // open (see the click handler), so the overview never pays to build every
-        // type's list up front.
-        + `<tr class="tx-typeexp" data-for="${esc(s.key)}" data-sec="all" hidden><td colspan="7"><div class="tx-typeexp-in"></div></td></tr>`;
-    };
-    return `
-      <div class="tleague-wrap"><table class="tleague tleague-full tx-tbl">
-        <thead><tr><th>Transaction type</th><th>Deals</th><th>12mo vs prior</th><th>Volume ≈$</th><th>Median ≈$</th><th>Managers</th><th class="tx-top-h">Most active</th></tr></thead>
-        <tbody>${S.map(row).join("")}</tbody>
-        <tfoot><tr class="tx-tot"><td class="tl-nm">${esc(g.label)}</td><td class="tl-n">${totalN}</td><td></td><td class="tl-n">${fmtUsd(totalUsd)}</td><td></td><td></td><td></td></tr></tfoot>
-      </table></div>`;
-  }
-
-  // ---- flow view: a blue sub-tab rail (Overview + one per transaction type, each
-  // with its deal count) beside the active sub-tab's pane. On desktop the rail is a
+  // ---- flow view: a blue sub-tab rail (one per transaction type, each with its
+  // deal count) beside the active type's dated deals. On desktop the rail is a
   // second-level vertical sidebar (like a profile's News/Vehicles/… tabs); on phones
-  // it is a horizontal chip strip. Overview = the league table; a type = its deals.
+  // it is a horizontal chip strip. Selecting a type shows that type's deals.
   function renderFlow() {
     const types = flowTypes();
-    // Guard: if the remembered sub-tab isn't a live type under the active focus/group,
-    // fall back to Overview.
-    if (st.sub !== "overview" && !types.some((s) => s.key === st.sub)) st.sub = "overview";
-    const chip = (key, label, n, on) => `<button type="button" class="tchip${on ? " is-on" : ""}" data-sub="${esc(key)}">${esc(label)}${n != null ? `<span class="tx-subn">${n}</span>` : ""}</button>`;
-    const subnav = `<header class="tpanel-h twire-head tx-subnav"><div class="tchips">`
-      + chip("overview", "Overview", null, st.sub === "overview")
-      + types.map((s) => chip(s.key, (TX_TYPES.find((x) => x.key === s.key) || {}).label || s.key, s.n, st.sub === s.key)).join("")
-      + `</div></header>`;
-    const pane = st.sub === "overview" ? overviewTableHTML() : typeSublist(st.sub, _subSec, _subGrp);
-    body.innerHTML = `<div class="tx-tabbed">${subnav}<div class="tx-panes"><div class="tx-panes-in">${pane}</div></div></div>`;
+    if (!types.length) { body.innerHTML = `<p class="tw-empty muted small">No transactions on record yet.</p>`; return; }
+    // Default to the first (largest) type when the remembered sub-tab isn't a live
+    // type in this group / under the active focus.
+    if (!types.some((s) => s.key === st.sub)) st.sub = types[0].key;
+    const chip = (s) => `<button type="button" class="tchip${st.sub === s.key ? " is-on" : ""}" data-sub="${esc(s.key)}">${esc((TX_TYPES.find((x) => x.key === s.key) || {}).label || s.key)}<span class="tx-subn">${s.n}</span></button>`;
+    const subnav = `<header class="tpanel-h twire-head tx-subnav"><div class="tchips">${types.map(chip).join("")}</div></header>`;
+    body.innerHTML = `<div class="tx-tabbed">${subnav}<div class="tx-panes"><div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div></div>`;
   }
 
   // ---- deal rows (shared by the inline type sub-list and the search list) ---
@@ -501,8 +467,8 @@ export function mount(host, ctx) {
   host.addEventListener("click", (e) => {
     const mgr = e.target.closest(".tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
-    // Sub-tab rail (Primary/Secondaries): switch the active sub-tab (Overview or a
-    // transaction type), resetting the pane's sub-category filter + lender grouping.
+    // Sub-tab rail (Primary/Secondaries): switch the active transaction type,
+    // resetting the pane's sub-category filter + lender grouping.
     const subt = e.target.closest(".tx-subnav [data-sub]");
     if (subt) { const k = subt.dataset.sub; if (k !== st.sub) { st.sub = k; _subSec = "all"; _subGrp = ""; renderFlow(); } return; }
     // BDC roster: row expand (detail + sources), holdings fetch.
@@ -518,53 +484,17 @@ export function mount(host, ctx) {
       }
       return;
     }
-    // Sub-category filter INSIDE an open type — rebuild just that type's sub-list,
-    // keeping every other row (and any other open type) exactly where it is.
+    // Sub-category (asset-class) filter within the active type pane → re-render it.
     const sec = e.target.closest(".tx-secchip");
-    if (sec) {
-      const exp = sec.closest(".tx-typeexp");
-      if (exp) { exp.dataset.sec = sec.dataset.sec; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec, exp.dataset.grp); return; }
-      // In a sub-tab pane (no accordion wrapper) → drive the pane-level filter.
-      if (sec.closest(".tx-panes-in")) { _subSec = sec.dataset.sec; renderPane(); }
-      return;
-    }
-    // Group-by-lender toggle inside an open type — rebuild just that sub-list,
-    // keeping its active sub-category filter.
+    if (sec) { if (sec.closest(".tx-panes-in")) { _subSec = sec.dataset.sec; renderPane(); } return; }
+    // Group-by-lender toggle within the active type pane → re-render it.
     const gbtn = e.target.closest(".tx-grpbtn");
-    if (gbtn) {
-      const exp = gbtn.closest(".tx-typeexp");
-      if (exp) { exp.dataset.grp = exp.dataset.grp === "lender" ? "" : "lender"; exp.querySelector(".tx-typeexp-in").innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all", exp.dataset.grp); return; }
-      if (gbtn.closest(".tx-panes-in")) { _subGrp = _subGrp === "lender" ? "" : "lender"; renderPane(); }
-      return;
-    }
+    if (gbtn) { if (gbtn.closest(".tx-panes-in")) { _subGrp = _subGrp === "lender" ? "" : "lender"; renderPane(); } return; }
     // Expand/collapse an individual transaction to reveal borrower/advisers/detail.
     const row = e.target.closest("tr.tx-row");
     if (row && !e.target.closest("a")) {
       const exp = row.nextElementSibling;
       if (exp && exp.classList.contains("tx-exp")) { const open = exp.hasAttribute("hidden"); exp.hidden = !open; row.classList.toggle("is-open", open); }
-      return;
-    }
-    // Click a transaction TYPE → open its deals as an indented sub-list in place
-    // (a single-open accordion), instead of navigating away to a detail page.
-    const trow = e.target.closest("tr.clickable[data-type]");
-    if (trow) {
-      const exp = trow.nextElementSibling;
-      if (!exp || !exp.classList.contains("tx-typeexp")) return;
-      const opening = exp.hasAttribute("hidden");
-      // Collapse any other open type first (keeps the page compact).
-      body.querySelectorAll("tr.tx-typeexp:not([hidden])").forEach((o) => {
-        if (o === exp) return;
-        o.hidden = true;
-        const otr = o.previousElementSibling;
-        if (otr) { otr.classList.remove("is-open"); otr.setAttribute("aria-expanded", "false"); }
-      });
-      if (opening) {
-        const inner = exp.querySelector(".tx-typeexp-in");
-        if (!inner.dataset.built) { inner.innerHTML = typeSublist(exp.dataset.for, exp.dataset.sec || "all", exp.dataset.grp); inner.dataset.built = "1"; }
-      }
-      exp.hidden = !opening;
-      trow.classList.toggle("is-open", opening);
-      trow.setAttribute("aria-expanded", String(opening));
     }
   });
 
@@ -575,7 +505,7 @@ export function mount(host, ctx) {
     // home(): a nav-bar tap resets Transactions to its first part — Primary
     // issuance, no search, default filters, scrolled to top.
     home() {
-      st.q = ""; st.focus = false; st.period = "all"; st.group = "primary"; st.sub = "overview"; _subSec = "all"; _subGrp = ""; _crGroup = null;
+      st.q = ""; st.focus = false; st.period = "all"; st.group = "primary"; st.sub = ""; _subSec = "all"; _subGrp = ""; _crGroup = null;
       try { host.querySelectorAll("input").forEach((i) => { i.value = ""; }); } catch { /* */ }
       setMode("primary");
       render();
