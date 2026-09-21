@@ -825,6 +825,7 @@
     .tui .g-side2{ grid-area:side2; display:block; border-left:1px solid var(--t-grid2); }
     /* ---- HERO CHART BAND (Option C) ---- */
     .tui .g-hero{ display:flex; flex-direction:column; background:var(--t-panel); }
+    .tui .g-hero-head{ flex:0 0 auto; }   /* pinned title row, like the other panes */
     /* One securities row: every instrument with its window change; tapping toggles
        it on/off the chart. A FILLED colour dot = plotted, HOLLOW = off. Doubles as
        the chart legend (so there's no separate chip row to duplicate it). */

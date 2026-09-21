@@ -25,15 +25,16 @@ const b = await launchChromium();
 
   const r = await pg.evaluate(() => {
     const panel = document.querySelector("#jump-xwire");
-    // No title row — the X chip / rail labels it; posts start at the top.
-    const noHeader = !!panel && !panel.querySelector(".tui-ph");
+    // A pinned title row tops the pane (matching Chart / Policy rate / the other panes).
+    const head = panel && panel.querySelector(".g-x-head");
+    const hasHeader = !!head && /x\s*feed/i.test(head.textContent || "");
     const inRail = !!document.querySelector(".g-side-x #g-xwire");
     const lft = (s) => { const el = document.querySelector(s); return el ? el.getBoundingClientRect().left : null; };
     const between = lft(".g-side3") < lft(".g-side-x") && lft(".g-side-x") < lft(".g-side2");
     const cards = [...document.querySelectorAll("#g-xwire .g-x-card")];
     const first = cards[0];
     return {
-      noHeader,
+      hasHeader,
       inRail, between,
       count: cards.length,
       // No chrome above the posts in normal use (no title row, no "Open list" row).
@@ -50,7 +51,7 @@ const b = await launchChromium();
     };
   });
 
-  check(r.noHeader, "X wire: no title row (posts start at the top, saving space)");
+  check(r.hasHeader, "X wire: a pinned 'X feed' title row tops the pane (like the other panes)");
   check(r.noOpenRow, "X wire: no 'Open list on X' row in normal use");
   check(r.inRail, "X wire: panel sits in its own rail (g-side-x)");
   check(r.between, "X wire: the rail sits between the manager wire and the macro rail");

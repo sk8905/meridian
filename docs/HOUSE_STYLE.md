@@ -317,7 +317,8 @@ notification badge red (`#ef4444`).
   `tests/dashboard-heatmaps.mjs`.
 
 - **R26 — X wire (Home).** The Home terminal carries an **X wire** in its **own
-  rail, between the manager wire and the macro rail**. On **phones** it is the
+  rail, between the manager wire and the macro rail**, topped by a **pinned "X feed"
+  header** (`.tui-ph`, matching Chart / Policy rate / the other panes). On **phones** it is the
   **wire chip (News · Managers · Chart · X Feed)** — swapping onto the single-column
   workspace like the Managers wire (it is content, not the markets/rates
   data that phones fold into the shared Markets panel). It is a **single,
@@ -360,6 +361,7 @@ notification badge red (`#ef4444`).
   Briefing over News wire on the left, **Chart over Manager wire on the right** (the
   chart sits directly above the manager wire, the briefing above the news wire); the
   left rail and both right rails stay full-height (CSS grid `grid-template-areas`).
+  It is topped by a **pinned "Chart" header** (`.tui-ph`, matching the other panes).
   On **phones**
   it is a **wire chip — the tab strip reads News · Managers · Chart · X Feed, in
   that order; News is the default landing pane** and the Chart chip opens the band
