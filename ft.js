@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a1e0707a-326a-4c7c-a608-d73abab32d82", title: "Five UK police forces end Palantir project after two years", date: "2026-09-21", time: "19:25", url: "https://www.ft.com/content/a1e0707a-326a-4c7c-a608-d73abab32d82" },
+  { id: "319c7b67-b585-407e-a0da-6e23b1612180", title: "Top Republicans tell Donald Trump to ban US diesel exports ahead of midterms", date: "2026-09-21", time: "19:15", url: "https://www.ft.com/content/319c7b67-b585-407e-a0da-6e23b1612180" },
   { id: "f0b37ddf-3a4f-4631-b664-887b0cdd281c", title: "Merz’s last chance to reform Germany", date: "2026-09-21", time: "18:33", url: "https://www.ft.com/content/f0b37ddf-3a4f-4631-b664-887b0cdd281c" },
   { id: "4e502288-b611-4193-acdb-46ef34b1e3b0", title: "OpenAI joins call for US-led global AI standards", date: "2026-09-21", time: "18:24", url: "https://www.ft.com/content/4e502288-b611-4193-acdb-46ef34b1e3b0" },
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-09-21", time: "17:39", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "13cb8980-e8fa-4848-953f-8aa6e98ca219", title: "Octopus still won’t give investors their money back", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/13cb8980-e8fa-4848-953f-8aa6e98ca219" },
   { id: "d29d769e-039c-4d11-9152-e63ccd397b32", title: "Scott Bessent hails US-China AI dialogue ahead of Trump-Xi meeting", date: "2026-09-21", time: "05:11", url: "https://www.ft.com/content/d29d769e-039c-4d11-9152-e63ccd397b32" },
   { id: "188611f3-2536-4bed-a2c0-bbc074e6f783", title: "Volkswagen ejected from European blue-chip index in blow to crisis-hit carmaker", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/188611f3-2536-4bed-a2c0-bbc074e6f783" },
-  { id: "708699ba-442b-46a2-9de7-805fb3ddaf24", title: "Carlyle’s stalled Lukoil deal leaves refineries idle in tight market", date: "2026-09-21", time: "05:00", url: "https://www.ft.com/content/708699ba-442b-46a2-9de7-805fb3ddaf24" },
 ];
