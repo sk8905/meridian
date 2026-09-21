@@ -943,6 +943,53 @@ async function handleWorldIndices(request, env, ctx) {
   return resp;
 }
 
+// ---- Strait of Hormuz vessel transits (IMF PortWatch) ----------------------
+// Daily transit calls through chokepoint6 (Strait of Hormuz) from IMF PortWatch's
+// public, unauthenticated ArcGIS feed (AIS-derived, refreshed weekly on Tuesdays).
+// Returns the latest day's count + the trailing 30-day average so the Home tile
+// can show whether traffic is above/below normal. Never fabricated — a failed or
+// unexpected upstream leaves `latest:null` and the tile stays blank.
+async function handleChokepoint(request, env, ctx) {
+  const url = new URL(request.url);
+  const src = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/ArcGIS/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query"
+    + "?where=" + encodeURIComponent("portid='chokepoint6'")
+    + "&outFields=" + encodeURIComponent("date,n_transits")
+    + "&orderByFields=" + encodeURIComponent("date DESC")
+    + "&resultRecordCount=45&returnGeometry=false&f=json";
+  if (url.searchParams.get("debug")) {
+    const t = await fetchText(src);
+    return new Response(t || "{}", { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  }
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/hormuz?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  let out = { latest: null, date: null, avg30: null, days: 0, ts: Date.now() };
+  const txt = await fetchText(src);
+  if (txt) {
+    try {
+      const rows = (JSON.parse(txt).features || [])
+        .map((f) => (f && f.attributes) ? f.attributes : null)
+        .filter(Boolean)
+        .map((a) => ({ t: (typeof a.date === "number" ? a.date : Date.parse(a.date)), n: Number(a.n_transits) }))
+        .filter((r) => Number.isFinite(r.t) && Number.isFinite(r.n))
+        .sort((a, b) => a.t - b.t);
+      if (rows.length) {
+        const latest = rows[rows.length - 1];
+        const win = rows.slice(-30);
+        const avg = win.reduce((s, r) => s + r.n, 0) / win.length;
+        out = { latest: Math.round(latest.n), date: new Date(latest.t).toISOString().slice(0, 10), avg30: Math.round(avg), days: win.length, ts: Date.now() };
+      }
+    } catch { /* graceful: leave latest null */ }
+  }
+  const resp = new Response(JSON.stringify(out), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" },
+  });
+  // Cache only a good read, so a transient upstream failure isn't pinned for an hour.
+  if (ctx && ctx.waitUntil && out.latest != null) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
+
 // ---- Government bond yields (Fixed Income dashboard heatmap) ----------------
 // Live US Treasury yields from FRED (the only source reachable + reliable from a
 // Worker — Stooq now JS-challenges datacenter IPs). The US full curve
@@ -3973,6 +4020,7 @@ export default {
     if (url.pathname === "/api/quotes") return handleQuotes(request, env, ctx);
     if (url.pathname === "/api/eqindices") return handleEqIndices(request, env, ctx);
     if (url.pathname === "/api/worldindices") return handleWorldIndices(request, env, ctx);
+    if (url.pathname === "/api/hormuz") return handleChokepoint(request, env, ctx);
     if (url.pathname === "/api/govyields") return handleGovYields(request, env, ctx);
     if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);

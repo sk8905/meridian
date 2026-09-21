@@ -478,6 +478,18 @@ notification badge red (`#ef4444`).
   fabricated, R7) — and `_draft` cleared once the profile is solid. New names are
   never left as a bare stub.
 
+- **R30 — Home right-rail data panels.** The Home terminal's right rail carries,
+  in this order: **Key rates & spreads → Volatility & risk → Policy rate → Yield
+  curve → Prediction markets** (`content.js` `g-side2`; enforced by
+  `tests/home-right-rail.mjs`). **Volatility & risk** carries VIX, **MOVE** (ICE
+  BofAML Treasury-vol index, `^MOVE`), HY OAS, HY−IG, CCC−HY and **CDX HY**
+  (Simplify High Yield ETF `CDX`, tracking CDX.NA.HY) — all live from the markets
+  feed. The **left rail** carries a **Strait of Hormuz** tile — the latest daily
+  vessel transits vs the trailing 30-day average, live from **IMF PortWatch**'s
+  public AIS feed (`/api/hormuz` → chokepoint6; `tests/home-hormuz.mjs`). Every
+  figure is real and sourced — a feed that can't be reached shows an "unavailable"
+  state, never a fabricated number (R7).
+
 ---
 
 ## 7. Technical rules

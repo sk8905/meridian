@@ -126,6 +126,7 @@ export function initGlance(ctx) {
   renderEarnings();
   initMarkets();
   initRates();
+  initHormuz();
   initPulse();
   initGlanceTickerToggle();
   reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME);   // v2: app-wide refresh (shared)
@@ -1788,6 +1789,38 @@ function initRates() {
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderRates(el, d)) writeCache("rates", d); })
     .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_briefLeads.rates) setGlance("gl-rates", "Rates data unavailable right now."); } });
+}
+// ---- Strait of Hormuz vessel transits (IMF PortWatch) ----------------------
+// The latest day's transit count and the trailing ~30-day average, so the tile
+// shows whether traffic through the strait is running above or below normal — an
+// oil / geopolitical chokepoint read. Real data only (from /api/hormuz); if the
+// feed can't be reached the tile says so rather than inventing a number.
+function renderHormuz(el, d) {
+  if (!el || !d || d.latest == null) return false;
+  const avg = d.avg30, w = d.days || 30;
+  const dir = avg == null ? "flat" : d.latest > avg ? "up" : d.latest < avg ? "down" : "flat";
+  const delta = avg == null ? null : Math.abs(d.latest - avg);
+  const dm = /^(\d{4})-(\d{2})-(\d{2})/.exec(d.date || "");
+  const dstr = dm ? `${+dm[3]} ${MONTHS[+dm[2] - 1]}` : "";
+  const rows = [
+    riskTile({ label: "Transits", val: String(d.latest),
+      chg: delta == null ? null : `${delta} vs avg`, dir,
+      href: "https://portwatch.imf.org/pages/chokepoint6",
+      title: `Vessel transits${dstr ? " on " + dstr : ""} vs the ${w}-day average (${avg}) — IMF PortWatch, AIS-derived` }),
+    riskTile({ label: `${w}d avg`, val: avg == null ? "—" : String(avg), chg: null, dir: "flat",
+      href: "https://portwatch.imf.org/pages/chokepoint6", title: `Trailing ${w}-day average daily transits — IMF PortWatch` }),
+  ];
+  el.innerHTML = rows.join("");
+  return true;
+}
+function initHormuz() {
+  const el = document.getElementById("g-hormuz");
+  if (!el) return;
+  renderHormuz(el, readCache("hormuz"));
+  fetch("/api/hormuz", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((d) => { if (renderHormuz(el, d)) writeCache("hormuz", d); else if (!el.querySelector(".rate-tile")) el.innerHTML = '<span class="g-loading">Transit data unavailable right now.</span>'; })
+    .catch(() => { if (!el.querySelector(".rate-tile")) el.innerHTML = '<span class="g-loading">Transit data unavailable right now.</span>'; });
 }
 
 // ---- Market open / closed indicator ----------------------------------------

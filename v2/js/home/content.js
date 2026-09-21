@@ -30,6 +30,15 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
             <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/equities" data-godash="equities" title="Open Dashboard › Equities">Top movers</a><span class="tui-px">1D</span></header>
             <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
+          <!-- Strait of Hormuz — daily vessel transits vs the trailing 30-day
+               average, from IMF PortWatch's AIS feed (a live geopolitical / oil
+               chokepoint gauge). Sits under Top movers. -->
+          <section class="tui-pnl g-anchor" id="jump-hormuz">
+            <header class="tui-ph"><a class="g-ph-link" href="https://portwatch.imf.org/pages/chokepoint6" target="_blank" rel="noopener noreferrer" title="IMF PortWatch — Strait of Hormuz daily transits">Strait of Hormuz</a><span class="tui-px">transits · vs 30d</span></header>
+            <div id="g-hormuz" class="rates-band" aria-label="Strait of Hormuz daily vessel transits versus the 30-day average">
+              <div class="g-loading">Loading transits…</div>
+            </div>
+          </section>
           <!-- This week's corporate earnings — date · pre/post-market · forecast
                → outcome. Sits with the equities data (Markets / Top movers). Hugs
                its content (capped at 5 companies; the rest scroll internally). -->
@@ -62,9 +71,9 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
                there is no separate chip selector to duplicate it. -->
           <div class="g-hero-sel" id="g-hero-sel" role="group" aria-label="Securities — tap to add or remove"></div>
           <div class="g-hero-range" id="g-hero-range" role="tablist" aria-label="Chart range">
-            <button type="button" class="g-hero-rg" data-r="1D" role="tab">1D</button>
+            <button type="button" class="g-hero-rg is-on" data-r="1D" role="tab">1D</button>
             <button type="button" class="g-hero-rg" data-r="5D" role="tab">5D</button>
-            <button type="button" class="g-hero-rg is-on" data-r="1M" role="tab">1M</button>
+            <button type="button" class="g-hero-rg" data-r="1M" role="tab">1M</button>
             <button type="button" class="g-hero-rg" data-r="6M" role="tab">6M</button>
             <button type="button" class="g-hero-rg" data-r="1Y" role="tab">1Y</button>
             <button type="button" class="g-hero-rg" data-r="ALL" role="tab">ALL</button>
