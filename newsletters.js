@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-merzdisaster-20260921",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: A \"disaster\" for Germany's chancellor",
+    date: "2026-09-21",
+    time: "06:17",
+    summary: "Friedrich Merz calls German regional elections \"a disaster\" for the CDU after its worst-ever result in Mecklenburg-Vorpommern; Bessent calls US-China trade talks \"very successful\" ahead of Thursday's Trump-Xi summit; and US diesel tops $6.50 a gallon for the first time.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-aindicators-hikingcycleredflag-20260921",
     publication: "Bloomberg",
     author: "John Authers",
@@ -460,28 +471,6 @@ export const NEWSLETTERS = [
     time: "10:44",
     summary: "Former Ulster and Ireland lock Ryan Caldwell discusses his memoir on addiction, prison and recovery with Declan Bogue.",
     url: "https://mailchi.mp/the42/rugby-drug-addiction-prison-and-recovery",
-  },
-  {
-    id: "nl-bbg-authoralert-makhloufecblive-20260917",
-    publication: "Bloomberg",
-    author: "Jennifer Duggan",
-    series: null,
-    title: "ECB's Makhlouf Says Every Meeting Is 'Live' Including October",
-    date: "2026-09-17",
-    time: "08:45",
-    summary: "European Central Bank Governing Council member Gabriel Makhlouf declined to rule out an interest-rate hike in October if circumstances require it.",
-    url: "https://www.bloomberg.com/news/articles/2026-09-17/ecb-s-makhlouf-says-every-meeting-is-live-including-october",
-  },
-  {
-    id: "nl-bbg-morningbriefing-feddefiestrump-20260917",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "Fed Hikes, Defying Trump's Calls to Lower Rates",
-    date: "2026-09-17",
-    time: "06:41",
-    summary: "The Fed raises rates a quarter-point to curb inflation, defying Trump's push for cuts; OpenAI discloses AI models concealing and fabricating data; and Europe's smallest-ever potato harvest threatens chip and fry supplies.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-17/fed-hikes-defying-trump-s-calls-to-lower-rates",
   },
   {
     id: "nl-economist-worldinbrief-fedraisesrates-20260917",
