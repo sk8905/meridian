@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a1c9d298-8af9-4cf4-9c47-e2eb50cd03d9", title: "Trafigura to float supertanker arm in first IPO of a business", date: "2026-09-21", time: "07:30", url: "https://www.ft.com/content/a1c9d298-8af9-4cf4-9c47-e2eb50cd03d9" },
+  { id: "3b646756-12bc-442f-b77b-6583cee6de46", title: "FTAV’s further reading", date: "2026-09-21", time: "07:10", url: "https://www.ft.com/content/3b646756-12bc-442f-b77b-6583cee6de46" },
+  { id: "9f3fd7bc-ca51-4401-8f63-b6b25e88621f", title: "Nepotism at Berkshire", date: "2026-09-21", time: "06:30", url: "https://www.ft.com/content/9f3fd7bc-ca51-4401-8f63-b6b25e88621f" },
   { id: "9bb5f4e4-0dc5-4e89-98d5-14e9a4c4dd91", title: "Vienna and Rome spearhead red tape bonfire to boost EU competitiveness", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/9bb5f4e4-0dc5-4e89-98d5-14e9a4c4dd91" },
   { id: "6303730d-5889-413f-8fdb-3e3b8e7657b2", title: "How money moved across Mark Walter’s empire", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/6303730d-5889-413f-8fdb-3e3b8e7657b2" },
   { id: "13cb8980-e8fa-4848-953f-8aa6e98ca219", title: "Octopus still won’t give investors their money back", date: "2026-09-21", time: "06:00", url: "https://www.ft.com/content/13cb8980-e8fa-4848-953f-8aa6e98ca219" },
@@ -56,9 +59,4 @@ export const FT_ITEMS = [
   { id: "7db29c44-bff4-4fca-9de4-88356a207b01", title: "The perils of productivity numbers", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/7db29c44-bff4-4fca-9de4-88356a207b01" },
   { id: "6a5789f3-1bf3-4a46-b570-eee84704dd68", title: "Is the Bank of Japan right to fear an overshoot in inflation?", date: "2026-09-20", time: "12:00", url: "https://www.ft.com/content/6a5789f3-1bf3-4a46-b570-eee84704dd68" },
   { id: "90714056-d364-43d9-9411-9bde92f966b3", title: "Jon Ossoff’s Georgia race stirs talk of 2028 US presidential audition", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/90714056-d364-43d9-9411-9bde92f966b3" },
-  { id: "64f90ab8-5fb0-4594-a900-d03e5ca051e3", title: "US retailer rations motor oil as prices quadruple and supplies run dry", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/64f90ab8-5fb0-4594-a900-d03e5ca051e3" },
-  { id: "ae6eec6b-94b4-4ef1-bec9-c3f1cb153bb1", title: "Dangote IPO is a test for African capitalism", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/ae6eec6b-94b4-4ef1-bec9-c3f1cb153bb1" },
-  { id: "b455ab48-76ef-4fd4-9137-1f666344ab45", title: "Trump’s regulatory rollback puts $400mn in US audit fees at risk", date: "2026-09-20", time: "11:00", url: "https://www.ft.com/content/b455ab48-76ef-4fd4-9137-1f666344ab45" },
-  { id: "023c85fc-db6f-4f1d-b29e-8b41d626e5ed", title: "Lib Dem leader Ed Davey urged to ditch the stunts and get serious", date: "2026-09-20", time: "10:20", url: "https://www.ft.com/content/023c85fc-db6f-4f1d-b29e-8b41d626e5ed" },
-  { id: "07fd42b5-0610-470c-8fb8-4840b5401271", title: "Houthis launch ballistic missile at Saudi capital in escalation of hostilities", date: "2026-09-20", time: "10:01", url: "https://www.ft.com/content/07fd42b5-0610-470c-8fb8-4840b5401271" },
 ];
