@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8748e39c-fa8e-415b-95b4-97cca371e85f", title: "Burnham to press EU chief to let UK participate in ‘Made in Europe’ policy", date: "2026-09-22", time: "09:00", url: "https://www.ft.com/content/8748e39c-fa8e-415b-95b4-97cca371e85f" },
+  { id: "ed38995e-c7be-4703-9775-eb384a037ce3", title: "China spends record amount importing over 1,000 tonnes of gold this year", date: "2026-09-22", time: "08:45", url: "https://www.ft.com/content/ed38995e-c7be-4703-9775-eb384a037ce3" },
+  { id: "29ddb5e0-9313-4b18-8e67-536db187f146", title: "North Korea tests new hypersonic weapon as Kim Jong Un rebuffs talks", date: "2026-09-22", time: "08:25", url: "https://www.ft.com/content/29ddb5e0-9313-4b18-8e67-536db187f146" },
   { id: "2c60812b-77b4-4de5-a276-5e3eb2ceb5c3", title: "AI optimism lifts Asian stocks after Nasdaq ends at record high", date: "2026-09-22", time: "07:45", url: "https://www.ft.com/content/2c60812b-77b4-4de5-a276-5e3eb2ceb5c3" },
   { id: "9d97d6db-3706-4842-bcdc-3f7c58aa58c1", title: "FTAV's further reading", date: "2026-09-22", time: "07:24", url: "https://www.ft.com/content/9d97d6db-3706-4842-bcdc-3f7c58aa58c1" },
   { id: "a17b2217-e49f-432c-8fdb-31e9bc3a4361", title: "UK government borrowing surged to £18bn in August", date: "2026-09-22", time: "07:09", url: "https://www.ft.com/content/a17b2217-e49f-432c-8fdb-31e9bc3a4361" },
@@ -57,9 +60,4 @@ export const FT_ITEMS = [
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-09-21", time: "17:39", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
   { id: "f29de45a-3d32-4d9f-90cd-615f7466c1de", title: "US data centres ‘are short six NYCs of electricity’", date: "2026-09-21", time: "17:01", url: "https://www.ft.com/content/f29de45a-3d32-4d9f-90cd-615f7466c1de" },
   { id: "f3092492-9e70-4987-a359-22e31f93b77b", title: "Changing leader is not the panacea many Lib Dems think it is", date: "2026-09-21", time: "16:28", url: "https://www.ft.com/content/f3092492-9e70-4987-a359-22e31f93b77b" },
-  { id: "0bfc882f-fe1b-40cb-a356-162e833f2008", title: "Paramount reaches settlement to clear path for $110bn Warner Bros deal", date: "2026-09-21", time: "16:15", url: "https://www.ft.com/content/0bfc882f-fe1b-40cb-a356-162e833f2008" },
-  { id: "e173bec6-352b-4b51-b3a4-382a9229bc86", title: "Federal Reserve will need to be ‘aggressive’ on inflation, says top official", date: "2026-09-21", time: "16:10", url: "https://www.ft.com/content/e173bec6-352b-4b51-b3a4-382a9229bc86" },
-  { id: "2f8ea519-9e2e-4ab2-9061-18729503ff24", title: "Spanish PM’s wife to stand trial over corruption charges", date: "2026-09-21", time: "16:04", url: "https://www.ft.com/content/2f8ea519-9e2e-4ab2-9061-18729503ff24" },
-  { id: "378926f5-0494-4f5e-8bd1-e1775980ab82", title: "China accuses ousted top generals of ‘disloyalty’", date: "2026-09-21", time: "15:54", url: "https://www.ft.com/content/378926f5-0494-4f5e-8bd1-e1775980ab82" },
-  { id: "e40691e8-e96e-444a-baf7-ae3dfef99bce", title: "Germany’s Merz hits out at ‘destructive’ forces as he fights for survival", date: "2026-09-21", time: "15:41", url: "https://www.ft.com/content/e40691e8-e96e-444a-baf7-ae3dfef99bce" },
 ];
