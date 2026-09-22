@@ -13,7 +13,7 @@ export const UPDATED = "20 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-22",
-  lastCheckedTime: "12:21 BST",
+  lastCheckedTime: "14:30 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -734,6 +734,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-uk-borrowing-183bn-miss-2026-09-22-0700", kind: "Cycle", title: "UK public borrowing overshot every forecast in August: the ONS reported £18.3bn of central-government net borrowing — above all estimates in a Reuters poll and £3.5bn over the OBR's own projection — pushing the year-to-date deficit to £77.3bn, £8.1bn above the OBR's plan, with a record £8.8bn August debt-interest bill underscoring the squeeze on Chancellor Healey's fiscal headroom ahead of the 28 October Budget.", href: "#/cycle", date: "2026-09-22" },
   { id: "g-amd-1tn-nasdaq-record-2026-09-21-2100", kind: "Bubble risk", title: "US equities closed sharply higher Monday: the Nasdaq Composite jumped 2.26% to a fresh record 27,122.09, the S&P 500 gained 1.49% to 7,764.70 and the Dow added 0.71% to 52,048.83, as AMD surged roughly 10% to an all-time high above $610 — crossing a $1 trillion market cap for the first time, its fifth straight winning session — leading a broad AI/chip-stock rally ahead of Thursday's Trump-Xi summit while oil fell to a four-day low (November WTI -4.25% to $92.00).", href: "#/bubble", date: "2026-09-21" },
   { id: "g-boe-insurance-hike-signal-2026-09-21-1900", kind: "Rate guidance", title: "A Monday FXStreet analysis argued the Bank of England's hawkish communications around last Thursday's 6-3 hold point toward a likely 'insurance' hike at the November MPC meeting, even as sterling has drawn little support from the tone, holding little changed near $1.335 — among its weakest levels since late July — with the dollar still firm on the Fed's own hawkish tilt.", href: "#/policy", date: "2026-09-21" },
   { id: "g-oil-eases-ai-chip-rally-bitcoin-85k-2026-09-21-1700", kind: "Markets", title: "Oil extended its retreat into a fourth straight session Monday — Brent back near $102/bbl, its longest losing streak since June — as Saudi Arabia moves to restore roughly half its damaged East-West pipeline's capacity and hopes build for renewed US-Iran diplomacy; US equities rallied on AI/chip strength (Intel +9.7% on a Micro LED packaging tie-up with AUO Optronics, AMD +9.2% on reported AI-accelerator price hikes) and bitcoin topped $85,000, while the 10-year Treasury yield eased back toward 4.97% (from Friday's near-5% high) and MSCI's EM stock gauge rose 1.1% on 'very successful' US-China trade talks ahead of Thursday's Trump-Xi summit.", href: "#/bubble", date: "2026-09-21" },
@@ -1059,7 +1060,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-09-22", country: "UK", title: "Public sector finances (August)", url: "https://www.ons.gov.uk/releases/publicsectorfinancesukaugust2026" },
   { date: "2026-09-23", country: "US", title: "S&P Global Flash PMIs (September)", url: "https://www.pmi.spglobal.com/Public/Home/PressRelease" },
   { date: "2026-09-23", country: "UK", title: "S&P Global/CIPS Flash PMIs (September)", url: "https://www.pmi.spglobal.com/Public/Home/PressRelease" },
   { date: "2026-09-30", country: "US", title: "GDP (Q2 2026, Third Estimate) & Corporate Profits", url: "https://www.bea.gov/news/schedule" },
