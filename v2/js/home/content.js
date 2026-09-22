@@ -10,9 +10,12 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
              manager (watchlist) wire can't sit side by side, so a chip pair at
              the very top swaps between them. Hidden on desktop, where both
              columns show at once. -->
-        <div class="g-wiretabs" role="tablist" aria-label="News, managers, chart or X wire">
-          <button type="button" class="g-wiretab is-on" data-wire="news" role="tab" aria-selected="true">News</button>
-          <button type="button" class="g-wiretab" data-wire="watch" role="tab" aria-selected="false">Managers</button>
+        <div class="g-wiretabs" role="tablist" aria-label="Wire, chart or X">
+          <!-- Merged wire tab: News + Managers in one, the lane (All · News · Manager
+               · Watchlist) chosen from a dropdown (same style as the Menu → Chat
+               chip). Rendered/wired by glance.js. -->
+          <button type="button" class="g-wiretab g-wiretab-lane tchip-has-menu is-on" data-wire="news" aria-haspopup="menu" aria-expanded="false"><span class="g-wire-lanelbl">News</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="g-wire-lanemenu tchip-menu" id="g-wire-lanemenu" role="menu" hidden></div>
           <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
         </div>

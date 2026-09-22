@@ -136,28 +136,34 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   await ctx.close();
 }
 
-// ---- Phone: the manager wire keeps its own Watch tab + group-by-manager toggle ----
+// ---- Phone: the Manager/Watchlist lanes reached via the wire-tab dropdown --------
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
   await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); localStorage.removeItem("wire.home.v1"); } catch {} });
   await pg.reload({ waitUntil: "load" });
-  await pg.waitForSelector(".g-wiretab[data-wire='watch']", { timeout: 8000 });
-  await pg.evaluate(() => document.querySelector(".g-wiretab[data-wire='watch']").click());
-  await pg.waitForSelector("#g-mgrwire .g-mw-fev", { timeout: 8000 });
-  const m = await pg.evaluate(() => ({
-    rows: document.querySelectorAll("#g-mgrwire .g-mw-fev").length,
-    grpBtn: !!document.querySelector(".g-mw-grpbtn"),
-    lanesHidden: (() => { const l = document.getElementById("g-wire-lanes"); return !l || l.offsetParent === null; })(),
+  await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
+  const shell = await pg.evaluate(() => ({
+    tabs: [...document.querySelectorAll(".g-wiretabs .g-wiretab")].map((t) => t.textContent.trim()),
+    laneLbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
+    menu: [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()),
+    chipsHidden: (() => { const l = document.getElementById("g-wire-lanes"); return !l || l.offsetParent === null; })(),
   }));
-  check(m.rows >= 8, `phone: the Watch tab still shows the manager wire (${m.rows} rows)`);
-  check(m.grpBtn, "phone: the manager wire keeps its Group-by-manager toggle");
-  check(m.lanesHidden, "phone: the desktop lane switch is hidden (the wire stays News + Watch tabs)");
-  // The toggle still groups into per-manager cards.
-  await pg.evaluate(() => document.querySelector(".g-mw-grpbtn").click());
-  await pg.waitForSelector("#g-mgrwire .g-mw-item", { timeout: 4000 });
-  const grouped = await pg.evaluate(() => ({ items: document.querySelectorAll("#g-mgrwire .g-mw-item").length, on: document.querySelector(".g-mw-grpbtn").classList.contains("is-on") }));
-  check(grouped.on && grouped.items >= 8, `phone: Group-by-manager still groups into per-manager cards (${grouped.items})`);
-  checkErrs(errs, "phone manager wire");
+  check(!shell.tabs.includes("Managers"), `phone: the separate Managers tab is gone — merged into the wire (${shell.tabs.join(" · ")})`);
+  check(shell.menu.join(" · ") === "All · News · Manager · Watchlist", `phone: the wire-tab dropdown carries the four lanes (${shell.menu.join(", ")})`);
+  check(shell.chipsHidden, "phone: the desktop lane chip row is hidden (the dropdown drives the lane on phones)");
+  // Pick Manager from the dropdown → manager events render in the shared feed.
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(150);
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
+  await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 6000 });
+  const m = await pg.evaluate(() => ({
+    lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
+    rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
+    subs: document.querySelectorAll("#g-feed-head .g-feed-deskchip[data-mglcat]").length,
+  }));
+  check(m.lbl === "Manager" && m.rows >= 8, `phone: the Manager lane renders the manager wire in the feed (${m.rows} rows)`);
+  check(m.subs >= 4, `phone: the Manager lane keeps its category sub-filters (${m.subs})`);
+  checkErrs(errs, "phone merged wire lanes");
   await ctx.close();
 }
 

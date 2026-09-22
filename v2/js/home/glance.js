@@ -201,13 +201,29 @@ function initMobileWireTabs() {
   // which is News (the first chip; its briefing + feed). Always call setWire so a
   // stored chart/watch/x class is cleared back to the feed on a fresh visit.
   const _wp = _homePrefs().wire;
-  setWire(["news", "watch", "chart", "x"].includes(_wp) ? _wp : "news");
+  setWire(["news", "chart", "x"].includes(_wp) ? _wp : "news");   // "watch" retired — merged into the wire lanes
+  const laneMenu = document.getElementById("g-wire-lanemenu");
+  const laneTab = tabs.querySelector(".g-wiretab-lane");
   tabs.addEventListener("click", (e) => {
+    // A lane pick from the dropdown.
+    const item = e.target.closest("#g-wire-lanemenu .tchip-menu-item");
+    if (item) { e.preventDefault(); e.stopPropagation(); _setWireLane(item.dataset.lane); return; }
     const btn = e.target.closest(".g-wiretab");
     if (!btn) return;
+    // The merged-wire tab: if it's already the active pane, a tap toggles the lane
+    // dropdown; otherwise it switches to the wire pane (closing any open menu).
+    if (btn === laneTab && btn.classList.contains("is-on") && laneMenu) {
+      const open = laneMenu.hidden;
+      laneMenu.hidden = !open;
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      return;
+    }
+    _closeLaneMenu();
     setWire(btn.dataset.wire);
     _saveHomePref({ wire: btn.dataset.wire });
   });
+  // A tap outside the tab bar dismisses the lane dropdown.
+  document.addEventListener("click", (e) => { if (laneMenu && !laneMenu.hidden && !e.target.closest(".g-wiretabs")) _closeLaneMenu(); });
 }
 
 // ---- Home briefing (the market brief, at the head of the News wire) ----------
@@ -1790,23 +1806,41 @@ function mergeManagersIntoFeed() {
   }
   setHTML("g-feed", out || feedEmptyHTML("Nothing on the wire yet."));
 }
-// Top-level lane chips (own row above the sub-filters).
+const WIRE_LANE_LABEL = Object.fromEntries(WIRE_LANES);
+// Desktop lane chips (#g-wire-lanes) + the phone wire-tab dropdown (label + menu).
 function renderWireLanes() {
-  const host = document.getElementById("g-wire-lanes"); if (!host) return;
-  host.innerHTML = WIRE_LANES.map(([k, l]) =>
-    `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("");
-  if (!host.dataset.wired) {
-    host.dataset.wired = "1";
-    host.addEventListener("click", (e) => { const b = e.target.closest(".g-wire-lane"); if (b && b.dataset.lane !== _wireLane) { _wireLane = b.dataset.lane; _saveHomePref({ wireLane: _wireLane }); renderWire(); } });
+  const host = document.getElementById("g-wire-lanes");
+  if (host) {
+    host.innerHTML = WIRE_LANES.map(([k, l]) =>
+      `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("");
+    if (!host.dataset.wired) {
+      host.dataset.wired = "1";
+      host.addEventListener("click", (e) => { const b = e.target.closest(".g-wire-lane"); if (b && b.dataset.lane !== _wireLane) { _setWireLane(b.dataset.lane); } });
+    }
   }
+  // Phone: the wire tab's label reflects the lane; its dropdown offers all four.
+  const lbl = document.querySelector(".g-wiretab-lane .g-wire-lanelbl");
+  if (lbl) lbl.textContent = WIRE_LANE_LABEL[_wireLane] || "News";
+  const menu = document.getElementById("g-wire-lanemenu");
+  if (menu) menu.innerHTML = WIRE_LANES.map(([k, l]) =>
+    `<button type="button" class="tchip-menu-item${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="menuitem">${esc(l)}</button>`).join("");
 }
-// The dispatcher — the single entry point for (re)painting the merged wire. The lanes
-// + reading pane are a DESKTOP feature; on phones the wire stays the plain news feed
-// (the Watch tab keeps the manager wire), so the lane is forced to "news" there.
+function _setWireLane(k) {
+  if (!k || k === _wireLane) { _closeLaneMenu(); return; }
+  _wireLane = k; _saveHomePref({ wireLane: _wireLane });
+  _closeLaneMenu();
+  renderWire();
+}
+function _closeLaneMenu() {
+  const menu = document.getElementById("g-wire-lanemenu"); if (menu) menu.hidden = true;
+  const tab = document.querySelector(".g-wiretab-lane"); if (tab) tab.setAttribute("aria-expanded", "false");
+}
+// The dispatcher — the single entry point for (re)painting the merged wire. Desktop
+// selects the lane from the chip row; phones from the wire-tab dropdown (renderWireLanes
+// paints both). The reading pane is desktop-only (mobile rows navigate as before).
 function renderWire() {
-  const desktop = matchMedia("(min-width:1201px)").matches;
   renderWireLanes();
-  const lane = desktop ? _wireLane : "news";
+  const lane = _wireLane;
   if (lane === "manager" || lane === "watchlist") renderMgrLane(lane === "watchlist");
   else { renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
   ensureReadWired();

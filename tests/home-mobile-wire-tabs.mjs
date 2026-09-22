@@ -1,7 +1,7 @@
-// Home on mobile: the four-column terminal collapses to one column, so a
-// News / Watchlist chip pair at the top swaps the visible wire — the aggregated
-// news feed vs. the watchlist (manager) wire. On desktop both columns show at
-// once and the chips are hidden.
+// Home on mobile: the multi-column terminal collapses to one column. The wire is now
+// MERGED — one tab whose label is the active lane (All · News · Manager · Watchlist,
+// chosen from a "Chat"-style dropdown), plus Chart and X tabs. On desktop the lane
+// chips + reading pane show and these tabs are hidden.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 // A minimal hero stub so the Chart pane (the default) has its ticker row.
@@ -36,7 +36,9 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "News · Managers · Chart · X Feed", `phone: chips read 'News', 'Managers', 'Chart' and 'X Feed' in order (${labels.join(", ")})`);
+  check(labels.join(" · ") === "News · Chart · X Feed", `phone: tabs read the merged Wire (lane label) · Chart · X Feed — Managers merged into the wire (${labels.join(", ")})`);
+  const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
+  check(laneMenu.join(" · ") === "All · News · Manager · Watchlist", `phone: the wire tab's dropdown offers the four lanes (${laneMenu.join(", ")})`);
 
   // Default: News on (the first chip), the feed pane visible, the rest hidden.
   check(await vis("#g-feed"), "phone: the news feed is visible by default");
@@ -61,18 +63,27 @@ const b = await launchChromium();
   const preloaded = await pg.evaluate(() => document.querySelectorAll("#g-xwire .g-x-card").length);
   check(preloaded >= 1, `phone: the X feed is preloaded while hidden (${preloaded} card[s]) — ready before its chip is tapped`);
 
-  // Tap Watchlist → manager wire visible, feed hidden.
-  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="watch"]').click());
-  await pg.waitForTimeout(200);
-  check(await vis(".g-side3"), "phone: tapping Watchlist reveals the manager wire");
-  check(!(await vis("#g-feed")), "phone: tapping Watchlist hides the news feed");
-  const watchState = await pg.evaluate(() => ({
-    watchOn: document.querySelector('.g-wiretab[data-wire="watch"]').classList.contains("is-on"),
-    aria: document.querySelector('.g-wiretab[data-wire="watch"]').getAttribute("aria-selected"),
-    hasMgr: !!document.querySelector("#g-mgrwire .g-mw-fev, #g-mgrwire .g-mw-item, #g-mgrwire .g-mw-empty"),
+  // Open the lane dropdown and pick Manager → manager events render IN the shared
+  // feed column (the merge; there's no separate Managers tab any more).
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(150);
+  const menuOpen = await pg.evaluate(() => { const m = document.getElementById("g-wire-lanemenu"); return !!m && !m.hidden && m.offsetParent !== null; });
+  check(menuOpen, "phone: tapping the wire tab opens the lane dropdown");
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
+  await pg.waitForTimeout(250);
+  const mgrLane = await pg.evaluate(() => ({
+    lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
+    rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
+    menuClosed: document.getElementById("g-wire-lanemenu").hidden,
   }));
-  check(watchState.watchOn && watchState.aria === "true", "phone: the Watchlist chip is active + aria-selected after tap");
-  check(watchState.hasMgr, "phone: the manager wire has rendered content under Watchlist");
+  check(mgrLane.lbl === "Manager" && mgrLane.rows > 0, `phone: the Manager lane renders manager events in the wire (${mgrLane.rows} rows)`);
+  check(await vis("#g-feed"), "phone: manager events show in the shared feed pane (no separate Managers tab)");
+  check(mgrLane.menuClosed, "phone: the dropdown closes after a lane is picked");
+  // Back to the News lane for the rest of the pane-swap checks.
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(120);
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "News").click());
+  await pg.waitForTimeout(200);
 
   // Tap Chart → the hero chart pane is revealed (feed + manager hidden).
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
@@ -179,8 +190,8 @@ const b = await launchChromium();
     const shown = (el) => el && getComputedStyle(el).display !== "none" && el.getBoundingClientRect().width > 0;
     return { chipsHidden: !t || getComputedStyle(t).display === "none", feedShown: shown(feed), mgrShown: shown(mgr) };
   });
-  check(d.chipsHidden, "desktop: the News / Watchlist chips are hidden");
-  check(d.feedShown && d.mgrShown, "desktop: both the news feed and manager wire show side by side");
+  check(d.chipsHidden, "desktop: the mobile wire tabs are hidden");
+  check(d.feedShown && d.mgrShown, "desktop: the merged wire (feed) and the reading pane (.g-side3) show side by side");
   checkErrs(errs, "home desktop wire columns");
   await ctx.close();
 }

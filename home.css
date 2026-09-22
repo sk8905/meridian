@@ -1255,6 +1255,18 @@
         color:var(--t-mut); cursor:pointer; }
       .tui .g-wiretab.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
       [data-theme="dark"] .tui .g-wiretab.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
+      /* Merged wire tab: label + caret, with a "New chat"-style dropdown of the lanes
+         (All · News · Manager · Watchlist), themed with the terminal tokens. */
+      .tui .g-wiretab-lane{ gap:5px; }
+      .tui .g-wiretab-lane .tchip-caret{ opacity:.7; transition:transform .12s ease; }
+      .tui .g-wiretab-lane[aria-expanded="true"] .tchip-caret{ transform:rotate(180deg); opacity:1; }
+      .tui .g-wire-lanemenu{ position:absolute; top:100%; left:0; z-index:12; min-width:150px;
+        background:var(--t-head); border:1px solid var(--t-grid2); border-top:0; box-shadow:0 8px 20px rgba(0,0,0,.4); }
+      .tui .g-wire-lanemenu[hidden]{ display:none; }
+      .tui .g-wire-lanemenu .tchip-menu-item{ display:block; width:100%; text-align:left; border:0; background:transparent;
+        color:var(--t-ink); font-family:var(--t-mono); font-size:11.5px; font-weight:600; letter-spacing:.03em; padding:11px 14px; cursor:pointer; }
+      .tui .g-wire-lanemenu .tchip-menu-item.is-on{ color:var(--t-accent); }
+      .tui .g-wire-lanemenu .tchip-menu-item:hover{ background:rgba(127,140,170,.10); color:var(--t-accent); }
       /* One pane on screen at a time: News (feed) is default; Watchlist swaps in the
          manager wire; Chart swaps in the hero chart; X swaps in the X wire. The
          manager, chart + X panes are hidden until their chip is chosen. */

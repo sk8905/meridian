@@ -67,24 +67,28 @@ const base = `http://localhost:${srv.port}`;
   await ctx.close();
 }
 
-// ---- F8: mobile remembers the News/Watchlist tab ----
+// ---- F8: mobile remembers the chosen wire LANE (dropdown) ----
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
-  await pg.waitForSelector(".g-wiretab", { timeout: 8000 });
-  await pg.waitForTimeout(500);
-  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="watch"]').click());
-  await pg.waitForTimeout(200);
-  const savedWatch = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").wire; } catch { return null; } });
-  checkEq(savedWatch, "watch", "choosing Watchlist persists the wire tab");
+  await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
   await pg.reload({ waitUntil: "load" });
-  await pg.waitForSelector(".g-wiretab", { timeout: 8000 });
-  await pg.waitForTimeout(500);
+  await pg.waitForSelector(".g-wiretab-lane", { timeout: 8000 });
+  await pg.waitForTimeout(400);
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(120);
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
+  await pg.waitForTimeout(200);
+  const savedLane = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").wireLane; } catch { return null; } });
+  checkEq(savedLane, "manager", "choosing a lane persists it (wireLane)");
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 8000 });
+  await pg.waitForTimeout(300);
   const restored = await pg.evaluate(() => ({
-    watchOn: document.querySelector('.g-wiretab[data-wire="watch"]').classList.contains("is-on"),
-    layoutWatch: document.querySelector(".g-layout").classList.contains("wire-watch"),
+    lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
+    rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
   }));
-  check(restored.watchOn && restored.layoutWatch, "mobile reopens on the remembered Watchlist tab");
-  checkErrs(errs, "remembered wire tab");
+  check(restored.lbl === "Manager" && restored.rows > 0, `mobile reopens on the remembered lane (${restored.lbl}, ${restored.rows} rows)`);
+  checkErrs(errs, "remembered wire lane");
   await ctx.close();
 }
 
