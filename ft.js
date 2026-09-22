@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "193a14eb-5650-48a8-8ead-eb8184fc50f5", title: "Pick a stock, just not any stock", date: "2026-09-22", time: "13:08", url: "https://www.ft.com/content/193a14eb-5650-48a8-8ead-eb8184fc50f5" },
+  { id: "ac089dea-a121-454e-815e-0d9a380acf79", title: "Comment: Trump is checking out of his presidency", date: "2026-09-22", time: "12:54", url: "https://www.ft.com/content/ac089dea-a121-454e-815e-0d9a380acf79" },
+  { id: "2715d69d-15d1-42af-a5e5-cb2a251a1ff6", title: "Warburg Pincus and CD&R near deal to buy Canaccord’s UK wealth division", date: "2026-09-22", time: "12:36", url: "https://www.ft.com/content/2715d69d-15d1-42af-a5e5-cb2a251a1ff6" },
+  { id: "ba73ddd6-9fc0-49ba-909e-7305a23844dc", title: "The dying days of the Federal Reserve’s dot plot", date: "2026-09-22", time: "12:30", url: "https://www.ft.com/content/ba73ddd6-9fc0-49ba-909e-7305a23844dc" },
   { id: "5b4f8738-3b93-40c8-88d6-08c8ea684e83", title: "Oil price falls below $98 as Saudi Arabia signals reopening of East-West pipeline", date: "2026-09-22", time: "12:19", url: "https://www.ft.com/content/5b4f8738-3b93-40c8-88d6-08c8ea684e83" },
   { id: "31b63337-0531-47a6-a0ce-83f0dd7f395b", title: "European fusion start-up pushes for local supply chain as US dominates funding", date: "2026-09-22", time: "12:00", url: "https://www.ft.com/content/31b63337-0531-47a6-a0ce-83f0dd7f395b" },
   { id: "99457bcb-d98f-4719-a203-688daefcc3f7", title: "‘MBS will not forget’: Donald Trump’s reluctance to fight Houthis rattles Saudi Arabia", date: "2026-09-22", time: "12:00", url: "https://www.ft.com/content/99457bcb-d98f-4719-a203-688daefcc3f7" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "60870960-f433-48ca-bc2c-708686a69ae7", title: "AI staff complain of mental toll over fears of threat to society", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/60870960-f433-48ca-bc2c-708686a69ae7" },
   { id: "57662705-13e3-4aaa-b8a6-951b954a46b1", title: "Sorry Carney, the world does need a great power with better manners", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/57662705-13e3-4aaa-b8a6-951b954a46b1" },
   { id: "bbfb7316-a660-4428-9918-8f275338a4d4", title: "Why Andy Burnham’s ‘Buy British’ push could backfire", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/bbfb7316-a660-4428-9918-8f275338a4d4" },
-  { id: "ec52d0ab-3f68-476f-b308-b8e682d9c75b", title: "Polymarket starts European lobbying blitz to win over financial watchdogs", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/ec52d0ab-3f68-476f-b308-b8e682d9c75b" },
-  { id: "8576e3d2-6fe3-4bfe-af16-10edb76ac8bf", title: "Why Blackstone’s latest plans at Lloyd’s of London have sparked a firestorm", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/8576e3d2-6fe3-4bfe-af16-10edb76ac8bf" },
-  { id: "a7aa2544-c328-40ef-87e2-488975a79f57", title: "US officials move to rein in utility profits as power bills rise", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/a7aa2544-c328-40ef-87e2-488975a79f57" },
 ];
