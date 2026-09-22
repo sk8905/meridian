@@ -168,6 +168,7 @@ const base = `http://localhost:${srv.port}`;
       filled: cells.filter((c) => c.querySelector(".dsh-ms-t") || c.querySelector(".dsh-ms-p")).length,
       pcts: grid.querySelectorAll(".dsh-ms-p").length,
       sideBySide: cols.length >= 2 && Math.abs(cols[0].getBoundingClientRect().top - cols[1].getBoundingClientRect().top) <= 2,
+      colGap: parseFloat(getComputedStyle(grid).columnGap) || 0,
       sourced: rows.filter((r) => r.querySelector(".dsh-ms-nm a[href^='http']")).length,
       sized: rows.filter((r) => { const s = r.querySelector(".dsh-ms-sz"); return s && !/^—/.test(s.textContent.trim()); }).length,
     };
@@ -176,6 +177,7 @@ const base = `http://localhost:${srv.port}`;
   check(ms.present && ms.nCols === 4 && /Public equities/i.test(ms.bands[0] || "") && ms.bands.some((b) => /Private credit/i.test(b || "")),
     `Macro: four asset-class blocks (${(ms.bands || []).join(" · ")})`);
   check(ms.present && ms.sideBySide, "Macro: the asset-class blocks sit side by side (full width)");
+  check(ms.present && ms.colGap >= 32, `Macro: a generous gap separates each asset-class block (${ms.colGap}px)`);
   check(ms.present && ms.nRows === 16, `Macro: US·Europe·Asia·Global for each class (${ms.nRows} rows)`);
   check(ms.present && ms.horizonCells === 48 && ms.filled === 48, `Macro: every 1Y/5Y/10Y cell shows a % or a trend arrow (${ms.filled}/${ms.horizonCells})`);
   check(ms.present && ms.pcts >= 6, `Macro: %% shown for the increases where sourced (${ms.pcts} cells)`);

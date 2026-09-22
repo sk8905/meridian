@@ -321,7 +321,9 @@
 /* Market-sizes matrix (Macro): the four asset classes laid out SIDE BY SIDE, each
    a block (region rows × Size + 1Y/5Y/10Y). Blocks fill the width and wrap to
    fewer columns as the card narrows. */
-.dsh-ms-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(232px, 1fr)); gap:10px 16px; }
+/* A generous column gap so each asset-class table reads as its own block and the
+   right-most (10Y) column of one never crowds the next block's label. */
+.dsh-ms-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(232px, 1fr)); gap:10px 40px; }
 .dsh-ms-col { min-width:0; }
 .dsh-ms-col-h { font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--t-mut); padding:2px 0 4px; border-bottom:1px solid var(--t-grid2); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-ms-tbl { width:100%; }
