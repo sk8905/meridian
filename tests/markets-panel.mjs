@@ -28,11 +28,13 @@ const RATES = { rates: [
   { label: "US CCC OAS", value: 10.83, unit: "bp", change: 0.07, href: "https://x", history: up(10) },
 ] };
 const MACRO = { series: [] };
+const HORMUZ = { date: "2026-09-21", total: { latest: 108, avg30: 121, days: 30 }, tanker: { latest: 42, avg30: 47, days: 30 } };
 
 const srv = await serve({
   "/api/markets": () => [200, JSON.stringify(MARKETS)],
   "/api/rates": () => [200, JSON.stringify(RATES)],
   "/api/macro": () => [200, JSON.stringify(MACRO)],
+  "/api/hormuz": () => [200, JSON.stringify(HORMUZ)],
   "/api/predict": () => [200, JSON.stringify({ markets: [] })],
   "/api/xfeed": () => [200, JSON.stringify({ tweets: [] })],
 });
@@ -52,11 +54,21 @@ check(!chips.some((c) => /portfolio/i.test(c)), `no Portfolio tab (${chips.join(
 const eq = await pg.evaluate(() => {
   const secs = [...document.querySelectorAll("#na-mkt-panel .na-sec span:first-child")].map((s) => s.textContent.trim());
   const mkt = [...document.querySelectorAll("#na-mkt-panel .na-srow")];
-  return { secs, srows: mkt.length, sparks: document.querySelectorAll("#na-mkt-panel .na-srow .na-spark svg polyline").length, hasFx: !!document.querySelector("#na-mkt-panel .na-fx-tbl") };
+  const rowByLabel = (lbl) => [...document.querySelectorAll("#na-mkt-panel .na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
+  const transits = rowByLabel("Transits");
+  return { secs, srows: mkt.length, sparks: document.querySelectorAll("#na-mkt-panel .na-srow .na-spark svg polyline").length,
+    hasFx: !!document.querySelector("#na-mkt-panel .na-fx-tbl"),
+    transitsVal: transits ? (transits.querySelector(".na-v") || {}).textContent.trim() : null,
+    earnRows: document.querySelectorAll("#na-mkt-panel .na-earn-row").length,
+    earnHasEst: !!document.querySelector("#na-mkt-panel .na-earn-row .na-earn-l") };
 });
 check(eq.secs.includes("Markets") && eq.secs.includes("Top movers"), `Equities: Markets + Top movers sections (${eq.secs.join(" · ")})`);
 check(eq.hasFx, "Equities: the FX matrix renders");
 check(eq.srows >= 3 && eq.sparks >= 1, `Equities: market rows carry a sparkline (${eq.sparks} drawn / ${eq.srows} rows)`);
+// Hormuz + this-week's-earnings ported from the desktop left rail so the Equities
+// tab mirrors it in full (Markets · Top movers · Hormuz · Earnings · FX).
+check(eq.secs.includes("Strait of Hormuz") && eq.transitsVal === "108", `Equities: Strait of Hormuz transits row from /api/hormuz (${eq.transitsVal})`);
+check(eq.secs.includes("This week's earnings") && eq.earnRows >= 1 && eq.earnHasEst, `Equities: this week's earnings block renders with Est/Act lines (${eq.earnRows} rows)`);
 
 // ---- Macro tab: the five right-rail sections, sparklines, correct OAS -------
 await pg.evaluate(() => [...document.querySelectorAll("#na-mkt-panel .na-chip")].find((c) => c.dataset.k === "macro").click());

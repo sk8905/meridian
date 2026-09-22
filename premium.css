@@ -688,8 +688,12 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-l { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
-/* Top-movers row: label · bar · %. */
-.na-mover { grid-template-columns: minmax(0, 1fr) 74px 70px; align-items: center; }
+/* Top-movers row: label · bar · %. A FIXED label column + a flexible (1fr) bar
+   track: the bars stay the same width and vertically aligned down the column, while
+   the wide central track sits toward the middle of the row instead of pinned hard
+   against the % at the right edge (which read as "shifted right" on the full-width
+   phone sheet — the old 74px track left it far right). */
+.na-mover { grid-template-columns: 8rem minmax(0, 1fr) 4.2rem; align-items: center; }
 .na-bar { position: relative; height: 9px; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); }
 .na-bar::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border, #262626); }
 .na-bar-f { position: absolute; top: 0; bottom: 0; }
@@ -729,6 +733,21 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* FX key moment — a single sourced "why it moved" line under the matrix. */
 .na-fx-km { margin-top: 8px; color: var(--mut, #8592ad); font-size: 11.5px; line-height: 1.45; }
 .na-fx-km-l { color: var(--accent, #fb8b1e); font-weight: 700; font-size: 9.5px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
+/* This week's earnings (Markets panel) — mirrors the desktop left-rail block: a
+   date · ticker · timing line, then the consensus (Est) and, once reported, the
+   outcome (Act) + share reaction. Self-contained on the panel's own tokens. */
+.na-earn-row { padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); }
+.na-earn-r1 { display: flex; align-items: baseline; gap: 6px; }
+.na-earn-date { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; color: var(--muted, #8592ad); font-variant-numeric: tabular-nums; }
+.na-earn-tkr { flex: 0 0 auto; font-weight: 700; font-size: 12px; color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); }
+.na-earn-nm { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; color: var(--muted, #8592ad); }
+.na-earn-when { flex: 0 0 auto; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; color: var(--faint, #5c6a86); }
+.na-earn-px { flex: 0 0 auto; margin-left: auto; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-variant-numeric: tabular-nums; color: var(--muted, #8592ad); }
+.na-earn-px.up { color: var(--t-up, #3fc08d); } .na-earn-px.down { color: var(--t-down, #f26d84); }
+.na-earn-await { flex: 0 0 auto; margin-left: auto; font-size: 10px; color: var(--faint, #5c6a86); font-style: italic; }
+.na-earn-l { margin-top: 2px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; color: var(--muted, #8592ad); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.na-earn-l.na-earn-act { color: var(--ink, #eaf0fb); }
+.na-earn-k { color: var(--faint, #5c6a86); font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; margin-right: 4px; }
 
 /* Segmented toggle sat in a section header (the predictions Top-movers Up/Down). */
 .na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }

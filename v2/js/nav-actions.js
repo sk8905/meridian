@@ -18,7 +18,7 @@
 // =============================================================================
 import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { mountAssistant } from "/v2/js/assistant.js?v=v2-22";
-import { FX_KEYMOMENT, OUTLOOK } from "/macro/js/content.js";
+import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { nbNums } from "./nb-format.js?v=v2-2";
 import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
@@ -165,8 +165,9 @@ function loadMarkets(body) {
   Promise.all([
     fetch("/api/markets?v=14", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
     fetch("/api/rates?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
-  ]).then(([m, rt]) => {
-    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], rates: (rt && rt.rates) || [] };
+    fetch("/api/hormuz", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+  ]).then(([m, rt, hz]) => {
+    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], rates: (rt && rt.rates) || [], hormuz: hz || null };
     render();
   });
 }
@@ -347,13 +348,74 @@ function naFxMatrix(d) {
     : "";
   return naSec("FX matrix", "1D cross") + `<div class="na-fx-wrap"><table class="na-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>${km}</div>`;
 }
+// Strait of Hormuz vessel transits (IMF PortWatch) — two daily counts (all vessels
+// · oil tankers) each against its own trailing ~30-day average, mirroring the
+// desktop left-rail tile. Real data only (/api/hormuz); nothing renders if the feed
+// is missing. No history in the feed, so the spark cell stays empty (alignment kept).
+function naHormuz(h) {
+  if (!h || (!h.total && !h.tanker)) return "";
+  const dm = /^(\d{4})-(\d{2})-(\d{2})/.exec(h.date || "");
+  const dstr = dm ? `${+dm[3]} ${MONTHS[+dm[2] - 1]}` : "";
+  const row = (label, s, what) => {
+    if (!s || s.latest == null) return "";
+    const avg = s.avg30, w = s.days || 30;
+    const dir = avg == null ? "flat" : s.latest > avg ? "up" : s.latest < avg ? "down" : "flat";
+    const delta = avg == null ? null : Math.abs(s.latest - avg);
+    // Just the signed delta in the narrow change column — the "vs 30-day avg"
+    // context lives in the section sub-label (and the full tooltip), so it stays on
+    // one line instead of wrapping.
+    return naDataRow({ label, val: String(s.latest), chg: delta == null ? null : String(delta), dir,
+      href: "https://portwatch.imf.org/pages/chokepoint6",
+      title: `${what}${dstr ? " on " + dstr : ""} vs the ${w}-day average (${avg}) — IMF PortWatch, AIS-derived` });
+  };
+  const rows = [row("Transits", h.total, "All vessel transits"), row("Tankers", h.tanker, "Oil-tanker transits")].filter(Boolean).join("");
+  return rows ? naSec("Strait of Hormuz", "vs 30-day avg") + rows : "";
+}
+// This week's earnings (EARNINGS.weeks[0], macro/js/content.js) — mirrors the desktop
+// left-rail block: per company a date · ticker · timing line and the consensus (Est),
+// with the reported outcome (Act) + share reaction once it prints. Curated + sourced
+// there; nothing fabricated.
+function naEarnings() {
+  const wk = EARNINGS && EARNINGS.weeks && EARNINGS.weeks[0];
+  const rows = [];
+  ((wk && wk.days) || []).forEach((d) => (d.rows || []).forEach((r) => rows.push({ ...r, date: r.date || d.date })));
+  if (!rows.length) return "";
+  rows.sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.when || "").localeCompare(String(b.when || "")));
+  const dshort = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]}` : (d || ""); };
+  const whenTag = (w) => (/after|post|close/i.test(w || "") ? "Post" : /before|pre|open/i.test(w || "") ? "Pre" : (w || ""));
+  const clean = (s) => String(s || "").split(" (")[0].replace(/\s*adjusted\b/i, "").replace(/\s{2,}/g, " ").trim();
+  const pxOf = (s) => { const m = /([+-]\d+(?:\.\d+)?%)/.exec(s || ""); return m ? m[1] : ""; };
+  const row = (r) => {
+    const reported = !!(r.actEps || r.actRev);
+    const px = pxOf(r.px), pxc = px.startsWith("+") ? "up" : px.startsWith("-") ? "down" : "";
+    const est = [clean(r.estEps), clean(r.estRev)].filter(Boolean).join(" · ");
+    const act = [clean(r.actEps), clean(r.actRev)].filter(Boolean).join(" · ");
+    const wt = whenTag(r.when);
+    const tail = px ? `<span class="na-earn-px ${pxc}">${esc(px)}</span>` : (reported ? "" : `<span class="na-earn-await">awaiting</span>`);
+    return `<div class="na-earn-row">`
+      + `<div class="na-earn-r1"><span class="na-earn-date">${esc(dshort(r.date))}</span>`
+      + `<span class="na-earn-tkr">${esc(r.t || r.n || "")}</span>`
+      + (r.n && r.t ? `<span class="na-earn-nm">${esc(r.n)}</span>` : "")
+      + (wt ? `<span class="na-earn-when">${esc(wt)}</span>` : "")
+      + tail + `</div>`
+      + (est ? `<div class="na-earn-l"><span class="na-earn-k">Est</span> ${esc(est)}</div>` : "")
+      + (reported && act ? `<div class="na-earn-l na-earn-act"><span class="na-earn-k">Act</span> ${esc(act)}</div>` : "")
+      + `</div>`;
+  };
+  const tag = ((wk.label || "").split("·").pop() || "").trim() || "consensus";
+  return naSec("This week's earnings", tag) + rows.map(row).join("");
+}
 function marketsPane(d) {
   if (!d.markets.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';
   // Top movers ranked greatest increase → greatest decrease (signed, as on the
   // desktop movers board): biggest gainer first, biggest faller last.
   const movers = [...d.movers].sort((a, b) => (b.changePct || 0) - (a.changePct || 0));
+  // Mirror the desktop LEFT rail order: Markets · Top movers · Hormuz · This week's
+  // earnings · FX matrix.
   return (d.markets.length ? naSec("Markets", "live") + d.markets.map(marketRow).join("") : "")
     + (movers.length ? naSec("Top movers", "1D") + movers.map(moverRow).join("") : "")
+    + naHormuz(d.hormuz)
+    + naEarnings()
     + naFxMatrix(d);
 }
 // Macro pane — the desktop RIGHT rail (bar its predictions): Key rates · Spreads ·
@@ -635,7 +697,12 @@ async function hydrateSeen() {
 // ---- shared full-screen shell (mobile) --------------------------------------
 function setTopVar() {
   const t = document.querySelector(".topbar") || document.querySelector(".g-top");
-  const h = t ? Math.round(t.getBoundingClientRect().bottom) : 54;
+  // FLOOR, not round: the panel/scrim start at this Y, and the fixed Wire header
+  // (z-index 1300) is opaque, so a value ≤ the header's fractional bottom tucks the
+  // panel's top under the header. Rounding UP (e.g. 59.7→60) instead left a sub-pixel
+  // seam below the header where the page behind bled through (an orange/grey hairline
+  // on the retina panel). Flooring closes it with a harmless <1px overlap.
+  const h = t ? Math.floor(t.getBoundingClientRect().bottom) : 54;
   document.documentElement.style.setProperty("--na-top-b", h + "px");
 }
 let _scrim = null;
