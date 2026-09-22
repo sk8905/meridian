@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0e50a3c6-9731-4b29-a21e-4e0ff89a595e", title: "Anthropic and OpenAI release cheaper models as price war intensifies", date: "2026-09-22", time: "21:31", url: "https://www.ft.com/content/0e50a3c6-9731-4b29-a21e-4e0ff89a595e" },
   { id: "f2f37449-f9c7-4556-9f97-4cca735980e4", title: "Top UK graft prosecutors joined Trump’s Venezuela oil baron during Swiss probe", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/f2f37449-f9c7-4556-9f97-4cca735980e4" },
   { id: "152aa77b-977f-4607-8a09-77291f85d2a0", title: "US government and Gulf billionaires back Todd Boehly bid for Lukoil assets", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/152aa77b-977f-4607-8a09-77291f85d2a0" },
   { id: "1ca67e27-b6b6-454a-8d37-b957835201d7", title: "Labour MPs call for end to loophole that trimmed billionaire’s tax bill by £18mn", date: "2026-09-22", time: "20:51", url: "https://www.ft.com/content/1ca67e27-b6b6-454a-8d37-b957835201d7" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "9d97d6db-3706-4842-bcdc-3f7c58aa58c1", title: "FTAV's further reading", date: "2026-09-22", time: "07:24", url: "https://www.ft.com/content/9d97d6db-3706-4842-bcdc-3f7c58aa58c1" },
   { id: "a17b2217-e49f-432c-8fdb-31e9bc3a4361", title: "UK government borrowing surged to £18bn in August", date: "2026-09-22", time: "07:09", url: "https://www.ft.com/content/a17b2217-e49f-432c-8fdb-31e9bc3a4361" },
   { id: "89ea4c20-b9e2-4875-9439-721ca9ba9fdb", title: "Quiet please, the currencies are sleeping", date: "2026-09-22", time: "06:30", url: "https://www.ft.com/content/89ea4c20-b9e2-4875-9439-721ca9ba9fdb" },
-  { id: "b30eb538-b5a3-4fb2-bae2-785273bfda1c", title: "Are we developing a distaste for effort?", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/b30eb538-b5a3-4fb2-bae2-785273bfda1c" },
 ];
