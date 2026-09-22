@@ -22,9 +22,12 @@ terminal.
 - **Never fabricate data.** Every feed/commentary/data item keeps a real,
   verified source URL and date; unknown fields are `null`. Verify via WebSearch
   (works regardless of network policy) — WebFetch may be egress-blocked.
-- **Test before deploy.** Run the full suite `node tests/run.mjs` (17 specs,
-  ~4 min — exceeds the 120s foreground limit, so run it in the background and
-  poll). It must stay green. Any new user-visible behaviour gets a spec.
+- **Test before deploy.** Run the full suite `node tests/run.mjs` (64 specs; the
+  runner is a bounded parallel pool — ~2 min, still may exceed the 120s foreground
+  limit, so run it in the background and poll; `TEST_CONCURRENCY=N` overrides).
+  It must stay green. Iterate on the affected spec alone (`node tests/run.mjs
+  <name>`, seconds) and run the full suite once before the push. Any new
+  user-visible behaviour gets a spec.
 - **Cache tokens move in lockstep.** Bump the `?v=` token on any changed CSS/JS.
   v2 modules load via the runtime token in `v2/index.html`; the shared
   `credit/js/data.js?v=` token must stay identical across
