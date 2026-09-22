@@ -74,6 +74,10 @@ const base = `http://localhost:${srv.port}`;
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector(".g-wiretab-lane", { timeout: 8000 });
   await pg.waitForTimeout(400);
+  // Market Briefing is the default pane, so tap the News tab once to make it the
+  // active pane, then again to open its lane dropdown.
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(120);
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());

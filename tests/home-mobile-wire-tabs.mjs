@@ -1,7 +1,8 @@
-// Home on mobile: the multi-column terminal collapses to one column. The wire is now
-// MERGED — one tab whose label is the active lane (All · News · Manager · Watchlist,
-// chosen from a "Chat"-style dropdown), plus Chart and X tabs. On desktop the lane
-// chips + reading pane show and these tabs are hidden.
+// Home on mobile: the multi-column terminal collapses to one column. Four tabs —
+// Market Briefing (default, always expanded, fills the page), News (a merged wire
+// whose lane — All · News · Manager · Watchlist — is chosen from a "Chat"-style
+// dropdown), Chart, and X Feed. On desktop the lane chips + reading pane show and
+// these tabs are hidden.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 // A minimal hero stub so the Chart pane (the default) has its ticker row.
@@ -16,11 +17,13 @@ const XFEED = { tweets: [
 const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)], "/api/xfeed": () => [200, JSON.stringify(XFEED)] });
 const b = await launchChromium();
 
-// --- Phone: chips visible; News is default (first chip); chips swap the pane --
+// --- Phone: chips visible; Market Briefing is default (first chip); chips swap panes
 {
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
-  await pg.waitForSelector("#g-feed .g-feed-row", { state: "attached", timeout: 8000 });
-  await pg.waitForTimeout(300);
+  await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-hbrief .g-hbrief-head", { state: "attached", timeout: 8000 });
+  await pg.waitForTimeout(400);
 
   const vis = (sel) => pg.evaluate((s) => {
     const el = document.querySelector(s);
@@ -36,26 +39,27 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "News · Chart · X Feed", `phone: tabs read the merged Wire (lane label) · Chart · X Feed — Managers merged into the wire (${labels.join(", ")})`);
+  check(labels.join(" · ") === "Market Briefing · News · Chart · X Feed", `phone: four tabs — Market Briefing · News (lane) · Chart · X Feed (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
   check(laneMenu.join(" · ") === "All · News · Manager · Watchlist", `phone: the wire tab's dropdown offers the four lanes (${laneMenu.join(", ")})`);
 
-  // Default: News on (the first chip), the feed pane visible, the rest hidden.
-  check(await vis("#g-feed"), "phone: the news feed is visible by default");
-  check(!(await vis(".g-hero")), "phone: the chart pane is hidden by default (News selected)");
-  check(!(await vis(".g-side3")), "phone: the manager wire is hidden by default (News selected)");
-  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (News selected)");
-  const newsDefault = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on"));
-  check(newsDefault, "phone: the News chip is active by default");
+  // Default: Market Briefing on (the first chip), its pane visible, the rest hidden.
+  check(await vis("#g-hbrief"), "phone: the market briefing pane is visible by default");
+  check(!(await vis("#g-feed")), "phone: the news feed is hidden by default (Briefing selected)");
+  check(!(await vis(".g-hero")), "phone: the chart pane is hidden by default (Briefing selected)");
+  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (Briefing selected)");
+  const briefDefault = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"));
+  check(briefDefault, "phone: the Market Briefing chip is active by default");
 
-  // The tri-daily briefing rides the top of the News pane.
+  // The briefing pane is ALWAYS expanded (no collapse chevron) and shows the latest brief.
   const brief = await pg.evaluate(() => {
     const el = document.getElementById("g-hbrief");
     if (!el || el.hidden) return null;
-    return { hasHead: !!el.querySelector(".g-hbrief-head"), slots: el.querySelectorAll(".g-hbrief-slot").length, bullets: el.querySelectorAll(".g-hbrief-b").length, hasLede: !!el.querySelector(".g-hbrief-lede") };
+    return { hasHead: !!el.querySelector(".g-hbrief-head"), chev: !!el.querySelector(".g-hbrief-chev"), open: el.dataset.open,
+      slots: el.querySelectorAll(".g-hbrief-slot").length, bullets: el.querySelectorAll(".g-hbrief-b").length, hasLede: !!el.querySelector(".g-hbrief-lede") };
   });
-  check(brief && brief.hasHead && brief.slots === 0, `phone: the briefing card leads the News pane, latest only — no slot chips (${brief && brief.slots})`);
-  check(brief && brief.bullets >= 1 && brief.bullets <= 4 && brief.hasLede, `phone: the briefing shows a lede + capped bullets (${brief && brief.bullets})`);
+  check(brief && brief.hasHead && !brief.chev && brief.open === "true", "phone: the briefing pane is always expanded — no collapse chevron");
+  check(brief && brief.slots === 0 && brief.bullets >= 1 && brief.bullets <= 4 && brief.hasLede, `phone: the briefing shows a lede + capped bullets, latest only (${brief && brief.bullets})`);
 
   // The X feed is PRELOADED while its pane is hidden, so it's ready the instant its
   // chip is tapped (no blank frame).
@@ -63,12 +67,16 @@ const b = await launchChromium();
   const preloaded = await pg.evaluate(() => document.querySelectorAll("#g-xwire .g-x-card").length);
   check(preloaded >= 1, `phone: the X feed is preloaded while hidden (${preloaded} card[s]) — ready before its chip is tapped`);
 
-  // Open the lane dropdown and pick Manager → manager events render IN the shared
-  // feed column (the merge; there's no separate Managers tab any more).
+  // Tap News → the merged wire feed replaces the briefing pane. Tapping the News
+  // tab once activates its pane; tapping the ACTIVE News tab opens the lane dropdown.
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(200);
+  check(await vis("#g-feed"), "phone: tapping News reveals the merged wire feed");
+  check(!(await vis("#g-hbrief")), "phone: the briefing pane hides under News");
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(150);
   const menuOpen = await pg.evaluate(() => { const m = document.getElementById("g-wire-lanemenu"); return !!m && !m.hidden && m.offsetParent !== null; });
-  check(menuOpen, "phone: tapping the wire tab opens the lane dropdown");
+  check(menuOpen, "phone: tapping the active News tab opens the lane dropdown");
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
   await pg.waitForTimeout(250);
   const mgrLane = await pg.evaluate(() => ({
@@ -79,45 +87,47 @@ const b = await launchChromium();
   check(mgrLane.lbl === "Manager" && mgrLane.rows > 0, `phone: the Manager lane renders manager events in the wire (${mgrLane.rows} rows)`);
   check(await vis("#g-feed"), "phone: manager events show in the shared feed pane (no separate Managers tab)");
   check(mgrLane.menuClosed, "phone: the dropdown closes after a lane is picked");
-  // The All lane carries no sub-filters, so its (empty) filter band collapses and the
-  // market-briefing bar sits directly under the wire tabs. Other lanes keep the band.
+
+  // The All lane carries no sub-filters, so its (empty) filter band collapses — the
+  // feed then sits directly under the wire tabs. Other lanes keep the band.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "All").click());
   await pg.waitForTimeout(250);
   const allBand = await pg.evaluate(() => {
     const head = document.getElementById("g-feed-head");
-    const tabs = document.querySelector(".g-wiretabs");
-    const brief = document.getElementById("g-hbrief");
+    const tabs = document.querySelector(".g-wiretabs").getBoundingClientRect();
+    const day = document.querySelector("#g-feed .g-feed-dayhdr");
     return {
       headHidden: getComputedStyle(head).display === "none",
-      briefUnderTabs: brief && tabs ? Math.round(brief.getBoundingClientRect().top - tabs.getBoundingClientRect().bottom) : null,
+      dayUnderTabs: day ? Math.round(day.getBoundingClientRect().top - tabs.bottom) : null,
     };
   });
   check(allBand.headHidden, "phone: the All lane collapses its empty filter band");
-  check(allBand.briefUnderTabs != null && allBand.briefUnderTabs <= 4,
-    `phone: on All, the market-briefing bar sits directly under the wire tabs (gap ${allBand.briefUnderTabs}px)`);
+  check(allBand.dayUnderTabs != null && allBand.dayUnderTabs >= -1 && allBand.dayUnderTabs <= 6,
+    `phone: on All, the feed sits directly under the wire tabs (gap ${allBand.dayUnderTabs}px)`);
 
-  // Back to the News lane for the rest of the pane-swap checks.
+  // Back to the News lane — the filter band (sub-filters) returns.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "News").click());
   await pg.waitForTimeout(200);
-  // On News the filter band is back (sub-filters occupy it).
   check(await vis("#g-feed-head"), "phone: the News lane restores the filter band (sub-filters)");
 
-  // A bottom-nav Home tap resets to the News pane but must NEVER pop the lane
-  // dropdown open — the News tab doubles as the dropdown trigger, so re-tapping it
-  // while it is already active used to toggle the menu. Guarded in home.js home().
-  // (The nav routes on pointerup, so a real tap — not a synthetic click — exercises
-  // ctrl.home().)
-  const menuBefore = await pg.evaluate(() => document.getElementById("g-wire-lanemenu").hidden);
+  // A bottom-nav Home tap resets to the Market Briefing pane (the first chip) and
+  // never leaves the lane dropdown open. (The nav routes on pointerup, so a real tap
+  // — not a synthetic click — exercises ctrl.home().)
   await pg.tap('.mtab[data-key="home"]');
   await pg.waitForTimeout(200);
-  const menuAfter = await pg.evaluate(() => document.getElementById("g-wire-lanemenu").hidden);
-  check(menuBefore && menuAfter, "phone: tapping the bottom-nav Home does NOT open the lane dropdown");
-  check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on")),
-    "phone: a Home tap keeps the News pane active");
+  const afterHome = await pg.evaluate(() => ({
+    briefOn: document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"),
+    menuHidden: document.getElementById("g-wire-lanemenu").hidden,
+  }));
+  check(afterHome.briefOn, "phone: a Home tap resets to the Market Briefing pane");
+  check(afterHome.menuHidden, "phone: a Home tap leaves the lane dropdown closed");
+  // Back to News for the remaining pane-swap checks.
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(200);
 
   // Tap Chart → the hero chart pane is revealed (feed + manager hidden).
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
@@ -157,22 +167,19 @@ const b = await launchChromium();
   check(!(await vis(".g-hero")), "phone: the chart is hidden again under News");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
 
-  // The header · search band · wire chips · filter row stay LOCKED when the page
-  // scrolls. The filter row pins directly beneath the chips (above the briefing),
-  // and the feed's day-break marker pins beneath the filter once the briefing
-  // scrolls past — "sticks to the top of the news wire".
+  // The header · search band · wire chips · filter row stay LOCKED when the News
+  // pane scrolls. The filter row pins directly beneath the chips, and the feed's
+  // day-break marker pins just beneath the filter — "sticks to the top of the wire".
   const at = () => pg.evaluate(() => {
     const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bot: Math.round(b.bottom) }; };
-    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), feedhead: r("#g-feed-head"), brief: r("#g-hbrief"), day: r("#g-feed .g-feed-dayhdr") };
+    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), feedhead: r("#g-feed-head"), day: r("#g-feed .g-feed-dayhdr") };
   });
   const rest = await at();
-  // At rest the filter row is pinned under the chips, ABOVE the briefing.
+  // At rest the filter row is pinned directly under the chips.
   check(rest.feedhead && rest.tabs && Math.abs(rest.feedhead.top - rest.tabs.bot) <= 2,
     `phone: at rest the filter row is pinned beneath the chips (filter.top ${rest.feedhead?.top}, chips.bot ${rest.tabs?.bot})`);
-  check(rest.brief && rest.feedhead && rest.brief.top >= rest.feedhead.bot - 2,
-    `phone: the briefing sits BELOW the filter row (filter.bot ${rest.feedhead?.bot}, brief.top ${rest.brief?.top})`);
-  // Scroll well past the briefing → the band + chips + filter stay pinned, and the
-  // day-break marker pins directly beneath the filter row.
+  // Scroll the feed → the band + chips + filter stay pinned, and the day-break
+  // marker pins directly beneath the filter row.
   await pg.evaluate(() => window.scrollTo(0, 5000));
   await pg.waitForTimeout(300);
   const scr = await at();
@@ -196,19 +203,22 @@ const b = await launchChromium();
   const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
   await pg.waitForSelector(".g-wiretab[data-wire='x']", { timeout: 8000 });
+  // Switch to the News pane (default is the Briefing), then verify the filter row
+  // leads the feed and hides with that pane when X is chosen.
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(200);
   const r = await pg.evaluate(() => {
     const head = document.getElementById("g-feed-head");
-    const brief = document.getElementById("g-hbrief");
+    const feed = document.getElementById("g-feed");
     const inWrap = !!head.closest(".g-feed-wrap");
-    // The filter row sits visually ABOVE the briefing in the news column. (The
-    // briefing is its own grid cell now, ordered via CSS, so compare geometry, not
-    // DOM order.)
-    const hb = head.getBoundingClientRect(), bb = brief && brief.getBoundingClientRect();
-    const aboveBrief = !!bb && hb.top <= bb.top + 1;
+    // The filter row leads the feed column (above the live feed).
+    const hb = head.getBoundingClientRect(), fb = feed.getBoundingClientRect();
+    const aboveFeed = hb.top <= fb.top + 1;
+    const visible = getComputedStyle(head).display !== "none" && head.offsetParent !== null;
     document.querySelector(".g-wiretab[data-wire='x']").click();
-    return { inWrap, aboveBrief, hidden: getComputedStyle(head).display === "none" || head.offsetParent === null };
+    return { inWrap, aboveFeed, visible, hidden: getComputedStyle(head).display === "none" || head.offsetParent === null };
   });
-  check(r.inWrap && r.aboveBrief, "phone: the filter row leads the news column, above the briefing");
+  check(r.inWrap && r.aboveFeed && r.visible, "phone: the filter row leads the news column, above the feed");
   check(r.hidden, "phone: switching to X hides the filter row with the news pane");
   await ctx.close();
 }

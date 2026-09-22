@@ -11,25 +11,16 @@ export function mount(host, ctx) {
     // Render on mount (revisits keep this DOM alive). initGlance self-guards
     // (runs once) and is wrapped so a render error keeps the briefing shell.
     try { glance.initGlance(ctx); } catch { /* keep shell */ }
-    // home(): a nav-bar tap on Home resets it to its first part — the News pane
-    // (the first chip: the briefing + feed) — and scrolls to top.
+    // home(): a nav-bar tap on Home resets it to its first part — the Market
+    // Briefing pane (the first chip) — and scrolls to top. The briefing tab is a
+    // plain tab (not the lane dropdown's trigger), so clicking it just switches the
+    // pane and closes any open lane menu; safe to click even when already active.
     const home = () => {
       try {
-        const first = host.querySelector('.g-wiretab[data-wire="news"]');
-        if (first) {
-          // The News tab doubles as the lane dropdown's trigger: re-tapping it
-          // while it is ALREADY the active pane toggles that dropdown OPEN. A
-          // nav-bar Home tap must only reset to the pane, never pop the menu —
-          // so click to switch only when it isn't already on, and otherwise just
-          // make sure the lane dropdown is closed.
-          if (first.classList.contains("is-on")) {
-            const menu = host.querySelector("#g-wire-lanemenu");
-            if (menu) menu.hidden = true;
-            first.setAttribute("aria-expanded", "false");
-          } else {
-            first.click();   // setWire("news") via the delegated handler
-          }
-        }
+        const first = host.querySelector('.g-wiretab[data-wire="brief"]');
+        if (first) first.click();   // setWire("brief") via the delegated handler
+        const menu = host.querySelector("#g-wire-lanemenu");
+        if (menu) menu.hidden = true;
         const feed = host.querySelector("#g-feed");
         if (feed) feed.scrollTop = 0;
         window.scrollTo(0, 0);

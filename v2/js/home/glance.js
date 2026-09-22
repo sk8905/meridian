@@ -181,12 +181,13 @@ function initMobileWireTabs() {
   const main = document.querySelector(".g-main");
   if (!tabs || !layout) return;
   const setWire = (k) => {
+    layout.classList.toggle("wire-brief", k === "brief");
     layout.classList.toggle("wire-watch", k === "watch");
     layout.classList.toggle("wire-x", k === "x");
     layout.classList.toggle("wire-chart", k === "chart");
     // Mirror the state onto .g-main too (kept for any .g-main.wire-* rules that
     // target content lifted out of the hidden panes on phones).
-    if (main) { main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); main.classList.toggle("wire-chart", k === "chart"); }
+    if (main) { main.classList.toggle("wire-brief", k === "brief"); main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); main.classList.toggle("wire-chart", k === "chart"); }
     tabs.querySelectorAll(".g-wiretab").forEach((t) => {
       const on = t.dataset.wire === k;
       t.classList.toggle("is-on", on);
@@ -198,10 +199,10 @@ function initMobileWireTabs() {
     if (k === "chart") initHero();
   };
   // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane,
-  // which is News (the first chip; its briefing + feed). Always call setWire so a
-  // stored chart/watch/x class is cleared back to the feed on a fresh visit.
+  // which is the Market Briefing (the first chip, always expanded). Always call
+  // setWire so a stored chart/watch/x class is cleared back on a fresh visit.
   const _wp = _homePrefs().wire;
-  setWire(["news", "chart", "x"].includes(_wp) ? _wp : "news");   // "watch" retired — merged into the wire lanes
+  setWire(["brief", "news", "chart", "x"].includes(_wp) ? _wp : "brief");   // "watch" retired — merged into the wire lanes
   const laneMenu = document.getElementById("g-wire-lanemenu");
   const laneTab = tabs.querySelector(".g-wiretab-lane");
   tabs.addEventListener("click", (e) => {
@@ -216,6 +217,12 @@ function initMobileWireTabs() {
       const open = laneMenu.hidden;
       laneMenu.hidden = !open;
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      // The News tab is no longer the first chip, so anchor the dropdown under it
+      // (clamped to stay on-screen) instead of the tab bar's left edge.
+      if (open) {
+        const tw = tabs.clientWidth, mw = laneMenu.offsetWidth || 150;
+        laneMenu.style.left = Math.max(0, Math.min(laneTab.offsetLeft, tw - mw)) + "px";
+      }
       return;
     }
     _closeLaneMenu();
@@ -247,7 +254,6 @@ function _briefLatest() { const o = _briefOrder(); return o.length ? o.reduce((b
 function _briefIdentity(k) { const s = ((BRIEFINGS || {}).slots || {})[k]; return s ? `${s.date || ""}|${s.time || ""}` : ""; }
 function _briefReadMap() { try { return JSON.parse(localStorage.getItem(_BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; } }
 function _markBriefRead(k) { const id = _briefIdentity(k); if (!id) return; const m = _briefReadMap(); if (m[k] === id) return; m[k] = id; try { localStorage.setItem(_BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ } }
-function _briefUnread() { const k = _briefLatest(); const id = _briefIdentity(k); return !!id && _briefReadMap()[k] !== id; }
 // Compact freshness date: "18 Sep".
 function _briefDate(d) { const t = Date.parse((d || "") + "T00:00:00"); if (!t) return d || ""; const dt = new Date(t); return `${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`; }
 // A bullet's desk = the "<strong>Macro &mdash; …</strong>" lead word(s), lower-cased,
@@ -259,8 +265,6 @@ function _stripDesk(html) { return String(html || "").replace(/^(\s*<strong>)\s*
 // Re-capitalise the first letter of a de-kickered follow-on so it reads as a clean
 // continuous sentence once folded onto the item before it ("…target. The ONS…").
 function _capFold(html) { return String(html || "").replace(/^(\s*(?:<strong>\s*)?)([a-z])/, (m, p, c) => p + c.toUpperCase()); }
-// True on the desktop terminal (≥1201px), where the briefing is its own 2×2 quadrant.
-function _briefDesktop() { try { return window.matchMedia("(min-width:1201px)").matches; } catch { return false; } }
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
@@ -268,12 +272,11 @@ function renderHomeBriefing() {
   const key = _briefLatest();
   const s = slots[key];
   if (!s) { host.hidden = true; return; }
-  // Desktop terminal: the briefing is a permanent 2×2 quadrant — ALWAYS open, with
-  // no collapse control. iPhone: collapsible, default collapsed (a slim bar saves
-  // stack height; tap to expand). So the stored pref only applies on phones.
-  const open = _briefDesktop() || _homePrefs().briefOpen === true;
-  if (open) _markBriefRead(key);                          // visible + expanded = read
-  const showDot = _briefUnread() && !open;                // a dot only flags a NEW brief while collapsed
+  // The briefing is ALWAYS expanded now — a permanent 2×2 quadrant on desktop, and
+  // its own always-open pane (the Market Briefing tab) on phones. No collapse
+  // control, so no unread dot either (a shown briefing counts as read).
+  const open = true;
+  _markBriefRead(key);
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
   // Group the rendered bullets by desk so each desk is ONE section (Macro,
   // Equities, Fixed income) even when a desk carries more than one story: the
@@ -299,13 +302,11 @@ function renderHomeBriefing() {
     return `<li class="g-hbrief-b"><span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}</li>`;
   }).join("");
   host.hidden = false;
-  host.dataset.open = open ? "true" : "false";
+  host.dataset.open = "true";
   host.innerHTML =
-    `<button type="button" class="g-hbrief-head" aria-expanded="${open ? "true" : "false"}" aria-label="Market briefing — tap to ${open ? "collapse" : "expand"}">`
+    `<div class="g-hbrief-head">`
     + `<span class="g-hbrief-ttl">Market briefing</span>`
-    + `<span class="g-hbrief-when">${when}</span>`
-    + `<span class="g-hbrief-dot"${showDot ? "" : " hidden"} aria-hidden="true"></span>`
-    + `<span class="g-hbrief-chev" aria-hidden="true">▾</span></button>`
+    + `<span class="g-hbrief-when">${when}</span></div>`
     + `<div class="g-hbrief-body">`
     + (s.lede ? `<p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
@@ -313,20 +314,11 @@ function renderHomeBriefing() {
     + `</div>`;
 }
 function initHomeBriefing() {
+  // The briefing is always expanded now (its own Market Briefing pane on phones,
+  // a permanent quadrant on desktop) — no collapse toggle to wire, just render.
   const host = document.getElementById("g-hbrief");
   if (!host) return;
   renderHomeBriefing();
-  host.addEventListener("click", (e) => {
-    if (_briefDesktop()) return;                           // desktop: no collapse — the header is not a toggle
-    if (e.target.closest(".g-hbrief-head")) {
-      const open = host.dataset.open !== "true";          // toggle
-      host.dataset.open = open ? "true" : "false";
-      const head = host.querySelector(".g-hbrief-head");
-      if (head) head.setAttribute("aria-expanded", open ? "true" : "false");
-      _saveHomePref({ briefOpen: open });
-      if (open) { _markBriefRead(_briefLatest()); const dot = host.querySelector(".g-hbrief-dot"); if (dot) dot.hidden = true; }
-    }
-  });
 }
 
 // On phones the ticker chips are collapsed behind a chevron at the end of each

@@ -11,17 +11,17 @@ const ctx = await b.newContext({ viewport: { width: 430, height: 860 }, isMobile
 const pg = await ctx.newPage();
 const vis = (s) => pg.evaluate((sel) => { const e = document.querySelector(sel); if (!e) return false; const r = e.getBoundingClientRect(); return getComputedStyle(e).display !== "none" && r.width > 0 && r.height > 0; }, s);
 
-// --- Home: X wire → tap Home → News pane (the first chip / default) ----------
+// --- Home: X wire → tap Home → Market Briefing pane (the first chip / default) -
 await pg.goto(`${base}/v2/`, { waitUntil: "load" });
-await pg.waitForSelector("#g-feed .g-feed-row", { state: "attached", timeout: 8000 });   // present (News is the default pane, so the feed shows)
+await pg.waitForSelector("#g-hbrief .g-hbrief-head", { state: "attached", timeout: 8000 });   // Market Briefing is the default pane
 await pg.click('.g-wiretab[data-wire="x"]');
 await pg.waitForTimeout(200);
-check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on")) && !(await vis("#g-feed")),
-  "setup: the X wire is active and the news feed hidden");
+check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on")) && !(await vis("#g-hbrief")),
+  "setup: the X wire is active and the briefing hidden");
 await pg.click('.mtab[data-key="home"]');
 await pg.waitForTimeout(250);
-check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on")), "Home tab: resets to the News chip (the first part)");
-check(await vis("#g-feed"), "Home tab: the news feed is shown again");
+check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on")), "Home tab: resets to the Market Briefing chip (the first part)");
+check(await vis("#g-hbrief"), "Home tab: the market briefing is shown again");
 check(!(await vis(".g-side-x")), "Home tab: the X wire is hidden");
 
 // --- Dashboard: non-default sub-tab → tap Dashboard → Macro -----------------

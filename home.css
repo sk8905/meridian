@@ -1089,10 +1089,11 @@
     .tui .g-hbrief[hidden]{ display:none; }
     /* Header row matches the other panes' .tui-ph (Chart / X feed / Policy rate):
        title-case title left, faint timestamp sub-label right, 30px, same ground +
-       hairline. It stays a toggle (chevron + unread dot) so the card still collapses. */
+       hairline. The briefing is always expanded now, so the header is a static
+       label (no chevron / no toggle). */
     .tui .g-hbrief-head{ display:flex; flex:0 0 auto; align-items:center; gap:8px; width:100%; box-sizing:border-box;
       height:30px; padding:0 12px; background:var(--t-head); border:0; border-bottom:1px solid var(--t-grid);
-      cursor:pointer; text-align:left; font:inherit; color:var(--t-ink); }
+      cursor:default; text-align:left; font:inherit; color:var(--t-ink); }
     .tui .g-hbrief-ttl{ font-size:12px; font-weight:600; letter-spacing:.005em; color:var(--t-ink); }
     .tui .g-hbrief-when{ margin-left:auto; font-size:10.5px; letter-spacing:.01em; color:var(--t-faint); }
     .tui .g-hbrief-dot{ width:6px; height:6px; border-radius:50%; background:var(--accent, #fb8b1e); flex:0 0 auto; }
@@ -1250,9 +1251,12 @@
       .tui .g-wiretabs{ display:flex; order:-1; position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px)); z-index:9;
         height:var(--chip-h, 34px); box-sizing:border-box;
         background:var(--t-head); border-bottom:1px solid var(--t-grid2); box-shadow:0 -1px 0 var(--t-head); }
-      .tui .g-wiretab{ flex:1 1 0; height:100%; display:flex; align-items:center; justify-content:center;
-        font:inherit; font-size:11.5px; font-weight:400; letter-spacing:normal; border:0; background:var(--t-head);
-        color:var(--t-mut); cursor:pointer; }
+      .tui .g-wiretab{ flex:1 1 0; min-width:0; height:100%; display:flex; align-items:center; justify-content:center;
+        gap:4px; padding:0 3px; font:inherit; font-size:11px; font-weight:400; letter-spacing:normal; border:0;
+        background:var(--t-head); color:var(--t-mut); cursor:pointer; white-space:nowrap; }
+      /* "Market Briefing" is the widest label — let its chip take the room it needs
+         and hold the others to their content so all four fit one row on a phone. */
+      .tui .g-wiretab-lane, .tui .g-wiretab[data-wire="chart"], .tui .g-wiretab[data-wire="x"]{ flex:0 1 auto; }
       .tui .g-wiretab.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
       [data-theme="dark"] .tui .g-wiretab.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
       /* Merged wire tab: label + caret, with a "New chat"-style dropdown of the lanes
@@ -1267,19 +1271,27 @@
         color:var(--t-ink); font-family:var(--t-mono); font-size:11.5px; font-weight:600; letter-spacing:.03em; padding:11px 14px; cursor:pointer; }
       .tui .g-wire-lanemenu .tchip-menu-item.is-on{ color:var(--t-accent); }
       .tui .g-wire-lanemenu .tchip-menu-item:hover{ background:rgba(127,140,170,.10); color:var(--t-accent); }
-      /* One pane on screen at a time: News (feed) is default; Watchlist swaps in the
-         manager wire; Chart swaps in the hero chart; X swaps in the X wire. The
-         manager, chart + X panes are hidden until their chip is chosen. */
+      /* One pane on screen at a time: Market Briefing is the default; News swaps in
+         the feed; Watchlist swaps in the manager wire; Chart swaps in the hero
+         chart; X swaps in the X wire. Each pane is hidden until its chip is chosen. */
       .tui .g-side3{ display:none; }
       .tui .g-side-x{ display:none; }
       .tui .g-hero{ display:none; }
-      /* Managers/Chart/X panes hide the whole News stack — the feed-wrap (filter +
-         feed) AND the now-separate briefing cell. */
-      .tui .g-layout.wire-watch .g-feed-wrap, .tui .g-layout.wire-watch .g-hbrief{ display:none; }
+      /* The briefing is its own pane now (the Market Briefing tab). Hidden in every
+         other pane; shown — always expanded — only under wire-brief, where it fills
+         the page: the summary flows from the top and the source note pins to the
+         bottom so the pane never reads as a short strip over empty space. */
+      .tui .g-hbrief{ display:none; }
+      .tui .g-layout.wire-brief .g-feed-wrap{ display:none; }
+      .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column;
+        min-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px)); }
+      .tui .g-layout.wire-brief .g-hbrief .g-hbrief-body{ flex:1 1 auto; }
+      /* News/Managers/Chart/X panes hide the feed-wrap (filter + feed) as needed. */
+      .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
-      .tui .g-layout.wire-chart .g-feed-wrap, .tui .g-layout.wire-chart .g-hbrief{ display:none; }
+      .tui .g-layout.wire-chart .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-chart .g-hero{ display:flex; }
-      .tui .g-layout.wire-x .g-feed-wrap, .tui .g-layout.wire-x .g-hbrief{ display:none; }
+      .tui .g-layout.wire-x .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-x .g-side-x{ display:block; }
       /* On phones the chart pane gets a taller plot for legibility. */
       .tui .g-layout.wire-chart #g-hero-svg{ height:200px; }

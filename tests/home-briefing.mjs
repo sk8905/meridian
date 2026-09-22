@@ -127,30 +127,43 @@ const b = await launchChromium();
   await ctx.close();
 }
 
-// --- Phone: the card also leads the News pane (the default chip) --------------
+// --- Phone: the briefing is its OWN pane (the Market Briefing tab, the default),
+//     always expanded — no collapse — and it fills the page. -------------------
 {
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
+  await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
+  await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector("#g-hbrief .g-hbrief-head", { timeout: 8000 });
+  await pg.waitForTimeout(400);
   const p = await pg.evaluate(() => {
     const el = document.getElementById("g-hbrief");
-    const shown = !el.hidden && getComputedStyle(el).display !== "none" && el.getBoundingClientRect().height > 0;
+    const bd = el.querySelector(".g-hbrief-body");
     const chev = el.querySelector(".g-hbrief-chev");
-    return { shown, bullets: el.querySelectorAll(".g-hbrief-b").length, open: el.dataset.open, chevShown: !!chev && getComputedStyle(chev).display !== "none" };
+    const briefTab = document.querySelector('.g-wiretab[data-wire="brief"]');
+    const layout = document.querySelector(".g-layout");
+    const vh = window.innerHeight;
+    return {
+      shown: getComputedStyle(el).display !== "none" && el.getBoundingClientRect().height > 0,
+      bullets: el.querySelectorAll(".g-hbrief-b").length,
+      open: el.dataset.open,
+      bodyVisible: !!bd && getComputedStyle(bd).display !== "none",
+      chev: !!chev,
+      tabOn: !!briefTab && briefTab.classList.contains("is-on"),
+      tabLabel: briefTab && briefTab.textContent.trim(),
+      isPane: layout.classList.contains("wire-brief"),
+      fills: el.getBoundingClientRect().height >= vh * 0.6,   // fills the page, not a slim strip
+    };
   });
-  check(p.shown && p.bullets >= 1, `phone: the briefing card shows on the News pane (${p.bullets} bullet[s])`);
-
-  // Collapse is RETAINED on the phone: default collapsed, with the chevron, and the
-  // header toggles the body.
-  check(p.open === "false", "phone: the briefing is collapsed by default");
-  check(p.chevShown, "phone: the collapse chevron is shown (the card is collapsible)");
-  const bodyVisP = () => pg.evaluate(() => { const bd = document.querySelector("#g-hbrief .g-hbrief-body"); return !!bd && getComputedStyle(bd).display !== "none"; });
-  check(!(await bodyVisP()), "phone: the body is collapsed by default");
+  check(p.tabOn && p.tabLabel === "Market Briefing", "phone: Market Briefing is the default tab");
+  check(p.isPane && p.shown, "phone: the briefing shows as its own pane (wire-brief)");
+  check(p.bullets >= 1 && p.bodyVisible && p.open === "true", `phone: the briefing is expanded (${p.bullets} bullet[s])`);
+  check(!p.chev, "phone: there is NO collapse chevron — the briefing is always open");
+  check(p.fills, "phone: the briefing pane fills the page (not a slim collapsed strip)");
+  // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
-  await pg.waitForTimeout(120);
-  check(await bodyVisP() && (await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open)) === "true", "phone: tapping the header expands the briefing");
-  await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
-  await pg.waitForTimeout(120);
-  check(!(await bodyVisP()), "phone: tapping again collapses it");
+  await pg.waitForTimeout(100);
+  check(await pg.evaluate(() => { const bd = document.querySelector("#g-hbrief .g-hbrief-body"); return !!bd && getComputedStyle(bd).display !== "none"; }),
+    "phone: tapping the header does not collapse the briefing");
   checkErrs(errs, "home briefing (phone)");
   await ctx.close();
 }

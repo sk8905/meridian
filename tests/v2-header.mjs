@@ -98,8 +98,12 @@ await pg.waitForTimeout(700);
 const anchored = await pg.evaluate(async () => {
   const bar = document.querySelector(".topbar");
   const top0 = Math.round(bar.getBoundingClientRect().top);
-  // Scroll well past the briefing (which now leads the News pane) so the feed
-  // filter row reaches its pinned position beneath the chips.
+  // Home defaults to the Market Briefing pane; switch to the News pane so the feed
+  // filter head exists in the sticky stack we're checking here.
+  document.querySelector('.g-wiretab[data-wire="news"]')?.click();
+  await new Promise((r) => setTimeout(r, 250));
+  // Scroll well past the top of the feed so the filter row reaches its pinned
+  // position beneath the chips.
   window.scrollTo(0, 3000);
   await new Promise((r) => setTimeout(r, 300));
   const top1 = Math.round(bar.getBoundingClientRect().top);

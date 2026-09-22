@@ -141,7 +141,9 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
   await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); localStorage.removeItem("wire.home.v1"); } catch {} });
   await pg.reload({ waitUntil: "load" });
-  await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
+  // Market Briefing is the default pane on phones, so the feed is present but hidden
+  // until the News tab is chosen — wait on attachment, not visibility.
+  await pg.waitForSelector("#g-feed .g-feed-row", { state: "attached", timeout: 8000 });
   const shell = await pg.evaluate(() => ({
     tabs: [...document.querySelectorAll(".g-wiretabs .g-wiretab")].map((t) => t.textContent.trim()),
     laneLbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
