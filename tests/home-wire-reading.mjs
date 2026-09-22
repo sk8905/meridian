@@ -123,7 +123,22 @@ await ctx.close();
   }));
   check(rd.open && rd.paras >= 2 && rd.title.length > 0, `phone: an openly-readable row opens the in-app reader with the body (${rd.paras} paragraphs)`);
   check(rd.openLink, "phone: the in-app reader still offers an 'Open original' link");
-  // Back closes the reader, returning to the wire.
+  // The reader sits in the workspace BELOW the wire tabs (not full-screen), so the
+  // tabs stay reachable — its top starts under the sticky chip bar.
+  check(await pg2.evaluate(() => {
+    const r = document.getElementById("g-reader").getBoundingClientRect();
+    const tabs = document.querySelector(".g-wiretabs").getBoundingClientRect();
+    return r.top >= tabs.bottom - 1;
+  }), "phone: the reader opens below the wire tabs (workspace, not full-screen)");
+  // Tapping a wire tab closes the reader and switches pane.
+  await pg2.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
+  await pg2.waitForTimeout(150);
+  check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: switching wire tabs closes the reader");
+  // Re-open, then Back closes the reader, returning to the wire.
+  await pg2.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
+  await pg2.waitForTimeout(150);
+  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
+  await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
   await pg2.evaluate(() => document.getElementById("g-reader-back").click());
   await pg2.waitForTimeout(150);
   check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: Back closes the reader");

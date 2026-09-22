@@ -920,17 +920,23 @@
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:11.5px; line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
 
-    /* MOBILE full-screen terminal reader (openly-readable rows open here in-app).
-       Fixed over everything; a pinned Back bar, a scrolling body that reuses the
-       shared .g-read-* reading-mode typography. Never shown on desktop. */
-    .g-reader{ position:fixed; inset:0; z-index:60; display:flex; flex-direction:column; background:var(--t-ground, #000); }
+    /* MOBILE terminal reader (openly-readable rows open here in-app). It sits in the
+       WIRE WORKSPACE — below the fixed header · search band · wire tabs, above the
+       bottom nav — so the tabs stay reachable while you read. A slim Back bar tops
+       it; the body scrolls and reuses the shared .g-read-* reading-mode typography.
+       Never shown on desktop (that uses the side reading pane). */
+    .g-reader{ position:fixed; left:0; right:0; z-index:60; display:flex; flex-direction:column; background:var(--t-ground, #000);
+      top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); bottom:0; }
     .g-reader[hidden]{ display:none; }
-    .g-reader-bar{ flex:0 0 auto; display:flex; align-items:center; gap:10px; height:48px; padding:0 12px;
+    .g-reader-bar{ flex:0 0 auto; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px;
       background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
     .g-reader-back{ display:inline-flex; align-items:center; gap:4px; border:0; background:transparent; color:var(--t-accent);
       font:inherit; font-size:13px; font-weight:600; letter-spacing:.01em; cursor:pointer; padding:6px 2px; }
     .g-reader-src{ margin-left:auto; font-family:var(--t-mono); font-size:11px; letter-spacing:.02em; color:var(--t-faint); }
-    .g-reader-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+    /* The bottom nav (position:fixed) floats over the reader, so pad the scroll body
+       so its last line clears the nav. */
+    .g-reader-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch;
+      padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px)); }
     .g-reader-body > .g-loading{ padding:16px; }
     @media (min-width:1201px){ .g-reader{ display:none !important; } }
 
@@ -1290,14 +1296,24 @@
       .tui .g-side-x{ display:none; }
       .tui .g-hero{ display:none; }
       /* The briefing is its own pane now (the Market Briefing tab). Hidden in every
-         other pane; shown — always expanded — only under wire-brief, where it fills
-         the page: the summary flows from the top and the source note pins to the
-         bottom so the pane never reads as a short strip over empty space. */
+         other pane; shown — always expanded — only under wire-brief. The pane is
+         locked to one screen (no page scroll): it fills the viewport between the
+         wire tabs and the bottom nav, the summary flows from the top and the source
+         note is PINNED to the bottom. The trailing data rails are hidden here so
+         there is nothing to scroll to. */
       .tui .g-hbrief{ display:none; }
-      .tui .g-layout.wire-brief .g-feed-wrap{ display:none; }
-      .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column;
-        min-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px)); }
-      .tui .g-layout.wire-brief .g-hbrief .g-hbrief-body{ flex:1 1 auto; }
+      .tui .g-layout.wire-brief .g-feed-wrap,
+      .tui .g-layout.wire-brief .g-side, .tui .g-layout.wire-brief .g-side2{ display:none; }
+      /* Fixed in the workspace (below the tabs, above the nav) so it takes no page
+         height — the page can't scroll — and the source note pins to its bottom. */
+      .tui .g-layout.wire-brief .g-hbrief{ position:fixed; left:0; right:0; z-index:6;
+        top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));
+        bottom:calc(54px + env(safe-area-inset-bottom, 0px));
+        display:flex; flex-direction:column; box-sizing:border-box; overflow:hidden; background:var(--t-panel); }
+      .tui .g-layout.wire-brief .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+      .tui .g-layout.wire-brief .g-hbrief .g-hbrief-lede{ flex:0 0 auto; }
+      .tui .g-layout.wire-brief .g-hbrief .g-hbrief-list{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+      .tui .g-layout.wire-brief .g-hbrief .g-hbrief-foot{ flex:0 0 auto; margin-top:10px; }
       /* News/Managers/Chart/X panes hide the feed-wrap (filter + feed) as needed. */
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }

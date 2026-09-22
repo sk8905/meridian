@@ -181,6 +181,7 @@ function initMobileWireTabs() {
   const main = document.querySelector(".g-main");
   if (!tabs || !layout) return;
   const setWire = (k) => {
+    closeMobileReader();                                  // a pane switch leaves the in-app reader
     layout.classList.toggle("wire-brief", k === "brief");
     layout.classList.toggle("wire-watch", k === "watch");
     layout.classList.toggle("wire-x", k === "x");
@@ -1951,14 +1952,12 @@ function openMobileReader(it) {
   const ov = document.getElementById("g-reader"); if (!ov) return;
   const src = document.getElementById("g-reader-src"); if (src) src.textContent = it.src || "";
   ov.hidden = false;
-  try { document.body.classList.add("g-reader-lock"); } catch { /* noop */ }
   const body = document.getElementById("g-reader-body");
   if (body) body.scrollTop = 0;
   _renderReaderInto(body, it, "");
 }
 function closeMobileReader() {
   const ov = document.getElementById("g-reader"); if (ov) ov.hidden = true;
-  try { document.body.classList.remove("g-reader-lock"); } catch { /* noop */ }
   _readSeq++;                                              // cancel any in-flight fetch
 }
 function syncReadDefault() {

@@ -159,6 +159,14 @@ const b = await launchChromium();
   check(p.bullets >= 1 && p.bodyVisible && p.open === "true", `phone: the briefing is expanded (${p.bullets} bullet[s])`);
   check(!p.chev, "phone: there is NO collapse chevron — the briefing is always open");
   check(p.fills, "phone: the briefing pane fills the page (not a slim collapsed strip)");
+  // The source note is pinned to the BOTTOM of the pane, and the page does not scroll.
+  const pinned = await pg.evaluate(() => {
+    const pane = document.getElementById("g-hbrief").getBoundingClientRect();
+    const foot = document.querySelector("#g-hbrief .g-hbrief-foot").getBoundingClientRect();
+    return { gap: Math.round(pane.bottom - foot.bottom), noScroll: document.documentElement.scrollHeight <= window.innerHeight + 4 };
+  });
+  check(pinned.gap <= 14, `phone: the 'AI-generated…' note is pinned to the bottom of the briefing pane (gap ${pinned.gap}px)`);
+  check(pinned.noScroll, "phone: the briefing pane does not scroll (one screen)");
   // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(100);
