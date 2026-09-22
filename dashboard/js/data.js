@@ -201,10 +201,10 @@ export const GOVT_YIELD_CHG = {
 // Performance & Valuation Trends — so each cycle rolls to the newest edition (see
 // docs/refresh-routines.md, "Private-credit research").
 export const PRIVATE_CREDIT = {
-  asOf: "2026-07",
-  headline: "Fitch's U.S. Private Credit Default Rate (PCDR) hit a record 6.0% for the trailing 12 months ended 2Q26 — up from the prior high of 5.7% in 1Q26, and roughly double the ~3% broadly-syndicated loan default rate.",
+  asOf: "2026-09",
+  headline: "Fitch's U.S. Private Credit Default Rate hit a fresh record 6.3% for the trailing 12 months ended August 2026 (across ~1,300 borrowers) — up from 6.1% in July and the prior quarterly record of 6.0% for TTM 2Q26, with 14 default events recorded in August, the highest monthly total in a year.",
   metrics: [
-    { k: "Private Credit Default Rate", v: "6.0%", sub: "TTM 2Q26 · record · up from 5.7% (1Q26)", src: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/", srcName: "Fitch 2Q26 Monitor (via Funds Society)", prev: "5.5%", prevAsOf: "2Q25", prevSrc: "https://www.investmentexecutive.com/news/research-and-markets/u-s-private-credit-default-rate-rises-fitch/" },
+    { k: "Private Credit Default Rate", v: "6.3%", sub: "TTM Aug 2026 · record · up from 6.1% (Jul 2026)", src: "https://www.bloomberg.com/news/articles/2026-09-14/us-private-credit-default-rate-hits-a-record-of-6-3-fitch-says", srcName: "Fitch (via Bloomberg)", prev: "6.0%", prevAsOf: "TTM 2Q26", prevSrc: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/" },
     { k: "Defaults recorded (TTM)", v: "32", sub: "private-credit issuers, 2Q26", src: "https://www.tradingview.com/news/reuters.com,2026:newsml_FWN41V0W8:0-fitch-ratings-u-s-private-credit-default-rate-hits-a-high-of-6-0-in-april-2026/", srcName: "Fitch (via Reuters/TradingView)" },
     { k: "KBRA MM default monitor", v: "3.3%", sub: "by count, 2Q26 · first rise in a year · 2.4% by debt (record)", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
     { k: "MM debt assessed (KBRA)", v: "$1.2tn", sub: "2,785 borrowers, TTM 2Q26 · EBITDA growth fading", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
