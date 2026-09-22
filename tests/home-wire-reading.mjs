@@ -123,13 +123,16 @@ await ctx.close();
   }));
   check(rd.open && rd.paras >= 2 && rd.title.length > 0, `phone: an openly-readable row opens the in-app reader with the body (${rd.paras} paragraphs)`);
   check(rd.openLink, "phone: the in-app reader still offers an 'Open original' link");
-  // The reader sits in the workspace BELOW the wire tabs (not full-screen), so the
-  // tabs stay reachable — its top starts under the sticky chip bar.
-  check(await pg2.evaluate(() => {
+  // The reader sits in the workspace BELOW the wire tabs (not full-screen), flush
+  // against the tab bar's bottom (no seam where the feed could bleed through), with
+  // the underlying wire content hidden behind it.
+  const seam = await pg2.evaluate(() => {
     const r = document.getElementById("g-reader").getBoundingClientRect();
     const tabs = document.querySelector(".g-wiretabs").getBoundingClientRect();
-    return r.top >= tabs.bottom - 1;
-  }), "phone: the reader opens below the wire tabs (workspace, not full-screen)");
+    return { gap: Math.round(r.top - tabs.bottom), hidden: document.querySelector(".g-main").classList.contains("g-reading") };
+  });
+  check(seam.gap >= 0 && seam.gap <= 2, `phone: the reader butts flush under the wire tabs — no bleed seam (gap ${seam.gap}px)`);
+  check(seam.hidden, "phone: the wire content is hidden behind the open reader");
   // Tapping a wire tab closes the reader and switches pane.
   await pg2.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
   await pg2.waitForTimeout(150);

@@ -167,6 +167,14 @@ const b = await launchChromium();
   });
   check(pinned.gap <= 14, `phone: the 'AI-generated…' note is pinned to the bottom of the briefing pane (gap ${pinned.gap}px)`);
   check(pinned.noScroll, "phone: the briefing pane does not scroll (one screen)");
+  // The pane butts flush under the wire tabs (anchored to their real bottom), so its
+  // "Market briefing" header never slides under the tabs / bleeds at the seam.
+  const briefSeam = await pg.evaluate(() => {
+    const hb = document.getElementById("g-hbrief").getBoundingClientRect();
+    const tabs = document.querySelector(".g-wiretabs").getBoundingClientRect();
+    return Math.round(hb.top - tabs.bottom);
+  });
+  check(briefSeam >= 0 && briefSeam <= 2, `phone: the briefing pane butts flush under the wire tabs — no seam (gap ${briefSeam}px)`);
   // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(100);

@@ -26,6 +26,14 @@ export function mount(host, ctx) {
         window.scrollTo(0, 0);
       } catch { /* best-effort reset */ }
     };
-    return { enter() {}, leave() {}, home };
+    // The Briefing pane sets `html.home-brief` (drops the page's bottom-nav padding so
+    // it can't scroll). That class is Home-only — clear it when Home is hidden so it
+    // never strips the nav clearance on other tabs, and restore it on return.
+    const _brief = () => { try { return !!host.querySelector(".g-layout.wire-brief"); } catch { return false; } };
+    return {
+      enter() { try { document.documentElement.classList.toggle("home-brief", _brief()); } catch { /* noop */ } },
+      leave() { try { document.documentElement.classList.remove("home-brief"); } catch { /* noop */ } },
+      home,
+    };
   });
 }

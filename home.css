@@ -938,7 +938,10 @@
     .g-reader-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch;
       padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px)); }
     .g-reader-body > .g-loading{ padding:16px; }
-    @media (min-width:1201px){ .g-reader{ display:none !important; } }
+    /* While the reader is open its underlying wire content is hidden, so nothing can
+       bleed through the seam between the tab bar and the reader. */
+    .g-main.g-reading .g-feed-wrap, .g-main.g-reading .g-hbrief{ visibility:hidden; }
+    @media (min-width:1201px){ .g-reader{ display:none !important; } .g-main.g-reading .g-feed-wrap, .g-main.g-reading .g-hbrief{ visibility:visible; } }
 
     @media (min-width:1201px){
       /* Fixed-height terminal: the PAGE never scrolls. The command bar, ticker and
@@ -1304,16 +1307,20 @@
       .tui .g-hbrief{ display:none; }
       .tui .g-layout.wire-brief .g-feed-wrap,
       .tui .g-layout.wire-brief .g-side, .tui .g-layout.wire-brief .g-side2{ display:none; }
-      /* Fixed in the workspace (below the tabs, above the nav) so it takes no page
-         height — the page can't scroll — and the source note pins to its bottom. */
-      .tui .g-layout.wire-brief .g-hbrief{ position:fixed; left:0; right:0; z-index:6;
-        top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));
-        bottom:calc(54px + env(safe-area-inset-bottom, 0px));
-        display:flex; flex-direction:column; box-sizing:border-box; overflow:hidden; background:var(--t-panel); }
+      /* IN-FLOW (never position:fixed — that vanished on iOS overscroll). It flows
+         right after the sticky tabs, so there is no seam, and glance.js sizes it to
+         the exact gap between the tabs and the bottom nav. The page's bottom-nav
+         padding is dropped on this pane (html.home-brief) so nothing scrolls, and the
+         source note pins to the bottom. A vars-based min-height is the pre-JS fallback. */
+      .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box; overflow:hidden;
+        min-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 56px - env(safe-area-inset-bottom, 0px)); }
       .tui .g-layout.wire-brief .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-layout.wire-brief .g-hbrief .g-hbrief-lede{ flex:0 0 auto; }
       .tui .g-layout.wire-brief .g-hbrief .g-hbrief-list{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; }
       .tui .g-layout.wire-brief .g-hbrief .g-hbrief-foot{ flex:0 0 auto; margin-top:10px; }
+      /* On the Briefing pane the page must not scroll, so drop the global bottom-nav
+         padding that otherwise leaves a scrollable strip below the one-screen pane. */
+      html.home-brief body{ padding-bottom:0 !important; }
       /* News/Managers/Chart/X panes hide the feed-wrap (filter + feed) as needed. */
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }

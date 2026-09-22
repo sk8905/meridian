@@ -198,7 +198,13 @@ function initMobileWireTabs() {
     // pane lets the observer boot them, but also kick directly so no blank frame.
     if (k === "x") initXWire();
     if (k === "chart") initHero();
+    // The Briefing pane drops the page's bottom-nav padding so it can't scroll, and
+    // is sized to fit exactly (below). The class is cleared when Home is left (home.js).
+    try { document.documentElement.classList.toggle("home-brief", k === "brief"); } catch { /* noop */ }
+    _placeBriefPane();                                    // size the in-flow brief pane to one screen
   };
+  // Re-anchor the fixed brief pane if the viewport changes (rotation / resize).
+  if (!window.__wirePlaceBound) { window.__wirePlaceBound = true; window.addEventListener("resize", () => { try { _placeBriefPane(); } catch { /* noop */ } }); }
   // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane,
   // which is the Market Briefing (the first chip, always expanded). Always call
   // setWire so a stored chart/watch/x class is cleared back on a fresh visit.
@@ -1946,19 +1952,41 @@ function renderReadPane(it) {
   if (badge) badge.textContent = (it && it.title) ? (it.src || "") : "";
   _renderReaderInto(document.getElementById("g-readpane"), it, "Select a story on the left to read it here.");
 }
-// Mobile: a full-screen terminal reader. Openly-readable rows open here in-app;
-// subscriber (padlocked) rows keep their native "open at the publisher" tap.
+// Mobile: an in-app terminal reader that sits in the wire workspace. Openly-readable
+// rows open here; subscriber (padlocked) rows keep their native "open at the
+// publisher" tap.
 function openMobileReader(it) {
   const ov = document.getElementById("g-reader"); if (!ov) return;
   const src = document.getElementById("g-reader-src"); if (src) src.textContent = it.src || "";
   ov.hidden = false;
+  // Anchor the reader's top to the wire tabs' ACTUAL rendered bottom, not a
+  // vars-based estimate — otherwise a few px of the feed bleed through the seam
+  // between the tab bar and the reader on some devices. Hide the feed behind it too.
+  const tabs = document.querySelector(".g-wiretabs");
+  if (tabs) { const bt = Math.round(tabs.getBoundingClientRect().bottom); if (bt > 0) ov.style.top = bt + "px"; }
+  const main = document.querySelector(".g-main"); if (main) main.classList.add("g-reading");
   const body = document.getElementById("g-reader-body");
   if (body) body.scrollTop = 0;
   _renderReaderInto(body, it, "");
 }
 function closeMobileReader() {
-  const ov = document.getElementById("g-reader"); if (ov) ov.hidden = true;
+  const ov = document.getElementById("g-reader"); if (ov) { ov.hidden = true; ov.style.top = ""; }
+  const main = document.querySelector(".g-main"); if (main) main.classList.remove("g-reading");
   _readSeq++;                                              // cancel any in-flight fetch
+}
+// Size the in-flow mobile Briefing pane to the EXACT gap between the wire tabs and
+// the bottom nav — measured, not vars-based, so it fills one screen without a seam
+// or a scroll on any device. No-op (clears the inline height) on desktop or off the
+// brief pane.
+function _placeBriefPane() {
+  const hb = document.getElementById("g-hbrief"), tabs = document.querySelector(".g-wiretabs");
+  if (!hb || !tabs) return;
+  if (window.innerWidth > 1200 || !document.querySelector(".g-layout.wire-brief")) { hb.style.height = ""; return; }
+  const tabsBottom = tabs.getBoundingClientRect().bottom;
+  const nav = document.querySelector(".mobile-tabbar");
+  const navH = nav ? nav.getBoundingClientRect().height : 56;
+  const h = Math.round(window.innerHeight - tabsBottom - navH);
+  if (h > 120) hb.style.height = h + "px";
 }
 function syncReadDefault() {
   const read = document.getElementById("g-read");
