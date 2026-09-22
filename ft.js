@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "81390c71-f365-4903-b2ad-ee5b1a763e9c", title: "Banks and fintechs gear up for fight over funding of high street hubs", date: "2026-09-22", time: "09:58", url: "https://www.ft.com/content/81390c71-f365-4903-b2ad-ee5b1a763e9c" },
+  { id: "a79883c2-09f7-4079-bfae-6ab4ff4e0c34", title: "The divide that defines the Liberal Democrats", date: "2026-09-22", time: "09:49", url: "https://www.ft.com/content/a79883c2-09f7-4079-bfae-6ab4ff4e0c34" },
   { id: "8748e39c-fa8e-415b-95b4-97cca371e85f", title: "Burnham to press EU chief to let UK participate in ‘Made in Europe’ policy", date: "2026-09-22", time: "09:00", url: "https://www.ft.com/content/8748e39c-fa8e-415b-95b4-97cca371e85f" },
   { id: "ed38995e-c7be-4703-9775-eb384a037ce3", title: "China spends record amount importing over 1,000 tonnes of gold this year", date: "2026-09-22", time: "08:45", url: "https://www.ft.com/content/ed38995e-c7be-4703-9775-eb384a037ce3" },
   { id: "29ddb5e0-9313-4b18-8e67-536db187f146", title: "North Korea tests new hypersonic weapon as Kim Jong Un rebuffs talks", date: "2026-09-22", time: "08:25", url: "https://www.ft.com/content/29ddb5e0-9313-4b18-8e67-536db187f146" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "f0b37ddf-3a4f-4631-b664-887b0cdd281c", title: "Merz’s last chance to reform Germany", date: "2026-09-21", time: "18:33", url: "https://www.ft.com/content/f0b37ddf-3a4f-4631-b664-887b0cdd281c" },
   { id: "4e502288-b611-4193-acdb-46ef34b1e3b0", title: "OpenAI joins call for US-led global AI standards", date: "2026-09-21", time: "18:24", url: "https://www.ft.com/content/4e502288-b611-4193-acdb-46ef34b1e3b0" },
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-09-21", time: "17:39", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
-  { id: "f29de45a-3d32-4d9f-90cd-615f7466c1de", title: "US data centres ‘are short six NYCs of electricity’", date: "2026-09-21", time: "17:01", url: "https://www.ft.com/content/f29de45a-3d32-4d9f-90cd-615f7466c1de" },
-  { id: "f3092492-9e70-4987-a359-22e31f93b77b", title: "Changing leader is not the panacea many Lib Dems think it is", date: "2026-09-21", time: "16:28", url: "https://www.ft.com/content/f3092492-9e70-4987-a359-22e31f93b77b" },
 ];
