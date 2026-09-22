@@ -164,10 +164,9 @@ function loadMarkets(body) {
   render();
   Promise.all([
     fetch("/api/markets?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
-    fetch("/api/rates?v=12", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
-    fetch("/api/macro", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
-  ]).then(([m, rt, mc]) => {
-    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], rates: (rt && rt.rates) || [], macro: (mc && mc.series) || [] };
+    fetch("/api/rates?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+  ]).then(([m, rt]) => {
+    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], rates: (rt && rt.rates) || [] };
     render();
   });
 }
@@ -261,6 +260,17 @@ function naSpark(hist) {
   const net = h[n - 1] - h[0], dir = net > 0 ? "up" : net < 0 ? "down" : "flat";
   return `<span class="na-spark ${dir}" aria-hidden="true"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}"/></svg></span>`;
 }
+// Element-wise difference of two daily histories, tail-aligned to the shorter — for
+// the derived rows (HY−IG, CCC−HY, 2s10s). Both inputs share one daily source.
+function naDiffHist(a, b) {
+  const A = (Array.isArray(a) ? a : []).filter((v) => Number.isFinite(v));
+  const B = (Array.isArray(b) ? b : []).filter((v) => Number.isFinite(v));
+  const k = Math.min(A.length, B.length);
+  if (k < 3) return [];
+  const oa = A.length - k, ob = B.length - k, out = [];
+  for (let i = 0; i < k; i++) out.push(A[oa + i] - B[ob + i]);
+  return out;
+}
 const naDir = (c) => (c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat");
 const naArw = (c) => (c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·");
 // A generic sparkline data row: label · spark · value · change. `hist` opts the
@@ -352,16 +362,15 @@ function marketsPane(d) {
 // feed's moversExtra, the 2-year from /api/macro, and the policy snapshot from the
 // OUTLOOK data. Every instrument-kind is its OWN section.
 function macroPane(d) {
-  const rates = d.rates || [], ex = d.moversExtra || [], macro = d.macro || [];
+  const rates = d.rates || [], ex = d.moversExtra || [];
   if (!rates.length && !ex.length) return '<div class="na-load">Macro data unavailable right now.</div>';
   const find = (l) => rates.find((x) => x.label === l);
   const findEx = (l) => ex.find((x) => x.label === l);
-  const findMac = (cc, k) => macro.find((s) => s.country === cc && s.key === k);
   const bpTxt = (v) => `${Math.round(v * 100)} bp`;
   let html = "";
 
-  // Key rates — benchmark yields only.
-  const keyRates = rates.filter((x) => !/OAS/i.test(x.label));
+  // Key rates — benchmark yields only (US 2Y is a yield-curve input, not shown here).
+  const keyRates = rates.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y");
   if (keyRates.length) html += naSec("Key rates", "%") + keyRates.map(rateRow).join("");
 
   // Spreads — the OAS levels plus the derived HY−IG (quality) / CCC−HY (distress).
@@ -370,11 +379,11 @@ function macroPane(d) {
   const spreadRows = oas.map(rateRow);
   if (hy && ig && hy.value != null && ig.value != null) {
     const v = hy.value - ig.value, c = (hy.change != null && ig.change != null) ? hy.change - ig.change : null;
-    spreadRows.push(naDataRow({ label: "HY − IG", val: bpTxt(v), dir: naDir(c), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", href: hy.href, hist: [] }));
+    spreadRows.push(naDataRow({ label: "HY − IG", val: bpTxt(v), dir: naDir(c), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", href: hy.href, hist: naDiffHist(hy.history, ig.history) }));
   }
   if (ccc && hy && ccc.value != null && hy.value != null) {
     const v = ccc.value - hy.value, c = (ccc.change != null && hy.change != null) ? ccc.change - hy.change : null;
-    spreadRows.push(naDataRow({ label: "CCC − HY", val: bpTxt(v), dir: naDir(c), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", href: ccc.href, hist: [] }));
+    spreadRows.push(naDataRow({ label: "CCC − HY", val: bpTxt(v), dir: naDir(c), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", href: ccc.href, hist: naDiffHist(ccc.history, hy.history) }));
   }
   if (spreadRows.length) html += naSec("Spreads", "bp") + spreadRows.join("");
 
@@ -396,14 +405,14 @@ function macroPane(d) {
   if (volRows.length) html += naSec("Volatility", "vol") + volRows.join("");
 
   // Yield curve — 2Y, 10Y and the 2s10s slope.
-  const t2 = findMac("US", "two_year"), t10 = find("US 10Y");
+  const t2 = find("US 2Y"), t10 = find("US 10Y");
   const ycRows = [];
   if (t2 && t2.value != null) ycRows.push(naDataRow({ label: "2Y", val: (+t2.value).toFixed(2) + "%", dir: naDir(t2.change), chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2) + " pp", href: t2.href, hist: t2.history || [] }));
   if (t10 && t10.value != null) ycRows.push(naDataRow({ label: "10Y", val: (+t10.value).toFixed(2) + "%", dir: naDir(t10.change), chg: t10.change == null ? null : Math.abs(t10.change).toFixed(2) + " pp", href: t10.href, hist: t10.history || [] }));
   if (t2 && t10 && t2.value != null && t10.value != null) {
     const spBp = Math.round((+t10.value - +t2.value) * 100);
     const cBp = (t10.change != null && t2.change != null) ? Math.round((t10.change - t2.change) * 100) : null;
-    ycRows.push(naDataRow({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, dir: naDir(cBp), chg: cBp == null ? null : Math.abs(cBp) + " bp", href: t10.href, hist: [] }));
+    ycRows.push(naDataRow({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, dir: naDir(cBp), chg: cBp == null ? null : Math.abs(cBp) + " bp", href: t10.href, hist: naDiffHist(t10.history, t2.history) }));
   }
   if (ycRows.length) html += naSec("Yield curve", "UST") + ycRows.join("");
 

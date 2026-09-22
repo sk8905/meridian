@@ -22,11 +22,12 @@ const MARKETS = { markets: [
 const RATES = { rates: [
   { label: "3M EURIBOR", value: 2.51, unit: "%", change: 0.09, href: "https://x", history: up(2.4) },
   { label: "US 10Y", value: 4.96, unit: "%", change: -0.05, href: "https://x", history: dn(4.7) },
+  { label: "US 2Y", value: 4.76, unit: "%", change: 0.54, href: "https://x", history: up(4.5) },
   { label: "US IG OAS", value: 0.77, unit: "bp", change: -0.01, href: "https://x", history: dn(0.8) },
   { label: "US HY OAS", value: 2.68, unit: "bp", change: -0.02, href: "https://x", history: dn(2.8) },
   { label: "US CCC OAS", value: 10.83, unit: "bp", change: 0.07, href: "https://x", history: up(10) },
 ] };
-const MACRO = { series: [{ country: "US", key: "two_year", value: 4.76, change: 0.54, href: "https://x", history: up(4.5) }] };
+const MACRO = { series: [] };
 
 const srv = await serve({
   "/api/markets": () => [200, JSON.stringify(MARKETS)],
@@ -78,6 +79,10 @@ const mac = await pg.evaluate(() => {
     cols: gc ? getComputedStyle(gc).gridTemplateColumns.split(" ").length : 0,
     hasPolicy: secs.includes("Policy rate"),
     moodColor: (() => { const m = document.querySelector("#na-mkt-panel .na-pol-mood"); return m ? getComputedStyle(m).color : null; })(),
+    // Phase 2: the DERIVED rows (HY−IG, CCC−HY, 2s10s) now draw a diff sparkline, and
+    // the US 2Y feeds the Yield-curve panel (not shown as a Key rate).
+    derivedDrawn: ["HY − IG", "CCC − HY", "2s10s"].filter((l) => { const r = rowByLabel(l); return r && r.querySelector(".na-spark svg polyline"); }).length,
+    twoYRow: !!rowByLabel("2Y"),
   };
 });
 check(["Key rates", "Spreads", "Volatility", "Yield curve", "Policy rate"].every((s) => mac.secs.includes(s)), `Macro: the five right-rail sections render (${mac.secs.join(" · ")})`);
@@ -86,6 +91,8 @@ check(mac.eurStroke === mac.up, `Macro: an up-over-the-period sparkline reads gr
 check(mac.igStroke === mac.down, `Macro: a down-over-the-period sparkline reads red (${mac.igStroke})`);
 check(mac.justify === "space-between" && mac.cols === 4, `Macro: rows are an evenly-spread 4-column grid (${mac.justify}, ${mac.cols} cols)`);
 check(mac.hasPolicy && mac.moodColor && mac.moodColor !== mac.up, "Macro: Policy rate renders with a muted (non-accent) forecast lean");
+check(mac.derivedDrawn === 3, `Macro (Phase 2): the derived rows HY−IG · CCC−HY · 2s10s all draw a diff sparkline (${mac.derivedDrawn}/3)`);
+check(mac.twoYRow, "Macro: the Yield curve carries a 2Y row (fed by the daily US 2Y)");
 
 checkErrs(errs, "markets panel");
 await ctx.close();

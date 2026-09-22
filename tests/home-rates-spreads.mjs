@@ -14,10 +14,11 @@ const RATES = { rates: [
   { label: "SONIA", value: 3.73, unit: "%", change: 0, href: "https://example.com/sonia" },
   { label: "SOFR", value: 3.85, unit: "%", change: 0, href: "https://example.com/sofr" },
   { label: "US 10Y", value: 4.96, unit: "%", change: -0.05, href: "https://example.com/ust10", history: [4.7, 4.75, 4.8, 4.78, 4.85, 4.9, 4.88, 4.96] },
+  { label: "US 2Y", value: 4.76, unit: "%", change: 0.54, href: "https://example.com/ust2", history: [4.2, 4.3, 4.35, 4.4, 4.5, 4.6, 4.7, 4.76] },
   { label: "US IG OAS", value: 0.77, unit: "bp", change: -0.01, href: "https://example.com/ig", history: [0.82, 0.81, 0.8, 0.79, 0.78, 0.78, 0.77, 0.77] },
-  { label: "US HY OAS", value: 2.68, unit: "bp", change: -0.02, href: "https://example.com/hy" },
-  { label: "US CCC OAS", value: 10.83, unit: "bp", change: 0.07, href: "https://example.com/ccc" },
-  { label: "EURO HY OAS", value: 2.67, unit: "bp", change: -0.02, href: "https://example.com/ehy" },
+  { label: "US HY OAS", value: 2.68, unit: "bp", change: -0.02, href: "https://example.com/hy", history: [2.9, 2.88, 2.85, 2.8, 2.75, 2.72, 2.7, 2.68] },
+  { label: "US CCC OAS", value: 10.83, unit: "bp", change: 0.07, href: "https://example.com/ccc", history: [10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.83] },
+  { label: "EURO HY OAS", value: 2.67, unit: "bp", change: -0.02, href: "https://example.com/ehy", history: [2.8, 2.78, 2.75, 2.72, 2.7, 2.69, 2.68, 2.67] },
 ] };
 const MARKETS = { markets: [{ label: "S&P 500", value: 7764.7, changePct: 0.1 }], moversExtra: [
   { label: "VIX", value: 14.86, changePct: -0.07, history: [16.2, 15.8, 15.5, 15.1, 14.9, 14.95, 14.8, 14.86] },
@@ -90,6 +91,14 @@ const upRef = await colorRef("var(--t-up)"), downRef = await colorRef("var(--t-d
 const up10y = await strokeFor("#g-rates", "US 10Y"), downIG = await strokeFor("#g-spreads", "US IG OAS");
 check(up10y === upRef, `an up-over-the-period sparkline reads green (${up10y})`);
 check(downIG === downRef, `a down-over-the-period sparkline reads red (${downIG})`);
+// Phase 2: the DERIVED rows draw a diff sparkline (HY−IG, CCC−HY from the OAS
+// histories). US 2Y feeds the Yield curve, not the Key rates panel.
+const derivedDrawn = await pg.evaluate(() => ["HY − IG", "CCC − HY"].filter((l) => {
+  const t = [...document.querySelectorAll("#g-spreads .rate-tile")].find((r) => (r.querySelector(".rate-label") || {}).textContent.trim().startsWith(l));
+  return t && t.querySelector(".rate-spark svg polyline");
+}).length);
+check(derivedDrawn === 2, `Spreads (Phase 2): HY−IG and CCC−HY both draw a diff sparkline (${derivedDrawn}/2)`);
+check(!rates.includes("US 2Y"), `US 2Y is a yield-curve input, not shown in Key rates (${rates.join(", ")})`);
 
 checkErrs(errs, "rates/spreads/volatility split");
 await ctx.close();

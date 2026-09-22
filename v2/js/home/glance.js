@@ -1773,6 +1773,18 @@ function sparkCell(hist) {
   const dir = net > 0 ? "up" : net < 0 ? "down" : "flat";
   return `<span class="rate-spark ${dir}" aria-hidden="true"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}"/></svg></span>`;
 }
+// Element-wise difference of two daily histories, tail-aligned to the shorter — for
+// the DERIVED rows' sparklines (HY−IG, CCC−HY, 2s10s). Both inputs come from the
+// same daily source, so index alignment is date alignment. [] if either is too short.
+function diffHist(a, b) {
+  const A = (Array.isArray(a) ? a : []).filter((v) => Number.isFinite(v));
+  const B = (Array.isArray(b) ? b : []).filter((v) => Number.isFinite(v));
+  const k = Math.min(A.length, B.length);
+  if (k < 3) return [];
+  const oa = A.length - k, ob = B.length - k, out = [];
+  for (let i = 0; i < k; i++) out.push(A[oa + i] - B[ob + i]);
+  return out;
+}
 function ratesTile(x) {
   const val = fmtRate(x.value, x.unit);
   let chg = '<span class="rate-chg flat">·</span>';
@@ -1799,7 +1811,7 @@ function renderRates(el, d) {
   _rateRows = rowsData;
   // The "Key rates" panel is the benchmark yields ONLY (EURIBOR/SONIA/SOFR/US 10Y);
   // the OAS credit spreads move to their own "Spreads" panel (renderSpreads).
-  el.innerHTML = rowsData.filter((x) => !/OAS/i.test(x.label)).map(ratesTile).join("");
+  el.innerHTML = rowsData.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y").map(ratesTile).join("");
   if (!_briefLeads.rates) setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
   renderTicker(); renderMovers(); renderSpreads(); renderVolRisk(); renderYieldCurve();
@@ -1812,7 +1824,7 @@ function initRates() {
   // the tiles back to a "Loading…/unavailable" placeholder — the values just sit
   // until fresh ones land.
   renderRates(el, readCache("rates"));
-  fetch("/api/rates?v=9")
+  fetch("/api/rates?v=10")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderRates(el, d)) writeCache("rates", d); })
     .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_briefLeads.rates) setGlance("gl-rates", "Rates data unavailable right now."); } });
@@ -2349,11 +2361,11 @@ function renderSpreads() {
   const hy = findRate("US HY OAS"), ig = findRate("US IG OAS"), ccc = findRate("US CCC OAS");
   if (hy && ig && hy.value != null && ig.value != null) {
     const v = hy.value - ig.value, c = (hy.change != null && ig.change != null) ? hy.change - ig.change : null;
-    rows.push(riskTile({ label: "HY − IG", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: hy.href, title: "Quality premium — high-yield minus investment-grade OAS", hist: [] }));
+    rows.push(riskTile({ label: "HY − IG", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: hy.href, title: "Quality premium — high-yield minus investment-grade OAS", hist: diffHist(hy.history, ig.history) }));
   }
   if (ccc && hy && ccc.value != null && hy.value != null) {
     const v = ccc.value - hy.value, c = (ccc.change != null && hy.change != null) ? ccc.change - hy.change : null;
-    rows.push(riskTile({ label: "CCC − HY", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: ccc.href, title: "Distress premium — CCC minus high-yield OAS", hist: [] }));
+    rows.push(riskTile({ label: "CCC − HY", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: ccc.href, title: "Distress premium — CCC minus high-yield OAS", hist: diffHist(ccc.history, hy.history) }));
   }
   if (rows.length) el.innerHTML = rows.join("");
 }
@@ -2388,7 +2400,9 @@ function renderVolRisk() {
 function renderYieldCurve() {
   const el = document.getElementById("g-curve");
   if (!el) return;
-  const t2 = findMacro("US", "two_year"), t10 = findRate("US 10Y");
+  // 2Y from the rates feed (daily Treasury, same source/column as the 10Y) so both
+  // yields — and the 2s10s diff — share one date-aligned ~1-month history.
+  const t2 = findRate("US 2Y"), t10 = findRate("US 10Y");
   const rows = [];
   if (t2 && t2.value != null) {
     rows.push(riskTile({ label: "2Y", val: (+t2.value).toFixed(2) + "%", chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2) + " pp", dir: dSign(t2.change), href: t2.href, title: "US 2-year Treasury yield", hist: t2.history || [] }));
@@ -2399,7 +2413,7 @@ function renderYieldCurve() {
   if (t2 && t10 && t2.value != null && t10.value != null) {
     const spBp = Math.round((+t10.value - +t2.value) * 100);
     const cBp = (t10.change != null && t2.change != null) ? Math.round((t10.change - t2.change) * 100) : null;
-    rows.push(riskTile({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, chg: cBp == null ? null : Math.abs(cBp) + " bp", dir: dSign(cBp), href: t10.href, title: "2s10s slope — 10Y minus 2Y (negative = inverted, a recession signal)", hist: [] }));
+    rows.push(riskTile({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, chg: cBp == null ? null : Math.abs(cBp) + " bp", dir: dSign(cBp), href: t10.href, title: "2s10s slope — 10Y minus 2Y (negative = inverted, a recession signal)", hist: diffHist(t10.history, t2.history) }));
   }
   if (rows.length) el.innerHTML = rows.join("");
 }

@@ -305,6 +305,11 @@ const RATE_SERIES = [
   { label: "SONIA", unit: "%", src: "fred", id: "IUDSOIA", href: "https://fred.stlouisfed.org/series/IUDSOIA" },
   { label: "SOFR", unit: "%", src: "nyfed", href: "https://www.newyorkfed.org/markets/reference-rates/sofr" },
   { label: "US 10Y", unit: "%", src: "treasury", col: "10 Yr", href: "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve" },
+  // US 2Y — same daily Treasury source/column as the 10Y, so their ~1-month
+  // histories are date-aligned. NOT a "key rate" tile (the client filters it out of
+  // the Key rates panel); it feeds the Yield-curve panel's 2Y row and the 2s10s
+  // slope + its aligned diff sparkline.
+  { label: "US 2Y", unit: "%", src: "treasury", col: "2 Yr", href: "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve" },
   // ICE BofA option-adjusted spreads (FRED, via the API key). Reported in % → shown as bp.
   { label: "US IG OAS", unit: "bp", src: "fred", id: "BAMLC0A0CM", href: "https://fred.stlouisfed.org/series/BAMLC0A0CM" },
   { label: "US HY OAS", unit: "bp", src: "fred", id: "BAMLH0A0HYM2", href: "https://fred.stlouisfed.org/series/BAMLH0A0HYM2" },
@@ -544,7 +549,7 @@ async function handleRates(request, env, ctx) {
 
   const cache = caches.default;
   // Versioned key so a previously-cached partial response is ignored.
-  const cacheKey = new Request(new URL("/api/rates?v=11", request.url).toString());
+  const cacheKey = new Request(new URL("/api/rates?v=12", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const data = await Promise.all(RATE_SERIES.map(async (s) => {
