@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3cf6c88e-bd65-4d81-a93b-437e00f9ce3f", title: "How France and Luxembourg fatally wounded the EU’s Russia sanctions regime", date: "2026-09-22", time: "06:00", url: "https://www.ft.com/content/3cf6c88e-bd65-4d81-a93b-437e00f9ce3f" },
+  { id: "a0d1351f-0f16-4994-a71e-c9b134d70d71", title: "The USS lesson plan", date: "2026-09-22", time: "06:00", url: "https://www.ft.com/content/a0d1351f-0f16-4994-a71e-c9b134d70d71" },
+  { id: "51c49052-0799-4920-9189-8399f15c1f51", title: "China’s share of global container exports soars to 40%", date: "2026-09-22", time: "05:56", url: "https://www.ft.com/content/51c49052-0799-4920-9189-8399f15c1f51" },
+  { id: "b77f3320-6ff0-4be6-a480-a755c754f7d8", title: "FirstFT: Kremlin-backed forgery scheme fooled global banks", date: "2026-09-22", time: "05:31", url: "https://www.ft.com/content/b77f3320-6ff0-4be6-a480-a755c754f7d8" },
+  { id: "17a26bbd-ef8c-4f97-8485-5b1407bb0b41", title: "Bank of Japan set to maintain new quarterly pace of rate rises", date: "2026-09-22", time: "05:30", url: "https://www.ft.com/content/17a26bbd-ef8c-4f97-8485-5b1407bb0b41" },
   { id: "cfb43c8b-04d4-4c22-b03c-8ba210a7870a", title: "David Ellison slays foes of his $110bn goliath", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/cfb43c8b-04d4-4c22-b03c-8ba210a7870a" },
   { id: "db043fc4-c810-4834-bd6b-878d5960c630", title: "Putin’s ‘war heroes’ form new political elite in Russian parliament", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/db043fc4-c810-4834-bd6b-878d5960c630" },
   { id: "9bea08f4-c9e8-450a-9d0f-0af0bf47b64e", title: "What Xi Jinping wants from his summit with Donald Trump", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/9bea08f4-c9e8-450a-9d0f-0af0bf47b64e" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "36175b45-b177-448c-95d0-3221d539ab89", title: "And the charts quiz winner is . . . ", date: "2026-09-21", time: "13:58", url: "https://www.ft.com/content/36175b45-b177-448c-95d0-3221d539ab89" },
   { id: "2a0d724d-b2be-4539-a4ab-30ba919cd253", title: "Gulf states urge reset with Iran as conflict drags on", date: "2026-09-21", time: "13:44", url: "https://www.ft.com/content/2a0d724d-b2be-4539-a4ab-30ba919cd253" },
   { id: "ba07e411-1d76-4289-83b0-96d694f95d08", title: "The food safety sheriff on a hygiene crusade in Mumbai", date: "2026-09-21", time: "13:08", url: "https://www.ft.com/content/ba07e411-1d76-4289-83b0-96d694f95d08" },
-  { id: "aa1dbf18-eaa3-411a-9bf0-52c99adcb7a8", title: "Trump and Xi are the wrong men at the wrong time", date: "2026-09-21", time: "12:59", url: "https://www.ft.com/content/aa1dbf18-eaa3-411a-9bf0-52c99adcb7a8" },
-  { id: "b0125efa-396b-4650-be90-a8a5a7fc51e6", title: "Saudi wealth fund presses LIV Golf’s saviour to prove its commitment to tour", date: "2026-09-21", time: "12:41", url: "https://www.ft.com/content/b0125efa-396b-4650-be90-a8a5a7fc51e6" },
-  { id: "f9ddd64e-1656-4a15-a67a-f68087cefa79", title: "Meta gives union access to recruit UK staff for first time", date: "2026-09-21", time: "12:34", url: "https://www.ft.com/content/f9ddd64e-1656-4a15-a67a-f68087cefa79" },
-  { id: "71016c06-d9bb-49ab-8584-6989d974d2f7", title: "Donald Trump’s crusade against tariff cheats may tangle up trade in red tape", date: "2026-09-21", time: "12:31", url: "https://www.ft.com/content/71016c06-d9bb-49ab-8584-6989d974d2f7" },
-  { id: "18f9e0ac-b7d9-4648-803f-3e894990c626", title: "Slide in oil prices drives rebound in battered government bonds", date: "2026-09-21", time: "11:55", url: "https://www.ft.com/content/18f9e0ac-b7d9-4648-803f-3e894990c626" },
 ];
