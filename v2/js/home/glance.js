@@ -597,19 +597,18 @@ function heroIntradayTickTimes(t0, t1, session, xCount) {
   for (let k = 0; k < xCount; k++) out.push(t0 + (t1 - t0) * k / Math.max(1, xCount - 1));
   return out;
 }
-// 1D SESSION OVERLAY — the true-1D chart shows each region's market opening and
-// closing at a different point on the day. Group the plotted instruments by region,
-// infer each region's session span from its intraday bars (timezone-correct — the
-// bars carry real timestamps), then draw, behind the price lines: a faint band + an
-// open vertical for each bounded (market-hours) session, plus a compact per-region
-// duration-bars strip along the bottom (full-width faint track + the solid open→close
-// span). The price plot shrinks by the strip height so nothing else moves. Only the
-// fixed 1D window uses this; every other range is unchanged.
-const HERO_REGION_ORDER = ["Europe", "UK", "US", "Commodities", "Crypto"];
-// Continuous markets (round-the-clock) get no open line or band — just a full-width
-// duration bar; the classification is by region (robust) with a span fallback.
+// 1D SESSION OVERLAY — clean vertical markers only (no bands, no bottom strip): each
+// bounded market's OPEN, plus its CLOSE once it has actually closed for the day. Group
+// the plotted instruments by region, infer each region's open/close from its intraday
+// bars (timezone-correct — the bars carry real timestamps), and draw a dashed vertical
+// in the region's colour at each. Round-the-clock markets (Commodities/Crypto) get
+// nothing. Coincident times (UK/Europe opens) are drawn once; UK is ordered first so
+// the shared European-morning marker reads in its colour. 1D only; plot is unshrunk.
+const HERO_REGION_ORDER = ["UK", "Europe", "US", "Commodities", "Crypto"];
 const HERO_CONTINUOUS_REGIONS = new Set(["Commodities", "Crypto"]);
 function heroSessionOverlay(series, Xtime, plotTop, fullBottom) {
+  let latest = -Infinity;
+  for (const s of series) if (s.pts && s.pts.length) latest = Math.max(latest, s.pts[s.pts.length - 1][0]);
   const byR = new Map();
   for (const s of series) {
     if (!s.pts || s.pts.length < 2) continue;
@@ -618,23 +617,20 @@ function heroSessionOverlay(series, Xtime, plotTop, fullBottom) {
     if (g) { g.open = Math.min(g.open, open); g.close = Math.max(g.close, close); }
     else byR.set(r, { region: r, color: s.color, open, close });
   }
-  const regions = HERO_REGION_ORDER.filter((r) => byR.has(r)).concat([...byR.keys()].filter((r) => !HERO_REGION_ORDER.includes(r)));
-  if (!regions.length) return { decor: "", plotBottom: fullBottom };
-  const rowH = 4, pad = 3, stripH = regions.length * rowH + pad, plotBottom = fullBottom - stripH;
+  const order = HERO_REGION_ORDER.filter((r) => byR.has(r)).concat([...byR.keys()].filter((r) => !HERO_REGION_ORDER.includes(r)));
   const clampX = (ms) => Math.max(HERO_PX, Math.min(HERO_W - HERO_PX, Xtime(ms)));
-  let bands = "", lines = "", strip = ""; const seenOpen = new Set();
-  regions.forEach((r, i) => {
-    const g = byR.get(r), x0 = clampX(g.open), x1 = clampX(g.close), continuous = HERO_CONTINUOUS_REGIONS.has(r) || (g.close - g.open) >= 18 * 3600e3;
-    if (!continuous) {
-      bands += `<rect x="${x0.toFixed(1)}" y="${plotTop}" width="${(x1 - x0).toFixed(1)}" height="${(plotBottom - plotTop).toFixed(1)}" fill="${g.color}" fill-opacity=".055"/>`;
-      const okey = Math.round(g.open / (20 * 60e3));
-      if (!seenOpen.has(okey)) { seenOpen.add(okey); lines += `<line x1="${x0.toFixed(1)}" y1="${plotTop}" x2="${x0.toFixed(1)}" y2="${plotBottom.toFixed(1)}" stroke="${g.color}" stroke-width="1" stroke-opacity=".5" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>`; }
-    }
-    const by = plotBottom + pad + i * rowH;
-    strip += `<rect x="${HERO_PX}" y="${by.toFixed(1)}" width="${(HERO_W - HERO_PX * 2).toFixed(1)}" height="2.5" fill="${g.color}" fill-opacity=".12"/>`
-      + `<rect x="${x0.toFixed(1)}" y="${by.toFixed(1)}" width="${Math.max(1, x1 - x0).toFixed(1)}" height="2.5" fill="${g.color}" fill-opacity=".85"><title>${esc(r)} session</title></rect>`;
-  });
-  return { decor: bands + lines + strip, plotBottom };
+  const vline = (ms, color) => `<line x1="${clampX(ms).toFixed(1)}" y1="${plotTop}" x2="${clampX(ms).toFixed(1)}" y2="${fullBottom.toFixed(1)}" stroke="${color}" stroke-width="1" stroke-opacity=".6" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>`;
+  let lines = ""; const seen = new Set();
+  const key = (ms) => Math.round(ms / (20 * 60e3));   // dedup markers within ~20 min
+  for (const r of order) {
+    if (HERO_CONTINUOUS_REGIONS.has(r)) continue;      // round-the-clock — no open/close
+    const g = byR.get(r);
+    if (!seen.has("o" + key(g.open))) { seen.add("o" + key(g.open)); lines += vline(g.open, g.color); }
+    // A close only once the market has actually closed (its last bar precedes the
+    // latest bar on the chart) — an open market has no close yet.
+    if (g.close < latest - 30 * 60e3 && !seen.has("c" + key(g.close))) { seen.add("c" + key(g.close)); lines += vline(g.close, g.color); }
+  }
+  return { decor: lines, plotBottom: fullBottom };
 }
 const HERO_RLBL = { "1D": "1-day", "5D": "5-day", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "ALL": "all" };
 // Categorical series colours for the multi-select overlay — the dataviz reference

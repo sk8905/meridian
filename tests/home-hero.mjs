@@ -128,21 +128,21 @@ const b = await launchChromium();
   check(h1d.length >= 3, `hero: 1D lays the whole local day out across several hour ticks (${d1.xl})`);
   check(h1d[0] <= 8, `hero: the 1D axis starts at the local session open (~07:00) (${d1.xl})`);
   check(Math.max(...h1d) >= 19, `hero: the 1D axis spans the full trading day — empty space to the right for the rest of today (${d1.xl})`);
-  // Session overlay: each region's market opening/closing is drawn — faint bands +
-  // dashed OPEN vertical lines (US afternoon vs European morning open at different x),
-  // and a per-region DURATION-bars strip along the bottom. Only on 1D.
+  // Session overlay = clean dashed VERTICAL markers only (no bands, no bottom strip):
+  // each bounded market's open, plus its close once it has closed for the day. US
+  // afternoon vs European morning opens land at different x. Only on 1D.
   const decor = await pg.evaluate(() => {
-    const opens = [...document.querySelectorAll('#g-hero-svg line[stroke-dasharray="2 2"]')];
-    const xs = opens.map((l) => Math.round(parseFloat(l.getAttribute("x1")))).sort((a, b) => a - b);
-    return { opens: opens.length, distinctX: [...new Set(xs)].length, rects: document.querySelectorAll("#g-hero-svg rect").length };
+    const v = [...document.querySelectorAll('#g-hero-svg line[stroke-dasharray="2 2"]')];
+    const xs = v.map((l) => Math.round(parseFloat(l.getAttribute("x1")))).sort((a, b) => a - b);
+    return { lines: v.length, distinctX: [...new Set(xs)].length, rects: document.querySelectorAll("#g-hero-svg rect").length };
   });
-  check(decor.opens >= 2 && decor.distinctX >= 2, `hero: 1D draws market-open verticals at the different regional opens (${decor.opens} lines, ${decor.distinctX} distinct x)`);
-  check(decor.rects >= 3, `hero: 1D draws the session bands + per-region duration bars (${decor.rects} rects)`);
-  // The overlay is 1D-only: a daily range (1M) carries no bands/bars.
+  check(decor.lines >= 3 && decor.distinctX >= 3, `hero: 1D draws US-open + UK open/close verticals at their own x (${decor.lines} lines, ${decor.distinctX} distinct)`);
+  checkEq(decor.rects, 0, "hero: no session bands or duration-bar strip — decluttered to vertical markers");
+  // The markers are 1D-only: a daily range (1M) carries none.
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click());
   await pg.waitForTimeout(120);
-  const noDecor = await pg.evaluate(() => document.querySelectorAll("#g-hero-svg rect").length);
-  checkEq(noDecor, 0, "hero: the session overlay is 1D-only (no bands/bars on the daily ranges)");
+  const noDecor = await pg.evaluate(() => document.querySelectorAll('#g-hero-svg line[stroke-dasharray="2 2"]').length);
+  checkEq(noDecor, 0, "hero: the session verticals are 1D-only (none on the daily ranges)");
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1D"]').click());
   await pg.waitForTimeout(120);
 
