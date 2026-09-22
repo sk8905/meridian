@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-paramountwarner-20260922",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Paramount closes in on Warner Bros merger",
+    date: "2026-09-22",
+    time: "06:16",
+    summary: "Also: Andy Burnham's first dance with Donald Trump.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-newyorker-weekly-kingsolver-20260922",
     publication: "The New Yorker",
     author: null,
@@ -471,16 +482,5 @@ export const NEWSLETTERS = [
     time: "10:00",
     summary: "Venetian-inspired dishes washed down with classic cocktails.",
     url: "https://www.cntraveller.com/article/new-london-restaurants",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-bojhikesplit-20260918",
-    publication: "Bloomberg",
-    author: "Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "Bank of Japan Hikes Interest Rates in a Split Vote; Yen Drops",
-    date: "2026-09-18",
-    time: "07:53",
-    summary: "The BOJ raises its key rate a quarter point to 1.25% in a split vote as the yen drops; the ECB waits until December for its next hike.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-18/bank-of-japan-hikes-interest-rates-in-a-split-vote-yen-drops",
   },
 ];
