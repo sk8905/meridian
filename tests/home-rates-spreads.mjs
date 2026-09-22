@@ -13,14 +13,14 @@ const RATES = { rates: [
   { label: "3M EURIBOR", value: 2.51, unit: "%", change: 0.09, href: "https://example.com/euribor" },
   { label: "SONIA", value: 3.73, unit: "%", change: 0, href: "https://example.com/sonia" },
   { label: "SOFR", value: 3.85, unit: "%", change: 0, href: "https://example.com/sofr" },
-  { label: "US 10Y", value: 4.96, unit: "%", change: -0.05, href: "https://example.com/ust10" },
-  { label: "US IG OAS", value: 0.77, unit: "bp", change: -0.01, href: "https://example.com/ig" },
+  { label: "US 10Y", value: 4.96, unit: "%", change: -0.05, href: "https://example.com/ust10", history: [4.7, 4.75, 4.8, 4.78, 4.85, 4.9, 4.88, 4.96] },
+  { label: "US IG OAS", value: 0.77, unit: "bp", change: -0.01, href: "https://example.com/ig", history: [0.82, 0.81, 0.8, 0.79, 0.78, 0.78, 0.77, 0.77] },
   { label: "US HY OAS", value: 2.68, unit: "bp", change: -0.02, href: "https://example.com/hy" },
   { label: "US CCC OAS", value: 10.83, unit: "bp", change: 0.07, href: "https://example.com/ccc" },
   { label: "EURO HY OAS", value: 2.67, unit: "bp", change: -0.02, href: "https://example.com/ehy" },
 ] };
 const MARKETS = { markets: [{ label: "S&P 500", value: 7764.7, changePct: 0.1 }], moversExtra: [
-  { label: "VIX", value: 14.86, changePct: -0.07 },
+  { label: "VIX", value: 14.86, changePct: -0.07, history: [16.2, 15.8, 15.5, 15.1, 14.9, 14.95, 14.8, 14.86] },
   { label: "MOVE", value: 81.20, changePct: 0.69 },
   { label: "CDX HY", value: 20.54, changePct: 0.24 },
 ] };
@@ -61,7 +61,23 @@ check(!vol.some((l) => /OAS|−/.test(l)), `Volatility: no credit spreads leak i
 const cols = (sel) => pg.evaluate((s) => { const t = document.querySelector(`${s} .rate-tile`); return t ? getComputedStyle(t).gridTemplateColumns : null; }, sel);
 const cR = await cols("#g-rates"), cS = await cols("#g-spreads"), cV = await cols("#g-vol");
 check(cR && cS && cV && cR === cS && cS === cV, `Key rates / Spreads / Volatility share one column grid so text, numbers & changes align vertically (${cR} | ${cS} | ${cV})`);
-check(/^\S+\s+\S+\s+\S+$/.test(cR || ""), `the rail rows are a 3-column grid (label · value · change) (${cR})`);
+check(/^\S+\s+\S+\s+\S+\s+\S+$/.test(cR || ""), `the rail rows are a 4-column grid (label · spark · value · change) (${cR})`);
+
+// Sparklines: each panel draws a ~1-month trend line (inline SVG polyline) for the
+// rows whose feed carries history — and reserves an empty spark cell for every row
+// (so columns stay aligned). Data-driven, R7 — no fabricated series.
+const sparks = (sel) => pg.evaluate((s) => ({
+  cells: document.querySelectorAll(`${s} .rate-tile .rate-spark`).length,
+  drawn: document.querySelectorAll(`${s} .rate-tile .rate-spark svg polyline`).length,
+}), sel);
+const sR = await sparks("#g-rates"), sS = await sparks("#g-spreads"), sV = await sparks("#g-vol");
+check(sR.cells === rates.length && sR.drawn >= 1, `Key rates: a spark cell per row, at least one drawn from real history (${sR.drawn}/${sR.cells})`);
+check(sS.cells === spreads.length && sS.drawn >= 1, `Spreads: a spark cell per row, at least one drawn (${sS.drawn}/${sS.cells})`);
+check(sV.cells === vol.length && sV.drawn >= 1, `Volatility: a spark cell per row, at least one drawn (${sV.drawn}/${sV.cells})`);
+// The sparkline is the muted terminal tone, not an alarming accent.
+const stroke = await pg.evaluate(() => { const p = document.querySelector("#g-rates .rate-spark svg polyline"); return p ? getComputedStyle(p).stroke : null; });
+const mutRef = await pg.evaluate(() => { const t = document.querySelector("#g-rates .rate-tile"); const s = document.createElement("span"); s.style.color = "var(--t-mut)"; t.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; });
+check(stroke && stroke === mutRef, `the sparkline uses the muted terminal tone (${stroke})`);
 
 checkErrs(errs, "rates/spreads/volatility split");
 await ctx.close();

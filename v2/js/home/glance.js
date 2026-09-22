@@ -1756,6 +1756,19 @@ function fmtRate(v, unit) {
   if (v == null) return "—";
   return unit === "bp" ? `${Math.round(v * 100)} bp` : `${v.toFixed(2)}%`;
 }
+// A compact ~1-month trend sparkline for a rail row — an inline SVG polyline drawn
+// from the row's OWN daily-close history (the feeds already carry it; no fabricated
+// data, R7). No axes, no fill, one muted tone. The cell ALWAYS renders (empty when a
+// row carries too little history) so the value + change columns stay aligned down
+// the panel. Desktop terminal only (the CSS gates it to .tui).
+function sparkCell(hist) {
+  const h = (Array.isArray(hist) ? hist : []).filter((v) => Number.isFinite(v));
+  if (h.length < 3) return `<span class="rate-spark" aria-hidden="true"></span>`;
+  const n = h.length, min = Math.min(...h), max = Math.max(...h), rng = (max - min) || 1;
+  const W = 100, H = 28, pad = 3;
+  const pts = h.map((v, i) => `${((i / (n - 1)) * W).toFixed(1)},${(H - pad - ((v - min) / rng) * (H - 2 * pad)).toFixed(1)}`).join(" ");
+  return `<span class="rate-spark" aria-hidden="true"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}"/></svg></span>`;
+}
 function ratesTile(x) {
   const val = fmtRate(x.value, x.unit);
   let chg = '<span class="rate-chg flat">·</span>';
@@ -1770,7 +1783,7 @@ function ratesTile(x) {
   const title = ` title="${esc(x.label)}${asOf} — open source"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
+  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span>${sparkCell(x.history)}<span class="rate-val">${val}</span>${chg}</${tag}>`;
 }
 // Last-good market/rates payloads, persisted so a reload (or a failed refetch)
 // shows the most recent numbers immediately instead of a "Loading…" placeholder.
@@ -2051,7 +2064,7 @@ function marketTile(x) {
   const title = ` title="${esc(x.label)}${asOf} — open source"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile mkt-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
+  return `<${tag} class="rate-tile mkt-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span>${sparkCell(x.history)}<span class="rate-val">${val}</span>${chg}</${tag}>`;
 }
 function renderMarketsBand(el, d) {
   const rows = (d && d.markets) || [];
@@ -2306,8 +2319,12 @@ function riskTile(o) {
     : `<span class="rate-chg ${o.dir}">${o.dir === "up" ? "▲" : o.dir === "down" ? "▼" : "·"} ${o.chg}</span>`;
   const tag = o.href ? "a" : "div";
   const attrs = o.href ? ` href="${esc(o.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  // A spark cell is included ONLY when the caller opts in by passing `hist` (even an
+  // empty array, to keep a panel's columns aligned) — so rows on panels that carry
+  // no sparkline at all (e.g. Hormuz) keep their original 3-column grid.
+  const spark = o.hist !== undefined ? sparkCell(o.hist) : "";
   return `<${tag} class="rate-tile"${attrs} title="${esc(o.title || o.label)}">`
-    + `<span class="rate-label">${esc(o.label)}</span><span class="rate-val">${esc(o.val)}</span>${chg}</${tag}>`;
+    + `<span class="rate-label">${esc(o.label)}</span>${spark}<span class="rate-val">${esc(o.val)}</span>${chg}</${tag}>`;
 }
 const findRate = (label) => (_rateRows || []).find((x) => x.label === label);
 const findExtra = (label) => (_mktExtra || []).find((x) => x.label === label);
@@ -2328,11 +2345,11 @@ function renderSpreads() {
   const hy = findRate("US HY OAS"), ig = findRate("US IG OAS"), ccc = findRate("US CCC OAS");
   if (hy && ig && hy.value != null && ig.value != null) {
     const v = hy.value - ig.value, c = (hy.change != null && ig.change != null) ? hy.change - ig.change : null;
-    rows.push(riskTile({ label: "HY − IG", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: hy.href, title: "Quality premium — high-yield minus investment-grade OAS" }));
+    rows.push(riskTile({ label: "HY − IG", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: hy.href, title: "Quality premium — high-yield minus investment-grade OAS", hist: [] }));
   }
   if (ccc && hy && ccc.value != null && hy.value != null) {
     const v = ccc.value - hy.value, c = (ccc.change != null && hy.change != null) ? ccc.change - hy.change : null;
-    rows.push(riskTile({ label: "CCC − HY", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: ccc.href, title: "Distress premium — CCC minus high-yield OAS" }));
+    rows.push(riskTile({ label: "CCC − HY", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: ccc.href, title: "Distress premium — CCC minus high-yield OAS", hist: [] }));
   }
   if (rows.length) el.innerHTML = rows.join("");
 }
@@ -2345,7 +2362,7 @@ function renderVolRisk() {
     // The markets feed carries VIX's % move; convert to points for the tile.
     const cp = typeof vix.changePct === "number" ? vix.changePct : null;
     const pts = cp == null ? null : +vix.value - (+vix.value) / (1 + cp / 100);
-    rows.push(riskTile({ label: "VIX", val: (+vix.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EVIX", title: "CBOE Volatility Index — equity volatility" }));
+    rows.push(riskTile({ label: "VIX", val: (+vix.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EVIX", title: "CBOE Volatility Index — equity volatility", hist: vix.history || [] }));
   }
   // MOVE — ICE BofAML US Treasury option-vol index (the "bond-market VIX"): a level
   // in points, its daily move shown like VIX.
@@ -2353,14 +2370,14 @@ function renderVolRisk() {
   if (move && move.value != null) {
     const cp = typeof move.changePct === "number" ? move.changePct : null;
     const pts = cp == null ? null : +move.value - (+move.value) / (1 + cp / 100);
-    rows.push(riskTile({ label: "MOVE", val: (+move.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EMOVE", title: "ICE BofAML MOVE Index — US Treasury option-implied volatility (the bond-market VIX)" }));
+    rows.push(riskTile({ label: "MOVE", val: (+move.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EMOVE", title: "ICE BofAML MOVE Index — US Treasury option-implied volatility (the bond-market VIX)", hist: move.history || [] }));
   }
   // CDX HY — Simplify High Yield ETF (ticker CDX), a tradeable proxy for the
   // CDX.NA.HY credit-default-swap index; live price + daily % move.
   const cdx = findExtra("CDX HY");
   if (cdx && cdx.value != null) {
     const cp = typeof cdx.changePct === "number" ? cdx.changePct : null;
-    rows.push(riskTile({ label: "CDX HY", val: "$" + (+cdx.value).toFixed(2), chg: cp == null ? null : Math.abs(cp).toFixed(2) + "%", dir: dSign(cp), href: "https://finance.yahoo.com/quote/CDX", title: "Simplify High Yield ETF (CDX) — tracks the CDX.NA.HY credit-default-swap index" }));
+    rows.push(riskTile({ label: "CDX HY", val: "$" + (+cdx.value).toFixed(2), chg: cp == null ? null : Math.abs(cp).toFixed(2) + "%", dir: dSign(cp), href: "https://finance.yahoo.com/quote/CDX", title: "Simplify High Yield ETF (CDX) — tracks the CDX.NA.HY credit-default-swap index", hist: cdx.history || [] }));
   }
   if (rows.length) el.innerHTML = rows.join("");
 }
@@ -2370,15 +2387,15 @@ function renderYieldCurve() {
   const t2 = findMacro("US", "two_year"), t10 = findRate("US 10Y");
   const rows = [];
   if (t2 && t2.value != null) {
-    rows.push(riskTile({ label: "2Y", val: (+t2.value).toFixed(2) + "%", chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2) + " pp", dir: dSign(t2.change), href: t2.href, title: "US 2-year Treasury yield" }));
+    rows.push(riskTile({ label: "2Y", val: (+t2.value).toFixed(2) + "%", chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2) + " pp", dir: dSign(t2.change), href: t2.href, title: "US 2-year Treasury yield", hist: t2.history || [] }));
   }
   if (t10 && t10.value != null) {
-    rows.push(riskTile({ label: "10Y", val: (+t10.value).toFixed(2) + "%", chg: t10.change == null ? null : Math.abs(t10.change).toFixed(2) + " pp", dir: dSign(t10.change), href: t10.href, title: "US 10-year Treasury yield" }));
+    rows.push(riskTile({ label: "10Y", val: (+t10.value).toFixed(2) + "%", chg: t10.change == null ? null : Math.abs(t10.change).toFixed(2) + " pp", dir: dSign(t10.change), href: t10.href, title: "US 10-year Treasury yield", hist: t10.history || [] }));
   }
   if (t2 && t10 && t2.value != null && t10.value != null) {
     const spBp = Math.round((+t10.value - +t2.value) * 100);
     const cBp = (t10.change != null && t2.change != null) ? Math.round((t10.change - t2.change) * 100) : null;
-    rows.push(riskTile({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, chg: cBp == null ? null : Math.abs(cBp) + " bp", dir: dSign(cBp), href: t10.href, title: "2s10s slope — 10Y minus 2Y (negative = inverted, a recession signal)" }));
+    rows.push(riskTile({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, chg: cBp == null ? null : Math.abs(cBp) + " bp", dir: dSign(cBp), href: t10.href, title: "2s10s slope — 10Y minus 2Y (negative = inverted, a recession signal)", hist: [] }));
   }
   if (rows.length) el.innerHTML = rows.join("");
 }
