@@ -485,7 +485,7 @@ notification badge red (`#ef4444`).
   never left as a bare stub.
 
 - **R30 — Home right-rail data panels.** The Home terminal's right rail carries,
-  in this order: **Key rates → Spreads → Volatility → Policy rate → Yield curve →
+  in this order: **Key rates → Spreads → Volatility → Yield curve → Policy rate →
   Prediction markets** (`content.js` `g-side2`; enforced by
   `tests/home-right-rail.mjs` and `tests/home-rates-spreads.mjs`). These are THREE
   distinct market-gauge panels, one instrument-kind each: **Key rates** is the

@@ -1,5 +1,5 @@
 // Home rails: the right rail carries the macro/rates data — Key rates, Spreads,
-// Volatility, Policy rate, Yield curve — then Prediction markets last. (Key rates,
+// Volatility, Yield curve, Policy rate — then Prediction markets last. (Key rates,
 // spreads and volatility are three separate panels, not one combined gauge.)
 // "This week's earnings" (date · pre/post-market · forecast → outcome) lives in
 // the LEFT rail with the equities data, and Top movers stretches to fill the rail.
@@ -49,7 +49,7 @@ const r = await pg.evaluate(() => {
   };
 });
 
-checkEq(r.headers.join(" | "), "Key rates | Spreads | Volatility | Policy rate | Yield curve | Prediction markets", "right rail order: Key rates → Spreads → Volatility → Policy rate → Yield curve → Prediction markets");
+checkEq(r.headers.join(" | "), "Key rates | Spreads | Volatility | Yield curve | Policy rate | Prediction markets", "right rail order: Key rates → Spreads → Volatility → Yield curve → Policy rate → Prediction markets");
 check(r.indicatorsGone, "right rail: Economic indicators panel removed from Home");
 check(r.earnInLeft && r.earnNotInRight, "This week's earnings moved to the left rail");
 check(r.ratesInRight && r.spreadsInRight && r.volInRight && r.ratesNotInLeft, "Key rates, Spreads & Volatility are three separate right-rail panels");
