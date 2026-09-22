@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "848b9daf-6fc0-436d-8d9e-45e7bcab9676", title: "The next generation of American scientists is fading away", date: "2026-09-22", time: "17:03", url: "https://www.ft.com/content/848b9daf-6fc0-436d-8d9e-45e7bcab9676" },
+  { id: "15d68d49-5a31-4e2a-a108-f35baa391295", title: "US fighter jet crashes in Germany", date: "2026-09-22", time: "16:46", url: "https://www.ft.com/content/15d68d49-5a31-4e2a-a108-f35baa391295" },
+  { id: "760091dd-20be-4152-aa0d-561475a99ee8", title: "EU to lift sanctions on two Russian oligarchs", date: "2026-09-22", time: "16:38", url: "https://www.ft.com/content/760091dd-20be-4152-aa0d-561475a99ee8" },
   { id: "dc2f9def-a889-472e-9403-dbd1991c2360", title: "The UK Budget: what does it mean for growth and security?", date: "2026-09-22", time: "15:20", url: "https://www.ft.com/content/dc2f9def-a889-472e-9403-dbd1991c2360" },
   { id: "a2d22720-60bc-45aa-8fdc-98863df5261e", title: "Paramount wins over US states — but can it win over the bond market?", date: "2026-09-22", time: "15:12", url: "https://www.ft.com/content/a2d22720-60bc-45aa-8fdc-98863df5261e" },
   { id: "4ed1f34e-d0a5-48f2-b508-9e8ee445213f", title: "Audio Gold: the shop that really listens to London’s audiophiles", date: "2026-09-22", time: "11:00", url: "https://www.ft.com/content/4ed1f34e-d0a5-48f2-b508-9e8ee445213f" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "cfb43c8b-04d4-4c22-b03c-8ba210a7870a", title: "David Ellison slays foes of his $110bn goliath", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/cfb43c8b-04d4-4c22-b03c-8ba210a7870a" },
   { id: "db043fc4-c810-4834-bd6b-878d5960c630", title: "Putin’s ‘war heroes’ form new political elite in Russian parliament", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/db043fc4-c810-4834-bd6b-878d5960c630" },
   { id: "9bea08f4-c9e8-450a-9d0f-0af0bf47b64e", title: "What Xi Jinping wants from his summit with Donald Trump", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/9bea08f4-c9e8-450a-9d0f-0af0bf47b64e" },
-  { id: "d773c1d5-b515-48d7-9713-14c253972e3a", title: "Deutsche Bank’s asset manager explores curbs on German property funds", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/d773c1d5-b515-48d7-9713-14c253972e3a" },
-  { id: "d96c37bb-0b9b-4b2f-a6f7-4dbfce047d81", title: "Rate rises should not be ‘the only game in town’", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/d96c37bb-0b9b-4b2f-a6f7-4dbfce047d81" },
-  { id: "7405f173-a962-464e-8889-6b68a6fae71e", title: "Equal pay law cannot ignore the labour market", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/7405f173-a962-464e-8889-6b68a6fae71e" },
 ];
