@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "dc2f9def-a889-472e-9403-dbd1991c2360", title: "The UK Budget: what does it mean for growth and security?", date: "2026-09-22", time: "15:20", url: "https://www.ft.com/content/dc2f9def-a889-472e-9403-dbd1991c2360" },
+  { id: "a2d22720-60bc-45aa-8fdc-98863df5261e", title: "Paramount wins over US states — but can it win over the bond market?", date: "2026-09-22", time: "15:12", url: "https://www.ft.com/content/a2d22720-60bc-45aa-8fdc-98863df5261e" },
   { id: "460dbb45-03b8-466e-98ef-80063b07189a", title: "Ed Davey promises tax cuts as he warns Lib Dems are in ‘fight of our lives’", date: "2026-09-22", time: "15:02", url: "https://www.ft.com/content/460dbb45-03b8-466e-98ef-80063b07189a" },
   { id: "60870960-f433-48ca-bc2c-708686a69ae7", title: "AI staff complain of mental toll over fears of threat to society", date: "2026-09-22", time: "12:27", url: "https://www.ft.com/content/60870960-f433-48ca-bc2c-708686a69ae7" },
   { id: "16d676c9-94c4-4df1-8fa6-56966b2c9aa7", title: "UN General Assembly live: Donald Trump to address world leaders at the UN", date: "2026-09-22", time: "14:05", url: "https://www.ft.com/content/16d676c9-94c4-4df1-8fa6-56966b2c9aa7" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "d773c1d5-b515-48d7-9713-14c253972e3a", title: "Deutsche Bank’s asset manager explores curbs on German property funds", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/d773c1d5-b515-48d7-9713-14c253972e3a" },
   { id: "d96c37bb-0b9b-4b2f-a6f7-4dbfce047d81", title: "Rate rises should not be ‘the only game in town’", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/d96c37bb-0b9b-4b2f-a6f7-4dbfce047d81" },
   { id: "7405f173-a962-464e-8889-6b68a6fae71e", title: "Equal pay law cannot ignore the labour market", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/7405f173-a962-464e-8889-6b68a6fae71e" },
-  { id: "b891fa54-b901-45fe-a78d-1161424c0da9", title: "Germany’s economic recovery is under way if politics doesn’t spoil it", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/b891fa54-b901-45fe-a78d-1161424c0da9" },
-  { id: "3c494ae7-67b3-4ca1-a9e2-f3a8356bc0a4", title: "Merz’s woes cast doubt over EU’s €2tn budget deal", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/3c494ae7-67b3-4ca1-a9e2-f3a8356bc0a4" },
 ];
