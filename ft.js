@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "41222e38-26db-4fd6-a7c4-4b5e5133124f", title: "Racism backlash turns obscure Texas race into Republican flashpoint", date: "2026-09-22", time: "11:00", url: "https://www.ft.com/content/41222e38-26db-4fd6-a7c4-4b5e5133124f" },
   { id: "81390c71-f365-4903-b2ad-ee5b1a763e9c", title: "Banks and fintechs gear up for fight over funding of high street hubs", date: "2026-09-22", time: "09:58", url: "https://www.ft.com/content/81390c71-f365-4903-b2ad-ee5b1a763e9c" },
   { id: "a79883c2-09f7-4079-bfae-6ab4ff4e0c34", title: "The divide that defines the Liberal Democrats", date: "2026-09-22", time: "09:49", url: "https://www.ft.com/content/a79883c2-09f7-4079-bfae-6ab4ff4e0c34" },
   { id: "8748e39c-fa8e-415b-95b4-97cca371e85f", title: "Burnham to press EU chief to let UK participate in ‘Made in Europe’ policy", date: "2026-09-22", time: "09:00", url: "https://www.ft.com/content/8748e39c-fa8e-415b-95b4-97cca371e85f" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "319c7b67-b585-407e-a0da-6e23b1612180", title: "Top Republicans tell Donald Trump to ban US diesel exports ahead of midterms", date: "2026-09-21", time: "19:15", url: "https://www.ft.com/content/319c7b67-b585-407e-a0da-6e23b1612180" },
   { id: "f0b37ddf-3a4f-4631-b664-887b0cdd281c", title: "Merz’s last chance to reform Germany", date: "2026-09-21", time: "18:33", url: "https://www.ft.com/content/f0b37ddf-3a4f-4631-b664-887b0cdd281c" },
   { id: "4e502288-b611-4193-acdb-46ef34b1e3b0", title: "OpenAI joins call for US-led global AI standards", date: "2026-09-21", time: "18:24", url: "https://www.ft.com/content/4e502288-b611-4193-acdb-46ef34b1e3b0" },
-  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-09-21", time: "17:39", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
 ];
