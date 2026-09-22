@@ -559,6 +559,44 @@ function heroSegments(pts, intraday) {
   if (cur.length) segs.push(cur);
   return segs;
 }
+// True 1D: the intraday axis is anchored to the viewer's LOCAL trading day rather
+// than a rolling 24h — it spans a fixed session window (07:00–22:00 local, widened
+// to the latest bar) so each instrument's line occupies only the hours its market is
+// open (US indices in the afternoon here, ~24h crypto/commodities across the day) and
+// the rest of today sits empty to the right. Local hours → it follows the device clock.
+const HERO_DAY_OPEN = 7, HERO_DAY_CLOSE = 22;
+// Local midnight of the most recent intraday bar across the basket (≈ today, or the
+// latest day we hold intraday data for — so a weekend 1D still anchors to a real day).
+function heroDayStart() {
+  let t = 0;
+  for (const it of (_heroData || [])) { const a = it && it.intraday; if (a && a.length) { const e = a[a.length - 1][0]; if (e > t) t = e; } }
+  if (!t) t = Date.now();
+  const d = new Date(t); d.setHours(0, 0, 0, 0); return d.getTime();
+}
+// The 1D wall-clock domain: the fixed local session window, but ONLY when the sliced
+// data actually starts within it (t0data ≥ open). Otherwise — pre-open, weekend or a
+// too-sparse day, where heroSlice fell back to a rolling window — keep the data-driven
+// domain so the chart never collapses. Returns [t0, t1, session].
+function heroIntradayDomain(t0data, t1data) {
+  if (_heroRange === "1D") {
+    const ds = heroDayStart(), ws = ds + HERO_DAY_OPEN * 3600e3;
+    if (t0data >= ws) return [ws, Math.max(ds + HERO_DAY_CLOSE * 3600e3, t1data), true];
+  }
+  return [t0data, t1data, false];
+}
+// Intraday time ticks: whole-hour marks across the fixed 1D session window (so the day
+// reads 07:00 … 22:00 left→right), else even fractions of the data window.
+function heroIntradayTickTimes(t0, t1, session, xCount) {
+  const out = [];
+  if (session) {
+    const stepH = (t1 - t0) > 12 * 3600e3 ? 4 : 3;   // ~5 labels across the day, never crowded
+    for (let ms = t0; ms <= t1 + 1; ms += stepH * 3600e3) out.push(ms);
+    if (out.length && out[out.length - 1] < t1 - 30 * 60e3) out.push(t1);
+    return out;
+  }
+  for (let k = 0; k < xCount; k++) out.push(t0 + (t1 - t0) * k / Math.max(1, xCount - 1));
+  return out;
+}
 const HERO_RLBL = { "1D": "1-day", "5D": "5-day", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "ALL": "all" };
 // Categorical series colours for the multi-select overlay — the dataviz reference
 // palette's dark hues, validated (worst adjacent CVD ΔE 8.4). The green/red slots
@@ -664,9 +702,18 @@ function heroSlice(m) {
   const src = (intraday && Array.isArray(m.intraday) && m.intraday.length >= 2) ? m.intraday : m.history;
   if (!Array.isArray(src) || src.length < 2) return src || [];
   const now = src[src.length - 1][0];
+  // True 1D: today's session only (from the local open), so the ticker % is the
+  // day's move and the line sits in its trading hours. Fall back to a rolling window
+  // pre-open / on a non-trading day so it never blanks.
+  if (_heroRange === "1D") {
+    const ws = heroDayStart() + HERO_DAY_OPEN * 3600e3;
+    const day = src.filter((p) => p[0] >= ws);
+    if (day.length >= 2) return day;
+    const roll = src.filter((p) => p[0] >= now - 24 * 3600e3);
+    return roll.length >= 2 ? roll : src.slice(-2);
+  }
   let start = -Infinity;                                    // 5D / ALL → everything the series holds
-  if (_heroRange === "1D") start = now - 24 * 3600e3;       // rolling last 24 hours
-  else if (_heroRange === "1M") start = now - 31 * 864e5;
+  if (_heroRange === "1M") start = now - 31 * 864e5;
   else if (_heroRange === "6M") start = now - 183 * 864e5;
   else if (_heroRange === "1Y") start = now - 366 * 864e5;
   const pts = src.filter((p) => p[0] >= start);
@@ -707,7 +754,8 @@ function drawHero(svg, pts, m) {
   const plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
   // Intraday (1D/1W) → real wall-clock X so gaps show as gaps; daily → even by index.
   const intraday = heroIntraday();
-  const t0 = pts[0][0], t1 = pts[n - 1][0], span = (t1 - t0) || 1;
+  const dom = intraday ? heroIntradayDomain(pts[0][0], pts[n - 1][0]) : [pts[0][0], pts[n - 1][0], false];
+  const t0 = dom[0], t1 = dom[1], session = dom[2], span = (t1 - t0) || 1;
   const X = intraday ? (i) => HERO_PX + plotW * (pts[i][0] - t0) / span
                      : (i) => HERO_PX + plotW * i / (n - 1);
   const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
@@ -721,7 +769,7 @@ function drawHero(svg, pts, m) {
   const xCount = Math.min(5, n);
   const xt = [];   // { gx, label, edge }
   if (intraday) {
-    for (let k = 0; k < xCount; k++) { const tk = t0 + span * k / Math.max(1, xCount - 1); xt.push({ gx: HERO_PX + plotW * (tk - t0) / span, label: heroFmtDate(tk) }); }
+    for (const tk of heroIntradayTickTimes(t0, t1, session, xCount)) xt.push({ gx: HERO_PX + plotW * (tk - t0) / span, label: heroFmtDate(tk) });
   } else {
     const seen = [];
     for (let k = 0; k < xCount; k++) { const idx = Math.round((n - 1) * k / Math.max(1, xCount - 1)); if (seen[seen.length - 1] !== idx) { seen.push(idx); xt.push({ gx: X(idx), label: heroFmtDate(pts[idx][0]) }); } }
@@ -777,8 +825,10 @@ function drawHeroMulti(svg, series) {
   // Intraday overlays share ONE wall-clock domain so the lines line up in real time
   // across instruments that trade different hours (24/7 crypto vs market-hours
   // indices); daily overlays keep the index-normalised layout.
-  let t0 = Infinity, t1 = -Infinity;
-  for (const s of series) { if (s.pts[0][0] < t0) t0 = s.pts[0][0]; const e = s.pts[s.pts.length - 1][0]; if (e > t1) t1 = e; }
+  let t0d = Infinity, t1d = -Infinity;
+  for (const s of series) { if (s.pts[0][0] < t0d) t0d = s.pts[0][0]; const e = s.pts[s.pts.length - 1][0]; if (e > t1d) t1d = e; }
+  let t0 = t0d, t1 = t1d, session = false;
+  if (intraday) { const dm = heroIntradayDomain(t0d, t1d); t0 = dm[0]; t1 = dm[1]; session = dm[2]; }
   const span = (t1 - t0) || 1;
   const Xtime = (ms) => HERO_PX + plotW * (ms - t0) / span;
   let lo = 0, hi = 0;
@@ -797,7 +847,7 @@ function drawHeroMulti(svg, series) {
   const xn = ref.pts.length, Xr = Xof(xn), xCount = Math.min(5, xn);
   const xt = [];   // { gx, label }
   if (intraday) {
-    for (let k = 0; k < xCount; k++) { const tk = t0 + span * k / Math.max(1, xCount - 1); xt.push({ gx: Xtime(tk), label: heroFmtDate(tk) }); }
+    for (const tk of heroIntradayTickTimes(t0, t1, session, xCount)) xt.push({ gx: Xtime(tk), label: heroFmtDate(tk) });
   } else {
     const seen = [];
     for (let k = 0; k < xCount; k++) { const idx = Math.round((xn - 1) * k / Math.max(1, xCount - 1)); if (seen[seen.length - 1] !== idx) { seen.push(idx); xt.push({ gx: Xr(idx), label: heroFmtDate(ref.pts[idx][0]) }); } }

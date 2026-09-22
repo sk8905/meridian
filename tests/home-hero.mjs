@@ -15,16 +15,19 @@ function series(seed, base, vol) {
   for (let i = 0; i < 260; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 864e5 * (364 / 260), +x.toFixed(2)]); }
   return out;
 }
-// Intraday 15-min bars behind 1D / 5D: three ~6.5h sessions across ~2 days, each
-// separated by an overnight GAP (~13.5h > 45 min) so the client draws a real market
-// break — never a straight line across the close. Ends now.
+// Intraday 15-min bars behind 1D / 5D: three ~6.5h sessions on three consecutive
+// LOCAL calendar days (09:00–15:30 each), separated by overnight GAPs (>45 min) so
+// the client draws a real market break — never a straight line across the close.
+// Day-anchored (not "ending now") so the true-1D axis test is deterministic whatever
+// wall-clock the suite runs at: 1D shows today's single session inside the fixed
+// local session window; 5D spans all three days with a break at each close.
 function intra(seed, base, vol) {
   const out = []; let x = base, s = seed;
   const rnd = () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
-  const now = Date.now(), BAR = 15 * 60000, SESSION = 26, SPACING = 20 * 3600e3;
+  const BAR = 15 * 60000, SESSION = 26;   // 26 bars × 15m = 6.5h → 09:00–15:30 local
   for (let d = 2; d >= 0; d--) {
-    const sessEnd = now - d * SPACING;
-    for (let i = SESSION - 1; i >= 0; i--) { x = x * (1 + (rnd() - 0.5) * vol); out.push([sessEnd - i * BAR, +x.toFixed(2)]); }
+    const day = new Date(); day.setDate(day.getDate() - d); day.setHours(9, 0, 0, 0);
+    for (let i = 0; i < SESSION; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([day.getTime() + i * BAR, +x.toFixed(2)]); }
   }
   return out;
 }
@@ -113,9 +116,13 @@ const b = await launchChromium();
   checkEq(d1.on, "1D", "hero: the range toggle switches to 1D");
   check(d1.d !== dPrev, "hero: 1D redraws from the intraday series (different path)");
   check(/\d{1,2}:\d\d/.test(d1.xl), `hero: the 1D time axis reads HH:MM (${d1.xl})`);
-  // The overnight close inside the last 24h is a BREAK, not a straight line — the
-  // path is drawn in ≥2 sub-segments (≥2 "M" move commands).
-  check((d1.d.match(/M /g) || []).length >= 2, `hero: 1D breaks the line across the overnight market gap (${(d1.d.match(/M /g) || []).length} segments)`);
+  // TRUE 1D: the axis is anchored to the local trading DAY (left→right), not a rolling
+  // 24h — it opens ~07:00 and runs to the evening, so the day's session sits in its
+  // hours with the rest of today empty to the right (data ends 15:30, axis runs on).
+  const h1d = d1.xl.split(/\s+/).map((t) => parseInt(t, 10)).filter((n) => !isNaN(n));
+  check(h1d.length >= 3, `hero: 1D lays the whole local day out across several hour ticks (${d1.xl})`);
+  check(h1d[0] <= 8, `hero: the 1D axis starts at the local session open (~07:00) (${d1.xl})`);
+  check(Math.max(...h1d) >= 19, `hero: the 1D axis spans the full trading day — empty space to the right for the rest of today (${d1.xl})`);
 
   // 5D also uses intraday, with day+month ticks and breaks at each overnight close.
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="5D"]').click());
