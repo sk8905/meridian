@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "31b63337-0531-47a6-a0ce-83f0dd7f395b", title: "European fusion start-up pushes for local supply chain as US dominates funding", date: "2026-09-22", time: "12:00", url: "https://www.ft.com/content/31b63337-0531-47a6-a0ce-83f0dd7f395b" },
+  { id: "99457bcb-d98f-4719-a203-688daefcc3f7", title: "‘MBS will not forget’: Donald Trump’s reluctance to fight Houthis rattles Saudi Arabia", date: "2026-09-22", time: "12:00", url: "https://www.ft.com/content/99457bcb-d98f-4719-a203-688daefcc3f7" },
+  { id: "c01af46f-378a-468e-bc54-f54e8bad22fa", title: "Venezuela’s Delcy Rodríguez cashes in on bargain with Trump", date: "2026-09-22", time: "11:56", url: "https://www.ft.com/content/c01af46f-378a-468e-bc54-f54e8bad22fa" },
+  { id: "571df338-895b-4c9b-9be3-c1d2b755221b", title: "Trump is checking out of his presidency", date: "2026-09-22", time: "11:35", url: "https://www.ft.com/content/571df338-895b-4c9b-9be3-c1d2b755221b" },
+  { id: "7c176006-9ec9-4083-933f-3d5cf2752e6b", title: "Ineos idles three UK chemical plants as gas prices soar", date: "2026-09-22", time: "11:27", url: "https://www.ft.com/content/7c176006-9ec9-4083-933f-3d5cf2752e6b" },
   { id: "41222e38-26db-4fd6-a7c4-4b5e5133124f", title: "Racism backlash turns obscure Texas race into Republican flashpoint", date: "2026-09-22", time: "11:00", url: "https://www.ft.com/content/41222e38-26db-4fd6-a7c4-4b5e5133124f" },
   { id: "81390c71-f365-4903-b2ad-ee5b1a763e9c", title: "Banks and fintechs gear up for fight over funding of high street hubs", date: "2026-09-22", time: "09:58", url: "https://www.ft.com/content/81390c71-f365-4903-b2ad-ee5b1a763e9c" },
   { id: "a79883c2-09f7-4079-bfae-6ab4ff4e0c34", title: "The divide that defines the Liberal Democrats", date: "2026-09-22", time: "09:49", url: "https://www.ft.com/content/a79883c2-09f7-4079-bfae-6ab4ff4e0c34" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "8576e3d2-6fe3-4bfe-af16-10edb76ac8bf", title: "Why Blackstone’s latest plans at Lloyd’s of London have sparked a firestorm", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/8576e3d2-6fe3-4bfe-af16-10edb76ac8bf" },
   { id: "a7aa2544-c328-40ef-87e2-488975a79f57", title: "US officials move to rein in utility profits as power bills rise", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/a7aa2544-c328-40ef-87e2-488975a79f57" },
   { id: "3848a4ad-1426-4352-ba86-ef1279c4ffd1", title: "Kremlin-backed forgery scheme moved $6.9bn through global banks", date: "2026-09-21", time: "21:00", url: "https://www.ft.com/content/3848a4ad-1426-4352-ba86-ef1279c4ffd1" },
-  { id: "789c2d18-d6ce-4556-bbfb-877233b12aee", title: "UK homeowners take £840-a-year mortgage hit from Iran war", date: "2026-09-21", time: "21:00", url: "https://www.ft.com/content/789c2d18-d6ce-4556-bbfb-877233b12aee" },
-  { id: "a1e0707a-326a-4c7c-a608-d73abab32d82", title: "Five UK police forces end Palantir project after two years", date: "2026-09-21", time: "19:25", url: "https://www.ft.com/content/a1e0707a-326a-4c7c-a608-d73abab32d82" },
-  { id: "319c7b67-b585-407e-a0da-6e23b1612180", title: "Top Republicans tell Donald Trump to ban US diesel exports ahead of midterms", date: "2026-09-21", time: "19:15", url: "https://www.ft.com/content/319c7b67-b585-407e-a0da-6e23b1612180" },
-  { id: "f0b37ddf-3a4f-4631-b664-887b0cdd281c", title: "Merz’s last chance to reform Germany", date: "2026-09-21", time: "18:33", url: "https://www.ft.com/content/f0b37ddf-3a4f-4631-b664-887b0cdd281c" },
-  { id: "4e502288-b611-4193-acdb-46ef34b1e3b0", title: "OpenAI joins call for US-led global AI standards", date: "2026-09-21", time: "18:24", url: "https://www.ft.com/content/4e502288-b611-4193-acdb-46ef34b1e3b0" },
 ];
