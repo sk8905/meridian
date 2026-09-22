@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "20 September 2026";
+export const UPDATED = "22 September 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "20 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-22",
-  lastCheckedTime: "20:22 BST",
+  lastCheckedTime: "22:14 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -585,7 +585,7 @@ export const BUBBLE = {
       key: "credit", label: "Credit, leverage & policy", weight: 0.25, score: 60,
       metrics: [
         ["Margin debt", "record ~$1.42tn", "~4.1% of GDP vs a ~1.5% long-run median; +36% YoY (FINRA, May 2026)"],
-        ["Real fed funds", "≈ 0 to slightly positive", "3.50–3.75% less ~3.6% inflation; at the 2000 and 2021 peaks real rates were near zero or negative"],
+        ["Real fed funds", "≈ slightly positive", "3.75–4.00% (post 16 Sep hike) less ~3.4% core PCE/CPI; at the 2000 and 2021 peaks real rates were near zero or negative"],
       ],
       note: "Leverage is at genuine extremes, but positive real rates and a hawkish Fed are a real brake.",
     },
@@ -1222,7 +1222,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Sterling spent the Asian session consolidating above the mid-$1.3300s, within striking distance of the lowest level since 30 July it touched last week, as the Fed–Bank of England split did the work: the Fed has signalled at least one more hike this year after its first increase in over three years, holding the dollar near its strongest since late July, while the MPC stays on hold at 3.75%.", src: "https://www.fxstreet.com/news/british-pound-consolidates-vs-usd-bearish-bias-remains-amid-divergent-fed-boe-outlook-202609220220", srcName: "FXStreet", date: "2026-09-22" };
+export const FX_KEYMOMENT = { text: "Sterling slipped further to around $1.3354 as a hawkish Fed outlook lifted the dollar broadly, with markets pricing roughly a 56.5% chance of another US hike in October — pressure compounded by this week's larger-than-expected UK borrowing overshoot.", src: "https://www.investing.com/news/forex-news/sterling-today-pound-slips-as-hawkish-fed-outlook-lifts-dollar-broadly-4885441", srcName: "Investing.com", date: "2026-09-22" };
 
 export const EARNINGS = {
   // Monday-transition sweep (14 Sep): no bank/broker, asset-manager, AI-relevant
