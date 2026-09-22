@@ -79,11 +79,45 @@ const b = await launchChromium();
   check(mgrLane.lbl === "Manager" && mgrLane.rows > 0, `phone: the Manager lane renders manager events in the wire (${mgrLane.rows} rows)`);
   check(await vis("#g-feed"), "phone: manager events show in the shared feed pane (no separate Managers tab)");
   check(mgrLane.menuClosed, "phone: the dropdown closes after a lane is picked");
+  // The All lane carries no sub-filters, so its (empty) filter band collapses and the
+  // market-briefing bar sits directly under the wire tabs. Other lanes keep the band.
+  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
+  await pg.waitForTimeout(120);
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "All").click());
+  await pg.waitForTimeout(250);
+  const allBand = await pg.evaluate(() => {
+    const head = document.getElementById("g-feed-head");
+    const tabs = document.querySelector(".g-wiretabs");
+    const brief = document.getElementById("g-hbrief");
+    return {
+      headHidden: getComputedStyle(head).display === "none",
+      briefUnderTabs: brief && tabs ? Math.round(brief.getBoundingClientRect().top - tabs.getBoundingClientRect().bottom) : null,
+    };
+  });
+  check(allBand.headHidden, "phone: the All lane collapses its empty filter band");
+  check(allBand.briefUnderTabs != null && allBand.briefUnderTabs <= 4,
+    `phone: on All, the market-briefing bar sits directly under the wire tabs (gap ${allBand.briefUnderTabs}px)`);
+
   // Back to the News lane for the rest of the pane-swap checks.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "News").click());
   await pg.waitForTimeout(200);
+  // On News the filter band is back (sub-filters occupy it).
+  check(await vis("#g-feed-head"), "phone: the News lane restores the filter band (sub-filters)");
+
+  // A bottom-nav Home tap resets to the News pane but must NEVER pop the lane
+  // dropdown open — the News tab doubles as the dropdown trigger, so re-tapping it
+  // while it is already active used to toggle the menu. Guarded in home.js home().
+  // (The nav routes on pointerup, so a real tap — not a synthetic click — exercises
+  // ctrl.home().)
+  const menuBefore = await pg.evaluate(() => document.getElementById("g-wire-lanemenu").hidden);
+  await pg.tap('.mtab[data-key="home"]');
+  await pg.waitForTimeout(200);
+  const menuAfter = await pg.evaluate(() => document.getElementById("g-wire-lanemenu").hidden);
+  check(menuBefore && menuAfter, "phone: tapping the bottom-nav Home does NOT open the lane dropdown");
+  check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on")),
+    "phone: a Home tap keeps the News pane active");
 
   // Tap Chart → the hero chart pane is revealed (feed + manager hidden).
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());

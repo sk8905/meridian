@@ -1294,6 +1294,12 @@
          row once the briefing scrolls past — one extra chip-height below it. Scoped
          to the Home feed (#g-feed) so other desks' day markers keep their offset. */
       .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px) + var(--chip-h, 34px)); z-index:7; }
+      /* All lane: no coloured sub-filters, so collapse the empty filter band — the
+         market-briefing bar then sits directly under the wire tabs. With the band
+         gone, the day-break marker pins one chip-height higher (no filter row to
+         clear), so it still tucks right beneath the briefing on scroll. */
+      .tui .g-layout.wire-lane-all #g-feed-head{ display:none; }
+      .tui .g-layout.wire-lane-all #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); }
       }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */

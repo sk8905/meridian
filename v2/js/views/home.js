@@ -16,7 +16,20 @@ export function mount(host, ctx) {
     const home = () => {
       try {
         const first = host.querySelector('.g-wiretab[data-wire="news"]');
-        if (first) first.click();   // setWire("news") via the delegated handler
+        if (first) {
+          // The News tab doubles as the lane dropdown's trigger: re-tapping it
+          // while it is ALREADY the active pane toggles that dropdown OPEN. A
+          // nav-bar Home tap must only reset to the pane, never pop the menu —
+          // so click to switch only when it isn't already on, and otherwise just
+          // make sure the lane dropdown is closed.
+          if (first.classList.contains("is-on")) {
+            const menu = host.querySelector("#g-wire-lanemenu");
+            if (menu) menu.hidden = true;
+            first.setAttribute("aria-expanded", "false");
+          } else {
+            first.click();   // setWire("news") via the delegated handler
+          }
+        }
         const feed = host.querySelector("#g-feed");
         if (feed) feed.scrollTop = 0;
         window.scrollTo(0, 0);

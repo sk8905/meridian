@@ -1793,7 +1793,11 @@ function _newsTs(x) {
   return Date.parse(`${d}T${x.time || "00:00"}:00Z`) || (x.added || 0) || Date.parse(d) || 0;
 }
 function mergeManagersIntoFeed() {
-  const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";   // All: no sub-filters
+  // All lane has no sub-filters — empty the band. On phones the .wire-lane-all
+  // class on .g-layout then collapses this (empty) head so the market-briefing bar
+  // sits directly under the wire tabs; other lanes keep their coloured sub-filters
+  // here. See home.css (.wire-lane-all #g-feed-head).
+  const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
   const news = (_lastFeed || []).map((x) => ({ it: x, mgr: false, ts: _newsTs(x) }));
   const { events } = managerFlatEvents(false, "all");
   const mgr = events.map((e) => ({ it: e, mgr: true, ts: e.ts || _newsTs(e) }));
@@ -1841,6 +1845,10 @@ function _closeLaneMenu() {
 function renderWire() {
   renderWireLanes();
   const lane = _wireLane;
+  // The All lane carries no sub-filters — flag the layout so phones collapse the
+  // (empty) #g-feed-head and let the market-briefing bar sit under the wire tabs.
+  const layout = document.querySelector(".g-layout");
+  if (layout) layout.classList.toggle("wire-lane-all", lane === "all");
   if (lane === "manager" || lane === "watchlist") renderMgrLane(lane === "watchlist");
   else { renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
   ensureReadWired();
