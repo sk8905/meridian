@@ -698,6 +698,25 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-v { color: var(--ink, #eaf0fb); }
 .na-c { min-width: 66px; text-align: right; }
 .na-c.up { color: var(--t-up, #3fc08d); } .na-c.down { color: var(--t-down, #f26d84); } .na-c.flat { color: var(--faint, #5c6a86); }
+/* Sparkline data rows (Markets + Macro): label · ~1-month trend spark · value ·
+   change — the four spread evenly across the row (fixed tracks + space-between)
+   so gaps are equal and columns line up down every section. Top-movers rows
+   (.na-mover, which carry a bar) keep the plain 3-column grid. */
+.na-srow { grid-template-columns: 6rem 42px 5rem 4.6rem; justify-content: space-between; gap: 0; align-items: center; }
+.na-spark { display: inline-flex; align-items: center; justify-self: center; width: 42px; height: 15px; overflow: hidden; }
+.na-spark svg { width: 100%; height: 100%; display: block; }
+/* Tinted by the net move over the ~1-month window: up green, down red, flat muted.
+   Non-scaling stroke keeps the 1.25px line crisp under the non-uniform viewBox. */
+.na-spark polyline { fill: none; stroke: var(--faint, #5c6a86); stroke-width: 1.25; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
+.na-spark.up polyline { stroke: var(--t-up, #3fc08d); }
+.na-spark.down polyline { stroke: var(--t-down, #f26d84); }
+/* Policy-rate snapshot rows (US · UK): label+rate · next meeting · forecast lean.
+   The lean reads muted, never an accent (matches the desktop rail's g-snap-mood). */
+.na-pol { grid-template-columns: 1fr auto auto; align-items: baseline; }
+.na-pol-rate { color: var(--ink, #eaf0fb); font-weight: 600; }
+.na-pol-nx { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; color: var(--muted, #8592ad); font-size: 10.5px; }
+.na-pol-fcw { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); text-align: right; }
+.na-pol-mood { color: var(--muted, #8592ad); }
 /* FX matrix in the Markets panel (mirrors the desktop right-rail cross-rate grid,
    restyled with the panel's own tokens so it's self-contained off the Home page). */
 .na-fx-wrap { padding: 8px 12px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -711,7 +730,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-fx-km { margin-top: 8px; color: var(--mut, #8592ad); font-size: 11.5px; line-height: 1.45; }
 .na-fx-km-l { color: var(--accent, #fb8b1e); font-weight: 700; font-size: 9.5px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
 
-/* Portfolio Daily/Total P&L toggle, sat in the Holdings section header. */
+/* Segmented toggle sat in a section header (the predictions Top-movers Up/Down). */
 .na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }
 .na-pf-tgl, .na-pred-dir { padding: 1px 8px; font: inherit; font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pf-tgl + .na-pf-tgl, .na-pred-dir + .na-pred-dir { border-left: 1px solid var(--border, #262626); }

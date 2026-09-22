@@ -84,7 +84,7 @@ const target = Math.round(0.09 * vh);
 check(Math.abs(askTop - target) <= 5, `Ask panel is top-anchored at ~9vh (top ${askTop}, target ${target})`);
 check(Math.abs(askTop - mktTop) <= 2, `Ask & Markets panels share one top edge (${askTop} vs ${mktTop})`);
 
-// The panel chip tabs (Markets|Macro|Portfolio here) carry the SAME flush 2-layer
+// The panel chip tabs (Equities|Macro|Predictions here) carry the SAME flush 2-layer
 // active marker as the main tabs — sitting ON the row borderline, not floating
 // above it.
 await pg.evaluate(() => document.getElementById("na-mkt").click());

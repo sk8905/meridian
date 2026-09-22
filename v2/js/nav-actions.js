@@ -18,11 +18,13 @@
 // =============================================================================
 import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { mountAssistant } from "/v2/js/assistant.js?v=v2-22";
-import { FX_KEYMOMENT } from "/macro/js/content.js";
+import { FX_KEYMOMENT, OUTLOOK } from "/macro/js/content.js";
 import { nbNums } from "./nb-format.js?v=v2-2";
 import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
-const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
+// OAS/bp series carry `value` in PERCENT (0.77 → 77 bp), matching the desktop's
+// fmtRate and rateRow's own change scaling — so bp values are ×100, not raw.
+const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return Math.round(v * 100) + " bp"; return v.toFixed(2) + "%"; };
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
@@ -114,44 +116,22 @@ function sessDot(marketState, exch) {
 const MKT_EXCH = { "S&P 500": "US", "NASDAQ": "US", "IGWD": "LSE", "EMEE": "LSE", "Bitcoin": "CRYPTO" };
 const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><span class="na-sec-x">${esc(tag)}</span></div>`;
 
-// The reader's ETF book, aggregated per ticker (accounts ignored — IGWD's two
-// accounts fold into one line at their unit-weighted average cost, 639 units).
-// `cost` is the average price paid PER UNIT in GBP-major, the SAME unit
-// /api/markets returns (LSE lines are rescaled GBp→GBP there), so value/P&L
-// compare like-for-like. The tiny EMEE/WMVG costs are real: penny-priced lines
-// held in huge size — and their live quote arrives UNSCALED (raw pence), so they
-// carry `pxScale: 0.01` to bring the price back to GBP-major before valuing.
-const PORTFOLIO = [
-  { ticker: "IGWD", qty: 639, cost: 118.2118, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },   // 476 @ £115.99 + 163 @ £124.70
-  { ticker: "CNX1", qty: 1, cost: 1269.17, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/CNX1.L" },
-  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
-  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/WMVG.L" },
-  { ticker: "COMM", qty: 1424, cost: 6.6794, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/COMM.L" },
-  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31, exch: "CRYPTO", href: "https://finance.yahoo.com/quote/BTC-GBP" },
-];
-// £ money: sign + thousands, always 2dp (so the portfolio value reads to the penny).
-function fmtGBP(v, sign) {
-  if (v == null || !isFinite(v)) return "—";
-  const a = Math.abs(v);
-  const s = a.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const pre = sign && v > 0 ? "+£" : v < 0 ? "−£" : "£";
-  return pre + s;
-}
 
 let _mktLoaded = false;
-// Markets panel: Markets | Macro | Portfolio chip tabs over one shared fetch.
-// Byte-identical on every page (Home included) — the shared dropdown.
-let _mktTab = "markets";
-let _pfMode = "daily";   // portfolio holdings P&L column: daily (default) | total
+// Markets panel: Equities | Macro | Predictions chip tabs over one shared fetch.
+// Byte-identical on every page (Home included) — the shared dropdown. Equities is
+// the desktop LEFT rail (markets · top movers · FX); Macro is the desktop RIGHT
+// rail bar its predictions (Key rates · Spreads · Volatility · Yield curve · Policy
+// rate); Predictions is the prediction-market board.
+let _mktTab = "equities";
 // "Ask Wire" (B) + "Add a firm" (C) now live in the shared assistant module
 // (v2/js/assistant.js), mounted both here (desktop header, Ask only) and in the
 // Menu → Dialogue chip (Ask + Add). See mountAssistant().
 function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
-    + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
+    + `<button type="button" class="na-chip" data-k="equities">Equities</button>`
     + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
     + `<button type="button" class="na-chip" data-k="predict">Predictions</button>`
-    + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
     + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
   const chips = body.querySelector(".na-chips");
   const tb = body.querySelector(".na-tabbody");
@@ -160,7 +140,7 @@ function loadMarkets(body) {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
     if (_mktTab === "predict") { tb.innerHTML = predictPane(predict, predictLoading); return; }
     if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
-    tb.innerHTML = _mktTab === "portfolio" ? portfolioPane(data) : _mktTab === "macro" ? macroPane(data) : marketsPane(data);
+    tb.innerHTML = _mktTab === "macro" ? macroPane(data) : marketsPane(data);
   };
   // Predictions load lazily on first view (their own upstream fetch).
   const loadPredict = () => {
@@ -175,8 +155,6 @@ function loadMarkets(body) {
   // outside-click closer then sees a now-orphaned target (closest(".na-panel") ===
   // null) and dismisses the panel.
   tb.addEventListener("click", (e) => {
-    const tgl = e.target.closest(".na-pf-tgl");        // portfolio Daily/Total
-    if (tgl) { e.preventDefault(); e.stopPropagation(); if (tgl.dataset.m !== _pfMode) { _pfMode = tgl.dataset.m; render(); } return; }
     const ps = e.target.closest(".na-pred-fchip");     // predictions Macro/Politics/Finance
     if (ps && !ps.disabled) { e.preventDefault(); e.stopPropagation(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; render(); } return; }
     const dir = e.target.closest(".na-pred-dir");      // Top Movers Up/Down
@@ -187,8 +165,9 @@ function loadMarkets(body) {
   Promise.all([
     fetch("/api/markets?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
     fetch("/api/rates?v=12", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
-  ]).then(([m, rt]) => {
-    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], portfolio: (m && m.portfolio) || [], rates: (rt && rt.rates) || [] };
+    fetch("/api/macro", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+  ]).then(([m, rt, mc]) => {
+    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], rates: (rt && rt.rates) || [], macro: (mc && mc.series) || [] };
     render();
   });
 }
@@ -268,19 +247,44 @@ function predictPane(list, loading) {
   }
   return chips + body;
 }
+// A ~1-month trend sparkline for a markets-panel row — an inline SVG polyline from
+// the row's OWN daily-close history (the feeds already carry it; no fabricated
+// data, R7). Tinted by its net move over the window: up green, down red, flat
+// muted. The cell always renders (empty when a row has too little history) so the
+// value + change columns stay aligned. Mirrors glance.js's sparkCell.
+function naSpark(hist) {
+  const h = (Array.isArray(hist) ? hist : []).filter((v) => Number.isFinite(v));
+  if (h.length < 3) return `<span class="na-spark" aria-hidden="true"></span>`;
+  const n = h.length, min = Math.min(...h), max = Math.max(...h), rng = (max - min) || 1;
+  const W = 100, H = 28, pad = 3;
+  const pts = h.map((v, i) => `${((i / (n - 1)) * W).toFixed(1)},${(H - pad - ((v - min) / rng) * (H - 2 * pad)).toFixed(1)}`).join(" ");
+  const net = h[n - 1] - h[0], dir = net > 0 ? "up" : net < 0 ? "down" : "flat";
+  return `<span class="na-spark ${dir}" aria-hidden="true"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}"/></svg></span>`;
+}
+const naDir = (c) => (c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat");
+const naArw = (c) => (c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·");
+// A generic sparkline data row: label · spark · value · change. `hist` opts the
+// spark cell in (pass [] to reserve an empty cell and keep columns aligned).
+function naDataRow(o) {
+  const dir = o.dir || "flat";
+  const chg = o.chg == null ? "" : `${naArw(dir === "up" ? 1 : dir === "down" ? -1 : 0)} ${o.chg}`;
+  const tag = o.href ? "a" : "div";
+  const attrs = o.href ? ` href="${esc(o.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  const spark = o.hist !== undefined ? naSpark(o.hist) : `<span class="na-spark"></span>`;
+  return `<${tag} class="na-mrow na-srow${o.href ? " na-mrow-lnk" : ""}"${o.title ? ` title="${esc(o.title)}"` : ""}${attrs}>`
+    + `<span class="na-l">${esc(o.label)}</span>${spark}<span class="na-v">${esc(o.val)}</span><span class="na-c ${dir}">${chg}</span></${tag}>`;
+}
 function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
-  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
-  const arw = c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
-  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}${sessDot(x.marketState, MKT_EXCH[x.label] || "US")}</span><span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
+  const dir = naDir(c), arw = naArw(c);
+  return `<div class="na-mrow na-srow"><span class="na-l">${esc(x.label)}${sessDot(x.marketState, MKT_EXCH[x.label] || "US")}</span>${naSpark(x.history)}<span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
 }
 function rateRow(x) {
   const bp = x.unit === "bp";
   const c = x.change == null ? null : (bp ? Math.round(x.change * 100) : +Number(x.change).toFixed(2));
-  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
-  const arw = c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
+  const dir = naDir(c), arw = naArw(c);
   const mag = c == null ? "" : (bp ? Math.abs(c) + " bp" : Math.abs(c).toFixed(2));
-  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}</span><span class="na-v">${x.value != null ? fmtRateVal(x.value, x.unit) : "—"}</span><span class="na-c ${dir}">${arw} ${mag}</span></div>`;
+  return `<div class="na-mrow na-srow"><span class="na-l">${esc(x.label)}</span>${naSpark(x.history)}<span class="na-v">${x.value != null ? fmtRateVal(x.value, x.unit) : "—"}</span><span class="na-c ${dir}">${arw} ${mag}</span></div>`;
 }
 function moverRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
@@ -342,56 +346,89 @@ function marketsPane(d) {
     + (movers.length ? naSec("Top movers", "1D") + movers.map(moverRow).join("") : "")
     + naFxMatrix(d);
 }
+// Macro pane — the desktop RIGHT rail (bar its predictions): Key rates · Spreads ·
+// Volatility · Yield curve · Policy rate, mirroring glance.js so the two surfaces
+// read the same. Rates/spreads come from /api/rates, VIX/MOVE/CDX from the markets
+// feed's moversExtra, the 2-year from /api/macro, and the policy snapshot from the
+// OUTLOOK data. Every instrument-kind is its OWN section.
 function macroPane(d) {
-  if (!d.rates.length) return '<div class="na-load">Key rates unavailable right now.</div>';
-  return naSec("Key rates & spreads", "bp · %") + d.rates.map(rateRow).join("");
+  const rates = d.rates || [], ex = d.moversExtra || [], macro = d.macro || [];
+  if (!rates.length && !ex.length) return '<div class="na-load">Macro data unavailable right now.</div>';
+  const find = (l) => rates.find((x) => x.label === l);
+  const findEx = (l) => ex.find((x) => x.label === l);
+  const findMac = (cc, k) => macro.find((s) => s.country === cc && s.key === k);
+  const bpTxt = (v) => `${Math.round(v * 100)} bp`;
+  let html = "";
+
+  // Key rates — benchmark yields only.
+  const keyRates = rates.filter((x) => !/OAS/i.test(x.label));
+  if (keyRates.length) html += naSec("Key rates", "%") + keyRates.map(rateRow).join("");
+
+  // Spreads — the OAS levels plus the derived HY−IG (quality) / CCC−HY (distress).
+  const oas = rates.filter((x) => /OAS/i.test(x.label));
+  const hy = find("US HY OAS"), ig = find("US IG OAS"), ccc = find("US CCC OAS");
+  const spreadRows = oas.map(rateRow);
+  if (hy && ig && hy.value != null && ig.value != null) {
+    const v = hy.value - ig.value, c = (hy.change != null && ig.change != null) ? hy.change - ig.change : null;
+    spreadRows.push(naDataRow({ label: "HY − IG", val: bpTxt(v), dir: naDir(c), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", href: hy.href, hist: [] }));
+  }
+  if (ccc && hy && ccc.value != null && hy.value != null) {
+    const v = ccc.value - hy.value, c = (ccc.change != null && hy.change != null) ? ccc.change - hy.change : null;
+    spreadRows.push(naDataRow({ label: "CCC − HY", val: bpTxt(v), dir: naDir(c), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", href: ccc.href, hist: [] }));
+  }
+  if (spreadRows.length) html += naSec("Spreads", "bp") + spreadRows.join("");
+
+  // Volatility — VIX, MOVE (points) and CDX HY (price / %).
+  const volRows = [];
+  const volPts = (row, label, href, title) => {
+    if (!row || row.value == null) return;
+    const cp = typeof row.changePct === "number" ? row.changePct : null;
+    const pts = cp == null ? null : +row.value - (+row.value) / (1 + cp / 100);
+    volRows.push(naDataRow({ label, val: (+row.value).toFixed(2), dir: naDir(pts), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", href, title, hist: row.history || [] }));
+  };
+  volPts(findEx("VIX"), "VIX", "https://finance.yahoo.com/quote/%5EVIX", "CBOE Volatility Index — equity volatility");
+  volPts(findEx("MOVE"), "MOVE", "https://finance.yahoo.com/quote/%5EMOVE", "ICE BofAML MOVE Index — the bond-market VIX");
+  const cdx = findEx("CDX HY");
+  if (cdx && cdx.value != null) {
+    const cp = typeof cdx.changePct === "number" ? cdx.changePct : null;
+    volRows.push(naDataRow({ label: "CDX HY", val: "$" + (+cdx.value).toFixed(2), dir: naDir(cp), chg: cp == null ? null : Math.abs(cp).toFixed(2) + "%", href: "https://finance.yahoo.com/quote/CDX", title: "Simplify High Yield ETF (CDX) — tracks CDX.NA.HY", hist: cdx.history || [] }));
+  }
+  if (volRows.length) html += naSec("Volatility", "vol") + volRows.join("");
+
+  // Yield curve — 2Y, 10Y and the 2s10s slope.
+  const t2 = findMac("US", "two_year"), t10 = find("US 10Y");
+  const ycRows = [];
+  if (t2 && t2.value != null) ycRows.push(naDataRow({ label: "2Y", val: (+t2.value).toFixed(2) + "%", dir: naDir(t2.change), chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2) + " pp", href: t2.href, hist: t2.history || [] }));
+  if (t10 && t10.value != null) ycRows.push(naDataRow({ label: "10Y", val: (+t10.value).toFixed(2) + "%", dir: naDir(t10.change), chg: t10.change == null ? null : Math.abs(t10.change).toFixed(2) + " pp", href: t10.href, hist: t10.history || [] }));
+  if (t2 && t10 && t2.value != null && t10.value != null) {
+    const spBp = Math.round((+t10.value - +t2.value) * 100);
+    const cBp = (t10.change != null && t2.change != null) ? Math.round((t10.change - t2.change) * 100) : null;
+    ycRows.push(naDataRow({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, dir: naDir(cBp), chg: cBp == null ? null : Math.abs(cBp) + " bp", href: t10.href, hist: [] }));
+  }
+  if (ycRows.length) html += naSec("Yield curve", "UST") + ycRows.join("");
+
+  // Policy rate — the US · UK snapshot (rate · next meeting · forecast lean).
+  html += naPolicy();
+  return html || '<div class="na-load">Macro data unavailable right now.</div>';
 }
-// A markets-panel row (label · value · % change) — same grammar as marketRow.
-function pfMrow(label, valueStr, pct, dot, href) {
-  const c = typeof pct === "number" && isFinite(pct) ? pct : null;
-  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
-  const arw = c == null ? "" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
-  // Holdings link out to the ticker's quote page; summary rows (no href) stay divs.
-  const tag = href ? "a" : "div";
-  const attrs = href ? ` href="${esc(href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="na-mrow${href ? " na-mrow-lnk" : ""}"${attrs}><span class="na-l">${esc(label)}${dot || ""}</span>`
-    + `<span class="na-v">${valueStr}</span>`
-    + `<span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></${tag}>`;
-}
-function portfolioPane(d) {
-  const q = {}; (d.portfolio || []).forEach((x) => { q[x.label] = x; });
-  // Value each holding (some LSE lines quote unscaled → pxScale brings them to £).
-  const rows = PORTFOLIO.map((h) => {
-    const m = q[h.ticker];
-    const px = m && m.value != null ? m.value * (h.pxScale || 1) : null;
-    const val = px != null ? px * h.qty : null;
-    const costBasis = h.cost * h.qty;
-    const pnlPct = val != null && costBasis ? ((val - costBasis) / costBasis) * 100 : null;
-    const day = (m && m.change != null) ? m.change * (h.pxScale || 1) * h.qty : 0;
-    const dPct = m && typeof m.changePct === "number" && isFinite(m.changePct) ? m.changePct : null;
-    return { h, m, val, costBasis, pnlPct, day, dPct };
-  });
-  let tVal = 0, tCost = 0, tDay = 0, priced = 0;
-  for (const r of rows) { if (r.val != null) { tVal += r.val; tCost += r.costBasis; tDay += r.day; priced++; } }
-  const tPnl = tVal - tCost;
-  const tPnlPct = tCost ? (tPnl / tCost) * 100 : null;
-  const priorVal = tVal - tDay;
-  const tDayPct = priorVal ? (tDay / priorVal) * 100 : null;
-  // Match the desktop left-rail portfolio: Total Value → holdings → single P&L,
-  // every figure following the Daily/Total toggle (Total = each ticker's market
-  // value, Daily = its daily £ change; the P&L row likewise).
-  const daily = _pfMode === "daily";
-  const sorted = rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
-  const tgl = `<span class="na-pf-tgl-wrap" role="tablist">`
-    + `<button type="button" class="na-pf-tgl${daily ? " on" : ""}" data-m="daily">Daily</button>`
-    + `<button type="button" class="na-pf-tgl${daily ? "" : " on"}" data-m="total">Total</button></span>`;
-  return `<div class="na-sec"><span>Portfolio</span>${tgl}</div>`
-    + pfMrow("Total Value", priced ? fmtGBP(tVal) : "—", priced ? (daily ? tDayPct : tPnlPct) : null)
-    + sorted.map((r) => {
-      const val = r.val == null ? "—" : daily ? fmtGBP(r.day, true) : fmtGBP(r.val);
-      return pfMrow(r.h.label || r.h.ticker, val, daily ? r.dPct : r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch), r.h.href);
-    }).join("")
-    + pfMrow("P&L", priced ? (daily ? fmtGBP(tDay, true) : fmtGBP(tPnl, true)) : "—", daily ? tDayPct : tPnlPct);
+// Compact policy-rate snapshot (label+rate · next · forecast), a link to the full
+// Macro › Policy Rate page. The forecast lean reads muted, not an accent (matches
+// the desktop rail's g-snap-mood).
+function naPolicy() {
+  if (!OUTLOOK || !OUTLOOK.us) return "";
+  const MOOD = ["hawkish", "dovish", "neutral"];
+  const row = (cc, o) => {
+    if (!o) return "";
+    const parts = String(o.stance || "").split("·");
+    const fc = (parts[0] || o.stance || "").trim();
+    const mood = MOOD.find((k) => parts.slice(1).join("·").toLowerCase().includes(k));
+    const nx = String(o.next || "").replace(/\s*\((?:resolved|held?|decided)\b[^)]*\)/gi, "").trim();
+    return `<a class="na-mrow na-pol" href="/macro/#/policy">`
+      + `<span class="na-l">${esc(cc)} <span class="na-pol-rate">${esc(o.rate)}</span></span>`
+      + `<span class="na-pol-nx">${esc(nx)}</span>`
+      + `<span class="na-pol-fcw"><span class="na-pol-fc">${esc(fc)}</span>${mood ? ` <span class="na-pol-mood">· ${mood[0].toUpperCase()}${mood.slice(1)}</span>` : ""}</span></a>`;
+  };
+  return `<div class="na-sec"><span>Policy rate</span><span class="na-sec-x">US · UK</span></div>` + row("US", OUTLOOK.us) + row("UK", OUTLOOK.uk);
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --
