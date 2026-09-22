@@ -22,6 +22,7 @@
 export const FT_ITEMS = [
   { id: "dc2f9def-a889-472e-9403-dbd1991c2360", title: "The UK Budget: what does it mean for growth and security?", date: "2026-09-22", time: "15:20", url: "https://www.ft.com/content/dc2f9def-a889-472e-9403-dbd1991c2360" },
   { id: "a2d22720-60bc-45aa-8fdc-98863df5261e", title: "Paramount wins over US states — but can it win over the bond market?", date: "2026-09-22", time: "15:12", url: "https://www.ft.com/content/a2d22720-60bc-45aa-8fdc-98863df5261e" },
+  { id: "4ed1f34e-d0a5-48f2-b508-9e8ee445213f", title: "Audio Gold: the shop that really listens to London’s audiophiles", date: "2026-09-22", time: "11:00", url: "https://www.ft.com/content/4ed1f34e-d0a5-48f2-b508-9e8ee445213f" },
   { id: "460dbb45-03b8-466e-98ef-80063b07189a", title: "Ed Davey promises tax cuts as he warns Lib Dems are in ‘fight of our lives’", date: "2026-09-22", time: "15:02", url: "https://www.ft.com/content/460dbb45-03b8-466e-98ef-80063b07189a" },
   { id: "60870960-f433-48ca-bc2c-708686a69ae7", title: "AI staff complain of mental toll over fears of threat to society", date: "2026-09-22", time: "12:27", url: "https://www.ft.com/content/60870960-f433-48ca-bc2c-708686a69ae7" },
   { id: "16d676c9-94c4-4df1-8fa6-56966b2c9aa7", title: "UN General Assembly live: Donald Trump to address world leaders at the UN", date: "2026-09-22", time: "14:05", url: "https://www.ft.com/content/16d676c9-94c4-4df1-8fa6-56966b2c9aa7" },
