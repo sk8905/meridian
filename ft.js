@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f2f37449-f9c7-4556-9f97-4cca735980e4", title: "Top UK graft prosecutors joined Trump’s Venezuela oil baron during Swiss probe", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/f2f37449-f9c7-4556-9f97-4cca735980e4" },
+  { id: "152aa77b-977f-4607-8a09-77291f85d2a0", title: "US government and Gulf billionaires back Todd Boehly bid for Lukoil assets", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/152aa77b-977f-4607-8a09-77291f85d2a0" },
+  { id: "1ca67e27-b6b6-454a-8d37-b957835201d7", title: "Labour MPs call for end to loophole that trimmed billionaire’s tax bill by £18mn", date: "2026-09-22", time: "20:51", url: "https://www.ft.com/content/1ca67e27-b6b6-454a-8d37-b957835201d7" },
+  { id: "22d1154b-8bea-4f8d-bfc4-5db7761d3612", title: "Donald Trump says he would back US diesel export ban", date: "2026-09-22", time: "20:15", url: "https://www.ft.com/content/22d1154b-8bea-4f8d-bfc4-5db7761d3612" },
   { id: "be468cf8-e450-46d8-891f-67bc79ffd7b3", title: "Royal Caribbean nears deal for Sandals valuing resorts at more than $6bn", date: "2026-09-22", time: "20:01", url: "https://www.ft.com/content/be468cf8-e450-46d8-891f-67bc79ffd7b3" },
   { id: "0e03521f-c4f1-4242-8fff-0e34a27a26db", title: "Donald Trump rejects ‘globalist scheme’ to control AI in blow to Andy Burnham", date: "2026-09-22", time: "19:20", url: "https://www.ft.com/content/0e03521f-c4f1-4242-8fff-0e34a27a26db" },
   { id: "99ba134a-6252-45f3-b312-07b8752a5a98", title: "US proposes $10bn fund with Arab allies to bypass Hormuz", date: "2026-09-22", time: "18:32", url: "https://www.ft.com/content/99ba134a-6252-45f3-b312-07b8752a5a98" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "a17b2217-e49f-432c-8fdb-31e9bc3a4361", title: "UK government borrowing surged to £18bn in August", date: "2026-09-22", time: "07:09", url: "https://www.ft.com/content/a17b2217-e49f-432c-8fdb-31e9bc3a4361" },
   { id: "89ea4c20-b9e2-4875-9439-721ca9ba9fdb", title: "Quiet please, the currencies are sleeping", date: "2026-09-22", time: "06:30", url: "https://www.ft.com/content/89ea4c20-b9e2-4875-9439-721ca9ba9fdb" },
   { id: "b30eb538-b5a3-4fb2-bae2-785273bfda1c", title: "Are we developing a distaste for effort?", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/b30eb538-b5a3-4fb2-bae2-785273bfda1c" },
-  { id: "7fa1a178-7cc7-4178-a9f1-797f77e13e5b", title: "The Wargame TV review — Michael Gove plays prime minister in chilling drama-documentary", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/7fa1a178-7cc7-4178-a9f1-797f77e13e5b" },
-  { id: "2a37a33b-0f9b-4763-9971-67ddfd402920", title: "Architect William Smalley’s Zen home renovation ‘stretches time’", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/2a37a33b-0f9b-4763-9971-67ddfd402920" },
-  { id: "3cf6c88e-bd65-4d81-a93b-437e00f9ce3f", title: "How France and Luxembourg fatally wounded the EU’s Russia sanctions regime", date: "2026-09-22", time: "06:00", url: "https://www.ft.com/content/3cf6c88e-bd65-4d81-a93b-437e00f9ce3f" },
-  { id: "a0d1351f-0f16-4994-a71e-c9b134d70d71", title: "The USS lesson plan", date: "2026-09-22", time: "06:00", url: "https://www.ft.com/content/a0d1351f-0f16-4994-a71e-c9b134d70d71" },
 ];
