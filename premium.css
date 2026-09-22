@@ -694,7 +694,9 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    against the % at the right edge (which read as "shifted right" on the full-width
    phone sheet — the old 74px track left it far right). */
 .na-mover { grid-template-columns: 8rem minmax(0, 1fr) 4.2rem; align-items: center; }
-.na-bar { position: relative; height: 9px; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); }
+/* 80% of the cell, centred — 20% shorter than the full track, trimmed equally at
+   both edges so the 0-centreline (where the fill diverges) stays put. */
+.na-bar { position: relative; height: 9px; width: 80%; justify-self: center; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); }
 .na-bar::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border, #262626); }
 .na-bar-f { position: absolute; top: 0; bottom: 0; }
 .na-bar-f.up { left: 50%; background: var(--t-up, #3fc08d); }
@@ -706,8 +708,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    change — the four spread evenly across the row (fixed tracks + space-between)
    so gaps are equal and columns line up down every section. Top-movers rows
    (.na-mover, which carry a bar) keep the plain 3-column grid. */
-.na-srow { grid-template-columns: 6rem 42px 5rem 4.6rem; justify-content: space-between; gap: 0; align-items: center; }
-.na-spark { display: inline-flex; align-items: center; justify-self: center; width: 42px; height: 15px; overflow: hidden; }
+/* Four EQUAL columns so label · spark · value · change distribute evenly across the
+   full row instead of bunching left-of-centre (the old fixed tracks left the spark +
+   value squashed together with a dead gap before the right-hand change). Label hugs
+   the left, the spark and value sit centred in their columns at the ~1/3 and ~2/3
+   marks, and the change hugs the right — the four spread across the whole width. */
+.na-srow { grid-template-columns: repeat(4, 1fr); gap: 0; align-items: center; }
+.na-srow .na-v { text-align: center; }
+.na-spark { display: inline-flex; align-items: center; justify-self: center; width: 52px; height: 15px; overflow: hidden; }
 .na-spark svg { width: 100%; height: 100%; display: block; }
 /* Tinted by the net move over the ~1-month window: up green, down red, flat muted.
    Non-scaling stroke keeps the 1.25px line crisp under the non-uniform viewBox. */

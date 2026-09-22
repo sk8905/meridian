@@ -87,8 +87,7 @@ const mac = await pg.evaluate(() => {
     secs,
     igVal: ig ? (ig.querySelector(".na-v") || {}).textContent.trim() : null,
     igStroke, eurStroke, up: probe("var(--t-up)"), down: probe("var(--t-down)"),
-    justify: gc ? getComputedStyle(gc).justifyContent : null,
-    cols: gc ? getComputedStyle(gc).gridTemplateColumns.split(" ").length : 0,
+    cols: gc ? getComputedStyle(gc).gridTemplateColumns : null,
     hasPolicy: secs.includes("Policy rate"),
     moodColor: (() => { const m = document.querySelector("#na-mkt-panel .na-pol-mood"); return m ? getComputedStyle(m).color : null; })(),
     // Phase 2: the DERIVED rows (HY−IG, CCC−HY, 2s10s) now draw a diff sparkline, and
@@ -101,7 +100,9 @@ check(["Key rates", "Spreads", "Volatility", "Yield curve", "Policy rate"].every
 checkEq(mac.igVal, "77 bp", "Macro: OAS spreads read in basis points (value ×100), not raw percent");
 check(mac.eurStroke === mac.up, `Macro: an up-over-the-period sparkline reads green (${mac.eurStroke})`);
 check(mac.igStroke === mac.down, `Macro: a down-over-the-period sparkline reads red (${mac.igStroke})`);
-check(mac.justify === "space-between" && mac.cols === 4, `Macro: rows are an evenly-spread 4-column grid (${mac.justify}, ${mac.cols} cols)`);
+const colParts = (mac.cols || "").split(/\s+/).map(parseFloat).filter((n) => !isNaN(n));
+const evenCols = colParts.length === 4 && (Math.max(...colParts) - Math.min(...colParts)) < 2;
+check(evenCols, `Macro: rows are four EQUAL columns spread across the width — label · spark · value · change (${mac.cols})`);
 check(mac.hasPolicy && mac.moodColor && mac.moodColor !== mac.up, "Macro: Policy rate renders with a muted (non-accent) forecast lean");
 check(mac.derivedDrawn === 3, `Macro (Phase 2): the derived rows HY−IG · CCC−HY · 2s10s all draw a diff sparkline (${mac.derivedDrawn}/3)`);
 check(mac.twoYRow, "Macro: the Yield curve carries a 2Y row (fed by the daily US 2Y)");
