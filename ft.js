@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1434496d-0eaf-4270-8ad3-87724cd3721e", title: "Donald Trump threatens to ‘annihilate’ Iran in combative UN speech", date: "2026-09-22", time: "18:06", url: "https://www.ft.com/content/1434496d-0eaf-4270-8ad3-87724cd3721e" },
   { id: "848b9daf-6fc0-436d-8d9e-45e7bcab9676", title: "The next generation of American scientists is fading away", date: "2026-09-22", time: "17:03", url: "https://www.ft.com/content/848b9daf-6fc0-436d-8d9e-45e7bcab9676" },
   { id: "15d68d49-5a31-4e2a-a108-f35baa391295", title: "US fighter jet crashes in Germany", date: "2026-09-22", time: "16:46", url: "https://www.ft.com/content/15d68d49-5a31-4e2a-a108-f35baa391295" },
   { id: "760091dd-20be-4152-aa0d-561475a99ee8", title: "EU to lift sanctions on two Russian oligarchs", date: "2026-09-22", time: "16:38", url: "https://www.ft.com/content/760091dd-20be-4152-aa0d-561475a99ee8" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "17a26bbd-ef8c-4f97-8485-5b1407bb0b41", title: "Bank of Japan set to maintain new quarterly pace of rate rises", date: "2026-09-22", time: "05:30", url: "https://www.ft.com/content/17a26bbd-ef8c-4f97-8485-5b1407bb0b41" },
   { id: "cfb43c8b-04d4-4c22-b03c-8ba210a7870a", title: "David Ellison slays foes of his $110bn goliath", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/cfb43c8b-04d4-4c22-b03c-8ba210a7870a" },
   { id: "db043fc4-c810-4834-bd6b-878d5960c630", title: "Putin’s ‘war heroes’ form new political elite in Russian parliament", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/db043fc4-c810-4834-bd6b-878d5960c630" },
-  { id: "9bea08f4-c9e8-450a-9d0f-0af0bf47b64e", title: "What Xi Jinping wants from his summit with Donald Trump", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/9bea08f4-c9e8-450a-9d0f-0af0bf47b64e" },
 ];
