@@ -55,6 +55,14 @@ check(!spreads.some((l) => /VIX|MOVE|CDX/.test(l)), `Spreads: no volatility inst
 checkEq(vol.join(", "), "VIX, MOVE, CDX HY", "Volatility: VIX · MOVE · CDX HY only");
 check(!vol.some((l) => /OAS|−/.test(l)), `Volatility: no credit spreads leak in (${vol.join(", ")})`);
 
+// The three panels share ONE fixed column grid (label · value · change), so the
+// numbers and changes line up vertically down the whole rail — Spreads must not
+// fall back to ragged content-sized columns.
+const cols = (sel) => pg.evaluate((s) => { const t = document.querySelector(`${s} .rate-tile`); return t ? getComputedStyle(t).gridTemplateColumns : null; }, sel);
+const cR = await cols("#g-rates"), cS = await cols("#g-spreads"), cV = await cols("#g-vol");
+check(cR && cS && cV && cR === cS && cS === cV, `Key rates / Spreads / Volatility share one column grid so text, numbers & changes align vertically (${cR} | ${cS} | ${cV})`);
+check(/^\S+\s+\S+\s+\S+$/.test(cR || ""), `the rail rows are a 3-column grid (label · value · change) (${cR})`);
+
 checkErrs(errs, "rates/spreads/volatility split");
 await ctx.close();
 await b.close(); srv.close();

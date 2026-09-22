@@ -1385,7 +1385,7 @@
     /* Fixed value + change columns so every row's numbers line up (a change with a
        "pp"/"bp" unit is wider than one without and would otherwise shift the value). */
     .tui #g-indicators .rate-tile,.tui #g-curve .rate-tile,
-    .tui #g-rates .rate-tile,.tui #g-vol .rate-tile{ grid-template-columns:1fr 4rem 5rem; }
+    .tui #g-rates .rate-tile,.tui #g-spreads .rate-tile,.tui #g-vol .rate-tile{ grid-template-columns:1fr 4.5rem 5rem; }
     /* Markets band: a fixed change column so the value + change line up down the rail. */
     /* Match the rates band's change column (5rem) so the markets/portfolio value
        right-edges line up vertically with Key rates & spreads below. */
@@ -1428,7 +1428,7 @@
     .tui .g-snap-pv{ font-size:12.5px; color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .tui .g-snap-nx,.tui .g-snap-ps{ font-size:10.5px; color:var(--t-dim); font-family:var(--t-mono); }
     .tui .g-snap-nx{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .tui .g-snap-mood{ color:var(--t-accent); }
+    .tui .g-snap-mood{ color:var(--t-mut); }
     .tui .g-snap-h{ display:flex; align-items:baseline; gap:8px; margin-bottom:5px; }
     .tui .g-snap-cap{ margin-left:auto; font-family:var(--t-mono); font-size:11.5px; color:var(--t-amber); }
     .tui .g-snap-meter{ display:flex; align-items:center; gap:7px; }
