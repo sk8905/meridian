@@ -15,29 +15,34 @@ function series(seed, base, vol) {
   for (let i = 0; i < 260; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 864e5 * (364 / 260), +x.toFixed(2)]); }
   return out;
 }
-// Intraday 15-min bars behind 1D / 5D: three ~6.5h sessions on three consecutive
-// LOCAL calendar days (09:00–15:30 each), separated by overnight GAPs (>45 min) so
-// the client draws a real market break — never a straight line across the close.
-// Day-anchored (not "ending now") so the true-1D axis test is deterministic whatever
-// wall-clock the suite runs at: 1D shows today's single session inside the fixed
-// local session window; 5D spans all three days with a break at each close.
-function intra(seed, base, vol) {
+// Intraday 15-min bars behind 1D / 5D, PER REGION session (minutes from local
+// midnight): US equities 14:30–21:00, UK/Europe 08:00–16:30, ~24h Commodities/Crypto
+// 07:00–23:45 — three consecutive LOCAL days, separated by overnight GAPs (>45 min)
+// so the client draws a real market break. Day-anchored (not "ending now") so the
+// true-1D axis + session-overlay tests are deterministic whatever wall-clock the suite
+// runs at: 1D shows today's sessions opening/closing at their own times inside the
+// fixed local window; 5D spans all three days with a break at each close.
+function intra(seed, base, vol, openMin, closeMin) {
   const out = []; let x = base, s = seed;
   const rnd = () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
-  const BAR = 15 * 60000, SESSION = 26;   // 26 bars × 15m = 6.5h → 09:00–15:30 local
+  const BAR = 15 * 60000, nbars = Math.round((closeMin - openMin) / 15);
   for (let d = 2; d >= 0; d--) {
-    const day = new Date(); day.setDate(day.getDate() - d); day.setHours(9, 0, 0, 0);
-    for (let i = 0; i < SESSION; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([day.getTime() + i * BAR, +x.toFixed(2)]); }
+    const day = new Date(); day.setDate(day.getDate() - d); day.setHours(0, openMin, 0, 0);
+    const t0 = day.getTime();
+    for (let i = 0; i <= nbars; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([t0 + i * BAR, +x.toFixed(2)]); }
   }
   return out;
 }
+const US = [870, 1260], EUR = [480, 990], CONT = [420, 1425];   // 14:30–21:00 · 08:00–16:30 · 07:00–23:45
 const HERO = { asOf: new Date().toISOString().slice(0, 10), instruments: [
-  { key: "spx", label: "S&P 500", unit: "", pre: "", dp: 1, fi: false, value: 7552.4, history: series(7, 7000, 0.01), intraday: intra(7, 7550, 0.002) },
-  { key: "ndx", label: "Nasdaq", unit: "", pre: "", dp: 0, fi: false, value: 25978, history: series(19, 24000, 0.013), intraday: intra(19, 25900, 0.002) },
-  { key: "ust10", label: "US 10Y", unit: "%", pre: "", dp: 2, fi: true, value: 5.01, history: series(29, 4.6, 0.01), intraday: intra(29, 5.0, 0.003) },
-  { key: "oil", label: "Oil", unit: "", pre: "$", dp: 2, fi: false, value: 99.85, history: series(41, 90, 0.015), intraday: intra(41, 99, 0.003) },
-  { key: "gold", label: "Gold", unit: "", pre: "$", dp: 0, fi: false, value: 4415, history: series(53, 4000, 0.009), intraday: intra(53, 4400, 0.002) },
-  { key: "btc", label: "Bitcoin", unit: "", pre: "$", dp: 0, fi: false, value: 76610, history: series(67, 70000, 0.02), intraday: intra(67, 76000, 0.004) },
+  { key: "spx", label: "S&P 500", unit: "", pre: "", dp: 1, fi: false, region: "US", value: 7552.4, history: series(7, 7000, 0.01), intraday: intra(7, 7550, 0.002, ...US) },
+  { key: "ndx", label: "Nasdaq", unit: "", pre: "", dp: 0, fi: false, region: "US", value: 25978, history: series(19, 24000, 0.013), intraday: intra(19, 25900, 0.002, ...US) },
+  { key: "ftse", label: "FTSE 100", unit: "", pre: "", dp: 0, fi: false, region: "UK", value: 8210, history: series(13, 8000, 0.008), intraday: intra(13, 8200, 0.002, ...EUR) },
+  { key: "sx5e", label: "Euro Stoxx", unit: "", pre: "", dp: 0, fi: false, region: "Europe", value: 4930, history: series(23, 4700, 0.009), intraday: intra(23, 4920, 0.002, ...EUR) },
+  { key: "ust10", label: "US 10Y", unit: "%", pre: "", dp: 2, fi: true, region: "US", value: 5.01, history: series(29, 4.6, 0.01), intraday: intra(29, 5.0, 0.003, ...US) },
+  { key: "oil", label: "Oil", unit: "", pre: "$", dp: 2, fi: false, region: "Commodities", value: 99.85, history: series(41, 90, 0.015), intraday: intra(41, 99, 0.003, ...CONT) },
+  { key: "gold", label: "Gold", unit: "", pre: "$", dp: 0, fi: false, region: "Commodities", value: 4415, history: series(53, 4000, 0.009), intraday: intra(53, 4400, 0.002, ...CONT) },
+  { key: "btc", label: "Bitcoin", unit: "", pre: "$", dp: 0, fi: false, region: "Crypto", value: 76610, history: series(67, 70000, 0.02), intraday: intra(67, 76000, 0.004, ...CONT) },
 ] };
 
 // Related-news stub (newest-first): the Worker returns real Yahoo Finance items.
@@ -69,12 +74,12 @@ const b = await launchChromium();
       rangeOn: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
     };
   });
-  checkEq(init.labels.length, 6, "hero: the securities row lists all six instruments");
-  check(init.labels.join(",") === "S&P 500,Nasdaq,US 10Y,Oil,Gold,Bitcoin", `hero: the row reads S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin (${init.labels.join(", ")})`);
-  check(init.onKeys.length === 6, `hero: all six securities are plotted by default — the indexed overlay (${init.onKeys.length})`);
+  checkEq(init.labels.length, 8, "hero: the securities row lists all eight instruments");
+  check(init.labels.join(",") === "S&P 500,Nasdaq,FTSE 100,Euro Stoxx,US 10Y,Oil,Gold,Bitcoin", `hero: the row reads S&P 500 · Nasdaq · FTSE 100 · Euro Stoxx · US 10Y · Oil · Gold · Bitcoin (${init.labels.join(", ")})`);
+  check(init.onKeys.length === 8, `hero: all eight securities are plotted by default — the indexed overlay (${init.onKeys.length})`);
   check(init.pcts.every((p) => /%$/.test(p)), `hero: every ticker shows a % change indicator (${init.pcts.join(" · ")})`);
   check(init.spxFilled && init.goldFilled, "hero: all default dots are FILLED (every ticker selected)");
-  check(init.lines >= 6, `hero: six securities → six lines (${init.lines})`);
+  check(init.lines >= 8, `hero: eight securities → eight lines (${init.lines})`);
   checkEq(init.rangeOn, "1D", "hero: 1D is the default range");
 
   // Default is the INDEXED overlay: a shared % axis, no single-view price tag,
@@ -123,6 +128,23 @@ const b = await launchChromium();
   check(h1d.length >= 3, `hero: 1D lays the whole local day out across several hour ticks (${d1.xl})`);
   check(h1d[0] <= 8, `hero: the 1D axis starts at the local session open (~07:00) (${d1.xl})`);
   check(Math.max(...h1d) >= 19, `hero: the 1D axis spans the full trading day — empty space to the right for the rest of today (${d1.xl})`);
+  // Session overlay: each region's market opening/closing is drawn — faint bands +
+  // dashed OPEN vertical lines (US afternoon vs European morning open at different x),
+  // and a per-region DURATION-bars strip along the bottom. Only on 1D.
+  const decor = await pg.evaluate(() => {
+    const opens = [...document.querySelectorAll('#g-hero-svg line[stroke-dasharray="2 2"]')];
+    const xs = opens.map((l) => Math.round(parseFloat(l.getAttribute("x1")))).sort((a, b) => a - b);
+    return { opens: opens.length, distinctX: [...new Set(xs)].length, rects: document.querySelectorAll("#g-hero-svg rect").length };
+  });
+  check(decor.opens >= 2 && decor.distinctX >= 2, `hero: 1D draws market-open verticals at the different regional opens (${decor.opens} lines, ${decor.distinctX} distinct x)`);
+  check(decor.rects >= 3, `hero: 1D draws the session bands + per-region duration bars (${decor.rects} rects)`);
+  // The overlay is 1D-only: a daily range (1M) carries no bands/bars.
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click());
+  await pg.waitForTimeout(120);
+  const noDecor = await pg.evaluate(() => document.querySelectorAll("#g-hero-svg rect").length);
+  checkEq(noDecor, 0, "hero: the session overlay is 1D-only (no bands/bars on the daily ranges)");
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1D"]').click());
+  await pg.waitForTimeout(120);
 
   // 5D also uses intraday, with day+month ticks and breaks at each overnight close.
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="5D"]').click());
@@ -149,7 +171,7 @@ const b = await launchChromium();
   await pg.waitForTimeout(150);
 
   // Pare down to ONE security → the single price view returns (line + price tag).
-  await pg.evaluate(() => ["ndx", "ust10", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"]`).click()));
+  await pg.evaluate(() => ["ndx", "ftse", "sx5e", "ust10", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"]`).click()));
   await pg.waitForTimeout(150);
   const one = await pg.evaluate(() => ({
     onKeys: [...document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on")].map((t) => t.dataset.k),
@@ -212,7 +234,7 @@ const b = await launchChromium();
     return { shown, tk: document.querySelectorAll("#g-hero-sel .g-hero-tk").length, paths: document.querySelectorAll("#g-hero-svg path").length };
   });
   check(r.shown, "phone: the hero chart pane is visible under the Chart chip");
-  check(r.tk === 6 && r.paths >= 2, "phone: the chart renders its securities row + line under the Chart chip");
+  check(r.tk === 8 && r.paths >= 2, "phone: the chart renders its securities row + line under the Chart chip");
 
   // Related news beneath the chart — real Yahoo items, in the news-wire row format.
   await pg.waitForSelector("#g-hero-news .g-feed-row", { timeout: 8000 });

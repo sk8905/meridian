@@ -1620,13 +1620,20 @@ async function handlePerf(request, env, ctx) {
 // toggle, so the range switch costs no extra request. Equities/commodities/BTC
 // come from Yahoo's keyless chart API (same source as the markets band); the 10Y
 // yield comes from FRED DGS10 (validated daily series in %, no scaling ambiguity).
+// `region` groups instruments by trading venue for the 1D session overlay (open
+// lines / duration bars): US equities & rates, UK (LSE), Europe (Euronext/Xetra),
+// and the ~24h Commodities & Crypto. The client infers each day's actual open/close
+// from the intraday bars (so it's timezone-correct), and uses region only to label
+// and colour-group the sessions.
 const HERO_BASKET = [
-  { key: "spx", label: "S&P 500", symbol: "^GSPC", dp: 1 },
-  { key: "ndx", label: "Nasdaq", symbol: "^IXIC", dp: 0 },
-  { key: "ust10", label: "US 10Y", fred: "DGS10", unit: "%", dp: 2, fi: true },
-  { key: "oil", label: "Oil", symbol: "CL=F", pre: "$", dp: 2 },
-  { key: "gold", label: "Gold", symbol: "GC=F", pre: "$", dp: 0 },
-  { key: "btc", label: "Bitcoin", symbol: "BTC-USD", pre: "$", dp: 0 },
+  { key: "spx", label: "S&P 500", symbol: "^GSPC", dp: 1, region: "US" },
+  { key: "ndx", label: "Nasdaq", symbol: "^IXIC", dp: 0, region: "US" },
+  { key: "ftse", label: "FTSE 100", symbol: "^FTSE", dp: 0, region: "UK" },
+  { key: "sx5e", label: "Euro Stoxx", symbol: "^STOXX50E", dp: 0, region: "Europe" },
+  { key: "ust10", label: "US 10Y", fred: "DGS10", unit: "%", dp: 2, fi: true, region: "US" },
+  { key: "oil", label: "Oil", symbol: "CL=F", pre: "$", dp: 2, region: "Commodities" },
+  { key: "gold", label: "Gold", symbol: "GC=F", pre: "$", dp: 0, region: "Commodities" },
+  { key: "btc", label: "Bitcoin", symbol: "BTC-USD", pre: "$", dp: 0, region: "Crypto" },
 ];
 // A full year of daily closes for one Yahoo symbol → { value, asOf, history:[[ms,close],…] }
 // (ascending). LSE GBp instruments are rescaled to the major unit; the basket has
@@ -1650,7 +1657,7 @@ async function yahooSeries(symbol, range, interval) {
 }
 async function handleHero(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/hero?v=3", request.url).toString());
+  const cacheKey = new Request(new URL("/api/hero?v=4", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const cutoff = Date.now() - 1855 * 864e5;   // ~5y (a little slack) — for the ALL range
@@ -1672,7 +1679,7 @@ async function handleHero(request, env, ctx) {
     if (si && Array.isArray(si.history) && si.history.length >= 2) {
       intraday = si.history.map(([t, v]) => [t, b.fred ? (v > 20 ? +(v / 10).toFixed(3) : +v.toFixed(3)) : rnd(v, b)]);
     }
-    return { key: b.key, label: b.label, unit: b.unit || "", pre: b.pre || "", dp: b.dp, fi: !!b.fi, value: s.value, asOf: s.asOf, history: hist, intraday };
+    return { key: b.key, label: b.label, unit: b.unit || "", pre: b.pre || "", dp: b.dp, fi: !!b.fi, region: b.region || "", value: s.value, asOf: s.asOf, history: hist, intraday };
   }));
   const instruments = out.filter(Boolean);
   const resp = json({ asOf: new Date().toISOString().slice(0, 10), instruments });

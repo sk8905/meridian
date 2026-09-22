@@ -597,13 +597,52 @@ function heroIntradayTickTimes(t0, t1, session, xCount) {
   for (let k = 0; k < xCount; k++) out.push(t0 + (t1 - t0) * k / Math.max(1, xCount - 1));
   return out;
 }
+// 1D SESSION OVERLAY — the true-1D chart shows each region's market opening and
+// closing at a different point on the day. Group the plotted instruments by region,
+// infer each region's session span from its intraday bars (timezone-correct — the
+// bars carry real timestamps), then draw, behind the price lines: a faint band + an
+// open vertical for each bounded (market-hours) session, plus a compact per-region
+// duration-bars strip along the bottom (full-width faint track + the solid open→close
+// span). The price plot shrinks by the strip height so nothing else moves. Only the
+// fixed 1D window uses this; every other range is unchanged.
+const HERO_REGION_ORDER = ["Europe", "UK", "US", "Commodities", "Crypto"];
+// Continuous markets (round-the-clock) get no open line or band — just a full-width
+// duration bar; the classification is by region (robust) with a span fallback.
+const HERO_CONTINUOUS_REGIONS = new Set(["Commodities", "Crypto"]);
+function heroSessionOverlay(series, Xtime, plotTop, fullBottom) {
+  const byR = new Map();
+  for (const s of series) {
+    if (!s.pts || s.pts.length < 2) continue;
+    const open = s.pts[0][0], close = s.pts[s.pts.length - 1][0], r = s.region || "Other";
+    const g = byR.get(r);
+    if (g) { g.open = Math.min(g.open, open); g.close = Math.max(g.close, close); }
+    else byR.set(r, { region: r, color: s.color, open, close });
+  }
+  const regions = HERO_REGION_ORDER.filter((r) => byR.has(r)).concat([...byR.keys()].filter((r) => !HERO_REGION_ORDER.includes(r)));
+  if (!regions.length) return { decor: "", plotBottom: fullBottom };
+  const rowH = 4, pad = 3, stripH = regions.length * rowH + pad, plotBottom = fullBottom - stripH;
+  const clampX = (ms) => Math.max(HERO_PX, Math.min(HERO_W - HERO_PX, Xtime(ms)));
+  let bands = "", lines = "", strip = ""; const seenOpen = new Set();
+  regions.forEach((r, i) => {
+    const g = byR.get(r), x0 = clampX(g.open), x1 = clampX(g.close), continuous = HERO_CONTINUOUS_REGIONS.has(r) || (g.close - g.open) >= 18 * 3600e3;
+    if (!continuous) {
+      bands += `<rect x="${x0.toFixed(1)}" y="${plotTop}" width="${(x1 - x0).toFixed(1)}" height="${(plotBottom - plotTop).toFixed(1)}" fill="${g.color}" fill-opacity=".055"/>`;
+      const okey = Math.round(g.open / (20 * 60e3));
+      if (!seenOpen.has(okey)) { seenOpen.add(okey); lines += `<line x1="${x0.toFixed(1)}" y1="${plotTop}" x2="${x0.toFixed(1)}" y2="${plotBottom.toFixed(1)}" stroke="${g.color}" stroke-width="1" stroke-opacity=".5" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>`; }
+    }
+    const by = plotBottom + pad + i * rowH;
+    strip += `<rect x="${HERO_PX}" y="${by.toFixed(1)}" width="${(HERO_W - HERO_PX * 2).toFixed(1)}" height="2.5" fill="${g.color}" fill-opacity=".12"/>`
+      + `<rect x="${x0.toFixed(1)}" y="${by.toFixed(1)}" width="${Math.max(1, x1 - x0).toFixed(1)}" height="2.5" fill="${g.color}" fill-opacity=".85"><title>${esc(r)} session</title></rect>`;
+  });
+  return { decor: bands + lines + strip, plotBottom };
+}
 const HERO_RLBL = { "1D": "1-day", "5D": "5-day", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "ALL": "all" };
 // Categorical series colours for the multi-select overlay — the dataviz reference
 // palette's dark hues, validated (worst adjacent CVD ΔE 8.4). The green/red slots
 // are deliberately skipped: on this terminal they read as up/down, not identity.
 // A single selected series keeps the up/down price line instead of a series colour.
-const HERO_COLORS = { spx: "#3987e5", ndx: "#d95926", ust10: "#199e70", oil: "#c98500", gold: "#d55181", btc: "#9085e9" };
-const HERO_FALLBACK = ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#9085e9"];
+const HERO_COLORS = { spx: "#3987e5", ndx: "#d95926", ftse: "#26a9c4", sx5e: "#b45bb0", ust10: "#199e70", oil: "#c98500", gold: "#d55181", btc: "#9085e9" };
+const HERO_FALLBACK = ["#3987e5", "#d95926", "#26a9c4", "#b45bb0", "#199e70", "#c98500", "#d55181", "#9085e9"];
 function heroColor(key, i) { return HERO_COLORS[key] || HERO_FALLBACK[i % HERO_FALLBACK.length]; }
 // The selected instruments, in basket order — never empty once data has loaded.
 function heroSelected() {
@@ -751,21 +790,26 @@ function drawHero(svg, pts, m) {
   if (lo === hi) { lo -= 1; hi += 1; }
   const pad = (hi - lo) * 0.08;              // breathing room so the line clears the frame
   const dlo = lo - pad, dhi = hi + pad;      // padded value domain
-  const plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
+  const plotW = HERO_W - HERO_PX * 2, fullBottom = HERO_H - HERO_PB;
   // Intraday (1D/1W) → real wall-clock X so gaps show as gaps; daily → even by index.
   const intraday = heroIntraday();
   const dom = intraday ? heroIntradayDomain(pts[0][0], pts[n - 1][0]) : [pts[0][0], pts[n - 1][0], false];
   const t0 = dom[0], t1 = dom[1], session = dom[2], span = (t1 - t0) || 1;
   const X = intraday ? (i) => HERO_PX + plotW * (pts[i][0] - t0) / span
                      : (i) => HERO_PX + plotW * i / (n - 1);
-  const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
   const last = vals[n - 1], up = last >= vals[0];
   // For a yield a FALL is "risk-on"/green; for a price a RISE is green.
   const good = m.fi ? !up : up;
   const col = good ? "var(--t-up)" : "var(--t-down)";
+  // 1D session overlay (band · open vertical · duration bar) for this one instrument.
+  const ov = (intraday && session)
+    ? heroSessionOverlay([{ region: m.region || "", color: HERO_COLORS[m.key] || col, pts }], (ms) => HERO_PX + plotW * (ms - t0) / span, HERO_PT, fullBottom)
+    : { decor: "", plotBottom: fullBottom };
+  const plotBottom = ov.plotBottom, plotH = plotBottom - HERO_PT;
+  const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
   // Value ticks (right axis) and time ticks (bottom axis). Intraday ticks are even
   // fractions of the wall-clock window; daily ticks are even data indices.
-  const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= HERO_H - HERO_PB + 0.5);
+  const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= plotBottom + 0.5);
   const xCount = Math.min(5, n);
   const xt = [];   // { gx, label, edge }
   if (intraday) {
@@ -779,20 +823,20 @@ function drawHero(svg, pts, m) {
   // whisper of fill, plus a baseline frame.
   let grid = "";
   for (const t of yt) { const gy = Y(t).toFixed(1); grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
-  for (const xk of xt) { const gx = xk.gx.toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  for (const xk of xt) { const gx = xk.gx.toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${plotBottom.toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
   // Line + fill, broken into segments at overnight/weekend gaps (intraday only).
   let line = "", area = "";
   for (const seg of heroSegments(pts, intraday)) {
     for (let j = 0; j < seg.length; j++) { const i = seg[j]; line += (j ? " L " : " M ") + X(i).toFixed(1) + " " + Y(vals[i]).toFixed(1); }
     const a = seg[0], b = seg[seg.length - 1];
-    area += " M " + X(a).toFixed(1) + " " + (HERO_H - HERO_PB);
+    area += " M " + X(a).toFixed(1) + " " + plotBottom.toFixed(1);
     for (let j = 0; j < seg.length; j++) { const i = seg[j]; area += " L " + X(i).toFixed(1) + " " + Y(vals[i]).toFixed(1); }
-    area += " L " + X(b).toFixed(1) + " " + (HERO_H - HERO_PB) + " Z";
+    area += " L " + X(b).toFixed(1) + " " + plotBottom.toFixed(1) + " Z";
   }
-  svg.innerHTML = `<title>Price chart</title>${grid}`
+  svg.innerHTML = `<title>Price chart</title>${ov.decor}${grid}`
     + `<path d="${area}" style="fill:${col};fill-opacity:.07" stroke="none"/>`
     + `<path class="g-hero-line" d="${line}" style="fill:none;stroke:${col}" stroke-width="1.35" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`
-    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${HERO_H - HERO_PB}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none" vector-effect="non-scaling-stroke"/>`
+    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${plotBottom.toFixed(1)}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none" vector-effect="non-scaling-stroke"/>`
     + `<circle class="g-hero-hoverdot" r="3" style="fill:${col};display:none"/>`
     + `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(last).toFixed(1)}" r="2.4" style="fill:${col}" vector-effect="non-scaling-stroke"/>`;
   // Right value axis (HTML — crisp text; % positions map 1:1 onto the stretched
@@ -819,7 +863,7 @@ function drawHero(svg, pts, m) {
 // % from the window start onto ONE shared % axis (never a dual axis — see the
 // dataviz rule), in its categorical colour, with a stronger baseline at 0%.
 function drawHeroMulti(svg, series) {
-  const plotW = HERO_W - HERO_PX * 2, plotH = HERO_H - HERO_PT - HERO_PB;
+  const plotW = HERO_W - HERO_PX * 2, fullBottom = HERO_H - HERO_PB;
   const intraday = heroIntraday();
   const ref = series.reduce((a, b) => (b.pts.length > a.pts.length ? b : a), series[0]);
   // Intraday overlays share ONE wall-clock domain so the lines line up in real time
@@ -831,6 +875,12 @@ function drawHeroMulti(svg, series) {
   if (intraday) { const dm = heroIntradayDomain(t0d, t1d); t0 = dm[0]; t1 = dm[1]; session = dm[2]; }
   const span = (t1 - t0) || 1;
   const Xtime = (ms) => HERO_PX + plotW * (ms - t0) / span;
+  // 1D session overlay (bands · open verticals · per-region duration strip) — shrinks
+  // the price plot by the strip height so nothing else moves. Off outside the 1D window.
+  const ov = (intraday && session)
+    ? heroSessionOverlay(series.map((s) => ({ region: (s.m && s.m.region) || "", color: s.color, pts: s.pts })), Xtime, HERO_PT, fullBottom)
+    : { decor: "", plotBottom: fullBottom };
+  const plotBottom = ov.plotBottom, plotH = plotBottom - HERO_PT;
   let lo = 0, hi = 0;
   const S = series.map((s) => {
     const base = s.pts[0][1] || 1;
@@ -842,7 +892,7 @@ function drawHeroMulti(svg, series) {
   const p = (hi - lo) * 0.08, dlo = lo - p, dhi = hi + p;
   const Xof = (n) => (i) => HERO_PX + plotW * i / Math.max(1, n - 1);
   const Y = (v) => HERO_PT + plotH - ((v - dlo) / (dhi - dlo)) * plotH;
-  const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= HERO_H - HERO_PB + 0.5);
+  const yt = heroNiceTicks(dlo, dhi, 4).filter((t) => Y(t) >= HERO_PT - 0.5 && Y(t) <= plotBottom + 0.5);
   // Time ticks: even wall-clock fractions (intraday) or even ref-index steps (daily).
   const xn = ref.pts.length, Xr = Xof(xn), xCount = Math.min(5, xn);
   const xt = [];   // { gx, label }
@@ -854,7 +904,7 @@ function drawHeroMulti(svg, series) {
   }
   let grid = "";
   for (const t of yt) { const gy = Y(t).toFixed(1), zero = Math.abs(t) < 1e-6; grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--${zero ? "t-faint" : "t-grid"})" stroke-width="${zero ? 1.2 : 1}" vector-effect="non-scaling-stroke"/>`; }
-  for (const xk of xt) { const gx = xk.gx.toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${(HERO_H - HERO_PB).toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
+  for (const xk of xt) { const gx = xk.gx.toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${plotBottom.toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
   let paths = "";
   const drawn = S.map((s) => {
     const n = s.pct.length;
@@ -865,8 +915,8 @@ function drawHeroMulti(svg, series) {
       + `<circle cx="${X(n - 1).toFixed(1)}" cy="${Y(s.pct[n - 1]).toFixed(1)}" r="2.2" style="fill:${s.color}" vector-effect="non-scaling-stroke"/>`;
     return s;
   });
-  svg.innerHTML = `<title>Indexed performance</title>${grid}${paths}`
-    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${HERO_H - HERO_PB}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none" vector-effect="non-scaling-stroke"/>`;
+  svg.innerHTML = `<title>Indexed performance</title>${ov.decor}${grid}${paths}`
+    + `<line class="g-hero-cross" x1="0" y1="${HERO_PT}" x2="0" y2="${plotBottom.toFixed(1)}" style="stroke:var(--t-faint);stroke-dasharray:2 2;display:none" vector-effect="non-scaling-stroke"/>`;
   const yax = document.getElementById("g-hero-yaxis");
   if (yax) yax.innerHTML = yt.map((t) => `<span class="g-hero-ylab" style="top:${((Y(t) / HERO_H) * 100).toFixed(2)}%">${esc(heroPctStr(t))}</span>`).join("");
   const xax = document.getElementById("g-hero-xaxis");
