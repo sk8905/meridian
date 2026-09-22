@@ -891,6 +891,32 @@
        crushes the two flexible middle wires, so we use the single-column chip
        swap instead. */
     .tui .g-wiretabs{ display:none; }
+    /* ---- Merged wire: top-level lanes + reading pane ---- */
+    /* Lane switch (All · News · Manager · Watchlist) above the coloured sub-filters.
+       Desktop-only — on phones the wire stays the plain news feed + the Watch tab. */
+    .g-wire-lanes{ display:none; }
+    @media (min-width:1201px){ .g-wire-lanes{ display:flex; gap:0; border-bottom:1px solid var(--t-grid); background:var(--t-head); } }
+    .g-wire-lane{ flex:0 0 auto; padding:7px 13px; border:0; background:transparent; color:var(--t-mut);
+      font:inherit; font-size:11.5px; font-weight:700; letter-spacing:.02em; cursor:pointer; }
+    .g-wire-lane:hover{ color:var(--t-ink); }
+    .g-wire-lane.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--t-ink); }
+    /* Reading pane — terminal reading mode (desktop only; shown in the ≥1201px block). */
+    .g-read{ display:none; }
+    .g-read-head{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; padding:7px 12px;
+      background:var(--t-head); border-bottom:1px solid var(--t-grid); }
+    .g-read-h-t{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--t-ink); }
+    .g-read-h-x{ font-size:10px; color:var(--t-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+    .g-read-art{ padding:14px 16px 22px; }
+    .g-read-kicker{ font-family:var(--t-mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--t-accent); margin-bottom:8px; }
+    .g-read-title{ font-family:var(--t-mono); font-size:16px; line-height:1.32; font-weight:700; color:var(--t-ink); margin:0 0 9px; }
+    .g-read-meta{ font-family:var(--t-mono); font-size:10.5px; color:var(--t-mut); padding-bottom:11px; margin-bottom:13px; border-bottom:1px solid var(--t-grid); }
+    .g-read-free{ color:var(--t-up); }
+    .g-read-lock{ color:var(--t-amber); }
+    .g-read-note{ font-family:var(--t-mono); font-size:11.5px; line-height:1.65; color:var(--t-dim); margin:0 0 13px; max-width:62ch; }
+    .g-read-open{ font-family:var(--t-mono); font-size:11px; color:var(--t-accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--t-accent) 40%, transparent); }
+    .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:11.5px; line-height:1.5; color:var(--t-mut); }
+    .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
+
     @media (min-width:1201px){
       /* Fixed-height terminal: the PAGE never scrolls. The command bar, ticker and
          briefing stay put; the workspace fills the rest of the viewport and each
@@ -910,6 +936,14 @@
       .tui .g-mw{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-mw-head{ flex:0 0 auto; }
       .tui .g-mw-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      /* Desktop: the manager quadrant becomes the READING PANE; the manager wire's
+         content moves into the merged wire's Manager/Watchlist lanes. The mobile
+         manager wire (.g-mw-scroll) is hidden here; the reading pane fills the column
+         with a pinned header and a scrolling body. */
+      .tui .g-side3 > .g-mw-scroll{ display:none; }
+      .tui .g-side3 > .g-read{ display:flex; flex-direction:column; flex:1 1 auto; min-height:0; overflow:hidden; }
+      .tui .g-read > .g-read-head{ flex:0 0 auto; }
+      .tui .g-read > .g-read-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       /* Left rail: the market/rate panels keep their natural height and Top movers
          grows to fill whatever space is left at the base (scrolling internally if
          its list is long). The rail still scrolls as a whole on short screens. */

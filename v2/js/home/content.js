@@ -104,6 +104,10 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <!-- CENTER: news wire. The filter row leads (pinned under the chips); the
              feed's day-break marker sticks beneath the filter row on scroll. -->
         <section class="g-feed-wrap g-anchor" id="jump-feed">
+          <!-- Top-level lane switch (desktop merged wire): All · News · Manager ·
+               Watchlist. Rendered by glance.js renderWireLanes(); the desk/category
+               sub-filters sit in #g-feed-head below, switching to match the lane. -->
+          <div class="g-wire-lanes" id="g-wire-lanes" role="tablist" aria-label="Wire"></div>
           <div class="g-feed-head" id="g-feed-head">Today</div>
           <div class="g-feed wire-ptr-list" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
@@ -111,11 +115,16 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <!-- MANAGER FEED: watchlist-first manager activity wire (its own column,
              separate from the aggregated news feed). Only its list scrolls. -->
         <aside class="g-side3">
+          <!-- DESKTOP: reading pane — a clicked wire item opens here in reading mode;
+               defaults to the top story of the day. Hidden on phones. -->
+          <section class="tui-pnl g-read" id="g-read" aria-label="Reading pane">
+            <div class="g-read-head"><span class="g-read-h-t">Reading pane</span><span class="g-read-h-x" id="g-read-badge"></span></div>
+            <div class="g-read-body" id="g-readpane"><div class="g-loading">Loading top story…</div></div>
+          </section>
+          <!-- MOBILE watch tab: the manager activity wire. Hidden on desktop, where
+               its content moves into the merged wire's Manager / Watchlist lanes. -->
           <div class="g-mw-scroll">
             <section class="tui-pnl g-mw">
-              <!-- No title row: the label-filter chips + Group-by-manager control
-                   are rendered here by glance.js (renderManagerWire) as a desk row,
-                   mirroring the news wire's fixed filter header. -->
               <div class="g-mw-head" id="g-mw-head"></div>
               <div class="g-mw-body">
                 <div id="g-mgrwire" class="g-mw-pane" aria-label="Manager activity wire"><div class="g-loading">Loading managers…</div></div>

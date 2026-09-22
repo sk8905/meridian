@@ -116,10 +116,12 @@ export function initGlance(ctx) {
   if (typeof _hp.group === "boolean") _feedGroup = _hp.group;
   if (typeof _hp.mgrGroup === "boolean") _mwGroup = _hp.mgrGroup;
   if (typeof _hp.mgrCat === "string") _mwCat = _hp.mgrCat;
+  if (typeof _hp.wireLane === "string") _wireLane = _hp.wireLane;
+  if (typeof _hp.mgrLaneCat === "string") _mgrLaneCat = _hp.mgrLaneCat;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
-  renderFeed();
+  renderWire();                                          // merged wire (lanes) + reading pane
   initHomeBriefing();                                    // the tri-daily brief atop the News wire
-  renderManagerWire();
+  renderManagerWire();                                   // mobile watch tab (#g-mgrwire)
   refreshLiveFeed();                                     // then pull fresh headlines
   renderMacroSnapshot();
   initMacroIndicators();
@@ -160,9 +162,9 @@ function initFeedEntityNav() {
   if (!feed) return;
   const handle = (e) => {
     const src = e.target.closest(".g-feed-src");
-    if (src) { e.preventDefault(); e.stopPropagation(); _feedSrc = src.dataset.src; _feedDesk = "all"; renderFeed(); return; }
+    if (src) { e.preventDefault(); e.stopPropagation(); _feedSrc = src.dataset.src; _feedDesk = "all"; renderWire(); return; }
     const clr = e.target.closest("[data-clearsrc]");
-    if (clr) { e.preventDefault(); e.stopPropagation(); _feedSrc = null; renderFeed(); }
+    if (clr) { e.preventDefault(); e.stopPropagation(); _feedSrc = null; renderWire(); }
   };
   feed.addEventListener("click", handle);
   feed.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") handle(e); });
@@ -1085,7 +1087,7 @@ function refreshLiveFeed() {
         // the reduced time until the NEXT fresh assembly, on every page.
         try { localStorage.setItem("wire.live.anchor", String(Date.parse(d.asOf) || Date.now())); } catch { /* private mode */ }
         window.dispatchEvent(new CustomEvent("wire:live-refresh"));
-        renderFeed();
+        renderWire();
       }
     })
     .catch(() => { /* keep cached/static feed */ });
@@ -1690,7 +1692,7 @@ function renderFeed() {
       : "";
     head.innerHTML = deskrow + secondary;
     // Desk chip: clears any source filter, switches desks and resets the type.
-    head.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderFeed(); }));
+    head.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderWire(); }));
     // Group-by-type toggle: day-by-day stream ⇄ by-label grouping (rolling 3 days).
     const grp = head.querySelector(".g-feed-grpbtn");
     if (grp) grp.addEventListener("click", (e) => {
@@ -1698,11 +1700,177 @@ function renderFeed() {
       _feedSrc = null; _feedType = "all";
       _feedGroup = !_feedGroup;
       _saveHomePref({ group: _feedGroup });
-      renderFeed();
+      renderWire();
     });
     // A type chip narrows within the current desk.
-    head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderFeed(); }));
+    head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderWire(); }));
   }
+  _lastFeed = feed;      // stashed so the "All" lane can interleave managers in
+}
+
+// ---- Merged wire (desktop): News + Manager in one column -------------------
+// A top-level lane switch — All · News · Manager · Watchlist — over the shared feed
+// column (#g-feed), with the existing coloured sub-filters (news desks / manager
+// categories) switching to match the lane. The old manager quadrant becomes a
+// reading pane. Mobile keeps its own News/Watch tabs (renderManagerWire → #g-mgrwire).
+let _wireLane = "news";       // all | news | manager | watchlist
+let _mgrLaneCat = "all";      // manager/watchlist category sub-filter
+let _lastFeed = [];           // last news feed array (for the All interleave)
+const WIRE_LANES = [["all", "All"], ["news", "News"], ["manager", "Manager"], ["watchlist", "Watchlist"]];
+
+// Manager events, flattened + de-duped across managers, for the merged wire.
+function managerFlatEvents(watchOnly, cat) {
+  const rows = managerWire(_mgrFollows(), { limit: 0 });
+  const nd = new Date(), winStart = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth() - 1, 1);
+  const ok = (e, w) => (!watchOnly || w) && (!cat || cat === "all" || e.cat === cat);
+  const present = new Set(rows.flatMap((r) => (r.events || []).map((e) => e.cat)).filter(Boolean));
+  const events = dedupeEvents(
+    rows.flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
+      .filter((e) => e.ts && e.ts >= winStart && ok(e, e.watched)),
+    { fuzzy: false }
+  ).sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
+  return { events, present };
+}
+// A manager event as a shared .g-feed-row (same markup as the manager wire's flat row).
+function mgrEventRow(x) {
+  const to = x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`;
+  const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
+  return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+    + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
+    + `<span class="g-feed-code ${_catCls(x.cat)}">${CAT_LABEL[x.cat] || "NEWS"}</span>`
+    + `<span class="g-feed-title">${star}${esc(x.title)}</span>`
+    + `<span class="g-feed-src">${esc(_mwSrc(x))}</span></a>`;
+}
+// Manager / Watchlist lane: flat month-banded manager events into #g-feed, with the
+// category chips as the second-level filter in #g-feed-head.
+function renderMgrLane(watchOnly) {
+  const box = document.getElementById("g-feed"); if (!box) return;
+  const { events, present } = managerFlatEvents(watchOnly, _mgrLaneCat);
+  if (_mgrLaneCat !== "all" && !present.has(_mgrLaneCat)) { _mgrLaneCat = "all"; return renderMgrLane(watchOnly); }
+  let out = "", lastMonth = "";
+  events.forEach((r) => {
+    const mk = String(r.date || "").slice(0, 7);
+    if (mk && mk !== lastMonth) { lastMonth = mk; const [y, mo] = mk.split("-"); out += `<div class="g-feed-dayhdr g-mw-month">${esc((MONTHS[(+mo) - 1] || "") + " " + y)}</div>`; }
+    out += mgrEventRow(r);
+  });
+  const empty = watchOnly
+    ? `<div class="g-mw-empty">No activity from your watchlist in this window. Tap ☆ on a manager to follow them.</div>`
+    : (_mgrLaneCat !== "all" ? `<div class="g-mw-empty">No ${esc(CAT_LABEL[_mgrLaneCat] || _mgrLaneCat)} activity in this window.</div>` : `<div class="g-mw-empty">No manager activity yet.</div>`);
+  setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
+  const head = document.getElementById("g-feed-head");
+  if (head) {
+    const catOpts = ["all", ...MW_CAT_ORDER.filter((c) => present.has(c))];
+    const chips = catOpts.map((c) => {
+      const on = _mgrLaneCat === c;
+      const dot = c === "all" ? "" : `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
+      const label = c === "all" ? "All" : (CAT_LABEL[c] || c.toUpperCase());
+      return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mglcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(label)}</button>`;
+    }).join("");
+    head.innerHTML = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by category">${chips}</div></div>`;
+    head.querySelectorAll("[data-mglcat]").forEach((b) => b.addEventListener("click", () => { _mgrLaneCat = b.dataset.mglcat; _saveHomePref({ mgrLaneCat: _mgrLaneCat }); renderWire(); }));
+  }
+}
+// All lane: interleave the news feed with manager events by recency. Reuses the news
+// feed already painted by renderFeed (stashed in _lastFeed), then repaints #g-feed.
+function _newsTs(x) {
+  const d = (x.date || "").slice(0, 10);
+  return Date.parse(`${d}T${x.time || "00:00"}:00Z`) || (x.added || 0) || Date.parse(d) || 0;
+}
+function mergeManagersIntoFeed() {
+  const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";   // All: no sub-filters
+  const news = (_lastFeed || []).map((x) => ({ it: x, mgr: false, ts: _newsTs(x) }));
+  const { events } = managerFlatEvents(false, "all");
+  const mgr = events.map((e) => ({ it: e, mgr: true, ts: e.ts || _newsTs(e) }));
+  const merged = news.concat(mgr).sort((a, b) => b.ts - a.ts);
+  let out = "", lastDay = "";
+  for (const m of merged) {
+    const d = (m.it.date || "").slice(0, 10);
+    if (d && d !== lastDay) { lastDay = d; out += `<div class="g-feed-dayhdr">${esc(fmt(d))}</div>`; }
+    out += m.mgr ? mgrEventRow(m.it) : feedRow(m.it);
+  }
+  setHTML("g-feed", out || feedEmptyHTML("Nothing on the wire yet."));
+}
+// Top-level lane chips (own row above the sub-filters).
+function renderWireLanes() {
+  const host = document.getElementById("g-wire-lanes"); if (!host) return;
+  host.innerHTML = WIRE_LANES.map(([k, l]) =>
+    `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("");
+  if (!host.dataset.wired) {
+    host.dataset.wired = "1";
+    host.addEventListener("click", (e) => { const b = e.target.closest(".g-wire-lane"); if (b && b.dataset.lane !== _wireLane) { _wireLane = b.dataset.lane; _saveHomePref({ wireLane: _wireLane }); renderWire(); } });
+  }
+}
+// The dispatcher — the single entry point for (re)painting the merged wire. The lanes
+// + reading pane are a DESKTOP feature; on phones the wire stays the plain news feed
+// (the Watch tab keeps the manager wire), so the lane is forced to "news" there.
+function renderWire() {
+  const desktop = matchMedia("(min-width:1201px)").matches;
+  renderWireLanes();
+  const lane = desktop ? _wireLane : "news";
+  if (lane === "manager" || lane === "watchlist") renderMgrLane(lane === "watchlist");
+  else { renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
+  ensureReadWired();
+  syncReadDefault();
+}
+
+// ---- Reading pane (desktop right quadrant) ---------------------------------
+// Click any wire row → it opens here in reading mode; defaults to the top story of the
+// day. Paywalled sources show the card + a link out; open sources will print in full
+// once the reader service lands (Stage 2). On mobile the pane is hidden and rows
+// navigate as before.
+const PAYWALL_SRC = /financial times|bloomberg|wall street journal|\bwsj\b|economist|new york times|\bnyt\b|barron|business insider/i;
+function _isPaywalled(src, href) { return PAYWALL_SRC.test(src || "") || /\bft\.com|bloomberg\.com|wsj\.com|economist\.com|nytimes\.com|barrons\.com/i.test(href || ""); }
+function _rowItem(row) {
+  const t = row.querySelector(".g-feed-title");
+  return {
+    title: t ? t.textContent.replace(/^★\s*/, "").trim() : "",
+    src: ((row.querySelector(".g-feed-src") || {}).textContent || "").trim(),
+    code: ((row.querySelector(".g-feed-code") || {}).textContent || "").trim(),
+    when: ((row.querySelector(".g-feed-time") || {}).textContent || "").trim(),
+    href: row.getAttribute("href") || "",
+    ext: row.getAttribute("target") === "_blank" || /^https?:/i.test(row.getAttribute("href") || ""),
+  };
+}
+function openInReadPane(row) {
+  document.querySelectorAll("#g-feed .g-feed-row.is-reading").forEach((r) => r.classList.remove("is-reading"));
+  row.classList.add("is-reading");
+  renderReadPane(_rowItem(row));
+}
+function renderReadPane(it) {
+  const box = document.getElementById("g-readpane"); if (!box) return;
+  const badge = document.getElementById("g-read-badge");
+  if (!it || !it.title) { box.innerHTML = `<div class="g-read-empty">Select a story on the left to read it here.</div>`; if (badge) badge.textContent = ""; return; }
+  if (badge) badge.textContent = it.src || "";
+  const paywalled = _isPaywalled(it.src, it.href);
+  const meta = [it.src, it.when].filter(Boolean).map(esc).join(" · ");
+  const access = paywalled ? `<span class="g-read-lock">🔒 subscriber source — preview + link</span>` : `<span class="g-read-free">● reading mode</span>`;
+  const open = (it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">Open original at ${esc(it.src || "source")}</a>` : "";
+  box.innerHTML = `<article class="g-read-art">`
+    + (it.code ? `<div class="g-read-kicker">${esc(it.code)}</div>` : "")
+    + `<h1 class="g-read-title">${esc(it.title)}</h1>`
+    + `<div class="g-read-meta">${meta}${meta ? " · " : ""}${access}</div>`
+    + `<div class="g-read-note">${paywalled ? "This source is subscriber-only — open the original below." : "In-pane full-text reading is arriving in the next update. Open the original below."}</div>`
+    + open + `</article>`;
+}
+function syncReadDefault() {
+  const read = document.getElementById("g-read");
+  if (!read || read.offsetParent === null) return;                          // mobile / hidden
+  if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // keep current
+  const first = document.querySelector("#g-feed .g-feed-row");
+  if (first) openInReadPane(first); else renderReadPane(null);
+}
+function ensureReadWired() {
+  const feed = document.getElementById("g-feed");
+  if (!feed || feed.dataset.readWired) return;
+  feed.dataset.readWired = "1";
+  feed.addEventListener("click", (e) => {
+    const read = document.getElementById("g-read");
+    if (!read || read.offsetParent === null) return;                        // mobile → native nav
+    if (e.target.closest(".g-feed-src, [data-follow], .g-mw-exp")) return;  // in-row controls
+    const row = e.target.closest(".g-feed-row"); if (!row) return;
+    e.preventDefault(); e.stopPropagation();
+    openInReadPane(row);
+  });
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
 // A compact read of the three Macro views — policy rate, cycle position and
