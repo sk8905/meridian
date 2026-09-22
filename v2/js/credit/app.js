@@ -1234,9 +1234,6 @@ function router() {
       : { view: route, id: focusId, until: Date.now() + 4000 });
     history.replaceState(null, "", hash);
   }
-  document.querySelectorAll(".nav-link").forEach((a) => {
-    a.classList.toggle("active", a.getAttribute("href") === `#/${route}` || (route === "" && a.getAttribute("href") === "#/"));
-  });
   const wl = document.getElementById("wl-count");
   if (wl) { const n = followCount(); wl.textContent = n ? n : ""; wl.style.display = n ? "" : "none"; }
   window.scrollTo(0, 0);

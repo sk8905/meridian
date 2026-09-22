@@ -1174,14 +1174,6 @@ function hashQuery() {
   new URLSearchParams(q).forEach((v, k) => { out[k] = v; });
   return out;
 }
-// The view nav lives in the top bar (matches Credit/Legal); toggle its active
-// state to the current tab.
-function syncNav(active) {
-  document.querySelectorAll(".mainnav .nav-link").forEach((a) => {
-    a.classList.toggle("active", a.getAttribute("href") === `#/${active}`);
-  });
-}
-
 // Fetch the live macro data once and reuse it across tabs.
 let MACRO_PROMISE = null;
 function fetchMacro() {
@@ -1228,7 +1220,6 @@ function render() {
   if (tab === "commentary") commentaryLimit = COMMENTARY_PAGE;
   const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : tab === "saved" ? viewSaved() : viewDashboard();
   app.innerHTML = body;
-  syncNav(tab);
   if (tab === "dashboard") { macroWireDash(); loadMacro(dashFocus); loadMacroFeed(); loadYieldCurve(); }
   if (tab === "commentary") wireCommentary();
   if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }

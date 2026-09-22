@@ -758,13 +758,6 @@ function router() {
   else viewDashboard();
 
   updateSavedCount();
-  syncNavActive(hash);
-}
-
-function syncNavActive(hash) {
-  document.querySelectorAll(".mainnav .nav-link").forEach((a) => {
-    a.classList.toggle("active", a.getAttribute("href") === hash);
-  });
 }
 
 // Delegate: save buttons + chart drill-down (data-area / data-tier).

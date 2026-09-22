@@ -1195,7 +1195,7 @@ function renderManagerWire() {
     const mix = _mixStr(r.mix), aum = _aumAmt(r.aumSym, r.aum), strat = (r.strategies || []).slice(0, 2).map(esc).join(" · ");
     const activity = `<div class="g-mw-meta">`
       + `<span class="g-mw-m" title="Events last 30 days (▲ rising vs prior 30d)">${r.count30}·30d ${trend}</span>`
-      + (mix ? `<span class="g-mw-m g-mw-mix" title="Signal mix, last 90 days">${mix}</span>` : "")
+      + (mix ? `<span class="g-mw-m g-mw-mix" title="Signal mix, last 90 days">${esc(mix)}</span>` : "")
       + (aum ? `<span class="g-mw-m g-mw-aum${r.aumStale ? " is-stale" : ""}" title="AUM${r.aumStale ? " — as-of date is >9 months old" : ""}">AUM ${esc(aum)}${r.asOf ? ` · ${_asOfShort(r.asOf)}` : ""}</span>` : "")
       + (strat ? `<span class="g-mw-m g-mw-strat" title="Primary strategies">${strat}</span>` : "")
       + `</div>`;
