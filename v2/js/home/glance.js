@@ -1836,21 +1836,49 @@ function openInReadPane(row) {
   row.classList.add("is-reading");
   renderReadPane(_rowItem(row));
 }
+let _readSeq = 0;
+function _readNiceDate(iso) {
+  const t = Date.parse(iso || ""); if (!t) return "";
+  const d = new Date(t); return `${d.getDate()} ${MONTHS[d.getMonth()] || ""} ${d.getFullYear()}`;
+}
+function _readOpen(it) { return (it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">Open original at ${esc(it.src || "source")}</a>` : ""; }
+function _readShell(it, access, bodyHTML) {
+  const meta = [it.src, it.when].filter(Boolean).map(esc).join(" · ");
+  return `<article class="g-read-art">`
+    + (it.code ? `<div class="g-read-kicker">${esc(it.code)}</div>` : "")
+    + `<h1 class="g-read-title">${esc(it.title)}</h1>`
+    + `<div class="g-read-meta">${meta}${meta && access ? " · " : ""}${access || ""}</div>`
+    + bodyHTML + _readOpen(it) + `</article>`;
+}
 function renderReadPane(it) {
   const box = document.getElementById("g-readpane"); if (!box) return;
   const badge = document.getElementById("g-read-badge");
   if (!it || !it.title) { box.innerHTML = `<div class="g-read-empty">Select a story on the left to read it here.</div>`; if (badge) badge.textContent = ""; return; }
   if (badge) badge.textContent = it.src || "";
-  const paywalled = _isPaywalled(it.src, it.href);
-  const meta = [it.src, it.when].filter(Boolean).map(esc).join(" · ");
-  const access = paywalled ? `<span class="g-read-lock">🔒 subscriber source — preview + link</span>` : `<span class="g-read-free">● reading mode</span>`;
-  const open = (it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">Open original at ${esc(it.src || "source")}</a>` : "";
-  box.innerHTML = `<article class="g-read-art">`
-    + (it.code ? `<div class="g-read-kicker">${esc(it.code)}</div>` : "")
-    + `<h1 class="g-read-title">${esc(it.title)}</h1>`
-    + `<div class="g-read-meta">${meta}${meta ? " · " : ""}${access}</div>`
-    + `<div class="g-read-note">${paywalled ? "This source is subscriber-only — open the original below." : "In-pane full-text reading is arriving in the next update. Open the original below."}</div>`
-    + open + `</article>`;
+  const seq = ++_readSeq;
+  // Curated/internal items and known subscriber sources: card + link (never fetched).
+  if (!it.ext || !it.href || _isPaywalled(it.src, it.href)) {
+    const paywalled = _isPaywalled(it.src, it.href);
+    box.innerHTML = _readShell(it,
+      paywalled ? `<span class="g-read-lock">🔒 subscriber source — preview + link</span>` : `<span class="g-read-free">● reading mode</span>`,
+      `<div class="g-read-note">${paywalled ? "This source is subscriber-only — open the original below." : "Open the original below to read the full story."}</div>`);
+    return;
+  }
+  // Openly-readable candidate: fetch the reader service and print the body in-pane.
+  box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Reading the article…</div>`);
+  fetch(`/api/read?url=${encodeURIComponent(it.href)}`, { headers: { accept: "application/json" } })
+    .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
+    .then((d) => {
+      if (seq !== _readSeq) return;                                     // superseded by another click
+      if (d && d.accessible && Array.isArray(d.paragraphs) && d.paragraphs.length) {
+        const bl = [d.byline, _readNiceDate(d.date)].filter(Boolean).map(esc).join(" · ");
+        box.innerHTML = _readShell({ ...it, title: d.title || it.title }, `<span class="g-read-free">● reading mode</span>`,
+          (bl ? `<div class="g-read-byline">${bl}</div>` : "") + d.paragraphs.map((p) => `<p class="g-read-p">${esc(p)}</p>`).join(""));
+      } else {
+        box.innerHTML = _readShell(it, `<span class="g-read-lock">preview + link</span>`,
+          `<div class="g-read-note">Full text isn't available in-pane for this source — open the original below.</div>`);
+      }
+    });
 }
 function syncReadDefault() {
   const read = document.getElementById("g-read");

@@ -1655,6 +1655,100 @@ async function yahooSeries(symbol, range, interval) {
   const asOf = meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString().slice(0, 10) : new Date(pts[pts.length - 1][0]).toISOString().slice(0, 10);
   return { value, asOf, history: pts };
 }
+// ---- Reader service (/api/read) --------------------------------------------
+// Fetches an OPENLY-READABLE article and extracts a reading-mode body (title ·
+// byline · date · paragraphs) for the Home reading pane. Security: this is NOT an
+// open fetch proxy — only https URLs whose host is on the allowlist below are
+// fetched; subscriber domains are never fetched and return `accessible:false` so the
+// client shows a preview + link instead. Cached at the edge (~30 min). Extraction is
+// a pure string pass (extractReadable) so it can be unit-tested without egress.
+const READ_ALLOW = new Set([
+  "theguardian.com", "reuters.com", "apnews.com", "cnbc.com", "bbc.com", "bbc.co.uk",
+  "marketwatch.com", "finance.yahoo.com", "yahoo.com", "cityam.com", "investing.com",
+  "tradingview.com", "coindesk.com", "cointelegraph.com", "businesswire.com",
+  "globenewswire.com", "prnewswire.com", "prweb.com", "accesswire.com", "sec.gov",
+  "federalreserve.gov", "bankofengland.co.uk", "ecb.europa.eu", "imf.org", "oecd.org",
+  "hedgeweek.com", "privateequitywire.co.uk", "thelawyer.com", "law.com", "abovethelaw.com",
+  "altcreditnews.com", "pehub.com", "with-intelligence.com", "opalesque.com",
+  "institutionalinvestor.com", "pionline.com", "fnlondon.com", "cnbc.com", "npr.org",
+]);
+const READ_PAYWALL = new Set([
+  "ft.com", "bloomberg.com", "wsj.com", "economist.com", "nytimes.com", "barrons.com",
+  "businessinsider.com", "thetimes.co.uk", "telegraph.co.uk", "nikkei.com", "forbes.com",
+  "washingtonpost.com", "theinformation.com", "seekingalpha.com",
+]);
+const READ_UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
+function _readDec(s) {
+  return String(s || "")
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => { try { return String.fromCodePoint(parseInt(h, 16)); } catch { return ""; } })
+    .replace(/&#(\d+);/g, (_, d) => { try { return String.fromCodePoint(+d); } catch { return ""; } })
+    .replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&").replace(/&lt;/gi, "<").replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"').replace(/&(?:#39|apos|rsquo|lsquo);/gi, "'").replace(/&(?:ldquo|rdquo);/gi, '"')
+    .replace(/&mdash;/gi, "—").replace(/&ndash;/gi, "–").replace(/&hellip;/gi, "…");
+}
+function _readStrip(s) {
+  return _readDec(String(s || "").replace(/<(?:script|style|figure|figcaption|aside)[\s\S]*?<\/(?:script|style|figure|figcaption|aside)>/gi, "").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
+}
+function _readMeta(html, keys) {
+  for (const k of keys) {
+    const re = new RegExp(`<meta[^>]+(?:property|name|itemprop)=["']${k}["'][^>]*>`, "i");
+    const m = re.exec(html);
+    if (m) { const c = /content=["']([^"']*)["']/i.exec(m[0]); if (c && c[1]) return _readDec(c[1]).trim(); }
+  }
+  return "";
+}
+const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4})/i;
+function _readTidy(host) { const p = host.replace(/\.(com|co\.uk|org|net|gov|edu|io|us)$/i, "").split(".").pop() || host; return p.charAt(0).toUpperCase() + p.slice(1); }
+export function extractReadable(html, u) {
+  const host = u.hostname.replace(/^www\./, "");
+  const source = _readTidy(host);
+  const title = _readMeta(html, ["og:title", "twitter:title"])
+    || _readStrip(((/<title[^>]*>([\s\S]*?)<\/title>/i.exec(html)) || [])[1] || "").replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "");
+  const byline = _readMeta(html, ["author", "article:author", "parsely-author"]);
+  const date = _readMeta(html, ["article:published_time", "og:published_time", "parsely-pub-date", "datePublished"]);
+  const freeMeta = _readMeta(html, ["isAccessibleForFree"]);
+  const jsonldFree = /"isAccessibleForFree"\s*:\s*(?:false|"false")/i.test(html);
+  let accessible = !(/false/i.test(freeMeta) || jsonldFree);
+  // Body: prefer paragraphs inside <article>, else [itemprop=articleBody], else the doc.
+  let scope = html;
+  const art = /<article[\s\S]*?<\/article>/i.exec(html);
+  if (art) scope = art[0];
+  else { const ab = /<[^>]+itemprop=["']articleBody["'][\s\S]*?<\/[a-z0-9]+>/i.exec(html); if (ab) scope = ab[0]; }
+  const paras = [], seen = new Set(); let re = /<p\b[^>]*>([\s\S]*?)<\/p>/gi, m, total = 0;
+  while ((m = re.exec(scope)) && paras.length < 45) {
+    const t = _readStrip(m[1]);
+    if (t.length < 45 || READ_BOILER.test(t)) continue;
+    const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
+    if (total > 16000) break;
+    paras.push(t); total += t.length;
+  }
+  return { url: u.toString(), source, title, byline, date, accessible: accessible && paras.length >= 2, paragraphs: paras };
+}
+async function handleRead(request, env, ctx) {
+  const target = new URL(request.url).searchParams.get("url") || "";
+  let u; try { u = new URL(target); } catch { return json({ error: "bad url", accessible: false, paragraphs: [] }, 400); }
+  if (u.protocol !== "https:") return json({ error: "https only", accessible: false, paragraphs: [] }, 400);
+  const host = u.hostname.replace(/^www\./, "");
+  const inSet = (set) => set.has(host) || [...set].some((d) => host === d || host.endsWith("." + d));
+  if (inSet(READ_PAYWALL)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "paywall" });
+  if (!inSet(READ_ALLOW)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "source-not-enabled" });
+  const cache = caches.default;
+  const key = new Request("https://read.internal/" + encodeURIComponent(u.toString()));
+  const hit = await cache.match(key); if (hit) return hit;
+  let html = "";
+  try {
+    const r = await fetch(u.toString(), { headers: { "user-agent": READ_UA, accept: "text/html,application/xhtml+xml" }, redirect: "follow", cf: { cacheTtl: 900, cacheEverything: true } });
+    if (!r.ok) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-" + r.status });
+    if (!/text\/html|xml/i.test(r.headers.get("content-type") || "text/html")) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "not-html" });
+    html = (await r.text()).slice(0, 1500000);
+  } catch { return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-failed" }); }
+  const data = extractReadable(html, u);
+  const resp = json(data);
+  resp.headers.set("cache-control", "public, max-age=1800");
+  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, resp.clone()));
+  return resp;
+}
+
 async function handleHero(request, env, ctx) {
   const cache = caches.default;
   const cacheKey = new Request(new URL("/api/hero?v=4", request.url).toString());
@@ -4060,6 +4154,7 @@ export default {
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/hero") return handleHero(request, env, ctx);
     if (url.pathname === "/api/hero-news") return handleHeroNews(request, env, ctx);
+    if (url.pathname === "/api/read") return handleRead(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);

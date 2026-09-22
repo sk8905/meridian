@@ -3,7 +3,12 @@
 // openly-readable treatment). Desktop terminal only.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
-const srv = await serve();
+// Stub the reader service: any openly-readable URL returns an extracted body.
+const READ = { source: "The Guardian", title: "Oil slips below $100 as Iran signals a Hormuz offer", byline: "Jane Smith", date: "2026-09-22T16:28:00Z", accessible: true, paragraphs: [
+  "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.",
+  "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.",
+] };
+const srv = await serve({ "/api/read": () => [200, JSON.stringify(READ)] });
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((b) => b.textContent.trim() === n).click(), name);
@@ -45,19 +50,32 @@ const def = await pg.evaluate(() => ({
 check(def.title.length > 0 && def.kicker, "reading pane: the default top story renders (kicker + headline)");
 check(def.open, "reading pane: carries an 'Open original at …' link out");
 
-// Paywall treatment: a subscriber source (FT/Bloomberg/WSJ) shows the lock; an openly
-// readable source shows the reading-mode badge. Find one of each in the wire.
-const access = await pg.evaluate(() => {
-  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const srcOf = (r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
-  const pay = rows.find((r) => /financial times|bloomberg|wall street journal/i.test(srcOf(r)));
-  const free = rows.find((r) => srcOf(r) && !/financial times|bloomberg|wall street journal|economist|new york times/i.test(srcOf(r)));
-  const readOf = (r) => { r.click(); const box = document.getElementById("g-readpane"); return { lock: !!box.querySelector(".g-read-lock"), free: !!box.querySelector(".g-read-free") }; };
-  return { pay: pay ? readOf(pay) : null, free: free ? readOf(free) : null };
+// Paywall treatment: a subscriber source (FT/Bloomberg/WSJ) shows the lock WITHOUT
+// fetching; an openly-readable source fetches the reader service and prints the body.
+const pay = await pg.evaluate(() => {
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => /financial times|bloomberg|wall street journal/i.test(((r.querySelector(".g-feed-src") || {}).textContent || "")));
+  if (!row) return null; row.click();
+  const box = document.getElementById("g-readpane");
+  return { lock: !!box.querySelector(".g-read-lock"), paras: box.querySelectorAll(".g-read-p").length };
 });
-if (access.pay) check(access.pay.lock && !access.pay.free, "reading pane: a subscriber source shows the 🔒 preview + link treatment");
-if (access.free) check(access.free.free && !access.free.lock, "reading pane: an openly-readable source shows the reading-mode badge");
-check(!!(access.pay || access.free), "reading pane: access state resolves from the source");
+if (pay) check(pay.lock && pay.paras === 0, "reading pane: a subscriber source shows the 🔒 preview + link (no body fetched)");
+// Openly-readable → the reader service body prints in-pane (paragraphs + byline).
+const freeSel = await pg.evaluate(() => {
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => { const s = ((r.querySelector(".g-feed-src") || {}).textContent || "").trim(); return s && !/financial times|bloomberg|wall street journal|economist|new york times/i.test(s); });
+  if (!row) return false; row.click(); return true;
+});
+if (freeSel) {
+  await pg.waitForSelector("#g-readpane .g-read-p", { timeout: 4000 });
+  const full = await pg.evaluate(() => ({
+    paras: document.querySelectorAll("#g-readpane .g-read-p").length,
+    byline: !!document.querySelector("#g-readpane .g-read-byline"),
+    free: !!document.querySelector("#g-readpane .g-read-free"),
+    firstP: (document.querySelector("#g-readpane .g-read-p") || {}).textContent || "",
+  }));
+  check(full.paras >= 2 && full.byline && full.free, `reading pane: an openly-readable source prints the extracted body in-pane (${full.paras} paragraphs)`);
+  check(full.firstP.includes("Brent crude"), "reading pane: the extracted paragraph text renders");
+}
+check(!!(pay || freeSel), "reading pane: access state resolves from the source");
 
 checkErrs(errs, "merged wire news/all + reading pane");
 await ctx.close();
