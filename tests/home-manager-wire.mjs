@@ -207,17 +207,40 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
     // and there is no "Manager wire" title text.
     const head = document.getElementById("g-mw-head");
     const chips = [...head.querySelectorAll(".g-feed-deskchip[data-mwcat]")];
-    return { count: chips.length, first: chips[0]?.textContent.trim(), allOn: chips[0]?.classList.contains("is-on"),
+    const isLens = (c) => c.dataset.mwcat === "all" || c.dataset.mwcat === "watchlist";
+    const watch = chips.find((c) => c.dataset.mwcat === "watchlist");
+    return { count: chips.length, first: chips[0]?.textContent.trim(), second: chips[1]?.textContent.trim(), allOn: chips[0]?.classList.contains("is-on"),
       dots: chips.filter((c) => c.querySelector(".g-feed-deskdot")).length,
+      lensDots: chips.filter((c) => isLens(c) && c.querySelector(".g-feed-deskdot")).length,
+      watchSep: !!watch && watch.classList.contains("g-feed-deskchip-sep"),
       noTitle: !(head.textContent || "").includes("Manager wire"), grpInHead: !!head.querySelector(".g-mw-grpbtn") };
   });
-  check(f.count >= 3, `manager wire has a label-filter chip row in the header (${f.count} chips)`);
+  check(f.count >= 4, `manager wire has a label-filter chip row in the header (${f.count} chips)`);
   check(f.first === "All" && f.allOn, "the filter leads with 'All', selected by default");
-  check(f.dots === f.count - 1, `every category chip carries a pastel dot; only 'All' has none (${f.dots}/${f.count})`);
+  check(f.second === "Watchlist" && f.watchSep, "a Watchlist lens sits second, set apart from the label chips (news-wire All/Views style)");
+  check(f.lensDots === 0 && f.dots === f.count - 2, `the All + Watchlist lenses carry no dot; every category chip does (${f.dots}/${f.count})`);
   check(f.noTitle && f.grpInHead, "the 'Manager wire' title is gone; chips + Group-by-manager share the header row");
-  // Pick a specific category and confirm the wire narrows to only that label.
+  // Watchlist lens: follow one manager in the wire, then it shows only that
+  // manager's activity (the lens re-reads the follow store on render).
+  const wlMgr = await pg.evaluate(() => {
+    const mgr = document.querySelector("#g-mgrwire .g-mw-fev[data-mgr]")?.dataset.mgr;
+    if (!mgr) return null;
+    let f = {}; try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* */ }
+    f.manager = [mgr]; localStorage.setItem("meridian.follows", JSON.stringify(f));
+    document.querySelector("#g-mw-head .g-feed-deskchip[data-mwcat='watchlist']").click();
+    return mgr;
+  });
+  await pg.waitForTimeout(400);
+  const wl = await pg.evaluate((mgr) => {
+    const rows = [...document.querySelectorAll("#g-mgrwire .g-mw-fev[data-mgr]")];
+    return { onWatch: document.querySelector("#g-mw-head .g-feed-deskchip.is-on")?.dataset.mwcat, total: rows.length, mine: rows.filter((r) => r.dataset.mgr === mgr).length };
+  }, wlMgr);
+  check(wlMgr && wl.onWatch === "watchlist", "the Watchlist lens activates on tap");
+  check(wl.total > 0 && wl.mine === wl.total, `the Watchlist lens shows only followed managers' activity (${wl.mine}/${wl.total})`);
+  // Reset to All, then pick a specific category and confirm the wire narrows to that label.
   const narrowed = await pg.evaluate(() => {
-    const chip = [...document.querySelectorAll("#g-mw-head .g-feed-deskchip[data-mwcat]")].find((c) => c.dataset.mwcat !== "all");
+    document.querySelector("#g-mw-head .g-feed-deskchip[data-mwcat='all']").click();
+    const chip = [...document.querySelectorAll("#g-mw-head .g-feed-deskchip[data-mwcat]")].find((c) => c.dataset.mwcat !== "all" && c.dataset.mwcat !== "watchlist");
     const want = chip.dataset.mwcat; chip.click();
     return new Promise((res) => setTimeout(() => {
       const on = document.querySelector("#g-mw-head .g-feed-deskchip.is-on");

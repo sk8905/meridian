@@ -163,7 +163,7 @@ function loadMarkets(body) {
   if (_mktTab === "predict") loadPredict();
   render();
   Promise.all([
-    fetch("/api/markets?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    fetch("/api/markets?v=14", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
     fetch("/api/rates?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]).then(([m, rt]) => {
     data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], rates: (rt && rt.rates) || [] };

@@ -1174,22 +1174,30 @@ function renderManagerWire() {
   // categories PRESENT in the wire, each with its pastel dot, plus "All". Clicking
   // one narrows the wire to that category (flat + grouped).
   const presentCats = new Set(rows.flatMap((r) => (r.events || []).map((e) => e.cat)).filter(Boolean));
-  if (_mwCat !== "all" && !presentCats.has(_mwCat)) _mwCat = "all";
-  const catOpts = ["all", ...MW_CAT_ORDER.filter((c) => presentCats.has(c))];
+  if (_mwCat !== "all" && _mwCat !== "watchlist" && !presentCats.has(_mwCat)) _mwCat = "all";
+  // "All" and "Watchlist" are cross-manager LENSES (everything / followed managers
+  // only), styled like the news wire's All/Views — no dot, and a separator after
+  // Watchlist divides the lenses from the label (category) chips.
+  const catOpts = ["all", "watchlist", ...MW_CAT_ORDER.filter((c) => presentCats.has(c))];
   const catChips = catOpts.map((c) => {
     const on = _mwCat === c;
-    const dot = c === "all" ? "" : `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
-    return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mwcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(c === "all" ? "All" : (CAT_LABEL[c] || c.toUpperCase()))}</button>`;
+    const isLens = c === "all" || c === "watchlist";
+    const dot = isLens ? "" : `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
+    const sep = c === "watchlist" ? " g-feed-deskchip-sep" : "";
+    const label = c === "all" ? "All" : c === "watchlist" ? "Watchlist" : (CAT_LABEL[c] || c.toUpperCase());
+    return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}${sep}" data-mwcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(label)}</button>`;
   }).join("");
   // The wire's header row (fixed, like the news wire's #g-feed-head): the label
   // chips on the left, the Group-by-manager toggle on the right. No title.
   const grpSvg = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`;
   const grpBtnHTML = `<button type="button" class="g-feed-openbtn g-mw-grpbtn${_mwGroup ? " is-on" : ""}" aria-pressed="${_mwGroup}" aria-label="Group the wire by manager (most active first)">${grpSvg}<span>Group by manager</span></button>`;
   const deskrow = `<div class="g-feed-deskrow g-mw-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by label">${catChips}</div><div class="g-feed-ctl">${grpBtnHTML}</div></div>`;
-  const _catOk = (e) => _mwCat === "all" || (e && e.cat === _mwCat);
+  // Lens/label filter: "all" passes everything; "watchlist" passes only followed
+  // managers' events (any category); a category passes only that label.
+  const _lensOk = (e, watched) => _mwCat === "all" ? true : _mwCat === "watchlist" ? !!watched : (e && e.cat === _mwCat);
 
   const item = (r) => {
-    const evs = (r.events || []).filter(_catOk);
+    const evs = (r.events || []).filter((e) => _lensOk(e, r.watched));
     const href = `/v2/profiles/#/manager/${encodeURIComponent(r.id)}`;
     // One-tap follow ☆/★ (F2) — builds the watchlist straight from the wire, using
     // the same button/store as the Credit view.
@@ -1243,7 +1251,7 @@ function renderManagerWire() {
     // count shown on each card (then 90-day, then recency). Watchlisted managers
     // still lead their section.
     const byActive = (a, b) => (b.count30 - a.count30) || (b.count90 - a.count90) || (b.lastTs - a.lastTs);
-    const rowsF = _mwCat === "all" ? rows : rows.filter((r) => (r.events || []).some(_catOk));
+    const rowsF = _mwCat === "all" ? rows : rows.filter((r) => (r.events || []).some((e) => _lensOk(e, r.watched)));
     const watched = rowsF.filter((r) => r.watched).sort(byActive);
     const active = rowsF.filter((r) => !r.watched).sort(byActive).slice(0, 20);
     // First-run coaching (F2): with an empty watchlist, tell the user what
@@ -1269,7 +1277,7 @@ function renderManagerWire() {
     // into one row, without ever merging two managers' genuinely different stories.
     const flat = dedupeEvents(
       rows.flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
-        .filter((e) => e.ts && e.ts >= _winStart && _catOk(e)),
+        .filter((e) => e.ts && e.ts >= _winStart && _lensOk(e, e.watched)),
       { fuzzy: false })
       .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
     let out = "", lastMonth = "";
@@ -1280,8 +1288,9 @@ function renderManagerWire() {
     });
     html = out ? `<div class="g-mw-flat">${out}</div>` : "";
   }
-  // Under an active label filter that leaves nothing, keep the chips + a note.
-  if (!html && _mwCat !== "all") html = `<div class="g-mw-empty">No ${esc(CAT_LABEL[_mwCat] || _mwCat)} activity in this window.</div>`;
+  // Under an active lens/label filter that leaves nothing, keep the chips + a note.
+  if (!html && _mwCat === "watchlist") html = `<div class="g-mw-empty">No activity from your watchlist in this window. Tap ☆ on any manager to follow them.</div>`;
+  else if (!html && _mwCat !== "all") html = `<div class="g-mw-empty">No ${esc(CAT_LABEL[_mwCat] || _mwCat)} activity in this window.</div>`;
   const headEl = document.getElementById("g-mw-head");
   if (headEl) headEl.innerHTML = deskrow;
   box.innerHTML = html;
@@ -2424,7 +2433,7 @@ function initMarkets() {
   // Keep the last-good tiles up until fresh values arrive (never flash a
   // placeholder on a slow or failed refetch).
   renderMarketsBand(el, readCache("markets"));
-  fetch("/api/markets?v=9")
+  fetch("/api/markets?v=10")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderMarketsBand(el, d)) writeCache("markets", d); })
     .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.markets) { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_briefLeads.markets) setGlance("gl-markets", "Markets data unavailable right now."); } });

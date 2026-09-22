@@ -785,7 +785,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=12", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=13", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -812,7 +812,8 @@ async function handleMarkets(request, env, ctx) {
   // Wider mover pool for the Glance one-liner chips (spot only, best-effort).
   const moversExtra = (await Promise.all(MOVERS_EXTRA.map(async (s) => {
     const r = await yahooQuote(s.symbol);
-    return r.value != null ? { label: s.label, value: r.value, changePct: r.changePct, marketState: r.marketState || null } : null;
+    // Keep `history` so the Volatility rail (VIX/MOVE/CDX) can draw its sparkline.
+    return r.value != null ? { label: s.label, value: r.value, changePct: r.changePct, history: r.history || [], marketState: r.marketState || null } : null;
   }))).filter(Boolean);
   // Cross-asset ETF universe for the Top Movers board (spot + daily % only).
   const moversEtf = (await Promise.all(MOVERS_ETF.map(async (s) => {
