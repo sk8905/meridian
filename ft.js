@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2c60812b-77b4-4de5-a276-5e3eb2ceb5c3", title: "AI optimism lifts Asian stocks after Nasdaq ends at record high", date: "2026-09-22", time: "07:45", url: "https://www.ft.com/content/2c60812b-77b4-4de5-a276-5e3eb2ceb5c3" },
+  { id: "9d97d6db-3706-4842-bcdc-3f7c58aa58c1", title: "FTAV's further reading", date: "2026-09-22", time: "07:24", url: "https://www.ft.com/content/9d97d6db-3706-4842-bcdc-3f7c58aa58c1" },
   { id: "a17b2217-e49f-432c-8fdb-31e9bc3a4361", title: "UK government borrowing surged to £18bn in August", date: "2026-09-22", time: "07:09", url: "https://www.ft.com/content/a17b2217-e49f-432c-8fdb-31e9bc3a4361" },
   { id: "89ea4c20-b9e2-4875-9439-721ca9ba9fdb", title: "Quiet please, the currencies are sleeping", date: "2026-09-22", time: "06:30", url: "https://www.ft.com/content/89ea4c20-b9e2-4875-9439-721ca9ba9fdb" },
   { id: "b30eb538-b5a3-4fb2-bae2-785273bfda1c", title: "Are we developing a distaste for effort?", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/b30eb538-b5a3-4fb2-bae2-785273bfda1c" },

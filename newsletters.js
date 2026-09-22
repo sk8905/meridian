@@ -44,6 +44,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-asiantechrallylosessteam-20260922",
+    publication: "Bloomberg",
+    author: "Samson Ellis",
+    series: "Morning Briefing Europe",
+    title: "Asian Tech Rally Loses Steam After Recent Volatility",
+    date: "2026-09-22",
+    time: "08:00",
+    summary: "Asian AI stocks pare early gains after recent volatility, the UK agrees to support Saudi Arabia's military against Houthi attacks, and Daniel Levy struggles to cash out of Spurs.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-22/asian-tech-rally-loses-steam-after-recent-volatility",
+  },
+  {
+    id: "nl-taxpolicy-nickcandystampduty-20260922",
+    publication: "Tax Policy Associates",
+    author: "Dan Neidle",
+    series: null,
+    title: "Nick Candy, Suneil Setiya, the UK's biggest house sale, and £18.5m of avoided stamp duty",
+    date: "2026-09-22",
+    time: "07:15",
+    summary: "Nick Candy's £265m Chelsea mansion sale to hedge fund manager Suneil Setiya — the priciest UK house sale ever — used a structure that avoided about £18.5m of stamp duty.",
+    url: "https://newsletter.taxpolicy.org.uk/campaign/ef0106d1-7149-4844-a2cf-6e9aa751b39d/e5358a8a-4e5b-4303-a7ce-dcf4d37cc11c",
+  },
+  {
     id: "nl-economist-worldinbrief-paramountwarner-20260922",
     publication: "The Economist",
     author: null,
@@ -471,16 +493,5 @@ export const NEWSLETTERS = [
     time: "10:03",
     summary: "Goodhead is back in the Mariana fight, while lawyers score on the Chelsea deal.",
     url: "https://non-billable.beehiiv.com/p/draft-18-sep",
-  },
-  {
-    id: "nl-cnt-bestnewrestaurantlondon-20260918",
-    publication: "Condé Nast Traveller",
-    author: null,
-    series: "Restaurant of the Week",
-    title: "The best new restaurant in London is...",
-    date: "2026-09-18",
-    time: "10:00",
-    summary: "Venetian-inspired dishes washed down with classic cocktails.",
-    url: "https://www.cntraveller.com/article/new-london-restaurants",
   },
 ];
