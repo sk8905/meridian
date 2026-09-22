@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "44ef48c9-13a4-4823-aa8f-cc9e2dfb5d17", title: "Why EU companies are now helping Chinese ones expand into Europe", date: "2026-09-23", time: "00:01", url: "https://www.ft.com/content/44ef48c9-13a4-4823-aa8f-cc9e2dfb5d17" },
+  { id: "43465057-ff09-4ff3-85d2-ebed45bee207", title: "Turkish dismay", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/43465057-ff09-4ff3-85d2-ebed45bee207" },
   { id: "0e50a3c6-9731-4b29-a21e-4e0ff89a595e", title: "Anthropic and OpenAI release cheaper models as price war intensifies", date: "2026-09-22", time: "21:31", url: "https://www.ft.com/content/0e50a3c6-9731-4b29-a21e-4e0ff89a595e" },
   { id: "f2f37449-f9c7-4556-9f97-4cca735980e4", title: "Top UK graft prosecutors joined Trump’s Venezuela oil baron during Swiss probe", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/f2f37449-f9c7-4556-9f97-4cca735980e4" },
   { id: "152aa77b-977f-4607-8a09-77291f85d2a0", title: "US government and Gulf billionaires back Todd Boehly bid for Lukoil assets", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/152aa77b-977f-4607-8a09-77291f85d2a0" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "29ddb5e0-9313-4b18-8e67-536db187f146", title: "North Korea tests new hypersonic weapon as Kim Jong Un rebuffs talks", date: "2026-09-22", time: "08:25", url: "https://www.ft.com/content/29ddb5e0-9313-4b18-8e67-536db187f146" },
   { id: "2c60812b-77b4-4de5-a276-5e3eb2ceb5c3", title: "AI optimism lifts Asian stocks after Nasdaq ends at record high", date: "2026-09-22", time: "07:45", url: "https://www.ft.com/content/2c60812b-77b4-4de5-a276-5e3eb2ceb5c3" },
   { id: "9d97d6db-3706-4842-bcdc-3f7c58aa58c1", title: "FTAV's further reading", date: "2026-09-22", time: "07:24", url: "https://www.ft.com/content/9d97d6db-3706-4842-bcdc-3f7c58aa58c1" },
-  { id: "a17b2217-e49f-432c-8fdb-31e9bc3a4361", title: "UK government borrowing surged to £18bn in August", date: "2026-09-22", time: "07:09", url: "https://www.ft.com/content/a17b2217-e49f-432c-8fdb-31e9bc3a4361" },
-  { id: "89ea4c20-b9e2-4875-9439-721ca9ba9fdb", title: "Quiet please, the currencies are sleeping", date: "2026-09-22", time: "06:30", url: "https://www.ft.com/content/89ea4c20-b9e2-4875-9439-721ca9ba9fdb" },
 ];

@@ -12,8 +12,8 @@ export const UPDATED = "22 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-22",
-  lastCheckedTime: "22:14 BST",
+  lastChecked: "2026-09-23",
+  lastCheckedTime: "00:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -983,18 +983,18 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-22",
+  updated: "2026-09-23",
   us: [
     { title: "Fed's Barkin Warns Inflation Pressures May Take Time to Pass", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass" },
     { title: "Oil prices reverse gains as United Nations General Assembly meeting lifts hopes for Iran war diplomacy", source: "CNBC", date: "2026-09-22", time: "14:23", url: "https://www.cnbc.com/2026/09/22/oil-iran-us-bessent-un-crude.html" },
     { title: "Fed's Williams says rate-control toolkit is working well", source: "Reuters (via Investing.com)", date: "2026-09-22", time: "14:07", url: "https://www.investing.com/news/economy-news/feds-williams-says-ratecontrol-toolkit-is-working-well-4911121" },
-    { title: "Gold Edges Higher as Lower Oil Prices Damp Chance of Rate Hikes", source: "Bloomberg", date: "2026-09-22", time: "16:30", url: "https://www.bloomberg.com/news/articles/2026-09-22/gold-edges-higher-as-lower-oil-prices-damp-chance-of-rate-hikes" },
+    { title: "Trump, Xi seek trade stability and deals, but AI, tariffs and Iran loom large. What to watch", source: "CNBC", date: "2026-09-21", url: "https://www.cnbc.com/2026/09/21/trump-xi-china-summit-trade-tariffs.html" },
     { title: "Stock Market Today (Sept. 22, 2026): Dow, S&P 500 sink as oil prices slide and AI stocks rise", source: "TheStreet", date: "2026-09-22", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-22-2026" },
   ],
   uk: [
-    { title: "Sterling today: Pound slips as hawkish Fed outlook lifts dollar broadly", source: "Investing.com", date: "2026-09-22", url: "https://www.investing.com/news/forex-news/sterling-today-pound-slips-as-hawkish-fed-outlook-lifts-dollar-broadly-4885441" },
+    { title: "UK Borrowing Overshoots in Fresh Budget Setback for Healey", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey" },
     { title: "Deutsche Bank shifts to two BoE rate hikes. Here's why", source: "Investing.com", date: "2026-09-22", time: "13:20", url: "https://www.investing.com/news/economy-news/deutsche-bank-shifts-to-two-boe-rate-hikes-heres-why-4910220" },
-    { title: "FTSE 100 Live: Stocks And Bonds Rise as Brent Falls Below $100", source: "Bloomberg", date: "2026-09-22", time: "14:23", url: "https://www.bloomberg.com/news/live-blog/2026-09-22/ftse-100-stocks-oil-price-gilts-pound-what-s-moving-uk-markets-right-now-markets-today" },
+    { title: "Pound Sterling Price News and Forecast: GBP/USD in limbo", source: "FXStreet", date: "2026-09-22", time: "11:31", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-in-limbo-202609221131" },
     { title: "British Pound Forecast: Banks Split Over GBP Sterling's 2027 Outlook", source: "Exchange Rates UK", date: "2026-09-22", time: "14:23", url: "https://www.exchangerates.org.uk/news/47248/2026-09-22-british-pound-forecast-banks-split-over-gbp-sterling-s-2027-outlook.html" },
     { title: "Healey misses targets as UK government borrowing overshoots", source: "City AM", date: "2026-09-22", time: "14:23", url: "https://www.cityam.com/blow-to-healey-as-government-borrowing-overshoots-by-billions/" },
   ],
@@ -1008,8 +1008,10 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-22",
+  updated: "2026-09-23",
   items: [
+    {"title": "UK Borrowing Overshoots in Fresh Budget Setback for Healey", "source": "Bloomberg", "date": "2026-09-22", "url": "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey", "blurb": "Britain's fiscal deficit climbed to £77.3bn in the first five months of the fiscal year — £8.1bn above the OBR's March forecast — after August public borrowing came in at £18.3bn, above every estimate in a Reuters poll, sharpening the backdrop for Chancellor Healey's 28 October Budget.", "author": null},
+    {"title": "Trump, Xi seek trade stability and deals, but AI, tariffs and Iran loom large. What to watch", "source": "CNBC", "date": "2026-09-21", "url": "https://www.cnbc.com/2026/09/21/trump-xi-china-summit-trade-tariffs.html", "blurb": "Presidents Trump and Xi meet in Washington on Thursday — their second meeting this year — with tariffs, rare earths and AI chips on the agenda; analysts expect incremental progress rather than a breakthrough, with the trade truce running through 10 November.", "author": null},
     {"title": "Fed's Barkin Warns Inflation Pressures May Take Time to Pass", "source": "Bloomberg", "date": "2026-09-22", "url": "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass", "blurb": "Richmond Fed President Tom Barkin said repeated supply shocks are no longer proving temporary, warning inflation could take time to wane and risks becoming entrenched even as he said last week's 25bp hike 'will help' restore inflation to the 2% target.", "author": null},
     {"title": "Sterling today: Pound slips as hawkish Fed outlook lifts dollar broadly", "source": "Investing.com", "date": "2026-09-22", "url": "https://www.investing.com/news/forex-news/sterling-today-pound-slips-as-hawkish-fed-outlook-lifts-dollar-broadly-4885441", "blurb": "GBP/USD fell to around 1.3354 as hawkish remarks from Fed officials Goolsbee and Musalem reinforced dollar strength and markets priced a roughly 56.5% chance of a further US hike in October, compounding pressure from Britain's larger-than-expected £18.3bn August borrowing overshoot.", "author": null},
     {"title": "10-year Treasury yield slips further below 5% as traders await Fed comments", "source": "CNBC", "date": "2026-09-22", "time": "18:15", "url": "https://www.cnbc.com/2026/09/22/treasury-yield-us-bond-market-trump.html", "blurb": "Treasury yields held little changed Tuesday — the 10-year near 4.97%, the 2-year near 4.76% — as investors awaited fresh clues on the economy ahead of Fed governor Michael Barr's Wednesday housing-affordability remarks and after Chicago Fed's Goolsbee flagged elevated services inflation and AI data-centre spending as risks to watch.", "author": null},
@@ -1046,8 +1048,6 @@ export const ARTICLES = {
     {"title": "British Pound slips as hawkish Fed outlook boosts US Dollar", "source": "FXStreet", "date": "2026-09-21", "url": "https://www.fxstreet.com/news/british-pound-slips-as-hawkish-fed-outlook-boosts-us-dollar-202609210110", "blurb": "GBP/USD softened toward 1.3375 in early Monday trade as the dollar extends its post-hike advance, even as Scotiabank notes the UK's constructive fiscal backdrop continues to lend the pound some support.", "author": null},
     {"title": "Pound To Dollar Week Ahead Forecast: Fed Strength Leaves GBP Vulnerable", "source": "Exchange Rates UK", "date": "2026-09-21", "url": "https://www.exchangerates.org.uk/news/47216/2026-09-21-pound-to-dollar-week-ahead-forecast-fed-strength-leaves-gbp-vulnerable.html", "blurb": "A week-ahead forecast argues the dollar's post-hike strength leaves sterling vulnerable into a week headlined by flash September PMIs and the Trump-Xi summit.", "author": null},
     {"title": "CNBC Daily Open: May the 'AI Force' be with you", "source": "CNBC", "date": "2026-09-21", "url": "https://www.cnbc.com/2026/09/21/cnbc-daily-open-trump-china-ai-force.html", "blurb": "CNBC's morning briefing covers President Trump's newly announced 'AI Force' initiative and the broader US-China AI and trade backdrop heading into Thursday's Trump-Xi summit.", "author": null},
-    {"title": "Oil rises after Houthi attack on Saudi capital", "source": "Reuters (via Investing.com)", "date": "2026-09-20", "url": "https://www.investing.com/news/commodities-news/oil-rises-after-houthi-attack-on-saudi-capital-4908199", "blurb": "Brent crude climbed after Yemen's Iran-backed Houthis struck Riyadh and an Aramco export facility in Yanbu with missiles and drones over the weekend, reviving the region's oil-supply risk premium even as Saudi Arabia reported no casualties.", "author": null},
-    {"title": "Saudi Arabia confirms Yemen's Houthi rebels tried to attack its capital with a ballistic missile", "source": "NBC News", "date": "2026-09-20", "url": "https://www.nbcnews.com/world/middle-east/flames-smoke-seen-riyadh-airport-houthis-claim-attacks-saudi-capital-rcna598714", "blurb": "Fire broke out near an Aramco fuel depot by Riyadh's King Khalid International Airport after Houthi missile and drone strikes on the Saudi capital and the Yanbu export hub, a fresh escalation feeding the oil-price risk the Fed and BoE are both watching.", "author": null},
     {"title": "Stock futures rise slightly after Dow posts third straight losing week: Live updates", "source": "CNBC", "date": "2026-09-20", "url": "https://www.cnbc.com/2026/09/20/stock-market-today-live-updates.html", "blurb": "Dow futures rose 0.44% and S&P 500/Nasdaq-100 futures gained 0.5%/0.7% in early Monday trading after the Dow's worst week since March, as markets weighed the weekend's Houthi strikes against a calmer tone heading into this week's Trump-Xi summit.", "author": null},
     {"title": "Federal Reserve Rate Hike Reflects New World of Sticky Inflation and Faster Growth", "source": "U.S. News & World Report", "date": "2026-09-20", "url": "https://www.usnews.com/news/us/articles/2026-09-20/federal-reserve-rate-hike-reflects-new-world-of-sticky-inflation-and-faster-growth", "blurb": "A post-mortem on the FOMC's first hike since 2023 notes the updated dot plot points to further tightening as officials weigh AI-capex spending and tariff/energy price pressures against a still-resilient labor market.", "author": null},
   ],
