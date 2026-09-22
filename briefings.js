@@ -43,15 +43,14 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-09-22",
-      time: "05:24 BST",
-      lede: "The overnight session has done nothing to loosen the dollar's grip, and with Wall Street's chip-led records already banked the day's real test is a thin calendar &mdash; a 7am UK borrowing print and a sell side that keeps pulling its next-hike date forward.",
+      date: "2026-09-23",
+      time: "00:26 BST",
+      lede: "A more hawkish read on the Bank of England is colliding with a Fed that still won't rule out October, leaving sterling pinned into the early hours even as Tuesday's chip-led record keeps the broader risk backdrop intact.",
       bullets: [
-        { html: "<strong>Macro &mdash; Goldman Sachs has dropped its &lsquo;one-and-done&rsquo; view and now expects a second Fed hike at the 27&ndash;28 October FOMC</strong>, chief US economist David Mericle citing the Committee's framing of further tightening as supporting a &ldquo;timelier return&rdquo; to the 2% inflation target.", src: "https://investinglive.com/central-banks/goldman-ditches-one-and-done-call-now-sees-a-second-fed-hike-in-october/", srcName: "investingLive" },
-        { html: "<strong>Macro &mdash; the ONS publishes August public sector finances at 07:00 this morning</strong>, the main UK data event of an otherwise thin week and the next borrowing read before the 28 October Budget.", src: "https://www.ons.gov.uk/releases/publicsectorfinancesukaugust2026", srcName: "ONS" },
-        { html: "<strong>Equities &mdash; the Nasdaq Composite closed Monday at a record 27,122.09, up 2.26%</strong>, after AMD surged roughly 10% to an all-time high above $610 and crossed a $1 trillion market capitalisation for the first time on its fifth straight winning session.", src: "https://www.cnbc.com/2026/09/21/amd-stock-1-trillion-value.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield shed more than four basis points to 4.951% and the 30-year eased to 5.284%</strong> as another leg lower in oil took some heat out of the inflation story.", src: "https://www.cnbc.com/2026/09/20/stock-market-today-live-updates.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; sterling is consolidating above the mid-$1.3300s in Asian hours</strong>, within striking distance of last week's lowest level since 30 July, with the Fed&ndash;BoE split &mdash; one signalling at least one more hike this year, the other still on hold at 3.75% &mdash; keeping the bias bearish.", src: "https://www.fxstreet.com/news/british-pound-consolidates-vs-usd-bearish-bias-remains-amid-divergent-fed-boe-outlook-202609220220", srcName: "FXStreet" },
+        { html: "<strong>Macro &mdash; Deutsche Bank has shifted to expecting two more Bank of England rate hikes</strong>, a more hawkish path than consensus as persistent UK inflation and wage pressures reassert themselves.", src: "https://www.investing.com/news/economy-news/deutsche-bank-shifts-to-two-boe-rate-hikes-heres-why-4910220", srcName: "Investing.com" },
+        { html: "<strong>Macro &mdash; Richmond Fed president Tom Barkin said inflation pressures may take longer to fade</strong>, adding to a string of Fed officials keeping alive the case for another hike at the 28 October FOMC.", src: "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; the Nasdaq Composite closed at a fresh record 27,244.28 Tuesday, up 0.45%, while the Dow and S&amp;P 500 slipped</strong> as a chipmaker-led AI rally offset a broader session weighed down by falling oil prices.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-22-2026", srcName: "TheStreet" },
+        { html: "<strong>Fixed income &mdash; sterling stayed pinned near the $1.3350s, &lsquo;in limbo&rsquo; against the dollar,</strong> caught between the Bank of England's newly hawkish repricing and this week's UK borrowing overshoot five weeks out from the Budget.", src: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-in-limbo-202609221131", srcName: "FXStreet" },
       ],
     },
     afternoon: {
