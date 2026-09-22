@@ -39,7 +39,7 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "Market Briefing · News · Chart · X Feed", `phone: four tabs — Market Briefing · News (lane) · Chart · X Feed (${labels.join(", ")})`);
+  check(labels.join(" · ") === "Briefing · News · Chart · X Feed", `phone: four tabs — Briefing · News (lane) · Chart · X Feed (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
   check(laneMenu.join(" · ") === "All · News · Manager · Watchlist", `phone: the wire tab's dropdown offers the four lanes (${laneMenu.join(", ")})`);
 

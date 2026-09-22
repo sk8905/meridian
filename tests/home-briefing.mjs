@@ -154,7 +154,7 @@ const b = await launchChromium();
       fills: el.getBoundingClientRect().height >= vh * 0.6,   // fills the page, not a slim strip
     };
   });
-  check(p.tabOn && p.tabLabel === "Market Briefing", "phone: Market Briefing is the default tab");
+  check(p.tabOn && p.tabLabel === "Briefing", "phone: Briefing is the default tab");
   check(p.isPane && p.shown, "phone: the briefing shows as its own pane (wire-brief)");
   check(p.bullets >= 1 && p.bodyVisible && p.open === "true", `phone: the briefing is expanded (${p.bullets} bullet[s])`);
   check(!p.chev, "phone: there is NO collapse chevron — the briefing is always open");
