@@ -1384,15 +1384,19 @@
     .tui .rate-tile:last-child,.tui .g-side .rate-tile:last-child{ border-bottom:0; }
     /* Fixed value + change columns so every row's numbers line up (a change with a
        "pp"/"bp" unit is wider than one without and would otherwise shift the value). */
-    /* Rate rows WITH a ~1-month sparkline: label · spark · value · change. */
+    /* Rate rows WITH a ~1-month sparkline: label · spark · value · change, the four
+       spread evenly across the row (fixed tracks + space-between) so the gaps are
+       equal and identical down every panel. The label ellipsizes if it ever exceeds
+       its track, so the value/spark/change columns never shift. */
     .tui #g-curve .rate-tile,
-    .tui #g-rates .rate-tile,.tui #g-spreads .rate-tile,.tui #g-vol .rate-tile{ grid-template-columns:1fr 34px 4.5rem 5rem; }
+    .tui #g-rates .rate-tile,.tui #g-spreads .rate-tile,.tui #g-vol .rate-tile{
+      grid-template-columns:5.4rem 34px 4rem 4.6rem; justify-content:space-between; column-gap:0; }
     /* Economic indicators keep the plain 3-column grid (no sparkline). */
     .tui #g-indicators .rate-tile{ grid-template-columns:1fr 4.5rem 5rem; }
     /* Markets band: a fixed change column so the value + change line up down the rail. */
     /* Match the rates band's change column (5rem) so the markets/portfolio value
        right-edges line up vertically with Key rates & spreads below. */
-    .tui .g-side .mkt-tile{ grid-template-columns:1fr 34px auto 5rem; }
+    .tui .g-side .mkt-tile{ grid-template-columns:4.4rem 34px 5rem 4.4rem; justify-content:space-between; column-gap:0; }
     .tui .rate-tile:hover{ background:var(--t-panel2); }
     /* Every interactive rail row hovers like the news feed: a subtle grey, no
        orange text (movers, macro-read blocks, FX cells). */
@@ -1409,9 +1413,12 @@
        the non-uniform viewBox scale. An empty cell (row without history) is just a
        reserved 34px gap so the value/change columns still align down the panel. */
     .rate-spark{ display:none; }
-    .tui .rate-spark{ display:inline-flex; align-items:center; width:34px; height:14px; overflow:hidden; }
+    .tui .rate-spark{ display:inline-flex; align-items:center; justify-self:center; align-self:center; width:34px; height:14px; overflow:hidden; }
     .tui .rate-spark svg{ width:100%; height:100%; display:block; }
     .tui .rate-spark polyline{ fill:none; stroke:var(--t-mut); stroke-width:1.25; vector-effect:non-scaling-stroke; stroke-linejoin:round; stroke-linecap:round; }
+    /* Up over the ~1-month window reads green, down reads red, flat stays muted. */
+    .tui .rate-spark.up polyline{ stroke:var(--t-up); }
+    .tui .rate-spark.down polyline{ stroke:var(--t-down); }
     .tui .mkt-fut{ font-size:10px; }
     .tui .mkt-dot{ margin-left:5px; }
 

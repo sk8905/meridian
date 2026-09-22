@@ -62,6 +62,10 @@ const cols = (sel) => pg.evaluate((s) => { const t = document.querySelector(`${s
 const cR = await cols("#g-rates"), cS = await cols("#g-spreads"), cV = await cols("#g-vol");
 check(cR && cS && cV && cR === cS && cS === cV, `Key rates / Spreads / Volatility share one column grid so text, numbers & changes align vertically (${cR} | ${cS} | ${cV})`);
 check(/^\S+\s+\S+\s+\S+\s+\S+$/.test(cR || ""), `the rail rows are a 4-column grid (label · spark · value · change) (${cR})`);
+// The four elements are spread evenly across the row (fixed tracks + space-between),
+// so gaps are equal and identical down every panel.
+const justify = await pg.evaluate(() => getComputedStyle(document.querySelector("#g-rates .rate-tile")).justifyContent);
+check(justify === "space-between", `the row spreads its columns evenly (justify-content: ${justify})`);
 
 // Sparklines: each panel draws a ~1-month trend line (inline SVG polyline) for the
 // rows whose feed carries history — and reserves an empty spark cell for every row
@@ -74,10 +78,18 @@ const sR = await sparks("#g-rates"), sS = await sparks("#g-spreads"), sV = await
 check(sR.cells === rates.length && sR.drawn >= 1, `Key rates: a spark cell per row, at least one drawn from real history (${sR.drawn}/${sR.cells})`);
 check(sS.cells === spreads.length && sS.drawn >= 1, `Spreads: a spark cell per row, at least one drawn (${sS.drawn}/${sS.cells})`);
 check(sV.cells === vol.length && sV.drawn >= 1, `Volatility: a spark cell per row, at least one drawn (${sV.drawn}/${sV.cells})`);
-// The sparkline is the muted terminal tone, not an alarming accent.
-const stroke = await pg.evaluate(() => { const p = document.querySelector("#g-rates .rate-spark svg polyline"); return p ? getComputedStyle(p).stroke : null; });
-const mutRef = await pg.evaluate(() => { const t = document.querySelector("#g-rates .rate-tile"); const s = document.createElement("span"); s.style.color = "var(--t-mut)"; t.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; });
-check(stroke && stroke === mutRef, `the sparkline uses the muted terminal tone (${stroke})`);
+// Sparklines are tinted by their NET move over the window: up over the period reads
+// green, down reads red. (Stub: US 10Y rises → green; US IG OAS falls → red.)
+const colorRef = (v) => pg.evaluate((val) => { const t = document.querySelector("#g-rates .rate-tile"); const s = document.createElement("span"); s.style.color = val; t.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; }, v);
+const strokeFor = (panel, label) => pg.evaluate(([p, lbl]) => {
+  const tile = [...document.querySelectorAll(`${p} .rate-tile`)].find((t) => (t.querySelector(".rate-label") || {}).textContent.trim().startsWith(lbl));
+  const pl = tile && tile.querySelector(".rate-spark svg polyline");
+  return pl ? getComputedStyle(pl).stroke : null;
+}, [panel, label]);
+const upRef = await colorRef("var(--t-up)"), downRef = await colorRef("var(--t-down)");
+const up10y = await strokeFor("#g-rates", "US 10Y"), downIG = await strokeFor("#g-spreads", "US IG OAS");
+check(up10y === upRef, `an up-over-the-period sparkline reads green (${up10y})`);
+check(downIG === downRef, `a down-over-the-period sparkline reads red (${downIG})`);
 
 checkErrs(errs, "rates/spreads/volatility split");
 await ctx.close();

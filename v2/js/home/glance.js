@@ -1767,7 +1767,11 @@ function sparkCell(hist) {
   const n = h.length, min = Math.min(...h), max = Math.max(...h), rng = (max - min) || 1;
   const W = 100, H = 28, pad = 3;
   const pts = h.map((v, i) => `${((i / (n - 1)) * W).toFixed(1)},${(H - pad - ((v - min) / rng) * (H - 2 * pad)).toFixed(1)}`).join(" ");
-  return `<span class="rate-spark" aria-hidden="true"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}"/></svg></span>`;
+  // Tint the line by its NET move over the whole window: up over the period reads
+  // green, down reads red, dead-flat stays muted.
+  const net = h[n - 1] - h[0];
+  const dir = net > 0 ? "up" : net < 0 ? "down" : "flat";
+  return `<span class="rate-spark ${dir}" aria-hidden="true"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${pts}"/></svg></span>`;
 }
 function ratesTile(x) {
   const val = fmtRate(x.value, x.unit);
