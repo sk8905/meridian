@@ -1779,11 +1779,13 @@ function writeCache(key, d) { try { localStorage.setItem("m_glance_" + key, JSON
 function renderRates(el, d) {
   const rowsData = (d && d.rates) || [];
   if (!rowsData.length) return false;
-  el.innerHTML = rowsData.map(ratesTile).join("");
+  _rateRows = rowsData;
+  // The "Key rates" panel is the benchmark yields ONLY (EURIBOR/SONIA/SOFR/US 10Y);
+  // the OAS credit spreads move to their own "Spreads" panel (renderSpreads).
+  el.innerHTML = rowsData.filter((x) => !/OAS/i.test(x.label)).map(ratesTile).join("");
   if (!_briefLeads.rates) setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
-  _rateRows = rowsData;
-  renderTicker(); renderMovers(); renderVolRisk(); renderYieldCurve();
+  renderTicker(); renderMovers(); renderSpreads(); renderVolRisk(); renderYieldCurve();
   return true;
 }
 function initRates() {
@@ -2312,21 +2314,18 @@ const findExtra = (label) => (_mktExtra || []).find((x) => x.label === label);
 const findMacro = (country, key) => (_macroSeries || []).find((s) => s.country === country && s.key === key);
 // OAS series carry `value`/`change` in PERCENT (0.95 → 95 bp), matching fmtRate.
 const bpTxt = (v) => `${Math.round(v * 100)} bp`;
-function renderVolRisk() {
-  const el = document.getElementById("g-vol");
+// ---- Spreads (OAS levels + quality/distress premia) ------------------------
+// The credit-spread panel: the ICE BofA OAS levels straight from the rates feed
+// (US IG / HY / CCC, EURO HY), then the derived HY−IG (quality) and CCC−HY
+// (distress) premia. Kept distinct from Key rates (yields) and Volatility (vol).
+function renderSpreads() {
+  const el = document.getElementById("g-spreads");
   if (!el) return;
-  const vix = findExtra("VIX");
-  const hy = findRate("US HY OAS"), ig = findRate("US IG OAS"), ccc = findRate("US CCC OAS");
   const rows = [];
-  if (vix && vix.value != null) {
-    // The markets feed carries VIX's % move; convert to points for the tile.
-    const cp = typeof vix.changePct === "number" ? vix.changePct : null;
-    const pts = cp == null ? null : +vix.value - (+vix.value) / (1 + cp / 100);
-    rows.push(riskTile({ label: "VIX", val: (+vix.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EVIX", title: "CBOE Volatility Index — equity volatility" }));
+  for (const x of (_rateRows || [])) {
+    if (/OAS/i.test(x.label) && x.value != null) rows.push(ratesTile(x));
   }
-  if (hy && hy.value != null) {
-    rows.push(riskTile({ label: "HY OAS", val: bpTxt(hy.value), chg: hy.change == null ? null : Math.abs(Math.round(hy.change * 100)) + " bp", dir: dSign(hy.change), href: hy.href, title: "US high-yield option-adjusted spread" }));
-  }
+  const hy = findRate("US HY OAS"), ig = findRate("US IG OAS"), ccc = findRate("US CCC OAS");
   if (hy && ig && hy.value != null && ig.value != null) {
     const v = hy.value - ig.value, c = (hy.change != null && ig.change != null) ? hy.change - ig.change : null;
     rows.push(riskTile({ label: "HY − IG", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: hy.href, title: "Quality premium — high-yield minus investment-grade OAS" }));
@@ -2334,6 +2333,19 @@ function renderVolRisk() {
   if (ccc && hy && ccc.value != null && hy.value != null) {
     const v = ccc.value - hy.value, c = (ccc.change != null && hy.change != null) ? ccc.change - hy.change : null;
     rows.push(riskTile({ label: "CCC − HY", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: ccc.href, title: "Distress premium — CCC minus high-yield OAS" }));
+  }
+  if (rows.length) el.innerHTML = rows.join("");
+}
+function renderVolRisk() {
+  const el = document.getElementById("g-vol");
+  if (!el) return;
+  const vix = findExtra("VIX");
+  const rows = [];
+  if (vix && vix.value != null) {
+    // The markets feed carries VIX's % move; convert to points for the tile.
+    const cp = typeof vix.changePct === "number" ? vix.changePct : null;
+    const pts = cp == null ? null : +vix.value - (+vix.value) / (1 + cp / 100);
+    rows.push(riskTile({ label: "VIX", val: (+vix.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EVIX", title: "CBOE Volatility Index — equity volatility" }));
   }
   // MOVE — ICE BofAML US Treasury option-vol index (the "bond-market VIX"): a level
   // in points, its daily move shown like VIX.

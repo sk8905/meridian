@@ -142,18 +142,24 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
 
         <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->
         <aside class="g-side2">
-          <!-- Order: Rates & spreads → Volatility & risk → Policy rate → Yield curve
-               (the live market gauges lead; the central-bank read follows). -->
+          <!-- Order: Key rates → Spreads → Volatility → Policy rate → Yield curve
+               (three separate market gauges lead; the central-bank read follows). -->
           <section class="tui-pnl g-anchor" id="jump-rates">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/fixed-income" data-godash="fixed-income" title="Open Dashboard › Fixed Income">Key rates &amp; spreads</a><span class="tui-px">bp · %</span></header>
-            <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/fixed-income" data-godash="fixed-income" title="Open Dashboard › Fixed Income">Key rates</a><span class="tui-px">%</span></header>
+            <div id="g-rates" class="rates-band" aria-label="Key benchmark rates and yields">
               <div class="g-loading">Loading market rates…</div>
             </div>
           </section>
+          <section class="tui-pnl g-anchor" id="jump-spreads">
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/credit" data-godash="credit" title="Open Dashboard › Credit">Spreads</a><span class="tui-px">bp</span></header>
+            <div id="g-spreads" class="rates-band" aria-label="Credit spreads — OAS and quality/distress premia">
+              <div class="g-loading">Loading spreads…</div>
+            </div>
+          </section>
           <section class="tui-pnl g-anchor" id="jump-vol">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/credit" data-godash="credit" title="Open Dashboard › Credit">Volatility &amp; risk</a><span class="tui-px">vol · spreads</span></header>
-            <div id="g-vol" class="rates-band" aria-label="Equity volatility and credit risk spreads">
-              <div class="g-loading">Loading risk…</div>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/credit" data-godash="credit" title="Open Dashboard › Credit">Volatility</a><span class="tui-px">vol</span></header>
+            <div id="g-vol" class="rates-band" aria-label="Equity and rate volatility">
+              <div class="g-loading">Loading volatility…</div>
             </div>
           </section>
           <section class="tui-pnl g-anchor" id="jump-macro">

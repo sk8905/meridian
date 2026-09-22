@@ -1,5 +1,6 @@
-// Home rails: the right rail carries the macro/rates data — Key rates & spreads,
-// Volatility & risk, Policy rate, Yield curve — then Prediction markets last.
+// Home rails: the right rail carries the macro/rates data — Key rates, Spreads,
+// Volatility, Policy rate, Yield curve — then Prediction markets last. (Key rates,
+// spreads and volatility are three separate panels, not one combined gauge.)
 // "This week's earnings" (date · pre/post-market · forecast → outcome) lives in
 // the LEFT rail with the equities data, and Top movers stretches to fill the rail.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
@@ -26,8 +27,9 @@ const r = await pg.evaluate(() => {
     earnInLeft: !!document.querySelector(".g-side #g-earn"),
     earnNotInRight: !document.querySelector(".g-side2 #g-earn"),
     ratesInRight: !!document.querySelector(".g-side2 #g-rates"),
+    spreadsInRight: !!document.querySelector(".g-side2 #g-spreads"),
     volInRight: !!document.querySelector(".g-side2 #g-vol"),
-    ratesNotInLeft: !document.querySelector(".g-side #g-rates") && !document.querySelector(".g-side #g-vol"),
+    ratesNotInLeft: !document.querySelector(".g-side #g-rates") && !document.querySelector(".g-side #g-vol") && !document.querySelector(".g-side #g-spreads"),
     // Top movers stretches to fill the left rail: it is the flex-grow child, so FX
     // (the last panel) is pushed to the rail's bottom with no free space above it.
     moversGrows: getComputedStyle(document.querySelector(".g-movers-pnl")).flexGrow === "1",
@@ -47,10 +49,10 @@ const r = await pg.evaluate(() => {
   };
 });
 
-checkEq(r.headers.join(" | "), "Key rates & spreads | Volatility & risk | Policy rate | Yield curve | Prediction markets", "right rail order: Key rates → Volatility → Policy rate → Yield curve → Prediction markets");
+checkEq(r.headers.join(" | "), "Key rates | Spreads | Volatility | Policy rate | Yield curve | Prediction markets", "right rail order: Key rates → Spreads → Volatility → Policy rate → Yield curve → Prediction markets");
 check(r.indicatorsGone, "right rail: Economic indicators panel removed from Home");
 check(r.earnInLeft && r.earnNotInRight, "This week's earnings moved to the left rail");
-check(r.ratesInRight && r.volInRight && r.ratesNotInLeft, "Key rates & Volatility moved to the right rail");
+check(r.ratesInRight && r.spreadsInRight && r.volInRight && r.ratesNotInLeft, "Key rates, Spreads & Volatility are three separate right-rail panels");
 check(r.moversGrows && r.fxAtBottom, "left rail: Top movers stretches to fill (FX pinned at the rail bottom)");
 check(r.earnRows > 0, `earnings: this week's companies render (${r.earnRows})`);
 check(r.firstHasDate && r.firstHasTkr && r.firstHasWhen, "earnings: a row shows date + ticker + pre/post-market");

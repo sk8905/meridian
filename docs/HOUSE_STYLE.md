@@ -485,12 +485,16 @@ notification badge red (`#ef4444`).
   never left as a bare stub.
 
 - **R30 — Home right-rail data panels.** The Home terminal's right rail carries,
-  in this order: **Key rates & spreads → Volatility & risk → Policy rate → Yield
-  curve → Prediction markets** (`content.js` `g-side2`; enforced by
-  `tests/home-right-rail.mjs`). **Volatility & risk** carries VIX, **MOVE** (ICE
-  BofAML Treasury-vol index, `^MOVE`), HY OAS, HY−IG, CCC−HY and **CDX HY**
-  (Simplify High Yield ETF `CDX`, tracking CDX.NA.HY) — all live from the markets
-  feed. The **left rail** carries a **Strait of Hormuz** tile — the latest daily
+  in this order: **Key rates → Spreads → Volatility → Policy rate → Yield curve →
+  Prediction markets** (`content.js` `g-side2`; enforced by
+  `tests/home-right-rail.mjs` and `tests/home-rates-spreads.mjs`). These are THREE
+  distinct market-gauge panels, one instrument-kind each: **Key rates** is the
+  benchmark yields only (EURIBOR/SONIA/SOFR/US 10Y, `#g-rates`); **Spreads** is the
+  ICE BofA OAS levels (US IG/HY/CCC, EURO HY) plus the derived **HY−IG** (quality)
+  and **CCC−HY** (distress) premia (`#g-spreads`); **Volatility** is VIX, **MOVE**
+  (ICE BofAML Treasury-vol index, `^MOVE`) and **CDX HY** (Simplify High Yield ETF
+  `CDX`, tracking CDX.NA.HY) only (`#g-vol`) — no credit spread lives in the vol
+  panel. Rates/spreads come from the rates feed, VIX/MOVE/CDX from the markets feed. The **left rail** carries a **Strait of Hormuz** tile — the latest daily
   vessel transits vs the trailing 30-day average, live from **IMF PortWatch**'s
   public AIS feed (`/api/hormuz` → chokepoint6; `tests/home-hormuz.mjs`). Every
   figure is real and sourced — a feed that can't be reached shows an "unavailable"
