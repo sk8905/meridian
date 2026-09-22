@@ -985,16 +985,16 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-22",
   us: [
+    { title: "Fed's Barkin Warns Inflation Pressures May Take Time to Pass", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass" },
     { title: "Oil prices reverse gains as United Nations General Assembly meeting lifts hopes for Iran war diplomacy", source: "CNBC", date: "2026-09-22", time: "14:23", url: "https://www.cnbc.com/2026/09/22/oil-iran-us-bessent-un-crude.html" },
-    { title: "Stock market today: Nasdaq, Dow and S&P 500 little changed as AI trade powers market", source: "Yahoo Finance", date: "2026-09-22", time: "14:23", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-22-nasdaq-dow-sp-500-080625961.html" },
-    { title: "Gold Edges Higher as Lower Oil Prices Damp Chance of Rate Hikes", source: "Bloomberg", date: "2026-09-22", time: "16:30", url: "https://www.bloomberg.com/news/articles/2026-09-22/gold-edges-higher-as-lower-oil-prices-damp-chance-of-rate-hikes" },
-    { title: "10-year Treasury yield slips further below 5% as traders await Fed comments", source: "CNBC", date: "2026-09-22", time: "18:15", url: "https://www.cnbc.com/2026/09/22/treasury-yield-us-bond-market-trump.html" },
     { title: "Fed's Williams says rate-control toolkit is working well", source: "Reuters (via Investing.com)", date: "2026-09-22", time: "14:07", url: "https://www.investing.com/news/economy-news/feds-williams-says-ratecontrol-toolkit-is-working-well-4911121" },
+    { title: "Gold Edges Higher as Lower Oil Prices Damp Chance of Rate Hikes", source: "Bloomberg", date: "2026-09-22", time: "16:30", url: "https://www.bloomberg.com/news/articles/2026-09-22/gold-edges-higher-as-lower-oil-prices-damp-chance-of-rate-hikes" },
+    { title: "Stock Market Today (Sept. 22, 2026): Dow, S&P 500 sink as oil prices slide and AI stocks rise", source: "TheStreet", date: "2026-09-22", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-22-2026" },
   ],
   uk: [
+    { title: "Sterling today: Pound slips as hawkish Fed outlook lifts dollar broadly", source: "Investing.com", date: "2026-09-22", url: "https://www.investing.com/news/forex-news/sterling-today-pound-slips-as-hawkish-fed-outlook-lifts-dollar-broadly-4885441" },
     { title: "Deutsche Bank shifts to two BoE rate hikes. Here's why", source: "Investing.com", date: "2026-09-22", time: "13:20", url: "https://www.investing.com/news/economy-news/deutsche-bank-shifts-to-two-boe-rate-hikes-heres-why-4910220" },
     { title: "FTSE 100 Live: Stocks And Bonds Rise as Brent Falls Below $100", source: "Bloomberg", date: "2026-09-22", time: "14:23", url: "https://www.bloomberg.com/news/live-blog/2026-09-22/ftse-100-stocks-oil-price-gilts-pound-what-s-moving-uk-markets-right-now-markets-today" },
-    { title: "Pound Sterling Price News and Forecast: GBP/USD in limbo", source: "FXStreet", date: "2026-09-22", time: "11:31", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-in-limbo-202609221131" },
     { title: "British Pound Forecast: Banks Split Over GBP Sterling's 2027 Outlook", source: "Exchange Rates UK", date: "2026-09-22", time: "14:23", url: "https://www.exchangerates.org.uk/news/47248/2026-09-22-british-pound-forecast-banks-split-over-gbp-sterling-s-2027-outlook.html" },
     { title: "Healey misses targets as UK government borrowing overshoots", source: "City AM", date: "2026-09-22", time: "14:23", url: "https://www.cityam.com/blow-to-healey-as-government-borrowing-overshoots-by-billions/" },
   ],
