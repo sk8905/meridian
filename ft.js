@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "be468cf8-e450-46d8-891f-67bc79ffd7b3", title: "Royal Caribbean nears deal for Sandals valuing resorts at more than $6bn", date: "2026-09-22", time: "20:01", url: "https://www.ft.com/content/be468cf8-e450-46d8-891f-67bc79ffd7b3" },
+  { id: "0e03521f-c4f1-4242-8fff-0e34a27a26db", title: "Donald Trump rejects ‘globalist scheme’ to control AI in blow to Andy Burnham", date: "2026-09-22", time: "19:20", url: "https://www.ft.com/content/0e03521f-c4f1-4242-8fff-0e34a27a26db" },
   { id: "99ba134a-6252-45f3-b312-07b8752a5a98", title: "US proposes $10bn fund with Arab allies to bypass Hormuz", date: "2026-09-22", time: "18:32", url: "https://www.ft.com/content/99ba134a-6252-45f3-b312-07b8752a5a98" },
   { id: "62a6939f-7e24-492e-bdf6-b9ab9e1d3578", title: "Airtel Money poised to launch one of London’s biggest IPOs in recent years", date: "2026-09-22", time: "18:24", url: "https://www.ft.com/content/62a6939f-7e24-492e-bdf6-b9ab9e1d3578" },
   { id: "1434496d-0eaf-4270-8ad3-87724cd3721e", title: "Donald Trump threatens to ‘annihilate’ Iran in combative UN speech", date: "2026-09-22", time: "18:06", url: "https://www.ft.com/content/1434496d-0eaf-4270-8ad3-87724cd3721e" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "2a37a33b-0f9b-4763-9971-67ddfd402920", title: "Architect William Smalley’s Zen home renovation ‘stretches time’", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/2a37a33b-0f9b-4763-9971-67ddfd402920" },
   { id: "3cf6c88e-bd65-4d81-a93b-437e00f9ce3f", title: "How France and Luxembourg fatally wounded the EU’s Russia sanctions regime", date: "2026-09-22", time: "06:00", url: "https://www.ft.com/content/3cf6c88e-bd65-4d81-a93b-437e00f9ce3f" },
   { id: "a0d1351f-0f16-4994-a71e-c9b134d70d71", title: "The USS lesson plan", date: "2026-09-22", time: "06:00", url: "https://www.ft.com/content/a0d1351f-0f16-4994-a71e-c9b134d70d71" },
-  { id: "51c49052-0799-4920-9189-8399f15c1f51", title: "China’s share of global container exports soars to 40%", date: "2026-09-22", time: "05:56", url: "https://www.ft.com/content/51c49052-0799-4920-9189-8399f15c1f51" },
-  { id: "b77f3320-6ff0-4be6-a480-a755c754f7d8", title: "FirstFT: Kremlin-backed forgery scheme fooled global banks", date: "2026-09-22", time: "05:31", url: "https://www.ft.com/content/b77f3320-6ff0-4be6-a480-a755c754f7d8" },
 ];
