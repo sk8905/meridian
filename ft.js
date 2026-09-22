@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "16d676c9-94c4-4df1-8fa6-56966b2c9aa7", title: "UN General Assembly live: Donald Trump to address world leaders at the UN", date: "2026-09-22", time: "14:05", url: "https://www.ft.com/content/16d676c9-94c4-4df1-8fa6-56966b2c9aa7" },
+  { id: "cf151ce7-b284-4f8a-94e9-e27c4228a174", title: "Republican lawmakers pressure Donald Trump to ban diesel exports", date: "2026-09-22", time: "14:00", url: "https://www.ft.com/content/cf151ce7-b284-4f8a-94e9-e27c4228a174" },
   { id: "193a14eb-5650-48a8-8ead-eb8184fc50f5", title: "Pick a stock, just not any stock", date: "2026-09-22", time: "13:08", url: "https://www.ft.com/content/193a14eb-5650-48a8-8ead-eb8184fc50f5" },
   { id: "ac089dea-a121-454e-815e-0d9a380acf79", title: "Comment: Trump is checking out of his presidency", date: "2026-09-22", time: "12:54", url: "https://www.ft.com/content/ac089dea-a121-454e-815e-0d9a380acf79" },
   { id: "2715d69d-15d1-42af-a5e5-cb2a251a1ff6", title: "Warburg Pincus and CD&R near deal to buy Canaccord’s UK wealth division", date: "2026-09-22", time: "12:36", url: "https://www.ft.com/content/2715d69d-15d1-42af-a5e5-cb2a251a1ff6" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "3c494ae7-67b3-4ca1-a9e2-f3a8356bc0a4", title: "Merz’s woes cast doubt over EU’s €2tn budget deal", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/3c494ae7-67b3-4ca1-a9e2-f3a8356bc0a4" },
   { id: "f11485ba-39fb-422c-b0ff-5e71e1fe4f44", title: "Betting on the yen: the risks of the carry trade", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/f11485ba-39fb-422c-b0ff-5e71e1fe4f44" },
   { id: "5b019594-5b20-479a-8549-7b564127eb3f", title: "London’s schools are running out of children", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/5b019594-5b20-479a-8549-7b564127eb3f" },
-  { id: "60870960-f433-48ca-bc2c-708686a69ae7", title: "AI staff complain of mental toll over fears of threat to society", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/60870960-f433-48ca-bc2c-708686a69ae7" },
-  { id: "57662705-13e3-4aaa-b8a6-951b954a46b1", title: "Sorry Carney, the world does need a great power with better manners", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/57662705-13e3-4aaa-b8a6-951b954a46b1" },
-  { id: "bbfb7316-a660-4428-9918-8f275338a4d4", title: "Why Andy Burnham’s ‘Buy British’ push could backfire", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/bbfb7316-a660-4428-9918-8f275338a4d4" },
 ];
