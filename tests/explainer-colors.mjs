@@ -1,8 +1,9 @@
 // Explainer colour treatment (shared with the briefing): every "Key moments" /
-// "why it moved" line reads its topic HEADING orange (--accent). Numbers are still
-// WRAPPED (.nb-num, metrics not dates — v2/js/nb-format.js) but read as PLAIN body
-// text: the blue number accent was removed by request. Covers the Dashboard
-// Equities Key moments, the Macro indicators Key moments, and the FX Key moment.
+// "why it moved" line reads its topic HEADING as BOLD WHITE (--t-ink/--ink, weight
+// 700) — the orange was removed by request. Numbers are still WRAPPED (.nb-num,
+// metrics not dates — v2/js/nb-format.js) but read as PLAIN body text: the blue
+// number accent was removed by request too. Covers the Dashboard Equities Key
+// moments, the Dashboard Rates why-it-moved, and the Macro indicators Key moments.
 import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
@@ -13,6 +14,9 @@ await pg.waitForTimeout(1000);
 const rgb = (v) => pg.evaluate((val) => { const s = document.createElement("span"); s.style.color = val; document.body.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; }, v);
 const ACCENT = await rgb("var(--accent)");
 const BLUE = await rgb("var(--wb-txt)");
+// The bold-white heading colour is the scoped ink token (--t-ink on the dashboard,
+// --ink on macro), so each section computes its own in-scope ink reference rather
+// than reading the token off <body>, where those scoped tokens don't resolve.
 
 // ---- Dashboard ▸ Equities "Key moments" -----------------------------------
 await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/dashboard/equities/"); dispatchEvent(new PopStateEvent("popstate")); });
@@ -20,8 +24,12 @@ await pg.waitForTimeout(1300);
 const eq = await pg.evaluate(() => {
   const t = document.querySelector(".dsh-km .dsh-km-t");
   const n = document.querySelector(".dsh-km-x .nb-num");
+  let inkRef = null;
+  if (t) { const p = document.createElement("span"); p.style.color = "var(--t-ink)"; t.parentElement.appendChild(p); inkRef = getComputedStyle(p).color; p.remove(); }
   return {
     heading: t ? getComputedStyle(t).color : null,
+    weight: t ? getComputedStyle(t).fontWeight : null,
+    inkRef,
     hasNum: !!n,
     numColor: n ? getComputedStyle(n).color : null,
     // No .nb-num may be a bare year or a day-before-month (dates stay plain).
@@ -31,7 +39,7 @@ const eq = await pg.evaluate(() => {
     }),
   };
 });
-check(eq.heading === ACCENT, `dashboard Key-moment heading reads orange (${eq.heading})`);
+check(eq.heading === eq.inkRef && eq.heading !== ACCENT && eq.weight === "700", `dashboard Key-moment heading reads BOLD WHITE, not orange (${eq.heading} / ${eq.weight})`);
 check(eq.hasNum && eq.numColor !== BLUE, `dashboard Key-moment numbers read PLAIN, not the old blue accent (${eq.numColor})`);
 check(!eq.badDate, "dashboard Key-moment date components are NOT blue");
 
@@ -56,18 +64,22 @@ await pg.evaluate(() => { const c = [...document.querySelectorAll('.dsh-railnav 
 await pg.waitForTimeout(600);
 const rates = await pg.evaluate(() => {
   const t = document.querySelector(".dsh-km .dsh-km-t");
-  return { present: !!t, heading: t ? getComputedStyle(t).color : null };
+  let inkRef = null;
+  if (t) { const p = document.createElement("span"); p.style.color = "var(--t-ink)"; t.parentElement.appendChild(p); inkRef = getComputedStyle(p).color; p.remove(); }
+  return { present: !!t, heading: t ? getComputedStyle(t).color : null, weight: t ? getComputedStyle(t).fontWeight : null, inkRef };
 });
-check(!rates.present || rates.heading === ACCENT, `rates why-it-moved heading orange when present (${rates.heading})`);
+check(!rates.present || (rates.heading === rates.inkRef && rates.weight === "700"), `rates why-it-moved heading bold white when present (${rates.heading} / ${rates.weight})`);
 
 // ---- Macro ▸ indicators Key moments ---------------------------------------
 await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/macro/"); dispatchEvent(new PopStateEvent("popstate")); });
 await pg.waitForTimeout(1400);
 const mac = await pg.evaluate(() => {
   const t = document.querySelector(".mac-km-t");
-  return { present: !!t, heading: t ? getComputedStyle(t).color : null, numBlue: (() => { const n = document.querySelector(".mac-km-x .nb-num"); return n ? getComputedStyle(n).color : null; })() };
+  let inkRef = null;
+  if (t) { const p = document.createElement("span"); p.style.color = "var(--ink)"; t.parentElement.appendChild(p); inkRef = getComputedStyle(p).color; p.remove(); }
+  return { present: !!t, heading: t ? getComputedStyle(t).color : null, weight: t ? getComputedStyle(t).fontWeight : null, inkRef, numBlue: (() => { const n = document.querySelector(".mac-km-x .nb-num"); return n ? getComputedStyle(n).color : null; })() };
 });
-check(!mac.present || mac.heading === ACCENT, `macro Key-moment heading orange when present (${mac.heading})`);
+check(!mac.present || (mac.heading === mac.inkRef && mac.weight === "700"), `macro Key-moment heading bold white when present (${mac.heading} / ${mac.weight})`);
 if (mac.present && mac.numBlue) check(mac.numBlue !== BLUE, `macro Key-moment numbers read PLAIN, not blue, when present (${mac.numBlue})`);
 else check(true, "macro Key-moment: no numbers to colour this render");
 

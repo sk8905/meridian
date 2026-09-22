@@ -1104,7 +1104,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .mac-km-h { font-size: 9.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); margin-bottom: 5px; }
 .mac-km-h span { color: var(--muted); font-weight: 600; margin-left: 6px; text-transform: none; letter-spacing: 0; }
 .mac-km { display: grid; grid-template-columns: 92px 1fr; gap: 8px; align-items: baseline; padding: 4px 0; }
-.mac-km-t { color: var(--accent); font-weight: 600; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mac-km-t { color: var(--ink); font-weight: 700; font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mac-km-x { color: color-mix(in srgb, var(--ink) 72%, transparent); font-size: 11.5px; line-height: 1.4; }
 .mac-km-src { color: var(--muted); font-size: 10px; font-weight: 600; white-space: nowrap; }
 .mac-km-src:hover { color: var(--ink); }
