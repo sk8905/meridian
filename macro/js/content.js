@@ -13,7 +13,7 @@ export const UPDATED = "20 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-22",
-  lastCheckedTime: "05:24 BST",
+  lastCheckedTime: "12:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -985,17 +985,17 @@ export const NEWS = {
   updated: "2026-09-22",
   us: [
     { title: "US Dollar Index Price Forecast: Needs a decisive move above 100.56 for fresh upside leg", source: "FXStreet", date: "2026-09-22", time: "03:17", url: "https://www.fxstreet.com/news/us-dollar-index-price-forecast-needs-a-decisive-move-above-10056-for-fresh-upside-leg-202609220317" },
-    { title: "Stock market news for Sept. 21, 2026", source: "CNBC", date: "2026-09-21", url: "https://www.cnbc.com/2026/09/20/stock-market-today-live-updates.html" },
-    { title: "Morning Bid: Summiteering", source: "Reuters (via Investing.com)", date: "2026-09-21", url: "https://www.investing.com/news/commodities-news/morning-bid-summiteering-4908666" },
-    { title: "The Federal Reserve is shadowboxing inflation", source: "FXStreet", date: "2026-09-21", url: "https://www.fxstreet.com/analysis/the-federal-reserve-is-shadowboxing-inflation-202609212046" },
-    { title: "Bessent and China's He launch talks on AI, trade and critical minerals", source: "Nikkei Asia", date: "2026-09-21", url: "https://asia.nikkei.com/politics/international-relations/bessent-and-china-s-he-launch-talks-on-ai-trade-and-critical-minerals" },
+    { title: "AMD hits $1 trillion market cap for the first time as stock rides 5-day rally", source: "CNBC", date: "2026-09-21", url: "https://www.cnbc.com/2026/09/21/amd-stock-1-trillion-value.html" },
+    { title: "Stock market today: Nasdaq surges 2% to new record, Dow and S&P 500 gain as chip stocks rally, oil prices fall", source: "Yahoo Finance", date: "2026-09-21", time: "21:08", url: "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-21-dow-sp-500-nasdaq-080214605.html" },
+    { title: "US and China Hail Talks as Positive Ahead of Trump-Xi Summit", source: "Bloomberg", date: "2026-09-21", url: "https://www.bloomberg.com/news/articles/2026-09-21/bessent-hails-very-successful-china-talks-on-ai-threats-trade" },
+    { title: "Markets Can Handle a Hawkish Fed, Not Uncertainty: Taking Stock", source: "Bloomberg", date: "2026-09-21", url: "https://www.bloomberg.com/news/articles/2026-09-21/markets-can-handle-a-hawkish-fed-not-uncertainty-taking-stock" },
   ],
   uk: [
     { title: "British Pound consolidates vs USD as Fed-BoE split keeps bias bearish", source: "FXStreet", date: "2026-09-22", time: "02:20", url: "https://www.fxstreet.com/news/british-pound-consolidates-vs-usd-bearish-bias-remains-amid-divergent-fed-boe-outlook-202609220220" },
+    { title: "GBP/USD Price Forecast: Turns flat after breakdown below 1.3400", source: "FXStreet", date: "2026-09-22", time: "05:50", url: "https://www.fxstreet.com/news/gbp-usd-price-forecast-turns-flat-after-breakdown-below-13400-202609220550" },
     { title: "BoE signals 'insurance hike' in November — sterling 'gets little help' from hawkishness", source: "FXStreet", date: "2026-09-21", url: "https://www.fxstreet.com/analysis/boe-signals-insurance-hike-in-november-sterling-gets-little-help-from-hawkishness-202609211126" },
     { title: "FTSE 100 Live: Stocks Set to Rebound, Pound Holds Below $1.34", source: "Bloomberg", date: "2026-09-21", url: "https://www.bloomberg.com/news/live-blog/2026-09-21/ftse-100-stocks-gilts-pound-brent-latest-what-s-moving-uk-markets-right-now-markets-today" },
     { title: "UK economy set to grow despite rising energy costs", source: "City AM", date: "2026-09-21", url: "https://www.cityam.com/uk-economy-set-to-grow-despite-rising-energy-costs/" },
-    { title: "Bank of England defies Fed's rate-hike lead, leaving rates unchanged", source: "CNBC", date: "2026-09-17", url: "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html" },
   ],
 };
 
@@ -1009,6 +1009,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-22",
   items: [
+    {"title": "GBP/USD Price Forecast: Turns flat after breakdown below 1.3400", "source": "FXStreet", "date": "2026-09-22", "time": "05:50", "url": "https://www.fxstreet.com/news/gbp-usd-price-forecast-turns-flat-after-breakdown-below-13400-202609220550", "blurb": "Sterling steadied after Monday's break below 1.3400, with FXStreet's technical read flagging the pair as flat-to-bearish ahead of Wednesday's flash UK/US PMIs and Thursday's Trump-Xi summit.", "author": null},
     {"title": "US Dollar Index Price Forecast: Needs a decisive move above 100.56 for fresh upside leg", "source": "FXStreet", "date": "2026-09-22", "time": "03:17", "url": "https://www.fxstreet.com/news/us-dollar-index-price-forecast-needs-a-decisive-move-above-10056-for-fresh-upside-leg-202609220317", "blurb": "The dollar index held on to the previous day's post-Fed gains through the Asian session, with FXStreet's technical read arguing it needs a decisive move above 100.56 before a fresh upside leg can open."},
     {"title": "British Pound consolidates vs USD as Fed-BoE split keeps bias bearish", "source": "FXStreet", "date": "2026-09-22", "time": "02:20", "url": "https://www.fxstreet.com/news/british-pound-consolidates-vs-usd-bearish-bias-remains-amid-divergent-fed-boe-outlook-202609220220", "blurb": "GBP/USD consolidated above the mid-1.3300s in Asian hours, within striking distance of its lowest level since 30 July, as a hawkish Fed signalling at least one more hike this year kept the dollar near its strongest since late July."},
     {"title": "RBA's Bullock: Supply shocks are difficult for monetary policy to deal with", "source": "FXStreet", "date": "2026-09-22", "time": "03:21", "url": "https://www.fxstreet.com/news/rbas-bullock-supply-shocks-are-difficult-for-monetary-policy-to-deal-with-202609220321", "blurb": "Reserve Bank of Australia Governor Michele Bullock said supply shocks are difficult for monetary policy to deal with; AUD/USD held steady above 0.7100 in the Asian session, shrugging off her and Assistant Governor Sarah Hunter's hawkish tone."},
@@ -1048,7 +1049,6 @@ export const ARTICLES = {
     {"title": "Trump-Xi summit: What to expect on tariffs, Taiwan, Iran and AI", "source": "Invezz", "date": "2026-09-19", "url": "https://invezz.com/news/2026/09/19/trump-xi-summit-what-to-expect-on-tariffs-taiwan-iran-and-ai/", "blurb": "A curtain-raiser on next week's Washington summit — the expiring Busan tariff truce, rare-earth export controls, AI-safety cooperation and Iran all on the agenda, with Beijing said to be weighing whether a pending Taiwan arms sale derails the visit.", "author": null},
     {"title": "World Economy Latest: Fed Boosts Interest Rates, Signals Another 2026 Hike", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/world-economy-latest-fed-boosts-interest-rates-signals-another-2026-hike", "blurb": "A global round-up of the fallout from Wednesday's Fed hike, with the dot plot signalling at least one more 2026 move and other G7 central banks (BoJ, BoE) also in play this week.", "author": null},
     {"title": "Hormuz Oil Shipments Hit Six-Month High, US Commander Says", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/hormuz-oil-shipments-hit-six-month-high-us-commander-says", "blurb": "The top US military commander for the Middle East says oil-tanker traffic through the Strait of Hormuz has climbed to its highest in six months, a tentative sign the Iran-war shipping disruption is easing.", "author": null},
-    {"title": "UK Mansion Tax May Expand to Homes Worth Over £1.5 Million", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/uk-mansion-tax-may-expand-to-homes-worth-over-1-5-million", "blurb": "Chancellor Healey is weighing a wider mansion-tax band ahead of the 28 October Budget as the government hunts for revenue to fill the fiscal gap flagged by the OBR and OECD.", "author": null},
   ],
 };
 

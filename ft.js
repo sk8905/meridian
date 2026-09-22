@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5b4f8738-3b93-40c8-88d6-08c8ea684e83", title: "Oil price falls below $98 as Saudi Arabia signals reopening of East-West pipeline", date: "2026-09-22", time: "12:19", url: "https://www.ft.com/content/5b4f8738-3b93-40c8-88d6-08c8ea684e83" },
   { id: "31b63337-0531-47a6-a0ce-83f0dd7f395b", title: "European fusion start-up pushes for local supply chain as US dominates funding", date: "2026-09-22", time: "12:00", url: "https://www.ft.com/content/31b63337-0531-47a6-a0ce-83f0dd7f395b" },
   { id: "99457bcb-d98f-4719-a203-688daefcc3f7", title: "‘MBS will not forget’: Donald Trump’s reluctance to fight Houthis rattles Saudi Arabia", date: "2026-09-22", time: "12:00", url: "https://www.ft.com/content/99457bcb-d98f-4719-a203-688daefcc3f7" },
   { id: "c01af46f-378a-468e-bc54-f54e8bad22fa", title: "Venezuela’s Delcy Rodríguez cashes in on bargain with Trump", date: "2026-09-22", time: "11:56", url: "https://www.ft.com/content/c01af46f-378a-468e-bc54-f54e8bad22fa" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ec52d0ab-3f68-476f-b308-b8e682d9c75b", title: "Polymarket starts European lobbying blitz to win over financial watchdogs", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/ec52d0ab-3f68-476f-b308-b8e682d9c75b" },
   { id: "8576e3d2-6fe3-4bfe-af16-10edb76ac8bf", title: "Why Blackstone’s latest plans at Lloyd’s of London have sparked a firestorm", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/8576e3d2-6fe3-4bfe-af16-10edb76ac8bf" },
   { id: "a7aa2544-c328-40ef-87e2-488975a79f57", title: "US officials move to rein in utility profits as power bills rise", date: "2026-09-22", time: "05:00", url: "https://www.ft.com/content/a7aa2544-c328-40ef-87e2-488975a79f57" },
-  { id: "3848a4ad-1426-4352-ba86-ef1279c4ffd1", title: "Kremlin-backed forgery scheme moved $6.9bn through global banks", date: "2026-09-21", time: "21:00", url: "https://www.ft.com/content/3848a4ad-1426-4352-ba86-ef1279c4ffd1" },
 ];
