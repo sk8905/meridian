@@ -1716,20 +1716,31 @@ export function extractReadable(html, u) {
   const freeMeta = _readMeta(html, ["isAccessibleForFree"]);
   const jsonldFree = /"isAccessibleForFree"\s*:\s*(?:false|"false")/i.test(html);
   let accessible = !(/false/i.test(freeMeta) || jsonldFree);
-  // Body: prefer paragraphs inside <article>, else [itemprop=articleBody], else the doc.
-  let scope = html;
+  // Body: prefer paragraphs inside <article>, else [itemprop=articleBody]. Many
+  // sites (e.g. a page whose first <article> is a related-story card, with the real
+  // copy in a <div class="articleBody/WYSIWYG/story-body…">) leave the body OUTSIDE
+  // that scope — so if the preferred scope reads thin, widen to the whole document
+  // and keep whichever yields more body text.
   const art = /<article[\s\S]*?<\/article>/i.exec(html);
-  if (art) scope = art[0];
-  else { const ab = /<[^>]+itemprop=["']articleBody["'][\s\S]*?<\/[a-z0-9]+>/i.exec(html); if (ab) scope = ab[0]; }
-  const paras = [], seen = new Set(); let re = /<p\b[^>]*>([\s\S]*?)<\/p>/gi, m, total = 0;
-  while ((m = re.exec(scope)) && paras.length < 45) {
-    const t = _readStrip(m[1]);
-    if (t.length < 45 || READ_BOILER.test(t)) continue;
-    const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
-    if (total > 16000) break;
-    paras.push(t); total += t.length;
+  const ab = /<[^>]+itemprop=["']articleBody["'][\s\S]*?<\/[a-z0-9]+>/i.exec(html);
+  let paras = _readParas(art ? art[0] : (ab ? ab[0] : html));
+  if (_readTextLen(paras) < 600) {
+    const whole = _readParas(html);
+    if (_readTextLen(whole) > _readTextLen(paras)) paras = whole;
   }
   return { url: u.toString(), source, title, byline, date, accessible: accessible && paras.length >= 2, paragraphs: paras };
+}
+function _readTextLen(paras) { let n = 0; for (const p of paras) n += p.length; return n; }
+function _readParas(scope) {
+  const paras = [], seen = new Set(); let re = /<p\b[^>]*>([\s\S]*?)<\/p>/gi, m, total = 0;
+  while ((m = re.exec(scope)) && paras.length < 60) {
+    const t = _readStrip(m[1]);
+    if (t.length < 40 || READ_BOILER.test(t)) continue;
+    const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
+    if (total > 20000) break;
+    paras.push(t); total += t.length;
+  }
+  return paras;
 }
 async function handleRead(request, env, ctx) {
   const target = new URL(request.url).searchParams.get("url") || "";

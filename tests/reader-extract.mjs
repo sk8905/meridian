@@ -53,6 +53,20 @@ const stub = `<html><head><title>Loading…</title></head><body><div id="app"></
 const s = extractReadable(stub, u("https://www.reuters.com/x"));
 check(s.accessible === false && s.paragraphs.length === 0, "extract: a body-less stub is not accessible (no fabricated text)");
 
+// 3b) The first <article> is a related-story CARD (a teaser), with the real body
+//     in a <div class="articleBody"> OUTSIDE it. Extraction must widen past the
+//     thin scope to the document and pull the real paragraphs.
+const cardFirst = `<html><head><meta property="og:title" content="Sterling slips as hawkish Fed lifts dollar"></head><body>
+  <aside><article class="js-related-card"><p>More news</p></article></aside>
+  <div class="WYSIWYG articlePage">
+    <p>The pound eased against a broadly firmer dollar on Tuesday after Federal Reserve officials struck a more hawkish tone on the outlook.</p>
+    <p>Gilt yields ticked higher across the curve as traders trimmed bets on any near-term Bank of England easing over the autumn months.</p>
+    <p>Investors now look ahead to Wednesday's remarks from the Fed for the next steer on the policy path into the year-end stretch.</p>
+  </div></body></html>`;
+const c = extractReadable(cardFirst, u("https://www.investing.com/news/forex-news/x"));
+check(c.accessible === true && c.paragraphs.length === 3, `extract: widens past a teaser <article> to the real body (${c.paragraphs.length} paras)`);
+check(c.paragraphs[0].includes("pound eased"), "extract: pulls body paragraphs that sit outside <article>");
+
 // 4) SSRF gate (readHostAllowed): any real public host is fetchable, but IP
 //    literals and internal/reserved names are refused — so the reader can render
 //    any openly-accessible article without becoming an open proxy to internal
