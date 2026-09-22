@@ -12,8 +12,8 @@ export const UPDATED = "20 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-21",
-  lastCheckedTime: "21:08 BST",
+  lastChecked: "2026-09-22",
+  lastCheckedTime: "05:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -982,20 +982,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-21",
+  updated: "2026-09-22",
   us: [
-    { title: "AMD hits $1 trillion market cap for the first time as stock rides 5-day rally", source: "CNBC", date: "2026-09-21", url: "https://www.cnbc.com/2026/09/21/amd-stock-1-trillion-value.html" },
-    { title: "Stock market today: Nasdaq surges 2% to new record, Dow and S&P 500 gain as chip stocks rally, oil prices fall", source: "Yahoo Finance", date: "2026-09-21", url: "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-21-dow-sp-500-nasdaq-080214605.html" },
-    { title: "US Stocks Advance Ahead of Trump-Xi Meeting as Oil Slips", source: "Bloomberg", date: "2026-09-21", url: "https://www.bloomberg.com/news/articles/2026-09-21/us-stock-futures-climb-ahead-of-trump-xi-meeting-as-oil-slips" },
-    { title: "Stock Market Today (Sept. 21, 2026): Nasdaq surges as oil prices retreat", source: "TheStreet", date: "2026-09-21", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-21-2026" },
+    { title: "US Dollar Index Price Forecast: Needs a decisive move above 100.56 for fresh upside leg", source: "FXStreet", date: "2026-09-22", time: "03:17", url: "https://www.fxstreet.com/news/us-dollar-index-price-forecast-needs-a-decisive-move-above-10056-for-fresh-upside-leg-202609220317" },
+    { title: "Stock market news for Sept. 21, 2026", source: "CNBC", date: "2026-09-21", url: "https://www.cnbc.com/2026/09/20/stock-market-today-live-updates.html" },
+    { title: "Morning Bid: Summiteering", source: "Reuters (via Investing.com)", date: "2026-09-21", url: "https://www.investing.com/news/commodities-news/morning-bid-summiteering-4908666" },
+    { title: "The Federal Reserve is shadowboxing inflation", source: "FXStreet", date: "2026-09-21", url: "https://www.fxstreet.com/analysis/the-federal-reserve-is-shadowboxing-inflation-202609212046" },
     { title: "Bessent and China's He launch talks on AI, trade and critical minerals", source: "Nikkei Asia", date: "2026-09-21", url: "https://asia.nikkei.com/politics/international-relations/bessent-and-china-s-he-launch-talks-on-ai-trade-and-critical-minerals" },
   ],
   uk: [
+    { title: "British Pound consolidates vs USD as Fed-BoE split keeps bias bearish", source: "FXStreet", date: "2026-09-22", time: "02:20", url: "https://www.fxstreet.com/news/british-pound-consolidates-vs-usd-bearish-bias-remains-amid-divergent-fed-boe-outlook-202609220220" },
     { title: "BoE signals 'insurance hike' in November — sterling 'gets little help' from hawkishness", source: "FXStreet", date: "2026-09-21", url: "https://www.fxstreet.com/analysis/boe-signals-insurance-hike-in-november-sterling-gets-little-help-from-hawkishness-202609211126" },
     { title: "FTSE 100 Live: Stocks Set to Rebound, Pound Holds Below $1.34", source: "Bloomberg", date: "2026-09-21", url: "https://www.bloomberg.com/news/live-blog/2026-09-21/ftse-100-stocks-gilts-pound-brent-latest-what-s-moving-uk-markets-right-now-markets-today" },
-    { title: "British Pound slips as hawkish Fed outlook boosts US Dollar", source: "FXStreet", date: "2026-09-21", url: "https://www.fxstreet.com/news/british-pound-slips-as-hawkish-fed-outlook-boosts-us-dollar-202609210110" },
     { title: "UK economy set to grow despite rising energy costs", source: "City AM", date: "2026-09-21", url: "https://www.cityam.com/uk-economy-set-to-grow-despite-rising-energy-costs/" },
-    { title: "Pound To Dollar Week Ahead Forecast: Fed Strength Leaves GBP Vulnerable", source: "Exchange Rates UK", date: "2026-09-21", url: "https://www.exchangerates.org.uk/news/47216/2026-09-21-pound-to-dollar-week-ahead-forecast-fed-strength-leaves-gbp-vulnerable.html" },
+    { title: "Bank of England defies Fed's rate-hike lead, leaving rates unchanged", source: "CNBC", date: "2026-09-17", url: "https://www.cnbc.com/2026/09/17/bank-of-england-interest-rate-decision-fed-rate-hike-uk-inflation.html" },
   ],
 };
 
@@ -1007,8 +1007,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-21",
+  updated: "2026-09-22",
   items: [
+    {"title": "US Dollar Index Price Forecast: Needs a decisive move above 100.56 for fresh upside leg", "source": "FXStreet", "date": "2026-09-22", "time": "03:17", "url": "https://www.fxstreet.com/news/us-dollar-index-price-forecast-needs-a-decisive-move-above-10056-for-fresh-upside-leg-202609220317", "blurb": "The dollar index held on to the previous day's post-Fed gains through the Asian session, with FXStreet's technical read arguing it needs a decisive move above 100.56 before a fresh upside leg can open."},
+    {"title": "British Pound consolidates vs USD as Fed-BoE split keeps bias bearish", "source": "FXStreet", "date": "2026-09-22", "time": "02:20", "url": "https://www.fxstreet.com/news/british-pound-consolidates-vs-usd-bearish-bias-remains-amid-divergent-fed-boe-outlook-202609220220", "blurb": "GBP/USD consolidated above the mid-1.3300s in Asian hours, within striking distance of its lowest level since 30 July, as a hawkish Fed signalling at least one more hike this year kept the dollar near its strongest since late July."},
+    {"title": "RBA's Bullock: Supply shocks are difficult for monetary policy to deal with", "source": "FXStreet", "date": "2026-09-22", "time": "03:21", "url": "https://www.fxstreet.com/news/rbas-bullock-supply-shocks-are-difficult-for-monetary-policy-to-deal-with-202609220321", "blurb": "Reserve Bank of Australia Governor Michele Bullock said supply shocks are difficult for monetary policy to deal with; AUD/USD held steady above 0.7100 in the Asian session, shrugging off her and Assistant Governor Sarah Hunter's hawkish tone."},
     {"title": "Stock market today: Nasdaq surges 2% to new record, Dow and S&P 500 gain as chip stocks rally, oil prices fall", "source": "Yahoo Finance", "date": "2026-09-21", "time": "21:08", "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-21-dow-sp-500-nasdaq-080214605.html", "blurb": "The Nasdaq Composite jumped 2.26% to a record 27,122.09, the S&P 500 gained 1.49% to 7,764.70 and the Dow added 0.71% to 52,048.83 as AMD's surge past a $1 trillion market cap led a chip-stock rally and oil fell to a four-day low (November WTI -4.25% to $92.00) ahead of Thursday's Trump-Xi summit.", "author": null},
     {"title": "AMD hits $1 trillion market cap for the first time as stock rides 5-day rally", "source": "CNBC", "date": "2026-09-21", "time": "21:08", "url": "https://www.cnbc.com/2026/09/21/amd-stock-1-trillion-value.html", "blurb": "AMD shares jumped roughly 10% to an all-time high above $610, pushing the chipmaker's market capitalisation past $1 trillion for the first time and capping a five-day, ~24% rally, as investors continued to bid up AI-accelerator suppliers.", "author": null},
     {"title": "BoE signals 'insurance hike' in November — sterling 'gets little help' from hawkishness", "source": "FXStreet", "date": "2026-09-21", "time": "21:08", "url": "https://www.fxstreet.com/analysis/boe-signals-insurance-hike-in-november-sterling-gets-little-help-from-hawkishness-202609211126", "blurb": "A post-mortem on last week's 6-3 MPC hold argues the Bank of England's hawkish communications point toward a likely 'insurance' hike in November even as sterling has derived little support from the tone, staying pinned near six-week lows against the dollar.", "author": null},
@@ -1046,9 +1049,6 @@ export const ARTICLES = {
     {"title": "World Economy Latest: Fed Boosts Interest Rates, Signals Another 2026 Hike", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/world-economy-latest-fed-boosts-interest-rates-signals-another-2026-hike", "blurb": "A global round-up of the fallout from Wednesday's Fed hike, with the dot plot signalling at least one more 2026 move and other G7 central banks (BoJ, BoE) also in play this week.", "author": null},
     {"title": "Hormuz Oil Shipments Hit Six-Month High, US Commander Says", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/hormuz-oil-shipments-hit-six-month-high-us-commander-says", "blurb": "The top US military commander for the Middle East says oil-tanker traffic through the Strait of Hormuz has climbed to its highest in six months, a tentative sign the Iran-war shipping disruption is easing.", "author": null},
     {"title": "UK Mansion Tax May Expand to Homes Worth Over £1.5 Million", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/uk-mansion-tax-may-expand-to-homes-worth-over-1-5-million", "blurb": "Chancellor Healey is weighing a wider mansion-tax band ahead of the 28 October Budget as the government hunts for revenue to fill the fiscal gap flagged by the OBR and OECD.", "author": null},
-    {"title": "US, China Trade Teams Set to Huddle in New York on AI, Iran", "source": "Bloomberg", "date": "2026-09-19", "url": "https://www.bloomberg.com/news/articles/2026-09-19/us-china-trade-teams-set-to-huddle-in-new-york-on-ai-iran", "blurb": "Treasury Secretary Bessent and Chinese Vice Premier He Lifeng lead talks in New York on tariffs, AI and Iran's economic ties, laying the groundwork for the 24 September Trump-Xi summit in Washington.", "author": null},
-    {"title": "Pound Sterling price news and forecast: GBP declines on rising UK fiscal worries", "source": "FXStreet", "date": "2026-09-19", "url": "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-declines-on-rising-uk-fiscal-worries-202509191207", "blurb": "Sterling extends its retreat as UK gilt-market and fiscal jitters persist in the wake of Thursday's BoE hold, with investors watching for further detail ahead of Chancellor Healey's 28 October Budget.", "author": null},
-    {"title": "United Kingdom: BoE holds rate steady in September – UOB Group", "source": "FXStreet", "date": "2026-09-19", "url": "https://www.fxstreet.com/news/united-kingdom-boe-holds-rate-steady-in-september-uob-group-202509190936", "blurb": "UOB Group's post-decision note recaps Thursday's 6-3 MPC hold — the same split as July — with three members again dissenting for an immediate hike, and the Bank's warning that a prolonged Iran-war energy shock could still force a move.", "author": "UOB Group"},
   ],
 };
 
@@ -1059,6 +1059,7 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
+  { date: "2026-09-22", country: "UK", title: "Public sector finances (August)", url: "https://www.ons.gov.uk/releases/publicsectorfinancesukaugust2026" },
   { date: "2026-09-23", country: "US", title: "S&P Global Flash PMIs (September)", url: "https://www.pmi.spglobal.com/Public/Home/PressRelease" },
   { date: "2026-09-23", country: "UK", title: "S&P Global/CIPS Flash PMIs (September)", url: "https://www.pmi.spglobal.com/Public/Home/PressRelease" },
   { date: "2026-09-30", country: "US", title: "GDP (Q2 2026, Third Estimate) & Corporate Profits", url: "https://www.bea.gov/news/schedule" },
@@ -1212,7 +1213,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "Treasury yields eased Monday afternoon as traders modestly trimmed Fed rate-hike bets on hopes for renewed US-Iran diplomacy, with the 10-year slipping back under 5%; attention now shifts to the 28 October FOMC meeting, where CME FedWatch-tracked odds of a further 25bp hike stood near 56&ndash;60% heading into the week.", src: "https://www.bloomberg.com/news/articles/2026-09-21/us-stock-futures-climb-ahead-of-trump-xi-meeting-as-oil-slips", srcName: "Bloomberg", date: "2026-09-21" },
+  "US:two_year": { text: "Treasury yields eased Monday afternoon as traders modestly trimmed Fed rate-hike bets on hopes for renewed US-Iran diplomacy, with the 10-year slipping back under 5%; attention now shifts to the 28 October FOMC meeting, where CME FedWatch-tracked odds of a further 25bp hike stood near 56–60% heading into the week.", src: "https://www.bloomberg.com/news/articles/2026-09-21/us-stock-futures-climb-ahead-of-trump-xi-meeting-as-oil-slips", srcName: "Bloomberg", date: "2026-09-21" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:two_year": { text: "UK gilt yields eased Monday, with the 10-year down to around 5.24%, as markets steadied following last week's hawkish Fed hike, even as sterling stayed on the back foot near six-week lows below $1.34.", src: "https://www.bloomberg.com/news/live-blog/2026-09-21/ftse-100-stocks-gilts-pound-brent-latest-what-s-moving-uk-markets-right-now-markets-today", srcName: "Bloomberg", date: "2026-09-21" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
@@ -1221,7 +1222,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The Bank of England signalled a likely 'insurance hike' in November through last week's hawkish 6-3 hold, FXStreet reported Monday, though sterling has drawn little support from the tone, holding little changed near $1.335 — among its weakest levels since late July — as the dollar stays firm on the Fed's own hawkish tilt.", src: "https://www.fxstreet.com/analysis/boe-signals-insurance-hike-in-november-sterling-gets-little-help-from-hawkishness-202609211126", srcName: "FXStreet", date: "2026-09-21" };
+export const FX_KEYMOMENT = { text: "Sterling spent the Asian session consolidating above the mid-$1.3300s, within striking distance of the lowest level since 30 July it touched last week, as the Fed–Bank of England split did the work: the Fed has signalled at least one more hike this year after its first increase in over three years, holding the dollar near its strongest since late July, while the MPC stays on hold at 3.75%.", src: "https://www.fxstreet.com/news/british-pound-consolidates-vs-usd-bearish-bias-remains-amid-divergent-fed-boe-outlook-202609220220", srcName: "FXStreet", date: "2026-09-22" };
 
 export const EARNINGS = {
   // Monday-transition sweep (14 Sep): no bank/broker, asset-manager, AI-relevant
