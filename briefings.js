@@ -14,10 +14,14 @@
 // surfaces). Every slot touches all three, and each bullet's <strong> lead is
 // tagged with its desk. The first four bullets are the ones the Home card renders
 // (HB_MAX_BULLETS — one iPhone screen), so they carry the three-desk spread.
-// ONE SECTION PER DESK: the card groups bullets by their desk lead, so a desk that
-// carries two stories (e.g. two Macro items) shows a SINGLE "Macro" kicker with both
-// items beneath it — never a repeated kicker. Author each item with its own desk
-// lead and source; the render folds same-desk items into one section.
+// ONE CONTINUOUS ITEM PER DESK: the card groups bullets by their desk lead, and a
+// desk that carries two stories (e.g. two Macro items) is ALWAYS combined into a
+// SINGLE continuous item — one "Macro" kicker, the two stories folded into one
+// flowing run of prose, and both sources on one trailing line — never stacked as
+// separate sub-bullets and never a repeated kicker. Author each item with its own
+// desk lead and source as usual; the render strips the follow-on's kicker,
+// re-capitalises its lead and folds it in, so each story should stand as its own
+// self-contained sentence that reads cleanly when run on after the one before it.
 // Equities & Fixed income bullets LEAD WITH THE MOVE AND ITS DRIVER — the index
 // or yield change, then the specific catalyst behind it (a stock, a data print,
 // an issuance event) — not a standing description.

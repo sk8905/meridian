@@ -3857,7 +3857,7 @@ async function fetchXApiUsers(handles, apiKey) {
 // list-members call count tiny); a page (20) at a time, a few pages.
 async function fetchXApiListMembers(listId, apiKey, request, ctx) {
   const cache = caches.default;
-  const memKey = new Request(new URL(`/api/xfeed-members?l=${encodeURIComponent(listId)}&v=1`, request.url).toString());
+  const memKey = new Request(new URL(`/api/xfeed-members?l=${encodeURIComponent(listId)}&v=2`, request.url).toString());
   const hit = await cache.match(memKey);
   if (hit) { try { const j = await hit.json(); if (Array.isArray(j)) return j; } catch { /* refetch */ } }
   const handles = [];
@@ -3922,20 +3922,23 @@ async function fetchXApiListTweetAuthors(listId, apiKey) {
   }
   return out;
 }
-// Resolve the roster to fetch: the client roster (X_ACCOUNTS floor) UNION the List's
-// members UNION the List's recent tweet authors — so membership auto-syncs even if
-// one source is unavailable. Cached ~10 min under its own key.
+// Resolve the roster to fetch. The X LIST is the SINGLE SOURCE OF TRUTH: its
+// members ∪ the authors posting in it drive the roster, so add/removes made on X
+// flow straight through with no code change. The client's X_ACCOUNTS handles are
+// only a FALLBACK for when the List can't be resolved (API down / empty) — never
+// a floor, because a floor would re-pin an account the user removed from the List
+// and it could never leave the feed. Cached ~10 min under its own key.
 async function resolveXRoster(listId, apiKey, handles, request, ctx) {
   const cache = caches.default;
-  const rk = new Request(new URL(`/api/xfeed-roster?l=${encodeURIComponent(listId)}&v=1`, request.url).toString());
+  const rk = new Request(new URL(`/api/xfeed-roster?l=${encodeURIComponent(listId)}&v=2`, request.url).toString());
   const hit = await cache.match(rk);
   if (hit) { try { const j = await hit.json(); if (Array.isArray(j) && j.length) return j; } catch { /* rebuild */ } }
   const set = new Set();
   const roster = [];
   const add = (arr) => { for (const h of (arr || [])) { const k = String(h || "").toLowerCase(); if (k && /^[a-z0-9_]{1,15}$/.test(k) && !set.has(k)) { set.add(k); roster.push(h); } } };
-  add(handles);
   try { add(await fetchXApiListMembers(listId, apiKey, request, ctx)); } catch { /* keep going */ }
   try { add(await fetchXApiListTweetAuthors(listId, apiKey)); } catch { /* keep going */ }
+  if (!roster.length) add(handles);   // fallback ONLY when the List couldn't be resolved
   const out = roster.slice(0, 30);
   if (out.length) {
     const resp = new Response(JSON.stringify(out), { headers: { "content-type": "application/json", "cache-control": "public, max-age=600" } });
@@ -3980,7 +3983,7 @@ async function handleXFeed(request, env, ctx) {
   const mode = (apiKey && (handles.length || listId)) ? "api" : "syn";
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + mode;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=7`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=8`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 

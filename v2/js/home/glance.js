@@ -238,6 +238,9 @@ function _briefDesk(html) { const m = String(html || "").match(/^\s*<strong>\s*(
 // Drop the leading "Desk &mdash; " label from a same-desk follow-on item, keeping the
 // rest of its bold headline — so the kicker isn't repeated within a grouped section.
 function _stripDesk(html) { return String(html || "").replace(/^(\s*<strong>)\s*[^<]*?\s*(?:&mdash;|—)\s*/, "$1"); }
+// Re-capitalise the first letter of a de-kickered follow-on so it reads as a clean
+// continuous sentence once folded onto the item before it ("…target. The ONS…").
+function _capFold(html) { return String(html || "").replace(/^(\s*(?:<strong>\s*)?)([a-z])/, (m, p, c) => p + c.toUpperCase()); }
 // True on the desktop terminal (≥1201px), where the briefing is its own 2×2 quadrant.
 function _briefDesktop() { try { return window.matchMedia("(min-width:1201px)").matches; } catch { return false; } }
 function renderHomeBriefing() {
@@ -267,10 +270,15 @@ function renderHomeBriefing() {
     g.items.push(b);
   }
   const _src = (b) => b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : "";
+  // ALWAYS combine every same-desk item into ONE continuous item: the first keeps
+  // its orange desk kicker; each follow-on is stripped of its kicker (its lead
+  // letter re-capitalised) and folded into the same flowing text — never stacked
+  // as a separate sub-bullet. All the sources it compresses collect on ONE
+  // trailing line, so the combined item still links every source (R7 grounding).
   const bullets = groups.map((g) => {
-    const lines = g.items.map((b, i) =>
-      `<span class="g-hbrief-bt${i ? " g-hbrief-sub" : ""}">${briefMarkup(i ? _stripDesk(b.html) : b.html)}</span>${_src(b)}`).join("");
-    return `<li class="g-hbrief-b">${lines}</li>`;
+    const text = g.items.map((b, i) => briefMarkup(i ? _capFold(_stripDesk(b.html)) : b.html)).join(" ");
+    const srcs = g.items.map(_src).filter(Boolean).join('<span class="g-hbrief-srcsep" aria-hidden="true"> · </span>');
+    return `<li class="g-hbrief-b"><span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}</li>`;
   }).join("");
   host.hidden = false;
   host.dataset.open = open ? "true" : "false";

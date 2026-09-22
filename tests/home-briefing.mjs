@@ -37,8 +37,16 @@ const b = await launchChromium();
       sections: sections.length,
       itemCount: items.length,
       hasKicker: kickers.length > 0,
-      // Every item (including a grouped desk's follow-on items) links a real source.
-      allSourced: items.length > 0 && srcs.length === items.length && srcs.every((a) => /^https?:\/\//.test(a.getAttribute("href") || "")),
+      // ONE continuous combined item per desk: each desk section renders exactly ONE
+      // .g-hbrief-bt (same-desk stories folded together), NOT one per story.
+      oneItemPerSection: items.length > 0 && items.length === sections.length,
+      // Grounding (R7): every section links at least one real source, and every
+      // source link is a real URL — the combined item still cites all it compresses.
+      allSourced: srcs.length > 0 && srcs.every((a) => /^https?:\/\//.test(a.getAttribute("href") || ""))
+        && sections.every((sec) => sec.querySelectorAll(".g-hbrief-src").length >= 1),
+      // A desk carrying two stories is genuinely COMBINED: one .g-hbrief-bt, but two
+      // source links on its single trailing line (the real Morning slot has Macro×2).
+      combinedDesk: sections.some((sec) => sec.querySelectorAll(".g-hbrief-bt").length === 1 && sec.querySelectorAll(".g-hbrief-src").length >= 2),
       // ONE section per desk: exactly one kicker per section, and no desk repeats.
       kickers,
       oneKickerPerSection: kickers.length === sections.length,
@@ -57,7 +65,9 @@ const b = await launchChromium();
   check(/\d/.test(r.when), `desktop: the header shows the brief's freshness stamp (${r.when})`);
   check(r.hasLede && r.sections >= 1 && r.sections <= 3, `desktop: a lede + one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
   check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
-  check(r.allSourced, "desktop: every item links a real source (grounding, R7)");
+  check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
+  check(r.combinedDesk, "desktop: a desk with two stories is combined — one item, both sources on a single trailing line");
+  check(r.allSourced, "desktop: every combined item links every source it compresses (grounding, R7)");
   check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated kicker (${r.kickers.join(", ")})`);
   check(r.leftOfHero && r.aboveFeed && r.rowAlignedWithHero, "desktop: the briefing is the top-left quadrant of the 2×2 (left of the chart, above the news wire)");
   check(r.open === "true", "desktop: the card is OPEN by default (it is a full quadrant, not a slim bar)");
