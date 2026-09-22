@@ -59,6 +59,20 @@ const pay = await pg.evaluate(() => {
   return { lock: !!box.querySelector(".g-read-lock"), paras: box.querySelectorAll(".g-read-p").length };
 });
 if (pay) check(pay.lock && pay.paras === 0, "reading pane: a subscriber source shows the 🔒 preview + link (no body fetched)");
+
+// Row-level lock: a subscriber source carries an outline padlock right in the wire
+// (a glance-level "needs a login") — an openly-readable source does not.
+const rowLocks = await pg.evaluate(() => {
+  const has = (r) => !!(r && r.querySelector(".g-feed-lock svg"));
+  const src = (r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+  const paid = rows.find((r) => /financial times|bloomberg|wall street journal|economist|new york times/i.test(src(r)));
+  const free = rows.find((r) => { const s = src(r); return s && !/financial times|bloomberg|wall street journal|economist|new york times|nikkei|forbes|telegraph|the times|washington post|barron|business insider/i.test(s); });
+  return { paidFound: !!paid, paidLock: has(paid), paidClass: !!(paid && paid.classList.contains("is-locked")), freeFound: !!free, freeLock: has(free) };
+});
+if (rowLocks.paidFound) check(rowLocks.paidLock && rowLocks.paidClass, "wire row: a subscriber source carries the outline padlock (.g-feed-lock / .is-locked)");
+if (rowLocks.freeFound) check(!rowLocks.freeLock, "wire row: an openly-readable source is not padlocked");
+
 // Openly-readable → the reader service body prints in-pane (paragraphs + byline).
 const freeSel = await pg.evaluate(() => {
   const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => { const s = ((r.querySelector(".g-feed-src") || {}).textContent || "").trim(); return s && !/financial times|bloomberg|wall street journal|economist|new york times/i.test(s); });
@@ -79,5 +93,50 @@ check(!!(pay || freeSel), "reading pane: access state resolves from the source")
 
 checkErrs(errs, "merged wire news/all + reading pane");
 await ctx.close();
+
+// --- Phone: openly-readable rows open the in-app terminal reader; padlocked
+//     (subscriber) rows keep their native "open at the publisher" tap. ----------
+{
+  const { PHONE } = await import("./lib.mjs");
+  const ctx2 = await b.newContext({ ...PHONE });
+  const pg2 = await ctx2.newPage();
+  pg2.on("popup", (p) => p.close().catch(() => {}));   // swallow any external-link popup
+  await pg2.goto(base + "/v2/", { waitUntil: "load" });
+  await pg2.evaluate(() => { try { localStorage.setItem("wire.home.v1", JSON.stringify({ wire: "news" })); } catch {} });
+  await pg2.reload({ waitUntil: "load" });
+  await pg2.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
+  await pg2.waitForTimeout(300);
+  // Desktop side pane is hidden on phones; the reader overlay exists but is hidden.
+  check(await pg2.evaluate(() => { const o = document.getElementById("g-reader"); return !!o && o.hidden; }), "phone: the reader overlay starts hidden");
+  // Tap an openly-readable (not padlocked) external row → the in-app reader opens.
+  const tapped = await pg2.evaluate(() => {
+    const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked"));
+    if (!row) return false; row.click(); return true;
+  });
+  check(tapped, "phone: found an openly-readable wire row to tap");
+  await pg2.waitForSelector("#g-reader:not([hidden]) #g-reader-body .g-read-p", { timeout: 5000 });
+  const rd = await pg2.evaluate(() => ({
+    open: !document.getElementById("g-reader").hidden,
+    paras: document.querySelectorAll("#g-reader-body .g-read-p").length,
+    title: (document.querySelector("#g-reader-body .g-read-title") || {}).textContent || "",
+    openLink: !!document.querySelector("#g-reader-body .g-read-open"),
+  }));
+  check(rd.open && rd.paras >= 2 && rd.title.length > 0, `phone: an openly-readable row opens the in-app reader with the body (${rd.paras} paragraphs)`);
+  check(rd.openLink, "phone: the in-app reader still offers an 'Open original' link");
+  // Back closes the reader, returning to the wire.
+  await pg2.evaluate(() => document.getElementById("g-reader-back").click());
+  await pg2.waitForTimeout(150);
+  check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: Back closes the reader");
+  // A padlocked (subscriber) row does NOT open the in-app reader — it opens at the source.
+  const locked = await pg2.evaluate(() => {
+    const row = document.querySelector("#g-feed .g-feed-row.is-locked");
+    if (!row) return { found: false };
+    row.click();
+    return { found: true, readerOpen: !document.getElementById("g-reader").hidden };
+  });
+  if (locked.found) check(!locked.readerOpen, "phone: a padlocked subscriber row does not open the in-app reader (opens at the publisher)");
+  await ctx2.close();
+}
+
 await b.close(); srv.close();
 finish();

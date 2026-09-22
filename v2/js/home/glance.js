@@ -1843,6 +1843,7 @@ function renderWire() {
   if (layout) layout.classList.toggle("wire-lane-all", lane === "all");
   if (lane === "manager" || lane === "watchlist") renderMgrLane(lane === "watchlist");
   else { renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
+  _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();
   syncReadDefault();
 }
@@ -1852,8 +1853,33 @@ function renderWire() {
 // day. Paywalled sources show the card + a link out; open sources will print in full
 // once the reader service lands (Stage 2). On mobile the pane is hidden and rows
 // navigate as before.
-const PAYWALL_SRC = /financial times|bloomberg|wall street journal|\bwsj\b|economist|new york times|\bnyt\b|barron|business insider/i;
-function _isPaywalled(src, href) { return PAYWALL_SRC.test(src || "") || /\bft\.com|bloomberg\.com|wsj\.com|economist\.com|nytimes\.com|barrons\.com/i.test(href || ""); }
+// Known subscriber sources — these show a preview + link (never fetched). Kept in
+// step with the Worker's READ_PAYWALL set so the lock shows instantly; every OTHER
+// source is attempted by the reader (any openly-accessible page prints in-pane).
+const PAYWALL_SRC = /financial times|bloomberg|wall street journal|\bwsj\b|economist|new york times|\bnyt\b|barron|business insider|the times|telegraph|nikkei|forbes|washington post|the information|seeking alpha/i;
+function _isPaywalled(src, href) {
+  return PAYWALL_SRC.test(src || "")
+    || /(?:^|\/\/|\.)(?:ft|bloomberg|wsj|economist|nytimes|barrons|businessinsider|thetimes|telegraph|nikkei|forbes|washingtonpost|theinformation|seekingalpha)\.[a-z]/i.test(href || "");
+}
+// An outline padlock, flagged on rows whose source needs a login — so you can see
+// at a glance what can't open in the reading pane (it opens at the publisher).
+const LOCK_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="1.7"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>';
+function _decorateLocks() {
+  const feed = document.getElementById("g-feed"); if (!feed) return;
+  feed.querySelectorAll(".g-feed-row").forEach((row) => {
+    if (row.querySelector(".g-feed-lock")) return;                       // already flagged
+    const srcEl = row.querySelector(".g-feed-src");
+    const href = row.getAttribute("href") || "";
+    const ext = row.getAttribute("target") === "_blank" || /^https?:/i.test(href);
+    if (!ext || !href || !_isPaywalled((srcEl && srcEl.textContent) || "", href)) return;
+    row.classList.add("is-locked");
+    const lock = document.createElement("span");
+    lock.className = "g-feed-lock";
+    lock.title = "Subscriber source — needs a login; opens at the publisher";
+    lock.innerHTML = LOCK_SVG;
+    if (srcEl) srcEl.insertBefore(lock, srcEl.firstChild); else row.appendChild(lock);
+  });
+}
 function _rowItem(row) {
   const t = row.querySelector(".g-feed-title");
   return {
@@ -1884,26 +1910,26 @@ function _readShell(it, access, bodyHTML) {
     + `<div class="g-read-meta">${meta}${meta && access ? " · " : ""}${access || ""}</div>`
     + bodyHTML + _readOpen(it) + `</article>`;
 }
-function renderReadPane(it) {
-  const box = document.getElementById("g-readpane"); if (!box) return;
-  const badge = document.getElementById("g-read-badge");
-  if (!it || !it.title) { box.innerHTML = `<div class="g-read-empty">Select a story on the left to read it here.</div>`; if (badge) badge.textContent = ""; return; }
-  if (badge) badge.textContent = it.src || "";
+// Render a story into a reader container (the desktop side pane OR the mobile
+// overlay). Openly-readable sources fetch /api/read and print the terminal body;
+// subscriber sources (and curated/internal items) show a preview + link instead.
+function _renderReaderInto(box, it, emptyMsg) {
+  if (!box) return;
+  if (!it || !it.title) { box.innerHTML = `<div class="g-read-empty">${esc(emptyMsg || "Select a story to read it here.")}</div>`; return; }
   const seq = ++_readSeq;
-  // Curated/internal items and known subscriber sources: card + link (never fetched).
   if (!it.ext || !it.href || _isPaywalled(it.src, it.href)) {
     const paywalled = _isPaywalled(it.src, it.href);
     box.innerHTML = _readShell(it,
       paywalled ? `<span class="g-read-lock">🔒 subscriber source — preview + link</span>` : `<span class="g-read-free">● reading mode</span>`,
-      `<div class="g-read-note">${paywalled ? "This source is subscriber-only — open the original below." : "Open the original below to read the full story."}</div>`);
+      `<div class="g-read-note">${paywalled ? "This source needs a login — open the original below." : "Open the original below to read the full story."}</div>`);
     return;
   }
-  // Openly-readable candidate: fetch the reader service and print the body in-pane.
   box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Reading the article…</div>`);
   fetch(`/api/read?url=${encodeURIComponent(it.href)}`, { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
     .then((d) => {
       if (seq !== _readSeq) return;                                     // superseded by another click
+      if (!box.isConnected) return;
       if (d && d.accessible && Array.isArray(d.paragraphs) && d.paragraphs.length) {
         const bl = [d.byline, _readNiceDate(d.date)].filter(Boolean).map(esc).join(" · ");
         box.innerHTML = _readShell({ ...it, title: d.title || it.title }, `<span class="g-read-free">● reading mode</span>`,
@@ -1913,6 +1939,27 @@ function renderReadPane(it) {
           `<div class="g-read-note">Full text isn't available in-pane for this source — open the original below.</div>`);
       }
     });
+}
+function renderReadPane(it) {
+  const badge = document.getElementById("g-read-badge");
+  if (badge) badge.textContent = (it && it.title) ? (it.src || "") : "";
+  _renderReaderInto(document.getElementById("g-readpane"), it, "Select a story on the left to read it here.");
+}
+// Mobile: a full-screen terminal reader. Openly-readable rows open here in-app;
+// subscriber (padlocked) rows keep their native "open at the publisher" tap.
+function openMobileReader(it) {
+  const ov = document.getElementById("g-reader"); if (!ov) return;
+  const src = document.getElementById("g-reader-src"); if (src) src.textContent = it.src || "";
+  ov.hidden = false;
+  try { document.body.classList.add("g-reader-lock"); } catch { /* noop */ }
+  const body = document.getElementById("g-reader-body");
+  if (body) body.scrollTop = 0;
+  _renderReaderInto(body, it, "");
+}
+function closeMobileReader() {
+  const ov = document.getElementById("g-reader"); if (ov) ov.hidden = true;
+  try { document.body.classList.remove("g-reader-lock"); } catch { /* noop */ }
+  _readSeq++;                                              // cancel any in-flight fetch
 }
 function syncReadDefault() {
   const read = document.getElementById("g-read");
@@ -1926,13 +1973,28 @@ function ensureReadWired() {
   if (!feed || feed.dataset.readWired) return;
   feed.dataset.readWired = "1";
   feed.addEventListener("click", (e) => {
-    const read = document.getElementById("g-read");
-    if (!read || read.offsetParent === null) return;                        // mobile → native nav
     if (e.target.closest(".g-feed-src, [data-follow], .g-mw-exp")) return;  // in-row controls
     const row = e.target.closest(".g-feed-row"); if (!row) return;
-    e.preventDefault(); e.stopPropagation();
-    openInReadPane(row);
+    const read = document.getElementById("g-read");
+    if (read && read.offsetParent !== null) {                               // desktop → side pane
+      e.preventDefault(); e.stopPropagation();
+      openInReadPane(row);
+      return;
+    }
+    // Mobile: openly-readable sources open in the in-app terminal reader; subscriber
+    // (padlocked) rows and internal links keep their native tap (open at the source).
+    const it = _rowItem(row);
+    if (it.ext && it.href && !_isPaywalled(it.src, it.href)) {
+      e.preventDefault(); e.stopPropagation();
+      openMobileReader(it);
+    }
   });
+  // The mobile reader's Back control (and a tap on the backdrop) closes it.
+  const ov = document.getElementById("g-reader");
+  if (ov && !ov.dataset.wired) {
+    ov.dataset.wired = "1";
+    ov.addEventListener("click", (e) => { if (e.target.closest("#g-reader-back") || e.target === ov) closeMobileReader(); });
+  }
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
 // A compact read of the three Macro views — policy rate, cycle position and

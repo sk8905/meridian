@@ -3,7 +3,7 @@
 // pass, so we feed it representative HTML and assert the reading-mode output: title,
 // byline/date, clean paragraphs (boilerplate stripped, entities decoded, <article>
 // preferred), and the paywall signal (schema.org isAccessibleForFree=false).
-import { extractReadable } from "../src/index.js";
+import { extractReadable, readHostAllowed } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
 const u = (s) => new URL(s);
@@ -52,5 +52,14 @@ checkEq(p.title, "A subscriber scoop", "extract: title still read for a paywalle
 const stub = `<html><head><title>Loading…</title></head><body><div id="app"></div></body></html>`;
 const s = extractReadable(stub, u("https://www.reuters.com/x"));
 check(s.accessible === false && s.paragraphs.length === 0, "extract: a body-less stub is not accessible (no fabricated text)");
+
+// 4) SSRF gate (readHostAllowed): any real public host is fetchable, but IP
+//    literals and internal/reserved names are refused — so the reader can render
+//    any openly-accessible article without becoming an open proxy to internal
+//    services.
+for (const h of ["theguardian.com", "www.some-newsroom.co.uk", "news.example.org", "a.b.c.example.com", "reuters.com"])
+  check(readHostAllowed(h) === true, `host guard: allows the public host ${h}`);
+for (const h of ["127.0.0.1", "169.254.169.254", "10.0.0.5", "192.168.1.1", "localhost", "metadata.internal", "db.local", "host", "", "[::1]", "example.com:8080"])
+  check(readHostAllowed(h) === false, `host guard: blocks ${h || "(empty)"}`);
 
 finish();

@@ -203,4 +203,15 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           </div>
         </aside>
       </div>
+      <!-- MOBILE reading pane: a full-screen terminal reader. Openly-readable wire
+           rows open here in-app (fetched via /api/read); subscriber (padlocked) rows
+           keep their native "open at the publisher" tap. Hidden on desktop, which
+           uses the side reading pane. -->
+      <div class="g-reader" id="g-reader" role="dialog" aria-label="Reader" hidden>
+        <div class="g-reader-bar">
+          <button type="button" class="g-reader-back" id="g-reader-back" aria-label="Back to the wire"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg><span>Wire</span></button>
+          <span class="g-reader-src" id="g-reader-src"></span>
+        </div>
+        <div class="g-reader-body g-read-body" id="g-reader-body"><div class="g-loading">Loading…</div></div>
+      </div>
     </main>`;

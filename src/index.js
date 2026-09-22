@@ -1657,26 +1657,33 @@ async function yahooSeries(symbol, range, interval) {
 }
 // ---- Reader service (/api/read) --------------------------------------------
 // Fetches an OPENLY-READABLE article and extracts a reading-mode body (title ·
-// byline · date · paragraphs) for the Home reading pane. Security: this is NOT an
-// open fetch proxy — only https URLs whose host is on the allowlist below are
-// fetched; subscriber domains are never fetched and return `accessible:false` so the
-// client shows a preview + link instead. Cached at the edge (~30 min). Extraction is
-// a pure string pass (extractReadable) so it can be unit-tested without egress.
-const READ_ALLOW = new Set([
-  "theguardian.com", "reuters.com", "apnews.com", "cnbc.com", "bbc.com", "bbc.co.uk",
-  "marketwatch.com", "finance.yahoo.com", "yahoo.com", "cityam.com", "investing.com",
-  "tradingview.com", "coindesk.com", "cointelegraph.com", "businesswire.com",
-  "globenewswire.com", "prnewswire.com", "prweb.com", "accesswire.com", "sec.gov",
-  "federalreserve.gov", "bankofengland.co.uk", "ecb.europa.eu", "imf.org", "oecd.org",
-  "hedgeweek.com", "privateequitywire.co.uk", "thelawyer.com", "law.com", "abovethelaw.com",
-  "altcreditnews.com", "pehub.com", "with-intelligence.com", "opalesque.com",
-  "institutionalinvestor.com", "pionline.com", "fnlondon.com", "cnbc.com", "npr.org",
-]);
+// byline · date · paragraphs) for the Home reading pane. Any openly-accessible
+// article is rendered in reader mode — the reader tries every real, public web
+// host and lets extraction decide (a page that yields no readable body, or that
+// signals isAccessibleForFree=false, returns `accessible:false` so the client
+// shows a preview + link). It is NOT an open fetch proxy: known subscriber
+// domains (READ_PAYWALL) are never fetched, and readHostAllowed() blocks IP
+// literals and internal/reserved names so the endpoint can't be pointed at
+// internal services (SSRF) — the final URL after redirects is re-checked too.
+// Cached at the edge (~30 min). Extraction is a pure string pass (extractReadable)
+// so it can be unit-tested without egress.
 const READ_PAYWALL = new Set([
   "ft.com", "bloomberg.com", "wsj.com", "economist.com", "nytimes.com", "barrons.com",
   "businessinsider.com", "thetimes.co.uk", "telegraph.co.uk", "nikkei.com", "forbes.com",
   "washingtonpost.com", "theinformation.com", "seekingalpha.com",
 ]);
+// A host is fetchable only if it is a real, public, dotted domain name — never an
+// IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
+export function readHostAllowed(host) {
+  host = String(host || "").replace(/^www\./, "").toLowerCase().replace(/\.$/, "");
+  if (!host || host.length > 253) return false;
+  if (host.includes(":") || host.includes("[") || host.includes("]") || host.includes("/")) return false;  // IPv6 / ports / paths
+  if (/^\d{1,3}(?:\.\d{1,3}){3}$/.test(host)) return false;                                                 // IPv4 literal
+  if (!host.includes(".")) return false;                                                                    // needs a public dotted name
+  if (/(?:^|\.)(?:localhost|local|internal|intranet|lan|corp|home|test|example|invalid)$/.test(host)) return false;
+  return true;
+}
+function _readInSet(host, set) { return set.has(host) || [...set].some((d) => host === d || host.endsWith("." + d)); }
 const READ_UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36";
 function _readDec(s) {
   return String(s || "")
@@ -1729,15 +1736,20 @@ async function handleRead(request, env, ctx) {
   let u; try { u = new URL(target); } catch { return json({ error: "bad url", accessible: false, paragraphs: [] }, 400); }
   if (u.protocol !== "https:") return json({ error: "https only", accessible: false, paragraphs: [] }, 400);
   const host = u.hostname.replace(/^www\./, "");
-  const inSet = (set) => set.has(host) || [...set].some((d) => host === d || host.endsWith("." + d));
-  if (inSet(READ_PAYWALL)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "paywall" });
-  if (!inSet(READ_ALLOW)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "source-not-enabled" });
+  if (_readInSet(host, READ_PAYWALL)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "paywall" });
+  if (!readHostAllowed(host)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "blocked-host" });
   const cache = caches.default;
   const key = new Request("https://read.internal/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   let html = "";
   try {
     const r = await fetch(u.toString(), { headers: { "user-agent": READ_UA, accept: "text/html,application/xhtml+xml" }, redirect: "follow", cf: { cacheTtl: 900, cacheEverything: true } });
+    // Re-check where we actually landed: a redirect must not have escaped to a
+    // paywalled or internal host (SSRF via 3xx). Fall back to preview + link if so.
+    let finalHost = host;
+    try { finalHost = new URL(r.url).hostname.replace(/^www\./, ""); } catch { /* keep host */ }
+    if (finalHost !== host && (_readInSet(finalHost, READ_PAYWALL) || !readHostAllowed(finalHost)))
+      return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "redirect-blocked" });
     if (!r.ok) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-" + r.status });
     if (!/text\/html|xml/i.test(r.headers.get("content-type") || "text/html")) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "not-html" });
     html = (await r.text()).slice(0, 1500000);

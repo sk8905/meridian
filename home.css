@@ -920,6 +920,20 @@
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:11.5px; line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
 
+    /* MOBILE full-screen terminal reader (openly-readable rows open here in-app).
+       Fixed over everything; a pinned Back bar, a scrolling body that reuses the
+       shared .g-read-* reading-mode typography. Never shown on desktop. */
+    .g-reader{ position:fixed; inset:0; z-index:60; display:flex; flex-direction:column; background:var(--t-ground, #000); }
+    .g-reader[hidden]{ display:none; }
+    .g-reader-bar{ flex:0 0 auto; display:flex; align-items:center; gap:10px; height:48px; padding:0 12px;
+      background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
+    .g-reader-back{ display:inline-flex; align-items:center; gap:4px; border:0; background:transparent; color:var(--t-accent);
+      font:inherit; font-size:13px; font-weight:600; letter-spacing:.01em; cursor:pointer; padding:6px 2px; }
+    .g-reader-src{ margin-left:auto; font-family:var(--t-mono); font-size:11px; letter-spacing:.02em; color:var(--t-faint); }
+    .g-reader-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+    .g-reader-body > .g-loading{ padding:16px; }
+    @media (min-width:1201px){ .g-reader{ display:none !important; } }
+
     @media (min-width:1201px){
       /* Fixed-height terminal: the PAGE never scrolls. The command bar, ticker and
          briefing stay put; the workspace fills the rest of the viewport and each
@@ -1431,6 +1445,12 @@
        read as clickable (F6). Home wire only: on the desk views it isn't wired. */
     .tui #g-feed .g-feed-src{ cursor:pointer; }
     .tui #g-feed a.g-feed-row:hover .g-feed-src{ text-decoration:underline; text-underline-offset:2px; }
+    /* Subscriber-only rows carry a white outline padlock just left of the source
+       name — a glance-level "needs a login; won't open in the reading pane" mark.
+       Decorative (pointer-events off) so it never intercepts the source-filter tap. */
+    .tui #g-feed .g-feed-lock{ display:inline-flex; align-items:center; margin-right:4px; vertical-align:middle;
+      position:relative; top:-1px; color:var(--t-ink); opacity:.75; pointer-events:none; }
+    .tui #g-feed a.g-feed-row:hover .g-feed-lock{ text-decoration:none; }
     .tui .g-pred-dir{ font:inherit; font-size:10px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
       padding:1px 6px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }
     .tui .g-pred-dir.on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
