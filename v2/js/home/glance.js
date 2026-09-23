@@ -1880,6 +1880,20 @@ function _isPaywalled(src, href) {
   return PAYWALL_SRC.test(src || "")
     || /(?:^|\/\/|\.)(?:ft|bloomberg|wsj|economist|nytimes|barrons|businessinsider|thetimes|telegraph|nikkei|forbes|washingtonpost|theinformation|seekingalpha)\.[a-z]/i.test(href || "");
 }
+// Openly-published sources that nonetheless BOT-WALL the reader — a plain AND a
+// headless-browser fetch is refused or renders empty — so they can't open in the
+// reading pane and must link out, even though they carry NO subscriber paywall.
+// Confirmed by the live reader falling back (Reuters → fetch-503/fc-empty). Kept
+// SEPARATE from PAYWALL_SRC: no "needs a login" padlock, but they DO count against
+// the readable-share throttle, open straight at the publisher (never a dead in-pane
+// fallback), and carry an "opens at publisher" mark. Grow as more are confirmed live.
+const LINKOUT_SRC = /\breuters\b/i;
+function _linksOut(src, href) {
+  return LINKOUT_SRC.test(src || "") || /(?:^|\/\/|\.)reuters\.[a-z]/i.test(href || "");
+}
+// A row can't open in the reading pane — it opens EXTERNALLY — when it's paywalled
+// (subscriber login) OR bot-walled (Reuters &c). Both are "not readable in-pane".
+function _opensExternally(src, href) { return _isPaywalled(src, href) || _linksOut(src, href); }
 // Keep the wire READABLE at every scroll depth: cap subscriber-only (padlocked) rows
 // to ≤~30% density in any short WINDOW, so they never clump at the top (where the most
 // prolific paywalled desks — Bloomberg/WSJ/FT — would otherwise dominate the newest
@@ -1890,7 +1904,7 @@ function _capPaywalledShare(list, maxFrac) {
   const WIN = 10, maxPer = Math.max(1, Math.round(WIN * maxFrac));   // ≤3 padlocked per 10 rows
   const out = [], recent = [];   // recent[]: 1 = padlocked, 0 = readable, last WIN kept rows
   for (const x of list) {
-    const pay = _isPaywalled(x.src, x.href);
+    const pay = _opensExternally(x.src, x.href);   // paywalled OR bot-walled — both unreadable in-pane
     if (pay && recent.reduce((s, v) => s + v, 0) >= maxPer) continue;   // would clump — drop
     out.push(x);
     recent.push(pay ? 1 : 0); if (recent.length > WIN) recent.shift();
@@ -1900,6 +1914,9 @@ function _capPaywalledShare(list, maxFrac) {
 // An outline padlock, flagged on rows whose source needs a login — so you can see
 // at a glance what can't open in the reading pane (it opens at the publisher).
 const LOCK_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="1.7"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>';
+// Up-right arrow — a source that opens AT THE PUBLISHER (won't render in-pane), but
+// isn't a subscriber paywall (so not the padlock). Distinguishes bot-walled link-outs.
+const EXT_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5h11v11"/><path d="M18 6 5 19"/></svg>';
 function _decorateLocks() {
   const feed = document.getElementById("g-feed"); if (!feed) return;
   feed.querySelectorAll(".g-feed-row").forEach((row) => {
@@ -1907,13 +1924,18 @@ function _decorateLocks() {
     const srcEl = row.querySelector(".g-feed-src");
     const href = row.getAttribute("href") || "";
     const ext = row.getAttribute("target") === "_blank" || /^https?:/i.test(href);
-    if (!ext || !href || !_isPaywalled((srcEl && srcEl.textContent) || "", href)) return;
-    row.classList.add("is-locked");
-    const lock = document.createElement("span");
-    lock.className = "g-feed-lock";
-    lock.title = "Subscriber source — needs a login; opens at the publisher";
-    lock.innerHTML = LOCK_SVG;
-    if (srcEl) srcEl.insertBefore(lock, srcEl.firstChild); else row.appendChild(lock);
+    if (!ext || !href) return;
+    const src = (srcEl && srcEl.textContent) || "";
+    const paywalled = _isPaywalled(src, href);
+    const linksOut = !paywalled && _linksOut(src, href);
+    if (!paywalled && !linksOut) return;                                 // opens in the reading pane
+    row.classList.add("is-locked");                                      // → opens externally, not in-pane
+    const mark = document.createElement("span");
+    mark.className = "g-feed-lock";
+    mark.title = paywalled ? "Subscriber source — needs a login; opens at the publisher"
+                           : "Opens at the publisher — this source won't load in the reading pane";
+    mark.innerHTML = paywalled ? LOCK_SVG : EXT_SVG;
+    if (srcEl) srcEl.insertBefore(mark, srcEl.firstChild); else row.appendChild(mark);
   });
 }
 function _rowItem(row) {
@@ -1953,11 +1975,16 @@ function _renderReaderInto(box, it, emptyMsg) {
   if (!box) return;
   if (!it || !it.title) { box.innerHTML = `<div class="g-read-empty">${esc(emptyMsg || "Select a story to read it here.")}</div>`; return; }
   const seq = ++_readSeq;
-  if (!it.ext || !it.href || _isPaywalled(it.src, it.href)) {
+  if (!it.ext || !it.href || _opensExternally(it.src, it.href)) {
     const paywalled = _isPaywalled(it.src, it.href);
-    box.innerHTML = _readShell(it,
-      paywalled ? `<span class="g-read-lock">🔒</span>` : `<span class="g-read-free">● reading mode</span>`,
-      `<div class="g-read-note">${paywalled ? "This source needs a login — open the original below." : "Open the original below to read the full story."}</div>`);
+    const linksOut = !paywalled && _linksOut(it.src, it.href);
+    const badge = paywalled ? `<span class="g-read-lock">🔒</span>`
+      : linksOut ? `<span class="g-read-ext">↗ opens at publisher</span>`
+      : `<span class="g-read-free">● reading mode</span>`;
+    const note = paywalled ? "This source needs a login — open the original below."
+      : linksOut ? "This source doesn't load in the reading pane — open the original below."
+      : "Open the original below to read the full story.";
+    box.innerHTML = _readShell(it, badge, `<div class="g-read-note">${note}</div>`);
     return;
   }
   box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Fetching the full text — a few seconds for some sources…</div>`);
@@ -2031,7 +2058,7 @@ function _placeBriefPane() {
 // (Subscriber/padlocked rows and internal links only ever show a preview + link.)
 function _rowOpensInPane(row) {
   const it = _rowItem(row);
-  return !!(it.ext && it.href && !_isPaywalled(it.src, it.href));
+  return !!(it.ext && it.href && !_opensExternally(it.src, it.href));
 }
 function syncReadDefault() {
   const read = document.getElementById("g-read");
@@ -2060,7 +2087,7 @@ function ensureReadWired() {
     // Mobile: openly-readable sources open in the in-app terminal reader; subscriber
     // (padlocked) rows and internal links keep their native tap (open at the source).
     const it = _rowItem(row);
-    if (it.ext && it.href && !_isPaywalled(it.src, it.href)) {
+    if (it.ext && it.href && !_opensExternally(it.src, it.href)) {
       e.preventDefault(); e.stopPropagation();
       openMobileReader(it);
     }

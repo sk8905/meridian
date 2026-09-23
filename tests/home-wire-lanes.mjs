@@ -69,6 +69,26 @@ const access = await pg.evaluate(() => {
 check(access.total > 0 && access.frac <= 0.30 + 1e-9, `News wire keeps ≥70% readable overall — subscriber rows ≤30% (${access.locked}/${access.total} = ${Math.round(access.frac * 100)}%)`);
 check(access.worstPer10 <= 3, `News wire never clumps padlocked rows — ≤3 per any 10-row window (worst ${access.worstPer10}/10)`);
 
+// ---- Bot-walled (openly-published but reader-refused) sources count as NON-readable
+// too: Reuters &c open at the publisher, get the "opens externally" mark (NOT the
+// subscriber padlock), and are throttled into the ≤30% along with the paywalls. This
+// is what keeps the readable-in-pane share honest (a Reuters row that shows a dead
+// in-pane fallback would otherwise be miscounted as "readable"). -----------------
+const linkout = await pg.evaluate(() => {
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+  const reuters = rows.filter((r) => /reuters/i.test(((r.querySelector(".g-feed-src") || {}).textContent) || ""));
+  if (!reuters.length) return null;
+  return {
+    n: reuters.length,
+    allLocked: reuters.every((r) => r.classList.contains("is-locked")),
+    extMark: reuters.every((r) => /opens at the publisher/i.test(((r.querySelector(".g-feed-lock") || {}).title) || "")),
+  };
+});
+if (linkout) {
+  check(linkout.allLocked, `bot-walled Reuters rows are flagged non-readable (is-locked), throttled with the paywalls (${linkout.n} rows)`);
+  check(linkout.extMark, "bot-walled rows carry the 'opens at the publisher' mark, not the subscriber padlock");
+} else check(true, "no Reuters rows in this cycle to check the link-out mark");
+
 // ---- A padlocked story shows just the lock, no caption -----------------------
 const clickedLocked = await pg.evaluate(() => { const r = document.querySelector("#g-feed .g-feed-row.is-locked"); if (r) r.click(); return !!r; });
 check(clickedLocked, "a subscriber (padlocked) row is present to open");
