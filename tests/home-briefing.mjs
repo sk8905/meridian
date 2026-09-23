@@ -184,13 +184,12 @@ const b = await launchChromium();
     const foot = hb.querySelector(":scope > .g-hbrief-foot");
     return {
       headChild: !!head, footChild: !!foot,
-      headSticky: !!head && getComputedStyle(head).position === "sticky",
-      footSticky: !!foot && getComputedStyle(foot).position === "sticky",
+      bodyScrolls: !!body && getComputedStyle(body).overflowY === "auto",
       order: head && body && foot ? (head.compareDocumentPosition(body) & 4) !== 0 && (body.compareDocumentPosition(foot) & 4) !== 0 : false,
     };
   });
   check(struct.headChild && struct.footChild && struct.order, "phone: the header row and the footer note are direct children (header · body · footer)");
-  check(struct.headSticky && struct.footSticky, "phone: the header and footer are sticky — they pin under the tabs / above the nav while the summary scrolls");
+  check(struct.bodyScrolls, "phone: the body scrolls internally between the fixed header and footer (iOS-proof)");
   // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(100);

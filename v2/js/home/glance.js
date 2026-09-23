@@ -198,11 +198,14 @@ function initMobileWireTabs() {
     // pane lets the observer boot them, but also kick directly so no blank frame.
     if (k === "x") initXWire();
     if (k === "chart") initHero();
-    // The Briefing pane drops the page's bottom-nav padding so a one-screen brief
-    // doesn't leave a scrollable strip; its sticky header/footer handle a longer
-    // brief. The class is cleared when Home is left (home.js).
+    // The Briefing pane is a fixed-height, internally-scrolling box; drop the page's
+    // bottom-nav padding so the page itself doesn't scroll (the box's body does), and
+    // size the box to the exact gap between the tabs and the nav. The class is cleared
+    // when Home is left (home.js).
     try { document.documentElement.classList.toggle("home-brief", k === "brief"); } catch { /* noop */ }
+    _placeBriefPane();
   };
+  if (!window.__wirePlaceBound) { window.__wirePlaceBound = true; window.addEventListener("resize", () => { try { _placeBriefPane(); } catch { /* noop */ } }); }
   // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane,
   // which is the Market Briefing (the first chip, always expanded). Always call
   // setWire so a stored chart/watch/x class is cleared back on a fresh visit.
@@ -1974,6 +1977,19 @@ function closeMobileReader() {
   const ov = document.getElementById("g-reader"); if (ov) { ov.hidden = true; ov.style.top = ""; }
   const main = document.querySelector(".g-main"); if (main) main.classList.remove("g-reading");
   _readSeq++;                                              // cancel any in-flight fetch
+}
+// Give the fixed-height, internally-scrolling mobile Briefing box an exact height:
+// the measured gap between the wire tabs and the bottom nav. In-flow (no fixed
+// positioning) so it can't vanish; the body scrolls inside it. No-op on desktop.
+function _placeBriefPane() {
+  const hb = document.getElementById("g-hbrief"), tabs = document.querySelector(".g-wiretabs");
+  if (!hb || !tabs) return;
+  if (window.innerWidth > 1200 || !document.querySelector(".g-layout.wire-brief")) { hb.style.height = ""; return; }
+  const tabsBottom = tabs.getBoundingClientRect().bottom;
+  const nav = document.querySelector(".mobile-tabbar");
+  const navH = nav ? nav.getBoundingClientRect().height : 56;
+  const h = Math.round(window.innerHeight - tabsBottom - navH);
+  if (h > 120) hb.style.height = h + "px";
 }
 function syncReadDefault() {
   const read = document.getElementById("g-read");
