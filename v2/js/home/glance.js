@@ -233,11 +233,17 @@ function initMobileWireTabs() {
       const open = laneMenu.hidden;
       laneMenu.hidden = !open;
       btn.setAttribute("aria-expanded", open ? "true" : "false");
-      // The News tab is no longer the first chip, so anchor the dropdown under it
-      // (clamped to stay on-screen) instead of the tab bar's left edge.
+      // Anchor the dropdown directly under the lane tab. We set BOTH top and left
+      // explicitly from measured rects (relative to the menu's real offset parent)
+      // rather than leaning on the CSS `top:100%` — on iOS Safari the sticky tab
+      // bar resolves that percentage against the wrong containing block, dropping
+      // the menu ~200px into the feed. Measured coords are correct on every engine.
       if (open) {
-        const tw = tabs.clientWidth, mw = laneMenu.offsetWidth || 150;
-        laneMenu.style.left = Math.max(0, Math.min(laneTab.offsetLeft, tw - mw)) + "px";
+        const op = laneMenu.offsetParent || tabs;
+        const mw = laneMenu.offsetWidth || 150;
+        const t = laneTab.getBoundingClientRect(), o = op.getBoundingClientRect();
+        laneMenu.style.top = Math.round(t.bottom - o.top) + "px";
+        laneMenu.style.left = Math.round(Math.max(0, Math.min(t.left - o.left, op.clientWidth - mw))) + "px";
       }
       return;
     }

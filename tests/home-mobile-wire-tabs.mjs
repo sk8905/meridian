@@ -77,6 +77,16 @@ const b = await launchChromium();
   await pg.waitForTimeout(150);
   const menuOpen = await pg.evaluate(() => { const m = document.getElementById("g-wire-lanemenu"); return !!m && !m.hidden && m.offsetParent !== null; });
   check(menuOpen, "phone: tapping the active News tab opens the lane dropdown");
+  // The dropdown must sit FLUSH under the lane tab (it was floating ~200px into the
+  // feed on iOS when it leaned on CSS top:100% against the sticky bar; now the open
+  // handler sets top/left from measured rects).
+  const anchor = await pg.evaluate(() => {
+    const m = document.getElementById("g-wire-lanemenu").getBoundingClientRect();
+    const t = document.querySelector(".g-wiretab-lane").getBoundingClientRect();
+    return { gap: Math.round(m.top - t.bottom), dx: Math.round(m.left - t.left) };
+  });
+  check(Math.abs(anchor.gap) <= 4, `phone: the lane dropdown sits flush under the tab (gap ${anchor.gap}px, not floating in the feed)`);
+  check(Math.abs(anchor.dx) <= 4, `phone: the lane dropdown is left-aligned to the tab (dx ${anchor.dx}px)`);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
   await pg.waitForTimeout(250);
   const mgrLane = await pg.evaluate(() => ({
