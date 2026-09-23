@@ -13,7 +13,7 @@ export const UPDATED = "23 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-23",
-  lastCheckedTime: "10:16 BST",
+  lastCheckedTime: "12:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1014,6 +1014,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-23",
   items: [
+    {"title": "Retail CEOs see a holiday paradox: shoppers are anxious but still willing to spend", "source": "Fortune", "date": "2026-09-23", "time": "10:25", "url": "https://fortune.com/2026/09/23/holiday-season-retail-2026-forecast-ceos-dollar-general-macys/", "blurb": "Despite sustained consumer anxiety over inflation, US retail CEOs including Dollar General's Todd Vasos expect holiday-season sales to grow 4-7% as shoppers keep spending while prioritising value over cutting back.", "author": null},
     {"title": "UK S&P Global Composite PMI declines to 51 in September vs. 52.7 expected", "source": "FXStreet", "date": "2026-09-23", "time": "08:15", "url": "https://www.fxstreet.com/news/when-is-the-uk-services-pmi-and-how-could-it-affect-gbp-usd-202509230600", "blurb": "UK private-sector activity slowed sharply to a four-month low, with the composite flash PMI falling to 51.0 from 53.5 (vs. 52.7 expected), manufacturing dropping to 46.2 (from 47) and services easing to 51.9 (from 54.2); S&P Global's Chris Williamson said the survey brought 'a litany of worrying news including weakening growth, slumping overseas trade, worsening business confidence and further steep job losses.'", "author": null},
     {"title": "Breaking: Flash US S&P Global Manufacturing PMI came in at 52 in September", "source": "FXStreet", "date": "2026-09-23", "time": "08:15", "url": "https://www.fxstreet.com/news/sp-global-pmi-expected-to-highlight-us-economic-resilience-in-september-202509230800", "blurb": "US business activity cooled for a second straight month — the composite flash PMI eased to 53.6 (from 54.6), manufacturing to 52 (from 53) and services to 53.9 (from 54.5) — though S&P Global's Chris Williamson said the survey still points to the economy expanding at a 2.2% annualised rate in the third quarter, its best since Q4 2024.", "author": null},
     {"title": "Oil prices fall for fifth day after Trump says U.S. met with Iran for three hours", "source": "CNBC", "date": "2026-09-23", "url": "https://www.cnbc.com/2026/09/23/iran-us-talks-crude-oil-un-wti.html", "blurb": "Brent fell toward $98/bbl and WTI toward $89 as President Trump said US officials had a 'very good meeting' lasting roughly three hours with Iran's delegation on the sidelines of the UN General Assembly, with Iran reportedly prepared to reopen the Strait of Hormuz within seven days if Washington eases its blockade.", "author": null},
