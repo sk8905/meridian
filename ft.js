@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8cefcdba-2d5b-421b-969e-1a302b660fe5", title: "Bank of England can avoid raising interest rates, says OECD", date: "2026-09-23", time: "09:00", url: "https://www.ft.com/content/8cefcdba-2d5b-421b-969e-1a302b660fe5" },
+  { id: "6c13ada9-f325-428b-b91e-bffcf92eddad", title: "OECD sounds alarm on surging government bond yields", date: "2026-09-23", time: "09:00", url: "https://www.ft.com/content/6c13ada9-f325-428b-b91e-bffcf92eddad" },
+  { id: "344e7af4-42ce-4cf0-b608-aa25eaa1e7ee", title: "FTAV's further reading", date: "2026-09-23", time: "08:18", url: "https://www.ft.com/content/344e7af4-42ce-4cf0-b608-aa25eaa1e7ee" },
   { id: "a0c1434a-4f27-445b-ac37-23181424cd33", title: "Confessions of an accidental bonus basher", date: "2026-09-23", time: "07:00", url: "https://www.ft.com/content/a0c1434a-4f27-445b-ac37-23181424cd33" },
   { id: "04c5abf0-d7c4-47ca-9391-4a154c14e178", title: "Private credit's \"soft\" defaults", date: "2026-09-23", time: "06:30", url: "https://www.ft.com/content/04c5abf0-d7c4-47ca-9391-4a154c14e178" },
   { id: "61f49a3d-ffac-4f09-b946-bfc1f9194e89", title: "Meloni at spending crossroads after failing to get off EU's fiscal naughty step", date: "2026-09-23", time: "06:00", url: "https://www.ft.com/content/61f49a3d-ffac-4f09-b946-bfc1f9194e89" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "99ba134a-6252-45f3-b312-07b8752a5a98", title: "US proposes $10bn fund with Arab allies to bypass Hormuz", date: "2026-09-22", time: "18:32", url: "https://www.ft.com/content/99ba134a-6252-45f3-b312-07b8752a5a98" },
   { id: "62a6939f-7e24-492e-bdf6-b9ab9e1d3578", title: "Airtel Money poised to launch one of London’s biggest IPOs in recent years", date: "2026-09-22", time: "18:24", url: "https://www.ft.com/content/62a6939f-7e24-492e-bdf6-b9ab9e1d3578" },
   { id: "1434496d-0eaf-4270-8ad3-87724cd3721e", title: "Donald Trump threatens to ‘annihilate’ Iran in combative UN speech", date: "2026-09-22", time: "18:06", url: "https://www.ft.com/content/1434496d-0eaf-4270-8ad3-87724cd3721e" },
-  { id: "848b9daf-6fc0-436d-8d9e-45e7bcab9676", title: "The next generation of American scientists is fading away", date: "2026-09-22", time: "17:03", url: "https://www.ft.com/content/848b9daf-6fc0-436d-8d9e-45e7bcab9676" },
-  { id: "15d68d49-5a31-4e2a-a108-f35baa391295", title: "US fighter jet crashes in Germany", date: "2026-09-22", time: "16:46", url: "https://www.ft.com/content/15d68d49-5a31-4e2a-a108-f35baa391295" },
 ];
