@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "fb42c5dd-1550-402c-8881-49a3902710a0",
+    title: "Rosneft billions fed Kremlin-backed money laundering network",
+    date: "2026-09-23",
+    time: "21:00",
+    url: "https://www.ft.com/content/fb42c5dd-1550-402c-8881-49a3902710a0"
+  },
+  {
     id: "05c5f945-c75a-4adb-a189-121a05b3686a",
     title: "How besieged billionaires are turning the tables on litigious shareholders",
     date: "2026-09-23",
@@ -292,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "05:42",
     url: "https://www.ft.com/content/0a5a5b70-adea-40af-9933-1f7679f9f359"
-  },
-  {
-    id: "d85c9ab3-9b77-4b96-9321-c548bbbfd07a",
-    title: "FirstFT: Boehly gets US and Gulf backing for Lukoil assets bid",
-    date: "2026-09-23",
-    time: "05:31",
-    url: "https://www.ft.com/content/d85c9ab3-9b77-4b96-9321-c548bbbfd07a"
-  },
-  {
-    id: "c557b92a-48bc-4d82-8fdb-f45cdc96ed77",
-    title: "A more hawkish ECB will respond to prolonged high energy prices",
-    date: "2026-09-23",
-    time: "05:30",
-    url: "https://www.ft.com/content/c557b92a-48bc-4d82-8fdb-f45cdc96ed77"
   }
 ];
