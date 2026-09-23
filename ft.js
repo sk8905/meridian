@@ -21,6 +21,48 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1f55518f-dad5-4c7b-8c81-ba82196dd747",
+    title: "Barry Diller abandons $18bn takeover bid for MGM Resorts",
+    date: "2026-09-24",
+    time: "00:21",
+    url: "https://www.ft.com/content/1f55518f-dad5-4c7b-8c81-ba82196dd747"
+  },
+  {
+    id: "56133ef4-377b-4e35-a939-f199ceb64507",
+    title: "OpenAI ‘agent’ hacked an Australian health service website",
+    date: "2026-09-24",
+    time: "00:04",
+    url: "https://www.ft.com/content/56133ef4-377b-4e35-a939-f199ceb64507"
+  },
+  {
+    id: "8b470f65-6fc3-44b6-9295-e07008ce302d",
+    title: "HSBC moves board meeting from Dubai to London amid safety concerns",
+    date: "2026-09-24",
+    time: "00:01",
+    url: "https://www.ft.com/content/8b470f65-6fc3-44b6-9295-e07008ce302d"
+  },
+  {
+    id: "f9734489-4ed5-4e14-81d5-5f55fb1ac04c",
+    title: "Arnault family moves to consolidate control of LVMH",
+    date: "2026-09-23",
+    time: "22:48",
+    url: "https://www.ft.com/content/f9734489-4ed5-4e14-81d5-5f55fb1ac04c"
+  },
+  {
+    id: "916603fa-c0c4-49e9-911a-a536ec3e245d",
+    title: "FirstFT: Xi Jinping and Donald Trump set for high-stakes summit",
+    date: "2026-09-23",
+    time: "22:33",
+    url: "https://www.ft.com/content/916603fa-c0c4-49e9-911a-a536ec3e245d"
+  },
+  {
+    id: "256c4b36-a6c8-49ee-aa15-81cb089b2ced",
+    title: "Apple’s ChatGPT tools ‘dramatically underperformed’, OpenAI claims",
+    date: "2026-09-23",
+    time: "22:32",
+    url: "https://www.ft.com/content/256c4b36-a6c8-49ee-aa15-81cb089b2ced"
+  },
+  {
     id: "5deccbb2-7354-4856-a98b-c19c8c73d6ef",
     title: "Treasury open to smaller fiscal headroom to reduce UK tax hikes",
     date: "2026-09-23",
@@ -271,40 +313,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "08:18",
     url: "https://www.ft.com/content/344e7af4-42ce-4cf0-b608-aa25eaa1e7ee"
-  },
-  {
-    id: "be468cf8-e450-46d8-891f-67bc79ffd7b3",
-    title: "Royal Caribbean buys 50% stake in Sandals valuing resorts at $6bn",
-    date: "2026-09-23",
-    time: "08:17",
-    url: "https://www.ft.com/content/be468cf8-e450-46d8-891f-67bc79ffd7b3"
-  },
-  {
-    id: "62a6939f-7e24-492e-bdf6-b9ab9e1d3578",
-    title: "Airtel Money launches one of London’s biggest IPOs in recent years",
-    date: "2026-09-23",
-    time: "07:56",
-    url: "https://www.ft.com/content/62a6939f-7e24-492e-bdf6-b9ab9e1d3578"
-  },
-  {
-    id: "a0c1434a-4f27-445b-ac37-23181424cd33",
-    title: "Confessions of an accidental bonus basher",
-    date: "2026-09-23",
-    time: "07:00",
-    url: "https://www.ft.com/content/a0c1434a-4f27-445b-ac37-23181424cd33"
-  },
-  {
-    id: "04c5abf0-d7c4-47ca-9391-4a154c14e178",
-    title: "Private credit's \"soft\" defaults",
-    date: "2026-09-23",
-    time: "06:30",
-    url: "https://www.ft.com/content/04c5abf0-d7c4-47ca-9391-4a154c14e178"
-  },
-  {
-    id: "61f49a3d-ffac-4f09-b946-bfc1f9194e89",
-    title: "Meloni at spending crossroads after failing to get off EU's fiscal naughty step",
-    date: "2026-09-23",
-    time: "06:00",
-    url: "https://www.ft.com/content/61f49a3d-ffac-4f09-b946-bfc1f9194e89"
   }
 ];
