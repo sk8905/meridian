@@ -86,9 +86,9 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <div class="g-hero-plot">
             <div class="g-hero-canvas">
               <svg id="g-hero-svg" viewBox="0 0 900 150" preserveAspectRatio="none" role="img" aria-label="Price chart"><title>Price chart</title></svg>
-              <div class="g-hero-endlbls" id="g-hero-endlbls" aria-hidden="true"></div>
               <div class="g-hero-tip" id="g-hero-tip" hidden></div>
             </div>
+            <div class="g-hero-endlbls" id="g-hero-endlbls" aria-hidden="true"></div>
             <div class="g-hero-yaxis" id="g-hero-yaxis" aria-hidden="true"></div>
             <div class="g-hero-xaxis" id="g-hero-xaxis" aria-hidden="true"></div>
           </div>

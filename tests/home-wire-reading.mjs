@@ -92,6 +92,25 @@ if (freeSel) {
 }
 check(!!(pay || freeSel), "reading pane: access state resolves from the source");
 
+// The publication NAME is now a jump-to-the-article link (it no longer filters the
+// wire by that newsroom): clicking it opens the row's story at its source in a new
+// tab, and NO source-filter bar appears.
+await lane(pg, "News");
+await pg.waitForTimeout(200);
+const srcLink = await pg.evaluate(() => {
+  window.__opened = null;
+  window.open = (u) => { window.__opened = u; return { focus() {} }; };
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.querySelector(".g-feed-src") && /^https?:/.test(r.getAttribute("href") || ""));
+  if (!row) return null;
+  const href = row.getAttribute("href");
+  row.querySelector(".g-feed-src").click();
+  return { href, opened: window.__opened, srcbar: !!document.querySelector(".g-feed-srcbar") };
+});
+if (srcLink) {
+  checkEq(srcLink.opened, srcLink.href, "wire: clicking the publication name opens that story at its source (new tab)");
+  check(!srcLink.srcbar, "wire: clicking the publication name does NOT filter the wire by source");
+}
+
 checkErrs(errs, "merged wire news/all + reading pane");
 await ctx.close();
 

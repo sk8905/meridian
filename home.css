@@ -849,13 +849,13 @@
       color:var(--t-mut); background:transparent; border:0; border-bottom:2px solid transparent; margin-bottom:-1px; padding:5px 2px 7px; cursor:pointer; }
     .tui .g-hero-rg:hover{ color:var(--t-ink); }
     .tui .g-hero-rg.is-on{ color:var(--wb-txt, #4aa3f0); border-bottom-color:var(--wb-txt, #4aa3f0); }
-    .tui .g-hero-plot{ display:grid; grid-template-columns:minmax(0,1fr) 52px; grid-template-rows:auto auto;
-      column-gap:5px; padding:2px 6px 5px; }
+    .tui .g-hero-plot{ display:grid; grid-template-columns:minmax(0,1fr) 60px 44px; grid-template-rows:auto auto;
+      column-gap:4px; padding:2px 6px 5px; }
     .tui .g-hero-canvas{ position:relative; grid-column:1; grid-row:1; }
     .tui #g-hero-svg{ display:block; width:100%; height:150px; }
     /* Right value axis: crisp HTML labels in a fixed gutter, positioned by % so
        they line up with the stretched (preserveAspectRatio:none) SVG grid. */
-    .tui .g-hero-yaxis{ grid-column:2; grid-row:1; position:relative; }
+    .tui .g-hero-yaxis{ grid-column:3; grid-row:1; position:relative; }
     .tui .g-hero-ylab{ position:absolute; right:1px; transform:translateY(-50%); font-size:9.5px; line-height:1;
       color:var(--t-mut); font-variant-numeric:tabular-nums; white-space:nowrap; }
     .tui .g-hero-ytag{ position:absolute; right:0; transform:translateY(-50%); font-size:9.5px; line-height:1.35;
@@ -865,16 +865,17 @@
     .tui .g-hero-xaxis{ grid-column:1; grid-row:2; position:relative; height:12px; margin-top:2px; }
     .tui .g-hero-xlab{ position:absolute; top:0; font-size:9.5px; line-height:1; color:var(--t-mut);
       font-variant-numeric:tabular-nums; white-space:nowrap; }
-    /* Direct end-of-line labels: a colour-matched code + % pinned to the right
-       gutter at each line's exit height (drawHeroMulti reserves HERO_ELW for them
-       and de-collides the vertical positions). Read a line straight off the chart. */
-    .tui .g-hero-endlbls{ position:absolute; inset:0; pointer-events:none; z-index:2; }
-    .tui .g-hero-el{ position:absolute; right:1px; transform:translateY(-50%); display:inline-flex; align-items:center;
-      gap:3px; font-size:9px; line-height:1; white-space:nowrap; font-variant-numeric:tabular-nums;
-      background:color-mix(in srgb, var(--t-panel) 74%, transparent); padding:1px 3px; border-radius:3px; }
-    .tui .g-hero-el-dot{ width:5px; height:5px; border-radius:50%; flex:0 0 auto; }
-    .tui .g-hero-el-nm{ font-weight:700; }
-    .tui .g-hero-el-pct{ opacity:.8; }
+    /* Direct end-of-line labels (TradingView-style): a solid colour-filled pill in
+       its own column, just OUTSIDE each line's exit point (never over the plot),
+       carrying the short code + window % in white. drawHeroMulti de-collides the
+       vertical positions; every pill is the SAME width for a tidy stacked column. */
+    .tui .g-hero-endlbls{ grid-column:2; grid-row:1; position:relative; }
+    .tui .g-hero-el{ position:absolute; left:0; right:0; transform:translateY(-50%); box-sizing:border-box;
+      display:flex; align-items:center; justify-content:space-between; gap:3px; font-size:8px; line-height:1;
+      white-space:nowrap; overflow:hidden; font-variant-numeric:tabular-nums; color:#fff;
+      padding:2px 4px; border-radius:3px; letter-spacing:-.1px; }
+    .tui .g-hero-el-nm{ font-weight:800; }
+    .tui .g-hero-el-pct{ font-weight:600; }
     .tui .g-hero-tip{ position:absolute; pointer-events:none; transform:translate(-50%,-118%); z-index:2;
       background:var(--t-ground, #000); border:1px solid var(--t-grid2); padding:2px 7px; white-space:nowrap;
       font-variant-numeric:tabular-nums; display:flex; flex-direction:column; align-items:center; }

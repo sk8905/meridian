@@ -161,8 +161,16 @@ function initFeedEntityNav() {
   const feed = document.getElementById("g-feed");
   if (!feed) return;
   const handle = (e) => {
+    // The publication name is a jump-to-the-article link: open the row's story at
+    // its source in a new tab (it no longer filters the wire by that newsroom).
     const src = e.target.closest(".g-feed-src");
-    if (src) { e.preventDefault(); e.stopPropagation(); _feedSrc = src.dataset.src; _feedDesk = "all"; renderWire(); return; }
+    if (src) {
+      e.preventDefault(); e.stopPropagation();
+      const row = src.closest(".g-feed-row");
+      const href = row && row.getAttribute("href");
+      if (href && !href.startsWith("/")) window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
     const clr = e.target.closest("[data-clearsrc]");
     if (clr) { e.preventDefault(); e.stopPropagation(); _feedSrc = null; renderWire(); }
   };
@@ -901,9 +909,8 @@ function drawHero(svg, pts, m) {
 // The INDEX overlay drawn when ≥2 securities are selected: each series rebased to
 // % from the window start onto ONE shared % axis (never a dual axis — see the
 // dataviz rule), in its categorical colour, with a stronger baseline at 0%.
-const HERO_ELW = 74;   // reserved right gutter (viewBox units) for the direct end-of-line labels
 function drawHeroMulti(svg, series) {
-  const plotW = HERO_W - HERO_PX - HERO_ELW, plotR = HERO_PX + plotW, fullBottom = HERO_H - HERO_PB;
+  const plotW = HERO_W - HERO_PX * 2, plotR = HERO_W - HERO_PX, fullBottom = HERO_H - HERO_PB;
   const intraday = heroIntraday();
   const ref = series.reduce((a, b) => (b.pts.length > a.pts.length ? b : a), series[0]);
   // Intraday overlays share ONE wall-clock domain so the lines line up in real time
@@ -961,18 +968,19 @@ function drawHeroMulti(svg, series) {
   if (yax) yax.innerHTML = yt.map((t) => `<span class="g-hero-ylab" style="top:${((Y(t) / HERO_H) * 100).toFixed(2)}%">${esc(heroPctStr(t))}</span>`).join("");
   const xax = document.getElementById("g-hero-xaxis");
   if (xax) xax.innerHTML = xt.map((xk, k) => { const pos = k === 0 ? "left:0" : k === xt.length - 1 ? "right:0" : `left:${((xk.gx / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`; return `<span class="g-hero-xlab" style="${pos}">${esc(xk.label)}</span>`; }).join("");
-  // Direct end-of-line labels: name each line (short code + window %) in the reserved
-  // right gutter, so a line is read straight off the chart — no colour cross-check
-  // against the legend. Labels are nudged apart vertically so none collide.
+  // Direct end-of-line labels (TradingView-style): a solid colour-filled pill —
+  // short code + window % in white — sits in its OWN column just outside each line's
+  // exit point (never over the plot), all pills a uniform width. Nudged apart
+  // vertically so none collide.
   const els = document.getElementById("g-hero-endlbls");
   if (els) {
     const items = drawn.map((s) => ({ y: Y(s.pct[s.pct.length - 1]), color: s.color, code: HERO_CODE[s.key] || s.label, pct: s.pct[s.pct.length - 1] })).sort((a, b) => a.y - b.y);
-    const GAP = 12;                                        // min vertical spacing (viewBox units)
+    const GAP = 14;                                        // min vertical spacing (viewBox units)
     for (let i = 1; i < items.length; i++) if (items[i].y - items[i - 1].y < GAP) items[i].y = items[i - 1].y + GAP;
     const spill = items.length ? items[items.length - 1].y - plotBottom : 0;   // shove the stack back up if it ran past the floor
     if (spill > 0) for (const it of items) it.y -= spill;
     for (let i = items.length - 1; i > 0; i--) if (items[i].y - items[i - 1].y < GAP) items[i - 1].y = items[i].y - GAP;
-    els.innerHTML = items.map((it) => `<span class="g-hero-el" style="top:${((Math.max(HERO_PT, it.y) / HERO_H) * 100).toFixed(2)}%;color:${it.color}"><i class="g-hero-el-dot" style="background:${it.color}"></i><span class="g-hero-el-nm">${esc(it.code)}</span><span class="g-hero-el-pct">${esc(heroPctStr(it.pct))}</span></span>`).join("");
+    els.innerHTML = items.map((it) => `<span class="g-hero-el" style="top:${((Math.max(HERO_PT, it.y) / HERO_H) * 100).toFixed(2)}%;background:${it.color}"><span class="g-hero-el-nm">${esc(it.code)}</span><span class="g-hero-el-pct">${esc(heroPctStr(it.pct))}</span></span>`).join("");
   }
   svg._multi = drawn; svg._ref = ref; svg._pts = null;
   svg._intraday = intraday; svg._t0 = t0; svg._span = span;
