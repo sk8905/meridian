@@ -4157,20 +4157,21 @@ async function handleXFeed(request, env, ctx) {
     .filter((h) => /^[A-Za-z0-9_]{1,15}$/.test(h))
     .slice(0, 12);
   const listId = (url.searchParams.get("listId") || "").replace(/\D/g, "");
-  if (!handles.length && !listId) return json({ tweets: [], error: "no handles" });
-
   const apisKey = env && env.XAPIS_KEY;   // TwitterAPIs.com (preferred — cheaper)
   const apiKey = env && env.XAPI_KEY;     // twitterapi.io (fallback, incl. List auto-sync)
+  const dbg = url.searchParams.get("debug");
+  // ?debug=env — presence-only probe (booleans, NEVER the secret values), so you can
+  // confirm whether the Worker actually sees each key without exposing anything. Needs
+  // no key and no handles (checked BEFORE the no-handles guard). If hasXapisKey is false,
+  // the XAPIS_KEY secret isn't bound to this Worker's (Production) environment — the fix
+  // is in Cloudflare, not the code.
+  if (dbg === "env") return json({ hasXapisKey: !!apisKey, hasXapiKey: !!apiKey });
+  if (!handles.length && !listId) return json({ tweets: [], error: "no handles" });
+
   // Provider preference: TwitterAPIs.com when its key is set, else twitterapi.io, else
   // the free X syndication endpoint. (The fetch order below still cascades through the
   // others if the chosen one returns nothing.)
   const provider = apisKey ? "apis" : ((apiKey && (handles.length || listId)) ? "api" : "syn");
-  const dbg = url.searchParams.get("debug");
-  // ?debug=env — presence-only probe (booleans, NEVER the secret values), so you can
-  // confirm whether the Worker actually sees each key without exposing anything. No key
-  // required. If hasXapisKey is false, the XAPIS_KEY secret isn't bound to this Worker's
-  // (Production) environment — the fix is in Cloudflare, not the code.
-  if (dbg === "env") return json({ hasXapisKey: !!apisKey, hasXapiKey: !!apiKey, provider });
   // Diagnostics (key required, never cached):
   //   ?debug=apis     raw TwitterAPIs.com user-tweets for handles[0] (first path that answers)
   //   ?debug=1        raw twitterapi.io last_tweets for handles[0] (tweet/repost shape)
