@@ -56,13 +56,18 @@ const dflt = await pg.evaluate(() => {
 check(dflt.hasReading && !dflt.readingLocked, "desktop: the reading pane defaults to an UNLOCKED story");
 check(dflt.isFirstUnlocked, "desktop: the default is the most-recent unlocked row");
 
-// ---- ≥70% of the News wire is readable in-pane (subscriber items capped at 30%) ----
+// ---- ≥70% of the News wire is readable in-pane, at every scroll depth ----
 const access = await pg.evaluate(() => {
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const locked = rows.filter((r) => r.classList.contains("is-locked")).length;
-  return { total: rows.length, locked, frac: rows.length ? locked / rows.length : 0 };
+  const lockAt = rows.map((r) => (r.classList.contains("is-locked") ? 1 : 0));
+  const locked = lockAt.reduce((s, v) => s + v, 0);
+  // Worst padlocked density in any sliding window of 10 consecutive rows.
+  let worst = 0;
+  for (let i = 0; i + 10 <= lockAt.length; i++) worst = Math.max(worst, lockAt.slice(i, i + 10).reduce((s, v) => s + v, 0));
+  return { total: rows.length, locked, frac: rows.length ? locked / rows.length : 0, worstPer10: worst };
 });
-check(access.total > 0 && access.frac <= 0.30 + 1e-9, `News wire keeps ≥70% readable — subscriber rows ≤30% (${access.locked}/${access.total} = ${Math.round(access.frac * 100)}%)`);
+check(access.total > 0 && access.frac <= 0.30 + 1e-9, `News wire keeps ≥70% readable overall — subscriber rows ≤30% (${access.locked}/${access.total} = ${Math.round(access.frac * 100)}%)`);
+check(access.worstPer10 <= 3, `News wire never clumps padlocked rows — ≤3 per any 10-row window (worst ${access.worstPer10}/10)`);
 
 // ---- A padlocked story shows just the lock, no caption -----------------------
 const clickedLocked = await pg.evaluate(() => { const r = document.querySelector("#g-feed .g-feed-row.is-locked"); if (r) r.click(); return !!r; });

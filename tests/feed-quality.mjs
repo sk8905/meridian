@@ -11,7 +11,6 @@ const bySource = (s) => FEED_SOURCES.find((f) => f.source === s);
 // ---- Roster: the quality accessible sources are present + correctly tagged -------
 for (const [name, want] of [
   ["Legal Cheek", { legal: true }],
-  ["Above the Law", { legal: true }],
   ["Alternative Credit Investor", {}],
   ["Private Equity Wire", {}],
 ]) {
@@ -23,21 +22,36 @@ for (const [name, want] of [
     if (want.legal) check(src.legal === true, `roster: ${name} routes to the Legal desk (legal:true)`);
   }
 }
+check(!bySource("Above the Law"), "roster: Above the Law is removed as a source");
 
 // ---- Cull: none of these are paywalled newsrooms; they're openly readable --------
 const PAYWALL = /financial times|bloomberg|wall street journal|economist|nikkei|forbes|new york times/i;
-for (const name of ["Legal Cheek", "Above the Law", "Alternative Credit Investor", "Private Equity Wire"])
+for (const name of ["Legal Cheek", "Alternative Credit Investor", "Private Equity Wire"])
   check(!PAYWALL.test(name), `access: ${name} is an openly-readable source (not a hard paywall)`);
 
 // ---- Cull: topically-pure trade headlines survive even without macro vocab -------
 check(feedQualityKeep({ source: "Legal Cheek", title: "Freshfields boosts NQ pay to £150k, matching the magic circle", legal: true }),
   "cull: a Legal Cheek Big-Law headline is kept (legal desk bypass)");
-check(feedQualityKeep({ source: "Above the Law", title: "Which firms just handed out special bonuses?", legal: true }),
-  "cull: an Above the Law headline is kept (legal desk bypass)");
 check(feedQualityKeep({ source: "Alternative Credit Investor", title: "Fund managers plan further alts expansion" }),
   "cull: an Alternative Credit Investor headline is kept even without macro vocab (curated bypass)");
 check(feedQualityKeep({ source: "Private Equity Wire", title: "GP-led secondaries surge as sponsors seek liquidity" }),
   "cull: a Private Equity Wire headline is kept (curated bypass)");
+
+// ---- Paywalled premium (FT/Bloomberg/WSJ/Economist) obey the six focus verticals --
+const bbg = (t) => ({ source: "Bloomberg", title: t });
+const wsj = (t) => ({ source: "The Wall Street Journal", title: t });
+// ON-BEAT → kept
+check(feedQualityKeep(wsj("Dollar Jumps to 8-Week High on Fed Rate-Hike Bets")), "focus: a macro/FX headline is kept");
+check(feedQualityKeep(wsj("U.S. Stocks Slip Ahead of Treasury Bond Buyback")), "focus: an equity/bond headline is kept");
+check(feedQualityKeep(bbg("Triton Partners Is Said to Mull Sale or IPO of Trench Group")), "focus: a private-capital / IPO headline is kept");
+check(feedQualityKeep(bbg("Citadel Hedge Fund Posts Double-Digit Gains")), "focus: a hedge-fund headline is kept");
+// OFF-BEAT (consumer / lifestyle / entertainment / pure geopolitics) → dropped
+check(!feedQualityKeep(bbg("Royal Caribbean Buys Stake in Sandals Resorts")), "focus: an off-beat consumer M&A headline is dropped");
+check(!feedQualityKeep(bbg("Chanel Plans to Keep Investing in China Despite Demand Downturn")), "focus: an off-beat consumer headline is dropped");
+check(!feedQualityKeep(wsj("YouTube Is Battling Netflix Over Top Talent")), "focus: an off-beat media headline is dropped");
+check(!feedQualityKeep(bbg("Space Weapons in Focus Ahead of Trump-Xi Summit")), "focus: an off-beat geopolitics headline is dropped");
+// Reader-curated myFT is exempt from the focus gate (the reader chose those topics)
+check(feedQualityKeep({ source: "Financial Times", title: "The best restaurants in Lisbon this autumn", myft: true }), "focus: a reader-curated myFT item is exempt");
 
 // ---- Cull still drops genuine low-tier noise (regression guard) -------------------
 check(!feedQualityKeep({ source: "Benzinga", title: "3 stocks to buy now for huge gains" }),

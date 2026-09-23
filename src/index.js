@@ -2660,11 +2660,10 @@ export const FEED_SOURCES = [
   // (knocking out Business Wire), so the direct feeds are used alone.
   { url: "https://www.thelawyer.com/feed/", source: "The Lawyer", region: "UK", cap: 12, filter: false, legal: true },
   { url: "https://www.legalbusiness.co.uk/feed/", source: "Legal Business", region: "UK", cap: 12, filter: false, legal: true },
-  // UK + US Big Law trade desks — openly-readable, covering magic/silver-circle and
-  // global-elite firms (moves, deals, pay, strategy). legal:true routes them to the
+  // UK Big Law trade desk — openly-readable, covering magic/silver-circle and
+  // global-elite firms (moves, deals, pay, strategy). legal:true routes it to the
   // Legal desk; filter:false so the macro screen doesn't drop law-market headlines.
   { url: "https://www.legalcheek.com/feed/", source: "Legal Cheek", region: "UK", cap: 8, filter: false, legal: true },
-  { url: "https://abovethelaw.com/feed/", source: "Above the Law", region: "US", cap: 6, filter: false, legal: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -3047,11 +3046,31 @@ const FEED_PREMIUM = new Set([
   // Economics feed) — trusted macro, never relevance-gated.
   "Investing.com Economics",
 ]);
-const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek", "Above the Law"]);
+const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek"]);
 // Openly-readable, topically-pure private-capital / credit trade desks — always
 // on-universe (their whole beat is private markets), so they bypass the relevance
 // gate like the legal wire, keeping the wire's private-markets coverage readable.
 const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire"]);
+// The app's SIX focus verticals — used to hold the paywalled premium newsrooms
+// (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
+// bond markets (iii) private capital markets (iv) credit markets (v) hedge funds
+// (vi) legal / Big Law. A paywalled-premium headline that touches none of these is
+// dropped — it can't open in the reading pane, so it only earns a slot when on-universe.
+const FEED_FOCUS_RE = new RegExp([
+  // (i) G20 macro — central banks, policy, key indicators, FX & commodities
+  "fed(eral reserve)?\\b", "\\bfomc\\b", "powell", "waller", "\\becb\\b", "lagarde", "\\bboe\\b", "bank of england", "bailey", "\\bboj\\b", "\\bpboc\\b", "central bank", "monetary policy", "interest rate", "\\brate (cut|hike|rise|hold|decision|path|bets|cuts|hikes)", "basis point", "\\bbps\\b", "hawkish", "dovish", "quantitative", "inflation", "deflation", "disinflation", "\\bcpi\\b", "\\bppi\\b", "\\bpce\\b", "\\bgdp\\b", "recession", "unemploy", "jobless", "payroll", "nonfarm", "jobs report", "labou?r market", "\\bpmi\\b", "\\bism\\b", "retail sales", "industrial production", "consumer (confidence|sentiment|spending)", "budget", "fiscal", "deficit", "borrowing", "debt ceiling", "tariff", "trade (war|deal|talks|balance|deficit)", "sanction", "stimulus", "\\bthe dollar\\b", "dollar (index|gain|slip|jump|fall|rise|rally|weaken|strengthen|high|low|surge|slid|soft|firm)", "greenback", "sterling", "\\beuro\\b (gain|slip|jump|fall|rise|weaken|strengthen|high|low)", "\\byen\\b", "currenc", "\\bfx\\b", "foreign exchange", "\\boil\\b|brent|crude|\\bwti\\b|\\bopec\\b", "natural gas", "\\bgold\\b|bullion", "silver|copper|commodit",
+  // (ii) public equity & bond markets
+  "stock market|stock-market", "wall street", "\\bequit", "\\bshares?\\b", "\\bindices?\\b|\\bindex\\b", "s&p 500|s&p500|\\bs&p\\b", "nasdaq", "dow jones|\\bdow\\b", "\\bftse\\b", "nikkei", "\\bdax\\b", "stoxx", "hang seng", "russell 2000", "bond market", "\\bbonds?\\b", "\\byields?\\b", "treasur", "\\bgilts?\\b", "\\bbunds?\\b", "sovereign (debt|bond)", "\\bipo\\b|initial public offering|going public|stock (listing|market debut)|\\bfloat(ation|s)?\\b", "equity (offering|raise|issuance)|rights issue|share (sale|placing|buyback)|buyback", "earnings (beat|miss|season|growth)|profit (warning|beat|miss)|results (beat|miss)", "\\betf\\b",
+  // (iii) private capital markets
+  "private equity|\\bpe firm|\\bpe fund", "buyout|\\blbo\\b|leveraged buyout|take[- ]private|carve[- ]out", "venture capital|\\bvc\\b|growth equity|growth capital", "fundrais|capital raise|final close|first close|flagship fund", "limited partner|general partner|\\blps?\\b|\\bgps?\\b", "private markets|private capital", "secondaries|continuation (fund|vehicle)|gp-led", "dry powder|co-invest", "blackstone|\\bkkr\\b|apollo|carlyle|\\bcvc\\b|advent|\\beqt\\b|permira|bain capital|\\btpg\\b|warburg|thoma bravo|silver lake|general atlantic|\\bhg\\b capital|hellman|vista equity|brookfield|\\bares\\b",
+  // (iv) credit markets
+  "\\bcredit\\b", "private credit|direct lending|\\bnpl\\b", "leveraged loan|loan market", "\\bclo\\b|collateral(ised|ized) loan", "high[- ]yield|junk bond|investment[- ]grade", "credit spread|option-adjusted|\\boas\\b", "\\bdebt\\b", "default|distress", "restructur|\\bbankrupt|chapter 11|insolven|administration|liquidation", "refinanc|maturity wall", "asset-based|capital relief|risk transfer|\\bsrt\\b|securitis|securitiz|\\babs\\b", "bond (issuance|sale)|debt (issuance|sale)|syndicat",
+  // (v) hedge funds
+  "hedge fund", "activist (investor|stake|campaign|fund|position)", "long[/ -]short|short seller|short position", "quant(itative)? fund|multi-?strateg|systematic fund", "\\baum\\b|assets under management", "fund manager|asset manager|money manager", "citadel|millennium|point72|bridgewater|man group|marshall wace|de shaw|two sigma|balyasny|elliott (management|investment)|pershing square|third point|brevan howard|\\bcqs\\b|rokos",
+  // (vi) legal / Big Law
+  "law firm|law firms", "magic circle|silver circle|big ?law|global elite|white[- ]shoe", "barrister|solicitor|\\bkc\\b|king'?s counsel|general counsel", "litigation|lawsuit|\\bsued?\\b|\\bsues\\b|court (rules|ruling|case|battle|fight)|tribunal|high court|supreme court|court of appeal", "antitrust|competition (probe|case|watchdog)", "\\bfca\\b|\\bdoj\\b|regulat(or|ory) (fine|charge|probe|action|crackdown)", "merger (challenge|review|probe)", "clifford chance|linklaters|freshfields|slaughter and may|allen ?& ?overy|a&o shearman|kirkland|latham|skadden|paul[, ]weiss|davis polk|sullivan ?& ?cromwell|\\bweil\\b|simpson thacher|cravath|wachtell|hogan lovells|herbert smith|dla piper|norton rose|ashurst|dentons|baker mckenzie|white ?& ?case|cleary gottlieb|mayer brown|\\bcms\\b",
+].join("|"), "i");
+const FEED_PAY_PREMIUM = new Set(["Financial Times", "Bloomberg", "The Wall Street Journal", "WSJ", "The Economist"]);
 const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|\bpay\b|pay award|earnings growth|productivity|cost of living|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|house price|mortgage|property|rent\b|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
 // Routine corporate IR / press-release boilerplate — quarterly-results notices,
 // dividend declarations, earnings-call scheduling, board appointments. Low signal
@@ -3074,6 +3093,10 @@ export function feedQualityKeep(it) {
   // Podcast / audio items (e.g. Bloomberg podcasts) are not news — drop them
   // BEFORE the premium bypass so a Bloomberg/FT audio show doesn't slip through.
   if (/\bpodcasts?\b/i.test(it.title) || /\/podcasts?\/|\/audio\/|\.mp3\b/i.test(it.url || "")) return false;
+  // Paywalled premium newsrooms (FT/Bloomberg/WSJ/Economist) can't be read in-pane, so
+  // they earn a slot ONLY when the headline is strictly on one of the six focus verticals
+  // — reader-curated myFT items are exempt (the reader chose those topics themselves).
+  if (FEED_PAY_PREMIUM.has(s) && !it.myft) return FEED_FOCUS_RE.test(it.title) && !FEED_PR_NOISE.test(it.title);
   // Premium newsrooms, the curated legal wire, and reader-flagged streams
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).
