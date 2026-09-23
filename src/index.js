@@ -1754,6 +1754,65 @@ function _readParas(scope) {
   }
   return paras;
 }
+// Direct fetch of the publisher page + extraction. Returns an extractReadable
+// result on success, or a { accessible:false, reason } object when the publisher
+// blocked us (fetch-503 etc.), redirected off-host, served non-HTML, or errored.
+async function _readDirect(u, host) {
+  try {
+    const r = await fetch(u.toString(), { headers: { "user-agent": READ_UA, accept: "text/html,application/xhtml+xml" }, redirect: "follow", cf: { cacheTtl: 900, cacheEverything: true } });
+    // Re-check where we actually landed: a redirect must not have escaped to a
+    // paywalled or internal host (SSRF via 3xx).
+    let finalHost = host;
+    try { finalHost = new URL(r.url).hostname.replace(/^www\./, ""); } catch { /* keep host */ }
+    if (finalHost !== host && (_readInSet(finalHost, READ_PAYWALL) || !readHostAllowed(finalHost)))
+      return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "redirect-blocked" };
+    if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-" + r.status };
+    if (!/text\/html|xml/i.test(r.headers.get("content-type") || "text/html")) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "not-html" };
+    return extractReadable((await r.text()).slice(0, 1500000), u);
+  } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-failed" }; }
+}
+// Turn a reader-proxy's markdown into clean reading-mode paragraphs (links → their
+// text, images/code/tables/boilerplate dropped) — the text-mode twin of _readParas.
+export function proxyParagraphs(md) {
+  const out = [], seen = new Set();
+  const blocks = String(md || "")
+    .replace(/```[\s\S]*?```/g, " ")                     // fenced code
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")               // images
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")             // links → visible text
+    .split(/\n{2,}/);
+  for (const b of blocks) {
+    const raw = b.trim();
+    if (!raw || /^#{1,6}\s/.test(raw)) continue;               // blank block / markdown heading
+    const t = _readDec(raw.replace(/[*_`>#]+/g, " ")).replace(/\s+/g, " ").trim();
+    if (t.length < 40 || READ_BOILER.test(t)) continue;
+    if (/^\|/.test(t) || /^https?:\/\//i.test(t)) continue;    // table rows / stray URLs
+    const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
+    out.push(t);
+    if (out.length >= 60) break;
+  }
+  return out;
+}
+// Fallback path: render the article through a browser-based reader proxy
+// (r.jina.ai) that returns the PUBLIC page's text. Used only when the direct
+// fetch was blocked or yielded no body — never for READ_PAYWALL hosts (those are
+// refused before any fetch), so no subscriber content is ever proxied. No login
+// or credentials: this is exactly what the publisher's public page serves.
+async function _readViaProxy(u, host) {
+  try {
+    const r = await fetch("https://r.jina.ai/" + u.toString(), {
+      headers: { accept: "application/json", "x-return-format": "markdown", "x-no-cache": "false" },
+      signal: AbortSignal.timeout(20000),
+    });
+    if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-" + r.status };
+    const j = await r.json().catch(() => null);
+    const d = (j && j.data) || null;
+    const content = d && (d.content || d.text || "");
+    if (!content) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-empty" };
+    const paras = proxyParagraphs(content);
+    const title = (d.title && String(d.title).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
+    return { url: u.toString(), source: _readTidy(host), title, byline: "", date: d.publishedTime || "", accessible: paras.length >= 2, paragraphs: paras, via: "proxy" };
+  } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-failed" }; }
+}
 async function handleRead(request, env, ctx) {
   // Unwrap a Google-News redirect link (defence for any already-cached client rows that
   // still carry the wrapped URL) so the reader fetches the real publisher article.
@@ -1766,22 +1825,17 @@ async function handleRead(request, env, ctx) {
   const cache = caches.default;
   const key = new Request("https://read.internal/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
-  let html = "";
-  try {
-    const r = await fetch(u.toString(), { headers: { "user-agent": READ_UA, accept: "text/html,application/xhtml+xml" }, redirect: "follow", cf: { cacheTtl: 900, cacheEverything: true } });
-    // Re-check where we actually landed: a redirect must not have escaped to a
-    // paywalled or internal host (SSRF via 3xx). Fall back to preview + link if so.
-    let finalHost = host;
-    try { finalHost = new URL(r.url).hostname.replace(/^www\./, ""); } catch { /* keep host */ }
-    if (finalHost !== host && (_readInSet(finalHost, READ_PAYWALL) || !readHostAllowed(finalHost)))
-      return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "redirect-blocked" });
-    if (!r.ok) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-" + r.status });
-    if (!/text\/html|xml/i.test(r.headers.get("content-type") || "text/html")) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "not-html" });
-    html = (await r.text()).slice(0, 1500000);
-  } catch { return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-failed" }); }
-  const data = extractReadable(html, u);
+  // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
+  // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
+  let data = await _readDirect(u, host);
+  if (!(data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length)) {
+    const viaProxy = await _readViaProxy(u, host);
+    if (viaProxy.accessible && viaProxy.paragraphs.length) data = viaProxy;
+    else if (!data.reason && viaProxy.reason) data = { ...data, reason: viaProxy.reason };
+  }
   const resp = json(data);
-  resp.headers.set("cache-control", "public, max-age=1800");
+  // Cache a real body for 30 min; cache a miss only briefly so a transient block recovers.
+  resp.headers.set("cache-control", data.accessible ? "public, max-age=1800" : "public, max-age=120");
   if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, resp.clone()));
   return resp;
 }

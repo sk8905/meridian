@@ -3,7 +3,7 @@
 // pass, so we feed it representative HTML and assert the reading-mode output: title,
 // byline/date, clean paragraphs (boilerplate stripped, entities decoded, <article>
 // preferred), and the paywall signal (schema.org isAccessibleForFree=false).
-import { extractReadable, readHostAllowed } from "../src/index.js";
+import { extractReadable, readHostAllowed, proxyParagraphs } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
 const u = (s) => new URL(s);
@@ -91,5 +91,25 @@ for (const h of ["theguardian.com", "www.some-newsroom.co.uk", "news.example.org
   check(readHostAllowed(h) === true, `host guard: allows the public host ${h}`);
 for (const h of ["127.0.0.1", "169.254.169.254", "10.0.0.5", "192.168.1.1", "localhost", "metadata.internal", "db.local", "host", "", "[::1]", "example.com:8080"])
   check(readHostAllowed(h) === false, `host guard: blocks ${h || "(empty)"}`);
+
+// 5) Reader-proxy body: the fallback path (r.jina.ai) hands back Markdown. proxyParagraphs
+//    turns it into clean reading-mode paragraphs — links become their text, and images,
+//    headings, nav and boilerplate are dropped.
+const md = `# Dollar at two-month highs as the Fed outlook stays 'dominant'
+
+![chart](https://example.com/a.png)
+
+The dollar climbed to a two-month high on Wednesday as investors leaned into a run of hawkish Federal Reserve commentary on the policy path.
+
+Analysts at [Reuters](https://www.reuters.com/) said the move extended a broad advance, with the euro and sterling both slipping against a firmer greenback.
+
+Subscribe to our newsletter
+
+[Terms of use](https://www.reuters.com/terms)`;
+const pp = proxyParagraphs(md);
+check(pp.length === 2, `proxy: markdown reduces to the two body paragraphs (${pp.length})`);
+check(pp[0].includes("two-month high") && !/^#/.test(pp[0]), "proxy: drops the heading, keeps the lede");
+check(pp.some((p) => /Reuters said the move/.test(p)) && !pp.some((p) => /\]\(http/.test(p)), "proxy: link markup becomes plain text");
+check(!pp.some((p) => /Subscribe to our newsletter|Terms of use|!\[/.test(p)), "proxy: boilerplate + images are dropped");
 
 finish();
