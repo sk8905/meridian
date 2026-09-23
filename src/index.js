@@ -1797,10 +1797,13 @@ export function proxyParagraphs(md) {
 // fetch was blocked or yielded no body — never for READ_PAYWALL hosts (those are
 // refused before any fetch), so no subscriber content is ever proxied. No login
 // or credentials: this is exactly what the publisher's public page serves.
-async function _readViaProxy(u, host) {
+async function _readViaProxy(u, host, env) {
   try {
+    const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-no-cache": "false" };
+    // Optional key lifts the keyless rate limit; keyless still works without it.
+    if (env && env.JINA_API_KEY) hdrs.authorization = "Bearer " + env.JINA_API_KEY;
     const r = await fetch("https://r.jina.ai/" + u.toString(), {
-      headers: { accept: "application/json", "x-return-format": "markdown", "x-no-cache": "false" },
+      headers: hdrs,
       signal: AbortSignal.timeout(20000),
     });
     if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-" + r.status };
@@ -1823,15 +1826,17 @@ async function handleRead(request, env, ctx) {
   if (_readInSet(host, READ_PAYWALL)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "paywall" });
   if (!readHostAllowed(host)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "blocked-host" });
   const cache = caches.default;
-  const key = new Request("https://read.internal/" + encodeURIComponent(u.toString()));
+  const key = new Request("https://read.internal/v2/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
   let data = await _readDirect(u, host);
   if (!(data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length)) {
-    const viaProxy = await _readViaProxy(u, host);
+    const viaProxy = await _readViaProxy(u, host, env);
     if (viaProxy.accessible && viaProxy.paragraphs.length) data = viaProxy;
-    else if (!data.reason && viaProxy.reason) data = { ...data, reason: viaProxy.reason };
+    // Both paths failed: keep BOTH reasons (e.g. "fetch-503/proxy-402") so the note
+    // shows what the proxy did, not just the original block.
+    else data = { ...data, reason: [data.reason, viaProxy.reason].filter(Boolean).join("/") };
   }
   const resp = json(data);
   // Cache a real body for 30 min; cache a miss only briefly so a transient block recovers.
