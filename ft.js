@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a8614065-b38b-426d-b176-192c6cd75f56", title: "European diesel prices climb over prospect of US export ban", date: "2026-09-23", time: "14:55", url: "https://www.ft.com/content/a8614065-b38b-426d-b176-192c6cd75f56" },
   { id: "d13b1982-450f-45d2-b79b-431f30b048b2", title: "The argument for Kalshi taking bets on its own legality", date: "2026-09-23", time: "14:15", url: "https://www.ft.com/content/d13b1982-450f-45d2-b79b-431f30b048b2" },
   { id: "31a27312-8032-4957-be69-ba32561e8db3", title: "UN General Assembly live: Iran’s president to address leaders after Trump threatens ‘annihilation’", date: "2026-09-23", time: "14:13", url: "https://www.ft.com/content/31a27312-8032-4957-be69-ba32561e8db3" },
   { id: "de215c81-a480-4944-aba7-9dcd3fc90dcb", title: "Green Party activists urged to skip conference to campaign for Polanski", date: "2026-09-23", time: "13:26", url: "https://www.ft.com/content/de215c81-a480-4944-aba7-9dcd3fc90dcb" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "0c7eac88-bc13-42be-aa18-f78ec1483ca6", title: "Biotech is one area where the US can afford to let China flourish", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/0c7eac88-bc13-42be-aa18-f78ec1483ca6" },
   { id: "d2e5ed9c-a123-4275-afc7-14b75b9337a0", title: "The battle between the Fed and Trump", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/d2e5ed9c-a123-4275-afc7-14b75b9337a0" },
   { id: "76b51a19-0387-4eed-a343-980b1135de2c", title: "Diesel surge costs European drivers €203mn per day", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/76b51a19-0387-4eed-a343-980b1135de2c" },
-  { id: "f95db340-8c8f-435f-957d-4623255ac29e", title: "Oil tanker costs hit record $1.2mn a day as Iran war disrupts shipping", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/f95db340-8c8f-435f-957d-4623255ac29e" },
-  { id: "39845ea2-0738-4549-94f0-b0f6b212e6b2", title: "Todd Boehly’s oil deal from Russia with love", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/39845ea2-0738-4549-94f0-b0f6b212e6b2" },
 ];
