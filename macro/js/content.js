@@ -13,7 +13,7 @@ export const UPDATED = "23 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-23",
-  lastCheckedTime: "12:21 BST",
+  lastCheckedTime: "14:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1000,7 +1000,7 @@ export const NEWS = {
     { title: "Pound To Dollar Price News, Forecast: GBP Weakens As UK Public Deficit Spikes", source: "Exchange Rates UK", date: "2026-09-23", time: "08:15", url: "https://www.exchangerates.org.uk/news/47244/2026-09-23-pound-to-dollar-price-news-forecast-gbp-weakens-as-uk-public-deficit-spikes.html" },
     { title: "British Pound holds near late-July lows vs USD, looks to UK/US PMIs for fresh impetus", source: "FXStreet", date: "2026-09-23", time: "08:15", url: "https://www.fxstreet.com/news/british-pound-hangs-near-late-july-lows-vs-usd-looks-to-uk-us-pmis-for-fresh-impetus-202609230107" },
     { title: "UK Borrowing Overshoots in Fresh Budget Setback for Healey", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey" },
-    { title: "Deutsche Bank shifts to two BoE rate hikes. Here's why", source: "Investing.com", date: "2026-09-22", time: "13:20", url: "https://www.investing.com/news/economy-news/deutsche-bank-shifts-to-two-boe-rate-hikes-heres-why-4910220" },
+    { title: "OECD raises UK 2026 growth forecast, cuts inflation outlook on energy support", source: "Investing.com", date: "2026-09-23", time: "12:35", url: "https://www.investing.com/news/economy-news/oecd-raises-uk-2026-growth-forecast-cuts-inflation-outlook-on-energy-support-4912337" },
   ],
 };
 
@@ -1014,6 +1014,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-23",
   items: [
+    {"title": "OECD raises UK 2026 growth forecast, cuts inflation outlook on energy support", "source": "Investing.com", "date": "2026-09-23", "time": "12:35", "url": "https://www.investing.com/news/economy-news/oecd-raises-uk-2026-growth-forecast-cuts-inflation-outlook-on-energy-support-4912337", "blurb": "The OECD lifted its UK 2026 growth forecast to 1.1% (up 0.2pp from June) and trimmed its inflation outlook, saying new government energy-support measures should cushion households from a renewed rise in global gas prices and underpin consumer spending even as it urged Britain to do more to restrain spending and reduce debt.", "author": null},
     {"title": "Retail CEOs see a holiday paradox: shoppers are anxious but still willing to spend", "source": "Fortune", "date": "2026-09-23", "time": "10:25", "url": "https://fortune.com/2026/09/23/holiday-season-retail-2026-forecast-ceos-dollar-general-macys/", "blurb": "Despite sustained consumer anxiety over inflation, US retail CEOs including Dollar General's Todd Vasos expect holiday-season sales to grow 4-7% as shoppers keep spending while prioritising value over cutting back.", "author": null},
     {"title": "UK S&P Global Composite PMI declines to 51 in September vs. 52.7 expected", "source": "FXStreet", "date": "2026-09-23", "time": "08:15", "url": "https://www.fxstreet.com/news/when-is-the-uk-services-pmi-and-how-could-it-affect-gbp-usd-202509230600", "blurb": "UK private-sector activity slowed sharply to a four-month low, with the composite flash PMI falling to 51.0 from 53.5 (vs. 52.7 expected), manufacturing dropping to 46.2 (from 47) and services easing to 51.9 (from 54.2); S&P Global's Chris Williamson said the survey brought 'a litany of worrying news including weakening growth, slumping overseas trade, worsening business confidence and further steep job losses.'", "author": null},
     {"title": "Breaking: Flash US S&P Global Manufacturing PMI came in at 52 in September", "source": "FXStreet", "date": "2026-09-23", "time": "08:15", "url": "https://www.fxstreet.com/news/sp-global-pmi-expected-to-highlight-us-economic-resilience-in-september-202509230800", "blurb": "US business activity cooled for a second straight month — the composite flash PMI eased to 53.6 (from 54.6), manufacturing to 52 (from 53) and services to 53.9 (from 54.5) — though S&P Global's Chris Williamson said the survey still points to the economy expanding at a 2.2% annualised rate in the third quarter, its best since Q4 2024.", "author": null},
