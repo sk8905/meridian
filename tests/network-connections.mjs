@@ -160,7 +160,7 @@ await ctx.close();
   });
   check(s.left >= 12 && s.right <= s.vw - 12, `Network importer fits within the side gutter (left ${s.left}, right ${s.right}, vw ${s.vw})`);
   check(s.mono, "Network importer uses the mono terminal family");
-  checkEq(s.btnSize, (11.5 + s.bump) + "px", `Choose-file button uses the 11.5px terminal size (+${s.bump}px mobile bump)`);
+  checkEq(s.btnSize, "12px", "Choose-file button uses the 12px body terminal size (no device bump)");
   checkEq(s.btnRadius, "0px", "Choose-file button is square (no pill radius)");
   check(s.noIntro, "the explainer intro paragraph is removed");
   checkErrs(e2, "network importer phone styling");

@@ -1,55 +1,57 @@
-// Type-scale contract — the whole app uses the Profiles ▸ Managers league
-// (.tleague) font + size. The user pinned that dense terminal type as the app
-// standard: content/feed text sits at the league density (~11px), NOT the old
-// 13.6px prose scale. This guards the shared --fs-* token block (premium.css)
-// and the feed engine against drifting back up. Sizes only — layout is untouched.
-import { serve, launchChromium, open, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
+// Type-scale contract — ONE font, ONE body size, no per-device bump.
+// The app was unified to a single flat 5-step px scale (micro 10 · body 12 ·
+// head 14 · title 16 · hero 26) in ONE font (--t-mono, the terminal monospace).
+// Body text — feed headlines, reading pane, list rows, table values, the league,
+// the transactions type-list — is 12px on phone AND desktop. This guards against
+// drift back to the old mixed sans/mono, the 11.5px league density, and the +1px
+// mobile bump. Sizes only — layout is untouched.
+import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
+const isMono = (fam) => /mono|SF ?Mono|SFMono|Menlo|Consolas|ui-monospace/i.test(fam || "");
 
-// ---- 1) the league itself — the anchor the user pointed at (unchanged) ----
+// ---- 1) the Profiles league — names AND figures are now one 12px mono ----
 {
   const { pg, errs } = await open(b, PHONE, base + "/v2/profiles/");
   await pg.waitForTimeout(1500);
   const r = await pg.evaluate(() => {
     const nm = document.querySelector(".tleague .tl-nm");
     const n = document.querySelector(".tleague .tl-n");
+    const cs = (el) => (el ? getComputedStyle(el) : null);
+    const a = cs(nm), c = cs(n);
     return {
       bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
-      nmSize: nm ? getComputedStyle(nm).fontSize : "",
-      nmFam: nm ? getComputedStyle(nm).fontFamily : "",
-      nMono: n ? /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(getComputedStyle(n).fontFamily) : false,
+      nmSize: a && a.fontSize, nmFam: a && a.fontFamily,
+      nSize: c && c.fontSize, nFam: c && c.fontFamily,
     };
   });
-  // Mobile carries the global +1px (--fs-bump); the league anchors at 11.5px + bump.
-  checkEq(r.nmSize, (11.5 + r.bump) + "px", `Profiles league: manager names anchor the scale at ${11.5 + r.bump}px (11.5 + ${r.bump}px mobile bump)`);
-  check(!/mono/i.test(r.nmFam), "Profiles league: names use the sans family (not mono)");
-  check(r.nMono, "Profiles league: figures use the mono family");
+  checkEq(r.bump, 0, "no per-device bump: --fs-bump resolves to 0 on phones (12px on both)");
+  checkEq(r.nmSize, "12px", "Profiles league: manager names are the 12px body size");
+  check(isMono(r.nmFam), "Profiles league: manager names use the one mono font");
+  check(isMono(r.nFam), "Profiles league: figures use the one mono font");
   checkErrs(errs, "profiles");
 }
 
-// ---- 2) the news feed matches that density (was 13/14px) -----------------
+// ---- 2) the news feed headlines are the same 12px mono body size ----
 {
   const { pg, errs } = await open(b, PHONE, base + "/v2/");
   await pg.waitForTimeout(1500);
   const r = await pg.evaluate(() => {
     const t = document.querySelector("#g-feed .g-feed-title");
-    const body = getComputedStyle(document.body).fontSize;
-    return { bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0, feed: t ? parseFloat(getComputedStyle(t).fontSize) : 0, body: parseFloat(body) };
+    const cs = t ? getComputedStyle(t) : null;
+    return {
+      feed: cs ? cs.fontSize : "", feedFam: cs ? cs.fontFamily : "",
+      body: parseFloat(getComputedStyle(document.body).fontSize),
+    };
   });
-  check(r.feed > 0 && r.feed <= 12.5 + r.bump, `Home feed headlines sit at league density (≤${12.5 + r.bump}px, got ${r.feed}px)`);
-  check(r.feed >= 11 + r.bump, `Home feed headlines stay legible (≥${11 + r.bump}px, got ${r.feed}px)`);
-  check(r.body <= 12.1 + r.bump, `content default (--fs-content) is the terminal density, not prose (got ${r.body}px)`);
-  checkErrs(errs, "home");
+  checkEq(r.feed, "12px", "Home feed headlines are the 12px body size");
+  check(isMono(r.feedFam), "Home feed headlines use the one mono font");
+  checkEq(r.body, 12, "content default (--fs-content / body) is 12px");
 }
 
-// ---- 3) Transactions ▸ iPhone type-list reads at the SAME league density ----
-// The on-screen type options (Primary ▸ Direct lending / unitranche, …) must be
-// the app's 11.5px list-row scale — name in sans, count in mono — NOT a bespoke
-// oversized 14px. This is exactly the drift the user has repeatedly flagged, so
-// it is pinned here alongside the league anchor.
+// ---- 3) Transactions type-list rows read at the same 12px mono body size ----
 {
   const { pg, errs } = await open(b, PHONE, base + "/v2/transactions/");
   await pg.waitForSelector(".tx-typelist .tx-typeopt", { timeout: 8000 });
@@ -58,23 +60,31 @@ const base = `http://localhost:${srv.port}`;
     const opt = document.querySelector(".tx-typeopt");
     const lbl = document.querySelector(".tx-typeopt .tx-typeopt-l") || opt;
     const n = document.querySelector(".tx-typeopt .tx-typeopt-n");
-    const caret = document.querySelector(".tx-typeopt .tx-typeopt-caret");
-    const mono = (el) => (el ? /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(getComputedStyle(el).fontFamily) : false);
+    const cs = (el) => (el ? getComputedStyle(el) : null);
+    const o = cs(opt), l = cs(lbl), c = cs(n);
     return {
-      bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
-      rowSize: opt ? getComputedStyle(opt).fontSize : "",
-      lblSize: lbl ? getComputedStyle(lbl).fontSize : "",
-      lblMono: mono(lbl),
-      nMono: mono(n),
-      caretSize: caret ? parseFloat(getComputedStyle(caret).fontSize) : 0,
+      rowSize: o && o.fontSize, lblSize: l && l.fontSize, lblFam: l && l.fontFamily,
+      nFam: c && c.fontFamily,
     };
   });
-  checkEq(r.rowSize, (11.5 + r.bump) + "px", `Transactions type-list: the option row sits at the league density (11.5px + ${r.bump}px bump, not 14px)`);
-  checkEq(r.lblSize, (11.5 + r.bump) + "px", `Transactions type-list: the type name is 11.5px + ${r.bump}px bump, like every other app row`);
-  check(!r.lblMono, "Transactions type-list: the type name uses the sans family (matches league names)");
-  check(r.nMono, "Transactions type-list: the count uses the mono family (every figure in the app is mono)");
-  check(r.caretSize <= 14 + r.bump, `Transactions type-list: the drill caret is app-scaled, not oversized (${r.caretSize}px)`);
+  checkEq(r.rowSize, "12px", "Transactions type-list: the option row is the 12px body size");
+  checkEq(r.lblSize, "12px", "Transactions type-list: the type name is 12px");
+  check(isMono(r.lblFam), "Transactions type-list: the type name uses the one mono font");
+  check(isMono(r.nFam), "Transactions type-list: the count uses the one mono font");
   checkErrs(errs, "transactions type-list");
+}
+
+// ---- 4) 12px on BOTH — the same body size holds on the desktop terminal ----
+{
+  const { pg, errs } = await open(b, DESKTOP, base + "/v2/");
+  await pg.waitForTimeout(1500);
+  const r = await pg.evaluate(() => ({
+    bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
+    body: parseFloat(getComputedStyle(document.body).fontSize),
+  }));
+  checkEq(r.bump, 0, "desktop: --fs-bump is 0 (no device offset)");
+  checkEq(r.body, 12, "desktop: body text is 12px too — identical to phone");
+  checkErrs(errs, "desktop home");
 }
 
 await b.close();

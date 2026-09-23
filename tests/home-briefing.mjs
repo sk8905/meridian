@@ -82,7 +82,9 @@ const b = await launchChromium();
     const chev = document.querySelector(".g-hbrief-chev");
     return { title: (t && t.textContent) || "", notMono: !!cs && !/mono/i.test(cs.fontFamily), notUpper: !!cs && cs.textTransform === "none", chevHidden: !chev || getComputedStyle(chev).display === "none" };
   });
-  check(/market briefing/i.test(hdr.title) && hdr.notMono && hdr.notUpper, "desktop: the header matches the panel style (title-case 'Market briefing', not mono/uppercase)");
+  // Font is now unified to mono app-wide, so the distinguishing trait is case, not
+  // family: the briefing header stays title-case ("Market briefing"), not uppercase.
+  check(/market briefing/i.test(hdr.title) && hdr.notUpper, "desktop: the header matches the panel style (title-case 'Market briefing', not uppercase)");
   check(hdr.chevHidden, "desktop: no collapse chevron — the card is permanently open");
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(120);

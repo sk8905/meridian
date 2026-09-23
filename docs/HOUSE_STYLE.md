@@ -66,9 +66,10 @@ to keep pinned/full-height on these three sections.
 - **R5 — One feed engine, one `.g-feed-row` grid** across Home / Macro / Credit
   / Legal / Palette. No bespoke per-section list markup.
 - **R6 — Standard day breaks** on every dated list — the main wire *and*
-  sub-lists such as Legal Case Law (`.tw-day`): sans-serif, **10.5px / 600**,
-  uppercase, `.04em` tracking, grey band (`--t-head`), label `--t-accent`
-  (dark) / `#2f6cae` (light). No mono, no per-section variants.
+  sub-lists such as Legal Case Law (`.tw-day`): the micro scale step **10px /
+  600**, uppercase, `.04em` tracking, grey band (`--t-head`), label `--t-accent`
+  (dark) / `#2f6cae` (light). One font (mono, like everything), no per-section
+  variants.
 - **R7 — Every item is sourced + dated; never fabricated.** Each headline
   carries a real source and link.
 - **R7a — No decorative link/arrow glyphs.** Do NOT append arrow symbols (`↗`,
@@ -138,36 +139,39 @@ notification badge red (`#ef4444`).
 
 ---
 
-## 4. Typography — two families, a fixed scale
+## 4. Typography — ONE family, a fixed 5-step scale
 
-- **Sans** (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-  Arial, sans-serif`): prose, feed rows, day breaks, headings, buttons.
-- **Mono** `--t-mono` (`ui-monospace, "SF Mono", SFMono-Regular, Menlo,
-  Consolas, "Liberation Mono", monospace`): all tabular/numeric data (tickers,
-  price columns, FX, prediction %) and the terminal-chrome dropdown panels
-  (Markets / Saved / Notifications).
-- **R11 — Sizes come from the scale, not ad-hoc px:** the whole app is anchored
-  to the **Profiles ▸ Managers league** (`.tleague`) — the agreed reference
-  density: **11.5px** sans names, mono figures. The scale: 9–10.5px (day breaks /
-  eyebrows / column heads, uppercase), ~11px (mono data rows), **11.5px** body /
-  content / list & feed item text (`--fs-content` ≈ .72rem; feed headlines a
-  hair up at 12px), 12.5px (panel headers), then a restrained heading step
-  (`--fs-card-title` .85rem, `--fs-section-title` 1.21rem / .98rem mobile).
-  Prose, feed rows and info-page copy all sit at this league density — they do
-  **not** run at the retired 13.6px prose scale. Numeric columns use
-  `font-variant-numeric: tabular-nums`. Change a size once, in the `--fs-*`
-  token block (premium.css), so every surface moves in lockstep. (The whole
-  scale was lifted a uniform **+0.5px** from its original 8.5–13.6→9–14px values
-  for legibility — hence the half-px steps; keep new sizes on that grid.)
-  **This binds every NEW surface too** — mobile tap-lists, option rows, drill
-  headers, empty states. A tappable row is still a list row: **11.5px sans name,
-  mono figure**, never a bespoke 14/16px "because it's a big touch target"
-  (padding gives the touch target, not font-size). When you add such a row,
-  copy an existing `.tx-*`/`.tleague-*` row's `font-size`/`font-family` rather
-  than typing a fresh px, and add it to `tests/type-scale.mjs` so it is pinned.
-- **R11b — No new font family or weight** beyond the two stacks and the weights
-  already in use (400 / 500 / 600 / 700 / 800). 500 is the inactive-chip/label
-  weight, paired with 600 for the active state.
+- **One font everywhere** — `--t-mono` (`ui-monospace, "SF Mono", SFMono-Regular,
+  Menlo, Consolas, "Liberation Mono", monospace`). Every piece of text — prose,
+  feed rows, list names, headings, buttons, day breaks AND all tabular/numeric
+  data — is this one monospace family. The base `body` font-family (app.css,
+  home.css, and each section's `styles.css`) is `--t-mono`, so everything
+  inherits it; there is no sans stack anywhere. Numeric columns still add
+  `font-variant-numeric: tabular-nums`.
+- **R11 — Sizes come from ONE flat 5-step scale, in bare px, no device bump:**
+
+  | token / role | px | used for |
+  | --- | --- | --- |
+  | micro | **10px** | day breaks · eyebrows · column heads · timestamps · source tags · SRC chips (usually uppercase) |
+  | body | **12px** | THE default — prose, feed headlines, list & table rows, values, reading pane, buttons |
+  | head | **14px** | card / panel headings (`--fs-card-title`), section sub-heads |
+  | title | **16px** | page / article headline (`--fs-section-title`, h1) |
+  | hero | **26px** | dashboard KPI display figures only |
+
+  Body text is **12px on phone AND desktop** — identical. The old per-device
+  `--fs-bump` (+1px on mobile) is **retired** (kept defined at `0` only so any
+  stray legacy `calc(<px> + var(--fs-bump))` still resolves). Change a size
+  once, in the `--fs-*` token block (premium.css), so every surface moves in
+  lockstep. **This binds every NEW surface too** — mobile tap-lists, option
+  rows, drill headers, empty states. A tappable row is still a **12px** list row
+  (padding gives the touch target, not font-size); never a bespoke 14/16px
+  "because it's a big touch target". When you add text, use a scale step
+  (10/12/14/16/26) — never an ad-hoc px or rem — and pin any new body surface in
+  `tests/type-scale.mjs`.
+- **R11b — No new font family, and only the weights already in use** (400 / 500 /
+  600 / 700 / 800). 500 is the inactive-chip/label weight, paired with 600 for
+  the active state. Hierarchy comes from **size + weight + case + colour**, not
+  from a second font.
 
 ---
 

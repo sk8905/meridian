@@ -13,7 +13,7 @@
   /* Match the terminal menu chrome it sits in: mono, 11px, and inset to the same
      14px gutter as the .na-menu-recent-h headers so nothing bleeds to the edge. */
   font-family:var(--t-mono, ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace);
-  font-size:calc(11.5px + var(--fs-bump, 0px)); line-height:1.5;
+  font-size:12px; line-height:1.5;
   padding:2px 14px 14px;
 }
 /* The section header inside the block self-pads; drop its side padding so it
@@ -25,60 +25,60 @@
 }
 
 /* ---- import controls ---- */
-.wn-how { color:var(--wn-mut); font-size:calc(10.5px + var(--fs-bump, 0px)); line-height:1.5; margin:12px 0 10px; }
-.wn-how code { background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; padding:0 4px; font-size:calc(10.5px + var(--fs-bump, 0px)); }
+.wn-how { color:var(--wn-mut); font-size:10px; line-height:1.5; margin:12px 0 10px; }
+.wn-how code { background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; padding:0 4px; font-size:10px; }
 .wn-import { display:flex; flex-direction:column; gap:8px; margin:8px 0; }
 .wn-btn { display:inline-block; align-self:flex-start; background:var(--wn-accent); color:var(--wn-accent-ink); font-weight:600;
-  font-family:inherit; font-size:calc(11.5px + var(--fs-bump, 0px)); border:0; border-radius:0; padding:6px 12px; cursor:pointer; }
+  font-family:inherit; font-size:12px; border:0; border-radius:0; padding:6px 12px; cursor:pointer; }
 .wn-btn:hover { filter:brightness(1.05); }
-.wn-paste { font-size:calc(11.5px + var(--fs-bump, 0px)); }
+.wn-paste { font-size:12px; }
 .wn-paste > summary { cursor:pointer; color:var(--wn-accent); font-weight:600; list-style:none; padding:2px 0; }
 .wn-paste > summary::-webkit-details-marker { display:none; }
 .wn-paste textarea { width:100%; box-sizing:border-box; margin:6px 0; background:var(--wn-surface); color:var(--wn-ink);
-  border:1px solid var(--wn-bd); border-radius:0; padding:8px; font:inherit; font-size:calc(11.5px + var(--fs-bump, 0px)); resize:vertical; }
-.wn-status { color:var(--wn-mut); font-size:calc(10.5px + var(--fs-bump, 0px)); min-height:1.1em; }
+  border:1px solid var(--wn-bd); border-radius:0; padding:8px; font:inherit; font-size:12px; resize:vertical; }
+.wn-status { color:var(--wn-mut); font-size:10px; min-height:1.1em; }
 
 /* ---- summary + confirm ---- */
-.wn-sum { color:var(--wn-mut); font-size:calc(11.5px + var(--fs-bump, 0px)); line-height:1.5; margin:4px 0 12px; }
+.wn-sum { color:var(--wn-mut); font-size:12px; line-height:1.5; margin:4px 0 12px; }
 .wn-sum strong { color:var(--wn-ink); }
-.wn-hint { color:var(--wn-mut); font-size:calc(10.5px + var(--fs-bump, 0px)); margin:2px 0 8px; }
+.wn-hint { color:var(--wn-mut); font-size:10px; margin:2px 0 8px; }
 .wn-pending { margin:8px 0 14px; }
 .wn-pend { border:1px solid var(--wn-bd); border-radius:0; padding:9px 11px; margin-bottom:8px; background:var(--wn-surface2); }
-.wn-pend-q { font-size:calc(11.5px + var(--fs-bump, 0px)); }
+.wn-pend-q { font-size:12px; }
 .wn-pend-co { font-weight:600; }
 .wn-pend-nm { color:var(--wn-accent); font-weight:600; }
-.wn-pend-people { color:var(--wn-mut); font-size:calc(10.5px + var(--fs-bump, 0px)); line-height:1.45; margin:5px 0 8px; }
+.wn-pend-people { color:var(--wn-mut); font-size:10px; line-height:1.45; margin:5px 0 8px; }
 .wn-pend-acts { display:flex; gap:8px; }
-.wn-yes, .wn-no { font-family:inherit; font-size:calc(11.5px + var(--fs-bump, 0px)); font-weight:600; border-radius:0; padding:5px 10px; cursor:pointer; border:1px solid var(--wn-bd); background:var(--wn-surface); color:var(--wn-ink); }
+.wn-yes, .wn-no { font-family:inherit; font-size:12px; font-weight:600; border-radius:0; padding:5px 10px; cursor:pointer; border:1px solid var(--wn-bd); background:var(--wn-surface); color:var(--wn-ink); }
 .wn-yes { background:var(--wn-accent); color:var(--wn-accent-ink); border-color:var(--wn-accent); }
 
 /* ---- "My network" list ---- */
 .wn-list { margin-top:6px; }
 .wn-grp { margin-bottom:14px; }
-.wn-grp-h { color:var(--wn-accent); font-size:calc(10px + var(--fs-bump, 0px)); font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:6px; }
+.wn-grp-h { color:var(--wn-accent); font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:6px; }
 .wn-grp-ct { color:var(--wn-mut); font-weight:600; }
 .wn-ent { border-top:1px solid var(--wn-bd); padding:8px 0; }
 .wn-ent:first-of-type { border-top:0; }
 /* Each firm is a collapse toggle (native <details>): the connections at that firm
    stay hidden until you expand it, and the firm name is UNBOLDED until then — only
    the firm you have opened reads bold. A caret marks the state. */
-.wn-ent > summary.wn-ent-nm { display:flex; align-items:baseline; justify-content:space-between; gap:10px; cursor:pointer; list-style:none; color:var(--wn-ink); font-weight:400; font-size:calc(11.5px + var(--fs-bump, 0px)); }
+.wn-ent > summary.wn-ent-nm { display:flex; align-items:baseline; justify-content:space-between; gap:10px; cursor:pointer; list-style:none; color:var(--wn-ink); font-weight:400; font-size:12px; }
 .wn-ent > summary.wn-ent-nm::-webkit-details-marker { display:none; }
 .wn-ent > summary .wn-ent-t::before { content:"▸"; display:inline-block; width:1.1em; color:var(--wn-mut); }
 .wn-ent[open] > summary .wn-ent-t::before { content:"▾"; }
 .wn-ent[open] > summary .wn-ent-t { font-weight:700; }
 .wn-ent > summary.wn-ent-nm:hover .wn-ent-t { color:var(--wn-accent); }
-.wn-ent-ct { flex:0 0 auto; min-width:1.4em; text-align:center; background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; color:var(--wn-mut); font-size:calc(10px + var(--fs-bump, 0px)); font-weight:700; padding:0 6px; }
-.wn-ent-people { color:var(--wn-mut); font-size:calc(10.5px + var(--fs-bump, 0px)); line-height:1.5; margin-top:5px; padding-left:1.1em; }
-.wn-ent-open { display:inline-block; margin-top:6px; margin-left:1.1em; font-size:calc(10.5px + var(--fs-bump, 0px)); color:var(--wn-link); text-decoration:none; }
+.wn-ent-ct { flex:0 0 auto; min-width:1.4em; text-align:center; background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:0; color:var(--wn-mut); font-size:10px; font-weight:700; padding:0 6px; }
+.wn-ent-people { color:var(--wn-mut); font-size:10px; line-height:1.5; margin-top:5px; padding-left:1.1em; }
+.wn-ent-open { display:inline-block; margin-top:6px; margin-left:1.1em; font-size:10px; color:var(--wn-link); text-decoration:none; }
 .wn-ent-open:hover { text-decoration:underline; }
-.wn-empty { color:var(--wn-mut); font-size:calc(11.5px + var(--fs-bump, 0px)); margin:6px 0; }
+.wn-empty { color:var(--wn-mut); font-size:12px; margin:6px 0; }
 
 /* ---- footer (re-import + clear) ---- */
 .wn-foot { margin-top:14px; padding-top:12px; border-top:1px solid var(--wn-bd); display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
-.wn-reimport > summary { cursor:pointer; color:var(--wn-accent); font-weight:600; font-size:calc(11.5px + var(--fs-bump, 0px)); list-style:none; }
+.wn-reimport > summary { cursor:pointer; color:var(--wn-accent); font-weight:600; font-size:12px; list-style:none; }
 .wn-reimport > summary::-webkit-details-marker { display:none; }
-.wn-clear { background:none; border:1px solid var(--wn-bd); color:var(--wn-mut); font-family:inherit; font-size:calc(10.5px + var(--fs-bump, 0px)); border-radius:0; padding:5px 10px; cursor:pointer; }
+.wn-clear { background:none; border:1px solid var(--wn-bd); color:var(--wn-mut); font-family:inherit; font-size:10px; border-radius:0; padding:5px 10px; cursor:pointer; }
 .wn-clear:hover { color:var(--wn-down, #df4763); border-color:var(--wn-down, #df4763); }
 
 /* ---- profile badge (a collapsible <details> inside the identity header) ---- */
@@ -88,7 +88,7 @@
 .wn-badge { margin:9px 0 0; padding:0; border:0; border-radius:0; background:transparent; }
 .wn-badge-h { display:inline-flex; align-items:center; gap:5px; cursor:pointer; list-style:none; width:max-content;
   font-family:var(--t-mono, ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace);
-  font-size:calc(10px + var(--fs-bump, 0px)); font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--faint, var(--wn-mut)); }
+  font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--faint, var(--wn-mut)); }
 .wn-badge-h:hover { color:var(--ink, var(--wn-ink)); }
 .wn-badge-h::-webkit-details-marker { display:none; }
 .wn-badge-h::before { content:"›"; display:inline-block; transition:transform .15s ease; }
@@ -97,9 +97,9 @@
 .wn-badge-body { margin-top:5px; }
 /* In the profile header the connection rows read like the Sources / Peers lines
    above them: faint, 10.5px, same mono, not the larger .81rem menu size. */
-.wn-badge-people { color:var(--faint, var(--wn-mut)); font-size:calc(10.5px + var(--fs-bump, 0px)); line-height:1.5; }
-.wn-badge-pending { margin-top:8px; padding-top:7px; border-top:1px dashed var(--wn-bd); color:var(--faint, var(--wn-mut)); font-size:calc(10.5px + var(--fs-bump, 0px)); line-height:1.5; }
-.wn-badge-plbl { display:block; color:var(--wn-accent); font-size:.71rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; margin-bottom:3px; }
+.wn-badge-people { color:var(--faint, var(--wn-mut)); font-size:10px; line-height:1.5; }
+.wn-badge-pending { margin-top:8px; padding-top:7px; border-top:1px dashed var(--wn-bd); color:var(--faint, var(--wn-mut)); font-size:10px; line-height:1.5; }
+.wn-badge-plbl { display:block; color:var(--wn-accent); font-size:12px; font-weight:700; letter-spacing:.02em; text-transform:uppercase; margin-bottom:3px; }
 .wn-badge-co { color:var(--wn-mut); opacity:.85; }
 
 /* =============================================================================
@@ -113,21 +113,21 @@
   --ww-bd:#e4e7ef; --ww-hover:#f3f6fb;
   color:var(--ww-ink);
   font-family:var(--t-mono, ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace);
-  font-size:calc(11.5px + var(--fs-bump, 0px)); line-height:1.5;
+  font-size:12px; line-height:1.5;
   padding:6px 14px 14px;
 }
 :root[data-theme="dark"] .wire-watch {
   --ww-ink:#eaf0fb; --ww-mut:#8592ad; --ww-link:#6ca8ff; --ww-bd:#262626; --ww-hover:#191919;
 }
-.watch-loading, .watch-empty { color:var(--ww-mut); font-size:calc(11.5px + var(--fs-bump, 0px)); line-height:1.5; margin:6px 0; }
+.watch-loading, .watch-empty { color:var(--ww-mut); font-size:12px; line-height:1.5; margin:6px 0; }
 .watch-empty strong { color:var(--ww-ink); font-weight:700; }
 .watch-grp { margin-bottom:14px; }
-.watch-grp-h { color:var(--ww-accent); font-size:calc(10px + var(--fs-bump, 0px)); font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:2px; }
+.watch-grp-h { color:var(--ww-accent); font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:2px; }
 .watch-grp-ct { color:var(--ww-mut); font-weight:600; }
 .watch-row { display:flex; align-items:baseline; justify-content:space-between; gap:10px;
   border-top:1px solid var(--ww-bd); padding:7px 6px; margin:0 -6px; text-decoration:none; color:inherit; cursor:pointer; }
 .watch-grp .watch-row:first-of-type { border-top:0; }
 .watch-row:hover { background:var(--ww-hover); }
-.watch-nm { color:var(--ww-ink); font-weight:400; font-size:calc(11.5px + var(--fs-bump, 0px)); }
+.watch-nm { color:var(--ww-ink); font-weight:400; font-size:12px; }
 .watch-row:hover .watch-nm { color:var(--ww-link); }
-.watch-sub { flex:0 0 auto; color:var(--ww-mut); font-size:calc(10px + var(--fs-bump, 0px)); text-align:right; }
+.watch-sub { flex:0 0 auto; color:var(--ww-mut); font-size:10px; text-align:right; }
