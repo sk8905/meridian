@@ -81,14 +81,26 @@ const freeSel = await pg.evaluate(() => {
 });
 if (freeSel) {
   await pg.waitForSelector("#g-readpane .g-read-p", { timeout: 4000 });
-  const full = await pg.evaluate(() => ({
-    paras: document.querySelectorAll("#g-readpane .g-read-p").length,
-    byline: !!document.querySelector("#g-readpane .g-read-byline"),
-    free: !!document.querySelector("#g-readpane .g-read-free"),
-    firstP: (document.querySelector("#g-readpane .g-read-p") || {}).textContent || "",
-  }));
+  const full = await pg.evaluate(() => {
+    const p = document.querySelector("#g-readpane .g-read-p");
+    const title = document.querySelector("#g-feed .g-feed-title");
+    const cs = p && getComputedStyle(p);
+    return {
+      paras: document.querySelectorAll("#g-readpane .g-read-p").length,
+      byline: !!document.querySelector("#g-readpane .g-read-byline"),
+      free: !!document.querySelector("#g-readpane .g-read-free"),
+      firstP: (p || {}).textContent || "",
+      align: cs && cs.textAlign,
+      readSize: cs && cs.fontSize,
+      feedSize: title && getComputedStyle(title).fontSize,
+    };
+  });
   check(full.paras >= 2 && full.byline && full.free, `reading pane: an openly-readable source prints the extracted body in-pane (${full.paras} paragraphs)`);
   check(full.firstP.includes("Brent crude"), "reading pane: the extracted paragraph text renders");
+  // The body prose is JUSTIFIED and set at the SAME size as the rest of the app's
+  // reading text (the wire feed titles) — not a larger outlier.
+  checkEq(full.align, "justify", "reading pane: body text is justified");
+  checkEq(full.readSize, full.feedSize, "reading pane: body font-size matches the wire feed-title size (one app-wide reading size)");
 }
 check(!!(pay || freeSel), "reading pane: access state resolves from the source");
 
