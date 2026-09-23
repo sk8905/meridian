@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "61f49a3d-ffac-4f09-b946-bfc1f9194e89", title: "Meloni at spending crossroads after failing to get off EU's fiscal naughty step", date: "2026-09-23", time: "06:00", url: "https://www.ft.com/content/61f49a3d-ffac-4f09-b946-bfc1f9194e89" },
+  { id: "0a5a5b70-adea-40af-9933-1f7679f9f359", title: "Oil price on track for longest losing streak in more than 12 months", date: "2026-09-23", time: "05:42", url: "https://www.ft.com/content/0a5a5b70-adea-40af-9933-1f7679f9f359" },
+  { id: "d85c9ab3-9b77-4b96-9321-c548bbbfd07a", title: "FirstFT: Boehly gets US and Gulf backing for Lukoil assets bid", date: "2026-09-23", time: "05:31", url: "https://www.ft.com/content/d85c9ab3-9b77-4b96-9321-c548bbbfd07a" },
+  { id: "c557b92a-48bc-4d82-8fdb-f45cdc96ed77", title: "A more hawkish ECB will respond to prolonged high energy prices", date: "2026-09-23", time: "05:30", url: "https://www.ft.com/content/c557b92a-48bc-4d82-8fdb-f45cdc96ed77" },
+  { id: "7a977d6f-fdbc-425a-8881-7c43716c77f5", title: "South Korea bets on Texas gas plant to satisfy Donald Trump", date: "2026-09-23", time: "05:28", url: "https://www.ft.com/content/7a977d6f-fdbc-425a-8881-7c43716c77f5" },
+  { id: "5b7decf1-08fd-43fc-b9f3-9870ffa5716f", title: "Has Donald Trump caged his China hawks?", date: "2026-09-23", time: "05:10", url: "https://www.ft.com/content/5b7decf1-08fd-43fc-b9f3-9870ffa5716f" },
   { id: "ab694096-0acf-4e13-9726-ec339a082a99", title: "Global banks warn UK windfall tax will trigger shift away from London", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/ab694096-0acf-4e13-9726-ec339a082a99" },
   { id: "f6962aaf-417f-4722-8316-0a0049af55aa", title: "Private equity has a new kind of SaaS: swimming as a service", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/f6962aaf-417f-4722-8316-0a0049af55aa" },
   { id: "0c7eac88-bc13-42be-aa18-f78ec1483ca6", title: "Biotech is one area where the US can afford to let China flourish", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/0c7eac88-bc13-42be-aa18-f78ec1483ca6" },
@@ -55,9 +61,4 @@ export const FT_ITEMS = [
   { id: "4ed1f34e-d0a5-48f2-b508-9e8ee445213f", title: "Audio Gold: the shop that really listens to London’s audiophiles", date: "2026-09-22", time: "11:00", url: "https://www.ft.com/content/4ed1f34e-d0a5-48f2-b508-9e8ee445213f" },
   { id: "460dbb45-03b8-466e-98ef-80063b07189a", title: "Ed Davey promises tax cuts as he warns Lib Dems are in ‘fight of our lives’", date: "2026-09-22", time: "15:02", url: "https://www.ft.com/content/460dbb45-03b8-466e-98ef-80063b07189a" },
   { id: "60870960-f433-48ca-bc2c-708686a69ae7", title: "AI staff complain of mental toll over fears of threat to society", date: "2026-09-22", time: "12:27", url: "https://www.ft.com/content/60870960-f433-48ca-bc2c-708686a69ae7" },
-  { id: "16d676c9-94c4-4df1-8fa6-56966b2c9aa7", title: "UN General Assembly live: Donald Trump to address world leaders at the UN", date: "2026-09-22", time: "14:05", url: "https://www.ft.com/content/16d676c9-94c4-4df1-8fa6-56966b2c9aa7" },
-  { id: "cf151ce7-b284-4f8a-94e9-e27c4228a174", title: "Republican lawmakers pressure Donald Trump to ban diesel exports", date: "2026-09-22", time: "14:00", url: "https://www.ft.com/content/cf151ce7-b284-4f8a-94e9-e27c4228a174" },
-  { id: "193a14eb-5650-48a8-8ead-eb8184fc50f5", title: "Pick a stock, just not any stock", date: "2026-09-22", time: "13:08", url: "https://www.ft.com/content/193a14eb-5650-48a8-8ead-eb8184fc50f5" },
-  { id: "ac089dea-a121-454e-815e-0d9a380acf79", title: "Comment: Trump is checking out of his presidency", date: "2026-09-22", time: "12:54", url: "https://www.ft.com/content/ac089dea-a121-454e-815e-0d9a380acf79" },
-  { id: "2715d69d-15d1-42af-a5e5-cb2a251a1ff6", title: "Warburg Pincus and CD&R near deal to buy Canaccord’s UK wealth division", date: "2026-09-22", time: "12:36", url: "https://www.ft.com/content/2715d69d-15d1-42af-a5e5-cb2a251a1ff6" },
 ];
