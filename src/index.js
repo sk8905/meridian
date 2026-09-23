@@ -4203,11 +4203,12 @@ async function handleXFeed(request, env, ctx) {
   if (cached) return cached;
 
   const all = [];
+  let usedProvider = "none";   // which rung actually produced the tweets (self-diagnosis)
   // Preferred: TwitterAPIs.com per-account timelines when its key is set (cheapest).
   // Roster is the client's own handles here — the List auto-sync (below) is a
   // twitterapi.io feature; on TwitterAPIs.com the roster is managed in xposts.js.
   if (apisKey && handles.length) {
-    try { const a = await fetchXApisUsers(handles, apisKey); for (const t of a) all.push(t); } catch { /* fall through */ }
+    try { const a = await fetchXApisUsers(handles, apisKey); for (const t of a) all.push(t); if (a.length) usedProvider = "apis"; } catch { /* fall through */ }
   }
   // Next: the paid twitterapi.io per-account timelines (include reposts + List sync).
   if (!all.length && apiKey && (handles.length || listId)) {
@@ -4218,7 +4219,7 @@ async function handleXFeed(request, env, ctx) {
     if (listId) {
       try { const r = await resolveXRoster(listId, apiKey, handles, request, ctx); if (r.length) roster = r; } catch { /* keep client roster */ }
     }
-    try { const api = await fetchXApiUsers(roster, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
+    try { const api = await fetchXApiUsers(roster, apiKey); for (const t of api) all.push(t); if (api.length) usedProvider = "api"; } catch { /* fall through */ }
   }
   // Free fallback (no key, or a paid call came back empty): X syndication per handle.
   if (!all.length && handles.length) {
@@ -4226,6 +4227,7 @@ async function handleXFeed(request, env, ctx) {
       const tw = await fetchXProfile(h);
       for (const t of tw) all.push(t);
     }));
+    if (all.length) usedProvider = "syn";
   }
   const seen = new Set();
   const tweets = all
@@ -4233,7 +4235,10 @@ async function handleXFeed(request, env, ctx) {
     .sort((a, b) => (b.ts || 0) - (a.ts || 0))
     .slice(0, 40);
 
-  const body = JSON.stringify({ tweets, asOf: new Date().toISOString() });
+  // `provider` tells you (and the ?debug tooling) which source served the wire, so a
+  // stale feed is instantly attributable: "apis" = TwitterAPIs.com, "api" =
+  // twitterapi.io, "syn" = free syndication (the one that goes stale).
+  const body = JSON.stringify({ tweets, provider: usedProvider, asOf: new Date().toISOString() });
   // Cache a non-empty result ~5 min (keeps our syndication hits rare); never pin empty.
   if (tweets.length) {
     const cacheable = new Response(body, { headers: { "content-type": "application/json", "cache-control": "public, max-age=300" } });
