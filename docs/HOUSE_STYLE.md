@@ -668,6 +668,8 @@ item keeps a real outbound source link (R7).
   UK Supreme Court
 - The Lawyer (`thelawyer.com`)
 - Legal Business (`legalbusiness.co.uk`)
+- Legal Cheek (`legalcheek.com`) — UK magic/silver-circle & Big-Law news
+- Above the Law (`abovethelaw.com`) — US Big-Law news
 - Bloomberg Law
 - Law-firm client briefings
 

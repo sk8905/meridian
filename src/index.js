@@ -2524,7 +2524,7 @@ async function handlePulse(request, env, ctx) {
 // Bloomberg & Reuters have no usable public RSS, so they're bridged through Google
 // News search feeds (gnews:true) — reliable and not IP-blocked; the trade-off is
 // that their links route via a news.google.com redirect to the real article.
-const FEED_SOURCES = [
+export const FEED_SOURCES = [
   // The reader's personalised myFT (followed-topics) feed. `myft: true` marks the
   // emitted items so the Home page routes them to the FT stream, not Macro; no
   // topic/quality filters — the reader curated this feed themselves.
@@ -2606,6 +2606,14 @@ const FEED_SOURCES = [
   // direct lending, CLOs, capital-relief trades) so the general PR firehose stays
   // out. filter:false because the query already scopes it.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Abusinesswire.com%20(%22private%20credit%22%20OR%20%22risk%20transfer%22%20OR%20%22direct%20lending%22%20OR%20%22asset-based%22%20OR%20CLO%20OR%20%22credit%20fund%22%20OR%20%22capital%20relief%22%20OR%20%22collateralized%22)%20when%3A7d", source: "Business Wire", region: "GEN", cap: 10, gnews: true, filter: false },
+  // Private-capital & credit trade press — openly-readable specialist desks that
+  // keep the wire's private-markets / private-credit coverage in the reading pane
+  // (Business Wire above is scoped press releases; these are edited news). Direct
+  // WordPress RSS (same route as Hedgeweek/The Lawyer). filter:false (deal copy
+  // rarely hits the macro vocab); topically pure, so they also bypass the server
+  // quality cull via FEED_CURATED_SRC below.
+  { url: "https://alternativecreditinvestor.com/feed/", source: "Alternative Credit Investor", region: "GEN", cap: 8, filter: false },
+  { url: "https://www.privateequitywire.co.uk/feed/", source: "Private Equity Wire", region: "GEN", cap: 6, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
@@ -2652,6 +2660,11 @@ const FEED_SOURCES = [
   // (knocking out Business Wire), so the direct feeds are used alone.
   { url: "https://www.thelawyer.com/feed/", source: "The Lawyer", region: "UK", cap: 12, filter: false, legal: true },
   { url: "https://www.legalbusiness.co.uk/feed/", source: "Legal Business", region: "UK", cap: 12, filter: false, legal: true },
+  // UK + US Big Law trade desks — openly-readable, covering magic/silver-circle and
+  // global-elite firms (moves, deals, pay, strategy). legal:true routes them to the
+  // Legal desk; filter:false so the macro screen doesn't drop law-market headlines.
+  { url: "https://www.legalcheek.com/feed/", source: "Legal Cheek", region: "UK", cap: 8, filter: false, legal: true },
+  { url: "https://abovethelaw.com/feed/", source: "Above the Law", region: "US", cap: 6, filter: false, legal: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -3034,7 +3047,11 @@ const FEED_PREMIUM = new Set([
   // Economics feed) — trusted macro, never relevance-gated.
   "Investing.com Economics",
 ]);
-const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business"]);
+const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek", "Above the Law"]);
+// Openly-readable, topically-pure private-capital / credit trade desks — always
+// on-universe (their whole beat is private markets), so they bypass the relevance
+// gate like the legal wire, keeping the wire's private-markets coverage readable.
+const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire"]);
 const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|\bpay\b|pay award|earnings growth|productivity|cost of living|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|house price|mortgage|property|rent\b|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
 // Routine corporate IR / press-release boilerplate — quarterly-results notices,
 // dividend declarations, earnings-call scheduling, board appointments. Low signal
@@ -3050,7 +3067,7 @@ const FEED_PR_NOISE = /\bto (announce|report)\b.*\b(results|earnings)\b|\breport
 // runs before the premium bypass so even a Bloomberg/Reuters frontier-macro
 // story ("Cuba's Population Decline…") is dropped.
 const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:'s|’s)?\b/i;
-function feedQualityKeep(it) {
+export function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
   if (FEED_OFFTOPIC_GEO.test(it.title)) return false;   // frontier-EM subject — off universe
@@ -3060,7 +3077,7 @@ function feedQualityKeep(it) {
   // Premium newsrooms, the curated legal wire, and reader-flagged streams
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).
-  if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || it.myft || it.substack || it.legal || it.hdg || it.fi) return true;
+  if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || FEED_CURATED_SRC.has(s) || it.myft || it.substack || it.legal || it.hdg || it.fi) return true;
   if (!(FEED_MACRO_RE.test(it.title) || FEED_MEGACAP_RE.test(it.title) || FEED_RELEVANCE.test(it.title))) return false;
   return !FEED_PR_NOISE.test(it.title);   // drop routine IR/PR boilerplate that slipped through
 }
