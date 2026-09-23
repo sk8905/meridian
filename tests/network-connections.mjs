@@ -154,12 +154,13 @@ await ctx.close();
       vw, left: Math.round(hr.left), right: Math.round(hr.right),
       mono: /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(hcs.fontFamily),
       btnSize: bcs.fontSize, btnRadius: bcs.borderRadius,
+      bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
       noIntro: !document.querySelector(".wn-intro"),
     };
   });
   check(s.left >= 12 && s.right <= s.vw - 12, `Network importer fits within the side gutter (left ${s.left}, right ${s.right}, vw ${s.vw})`);
   check(s.mono, "Network importer uses the mono terminal family");
-  checkEq(s.btnSize, "11.5px", "Choose-file button uses the 11.5px terminal size");
+  checkEq(s.btnSize, (11.5 + s.bump) + "px", `Choose-file button uses the 11.5px terminal size (+${s.bump}px mobile bump)`);
   checkEq(s.btnRadius, "0px", "Choose-file button is square (no pill radius)");
   check(s.noIntro, "the explainer intro paragraph is removed");
   checkErrs(e2, "network importer phone styling");

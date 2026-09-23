@@ -17,12 +17,14 @@ const base = `http://localhost:${srv.port}`;
     const nm = document.querySelector(".tleague .tl-nm");
     const n = document.querySelector(".tleague .tl-n");
     return {
+      bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
       nmSize: nm ? getComputedStyle(nm).fontSize : "",
       nmFam: nm ? getComputedStyle(nm).fontFamily : "",
       nMono: n ? /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(getComputedStyle(n).fontFamily) : false,
     };
   });
-  checkEq(r.nmSize, "11.5px", "Profiles league: manager names anchor the scale at 11.5px");
+  // Mobile carries the global +1px (--fs-bump); the league anchors at 11.5px + bump.
+  checkEq(r.nmSize, (11.5 + r.bump) + "px", `Profiles league: manager names anchor the scale at ${11.5 + r.bump}px (11.5 + ${r.bump}px mobile bump)`);
   check(!/mono/i.test(r.nmFam), "Profiles league: names use the sans family (not mono)");
   check(r.nMono, "Profiles league: figures use the mono family");
   checkErrs(errs, "profiles");
@@ -35,11 +37,11 @@ const base = `http://localhost:${srv.port}`;
   const r = await pg.evaluate(() => {
     const t = document.querySelector("#g-feed .g-feed-title");
     const body = getComputedStyle(document.body).fontSize;
-    return { feed: t ? parseFloat(getComputedStyle(t).fontSize) : 0, body: parseFloat(body) };
+    return { bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0, feed: t ? parseFloat(getComputedStyle(t).fontSize) : 0, body: parseFloat(body) };
   });
-  check(r.feed > 0 && r.feed <= 12.5, `Home feed headlines sit at league density (≤12.5px, got ${r.feed}px)`);
-  check(r.feed >= 11, `Home feed headlines stay legible (≥11px, got ${r.feed}px)`);
-  check(r.body <= 12.1, `content default (--fs-content) is the terminal density, not 13.6px prose (got ${r.body}px)`);
+  check(r.feed > 0 && r.feed <= 12.5 + r.bump, `Home feed headlines sit at league density (≤${12.5 + r.bump}px, got ${r.feed}px)`);
+  check(r.feed >= 11 + r.bump, `Home feed headlines stay legible (≥${11 + r.bump}px, got ${r.feed}px)`);
+  check(r.body <= 12.1 + r.bump, `content default (--fs-content) is the terminal density, not prose (got ${r.body}px)`);
   checkErrs(errs, "home");
 }
 
@@ -59,6 +61,7 @@ const base = `http://localhost:${srv.port}`;
     const caret = document.querySelector(".tx-typeopt .tx-typeopt-caret");
     const mono = (el) => (el ? /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(getComputedStyle(el).fontFamily) : false);
     return {
+      bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
       rowSize: opt ? getComputedStyle(opt).fontSize : "",
       lblSize: lbl ? getComputedStyle(lbl).fontSize : "",
       lblMono: mono(lbl),
@@ -66,11 +69,11 @@ const base = `http://localhost:${srv.port}`;
       caretSize: caret ? parseFloat(getComputedStyle(caret).fontSize) : 0,
     };
   });
-  checkEq(r.rowSize, "11.5px", "Transactions type-list: the option row sits at the 11.5px league density (not 14px)");
-  checkEq(r.lblSize, "11.5px", "Transactions type-list: the type name is 11.5px, like every other app row");
+  checkEq(r.rowSize, (11.5 + r.bump) + "px", `Transactions type-list: the option row sits at the league density (11.5px + ${r.bump}px bump, not 14px)`);
+  checkEq(r.lblSize, (11.5 + r.bump) + "px", `Transactions type-list: the type name is 11.5px + ${r.bump}px bump, like every other app row`);
   check(!r.lblMono, "Transactions type-list: the type name uses the sans family (matches league names)");
   check(r.nMono, "Transactions type-list: the count uses the mono family (every figure in the app is mono)");
-  check(r.caretSize <= 14, `Transactions type-list: the drill caret is app-scaled, not oversized (${r.caretSize}px)`);
+  check(r.caretSize <= 14 + r.bump, `Transactions type-list: the drill caret is app-scaled, not oversized (${r.caretSize}px)`);
   checkErrs(errs, "transactions type-list");
 }
 

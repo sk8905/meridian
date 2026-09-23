@@ -255,9 +255,9 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
 }
 .panel h2 { color: var(--ink-soft); }
 .chart { width: 100%; height: auto; }
-.chart-label { font-size: 12.5px; fill: var(--ink-soft); }
-.chart-value { font-size: 12.5px; fill: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
-.chart-axis { font-size: 11.5px; fill: var(--muted); }
+.chart-label { font-size:calc(12.5px + var(--fs-bump, 0px)); fill: var(--ink-soft); }
+.chart-value { font-size:calc(12.5px + var(--fs-bump, 0px)); fill: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+.chart-axis { font-size:calc(11.5px + var(--fs-bump, 0px)); fill: var(--muted); }
 .chart-grid { stroke: var(--line); stroke-width: 1; }
 .clickable, .bar-row.clickable { cursor: pointer; }
 .bar-row.clickable:hover rect[rx] { opacity: .82; }
@@ -266,8 +266,8 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
 .chart g.col.clickable:focus-visible { outline: 2px solid var(--primary); }
 .donut-wrap { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
 .donut { width: 180px; flex: 0 0 auto; }
-.donut-total { font-size: 26.5px; font-weight: 700; fill: var(--ink); font-variant-numeric: tabular-nums; }
-.donut-sub { font-size: 11.5px; fill: var(--muted); }
+.donut-total { font-size:calc(26.5px + var(--fs-bump, 0px)); font-weight: 700; fill: var(--ink); font-variant-numeric: tabular-nums; }
+.donut-sub { font-size:calc(11.5px + var(--fs-bump, 0px)); fill: var(--muted); }
 .legend { display: flex; flex-direction: column; gap: .4rem; }
 .legend-item { display: flex; align-items: center; gap: .5rem; font-size: .88rem; color: var(--ink-soft); }
 .legend-item.clickable:hover { color: var(--ink); }
@@ -619,7 +619,7 @@ a.compact-head:hover { text-decoration: none; }
    `th` below pins to the pane top on scroll. Phones re-enable horizontal scroll
    (the table keeps a real min-width there). */
 .lg-sc-wrap { width: 100%; }
-.lg-sc-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 11.5px; }
+.lg-sc-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size:calc(11.5px + var(--fs-bump, 0px)); }
 /* Phones: don't squeeze the columns into the viewport (text overlaps / wraps to
    slivers). Give the table a real min-width so columns keep readable widths and
    the wrapper scrolls horizontally instead. */
@@ -627,7 +627,7 @@ a.compact-head:hover { text-decoration: none; }
   .lg-sc-tbl { min-width: 980px; }
   .lg-sc-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
-.lg-sc-tbl th { text-align: left; font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; }
+.lg-sc-tbl th { text-align: left; font-size:calc(9px + var(--fs-bump, 0px)); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; }
 .lg-sc-tbl td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); line-height: 1.4; }
 .lg-sc-tbl th:nth-child(1), .lg-sc-tbl td:nth-child(1) { width: 12%; }
 .lg-sc-tbl th:nth-child(2), .lg-sc-tbl td:nth-child(2) { width: 10%; }
@@ -640,16 +640,16 @@ a.compact-head:hover { text-decoration: none; }
 .lg-sc-name { color: var(--ink); font-weight: 600; }
 .lg-sc-type { color: var(--muted); }
 .lg-sc-debt { font-variant-numeric: tabular-nums; white-space: nowrap; }
-.lg-sc-status { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 6px; border: 1px solid var(--border); border-radius: 2px; white-space: nowrap; color: var(--muted); }
+.lg-sc-status { display: inline-block; font-size:calc(10px + var(--fs-bump, 0px)); font-weight: 600; padding: 1px 6px; border: 1px solid var(--border); border-radius: 2px; white-space: nowrap; color: var(--muted); }
 .lg-sc-status.s-sanctioned { color: var(--t-up); border-color: color-mix(in srgb, var(--t-up) 40%, transparent); }
 .lg-sc-status.s-refused, .lg-sc-status.s-appealallowed { color: var(--t-down); border-color: color-mix(in srgb, var(--t-down) 40%, transparent); }
 .lg-sc-status.s-appealdismissed { color: var(--t-up); border-color: color-mix(in srgb, var(--t-up) 40%, transparent); }
 .lg-sc-status.s-convened { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
 .lg-mini-list, .lg-doc-list { margin: 0; padding: 0; list-style: none; }
-.lg-mini-list li { margin-bottom: 3px; line-height: 1.35; color: var(--muted); font-size: 11px; }
+.lg-mini-list li { margin-bottom: 3px; line-height: 1.35; color: var(--muted); font-size:calc(11px + var(--fs-bump, 0px)); }
 .lg-mini-list li:last-child { margin-bottom: 0; }
 .lg-doc-list li { margin-bottom: 4px; }
-.lg-doc-list a { color: var(--ink); font-size: 11px; }
+.lg-doc-list a { color: var(--ink); font-size:calc(11px + var(--fs-bump, 0px)); }
 .lg-doc-list a:hover { text-decoration: none; }
 
 /* Row highlight when an 'All' scheme/RP headline jumps into the table. */
@@ -666,7 +666,7 @@ a.compact-head:hover { text-decoration: none; }
 .tpane[data-pane="firms"] .tleague-lf td { text-align: left; }
 .tleague-lf td.tl-tier { color: var(--muted, #8592ad); }
 /* Main London areas: a SHORT summary (top 2 practice areas), kept to one line. */
-.tleague-lf td.tl-areas { color: var(--muted, #8592ad); font-size: 11px; white-space: nowrap; }
+.tleague-lf td.tl-areas { color: var(--muted, #8592ad); font-size:calc(11px + var(--fs-bump, 0px)); white-space: nowrap; }
 @media (min-width: 761px) {
   .tpane[data-pane="firms"] .tleague-full th:nth-child(1) { width: 19%; }  /* Firm           */
   .tpane[data-pane="firms"] .tleague-full th:nth-child(2) { width: 13%; }  /* Tier           */
