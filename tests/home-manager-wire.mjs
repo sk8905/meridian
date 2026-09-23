@@ -27,7 +27,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     cols: getComputedStyle(document.querySelector(".g-layout")).gridTemplateColumns.trim().split(/\s+/).length,
     defaultRead: ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim().length > 0,
   }));
-  checkEq(shell.lanes.join(" · "), "All · News · Manager · Watchlist", "merged wire: top-level lanes are All · News · Manager · Watchlist");
+  checkEq(shell.lanes.join(" · "), "All · News · Manager · Watchlist · Newsletters", "merged wire: top-level lanes are All · News · Manager · Watchlist · Newsletters");
   check(shell.readVisible && shell.mgrHidden, "desktop: the manager quadrant is now a reading pane (the manager wire is hidden here)");
   checkEq(shell.cols, 5, "desktop terminal stays a 5-column grid");
   check(shell.defaultRead, "reading pane: defaults to the top story of the day");
@@ -58,31 +58,16 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   check(r.dates.every((s) => /^\d+\s+\w+$/.test(s)) && dn.every((v, i) => i === 0 || dn[i - 1] >= v), `Manager lane: the meta line shows the DATE, newest → oldest (${r.dates.slice(0, 6).join(", ")})`);
   check(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b.*\d{4}/i.test(r.bands[0] || ""), `Manager lane: a month band leads the stream (${r.bands[0]})`);
 
-  // Second-level category filter: the present deal categories, each with a pastel dot
-  // (no "All" chip — the default is every category, nothing lit). Picking one narrows
-  // the wire to that label; re-clicking it clears back to all.
-  const f = await pg.evaluate(() => {
-    // Desktop: the category chips ride the lane-tab row (#g-wire-subs); phones keep them
-    // in #g-feed-head. Accept either host.
-    const chips = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")];
-    return { count: chips.length, noAll: !chips.some((c) => c.dataset.mglcat === "all"),
-      dots: chips.filter((c) => c.querySelector(".g-feed-deskdot")).length };
-  });
-  check(f.count >= 4 && f.noAll, `Manager lane: category chips only, no "All" chip (${f.count} chips)`);
-  check(f.dots === f.count, `Manager lane: every category chip carries its pastel dot (${f.dots}/${f.count})`);
-  const narrowed = await pg.evaluate(() => {
-    const chip = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")].find((c) => c.dataset.mglcat !== "all");
-    const want = chip.dataset.mglcat; chip.click();
-    return new Promise((res) => setTimeout(() => res({ want, onSel: document.querySelector("#g-wire-subs .g-feed-deskchip.is-on, #g-feed-head .g-feed-deskchip.is-on")?.dataset.mglcat,
-      codes: [...new Set([...document.querySelectorAll("#g-feed .g-mw-fev .g-feed-code")].map((c) => c.textContent.trim()))] }), 300));
-  });
-  check(narrowed.onSel === narrowed.want, `Manager lane: clicking a category selects it (${narrowed.onSel})`);
-  check(narrowed.codes.length === 1, `Manager lane: the wire narrows to only that label's stories (${narrowed.codes.join(", ")})`);
+  // The category sub-filter chips were removed (little-used), but every manager event
+  // keeps its own colour label (RAISE / DEAL / CLO …).
+  const f = await pg.evaluate(() => ({
+    noChips: !document.querySelector("#g-wire-subs [data-mglcat], #g-feed-head [data-mglcat]"),
+    labels: [...new Set([...document.querySelectorAll("#g-feed .g-mw-fev .g-feed-code")].map((c) => c.textContent.trim()))],
+  }));
+  check(f.noChips, "Manager lane: the category sub-filter chips are removed");
+  check(f.labels.length >= 3, `Manager lane: every event keeps its own colour label (${f.labels.slice(0, 8).join(", ")})`);
 
-  // Reading pane: clicking a manager row opens it in the pane in reading mode. First
-  // clear the active category (re-click the lit chip toggles back to all).
-  await pg.evaluate(() => { const c = document.querySelector("#g-wire-subs .g-feed-deskchip.is-on[data-mglcat], #g-feed-head .g-feed-deskchip.is-on[data-mglcat]"); if (c) c.click(); });
-  await pg.waitForTimeout(200);
+  // Reading pane: clicking a manager row opens it in the pane in reading mode.
   const read = await pg.evaluate(() => {
     const row = document.querySelectorAll("#g-feed .g-mw-fev")[2];
     const title = row.querySelector(".g-feed-title").textContent.replace(/^★\s*/, "").trim();
@@ -155,7 +140,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     chipsHidden: (() => { const l = document.getElementById("g-wire-lanes"); return !l || l.offsetParent === null; })(),
   }));
   check(!shell.tabs.includes("Managers"), `phone: the separate Managers tab is gone — merged into the wire (${shell.tabs.join(" · ")})`);
-  check(shell.menu.join(" · ") === "All · News · Manager · Watchlist", `phone: the wire-tab dropdown carries the four lanes (${shell.menu.join(", ")})`);
+  check(shell.menu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire-tab dropdown carries the five lanes (${shell.menu.join(", ")})`);
   check(shell.chipsHidden, "phone: the desktop lane chip row is hidden (the dropdown drives the lane on phones)");
   // Pick Manager from the dropdown → manager events render in the shared feed.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
@@ -165,10 +150,10 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   const m = await pg.evaluate(() => ({
     lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
     rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
-    subs: document.querySelectorAll("#g-feed-head .g-feed-deskchip[data-mglcat]").length,
+    labels: [...new Set([...document.querySelectorAll("#g-feed .g-mw-fev .g-feed-code")].map((c) => c.textContent.trim()))].length,
   }));
   check(m.lbl === "Manager" && m.rows >= 8, `phone: the Manager lane renders the manager wire in the feed (${m.rows} rows)`);
-  check(m.subs >= 4, `phone: the Manager lane keeps its category sub-filters (${m.subs})`);
+  check(m.labels >= 3, `phone: every manager event keeps its colour label (${m.labels} distinct)`);
   checkErrs(errs, "phone merged wire lanes");
   await ctx.close();
 }

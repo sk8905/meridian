@@ -1475,18 +1475,6 @@ function renderManagerWire() {
   }
 }
 
-// Where the lane's colour/label sub-filter chips are painted. On the desktop terminal
-// they sit INLINE on the lane-tab row (#g-wire-subs, right of All·News·Manager·Watchlist);
-// on phones there is no lane-tab row, so they stay in the pinned #g-feed-head band. The
-// unused host is emptied so a filter never shows in two places. Returns { host, inline }.
-function _deskFilterHost() {
-  const desktop = window.innerWidth > 1200;
-  const subs = document.getElementById("g-wire-subs");
-  const head = document.getElementById("g-feed-head");
-  if (desktop && subs) { if (head) head.innerHTML = ""; return { host: subs, inline: true }; }
-  if (subs) subs.innerHTML = "";
-  return { host: head, inline: false };
-}
 function renderFeed() {
   // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
   // data carries one — the four-times-daily routine populates it; rows lead with
@@ -1526,7 +1514,11 @@ function renderFeed() {
   // so without this it would fall under All/News only. Everything else folds into
   // the Home newsfeed, the superset of every news item across the app.
   (_liveFeed || []).forEach((n) => {
-    if (n.myft || n.substack) return;
+    // myFT / Substack ride their own desks; fixed-income (fi:true) items ride the
+    // dedicated `fixedincome` bucket below (desk "fi", badged FI) — routing them
+    // here too would mint a NEWS-desk duplicate that wins the title-dedupe on the
+    // merged wire and buries the FI label. Skip all three so each keeps its own code.
+    if (n.myft || n.substack || n.fi) return;
     // The Legal chip reads the `legal` bucket, so route legal-flagged items there
     // (with desk "l"); macro headlines to `macro`, the rest to `news`.
     const desk = n.legal ? "l" : deskFor(n.title, n.source);
@@ -1707,64 +1699,10 @@ function renderFeed() {
   const srcBar = _feedSrc ? feedSrcBarHTML(_feedSrc) : "";
   const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : (FEED_DESK_LABEL[_feedDesk] || DESK[_feedDesk]) + " items"} — check back shortly.`);
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
-  const { host, inline } = _deskFilterHost();
-  if (host) {
-    // Primary desk filter as a VISIBLE, colour-anchored chip row (was a hidden
-    // <select>) — the wire's desks now read as controls, not inert text. Macro /
-    // Credit / Hedge / Legal are their own desks; Equities & Fixed Income are keyword
-    // slices of the macro stream, so they share the macro colour. The row scrolls
-    // horizontally on narrow screens. There is NO "All"/"Views" chip: the default is
-    // all news (no chip lit), and clicking the active desk toggles back to all — the
-    // divider that leads the row (right of the lane tabs) separates lanes from desks.
-    const DESK_OPTS = [["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
-    const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex", n: "amber" };   // pill-hue anchor
-    const activeDesk = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
-    const chips = DESK_OPTS.map(([k, l]) => {
-      const on = activeDesk === k;
-      const dot = DESK_DOT[k] ? `<span class="g-feed-deskdot g-dot-${DESK_DOT[k]}" aria-hidden="true"></span>` : "";
-      const cls = "g-feed-deskchip" + (on ? " is-on" : "");
-      return `<button type="button" class="${cls}" data-desk="${esc(k)}" role="tab" aria-selected="${on}">${dot}${esc(l)}</button>`;
-    }).join("");
-    // No per-desk "Open …" button — the desk chips filter the wire in place, and
-    // the full desk views (Credit / Legal / Macro) are reached through the app's
-    // own navigation, not from here.
-    const grpBtn = `<button type="button" class="g-feed-openbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
-      + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
-      + `<span>Group by type</span></button>`;
-    // Second-level type chips for the active desk (Credit / Hedge / Legal).
-    const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
-    const typeChips = subDefs
-      ? subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
-      : "";
-    if (inline) {
-      // Desktop terminal: the whole filter set rides the lane-tab row on ONE line —
-      // desk chips, then (when a desk has them) the type chips after a hairline, all in
-      // the horizontal scroll strip; Group-by-type pinned at the right edge.
-      const sub = typeChips ? `<span class="g-feed-subinline">${typeChips}</span>` : "";
-      host.innerHTML = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}${sub}</div><div class="g-feed-ctl">${grpBtn}</div></div>`;
-    } else {
-      // Phones: desk chips on the pinned band, type chips wrap to a second row below.
-      const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${grpBtn}</div></div>`;
-      const secondary = typeChips
-        ? `<div class="g-feed-subrow"><span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">${typeChips}</span></div>`
-        : "";
-      host.innerHTML = deskrow + secondary;
-    }
-    // Desk chip: clears any source filter, switches desks and resets the type. Re-
-    // clicking the active desk toggles back to "all" (no dedicated All chip anymore).
-    host.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = (_feedDesk === b.dataset.desk) ? "all" : b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderWire(); }));
-    // Group-by-type toggle: day-by-day stream ⇄ by-label grouping (rolling 3 days).
-    const grp = host.querySelector(".g-feed-grpbtn");
-    if (grp) grp.addEventListener("click", (e) => {
-      e.preventDefault(); e.stopPropagation();
-      _feedSrc = null; _feedType = "all";
-      _feedGroup = !_feedGroup;
-      _saveHomePref({ group: _feedGroup });
-      renderWire();
-    });
-    // A type chip narrows within the current desk.
-    host.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderWire(); }));
-  }
+  // The desk / type / group-by sub-filters were removed (little-used) — the wire is now
+  // just the lane tabs (All · News · Manager · Watchlist · Newsletters). Each row keeps
+  // its own colour label. The lane picks the desk (_feedDesk), set in renderWire.
+  const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
   _lastFeed = feed;      // stashed so the "All" lane can interleave managers in
 }
 
@@ -1773,10 +1711,10 @@ function renderFeed() {
 // column (#g-feed), with the existing coloured sub-filters (news desks / manager
 // categories) switching to match the lane. The old manager quadrant becomes a
 // reading pane. Mobile keeps its own News/Watch tabs (renderManagerWire → #g-mgrwire).
-let _wireLane = "news";       // all | news | manager | watchlist
+let _wireLane = "news";       // all | news | manager | watchlist | newsletters
 let _mgrLaneCat = "all";      // manager/watchlist category sub-filter
 let _lastFeed = [];           // last news feed array (for the All interleave)
-const WIRE_LANES = [["all", "All"], ["news", "News"], ["manager", "Manager"], ["watchlist", "Watchlist"]];
+const WIRE_LANES = [["all", "All"], ["news", "News"], ["manager", "Manager"], ["watchlist", "Watchlist"], ["newsletters", "Newsletters"]];
 
 // Manager events, flattened + de-duped across managers, for the merged wire.
 function managerFlatEvents(watchOnly, cat) {
@@ -1801,12 +1739,12 @@ function mgrEventRow(x) {
     + `<span class="g-feed-title">${star}${esc(x.title)}</span>`
     + `<span class="g-feed-src">${esc(_mwSrc(x))}</span></a>`;
 }
-// Manager / Watchlist lane: flat month-banded manager events into #g-feed, with the
-// category chips as the second-level filter in #g-feed-head.
+// Manager / Watchlist lane: flat month-banded manager events into #g-feed. The
+// category sub-filter chips were removed — every event shows, each keeping its own
+// colour label (RAISE / DEAL / CLO …).
 function renderMgrLane(watchOnly) {
   const box = document.getElementById("g-feed"); if (!box) return;
-  const { events, present } = managerFlatEvents(watchOnly, _mgrLaneCat);
-  if (_mgrLaneCat !== "all" && !present.has(_mgrLaneCat)) { _mgrLaneCat = "all"; return renderMgrLane(watchOnly); }
+  const { events } = managerFlatEvents(watchOnly, "all");
   let out = "", lastMonth = "";
   events.forEach((r) => {
     const mk = String(r.date || "").slice(0, 7);
@@ -1815,22 +1753,9 @@ function renderMgrLane(watchOnly) {
   });
   const empty = watchOnly
     ? `<div class="g-mw-empty">No activity from your watchlist in this window. Tap ☆ on a manager to follow them.</div>`
-    : (_mgrLaneCat !== "all" ? `<div class="g-mw-empty">No ${esc(CAT_LABEL[_mgrLaneCat] || _mgrLaneCat)} activity in this window.</div>` : `<div class="g-mw-empty">No manager activity yet.</div>`);
+    : `<div class="g-mw-empty">No manager activity yet.</div>`;
   setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
-  const { host } = _deskFilterHost();
-  if (host) {
-    // No "All" chip — the default is every category (nothing lit); each chip carries
-    // its pastel dot, and re-clicking the active one toggles back to all.
-    const catOpts = MW_CAT_ORDER.filter((c) => present.has(c));
-    const chips = catOpts.map((c) => {
-      const on = _mgrLaneCat === c;
-      const dot = `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
-      const label = CAT_LABEL[c] || c.toUpperCase();
-      return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mglcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(label)}</button>`;
-    }).join("");
-    host.innerHTML = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by category">${chips}</div></div>`;
-    host.querySelectorAll("[data-mglcat]").forEach((b) => b.addEventListener("click", () => { _mgrLaneCat = (_mgrLaneCat === b.dataset.mglcat) ? "all" : b.dataset.mglcat; _saveHomePref({ mgrLaneCat: _mgrLaneCat }); renderWire(); }));
-  }
+  const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
 }
 // All lane: interleave the news feed with manager events by recency. Reuses the news
 // feed already painted by renderFeed (stashed in _lastFeed), then repaints #g-feed.
@@ -1839,12 +1764,7 @@ function _newsTs(x) {
   return Date.parse(`${d}T${x.time || "00:00"}:00Z`) || (x.added || 0) || Date.parse(d) || 0;
 }
 function mergeManagersIntoFeed() {
-  // All lane has no sub-filters — empty both hosts so nothing shows in the band (phones)
-  // or beside the lane tabs (desktop). On phones the .wire-lane-all class on .g-layout
-  // then collapses the (empty) #g-feed-head so the market-briefing bar sits directly
-  // under the wire tabs. See home.css (.wire-lane-all #g-feed-head).
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
-  const subs = document.getElementById("g-wire-subs"); if (subs) subs.innerHTML = "";
   const news = (_lastFeed || []).map((x) => ({ it: x, mgr: false, ts: _newsTs(x) }));
   const { events } = managerFlatEvents(false, "all");
   const mgr = events.map((e) => ({ it: e, mgr: true, ts: e.ts || _newsTs(e) }));
@@ -1862,13 +1782,11 @@ const WIRE_LANE_LABEL = Object.fromEntries(WIRE_LANES);
 function renderWireLanes() {
   const host = document.getElementById("g-wire-lanes");
   if (host) {
-    // Lane tabs on the left; an inline sub-filter slot on the right (desktop only —
-    // the lane row is display:none on phones). renderFeed/renderMgrLane fill #g-wire-subs
-    // with the lane's colour/label chips, so on the terminal the filters sit BESIDE the
-    // lane tabs instead of in a separate band below (which is hidden on desktop).
+    // Just the lane tabs — All · News · Manager · Watchlist · Newsletters (desktop; the
+    // lane row is display:none on phones, which use the wire-tab dropdown below). The
+    // desk/category sub-filters were removed, so there's no sub-filter slot here.
     host.innerHTML = WIRE_LANES.map(([k, l]) =>
-      `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("")
-      + `<div class="g-wire-subs" id="g-wire-subs"></div>`;
+      `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("");
     if (!host.dataset.wired) {
       host.dataset.wired = "1";
       host.addEventListener("click", (e) => { const b = e.target.closest(".g-wire-lane"); if (b && b.dataset.lane !== _wireLane) { _setWireLane(b.dataset.lane); } });
@@ -1901,8 +1819,13 @@ function renderWire() {
   // (empty) #g-feed-head and let the market-briefing bar sit under the wire tabs.
   const layout = document.querySelector(".g-layout");
   if (layout) layout.classList.toggle("wire-lane-all", lane === "all");
+  // The lane picks which desk the news feed shows: Newsletters → the newsletter desk
+  // ("n"); every other feed lane → all news. (No sub-filters, so this is the only
+  // desk control.) Reset the leftover type/group/source state each paint.
+  _feedType = "all"; _feedGroup = false; _feedSrc = null;
   if (lane === "manager" || lane === "watchlist") renderMgrLane(lane === "watchlist");
-  else { renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
+  else if (lane === "newsletters") { _feedDesk = "n"; renderFeed(); }
+  else { _feedDesk = "all"; renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
   _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();
   syncReadDefault();

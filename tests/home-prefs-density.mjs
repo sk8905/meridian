@@ -43,27 +43,24 @@ const base = `http://localhost:${srv.port}`;
   await ctx.close();
 }
 
-// ---- F8: Home remembers the last desk filter ----
+// ---- F8: Home remembers the last wire lane ----
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/");
-  await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
-  await pg.waitForSelector(".g-feed-deskchip", { timeout: 8000 });
-  await pg.waitForTimeout(600);
-  await pg.evaluate(() => document.querySelector('.g-feed-deskchip[data-desk="c"]').click());
-  await pg.waitForTimeout(300);
-  const stored = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").desk; } catch { return null; } });
-  checkEq(stored, "c", "selecting the Credit desk persists the filter");
-  // Reload → the Credit chip is restored as active.
+  await pg.evaluate(() => { localStorage.setItem("m_signed_in", "1"); try { localStorage.removeItem("wire.home.v1"); } catch {} });
   await pg.reload({ waitUntil: "load" });
-  await pg.waitForSelector(".g-feed-deskchip", { timeout: 8000 });
+  await pg.waitForSelector("#g-wire-lanes .g-wire-lane", { timeout: 8000 });
   await pg.waitForTimeout(600);
-  const restored = await pg.evaluate(() => {
-    const c = document.querySelector('.g-feed-deskchip[data-desk="c"]');
-    const litKeys = [...document.querySelectorAll(".g-feed-deskchip[data-desk].is-on")].map((x) => x.dataset.desk);
-    return { creditOn: !!(c && c.classList.contains("is-on")), litKeys };
-  });
-  check(restored.creditOn && restored.litKeys.join(",") === "c", "Home reopens on the remembered Credit filter, not all news");
-  checkErrs(errs, "remembered desk filter");
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((b) => b.textContent.trim() === "Manager").click());
+  await pg.waitForTimeout(300);
+  const stored = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").wireLane; } catch { return null; } });
+  checkEq(stored, "manager", "selecting the Manager lane persists it");
+  // Reload → the Manager lane is restored as active.
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-wire-lanes .g-wire-lane", { timeout: 8000 });
+  await pg.waitForTimeout(600);
+  const restored = await pg.evaluate(() => ((document.querySelector("#g-wire-lanes .g-wire-lane.is-on") || {}).textContent || "").trim());
+  checkEq(restored, "Manager", "Home reopens on the remembered Manager lane");
+  checkErrs(errs, "remembered wire lane");
   await ctx.close();
 }
 

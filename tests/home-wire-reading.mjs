@@ -18,20 +18,19 @@ await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); loc
 await pg.reload({ waitUntil: "load" });
 await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 
-// News lane (default): the coloured news-desk sub-filters, only news rows.
+// News lane (default): only news rows, and NO sub-filter row (the desk chips were
+// removed — the lane tabs are the only control now).
 await lane(pg, "News");
 await pg.waitForTimeout(200);
 const news = await pg.evaluate(() => ({
-  // Desktop: the desk sub-filters ride the lane-tab row (#g-wire-subs); on phones they
-  // stay in #g-feed-head — accept either host so the spec reads the active one.
-  subs: [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip, #g-feed-head .g-feed-deskchip")].map((c) => c.textContent.trim()),
+  subs: document.querySelectorAll("#g-wire-subs .g-feed-deskchip, #g-feed-head .g-feed-deskchip").length,
   mgrRows: document.querySelectorAll("#g-feed .g-mw-fev").length,
   rows: document.querySelectorAll("#g-feed .g-feed-row").length,
 }));
-check(news.subs.includes("Macro") && news.subs.includes("Credit") && news.subs.includes("Legal"), `News lane: the coloured desk sub-filters show (${news.subs.slice(0, 6).join(" · ")})`);
+check(news.subs === 0, "News lane: no desk sub-filter row (removed)");
 check(news.rows > 0 && news.mgrRows === 0, "News lane: only news rows (no manager events)");
 
-// All lane: news + manager interleaved, and NO second-level sub-filters.
+// All lane: news + manager interleaved, and still no sub-filters.
 await lane(pg, "All");
 await pg.waitForTimeout(250);
 const all = await pg.evaluate(() => ({

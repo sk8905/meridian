@@ -41,7 +41,7 @@ const b = await launchChromium();
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
   check(labels.join(" · ") === "Briefing · News · Chart · X Feed", `phone: four tabs — Briefing · News (lane) · Chart · X Feed (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
-  check(laneMenu.join(" · ") === "All · News · Manager · Watchlist", `phone: the wire tab's dropdown offers the four lanes (${laneMenu.join(", ")})`);
+  check(laneMenu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire tab's dropdown offers the five lanes (${laneMenu.join(", ")})`);
 
   // Default: Market Briefing on (the first chip), its pane visible, the rest hidden.
   check(await vis("#g-hbrief"), "phone: the market briefing pane is visible by default");
@@ -88,8 +88,8 @@ const b = await launchChromium();
   check(await vis("#g-feed"), "phone: manager events show in the shared feed pane (no separate Managers tab)");
   check(mgrLane.menuClosed, "phone: the dropdown closes after a lane is picked");
 
-  // The All lane carries no sub-filters, so its (empty) filter band collapses — the
-  // feed then sits directly under the wire tabs. Other lanes keep the band.
+  // The desk/category sub-filter band was removed — no lane shows one, so the feed
+  // sits directly under the wire tabs on every lane.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "All").click());
@@ -99,20 +99,20 @@ const b = await launchChromium();
     const tabs = document.querySelector(".g-wiretabs").getBoundingClientRect();
     const day = document.querySelector("#g-feed .g-feed-dayhdr");
     return {
-      headHidden: getComputedStyle(head).display === "none",
+      headHidden: !head || getComputedStyle(head).display === "none",
       dayUnderTabs: day ? Math.round(day.getBoundingClientRect().top - tabs.bottom) : null,
     };
   });
-  check(allBand.headHidden, "phone: the All lane collapses its empty filter band");
+  check(allBand.headHidden, "phone: no filter band on the All lane (removed)");
   check(allBand.dayUnderTabs != null && allBand.dayUnderTabs >= -1 && allBand.dayUnderTabs <= 6,
     `phone: on All, the feed sits directly under the wire tabs (gap ${allBand.dayUnderTabs}px)`);
 
-  // Back to the News lane — the filter band (sub-filters) returns.
+  // Back to the News lane — still no filter band (the desk chips are gone everywhere).
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "News").click());
   await pg.waitForTimeout(200);
-  check(await vis("#g-feed-head"), "phone: the News lane restores the filter band (sub-filters)");
+  check(!(await vis("#g-feed-head")), "phone: the News lane has no filter band either (removed)");
 
   // A bottom-nav Home tap resets to the Market Briefing pane (the first chip) and
   // never leaves the lane dropdown open. (The nav routes on pointerup, so a real tap
@@ -168,59 +168,55 @@ const b = await launchChromium();
   check(!(await vis(".g-hero")), "phone: the chart is hidden again under News");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
 
-  // The header · search band · wire chips · filter row stay LOCKED when the News
-  // pane scrolls. The filter row pins directly beneath the chips, and the feed's
-  // day-break marker pins just beneath the filter — "sticks to the top of the wire".
+  // The header · search band · wire chips stay LOCKED when the News pane scrolls, and
+  // the feed's day-break marker pins directly beneath the chips ("sticks to the top of
+  // the wire"). There is no filter row anymore.
   const at = () => pg.evaluate(() => {
     const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bot: Math.round(b.bottom) }; };
-    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), feedhead: r("#g-feed-head"), day: r("#g-feed .g-feed-dayhdr") };
+    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), day: r("#g-feed .g-feed-dayhdr") };
   });
   const rest = await at();
-  // At rest the filter row is pinned directly under the chips.
-  check(rest.feedhead && rest.tabs && Math.abs(rest.feedhead.top - rest.tabs.bot) <= 2,
-    `phone: at rest the filter row is pinned beneath the chips (filter.top ${rest.feedhead?.top}, chips.bot ${rest.tabs?.bot})`);
-  // Scroll the feed → the band + chips + filter stay pinned, and the day-break
-  // marker pins directly beneath the filter row.
+  // At rest the feed's day-break marker sits directly under the wire chips.
+  check(rest.day && rest.tabs && rest.day.top >= rest.tabs.bot - 2 && rest.day.top <= rest.tabs.bot + 8,
+    `phone: at rest the day marker sits beneath the chips (day.top ${rest.day?.top}, chips.bot ${rest.tabs?.bot})`);
+  // Scroll the feed → the band + chips stay pinned, and the day-break marker pins
+  // directly beneath the chips.
   await pg.evaluate(() => window.scrollTo(0, 5000));
   await pg.waitForTimeout(300);
   const scr = await at();
   const same = (a, c) => a && c && Math.abs(a.top - c.top) <= 1;
-  check(same(rest.band, scr.band) && same(rest.tabs, scr.tabs) && same(rest.feedhead, scr.feedhead),
-    `phone: band + chips + filter stay pinned on scroll (band ${rest.band?.top}→${scr.band?.top}, filter ${rest.feedhead?.top}→${scr.feedhead?.top})`);
-  check(scr.day && scr.day.top <= scr.feedhead.bot + 1 && scr.day.top >= scr.feedhead.bot - 4,
-    `phone: the day-break marker sticks just beneath the filter row (day.top ${scr.day?.top}, filter.bot ${scr.feedhead?.bot})`);
+  check(same(rest.band, scr.band) && same(rest.tabs, scr.tabs),
+    `phone: band + chips stay pinned on scroll (band ${rest.band?.top}→${scr.band?.top}, chips ${rest.tabs?.top}→${scr.tabs?.top})`);
+  check(scr.day && scr.day.top <= scr.tabs.bot + 1 && scr.day.top >= scr.tabs.bot - 4,
+    `phone: the day-break marker sticks just beneath the chips (day.top ${scr.day?.top}, chips.bot ${scr.tabs?.bot})`);
   // No overlap in the pinned cluster.
-  const stacked = scr.header.bot <= scr.band.top + 1 && scr.band.bot <= scr.tabs.top + 1 && scr.tabs.bot <= scr.feedhead.top + 1;
-  check(stacked, `phone: the pinned cluster stacks without overlap (header→${scr.band.top}, band→${scr.tabs.top}, tabs→${scr.feedhead.top})`);
+  const stacked = scr.header.bot <= scr.band.top + 1 && scr.band.bot <= scr.tabs.top + 1;
+  check(stacked, `phone: the pinned cluster stacks without overlap (header→${scr.band.top}, band→${scr.tabs.top})`);
 
   checkErrs(errs, "home mobile wire tabs");
   await ctx.close();
 }
 
-// --- Phone: the filter row leads the news column (above the briefing) and hides
-//     with that pane when a non-News chip is chosen. ---------------------------
+// --- Phone: the feed leads the news column and hides with that pane when a non-News
+//     chip is chosen. (There is no filter row anymore.) -------------------------
 {
   const ctx = await b.newContext({ viewport: { width: 430, height: 860 }, isMobile: true, hasTouch: true });
   const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
   await pg.waitForSelector(".g-wiretab[data-wire='x']", { timeout: 8000 });
-  // Switch to the News pane (default is the Briefing), then verify the filter row
-  // leads the feed and hides with that pane when X is chosen.
+  // Switch to the News pane (default is the Briefing), then verify the feed shows and
+  // hides with that pane when X is chosen.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(200);
   const r = await pg.evaluate(() => {
-    const head = document.getElementById("g-feed-head");
     const feed = document.getElementById("g-feed");
-    const inWrap = !!head.closest(".g-feed-wrap");
-    // The filter row leads the feed column (above the live feed).
-    const hb = head.getBoundingClientRect(), fb = feed.getBoundingClientRect();
-    const aboveFeed = hb.top <= fb.top + 1;
-    const visible = getComputedStyle(head).display !== "none" && head.offsetParent !== null;
+    const inWrap = !!feed.closest(".g-feed-wrap");
+    const visible = getComputedStyle(feed).display !== "none" && feed.offsetParent !== null;
     document.querySelector(".g-wiretab[data-wire='x']").click();
-    return { inWrap, aboveFeed, visible, hidden: getComputedStyle(head).display === "none" || head.offsetParent === null };
+    return { inWrap, visible, hidden: getComputedStyle(feed).display === "none" || feed.offsetParent === null };
   });
-  check(r.inWrap && r.aboveFeed && r.visible, "phone: the filter row leads the news column, above the feed");
-  check(r.hidden, "phone: switching to X hides the filter row with the news pane");
+  check(r.inWrap && r.visible, "phone: the feed leads the news column");
+  check(r.hidden, "phone: switching to X hides the news feed with its pane");
   await ctx.close();
 }
 

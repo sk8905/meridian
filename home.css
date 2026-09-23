@@ -900,27 +900,11 @@
       font:inherit; font-size:11.5px; font-weight:700; letter-spacing:.02em; cursor:pointer; }
     .g-wire-lane:hover{ color:var(--t-ink); }
     .g-wire-lane.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--t-ink); }
-    /* The lane's colour/label sub-filters ride the lane-tab row (desktop): they fill the
-       space to the RIGHT of All·News·Manager·Watchlist, scroll horizontally if they
-       overrun, and keep Group-by-type pinned at the far right. The old sub-filter band
-       (#g-feed-head) is hidden on the terminal — nothing sits below the lane row now, so
-       the All lane no longer shows an empty strip. */
-    .g-wire-subs{ display:none; }
-    @media (min-width:1201px){
-      .g-wire-subs{ display:flex; flex:1 1 auto; min-width:0; align-items:stretch; }
-      /* A single faint divider leads the sub-filters — right of the Watchlist tab — so it
-         separates the lane tabs from the desk/label filters (there is no per-chip
-         separator anymore). Shown only when the lane actually has sub-filters. */
-      .tui .g-wire-subs:not(:empty){ border-left:1px solid var(--t-grid2); margin-left:4px; padding-left:8px; }
-      /* The relocated desk-row sheds its band framing (full-width, borders) and simply
-         fills the remaining lane-row width. */
-      .tui .g-wire-subs .g-feed-deskrow{ flex:1 1 auto; width:auto; min-width:0; min-height:0; border-bottom:0; }
-      /* Inline second-level type chips sit right after the desk chips, divided by a
-         hairline, inside the same horizontal scroll strip. */
-      .tui .g-wire-subs .g-feed-subinline{ display:inline-flex; align-items:stretch; flex:0 0 auto;
-        margin-left:6px; padding-left:8px; border-left:1px solid var(--t-grid2); }
-      .tui .g-feed-head{ display:none; }
-    }
+    /* The desk / category sub-filters were removed — the wire is just the lane tabs
+       (All · News · Manager · Watchlist · Newsletters), each row keeping its own colour
+       label. So the sub-filter band (#g-feed-head) never carries anything now: hide it
+       everywhere in the terminal so it takes no space. */
+    .tui #g-feed-head{ display:none; }
     /* Reading pane — terminal reading mode (desktop only; shown in the ≥1201px block). */
     .g-read{ display:none; }
     .g-read-head{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; padding:7px 12px;
@@ -1370,17 +1354,11 @@
       /* Lock the feed filter tabs to the top (under the header, the search band AND
          the wire chips) while the headlines scroll — above the briefing, which
          scrolls beneath it. */
-      .tui .g-feed-head{ position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:8; background:var(--t-head); box-shadow:0 -1px 0 var(--t-head); }
-      /* The feed's day-break marker (18 Sep …) sticks directly beneath the filter
-         row once the briefing scrolls past — one extra chip-height below it. Scoped
-         to the Home feed (#g-feed) so other desks' day markers keep their offset. */
-      .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px) + var(--chip-h, 34px)); z-index:7; }
-      /* All lane: no coloured sub-filters, so collapse the empty filter band — the
-         market-briefing bar then sits directly under the wire tabs. With the band
-         gone, the day-break marker pins one chip-height higher (no filter row to
-         clear), so it still tucks right beneath the briefing on scroll. */
-      .tui .g-layout.wire-lane-all #g-feed-head{ display:none; }
-      .tui .g-layout.wire-lane-all #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); }
+      /* The feed's day-break marker (18 Sep …) sticks directly beneath the wire chips
+         once the briefing scrolls past — one chip-height below the tabs. The desk
+         sub-filter band was removed, so there is no extra row to clear (this holds on
+         every lane now). Scoped to the Home feed (#g-feed) so other desks keep theirs. */
+      .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:7; }
       }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */

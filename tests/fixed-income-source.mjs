@@ -16,9 +16,10 @@ const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v
 await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await pg.waitForTimeout(2500);
 
-// The Fixed Income filter surfaces the Bond Vigilantes item, badged FI.
+// The News wire surfaces the fi:true Bond Vigilantes item, badged FI (not MAC), with
+// its source — no desk filter needed (the sub-filters were removed; the News lane
+// shows all news and each row keeps its own label).
 const fi = await pg.evaluate((title) => {
-  document.querySelector('.g-feed-deskchip[data-desk="fi"]').click();
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
   const row = rows.find((r) => (r.querySelector(".g-feed-title") || {}).textContent === title);
   return {
@@ -27,17 +28,17 @@ const fi = await pg.evaluate((title) => {
     src: row ? (row.querySelector(".g-feed-src") || {}).textContent : null,
   };
 }, BV.title);
-check(fi.present, "Fixed Income filter surfaces the Bond Vigilantes item");
+check(fi.present, "the News wire surfaces the Bond Vigilantes item");
 checkEq(fi.code, "FI", "Bond Vigilantes item carries the FI desk label (not MAC)");
 check(/Bond Vigilantes/.test(fi.src || ""), "Bond Vigilantes item shows its source name");
 
-// It also appears in the All-news wire (it's a real source, not only a keyword view).
-// Re-click the active Fixed Income chip to toggle the filter back to all news.
+// It also appears on the All lane (news + managers interleaved).
 const inAll = await pg.evaluate((title) => {
-  document.querySelector('.g-feed-deskchip[data-desk="fi"]').click();
+  const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "All");
+  if (b) b.click();
   return [...document.querySelectorAll("#g-feed .g-feed-title")].some((t) => t.textContent === title);
 }, BV.title);
-check(inAll, "Bond Vigilantes item is folded into the All-news wire");
+check(inAll, "Bond Vigilantes item is folded into the All lane");
 
 checkErrs(errs, "fixed-income source");
 await ctx.close();
