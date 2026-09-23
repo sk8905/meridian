@@ -1799,21 +1799,25 @@ export function proxyParagraphs(md) {
 // or credentials: this is exactly what the publisher's public page serves.
 async function _readViaProxy(u, host, env) {
   try {
-    const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-no-cache": "false" };
+    // x-engine:browser makes Jina render the page in a real headless browser, which
+    // gets past bot walls that return an empty/blocked page to a plain fetch (Reuters).
+    const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-engine": "browser" };
     // Optional key lifts the keyless rate limit; keyless still works without it.
     if (env && env.JINA_API_KEY) hdrs.authorization = "Bearer " + env.JINA_API_KEY;
     const r = await fetch("https://r.jina.ai/" + u.toString(), {
       headers: hdrs,
-      signal: AbortSignal.timeout(20000),
+      signal: AbortSignal.timeout(28000),
     });
     if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-" + r.status };
-    const j = await r.json().catch(() => null);
-    const d = (j && j.data) || null;
-    const content = d && (d.content || d.text || "");
+    // Parse the JSON envelope, but tolerate a raw-markdown body too.
+    const raw = await r.text();
+    let content = "", title = "", date = "";
+    try { const d = (JSON.parse(raw) || {}).data; if (d) { content = d.content || d.text || ""; title = d.title || ""; date = d.publishedTime || ""; } }
+    catch { if (/^\s*[^{[]/.test(raw) && raw.length > 200) content = raw; }   // Jina returned markdown directly
     if (!content) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-empty" };
     const paras = proxyParagraphs(content);
-    const title = (d.title && String(d.title).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
-    return { url: u.toString(), source: _readTidy(host), title, byline: "", date: d.publishedTime || "", accessible: paras.length >= 2, paragraphs: paras, via: "proxy" };
+    const cleanTitle = (title && String(title).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
+    return { url: u.toString(), source: _readTidy(host), title: cleanTitle, byline: "", date, accessible: paras.length >= 2, paragraphs: paras, via: "proxy" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-failed" }; }
 }
 async function handleRead(request, env, ctx) {
