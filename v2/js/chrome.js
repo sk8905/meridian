@@ -228,9 +228,13 @@ function initHeaderLock() {
   const isPhone = () => matchMedia("(max-width: 760px)").matches;
   const lock = () => {
     if (isPhone()) {
-      // Rect height (not offsetHeight): they can differ by a px on the fixed
-      // bar, and the drift shows as a background seam under the chrome.
-      document.documentElement.style.setProperty("--wire-head-h", head.getBoundingClientRect().height + "px");
+      // FLOOR the measured height to a whole pixel. Every sticky sub-nav offset
+      // (search band, wire tabs, day headers) is derived from --wire-head-h, so a
+      // fractional value (e.g. 60.79px) put each bar on a sub-pixel boundary and
+      // left a hairline seam where the scrolling feed bled through. Flooring also
+      // makes the body pad slightly LESS than the real header height, so content
+      // tucks a sub-pixel BEHIND the fixed header — a guaranteed overlap, no gap.
+      document.documentElement.style.setProperty("--wire-head-h", Math.floor(head.getBoundingClientRect().height) + "px");
       head.classList.add("wire-head-fixed");
       document.body.classList.add("wire-head-pad");
     } else {

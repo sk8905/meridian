@@ -569,7 +569,11 @@ html.wire-boot #out { visibility: hidden; }
    viewport-fixed and the body is padded by its measured height, so neither
    pull-to-refresh nor native overscroll can move it. The tab bar is injected
    by the same controller and is always fixed. */
-.wire-head-fixed { position: fixed !important; top: 0; left: 0; right: 0; z-index: 1300; }
+/* box-shadow extends the header's own (navy) background 1px BELOW its box, so the
+   seam between the fixed header and the sticky search band can never show the
+   scrolling feed through a sub-pixel gap (belt-and-suspenders with the floored
+   --wire-head-h). */
+.wire-head-fixed { position: fixed !important; top: 0; left: 0; right: 0; z-index: 1300; box-shadow: 0 1px 0 var(--navy, #000); }
 body.wire-head-pad { padding-top: var(--wire-head-h, 56px); }
 /* Chip bar promoted into the chrome: pinned below the header, full-bleed. */
 /* top needs !important too: per-page sticky rules (tui .twire-head top:57px)
