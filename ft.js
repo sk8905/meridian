@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7c1a2718-b0a4-4dda-8c3a-c36ff6792e2b", title: "Why Germany’s ‘chancellor-in-waiting’ bides his time", date: "2026-09-23", time: "11:00", url: "https://www.ft.com/content/7c1a2718-b0a4-4dda-8c3a-c36ff6792e2b" },
+  { id: "b05367af-5236-4aca-99e7-ec1e8968f08a", title: "Azerbaijan pardons French national as part of secret prisoner release deal", date: "2026-09-23", time: "10:40", url: "https://www.ft.com/content/b05367af-5236-4aca-99e7-ec1e8968f08a" },
+  { id: "7d0f525e-f99d-4175-b37c-78d4dd4adf2b", title: "Enter slopfiling", date: "2026-09-23", time: "10:30", url: "https://www.ft.com/content/7d0f525e-f99d-4175-b37c-78d4dd4adf2b" },
+  { id: "62a6939f-7e24-492e-bdf6-b9ab9e1d3578", title: "Airtel Money launches one of London’s biggest IPOs in recent years", date: "2026-09-23", time: "07:56", url: "https://www.ft.com/content/62a6939f-7e24-492e-bdf6-b9ab9e1d3578" },
   { id: "9fbc4577-068b-45ad-b7fe-f524b9731d4e", title: "Pornhub's age checks probed by UK watchdog", date: "2026-09-23", time: "09:57", url: "https://www.ft.com/content/9fbc4577-068b-45ad-b7fe-f524b9731d4e" },
   { id: "7d59acf7-7bac-42e0-a5b2-196391d0480d", title: "The Liberal Democrats' unserious tax cut pledge", date: "2026-09-23", time: "09:30", url: "https://www.ft.com/content/7d59acf7-7bac-42e0-a5b2-196391d0480d" },
   { id: "9bc23f86-f977-408e-b32f-2917fd4a2267", title: "Swiss lawmakers vote to back tighter UBS capital rules", date: "2026-09-23", time: "09:22", url: "https://www.ft.com/content/9bc23f86-f977-408e-b32f-2917fd4a2267" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "0e50a3c6-9731-4b29-a21e-4e0ff89a595e", title: "Anthropic and OpenAI release cheaper models as price war intensifies", date: "2026-09-22", time: "21:31", url: "https://www.ft.com/content/0e50a3c6-9731-4b29-a21e-4e0ff89a595e" },
   { id: "43465057-ff09-4ff3-85d2-ebed45bee207", title: "Turkish dismay", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/43465057-ff09-4ff3-85d2-ebed45bee207" },
   { id: "f2f37449-f9c7-4556-9f97-4cca735980e4", title: "Top UK graft prosecutors joined Trump’s Venezuela oil baron during Swiss probe", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/f2f37449-f9c7-4556-9f97-4cca735980e4" },
-  { id: "152aa77b-977f-4607-8a09-77291f85d2a0", title: "US government and Gulf billionaires back Todd Boehly bid for Lukoil assets", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/152aa77b-977f-4607-8a09-77291f85d2a0" },
-  { id: "1ca67e27-b6b6-454a-8d37-b957835201d7", title: "Labour MPs call for end to loophole that trimmed billionaire’s tax bill by £18mn", date: "2026-09-22", time: "20:51", url: "https://www.ft.com/content/1ca67e27-b6b6-454a-8d37-b957835201d7" },
-  { id: "22d1154b-8bea-4f8d-bfc4-5db7761d3612", title: "Donald Trump says he would back US diesel export ban", date: "2026-09-22", time: "20:15", url: "https://www.ft.com/content/22d1154b-8bea-4f8d-bfc4-5db7761d3612" },
-  { id: "be468cf8-e450-46d8-891f-67bc79ffd7b3", title: "Royal Caribbean nears deal for Sandals valuing resorts at more than $6bn", date: "2026-09-22", time: "20:01", url: "https://www.ft.com/content/be468cf8-e450-46d8-891f-67bc79ffd7b3" },
-  { id: "0e03521f-c4f1-4242-8fff-0e34a27a26db", title: "Donald Trump rejects ‘globalist scheme’ to control AI in blow to Andy Burnham", date: "2026-09-22", time: "19:20", url: "https://www.ft.com/content/0e03521f-c4f1-4242-8fff-0e34a27a26db" },
 ];
