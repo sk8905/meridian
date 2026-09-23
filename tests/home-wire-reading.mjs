@@ -12,6 +12,11 @@ const srv = await serve({ "/api/read": () => [200, JSON.stringify(READ)] });
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((b) => b.textContent.trim() === n).click(), name);
+// Sources the app treats as NOT readable in-pane — either a subscriber paywall
+// (glance.js PAYWALL_SRC) or a bot-walled link-out (glance.js LINKOUT_SRC, e.g.
+// Reuters). Kept in step with both lists so "free row" picks here match what the
+// app actually renders as unlocked.
+const WALLED_SRC_PATTERN = "financial times|bloomberg|wall street journal|\\bwsj\\b|economist|new york times|\\bnyt\\b|barron|business insider|the times|telegraph|nikkei|forbes|washington post|the information|seeking alpha|reuters";
 
 const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/");
 await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); localStorage.removeItem("wire.home.v1"); } catch {} });
@@ -63,22 +68,24 @@ if (pay) check(pay.lock && pay.paras === 0, "reading pane: a subscriber source s
 
 // Row-level lock: a subscriber source carries an outline padlock right in the wire
 // (a glance-level "needs a login") — an openly-readable source does not.
-const rowLocks = await pg.evaluate(() => {
+const rowLocks = await pg.evaluate((walledPattern) => {
+  const walled = new RegExp(walledPattern, "i");
   const has = (r) => !!(r && r.querySelector(".g-feed-lock svg"));
   const src = (r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
   const paid = rows.find((r) => /financial times|bloomberg|wall street journal|economist|new york times/i.test(src(r)));
-  const free = rows.find((r) => { const s = src(r); return s && !/financial times|bloomberg|wall street journal|economist|new york times|nikkei|forbes|telegraph|the times|washington post|barron|business insider/i.test(s); });
+  const free = rows.find((r) => { const s = src(r); return s && !walled.test(s); });
   return { paidFound: !!paid, paidLock: has(paid), paidClass: !!(paid && paid.classList.contains("is-locked")), freeFound: !!free, freeLock: has(free) };
-});
+}, WALLED_SRC_PATTERN);
 if (rowLocks.paidFound) check(rowLocks.paidLock && rowLocks.paidClass, "wire row: a subscriber source carries the outline padlock (.g-feed-lock / .is-locked)");
 if (rowLocks.freeFound) check(!rowLocks.freeLock, "wire row: an openly-readable source is not padlocked");
 
 // Openly-readable → the reader service body prints in-pane (paragraphs + byline).
-const freeSel = await pg.evaluate(() => {
-  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => { const s = ((r.querySelector(".g-feed-src") || {}).textContent || "").trim(); return s && !/financial times|bloomberg|wall street journal|economist|new york times/i.test(s); });
+const freeSel = await pg.evaluate((walledPattern) => {
+  const walled = new RegExp(walledPattern, "i");
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => { const s = ((r.querySelector(".g-feed-src") || {}).textContent || "").trim(); return s && !walled.test(s); });
   if (!row) return false; row.click(); return true;
-});
+}, WALLED_SRC_PATTERN);
 if (freeSel) {
   await pg.waitForSelector("#g-readpane .g-read-p", { timeout: 4000 });
   const full = await pg.evaluate(() => {
