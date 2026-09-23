@@ -1944,8 +1944,12 @@ function _renderReaderInto(box, it, emptyMsg) {
         box.innerHTML = _readShell({ ...it, title: d.title || it.title }, `<span class="g-read-free">● reading mode</span>`,
           (bl ? `<div class="g-read-byline">${bl}</div>` : "") + d.paragraphs.map((p) => `<p class="g-read-p">${esc(p)}</p>`).join(""));
       } else {
+        // Surface WHY it couldn't render: a `reason` (fetch-401 / not-html / …) means
+        // the publisher blocked the server-side fetch; no reason means the fetch worked
+        // but no readable body was extracted. Helps decide fetch-proxy vs padlock.
+        const why = (d && d.reason) ? ` <span class="g-read-diag">(${esc(d.reason)})</span>` : "";
         box.innerHTML = _readShell(it, "",
-          `<div class="g-read-note">Full text isn't available in-pane for this source — open the original below.</div>`);
+          `<div class="g-read-note">Full text isn't available in-pane for this source — open the original below.${why}</div>`);
       }
     });
 }
