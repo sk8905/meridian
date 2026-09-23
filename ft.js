@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "db8d6db8-4aae-4afc-9ec7-7244c07b7ff7",
+    title: "Fixing Britain’s paralysed state means hard choices",
+    date: "2026-09-23",
+    time: "16:50",
+    url: "https://www.ft.com/content/db8d6db8-4aae-4afc-9ec7-7244c07b7ff7"
+  },
+  {
+    id: "8dfae006-c1ac-4713-8497-0e0e59e419f6",
+    title: "Trump lays a new trap for Takaichi",
+    date: "2026-09-23",
+    time: "16:39",
+    url: "https://www.ft.com/content/8dfae006-c1ac-4713-8497-0e0e59e419f6"
+  },
+  {
+    id: "3e480031-4ee7-4ded-9893-75c060aeef1a",
+    title: "Trump’s diesel ban would hurt America and help China",
+    date: "2026-09-23",
+    time: "16:37",
+    url: "https://www.ft.com/content/3e480031-4ee7-4ded-9893-75c060aeef1a"
+  },
+  {
+    id: "5b11b598-7c77-4bdf-82bf-a763adf71a72",
+    title: "US Treasury yields soar after strong data fuels bets on further rate rises",
+    date: "2026-09-23",
+    time: "16:33",
+    url: "https://www.ft.com/content/5b11b598-7c77-4bdf-82bf-a763adf71a72"
+  },
+  {
+    id: "c5215e50-446c-45e5-a2ec-36e3e30d0310",
+    title: "Italy clears path for nuclear power revival",
+    date: "2026-09-23",
+    time: "16:17",
+    url: "https://www.ft.com/content/c5215e50-446c-45e5-a2ec-36e3e30d0310"
+  },
+  {
     id: "a241848e-f78c-4435-abfd-3980160345c2",
     title: "UK reviews Chagos deal after fresh opposition from Trump",
     date: "2026-09-23",
@@ -271,33 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "05:00",
     url: "https://www.ft.com/content/33c88371-1925-4b63-b0ba-26b974386418"
-  },
-  {
-    id: "ff2e8572-8e74-47c6-accb-0739d8ca59ac",
-    title: "Inseparable ingredients of a happy retirement",
-    date: "2026-09-23",
-    time: "05:00",
-    url: "https://www.ft.com/content/ff2e8572-8e74-47c6-accb-0739d8ca59ac"
-  },
-  {
-    id: "51618d4e-6398-4368-a8f1-c46c1bc7956e",
-    title: "Public art is often bad — is there a secret to success?",
-    date: "2026-09-23",
-    time: "05:00",
-    url: "https://www.ft.com/content/51618d4e-6398-4368-a8f1-c46c1bc7956e"
-  },
-  {
-    id: "ab694096-0acf-4e13-9726-ec339a082a99",
-    title: "Global banks warn UK windfall tax will trigger shift away from London",
-    date: "2026-09-23",
-    time: "05:00",
-    url: "https://www.ft.com/content/ab694096-0acf-4e13-9726-ec339a082a99"
-  },
-  {
-    id: "f6962aaf-417f-4722-8316-0a0049af55aa",
-    title: "Private equity has a new kind of SaaS: swimming as a service",
-    date: "2026-09-23",
-    time: "05:00",
-    url: "https://www.ft.com/content/f6962aaf-417f-4722-8316-0a0049af55aa"
   }
 ];
