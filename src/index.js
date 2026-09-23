@@ -1792,33 +1792,52 @@ export function proxyParagraphs(md) {
   }
   return out;
 }
-// Fallback path: render the article through a browser-based reader proxy
-// (r.jina.ai) that returns the PUBLIC page's text. Used only when the direct
-// fetch was blocked or yielded no body — never for READ_PAYWALL hosts (those are
-// refused before any fetch), so no subscriber content is ever proxied. No login
-// or credentials: this is exactly what the publisher's public page serves.
+const _readCleanTitle = (t) => (t && String(t).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
+// Fallback path: render the article through a browser-based reader that returns the
+// PUBLIC page's text. Used only when the direct fetch was blocked or yielded no body
+// — never for READ_PAYWALL hosts (refused before any fetch), so no subscriber content
+// is ever proxied. No login or credentials: exactly what the public page serves.
+// Firecrawl (a real browser + auto residential proxy) is preferred when its key is
+// present, since it gets past the toughest bot walls (Reuters); otherwise Jina.
 async function _readViaProxy(u, host, env) {
+  if (env && env.FIRECRAWL_API_KEY) return _readViaFirecrawl(u, host, env);
+  return _readViaJina(u, host, env);
+}
+async function _readViaFirecrawl(u, host, env) {
   try {
-    // x-engine:browser renders the page in a real headless browser, and x-proxy:auto
-    // routes that fetch through residential IPs — together they get past bot walls that
-    // block datacenter traffic and return an empty page to a plain fetch (Reuters).
-    const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-engine": "browser", "x-proxy": "auto" };
-    // Optional key lifts the keyless rate limit; keyless still works without it.
-    if (env && env.JINA_API_KEY) hdrs.authorization = "Bearer " + env.JINA_API_KEY;
-    const r = await fetch("https://r.jina.ai/" + u.toString(), {
-      headers: hdrs,
-      signal: AbortSignal.timeout(28000),
+    const r = await fetch("https://api.firecrawl.dev/v1/scrape", {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: "Bearer " + env.FIRECRAWL_API_KEY },
+      // onlyMainContent strips nav/boilerplate; proxy:auto upgrades to a residential
+      // (stealth) fetch when a site blocks the basic one — what Reuters needs.
+      body: JSON.stringify({ url: u.toString(), formats: ["markdown"], onlyMainContent: true, proxy: "auto", timeout: 25000 }),
+      signal: AbortSignal.timeout(32000),
     });
+    if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-" + r.status };
+    const j = await r.json().catch(() => null);
+    const d = j && j.data;
+    const md = d && (d.markdown || d.content || "");
+    if (!md) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-empty" };
+    const paras = proxyParagraphs(md);
+    const meta = (d && d.metadata) || {};
+    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(meta.title || meta.ogTitle), byline: "", date: meta.publishedTime || meta.publishedDate || "", accessible: paras.length >= 2, paragraphs: paras, via: "firecrawl" };
+  } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-failed" }; }
+}
+async function _readViaJina(u, host, env) {
+  try {
+    // x-engine:browser renders the page in a real headless browser (gets past walls
+    // that hand a plain fetch an empty page).
+    const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-engine": "browser" };
+    if (env && env.JINA_API_KEY) hdrs.authorization = "Bearer " + env.JINA_API_KEY;   // lifts the keyless rate limit
+    const r = await fetch("https://r.jina.ai/" + u.toString(), { headers: hdrs, signal: AbortSignal.timeout(20000) });
     if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-" + r.status };
-    // Parse the JSON envelope, but tolerate a raw-markdown body too.
-    const raw = await r.text();
+    const raw = await r.text();   // parse the JSON envelope, but tolerate a raw-markdown body too
     let content = "", title = "", date = "";
     try { const d = (JSON.parse(raw) || {}).data; if (d) { content = d.content || d.text || ""; title = d.title || ""; date = d.publishedTime || ""; } }
-    catch { if (/^\s*[^{[]/.test(raw) && raw.length > 200) content = raw; }   // Jina returned markdown directly
+    catch { if (/^\s*[^{[]/.test(raw) && raw.length > 200) content = raw; }
     if (!content) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-empty" };
     const paras = proxyParagraphs(content);
-    const cleanTitle = (title && String(title).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
-    return { url: u.toString(), source: _readTidy(host), title: cleanTitle, byline: "", date, accessible: paras.length >= 2, paragraphs: paras, via: "proxy" };
+    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(title), byline: "", date, accessible: paras.length >= 2, paragraphs: paras, via: "proxy" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-failed" }; }
 }
 async function handleRead(request, env, ctx) {
