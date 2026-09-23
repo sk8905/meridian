@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d13b1982-450f-45d2-b79b-431f30b048b2", title: "The argument for Kalshi taking bets on its own legality", date: "2026-09-23", time: "14:15", url: "https://www.ft.com/content/d13b1982-450f-45d2-b79b-431f30b048b2" },
+  { id: "31a27312-8032-4957-be69-ba32561e8db3", title: "UN General Assembly live: Iran’s president to address leaders after Trump threatens ‘annihilation’", date: "2026-09-23", time: "14:13", url: "https://www.ft.com/content/31a27312-8032-4957-be69-ba32561e8db3" },
+  { id: "de215c81-a480-4944-aba7-9dcd3fc90dcb", title: "Green Party activists urged to skip conference to campaign for Polanski", date: "2026-09-23", time: "13:26", url: "https://www.ft.com/content/de215c81-a480-4944-aba7-9dcd3fc90dcb" },
   { id: "7a98e756-92a3-45e4-9630-187d20685e79", title: "Countries cancel Iran flights after US threatens to 'shut down' airlines", date: "2026-09-23", time: "13:08", url: "https://www.ft.com/content/7a98e756-92a3-45e4-9630-187d20685e79" },
   { id: "1d7daa8f-e8bb-436c-ad8b-b6d097e4107f", title: "McDonald's bets on chicken to win back diners as beef prices soar", date: "2026-09-23", time: "13:00", url: "https://www.ft.com/content/1d7daa8f-e8bb-436c-ad8b-b6d097e4107f" },
   { id: "e90bbf67-7c4e-4c0e-a15d-07462f3e3b1a", title: "Blow for drought-hit England as opening of new reservoir delayed by 5 years", date: "2026-09-23", time: "12:46", url: "https://www.ft.com/content/e90bbf67-7c4e-4c0e-a15d-07462f3e3b1a" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "76b51a19-0387-4eed-a343-980b1135de2c", title: "Diesel surge costs European drivers €203mn per day", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/76b51a19-0387-4eed-a343-980b1135de2c" },
   { id: "f95db340-8c8f-435f-957d-4623255ac29e", title: "Oil tanker costs hit record $1.2mn a day as Iran war disrupts shipping", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/f95db340-8c8f-435f-957d-4623255ac29e" },
   { id: "39845ea2-0738-4549-94f0-b0f6b212e6b2", title: "Todd Boehly’s oil deal from Russia with love", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/39845ea2-0738-4549-94f0-b0f6b212e6b2" },
-  { id: "7ec7e4e7-94ed-4627-9040-18867ccdaa53", title: "Rivals Revolut and Nubank go head to head in bid to crack US banking market", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/7ec7e4e7-94ed-4627-9040-18867ccdaa53" },
-  { id: "dffca393-d969-4e31-86bc-09ed6c06fbf0", title: "How could John Healey raise tax in the Budget?", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/dffca393-d969-4e31-86bc-09ed6c06fbf0" },
 ];
