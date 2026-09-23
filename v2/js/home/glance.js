@@ -435,7 +435,7 @@ function initXWire(eager) {
     io.observe(host);
   } else { boot(); }
 }
-// Keep the feed live & PRELOADED, but frugally. The recurring refresh runs every 20
+// Keep the feed live & PRELOADED, but frugally. The recurring refresh runs every 15
 // minutes, and ONLY during UK waking hours — 06:00 to midnight (Europe/London) — so the
 // wire never burns paid calls overnight. It also pauses while the app is backgrounded.
 // (Opening the X pane still fetches once at any hour — that's a deliberate user action,
@@ -461,9 +461,9 @@ function startXWireAuto() {
     _xwireLast = Date.now();
     renderXWire(h);
   };
-  _xwireAuto = setInterval(refresh, 20 * 60 * 1000);
+  _xwireAuto = setInterval(refresh, 15 * 60 * 1000);
   // On resume, if the feed has aged past ~5 min while hidden (and we're in hours),
-  // refresh at once; the 20-min cadence carries on. Not gated on Home being active.
+  // refresh at once; the 15-min cadence carries on. Not gated on Home being active.
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden && _xwireInHours() && Date.now() - _xwireLast > 5 * 60 * 1000) refresh();
   });

@@ -4276,7 +4276,7 @@ async function handleXFeed(request, env, ctx) {
   // stale feed is instantly attributable: "apis" = TwitterAPIs.com, "api" =
   // twitterapi.io, "syn" = free syndication (the one that goes stale).
   const body = JSON.stringify({ tweets, provider: usedProvider, asOf: new Date().toISOString() });
-  // Cache a non-empty result ~15 min; the client refreshes every 20 min, so this keeps
+  // Cache a non-empty result ~15 min; the client refreshes every 15 min, so this keeps
   // upstream (paid) calls to ~one per cycle even across manual taps / multiple viewers.
   // Never pin an empty response.
   if (tweets.length) {

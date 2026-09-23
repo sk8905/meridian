@@ -337,7 +337,7 @@ notification badge red (`#ef4444`).
   key, which also sidesteps ITP and the List owner's account privacy. The feed is
   **preloaded on Home load** (`initXWire(true)` — booted even while the X pane is
   hidden behind another chip, so the feed is populated the instant its chip is
-  opened) and **auto-refreshes every 20 min, only during UK 06:00–midnight** (Europe/
+  opened) and **auto-refreshes every 15 min, only during UK 06:00–midnight** (Europe/
   London, `_xwireInHours`) for as long as the app is foregrounded — on ANY view, not
   just Home (the Home DOM is kept in memory so `#g-xwire` persists); the cards never
   blank during a refresh. It **pauses while the app is backgrounded and overnight**, so

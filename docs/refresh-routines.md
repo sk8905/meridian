@@ -589,7 +589,7 @@ is topped up in code.
   `/api/xfeed` (a key required): `?debug=apis` (raw TwitterAPIs.com response + which path
   answered), `?debug=1` (raw twitterapi.io last_tweets), `?debug=members`/`?debug=roster`
   (twitterapi.io List resolution); `?debug=env` (presence-only booleans for the keys).
-- **Refresh cadence & cost.** The client (`startXWireAuto`) refreshes the wire **every 20
+- **Refresh cadence & cost.** The client (`startXWireAuto`) refreshes the wire **every 15
   minutes**, and **only during UK 06:00–midnight** (Europe/London, `_xwireInHours`) — so
   it never burns paid calls overnight; it also pauses while the app is backgrounded.
   Opening the X pane still fetches once at any hour (a deliberate user action). The Worker
