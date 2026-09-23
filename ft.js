@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "05c5f945-c75a-4adb-a189-121a05b3686a",
+    title: "How besieged billionaires are turning the tables on litigious shareholders",
+    date: "2026-09-23",
+    time: "18:27",
+    url: "https://www.ft.com/content/05c5f945-c75a-4adb-a189-121a05b3686a"
+  },
+  {
     id: "281a2cd1-2094-4f33-af04-387b75fe9db1",
     title: "Can Warsh tighten financial conditions without engineering a stock market fall?",
     date: "2026-09-23",
@@ -299,12 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "05:30",
     url: "https://www.ft.com/content/c557b92a-48bc-4d82-8fdb-f45cdc96ed77"
-  },
-  {
-    id: "7a977d6f-fdbc-425a-8881-7c43716c77f5",
-    title: "South Korea bets on Texas gas plant to satisfy Donald Trump",
-    date: "2026-09-23",
-    time: "05:28",
-    url: "https://www.ft.com/content/7a977d6f-fdbc-425a-8881-7c43716c77f5"
   }
 ];
