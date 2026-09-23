@@ -912,10 +912,10 @@
     .g-read-meta{ font-family:var(--t-mono); font-size:10.5px; color:var(--t-mut); padding-bottom:11px; margin-bottom:13px; border-bottom:1px solid var(--t-grid); }
     .g-read-free{ color:var(--t-up); }
     .g-read-lock{ color:var(--t-amber); }
-    .g-read-note{ font-family:var(--t-mono); font-size:11.5px; line-height:1.65; color:var(--t-dim); margin:0 0 13px; max-width:62ch; }
+    .g-read-note{ font-family:var(--t-mono); font-size:11.5px; line-height:1.65; color:var(--t-dim); margin:0 0 13px; }
     .g-read-loading{ color:var(--t-mut); }
     .g-read-byline{ font-family:var(--t-mono); font-size:10.5px; color:var(--t-faint); margin:0 0 13px; }
-    .g-read-p{ font-family:var(--t-mono); font-size:12.5px; line-height:1.72; color:var(--t-ink); margin:0 0 12px; max-width:64ch; }
+    .g-read-p{ font-family:var(--t-mono); font-size:12.5px; line-height:1.72; color:var(--t-ink); margin:0 0 12px; }
     .g-read-open{ font-family:var(--t-mono); font-size:11px; color:var(--t-accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--t-accent) 40%, transparent); }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:11.5px; line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
