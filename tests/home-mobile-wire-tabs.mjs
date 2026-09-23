@@ -40,20 +40,28 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "News · Briefing · Chart · X Feed", `phone: four tabs — News (lane) · Briefing · Chart · X Feed (${labels.join(", ")})`);
+  check(labels.join(" · ") === "All · Briefing · Chart · X Feed", `phone: four tabs — All (lane, default) · Briefing · Chart · X Feed (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
   check(laneMenu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire tab's dropdown offers the five lanes (${laneMenu.join(", ")})`);
 
-  // Default: Market Briefing on (the default pane, now the second chip), its pane
-  // visible, the rest hidden.
-  check(await vis("#g-hbrief"), "phone: the market briefing pane is visible by default");
-  check(!(await vis("#g-feed")), "phone: the news feed is hidden by default (Briefing selected)");
-  check(!(await vis(".g-hero")), "phone: the chart pane is hidden by default (Briefing selected)");
-  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default (Briefing selected)");
-  const briefDefault = await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"));
-  check(briefDefault, "phone: the Market Briefing chip is active by default");
+  // Default: the wire (News/All lane) pane on load — NOT the briefing. The lane chip
+  // is active, the feed visible, briefing + the other panes hidden.
+  check(await vis("#g-feed"), "phone: the news feed (All lane) is visible by default");
+  check(!(await vis("#g-hbrief")), "phone: the market briefing pane is hidden by default");
+  check(!(await vis(".g-hero")), "phone: the chart pane is hidden by default");
+  check(!(await vis(".g-side-x")), "phone: the X wire is hidden by default");
+  const laneDefault = await pg.evaluate(() => {
+    const lane = document.querySelector('.g-wiretab[data-wire="news"]');
+    const lbl = document.querySelector(".g-wiretab-lane .g-wire-lanelbl");
+    return { on: lane && lane.classList.contains("is-on"), lbl: (lbl && lbl.textContent || "").trim() };
+  });
+  check(laneDefault.on, "phone: the wire (News/All) chip is active by default");
+  check(laneDefault.lbl === "All", `phone: the default lane is All (${laneDefault.lbl})`);
 
-  // The briefing pane is ALWAYS expanded (no collapse chevron) and shows the latest brief.
+  // Switch to the Briefing tab: the briefing pane is ALWAYS expanded (no collapse
+  // chevron) and shows the latest brief.
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').click());
+  await pg.waitForTimeout(200);
   const brief = await pg.evaluate(() => {
     const el = document.getElementById("g-hbrief");
     if (!el || el.hidden) return null;
@@ -126,20 +134,24 @@ const b = await launchChromium();
   await pg.waitForTimeout(200);
   check(!(await vis("#g-feed-head")), "phone: the News lane has no filter band either (removed)");
 
-  // A bottom-nav Home tap resets to the Market Briefing pane (the first chip) and
+  // A bottom-nav Home tap resets to the DEFAULT — the wire (News/All lane) pane — and
   // never leaves the lane dropdown open. (The nav routes on pointerup, so a real tap
-  // — not a synthetic click — exercises ctrl.home().)
+  // — not a synthetic click — exercises ctrl.home().) First move OFF the default so the
+  // reset is observable.
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').click());
+  await pg.waitForTimeout(150);
   await pg.tap('.mtab[data-key="home"]');
   await pg.waitForTimeout(200);
   const afterHome = await pg.evaluate(() => ({
-    briefOn: document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"),
+    newsOn: document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on"),
+    lane: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
+    feedVisible: (() => { const f = document.getElementById("g-feed"); return !!f && getComputedStyle(f).display !== "none" && f.getBoundingClientRect().height > 0; })(),
     menuHidden: document.getElementById("g-wire-lanemenu").hidden,
   }));
-  check(afterHome.briefOn, "phone: a Home tap resets to the Market Briefing pane");
+  check(afterHome.newsOn && afterHome.feedVisible, "phone: a Home tap resets to the wire (News/All) pane");
+  check(afterHome.lane.trim() === "All", `phone: a Home tap resets the lane to All (${afterHome.lane})`);
   check(afterHome.menuHidden, "phone: a Home tap leaves the lane dropdown closed");
-  // Back to News for the remaining pane-swap checks.
-  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
-  await pg.waitForTimeout(200);
+  // Already on News/All for the remaining pane-swap checks.
 
   // Tap Chart → the hero chart pane is revealed (feed + manager hidden).
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());

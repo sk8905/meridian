@@ -185,6 +185,31 @@ await ctx.close();
   await pg2.evaluate(() => document.getElementById("g-reader-back").click());
   await pg2.waitForTimeout(150);
   check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: Back closes the reader");
+  // Re-open, then an iOS-style LEFT-EDGE swipe → back also closes it.
+  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
+  await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
+  const swiped = await pg2.evaluate(() => {
+    const ov = document.getElementById("g-reader");
+    const mk = (type, x, y) => { const t = new Touch({ identifier: 1, target: ov, clientX: x, clientY: y }); return new TouchEvent(type, { touches: [t], targetTouches: [t], changedTouches: [t], bubbles: true, cancelable: true }); };
+    ov.dispatchEvent(mk("touchstart", 8, 400));      // start AT the left edge
+    ov.dispatchEvent(mk("touchmove", 90, 405));      // drag right, staying horizontal
+    return true;
+  });
+  await pg2.waitForTimeout(120);
+  check(swiped && await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: a left-edge swipe-right closes the reader (iOS-style back)");
+  // A mid-content horizontal drag (NOT from the edge) must NOT close it — only the edge.
+  await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
+  await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
+  await pg2.evaluate(() => {
+    const ov = document.getElementById("g-reader");
+    const mk = (type, x, y) => { const t = new Touch({ identifier: 2, target: ov, clientX: x, clientY: y }); return new TouchEvent(type, { touches: [t], targetTouches: [t], changedTouches: [t], bubbles: true, cancelable: true }); };
+    ov.dispatchEvent(mk("touchstart", 180, 400));    // starts mid-pane, not the edge
+    ov.dispatchEvent(mk("touchmove", 280, 405));
+  });
+  await pg2.waitForTimeout(120);
+  check(await pg2.evaluate(() => !document.getElementById("g-reader").hidden), "phone: a mid-content swipe does NOT close the reader (edge-only)");
+  await pg2.evaluate(() => document.getElementById("g-reader-back").click());
+  await pg2.waitForTimeout(120);
   // A padlocked (subscriber) row does NOT open the in-app reader — it opens at the source.
   const locked = await pg2.evaluate(() => {
     const row = document.querySelector("#g-feed .g-feed-row.is-locked");

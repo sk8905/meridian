@@ -129,13 +129,15 @@ const b = await launchChromium();
   await ctx.close();
 }
 
-// --- Phone: the briefing is its OWN pane (the Market Briefing tab, the default),
-//     always expanded — no collapse — and it fills the page. -------------------
+// --- Phone: the briefing is its OWN pane (the Market Briefing tab — no longer the
+//     default; tap it), always expanded — no collapse — and it fills the page. ---
 {
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
   await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
   await pg.reload({ waitUntil: "load" });
-  await pg.waitForSelector("#g-hbrief .g-hbrief-head", { timeout: 8000 });
+  await pg.waitForSelector("#g-hbrief .g-hbrief-head", { state: "attached", timeout: 8000 });
+  // The default pane is now the wire (All lane); switch to the Briefing tab to test it.
+  await pg.click('.g-wiretab[data-wire="brief"]');
   await pg.waitForTimeout(400);
   const p = await pg.evaluate(() => {
     const el = document.getElementById("g-hbrief");
@@ -156,7 +158,7 @@ const b = await launchChromium();
       fills: el.getBoundingClientRect().height >= vh * 0.6,   // fills the page, not a slim strip
     };
   });
-  check(p.tabOn && p.tabLabel === "Briefing", "phone: Briefing is the default tab");
+  check(p.tabOn && p.tabLabel === "Briefing", "phone: the Briefing tab activates its pane");
   check(p.isPane && p.shown, "phone: the briefing shows as its own pane (wire-brief)");
   check(p.bullets >= 1 && p.bodyVisible && p.open === "true", `phone: the briefing is expanded (${p.bullets} bullet[s])`);
   check(!p.chev, "phone: there is NO collapse chevron — the briefing is always open");

@@ -214,11 +214,13 @@ function initMobileWireTabs() {
     _placeBriefPane();
   };
   if (!window.__wirePlaceBound) { window.__wirePlaceBound = true; window.addEventListener("resize", () => { try { _placeBriefPane(); } catch { /* noop */ } }); }
-  // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane,
-  // which is the Market Briefing (the first chip, always expanded). Always call
-  // setWire so a stored chart/watch/x class is cleared back on a fresh visit.
+  // Remember the module-level setter so a Home-nav tap (homeReset) can jump the pane.
+  _wireSetter = setWire;
+  // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane, which
+  // is now the wire (News/All lane), not the Market Briefing. Always call setWire so a
+  // stored chart/watch/x class is cleared back on a fresh visit.
   const _wp = _homePrefs().wire;
-  setWire(["brief", "news", "chart", "x"].includes(_wp) ? _wp : "brief");   // "watch" retired — merged into the wire lanes
+  setWire(["brief", "news", "chart", "x"].includes(_wp) ? _wp : "news");   // "watch" retired — merged into the wire lanes
   const laneMenu = document.getElementById("g-wire-lanemenu");
   const laneTab = tabs.querySelector(".g-wiretab-lane");
   tabs.addEventListener("click", (e) => {
@@ -1747,7 +1749,8 @@ function renderFeed() {
 // column (#g-feed), with the existing coloured sub-filters (news desks / manager
 // categories) switching to match the lane. The old manager quadrant becomes a
 // reading pane. Mobile keeps its own News/Watch tabs (renderManagerWire → #g-mgrwire).
-let _wireLane = "news";       // all | news | manager | watchlist | newsletters
+let _wireLane = "all";        // all | news | manager | watchlist | newsletters — DEFAULT lane is All
+let _wireSetter = null;       // initMobileWireTabs' setWire, hoisted so homeReset() can switch panes
 let _mgrLaneCat = "all";      // manager/watchlist category sub-filter
 let _lastFeed = [];           // last news feed array (for the All interleave)
 const WIRE_LANES = [["all", "All"], ["news", "News"], ["manager", "Manager"], ["watchlist", "Watchlist"], ["newsletters", "Newsletters"]];
@@ -1844,6 +1847,19 @@ function _setWireLane(k) {
 function _closeLaneMenu() {
   const menu = document.getElementById("g-wire-lanemenu"); if (menu) menu.hidden = true;
   const tab = document.querySelector(".g-wiretab-lane"); if (tab) tab.setAttribute("aria-expanded", "false");
+}
+// A Home-nav tap (home.js ctrl.home) lands on the DEFAULT: the wire pane, All lane —
+// not the Market Briefing. Switches the pane, forces the All lane, persists both so a
+// cold load lands there too, and scrolls to top. Closes any open in-app reader/menu.
+export function homeReset() {
+  try {
+    closeMobileReader();
+    if (_wireSetter) _wireSetter("news");            // the wire (feed) pane
+    if (_wireLane !== "all") _setWireLane("all"); else _closeLaneMenu();   // force the All lane (renders it)
+    _saveHomePref({ wire: "news", wireLane: "all" });
+    const feed = document.getElementById("g-feed"); if (feed) feed.scrollTop = 0;
+    window.scrollTo(0, 0);
+  } catch { /* best-effort reset */ }
 }
 // The dispatcher — the single entry point for (re)painting the merged wire. Desktop
 // selects the lane from the chip row; phones from the wire-tab dropdown (renderWireLanes
@@ -2097,6 +2113,24 @@ function ensureReadWired() {
   if (ov && !ov.dataset.wired) {
     ov.dataset.wired = "1";
     ov.addEventListener("click", (e) => { if (e.target.closest("#g-reader-back") || e.target === ov) closeMobileReader(); });
+    // iOS-style left-edge swipe → back: a drag that STARTS at the left edge and moves
+    // right past a threshold (staying mostly horizontal, so it never fights the body's
+    // vertical scroll) closes the reader. Passive listeners — scrolling is untouched.
+    let sx = 0, sy = 0, edge = false;
+    const EDGE = 30, GO = 66, VSLOP = 40;                 // start-zone px · trigger px · max vertical drift
+    ov.addEventListener("touchstart", (e) => {
+      const t = e.touches && e.touches[0];
+      edge = !!(t && t.clientX <= EDGE && !ov.hidden);
+      if (edge) { sx = t.clientX; sy = t.clientY; }
+    }, { passive: true });
+    ov.addEventListener("touchmove", (e) => {
+      if (!edge) return;
+      const t = e.touches && e.touches[0]; if (!t) return;
+      if (t.clientX - sx > GO && Math.abs(t.clientY - sy) < VSLOP) { edge = false; closeMobileReader(); }
+    }, { passive: true });
+    const end = () => { edge = false; };
+    ov.addEventListener("touchend", end, { passive: true });
+    ov.addEventListener("touchcancel", end, { passive: true });
   }
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
