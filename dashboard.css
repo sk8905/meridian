@@ -502,20 +502,36 @@
 .dsh-mw-comp-v { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
 .dsh-mw-comp-na { color:var(--t-faint); }
 .dsh-mw-comp-by { color:var(--t-faint); font-weight:400; text-transform:none; letter-spacing:0; }
-/* Phones: the 4-column ladder (Year · bar+$ · Composition · Cumulative) can't sit
-   side-by-side at ~390px. Shrink the bar + cumulative columns and the bar track, then
-   STACK the composition regions one-per-line so that column stops fighting for horizontal
-   width. Placed AFTER the base .dsh-mw-* rules so source order (media queries add no
-   specificity) lets these win. Nothing overlaps and nothing needs scrolling. */
+/* Phones: the 4-column ladder (Year · bar+$ · Composition · Cumulative) is too
+   cramped side-by-side at ~390px — the single unbreakable word "Cumulative" in its
+   ~38px head overflowed and clipped, and the Composition column was squeezed into a
+   three-line-per-row stack. RESTACK each year into a clean two-line block: line 1 is
+   Year · the integrated bar+$ · the cumulative %, so the bar is legible again and the
+   % head no longer collides; line 2 is the region composition inline across the whole
+   row. Every figure is preserved — only the redundant column heads drop out (their
+   values are self-evident, and the wide desktop card still shows them). Placed AFTER
+   the base .dsh-mw-* rules so source order wins. Nothing clips, nothing scrolls. */
 @media (max-width:560px) {
-  .dsh-mw-tbl th:first-child, .dsh-mw-tbl td:first-child { width:38px; }
-  .dsh-mw-tbl th:nth-child(2), .dsh-mw-tbl td.dsh-mw-barcell { width:118px; }
-  .dsh-mw-tbl th:last-child, .dsh-mw-tbl td.dsh-r { width:38px; }
-  .dsh-mw-barcell { gap:6px; padding-right:8px; }
-  .dsh-mw-track { width:30px; flex:0 0 30px; }
-  .dsh-mw-comp { padding-left:10px; padding-right:6px; line-height:1.35; }  /* gutter so the $ figure never touches the composition */
-  .dsh-mw-comp-i { display:block; }
-  .dsh-mw-comp-i:not(:last-child)::after { content:none; margin:0; }        /* no middot when stacked */
+  .dsh-mw-tbl, .dsh-mw-tbl tbody { display:block; width:100%; }
+  .dsh-mw-tbl thead { display:none; }                               /* heads redundant once stacked */
+  .dsh-mw-tbl tr {
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    grid-template-areas:"year bar cum" "comp comp comp";
+    align-items:center;
+    column-gap:10px;
+    padding:9px 0;
+    border-bottom:1px solid var(--t-grid);
+  }
+  .dsh-mw-tbl tbody tr:last-child { border-bottom:0; }
+  .dsh-mw-tbl td { display:block; width:auto; padding:0; border:0; }
+  .dsh-mw-tbl td.dsh-nm { grid-area:year; }
+  .dsh-mw-tbl td.dsh-mw-barcell { grid-area:bar; display:flex; align-items:center; gap:9px; padding:0; }  /* bar + $ stay on one line (td{display:block} above would stack them) */
+  .dsh-mw-track { width:96px; flex:0 0 96px; }                      /* bar legible again */
+  .dsh-mw-tbl td.dsh-r { grid-area:cum; text-align:right; white-space:nowrap; }
+  .dsh-mw-tbl td.dsh-mw-comp { grid-area:comp; margin-top:3px; padding:0; line-height:1.4; }
+  .dsh-mw-comp-i { display:inline; }                                /* region items inline again */
+  .dsh-mw-comp-i:not(:last-child)::after { content:"·"; margin:0 6px; color:var(--t-faint); }
 }
 
 /* Stress cards */
