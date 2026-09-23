@@ -865,6 +865,16 @@
     .tui .g-hero-xaxis{ grid-column:1; grid-row:2; position:relative; height:12px; margin-top:2px; }
     .tui .g-hero-xlab{ position:absolute; top:0; font-size:9.5px; line-height:1; color:var(--t-mut);
       font-variant-numeric:tabular-nums; white-space:nowrap; }
+    /* Direct end-of-line labels: a colour-matched code + % pinned to the right
+       gutter at each line's exit height (drawHeroMulti reserves HERO_ELW for them
+       and de-collides the vertical positions). Read a line straight off the chart. */
+    .tui .g-hero-endlbls{ position:absolute; inset:0; pointer-events:none; z-index:2; }
+    .tui .g-hero-el{ position:absolute; right:1px; transform:translateY(-50%); display:inline-flex; align-items:center;
+      gap:3px; font-size:9px; line-height:1; white-space:nowrap; font-variant-numeric:tabular-nums;
+      background:color-mix(in srgb, var(--t-panel) 74%, transparent); padding:1px 3px; border-radius:3px; }
+    .tui .g-hero-el-dot{ width:5px; height:5px; border-radius:50%; flex:0 0 auto; }
+    .tui .g-hero-el-nm{ font-weight:700; }
+    .tui .g-hero-el-pct{ opacity:.8; }
     .tui .g-hero-tip{ position:absolute; pointer-events:none; transform:translate(-50%,-118%); z-index:2;
       background:var(--t-ground, #000); border:1px solid var(--t-grid2); padding:2px 7px; white-space:nowrap;
       font-variant-numeric:tabular-nums; display:flex; flex-direction:column; align-items:center; }

@@ -567,7 +567,8 @@ function renderXWire(host) {
 const _HERO_KEY = "wire.hero.v1";
 let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
 let _heroSel = [];         // selected instrument keys (1..all); at least one is always kept
-let _heroRange = "1D";     // 1D | 5D | 1M | 6M | 1Y | ALL — default to the intraday view
+let _heroRange = "1M";     // 1D | 5D | 1M | 6M | 1Y | ALL — open on 1M, where the
+                           // indexed lines fan out and separate (1D buries them all on 0%)
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
 // Intraday ranges (1D/1W) read the 15-min bar series and plot on a real wall-clock
@@ -669,6 +670,8 @@ const HERO_RLBL = { "1D": "1-day", "5D": "5-day", "1M": "1-month", "6M": "6-mont
 const HERO_COLORS = { spx: "#3987e5", ndx: "#d95926", ftse: "#26a9c4", sx5e: "#b45bb0", ust10: "#199e70", oil: "#c98500", gold: "#d55181", btc: "#9085e9" };
 const HERO_FALLBACK = ["#3987e5", "#d95926", "#26a9c4", "#b45bb0", "#199e70", "#c98500", "#d55181", "#9085e9"];
 function heroColor(key, i) { return HERO_COLORS[key] || HERO_FALLBACK[i % HERO_FALLBACK.length]; }
+// Short codes for the direct end-of-line labels (the legend carries the full names).
+const HERO_CODE = { spx: "SPX", ndx: "NDX", ftse: "FTSE", sx5e: "STOXX", ust10: "10Y", oil: "Oil", gold: "Gold", btc: "BTC" };
 // The selected instruments, in basket order — never empty once data has loaded.
 function heroSelected() {
   if (!_heroData || !_heroData.length) return [];
@@ -898,8 +901,9 @@ function drawHero(svg, pts, m) {
 // The INDEX overlay drawn when ≥2 securities are selected: each series rebased to
 // % from the window start onto ONE shared % axis (never a dual axis — see the
 // dataviz rule), in its categorical colour, with a stronger baseline at 0%.
+const HERO_ELW = 74;   // reserved right gutter (viewBox units) for the direct end-of-line labels
 function drawHeroMulti(svg, series) {
-  const plotW = HERO_W - HERO_PX * 2, fullBottom = HERO_H - HERO_PB;
+  const plotW = HERO_W - HERO_PX - HERO_ELW, plotR = HERO_PX + plotW, fullBottom = HERO_H - HERO_PB;
   const intraday = heroIntraday();
   const ref = series.reduce((a, b) => (b.pts.length > a.pts.length ? b : a), series[0]);
   // Intraday overlays share ONE wall-clock domain so the lines line up in real time
@@ -939,7 +943,7 @@ function drawHeroMulti(svg, series) {
     for (let k = 0; k < xCount; k++) { const idx = Math.round((xn - 1) * k / Math.max(1, xCount - 1)); if (seen[seen.length - 1] !== idx) { seen.push(idx); xt.push({ gx: Xr(idx), label: heroFmtDate(ref.pts[idx][0]) }); } }
   }
   let grid = "";
-  for (const t of yt) { const gy = Y(t).toFixed(1), zero = Math.abs(t) < 1e-6; grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${(HERO_W - HERO_PX).toFixed(1)}" y2="${gy}" style="stroke:var(--${zero ? "t-faint" : "t-grid"})" stroke-width="${zero ? 1.2 : 1}" vector-effect="non-scaling-stroke"/>`; }
+  for (const t of yt) { const gy = Y(t).toFixed(1), zero = Math.abs(t) < 1e-6; grid += `<line x1="${HERO_PX}" y1="${gy}" x2="${plotR.toFixed(1)}" y2="${gy}" style="stroke:var(--${zero ? "t-faint" : "t-grid"})" stroke-width="${zero ? 1.2 : 1}" vector-effect="non-scaling-stroke"/>`; }
   for (const xk of xt) { const gx = xk.gx.toFixed(1); grid += `<line x1="${gx}" y1="${HERO_PT}" x2="${gx}" y2="${plotBottom.toFixed(1)}" style="stroke:var(--t-grid)" stroke-width="1" vector-effect="non-scaling-stroke"/>`; }
   let paths = "";
   const drawn = S.map((s) => {
@@ -957,6 +961,19 @@ function drawHeroMulti(svg, series) {
   if (yax) yax.innerHTML = yt.map((t) => `<span class="g-hero-ylab" style="top:${((Y(t) / HERO_H) * 100).toFixed(2)}%">${esc(heroPctStr(t))}</span>`).join("");
   const xax = document.getElementById("g-hero-xaxis");
   if (xax) xax.innerHTML = xt.map((xk, k) => { const pos = k === 0 ? "left:0" : k === xt.length - 1 ? "right:0" : `left:${((xk.gx / HERO_W) * 100).toFixed(2)}%;transform:translateX(-50%)`; return `<span class="g-hero-xlab" style="${pos}">${esc(xk.label)}</span>`; }).join("");
+  // Direct end-of-line labels: name each line (short code + window %) in the reserved
+  // right gutter, so a line is read straight off the chart — no colour cross-check
+  // against the legend. Labels are nudged apart vertically so none collide.
+  const els = document.getElementById("g-hero-endlbls");
+  if (els) {
+    const items = drawn.map((s) => ({ y: Y(s.pct[s.pct.length - 1]), color: s.color, code: HERO_CODE[s.key] || s.label, pct: s.pct[s.pct.length - 1] })).sort((a, b) => a.y - b.y);
+    const GAP = 12;                                        // min vertical spacing (viewBox units)
+    for (let i = 1; i < items.length; i++) if (items[i].y - items[i - 1].y < GAP) items[i].y = items[i - 1].y + GAP;
+    const spill = items.length ? items[items.length - 1].y - plotBottom : 0;   // shove the stack back up if it ran past the floor
+    if (spill > 0) for (const it of items) it.y -= spill;
+    for (let i = items.length - 1; i > 0; i--) if (items[i].y - items[i - 1].y < GAP) items[i - 1].y = items[i].y - GAP;
+    els.innerHTML = items.map((it) => `<span class="g-hero-el" style="top:${((Math.max(HERO_PT, it.y) / HERO_H) * 100).toFixed(2)}%;color:${it.color}"><i class="g-hero-el-dot" style="background:${it.color}"></i><span class="g-hero-el-nm">${esc(it.code)}</span><span class="g-hero-el-pct">${esc(heroPctStr(it.pct))}</span></span>`).join("");
+  }
   svg._multi = drawn; svg._ref = ref; svg._pts = null;
   svg._intraday = intraday; svg._t0 = t0; svg._span = span;
 }
@@ -1037,6 +1054,7 @@ function renderHero() {
   const series = chosen.map((c, i) => ({ key: c.key, label: c.label, m: c, color: heroColor(c.key, _heroData.findIndex((d) => d.key === c.key)), pts: heroSlice(c) })).filter((s) => s.pts.length >= 2);
   if (!series.length) return;
   svg._multi = null;
+  const els = document.getElementById("g-hero-endlbls"); if (els) els.innerHTML = "";   // cleared for single-line mode; drawHeroMulti repopulates it
   if (series.length >= 2) drawHeroMulti(svg, series);   // ≥2 → indexed % overlay
   else drawHero(svg, series[0].pts, series[0].m);        // 1 → price line + price axis
 }

@@ -72,6 +72,7 @@ const b = await launchChromium();
       spxFilled: dotFilled("spx"), goldFilled: dotFilled("gold"),
       lines: document.querySelectorAll("#g-hero-svg .g-hero-line").length,
       rangeOn: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
+      endLbls: [...document.querySelectorAll("#g-hero-endlbls .g-hero-el .g-hero-el-nm")].map((e) => e.textContent.trim()),
     };
   });
   checkEq(init.labels.length, 8, "hero: the securities row lists all eight instruments");
@@ -80,7 +81,10 @@ const b = await launchChromium();
   check(init.pcts.every((p) => /%$/.test(p)), `hero: every ticker shows a % change indicator (${init.pcts.join(" · ")})`);
   check(init.spxFilled && init.goldFilled, "hero: the curated default dots are FILLED (S&P 500 + Gold among them)");
   check(init.lines === 5, `hero: the curated default plots five lines (${init.lines})`);
-  checkEq(init.rangeOn, "1D", "hero: 1D is the default range");
+  checkEq(init.rangeOn, "1M", "hero: 1M is the default range (lines separate; 1D buries them on 0%)");
+  // Each plotted line is named in place by a direct end-of-line label (short code + %),
+  // so a line reads off the chart without cross-checking the legend colours.
+  check(init.endLbls.slice().sort().join(",") === "10Y,BTC,Gold,Oil,SPX", `hero: each of the five lines carries a direct end-label (${init.endLbls.join(", ")})`);
 
   // Default is the INDEXED overlay: a shared % axis, no single-view price tag,
   // a bottom dated time axis, and vertical grid lines.

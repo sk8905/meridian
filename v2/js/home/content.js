@@ -76,9 +76,9 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
                there is no separate chip selector to duplicate it. -->
           <div class="g-hero-sel" id="g-hero-sel" role="group" aria-label="Securities — tap to add or remove"></div>
           <div class="g-hero-range" id="g-hero-range" role="tablist" aria-label="Chart range">
-            <button type="button" class="g-hero-rg is-on" data-r="1D" role="tab">1D</button>
+            <button type="button" class="g-hero-rg" data-r="1D" role="tab">1D</button>
             <button type="button" class="g-hero-rg" data-r="5D" role="tab">5D</button>
-            <button type="button" class="g-hero-rg" data-r="1M" role="tab">1M</button>
+            <button type="button" class="g-hero-rg is-on" data-r="1M" role="tab">1M</button>
             <button type="button" class="g-hero-rg" data-r="6M" role="tab">6M</button>
             <button type="button" class="g-hero-rg" data-r="1Y" role="tab">1Y</button>
             <button type="button" class="g-hero-rg" data-r="ALL" role="tab">ALL</button>
@@ -86,6 +86,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <div class="g-hero-plot">
             <div class="g-hero-canvas">
               <svg id="g-hero-svg" viewBox="0 0 900 150" preserveAspectRatio="none" role="img" aria-label="Price chart"><title>Price chart</title></svg>
+              <div class="g-hero-endlbls" id="g-hero-endlbls" aria-hidden="true"></div>
               <div class="g-hero-tip" id="g-hero-tip" hidden></div>
             </div>
             <div class="g-hero-yaxis" id="g-hero-yaxis" aria-hidden="true"></div>
