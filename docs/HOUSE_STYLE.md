@@ -609,6 +609,7 @@ item keeps a real outbound source link (R7).
 - Axios
 - NBC News
 - MarketWatch
+- Sharecast (`sharecast.com`) — UK equities/markets (deal-scoped)
 - Google News (`news.google.com`) — aggregation
 - Nikkei Asia (`asia.nikkei.com`)
 - South China Morning Post (`scmp.com`)

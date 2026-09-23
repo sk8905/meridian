@@ -2606,6 +2606,12 @@ export const FEED_SOURCES = [
   // direct lending, CLOs, capital-relief trades) so the general PR firehose stays
   // out. filter:false because the query already scopes it.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Abusinesswire.com%20(%22private%20credit%22%20OR%20%22risk%20transfer%22%20OR%20%22direct%20lending%22%20OR%20%22asset-based%22%20OR%20CLO%20OR%20%22credit%20fund%22%20OR%20%22capital%20relief%22%20OR%20%22collateralized%22)%20when%3A7d", source: "Business Wire", region: "GEN", cap: 10, gnews: true, filter: false },
+  // GlobeNewswire & PR Newswire — the other two major press-release wires, SCOPED via
+  // Google News to private-markets / credit / PE deals (same idea as Business Wire) so
+  // only genuine dealmaking gets in, not the PR firehose. Well-indexed domains, so the
+  // primary gnews fetch succeeds (no variant/Bing fallback). Openly readable in-pane.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aglobenewswire.com%20(%22private%20credit%22%20OR%20%22direct%20lending%22%20OR%20%22risk%20transfer%22%20OR%20CLO%20OR%20%22credit%20fund%22%20OR%20%22private%20equity%22%20OR%20buyout%20OR%20%22fund%20close%22%20OR%20%22capital%20raise%22%20OR%20%22asset-based%22%20OR%20%22collateralized%22)%20when%3A7d", source: "GlobeNewswire", region: "GEN", cap: 8, gnews: true, filter: false },
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aprnewswire.com%20(%22private%20credit%22%20OR%20%22direct%20lending%22%20OR%20%22risk%20transfer%22%20OR%20CLO%20OR%20%22credit%20fund%22%20OR%20%22private%20equity%22%20OR%20buyout%20OR%20%22fund%20close%22%20OR%20%22capital%20raise%22%20OR%20%22asset-based%22%20OR%20%22collateralized%22)%20when%3A7d", source: "PR Newswire", region: "GEN", cap: 8, gnews: true, filter: false },
   // Private-capital & credit trade press — openly-readable specialist desks that
   // keep the wire's private-markets / private-credit coverage in the reading pane
   // (Business Wire above is scoped press releases; these are edited news). Direct
@@ -2631,6 +2637,9 @@ export const FEED_SOURCES = [
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
   { url: "https://www.theguardian.com/business/economics/rss", source: "The Guardian", region: "UK", cap: 6 },
   { url: "https://www.theguardian.com/uk/business/rss", source: "The Guardian", region: "UK", cap: 5 },
+  // ShareCast — openly-readable UK equity/markets desk, SCOPED via Google News to the
+  // markets/macro/deal vocabulary so its single-stock RNS/broker-tip noise stays out.
+  { url: "https://news.google.com/rss/search?hl=en-GB&gl=GB&ceid=GB%3Aen&q=site%3Asharecast.com%20(market%20OR%20economy%20OR%20stocks%20OR%20FTSE%20OR%20%22Bank%20of%20England%22%20OR%20rate%20OR%20inflation%20OR%20bond%20OR%20gilt%20OR%20results%20OR%20takeover%20OR%20merger%20OR%20%22private%20equity%22%20OR%20%22hedge%20fund%22)%20when%3A2d", source: "Sharecast", region: "UK", cap: 5, gnews: true, filter: false },
   // Asia — reputable regional business/finance desks for overnight coverage.
   { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 4 },
   { url: "https://www.scmp.com/rss/92/feed", source: "South China Morning Post", region: "GEN", cap: 4 },
@@ -3047,10 +3056,11 @@ const FEED_PREMIUM = new Set([
   "Investing.com Economics",
 ]);
 const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek"]);
-// Openly-readable, topically-pure private-capital / credit trade desks — always
-// on-universe (their whole beat is private markets), so they bypass the relevance
-// gate like the legal wire, keeping the wire's private-markets coverage readable.
-const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire"]);
+// Openly-readable, topically-pure private-capital / credit desks — the trade press
+// (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
+// whose Google-News query already restricts them to private-markets/credit deals), so
+// they bypass the relevance gate like the legal wire, keeping that coverage readable.
+const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire"]);
 // The app's SIX focus verticals — used to hold the paywalled premium newsrooms
 // (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
 // bond markets (iii) private capital markets (iv) credit markets (v) hedge funds

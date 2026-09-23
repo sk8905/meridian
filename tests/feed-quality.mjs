@@ -24,6 +24,17 @@ for (const [name, want] of [
 }
 check(!bySource("Above the Law"), "roster: Above the Law is removed as a source");
 
+// ---- Roster: the deal press-release wires + UK markets desk (from TradingView audit) --
+for (const name of ["GlobeNewswire", "PR Newswire", "Sharecast"]) {
+  const src = bySource(name);
+  check(!!src, `roster: ${name} is registered as a newswire source`);
+  if (src) check(src.url.startsWith("https://") && src.filter === false, `roster: ${name} is a scoped (filter:false) feed`);
+}
+// Deal-scoped PR wires bypass the relevance gate; ShareCast stays gated (lighter quality).
+check(feedQualityKeep({ source: "GlobeNewswire", title: "Apollo closes $2bn direct lending fund" }), "cull: a GlobeNewswire private-credit deal is kept (curated bypass)");
+check(feedQualityKeep({ source: "PR Newswire", title: "Sixth Street completes $1.5bn CLO" }), "cull: a PR Newswire credit deal is kept (curated bypass)");
+check(feedQualityKeep({ source: "Sharecast", title: "FTSE 100 slips as UK inflation data disappoints" }), "cull: a Sharecast markets headline is kept");
+
 // ---- Cull: none of these are paywalled newsrooms; they're openly readable --------
 const PAYWALL = /financial times|bloomberg|wall street journal|economist|nikkei|forbes|new york times/i;
 for (const name of ["Legal Cheek", "Alternative Credit Investor", "Private Equity Wire"])
