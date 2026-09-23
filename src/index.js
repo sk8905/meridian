@@ -1799,9 +1799,10 @@ export function proxyParagraphs(md) {
 // or credentials: this is exactly what the publisher's public page serves.
 async function _readViaProxy(u, host, env) {
   try {
-    // x-engine:browser makes Jina render the page in a real headless browser, which
-    // gets past bot walls that return an empty/blocked page to a plain fetch (Reuters).
-    const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-engine": "browser" };
+    // x-engine:browser renders the page in a real headless browser, and x-proxy:auto
+    // routes that fetch through residential IPs — together they get past bot walls that
+    // block datacenter traffic and return an empty page to a plain fetch (Reuters).
+    const hdrs = { accept: "application/json", "x-return-format": "markdown", "x-engine": "browser", "x-proxy": "auto" };
     // Optional key lifts the keyless rate limit; keyless still works without it.
     if (env && env.JINA_API_KEY) hdrs.authorization = "Bearer " + env.JINA_API_KEY;
     const r = await fetch("https://r.jina.ai/" + u.toString(), {
