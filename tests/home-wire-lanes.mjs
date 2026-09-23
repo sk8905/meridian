@@ -56,6 +56,14 @@ const dflt = await pg.evaluate(() => {
 check(dflt.hasReading && !dflt.readingLocked, "desktop: the reading pane defaults to an UNLOCKED story");
 check(dflt.isFirstUnlocked, "desktop: the default is the most-recent unlocked row");
 
+// ---- ≥70% of the News wire is readable in-pane (subscriber items capped at 30%) ----
+const access = await pg.evaluate(() => {
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+  const locked = rows.filter((r) => r.classList.contains("is-locked")).length;
+  return { total: rows.length, locked, frac: rows.length ? locked / rows.length : 0 };
+});
+check(access.total > 0 && access.frac <= 0.30 + 1e-9, `News wire keeps ≥70% readable — subscriber rows ≤30% (${access.locked}/${access.total} = ${Math.round(access.frac * 100)}%)`);
+
 // ---- A padlocked story shows just the lock, no caption -----------------------
 const clickedLocked = await pg.evaluate(() => { const r = document.querySelector("#g-feed .g-feed-row.is-locked"); if (r) r.click(); return !!r; });
 check(clickedLocked, "a subscriber (padlocked) row is present to open");

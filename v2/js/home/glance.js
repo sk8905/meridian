@@ -1719,6 +1719,9 @@ function renderFeed() {
       : base).slice(0, CAP);
   }
 
+  // Keep the news wire ≥70% readable in-pane (the Newsletters lane is subscriber
+  // content by nature, so it's exempt).
+  if (groupedBody == null && _feedDesk !== "n") feed = _capPaywalledShare(feed, 0.30);
   // Row + day-header + source-bar + empty markup all come from the shared wire
   // engine (feed.js) — the same builders the Macro/Credit/Legal wires use.
   const body = groupedBody != null ? groupedBody : feedBodyHTML(feed);
@@ -1869,6 +1872,21 @@ const PAYWALL_SRC = /financial times|bloomberg|wall street journal|\bwsj\b|econo
 function _isPaywalled(src, href) {
   return PAYWALL_SRC.test(src || "")
     || /(?:^|\/\/|\.)(?:ft|bloomberg|wsj|economist|nytimes|barrons|businessinsider|thetimes|telegraph|nikkei|forbes|washingtonpost|theinformation|seekingalpha)\.[a-z]/i.test(href || "");
+}
+// Keep the wire mostly READABLE: cap subscriber-only (padlocked) items at ≤30% of the
+// feed so at least 70% opens in the reading pane. The list is newest-first, so the most
+// recent — most relevant — FT/Bloomberg/WSJ/Economist stories are the ones kept; older
+// paywalled items beyond the budget drop off (they stay reachable under their own desks).
+function _capPaywalledShare(list, maxFrac) {
+  if (!Array.isArray(list) || list.length < 8) return list;   // too small to bother
+  const acc = list.reduce((n, x) => n + (_isPaywalled(x.src, x.href) ? 0 : 1), 0);
+  const budget = Math.floor(acc * maxFrac / (1 - maxFrac));    // max paywalled for the target share
+  let kept = 0;
+  return list.filter((x) => {
+    if (!_isPaywalled(x.src, x.href)) return true;
+    if (kept < budget) { kept++; return true; }
+    return false;
+  });
 }
 // An outline padlock, flagged on rows whose source needs a login — so you can see
 // at a glance what can't open in the reading pane (it opens at the publisher).
