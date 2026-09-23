@@ -44,13 +44,13 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-23",
-      time: "00:26 BST",
-      lede: "A more hawkish read on the Bank of England is colliding with a Fed that still won't rule out October, leaving sterling pinned into the early hours even as Tuesday's chip-led record keeps the broader risk backdrop intact.",
+      time: "05:23 BST",
+      lede: "Both sides of the Atlantic hardened their hiking talk overnight &mdash; UBS now calls two more Bank of England moves and a St Louis Fed voter says the US may not be done either &mdash; leaving sterling and the dollar both bid into this morning's UK flash PMIs.",
       bullets: [
-        { html: "<strong>Macro &mdash; Deutsche Bank has shifted to expecting two more Bank of England rate hikes</strong>, a more hawkish path than consensus as persistent UK inflation and wage pressures reassert themselves.", src: "https://www.investing.com/news/economy-news/deutsche-bank-shifts-to-two-boe-rate-hikes-heres-why-4910220", srcName: "Investing.com" },
-        { html: "<strong>Macro &mdash; Richmond Fed president Tom Barkin said inflation pressures may take longer to fade</strong>, adding to a string of Fed officials keeping alive the case for another hike at the 28 October FOMC.", src: "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; UBS flipped its Bank of England call, now forecasting hikes to 4.25% in November and February 2027</strong>, joining Barclays and Deutsche Bank in a firming City consensus that the MPC's hawkish 6-3 hold last week was the start of a tightening path, not the end of one.", src: "https://www.investing.com/news/economy-news/ubs-flips-boe-call-sees-rate-hikes-to-425-in-november-and-february-2027-4906880", srcName: "Investing.com" },
+        { html: "<strong>Macro &mdash; St Louis Fed president Alberto Musalem said more rate hikes may be needed to cool prices</strong>, adding to Richmond Fed's Barkin and Governor Waller in keeping alive the case for a further move at the 28 October FOMC.", src: "https://www.bloomberg.com/news/articles/2026-09-21/fed-s-musalem-says-more-rate-hikes-likely-needed-to-cool-prices", srcName: "Bloomberg" },
         { html: "<strong>Equities &mdash; the Nasdaq Composite closed at a fresh record 27,244.28 Tuesday, up 0.45%, while the Dow and S&amp;P 500 slipped</strong> as a chipmaker-led AI rally offset a broader session weighed down by falling oil prices.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-22-2026", srcName: "TheStreet" },
-        { html: "<strong>Fixed income &mdash; sterling stayed pinned near the $1.3350s, &lsquo;in limbo&rsquo; against the dollar,</strong> caught between the Bank of England's newly hawkish repricing and this week's UK borrowing overshoot five weeks out from the Budget.", src: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-in-limbo-202609221131", srcName: "FXStreet" },
+        { html: "<strong>Fixed income &mdash; sterling stayed pinned near the $1.3350s, &lsquo;in limbo&rsquo; against the dollar,</strong> with today's UK flash composite PMI the next test of whether the hawkish BoE repricing has further to run.", src: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-in-limbo-202609221131", srcName: "FXStreet" },
       ],
     },
     afternoon: {

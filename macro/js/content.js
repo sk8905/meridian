@@ -13,7 +13,7 @@ export const UPDATED = "22 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-23",
-  lastCheckedTime: "00:19 BST",
+  lastCheckedTime: "05:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -402,7 +402,7 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-09-22",
+  updated: "2026-09-23",
   us: [
     { title: "Federal Reserve: Two more hikes seen as inflation stays too high – UOB", source: "FXStreet", author: "UOB Group", date: "2026-09-17", url: "https://www.fxstreet.com/news/federal-reserve-two-more-hikes-seen-as-inflation-stays-too-high-uob-202609171418" },
     { title: "S&P 500 analyst Yardeni resets street-high target as Fed cracks down", source: "TheStreet", author: "Yardeni Research — Ed Yardeni", date: "2026-09-16", url: "https://www.thestreet.com/latest-news/yardeni-cuts-sp-500-target-as-fed-raises-rates-september-2026" },
@@ -410,7 +410,7 @@ export const COMMENTARY = {
   ],
   uk: [
     { title: "Bank of England: Modest insurance tightening path – Deutsche Bank", source: "FXStreet", author: "Deutsche Bank Research", date: "2026-09-22", url: "https://www.fxstreet.com/news/bank-of-england-modest-insurance-tightening-path-deutsche-bank-202609221320" },
-    { title: "United Kingdom: BoE holds rate steady in September – UOB Group", source: "FXStreet", author: "UOB Group", date: "2026-09-19", url: "https://www.fxstreet.com/news/united-kingdom-boe-holds-rate-steady-in-september-uob-group-202509190936" },
+    { title: "UBS flips BoE call, sees rate hikes to 4.25% in November and February 2027", source: "Reuters (via Investing.com)", author: "UBS Research", date: "2026-09-18", url: "https://www.investing.com/news/economy-news/ubs-flips-boe-call-sees-rate-hikes-to-425-in-november-and-february-2027-4906880" },
     { title: "Barclays backs November BoE hike, warns Middle East conflict could spur more", source: "Reuters (via Investing.com)", author: "Barclays Research", date: "2026-09-18", url: "https://www.investing.com/news/economy-news/barclays-backs-november-boe-hike-warns-middle-east-conflict-could-spur-more-4906680" },
   ],
 };
@@ -989,7 +989,7 @@ export const NEWS = {
     { title: "Oil prices reverse gains as United Nations General Assembly meeting lifts hopes for Iran war diplomacy", source: "CNBC", date: "2026-09-22", time: "14:23", url: "https://www.cnbc.com/2026/09/22/oil-iran-us-bessent-un-crude.html" },
     { title: "Fed's Williams says rate-control toolkit is working well", source: "Reuters (via Investing.com)", date: "2026-09-22", time: "14:07", url: "https://www.investing.com/news/economy-news/feds-williams-says-ratecontrol-toolkit-is-working-well-4911121" },
     { title: "Trump, Xi seek trade stability and deals, but AI, tariffs and Iran loom large. What to watch", source: "CNBC", date: "2026-09-21", url: "https://www.cnbc.com/2026/09/21/trump-xi-china-summit-trade-tariffs.html" },
-    { title: "Stock Market Today (Sept. 22, 2026): Dow, S&P 500 sink as oil prices slide and AI stocks rise", source: "TheStreet", date: "2026-09-22", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-22-2026" },
+    { title: "Fed's Musalem Says More Rate Hikes May Be Needed to Cool Prices", source: "Bloomberg", date: "2026-09-21", url: "https://www.bloomberg.com/news/articles/2026-09-21/fed-s-musalem-says-more-rate-hikes-likely-needed-to-cool-prices" },
   ],
   uk: [
     { title: "UK Borrowing Overshoots in Fresh Budget Setback for Healey", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey" },
@@ -1010,6 +1010,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-23",
   items: [
+    {"title": "Fed's Musalem Says More Rate Hikes May Be Needed to Cool Prices", "source": "Bloomberg", "date": "2026-09-21", "time": "17:00", "url": "https://www.bloomberg.com/news/articles/2026-09-21/fed-s-musalem-says-more-rate-hikes-likely-needed-to-cool-prices", "blurb": "St. Louis Fed president Alberto Musalem said further tightening may be needed to bring inflation back to target, adding to a run of hawkish Fed commentary that has helped lift the dollar and keep October-hike odds alive following this month's 25bp increase.", "author": null},
     {"title": "UK Borrowing Overshoots in Fresh Budget Setback for Healey", "source": "Bloomberg", "date": "2026-09-22", "url": "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey", "blurb": "Britain's fiscal deficit climbed to £77.3bn in the first five months of the fiscal year — £8.1bn above the OBR's March forecast — after August public borrowing came in at £18.3bn, above every estimate in a Reuters poll, sharpening the backdrop for Chancellor Healey's 28 October Budget.", "author": null},
     {"title": "Trump, Xi seek trade stability and deals, but AI, tariffs and Iran loom large. What to watch", "source": "CNBC", "date": "2026-09-21", "url": "https://www.cnbc.com/2026/09/21/trump-xi-china-summit-trade-tariffs.html", "blurb": "Presidents Trump and Xi meet in Washington on Thursday — their second meeting this year — with tariffs, rare earths and AI chips on the agenda; analysts expect incremental progress rather than a breakthrough, with the trade truce running through 10 November.", "author": null},
     {"title": "Fed's Barkin Warns Inflation Pressures May Take Time to Pass", "source": "Bloomberg", "date": "2026-09-22", "url": "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass", "blurb": "Richmond Fed President Tom Barkin said repeated supply shocks are no longer proving temporary, warning inflation could take time to wane and risks becoming entrenched even as he said last week's 25bp hike 'will help' restore inflation to the 2% target.", "author": null},
