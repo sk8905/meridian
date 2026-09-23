@@ -4166,6 +4166,11 @@ async function handleXFeed(request, env, ctx) {
   // others if the chosen one returns nothing.)
   const provider = apisKey ? "apis" : ((apiKey && (handles.length || listId)) ? "api" : "syn");
   const dbg = url.searchParams.get("debug");
+  // ?debug=env — presence-only probe (booleans, NEVER the secret values), so you can
+  // confirm whether the Worker actually sees each key without exposing anything. No key
+  // required. If hasXapisKey is false, the XAPIS_KEY secret isn't bound to this Worker's
+  // (Production) environment — the fix is in Cloudflare, not the code.
+  if (dbg === "env") return json({ hasXapisKey: !!apisKey, hasXapiKey: !!apiKey, provider });
   // Diagnostics (key required, never cached):
   //   ?debug=apis     raw TwitterAPIs.com user-tweets for handles[0] (first path that answers)
   //   ?debug=1        raw twitterapi.io last_tweets for handles[0] (tweet/repost shape)
