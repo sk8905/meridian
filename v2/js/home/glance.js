@@ -611,14 +611,13 @@ function heroDayStart() {
   if (!t) t = Date.now();
   const d = new Date(t); d.setHours(0, 0, 0, 0); return d.getTime();
 }
-// The 1D wall-clock domain: the fixed local session window, but ONLY when the sliced
-// data actually starts within it (t0data ≥ open). Otherwise — pre-open, weekend or a
-// too-sparse day, where heroSlice fell back to a rolling window — keep the data-driven
-// domain so the chart never collapses. Returns [t0, t1, session].
+// The 1D wall-clock domain: ALWAYS the fixed session window (07:00–22:00 local, widened
+// only to the latest bar), never a rolling 24h — so 1D consistently reads as the trading
+// day left→right whatever hours the data happens to cover. Returns [t0, t1, session].
 function heroIntradayDomain(t0data, t1data) {
   if (_heroRange === "1D") {
     const ds = heroDayStart(), ws = ds + HERO_DAY_OPEN * 3600e3;
-    if (t0data >= ws) return [ws, Math.max(ds + HERO_DAY_CLOSE * 3600e3, t1data), true];
+    return [ws, Math.max(ds + HERO_DAY_CLOSE * 3600e3, t1data), true];
   }
   return [t0data, t1data, false];
 }
@@ -794,9 +793,10 @@ function heroSlice(m) {
   if (_heroRange === "1D") {
     const ws = heroDayStart() + HERO_DAY_OPEN * 3600e3;
     const day = src.filter((p) => p[0] >= ws);
-    if (day.length >= 2) return day;
-    const roll = src.filter((p) => p[0] >= now - 24 * 3600e3);
-    return roll.length >= 2 ? roll : src.slice(-2);
+    // Always the session window — no rolling-24h fallback. If today's session is too
+    // sparse to draw (pre-open), keep the last couple of bars; the domain still frames
+    // 07:00–22:00 so the axis never reverts to a rolling day.
+    return day.length >= 2 ? day : src.slice(-2);
   }
   let start = -Infinity;                                    // 5D / ALL → everything the series holds
   if (_heroRange === "1M") start = now - 31 * 864e5;

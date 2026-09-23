@@ -130,7 +130,7 @@ const b = await launchChromium();
   // hours with the rest of today empty to the right (data ends 15:30, axis runs on).
   const h1d = d1.xl.split(/\s+/).map((t) => parseInt(t, 10)).filter((n) => !isNaN(n));
   check(h1d.length >= 3, `hero: 1D lays the whole local day out across several hour ticks (${d1.xl})`);
-  check(h1d[0] <= 8, `hero: the 1D axis starts at the local session open (~07:00) (${d1.xl})`);
+  check(h1d[0] === 7, `hero: the 1D axis always starts at the fixed 07:00 session open — never a rolling 24h (${d1.xl})`);
   check(Math.max(...h1d) >= 19, `hero: the 1D axis spans the full trading day — empty space to the right for the rest of today (${d1.xl})`);
   // Session overlay = clean dashed VERTICAL markers only (no bands, no bottom strip):
   // each bounded market's open, plus its close once it has closed for the day. US

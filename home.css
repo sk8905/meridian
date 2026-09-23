@@ -808,7 +808,7 @@
        Manager wire on the right. The left rail and both right rails span both rows
        so they stay full-height. */
     .tui .g-layout{ display:grid; grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 304px 320px;
-      grid-template-rows:auto minmax(0,1fr);
+      grid-template-rows:minmax(0,3fr) minmax(0,7fr);   /* top row (briefing + chart) ≈ 30% of the height */
       grid-template-areas:"side brief hero sidex side2" "side feed mgr sidex side2";
       gap:0; margin:0; align-items:start; }
     .tui .g-side{ grid-area:side; display:block; border-right:1px solid var(--t-grid2); }
@@ -1049,8 +1049,14 @@
       /* Briefing quadrant (top-left of the 2×2). The header pins and the summary
          body scrolls within the cell, so a long brief never steals height from the
          news wire below it. A hairline underline divides it from the news row. */
-      .tui .g-hbrief:not([hidden]){ display:flex; flex-direction:column; min-height:0; max-height:300px;
+      .tui .g-hbrief:not([hidden]){ display:flex; flex-direction:column; min-height:0; height:100%;
         overflow:hidden; border-bottom:1px solid var(--t-grid2); }
+      /* Chart quadrant fills its (taller) row: the plot grows and the SVG stretches to
+         fill, so the briefing + chart row reads as ~30% of the height with no dead space. */
+      .tui .g-hero{ min-height:0; overflow:hidden; }
+      .tui .g-hero-plot{ flex:1 1 auto; min-height:0; grid-template-rows:minmax(0,1fr) auto; }
+      .tui .g-hero-canvas{ min-height:0; }
+      .tui #g-hero-svg{ height:100%; }
       /* The body is a column: the lede + the "AI-generated…" foot are PINNED (they
          never scroll), and ONLY the bullet list scrolls when a long brief overruns
          (the exception, not the norm). So the source-credit line is always locked at
