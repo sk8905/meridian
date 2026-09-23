@@ -1,3 +1,9 @@
 # Local agent-worktree scratch space (created by background subagents during
 # this session's refresh run) — not repo content, never commit.
 .claude/worktrees/
+
+# Build tooling artefacts — a local `npm install` / `npm run build` (the Vite
+# pipeline lives on a branch) drops these into the working tree. They are never
+# repo content and must never be committed to the git-connected deploy branch.
+node_modules/
+dist/
