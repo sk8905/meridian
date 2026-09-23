@@ -37,22 +37,32 @@
 .dsh { color:var(--t-ink); }
 .dsh { --dsh-gap:10px; padding:0 0 40px; }
 .dsh-nav { position:sticky; top:0; z-index:2; background:var(--t-head); }
-/* ---- Phones: lock the search band + section tabs to the top while scrolling.
-   (Desktop already keeps them fixed — it's a fixed-height terminal where only the
-   .dsh-mid column scrolls.) The shared search band (.wire-band, also on Macro /
-   Newsletters / Home) is static on mobile; pin it just under the fixed Wire header,
-   and drop the section tabs directly below it (they were pinned at top:0, i.e.
-   behind the header). ---- */
+/* ---- Phones: lock the section tabs + the per-section search to the top while
+   scrolling. (Desktop already keeps them fixed — it's a fixed-height terminal where
+   only the .dsh-mid column scrolls.) The section chips (.dsh-railnav) pin directly
+   under the fixed Wire header; the section search (.dsh-search) pins one chip-row
+   BELOW them — so the search reads as part of the section, beneath its chips. ---- */
 @media (max-width:760px) {
+  /* The SHARED wire search band (still used by Home / Macro / Newsletters — the
+     Dashboard no longer carries one) stays pinned under the fixed Wire header. */
   .thead-search.wire-band { position:sticky; top:var(--wire-head-h, 57px); z-index:9; background:var(--head, #0d0d0d); }
-  .dsh > .wire-band { background:var(--t-head); }
+  /* Dashboard: the section chips pin directly under the header (no band above them). */
   /* Specificity must beat the base `.dsh-railnav { top:0 }` that follows it. */
-  .dsh-3z > .dsh-railnav { top:calc(var(--wire-head-h, 57px) + var(--dsh-band-h, 43px)); z-index:8; }
+  .dsh-3z > .dsh-railnav { top:var(--wire-head-h, 57px); z-index:8; }
+  /* Per-section search sits beneath the chips (Profiles/Transactions pattern). */
+  .dsh-search { position:sticky; top:calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); z-index:7; background:var(--t-head); }
   /* Hedge Funds: the "Notable moves" wire (the newsrail) reads above the holdings
      boxes on phones — the nav stays first, then Notable moves, then the mid column
      (Consensus longs · Per-fund holdings). Desktop keeps the 3-zone side-by-side. */
   .dsh-3z[data-pane="hedge-funds"] .dsh-mid { order: 1; }
 }
+/* Per-section search field — styled from the Dashboard's own tokens (the shared
+   .tsearch leans on --lift/--border/--ink, which aren't in the .dsh scope). Full
+   width, sits atop the section's content, opaque so nothing bleeds under it. */
+.dsh-search { background:var(--t-head); border-bottom:1px solid var(--t-grid2); padding:8px 10px; height:auto; }
+.dsh-search .tsearch { flex:1 1 auto; width:100%; max-width:none; height:30px; margin:0; background:var(--t-panel2);
+  border:1px solid var(--t-grid2); color:var(--t-ink); font-family:var(--t-mono); font-size:12px; padding:0 10px; }
+.dsh-search .tsearch::placeholder { color:var(--t-faint); }
 /* Sub-tab labels: desktop shows the full label; the narrow iPhone tab bar shows
    the short one so "Fixed Income"/"Hedge Funds" don't wrap to two lines. */
 .dsh-tab-sm { display:none; }

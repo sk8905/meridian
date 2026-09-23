@@ -33,14 +33,24 @@ await pg.waitForTimeout(400);
 check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open, .mcmdk.open .mcmdk-input")), "band search opens the command palette");
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(200);
 
-// Dashboard and Macro carry the same band — search only, no AUM button. (The
-// standalone Newsletters surface is retired — newsletters live in the Home feed.)
-for (const [key, label] of [["dashboard", "Dashboard"], ["macro", "Macro"]]) {
-  if (key === "macro") { await pg.evaluate((k) => { history.pushState({ v2: true }, "", "/v2/" + k + "/"); dispatchEvent(new PopStateEvent("popstate")); }, key); await pg.waitForTimeout(1200); }
-  else await tap(key);
+// The standalone Macro surface carries the shared palette band — search only, no AUM
+// button. (Newsletters is retired — newsletters live in the Home feed.)
+for (const [key, label] of [["macro", "Macro"]]) {
+  await pg.evaluate((k) => { history.pushState({ v2: true }, "", "/v2/" + k + "/"); dispatchEvent(new PopStateEvent("popstate")); }, key); await pg.waitForTimeout(1200);
   const st = await pg.evaluate((k) => { const v = document.querySelector(`.v2-view[data-view="${k}"]`); return { q: !!(v && v.querySelector(".wire-band .wire-band-q[data-open-search]")), aum: !!(v && v.querySelector(".wire-band .tfocus-aum, .wire-band [data-aum-jump]")) }; }, key);
   check(st.q && !st.aum, `${label}: search band present, no AUM button`);
 }
+
+// The DASHBOARD no longer carries the global palette band — each section has its own
+// search beneath the chips instead (see dashboard-search.mjs for the behaviour).
+await tap("dashboard");
+await pg.waitForTimeout(500);
+const dsh = await pg.evaluate(() => {
+  const v = document.querySelector('.v2-view[data-view="dashboard"]');
+  return { noBand: !(v && v.querySelector(".wire-band")), sectionSearch: !!(v && v.querySelector(".dsh-search .dsh-q")) };
+});
+check(dsh.noBand, "Dashboard: the global palette band above the chips is gone");
+check(dsh.sectionSearch, "Dashboard: a per-section search sits beneath the chips instead");
 
 checkErrs(errs, "search band");
 await ctx.close();

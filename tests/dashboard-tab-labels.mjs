@@ -38,22 +38,26 @@ const desk = await visibleLabels(DESKTOP);
 checkEq(desk.fi, "Fixed Income", "Desktop rail: Fixed Income keeps the full label");
 checkEq(desk.hf, "Hedge Funds", "Desktop rail: Hedge Funds keeps the full label");
 
-// Phones: the search band + section tabs stay LOCKED under the fixed Wire header
-// when the page scrolls (the band was static, the tabs pinned behind the header).
+// Phones: the section tabs pin directly under the fixed Wire header, and the
+// per-section search pins directly BELOW the tabs (the old global top band is gone).
 {
   const { ctx, pg } = await open(b, PHONE, base + "/v2/dashboard/credit/");
   await pg.waitForTimeout(1500);
   await pg.evaluate(() => window.scrollTo(0, 900));
   await pg.waitForTimeout(150);
   const s = await pg.evaluate(() => {
-    const band = document.querySelector(".dsh .wire-band"), rail = document.querySelector(".dsh-railnav");
+    const rail = document.querySelector(".dsh-railnav"), search = document.querySelector(".dsh-search");
     const whh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 57;
-    const br = band.getBoundingClientRect(), rr = rail.getBoundingClientRect();
-    return { whh: Math.round(whh), bandPos: getComputedStyle(band).position, bandTop: Math.round(br.top), bandBot: Math.round(br.bottom), railPos: getComputedStyle(rail).position, railTop: Math.round(rr.top), scrolled: window.scrollY };
+    const rr = rail.getBoundingClientRect(), sr = search ? search.getBoundingClientRect() : null;
+    return { whh: Math.round(whh), noTopBand: !document.querySelector(".dsh > .wire-band"),
+      railPos: getComputedStyle(rail).position, railTop: Math.round(rr.top), railBot: Math.round(rr.bottom),
+      searchPos: search ? getComputedStyle(search).position : null, searchTop: sr ? Math.round(sr.top) : null,
+      scrolled: window.scrollY };
   });
   check(s.scrolled > 50, `dashboard page scrolls on phone (${s.scrolled}px)`);
-  check(s.bandPos === "sticky" && Math.abs(s.bandTop - s.whh) <= 3, `search band stays pinned under the header (band ${s.bandTop} ≈ header ${s.whh})`);
-  check(s.railPos === "sticky" && Math.abs(s.railTop - s.bandBot) <= 3, `section tabs stay pinned directly below the band (rail ${s.railTop} ≈ band bottom ${s.bandBot})`);
+  check(s.noTopBand, "the global search band above the chips is gone");
+  check(s.railPos === "sticky" && Math.abs(s.railTop - s.whh) <= 3, `section tabs stay pinned directly under the header (tabs ${s.railTop} ≈ header ${s.whh})`);
+  check(s.searchPos === "sticky" && Math.abs(s.searchTop - s.railBot) <= 3, `the section search pins directly below the tabs (search ${s.searchTop} ≈ tabs bottom ${s.railBot})`);
   await ctx.close();
 }
 
