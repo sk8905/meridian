@@ -435,29 +435,37 @@ function initXWire(eager) {
     io.observe(host);
   } else { boot(); }
 }
-// Keep the feed live & PRELOADED: re-fetch at least every 5 minutes for as long as
-// the app is open and foregrounded — on ANY view, not just Home (the Home DOM is
-// kept in memory, so #g-xwire persists), so the feed is always current the moment
-// its pane/chip is shown, with no blank. It also refreshes the instant the app
-// returns to the foreground if it went stale while hidden. It pauses only while the
-// app is backgrounded, so it never burns calls when nothing is watching.
-// renderXWire keeps the existing cards during each refresh.
+// Keep the feed live & PRELOADED, but frugally. The recurring refresh runs every 20
+// minutes, and ONLY during UK waking hours — 06:00 to midnight (Europe/London) — so the
+// wire never burns paid calls overnight. It also pauses while the app is backgrounded.
+// (Opening the X pane still fetches once at any hour — that's a deliberate user action,
+// handled by bootXWire, not this timer.) renderXWire keeps the existing cards on refresh.
 let _xwireAuto = 0;
 let _xwireLast = 0;
+// True during UK 06:00–23:59 (Europe/London, so it tracks BST/GMT automatically). Some
+// engines render midnight as "24", so fold it back to 0 → the window closes at midnight.
+function _xwireInHours() {
+  let h;
+  try { h = +new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", hour12: false }).format(new Date()); }
+  catch { h = new Date().getHours(); }
+  h = h % 24;
+  return h >= 6;
+}
 function startXWireAuto() {
   if (_xwireAuto) return;
   const refresh = () => {
     const h = document.getElementById("g-xwire");   // resolve live, so a re-mounted Home is followed
     if (!h || !h.isConnected) return;               // X wire not in the DOM
     if (document.hidden) return;                     // app backgrounded — pause
+    if (!_xwireInHours()) return;                    // outside UK 06:00–midnight — pause
     _xwireLast = Date.now();
     renderXWire(h);
   };
-  _xwireAuto = setInterval(refresh, 5 * 60 * 1000);
-  // On resume, if the feed has aged past ~1 min while hidden, refresh at once (and
-  // the 5-min cadence carries on). Not gated on Home being active.
+  _xwireAuto = setInterval(refresh, 20 * 60 * 1000);
+  // On resume, if the feed has aged past ~5 min while hidden (and we're in hours),
+  // refresh at once; the 20-min cadence carries on. Not gated on Home being active.
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && Date.now() - _xwireLast > 60 * 1000) refresh();
+    if (!document.hidden && _xwireInHours() && Date.now() - _xwireLast > 5 * 60 * 1000) refresh();
   });
 }
 // Relative "29m / 3h / 2d", falling back to a short date.

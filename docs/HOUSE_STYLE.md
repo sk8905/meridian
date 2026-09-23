@@ -337,12 +337,12 @@ notification badge red (`#ef4444`).
   key, which also sidesteps ITP and the List owner's account privacy. The feed is
   **preloaded on Home load** (`initXWire(true)` — booted even while the X pane is
   hidden behind another chip, so the feed is populated the instant its chip is
-  opened) and **auto-refreshes at least every ~5 min for as long as the app is
-  foregrounded — on ANY view**, not just Home (the Home DOM is kept in memory so
-  `#g-xwire` persists), and **refreshes the moment the app returns to the
-  foreground** if it aged while hidden; the cards never blank during a refresh. It
-  **pauses only while the app is backgrounded**, so it never burns calls when nothing
-  is watching. Every card
+  opened) and **auto-refreshes every 20 min, only during UK 06:00–midnight** (Europe/
+  London, `_xwireInHours`) for as long as the app is foregrounded — on ANY view, not
+  just Home (the Home DOM is kept in memory so `#g-xwire` persists); the cards never
+  blank during a refresh. It **pauses while the app is backgrounded and overnight**, so
+  it never burns paid calls when nothing is watching (opening the pane still fetches once
+  at any hour). Every card
   is a **real post** (no tweet text stored or
   invented — R7) linking its permalink, with a persistent **"Open list on X"** link
   and a clear message when X's server read is unavailable. **Membership auto-syncs
@@ -351,7 +351,7 @@ notification badge red (`#ef4444`).
   adding/removing an account on the List (`x.com/i/lists/…`) flows into the feed with
   no code change. `X_ACCOUNTS` in `v2/js/home/xposts.js` is the **fallback roster**
   (used when membership can't be read or no key); `X_LIST` holds the List id/link.
-  `/api/xfeed` edge-caches a non-empty result ~5 min and never pins an empty one.
+  `/api/xfeed` edge-caches a non-empty result ~15 min (`max-age=900`) and never pins an empty one.
   **Data source (provider ladder — cheapest first):** `/api/xfeed` prefers
   **TwitterAPIs.com** (`XAPIS_KEY` secret, ~3× cheaper; roster = `X_ACCOUNTS` in
   `xposts.js`), then **twitterapi.io** (`XAPI_KEY` secret; resolves + auto-syncs the X

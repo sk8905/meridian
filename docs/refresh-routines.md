@@ -583,16 +583,20 @@ is topped up in code.
   3. **Free X syndication** per handle (no key) — logged-out-safe but can serve stale
      timelines to datacenter IPs; the last resort.
   Each rung **falls through to the next if it returns nothing**, so a provider swap can
-  never leave the wire worse than before. The feed auto-refreshes ~5 min while on screen.
+  never leave the wire worse than before.
   Keys are Cloudflare **secrets** (dashboard → the Worker → Settings → Variables and
   Secrets → add `XAPIS_KEY` and/or `XAPI_KEY`), never committed. Diagnostics on
   `/api/xfeed` (a key required): `?debug=apis` (raw TwitterAPIs.com response + which path
   answered), `?debug=1` (raw twitterapi.io last_tweets), `?debug=members`/`?debug=roster`
-  (twitterapi.io List resolution).
-- **Cost note.** The wire refetches every handle each ~5-min refresh while open, so a
-  small credit balance drains in days if the app is left open. If cost bites, cut the
-  refresh cadence / lengthen the edge cache (see `handleXFeed` — the `max-age` on the
-  cached response and the client's `startXWireAuto` interval), not just the provider.
+  (twitterapi.io List resolution); `?debug=env` (presence-only booleans for the keys).
+- **Refresh cadence & cost.** The client (`startXWireAuto`) refreshes the wire **every 20
+  minutes**, and **only during UK 06:00–midnight** (Europe/London, `_xwireInHours`) — so
+  it never burns paid calls overnight; it also pauses while the app is backgrounded.
+  Opening the X pane still fetches once at any hour (a deliberate user action). The Worker
+  edge-caches a non-empty result **~15 min** (`max-age=900`), so manual taps / multiple
+  viewers inside a cycle share one upstream fetch. Each refresh still fans out one
+  `last_tweets` call per handle, so if cost bites further, the levers are the roster size,
+  the interval, and the cache TTL — not the provider.
 - If the wire shows "Live posts are unavailable", the source (paid or free) returned
   nothing — an upstream condition, not a data gap to fill in code. Enforced by
   `tests/home-xwire.mjs` + `tests/xfeed-parse.mjs`.
