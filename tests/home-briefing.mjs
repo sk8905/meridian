@@ -175,6 +175,21 @@ const b = await launchChromium();
     return Math.round(hb.top - tabs.bottom);
   });
   check(briefSeam >= 0 && briefSeam <= 2, `phone: the briefing pane butts flush under the wire tabs — no seam (gap ${briefSeam}px)`);
+  // Structure: a stuck header row and a stuck footer note (both direct children of
+  // the pane), with the body as the scroll region between them.
+  const struct = await pg.evaluate(() => {
+    const hb = document.getElementById("g-hbrief");
+    const head = hb.querySelector(":scope > .g-hbrief-head");
+    const body = hb.querySelector(":scope > .g-hbrief-body");
+    const foot = hb.querySelector(":scope > .g-hbrief-foot");
+    return {
+      headChild: !!head, footChild: !!foot,
+      bodyScrolls: !!body && getComputedStyle(body).overflowY === "auto",
+      order: head && body && foot ? (head.compareDocumentPosition(body) & 4) !== 0 && (body.compareDocumentPosition(foot) & 4) !== 0 : false,
+    };
+  });
+  check(struct.headChild && struct.footChild && struct.order, "phone: the header row and the footer note are stuck (direct children, header · body · footer)");
+  check(struct.bodyScrolls, "phone: the briefing body is the scroll region between the stuck header and footer");
   // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(100);

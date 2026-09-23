@@ -310,6 +310,9 @@ function renderHomeBriefing() {
   }).join("");
   host.hidden = false;
   host.dataset.open = "true";
+  // Structure: a stuck header, a SCROLLING body (lede + desk bullets), then a stuck
+  // footer note — the foot is a SIBLING of the body (not inside it) so it pins to the
+  // bottom while the body scrolls between the two stuck rows.
   host.innerHTML =
     `<div class="g-hbrief-head">`
     + `<span class="g-hbrief-ttl">Market briefing</span>`
@@ -317,8 +320,8 @@ function renderHomeBriefing() {
     + `<div class="g-hbrief-body">`
     + (s.lede ? `<p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
-    + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`
-    + `</div>`;
+    + `</div>`
+    + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
 }
 function initHomeBriefing() {
   // The briefing is always expanded now (its own Market Briefing pane on phones,
