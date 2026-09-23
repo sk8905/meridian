@@ -276,6 +276,13 @@
 .dsh-pc-grid .dsh-kv { flex-wrap:nowrap; }
 .dsh-pc-grid .dsh-kv-k { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:0 1 auto; }
 .dsh-pc-grid .dsh-kv-v { white-space:nowrap; flex:0 0 auto; }
+/* Phones: a metric + year-ago "vs X" + SRC chip can be wider than the card, so the
+   nowrap value overflowed and the SRC chip was clipped at the right edge. Let the value
+   box shrink and wrap so the chip drops to a second (right-aligned) line instead. */
+@media (max-width:560px) {
+  .dsh-pc-grid .dsh-kv { flex-wrap:wrap; align-items:baseline; }
+  .dsh-pc-grid .dsh-kv-v { white-space:normal; flex:1 1 auto; min-width:0; }
+}
 /* Year-ago ("vs X 2Q25") comparison — faint, linking its own source. */
 .dsh-kv-yoy { margin-left:6px; font-family:var(--t-mono); font-size:calc(10px + var(--fs-bump, 0px)); color:var(--t-faint); text-decoration:none; white-space:nowrap; }
 .dsh-kv-yoy:hover { color:var(--t-mut); text-decoration:underline; }
@@ -464,6 +471,9 @@
 .dsh-mw-tbl th:first-child, .dsh-mw-tbl td:first-child { width:48px; }        /* Year */
 .dsh-mw-tbl th:nth-child(2), .dsh-mw-tbl td.dsh-mw-barcell { width:158px; }    /* short bar + $ */
 .dsh-mw-tbl th:last-child, .dsh-mw-tbl td.dsh-r { width:78px; }                /* Cumulative */
+/* The Stress table (6 columns) is wider than a phone; let it scroll rather than clip. */
+.dsh-stresswrap { overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.dsh-stresswrap::-webkit-scrollbar { display:none; }
 /* Composition column (3rd) takes the freed width. */
 .dsh-mw-tbl th:nth-child(3) { text-align:left; }
 /* Short integrated bar — a fixed ~84px track (still proportional across years) with
@@ -482,6 +492,21 @@
 .dsh-mw-comp-v { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
 .dsh-mw-comp-na { color:var(--t-faint); }
 .dsh-mw-comp-by { color:var(--t-faint); font-weight:400; text-transform:none; letter-spacing:0; }
+/* Phones: the 4-column ladder (Year · bar+$ · Composition · Cumulative) can't sit
+   side-by-side at ~390px. Shrink the bar + cumulative columns and the bar track, then
+   STACK the composition regions one-per-line so that column stops fighting for horizontal
+   width. Placed AFTER the base .dsh-mw-* rules so source order (media queries add no
+   specificity) lets these win. Nothing overlaps and nothing needs scrolling. */
+@media (max-width:560px) {
+  .dsh-mw-tbl th:first-child, .dsh-mw-tbl td:first-child { width:38px; }
+  .dsh-mw-tbl th:nth-child(2), .dsh-mw-tbl td.dsh-mw-barcell { width:118px; }
+  .dsh-mw-tbl th:last-child, .dsh-mw-tbl td.dsh-r { width:38px; }
+  .dsh-mw-barcell { gap:6px; padding-right:8px; }
+  .dsh-mw-track { width:30px; flex:0 0 30px; }
+  .dsh-mw-comp { padding-left:10px; padding-right:6px; line-height:1.35; }  /* gutter so the $ figure never touches the composition */
+  .dsh-mw-comp-i { display:block; }
+  .dsh-mw-comp-i:not(:last-child)::after { content:none; margin:0; }        /* no middot when stacked */
+}
 
 /* Stress cards */
 .dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
