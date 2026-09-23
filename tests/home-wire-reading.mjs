@@ -91,6 +91,7 @@ if (freeSel) {
       free: !!document.querySelector("#g-readpane .g-read-free"),
       firstP: (p || {}).textContent || "",
       align: cs && cs.textAlign,
+      letter: cs && parseFloat(cs.letterSpacing),
       readSize: cs && cs.fontSize,
       feedSize: title && getComputedStyle(title).fontSize,
     };
@@ -98,8 +99,11 @@ if (freeSel) {
   check(full.paras >= 2 && full.byline && full.free, `reading pane: an openly-readable source prints the extracted body in-pane (${full.paras} paragraphs)`);
   check(full.firstP.includes("Brent crude"), "reading pane: the extracted paragraph text renders");
   // The body prose is JUSTIFIED and set at the SAME size as the rest of the app's
-  // reading text (the wire feed titles) — not a larger outlier.
+  // reading text (the wire feed titles) — not a larger outlier. It's also COMPRESSED
+  // (negative tracking) so justification on the mono face doesn't open ragged rivers.
   checkEq(full.align, "justify", "reading pane: body text is justified");
+  check(full.letter < 0, `reading pane: body text is tracking-compressed for justified mono (letter-spacing ${full.letter}px)`);
+  checkEq(full.readSize, full.feedSize, "reading pane: body font-size matches the wire feed-title size (one app-wide reading size)");
   checkEq(full.readSize, full.feedSize, "reading pane: body font-size matches the wire feed-title size (one app-wide reading size)");
 }
 check(!!(pay || freeSel), "reading pane: access state resolves from the source");

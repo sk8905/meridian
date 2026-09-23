@@ -932,7 +932,10 @@
     .g-read-diag{ color:var(--t-faint); opacity:.75; }
     .g-read-loading{ color:var(--t-mut); }
     .g-read-byline{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); margin:0 0 13px; }
-    .g-read-p{ font-family:var(--t-mono); font-size:12px; line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
+    /* Justified, but COMPRESSED for the monospace face: tighter letter/word spacing +
+       hyphenation lets more fit per line, so justification has far less empty space to
+       distribute — no ragged "rivers" of white on a narrow phone column (mockup C). */
+    .g-read-p{ font-family:var(--t-mono); font-size:12px; line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; letter-spacing:-.3px; word-spacing:-1.5px; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     .g-read-open{ font-family:var(--t-mono); font-size:12px; color:var(--t-accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--t-accent) 40%, transparent); }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:12px; line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
