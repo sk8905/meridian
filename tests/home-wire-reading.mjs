@@ -22,7 +22,9 @@ await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 await lane(pg, "News");
 await pg.waitForTimeout(200);
 const news = await pg.evaluate(() => ({
-  subs: [...document.querySelectorAll("#g-feed-head .g-feed-deskchip")].map((c) => c.textContent.trim()),
+  // Desktop: the desk sub-filters ride the lane-tab row (#g-wire-subs); on phones they
+  // stay in #g-feed-head — accept either host so the spec reads the active one.
+  subs: [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip, #g-feed-head .g-feed-deskchip")].map((c) => c.textContent.trim()),
   mgrRows: document.querySelectorAll("#g-feed .g-mw-fev").length,
   rows: document.querySelectorAll("#g-feed .g-feed-row").length,
 }));
@@ -33,7 +35,7 @@ check(news.rows > 0 && news.mgrRows === 0, "News lane: only news rows (no manage
 await lane(pg, "All");
 await pg.waitForTimeout(250);
 const all = await pg.evaluate(() => ({
-  subs: document.querySelectorAll("#g-feed-head .g-feed-deskchip, #g-feed-head .g-feed-chip").length,
+  subs: document.querySelectorAll("#g-wire-subs .g-feed-deskchip, #g-wire-subs .g-feed-chip, #g-feed-head .g-feed-deskchip, #g-feed-head .g-feed-chip").length,
   mgrRows: document.querySelectorAll("#g-feed .g-mw-fev").length,
   total: document.querySelectorAll("#g-feed .g-feed-row").length,
 }));

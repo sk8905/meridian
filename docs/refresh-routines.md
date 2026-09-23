@@ -248,7 +248,16 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 - **Private-credit research (Credit dashboard pulse — `PRIVATE_CREDIT` in
   `dashboard/js/data.js`).** The pulse's `metrics` and its `reports` list track the
   recurring industry research the desk follows, and **roll to the newest edition each
-  quarter** as successor reports publish:
+  cycle** as successor reports publish (Fitch is MONTHLY; KBRA and AIMA/ACC quarterly):
+  - **Fitch Ratings — "U.S. Private Credit Default Rate …"** (MONTHLY; fitchratings.com).
+    This is the pulse's lead metric set. Each month Fitch publishes the trailing-12-month
+    U.S. private-credit default rate (across ~1,300 borrowers) plus the month's default
+    count, the amendment/PIK vs missed-payment split, and the most/least-stressed
+    sectors. Roll the `metrics` (default rate, TTM defaults + latest month, top-stressed
+    sectors, a resilient-sector reading, the amendment-led share) and the `reports` entry
+    to each new month's release, linking the direct Fitch URL. **Also watch for follow-on
+    Fitch private-credit commentary** (e.g. leveraged-loan/BSL default outlooks, special
+    reports) and add it to `reports` when it lands. Current: 6.3% TTM Aug 2026 (2026-09-14).
   - **KBRA — "Private Credit: Q_ 20__ Middle Market Compendium"** (quarterly; public
     on kbra.com). Pull the headline middle-market figures — the KBRA Middle Market
     Default Monitor (KMDM) rate by count/by debt, borrowers & debt assessed, the

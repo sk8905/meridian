@@ -61,23 +61,25 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   // Second-level category filter: All + the present deal categories (each with a
   // pastel dot; All has none), and picking one narrows the wire to that label.
   const f = await pg.evaluate(() => {
-    const chips = [...document.querySelectorAll("#g-feed-head .g-feed-deskchip[data-mglcat]")];
+    // Desktop: the category chips ride the lane-tab row (#g-wire-subs); phones keep them
+    // in #g-feed-head. Accept either host.
+    const chips = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")];
     return { count: chips.length, first: chips[0]?.textContent.trim(), allOn: chips[0]?.classList.contains("is-on"),
       dots: chips.filter((c) => c.querySelector(".g-feed-deskdot")).length, allDot: !!chips[0]?.querySelector(".g-feed-deskdot") };
   });
   check(f.count >= 4 && f.first === "All" && f.allOn, `Manager lane: a category chip row leads with All, selected (${f.count} chips)`);
   check(!f.allDot && f.dots === f.count - 1, `Manager lane: All carries no dot; every category chip does (${f.dots}/${f.count})`);
   const narrowed = await pg.evaluate(() => {
-    const chip = [...document.querySelectorAll("#g-feed-head .g-feed-deskchip[data-mglcat]")].find((c) => c.dataset.mglcat !== "all");
+    const chip = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")].find((c) => c.dataset.mglcat !== "all");
     const want = chip.dataset.mglcat; chip.click();
-    return new Promise((res) => setTimeout(() => res({ want, onSel: document.querySelector("#g-feed-head .g-feed-deskchip.is-on")?.dataset.mglcat,
+    return new Promise((res) => setTimeout(() => res({ want, onSel: document.querySelector("#g-wire-subs .g-feed-deskchip.is-on, #g-feed-head .g-feed-deskchip.is-on")?.dataset.mglcat,
       codes: [...new Set([...document.querySelectorAll("#g-feed .g-mw-fev .g-feed-code")].map((c) => c.textContent.trim()))] }), 300));
   });
   check(narrowed.onSel === narrowed.want, `Manager lane: clicking a category selects it (${narrowed.onSel})`);
   check(narrowed.codes.length === 1, `Manager lane: the wire narrows to only that label's stories (${narrowed.codes.join(", ")})`);
 
   // Reading pane: clicking a manager row opens it in the pane in reading mode.
-  await pg.evaluate(() => { const c = [...document.querySelectorAll("#g-feed-head .g-feed-deskchip[data-mglcat]")].find((x) => x.dataset.mglcat === "all"); if (c) c.click(); });
+  await pg.evaluate(() => { const c = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")].find((x) => x.dataset.mglcat === "all"); if (c) c.click(); });
   await pg.waitForTimeout(200);
   const read = await pg.evaluate(() => {
     const row = document.querySelectorAll("#g-feed .g-mw-fev")[2];

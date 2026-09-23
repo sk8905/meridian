@@ -895,11 +895,28 @@
     /* Lane switch (All · News · Manager · Watchlist) above the coloured sub-filters.
        Desktop-only — on phones the wire stays the plain news feed + the Watch tab. */
     .g-wire-lanes{ display:none; }
-    @media (min-width:1201px){ .g-wire-lanes{ display:flex; gap:0; border-bottom:1px solid var(--t-grid); background:var(--t-head); } }
+    @media (min-width:1201px){ .g-wire-lanes{ display:flex; gap:0; align-items:stretch; border-bottom:1px solid var(--t-grid); background:var(--t-head); } }
     .g-wire-lane{ flex:0 0 auto; padding:7px 13px; border:0; background:transparent; color:var(--t-mut);
       font:inherit; font-size:11.5px; font-weight:700; letter-spacing:.02em; cursor:pointer; }
     .g-wire-lane:hover{ color:var(--t-ink); }
     .g-wire-lane.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--t-ink); }
+    /* The lane's colour/label sub-filters ride the lane-tab row (desktop): they fill the
+       space to the RIGHT of All·News·Manager·Watchlist, scroll horizontally if they
+       overrun, and keep Group-by-type pinned at the far right. The old sub-filter band
+       (#g-feed-head) is hidden on the terminal — nothing sits below the lane row now, so
+       the All lane no longer shows an empty strip. */
+    .g-wire-subs{ display:none; }
+    @media (min-width:1201px){
+      .g-wire-subs{ display:flex; flex:1 1 auto; min-width:0; align-items:stretch; }
+      /* The relocated desk-row sheds its band framing (full-width, borders) and simply
+         fills the remaining lane-row width. */
+      .tui .g-wire-subs .g-feed-deskrow{ flex:1 1 auto; width:auto; min-width:0; min-height:0; border-bottom:0; }
+      /* Inline second-level type chips sit right after the desk chips, divided by a
+         hairline, inside the same horizontal scroll strip. */
+      .tui .g-wire-subs .g-feed-subinline{ display:inline-flex; align-items:stretch; flex:0 0 auto;
+        margin-left:6px; padding-left:8px; border-left:1px solid var(--t-grid2); }
+      .tui .g-feed-head{ display:none; }
+    }
     /* Reading pane — terminal reading mode (desktop only; shown in the ≥1201px block). */
     .g-read{ display:none; }
     .g-read-head{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; padding:7px 12px;
@@ -1317,19 +1334,22 @@
          header pins just under the wire tabs and the note pins just above the bottom
          nav, so the lede + desk bullets scroll between them. min-height fills the
          screen so the note sits at the bottom even for a short brief. */
-      /* INTERNAL SCROLL (the reading-pane pattern — bulletproof on iOS, where
-         position:sticky/fixed both misbehave): a fixed-height flex column whose BODY
-         scrolls on its own, with the header and footer as fixed flex siblings above
-         and below the scroll. glance.js sets the exact height; the min-height is the
-         pre-JS fallback. The page itself doesn't scroll (html.home-brief). */
-      .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; overflow:hidden; box-sizing:border-box;
-        min-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 54px - env(safe-area-inset-bottom, 0px)); }
+      /* CONTENT-HEIGHT, CAPPED AT ONE SCREEN. The pane is only as tall as its content
+         (header + summary + the note directly beneath the last desk line) — so a short
+         brief shows NO stretched-to-viewport dead space below the note. The body may
+         SHRINK (flex:0 1 auto) but never GROW, so it doesn't manufacture that gap; when
+         a long brief would overrun one screen the max-height caps the pane and the body
+         scrolls internally between the fixed header and footer (iOS-proof), while the
+         page itself never scrolls. glance.js sets the exact cap; the calc is the pre-JS
+         fallback. */
+      .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
+        max-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 54px - env(safe-area-inset-bottom, 0px)); }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-head{ flex:0 0 auto; }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
+      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:0 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:8px 12px;
         background:var(--t-head); border-top:1px solid var(--t-grid); }
-      /* On the Briefing pane the page must not scroll, so drop the global bottom-nav
-         padding that otherwise leaves a scrollable strip below the one-screen pane. */
+      /* No page scroll on the Briefing pane: drop the global bottom-nav padding so the
+         one-screen cap leaves nothing scrollable beneath the pane. */
       html.home-brief body{ padding-bottom:0 !important; }
       /* News/Managers/Chart/X panes hide the feed-wrap (filter + feed) as needed. */
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }

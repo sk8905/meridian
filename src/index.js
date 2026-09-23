@@ -1743,7 +1743,9 @@ function _readParas(scope) {
   return paras;
 }
 async function handleRead(request, env, ctx) {
-  const target = new URL(request.url).searchParams.get("url") || "";
+  // Unwrap a Google-News redirect link (defence for any already-cached client rows that
+  // still carry the wrapped URL) so the reader fetches the real publisher article.
+  const target = unwrapGnews(new URL(request.url).searchParams.get("url") || "");
   let u; try { u = new URL(target); } catch { return json({ error: "bad url", accessible: false, paragraphs: [] }, 400); }
   if (u.protocol !== "https:") return json({ error: "https only", accessible: false, paragraphs: [] }, 400);
   const host = u.hostname.replace(/^www\./, "");
@@ -2660,6 +2662,35 @@ function feedLondon(d) {
   const hh = p.hour === "24" ? "00" : p.hour;
   return { date: `${p.year}-${p.month}-${p.day}`, time: `${hh}:${p.minute}` };
 }
+// Google News RSS wraps every article link as
+//   https://news.google.com/rss/articles/<base64url>?oc=5
+// The base64url blob is a protobuf envelope that (for the classic format) embeds the
+// real publisher URL as a length-prefixed string. Decode it offline and pull the URL
+// out, so the stored link — and the in-app reader that fetches it — hit the real
+// article, not Google's interstitial (which a server-side fetch can't read, so the
+// reader would otherwise show nothing). Newer blobs don't carry the URL inline (they
+// need a batchexecute round-trip); for those we can't decode offline, so we return the
+// original link unchanged and the reader falls back to preview + link. Pure + exported
+// so it can be unit-tested without egress.
+export function unwrapGnews(link) {
+  try {
+    const u = new URL(link);
+    if (!/(?:^|\.)news\.google\.com$/i.test(u.hostname)) return link;
+    const seg = u.pathname.match(/\/(?:rss\/)?(?:articles|read)\/([A-Za-z0-9_-]+)/);
+    if (!seg) return link;
+    let b64 = seg[1].replace(/-/g, "+").replace(/_/g, "/");
+    while (b64.length % 4) b64 += "=";
+    let bin; try { bin = atob(b64); } catch { return link; }
+    // The URL sits as ASCII between a length prefix and any trailing protobuf field —
+    // grab the first http(s) run of URL-legal characters.
+    const m = bin.match(/https?:\/\/[^\x00-\x1f\x7f-￿"'<>\\ ]+/);
+    if (!m) return link;
+    // A trailing protobuf field (e.g. \xd2\x01…) can leave a stray tail after the URL;
+    // cut at the first character that can't appear in a URL.
+    const url = m[0].replace(/[^A-Za-z0-9\-._~:/?#\[\]@!$&'()*+,;=%].*$/, "");
+    return /^https?:\/\/[^/]+\.[a-z]{2,}/i.test(url) ? url : link;
+  } catch { return link; }
+}
 function feedParse(xml, feed) {
   const out = [];
   const blocks = xml.match(/<(item|entry)\b[\s\S]*?<\/\1>/gi) || [];
@@ -2678,6 +2709,10 @@ function feedParse(xml, feed) {
     if (/bing\.com\/news\/apiclick/i.test(link)) {
       try { const u = new URL(link).searchParams.get("url"); if (u && /^https?:\/\//i.test(u)) link = u; } catch { /* keep wrapped */ }
     }
+    // Google News RSS wraps links in a base64 redirect blob — decode to the real
+    // article so the row opens (and the in-app reader can fetch) the publisher, not
+    // Google's interstitial. (No-op for the modern non-decodable blob.)
+    if (feed.gnews) link = unwrapGnews(link);
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
     out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, hdg: feed.hdg || undefined, fi: feed.fi || undefined, when: (when && !isNaN(when.getTime())) ? when : null });

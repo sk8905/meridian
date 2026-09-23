@@ -1456,6 +1456,18 @@ function renderManagerWire() {
   }
 }
 
+// Where the lane's colour/label sub-filter chips are painted. On the desktop terminal
+// they sit INLINE on the lane-tab row (#g-wire-subs, right of All·News·Manager·Watchlist);
+// on phones there is no lane-tab row, so they stay in the pinned #g-feed-head band. The
+// unused host is emptied so a filter never shows in two places. Returns { host, inline }.
+function _deskFilterHost() {
+  const desktop = window.innerWidth > 1200;
+  const subs = document.getElementById("g-wire-subs");
+  const head = document.getElementById("g-feed-head");
+  if (desktop && subs) { if (head) head.innerHTML = ""; return { host: subs, inline: true }; }
+  if (subs) subs.innerHTML = "";
+  return { host: head, inline: false };
+}
 function renderFeed() {
   // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
   // data carries one — the four-times-daily routine populates it; rows lead with
@@ -1676,8 +1688,8 @@ function renderFeed() {
   const srcBar = _feedSrc ? feedSrcBarHTML(_feedSrc) : "";
   const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : (FEED_DESK_LABEL[_feedDesk] || DESK[_feedDesk]) + " items"} — check back shortly.`);
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
-  const head = document.getElementById("g-feed-head");
-  if (head) {
+  const { host, inline } = _deskFilterHost();
+  if (host) {
     // Primary desk filter as a VISIBLE, colour-anchored chip row (was a hidden
     // <select>) — the wire's desks now read as controls, not inert text. Macro /
     // Credit / Hedge / Legal are their own desks (with full views one tap away via
@@ -1700,20 +1712,29 @@ function renderFeed() {
     const grpBtn = `<button type="button" class="g-feed-openbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
       + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
       + `<span>Group by type</span></button>`;
-    // Group-by-type sits alone at the right edge of the desk row.
-    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${grpBtn}</div></div>`;
     // Second-level type chips for the active desk (Credit / Hedge / Legal).
     const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
-    const secondary = subDefs
-      ? `<div class="g-feed-subrow"><span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
-        + subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
-        + `</span></div>`
+    const typeChips = subDefs
+      ? subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
       : "";
-    head.innerHTML = deskrow + secondary;
+    if (inline) {
+      // Desktop terminal: the whole filter set rides the lane-tab row on ONE line —
+      // desk chips, then (when a desk has them) the type chips after a hairline, all in
+      // the horizontal scroll strip; Group-by-type pinned at the right edge.
+      const sub = typeChips ? `<span class="g-feed-subinline">${typeChips}</span>` : "";
+      host.innerHTML = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}${sub}</div><div class="g-feed-ctl">${grpBtn}</div></div>`;
+    } else {
+      // Phones: desk chips on the pinned band, type chips wrap to a second row below.
+      const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${grpBtn}</div></div>`;
+      const secondary = typeChips
+        ? `<div class="g-feed-subrow"><span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">${typeChips}</span></div>`
+        : "";
+      host.innerHTML = deskrow + secondary;
+    }
     // Desk chip: clears any source filter, switches desks and resets the type.
-    head.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderWire(); }));
+    host.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderWire(); }));
     // Group-by-type toggle: day-by-day stream ⇄ by-label grouping (rolling 3 days).
-    const grp = head.querySelector(".g-feed-grpbtn");
+    const grp = host.querySelector(".g-feed-grpbtn");
     if (grp) grp.addEventListener("click", (e) => {
       e.preventDefault(); e.stopPropagation();
       _feedSrc = null; _feedType = "all";
@@ -1722,7 +1743,7 @@ function renderFeed() {
       renderWire();
     });
     // A type chip narrows within the current desk.
-    head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderWire(); }));
+    host.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderWire(); }));
   }
   _lastFeed = feed;      // stashed so the "All" lane can interleave managers in
 }
@@ -1776,8 +1797,8 @@ function renderMgrLane(watchOnly) {
     ? `<div class="g-mw-empty">No activity from your watchlist in this window. Tap ☆ on a manager to follow them.</div>`
     : (_mgrLaneCat !== "all" ? `<div class="g-mw-empty">No ${esc(CAT_LABEL[_mgrLaneCat] || _mgrLaneCat)} activity in this window.</div>` : `<div class="g-mw-empty">No manager activity yet.</div>`);
   setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
-  const head = document.getElementById("g-feed-head");
-  if (head) {
+  const { host } = _deskFilterHost();
+  if (host) {
     const catOpts = ["all", ...MW_CAT_ORDER.filter((c) => present.has(c))];
     const chips = catOpts.map((c) => {
       const on = _mgrLaneCat === c;
@@ -1785,8 +1806,8 @@ function renderMgrLane(watchOnly) {
       const label = c === "all" ? "All" : (CAT_LABEL[c] || c.toUpperCase());
       return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mglcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(label)}</button>`;
     }).join("");
-    head.innerHTML = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by category">${chips}</div></div>`;
-    head.querySelectorAll("[data-mglcat]").forEach((b) => b.addEventListener("click", () => { _mgrLaneCat = b.dataset.mglcat; _saveHomePref({ mgrLaneCat: _mgrLaneCat }); renderWire(); }));
+    host.innerHTML = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by category">${chips}</div></div>`;
+    host.querySelectorAll("[data-mglcat]").forEach((b) => b.addEventListener("click", () => { _mgrLaneCat = b.dataset.mglcat; _saveHomePref({ mgrLaneCat: _mgrLaneCat }); renderWire(); }));
   }
 }
 // All lane: interleave the news feed with manager events by recency. Reuses the news
@@ -1796,11 +1817,12 @@ function _newsTs(x) {
   return Date.parse(`${d}T${x.time || "00:00"}:00Z`) || (x.added || 0) || Date.parse(d) || 0;
 }
 function mergeManagersIntoFeed() {
-  // All lane has no sub-filters — empty the band. On phones the .wire-lane-all
-  // class on .g-layout then collapses this (empty) head so the market-briefing bar
-  // sits directly under the wire tabs; other lanes keep their coloured sub-filters
-  // here. See home.css (.wire-lane-all #g-feed-head).
+  // All lane has no sub-filters — empty both hosts so nothing shows in the band (phones)
+  // or beside the lane tabs (desktop). On phones the .wire-lane-all class on .g-layout
+  // then collapses the (empty) #g-feed-head so the market-briefing bar sits directly
+  // under the wire tabs. See home.css (.wire-lane-all #g-feed-head).
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
+  const subs = document.getElementById("g-wire-subs"); if (subs) subs.innerHTML = "";
   const news = (_lastFeed || []).map((x) => ({ it: x, mgr: false, ts: _newsTs(x) }));
   const { events } = managerFlatEvents(false, "all");
   const mgr = events.map((e) => ({ it: e, mgr: true, ts: e.ts || _newsTs(e) }));
@@ -1818,8 +1840,13 @@ const WIRE_LANE_LABEL = Object.fromEntries(WIRE_LANES);
 function renderWireLanes() {
   const host = document.getElementById("g-wire-lanes");
   if (host) {
+    // Lane tabs on the left; an inline sub-filter slot on the right (desktop only —
+    // the lane row is display:none on phones). renderFeed/renderMgrLane fill #g-wire-subs
+    // with the lane's colour/label chips, so on the terminal the filters sit BESIDE the
+    // lane tabs instead of in a separate band below (which is hidden on desktop).
     host.innerHTML = WIRE_LANES.map(([k, l]) =>
-      `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("");
+      `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("")
+      + `<div class="g-wire-subs" id="g-wire-subs"></div>`;
     if (!host.dataset.wired) {
       host.dataset.wired = "1";
       host.addEventListener("click", (e) => { const b = e.target.closest(".g-wire-lane"); if (b && b.dataset.lane !== _wireLane) { _setWireLane(b.dataset.lane); } });
@@ -1931,7 +1958,7 @@ function _renderReaderInto(box, it, emptyMsg) {
   if (!it.ext || !it.href || _isPaywalled(it.src, it.href)) {
     const paywalled = _isPaywalled(it.src, it.href);
     box.innerHTML = _readShell(it,
-      paywalled ? `<span class="g-read-lock">🔒 subscriber source — preview + link</span>` : `<span class="g-read-free">● reading mode</span>`,
+      paywalled ? `<span class="g-read-lock">🔒</span>` : `<span class="g-read-free">● reading mode</span>`,
       `<div class="g-read-note">${paywalled ? "This source needs a login — open the original below." : "Open the original below to read the full story."}</div>`);
     return;
   }
@@ -1982,21 +2009,38 @@ function closeMobileReader() {
 // the measured gap between the wire tabs and the bottom nav. In-flow (no fixed
 // positioning) so it can't vanish; the body scrolls inside it. No-op on desktop.
 function _placeBriefPane() {
+  // The Briefing pane sizes to its CONTENT but is capped at one screen — the cap is the
+  // gap between the wire tabs and the bottom nav. Setting max-height (not height) lets a
+  // short brief stay short (footer hugs the content, no dead space) while a long brief
+  // scrolls its body internally instead of scrolling the page. Any fixed height left by
+  // an older build is cleared so the content-height sizing can take effect.
   const hb = document.getElementById("g-hbrief"), tabs = document.querySelector(".g-wiretabs");
+  if (hb && hb.style.height) hb.style.height = "";
   if (!hb || !tabs) return;
-  if (window.innerWidth > 1200 || !document.querySelector(".g-layout.wire-brief")) { hb.style.height = ""; return; }
+  if (window.innerWidth > 1200 || !document.querySelector(".g-layout.wire-brief")) { hb.style.maxHeight = ""; return; }
   const tabsBottom = tabs.getBoundingClientRect().bottom;
   const nav = document.querySelector(".mobile-tabbar");
   const navH = nav ? nav.getBoundingClientRect().height : 56;
   const h = Math.round(window.innerHeight - tabsBottom - navH);
-  if (h > 120) hb.style.height = h + "px";
+  if (h > 120) hb.style.maxHeight = h + "px";
+}
+// Is this feed row openable in the reading pane WITHOUT a login — i.e. an external
+// story from a non-subscriber source, whose full text the reader service can print?
+// (Subscriber/padlocked rows and internal links only ever show a preview + link.)
+function _rowOpensInPane(row) {
+  const it = _rowItem(row);
+  return !!(it.ext && it.href && !_isPaywalled(it.src, it.href));
 }
 function syncReadDefault() {
   const read = document.getElementById("g-read");
   if (!read || read.offsetParent === null) return;                          // mobile / hidden
   if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // keep current
-  const first = document.querySelector("#g-feed .g-feed-row");
-  if (first) openInReadPane(first); else renderReadPane(null);
+  // Default to the MOST RECENT unlocked story — the newest row that actually opens in
+  // the pane without a password. Rows are newest-first, so take the first openable one;
+  // only if every row is locked/internal do we fall back to the very first row.
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+  const pick = rows.find(_rowOpensInPane) || rows[0];
+  if (pick) openInReadPane(pick); else renderReadPane(null);
 }
 function ensureReadWired() {
   const feed = document.getElementById("g-feed");

@@ -859,6 +859,25 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
     box-shadow: inset 3px 0 0 var(--wb-txt, #4aa3f0); }
   .tx-tabbed > .tx-panes { grid-area: panes; min-width: 0; }
 }
+/* DESKTOP: the flow mode's transaction-type sub-tabs, nested directly under the active
+   Primary/Secondaries tab in the left rail (they no longer occupy their own column, so
+   the deals table fills that space). Indented one step and tinted BLUE (--wb-txt) so
+   they read as sub-sections of the orange primary tab above. iPhone is unaffected — it
+   keeps the in-body type picker. */
+@media (min-width: 901px) {
+  .tx-dash > .tdash-grid > .tcol-c > .twire-head .tx-subnav-nested { margin: 1px 0 5px; padding: 0; border: 0; overflow: visible; }
+  .tx-dash > .tdash-grid > .tcol-c > .twire-head .tx-subnav-nested .tchips { flex-direction: column; width: 100%; gap: 2px; }
+  .tx-dash > .tdash-grid > .tcol-c > .twire-head .tx-subnav-nested .tchip {
+    display: block; width: 100%; text-align: left; max-width: none;
+    padding: 6px 10px 6px 20px; border: 1px solid transparent; box-shadow: none;
+    font-size: 11px; font-weight: 600; line-height: 1.25; white-space: normal;
+    color: var(--muted, #8592ad); }
+  .tx-dash > .tdash-grid > .tcol-c > .twire-head .tx-subnav-nested .tchip .tx-subn { margin-left: 6px; }
+  .tx-dash > .tdash-grid > .tcol-c > .twire-head .tx-subnav-nested .tchip:hover { color: var(--ink); background: var(--lift, #202020); }
+  .tx-dash > .tdash-grid > .tcol-c > .twire-head .tx-subnav-nested .tchip.is-on {
+    color: var(--wb-txt, #4aa3f0); background: transparent; border-color: var(--border, #2d2d2d);
+    box-shadow: inset 3px 0 0 var(--wb-txt, #4aa3f0); }
+}
 /* sub-category (asset-class) filter chips + the group-by-lender toggle on the
    same row (chips left, button pushed to the far right). */
 /* Single row: the sub-category chip strip scrolls HORIZONTALLY (like the home-page

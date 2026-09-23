@@ -78,12 +78,10 @@ export function mount(host, ctx) {
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-c tcol-full">
           <header class="tpanel-h twire-head">
-            <div class="tchips" id="tx-mode">
-              <button type="button" class="tchip is-on" data-mode="primary">Primary</button>
-              <button type="button" class="tchip" data-mode="secondary">Secondaries</button>
-              <button type="button" class="tchip" data-mode="credits">Credits</button>
-              <button type="button" class="tchip" data-mode="bdc">BDCs</button>
-            </div>
+            <!-- Rendered by renderModeNav(): the four primary tabs, and — on desktop —
+                 the active flow mode's transaction-type sub-tabs nested directly beneath
+                 it (blue, indented), so the whole nav is one left rail. -->
+            <div class="tchips" id="tx-mode"></div>
           </header>
           <div class="tcol-main">
             <header class="tpanel-h thead-search" id="tx-flow-search">
@@ -150,12 +148,37 @@ export function mount(host, ctx) {
       }
       return;
     }
-    // Desktop: default to the first (largest) type when the remembered sub-tab isn't
-    // a live type in this group / under the active focus.
+    // Desktop: the transaction-type sub-tabs now live in the LEFT mode rail, nested
+    // under the active Primary/Secondaries tab (see renderModeNav); the body is just
+    // the active type's deals at full width, filling the space the rail vacated.
     if (!types.some((s) => s.key === st.sub)) st.sub = types[0].key;
-    const chip = (s) => `<button type="button" class="tchip${st.sub === s.key ? " is-on" : ""}" data-sub="${esc(s.key)}">${esc(typeLabel(s.key))}<span class="tx-subn">${s.n}</span></button>`;
-    const subnav = `<header class="tpanel-h twire-head tx-subnav"><div class="tchips">${types.map(chip).join("")}</div></header>`;
-    body.innerHTML = `<div class="tx-tabbed">${subnav}<div class="tx-panes"><div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div></div>`;
+    body.innerHTML = `<div class="tx-panes"><div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div>`;
+    renderModeNav();
+  }
+
+  // The left mode rail: the four primary tabs (Primary · Secondaries · Credits · BDCs).
+  // On desktop the active FLOW mode (Primary/Secondaries) also carries its transaction-
+  // type sub-tabs, nested and indented directly beneath it — so the colour/label
+  // sub-filters read as sub-sections of their parent tab rather than a separate column.
+  // iPhone keeps the four tabs as a flat chip row (its type picker stays in the body).
+  function renderModeNav() {
+    const nav = host.querySelector("#tx-mode");
+    if (!nav) return;
+    const MODES = [["primary", "Primary"], ["secondary", "Secondaries"], ["credits", "Credits"], ["bdc", "BDCs"]];
+    const flow = _crMode === "primary" || _crMode === "secondary";
+    let subHTML = "";
+    if (_txDesktop() && flow) {
+      const types = flowTypes();
+      if (types.length) {
+        if (!types.some((s) => s.key === st.sub)) st.sub = types[0].key;
+        const chip = (s) => `<button type="button" class="tchip${st.sub === s.key ? " is-on" : ""}" data-sub="${esc(s.key)}">${esc(typeLabel(s.key))}<span class="tx-subn">${s.n}</span></button>`;
+        subHTML = `<div class="tx-subnav tx-subnav-nested"><div class="tchips">${types.map(chip).join("")}</div></div>`;
+      }
+    }
+    nav.innerHTML = MODES.map(([k, l]) => {
+      const on = _crMode === k;
+      return `<button type="button" class="tchip${on ? " is-on" : ""}" data-mode="${esc(k)}">${esc(l)}</button>` + (on ? subHTML : "");
+    }).join("");
   }
 
   // ---- deal rows (shared by the inline type sub-list and the search list) ---
@@ -425,7 +448,7 @@ export function mount(host, ctx) {
       : `<p class="tw-empty muted small">No credits match “${esc(_crQ)}”.</p>`;
   }
 
-  function render() { st.q ? renderSearch() : renderFlow(); }
+  function render() { st.q ? renderSearch() : renderFlow(); renderModeNav(); }
   // Re-render just the active type sub-tab's pane (keeps the rail; used when the
   // pane's sub-category filter or group-by-lender toggle changes).
   function renderPane() {
@@ -449,13 +472,16 @@ export function mount(host, ctx) {
     show(["tx-flow-search", "tx-body"], flow);
     show(["tx-credits-search", "tx-credits-body"], _crMode === "credits");
     show(["tx-bdc-search", "tx-bdc-body"], _crMode === "bdc");
+    renderModeNav();      // repaint the rail (nests sub-tabs under a flow mode; bare otherwise)
     if (flow) render();   // Primary ↔ Secondaries change the body, so re-render
     if (_crMode === "credits") renderCredits();
     if (_crMode === "bdc") { renderBDCs(); loadBdcQuotes(); }
   };
   setMode("primary");   // initial (drives the display, replacing the [hidden] attrs)
   host.querySelector("#tx-mode").addEventListener("click", (e) => {
-    const b = e.target.closest(".tchip"); if (!b) return;
+    // Only the primary mode chips switch mode here; the nested sub-tab chips (data-sub,
+    // no data-mode) are handled by the delegated .tx-subnav handler below.
+    const b = e.target.closest(".tchip[data-mode]"); if (!b) return;
     setMode(b.dataset.mode);
   });
   host.querySelector("#tx-cr-q").addEventListener("input", (e) => { _crQ = e.target.value.trim(); renderCredits(); });

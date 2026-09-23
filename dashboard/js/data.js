@@ -202,20 +202,27 @@ export const GOVT_YIELD_CHG = {
 // docs/refresh-routines.md, "Private-credit research").
 export const PRIVATE_CREDIT = {
   asOf: "2026-09",
-  headline: "Fitch's U.S. Private Credit Default Rate hit a fresh record 6.3% for the trailing 12 months ended August 2026 (across ~1,300 borrowers) — up from 6.1% in July and the prior quarterly record of 6.0% for TTM 2Q26, with 14 default events recorded in August, the highest monthly total in a year.",
+  headline: "Fitch's U.S. Private Credit Default Rate hit a fresh record 6.3% for the trailing 12 months ended August 2026 (across ~1,300 borrowers) — up from 6.1% in July and the prior quarterly record of 6.0% for TTM 2Q26, with 14 default events in August, the highest monthly total in a year. Defaults stayed amendment-led: stressed maturity extensions were 45% of August's events (a third straight month on top) and interest-deferral / cash-to-PIK swaps 47% of the trailing year's 89 defaults, rather than missed payments. Stress concentrated in healthcare and industrials/manufacturing (both 9.9%, up from 9.5% in July), while software stayed resilient at 0.6%. Fitch ties the climb to rate/inflation uncertainty crimping deal liquidity, leaving lenders unable to exit distressed borrowers before maturity.",
   metrics: [
-    { k: "Private Credit Default Rate", v: "6.3%", sub: "TTM Aug 2026 · record · up from 6.1% (Jul 2026)", src: "https://www.bloomberg.com/news/articles/2026-09-14/us-private-credit-default-rate-hits-a-record-of-6-3-fitch-says", srcName: "Fitch (via Bloomberg)", prev: "6.0%", prevAsOf: "TTM 2Q26", prevSrc: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/" },
-    { k: "Defaults recorded (TTM)", v: "32", sub: "private-credit issuers, 2Q26", src: "https://www.tradingview.com/news/reuters.com,2026:newsml_FWN41V0W8:0-fitch-ratings-u-s-private-credit-default-rate-hits-a-high-of-6-0-in-april-2026/", srcName: "Fitch (via Reuters/TradingView)" },
+    { k: "Private Credit Default Rate", v: "6.3%", sub: "TTM Aug 2026 · record · up from 6.1% (Jul 2026)", src: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings", prev: "6.0%", prevAsOf: "TTM 2Q26", prevSrc: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/" },
+    { k: "Defaults recorded (TTM)", v: "89", sub: "TTM Aug 2026 · 14 in August (highest monthly in a year)", src: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings" },
+    { k: "Top-stressed sectors", v: "9.9%", sub: "healthcare & industrials/mfg · Aug 2026 · up from 9.5% (Jul)", src: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings" },
+    { k: "Software sector default", v: "0.6%", sub: "Aug 2026 · tech most resilient", src: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings" },
+    { k: "Defaults via amendment", v: "45%", sub: "maturity extensions (Aug, 3rd mo.) · PIK/deferrals 47% of TTM · not missed payments", src: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings" },
     { k: "KBRA MM default monitor", v: "3.3%", sub: "by count, 2Q26 · first rise in a year · 2.4% by debt (record)", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
     { k: "MM debt assessed (KBRA)", v: "$1.2tn", sub: "2,785 borrowers, TTM 2Q26 · EBITDA growth fading", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
     { k: "Broadly-syndicated loan default (fcst)", v: "3.0–3.5%", sub: "2026, Fitch — set to ease", src: "https://www.investmentexecutive.com/news/research-and-markets/u-s-leveraged-loan-defaults-to-ease-in-2026-fitch/", srcName: "Fitch (via Investment Executive)" },
     { k: "Market size (AUM)", v: "~$2.0tn", sub: "2026 est. · ~$4tn by 2030", src: "https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/private-credit-2026.html", srcName: "Moody's" },
     { k: "BDC non-accruals", v: "~1.2%", sub: "of portfolios (Q2'25)", src: "https://www.withintelligence.com/insights/what-is-actually-going-on-in-bdc-portfolios/", srcName: "With Intelligence" },
   ],
-  // Recurring industry research the pulse tracks — refreshed to the newest quarterly
-  // edition each cycle. (KBRA's is public; AIMA/ACC's quarterly is members' research,
-  // so it links the ACC's public private-credit research hub.)
+  // Recurring industry research the pulse tracks — refreshed to the newest edition each
+  // cycle. Fitch's U.S. Private Credit Default Rate is a MONTHLY report; the refresh
+  // routine rolls this entry (and the metrics above) to each new month's release and
+  // watches for follow-on Fitch private-credit commentary. KBRA's MM Compendium is
+  // quarterly and public; AIMA/ACC's quarterly is members' research, so it links the
+  // ACC's public private-credit research hub.
   reports: [
+    { title: "Fitch — U.S. Private Credit Default Rate Rose to 6.3% in August 2026 (monthly)", date: "2026-09-14", url: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings" },
     { title: "KBRA — Private Credit: Q2 2026 Middle Market Compendium (EBITDA's Fading Tailwinds)", date: "2026-07-28", url: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA" },
     { title: "AIMA/ACC — Private Credit Performance & Valuation Trends (quarterly)", date: "2026-Q2", url: "https://acc.aima.org/article/press-release-private-credit-market-surpasses-us-3trn-and-maintains-resilience-despite-growing-stress.html", srcName: "AIMA/ACC" },
   ],

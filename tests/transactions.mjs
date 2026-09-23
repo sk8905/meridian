@@ -49,9 +49,13 @@ const ov = await pg.evaluate(() => {
     // Desktop: the sub-tabs stack as a SECOND vertical rail (differing tops) beside the pane.
     subStacked: subChips.length > 1 ? Math.round(subChips[1].getBoundingClientRect().top - subChips[0].getBoundingClientRect().top) : 0,
     noPeriodChips: !document.querySelector("#tx-period"),
-    modeChips: [...document.querySelectorAll("#tx-mode .tchip")].map((c) => c.textContent.trim().replace(/\s+\d+$/, "")),
+    // The four PRIMARY nav chips carry data-mode; the transaction-type sub-tabs now
+    // nest under the active one (data-sub) in the same rail, so scope to data-mode.
+    modeChips: [...document.querySelectorAll("#tx-mode .tchip[data-mode]")].map((c) => c.textContent.trim().replace(/\s+\d+$/, "")),
     // Desktop: the mode tabs form a vertical LEFT sidebar (chips stack; rail sits left).
-    railStacked: (() => { const c = [...document.querySelectorAll("#tx-mode .tchip")]; return c.length > 1 ? Math.round(c[1].getBoundingClientRect().top - c[0].getBoundingClientRect().top) : 0; })(),
+    railStacked: (() => { const c = [...document.querySelectorAll("#tx-mode .tchip[data-mode]")]; return c.length > 1 ? Math.round(c[1].getBoundingClientRect().top - c[0].getBoundingClientRect().top) : 0; })(),
+    // Desktop: the type sub-tabs nest INSIDE the mode rail, beneath the active mode.
+    subsNestedInRail: !!document.querySelector("#tx-mode .tx-subnav-nested [data-sub]"),
     railLeft: (() => { const h = document.querySelector(".tx-dash .twire-head"), m = document.querySelector(".tx-dash .tcol-main"); return !!(h && m) && h.getBoundingClientRect().right <= m.getBoundingClientRect().left + 5 && Math.round(h.getBoundingClientRect().width) < 220; })(),
     bodyBg: getComputedStyle(document.querySelector("#tx-body")).backgroundColor,
   };
@@ -66,6 +70,7 @@ check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed"
 check(ov.modeChips.join(",") === "Primary,Secondaries,Credits,BDCs", `the Primary / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
+check(ov.subsNestedInRail, "desktop: the type sub-tabs nest under the active mode in the left rail");
 
 // ---- 3) selecting a type sub-tab → its dated deal list -------------------
 await pg.evaluate(() => { const c = [...document.querySelectorAll(".tx-subnav [data-sub]")].find((x) => /Direct lending/.test(x.textContent)); if (c) c.click(); });
@@ -217,16 +222,16 @@ const search = await pg.evaluate(async () => {
   const inp = document.querySelector("#tx-q"); if (!inp) return { present: false };
   inp.value = "lending"; inp.dispatchEvent(new Event("input", { bubbles: true }));
   await new Promise((r) => setTimeout(r, 160));
-  return { present: true, rows: document.querySelectorAll(".tx-list tr.tx-row").length, title: (document.querySelector(".tx-title") || {}).textContent || "", tabbedGone: !document.querySelector(".tx-tabbed") };
+  return { present: true, rows: document.querySelectorAll(".tx-list tr.tx-row").length, title: (document.querySelector(".tx-title") || {}).textContent || "", panesGone: !document.querySelector(".tx-panes-in") };
 });
 check(search.present, "Transactions: a search box is present");
-check(/search/i.test(search.title) && search.rows > 0 && search.tabbedGone, `Transactions: typing filters to a flat list of matching deals (${search.rows} rows)`);
+check(/search/i.test(search.title) && search.rows > 0 && search.panesGone, `Transactions: typing filters to a flat list of matching deals (${search.rows} rows)`);
 const cleared = await pg.evaluate(async () => {
   const inp = document.querySelector("#tx-q"); inp.value = ""; inp.dispatchEvent(new Event("input", { bubbles: true }));
   await new Promise((r) => setTimeout(r, 160));
-  return { rows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length, tabbed: !!document.querySelector(".tx-tabbed") };
+  return { rows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length, typeView: !!document.querySelector(".tx-panes-in") };
 });
-check(cleared.tabbed && cleared.rows > 0, `Transactions: clearing the search restores the type view (${cleared.rows} rows)`);
+check(cleared.typeView && cleared.rows > 0, `Transactions: clearing the search restores the type view (${cleared.rows} rows)`);
 
 checkErrs(errs, "transactions tab");
 await ctx.close();
