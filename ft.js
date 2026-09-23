@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "850dde98-834f-4cfe-9ffc-3e41980a4e9d", title: "UK on course to miss climate targets, energy secretary admits", date: "2026-09-23", time: "12:01", url: "https://www.ft.com/content/850dde98-834f-4cfe-9ffc-3e41980a4e9d" },
+  { id: "7854c3ba-57f8-4a50-8591-00ffceda8157", title: "Should we rent or sell a property that we’ve inherited?", date: "2026-09-23", time: "11:42", url: "https://www.ft.com/content/7854c3ba-57f8-4a50-8591-00ffceda8157" },
+  { id: "67f10dca-63f3-4cf8-951b-22d0c87f6be2", title: "The west does not have a leadership problem", date: "2026-09-23", time: "11:33", url: "https://www.ft.com/content/67f10dca-63f3-4cf8-951b-22d0c87f6be2" },
+  { id: "2f652ff5-b707-4d96-abb4-31b90a77908c", title: "L&G to cut a tenth of its workforce", date: "2026-09-23", time: "11:33", url: "https://www.ft.com/content/2f652ff5-b707-4d96-abb4-31b90a77908c" },
+  { id: "be88d1eb-8de1-4261-ad52-9be25924a5ed", title: "Lidl owner among suitors circling Tesco’s European business", date: "2026-09-23", time: "11:13", url: "https://www.ft.com/content/be88d1eb-8de1-4261-ad52-9be25924a5ed" },
   { id: "7c1a2718-b0a4-4dda-8c3a-c36ff6792e2b", title: "Why Germany’s ‘chancellor-in-waiting’ bides his time", date: "2026-09-23", time: "11:00", url: "https://www.ft.com/content/7c1a2718-b0a4-4dda-8c3a-c36ff6792e2b" },
   { id: "b05367af-5236-4aca-99e7-ec1e8968f08a", title: "Azerbaijan pardons French national as part of secret prisoner release deal", date: "2026-09-23", time: "10:40", url: "https://www.ft.com/content/b05367af-5236-4aca-99e7-ec1e8968f08a" },
   { id: "7d0f525e-f99d-4175-b37c-78d4dd4adf2b", title: "Enter slopfiling", date: "2026-09-23", time: "10:30", url: "https://www.ft.com/content/7d0f525e-f99d-4175-b37c-78d4dd4adf2b" },
@@ -30,6 +35,7 @@ export const FT_ITEMS = [
   { id: "8cefcdba-2d5b-421b-969e-1a302b660fe5", title: "Bank of England can avoid raising interest rates, says OECD", date: "2026-09-23", time: "09:00", url: "https://www.ft.com/content/8cefcdba-2d5b-421b-969e-1a302b660fe5" },
   { id: "6c13ada9-f325-428b-b91e-bffcf92eddad", title: "OECD sounds alarm on surging government bond yields", date: "2026-09-23", time: "09:00", url: "https://www.ft.com/content/6c13ada9-f325-428b-b91e-bffcf92eddad" },
   { id: "344e7af4-42ce-4cf0-b608-aa25eaa1e7ee", title: "FTAV's further reading", date: "2026-09-23", time: "08:18", url: "https://www.ft.com/content/344e7af4-42ce-4cf0-b608-aa25eaa1e7ee" },
+  { id: "be468cf8-e450-46d8-891f-67bc79ffd7b3", title: "Royal Caribbean buys 50% stake in Sandals valuing resorts at $6bn", date: "2026-09-23", time: "08:17", url: "https://www.ft.com/content/be468cf8-e450-46d8-891f-67bc79ffd7b3" },
   { id: "a0c1434a-4f27-445b-ac37-23181424cd33", title: "Confessions of an accidental bonus basher", date: "2026-09-23", time: "07:00", url: "https://www.ft.com/content/a0c1434a-4f27-445b-ac37-23181424cd33" },
   { id: "04c5abf0-d7c4-47ca-9391-4a154c14e178", title: "Private credit's \"soft\" defaults", date: "2026-09-23", time: "06:30", url: "https://www.ft.com/content/04c5abf0-d7c4-47ca-9391-4a154c14e178" },
   { id: "61f49a3d-ffac-4f09-b946-bfc1f9194e89", title: "Meloni at spending crossroads after failing to get off EU's fiscal naughty step", date: "2026-09-23", time: "06:00", url: "https://www.ft.com/content/61f49a3d-ffac-4f09-b946-bfc1f9194e89" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "a784df61-a9a0-4ef4-93ff-5f082c3e730c", title: "The problem with P(doom)", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/a784df61-a9a0-4ef4-93ff-5f082c3e730c" },
   { id: "9100f4cb-fa8d-4322-97cf-cc248f821fc3", title: "How Morocco’s election became about the World Cup", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/9100f4cb-fa8d-4322-97cf-cc248f821fc3" },
   { id: "4a808a51-c6e9-4ade-b1f7-95c27fd1aa1e", title: "Mark Carney and the limits of defying Donald Trump", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/4a808a51-c6e9-4ade-b1f7-95c27fd1aa1e" },
-  { id: "2b307c1e-cd98-4666-91d5-000b1dc7bbd1", title: "How private equity ended up in limbo", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/2b307c1e-cd98-4666-91d5-000b1dc7bbd1" },
-  { id: "58be9a1b-345c-4026-a738-989b72858c4f", title: "Amodei is right — AI companies need banking-style supervision", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/58be9a1b-345c-4026-a738-989b72858c4f" },
-  { id: "44ef48c9-13a4-4823-aa8f-cc9e2dfb5d17", title: "Why EU companies are now helping Chinese ones expand into Europe", date: "2026-09-23", time: "00:01", url: "https://www.ft.com/content/44ef48c9-13a4-4823-aa8f-cc9e2dfb5d17" },
-  { id: "0e50a3c6-9731-4b29-a21e-4e0ff89a595e", title: "Anthropic and OpenAI release cheaper models as price war intensifies", date: "2026-09-22", time: "21:31", url: "https://www.ft.com/content/0e50a3c6-9731-4b29-a21e-4e0ff89a595e" },
-  { id: "43465057-ff09-4ff3-85d2-ebed45bee207", title: "Turkish dismay", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/43465057-ff09-4ff3-85d2-ebed45bee207" },
-  { id: "f2f37449-f9c7-4556-9f97-4cca735980e4", title: "Top UK graft prosecutors joined Trump’s Venezuela oil baron during Swiss probe", date: "2026-09-22", time: "21:00", url: "https://www.ft.com/content/f2f37449-f9c7-4556-9f97-4cca735980e4" },
 ];
