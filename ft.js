@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9fbc4577-068b-45ad-b7fe-f524b9731d4e", title: "Pornhub's age checks probed by UK watchdog", date: "2026-09-23", time: "09:57", url: "https://www.ft.com/content/9fbc4577-068b-45ad-b7fe-f524b9731d4e" },
+  { id: "7d59acf7-7bac-42e0-a5b2-196391d0480d", title: "The Liberal Democrats' unserious tax cut pledge", date: "2026-09-23", time: "09:30", url: "https://www.ft.com/content/7d59acf7-7bac-42e0-a5b2-196391d0480d" },
+  { id: "9bc23f86-f977-408e-b32f-2917fd4a2267", title: "Swiss lawmakers vote to back tighter UBS capital rules", date: "2026-09-23", time: "09:22", url: "https://www.ft.com/content/9bc23f86-f977-408e-b32f-2917fd4a2267" },
   { id: "8cefcdba-2d5b-421b-969e-1a302b660fe5", title: "Bank of England can avoid raising interest rates, says OECD", date: "2026-09-23", time: "09:00", url: "https://www.ft.com/content/8cefcdba-2d5b-421b-969e-1a302b660fe5" },
   { id: "6c13ada9-f325-428b-b91e-bffcf92eddad", title: "OECD sounds alarm on surging government bond yields", date: "2026-09-23", time: "09:00", url: "https://www.ft.com/content/6c13ada9-f325-428b-b91e-bffcf92eddad" },
   { id: "344e7af4-42ce-4cf0-b608-aa25eaa1e7ee", title: "FTAV's further reading", date: "2026-09-23", time: "08:18", url: "https://www.ft.com/content/344e7af4-42ce-4cf0-b608-aa25eaa1e7ee" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "22d1154b-8bea-4f8d-bfc4-5db7761d3612", title: "Donald Trump says he would back US diesel export ban", date: "2026-09-22", time: "20:15", url: "https://www.ft.com/content/22d1154b-8bea-4f8d-bfc4-5db7761d3612" },
   { id: "be468cf8-e450-46d8-891f-67bc79ffd7b3", title: "Royal Caribbean nears deal for Sandals valuing resorts at more than $6bn", date: "2026-09-22", time: "20:01", url: "https://www.ft.com/content/be468cf8-e450-46d8-891f-67bc79ffd7b3" },
   { id: "0e03521f-c4f1-4242-8fff-0e34a27a26db", title: "Donald Trump rejects ‘globalist scheme’ to control AI in blow to Andy Burnham", date: "2026-09-22", time: "19:20", url: "https://www.ft.com/content/0e03521f-c4f1-4242-8fff-0e34a27a26db" },
-  { id: "99ba134a-6252-45f3-b312-07b8752a5a98", title: "US proposes $10bn fund with Arab allies to bypass Hormuz", date: "2026-09-22", time: "18:32", url: "https://www.ft.com/content/99ba134a-6252-45f3-b312-07b8752a5a98" },
-  { id: "62a6939f-7e24-492e-bdf6-b9ab9e1d3578", title: "Airtel Money poised to launch one of London’s biggest IPOs in recent years", date: "2026-09-22", time: "18:24", url: "https://www.ft.com/content/62a6939f-7e24-492e-bdf6-b9ab9e1d3578" },
-  { id: "1434496d-0eaf-4270-8ad3-87724cd3721e", title: "Donald Trump threatens to ‘annihilate’ Iran in combative UN speech", date: "2026-09-22", time: "18:06", url: "https://www.ft.com/content/1434496d-0eaf-4270-8ad3-87724cd3721e" },
 ];
