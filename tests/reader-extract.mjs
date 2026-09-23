@@ -99,9 +99,11 @@ const md = `# Dollar at two-month highs as the Fed outlook stays 'dominant'
 
 ![chart](https://example.com/a.png)
 
+Exclusive news, data and analytics for financial market professionals Learn more about Refinitiv
+
 The dollar climbed to a two-month high on Wednesday as investors leaned into a run of hawkish Federal Reserve commentary on the policy path.
 
-Analysts at [Reuters](https://www.reuters.com/) said the move extended a broad advance, with the euro and sterling both slipping against a firmer greenback.
+Shares of General Motors [(GM.N), opens new tab](https://www.reuters.com/gm) and Meta [(META.O), opens new tab](https://www.reuters.com/meta) were flat to marginally higher in premarket trading on the day.
 
 Subscribe to our newsletter
 
@@ -109,7 +111,8 @@ Subscribe to our newsletter
 const pp = proxyParagraphs(md);
 check(pp.length === 2, `proxy: markdown reduces to the two body paragraphs (${pp.length})`);
 check(pp[0].includes("two-month high") && !/^#/.test(pp[0]), "proxy: drops the heading, keeps the lede");
-check(pp.some((p) => /Reuters said the move/.test(p)) && !pp.some((p) => /\]\(http/.test(p)), "proxy: link markup becomes plain text");
-check(!pp.some((p) => /Subscribe to our newsletter|Terms of use|!\[/.test(p)), "proxy: boilerplate + images are dropped");
+check(pp.some((p) => /General Motors \(GM\.N\) and Meta \(META\.O\)/.test(p)), "proxy: strips ', opens new tab' link a11y text and joins cleanly");
+check(!pp.some((p) => /opens new tab|\]\(http/.test(p)), "proxy: no 'opens new tab' or leftover link markup");
+check(!pp.some((p) => /Subscribe to our newsletter|Terms of use|financial market professionals|Refinitiv|!\[/.test(p)), "proxy: boilerplate (incl. the Refinitiv header), images dropped");
 
 finish();

@@ -1713,7 +1713,7 @@ function _readMeta(html, keys) {
   }
   return "";
 }
-const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4})/i;
+const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles)/i;
 function _readTidy(host) { const p = host.replace(/\.(com|co\.uk|org|net|gov|edu|io|us)$/i, "").split(".").pop() || host; return p.charAt(0).toUpperCase() + p.slice(1); }
 export function extractReadable(html, u) {
   const host = u.hostname.replace(/^www\./, "");
@@ -1783,7 +1783,9 @@ export function proxyParagraphs(md) {
   for (const b of blocks) {
     const raw = b.trim();
     if (!raw || /^#{1,6}\s/.test(raw)) continue;               // blank block / markdown heading
-    const t = _readDec(raw.replace(/[*_`>#]+/g, " ")).replace(/\s+/g, " ").trim();
+    const t = _readDec(raw.replace(/[*_`>#]+/g, " "))
+      .replace(/,?\s*opens? (?:in )?(?:a )?new (?:tab|window)/gi, "")   // Reuters link a11y text
+      .replace(/\s+/g, " ").replace(/\s+([,.;:])/g, "$1").trim();
     if (t.length < 40 || READ_BOILER.test(t)) continue;
     if (/^\|/.test(t) || /^https?:\/\//i.test(t)) continue;    // table rows / stray URLs
     const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
@@ -1810,7 +1812,9 @@ async function _readViaFirecrawl(u, host, env) {
       headers: { "content-type": "application/json", authorization: "Bearer " + env.FIRECRAWL_API_KEY },
       // onlyMainContent strips nav/boilerplate; proxy:auto upgrades to a residential
       // (stealth) fetch when a site blocks the basic one — what Reuters needs.
-      body: JSON.stringify({ url: u.toString(), formats: ["markdown"], onlyMainContent: true, proxy: "auto", timeout: 25000 }),
+      // maxAge lets Firecrawl return a recent cached render in ~0.5s instead of a
+      // full browser fetch, so re-opening (or a second reader of) an article is fast.
+      body: JSON.stringify({ url: u.toString(), formats: ["markdown"], onlyMainContent: true, proxy: "auto", maxAge: 3600000, timeout: 25000 }),
       signal: AbortSignal.timeout(32000),
     });
     if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-" + r.status };
@@ -1863,8 +1867,9 @@ async function handleRead(request, env, ctx) {
     else data = { ...data, reason: [data.reason, viaProxy.reason].filter(Boolean).join("/") };
   }
   const resp = json(data);
-  // Cache a real body for 30 min; cache a miss only briefly so a transient block recovers.
-  resp.headers.set("cache-control", data.accessible ? "public, max-age=1800" : "public, max-age=120");
+  // Cache a real body for an hour (re-reads are instant off the edge — important since
+  // a proxied render is slow); cache a miss only briefly so a transient block recovers.
+  resp.headers.set("cache-control", data.accessible ? "public, max-age=3600" : "public, max-age=120");
   if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, resp.clone()));
   return resp;
 }

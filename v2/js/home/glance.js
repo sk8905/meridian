@@ -1933,7 +1933,7 @@ function _renderReaderInto(box, it, emptyMsg) {
       `<div class="g-read-note">${paywalled ? "This source needs a login — open the original below." : "Open the original below to read the full story."}</div>`);
     return;
   }
-  box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Reading the article…</div>`);
+  box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Fetching the full text — a few seconds for some sources…</div>`);
   fetch(`/api/read?url=${encodeURIComponent(it.href)}`, { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
     .then((d) => {
