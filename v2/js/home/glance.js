@@ -683,6 +683,17 @@ function heroToggle(key) {
   if (i >= 0) { if (_heroSel.length > 1) _heroSel.splice(i, 1); }
   else _heroSel.push(key);
 }
+// The clean DEFAULT overlay: one instrument per asset class (equities · rates ·
+// commodities · crypto), so the chart opens as ~5 distinguishable lines rather than a
+// near-0% tangle of all eight. Oil + Bitcoin are near-24h, so the intraday line stays
+// continuous with no big overnight blank. Everything else is one tap away on the legend.
+// Falls back to whatever the basket holds if none of the curated keys are present.
+const HERO_DEFAULT_KEYS = ["spx", "ust10", "oil", "gold", "btc"];
+function heroDefaultSel(insts) {
+  const have = (insts || []).map((i) => i.key);
+  const pick = HERO_DEFAULT_KEYS.filter((k) => have.includes(k));
+  return pick.length ? pick : have;
+}
 // Signed percent, e.g. "+3.4%" / "−1.2%" (real minus glyph).
 function heroPctStr(v) { const a = Math.abs(v); return (v > 0 ? "+" : v < 0 ? "−" : "") + (a >= 100 ? Math.round(a) : a.toFixed(1)) + "%"; }
 
@@ -696,7 +707,7 @@ function initHero() {
   const boot = () => {
     if (_heroBooted) return; _heroBooted = true;
     const cached = heroReadCache();
-    if (cached && cached.length) { _heroData = cached; if (!_heroSel.length) _heroSel = cached.map((c) => c.key); renderHero(); }
+    if (cached && cached.length) { _heroData = cached; if (!_heroSel.length) _heroSel = heroDefaultSel(cached); renderHero(); }
     wireHeroControls();
     fetchHero();
     renderHeroNews();
@@ -717,7 +728,7 @@ function fetchHero() {
       if (!insts.length) return;                            // keep whatever is showing
       _heroData = insts;
       _heroSel = _heroSel.filter((k) => insts.some((i) => i.key === k));   // prune stale keys
-      if (!_heroSel.length) _heroSel = insts.map((i) => i.key);            // default: all tickers
+      if (!_heroSel.length) _heroSel = heroDefaultSel(insts);            // default: one per asset class
       heroWriteCache(insts);
       renderHero();
     })

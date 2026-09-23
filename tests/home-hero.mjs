@@ -76,10 +76,10 @@ const b = await launchChromium();
   });
   checkEq(init.labels.length, 8, "hero: the securities row lists all eight instruments");
   check(init.labels.join(",") === "S&P 500,Nasdaq,FTSE 100,Euro Stoxx,US 10Y,Oil,Gold,Bitcoin", `hero: the row reads S&P 500 · Nasdaq · FTSE 100 · Euro Stoxx · US 10Y · Oil · Gold · Bitcoin (${init.labels.join(", ")})`);
-  check(init.onKeys.length === 8, `hero: all eight securities are plotted by default — the indexed overlay (${init.onKeys.length})`);
+  check(init.onKeys.slice().sort().join(",") === "btc,gold,oil,spx,ust10", `hero: the default overlay is one per asset class — S&P 500 · US 10Y · Oil · Gold · Bitcoin (${init.onKeys.join(", ")})`);
   check(init.pcts.every((p) => /%$/.test(p)), `hero: every ticker shows a % change indicator (${init.pcts.join(" · ")})`);
-  check(init.spxFilled && init.goldFilled, "hero: all default dots are FILLED (every ticker selected)");
-  check(init.lines >= 8, `hero: eight securities → eight lines (${init.lines})`);
+  check(init.spxFilled && init.goldFilled, "hero: the curated default dots are FILLED (S&P 500 + Gold among them)");
+  check(init.lines === 5, `hero: the curated default plots five lines (${init.lines})`);
   checkEq(init.rangeOn, "1D", "hero: 1D is the default range");
 
   // Default is the INDEXED overlay: a shared % axis, no single-view price tag,
@@ -130,7 +130,10 @@ const b = await launchChromium();
   check(Math.max(...h1d) >= 19, `hero: the 1D axis spans the full trading day — empty space to the right for the rest of today (${d1.xl})`);
   // Session overlay = clean dashed VERTICAL markers only (no bands, no bottom strip):
   // each bounded market's open, plus its close once it has closed for the day. US
-  // afternoon vs European morning opens land at different x. Only on 1D.
+  // afternoon vs European morning opens land at different x. Only on 1D. Add FTSE (UK)
+  // to the curated default so both a UK and a US market are plotted for this check.
+  await pg.evaluate(() => { const t = document.querySelector('#g-hero-sel .g-hero-tk[data-k="ftse"]'); if (t && !t.classList.contains("is-on")) t.click(); });
+  await pg.waitForTimeout(120);
   const decor = await pg.evaluate(() => {
     const v = [...document.querySelectorAll('#g-hero-svg line[stroke-dasharray="2 2"]')];
     const xs = v.map((l) => Math.round(parseFloat(l.getAttribute("x1")))).sort((a, b) => a - b);
@@ -170,8 +173,10 @@ const b = await launchChromium();
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click());
   await pg.waitForTimeout(150);
 
-  // Pare down to ONE security → the single price view returns (line + price tag).
-  await pg.evaluate(() => ["ndx", "ftse", "sx5e", "ust10", "oil", "gold", "btc"].forEach((k) => document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"]`).click()));
+  // Pare down to ONE security (spx) → the single price view returns (line + price tag).
+  // Turn OFF only the non-spx tickers that are currently on, re-querying each time (the
+  // legend row is rebuilt on every toggle) — deterministic whatever the default set is.
+  await pg.evaluate(() => ["ndx", "ftse", "sx5e", "ust10", "oil", "gold", "btc"].forEach((k) => { const t = document.querySelector(`#g-hero-sel .g-hero-tk[data-k="${k}"]`); if (t && t.classList.contains("is-on")) t.click(); }));
   await pg.waitForTimeout(150);
   const one = await pg.evaluate(() => ({
     onKeys: [...document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on")].map((t) => t.dataset.k),
