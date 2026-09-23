@@ -937,7 +937,7 @@
        hyphenation lets more fit per line, so justification has far less empty space to
        distribute — no ragged "rivers" of white on a narrow phone column (mockup C). */
     .g-read-p{ font-family:var(--t-mono); font-size:12px; line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; letter-spacing:-.3px; word-spacing:-1.5px; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
-    .g-read-open{ font-family:var(--t-mono); font-size:12px; color:var(--t-accent); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--t-accent) 40%, transparent); }
+    .g-read-open{ font-family:var(--t-mono); font-size:12px; color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:12px; line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
 
@@ -1106,13 +1106,13 @@
     .g-x-av{ width:22px; height:22px; border-radius:50%; flex:0 0 auto; object-fit:cover; background:var(--t-panel2, var(--t-grid)); }
     .g-x-av-ph{ display:inline-block; }
     .g-x-who{ font-size:12px; font-weight:700; color:var(--t-ink); text-decoration:none; }
-    .g-x-who:hover{ text-decoration:underline; }
+    .g-x-who:hover{ text-decoration:none; }
     .g-x-h{ font-family:var(--t-mono); font-size:10px; color:var(--t-mut); }
     .g-x-d{ margin-left:auto; font-family:var(--t-mono); font-variant-numeric:tabular-nums; font-size:10px; color:var(--t-faint); }
     /* Tweet body + inline media (server-rendered card). */
     .g-x-txt{ font-size:12px; line-height:1.42; color:var(--t-ink); white-space:normal; overflow-wrap:anywhere; }
     .g-x-txt a{ color:var(--accent, #fb8b1e); text-decoration:none; }
-    .g-x-txt a:hover{ text-decoration:underline; }
+    .g-x-txt a:hover{ text-decoration:none; }
     .g-x-media{ display:block; margin-top:8px; }
     .g-x-media img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--t-grid); }
     /* Quote tweet: the embedded original, nested as a bordered card beneath the
@@ -1128,11 +1128,11 @@
     .g-x-qmedia{ display:block; margin-top:6px; }
     .g-x-qmedia img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--t-grid); }
     .g-x-permalink{ display:inline-block; margin-top:7px; font-family:var(--t-mono); font-size:10px; color:var(--t-faint); text-decoration:none; }
-    .g-x-permalink:hover{ color:var(--t-ink); text-decoration:underline; }
+    .g-x-permalink:hover{ color:var(--t-ink); text-decoration:none; }
     .g-x-note{ font-size:10px; color:var(--t-mut); margin:-2px 0 7px; }
     .g-x-open{ padding:8px 14px; border-bottom:1px solid var(--t-grid); }
     .g-x-fallback, .g-x-acct .g-x-fallback{ display:inline-block; font-family:var(--t-mono); font-size:10px; color:var(--t-mut); text-decoration:none; padding:2px 0; }
-    .g-x-fallback:hover{ color:var(--t-ink); text-decoration:underline; }
+    .g-x-fallback:hover{ color:var(--t-ink); text-decoration:none; }
 
     /* ---- Home briefing card — the tri-daily market brief at the head of the News
        wire (rendered by glance.js renderHomeBriefing). Orange desk kickers (shared
@@ -1172,7 +1172,7 @@
     .tui .g-hbrief-srcsep{ color:var(--t-faint); }
     .tui .g-hbrief-src{ font-family:var(--t-mono); font-size:10px; letter-spacing:.02em;
       color:var(--t-mut); text-decoration:none; }
-    .tui .g-hbrief-src:hover{ color:var(--t-ink); text-decoration:underline; }
+    .tui .g-hbrief-src:hover{ color:var(--t-ink); text-decoration:none; }
     .tui .g-hbrief-foot{ margin-top:8px; font-family:var(--t-mono); font-size:10px; color:var(--t-faint); }
     /* Numbers read as plain body text here (as in the header briefing panel), while
        the orange desk kicker (.nb-topic) is kept. */
@@ -1234,7 +1234,7 @@
     .g-mw-ev-s{ font-family:var(--t-mono); font-size:12px; color:var(--t-faint); text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .g-mw-exp{ align-self:flex-start; margin:2px 12px 0; background:none; border:0; color:var(--t-accent); font:inherit;
       font-size:12px; font-weight:700; cursor:pointer; padding:0; }
-    .g-mw-exp:hover{ text-decoration:underline; }
+    .g-mw-exp:hover{ text-decoration:none; }
     .g-mw-events{ display:flex; flex-direction:column; }
     .g-mw-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:14px; }
     /* Flat (chronological) manager wire — reuses the news-wire row engine
@@ -1504,7 +1504,7 @@
     /* The source name in a wire row filters the feed by that newsroom — make it
        read as clickable (F6). Home wire only: on the desk views it isn't wired. */
     .tui #g-feed .g-feed-src{ cursor:pointer; }
-    .tui #g-feed a.g-feed-row:hover .g-feed-src{ text-decoration:underline; text-underline-offset:2px; }
+    .tui #g-feed a.g-feed-row:hover .g-feed-src{ text-decoration:none; text-underline-offset:2px; }
     /* Subscriber-only rows carry a white outline padlock just left of the source
        name — a glance-level "needs a login; won't open in the reading pane" mark.
        Decorative (pointer-events off) so it never intercepts the source-filter tap. */

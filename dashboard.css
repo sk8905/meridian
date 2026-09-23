@@ -285,7 +285,7 @@
 }
 /* Year-ago ("vs X 2Q25") comparison — faint, linking its own source. */
 .dsh-kv-yoy { margin-left:6px; font-family:var(--t-mono); font-size:10px; color:var(--t-faint); text-decoration:none; white-space:nowrap; }
-.dsh-kv-yoy:hover { color:var(--t-mut); text-decoration:underline; }
+.dsh-kv-yoy:hover { color:var(--t-mut); text-decoration:none; }
 /* Tracked industry research the private-credit pulse draws on (KBRA MM Compendium,
    AIMA/ACC) — a compact list of linked report titles beneath the metric grid. */
 .dsh-pc-reports { margin-top:8px; }
