@@ -244,11 +244,18 @@ function initHeaderLock() {
   // frame so --wire-head-h (hence every sub-nav offset) is pixel-accurate.
   requestAnimationFrame(lock);
   let resizeQueued = false;
-  window.addEventListener("resize", () => {
+  const relock = () => {
     if (resizeQueued) return;
     resizeQueued = true;
     requestAnimationFrame(() => { resizeQueued = false; lock(); });
-  });
+  };
+  window.addEventListener("resize", relock);
+  // The header's own height can change AFTER the initial measure — a web-font swap
+  // re-metrics the logo, the identity block relocates to the footer, the safe-area
+  // inset settles — with no window `resize`. A stale (too-tall) --wire-head-h then
+  // over-pads the body, opening a gap between the fixed header and the search band.
+  // Observe the bar directly so the measure always tracks its real height.
+  if (typeof ResizeObserver !== "undefined") { try { new ResizeObserver(relock).observe(head); } catch { /* older engines: resize listener still covers it */ } }
 }
 
 // The phone-only bottom meta strip (identity + last refresh), pinned above the
