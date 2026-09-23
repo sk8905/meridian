@@ -1312,14 +1312,20 @@
          the exact gap between the tabs and the bottom nav. The page's bottom-nav
          padding is dropped on this pane (html.home-brief) so nothing scrolls, and the
          source note pins to the bottom. A vars-based min-height is the pre-JS fallback. */
-      /* Stuck header · SCROLLING body (lede + bullets) · stuck footer note — the head
-         and foot are flex:0 (pinned top and bottom), the body scrolls between them. */
-      .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box; overflow:hidden;
-        min-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 56px - env(safe-area-inset-bottom, 0px)); }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-head{ flex:0 0 auto; }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:8px 12px;
-        background:var(--t-head); border-top:1px solid var(--t-grid); }
+      /* Sticky header · scrolling summary · sticky footer, on the normal PAGE scroll
+         (like the feed's sticky day-header — robust, no fixed-element iOS glitch). The
+         header pins just under the wire tabs and the note pins just above the bottom
+         nav, so the lede + desk bullets scroll between them. min-height fills the
+         screen so the note sits at the bottom even for a short brief. */
+      .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
+        min-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 54px - env(safe-area-inset-bottom, 0px)); }
+      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-head{ flex:0 0 auto; position:sticky; z-index:7;
+        top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); }
+      /* Body flex-grows so a SHORT brief pushes the note to the bottom; a LONG brief
+         overflows and the page scrolls, with head + foot staying sticky. */
+      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:1 1 auto; }
+      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; position:sticky; z-index:7; margin-top:0; padding:8px 12px;
+        bottom:calc(54px + env(safe-area-inset-bottom, 0px)); background:var(--t-head); border-top:1px solid var(--t-grid); }
       /* On the Briefing pane the page must not scroll, so drop the global bottom-nav
          padding that otherwise leaves a scrollable strip below the one-screen pane. */
       html.home-brief body{ padding-bottom:0 !important; }
