@@ -338,7 +338,7 @@ function renderHomeBriefing() {
     + (s.lede ? `<p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
     + `</div>`
-    + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
+    + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks.</div>`;
 }
 function initHomeBriefing() {
   // The briefing is always expanded now (its own Market Briefing pane on phones,
