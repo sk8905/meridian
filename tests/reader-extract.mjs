@@ -48,6 +48,22 @@ const p = extractReadable(pay, u("https://www.example-news.com/x"));
 check(p.accessible === false, "extract: isAccessibleForFree=false marks the article not accessible");
 checkEq(p.title, "A subscriber scoop", "extract: title still read for a paywalled article");
 
+// 2b) A READ_OPEN host (SCMP) serves the same "metered" flag but its public page
+//     carries the full body — we render what the public page returns (no login),
+//     so the metered flag is ignored and the article reads in-pane.
+const scmpBody = `<html><head><meta property="og:title" content="Trump offloads AI and tech shares">
+  <script type="application/ld+json">{"@type":"NewsArticle","isAccessibleForFree":false}</script>
+  </head><body><article>
+  <p>US President Donald Trump sold tens of millions of dollars in artificial-intelligence and technology shares over the summer, new filings show.</p>
+  <p>The disclosures list holdings led by Microsoft, Amazon and Meta among the positions trimmed across the period covered by the filing.</p>
+  <p>Analysts said the sales, while sizeable in dollar terms, represented a modest share of the overall portfolio disclosed to regulators.</p>
+  </article></body></html>`;
+const scmp = extractReadable(scmpBody, u("https://www.scmp.com/news/x"));
+check(scmp.accessible === true && scmp.paragraphs.length === 3, `extract: a READ_OPEN host renders its public body despite the metered flag (${scmp.paragraphs.length} paras)`);
+// …but a READ_OPEN host that serves only a stub still can't be rendered (no body).
+const scmpStub = extractReadable(`<html><head><title>SCMP</title></head><body><div id="app"></div></body></html>`, u("https://www.scmp.com/news/y"));
+check(scmpStub.accessible === false && scmpStub.paragraphs.length === 0, "extract: a READ_OPEN host with no served body still falls back (no fabricated text)");
+
 // 3) No readable body (e.g. a JS-rendered stub) → accessible:false.
 const stub = `<html><head><title>Loading…</title></head><body><div id="app"></div></body></html>`;
 const s = extractReadable(stub, u("https://www.reuters.com/x"));

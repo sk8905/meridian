@@ -1672,6 +1672,15 @@ const READ_PAYWALL = new Set([
   "businessinsider.com", "thetimes.co.uk", "telegraph.co.uk", "nikkei.com", "forbes.com",
   "washingtonpost.com", "theinformation.com", "seekingalpha.com",
 ]);
+// Hosts we render in-pane even though they flag their pages "metered"
+// (isAccessibleForFree=false in the page data). These sites still serve the full
+// article body to a plain public fetch, so we print exactly what that public page
+// returns — no login, no credentials, no hard-paywall bypass (READ_PAYWALL hosts
+// are never fetched at all). If a listed host serves only a teaser, extraction
+// stays thin and the reader still falls back to the link.
+const READ_OPEN = new Set([
+  "scmp.com",
+]);
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
 export function readHostAllowed(host) {
@@ -1715,7 +1724,10 @@ export function extractReadable(html, u) {
   const date = _readMeta(html, ["article:published_time", "og:published_time", "parsely-pub-date", "datePublished"]);
   const freeMeta = _readMeta(html, ["isAccessibleForFree"]);
   const jsonldFree = /"isAccessibleForFree"\s*:\s*(?:false|"false")/i.test(html);
-  let accessible = !(/false/i.test(freeMeta) || jsonldFree);
+  // READ_OPEN hosts are rendered from whatever their public page serves, so their
+  // "metered" flag is ignored; every other host honours it (a metered teaser stays
+  // behind its link). Body length still decides — no body, no render.
+  let accessible = _readInSet(host, READ_OPEN) ? true : !(/false/i.test(freeMeta) || jsonldFree);
   // Body: prefer paragraphs inside <article>, else [itemprop=articleBody]. Many
   // sites (e.g. a page whose first <article> is a related-story card, with the real
   // copy in a <div class="articleBody/WYSIWYG/story-body…">) leave the body OUTSIDE
