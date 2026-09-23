@@ -140,6 +140,9 @@
     box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
 }
 .dsh-mid, .dsh-newsrail { display:flex; flex-direction:column; gap:var(--dsh-gap); min-width:0; padding:0 var(--dsh-gap); }
+/* Maturity-wall + spreads wrapper: stacks on narrow screens, becomes a 2fr/1fr row
+   on the terminal (see the .dsh-3z grid rules above). */
+.dsh-matrow { display:flex; flex-direction:column; gap:var(--dsh-gap); min-width:0; }
 /* News-rail items read as a wire: the headline sits on top (full width) with a
    muted meta line (date · source) beneath, so the narrow rail never squeezes the
    headline down to one word per line. */
@@ -190,6 +193,11 @@
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-term-lbl,
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-span,
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-wide{ grid-column:1 / -1; }
+  /* Maturity-wall row: the wide table beside the (short) live spreads — 2fr / 1fr. */
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-matrow{ grid-column:1 / -1; display:grid;
+    grid-template-columns:minmax(0,1fr) 260px; gap:var(--dsh-gap); align-items:start; }
+  /* The full-width Pulse card lays its metrics out in two columns. */
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-pc-card .dsh-pc-grid{ grid-template-columns:1fr 1fr; column-gap:22px; }
   /* A tile is only ~half the middle wide, so its inner two-column grids (kv
      metrics, the Fed/BoE FedWatch|dot-plot split) collapse to one column so every
      row reads on a single line. Full-width rows keep their two columns. */
@@ -451,6 +459,7 @@
    the wide card's width does real work. */
 .dsh-mw-wall { margin-top:10px; }
 .dsh-mw-tbl { table-layout:fixed; width:100%; }
+.dsh-mw-tbl th { white-space:normal; }   /* let headers wrap so a narrow table never collides the Composition/Cumulative heads */
 .dsh-mw-tbl th, .dsh-mw-tbl td { vertical-align:middle; }
 .dsh-mw-tbl th:first-child, .dsh-mw-tbl td:first-child { width:48px; }        /* Year */
 .dsh-mw-tbl th:nth-child(2), .dsh-mw-tbl td.dsh-mw-barcell { width:158px; }    /* short bar + $ */

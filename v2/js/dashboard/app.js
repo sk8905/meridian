@@ -398,11 +398,13 @@ export function mount(host, ctx) {
   function creditHTML() {
     const strip = crTapeHTML();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
-      <h3 class="dsh-term-lbl">Spreads &amp; pulse</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
-      <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+      <h3 class="dsh-term-lbl">Pulse</h3>
+      <section class="dsh-card dsh-wide dsh-pc-card"><h3 class="dsh-h">Private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
       <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
+      <div class="dsh-wide dsh-matrow">
+        <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
+        <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+      </div>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Credit wire" };
