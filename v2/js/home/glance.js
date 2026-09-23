@@ -1692,18 +1692,18 @@ function renderFeed() {
   if (host) {
     // Primary desk filter as a VISIBLE, colour-anchored chip row (was a hidden
     // <select>) — the wire's desks now read as controls, not inert text. Macro /
-    // Credit / Hedge / Legal are their own desks (with full views one tap away via
-    // "Open …"); Equities & Fixed Income are keyword slices of the macro stream, so
-    // they share the macro colour. The row scrolls horizontally on narrow screens.
-    // "All" and "Views" are cross-desk CONTENT lenses (everything / commentary
-    // only); the rest are topic desks. A separator after Views divides the two.
-    const DESK_OPTS = [["all", "All"], ["views", "Views"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
+    // Credit / Hedge / Legal are their own desks; Equities & Fixed Income are keyword
+    // slices of the macro stream, so they share the macro colour. The row scrolls
+    // horizontally on narrow screens. There is NO "All"/"Views" chip: the default is
+    // all news (no chip lit), and clicking the active desk toggles back to all — the
+    // divider that leads the row (right of the lane tabs) separates lanes from desks.
+    const DESK_OPTS = [["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
     const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex", n: "amber" };   // pill-hue anchor
     const activeDesk = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
     const chips = DESK_OPTS.map(([k, l]) => {
       const on = activeDesk === k;
       const dot = DESK_DOT[k] ? `<span class="g-feed-deskdot g-dot-${DESK_DOT[k]}" aria-hidden="true"></span>` : "";
-      const cls = "g-feed-deskchip" + (on ? " is-on" : "") + (k === "views" ? " g-feed-deskchip-sep" : "");
+      const cls = "g-feed-deskchip" + (on ? " is-on" : "");
       return `<button type="button" class="${cls}" data-desk="${esc(k)}" role="tab" aria-selected="${on}">${dot}${esc(l)}</button>`;
     }).join("");
     // No per-desk "Open …" button — the desk chips filter the wire in place, and
@@ -1731,8 +1731,9 @@ function renderFeed() {
         : "";
       host.innerHTML = deskrow + secondary;
     }
-    // Desk chip: clears any source filter, switches desks and resets the type.
-    host.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderWire(); }));
+    // Desk chip: clears any source filter, switches desks and resets the type. Re-
+    // clicking the active desk toggles back to "all" (no dedicated All chip anymore).
+    host.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = (_feedDesk === b.dataset.desk) ? "all" : b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderWire(); }));
     // Group-by-type toggle: day-by-day stream ⇄ by-label grouping (rolling 3 days).
     const grp = host.querySelector(".g-feed-grpbtn");
     if (grp) grp.addEventListener("click", (e) => {
@@ -1799,15 +1800,17 @@ function renderMgrLane(watchOnly) {
   setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
   const { host } = _deskFilterHost();
   if (host) {
-    const catOpts = ["all", ...MW_CAT_ORDER.filter((c) => present.has(c))];
+    // No "All" chip — the default is every category (nothing lit); each chip carries
+    // its pastel dot, and re-clicking the active one toggles back to all.
+    const catOpts = MW_CAT_ORDER.filter((c) => present.has(c));
     const chips = catOpts.map((c) => {
       const on = _mgrLaneCat === c;
-      const dot = c === "all" ? "" : `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
-      const label = c === "all" ? "All" : (CAT_LABEL[c] || c.toUpperCase());
+      const dot = `<span class="g-feed-deskdot g-dot-${MW_DOT[c] || "news"}" aria-hidden="true"></span>`;
+      const label = CAT_LABEL[c] || c.toUpperCase();
       return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-mglcat="${esc(c)}" role="tab" aria-selected="${on}">${dot}${esc(label)}</button>`;
     }).join("");
     host.innerHTML = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the manager wire by category">${chips}</div></div>`;
-    host.querySelectorAll("[data-mglcat]").forEach((b) => b.addEventListener("click", () => { _mgrLaneCat = b.dataset.mglcat; _saveHomePref({ mgrLaneCat: _mgrLaneCat }); renderWire(); }));
+    host.querySelectorAll("[data-mglcat]").forEach((b) => b.addEventListener("click", () => { _mgrLaneCat = (_mgrLaneCat === b.dataset.mglcat) ? "all" : b.dataset.mglcat; _saveHomePref({ mgrLaneCat: _mgrLaneCat }); renderWire(); }));
   }
 }
 // All lane: interleave the news feed with manager events by recency. Reuses the news
@@ -1973,7 +1976,7 @@ function _renderReaderInto(box, it, emptyMsg) {
         box.innerHTML = _readShell({ ...it, title: d.title || it.title }, `<span class="g-read-free">● reading mode</span>`,
           (bl ? `<div class="g-read-byline">${bl}</div>` : "") + d.paragraphs.map((p) => `<p class="g-read-p">${esc(p)}</p>`).join(""));
       } else {
-        box.innerHTML = _readShell(it, `<span class="g-read-lock">preview + link</span>`,
+        box.innerHTML = _readShell(it, "",
           `<div class="g-read-note">Full text isn't available in-pane for this source — open the original below.</div>`);
       }
     });

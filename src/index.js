@@ -3848,6 +3848,50 @@ export function xCollectTweets(node, out, depth) {
   }
 }
 
+// Collect image / video-thumbnail URLs from a tweet record, wherever the upstream put
+// them. Providers (twitterapi.io, TwitterAPIs.com, X syndication/GraphQL) nest media
+// under different keys AND cases (extendedEntities vs extended_entities, entities.media,
+// mediaDetails, photos, a bare media[]), and some also under a `legacy` block — so check
+// every known shape. Then, as a catch-all so an image is NEVER silently dropped, deep-
+// scan the record's JSON for pbs.twimg.com media/video-thumbnail URLs. Avatars
+// (…/profile_images/…) are always excluded. The deep scan is skipped when the record
+// carries a QUOTED tweet, so a quoted post's image isn't mis-attributed to the quoter
+// (the quoted card renders that separately). Exported for unit testing.
+const XMEDIA_URL_RE = /https:\/\/pbs\.twimg\.com\/(?:media|tweet_video_thumb|ext_tw_video_thumb|amplify_video_thumb|card_img)\/[^\s"'<>\\)]+/g;
+function _xPushMedia(arr, mu) {
+  if (typeof mu !== "string" || !mu) return;
+  mu = mu.replace(/&amp;/g, "&");
+  if (/^https:\/\//.test(mu) && /twimg\.com/.test(mu) && !/\/profile_images\//.test(mu) && !arr.includes(mu)) arr.push(mu);
+}
+export function xExtractMedia(node, cap) {
+  cap = cap || 4;
+  const out = [];
+  if (!node || typeof node !== "object") return out;
+  const lg = (node.legacy && typeof node.legacy === "object") ? node.legacy : null;
+  const groups = [
+    node.extendedEntities && node.extendedEntities.media,
+    node.entities && node.entities.media,
+    node.extended_entities && node.extended_entities.media,
+    lg && lg.extended_entities && lg.extended_entities.media,
+    lg && lg.entities && lg.entities.media,
+    node.mediaDetails, node.photos,
+    Array.isArray(node.media) ? node.media : null,
+  ];
+  for (const g of groups) {
+    if (!Array.isArray(g)) continue;
+    for (const m of g) {
+      if (!m) continue;
+      _xPushMedia(out, typeof m === "string" ? m : (m.media_url_https || m.media_url || m.url));
+      if (out.length >= cap) return out.slice(0, cap);
+    }
+  }
+  const hasQuote = !!(node.quoted_status_result || node.quoted_status || node.quoted_tweet || node.quotedTweet || (lg && lg.quoted_status));
+  if (!out.length && !hasQuote) {
+    try { const s = JSON.stringify(node); let m; XMEDIA_URL_RE.lastIndex = 0; while ((m = XMEDIA_URL_RE.exec(s)) && out.length < cap) _xPushMedia(out, m[0]); } catch { /* ignore */ }
+  }
+  return out.slice(0, cap);
+}
+
 // Flatten a QUOTED tweet (the original embedded inside a quote-tweet) into the
 // compact card the client nests under the quoter's own text. Handles both the
 // twitterapi.io shape (author.{userName,name}, text, extendedEntities) and the
@@ -3866,12 +3910,7 @@ export function xQuotedCard(q) {
     let text = String(lg.full_text != null ? lg.full_text : (lg.text != null ? lg.text
       : (q.full_text != null ? q.full_text : (q.text != null ? q.text : ""))));
     text = text.replace(/\s+https:\/\/t\.co\/\w+\s*$/, "").trim();
-    const media = [];
-    const ents = (lg.extended_entities && lg.extended_entities.media)
-      || (lg.entities && lg.entities.media)
-      || (q.extendedEntities && q.extendedEntities.media)
-      || (q.entities && q.entities.media) || [];
-    if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
+    const media = xExtractMedia(q);
     if (!handle && !text && !media.length) return null;
     const url = q.url || (handle && /^\d{5,}$/.test(id) ? `https://x.com/${handle}/status/${id}` : (handle ? `https://x.com/${handle}` : ""));
     return { handle, name, text, media: media.slice(0, 1), url };
@@ -3902,12 +3941,7 @@ export function xNormalizeTweet(t) {
     const created = lg.created_at || t.created_at || "";
     const ts = Date.parse(created) || 0;
     if (!ts) return null;
-    const media = [];
-    const ents = (lg.extended_entities && lg.extended_entities.media)
-      || (lg.entities && lg.entities.media)
-      || (t.extended_entities && t.extended_entities.media)
-      || (t.entities && t.entities.media) || t.photos || t.mediaDetails || [];
-    if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url || m.url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
+    const media = xExtractMedia(t);
     const out = { id, handle, name, avatar, text, date: created, ts,
       url: handle ? `https://x.com/${handle}/status/${id}` : `https://x.com/i/status/${id}`,
       media: media.slice(0, 1) };
@@ -3976,10 +4010,7 @@ export function xNormalizeApiTweet(t) {
     const ts = Date.parse(outerCreated || origCreated) || 0;   // ordering key
     const created = origCreated || outerCreated;               // shown to the reader
     if (!ts || !created) return null;
-    const media = [];
-    const ents = (src.extendedEntities && src.extendedEntities.media)
-      || (src.entities && src.entities.media) || [];
-    if (Array.isArray(ents)) for (const m of ents) { const mu = m && (m.media_url_https || m.media_url); if (mu && /^https:\/\//.test(mu) && /twimg\.com/.test(mu)) media.push(mu); }
+    const media = xExtractMedia(src);
     const out = { id: uid, handle, name, avatar, text, date: created, ts,
       url: src.url || (handle ? `https://x.com/${handle}/status/${origId}` : `https://x.com/i/status/${origId}`),
       media: media.slice(0, 1) };

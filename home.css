@@ -908,6 +908,10 @@
     .g-wire-subs{ display:none; }
     @media (min-width:1201px){
       .g-wire-subs{ display:flex; flex:1 1 auto; min-width:0; align-items:stretch; }
+      /* A single faint divider leads the sub-filters — right of the Watchlist tab — so it
+         separates the lane tabs from the desk/label filters (there is no per-chip
+         separator anymore). Shown only when the lane actually has sub-filters. */
+      .tui .g-wire-subs:not(:empty){ border-left:1px solid var(--t-grid2); margin-left:4px; padding-left:8px; }
       /* The relocated desk-row sheds its band framing (full-width, borders) and simply
          fills the remaining lane-row width. */
       .tui .g-wire-subs .g-feed-deskrow{ flex:1 1 auto; width:auto; min-width:0; min-height:0; border-bottom:0; }

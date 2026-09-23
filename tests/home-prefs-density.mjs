@@ -59,10 +59,10 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForTimeout(600);
   const restored = await pg.evaluate(() => {
     const c = document.querySelector('.g-feed-deskchip[data-desk="c"]');
-    const all = document.querySelector('.g-feed-deskchip[data-desk="all"]');
-    return { creditOn: c && c.classList.contains("is-on"), allOn: all && all.classList.contains("is-on") };
+    const litKeys = [...document.querySelectorAll(".g-feed-deskchip[data-desk].is-on")].map((x) => x.dataset.desk);
+    return { creditOn: !!(c && c.classList.contains("is-on")), litKeys };
   });
-  check(restored.creditOn && !restored.allOn, "Home reopens on the remembered Credit filter, not All");
+  check(restored.creditOn && restored.litKeys.join(",") === "c", "Home reopens on the remembered Credit filter, not all news");
   checkErrs(errs, "remembered desk filter");
   await ctx.close();
 }

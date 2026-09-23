@@ -58,17 +58,18 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   check(r.dates.every((s) => /^\d+\s+\w+$/.test(s)) && dn.every((v, i) => i === 0 || dn[i - 1] >= v), `Manager lane: the meta line shows the DATE, newest → oldest (${r.dates.slice(0, 6).join(", ")})`);
   check(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b.*\d{4}/i.test(r.bands[0] || ""), `Manager lane: a month band leads the stream (${r.bands[0]})`);
 
-  // Second-level category filter: All + the present deal categories (each with a
-  // pastel dot; All has none), and picking one narrows the wire to that label.
+  // Second-level category filter: the present deal categories, each with a pastel dot
+  // (no "All" chip — the default is every category, nothing lit). Picking one narrows
+  // the wire to that label; re-clicking it clears back to all.
   const f = await pg.evaluate(() => {
     // Desktop: the category chips ride the lane-tab row (#g-wire-subs); phones keep them
     // in #g-feed-head. Accept either host.
     const chips = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")];
-    return { count: chips.length, first: chips[0]?.textContent.trim(), allOn: chips[0]?.classList.contains("is-on"),
-      dots: chips.filter((c) => c.querySelector(".g-feed-deskdot")).length, allDot: !!chips[0]?.querySelector(".g-feed-deskdot") };
+    return { count: chips.length, noAll: !chips.some((c) => c.dataset.mglcat === "all"),
+      dots: chips.filter((c) => c.querySelector(".g-feed-deskdot")).length };
   });
-  check(f.count >= 4 && f.first === "All" && f.allOn, `Manager lane: a category chip row leads with All, selected (${f.count} chips)`);
-  check(!f.allDot && f.dots === f.count - 1, `Manager lane: All carries no dot; every category chip does (${f.dots}/${f.count})`);
+  check(f.count >= 4 && f.noAll, `Manager lane: category chips only, no "All" chip (${f.count} chips)`);
+  check(f.dots === f.count, `Manager lane: every category chip carries its pastel dot (${f.dots}/${f.count})`);
   const narrowed = await pg.evaluate(() => {
     const chip = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")].find((c) => c.dataset.mglcat !== "all");
     const want = chip.dataset.mglcat; chip.click();
@@ -78,8 +79,9 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   check(narrowed.onSel === narrowed.want, `Manager lane: clicking a category selects it (${narrowed.onSel})`);
   check(narrowed.codes.length === 1, `Manager lane: the wire narrows to only that label's stories (${narrowed.codes.join(", ")})`);
 
-  // Reading pane: clicking a manager row opens it in the pane in reading mode.
-  await pg.evaluate(() => { const c = [...document.querySelectorAll("#g-wire-subs .g-feed-deskchip[data-mglcat], #g-feed-head .g-feed-deskchip[data-mglcat]")].find((x) => x.dataset.mglcat === "all"); if (c) c.click(); });
+  // Reading pane: clicking a manager row opens it in the pane in reading mode. First
+  // clear the active category (re-click the lit chip toggles back to all).
+  await pg.evaluate(() => { const c = document.querySelector("#g-wire-subs .g-feed-deskchip.is-on[data-mglcat], #g-feed-head .g-feed-deskchip.is-on[data-mglcat]"); if (c) c.click(); });
   await pg.waitForTimeout(200);
   const read = await pg.evaluate(() => {
     const row = document.querySelectorAll("#g-feed .g-mw-fev")[2];

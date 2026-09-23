@@ -32,8 +32,9 @@ checkEq(fi.code, "FI", "Bond Vigilantes item carries the FI desk label (not MAC)
 check(/Bond Vigilantes/.test(fi.src || ""), "Bond Vigilantes item shows its source name");
 
 // It also appears in the All-news wire (it's a real source, not only a keyword view).
+// Re-click the active Fixed Income chip to toggle the filter back to all news.
 const inAll = await pg.evaluate((title) => {
-  document.querySelector('.g-feed-deskchip[data-desk="all"]').click();
+  document.querySelector('.g-feed-deskchip[data-desk="fi"]').click();
   return [...document.querySelectorAll("#g-feed .g-feed-title")].some((t) => t.textContent === title);
 }, BV.title);
 check(inAll, "Bond Vigilantes item is folded into the All-news wire");
