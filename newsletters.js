@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-yields5pct-20260923",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "US yields cross 5% threshold",
+    date: "2026-09-23",
+    time: "22:01",
+    summary: "US bond yields hit the highest since 2007 as investors eye Thursday's Trump-Xi summit in Washington.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-asiantechrallylosessteam-20260922",
     publication: "Bloomberg",
     author: "Samson Ellis",
@@ -482,16 +493,5 @@ export const NEWSLETTERS = [
     time: "10:09",
     summary: "M&A partner set to move to rival in latest European exit from magic circle firm.",
     url: "https://email.legalbusiness.co.uk/c/1dYm4qg1bAwD20DoUKIOBJ6es9v5",
-  },
-  {
-    id: "nl-nonbillable-weilexitsmount-20260918",
-    publication: "Non-Billable",
-    author: null,
-    series: null,
-    title: "Weil exits mount",
-    date: "2026-09-18",
-    time: "10:03",
-    summary: "Goodhead is back in the Mariana fight, while lawyers score on the Chelsea deal.",
-    url: "https://non-billable.beehiiv.com/p/draft-18-sep",
   },
 ];

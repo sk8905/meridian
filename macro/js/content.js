@@ -13,7 +13,7 @@ export const UPDATED = "23 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-23",
-  lastCheckedTime: "20:23 BST",
+  lastCheckedTime: "22:29 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -994,7 +994,7 @@ export const NEWS = {
   updated: "2026-09-23",
   us: [
     { title: "Fed's Barr: Further rate hikes needed for timely return to 2% inflation", source: "FXStreet", date: "2026-09-23", time: "16:13", url: "https://www.fxstreet.com/news/feds-barr-further-rate-hikes-needed-for-timely-return-to-2-inflation-202609231443" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq fall as 10-year yield surges, markets eye looming Trump-Xi meeting", source: "Yahoo Finance", date: "2026-09-23", time: "16:13", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-september-23-dow-sp-500-nasdaq-080556640.html" },
+    { title: "Stock Market Today (Sept. 23, 2026): Nasdaq, Russell 2000 sink as 5-year Treasury hits 5% for first time since 2007", source: "TheStreet", date: "2026-09-23", time: "21:15", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-23-2026" },
     { title: "China's Xi kicks off state visit to Washington on Wednesday with a rare planeside welcome from Trump", source: "ABC News", date: "2026-09-23", time: "16:13", url: "https://abcnews.com/US/wireStory/chinas-xi-kicks-off-state-visit-washington-wednesday-136673852" },
     { title: "CNBC Daily Open: 'America First' doesn't mean 'America alone'", source: "CNBC", date: "2026-09-23", time: "08:15", url: "https://www.cnbc.com/2026/09/23/cnbc-daily-open-trump-unga-speech-iran-greenland-diesel.html" },
     { title: "Fed's Barkin Warns Inflation Pressures May Take Time to Pass", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass" },
@@ -1018,6 +1018,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-23",
   items: [
+    {"title": "Stock Market Today (Sept. 23, 2026): Nasdaq, Russell 2000 sink as 5-year Treasury hits 5% for first time since 2007", "source": "TheStreet", "date": "2026-09-23", "time": "21:15", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-23-2026", "blurb": "US stocks closed lower (S&P 500 -0.75% to 7,706.03; Dow -0.68% to 51,511.59; Nasdaq -1.13% to 26,936.04) as the entire Treasury curve outside the 2-year pushed above 5% — the 5-year crossed that threshold for the first time since 2007, the 10-year hit 5.135% and the 30-year touched 5.37% — after hawkish Fed remarks and a scorching flash PMI print.", "author": null},
     {"title": "Fed's Barr: Further rate hikes needed for timely return to 2% inflation", "source": "FXStreet", "date": "2026-09-23", "time": "16:13", "url": "https://www.fxstreet.com/news/feds-barr-further-rate-hikes-needed-for-timely-return-to-2-inflation-202609231443", "blurb": "Fed Governor Michael Barr said the central bank will likely need to raise rates further to secure a timely return to 2% inflation, saying 'risks to achieving our inflation target have increased, while risks to the labor market have receded' — a hawkish read that helped send the 10-year Treasury yield to its highest level since July 2007.", "author": null},
     {"title": "Stock market today: Dow, S&P 500, Nasdaq fall as 10-year yield surges, markets eye looming Trump-Xi meeting", "source": "Yahoo Finance", "date": "2026-09-23", "time": "16:13", "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-september-23-dow-sp-500-nasdaq-080556640.html", "blurb": "US stocks opened lower (Dow -0.2%, S&P 500 -0.6%, Nasdaq -1%) as the 10-year Treasury yield pushed to 5.116% — its highest since July 2007 — after a much hotter-than-expected flash September PMI (Composite 58.4, a 62-month high) and hawkish Fed commentary revived rate-hike worries, with a fresh wave of AI-disruption fears also weighing on financial, travel and insurance names including Charles Schwab, JPMorgan and Booking Holdings ahead of Thursday's Trump-Xi summit.", "author": null},
     {"title": "UK business activity cools as inflation pressure ramps up, PMI shows", "source": "Reuters (via Investing.com)", "date": "2026-09-23", "time": "16:13", "url": "https://www.investing.com/news/economic-indicators/uk-business-activity-cools-as-inflation-pressure-ramps-up-pmi-shows-4912300", "blurb": "S&P Global's flash UK Composite PMI eased to a three-month low in September as growth slowed, even as prices charged by services firms rose at their fastest pace in four months — a hawkish combination for the MPC ahead of the 5 November decision.", "author": null},

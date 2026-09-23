@@ -90,7 +90,11 @@ if (linkout) {
 } else check(true, "no Reuters rows in this cycle to check the link-out mark");
 
 // ---- A padlocked story shows just the lock, no caption -----------------------
-const clickedLocked = await pg.evaluate(() => { const r = document.querySelector("#g-feed .g-feed-row.is-locked"); if (r) r.click(); return !!r; });
+// NB: .is-locked covers BOTH subscriber-paywalled rows (padlock) and bot-walled
+// link-out rows (Reuters &c — see LINKOUT_SRC in glance.js), which show a
+// different in-pane treatment. This check is specifically about the subscriber
+// padlock, so it must pick a row flagged "needs a login", not just any locked row.
+const clickedLocked = await pg.evaluate(() => { const r = [...document.querySelectorAll("#g-feed .g-feed-row.is-locked")].find((x) => /needs a login/i.test((x.querySelector(".g-feed-lock") || {}).title || "")); if (r) r.click(); return !!r; });
 check(clickedLocked, "a subscriber (padlocked) row is present to open");
 await pg.waitForTimeout(250);
 const locked = await pg.evaluate(() => {

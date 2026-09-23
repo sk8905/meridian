@@ -68,13 +68,13 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-09-23",
-      time: "20:27 BST",
-      lede: "A blowout flash PMI flipped Wednesday's script &mdash; hopes for a pause in the Fed's tightening cycle gave way to fresh hike bets as strength itself became the risk, sending long yields to levels last seen before the financial crisis and putting equities on the back foot into Thursday's Trump-Xi summit.",
+      time: "22:29 BST",
+      lede: "Wednesday closed the way its afternoon threatened &mdash; a scorching flash PMI and hawkish Fed signalling pushed every Treasury maturity but the two-year above 5% for the first time since 2007, dragging stocks into a broad-based decline hours before Thursday's Trump-Xi summit.",
       bullets: [
         { html: "<strong>Macro &mdash; the flash September S&amp;P Global Composite PMI jumped to 58.4 (from 56.0), a 62-month high</strong>, with manufacturing at 57.0 and services at 58.7 comfortably beating consensus; S&amp;P Global's Chris Williamson said &lsquo;US business continues to boom, with output growing at the fastest rate for over five years in September&rsquo;.", src: "https://www.fxstreet.com/news/sp-global-pmis-expected-to-show-resilient-us-economic-growth-in-september-202609230845", srcName: "FXStreet" },
         { html: "<strong>Macro &mdash; Fed Governor Michael Barr said further rate hikes will likely be needed for a timely return to 2% inflation</strong>, and CME FedWatch-implied odds of a 28 October hike surged to roughly 71&ndash;73% (from ~53% before the data).", src: "https://www.fxstreet.com/news/feds-barr-further-rate-hikes-needed-for-timely-return-to-2-inflation-202609231443", srcName: "FXStreet" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 and Nasdaq opened lower (-0.6% and -1% respectively) and the Dow slipped 0.2%</strong>, as the yield spike combined with fresh AI-disruption worries weighing on Charles Schwab, JPMorgan and Booking Holdings hours ahead of Thursday's Trump-Xi summit.", src: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-september-23-dow-sp-500-nasdaq-080556640.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield jumped to 5.116%, its highest since July 2007,</strong> and the 2-year rose more than 13bp to 4.9% as the hot PMI print and Barr's hawkish remarks reinforced bets on further tightening.", src: "https://www.fxstreet.com/news/feds-barr-further-rate-hikes-needed-for-timely-return-to-2-inflation-202609231443", srcName: "FXStreet" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 closed down 0.75% at 7,706.03, the Dow fell 352 points (-0.68%) to 51,511.59 and the Nasdaq slid 1.13% to 26,936.04</strong>, with only energy shares higher on the S&amp;P 500 as the yield spike and fresh AI-disruption worries weighed broadly ahead of Thursday's summit.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-23-2026", srcName: "TheStreet" },
+        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield closed at 5.135%, its highest since July 2007, while the 5-year crossed 5% for the first time since 2007 and the 30-year touched 5.37%</strong>, after a weak 5-year note auction drew the lowest demand since 2018.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-23-2026", srcName: "TheStreet" },
       ],
     },
   },

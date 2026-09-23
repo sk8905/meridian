@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5deccbb2-7354-4856-a98b-c19c8c73d6ef",
+    title: "Treasury open to smaller fiscal headroom to reduce UK tax hikes",
+    date: "2026-09-23",
+    time: "22:00",
+    url: "https://www.ft.com/content/5deccbb2-7354-4856-a98b-c19c8c73d6ef"
+  },
+  {
+    id: "8ff1b8fd-ff58-42a4-8e44-6a31f6db8154",
+    title: "Xi Jinping set to arrive for high-stakes summit with Donald Trump",
+    date: "2026-09-23",
+    time: "21:51",
+    url: "https://www.ft.com/content/8ff1b8fd-ff58-42a4-8e44-6a31f6db8154"
+  },
+  {
     id: "fb42c5dd-1550-402c-8881-49a3902710a0",
     title: "Rosneft billions fed Kremlin-backed money laundering network",
     date: "2026-09-23",
@@ -292,12 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "06:00",
     url: "https://www.ft.com/content/61f49a3d-ffac-4f09-b946-bfc1f9194e89"
-  },
-  {
-    id: "0a5a5b70-adea-40af-9933-1f7679f9f359",
-    title: "Oil price on track for longest losing streak in more than 12 months",
-    date: "2026-09-23",
-    time: "05:42",
-    url: "https://www.ft.com/content/0a5a5b70-adea-40af-9933-1f7679f9f359"
   }
 ];
