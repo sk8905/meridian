@@ -165,6 +165,10 @@ await ctx.close();
   });
   check(seam.gap >= 0 && seam.gap <= 2, `phone: the reader butts flush under the wire tabs — no bleed seam (gap ${seam.gap}px)`);
   check(seam.hidden, "phone: the wire content is hidden behind the open reader");
+  // A pull-down at the top of the reader must NOT rubber-band the page behind it (that
+  // dragged the wire tabs into view through the top seam) — the scroll body contains it.
+  const oc = await pg2.evaluate(() => getComputedStyle(document.getElementById("g-reader-body")).overscrollBehaviorY);
+  check(oc === "contain" || oc === "none", `phone: the reader body contains overscroll so a pull-down can't drag the page behind it (${oc})`);
   // Tapping a wire tab closes the reader and switches pane.
   await pg2.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
   await pg2.waitForTimeout(150);

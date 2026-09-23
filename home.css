@@ -952,8 +952,11 @@
     .g-reader-src{ margin-left:auto; font-family:var(--t-mono); font-size:calc(11px + var(--fs-bump, 0px)); letter-spacing:.02em; color:var(--t-faint); }
     /* The bottom nav (position:fixed) floats over the reader, so pad the scroll body
        so its last line clears the nav. */
+    /* overscroll-behavior:contain — a pull-down at the top of the reader must NOT chain
+       to the page behind it (that rubber-band scroll dragged the wire tabs down and made
+       them bleed through the top seam). Matches every other mobile scroller in the app. */
     .g-reader-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch;
-      padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px)); }
+      overscroll-behavior:contain; padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px)); }
     .g-reader-body > .g-loading{ padding:16px; }
     /* While the reader is open its underlying wire content is hidden, so nothing can
        bleed through the seam between the tab bar and the reader. */
