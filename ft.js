@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "281a2cd1-2094-4f33-af04-387b75fe9db1",
+    title: "Can Warsh tighten financial conditions without engineering a stock market fall?",
+    date: "2026-09-23",
+    time: "18:03",
+    url: "https://www.ft.com/content/281a2cd1-2094-4f33-af04-387b75fe9db1"
+  },
+  {
+    id: "2848247e-0def-4f8d-ac8b-c4b71e52340f",
+    title: "Britain’s union reforms are a risk to business dynamism",
+    date: "2026-09-23",
+    time: "18:00",
+    url: "https://www.ft.com/content/2848247e-0def-4f8d-ac8b-c4b71e52340f"
+  },
+  {
     id: "db8d6db8-4aae-4afc-9ec7-7244c07b7ff7",
     title: "Fixing Britain’s paralysed state means hard choices",
     date: "2026-09-23",
@@ -292,19 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "05:28",
     url: "https://www.ft.com/content/7a977d6f-fdbc-425a-8881-7c43716c77f5"
-  },
-  {
-    id: "5b7decf1-08fd-43fc-b9f3-9870ffa5716f",
-    title: "Has Donald Trump caged his China hawks?",
-    date: "2026-09-23",
-    time: "05:10",
-    url: "https://www.ft.com/content/5b7decf1-08fd-43fc-b9f3-9870ffa5716f"
-  },
-  {
-    id: "33c88371-1925-4b63-b0ba-26b974386418",
-    title: "On the rise: Edinburgh’s hot bakery scene",
-    date: "2026-09-23",
-    time: "05:00",
-    url: "https://www.ft.com/content/33c88371-1925-4b63-b0ba-26b974386418"
   }
 ];
