@@ -352,18 +352,19 @@ notification badge red (`#ef4444`).
   no code change. `X_ACCOUNTS` in `v2/js/home/xposts.js` is the **fallback roster**
   (used when membership can't be read or no key); `X_LIST` holds the List id/link.
   `/api/xfeed` edge-caches a non-empty result ~5 min and never pins an empty one.
-  **Data source:** when the `XAPI_KEY` Worker secret is set, `/api/xfeed` pulls each
-  member's own timeline live from **twitterapi.io** (Get-User-Last-Tweets, merged —
-  this **includes reposts**, which the List-tweets endpoint strips) and orders
-  newest-first; **reposts** render the original post with a "reposted by …" line, and
-  **quote tweets** keep the quoter's own commentary **and nest the embedded original**
-  as a bordered sub-card (author · text · media, linking the quoted post) — the
-  original is never dropped (`xQuotedCard` in `src/index.js`, `.g-x-quote`). With
-  **no key** it falls back to X's free syndication scrape, which X caches/degrades (so
-  dates can lag). Either way the
-  app just renders the cards. (`?debug=1` returns the raw upstream JSON for one
-  handle — key required — for diagnosing shape changes.) Enforced by `tests/home-xwire.mjs` (render) and `tests/xfeed-parse.mjs`
-  (both Worker normalisers — free syndication + twitterapi.io shapes).
+  **Data source (provider ladder — cheapest first):** `/api/xfeed` prefers
+  **TwitterAPIs.com** (`XAPIS_KEY` secret, ~3× cheaper; roster = `X_ACCOUNTS` in
+  `xposts.js`), then **twitterapi.io** (`XAPI_KEY` secret; resolves + auto-syncs the X
+  List's members), then the **free syndication** scrape (no key; X caches/degrades so
+  dates can lag). Each rung falls through to the next if it returns nothing, so a
+  provider swap never leaves the wire worse off. Whichever answers, timelines are merged
+  newest-first and **include reposts**; **reposts** render the original with a "reposted
+  by …" line, and **quote tweets** keep the quoter's commentary **and nest the embedded
+  original** as a bordered sub-card (`xQuotedCard`, `.g-x-quote`) — never dropped. The
+  app just renders the cards. Diagnostics (key required): `?debug=apis` (TwitterAPIs.com
+  raw + the path that answered), `?debug=1` (twitterapi.io raw). Enforced by
+  `tests/home-xwire.mjs` (render), `tests/xfeed-parse.mjs` and `tests/xapis-extract.mjs`
+  (the Worker normalisers + the TwitterAPIs.com extraction).
 
 - **R27 — Hero chart band (Home).** The Home terminal carries a **price/performance
   chart band** that, on desktop, is the **top-right quadrant of the 2×2 centre**:

@@ -4112,6 +4112,44 @@ async function resolveXRoster(listId, apiKey, handles, request, ctx) {
   return out;
 }
 
+// ---- TwitterAPIs.com (api.twitterapis.com) — the cheaper paid provider --------
+// A twitterapi.io-style pay-per-use gateway (~$0.04 / 1k tweets, ~3× cheaper than
+// twitterapi.io). Same shape: one call per handle for that account's recent tweets
+// (incl. reposts), Bearer-token auth. The exact user-tweets path isn't pinned in our
+// offline docs, so try the likely ones in order and stop at the first that yields
+// tweets; the response is normalised by the shared, field-defensive xNormalizeApiTweet
+// (the same one twitterapi.io uses). Keyed by the XAPIS_KEY Worker secret. If it returns
+// nothing (wrong path/shape, or no key), the feed falls back to twitterapi.io then to
+// free syndication — so switching providers can never leave the wire worse than before.
+const XAPIS_BASE = "https://api.twitterapis.com";
+const XAPIS_TWEET_PATHS = ["/twitter/user/last_tweets", "/twitter/user/tweets", "/twitter/user/tweets/complete"];
+function xApisHeaders(key) {
+  // Docs specify a Bearer token; also send X-API-Key in case the gateway mirrors
+  // twitterapi.io's header (an extra header is harmless if ignored).
+  return { "Authorization": `Bearer ${key}`, "X-API-Key": key, "accept": "application/json" };
+}
+export function xApisTweetsFrom(d) {
+  const arr = (d && (d.tweets
+    || (d.data && (d.data.tweets || (Array.isArray(d.data) ? d.data : null)))
+    || d.results || d.timeline)) || (Array.isArray(d) ? d : []);
+  return Array.isArray(arr) ? arr : [];
+}
+async function fetchXApisUser(handle, key) {
+  for (const p of XAPIS_TWEET_PATHS) {
+    let r;
+    try { r = await fetch(`${XAPIS_BASE}${p}?userName=${encodeURIComponent(handle)}`, { headers: xApisHeaders(key) }); } catch { continue; }
+    if (!r || !r.ok) continue;
+    let d; try { d = await r.json(); } catch { continue; }
+    const tweets = xApisTweetsFrom(d).map(xNormalizeApiTweet).filter(Boolean);
+    if (tweets.length) return tweets;
+  }
+  return [];
+}
+async function fetchXApisUsers(handles, key) {
+  const all = [];
+  await Promise.all((handles || []).map(async (h) => { const tw = await fetchXApisUser(h, key); for (const t of tw) all.push(t); }));
+  return all;
+}
 async function handleXFeed(request, env, ctx) {
   const url = new URL(request.url);
   const handles = (url.searchParams.get("handles") || "").split(",")
@@ -4121,40 +4159,58 @@ async function handleXFeed(request, env, ctx) {
   const listId = (url.searchParams.get("listId") || "").replace(/\D/g, "");
   if (!handles.length && !listId) return json({ tweets: [], error: "no handles" });
 
-  const apiKey = env && env.XAPI_KEY;
+  const apisKey = env && env.XAPIS_KEY;   // TwitterAPIs.com (preferred — cheaper)
+  const apiKey = env && env.XAPI_KEY;     // twitterapi.io (fallback, incl. List auto-sync)
+  // Provider preference: TwitterAPIs.com when its key is set, else twitterapi.io, else
+  // the free X syndication endpoint. (The fetch order below still cascades through the
+  // others if the chosen one returns nothing.)
+  const provider = apisKey ? "apis" : ((apiKey && (handles.length || listId)) ? "api" : "syn");
   const dbg = url.searchParams.get("debug");
   // Diagnostics (key required, never cached):
-  //   ?debug=1        raw last_tweets for handles[0] (tweet/repost shape)
-  //   ?debug=members  raw Get-List-Members response (membership shape)
+  //   ?debug=apis     raw TwitterAPIs.com user-tweets for handles[0] (first path that answers)
+  //   ?debug=1        raw twitterapi.io last_tweets for handles[0] (tweet/repost shape)
+  //   ?debug=members  raw twitterapi.io Get-List-Members response (membership shape)
   //   ?debug=roster   the resolved roster the feed will fetch, and its source
-  if (dbg && apiKey) {
+  if (dbg && (apiKey || apisKey)) {
     try {
-      if (dbg === "members" && listId) {
+      if (dbg === "apis" && apisKey && handles[0]) {
+        for (const p of XAPIS_TWEET_PATHS) {
+          const dr = await fetch(`${XAPIS_BASE}${p}?userName=${encodeURIComponent(handles[0])}`, { headers: xApisHeaders(apisKey) });
+          if (dr && dr.ok) return new Response(JSON.stringify({ path: p, body: await dr.json() }), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+        }
+        return json({ error: "no TwitterAPIs.com path answered", triedPaths: XAPIS_TWEET_PATHS });
+      }
+      if (dbg === "members" && listId && apiKey) {
         const dr = await fetch(`https://api.twitterapi.io/twitter/list/members?listId=${encodeURIComponent(listId)}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
         return new Response(await dr.text(), { status: dr.status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
       }
-      if (dbg === "roster") {
+      if (dbg === "roster" && apiKey) {
         const mem = listId ? await fetchXApiListMembers(listId, apiKey, request, ctx) : [];
         const auth = listId ? await fetchXApiListTweetAuthors(listId, apiKey) : [];
         const resolved = listId ? await resolveXRoster(listId, apiKey, handles, request, ctx) : handles;
         return json({ listId, clientHandles: handles, members: mem, tweetAuthors: auth, resolved });
       }
-      if (dbg === "1" && handles[0]) {
+      if (dbg === "1" && apiKey && handles[0]) {
         const dr = await fetch(`https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handles[0])}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
         return new Response(await dr.text(), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
       }
     } catch (e) { return json({ error: "debug fetch failed", message: String((e && e.message) || e) }); }
   }
-  const mode = (apiKey && (handles.length || listId)) ? "api" : "syn";
-  const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + mode;
+  const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + provider;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=8`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=9`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
   const all = [];
-  // Preferred: the paid twitterapi.io per-account timelines (include reposts).
-  if (mode === "api") {
+  // Preferred: TwitterAPIs.com per-account timelines when its key is set (cheapest).
+  // Roster is the client's own handles here — the List auto-sync (below) is a
+  // twitterapi.io feature; on TwitterAPIs.com the roster is managed in xposts.js.
+  if (apisKey && handles.length) {
+    try { const a = await fetchXApisUsers(handles, apisKey); for (const t of a) all.push(t); } catch { /* fall through */ }
+  }
+  // Next: the paid twitterapi.io per-account timelines (include reposts + List sync).
+  if (!all.length && apiKey && (handles.length || listId)) {
     // Resolve the roster from the X LIST (members ∪ recent tweet authors ∪ the
     // client roster) when a listId is given, so adding/removing an account on the
     // List auto-syncs the feed even if one lookup is unavailable.
@@ -4164,7 +4220,7 @@ async function handleXFeed(request, env, ctx) {
     }
     try { const api = await fetchXApiUsers(roster, apiKey); for (const t of api) all.push(t); } catch { /* fall through */ }
   }
-  // Free fallback (no key, or the paid call came back empty): X syndication per handle.
+  // Free fallback (no key, or a paid call came back empty): X syndication per handle.
   if (!all.length && handles.length) {
     await Promise.all(handles.map(async (h) => {
       const tw = await fetchXProfile(h);

@@ -567,17 +567,32 @@ is topped up in code.
 - No tweet text or permalinks are stored — the Worker reads them live. `/api/xfeed`
   edge-caches a non-empty result briefly; a `&v=` bump on the cache key is only
   needed if the Worker's **parsing** changes.
-- **Data source & membership:** if the `XAPI_KEY` Worker secret is set, `/api/xfeed`
-  resolves the **X List's current members** (twitterapi.io Get-List-Members, cached
-  ~15 min) and fetches each member's timeline (Get-User-Last-Tweets, merged) —
-  reliable + current and **includes reposts** (the List-tweets endpoint strips them).
-  So **membership is managed on X** (`x.com/i/lists/2100283810713649423`): add/remove
-  an account there and the feed auto-syncs within ~15 min — no code change. The feed
-  auto-refreshes ~5 min while on screen. `X_ACCOUNTS` in `xposts.js` is only the
-  fallback roster (no key / members unavailable). The key is a Cloudflare **secret**
-  (dashboard → the Worker → Settings → Variables and Secrets → add `XAPI_KEY`), never
-  committed. `?debug=1` on `/api/xfeed` returns the raw upstream JSON for the first
-  handle (key required) for diagnosis.
+- **Data source & membership (provider ladder).** `/api/xfeed` prefers, in order:
+  1. **TwitterAPIs.com** (`XAPIS_KEY` secret) — the cheapest paid provider (~$0.04/1k
+     tweets, ~3× cheaper than twitterapi.io). One call per handle for that account's
+     recent tweets (incl. reposts), `Authorization: Bearer <key>`. The user-tweets path
+     isn't pinned in our offline docs, so the Worker tries `/twitter/user/last_tweets`,
+     `/twitter/user/tweets`, then `/twitter/user/tweets/complete` and uses the first that
+     answers; `xApisTweetsFrom` + the shared `xNormalizeApiTweet` are field-defensive.
+     **Roster here is `X_ACCOUNTS` in `xposts.js`** (the List auto-sync below is a
+     twitterapi.io feature), so on this provider **manage the roster in code**.
+  2. **twitterapi.io** (`XAPI_KEY` secret) — resolves the **X List's current members**
+     (Get-List-Members, cached ~15 min) and fetches each member's timeline
+     (Get-User-Last-Tweets, merged). Here **membership is managed on X**
+     (`x.com/i/lists/2100283810713649423`) and auto-syncs within ~15 min — no code change.
+  3. **Free X syndication** per handle (no key) — logged-out-safe but can serve stale
+     timelines to datacenter IPs; the last resort.
+  Each rung **falls through to the next if it returns nothing**, so a provider swap can
+  never leave the wire worse than before. The feed auto-refreshes ~5 min while on screen.
+  Keys are Cloudflare **secrets** (dashboard → the Worker → Settings → Variables and
+  Secrets → add `XAPIS_KEY` and/or `XAPI_KEY`), never committed. Diagnostics on
+  `/api/xfeed` (a key required): `?debug=apis` (raw TwitterAPIs.com response + which path
+  answered), `?debug=1` (raw twitterapi.io last_tweets), `?debug=members`/`?debug=roster`
+  (twitterapi.io List resolution).
+- **Cost note.** The wire refetches every handle each ~5-min refresh while open, so a
+  small credit balance drains in days if the app is left open. If cost bites, cut the
+  refresh cadence / lengthen the edge cache (see `handleXFeed` — the `max-age` on the
+  cached response and the client's `startXWireAuto` interval), not just the provider.
 - If the wire shows "Live posts are unavailable", the source (paid or free) returned
   nothing — an upstream condition, not a data gap to fill in code. Enforced by
   `tests/home-xwire.mjs` + `tests/xfeed-parse.mjs`.
