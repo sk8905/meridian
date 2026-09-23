@@ -17,7 +17,8 @@ const XFEED = { tweets: [
 const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)], "/api/xfeed": () => [200, JSON.stringify(XFEED)] });
 const b = await launchChromium();
 
-// --- Phone: chips visible; Market Briefing is default (first chip); chips swap panes
+// --- Phone: chips visible; the lane (News/All) chip leads, Market Briefing is the
+//     default pane (second chip); chips swap panes
 {
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
   await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
@@ -39,11 +40,12 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "Briefing · News · Chart · X Feed", `phone: four tabs — Briefing · News (lane) · Chart · X Feed (${labels.join(", ")})`);
+  check(labels.join(" · ") === "News · Briefing · Chart · X Feed", `phone: four tabs — News (lane) · Briefing · Chart · X Feed (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
   check(laneMenu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire tab's dropdown offers the five lanes (${laneMenu.join(", ")})`);
 
-  // Default: Market Briefing on (the first chip), its pane visible, the rest hidden.
+  // Default: Market Briefing on (the default pane, now the second chip), its pane
+  // visible, the rest hidden.
   check(await vis("#g-hbrief"), "phone: the market briefing pane is visible by default");
   check(!(await vis("#g-feed")), "phone: the news feed is hidden by default (Briefing selected)");
   check(!(await vis(".g-hero")), "phone: the chart pane is hidden by default (Briefing selected)");

@@ -233,7 +233,7 @@ function initMobileWireTabs() {
       const open = laneMenu.hidden;
       laneMenu.hidden = !open;
       btn.setAttribute("aria-expanded", open ? "true" : "false");
-      // Anchor the dropdown directly under the lane tab. We set BOTH top and left
+      // Anchor the dropdown directly under the lane tab (now the first chip). We set BOTH top and left
       // explicitly from measured rects (relative to the menu's real offset parent)
       // rather than leaning on the CSS `top:100%` — on iOS Safari the sticky tab
       // bar resolves that percentage against the wrong containing block, dropping
