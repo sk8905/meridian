@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7a98e756-92a3-45e4-9630-187d20685e79", title: "Countries cancel Iran flights after US threatens to 'shut down' airlines", date: "2026-09-23", time: "13:08", url: "https://www.ft.com/content/7a98e756-92a3-45e4-9630-187d20685e79" },
+  { id: "1d7daa8f-e8bb-436c-ad8b-b6d097e4107f", title: "McDonald's bets on chicken to win back diners as beef prices soar", date: "2026-09-23", time: "13:00", url: "https://www.ft.com/content/1d7daa8f-e8bb-436c-ad8b-b6d097e4107f" },
+  { id: "e90bbf67-7c4e-4c0e-a15d-07462f3e3b1a", title: "Blow for drought-hit England as opening of new reservoir delayed by 5 years", date: "2026-09-23", time: "12:46", url: "https://www.ft.com/content/e90bbf67-7c4e-4c0e-a15d-07462f3e3b1a" },
+  { id: "e569a9de-cade-4dcd-9571-ff7ad0f453e4", title: "Germany urges US to allow Patriot missile production in Europe", date: "2026-09-23", time: "12:13", url: "https://www.ft.com/content/e569a9de-cade-4dcd-9571-ff7ad0f453e4" },
   { id: "850dde98-834f-4cfe-9ffc-3e41980a4e9d", title: "UK on course to miss climate targets, energy secretary admits", date: "2026-09-23", time: "12:01", url: "https://www.ft.com/content/850dde98-834f-4cfe-9ffc-3e41980a4e9d" },
   { id: "7854c3ba-57f8-4a50-8591-00ffceda8157", title: "Should we rent or sell a property that we've inherited?", date: "2026-09-23", time: "11:42", url: "https://www.ft.com/content/7854c3ba-57f8-4a50-8591-00ffceda8157" },
   { id: "67f10dca-63f3-4cf8-951b-22d0c87f6be2", title: "The west does not have a leadership problem", date: "2026-09-23", time: "11:33", url: "https://www.ft.com/content/67f10dca-63f3-4cf8-951b-22d0c87f6be2" },
@@ -56,12 +60,4 @@ export const FT_ITEMS = [
   { id: "39845ea2-0738-4549-94f0-b0f6b212e6b2", title: "Todd Boehly’s oil deal from Russia with love", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/39845ea2-0738-4549-94f0-b0f6b212e6b2" },
   { id: "7ec7e4e7-94ed-4627-9040-18867ccdaa53", title: "Rivals Revolut and Nubank go head to head in bid to crack US banking market", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/7ec7e4e7-94ed-4627-9040-18867ccdaa53" },
   { id: "dffca393-d969-4e31-86bc-09ed6c06fbf0", title: "How could John Healey raise tax in the Budget?", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/dffca393-d969-4e31-86bc-09ed6c06fbf0" },
-  { id: "b97dde39-7813-4a51-8176-3699e2a468b1", title: "China takes stock of Broadcom gear amid domestic AI drive", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/b97dde39-7813-4a51-8176-3699e2a468b1" },
-  { id: "a784df61-a9a0-4ef4-93ff-5f082c3e730c", title: "The problem with P(doom)", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/a784df61-a9a0-4ef4-93ff-5f082c3e730c" },
-  { id: "9100f4cb-fa8d-4322-97cf-cc248f821fc3", title: "How Morocco’s election became about the World Cup", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/9100f4cb-fa8d-4322-97cf-cc248f821fc3" },
-  { id: "4a808a51-c6e9-4ade-b1f7-95c27fd1aa1e", title: "Mark Carney and the limits of defying Donald Trump", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/4a808a51-c6e9-4ade-b1f7-95c27fd1aa1e" },
-  { id: "2b307c1e-cd98-4666-91d5-000b1dc7bbd1", title: "How private equity ended up in limbo", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/2b307c1e-cd98-4666-91d5-000b1dc7bbd1" },
-  { id: "58be9a1b-345c-4026-a738-989b72858c4f", title: "Amodei is right — AI companies need banking-style supervision", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/58be9a1b-345c-4026-a738-989b72858c4f" },
-  { id: "44ef48c9-13a4-4823-aa8f-cc9e2dfb5d17", title: "Why EU companies are now helping Chinese ones expand into Europe", date: "2026-09-23", time: "00:01", url: "https://www.ft.com/content/44ef48c9-13a4-4823-aa8f-cc9e2dfb5d17" },
-  { id: "0e50a3c6-9731-4b29-a21e-4e0ff89a595e", title: "Anthropic and OpenAI release cheaper models as price war intensifies", date: "2026-09-22", time: "21:31", url: "https://www.ft.com/content/0e50a3c6-9731-4b29-a21e-4e0ff89a595e" },
 ];
