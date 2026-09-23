@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a241848e-f78c-4435-abfd-3980160345c2", title: "UK reviews Chagos deal after fresh opposition from Trump", date: "2026-09-23", time: "15:46", url: "https://www.ft.com/content/a241848e-f78c-4435-abfd-3980160345c2" },
+  { id: "65d0e5d1-c4cc-4849-ad50-b260ccfde7b9", title: "Turkey arrests founder of brokerage at centre of $18bn alleged Ponzi scheme", date: "2026-09-23", time: "15:21", url: "https://www.ft.com/content/65d0e5d1-c4cc-4849-ad50-b260ccfde7b9" },
   { id: "a8614065-b38b-426d-b176-192c6cd75f56", title: "European diesel prices climb over prospect of US export ban", date: "2026-09-23", time: "14:55", url: "https://www.ft.com/content/a8614065-b38b-426d-b176-192c6cd75f56" },
   { id: "d13b1982-450f-45d2-b79b-431f30b048b2", title: "The argument for Kalshi taking bets on its own legality", date: "2026-09-23", time: "14:15", url: "https://www.ft.com/content/d13b1982-450f-45d2-b79b-431f30b048b2" },
   { id: "31a27312-8032-4957-be69-ba32561e8db3", title: "UN General Assembly live: Iran’s president to address leaders after Trump threatens ‘annihilation’", date: "2026-09-23", time: "14:13", url: "https://www.ft.com/content/31a27312-8032-4957-be69-ba32561e8db3" },
@@ -33,6 +35,7 @@ export const FT_ITEMS = [
   { id: "67f10dca-63f3-4cf8-951b-22d0c87f6be2", title: "The west does not have a leadership problem", date: "2026-09-23", time: "11:33", url: "https://www.ft.com/content/67f10dca-63f3-4cf8-951b-22d0c87f6be2" },
   { id: "2f652ff5-b707-4d96-abb4-31b90a77908c", title: "L&G to cut a tenth of its workforce", date: "2026-09-23", time: "11:33", url: "https://www.ft.com/content/2f652ff5-b707-4d96-abb4-31b90a77908c" },
   { id: "be88d1eb-8de1-4261-ad52-9be25924a5ed", title: "Lidl owner among suitors circling Tesco's European business", date: "2026-09-23", time: "11:13", url: "https://www.ft.com/content/be88d1eb-8de1-4261-ad52-9be25924a5ed" },
+  { id: "0da4ac2d-6d23-4cda-b9df-f73e16b609d9", title: "The model making vegan shoes sexy", date: "2026-09-23", time: "11:00", url: "https://www.ft.com/content/0da4ac2d-6d23-4cda-b9df-f73e16b609d9" },
   { id: "be468cf8-e450-46d8-891f-67bc79ffd7b3", title: "Royal Caribbean buys 50% stake in Sandals valuing resorts at $6bn", date: "2026-09-23", time: "08:17", url: "https://www.ft.com/content/be468cf8-e450-46d8-891f-67bc79ffd7b3" },
   { id: "7c1a2718-b0a4-4dda-8c3a-c36ff6792e2b", title: "Why Germany’s ‘chancellor-in-waiting’ bides his time", date: "2026-09-23", time: "11:00", url: "https://www.ft.com/content/7c1a2718-b0a4-4dda-8c3a-c36ff6792e2b" },
   { id: "b05367af-5236-4aca-99e7-ec1e8968f08a", title: "Azerbaijan pardons French national as part of secret prisoner release deal", date: "2026-09-23", time: "10:40", url: "https://www.ft.com/content/b05367af-5236-4aca-99e7-ec1e8968f08a" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "51618d4e-6398-4368-a8f1-c46c1bc7956e", title: "Public art is often bad — is there a secret to success?", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/51618d4e-6398-4368-a8f1-c46c1bc7956e" },
   { id: "ab694096-0acf-4e13-9726-ec339a082a99", title: "Global banks warn UK windfall tax will trigger shift away from London", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/ab694096-0acf-4e13-9726-ec339a082a99" },
   { id: "f6962aaf-417f-4722-8316-0a0049af55aa", title: "Private equity has a new kind of SaaS: swimming as a service", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/f6962aaf-417f-4722-8316-0a0049af55aa" },
-  { id: "0c7eac88-bc13-42be-aa18-f78ec1483ca6", title: "Biotech is one area where the US can afford to let China flourish", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/0c7eac88-bc13-42be-aa18-f78ec1483ca6" },
-  { id: "d2e5ed9c-a123-4275-afc7-14b75b9337a0", title: "The battle between the Fed and Trump", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/d2e5ed9c-a123-4275-afc7-14b75b9337a0" },
-  { id: "76b51a19-0387-4eed-a343-980b1135de2c", title: "Diesel surge costs European drivers €203mn per day", date: "2026-09-23", time: "05:00", url: "https://www.ft.com/content/76b51a19-0387-4eed-a343-980b1135de2c" },
 ];
