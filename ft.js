@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
+    title: "US long-term borrowing costs touch highest level since 2004",
+    date: "2026-09-24",
+    time: "19:21",
+    url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c"
+  },
+  {
+    id: "979ae3ac-4623-4fe9-a771-43ce451a9e73",
+    title: "Global politics live: Benjamin Netanyahu tells UN Israel and US launched Iran war to ‘save civilisation’",
+    date: "2026-09-24",
+    time: "19:05",
+    url: "https://www.ft.com/content/979ae3ac-4623-4fe9-a771-43ce451a9e73"
+  },
+  {
     id: "bdec4129-ccac-4149-aa53-90ddd50cb925",
     title: "Goldman reaped more than $200mn in fees from hedge fund Situational Awareness",
     date: "2026-09-24",
@@ -292,12 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "10:04",
     url: "https://www.ft.com/content/79976fed-30c3-46e7-ba90-59e0633575d5"
-  },
-  {
-    id: "1767ba03-05a2-4d69-83df-5aa0a6bf24e2",
-    title: "Delivery Hero chief reverses exit plan after Uber secures takeover deal",
-    date: "2026-09-24",
-    time: "09:56",
-    url: "https://www.ft.com/content/1767ba03-05a2-4d69-83df-5aa0a6bf24e2"
   },
 ];

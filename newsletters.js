@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-morganstanleyleakeddeals-20260924",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Morgan Stanley Leaked Some Deals",
+    date: "2026-09-24",
+    time: "19:17",
+    summary: "Force majeure, PE, credit cards, eggs.",
+    url: "https://bloom.bg/4ycPvgy",
+  },
+  {
     id: "nl-reuters-econworld-5pctthreshold-20260924",
     publication: "Thomson Reuters",
     author: "Carmel Crimmins",
@@ -471,16 +482,5 @@ export const NEWSLETTERS = [
     time: "12:13",
     summary: "TV picks for the weekend, led by Brentford v Chelsea's west London derby.",
     url: "https://mailchi.mp/the42/all-of-this-weekends-live-sport-s9ce9k7q46",
-  },
-  {
-    id: "nl-bbg-goingprivate-alphahunters-20260918",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: Alpha hunters",
-    date: "2026-09-18",
-    time: "12:12",
-    summary: "Blackstone alumni build a hybrid capital challenger.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-18/blackstone-alumni-forge-hybrid-capital-challenger",
   },
 ];
