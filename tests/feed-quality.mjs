@@ -23,6 +23,7 @@ for (const [name, want] of [
   }
 }
 check(!bySource("Above the Law"), "roster: Above the Law is removed as a source");
+check(!bySource("The Guardian"), "roster: The Guardian is removed as a source");
 
 // ---- Roster: the deal press-release wires + UK markets desk (from TradingView audit) --
 for (const name of ["GlobeNewswire", "PR Newswire", "Sharecast"]) {

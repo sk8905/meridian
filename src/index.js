@@ -2637,8 +2637,7 @@ export const FEED_SOURCES = [
   { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },
   { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
-  { url: "https://www.theguardian.com/business/economics/rss", source: "The Guardian", region: "UK", cap: 6 },
-  { url: "https://www.theguardian.com/uk/business/rss", source: "The Guardian", region: "UK", cap: 5 },
+  // (The Guardian removed as a newswire source.)
   // ShareCast — openly-readable UK equity/markets desk, SCOPED via Google News to the
   // markets/macro/deal vocabulary so its single-stock RNS/broker-tip noise stays out.
   { url: "https://news.google.com/rss/search?hl=en-GB&gl=GB&ceid=GB%3Aen&q=site%3Asharecast.com%20(market%20OR%20economy%20OR%20stocks%20OR%20FTSE%20OR%20%22Bank%20of%20England%22%20OR%20rate%20OR%20inflation%20OR%20bond%20OR%20gilt%20OR%20results%20OR%20takeover%20OR%20merger%20OR%20%22private%20equity%22%20OR%20%22hedge%20fund%22)%20when%3A2d", source: "Sharecast", region: "UK", cap: 5, gnews: true, filter: false },
@@ -3028,7 +3027,7 @@ async function handleFeed(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=47", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=48", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -3381,7 +3380,7 @@ const prettyId = (id) => String(id).replace(/[-_]+/g, " ").replace(/\b\w/g, (c) 
 const PUSH_SRC_ABBR = {
   "Financial Times": "FT", "The Wall Street Journal": "WSJ", "The Economist": "Economist",
   "South China Morning Post": "SCMP", "The Straits Times": "Straits Times", "Nikkei Asia": "Nikkei",
-  "Federal Reserve": "Fed", "Bank of England": "BoE", "The Guardian": "Guardian", "FT Alphaville": "Alphaville",
+  "Federal Reserve": "Fed", "Bank of England": "BoE", "FT Alphaville": "Alphaville",
 };
 const pushClamp = (s, max) => {
   s = String(s || "").trim();
