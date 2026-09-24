@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "17b09993-8fed-47d1-9c04-e2d29ca75615",
+    title: "SoftBank pays steep price for record bond sale to fund OpenAI bet",
+    date: "2026-09-24",
+    time: "20:39",
+    url: "https://www.ft.com/content/17b09993-8fed-47d1-9c04-e2d29ca75615"
+  },
+  {
+    id: "ad6d56fa-6a6e-43bd-8f12-205a3f94ac0e",
+    title: "Pioneer founder Scott Sheffield says Exxon ‘set him up’ after $60bn takeover",
+    date: "2026-09-24",
+    time: "20:27",
+    url: "https://www.ft.com/content/ad6d56fa-6a6e-43bd-8f12-205a3f94ac0e"
+  },
+  {
     id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
     title: "US long-term borrowing costs touch highest level since 2004",
     date: "2026-09-24",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "10:54",
     url: "https://www.ft.com/content/1e788f4b-413b-4e92-a722-51e918513f7e"
-  },
-  {
-    id: "d600fbb4-11e4-4541-9e98-ca37c8475eb3",
-    title: "Tencent launches payments app for ‘China-maxxing’ foreign tourists",
-    date: "2026-09-24",
-    time: "10:34",
-    url: "https://www.ft.com/content/d600fbb4-11e4-4541-9e98-ca37c8475eb3"
-  },
-  {
-    id: "3ab22092-5d60-457e-a88c-cf9062887ed1",
-    title: "Anti-migrant protest leader arrested after posting video stabbing a dinghy",
-    date: "2026-09-24",
-    time: "10:27",
-    url: "https://www.ft.com/content/3ab22092-5d60-457e-a88c-cf9062887ed1"
   },
 ];
