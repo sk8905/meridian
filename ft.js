@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "79976fed-30c3-46e7-ba90-59e0633575d5",
+    title: "Submit your questions: Where are the biggest market risks?",
+    date: "2026-09-24",
+    time: "10:04",
+    url: "https://www.ft.com/content/79976fed-30c3-46e7-ba90-59e0633575d5"
+  },
+  {
+    id: "1767ba03-05a2-4d69-83df-5aa0a6bf24e2",
+    title: "Delivery Hero chief reverses exit plan after Uber secures takeover deal",
+    date: "2026-09-24",
+    time: "09:56",
+    url: "https://www.ft.com/content/1767ba03-05a2-4d69-83df-5aa0a6bf24e2"
+  },
+  {
+    id: "123bb90f-8e87-46d8-8ae0-64a95f9d344d",
+    title: "Flattering the forecast should not be John Healey’s priority",
+    date: "2026-09-24",
+    time: "09:30",
+    url: "https://www.ft.com/content/123bb90f-8e87-46d8-8ae0-64a95f9d344d"
+  },
+  {
+    id: "8124e18d-ca77-424f-aa43-97983653eec4",
+    title: "Oops! You added the wrong email attachment and leaked the bank’s deal list. What happens next?",
+    date: "2026-09-24",
+    time: "09:17",
+    url: "https://www.ft.com/content/8124e18d-ca77-424f-aa43-97983653eec4"
+  },
+  {
+    id: "17b09993-8fed-47d1-9c04-e2d29ca75615",
+    title: "SoftBank raises $11bn in record junk bond offering to fund OpenAI bet",
+    date: "2026-09-24",
+    time: "09:07",
+    url: "https://www.ft.com/content/17b09993-8fed-47d1-9c04-e2d29ca75615"
+  },
+  {
     id: "680363f9-1d2d-4e76-824d-7aaa54a80840",
     title: "Vistry vows to simplify business after £83mn first-half loss",
     date: "2026-09-24",
@@ -271,40 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "18:27",
     url: "https://www.ft.com/content/05c5f945-c75a-4adb-a189-121a05b3686a"
-  },
-  {
-    id: "281a2cd1-2094-4f33-af04-387b75fe9db1",
-    title: "Can Warsh tighten financial conditions without engineering a stock market fall?",
-    date: "2026-09-23",
-    time: "18:03",
-    url: "https://www.ft.com/content/281a2cd1-2094-4f33-af04-387b75fe9db1"
-  },
-  {
-    id: "2848247e-0def-4f8d-ac8b-c4b71e52340f",
-    title: "Britain’s union reforms are a risk to business dynamism",
-    date: "2026-09-23",
-    time: "18:00",
-    url: "https://www.ft.com/content/2848247e-0def-4f8d-ac8b-c4b71e52340f"
-  },
-  {
-    id: "db8d6db8-4aae-4afc-9ec7-7244c07b7ff7",
-    title: "Fixing Britain’s paralysed state means hard choices",
-    date: "2026-09-23",
-    time: "16:50",
-    url: "https://www.ft.com/content/db8d6db8-4aae-4afc-9ec7-7244c07b7ff7"
-  },
-  {
-    id: "8dfae006-c1ac-4713-8497-0e0e59e419f6",
-    title: "Trump lays a new trap for Takaichi",
-    date: "2026-09-23",
-    time: "16:39",
-    url: "https://www.ft.com/content/8dfae006-c1ac-4713-8497-0e0e59e419f6"
-  },
-  {
-    id: "3e480031-4ee7-4ded-9893-75c060aeef1a",
-    title: "Trump’s diesel ban would hurt America and help China",
-    date: "2026-09-23",
-    time: "16:37",
-    url: "https://www.ft.com/content/3e480031-4ee7-4ded-9893-75c060aeef1a"
   }
 ];
