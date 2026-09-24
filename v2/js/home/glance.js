@@ -213,7 +213,15 @@ function initMobileWireTabs() {
     try { document.documentElement.classList.toggle("home-brief", k === "brief"); } catch { /* noop */ }
     _placeBriefPane();
   };
-  if (!window.__wirePlaceBound) { window.__wirePlaceBound = true; window.addEventListener("resize", () => { try { _placeBriefPane(); } catch { /* noop */ } }); }
+  if (!window.__wirePlaceBound) {
+    window.__wirePlaceBound = true;
+    let briefResizeQueued = false;
+    window.addEventListener("resize", () => {
+      if (briefResizeQueued) return;
+      briefResizeQueued = true;
+      requestAnimationFrame(() => { briefResizeQueued = false; try { _placeBriefPane(); } catch { /* noop */ } });
+    });
+  }
   // Remember the module-level setter so a Home-nav tap (homeReset) can jump the pane.
   _wireSetter = setWire;
   // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane, which
@@ -1995,7 +2003,7 @@ function _renderReaderInto(box, it, emptyMsg) {
     const paywalled = _isPaywalled(it.src, it.href);
     const linksOut = !paywalled && _linksOut(it.src, it.href);
     const badge = paywalled ? `<span class="g-read-lock">🔒</span>`
-      : linksOut ? `<span class="g-read-ext">↗ opens at publisher</span>`
+      : linksOut ? `<span class="g-read-ext">opens at publisher</span>`
       : `<span class="g-read-free">● reading mode</span>`;
     const note = paywalled ? "This source needs a login — open the original below."
       : linksOut ? "This source doesn't load in the reading pane — open the original below."

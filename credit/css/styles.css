@@ -243,7 +243,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 /* ---------- data completeness & provenance ---------- */
 .data-asof { margin: .5rem 0 0; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .data-meter { display: inline-flex; align-items: center; gap: .4rem; font-size:12px; font-weight: 600; white-space: nowrap; }
-.data-meter .dm-bar { width: 42px; height: 7px; border-radius: 4px; background: #e5e7eb; overflow: hidden; display: inline-block; }
+.data-meter .dm-bar { width: 42px; height: 7px; border-radius: 4px; background: var(--border); overflow: hidden; display: inline-block; }
 .data-meter .dm-fill { display: block; height: 100%; }
 .data-meter.dm-hi .dm-fill { background: var(--t-up, #3fc08d); }
 .data-meter.dm-mid .dm-fill { background: var(--accent); }
@@ -402,7 +402,7 @@ a.intel-head:hover { text-decoration: none; }
 .chart-label { font-size:12px; fill: var(--muted); }
 .chart-value { font-size:12px; fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 /* Faint full-scale track behind each bar so proportions read at a glance. */
-.bar-track { fill: #eef1f5; }
+.bar-track { fill: var(--border); }
 /* ---------- Trends page ---------- */
 .trend-section { margin: 0 0 2.25rem; }
 .trend-cat { font-size:16px; margin: 0 0 .85rem; padding-bottom: .4rem; border-bottom: 2px solid var(--border); color: var(--ink); }
@@ -413,7 +413,7 @@ a.intel-head:hover { text-decoration: none; }
 .trend-wide { margin-bottom: 1rem; }
 @media (max-width: 900px) { .trend-grid { grid-template-columns: 1fr; } }
 .chart-axis { font-size:10px; fill: var(--muted); }
-.chart-grid { stroke: #eef2f7; stroke-width: 1; }
+.chart-grid { stroke: var(--border); stroke-width: 1; }
 .donut-wrap { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
 .donut { width: 200px; height: 200px; flex: 0 0 auto; }
 .donut-total { font-size:26px; font-weight: 700; fill: var(--primary-ink); font-variant-numeric: tabular-nums; }

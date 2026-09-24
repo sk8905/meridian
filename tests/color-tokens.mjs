@@ -351,4 +351,46 @@ for (const [label, src] of [
   check(!ARROW_BEFORE_CLOSE_A.test(src), `${label}: no link text ends in a decorative arrow glyph (R7a)`);
 }
 
+// R7a — the reader pane's "opens at publisher" source marker (a <span>, not an
+// <a>) had drifted to a LEADING "↗" glyph — ARROW_BEFORE_CLOSE_A above only
+// catches a trailing arrow right before </a>, so it missed this one. Pin the
+// marker text directly.
+check(/g-read-ext">opens at publisher</.test(glanceJs),
+  "v2/js/home/glance.js: reader-pane 'opens at publisher' marker has no arrow glyph (R7a)");
+
+// R11 — every .g-read-* reader-pane meta line shares the 10px micro step;
+// .g-read-ext had drifted to an off-scale 11px.
+check(/\.g-read-ext\{[^}]*font-size:10px/.test(homeCss),
+  "home.css .g-read-ext reads the 10px micro scale step, not an off-scale size (R11)");
+
+// R8/R9 — the unified Saved panel (.g-sv-panel, Home/Macro/Credit/Legal) must
+// theme with the app's dark/light tokens like every other overlay. It hardcoded
+// background:#fff with a color:var(--ink) that only resolves in dark mode
+// (defined at :root[data-theme="dark"], not in light) — dark mode painted
+// near-white ink on a permanently-white panel.
+check(!/\.g-sv-panel\s*\{[^}]*background:#fff/.test(homeCss),
+  "home.css .g-sv-panel does not hardcode a light-only #fff background (R8/R9)");
+check(/\.g-sv-panel\s*\{[^}]*background:var\(--t-ground/.test(homeCss),
+  "home.css .g-sv-panel background reads the themed --t-ground token");
+check(!/\.g-sv-item:hover\s*\{\s*background:#eef2fb/.test(homeCss),
+  "home.css .g-sv-item:hover does not hardcode a light-only hex background (R8)");
+
+// R8 — Credit's data-completeness meter track + trend-chart bar/grid lines
+// hardcoded light-only greys instead of the themed --border token (which DOES
+// flip in dark mode via premium.css's higher-specificity :root[data-theme="dark"]
+// rule), so these elements stayed light-grey forever in dark mode.
+check(/\.dm-bar\s*\{[^}]*background:\s*var\(--border\)/.test(creditCss),
+  "credit/css/styles.css .data-meter .dm-bar reads var(--border), themed for dark (R8)");
+check(/\.bar-track\s*\{\s*fill:\s*var\(--border\)/.test(creditCss),
+  "credit/css/styles.css .bar-track reads var(--border), themed for dark (R8)");
+check(/\.chart-grid\s*\{\s*stroke:\s*var\(--border\)/.test(creditCss),
+  "credit/css/styles.css .chart-grid reads var(--border), themed for dark (R8)");
+
+// T9/T10 — header.css is the single source of truth for the platform-switch
+// active marker (.ps-btn.is-active, border-bottom-only per R12); premium.css
+// must not re-declare a competing .topbar-scoped version with a different
+// mechanism (an inset box-shadow) that could drift out of sync.
+check(!/\.topbar \.ps-btn\.is-active/.test(premiumCss),
+  "premium.css does not re-declare .topbar .ps-btn.is-active (header.css owns it, T9)");
+
 finish();

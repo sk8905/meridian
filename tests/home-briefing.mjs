@@ -3,7 +3,9 @@
 // shared colour marking (orange desk kicker), caps to 4 bullets, links each
 // source, and is collapsible (per viewer). Here only /api/hero + /api/xfeed are
 // stubbed; the briefing is a static data import, so it renders with real content.
-import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+import fs from "node:fs";
+import path from "node:path";
+import { serve, launchChromium, open, PHONE, DESKTOP, ROOT, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const HERO = { asOf: "2026-09-18", instruments: ["spx", "ndx", "ust10", "oil", "gold", "btc"].map((k, i) => ({
   key: k, label: k.toUpperCase(), unit: "", pre: "", dp: 2, fi: false, value: 100 + i,
@@ -204,4 +206,13 @@ const b = await launchChromium();
 }
 
 await b.close(); srv.close();
+
+// T17 — the briefing pane's resize handler (which measures + writes maxHeight
+// via getBoundingClientRect on every event) must be rAF-throttled like every
+// other resize listener in the app (chrome.js, nav-actions.js), not fire raw
+// on each resize event.
+const glanceSrc = fs.readFileSync(path.join(ROOT, "v2", "js", "home", "glance.js"), "utf8");
+check(/addEventListener\("resize",\s*\(\)\s*=>\s*\{\s*if\s*\(briefResizeQueued\)/.test(glanceSrc),
+  "v2/js/home/glance.js: the brief-pane resize listener is rAF-queued, not raw (T17)");
+
 finish();

@@ -118,12 +118,12 @@
     .g-sv-badge { position:absolute; top:-5px; right:-5px; min-width:16px; height:16px; padding:0 3px;
       background:var(--brand-2); color:#fff; font-size:10px; font-weight:800; border-radius:0; display:grid; place-items:center; }
     .g-sv-panel { position:absolute; top:calc(100% + 8px); right:0; width:360px; max-width:88vw;
-      background:#fff; color:var(--ink); border-radius:0; box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.35rem; z-index:70; }
+      background:var(--t-ground, #ffffff); color:var(--t-ink, #131b2c); border-radius:0; box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.35rem; z-index:70; }
     .g-sv-panel[hidden] { display:none; }
-    .g-sv-head { font-weight:700; font-size:14px; color:var(--ink); padding:.45rem .55rem .5rem; border-bottom:1px solid var(--line); margin-bottom:.2rem; }
+    .g-sv-head { font-weight:700; font-size:14px; color:var(--t-ink, #131b2c); padding:.45rem .55rem .5rem; border-bottom:1px solid var(--line); margin-bottom:.2rem; }
     .g-sv-body { max-height:62vh; overflow-y:auto; overscroll-behavior:contain; }
     .g-sv-item { display:flex; gap:.55rem; align-items:flex-start; padding:.5rem .55rem; border-radius:0; color:inherit; text-decoration:none; }
-    .g-sv-item:hover { background:#eef2fb; }
+    .g-sv-item:hover { background:var(--t-panel2, #eef2fb); }
     .g-sv-tag { flex:0 0 auto; margin-top:.05rem; font-size:10px; font-weight:800; text-transform:uppercase;
       letter-spacing:.03em; color:#fff; padding:.1rem .32rem; border-radius:0; }
     .g-sv-tag.credit { background:var(--brand-2); } .g-sv-tag.legal { background:var(--legal); } .g-sv-tag.macro { background:var(--macro); }
@@ -928,7 +928,7 @@
     .g-read-meta{ font-family:var(--t-mono); font-size:10px; color:var(--t-mut); padding-bottom:11px; margin-bottom:13px; border-bottom:1px solid var(--t-grid); }
     .g-read-free{ color:var(--t-up); }
     .g-read-lock{ color:var(--t-amber); }
-    .g-read-ext{ color:var(--t-mut); font-family:var(--t-mono); font-size:11px; letter-spacing:.02em; }
+    .g-read-ext{ color:var(--t-mut); font-family:var(--t-mono); font-size:10px; letter-spacing:.02em; }
     .g-read-note{ font-family:var(--t-mono); font-size:12px; line-height:1.65; color:var(--t-dim); margin:0 0 13px; }
     .g-read-diag{ color:var(--t-faint); opacity:.75; }
     .g-read-loading{ color:var(--t-mut); }
