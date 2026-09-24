@@ -27,7 +27,7 @@ export const LAST_CHECKED = "2026-09-24";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "16:16 BST";
+export const LAST_CHECKED_TIME = "18:21 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -2838,6 +2838,7 @@ export const HEDGE_INTEL = [
   { id: "hi192", hfId: "h2", date: "2026-02-11", time: "12:10", type: "Strategy", headline: "Man Group teams up with Anthropic to put AI at the centre of investing", summary: "Man Group announced a partnership with Anthropic to collaboratively design and apply AI across the firm, using Anthropic's Claude and working alongside Anthropic engineers to embed AI in processes from the investment floor through distribution and human resources; the partnership targets alpha generation (processing and synthesising large datasets, analysing financial risk models, generating investment insights) alongside firm-wide efficiency gains.", outlet: "Man Group / Hedgeweek", url: "https://www.man.com/news-centre/man-group-anthropic-partnership" },
   { id: "hi201", hfId: "h25", date: "2026-09-18", time: "14:15", type: "Personnel", headline: "Verition's fixed-income chief Jonathan Raiff departs for rival Schonfeld", summary: "Jonathan Raiff, head of fixed-income strategies at multi-strategy hedge fund Verition Fund Management, is leaving to join rival Schonfeld Strategic Advisors; Raiff joined Verition in 2022 after more than two decades in investment banking and markets, most recently as Nomura's deputy head of global markets. Verition plans to distribute his former responsibilities among several members of its investment team.", outlet: "Hedgeweek", url: "https://www.hedgeweek.com/verition-fixed-income-chief-jonathan-raiff-joins-rival-schonfeld/" },
   { id: "hi202", hfId: "h46", date: "2026-09-08", time: "12:11", type: "Strategic investment", headline: "Hudson Bay Capital joins JPMorgan in $223m refinancing of Delray Beach's Sundy Village", summary: "Hudson Bay Capital and JPMorgan Chase provided a $223m loan refinancing Pebb Capital's Sundy Village mixed-use office/retail development in Delray Beach, Florida, replacing a $173m 2023 construction loan (also part-provided by JPMorgan alongside Monroe Capital, which concluded its participation) as the 97%-leased, 130,000 sq ft first-phase project transitions from development to a stabilised asset.", outlet: "The Real Deal", url: "https://therealdeal.com/miami/2026/09/08/pebb-capitals-223m-refi-for-delray-beachs-sundy-village/" },
+  { id: "hi203", hfId: "h141", date: "2026-09-24", time: "18:15", type: "Performance", headline: "Taula down 9.4% for the year as macro traders face volatile 2026", summary: "Diego Megia's Taula Capital Management lost 4.3% this month through 18 September, pushing the global discretionary macro fund's year-to-date loss to 9.4% amid a volatile year for macro traders navigating whipsawing rates and FX markets.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-09-24/hedge-fund-taula-down-9-4-in-volatile-year-for-macro-traders" },
 ];
 
 // 13F snapshot — the cross-fund read for the Dashboard ▸ Hedge Funds section.

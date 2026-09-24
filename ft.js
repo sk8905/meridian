@@ -21,11 +21,32 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "82dbd39c-f8dd-4ef1-8a80-d430a22579bd",
+    title: "Oracle feels the force",
+    date: "2026-09-24",
+    time: "18:20",
+    url: "https://www.ft.com/content/82dbd39c-f8dd-4ef1-8a80-d430a22579bd"
+  },
+  {
+    id: "68173e02-88e8-4819-9543-cff7d024c476",
+    title: "Burnham under pressure to lobby Trump on US diesel export ban",
+    date: "2026-09-24",
+    time: "18:16",
+    url: "https://www.ft.com/content/68173e02-88e8-4819-9543-cff7d024c476"
+  },
+  {
     id: "37224743-806c-4833-abc3-236ff1be4ddd",
     title: "Russia’s $6.9bn sanctions evasion scheme",
     date: "2026-09-24",
     time: "18:00",
     url: "https://www.ft.com/content/37224743-806c-4833-abc3-236ff1be4ddd"
+  },
+  {
+    id: "72d1df1f-cc71-4e17-a442-0a4201ba41aa",
+    title: "White House says it has restored access to banned press outlets",
+    date: "2026-09-24",
+    time: "17:57",
+    url: "https://www.ft.com/content/72d1df1f-cc71-4e17-a442-0a4201ba41aa"
   },
   {
     id: "2d158978-0ec5-4fda-b0dc-f04d462c215d",
@@ -299,12 +320,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "08:36",
     url: "https://www.ft.com/content/797e289f-a94c-413a-8f56-e2d975c5d540"
-  },
-  {
-    id: "72d1df1f-cc71-4e17-a442-0a4201ba41aa",
-    title: "Judge orders White House to restore banned media’s access",
-    date: "2026-09-24",
-    time: "06:51",
-    url: "https://www.ft.com/content/72d1df1f-cc71-4e17-a442-0a4201ba41aa"
   },
 ];
