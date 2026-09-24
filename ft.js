@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "680363f9-1d2d-4e76-824d-7aaa54a80840",
+    title: "Vistry vows to simplify business after £83mn first-half loss",
+    date: "2026-09-24",
+    time: "09:03",
+    url: "https://www.ft.com/content/680363f9-1d2d-4e76-824d-7aaa54a80840"
+  },
+  {
+    id: "9771d493-6c70-4250-9852-854351f13bad",
+    title: "FTAV’s further reading",
+    date: "2026-09-24",
+    time: "08:39",
+    url: "https://www.ft.com/content/9771d493-6c70-4250-9852-854351f13bad"
+  },
+  {
+    id: "797e289f-a94c-413a-8f56-e2d975c5d540",
+    title: "Can the City of London remain a leading financial centre?",
+    date: "2026-09-24",
+    time: "08:36",
+    url: "https://www.ft.com/content/797e289f-a94c-413a-8f56-e2d975c5d540"
+  },
+  {
     id: "72d1df1f-cc71-4e17-a442-0a4201ba41aa",
     title: "Judge orders White House to restore banned media’s access",
     date: "2026-09-24",
@@ -285,19 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "16:37",
     url: "https://www.ft.com/content/3e480031-4ee7-4ded-9893-75c060aeef1a"
-  },
-  {
-    id: "5b11b598-7c77-4bdf-82bf-a763adf71a72",
-    title: "US Treasury yields soar after strong data fuels bets on further rate rises",
-    date: "2026-09-23",
-    time: "16:33",
-    url: "https://www.ft.com/content/5b11b598-7c77-4bdf-82bf-a763adf71a72"
-  },
-  {
-    id: "c5215e50-446c-45e5-a2ec-36e3e30d0310",
-    title: "Italy clears path for nuclear power revival",
-    date: "2026-09-23",
-    time: "16:17",
-    url: "https://www.ft.com/content/c5215e50-446c-45e5-a2ec-36e3e30d0310"
   }
 ];
