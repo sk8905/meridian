@@ -300,11 +300,4 @@ export const FT_ITEMS = [
     time: "10:27",
     url: "https://www.ft.com/content/3ab22092-5d60-457e-a88c-cf9062887ed1"
   },
-  {
-    id: "79976fed-30c3-46e7-ba90-59e0633575d5",
-    title: "Submit your questions: Where are the biggest market risks?",
-    date: "2026-09-24",
-    time: "10:04",
-    url: "https://www.ft.com/content/79976fed-30c3-46e7-ba90-59e0633575d5"
-  },
 ];

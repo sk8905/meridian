@@ -44,11 +44,11 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
-    id: "nl-bbg-moneystuff-morganstanleyleakeddeals-20260924",
+    id: "nl-bbg-moneystuff-morganstanleyleak-20260924",
     publication: "Bloomberg",
     author: "Matt Levine",
     series: "Money Stuff",
-    title: "Morgan Stanley Leaked Some Deals",
+    title: "Money Stuff: Morgan Stanley Leaked Some Deals",
     date: "2026-09-24",
     time: "19:17",
     summary: "Force majeure, PE, credit cards, eggs.",
