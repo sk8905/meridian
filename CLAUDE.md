@@ -1,10 +1,18 @@
 # Wire (meridian) — working agreement
 
-"Wire" is a static multi-page ES-module web app (Cloudflare Worker `src/index.js`
-+ Cloudflare Assets; git-connected `main` auto-deploys). The **v2 SPA under
-`/v2/`** is the only live surface — pre-v2 top-level pages are retired behind edge
+"Wire" is a multi-page ES-module web app (Cloudflare Worker `src/index.js` +
+Cloudflare Assets; git-connected `main` auto-deploys). The **v2 SPA under `/v2/`**
+is the only live surface — pre-v2 top-level pages are retired behind edge
 redirects. iPhone PWA is the primary surface; desktop is a fixed-viewport
 terminal.
+
+The v2 SPA is **built by Vite** (`npm run build` → `dist/`): its JS + the eleven
+`@import`ed stylesheets are bundled and content-hashed, and everything else the
+Worker serves (desk data modules, shared root modules, the retired top-level
+pages, static files) is copied into `dist/` as-is by `scripts/postbuild.mjs`.
+`wrangler.jsonc` serves assets from `dist`, and Cloudflare Workers Builds runs
+`npm run build` on each deploy — that build setting is the switch that turns the
+Vite pipeline on.
 
 ## Read these first — they are authoritative
 
@@ -27,12 +35,15 @@ terminal.
   limit, so run it in the background and poll; `TEST_CONCURRENCY=N` overrides).
   It must stay green. Iterate on the affected spec alone (`node tests/run.mjs
   <name>`, seconds) and run the full suite once before the push. Any new
-  user-visible behaviour gets a spec.
-- **Cache tokens move in lockstep.** Bump the `?v=` token on any changed CSS/JS.
-  v2 modules load via the runtime token in `v2/index.html`; the shared
-  `credit/js/data.js?v=` token must stay identical across
-  `v2/js/credit/app.js`, `v2/js/credit/detail.js` and `credit/js/shared.js`
-  (same for legal). See HOUSE_STYLE T1 and the refresh-routines "Cache-busters".
+  user-visible behaviour gets a spec. To prove the built output serves identically,
+  `npm run build` then `TEST_ROOT=dist node tests/run.mjs`.
+- **Cache-busting: code is hashed, data is tokenless.** The v2 SPA's JS/CSS is
+  content-hashed by Vite (the `/assets/*-[hash]` filename is the buster) — never
+  hand-add a `?v=` token to a module import under `v2/js` (enforced by
+  `tests/token-lockstep.mjs`). The desk data modules (`credit/js/data.js`, …) are
+  imported by a stable tokenless URL and revalidated `no-cache` via `_headers`, so
+  the 5×/day refresh routine edits only those data files. See HOUSE_STYLE T1/T2 and
+  the refresh-routines "Cache-busters".
 - **Deploy discipline.** Commit directly to `main` and push to `origin/main` —
   see **Branch & deploy policy** below. Pushing to `main` triggers the live
   deploy, so verify before every push.

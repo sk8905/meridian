@@ -60,24 +60,33 @@ async function deepLink(url, view, min, label) {
   await ctx.close();
 }
 
-// ---- 1b. Each desk cold-loads with feed.css so its wire is styled ----
-// Regression: the desk views loaded only their own styles.css, not feed.css, so
-// a directly-opened desk rendered its wire as raw unstyled orange links until
-// Home (which does load feed.css) had been visited to pull it in.
+// ---- 1b. The shared feed grid styles the wire on any cold-opened desk ----
+// Regression: the desk views once loaded only their own styles.css, not the shared
+// feed rules, so a directly-opened desk rendered its wire as raw unstyled orange
+// links until Home had been visited to pull them in. The CSS is now ONE sheet — the
+// eleven stylesheets @import/bundle into styles.css (feed rules included, cascade
+// order preserved), so there is no separate /feed.css <link> to look for. Assert the
+// OBSERVABLE effect: wherever a cold-opened desk shows a wire, its rows are laid out
+// by the feed grid — and at least one desk must actually show one (proving feed.css
+// is in the bundle and applies). The bare Credit/Legal landings now redirect to
+// Profiles (no wire), so grid is asserted per-desk only where rows are present.
+let gridProven = false;
 for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], ["/v2/legal/", "legal"]]) {
   const { ctx, pg } = await open(b, PHONE, base + path);
   await pg.waitForTimeout(2000);
   const r = await pg.evaluate(() => {
-    const feedCss = [...document.styleSheets].some((s) => s.href && s.href.includes("/feed.css"));
     const row = document.querySelector(".v2-view:not([hidden]) .g-feed-row");
     // feed.css lays each wire row out as a grid; without it the <a> is a plain
     // inline element (the unstyled "orange links" regression).
-    return { feedCss, display: row ? getComputedStyle(row).display : null, hasRow: !!row };
+    return { display: row ? getComputedStyle(row).display : null, hasRow: !!row };
   });
-  check(r.feedCss, `${view}: feed.css is loaded on cold open (styled wire)`);
-  if (r.hasRow) check(r.display === "grid", `${view}: feed rows laid out by feed.css (display:${r.display})`);
+  if (r.hasRow) {
+    check(r.display === "grid", `${view}: feed rows laid out by the feed grid (display:${r.display})`);
+    if (r.display === "grid") gridProven = true;
+  }
   await ctx.close();
 }
+check(gridProven, "the bundled CSS applies the feed grid on a cold-opened desk (feed.css is in the bundle)");
 
 // ---- 2. Full nav cycle x2: no duplication, no leak, no errors ----
 {

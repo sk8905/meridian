@@ -12,12 +12,12 @@
 import {
   items, cases, restructurings, firms, firmById, areaById, typeById,
 } from "/legal/js/data.js";
-import { esc, byDateDesc } from "/util.js?v=20260818-1";
+import { esc, byDateDesc } from "/util.js";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink,
   _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260730-2";
-import { peersOf, peerDetails } from "../peers.js?v=v2-4";
+} from "/legal/js/shared.js";
+import { peersOf, peerDetails } from "../peers.js";
 
 export let app = null;
 export function __setHost(h) { app = h; }

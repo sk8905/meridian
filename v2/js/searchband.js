@@ -9,7 +9,7 @@
 // list to filter (Profiles Managers/Hedge Funds, Transactions), which render
 // their own .thead-search with the button merged in.
 // =============================================================================
-import { esc } from "/util.js?v=20260818-1";
+import { esc } from "/util.js";
 
 // The band markup for non-list pages. `ph` overrides the placeholder text.
 export function bandHTML(ph) {

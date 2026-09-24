@@ -510,10 +510,15 @@ notification badge red (`#ef4444`).
 ## 7. Technical rules
 
 - **T1 — Cache-busting: code carries a token, data does NOT.**
-  - **Code** (CSS/JS: views, engines, chrome, CSS) is fingerprinted with a `?v=`
-    token; one build `V` from `import.meta.url` propagates via `vurl()`. Bump the
-    token on any changed CSS/JS so caches bust together. Code changes ship on
-    deploy, authored by sessions.
+  - **Code** (the v2 SPA's JS/CSS: views, engines, chrome, styles) is bundled and
+    **content-hashed by Vite** (`npm run build`) — the hash in each emitted
+    `/assets/*-[hash].js|css` filename IS the cache-buster, so a changed module
+    ships a new URL automatically. No hand-managed `?v=` token and no `vurl()`: an
+    import specifier under `v2/js` must stay **tokenless** (enforced by
+    `tests/token-lockstep.mjs`). The single `v2/index.html` entry (revalidated
+    `no-cache`, see `_headers`) always points at the current hashed bundle, so a
+    fresh deploy is picked up on the next load. Code changes ship on deploy,
+    authored by sessions.
   - **Data** (`credit/js/data.js`, `legal/js/data.js`, `macro/js/content.js`,
     `dashboard/js/data.js`, `newsletters.js`, `ft.js`) is imported with **NO
     `?v=` token** and served `Cache-Control: no-cache` (see `_headers`). Every
@@ -524,10 +529,17 @@ notification badge red (`#ef4444`).
     routine edits ONLY these data files and never a token, so routine commits and
     session commits stop colliding. **Never add a `?v=` back to a data-file
     import**, and never hand-bump a data token.
-- **T2 — ES modules, no bundler.** One runtime loads once; each view
-  lazy-loads its own CSS array; switching tabs swaps a keep-alive view in
-  memory (no document reload).
-- **T3 — Full suite green before deploy.** `node tests/run.mjs` (39 specs) must
+- **T2 — Vite-bundled SPA, one runtime.** `npm run build` bundles the v2 SPA from
+  the `v2/index.html` entry (its JS chain + the eleven `@import`ed stylesheets in
+  `v2/styles.css`) into hashed `/assets/*`; every stylesheet is declared up front
+  there (no per-view CSS lazy-loading). The desk DATA modules and shared root
+  modules stay **external** — emitted as-is by `scripts/postbuild.mjs`, tokenless
+  and `no-cache` — so a data refresh never re-hashes the app bundle. One runtime
+  loads once; switching tabs swaps a keep-alive view in memory (no document
+  reload). The app still runs unbundled from source (`node tests/run.mjs` serves
+  the repo; `TEST_ROOT=dist node tests/run.mjs` proves the built output serves
+  identically).
+- **T3 — Full suite green before deploy.** `node tests/run.mjs` (73 specs) must
   pass; any new user-visible behaviour gets a spec.
 - **T4 — Zero console/page errors** on every view (enforced by the page-error
   checks).

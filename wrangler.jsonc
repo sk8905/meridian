@@ -2,8 +2,12 @@
   "name": "meridian",
   "main": "src/index.js",
   "compatibility_date": "2025-05-01",
+  // Static assets are served from the Vite BUILD OUTPUT. Cloudflare Workers Builds
+  // runs `npm run build` (Build command in the dashboard) which emits dist/ — the
+  // content-hashed v2 SPA plus every external/static file copied in by
+  // scripts/postbuild.mjs — a complete drop-in for the old root directory.
   "assets": {
-    "directory": "./",
+    "directory": "./dist",
     "binding": "ASSETS"
   },
   "kv_namespaces": [

@@ -11,11 +11,11 @@
 import { deals, managers } from "/credit/js/data.js";
 import { BDCS } from "/credit/js/bdcs.js";
 import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-credits.js";
-import { TX_TYPES, TX_GROUPS, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-4";
-import { esc } from "/util.js?v=20260818-1";
-import { fmtDay } from "/feed.js?v=20260808-1";
-import { dealSubject, dealSponsor } from "../deal-parse.js?v=v2-4";
-import { creditSource } from "/credit/js/shared.js?v=20260730-2";
+import { TX_TYPES, TX_GROUPS, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js";
+import { esc } from "/util.js";
+import { fmtDay } from "/feed.js";
+import { dealSubject, dealSponsor } from "../deal-parse.js";
+import { creditSource } from "/credit/js/shared.js";
 
 const _mById = new Map(managers.map((m) => [m.id, m]));
 const mgrName = (id) => (_mById.get(id) || {}).name || "";

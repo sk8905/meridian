@@ -16,11 +16,11 @@
 // owned here; the bell keeps its own per-app content/seen-state but is layered
 // with the same full-screen presentation on mobile.
 // =============================================================================
-import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
-import { mountAssistant } from "/v2/js/assistant.js?v=v2-22";
+import { esc, MONTHS, setThemeColorMeta } from "/util.js";
+import { mountAssistant } from "/v2/js/assistant.js";
 import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
-import { nbNums } from "./nb-format.js?v=v2-2";
-import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
+import { nbNums } from "./nb-format.js";
+import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 // OAS/bp series carry `value` in PERCENT (0.77 → 77 bp), matching the desktop's
 // fmtRate and rateRow's own change scaling — so bp values are ×100, not raw.
@@ -529,7 +529,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260921-1");
+      const mod = await import("/saved.js");
       // Watchlist tab = SAVED items that relate to a followed/starred profile
       // (the intersection), NOT all of a followed profile's news.
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveSavedWatchlist();
@@ -643,7 +643,7 @@ let _notifItems = null;
 let _ntTab = "all";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260921-1");
+  const { buildNotifs } = await import("/saved.js");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -753,7 +753,7 @@ export function initNavActions() {
     if (!notif && !bar) return;
     setTopVar();
     // Shared press-and-hold / right-click row options menu — every page.
-    import("/rowmenu.js?v=20260724-2").then((m) => m.initRowMenu()).catch(() => {});
+    import("/rowmenu.js").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
     /* v2: swipe-tabs disabled — the runtime owns navigation. */
     let resizeQueued = false;
@@ -902,8 +902,13 @@ export function initNavActions() {
     // our code is stale — reload once to pull the new build.
     {
       const runningBuild = () => {
-        const s = document.querySelector('script[src*="/v2/js/runtime.js"]');
-        const m = s && /[?&]v=([^&"']+)/.exec(s.getAttribute("src") || "");
+        // Prod (Vite): the entry module is /assets/index-<hash>.js — the content
+        // hash IS the build id. Dev/source (unbundled): the shell loads
+        // /v2/js/runtime.js (?v= token only on the retired scheme). Accept either so
+        // the stale-build reload works built and simply no-ops when served unbundled.
+        const s = document.querySelector('script[type="module"][src*="/assets/index-"], script[src*="/v2/js/runtime.js"]');
+        const src = s ? (s.getAttribute("src") || "") : "";
+        const m = /\/assets\/index-([A-Za-z0-9_-]+)\.js/.exec(src) || /[?&]v=([^&"']+)/.exec(src);
         return m ? m[1] : null;
       };
       let checking = false, reloaded = false, lastAt = 0;
@@ -916,7 +921,8 @@ export function initNavActions() {
         try {
           const res = await fetch("/v2/", { cache: "no-store" });
           if (res && res.ok) {
-            const m = /\/v2\/js\/runtime\.js\?v=([^"'&]+)/.exec(await res.text());
+            const html = await res.text();
+            const m = /\/assets\/index-([A-Za-z0-9_-]+)\.js/.exec(html) || /\/v2\/js\/runtime\.js\?v=([^"'&]+)/.exec(html);
             if (m && m[1] && m[1] !== mine) { reloaded = true; location.reload(); return; }
           }
         } catch { /* offline / Access redirect — keep the working build */ }
@@ -980,7 +986,7 @@ export function initNavActions() {
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';
           try {
-            const mod = await import("/saved.js?v=20260921-1");
+            const mod = await import("/saved.js");
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")

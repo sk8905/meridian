@@ -2,7 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
-import { reportRefresh } from "/v2/js/status.js?v=v2-5";
+import { reportRefresh } from "/v2/js/status.js";
 import {
   STRATEGIES, LP_TYPES, LAST_CHECKED, LAST_CHECKED_TIME,
   managers, funds, lps, intel, deals, research,
@@ -16,10 +16,10 @@ import {
   SAVEDC_KEY, getSavedC,
   creditSource, feedDedupKey,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260730-2";
-import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-36";
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
-import { esc, fmtAum, byDateDesc } from "/util.js?v=20260818-1";
+} from "/credit/js/shared.js";
+import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js";
+import { esc, fmtAum, byDateDesc } from "/util.js";
 
 export function mount(host, ctx) {
   const app = host;

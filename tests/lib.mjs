@@ -16,7 +16,11 @@ import path from "node:path";
 import http from "node:http";
 import { fileURLToPath } from "node:url";
 
+// ROOT is always the repo (source-inspection specs read CSS/JS from here). The HTTP
+// server can be pointed at the built output via TEST_ROOT=dist (SERVE_ROOT) to prove
+// the Vite bundle serves identically — without breaking the specs' source reads.
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+export const SERVE_ROOT = process.env.TEST_ROOT ? path.resolve(ROOT, process.env.TEST_ROOT) : ROOT;
 const PW = process.env.WIRE_PW || "/opt/node22/lib/node_modules/playwright/index.js";
 
 export async function launchChromium() {
@@ -39,7 +43,7 @@ export function serve(apis = {}) {
     // v2 SPA fallback (mirrors the Worker): any /v2/ route with no file
     // extension serves the single shell; real /v2/ files pass through.
     if (p.startsWith("/v2/") && !/\.[a-z0-9]+$/i.test(p)) p = "/v2/index.html";
-    const fp = path.join(ROOT, p);
+    const fp = path.join(SERVE_ROOT, p);
     if (fs.existsSync(fp) && fs.statSync(fp).isFile()) { r.writeHead(200, { "content-type": MIME[path.extname(fp)] || "text/plain" }); fs.createReadStream(fp).pipe(r); }
     else { r.writeHead(404); r.end("x"); }
   });

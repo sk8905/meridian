@@ -18,8 +18,8 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // The app-wide "Last refresh" reporter — same singleton the desks report into
 // (its own leaf token, not V; see runtime.js), so chrome's boot-time value and a
 // desk's real stamp share one monotonic keep-latest state.
-import { reportRefresh } from "./status.js?v=v2-5";
-import { esc } from "/util.js?v=20260818-1";
+import { reportRefresh } from "./status.js";
+import { esc } from "/util.js";
 
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
 // columns). Profiles also sits in the desktop platform switch below ("| Profiles").
@@ -82,14 +82,14 @@ export function initChrome({ onTab }) {
   //   • ⌘K / "/" command palette (palette.js) — one instance for every view
   //   • pull-to-refresh (ptr.js) — self-guards, touch-only
   // All are idempotent single inits; failures never block the shell.
-  import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
-  import("/palette.js?v=20260913-4").then((m) => m.mountPalette()).catch(() => {});
-  import("/ptr.js?v=20260725-1").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/brief.js").then((m) => m.initBrief()).catch(() => {});
+  import("/palette.js").then((m) => m.mountPalette()).catch(() => {});
+  import("/ptr.js").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own
   // tab bar / header-layout / swipe neutralised (the runtime owns those). Mounts
   // into .topbar-right.
-  import(vurl("./nav-actions.js")).then((m) => m.initNavActions()).catch(() => {});
+  import("./nav-actions.js").then((m) => m.initNavActions()).catch(() => {});
   fillAccount();
 
   // Update the active marker on both the bottom bar and the header switch.

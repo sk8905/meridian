@@ -2,7 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
-import { reportRefresh } from "/v2/js/status.js?v=v2-5";
+import { reportRefresh } from "/v2/js/status.js";
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, typeById, tierById, LAST_CHECKED, LAST_CHECKED_TIME,
@@ -11,10 +11,10 @@ import {
 import {
   fmtDate, itemDate, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260730-2";
-import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-14";
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260808-1";
-import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES, srcHost } from "/util.js?v=20260818-1";
+} from "/legal/js/shared.js";
+import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js";
+import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES, srcHost } from "/util.js";
 
 export function mount(host, ctx) {
   const app = host;

@@ -3,22 +3,22 @@
 // owns chrome + search), and listeners self-guard on the active tab.
 
 import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
-import { managerWire, CAT_LABEL, dedupeEvents } from "/v2/js/manager-signals.js?v=v2-5";
+import { managerWire, CAT_LABEL, dedupeEvents } from "/v2/js/manager-signals.js";
 // Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
-import { follows, followList, followBtn } from "/credit/js/shared.js?v=20260730-2";
-import { reportRefresh } from "/v2/js/status.js?v=v2-5";
+import { follows, followList, followBtn } from "/credit/js/shared.js";
+import { reportRefresh } from "/v2/js/status.js";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
-import { briefMarkup } from "/v2/js/nb-format.js?v=v2-2";
-import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
+import { briefMarkup } from "/v2/js/nb-format.js";
+import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js?v=20260808-1";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;

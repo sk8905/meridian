@@ -8,7 +8,7 @@
 // HOUSE_STYLE R7) and stay dormant ({unconfigured:true}) until a provider secret
 // is set, in which case the panel shows a "not switched on" note.
 // =============================================================================
-import { esc } from "/util.js?v=20260818-1";
+import { esc } from "/util.js";
 
 // The compact roster the client already loads, packed into ≤55 KB of context so
 // /api/ask can ground its answer in the exact data on the reader's screen.

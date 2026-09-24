@@ -18,27 +18,23 @@
 
 const BASE = "/v2";
 
-// ONE build version for the whole v2 module chain. It's the ?v= the shell puts
-// on runtime.js; runtime reads it from its own URL and stamps it onto every v2
-// module it (transitively) loads — views, chrome, nav-actions, the ported apps.
-// So a v2 change needs ONE token bump (runtime.js in v2/index.html) instead of
-// hand-bumping each link in the import chain. (Per-view CSS, detail.js and the
-// shared/data modules keep their own tokens — they change on their own cadence.)
-const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
-const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
+// Cache-busting is Vite's job now: every module in the v2 chain is content-hashed
+// at build (`npm run build`), so a changed module ships a new `/assets/*-[hash]`
+// URL automatically — no runtime ?v= token to stamp, no vurl() helper. Imports are
+// plain, statically-analysable specifiers so Rollup can trace and split the graph.
 
 // The top-level tabs. `load` is a lazy import → the view's code (and, later, its
 // heavy data) is fetched only when the tab is first opened, then cached by the
 // browser's module map for the session (no nonce, so revisits never re-fetch).
 const ROUTES = [
-  { key: "home",   title: "Wire",        load: () => import(vurl("./views/home.js")) },
-  { key: "dashboard", title: "Wire Dashboard", load: () => import(vurl("./views/dashboard.js")) },
-  { key: "macro",  title: "Wire Macro",  load: () => import(vurl("./views/macro.js")) },
-  { key: "credit", title: "Wire Credit", load: () => import(vurl("./views/credit.js")) },
-  { key: "legal",  title: "Wire Legal",  load: () => import(vurl("./views/legal.js")) },
-  { key: "profiles", title: "Wire Profiles", load: () => import(vurl("./views/profiles.js")) },
-  { key: "transactions", title: "Wire Transactions", load: () => import(vurl("./views/transactions.js")) },
-  { key: "menu",   title: "Wire Menu",   load: () => import(vurl("./views/menu.js")) },
+  { key: "home",   title: "Wire",        load: () => import("./views/home.js") },
+  { key: "dashboard", title: "Wire Dashboard", load: () => import("./views/dashboard.js") },
+  { key: "macro",  title: "Wire Macro",  load: () => import("./views/macro.js") },
+  { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js") },
+  { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js") },
+  { key: "profiles", title: "Wire Profiles", load: () => import("./views/profiles.js") },
+  { key: "transactions", title: "Wire Transactions", load: () => import("./views/transactions.js") },
+  { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js") },
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
 
@@ -229,7 +225,7 @@ function onPop() {
 
 // ---- Boot ------------------------------------------------------------------
 async function boot() {
-  const { initChrome } = await import(vurl("./chrome.js"));
+  const { initChrome } = await import("./chrome.js");
   _setActive = initChrome({ onTab: (key) => navigate(tabPath(key), { push: true, home: true }) });
   window.addEventListener("popstate", onPop);
   await navigate(location.pathname + location.search + location.hash, { push: false, replace: true });

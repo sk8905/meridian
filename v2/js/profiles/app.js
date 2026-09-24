@@ -12,16 +12,16 @@
 import {
   viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-36";
+} from "/v2/js/credit/detail.js";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
-} from "/v2/js/legal/detail.js?v=v2-14";
+} from "/v2/js/legal/detail.js";
 // Same shared.js instance the detail views read (identical ?v= token), so seeding
 // the URL-driven row highlight here is the pending focus viewManager applies.
-import { setPendingFocus } from "/credit/js/shared.js?v=20260730-2";
-import { esc } from "/util.js?v=20260818-1";
-import { matchesFor, pendingFor } from "/v2/js/network/store.js?v=v2-2";
+import { setPendingFocus } from "/credit/js/shared.js";
+import { esc } from "/util.js";
+import { matchesFor, pendingFor } from "/v2/js/network/store.js";
 
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).

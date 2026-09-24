@@ -298,7 +298,16 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   `/api/macro?v=N` edge-cache key in `src/index.js` on every run (that one is a
   server-side cache key, not an import token, and is unaffected by this). The
   detail below is kept for the code-token case; do not apply it to data files.
-- **Cache-busters (CODE files only — see the note just above for data files).**
+- **Cache-busters (CODE files) — SUPERSEDED by Vite content-hashing.** The v2 SPA
+  is now bundled by `npm run build`: every JS/CSS module is content-hashed
+  (`/assets/*-[hash]`), so **there is no `?v=` code token to bump anywhere under
+  `v2/js` any more** (imports are tokenless; `tests/token-lockstep.mjs` enforces
+  it). A code change busts its own cache automatically via the new hash, and the
+  `no-cache` `v2/index.html` entry points at the current hashed bundle. You still
+  bump the `/api/macro?v=N` **edge-cache key** in `src/index.js` each run (a
+  server-side key, not an import token). The detailed token dance below is retained
+  only as history of the retired scheme — do NOT re-add `?v=` tokens to v2 imports.
+- **Cache-busters (CODE files, RETIRED pre-Vite scheme — kept for history).**
   Each app has `?v=YYYYMMDD-N` tokens that MUST move in
   lockstep or the browser serves a stale `app.js`.
   - **⚠️ THE LIVE SURFACE IS `v2/` — bump the v2 importers, not just the legacy

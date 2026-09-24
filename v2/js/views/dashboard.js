@@ -4,4 +4,4 @@
 // session. Loaded with the shared build version V. CSS (dashboard.css) is
 // declared up front in v2/index.html.
 const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
-export function mount(host, ctx) { return import(`../dashboard/app.js?v=${V}`).then((m) => m.mount(host, ctx)); }
+export function mount(host, ctx) { return import(`../dashboard/app.js`).then((m) => m.mount(host, ctx)); }

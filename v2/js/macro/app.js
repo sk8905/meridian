@@ -3,15 +3,15 @@
 // listeners. Hash sub-routing unchanged.
 
 import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
-import { reportRefresh } from "/v2/js/status.js?v=v2-5";
-import { nbNums } from "../nb-format.js?v=v2-2";
-import { esc, byDateDesc } from "/util.js?v=20260818-1";
+import { reportRefresh } from "/v2/js/status.js";
+import { nbNums } from "../nb-format.js";
+import { esc, byDateDesc } from "/util.js";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
-  MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260914-1";
-import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260914-1";
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260808-1";
-import { bandHTML } from "/v2/js/searchband.js?v=v2-3";
+  MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js";
+import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js";
+import { bandHTML } from "/v2/js/searchband.js";
 
 export function mount(host, ctx) {
   const app = host;

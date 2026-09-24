@@ -1,0 +1,16 @@
+/* Single CSS entry for the v2 SPA — Vite bundles + minifies + content-hashes these
+   into one stylesheet, in the exact cascade order the shell used to load them in
+   (premium → tui → header → app → network → home → credit → legal → macro →
+   dashboard → feed, with feed LAST so the shared feed grid wins). This replaces the
+   11 hand-tokened <link>s. */
+@import "../premium.css";
+@import "../tui.css";
+@import "../header.css";
+@import "./css/app.css";
+@import "./css/network.css";
+@import "../home.css";
+@import "../credit/css/styles.css";
+@import "../legal/css/styles.css";
+@import "../macro/css/styles.css";
+@import "../dashboard.css";
+@import "../feed.css";
