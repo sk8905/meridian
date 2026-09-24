@@ -269,6 +269,25 @@ const b = await launchChromium();
   check(news.allTagged && /^(SPX|OIL|BTC)$/.test(news.firstTag), `phone: each row carries a ticker tag (${news.firstTag})`);
   check(news.allSourced && news.allLinked, "phone: each row carries a source + real link (news-wire format, R7)");
   check(news.firstTicker.length > 0, `phone: the row is labelled with its ticker (${news.firstTicker})`);
+
+  // Related-news rows open the IN-APP reader — never a bare external jump. Even a
+  // link-out source (Reuters) opens the reader showing a preview + "open original"
+  // link, rather than navigating straight away.
+  const reader = await pg.evaluate(async () => {
+    const rows = [...document.querySelectorAll("#g-hero-news .g-feed-row")];
+    const reut = rows.find((r) => /reuters/i.test((r.querySelector(".g-feed-src") || {}).textContent || "")) || rows[0];
+    reut.click();
+    await new Promise((r) => setTimeout(r, 450));
+    const ov = document.getElementById("g-reader");
+    const body = document.getElementById("g-reader-body");
+    return {
+      open: !!(ov && !ov.hidden),
+      story: !!(body && body.querySelector(".g-read-title")),
+      openOriginal: !!(body && body.querySelector(".g-read-open, .g-read-ext, .g-read-lock")),
+    };
+  });
+  check(reader.open, "phone: tapping a related-news row opens the in-app reader (not an external jump)");
+  check(reader.story && reader.openOriginal, "phone: a link-out row (Reuters) opens the reader with a preview + 'open original' link, in-app");
   checkErrs(errs, "home hero phone");
   await ctx.close();
 }

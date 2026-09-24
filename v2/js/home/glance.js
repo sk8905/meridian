@@ -1132,10 +1132,29 @@ function renderHeroNews() {
     if (cached && cached.length) paint(cached);
     else host.innerHTML = `<div class="g-hero-news-head">Related news</div><div class="g-loading">Loading news…</div>`;
   }
+  _wireHeroNewsReader();
   fetch("/api/hero-news", { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null)
     .then((d) => { const items = (d && Array.isArray(d.items)) ? d.items : []; if (!items.length) return; paint(items); heroNewsWriteCache(items); })
     .catch(() => { /* keep whatever is showing */ });
+}
+// The related-news rows under the chart open IN THE APP like the main wire — never a
+// bare external jump. Openly-readable sources print their full text in the reader;
+// link-out / subscriber sources (e.g. Reuters) show the headline + an "open original"
+// link in the same pane. Delegated once on the persistent host (renderHeroNews only
+// swaps its innerHTML), routing to the desktop side pane or the mobile overlay.
+function _wireHeroNewsReader() {
+  const host = document.getElementById("g-hero-news");
+  if (!host || host.dataset.readWired) return;
+  host.dataset.readWired = "1";
+  host.addEventListener("click", (e) => {
+    if (e.target.closest(".g-feed-src")) return;               // an explicit source link still works
+    const row = e.target.closest(".g-feed-row"); if (!row) return;
+    e.preventDefault(); e.stopPropagation();
+    const read = document.getElementById("g-read");
+    if (read && read.offsetParent !== null) openInReadPane(row);   // desktop → side reading pane
+    else openMobileReader(_rowItem(row));                          // mobile → in-app reader overlay
+  });
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every
@@ -2076,20 +2095,20 @@ function closeMobileReader() {
 // the measured gap between the wire tabs and the bottom nav. In-flow (no fixed
 // positioning) so it can't vanish; the body scrolls inside it. No-op on desktop.
 function _placeBriefPane() {
-  // The Briefing pane sizes to its CONTENT but is capped at one screen — the cap is the
-  // gap between the wire tabs and the bottom nav. Setting max-height (not height) lets a
-  // short brief stay short (footer hugs the content, no dead space) while a long brief
-  // scrolls its body internally instead of scrolling the page. Any fixed height left by
-  // an older build is cleared so the content-height sizing can take effect.
+  // The Briefing pane FILLS the exact gap between the wire tabs and the bottom nav, so
+  // the source note pins to the bottom of the screen (never stranded mid-page) and the
+  // body scrolls between the sticky header and footer instead of the page scrolling.
+  // Setting an exact height (not max-height) makes a SHORT brief fill too. Any older
+  // max-height left by a previous build is cleared so the fixed height takes effect.
   const hb = document.getElementById("g-hbrief"), tabs = document.querySelector(".g-wiretabs");
-  if (hb && hb.style.height) hb.style.height = "";
+  if (hb && hb.style.maxHeight) hb.style.maxHeight = "";
   if (!hb || !tabs) return;
-  if (window.innerWidth > 1200 || !document.querySelector(".g-layout.wire-brief")) { hb.style.maxHeight = ""; return; }
+  if (window.innerWidth > 1200 || !document.querySelector(".g-layout.wire-brief")) { hb.style.height = ""; return; }
   const tabsBottom = tabs.getBoundingClientRect().bottom;
   const nav = document.querySelector(".mobile-tabbar");
   const navH = nav ? nav.getBoundingClientRect().height : 56;
   const h = Math.round(window.innerHeight - tabsBottom - navH);
-  if (h > 120) hb.style.maxHeight = h + "px";
+  if (h > 120) hb.style.height = h + "px";
 }
 // Is this feed row openable in the reading pane WITHOUT a login — i.e. an external
 // story from a non-subscriber source, whose full text the reader service can print?

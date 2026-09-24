@@ -1360,18 +1360,17 @@
          header pins just under the wire tabs and the note pins just above the bottom
          nav, so the lede + desk bullets scroll between them. min-height fills the
          screen so the note sits at the bottom even for a short brief. */
-      /* CONTENT-HEIGHT, CAPPED AT ONE SCREEN. The pane is only as tall as its content
-         (header + summary + the note directly beneath the last desk line) — so a short
-         brief shows NO stretched-to-viewport dead space below the note. The body may
-         SHRINK (flex:0 1 auto) but never GROW, so it doesn't manufacture that gap; when
-         a long brief would overrun one screen the max-height caps the pane and the body
-         scrolls internally between the fixed header and footer (iOS-proof), while the
-         page itself never scrolls. glance.js sets the exact cap; the calc is the pre-JS
-         fallback. */
+      /* FILL ONE SCREEN. The pane spans the exact gap between the wire tabs and the
+         bottom nav — sticky header at the top, the source note pinned to the BOTTOM of
+         the screen, and the lede + desk bullets scrolling between them. The body GROWS
+         to fill (flex:1 1 auto), so a short brief anchors its note at the bottom instead
+         of stranding it mid-page with a void beneath; a long brief scrolls its body
+         internally (iOS-proof) and the page itself never scrolls. glance.js sets the
+         exact height; the calc is the pre-JS fallback. */
       .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
-        max-height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 54px - env(safe-area-inset-bottom, 0px)); }
+        height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 54px - env(safe-area-inset-bottom, 0px)); }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-head{ flex:0 0 auto; }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:0 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
+      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:8px 12px;
         background:var(--t-head); border-top:1px solid var(--t-grid); }
       /* No page scroll on the Briefing pane: drop the global bottom-nav padding so the
