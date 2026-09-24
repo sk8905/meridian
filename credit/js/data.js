@@ -18,16 +18,16 @@
 // =============================================================================
 
 // When the dataset was last compiled/updated (i.e. the last time data actually changed).
-export const DATA_UPDATED = "2026-09-23";
+export const DATA_UPDATED = "2026-09-24";
 
 // When the refresh routine last ran (even if it found nothing new) — shown in the
 // topbar as "Last refresh" so a run can be confirmed regardless of data changes.
-export const LAST_CHECKED = "2026-09-23";
+export const LAST_CHECKED = "2026-09-24";
 // Time-of-day the routine last ran, as a pre-formatted string WITH a timezone
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "22:29 BST";
+export const LAST_CHECKED_TIME = "05:18 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -736,6 +736,7 @@ export const lps = [
 // a sourceUrl). Sorted most-recent first.
 // ---------------------------------------------------------------------------
 export const intel = [
+  { id: "i823", date: "2026-09-02", time: "05:10", type: "Personnel", managerId: "m81", fundId: null, headline: "KKR appoints Jonty Edwards and Paula Weisshuber to Credit & Markets platform", summary: "KKR expanded its Global Credit & Markets platform (~$293bn AUM) with two managing-director hires: Jonty Edwards, joining from J.P. Morgan's M&A team in London to focus on UK/European capital solutions, and Paula Weisshuber, joining from Bank of America where she was Head of EMEA Corporate Debt Capital Markets, based in Frankfurt covering the DACH region.", sourceUrl: "https://www.alternativeswatch.com/2026/09/02/kkr-hires-europe-credit-markets-edwards-weisshuber/", clo: false },
   { id: "i822", date: "2026-09-23", time: "20:13", type: "Structured Credit / CLO", managerId: "m8", fundId: null, headline: "Blackstone develops hybrid CLO blending private credit with broadly syndicated loans", summary: "Blackstone is developing a collateralised loan obligation that mixes broadly syndicated loans with private credit, a structure allowing the manager to shift the portfolio between the two asset classes to pair the higher yields of direct lending with the depth of the leveraged-loan market. The hybrid approach was pioneered on a public basis last month by Sona Asset Management, which priced Sona Aclai CLO I, the first European CLO combining BSL and middle-market private-credit loans in one vehicle.", sourceUrl: "https://www.bloomberg.com/news/articles/2026-09-23/blackstone-works-on-hybrid-clo-blending-private-credit-and-loans", clo: true },
   { id: "i817", date: "2026-09-22", time: "08:15", type: "Strategy", managerId: "m7", fundId: null, headline: "Apollo caps private credit fund withdrawals for third straight quarter", summary: "Apollo Debt Solutions BDC (~$26bn in assets) again capped redemptions at 5% of outstanding shares after 14.7% of investors sought to pull cash in the third quarter — down from 16.8% the prior quarter — as investors join a broader rush to pull cash from the $1.8trn direct-lending market; the fund said much of the demand reflected re-tendered requests carried over from earlier quarters, with investors who sought to exit during the year having received roughly 75% of requested capital back.", sourceUrl: "https://www.bloomberg.com/news/articles/2026-09-22/apollo-caps-private-credit-fund-again-after-14-7-look-to-exit", clo: false },
   { id: "i768", date: "2026-09-15", time: "17:05", type: "Final Close", managerId: "m189", fundId: "f359", headline: "Carlyle closes second Infrastructure Credit Fund at $2.3bn, three times the size of its predecessor", summary: "Carlyle Global Credit held the final close of Carlyle Infrastructure Credit Fund II with about $2.3bn of total capital commitments, exceeding its $2bn target and roughly three times the size of its predecessor vehicle; the fund provides below-investment-grade debt financing to infrastructure businesses and assets across the energy transition, digital infrastructure, low-carbon power, and water and waste treatment, with commitments from institutions across North America, Europe and Asia. Mark Jenkins, co-president and head of global credit and insurance at Carlyle, said the fundraise reflects continued momentum across Carlyle's global credit platform.", sourceUrl: "https://alternativecreditinvestor.com/2026/09/15/carlyle-inks-2-3bn-for-infra-credit/", clo: false },
