@@ -21,6 +21,48 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1f52f41a-f7db-49cc-b40e-c9d29aa01b9f",
+    title: "Donald Trump and Xi Jinping extend trade truce to January",
+    date: "2026-09-24",
+    time: "14:00",
+    url: "https://www.ft.com/content/1f52f41a-f7db-49cc-b40e-c9d29aa01b9f"
+  },
+  {
+    id: "ffb35fa4-b003-4d04-adeb-5aa67af294c5",
+    title: "Europe’s biggest stainless steelmaker finds new way to extract critical metal",
+    date: "2026-09-24",
+    time: "14:00",
+    url: "https://www.ft.com/content/ffb35fa4-b003-4d04-adeb-5aa67af294c5"
+  },
+  {
+    id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7",
+    title: "Latest savings rates",
+    date: "2026-09-24",
+    time: "13:42",
+    url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7"
+  },
+  {
+    id: "75ba3055-625c-4cb5-894b-0696a38f5e79",
+    title: "Latest Isa rates",
+    date: "2026-09-24",
+    time: "13:35",
+    url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79"
+  },
+  {
+    id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4",
+    title: "Latest National Savings & Investments rates",
+    date: "2026-09-24",
+    time: "13:28",
+    url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4"
+  },
+  {
+    id: "0298b4b9-d72d-4f3c-b5f4-863ac54a7645",
+    title: "19 smart ways to spend it in September",
+    date: "2026-09-24",
+    time: "13:03",
+    url: "https://www.ft.com/content/0298b4b9-d72d-4f3c-b5f4-863ac54a7645"
+  },
+  {
     id: "979ae3ac-4623-4fe9-a771-43ce451a9e73",
     title: "Trump-Xi summit live: US president wants to leave AI ‘exactly where it is’",
     date: "2026-09-24",
@@ -257,47 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "05:00",
     url: "https://www.ft.com/content/c819b9fb-ce86-435c-a10a-60941a14ab87"
-  },
-  {
-    id: "67a629b1-a502-47d3-8403-5b9ac37c0606",
-    title: "Syria’s dangerous search for justice",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/67a629b1-a502-47d3-8403-5b9ac37c0606"
-  },
-  {
-    id: "35fff896-9727-4372-bfcd-a805d8021517",
-    title: "UK and Germany among economies most exposed to China",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/35fff896-9727-4372-bfcd-a805d8021517"
-  },
-  {
-    id: "e3c74df4-9131-44cd-bd31-49691112bc85",
-    title: "Emerging markets shrug off Iran war in record foreign borrowing spree",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/e3c74df4-9131-44cd-bd31-49691112bc85"
-  },
-  {
-    id: "83beb007-8ef5-45e9-9edc-62eb5db46e40",
-    title: "Republicans spend big on midterm ads as Donald Trump’s popularity plummets",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/83beb007-8ef5-45e9-9edc-62eb5db46e40"
-  },
-  {
-    id: "deb09c41-668f-4aa8-8b0b-c795474143e3",
-    title: "Fed will act to ensure inflation resumes its moderation",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/deb09c41-668f-4aa8-8b0b-c795474143e3"
-  },
-  {
-    id: "bec22e6b-1267-4d9f-a192-60763a0797c3",
-    title: "Trump’s US no longer a reliable ally, warns Belgium in leaked document",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/bec22e6b-1267-4d9f-a192-60763a0797c3"
   }
 ];
