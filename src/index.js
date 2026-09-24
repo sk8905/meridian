@@ -630,7 +630,7 @@ const MOVERS_EXTRA = [
   // Bond-market volatility (the "VIX for bonds") + a tradeable CDX high-yield CDS
   // index proxy — both feed the Home "Volatility & risk" panel.
   { label: "MOVE", symbol: "^MOVE" },
-  { label: "CDX HY", symbol: "CDX" },
+  { label: "CDX HY", symbol: "CDX", stooq: "cdx.us" },
 ];
 
 // The Top Movers board is a cross-asset ETF universe — every asset class expressed
@@ -785,7 +785,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=13", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=14", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -811,7 +811,11 @@ async function handleMarkets(request, env, ctx) {
   }));
   // Wider mover pool for the Glance one-liner chips (spot only, best-effort).
   const moversExtra = (await Promise.all(MOVERS_EXTRA.map(async (s) => {
-    const r = await yahooQuote(s.symbol);
+    let r = await yahooQuote(s.symbol);
+    // Daily-close fallback (like MARKET_SERIES): Yahoo rate-limits this parallel burst
+    // from the Worker's datacenter IP, dropping a symbol or two — which stranded the
+    // low-volume CDX HY tile off the Volatility rail. Stooq back-fills the last close.
+    if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
     // Keep `history` so the Volatility rail (VIX/MOVE/CDX) can draw its sparkline.
     return r.value != null ? { label: s.label, value: r.value, changePct: r.changePct, history: r.history || [], marketState: r.marketState || null } : null;
   }))).filter(Boolean);

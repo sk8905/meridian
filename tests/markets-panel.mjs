@@ -94,9 +94,13 @@ const mac = await pg.evaluate(() => {
     // the US 2Y feeds the Yield-curve panel (not shown as a Key rate).
     derivedDrawn: ["HY − IG", "CCC − HY", "2s10s"].filter((l) => { const r = rowByLabel(l); return r && r.querySelector(".na-spark svg polyline"); }).length,
     twoYRow: !!rowByLabel("2Y"),
+    // The Volatility rail carries all three risk gauges: equity vol (VIX), rate vol
+    // (MOVE) and the CDX HY credit-default-swap-index proxy.
+    volRows: ["VIX", "MOVE", "CDX HY"].filter((l) => !!rowByLabel(l)),
   };
 });
 check(["Key rates", "Spreads", "Volatility", "Yield curve", "Policy rate"].every((s) => mac.secs.includes(s)), `Macro: the five right-rail sections render (${mac.secs.join(" · ")})`);
+check(mac.volRows.length === 3, `Macro: the Volatility rail shows VIX · MOVE · CDX HY (${mac.volRows.join(" · ")})`);
 checkEq(mac.igVal, "77 bp", "Macro: OAS spreads read in basis points (value ×100), not raw percent");
 check(mac.eurStroke === mac.up, `Macro: an up-over-the-period sparkline reads green (${mac.eurStroke})`);
 check(mac.igStroke === mac.down, `Macro: a down-over-the-period sparkline reads red (${mac.igStroke})`);
