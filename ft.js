@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "37224743-806c-4833-abc3-236ff1be4ddd",
+    title: "Russia’s $6.9bn sanctions evasion scheme",
+    date: "2026-09-24",
+    time: "18:00",
+    url: "https://www.ft.com/content/37224743-806c-4833-abc3-236ff1be4ddd"
+  },
+  {
+    id: "2d158978-0ec5-4fda-b0dc-f04d462c215d",
+    title: "City of London wins approval for skyscraper plan",
+    date: "2026-09-24",
+    time: "17:39",
+    url: "https://www.ft.com/content/2d158978-0ec5-4fda-b0dc-f04d462c215d"
+  },
+  {
+    id: "28ea6751-90a5-4538-b577-71bb123e81b7",
+    title: "Is the UK electorate fragmenting? Not so fast",
+    date: "2026-09-24",
+    time: "17:30",
+    url: "https://www.ft.com/content/28ea6751-90a5-4538-b577-71bb123e81b7"
+  },
+  {
+    id: "cabe2c29-9f66-470b-b7ac-b2bc324aa367",
+    title: "US mortgage rates breach 7% as affordability pressures mount",
+    date: "2026-09-24",
+    time: "17:12",
+    url: "https://www.ft.com/content/cabe2c29-9f66-470b-b7ac-b2bc324aa367"
+  },
+  {
     id: "ded9ae05-3c5c-431e-926b-9cb1864e4fb0",
     title: "Russia raises taxes to fund its war in Ukraine",
     date: "2026-09-24",
@@ -278,26 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "06:51",
     url: "https://www.ft.com/content/72d1df1f-cc71-4e17-a442-0a4201ba41aa"
-  },
-  {
-    id: "820c02a1-36b6-49ab-b2b2-1f60c77567ab",
-    title: "The SVB postmortem continues",
-    date: "2026-09-24",
-    time: "06:30",
-    url: "https://www.ft.com/content/820c02a1-36b6-49ab-b2b2-1f60c77567ab"
-  },
-  {
-    id: "f51d9570-73e8-4780-a21b-948a989bd73d",
-    title: "France and Germany spar over ‘Made in Europe’ as EU moves to protect its own",
-    date: "2026-09-24",
-    time: "06:00",
-    url: "https://www.ft.com/content/f51d9570-73e8-4780-a21b-948a989bd73d"
-  },
-  {
-    id: "6354c1ec-286a-4251-bac8-ca0cd4ac7eac",
-    title: "Are Big Tech bonds crowding out the US Treasury?",
-    date: "2026-09-24",
-    time: "06:00",
-    url: "https://www.ft.com/content/6354c1ec-286a-4251-bac8-ca0cd4ac7eac"
   },
 ];
