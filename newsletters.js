@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-trumpxisummit-20260924",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: What to expect from the Trump-Xi summit",
+    date: "2026-09-24",
+    time: "08:06",
+    summary: "Also: The battle between India's stock exchanges.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-yields5pct-20260923",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
@@ -471,27 +482,5 @@ export const NEWSLETTERS = [
     time: "11:25",
     summary: "Bond income eases some of the pain in the Treasury selloff; plus, confusion over private credit default rates.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-18/bond-income-is-easing-some-of-the-pain-in-treasury-selloff",
-  },
-  {
-    id: "nl-peinsights-aureliushain-20260918",
-    publication: "Private Equity Insights",
-    author: null,
-    series: null,
-    title: "Aurelius carves out Hain's European food business in €280m deal",
-    date: "2026-09-18",
-    time: "10:39",
-    summary: "The value-creation plan leans on Aurelius's in-house operational muscle.",
-    url: "https://peinsights.substack.com/p/aurelius-carves-out-hains-european",
-  },
-  {
-    id: "nl-legalbusiness-cee-freshfieldswhitecase-20260918",
-    publication: "Legal Business",
-    author: null,
-    series: "Legal Business Alert",
-    title: "Senior CEE partner leaves Freshfields for White & Case",
-    date: "2026-09-18",
-    time: "10:09",
-    summary: "M&A partner set to move to rival in latest European exit from magic circle firm.",
-    url: "https://email.legalbusiness.co.uk/c/1dYm4qg1bAwD20DoUKIOBJ6es9v5",
   },
 ];
