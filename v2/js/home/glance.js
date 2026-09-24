@@ -15,7 +15,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
-import { briefMarkup } from "/v2/js/nb-format.js";
+import { briefMarkup, nbNums } from "/v2/js/nb-format.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
@@ -337,15 +337,19 @@ function renderHomeBriefing() {
     g.items.push(b);
   }
   const _src = (b) => b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : "";
-  // ALWAYS combine every same-desk item into ONE continuous item: the first keeps
-  // its orange desk kicker; each follow-on is stripped of its kicker (its lead
-  // letter re-capitalised) and folded into the same flowing text — never stacked
-  // as a separate sub-bullet. All the sources it compresses collect on ONE
-  // trailing line, so the combined item still links every source (R7 grounding).
+  // ALWAYS combine every same-desk item into ONE continuous item. The desk name is
+  // lifted out of the first item and rendered as its OWN white heading (matching the
+  // "Overview" lede heading) — never an inline orange kicker with a dash. Every item
+  // (including the first) is then stripped of its kicker, its lead letter re-capitalised
+  // and folded into one flowing body — never stacked as a separate sub-bullet. All the
+  // sources it compresses collect on ONE trailing line, so the combined item still links
+  // every source (R7 grounding).
   const bullets = groups.map((g) => {
-    const text = g.items.map((b, i) => briefMarkup(i ? _capFold(_stripDesk(b.html)) : b.html)).join(" ");
+    const m = String(g.items[0].html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/);
+    const desk = m ? m[1].trim() : "";
+    const text = g.items.map((b) => nbNums(_capFold(_stripDesk(b.html)))).join(" ");
     const srcs = g.items.map(_src).filter(Boolean).join('<span class="g-hbrief-srcsep" aria-hidden="true"> · </span>');
-    return `<li class="g-hbrief-b"><span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}</li>`;
+    return `<li class="g-hbrief-b">${desk ? `<div class="g-hbrief-lede-hd">${esc(desk)}</div>` : ""}<span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}</li>`;
   }).join("");
   host.hidden = false;
   host.dataset.open = "true";

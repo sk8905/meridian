@@ -1,6 +1,6 @@
 // Home briefing card: the tri-daily market brief (BRIEFINGS — Morning/Afternoon/
 // Evening) surfaced at the HEAD of the News wire, above "Today". It reuses the
-// shared colour marking (orange desk kicker), caps to 4 bullets, links each
+// white desk headings (matching the "Overview" lede heading), caps to 4 bullets, links each
 // source, and is collapsible (per viewer). Here only /api/hero + /api/xfeed are
 // stubbed; the briefing is a static data import, so it renders with real content.
 import fs from "node:fs";
@@ -27,7 +27,14 @@ const b = await launchChromium();
     const sections = [...el.querySelectorAll(".g-hbrief-b")];
     const items = [...el.querySelectorAll(".g-hbrief-bt")];
     const srcs = [...el.querySelectorAll(".g-hbrief-src")];
-    const kickers = [...el.querySelectorAll(".g-hbrief-b .nb-topic")].map((k) => k.textContent.trim().toLowerCase());
+    // Desk names now render as their own WHITE heading (.g-hbrief-lede-hd, matching
+    // the "Overview" lede heading), NOT an inline orange .nb-topic kicker with a dash.
+    const kickers = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-lede-hd")].map((k) => k.textContent.trim().toLowerCase());
+    const deskHdWhite = (() => {
+      const hs = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-lede-hd")], t = el.querySelector(".g-hbrief-ttl");
+      return hs.length > 0 && !!t && hs.every((h) => getComputedStyle(h).color === getComputedStyle(t).color);
+    })();
+    const noOrangeKicker = el.querySelectorAll(".g-hbrief-b .nb-topic").length === 0;
     const box = (n) => { const b = n.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right) }; };
     const eb = box(el), hb = hero && box(hero), fb = feedWrap && box(feedWrap);
     return {
@@ -46,6 +53,8 @@ const b = await launchChromium();
       sections: sections.length,
       itemCount: items.length,
       hasKicker: kickers.length > 0,
+      deskHdWhite,
+      noOrangeKicker,
       // ONE continuous combined item per desk: each desk section renders exactly ONE
       // .g-hbrief-bt (same-desk stories folded together), NOT one per story.
       oneItemPerSection: items.length > 0 && items.length === sections.length,
@@ -56,7 +65,7 @@ const b = await launchChromium();
       // A desk carrying two stories is genuinely COMBINED: one .g-hbrief-bt, but two
       // source links on its single trailing line (the real Morning slot has Macro×2).
       combinedDesk: sections.some((sec) => sec.querySelectorAll(".g-hbrief-bt").length === 1 && sec.querySelectorAll(".g-hbrief-src").length >= 2),
-      // ONE section per desk: exactly one kicker per section, and no desk repeats.
+      // ONE section per desk: exactly one desk heading per section, and no desk repeats.
       kickers,
       oneKickerPerSection: kickers.length === sections.length,
       kickersUnique: new Set(kickers).size === kickers.length,
@@ -75,11 +84,13 @@ const b = await launchChromium();
   check(r.hasLede && r.sections >= 1 && r.sections <= 3, `desktop: a lede + one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
   checkEq(r.ledeHd, "Overview", "desktop: the lede is titled with an 'Overview' heading");
   check(r.ledeHdWhite, "desktop: the 'Overview' heading is white (matches the title), not the orange accent");
-  check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
+  check(r.hasKicker, "desktop: each desk carries its name as a heading (.g-hbrief-lede-hd)");
+  check(r.deskHdWhite, "desktop: the desk headings are white (match the title), not the orange accent");
+  check(r.noOrangeKicker, "desktop: no orange .nb-topic desk kicker survives in the bullets");
   check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
   check(r.combinedDesk, "desktop: a desk with two stories is combined — one item, both sources on a single trailing line");
   check(r.allSourced, "desktop: every combined item links every source it compresses (grounding, R7)");
-  check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated kicker (${r.kickers.join(", ")})`);
+  check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated desk heading (${r.kickers.join(", ")})`);
   check(r.leftOfHero && r.aboveFeed && r.rowAlignedWithHero, "desktop: the briefing is the top-left quadrant of the 2×2 (left of the chart, above the news wire)");
   check(r.open === "true", "desktop: the card is OPEN by default (it is a full quadrant, not a slim bar)");
 
