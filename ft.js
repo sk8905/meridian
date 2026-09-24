@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "37e6c9d9-2237-468d-b0c5-18b5d09c2ccc",
+    title: "HSBC axes $26,000 perk for Hong Kong bankers to join members’ clubs",
+    date: "2026-09-24",
+    time: "15:58",
+    url: "https://www.ft.com/content/37e6c9d9-2237-468d-b0c5-18b5d09c2ccc"
+  },
+  {
+    id: "6cc7149f-a9f1-47f6-9faf-b98a28f9aedc",
+    title: "GoDaddy receives takeover offer from maker of Norton antivirus software",
+    date: "2026-09-24",
+    time: "15:23",
+    url: "https://www.ft.com/content/6cc7149f-a9f1-47f6-9faf-b98a28f9aedc"
+  },
+  {
+    id: "2bf6bba0-a361-474b-b5d6-6461695ecc4a",
+    title: "Isabel Schnabel to leave ECB early to join IMF",
+    date: "2026-09-24",
+    time: "14:32",
+    url: "https://www.ft.com/content/2bf6bba0-a361-474b-b5d6-6461695ecc4a"
+  },
+  {
+    id: "cf5cf060-401f-43cb-92d1-72afc38b3d3a",
+    title: "Five is the magic number for US Treasuries",
+    date: "2026-09-24",
+    time: "14:11",
+    url: "https://www.ft.com/content/cf5cf060-401f-43cb-92d1-72afc38b3d3a"
+  },
+  {
+    id: "7eb47e53-d130-4c5a-858e-49df9bd4f5fe",
+    title: "Space: the final frontline",
+    date: "2026-09-24",
+    time: "14:09",
+    url: "https://www.ft.com/content/7eb47e53-d130-4c5a-858e-49df9bd4f5fe"
+  },
+  {
     id: "1f52f41a-f7db-49cc-b40e-c9d29aa01b9f",
     title: "Donald Trump and Xi Jinping extend trade truce to January",
     date: "2026-09-24",
@@ -271,33 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "05:00",
     url: "https://www.ft.com/content/cce116f4-2cd6-4c1f-ae19-df0fc24c9252"
-  },
-  {
-    id: "cf60deee-553d-4232-83b6-966b539fa6b9",
-    title: "Airtel Money IPO signals a route back for London’s market",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/cf60deee-553d-4232-83b6-966b539fa6b9"
-  },
-  {
-    id: "23c7eab5-32e6-4069-9989-e8c5af57558c",
-    title: "The clock’s ticking on the AI boom",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/23c7eab5-32e6-4069-9989-e8c5af57558c"
-  },
-  {
-    id: "60157962-3399-4158-b9dc-6dc2111cb050",
-    title: "Curator’s pick: Grant Wood’s ‘American Gothic’ at the Art Institute of Chicago",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/60157962-3399-4158-b9dc-6dc2111cb050"
-  },
-  {
-    id: "c819b9fb-ce86-435c-a10a-60941a14ab87",
-    title: "Why your holiday is good news for the UK",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/c819b9fb-ce86-435c-a10a-60941a14ab87"
   }
 ];
