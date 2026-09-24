@@ -357,7 +357,7 @@ function renderHomeBriefing() {
     + `<span class="g-hbrief-ttl">Market briefing</span>`
     + `<span class="g-hbrief-when">${when}</span></div>`
     + `<div class="g-hbrief-body">`
-    + (s.lede ? `<p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
+    + (s.lede ? `<p class="g-hbrief-lede"><span class="nb-topic">Overview</span> &mdash; ${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
     + `</div>`
     + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks.</div>`;

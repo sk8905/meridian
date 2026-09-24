@@ -36,6 +36,9 @@ const b = await launchChromium();
       slots: el.querySelectorAll(".g-hbrief-slot").length,
       when: (el.querySelector(".g-hbrief-when") || {}).textContent || "",
       hasLede: !!el.querySelector(".g-hbrief-lede"),
+      // The lede leads with an orange "Overview" kicker (shared .nb-topic), matching
+      // the desk kickers below it.
+      ledeKicker: ((el.querySelector(".g-hbrief-lede .nb-topic") || {}).textContent || "").trim(),
       sections: sections.length,
       itemCount: items.length,
       hasKicker: kickers.length > 0,
@@ -66,6 +69,7 @@ const b = await launchChromium();
   checkEq(r.slots, 0, "desktop: NO slot selector — only the latest brief is shown");
   check(/\d/.test(r.when), `desktop: the header shows the brief's freshness stamp (${r.when})`);
   check(r.hasLede && r.sections >= 1 && r.sections <= 3, `desktop: a lede + one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
+  checkEq(r.ledeKicker, "Overview", "desktop: the lede leads with an orange 'Overview' kicker");
   check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
   check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
   check(r.combinedDesk, "desktop: a desk with two stories is combined — one item, both sources on a single trailing line");
@@ -101,7 +105,9 @@ const b = await launchChromium();
     const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
     const freshest = order.reduce((b, k) => (stamp(k) > stamp(b) ? k : b), order[0]);
     const key12 = (str) => String(str || "").replace(/<[^>]+>/g, "").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/[^A-Za-z]/g, "").slice(0, 12).toLowerCase();
-    const shown = (document.querySelector("#g-hbrief .g-hbrief-lede") || {}).textContent || "";
+    // Strip the leading "Overview —" kicker so this compares the lede PROSE (which is
+    // what the data carries) against the shown text.
+    const shown = ((document.querySelector("#g-hbrief .g-hbrief-lede") || {}).textContent || "").replace(/^\s*Overview\s*[—–-]\s*/, "");
     return { shownLen: shown.trim().length, match: !!slots[freshest] && key12(shown) === key12(slots[freshest].lede) };
   });
   check(latest.shownLen > 0 && latest.match, "desktop: the shown briefing is the latest available version");
