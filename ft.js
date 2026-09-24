@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2a77e2f7-3c22-4082-8bb3-492675f46c77",
+    title: "OpenAI breach of Australian government linked to wider AI hacking campaign",
+    date: "2026-09-24",
+    time: "22:06",
+    url: "https://www.ft.com/content/2a77e2f7-3c22-4082-8bb3-492675f46c77"
+  },
+  {
+    id: "19b54cea-1fdc-40ba-b09b-d289b7f39295",
+    title: "Australia’s rival football giants kick off global growth push",
+    date: "2026-09-24",
+    time: "22:00",
+    url: "https://www.ft.com/content/19b54cea-1fdc-40ba-b09b-d289b7f39295"
+  },
+  {
     id: "17b09993-8fed-47d1-9c04-e2d29ca75615",
     title: "SoftBank pays steep price for record bond sale to fund OpenAI bet",
     date: "2026-09-24",
@@ -154,13 +168,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/37e6c9d9-2237-468d-b0c5-18b5d09c2ccc"
   },
   {
-    id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
-    title: "US long-term borrowing costs touch highest level since 2004",
-    date: "2026-09-24",
-    time: "15:53",
-    url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c"
-  },
-  {
     id: "6cc7149f-a9f1-47f6-9faf-b98a28f9aedc",
     title: "GoDaddy receives takeover offer from maker of Norton antivirus software",
     date: "2026-09-24",
@@ -231,13 +238,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/0298b4b9-d72d-4f3c-b5f4-863ac54a7645"
   },
   {
-    id: "979ae3ac-4623-4fe9-a771-43ce451a9e73",
-    title: "Trump-Xi summit live: US president wants to leave AI ‘exactly where it is’",
-    date: "2026-09-24",
-    time: "12:48",
-    url: "https://www.ft.com/content/979ae3ac-4623-4fe9-a771-43ce451a9e73"
-  },
-  {
     id: "5b6772c8-907a-4230-9e01-54394550e0e5",
     title: "The risks of calling an early election for Andy Burnham",
     date: "2026-09-24",
@@ -292,12 +292,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "11:00",
     url: "https://www.ft.com/content/030dbb32-f615-4969-becf-ca236027ae89"
-  },
-  {
-    id: "1e788f4b-413b-4e92-a722-51e918513f7e",
-    title: "Rate rise ‘increasingly likely’ if energy price shock persists, says BoE official",
-    date: "2026-09-24",
-    time: "10:54",
-    url: "https://www.ft.com/content/1e788f4b-413b-4e92-a722-51e918513f7e"
   },
 ];

@@ -13,7 +13,7 @@ export const UPDATED = "24 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-24",
-  lastCheckedTime: "20:19 BST",
+  lastCheckedTime: "22:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1223,7 +1223,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "The 10-year Treasury yield pushed further to around 5.14% Thursday afternoon, extending its climb toward a 19-year high, and the average 30-year mortgage rate jumped 11bp to 7.37% — its highest since May 2024 — as the broad bond sell-off kept tightening financial conditions even as hopes for a phased Hormuz reopening pared the day's risk-off tone.", src: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-september-24-dow-sp-500-nasdaq-080352893.html", srcName: "Yahoo Finance", date: "2026-09-24" },
+  "US:two_year": { text: "The 10-year Treasury yield topped 5.15% intraday Thursday — its highest since 2007 — before easing back to around 5.10% into the close, and the average 30-year mortgage rate jumped 11bp to 7.37% — its highest since May 2024 — as the broad bond sell-off kept tightening financial conditions even as hopes for a phased Hormuz reopening pared the day's risk-off tone.", src: "https://www.cnbc.com/2026/09/24/us-treasury-yields-bonds-fed-inflation.html", srcName: "CNBC", date: "2026-09-24" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:two_year": { text: "Short-dated gilts firmed Wednesday morning as the flash September Composite PMI eased to a three-month low of 51.7 (from 52.5), with services also down to 51.7 and manufacturing up to 52.0 — a growth wobble that argues for a more cautious Bank of England even as the broader borrowing overshoot keeps longer-dated yields under pressure into the 28 October Budget.", src: "https://www.fxstreet.com/news/united-kingdom-sp-global-composite-pmi-came-in-at-517-above-forecasts-0-in-september-202609230831", srcName: "FXStreet", date: "2026-09-23" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },

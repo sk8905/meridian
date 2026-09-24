@@ -44,6 +44,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-point72locksup-20260924",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: null,
+    title: "Point72 Joins Hedge Fund Peers Locking Up Client Cash for Longer",
+    date: "2026-09-24",
+    time: "22:14",
+    summary: "Steve Cohen's Point72 Asset Management is tripling the time it takes clients to fully exit its hedge fund, joining a cohort of major peers in locking up capital for longer.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-24/point72-joins-hedge-fund-peers-locking-up-client-cash-for-longer",
+  },
+  {
+    id: "nl-reuters-tradingday-routofcontrol-20260924",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Rout of control",
+    date: "2026-09-24",
+    time: "22:03",
+    summary: "AI data center jitters mount.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-morganstanleyleak-20260924",
     publication: "Bloomberg",
     author: "Matt Levine",
