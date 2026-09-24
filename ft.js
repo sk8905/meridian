@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "f51d9570-73e8-4780-a21b-948a989bd73d",
+    title: "France and Germany spar over ‘Made in Europe’ as EU moves to protect its own",
+    date: "2026-09-24",
+    time: "06:00",
+    url: "https://www.ft.com/content/f51d9570-73e8-4780-a21b-948a989bd73d"
+  },
+  {
+    id: "6354c1ec-286a-4251-bac8-ca0cd4ac7eac",
+    title: "Are Big Tech bonds crowding out the US Treasury?",
+    date: "2026-09-24",
+    time: "06:00",
+    url: "https://www.ft.com/content/6354c1ec-286a-4251-bac8-ca0cd4ac7eac"
+  },
+  {
     id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
     title: "Global bond sell-off deepens as oil holds above $100",
     date: "2026-09-24",
@@ -292,12 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "14:15",
     url: "https://www.ft.com/content/d13b1982-450f-45d2-b79b-431f30b048b2"
-  },
-  {
-    id: "31a27312-8032-4957-be69-ba32561e8db3",
-    title: "UN General Assembly live: Iran’s president to address leaders after Trump threatens ‘annihilation’",
-    date: "2026-09-23",
-    time: "14:13",
-    url: "https://www.ft.com/content/31a27312-8032-4957-be69-ba32561e8db3"
   }
 ];
