@@ -44,6 +44,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-illusionofstability-20260924",
+    publication: "Bloomberg",
+    author: "Chris Anstey",
+    series: "Economics Daily",
+    title: "Economics Daily: ‘Illusion of stability’",
+    date: "2026-09-24",
+    time: "11:03",
+    summary: "Tinkering with debt maturities criticized as a short-term fix for a long-term problem.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-24/as-bessent-tinkers-with-treasuries-a-warning-against-financial-engineering",
+  },
+  {
+    id: "nl-bbg-marketsdaily-yieldsrisingeverywhere-20260924",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: Yields are rising everywhere",
+    date: "2026-09-24",
+    time: "10:27",
+    summary: "All the reasons why bond yields keep going up, plus cybersecurity stocks jump.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-24/all-the-reasons-why-bond-yields-keep-going-up",
+  },
+  {
     id: "nl-economist-worldinbrief-trumpxisummit-20260924",
     publication: "The Economist",
     author: null,

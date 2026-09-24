@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9a84cd29-09fa-44b8-95b3-68379769c256",
+    title: "Data centre boom emerges as wedge issue in Texas midterms",
+    date: "2026-09-24",
+    time: "12:00",
+    url: "https://www.ft.com/content/9a84cd29-09fa-44b8-95b3-68379769c256"
+  },
+  {
+    id: "b4141b98-0118-4624-8cb0-5d158ba0751d",
+    title: "Russia could attack Nato country within months, Denmark warns",
+    date: "2026-09-24",
+    time: "11:44",
+    url: "https://www.ft.com/content/b4141b98-0118-4624-8cb0-5d158ba0751d"
+  },
+  {
+    id: "c9ae9433-50e0-4711-90fa-d1e5aeb15eaf",
+    title: "UK bank tax receipts jump 20% following surge in profits",
+    date: "2026-09-24",
+    time: "11:34",
+    url: "https://www.ft.com/content/c9ae9433-50e0-4711-90fa-d1e5aeb15eaf"
+  },
+  {
+    id: "916603fa-c0c4-49e9-911a-a536ec3e245d",
+    title: "FirstFT: OpenAI ‘agent’ hacks Australian government website",
+    date: "2026-09-24",
+    time: "11:10",
+    url: "https://www.ft.com/content/916603fa-c0c4-49e9-911a-a536ec3e245d"
+  },
+  {
     id: "4194904d-d041-46b9-a606-d0580137a8a3",
     title: "Notes on living in a dangerous world",
     date: "2026-09-24",
@@ -278,26 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "00:21",
     url: "https://www.ft.com/content/1f55518f-dad5-4c7b-8c81-ba82196dd747"
-  },
-  {
-    id: "56133ef4-377b-4e35-a939-f199ceb64507",
-    title: "OpenAI ‘agent’ hacked an Australian health service website",
-    date: "2026-09-24",
-    time: "00:04",
-    url: "https://www.ft.com/content/56133ef4-377b-4e35-a939-f199ceb64507"
-  },
-  {
-    id: "8b470f65-6fc3-44b6-9295-e07008ce302d",
-    title: "HSBC moves board meeting from Dubai to London amid safety concerns",
-    date: "2026-09-24",
-    time: "00:01",
-    url: "https://www.ft.com/content/8b470f65-6fc3-44b6-9295-e07008ce302d"
-  },
-  {
-    id: "f9734489-4ed5-4e14-81d5-5f55fb1ac04c",
-    title: "Arnault family moves to consolidate control of LVMH",
-    date: "2026-09-23",
-    time: "22:48",
-    url: "https://www.ft.com/content/f9734489-4ed5-4e14-81d5-5f55fb1ac04c"
   }
 ];
