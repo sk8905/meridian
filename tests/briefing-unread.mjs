@@ -41,9 +41,18 @@ const base = `http://localhost:${srv.port}`;
   const dotShown = () => pg.evaluate(() => { const d = document.querySelector('.g-wiretab[data-wire="brief"] .g-wiretab-dot'); return !!d && !d.hidden && getComputedStyle(d).display !== "none"; });
   const onBrief = () => pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"));
 
-  // Runtime: the rendered lede leads at ~1.72 × font-size (the reading-pane feel).
-  const lh = await pg.evaluate(() => { const p = document.querySelector("#g-hbrief .g-hbrief-lede"); if (!p) return null; const cs = getComputedStyle(p); return parseFloat(cs.lineHeight) / parseFloat(cs.fontSize); });
-  check(lh && Math.abs(lh - 1.72) < 0.05, `phone: the briefing lede renders at the reading-pane leading (~1.72, got ${lh ? lh.toFixed(2) : "n/a"})`);
+  // Runtime: the rendered lede leads at ~1.72 × font-size (the reading-pane feel)
+  // AND is justified like the reading pane; the body text of a bullet is justified too.
+  const typ = await pg.evaluate(() => {
+    const p = document.querySelector("#g-hbrief .g-hbrief-lede");
+    const bt = document.querySelector("#g-hbrief .g-hbrief-bt");
+    if (!p) return null;
+    const cs = getComputedStyle(p);
+    return { lh: parseFloat(cs.lineHeight) / parseFloat(cs.fontSize), ledeAlign: cs.textAlign, btAlign: bt ? getComputedStyle(bt).textAlign : null };
+  });
+  check(typ && Math.abs(typ.lh - 1.72) < 0.05, `phone: the briefing lede renders at the reading-pane leading (~1.72, got ${typ ? typ.lh.toFixed(2) : "n/a"})`);
+  check(typ && typ.ledeAlign === "justify", `phone: the briefing lede is justified like the reading pane (got ${typ && typ.ledeAlign})`);
+  check(typ && typ.btAlign === "justify", `phone: the briefing bullet text is justified (got ${typ && typ.btAlign})`);
 
   check(!(await onBrief()), "phone: the default pane is the wire, not the briefing");
   check(await dotShown(), "phone: an unread brief shows the orange dot on the Briefing chip");

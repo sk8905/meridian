@@ -1168,6 +1168,11 @@
     .tui .g-hbrief-b{ padding:7px 0; border-top:1px solid var(--t-grid); font-size:12px; line-height:1.72; color:var(--t-ink); }
     .tui .g-hbrief-b:first-child{ border-top:0; }
     .tui .g-hbrief-bt{ display:block; }
+    /* Justify the briefing prose exactly like the in-app reading pane (.g-read-p):
+       the same light compression (tighter letter/word spacing + auto-hyphenation)
+       keeps justified 12px mono from opening ugly gaps. The trailing source line
+       (.g-hbrief-srcs) is left alone. */
+    .tui .g-hbrief-lede, .tui .g-hbrief-bt{ text-align:justify; letter-spacing:-.3px; word-spacing:-1.5px; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     /* Same-desk items are folded into ONE continuous item (see renderHomeBriefing),
        so every source it compresses sits on a SINGLE trailing line, middot-joined —
        not a source line per stacked sub-bullet. */
