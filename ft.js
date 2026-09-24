@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "bdec4129-ccac-4149-aa53-90ddd50cb925",
+    title: "Goldman reaped more than $200mn in fees from hedge fund Situational Awareness",
+    date: "2026-09-24",
+    time: "19:00",
+    url: "https://www.ft.com/content/bdec4129-ccac-4149-aa53-90ddd50cb925"
+  },
+  {
+    id: "24c13fd3-5de5-4916-8300-ec3073027ff6",
+    title: "Xi Jinping says US and China must ‘coexist in peace’ in historic White House visit",
+    date: "2026-09-24",
+    time: "18:53",
+    url: "https://www.ft.com/content/24c13fd3-5de5-4916-8300-ec3073027ff6"
+  },
+  {
+    id: "e60b40b6-dae5-4ccf-83cc-978269cbcaa5",
+    title: "The AI agent revolution has moved a big step closer",
+    date: "2026-09-24",
+    time: "18:33",
+    url: "https://www.ft.com/content/e60b40b6-dae5-4ccf-83cc-978269cbcaa5"
+  },
+  {
     id: "82dbd39c-f8dd-4ef1-8a80-d430a22579bd",
     title: "Oracle feels the force",
     date: "2026-09-24",
@@ -278,47 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "09:56",
     url: "https://www.ft.com/content/1767ba03-05a2-4d69-83df-5aa0a6bf24e2"
-  },
-  {
-    id: "123bb90f-8e87-46d8-8ae0-64a95f9d344d",
-    title: "Flattering the forecast should not be John Healey’s priority",
-    date: "2026-09-24",
-    time: "09:30",
-    url: "https://www.ft.com/content/123bb90f-8e87-46d8-8ae0-64a95f9d344d"
-  },
-  {
-    id: "8124e18d-ca77-424f-aa43-97983653eec4",
-    title: "Oops! You added the wrong email attachment and leaked the bank’s deal list. What happens next?",
-    date: "2026-09-24",
-    time: "09:17",
-    url: "https://www.ft.com/content/8124e18d-ca77-424f-aa43-97983653eec4"
-  },
-  {
-    id: "17b09993-8fed-47d1-9c04-e2d29ca75615",
-    title: "SoftBank raises $11bn in record junk bond offering to fund OpenAI bet",
-    date: "2026-09-24",
-    time: "09:07",
-    url: "https://www.ft.com/content/17b09993-8fed-47d1-9c04-e2d29ca75615"
-  },
-  {
-    id: "680363f9-1d2d-4e76-824d-7aaa54a80840",
-    title: "Vistry vows to simplify business after £83mn first-half loss",
-    date: "2026-09-24",
-    time: "09:03",
-    url: "https://www.ft.com/content/680363f9-1d2d-4e76-824d-7aaa54a80840"
-  },
-  {
-    id: "9771d493-6c70-4250-9852-854351f13bad",
-    title: "FTAV’s further reading",
-    date: "2026-09-24",
-    time: "08:39",
-    url: "https://www.ft.com/content/9771d493-6c70-4250-9852-854351f13bad"
-  },
-  {
-    id: "797e289f-a94c-413a-8f56-e2d975c5d540",
-    title: "Can the City of London remain a leading financial centre?",
-    date: "2026-09-24",
-    time: "08:36",
-    url: "https://www.ft.com/content/797e289f-a94c-413a-8f56-e2d975c5d540"
   },
 ];
