@@ -211,6 +211,9 @@ function initMobileWireTabs() {
     // size the box to the exact gap between the tabs and the nav. The class is cleared
     // when Home is left (home.js).
     try { document.documentElement.classList.toggle("home-brief", k === "brief"); } catch { /* noop */ }
+    // Opening the Briefing pane counts as reading the latest brief → clear its dot.
+    if (k === "brief") _markBriefRead(_briefLatest());
+    _updateBriefDot();
     _placeBriefPane();
   };
   if (!window.__wirePlaceBound) {
@@ -286,6 +289,14 @@ function _briefLatest() { const o = _briefOrder(); return o.length ? o.reduce((b
 function _briefIdentity(k) { const s = ((BRIEFINGS || {}).slots || {})[k]; return s ? `${s.date || ""}|${s.time || ""}` : ""; }
 function _briefReadMap() { try { return JSON.parse(localStorage.getItem(_BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; } }
 function _markBriefRead(k) { const id = _briefIdentity(k); if (!id) return; const m = _briefReadMap(); if (m[k] === id) return; m[k] = id; try { localStorage.setItem(_BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ } }
+// A brief is UNREAD when the latest slot's identity (date|time) differs from the one
+// this viewer last opened. Drives the Briefing tab's notification dot on phones.
+function _briefUnread() { const k = _briefLatest(); if (!k) return false; const id = _briefIdentity(k); return !!id && _briefReadMap()[k] !== id; }
+// Show/hide the orange dot on the phone Briefing chip to match the unread state.
+function _updateBriefDot() { const dot = document.querySelector('.g-wiretab[data-wire="brief"] .g-wiretab-dot'); if (dot) dot.hidden = !_briefUnread(); }
+// Desktop (≥1201px) shows the briefing as a permanent, always-visible quadrant;
+// phones tuck it behind the Briefing tab. Used to decide when "rendered" == "read".
+function _isPhoneLayout() { try { return !window.matchMedia("(min-width:1201px)").matches; } catch { return true; } }
 // Compact freshness date: "18 Sep".
 function _briefDate(d) { const t = Date.parse((d || "") + "T00:00:00"); if (!t) return d || ""; const dt = new Date(t); return `${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`; }
 // A bullet's desk = the "<strong>Macro &mdash; …</strong>" lead word(s), lower-cased,
@@ -305,10 +316,13 @@ function renderHomeBriefing() {
   const s = slots[key];
   if (!s) { host.hidden = true; return; }
   // The briefing is ALWAYS expanded now — a permanent 2×2 quadrant on desktop, and
-  // its own always-open pane (the Market Briefing tab) on phones. No collapse
-  // control, so no unread dot either (a shown briefing counts as read).
+  // its own always-open pane (the Market Briefing tab) on phones. On desktop it is
+  // always on screen, so rendering counts as read; on phones it sits behind the
+  // Briefing tab, so leave it unread until that tab is opened (setWire marks it) and
+  // let the tab carry a notification dot for a brief the viewer hasn't seen.
   const open = true;
-  _markBriefRead(key);
+  if (!_isPhoneLayout()) _markBriefRead(key);
+  _updateBriefDot();
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
   // Group the rendered bullets by desk so each desk is ONE section (Macro,
   // Equities, Fixed income) even when a desk carries more than one story: the

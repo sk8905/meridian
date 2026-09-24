@@ -22,7 +22,7 @@ terminal.
 - **Never fabricate data.** Every feed/commentary/data item keeps a real,
   verified source URL and date; unknown fields are `null`. Verify via WebSearch
   (works regardless of network policy) — WebFetch may be egress-blocked.
-- **Test before deploy.** Run the full suite `node tests/run.mjs` (72 specs; the
+- **Test before deploy.** Run the full suite `node tests/run.mjs` (73 specs; the
   runner is a bounded parallel pool — ~2 min, still may exceed the 120s foreground
   limit, so run it in the background and poll; `TEST_CONCURRENCY=N` overrides).
   It must stay green. Iterate on the affected spec alone (`node tests/run.mjs
