@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-yields5pctthreshold-20260924",
+    publication: "Thomson Reuters",
+    author: "Carmel Crimmins",
+    series: "Econ World",
+    title: "The 5% threshold",
+    date: "2026-09-24",
+    time: "14:05",
+    summary: "And what it means for markets.",
+    url: "https://www.reuters.com/newsletters/reuters-econ-world",
+  },
+  {
     id: "nl-bbg-economicsdaily-illusionofstability-20260924",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -471,16 +482,5 @@ export const NEWSLETTERS = [
     time: "12:12",
     summary: "Blackstone alumni build a hybrid capital challenger.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-18/blackstone-alumni-forge-hybrid-capital-challenger",
-  },
-  {
-    id: "nl-bbg-parisedition-celinedionsoftpower-20260918",
-    publication: "Bloomberg",
-    author: "Lionel Laurent",
-    series: "Paris Edition",
-    title: "Paris Edition: Celine Dion's soft power",
-    date: "2026-09-18",
-    time: "12:08",
-    summary: "Gains from Celine Dion's concerts are a small but welcome relief from France's economic blues.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-18/celine-dion-s-soft-power-in-france-meets-hard-budget-times",
   },
 ];
