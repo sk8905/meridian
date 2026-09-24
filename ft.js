@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4194904d-d041-46b9-a606-d0580137a8a3",
+    title: "Notes on living in a dangerous world",
+    date: "2026-09-24",
+    time: "11:00",
+    url: "https://www.ft.com/content/4194904d-d041-46b9-a606-d0580137a8a3"
+  },
+  {
+    id: "030dbb32-f615-4969-becf-ca236027ae89",
+    title: "Private equity could revolutionise US lawyer pay, law firm bosses say",
+    date: "2026-09-24",
+    time: "11:00",
+    url: "https://www.ft.com/content/030dbb32-f615-4969-becf-ca236027ae89"
+  },
+  {
+    id: "1e788f4b-413b-4e92-a722-51e918513f7e",
+    title: "Rate rise ‘increasingly likely’ if energy price shock persists, says BoE official",
+    date: "2026-09-24",
+    time: "10:54",
+    url: "https://www.ft.com/content/1e788f4b-413b-4e92-a722-51e918513f7e"
+  },
+  {
+    id: "d600fbb4-11e4-4541-9e98-ca37c8475eb3",
+    title: "Tencent launches payments app for ‘China-maxxing’ foreign tourists",
+    date: "2026-09-24",
+    time: "10:34",
+    url: "https://www.ft.com/content/d600fbb4-11e4-4541-9e98-ca37c8475eb3"
+  },
+  {
+    id: "3ab22092-5d60-457e-a88c-cf9062887ed1",
+    title: "Anti-migrant protest leader arrested after posting video stabbing a dinghy",
+    date: "2026-09-24",
+    time: "10:27",
+    url: "https://www.ft.com/content/3ab22092-5d60-457e-a88c-cf9062887ed1"
+  },
+  {
     id: "79976fed-30c3-46e7-ba90-59e0633575d5",
     title: "Submit your questions: Where are the biggest market risks?",
     date: "2026-09-24",
@@ -264,47 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "22:48",
     url: "https://www.ft.com/content/f9734489-4ed5-4e14-81d5-5f55fb1ac04c"
-  },
-  {
-    id: "916603fa-c0c4-49e9-911a-a536ec3e245d",
-    title: "FirstFT: Xi Jinping and Donald Trump set for high-stakes summit",
-    date: "2026-09-23",
-    time: "22:33",
-    url: "https://www.ft.com/content/916603fa-c0c4-49e9-911a-a536ec3e245d"
-  },
-  {
-    id: "256c4b36-a6c8-49ee-aa15-81cb089b2ced",
-    title: "Apple’s ChatGPT tools ‘dramatically underperformed’, OpenAI claims",
-    date: "2026-09-23",
-    time: "22:32",
-    url: "https://www.ft.com/content/256c4b36-a6c8-49ee-aa15-81cb089b2ced"
-  },
-  {
-    id: "5deccbb2-7354-4856-a98b-c19c8c73d6ef",
-    title: "Treasury open to smaller fiscal headroom to reduce UK tax hikes",
-    date: "2026-09-23",
-    time: "22:00",
-    url: "https://www.ft.com/content/5deccbb2-7354-4856-a98b-c19c8c73d6ef"
-  },
-  {
-    id: "8ff1b8fd-ff58-42a4-8e44-6a31f6db8154",
-    title: "Xi Jinping set to arrive for high-stakes summit with Donald Trump",
-    date: "2026-09-23",
-    time: "21:51",
-    url: "https://www.ft.com/content/8ff1b8fd-ff58-42a4-8e44-6a31f6db8154"
-  },
-  {
-    id: "fb42c5dd-1550-402c-8881-49a3902710a0",
-    title: "Rosneft billions fed Kremlin-backed money laundering network",
-    date: "2026-09-23",
-    time: "21:00",
-    url: "https://www.ft.com/content/fb42c5dd-1550-402c-8881-49a3902710a0"
-  },
-  {
-    id: "05c5f945-c75a-4adb-a189-121a05b3686a",
-    title: "How besieged billionaires are turning the tables on litigious shareholders",
-    date: "2026-09-23",
-    time: "18:27",
-    url: "https://www.ft.com/content/05c5f945-c75a-4adb-a189-121a05b3686a"
   }
 ];
