@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "72d1df1f-cc71-4e17-a442-0a4201ba41aa",
+    title: "Judge orders White House to restore banned media’s access",
+    date: "2026-09-24",
+    time: "06:51",
+    url: "https://www.ft.com/content/72d1df1f-cc71-4e17-a442-0a4201ba41aa"
+  },
+  {
+    id: "820c02a1-36b6-49ab-b2b2-1f60c77567ab",
+    title: "The SVB postmortem continues",
+    date: "2026-09-24",
+    time: "06:30",
+    url: "https://www.ft.com/content/820c02a1-36b6-49ab-b2b2-1f60c77567ab"
+  },
+  {
     id: "f51d9570-73e8-4780-a21b-948a989bd73d",
     title: "France and Germany spar over ‘Made in Europe’ as EU moves to protect its own",
     date: "2026-09-24",
@@ -89,6 +103,13 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "05:00",
     url: "https://www.ft.com/content/23c7eab5-32e6-4069-9989-e8c5af57558c"
+  },
+  {
+    id: "60157962-3399-4158-b9dc-6dc2111cb050",
+    title: "Curator’s pick: Grant Wood’s ‘American Gothic’ at the Art Institute of Chicago",
+    date: "2026-09-24",
+    time: "05:00",
+    url: "https://www.ft.com/content/60157962-3399-4158-b9dc-6dc2111cb050"
   },
   {
     id: "c819b9fb-ce86-435c-a10a-60941a14ab87",
@@ -278,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-23",
     time: "16:17",
     url: "https://www.ft.com/content/c5215e50-446c-45e5-a2ec-36e3e30d0310"
-  },
-  {
-    id: "a241848e-f78c-4435-abfd-3980160345c2",
-    title: "UK reviews Chagos deal after fresh opposition from Trump",
-    date: "2026-09-23",
-    time: "15:46",
-    url: "https://www.ft.com/content/a241848e-f78c-4435-abfd-3980160345c2"
-  },
-  {
-    id: "65d0e5d1-c4cc-4849-ad50-b260ccfde7b9",
-    title: "Turkey arrests founder of brokerage at centre of $18bn alleged Ponzi scheme",
-    date: "2026-09-23",
-    time: "15:21",
-    url: "https://www.ft.com/content/65d0e5d1-c4cc-4849-ad50-b260ccfde7b9"
-  },
-  {
-    id: "a8614065-b38b-426d-b176-192c6cd75f56",
-    title: "European diesel prices climb over prospect of US export ban",
-    date: "2026-09-23",
-    time: "14:55",
-    url: "https://www.ft.com/content/a8614065-b38b-426d-b176-192c6cd75f56"
-  },
-  {
-    id: "d13b1982-450f-45d2-b79b-431f30b048b2",
-    title: "The argument for Kalshi taking bets on its own legality",
-    date: "2026-09-23",
-    time: "14:15",
-    url: "https://www.ft.com/content/d13b1982-450f-45d2-b79b-431f30b048b2"
   }
 ];
