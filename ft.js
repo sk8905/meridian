@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "82b3b8ab-4bc5-4f56-b337-77cf5601e02c",
+    title: "Brexit and Donald Trump’s tariffs push UK’s food and drink trade deficit to £21bn",
+    date: "2026-09-25",
+    time: "00:01",
+    url: "https://www.ft.com/content/82b3b8ab-4bc5-4f56-b337-77cf5601e02c"
+  },
+  {
+    id: "2b863510-9d56-4bf2-a270-52a0ab25a2b7",
+    title: "US intervenes in Elon Musk’s legal challenge to EU fine against X",
+    date: "2026-09-24",
+    time: "23:48",
+    url: "https://www.ft.com/content/2b863510-9d56-4bf2-a270-52a0ab25a2b7"
+  },
+  {
+    id: "3ab22092-5d60-457e-a88c-cf9062887ed1",
+    title: "Police charge anti-migrant protest leader over damage to dinghy in Channel",
+    date: "2026-09-24",
+    time: "23:15",
+    url: "https://www.ft.com/content/3ab22092-5d60-457e-a88c-cf9062887ed1"
+  },
+  {
+    id: "91f6e99d-b953-4056-ae72-30464b87ab5c",
+    title: "FirstFT: Xi Jinping says US and China must ‘coexist in peace’ at White House summit",
+    date: "2026-09-24",
+    time: "22:33",
+    url: "https://www.ft.com/content/91f6e99d-b953-4056-ae72-30464b87ab5c"
+  },
+  {
     id: "2a77e2f7-3c22-4082-8bb3-492675f46c77",
     title: "OpenAI breach of Australian government linked to wider AI hacking campaign",
     date: "2026-09-24",
@@ -271,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "11:34",
     url: "https://www.ft.com/content/c9ae9433-50e0-4711-90fa-d1e5aeb15eaf"
-  },
-  {
-    id: "916603fa-c0c4-49e9-911a-a536ec3e245d",
-    title: "FirstFT: OpenAI ‘agent’ hacks Australian government website",
-    date: "2026-09-24",
-    time: "11:10",
-    url: "https://www.ft.com/content/916603fa-c0c4-49e9-911a-a536ec3e245d"
-  },
-  {
-    id: "4194904d-d041-46b9-a606-d0580137a8a3",
-    title: "Notes on living in a dangerous world",
-    date: "2026-09-24",
-    time: "11:00",
-    url: "https://www.ft.com/content/4194904d-d041-46b9-a606-d0580137a8a3"
-  },
-  {
-    id: "030dbb32-f615-4969-becf-ca236027ae89",
-    title: "Private equity could revolutionise US lawyer pay, law firm bosses say",
-    date: "2026-09-24",
-    time: "11:00",
-    url: "https://www.ft.com/content/030dbb32-f615-4969-becf-ca236027ae89"
   },
 ];

@@ -12,8 +12,8 @@ export const UPDATED = "24 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-24",
-  lastCheckedTime: "22:18 BST",
+  lastChecked: "2026-09-25",
+  lastCheckedTime: "00:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -995,19 +995,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-24",
+  updated: "2026-09-25",
   us: [
     { title: "US and Iran discuss phased deal to reopen Hormuz and end US blockade, sources say", source: "Reuters (via U.S. News)", date: "2026-09-24", url: "https://www.usnews.com/news/world/articles/2026-09-24/us-and-iran-discuss-phased-deal-to-reopen-hormuz-and-end-us-blockade-sources-say" },
-    { title: "US long-term borrowing costs touch highest level since 2004", source: "Financial Times", date: "2026-09-24", time: "15:53", url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c" },
     { title: "New York Fed's Williams says it's 'reasonable' to expect another rate hike by year-end", source: "CNBC", date: "2026-09-24", url: "https://www.cnbc.com/2026/09/24/feds-williams-another-rate-hike-by-year-end.html" },
+    { title: "Claims for unemployment benefits drop to 197,000, the lowest since mid-July, as layoffs remain rare", source: "AP (via U.S. News)", date: "2026-09-24", url: "https://www.usnews.com/news/business/articles/2026-09-24/claims-for-unemployment-benefits-drop-to-197-000-the-lowest-since-mid-july-as-layoffs-remain-rare" },
+    { title: "Surging Treasury yields pose a brand new problem for Kevin Warsh and the Fed", source: "CNBC", date: "2026-09-24", url: "https://www.cnbc.com/2026/09/24/surging-treasury-yields-are-posing-a-brand-new-problem-for-kevin-warsh-and-the-fed.html" },
     { title: "Stock market today: Dow, S&P 500, Nasdaq slide as bond sell-off troubles markets, China's Xi Jinping lands in US", source: "Yahoo Finance", date: "2026-09-24", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-september-24-dow-sp-500-nasdaq-080352893.html" },
-    { title: "Market sees next Fed hike in October, following Barr comments and hot inflation reading", source: "CNBC", date: "2026-09-23", url: "https://www.cnbc.com/2026/09/23/market-sees-next-fed-hike-in-october-following-barr-comments-hot-inflation.html" },
   ],
   uk: [
     { title: "Bank of England rate setters warn of 'sparks in the tinderbox'", source: "Reuters (via Investing.com)", date: "2026-09-24", url: "https://www.investing.com/news/economy-news/bank-of-england-rate-setters-warn-of-sparks-in-the-tinderbox-4915841" },
     { title: "Bank of England's Lombardelli: Policy likely to need to tighten if energy risks persist", source: "FXStreet", date: "2026-09-24", url: "https://www.fxstreet.com/news/bank-of-englands-lombardelli-policy-likely-to-need-to-tighten-if-energy-risks-persist-202609240805" },
+    { title: "OECD raises UK 2026 growth forecast, cuts inflation outlook on energy support", source: "Reuters (via Investing.com)", date: "2026-09-24", url: "https://www.investing.com/news/economy-news/oecd-raises-uk-2026-growth-forecast-cuts-inflation-outlook-on-energy-support-4912337" },
     { title: "Pound To Dollar Price News, Forecast: Trump-Xi Meeting Could Lift USD", source: "Exchange Rates UK", date: "2026-09-24", url: "https://www.exchangerates.org.uk/news/47253/2026-09-24-pound-to-dollar-price-news-forecast-trump-xi-meeting-could-lift-usd.html" },
-    { title: "Public sector finances, UK: August 2026", source: "ONS", date: "2026-09-22", url: "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/bulletins/publicsectorfinances/august2026" },
     { title: "UK Borrowing Overshoots in Fresh Budget Setback for Healey", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey" },
   ],
 };
@@ -1020,8 +1020,10 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-24",
+  updated: "2026-09-25",
   items: [
+    {"title": "Surging Treasury yields pose a brand new problem for Kevin Warsh and the Fed", "source": "CNBC", "date": "2026-09-24", "time": "21:30", "url": "https://www.cnbc.com/2026/09/24/surging-treasury-yields-are-posing-a-brand-new-problem-for-kevin-warsh-and-the-fed.html", "blurb": "The broad-based Treasury sell-off is complicating the new Fed chair's inflation-fighting message just as a hawkish chorus of regional presidents argues for another hike before year-end.", "author": null},
+    {"title": "Claims for unemployment benefits drop to 197,000, the lowest since mid-July, as layoffs remain rare", "source": "AP (via U.S. News)", "date": "2026-09-24", "time": "20:45", "url": "https://www.usnews.com/news/business/articles/2026-09-24/claims-for-unemployment-benefits-drop-to-197-000-the-lowest-since-mid-july-as-layoffs-remain-rare", "blurb": "Weekly initial jobless claims fell to their lowest level since mid-July, reinforcing the case made by hawkish Fed officials that a still-resilient labour market leaves room for further tightening.", "author": null},
     {"title": "Bank of England rate setters warn of 'sparks in the tinderbox'", "source": "Reuters (via Investing.com)", "date": "2026-09-24", "time": "19:05", "url": "https://www.investing.com/news/economy-news/bank-of-england-rate-setters-warn-of-sparks-in-the-tinderbox-4915841", "blurb": "Deputy Governors Clare Lombardelli and Sarah Breeden — both of whom voted to hold on 17 September — signalled they may be shifting toward a November hike, with Breeden warning 'the more sparks we're throwing in the tinderbox, the more likely we might have to turn the hose on it'; market-implied odds of a 5 November move jumped to roughly 75-81% (from ~60% Wednesday) as the 30-year gilt yield touched 5.68%, its highest since May 1998.", "author": null},
     {"title": "Stock market today: Dow, S&P 500, Nasdaq slide as bond sell-off troubles markets, China's Xi Jinping lands in US", "source": "Yahoo Finance", "date": "2026-09-24", "time": "18:00", "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-september-24-dow-sp-500-nasdaq-080352893.html", "blurb": "The Dow fell 0.3%, the S&P 500 0.4% and the Nasdaq 0.6% Thursday as the 10-year Treasury yield pushed to around 5.14% and the 30-year mortgage rate jumped to 7.37% — its highest since May 2024 — though stocks and bonds pared their session lows on hopes for a phased deal to reopen the Strait of Hormuz.", "author": null},
     {"title": "US and Iran discuss phased deal to reopen Hormuz and end US blockade, sources say", "source": "Reuters (via U.S. News)", "date": "2026-09-24", "time": "17:30", "url": "https://www.usnews.com/news/world/articles/2026-09-24/us-and-iran-discuss-phased-deal-to-reopen-hormuz-and-end-us-blockade-sources-say", "blurb": "US and Iranian negotiators meeting on the sidelines of the UN General Assembly in New York are exploring a phased path out of their nearly seven-month conflict — Tehran reopening the Strait of Hormuz in stages in exchange for Washington lifting its economic blockade — though sources caution neither side wants to surrender leverage first.", "author": null},
@@ -1061,7 +1063,6 @@ export const ARTICLES = {
     {"title": "Dow Jones Futures Stay Muted Due to Market Caution Ahead of US PMI Data", "source": "FXStreet", "date": "2026-09-23", "time": "08:15", "url": "https://www.fxstreet.com/news/dow-jones-futures-stay-muted-due-to-market-caution-ahead-of-us-pmi-data-202509230846", "blurb": "US index futures held a narrow, mixed range — Dow and S&P 500 futures little changed, Nasdaq 100 futures firmer — as investors awaited the flash September PMIs and weighed easing oil prices against the prior session's hawkish Fed commentary.", "author": null},
     {"title": "British Pound holds near late-July lows vs USD, looks to UK/US PMIs for fresh impetus", "source": "FXStreet", "date": "2026-09-23", "time": "08:15", "url": "https://www.fxstreet.com/news/british-pound-hangs-near-late-july-lows-vs-usd-looks-to-uk-us-pmis-for-fresh-impetus-202609230107", "blurb": "GBP/USD held near six-week lows in Asian trade as the Fed-BoE policy divergence kept the dollar bid, with traders pointing to Wednesday's flash UK and US PMIs as the session's key catalyst.", "author": null},
     {"title": "UK Borrowing Overshoots in Fresh Budget Setback for Healey", "source": "Bloomberg", "date": "2026-09-22", "url": "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey", "blurb": "Britain's fiscal deficit climbed to £77.3bn in the first five months of the fiscal year — £8.1bn above the OBR's March forecast — after August public borrowing came in at £18.3bn, above every estimate in a Reuters poll, sharpening the backdrop for Chancellor Healey's 28 October Budget.", "author": null},
-    {"title": "Fed's Barkin Warns Inflation Pressures May Take Time to Pass", "source": "Bloomberg", "date": "2026-09-22", "url": "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass", "blurb": "Richmond Fed President Tom Barkin said repeated supply shocks are no longer proving temporary, warning inflation could take time to wane and risks becoming entrenched even as he said last week's 25bp hike 'will help' restore inflation to the 2% target.", "author": null},
   ],
 };
 
