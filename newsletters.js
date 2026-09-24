@@ -50,8 +50,8 @@ export const NEWSLETTERS = [
     series: "The World in Brief",
     title: "The World in Brief: What to expect from the Trump-Xi summit",
     date: "2026-09-24",
-    time: "08:06",
-    summary: "Also: The battle between India's stock exchanges.",
+    time: "07:06",
+    summary: "Also: the battle between India's stock exchanges.",
     url: "https://www.economist.com/the-world-in-brief",
   },
   {
