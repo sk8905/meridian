@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ded9ae05-3c5c-431e-926b-9cb1864e4fb0",
+    title: "Russia raises taxes to fund its war in Ukraine",
+    date: "2026-09-24",
+    time: "16:52",
+    url: "https://www.ft.com/content/ded9ae05-3c5c-431e-926b-9cb1864e4fb0"
+  },
+  {
+    id: "4a81833e-c853-46be-af48-0ee8af8b4b74",
+    title: "Tax-free UK pension withdrawals have doubled since Labour came to power",
+    date: "2026-09-24",
+    time: "16:43",
+    url: "https://www.ft.com/content/4a81833e-c853-46be-af48-0ee8af8b4b74"
+  },
+  {
+    id: "0c5da9f2-f6aa-4514-910d-5337207e1233",
+    title: "UAE halts Iranian flights over US sanctions",
+    date: "2026-09-24",
+    time: "16:41",
+    url: "https://www.ft.com/content/0c5da9f2-f6aa-4514-910d-5337207e1233"
+  },
+  {
+    id: "46ea15a9-593d-45da-9705-a4928086b38d",
+    title: "MPs to consider whether Bank of England’s remit is ‘fit for purpose’",
+    date: "2026-09-24",
+    time: "16:18",
+    url: "https://www.ft.com/content/46ea15a9-593d-45da-9705-a4928086b38d"
+  },
+  {
     id: "37e6c9d9-2237-468d-b0c5-18b5d09c2ccc",
     title: "HSBC axes $26,000 perk for Hong Kong bankers to join members’ clubs",
     date: "2026-09-24",
@@ -272,32 +300,4 @@ export const FT_ITEMS = [
     time: "06:00",
     url: "https://www.ft.com/content/6354c1ec-286a-4251-bac8-ca0cd4ac7eac"
   },
-  {
-    id: "e73aeb7e-a408-4272-9d87-743a040db0dc",
-    title: "Hasan Piker: the Republican Party’s bogeyman",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/e73aeb7e-a408-4272-9d87-743a040db0dc"
-  },
-  {
-    id: "ad6d56fa-6a6e-43bd-8f12-205a3f94ac0e",
-    title: "Shale magnate Scott Sheffield accuses Exxon of ‘smear campaign’ to block board seat",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/ad6d56fa-6a6e-43bd-8f12-205a3f94ac0e"
-  },
-  {
-    id: "d5264683-7466-4b7e-947f-b7e3f360b7d0",
-    title: "VW’s painful recovery plan is fragile",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/d5264683-7466-4b7e-947f-b7e3f360b7d0"
-  },
-  {
-    id: "15bfe2fb-6b13-48dc-99dd-b732f3564b8f",
-    title: "How Trump’s tariff war is clobbering the Hanks of America",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/15bfe2fb-6b13-48dc-99dd-b732f3564b8f"
-  }
 ];
