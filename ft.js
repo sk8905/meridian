@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "979ae3ac-4623-4fe9-a771-43ce451a9e73",
+    title: "Trump-Xi summit live: US president wants to leave AI ‘exactly where it is’",
+    date: "2026-09-24",
+    time: "12:48",
+    url: "https://www.ft.com/content/979ae3ac-4623-4fe9-a771-43ce451a9e73"
+  },
+  {
+    id: "5b6772c8-907a-4230-9e01-54394550e0e5",
+    title: "The risks of calling an early election for Andy Burnham",
+    date: "2026-09-24",
+    time: "12:39",
+    url: "https://www.ft.com/content/5b6772c8-907a-4230-9e01-54394550e0e5"
+  },
+  {
+    id: "0d8b3a97-e49d-4eca-b958-aaec0faad82b",
+    title: "You want honesty, Andy? Britain is out of easy options",
+    date: "2026-09-24",
+    time: "12:18",
+    url: "https://www.ft.com/content/0d8b3a97-e49d-4eca-b958-aaec0faad82b"
+  },
+  {
     id: "9a84cd29-09fa-44b8-95b3-68379769c256",
     title: "Data centre boom emerges as wedge issue in Texas midterms",
     date: "2026-09-24",
@@ -278,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "05:00",
     url: "https://www.ft.com/content/bec22e6b-1267-4d9f-a192-60763a0797c3"
-  },
-  {
-    id: "9d1192a9-abb7-4a91-9638-4ffa855afbb8",
-    title: "How to think about the end of the world",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/9d1192a9-abb7-4a91-9638-4ffa855afbb8"
-  },
-  {
-    id: "fd26680a-2e4a-4ef4-9b7f-4735a30fedd8",
-    title: "The FT’s Budget dashboard: the data confronting chancellor John Healey",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/fd26680a-2e4a-4ef4-9b7f-4735a30fedd8"
-  },
-  {
-    id: "1b416427-0e86-40c0-9536-c31d76635313",
-    title: "French far left sparks backlash with debt ‘fire’ plan",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/1b416427-0e86-40c0-9536-c31d76635313"
-  },
-  {
-    id: "1f55518f-dad5-4c7b-8c81-ba82196dd747",
-    title: "Barry Diller abandons $18bn takeover bid for MGM Resorts",
-    date: "2026-09-24",
-    time: "00:21",
-    url: "https://www.ft.com/content/1f55518f-dad5-4c7b-8c81-ba82196dd747"
   }
 ];
