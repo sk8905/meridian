@@ -28,6 +28,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/37e6c9d9-2237-468d-b0c5-18b5d09c2ccc"
   },
   {
+    id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
+    title: "US long-term borrowing costs touch highest level since 2004",
+    date: "2026-09-24",
+    time: "15:53",
+    url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c"
+  },
+  {
     id: "6cc7149f-a9f1-47f6-9faf-b98a28f9aedc",
     title: "GoDaddy receives takeover offer from maker of Norton antivirus software",
     date: "2026-09-24",
@@ -266,13 +273,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/6354c1ec-286a-4251-bac8-ca0cd4ac7eac"
   },
   {
-    id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
-    title: "Global bond sell-off deepens as oil holds above $100",
-    date: "2026-09-24",
-    time: "05:03",
-    url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c"
-  },
-  {
     id: "e73aeb7e-a408-4272-9d87-743a040db0dc",
     title: "Hasan Piker: the Republican Party’s bogeyman",
     date: "2026-09-24",
@@ -299,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "05:00",
     url: "https://www.ft.com/content/15bfe2fb-6b13-48dc-99dd-b732f3564b8f"
-  },
-  {
-    id: "cce116f4-2cd6-4c1f-ae19-df0fc24c9252",
-    title: "Jane Street to double London office space after breakneck growth",
-    date: "2026-09-24",
-    time: "05:00",
-    url: "https://www.ft.com/content/cce116f4-2cd6-4c1f-ae19-df0fc24c9252"
   }
 ];
