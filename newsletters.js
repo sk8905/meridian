@@ -44,7 +44,7 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
-    id: "nl-reuters-econworld-yields5pctthreshold-20260924",
+    id: "nl-reuters-econworld-5pctthreshold-20260924",
     publication: "Thomson Reuters",
     author: "Carmel Crimmins",
     series: "Econ World",

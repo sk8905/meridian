@@ -45,22 +45,15 @@ export const FT_ITEMS = [
     id: "75ba3055-625c-4cb5-894b-0696a38f5e79",
     title: "Latest Isa rates",
     date: "2026-09-24",
-    time: "13:36",
+    time: "13:35",
     url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79"
   },
   {
     id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4",
     title: "Latest National Savings & Investments rates",
     date: "2026-09-24",
-    time: "13:29",
+    time: "13:28",
     url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4"
-  },
-  {
-    id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
-    title: "Global bond sell-off spreads as oil climbs back to $105",
-    date: "2026-09-24",
-    time: "13:18",
-    url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c"
   },
   {
     id: "0298b4b9-d72d-4f3c-b5f4-863ac54a7645",
@@ -68,13 +61,6 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "13:03",
     url: "https://www.ft.com/content/0298b4b9-d72d-4f3c-b5f4-863ac54a7645"
-  },
-  {
-    id: "79976fed-30c3-46e7-ba90-59e0633575d5",
-    title: "Live reader Q&A — Where are the biggest market risks?",
-    date: "2026-09-24",
-    time: "13:00",
-    url: "https://www.ft.com/content/79976fed-30c3-46e7-ba90-59e0633575d5"
   },
   {
     id: "979ae3ac-4623-4fe9-a771-43ce451a9e73",
@@ -161,6 +147,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/3ab22092-5d60-457e-a88c-cf9062887ed1"
   },
   {
+    id: "79976fed-30c3-46e7-ba90-59e0633575d5",
+    title: "Submit your questions: Where are the biggest market risks?",
+    date: "2026-09-24",
+    time: "10:04",
+    url: "https://www.ft.com/content/79976fed-30c3-46e7-ba90-59e0633575d5"
+  },
+  {
     id: "1767ba03-05a2-4d69-83df-5aa0a6bf24e2",
     title: "Delivery Hero chief reverses exit plan after Uber secures takeover deal",
     date: "2026-09-24",
@@ -236,6 +229,13 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "06:00",
     url: "https://www.ft.com/content/6354c1ec-286a-4251-bac8-ca0cd4ac7eac"
+  },
+  {
+    id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
+    title: "Global bond sell-off deepens as oil holds above $100",
+    date: "2026-09-24",
+    time: "05:03",
+    url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c"
   },
   {
     id: "e73aeb7e-a408-4272-9d87-743a040db0dc",
