@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "23 September 2026";
+export const UPDATED = "24 September 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "23 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-24",
-  lastCheckedTime: "12:18 BST",
+  lastCheckedTime: "14:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -738,6 +738,8 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-boe-lombardelli-energy-hike-2026-09-24-1413", kind: "Rate guidance", title: "BoE Deputy Governor Clare Lombardelli said Bank Rate will likely need to rise if elevated energy prices persist, warning that 'the longer higher energy prices persist, the greater the risk that indirect effects build' on inflation expectations, wage bargaining and price-setting — the most explicit tightening signal yet from a Committee member who voted to hold on 17 September, unless economic activity weakens significantly first.", href: "#/policy", date: "2026-09-24" },
+  { id: "g-nyfed-williams-hike-reasonable-2026-09-24-1413", kind: "Rate guidance", title: "New York Fed President John Williams said it is 'reasonable' for investors to expect a further Fed rate hike by year-end, adding to Wednesday's hawkish Barr remarks and reinforcing CME FedWatch-implied odds of roughly 71-73% for a 28 October move.", href: "#/policy", date: "2026-09-24" },
   { id: "g-fed-barr-hike-yield-2007-2026-09-23-1613-v2", kind: "Rate guidance", title: "Fed Governor Michael Barr said the central bank will likely need to raise rates further for a timely return to 2% inflation, telling a Chicago Fed housing-affordability conference that 'risks to achieving our inflation target have increased, while risks to the labor market have receded'; the hawkish remarks — alongside a much hotter-than-expected flash September PMI — helped push the 10-year Treasury yield to 5.116%, its highest since July 2007, and CME FedWatch-implied odds of a 28 October hike to roughly 71-73%, as US equities opened lower (Dow -0.2%, S&P 500 -0.6%, Nasdaq -1%) hours ahead of Thursday's Trump-Xi summit.", href: "#/policy", date: "2026-09-23" },
   { id: "g-uk-pmi-cools-pantheon-hike-2026-09-23-1613-v2", kind: "Cycle", title: "A second read on the UK flash PMI slowdown confirmed services price pressures intensified even as growth cooled to a three-month low; Pantheon Macroeconomics said the combination is 'hawkish for the MPC' and keeps a November Bank Rate hike on track, even as sterling extended its slide (GBP/USD -0.41% to 1.3288) on broad dollar strength.", href: "#/cycle", date: "2026-09-23" },
   { id: "g-uk-flash-pmi-slows-517-2026-09-23-0815-v2", kind: "Cycle", title: "UK flash September Composite PMI eased to a three-month low of 51.7 (from 52.5, vs. 52 expected) — services also down to 51.7 (from 52.5) while manufacturing edged up to 52.0 (from 51.7) — with S&P Global's Chris Williamson citing 'a worrying combination of disappointingly sluggish economic growth and intensifying inflationary pressures', output consistent with only 0.1% q/q GDP growth, a fresh headwind for the BoE's rate path and Chancellor Healey's 28 October Budget.", href: "#/cycle", date: "2026-09-23" },
@@ -993,16 +995,16 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-24",
   us: [
-    { title: "Fed's Collins warns inflation could be 'notably' higher after backing rate hike", source: "CNBC", date: "2026-09-23", url: "https://www.cnbc.com/2026/09/23/federal-reserve-inflation-interest-rates-ecb.html" },
+    { title: "New York Fed's Williams says it's 'reasonable' to expect another rate hike by year-end", source: "CNBC", date: "2026-09-24", url: "https://www.cnbc.com/2026/09/24/feds-williams-another-rate-hike-by-year-end.html" },
     { title: "10-year Treasury yield continues to rise from 19-year high", source: "CNBC", date: "2026-09-24", url: "https://www.cnbc.com/2026/09/24/us-treasury-yields-bonds-fed-inflation.html" },
-    { title: "Trump-Xi summit: Here's what's on the agenda, and why it matters", source: "Al Jazeera", date: "2026-09-24", url: "https://www.aljazeera.com/news/2026/9/24/trump-xi-summit-whats-on-the-agenda-why-it-matters" },
+    { title: "Market sees next Fed hike in October, following Barr comments and hot inflation reading", source: "CNBC", date: "2026-09-23", url: "https://www.cnbc.com/2026/09/23/market-sees-next-fed-hike-in-october-following-barr-comments-hot-inflation.html" },
     { title: "Trump-Xi summit: Leaders meet at White House amid tensions over Taiwan, trade and AI", source: "NBC News", date: "2026-09-24", url: "https://www.nbcnews.com/world/asia/trump-xi-summit-meet-white-house-tensions-taiwan-trade-ai-rcna598073" },
     { title: "Fed's Barkin Warns Inflation Pressures May Take Time to Pass", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/fed-s-barkin-warns-inflation-pressures-will-take-time-to-pass" },
   ],
   uk: [
-    { title: "British Pound holds gains despite stronger US PMI, hawkish Fed stance", source: "FXStreet", date: "2026-09-24", time: "05:39", url: "https://www.fxstreet.com/news/british-pound-holds-gains-despite-stronger-us-pmi-hawkish-fed-stance-202609240539" },
+    { title: "Bank of England's Lombardelli: Policy likely to need to tighten if energy risks persist", source: "FXStreet", date: "2026-09-24", url: "https://www.fxstreet.com/news/bank-of-englands-lombardelli-policy-likely-to-need-to-tighten-if-energy-risks-persist-202609240805" },
+    { title: "OECD raises UK 2026 growth forecast, cuts inflation outlook on energy support", source: "Reuters (via Investing.com)", date: "2026-09-23", url: "https://www.investing.com/news/economy-news/oecd-raises-uk-2026-growth-forecast-cuts-inflation-outlook-on-energy-support-4912337" },
     { title: "Pound To Dollar Price News, Forecast: Trump-Xi Meeting Could Lift USD", source: "Exchange Rates UK", date: "2026-09-24", url: "https://www.exchangerates.org.uk/news/47253/2026-09-24-pound-to-dollar-price-news-forecast-trump-xi-meeting-could-lift-usd.html" },
-    { title: "UK business activity cools as inflation pressure ramps up, PMI shows", source: "Reuters (via Investing.com)", date: "2026-09-23", time: "16:13", url: "https://www.investing.com/news/economic-indicators/uk-business-activity-cools-as-inflation-pressure-ramps-up-pmi-shows-4912300" },
     { title: "Public sector finances, UK: August 2026", source: "ONS", date: "2026-09-22", url: "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/bulletins/publicsectorfinances/august2026" },
     { title: "UK Borrowing Overshoots in Fresh Budget Setback for Healey", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey" },
   ],
@@ -1018,6 +1020,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-24",
   items: [
+    {"title": "New York Fed's Williams says it's 'reasonable' to expect another rate hike by year-end", "source": "CNBC", "date": "2026-09-24", "time": "14:13", "url": "https://www.cnbc.com/2026/09/24/feds-williams-another-rate-hike-by-year-end.html", "blurb": "New York Fed President John Williams said it is 'reasonable' for investors to expect a further Fed rate hike before year-end, adding to a hawkish chorus of regional-Fed commentary as the 28 October FOMC meeting approaches.", "author": null},
+    {"title": "Bank of England's Lombardelli: Policy likely to need to tighten if energy risks persist", "source": "FXStreet", "date": "2026-09-24", "time": "14:13", "url": "https://www.fxstreet.com/news/bank-of-englands-lombardelli-policy-likely-to-need-to-tighten-if-energy-risks-persist-202609240805", "blurb": "BoE Deputy Governor Clare Lombardelli said Bank Rate will likely need to rise if elevated energy prices persist, warning that the longer the price shock lasts the greater the risk that inflation expectations, wage bargaining and price-setting behaviour begin to adjust in response, unless the economy weakens significantly.", "author": null},
     {"title": "10-year Treasury yield continues to rise from 19-year high", "source": "CNBC", "date": "2026-09-24", "time": "12:18", "url": "https://www.cnbc.com/2026/09/24/us-treasury-yields-bonds-fed-inflation.html", "blurb": "The 10-year Treasury yield extended its climb to 5.139% Thursday — its highest since July 2007 — with the 2-year at 4.897% and the 30-year at a post-2004 peak of 5.438%, as strong flash-PMI data and elevated energy prices left traders pricing roughly a 60% chance of a further Fed hike in October and about 48% for a second move in December.", "author": null},
     {"title": "Trump-Xi summit: Leaders meet at White House amid tensions over Taiwan, trade and AI", "source": "NBC News", "date": "2026-09-24", "time": "10:18", "url": "https://www.nbcnews.com/world/asia/trump-xi-summit-meet-white-house-tensions-taiwan-trade-ai-rcna598073", "blurb": "President Trump personally greeted Xi Jinping on the tarmac at Joint Base Andrews — the first time in over a decade a US president has welcomed a foreign leader that way — as the two sides began three days of talks in Washington on trade, Taiwan and AI, with concrete breakthroughs not expected.", "author": null},
     {"title": "U.S.-China trade truce extended for two months, Bessent says, as Xi begins state visit", "source": "CNBC", "date": "2026-09-24", "url": "https://www.cnbc.com/2026/09/24/us-china-trade-truce-bessent-trump-xi.html", "blurb": "Treasury Secretary Bessent confirmed the US-China trade truce, previously due to expire 10 November, has been extended through 10 January as Xi began a three-day Washington state visit, with a senior Stimson Center fellow saying the short extension points to a wider deal still being negotiated.", "author": null},
