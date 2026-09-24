@@ -127,6 +127,30 @@ const b = await launchChromium();
   });
   check(restate.ok, `desktop: the lede does not restate a bullet verbatim${restate.hit ? ` (found "${restate.hit}")` : ""}`);
 
+  // The WHOLE summary scrolls as one region (the lede scrolls WITH the bullets — it is
+  // not pinned); only the header + the source-credit foot stay put. The foot is indented
+  // to the text column and butts onto the summary with no dead-space gap above it.
+  const deskScroll = await pg.evaluate(() => {
+    const hb = document.getElementById("g-hbrief");
+    const body = hb.querySelector(".g-hbrief-body"), list = hb.querySelector(".g-hbrief-list"), foot = hb.querySelector(".g-hbrief-foot");
+    const cs = getComputedStyle(foot);
+    const ledeTop0 = hb.querySelector(".g-hbrief-lede").getBoundingClientRect().top;
+    body.scrollTop = 80;
+    const ledeTop1 = hb.querySelector(".g-hbrief-lede").getBoundingClientRect().top;
+    return {
+      bodyScrolls: getComputedStyle(body).overflowY === "auto",
+      listOverflow: getComputedStyle(list).overflowY,
+      canScroll: body.scrollHeight > body.clientHeight,
+      ledeMoved: ledeTop1 !== ledeTop0,
+      footPadLeft: parseFloat(cs.paddingLeft), footMarginTop: parseFloat(cs.marginTop),
+      footAtBottom: Math.round(hb.getBoundingClientRect().bottom - foot.getBoundingClientRect().bottom),
+    };
+  });
+  check(deskScroll.bodyScrolls && deskScroll.listOverflow !== "auto" && deskScroll.listOverflow !== "scroll", `desktop: the whole summary scrolls as one region (the bullet list has no separate scroll — list overflow ${deskScroll.listOverflow})`);
+  if (deskScroll.canScroll) check(deskScroll.ledeMoved, "desktop: the lede scrolls WITH the bullets, not pinned above them");
+  check(deskScroll.footPadLeft >= 8 && deskScroll.footMarginTop === 0, `desktop: the source note is indented to the text column with no dead space above (pad-left ${deskScroll.footPadLeft}px, margin-top ${deskScroll.footMarginTop}px)`);
+  check(deskScroll.footAtBottom <= 2, `desktop: the source note stays pinned to the bottom of the quadrant (${deskScroll.footAtBottom}px)`);
+
   checkErrs(errs, "home briefing (desktop)");
   await ctx.close();
 }

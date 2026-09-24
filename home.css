@@ -1064,14 +1064,13 @@
       .tui .g-hero-plot{ flex:1 1 auto; min-height:0; grid-template-rows:minmax(0,1fr) auto; }
       .tui .g-hero-canvas{ min-height:0; }
       .tui #g-hero-svg{ height:100%; }
-      /* The body is a column: the lede + the "AI-generated…" foot are PINNED (they
-         never scroll), and ONLY the bullet list scrolls when a long brief overruns
-         (the exception, not the norm). So the source-credit line is always locked at
-         the bottom of the quadrant. */
-      .tui .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
-      .tui .g-hbrief .g-hbrief-lede{ flex:0 0 auto; }
-      .tui .g-hbrief .g-hbrief-list{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-      .tui .g-hbrief .g-hbrief-foot{ flex:0 0 auto; }
+      /* The WHOLE summary (lede + bullets) scrolls together as ONE region — only the
+         header and the "AI-generated…" foot are pinned, so the source-credit line stays
+         locked at the bottom of the quadrant while all the text scrolls beneath it. The
+         foot is indented to the body's text column and butts straight onto the summary
+         (a hairline, no gap above). */
+      .tui .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-hbrief .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:6px 12px; border-top:1px solid var(--t-grid); }
       /* Desktop: the briefing is permanently open — no collapse control. Drop the
          chevron and the button affordance so the header reads as a static title row.
          (`.g-hbrief .g-hbrief-head` outranks the base `.g-hbrief-head` cursor rule.) */
