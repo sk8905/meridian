@@ -15,13 +15,13 @@ function series(seed, base, vol) {
   for (let i = 0; i < 260; i++) { x = x * (1 + (rnd() - 0.5) * vol); out.push([start + i * 864e5 * (364 / 260), +x.toFixed(2)]); }
   return out;
 }
-// Intraday 15-min bars behind 1D / 5D, PER REGION session (minutes from local
+// Intraday 15-min bars behind 1D, PER REGION session (minutes from local
 // midnight): US equities 14:30–21:00, UK/Europe 08:00–16:30, ~24h Commodities/Crypto
 // 07:00–23:45 — three consecutive LOCAL days, separated by overnight GAPs (>45 min)
 // so the client draws a real market break. Day-anchored (not "ending now") so the
 // true-1D axis + session-overlay tests are deterministic whatever wall-clock the suite
 // runs at: 1D shows today's sessions opening/closing at their own times inside the
-// fixed local window; 5D spans all three days with a break at each close.
+// fixed local window. (1W and up read the daily-close series instead.)
 function intra(seed, base, vol, openMin, closeMin) {
   const out = []; let x = base, s = seed;
   const rnd = () => { s = (s * 1103515245 + 12345) & 0x7fffffff; return s / 0x7fffffff; };
@@ -153,17 +153,18 @@ const b = await launchChromium();
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1D"]').click());
   await pg.waitForTimeout(120);
 
-  // 5D also uses intraday, with day+month ticks and breaks at each overnight close.
-  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="5D"]').click());
+  // 1W reads DAILY closes and draws ONE continuous line (no intraday breaks), with
+  // day+month ticks.
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1W"]').click());
   await pg.waitForTimeout(150);
   const w1 = await pg.evaluate(() => ({
     on: (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r,
     d: document.querySelector("#g-hero-svg .g-hero-line").getAttribute("d"),
     xl: [...document.querySelectorAll("#g-hero-xaxis .g-hero-xlab")].map((e) => e.textContent.trim()).join(" "),
   }));
-  checkEq(w1.on, "5D", "hero: the range toggle switches to 5D");
-  check(/\d/.test(w1.xl) && !/:/.test(w1.xl), `hero: the 5D time axis reads day+month, not times (${w1.xl})`);
-  check((w1.d.match(/M /g) || []).length >= 2, `hero: 5D breaks the line at each overnight close (${(w1.d.match(/M /g) || []).length} segments)`);
+  checkEq(w1.on, "1W", "hero: the range toggle switches to 1W");
+  check(/\d/.test(w1.xl) && !/:/.test(w1.xl), `hero: the 1W time axis reads day+month, not times (${w1.xl})`);
+  check((w1.d.match(/M/gi) || []).length === 1, `hero: 1W draws ONE continuous line of daily closes — no breaks (${(w1.d.match(/M/gi) || []).length} segment[s])`);
   // ALL reads the full daily history (month-'YY ticks, continuous line).
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="ALL"]').click());
   await pg.waitForTimeout(150);
@@ -176,6 +177,25 @@ const b = await launchChromium();
   // Back to 1M for the pare-down assertions below.
   await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click());
   await pg.waitForTimeout(150);
+
+  // Exit-point labels de-collide down the column — the pills for the plotted lines
+  // must not overlap (the old bug piled every high line onto the same top row). The
+  // headless 2×2 grid collapses the chart cell to 0px (the viewBox still scales), so
+  // give the label column a realistic height and re-render to exercise the pixel
+  // de-collision the way a real, laid-out chart does.
+  await pg.evaluate(() => { const c = document.getElementById("g-hero-endlbls"); if (c) c.style.height = "110px"; });
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="6M"]').click());
+  await pg.waitForTimeout(150);
+  const lbls = await pg.evaluate(() => {
+    const rects = [...document.querySelectorAll("#g-hero-endlbls .g-hero-el")].map((e) => e.getBoundingClientRect()).sort((a, b) => a.top - b.top);
+    let maxOverlap = 0;
+    for (let i = 1; i < rects.length; i++) maxOverlap = Math.max(maxOverlap, rects[i - 1].bottom - rects[i].top);
+    return { count: rects.length, maxOverlap: Math.round(maxOverlap), colH: Math.round((document.getElementById("g-hero-endlbls") || {}).clientHeight || 0) };
+  });
+  check(lbls.count >= 5, `hero: an exit-point label per plotted line (${lbls.count})`);
+  check(lbls.colH > 0 && lbls.maxOverlap <= 1, `hero: the exit-point labels de-collide without overlap (max overlap ${lbls.maxOverlap}px, column ${lbls.colH}px)`);
+  await pg.evaluate(() => { const c = document.getElementById("g-hero-endlbls"); if (c) c.style.height = ""; document.querySelector('#g-hero-range .g-hero-rg[data-r="1M"]').click(); });
+  await pg.waitForTimeout(120);
 
   // Pare down to ONE security (spx) → the single price view returns (line + price tag).
   // Turn OFF only the non-spx tickers that are currently on, re-querying each time (the

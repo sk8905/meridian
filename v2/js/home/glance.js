@@ -357,7 +357,7 @@ function renderHomeBriefing() {
     + `<span class="g-hbrief-ttl">Market briefing</span>`
     + `<span class="g-hbrief-when">${when}</span></div>`
     + `<div class="g-hbrief-body">`
-    + (s.lede ? `<p class="g-hbrief-lede"><span class="nb-topic">Overview</span> &mdash; ${briefMarkup(s.lede)}</p>` : "")
+    + (s.lede ? `<div class="g-hbrief-lede-hd">Overview</div><p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
     + `</div>`
     + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks.</div>`;
@@ -605,15 +605,16 @@ function renderXWire(host) {
 const _HERO_KEY = "wire.hero.v1";
 let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
 let _heroSel = [];         // selected instrument keys (1..all); at least one is always kept
-let _heroRange = "1M";     // 1D | 5D | 1M | 6M | 1Y | ALL — open on 1M, where the
+let _heroRange = "1M";     // 1D | 1W | 1M | 6M | 1Y | ALL — open on 1M, where the
                            // indexed lines fan out and separate (1D buries them all on 0%)
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
-// Intraday ranges (1D/1W) read the 15-min bar series and plot on a real wall-clock
+// Only 1D is intraday — it reads the 15-min bar series and plots on a real wall-clock
 // X axis; any run of >45 min between consecutive bars is a closed market (overnight
-// / weekend) and is drawn as a BREAK in the line, not a straight fill across it.
+// / weekend) and is drawn as a BREAK in the line, not a straight fill across it. 1W
+// and up read daily closes and draw one continuous line.
 const HERO_GAP_MS = 45 * 60000;
-function heroIntraday() { return _heroRange === "1D" || _heroRange === "5D"; }
+function heroIntraday() { return _heroRange === "1D"; }
 // Split a point series into contiguous segments, breaking wherever an intraday gap
 // exceeds HERO_GAP_MS. Daily ranges are one unbroken segment. Returns arrays of
 // point indices.
@@ -699,7 +700,7 @@ function heroSessionOverlay(series, Xtime, plotTop, fullBottom) {
   }
   return { decor: lines, plotBottom: fullBottom };
 }
-const HERO_RLBL = { "1D": "1-day", "5D": "5-day", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "ALL": "all" };
+const HERO_RLBL = { "1D": "1-day", "1W": "1-week", "1M": "1-month", "6M": "6-month", "1Y": "1-year", "ALL": "all" };
 // Categorical series colours for the multi-select overlay — the dataviz reference
 // palette's dark hues, validated (worst adjacent CVD ΔE 8.4). The green/red slots
 // are deliberately skipped: on this terminal they read as up/down, not identity.
@@ -810,8 +811,8 @@ function heroFmt(v, m) {
   return (m.pre || "") + s + (m.unit || "");
 }
 // Slice an instrument's series to the selected window (client-side; no refetch).
-// 1D/5D read the INTRADAY series (~5 trading days of 15-min bars); the longer
-// ranges read the daily-close series (ALL = everything we hold).
+// 1D reads the INTRADAY series (15-min bars); 1W and the longer ranges read the
+// daily-close series and draw one continuous line (ALL = everything we hold).
 function heroSlice(m) {
   const intraday = heroIntraday();
   const src = (intraday && Array.isArray(m.intraday) && m.intraday.length >= 2) ? m.intraday : m.history;
@@ -828,8 +829,9 @@ function heroSlice(m) {
     // 07:00–22:00 so the axis never reverts to a rolling day.
     return day.length >= 2 ? day : src.slice(-2);
   }
-  let start = -Infinity;                                    // 5D / ALL → everything the series holds
-  if (_heroRange === "1M") start = now - 31 * 864e5;
+  let start = -Infinity;                                    // ALL → everything the series holds
+  if (_heroRange === "1W") start = now - 8 * 864e5;          // ~one week of daily closes (continuous)
+  else if (_heroRange === "1M") start = now - 31 * 864e5;
   else if (_heroRange === "6M") start = now - 183 * 864e5;
   else if (_heroRange === "1Y") start = now - 366 * 864e5;
   const pts = src.filter((p) => p[0] >= start);
@@ -858,8 +860,26 @@ function heroFmtAxis(v, m) {
 function heroFmtDate(ms) {
   const d = new Date(ms);
   if (_heroRange === "1D") { try { return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); } catch { return `${d.getHours()}:00`; } }
-  if (_heroRange === "5D" || _heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
+  if (_heroRange === "1W" || _heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
   return `${MONTHS[d.getMonth()] || ""} '${String(d.getFullYear()).slice(2)}`;   // 1Y / ALL
+}
+// Pixel-accurate de-collision of the exit-point labels. They're first placed at their
+// line's end y (in viewBox %), then nudged apart here by their REAL rendered height —
+// which the viewBox spread can't know on a wide/short chart, so lines that end close
+// together used to stack on the same row. Packs the pills top-to-bottom at a min
+// centre-to-centre gap and shoves the stack back inside the column if it overruns.
+function _heroDecollideLabels(els) {
+  const pills = els ? [...els.children] : [];
+  if (pills.length < 2) return;
+  const colH = els.clientHeight;
+  if (!colH) return;                                        // no laid-out height (hidden) → nothing to do
+  const ph = (pills[0].getBoundingClientRect().height || 14) + 1;   // pill height + 1px breathing
+  const tops = pills.map((p) => parseFloat(getComputedStyle(p).top) || 0);   // resolved % → px (pill centres)
+  for (let i = 1; i < tops.length; i++) if (tops[i] - tops[i - 1] < ph) tops[i] = tops[i - 1] + ph;
+  const lo = ph / 2, hi = colH - ph / 2;                   // keep whole pills inside the column
+  const over = tops[tops.length - 1] - hi; if (over > 0) for (let i = 0; i < tops.length; i++) tops[i] -= over;
+  const under = lo - tops[0]; if (under > 0) for (let i = 0; i < tops.length; i++) tops[i] += under;
+  pills.forEach((p, i) => { p.style.top = tops[i] + "px"; });
 }
 function drawHero(svg, pts, m) {
   const n = pts.length, vals = pts.map((p) => p[1]);
@@ -868,7 +888,7 @@ function drawHero(svg, pts, m) {
   const pad = (hi - lo) * 0.08;              // breathing room so the line clears the frame
   const dlo = lo - pad, dhi = hi + pad;      // padded value domain
   const plotW = HERO_W - HERO_PX * 2, fullBottom = HERO_H - HERO_PB;
-  // Intraday (1D/1W) → real wall-clock X so gaps show as gaps; daily → even by index.
+  // Intraday (1D) → real wall-clock X so gaps show as gaps; daily → even by index.
   const intraday = heroIntraday();
   const dom = intraday ? heroIntradayDomain(pts[0][0], pts[n - 1][0]) : [pts[0][0], pts[n - 1][0], false];
   const t0 = dom[0], t1 = dom[1], session = dom[2], span = (t1 - t0) || 1;
@@ -1005,12 +1025,11 @@ function drawHeroMulti(svg, series) {
   const els = document.getElementById("g-hero-endlbls");
   if (els) {
     const items = drawn.map((s) => ({ y: Y(s.pct[s.pct.length - 1]), color: s.color, code: HERO_CODE[s.key] || s.label, pct: s.pct[s.pct.length - 1] })).sort((a, b) => a.y - b.y);
-    const GAP = 14;                                        // min vertical spacing (viewBox units)
-    for (let i = 1; i < items.length; i++) if (items[i].y - items[i - 1].y < GAP) items[i].y = items[i - 1].y + GAP;
-    const spill = items.length ? items[items.length - 1].y - plotBottom : 0;   // shove the stack back up if it ran past the floor
-    if (spill > 0) for (const it of items) it.y -= spill;
-    for (let i = items.length - 1; i > 0; i--) if (items[i].y - items[i - 1].y < GAP) items[i - 1].y = items[i].y - GAP;
-    els.innerHTML = items.map((it) => `<span class="g-hero-el" style="top:${((Math.max(HERO_PT, it.y) / HERO_H) * 100).toFixed(2)}%;background:${it.color}"><span class="g-hero-el-nm">${esc(it.code)}</span><span class="g-hero-el-pct">${esc(heroPctStr(it.pct))}</span></span>`).join("");
+    // Place each pill at its line's exit point, clamped to the plot; then de-collide in
+    // PIXELS (see _heroDecollideLabels) — the pill's real rendered height can't be known
+    // in viewBox units on a wide/short chart, which is what left them overlapping.
+    els.innerHTML = items.map((it) => `<span class="g-hero-el" style="top:${((Math.max(HERO_PT, Math.min(plotBottom, it.y)) / HERO_H) * 100).toFixed(2)}%;background:${it.color}"><span class="g-hero-el-nm">${esc(it.code)}</span><span class="g-hero-el-pct">${esc(heroPctStr(it.pct))}</span></span>`).join("");
+    _heroDecollideLabels(els);
   }
   svg._multi = drawn; svg._ref = ref; svg._pts = null;
   svg._intraday = intraday; svg._t0 = t0; svg._span = span;

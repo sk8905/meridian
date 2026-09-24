@@ -1162,6 +1162,9 @@
     /* Line spacing matches the in-app reading pane (.g-read-p, 1.72) so prose reads
        the same airy way in the briefing as in a full story — the roomier, easier
        leading. Keep the two in lockstep. */
+    /* "Overview" title above the lede — a plain WHITE heading (not the orange desk
+       kicker), on its own line. */
+    .tui .g-hbrief-lede-hd{ font-size:12px; font-weight:600; color:var(--t-ink); letter-spacing:.005em; margin:0 0 3px; }
     .tui .g-hbrief-lede{ margin:0; font-size:12px; line-height:1.72; color:var(--t-ink); }
     .tui .g-hbrief-list{ list-style:none; margin:6px 0 0; padding:0; }
     .tui .g-hbrief-b{ padding:7px 0; border-top:1px solid var(--t-grid); font-size:12px; line-height:1.72; color:var(--t-ink); }

@@ -36,9 +36,13 @@ const b = await launchChromium();
       slots: el.querySelectorAll(".g-hbrief-slot").length,
       when: (el.querySelector(".g-hbrief-when") || {}).textContent || "",
       hasLede: !!el.querySelector(".g-hbrief-lede"),
-      // The lede leads with an orange "Overview" kicker (shared .nb-topic), matching
-      // the desk kickers below it.
-      ledeKicker: ((el.querySelector(".g-hbrief-lede .nb-topic") || {}).textContent || "").trim(),
+      // The lede is titled with a WHITE "Overview" heading on its own line (not the
+      // orange desk-kicker style) — colour matches the pane title, not the accent.
+      ledeHd: ((el.querySelector(".g-hbrief-lede-hd") || {}).textContent || "").trim(),
+      ledeHdWhite: (() => {
+        const h = el.querySelector(".g-hbrief-lede-hd"), t = el.querySelector(".g-hbrief-ttl");
+        return !!(h && t) && getComputedStyle(h).color === getComputedStyle(t).color;
+      })(),
       sections: sections.length,
       itemCount: items.length,
       hasKicker: kickers.length > 0,
@@ -69,7 +73,8 @@ const b = await launchChromium();
   checkEq(r.slots, 0, "desktop: NO slot selector — only the latest brief is shown");
   check(/\d/.test(r.when), `desktop: the header shows the brief's freshness stamp (${r.when})`);
   check(r.hasLede && r.sections >= 1 && r.sections <= 3, `desktop: a lede + one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
-  checkEq(r.ledeKicker, "Overview", "desktop: the lede leads with an orange 'Overview' kicker");
+  checkEq(r.ledeHd, "Overview", "desktop: the lede is titled with an 'Overview' heading");
+  check(r.ledeHdWhite, "desktop: the 'Overview' heading is white (matches the title), not the orange accent");
   check(r.hasKicker, "desktop: bullets carry the orange desk kicker (.nb-topic)");
   check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
   check(r.combinedDesk, "desktop: a desk with two stories is combined — one item, both sources on a single trailing line");
