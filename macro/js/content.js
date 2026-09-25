@@ -13,7 +13,7 @@ export const UPDATED = "24 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-25",
-  lastCheckedTime: "12:27 BST",
+  lastCheckedTime: "14:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -997,15 +997,15 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-25",
   us: [
-    { title: "Forex Today: US Dollar consolidates weekly gains ahead of mid-tier data", source: "FXStreet", date: "2026-09-25", time: "07:32", url: "https://www.fxstreet.com/news/forex-today-us-dollar-consolidates-weekly-gains-ahead-of-mid-tier-data-202609250732" },
-    { title: "Iran offers seven-day Hormuz reopening deal as Treasury sell-off deepens", source: "investingLive", date: "2026-09-25", time: "03:38", url: "https://investinglive.com/news/investinglive-asia-pacific-market-news-iran-offers-seven-day-hormuz-dea/" },
+    { title: "Trump-Xi Summit Goes Big on Pomp But Small on Substance", source: "Bloomberg", date: "2026-09-25", url: "https://www.bloomberg.com/news/articles/2026-09-25/trump-xi-summit-goes-big-on-pomp-but-small-on-substance" },
+    { title: "Treasury Volatility Set for Biggest Jump in Year as Bonds Churn", source: "Bloomberg", date: "2026-09-25", url: "https://www.bloomberg.com/news/articles/2026-09-25/treasury-volatility-set-for-biggest-jump-in-year-as-bonds-churn" },
     { title: "30-year Treasury yield hits highest level since 2004 as bond market rout continues", source: "CNBC", date: "2026-09-24", url: "https://www.cnbc.com/2026/09/24/us-treasury-yields-bonds-fed-inflation.html" },
     { title: "Claims for unemployment benefits drop to 197,000, the lowest since mid-July, as layoffs remain rare", source: "AP (via U.S. News)", date: "2026-09-24", url: "https://www.usnews.com/news/business/articles/2026-09-24/claims-for-unemployment-benefits-drop-to-197-000-the-lowest-since-mid-july-as-layoffs-remain-rare" },
-    { title: "Trump-Xi Summit Goes Big on Pomp But Small on Substance", source: "Bloomberg", date: "2026-09-25", url: "https://www.bloomberg.com/news/articles/2026-09-25/trump-xi-summit-goes-big-on-pomp-but-small-on-substance" },
+    { title: "US New Home Sales Jump to Eight-Month High in August", source: "Reuters (via U.S. News)", date: "2026-09-24", url: "https://money.usnews.com/investing/news/articles/2026-09-24/us-new-home-sales-jump-to-eight-month-high-in-august" },
   ],
   uk: [
     { title: "Why British Pound underperforms this week?", source: "FXStreet", date: "2026-09-25", time: "08:06", url: "https://www.fxstreet.com/news/british-pound-underperforms-this-week-as-experts-doubt-boe-tightening-prospects-202609250806" },
-    { title: "Banks Tap Billions in BOE Repo Cash to Profit on Bond Trades", source: "Bloomberg", date: "2026-09-25", url: "https://www.bloomberg.com/news/articles/2026-09-25/banks-tap-billions-in-boe-repo-cash-to-profit-on-bond-trades" },
+    { title: "FTSE 100 Live: Stocks Set for Rebound, Pound Sits Close to $1.32", source: "Bloomberg", date: "2026-09-25", url: "https://www.bloomberg.com/news/live-blog/2026-09-25/ftse-100-gilts-pound-yields-what-s-moving-uk-markets-right-now-markets-today" },
     { title: "Bank of England rate setters warn of 'sparks in the tinderbox'", source: "Reuters (via Investing.com)", date: "2026-09-24", url: "https://www.investing.com/news/economy-news/bank-of-england-rate-setters-warn-of-sparks-in-the-tinderbox-4915841" },
     { title: "UK Consumer Confidence Hits More Than Two-Year High in September, GfK Says", source: "Reuters (via U.S. News)", date: "2026-09-24", url: "https://money.usnews.com/investing/news/articles/2026-09-24/uk-consumer-confidence-hits-more-than-two-year-high-in-september-gfk-says" },
     { title: "OECD raises UK 2026 growth forecast, cuts inflation outlook on energy support", source: "Reuters (via Investing.com)", date: "2026-09-24", url: "https://www.investing.com/news/economy-news/oecd-raises-uk-2026-growth-forecast-cuts-inflation-outlook-on-energy-support-4912337" },
@@ -1022,6 +1022,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-25",
   items: [
+    {"title": "Treasury Volatility Set for Biggest Jump in Year as Bonds Churn", "source": "Bloomberg", "date": "2026-09-25", "url": "https://www.bloomberg.com/news/articles/2026-09-25/treasury-volatility-set-for-biggest-jump-in-year-as-bonds-churn", "blurb": "A gauge of Treasury-market volatility is on pace for its biggest weekly jump since the April 'Liberation Day' tariff shock, as the bond sell-off that has pushed long-end yields to multi-decade highs churns through rates markets.", "author": null},
+    {"title": "US New Home Sales Jump to Eight-Month High in August", "source": "Reuters (via U.S. News)", "date": "2026-09-24", "url": "https://money.usnews.com/investing/news/articles/2026-09-24/us-new-home-sales-jump-to-eight-month-high-in-august", "blurb": "New single-family home sales rose to a seasonally adjusted annual rate of 684,000 in August — up 6.4% on the month and well above the 615,000 forecast — the strongest pace in eight months even as mortgage rates hover near multi-year highs.", "author": null},
     {"title": "Trump-Xi Summit Goes Big on Pomp But Small on Substance", "source": "Bloomberg", "date": "2026-09-25", "url": "https://www.bloomberg.com/news/articles/2026-09-25/trump-xi-summit-goes-big-on-pomp-but-small-on-substance", "blurb": "Trump's state-visit reception for Xi Jinping was heavy on pageantry — a rare tarmac welcome, a National Archives visit — but light on substance: Treasury Secretary Bessent confirmed only a two-month extension of the US-China trade truce (to 10 January), with Taiwan, tariffs and AI largely unresolved.", "author": null},
     {"title": "UK Consumer Confidence Hits More Than Two-Year High in September, GfK Says", "source": "Reuters (via U.S. News)", "date": "2026-09-24", "url": "https://money.usnews.com/investing/news/articles/2026-09-24/uk-consumer-confidence-hits-more-than-two-year-high-in-september-gfk-says", "blurb": "GfK's Consumer Confidence Barometer rose a point to -13 in September — its highest since August 2024 and a third straight monthly gain — confounding a Reuters poll for a fall to -16, even as GfK's Neil Bellamy warned rising inflation, energy and fuel prices could soon make sentiment falter.", "author": null},
     {"title": "Why British Pound underperforms this week?", "source": "FXStreet", "date": "2026-09-25", "time": "08:06", "url": "https://www.fxstreet.com/news/british-pound-underperforms-this-week-as-experts-doubt-boe-tightening-prospects-202609250806", "blurb": "GBP/USD trades cautiously near three-month lows around 1.3220 as traders question whether the BoE can deliver the roughly four 25bp hikes now priced over the coming year, with the widening Fed-BoE policy gap continuing to cap the pound's upside.", "author": null},
