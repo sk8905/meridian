@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7c43f989-6902-4979-b36b-a6211930f4ce",
+    title: "Trump is not going to drop Canada",
+    date: "2026-09-25",
+    time: "14:00",
+    url: "https://www.ft.com/content/7c43f989-6902-4979-b36b-a6211930f4ce"
+  },
+  {
+    id: "a255d9e6-ae6f-4b30-9ca6-b694663f547c",
+    title: "Houthis promise not to target European ships",
+    date: "2026-09-25",
+    time: "13:47",
+    url: "https://www.ft.com/content/a255d9e6-ae6f-4b30-9ca6-b694663f547c"
+  },
+  {
+    id: "14aed3cb-492e-45c1-b217-869790b6130d",
+    title: "Bitget crypto exchange hit by $350mn hack",
+    date: "2026-09-25",
+    time: "13:46",
+    url: "https://www.ft.com/content/14aed3cb-492e-45c1-b217-869790b6130d"
+  },
+  {
     id: "8f1030c3-9ad0-45b2-86bf-71d8dec27be4",
     title: "Former US intelligence chief Avril Haines: ‘Trump trusts his gut more than the expertise’",
     date: "2026-09-25",
@@ -292,19 +313,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "00:01",
     url: "https://www.ft.com/content/82b3b8ab-4bc5-4f56-b337-77cf5601e02c"
-  },
-  {
-    id: "2b863510-9d56-4bf2-a270-52a0ab25a2b7",
-    title: "US intervenes in Elon Musk’s legal challenge to EU fine against X",
-    date: "2026-09-24",
-    time: "23:48",
-    url: "https://www.ft.com/content/2b863510-9d56-4bf2-a270-52a0ab25a2b7"
-  },
-  {
-    id: "3ab22092-5d60-457e-a88c-cf9062887ed1",
-    title: "Police charge anti-migrant protest leader over damage to dinghy in Channel",
-    date: "2026-09-24",
-    time: "23:15",
-    url: "https://www.ft.com/content/3ab22092-5d60-457e-a88c-cf9062887ed1"
   }
 ];
