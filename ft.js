@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "df673db6-ffef-4c06-b2d1-b9b4f1e43869",
+    title: "FTAV’s Friday chart quiz",
+    date: "2026-09-25",
+    time: "16:11",
+    url: "https://www.ft.com/content/df673db6-ffef-4c06-b2d1-b9b4f1e43869"
+  },
+  {
     id: "1cc67221-b54e-4ff9-a499-01209c7999d8",
     title: "Pope makes rare address at France’s Élysée Palace",
     date: "2026-09-25",
