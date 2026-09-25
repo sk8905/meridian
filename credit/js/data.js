@@ -27,7 +27,7 @@ export const LAST_CHECKED = "2026-09-25";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "00:18 BST";
+export const LAST_CHECKED_TIME = "05:22 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -2845,6 +2845,7 @@ export const HEDGE_INTEL = [
   { id: "hi203", hfId: "h141", date: "2026-09-24", time: "18:15", type: "Performance", headline: "Taula down 9.4% for the year as macro traders face volatile 2026", summary: "Diego Megia's Taula Capital Management lost 4.3% this month through 18 September, pushing the global discretionary macro fund's year-to-date loss to 9.4% amid a volatile year for macro traders navigating whipsawing rates and FX markets.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-09-24/hedge-fund-taula-down-9-4-in-volatile-year-for-macro-traders" },
   { id: "hi204", hfId: "h10", date: "2026-09-24", time: "22:14", type: "Fund terms", author: "Nishant Kumar", headline: "Point72 Joins Hedge Fund Peers Locking Up Client Cash for Longer", summary: "Steve Cohen's Point72 Asset Management is tripling the time it takes clients to fully exit its hedge fund, joining a cohort of major multi-strategy peers in locking up capital for longer.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-09-24/point72-joins-hedge-fund-peers-locking-up-client-cash-for-longer" },
   { id: "hi205", hfId: "h4", date: "2026-09-24", time: "20:00", type: "Personnel", headline: "Citadel rehires Matt Giannini for a third stint", summary: "Citadel is rehiring Matt Giannini for a third stint at the firm, with the executive returning from Walleye Capital, where he had spent under a year as COO of the equity long-short business; Giannini is expected to join Citadel in 2027.", outlet: "Hedgeweek", url: "https://hedgeweek.com/news/citadel-rehires-matt-giannini-again" },
+  { id: "hi206", hfId: "h43", date: "2026-09-24", time: "05:22", type: "Strategy", headline: "Sculptor resets and upsizes US CLO", summary: "Sculptor Capital Management increased Sculptor CLO XXXIII by $45m from its original closing amount and reset the deal with a fresh five-year reinvestment period and two-year non-call, arranged by J.P. Morgan; the transaction follows Sculptor's earlier reset of its European CLO VI vehicle.", outlet: "Alternative Credit Investor", url: "https://alternativecreditinvestor.com/2026/09/24/sculptor-resets-and-upsizes-us-clo/" },
 ];
 
 // 13F snapshot — the cross-fund read for the Dashboard ▸ Hedge Funds section.

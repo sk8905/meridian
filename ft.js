@@ -21,6 +21,132 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e67c93cc-9841-4720-b7c0-efa2d21990c8",
+    title: "Innovative Lawyers: Europe",
+    date: "2026-09-25",
+    time: "05:04",
+    url: "https://www.ft.com/content/e67c93cc-9841-4720-b7c0-efa2d21990c8"
+  },
+  {
+    id: "e2658a67-32f7-4444-b0f1-e0e8eddd2d59",
+    title: "The shale wildcatter lambasting Exxon",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/e2658a67-32f7-4444-b0f1-e0e8eddd2d59"
+  },
+  {
+    id: "88526316-f378-4e59-ae52-75dbffdbe049",
+    title: "Peter Hargreaves: Britain cannot afford to lose more ‘big taxpayers’",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/88526316-f378-4e59-ae52-75dbffdbe049"
+  },
+  {
+    id: "91684f96-6c7b-4b25-8486-d810d2088f9e",
+    title: "Brussels pushes Donald Trump to maintain ‘free flow’ of diesel",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/91684f96-6c7b-4b25-8486-d810d2088f9e"
+  },
+  {
+    id: "5308cce5-ba65-45e8-b9f4-59ea8b3cd900",
+    title: "No product, no problem: investors place big bets on AI neolabs",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/5308cce5-ba65-45e8-b9f4-59ea8b3cd900"
+  },
+  {
+    id: "fe377a54-88d7-4d6c-a763-fd56bc608827",
+    title: "Russia expands fleet as crackdown on stateless vessels intensifies",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/fe377a54-88d7-4d6c-a763-fd56bc608827"
+  },
+  {
+    id: "7273f2f9-e630-479d-a1b7-ba29cbb96b5e",
+    title: "David Beckham takes $51mn dividend as World Cup deals lift earnings",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/7273f2f9-e630-479d-a1b7-ba29cbb96b5e"
+  },
+  {
+    id: "53370e68-5702-486a-8c4b-a78d941c5ea6",
+    title: "Britain in ‘good position’, Pat McFadden tells business fearful of tax hikes",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/53370e68-5702-486a-8c4b-a78d941c5ea6"
+  },
+  {
+    id: "0206443e-a4ca-4316-a583-267aa74b0298",
+    title: "Burnham’s opposition to Heathrow expansion puts third runway in doubt",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/0206443e-a4ca-4316-a583-267aa74b0298"
+  },
+  {
+    id: "ff849846-8b3f-4d1f-8bbe-9d25be83225d",
+    title: "Blackstone’s insurance plans will help London, if not its old guard",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/ff849846-8b3f-4d1f-8bbe-9d25be83225d"
+  },
+  {
+    id: "5453be91-7bd9-4097-9e83-870354d3a248",
+    title: "EU urges UK to raise tariffs on Chinese cars to avoid ‘made in Europe’ barriers",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/5453be91-7bd9-4097-9e83-870354d3a248"
+  },
+  {
+    id: "e8a815e6-a105-42ea-938e-352b8c8d5c3b",
+    title: "Maga base recoils as Donald Trump goes all-in on AI",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/e8a815e6-a105-42ea-938e-352b8c8d5c3b"
+  },
+  {
+    id: "456884ea-2558-4648-8036-a77b73733430",
+    title: "The cheap new AI model taking aim at OpenAI and Anthropic",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/456884ea-2558-4648-8036-a77b73733430"
+  },
+  {
+    id: "684d54f5-5f31-4f77-9e52-ba4f71aa0510",
+    title: "What Burnham means for business",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/684d54f5-5f31-4f77-9e52-ba4f71aa0510"
+  },
+  {
+    id: "8b1b398d-da7d-4dda-aa64-b7a42c59fd7e",
+    title: "Wall Street boutiques balk at Saudi Arabia’s HQ rules",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/8b1b398d-da7d-4dda-aa64-b7a42c59fd7e"
+  },
+  {
+    id: "18100905-9c67-4395-adca-373fd254d652",
+    title: "Practice of law: case studies",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/18100905-9c67-4395-adca-373fd254d652"
+  },
+  {
+    id: "7bf86647-32f0-4f0c-b46b-2f4d690fa51e",
+    title: "AI shakes up in-house legal teams’ work practices",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/7bf86647-32f0-4f0c-b46b-2f4d690fa51e"
+  },
+  {
+    id: "ed84121f-37e4-4c33-827b-4440be52aec0",
+    title: "Business of law: case studies",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/ed84121f-37e4-4c33-827b-4440be52aec0"
+  },
+  {
     id: "82b3b8ab-4bc5-4f56-b337-77cf5601e02c",
     title: "Brexit and Donald Trump’s tariffs push UK’s food and drink trade deficit to £21bn",
     date: "2026-09-25",
@@ -173,131 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "16:43",
     url: "https://www.ft.com/content/4a81833e-c853-46be-af48-0ee8af8b4b74"
-  },
-  {
-    id: "0c5da9f2-f6aa-4514-910d-5337207e1233",
-    title: "UAE halts Iranian flights over US sanctions",
-    date: "2026-09-24",
-    time: "16:41",
-    url: "https://www.ft.com/content/0c5da9f2-f6aa-4514-910d-5337207e1233"
-  },
-  {
-    id: "46ea15a9-593d-45da-9705-a4928086b38d",
-    title: "MPs to consider whether Bank of England’s remit is ‘fit for purpose’",
-    date: "2026-09-24",
-    time: "16:18",
-    url: "https://www.ft.com/content/46ea15a9-593d-45da-9705-a4928086b38d"
-  },
-  {
-    id: "37e6c9d9-2237-468d-b0c5-18b5d09c2ccc",
-    title: "HSBC axes $26,000 perk for Hong Kong bankers to join members’ clubs",
-    date: "2026-09-24",
-    time: "15:58",
-    url: "https://www.ft.com/content/37e6c9d9-2237-468d-b0c5-18b5d09c2ccc"
-  },
-  {
-    id: "6cc7149f-a9f1-47f6-9faf-b98a28f9aedc",
-    title: "GoDaddy receives takeover offer from maker of Norton antivirus software",
-    date: "2026-09-24",
-    time: "15:23",
-    url: "https://www.ft.com/content/6cc7149f-a9f1-47f6-9faf-b98a28f9aedc"
-  },
-  {
-    id: "2bf6bba0-a361-474b-b5d6-6461695ecc4a",
-    title: "Isabel Schnabel to leave ECB early to join IMF",
-    date: "2026-09-24",
-    time: "14:32",
-    url: "https://www.ft.com/content/2bf6bba0-a361-474b-b5d6-6461695ecc4a"
-  },
-  {
-    id: "cf5cf060-401f-43cb-92d1-72afc38b3d3a",
-    title: "Five is the magic number for US Treasuries",
-    date: "2026-09-24",
-    time: "14:11",
-    url: "https://www.ft.com/content/cf5cf060-401f-43cb-92d1-72afc38b3d3a"
-  },
-  {
-    id: "7eb47e53-d130-4c5a-858e-49df9bd4f5fe",
-    title: "Space: the final frontline",
-    date: "2026-09-24",
-    time: "14:09",
-    url: "https://www.ft.com/content/7eb47e53-d130-4c5a-858e-49df9bd4f5fe"
-  },
-  {
-    id: "1f52f41a-f7db-49cc-b40e-c9d29aa01b9f",
-    title: "Donald Trump and Xi Jinping extend trade truce to January",
-    date: "2026-09-24",
-    time: "14:00",
-    url: "https://www.ft.com/content/1f52f41a-f7db-49cc-b40e-c9d29aa01b9f"
-  },
-  {
-    id: "ffb35fa4-b003-4d04-adeb-5aa67af294c5",
-    title: "Europe’s biggest stainless steelmaker finds new way to extract critical metal",
-    date: "2026-09-24",
-    time: "14:00",
-    url: "https://www.ft.com/content/ffb35fa4-b003-4d04-adeb-5aa67af294c5"
-  },
-  {
-    id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7",
-    title: "Latest savings rates",
-    date: "2026-09-24",
-    time: "13:42",
-    url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7"
-  },
-  {
-    id: "75ba3055-625c-4cb5-894b-0696a38f5e79",
-    title: "Latest Isa rates",
-    date: "2026-09-24",
-    time: "13:35",
-    url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79"
-  },
-  {
-    id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4",
-    title: "Latest National Savings & Investments rates",
-    date: "2026-09-24",
-    time: "13:28",
-    url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4"
-  },
-  {
-    id: "0298b4b9-d72d-4f3c-b5f4-863ac54a7645",
-    title: "19 smart ways to spend it in September",
-    date: "2026-09-24",
-    time: "13:03",
-    url: "https://www.ft.com/content/0298b4b9-d72d-4f3c-b5f4-863ac54a7645"
-  },
-  {
-    id: "5b6772c8-907a-4230-9e01-54394550e0e5",
-    title: "The risks of calling an early election for Andy Burnham",
-    date: "2026-09-24",
-    time: "12:39",
-    url: "https://www.ft.com/content/5b6772c8-907a-4230-9e01-54394550e0e5"
-  },
-  {
-    id: "0d8b3a97-e49d-4eca-b958-aaec0faad82b",
-    title: "You want honesty, Andy? Britain is out of easy options",
-    date: "2026-09-24",
-    time: "12:18",
-    url: "https://www.ft.com/content/0d8b3a97-e49d-4eca-b958-aaec0faad82b"
-  },
-  {
-    id: "9a84cd29-09fa-44b8-95b3-68379769c256",
-    title: "Data centre boom emerges as wedge issue in Texas midterms",
-    date: "2026-09-24",
-    time: "12:00",
-    url: "https://www.ft.com/content/9a84cd29-09fa-44b8-95b3-68379769c256"
-  },
-  {
-    id: "b4141b98-0118-4624-8cb0-5d158ba0751d",
-    title: "Russia could attack Nato country within months, Denmark warns",
-    date: "2026-09-24",
-    time: "11:44",
-    url: "https://www.ft.com/content/b4141b98-0118-4624-8cb0-5d158ba0751d"
-  },
-  {
-    id: "c9ae9433-50e0-4711-90fa-d1e5aeb15eaf",
-    title: "UK bank tax receipts jump 20% following surge in profits",
-    date: "2026-09-24",
-    time: "11:34",
-    url: "https://www.ft.com/content/c9ae9433-50e0-4711-90fa-d1e5aeb15eaf"
-  },
+  }
 ];
