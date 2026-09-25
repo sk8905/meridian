@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "8f1030c3-9ad0-45b2-86bf-71d8dec27be4",
+    title: "Former US intelligence chief Avril Haines: ‘Trump trusts his gut more than the expertise’",
+    date: "2026-09-25",
+    time: "13:00",
+    url: "https://www.ft.com/content/8f1030c3-9ad0-45b2-86bf-71d8dec27be4"
+  },
+  {
+    id: "d0541f2b-f15c-4975-9c44-14f1dbd32b73",
+    title: "Will Burnham call a snap election?",
+    date: "2026-09-25",
+    time: "12:55",
+    url: "https://www.ft.com/content/d0541f2b-f15c-4975-9c44-14f1dbd32b73"
+  },
+  {
     id: "702d053a-0100-4160-9996-0b5d8502d512",
     title: "International Criminal Court is insulated against US sanctions, says deputy prosecutor",
     date: "2026-09-25",
@@ -40,6 +54,13 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "12:00",
     url: "https://www.ft.com/content/7fbecb15-c396-49d2-8cab-1518809a7b2b"
+  },
+  {
+    id: "91f6e99d-b953-4056-ae72-30464b87ab5c",
+    title: "FirstFT: The Xi-Trump finale",
+    date: "2026-09-25",
+    time: "11:01",
+    url: "https://www.ft.com/content/91f6e99d-b953-4056-ae72-30464b87ab5c"
   },
   {
     id: "1477567d-64b0-431a-b707-e2a4f5a9f8dc",
@@ -264,27 +285,6 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "05:00",
     url: "https://www.ft.com/content/8b1b398d-da7d-4dda-aa64-b7a42c59fd7e"
-  },
-  {
-    id: "18100905-9c67-4395-adca-373fd254d652",
-    title: "Practice of law: case studies",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/18100905-9c67-4395-adca-373fd254d652"
-  },
-  {
-    id: "7bf86647-32f0-4f0c-b46b-2f4d690fa51e",
-    title: "AI shakes up in-house legal teams’ work practices",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/7bf86647-32f0-4f0c-b46b-2f4d690fa51e"
-  },
-  {
-    id: "ed84121f-37e4-4c33-827b-4440be52aec0",
-    title: "Business of law: case studies",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/ed84121f-37e4-4c33-827b-4440be52aec0"
   },
   {
     id: "82b3b8ab-4bc5-4f56-b337-77cf5601e02c",
