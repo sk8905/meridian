@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5ccabdf1-3b10-430b-b1a4-b3acddccfbf9",
+    title: "Brussels warns capitals to tackle energy crisis or see far right take power",
+    date: "2026-09-25",
+    time: "06:00",
+    url: "https://www.ft.com/content/5ccabdf1-3b10-430b-b1a4-b3acddccfbf9"
+  },
+  {
+    id: "0fd15797-ac89-4222-a4bb-03a6a1330f48",
+    title: "SpaceX pivots away from space",
+    date: "2026-09-25",
+    time: "06:00",
+    url: "https://www.ft.com/content/0fd15797-ac89-4222-a4bb-03a6a1330f48"
+  },
+  {
+    id: "901ccfbc-6ddb-4fb3-b74d-1f337efca9ff",
+    title: "Donald Trump raised weak yen with Sanae Takaichi, Japan finance minister says",
+    date: "2026-09-25",
+    time: "05:58",
+    url: "https://www.ft.com/content/901ccfbc-6ddb-4fb3-b74d-1f337efca9ff"
+  },
+  {
+    id: "eb8cd27d-cffc-4d43-bf4e-7a46943a0f68",
+    title: "Bank of England to raise rates in November if energy prices remain high",
+    date: "2026-09-25",
+    time: "05:30",
+    url: "https://www.ft.com/content/eb8cd27d-cffc-4d43-bf4e-7a46943a0f68"
+  },
+  {
+    id: "43bc246e-67c6-491a-992f-dc8791e5dcf0",
+    title: "The man who has been walking home since 1998",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/43bc246e-67c6-491a-992f-dc8791e5dcf0"
+  },
+  {
     id: "e67c93cc-9841-4720-b7c0-efa2d21990c8",
     title: "Innovative Lawyers: Europe",
     date: "2026-09-25",
@@ -271,33 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "17:39",
     url: "https://www.ft.com/content/2d158978-0ec5-4fda-b0dc-f04d462c215d"
-  },
-  {
-    id: "28ea6751-90a5-4538-b577-71bb123e81b7",
-    title: "Is the UK electorate fragmenting? Not so fast",
-    date: "2026-09-24",
-    time: "17:30",
-    url: "https://www.ft.com/content/28ea6751-90a5-4538-b577-71bb123e81b7"
-  },
-  {
-    id: "cabe2c29-9f66-470b-b7ac-b2bc324aa367",
-    title: "US mortgage rates breach 7% as affordability pressures mount",
-    date: "2026-09-24",
-    time: "17:12",
-    url: "https://www.ft.com/content/cabe2c29-9f66-470b-b7ac-b2bc324aa367"
-  },
-  {
-    id: "ded9ae05-3c5c-431e-926b-9cb1864e4fb0",
-    title: "Russia raises taxes to fund its war in Ukraine",
-    date: "2026-09-24",
-    time: "16:52",
-    url: "https://www.ft.com/content/ded9ae05-3c5c-431e-926b-9cb1864e4fb0"
-  },
-  {
-    id: "4a81833e-c853-46be-af48-0ee8af8b4b74",
-    title: "Tax-free UK pension withdrawals have doubled since Labour came to power",
-    date: "2026-09-24",
-    time: "16:43",
-    url: "https://www.ft.com/content/4a81833e-c853-46be-af48-0ee8af8b4b74"
   }
 ];
