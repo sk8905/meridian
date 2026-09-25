@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "218f8e15-8c1e-4ed4-9d51-7879faca8e73",
+    title: "ArcelorMittal to shutter Ukraine plant after Russian strikes kill workers",
+    date: "2026-09-25",
+    time: "10:03",
+    url: "https://www.ft.com/content/218f8e15-8c1e-4ed4-9d51-7879faca8e73"
+  },
+  {
+    id: "067a98e2-4a72-49b2-ac7f-3897305650bd",
+    title: "The dangers of devolution dogma",
+    date: "2026-09-25",
+    time: "09:45",
+    url: "https://www.ft.com/content/067a98e2-4a72-49b2-ac7f-3897305650bd"
+  },
+  {
+    id: "8c61f284-46d0-401c-bf05-ca5aeeae2e6d",
+    title: "Poundland owner demands £30mn for chain it bought for less than £1",
+    date: "2026-09-25",
+    time: "09:36",
+    url: "https://www.ft.com/content/8c61f284-46d0-401c-bf05-ca5aeeae2e6d"
+  },
+  {
+    id: "0c5da9f2-f6aa-4514-910d-5337207e1233",
+    title: "UAE halts Iranian flights over US sanctions",
+    date: "2026-09-25",
+    time: "09:11",
+    url: "https://www.ft.com/content/0c5da9f2-f6aa-4514-910d-5337207e1233"
+  },
+  {
     id: "4d9a6492-bd8c-43ca-bca8-309aa8f43ab6",
     title: "FTAV’s further reading",
     date: "2026-09-25",
@@ -278,26 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "19:00",
     url: "https://www.ft.com/content/bdec4129-ccac-4149-aa53-90ddd50cb925"
-  },
-  {
-    id: "24c13fd3-5de5-4916-8300-ec3073027ff6",
-    title: "Xi Jinping says US and China must ‘coexist in peace’ in historic White House visit",
-    date: "2026-09-24",
-    time: "18:53",
-    url: "https://www.ft.com/content/24c13fd3-5de5-4916-8300-ec3073027ff6"
-  },
-  {
-    id: "e60b40b6-dae5-4ccf-83cc-978269cbcaa5",
-    title: "The AI agent revolution has moved a big step closer",
-    date: "2026-09-24",
-    time: "18:33",
-    url: "https://www.ft.com/content/e60b40b6-dae5-4ccf-83cc-978269cbcaa5"
-  },
-  {
-    id: "82dbd39c-f8dd-4ef1-8a80-d430a22579bd",
-    title: "Oracle feels the force",
-    date: "2026-09-24",
-    time: "18:20",
-    url: "https://www.ft.com/content/82dbd39c-f8dd-4ef1-8a80-d430a22579bd"
   },
 ];
