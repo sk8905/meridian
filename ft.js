@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4d9a6492-bd8c-43ca-bca8-309aa8f43ab6",
+    title: "FTAV’s further reading",
+    date: "2026-09-25",
+    time: "08:38",
+    url: "https://www.ft.com/content/4d9a6492-bd8c-43ca-bca8-309aa8f43ab6"
+  },
+  {
     id: "c5af4151-2c14-481b-8145-f5ec1f43a3f4",
     title: "Japanese government bond yields hit new high as global sell-off continues",
     date: "2026-09-25",
@@ -293,11 +300,4 @@ export const FT_ITEMS = [
     time: "18:20",
     url: "https://www.ft.com/content/82dbd39c-f8dd-4ef1-8a80-d430a22579bd"
   },
-  {
-    id: "68173e02-88e8-4819-9543-cff7d024c476",
-    title: "Burnham under pressure to lobby Trump on US diesel export ban",
-    date: "2026-09-24",
-    time: "18:16",
-    url: "https://www.ft.com/content/68173e02-88e8-4819-9543-cff7d024c476"
-  }
 ];

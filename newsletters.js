@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-pogustgoodheadidentitycrisis-20260925",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "Pogust Goodhead’s identity crisis",
+    date: "2026-09-25",
+    time: "09:06",
+    summary: "And Clifford Chance wins back two partners from Paul Weiss, while Akin upsizes in London.",
+    url: "https://non-billable.beehiiv.com/p/pogust-goodhead-s-identity-crisis",
+  },
+  {
     id: "nl-bbg-morningeurope-oilhormuz-20260925",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
@@ -471,16 +482,5 @@ export const NEWSLETTERS = [
     time: "17:02",
     summary: "Matt Levine and guest co-host Silvia Killingsworth on late-summer nostalgia, options market making and putting pensions back into 401(k)s.",
     url: "https://bloom.bg/4nhTnYV",
-  },
-  {
-    id: "nl-gs-fedhikesimpactstocks-20260918",
-    publication: "Goldman Sachs",
-    author: null,
-    series: "Briefings",
-    title: "How Fed Hikes Impact US Stocks",
-    date: "2026-09-18",
-    time: "14:04",
-    summary: "Goldman Sachs Research stays ‘overweight’ global stocks over the next 12 months, even as rising bond yields pose a near-term risk.",
-    url: "https://www.goldmansachs.com/briefings/v2",
   },
 ];
