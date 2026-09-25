@@ -13,7 +13,7 @@ export const UPDATED = "24 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-25",
-  lastCheckedTime: "05:22 BST",
+  lastCheckedTime: "08:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -407,11 +407,11 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-09-23",
+  updated: "2026-09-25",
   us: [
+    { title: "AIndicators: Fed Hiking Cycle Is a Red-Flag Moment", source: "Bloomberg Opinion", author: "John Authers & Richard Abbey", date: "2026-09-21", url: "https://www.bloomberg.com/opinion/newsletters/2026-09-21/aindicators-fed-hiking-cycle-is-a-red-flag-moment" },
     { title: "'This could be something more substantial': Wall Street braces for more Fed rate hikes", source: "Yahoo Finance", author: "Principal Asset Management — Michael Goosay", date: "2026-09-20", url: "https://finance.yahoo.com/economy/policy/article/this-could-be-something-more-substantial-wall-street-braces-for-more-fed-rate-hikes-123400710.html" },
     { title: "Federal Reserve: Two more hikes seen as inflation stays too high – UOB", source: "FXStreet", author: "UOB Group", date: "2026-09-17", url: "https://www.fxstreet.com/news/federal-reserve-two-more-hikes-seen-as-inflation-stays-too-high-uob-202609171418" },
-    { title: "Goldman Sachs ditches 'one-and-done' call, now sees a second Fed hike in October", source: "investingLive", author: "Goldman Sachs — David Mericle", date: "2026-09-16", url: "https://investinglive.com/central-banks/goldman-ditches-one-and-done-call-now-sees-a-second-fed-hike-in-october/" },
   ],
   uk: [
     { title: "Pound Sterling Today: PMI Slowdown Leaves November BoE Hike In Play", source: "Exchange Rates UK", author: "Pantheon Macroeconomics", date: "2026-09-23", url: "https://www.exchangerates.org.uk/news/47257/2026-09-23-pound-sterling-today-pmi-slowdown-leaves-november-boe-hike-in-play.html" },
@@ -1000,14 +1000,14 @@ export const NEWS = {
     { title: "Iran offers seven-day Hormuz reopening deal as Treasury sell-off deepens", source: "investingLive", date: "2026-09-25", time: "03:38", url: "https://investinglive.com/news/investinglive-asia-pacific-market-news-iran-offers-seven-day-hormuz-dea/" },
     { title: "US and Iran discuss phased deal to reopen Hormuz and end US blockade, sources say", source: "Reuters (via U.S. News)", date: "2026-09-24", url: "https://www.usnews.com/news/world/articles/2026-09-24/us-and-iran-discuss-phased-deal-to-reopen-hormuz-and-end-us-blockade-sources-say" },
     { title: "New York Fed's Williams says it's 'reasonable' to expect another rate hike by year-end", source: "CNBC", date: "2026-09-24", url: "https://www.cnbc.com/2026/09/24/feds-williams-another-rate-hike-by-year-end.html" },
-    { title: "Claims for unemployment benefits drop to 197,000, the lowest since mid-July, as layoffs remain rare", source: "AP (via U.S. News)", date: "2026-09-24", url: "https://www.usnews.com/news/business/articles/2026-09-24/claims-for-unemployment-benefits-drop-to-197-000-the-lowest-since-mid-july-as-layoffs-remain-rare" },
-    { title: "Surging Treasury yields pose a brand new problem for Kevin Warsh and the Fed", source: "CNBC", date: "2026-09-24", url: "https://www.cnbc.com/2026/09/24/surging-treasury-yields-are-posing-a-brand-new-problem-for-kevin-warsh-and-the-fed.html" },
+    { title: "Trump and China's Xi extend trade truce at start of state visit", source: "AP", date: "2026-09-24", url: "https://www.wsbtv.com/news/business/trump-xi-jinping/S5CGCQW6N47NPDS5L5DH65NL74/" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq trim losses as hopes of Hormuz deal offset rising bond yields", source: "Yahoo Finance", date: "2026-09-24", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-september-24-dow-sp-500-nasdaq-080352893.html" },
   ],
   uk: [
+    { title: "Banks Tap Billions in BOE Repo Cash to Profit on Bond Trades", source: "Bloomberg", date: "2026-09-25", url: "https://www.bloomberg.com/news/articles/2026-09-25/banks-tap-billions-in-boe-repo-cash-to-profit-on-bond-trades" },
     { title: "Bank of England rate setters warn of 'sparks in the tinderbox'", source: "Reuters (via Investing.com)", date: "2026-09-24", url: "https://www.investing.com/news/economy-news/bank-of-england-rate-setters-warn-of-sparks-in-the-tinderbox-4915841" },
     { title: "Bank of England's Lombardelli: Policy likely to need to tighten if energy risks persist", source: "FXStreet", date: "2026-09-24", url: "https://www.fxstreet.com/news/bank-of-englands-lombardelli-policy-likely-to-need-to-tighten-if-energy-risks-persist-202609240805" },
     { title: "OECD raises UK 2026 growth forecast, cuts inflation outlook on energy support", source: "Reuters (via Investing.com)", date: "2026-09-24", url: "https://www.investing.com/news/economy-news/oecd-raises-uk-2026-growth-forecast-cuts-inflation-outlook-on-energy-support-4912337" },
-    { title: "Pound To Dollar Price News, Forecast: Trump-Xi Meeting Could Lift USD", source: "Exchange Rates UK", date: "2026-09-24", url: "https://www.exchangerates.org.uk/news/47253/2026-09-24-pound-to-dollar-price-news-forecast-trump-xi-meeting-could-lift-usd.html" },
     { title: "UK Borrowing Overshoots in Fresh Budget Setback for Healey", source: "Bloomberg", date: "2026-09-22", url: "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey" },
   ],
 };
@@ -1022,6 +1022,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-25",
   items: [
+    {"title": "Banks Tap Billions in BOE Repo Cash to Profit on Bond Trades", "source": "Bloomberg", "date": "2026-09-25", "url": "https://www.bloomberg.com/news/articles/2026-09-25/banks-tap-billions-in-boe-repo-cash-to-profit-on-bond-trades", "blurb": "UK banks are borrowing cheaply through the Bank of England's repo facility and using the cash to buy higher-yielding gilts, pocketing a spread that has widened past a percentage point as gilt yields surge — a carry trade that underscores how far borrowing costs have moved since the BoE's September hold.", "author": null},
+    {"title": "Japanese Yen recovers from three-week low vs USD amid looming intervention risk", "source": "FXStreet", "date": "2026-09-25", "time": "02:26", "url": "https://www.fxstreet.com/news/japanese-yen-recovers-from-three-week-low-vs-usd-amid-looming-intervention-risk-202609250226", "blurb": "USD/JPY eased back from a three-week high near 159.00 as Tokyo officials again flagged weak-yen concerns, against a backdrop of a hawkish Fed, multi-decade-high Treasury yields and a two-day oil-price rally keeping global inflation risk firmly in view.", "author": null},
     {"title": "Iran offers seven-day Hormuz reopening deal as Treasury sell-off deepens", "source": "investingLive", "date": "2026-09-25", "time": "03:38", "url": "https://investinglive.com/news/investinglive-asia-pacific-market-news-iran-offers-seven-day-hormuz-dea/", "blurb": "Iran's foreign minister proposed reopening the Strait of Hormuz within seven days if Washington lifts its naval blockade, unfreezes assets and restores oil-sanctions waivers, as the 30-year Treasury yield held near 5.5% and the yen slipped to 158.40 on renewed weak-yen concerns.", "author": null},
     {"title": "Surging Treasury yields pose a brand new problem for Kevin Warsh and the Fed", "source": "CNBC", "date": "2026-09-24", "time": "21:30", "url": "https://www.cnbc.com/2026/09/24/surging-treasury-yields-are-posing-a-brand-new-problem-for-kevin-warsh-and-the-fed.html", "blurb": "The broad-based Treasury sell-off is complicating the new Fed chair's inflation-fighting message just as a hawkish chorus of regional presidents argues for another hike before year-end.", "author": null},
     {"title": "Claims for unemployment benefits drop to 197,000, the lowest since mid-July, as layoffs remain rare", "source": "AP (via U.S. News)", "date": "2026-09-24", "time": "20:45", "url": "https://www.usnews.com/news/business/articles/2026-09-24/claims-for-unemployment-benefits-drop-to-197-000-the-lowest-since-mid-july-as-layoffs-remain-rare", "blurb": "Weekly initial jobless claims fell to their lowest level since mid-July, reinforcing the case made by hawkish Fed officials that a still-resilient labour market leaves room for further tightening.", "author": null},
@@ -1060,8 +1062,6 @@ export const ARTICLES = {
     {"title": "Breaking: US S&P Global Composite PMI came in at 58.4 in September", "source": "FXStreet", "date": "2026-09-23", "time": "08:45", "url": "https://www.fxstreet.com/news/sp-global-pmis-expected-to-show-resilient-us-economic-growth-in-september-202609230845", "blurb": "US business activity accelerated sharply — the flash composite PMI jumped to 58.4 (from 56.0, a 62-month high), manufacturing to 57.0 (from 53.1) and services to 58.7 (from 56.5) — with S&P Global's Chris Williamson saying US business 'continues to boom, with output growing at the fastest rate for over five years in September', even as input-cost inflation hit its highest since October 2022.", "author": null},
     {"title": "Oil prices fall for fifth day after Trump says U.S. met with Iran for three hours", "source": "CNBC", "date": "2026-09-23", "url": "https://www.cnbc.com/2026/09/23/iran-us-talks-crude-oil-un-wti.html", "blurb": "Brent fell toward $98/bbl and WTI toward $89 as President Trump said US officials had a 'very good meeting' lasting roughly three hours with Iran's delegation on the sidelines of the UN General Assembly, with Iran reportedly prepared to reopen the Strait of Hormuz within seven days if Washington eases its blockade.", "author": null},
     {"title": "CNBC Daily Open: 'America First' doesn't mean 'America alone'", "source": "CNBC", "date": "2026-09-23", "url": "https://www.cnbc.com/2026/09/23/cnbc-daily-open-trump-unga-speech-iran-greenland-diesel.html", "blurb": "A recap of President Trump's UN General Assembly address, in which he threatened to 'annihilate' Iran absent a deal, touted new tariff powers on buyers of Russian energy, rejected international AI-governance efforts, and signed a defence agreement with Greenland and Denmark.", "author": null},
-    {"title": "Pound To Dollar Price News, Forecast: GBP Weakens As UK Public Deficit Spikes", "source": "Exchange Rates UK", "date": "2026-09-23", "time": "08:15", "url": "https://www.exchangerates.org.uk/news/47244/2026-09-23-pound-to-dollar-price-news-forecast-gbp-weakens-as-uk-public-deficit-spikes.html", "blurb": "Sterling stayed on the back foot as August's larger-than-expected public borrowing overshoot compounded the drag from a hawkish Fed and a Bank of England seen as constrained by a fragile labour market, with markets now turning to the morning's flash UK/US PMIs for fresh direction.", "author": null},
-    {"title": "UK Borrowing Overshoots in Fresh Budget Setback for Healey", "source": "Bloomberg", "date": "2026-09-22", "url": "https://www.bloomberg.com/news/articles/2026-09-22/uk-borrowing-overshoots-in-fresh-budget-setback-for-healey", "blurb": "Britain's fiscal deficit climbed to £77.3bn in the first five months of the fiscal year — £8.1bn above the OBR's March forecast — after August public borrowing came in at £18.3bn, above every estimate in a Reuters poll, sharpening the backdrop for Chancellor Healey's 28 October Budget.", "author": null},
   ],
 };
 
