@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0206443e-a4ca-4316-a583-267aa74b0298",
+    title: "Burnham’s opposition to Heathrow expansion puts third runway in doubt",
+    date: "2026-09-25",
+    time: "17:02",
+    url: "https://www.ft.com/content/0206443e-a4ca-4316-a583-267aa74b0298"
+  },
+  {
+    id: "2f820ff9-28c2-4e53-9948-6be009a8a23c",
+    title: "Manchester City found guilty of breaching Premier League rules",
+    date: "2026-09-25",
+    time: "17:02",
+    url: "https://www.ft.com/content/2f820ff9-28c2-4e53-9948-6be009a8a23c"
+  },
+  {
+    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
+    title: "Submit a question: What’s next for the global economy?",
+    date: "2026-09-25",
+    time: "16:53",
+    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d"
+  },
+  {
+    id: "c5af4151-2c14-481b-8145-f5ec1f43a3f4",
+    title: "US bond sell-off pushes long-term yields to new post-2004 high",
+    date: "2026-09-25",
+    time: "16:37",
+    url: "https://www.ft.com/content/c5af4151-2c14-481b-8145-f5ec1f43a3f4"
+  },
+  {
+    id: "7fbecb15-c396-49d2-8cab-1518809a7b2b",
+    title: "Russia targets Ukraine’s data centres",
+    date: "2026-09-25",
+    time: "16:19",
+    url: "https://www.ft.com/content/7fbecb15-c396-49d2-8cab-1518809a7b2b"
+  },
+  {
     id: "df673db6-ffef-4c06-b2d1-b9b4f1e43869",
     title: "FTAV’s Friday chart quiz",
     date: "2026-09-25",
@@ -112,13 +147,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/35a3a327-bb57-4070-942f-5988be564072"
   },
   {
-    id: "7fbecb15-c396-49d2-8cab-1518809a7b2b",
-    title: "Russia targets Ukraine’s data centres",
-    date: "2026-09-25",
-    time: "12:00",
-    url: "https://www.ft.com/content/7fbecb15-c396-49d2-8cab-1518809a7b2b"
-  },
-  {
     id: "91f6e99d-b953-4056-ae72-30464b87ab5c",
     title: "FirstFT: The Xi-Trump finale",
     date: "2026-09-25",
@@ -187,13 +215,6 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "08:38",
     url: "https://www.ft.com/content/4d9a6492-bd8c-43ca-bca8-309aa8f43ab6"
-  },
-  {
-    id: "c5af4151-2c14-481b-8145-f5ec1f43a3f4",
-    title: "Japanese government bond yields hit new high as global sell-off continues",
-    date: "2026-09-25",
-    time: "06:41",
-    url: "https://www.ft.com/content/c5af4151-2c14-481b-8145-f5ec1f43a3f4"
   },
   {
     id: "b8817c5a-fc54-4add-bd5c-d1247729b95d",
@@ -278,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "05:00",
     url: "https://www.ft.com/content/5308cce5-ba65-45e8-b9f4-59ea8b3cd900"
-  },
-  {
-    id: "fe377a54-88d7-4d6c-a763-fd56bc608827",
-    title: "Russia expands fleet as crackdown on stateless vessels intensifies",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/fe377a54-88d7-4d6c-a763-fd56bc608827"
-  },
-  {
-    id: "7273f2f9-e630-479d-a1b7-ba29cbb96b5e",
-    title: "David Beckham takes $51mn dividend as World Cup deals lift earnings",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/7273f2f9-e630-479d-a1b7-ba29cbb96b5e"
-  },
-  {
-    id: "53370e68-5702-486a-8c4b-a78d941c5ea6",
-    title: "Britain in ‘good position’, Pat McFadden tells business fearful of tax hikes",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/53370e68-5702-486a-8c4b-a78d941c5ea6"
-  },
-  {
-    id: "0206443e-a4ca-4316-a583-267aa74b0298",
-    title: "Burnham’s opposition to Heathrow expansion puts third runway in doubt",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/0206443e-a4ca-4316-a583-267aa74b0298"
-  },
-  {
-    id: "ff849846-8b3f-4d1f-8bbe-9d25be83225d",
-    title: "Blackstone’s insurance plans will help London, if not its old guard",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/ff849846-8b3f-4d1f-8bbe-9d25be83225d"
   }
 ];
