@@ -44,13 +44,13 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-25",
-      time: "08:16 BST",
-      lede: "Friday's first real de-escalation signal on Hormuz gave markets room to pare back this week's bond-driven selling, but a fresh BoE repo-market wrinkle and a still-unresolved Fed/BoE hawkish chorus kept the underlying rates story unsettled into the weekend.",
+      time: "10:18 BST",
+      lede: "Friday's Hormuz de-escalation signal held into mid-morning as the dollar consolidated its weekly gains, but sterling kept underperforming on doubts over the Bank of England's tightening follow-through, leaving the gilt-market repo strain flagged earlier in the week unresolved.",
       bullets: [
         { html: "<strong>Macro &mdash; Iran's foreign minister offered to reopen the Strait of Hormuz within seven days if Washington lifts its naval blockade, unfreezes Iranian assets and restores oil-sanctions waivers</strong>, the clearest de-escalation signal yet after nearly seven months of conflict, floated on the sidelines of the UN General Assembly.", src: "https://investinglive.com/news/investinglive-asia-pacific-market-news-iran-offers-seven-day-hormuz-dea/", srcName: "investingLive" },
-        { html: "<strong>Macro &mdash; UK banks are tapping billions of pounds in Bank of England repo facility cash to profit on bond trades</strong>, a fresh sign of strain in the gilt-market plumbing as this week's borrowing overshoot and hawkish BoE rhetoric keep long-dated UK yields elevated.", src: "https://www.bloomberg.com/news/articles/2026-09-25/banks-tap-billions-in-boe-repo-cash-to-profit-on-bond-trades", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; sterling underperformed its major peers into Friday on doubts the Bank of England can follow through on further tightening</strong>, even as UK banks kept tapping billions of pounds in BoE repo-facility cash to profit on bond trades, a sign the gilt-market plumbing strain flagged earlier in the week has not eased.", src: "https://www.fxstreet.com/news/british-pound-underperforms-this-week-as-experts-doubt-boe-tightening-prospects-202609250806", srcName: "FXStreet" },
         { html: "<strong>Equities &mdash; Japan's Nikkei and Topix each rose around 1.2% in early Friday trade on chip-stock strength and dividend buying</strong>, even as Hong Kong's Hang Seng had closed 0.29% lower Thursday, with the region weighing the still-unresolved Hormuz standoff against a firmer global-yield backdrop.", src: "https://investinglive.com/news/investinglive-asia-pacific-market-news-iran-offers-seven-day-hormuz-dea/", srcName: "investingLive" },
-        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield eased a basis point to around 5.19% Friday morning after rising more than 20 basis points over the prior two sessions</strong>, while the UK 2-year gilt yield held near 4.77% following this week's Fed and BoE moves.", src: "https://www.bloomberg.com/news/newsletters/2026-09-25/oil-prices-decline-on-hopes-of-a-hormuz-deal", srcName: "Bloomberg" },
+        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield held near 5.19% Friday morning as the dollar consolidated its weekly gains ahead of mid-tier US data</strong>, while the UK 2-year gilt yield stayed near 4.77% following this week's Fed and BoE moves.", src: "https://www.fxstreet.com/news/forex-today-us-dollar-consolidates-weekly-gains-ahead-of-mid-tier-data-202609250732", srcName: "FXStreet" },
       ],
     },
     afternoon: {
