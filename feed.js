@@ -127,8 +127,6 @@ export const dayOf = (x) => String(x.date || "").slice(0, 10);
 // their "12:00" display.
 export const byFeedDesc = (a, b) => dayOf(b).localeCompare(dayOf(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00"));
 const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-// Dedupe by normalised title (cross-section overlap collapses to one row).
-export const dedupeByTitle = (list) => { const seen = new Set(); return list.filter((x) => { const k = norm(x.title); if (seen.has(k)) return false; seen.add(k); return true; }); };
 
 // ---- Row + body markup ------------------------------------------------------
 // One wire row. `o`: { desk, href, title, ext, date, time, src, sk, sid, mgr,
@@ -240,66 +238,3 @@ export function attachFeedClicks(feedEl, { onSrc, onClearSrc, onEnt } = {}) {
   feedEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") handle(e); });
 }
 
-// ---- App feed controller ----------------------------------------------------
-// A self-contained wire for the app pages: builds the desk-chip bar, renders the
-// day-grouped rows, and filters in place by desk (chip) or source (row click) —
-// exactly like the Home wire. Home keeps its bespoke cross-desk assembly and
-// calls the low-level helpers above directly; the apps use this.
-//
-// opts:
-//   feedEl    — the .g-feed container (rows render here)
-//   headEl    — the .g-feed-head container (chip bar renders here); optional
-//   headLabel — the chip-bar label ("Latest news")
-//   chips     — [{k,label}] ; k="all" plus desk/group keys
-//   buildItems— () => [normalised items]  (rebuilt each render, so live data flows)
-//   groupOf   — (item) => chip-key the item belongs to (default: item.desk)
-//   defaultDesk — starting chip ("all")
-//   emptyLabel  — (deskKey|null, srcName|null) => empty-state text
-//   onChip    — (k) => truthy to intercept a chip (e.g. swap to a non-feed pane);
-//               the controller then skips its own render for that chip.
-export function createFeed(opts) {
-  const groupOf = opts.groupOf || ((x) => x.desk);
-  let deskFilter = opts.defaultDesk || "all";
-  let srcFilter = null;
-
-  const emptyMsg = () => {
-    if (opts.emptyLabel) return opts.emptyLabel(srcFilter ? null : (deskFilter === "all" ? null : deskFilter), srcFilter);
-    if (srcFilter) return `No ${srcFilter} stories — check back shortly.`;
-    if (deskFilter === "all") return "No news yet — check back shortly.";
-    return `No ${DESK[deskFilter] || "matching"} items — check back shortly.`;
-  };
-
-  function currentFeed() {
-    const all = opts.buildItems() || [];
-    if (srcFilter) return dedupeByTitle(all.slice().sort(byFeedDesc)).filter((x) => x.src === srcFilter);
-    if (deskFilter === "all") return dedupeByTitle(all.slice().sort(byFeedDesc));
-    return dedupeByTitle(all.filter((x) => groupOf(x) === deskFilter).sort(byFeedDesc));
-  }
-
-  function paint() {
-    const feed = currentFeed();
-    const srcBar = srcFilter ? feedSrcBarHTML(srcFilter) : "";
-    opts.feedEl.innerHTML = srcBar + (feed.length ? feedBodyHTML(feed) : feedEmptyHTML(emptyMsg()));
-    if (opts.headEl) {
-      opts.headEl.innerHTML = feedChipsHTML(opts.chips, srcFilter ? null : deskFilter, opts.headLabel);
-      opts.headEl.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => {
-        const k = b.dataset.desk;
-        if (opts.onChip && opts.onChip(k)) return;   // pane-swap chip handled by the page
-        srcFilter = null; deskFilter = k; paint();
-      }));
-    }
-  }
-
-  attachFeedClicks(opts.feedEl, {
-    onSrc: (s) => { srcFilter = s; deskFilter = "all"; paint(); },
-    onClearSrc: () => { srcFilter = null; paint(); },
-    onEnt: opts.onEnt,
-  });
-
-  return {
-    render: paint,
-    get desk() { return deskFilter; },
-    setDesk(k) { srcFilter = null; deskFilter = k; paint(); },
-    clearSrc() { srcFilter = null; paint(); },
-  };
-}
