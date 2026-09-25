@@ -21,6 +21,76 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "44ea845f-7048-4c98-b061-c9df7983af16",
+    title: "Yields up",
+    date: "2026-09-25",
+    time: "18:06",
+    url: "https://www.ft.com/content/44ea845f-7048-4c98-b061-c9df7983af16"
+  },
+  {
+    id: "4acbdc1f-d898-4966-b865-924470de0066",
+    title: "Bond ructions point to new danger zone in markets",
+    date: "2026-09-25",
+    time: "18:00",
+    url: "https://www.ft.com/content/4acbdc1f-d898-4966-b865-924470de0066"
+  },
+  {
+    id: "8c6f0c32-01b8-4490-afd3-96254b567168",
+    title: "Stockpickers: Mortgage Advice Bureau, Luceco, Next",
+    date: "2026-09-25",
+    time: "18:00",
+    url: "https://www.ft.com/content/8c6f0c32-01b8-4490-afd3-96254b567168"
+  },
+  {
+    id: "4deafc9c-981b-4fd8-9f74-da0e8fce9651",
+    title: "Directors’ Deals: AstraZeneca’s Soriot in a major show of faith",
+    date: "2026-09-25",
+    time: "18:00",
+    url: "https://www.ft.com/content/4deafc9c-981b-4fd8-9f74-da0e8fce9651"
+  },
+  {
+    id: "4c3f75a2-c2f9-4ef7-9895-21daf5e92dfe",
+    title: "OK, so where are all these data centres?",
+    date: "2026-09-25",
+    time: "17:59",
+    url: "https://www.ft.com/content/4c3f75a2-c2f9-4ef7-9895-21daf5e92dfe"
+  },
+  {
+    id: "f9d5e0af-0106-4909-a854-7bd69cbb74ab",
+    title: "What an AI maths breakthrough means for human discovery",
+    date: "2026-09-25",
+    time: "17:48",
+    url: "https://www.ft.com/content/f9d5e0af-0106-4909-a854-7bd69cbb74ab"
+  },
+  {
+    id: "5c15c5a9-9529-41c4-ad76-8b702583df4f",
+    title: "India police detain dozens of protesters against election commission",
+    date: "2026-09-25",
+    time: "17:29",
+    url: "https://www.ft.com/content/5c15c5a9-9529-41c4-ad76-8b702583df4f"
+  },
+  {
+    id: "469c3f85-ee58-41ed-8289-33866a72549a",
+    title: "US Supreme Court lets Trump deploy voter database ahead of midterms",
+    date: "2026-09-25",
+    time: "17:22",
+    url: "https://www.ft.com/content/469c3f85-ee58-41ed-8289-33866a72549a"
+  },
+  {
+    id: "08b4cf3d-3418-4159-b641-533fdb305d3e",
+    title: "The case for talking to China is not a case for détente",
+    date: "2026-09-25",
+    time: "17:21",
+    url: "https://www.ft.com/content/08b4cf3d-3418-4159-b641-533fdb305d3e"
+  },
+  {
+    id: "917a9cba-6afd-4ba3-8742-2b7601ecc2ba",
+    title: "Iran offers US new seven-day ceasefire proposal",
+    date: "2026-09-25",
+    time: "17:16",
+    url: "https://www.ft.com/content/917a9cba-6afd-4ba3-8742-2b7601ecc2ba"
+  },
+  {
     id: "0206443e-a4ca-4316-a583-267aa74b0298",
     title: "Burnham’s opposition to Heathrow expansion puts third runway in doubt",
     date: "2026-09-25",
@@ -229,75 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "06:00",
     url: "https://www.ft.com/content/5ccabdf1-3b10-430b-b1a4-b3acddccfbf9"
-  },
-  {
-    id: "0fd15797-ac89-4222-a4bb-03a6a1330f48",
-    title: "SpaceX pivots away from space",
-    date: "2026-09-25",
-    time: "06:00",
-    url: "https://www.ft.com/content/0fd15797-ac89-4222-a4bb-03a6a1330f48"
-  },
-  {
-    id: "901ccfbc-6ddb-4fb3-b74d-1f337efca9ff",
-    title: "Donald Trump raised weak yen with Sanae Takaichi, Japan finance minister says",
-    date: "2026-09-25",
-    time: "05:58",
-    url: "https://www.ft.com/content/901ccfbc-6ddb-4fb3-b74d-1f337efca9ff"
-  },
-  {
-    id: "eb8cd27d-cffc-4d43-bf4e-7a46943a0f68",
-    title: "Bank of England to raise rates in November if energy prices remain high",
-    date: "2026-09-25",
-    time: "05:30",
-    url: "https://www.ft.com/content/eb8cd27d-cffc-4d43-bf4e-7a46943a0f68"
-  },
-  {
-    id: "e67c93cc-9841-4720-b7c0-efa2d21990c8",
-    title: "Innovative Lawyers: Europe",
-    date: "2026-09-25",
-    time: "05:04",
-    url: "https://www.ft.com/content/e67c93cc-9841-4720-b7c0-efa2d21990c8"
-  },
-  {
-    id: "24c13fd3-5de5-4916-8300-ec3073027ff6",
-    title: "Xi Jinping says US and China must ‘coexist in peace’ at White House visit",
-    date: "2026-09-25",
-    time: "05:02",
-    url: "https://www.ft.com/content/24c13fd3-5de5-4916-8300-ec3073027ff6"
-  },
-  {
-    id: "43bc246e-67c6-491a-992f-dc8791e5dcf0",
-    title: "The man who has been walking home since 1998",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/43bc246e-67c6-491a-992f-dc8791e5dcf0"
-  },
-  {
-    id: "e2658a67-32f7-4444-b0f1-e0e8eddd2d59",
-    title: "The shale wildcatter lambasting Exxon",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/e2658a67-32f7-4444-b0f1-e0e8eddd2d59"
-  },
-  {
-    id: "88526316-f378-4e59-ae52-75dbffdbe049",
-    title: "Peter Hargreaves: Britain cannot afford to lose more ‘big taxpayers’",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/88526316-f378-4e59-ae52-75dbffdbe049"
-  },
-  {
-    id: "91684f96-6c7b-4b25-8486-d810d2088f9e",
-    title: "Brussels pushes Donald Trump to maintain ‘free flow’ of diesel",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/91684f96-6c7b-4b25-8486-d810d2088f9e"
-  },
-  {
-    id: "5308cce5-ba65-45e8-b9f4-59ea8b3cd900",
-    title: "No product, no problem: investors place big bets on AI neolabs",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/5308cce5-ba65-45e8-b9f4-59ea8b3cd900"
   }
 ];
