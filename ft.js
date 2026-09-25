@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1477567d-64b0-431a-b707-e2a4f5a9f8dc",
+    title: "US seizes bank accounts of payments group working for Tether’s and Bitfinex’s bank",
+    date: "2026-09-25",
+    time: "10:58",
+    url: "https://www.ft.com/content/1477567d-64b0-431a-b707-e2a4f5a9f8dc"
+  },
+  {
+    id: "6f6c698a-e1eb-4ce0-b4b0-6c54cdd67850",
+    title: "Airbus offers divestments to secure Brussels backing for space merger",
+    date: "2026-09-25",
+    time: "10:25",
+    url: "https://www.ft.com/content/6f6c698a-e1eb-4ce0-b4b0-6c54cdd67850"
+  },
+  {
+    id: "bec22e6b-1267-4d9f-a192-60763a0797c3",
+    title: "Donald Trump’s US no longer a reliable ally, warns Belgium in leaked document",
+    date: "2026-09-25",
+    time: "10:10",
+    url: "https://www.ft.com/content/bec22e6b-1267-4d9f-a192-60763a0797c3"
+  },
+  {
     id: "218f8e15-8c1e-4ed4-9d51-7879faca8e73",
     title: "ArcelorMittal to shutter Ukraine plant after Russian strikes kill workers",
     date: "2026-09-25",
@@ -285,19 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "22:00",
     url: "https://www.ft.com/content/19b54cea-1fdc-40ba-b09b-d289b7f39295"
-  },
-  {
-    id: "17b09993-8fed-47d1-9c04-e2d29ca75615",
-    title: "SoftBank pays steep price for record bond sale to fund OpenAI bet",
-    date: "2026-09-24",
-    time: "20:39",
-    url: "https://www.ft.com/content/17b09993-8fed-47d1-9c04-e2d29ca75615"
-  },
-  {
-    id: "ad6d56fa-6a6e-43bd-8f12-205a3f94ac0e",
-    title: "Pioneer founder Scott Sheffield says Exxon ‘set him up’ after $60bn takeover",
-    date: "2026-09-24",
-    time: "20:27",
-    url: "https://www.ft.com/content/ad6d56fa-6a6e-43bd-8f12-205a3f94ac0e"
   }
 ];
