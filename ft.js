@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ad2f9563-7853-4a6a-b46c-fe6afeccbbc0",
+    title: "Private equity-backed Florida railway company Brightline files for bankruptcy",
+    date: "2026-09-25",
+    time: "14:55",
+    url: "https://www.ft.com/content/ad2f9563-7853-4a6a-b46c-fe6afeccbbc0"
+  },
+  {
+    id: "07a246f8-d81d-4b43-9aa3-16153fc0fac9",
+    title: "Lawyers join microchips on the list of data centre must-haves",
+    date: "2026-09-25",
+    time: "14:46",
+    url: "https://www.ft.com/content/07a246f8-d81d-4b43-9aa3-16153fc0fac9"
+  },
+  {
     id: "7c43f989-6902-4979-b36b-a6211930f4ce",
     title: "Trump is not going to drop Canada",
     date: "2026-09-25",
@@ -287,31 +301,10 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/e8a815e6-a105-42ea-938e-352b8c8d5c3b"
   },
   {
-    id: "456884ea-2558-4648-8036-a77b73733430",
-    title: "The cheap new AI model taking aim at OpenAI and Anthropic",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/456884ea-2558-4648-8036-a77b73733430"
-  },
-  {
-    id: "684d54f5-5f31-4f77-9e52-ba4f71aa0510",
-    title: "What Burnham means for business",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/684d54f5-5f31-4f77-9e52-ba4f71aa0510"
-  },
-  {
     id: "8b1b398d-da7d-4dda-aa64-b7a42c59fd7e",
     title: "Wall Street boutiques balk at Saudi Arabia’s HQ rules",
     date: "2026-09-25",
     time: "05:00",
     url: "https://www.ft.com/content/8b1b398d-da7d-4dda-aa64-b7a42c59fd7e"
-  },
-  {
-    id: "82b3b8ab-4bc5-4f56-b337-77cf5601e02c",
-    title: "Brexit and Donald Trump’s tariffs push UK’s food and drink trade deficit to £21bn",
-    date: "2026-09-25",
-    time: "00:01",
-    url: "https://www.ft.com/content/82b3b8ab-4bc5-4f56-b337-77cf5601e02c"
   }
 ];
