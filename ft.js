@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1cc67221-b54e-4ff9-a499-01209c7999d8",
+    title: "Pope makes rare address at France’s Élysée Palace",
+    date: "2026-09-25",
+    time: "15:53",
+    url: "https://www.ft.com/content/1cc67221-b54e-4ff9-a499-01209c7999d8"
+  },
+  {
+    id: "c0cffdfc-ad4b-48dc-9894-c1e8492962c7",
+    title: "The challenge for Burnham: words are no longer enough",
+    date: "2026-09-25",
+    time: "15:28",
+    url: "https://www.ft.com/content/c0cffdfc-ad4b-48dc-9894-c1e8492962c7"
+  },
+  {
+    id: "82933f2b-84ec-467f-9bd0-b36b41a849cd",
+    title: "UK graduates paying 50% more of university costs since 2012",
+    date: "2026-09-25",
+    time: "15:20",
+    url: "https://www.ft.com/content/82933f2b-84ec-467f-9bd0-b36b41a849cd"
+  },
+  {
     id: "ad2f9563-7853-4a6a-b46c-fe6afeccbbc0",
     title: "Private equity-backed Florida railway company Brightline files for bankruptcy",
     date: "2026-09-25",
@@ -285,26 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "05:00",
     url: "https://www.ft.com/content/ff849846-8b3f-4d1f-8bbe-9d25be83225d"
-  },
-  {
-    id: "5453be91-7bd9-4097-9e83-870354d3a248",
-    title: "EU urges UK to raise tariffs on Chinese cars to avoid ‘made in Europe’ barriers",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/5453be91-7bd9-4097-9e83-870354d3a248"
-  },
-  {
-    id: "e8a815e6-a105-42ea-938e-352b8c8d5c3b",
-    title: "Maga base recoils as Donald Trump goes all-in on AI",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/e8a815e6-a105-42ea-938e-352b8c8d5c3b"
-  },
-  {
-    id: "8b1b398d-da7d-4dda-aa64-b7a42c59fd7e",
-    title: "Wall Street boutiques balk at Saudi Arabia’s HQ rules",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/8b1b398d-da7d-4dda-aa64-b7a42c59fd7e"
   }
 ];
