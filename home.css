@@ -1162,13 +1162,18 @@
     /* Line spacing matches the in-app reading pane (.g-read-p, 1.72) so prose reads
        the same airy way in the briefing as in a full story — the roomier, easier
        leading. Keep the two in lockstep. */
-    /* "Overview" title above the lede — a plain WHITE heading (not the orange desk
-       kicker), on its own line. */
-    .tui .g-hbrief-lede-hd{ font-size:12px; font-weight:600; color:var(--t-ink); letter-spacing:.005em; margin:0 0 3px; }
+    /* Section headings — "Overview" above the lede and each desk name above its
+       bullet — are the orange accent, on their own line. Spacing above every heading
+       is a uniform 7px: the direct-child "Overview" heading gets it as a top margin
+       (there is no rule above it, just the header), while each desk heading gets it
+       from its <li>'s padding-top, which sits below the hairline separator. */
+    .tui .g-hbrief-lede-hd{ font-size:12px; font-weight:600; color:var(--accent); letter-spacing:.005em; margin:0 0 3px; }
+    .tui .g-hbrief-body > .g-hbrief-lede-hd{ margin-top:7px; }
     .tui .g-hbrief-lede{ margin:0; font-size:12px; line-height:1.72; color:var(--t-ink); }
-    .tui .g-hbrief-list{ list-style:none; margin:6px 0 0; padding:0; }
+    .tui .g-hbrief-list{ list-style:none; margin:7px 0 0; padding:0; }
+    /* Every section (incl. the first desk, Macro) carries a hairline separator above
+       it — so a thin line divides Overview↔Macro just as it divides the desks. */
     .tui .g-hbrief-b{ padding:7px 0; border-top:1px solid var(--t-grid); font-size:12px; line-height:1.72; color:var(--t-ink); }
-    .tui .g-hbrief-b:first-child{ border-top:0; }
     .tui .g-hbrief-bt{ display:block; }
     /* Justify the briefing prose exactly like the in-app reading pane (.g-read-p):
        the same light compression (tighter letter/word spacing + auto-hyphenation)
