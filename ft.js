@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "702d053a-0100-4160-9996-0b5d8502d512",
+    title: "International Criminal Court is insulated against US sanctions, says deputy prosecutor",
+    date: "2026-09-25",
+    time: "12:17",
+    url: "https://www.ft.com/content/702d053a-0100-4160-9996-0b5d8502d512"
+  },
+  {
+    id: "35a3a327-bb57-4070-942f-5988be564072",
+    title: "BASF makes takeover approach for chemicals rival Evonik",
+    date: "2026-09-25",
+    time: "12:07",
+    url: "https://www.ft.com/content/35a3a327-bb57-4070-942f-5988be564072"
+  },
+  {
+    id: "7fbecb15-c396-49d2-8cab-1518809a7b2b",
+    title: "Russia targets Ukraine’s data centres",
+    date: "2026-09-25",
+    time: "12:00",
+    url: "https://www.ft.com/content/7fbecb15-c396-49d2-8cab-1518809a7b2b"
+  },
+  {
     id: "1477567d-64b0-431a-b707-e2a4f5a9f8dc",
     title: "US seizes bank accounts of payments group working for Tether’s and Bitfinex’s bank",
     date: "2026-09-25",
@@ -285,26 +306,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "23:15",
     url: "https://www.ft.com/content/3ab22092-5d60-457e-a88c-cf9062887ed1"
-  },
-  {
-    id: "91f6e99d-b953-4056-ae72-30464b87ab5c",
-    title: "FirstFT: Xi Jinping says US and China must ‘coexist in peace’ at White House summit",
-    date: "2026-09-24",
-    time: "22:33",
-    url: "https://www.ft.com/content/91f6e99d-b953-4056-ae72-30464b87ab5c"
-  },
-  {
-    id: "2a77e2f7-3c22-4082-8bb3-492675f46c77",
-    title: "OpenAI breach of Australian government linked to wider AI hacking campaign",
-    date: "2026-09-24",
-    time: "22:06",
-    url: "https://www.ft.com/content/2a77e2f7-3c22-4082-8bb3-492675f46c77"
-  },
-  {
-    id: "19b54cea-1fdc-40ba-b09b-d289b7f39295",
-    title: "Australia’s rival football giants kick off global growth push",
-    date: "2026-09-24",
-    time: "22:00",
-    url: "https://www.ft.com/content/19b54cea-1fdc-40ba-b09b-d289b7f39295"
   }
 ];
