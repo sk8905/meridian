@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-trumpxigreatmeeting-20260925",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Trump’s “great” meeting with Xi",
+    date: "2026-09-25",
+    time: "05:37",
+    summary: "Also: Can Bitcoin's rally last?",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-authoralert-point72locksup-20260924",
     publication: "Bloomberg",
     author: "Nishant Kumar",

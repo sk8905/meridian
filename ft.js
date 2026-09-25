@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c5af4151-2c14-481b-8145-f5ec1f43a3f4",
+    title: "Japanese government bond yields hit new high as global sell-off continues",
+    date: "2026-09-25",
+    time: "06:41",
+    url: "https://www.ft.com/content/c5af4151-2c14-481b-8145-f5ec1f43a3f4"
+  },
+  {
+    id: "b8817c5a-fc54-4add-bd5c-d1247729b95d",
+    title: "Bonds can keep falling",
+    date: "2026-09-25",
+    time: "06:30",
+    url: "https://www.ft.com/content/b8817c5a-fc54-4add-bd5c-d1247729b95d"
+  },
+  {
     id: "5ccabdf1-3b10-430b-b1a4-b3acddccfbf9",
     title: "Brussels warns capitals to tackle energy crisis or see far right take power",
     date: "2026-09-25",
@@ -285,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "18:16",
     url: "https://www.ft.com/content/68173e02-88e8-4819-9543-cff7d024c476"
-  },
-  {
-    id: "37224743-806c-4833-abc3-236ff1be4ddd",
-    title: "Russia’s $6.9bn sanctions evasion scheme",
-    date: "2026-09-24",
-    time: "18:00",
-    url: "https://www.ft.com/content/37224743-806c-4833-abc3-236ff1be4ddd"
-  },
-  {
-    id: "72d1df1f-cc71-4e17-a442-0a4201ba41aa",
-    title: "White House says it has restored access to banned press outlets",
-    date: "2026-09-24",
-    time: "17:57",
-    url: "https://www.ft.com/content/72d1df1f-cc71-4e17-a442-0a4201ba41aa"
-  },
-  {
-    id: "2d158978-0ec5-4fda-b0dc-f04d462c215d",
-    title: "City of London wins approval for skyscraper plan",
-    date: "2026-09-24",
-    time: "17:39",
-    url: "https://www.ft.com/content/2d158978-0ec5-4fda-b0dc-f04d462c215d"
   }
 ];
