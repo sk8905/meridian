@@ -42,6 +42,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/8c61f284-46d0-401c-bf05-ca5aeeae2e6d"
   },
   {
+    id: "fad8bcc7-6963-4d81-8aa4-f88869297cdb",
+    title: "Fitzcarraldo – inside the chicest publisher on earth",
+    date: "2026-09-25",
+    time: "09:30",
+    url: "https://www.ft.com/content/fad8bcc7-6963-4d81-8aa4-f88869297cdb"
+  },
+  {
     id: "0c5da9f2-f6aa-4514-910d-5337207e1233",
     title: "UAE halts Iranian flights over US sanctions",
     date: "2026-09-25",
@@ -98,18 +105,25 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/eb8cd27d-cffc-4d43-bf4e-7a46943a0f68"
   },
   {
-    id: "43bc246e-67c6-491a-992f-dc8791e5dcf0",
-    title: "The man who has been walking home since 1998",
-    date: "2026-09-25",
-    time: "05:00",
-    url: "https://www.ft.com/content/43bc246e-67c6-491a-992f-dc8791e5dcf0"
-  },
-  {
     id: "e67c93cc-9841-4720-b7c0-efa2d21990c8",
     title: "Innovative Lawyers: Europe",
     date: "2026-09-25",
     time: "05:04",
     url: "https://www.ft.com/content/e67c93cc-9841-4720-b7c0-efa2d21990c8"
+  },
+  {
+    id: "24c13fd3-5de5-4916-8300-ec3073027ff6",
+    title: "Xi Jinping says US and China must ‘coexist in peace’ at White House visit",
+    date: "2026-09-25",
+    time: "05:02",
+    url: "https://www.ft.com/content/24c13fd3-5de5-4916-8300-ec3073027ff6"
+  },
+  {
+    id: "43bc246e-67c6-491a-992f-dc8791e5dcf0",
+    title: "The man who has been walking home since 1998",
+    date: "2026-09-25",
+    time: "05:00",
+    url: "https://www.ft.com/content/43bc246e-67c6-491a-992f-dc8791e5dcf0"
   },
   {
     id: "e2658a67-32f7-4444-b0f1-e0e8eddd2d59",
@@ -285,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-24",
     time: "20:27",
     url: "https://www.ft.com/content/ad6d56fa-6a6e-43bd-8f12-205a3f94ac0e"
-  },
-  {
-    id: "2d87f8bf-d529-4997-90c5-393ef65d280c",
-    title: "US long-term borrowing costs touch highest level since 2004",
-    date: "2026-09-24",
-    time: "19:21",
-    url: "https://www.ft.com/content/2d87f8bf-d529-4997-90c5-393ef65d280c"
-  },
-  {
-    id: "979ae3ac-4623-4fe9-a771-43ce451a9e73",
-    title: "Global politics live: Benjamin Netanyahu tells UN Israel and US launched Iran war to ‘save civilisation’",
-    date: "2026-09-24",
-    time: "19:05",
-    url: "https://www.ft.com/content/979ae3ac-4623-4fe9-a771-43ce451a9e73"
-  },
-  {
-    id: "bdec4129-ccac-4149-aa53-90ddd50cb925",
-    title: "Goldman reaped more than $200mn in fees from hedge fund Situational Awareness",
-    date: "2026-09-24",
-    time: "19:00",
-    url: "https://www.ft.com/content/bdec4129-ccac-4149-aa53-90ddd50cb925"
-  },
+  }
 ];
