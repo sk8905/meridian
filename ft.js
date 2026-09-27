@@ -21,6 +21,139 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d9de4776-1fc9-4f2b-aaaf-9961c35d8acd",
+    title: "Corporate America embraces cheaper ‘open’ AI models",
+    date: "2026-09-27",
+    time: "18:00",
+    url: "https://www.ft.com/content/d9de4776-1fc9-4f2b-aaaf-9961c35d8acd"
+  },
+  {
+    id: "b15849ac-fa14-43cc-af96-fb9980158693",
+    title: "The real lesson from the Man City affair",
+    date: "2026-09-27",
+    time: "17:58",
+    url: "https://www.ft.com/content/b15849ac-fa14-43cc-af96-fb9980158693"
+  },
+  {
+    id: "875027a3-db29-40a6-b17c-fa97c30fd07b",
+    title: "Terrorism arrests made in ‘major incident’ near RAF Fairford",
+    date: "2026-09-27",
+    time: "17:47",
+    url: "https://www.ft.com/content/875027a3-db29-40a6-b17c-fa97c30fd07b"
+  },
+  {
+    id: "6c9db7fb-e213-43ca-b4d9-1e809dcfd39a",
+    title: "‘Hope again’: Burnham returns to Labour conference to sell his vision",
+    date: "2026-09-27",
+    time: "17:40",
+    url: "https://www.ft.com/content/6c9db7fb-e213-43ca-b4d9-1e809dcfd39a"
+  },
+  {
+    id: "c9957c9f-8622-4351-9380-9b725b70b1e7",
+    title: "Northern Ireland in tense stand-off as protests block Orange Order parade",
+    date: "2026-09-27",
+    time: "17:35",
+    url: "https://www.ft.com/content/c9957c9f-8622-4351-9380-9b725b70b1e7"
+  },
+  {
+    id: "c3bd247b-646f-4333-9250-da3d2c6e6c2c",
+    title: "Spain erupts in fury over housing after eviction of 87-year-old woman",
+    date: "2026-09-27",
+    time: "17:27",
+    url: "https://www.ft.com/content/c3bd247b-646f-4333-9250-da3d2c6e6c2c"
+  },
+  {
+    id: "267379ff-8491-478b-a10f-ad19a67df37c",
+    title: "Pay to play in the age of corporate migration",
+    date: "2026-09-27",
+    time: "16:00",
+    url: "https://www.ft.com/content/267379ff-8491-478b-a10f-ad19a67df37c"
+  },
+  {
+    id: "23cd91df-80c5-45c0-9175-d61b74404f12",
+    title: "Andy Burnham signals he will fight election on tax rises to fund social care reform",
+    date: "2026-09-27",
+    time: "14:02",
+    url: "https://www.ft.com/content/23cd91df-80c5-45c0-9175-d61b74404f12"
+  },
+  {
+    id: "aaf4c7d7-b4bc-4b5c-83b7-7f761d315b63",
+    title: "Swiss voters reject proposal to strengthen neutrality",
+    date: "2026-09-27",
+    time: "13:42",
+    url: "https://www.ft.com/content/aaf4c7d7-b4bc-4b5c-83b7-7f761d315b63"
+  },
+  {
+    id: "afb910e4-5425-4d3e-b0ef-c1d260f29945",
+    title: "The India shock: exporting workers to the world",
+    date: "2026-09-27",
+    time: "12:00",
+    url: "https://www.ft.com/content/afb910e4-5425-4d3e-b0ef-c1d260f29945"
+  },
+  {
+    id: "08fe7323-5a2f-4d46-ad64-132ce469b381",
+    title: "Will US jobs data add to pressure on Fed policymakers?",
+    date: "2026-09-27",
+    time: "12:00",
+    url: "https://www.ft.com/content/08fe7323-5a2f-4d46-ad64-132ce469b381"
+  },
+  {
+    id: "a1bff0d7-be5a-434f-8856-c45337b9449f",
+    title: "Maha split shows all is not well with Kennedy’s US health revolution",
+    date: "2026-09-27",
+    time: "11:00",
+    url: "https://www.ft.com/content/a1bff0d7-be5a-434f-8856-c45337b9449f"
+  },
+  {
+    id: "762c1f08-a1bf-4118-8296-52ed96d76fa8",
+    title: "The EU needs a clearer strategy for partners like Canada",
+    date: "2026-09-27",
+    time: "11:00",
+    url: "https://www.ft.com/content/762c1f08-a1bf-4118-8296-52ed96d76fa8"
+  },
+  {
+    id: "39eb5cb2-f73e-4c18-8357-f7378428c8e1",
+    title: "Investors pursue Dubai investment group over missing payments",
+    date: "2026-09-27",
+    time: "10:38",
+    url: "https://www.ft.com/content/39eb5cb2-f73e-4c18-8357-f7378428c8e1"
+  },
+  {
+    id: "a2c22bca-f50a-440d-82f8-1a373859770d",
+    title: "Value of old supertankers soars past new builds as market goes ‘bananas’",
+    date: "2026-09-27",
+    time: "05:00",
+    url: "https://www.ft.com/content/a2c22bca-f50a-440d-82f8-1a373859770d"
+  },
+  {
+    id: "b5707707-730e-40d3-9ff7-8ebfe27d5708",
+    title: "Big dreams and tiny revenue are the new norm for AI IPOs",
+    date: "2026-09-27",
+    time: "05:00",
+    url: "https://www.ft.com/content/b5707707-730e-40d3-9ff7-8ebfe27d5708"
+  },
+  {
+    id: "8cd07ef8-1578-4697-9f8b-d1a6f5b60883",
+    title: "The UK’s IMF bailout has things to teach us 50 years on",
+    date: "2026-09-27",
+    time: "05:00",
+    url: "https://www.ft.com/content/8cd07ef8-1578-4697-9f8b-d1a6f5b60883"
+  },
+  {
+    id: "474ced6c-b6ba-4d03-af41-bab5fbb6d7e9",
+    title: "Europe braces for LNG tug of war with Asia",
+    date: "2026-09-27",
+    time: "05:00",
+    url: "https://www.ft.com/content/474ced6c-b6ba-4d03-af41-bab5fbb6d7e9"
+  },
+  {
+    id: "f342efa7-96b0-4bb2-aa19-fae740d8c286",
+    title: "Private credit turmoil eases as investor withdrawals slow",
+    date: "2026-09-27",
+    time: "05:00",
+    url: "https://www.ft.com/content/f342efa7-96b0-4bb2-aa19-fae740d8c286"
+  },
+  {
     id: "44ea845f-7048-4c98-b061-c9df7983af16",
     title: "Yields up",
     date: "2026-09-25",
@@ -166,138 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "14:46",
     url: "https://www.ft.com/content/07a246f8-d81d-4b43-9aa3-16153fc0fac9"
-  },
-  {
-    id: "7c43f989-6902-4979-b36b-a6211930f4ce",
-    title: "Trump is not going to drop Canada",
-    date: "2026-09-25",
-    time: "14:00",
-    url: "https://www.ft.com/content/7c43f989-6902-4979-b36b-a6211930f4ce"
-  },
-  {
-    id: "a255d9e6-ae6f-4b30-9ca6-b694663f547c",
-    title: "Houthis promise not to target European ships",
-    date: "2026-09-25",
-    time: "13:47",
-    url: "https://www.ft.com/content/a255d9e6-ae6f-4b30-9ca6-b694663f547c"
-  },
-  {
-    id: "14aed3cb-492e-45c1-b217-869790b6130d",
-    title: "Bitget crypto exchange hit by $350mn hack",
-    date: "2026-09-25",
-    time: "13:46",
-    url: "https://www.ft.com/content/14aed3cb-492e-45c1-b217-869790b6130d"
-  },
-  {
-    id: "8f1030c3-9ad0-45b2-86bf-71d8dec27be4",
-    title: "Former US intelligence chief Avril Haines: ‘Trump trusts his gut more than the expertise’",
-    date: "2026-09-25",
-    time: "13:00",
-    url: "https://www.ft.com/content/8f1030c3-9ad0-45b2-86bf-71d8dec27be4"
-  },
-  {
-    id: "d0541f2b-f15c-4975-9c44-14f1dbd32b73",
-    title: "Will Burnham call a snap election?",
-    date: "2026-09-25",
-    time: "12:55",
-    url: "https://www.ft.com/content/d0541f2b-f15c-4975-9c44-14f1dbd32b73"
-  },
-  {
-    id: "702d053a-0100-4160-9996-0b5d8502d512",
-    title: "International Criminal Court is insulated against US sanctions, says deputy prosecutor",
-    date: "2026-09-25",
-    time: "12:17",
-    url: "https://www.ft.com/content/702d053a-0100-4160-9996-0b5d8502d512"
-  },
-  {
-    id: "35a3a327-bb57-4070-942f-5988be564072",
-    title: "BASF makes takeover approach for chemicals rival Evonik",
-    date: "2026-09-25",
-    time: "12:07",
-    url: "https://www.ft.com/content/35a3a327-bb57-4070-942f-5988be564072"
-  },
-  {
-    id: "91f6e99d-b953-4056-ae72-30464b87ab5c",
-    title: "FirstFT: The Xi-Trump finale",
-    date: "2026-09-25",
-    time: "11:01",
-    url: "https://www.ft.com/content/91f6e99d-b953-4056-ae72-30464b87ab5c"
-  },
-  {
-    id: "1477567d-64b0-431a-b707-e2a4f5a9f8dc",
-    title: "US seizes bank accounts of payments group working for Tether’s and Bitfinex’s bank",
-    date: "2026-09-25",
-    time: "10:58",
-    url: "https://www.ft.com/content/1477567d-64b0-431a-b707-e2a4f5a9f8dc"
-  },
-  {
-    id: "6f6c698a-e1eb-4ce0-b4b0-6c54cdd67850",
-    title: "Airbus offers divestments to secure Brussels backing for space merger",
-    date: "2026-09-25",
-    time: "10:25",
-    url: "https://www.ft.com/content/6f6c698a-e1eb-4ce0-b4b0-6c54cdd67850"
-  },
-  {
-    id: "bec22e6b-1267-4d9f-a192-60763a0797c3",
-    title: "Donald Trump’s US no longer a reliable ally, warns Belgium in leaked document",
-    date: "2026-09-25",
-    time: "10:10",
-    url: "https://www.ft.com/content/bec22e6b-1267-4d9f-a192-60763a0797c3"
-  },
-  {
-    id: "218f8e15-8c1e-4ed4-9d51-7879faca8e73",
-    title: "ArcelorMittal to shutter Ukraine plant after Russian strikes kill workers",
-    date: "2026-09-25",
-    time: "10:03",
-    url: "https://www.ft.com/content/218f8e15-8c1e-4ed4-9d51-7879faca8e73"
-  },
-  {
-    id: "067a98e2-4a72-49b2-ac7f-3897305650bd",
-    title: "The dangers of devolution dogma",
-    date: "2026-09-25",
-    time: "09:45",
-    url: "https://www.ft.com/content/067a98e2-4a72-49b2-ac7f-3897305650bd"
-  },
-  {
-    id: "8c61f284-46d0-401c-bf05-ca5aeeae2e6d",
-    title: "Poundland owner demands £30mn for chain it bought for less than £1",
-    date: "2026-09-25",
-    time: "09:36",
-    url: "https://www.ft.com/content/8c61f284-46d0-401c-bf05-ca5aeeae2e6d"
-  },
-  {
-    id: "fad8bcc7-6963-4d81-8aa4-f88869297cdb",
-    title: "Fitzcarraldo – inside the chicest publisher on earth",
-    date: "2026-09-25",
-    time: "09:30",
-    url: "https://www.ft.com/content/fad8bcc7-6963-4d81-8aa4-f88869297cdb"
-  },
-  {
-    id: "0c5da9f2-f6aa-4514-910d-5337207e1233",
-    title: "UAE halts Iranian flights over US sanctions",
-    date: "2026-09-25",
-    time: "09:11",
-    url: "https://www.ft.com/content/0c5da9f2-f6aa-4514-910d-5337207e1233"
-  },
-  {
-    id: "4d9a6492-bd8c-43ca-bca8-309aa8f43ab6",
-    title: "FTAV’s further reading",
-    date: "2026-09-25",
-    time: "08:38",
-    url: "https://www.ft.com/content/4d9a6492-bd8c-43ca-bca8-309aa8f43ab6"
-  },
-  {
-    id: "b8817c5a-fc54-4add-bd5c-d1247729b95d",
-    title: "Bonds can keep falling",
-    date: "2026-09-25",
-    time: "06:30",
-    url: "https://www.ft.com/content/b8817c5a-fc54-4add-bd5c-d1247729b95d"
-  },
-  {
-    id: "5ccabdf1-3b10-430b-b1a4-b3acddccfbf9",
-    title: "Brussels warns capitals to tackle energy crisis or see far right take power",
-    date: "2026-09-25",
-    time: "06:00",
-    url: "https://www.ft.com/content/5ccabdf1-3b10-430b-b1a4-b3acddccfbf9"
   }
 ];
