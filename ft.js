@@ -77,6 +77,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/267379ff-8491-478b-a10f-ad19a67df37c"
   },
   {
+    id: "1276c358-4b3b-453d-b774-27aae2ecc486",
+    title: "Milan Fashion Week seeks the fizz",
+    date: "2026-09-27",
+    time: "14:24",
+    url: "https://www.ft.com/content/1276c358-4b3b-453d-b774-27aae2ecc486"
+  },
+  {
     id: "23cd91df-80c5-45c0-9175-d61b74404f12",
     title: "Andy Burnham signals he will fight election on tax rises to fund social care reform",
     date: "2026-09-27",
@@ -293,11 +300,4 @@ export const FT_ITEMS = [
     time: "15:20",
     url: "https://www.ft.com/content/82933f2b-84ec-467f-9bd0-b36b41a849cd"
   },
-  {
-    id: "ad2f9563-7853-4a6a-b46c-fe6afeccbbc0",
-    title: "Private equity-backed Florida railway company Brightline files for bankruptcy",
-    date: "2026-09-25",
-    time: "14:55",
-    url: "https://www.ft.com/content/ad2f9563-7853-4a6a-b46c-fe6afeccbbc0"
-  }
 ];
