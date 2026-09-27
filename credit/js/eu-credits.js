@@ -178,6 +178,9 @@ export const EUR_CREDITS = [
   { name: "Rexel", sector: "Industrials", rating: "BB+", agency: "S&P", asOf: "2025-07-08", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3483175/" },
   { name: "Aggreko (Albion Holdco)", sector: "Energy & Utilities", rating: "BB-", agency: "S&P", asOf: "2025-05-13", jurisdiction: "United Kingdom", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101623864" },
   { name: "Trivium Packaging", sector: "Packaging", rating: "B", agency: "S&P", asOf: "2024-11-14", jurisdiction: "Netherlands", trend: "flat", source: "https://cbonds.com/news/3166305/" },
+  // —— Sector-sweep additions (2026-09-28).
+  { name: "CPI Property Group", sector: "Other", rating: "BB", agency: "S&P", asOf: "2026-04-10", jurisdiction: "Luxembourg", trend: "down", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3543973" },
+  { name: "Q-Park Holding I", sector: "Transport & Logistics", rating: "BB", agency: "S&P", asOf: "2025-12-10", jurisdiction: "Netherlands", trend: "up", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3492658" },
 ];
 
 // Group the roster by sector, in CREDIT_SECTORS order; unknown sectors fall to
