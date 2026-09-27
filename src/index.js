@@ -2641,10 +2641,7 @@ export const FEED_SOURCES = [
   { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },
   { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
-  // (The Guardian removed as a newswire source.)
-  // ShareCast — openly-readable UK equity/markets desk, SCOPED via Google News to the
-  // markets/macro/deal vocabulary so its single-stock RNS/broker-tip noise stays out.
-  { url: "https://news.google.com/rss/search?hl=en-GB&gl=GB&ceid=GB%3Aen&q=site%3Asharecast.com%20(market%20OR%20economy%20OR%20stocks%20OR%20FTSE%20OR%20%22Bank%20of%20England%22%20OR%20rate%20OR%20inflation%20OR%20bond%20OR%20gilt%20OR%20results%20OR%20takeover%20OR%20merger%20OR%20%22private%20equity%22%20OR%20%22hedge%20fund%22)%20when%3A2d", source: "Sharecast", region: "UK", cap: 5, gnews: true, filter: false },
+  // (The Guardian and Sharecast removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
   { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 4 },
   { url: "https://www.scmp.com/rss/92/feed", source: "South China Morning Post", region: "GEN", cap: 4 },
