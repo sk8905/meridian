@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "48b8a95c-ef76-48a5-8449-0c56865c7e01",
+    title: "Burnham’s high-stakes speech unlikely to produce a Clause IV moment",
+    date: "2026-09-27",
+    time: "18:15",
+    url: "https://www.ft.com/content/48b8a95c-ef76-48a5-8449-0c56865c7e01"
+  },
+  {
     id: "d9de4776-1fc9-4f2b-aaaf-9961c35d8acd",
     title: "Corporate America embraces cheaper ‘open’ AI models",
     date: "2026-09-27",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "14:55",
     url: "https://www.ft.com/content/ad2f9563-7853-4a6a-b46c-fe6afeccbbc0"
-  },
-  {
-    id: "07a246f8-d81d-4b43-9aa3-16153fc0fac9",
-    title: "Lawyers join microchips on the list of data centre must-haves",
-    date: "2026-09-25",
-    time: "14:46",
-    url: "https://www.ft.com/content/07a246f8-d81d-4b43-9aa3-16153fc0fac9"
   }
 ];
