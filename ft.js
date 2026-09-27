@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "57765bee-3ee6-4fa9-bea5-feaaf277a647",
+    title: "JCB’s Anthony Bamford names youngest child George as co-chair",
+    date: "2026-09-28",
+    time: "00:01",
+    url: "https://www.ft.com/content/57765bee-3ee6-4fa9-bea5-feaaf277a647"
+  },
+  {
+    id: "46c33655-91ec-4120-8d0f-f0062835aa1b",
+    title: "Healey to promise ‘new age of industrialisation’ with £6bn Royal Navy plan",
+    date: "2026-09-28",
+    time: "00:01",
+    url: "https://www.ft.com/content/46c33655-91ec-4120-8d0f-f0062835aa1b"
+  },
+  {
+    id: "878402a7-eeac-453e-b9db-92156107c5ce",
+    title: "UK to restart resettlement scheme, Shabana Mahmood to tell Labour conference",
+    date: "2026-09-27",
+    time: "22:43",
+    url: "https://www.ft.com/content/878402a7-eeac-453e-b9db-92156107c5ce"
+  },
+  {
+    id: "47019489-f00e-4c96-bb79-5c628c89b3a1",
+    title: "FirstFT: Trump asked Xi if China wanted to buy American weapons, US ambassador says",
+    date: "2026-09-27",
+    time: "22:25",
+    url: "https://www.ft.com/content/47019489-f00e-4c96-bb79-5c628c89b3a1"
+  },
+  {
     id: "04923b0e-a955-4cfa-bd05-cd828807f61d",
     title: "World’s worst-performing market slashes minimum price for stocks",
     date: "2026-09-27",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "16:53",
     url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d"
-  },
-  {
-    id: "c5af4151-2c14-481b-8145-f5ec1f43a3f4",
-    title: "US bond sell-off pushes long-term yields to new post-2004 high",
-    date: "2026-09-25",
-    time: "16:37",
-    url: "https://www.ft.com/content/c5af4151-2c14-481b-8145-f5ec1f43a3f4"
-  },
-  {
-    id: "7fbecb15-c396-49d2-8cab-1518809a7b2b",
-    title: "Russia targets Ukraine’s data centres",
-    date: "2026-09-25",
-    time: "16:19",
-    url: "https://www.ft.com/content/7fbecb15-c396-49d2-8cab-1518809a7b2b"
-  },
-  {
-    id: "df673db6-ffef-4c06-b2d1-b9b4f1e43869",
-    title: "FTAV’s Friday chart quiz",
-    date: "2026-09-25",
-    time: "16:11",
-    url: "https://www.ft.com/content/df673db6-ffef-4c06-b2d1-b9b4f1e43869"
-  },
-  {
-    id: "1cc67221-b54e-4ff9-a499-01209c7999d8",
-    title: "Pope makes rare address at France’s Élysée Palace",
-    date: "2026-09-25",
-    time: "15:53",
-    url: "https://www.ft.com/content/1cc67221-b54e-4ff9-a499-01209c7999d8"
   },
 ];
