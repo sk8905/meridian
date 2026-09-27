@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "04923b0e-a955-4cfa-bd05-cd828807f61d",
+    title: "World’s worst-performing market slashes minimum price for stocks",
+    date: "2026-09-27",
+    time: "22:00",
+    url: "https://www.ft.com/content/04923b0e-a955-4cfa-bd05-cd828807f61d"
+  },
+  {
+    id: "8b4690d4-7c02-48af-b117-56faf21c389d",
+    title: "Trump asked Xi if China wanted to buy American weapons, US envoy says",
+    date: "2026-09-27",
+    time: "21:31",
+    url: "https://www.ft.com/content/8b4690d4-7c02-48af-b117-56faf21c389d"
+  },
+  {
     id: "48b8a95c-ef76-48a5-8449-0c56865c7e01",
     title: "Burnham’s high-stakes speech unlikely to produce a Clause IV moment",
     date: "2026-09-27",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-25",
     time: "15:53",
     url: "https://www.ft.com/content/1cc67221-b54e-4ff9-a499-01209c7999d8"
-  },
-  {
-    id: "c0cffdfc-ad4b-48dc-9894-c1e8492962c7",
-    title: "The challenge for Burnham: words are no longer enough",
-    date: "2026-09-25",
-    time: "15:28",
-    url: "https://www.ft.com/content/c0cffdfc-ad4b-48dc-9894-c1e8492962c7"
-  },
-  {
-    id: "82933f2b-84ec-467f-9bd0-b36b41a849cd",
-    title: "UK graduates paying 50% more of university costs since 2012",
-    date: "2026-09-25",
-    time: "15:20",
-    url: "https://www.ft.com/content/82933f2b-84ec-467f-9bd0-b36b41a849cd"
   },
 ];
