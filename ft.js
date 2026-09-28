@@ -21,6 +21,48 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1bc39466-bd7c-4c42-a89b-fd81646705e2",
+    title: "Can the EU help to build a ‘hybrid defence’ against Russia?",
+    date: "2026-09-28",
+    time: "06:00",
+    url: "https://www.ft.com/content/1bc39466-bd7c-4c42-a89b-fd81646705e2"
+  },
+  {
+    id: "e2f33efb-f884-4ca9-bf4f-833964e7bf37",
+    title: "Goldman’s hedge fund fee bonanza",
+    date: "2026-09-28",
+    time: "06:00",
+    url: "https://www.ft.com/content/e2f33efb-f884-4ca9-bf4f-833964e7bf37"
+  },
+  {
+    id: "1a442c17-ef23-478b-8aed-1bca65cbb45f",
+    title: "The Bank of England’s balance sheet has already stopped shrinking",
+    date: "2026-09-28",
+    time: "06:00",
+    url: "https://www.ft.com/content/1a442c17-ef23-478b-8aed-1bca65cbb45f"
+  },
+  {
+    id: "47019489-f00e-4c96-bb79-5c628c89b3a1",
+    title: "FirstFT: EU weighs response to Russian hybrid attacks",
+    date: "2026-09-28",
+    time: "05:32",
+    url: "https://www.ft.com/content/47019489-f00e-4c96-bb79-5c628c89b3a1"
+  },
+  {
+    id: "d751ad99-531d-4990-9a4c-ee89a9fc1b2d",
+    title: "Oil price rise puts more pressure on government bonds",
+    date: "2026-09-28",
+    time: "05:31",
+    url: "https://www.ft.com/content/d751ad99-531d-4990-9a4c-ee89a9fc1b2d"
+  },
+  {
+    id: "c3cebf7d-43fd-4962-b4ec-b55bcbce4c2a",
+    title: "Analysts’ views: forecasters see further insurance increases in 2026",
+    date: "2026-09-28",
+    time: "05:30",
+    url: "https://www.ft.com/content/c3cebf7d-43fd-4962-b4ec-b55bcbce4c2a"
+  },
+  {
     id: "b1ba7dd2-3e3a-4944-b637-ff7db3b636e1",
     title: "US and China agree $60bn low tariff regime spanning foie gras to camels",
     date: "2026-09-28",
@@ -168,13 +210,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/878402a7-eeac-453e-b9db-92156107c5ce"
   },
   {
-    id: "47019489-f00e-4c96-bb79-5c628c89b3a1",
-    title: "FirstFT: Trump asked Xi if China wanted to buy American weapons, US ambassador says",
-    date: "2026-09-27",
-    time: "22:25",
-    url: "https://www.ft.com/content/47019489-f00e-4c96-bb79-5c628c89b3a1"
-  },
-  {
     id: "04923b0e-a955-4cfa-bd05-cd828807f61d",
     title: "World’s worst-performing market slashes minimum price for stocks",
     date: "2026-09-27",
@@ -278,26 +313,5 @@ export const FT_ITEMS = [
     date: "2026-09-27",
     time: "12:00",
     url: "https://www.ft.com/content/08fe7323-5a2f-4d46-ad64-132ce469b381"
-  },
-  {
-    id: "a1bff0d7-be5a-434f-8856-c45337b9449f",
-    title: "Maha split shows all is not well with Kennedy’s US health revolution",
-    date: "2026-09-27",
-    time: "11:00",
-    url: "https://www.ft.com/content/a1bff0d7-be5a-434f-8856-c45337b9449f"
-  },
-  {
-    id: "762c1f08-a1bf-4118-8296-52ed96d76fa8",
-    title: "The EU needs a clearer strategy for partners like Canada",
-    date: "2026-09-27",
-    time: "11:00",
-    url: "https://www.ft.com/content/762c1f08-a1bf-4118-8296-52ed96d76fa8"
-  },
-  {
-    id: "39eb5cb2-f73e-4c18-8357-f7378428c8e1",
-    title: "Investors pursue Dubai investment group over missing payments",
-    date: "2026-09-27",
-    time: "10:38",
-    url: "https://www.ft.com/content/39eb5cb2-f73e-4c18-8357-f7378428c8e1"
   },
 ];

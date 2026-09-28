@@ -44,6 +44,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-iranceasefire-20260928",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Iran stands by its ceasefire offer",
+    date: "2026-09-28",
+    time: "04:57",
+    summary: "Also: Fighting in Ethiopia shows no sign of stopping.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
+    id: "nl-bbg-pointsofreturn-bondroutsilverlining-20260928",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "The Bond Rout Has a Silver Lining",
+    date: "2026-09-28",
+    time: "04:26",
+    summary: "Bonds are good value.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-28/the-bond-rout-has-a-silver-lining-attractive-10-year-treasuries",
+  },
+  {
     id: "nl-bbg-authoralert-nipmcalmportadown-20260927",
     publication: "Bloomberg",
     author: "Jennifer Duggan",
