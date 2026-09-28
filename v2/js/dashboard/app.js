@@ -570,6 +570,9 @@ export function mount(host, ctx) {
     const G = GOVT_YIELDS; if (!G || !(G.regions || []).length) return "";
     const rows = G.regions.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
     if (!rows.length) return "";
+    // Live where available: the /api/govyields feed carries the current level per
+    // tenor (US, from FRED daily) — use it, else the sourced GOVT_YIELDS snapshot.
+    const lvl = (r, k) => { const t = _gyLive && _gyLive[r.country] && _gyLive[r.country][k]; return (t && t.v != null) ? t.v : r[k]; };
     // Heatmap: shade each level cell by how far it sits from the ~2% policy-target
     // yield — GREEN below 2%, RED above — with intensity scaled per tenor by the
     // widest deviation in that column, so at-target reads neutral and the high-yield
@@ -577,7 +580,7 @@ export function mount(host, ctx) {
     const TARGET = 2;
     const maxDev = {};
     YC_TENORS.forEach(([k]) => {
-      const devs = rows.map((r) => r[k]).filter((v) => v != null).map((v) => Math.abs(v - TARGET));
+      const devs = rows.map((r) => lvl(r, k)).filter((v) => v != null).map((v) => Math.abs(v - TARGET));
       maxDev[k] = devs.length ? Math.max(0.25, ...devs) : null;
     });
     const heat = (v, k) => {
@@ -589,7 +592,7 @@ export function mount(host, ctx) {
     };
     const rowFor = (r) => `<tr><td class="dsh-nm">`
       + `${r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country)}</td>`
-      + `${YC_TENORS.map(([k]) => `<td class="dsh-r dsh-fl"${heat(r[k], k)}>${r[k] != null ? esc(r[k].toFixed(2)) : "—"}</td>`).join("")}</tr>`;
+      + `${YC_TENORS.map(([k]) => { const v = lvl(r, k); return `<td class="dsh-r dsh-fl"${heat(v, k)}>${v != null ? esc(v.toFixed(2)) : "—"}</td>`; }).join("")}</tr>`;
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`
       + `<p class="dsh-fl-note">Current yield by tenor, shaded vs a 2% target — <span class="dsh-fl-pos">green below</span> · <span class="dsh-fl-neg">red above</span>.</p>`;
   }
@@ -790,6 +793,8 @@ export function mount(host, ctx) {
       _gyLive = {}; arr.forEach((x) => { if (x && x.country) _gyLive[x.country] = x; });
       const box = host.querySelector("#dsh-yld");
       if (box) box.innerHTML = govtYieldsHeatHTML();
+      const curve = host.querySelector("#dsh-yc-tbl");        // levels table shares the live feed
+      if (curve) curve.innerHTML = worldYieldCurveHTML();
     } catch { /* keep the sourced snapshot */ }
   }
   // "Why it moved" for rates — mirrors the Equities Key-moments box, reading the
@@ -840,7 +845,7 @@ export function mount(host, ctx) {
     const km = fixedKeyMomentsBody();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <h3 class="dsh-term-lbl">Sovereign</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) <span class="dsh-live">live</span> ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll" id="dsh-yc-tbl">${worldYieldCurveHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h dsh-h-sel">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span>${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       <h3 class="dsh-term-lbl">Corporate &amp; curve</h3>
       <section class="dsh-card"><h3 class="dsh-h">Curve shape <span class="dsh-n">2s10s · 2s30s</span></h3>${curveShapeHTML()}</section>
