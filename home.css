@@ -273,8 +273,8 @@
       border:1px solid var(--line); border-radius:999px; background:var(--surface);
       font-size:var(--fs-body); line-height:1.35; white-space:nowrap; text-decoration:none; color:inherit; }
     a.gl-tk:hover { border-color:var(--brand-2); box-shadow:0 0 0 1px var(--brand-2); }
-    .gl-tk-l { font-weight:700; color:var(--ink); }
-    .gl-tk-c { font-weight:600; font-variant-numeric:tabular-nums; }
+    .gl-tk-l { font-weight:400; color:var(--ink); }
+    .gl-tk-c { font-weight:400; font-variant-numeric:tabular-nums; }
     .gl-tk.up .gl-tk-c { color:var(--t-up); } .gl-tk.down .gl-tk-c { color:var(--t-down); } .gl-tk.flat .gl-tk-c { color:var(--muted); }
     /* Chevron toggle at the end of each one-liner (both breakpoints). */
     .gl-tk-toggle { display:inline-flex; align-items:center; justify-content:center;
@@ -294,14 +294,14 @@
       border-left:1px solid var(--line); color:inherit; text-decoration:none; }
     .rate-tile:nth-child(8n+1) { border-left:none; }
     .rate-label { text-transform:uppercase; letter-spacing:.4px; font-size:var(--fs-body); color:var(--muted); white-space:nowrap; }
-    .rate-val { font-weight:700; font-size:var(--fs-title); color:var(--ink); line-height:1.2; font-variant-numeric:tabular-nums; }
-    .rate-chg { font-size:var(--fs-body); font-weight:600; font-variant-numeric:tabular-nums; }
+    .rate-val { font-weight:400; font-size:var(--fs-title); color:var(--ink); line-height:1.2; font-variant-numeric:tabular-nums; }
+    .rate-chg { font-size:var(--fs-body); font-weight:400; font-variant-numeric:tabular-nums; }
     .rate-chg.up { color:var(--t-up); } .rate-chg.down { color:var(--t-down); } .rate-chg.flat { color:var(--muted); }
     /* Daily change + implied-open bracket share one inline row (bracket sits to
        the right of the change, not on a new line). */
     .rate-chg-line { display:inline-flex; align-items:baseline; flex-wrap:wrap; gap:.3rem; }
     /* Futures-implied open shown beside a closed market's (stale) daily change. */
-    .mkt-fut { font-size:var(--fs-body); font-weight:600; opacity:.85; font-variant-numeric:tabular-nums; }
+    .mkt-fut { font-size:var(--fs-body); font-weight:400; opacity:.85; font-variant-numeric:tabular-nums; }
     .mkt-fut.up { color:var(--t-up); } .mkt-fut.down { color:var(--t-down); } .mkt-fut.flat { color:var(--muted); }
     .mkt-dot { display:inline-block; width:4px; height:4px; border-radius:50%; vertical-align:middle; margin:0 0 .05rem .1rem; opacity:.8; }
     .mkt-dot.open { background:var(--t-up); }
@@ -409,8 +409,8 @@
     .g-ind:nth-child(3n+1) { border-left:none; }
     .g-ind:nth-child(n+4) { border-top:1px solid var(--line); }
     .g-ind-name { text-transform:uppercase; letter-spacing:.4px; font-size:var(--fs-micro); color:var(--muted); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .g-ind-val { font-weight:700; font-size:var(--fs-head); color:var(--ink); line-height:1.2; font-variant-numeric:tabular-nums; }
-    .g-ind-chg { font-size:var(--fs-micro); font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    .g-ind-val { font-weight:400; font-size:var(--fs-head); color:var(--ink); line-height:1.2; font-variant-numeric:tabular-nums; }
+    .g-ind-chg { font-size:var(--fs-micro); font-weight:400; white-space:nowrap; font-variant-numeric:tabular-nums; }
     .g-ind-chg.up { color:var(--t-up); } .g-ind-chg.down { color:var(--t-down); } .g-ind-chg.flat { color:var(--muted); }
     /* In the iPhone dropdown: stack Markets/Rates (panel is narrow) — indicators stay 3-col. */
     .g-mkt-panel .g-mr, .na-rails .g-mr { grid-template-columns:1fr; }
@@ -425,7 +425,7 @@
     /* Currency labels match the economic-indicator country headers (brand-blue). */
     .g-fx-tbl thead th { color:var(--brand-2); font-weight:800; font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.05em; }
     .g-fx-tbl tbody th { text-align:left; color:var(--brand-2); font-weight:800; font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.05em; }
-    .g-fx-tbl td { color:var(--ink); font-weight:700; padding:0; }
+    .g-fx-tbl td { color:var(--ink); font-weight:400; padding:0; }
     .g-fx-tbl td.g-fx-diag { color:var(--line); font-weight:400; padding:.3rem .4rem; }
     .g-fx-tbl th:first-child { width:1.5rem; }
     /* Seamless internal dividers, exactly like the markets/rates tile grid. */
@@ -444,7 +444,7 @@
     a.g-snap-blk:hover { background:rgba(120,130,150,.06); }
     .g-snap-h { display:flex; align-items:baseline; justify-content:space-between; gap:.5rem; margin-bottom:.1rem; }
     .g-snap-t { font-size:var(--fs-body); font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); white-space:nowrap; }
-    .g-snap-cap { font-size:var(--fs-body); font-weight:700; color:var(--ink); text-align:right; line-height:1.25; }
+    .g-snap-cap { font-size:var(--fs-body); font-weight:400; color:var(--ink); text-align:right; line-height:1.25; }
     /* Header row (Policy rate | Next | Forecast) and the data rows share one grid,
        so the column titles sit inline with the block header and above their
        columns. Rate / Next / Forecast get equal thirds and spread left/centre/right. */
@@ -455,15 +455,15 @@
     .g-snap-polh, .g-snap-colh { padding-bottom:.22rem; }
     .g-snap-colh-c { text-align:center; }
     .g-snap-colh-r { text-align:right; }
-    .g-snap-cc { color:var(--muted); font-weight:700; font-size:var(--fs-body); }
-    .g-snap-pv { font-weight:700; color:var(--ink); white-space:nowrap; font-variant-numeric:tabular-nums; }
-    .g-snap-nx { color:var(--ink); font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums; text-align:center; min-width:0; overflow:hidden; text-overflow:ellipsis; }
+    .g-snap-cc { color:var(--muted); font-weight:400; font-size:var(--fs-body); }
+    .g-snap-pv { font-weight:400; color:var(--ink); white-space:nowrap; font-variant-numeric:tabular-nums; }
+    .g-snap-nx { color:var(--ink); font-weight:400; white-space:nowrap; font-variant-numeric:tabular-nums; text-align:center; min-width:0; overflow:hidden; text-overflow:ellipsis; }
     .g-snap-ps { min-width:0; font-size:var(--fs-body); text-align:right; white-space:nowrap;
       display:inline-flex; align-items:baseline; justify-content:flex-end; gap:.32rem; }
-    .g-snap-fc { color:var(--ink); font-weight:700; }
+    .g-snap-fc { color:var(--ink); font-weight:400; }
     /* Trending mood beside the forecast (hawkish / dovish / neutral) — plain
        muted text, e.g. "Hold · Hawkish". */
-    .g-snap-mood { color:var(--muted); font-weight:600; }
+    .g-snap-mood { color:var(--muted); font-weight:400; }
     /* Scale end-labels sit inline either side of the gauge (not below it). */
     .g-snap-meter { display:flex; align-items:center; gap:.5rem; margin:.1rem 0 0; }
     .g-snap-end { flex:0 0 auto; font-size:var(--fs-micro); color:var(--muted); white-space:nowrap; }
@@ -808,7 +808,7 @@
        Manager wire on the right. The left rail and both right rails span both rows
        so they stay full-height. */
     .tui .g-layout{ display:grid; grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 304px 320px;
-      grid-template-rows:minmax(0,3fr) minmax(0,7fr);   /* top row (briefing + chart) ≈ 30% of the height */
+      grid-template-rows:minmax(0,1fr) minmax(0,3fr);   /* top row (briefing + chart) = 25%; wire + reading pane = 75% */
       grid-template-areas:"side brief hero sidex side2" "side feed mgr sidex side2";
       gap:0; margin:0; align-items:start; }
     .tui .g-side{ grid-area:side; display:block; border-right:1px solid var(--t-grid2); }
@@ -838,7 +838,7 @@
     .tui .g-hero-tk-nm{ font-size:var(--fs-body); font-weight:600; color:var(--t-faint); }
     .tui .g-hero-tk.is-on .g-hero-tk-nm{ color:var(--t-ink); }
     .tui .g-hero-tk:hover .g-hero-tk-nm{ color:var(--t-dim); }
-    .tui .g-hero-tk-pct{ font-size:var(--fs-body); font-weight:700; font-variant-numeric:tabular-nums; margin-left:6px; }
+    .tui .g-hero-tk-pct{ font-size:var(--fs-body); font-weight:400; font-variant-numeric:tabular-nums; margin-left:6px; }
     .tui .g-hero-tk-pct.up{ color:var(--t-up); } .tui .g-hero-tk-pct.down{ color:var(--t-down); }
     /* Duration toggle: its own row below the securities, right-aligned. */
     /* Range selector — the Google-Finance style: labels spread evenly across the
@@ -1047,7 +1047,7 @@
       .tui .g-pred-list .g-pred-row{ display:flex; align-items:flex-start; gap:10px; }
       .tui .g-pred-main{ flex:1 1 auto; min-width:0; font-size:var(--fs-micro); }
       .tui .g-pred-nums{ flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-end; gap:1px; }
-      .tui .g-pred-odds{ font-family:var(--t-mono); font-variant-numeric:tabular-nums; font-size:var(--fs-micro); font-weight:700; color:var(--t-ink); }
+      .tui .g-pred-odds{ font-family:var(--t-mono); font-variant-numeric:tabular-nums; font-size:var(--fs-micro); font-weight:400; color:var(--t-ink); }
       .tui .g-pred-chg{ font-family:var(--t-mono); font-variant-numeric:tabular-nums; font-size:var(--fs-micro); }
       .tui .g-pred-chg.up{ color:var(--t-up); } .tui .g-pred-chg.down{ color:var(--t-down); } .tui .g-pred-chg.flat{ color:var(--t-faint); }
       .tui .g-feed-wrap{ height:100%; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
@@ -1269,7 +1269,7 @@
     .g-earn-row{ padding:6px 12px; border-bottom:1px solid var(--t-grid); }
     .g-earn-r1{ display:flex; align-items:baseline; gap:.35rem; }
     .g-earn-date{ flex:0 0 auto; font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-mut); font-variant-numeric:tabular-nums; }
-    .g-earn-tkr{ flex:0 0 auto; font-weight:700; font-size:var(--fs-body); color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
+    .g-earn-tkr{ flex:0 0 auto; font-weight:400; font-size:var(--fs-body); color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .g-earn-nm{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:var(--fs-body); color:var(--t-mut); }
     .g-earn-when{ flex:0 0 auto; font-size:var(--fs-micro); font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--t-dim);
       border:1px solid var(--t-grid2); border-radius:0; padding:0 .28rem; }
