@@ -1004,7 +1004,7 @@ export const NEWS = {
   us: [
     { title: "US Stock Market Today: S&P 500 Futures Rise As Jobs Data Jitters Build", source: "Yahoo Finance", date: "2026-09-28", url: "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080713612.html" },
     { title: "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait", source: "CNBC", date: "2026-09-28", url: "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html" },
-    { title: "Stock Market Today: Dow, S&P Live Updates for September 28", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-27/stock-market-today-dow-s-p-live-updates" },
+    { title: "Stock Market Today (Sept. 28, 2026): Dow futures slip amid U.S.-Iran tensions, rising oil prices", source: "TheStreet", date: "2026-09-28", time: "07:45", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-28-2026" },
     { title: "Iran Says Won't Soften Demands After Trump Rejects Hormuz Offer", source: "Bloomberg", date: "2026-09-27", url: "https://www.bloomberg.com/news/articles/2026-09-27/iran-says-won-t-soften-demands-after-trump-rejects-hormuz-offer" },
     { title: "Jobs report, inflation data to test US rate path, economic strength", source: "Reuters (via Investing.com)", date: "2026-09-25", url: "https://www.investing.com/news/economy-news/jobs-report-inflation-data-to-test-us-rate-path-economic-strength-4918909" },
   ],
