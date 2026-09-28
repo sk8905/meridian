@@ -40,9 +40,21 @@ export const PUBLISHERS = {
   "the42.ie": "The 42",
   "equitypartner.substack.com": "Equity Partner",
   "go.reuters.com": "Reuters",
+  "mail.thelawyer.com": "The Lawyer",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-thelawyer-premierleagueimpossible-20260928",
+    publication: "The Lawyer",
+    author: "Christian Smith",
+    series: "News Daily",
+    title: "The Premier League's impossible predicament",
+    date: "2026-09-28",
+    time: "09:18",
+    summary: "As the dust settles on the Man City tribunal, the Premier League and its lawyers must choose what to advocate for.",
+    url: "https://www.thelawyer.com/latest-news/",
+  },
   {
     id: "nl-nonbillable-mishconto500m-20260928",
     publication: "Non-Billable",
@@ -482,16 +494,5 @@ export const NEWSLETTERS = [
     time: "09:06",
     summary: "OpenAI launches Astra for Law and teams up with Latham, Ropes & Gray, Sullivan & Cromwell, Cooley and Wachtell as Big Tech's race into legal AI intensifies.",
     url: "https://non-billable.beehiiv.com/p/draft-ad28",
-  },
-  {
-    id: "nl-businesspost-investorscaughtnewcrisis-20260921",
-    publication: "Business Post",
-    author: null,
-    series: "CRE",
-    title: "Investors caught in new crisis",
-    date: "2026-09-21",
-    time: "08:00",
-    summary: "A series of housing reports published last week suggest Ireland has moved from a crisis of permissions to a crisis of delivery, as Colm Lauder's analysis of what that means for investors leads this week's newsletter.",
-    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/syThGIPZLTRTSlElkyuvNA",
   },
 ];

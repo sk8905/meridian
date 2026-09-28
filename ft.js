@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "f4e078f7-4aab-43f5-8eb5-2dbd7142a752",
+    title: "Northern Ireland’s political parties agree on one thing: £1.5bn is not enough",
+    date: "2026-09-28",
+    time: "10:00",
+    url: "https://www.ft.com/content/f4e078f7-4aab-43f5-8eb5-2dbd7142a752"
+  },
+  {
+    id: "571a3103-ec01-464b-ab39-0c0da58d9524",
+    title: "Air base witness who alerted police only had ‘partial picture’, says Streeting",
+    date: "2026-09-28",
+    time: "09:42",
+    url: "https://www.ft.com/content/571a3103-ec01-464b-ab39-0c0da58d9524"
+  },
+  {
+    id: "6ad5a550-adb6-4c56-85ec-2f2bacff059b",
+    title: "A faintly hopeful mood at Labour conference",
+    date: "2026-09-28",
+    time: "09:30",
+    url: "https://www.ft.com/content/6ad5a550-adb6-4c56-85ec-2f2bacff059b"
+  },
+  {
+    id: "8a45576f-ff89-449c-82e5-6c9976e91537",
+    title: "Seoul accuses Ukraine of violating secrecy pact on North Korean soldiers",
+    date: "2026-09-28",
+    time: "09:18",
+    url: "https://www.ft.com/content/8a45576f-ff89-449c-82e5-6c9976e91537"
+  },
+  {
     id: "964a6d85-a6d9-4017-90ef-30ffcd8d7f8d",
     title: "Shares in UK housebuilders surge on new Help to Buy scheme",
     date: "2026-09-28",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-27",
     time: "18:00",
     url: "https://www.ft.com/content/d9de4776-1fc9-4f2b-aaaf-9961c35d8acd"
-  },
-  {
-    id: "b15849ac-fa14-43cc-af96-fb9980158693",
-    title: "The real lesson from the Man City affair",
-    date: "2026-09-27",
-    time: "17:58",
-    url: "https://www.ft.com/content/b15849ac-fa14-43cc-af96-fb9980158693"
-  },
-  {
-    id: "875027a3-db29-40a6-b17c-fa97c30fd07b",
-    title: "Terrorism arrests made in ‘major incident’ near RAF Fairford",
-    date: "2026-09-27",
-    time: "17:47",
-    url: "https://www.ft.com/content/875027a3-db29-40a6-b17c-fa97c30fd07b"
-  },
-  {
-    id: "6c9db7fb-e213-43ca-b4d9-1e809dcfd39a",
-    title: "‘Hope again’: Burnham returns to Labour conference to sell his vision",
-    date: "2026-09-27",
-    time: "17:40",
-    url: "https://www.ft.com/content/6c9db7fb-e213-43ca-b4d9-1e809dcfd39a"
-  },
-  {
-    id: "c9957c9f-8622-4351-9380-9b725b70b1e7",
-    title: "Northern Ireland in tense stand-off as protests block Orange Order parade",
-    date: "2026-09-27",
-    time: "17:35",
-    url: "https://www.ft.com/content/c9957c9f-8622-4351-9380-9b725b70b1e7"
   },
 ];
