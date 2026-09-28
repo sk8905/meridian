@@ -570,24 +570,28 @@ export function mount(host, ctx) {
     const G = GOVT_YIELDS; if (!G || !(G.regions || []).length) return "";
     const rows = G.regions.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
     if (!rows.length) return "";
-    // Heatmap: shade each level cell by its yield within that tenor's range across
-    // countries (warmer = higher yield), so the EM/DM spread and the high-yield
-    // outliers read at a glance — the same colour-mix treatment as the change table.
-    const ext = {};
+    // Heatmap: shade each level cell by how far it sits from the ~2% policy-target
+    // yield — GREEN below 2%, RED above — with intensity scaled per tenor by the
+    // widest deviation in that column, so at-target reads neutral and the high-yield
+    // outliers (Brazil, India) and the low-yield havens (Switzerland) both stand out.
+    const TARGET = 2;
+    const maxDev = {};
     YC_TENORS.forEach(([k]) => {
-      const vals = rows.map((r) => r[k]).filter((v) => v != null);
-      ext[k] = vals.length ? { min: Math.min(...vals), max: Math.max(...vals) } : null;
+      const devs = rows.map((r) => r[k]).filter((v) => v != null).map((v) => Math.abs(v - TARGET));
+      maxDev[k] = devs.length ? Math.max(0.25, ...devs) : null;
     });
     const heat = (v, k) => {
-      const e = ext[k]; if (v == null || !e || e.max === e.min) return "";
-      const a = ((v - e.min) / (e.max - e.min)) * 0.6 + 0.06;
-      return ` style="background:color-mix(in srgb, var(--t-crd) ${(a * 100).toFixed(1)}%, transparent)"`;
+      const md = maxDev[k]; if (v == null || !md) return "";
+      const dev = v - TARGET;
+      if (Math.abs(dev) < 0.03) return "";                       // ~at target → no shade
+      const a = (Math.abs(dev) / md) * 0.6 + 0.08;
+      return ` style="background:color-mix(in srgb, var(--t-${dev < 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`;
     };
     const rowFor = (r) => `<tr><td class="dsh-nm">`
       + `${r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country)}</td>`
       + `${YC_TENORS.map(([k]) => `<td class="dsh-r dsh-fl"${heat(r[k], k)}>${r[k] != null ? esc(r[k].toFixed(2)) : "—"}</td>`).join("")}</tr>`;
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note">Current yield by tenor — <span class="dsh-fl-neg">shaded warmer where the yield is higher</span> within each column.</p>`;
+      + `<p class="dsh-fl-note">Current yield by tenor, shaded vs a 2% target — <span class="dsh-fl-pos">green below</span> · <span class="dsh-fl-neg">red above</span>.</p>`;
   }
   // Embedded macro news wire — the desk's US + UK headlines, linked to source.
   function macroNewsHTML() {
@@ -836,8 +840,8 @@ export function mount(host, ctx) {
     const km = fixedKeyMomentsBody();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <h3 class="dsh-term-lbl">Sovereign</h3>
-      <section class="dsh-card"><h3 class="dsh-h dsh-h-sel">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span>${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h dsh-h-sel">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span>${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       <h3 class="dsh-term-lbl">Corporate &amp; curve</h3>
       <section class="dsh-card"><h3 class="dsh-h">Curve shape <span class="dsh-n">2s10s · 2s30s</span></h3>${curveShapeHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>`;

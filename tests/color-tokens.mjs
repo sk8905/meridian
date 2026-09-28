@@ -234,7 +234,8 @@ check(/l\.name\.toLowerCase\(\)\.includes\(f\.q\.toLowerCase\(\)\) \|\| \(l\.hq 
   "v2/js/credit/app.js viewLps() guards a null l.hq before .toLowerCase()");
 
 // R9 — the Dashboard heatmap cells (sector flows, world indices, govt-yield
-// change) must theme-adapt via color-mix(var(--t-up)/var(--t-down)), the same
+// change, and the sovereign yield-curve levels vs the 2% target) must theme-adapt
+// via color-mix(var(--t-up)/var(--t-down)), the same
 // pattern used by the FX-matrix and prediction-market heat helpers
 // (home/glance.js, nav-actions.js). They previously hardcoded the DARK-theme
 // hex of --t-up/--t-down (63,192,141 / 242,109,132) as a raw rgba() triplet,
@@ -242,7 +243,7 @@ check(/l\.name\.toLowerCase\(\)\.includes\(f\.q\.toLowerCase\(\)\) \|\| \(l\.hq 
 // values) — a silent light-mode-only colour bug.
 {
   const heatMatches = [...dashboardApp.matchAll(/style="background:color-mix\(in srgb, var\(--t-\$\{\w+ ?[<>=]+ ?0 \? "up" : "down"\}\)/g)];
-  check(heatMatches.length === 3, `v2/js/dashboard/app.js all 3 heat() helpers (sector flows, world indices, govt yields) theme-adapt via color-mix(var(--t-up/--t-down)) (found ${heatMatches.length})`);
+  check(heatMatches.length === 4, `v2/js/dashboard/app.js all 4 heat() helpers (sector flows, world indices, govt-yield change, yield-curve levels) theme-adapt via color-mix(var(--t-up/--t-down)) (found ${heatMatches.length})`);
   check(!/63,192,141|242,109,132/.test(dashboardApp),
     "v2/js/dashboard/app.js heat cells no longer hardcode the dark-theme --t-up/--t-down RGB values");
 }
