@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "533fc709-72f8-44bb-bd0d-c52bb2fb8886",
+    title: "Russia’s escalating hybrid campaign against Europe",
+    date: "2026-09-28",
+    time: "18:04",
+    url: "https://www.ft.com/content/533fc709-72f8-44bb-bd0d-c52bb2fb8886"
+  },
+  {
+    id: "2194d34f-a57e-4ace-b2b3-d78a7ddd1281",
+    title: "David Zervos, Scott Bessent’s new adviser, has opinions",
+    date: "2026-09-28",
+    time: "17:56",
+    url: "https://www.ft.com/content/2194d34f-a57e-4ace-b2b3-d78a7ddd1281"
+  },
+  {
+    id: "878402a7-eeac-453e-b9db-92156107c5ce",
+    title: "UK to restart resettlement scheme, Shabana Mahmood tells Labour conference",
+    date: "2026-09-28",
+    time: "17:46",
+    url: "https://www.ft.com/content/878402a7-eeac-453e-b9db-92156107c5ce"
+  },
+  {
+    id: "49bff877-ae51-481d-8223-5c0d04f4ba87",
+    title: "Erdoğan holds rare meeting with Germany’s potential next leader",
+    date: "2026-09-28",
+    time: "17:14",
+    url: "https://www.ft.com/content/49bff877-ae51-481d-8223-5c0d04f4ba87"
+  },
+  {
     id: "8840071d-3867-45e2-bf25-ce24655e69ba",
     title: "Blair-era money is ‘not there now’, Healey warns Labour",
     date: "2026-09-28",
@@ -271,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "06:00",
     url: "https://www.ft.com/content/e2f33efb-f884-4ca9-bf4f-833964e7bf37"
-  },
-  {
-    id: "1a442c17-ef23-478b-8aed-1bca65cbb45f",
-    title: "The Bank of England’s balance sheet has already stopped shrinking",
-    date: "2026-09-28",
-    time: "06:00",
-    url: "https://www.ft.com/content/1a442c17-ef23-478b-8aed-1bca65cbb45f"
   },
 ];
