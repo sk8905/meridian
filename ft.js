@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7c6d87b1-d7d9-49c3-b842-2600928fba38",
+    title: "US Treasury threatens crackdown on Wall Street tax-avoidance strategies",
+    date: "2026-09-28",
+    time: "23:00",
+    url: "https://www.ft.com/content/7c6d87b1-d7d9-49c3-b842-2600928fba38"
+  },
+  {
+    id: "51c0928d-019b-4a1f-9c3a-1c9a2174f760",
+    title: "Burnham vows to break with ‘politics as usual’ by tackling UK’s biggest issues",
+    date: "2026-09-28",
+    time: "22:30",
+    url: "https://www.ft.com/content/51c0928d-019b-4a1f-9c3a-1c9a2174f760"
+  },
+  {
+    id: "0e851fbb-f148-46e4-906f-390b38b62a15",
+    title: "FirstFT: Seoul accuses Ukraine of violating secrecy agreement on North Korean soldiers",
+    date: "2026-09-28",
+    time: "22:26",
+    url: "https://www.ft.com/content/0e851fbb-f148-46e4-906f-390b38b62a15"
+  },
+  {
     id: "ffa65213-3178-454c-9d7d-c8ae8d64124f",
     title: "HSBC moves to bolster Hang Seng by cleaning up balance sheet",
     date: "2026-09-28",
@@ -61,13 +82,6 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "20:04",
     url: "https://www.ft.com/content/229f0173-ae1c-4eaa-8edb-8a4268572e28"
-  },
-  {
-    id: "00d2cfea-362f-4260-8d7f-1e5a20a3a1ea",
-    title: "La Vestale should be a revelation. The Berlin Staatsoper’s season-opener fails to convince",
-    date: "2026-09-28",
-    time: "17:00",
-    url: "https://www.ft.com/content/00d2cfea-362f-4260-8d7f-1e5a20a3a1ea"
   },
   {
     id: "f261c9cd-7169-4d16-97fc-9859099ce0f8",
@@ -138,6 +152,13 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "17:06",
     url: "https://www.ft.com/content/8840071d-3867-45e2-bf25-ce24655e69ba"
+  },
+  {
+    id: "00d2cfea-362f-4260-8d7f-1e5a20a3a1ea",
+    title: "La Vestale should be a revelation. The Berlin Staatsoper’s season-opener fails to convince",
+    date: "2026-09-28",
+    time: "17:00",
+    url: "https://www.ft.com/content/00d2cfea-362f-4260-8d7f-1e5a20a3a1ea"
   },
   {
     id: "fbe0a48f-4d33-42eb-8d2c-79f662c88678",
@@ -278,75 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "11:08",
     url: "https://www.ft.com/content/13051aaf-3e1e-41ff-9e0d-b48ff9a0249e"
-  },
-  {
-    id: "b6be8bb9-a0df-4e3d-ab93-57b1aa65aa95",
-    title: "Ukraine airlifts aid to Russian-occupied city",
-    date: "2026-09-28",
-    time: "11:04",
-    url: "https://www.ft.com/content/b6be8bb9-a0df-4e3d-ab93-57b1aa65aa95"
-  },
-  {
-    id: "7761f1ee-0310-4f8d-bac1-f3e5f2354d45",
-    title: "Labour conference live: John Healey to give first party speech as UK chancellor",
-    date: "2026-09-28",
-    time: "11:04",
-    url: "https://www.ft.com/content/7761f1ee-0310-4f8d-bac1-f3e5f2354d45"
-  },
-  {
-    id: "77d453cb-f399-4c8e-b59f-bda9116db757",
-    title: "Pick any colour watch – so long as it’s gold",
-    date: "2026-09-28",
-    time: "11:00",
-    url: "https://www.ft.com/content/77d453cb-f399-4c8e-b59f-bda9116db757"
-  },
-  {
-    id: "b43739dc-eb98-4bf4-ae4e-a966139ce6f0",
-    title: "And the FTAV chart quiz winner is . . .",
-    date: "2026-09-28",
-    time: "10:52",
-    url: "https://www.ft.com/content/b43739dc-eb98-4bf4-ae4e-a966139ce6f0"
-  },
-  {
-    id: "1cd3310e-da01-49da-9a3c-8029d59f5761",
-    title: "TotalEnergies boosts buybacks and dividends as oil prices surge",
-    date: "2026-09-28",
-    time: "10:27",
-    url: "https://www.ft.com/content/1cd3310e-da01-49da-9a3c-8029d59f5761"
-  },
-  {
-    id: "f4e078f7-4aab-43f5-8eb5-2dbd7142a752",
-    title: "Northern Ireland’s political parties agree on one thing: £1.5bn is not enough",
-    date: "2026-09-28",
-    time: "10:00",
-    url: "https://www.ft.com/content/f4e078f7-4aab-43f5-8eb5-2dbd7142a752"
-  },
-  {
-    id: "6ad5a550-adb6-4c56-85ec-2f2bacff059b",
-    title: "A faintly hopeful mood at Labour conference",
-    date: "2026-09-28",
-    time: "09:30",
-    url: "https://www.ft.com/content/6ad5a550-adb6-4c56-85ec-2f2bacff059b"
-  },
-  {
-    id: "8a45576f-ff89-449c-82e5-6c9976e91537",
-    title: "Seoul accuses Ukraine of violating secrecy pact on North Korean soldiers",
-    date: "2026-09-28",
-    time: "09:18",
-    url: "https://www.ft.com/content/8a45576f-ff89-449c-82e5-6c9976e91537"
-  },
-  {
-    id: "964a6d85-a6d9-4017-90ef-30ffcd8d7f8d",
-    title: "Shares in UK housebuilders surge on new Help to Buy scheme",
-    date: "2026-09-28",
-    time: "08:11",
-    url: "https://www.ft.com/content/964a6d85-a6d9-4017-90ef-30ffcd8d7f8d"
-  },
-  {
-    id: "bce81a18-05cf-43a6-9c86-b3238b732230",
-    title: "Australia’s biggest gold miner rejects $27bn takeover bid",
-    date: "2026-09-28",
-    time: "07:53",
-    url: "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230"
   }
 ];
