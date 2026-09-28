@@ -104,7 +104,7 @@
 .g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) minmax(0,168px); align-items:baseline;
   gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
 .g-feed-row:hover { background:var(--t-panel2); }
-.g-feed-time { font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-mut); min-width:0; font-variant-numeric:tabular-nums; }
+.g-feed-time { font-family:var(--t-mono); font-size:var(--fs-num); color:var(--t-mut); min-width:0; font-variant-numeric:tabular-nums; }
 .g-feed-code { font-family:var(--t-mono); font-size:var(--fs-micro); font-weight:700; letter-spacing:.04em;
   text-align:center; border-radius:0; padding:2px 0; }
 .g-feed-code.news{ color:var(--t-news, #8aa0c8); background:color-mix(in srgb,var(--t-news, #8aa0c8) 14%,transparent); }

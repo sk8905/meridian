@@ -166,7 +166,8 @@ notification badge red (`#ef4444`).
   | token | base px | `--fs-adj:-0.5px` → | used for |
   | --- | --- | --- | --- |
   | `--fs-micro` | 10px | **9.5px** | day breaks · eyebrows · column heads · timestamps · source tags · SRC chips |
-  | `--fs-body` | 12px | **11.5px** | THE default — prose, feed headlines, list & table rows, values, reading pane, buttons |
+  | `--fs-num` | 11px | **10.5px** | numeric DATA — rail/table/FX values, changes, prices, %; one notch under body so tall lining figures don't dominate the text beside them. Text row-labels (names, codes, dates, moods) stay `--fs-body`. |
+  | `--fs-body` | 12px | **11.5px** | THE default — prose, feed headlines, list & table row text, reading pane, buttons |
   | `--fs-head` | 14px | **13.5px** | card / panel headings, section sub-heads |
   | `--fs-title` | 16px | **15.5px** | page / article headline (h1) |
   | `--fs-hero` | 26px | **25.5px** | dashboard KPI display figures only |

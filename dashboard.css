@@ -249,8 +249,8 @@
 .dsh-strip::-webkit-scrollbar{ display:none; }
 .dsh-idx { flex:0 0 auto; min-width:120px; display:flex; flex-direction:column; gap:2px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:0; text-decoration:none; background:var(--t-panel2); }
 .dsh-idx-nm { color:var(--t-mut); font-size:var(--fs-body); }
-.dsh-idx-lv { color:var(--t-ink); font-size:var(--fs-body); font-weight:600; font-variant-numeric:tabular-nums; }
-.dsh-idx-yt { font-size:var(--fs-body); font-variant-numeric:tabular-nums; }
+.dsh-idx-lv { color:var(--t-ink); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-idx-yt { font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 
 /* Sector ranked bars (diverging around a centre line) */
 .dsh-sectors { display:flex; flex-direction:column; gap:5px; }
@@ -260,13 +260,13 @@
 .dsh-sec-track::before{ content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--t-grid2); }
 .dsh-sec-bar { position:absolute; top:2px; bottom:2px; min-width:2px; border-radius:0; }
 .dsh-sec-bar.up{ background:var(--t-up); } .dsh-sec-bar.down{ background:var(--t-down); }
-.dsh-sec-v { text-align:right; font-size:var(--fs-body); font-variant-numeric:tabular-nums; }
+.dsh-sec-v { text-align:right; font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 
 /* Sector heatmap grid (desktop toggle) */
 .dsh-heat { display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:4px; }
 .dsh-heat-t { display:flex; flex-direction:column; justify-content:center; gap:2px; padding:10px 8px; border-radius:0; min-height:56px; }
 .dsh-heat-t span{ color:var(--t-ink); font-size:var(--fs-body); line-height:1.15; }
-.dsh-heat-t b{ color:var(--t-ink); font-size:var(--fs-body); font-variant-numeric:tabular-nums; }
+.dsh-heat-t b{ color:var(--t-ink); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 
 .up { color:var(--t-up); } .down { color:var(--t-down); }
 
@@ -279,7 +279,7 @@
 @media (max-width:520px){ .dsh-kvgrid{ grid-template-columns:1fr; } }
 .dsh-kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-kv-k { color:var(--t-dim); font-family:var(--t-mono); font-size:var(--fs-body); }
-.dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-body); font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
+.dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
 /* Private-credit card: one metric per SINGLE line (always full-width rows; the
    label truncates with an ellipsis + hover title, the value · SRC stay put). */
 .dsh-pc-grid { grid-template-columns:1fr; }
@@ -431,7 +431,7 @@
 .dsh-earn-wk:first-child { margin-top:0; }
 .dsh-earn-rel { padding:8px 4px; border-bottom:1px solid var(--t-grid); }
 .dsh-earn-hd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
-.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:var(--fs-body); font-variant-numeric:tabular-nums; }
+.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 .dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:var(--fs-body); min-width:0; }
 .dsh-earn-when { color:var(--t-mut); font-size:var(--fs-micro); border:1px solid var(--t-grid2); border-radius:0; padding:0 5px; }
 .dsh-earn-dt { color:var(--t-faint); font-size:var(--fs-body); margin-left:auto; white-space:nowrap; }
@@ -443,7 +443,7 @@
 .dsh-earn-arw { color:var(--t-faint); }
 .dsh-earn-act { color:var(--t-ink); font-weight:700; font-variant-numeric:tabular-nums; }
 .dsh-earn-await { color:var(--t-faint); font-style:italic; font-size:var(--fs-body); }
-.dsh-earn-px { font-weight:700; font-size:var(--fs-body); font-variant-numeric:tabular-nums; color:var(--t-mut); }
+.dsh-earn-px { font-weight:700; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-mut); }
 .dsh-earn-px.up { color:var(--t-up); } .dsh-earn-px.down { color:var(--t-down); }
 .dsh-earn-metric { display:inline-block; font-size:var(--fs-micro); font-weight:600; text-transform:uppercase;
   letter-spacing:.03em; color:var(--t-mut); border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; }
@@ -453,7 +453,7 @@
 .dsh-hf-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-hf-i:last-child { border-bottom:0; }
 .dsh-hf-i-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; margin-bottom:2px; }
-.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:var(--fs-body); font-variant-numeric:tabular-nums; }
+.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 .dsh-hf-nm { color:var(--t-dim); font-size:var(--fs-body); }
 .dsh-hf-by { color:var(--t-mut); font-size:var(--fs-body); margin-left:auto; }
 .dsh-hf-note { color:var(--t-mut); font-size:var(--fs-body); line-height:1.35; }
@@ -493,7 +493,7 @@
 .dsh-mw-barcell { display:flex; align-items:center; gap:9px; }
 .dsh-mw-track { position:relative; display:block; width:84px; flex:0 0 84px; height:15px; background:var(--t-panel2); border-radius:0; }
 .dsh-mw-fill { position:absolute; inset:0 auto 0 0; height:100%; background:var(--t-crd); border-radius:0; min-width:2px; }
-.dsh-mw-hval { color:var(--t-ink); font-size:var(--fs-body); font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-mw-hval { color:var(--t-ink); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
 /* Composition — how each year's bar breaks down (real sourced components). Inline
    "Label $Xtn" items, wrapping, middot-separated. */
 .dsh-mw-comp { padding:5px 12px 5px 0; color:var(--t-mut); font-size:var(--fs-body); line-height:1.5; white-space:normal; }
@@ -539,7 +539,7 @@
 .dsh-stress { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
 .dsh-stress-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
 .dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:600; font-size:var(--fs-body); }
-.dsh-stress-debt { color:var(--t-ink); font-weight:700; font-size:var(--fs-body); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-stress-debt { color:var(--t-ink); font-weight:700; font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .dsh-stress-m { color:var(--t-mut); font-size:var(--fs-body); margin:3px 0 4px; }
 /* Stress sort chip bar */
 .dsh-sortbar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:0 0 8px; }
@@ -561,7 +561,7 @@
 /* Regime pills: title on the LEFT (dark ink), value on the RIGHT (muted grey). */
 .dsh-pill { display:flex; flex-direction:row; align-items:baseline; justify-content:space-between; gap:10px; flex:1 1 160px; min-width:0; padding:8px 11px; border:1px solid var(--t-grid2); border-radius: 0; background:var(--t-panel2); }
 .dsh-pill-k { color:var(--t-ink); font-size:var(--fs-micro); font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
-.dsh-pill-v { color:var(--t-mut); font-size:var(--fs-body); font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; font-variant-numeric:tabular-nums; }
+.dsh-pill-v { color:var(--t-mut); font-size:var(--fs-num); font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; font-variant-numeric:tabular-nums; }
 .dsh-pill-v .dsh-pill-up, .dsh-pill-v.dsh-pill-up { color:var(--t-up); }
 .dsh-pill-v .dsh-pill-dn, .dsh-pill-v.dsh-pill-dn { color:var(--t-down); }
 .dsh-pill-win { color:var(--t-faint); font-size:var(--fs-micro); font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
@@ -577,7 +577,7 @@
 .dsh-tape .dsh-pill { flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:2px; padding:9px 12px; }
 .dsh-tape .dsh-pill-k { flex:0 0 auto; white-space:normal; line-height:1.2; }
 .dsh-tape .dsh-pill-lv { color:var(--t-ink); font-size:var(--fs-head); font-weight:600; line-height:1.15; font-variant-numeric:tabular-nums; }
-.dsh-tape .dsh-pill-chg { font-size:var(--fs-body); font-weight:500; color:var(--t-mut); font-variant-numeric:tabular-nums; }
+.dsh-tape .dsh-pill-chg { font-size:var(--fs-num); font-weight:500; color:var(--t-mut); font-variant-numeric:tabular-nums; }
 .dsh-tape .dsh-pill-chg.dsh-pill-up { color:var(--t-up); }
 .dsh-tape .dsh-pill-chg.dsh-pill-dn { color:var(--t-down); }
 .dsh-tape .dsh-pill-win { margin-left:3px; }
@@ -588,7 +588,7 @@
 .dsh-ro { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
 .dsh-ro-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
 .dsh-ro-nm { color:var(--t-mut); font-size:var(--fs-body); }
-.dsh-ro-rate { color:var(--t-ink); font-size:var(--fs-body); font-weight:700; font-variant-numeric:tabular-nums; }
+.dsh-ro-rate { color:var(--t-ink); font-size:var(--fs-num); font-weight:700; font-variant-numeric:tabular-nums; }
 .dsh-ro-m { color:var(--t-dim); font-size:var(--fs-body); margin:3px 0; }
 /* Collapsed-by-default commentary (native <details>). */
 .dsh-ro-more { margin-top:4px; }
@@ -638,7 +638,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Embedded news wires (Macro/Credit) — compact linked list */
 .dsh-news { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
 .dsh-news-i { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); font-size:var(--fs-body); }
-.dsh-news-d { flex:0 0 auto; color:var(--t-faint); font-size:var(--fs-body); font-variant-numeric:tabular-nums; min-width:44px; }
+.dsh-news-d { flex:0 0 auto; color:var(--t-faint); font-size:var(--fs-num); font-variant-numeric:tabular-nums; min-width:44px; }
 .dsh-news-i a { color:var(--t-dim); text-decoration:none; }
 .dsh-news-i a:hover { color:var(--t-ink); }
 .dsh-news-s { flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:var(--fs-body); white-space:nowrap; }
@@ -652,7 +652,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Debtor / Sector / HQ / Debt are their own columns now, all left-aligned. */
 .dsh-stresstbl th, .dsh-stresstbl td { text-align:left; }
 .dsh-stresstbl td.dsh-stress-sec, .dsh-stresstbl td.dsh-stress-hq { color:var(--t-mut); font-weight:400; font-size:var(--fs-body); white-space:nowrap; }
-.dsh-stresstbl td.dsh-stress-debt { color:var(--t-ink); font-weight:600; font-size:var(--fs-body); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-stresstbl td.dsh-stress-debt { color:var(--t-ink); font-weight:600; font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
 /* Clamp an inline note to two lines so table rows stay compact; the SRC link
    after it opens the full story. */
 .dsh-clamp2 { display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
@@ -674,7 +674,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-fw-l { color:var(--t-dim); font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-fw-track { position:relative; height:12px; background:var(--t-panel2); border-radius:0; }
 .dsh-fw-bar { position:absolute; left:0; top:0; bottom:0; background:var(--t-accent); border-radius:0; }
-.dsh-fw-p { text-align:right; font-size:var(--fs-body); font-variant-numeric:tabular-nums; color:var(--t-ink); }
+.dsh-fw-p { text-align:right; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-ink); }
 
 /* Cycle card (Macro): Dalio debt cycle + Marks market cycle side by side,
    each a labelled block with meter bars, framework prose and linked sources. */

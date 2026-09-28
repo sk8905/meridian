@@ -256,7 +256,7 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
 .panel h2 { color: var(--ink-soft); }
 .chart { width: 100%; height: auto; }
 .chart-label { font-size:var(--fs-body); fill: var(--ink-soft); }
-.chart-value { font-size:var(--fs-body); fill: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+.chart-value { font-size:var(--fs-num); fill: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
 .chart-axis { font-size:var(--fs-body); fill: var(--muted); }
 .chart-grid { stroke: var(--line); stroke-width: 1; }
 .clickable, .bar-row.clickable { cursor: pointer; }

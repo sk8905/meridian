@@ -295,13 +295,13 @@
     .rate-tile:nth-child(8n+1) { border-left:none; }
     .rate-label { text-transform:uppercase; letter-spacing:.4px; font-size:var(--fs-body); color:var(--muted); white-space:nowrap; }
     .rate-val { font-weight:400; font-size:var(--fs-title); color:var(--ink); line-height:1.2; font-variant-numeric:tabular-nums; }
-    .rate-chg { font-size:var(--fs-body); font-weight:400; font-variant-numeric:tabular-nums; }
+    .rate-chg { font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; }
     .rate-chg.up { color:var(--t-up); } .rate-chg.down { color:var(--t-down); } .rate-chg.flat { color:var(--muted); }
     /* Daily change + implied-open bracket share one inline row (bracket sits to
        the right of the change, not on a new line). */
     .rate-chg-line { display:inline-flex; align-items:baseline; flex-wrap:wrap; gap:.3rem; }
     /* Futures-implied open shown beside a closed market's (stale) daily change. */
-    .mkt-fut { font-size:var(--fs-body); font-weight:400; opacity:.85; font-variant-numeric:tabular-nums; }
+    .mkt-fut { font-size:var(--fs-num); font-weight:400; opacity:.85; font-variant-numeric:tabular-nums; }
     .mkt-fut.up { color:var(--t-up); } .mkt-fut.down { color:var(--t-down); } .mkt-fut.flat { color:var(--muted); }
     .mkt-dot { display:inline-block; width:4px; height:4px; border-radius:50%; vertical-align:middle; margin:0 0 .05rem .1rem; opacity:.8; }
     .mkt-dot.open { background:var(--t-up); }
@@ -340,7 +340,7 @@
        to ugly bordered boxes (the intermittent "tabs formatting changed" bug).
        Removed — feed.css is the single source of truth; .tui refinements below. */
     /* Row leads with the publish time (tabular figures so they align). */
-    .g-feed-time { flex:0 0 auto; min-width:2.7rem; color:var(--muted); font-size:var(--fs-body);
+    .g-feed-time { flex:0 0 auto; min-width:2.7rem; color:var(--muted); font-size:var(--fs-num);
       white-space:nowrap; font-variant-numeric:tabular-nums; }
     /* Headline shrinks to its content so the source sits directly after it; the
        desk tag is pushed to the far right of the row. */
@@ -385,7 +385,7 @@
     .g-side .rate-tile { border-left:0; border-top:0; padding:.4rem .5rem; gap:.08rem; }
     .g-side .rate-label { font-size:var(--fs-micro); }
     .g-side .rate-val { font-size:var(--fs-head); }
-    .g-side .rate-chg { font-size:var(--fs-body); }
+    .g-side .rate-chg { font-size:var(--fs-num); }
     /* Keep the daily change + implied-open bracket on one line so every markets
        tile is the same height as the (bracket-free) rates tiles and they align. */
     .g-side .rate-chg-line { flex-wrap:nowrap; white-space:nowrap; gap:.25rem; }
@@ -420,7 +420,7 @@
     .g-fx-card { background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:var(--shadow); padding:.4rem .45rem; margin-bottom:1.2rem; }
     .g-fx-tbl { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
-    .g-fx-tbl th, .g-fx-tbl td { text-align:right; font-size:var(--fs-body); white-space:nowrap; }
+    .g-fx-tbl th, .g-fx-tbl td { text-align:right; font-size:var(--fs-num); white-space:nowrap; }
     .g-fx-tbl th { padding:.3rem .4rem; }
     /* Currency labels match the economic-indicator country headers (brand-blue). */
     .g-fx-tbl thead th { color:var(--brand-2); font-weight:800; font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.05em; }
@@ -444,7 +444,7 @@
     a.g-snap-blk:hover { background:rgba(120,130,150,.06); }
     .g-snap-h { display:flex; align-items:baseline; justify-content:space-between; gap:.5rem; margin-bottom:.1rem; }
     .g-snap-t { font-size:var(--fs-body); font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); white-space:nowrap; }
-    .g-snap-cap { font-size:var(--fs-body); font-weight:400; color:var(--ink); text-align:right; line-height:1.25; }
+    .g-snap-cap { font-size:var(--fs-num); font-weight:400; color:var(--ink); text-align:right; line-height:1.25; }
     /* Header row (Policy rate | Next | Forecast) and the data rows share one grid,
        so the column titles sit inline with the block header and above their
        columns. Rate / Next / Forecast get equal thirds and spread left/centre/right. */
@@ -795,7 +795,7 @@
       box-shadow:0 0 7px var(--t-accent); }
     .g-ticker-row{ display:flex; align-items:center; overflow:hidden; flex:1; }
     .g-tk{ display:flex; align-items:baseline; gap:7px; padding:0 13px; line-height:26px;
-      font-family:var(--t-mono); font-size:var(--fs-body); font-variant-numeric:tabular-nums;
+      font-family:var(--t-mono); font-size:var(--fs-num); font-variant-numeric:tabular-nums;
       border-right:1px solid var(--t-grid); white-space:nowrap; text-decoration:none; }
     .g-tk .s{ color:var(--t-mut); } .g-tk .v{ color:var(--t-ink); }
     .g-tk .up{ color:var(--t-up); } .g-tk .down{ color:var(--t-down); }
@@ -838,7 +838,7 @@
     .tui .g-hero-tk-nm{ font-size:var(--fs-body); font-weight:600; color:var(--t-faint); }
     .tui .g-hero-tk.is-on .g-hero-tk-nm{ color:var(--t-ink); }
     .tui .g-hero-tk:hover .g-hero-tk-nm{ color:var(--t-dim); }
-    .tui .g-hero-tk-pct{ font-size:var(--fs-body); font-weight:400; font-variant-numeric:tabular-nums; margin-left:6px; }
+    .tui .g-hero-tk-pct{ font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; margin-left:6px; }
     .tui .g-hero-tk-pct.up{ color:var(--t-up); } .tui .g-hero-tk-pct.down{ color:var(--t-down); }
     /* Duration toggle: its own row below the securities, right-aligned. */
     /* Range selector — the Google-Finance style: labels spread evenly across the
@@ -1226,7 +1226,7 @@
     .g-mw-team{ flex:0 0 auto; color:var(--t-hdg); font-size:var(--fs-head); }
     /* Green fundraising text sits to the RIGHT of the manager name. */
     .g-mw-fund{ flex:0 1 auto; min-width:0; margin-left:auto; text-align:right; overflow:hidden; text-overflow:ellipsis;
-      white-space:nowrap; color:var(--t-up); font-size:var(--fs-body); font-variant-numeric:tabular-nums; }
+      white-space:nowrap; color:var(--t-up); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
     /* Activity line: count+trend · signal mix · AUM · strategies. */
     .g-mw-meta{ display:flex; flex-wrap:wrap; align-items:baseline; gap:.15rem .5rem; padding:0 12px 4px;
       font-size:var(--fs-body); color:var(--t-mut); line-height:1.5; }
@@ -1241,7 +1241,7 @@
     .g-mw-ev{ display:grid; grid-template-columns:42px 30px minmax(0,1fr) minmax(0,66px); gap:8px; align-items:baseline;
       text-decoration:none; padding:4px 12px; border-bottom:1px solid var(--t-grid); }
     .g-mw-ev:hover{ background:var(--t-panel2); }
-    .g-mw-ev-d{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-mut); font-variant-numeric:tabular-nums; }
+    .g-mw-ev-d{ font-family:var(--t-mono); font-size:var(--fs-num); color:var(--t-mut); font-variant-numeric:tabular-nums; }
     .g-mw-ev-c{ font-family:var(--t-mono); font-size:var(--fs-micro); font-weight:700; color:var(--t-crd); letter-spacing:.04em; }
     /* Headline wraps like the news feed (up to two lines) so the full story shows. */
     .g-mw-ev-t{ font-size:var(--fs-head); color:var(--t-ink); line-height:1.35; overflow:hidden;
@@ -1273,10 +1273,10 @@
     .g-earn-nm{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:var(--fs-body); color:var(--t-mut); }
     .g-earn-when{ flex:0 0 auto; font-size:var(--fs-micro); font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--t-dim);
       border:1px solid var(--t-grid2); border-radius:0; padding:0 .28rem; }
-    .g-earn-px{ flex:0 0 auto; margin-left:auto; font-size:var(--fs-body); font-variant-numeric:tabular-nums; }
+    .g-earn-px{ flex:0 0 auto; margin-left:auto; font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
     .g-earn-px.up{ color:var(--t-up); } .g-earn-px.down{ color:var(--t-down); }
     .g-earn-await{ flex:0 0 auto; margin-left:auto; font-size:var(--fs-micro); color:var(--t-faint); font-style:italic; }
-    .g-earn-l{ font-size:var(--fs-body); color:var(--t-dim); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    .g-earn-l{ font-size:var(--fs-num); color:var(--t-dim); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-variant-numeric:tabular-nums; }
     .g-earn-l.g-earn-act{ color:var(--t-ink); }
     .g-earn-k{ color:var(--t-faint); font-size:var(--fs-micro); font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-right:.25rem; }
     .g-earn-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:var(--fs-head); }
@@ -1567,8 +1567,8 @@
     .tui .g-mv:hover,.tui a.g-snap-blk:hover,.tui .g-fx-tbl td:hover{ background:var(--t-panel2); }
     .tui .rate-label,.tui .g-side .rate-label{ font-size:var(--fs-body); color:var(--t-dim); white-space:nowrap;
       overflow:hidden; text-overflow:ellipsis; font-weight:400; letter-spacing:0; text-transform:none; }
-    .tui .rate-val,.tui .g-side .rate-val{ font-size:var(--fs-body); color:var(--t-ink); text-align:right; }
-    .tui .rate-chg,.tui .g-side .rate-chg{ font-size:var(--fs-body); text-align:right; }
+    .tui .rate-val,.tui .g-side .rate-val{ font-size:var(--fs-num); color:var(--t-ink); text-align:right; }
+    .tui .rate-chg,.tui .g-side .rate-chg{ font-size:var(--fs-num); text-align:right; }
     .tui .rate-chg.up{ color:var(--t-up); } .tui .rate-chg.down{ color:var(--t-down); } .tui .rate-chg.flat{ color:var(--t-faint); }
     .tui .rate-chg-line{ display:inline-flex; gap:5px; white-space:nowrap; }
     /* ~1-month trend sparkline (label · SPARK · value · change). Desktop terminal
@@ -1591,7 +1591,7 @@
     .tui .g-fx-tbl{ width:100%; border-collapse:collapse; font-family:var(--t-mono);
       font-variant-numeric:tabular-nums; }
     .tui .g-fx-tbl th,.tui .g-fx-tbl td{ border:1px solid var(--t-grid); padding:5px 4px; text-align:center;
-      font-size:var(--fs-body); color:var(--t-ink); font-weight:400; }
+      font-size:var(--fs-num); color:var(--t-ink); font-weight:400; }
     .tui .g-fx-tbl thead th,.tui .g-fx-tbl tbody th{ color:var(--t-mut); font-size:var(--fs-micro); letter-spacing:.04em; background:var(--t-panel2); }
     .tui .g-fx-tbl td a{ color:var(--t-ink); }
     .tui .g-fx-diag{ color:var(--t-faint); }
@@ -1608,12 +1608,12 @@
     .tui .g-snap-nx{ text-align:center; } .tui .g-snap-ps{ text-align:right; }
     .tui .g-snap-t,.tui .g-snap-colh,.tui .g-snap-polh{ font-size:var(--fs-micro); letter-spacing:.02em; text-transform:uppercase; color:var(--t-mut); font-family:inherit; }
     .tui .g-snap-cc{ font-size:var(--fs-body); color:var(--t-dim); font-family:var(--t-mono); }
-    .tui .g-snap-pv{ font-size:var(--fs-body); color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
+    .tui .g-snap-pv{ font-size:var(--fs-num); color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .tui .g-snap-nx,.tui .g-snap-ps{ font-size:var(--fs-micro); color:var(--t-dim); font-family:var(--t-mono); }
     .tui .g-snap-nx{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .tui .g-snap-mood{ color:var(--t-mut); }
     .tui .g-snap-h{ display:flex; align-items:baseline; gap:8px; margin-bottom:5px; }
-    .tui .g-snap-cap{ margin-left:auto; font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-amber); }
+    .tui .g-snap-cap{ margin-left:auto; font-family:var(--t-mono); font-size:var(--fs-num); color:var(--t-amber); }
     .tui .g-snap-meter{ display:flex; align-items:center; gap:7px; }
     .tui .g-snap-end{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); }
     .tui .g-snap-gauge{ flex:1; }

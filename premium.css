@@ -148,6 +148,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
      (Set --fs-adj:0px for the original 10/12/14/16/26.) ======================= */
   --fs-adj: -0.5px;                            /* ← the one knob */
   --fs-micro: calc(10px + var(--fs-adj));      /* eyebrows · timestamps · source tags · SRC chips */
+  --fs-num:   calc(11px + var(--fs-adj));       /* numeric DATA — one notch under body so tall lining figures don't dominate the text (rails, tables, FX matrix, values) */
   --fs-body:  calc(12px + var(--fs-adj));      /* DEFAULT — prose, feed rows, list/table values, reading pane, buttons */
   --fs-head:  calc(14px + var(--fs-adj));      /* card / panel headings, section sub-heads */
   --fs-title: calc(16px + var(--fs-adj));      /* page / article headline (h1) */
@@ -762,7 +763,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* FX matrix in the Markets panel (mirrors the desktop right-rail cross-rate grid,
    restyled with the panel's own tokens so it's self-contained off the Home page). */
 .na-fx-wrap { padding: 8px 12px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.na-fx-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size:var(--fs-body); }
+.na-fx-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size:var(--fs-num); }
 .na-fx-tbl th, .na-fx-tbl td { border: 1px solid var(--border, #262626); text-align: center; }
 .na-fx-tbl thead th, .na-fx-tbl tbody th { color: var(--mut, #8592ad); font-size:var(--fs-micro); letter-spacing: .04em; background: var(--head, #0a0a0a); font-weight: 600; padding: 5px 4px; }
 .na-fx-tbl td { color: var(--ink, #eaf0fb); font-weight: 600; padding: 0; }
@@ -776,14 +777,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    outcome (Act) + share reaction. Self-contained on the panel's own tokens. */
 .na-earn-row { padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); }
 .na-earn-r1 { display: flex; align-items: baseline; gap: 6px; }
-.na-earn-date { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); color: var(--muted, #8592ad); font-variant-numeric: tabular-nums; }
+.na-earn-date { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-num); color: var(--muted, #8592ad); font-variant-numeric: tabular-nums; }
 .na-earn-tkr { flex: 0 0 auto; font-weight: 700; font-size:var(--fs-body); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); }
 .na-earn-nm { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:var(--fs-body); color: var(--muted, #8592ad); }
 .na-earn-when { flex: 0 0 auto; font-size:var(--fs-micro); font-weight: 700; text-transform: uppercase; letter-spacing: .02em; color: var(--faint, #5c6a86); }
-.na-earn-px { flex: 0 0 auto; margin-left: auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-variant-numeric: tabular-nums; color: var(--muted, #8592ad); }
+.na-earn-px { flex: 0 0 auto; margin-left: auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-num); font-variant-numeric: tabular-nums; color: var(--muted, #8592ad); }
 .na-earn-px.up { color: var(--t-up, #3fc08d); } .na-earn-px.down { color: var(--t-down, #f26d84); }
 .na-earn-await { flex: 0 0 auto; margin-left: auto; font-size:var(--fs-micro); color: var(--faint, #5c6a86); font-style: italic; }
-.na-earn-l { margin-top: 2px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); color: var(--muted, #8592ad); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.na-earn-l { margin-top: 2px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-num); color: var(--muted, #8592ad); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .na-earn-l.na-earn-act { color: var(--ink, #eaf0fb); }
 .na-earn-k { color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; margin-right: 4px; }
 

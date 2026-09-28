@@ -124,7 +124,7 @@
 .wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .wtk-row { display: flex; align-items: center; overflow: hidden; flex: 1; }
 .wtk { display: flex; align-items: baseline; gap: 7px; padding: 0 13px; line-height: 26px;
-  font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-variant-numeric: tabular-nums;
+  font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-num); font-variant-numeric: tabular-nums;
   border-right: 1px solid var(--border); white-space: nowrap; text-decoration: none; }
 .wtk .s { color: var(--muted); } .wtk .v { color: var(--ink); }
 .wtk .up { color: var(--t-up, #3fc08d); } .wtk .down { color: var(--t-down, #f26d84); } .wtk .flat { color: var(--faint); }

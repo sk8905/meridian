@@ -122,7 +122,7 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 .macro-sub { display: block; line-height: 1.25; font-size:var(--fs-micro); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .macro-valrow { display: flex; align-items: baseline; gap: .4rem; }
 .macro-val { font-size:var(--fs-title); font-weight: 700; color: var(--ink); letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
-.macro-chg { font-size:var(--fs-body); font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.macro-chg { font-size:var(--fs-num); font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .macro-chg.up { color: var(--t-up); }
 .macro-chg.down { color: var(--t-down); }
 .macro-chg.flat { color: var(--muted); }
