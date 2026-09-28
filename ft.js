@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "6729bceb-2480-42b4-9308-51ef7728c181",
+    title: "SpaceX’s Starship rocket reaches orbit for the first time",
+    date: "2026-09-28",
+    time: "14:54",
+    url: "https://www.ft.com/content/6729bceb-2480-42b4-9308-51ef7728c181"
+  },
+  {
+    id: "f7f9d03c-cb01-45d3-8148-1c9f3fcc4501",
+    title: "Evonik rejects €10.3bn BASF bid to consolidate chemicals industry",
+    date: "2026-09-28",
+    time: "14:32",
+    url: "https://www.ft.com/content/f7f9d03c-cb01-45d3-8148-1c9f3fcc4501"
+  },
+  {
     id: "2fbf264c-20c1-408e-b5a7-eb8b99dfccfb",
     title: "MFS owner blames Barclays for collapse amid fraud allegations",
     date: "2026-09-28",
@@ -306,12 +320,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "05:00",
     url: "https://www.ft.com/content/4339e9f0-ff48-4873-be6a-36cbac2631c4"
-  },
-  {
-    id: "1d7d2bc0-7721-4c4e-a8a6-e859bad9c13a",
-    title: "Glencore says HMRC was 18 months late with £264mn tax bill",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/1d7d2bc0-7721-4c4e-a8a6-e859bad9c13a"
   },
 ];
