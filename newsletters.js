@@ -44,6 +44,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-mishconto500m-20260928",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "From Mishcon to $500m",
+    date: "2026-09-28",
+    time: "08:05",
+    summary: "And one barrister's very expensive train journey, plus a Big Law mega IPO double.",
+    url: "https://non-billable.beehiiv.com/p/draft-5943",
+  },
+  {
     id: "nl-bbg-morningeurope-oilirantensions-20260928",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
