@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-28",
-  lastCheckedTime: "20:12 BST",
+  lastCheckedTime: "22:17 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1031,6 +1031,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-28",
   items: [
+    {"title": "Measured ECB hikes to quell inflation remain appropriate, Lagarde says", "source": "Reuters", "date": "2026-09-28", "time": "22:17", "url": "https://www.investing.com/news/economy-news/measured-ecb-hikes-to-quell-inflation-remain-appropriate-lagarde-says-4920668", "blurb": "Lagarde says long-term rates have risen notably, which will slow growth and cut energy pass-through by more than projected, pushing back on the most aggressive hike bets.", "author": null},
+    {"title": "Nvidia boosts share buyback by record $150 billion as AI boom fuels growth", "source": "Reuters", "date": "2026-09-28", "time": "22:17", "url": "https://www.investing.com/news/stock-market-news/nvidia-adds-150-billion-to-existing-share-repurchase-plan-4919956", "blurb": "A record buyback authorisation lifts Nvidia's remaining repurchase capacity to $235bn, to be used through fiscal 2028.", "author": null},
     {"title": "Key US Data This Week Seen Bolstering Case for October Rate Hike", "source": "Bloomberg", "date": "2026-09-28", "time": "18:11", "url": "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", "blurb": "Bloomberg previews a data-heavy week — JOLTS, consumer confidence, ADP and the September jobs report — that Fed officials expect to add further evidence the economy is strengthening, bolstering the case some have made for another rate hike as soon as the 28 October FOMC.", "author": null},
     {"title": "UK finance minister says 'fiscal discipline' will form core of budget", "source": "Reuters (via Investing.com)", "date": "2026-09-28", "time": "18:11", "url": "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059", "blurb": "Chancellor John Healey told Labour's Liverpool conference that fiscal discipline will sit at the core of his 28 October Budget, saying the cost of servicing Britain's elevated debt is diverting money from public services, as the gilt sell-off keeps squeezing his fiscal headroom.", "author": null},
     {"title": "Stock market today: Dow, S&P 500, Nasdaq slip as US-Iran tensions resurface, Treasury yields jump", "source": "Yahoo Finance", "date": "2026-09-28", "time": "16:19", "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-28-dow-sp-500-nasdaq-080420627.html", "blurb": "Afternoon trading: the S&P 500 fell 0.90% to 7,673.88, the Dow dropped 0.75% to 51,440.97 and the Nasdaq lost 1.14% to 26,760.68 as Brent traded above $106.79/bbl and the 10-year Treasury yield held above 5.2% on the stalled US-Iran Hormuz standoff; Nvidia bucked the selloff (+~1%) after authorising a further $150bn buyback (total $235bn).", "author": null},
@@ -1081,17 +1083,18 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
+  { date: "2026-09-29", country: "US", title: "JOLTS job openings (August)", url: "https://www.bls.gov/schedule/2026/09_sched_list.htm" },
   { date: "2026-09-30", country: "US", title: "GDP (Q2 2026, Third Estimate) & Corporate Profits", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-09-30", country: "US", title: "Personal Income and Outlays / PCE inflation (August)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-01", country: "US", title: "ISM Manufacturing PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-10-02", country: "US", title: "Employment Situation / Nonfarm payrolls (September)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-10-05", country: "US", title: "ISM Services PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-10-07", country: "US", title: "FOMC Minutes (15–16 September meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
-  { date: "2026-10-13", country: "UK", title: "Labour market overview (three months to August)", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/previousreleases" },
-  { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
+    { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-10-15", country: "US", title: "PPI (September)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-10-15", country: "US", title: "Retail sales (September)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
   { date: "2026-10-15", country: "UK", title: "GDP monthly estimate (August)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/previousreleases" },
+  { date: "2026-10-20", country: "UK", title: "Labour market overview (three months to August)", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/previousreleases" },
   { date: "2026-10-21", country: "UK", title: "CPI inflation (September)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukseptember2026" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
   { date: "2026-10-28", country: "US", title: "FOMC rate decision", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
