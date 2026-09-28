@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-banksrecycletherisk-20260928",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Banks Recycle the Risk",
+    date: "2026-09-28",
+    time: "19:05",
+    summary: "Nvidia, Automattic, agents.",
+    url: "https://bloom.bg/4ry3nj2",
+  },
+  {
     id: "nl-preqin-selectivityprivatecredit-20260928",
     publication: "Preqin",
     author: "Shaun Beaney",

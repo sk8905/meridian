@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "571a3103-ec01-464b-ab39-0c0da58d9524",
+    title: "Five men arrested over alleged RAF Fairford terror plot released on bail",
+    date: "2026-09-28",
+    time: "18:59",
+    url: "https://www.ft.com/content/571a3103-ec01-464b-ab39-0c0da58d9524"
+  },
+  {
+    id: "964a6d85-a6d9-4017-90ef-30ffcd8d7f8d",
+    title: "Shares in UK housebuilders surge on new Help to Buy scheme",
+    date: "2026-09-28",
+    time: "18:47",
+    url: "https://www.ft.com/content/964a6d85-a6d9-4017-90ef-30ffcd8d7f8d"
+  },
+  {
+    id: "074a2198-cb97-4c92-8520-f99ad8dce754",
+    title: "BASF should take another crack at chemicals M&A",
+    date: "2026-09-28",
+    time: "18:44",
+    url: "https://www.ft.com/content/074a2198-cb97-4c92-8520-f99ad8dce754"
+  },
+  {
     id: "22c4fa19-1751-44e9-928d-5203a6af8900",
     title: "Federal Reserve’s watchdog warns of security ‘deficiencies’ at central bank",
     date: "2026-09-28",
@@ -292,12 +313,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "06:30",
     url: "https://www.ft.com/content/0903a8bc-69f1-4abd-a18b-94e20f5efa12"
-  },
-  {
-    id: "1bc39466-bd7c-4c42-a89b-fd81646705e2",
-    title: "Can the EU help to build a ‘hybrid defence’ against Russia?",
-    date: "2026-09-28",
-    time: "06:00",
-    url: "https://www.ft.com/content/1bc39466-bd7c-4c42-a89b-fd81646705e2"
   }
 ];
