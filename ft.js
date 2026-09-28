@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "964a6d85-a6d9-4017-90ef-30ffcd8d7f8d",
+    title: "Shares in UK housebuilders surge on new Help to Buy scheme",
+    date: "2026-09-28",
+    time: "08:11",
+    url: "https://www.ft.com/content/964a6d85-a6d9-4017-90ef-30ffcd8d7f8d"
+  },
+  {
+    id: "bce81a18-05cf-43a6-9c86-b3238b732230",
+    title: "Australia’s biggest gold miner rejects $27bn takeover bid",
+    date: "2026-09-28",
+    time: "07:53",
+    url: "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230"
+  },
+  {
     id: "8ac777fc-882e-4781-826b-272d72d468a0",
     title: "‘Xi got face’: China relishes equal treatment from Trump",
     date: "2026-09-28",
@@ -285,54 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-27",
     time: "17:35",
     url: "https://www.ft.com/content/c9957c9f-8622-4351-9380-9b725b70b1e7"
-  },
-  {
-    id: "c3bd247b-646f-4333-9250-da3d2c6e6c2c",
-    title: "Spain erupts in fury over housing after eviction of 87-year-old woman",
-    date: "2026-09-27",
-    time: "17:27",
-    url: "https://www.ft.com/content/c3bd247b-646f-4333-9250-da3d2c6e6c2c"
-  },
-  {
-    id: "267379ff-8491-478b-a10f-ad19a67df37c",
-    title: "Pay to play in the age of corporate migration",
-    date: "2026-09-27",
-    time: "16:00",
-    url: "https://www.ft.com/content/267379ff-8491-478b-a10f-ad19a67df37c"
-  },
-  {
-    id: "1276c358-4b3b-453d-b774-27aae2ecc486",
-    title: "Milan Fashion Week seeks the fizz",
-    date: "2026-09-27",
-    time: "14:24",
-    url: "https://www.ft.com/content/1276c358-4b3b-453d-b774-27aae2ecc486"
-  },
-  {
-    id: "23cd91df-80c5-45c0-9175-d61b74404f12",
-    title: "Andy Burnham signals he will fight election on tax rises to fund social care reform",
-    date: "2026-09-27",
-    time: "14:02",
-    url: "https://www.ft.com/content/23cd91df-80c5-45c0-9175-d61b74404f12"
-  },
-  {
-    id: "aaf4c7d7-b4bc-4b5c-83b7-7f761d315b63",
-    title: "Swiss voters reject proposal to strengthen neutrality",
-    date: "2026-09-27",
-    time: "13:42",
-    url: "https://www.ft.com/content/aaf4c7d7-b4bc-4b5c-83b7-7f761d315b63"
-  },
-  {
-    id: "afb910e4-5425-4d3e-b0ef-c1d260f29945",
-    title: "The India shock: exporting workers to the world",
-    date: "2026-09-27",
-    time: "12:00",
-    url: "https://www.ft.com/content/afb910e4-5425-4d3e-b0ef-c1d260f29945"
-  },
-  {
-    id: "08fe7323-5a2f-4d46-ad64-132ce469b381",
-    title: "Will US jobs data add to pressure on Fed policymakers?",
-    date: "2026-09-27",
-    time: "12:00",
-    url: "https://www.ft.com/content/08fe7323-5a2f-4d46-ad64-132ce469b381"
   },
 ];
