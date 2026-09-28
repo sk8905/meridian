@@ -21,6 +21,132 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "b1ba7dd2-3e3a-4944-b637-ff7db3b636e1",
+    title: "US and China agree $60bn low tariff regime spanning foie gras to camels",
+    date: "2026-09-28",
+    time: "05:04",
+    url: "https://www.ft.com/content/b1ba7dd2-3e3a-4944-b637-ff7db3b636e1"
+  },
+  {
+    id: "5513b441-a575-4c73-8532-cb09216c4406",
+    title: "EU countries consider Nato-style joint responses to Russian hybrid attacks",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/5513b441-a575-4c73-8532-cb09216c4406"
+  },
+  {
+    id: "aa0a3458-b69d-423d-9654-9ad45c8432d9",
+    title: "A message for the chancellor: the time is now ripe for tax reform",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/aa0a3458-b69d-423d-9654-9ad45c8432d9"
+  },
+  {
+    id: "1fdf6289-bc99-4263-af79-da1060a09394",
+    title: "UK biodiesel industry attacks decision to reject duties on cheaper US imports",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/1fdf6289-bc99-4263-af79-da1060a09394"
+  },
+  {
+    id: "b4dde6f6-f91f-4d3e-8ce1-ab8be69dab47",
+    title: "GM warns on US market as carmakers seek ‘safe haven’ from Chinese rivals",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/b4dde6f6-f91f-4d3e-8ce1-ab8be69dab47"
+  },
+  {
+    id: "6fe783e2-6472-4b66-b126-7f85c8ffef99",
+    title: "The Pope lends his voice to Europe’s fight against the far right",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/6fe783e2-6472-4b66-b126-7f85c8ffef99"
+  },
+  {
+    id: "957f68f9-9f74-4857-9773-d3be3ef3f305",
+    title: "Kremlin pressures Russian businesses to pay for drone defences",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/957f68f9-9f74-4857-9773-d3be3ef3f305"
+  },
+  {
+    id: "8b7f5c50-7ab5-46e1-96c7-e48c010f615b",
+    title: "The bargain between shareholders and companies is being eroded",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/8b7f5c50-7ab5-46e1-96c7-e48c010f615b"
+  },
+  {
+    id: "4339e9f0-ff48-4873-be6a-36cbac2631c4",
+    title: "For once, the Fed has put Main Street before Wall Street",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/4339e9f0-ff48-4873-be6a-36cbac2631c4"
+  },
+  {
+    id: "1d7d2bc0-7721-4c4e-a8a6-e859bad9c13a",
+    title: "Glencore says HMRC was 18 months late with £264mn tax bill",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/1d7d2bc0-7721-4c4e-a8a6-e859bad9c13a"
+  },
+  {
+    id: "b782f295-c8d7-4e72-9987-a24ede2b1fd4",
+    title: "Foreign investors bet Panama can shrug off social unrest and Trump threats",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/b782f295-c8d7-4e72-9987-a24ede2b1fd4"
+  },
+  {
+    id: "00f94018-e658-4545-b16e-1bc00e19b754",
+    title: "AI hyperscalers are transforming debt",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/00f94018-e658-4545-b16e-1bc00e19b754"
+  },
+  {
+    id: "2ef0c2fa-9626-4785-94cd-65fbf5be5741",
+    title: "The post-Enron auditor reforms are being rolled back",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/2ef0c2fa-9626-4785-94cd-65fbf5be5741"
+  },
+  {
+    id: "ba19ec85-c736-4cfd-9a85-4e1ddf1938e5",
+    title: "The crisis at Big Law powerhouse Weil",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/ba19ec85-c736-4cfd-9a85-4e1ddf1938e5"
+  },
+  {
+    id: "f9c197e8-e163-4ffe-8563-3fe4e9c76f89",
+    title: "How London became the property market’s black sheep",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/f9c197e8-e163-4ffe-8563-3fe4e9c76f89"
+  },
+  {
+    id: "4838f5d1-44e4-414e-a092-c738db47d7b9",
+    title: "Rich turn to borrowing against private equity holdings as payouts slow",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/4838f5d1-44e4-414e-a092-c738db47d7b9"
+  },
+  {
+    id: "ca02d69d-a519-4436-b758-3612fd657edc",
+    title: "Andy Burnham’s first Labour conference as prime minister",
+    date: "2026-09-28",
+    time: "05:00",
+    url: "https://www.ft.com/content/ca02d69d-a519-4436-b758-3612fd657edc"
+  },
+  {
+    id: "fb3aa961-fa28-4dd0-a2ea-cdb03ac8258d",
+    title: "Donald Trump hosts Anthropic CEO Dario Amodei at White House",
+    date: "2026-09-28",
+    time: "04:25",
+    url: "https://www.ft.com/content/fb3aa961-fa28-4dd0-a2ea-cdb03ac8258d"
+  },
+  {
     id: "57765bee-3ee6-4fa9-bea5-feaaf277a647",
     title: "JCB’s Anthony Bamford names youngest child George as co-chair",
     date: "2026-09-28",
@@ -173,131 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-27",
     time: "10:38",
     url: "https://www.ft.com/content/39eb5cb2-f73e-4c18-8357-f7378428c8e1"
-  },
-  {
-    id: "a2c22bca-f50a-440d-82f8-1a373859770d",
-    title: "Value of old supertankers soars past new builds as market goes ‘bananas’",
-    date: "2026-09-27",
-    time: "05:00",
-    url: "https://www.ft.com/content/a2c22bca-f50a-440d-82f8-1a373859770d"
-  },
-  {
-    id: "b5707707-730e-40d3-9ff7-8ebfe27d5708",
-    title: "Big dreams and tiny revenue are the new norm for AI IPOs",
-    date: "2026-09-27",
-    time: "05:00",
-    url: "https://www.ft.com/content/b5707707-730e-40d3-9ff7-8ebfe27d5708"
-  },
-  {
-    id: "8cd07ef8-1578-4697-9f8b-d1a6f5b60883",
-    title: "The UK’s IMF bailout has things to teach us 50 years on",
-    date: "2026-09-27",
-    time: "05:00",
-    url: "https://www.ft.com/content/8cd07ef8-1578-4697-9f8b-d1a6f5b60883"
-  },
-  {
-    id: "474ced6c-b6ba-4d03-af41-bab5fbb6d7e9",
-    title: "Europe braces for LNG tug of war with Asia",
-    date: "2026-09-27",
-    time: "05:00",
-    url: "https://www.ft.com/content/474ced6c-b6ba-4d03-af41-bab5fbb6d7e9"
-  },
-  {
-    id: "f342efa7-96b0-4bb2-aa19-fae740d8c286",
-    title: "Private credit turmoil eases as investor withdrawals slow",
-    date: "2026-09-27",
-    time: "05:00",
-    url: "https://www.ft.com/content/f342efa7-96b0-4bb2-aa19-fae740d8c286"
-  },
-  {
-    id: "44ea845f-7048-4c98-b061-c9df7983af16",
-    title: "Yields up",
-    date: "2026-09-25",
-    time: "18:06",
-    url: "https://www.ft.com/content/44ea845f-7048-4c98-b061-c9df7983af16"
-  },
-  {
-    id: "4acbdc1f-d898-4966-b865-924470de0066",
-    title: "Bond ructions point to new danger zone in markets",
-    date: "2026-09-25",
-    time: "18:00",
-    url: "https://www.ft.com/content/4acbdc1f-d898-4966-b865-924470de0066"
-  },
-  {
-    id: "8c6f0c32-01b8-4490-afd3-96254b567168",
-    title: "Stockpickers: Mortgage Advice Bureau, Luceco, Next",
-    date: "2026-09-25",
-    time: "18:00",
-    url: "https://www.ft.com/content/8c6f0c32-01b8-4490-afd3-96254b567168"
-  },
-  {
-    id: "4deafc9c-981b-4fd8-9f74-da0e8fce9651",
-    title: "Directors’ Deals: AstraZeneca’s Soriot in a major show of faith",
-    date: "2026-09-25",
-    time: "18:00",
-    url: "https://www.ft.com/content/4deafc9c-981b-4fd8-9f74-da0e8fce9651"
-  },
-  {
-    id: "4c3f75a2-c2f9-4ef7-9895-21daf5e92dfe",
-    title: "OK, so where are all these data centres?",
-    date: "2026-09-25",
-    time: "17:59",
-    url: "https://www.ft.com/content/4c3f75a2-c2f9-4ef7-9895-21daf5e92dfe"
-  },
-  {
-    id: "f9d5e0af-0106-4909-a854-7bd69cbb74ab",
-    title: "What an AI maths breakthrough means for human discovery",
-    date: "2026-09-25",
-    time: "17:48",
-    url: "https://www.ft.com/content/f9d5e0af-0106-4909-a854-7bd69cbb74ab"
-  },
-  {
-    id: "5c15c5a9-9529-41c4-ad76-8b702583df4f",
-    title: "India police detain dozens of protesters against election commission",
-    date: "2026-09-25",
-    time: "17:29",
-    url: "https://www.ft.com/content/5c15c5a9-9529-41c4-ad76-8b702583df4f"
-  },
-  {
-    id: "469c3f85-ee58-41ed-8289-33866a72549a",
-    title: "US Supreme Court lets Trump deploy voter database ahead of midterms",
-    date: "2026-09-25",
-    time: "17:22",
-    url: "https://www.ft.com/content/469c3f85-ee58-41ed-8289-33866a72549a"
-  },
-  {
-    id: "08b4cf3d-3418-4159-b641-533fdb305d3e",
-    title: "The case for talking to China is not a case for détente",
-    date: "2026-09-25",
-    time: "17:21",
-    url: "https://www.ft.com/content/08b4cf3d-3418-4159-b641-533fdb305d3e"
-  },
-  {
-    id: "917a9cba-6afd-4ba3-8742-2b7601ecc2ba",
-    title: "Iran offers US new seven-day ceasefire proposal",
-    date: "2026-09-25",
-    time: "17:16",
-    url: "https://www.ft.com/content/917a9cba-6afd-4ba3-8742-2b7601ecc2ba"
-  },
-  {
-    id: "0206443e-a4ca-4316-a583-267aa74b0298",
-    title: "Burnham’s opposition to Heathrow expansion puts third runway in doubt",
-    date: "2026-09-25",
-    time: "17:02",
-    url: "https://www.ft.com/content/0206443e-a4ca-4316-a583-267aa74b0298"
-  },
-  {
-    id: "2f820ff9-28c2-4e53-9948-6be009a8a23c",
-    title: "Manchester City found guilty of breaching Premier League rules",
-    date: "2026-09-25",
-    time: "17:02",
-    url: "https://www.ft.com/content/2f820ff9-28c2-4e53-9948-6be009a8a23c"
-  },
-  {
-    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
-    title: "Submit a question: What’s next for the global economy?",
-    date: "2026-09-25",
-    time: "16:53",
-    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d"
   },
 ];
