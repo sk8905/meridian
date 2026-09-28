@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "8840071d-3867-45e2-bf25-ce24655e69ba",
+    title: "Blair-era money is ‘not there now’, Healey warns Labour",
+    date: "2026-09-28",
+    time: "17:06",
+    url: "https://www.ft.com/content/8840071d-3867-45e2-bf25-ce24655e69ba"
+  },
+  {
+    id: "fbe0a48f-4d33-42eb-8d2c-79f662c88678",
+    title: "Meta launches enterprise AI business seeking to cash in on vast spending",
+    date: "2026-09-28",
+    time: "16:54",
+    url: "https://www.ft.com/content/fbe0a48f-4d33-42eb-8d2c-79f662c88678"
+  },
+  {
+    id: "d751ad99-531d-4990-9a4c-ee89a9fc1b2d",
+    title: "Bond sell-off deepens as oil prices rise",
+    date: "2026-09-28",
+    time: "16:54",
+    url: "https://www.ft.com/content/d751ad99-531d-4990-9a4c-ee89a9fc1b2d"
+  },
+  {
+    id: "4aa021c0-7ffc-4570-b4ba-2f90c2d24653",
+    title: "Without a resilient economy, central banks have limited choices",
+    date: "2026-09-28",
+    time: "16:30",
+    url: "https://www.ft.com/content/4aa021c0-7ffc-4570-b4ba-2f90c2d24653"
+  },
+  {
+    id: "571a3103-ec01-464b-ab39-0c0da58d9524",
+    title: "Five men arrested over alleged RAF Fairford terror plot released on bail",
+    date: "2026-09-28",
+    time: "16:29",
+    url: "https://www.ft.com/content/571a3103-ec01-464b-ab39-0c0da58d9524"
+  },
+  {
     id: "e423eb7f-ec97-43ed-9b75-cad8e81ac86b",
     title: "Russian drones hit Kyiv science academy and hospital",
     date: "2026-09-28",
@@ -68,13 +103,6 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "14:00",
     url: "https://www.ft.com/content/a2bbb03f-d628-4ea4-8e1d-f5f3b677d536"
-  },
-  {
-    id: "8840071d-3867-45e2-bf25-ce24655e69ba",
-    title: "Blair-era money is ‘not there now’, Healey warns Labour",
-    date: "2026-09-28",
-    time: "13:54",
-    url: "https://www.ft.com/content/8840071d-3867-45e2-bf25-ce24655e69ba"
   },
   {
     id: "6b216fc2-b2f4-42df-9102-c18476eb74de",
@@ -168,13 +196,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/7761f1ee-0310-4f8d-bac1-f3e5f2354d45"
   },
   {
-    id: "d751ad99-531d-4990-9a4c-ee89a9fc1b2d",
-    title: "Bond sell-off deepens as oil rises above $108",
-    date: "2026-09-28",
-    time: "10:56",
-    url: "https://www.ft.com/content/d751ad99-531d-4990-9a4c-ee89a9fc1b2d"
-  },
-  {
     id: "1cd3310e-da01-49da-9a3c-8029d59f5761",
     title: "TotalEnergies boosts buybacks and dividends as oil prices surge",
     date: "2026-09-28",
@@ -187,13 +208,6 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "10:00",
     url: "https://www.ft.com/content/f4e078f7-4aab-43f5-8eb5-2dbd7142a752"
-  },
-  {
-    id: "571a3103-ec01-464b-ab39-0c0da58d9524",
-    title: "Air base witness who alerted police only had ‘partial picture’, says Streeting",
-    date: "2026-09-28",
-    time: "09:42",
-    url: "https://www.ft.com/content/571a3103-ec01-464b-ab39-0c0da58d9524"
   },
   {
     id: "6ad5a550-adb6-4c56-85ec-2f2bacff059b",
@@ -264,40 +278,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "06:00",
     url: "https://www.ft.com/content/1a442c17-ef23-478b-8aed-1bca65cbb45f"
-  },
-  {
-    id: "47019489-f00e-4c96-bb79-5c628c89b3a1",
-    title: "FirstFT: EU weighs response to Russian hybrid attacks",
-    date: "2026-09-28",
-    time: "05:32",
-    url: "https://www.ft.com/content/47019489-f00e-4c96-bb79-5c628c89b3a1"
-  },
-  {
-    id: "c3cebf7d-43fd-4962-b4ec-b55bcbce4c2a",
-    title: "Analysts’ views: forecasters see further insurance increases in 2026",
-    date: "2026-09-28",
-    time: "05:30",
-    url: "https://www.ft.com/content/c3cebf7d-43fd-4962-b4ec-b55bcbce4c2a"
-  },
-  {
-    id: "b1ba7dd2-3e3a-4944-b637-ff7db3b636e1",
-    title: "US and China agree $60bn low tariff regime spanning foie gras to camels",
-    date: "2026-09-28",
-    time: "05:04",
-    url: "https://www.ft.com/content/b1ba7dd2-3e3a-4944-b637-ff7db3b636e1"
-  },
-  {
-    id: "5513b441-a575-4c73-8532-cb09216c4406",
-    title: "EU countries consider Nato-style joint responses to Russian hybrid attacks",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/5513b441-a575-4c73-8532-cb09216c4406"
-  },
-  {
-    id: "aa0a3458-b69d-423d-9654-9ad45c8432d9",
-    title: "A message for the chancellor: the time is now ripe for tax reform",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/aa0a3458-b69d-423d-9654-9ad45c8432d9"
   },
 ];
