@@ -65,11 +65,12 @@ for (const key of ["equities", "fixed-income", "hedge-funds", "legal"]) {
     hasRail: !!document.querySelector(".dsh-newsrail"),
     norail: !!document.querySelector(".dsh-3z.dsh-norail"),
     hSize: (() => { const h = document.querySelector(".dsh-mid .dsh-h"); return h ? getComputedStyle(h).fontSize : ""; })(),
+    adj: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0,
   }));
   check(p.threeZone && p.navChips === 6 && p.dshFlex === "flex", `${key}: renders the 3-zone workspace with the left nav rail`);
   check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
   check(p.hasRail && !p.norail, `${key}: keeps a news rail on the right`);
-  check(p.hSize === "12px", `${key}: panel headers use the app's 12px body scale (got ${p.hSize})`);
+  check(p.hSize === `${12 + p.adj}px`, `${key}: panel headers use the app's body scale (12px + --fs-adj = ${12 + p.adj}px, got ${p.hSize})`);
 }
 checkErrs(errs, "dashboard 3-zone all sections");
 

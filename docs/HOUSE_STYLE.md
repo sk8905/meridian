@@ -156,26 +156,29 @@ notification badge red (`#ef4444`).
   column-aligned in the proportional face. Vite fingerprints the woff2 into
   `/assets/`; `v2/index.html` preloads the `latin` file so the first paint is
   already in the real face (no swap flash).
-- **R11 — Sizes come from ONE flat 5-step scale, in bare px, no device bump:**
+- **R11 — Sizes come from ONE flat 5-step scale, driven by a SINGLE knob.** Each
+  step is a grid token (`--fs-micro/-body/-head/-title/-hero`, in premium.css)
+  equal to its base px **plus one shared offset, `--fs-adj`**. Every element that
+  sets a size points at a grid token (or a semantic alias — `--fs-content`,
+  `--fs-card-title`, … — which resolve to one), so changing `--fs-adj` alone
+  resizes the **whole app**, phone and desktop, with layout untouched.
 
-  | token / role | px | used for |
-  | --- | --- | --- |
-  | micro | **10px** | day breaks · eyebrows · column heads · timestamps · source tags · SRC chips (usually uppercase) |
-  | body | **12px** | THE default — prose, feed headlines, list & table rows, values, reading pane, buttons |
-  | head | **14px** | card / panel headings (`--fs-card-title`), section sub-heads |
-  | title | **16px** | page / article headline (`--fs-section-title`, h1) |
-  | hero | **26px** | dashboard KPI display figures only |
+  | token | base px | `--fs-adj:-0.5px` → | used for |
+  | --- | --- | --- | --- |
+  | `--fs-micro` | 10px | **9.5px** | day breaks · eyebrows · column heads · timestamps · source tags · SRC chips |
+  | `--fs-body` | 12px | **11.5px** | THE default — prose, feed headlines, list & table rows, values, reading pane, buttons |
+  | `--fs-head` | 14px | **13.5px** | card / panel headings, section sub-heads |
+  | `--fs-title` | 16px | **15.5px** | page / article headline (h1) |
+  | `--fs-hero` | 26px | **25.5px** | dashboard KPI display figures only |
 
-  Body text is **12px on phone AND desktop** — identical. The old per-device
-  `--fs-bump` (+1px on mobile) is **retired** (kept defined at `0` only so any
-  stray legacy `calc(<px> + var(--fs-bump))` still resolves). Change a size
-  once, in the `--fs-*` token block (premium.css), so every surface moves in
-  lockstep. **This binds every NEW surface too** — mobile tap-lists, option
-  rows, drill headers, empty states. A tappable row is still a **12px** list row
-  (padding gives the touch target, not font-size); never a bespoke 14/16px
-  "because it's a big touch target". When you add text, use a scale step
-  (10/12/14/16/26) — never an ad-hoc px or rem — and pin any new body surface in
-  `tests/type-scale.mjs`.
+  `--fs-adj` is currently **-0.5px** (the scale reads 9.5/11.5/13.5/15.5/25.5); set
+  it to `0px` for the original 10/12/14/16/26. Body text is one size on phone AND
+  desktop — identical. The old per-device `--fs-bump` is **retired** (kept defined
+  at `0`). **Never hand-write a px font-size** — always reference a grid token, so
+  the knob reaches it; this binds every NEW surface too (mobile tap-lists, option
+  rows, drill headers, empty states). A tappable row is still a **body** list row
+  (padding gives the touch target, not font-size). Pin any new body surface in
+  `tests/type-scale.mjs`, which reads `--fs-adj` live so it tracks the knob.
 - **R11b — No SECOND font family, and only the weights already in use** (400 / 500 /
   600 / 700 / 800; Montserrat ships them all in one variable file). 500 is the
   inactive-chip/label weight, paired with 600 for the active state. Hierarchy comes

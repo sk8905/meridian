@@ -155,12 +155,13 @@ await ctx.close();
       appFont: /montserrat|gotham|futura/i.test(hcs.fontFamily) && !/mono/i.test(hcs.fontFamily),
       btnSize: bcs.fontSize, btnRadius: bcs.borderRadius,
       bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
+      adj: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0,
       noIntro: !document.querySelector(".wn-intro"),
     };
   });
   check(s.left >= 12 && s.right <= s.vw - 12, `Network importer fits within the side gutter (left ${s.left}, right ${s.right}, vw ${s.vw})`);
   check(s.appFont, "Network importer uses the one app font (Gotham)");
-  checkEq(s.btnSize, "12px", "Choose-file button uses the 12px body terminal size (no device bump)");
+  checkEq(s.btnSize, `${12 + s.adj}px`, "Choose-file button uses the app body size (12px + --fs-adj)");
   checkEq(s.btnRadius, "0px", "Choose-file button is square (no pill radius)");
   check(s.noIntro, "the explainer intro paragraph is removed");
   checkErrs(e2, "network importer phone styling");
