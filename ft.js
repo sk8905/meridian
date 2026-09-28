@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e423eb7f-ec97-43ed-9b75-cad8e81ac86b",
+    title: "Russian drones hit Kyiv science academy and hospital",
+    date: "2026-09-28",
+    time: "16:03",
+    url: "https://www.ft.com/content/e423eb7f-ec97-43ed-9b75-cad8e81ac86b"
+  },
+  {
+    id: "78ec0e04-d6db-41a9-a2eb-a794c80d270c",
+    title: "Post-Covid economic inactivity was much lower than thought, ONS says",
+    date: "2026-09-28",
+    time: "15:53",
+    url: "https://www.ft.com/content/78ec0e04-d6db-41a9-a2eb-a794c80d270c"
+  },
+  {
+    id: "65da4f68-2699-4491-a38d-bcc18cde14ac",
+    title: "A TV series shows Britain is woefully unprepared for war",
+    date: "2026-09-28",
+    time: "15:51",
+    url: "https://www.ft.com/content/65da4f68-2699-4491-a38d-bcc18cde14ac"
+  },
+  {
     id: "6729bceb-2480-42b4-9308-51ef7728c181",
     title: "SpaceX’s Starship rocket reaches orbit for the first time",
     date: "2026-09-28",
@@ -278,47 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "05:00",
     url: "https://www.ft.com/content/aa0a3458-b69d-423d-9654-9ad45c8432d9"
-  },
-  {
-    id: "1fdf6289-bc99-4263-af79-da1060a09394",
-    title: "UK biodiesel industry attacks decision to reject duties on cheaper US imports",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/1fdf6289-bc99-4263-af79-da1060a09394"
-  },
-  {
-    id: "b4dde6f6-f91f-4d3e-8ce1-ab8be69dab47",
-    title: "GM warns on US market as carmakers seek ‘safe haven’ from Chinese rivals",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/b4dde6f6-f91f-4d3e-8ce1-ab8be69dab47"
-  },
-  {
-    id: "6fe783e2-6472-4b66-b126-7f85c8ffef99",
-    title: "The Pope lends his voice to Europe’s fight against the far right",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/6fe783e2-6472-4b66-b126-7f85c8ffef99"
-  },
-  {
-    id: "957f68f9-9f74-4857-9773-d3be3ef3f305",
-    title: "Kremlin pressures Russian businesses to pay for drone defences",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/957f68f9-9f74-4857-9773-d3be3ef3f305"
-  },
-  {
-    id: "8b7f5c50-7ab5-46e1-96c7-e48c010f615b",
-    title: "The bargain between shareholders and companies is being eroded",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/8b7f5c50-7ab5-46e1-96c7-e48c010f615b"
-  },
-  {
-    id: "4339e9f0-ff48-4873-be6a-36cbac2631c4",
-    title: "For once, the Fed has put Main Street before Wall Street",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/4339e9f0-ff48-4873-be6a-36cbac2631c4"
   },
 ];
