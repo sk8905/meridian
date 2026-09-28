@@ -172,10 +172,10 @@ export const GOVT_YIELDS = {
 
 // Curated government-bond-yield CHANGES (basis points) by country → tenor, for the
 // Fixed Income yield-change heatmap. Trading Economics country pages publish the
-// current level plus the trailing 1-month (m1) and 1-year (y1) change; 1W/3M/6M
-// (w1/m3/m6) are not published there and stay null. The US full curve is
-// additionally refreshed LIVE + all windows via /api/govyields (FRED daily CMT),
-// which overrides these. Real + sourced; refreshed by the daily routine.
+// current level plus the trailing 1-month (m1) and 1-year (y1) change; those two are
+// curated here. The 10Y 3M/6M (m3/m6) are filled LIVE from FRED's OECD monthly series
+// via /api/govyields, and the whole US curve (all windows, daily) too — both override
+// these. Only 1W (needs daily non-US data) stays blank. Real + sourced.
 export const GOVT_YIELD_CHG = {
   "United States": { y2: { m1: 4, y1: 26 }, y5: { m1: 13, y1: 40 }, y10: { m1: 22, y1: 33 }, y30: { m1: 23, y1: 31 } },
   "Brazil":        { y10: { m1: 35, y1: 68 } },

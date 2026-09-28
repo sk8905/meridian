@@ -1016,8 +1016,9 @@ async function handleChokepoint(request, env, ctx) {
 // Live US Treasury yields from FRED (the only source reachable + reliable from a
 // Worker — Stooq now JS-challenges datacenter IPs). The US full curve
 // (2Y/5Y/10Y/30Y, daily) gives the current level + the CHANGE over 1W/1M/3M/6M/1Y
-// in basis points; other countries' changes come from the curated GOVT_YIELD_CHG
-// snapshot (client-side), so the heatmap is populated for every economy.
+// in basis points. Other economies take their 1M/1Y from the curated GOVT_YIELD_CHG
+// snapshot (client-side) and their 10Y 3M/6M from FRED's OECD monthly series here
+// (GY_OECD_10Y) — so every window but 1W (which needs daily data) is populated.
 const GY_US_SERIES = [["y2", "DGS2"], ["y5", "DGS5"], ["y10", "DGS10"], ["y30", "DGS30"]];
 // Full daily observation history for a FRED series (ascending [ms, value]).
 async function fredHistory(id, env, limit) {
@@ -1042,9 +1043,32 @@ function windowedBpChanges(pts) {
   const chg = (days) => { const target = lastT - days * 864e5; let cand = null; for (const [t, v] of pts) { if (t <= target) cand = v; else break; } if (cand == null) cand = pts[0][1]; return +((lastV - cand) * 100).toFixed(1); };
   return { v: +lastV.toFixed(3), w1: chg(7), m1: chg(30), m3: chg(91), m6: chg(182), y1: chg(365) };
 }
+// The 10Y gap-fill for the change heatmap: OECD long-term (10Y) government-bond
+// yields on FRED — monthly, but reachable + reliable from a Worker (unlike Stooq,
+// which JS-challenges datacenter IPs). It fills the 3M/6M windows every economy was
+// missing; 1W needs daily data so it stays blank, and the curated 1M/1Y point values
+// are left untouched. Series id = IRLTLT01<ISO2>M156N (e.g. JP = IRLTLT01JPM156N).
+const GY_OECD_10Y = {
+  "United Kingdom": "IRLTLT01GBM156N", "Germany": "IRLTLT01DEM156N", "France": "IRLTLT01FRM156N",
+  "Italy": "IRLTLT01ITM156N", "Spain": "IRLTLT01ESM156N", "Switzerland": "IRLTLT01CHM156N",
+  "Japan": "IRLTLT01JPM156N", "Australia": "IRLTLT01AUM156N", "South Korea": "IRLTLT01KRM156N",
+  "India": "IRLTLT01INM156N", "China": "IRLTLT01CNM156N", "Brazil": "IRLTLT01BRM156N",
+  "Mexico": "IRLTLT01MXM156N",
+};
+// 3M/6M changes (bp) ONLY, from a MONTHLY [ms, yield%] series — the two windows the
+// snapshot lacked. Each needs a point at//before its lookback (a 6-day grace absorbs
+// month-start dating); returns null for a window with no comparison point. No v/w1/m1/y1
+// so the curated snapshot's level + 1M/1Y point values stay in force.
+function oecdGapChanges(pts) {
+  if (!pts || pts.length < 4) return null;
+  const lastT = pts[pts.length - 1][0], lastV = pts[pts.length - 1][1];
+  const chg = (days) => { const target = lastT - (days - 6) * 864e5; let cand = null; for (const [t, v] of pts) { if (t <= target) cand = v; else break; } return cand == null ? null : +((lastV - cand) * 100).toFixed(1); };
+  const m3 = chg(91), m6 = chg(182);
+  return (m3 == null && m6 == null) ? null : { ...(m3 != null ? { m3 } : {}), ...(m6 != null ? { m6 } : {}) };
+}
 async function handleGovYields(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/govyields?v=3", request.url).toString());
+  const cacheKey = new Request(new URL("/api/govyields?v=4", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   // US full curve, live from FRED daily CMT series → level + windowed changes (bp).
@@ -1053,7 +1077,15 @@ async function handleGovYields(request, env, ctx) {
     const c = windowedBpChanges(await fredHistory(id, env));
     if (c) us[k] = c;
   }));
-  const resp = new Response(JSON.stringify({ yields: [us], ts: Date.now() }), {
+  // Every other economy: fill the 10Y 3M/6M gaps from FRED's OECD monthly long-term
+  // series. Fail-safe — a series FRED doesn't carry just leaves that country as the
+  // snapshot (1M/1Y). limit:24 = ~2y of monthly points, enough for the 6M lookback.
+  const worldMap = {};
+  await Promise.all(Object.entries(GY_OECD_10Y).map(async ([country, id]) => {
+    const c = oecdGapChanges(await fredHistory(id, env, 24));
+    if (c) worldMap[country] = { country, y10: c };
+  }));
+  const resp = new Response(JSON.stringify({ yields: [us, ...Object.values(worldMap)], ts: Date.now() }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
   });
   if (ctx && ctx.waitUntil && us.y10) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
