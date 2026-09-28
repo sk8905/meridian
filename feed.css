@@ -33,7 +33,7 @@
   --t-accent:#fb8b1e;
   --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0; --t-news:#8aa0c8;
 }
-.g-feed-wrap { --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+.g-feed-wrap { --t-mono:"Montserrat","Gotham","Futura","Century Gothic",system-ui,sans-serif; }
 
 /* ---- chip bar --------------------------------------------------------------- */
 /* One canonical chip-row height across the whole app (HOUSE_STYLE T20): slim but

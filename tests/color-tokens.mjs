@@ -263,11 +263,13 @@ check(/\.tui \.g-wiretab\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\
 check(/\[data-theme="dark"\] \.tui \.g-wiretab\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#fff\)/.test(homeCss),
   "home.css has a dark-mode .g-wiretab.is-on override reading var(--chip-ul, #fff)");
 
-// R11 — ticker symbols are mono + tabular-nums, matching every numeric sibling
-// in the same row (Home's earnings-watch row and the Dashboard's earnings/
-// hedge-fund ticker cells had drifted, missing one or both properties).
+// R11 — ticker symbols use the one app font + tabular-nums, matching every numeric
+// sibling in the same row (Home's earnings-watch row and the Dashboard's earnings/
+// hedge-fund ticker cells had drifted, missing one or both properties). The
+// --t-mono token now resolves to the app's single sans (Gotham); tabular-nums is
+// what keeps its figures column-aligned.
 check(/\.g-earn-tkr\{[^}]*font-family:var\(--t-mono\)[^}]*font-variant-numeric:tabular-nums/.test(homeCss),
-  "home.css .g-earn-tkr ticker is mono + tabular-nums, matching its row siblings");
+  "home.css .g-earn-tkr ticker uses the app font + tabular-nums, matching its row siblings");
 check(/\.dsh-earn-tk \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss),
   "dashboard.css .dsh-earn-tk ticker has tabular-nums, matching its row siblings (.dsh-earn-fct/.dsh-earn-act/.dsh-earn-px)");
 check(/\.dsh-hf-t \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss),
@@ -294,9 +296,9 @@ check(/\.dsh-card \{[^}]*border-radius:0/.test(dashboardCss),
 check(/\.dsh-h \{[^}]*border-bottom:1px solid var\(--t-grid\)[^}]*color:var\(--t-mut\)/.test(dashboardCss),
   "dashboard.css .dsh-h is a muted section title over a bottom hairline divider");
 check(/\.dsh-tbl \{[^}]*font-family:var\(--t-mono\)/.test(dashboardCss),
-  "dashboard.css .dsh-tbl data tables render in the mono face");
+  "dashboard.css .dsh-tbl data tables render in the one app font (via --t-mono)");
 check(/\.dsh-kv-v \{[^}]*font-family:var\(--t-mono\)/.test(dashboardCss),
-  "dashboard.css .dsh-kv-v metric values render in the mono face");
+  "dashboard.css .dsh-kv-v metric values render in the one app font (via --t-mono)");
 
 // R20 — no methodology/provenance caption prose under a data table or list.
 // Each row already links its own source (R7); a trailing "each/every X links

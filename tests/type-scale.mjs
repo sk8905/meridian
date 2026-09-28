@@ -1,6 +1,7 @@
 // Type-scale contract — ONE font, ONE body size, no per-device bump.
-// The app was unified to a single flat 5-step px scale (micro 10 · body 12 ·
-// head 14 · title 16 · hero 26) in ONE font (--t-mono, the terminal monospace).
+// The app is unified to a single flat 5-step px scale (micro 10 · body 12 ·
+// head 14 · title 16 · hero 26) in ONE font: the --t-mono token now resolves to
+// the app's single sans family, Gotham (self-hosted via Montserrat).
 // Body text — feed headlines, reading pane, list rows, table values, the league,
 // the transactions type-list — is 12px on phone AND desktop. This guards against
 // drift back to the old mixed sans/mono, the 11.5px league density, and the +1px
@@ -10,7 +11,9 @@ import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs,
 const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
-const isMono = (fam) => /mono|SF ?Mono|SFMono|Menlo|Consolas|ui-monospace/i.test(fam || "");
+// The one app family, as it appears in a computed font-family string. Must NOT be
+// a monospace stack (the pre-unification mixed sans/mono is what we guard against).
+const isAppFont = (fam) => /montserrat|gotham|futura/i.test(fam || "") && !/mono/i.test(fam || "");
 
 // ---- 1) the Profiles league — names AND figures are now one 12px mono ----
 {
@@ -29,8 +32,8 @@ const isMono = (fam) => /mono|SF ?Mono|SFMono|Menlo|Consolas|ui-monospace/i.test
   });
   checkEq(r.bump, 0, "no per-device bump: --fs-bump resolves to 0 on phones (12px on both)");
   checkEq(r.nmSize, "12px", "Profiles league: manager names are the 12px body size");
-  check(isMono(r.nmFam), "Profiles league: manager names use the one mono font");
-  check(isMono(r.nFam), "Profiles league: figures use the one mono font");
+  check(isAppFont(r.nmFam), "Profiles league: manager names use the one app font (Gotham)");
+  check(isAppFont(r.nFam), "Profiles league: figures use the one app font (Gotham)");
   checkErrs(errs, "profiles");
 }
 
@@ -47,7 +50,7 @@ const isMono = (fam) => /mono|SF ?Mono|SFMono|Menlo|Consolas|ui-monospace/i.test
     };
   });
   checkEq(r.feed, "12px", "Home feed headlines are the 12px body size");
-  check(isMono(r.feedFam), "Home feed headlines use the one mono font");
+  check(isAppFont(r.feedFam), "Home feed headlines use the one app font (Gotham)");
   checkEq(r.body, 12, "content default (--fs-content / body) is 12px");
 }
 
@@ -69,8 +72,8 @@ const isMono = (fam) => /mono|SF ?Mono|SFMono|Menlo|Consolas|ui-monospace/i.test
   });
   checkEq(r.rowSize, "12px", "Transactions type-list: the option row is the 12px body size");
   checkEq(r.lblSize, "12px", "Transactions type-list: the type name is 12px");
-  check(isMono(r.lblFam), "Transactions type-list: the type name uses the one mono font");
-  check(isMono(r.nFam), "Transactions type-list: the count uses the one mono font");
+  check(isAppFont(r.lblFam), "Transactions type-list: the type name uses the one app font (Gotham)");
+  check(isAppFont(r.nFam), "Transactions type-list: the count uses the one app font (Gotham)");
   checkErrs(errs, "transactions type-list");
 }
 

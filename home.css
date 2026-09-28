@@ -784,7 +784,7 @@
       --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0; --t-news:#8aa0c8;
       --t-shadow:0 1px 2px rgba(19,27,44,.06);
     }
-    #glance, .na-panel, .g-main.tui, .g-mkt-panel, .g-sv-panel{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+    #glance, .na-panel, .g-main.tui, .g-mkt-panel, .g-sv-panel{ --t-mono:"Montserrat","Gotham","Futura","Century Gothic",system-ui,sans-serif; }
 
     /* ---- ticker strip (below the command bar) ---- */
     .g-ticker{ display:flex; align-items:stretch; height:26px; flex:0 0 auto; overflow:hidden;
@@ -936,7 +936,7 @@
     /* Justified, but COMPRESSED for the monospace face: tighter letter/word spacing +
        hyphenation lets more fit per line, so justification has far less empty space to
        distribute — no ragged "rivers" of white on a narrow phone column (mockup C). */
-    .g-read-p{ font-family:var(--t-mono); font-size:12px; line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; letter-spacing:-.3px; word-spacing:-1.5px; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
+    .g-read-p{ font-family:var(--t-mono); font-size:12px; line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     .g-read-open{ font-family:var(--t-mono); font-size:12px; color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:12px; line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
@@ -1176,10 +1176,10 @@
     .tui .g-hbrief-b{ padding:7px 0; border-top:1px solid var(--t-grid); font-size:12px; line-height:1.72; color:var(--t-ink); }
     .tui .g-hbrief-bt{ display:block; }
     /* Justify the briefing prose exactly like the in-app reading pane (.g-read-p):
-       the same light compression (tighter letter/word spacing + auto-hyphenation)
-       keeps justified 12px mono from opening ugly gaps. The trailing source line
-       (.g-hbrief-srcs) is left alone. */
-    .tui .g-hbrief-lede, .tui .g-hbrief-bt{ text-align:justify; letter-spacing:-.3px; word-spacing:-1.5px; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
+       a hair of negative tracking + auto-hyphenation keeps justified 12px prose from
+       opening ugly rivers, without cramping the proportional face. The trailing
+       source line (.g-hbrief-srcs) is left alone. */
+    .tui .g-hbrief-lede, .tui .g-hbrief-bt{ text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     /* Same-desk items are folded into ONE continuous item (see renderHomeBriefing),
        so every source it compresses sits on a SINGLE trailing line, middot-joined —
        not a source line per stacked sub-bullet. */

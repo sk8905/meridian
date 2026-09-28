@@ -1,4 +1,30 @@
 /* =============================================================================
+   Wire — app typeface. The whole app renders in ONE family: Gotham, self-hosted
+   via Montserrat (the openly-licensed geometric stand-in — drop licensed Gotham
+   woff2 in over these two files and nothing else changes). One variable weight
+   axis per subset in a single file: latin carries the app's punctuation, arrows
+   (↑ ↓ ↗), minus and currency; latin-ext the accented names. Exposed app-wide as
+   the --t-mono token (historic name, now this one sans family). Self-hosted so
+   there is no third-party request and no font-swap flash on the dark terminal.
+   ============================================================================= */
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/montserrat-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/montserrat-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* =============================================================================
    Wire — shared "premium" polish layer.
    Linked into every app AFTER its own stylesheet so equal-specificity rules win.
    Purely additive and non-interactive: soft navy-tinted elevation, tabular

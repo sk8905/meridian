@@ -19,6 +19,7 @@ const DIST = path.join(ROOT, "dist");
 const SKIP = new Set([
   "dist", "node_modules", ".git", ".github", ".claude",
   "tests", "docs", "src", "scripts", "v2",              // v2 = Vite's job
+  "fonts",                                               // Vite fingerprints these woff2 into /assets
   "package.json", "package-lock.json", "vite.config.js", ".gitignore",
   "CLAUDE.md", "README.md",
 ]);

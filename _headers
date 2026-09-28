@@ -66,3 +66,8 @@
   Cache-Control: no-cache
 /manifest.webmanifest
   Cache-Control: no-cache
+
+# NOTE: the self-hosted app typeface needs no rule here. Vite fingerprints the
+# woff2 into /assets/montserrat-*-[hash].woff2 (referenced by the built @font-face
+# and the index.html preload), so it is immutable-cached like every other bundled
+# asset. The source copies live at /fonts/ only as the Vite build input.

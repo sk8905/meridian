@@ -141,13 +141,21 @@ notification badge red (`#ef4444`).
 
 ## 4. Typography — ONE family, a fixed 5-step scale
 
-- **One font everywhere** — `--t-mono` (`ui-monospace, "SF Mono", SFMono-Regular,
-  Menlo, Consolas, "Liberation Mono", monospace`). Every piece of text — prose,
-  feed rows, list names, headings, buttons, day breaks AND all tabular/numeric
-  data — is this one monospace family. The base `body` font-family (app.css,
-  home.css, and each section's `styles.css`) is `--t-mono`, so everything
-  inherits it; there is no sans stack anywhere. Numeric columns still add
-  `font-variant-numeric: tabular-nums`.
+- **One font everywhere** — the whole app renders in a single sans family,
+  **Gotham**, self-hosted via **Montserrat** (the openly-licensed geometric
+  stand-in; the two woff2 under `/fonts/` are the only swap point for licensed
+  Gotham web fonts). It is exposed through the historic **`--t-mono`** token
+  (`"Montserrat", "Gotham", "Futura", "Century Gothic", system-ui, sans-serif`) —
+  the name predates the switch and is kept only to avoid a repo-wide rename; it no
+  longer means monospace. Every piece of text — prose, feed rows, list names,
+  headings, buttons, day breaks AND all tabular/numeric data — is this one family.
+  The `@font-face` (one variable-weight file per subset: `latin`, `latin-ext`)
+  lives at the top of `premium.css`; the base `body` font-family (app.css,
+  home.css, and each section's `styles.css`) is `--t-mono`, so everything inherits
+  it. Numeric columns keep `font-variant-numeric: tabular-nums` so figures stay
+  column-aligned in the proportional face. Vite fingerprints the woff2 into
+  `/assets/`; `v2/index.html` preloads the `latin` file so the first paint is
+  already in the real face (no swap flash).
 - **R11 — Sizes come from ONE flat 5-step scale, in bare px, no device bump:**
 
   | token / role | px | used for |
@@ -168,10 +176,10 @@ notification badge red (`#ef4444`).
   "because it's a big touch target". When you add text, use a scale step
   (10/12/14/16/26) — never an ad-hoc px or rem — and pin any new body surface in
   `tests/type-scale.mjs`.
-- **R11b — No new font family, and only the weights already in use** (400 / 500 /
-  600 / 700 / 800). 500 is the inactive-chip/label weight, paired with 600 for
-  the active state. Hierarchy comes from **size + weight + case + colour**, not
-  from a second font.
+- **R11b — No SECOND font family, and only the weights already in use** (400 / 500 /
+  600 / 700 / 800; Montserrat ships them all in one variable file). 500 is the
+  inactive-chip/label weight, paired with 600 for the active state. Hierarchy comes
+  from **size + weight + case + colour**, not from a second font.
 
 ---
 

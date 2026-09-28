@@ -25,7 +25,7 @@
 /* mono for numeric/terminal data (matches Home) + a head surface for panel bars.
    --wb-txt is the briefing-bar KICKER colour — a soft blue for the TOP STORY /
    MARKETS labels (header.css owns the authoritative value; this stays in sync). */
-:root { --t-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #1f6fd0; --lift: #ffffff; }
+:root { --t-mono: "Montserrat", "Gotham", "Futura", "Century Gothic", system-ui, sans-serif; --head: #f4f7fb; --wb-txt: #1f6fd0; --lift: #ffffff; }
 /* Text sizing is a single flat 5-step scale in bare px (micro 10 · body 12 ·
    head 14 · title 16 · hero 26). Body text is 12px on phone AND desktop — there
    is no per-device bump. --fs-bump is retired (kept defined at 0 so any stray

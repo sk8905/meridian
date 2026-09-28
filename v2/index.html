@@ -19,6 +19,11 @@
   <title>Wire</title>
   <meta name="description" content="Wire — markets, macro, credit &amp; legal, one surface" />
 
+  <!-- The one app typeface (Gotham, self-hosted via Montserrat). Preload the latin
+       file so the first paint is already in the real face — no swap flash on the
+       dark terminal. @font-face lives in premium.css; latin-ext loads on demand. -->
+  <link rel="preload" href="/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin />
+
   <!-- Shared visual language (unchanged look). All eleven stylesheets are bundled,
        minified and content-hashed by Vite via the single ./styles.css entry, in the
        same cascade order as before (feed.css last). No more hand-managed ?v= tokens. -->

@@ -101,7 +101,7 @@ check(await pg.evaluate(() => !document.getElementById("na-ask-panel").hidden), 
 await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
 await pg.waitForTimeout(120);
 
-// ---- Search box: mono 11px, GREY (--lift), and its result rows conform to 11px --
+// ---- Search box: app font 11.5px, GREY (--lift), and its result rows conform ----
 // (dark context — the whole desktop spec runs colorScheme:"dark".)
 const rgbLift = await pg.evaluate(() => { const p = document.createElement("span"); p.style.background = "var(--lift)"; document.body.appendChild(p); const c = getComputedStyle(p).backgroundColor; p.remove(); return c; });
 const searchFont = await pg.evaluate(() => {
@@ -114,7 +114,7 @@ const searchFont = await pg.evaluate(() => {
   return { size: cs.fontSize, fam: cs.fontFamily, bg: cs.backgroundColor, rowSize: t ? getComputedStyle(t).fontSize : null };
 });
 check(searchFont && searchFont.size === "11.5px", `search box text is 11.5px like the app (${searchFont && searchFont.size})`);
-check(searchFont && /mono/i.test(searchFont.fam), `search box uses the app mono family (${searchFont && searchFont.fam})`);
+check(searchFont && /montserrat|gotham|futura/i.test(searchFont.fam) && !/mono/i.test(searchFont.fam), `search box uses the one app font (Gotham) (${searchFont && searchFont.fam})`);
 check(searchFont && searchFont.bg === rgbLift, `search box is shaded grey (--lift): field ${searchFont && searchFont.bg} vs --lift ${rgbLift}`);
 check(searchFont && searchFont.rowSize === "11.5px", `palette result/recent rows are 11.5px, not oversized (${searchFont && searchFont.rowSize})`);
 await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));

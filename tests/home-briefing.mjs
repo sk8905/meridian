@@ -135,9 +135,9 @@ const b = await launchChromium();
   const hdr = await pg.evaluate(() => {
     const t = document.querySelector(".g-hbrief-ttl"); const cs = t && getComputedStyle(t);
     const chev = document.querySelector(".g-hbrief-chev");
-    return { title: (t && t.textContent) || "", notMono: !!cs && !/mono/i.test(cs.fontFamily), notUpper: !!cs && cs.textTransform === "none", chevHidden: !chev || getComputedStyle(chev).display === "none" };
+    return { title: (t && t.textContent) || "", notUpper: !!cs && cs.textTransform === "none", chevHidden: !chev || getComputedStyle(chev).display === "none" };
   });
-  // Font is now unified to mono app-wide, so the distinguishing trait is case, not
+  // The app is unified to ONE font (Gotham), so the distinguishing trait is case, not
   // family: the briefing header stays title-case ("Market briefing"), not uppercase.
   check(/market briefing/i.test(hdr.title) && hdr.notUpper, "desktop: the header matches the panel style (title-case 'Market briefing', not uppercase)");
   check(hdr.chevHidden, "desktop: no collapse chevron — the card is permanently open");

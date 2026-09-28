@@ -152,14 +152,14 @@ await ctx.close();
     const bcs = getComputedStyle(btn);
     return {
       vw, left: Math.round(hr.left), right: Math.round(hr.right),
-      mono: /mono|SF ?Mono|Menlo|Consolas|ui-monospace/i.test(hcs.fontFamily),
+      appFont: /montserrat|gotham|futura/i.test(hcs.fontFamily) && !/mono/i.test(hcs.fontFamily),
       btnSize: bcs.fontSize, btnRadius: bcs.borderRadius,
       bump: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-bump")) || 0,
       noIntro: !document.querySelector(".wn-intro"),
     };
   });
   check(s.left >= 12 && s.right <= s.vw - 12, `Network importer fits within the side gutter (left ${s.left}, right ${s.right}, vw ${s.vw})`);
-  check(s.mono, "Network importer uses the mono terminal family");
+  check(s.appFont, "Network importer uses the one app font (Gotham)");
   checkEq(s.btnSize, "12px", "Choose-file button uses the 12px body terminal size (no device bump)");
   checkEq(s.btnRadius, "0px", "Choose-file button is square (no pill radius)");
   check(s.noIntro, "the explainer intro paragraph is removed");
