@@ -1242,7 +1242,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "GBP/USD opened Monday near $1.325, still pinned close to three-month lows, as Bloomberg reported Chancellor Healey's fiscal headroom has roughly halved to around £12bn under the gilt-market sell-off and global bond yields march toward two-decade highs, while Trump's rejection of Iran's Hormuz offer kept oil — and broad dollar demand — bid into the new week.", src: "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally", srcName: "Bloomberg", date: "2026-09-28" };
+export const FX_KEYMOMENT = { text: "Sterling stayed pinned near three-month lows into Monday evening as Chancellor Healey told Labour's Liverpool conference that fiscal discipline will sit 'at the core' of his 28 October Budget, framing debt-servicing costs as money diverted from public services — reinforcing the gilt sell-off narrative that has already pushed GBP/EUR toward 1.16, while Trump's rejection of Iran's Hormuz offer kept oil, and broad dollar demand, bid into the new week.", src: "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059", srcName: "Reuters (via Investing.com)", date: "2026-09-28" };
 
 export const EARNINGS = {
   // Monday-transition sweep (14 Sep): no bank/broker, asset-manager, AI-relevant
