@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "22c4fa19-1751-44e9-928d-5203a6af8900",
+    title: "Federal Reserve’s watchdog warns of security ‘deficiencies’ at central bank",
+    date: "2026-09-28",
+    time: "18:31",
+    url: "https://www.ft.com/content/22c4fa19-1751-44e9-928d-5203a6af8900"
+  },
+  {
     id: "533fc709-72f8-44bb-bd0d-c52bb2fb8886",
     title: "Russia’s escalating hybrid campaign against Europe",
     date: "2026-09-28",
@@ -189,20 +196,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d"
   },
   {
-    id: "77d453cb-f399-4c8e-b59f-bda9116db757",
-    title: "Pick any colour watch – so long as it’s gold",
-    date: "2026-09-28",
-    time: "11:00",
-    url: "https://www.ft.com/content/77d453cb-f399-4c8e-b59f-bda9116db757"
-  },
-  {
-    id: "b43739dc-eb98-4bf4-ae4e-a966139ce6f0",
-    title: "And the FTAV chart quiz winner is . . .",
-    date: "2026-09-28",
-    time: "10:52",
-    url: "https://www.ft.com/content/b43739dc-eb98-4bf4-ae4e-a966139ce6f0"
-  },
-  {
     id: "13051aaf-3e1e-41ff-9e0d-b48ff9a0249e",
     title: "Apple patent defeat could hand $1.4bn to Burford Capital",
     date: "2026-09-28",
@@ -222,6 +215,20 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "11:04",
     url: "https://www.ft.com/content/7761f1ee-0310-4f8d-bac1-f3e5f2354d45"
+  },
+  {
+    id: "77d453cb-f399-4c8e-b59f-bda9116db757",
+    title: "Pick any colour watch – so long as it’s gold",
+    date: "2026-09-28",
+    time: "11:00",
+    url: "https://www.ft.com/content/77d453cb-f399-4c8e-b59f-bda9116db757"
+  },
+  {
+    id: "b43739dc-eb98-4bf4-ae4e-a966139ce6f0",
+    title: "And the FTAV chart quiz winner is . . .",
+    date: "2026-09-28",
+    time: "10:52",
+    url: "https://www.ft.com/content/b43739dc-eb98-4bf4-ae4e-a966139ce6f0"
   },
   {
     id: "1cd3310e-da01-49da-9a3c-8029d59f5761",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "06:00",
     url: "https://www.ft.com/content/1bc39466-bd7c-4c42-a89b-fd81646705e2"
-  },
-  {
-    id: "e2f33efb-f884-4ca9-bf4f-833964e7bf37",
-    title: "Goldman’s hedge fund fee bonanza",
-    date: "2026-09-28",
-    time: "06:00",
-    url: "https://www.ft.com/content/e2f33efb-f884-4ca9-bf4f-833964e7bf37"
-  },
+  }
 ];
