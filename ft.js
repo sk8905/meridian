@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ffa65213-3178-454c-9d7d-c8ae8d64124f",
+    title: "HSBC moves to bolster Hang Seng by cleaning up balance sheet",
+    date: "2026-09-28",
+    time: "22:00",
+    url: "https://www.ft.com/content/ffa65213-3178-454c-9d7d-c8ae8d64124f"
+  },
+  {
+    id: "c72a016b-ad45-4cde-8020-dc1da7ab0839",
+    title: "Erdoğan bids to contain fallout from Turkey’s $18bn stock market scandal",
+    date: "2026-09-28",
+    time: "21:57",
+    url: "https://www.ft.com/content/c72a016b-ad45-4cde-8020-dc1da7ab0839"
+  },
+  {
+    id: "387f15e0-6c42-478e-9da1-e9bfe5ad7127",
+    title: "Software glitch will delay US approval of newest Boeing 737",
+    date: "2026-09-28",
+    time: "21:54",
+    url: "https://www.ft.com/content/387f15e0-6c42-478e-9da1-e9bfe5ad7127"
+  },
+  {
+    id: "33344fa5-6a25-4d72-8934-528526dd89bd",
+    title: "AMD to buy Fei-Fei Li’s AI start-up for $8bn",
+    date: "2026-09-28",
+    time: "21:45",
+    url: "https://www.ft.com/content/33344fa5-6a25-4d72-8934-528526dd89bd"
+  },
+  {
     id: "29f1af13-ecc3-4f26-a479-e6088c67231b",
     title: "US midterm elections 2026: The FT’s guide",
     date: "2026-09-28",

@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-bluemonday-20260928",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Blue Monday",
+    date: "2026-09-28",
+    time: "22:08",
+    summary: "Gold back near $4000/oz.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-banksrecycletherisk-20260928",
     publication: "Bloomberg",
     author: "Matt Levine",
