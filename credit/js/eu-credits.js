@@ -184,6 +184,7 @@ export const EUR_CREDITS = [
   { name: "Nexans", sector: "Industrials", rating: "BB+", agency: "S&P", asOf: "2026-02-16", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3798535/" },
   { name: "SPIE", sector: "Business Services", rating: "BB+", agency: "S&P", asOf: "2025-08-25", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3556189/" },
   { name: "Elior Group", sector: "Food & Beverage", rating: "B+", agency: "S&P", asOf: "2026-01-08", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3743235/" },
+  { name: "ContourGlobal Power Holdings", sector: "Energy & Utilities", rating: "BB-", agency: "S&P", asOf: "2025-05-23", jurisdiction: "United Kingdom", trend: "flat", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3501805" },
 ];
 
 // Group the roster by sector, in CREDIT_SECTORS order; unknown sectors fall to
