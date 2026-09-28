@@ -67,13 +67,15 @@ const dash = await d.pg.evaluate(() => {
     hasOaktree: links.some((h) => /oaktreecapital\.com/i.test(h || "")),
     meters: document.querySelectorAll(".dsh-cyc .dsh-fw-bar").length,
     // The Market cycle block mirrors the Debt cycle block: US + UK meters and a
-    // grey (muted) per-region descriptor — not a single bold "Equities" reading.
+    // grey (muted) per-region DESCRIPTOR — not a single bold "Equities" reading.
+    // (The framework narrative beside the meters does carry <strong>/<em> emphasis;
+    // the guard is scoped to the muted descriptor line, which stays plain.)
     mkt: (() => {
       const blk = [...document.querySelectorAll(".dsh-cyc-blk")].find((b2) => /market cycle/i.test((b2.querySelector(".dsh-cyc-hd") || {}).textContent || ""));
       if (!blk) return null;
       const labels = [...blk.querySelectorAll(".dsh-fw-l")].map((l) => l.textContent.trim());
-      const note = blk.querySelector(".dsh-cyc-note");
-      return { labels, mutedNote: !!(note && note.classList.contains("dsh-mut")), noBold: !blk.querySelector(".dsh-cyc-note strong") };
+      const note = blk.querySelector(".dsh-cyc-note.dsh-mut");
+      return { labels, mutedNote: !!note, noBold: !!note && !note.querySelector("strong") };
     })(),
   };
 });

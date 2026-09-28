@@ -397,10 +397,9 @@ export function mount(host, ctx) {
   function creditHTML() {
     const strip = crTapeHTML();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
-      <h3 class="dsh-term-lbl">Pulse</h3>
-      <section class="dsh-card dsh-wide dsh-pc-card"><h3 class="dsh-h">Private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
-      <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
-      <div class="dsh-wide dsh-matrow">
+      <h3 class="dsh-term-lbl">Pulse · Maturity &amp; stress</h3>
+      <div class="dsh-wide dsh-row-cr">
+        <section class="dsh-card dsh-pc-card"><h3 class="dsh-h">Private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
         <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
         <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
       </div>
@@ -597,32 +596,42 @@ export function mount(host, ctx) {
       + `<span class="dsh-fw-track"><span class="dsh-fw-bar" style="width:${Math.max(2, Math.min(100, pos || 0))}%"></span></span>`
       + `<span class="dsh-fw-p">${pos}/100</span></div>`;
     const mc = MARKET_CYCLE || {};
-    const paras = (arr) => (arr || []).map((p) => `<p class="dsh-cyc-note">${esc(p)}</p>`).join("");
+    // The cycle narrative is curated static prose (macro/js/content.js) authored with
+    // intentional <strong>/<em> emphasis, so render its markup rather than escaping it.
+    const paras = (arr) => (arr || []).map((p) => `<p class="dsh-cyc-note">${p}</p>`).join("");
     const srcRow = (sources) => { const s = (sources || []).map(([l, u]) => `<a class="dsh-cyc-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)}</a>`).join(""); return s ? `<div class="dsh-cyc-srcs">${s}</div>` : ""; };
     // The full narrative sits behind a per-block expand/collapse, collapsed by
     // default (native <details>; the dashboard click handler ignores <summary>).
     const details = (body) => `<details class="dsh-cyc-exp"><summary class="dsh-cyc-sum"><span class="dsh-cyc-more">Show detail</span><span class="dsh-cyc-less">Hide detail</span></summary><div class="dsh-cyc-body">${body}</div></details>`;
 
-    const debtNarr = paras(CYCLE.framework)
-      + `<p class="dsh-cyc-sub">United States</p>` + paras(CYCLE.us.body)
+    // Each block splits into a meters column (US/UK bars + short stage) and a
+    // narrative column beside it: the framework intro reads inline, and the fuller
+    // per-region detail + sources stay behind the expand toggle.
+    const meters = (a, b) => `<div class="dsh-cyc-meters">` + meter("US", a) + meter("UK", b) + `</div>`;
+    const debtInline = paras(CYCLE.framework);
+    const debtFull = `<p class="dsh-cyc-sub">United States</p>` + paras(CYCLE.us.body)
       + `<p class="dsh-cyc-sub">United Kingdom</p>` + paras(CYCLE.uk.body)
       + srcRow(CYCLE.sources)
       + `<p class="dsh-cyc-note dsh-mut">${esc(CYCLE.note || "")}</p>`;
     const debt = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Debt cycle <span>Ray Dalio · 0 early → 100 crisis</span></div>`
-      + meter("US", CYCLE.us.pos) + meter("UK", CYCLE.uk.pos)
-      + `<p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(CYCLE.us.shortStage || "")))} (US) · ${esc(stripTags(String(CYCLE.uk.shortStage || "")))} (UK)</p>`
-      + details(debtNarr) + `</div>`;
+      + `<div class="dsh-cyc-split">`
+      + meters(CYCLE.us.pos, CYCLE.uk.pos)
+      + `<div class="dsh-cyc-narr"><p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(CYCLE.us.shortStage || "")))} (US) · ${esc(stripTags(String(CYCLE.uk.shortStage || "")))} (UK)</p>`
+      + debtInline + details(debtFull) + `</div>`
+      + `</div></div>`;
 
-    const mktNarr = paras(mc.framework)
-      + `<p class="dsh-cyc-sub">Where we stand</p>` + paras(mc.stand)
-      + srcRow(mc.sources)
-      + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p>`;
     // US / UK meters + a grey per-region descriptor, matching the Debt cycle block.
     const mcUs = mc.us || { pos: mc.pos, shortStage: mc.short }, mcUk = mc.uk || {};
+    const mktInline = paras(mc.framework);
+    const mktFull = `<p class="dsh-cyc-sub">Where we stand</p>` + paras(mc.stand)
+      + srcRow(mc.sources)
+      + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p>`;
     const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
-      + meter("US", mcUs.pos) + meter("UK", mcUk.pos)
-      + `<p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(mcUs.shortStage || "")))} (US) · ${esc(stripTags(String(mcUk.shortStage || "")))} (UK)</p>`
-      + details(mktNarr) + `</div>`;
+      + `<div class="dsh-cyc-split">`
+      + meters(mcUs.pos, mcUk.pos)
+      + `<div class="dsh-cyc-narr"><p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(mcUs.shortStage || "")))} (US) · ${esc(stripTags(String(mcUk.shortStage || "")))} (UK)</p>`
+      + mktInline + details(mktFull) + `</div>`
+      + `</div></div>`;
     // Two blocks, returned separately so the Macro pane can place each in its own
     // tile (a break down the middle, like the paired rows above) — each keeps the
     // .dsh-cyc wrapper so the meters/heads/toggles stay scoped as before.
@@ -674,13 +683,17 @@ export function mount(host, ctx) {
     const cyc = cyclesHTML();
     const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <h3 class="dsh-term-lbl">Policy rates</h3>
-      ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-      ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
-      <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
-      <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
+      <div class="dsh-wide dsh-row4">
+        ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+        ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
+        <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
+        <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
+      </div>
       <h3 class="dsh-term-lbl">Cycle</h3>
-      <section class="dsh-card">${cyc.debt}</section>
-      <section class="dsh-card">${cyc.market}</section>
+      <div class="dsh-wide dsh-row2">
+        <section class="dsh-card">${cyc.debt}</section>
+        <section class="dsh-card">${cyc.market}</section>
+      </div>
       <h3 class="dsh-term-lbl">Market sizes</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Market sizes — by asset class &amp; region <span class="dsh-mut">${esc(MARKET_SIZES.asOf || "")}</span></h3><div class="dsh-scroll">${marketSizesHTML()}</div></section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>`;

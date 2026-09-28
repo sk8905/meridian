@@ -208,6 +208,23 @@
     grid-template-columns:minmax(0,1fr) 260px; gap:var(--dsh-gap); align-items:start; }
   /* The full-width Pulse card lays its metrics out in two columns. */
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-pc-card .dsh-pc-grid{ grid-template-columns:1fr 1fr; column-gap:22px; }
+  /* Policy-rates row: the four rate panels (Fed · BoE · Rate outlook · Yield curve)
+     side by side, filling the width instead of a spread-out 2×2. Their inner
+     two-column splits (FedWatch|dot-plot, kv grids) collapse so each quarter reads
+     on one line. */
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4{ grid-column:1 / -1; display:grid;
+    grid-template-columns:repeat(4, minmax(0,1fr)); gap:var(--dsh-gap); align-items:start; }
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4 .dsh-fed,
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4 .dsh-kvgrid{ grid-template-columns:1fr; }
+  /* Cycle row: the two cycle panes side by side (each splits into meters + narrative
+     internally — a 4-column slice across the pair). */
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row2{ grid-column:1 / -1; display:grid;
+    grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--dsh-gap); align-items:start; }
+  /* Credit row: the Pulse metrics beside the maturity wall + the (narrow) live
+     spreads — the three read across the width rather than stacked. */
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row-cr{ grid-column:1 / -1; display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,2fr) 200px; gap:var(--dsh-gap); align-items:start; }
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row-cr .dsh-pc-grid{ grid-template-columns:1fr; }
   /* A tile is only ~half the middle wide, so its inner two-column grids (kv
      metrics, the Fed/BoE FedWatch|dot-plot split) collapse to one column so every
      row reads on a single line. Full-width rows keep their two columns. */
@@ -682,6 +699,12 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
    paired cards with a break between them), so the block fills its card. */
 .dsh-cyc { display:block; }
 .dsh-cyc-blk { min-width:0; }
+/* Meters (US/UK bars) beside the narrative. Stacked on mobile; side by side on the
+   desktop terminal so each cycle pane reads as two columns (a 4-col slice across
+   the debt + market pair). */
+.dsh-cyc-split { display:grid; grid-template-columns:1fr; gap:12px; align-items:start; }
+.dsh-cyc-meters, .dsh-cyc-narr { min-width:0; }
+.dsh-3z:not(.dsh-norail) .dsh-cyc-split { grid-template-columns:minmax(130px,0.85fr) minmax(0,1.15fr); gap:18px; }
 .dsh-cyc-hd { font-size:var(--fs-body); font-weight:700; color:var(--t-ink); margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
 .dsh-cyc-hd span { display:block; font-size:var(--fs-body); font-weight:400; color:var(--t-mut); margin-top:2px; }
 .dsh-cyc-sub { font-size:var(--fs-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--t-mut); margin:12px 0 0; }
