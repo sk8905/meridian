@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2fbf264c-20c1-408e-b5a7-eb8b99dfccfb",
+    title: "MFS owner blames Barclays for collapse amid fraud allegations",
+    date: "2026-09-28",
+    time: "14:16",
+    url: "https://www.ft.com/content/2fbf264c-20c1-408e-b5a7-eb8b99dfccfb"
+  },
+  {
+    id: "a2bbb03f-d628-4ea4-8e1d-f5f3b677d536",
+    title: "The money vs message election",
+    date: "2026-09-28",
+    time: "14:00",
+    url: "https://www.ft.com/content/a2bbb03f-d628-4ea4-8e1d-f5f3b677d536"
+  },
+  {
+    id: "8840071d-3867-45e2-bf25-ce24655e69ba",
+    title: "Blair-era money is ‘not there now’, Healey warns Labour",
+    date: "2026-09-28",
+    time: "13:54",
+    url: "https://www.ft.com/content/8840071d-3867-45e2-bf25-ce24655e69ba"
+  },
+  {
     id: "6b216fc2-b2f4-42df-9102-c18476eb74de",
     title: "Why the EU fears Britain becoming a back door for Chinese cars",
     date: "2026-09-28",
@@ -292,26 +313,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "05:00",
     url: "https://www.ft.com/content/1d7d2bc0-7721-4c4e-a8a6-e859bad9c13a"
-  },
-  {
-    id: "b782f295-c8d7-4e72-9987-a24ede2b1fd4",
-    title: "Foreign investors bet Panama can shrug off social unrest and Trump threats",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/b782f295-c8d7-4e72-9987-a24ede2b1fd4"
-  },
-  {
-    id: "00f94018-e658-4545-b16e-1bc00e19b754",
-    title: "AI hyperscalers are transforming debt",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/00f94018-e658-4545-b16e-1bc00e19b754"
-  },
-  {
-    id: "2ef0c2fa-9626-4785-94cd-65fbf5be5741",
-    title: "The post-Enron auditor reforms are being rolled back",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/2ef0c2fa-9626-4785-94cd-65fbf5be5741"
   },
 ];
