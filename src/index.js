@@ -2626,9 +2626,12 @@ export const FEED_SOURCES = [
   // quality cull via FEED_CURATED_SRC below.
   { url: "https://alternativecreditinvestor.com/feed/", source: "Alternative Credit Investor", region: "GEN", cap: 8, filter: false },
   { url: "https://www.privateequitywire.co.uk/feed/", source: "Private Equity Wire", region: "GEN", cap: 6, filter: false },
-  { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
-  { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
-  { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
+  // CNBC — a PREFERRED source (openly readable in-pane, trusted always-pass in
+  // FEED_PREMIUM). Roomier caps so more of its economy/markets/finance coverage
+  // surfaces on the wire.
+  { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 14 }, // Economy
+  { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 12 }, // Markets
+  { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Finance
   { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", cap: 5, core: true },
   { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", cap: 6, filter: false },
   // Financial specialists — UK / Europe
@@ -2724,7 +2727,10 @@ const FEED_MINOR_FX_RE = /\b(rupee|renminbi|yuan|korean won|ringgit|baht|rupiah|
 // Mega-cap / high-profile names — single-stock notes on these are market-moving,
 // so they stay in (both as an include signal and an exception to the broker cut).
 // Smaller names (e.g. Sandvik) still get filtered out.
-const FEED_MEGACAP_RE = /\b(apple|microsoft|alphabet|google|amazon|nvidia|meta|facebook|tesla|berkshire|broadcom|tsmc|taiwan semiconductor|eli lilly|jpmorgan|goldman sachs|netflix|aramco|exxon|walmart|mastercard|oracle|openai|boeing|spacex|samsung|\bmag ?7\b|magnificent seven)\b/i;
+// "facebook" is guarded so a story merely mentioning the PLATFORM (a Facebook
+// post/page/group/comment) doesn't read as Meta company news — the megacap match
+// is meant for the firm, not the medium.
+const FEED_MEGACAP_RE = /\b(apple|microsoft|alphabet|google|amazon|nvidia|meta|facebook(?!\s+(?:posts?|pages?|groups?|accounts?|comments?|marketplace|messenger|reels?|stor(?:y|ies)|live|feed))|tesla|berkshire|broadcom|tsmc|taiwan semiconductor|eli lilly|jpmorgan|goldman sachs|netflix|aramco|exxon|walmart|mastercard|oracle|openai|boeing|spacex|samsung|\bmag ?7\b|magnificent seven)\b/i;
 // Single-stock promo / clickbait pitches ("X Is Too Cheap To Ignore", "3 stocks
 // to buy", "Wall Street thinks …", "is a screaming buy", dividend-stock lists).
 const FEED_STOCKPITCH_RE = /\b(too cheap to ignore|to ignore now|is (a |an )?(screaming |strong |compelling |must-own )?buy\b|screaming buy|stocks? to buy|best stocks?|top (stock )?picks?|is it time to buy|should you buy|why i('|')?m buying|undervalued|overvalued|hidden gem|is (a |too )?(cheap|bargain|steal)|dividend (stock|aristocrat|king|machine)|wall street thinks|motley fool|zacks)\b/i;
@@ -3083,7 +3089,7 @@ const FEED_FOCUS_RE = new RegExp([
   "law firm|law firms", "magic circle|silver circle|big ?law|global elite|white[- ]shoe", "barrister|solicitor|\\bkc\\b|king'?s counsel|general counsel", "litigation|lawsuit|\\bsued?\\b|\\bsues\\b|court (rules|ruling|case|battle|fight)|tribunal|high court|supreme court|court of appeal", "antitrust|competition (probe|case|watchdog)", "\\bfca\\b|\\bdoj\\b|regulat(or|ory) (fine|charge|probe|action|crackdown)", "merger (challenge|review|probe)", "clifford chance|linklaters|freshfields|slaughter and may|allen ?& ?overy|a&o shearman|kirkland|latham|skadden|paul[, ]weiss|davis polk|sullivan ?& ?cromwell|\\bweil\\b|simpson thacher|cravath|wachtell|hogan lovells|herbert smith|dla piper|norton rose|ashurst|dentons|baker mckenzie|white ?& ?case|cleary gottlieb|mayer brown|\\bcms\\b",
 ].join("|"), "i");
 const FEED_PAY_PREMIUM = new Set(["Financial Times", "Bloomberg", "The Wall Street Journal", "WSJ", "The Economist"]);
-const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|\bpay\b|pay award|earnings growth|productivity|cost of living|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|house price|mortgage|property|rent\b|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
+const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|pay award|pay rise|pay deal|pay cut|pay freeze|pay settlement|pay round|earnings growth|productivity|cost of living|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|house price|mortgage|property|rent\b|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
 // Routine corporate IR / press-release boilerplate — quarterly-results notices,
 // dividend declarations, earnings-call scheduling, board appointments. Low signal
 // even when they carry a finance keyword; dropped for non-premium/non-flagged wires

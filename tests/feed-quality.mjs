@@ -48,6 +48,36 @@ check(feedQualityKeep({ source: "Alternative Credit Investor", title: "Fund mana
 check(feedQualityKeep({ source: "Private Equity Wire", title: "GP-led secondaries surge as sponsors seek liquidity" }),
   "cull: a Private Equity Wire headline is kept (curated bypass)");
 
+// ---- Relevance stays STRICT: an off-topic local story must not slip through on an
+// incidental keyword. The condo-defamation piece leaked because a bare "pay"
+// ("ordered to PAY damages") and the megacap "Facebook" ("FACEBOOK posts")
+// both matched — both are now tightened. ------------------------------------------
+check(!feedQualityKeep({ source: "The Straits Times", title: "Condo chairman called managing agent a ‘joker’ in Facebook posts; ordered to pay $100k damages" }),
+  "relevance: an off-topic local defamation story is dropped (incidental 'pay'/'Facebook' no longer qualify)");
+check(!feedQualityKeep({ source: "The Straits Times", title: "Driver ordered to pay $5,000 after car park dispute" }),
+  "relevance: a bare 'pay' no longer passes the gate (only pay rise/award/deal/cut/… do)");
+check(!feedQualityKeep({ source: "The Straits Times", title: "Grandmother’s prize recipe on a Facebook page goes viral" }),
+  "relevance: 'Facebook' as a platform (post/page/group) is not a megacap match");
+// …but genuine labour-pay and real megacap-company stories are still kept.
+check(feedQualityKeep({ source: "The Straits Times", title: "Public sector workers to get 5.5% pay rise next year" }),
+  "relevance: a real pay-rise/labour story is still kept");
+check(feedQualityKeep({ source: "The Straits Times", title: "Meta shares climb as Facebook parent lifts ad guidance" }),
+  "relevance: a real Meta/Facebook company story is still kept");
+
+// ---- CNBC is a PREFERRED source: an always-pass premium newsroom with roomy caps.
+{
+  const cnbc = FEED_SOURCES.filter((f) => f.source === "CNBC");
+  check(cnbc.length >= 1, "preferred: CNBC is registered as a newswire source");
+  check(cnbc.every((f) => !f.core), "preferred: CNBC feeds are NOT core-restricted (its general coverage is kept)");
+  check(Math.max(...cnbc.map((f) => f.cap || 0)) >= 12, `preferred: CNBC carries a generous cap (max ${Math.max(...cnbc.map((f) => f.cap || 0))})`);
+  // A keyword-free CNBC headline passing PROVES it's in the always-pass premium tier
+  // (the same headline from a gated source would be culled).
+  check(feedQualityKeep({ source: "CNBC", title: "Retailers brace for a cautious holiday shopper" }),
+    "preferred: a general CNBC headline passes the gate (premium always-pass)");
+  check(!feedQualityKeep({ source: "The Straits Times", title: "Retailers brace for a cautious holiday shopper" }),
+    "preferred: the SAME headline from a gated source is culled — proving CNBC's pass is its premium status");
+}
+
 // ---- Paywalled premium (FT/Bloomberg/WSJ/Economist) obey the six focus verticals --
 const bbg = (t) => ({ source: "Bloomberg", title: t });
 const wsj = (t) => ({ source: "The Wall Street Journal", title: t });
