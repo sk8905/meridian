@@ -570,10 +570,24 @@ export function mount(host, ctx) {
     const G = GOVT_YIELDS; if (!G || !(G.regions || []).length) return "";
     const rows = G.regions.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
     if (!rows.length) return "";
+    // Heatmap: shade each level cell by its yield within that tenor's range across
+    // countries (warmer = higher yield), so the EM/DM spread and the high-yield
+    // outliers read at a glance — the same colour-mix treatment as the change table.
+    const ext = {};
+    YC_TENORS.forEach(([k]) => {
+      const vals = rows.map((r) => r[k]).filter((v) => v != null);
+      ext[k] = vals.length ? { min: Math.min(...vals), max: Math.max(...vals) } : null;
+    });
+    const heat = (v, k) => {
+      const e = ext[k]; if (v == null || !e || e.max === e.min) return "";
+      const a = ((v - e.min) / (e.max - e.min)) * 0.6 + 0.06;
+      return ` style="background:color-mix(in srgb, var(--t-crd) ${(a * 100).toFixed(1)}%, transparent)"`;
+    };
     const rowFor = (r) => `<tr><td class="dsh-nm">`
       + `${r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country)}</td>`
-      + `${YC_TENORS.map(([k]) => `<td class="dsh-r">${r[k] != null ? esc(r[k].toFixed(2)) : "—"}</td>`).join("")}</tr>`;
-    return `<table class="dsh-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`;
+      + `${YC_TENORS.map(([k]) => `<td class="dsh-r dsh-fl"${heat(r[k], k)}>${r[k] != null ? esc(r[k].toFixed(2)) : "—"}</td>`).join("")}</tr>`;
+    return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`
+      + `<p class="dsh-fl-note">Current yield by tenor — <span class="dsh-fl-neg">shaded warmer where the yield is higher</span> within each column.</p>`;
   }
   // Embedded macro news wire — the desk's US + UK headlines, linked to source.
   function macroNewsHTML() {
