@@ -100,20 +100,6 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         consistent scale everywhere. ---- */
 .page-head p, .list-head p { font-size: var(--fs-tagline); line-height: 1.4; }
 
-/* =============================================================================
-   CANONICAL TYPE SCALE — the Glance home page is the single source of truth for
-   text sizing across the whole platform; every app surface conforms to it (all
-   rem, off the 16px root). New UI must use these sizes; the twice-daily refresh
-   routine has a QC step that checks for drift (docs/refresh-routines.md ›
-   "House typography"). Home reference element in brackets:
-     page headline (h1) ......... 1.6rem / 800  · mobile 1.2rem   [.g-hello h1]
-     card / section title ....... 1.05rem / 800                   [.g-card-title]
-     page lede / description .... .85rem muted                    [.g-gl / .g-card-desc]
-     feed / list item title ..... .9rem / 600                     [.g-item .t]
-     item meta (date · source) .. .76rem muted                    [.g-item .m]
-     section sub-header ......... .68rem / 800 uppercase          [.g-sub-h]
-   ============================================================================= */
-
 /* -- The five canonical text ROLES as design tokens (anchored to the Macro
       reference snips), so every surface references ONE source of truth. Change a
       size here and it updates platform-wide. Named for the role, not the size:
@@ -1046,7 +1032,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* Briefing panel (Morning · Afternoon · Evening) — a grounded digest, every
    bullet linking its source. Chip row reuses .na-chips above. */
 /* All briefing text is MONO on the terminal-panel scale (HOUSE_STYLE R11): 10px
-   uppercase eyebrow · 12px lede · 10.5px body rows — no ad-hoc sizes, matching the
+   uppercase eyebrow · 12px lede · 12px body rows — no ad-hoc sizes, matching the
    Notifications panel's prose block and the .na-sec/.nf-sub chrome. */
 .na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
 /* Lede is clamped to 3 lines so a long authored summary can never push the panel
@@ -1109,7 +1095,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* The Ask assistant in the Menu → Dialogue chip is rendered to look EXACTLY like
    the shared search band (bandHTML → .tpanel-h.thead-search with a .tsearch
    field): a full-width band on the --head ground with an 8px 12px gutter and a
-   bottom divider, holding the lifted (--lift), bordered, mono 11px / 26px field.
+   bottom divider, holding the lifted (--lift), bordered, mono 12px / 26px field.
    No action button — the reader types and presses Enter (the field mounts `bare`).
    Any answer renders as a framed card beneath, inset to the same gutter. */
 .menu-asst { border: 0; }

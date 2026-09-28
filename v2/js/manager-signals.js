@@ -111,7 +111,7 @@ export function managerEvents(managerId, { limit = 0 } = {}) {
 
 // Funds a manager is actively raising (in-market fundraising statuses).
 const IN_MARKET = new Set(["Pre-marketing", "Open", "First Close"]);
-export function managerFundsInMarket(managerId) {
+function managerFundsInMarket(managerId) {
   return funds.filter((f) => f.managerId === managerId && IN_MARKET.has(f.status));
 }
 
