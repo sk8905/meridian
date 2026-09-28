@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "f261c9cd-7169-4d16-97fc-9859099ce0f8",
+    title: "Netanyahu under pressure over reports he was warned about October 7",
+    date: "2026-09-28",
+    time: "19:28",
+    url: "https://www.ft.com/content/f261c9cd-7169-4d16-97fc-9859099ce0f8"
+  },
+  {
     id: "571a3103-ec01-464b-ab39-0c0da58d9524",
     title: "Five men arrested over alleged RAF Fairford terror plot released on bail",
     date: "2026-09-28",
@@ -292,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "07:53",
     url: "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230"
-  },
-  {
-    id: "8ac777fc-882e-4781-826b-272d72d468a0",
-    title: "‘Xi got face’: China relishes equal treatment from Trump",
-    date: "2026-09-28",
-    time: "06:55",
-    url: "https://www.ft.com/content/8ac777fc-882e-4781-826b-272d72d468a0"
-  },
-  {
-    id: "5ae5d8d0-f387-46ac-b07b-45cd5b4b6c70",
-    title: "Helen Thompson: “I don’t think we’re ever going back.”",
-    date: "2026-09-28",
-    time: "06:30",
-    url: "https://www.ft.com/content/5ae5d8d0-f387-46ac-b07b-45cd5b4b6c70"
-  },
-  {
-    id: "0903a8bc-69f1-4abd-a18b-94e20f5efa12",
-    title: "FTAV’s further reading",
-    date: "2026-09-28",
-    time: "06:30",
-    url: "https://www.ft.com/content/0903a8bc-69f1-4abd-a18b-94e20f5efa12"
   }
 ];
