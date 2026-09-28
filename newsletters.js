@@ -45,13 +45,24 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-selectivityprivatecredit-20260928",
+    publication: "Preqin",
+    author: "Shaun Beaney",
+    series: "First Close",
+    title: "Selectivity is key to private credit suitability",
+    date: "2026-09-28",
+    time: "12:28",
+    summary: "62% of LPs say private credit will emerge stronger as investors grow more selective about strategies and managers, an Institutional Investor survey finds.",
+    url: "https://go.preqin.com/webmail/909852/2185879420/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
+  },
+  {
     id: "nl-bbg-economicsdaily-rethinkingfed-20260928",
     publication: "Bloomberg",
     author: "Chris Anstey",
     series: "Economics Daily",
     title: "Economics Daily: Rethinking on the Fed",
     date: "2026-09-28",
-    time: "11:00",
+    time: "12:00",
     summary: "Key data this week may either cool or reinforce investor views of a hawkish Fed.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-28/rethinking-fed-rate-path-sends-bond-yields-higher-but-a-data-test-is-looming",
   },

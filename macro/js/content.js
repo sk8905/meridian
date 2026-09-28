@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-28",
-  lastCheckedTime: "08:24 BST",
+  lastCheckedTime: "12:31 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1002,18 +1002,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-28",
   us: [
+    { title: "US Stock Market Today: S&P 500 Futures Rise As Jobs Data Jitters Build", source: "Yahoo Finance", date: "2026-09-28", url: "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080713612.html" },
     { title: "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait", source: "CNBC", date: "2026-09-28", url: "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html" },
-    { title: "Stock futures slip after winning week on Wall Street: Live updates", source: "CNBC", date: "2026-09-27", url: "https://www.cnbc.com/2026/09/27/stock-market-today-live-updates.html" },
+    { title: "Stock Market Today: Dow, S&P Live Updates for September 28", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-27/stock-market-today-dow-s-p-live-updates" },
     { title: "Iran Says Won't Soften Demands After Trump Rejects Hormuz Offer", source: "Bloomberg", date: "2026-09-27", url: "https://www.bloomberg.com/news/articles/2026-09-27/iran-says-won-t-soften-demands-after-trump-rejects-hormuz-offer" },
     { title: "Jobs report, inflation data to test US rate path, economic strength", source: "Reuters (via Investing.com)", date: "2026-09-25", url: "https://www.investing.com/news/economy-news/jobs-report-inflation-data-to-test-us-rate-path-economic-strength-4918909" },
-    { title: "The Odds of an Oct. 28 Fed Rate Hike Are Soaring, and President Donald Trump Is, in Part, to Blame", source: "The Motley Fool", date: "2026-09-23", url: "https://www.fool.com/investing/2026/09/23/odds-of-oct-28-fed-rate-hike-soaring-president-donald-trump-is-in-part-to-blame/" },
   ],
   uk: [
     { title: "Higher Bond Yields Are Raising Doubts About Europe's Stock Rally", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally" },
     { title: "Healey hails 'new age of industrialisation' brought by Royal Navy", source: "CityAM", date: "2026-09-28", url: "https://www.cityam.com/healey-hails-new-age-of-industrialisation-brought-by-royal-navy/" },
+    { title: "Why UK Gilt Yields Are Climbing", source: "Goldman Sachs", date: "2026-09-28", url: "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing" },
     { title: "A Difficult Budget Hangs Over John Healey at Labour Gathering", source: "Bloomberg", date: "2026-09-27", url: "https://www.bloomberg.com/news/articles/2026-09-27/a-difficult-budget-hangs-over-john-healey-at-labour-gathering" },
     { title: "BOE's Bailey Warns It's Getting Harder to Avoid Rate Hikes", source: "Bloomberg", date: "2026-09-25", url: "https://www.bloomberg.com/news/articles/2026-09-25/boe-s-bailey-warns-it-s-getting-harder-to-avoid-rate-hikes" },
-    { title: "Two BOE Deputies Signal They Are Moving Toward Raising Rates", source: "Bloomberg", date: "2026-09-24", url: "https://www.bloomberg.com/news/articles/2026-09-24/boe-s-lombardelli-warns-hikes-more-likely-as-iran-war-continues" },
   ],
 };
 
@@ -1027,6 +1027,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-28",
   items: [
+    {"title": "US Stock Market Today: S&P 500 Futures Rise As Jobs Data Jitters Build", "source": "Yahoo Finance", "date": "2026-09-28", "time": "09:07", "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080713612.html", "blurb": "E-mini S&P 500 futures rose about 0.5% and Nasdaq futures 0.4% even as the University of Michigan consumer-sentiment gauge sat near record lows and the 30-year mortgage rate stayed above 7% with the 10-year Treasury yield above 5%.", "author": null},
+    {"title": "Why UK Gilt Yields Are Climbing", "source": "Goldman Sachs", "date": "2026-09-28", "url": "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing", "blurb": "Goldman Sachs research traces the UK gilt sell-off to a global long-end duration shock amplified by UK fiscal uncertainty, with 30-year gilt yields near 5.9% mechanically squeezing Chancellor Healey's Budget headroom before any policy decision is made.", "author": null},
     {"title": "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait", "source": "CNBC", "date": "2026-09-28", "url": "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html", "blurb": "WTI rose 1.3% to $93.62 and Brent gained 1.8% to $106.31 in early Monday trading after Trump confirmed he rejected Tehran's latest seven-day Strait of Hormuz reopening offer, weighing on US equity futures.", "author": null},
     {"title": "Healey hails 'new age of industrialisation' brought by Royal Navy", "source": "CityAM", "date": "2026-09-28", "url": "https://www.cityam.com/healey-hails-new-age-of-industrialisation-brought-by-royal-navy/", "blurb": "Previewing his Labour conference speech, Chancellor John Healey cast a Royal Navy shipbuilding push as central to a promised 'new age of industrialisation', even as the gilt sell-off squeezes his fiscal headroom ahead of the 28 October Budget.", "author": null},
     {"title": "Higher Bond Yields Are Raising Doubts About Europe's Stock Rally", "source": "Bloomberg", "date": "2026-09-28", "url": "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally", "blurb": "The Stoxx Europe 600 has risen 8% this year against a 13% advance for the S&P 500, and that divergence is widening as global bond yields march toward levels not seen in more than two decades, fuelling doubts over Europe's equity rally.", "author": null},
@@ -1066,7 +1068,6 @@ export const ARTICLES = {
     {"title": "Forex Today: US Dollar consolidates weekly gains ahead of mid-tier data", "source": "FXStreet", "date": "2026-09-25", "time": "07:32", "url": "https://www.fxstreet.com/news/forex-today-us-dollar-consolidates-weekly-gains-ahead-of-mid-tier-data-202609250732", "blurb": "The Dollar Index held its fourth straight day of gains near the 101.30-101.40 area — its best levels since late July — as hawkish Fed tightening bets and steady geopolitical uncertainty kept the buck bid ahead of Thursday's mid-tier US data.", "author": null},
     {"title": "Banks Tap Billions in BOE Repo Cash to Profit on Bond Trades", "source": "Bloomberg", "date": "2026-09-25", "url": "https://www.bloomberg.com/news/articles/2026-09-25/banks-tap-billions-in-boe-repo-cash-to-profit-on-bond-trades", "blurb": "UK banks are borrowing cheaply through the Bank of England's repo facility and using the cash to buy higher-yielding gilts, pocketing a spread that has widened past a percentage point as gilt yields surge — a carry trade that underscores how far borrowing costs have moved since the BoE's September hold.", "author": null},
     {"title": "Japanese Yen recovers from three-week low vs USD amid looming intervention risk", "source": "FXStreet", "date": "2026-09-25", "time": "02:26", "url": "https://www.fxstreet.com/news/japanese-yen-recovers-from-three-week-low-vs-usd-amid-looming-intervention-risk-202609250226", "blurb": "USD/JPY eased back from a three-week high near 159.00 as Tokyo officials again flagged weak-yen concerns, against a backdrop of a hawkish Fed, multi-decade-high Treasury yields and a two-day oil-price rally keeping global inflation risk firmly in view.", "author": null},
-    {"title": "The Odds of an Oct. 28 Fed Rate Hike Are Soaring, and President Donald Trump Is, in Part, to Blame", "source": "The Motley Fool", "date": "2026-09-23", "url": "https://www.fool.com/investing/2026/09/23/odds-of-oct-28-fed-rate-hike-soaring-president-donald-trump-is-in-part-to-blame/", "blurb": "CME FedWatch-implied odds of an October hike have climbed sharply since the September meeting, with continued pressure from President Trump on Chair Warsh cited among the factors keeping the tightening path live.", "author": null},
   ],
 };
 
@@ -1228,7 +1229,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "The rate-sensitive 2-year Treasury yield climbed a further 5bp to 4.90% Monday morning and the 10-year added another 4bp — building on last week's leap to 5.23%, its highest since 2007 — as Trump's rejection of Iran's latest Hormuz offer kept oil-driven inflation risk live into the new week.", src: "https://www.cnbc.com/2026/09/27/stock-market-today-live-updates.html", srcName: "CNBC", date: "2026-09-27" },
+  "US:two_year": { text: "The 10-year Treasury yield held above 5% and the 30-year mortgage rate stayed above 7% Monday morning, keeping home-buying expensive, even as S&P 500 futures ticked higher on jobs-data jitters ahead of Friday's September payrolls report.", src: "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080713612.html", srcName: "Yahoo Finance", date: "2026-09-28" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:base_rate": { text: "BoE Governor Andrew Bailey said Friday it will 'get harder to maintain' a hold on Bank Rate the longer energy prices stay elevated, telling Oxford's Monetary Economics Conference the Bank can't wait for full evidence on second-round effects even though those signs remain 'quite subdued' so far — with markets now pricing roughly 80% odds of a November hike.", src: "https://www.investing.com/news/economy-news/boes-bailey-says-high-energy-prices-make-it-harder-to-leave-rates-on-hold-4917012", srcName: "Reuters (via Investing.com)", date: "2026-09-25" },
   "UK:two_year": { text: "Global bond yields marching toward two-decade highs are now feeding doubts about Europe's equity rally too, Bloomberg reports, even as Chancellor Healey's fiscal headroom has roughly halved to about £12bn under the sustained gilt sell-off ahead of his 28 October Budget.", src: "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally", srcName: "Bloomberg", date: "2026-09-28" },

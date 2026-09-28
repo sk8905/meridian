@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "6b216fc2-b2f4-42df-9102-c18476eb74de",
+    title: "Why the EU fears Britain becoming a back door for Chinese cars",
+    date: "2026-09-28",
+    time: "12:31",
+    url: "https://www.ft.com/content/6b216fc2-b2f4-42df-9102-c18476eb74de"
+  },
+  {
+    id: "88e87863-4cf6-4c4e-8858-f0099db350d4",
+    title: "Nvidia launches record $150bn share buyback",
+    date: "2026-09-28",
+    time: "12:23",
+    url: "https://www.ft.com/content/88e87863-4cf6-4c4e-8858-f0099db350d4"
+  },
+  {
     id: "9d0437c4-e5ee-465d-92bc-9491c1baff93",
     title: "Lord Mayor of London favourite pulls out over ‘criminal proceedings’ at former firm",
     date: "2026-09-28",
