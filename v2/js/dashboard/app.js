@@ -634,12 +634,11 @@ export function mount(host, ctx) {
       + `<p class="dsh-cyc-sub">United Kingdom</p>` + paras(CYCLE.uk.body)
       + srcRow(CYCLE.sources)
       + `<p class="dsh-cyc-note dsh-mut">${esc(CYCLE.note || "")}</p>`;
-    const debt = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Debt cycle <span>Ray Dalio · 0 early → 100 crisis</span></div>`
-      + `<div class="dsh-cyc-split">`
-      + meters(CYCLE.us.pos, CYCLE.uk.pos)
+    const debt = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd"><div class="dsh-cyc-hd-t">Debt cycle <span>Ray Dalio · 0 early → 100 crisis</span></div>`
+      + meters(CYCLE.us.pos, CYCLE.uk.pos) + `</div>`
       + `<div class="dsh-cyc-narr"><p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(CYCLE.us.shortStage || "")))} (US) · ${esc(stripTags(String(CYCLE.uk.shortStage || "")))} (UK)</p>`
       + debtInline + details(debtFull) + `</div>`
-      + `</div></div>`;
+      + `</div>`;
 
     // US / UK meters + a grey per-region descriptor, matching the Debt cycle block.
     const mcUs = mc.us || { pos: mc.pos, shortStage: mc.short }, mcUk = mc.uk || {};
@@ -647,12 +646,11 @@ export function mount(host, ctx) {
     const mktFull = `<p class="dsh-cyc-sub">Where we stand</p>` + paras(mc.stand)
       + srcRow(mc.sources)
       + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p>`;
-    const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
-      + `<div class="dsh-cyc-split">`
-      + meters(mcUs.pos, mcUk.pos)
+    const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd"><div class="dsh-cyc-hd-t">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
+      + meters(mcUs.pos, mcUk.pos) + `</div>`
       + `<div class="dsh-cyc-narr"><p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(mcUs.shortStage || "")))} (US) · ${esc(stripTags(String(mcUk.shortStage || "")))} (UK)</p>`
       + mktInline + details(mktFull) + `</div>`
-      + `</div></div>`;
+      + `</div>`;
     // Two blocks, returned separately so the Macro pane can place each in its own
     // tile (a break down the middle, like the paired rows above) — each keeps the
     // .dsh-cyc wrapper so the meters/heads/toggles stay scoped as before.

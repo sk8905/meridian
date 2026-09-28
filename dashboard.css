@@ -708,14 +708,20 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
    paired cards with a break between them), so the block fills its card. */
 .dsh-cyc { display:block; }
 .dsh-cyc-blk { min-width:0; }
-/* Meters (US/UK bars) beside the narrative. Stacked on mobile; side by side on the
-   desktop terminal so each cycle pane reads as two columns (a 4-col slice across
-   the debt + market pair). */
-.dsh-cyc-split { display:grid; grid-template-columns:1fr; gap:12px; align-items:start; }
-.dsh-cyc-meters, .dsh-cyc-narr { min-width:0; }
-.dsh-3z:not(.dsh-norail) .dsh-cyc-split { grid-template-columns:190px minmax(0,1fr); gap:20px; }
-.dsh-cyc-hd { font-size:var(--fs-body); font-weight:700; color:var(--t-ink); margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
-.dsh-cyc-hd span { display:block; font-size:var(--fs-body); font-weight:400; color:var(--t-mut); margin-top:2px; }
+/* Header row: title + the US/UK meter bars sit side by side on the left, and the
+   narrative below runs the full width of the card. */
+.dsh-cyc-narr { min-width:0; }
+.dsh-cyc-hd { display:flex; align-items:center; flex-wrap:wrap; column-gap:22px; row-gap:6px;
+  margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
+.dsh-cyc-hd-t { font-size:var(--fs-body); font-weight:700; color:var(--t-ink); }
+.dsh-cyc-hd-t span { display:block; font-size:var(--fs-body); font-weight:400; color:var(--t-mut); margin-top:2px; }
+/* The two meters compact into a horizontal row beside the header text (label ·
+   short bar · value), rather than the full-width stacked bars used elsewhere. */
+.dsh-cyc-meters { display:flex; flex-wrap:wrap; align-items:center; column-gap:16px; row-gap:4px; min-width:0; }
+.dsh-cyc-meters .dsh-fw { display:flex; grid-template-columns:none; gap:6px; padding:0; }
+.dsh-cyc-meters .dsh-fw-l { color:var(--t-mut); }
+.dsh-cyc-meters .dsh-fw-track { width:64px; flex:none; }
+.dsh-cyc-meters .dsh-fw-p { color:var(--t-dim); }
 .dsh-cyc-sub { font-size:var(--fs-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--t-mut); margin:12px 0 0; }
 .dsh-cyc-note { font-size:var(--fs-body); line-height:1.55; color:var(--t-ink); margin:8px 0 0; }
 .dsh-cyc-note.dsh-mut { color:var(--t-mut); font-size:var(--fs-body); }
