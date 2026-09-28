@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "13051aaf-3e1e-41ff-9e0d-b48ff9a0249e",
+    title: "Apple patent defeat could hand $1.4bn to Burford Capital",
+    date: "2026-09-28",
+    time: "11:08",
+    url: "https://www.ft.com/content/13051aaf-3e1e-41ff-9e0d-b48ff9a0249e"
+  },
+  {
+    id: "b6be8bb9-a0df-4e3d-ab93-57b1aa65aa95",
+    title: "Ukraine airlifts aid to Russian-occupied city",
+    date: "2026-09-28",
+    time: "11:04",
+    url: "https://www.ft.com/content/b6be8bb9-a0df-4e3d-ab93-57b1aa65aa95"
+  },
+  {
+    id: "7761f1ee-0310-4f8d-bac1-f3e5f2354d45",
+    title: "Labour conference live: John Healey to give first party speech as UK chancellor",
+    date: "2026-09-28",
+    time: "11:04",
+    url: "https://www.ft.com/content/7761f1ee-0310-4f8d-bac1-f3e5f2354d45"
+  },
+  {
+    id: "d751ad99-531d-4990-9a4c-ee89a9fc1b2d",
+    title: "Bond sell-off deepens as oil rises above $108",
+    date: "2026-09-28",
+    time: "10:56",
+    url: "https://www.ft.com/content/d751ad99-531d-4990-9a4c-ee89a9fc1b2d"
+  },
+  {
+    id: "1cd3310e-da01-49da-9a3c-8029d59f5761",
+    title: "TotalEnergies boosts buybacks and dividends as oil prices surge",
+    date: "2026-09-28",
+    time: "10:27",
+    url: "https://www.ft.com/content/1cd3310e-da01-49da-9a3c-8029d59f5761"
+  },
+  {
     id: "f4e078f7-4aab-43f5-8eb5-2dbd7142a752",
     title: "Northern Ireland’s political parties agree on one thing: £1.5bn is not enough",
     date: "2026-09-28",
@@ -110,13 +145,6 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "05:32",
     url: "https://www.ft.com/content/47019489-f00e-4c96-bb79-5c628c89b3a1"
-  },
-  {
-    id: "d751ad99-531d-4990-9a4c-ee89a9fc1b2d",
-    title: "Oil price rise puts more pressure on government bonds",
-    date: "2026-09-28",
-    time: "05:31",
-    url: "https://www.ft.com/content/d751ad99-531d-4990-9a4c-ee89a9fc1b2d"
   },
   {
     id: "c3cebf7d-43fd-4962-b4ec-b55bcbce4c2a",
@@ -264,40 +292,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "00:01",
     url: "https://www.ft.com/content/46c33655-91ec-4120-8d0f-f0062835aa1b"
-  },
-  {
-    id: "878402a7-eeac-453e-b9db-92156107c5ce",
-    title: "UK to restart resettlement scheme, Shabana Mahmood to tell Labour conference",
-    date: "2026-09-27",
-    time: "22:43",
-    url: "https://www.ft.com/content/878402a7-eeac-453e-b9db-92156107c5ce"
-  },
-  {
-    id: "04923b0e-a955-4cfa-bd05-cd828807f61d",
-    title: "World’s worst-performing market slashes minimum price for stocks",
-    date: "2026-09-27",
-    time: "22:00",
-    url: "https://www.ft.com/content/04923b0e-a955-4cfa-bd05-cd828807f61d"
-  },
-  {
-    id: "8b4690d4-7c02-48af-b117-56faf21c389d",
-    title: "Trump asked Xi if China wanted to buy American weapons, US envoy says",
-    date: "2026-09-27",
-    time: "21:31",
-    url: "https://www.ft.com/content/8b4690d4-7c02-48af-b117-56faf21c389d"
-  },
-  {
-    id: "48b8a95c-ef76-48a5-8449-0c56865c7e01",
-    title: "Burnham’s high-stakes speech unlikely to produce a Clause IV moment",
-    date: "2026-09-27",
-    time: "18:15",
-    url: "https://www.ft.com/content/48b8a95c-ef76-48a5-8449-0c56865c7e01"
-  },
-  {
-    id: "d9de4776-1fc9-4f2b-aaaf-9961c35d8acd",
-    title: "Corporate America embraces cheaper ‘open’ AI models",
-    date: "2026-09-27",
-    time: "18:00",
-    url: "https://www.ft.com/content/d9de4776-1fc9-4f2b-aaaf-9961c35d8acd"
   },
 ];

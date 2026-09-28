@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-warningfrombonds-20260928",
+    publication: "Bloomberg",
+    author: "Greg Ritchie",
+    series: "Markets Daily",
+    title: "Markets Daily: A warning from bonds",
+    date: "2026-09-28",
+    time: "11:02",
+    summary: "Plus, whiplash in AI stocks.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-28/bonds-are-on-the-cusp-of-sending-a-distress-signal-on-economy",
+  },
+  {
     id: "nl-thelawyer-premierleagueimpossible-20260928",
     publication: "The Lawyer",
     author: "Christian Smith",
@@ -472,27 +483,5 @@ export const NEWSLETTERS = [
     time: "11:22",
     summary: "Almost $33 trillion in S&P 500 market value added since late 2022 rests on AI growth continuing at breakneck speed, and diversifying away from that bet has proven difficult; plus, Turkey's fund crisis recap.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-21/there-s-33-trillion-in-stock-gains-riding-on-the-future-of-ai",
-  },
-  {
-    id: "nl-legalbusiness-quinnmarianadam-20260921",
-    publication: "Legal Business",
-    author: null,
-    series: "Legal Business Alert",
-    title: "Quinn London head joins Mariana Dam team amid fight over Pogust role",
-    date: "2026-09-21",
-    time: "10:16",
-    summary: "Richard East joins the Quinn team representing Mariana Dam claimants as scrutiny over Sanjay Pogust's role in the group claim intensifies.",
-    url: "https://email.legalbusiness.co.uk/c/1dYYR8w0mHQJhAW3qwVN9ijcYj7D",
-  },
-  {
-    id: "nl-nonbillable-openaibiglawplay-20260921",
-    publication: "Non-Billable",
-    author: null,
-    series: null,
-    title: "OpenAI's Big Law play",
-    date: "2026-09-21",
-    time: "09:06",
-    summary: "OpenAI launches Astra for Law and teams up with Latham, Ropes & Gray, Sullivan & Cromwell, Cooley and Wachtell as Big Tech's race into legal AI intensifies.",
-    url: "https://non-billable.beehiiv.com/p/draft-ad28",
   },
 ];
