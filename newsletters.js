@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-rethinkingfed-20260928",
+    publication: "Bloomberg",
+    author: "Chris Anstey",
+    series: "Economics Daily",
+    title: "Economics Daily: Rethinking on the Fed",
+    date: "2026-09-28",
+    time: "11:00",
+    summary: "Key data this week may either cool or reinforce investor views of a hawkish Fed.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-28/rethinking-fed-rate-path-sends-bond-yields-higher-but-a-data-test-is-looming",
+  },
+  {
     id: "nl-bbg-marketsdaily-warningfrombonds-20260928",
     publication: "Bloomberg",
     author: "Greg Ritchie",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "US Treasury Secretary Scott Bessent said talks with Chinese counterparts on AI, trade and investment were \"very successful\", with the two sides agreeing to set up an AI dialogue ahead of Thursday's Trump-Xi summit.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-21/trump-xi-summit-prep-gathers-pace-as-officials-make-headway-on-ai-trade",
-  },
-  {
-    id: "nl-bbg-marketsdaily-costofaislowdown-20260921",
-    publication: "Bloomberg",
-    author: "Jeran Wittenstein",
-    series: "Markets Daily",
-    title: "Markets Daily: Cost of an AI slowdown",
-    date: "2026-09-21",
-    time: "11:22",
-    summary: "Almost $33 trillion in S&P 500 market value added since late 2022 rests on AI growth continuing at breakneck speed, and diversifying away from that bet has proven difficult; plus, Turkey's fund crisis recap.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-21/there-s-33-trillion-in-stock-gains-riding-on-the-future-of-ai",
   },
 ];

@@ -21,6 +21,62 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9d0437c4-e5ee-465d-92bc-9491c1baff93",
+    title: "Lord Mayor of London favourite pulls out over ‘criminal proceedings’ at former firm",
+    date: "2026-09-28",
+    time: "12:12",
+    url: "https://www.ft.com/content/9d0437c4-e5ee-465d-92bc-9491c1baff93"
+  },
+  {
+    id: "7783e1fd-5787-461f-be5d-63dad6eb0150",
+    title: "Why Europe’s centre will hold",
+    date: "2026-09-28",
+    time: "12:01",
+    url: "https://www.ft.com/content/7783e1fd-5787-461f-be5d-63dad6eb0150"
+  },
+  {
+    id: "f83b44e9-406b-4004-9fdb-83357c3ac977",
+    title: "What is the AI capex breakeven rate?",
+    date: "2026-09-28",
+    time: "12:00",
+    url: "https://www.ft.com/content/f83b44e9-406b-4004-9fdb-83357c3ac977"
+  },
+  {
+    id: "4cf7fc4e-0fc3-4a44-8710-4299c719cc6a",
+    title: "How much? The realities of rising home renovation costs",
+    date: "2026-09-28",
+    time: "12:00",
+    url: "https://www.ft.com/content/4cf7fc4e-0fc3-4a44-8710-4299c719cc6a"
+  },
+  {
+    id: "51089f41-6f8b-4381-aab5-a83bbe4048c4",
+    title: "A-list lunches, Oxbridge dinners – and the £400 toothbrush. Don’t miss HTSI’s top reads",
+    date: "2026-09-28",
+    time: "11:22",
+    url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4"
+  },
+  {
+    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
+    title: "Submit a question: What’s next for the global economy?",
+    date: "2026-09-28",
+    time: "11:18",
+    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d"
+  },
+  {
+    id: "77d453cb-f399-4c8e-b59f-bda9116db757",
+    title: "Pick any colour watch – so long as it’s gold",
+    date: "2026-09-28",
+    time: "11:00",
+    url: "https://www.ft.com/content/77d453cb-f399-4c8e-b59f-bda9116db757"
+  },
+  {
+    id: "b43739dc-eb98-4bf4-ae4e-a966139ce6f0",
+    title: "And the FTAV chart quiz winner is . . .",
+    date: "2026-09-28",
+    time: "10:52",
+    url: "https://www.ft.com/content/b43739dc-eb98-4bf4-ae4e-a966139ce6f0"
+  },
+  {
     id: "13051aaf-3e1e-41ff-9e0d-b48ff9a0249e",
     title: "Apple patent defeat could hand $1.4bn to Burford Capital",
     date: "2026-09-28",
@@ -243,54 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "05:00",
     url: "https://www.ft.com/content/2ef0c2fa-9626-4785-94cd-65fbf5be5741"
-  },
-  {
-    id: "ba19ec85-c736-4cfd-9a85-4e1ddf1938e5",
-    title: "The crisis at Big Law powerhouse Weil",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/ba19ec85-c736-4cfd-9a85-4e1ddf1938e5"
-  },
-  {
-    id: "f9c197e8-e163-4ffe-8563-3fe4e9c76f89",
-    title: "How London became the property market’s black sheep",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/f9c197e8-e163-4ffe-8563-3fe4e9c76f89"
-  },
-  {
-    id: "4838f5d1-44e4-414e-a092-c738db47d7b9",
-    title: "Rich turn to borrowing against private equity holdings as payouts slow",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/4838f5d1-44e4-414e-a092-c738db47d7b9"
-  },
-  {
-    id: "ca02d69d-a519-4436-b758-3612fd657edc",
-    title: "Andy Burnham’s first Labour conference as prime minister",
-    date: "2026-09-28",
-    time: "05:00",
-    url: "https://www.ft.com/content/ca02d69d-a519-4436-b758-3612fd657edc"
-  },
-  {
-    id: "fb3aa961-fa28-4dd0-a2ea-cdb03ac8258d",
-    title: "Donald Trump hosts Anthropic CEO Dario Amodei at White House",
-    date: "2026-09-28",
-    time: "04:25",
-    url: "https://www.ft.com/content/fb3aa961-fa28-4dd0-a2ea-cdb03ac8258d"
-  },
-  {
-    id: "57765bee-3ee6-4fa9-bea5-feaaf277a647",
-    title: "JCB’s Anthony Bamford names youngest child George as co-chair",
-    date: "2026-09-28",
-    time: "00:01",
-    url: "https://www.ft.com/content/57765bee-3ee6-4fa9-bea5-feaaf277a647"
-  },
-  {
-    id: "46c33655-91ec-4120-8d0f-f0062835aa1b",
-    title: "Healey to promise ‘new age of industrialisation’ with £6bn Royal Navy plan",
-    date: "2026-09-28",
-    time: "00:01",
-    url: "https://www.ft.com/content/46c33655-91ec-4120-8d0f-f0062835aa1b"
   },
 ];
