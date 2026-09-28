@@ -9,7 +9,7 @@
 // twice as separate module instances (blank page).
 // =============================================================================
 import { firmById, areaById, typeById, tierById } from "./data.js";
-import { esc, MONTHS } from "/util.js?v=20260818-1";
+import { esc, MONTHS } from "/util.js";
 
 // ----------------------------- date formatting ------------------------------
 export function fmtDate(iso) {

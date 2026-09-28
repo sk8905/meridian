@@ -28,9 +28,6 @@ export function mount(host, ctx) {
 
 // The shared news-wire engine — so the Macro dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, source filter).
-// NOTE: dashboard.js and shared.js import ./content.js with their OWN ?v= —
-// keep all three content tokens identical (and bump together) or the browser
-// loads content.js twice as separate module instances.
 
 
 // In-page memory for chip selections: survives the async data-sync re-renders

@@ -3,8 +3,8 @@
 // identical, dependency-free helpers live here; app-specific variants (the
 // zero-padded credit fmtDate, macro's 1-indexed MONTHS, per-app source
 // resolvers that close over app data) stay in their own modules. Imported
-// site-absolute ("/util.js?v=…") with the same cache-token discipline as every
-// other module — bump the token in EVERY importer when this file changes.
+// site-absolute ("/util.js") tokenless, like every other shared root module
+// (T1/T2) — never re-add a ?v= here or in an importer.
 // =============================================================================
 
 // HTML-escape (strict superset: also escapes ' — safe everywhere the looser

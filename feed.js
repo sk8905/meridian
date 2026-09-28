@@ -5,9 +5,9 @@
 // each page assembles its own normalised items and desk vocabulary, then hands
 // them to this engine, which owns the markup + interaction so every wire is the
 // same build. Pure module — no page-specific imports; loaded site-absolute
-// ("/feed.js?v=…") with the usual cache-token discipline.
+// ("/feed.js") tokenless, like every other shared root module (T1/T2).
 // =============================================================================
-import { esc, MONTHS } from "/util.js?v=20260818-1";
+import { esc, MONTHS } from "/util.js";
 
 // ---- Desk vocabulary --------------------------------------------------------
 // A "desk" is the label a row carries. Home merges the cross-desk streams

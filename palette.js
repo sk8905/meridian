@@ -23,10 +23,10 @@ function feedDedupKey(x) {
   return generic ? "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "") : "u:" + u;
 }
 
-import { esc } from "/util.js?v=20260818-1";
+import { esc } from "/util.js";
 // Shared label vocabulary + classifier, so a "#CODE" search behaves identically
 // here and in the Home palette (same tags, same precedence).
-import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire, fmtDay as fmt } from "/feed.js?v=20260808-1";
+import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire, fmtDay as fmt } from "/feed.js";
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 // The standalone Deals/Fundraising list pages are retired, so a deal/intel record
 // links to its source article when we have one, else the manager's profile in the
