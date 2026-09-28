@@ -181,6 +181,9 @@ export const EUR_CREDITS = [
   // —— Sector-sweep additions (2026-09-28).
   { name: "CPI Property Group", sector: "Other", rating: "BB", agency: "S&P", asOf: "2026-04-10", jurisdiction: "Luxembourg", trend: "down", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3543973" },
   { name: "Q-Park Holding I", sector: "Transport & Logistics", rating: "BB", agency: "S&P", asOf: "2025-12-10", jurisdiction: "Netherlands", trend: "up", source: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3492658" },
+  { name: "Nexans", sector: "Industrials", rating: "BB+", agency: "S&P", asOf: "2026-02-16", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3798535/" },
+  { name: "SPIE", sector: "Business Services", rating: "BB+", agency: "S&P", asOf: "2025-08-25", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3556189/" },
+  { name: "Elior Group", sector: "Food & Beverage", rating: "B+", agency: "S&P", asOf: "2026-01-08", jurisdiction: "France", trend: "flat", source: "https://cbonds.com/news/3743235/" },
 ];
 
 // Group the roster by sector, in CREDIT_SECTORS order; unknown sectors fall to
