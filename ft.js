@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "29f1af13-ecc3-4f26-a479-e6088c67231b",
+    title: "US midterm elections 2026: The FT’s guide",
+    date: "2026-09-28",
+    time: "20:29",
+    url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b"
+  },
+  {
+    id: "229f0173-ae1c-4eaa-8edb-8a4268572e28",
+    title: "Ministers abandon plan to make overseas visitors pay for England’s top museums",
+    date: "2026-09-28",
+    time: "20:04",
+    url: "https://www.ft.com/content/229f0173-ae1c-4eaa-8edb-8a4268572e28"
+  },
+  {
+    id: "00d2cfea-362f-4260-8d7f-1e5a20a3a1ea",
+    title: "La Vestale should be a revelation. The Berlin Staatsoper’s season-opener fails to convince",
+    date: "2026-09-28",
+    time: "17:00",
+    url: "https://www.ft.com/content/00d2cfea-362f-4260-8d7f-1e5a20a3a1ea"
+  },
+  {
     id: "f261c9cd-7169-4d16-97fc-9859099ce0f8",
     title: "Netanyahu under pressure over reports he was warned about October 7",
     date: "2026-09-28",
