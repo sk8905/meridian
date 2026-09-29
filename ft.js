@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "27fb5d30-1fb6-4f30-937c-ff5c598eaaa5",
+    title: "Brussels’ protectionist turn spooks bloc’s free-market stalwarts",
+    date: "2026-09-29",
+    time: "06:00",
+    url: "https://www.ft.com/content/27fb5d30-1fb6-4f30-937c-ff5c598eaaa5"
+  },
+  {
+    id: "796167ab-ba0b-4476-b505-516b7d896e40",
+    title: "Rolex was for crypto, Ferrari is for AI",
+    date: "2026-09-29",
+    time: "06:00",
+    url: "https://www.ft.com/content/796167ab-ba0b-4476-b505-516b7d896e40"
+  },
+  {
     id: "d6a9f5df-08d0-4f80-ad2d-5d8a17e2cc82",
     title: "Nvidia turns to insurers to spread the risk of AI build-out",
     date: "2026-09-29",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "16:54",
     url: "https://www.ft.com/content/d751ad99-531d-4990-9a4c-ee89a9fc1b2d"
-  },
-  {
-    id: "4aa021c0-7ffc-4570-b4ba-2f90c2d24653",
-    title: "Without a resilient economy, central banks have limited choices",
-    date: "2026-09-28",
-    time: "16:30",
-    url: "https://www.ft.com/content/4aa021c0-7ffc-4570-b4ba-2f90c2d24653"
-  },
-  {
-    id: "571a3103-ec01-464b-ab39-0c0da58d9524",
-    title: "Five men arrested over alleged RAF Fairford terror plot released on bail",
-    date: "2026-09-28",
-    time: "16:29",
-    url: "https://www.ft.com/content/571a3103-ec01-464b-ab39-0c0da58d9524"
   }
 ];
