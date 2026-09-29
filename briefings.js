@@ -44,7 +44,7 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-29",
-      time: "08:16 BST",
+      time: "10:12 BST",
       lede: "Tuesday opens with the bond sell-off, not equities, setting the tone &mdash; oil-linked long-end yields at multi-decade highs are now the variable everything else is priced against, ahead of a data-heavy end to the week.",
       bullets: [
         { html: "<strong>Macro &mdash; the FT reports oil prices and US Treasury yields are now in their tightest relationship since 1990</strong>, underlining how the stalled US-Iran Hormuz talks are feeding directly into rates.", src: "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197", srcName: "Financial Times" },
