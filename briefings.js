@@ -43,14 +43,14 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-09-28",
-      time: "12:31 BST",
-      lede: "Monday's session is stitching Friday's Treasury story to a fresh UK strand &mdash; gilt yields grinding toward two-decade highs are now squeezing Chancellor Healey's Budget arithmetic directly, Goldman Sachs argues, even as US futures shrug off oil's Hormuz-driven climb to edge higher into Friday's jobs test.",
+      date: "2026-09-29",
+      time: "05:13 BST",
+      lede: "Tuesday opens with the bond sell-off, not equities, setting the tone &mdash; oil-linked long-end yields at multi-decade highs are now the variable everything else is priced against, ahead of a data-heavy end to the week.",
       bullets: [
-        { html: "<strong>Macro &mdash; global bond yields marching toward levels not seen in two decades are now feeding doubts about Europe's own equity rally, Bloomberg reports, even as Chancellor Healey's fiscal headroom has roughly halved to about &pound;12bn</strong> under the sustained gilt sell-off ahead of his 28 October Budget &mdash; Goldman Sachs separately traces the move to a global long-end duration shock amplified by UK fiscal uncertainty, with 30-year gilts near 5.9%.", src: "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing", srcName: "Goldman Sachs" },
-        { html: "<strong>Macro &mdash; oil gained over 1% Monday, with Brent above $106/bbl, after President Trump confirmed he rejected Iran's latest seven-day proposal to reopen the Strait of Hormuz</strong>, extending the near seven-month standoff into a new week and keeping oil-driven inflation risk squarely in view.", src: "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html", srcName: "CNBC" },
-        { html: "<strong>Equities &mdash; US stock futures pushed higher Monday morning, the E-mini S&amp;P 500 up around 0.5% and Nasdaq futures ahead roughly 0.4%</strong>, shrugging off a University of Michigan sentiment reading near record lows as investors looked past the noise toward Friday's September jobs report.", src: "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080713612.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield held above 5% and the 30-year mortgage rate stayed above 7% Monday morning</strong>, keeping home-buying expensive and extending last week's multi-decade-high run even as equity futures found a bid.", src: "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080713612.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Macro &mdash; the FT reports oil prices and US Treasury yields are now in their tightest relationship since 1990</strong>, underlining how the stalled US-Iran Hormuz talks are feeding directly into rates.", src: "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; Bloomberg previews this week's US data (JOLTS, PCE, ISM, payrolls) as likely to bolster the case for an October Fed rate hike</strong>, with a negative surprise the most probable trigger for a bond turnaround.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 fell 0.90% to 7,673.88 and the Nasdaq lost 1.14% in Monday afternoon trading</strong> as US-Iran tensions resurfaced and yields jumped, with Nvidia a rare bright spot after a record $150bn buyback addition.", src: "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-28-dow-sp-500-nasdaq-080420627.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Fixed income &mdash; Treasury yields extended their march to multiyear highs Monday, the 10-year climbing toward 5.2%</strong> as oil rose after Trump rejected Iran's Hormuz proposal.", src: "https://www.cnbc.com/2026/09/28/treasury-yields-bonds-selloff.html", srcName: "CNBC" },
       ],
     },
     afternoon: {

@@ -21,6 +21,118 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d6a9f5df-08d0-4f80-ad2d-5d8a17e2cc82",
+    title: "Nvidia turns to insurers to spread the risk of AI build-out",
+    date: "2026-09-29",
+    time: "05:04",
+    url: "https://www.ft.com/content/d6a9f5df-08d0-4f80-ad2d-5d8a17e2cc82"
+  },
+  {
+    id: "e4231435-4d6d-438d-9632-ab215784b2d5",
+    title: "Big money, bigger problems in Big Law",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/e4231435-4d6d-438d-9632-ab215784b2d5"
+  },
+  {
+    id: "8415255e-3828-4b0b-941b-6415cffbcf28",
+    title: "Private equity wrestles with its own generational wealth gap",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/8415255e-3828-4b0b-941b-6415cffbcf28"
+  },
+  {
+    id: "f8a5e2b8-33f7-4c83-8ef3-ca91c7fa1df7",
+    title: "Why a £10bn Monzo takeover could be good for the UK",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/f8a5e2b8-33f7-4c83-8ef3-ca91c7fa1df7"
+  },
+  {
+    id: "1f92357c-374d-4f24-a6f4-373fdeb3ffe3",
+    title: "What ‘Choosin’ Texas’ tells us about Burnham’s social care obstacles",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/1f92357c-374d-4f24-a6f4-373fdeb3ffe3"
+  },
+  {
+    id: "3b829a46-3eae-4c20-94db-a79c38d0be4c",
+    title: "Germany issues EU budget ultimatum",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/3b829a46-3eae-4c20-94db-a79c38d0be4c"
+  },
+  {
+    id: "2b6db828-897d-46cf-ba64-e3e8560b5f4e",
+    title: "Unicredit’s Andrea Orcel moves to seize control of Commerzbank within months",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/2b6db828-897d-46cf-ba64-e3e8560b5f4e"
+  },
+  {
+    id: "4370a241-50e7-4305-b533-44adad41498a",
+    title: "Trade union chief criticises Burnham’s delay to social care reforms",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/4370a241-50e7-4305-b533-44adad41498a"
+  },
+  {
+    id: "7af7b31e-5006-467a-96d9-672905f7b45b",
+    title: "Donald Trump’s ambassador to Greece causes stir in Romania",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/7af7b31e-5006-467a-96d9-672905f7b45b"
+  },
+  {
+    id: "f537987f-e88e-4f60-93bf-74e838235b2d",
+    title: "Starbucks retreats from green goals amid $2bn cost drive",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/f537987f-e88e-4f60-93bf-74e838235b2d"
+  },
+  {
+    id: "6586deaa-d2e3-4e5f-83ef-c64eb57b7832",
+    title: "Harry Potter and the British business of international schools",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/6586deaa-d2e3-4e5f-83ef-c64eb57b7832"
+  },
+  {
+    id: "5ad7c42c-b95d-47b8-8dfd-896c1deda1df",
+    title: "The booming business of insuring against US gun violence",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/5ad7c42c-b95d-47b8-8dfd-896c1deda1df"
+  },
+  {
+    id: "930465de-0cf3-4a2b-99a4-f632852df5f9",
+    title: "UK tech founders urge Burnham to curb non-competes to match US rivals",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/930465de-0cf3-4a2b-99a4-f632852df5f9"
+  },
+  {
+    id: "f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197",
+    title: "Oil price and US Treasury yields in tightest relationship since 1990",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197"
+  },
+  {
+    id: "40892ee2-70ed-4a15-b290-5ffc2d7d2a40",
+    title: "Can Italy’s opposition unite against Giorgia Meloni?",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/40892ee2-70ed-4a15-b290-5ffc2d7d2a40"
+  },
+  {
+    id: "729662bd-0f6e-42a7-a54a-55c306c1f37e",
+    title: "Falkland Islanders grapple with Argentina’s ‘economic warfare’",
+    date: "2026-09-29",
+    time: "05:00",
+    url: "https://www.ft.com/content/729662bd-0f6e-42a7-a54a-55c306c1f37e"
+  },
+  {
     id: "7c6d87b1-d7d9-49c3-b842-2600928fba38",
     title: "US Treasury threatens crackdown on Wall Street tax-avoidance strategies",
     date: "2026-09-28",
@@ -187,117 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "16:29",
     url: "https://www.ft.com/content/571a3103-ec01-464b-ab39-0c0da58d9524"
-  },
-  {
-    id: "e423eb7f-ec97-43ed-9b75-cad8e81ac86b",
-    title: "Russian drones hit Kyiv science academy and hospital",
-    date: "2026-09-28",
-    time: "16:03",
-    url: "https://www.ft.com/content/e423eb7f-ec97-43ed-9b75-cad8e81ac86b"
-  },
-  {
-    id: "78ec0e04-d6db-41a9-a2eb-a794c80d270c",
-    title: "Post-Covid economic inactivity was much lower than thought, ONS says",
-    date: "2026-09-28",
-    time: "15:53",
-    url: "https://www.ft.com/content/78ec0e04-d6db-41a9-a2eb-a794c80d270c"
-  },
-  {
-    id: "65da4f68-2699-4491-a38d-bcc18cde14ac",
-    title: "A TV series shows Britain is woefully unprepared for war",
-    date: "2026-09-28",
-    time: "15:51",
-    url: "https://www.ft.com/content/65da4f68-2699-4491-a38d-bcc18cde14ac"
-  },
-  {
-    id: "6729bceb-2480-42b4-9308-51ef7728c181",
-    title: "SpaceX’s Starship rocket reaches orbit for the first time",
-    date: "2026-09-28",
-    time: "14:54",
-    url: "https://www.ft.com/content/6729bceb-2480-42b4-9308-51ef7728c181"
-  },
-  {
-    id: "f7f9d03c-cb01-45d3-8148-1c9f3fcc4501",
-    title: "Evonik rejects €10.3bn BASF bid to consolidate chemicals industry",
-    date: "2026-09-28",
-    time: "14:32",
-    url: "https://www.ft.com/content/f7f9d03c-cb01-45d3-8148-1c9f3fcc4501"
-  },
-  {
-    id: "2fbf264c-20c1-408e-b5a7-eb8b99dfccfb",
-    title: "MFS owner blames Barclays for collapse amid fraud allegations",
-    date: "2026-09-28",
-    time: "14:16",
-    url: "https://www.ft.com/content/2fbf264c-20c1-408e-b5a7-eb8b99dfccfb"
-  },
-  {
-    id: "a2bbb03f-d628-4ea4-8e1d-f5f3b677d536",
-    title: "The money vs message election",
-    date: "2026-09-28",
-    time: "14:00",
-    url: "https://www.ft.com/content/a2bbb03f-d628-4ea4-8e1d-f5f3b677d536"
-  },
-  {
-    id: "6b216fc2-b2f4-42df-9102-c18476eb74de",
-    title: "Why the EU fears Britain becoming a back door for Chinese cars",
-    date: "2026-09-28",
-    time: "12:31",
-    url: "https://www.ft.com/content/6b216fc2-b2f4-42df-9102-c18476eb74de"
-  },
-  {
-    id: "88e87863-4cf6-4c4e-8858-f0099db350d4",
-    title: "Nvidia launches record $150bn share buyback",
-    date: "2026-09-28",
-    time: "12:23",
-    url: "https://www.ft.com/content/88e87863-4cf6-4c4e-8858-f0099db350d4"
-  },
-  {
-    id: "9d0437c4-e5ee-465d-92bc-9491c1baff93",
-    title: "Lord Mayor of London favourite pulls out over ‘criminal proceedings’ at former firm",
-    date: "2026-09-28",
-    time: "12:12",
-    url: "https://www.ft.com/content/9d0437c4-e5ee-465d-92bc-9491c1baff93"
-  },
-  {
-    id: "7783e1fd-5787-461f-be5d-63dad6eb0150",
-    title: "Why Europe’s centre will hold",
-    date: "2026-09-28",
-    time: "12:01",
-    url: "https://www.ft.com/content/7783e1fd-5787-461f-be5d-63dad6eb0150"
-  },
-  {
-    id: "f83b44e9-406b-4004-9fdb-83357c3ac977",
-    title: "What is the AI capex breakeven rate?",
-    date: "2026-09-28",
-    time: "12:00",
-    url: "https://www.ft.com/content/f83b44e9-406b-4004-9fdb-83357c3ac977"
-  },
-  {
-    id: "4cf7fc4e-0fc3-4a44-8710-4299c719cc6a",
-    title: "How much? The realities of rising home renovation costs",
-    date: "2026-09-28",
-    time: "12:00",
-    url: "https://www.ft.com/content/4cf7fc4e-0fc3-4a44-8710-4299c719cc6a"
-  },
-  {
-    id: "51089f41-6f8b-4381-aab5-a83bbe4048c4",
-    title: "A-list lunches, Oxbridge dinners – and the £400 toothbrush. Don’t miss HTSI’s top reads",
-    date: "2026-09-28",
-    time: "11:22",
-    url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4"
-  },
-  {
-    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
-    title: "Submit a question: What’s next for the global economy?",
-    date: "2026-09-28",
-    time: "11:18",
-    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d"
-  },
-  {
-    id: "13051aaf-3e1e-41ff-9e0d-b48ff9a0249e",
-    title: "Apple patent defeat could hand $1.4bn to Burford Capital",
-    date: "2026-09-28",
-    time: "11:08",
-    url: "https://www.ft.com/content/13051aaf-3e1e-41ff-9e0d-b48ff9a0249e"
   }
 ];

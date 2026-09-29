@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-29",
-  lastCheckedTime: "00:11 BST",
+  lastCheckedTime: "05:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,12 +1004,12 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-28",
+  updated: "2026-09-29",
   us: [
-    { title: "5 things to know before the stock market opens Monday", source: "CNBC", date: "2026-09-28", url: "https://www.cnbc.com/2026/09/28/5-things-to-know-before-the-stock-market-opens.html" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq slip as US-Iran tensions resurface, Treasury yields jump", source: "Yahoo Finance", date: "2026-09-28", time: "16:19", url: "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-28-dow-sp-500-nasdaq-080420627.html" },
+    { title: "Treasury yields rise as march to multiyear highs continues", source: "CNBC", date: "2026-09-28", url: "https://www.cnbc.com/2026/09/28/treasury-yields-bonds-selloff.html" },
+    { title: "U.S. Treasury Yields Hit Near 20-Year High", source: "Babypips", date: "2026-09-28", url: "https://www.babypips.com/news/headline-us-treasury-yields-september-28-2026-selloff-iran-fed-hike" },
     { title: "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait", source: "CNBC", date: "2026-09-28", url: "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html" },
-    { title: "Iran Says Won't Soften Demands After Trump Rejects Hormuz Offer", source: "Bloomberg", date: "2026-09-27", url: "https://www.bloomberg.com/news/articles/2026-09-27/iran-says-won-t-soften-demands-after-trump-rejects-hormuz-offer" },
+    { title: "Bond Selloff Resumes as Oil Rises After Trump Spurns Iran Offer", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/bond-selloff-resumes-as-oil-rises-after-trump-spurns-iran-offer" },
     { title: "Key US Data This Week Seen Bolstering Case for October Rate Hike", source: "Bloomberg", date: "2026-09-28", time: "18:11", url: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike" },
   ],
   uk: [
@@ -1029,8 +1029,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-28",
+  updated: "2026-09-29",
   items: [
+    {"title": "Oil price and US Treasury yields in tightest relationship since 1990", "source": "Financial Times", "date": "2026-09-29", "time": "05:00", "url": "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197", "blurb": "FT analysis of the tightening link between crude oil and US Treasury yields as the bond sell-off deepens.", "author": null},
+    {"title": "What\u2019s going to break in the bondpocalypse?", "source": "Bloomberg", "date": "2026-09-29", "time": "05:02", "url": "https://www.bloomberg.com/opinion/newsletters/2026-09-29/what-s-going-to-break-in-the-bondpocalypse", "blurb": "John Authers: US data might hold the key as the bond sell-off deepens.", "author": "John Authers"},
+    {"title": "Germany issues EU budget ultimatum", "source": "Financial Times", "date": "2026-09-29", "time": "05:00", "url": "https://www.ft.com/content/3b829a46-3eae-4c20-94db-a79c38d0be4c", "blurb": "FT reports Berlin setting terms in the EU budget negotiations.", "author": null},
     {"title": "Measured ECB hikes to quell inflation remain appropriate, Lagarde says", "source": "Reuters", "date": "2026-09-28", "time": "22:17", "url": "https://www.investing.com/news/economy-news/measured-ecb-hikes-to-quell-inflation-remain-appropriate-lagarde-says-4920668", "blurb": "Lagarde says long-term rates have risen notably, which will slow growth and cut energy pass-through by more than projected, pushing back on the most aggressive hike bets.", "author": null},
     {"title": "Nvidia boosts share buyback by record $150 billion as AI boom fuels growth", "source": "Reuters", "date": "2026-09-28", "time": "22:17", "url": "https://www.investing.com/news/stock-market-news/nvidia-adds-150-billion-to-existing-share-repurchase-plan-4919956", "blurb": "A record buyback authorisation lifts Nvidia's remaining repurchase capacity to $235bn, to be used through fiscal 2028.", "author": null},
     {"title": "Key US Data This Week Seen Bolstering Case for October Rate Hike", "source": "Bloomberg", "date": "2026-09-28", "time": "18:11", "url": "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", "blurb": "Bloomberg previews a data-heavy week — JOLTS, consumer confidence, ADP and the September jobs report — that Fed officials expect to add further evidence the economy is strengthening, bolstering the case some have made for another rate hike as soon as the 28 October FOMC.", "author": null},
