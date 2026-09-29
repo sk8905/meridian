@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-29",
-  lastCheckedTime: "14:25 BST",
+  lastCheckedTime: "16:35 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1008,7 +1008,7 @@ export const NEWS = {
   us: [
     { title: "Treasury yields ease as inflation concerns persist", source: "CNBC", date: "2026-09-29", url: "https://www.cnbc.com/2026/09/29/treasury-yields-bonds.html" },
     { title: "Global shares are mixed after Wall Street dips and oil prices stabilize", source: "BNN Bloomberg (AP)", date: "2026-09-29", url: "https://www.bnnbloomberg.ca/markets/dow-jones/2026/09/29/global-shares-are-mixed-after-wall-street-dips-and-oil-prices-stabilize/" },
-    { title: "Stock Market Today (Sept. 29, 2026): Nasdaq Futures Rise on Easing Oil Prices, Treasury Yields", source: "TheStreet", date: "2026-09-29", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026" },
+    { title: "Stock Market Today (Sept. 29, 2026): S&P 500 Falls on Easing Oil Prices, Treasury Yields", source: "TheStreet", date: "2026-09-29", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026" },
     { title: "Bond Selloff Resumes as Oil Rises After Trump Spurns Iran Offer", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/bond-selloff-resumes-as-oil-rises-after-trump-spurns-iran-offer" },
     { title: "Key US Data This Week Seen Bolstering Case for October Rate Hike", source: "Bloomberg", date: "2026-09-28", time: "18:11", url: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike" },
   ],

@@ -56,7 +56,7 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-09-29",
-      time: "14:25 BST",
+      time: "16:35 BST",
       lede: "Tuesday brings a tentative breather: easing oil and a modest pullback in long-end yields are giving risk assets room, but the week's jobs and inflation data still decide whether the October-hike case hardens.",
       bullets: [
         { html: "<strong>Macro &mdash; Bloomberg says this week's US data (JOLTS, consumer confidence, ADP, payrolls) is seen bolstering the case for another Fed hike at the 28 October FOMC</strong>, with core PCE and the third GDP estimate also due this week.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
