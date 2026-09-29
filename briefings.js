@@ -68,12 +68,13 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-09-29",
-      time: "18:12 BST",
+      time: "20:12 BST",
       lede: "Tuesday closes on a bond-market wobble: the US 30-year yield touched its highest since 2002 while Middle Eastern oil exports climbed, keeping the October rate-hike debate live ahead of Wednesday's PCE and GDP prints.",
       bullets: [
         { html: "<strong>Fixed income &mdash; the US 30-year Treasury yield hit its highest level since 2002</strong> in afternoon trading, extending the long-end selloff.", src: "https://www.ft.com/content/c8693313-7750-40c7-892a-101ab16dec70", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; a low-hire, low-fire US labour market is being read by Fed rate-setters as no cause for worry</strong>, per the FT, as the week's payrolls data approaches.", src: "https://www.ft.com/content/525c4aa1-2d36-47e4-b3ec-2d8f6ebf9060", srcName: "Financial Times" },
         { html: "<strong>Energy &mdash; Middle Eastern oil exports rose to their highest level since the Iran war began</strong>, the FT reported this evening.", src: "https://www.ft.com/content/26c54c8c-931c-4d84-9cf3-fd3e9b5e215d", srcName: "Financial Times" },
+        { html: "<strong>Energy &mdash; the EU is discussing a release of oil stocks as fuel costs surge</strong>, per the FT, while mediators push to break the US-Iran deadlock.", src: "https://www.ft.com/content/f16439a7-5554-412a-ae34-b46459ce28a9", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; UK gilts extended gains, with the 10-year yield almost 7bp lower</strong> as oil and gas prices hit new lows on the day.", src: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat", srcName: "Bloomberg" },
         { html: "<strong>Legal &mdash; the published Manchester City judgment lays bare the club&rsquo;s &ldquo;sham&rdquo; schemes</strong>, The Lawyer reports, after an initial judgment in the Premier League&rsquo;s case.", src: "https://www.thelawyer.com/published-manchester-city-judgment-lays-bare-clubs-sham-schemes/", srcName: "The Lawyer" },
       ],
