@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-oasislawsuit-20260929",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Oasis launches lawsuit over auction of archive tapes",
+    date: "2026-09-29",
+    time: "16:12",
+    summary: "Noel and Liam Gallagher are suing their former sound engineer amid plans to sell archive recordings of the band.",
+    url: "https://www.thelawyer.com/oasis-launches-lawsuit-over-auction-of-archive-tapes/",
+  },
+  {
     id: "nl-bbg-authoralert-exoduspointanthropic-20260929",
     publication: "Bloomberg",
     author: "Nishant Kumar",

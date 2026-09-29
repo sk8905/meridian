@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c8693313-7750-40c7-892a-101ab16dec70",
+    title: "US 30-year Treasury yield hits highest since 2002",
+    date: "2026-09-29",
+    time: "16:25",
+    url: "https://www.ft.com/content/c8693313-7750-40c7-892a-101ab16dec70"
+  },
+  {
+    id: "5a1da44f-27c8-485c-a1ed-169a361d2b38",
+    title: "Barclays waters down return-to-office mandate after staff backlash",
+    date: "2026-09-29",
+    time: "15:12",
+    url: "https://www.ft.com/content/5a1da44f-27c8-485c-a1ed-169a361d2b38"
+  },
+  {
+    id: "fa48c931-bafd-487a-b5a5-eff93fdcf53f",
+    title: "China unveils mortgage subsidies to boost economy",
+    date: "2026-09-29",
+    time: "15:08",
+    url: "https://www.ft.com/content/fa48c931-bafd-487a-b5a5-eff93fdcf53f"
+  },
+  {
     id: "a9c20616-cef2-453a-9fa4-1d96f9f859d9",
     title: "Watchdog warns about Fed’s ‘deficiencies’",
     date: "2026-09-29",
