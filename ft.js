@@ -21,6 +21,48 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7b9df85a-59ed-4863-9682-1c5b868fd3af",
+    title: "A Republican midterm defeat will not be an earthquake",
+    date: "2026-09-29",
+    time: "12:16",
+    url: "https://www.ft.com/content/7b9df85a-59ed-4863-9682-1c5b868fd3af"
+  },
+  {
+    id: "3850893c-9db6-40c5-8e19-e89ec4160663",
+    title: "Shabana Mahmood looks to soften migration policies amid Labour pressure",
+    date: "2026-09-29",
+    time: "12:12",
+    url: "https://www.ft.com/content/3850893c-9db6-40c5-8e19-e89ec4160663"
+  },
+  {
+    id: "7ffd0cd4-716f-40f3-976a-62a2e737bb3d",
+    title: "Smart ring start-up Oura delays IPO",
+    date: "2026-09-29",
+    time: "12:09",
+    url: "https://www.ft.com/content/7ffd0cd4-716f-40f3-976a-62a2e737bb3d"
+  },
+  {
+    id: "0cd95b53-4b99-42c9-9b3e-b1074ed88e12",
+    title: "Why a UK-backed tungsten mine is supplying the US defence stockpile",
+    date: "2026-09-29",
+    time: "12:00",
+    url: "https://www.ft.com/content/0cd95b53-4b99-42c9-9b3e-b1074ed88e12"
+  },
+  {
+    id: "df11786e-4b07-45d6-b8ef-8e74f0d189ad",
+    title: "Who is driving the massive surge in repo borrowing?",
+    date: "2026-09-29",
+    time: "12:00",
+    url: "https://www.ft.com/content/df11786e-4b07-45d6-b8ef-8e74f0d189ad"
+  },
+  {
+    id: "f16439a7-5554-412a-ae34-b46459ce28a9",
+    title: "US-Iran war adds €100bn to EU’s fuel bill",
+    date: "2026-09-29",
+    time: "11:55",
+    url: "https://www.ft.com/content/f16439a7-5554-412a-ae34-b46459ce28a9"
+  },
+  {
     id: "c269b475-b37a-4fe8-b138-849d8525ff59",
     title: "Russia behind arson attack on defence company, says Estonia",
     date: "2026-09-29",
@@ -257,54 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "20:29",
     url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b"
-  },
-  {
-    id: "229f0173-ae1c-4eaa-8edb-8a4268572e28",
-    title: "Ministers abandon plan to make overseas visitors pay for England’s top museums",
-    date: "2026-09-28",
-    time: "20:04",
-    url: "https://www.ft.com/content/229f0173-ae1c-4eaa-8edb-8a4268572e28"
-  },
-  {
-    id: "f261c9cd-7169-4d16-97fc-9859099ce0f8",
-    title: "Netanyahu under pressure over reports he was warned about October 7",
-    date: "2026-09-28",
-    time: "19:28",
-    url: "https://www.ft.com/content/f261c9cd-7169-4d16-97fc-9859099ce0f8"
-  },
-  {
-    id: "571a3103-ec01-464b-ab39-0c0da58d9524",
-    title: "Five men arrested over alleged RAF Fairford terror plot released on bail",
-    date: "2026-09-28",
-    time: "18:59",
-    url: "https://www.ft.com/content/571a3103-ec01-464b-ab39-0c0da58d9524"
-  },
-  {
-    id: "964a6d85-a6d9-4017-90ef-30ffcd8d7f8d",
-    title: "Shares in UK housebuilders surge on new Help to Buy scheme",
-    date: "2026-09-28",
-    time: "18:47",
-    url: "https://www.ft.com/content/964a6d85-a6d9-4017-90ef-30ffcd8d7f8d"
-  },
-  {
-    id: "074a2198-cb97-4c92-8520-f99ad8dce754",
-    title: "BASF should take another crack at chemicals M&A",
-    date: "2026-09-28",
-    time: "18:44",
-    url: "https://www.ft.com/content/074a2198-cb97-4c92-8520-f99ad8dce754"
-  },
-  {
-    id: "22c4fa19-1751-44e9-928d-5203a6af8900",
-    title: "Federal Reserve’s watchdog warns of security ‘deficiencies’ at central bank",
-    date: "2026-09-28",
-    time: "18:31",
-    url: "https://www.ft.com/content/22c4fa19-1751-44e9-928d-5203a6af8900"
-  },
-  {
-    id: "533fc709-72f8-44bb-bd0d-c52bb2fb8886",
-    title: "Russia’s escalating hybrid campaign against Europe",
-    date: "2026-09-28",
-    time: "18:04",
-    url: "https://www.ft.com/content/533fc709-72f8-44bb-bd0d-c52bb2fb8886"
   }
 ];

@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-bigfatcushion-20260929",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: ‘A big fat cushion’ on bonds",
+    date: "2026-09-29",
+    time: "11:28",
+    summary: "Plus, an AI bear capitulates.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-29/a-big-fat-cushion-in-yields-lures-new-bond-bulls",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-openaiholdsmodel-20260929",
     publication: "Bloomberg",
     author: "Samson Ellis",
