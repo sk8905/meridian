@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "55c804cd-80a7-4195-92a2-e743d08e84bc",
+    title: "John Healey failed to truthfully articulate causes of Britain’s problems",
+    date: "2026-09-29",
+    time: "10:01",
+    url: "https://www.ft.com/content/55c804cd-80a7-4195-92a2-e743d08e84bc"
+  },
+  {
+    id: "dfcb291a-d8e7-441d-9d1f-28106a9749e6",
+    title: "Julius Baer shares hit record high after Swiss regulator ends probe",
+    date: "2026-09-29",
+    time: "09:52",
+    url: "https://www.ft.com/content/dfcb291a-d8e7-441d-9d1f-28106a9749e6"
+  },
+  {
+    id: "64816c78-a707-42e4-bb3f-2f199e29eac3",
+    title: "Labour conference: Burnham warned ditching triple lock would be ‘electoral insanity’ ahead of speech",
+    date: "2026-09-29",
+    time: "09:37",
+    url: "https://www.ft.com/content/64816c78-a707-42e4-bb3f-2f199e29eac3"
+  },
+  {
+    id: "364d5454-876d-42ef-8f30-759e1ebdb026",
+    title: "Shell-led consortium backs $23bn expansion of LNG Canada project",
+    date: "2026-09-29",
+    time: "09:34",
+    url: "https://www.ft.com/content/364d5454-876d-42ef-8f30-759e1ebdb026"
+  },
+  {
     id: "5c1dc583-5c88-4e91-a6b8-b62a6b33f74c",
     title: "Australia raises interest rate to highest level in 15 years",
     date: "2026-09-29",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "18:04",
     url: "https://www.ft.com/content/533fc709-72f8-44bb-bd0d-c52bb2fb8886"
-  },
-  {
-    id: "2194d34f-a57e-4ace-b2b3-d78a7ddd1281",
-    title: "David Zervos, Scott Bessent’s new adviser, has opinions",
-    date: "2026-09-28",
-    time: "17:56",
-    url: "https://www.ft.com/content/2194d34f-a57e-4ace-b2b3-d78a7ddd1281"
-  },
-  {
-    id: "878402a7-eeac-453e-b9db-92156107c5ce",
-    title: "UK to restart resettlement scheme, Shabana Mahmood tells Labour conference",
-    date: "2026-09-28",
-    time: "17:46",
-    url: "https://www.ft.com/content/878402a7-eeac-453e-b9db-92156107c5ce"
-  },
-  {
-    id: "49bff877-ae51-481d-8223-5c0d04f4ba87",
-    title: "Erdoğan holds rare meeting with Germany’s potential next leader",
-    date: "2026-09-28",
-    time: "17:14",
-    url: "https://www.ft.com/content/49bff877-ae51-481d-8223-5c0d04f4ba87"
-  },
-  {
-    id: "8840071d-3867-45e2-bf25-ce24655e69ba",
-    title: "Blair-era money is ‘not there now’, Healey warns Labour",
-    date: "2026-09-28",
-    time: "17:06",
-    url: "https://www.ft.com/content/8840071d-3867-45e2-bf25-ce24655e69ba"
-  },
+  }
 ];
