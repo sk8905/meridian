@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "122a29d3-da08-4ffc-8add-aed427781659",
+    title: "Burnham’s brave new world — just one more election away",
+    date: "2026-09-29",
+    time: "17:04",
+    url: "https://www.ft.com/content/122a29d3-da08-4ffc-8add-aed427781659"
+  },
+  {
+    id: "525c4aa1-2d36-47e4-b3ec-2d8f6ebf9060",
+    title: "Low-hire, low-fire US labour market is no worry for Fed rate-setters",
+    date: "2026-09-29",
+    time: "16:25",
+    url: "https://www.ft.com/content/525c4aa1-2d36-47e4-b3ec-2d8f6ebf9060"
+  },
+  {
     id: "c8693313-7750-40c7-892a-101ab16dec70",
     title: "US 30-year Treasury yield hits highest since 2002",
     date: "2026-09-29",
@@ -285,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "05:00",
     url: "https://www.ft.com/content/4370a241-50e7-4305-b533-44adad41498a"
-  },
-  {
-    id: "7af7b31e-5006-467a-96d9-672905f7b45b",
-    title: "Donald Trump’s ambassador to Greece causes stir in Romania",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/7af7b31e-5006-467a-96d9-672905f7b45b"
-  },
-  {
-    id: "f537987f-e88e-4f60-93bf-74e838235b2d",
-    title: "Starbucks retreats from green goals amid $2bn cost drive",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/f537987f-e88e-4f60-93bf-74e838235b2d"
-  },
-  {
-    id: "6586deaa-d2e3-4e5f-83ef-c64eb57b7832",
-    title: "Harry Potter and the British business of international schools",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/6586deaa-d2e3-4e5f-83ef-c64eb57b7832"
-  },
-  {
-    id: "5ad7c42c-b95d-47b8-8dfd-896c1deda1df",
-    title: "The booming business of insuring against US gun violence",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/5ad7c42c-b95d-47b8-8dfd-896c1deda1df"
-  },
-  {
-    id: "930465de-0cf3-4a2b-99a4-f632852df5f9",
-    title: "UK tech founders urge Burnham to curb non-competes to match US rivals",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/930465de-0cf3-4a2b-99a4-f632852df5f9"
-  },
+  }
 ];

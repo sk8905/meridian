@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-lucarabond-20260929",
+    publication: "Bloomberg",
+    author: "Constantine Courcoulas",
+    series: "The Brink",
+    title: "The Brink: Diamonds and debtholders",
+    date: "2026-09-29",
+    time: "17:03",
+    summary: "Lucara may need more than exceptional stones and a $350 million bond to satisfy market critics.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-29/diamonds-may-be-forever-but-lucara-s-bond-prices-change-fast",
+  },
+  {
     id: "nl-thelawyer-breaking-oasislawsuit-20260929",
     publication: "The Lawyer",
     author: null,
@@ -472,27 +483,5 @@ export const NEWSLETTERS = [
     time: "11:27",
     summary: "Plus, cybersecurity stocks jump.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-24/all-the-reasons-why-bond-yields-keep-going-up",
-  },
-  {
-    id: "nl-bbg-authoralert-taulahedgefund-20260924",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Hedge Fund Taula Down 9.4% in Volatile Year for Macro Traders",
-    date: "2026-09-24",
-    time: "11:18",
-    summary: "Diego Megia's Taula Capital Management lost 4.3% this month as macro traders faced volatile markets.",
-    url: "https://www.bloomberg.com/news/articles/2026-09-24/hedge-fund-taula-down-9-4-in-volatile-year-for-macro-traders?utm_medium=email&utm_source=author_alert&utm_term=260924&utm_campaign=author_19458291",
-  },
-  {
-    id: "nl-economist-worldinbrief-trumpxisummit-20260924",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: What to expect from the Trump-Xi summit",
-    date: "2026-09-24",
-    time: "07:06",
-    summary: "Also: the battle between India's stock exchanges.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
