@@ -308,6 +308,9 @@ function _stripDesk(html) { return String(html || "").replace(/^(\s*<strong>)\s*
 // Re-capitalise the first letter of a de-kickered follow-on so it reads as a clean
 // continuous sentence once folded onto the item before it ("…target. The ONS…").
 function _capFold(html) { return String(html || "").replace(/^(\s*(?:<strong>\s*)?)([a-z])/, (m, p, c) => p + c.toUpperCase()); }
+// Does this authored HTML carry any visible text once tags, entities and whitespace
+// are stripped? Used to drop an empty-body desk group (a bare kicker) from the brief.
+function _hasText(html) { return String(html || "").replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, "").length > 0; }
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
@@ -348,9 +351,15 @@ function renderHomeBriefing() {
     const m = String(g.items[0].html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/);
     const desk = m ? m[1].trim() : "";
     const text = g.items.map((b) => nbNums(_capFold(_stripDesk(b.html)))).join(" ");
+    // A desk item with a kicker but NO body (e.g. a half-generated refresh draft where
+    // the headline shipped before its sentence did) would otherwise paint as a bare
+    // heading above an empty void — the exact ghost section a reader once photographed.
+    // Drop any group whose combined body has no visible text so the briefing never
+    // shows a textless desk (R7: no sourceless/uncited section).
+    if (!_hasText(text)) return "";
     const srcs = g.items.map(_src).filter(Boolean).join('<span class="g-hbrief-srcsep" aria-hidden="true"> · </span>');
     return `<li class="g-hbrief-b">${desk ? `<div class="g-hbrief-lede-hd">${esc(desk)}</div>` : ""}<span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}</li>`;
-  }).join("");
+  }).filter(Boolean).join("");
   host.hidden = false;
   host.dataset.open = "true";
   // Structure: a stuck header, a SCROLLING body (lede + desk bullets), then a stuck
@@ -372,6 +381,9 @@ function initHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
   renderHomeBriefing();
+  // A minimal test seam: lets a spec mutate BRIEFINGS and repaint deterministically
+  // (there is no user-facing re-render trigger for the brief). Prod code never calls it.
+  try { window.__wireRenderBrief = renderHomeBriefing; } catch { /* noop */ }
 }
 
 // On phones the ticker chips are collapsed behind a chevron at the end of each
