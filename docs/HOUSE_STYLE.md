@@ -23,7 +23,12 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   ≥1201px; from 761–1200px (iPad mini/Air/Pro-11 landscape) Home uses the
   single-column chip-swap layout instead** (News · Managers · Chart · X Feed), which
   is what the phone uses — otherwise the two middle wires crush to ~50px and the
-  headlines wrap one word per line. The other desks (Macro/Credit/Legal) are
+  headlines wrap one word per line. **From 1201–1500px (iPad Pro 12.9″ landscape,
+  small laptops) the five columns still squash the two flexible centre columns to
+  ~220px, so the terminal collapses to FOUR columns: the Chart/Reading region and
+  the X feed share one column, chosen by a small header toggle (`.g-focus-tog`) that
+  defaults to Chart/Reading. All five columns return at ≥1501px, where the toggle is
+  hidden.** The other desks (Macro/Credit/Legal) are
   single-column and keep the ≥761px terminal.
 - **R2 — Phone = scrolling document (≤760px).** Content scrolls under pinned
   chrome.

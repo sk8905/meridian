@@ -142,6 +142,7 @@ export function initGlance(ctx) {
   initHero();
   initFeedEntityNav();
   initMobileWireTabs();
+  initFocusToggle();   // narrow-desktop (iPad-landscape) Chart ⇄ X column swap
   initJumpNav();
   // v2: search is the shell palette (palette.js); glance palette skipped
   startLiveRefresh();
@@ -2129,6 +2130,35 @@ function closeMobileReader() {
 // Give the fixed-height, internally-scrolling mobile Briefing box an exact height:
 // the measured gap between the wire tabs and the bottom nav. In-flow (no fixed
 // positioning) so it can't vanish; the body scrolls inside it. No-op on desktop.
+// Narrow-desktop (iPad-landscape, 1201–1500px) Chart ⇄ X column swap. The five-column
+// terminal squashes the two flexible centre columns, so in that band the Chart/Reading
+// region and the X feed share one column, chosen by a small header toggle (see the CSS
+// media query). Defaults to Chart/Reading each load; toggling only affects that band —
+// at ≥1501px the .focus-x class is inert (its rules live inside the media query).
+function initFocusToggle() {
+  const layout = document.querySelector(".g-layout");
+  if (!layout) return;
+  const sync = () => {
+    const x = layout.classList.contains("focus-x");
+    for (const btn of document.querySelectorAll(".g-focus-b")) {
+      const on = btn.dataset.focus === (x ? "x" : "chart");
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    }
+  };
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".g-focus-b");
+    if (!btn) return;
+    const wantX = btn.dataset.focus === "x";
+    if (layout.classList.contains("focus-x") === wantX) return;   // no change
+    layout.classList.toggle("focus-x", wantX);
+    sync();
+    // Switching back to Chart re-shows the hero SVG (it was display:none) — redraw so
+    // its axis overlays are laid out against the now-visible canvas.
+    if (!wantX) { try { renderHero(); } catch { /* hero may not have booted */ } }
+  });
+  sync();
+}
 function _placeBriefPane() {
   // The Briefing pane FILLS the exact gap between the wire tabs and the bottom nav, so
   // the source note pins to the bottom of the screen (never stranded mid-page) and the

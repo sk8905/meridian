@@ -1091,6 +1091,23 @@
       .tui .g-x-scroll{ min-height:140px; }
       .tui .g-mw-scroll{ min-height:120px; }
     }
+    /* iPad-landscape / narrow-desktop band (≤1500px): the five-column terminal squashes
+       the two flexible centre columns to ~220px (unreadable). Collapse to FOUR columns
+       by having the Chart/Reading region and the X feed SHARE one column, chosen by a
+       header toggle (default: Chart/Reading — the most-read region). This reclaims the
+       304px X rail, so each flexible column roughly doubles. ≥1501px keeps all five. */
+    @media (min-width:1201px) and (max-width:1500px){
+      .tui .g-layout{
+        grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 320px;
+        grid-template-areas:"side brief hero side2" "side feed mgr side2"; }
+      .tui .g-side-x{ display:none; }                       /* Chart shown by default */
+      .tui .g-layout.focus-x{
+        grid-template-areas:"side brief sidex side2" "side feed sidex side2"; }
+      .tui .g-layout.focus-x .g-hero,
+      .tui .g-layout.focus-x .g-side3{ display:none; }
+      .tui .g-layout.focus-x .g-side-x{ display:flex; }     /* X takes the shared column */
+      .tui .g-focus-tog{ display:inline-flex; }             /* the toggle exists only here */
+    }
     /* ---- X wire (embedded tweets) ---- */
     /* A merged, newest-first list of native X embeds. Each card carries a compact
        source line (name · @handle · date) above the embed, matching the feed's
@@ -1458,6 +1475,16 @@
     .tui-ph > .g-ph-link{ font-size:var(--fs-body); font-weight:600; letter-spacing:.005em; color:var(--t-ink); text-decoration:none; cursor:pointer; }
     .tui-ph > .g-ph-link:hover{ color:var(--t-accent); }
     .tui-px{ margin-left:auto; font-size:var(--fs-micro); letter-spacing:.01em; color:var(--t-faint); }
+    /* Chart ⇄ X column toggle — shown only in the narrow-desktop band (see the
+       ≤1500px media query); a compact segmented control pinned to the right of the
+       shared column's header. Hidden (display:none) at every other width and on phones. */
+    .g-focus-tog{ display:none; align-items:center; margin-left:auto; border:1px solid var(--t-grid2); }
+    .g-focus-tog + .tui-px{ margin-left:8px; }
+    .g-focus-b{ font:inherit; font-size:var(--fs-micro); font-weight:600; letter-spacing:.02em; line-height:1;
+      padding:3px 8px; background:transparent; color:var(--t-mut); border:0; cursor:pointer; }
+    .g-focus-b + .g-focus-b{ border-left:1px solid var(--t-grid2); }
+    .g-focus-b.is-on{ background:var(--t-accent); color:var(--t-ground); }
+    .g-focus-b:not(.is-on):hover{ color:var(--t-ink); }
     .tui .g-loading,.tui .g-empty{ padding:11px 12px; font-size:var(--fs-body); color:var(--t-faint); background:var(--t-panel); }
 
     /* Home wire desk-filter chips (All/Newsletter/Macro/Credit/Legal): in the

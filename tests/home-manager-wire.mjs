@@ -29,7 +29,11 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   }));
   checkEq(shell.lanes.join(" · "), "All · News · Manager · Watchlist · Newsletters", "merged wire: top-level lanes are All · News · Manager · Watchlist · Newsletters");
   check(shell.readVisible && shell.mgrHidden, "desktop: the manager quadrant is now a reading pane (the manager wire is hidden here)");
-  checkEq(shell.cols, 5, "desktop terminal stays a 5-column grid");
+  // At this width (1280, the narrow-desktop band ≤1500) the terminal collapses to a
+  // FOUR-column grid — the Chart/Reading region and the X feed share one column behind
+  // a header toggle (see tests/home-ipad-columns.mjs). The full five-column terminal
+  // returns at ≥1501px.
+  checkEq(shell.cols, 4, "desktop ≤1500: the terminal collapses to a 4-column grid (Chart/X share a column)");
   check(shell.defaultRead, "reading pane: defaults to the top story of the day");
 
   // Manager lane: the flat manager-event stream in the shared column.

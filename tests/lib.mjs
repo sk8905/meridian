@@ -52,6 +52,11 @@ export function serve(apis = {}) {
 
 export const PHONE = { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, userAgent: "Mozilla/5.0 (iPhone)" };
 export const DESKTOP = { viewport: { width: 1280, height: 900 } };
+// Wide desktop (≥1501px): the FULL five-column terminal, where the Chart/Reading and
+// X-feed rails are both permanent columns. Below 1501px they share one column behind a
+// header toggle (see the ≤1500px band in home.css), so tests that assert the intact
+// five-column geometry (X rail between the manager wire and the macro rail) use this.
+export const WIDE = { viewport: { width: 1600, height: 900 } };
 
 // Page + collected errors (page errors always; console errors minus resource noise).
 export async function open(browser, dev, url) {

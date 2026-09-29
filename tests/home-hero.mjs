@@ -5,7 +5,7 @@
 // manager wire columns (the two mid-panes) and sits above them. Here /api/hero is
 // stubbed, so we assert the chips render, the readout + chart draw, the range and
 // instrument controls redraw, and the desktop band spans the two middle columns.
-import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, PHONE, WIDE, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 // A synthetic year of daily closes ending today (seeded walk — deterministic).
 function series(seed, base, vol) {
@@ -57,7 +57,7 @@ const b = await launchChromium();
 
 // --- Desktop: chips + readout + chart, then range & instrument switch ---------
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
+  const { ctx, pg, errs } = await open(b, WIDE, `http://localhost:${srv.port}/v2/`);
   await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
   await pg.waitForTimeout(200);
 

@@ -5,7 +5,7 @@
 // on desktop; the third wire chip (News · Watchlist · X) on phones. Here /api/xfeed
 // is stubbed, so we assert the cards render (author · handle · text · permalink),
 // newest-first, plus the persistent "Open list on X" link.
-import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, WIDE, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const SAMPLE = { tweets: [
   { id: "2097419714045624433", handle: "elerianm", name: "Mohamed A. El-Erian", avatar: "https://pbs.twimg.com/x.jpg", text: "The Fed delivered a 25bp hike, its first since 2023.", date: new Date(Date.now() - 29 * 60000).toUTCString(), ts: Date.now() - 29 * 60000, url: "https://x.com/elerianm/status/2097419714045624433", media: [] },
@@ -19,7 +19,7 @@ const srv = await serve({ "/api/xfeed": () => [200, JSON.stringify(SAMPLE)] });
 const b = await launchChromium();
 
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
+  const { ctx, pg, errs } = await open(b, WIDE, `http://localhost:${srv.port}/v2/`);
   await pg.waitForSelector("#g-xwire .g-x-card", { timeout: 8000 });
   await pg.waitForTimeout(200);
 
