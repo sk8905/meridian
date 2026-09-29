@@ -42,6 +42,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/7ffd0cd4-716f-40f3-976a-62a2e737bb3d"
   },
   {
+    id: "b0e3a26e-5beb-45af-a7a8-bf134a6086a5",
+    title: "K-craft’s slow seduction goes against type",
+    date: "2026-09-29",
+    time: "12:00",
+    url: "https://www.ft.com/content/b0e3a26e-5beb-45af-a7a8-bf134a6086a5"
+  },
+  {
     id: "0cd95b53-4b99-42c9-9b3e-b1074ed88e12",
     title: "Why a UK-backed tungsten mine is supplying the US defence stockpile",
     date: "2026-09-29",
@@ -61,6 +68,20 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "11:55",
     url: "https://www.ft.com/content/f16439a7-5554-412a-ae34-b46459ce28a9"
+  },
+  {
+    id: "1ae07fc9-dfce-4cb3-a216-a8e8bfeb74b9",
+    title: "Le Monde Béryl is pumping up New York",
+    date: "2026-09-29",
+    time: "11:00",
+    url: "https://www.ft.com/content/1ae07fc9-dfce-4cb3-a216-a8e8bfeb74b9"
+  },
+  {
+    id: "57b7bde7-099d-4cba-9275-01a3bc088d95",
+    title: "‘Translation and connection are different things’: why languages remain useful at work",
+    date: "2026-09-29",
+    time: "11:00",
+    url: "https://www.ft.com/content/57b7bde7-099d-4cba-9275-01a3bc088d95"
   },
   {
     id: "c269b475-b37a-4fe8-b138-849d8525ff59",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "21:57",
     url: "https://www.ft.com/content/c72a016b-ad45-4cde-8020-dc1da7ab0839"
-  },
-  {
-    id: "387f15e0-6c42-478e-9da1-e9bfe5ad7127",
-    title: "Software glitch will delay US approval of newest Boeing 737",
-    date: "2026-09-28",
-    time: "21:54",
-    url: "https://www.ft.com/content/387f15e0-6c42-478e-9da1-e9bfe5ad7127"
-  },
-  {
-    id: "33344fa5-6a25-4d72-8934-528526dd89bd",
-    title: "AMD to buy Fei-Fei Li’s AI start-up for $8bn",
-    date: "2026-09-28",
-    time: "21:45",
-    url: "https://www.ft.com/content/33344fa5-6a25-4d72-8934-528526dd89bd"
-  },
-  {
-    id: "29f1af13-ecc3-4f26-a479-e6088c67231b",
-    title: "US midterm elections 2026: The FT’s guide",
-    date: "2026-09-28",
-    time: "20:29",
-    url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b"
   }
 ];

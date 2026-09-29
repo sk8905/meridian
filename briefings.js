@@ -55,14 +55,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-09-28",
-      time: "16:19 BST",
-      lede: "Monday's Hormuz rejection turned a quiet pre-market into an afternoon risk-off session on both sides of the Atlantic, dragging equities lower even as one mega-cap buyback and a still-hawkish rate chorus kept the picture split rather than uniformly grim.",
+      date: "2026-09-29",
+      time: "12:30 BST",
+      lede: "Tuesday midday is a wait-and-see pause: with the long-end selloff and the Hormuz standoff unresolved, markets are flat into a run of US jobs and inflation data that will decide whether the October-hike case hardens.",
       bullets: [
-        { html: "<strong>Macro &mdash; Brent held above $106.79/bbl into Monday afternoon after President Trump confirmed he rejected Iran's latest seven-day proposal to reopen the Strait of Hormuz</strong>, extending the near seven-month standoff just as New York Fed President John Williams called a further hike &lsquo;reasonable&rsquo; by year-end.", src: "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-28-dow-sp-500-nasdaq-080420627.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Macro &mdash; Bank of England Governor Andrew Bailey has warned it will &lsquo;get harder to maintain&rsquo; a rate hold the longer energy prices stay elevated, and Morgan Stanley has dropped its no-hike call for a two-hike path in November and February</strong>, with markets pricing roughly 80% odds of a November move.", src: "https://www.bloomberg.com/news/articles/2026-09-25/boe-s-bailey-warns-it-s-getting-harder-to-avoid-rate-hikes", srcName: "Bloomberg" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 fell 0.90% to 7,673.88, the Dow dropped 0.75% to 51,440.97 and the Nasdaq lost 1.14% to 26,760.68 in Monday afternoon trading</strong>, with Nvidia (+~1%) the rare bright spot after authorising a further $150bn buyback (total $235bn) even as chip peers AMD and Micron fell 4-5%.", src: "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-28-dow-sp-500-nasdaq-080420627.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield held above 5.2% and the 30-year above 5.5% into Monday afternoon, both near multi-decade highs, while the 10-year gilt sits near 5.35%</strong> as hawkish Fed and BoE commentary keeps global long-end yields elevated into a week topped by Wednesday's US GDP/PCE and Friday's jobs report.", src: "https://www.cnbc.com/2026/09/25/treasury-yields-bonds-debt.html", srcName: "CNBC" },
+        { html: "<strong>Macro &mdash; Bloomberg says this week's US data (JOLTS, consumer confidence, ADP, payrolls) is seen bolstering the case for another Fed hike at the 28 October FOMC</strong>, with August JOLTS and Conference Board confidence due today.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; UK Chancellor John Healey told Labour's conference that fiscal discipline will sit &lsquo;at the core&rsquo; of his 28 October Budget</strong>, framing debt-servicing costs as money diverted from public services as gilt yields stay elevated.", src: "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059", srcName: "Reuters (via Investing.com)" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 closed Monday down 0.77% at 7,683.69, the Dow 0.67% lower and the Nasdaq 0.92% lower</strong> as higher yields and oil weighed, with Boeing falling nearly 7% after the FAA said it would not yet certify the 737 Max 10; futures are roughly flat this morning.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026", srcName: "TheStreet" },
+        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield rose above 5.2% on Monday, its highest since mid-2007</strong>, as oil climbed after Trump rejected Iran's proposal to reopen the Strait of Hormuz.", src: "https://www.nbcnews.com/business/energy/treasury-yields-oil-stocks-rcna599398", srcName: "NBC News" },
       ],
     },
     evening: {
