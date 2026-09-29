@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-openaiaborts-20260929",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: OpenAI aborts its latest model",
+    date: "2026-09-29",
+    time: "06:29",
+    summary: "Also: America's diesel time-bomb.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-bondpocalypse-20260929",
     publication: "Bloomberg",
     author: "John Authers",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "22:00",
     summary: "Trump-Xi summit eyed.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-legalbusiness-weilexitslondon-20260921",
-    publication: "Legal Business",
-    author: null,
-    series: "Legal Business Alert",
-    title: "Unpacking the latest Weil exits: the London story",
-    date: "2026-09-21",
-    time: "18:41",
-    summary: "With news of another funds partner heading to Simpson Thacher, nearly a quarter of Weil's London partnership has left since January.",
-    url: "https://email.legalbusiness.co.uk/c/1dZPqrlYHgAFGLDvmBUM3DpnToZT",
   },
 ];

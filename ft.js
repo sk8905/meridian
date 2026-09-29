@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5c1dc583-5c88-4e91-a6b8-b62a6b33f74c",
+    title: "Australia raises interest rate to highest level in 15 years",
+    date: "2026-09-29",
+    time: "06:54",
+    url: "https://www.ft.com/content/5c1dc583-5c88-4e91-a6b8-b62a6b33f74c"
+  },
+  {
+    id: "3976a165-960a-4f04-98e4-6c39386ef785",
+    title: "Rethinking the dollar",
+    date: "2026-09-29",
+    time: "06:30",
+    url: "https://www.ft.com/content/3976a165-960a-4f04-98e4-6c39386ef785"
+  },
+  {
+    id: "6dc0716f-9a9c-4c3e-903a-2b497eb5190c",
+    title: "FTAV’s further reading",
+    date: "2026-09-29",
+    time: "06:30",
+    url: "https://www.ft.com/content/6dc0716f-9a9c-4c3e-903a-2b497eb5190c"
+  },
+  {
     id: "27fb5d30-1fb6-4f30-937c-ff5c598eaaa5",
     title: "Brussels’ protectionist turn spooks bloc’s free-market stalwarts",
     date: "2026-09-29",
@@ -279,25 +300,4 @@ export const FT_ITEMS = [
     time: "17:06",
     url: "https://www.ft.com/content/8840071d-3867-45e2-bf25-ce24655e69ba"
   },
-  {
-    id: "00d2cfea-362f-4260-8d7f-1e5a20a3a1ea",
-    title: "La Vestale should be a revelation. The Berlin Staatsoper’s season-opener fails to convince",
-    date: "2026-09-28",
-    time: "17:00",
-    url: "https://www.ft.com/content/00d2cfea-362f-4260-8d7f-1e5a20a3a1ea"
-  },
-  {
-    id: "fbe0a48f-4d33-42eb-8d2c-79f662c88678",
-    title: "Meta launches enterprise AI business seeking to cash in on vast spending",
-    date: "2026-09-28",
-    time: "16:54",
-    url: "https://www.ft.com/content/fbe0a48f-4d33-42eb-8d2c-79f662c88678"
-  },
-  {
-    id: "d751ad99-531d-4990-9a4c-ee89a9fc1b2d",
-    title: "Bond sell-off deepens as oil prices rise",
-    date: "2026-09-28",
-    time: "16:54",
-    url: "https://www.ft.com/content/d751ad99-531d-4990-9a4c-ee89a9fc1b2d"
-  }
 ];
