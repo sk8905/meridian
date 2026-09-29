@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5bb621fa-2c18-4384-80ab-4a72e51b139a",
+    title: "Dangote’s $16bn oil refinery blocked by Kenyan court",
+    date: "2026-09-29",
+    time: "13:14",
+    url: "https://www.ft.com/content/5bb621fa-2c18-4384-80ab-4a72e51b139a"
+  },
+  {
+    id: "11a29b88-5293-4574-8660-e9ec3107c819",
+    title: "Le Pen deputy engulfed by antisemitism scandal",
+    date: "2026-09-29",
+    time: "12:59",
+    url: "https://www.ft.com/content/11a29b88-5293-4574-8660-e9ec3107c819"
+  },
+  {
+    id: "85de7143-a93b-4dbb-b2f3-856d407ba08f",
+    title: "Apollo and Oaktree sue Patrick Drahi over US telco restructuring",
+    date: "2026-09-29",
+    time: "12:42",
+    url: "https://www.ft.com/content/85de7143-a93b-4dbb-b2f3-856d407ba08f"
+  },
+  {
+    id: "a060e1f6-e669-4657-af63-701053709c2d",
+    title: "Breaking a central banking taboo",
+    date: "2026-09-29",
+    time: "12:30",
+    url: "https://www.ft.com/content/a060e1f6-e669-4657-af63-701053709c2d"
+  },
+  {
     id: "7b9df85a-59ed-4863-9682-1c5b868fd3af",
     title: "A Republican midterm defeat will not be an earthquake",
     date: "2026-09-29",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-28",
     time: "23:00",
     url: "https://www.ft.com/content/7c6d87b1-d7d9-49c3-b842-2600928fba38"
-  },
-  {
-    id: "51c0928d-019b-4a1f-9c3a-1c9a2174f760",
-    title: "Burnham vows to break with ‘politics as usual’ by tackling UK’s biggest issues",
-    date: "2026-09-28",
-    time: "22:30",
-    url: "https://www.ft.com/content/51c0928d-019b-4a1f-9c3a-1c9a2174f760"
-  },
-  {
-    id: "0e851fbb-f148-46e4-906f-390b38b62a15",
-    title: "FirstFT: Seoul accuses Ukraine of violating secrecy agreement on North Korean soldiers",
-    date: "2026-09-28",
-    time: "22:26",
-    url: "https://www.ft.com/content/0e851fbb-f148-46e4-906f-390b38b62a15"
-  },
-  {
-    id: "ffa65213-3178-454c-9d7d-c8ae8d64124f",
-    title: "HSBC moves to bolster Hang Seng by cleaning up balance sheet",
-    date: "2026-09-28",
-    time: "22:00",
-    url: "https://www.ft.com/content/ffa65213-3178-454c-9d7d-c8ae8d64124f"
-  },
-  {
-    id: "c72a016b-ad45-4cde-8020-dc1da7ab0839",
-    title: "Erdoğan bids to contain fallout from Turkey’s $18bn stock market scandal",
-    date: "2026-09-28",
-    time: "21:57",
-    url: "https://www.ft.com/content/c72a016b-ad45-4cde-8020-dc1da7ab0839"
   }
 ];

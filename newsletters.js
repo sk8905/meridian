@@ -45,6 +45,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-guessinggame-20260929",
+    publication: "Bloomberg",
+    author: "Craig Stirling",
+    series: "Economics Daily",
+    title: "Economics Daily: Guessing game",
+    date: "2026-09-29",
+    time: "12:25",
+    summary: "Trying to work out the identity of the next ECB chief is an all-consuming diversion for forecasters.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-29/ecb-hikes-are-easier-to-guess-at-than-lagarde-succession",
+  },
+  {
+    id: "nl-preqin-firstclose-swfsprivatemarkets-20260929",
+    publication: "Preqin",
+    author: null,
+    series: "First Close",
+    title: "Sovereign wealth funds up the pace in private markets",
+    date: "2026-09-29",
+    time: "12:24",
+    summary: "SWFs target private markets to capture AI opportunities as public markets narrow.",
+    url: "https://go.preqin.com/webmail/909852/2187983998/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
+  },
+  {
     id: "nl-bbg-marketsdaily-bigfatcushion-20260929",
     publication: "Bloomberg",
     author: null,
