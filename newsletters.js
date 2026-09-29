@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-mancityjudgment-20260929",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Published Manchester City judgment lays bare club’s “sham” schemes",
+    date: "2026-09-29",
+    time: "17:45",
+    summary: "An initial judgment has been handed down in the Premier League’s case against Manchester City.",
+    url: "https://www.thelawyer.com/published-manchester-city-judgment-lays-bare-clubs-sham-schemes/",
+  },
+  {
     id: "nl-bbg-thebrink-lucarabond-20260929",
     publication: "Bloomberg",
     author: "Constantine Courcoulas",

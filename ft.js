@@ -21,6 +21,48 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "26c54c8c-931c-4d84-9cf3-fd3e9b5e215d",
+    title: "Middle Eastern oil exports rise to highest level since Iran war began",
+    date: "2026-09-29",
+    time: "17:46",
+    url: "https://www.ft.com/content/26c54c8c-931c-4d84-9cf3-fd3e9b5e215d"
+  },
+  {
+    id: "8d7f90d6-8d3a-4b11-8b51-090265278a31",
+    title: "Manchester City artificially boosted finances by more than £900mn, says panel",
+    date: "2026-09-29",
+    time: "17:37",
+    url: "https://www.ft.com/content/8d7f90d6-8d3a-4b11-8b51-090265278a31"
+  },
+  {
+    id: "5e819183-5362-479b-a340-a1f38f7bed23",
+    title: "Six takeaways from Andy Burnham’s conference speech",
+    date: "2026-09-29",
+    time: "17:27",
+    url: "https://www.ft.com/content/5e819183-5362-479b-a340-a1f38f7bed23"
+  },
+  {
+    id: "fd7a84a4-fb33-499c-8f8d-d8b6002db3f0",
+    title: "Spain seeks to ban ‘vulture funds’ from housing market",
+    date: "2026-09-29",
+    time: "17:25",
+    url: "https://www.ft.com/content/fd7a84a4-fb33-499c-8f8d-d8b6002db3f0"
+  },
+  {
+    id: "2cb65c90-e8ee-43fa-84a1-16a6834e168e",
+    title: "Andy Burnham sets up battle lines on social care and Europe",
+    date: "2026-09-29",
+    time: "17:19",
+    url: "https://www.ft.com/content/2cb65c90-e8ee-43fa-84a1-16a6834e168e"
+  },
+  {
+    id: "5132d554-baec-415e-aa64-430ade0e06a1",
+    title: "Comment: Burnham’s brave new world — just one more election away",
+    date: "2026-09-29",
+    time: "17:12",
+    url: "https://www.ft.com/content/5132d554-baec-415e-aa64-430ade0e06a1"
+  },
+  {
     id: "122a29d3-da08-4ffc-8add-aed427781659",
     title: "Burnham’s brave new world — just one more election away",
     date: "2026-09-29",
@@ -257,47 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "05:00",
     url: "https://www.ft.com/content/e4231435-4d6d-438d-9632-ab215784b2d5"
-  },
-  {
-    id: "8415255e-3828-4b0b-941b-6415cffbcf28",
-    title: "Private equity wrestles with its own generational wealth gap",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/8415255e-3828-4b0b-941b-6415cffbcf28"
-  },
-  {
-    id: "f8a5e2b8-33f7-4c83-8ef3-ca91c7fa1df7",
-    title: "Why a £10bn Monzo takeover could be good for the UK",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/f8a5e2b8-33f7-4c83-8ef3-ca91c7fa1df7"
-  },
-  {
-    id: "1f92357c-374d-4f24-a6f4-373fdeb3ffe3",
-    title: "What ‘Choosin’ Texas’ tells us about Burnham’s social care obstacles",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/1f92357c-374d-4f24-a6f4-373fdeb3ffe3"
-  },
-  {
-    id: "3b829a46-3eae-4c20-94db-a79c38d0be4c",
-    title: "Germany issues EU budget ultimatum",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/3b829a46-3eae-4c20-94db-a79c38d0be4c"
-  },
-  {
-    id: "2b6db828-897d-46cf-ba64-e3e8560b5f4e",
-    title: "Unicredit’s Andrea Orcel moves to seize control of Commerzbank within months",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/2b6db828-897d-46cf-ba64-e3e8560b5f4e"
-  },
-  {
-    id: "4370a241-50e7-4305-b533-44adad41498a",
-    title: "Trade union chief criticises Burnham’s delay to social care reforms",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/4370a241-50e7-4305-b533-44adad41498a"
   }
 ];
