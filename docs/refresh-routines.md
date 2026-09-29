@@ -631,6 +631,14 @@ quiet slot gets a short output, not padding.
   3–5 `bullets`, each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
   Update the slot's `date`/`time` to the run stamp.
+  **Never ship a kicker with no body.** Every bullet's `html` must carry a real
+  body sentence AFTER its `<strong>Desk &mdash;` kicker — a bullet that is only a
+  kicker (headline written before its sentence) rendered as a bare desk heading
+  over an empty void. This is enforced by `tests/briefing-empty-bullet.mjs`, which
+  validates the committed `briefings.js` (every slot: real lede, `date`/`time`,
+  and every bullet a body + `src` URL + `srcName`) — so a half-written brief turns
+  the suite red before it can deploy, and the renderer additionally drops any such
+  section as a fallback. Run the full suite before pushing a briefing refresh.
   **Desk focus — EXCLUSIVELY the three market desks: Macro, Equities, Fixed
   income.** Every slot covers those three and only those (no Credit or Legal
   bullets — they have their own surfaces). Tag each bullet's `<strong>` lead with

@@ -1,9 +1,12 @@
-// Home briefing — a desk bullet that carries a kicker but NO body (e.g. a
-// half-generated refresh draft where the headline shipped before its sentence
-// did) must NOT paint as a bare desk heading above an empty void. The renderer
-// drops any desk group whose combined body has no visible text, so the briefing
-// never shows a textless, sourceless section (regression: a reader once saw a
-// "Fixed income" heading with nothing under it, then a gap down to the footer).
+// Briefing data integrity + render resilience. Two layers stop a textless desk
+// section (a kicker with no body sentence — e.g. a half-generated refresh draft)
+// from ever reaching a reader:
+//   1. DATA GATE — the committed briefings.js is validated here, so a malformed
+//      brief fails `node tests/run.mjs` and can never be deployed (the pre-push
+//      gate is the "once and for all" stop).
+//   2. RENDER GUARD — even if a bad bullet slipped through, the renderer drops a
+//      desk group whose body has no visible text, so it never paints a bare
+//      heading over a void (belt and braces).
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const HERO = { asOf: "2026-09-18", instruments: ["spx", "ndx"].map((k, i) => ({
@@ -17,10 +20,47 @@ const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v
 await pg.waitForSelector("#g-hbrief .g-hbrief-head", { timeout: 8000 });
 await pg.waitForFunction(() => typeof window.__wireRenderBrief === "function", { timeout: 8000 });
 
+// --- 1. DATA GATE: validate the REAL committed briefings.js --------------------
+// Every slot must be well-formed and every bullet must carry a real body sentence
+// (not just a "Desk —" kicker) AND a real source URL. This is the grounding rule
+// (R7) enforced on the data itself, so a refresh that ships an empty-body bullet
+// turns the suite red before it can deploy.
+const data = await pg.evaluate(async () => {
+  const m = await import("/briefings.js");
+  const B = m.BRIEFINGS || {}, slots = B.slots || {};
+  // Body text remaining once an optional "<strong>Desk &mdash;" kicker is removed —
+  // mirrors the renderer's _stripDesk so this checks exactly what a reader would see.
+  const stripDesk = (h) => String(h || "").replace(/^(\s*<strong>)\s*[^<]*?\s*(?:&mdash;|—)\s*/, "$1");
+  const hasText = (h) => String(h || "").replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, "").length > 0;
+  const isUrl = (u) => /^https?:\/\//.test(String(u || ""));
+  const keys = Object.keys(slots);
+  const bad = [];
+  let bulletN = 0;
+  for (const k of keys) {
+    const s = slots[k] || {};
+    if (!hasText(s.lede)) bad.push(`${k}: empty lede`);
+    if (!s.date || !s.time) bad.push(`${k}: missing date/time`);
+    const bl = Array.isArray(s.bullets) ? s.bullets : [];
+    if (!bl.length) bad.push(`${k}: no bullets`);
+    bl.forEach((x, i) => {
+      bulletN++;
+      if (!hasText(x && x.html)) bad.push(`${k}[${i}]: empty html`);
+      // The defect that started this: a kicker with no body sentence after the dash.
+      else if (!hasText(stripDesk(x.html))) bad.push(`${k}[${i}]: kicker with no body ("${String(x.html).replace(/<[^>]*>/g, "").slice(0, 40)}")`);
+      if (!isUrl(x && x.src)) bad.push(`${k}[${i}]: bad/missing src`);
+      if (!(x && String(x.srcName || "").trim())) bad.push(`${k}[${i}]: missing srcName`);
+    });
+  }
+  return { slots: keys.length, bulletN, bad };
+});
+check(data.slots >= 1, `briefings.js has at least one slot (${data.slots})`);
+check(data.bulletN >= 1, `briefings.js carries bullets (${data.bulletN})`);
+check(data.bad.length === 0, `every briefing bullet has a real body sentence AND a source (R7) — no defects${data.bad.length ? ": " + data.bad.join("; ") : ""}`);
+
+// --- 2. RENDER GUARD: an empty-body bullet is dropped, not painted -------------
 // Inject a controlled slot into the freshest brief: one good Macro bullet and one
-// EMPTY-BODY Fixed income bullet (a kicker with nothing after the em-dash), then
-// repaint. The empty bullet is its own desk (no good Fixed-income sibling to fold
-// into), so it stands or falls on its own.
+// EMPTY-BODY Fixed income bullet (a kicker with nothing after the em-dash), repaint,
+// and assert the ghost is dropped while the good bullet survives.
 const r = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
   const B = m.BRIEFINGS || {}, slots = B.slots || {};
@@ -34,10 +74,8 @@ const r = await pg.evaluate(async () => {
   window.__wireRenderBrief();
   const el = document.getElementById("g-hbrief");
   const secs = [...el.querySelectorAll(".g-hbrief-b")];
-  const decode = (s) => { const d = document.createElement("textarea"); d.innerHTML = s; return d.value; };
   return {
     deskHeads: secs.map((s) => ((s.querySelector(".g-hbrief-lede-hd") || {}).textContent || "").trim().toLowerCase()),
-    // Every rendered section must carry visible body text — no ghost heading over a void.
     everySectionHasBody: secs.length > 0 && secs.every((s) => {
       const bt = s.querySelector(".g-hbrief-bt");
       return !!bt && (bt.textContent || "").trim().length > 0;
@@ -45,10 +83,8 @@ const r = await pg.evaluate(async () => {
     macroShown: secs.some((s) => /a real, sourced sentence/i.test(s.textContent || "")),
     ghostGone: !secs.some((s) => ((s.querySelector(".g-hbrief-lede-hd") || {}).textContent || "").trim().toLowerCase() === "fixed income"),
     sectionCount: secs.length,
-    _decode: decode("&amp;"),   // sanity that the harness textarea decode works
   };
 });
-
 check(r.everySectionHasBody, `every rendered desk section has visible body text — no ghost heading over a void (desks: ${r.deskHeads.join(", ")})`);
 check(r.macroShown, "the good Macro bullet still renders with its full body");
 check(r.ghostGone, "the empty-body 'Fixed income' bullet is dropped, not painted as a bare heading");
