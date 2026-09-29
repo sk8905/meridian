@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "95854630-e639-4240-9598-564b996f30c5",
+    title: "Andy Burnham’s ‘jam tomorrow’ vision",
+    date: "2026-09-29",
+    time: "18:42",
+    url: "https://www.ft.com/content/95854630-e639-4240-9598-564b996f30c5"
+  },
+  {
+    id: "fd9bb414-838d-48e5-bcdf-39c8a6bd41ca",
+    title: "How would Andy Burnham’s social care shake-up work?",
+    date: "2026-09-29",
+    time: "18:15",
+    url: "https://www.ft.com/content/fd9bb414-838d-48e5-bcdf-39c8a6bd41ca"
+  },
+  {
+    id: "211d10ae-cf9e-481d-99ed-0321d2eb0676",
+    title: "OpenAI launches new AI personal assistant",
+    date: "2026-09-29",
+    time: "18:15",
+    url: "https://www.ft.com/content/211d10ae-cf9e-481d-99ed-0321d2eb0676"
+  },
+  {
     id: "26c54c8c-931c-4d84-9cf3-fd3e9b5e215d",
     title: "Middle Eastern oil exports rise to highest level since Iran war began",
     date: "2026-09-29",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "06:00",
     url: "https://www.ft.com/content/27fb5d30-1fb6-4f30-937c-ff5c598eaaa5"
-  },
-  {
-    id: "796167ab-ba0b-4476-b505-516b7d896e40",
-    title: "Rolex was for crypto, Ferrari is for AI",
-    date: "2026-09-29",
-    time: "06:00",
-    url: "https://www.ft.com/content/796167ab-ba0b-4476-b505-516b7d896e40"
-  },
-  {
-    id: "d6a9f5df-08d0-4f80-ad2d-5d8a17e2cc82",
-    title: "Nvidia turns to insurers to spread the risk of AI build-out",
-    date: "2026-09-29",
-    time: "05:04",
-    url: "https://www.ft.com/content/d6a9f5df-08d0-4f80-ad2d-5d8a17e2cc82"
-  },
-  {
-    id: "e4231435-4d6d-438d-9632-ab215784b2d5",
-    title: "Big money, bigger problems in Big Law",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/e4231435-4d6d-438d-9632-ab215784b2d5"
   }
 ];
