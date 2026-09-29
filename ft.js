@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c269b475-b37a-4fe8-b138-849d8525ff59",
+    title: "Russia behind arson attack on defence company, says Estonia",
+    date: "2026-09-29",
+    time: "10:12",
+    url: "https://www.ft.com/content/c269b475-b37a-4fe8-b138-849d8525ff59"
+  },
+  {
     id: "55c804cd-80a7-4195-92a2-e743d08e84bc",
     title: "John Healey failed to truthfully articulate causes of Britain’s problems",
     date: "2026-09-29",
