@@ -244,18 +244,27 @@ const b = await launchChromium();
   check(p.bullets >= 1 && p.bodyVisible && p.open === "true", `phone: the briefing is expanded (${p.bullets} bullet[s])`);
   check(!p.chev, "phone: there is NO collapse chevron — the briefing is always open");
   check(p.fills, "phone: the briefing pane fills the page (not a slim collapsed strip)");
-  // The source note is pinned to the BOTTOM of the pane AND the pane fills the gap down
-  // to the bottom nav — so the note sits at the bottom of the SCREEN, never stranded
-  // mid-page above a void (regression: the pane used to hug content height).
+  // The source note sits at the BOTTOM of the pane, just above the bottom nav, and is
+  // fully VISIBLE on first paint (not stranded off-screen). The pane is anchored purely
+  // in CSS now — a flex column with a min-height in svh and a margin-top:auto footer —
+  // so there is NO JS pixel sizing to go stale (regression: a stale measurement left the
+  // pane blank or stranded the note mid-screen with a void). A long brief lets the PAGE
+  // scroll; the note still lands above the nav.
   const pinned = await pg.evaluate(() => {
     const pane = document.getElementById("g-hbrief").getBoundingClientRect();
     const foot = document.querySelector("#g-hbrief .g-hbrief-foot").getBoundingClientRect();
     const nav = document.querySelector(".mobile-tabbar").getBoundingClientRect();
-    return { gap: Math.round(pane.bottom - foot.bottom), footToNav: Math.round(nav.top - foot.bottom), noScroll: document.documentElement.scrollHeight <= window.innerHeight + 4 };
+    return {
+      gap: Math.round(pane.bottom - foot.bottom),
+      footToNav: Math.round(nav.top - foot.bottom),
+      footVisible: foot.bottom <= window.innerHeight + 2 && foot.top >= 0,
+      noInlineHeight: !document.getElementById("g-hbrief").style.height,
+    };
   });
-  check(pinned.gap <= 14, `phone: the 'AI-generated…' note is pinned to the bottom of the briefing pane (gap ${pinned.gap}px)`);
-  check(pinned.footToNav <= 8, `phone: the pane fills to the bottom nav — the note sits at the bottom of the screen, not mid-page (footToNav ${pinned.footToNav}px)`);
-  check(pinned.noScroll, "phone: the briefing pane does not scroll (one screen)");
+  check(pinned.gap <= 14, `phone: the 'AI-generated…' note sits at the bottom of the briefing pane (gap ${pinned.gap}px)`);
+  check(pinned.footToNav >= -2 && pinned.footToNav <= 12, `phone: the note lands just above the bottom nav (footToNav ${pinned.footToNav}px)`);
+  check(pinned.footVisible, "phone: the source note is fully visible on first paint (never stranded off-screen)");
+  check(pinned.noInlineHeight, "phone: the pane carries NO inline pixel height — it is anchored in CSS, not by JS measurement");
   // The pane butts flush under the wire tabs (anchored to their real bottom), so its
   // "Market briefing" header never slides under the tabs / bleeds at the seam.
   const briefSeam = await pg.evaluate(() => {
@@ -264,8 +273,9 @@ const b = await launchChromium();
     return Math.round(hb.top - tabs.bottom);
   });
   check(briefSeam >= 0 && briefSeam <= 2, `phone: the briefing pane butts flush under the wire tabs — no seam (gap ${briefSeam}px)`);
-  // Structure: a stuck header row and a stuck footer note (both direct children of
-  // the pane), with the body as the scroll region between them.
+  // Structure: header · body · footer as direct children, in order. The body does NOT
+  // scroll internally (no trapped inner scroller) — the PAGE scrolls for a long brief,
+  // which is what keeps the pane robust to the iOS URL-bar (nothing to mis-measure).
   const struct = await pg.evaluate(() => {
     const hb = document.getElementById("g-hbrief");
     const head = hb.querySelector(":scope > .g-hbrief-head");
@@ -273,12 +283,12 @@ const b = await launchChromium();
     const foot = hb.querySelector(":scope > .g-hbrief-foot");
     return {
       headChild: !!head, footChild: !!foot,
-      bodyScrolls: !!body && getComputedStyle(body).overflowY === "auto",
+      bodyNoInnerScroll: !!body && getComputedStyle(body).overflowY !== "auto" && getComputedStyle(body).overflowY !== "scroll",
       order: head && body && foot ? (head.compareDocumentPosition(body) & 4) !== 0 && (body.compareDocumentPosition(foot) & 4) !== 0 : false,
     };
   });
   check(struct.headChild && struct.footChild && struct.order, "phone: the header row and the footer note are direct children (header · body · footer)");
-  check(struct.bodyScrolls, "phone: the body scrolls internally between the fixed header and footer (iOS-proof)");
+  check(struct.bodyNoInnerScroll, "phone: the body does NOT trap an internal scroll — the page scrolls (iOS-proof, no JS sizing)");
   // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(100);

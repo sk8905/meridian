@@ -2160,20 +2160,15 @@ function initFocusToggle() {
   sync();
 }
 function _placeBriefPane() {
-  // The Briefing pane FILLS the exact gap between the wire tabs and the bottom nav, so
-  // the source note pins to the bottom of the screen (never stranded mid-page) and the
-  // body scrolls between the sticky header and footer instead of the page scrolling.
-  // Setting an exact height (not max-height) makes a SHORT brief fill too. Any older
-  // max-height left by a previous build is cleared so the fixed height takes effect.
-  const hb = document.getElementById("g-hbrief"), tabs = document.querySelector(".g-wiretabs");
-  if (hb && hb.style.maxHeight) hb.style.maxHeight = "";
-  if (!hb || !tabs) return;
-  if (window.innerWidth > 1200 || !document.querySelector(".g-layout.wire-brief")) { hb.style.height = ""; return; }
-  const tabsBottom = tabs.getBoundingClientRect().bottom;
-  const nav = document.querySelector(".mobile-tabbar");
-  const navH = nav ? nav.getBoundingClientRect().height : 56;
-  const h = Math.round(window.innerHeight - tabsBottom - navH);
-  if (h > 120) hb.style.height = h + "px";
+  // The Briefing pane is now anchored purely in CSS (a flex column with a min-height in
+  // svh; the page scrolls for a long brief — see home.css). There is NO JS pixel sizing:
+  // the old getBoundingClientRect/innerHeight measurement went stale on every iOS URL-bar
+  // change and left the pane blank or the footer stranded mid-screen. All this does now
+  // is clear any inline height/maxHeight a previous build may have left, so CSS governs.
+  const hb = document.getElementById("g-hbrief");
+  if (!hb) return;
+  if (hb.style.height) hb.style.height = "";
+  if (hb.style.maxHeight) hb.style.maxHeight = "";
 }
 // Is this feed row openable in the reading pane WITHOUT a login — i.e. an external
 // story from a non-subscriber source, whose full text the reader service can print?

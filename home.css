@@ -1384,22 +1384,28 @@
          header pins just under the wire tabs and the note pins just above the bottom
          nav, so the lede + desk bullets scroll between them. min-height fills the
          screen so the note sits at the bottom even for a short brief. */
-      /* FILL ONE SCREEN. The pane spans the exact gap between the wire tabs and the
-         bottom nav — sticky header at the top, the source note pinned to the BOTTOM of
-         the screen, and the lede + desk bullets scrolling between them. The body GROWS
-         to fill (flex:1 1 auto), so a short brief anchors its note at the bottom instead
-         of stranding it mid-page with a void beneath; a long brief scrolls its body
-         internally (iOS-proof) and the page itself never scrolls. glance.js sets the
-         exact height; the calc is the pre-JS fallback. */
+      /* ANCHORED IN DOCUMENT FLOW — no JS pixel sizing (that is what kept breaking).
+         The pane is a flex column with a MIN-height (never an exact height): it fills
+         the screen for a short brief and simply GROWS, letting the PAGE scroll, for a
+         long one. The min-height is in svh (the STABLE small-viewport unit), so the iOS
+         URL-bar showing/hiding can never mis-size it — the old JS-measured exact height
+         went blank or stranded the footer whenever that measurement went stale. The
+         source note is pushed to the bottom with margin-top:auto (bottom of the screen
+         for a short brief; right after the content for a long one). The body does NOT
+         scroll internally — the page does — so there is no trapped inner scroller. The
+         min-height subtracts the sticky chrome above (wire head + band + tabs) and the
+         fixed bottom nav (matched by html.home-brief's body padding) so the note lands
+         just above the nav. */
       .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
-        height:calc(100dvh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 54px - env(safe-area-inset-bottom, 0px)); }
+        min-height:calc(100svh - var(--wire-head-h, 53px) - var(--wire-band-h, 43px) - var(--chip-h, 34px) - 54px - env(safe-area-inset-bottom, 0px)); }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-head{ flex:0 0 auto; }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:8px 12px;
+      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:0 0 auto; }
+      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; margin-top:auto; padding:8px 12px;
         background:var(--t-head); border-top:1px solid var(--t-grid); }
-      /* No page scroll on the Briefing pane: drop the global bottom-nav padding so the
-         one-screen cap leaves nothing scrollable beneath the pane. */
-      html.home-brief body{ padding-bottom:0 !important; }
+      /* Reserve exactly the fixed bottom nav's height beneath the Briefing pane (the
+         same amount the min-height subtracts), so a long brief scrolls with the note
+         clearing the nav, and a short brief's note lands just above it. */
+      html.home-brief body{ padding-bottom:calc(54px + env(safe-area-inset-bottom, 0px)) !important; }
       /* News/Managers/Chart/X panes hide the feed-wrap (filter + feed) as needed. */
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
