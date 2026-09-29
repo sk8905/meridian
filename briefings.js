@@ -56,13 +56,13 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-09-29",
-      time: "12:30 BST",
-      lede: "Tuesday midday is a wait-and-see pause: with the long-end selloff and the Hormuz standoff unresolved, markets are flat into a run of US jobs and inflation data that will decide whether the October-hike case hardens.",
+      time: "14:25 BST",
+      lede: "Tuesday brings a tentative breather: easing oil and a modest pullback in long-end yields are giving risk assets room, but the week's jobs and inflation data still decide whether the October-hike case hardens.",
       bullets: [
-        { html: "<strong>Macro &mdash; Bloomberg says this week's US data (JOLTS, consumer confidence, ADP, payrolls) is seen bolstering the case for another Fed hike at the 28 October FOMC</strong>, with August JOLTS and Conference Board confidence due today.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
-        { html: "<strong>Macro &mdash; UK Chancellor John Healey told Labour's conference that fiscal discipline will sit &lsquo;at the core&rsquo; of his 28 October Budget</strong>, framing debt-servicing costs as money diverted from public services as gilt yields stay elevated.", src: "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059", srcName: "Reuters (via Investing.com)" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 closed Monday down 0.77% at 7,683.69, the Dow 0.67% lower and the Nasdaq 0.92% lower</strong> as higher yields and oil weighed, with Boeing falling nearly 7% after the FAA said it would not yet certify the 737 Max 10; futures are roughly flat this morning.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026", srcName: "TheStreet" },
-        { html: "<strong>Fixed income &mdash; the 10-year Treasury yield rose above 5.2% on Monday, its highest since mid-2007</strong>, as oil climbed after Trump rejected Iran's proposal to reopen the Strait of Hormuz.", src: "https://www.nbcnews.com/business/energy/treasury-yields-oil-stocks-rcna599398", srcName: "NBC News" },
+        { html: "<strong>Macro &mdash; Bloomberg says this week's US data (JOLTS, consumer confidence, ADP, payrolls) is seen bolstering the case for another Fed hike at the 28 October FOMC</strong>, with core PCE and the third GDP estimate also due this week.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; UK gilts extended gains, with the 10-year yield almost 7bp lower</strong>, as oil and gas prices hit new lows on the day on reports of Qatar-brokered US&ndash;Iran contacts.", src: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; US futures edged higher this morning as oil and Treasury yields eased</strong>, with tech leading, after Monday's selloff.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026", srcName: "TheStreet" },
+        { html: "<strong>Fixed income &mdash; Treasury yields eased early Tuesday</strong>, with the 10-year around 5.2% and the 30-year near 5.55%, after recent moves to multiyear highs on inflation and policy concerns.", src: "https://www.cnbc.com/2026/09/29/treasury-yields-bonds.html", srcName: "CNBC" },
       ],
     },
     evening: {

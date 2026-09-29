@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-29",
-  lastCheckedTime: "12:30 BST",
+  lastCheckedTime: "14:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,17 +1006,17 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-29",
   us: [
-    { title: "Treasury yields rise as march to multiyear highs continues", source: "CNBC", date: "2026-09-28", url: "https://www.cnbc.com/2026/09/28/treasury-yields-bonds-selloff.html" },
-    { title: "U.S. Treasury Yields Hit Near 20-Year High", source: "Babypips", date: "2026-09-28", url: "https://www.babypips.com/news/headline-us-treasury-yields-september-28-2026-selloff-iran-fed-hike" },
-    { title: "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait", source: "CNBC", date: "2026-09-28", url: "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html" },
+    { title: "Treasury yields ease as inflation concerns persist", source: "CNBC", date: "2026-09-29", url: "https://www.cnbc.com/2026/09/29/treasury-yields-bonds.html" },
+    { title: "Global shares are mixed after Wall Street dips and oil prices stabilize", source: "BNN Bloomberg (AP)", date: "2026-09-29", url: "https://www.bnnbloomberg.ca/markets/dow-jones/2026/09/29/global-shares-are-mixed-after-wall-street-dips-and-oil-prices-stabilize/" },
+    { title: "Stock Market Today (Sept. 29, 2026): Nasdaq Futures Rise on Easing Oil Prices, Treasury Yields", source: "TheStreet", date: "2026-09-29", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026" },
     { title: "Bond Selloff Resumes as Oil Rises After Trump Spurns Iran Offer", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/bond-selloff-resumes-as-oil-rises-after-trump-spurns-iran-offer" },
     { title: "Key US Data This Week Seen Bolstering Case for October Rate Hike", source: "Bloomberg", date: "2026-09-28", time: "18:11", url: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike" },
   ],
   uk: [
+    { title: "Gilts Extend Gains as UK Yields Drop With Oil, Gas Prices Hitting New Lows", source: "Bloomberg", date: "2026-09-29", url: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat" },
     { title: "Higher Bond Yields Are Raising Doubts About Europe's Stock Rally", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally" },
-    { title: "Healey hails 'new age of industrialisation' brought by Royal Navy", source: "CityAM", date: "2026-09-28", url: "https://www.cityam.com/healey-hails-new-age-of-industrialisation-brought-by-royal-navy/" },
-    { title: "Why UK Gilt Yields Are Climbing", source: "Goldman Sachs", date: "2026-09-28", url: "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing" },
     { title: "A Difficult Budget Hangs Over John Healey at Labour Gathering", source: "Bloomberg", date: "2026-09-27", url: "https://www.bloomberg.com/news/articles/2026-09-27/a-difficult-budget-hangs-over-john-healey-at-labour-gathering" },
+    { title: "Why UK Gilt Yields Are Climbing", source: "Goldman Sachs", date: "2026-09-28", url: "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing" },
     { title: "UK finance minister says 'fiscal discipline' will form core of budget", source: "Reuters (via Investing.com)", date: "2026-09-28", time: "18:11", url: "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059" },
   ],
 };
@@ -1086,7 +1086,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-09-29", country: "US", title: "JOLTS job openings (August)", url: "https://www.bls.gov/schedule/2026/09_sched_list.htm" },
   { date: "2026-09-30", country: "US", title: "GDP (Q2 2026, Third Estimate) & Corporate Profits", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-09-30", country: "US", title: "Personal Income and Outlays / PCE inflation (August)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-01", country: "US", title: "ISM Manufacturing PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
