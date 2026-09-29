@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "a9c20616-cef2-453a-9fa4-1d96f9f859d9",
+    title: "Watchdog warns about Fed’s ‘deficiencies’",
+    date: "2026-09-29",
+    time: "14:00",
+    url: "https://www.ft.com/content/a9c20616-cef2-453a-9fa4-1d96f9f859d9"
+  },
+  {
+    id: "a8c1d14d-97aa-4b09-8162-adbcac1d0029",
+    title: "Trump to meet AI chiefs over safety outcry",
+    date: "2026-09-29",
+    time: "13:35",
+    url: "https://www.ft.com/content/a8c1d14d-97aa-4b09-8162-adbcac1d0029"
+  },
+  {
+    id: "807daf90-94e6-40a3-b446-20a4395b42d4",
+    title: "Average UK diesel price set to reach £2 per litre within days",
+    date: "2026-09-29",
+    time: "13:34",
+    url: "https://www.ft.com/content/807daf90-94e6-40a3-b446-20a4395b42d4"
+  },
+  {
+    id: "0e851fbb-f148-46e4-906f-390b38b62a15",
+    title: "FirstFT: Anthropic IPO filing warns of ‘existential risks’",
+    date: "2026-09-29",
+    time: "11:14",
+    url: "https://www.ft.com/content/0e851fbb-f148-46e4-906f-390b38b62a15"
+  },
+  {
     id: "5bb621fa-2c18-4384-80ab-4a72e51b139a",
     title: "Dangote’s $16bn oil refinery blocked by Kenyan court",
     date: "2026-09-29",
@@ -272,32 +300,4 @@ export const FT_ITEMS = [
     time: "05:00",
     url: "https://www.ft.com/content/930465de-0cf3-4a2b-99a4-f632852df5f9"
   },
-  {
-    id: "f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197",
-    title: "Oil price and US Treasury yields in tightest relationship since 1990",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197"
-  },
-  {
-    id: "40892ee2-70ed-4a15-b290-5ffc2d7d2a40",
-    title: "Can Italy’s opposition unite against Giorgia Meloni?",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/40892ee2-70ed-4a15-b290-5ffc2d7d2a40"
-  },
-  {
-    id: "729662bd-0f6e-42a7-a54a-55c306c1f37e",
-    title: "Falkland Islanders grapple with Argentina’s ‘economic warfare’",
-    date: "2026-09-29",
-    time: "05:00",
-    url: "https://www.ft.com/content/729662bd-0f6e-42a7-a54a-55c306c1f37e"
-  },
-  {
-    id: "7c6d87b1-d7d9-49c3-b842-2600928fba38",
-    title: "US Treasury threatens crackdown on Wall Street tax-avoidance strategies",
-    date: "2026-09-28",
-    time: "23:00",
-    url: "https://www.ft.com/content/7c6d87b1-d7d9-49c3-b842-2600928fba38"
-  }
 ];
