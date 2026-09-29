@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-existentialriskfraud-20260929",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Is Existential Risk Securities Fraud?",
+    date: "2026-09-29",
+    time: "19:25",
+    summary: "Agents, 351, options.",
+    url: "https://bloom.bg/4ymECcd",
+  },
+  {
     id: "nl-thelawyer-breaking-mancityjudgment-20260929",
     publication: "The Lawyer",
     author: null,

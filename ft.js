@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2e2c868b-9510-4f0c-bbeb-ca17e7a18cc1",
+    title: "Mediators push to break US-Iran deadlock",
+    date: "2026-09-29",
+    time: "19:30",
+    url: "https://www.ft.com/content/2e2c868b-9510-4f0c-bbeb-ca17e7a18cc1"
+  },
+  {
+    id: "e9b18367-5144-4775-8ddd-d1d133672db0",
+    title: "Counterterror police found petrol, not explosives, in vans near RAF Fairford",
+    date: "2026-09-29",
+    time: "19:21",
+    url: "https://www.ft.com/content/e9b18367-5144-4775-8ddd-d1d133672db0"
+  },
+  {
     id: "95854630-e639-4240-9598-564b996f30c5",
     title: "Andy Burnham’s ‘jam tomorrow’ vision",
     date: "2026-09-29",
@@ -82,6 +96,13 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "17:12",
     url: "https://www.ft.com/content/5132d554-baec-415e-aa64-430ade0e06a1"
+  },
+  {
+    id: "befb8435-1418-43ed-8efe-19fd218e468e",
+    title: "15 outstanding ways to spend it in October",
+    date: "2026-09-29",
+    time: "17:09",
+    url: "https://www.ft.com/content/befb8435-1418-43ed-8efe-19fd218e468e"
   },
   {
     id: "122a29d3-da08-4ffc-8add-aed427781659",
