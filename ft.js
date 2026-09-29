@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "264c7d6f-9f84-43b9-89de-f8e9523a41a5",
+    title: "Trump administration can deport non-citizens to third countries for now",
+    date: "2026-09-29",
+    time: "21:06",
+    url: "https://www.ft.com/content/264c7d6f-9f84-43b9-89de-f8e9523a41a5"
+  },
+  {
     id: "2e2c868b-9510-4f0c-bbeb-ca17e7a18cc1",
     title: "Mediators push to break US-Iran deadlock",
     date: "2026-09-29",
@@ -293,32 +300,4 @@ export const FT_ITEMS = [
     time: "09:34",
     url: "https://www.ft.com/content/364d5454-876d-42ef-8f30-759e1ebdb026"
   },
-  {
-    id: "5c1dc583-5c88-4e91-a6b8-b62a6b33f74c",
-    title: "Australia raises interest rate to highest level in 15 years",
-    date: "2026-09-29",
-    time: "06:54",
-    url: "https://www.ft.com/content/5c1dc583-5c88-4e91-a6b8-b62a6b33f74c"
-  },
-  {
-    id: "3976a165-960a-4f04-98e4-6c39386ef785",
-    title: "Rethinking the dollar",
-    date: "2026-09-29",
-    time: "06:30",
-    url: "https://www.ft.com/content/3976a165-960a-4f04-98e4-6c39386ef785"
-  },
-  {
-    id: "6dc0716f-9a9c-4c3e-903a-2b497eb5190c",
-    title: "FTAV’s further reading",
-    date: "2026-09-29",
-    time: "06:30",
-    url: "https://www.ft.com/content/6dc0716f-9a9c-4c3e-903a-2b497eb5190c"
-  },
-  {
-    id: "27fb5d30-1fb6-4f30-937c-ff5c598eaaa5",
-    title: "Brussels’ protectionist turn spooks bloc’s free-market stalwarts",
-    date: "2026-09-29",
-    time: "06:00",
-    url: "https://www.ft.com/content/27fb5d30-1fb6-4f30-937c-ff5c598eaaa5"
-  }
 ];
