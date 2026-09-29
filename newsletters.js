@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-stocksstillinbondsgrip-20260929",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Stocks still in bonds' grip",
+    date: "2026-09-29",
+    time: "22:18",
+    summary: "Give PCE a chance.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-existentialriskfraud-20260929",
     publication: "Bloomberg",
     author: "Matt Levine",

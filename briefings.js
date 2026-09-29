@@ -67,9 +67,9 @@ export const BRIEFINGS = {
     },
     evening: {
       label: "Evening",
-      date: "2026-09-29",
-      time: "22:12 BST",
-      lede: "Tuesday ends with the long end still setting the agenda: the US 30-year yield reached a 24-year high even as oil eased, leaving the week's PCE and payrolls prints to settle the October-hike argument.",
+      date: "2026-09-30",
+      time: "00:13 BST",
+      lede: "Tuesday closed with the long end still setting the agenda: the US 30-year yield reached a 24-year high even as oil eased, leaving the week's PCE and payrolls prints to settle the October-hike argument.",
       bullets: [
         { html: "<strong>Fixed income &mdash; the US 30-year Treasury yield hit its highest level since 2002</strong>, the FT reported, extending the long-end selloff.", src: "https://www.ft.com/content/c8693313-7750-40c7-892a-101ab16dec70", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; UK gilts extended gains, the 10-year yield almost 7bp lower</strong> as oil and gas prices hit new lows on the day.", src: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat", srcName: "Bloomberg" },

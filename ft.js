@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "cf59cc58-a757-496b-b6ce-8a061c978382",
+    title: "The Lady Gaga moment for corporate Japan",
+    date: "2026-09-30",
+    time: "00:01",
+    url: "https://www.ft.com/content/cf59cc58-a757-496b-b6ce-8a061c978382",
+  },
+  {
+    id: "38edf5d4-31df-4250-a6b7-691b844b22e0",
+    title: "FirstFT: Trump says AI bosses agreed to ‘self-regulation’ amid safety fears",
+    date: "2026-09-29",
+    time: "22:34",
+    url: "https://www.ft.com/content/38edf5d4-31df-4250-a6b7-691b844b22e0",
+  },
+  {
+    id: "364d5454-876d-42ef-8f30-759e1ebdb026",
+    title: "Shell-led consortium backs $23bn expansion of LNG Canada project",
+    date: "2026-09-29",
+    time: "21:42",
+    url: "https://www.ft.com/content/364d5454-876d-42ef-8f30-759e1ebdb026",
+  },
+  {
     id: "d2916f8b-c53b-4c64-a9f8-37807bf5383f",
     title: "Australia battles black market for cigarettes after decade of tax rises",
     date: "2026-09-29",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "11:14",
     url: "https://www.ft.com/content/0e851fbb-f148-46e4-906f-390b38b62a15",
-  },
-  {
-    id: "1ae07fc9-dfce-4cb3-a216-a8e8bfeb74b9",
-    title: "Le Monde Béryl is pumping up New York",
-    date: "2026-09-29",
-    time: "11:00",
-    url: "https://www.ft.com/content/1ae07fc9-dfce-4cb3-a216-a8e8bfeb74b9",
-  },
-  {
-    id: "57b7bde7-099d-4cba-9275-01a3bc088d95",
-    title: "‘Translation and connection are different things’: why languages remain useful at work",
-    date: "2026-09-29",
-    time: "11:00",
-    url: "https://www.ft.com/content/57b7bde7-099d-4cba-9275-01a3bc088d95",
-  },
-  {
-    id: "c269b475-b37a-4fe8-b138-849d8525ff59",
-    title: "Russia behind arson attack on defence company, says Estonia",
-    date: "2026-09-29",
-    time: "10:12",
-    url: "https://www.ft.com/content/c269b475-b37a-4fe8-b138-849d8525ff59",
   },
 ];
