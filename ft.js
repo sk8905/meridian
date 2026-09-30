@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d36aa5b9-d770-4800-ba76-70bfbb62f4a7",
+    title: "Trump’s coal drive plays into Beijing’s hands",
+    date: "2026-09-30",
+    time: "12:00",
+    url: "https://www.ft.com/content/d36aa5b9-d770-4800-ba76-70bfbb62f4a7",
+  },
+  {
+    id: "3b926f6b-d9a4-4252-90da-5a336a5276e7",
+    title: "At least Burnham doesn’t pretend to care about growth",
+    date: "2026-09-30",
+    time: "11:35",
+    url: "https://www.ft.com/content/3b926f6b-d9a4-4252-90da-5a336a5276e7",
+  },
+  {
     id: "5bb621fa-2c18-4384-80ab-4a72e51b139a",
     title: "Aliko Dangote’s $16bn oil refinery project paused by Kenyan court",
     date: "2026-09-30",
@@ -285,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "21:06",
     url: "https://www.ft.com/content/264c7d6f-9f84-43b9-89de-f8e9523a41a5",
-  },
-  {
-    id: "97d0b8b3-86b8-4b2b-b603-f322da9343b4",
-    title: "An ode to stock picking",
-    date: "2026-09-29",
-    time: "21:00",
-    url: "https://www.ft.com/content/97d0b8b3-86b8-4b2b-b603-f322da9343b4",
-  },
-  {
-    id: "2e2c868b-9510-4f0c-bbeb-ca17e7a18cc1",
-    title: "Mediators push to break US-Iran deadlock",
-    date: "2026-09-29",
-    time: "19:30",
-    url: "https://www.ft.com/content/2e2c868b-9510-4f0c-bbeb-ca17e7a18cc1",
-  },
-  {
-    id: "e9b18367-5144-4775-8ddd-d1d133672db0",
-    title: "Counterterror police found petrol, not explosives, in vans near RAF Fairford",
-    date: "2026-09-29",
-    time: "19:21",
-    url: "https://www.ft.com/content/e9b18367-5144-4775-8ddd-d1d133672db0",
   },
 ];
