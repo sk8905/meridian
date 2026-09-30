@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5e39d12d-c088-458f-9b03-0594292f772e",
+    title: "SEC proposes performance fees for retail funds in private markets push",
+    date: "2026-09-30",
+    time: "16:10",
+    url: "https://www.ft.com/content/5e39d12d-c088-458f-9b03-0594292f772e",
+  },
+  {
+    id: "08a71b38-d98c-472a-9576-e40ae2cfdf19",
+    title: "AI voice start-up ElevenLabs doubles valuation to $22bn",
+    date: "2026-09-30",
+    time: "16:00",
+    url: "https://www.ft.com/content/08a71b38-d98c-472a-9576-e40ae2cfdf19",
+  },
+  {
+    id: "cf14f353-f833-4e38-b868-39918923f8b1",
+    title: "Morocco’s first female prime minister launches coalition talks",
+    date: "2026-09-30",
+    time: "15:54",
+    url: "https://www.ft.com/content/cf14f353-f833-4e38-b868-39918923f8b1",
+  },
+  {
+    id: "97043be8-28f7-40c8-936f-617ebeec5d2b",
+    title: "Weak PCE inflation eases pressure for Fed rate increases",
+    date: "2026-09-30",
+    time: "15:24",
+    url: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b",
+  },
+  {
+    id: "196d62b5-f180-4311-99df-99472bab1a2b",
+    title: "The UK needs to do more to support its own AI companies",
+    date: "2026-09-30",
+    time: "15:23",
+    url: "https://www.ft.com/content/196d62b5-f180-4311-99df-99472bab1a2b",
+  },
+  {
     id: "5c1ccafc-c3e6-49c1-8cdc-b9ed73627749",
     title: "AI debt surge raises risk of sharp market correction, warns Bank of England",
     date: "2026-09-30",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "05:00",
     url: "https://www.ft.com/content/562f2988-0c04-4669-b0b7-2c16d3821926",
-  },
-  {
-    id: "e9f2345f-6d7b-4fbb-831a-5fe576317701",
-    title: "Social care shake-up without tax rises will force houses to be sold, Burnham warned",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/e9f2345f-6d7b-4fbb-831a-5fe576317701",
-  },
-  {
-    id: "9dd08562-20f9-4646-b7e8-7c824edec2ec",
-    title: "Is Anthropic losing its Oura?",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/9dd08562-20f9-4646-b7e8-7c824edec2ec",
-  },
-  {
-    id: "52e59358-9ae5-4d13-a666-c5a9b1b184c9",
-    title: "UK banks stick with coal financing, campaign report finds",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/52e59358-9ae5-4d13-a666-c5a9b1b184c9",
-  },
-  {
-    id: "7f0d7725-b010-4af1-8fc5-56c88fe5ffc4",
-    title: "Fintech Zilch taps banks for IPO next year",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/7f0d7725-b010-4af1-8fc5-56c88fe5ffc4",
-  },
-  {
-    id: "9e374fbf-5bed-4452-8fa1-5f91ff4bd7bc",
-    title: "EU can’t integrate markets if it dilutes supervision, watchdog warns",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/9e374fbf-5bed-4452-8fa1-5f91ff4bd7bc",
   },
 ];
