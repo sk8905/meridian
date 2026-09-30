@@ -260,6 +260,12 @@ const b = await launchChromium();
       footVisible: foot.bottom <= window.innerHeight + 2 && foot.top >= 0,
       noInlineHeight: !document.getElementById("g-hbrief").style.height,
       pageLocked: document.documentElement.scrollHeight <= window.innerHeight + 2,
+      // The COMPLETE scroll-lock (html AND body) is what stops the document bouncing on
+      // iOS — a bounce moved the sticky tabs and detached the fixed pane. Both must be
+      // overflow:hidden with overscroll-behavior off.
+      htmlLocked: getComputedStyle(document.documentElement).overflowY === "hidden",
+      bodyLocked: getComputedStyle(document.body).overflowY === "hidden",
+      noBounce: getComputedStyle(document.documentElement).overscrollBehaviorY === "none",
     };
   });
   check(pinned.gap <= 14, `phone: the 'AI-generated…' note is anchored to the bottom of the briefing pane (gap ${pinned.gap}px)`);
@@ -267,6 +273,7 @@ const b = await launchChromium();
   check(pinned.footVisible, "phone: the source note is fully visible on first paint (never stranded off-screen)");
   check(pinned.noInlineHeight, "phone: the pane carries NO inline pixel height — it is anchored in CSS, not by JS measurement");
   check(pinned.pageLocked, "phone: the page does not scroll when the brief fits (scroll is locked — content scrolls inside the pane)");
+  check(pinned.htmlLocked && pinned.bodyLocked && pinned.noBounce, "phone: BOTH html and body are scroll-locked (overflow hidden + overscroll-behavior none) so the document can't rubber-band and detach the pane");
   // The pane butts flush under the wire tabs (anchored to their real bottom), so its
   // "Market briefing" header never slides under the tabs / bleeds at the seam.
   const briefSeam = await pg.evaluate(() => {

@@ -1374,38 +1374,26 @@
       .tui .g-hbrief{ display:none; }
       .tui .g-layout.wire-brief .g-feed-wrap,
       .tui .g-layout.wire-brief .g-side, .tui .g-layout.wire-brief .g-side2{ display:none; }
-      /* IN-FLOW (never position:fixed — that vanished on iOS overscroll). It flows
-         right after the sticky tabs, so there is no seam, and glance.js sizes it to
-         the exact gap between the tabs and the bottom nav. The page's bottom-nav
-         padding is dropped on this pane (html.home-brief) so nothing scrolls, and the
-         source note pins to the bottom. A vars-based min-height is the pre-JS fallback. */
-      /* Sticky header · scrolling summary · sticky footer, on the normal PAGE scroll
-         (like the feed's sticky day-header — robust, no fixed-element iOS glitch). The
-         header pins just under the wire tabs and the note pins just above the bottom
-         nav, so the lede + desk bullets scroll between them. min-height fills the
-         screen so the note sits at the bottom even for a short brief. */
-      /* ANCHORED like the app shell — a FIXED pane filling the exact gap between the
-         sticky wire tabs and the fixed bottom nav. Its TOP is the tabs' offset (wire
-         head + band + tabs — the same expression the sticky day-header uses, so it lands
-         flush under the tabs); its BOTTOM is the nav's own height (mtab 42 + 12 padding +
-         safe-area), so the source note sits hard against the top of the nav. The body
-         scrolls INTERNALLY only when the brief is long; the PAGE is locked (see
-         html.home-brief below), so it can never scroll when there is nothing to scroll
-         to. No JS sizing, no viewport-unit guesswork — this is exactly how the bottom
-         nav itself is pinned (plain position:fixed, no transform). */
+      /* A FIXED pane filling the exact gap between the wire tabs and the bottom nav, so
+         the note is glued to the bottom for a brief of any length. The one thing that
+         broke this before was iOS rubber-band: I only locked `body`, so the document
+         (html) could still bounce and the fixed pane detached from the sticky tabs. The
+         cure is a COMPLETE scroll-lock — html AND body pinned to 100% with overflow and
+         overscroll-behavior off — so the document has nothing to scroll or bounce. The
+         only scroll left is INSIDE the pane's own body (contained), for a long brief.
+         Pane top = the tabs' offset (the same expression the sticky day-header uses);
+         bottom = the nav's height (mtab 42 + 12 padding + safe-area). */
+      html.home-brief, html.home-brief body{ height:100%; overflow:hidden; overscroll-behavior:none; }
+      html.home-brief body{ padding-bottom:0 !important; }
       .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
         position:fixed; left:0; right:0; z-index:6;
-        top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));
+        top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));
         bottom:calc(54px + env(safe-area-inset-bottom, 0px));
         background:var(--t-panel); }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-head{ flex:0 0 auto; }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:8px 12px;
         background:var(--t-head); border-top:1px solid var(--t-grid); }
-      /* The Briefing pane is fixed and fills the screen, so the PAGE must not scroll —
-         a long brief scrolls inside the pane's body instead. Locking the page here is
-         what stops it scrolling when there is nothing to scroll to. */
-      html.home-brief body{ padding-bottom:0 !important; overflow:hidden !important; }
       /* News/Managers/Chart/X panes hide the feed-wrap (filter + feed) as needed. */
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
