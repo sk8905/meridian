@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "b77a34af-a12f-445c-8707-8f6b8223ad39",
+    title: "Australia’s housing slump could have a silver lining for its banks",
+    date: "2026-10-01",
+    time: "00:01",
+    url: "https://www.ft.com/content/b77a34af-a12f-445c-8707-8f6b8223ad39",
+  },
+  {
+    id: "f0cdc5bc-c07a-47cf-9602-064006176aef",
+    title: "Donald Trump says South Korea will invest $200bn in US energy projects",
+    date: "2026-09-30",
+    time: "23:41",
+    url: "https://www.ft.com/content/f0cdc5bc-c07a-47cf-9602-064006176aef",
+  },
+  {
+    id: "b5b79e91-37d6-45c1-9907-cd3ea957cb5d",
+    title: "Pete Hegseth extols overhaul of US military in ‘state of the force’ speech",
+    date: "2026-09-30",
+    time: "23:28",
+    url: "https://www.ft.com/content/b5b79e91-37d6-45c1-9907-cd3ea957cb5d",
+  },
+  {
+    id: "188ab0ab-e39d-4221-9730-0610fbc22ee9",
+    title: "Paramount stumps up high borrowing costs to fund Warner Bros deal",
+    date: "2026-09-30",
+    time: "22:37",
+    url: "https://www.ft.com/content/188ab0ab-e39d-4221-9730-0610fbc22ee9",
+  },
+  {
+    id: "188752a3-c43c-4bad-a59b-19d76074b1e0",
+    title: "Top Man City sponsor threatens legal action against Premier League",
+    date: "2026-09-30",
+    time: "22:36",
+    url: "https://www.ft.com/content/188752a3-c43c-4bad-a59b-19d76074b1e0",
+  },
+  {
     id: "39de7709-7b5b-42f6-ad90-df50f1308ea2",
     title: "US government debt rout triggers ‘vicious loop’ of selling",
     date: "2026-09-30",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "12:28",
     url: "https://www.ft.com/content/043221b2-d06c-4171-aa50-eeaebaf7674a",
-  },
-  {
-    id: "fc705366-9a91-4e99-9c07-e962dca6354b",
-    title: "Russia extends diesel export ban",
-    date: "2026-09-30",
-    time: "12:24",
-    url: "https://www.ft.com/content/fc705366-9a91-4e99-9c07-e962dca6354b",
-  },
-  {
-    id: "d36aa5b9-d770-4800-ba76-70bfbb62f4a7",
-    title: "Trump’s coal drive plays into Beijing’s hands",
-    date: "2026-09-30",
-    time: "12:00",
-    url: "https://www.ft.com/content/d36aa5b9-d770-4800-ba76-70bfbb62f4a7",
-  },
-  {
-    id: "3b926f6b-d9a4-4252-90da-5a336a5276e7",
-    title: "At least Burnham doesn’t pretend to care about growth",
-    date: "2026-09-30",
-    time: "11:35",
-    url: "https://www.ft.com/content/3b926f6b-d9a4-4252-90da-5a336a5276e7",
-  },
-  {
-    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
-    title: "Submit a question: What’s next for the global economy?",
-    date: "2026-09-30",
-    time: "11:20",
-    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d",
-  },
-  {
-    id: "5bb621fa-2c18-4384-80ab-4a72e51b139a",
-    title: "Aliko Dangote’s $16bn oil refinery project paused by Kenyan court",
-    date: "2026-09-30",
-    time: "10:35",
-    url: "https://www.ft.com/content/5bb621fa-2c18-4384-80ab-4a72e51b139a",
   },
 ];

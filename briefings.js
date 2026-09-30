@@ -68,9 +68,10 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-09-30",
-      time: "22:15 BST",
+      time: "00:10 BST",
       lede: "Wednesday ends with the US government bond rout still the dominant story, softer PCE inflation easing pressure for Fed hikes, and the Bank of England flagging AI-linked debt as a correction risk.",
       bullets: [
+        { html: "<strong>Energy &mdash; Donald Trump said South Korea will invest $200bn in US energy projects</strong>, the FT reports.", src: "https://www.ft.com/content/f0cdc5bc-c07a-47cf-9602-064006176aef", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; weak PCE inflation eased pressure for further Fed rate increases</strong>, the FT reports, while the ONS revised UK second-quarter growth up to 0.5% from 0.4%.", src: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the US government debt rout is feeding a &lsquo;vicious loop&rsquo; of selling</strong>, the FT reports, as long-dated Treasury yields extend their climb after Tuesday&rsquo;s 24-year high in the 30-year.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the Bank of England warned that an AI debt surge raises the risk of a sharp market correction</strong>, per the FT.", src: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749", srcName: "Financial Times" },

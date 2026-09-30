@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-30",
-  lastCheckedTime: "22:15 BST",
+  lastCheckedTime: "00:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1010,7 +1010,7 @@ export const NEWS = {
     { title: "US oil industry warns diesel prices will not return to normal for a year", source: "Financial Times", date: "2026-09-30", time: "17:20", url: "https://www.ft.com/content/0d74d66a-a9ee-4c22-83ab-9df6452117de" },
     { title: "Weak PCE inflation eases pressure for Fed rate increases", source: "Financial Times", date: "2026-09-30", time: "15:24", url: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b" },
     { title: "Bond markets steady after sell-off despite strong US data", source: "Financial Times", date: "2026-09-30", time: "15:52", url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a" },
-    { title: "Oil climbs after Trump denies he is willing to ease sanctions on Iran", source: "CNBC", date: "2026-09-30", time: "10:13", url: "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html" },
+    { title: "Donald Trump says South Korea will invest $200bn in US energy projects", source: "Financial Times", date: "2026-09-30", time: "23:41", url: "https://www.ft.com/content/f0cdc5bc-c07a-47cf-9602-064006176aef" },
   ],
   uk: [
     { title: "AI debt surge raises risk of sharp market correction, warns Bank of England", source: "Financial Times", date: "2026-09-30", time: "15:02", url: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749" },
@@ -1081,8 +1081,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-09-30", country: "US", title: "GDP (Q2 2026, Third Estimate) & Corporate Profits", url: "https://www.bea.gov/news/schedule" },
-  { date: "2026-09-30", country: "US", title: "Personal Income and Outlays / PCE inflation (August)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-01", country: "US", title: "ISM Manufacturing PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-10-02", country: "US", title: "Employment Situation / Nonfarm payrolls (September)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-10-05", country: "US", title: "ISM Services PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
