@@ -68,11 +68,11 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-09-30",
-      time: "18:15 BST",
-      lede: "Wednesday evening is shaped by softer US inflation and steadier bond markets after the long-end sell-off, with the Bank of England flagging AI-linked debt as a correction risk.",
+      time: "22:15 BST",
+      lede: "Wednesday ends with the US government bond rout still the dominant story, softer PCE inflation easing pressure for Fed hikes, and the Bank of England flagging AI-linked debt as a correction risk.",
       bullets: [
         { html: "<strong>Macro &mdash; weak PCE inflation eased pressure for further Fed rate increases</strong>, the FT reports, while the ONS revised UK second-quarter growth up to 0.5% from 0.4%.", src: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; bond markets steadied after the sell-off despite strong US data</strong>, per the FT, following Tuesday's 24-year high in the 30-year Treasury yield.", src: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the US government debt rout is feeding a &lsquo;vicious loop&rsquo; of selling</strong>, the FT reports, as long-dated Treasury yields extend their climb after Tuesday&rsquo;s 24-year high in the 30-year.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the Bank of England warned that an AI debt surge raises the risk of a sharp market correction</strong>, per the FT.", src: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the Dow, S&amp;P 500 and Nasdaq wobbled on Tuesday</strong> as the long-bond yield surge weighed on sentiment, per Yahoo Finance's market wrap.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
       ],

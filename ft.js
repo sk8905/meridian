@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "39de7709-7b5b-42f6-ad90-df50f1308ea2",
+    title: "US government debt rout triggers ‘vicious loop’ of selling",
+    date: "2026-09-30",
+    time: "22:09",
+    url: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2",
+  },
+  {
+    id: "baa261b7-681d-41b7-b41a-d704858cd0b2",
+    title: "Paramount names Mattel boss co-CEO as it looks to close Warner Bros deal",
+    date: "2026-09-30",
+    time: "22:03",
+    url: "https://www.ft.com/content/baa261b7-681d-41b7-b41a-d704858cd0b2",
+  },
+  {
     id: "46194a0b-a0e4-42cc-ad40-0df753492768",
     title: "Google releases most advanced Gemini AI model",
     date: "2026-09-30",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "10:35",
     url: "https://www.ft.com/content/5bb621fa-2c18-4384-80ab-4a72e51b139a",
-  },
-  {
-    id: "1c7bafaf-e7cd-47a8-9c69-150f4c04d4d2",
-    title: "Andy Burnham’s courageous speech had one striking omission",
-    date: "2026-09-30",
-    time: "09:40",
-    url: "https://www.ft.com/content/1c7bafaf-e7cd-47a8-9c69-150f4c04d4d2",
-  },
-  {
-    id: "3b5b46d7-2dcf-40f0-82f3-65ab6e4be76b",
-    title: "Ken Griffin donates $3bn to Carnegie Mellon as university plots Miami campus",
-    date: "2026-09-30",
-    time: "09:30",
-    url: "https://www.ft.com/content/3b5b46d7-2dcf-40f0-82f3-65ab6e4be76b",
   },
 ];

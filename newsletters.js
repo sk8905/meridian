@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-volatileseptemberq4-20260930",
+    publication: "Thomson Reuters",
+    author: "Stephen Culp",
+    series: "Trading Day",
+    title: "Shrugging off a volatile September, markets shuffle into Q4",
+    date: "2026-09-30",
+    time: "22:00",
+    summary: "Markets turn the page on the month and quarter as long-dated Treasury yields rise for a seventh straight day.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-aiagentspayattention-20260930",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "12:04",
     summary: "Soaring fuel prices and limited governmental help are driving French households into crisis mode.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-25/france-s-economy-is-losing-the-confidence-game-amid-soaring-energy-prices",
-  },
-  {
-    id: "nl-bbg-goingprivate-nofundnoproblem-20260925",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: No fund? No problem",
-    date: "2026-09-25",
-    time: "12:02",
-    summary: "Investors veto blind pools and blank checks in favor of deal-by-deal vehicles.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-25/no-more-blank-checks-investors-swap-blind-funds-for-bespoke-spvs",
   },
 ];
