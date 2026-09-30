@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2a62022e-219b-4eb2-b5d7-c2bb01688acc",
+    title: "Singapore’s Temasek to open first Middle East outposts",
+    date: "2026-09-30",
+    time: "09:00",
+    url: "https://www.ft.com/content/2a62022e-219b-4eb2-b5d7-c2bb01688acc",
+  },
+  {
+    id: "a07f7faf-7b49-4988-910f-5768f3214f71",
+    title: "‘Big names in AI like Kyndryl’",
+    date: "2026-09-30",
+    time: "08:38",
+    url: "https://www.ft.com/content/a07f7faf-7b49-4988-910f-5768f3214f71",
+  },
+  {
     id: "d740f13d-38bc-4460-bcd5-2922472fc209",
     title: "Andy Burnham says rejoining EU an option for the UK",
     date: "2026-09-30",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "18:15",
     url: "https://www.ft.com/content/fd9bb414-838d-48e5-bcdf-39c8a6bd41ca",
-  },
-  {
-    id: "211d10ae-cf9e-481d-99ed-0321d2eb0676",
-    title: "OpenAI launches new AI personal assistant",
-    date: "2026-09-29",
-    time: "18:15",
-    url: "https://www.ft.com/content/211d10ae-cf9e-481d-99ed-0321d2eb0676",
-  },
-  {
-    id: "26c54c8c-931c-4d84-9cf3-fd3e9b5e215d",
-    title: "Middle Eastern oil exports rise to highest level since Iran war began",
-    date: "2026-09-29",
-    time: "17:46",
-    url: "https://www.ft.com/content/26c54c8c-931c-4d84-9cf3-fd3e9b5e215d",
   },
 ];
