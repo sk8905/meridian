@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "33449ea5-428b-4080-bdf6-ff5843bbd3cd",
+    title: "KKR warns of growing credit market risks from AI borrowing spree",
+    date: "2026-09-30",
+    time: "14:03",
+    url: "https://www.ft.com/content/33449ea5-428b-4080-bdf6-ff5843bbd3cd",
+  },
+  {
+    id: "f71120fb-266f-42fb-8042-dbeccfd9cf0c",
+    title: "MI5 warns universities to cut ties with Chinese institute",
+    date: "2026-09-30",
+    time: "14:00",
+    url: "https://www.ft.com/content/f71120fb-266f-42fb-8042-dbeccfd9cf0c",
+  },
+  {
+    id: "a19a0885-baf9-4063-9c7b-fd364c9d81e0",
+    title: "Netherlands retreats from taxing paper profits on investments",
+    date: "2026-09-30",
+    time: "13:57",
+    url: "https://www.ft.com/content/a19a0885-baf9-4063-9c7b-fd364c9d81e0",
+  },
+  {
+    id: "ec98b9b5-6677-4b26-b892-82aaac034143",
+    title: "Inflation accelerates in Eurozone’s biggest economies",
+    date: "2026-09-30",
+    time: "13:44",
+    url: "https://www.ft.com/content/ec98b9b5-6677-4b26-b892-82aaac034143",
+  },
+  {
+    id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
+    title: "Inflation and interest rates tracker: see how your country compares",
+    date: "2026-09-30",
+    time: "13:30",
+    url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
+  },
+  {
     id: "e7c044f0-5448-4d90-9b86-9786ffafbc7b",
     title: "Bond investors 💔 OATs",
     date: "2026-09-30",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "05:00",
     url: "https://www.ft.com/content/8c0d8f2a-5f81-4dac-b8f0-6b91328ba768",
-  },
-  {
-    id: "f72004ae-3a17-459f-a14e-01840c90c6da",
-    title: "Battery groups push to stick with post-Brexit rules on electric cars",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/f72004ae-3a17-459f-a14e-01840c90c6da",
-  },
-  {
-    id: "7820a84f-338e-4b91-a9b6-241a9bf81539",
-    title: "Vanguard warns France is ‘degrading credit’ as borrowing costs surge",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/7820a84f-338e-4b91-a9b6-241a9bf81539",
-  },
-  {
-    id: "bba7bdf5-8a91-4587-85ef-5cc9911259d7",
-    title: "Time for some DIY LDI",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/bba7bdf5-8a91-4587-85ef-5cc9911259d7",
-  },
-  {
-    id: "bd049e24-ac4e-4315-b67c-7e3d18d541c2",
-    title: "The risks of HSBC’s return to its roots",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/bd049e24-ac4e-4315-b67c-7e3d18d541c2",
-  },
-  {
-    id: "873ed533-d6b0-4276-94c2-624eb69d306b",
-    title: "How Nike fell off the pace in China",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/873ed533-d6b0-4276-94c2-624eb69d306b",
   },
 ];
