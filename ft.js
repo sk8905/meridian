@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "cd22d20a-3b65-4534-ac04-f5008810e10a",
+    title: "Bond markets steady after sell-off",
+    date: "2026-09-30",
+    time: "06:43",
+    url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a",
+  },
+  {
+    id: "b17c3f84-518c-4838-a3ae-8474d23157b7",
+    title: "Midterms and the market",
+    date: "2026-09-30",
+    time: "06:30",
+    url: "https://www.ft.com/content/b17c3f84-518c-4838-a3ae-8474d23157b7",
+  },
+  {
+    id: "77c71290-89c4-4ed5-8b05-2c1b22eff911",
+    title: "FTAV’s further reading",
+    date: "2026-09-30",
+    time: "06:30",
+    url: "https://www.ft.com/content/77c71290-89c4-4ed5-8b05-2c1b22eff911",
+  },
+  {
     id: "f7e67172-080e-4c03-9ab1-1b1f79719d63",
     title: "EU decarbonisation incentives do not add up, says US chemicals giant",
     date: "2026-09-30",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "17:25",
     url: "https://www.ft.com/content/fd7a84a4-fb33-499c-8f8d-d8b6002db3f0",
-  },
-  {
-    id: "2cb65c90-e8ee-43fa-84a1-16a6834e168e",
-    title: "Andy Burnham sets up battle lines on social care and Europe",
-    date: "2026-09-29",
-    time: "17:19",
-    url: "https://www.ft.com/content/2cb65c90-e8ee-43fa-84a1-16a6834e168e",
-  },
-  {
-    id: "5132d554-baec-415e-aa64-430ade0e06a1",
-    title: "Comment: Burnham’s brave new world — just one more election away",
-    date: "2026-09-29",
-    time: "17:12",
-    url: "https://www.ft.com/content/5132d554-baec-415e-aa64-430ade0e06a1",
-  },
-  {
-    id: "befb8435-1418-43ed-8efe-19fd218e468e",
-    title: "15 outstanding ways to spend it in October",
-    date: "2026-09-29",
-    time: "17:09",
-    url: "https://www.ft.com/content/befb8435-1418-43ed-8efe-19fd218e468e",
   },
 ];
