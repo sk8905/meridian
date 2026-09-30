@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-firstclose-southkoreainfra-20260930",
+    publication: "Preqin",
+    author: null,
+    series: "First Close",
+    title: "South Korea invests in AI connectivity, power, and grids",
+    date: "2026-09-30",
+    time: "12:21",
+    summary: "44% of South Korea-based LPs plan to step up infrastructure investment, with digital prominent.",
+    url: "https://go.preqin.com/webmail/909852/2188887424/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
+  },
+  {
     id: "nl-bbg-economicsdaily-chinastimulus-20260930",
     publication: "Bloomberg",
     author: "Malcolm Scott",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "Panda diplomacy warms up as Presidents Trump and Xi stabilize their competitive relationship.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-25/panda-diplomacy-shows-thawing-us-china-ties-as-xi-and-trump-meet",
-  },
-  {
-    id: "nl-reuters-morningbid-bondsstealtheshow-20260925",
-    publication: "Thomson Reuters",
-    author: "Anna Szymanski",
-    series: "Morning Bid",
-    title: "Bonds steal the show",
-    date: "2026-09-25",
-    time: "11:30",
-    summary: "Your weekly market recap, with reading, watching and listening recommendations from the ROI team.",
-    url: "https://www.reuters.com/newsletters/morning-bid-us",
   },
 ];
