@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d740f13d-38bc-4460-bcd5-2922472fc209",
+    title: "Andy Burnham says rejoining EU an option for the UK",
+    date: "2026-09-30",
+    time: "07:58",
+    url: "https://www.ft.com/content/d740f13d-38bc-4460-bcd5-2922472fc209",
+  },
+  {
+    id: "3c98053f-2a54-4352-8220-0d0269a00d14",
+    title: "UK energy price cap forecast to rise to nearly £2,000 as Iran war drives up prices",
+    date: "2026-09-30",
+    time: "07:44",
+    url: "https://www.ft.com/content/3c98053f-2a54-4352-8220-0d0269a00d14",
+  },
+  {
+    id: "00d798b3-1579-4bc6-88bf-a1f99ba85a63",
+    title: "UK economy grows faster than first estimated in second quarter",
+    date: "2026-09-30",
+    time: "07:18",
+    url: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63",
+  },
+  {
     id: "cd22d20a-3b65-4534-ac04-f5008810e10a",
     title: "Bond markets steady after sell-off",
     date: "2026-09-30",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "17:46",
     url: "https://www.ft.com/content/26c54c8c-931c-4d84-9cf3-fd3e9b5e215d",
-  },
-  {
-    id: "8d7f90d6-8d3a-4b11-8b51-090265278a31",
-    title: "Manchester City artificially boosted finances by more than £900mn, says panel",
-    date: "2026-09-29",
-    time: "17:37",
-    url: "https://www.ft.com/content/8d7f90d6-8d3a-4b11-8b51-090265278a31",
-  },
-  {
-    id: "5e819183-5362-479b-a340-a1f38f7bed23",
-    title: "Six takeaways from Andy Burnham’s conference speech",
-    date: "2026-09-29",
-    time: "17:27",
-    url: "https://www.ft.com/content/5e819183-5362-479b-a340-a1f38f7bed23",
-  },
-  {
-    id: "fd7a84a4-fb33-499c-8f8d-d8b6002db3f0",
-    title: "Spain seeks to ban ‘vulture funds’ from housing market",
-    date: "2026-09-29",
-    time: "17:25",
-    url: "https://www.ft.com/content/fd7a84a4-fb33-499c-8f8d-d8b6002db3f0",
   },
 ];

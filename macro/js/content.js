@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-30",
-  lastCheckedTime: "05:12 BST",
+  lastCheckedTime: "08:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,20 +1004,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-29",
+  updated: "2026-09-30",
   us: [
+    { title: "White House holds crunch talks on diesel export ban as midterms near", source: "Financial Times", date: "2026-09-30", time: "05:00", url: "https://www.ft.com/content/562f2988-0c04-4669-b0b7-2c16d3821926" },
+    { title: "Bond markets steady after sell-off", source: "Financial Times", date: "2026-09-30", time: "06:43", url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a" },
     { title: "Treasury yields ease as inflation concerns persist", source: "CNBC", date: "2026-09-29", url: "https://www.cnbc.com/2026/09/29/treasury-yields-bonds.html" },
-    { title: "Global shares are mixed after Wall Street dips and oil prices stabilize", source: "BNN Bloomberg (AP)", date: "2026-09-29", url: "https://www.bnnbloomberg.ca/markets/dow-jones/2026/09/29/global-shares-are-mixed-after-wall-street-dips-and-oil-prices-stabilize/" },
     { title: "Stock Market Today (Sept. 29, 2026): S&P 500 Falls on Easing Oil Prices, Treasury Yields", source: "TheStreet", date: "2026-09-29", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026" },
-    { title: "Bond Selloff Resumes as Oil Rises After Trump Spurns Iran Offer", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/bond-selloff-resumes-as-oil-rises-after-trump-spurns-iran-offer" },
     { title: "Key US Data This Week Seen Bolstering Case for October Rate Hike", source: "Bloomberg", date: "2026-09-28", time: "18:11", url: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike" },
   ],
   uk: [
+    { title: "UK economy grows faster than first estimated in second quarter", source: "Financial Times", date: "2026-09-30", time: "07:18", url: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63" },
+    { title: "UK energy price cap forecast to rise to nearly £2,000 as Iran war drives up prices", source: "Financial Times", date: "2026-09-30", time: "07:44", url: "https://www.ft.com/content/3c98053f-2a54-4352-8220-0d0269a00d14" },
     { title: "Gilts Extend Gains as UK Yields Drop With Oil, Gas Prices Hitting New Lows", source: "Bloomberg", date: "2026-09-29", url: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat" },
-    { title: "Higher Bond Yields Are Raising Doubts About Europe's Stock Rally", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally" },
-    { title: "A Difficult Budget Hangs Over John Healey at Labour Gathering", source: "Bloomberg", date: "2026-09-27", url: "https://www.bloomberg.com/news/articles/2026-09-27/a-difficult-budget-hangs-over-john-healey-at-labour-gathering" },
-    { title: "Why UK Gilt Yields Are Climbing", source: "Goldman Sachs", date: "2026-09-28", url: "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing" },
     { title: "UK finance minister says 'fiscal discipline' will form core of budget", source: "Reuters (via Investing.com)", date: "2026-09-28", time: "18:11", url: "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059" },
+    { title: "Higher Bond Yields Are Raising Doubts About Europe's Stock Rally", source: "Bloomberg", date: "2026-09-28", url: "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally" },
   ],
 };
 
@@ -1029,8 +1029,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-29",
+  updated: "2026-09-30",
   items: [
+    {"title": "Is the world really drowning in debt?", "source": "Financial Times", "date": "2026-09-30", "time": "05:00", "url": "https://www.ft.com/content/a1202ae1-0324-4383-a082-4cc522a8fdbc", "blurb": "FT examines whether global debt levels are as alarming as headline figures suggest.", "author": null},
+    {"title": "Bank runs are almost always justified", "source": "Financial Times", "date": "2026-09-30", "time": "06:00", "url": "https://www.ft.com/content/80c78c90-97b2-48db-84e0-26975f47305e", "blurb": "FT opinion on the logic behind bank runs.", "author": null},
+    {"title": "Bond markets steady after sell-off", "source": "Financial Times", "date": "2026-09-30", "time": "06:43", "url": "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", "blurb": "FT reports government bond markets stabilising after the recent sell-off.", "author": null},
     {"title": "Oil price and US Treasury yields in tightest relationship since 1990", "source": "Financial Times", "date": "2026-09-29", "time": "05:00", "url": "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197", "blurb": "FT analysis of the tightening link between crude oil and US Treasury yields as the bond sell-off deepens.", "author": null},
     {"title": "What\u2019s going to break in the bondpocalypse?", "source": "Bloomberg", "date": "2026-09-29", "time": "05:02", "url": "https://www.bloomberg.com/opinion/newsletters/2026-09-29/what-s-going-to-break-in-the-bondpocalypse", "blurb": "John Authers: US data might hold the key as the bond sell-off deepens.", "author": "John Authers"},
     {"title": "Germany issues EU budget ultimatum", "source": "Financial Times", "date": "2026-09-29", "time": "05:00", "url": "https://www.ft.com/content/3b829a46-3eae-4c20-94db-a79c38d0be4c", "blurb": "FT reports Berlin setting terms in the EU budget negotiations.", "author": null},
@@ -1068,14 +1071,6 @@ export const ARTICLES = {
     {"title": "Trump-Xi summit: Stability, not a breakthrough", "source": "FXStreet", "date": "2026-09-25", "url": "https://www.fxstreet.com/analysis/trump-xi-summit-stability-not-a-breakthrough-202609251127", "blurb": "FXStreet's read on the summit: markets should treat the truce extension as a stabiliser rather than a genuine breakthrough on the underlying US-China trade and tech tensions.", "author": null},
     {"title": "Xi Seizes Trump Detente to Seek Lasting Gains on Trade, Taiwan", "source": "Bloomberg", "date": "2026-09-25", "url": "https://www.bloomberg.com/news/articles/2026-09-25/xi-seizes-trump-detente-to-seek-lasting-gains-on-trade-taiwan", "blurb": "Bloomberg reports Beijing is using the improved atmospherics from the summit to press for durable concessions on trade and Taiwan rather than settling for a short-term truce.", "author": null},
     {"title": "Oil slips to $106 as US, Iran weigh phased deal to reopen Strait of Hormuz", "source": "Invezz", "date": "2026-09-25", "url": "https://invezz.com/news/2026/09/25/oil-slips-to-106-as-us-iran-weigh-phased-deal-to-reopen-strait-of-hormuz/", "blurb": "Brent eased to around $106 as US and Iranian negotiators explored a phased path to reopening the Strait of Hormuz in exchange for easing the US naval blockade.", "author": null},
-    {"title": "Treasury yields rise again to end a volatile week", "source": "CNBC", "date": "2026-09-25", "time": "16:18", "url": "https://www.cnbc.com/2026/09/25/treasury-yields-bonds-debt.html", "blurb": "The 10-year Treasury yield rose more than 4bp to 5.209% and the 30-year climbed to 5.516% Friday, extending this week's global bond sell-off (Japanese, UK and eurozone yields all hit fresh highs) on hawkish Fed commentary from Governor Michael Barr, elevated energy prices and a hot flash PMI print.", "author": null},
-    {"title": "US Consumer Sentiment Falls on Concerns About Prices, Economy", "source": "Bloomberg", "date": "2026-09-25", "time": "16:18", "url": "https://www.bloomberg.com/news/articles/2026-09-25/us-consumer-sentiment-falls-on-concerns-about-prices-economy", "blurb": "The University of Michigan's final September consumer-sentiment index fell to 48.1 — down from August's 51.7 though above the preliminary 47.8 and the 47.5 consensus — as households remained anxious about prices and the broader economy.", "author": null},
-    {"title": "Americans still feel worse about the economy than at almost any point in modern history", "source": "CNN Business", "date": "2026-09-25", "time": "16:18", "url": "https://www.cnn.com/2026/09/25/economy/us-consumer-sentiment-final-september", "blurb": "The four lowest-ever readings in the University of Michigan's consumer-sentiment survey, running since 1952, have all landed within the past six months — worse than during wars, the 1970s oil crisis, 9/11, the Great Recession and the pandemic-era inflation surge.", "author": null},
-    {"title": "Stock Market Today (Sept. 25, 2026): S&P 500 edges higher amid easing oil prices", "source": "Yahoo Finance", "date": "2026-09-25", "time": "16:18", "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-sept-25-134126022.html", "blurb": "US stocks were little changed to modestly higher Friday as Brent crude eased on hopes for a phased Strait of Hormuz reopening, capping a volatile week dominated by the multi-decade-high Treasury-yield sell-off.", "author": null},
-    {"title": "BoE's Bailey says high energy prices make it harder to leave rates on hold", "source": "Reuters (via Investing.com)", "date": "2026-09-25", "time": "10:05", "url": "https://www.investing.com/news/economy-news/boes-bailey-says-high-energy-prices-make-it-harder-to-leave-rates-on-hold-4917012", "blurb": "Bank of England Governor Andrew Bailey told Oxford's Monetary Economics Conference it will 'get harder to maintain' a hold the longer energy prices stay elevated, saying the Bank cannot wait for full evidence on second-round effects even though signs of those effects remain 'quite subdued' so far — with markets now pricing roughly 80% odds of a November hike.", "author": null},
-    {"title": "Morgan Stanley now expects two quarterly BoE hikes amid tough fiscal backdrop", "source": "Reuters (via Investing.com)", "date": "2026-09-25", "url": "https://www.investing.com/news/economy-news/morgan-stanley-now-expects-two-quarterly-boe-hikes-amid-tough-fiscal-backdrop-4917094", "blurb": "Morgan Stanley formally dropped its no-hike call, now expecting the BoE to raise Bank Rate 25bp in both November and February as elevated energy prices and a strained fiscal backdrop keep tightening risk alive.", "author": null},
-    {"title": "Durable Goods Orders Flatline, Missing Forecasts and Previous Gains", "source": "Investing.com", "date": "2026-09-25", "time": "12:30", "url": "https://www.investing.com/news/economic-indicators/durable-goods-orders-flatline-missing-forecasts-and-previous-gains-93CH-4917496", "blurb": "US durable goods orders were roughly flat in August (-$0.1bn to $338.6bn) following July's 0.9% rise, as a drop in transport equipment offset gains in machinery, computers and primary metals, per the Census Bureau's advance report.", "author": null},
-    {"title": "Treasury Volatility Set for Biggest Jump in Year as Bonds Churn", "source": "Bloomberg", "date": "2026-09-25", "url": "https://www.bloomberg.com/news/articles/2026-09-25/treasury-volatility-set-for-biggest-jump-in-year-as-bonds-churn", "blurb": "A gauge of Treasury-market volatility is on pace for its biggest weekly jump since the April 'Liberation Day' tariff shock, as the bond sell-off that has pushed long-end yields to multi-decade highs churns through rates markets.", "author": null},
   ],
 };
 

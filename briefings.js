@@ -44,12 +44,12 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-30",
-      time: "05:12 BST",
-      lede: "Wednesday starts with energy politics and long-dated borrowing costs still driving the tape &mdash; US fuel-export policy and euro-area credit worries sit alongside the PCE and payrolls prints due this week.",
+      time: "08:13 BST",
+      lede: "Wednesday&rsquo;s tape is about whether the bond sell-off has paused &mdash; a firmer UK growth revision and a US fuel-export row over energy costs frame the day ahead of the PCE and GDP prints.",
       bullets: [
+        { html: "<strong>Macro &mdash; the ONS has revised UK second-quarter growth up</strong>, the FT reports, saying the economy grew faster than first estimated.", src: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; the White House is holding crunch talks on a diesel export ban as the US midterms near</strong>, the FT reports, putting fuel prices squarely in the political frame.", src: "https://www.ft.com/content/562f2988-0c04-4669-b0b7-2c16d3821926", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; Vanguard warns France is &lsquo;degrading credit&rsquo; as its borrowing costs surge</strong>, the FT reports, adding a euro-area angle to the global bond sell-off.", src: "https://www.ft.com/content/7820a84f-338e-4b91-a9b6-241a9bf81539", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; Bloomberg says this week&rsquo;s US data is seen bolstering the case for an October Fed rate hike</strong>, with a negative surprise the most probable trigger for a bond turnaround.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
+        { html: "<strong>Fixed income &mdash; bond markets steadied after the recent sell-off</strong>, the FT reports, with the UK energy price cap also forecast to rise to nearly &pound;2,000 as the Iran war lifts prices.", src: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the S&amp;P 500 fell on Tuesday as easing oil prices and Treasury yields failed to lift sentiment</strong>, per TheStreet&rsquo;s market wrap.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026", srcName: "TheStreet" },
       ],
     },
