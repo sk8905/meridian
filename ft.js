@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "a3075bf9-5b6c-40c8-bb6b-aca4422d1cbb",
+    title: "US competition watchdog expands investigation of Anthropic and OpenAI",
+    date: "2026-09-30",
+    time: "18:07",
+    url: "https://www.ft.com/content/a3075bf9-5b6c-40c8-bb6b-aca4422d1cbb",
+  },
+  {
+    id: "78431eef-50ee-4ec9-9ca6-af801da1e617",
+    title: "Fed watchdog finds ‘deficiencies’ but no criminal wrongdoing in $2.5bn renovation project",
+    date: "2026-09-30",
+    time: "18:00",
+    url: "https://www.ft.com/content/78431eef-50ee-4ec9-9ca6-af801da1e617",
+  },
+  {
+    id: "f5e98843-7625-4999-9b99-c03f2ec26c4c",
+    title: "To fix housing affordability, build more homes",
+    date: "2026-09-30",
+    time: "17:44",
+    url: "https://www.ft.com/content/f5e98843-7625-4999-9b99-c03f2ec26c4c",
+  },
+  {
+    id: "0d74d66a-a9ee-4c22-83ab-9df6452117de",
+    title: "US oil industry warns diesel prices will not return to normal for a year",
+    date: "2026-09-30",
+    time: "17:20",
+    url: "https://www.ft.com/content/0d74d66a-a9ee-4c22-83ab-9df6452117de",
+  },
+  {
+    id: "e9f2345f-6d7b-4fbb-831a-5fe576317701",
+    title: "National care service may not launch until late 2030s, suggests Burnham",
+    date: "2026-09-30",
+    time: "17:11",
+    url: "https://www.ft.com/content/e9f2345f-6d7b-4fbb-831a-5fe576317701",
+  },
+  {
     id: "bb557b06-6880-4bae-a719-fbd733c63787",
     title: "‘Strong indications’ Iran was involved in RAF Fairford incident, says Andy Burnham",
     date: "2026-09-30",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "06:30",
     url: "https://www.ft.com/content/b17c3f84-518c-4838-a3ae-8474d23157b7",
-  },
-  {
-    id: "77c71290-89c4-4ed5-8b05-2c1b22eff911",
-    title: "FTAV’s further reading",
-    date: "2026-09-30",
-    time: "06:30",
-    url: "https://www.ft.com/content/77c71290-89c4-4ed5-8b05-2c1b22eff911",
-  },
-  {
-    id: "f7e67172-080e-4c03-9ab1-1b1f79719d63",
-    title: "EU decarbonisation incentives do not add up, says US chemicals giant",
-    date: "2026-09-30",
-    time: "06:00",
-    url: "https://www.ft.com/content/f7e67172-080e-4c03-9ab1-1b1f79719d63",
-  },
-  {
-    id: "80c78c90-97b2-48db-84e0-26975f47305e",
-    title: "Bank runs are almost always justified",
-    date: "2026-09-30",
-    time: "06:00",
-    url: "https://www.ft.com/content/80c78c90-97b2-48db-84e0-26975f47305e",
-  },
-  {
-    id: "59cdbba3-55b2-4853-90ab-ce94b36cebb0",
-    title: "Political Fix from the Labour Party conference: Hope again?",
-    date: "2026-09-30",
-    time: "05:43",
-    url: "https://www.ft.com/content/59cdbba3-55b2-4853-90ab-ce94b36cebb0",
-  },
-  {
-    id: "49472d62-8f94-4bb9-9a3a-24017a3156ac",
-    title: "Political Fix from the Labour Party conference: Hope again?",
-    date: "2026-09-30",
-    time: "05:40",
-    url: "https://www.ft.com/content/49472d62-8f94-4bb9-9a3a-24017a3156ac",
   },
 ];
