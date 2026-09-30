@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "bb557b06-6880-4bae-a719-fbd733c63787",
+    title: "‘Strong indications’ Iran was involved in RAF Fairford incident, says Andy Burnham",
+    date: "2026-09-30",
+    time: "17:00",
+    url: "https://www.ft.com/content/bb557b06-6880-4bae-a719-fbd733c63787",
+  },
+  {
+    id: "c05f3ba5-e24e-4c88-86ed-04f4b229cd15",
+    title: "Don’t own bonds and be cautious with stocks",
+    date: "2026-09-30",
+    time: "16:53",
+    url: "https://www.ft.com/content/c05f3ba5-e24e-4c88-86ed-04f4b229cd15",
+  },
+  {
+    id: "3e84fbcb-d064-46f8-be79-44060a722447",
+    title: "Andy Burnham tightens his hold on Labour",
+    date: "2026-09-30",
+    time: "16:35",
+    url: "https://www.ft.com/content/3e84fbcb-d064-46f8-be79-44060a722447",
+  },
+  {
+    id: "f52f7b0e-be7d-414c-b19d-d78a3a5f4882",
+    title: "How will Donald Trump ‘accord’ for AI to ‘self-regulate’ work?",
+    date: "2026-09-30",
+    time: "16:31",
+    url: "https://www.ft.com/content/f52f7b0e-be7d-414c-b19d-d78a3a5f4882",
+  },
+  {
+    id: "16b9d519-faf6-4dbe-863a-5821e54021cc",
+    title: "What are Andy Burnham’s options on Europe?",
+    date: "2026-09-30",
+    time: "16:12",
+    url: "https://www.ft.com/content/16b9d519-faf6-4dbe-863a-5821e54021cc",
+  },
+  {
     id: "5e39d12d-c088-458f-9b03-0594292f772e",
     title: "SEC proposes performance fees for retail funds in private markets push",
     date: "2026-09-30",
@@ -140,13 +175,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/fc705366-9a91-4e99-9c07-e962dca6354b",
   },
   {
-    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
-    title: "Submit a question: What’s next for the global economy?",
-    date: "2026-09-30",
-    time: "11:20",
-    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d",
-  },
-  {
     id: "d36aa5b9-d770-4800-ba76-70bfbb62f4a7",
     title: "Trump’s coal drive plays into Beijing’s hands",
     date: "2026-09-30",
@@ -159,6 +187,13 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "11:35",
     url: "https://www.ft.com/content/3b926f6b-d9a4-4252-90da-5a336a5276e7",
+  },
+  {
+    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
+    title: "Submit a question: What’s next for the global economy?",
+    date: "2026-09-30",
+    time: "11:20",
+    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d",
   },
   {
     id: "5bb621fa-2c18-4384-80ab-4a72e51b139a",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "05:40",
     url: "https://www.ft.com/content/49472d62-8f94-4bb9-9a3a-24017a3156ac",
-  },
-  {
-    id: "f4d105d9-992a-44f9-89d8-d9a4648e30f1",
-    title: "Night owls more likely to claim disability benefits",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/f4d105d9-992a-44f9-89d8-d9a4648e30f1",
-  },
-  {
-    id: "9705f5bf-bc06-481d-b2a3-1299463074b8",
-    title: "AI industry moves to thwart data centre backlash ahead of US midterms",
-    date: "2026-09-30",
-    time: "05:01",
-    url: "https://www.ft.com/content/9705f5bf-bc06-481d-b2a3-1299463074b8",
-  },
-  {
-    id: "ef6c9b07-0a02-4cb2-aa91-e486846e6ce0",
-    title: "The crucial things Anthropic’s jumbo ‘risk factors’ won’t tell you",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/ef6c9b07-0a02-4cb2-aa91-e486846e6ce0",
-  },
-  {
-    id: "a1202ae1-0324-4383-a082-4cc522a8fdbc",
-    title: "Is the world really drowning in debt?",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/a1202ae1-0324-4383-a082-4cc522a8fdbc",
-  },
-  {
-    id: "562f2988-0c04-4669-b0b7-2c16d3821926",
-    title: "White House holds crunch talks on diesel export ban as midterms near",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/562f2988-0c04-4669-b0b7-2c16d3821926",
   },
 ];
