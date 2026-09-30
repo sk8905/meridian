@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "46194a0b-a0e4-42cc-ad40-0df753492768",
+    title: "Google releases most advanced Gemini AI model",
+    date: "2026-09-30",
+    time: "21:09",
+    url: "https://www.ft.com/content/46194a0b-a0e4-42cc-ad40-0df753492768",
+  },
+  {
+    id: "ef10b301-6264-4ac8-8d23-bd3dddf9b8a2",
+    title: "Burnham clears path to EU summit with post-Brexit breakthrough",
+    date: "2026-09-30",
+    time: "21:00",
+    url: "https://www.ft.com/content/ef10b301-6264-4ac8-8d23-bd3dddf9b8a2",
+  },
+  {
     id: "c3a6e3b7-e998-43f0-82b2-f197e5d1730b",
     title: "Boots owner nearing $9bn sale of chemist to Canada’s Weston family",
     date: "2026-09-30",
@@ -47,6 +61,13 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "19:10",
     url: "https://www.ft.com/content/81a5e13f-0a9c-4de2-b02d-f291fccae797",
+  },
+  {
+    id: "cd22d20a-3b65-4534-ac04-f5008810e10a",
+    title: "Bond markets resume sell-off after strong US data",
+    date: "2026-09-30",
+    time: "18:25",
+    url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a",
   },
   {
     id: "a3075bf9-5b6c-40c8-bb6b-aca4422d1cbb",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "09:30",
     url: "https://www.ft.com/content/3b5b46d7-2dcf-40f0-82f3-65ab6e4be76b",
-  },
-  {
-    id: "2a62022e-219b-4eb2-b5d7-c2bb01688acc",
-    title: "Singapore’s Temasek to open first Middle East outposts",
-    date: "2026-09-30",
-    time: "09:00",
-    url: "https://www.ft.com/content/2a62022e-219b-4eb2-b5d7-c2bb01688acc",
-  },
-  {
-    id: "a07f7faf-7b49-4988-910f-5768f3214f71",
-    title: "‘Big names in AI like Kyndryl’",
-    date: "2026-09-30",
-    time: "08:38",
-    url: "https://www.ft.com/content/a07f7faf-7b49-4988-910f-5768f3214f71",
-  },
-  {
-    id: "d740f13d-38bc-4460-bcd5-2922472fc209",
-    title: "Andy Burnham says rejoining EU an option for the UK",
-    date: "2026-09-30",
-    time: "07:58",
-    url: "https://www.ft.com/content/d740f13d-38bc-4460-bcd5-2922472fc209",
   },
 ];
