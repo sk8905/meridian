@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "81a5e13f-0a9c-4de2-b02d-f291fccae797",
+    title: "UK retreats on climate reporting rules for listed companies",
+    date: "2026-09-30",
+    time: "19:10",
+    url: "https://www.ft.com/content/81a5e13f-0a9c-4de2-b02d-f291fccae797",
+  },
+  {
     id: "a3075bf9-5b6c-40c8-bb6b-aca4422d1cbb",
     title: "US competition watchdog expands investigation of Anthropic and OpenAI",
     date: "2026-09-30",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "06:43",
     url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a",
-  },
-  {
-    id: "b17c3f84-518c-4838-a3ae-8474d23157b7",
-    title: "Midterms and the market",
-    date: "2026-09-30",
-    time: "06:30",
-    url: "https://www.ft.com/content/b17c3f84-518c-4838-a3ae-8474d23157b7",
   },
 ];

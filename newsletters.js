@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-aiagentspayattention-20260930",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: AI Agents Will Pay Attention",
+    date: "2026-09-30",
+    time: "18:46",
+    summary: "Man City, cotton, Waldron.",
+    url: "https://bloom.bg/4xUux5q",
+  },
+  {
     id: "nl-preqin-firstclose-southkoreainfra-20260930",
     publication: "Preqin",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "12:02",
     summary: "Investors veto blind pools and blank checks in favor of deal-by-deal vehicles.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-25/no-more-blank-checks-investors-swap-blind-funds-for-bespoke-spvs",
-  },
-  {
-    id: "nl-bbg-economicsdaily-pandadiplomacy-20260925",
-    publication: "Bloomberg",
-    author: "Malcolm Scott",
-    series: "Economics Daily",
-    title: "Economics Daily: From Ling-Ling to Ping-Ping",
-    date: "2026-09-25",
-    time: "12:00",
-    summary: "Panda diplomacy warms up as Presidents Trump and Xi stabilize their competitive relationship.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-25/panda-diplomacy-shows-thawing-us-china-ties-as-xi-and-trump-meet",
   },
 ];
