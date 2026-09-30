@@ -56,12 +56,12 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-09-30",
-      time: "12:15 BST",
-      lede: "Wednesday midday finds bond markets steadying after the long-end sell-off, with a firmer UK growth print and an oil rebound keeping both central-bank hike debates live into the week's US inflation data.",
+      time: "16:15 BST",
+      lede: "Wednesday afternoon brings softer US PCE inflation that eases the case for Fed hikes, while the Bank of England warns that surging AI-related debt raises the risk of a sharp market correction.",
       bullets: [
-        { html: "<strong>Macro &mdash; the ONS revised UK second-quarter growth up to 0.5% from 0.4%</strong>, and sterling rose from a two-month low as markets kept betting on a Bank of England hike on 5 November.", src: "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/", srcName: "investingLive" },
-        { html: "<strong>Macro &mdash; oil climbed after Trump denied he would ease sanctions on Iran</strong>, per CNBC, while the FT reports the White House is holding crunch talks on a diesel export ban with the midterms approaching.", src: "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; bond markets steadied after the sell-off</strong>, the FT reports, following Tuesday's 24-year high in the US 30-year Treasury yield.", src: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; weak PCE inflation eased pressure for further Fed rate increases</strong>, the FT reports, while the ONS revised UK second-quarter growth up to 0.5% from 0.4%.", src: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; bond markets steadied after the sell-off despite strong US data</strong>, the FT reports, following Tuesday's 24-year high in the US 30-year Treasury yield.", src: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the Bank of England warned that an AI debt surge raises the risk of a sharp market correction</strong>, per the FT.", src: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the Dow, S&amp;P 500 and Nasdaq wobbled on Tuesday</strong> as the long-bond yield surge weighed on sentiment, per Yahoo Finance's market wrap.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
       ],
     },

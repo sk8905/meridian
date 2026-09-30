@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-30",
-  lastCheckedTime: "14:20 BST",
+  lastCheckedTime: "16:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,17 +1006,17 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-30",
   us: [
-    { title: "White House holds crunch talks on diesel export ban as midterms near", source: "Financial Times", date: "2026-09-30", time: "05:00", url: "https://www.ft.com/content/562f2988-0c04-4669-b0b7-2c16d3821926" },
-    { title: "Bond markets steady after sell-off", source: "Financial Times", date: "2026-09-30", time: "06:43", url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a" },
+    { title: "Weak PCE inflation eases pressure for Fed rate increases", source: "Financial Times", date: "2026-09-30", time: "15:24", url: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b" },
+    { title: "Bond markets steady after sell-off despite strong US data", source: "Financial Times", date: "2026-09-30", time: "15:52", url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a" },
     { title: "Oil climbs after Trump denies he is willing to ease sanctions on Iran", source: "CNBC", date: "2026-09-30", time: "10:13", url: "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html" },
     { title: "US consumer confidence dives to more than 12-year low in September", source: "Reuters (via Investing.com)", date: "2026-09-29", time: "10:13", url: "https://www.investing.com/news/economic-indicators/us-consumer-confidence-dives-to-more-than-12year-low-in-september-4923037" },
     { title: "Stock market today: Dow, S&P 500, Nasdaq wobble as 30-year Treasury yield climbs to 24-year high", source: "Yahoo Finance", date: "2026-09-29", time: "10:13", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html" },
   ],
   uk: [
+    { title: "AI debt surge raises risk of sharp market correction, warns Bank of England", source: "Financial Times", date: "2026-09-30", time: "15:02", url: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749" },
     { title: "UK economy grows faster than first estimated in second quarter", source: "Financial Times", date: "2026-09-30", time: "07:18", url: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63" },
     { title: "UK energy price cap forecast to rise to nearly £2,000 as Iran war drives up prices", source: "Financial Times", date: "2026-09-30", time: "07:44", url: "https://www.ft.com/content/3c98053f-2a54-4352-8220-0d0269a00d14" },
     { title: "UK Q2 final GDP +0.5% vs +0.4% q/q prelim", source: "investingLive", date: "2026-09-30", time: "10:13", url: "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/" },
-    { title: "Pound Sterling Today: GBP Rises As UK GDP Growth Revised To 0.5%", source: "Exchange Rates UK", date: "2026-09-30", time: "10:13", url: "https://www.exchangerates.org.uk/news/47311/2026-09-30-pound-sterling-today-gbp-rises-as-uk-gdp-growth-revised-to-0-5.html" },
     { title: "Gilts Extend Gains as UK Yields Drop With Oil, Gas Prices Hitting New Lows", source: "Bloomberg", date: "2026-09-29", time: "10:13", url: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat" },
   ],
 };
