@@ -45,6 +45,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-treasuryyields-20260930",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Treasury yields hit 24-year high",
+    date: "2026-09-30",
+    time: "05:59",
+    summary: "Also: The new battle for Iraq.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
+    id: "nl-bbg-pointsofreturn-bondreckoning-20260930",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "The Bond Market Reckoning Has Only Begun",
+    date: "2026-09-30",
+    time: "05:40",
+    summary: "The effects are starting to be felt in Europe.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-30/the-big-bond-market-shift-is-impacting-europe",
+  },
+  {
     id: "nl-reuters-tradingday-stocksstillinbondsgrip-20260929",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",

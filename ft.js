@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "f7e67172-080e-4c03-9ab1-1b1f79719d63",
+    title: "EU decarbonisation incentives do not add up, says US chemicals giant",
+    date: "2026-09-30",
+    time: "06:00",
+    url: "https://www.ft.com/content/f7e67172-080e-4c03-9ab1-1b1f79719d63",
+  },
+  {
+    id: "80c78c90-97b2-48db-84e0-26975f47305e",
+    title: "Bank runs are almost always justified",
+    date: "2026-09-30",
+    time: "06:00",
+    url: "https://www.ft.com/content/80c78c90-97b2-48db-84e0-26975f47305e",
+  },
+  {
+    id: "59cdbba3-55b2-4853-90ab-ce94b36cebb0",
+    title: "Political Fix from the Labour Party conference: Hope again?",
+    date: "2026-09-30",
+    time: "05:43",
+    url: "https://www.ft.com/content/59cdbba3-55b2-4853-90ab-ce94b36cebb0",
+  },
+  {
+    id: "49472d62-8f94-4bb9-9a3a-24017a3156ac",
+    title: "Political Fix from the Labour Party conference: Hope again?",
+    date: "2026-09-30",
+    time: "05:40",
+    url: "https://www.ft.com/content/49472d62-8f94-4bb9-9a3a-24017a3156ac",
+  },
+  {
+    id: "f4d105d9-992a-44f9-89d8-d9a4648e30f1",
+    title: "Night owls more likely to claim disability benefits",
+    date: "2026-09-30",
+    time: "05:00",
+    url: "https://www.ft.com/content/f4d105d9-992a-44f9-89d8-d9a4648e30f1",
+  },
+  {
     id: "9705f5bf-bc06-481d-b2a3-1299463074b8",
     title: "AI industry moves to thwart data centre backlash ahead of US midterms",
     date: "2026-09-30",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "17:09",
     url: "https://www.ft.com/content/befb8435-1418-43ed-8efe-19fd218e468e",
-  },
-  {
-    id: "122a29d3-da08-4ffc-8add-aed427781659",
-    title: "Burnham’s brave new world — just one more election away",
-    date: "2026-09-29",
-    time: "17:04",
-    url: "https://www.ft.com/content/122a29d3-da08-4ffc-8add-aed427781659",
-  },
-  {
-    id: "525c4aa1-2d36-47e4-b3ec-2d8f6ebf9060",
-    title: "Low-hire, low-fire US labour market is no worry for Fed rate-setters",
-    date: "2026-09-29",
-    time: "16:25",
-    url: "https://www.ft.com/content/525c4aa1-2d36-47e4-b3ec-2d8f6ebf9060",
-  },
-  {
-    id: "c8693313-7750-40c7-892a-101ab16dec70",
-    title: "US 30-year Treasury yield hits highest since 2002",
-    date: "2026-09-29",
-    time: "16:25",
-    url: "https://www.ft.com/content/c8693313-7750-40c7-892a-101ab16dec70",
-  },
-  {
-    id: "5a1da44f-27c8-485c-a1ed-169a361d2b38",
-    title: "Barclays waters down return-to-office mandate after staff backlash",
-    date: "2026-09-29",
-    time: "15:12",
-    url: "https://www.ft.com/content/5a1da44f-27c8-485c-a1ed-169a361d2b38",
-  },
-  {
-    id: "fa48c931-bafd-487a-b5a5-eff93fdcf53f",
-    title: "China unveils mortgage subsidies to boost economy",
-    date: "2026-09-29",
-    time: "15:08",
-    url: "https://www.ft.com/content/fa48c931-bafd-487a-b5a5-eff93fdcf53f",
   },
 ];
