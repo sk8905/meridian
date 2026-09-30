@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c3a6e3b7-e998-43f0-82b2-f197e5d1730b",
+    title: "Boots owner nearing $9bn sale of chemist to Canada’s Weston family",
+    date: "2026-09-30",
+    time: "19:59",
+    url: "https://www.ft.com/content/c3a6e3b7-e998-43f0-82b2-f197e5d1730b",
+  },
+  {
+    id: "ecc95946-92ed-426c-bcf9-e6575e1cf6c6",
+    title: "18,000 feet in 90 seconds: Inside Flydubai’s near-catastrophe",
+    date: "2026-09-30",
+    time: "19:31",
+    url: "https://www.ft.com/content/ecc95946-92ed-426c-bcf9-e6575e1cf6c6",
+  },
+  {
+    id: "08109881-f33c-43e0-9dc6-fc3a00d4e35b",
+    title: "How the UAE became a destination for Israelis",
+    date: "2026-09-30",
+    time: "19:30",
+    url: "https://www.ft.com/content/08109881-f33c-43e0-9dc6-fc3a00d4e35b",
+  },
+  {
     id: "81a5e13f-0a9c-4de2-b02d-f291fccae797",
     title: "UK retreats on climate reporting rules for listed companies",
     date: "2026-09-30",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "07:58",
     url: "https://www.ft.com/content/d740f13d-38bc-4460-bcd5-2922472fc209",
-  },
-  {
-    id: "3c98053f-2a54-4352-8220-0d0269a00d14",
-    title: "UK energy price cap forecast to rise to nearly £2,000 as Iran war drives up prices",
-    date: "2026-09-30",
-    time: "07:44",
-    url: "https://www.ft.com/content/3c98053f-2a54-4352-8220-0d0269a00d14",
-  },
-  {
-    id: "00d798b3-1579-4bc6-88bf-a1f99ba85a63",
-    title: "UK economy grows faster than first estimated in second quarter",
-    date: "2026-09-30",
-    time: "07:18",
-    url: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63",
-  },
-  {
-    id: "cd22d20a-3b65-4534-ac04-f5008810e10a",
-    title: "Bond markets steady after sell-off",
-    date: "2026-09-30",
-    time: "06:43",
-    url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a",
   },
 ];
