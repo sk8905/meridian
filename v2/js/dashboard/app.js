@@ -1062,17 +1062,9 @@ export function mount(host, ctx) {
     const rail = sec.news
       ? `<aside class="dsh-newsrail"><h3 class="dsh-term-lbl">${esc(sec.newsLabel || "Wire")}</h3>${sec.news}</aside>`
       : "";
-    // A search scoped to THIS Dashboard section, sitting BENEATH the section chips
-    // (not the global palette band, which is retired here). Legal opts out — it
-    // carries its own case-law search. Re-created on each section switch, so it is
-    // always specific to the visible section, and filters that section's cards/rows
-    // in place via _dshFilter (matches the Profiles / Transactions pattern).
-    const secLabel = (SUBTABS.find(([k]) => k === pane) || [])[1] || "";
-    const searchBar = pane === "legal" ? ""
-      : `<header class="tpanel-h thead-search dsh-search"><input type="search" class="tsearch dsh-q" placeholder="Search ${esc(secLabel)}…" aria-label="Search ${esc(secLabel)}"></header>`;
     host.innerHTML = `<div class="dsh"><div class="dsh-3z${sec.news ? "" : " dsh-norail"}" data-pane="${esc(pane)}">
       <nav class="dsh-railnav" aria-label="Dashboard sections">${nav}</nav>
-      <main class="dsh-mid">${searchBar}${sec.mid}</main>
+      <main class="dsh-mid">${sec.mid}</main>
       ${rail}
     </div></div>`;
     if (pane === "macro") loadYieldCurve();
@@ -1094,29 +1086,6 @@ export function mount(host, ctx) {
     const a = e.target.closest(".dsh-navchip[data-sub], .tchip[data-sub]");
     if (a) { e.preventDefault(); e.stopPropagation(); pane = a.dataset.sub; render(); try { history.replaceState(null, "", a.getAttribute("href")); } catch { /* */ } }
   });
-  // Per-section search: filter the visible section's cards/rows in place. A card's
-  // ROWS (key-values, table rows, index/spread/report lines) are matched one by one;
-  // a card survives if any row matches OR its heading matches. Cards with no rows
-  // (a chart or single stat) match on their whole text. Empty query restores all.
-  const _DSH_ROWS = ".dsh-kv, .dsh-tbl tbody tr, .dsh-idx, .dsh-sec, .dsh-spread, .dsh-pc-report, .dsh-lgl-i";
-  function _dshFilter(q) {
-    q = (q || "").trim().toLowerCase();
-    const mid = host.querySelector(".dsh-mid"); if (!mid) return;
-    mid.querySelectorAll(".dsh-card").forEach((card) => {
-      const rows = [...card.querySelectorAll(_DSH_ROWS)];
-      if (!q) { card.hidden = false; rows.forEach((r) => { r.hidden = false; }); return; }
-      if (rows.length) {
-        let any = false;
-        rows.forEach((r) => { const m = r.textContent.toLowerCase().includes(q); r.hidden = !m; if (m) any = true; });
-        const head = ((card.querySelector(".dsh-h, h3, .dsh-term-lbl") || {}).textContent || "").toLowerCase();
-        card.hidden = !any && !head.includes(q);
-      } else {
-        card.hidden = !card.textContent.toLowerCase().includes(q);
-      }
-    });
-  }
-  host.addEventListener("input", (e) => { if (e.target.classList && e.target.classList.contains("dsh-q")) _dshFilter(e.target.value); });
-
   const subFromUrl = () => {
     const parts = location.pathname.split("/").filter(Boolean);
     const i = parts.indexOf("dashboard");

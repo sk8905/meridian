@@ -41,16 +41,16 @@ for (const [key, label] of [["macro", "Macro"]]) {
   check(st.q && !st.aum, `${label}: search band present, no AUM button`);
 }
 
-// The DASHBOARD no longer carries the global palette band — each section has its own
-// search beneath the chips instead (see dashboard-search.mjs for the behaviour).
+// The DASHBOARD carries NO search bar — neither the global palette band above the
+// chips nor a per-section search beneath them (both removed).
 await tap("dashboard");
 await pg.waitForTimeout(500);
 const dsh = await pg.evaluate(() => {
   const v = document.querySelector('.v2-view[data-view="dashboard"]');
-  return { noBand: !(v && v.querySelector(".wire-band")), sectionSearch: !!(v && v.querySelector(".dsh-search .dsh-q")) };
+  return { noBand: !(v && v.querySelector(".wire-band")), noSearch: !(v && v.querySelector(".dsh-search, .dsh-q")) };
 });
 check(dsh.noBand, "Dashboard: the global palette band above the chips is gone");
-check(dsh.sectionSearch, "Dashboard: a per-section search sits beneath the chips instead");
+check(dsh.noSearch, "Dashboard: no search bar (the per-section search is removed)");
 
 checkErrs(errs, "search band");
 await ctx.close();

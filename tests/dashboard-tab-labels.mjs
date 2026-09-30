@@ -38,26 +38,26 @@ const desk = await visibleLabels(DESKTOP);
 checkEq(desk.fi, "Fixed Income", "Desktop rail: Fixed Income keeps the full label");
 checkEq(desk.hf, "Hedge Funds", "Desktop rail: Hedge Funds keeps the full label");
 
-// Phones: the section tabs pin directly under the fixed Wire header, and the
-// per-section search pins directly BELOW the tabs (the old global top band is gone).
+// Phones: the section tabs pin directly under the fixed Wire header (the old global
+// top band and the per-section search are both gone — the Dashboard has no search bar).
 {
   const { ctx, pg } = await open(b, PHONE, base + "/v2/dashboard/credit/");
   await pg.waitForTimeout(1500);
   await pg.evaluate(() => window.scrollTo(0, 900));
   await pg.waitForTimeout(150);
   const s = await pg.evaluate(() => {
-    const rail = document.querySelector(".dsh-railnav"), search = document.querySelector(".dsh-search");
+    const rail = document.querySelector(".dsh-railnav");
     const whh = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 57;
-    const rr = rail.getBoundingClientRect(), sr = search ? search.getBoundingClientRect() : null;
+    const rr = rail.getBoundingClientRect();
     return { whh: Math.round(whh), noTopBand: !document.querySelector(".dsh > .wire-band"),
+      noSearch: !document.querySelector(".dsh-search, .dsh-q"),
       railPos: getComputedStyle(rail).position, railTop: Math.round(rr.top), railBot: Math.round(rr.bottom),
-      searchPos: search ? getComputedStyle(search).position : null, searchTop: sr ? Math.round(sr.top) : null,
       scrolled: window.scrollY };
   });
   check(s.scrolled > 50, `dashboard page scrolls on phone (${s.scrolled}px)`);
   check(s.noTopBand, "the global search band above the chips is gone");
+  check(s.noSearch, "the Dashboard carries no search bar");
   check(s.railPos === "sticky" && Math.abs(s.railTop - s.whh) <= 3, `section tabs stay pinned directly under the header (tabs ${s.railTop} ≈ header ${s.whh})`);
-  check(s.searchPos === "sticky" && Math.abs(s.searchTop - s.railBot) <= 3, `the section search pins directly below the tabs (search ${s.searchTop} ≈ tabs bottom ${s.railBot})`);
   await ctx.close();
 }
 
