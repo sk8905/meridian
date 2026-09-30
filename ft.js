@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5c1ccafc-c3e6-49c1-8cdc-b9ed73627749",
+    title: "AI debt surge raises risk of sharp market correction, warns Bank of England",
+    date: "2026-09-30",
+    time: "15:02",
+    url: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749",
+  },
+  {
     id: "33449ea5-428b-4080-bdf6-ff5843bbd3cd",
     title: "KKR warns of growing credit market risks from AI borrowing spree",
     date: "2026-09-30",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "05:00",
     url: "https://www.ft.com/content/9e374fbf-5bed-4452-8fa1-5f91ff4bd7bc",
-  },
-  {
-    id: "8c0d8f2a-5f81-4dac-b8f0-6b91328ba768",
-    title: "Liberated by technology (again)",
-    date: "2026-09-30",
-    time: "05:00",
-    url: "https://www.ft.com/content/8c0d8f2a-5f81-4dac-b8f0-6b91328ba768",
   },
 ];
