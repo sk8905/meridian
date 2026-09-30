@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-dollarrally-20260930",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: Dollar rally",
+    date: "2026-09-30",
+    time: "11:08",
+    summary: "Surge in bond yields is spilling over to the dollar; plus, high-stakes Micron earnings.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-30/surge-in-bond-yields-is-spilling-over-to-the-dollar",
+  },
+  {
     id: "nl-thelawyer-newsdaily-citefirmseurope-20260930",
     publication: "The Lawyer",
     author: null,

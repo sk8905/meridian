@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5bb621fa-2c18-4384-80ab-4a72e51b139a",
+    title: "Aliko Dangote’s $16bn oil refinery project paused by Kenyan court",
+    date: "2026-09-30",
+    time: "10:35",
+    url: "https://www.ft.com/content/5bb621fa-2c18-4384-80ab-4a72e51b139a",
+  },
+  {
     id: "1c7bafaf-e7cd-47a8-9c69-150f4c04d4d2",
     title: "Andy Burnham’s courageous speech had one striking omission",
     date: "2026-09-30",
