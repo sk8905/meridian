@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1c7bafaf-e7cd-47a8-9c69-150f4c04d4d2",
+    title: "Andy Burnham’s courageous speech had one striking omission",
+    date: "2026-09-30",
+    time: "09:40",
+    url: "https://www.ft.com/content/1c7bafaf-e7cd-47a8-9c69-150f4c04d4d2",
+  },
+  {
+    id: "3b5b46d7-2dcf-40f0-82f3-65ab6e4be76b",
+    title: "Ken Griffin donates $3bn to Carnegie Mellon as university plots Miami campus",
+    date: "2026-09-30",
+    time: "09:30",
+    url: "https://www.ft.com/content/3b5b46d7-2dcf-40f0-82f3-65ab6e4be76b",
+  },
+  {
     id: "2a62022e-219b-4eb2-b5d7-c2bb01688acc",
     title: "Singapore’s Temasek to open first Middle East outposts",
     date: "2026-09-30",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-29",
     time: "19:21",
     url: "https://www.ft.com/content/e9b18367-5144-4775-8ddd-d1d133672db0",
-  },
-  {
-    id: "95854630-e639-4240-9598-564b996f30c5",
-    title: "Andy Burnham’s ‘jam tomorrow’ vision",
-    date: "2026-09-29",
-    time: "18:42",
-    url: "https://www.ft.com/content/95854630-e639-4240-9598-564b996f30c5",
-  },
-  {
-    id: "fd9bb414-838d-48e5-bcdf-39c8a6bd41ca",
-    title: "How would Andy Burnham’s social care shake-up work?",
-    date: "2026-09-29",
-    time: "18:15",
-    url: "https://www.ft.com/content/fd9bb414-838d-48e5-bcdf-39c8a6bd41ca",
   },
 ];
