@@ -44,13 +44,13 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-09-30",
-      time: "08:13 BST",
-      lede: "Wednesday&rsquo;s tape is about whether the bond sell-off has paused &mdash; a firmer UK growth revision and a US fuel-export row over energy costs frame the day ahead of the PCE and GDP prints.",
+      time: "10:16 BST",
+      lede: "Wednesday opens with long-end yields still near multi-decade highs and consumer confidence at a 12-year low, while a firmer UK growth revision and softer energy prices offer a little relief ahead of the US GDP and PCE prints.",
       bullets: [
-        { html: "<strong>Macro &mdash; the ONS has revised UK second-quarter growth up</strong>, the FT reports, saying the economy grew faster than first estimated.", src: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; the White House is holding crunch talks on a diesel export ban as the US midterms near</strong>, the FT reports, putting fuel prices squarely in the political frame.", src: "https://www.ft.com/content/562f2988-0c04-4669-b0b7-2c16d3821926", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; bond markets steadied after the recent sell-off</strong>, the FT reports, with the UK energy price cap also forecast to rise to nearly &pound;2,000 as the Iran war lifts prices.", src: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 fell on Tuesday as easing oil prices and Treasury yields failed to lift sentiment</strong>, per TheStreet&rsquo;s market wrap.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026", srcName: "TheStreet" },
+        { html: "<strong>Macro &mdash; the ONS has revised UK second-quarter growth up to 0.5% from 0.4%</strong>, and sterling rose on the news, keeping Bank of England hike bets alive. In the US, the Conference Board's consumer confidence index fell to its lowest since 2014.", src: "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/", srcName: "investingLive" },
+        { html: "<strong>Macro &mdash; oil climbed after Trump denied he would ease sanctions on Iran</strong>, reversing part of Tuesday's slide, per CNBC.", src: "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html", srcName: "CNBC" },
+        { html: "<strong>Fixed income &mdash; the 30-year Treasury yield climbed to a 24-year high on Tuesday</strong>, and the FT reports bond markets steadied afterwards. UK gilts rallied as oil and gas prices hit new lows.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Equities &mdash; the Dow, S&amp;P 500 and Nasdaq wobbled on Tuesday</strong> as the long-bond yield surge weighed on sentiment, per Yahoo Finance's market wrap.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
       ],
     },
     afternoon: {
