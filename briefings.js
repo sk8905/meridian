@@ -55,14 +55,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-09-29",
-      time: "16:35 BST",
-      lede: "Tuesday brings a tentative breather: easing oil and a modest pullback in long-end yields are giving risk assets room, but the week's jobs and inflation data still decide whether the October-hike case hardens.",
+      date: "2026-09-30",
+      time: "12:15 BST",
+      lede: "Wednesday midday finds bond markets steadying after the long-end sell-off, with a firmer UK growth print and an oil rebound keeping both central-bank hike debates live into the week's US inflation data.",
       bullets: [
-        { html: "<strong>Macro &mdash; Bloomberg says this week's US data (JOLTS, consumer confidence, ADP, payrolls) is seen bolstering the case for another Fed hike at the 28 October FOMC</strong>, with core PCE and the third GDP estimate also due this week.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
-        { html: "<strong>Macro &mdash; UK gilts extended gains, with the 10-year yield almost 7bp lower</strong>, as oil and gas prices hit new lows on the day on reports of Qatar-brokered US&ndash;Iran contacts.", src: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat", srcName: "Bloomberg" },
-        { html: "<strong>Equities &mdash; US futures edged higher this morning as oil and Treasury yields eased</strong>, with tech leading, after Monday's selloff.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026", srcName: "TheStreet" },
-        { html: "<strong>Fixed income &mdash; Treasury yields eased early Tuesday</strong>, with the 10-year around 5.2% and the 30-year near 5.55%, after recent moves to multiyear highs on inflation and policy concerns.", src: "https://www.cnbc.com/2026/09/29/treasury-yields-bonds.html", srcName: "CNBC" },
+        { html: "<strong>Macro &mdash; the ONS revised UK second-quarter growth up to 0.5% from 0.4%</strong>, and sterling rose from a two-month low as markets kept betting on a Bank of England hike on 5 November.", src: "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/", srcName: "investingLive" },
+        { html: "<strong>Macro &mdash; oil climbed after Trump denied he would ease sanctions on Iran</strong>, per CNBC, while the FT reports the White House is holding crunch talks on a diesel export ban with the midterms approaching.", src: "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html", srcName: "CNBC" },
+        { html: "<strong>Fixed income &mdash; bond markets steadied after the sell-off</strong>, the FT reports, following Tuesday's 24-year high in the US 30-year Treasury yield.", src: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the Dow, S&amp;P 500 and Nasdaq wobbled on Tuesday</strong> as the long-bond yield surge weighed on sentiment, per Yahoo Finance's market wrap.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
       ],
     },
     evening: {
