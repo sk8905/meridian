@@ -43,14 +43,14 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-09-29",
-      time: "10:12 BST",
-      lede: "Tuesday opens with the bond sell-off, not equities, setting the tone &mdash; oil-linked long-end yields at multi-decade highs are now the variable everything else is priced against, ahead of a data-heavy end to the week.",
+      date: "2026-09-30",
+      time: "05:12 BST",
+      lede: "Wednesday starts with energy politics and long-dated borrowing costs still driving the tape &mdash; US fuel-export policy and euro-area credit worries sit alongside the PCE and payrolls prints due this week.",
       bullets: [
-        { html: "<strong>Macro &mdash; the FT reports oil prices and US Treasury yields are now in their tightest relationship since 1990</strong>, underlining how the stalled US-Iran Hormuz talks are feeding directly into rates.", src: "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; Bloomberg previews this week's US data (JOLTS, PCE, ISM, payrolls) as likely to bolster the case for an October Fed rate hike</strong>, with a negative surprise the most probable trigger for a bond turnaround.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 closed Monday down 0.77% at 7,683.69 and the Nasdaq lost 0.92%</strong> as the Treasury-yield jump weighed on stocks, with Boeing dropping nearly 7% after the FAA said it would not certify the 737 Max 10 until it assesses a new software glitch.", src: "https://www.cnbc.com/2026/09/27/stock-market-today-live-updates.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; Treasury yields extended their march to multiyear highs Monday, the 10-year climbing toward 5.2%</strong> as oil rose after Trump rejected Iran's Hormuz proposal.", src: "https://www.cnbc.com/2026/09/28/treasury-yields-bonds-selloff.html", srcName: "CNBC" },
+        { html: "<strong>Macro &mdash; the White House is holding crunch talks on a diesel export ban as the US midterms near</strong>, the FT reports, putting fuel prices squarely in the political frame.", src: "https://www.ft.com/content/562f2988-0c04-4669-b0b7-2c16d3821926", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; Vanguard warns France is &lsquo;degrading credit&rsquo; as its borrowing costs surge</strong>, the FT reports, adding a euro-area angle to the global bond sell-off.", src: "https://www.ft.com/content/7820a84f-338e-4b91-a9b6-241a9bf81539", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; Bloomberg says this week&rsquo;s US data is seen bolstering the case for an October Fed rate hike</strong>, with a negative surprise the most probable trigger for a bond turnaround.", src: "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 fell on Tuesday as easing oil prices and Treasury yields failed to lift sentiment</strong>, per TheStreet&rsquo;s market wrap.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-29-2026", srcName: "TheStreet" },
       ],
     },
     afternoon: {
