@@ -169,3 +169,11 @@ grab-bag along its seams. Size depends on the rollback-window decision.
     thin → add a characterization spec when the feed pane is componentised in Phase 3).
   - Legacy CSS layers (home.css landing, tui.css `.tx-tbl`/`.tinv-*`, premium.css old
     KPI/theme-toggle) are now truly dead and deletable in **Phase 4**.
+- **2026-10-01** — Phase 1.1: consolidated the `--t-*` palette to ONE declaration on
+  `:root` in home.css (the superset: incl. `--t-up/--t-down`, `--t-news`,
+  `--t-accent-dim/soft/shadow`). Deleted the redundant per-surface copies in feed.css
+  (`.g-feed-wrap`) and dashboard.css (`.dsh`) — a palette change is now one edit, not
+  four. Verified every token still resolves on each surface (dashboard `--t-up/down`,
+  desk `--t-crd`, etc.) and the UI is pixel-identical; color-tokens spec updated to the
+  single-source model. Suite green 61/61. (`--wire-head-h` confirmed still set by
+  v2/js/chrome.js, so the legacy deletion didn't affect sticky offsets.)

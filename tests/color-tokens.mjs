@@ -37,10 +37,11 @@ const menuJs = read(path.join("v2", "js", "views", "menu.js"));
 const glanceJs = read(path.join("v2", "js", "home", "glance.js"));
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
-// just a var(--t-news, #fallback) with nothing ever setting it.
-for (const [label, src] of [["feed.css", feedCss], ["home.css", homeCss]]) {
-  check(/--t-news\s*:\s*#[0-9a-fA-F]{3,8}/.test(src), `${label} declares a real --t-news custom property (not fallback-only)`);
-}
+// just a var(--t-news, #fallback) with nothing ever setting it. The whole --t-*
+// palette is now declared ONCE on :root in home.css (loaded on every v2 surface),
+// so that is where the real declaration lives — feed.css no longer carries a copy.
+check(/--t-news\s*:\s*#[0-9a-fA-F]{3,8}/.test(homeCss), "home.css declares a real --t-news custom property on :root (not fallback-only)");
+check(!/--t-news\s*:\s*#/.test(feedCss), "feed.css no longer carries its own --t-news copy (tokens consolidated to :root)");
 
 // R6 — the main wire's day-break band uses --t-head (grey band), matching the
 // documented spec and its .tw-day sibling in tui.css, not --t-ground.

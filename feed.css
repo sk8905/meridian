@@ -8,32 +8,8 @@
    this file changes.
    ============================================================================= */
 
-/* ---- token scope: the wire's palette, so app pages resolve --t-* -----------
-   Mirrors home.css's #glance/.na-panel scope. On Home the wire nests inside
-   #glance (id wins) so these class-scoped copies are inert; on the apps they're
-   the source of truth. */
-:root[data-theme="dark"] .g-feed-wrap {
-  --t-ground:#141414; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
-  --t-grid:#212121; --t-grid2:#2d2d2d;
-  --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
-  --t-accent:#fb8b1e;
-  --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e; --t-hdg:#4aa3f0; --t-news:#8aa0c8;
-}
-/* Desktop-only surface lift (see tui.css) — touch devices (the iPhone PWA) keep
-   the deeper #141414 ground; surfaces + greys only. */
-@media (pointer: fine) and (min-width: 761px) {
-  :root[data-theme="dark"] .g-feed-wrap {
-    --t-ground:#1b1b1b; --t-panel:#1b1b1b; --t-head:#181818; --t-panel2:#272727; --t-grid:#282828; --t-grid2:#343434;
-  }
-}
-:root[data-theme="light"] .g-feed-wrap {
-  --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
-  --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
-  --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
-  --t-accent:#fb8b1e;
-  --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0; --t-news:#8aa0c8;
-}
-.g-feed-wrap { --t-mono:"Montserrat","Gotham","Futura","Century Gothic",system-ui,sans-serif; }
+/* The --t-* palette is now defined ONCE on :root in home.css (loaded on every v2
+   surface), so this file no longer carries its own .g-feed-wrap copy. */
 
 /* ---- chip bar --------------------------------------------------------------- */
 /* One canonical chip-row height across the whole app (HOUSE_STYLE T20): slim but

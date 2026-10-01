@@ -4,36 +4,8 @@
    vertical stack of self-contained cards; desktop: the same cards tiled.
    ============================================================================= */
 
-/* ---- token scope: the Dashboard's palette ---------------------------------
-   The --t-* tokens are class-scoped (feed.css binds them to .g-feed-wrap,
-   home.css to #glance/.na-panel/.g-main.tui). The Dashboard renders into .dsh,
-   which matches NONE of those, so without this block every var(--t-up)/
-   var(--t-crd) bar background would resolve to nothing (invisible bars/ladder).
-   Mirrors feed.css's scope and adds --t-up/--t-down (which feed.css omits). */
-:root[data-theme="dark"] .dsh {
-  --t-ground:#141414; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
-  --t-grid:#212121; --t-grid2:#2d2d2d;
-  --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
-  --t-accent:#fb8b1e; --t-up:#3fc08d; --t-down:#f26d84;
-  --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e; --t-hdg:#4aa3f0;
-  --t-mono:"Montserrat","Gotham","Futura","Century Gothic",system-ui,sans-serif;
-}
-/* Desktop-only surface lift (see tui.css) — the deeper #141414 ground stays on
-   touch devices (the iPhone PWA), which never match pointer:fine. Surfaces + greys
-   only; ink/accent tokens above are unchanged. */
-@media (pointer: fine) and (min-width: 761px) {
-  :root[data-theme="dark"] .dsh {
-    --t-ground:#1b1b1b; --t-panel:#1b1b1b; --t-head:#181818; --t-panel2:#272727; --t-grid:#282828; --t-grid2:#343434;
-  }
-}
-:root[data-theme="light"] .dsh {
-  --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
-  --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
-  --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
-  --t-accent:#fb8b1e; --t-up:#0f9d68; --t-down:#df4763;
-  --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0;
-  --t-mono:"Montserrat","Gotham","Futura","Century Gothic",system-ui,sans-serif;
-}
+/* The --t-* palette (incl. --t-up/--t-down) is defined ONCE on :root in home.css,
+   loaded on every v2 surface, so the Dashboard no longer carries its own .dsh copy. */
 .dsh { color:var(--t-ink); }
 .dsh { --dsh-gap:10px; padding:0 0 40px; }
 .dsh-nav { position:sticky; top:0; z-index:2; background:var(--t-head); }
