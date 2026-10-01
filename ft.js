@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4b87328c-17da-484d-a92a-0f3582f76f02",
+    title: "BT seeks government nod for potential TalkTalk takeover",
+    date: "2026-10-01",
+    time: "16:02",
+    url: "https://www.ft.com/content/4b87328c-17da-484d-a92a-0f3582f76f02",
+  },
+  {
+    id: "122e55bb-b0f9-4106-823d-ac2a435d96d9",
+    title: "Dealmakers line up to test EU’s appetite to create European champions",
+    date: "2026-10-01",
+    time: "15:49",
+    url: "https://www.ft.com/content/122e55bb-b0f9-4106-823d-ac2a435d96d9",
+  },
+  {
     id: "716c3491-6547-4c81-bc42-87136aecdac0",
     title: "Do US lawmakers finally have capital in the crosshairs?",
     date: "2026-10-01",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "05:00",
     url: "https://www.ft.com/content/bc38ab9d-d8b1-4f48-a804-f7c186e98b9b",
-  },
-  {
-    id: "11502a49-5319-4df5-95ea-2d76669c31a6",
-    title: "OpenAI’s agents obscured hacking activity in government site breaches",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/11502a49-5319-4df5-95ea-2d76669c31a6",
-  },
-  {
-    id: "125675ee-0d2c-4ffc-b7c5-814dd6b82612",
-    title: "Manchester City chair shielded by diplomatic immunity",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/125675ee-0d2c-4ffc-b7c5-814dd6b82612",
   },
 ];
