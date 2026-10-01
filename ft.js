@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "716c3491-6547-4c81-bc42-87136aecdac0",
+    title: "Do US lawmakers finally have capital in the crosshairs?",
+    date: "2026-10-01",
+    time: "15:00",
+    url: "https://www.ft.com/content/716c3491-6547-4c81-bc42-87136aecdac0",
+  },
+  {
+    id: "e071ee77-2028-4f40-b7bf-fff19e51c47c",
+    title: "International Criminal Court cuts ties with Axa over US sanctions",
+    date: "2026-10-01",
+    time: "14:23",
+    url: "https://www.ft.com/content/e071ee77-2028-4f40-b7bf-fff19e51c47c",
+  },
+  {
+    id: "0234bcc7-386c-40b6-9f04-88aef3a1e24c",
+    title: "EU countries in crisis talks over release of diesel stocks ",
+    date: "2026-10-01",
+    time: "14:20",
+    url: "https://www.ft.com/content/0234bcc7-386c-40b6-9f04-88aef3a1e24c",
+  },
+  {
+    id: "ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
+    title: "The best art exhibitions to see in London right now",
+    date: "2026-10-01",
+    time: "12:39",
+    url: "https://www.ft.com/content/ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
+  },
+  {
+    id: "6d644883-c27b-45c9-aef7-445d74fa3efc",
+    title: "The crazy cachet of a colour-block kitchen ",
+    date: "2026-10-01",
+    time: "12:00",
+    url: "https://www.ft.com/content/6d644883-c27b-45c9-aef7-445d74fa3efc",
+  },
+  {
     id: "3a1fb601-9119-4eb6-bfc8-305e281cc7e4",
     title: "Driver received warning before fatal Bedfordshire rail crash, report finds",
     date: "2026-10-01",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "05:00",
     url: "https://www.ft.com/content/125675ee-0d2c-4ffc-b7c5-814dd6b82612",
-  },
-  {
-    id: "719fb157-9d73-44c7-be1f-863c2b106e7d",
-    title: "EU steel exports hit by high energy costs, tariffs and China oversupply",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/719fb157-9d73-44c7-be1f-863c2b106e7d",
-  },
-  {
-    id: "dba1f631-2804-43eb-8bf9-858e0fc5c09d",
-    title: "King’s bank Coutts hit with new lawsuit after ‘debanking’",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/dba1f631-2804-43eb-8bf9-858e0fc5c09d",
-  },
-  {
-    id: "8bece01e-0284-402c-9cc6-db4adfdd02ad",
-    title: "UBS should make the positive case for staying Swiss",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/8bece01e-0284-402c-9cc6-db4adfdd02ad",
-  },
-  {
-    id: "534b6887-63ac-49c7-a816-a81edd2e8de1",
-    title: "EU questions Binance over continued operations despite wind-down order",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/534b6887-63ac-49c7-a816-a81edd2e8de1",
-  },
-  {
-    id: "cd2e89d3-2606-4116-b523-309450462d2b",
-    title: "How Europe can stall Russia’s hybrid war",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/cd2e89d3-2606-4116-b523-309450462d2b",
   },
 ];
