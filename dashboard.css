@@ -241,12 +241,6 @@
 .dsh-sec-bar.up{ background:var(--t-up); } .dsh-sec-bar.down{ background:var(--t-down); }
 .dsh-sec-v { text-align:right; font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 
-/* Sector heatmap grid (desktop toggle) */
-.dsh-heat { display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:4px; }
-.dsh-heat-t { display:flex; flex-direction:column; justify-content:center; gap:2px; padding:10px 8px; border-radius:0; min-height:56px; }
-.dsh-heat-t span{ color:var(--t-ink); font-size:var(--fs-body); line-height:1.15; }
-.dsh-heat-t b{ color:var(--t-ink); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
-
 .up { color:var(--t-up); } .down { color:var(--t-down); }
 
 /* World-indices + government-yield heatmaps reuse the ETF-flows table look

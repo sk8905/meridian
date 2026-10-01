@@ -181,8 +181,14 @@ manual DOM updates). No JSX (use `h`), so no transform config.
     `v2/js/chrome.js` but has no v2 spec → add one in Phase 2 when PTR is polished) and
     the **live `/api/feed` merge** (manager-merge is covered; the live-wire merge is
     thin → add a characterization spec when the feed pane is componentised in Phase 3).
-  - Legacy CSS layers (home.css landing, tui.css `.tx-tbl`/`.tinv-*`, premium.css old
-    KPI/theme-toggle) are now truly dead and deletable in **Phase 4**.
+  - Legacy CSS layers: candidates for **Phase 4**. ⚠️ CORRECTED 2026-10-01 — re-grepped
+    the live v2 surface: most of the earlier "dead" list is in fact LIVE
+    (`.tinv-*` 15 refs, `.dsh-term` 11, `.dsh-yc` 11, `.dsh-stress` 6, `.dsh-ro` 5). Only
+    `.dsh-heat*` (0 refs, isolated block — DELETED) and `.tx-tbl` (0 refs) are genuinely
+    dead, and `.tx-tbl` is INTERLEAVED into shared grouped selectors with live
+    `.tleague`/`.tx-list`/`.tinv-tbl` (tui.css 245-249, 536-539), so it needs delicate
+    per-fragment surgery, not block deletion. Net: the Phase-4 dead-CSS win is much
+    smaller than first documented — verify every token against v2 js/html before deleting.
 - **2026-10-01** — Phase 1.1: consolidated the `--t-*` palette to ONE declaration on
   `:root` in home.css (the superset: incl. `--t-up/--t-down`, `--t-news`,
   `--t-accent-dim/soft/shadow`). Deleted the redundant per-surface copies in feed.css
@@ -242,3 +248,16 @@ manual DOM updates). No JSX (use `h`), so no transform config.
   heavy SVG pane — the remaining glance.js work (right-rail market widgets via a shared
   marketsStore) is the cleaner reactive win; the hero's drawing stays imperative by
   design.
+- **2026-10-01** — Phase 3 **concluded** (assessment, after reading the right-rail code).
+  The planned "right-rail market widgets via a shared marketsStore" island was dropped
+  on inspection: `renderRates`/`renderMarketsBand` and the sub-widgets (ticker, movers,
+  spreads, vol/risk, yield curve, Hormuz, market-open dots) are ALREADY clean
+  `init → fetch → render(el, data) → writeCache` pipelines with instant cache-seed. They
+  have none of the problems signals fixed on islands #1–#4 (no scattered manual
+  re-renders, no multi-instance sync, no reactive filter state); forcing a signal store
+  onto them would ADD complexity to simple code and risk a dense web of live financial
+  widgets — the opposite of the "make it simpler" goal. The reactive migration is done
+  where it paid off (focus toggle, prediction markets, X feed, hero controls). The feed +
+  lanes core stays imperative for now (highest-risk, lowest-reward to churn). Remaining
+  Phase-4 CSS cleanup is marginal and delicate (see the corrected note above) — did the
+  one safe deletion (`.dsh-heat`); the rest is optional per-fragment surgery.
