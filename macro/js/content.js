@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-01",
-  lastCheckedTime: "20:15 BST",
+  lastCheckedTime: "22:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1009,8 +1009,8 @@ export const NEWS = {
     { title: "US mortgage rates jump the most in four years as bond sell-off hits Main Street", source: "Financial Times", date: "2026-10-01", time: "19:29", url: "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499" },
     { title: "Top Fed official signals central bank will keep rates on hold in October", source: "Financial Times", date: "2026-10-01", time: "18:52", url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f" },
     { title: "Global bond sell-off pushes 10-year Treasury yield to highest since 2002", source: "Financial Times", date: "2026-10-01", time: "09:09", url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3" },
-    { title: "Four potential positives from higher bond yields", source: "Financial Times", date: "2026-10-01", time: "09:37", url: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496" },
-    { title: "US government debt rout triggers ‘vicious loop’ of selling", source: "Financial Times", date: "2026-09-30", time: "22:09", url: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2" },
+    { title: "US factory activity expansion steady as input prices jump", source: "Reuters", date: "2026-10-01", time: "22:15", url: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/" },
+    { title: "US deploys thousands of troops to Middle East as Donald Trump weighs strikes on Iran", source: "Financial Times", date: "2026-10-01", time: "22:05", url: "https://www.ft.com/content/352e14c5-267d-4c8f-981d-6ae8bea531f9" },
   ],
   uk: [
     { title: "UK house prices fall as higher mortgage rates ‘subdue’ market", source: "Financial Times", date: "2026-10-01", time: "08:05", url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af" },

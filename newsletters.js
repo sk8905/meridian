@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-stocksfindfooting-20261001",
+    publication: "Thomson Reuters",
+    author: "Stephen Culp",
+    series: "Trading Day",
+    title: "Stocks find footing as Treasury yields ease",
+    date: "2026-10-01",
+    time: "22:00",
+    summary: "Wall Street closes higher as the benchmark Treasury yield eases from multi-year highs; focus turns to Friday's jobs report.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-thelawyer-breaking-aoleaderaifirm-20261001",
     publication: "The Lawyer",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "07:56",
     summary: "The Lawyer UK200 research reveals a far more cautious attitude to AI within MidLaw.",
     url: "https://www.thelawyer.com/smaller-firms-ai-2026/",
-  },
-  {
-    id: "nl-economist-worldinbrief-openaiaborts-20260929",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: OpenAI aborts its latest model",
-    date: "2026-09-29",
-    time: "06:29",
-    summary: "Also: America's diesel time-bomb.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];

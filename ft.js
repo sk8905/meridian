@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "08eeee4a-903b-4889-92ef-61ebaeea682a",
+    title: "Nike to cut jobs as it forecasts revenue decline in the coming year",
+    date: "2026-10-01",
+    time: "22:11",
+    url: "https://www.ft.com/content/08eeee4a-903b-4889-92ef-61ebaeea682a",
+  },
+  {
+    id: "352e14c5-267d-4c8f-981d-6ae8bea531f9",
+    title: "US deploys thousands of troops to Middle East as Donald Trump weighs strikes on Iran",
+    date: "2026-10-01",
+    time: "22:05",
+    url: "https://www.ft.com/content/352e14c5-267d-4c8f-981d-6ae8bea531f9",
+  },
+  {
+    id: "e567ed25-d871-44ac-ad39-aee135eeb6d6",
+    title: "Investigative outlet deepens antisemitism claims against French far right’s Jordan Bardella",
+    date: "2026-10-01",
+    time: "21:46",
+    url: "https://www.ft.com/content/e567ed25-d871-44ac-ad39-aee135eeb6d6",
+  },
+  {
     id: "9a6e17fe-55e4-4a6d-8761-8346ec765ba9",
     title: "Andy Burnham searches for UK alternative to Palantir",
     date: "2026-10-01",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "09:05",
     url: "https://www.ft.com/content/ec55a734-243b-43a2-93ea-8652d6b99309",
-  },
-  {
-    id: "3334f6eb-5eab-4340-a5b7-a2bd0b5f46c8",
-    title: "UBS pushes back against investor call to leave Switzerland",
-    date: "2026-10-01",
-    time: "08:55",
-    url: "https://www.ft.com/content/3334f6eb-5eab-4340-a5b7-a2bd0b5f46c8",
-  },
-  {
-    id: "3d58c75e-035b-4958-89e7-2b2369e3a432",
-    title: "Japanese companies exit China in record numbers",
-    date: "2026-10-01",
-    time: "08:18",
-    url: "https://www.ft.com/content/3d58c75e-035b-4958-89e7-2b2369e3a432",
-  },
-  {
-    id: "8702be93-442f-49c5-ac48-f06c541bc7af",
-    title: "UK house prices fall as higher mortgage rates ‘subdue’ market",
-    date: "2026-10-01",
-    time: "08:05",
-    url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af",
   },
 ];
