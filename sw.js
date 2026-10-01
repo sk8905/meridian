@@ -28,11 +28,11 @@
 // stale-while-revalidate path would otherwise serve once more. Bumped to flush
 // the pre-PTR /menu/ shell (it had no ptr.js, so its dark inline html showed as
 // a black band on pull and it couldn't self-update).
-const CACHE = "wire-shell-v8";   // bumped: forces a fresh SW activation → controllerchange reload onto the build that carries the foreground build-token self-heal (nav-actions.js), so a stuck PWA lands on current code once and stays current thereafter
+const CACHE = "wire-shell-v9";   // bumped: Home now loads the compact /home-data.js slice (added to DATA_PATHS + precache); forces a fresh SW activation so clients pick up the new data-path handling
 // The no-cache data modules (see _headers). Cached under their bare pathname —
 // importers reference them with assorted stale ?v= tokens; the bodies are
 // identical, so all variants map to one entry.
-const DATA_PATHS = ["/ft.js", "/newsletters.js", "/credit/js/data.js", "/legal/js/data.js", "/macro/js/content.js"];
+const DATA_PATHS = ["/ft.js", "/home-data.js", "/newsletters.js", "/credit/js/data.js", "/legal/js/data.js", "/macro/js/content.js"];
 
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => e.waitUntil(
@@ -89,7 +89,7 @@ self.addEventListener("fetch", (e) => {
 // also re-pulls the app shell + data modules into the cache (network-first).
 // Tapping the notification (or opening later) then lands on fresh content.
 const WARM_PATHS = ["/", "/macro/", "/credit/", "/legal/", "/menu/",
-  "/ft.js", "/newsletters.js", "/credit/js/data.js", "/legal/js/data.js", "/macro/js/content.js"];
+  "/ft.js", "/home-data.js", "/newsletters.js", "/credit/js/data.js", "/legal/js/data.js", "/macro/js/content.js"];
 async function warmShell() {
   try {
     const cache = await caches.open(CACHE);

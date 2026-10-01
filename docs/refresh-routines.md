@@ -298,6 +298,16 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   `/api/macro?v=N` edge-cache key in `src/index.js` on every run (that one is a
   server-side cache key, not an import token, and is unaffected by this). The
   detail below is kept for the code-token case; do not apply it to data files.
+- **Home slice (`home-data.js`) — regenerate after a desk-data edit.** The Home
+  surface no longer imports the full `credit/js/data.js` / `legal/js/data.js` /
+  `macro/js/content.js`; it imports the compact **generated** `home-data.js`
+  (`scripts/gen-home-data.mjs`, a projection to the fields Home renders — see
+  HOUSE_STYLE T2). The deploy build regenerates it automatically, so **production is
+  always in sync**. But if your refresh commits an edit to any of those three desk
+  modules, run `node scripts/gen-home-data.mjs` and commit the updated
+  `home-data.js` alongside it, so the committed copy (used by source-mode
+  `node tests/run.mjs` and dev) does not lag the data. It is tokenless + `no-cache`
+  like the rest of the roster; never hand-edit it.
 - **Cache-busters (CODE files) — SUPERSEDED by Vite content-hashing.** The v2 SPA
   is now bundled by `npm run build`: every JS/CSS module is content-hashed
   (`/assets/*-[hash]`), so **there is no `?v=` code token to bump anywhere under

@@ -53,6 +53,8 @@
   Cache-Control: no-cache
 /ft.js
   Cache-Control: no-cache
+/home-data.js
+  Cache-Control: no-cache
 /newsletters.js
   Cache-Control: no-cache
 /briefings.js

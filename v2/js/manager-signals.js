@@ -18,7 +18,10 @@ let deals = [], intel = [], managers = [], funds = [];
 let _mById = new Map();
 let _loaded = null;
 export function loadManagerData() {
-  return _loaded || (_loaded = import("/credit/js/data.js").then((d) => {
+  // Reads the compact Home slice (/home-data.js, built by scripts/gen-home-data.mjs)
+  // — the projected managers/deals/intel/funds carry every field the derivation below
+  // uses. Shared with glance.js's loadDeskData, so this is one deduped fetch.
+  return _loaded || (_loaded = import("/home-data.js").then((d) => {
     deals = d.deals; intel = d.intel; managers = d.managers; funds = d.funds;
     _mById = new Map(managers.map((m) => [m.id, m]));
   }));

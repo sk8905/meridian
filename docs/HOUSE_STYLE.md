@@ -537,7 +537,8 @@ notification badge red (`#ef4444`).
     fresh deploy is picked up on the next load. Code changes ship on deploy,
     authored by sessions.
   - **Data** (`credit/js/data.js`, `legal/js/data.js`, `macro/js/content.js`,
-    `dashboard/js/data.js`, `newsletters.js`, `ft.js`) is imported with **NO
+    `dashboard/js/data.js`, `newsletters.js`, `ft.js`, and the **generated**
+    `home-data.js`) is imported with **NO
     `?v=` token** and served `Cache-Control: no-cache` (see `_headers`). Every
     importer therefore uses one tokenless URL → a **single module instance**
     (the old cross-file `?v=` drift that double-instanced a module and blanked a
@@ -551,7 +552,14 @@ notification badge red (`#ef4444`).
   `v2/styles.css`) into hashed `/assets/*`; every stylesheet is declared up front
   there (no per-view CSS lazy-loading). The desk DATA modules and shared root
   modules stay **external** — emitted as-is by `scripts/postbuild.mjs`, tokenless
-  and `no-cache` — so a data refresh never re-hashes the app bundle. One runtime
+  and `no-cache` — so a data refresh never re-hashes the app bundle. **`home-data.js`
+  is GENERATED, not hand-edited:** `scripts/gen-home-data.mjs` (first step of
+  `npm run build`) projects the full credit/legal/macro modules down to the compact
+  slice the Home surface imports (fields Home + the manager wire render, heavy
+  profile/detail bodies stripped — ~0.47 MB gz vs the ~1.5 MB gz of the three full
+  modules). Because it runs on every build it is ALWAYS in sync with the 5×/day data
+  refresh; the committed copy is a source-mode/dev convenience (regenerate it with
+  `node scripts/gen-home-data.mjs` after editing a desk data module). One runtime
   loads once; switching tabs swaps a keep-alive view in memory (no document
   reload). The app still runs unbundled from source (`node tests/run.mjs` serves
   the repo; `TEST_ROOT=dist node tests/run.mjs` proves the built output serves

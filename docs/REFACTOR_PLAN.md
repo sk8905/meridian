@@ -286,7 +286,18 @@ before first paint even though Home renders only slices.
   the live wire + chart and the curated desk items fill in a few hundred ms later.
   Verified: the glance chunk now `import()`s the data modules dynamically (no static
   `from"/credit/js/data.js"`); home specs + full suite 63/63 on source and dist; `deskMs`
-  captured end-to-end. **Next perf levers (documented, not done):** emit a compact
-  Home-only data slice from the 5×/day refresh (fix #2); split the monolithic desk data
-  by sub-dataset or move to fetched JSON; per-route CSS split (the 336 KB / 57 KB-gz
+  captured end-to-end.
+- **2026-10-01 — Compact Home data slice (#2).** `scripts/gen-home-data.mjs` (first step
+  of `npm run build`) projects the full credit/legal/macro modules down to the fields
+  Home + the manager wire actually render, stripping the heavy profile/detail bodies Home
+  never shows (manager `sources`/`book`/`description`/…; deal/intel `summary`; legal
+  `summary`/`points`/`tags`; fund `description`/`sources`/…; `firmById` → just names;
+  macro kept whole). Home + manager-signals now import the one generated `/home-data.js`
+  (tokenless + no-cache, in `_headers`/`sw.js` DATA_PATHS + precache, SW bumped v8→v9)
+  instead of the three full modules: **~1.5 MB gz → ~0.47 MB gz on Home (~3.2×, ~1 MB gz
+  saved).** Regenerated on every deploy so it stays in sync with the 5×/day refresh
+  (documented in HOUSE_STYLE T2 + refresh-routines). Desk views still import the full
+  modules (unaffected). Full suite 63/63 on source + dist. **Next perf levers (not done):**
+  record-cap the slice to a recent window for a further cut; split the monolithic desk
+  data by sub-dataset for the desk views; per-route CSS split (the 336 KB / 57 KB-gz
   bundle is render-blocking); consolidate the ~11 Home `/api/*` calls into a snapshot.

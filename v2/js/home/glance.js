@@ -41,15 +41,13 @@ let _deskData = null;
 function loadDeskData() {
   if (_deskData) return _deskData;
   try { performance.mark("wire:desk:start"); } catch { /* no perf API */ }
-  _deskData = Promise.all([
-    import("/credit/js/data.js"),
-    import("/legal/js/data.js"),
-    import("/macro/js/content.js"),
-    loadManagerData(),
-  ]).then(([cr, lg, mc]) => {
-    ({ deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } = cr);
-    ({ items, cases, restructurings, firmById } = lg);
-    ({ NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } = mc);
+  // ONE compact module (~0.47 MB gz) instead of the three full desk modules
+  // (~1.5 MB gz) — see scripts/gen-home-data.mjs. manager-signals reads the same
+  // /home-data.js (browser-deduped to a single fetch).
+  _deskData = Promise.all([import("/home-data.js"), loadManagerData()]).then(([d]) => {
+    ({ deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } = d);
+    ({ items, cases, restructurings, firmById } = d);
+    ({ NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } = d);
     try { performance.measure("wire:desk", "wire:desk:start"); } catch { /* no perf API */ }
   }).catch(() => { _deskData = null; /* allow a retry on the next trigger */ });
   return _deskData;
