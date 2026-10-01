@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-openingprivatemarkets-20261001",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Opening Private Markets to the Public",
+    date: "2026-10-01",
+    time: "18:59",
+    summary: "Fees, tests, votes, Knicks.",
+    url: "https://bloom.bg/4hH9Kw3",
+  },
+  {
     id: "nl-thelawyer-breaking-gibsondunndespacfees-20261001",
     publication: "The Lawyer",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "05:02",
     summary: "US data might hold the key as the bond sell-off deepens.",
     url: "https://www.bloomberg.com/opinion/newsletters/2026-09-29/what-s-going-to-break-in-the-bondpocalypse",
-  },
-  {
-    id: "nl-reuters-tradingday-bluemonday-20260928",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Blue Monday",
-    date: "2026-09-28",
-    time: "22:08",
-    summary: "Gold back near $4000/oz.",
-    url: "https://www.reuters.com/newsletters/trading-day",
   },
 ];

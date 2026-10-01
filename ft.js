@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "04992c30-21da-46f3-8b95-ca82b2791521",
+    title: "Europe braces for ‘severe hybrid attacks’ from Russia, says Merz",
+    date: "2026-10-01",
+    time: "18:54",
+    url: "https://www.ft.com/content/04992c30-21da-46f3-8b95-ca82b2791521",
+  },
+  {
+    id: "e3a53272-385d-40a8-ac77-408f4c136f6f",
+    title: "Top Fed official signals central bank will keep rates on hold in October",
+    date: "2026-10-01",
+    time: "18:52",
+    url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f",
+  },
+  {
+    id: "a85c5d06-5f8d-4163-8cd6-e42df9f137cb",
+    title: "British-Iranian man arrested under terror laws over RAF Fairford incident",
+    date: "2026-10-01",
+    time: "18:49",
+    url: "https://www.ft.com/content/a85c5d06-5f8d-4163-8cd6-e42df9f137cb",
+  },
+  {
+    id: "ed5aae75-e06b-49bc-8e96-6c596f88f2c7",
+    title: "Ex-HSBC banker banned for dodging £5,900 in train fares",
+    date: "2026-10-01",
+    time: "18:31",
+    url: "https://www.ft.com/content/ed5aae75-e06b-49bc-8e96-6c596f88f2c7",
+  },
+  {
+    id: "a357ac2d-fead-4df2-a5cf-cf1aa94cf7a9",
+    title: "Europe should take Trump’s diesel ban seriously, if not literally",
+    date: "2026-10-01",
+    time: "18:25",
+    url: "https://www.ft.com/content/a357ac2d-fead-4df2-a5cf-cf1aa94cf7a9",
+  },
+  {
     id: "e7c1da68-aed3-471d-911f-0b6086a327ec",
     title: "France meets fiscal reality with a crunch",
     date: "2026-10-01",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "06:30",
     url: "https://www.ft.com/content/9af7e02c-3b08-4c95-b61f-714a65d7316d",
-  },
-  {
-    id: "1e6d2a9b-dc37-4b19-91e3-0a76fd01b673",
-    title: "Indian Flydubai pilot hailed as hero after averting disaster",
-    date: "2026-10-01",
-    time: "06:01",
-    url: "https://www.ft.com/content/1e6d2a9b-dc37-4b19-91e3-0a76fd01b673",
-  },
-  {
-    id: "ff64e3ef-0a37-489c-a79d-b02c29502a75",
-    title: "France and Germany inch towards grand bargain on EU car regulation",
-    date: "2026-10-01",
-    time: "06:00",
-    url: "https://www.ft.com/content/ff64e3ef-0a37-489c-a79d-b02c29502a75",
-  },
-  {
-    id: "594f10d8-aebd-48d5-af47-5e7232487a35",
-    title: "FirstFT: Big Tech’s heavy Brussels lobbying",
-    date: "2026-10-01",
-    time: "05:31",
-    url: "https://www.ft.com/content/594f10d8-aebd-48d5-af47-5e7232487a35",
-  },
-  {
-    id: "8be64ab7-81eb-48dd-8baa-e1c413a838e8",
-    title: "Louvre boss promises ‘culture of security’ after heist",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/8be64ab7-81eb-48dd-8baa-e1c413a838e8",
-  },
-  {
-    id: "bc38ab9d-d8b1-4f48-a804-f7c186e98b9b",
-    title: "Boots set to get carved out of private equity",
-    date: "2026-10-01",
-    time: "05:00",
-    url: "https://www.ft.com/content/bc38ab9d-d8b1-4f48-a804-f7c186e98b9b",
   },
 ];
