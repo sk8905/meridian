@@ -204,11 +204,9 @@ async function menuState(pg) {
     return bs;
   }
   const menuUL = await underline("/v2/menu/", ".na-menu-bar .tchip.is-on", ".na-menu-bar .tchip");
-  const macroUL = await underline("/v2/macro/", ".twire-head .tchip.is-on", "#mac-chips");
   const homeUL = await underline("/v2/", ".tui .g-wiretab.is-on", ".g-wiretabs");
   // Two shadow layers = the flush marker (inset underline + the on-divider line).
   check(menuUL && (menuUL.match(/rgb/g) || []).length >= 2 && /inset/.test(menuUL), `active-tab underline is the flush 2-layer marker (${menuUL})`);
-  checkEq(macroUL, menuUL, "Macro .twire-head tab underline matches the Menu chip underline (same weight)");
   checkEq(homeUL, menuUL, "Home wire-tab underline matches the Menu chip underline (same weight)");
 }
 

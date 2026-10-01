@@ -39,13 +39,8 @@ await pg.waitForSelector(".mcmdk.open", { timeout: 8000 });
 check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open .mcmdk-input")), "band search opens the command palette (lazy-loaded on first use)");
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(200);
 
-// The standalone Macro surface carries the shared palette band — search only, no AUM
-// button. (Newsletters is retired — newsletters live in the Home feed.)
-for (const [key, label] of [["macro", "Macro"]]) {
-  await pg.evaluate((k) => { history.pushState({ v2: true }, "", "/v2/" + k + "/"); dispatchEvent(new PopStateEvent("popstate")); }, key); await pg.waitForTimeout(1200);
-  const st = await pg.evaluate((k) => { const v = document.querySelector(`.v2-view[data-view="${k}"]`); return { q: !!(v && v.querySelector(".wire-band .wire-band-q[data-open-search]")), aum: !!(v && v.querySelector(".wire-band .tfocus-aum, .wire-band [data-aum-jump]")) }; }, key);
-  check(st.q && !st.aum, `${label}: search band present, no AUM button`);
-}
+// (The standalone Macro/Credit/Legal desk surfaces are retired — the search band lives
+// on Home, tested above; Macro redirects to the Dashboard.)
 
 // The DASHBOARD carries NO search bar — neither the global palette band above the
 // chips nor a per-section search beneath them (both removed).

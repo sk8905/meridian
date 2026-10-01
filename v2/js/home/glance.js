@@ -2354,7 +2354,7 @@ function renderMacroSnapshot() {
       + `<span class="g-snap-end">${lo}</span>${gauge}<span class="g-snap-end">${hi}</span></div>`;
   // Policy rate only — the cycle & bubble gauges were moved off this rail panel.
   el.innerHTML =
-    `<a class="g-snap-blk" href="/macro/#/policy">`
+    `<a class="g-snap-blk" href="/v2/dashboard/macro" data-godash="macro">`
       + `<div class="g-snap-pol">`
         + `<span class="g-snap-t g-snap-polh">Policy rate</span>`
         + `<span class="g-snap-colh g-snap-colh-c">Next</span>`

@@ -29,12 +29,21 @@ const BASE = "/v2";
 const ROUTES = [
   { key: "home",   title: "Wire",        load: () => import("./views/home.js") },
   { key: "dashboard", title: "Wire Dashboard", load: () => import("./views/dashboard.js") },
-  { key: "macro",  title: "Wire Macro",  load: () => import("./views/macro.js") },
+  // The Macro desk view is RETIRED (its indicators/news/summaries live on Dashboard +
+  // Home; the long-form cycle/bubble/policy deep-dives were dropped). Credit/Legal
+  // remain routable for now ONLY because Profiles borrows their list/detail builders
+  // via ctx.view(); they are not user destinations and will be decoupled next.
   { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js") },
   { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js") },
   { key: "profiles", title: "Wire Profiles", load: () => import("./views/profiles.js") },
   { key: "transactions", title: "Wire Transactions", load: () => import("./views/transactions.js") },
   { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js") },
+];
+// Retired desk roots → their new home. Applied in navigate() so a typed URL, an old
+// bookmark, or a stray in-app link lands somewhere sensible instead of falling back to
+// Home. (Credit/Legal join this list once their views are decoupled from Profiles.)
+const LEGACY_REDIRECTS = [
+  [/^\/v2\/macro(\/|$)/, "/v2/dashboard/macro"],
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
 
@@ -136,6 +145,10 @@ const TOUCH = (typeof navigator !== "undefined" && (navigator.maxTouchPoints || 
 let _pending = null;                               // latest tap requested mid-swap
 async function navigate(path, { push = true, replace = false, home = false } = {}) {
   const url = new URL(path, location.origin);
+  // Retired desk roots → their new home (replace, so no dead history entry).
+  for (const [re, to] of LEGACY_REDIRECTS) {
+    if (re.test(url.pathname)) return navigate(to, { replace: true, home });
+  }
   const { key, sub } = parse(url.pathname);
   const same = key === _active;
 

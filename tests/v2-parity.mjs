@@ -31,8 +31,18 @@ async function deepLink(url, view, min, label) {
   // the roster), so assert a real, non-blank render rather than a magic length.
   await deepLink(`/v2/credit/#/manager/${ids.mgr}`, "credit", 400, "credit #/manager");
   await deepLink(`/v2/legal/#/item/${ids.item}`, "legal", 400, "legal #/item");
-  await deepLink(`/v2/macro/#/policy`, "macro", 400, "macro #/policy");
+  // (The macro desk view was retired; /v2/macro now redirects to Dashboard — see below.)
   await deepLink(`/v2/`, "home", 2000, "home");
+}
+
+// ---- 1b. Retired desk root redirects to its new home (LEGACY_REDIRECTS) ----
+{
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/macro/#/cycle");
+  await pg.waitForTimeout(1900);
+  const r = await pg.evaluate(() => ({ path: location.pathname, tab: document.documentElement.dataset.v2tab }));
+  check(r.tab === "dashboard" && /\/v2\/dashboard\//.test(r.path), `/v2/macro redirects to the Dashboard (tab=${r.tab}, path=${r.path})`);
+  checkErrs(errs, "macro redirect");
+  await ctx.close();
 }
 
 // ---- 1c. Detail-page header never double-escapes entities ----
@@ -66,27 +76,21 @@ async function deepLink(url, view, min, label) {
 // links until Home had been visited to pull them in. The CSS is now ONE sheet — the
 // eleven stylesheets @import/bundle into styles.css (feed rules included, cascade
 // order preserved), so there is no separate /feed.css <link> to look for. Assert the
-// OBSERVABLE effect: wherever a cold-opened desk shows a wire, its rows are laid out
-// by the feed grid — and at least one desk must actually show one (proving feed.css
-// is in the bundle and applies). The bare Credit/Legal landings now redirect to
-// Profiles (no wire), so grid is asserted per-desk only where rows are present.
-let gridProven = false;
-for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], ["/v2/legal/", "legal"]]) {
-  const { ctx, pg } = await open(b, PHONE, base + path);
-  await pg.waitForTimeout(2000);
+// OBSERVABLE effect: the Home news wire's rows are laid out by the feed grid (the
+// Credit/Legal desk roots now redirect to Profiles and the Macro desk was retired, so
+// Home is where a cold-opened wire renders — and it proves feed.css is in the bundle).
+{
+  const { ctx, pg } = await open(b, PHONE, base + "/v2/");
+  await pg.waitForSelector(".v2-view:not([hidden]) #g-feed .g-feed-row", { timeout: 8000 }).catch(() => {});
   const r = await pg.evaluate(() => {
-    const row = document.querySelector(".v2-view:not([hidden]) .g-feed-row");
+    const row = document.querySelector(".v2-view:not([hidden]) #g-feed .g-feed-row");
     // feed.css lays each wire row out as a grid; without it the <a> is a plain
     // inline element (the unstyled "orange links" regression).
     return { display: row ? getComputedStyle(row).display : null, hasRow: !!row };
   });
-  if (r.hasRow) {
-    check(r.display === "grid", `${view}: feed rows laid out by the feed grid (display:${r.display})`);
-    if (r.display === "grid") gridProven = true;
-  }
+  check(r.hasRow && r.display === "grid", `the bundled CSS applies the feed grid on the Home wire (feed.css is in the bundle; display:${r.display})`);
   await ctx.close();
 }
-check(gridProven, "the bundled CSS applies the feed grid on a cold-opened desk (feed.css is in the bundle)");
 
 // ---- 2. Full nav cycle x2: no duplication, no leak, no errors ----
 {

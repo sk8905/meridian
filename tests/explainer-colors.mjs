@@ -70,18 +70,8 @@ const rates = await pg.evaluate(() => {
 });
 check(!rates.present || (rates.heading === rates.inkRef && rates.weight === "700"), `rates why-it-moved heading bold white when present (${rates.heading} / ${rates.weight})`);
 
-// ---- Macro ▸ indicators Key moments ---------------------------------------
-await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/macro/"); dispatchEvent(new PopStateEvent("popstate")); });
-await pg.waitForTimeout(1400);
-const mac = await pg.evaluate(() => {
-  const t = document.querySelector(".mac-km-t");
-  let inkRef = null;
-  if (t) { const p = document.createElement("span"); p.style.color = "var(--ink)"; t.parentElement.appendChild(p); inkRef = getComputedStyle(p).color; p.remove(); }
-  return { present: !!t, heading: t ? getComputedStyle(t).color : null, weight: t ? getComputedStyle(t).fontWeight : null, inkRef, numBlue: (() => { const n = document.querySelector(".mac-km-x .nb-num"); return n ? getComputedStyle(n).color : null; })() };
-});
-check(!mac.present || (mac.heading === mac.inkRef && mac.weight === "700"), `macro Key-moment heading bold white when present (${mac.heading} / ${mac.weight})`);
-if (mac.present && mac.numBlue) check(mac.numBlue !== BLUE, `macro Key-moment numbers read PLAIN, not blue, when present (${mac.numBlue})`);
-else check(true, "macro Key-moment: no numbers to colour this render");
+// (The Macro desk view and its indicator Key-moments rail were retired — the macro
+// Key-moments now live on the Dashboard; their colour tokens are covered there.)
 
 checkErrs(errs, "explainer colours");
 await ctx.close();
