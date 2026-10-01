@@ -48,9 +48,9 @@ check(!/--t-news\s*:\s*#/.test(feedCss), "feed.css no longer carries its own --t
 check(/\.g-feed-dayhdr\s*\{[^}]*background:var\(--t-head\)/.test(feedCss),
   "feed.css .g-feed-dayhdr (dark) bands on --t-head, not --t-ground");
 
-// R9 — Macro tile primary value is plain data text, not accent-coloured.
-check(/\.macro-val\s*\{[^}]*color:\s*var\(--ink\)/.test(macroCss),
-  "macro/css/styles.css .macro-val uses --ink, not the accent (--macro) orange");
+// (R9's .macro-val tile check was retired with the Macro desk view — the rule is
+// gone, so there is nothing to colour-guard; the cockpit's own value classes are
+// covered by the .ck-dim-s check below.)
 
 // R10 — desktop topbar identity/status text uses the shared muted token, not a
 // one-off hex grey.
@@ -331,13 +331,8 @@ check(!/\.g-jump-link\.active\s*\{[^}]*background:rgba\(255,255,255,\.15\)/.test
 check(/\.ew-day\s*\{[^}]*font-size:var\(--fs-micro\)/.test(macroCss),
   "macro/css/styles.css .ew-day sets the standard micro day-break font-size (var(--fs-micro), R6)");
 
-// R8 — the Macro chart hover tooltip (.chart-tip) must read the themed
-// --surface token, not a hardcoded #fff. It had no [data-theme="dark"]
-// override (unlike its .chart-axis/.chart-grid/.chart-endtxt siblings), so in
-// dark mode its --ink text (near-white) painted on a permanently-white box —
-// an unreadable tooltip.
-check(/\.chart-tip\s*\{[^}]*background:\s*var\(--surface\)/.test(macroCss),
-  "macro/css/styles.css .chart-tip background reads var(--surface), not a hardcoded #fff");
+// (R8's .chart-tip tooltip check was retired with the Macro desk view's chart — the
+// rule is gone. The live Dashboard chart's own tooltip tokens stand on their own.)
 
 // R7a — no decorative arrow glyph appended to link/source-marker text. Live
 // surfaces had drifted to a trailing "›"/"→"/"↗" ("Full source ›", "SEC EDGAR

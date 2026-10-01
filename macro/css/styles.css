@@ -61,15 +61,8 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .page-head { margin-bottom: 1.25rem; }
 /* Dashboard header: title on the left; the upcoming-releases dropdown and the
    1Y/3Y/5Y range toggle sit together in a right-hand cluster, on the same line. */
-.page-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem 1rem; flex-wrap: wrap; }
-.page-head-main { min-width: 0; }
-.page-head-tools { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; }
 /* On phones the title takes the full first row and the tools drop to their own
    row, spread edge-to-edge so the dropdown and the toggle stay on one line. */
-@media (max-width: 620px) {
-  .page-head-main { flex: 1 1 100%; }
-  .page-head-tools { flex: 1 1 100%; justify-content: space-between; }
-}
 .rel-dd { position: relative; flex: 0 0 auto; }
 .rel-dd > summary { list-style: none; cursor: pointer; }
 .rel-dd > summary::-webkit-details-marker { display: none; }
@@ -79,16 +72,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
   font-size:var(--fs-title); font-weight: 700; color: var(--muted); padding: .15rem .1rem; }
 .rel-dd-btn:hover { text-decoration: none; }
 .rel-dd[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
-.rel-dd-panel { position: absolute; right: 0; top: calc(100% + .45rem); z-index: 30; width: 320px; max-width: 84vw;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 12px 34px rgba(15,23,42,.16);
-  padding: .5rem; }
-.rel-dd-head { font-size:var(--fs-body); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: .3rem .5rem .45rem; }
-.rel-list { display: flex; flex-direction: column; }
-.rel-item { display: flex; flex-direction: column; gap: .2rem; padding: .5rem .5rem; border-radius: 8px; color: inherit; text-decoration: none; border-top: 1px solid var(--border); }
-.rel-list .rel-item:first-child { border-top: 0; }
-a.rel-item:hover { background: #faf9fd; }
-a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--ink); }
-@media (max-width: 620px) { .rel-dd { align-self: flex-start; } .rel-dd-panel { right: auto; left: 0; } }
+@media (max-width: 620px) { .rel-dd { align-self: flex-start; } }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow); }
 .feature-card { border-top: 3px solid var(--macro); }
 .footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size:var(--fs-body); }
@@ -96,47 +80,25 @@ a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--ink); 
 
 /* ---------- macro dashboard ---------- */
 /* US and UK side by side, each a single row of six compact tiles (2 × 1×6). */
-.macro-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1.5rem; align-items: start; margin-bottom: 1.6rem; }
-.macro-group { margin-bottom: 0; }
 .macro-country { font-size:var(--fs-title); font-weight: 700; color: var(--ink); margin: 0 0 .6rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 /* Section divider heading inside the Cycle view (Debt cycle · Market cycle). */
-.macro-section-h { font-size:var(--fs-title); font-weight: 700; color: var(--ink); margin: 1.8rem 0 .9rem; padding-top: 1.3rem; border-top: 1px solid var(--border, #262626); }
-.macro-section-h:first-of-type { border-top: 0; padding-top: 0; margin-top: .2rem; }
-.macro-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .4rem; }
 .macro-tile { position: relative; border: 1px solid var(--border); border-radius: 9px; padding: .48rem .5rem .55rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .26rem; }
 /* Deep-link highlight when a data-alert notification focuses a tile. */
 .macro-tile.flash { animation: tileflash 2.2s ease-out; }
 @keyframes tileflash { 0% { background: #fef9c3; border-color: #fde68a; } 100% { background: var(--surface); border-color: var(--border); } }
 /* Corner control to open the indicator in the Chart view. */
-.macro-chartlink { position: absolute; top: .4rem; right: .45rem; font-size:var(--fs-head); line-height: 1; opacity: .4; cursor: pointer; padding: .2rem; border-radius: 5px; filter: grayscale(.3); }
 .macro-tile:hover .macro-chartlink { opacity: .8; }
-.macro-chartlink:hover, .macro-chartlink:focus-visible { opacity: 1; filter: none; background: rgba(43,74,124,.16); outline: none; }
 /* The whole tile is a link to its source (matches Credit's key-rates tiles). */
 a.macro-tile { color: inherit; text-decoration: none; transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease; }
 a.macro-tile:hover { text-decoration: none; border-color: var(--ink); box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(28,58,94,.12); }
 a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
-.macro-tile-head { display: flex; flex-direction: column; gap: .1rem; min-height: 1.95rem; }
 /* Tile text never wraps — it truncates with an ellipsis — so every tile keeps an
    identical fixed layout and the value/chart/source rows line up across tiles. */
-.macro-label { font-weight: 700; color: var(--ink); font-size:var(--fs-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.macro-sub { display: block; line-height: 1.25; font-size:var(--fs-micro); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.macro-valrow { display: flex; align-items: baseline; gap: .4rem; }
-.macro-val { font-size:var(--fs-title); font-weight: 700; color: var(--ink); letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
-.macro-chg { font-size:var(--fs-num); font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .macro-chg.up { color: var(--t-up); }
 .macro-chg.down { color: var(--t-down); }
 .macro-chg.flat { color: var(--muted); }
-.macro-chart { margin: .1rem 0 .15rem; min-height: 32px; }
 .spark { width: 100%; height: auto; display: block; cursor: pointer; }
-.spark-x { fill: var(--muted); font-size:var(--fs-micro); }
-.spark-empty { padding: 1.1rem 0; text-align: center; }
 /* Hover tooltip shared by all tile sparklines (positioned at the cursor). */
-.spark-tip { position: fixed; z-index: 60; pointer-events: none; background: var(--macro-ink);
-  color: #fff; font-size:var(--fs-body); line-height: 1.3; padding: .2rem .45rem; border-radius: 5px;
-  white-space: nowrap; box-shadow: 0 4px 14px rgba(20, 12, 40, .28); }
-.spark-tip[hidden] { display: none; }
-.macro-foot { color: var(--muted); font-size:var(--fs-micro); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.macro-src { color: var(--muted); }
 
 /* ---------- in-app view nav (in the top bar, matches Credit/Legal) ---------- */
 .mainnav { display: flex; gap: .25rem; flex: 0 1 auto; justify-content: flex-start;
@@ -167,24 +129,9 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 .rk-toggle[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
 .rk-toggle-body { margin-top: .8rem; }
 .rk-toggle-body .macro-cal { margin-bottom: 0; }
-.macro-cal { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; margin: 0 0 1.5rem; }
-.cal-band { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); width: 100%; }
-.cal-tile { display: flex; flex-direction: column; justify-content: flex-start; gap: .3rem; padding: .7rem 1rem; background: var(--surface); color: inherit; text-decoration: none; }
-a.cal-tile:hover { text-decoration: none; }
-a.cal-tile:hover .cal-title, a.cal-tile:hover .cal-country { color: var(--ink); }
-a.cal-tile:focus-visible { outline: 2px solid var(--macro); outline-offset: -2px; }
-.cal-date { display: flex; align-items: center; gap: .3rem; font-size:var(--fs-micro); font-weight: 700; text-transform: uppercase; letter-spacing: .35px; color: var(--muted); white-space: nowrap; }
-.cal-country { font-weight: 800; color: var(--macro-ink); }
-.cal-title { font-size:var(--fs-head); font-weight: 700; color: var(--ink); line-height: 1.2; }
-.cal-empty { margin: 0; padding: .7rem 1rem; }
 
 /* ---------- key macro headlines (Latest-activity-style, US | UK columns) ---------- */
-.macro-news-panel { margin: 0 0 1.7rem; }
-.macro-news-panel h2 { font-size:var(--fs-title); font-weight: 700; color: var(--ink); margin: 0 0 .2rem; }
 .news-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.75rem; margin-top: .7rem; }
-.news-more { display: inline-block; margin-top: .9rem; font-size:var(--fs-head); font-weight: 600; color: var(--macro); }
-.news-more:hover { text-decoration: none; }
-.news-col-head { font-size:var(--fs-body); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--macro); margin: 0; padding-bottom: .35rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 .compact-list { list-style: none; margin: .1rem 0 0; padding: 0; }
 .compact-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
 .compact-item:last-child { border-bottom: none; }
@@ -196,7 +143,6 @@ a.compact-head:hover { text-decoration: none; }
 /* Same feed style as the Credit News tab, condensed so every item is a single
    line: chip · date · headline (black, links out) · source (grey). Wraps
    gracefully when a headline is too long for one line. */
-.macro-articles-panel { padding: 1.1rem 1.25rem; }
 /* News/commentary feed row — matches the home feed: a fixed time column, a bold
    headline that ellipsizes to its content, then a muted inline source. */
 .intel-row { display: flex; align-items: baseline; gap: .7rem; padding: .62rem 0; border-bottom: 1px solid var(--border); flex-wrap: nowrap; }
@@ -207,26 +153,14 @@ a.intel-head:hover { text-decoration: none; }
 .intel-src-inline { flex: 0 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; font-size:var(--fs-body); }
 .intel-row .save-btn { margin-left: auto; flex-shrink: 0; }
 /* Month-group headers (JULY 2026 …), styled like Credit's year headers. */
-.month-group + .month-group { margin-top: .4rem; }
-.month-head { font-size:var(--fs-body); font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 1.1rem 0 .1rem; padding-bottom: .35rem; border-bottom: 2px solid var(--border); }
-.month-group:first-child .month-head { margin-top: .15rem; }
 /* .save-btn colour/shape rules live in premium.css (single source of truth);
    only the layout override above (.intel-row .save-btn) stays here. */
-.comm-foot { padding-top: .9rem; text-align: center; }
-.load-more-btn { font: inherit; font-size:var(--fs-head); font-weight: 600; color: var(--macro); background: none; border: 1px solid var(--border); border-radius: 8px; padding: .5rem 1.1rem; cursor: pointer; }
-.load-more-btn:hover { background: #f4f1fb; border-color: var(--ink); }
 
 /* ---------- dashboard summaries ---------- */
-.macro-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.7rem; }
 .macro-sum { display: block; border: 1px solid var(--border); border-left: 3px solid var(--macro); border-radius: 12px; padding: 1rem 1.1rem; background: var(--surface); box-shadow: var(--shadow); color: inherit; text-decoration: none; transition: box-shadow .15s ease, transform .15s ease; }
 .macro-sum:hover { text-decoration: none; box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(28,58,94,.12); }
-.macro-sum-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .55rem; }
-.macro-sum-icon { color: var(--macro); font-size:var(--fs-title); }
 .macro-sum-title { font-weight: 700; color: var(--ink); font-size:var(--fs-title); }
 .macro-sum-line { display: flex; gap: .45rem; align-items: baseline; margin: .25rem 0; color: var(--ink); font-size:var(--fs-head); line-height: 1.4; }
-.macro-flag { flex: 0 0 1.7rem; font-weight: 800; font-size:var(--fs-body); color: var(--macro-ink); letter-spacing: .5px; }
-.macro-sum-txt { flex: 1 1 auto; min-width: 0; }
-.macro-sum-cta { display: inline-block; margin-top: .5rem; color: var(--macro); font-weight: 700; font-size:var(--fs-head); }
 
 /* ---------- commentary / cycle prose ---------- */
 /* Two full-width country columns so the content fills the page (matches the
@@ -244,8 +178,6 @@ a.intel-head:hover { text-decoration: none; }
 
 /* ---- Policy: CME FedWatch odds + Fed dot-plot cards ---------------------- */
 .macro-subhead { font-size:var(--fs-title); font-weight: 700; color: var(--ink); margin: 1.6rem 0 .75rem; }
-.macro-policy-mkts { align-items: start; }
-.pw-card { gap: 0; }
 .pw-head { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
 .pw-head .macro-country { margin: 0 0 .55rem; }
 .pw-src { flex: 0 0 auto; font-size:var(--fs-body); font-weight: 700; color: var(--muted); text-decoration: none; white-space: nowrap; }
@@ -268,23 +200,12 @@ a.intel-head:hover { text-decoration: none; }
 /* Gauge card header: heading on the left, the 0–100 gauge inline at the top-right
    of the box (same row as the heading). ALL narrative text (.macro-framework)
    then sits full-width BELOW this header row — never beside or around the gauge. */
-.macro-gauge-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; margin: 0 0 .8rem; }
-.macro-gauge-head h2 { margin: 0; }
-.macro-gauge-head-main { min-width: 0; }
-.macro-gauge-updated { margin: .15rem 0 0; }
 .macro-gauge-head .gauge { flex: 0 0 auto; width: 40%; max-width: 420px; margin: 0; }
 .macro-framework .macro-para:last-child { margin-bottom: 0; }
-.macro-sources { margin-top: 1.6rem; border-top: 1px solid var(--border); padding-top: 1rem; }
-.macro-sources-h { text-transform: uppercase; letter-spacing: .8px; font-weight: 700; }
-.macro-sources ul { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: .3rem 1.25rem; }
-.macro-sources a { color: var(--muted); font-size:var(--fs-head); }
-.macro-sources a:hover { color: var(--ink); }
 
 /* ---------- cycle gauge ---------- */
-.macro-gauge-card { margin-bottom: 1.6rem; }
 .gauge { width: 100%; max-width: 640px; height: auto; display: block; margin: .4rem 0 .2rem; }
 .gauge-zone { fill: var(--muted); font-size:var(--fs-micro); }
-.gauge-mark { fill: var(--macro-ink); font-size:var(--fs-body); font-weight: 800; }
 /* Track + markers are theme-aware so the gauge reads in light mode (was white
    fills that vanished on the light surface). */
 .gauge-track { fill: color-mix(in srgb, var(--ink, #131a2b) 14%, transparent); }
@@ -318,17 +239,12 @@ a.intel-head:hover { text-decoration: none; }
 .ck-srcs a { color: var(--muted); }
 .ck-srcs a:hover { text-decoration: none; }
 .ck-src-sep { opacity: .5; }
-.ck-note { font-size:var(--fs-body); line-height: 1.5; color: var(--muted); margin: 0; }
-.ck-note strong { color: var(--ink); font-weight: 600; }
-.ck-reads { padding: 9px 12px 12px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--border); }
 /* Economic indicators — comparison matrix beside the selected economy's detail,
    filling the full-width panel (was a half-empty 1fr 1fr grid). */
 .ck-inds { display: block; background: var(--surface); }
-.ck-ind-wrap { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 1px; background: var(--border); align-items: start; }
 .ck-ind-wrap > .mac-mtx, .ck-ind-wrap > .mac-ind-detail { background: var(--surface); }
 /* Selected-economy tiles beside the matrix: a clean 3 × 2 block. */
 .ck-ind-wrap .mac-ind-grid { grid-template-columns: repeat(3, 1fr); }
-.ck-ind-col { background: var(--surface); min-width: 0; }
 /* FedWatch — tighten the reused .pw-* bars for the compact panel */
 .ck-body .pw-bars { gap: .5rem; margin: .1rem 0 0; }
 .ck-body .pw-lbl { font-size:var(--fs-body); }
@@ -372,9 +288,6 @@ a.intel-head:hover { text-decoration: none; }
   .mac-cockpit .ck-ov-c:not(.ck-ov-rates) > .ck-panel:last-child { flex: 1 1 auto; }
 }
 /* Cockpit sub-section headers — full-width mono dividers grouping the panels */
-.ck-sec { grid-column: 1 / -1; background: var(--bg, #05080f); padding: 14px 12px 5px;
-  font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); font-weight: 600;
-  letter-spacing: .08em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .mac-cockpit .ck-sec:first-child { padding-top: 4px; }
 /* Compact stat rows (rate outlook / cycle) — label · value · grey meta */
 .ck-stats2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -476,7 +389,6 @@ a.intel-head:hover { text-decoration: none; }
 .ew-tbl tbody th { text-align: left; padding-left: 0; white-space: normal; overflow-wrap: break-word; }
 .ew-tbl thead th:first-child { text-align: left; }
 .ew-tbl td { font-size:var(--fs-body); color: var(--ink); white-space: normal; overflow-wrap: break-word; }
-.ew-note { font-family: var(--t-mono); font-size:var(--fs-micro); color: var(--muted); }
 .ew-nr { color: var(--faint, #5c6a86); font-weight: 400; }
 .ew-px.ew-up { color: var(--t-up, #3fc08d); }
 .ew-px.ew-dn { color: var(--t-down, #f26d84); }
@@ -486,10 +398,6 @@ a.intel-head:hover { text-decoration: none; }
 .ew-etf { display: inline-block; margin-left: 6px; padding: 1px 4px; vertical-align: 1px;
   border: 0; font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 700;
   letter-spacing: .05em; font-variant-numeric: tabular-nums; }
-.ew-etf-igwd { color: var(--t-hdg, #4aa3f0); background: color-mix(in srgb, var(--t-hdg, #4aa3f0) 16%, transparent); }
-.ew-etf-wmvg { color: var(--t-lex, #2fbf8a); background: color-mix(in srgb, var(--t-lex, #2fbf8a) 16%, transparent); }
-.ew-etf-emee { color: var(--t-mac, #9b83e2); background: color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
-.ew-etf-comm { color: var(--t-amber, #d9a441); background: color-mix(in srgb, var(--t-amber, #d9a441) 16%, transparent); }
 /* Sources tucked behind a collapse — the press-hold menu still reads the
    .ew-srcs links from the DOM whether or not the details is open. */
 .ew-srcwrap { margin-top: 10px; }
@@ -540,13 +448,11 @@ a.intel-head:hover { text-decoration: none; }
 .ck-dots td { text-align: right; color: var(--ink); font-size:var(--fs-body); font-weight: 600; padding: 3px 0; border-bottom: 1px solid var(--border); }
 .ck-dots tr:last-child th, .ck-dots tr:last-child td { border-bottom: 0; }
 /* Bubble dimensions */
-.ck-dims { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin: 6px 0 2px; }
 .ck-dim { border: 1px solid var(--border); padding: 8px 10px; min-width: 0; }
 .ck-dim-h { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; margin-bottom: 4px; }
 .ck-dim-n { font-size:var(--fs-body); font-weight: 600; color: var(--ink); }
 .ck-dim-s { font-family: var(--t-mono); font-size:var(--fs-title); font-weight: 700; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
 .ck-dim-max { font-size:var(--fs-micro); color: var(--muted); font-weight: 400; }
-.ck-dim-note { margin: 0; font-size:var(--fs-micro); line-height: 1.45; }
 /* Gauge inside a cockpit panel — capped so the zone labels don't balloon on a
    full-width (span-2) panel; left-aligned to match the panel's other content. */
 .ck-body .gauge { width: 100%; max-width: 300px; margin: 2px 0 8px; display: block; }
@@ -568,32 +474,19 @@ circle.yc-uk { fill: var(--ind-2y); }
 @media (max-width: 760px) {
   .mac-cockpit { grid-template-columns: 1fr; }
   .ck-span2 { grid-column: auto; }
-  .ck-dims { grid-template-columns: 1fr; }
   /* Stack the comparison matrix over the selected-economy detail on narrow screens. */
-  .ck-ind-wrap { grid-template-columns: 1fr; }
   /* Stack the three Overview clusters vertically on narrow screens. */
   .ck-ov { grid-template-columns: 1fr; }
 }
 
 /* ---------- bubble-risk view ---------- */
-.macro-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.macro-dim-head { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-bottom: .8rem; }
 .macro-dim-head .macro-country { margin: 0; flex: 0 1 auto; }
-.macro-score { font-weight: 800; color: var(--macro-ink); font-size:var(--fs-title); white-space: nowrap; flex: 0 0 auto; }
-.macro-score-max { color: var(--muted); font-weight: 600; font-size:var(--fs-body); }
 .macro-metrics { width: 100%; border-collapse: collapse; margin: .1rem 0 .7rem; }
 .macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size:var(--fs-head); padding: .4rem 0 .1rem; vertical-align: baseline; }
-.macro-metric-val { text-align: right; font-weight: 800; color: var(--ink); white-space: nowrap; font-size:var(--fs-head); padding: .4rem 0 .1rem; vertical-align: baseline; font-variant-numeric: tabular-nums; }
-.macro-metric-ctx td { padding: 0 0 .5rem; border-bottom: 1px solid var(--border); line-height: 1.4; }
 .macro-metrics tr.macro-metric-ctx:last-child td { border-bottom: none; padding-bottom: 0; }
-.macro-dim-note { margin-top: auto; color: var(--muted); }
-.macro-uknote { margin-top: 1rem; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(43,74,124,.3); }
 
 /* ---------- chart tab ---------- */
-.chart-ctrls { margin-bottom: 1.2rem; display: grid; gap: 1.1rem; }
 /* Chart toolbar: time-range segmented control + PNG export. */
-.chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; margin-bottom: .8rem; }
-.chart-toolbar-l { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
 /* Value-mode segmented control (Actual / % change / Indexed) — matches the range control. */
 .chart-mode { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 .chart-mode-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size:var(--fs-head); font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
@@ -601,84 +494,33 @@ circle.yc-uk { fill: var(--ind-2y); }
 .chart-mode-btn:hover { color: var(--macro-ink); background: #faf9fd; }
 .chart-mode-btn.is-on { background: var(--macro-ink); color: #fff; }
 /* Dashboard sparkline range toggle — right-aligned above the US/UK grids. */
-.macro-range-bar { display: flex; justify-content: flex-end; margin: 0 0 .85rem; }
 .chart-range { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
 .chart-range-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size:var(--fs-head); font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
 .chart-range-btn:first-child { border-left: 0; }
 .chart-range-btn:hover { color: var(--macro-ink); background: #faf9fd; }
 .chart-range-btn.is-on { background: var(--macro-ink); color: #fff; }
-.chart-export { border: 1px solid var(--border); background: var(--surface); color: var(--macro-ink); font: inherit; font-size:var(--fs-head); font-weight: 700; padding: .35rem .8rem; border-radius: 8px; cursor: pointer; }
-.chart-export:hover { border-color: var(--ink); background: #faf9fd; }
-.chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size:var(--fs-title); }
-.chart-ind-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem; }
-.chart-ind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .05rem .7rem; }
 /* Chart stage: the plot on the left, the indicator selectors in a right sidebar. */
-.chart-stage { display: flex; gap: 1.4rem; align-items: flex-start; }
-.chart-stage-main { flex: 1 1 auto; min-width: 0; }
-.chart-ind-side { flex: 0 0 12rem; border-left: 1px solid var(--border); padding-left: 1.2rem; }
-.chart-ind-side .chart-ind-grid { grid-template-columns: 1fr; gap: 0; }
-.chart-ind-side .chart-ind-block + .chart-ind-block { margin-top: 1rem; }
 /* On narrow screens the sidebar drops below the chart. The two countries stack
    full-width (each header on its own line), and each country's indicators sit in
    a 2-column grid — so nothing overflows off the side of the phone. */
-@media (max-width: 760px) {
-  .chart-stage { flex-direction: column; gap: 1rem; }
-  .chart-ind-side { flex: none; width: 100%; border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 1rem; }
-  .chart-ind-side .chart-ind-side-list { display: block; }
-  .chart-ind-side .chart-ind-block + .chart-ind-block { margin-top: 1rem; }
-  .chart-ind-side .chart-ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .1rem .9rem; }
-  .chart-ind { min-width: 0; overflow-wrap: anywhere; }
-}
-.chart-ind-country { font-weight: 700; color: var(--macro-ink); font-size:var(--fs-body); margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .5px; }
-.chart-line-key { font-weight: 600; color: var(--muted); text-transform: none; letter-spacing: 0; font-size:var(--fs-body); }
-.chart-ind-all { display: inline-flex; align-items: center; gap: .3rem; margin-right: .5rem; font-weight: 600;
-  color: var(--macro-ink); text-transform: none; letter-spacing: 0; font-size:var(--fs-body); cursor: pointer; }
-.chart-ind { display: flex; align-items: center; gap: .45rem; padding: .18rem 0; font-size:var(--fs-head); cursor: pointer; }
-.chart-ind input { accent-color: var(--macro); }
-.chart-ind-sw { width: 16px; height: 0; border-top: 3px solid var(--c); flex: 0 0 auto; }
 .chart-ind-sw.dash { border-top-style: dashed; }
 #chart-count.is-max { color: var(--t-down); font-weight: 800; }
-.chart-main { position: relative; }
-.chart-svg { width: 100%; height: auto; display: block; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
 .chart-grid.chart-zero { stroke: #cbd0da; stroke-width: 1.5; }
 /* Year gridlines are a touch stronger than the intra-year (month) ones. */
 .chart-grid.chart-grid-yr { stroke: #d3d8e2; }
 /* Right-hand price-scale divider (TradingView style). */
 .chart-axis { stroke: #cbd0da; stroke-width: 1; }
-.chart-tip .tip-real { color: var(--muted); }
-.chart-ylab, .chart-xlab { fill: var(--muted); font-size:var(--fs-micro); }
 /* Year labels on the date axis read as the anchor points. */
-.chart-xlab-yr { fill: var(--ink); font-weight: 700; }
 /* Ticker tag pinned to each line's right end. */
-.chart-endtxt { fill: #fff; font-size:var(--fs-micro); font-weight: 700; }
 #chart-endtags { transition: opacity .12s ease; }
 /* Crosshair date tag on the bottom axis (follows the cursor). */
-.chart-datetag { fill: var(--macro-ink); }
-.chart-datetxt { fill: #fff; font-size:var(--fs-micro); font-weight: 700; }
 /* Event markers: a dot along the top per in-window event; the ones whose marker
    line is showing render solid + ringed. Click toggles the line. */
-.chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .5; }
-.chart-evdot { fill: var(--macro); stroke: #fff; stroke-width: 1.5; pointer-events: all; }
-.chart-evmark { cursor: pointer; }
 .chart-evmark.is-on .chart-evdot { fill: var(--macro-ink); stroke: var(--macro); stroke-width: 2.5; }
-.chart-evhit { pointer-events: all; cursor: pointer; }
-.chart-evmark:hover .chart-evdot { fill: var(--macro-ink); }
-.chart-evmark:hover .chart-evline { opacity: .8; }
-.chart-tip .evtip-desc { margin-top: .3rem; color: var(--muted); font-size:var(--fs-body); line-height: 1.45; max-width: 240px; }
-.chart-tip .evtip-hint { margin-top: .35rem; color: var(--macro-ink); font-size:var(--fs-body); font-weight: 700; }
-.chart-cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
 #chart-hit { cursor: crosshair; }
-.chart-tip { position: absolute; z-index: 5; pointer-events: none; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); padding: .5rem .6rem; font-size:var(--fs-body); min-width: 130px; }
-.chart-tip .tip-date { font-weight: 700; margin-bottom: .3rem; color: var(--ink); }
-.chart-tip .tip-row { display: flex; align-items: center; gap: .35rem; color: var(--ink); padding: .05rem 0; }
-.chart-tip .tip-dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
 .chart-legend { display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; margin-top: .9rem; }
-.chart-leg { display: inline-flex; align-items: center; gap: .4rem; font-size:var(--fs-head); color: var(--ink); }
-.chart-leg b { color: var(--macro-ink); }
-.chart-swatch { width: 18px; height: 0; border-top: 3px solid var(--c); }
 .chart-swatch.dash { border-top-style: dashed; }
-.chart-note { margin-top: .8rem; }
 
 /* The bottom tab bar (.mobile-tabbar / .mtab) is defined ONCE, in premium.css
    — identical on every page, like the shared header. */
@@ -687,19 +529,10 @@ circle.yc-uk { fill: var(--ind-2y); }
    US and UK groups; each then spans the full width as its own 3-col grid. */
 /* Below ~1280px there isn't room for two 6-tile rows side by side, so stack the
    US and UK groups (each still a full-width row of six). */
-@media (max-width: 1280px) {
-  .macro-groups { grid-template-columns: 1fr; gap: 1.4rem; }
-}
 /* Narrower still: fall back to three columns per group. */
-@media (max-width: 1100px) {
-  .macro-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media (max-width: 620px) { .chart-ind-cols { grid-template-columns: 1fr; } .chart-ind-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 900px) {
   .macro-cols { grid-template-columns: 1fr; }
-  .macro-gauge-head { flex-direction: column; gap: .6rem; }
   .macro-gauge-head .gauge { width: 100%; max-width: 640px; }
-  .macro-sources ul { grid-template-columns: repeat(2, 1fr); }
 
   /* Stacked header (tablet) — matches Wire Credit/Legal/Glance so all four
      top bars switch to the stacked layout at the same width: brand + bell, then
@@ -764,25 +597,13 @@ circle.yc-uk { fill: var(--ind-2y); }
   .nav-link { padding: .3rem .5rem; font-size:var(--fs-head); flex: 0 0 auto; }
   .container { padding: 1rem 1rem 2.5rem; }
   /* iPhone: keep each country as a compact 3-col × 2-row (2×3) block, stacked. */
-  .macro-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
   .macro-tile { padding: .5rem .5rem .6rem; gap: .3rem; min-width: 0; }
   /* Reserve two lines for the label + sub so every head is the same height even
      where one is truncated; the whole tile stays conformed. */
-  .macro-tile-head { min-height: 2.05rem; }
-  .macro-label { font-size:var(--fs-body); }
-  .macro-sub { font-size:var(--fs-body); }
   /* Stack the value over its change (never inline/wrapping) so every tile has the
      same two-line value block and the charts + sources line up across the grid. */
-  .macro-valrow { flex-direction: column; align-items: flex-start; gap: .05rem; min-height: 2.1rem; }
-  .macro-val { font-size:var(--fs-title); }
-  .macro-chg { font-size:var(--fs-body); }
-  .macro-chartlink { top: .25rem; right: .25rem; font-size:var(--fs-body); }
-  .macro-summary { grid-template-columns: 1fr; gap: .7rem; }
-  .cal-band { grid-template-columns: repeat(2, 1fr); }
-  .cal-tile { padding: .55rem .8rem; }
   .news-cols { grid-template-columns: 1fr; gap: 0; }
   .news-col + .news-col { margin-top: 1.1rem; }
-  .macro-sources ul { grid-template-columns: 1fr; }
   /* Commentary/Saved rows: chip + date + Save share the top line; the headline and
      source drop to their own full-width lines below, so Save is pinned top-right of
      the box on the pill + date line (matching Credit & Legal). */
@@ -797,7 +618,6 @@ circle.yc-uk { fill: var(--ind-2y); }
 }
 @media (max-width: 480px) {
   h1 { font-size:var(--fs-hero); }
-  .macro-val { font-size:var(--fs-title); }
 }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
@@ -819,7 +639,6 @@ circle.yc-uk { fill: var(--ind-2y); }
 [data-theme="dark"] .chart-axis { stroke: rgba(255,255,255,.20); }
 [data-theme="dark"] .chart-grid.chart-zero { stroke: rgba(255,255,255,.22); }
 [data-theme="dark"] .chart-grid.chart-grid-yr { stroke: rgba(255,255,255,.14); }
-[data-theme="dark"] .chart-endtxt { fill: #0b1120; }
 
 /* ---- Commentary rows: the Save button occupies a fixed top-right column and the
         row reserves it, so no headline / source text wraps under the button
