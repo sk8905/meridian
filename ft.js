@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9a6e17fe-55e4-4a6d-8761-8346ec765ba9",
+    title: "Andy Burnham searches for UK alternative to Palantir",
+    date: "2026-10-01",
+    time: "21:00",
+    url: "https://www.ft.com/content/9a6e17fe-55e4-4a6d-8761-8346ec765ba9",
+  },
+  {
     id: "22779c05-8bda-423e-b5bf-6839d597f499",
     title: "US mortgage rates jump the most in four years as bond sell-off hits Main Street",
     date: "2026-10-01",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "08:05",
     url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af",
-  },
-  {
-    id: "639e1943-a5fc-4869-bac8-95cf3c9fe4e8",
-    title: "Boodles in the pink with Argyle diamond haul",
-    date: "2026-10-01",
-    time: "07:00",
-    url: "https://www.ft.com/content/639e1943-a5fc-4869-bac8-95cf3c9fe4e8",
   },
 ];
