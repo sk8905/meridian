@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4014fb8e-3614-43ea-990e-733f1f002959",
+    title: "Burnham’s wake-up call to the right",
+    date: "2026-10-01",
+    time: "12:13",
+    url: "https://www.ft.com/content/4014fb8e-3614-43ea-990e-733f1f002959",
+  },
+  {
+    id: "2bd7efcf-db16-476c-89ac-5ac82244364b",
+    title: "Who should pay for the LA wildfires?",
+    date: "2026-10-01",
+    time: "12:00",
+    url: "https://www.ft.com/content/2bd7efcf-db16-476c-89ac-5ac82244364b",
+  },
+  {
+    id: "bc178357-793b-45d8-ae3b-d5929159c243",
+    title: "An AI sovereign wealth fund isn’t progressive — it’s techno-imperialism",
+    date: "2026-10-01",
+    time: "11:53",
+    url: "https://www.ft.com/content/bc178357-793b-45d8-ae3b-d5929159c243",
+  },
+  {
     id: "e4c0610f-c88e-47e2-a062-46115f08d656",
     title: "We have forgotten what budgets are for",
     date: "2026-10-01",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "22:03",
     url: "https://www.ft.com/content/baa261b7-681d-41b7-b41a-d704858cd0b2",
-  },
-  {
-    id: "46194a0b-a0e4-42cc-ad40-0df753492768",
-    title: "Google releases most advanced Gemini AI model",
-    date: "2026-09-30",
-    time: "21:09",
-    url: "https://www.ft.com/content/46194a0b-a0e4-42cc-ad40-0df753492768",
-  },
-  {
-    id: "ef10b301-6264-4ac8-8d23-bd3dddf9b8a2",
-    title: "Burnham clears path to EU summit with post-Brexit breakthrough",
-    date: "2026-09-30",
-    time: "21:00",
-    url: "https://www.ft.com/content/ef10b301-6264-4ac8-8d23-bd3dddf9b8a2",
-  },
-  {
-    id: "c3a6e3b7-e998-43f0-82b2-f197e5d1730b",
-    title: "Boots owner nearing $9bn sale of chemist to Canada’s Weston family",
-    date: "2026-09-30",
-    time: "19:59",
-    url: "https://www.ft.com/content/c3a6e3b7-e998-43f0-82b2-f197e5d1730b",
   },
 ];
