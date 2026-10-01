@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "639e1943-a5fc-4869-bac8-95cf3c9fe4e8",
+    title: "Boodles in the pink with Argyle diamond haul",
+    date: "2026-10-01",
+    time: "07:00",
+    url: "https://www.ft.com/content/639e1943-a5fc-4869-bac8-95cf3c9fe4e8",
+  },
+  {
+    id: "4ab6df98-f14d-49d1-a170-8087dc517b08",
+    title: "An optimist’s guide to the bond market",
+    date: "2026-10-01",
+    time: "06:30",
+    url: "https://www.ft.com/content/4ab6df98-f14d-49d1-a170-8087dc517b08",
+  },
+  {
+    id: "9af7e02c-3b08-4c95-b61f-714a65d7316d",
+    title: "FTAV’s further reading",
+    date: "2026-10-01",
+    time: "06:30",
+    url: "https://www.ft.com/content/9af7e02c-3b08-4c95-b61f-714a65d7316d",
+  },
+  {
     id: "1e6d2a9b-dc37-4b19-91e3-0a76fd01b673",
     title: "Indian Flydubai pilot hailed as hero after averting disaster",
     date: "2026-10-01",
