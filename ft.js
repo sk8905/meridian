@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e7c1da68-aed3-471d-911f-0b6086a327ec",
+    title: "France meets fiscal reality with a crunch",
+    date: "2026-10-01",
+    time: "18:05",
+    url: "https://www.ft.com/content/e7c1da68-aed3-471d-911f-0b6086a327ec",
+  },
+  {
     id: "1206b356-e62b-4e18-9925-e8dd0a283fc4",
     title: "Tories criticise Burnham over support for Manchester City owners",
     date: "2026-10-01",

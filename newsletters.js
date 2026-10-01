@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-gibsondunndespacfees-20261001",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Gibson Dunn accused of pursuing fees from \u2018utter failure\u2019 deSPAC",
+    date: "2026-10-01",
+    time: "17:16",
+    summary: "New York litigation alleges the firm pressed ahead with a deSPAC a judge deemed financially disastrous, amid a row over unpaid legal bills.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/uitLvW2LFb8a",
+  },
+  {
     id: "nl-bbg-authoralert-nishantkumar-millenniumzeroreturn-20261001",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -472,27 +483,5 @@ export const NEWSLETTERS = [
     time: "22:08",
     summary: "Gold back near $4000/oz.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-bbg-moneystuff-banksrecycletherisk-20260928",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Banks Recycle the Risk",
-    date: "2026-09-28",
-    time: "19:05",
-    summary: "Nvidia, Automattic, agents.",
-    url: "https://bloom.bg/4ry3nj2",
-  },
-  {
-    id: "nl-preqin-selectivityprivatecredit-20260928",
-    publication: "Preqin",
-    author: "Shaun Beaney",
-    series: "First Close",
-    title: "Selectivity is key to private credit suitability",
-    date: "2026-09-28",
-    time: "12:28",
-    summary: "62% of LPs say private credit will emerge stronger as investors grow more selective about strategies and managers, an Institutional Investor survey finds.",
-    url: "https://go.preqin.com/webmail/909852/2185879420/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
   },
 ];
