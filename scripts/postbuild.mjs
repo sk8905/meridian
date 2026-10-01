@@ -4,8 +4,9 @@
 //   • the EXTERNAL modules the SPA imports from root paths (feed.js, palette.js,
 //     credit/js/*, macro/js/*, legal/js/*, …) and the desk DATA modules refreshed
 //     by the routine (ft.js, newsletters.js, credit/js/data.js, …),
-//   • static files (manifest, sw.js, icons, favicon, _headers, _redirects, …),
-//   • the retired top-level pages (kept as the existing edge-redirect rollback).
+//   • static files (manifest, sw.js, icons, favicon, _headers, _redirects, …).
+// The old top-level pages + orchestrators were deleted when the rollback window
+// closed; _redirects now permanently routes their old URLs to the v2 SPA.
 // Excludes build tooling, the Worker source, tests/docs, and the v2 SOURCE (Vite
 // already emitted the built v2 into dist/).
 import fs from "node:fs";

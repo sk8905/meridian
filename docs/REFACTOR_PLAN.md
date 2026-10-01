@@ -154,3 +154,18 @@ grab-bag along its seams. Size depends on the rollback-window decision.
 
 - **2026-10-01** — Phase 0 complete: audit (3 sweeps) + spec-coverage review; this
   plan written. Baseline: v2 JS ~12,995 lines; CSS ~5,260 lines; 74 specs.
+- **2026-10-01** — Quick win: stopped shipping dead `functions/api/*.js` into `dist/`.
+- **2026-10-01** — **Rollback window CLOSED** (owner approved). Deleted the legacy app:
+  17 files (~536 KB) — root orchestrators `glance.js`/`nav-actions.js`/`header.js`/
+  `spa.js`/`swipetabs.js`, desk `credit|legal/js/{app,charts,detail}.js` +
+  `macro/js/app.js`, and the 5 entry HTMLs. Kept `_redirects` (now the permanent route
+  to v2) and all desk DATA/shared modules v2 imports. Retired 13 obsolete legacy-only
+  specs (74→61) whose behaviours are covered on v2 elsewhere; verified full suite green
+  (61/61) on source and dist.
+  - **Coverage gaps to fill during migration** (behaviours that existed in v2 but whose
+    only test was a now-deleted legacy spec): **pull-to-refresh** (`/ptr.js` is wired in
+    `v2/js/chrome.js` but has no v2 spec → add one in Phase 2 when PTR is polished) and
+    the **live `/api/feed` merge** (manager-merge is covered; the live-wire merge is
+    thin → add a characterization spec when the feed pane is componentised in Phase 3).
+  - Legacy CSS layers (home.css landing, tui.css `.tx-tbl`/`.tinv-*`, premium.css old
+    KPI/theme-toggle) are now truly dead and deletable in **Phase 4**.
