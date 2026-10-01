@@ -35,6 +35,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6",
   },
   {
+    id: "e485a228-1efe-426b-addc-26069ba48bf3",
+    title: "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002",
+    date: "2026-10-01",
+    time: "09:09",
+    url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3",
+  },
+  {
     id: "ec55a734-243b-43a2-93ea-8652d6b99309",
     title: "Japan plans $140bn AI data centre push with Dell and Jera",
     date: "2026-10-01",
@@ -103,13 +110,6 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "05:31",
     url: "https://www.ft.com/content/594f10d8-aebd-48d5-af47-5e7232487a35",
-  },
-  {
-    id: "e485a228-1efe-426b-addc-26069ba48bf3",
-    title: "Global bond sell-off deepens as Asian yields jump",
-    date: "2026-10-01",
-    time: "05:17",
-    url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3",
   },
   {
     id: "8be64ab7-81eb-48dd-8baa-e1c413a838e8",

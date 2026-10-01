@@ -44,12 +44,12 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-01",
-      time: "05:10 BST",
-      lede: "Thursday opens with the bond sell-off still the market's organising story, as softer inflation data takes some heat out of Fed hike pricing while energy costs keep the Bank of England leaning hawkish.",
+      time: "10:12 BST",
+      lede: "Thursday's session opens with the global bond sell-off still deepening, as government borrowing costs reach multiyear highs and the pressure spills into UK housing and fiscal politics.",
       bullets: [
-        { html: "<strong>Macro &mdash; the FT reports weak PCE inflation has eased pressure for Fed rate increases</strong>, a welcome pause after a run of hot prints. In the UK, the Bank of England warned that a surge in AI-related debt raises the risk of a sharp market correction.", src: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; the ONS revised UK second-quarter growth up to 0.5% from 0.4%</strong>, and the FT notes UK energy price cap forecasts have risen towards &pound;2,000 as the Iran war lifts prices.", src: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; the FT reports a US government debt rout has triggered a &lsquo;vicious loop&rsquo; of selling</strong>, even as bond markets steadied after Tuesday's sell-off despite strong US data.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the FT reports the 10-year Treasury yield has hit its highest since 2002</strong> as sovereign debt costs around the world return to multiyear highs. In the UK, house prices fell as higher mortgage rates &lsquo;subdue&rsquo; the market, with the prospect of rate rises weighing on demand.", src: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the FT argues the rise in borrowing costs has raised justified alarm but brings four potential positives</strong>, while Unhedged sets out an optimist&rsquo;s case that it could be a lot worse.", src: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; a US government debt rout has triggered a &lsquo;vicious loop&rsquo; of selling</strong>, the FT reported on Wednesday night, after bond markets had steadied following Tuesday&rsquo;s sell-off despite strong US data.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the S&amp;P 500 slipped 0.17% on Tuesday</strong> as the 30-year Treasury yield touched 5.612%, its highest since June 2002; the Nikkei 225 rose 2.0% on Wednesday on chip-led strength.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
       ],
     },

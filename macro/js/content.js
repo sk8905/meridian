@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-01",
-  lastCheckedTime: "08:15 BST",
+  lastCheckedTime: "10:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,20 +1004,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-30",
+  updated: "2026-10-01",
   us: [
+    { title: "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002", source: "Financial Times", date: "2026-10-01", time: "09:09", url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3" },
+    { title: "Four potential positives from higher bond yields", source: "Financial Times", date: "2026-10-01", time: "09:37", url: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496" },
     { title: "US government debt rout triggers ‘vicious loop’ of selling", source: "Financial Times", date: "2026-09-30", time: "22:09", url: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2" },
     { title: "US oil industry warns diesel prices will not return to normal for a year", source: "Financial Times", date: "2026-09-30", time: "17:20", url: "https://www.ft.com/content/0d74d66a-a9ee-4c22-83ab-9df6452117de" },
     { title: "Weak PCE inflation eases pressure for Fed rate increases", source: "Financial Times", date: "2026-09-30", time: "15:24", url: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b" },
-    { title: "Bond markets steady after sell-off despite strong US data", source: "Financial Times", date: "2026-09-30", time: "15:52", url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a" },
-    { title: "Donald Trump says South Korea will invest $200bn in US energy projects", source: "Financial Times", date: "2026-09-30", time: "23:41", url: "https://www.ft.com/content/f0cdc5bc-c07a-47cf-9602-064006176aef" },
   ],
   uk: [
+    { title: "UK house prices fall as higher mortgage rates ‘subdue’ market", source: "Financial Times", date: "2026-10-01", time: "08:05", url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af" },
+    { title: "Andy Burnham’s ‘triple lock’ move reallocates, rather than reduces, spending", source: "Financial Times", date: "2026-10-01", time: "09:30", url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6" },
     { title: "AI debt surge raises risk of sharp market correction, warns Bank of England", source: "Financial Times", date: "2026-09-30", time: "15:02", url: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749" },
     { title: "UK economy grows faster than first estimated in second quarter", source: "Financial Times", date: "2026-09-30", time: "07:18", url: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63" },
     { title: "UK energy price cap forecast to rise to nearly £2,000 as Iran war drives up prices", source: "Financial Times", date: "2026-09-30", time: "07:44", url: "https://www.ft.com/content/3c98053f-2a54-4352-8220-0d0269a00d14" },
-    { title: "UK Q2 final GDP +0.5% vs +0.4% q/q prelim", source: "investingLive", date: "2026-09-30", time: "10:13", url: "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/" },
-    { title: "Gilts Extend Gains as UK Yields Drop With Oil, Gas Prices Hitting New Lows", source: "Bloomberg", date: "2026-09-29", time: "10:13", url: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat" },
   ],
 };
 
@@ -1029,8 +1029,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-30",
+  updated: "2026-10-01",
   items: [
+    {"title": "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002", "source": "Financial Times", "date": "2026-10-01", "time": "09:09", "url": "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", "blurb": "Sovereign debt costs around the world return to multiyear highs."},
+    {"title": "Four potential positives from higher bond yields", "source": "Financial Times", "date": "2026-10-01", "time": "09:37", "url": "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", "blurb": "The sharp rise in borrowing costs has raised justified alarm but there are benefits too."},
+    {"title": "An optimist’s guide to the bond market", "source": "Financial Times", "date": "2026-10-01", "time": "06:30", "url": "https://www.ft.com/content/4ab6df98-f14d-49d1-a170-8087dc517b08", "blurb": "FT Unhedged: it could be a lot worse."},
     {"title": "Oil climbs after Trump denies he is willing to ease sanctions on Iran", "source": "CNBC", "date": "2026-09-30", "time": "10:13", "url": "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html", "blurb": "Oil rebounded after Trump dismissed an Axios report that he had offered Iran sanctions relief, writing 'I offered them NOTHING!', as Qatar continues to mediate over reopening the Strait of Hormuz.", "author": null},
     {"title": "Trump denies offering Iran sanctions relief; Qatar pushes for peace talks", "source": "CNBC", "date": "2026-09-30", "time": "10:13", "url": "https://www.cnbc.com/2026/09/30/us-iran-war-trump-hormuz.html", "blurb": "Trump denied offering Tehran sanctions relief while Qatar mediates; Iran's proposal would swap a Hormuz reopening for frozen funds, sanctions relief and an end to the US naval blockade.", "author": null},
     {"title": "UK Q2 final GDP +0.5% vs +0.4% q/q prelim", "source": "investingLive", "date": "2026-09-30", "time": "10:13", "url": "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/", "blurb": "The ONS revised UK second-quarter GDP growth up to 0.5% q/q from the 0.4% preliminary estimate.", "author": null},
@@ -1068,9 +1071,6 @@ export const ARTICLES = {
     {"title": "Pound to Dollar Rate Hits Three-Month Low on Bond Sell-Off", "source": "Currency News UK", "date": "2026-09-27", "time": "22:15", "url": "https://www.currencynews.co.uk/forecast/20260927-47288_pound-to-dollar-rate-hits-three-month-low-on-bond-sell-off.html", "blurb": "GBP/USD slid to a three-month low as the ongoing gilt-market sell-off and elevated Fed-hike odds continued to pressure sterling against the dollar.", "author": null},
     {"title": "Here are the 4 big things we're watching in the stock market in the week ahead", "source": "CNBC", "date": "2026-09-27", "time": "20:20", "url": "https://www.cnbc.com/2026/09/27/here-are-the-4-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html", "blurb": "CNBC's rundown of the week ahead: the September jobs report, core PCE inflation, OpenAI's DevDay and a fresh round of AI-capex earnings all land as the Fed's October hike odds sit above 70%.", "author": null},
     {"title": "Wall Street week ahead: consumer confidence, inflation, employment updates", "source": "AP (via Washington Post)", "date": "2026-09-26", "time": "20:20", "url": "https://www.washingtonpost.com/business/2026/09/26/wall-street-inflation-jobs-consumer-confidence/600918d8-b980-11f1-94cb-d3d8f22a8c8b_story.html", "blurb": "AP previews a data-heavy week — consumer confidence, the August core PCE reading and September's jobs report — that should sharpen the picture on how consumers and employers are holding up under higher prices and borrowing costs.", "author": null},
-    {"title": "Pound to Euro Q4 2026 Forecast: Survey Consensus Sees GBP 1.1% Lower By Q2 2027", "source": "Exchange Rates UK", "date": "2026-09-27", "url": "https://www.exchangerates.org.uk/news/47285/2026-09-27-pound-to-euro-q4-2026-forecast-survey-consensus-sees-gbp-1-1-lower-by-q2-2027.html", "blurb": "A survey of forecasters' consensus sees sterling ending Q2 2027 roughly 1.1% weaker against the euro than current levels, as gilt-market stress and a widening Fed-BoE policy divergence continue to weigh on the pound.", "author": null},
-    {"title": "Pound to Euro Exchange Rate Slides towards 1.16 on Gilt-Market Stress", "source": "Currency News UK", "date": "2026-09-27", "url": "https://www.currencynews.co.uk/forecast/20260927-47287_pound-to-euro-exchange-rate-slides-towards-1-16-on-gilt-market-stress.html", "blurb": "GBP/EUR slid towards 1.16 as renewed gilt-market stress — long-dated yields near multi-decade highs — undermined sterling sentiment despite hawkish BoE rhetoric.", "author": null},
-    {"title": "China, US agree to $30 billion tariff cut, AI dialogue during Xi visit, Beijing says", "source": "CNBC", "date": "2026-09-26", "url": "https://www.cnbc.com/2026/09/26/china-us-tariff-cut-ai-dialogue.html", "blurb": "Beijing said the two sides agreed to a $30bn reciprocal tariff-reduction arrangement and a new AI dialogue channel following the Trump-Xi state visit, alongside a trade council and Kuala Lumpur follow-through — a more concrete outcome than the earlier two-month truce extension alone.", "author": null},
   ],
 };
 
