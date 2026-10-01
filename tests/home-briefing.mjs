@@ -26,10 +26,10 @@ const b = await launchChromium();
     const feedWrap = document.querySelector(".g-feed-wrap");
     const sections = [...el.querySelectorAll(".g-hbrief-b")];
     const items = [...el.querySelectorAll(".g-hbrief-bt")];
-    const srcs = [...el.querySelectorAll(".g-hbrief-src")];
-    // Desk names render as their own ORANGE-accent heading (.g-hbrief-lede-hd, matching
-    // the "Overview" lede heading), on their own line — not an inline .nb-topic kicker.
-    const kickers = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-lede-hd")].map((k) => k.textContent.trim().toLowerCase());
+    // Desk names render as an inline ORANGE-accent RUN-IN heading (.g-hbrief-bk) that
+    // shares the body's first line (to save space) — not a block heading, not an inline
+    // .nb-topic kicker. The per-item source LINK is dropped from this summary view.
+    const kickers = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-bk")].map((k) => k.textContent.trim().toLowerCase());
     // Resolve the real --accent colour via a throwaway probe so the assertion is
     // token-value agnostic (hex/rgb): the headings must equal it, not the white title.
     const accent = (() => {
@@ -37,8 +37,14 @@ const b = await launchChromium();
       const c = getComputedStyle(p).color; p.remove(); return c;
     })();
     const deskHdAccent = (() => {
-      const hs = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-lede-hd")], t = el.querySelector(".g-hbrief-ttl");
+      const hs = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-bk")], t = el.querySelector(".g-hbrief-ttl");
       return hs.length > 0 && !!t && hs.every((h) => getComputedStyle(h).color === accent && accent !== getComputedStyle(t).color);
+    })();
+    // Run-in: the desk title and the body share the SAME line (same vertical top), so a
+    // section's heading sits beside its text, not stacked above it.
+    const runInSameLine = (() => {
+      const secs = [...el.querySelectorAll(".g-hbrief-b")].filter((s) => s.querySelector(".g-hbrief-bk") && s.querySelector(".g-hbrief-bt"));
+      return secs.length > 0 && secs.every((s) => Math.abs(s.querySelector(".g-hbrief-bk").getBoundingClientRect().top - s.querySelector(".g-hbrief-bt").getBoundingClientRect().top) <= 2);
     })();
     const noOrangeKicker = el.querySelectorAll(".g-hbrief-b .nb-topic").length === 0;
     // The first desk (Macro) carries the same hairline separator as the others — so a
@@ -47,22 +53,6 @@ const b = await launchChromium();
       const b = el.querySelector(".g-hbrief-list .g-hbrief-b");
       return !!b && parseFloat(getComputedStyle(b).borderTopWidth) >= 1;
     })();
-    // Spacing before EVERY heading (Overview + each desk) is uniform: the gap from the
-    // top of the heading text to the top of its section box (excluding the separator
-    // hairline) is the same for the direct-child Overview and every desk <li>.
-    const headGaps = (() => {
-      const gaps = [];
-      const ov = el.querySelector(".g-hbrief-body > .g-hbrief-lede-hd");
-      const head = el.querySelector(".g-hbrief-head");
-      if (ov && head) gaps.push(Math.round(ov.getBoundingClientRect().top - head.getBoundingClientRect().bottom));
-      for (const li of el.querySelectorAll(".g-hbrief-list .g-hbrief-b")) {
-        const h = li.querySelector(".g-hbrief-lede-hd"); if (!h) continue;
-        const bt = parseFloat(getComputedStyle(li).borderTopWidth) || 0;
-        gaps.push(Math.round(h.getBoundingClientRect().top - li.getBoundingClientRect().top - bt));
-      }
-      return gaps;
-    })();
-    const spacingUniform = headGaps.length >= 2 && Math.max(...headGaps) - Math.min(...headGaps) <= 2;
     const box = (n) => { const b = n.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right) }; };
     const eb = box(el), hb = hero && box(hero), fb = feedWrap && box(feedWrap);
     return {
@@ -82,20 +72,14 @@ const b = await launchChromium();
       itemCount: items.length,
       hasKicker: kickers.length > 0,
       deskHdAccent,
+      runInSameLine,
       noOrangeKicker,
       firstDeskLine,
-      spacingUniform,
-      headGaps,
       // ONE continuous combined item per desk: each desk section renders exactly ONE
       // .g-hbrief-bt (same-desk stories folded together), NOT one per story.
       oneItemPerSection: items.length > 0 && items.length === sections.length,
-      // Grounding (R7): every section links at least one real source, and every
-      // source link is a real URL — the combined item still cites all it compresses.
-      allSourced: srcs.length > 0 && srcs.every((a) => /^https?:\/\//.test(a.getAttribute("href") || ""))
-        && sections.every((sec) => sec.querySelectorAll(".g-hbrief-src").length >= 1),
-      // A desk carrying two stories is genuinely COMBINED: one .g-hbrief-bt, but two
-      // source links on its single trailing line (the real Morning slot has Macro×2).
-      combinedDesk: sections.some((sec) => sec.querySelectorAll(".g-hbrief-bt").length === 1 && sec.querySelectorAll(".g-hbrief-src").length >= 2),
+      // The per-item source LINK is intentionally dropped from this summary view.
+      noSourceLinks: el.querySelectorAll(".g-hbrief-src").length === 0,
       // ONE section per desk: exactly one desk heading per section, and no desk repeats.
       kickers,
       oneKickerPerSection: kickers.length === sections.length,
@@ -115,14 +99,13 @@ const b = await launchChromium();
   check(r.hasLede && r.sections >= 1 && r.sections <= 3, `desktop: a lede + one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
   checkEq(r.ledeHd, "Overview", "desktop: the lede is titled with an 'Overview' heading");
   check(r.ledeHdAccent, "desktop: the 'Overview' heading is the orange accent (not the white title)");
-  check(r.hasKicker, "desktop: each desk carries its name as a heading (.g-hbrief-lede-hd)");
-  check(r.deskHdAccent, "desktop: the desk headings are the orange accent (not the white title)");
+  check(r.hasKicker, "desktop: each desk carries its name as a run-in heading (.g-hbrief-bk)");
+  check(r.deskHdAccent, "desktop: the desk run-in titles are the orange accent (not the white title)");
+  check(r.runInSameLine, "desktop: the desk title and its text share the same line (run-in, space-saving)");
+  check(r.noSourceLinks, "desktop: the per-item source link is dropped from the briefing summary");
   check(r.noOrangeKicker, "desktop: no inline .nb-topic desk kicker survives in the bullets");
   check(r.firstDeskLine, "desktop: a hairline separates Overview from the first desk (Macro), like the desk breaks");
-  check(r.spacingUniform, `desktop: spacing before every heading (Overview + desks) is uniform (gaps ${r.headGaps.join(",")}px)`);
   check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
-  check(r.combinedDesk, "desktop: a desk with two stories is combined — one item, both sources on a single trailing line");
-  check(r.allSourced, "desktop: every combined item links every source it compresses (grounding, R7)");
   check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated desk heading (${r.kickers.join(", ")})`);
   check(r.leftOfHero && r.aboveFeed && r.rowAlignedWithHero, "desktop: the briefing is the top-left quadrant of the 2×2 (left of the chart, above the news wire)");
   check(r.open === "true", "desktop: the card is OPEN by default (it is a full quadrant, not a slim bar)");

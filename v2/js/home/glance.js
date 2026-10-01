@@ -378,14 +378,14 @@ function renderHomeBriefing() {
     if (!g) { g = { items: [] }; byDesk.set(desk, g); groups.push(g); }
     g.items.push(b);
   }
-  const _src = (b) => b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : "";
   // ALWAYS combine every same-desk item into ONE continuous item. The desk name is
-  // lifted out of the first item and rendered as its OWN white heading (matching the
-  // "Overview" lede heading) — never an inline orange kicker with a dash. Every item
-  // (including the first) is then stripped of its kicker, its lead letter re-capitalised
-  // and folded into one flowing body — never stacked as a separate sub-bullet. All the
-  // sources it compresses collect on ONE trailing line, so the combined item still links
-  // every source (R7 grounding).
+  // lifted out of the first item and rendered as a RUN-IN heading — an inline accent
+  // title on the SAME line as the body, to save vertical space. Every item (including
+  // the first) is stripped of its kicker, its lead letter re-capitalised and folded into
+  // one flowing body — never stacked as a separate sub-bullet. The per-item source LINK
+  // is dropped from this summary view (the briefing is "a summary of Wire's sourced
+  // desks" — the sources stay in the data and in the wire below); R7 data integrity is
+  // unchanged, only the summary's display is tightened.
   const bullets = groups.map((g) => {
     const m = String(g.items[0].html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/);
     const desk = m ? m[1].trim() : "";
@@ -394,10 +394,9 @@ function renderHomeBriefing() {
     // the headline shipped before its sentence did) would otherwise paint as a bare
     // heading above an empty void — the exact ghost section a reader once photographed.
     // Drop any group whose combined body has no visible text so the briefing never
-    // shows a textless desk (R7: no sourceless/uncited section).
+    // shows a textless desk.
     if (!_hasText(text)) return "";
-    const srcs = g.items.map(_src).filter(Boolean).join('<span class="g-hbrief-srcsep" aria-hidden="true"> · </span>');
-    return `<li class="g-hbrief-b">${desk ? `<div class="g-hbrief-lede-hd">${esc(desk)}</div>` : ""}<span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}</li>`;
+    return `<li class="g-hbrief-b">${desk ? `<span class="g-hbrief-bk">${esc(desk)}</span> ` : ""}<span class="g-hbrief-bt">${text}</span></li>`;
   }).filter(Boolean).join("");
   host.hidden = false;
   host.dataset.open = "true";
@@ -2161,8 +2160,14 @@ function _renderReaderInto(box, it, emptyMsg) {
       if (!box.isConnected) return;
       if (d && d.accessible && Array.isArray(d.paragraphs) && d.paragraphs.length) {
         const bl = [d.byline, _readNiceDate(d.date)].filter(Boolean).map(esc).join(" · ");
+        // Prefer the ordered `blocks` (body paragraphs + section headings) so headings
+        // render in BOLD for easier reading; fall back to the plain `paragraphs` strings
+        // (older cached responses / the proxy path carry no blocks).
+        const body = (Array.isArray(d.blocks) && d.blocks.length)
+          ? d.blocks.map((b) => (b && b.h) ? `<h3 class="g-read-h">${esc(b.t)}</h3>` : `<p class="g-read-p">${esc((b && b.t != null) ? b.t : b)}</p>`).join("")
+          : d.paragraphs.map((p) => `<p class="g-read-p">${esc(p)}</p>`).join("");
         box.innerHTML = _readShell({ ...it, title: d.title || it.title }, `<span class="g-read-free">● reading mode</span>`,
-          (bl ? `<div class="g-read-byline">${bl}</div>` : "") + d.paragraphs.map((p) => `<p class="g-read-p">${esc(p)}</p>`).join(""));
+          (bl ? `<div class="g-read-byline">${bl}</div>` : "") + body);
       } else {
         // Surface WHY it couldn't render: a `reason` (fetch-401 / not-html / …) means
         // the publisher blocked the server-side fetch; no reason means the fetch worked

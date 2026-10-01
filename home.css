@@ -941,6 +941,10 @@
        hyphenation lets more fit per line, so justification has far less empty space to
        distribute — no ragged "rivers" of white on a narrow phone column (mockup C). */
     .g-read-p{ font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
+    /* Section headings inside the article body — BOLD, set off from the prose, so a long
+       read scans easily (see _renderReaderInto's `blocks`). */
+    .g-read-h{ font-family:var(--t-mono); font-size:var(--fs-body); font-weight:700; line-height:1.4; color:var(--t-ink); margin:18px 0 8px; letter-spacing:.01em; }
+    .g-read-h:first-child{ margin-top:0; }
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
@@ -1194,21 +1198,16 @@
     .tui .g-hbrief-list{ list-style:none; margin:7px 0 0; padding:0; }
     /* Every section (incl. the first desk, Macro) carries a hairline separator above
        it — so a thin line divides Overview↔Macro just as it divides the desks. */
-    .tui .g-hbrief-b{ padding:7px 0; border-top:1px solid var(--t-grid); font-size:var(--fs-body); line-height:1.72; color:var(--t-ink); }
-    .tui .g-hbrief-bt{ display:block; }
     /* Justify the briefing prose exactly like the in-app reading pane (.g-read-p):
        a hair of negative tracking + auto-hyphenation keeps justified 12px prose from
-       opening ugly rivers, without cramping the proportional face. The trailing
-       source line (.g-hbrief-srcs) is left alone. */
-    .tui .g-hbrief-lede, .tui .g-hbrief-bt{ text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
-    /* Same-desk items are folded into ONE continuous item (see renderHomeBriefing),
-       so every source it compresses sits on a SINGLE trailing line, middot-joined —
-       not a source line per stacked sub-bullet. */
-    .tui .g-hbrief-srcs{ display:block; margin-top:2px; }
-    .tui .g-hbrief-srcsep{ color:var(--t-faint); }
-    .tui .g-hbrief-src{ font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.02em;
-      color:var(--t-mut); text-decoration:none; }
-    .tui .g-hbrief-src:hover{ color:var(--t-ink); text-decoration:none; }
+       opening ugly rivers, without cramping the proportional face. The desk title is a
+       RUN-IN heading (inline, on the same line as the body — see renderHomeBriefing). */
+    .tui .g-hbrief-b{ padding:7px 0; border-top:1px solid var(--t-grid); font-size:var(--fs-body); line-height:1.72; color:var(--t-ink);
+      text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
+    /* Run-in desk title: inline accent heading sharing the body's first line. */
+    .tui .g-hbrief-bk{ font-weight:600; color:var(--accent); letter-spacing:.005em; -webkit-hyphens:none; hyphens:none; }
+    .tui .g-hbrief-bt{ display:inline; }
+    .tui .g-hbrief-lede{ text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     .tui .g-hbrief-foot{ margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); }
     /* Numbers read as plain body text here (as in the header briefing panel), while
        the orange desk kicker (.nb-topic) is kept. */

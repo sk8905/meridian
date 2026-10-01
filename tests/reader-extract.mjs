@@ -35,6 +35,25 @@ check(a.paragraphs.length === 3, `extract: keeps the 3 real paragraphs, drops na
 check(a.paragraphs[0].includes("Brent crude") && a.paragraphs[0].includes("Monday's"), "extract: strips tags + decodes entities (&#39; → ')");
 check(a.paragraphs.some((p) => p.includes("OBR's")), "extract: decodes named entities (&rsquo; → ')");
 check(!a.paragraphs.some((p) => /Subscribe|Sign in|rights reserved|Follow us/i.test(p)), "extract: boilerplate paragraphs are dropped");
+check(Array.isArray(a.blocks) && a.blocks.length === 3 && a.blocks.every((b) => b && b.h === false), "extract: a heading-less article's blocks are all body paragraphs (h:false)");
+
+// 1b) Section headings (<h2>/<h3>) are captured into `blocks` (h:true) in document order,
+//     so the reading pane can bold them — but stay OUT of the body-only `paragraphs`.
+const withHeads = `<!doctype html><html><head><meta property="og:title" content="A longer read"></head><body><article>
+  <h2>The setup</h2>
+  <p>Markets opened sharply lower on Tuesday as traders digested the overnight policy signals from the central bank meeting.</p>
+  <p>Bond yields climbed across the curve while equity futures pointed to a weaker open for the major indices today.</p>
+  <h3>What happens next</h3>
+  <p>Analysts expect the volatility to persist into the back half of the week as positioning unwinds ahead of the data.</p>
+  <h3>A dangling trailing header that should be dropped</h3>
+  </article></body></html>`;
+const wh = extractReadable(withHeads, u("https://www.example-news.com/longer"));
+check(wh.accessible === true, "extract(headings): the article is accessible");
+check(wh.paragraphs.length === 3 && wh.paragraphs.every((p) => !/^The setup$|^What happens next$/.test(p)), `extract(headings): paragraphs are body-only, headings excluded (${wh.paragraphs.length})`);
+const heads = wh.blocks.filter((b) => b.h).map((b) => b.t);
+check(heads.join("|") === "The setup|What happens next", `extract(headings): blocks carry the section headings as h:true, in order (${heads.join(" | ")})`);
+check(wh.blocks[0].h === true && wh.blocks[0].t === "The setup" && wh.blocks[1].h === false, "extract(headings): order is preserved (heading, then its paragraphs)");
+check(!wh.blocks[wh.blocks.length - 1].h, "extract(headings): a dangling trailing heading (no body after) is dropped");
 
 // 2) A schema.org-paywalled article (isAccessibleForFree=false) → accessible:false
 //    even though a preview paragraph is present.

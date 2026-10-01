@@ -7,6 +7,10 @@ import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish
 const READ = { source: "The Guardian", title: "Oil slips below $100 as Iran signals a Hormuz offer", byline: "Jane Smith", date: "2026-09-22T16:28:00Z", accessible: true, paragraphs: [
   "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.",
   "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.",
+], blocks: [
+  { t: "The oil move", h: true },
+  { t: "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.", h: false },
+  { t: "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.", h: false },
 ] };
 const srv = await serve({ "/api/read": () => [200, JSON.stringify(READ)] });
 const b = await launchChromium();
@@ -92,6 +96,7 @@ if (freeSel) {
     const p = document.querySelector("#g-readpane .g-read-p");
     const title = document.querySelector("#g-feed .g-feed-title");
     const cs = p && getComputedStyle(p);
+    const h = document.querySelector("#g-readpane .g-read-h");
     return {
       paras: document.querySelectorAll("#g-readpane .g-read-p").length,
       byline: !!document.querySelector("#g-readpane .g-read-byline"),
@@ -101,10 +106,14 @@ if (freeSel) {
       letter: cs && parseFloat(cs.letterSpacing),
       readSize: cs && cs.fontSize,
       feedSize: title && getComputedStyle(title).fontSize,
+      headText: (h || {}).textContent || "",
+      headWeight: h && getComputedStyle(h).fontWeight,
     };
   });
   check(full.paras >= 2 && full.byline && full.free, `reading pane: an openly-readable source prints the extracted body in-pane (${full.paras} paragraphs)`);
   check(full.firstP.includes("Brent crude"), "reading pane: the extracted paragraph text renders");
+  // Section headings from `blocks` render in BOLD (.g-read-h) for easier reading.
+  check(full.headText === "The oil move" && +full.headWeight >= 700, `reading pane: a section heading renders in bold (.g-read-h "${full.headText}" @ ${full.headWeight})`);
   // The body prose is JUSTIFIED and set at the SAME size as the rest of the app's
   // reading text (the wire feed titles) — not a larger outlier. It's also lightly
   // tracking-compressed so justified prose doesn't open ragged rivers.

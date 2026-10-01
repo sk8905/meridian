@@ -1805,25 +1805,36 @@ export function extractReadable(html, u) {
   // and keep whichever yields more body text.
   const art = /<article[\s\S]*?<\/article>/i.exec(html);
   const ab = /<[^>]+itemprop=["']articleBody["'][\s\S]*?<\/[a-z0-9]+>/i.exec(html);
-  let paras = _readParas(art ? art[0] : (ab ? ab[0] : html));
-  if (_readTextLen(paras) < 600) {
-    const whole = _readParas(html);
-    if (_readTextLen(whole) > _readTextLen(paras)) paras = whole;
+  let blocks = _readBlocks(art ? art[0] : (ab ? ab[0] : html));
+  if (_readBlocksLen(blocks) < 600) {
+    const whole = _readBlocks(html);
+    if (_readBlocksLen(whole) > _readBlocksLen(blocks)) blocks = whole;
   }
-  return { url: u.toString(), source, title, byline, date, accessible: accessible && paras.length >= 2, paragraphs: paras };
+  // `paragraphs` stays the body-only string array (back-compat for callers + specs);
+  // `blocks` is the ORDERED sequence incl. section headings ({t, h:true}) so the reading
+  // pane can render headings in bold. accessibility is still judged on the body paras.
+  const paragraphs = blocks.filter((b) => !b.h).map((b) => b.t);
+  return { url: u.toString(), source, title, byline, date, accessible: accessible && paragraphs.length >= 2, paragraphs, blocks };
 }
-function _readTextLen(paras) { let n = 0; for (const p of paras) n += p.length; return n; }
-function _readParas(scope) {
-  const paras = [], seen = new Set(); let re = /<p\b[^>]*>([\s\S]*?)<\/p>/gi, m, total = 0;
-  while ((m = re.exec(scope)) && paras.length < 60) {
-    const t = _readStrip(m[1]);
-    if (t.length < 40 || READ_BOILER.test(t)) continue;
-    const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
+// Ordered body blocks: <p> body paragraphs (min length, boilerplate dropped) AND section
+// headings <h2>-<h4> (short, sane), in document order, each {t, h}. A trailing dangling
+// heading (no body after it) is dropped so the pane never ends on a bare header.
+function _readBlocks(scope) {
+  const out = [], seen = new Set(); let total = 0;
+  const re = /<(p|h[2-4])\b[^>]*>([\s\S]*?)<\/\1>/gi; let m;
+  while ((m = re.exec(scope)) && out.length < 80) {
+    const isH = m[1][0].toLowerCase() === "h";
+    const t = _readStrip(m[2]);
+    if (!t || READ_BOILER.test(t)) continue;
+    if (isH ? (t.length < 2 || t.length > 120) : (t.length < 40)) continue;
+    const k = (isH ? "h:" : "p:") + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     if (total > 20000) break;
-    paras.push(t); total += t.length;
+    out.push({ t, h: isH }); total += t.length;
   }
-  return paras;
+  while (out.length && out[out.length - 1].h) out.pop();
+  return out;
 }
+function _readBlocksLen(blocks) { let n = 0; for (const b of blocks) n += b.t.length; return n; }
 // Direct fetch of the publisher page + extraction. Returns an extractReadable
 // result on success, or a { accessible:false, reason } object when the publisher
 // blocked us (fetch-503 etc.), redirected off-host, served non-HTML, or errored.
