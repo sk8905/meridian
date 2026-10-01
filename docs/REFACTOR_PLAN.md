@@ -216,3 +216,10 @@ manual DOM updates). No JSX (use `h`), so no transform config.
   (filled a real coverage gap: chips, default Largest view, row shape, filter switching,
   Top Movers Up/Down) — green on the old code, then on the migrated code, and on dist.
   Suite 62/62.
+- **2026-10-01** — Phase 3 island #3: the X feed migrated to Preact + Signals. One
+  `_xView` signal ({loading|empty|posts}) drives the <XWire> component; the lazy-boot
+  and frugal auto-refresh lifecycle now just set the signal (no innerHTML). Post/quote
+  text use dangerouslySetInnerHTML (xLinkify escapes then linkifies); everything else is
+  auto-escaped Preact nodes. Cache-seed-on-mount and keep-alive-on-refresh preserved.
+  home-xwire (cards, order, reposts, quotes, permalinks, phone reveal, re-entry) green
+  on source + dist. Suite 62/62.

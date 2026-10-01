@@ -542,33 +542,45 @@ function xLinkify(text) {
   s = s.replace(/(^|\s)#(\w{1,60})/g, (_m, p, h) => `${p}<a href="https://x.com/hashtag/${h}" target="_blank" rel="noopener noreferrer">#${h}</a>`);
   return s.replace(/\n/g, "<br>");
 }
-function xCard(t) {
-  const h = esc(t.handle || ""), name = esc(t.name || ("@" + (t.handle || "")));
-  const perma = esc(t.url || (t.handle ? `https://x.com/${t.handle}/status/${t.id}` : "#"));
-  const av = t.avatar ? `<img class="g-x-av" loading="lazy" src="${esc(t.avatar)}" alt="" referrerpolicy="no-referrer">` : `<span class="g-x-av g-x-av-ph"></span>`;
-  const media = (t.media && t.media[0]) ? `<a class="g-x-media" href="${perma}" target="_blank" rel="noopener noreferrer"><img loading="lazy" src="${esc(t.media[0])}" alt="" referrerpolicy="no-referrer"></a>` : "";
-  const repost = t.repostedBy ? `<div class="g-x-rt">↻ ${esc(t.repostedBy)} reposted</div>` : "";
-  return `<article class="g-x-card">${repost}`
-    + `<div class="g-x-meta">${av}<a class="g-x-who" href="https://x.com/${h}" target="_blank" rel="noopener noreferrer">${name}</a>`
-    + `<span class="g-x-h">@${h}</span><span class="g-x-d">${esc(fmtXWhen(t.date))}</span></div>`
-    + `<div class="g-x-txt">${xLinkify(t.text)}</div>${xQuoteCard(t.quoted)}${media}`
-    + `<a class="g-x-permalink" href="${perma}" target="_blank" rel="noopener noreferrer">View on X</a></article>`;
+// X feed — a Preact + Signals island. One `_xView` signal holds the pane's state
+// ({status:"loading"} | {status:"empty",msg,link} | {status:"posts",tweets}); the
+// <XWire> component repaints on any change, so the lifecycle (lazy boot + the frugal
+// auto-refresh timer, below) just sets the signal instead of touching the DOM. The
+// post text/quote body are pre-built HTML (xLinkify escapes then linkifies), rendered
+// via dangerouslySetInnerHTML; everything else is Preact nodes (auto-escaped).
+const _xView = signal({ status: "loading" });
+function XQuote(q) {
+  if (!q || (!q.text && !(q.media && q.media[0]) && !q.handle)) return null;
+  const qn = q.name || (q.handle ? "@" + q.handle : "");
+  const href = q.url || (q.handle ? `https://x.com/${q.handle}` : "#");
+  return h("a", { class: "g-x-quote", href, target: "_blank", rel: "noopener noreferrer" },
+    (qn || q.handle) ? h("div", { class: "g-x-qhead" }, h("span", { class: "g-x-qwho" }, qn), q.handle ? h("span", { class: "g-x-qh" }, "@" + q.handle) : null) : null,
+    q.text ? h("div", { class: "g-x-qtxt", dangerouslySetInnerHTML: { __html: esc(q.text).replace(/\n/g, "<br>") } }) : null,
+    (q.media && q.media[0]) ? h("span", { class: "g-x-qmedia" }, h("img", { loading: "lazy", src: q.media[0], alt: "", referrerpolicy: "no-referrer" })) : null);
 }
-// A quote tweet's embedded ORIGINAL, nested beneath the quoter's own text as a
-// bordered card (like X's quote embed). The whole card links to the quoted tweet,
-// so its body is plain text (no inner anchors) to keep the markup valid.
-function xQuoteCard(q) {
-  if (!q || (!q.text && !(q.media && q.media[0]) && !q.handle)) return "";
-  const qh = esc(q.handle || ""), qn = esc(q.name || (q.handle ? "@" + q.handle : ""));
-  const href = esc(q.url || (q.handle ? `https://x.com/${q.handle}` : "#"));
-  const head = (qn || qh)
-    ? `<div class="g-x-qhead"><span class="g-x-qwho">${qn}</span>${qh ? `<span class="g-x-qh">@${qh}</span>` : ""}</div>`
-    : "";
-  const body = q.text ? `<div class="g-x-qtxt">${esc(q.text).replace(/\n/g, "<br>")}</div>` : "";
-  const qmedia = (q.media && q.media[0])
-    ? `<span class="g-x-qmedia"><img loading="lazy" src="${esc(q.media[0])}" alt="" referrerpolicy="no-referrer"></span>`
-    : "";
-  return `<a class="g-x-quote" href="${href}" target="_blank" rel="noopener noreferrer">${head}${body}${qmedia}</a>`;
+function XCard(t) {
+  const hh = t.handle || "", name = t.name || ("@" + (t.handle || ""));
+  const perma = t.url || (t.handle ? `https://x.com/${t.handle}/status/${t.id}` : "#");
+  return h("article", { class: "g-x-card" },
+    t.repostedBy ? h("div", { class: "g-x-rt" }, "↻ " + t.repostedBy + " reposted") : null,
+    h("div", { class: "g-x-meta" },
+      t.avatar ? h("img", { class: "g-x-av", loading: "lazy", src: t.avatar, alt: "", referrerpolicy: "no-referrer" }) : h("span", { class: "g-x-av g-x-av-ph" }),
+      h("a", { class: "g-x-who", href: "https://x.com/" + hh, target: "_blank", rel: "noopener noreferrer" }, name),
+      h("span", { class: "g-x-h" }, "@" + hh), h("span", { class: "g-x-d" }, fmtXWhen(t.date))),
+    h("div", { class: "g-x-txt", dangerouslySetInnerHTML: { __html: xLinkify(t.text) } }),
+    XQuote(t.quoted),
+    (t.media && t.media[0]) ? h("a", { class: "g-x-media", href: perma, target: "_blank", rel: "noopener noreferrer" }, h("img", { loading: "lazy", src: t.media[0], alt: "", referrerpolicy: "no-referrer" })) : null,
+    h("a", { class: "g-x-permalink", href: perma, target: "_blank", rel: "noopener noreferrer" }, "View on X"));
+}
+function XWire() {
+  const v = _xView.value;
+  let inner;
+  if (v.status === "posts") inner = v.tweets.map(XCard);
+  else if (v.status === "empty") {
+    const list = X_LIST || {}, url = v.link ? (list.url || (list.id ? `https://x.com/i/lists/${list.id}` : "")) : "";
+    inner = h("div", { class: "g-x-empty" }, v.msg + " ", url ? h("a", { class: "g-x-fallback", href: url, target: "_blank", rel: "noopener noreferrer" }, "Open list on X") : null);
+  } else inner = h("div", { class: "g-loading" }, "Loading X…");
+  return h("div", { class: "g-x-list" }, h("div", { id: "g-x-feed", class: "g-x-feed" }, inner));
 }
 // Persist the last feed (per viewer) so a fresh load / full reload paints the
 // last-known posts INSTANTLY instead of a blank "Loading" state, then refreshes.
@@ -576,41 +588,28 @@ const _XFEED_KEY = "wire.xfeed.v1";
 function xReadCache() { try { const d = JSON.parse(localStorage.getItem(_XFEED_KEY) || "null"); return d && Array.isArray(d.tweets) ? d.tweets : null; } catch { return null; } }
 function xWriteCache(tweets) { try { localStorage.setItem(_XFEED_KEY, JSON.stringify({ tweets: tweets.slice(0, 40), at: Date.now() })); } catch { /* private mode / quota */ } }
 function renderXWire(host) {
-  const list = X_LIST || {};
-  const url = list.url || (list.id ? `https://x.com/i/lists/${list.id}` : "");
-  const handles = (X_ACCOUNTS || []).map((a) => a.handle).filter(Boolean);
-  // The "Open list on X" link is kept only for the empty/error state (an escape
-  // hatch when the feed can't load); in normal use the posts start at the top.
-  const openLink = url ? `<a class="g-x-fallback" href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open list on X</a>` : "";
-  // Never blank the feed once it has posts: keep the live cards (kept-alive
-  // re-render) or, on a fresh mount, paint the persisted last feed immediately —
-  // only fall back to the "Loading" state when there is genuinely nothing to show.
-  let feed = host.querySelector("#g-x-feed");
-  const hasCards = !!(feed && feed.querySelector(".g-x-card"));
-  if (!hasCards) {
+  // Mount the island once; seed from the persisted cache so a fresh load paints the
+  // last-known posts INSTANTLY instead of "Loading". Thereafter the signal governs.
+  if (!host.dataset.xMounted) {
     const cached = xReadCache();
-    const seed = (cached && cached.length) ? cached.map(xCard).join("") : `<div class="g-loading">Loading X…</div>`;
-    host.innerHTML = `<div class="g-x-list"><div id="g-x-feed" class="g-x-feed">${seed}</div></div>`;
-    feed = host.querySelector("#g-x-feed");
+    if (cached && cached.length) _xView.value = { status: "posts", tweets: cached };
+    mount(host, XWire);
+    host.dataset.xMounted = "1";
   }
-  if (!handles.length && !list.id) { if (!feed.querySelector(".g-x-card")) feed.innerHTML = `<div class="g-x-empty">No accounts configured.</div>`; return; }
+  const hasPosts = () => _xView.value.status === "posts" && _xView.value.tweets.length;
+  const list = X_LIST || {};
+  const handles = (X_ACCOUNTS || []).map((a) => a.handle).filter(Boolean);
+  if (!handles.length && !list.id) { if (!hasPosts()) _xView.value = { status: "empty", msg: "No accounts configured.", link: false }; return; }
   const q = `handles=${encodeURIComponent(handles.join(","))}` + (list.id ? `&listId=${encodeURIComponent(list.id)}` : "");
   fetch(`/api/xfeed?${q}`, { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null)
     .then((d) => {
       const tweets = (d && Array.isArray(d.tweets)) ? d.tweets : [];
-      if (!tweets.length) {
-        if (feed.querySelector(".g-x-card")) return;   // keep whatever is showing
-        feed.innerHTML = `<div class="g-x-empty">Live posts are unavailable right now. ${openLink}</div>`;
-        return;
-      }
-      feed.innerHTML = tweets.map(xCard).join("");
-      xWriteCache(tweets);
+      // Never blank the feed once it has posts (kept-alive on refresh).
+      if (!tweets.length) { if (hasPosts()) return; _xView.value = { status: "empty", msg: "Live posts are unavailable right now.", link: true }; return; }
+      _xView.value = { status: "posts", tweets }; xWriteCache(tweets);
     })
-    .catch(() => {
-      if (feed.querySelector(".g-x-card")) return;      // keep whatever is showing
-      feed.innerHTML = `<div class="g-x-empty">Couldn't load live posts. ${openLink}</div>`;
-    });
+    .catch(() => { if (hasPosts()) return; _xView.value = { status: "empty", msg: "Couldn't load live posts.", link: true }; });
 }
 
 // ===== HERO CHART BAND (Option C) ==========================================
