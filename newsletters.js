@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-firstclose-serviceproviders-20261001",
+    publication: "Preqin",
+    author: null,
+    series: "First Close",
+    title: "Fund managers prioritize service providers’ expertise, responsiveness, and trust",
+    date: "2026-10-01",
+    time: "12:25",
+    summary: "The insider: Preqin’s annual review of service providers to fund managers.",
+    url: "https://go.preqin.com/webmail/909852/2190597941/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
+  },
+  {
     id: "nl-bbg-economicsdaily-wealtheffectspending-20261001",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "08:05",
     summary: "And one barrister's very expensive train journey, plus a Big Law mega IPO double.",
     url: "https://non-billable.beehiiv.com/p/draft-5943",
-  },
-  {
-    id: "nl-bbg-morningeurope-oilirantensions-20260928",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "Oil Rises Amid Renewed Concerns About Iran Conflict",
-    date: "2026-09-28",
-    time: "05:47",
-    summary: "Oil climbs on renewed Iran tensions, UK police foil an attack near a US strike base, and Waterloo Bridge risks closure within years.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-28/oil-rises-amid-renewed-concerns-about-iran-conflict",
   },
 ];

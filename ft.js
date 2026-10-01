@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "fba5c097-5df7-43aa-b78a-2068266eb2be",
+    title: "Australia’s banks show how to prepare for cable blackouts",
+    date: "2026-10-01",
+    time: "13:03",
+    url: "https://www.ft.com/content/fba5c097-5df7-43aa-b78a-2068266eb2be",
+  },
+  {
+    id: "87875b20-4081-4511-9afe-4ee389409742",
+    title: "Is circular financing in AI a problem?",
+    date: "2026-10-01",
+    time: "13:00",
+    url: "https://www.ft.com/content/87875b20-4081-4511-9afe-4ee389409742",
+  },
+  {
+    id: "45088042-61e6-43e5-b120-e810fecb8906",
+    title: "The AI Shift: Is AI supercharging science?",
+    date: "2026-10-01",
+    time: "12:30",
+    url: "https://www.ft.com/content/45088042-61e6-43e5-b120-e810fecb8906",
+  },
+  {
+    id: "5d82d5d0-458f-4368-a019-9f101fef6d2b",
+    title: "France seeks to rein in pensions and state salaries in 2027",
+    date: "2026-10-01",
+    time: "12:19",
+    url: "https://www.ft.com/content/5d82d5d0-458f-4368-a019-9f101fef6d2b",
+  },
+  {
     id: "4014fb8e-3614-43ea-990e-733f1f002959",
     title: "Burnham’s wake-up call to the right",
     date: "2026-10-01",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "23:28",
     url: "https://www.ft.com/content/b5b79e91-37d6-45c1-9907-cd3ea957cb5d",
-  },
-  {
-    id: "188ab0ab-e39d-4221-9730-0610fbc22ee9",
-    title: "Paramount stumps up high borrowing costs to fund Warner Bros deal",
-    date: "2026-09-30",
-    time: "22:37",
-    url: "https://www.ft.com/content/188ab0ab-e39d-4221-9730-0610fbc22ee9",
-  },
-  {
-    id: "188752a3-c43c-4bad-a59b-19d76074b1e0",
-    title: "Top Man City sponsor threatens legal action against Premier League",
-    date: "2026-09-30",
-    time: "22:36",
-    url: "https://www.ft.com/content/188752a3-c43c-4bad-a59b-19d76074b1e0",
-  },
-  {
-    id: "39de7709-7b5b-42f6-ad90-df50f1308ea2",
-    title: "US government debt rout triggers ‘vicious loop’ of selling",
-    date: "2026-09-30",
-    time: "22:09",
-    url: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2",
-  },
-  {
-    id: "baa261b7-681d-41b7-b41a-d704858cd0b2",
-    title: "Paramount names Mattel boss co-CEO as it looks to close Warner Bros deal",
-    date: "2026-09-30",
-    time: "22:03",
-    url: "https://www.ft.com/content/baa261b7-681d-41b7-b41a-d704858cd0b2",
   },
 ];
