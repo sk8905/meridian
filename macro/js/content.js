@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-01",
-  lastCheckedTime: "18:12 BST",
+  lastCheckedTime: "20:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-01",
   us: [
+    { title: "US mortgage rates jump the most in four years as bond sell-off hits Main Street", source: "Financial Times", date: "2026-10-01", time: "19:29", url: "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499" },
+    { title: "Top Fed official signals central bank will keep rates on hold in October", source: "Financial Times", date: "2026-10-01", time: "18:52", url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f" },
     { title: "Global bond sell-off pushes 10-year Treasury yield to highest since 2002", source: "Financial Times", date: "2026-10-01", time: "09:09", url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3" },
     { title: "Four potential positives from higher bond yields", source: "Financial Times", date: "2026-10-01", time: "09:37", url: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496" },
     { title: "US government debt rout triggers ‘vicious loop’ of selling", source: "Financial Times", date: "2026-09-30", time: "22:09", url: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2" },
-    { title: "US oil industry warns diesel prices will not return to normal for a year", source: "Financial Times", date: "2026-09-30", time: "17:20", url: "https://www.ft.com/content/0d74d66a-a9ee-4c22-83ab-9df6452117de" },
-    { title: "Weak PCE inflation eases pressure for Fed rate increases", source: "Financial Times", date: "2026-09-30", time: "15:24", url: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b" },
   ],
   uk: [
     { title: "UK house prices fall as higher mortgage rates ‘subdue’ market", source: "Financial Times", date: "2026-10-01", time: "08:05", url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af" },
@@ -1031,6 +1031,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-01",
   items: [
+    {"title": "US mortgage rates jump the most in four years as bond sell-off hits Main Street", "source": "Financial Times", "date": "2026-10-01", "time": "19:29", "url": "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499", "blurb": "The global bond sell-off is feeding through to US home-loan costs, with mortgage rates rising at their fastest pace in four years."},
+    {"title": "Top Fed official signals central bank will keep rates on hold in October", "source": "Financial Times", "date": "2026-10-01", "time": "18:52", "url": "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", "blurb": "A senior Fed policymaker indicates the central bank is leaning towards holding rates at its late-October meeting."},
     {"title": "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002", "source": "Financial Times", "date": "2026-10-01", "time": "09:09", "url": "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", "blurb": "Sovereign debt costs around the world return to multiyear highs."},
     {"title": "Four potential positives from higher bond yields", "source": "Financial Times", "date": "2026-10-01", "time": "09:37", "url": "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", "blurb": "The sharp rise in borrowing costs has raised justified alarm but there are benefits too."},
     {"title": "An optimist’s guide to the bond market", "source": "Financial Times", "date": "2026-10-01", "time": "06:30", "url": "https://www.ft.com/content/4ab6df98-f14d-49d1-a170-8087dc517b08", "blurb": "FT Unhedged: it could be a lot worse."},
@@ -1069,8 +1071,6 @@ export const ARTICLES = {
     {"title": "US Jobs Report Seen Showing 90,000 Payrolls, 4.1% Unemployment Rate", "source": "Bloomberg", "date": "2026-09-26", "url": "https://www.bloomberg.com/news/articles/2026-09-26/us-jobs-report-seen-showing-90-000-payrolls-4-1-unemployment-rate", "blurb": "Economists expect Friday's September employment report to show nonfarm payrolls rose about 90,000 — down from August's 162,000 — with the unemployment rate holding at a one-year low of 4.1%, the last major data test before the 28 October FOMC.", "author": null},
     {"title": "The 10-year Treasury yield is at its highest in nearly two decades. How we got here", "source": "CNBC", "date": "2026-09-26", "url": "https://www.cnbc.com/2026/09/26/10-year-treasury-yield-is-at-its-highest-in-19-years-how-we-got-here.html", "blurb": "A explainer on the run of hawkish Fed hikes, oil-driven inflation fears and heavy Treasury issuance that has pushed the 10-year yield to its highest level since 2007.", "author": null},
     {"title": "Pound to Dollar Rate Hits Three-Month Low on Bond Sell-Off", "source": "Currency News UK", "date": "2026-09-27", "time": "22:15", "url": "https://www.currencynews.co.uk/forecast/20260927-47288_pound-to-dollar-rate-hits-three-month-low-on-bond-sell-off.html", "blurb": "GBP/USD slid to a three-month low as the ongoing gilt-market sell-off and elevated Fed-hike odds continued to pressure sterling against the dollar.", "author": null},
-    {"title": "Here are the 4 big things we're watching in the stock market in the week ahead", "source": "CNBC", "date": "2026-09-27", "time": "20:20", "url": "https://www.cnbc.com/2026/09/27/here-are-the-4-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html", "blurb": "CNBC's rundown of the week ahead: the September jobs report, core PCE inflation, OpenAI's DevDay and a fresh round of AI-capex earnings all land as the Fed's October hike odds sit above 70%.", "author": null},
-    {"title": "Wall Street week ahead: consumer confidence, inflation, employment updates", "source": "AP (via Washington Post)", "date": "2026-09-26", "time": "20:20", "url": "https://www.washingtonpost.com/business/2026/09/26/wall-street-inflation-jobs-consumer-confidence/600918d8-b980-11f1-94cb-d3d8f22a8c8b_story.html", "blurb": "AP previews a data-heavy week — consumer confidence, the August core PCE reading and September's jobs report — that should sharpen the picture on how consumers and employers are holding up under higher prices and borrowing costs.", "author": null},
   ],
 };
 

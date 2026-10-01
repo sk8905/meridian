@@ -68,12 +68,12 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-01",
-      time: "18:12 BST",
-      lede: "Thursday closes with the bond rout the only story that matters: long-dated yields at multi-decade highs are now setting the tone for equities, energy and European budgets alike.",
+      time: "20:15 BST",
+      lede: "Thursday ends with the bond sell-off leaving the Fed leaning towards patience while the cost of borrowing keeps rising for households on both sides of the Atlantic.",
       bullets: [
-        { html: "<strong>Macro &mdash; the FT reports France is meeting fiscal reality with a crunch</strong>, seeking to rein in pensions and state salaries in its 2027 budget, as the global rise in borrowing costs squeezes sovereign budgets.", src: "https://www.ft.com/content/e7c1da68-aed3-471d-911f-0b6086a327ec", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; a top Fed official has signalled the central bank will keep rates on hold in October</strong>, the FT reports, easing pressure for a further hike despite the surge in long-dated yields.", src: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the Dow, S&amp;P 500 and Nasdaq pared early losses</strong> on Thursday, with inflation worries and a cooling AI trade weighing as Treasury yields held at their highest in over two decades.", src: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-oct-1-dow-sp-500-nasdaq-080602402.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Fixed income &mdash; the global bond sell-off pushed the 10-year Treasury yield to its highest since 2002</strong>, the FT reports, extending the &lsquo;vicious loop&rsquo; of selling in US government debt flagged on Wednesday night.", src: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; US mortgage rates jumped the most in four years</strong> as the bond sell-off, which pushed the 10-year Treasury yield to its highest since 2002, reached Main Street, the FT reports.", src: "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; EU countries held crisis talks over the release of diesel stocks</strong>, the FT reports, as the energy shock from the Iran war keeps feeding inflation risks.", src: "https://www.ft.com/content/0234bcc7-386c-40b6-9f04-88aef3a1e24c", srcName: "Financial Times" },
       ],
     },
