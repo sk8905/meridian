@@ -11,6 +11,20 @@
     ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
   </script>
   <style>html{background:#141414}</style>
+  <!-- Reactive-island runtime (Phase 3). Resolves the bare specifiers in the UNBUNDLED
+       source the test harness + dev server serve (node_modules sits under the served
+       repo root). In the Vite build, every bare specifier is bundled into the hashed
+       app chunk, so this map is never consulted — it is harmlessly inert in dist/prod. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "preact": "/node_modules/preact/dist/preact.mjs",
+      "preact/hooks": "/node_modules/preact/hooks/dist/hooks.mjs",
+      "@preact/signals": "/node_modules/@preact/signals/dist/signals.mjs",
+      "@preact/signals-core": "/node_modules/@preact/signals-core/dist/signals-core.mjs"
+    }
+  }
+  </script>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7" />
   <meta name="apple-mobile-web-app-title" content="Wire" />

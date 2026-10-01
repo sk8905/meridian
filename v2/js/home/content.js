@@ -69,7 +69,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
              swappable "Chart" pane in the wire-tab strip. The instrument chips and
              range toggle are rendered by glance.js (renderHero). -->
         <section class="g-hero g-anchor" id="jump-hero" aria-label="Price and performance chart">
-          <header class="tui-ph g-hero-head"><span>Chart</span><span class="g-focus-tog" role="group" aria-label="Show the chart/reading column or the X feed"><button type="button" class="g-focus-b is-on" data-focus="chart" aria-pressed="true">Chart</button><button type="button" class="g-focus-b" data-focus="x" aria-pressed="false">X</button></span><span class="tui-px">performance</span></header>
+          <header class="tui-ph g-hero-head"><span>Chart</span><span class="g-focus-slot" data-focus-mount></span><span class="tui-px">performance</span></header>
           <!-- One unified securities row (rendered by glance.js): every instrument
                with its window change, a colour dot (filled = plotted, hollow = off);
                tapping toggles it on/off the chart. Doubles as the chart legend, so
@@ -147,7 +147,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <aside class="g-side-x">
           <div class="g-x-scroll">
             <section class="tui-pnl g-x g-anchor" id="jump-xwire">
-              <header class="tui-ph g-x-head"><span>X feed</span><span class="g-focus-tog" role="group" aria-label="Show the chart/reading column or the X feed"><button type="button" class="g-focus-b" data-focus="chart" aria-pressed="false">Chart</button><button type="button" class="g-focus-b is-on" data-focus="x" aria-pressed="true">X</button></span><span class="tui-px">live</span></header>
+              <header class="tui-ph g-x-head"><span>X feed</span><span class="g-focus-slot" data-focus-mount></span><span class="tui-px">live</span></header>
               <div class="g-x-body">
                 <div id="g-xwire" class="g-x-pane" aria-label="Live posts from tracked X accounts"><div class="g-loading">Loading X…</div></div>
               </div>

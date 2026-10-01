@@ -28,7 +28,7 @@ export async function launchChromium() {
   return (pkg.default || pkg).chromium.launch();
 }
 
-const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json", ".png": "image/png" };
+const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json", ".png": "image/png" };
 const feedItems = (n = 30) => Array.from({ length: n }, (_, i) => ({ title: `Story ${i} on markets and rates`, url: `https://www.ft.com/x${i}`, source: i % 2 ? "FT" : "Reuters", date: "2026-07-19", time: `0${9 - (i % 9)}:00`, desk: "m" }));
 
 export function serve(apis = {}) {

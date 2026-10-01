@@ -16,6 +16,7 @@ import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
 import { briefMarkup, nbNums } from "/v2/js/nb-format.js";
+import { h, signal, effect, mount } from "/v2/js/ui.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
@@ -2130,34 +2131,37 @@ function closeMobileReader() {
 // Give the fixed-height, internally-scrolling mobile Briefing box an exact height:
 // the measured gap between the wire tabs and the bottom nav. In-flow (no fixed
 // positioning) so it can't vanish; the body scrolls inside it. No-op on desktop.
-// Narrow-desktop (iPad-landscape, 1201–1500px) Chart ⇄ X column swap. The five-column
-// terminal squashes the two flexible centre columns, so in that band the Chart/Reading
-// region and the X feed share one column, chosen by a small header toggle (see the CSS
-// media query). Defaults to Chart/Reading each load; toggling only affects that band —
-// at ≥1501px the .focus-x class is inert (its rules live inside the media query).
-function initFocusToggle() {
-  const layout = document.querySelector(".g-layout");
-  if (!layout) return;
-  const sync = () => {
-    const x = layout.classList.contains("focus-x");
-    for (const btn of document.querySelectorAll(".g-focus-b")) {
-      const on = btn.dataset.focus === (x ? "x" : "chart");
-      btn.classList.toggle("is-on", on);
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-    }
+// Narrow-desktop (iPad-landscape, 1201–1500px) Chart ⇄ X column swap — the FIRST
+// Preact + Signals island (Phase 3 of the refactor). The five-column terminal squashes
+// the two flexible centre columns, so in that band the Chart/Reading region and the X
+// feed share one column, chosen by a small header toggle (see the CSS media query).
+// ONE shared `_focusX` signal drives BOTH toggle instances (chart header + X header),
+// so they stay in sync automatically — no manual sync loop or document-level click
+// delegation. An effect reflects the choice onto the .g-layout class and redraws the
+// hero. Defaults to Chart/Reading; at ≥1501px the .focus-x class is inert (CSS).
+const _focusX = signal(false);
+function FocusToggle() {
+  const x = _focusX.value;
+  const btn = (which, label) => {
+    const on = (which === "x") === x;
+    return h("button", { type: "button", class: "g-focus-b" + (on ? " is-on" : ""),
+      "data-focus": which, "aria-pressed": on ? "true" : "false",
+      onClick: () => { _focusX.value = (which === "x"); } }, label);
   };
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".g-focus-b");
-    if (!btn) return;
-    const wantX = btn.dataset.focus === "x";
-    if (layout.classList.contains("focus-x") === wantX) return;   // no change
-    layout.classList.toggle("focus-x", wantX);
-    sync();
-    // Switching back to Chart re-shows the hero SVG (it was display:none) — redraw so
-    // its axis overlays are laid out against the now-visible canvas.
-    if (!wantX) { try { renderHero(); } catch { /* hero may not have booted */ } }
+  return h("span", { class: "g-focus-tog", role: "group", "aria-label": "Show the chart/reading column or the X feed" },
+    btn("chart", "Chart"), btn("x", "X"));
+}
+function initFocusToggle() {
+  const mounts = document.querySelectorAll("[data-focus-mount]");
+  if (!mounts.length) return;
+  mounts.forEach((m) => mount(m, FocusToggle));
+  // Reflect the signal onto the layout, and redraw the hero when switching back to
+  // Chart (its SVG was display:none). Runs once now, then on every toggle.
+  effect(() => {
+    const layout = document.querySelector(".g-layout");
+    if (layout) layout.classList.toggle("focus-x", _focusX.value);
+    if (!_focusX.value) { try { renderHero(); } catch { /* hero may not have booted */ } }
   });
-  sync();
 }
 function _placeBriefPane() {
   // The Briefing pane is now anchored purely in CSS (a flex column with a min-height in

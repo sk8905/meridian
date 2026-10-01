@@ -150,6 +150,20 @@ grab-bag along its seams. Size depends on the rollback-window decision.
 
 ---
 
+## Phase 3 toolchain (how reactive islands work here)
+
+Preact 11 + @preact/signals 2, bundled by Vite into the content-hashed app chunk.
+Because the test harness and dev server serve **unbundled source** (where bare
+specifiers don't resolve in the browser), an **import map** in `v2/index.html` points
+`preact`/`preact/hooks`/`@preact/signals`/`@preact/signals-core` at the served
+`node_modules` ESM builds; in the Vite build those specifiers are bundled, so the map
+is inert in `dist`/prod. The test harness serves `.mjs` as `text/javascript`
+(tests/lib.mjs). Shared runtime: `v2/js/ui.js` re-exports `h`/`render`/`signal`/
+`computed`/`effect`/`batch` + a `mount(host, Component)` helper. **Pattern:** replace a
+pane's static HTML with a mount point (`data-*-mount`), render a Preact component into
+it, and drive state with signals (multiple instances of one signal auto-sync — no
+manual DOM updates). No JSX (use `h`), so no transform config.
+
 ## Progress log
 
 - **2026-10-01** — Phase 0 complete: audit (3 sweeps) + spec-coverage review; this
@@ -186,3 +200,11 @@ grab-bag along its seams. Size depends on the rollback-window decision.
   `--wire-bar-h`(34) vars — they hold DIFFERENT heights for the home vs desk search
   bands, so they're not a blind rename — and the desktop-only `#glance`/`.tdash`
   `100vh`→`dvh`, handled per-surface as each moves onto the shell.
+- **2026-10-01** — Phase 3 bootstrapped: added Preact + Signals, the import-map/MIME
+  toolchain, and `v2/js/ui.js`. First island migrated as proof — the Chart⇄X focus
+  toggle: two toggle instances now share ONE `focusX` signal (auto-synced; the manual
+  sync loop + document click-delegation are gone). Verified in BOTH source (import map
+  → node_modules) and bundled dist (Preact in the app chunk). Suite green 61/61; glance
+  chunk 91→112 KB (gzip 32→40 KB) for the Preact runtime (one-time cost, amortised
+  across every future island). Next islands (per the glance.js map): hero chart, X
+  feed, prediction markets, then the right-rail widgets via a shared marketsStore.

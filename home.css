@@ -1476,6 +1476,9 @@
     /* Chart ⇄ X column toggle — shown only in the narrow-desktop band (see the
        ≤1500px media query); a compact segmented control pinned to the right of the
        shared column's header. Hidden (display:none) at every other width and on phones. */
+    /* The Preact mount wrapper is layout-transparent, so the rendered .g-focus-tog
+       is the effective flex child of .tui-ph (margin-left:auto still right-aligns it). */
+    .g-focus-slot{ display:contents; }
     .g-focus-tog{ display:none; align-items:center; margin-left:auto; border:1px solid var(--t-grid2); }
     .g-focus-tog + .tui-px{ margin-left:8px; }
     .g-focus-b{ font:inherit; font-size:var(--fs-micro); font-weight:600; letter-spacing:.02em; line-height:1;
