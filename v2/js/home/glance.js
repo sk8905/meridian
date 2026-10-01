@@ -16,7 +16,7 @@ import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
 import { briefMarkup, nbNums } from "/v2/js/nb-format.js";
-import { h, signal, effect, mount } from "/v2/js/ui.js";
+import { h, Fragment, signal, effect, mount } from "/v2/js/ui.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
@@ -2889,7 +2889,11 @@ function predMovers(list) {
     .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
-let _predList = null, _predFilter = "Largest", _predMoveDir = "up";
+// Prediction markets — a Preact + Signals island. `_predList` (data) and the two
+// view selectors (`_predFilter`, `_predMoveDir`) are signals, so the <Predict>
+// component re-renders itself whenever any of them changes — no manual innerHTML
+// rebuild or click-handler re-attachment. Preact escapes text, so no esc().
+const _predList = signal(null), _predFilter = signal("Largest"), _predMoveDir = signal("up");
 // Market size = total money wagered (Polymarket USD volume), compacted.
 function predVol(n) {
   n = +n || 0;
@@ -2898,68 +2902,60 @@ function predVol(n) {
   if (n >= 1e3) return "$" + Math.round(n / 1e3) + "K";
   return "$" + n;
 }
-function predRow(m) {
+function PredRow(m) {
   const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
   const meta = [m.venue, m.vol ? predVol(m.vol) : "", m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-  // Daily change in implied odds (percentage points) — column-aligned with the
-  // change column of the Economic-indicators pane above.
-  let chg = '<span class="g-pred-chg flat">·</span>';
+  // Daily change in implied odds (percentage points), column-aligned with the pane above.
+  let chg;
   if (typeof m.chg === "number" && isFinite(m.chg)) {
     const c = +m.chg.toFixed(1);
     const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
-    chg = `<span class="g-pred-chg ${dir}">${c > 0 ? "▲" : c < 0 ? "▼" : "·"} ${Math.abs(c).toFixed(1)}</span>`;
+    chg = h("span", { class: "g-pred-chg " + dir }, (c > 0 ? "▲" : c < 0 ? "▼" : "·") + " " + Math.abs(c).toFixed(1));
+  } else {
+    chg = h("span", { class: "g-pred-chg flat" }, "·");
   }
-  // Odds pinned top-right, the daily change stacked directly beneath it.
-  return `<a class="tui-li g-pred-row" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer">`
-    + `<span class="g-pred-main"><span class="tui-li-t">${esc(m.q)}</span>`
-    + `<span class="tui-li-m">${esc(meta)}</span></span>`
-    + `<span class="g-pred-nums"><span class="g-pred-odds">${esc(yes)}</span>${chg}</span></a>`;
+  return h("a", { class: "tui-li g-pred-row", href: m.url || "#", target: "_blank", rel: "noopener noreferrer" },
+    h("span", { class: "g-pred-main" }, h("span", { class: "tui-li-t" }, m.q), h("span", { class: "tui-li-m" }, meta)),
+    h("span", { class: "g-pred-nums" }, h("span", { class: "g-pred-odds" }, yes), chg));
 }
-function paintPredict(el) {
-  const list = _predList || [];
-  if (!list.length) { el.innerHTML = '<div class="g-empty">No prediction markets right now.</div>'; return; }
+function Predict() {
+  const list = _predList.value || [];
+  if (!list.length) return h("div", { class: "g-empty" }, "No prediction markets right now.");
   // Bucket into the 3 super-groups, keeping the fine-grained type sub-sections.
   const supers = {}; PRED_SUPERS.forEach((s) => (supers[s] = {}));
-  for (const m of list) {
-    const t = m.type || "Other";
-    const s = predSuperOf(t);
-    (supers[s][t] = supers[s][t] || []).push(m);
-  }
+  for (const m of list) { const t = m.type || "Other"; (supers[predSuperOf(t)][t] = supers[predSuperOf(t)][t] || []).push(m); }
   const movers = predMovers(list);
   const largest = list.slice().sort((a, b) => (b.vol || 0) - (a.vol || 0));
   const has = (s) => s === "Top Movers" ? movers.length > 0 : s === "Largest" ? list.length > 0 : Object.keys(supers[s]).length > 0;
-  if (!has(_predFilter)) _predFilter = PRED_SUPERS.find(has) || "Macro";
-  const chips = `<div class="g-pred-filter" role="tablist">`
-    + PRED_SUPERS.map((s) => `<button type="button" class="g-pred-fchip${_predFilter === s ? " on" : ""}" data-f="${esc(s)}"${has(s) ? "" : " disabled"}>${esc(s)}</button>`).join("")
-    + `</div>`;
+  let filter = _predFilter.value; if (!has(filter)) filter = PRED_SUPERS.find(has) || "Macro";
+  const chips = h("div", { class: "g-pred-filter", role: "tablist" },
+    PRED_SUPERS.map((s) => h("button", { type: "button", class: "g-pred-fchip" + (filter === s ? " on" : ""),
+      "data-f": s, disabled: !has(s), onClick: () => { if (has(s)) _predFilter.value = s; } }, s)));
   let body;
-  if (_predFilter === "Top Movers") {
-    // Two views only: Up = increases (largest→smallest); Down = decreases
-    // (largest magnitude→smallest). One is always selected.
-    const rows = _predMoveDir === "down"
-      ? movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg)
-      : movers.filter((m) => m.chg > 0);
-    const tgl = `<span class="g-pf-tgl-wrap">`
-      + `<button type="button" class="g-pred-dir${_predMoveDir === "up" ? " on" : ""}" data-dir="up">Up</button>`
-      + `<button type="button" class="g-pred-dir${_predMoveDir === "down" ? " on" : ""}" data-dir="down">Down</button></span>`;
-    body = `<div class="g-pred-sec g-pred-sec-tgl"><span>Top movers</span>${tgl}</div>` + rows.map(predRow).join("");
-  } else if (_predFilter === "Largest") {
-    body = `<div class="g-pred-sec">Largest markets</div>` + largest.map(predRow).join("");
+  if (filter === "Top Movers") {
+    // Two views only: Up = increases (largest→smallest); Down = decreases (largest magnitude→smallest).
+    const dir = _predMoveDir.value;
+    const rows = dir === "down" ? movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg) : movers.filter((m) => m.chg > 0);
+    const tgl = h("span", { class: "g-pf-tgl-wrap" },
+      h("button", { type: "button", class: "g-pred-dir" + (dir === "up" ? " on" : ""), "data-dir": "up", onClick: () => { _predMoveDir.value = "up"; } }, "Up"),
+      h("button", { type: "button", class: "g-pred-dir" + (dir === "down" ? " on" : ""), "data-dir": "down", onClick: () => { _predMoveDir.value = "down"; } }, "Down"));
+    body = [h("div", { class: "g-pred-sec g-pred-sec-tgl" }, h("span", null, "Top movers"), tgl), ...rows.map(PredRow)];
+  } else if (filter === "Largest") {
+    body = [h("div", { class: "g-pred-sec" }, "Largest markets"), ...largest.map(PredRow)];
   } else {
-    const active = supers[_predFilter] || {};
+    const active = supers[filter] || {};
     const subTypes = PRED_TYPE_ORDER.filter((t) => active[t] && active[t].length).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
-    body = subTypes.map((t) => `<div class="g-pred-sec">${esc(t)}</div>` + active[t].map(predRow).join("")).join("");
+    body = subTypes.flatMap((t) => [h("div", { class: "g-pred-sec" }, t), ...active[t].map(PredRow)]);
   }
-  el.innerHTML = chips + `<div class="g-pred-list">${body}</div>`;
-  el.querySelectorAll(".g-pred-fchip").forEach((c) => c.addEventListener("click", () => { if (!c.disabled && c.dataset.f !== _predFilter) { _predFilter = c.dataset.f; paintPredict(el); } }));
-  el.querySelectorAll(".g-pred-dir").forEach((b) => b.addEventListener("click", () => { if (b.dataset.dir !== _predMoveDir) { _predMoveDir = b.dataset.dir; paintPredict(el); } }));
+  return h(Fragment, null, chips, h("div", { class: "g-pred-list" }, body));
 }
 function renderPredict() {
   const el = document.getElementById("g-predict");
   if (!el) return;
+  if (!el.dataset.predMounted) { mount(el, Predict); el.dataset.predMounted = "1"; }   // mount once; signals repaint it
   fetch("/api/predict?v=8", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null)).catch(() => null)
-    .then((d) => { const list = (d && d.markets) || []; if (!list.length && el.querySelector(".tui-li")) return; _predList = list; paintPredict(el); });
+    .then((d) => { const list = (d && d.markets) || []; if (!list.length && (_predList.value || []).length) return; _predList.value = list; });
 }
 
 // ---- Volatility & risk (left rail) + Yield curve (right rail) ---------------

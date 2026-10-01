@@ -208,3 +208,11 @@ manual DOM updates). No JSX (use `h`), so no transform config.
   chunk 91→112 KB (gzip 32→40 KB) for the Preact runtime (one-time cost, amortised
   across every future island). Next islands (per the glance.js map): hero chart, X
   feed, prediction markets, then the right-rail widgets via a shared marketsStore.
+- **2026-10-01** — Phase 3 island #2: the prediction-markets pane (right rail) migrated
+  to Preact + Signals. `_predList`/`_predFilter`/`_predMoveDir` are now signals; the
+  <Predict> component repaints itself on any change — the manual paintPredict innerHTML
+  rebuild + per-filter click-handler re-attachment are gone (Preact also escapes text,
+  so esc() dropped). Added tests/predictions.mjs as a characterization spec FIRST
+  (filled a real coverage gap: chips, default Largest view, row shape, filter switching,
+  Top Movers Up/Down) — green on the old code, then on the migrated code, and on dist.
+  Suite 62/62.

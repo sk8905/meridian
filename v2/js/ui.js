@@ -4,7 +4,7 @@
 // and content-hashed by Vite like the rest of v2/js (they are bare specifiers, so
 // vite.config.js's `external` leaves them in the bundle). No JSX — components use the
 // `h` hyperscript directly, so no build/transform config is needed.
-export { h, render } from "preact";
+export { h, render, Fragment } from "preact";
 export { signal, computed, effect, batch } from "@preact/signals";
 
 // Mount a component into a host element, replacing its contents. Returns the host.
