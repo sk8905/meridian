@@ -55,14 +55,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-09-30",
-      time: "16:15 BST",
-      lede: "Wednesday afternoon brings softer US PCE inflation that eases the case for Fed hikes, while the Bank of England warns that surging AI-related debt raises the risk of a sharp market correction.",
+      date: "2026-10-01",
+      time: "12:20 BST",
+      lede: "Thursday's bond rout is still the dominant story at midday, with the US 10-year yield at its highest since 2002 and Treasury selling feeding on itself.",
       bullets: [
-        { html: "<strong>Macro &mdash; weak PCE inflation eased pressure for further Fed rate increases</strong>, the FT reports, while the ONS revised UK second-quarter growth up to 0.5% from 0.4%.", src: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; bond markets steadied after the sell-off despite strong US data</strong>, the FT reports, following Tuesday's 24-year high in the US 30-year Treasury yield.", src: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; the Bank of England warned that an AI debt surge raises the risk of a sharp market correction</strong>, per the FT.", src: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the Dow, S&amp;P 500 and Nasdaq wobbled on Tuesday</strong> as the long-bond yield surge weighed on sentiment, per Yahoo Finance's market wrap.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Fixed income &mdash; the global bond sell-off pushed the 10-year Treasury yield to its highest since 2002</strong>, the FT reports.", src: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; FirstFT flags a &lsquo;vicious loop&rsquo; of selling gripping the government bond market</strong>, after Wednesday night&rsquo;s US debt rout.", src: "https://www.ft.com/content/594f10d8-aebd-48d5-af47-5e7232487a35", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the Bank of Japan&rsquo;s summary of opinions points to an accelerated pace of rate rises</strong>, per the FT.", src: "https://www.ft.com/content/c8b3090e-8531-4911-8e9d-6eefbefb4c70", srcName: "Financial Times" },
+        { html: "<strong>UK &mdash; house prices fell as higher mortgage rates &lsquo;subdue&rsquo; the market</strong>, the FT reports.", src: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af", srcName: "Financial Times" },
       ],
     },
     evening: {

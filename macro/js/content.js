@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-01",
-  lastCheckedTime: "10:12 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,7 +1006,7 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-01",
   us: [
-    { title: "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002", source: "Financial Times", date: "2026-10-01", time: "09:09", url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3" },
+    { title: "Global bond sell-off pushes 10-year Treasury yield to highest since 2002", source: "Financial Times", date: "2026-10-01", time: "09:09", url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3" },
     { title: "Four potential positives from higher bond yields", source: "Financial Times", date: "2026-10-01", time: "09:37", url: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496" },
     { title: "US government debt rout triggers ‘vicious loop’ of selling", source: "Financial Times", date: "2026-09-30", time: "22:09", url: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2" },
     { title: "US oil industry warns diesel prices will not return to normal for a year", source: "Financial Times", date: "2026-09-30", time: "17:20", url: "https://www.ft.com/content/0d74d66a-a9ee-4c22-83ab-9df6452117de" },
