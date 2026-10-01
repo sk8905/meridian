@@ -4477,10 +4477,20 @@ async function handleXFeed(request, env, ctx) {
   const all = [];
   let usedProvider = "none";   // which rung actually produced the tweets (self-diagnosis)
   // Preferred: TwitterAPIs.com per-account timelines when its key is set (cheapest).
-  // Roster is the client's own handles here — the List auto-sync (below) is a
-  // twitterapi.io feature; on TwitterAPIs.com the roster is managed in xposts.js.
-  if (apisKey && handles.length) {
-    try { const a = await fetchXApisUsers(handles, apisKey); for (const t of a) all.push(t); if (a.length) usedProvider = "apis"; } catch { /* fall through */ }
+  // The X LIST is still the source of truth: when a listId (and the twitterapi.io key
+  // that can read List membership) are present, resolve the CURRENT roster from the
+  // List first, then fetch those handles' tweets via the cheaper provider — so adding/
+  // removing an account on X flows through here too. Only if the List can't be resolved
+  // (no listId, or no twitterapi.io key) does it fall back to the client's xposts.js
+  // handles. (List endpoints are twitterapi.io's; TwitterAPIs.com has no List API here.)
+  if (apisKey && (handles.length || listId)) {
+    let roster = handles;
+    if (listId && apiKey) {
+      try { const r = await resolveXRoster(listId, apiKey, handles, request, ctx); if (r.length) roster = r; } catch { /* keep client roster */ }
+    }
+    if (roster.length) {
+      try { const a = await fetchXApisUsers(roster, apisKey); for (const t of a) all.push(t); if (a.length) usedProvider = "apis"; } catch { /* fall through */ }
+    }
   }
   // Next: the paid twitterapi.io per-account timelines (include reposts + List sync).
   if (!all.length && apiKey && (handles.length || listId)) {
