@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1e6d2a9b-dc37-4b19-91e3-0a76fd01b673",
+    title: "Indian Flydubai pilot hailed as hero after averting disaster",
+    date: "2026-10-01",
+    time: "06:01",
+    url: "https://www.ft.com/content/1e6d2a9b-dc37-4b19-91e3-0a76fd01b673",
+  },
+  {
+    id: "ff64e3ef-0a37-489c-a79d-b02c29502a75",
+    title: "France and Germany inch towards grand bargain on EU car regulation",
+    date: "2026-10-01",
+    time: "06:00",
+    url: "https://www.ft.com/content/ff64e3ef-0a37-489c-a79d-b02c29502a75",
+  },
+  {
+    id: "594f10d8-aebd-48d5-af47-5e7232487a35",
+    title: "FirstFT: Big Tech’s heavy Brussels lobbying",
+    date: "2026-10-01",
+    time: "05:31",
+    url: "https://www.ft.com/content/594f10d8-aebd-48d5-af47-5e7232487a35",
+  },
+  {
+    id: "e485a228-1efe-426b-addc-26069ba48bf3",
+    title: "Global bond sell-off deepens as Asian yields jump",
+    date: "2026-10-01",
+    time: "05:17",
+    url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3",
+  },
+  {
+    id: "8be64ab7-81eb-48dd-8baa-e1c413a838e8",
+    title: "Louvre boss promises ‘culture of security’ after heist",
+    date: "2026-10-01",
+    time: "05:00",
+    url: "https://www.ft.com/content/8be64ab7-81eb-48dd-8baa-e1c413a838e8",
+  },
+  {
     id: "bc38ab9d-d8b1-4f48-a804-f7c186e98b9b",
     title: "Boots set to get carved out of private equity",
     date: "2026-10-01",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "16:31",
     url: "https://www.ft.com/content/f52f7b0e-be7d-414c-b19d-d78a3a5f4882",
-  },
-  {
-    id: "16b9d519-faf6-4dbe-863a-5821e54021cc",
-    title: "What are Andy Burnham’s options on Europe?",
-    date: "2026-09-30",
-    time: "16:12",
-    url: "https://www.ft.com/content/16b9d519-faf6-4dbe-863a-5821e54021cc",
-  },
-  {
-    id: "5e39d12d-c088-458f-9b03-0594292f772e",
-    title: "SEC proposes performance fees for retail funds in private markets push",
-    date: "2026-09-30",
-    time: "16:10",
-    url: "https://www.ft.com/content/5e39d12d-c088-458f-9b03-0594292f772e",
-  },
-  {
-    id: "08a71b38-d98c-472a-9576-e40ae2cfdf19",
-    title: "AI voice start-up ElevenLabs doubles valuation to $22bn",
-    date: "2026-09-30",
-    time: "16:00",
-    url: "https://www.ft.com/content/08a71b38-d98c-472a-9576-e40ae2cfdf19",
-  },
-  {
-    id: "cf14f353-f833-4e38-b868-39918923f8b1",
-    title: "Morocco’s first female prime minister launches coalition talks",
-    date: "2026-09-30",
-    time: "15:54",
-    url: "https://www.ft.com/content/cf14f353-f833-4e38-b868-39918923f8b1",
-  },
-  {
-    id: "97043be8-28f7-40c8-936f-617ebeec5d2b",
-    title: "Weak PCE inflation eases pressure for Fed rate increases",
-    date: "2026-09-30",
-    time: "15:24",
-    url: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b",
   },
 ];
