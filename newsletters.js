@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nishantkumar-millenniumzeroreturn-20261001",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: "Author Alert",
+    title: "Millennium Saw Zero Return in Volatile September for Hedge Funds",
+    date: "2026-10-01",
+    time: "16:30",
+    summary: "Millennium Management flat in September as inflation fears pushed bond yields to multidecade highs.",
+    url: "https://www.bloomberg.com/news/articles/2026-10-01/millennium-saw-zero-return-in-volatile-september-for-hedge-funds",
+  },
+  {
     id: "nl-thelawyer-breaking-stephensonharwoodtaylorwessing-20261001",
     publication: "The Lawyer",
     author: null,

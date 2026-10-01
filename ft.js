@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1206b356-e62b-4e18-9925-e8dd0a283fc4",
+    title: "Tories criticise Burnham over support for Manchester City owners",
+    date: "2026-10-01",
+    time: "16:40",
+    url: "https://www.ft.com/content/1206b356-e62b-4e18-9925-e8dd0a283fc4",
+  },
+  {
     id: "4b87328c-17da-484d-a92a-0f3582f76f02",
     title: "BT seeks government nod for potential TalkTalk takeover",
     date: "2026-10-01",
