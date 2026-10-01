@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "22779c05-8bda-423e-b5bf-6839d597f499",
+    title: "US mortgage rates jump the most in four years as bond sell-off hits Main Street",
+    date: "2026-10-01",
+    time: "19:29",
+    url: "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499",
+  },
+  {
+    id: "21f0822e-eb0b-4056-bcf2-2b6e2a14c221",
+    title: "Bolivia arrests attorney-general after US accuses him of protecting drug traffickers",
+    date: "2026-10-01",
+    time: "19:28",
+    url: "https://www.ft.com/content/21f0822e-eb0b-4056-bcf2-2b6e2a14c221",
+  },
+  {
     id: "04992c30-21da-46f3-8b95-ca82b2791521",
     title: "Europe braces for ‘severe hybrid attacks’ from Russia, says Merz",
     date: "2026-10-01",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "07:00",
     url: "https://www.ft.com/content/639e1943-a5fc-4869-bac8-95cf3c9fe4e8",
-  },
-  {
-    id: "4ab6df98-f14d-49d1-a170-8087dc517b08",
-    title: "An optimist’s guide to the bond market",
-    date: "2026-10-01",
-    time: "06:30",
-    url: "https://www.ft.com/content/4ab6df98-f14d-49d1-a170-8087dc517b08",
-  },
-  {
-    id: "9af7e02c-3b08-4c95-b61f-714a65d7316d",
-    title: "FTAV’s further reading",
-    date: "2026-10-01",
-    time: "06:30",
-    url: "https://www.ft.com/content/9af7e02c-3b08-4c95-b61f-714a65d7316d",
   },
 ];

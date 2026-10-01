@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-aoleaderaifirm-20261001",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Former A&O leader founds AI-native firm",
+    date: "2026-10-01",
+    time: "20:05",
+    summary: "The former leader of legacy Allen & Overy has launched an AI-native law firm in Belgium.",
+    url: "https://r.mail2.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/lRbaCGMrOykL",
+  },
+  {
     id: "nl-bbg-moneystuff-openingprivatemarkets-20261001",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "06:29",
     summary: "Also: America's diesel time-bomb.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-bondpocalypse-20260929",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "What’s going to break in the bondpocalypse?",
-    date: "2026-09-29",
-    time: "05:02",
-    summary: "US data might hold the key as the bond sell-off deepens.",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-29/what-s-going-to-break-in-the-bondpocalypse",
   },
 ];
