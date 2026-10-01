@@ -177,3 +177,12 @@ grab-bag along its seams. Size depends on the rollback-window decision.
   desk `--t-crd`, etc.) and the UI is pixel-identical; color-tokens spec updated to the
   single-source model. Suite green 61/61. (`--wire-head-h` confirmed still set by
   v2/js/chrome.js, so the legacy deletion didn't affect sticky offsets.)
+- **2026-10-01** — Phase 1.2 (part): unified the `--wire-head-h` fallback to a single
+  `57px` everywhere (was 53/54/56/57 — the real value is measured at runtime by
+  chrome.js; the fallback only shows for the pre-JS flash, now consistent). Switched the
+  v2 shell body to dynamic viewport units (`100vh` → `100vh; 100dvh` double-declaration,
+  mobile + terminal) so it fills correctly under the iOS URL bar. Suite green 61/61.
+  Deferred to Phase 1.3 (built with the shell): merging the `--wire-band-h`(43)/
+  `--wire-bar-h`(34) vars — they hold DIFFERENT heights for the home vs desk search
+  bands, so they're not a blind rename — and the desktop-only `#glance`/`.tdash`
+  `100vh`→`dvh`, handled per-surface as each moves onto the shell.

@@ -951,7 +951,7 @@
        it; the body scrolls and reuses the shared .g-read-* reading-mode typography.
        Never shown on desktop (that uses the side reading pane). */
     .g-reader{ position:fixed; left:0; right:0; z-index:60; display:flex; flex-direction:column; background:var(--t-ground, #000);
-      top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); bottom:0; }
+      top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); bottom:0; }
     .g-reader[hidden]{ display:none; }
     .g-reader-bar{ flex:0 0 auto; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px;
       background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
@@ -1337,7 +1337,7 @@
          layers left a hairline seam where the scrolling briefing bled through. In
          the normal paint layer the opaque backgrounds tile cleanly; the 1px same-
          colour box-shadow above covers any residual sub-pixel seam under the band. */
-      .tui .g-wiretabs{ display:flex; order:-1; position:sticky; top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px)); z-index:9;
+      .tui .g-wiretabs{ display:flex; order:-1; position:sticky; top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px)); z-index:9;
         height:var(--chip-h, 34px); box-sizing:border-box;
         background:var(--t-head); border-bottom:1px solid var(--t-grid2); box-shadow:0 -1px 0 var(--t-head); }
       /* All four chips share the row evenly (equal flex tracks), each centred. */
@@ -1417,7 +1417,7 @@
          once the briefing scrolls past — one chip-height below the tabs. The desk
          sub-filter band was removed, so there is no extra row to clear (this holds on
          every lane now). Scoped to the Home feed (#g-feed) so other desks keep theirs. */
-      .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 53px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:7; }
+      .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:7; }
       }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */

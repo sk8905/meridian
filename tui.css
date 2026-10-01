@@ -367,7 +367,7 @@
   /* An active source filter (Macro news wire, Credit news feed) stays
      clearable without scrolling back up: pin the bar just under the fixed
      chrome (header + promoted chip bar). */
-  .srcfilter-bar { position: sticky; top: calc(var(--wire-head-h, 54px) + var(--wire-bar-h, 34px)); z-index: 40;
+  .srcfilter-bar { position: sticky; top: calc(var(--wire-head-h, 57px) + var(--wire-bar-h, 34px)); z-index: 40;
     transform: translate3d(0, 0, 0); }
   /* During a horizontal chip slide (swipetabs stamps body.wire-sliding) the
      stuck rows above would render at their VIEWPORT offsets inside the slide's
