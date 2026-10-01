@@ -20,6 +20,10 @@ const SKIP = new Set([
   "dist", "node_modules", ".git", ".github", ".claude",
   "tests", "docs", "src", "scripts", "v2",              // v2 = Vite's job
   "fonts",                                               // Vite fingerprints these woff2 into /assets
+  // Cloudflare Pages Functions: an ALTERNATE (Pages) deploy path, kept in the repo but
+  // NEVER executed under the live Worker deploy (wrangler main: src/index.js handles
+  // /api/* itself). Copying them into dist served them as raw JS source — skip them.
+  "functions",
   "package.json", "package-lock.json", "vite.config.js", ".gitignore",
   "CLAUDE.md", "README.md",
 ]);
