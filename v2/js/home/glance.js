@@ -2,15 +2,12 @@
 // only the nav-actions boot and glance's own palette are skipped (the shell
 // owns chrome + search), and listeners self-guard on the active tab.
 
-import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
-import { managerWire, CAT_LABEL, dedupeEvents } from "/v2/js/manager-signals.js";
+import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData } from "/v2/js/manager-signals.js";
 // Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
 import { follows, followList, followBtn } from "/credit/js/shared.js";
 import { reportRefresh } from "/v2/js/status.js";
-import { items, cases, restructurings, firmById } from "/legal/js/data.js";
-import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
@@ -24,6 +21,39 @@ import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
 const __KEY = "home";
 const __ROOT = document.documentElement;
 const on = (t, ty, fn, o) => t.addEventListener(ty, (e) => { if (__ROOT.dataset.v2tab !== __KEY) return; return fn(e); }, o);
+
+// ---- Deferred desk data (the heavy modules) --------------------------------
+// credit/js/data.js (~686 KB gz), legal/js/data.js (~639 KB gz) and
+// macro/js/content.js (~169 KB gz) are NOT imported statically — doing so made
+// opening Home download+parse ~1.5 MB gzip of desk data before it could paint,
+// even though Home only renders slices. They start EMPTY and are populated by
+// loadDeskData() (called right after the live/API panes are kicked off), then the
+// desk-derived panes are (re-)rendered. Every reader runs inside a function (there
+// is no module-eval use), and the feed/snapshot builders already guard empties, so
+// pre-load Home paints the live wire + chart and the curated desk items fill in a
+// few hundred ms later. loadDeskData also records the "wire:desk" performance
+// measure that vitals.js beacons — the number proving this win on real devices.
+let deals = [], intel = [], managers = [], funds = [], research = [], HEDGE_INTEL = [];
+let LAST_CHECKED = null, LAST_CHECKED_TIME = null;
+let items = [], cases = [], restructurings = [], firmById = {};
+let NEWS = {}, ARTICLES = {}, COMMENTARY = {}, CYCLE = {}, BUBBLE = {}, OUTLOOK = {}, EARNINGS = {};
+let _deskData = null;
+function loadDeskData() {
+  if (_deskData) return _deskData;
+  try { performance.mark("wire:desk:start"); } catch { /* no perf API */ }
+  _deskData = Promise.all([
+    import("/credit/js/data.js"),
+    import("/legal/js/data.js"),
+    import("/macro/js/content.js"),
+    loadManagerData(),
+  ]).then(([cr, lg, mc]) => {
+    ({ deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } = cr);
+    ({ items, cases, restructurings, firmById } = lg);
+    ({ NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } = mc);
+    try { performance.measure("wire:desk", "wire:desk:start"); } catch { /* no perf API */ }
+  }).catch(() => { _deskData = null; /* allow a retry on the next trigger */ });
+  return _deskData;
+}
 
 // =============================================================================
 // Wire Glance — the cross-desk landing. Imports the three apps' data modules
@@ -120,19 +150,28 @@ export function initGlance(ctx) {
   if (typeof _hp.wireLane === "string") _wireLane = _hp.wireLane;
   if (typeof _hp.mgrLaneCat === "string") _mgrLaneCat = _hp.mgrLaneCat;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
-  renderWire();                                          // merged wire (lanes) + reading pane
-  initHomeBriefing();                                    // the tri-daily brief atop the News wire
-  renderManagerWire();                                   // mobile watch tab (#g-mgrwire)
+  // ---- Paint NOW: the shell, the briefing, and every live/API pane. None of
+  // these need the heavy desk data, so Home paints without waiting on ~1.5 MB gz.
+  renderWire();                                          // live wire (lanes) + reading pane — desk items merge in after load
+  initHomeBriefing();                                    // the tri-daily brief atop the News wire (BRIEFINGS — small, static)
   refreshLiveFeed();                                     // then pull fresh headlines
-  renderMacroSnapshot();
-  initMacroIndicators();
-  renderEarnings();
   initMarkets();
   initRates();
   initHormuz();
   initPulse();
   initGlanceTickerToggle();
-  reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME);   // v2: app-wide refresh (shared)
+  // ---- Deferred: load the heavy desk data off the critical path, then (re-)render
+  // only the desk-derived panes. The wire re-renders to merge in the curated desk
+  // base + manager rows; the manager wire, macro snapshot, earnings and the shared
+  // refresh stamp fill in once the data lands (a few hundred ms after first paint).
+  loadDeskData().then(() => {
+    renderWire();                                        // now with the curated desk base + manager merge
+    renderManagerWire();                                 // mobile watch tab (#g-mgrwire)
+    renderMacroSnapshot();
+    initMacroIndicators();
+    renderEarnings();
+    reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME);      // v2: app-wide refresh (shared) — real stamp after load
+  });
   // Top-bar Markets / Saved / Notifications: the SAME shared controller as
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its

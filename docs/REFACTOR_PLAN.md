@@ -261,3 +261,32 @@ manual DOM updates). No JSX (use `h`), so no transform config.
   lanes core stays imperative for now (highest-risk, lowest-reward to churn). Remaining
   Phase-4 CSS cleanup is marginal and delicate (see the corrected note above) — did the
   one safe deletion (`.dsh-heat`); the rest is optional per-fragment surgery.
+
+## Performance work (post-refactor)
+
+Grounded in measured dist sizes: the biggest cost on the primary (Home) surface was
+that `glance.js` **statically** imported the three heavy desk data modules
+(`credit/js/data.js` 686 KB gz, `legal/js/data.js` 639 KB gz, `macro/js/content.js`
+169 KB gz = ~1.5 MB gz / ~4.5 MB raw), so opening Home downloaded + parsed all of it
+before first paint even though Home renders only slices.
+
+- **2026-10-01 — RUM beacon (#5).** Added `v2/js/vitals.js` (tiny, dependency-free):
+  field-measures FCP/TTFB (iOS ✓), LCP/CLS/INP (Chromium only), and `deskMs` (the
+  Home desk-data load, via a `wire:desk` User-Timing measure — works on iOS too), plus
+  context (view, nav type, viewport, DPR, connection, PWA). One `sendBeacon` per session
+  on first hide. Worker route `/api/vitals` (`handleVitals`) structured-logs one line
+  per beacon (no analytics binding; read via `wrangler tail | grep VITALS`). Fired
+  fire-and-forget from `runtime.js boot()`. Spec: `tests/vitals.mjs`.
+- **2026-10-01 — Home deferred desk-data import (#1).** `glance.js` and
+  `manager-signals.js` no longer statically import the heavy modules: they hold empty
+  defaults and `loadDeskData()` / `loadManagerData()` dynamically import them AFTER Home
+  kicks off its shell + live/API panes (wire, chart, markets, rates, briefing), then the
+  desk-derived panes (wire desk base, manager wire, macro snapshot, earnings, refresh
+  stamp) render. All readers are in-function with guarded empties, so pre-load Home paints
+  the live wire + chart and the curated desk items fill in a few hundred ms later.
+  Verified: the glance chunk now `import()`s the data modules dynamically (no static
+  `from"/credit/js/data.js"`); home specs + full suite 63/63 on source and dist; `deskMs`
+  captured end-to-end. **Next perf levers (documented, not done):** emit a compact
+  Home-only data slice from the 5×/day refresh (fix #2); split the monolithic desk data
+  by sub-dataset or move to fetched JSON; per-route CSS split (the 336 KB / 57 KB-gz
+  bundle is render-blocking); consolidate the ~11 Home `/api/*` calls into a snapshot.

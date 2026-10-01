@@ -283,6 +283,39 @@ function handleMe(request) {
   return json({ email });
 }
 
+// ---- Real-user vitals beacon (/api/vitals) ---------------------------------
+// A tiny, fire-and-forget RUM sink. The client (v2/js/vitals.js) sends ONE
+// compact JSON summary per session on pagehide via navigator.sendBeacon:
+// field-measured Core Web Vitals (LCP/CLS/INP), TTFB, and the Home desk-data
+// load time (deskMs) — the number that proves the deferred-import win. There is
+// no analytics binding here, so we structured-log a single line per beacon
+// (prefix "VITALS ") — view live with `wrangler tail --format json | grep VITALS`,
+// or in the Cloudflare dashboard's Workers logs. No PII: only the signed-in
+// email's presence is noted as a boolean, never the address itself. Bounded hard
+// (POST only, ≤2 KB) so a bad or hostile beacon can never cost anything.
+async function handleVitals(request) {
+  if (request.method !== "POST") return new Response(null, { status: 405 });
+  let v = null;
+  try {
+    const txt = (await request.text()).slice(0, 2048);   // hard cap before parse
+    v = JSON.parse(txt);
+  } catch { /* malformed → drop silently */ }
+  if (v && typeof v === "object") {
+    const n = (x) => (typeof x === "number" && isFinite(x)) ? Math.round(x) : null;
+    const rec = {
+      lcp: n(v.lcp), cls: (typeof v.cls === "number" && isFinite(v.cls)) ? +v.cls.toFixed(3) : null,
+      inp: n(v.inp), ttfb: n(v.ttfb), deskMs: n(v.deskMs),
+      view: typeof v.view === "string" ? v.view.slice(0, 24) : null,
+      nav: typeof v.nav === "string" ? v.nav.slice(0, 16) : null,   // navigate | reload | back_forward
+      vp: typeof v.vp === "string" ? v.vp.slice(0, 12) : null,      // "390x844"
+      dpr: n(v.dpr), conn: typeof v.conn === "string" ? v.conn.slice(0, 8) : null,   // 4g | 3g | …
+      pwa: !!v.pwa, auth: !!identity(request),
+    };
+    console.log("VITALS " + JSON.stringify(rec));
+  }
+  return new Response(null, { status: 204 });   // always cheap, never blocks the client
+}
+
 // Key rates & credit spreads for the Credit dashboard. Pulled server-side (so
 // there's no CORS issue and no browser-visible key). Five series come from FRED's
 // public keyless CSV feed; 3M EURIBOR comes from the ECB Data Portal (also
@@ -4521,6 +4554,7 @@ export default {
     if (url.pathname === "/api/push/subscribe") return handlePushSubscribe(request, env);
     if (url.pathname === "/api/push/test") return handlePushTest(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
+    if (url.pathname === "/api/vitals") return handleVitals(request);
     if (url.pathname === "/api/ask") return handleAsk(request, env);
     if (url.pathname === "/api/propose") return handlePropose(request, env);
     if (url.pathname === "/api/approve") return handleApprove(request, env);

@@ -225,6 +225,9 @@ function onPop() {
 
 // ---- Boot ------------------------------------------------------------------
 async function boot() {
+  // Real-user performance beacon — fire-and-forget, off the critical path, so it
+  // never delays chrome/first view. Measures load on actual devices (see vitals.js).
+  import("./vitals.js").then((m) => m.initVitals && m.initVitals()).catch(() => {});
   const { initChrome } = await import("./chrome.js");
   _setActive = initChrome({ onTab: (key) => navigate(tabPath(key), { push: true, home: true }) });
   window.addEventListener("popstate", onPop);

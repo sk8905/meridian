@@ -8,9 +8,21 @@
 // coverage metrics. Pure derivation over the committed data modules — no fetch,
 // no state. Dates are "YYYY-MM-DD" (or "YYYY-MM"); ts is epoch-ms for sorting.
 // =============================================================================
-import { deals, intel, managers, funds } from "/credit/js/data.js";
-
-const _mById = new Map(managers.map((m) => [m.id, m]));
+// The credit data module is heavy (~686 KB gzip). It is NOT imported statically —
+// that would force every importer of this module (just Home's glance.js) to pull
+// the whole dataset on load. Instead it is loaded on demand via loadManagerData(),
+// which the Home desk-data loader awaits AFTER first paint. Until then these hold
+// empty defaults, so the derivation functions below return nothing rather than
+// throwing, and Home's manager wire fills in once the data lands.
+let deals = [], intel = [], managers = [], funds = [];
+let _mById = new Map();
+let _loaded = null;
+export function loadManagerData() {
+  return _loaded || (_loaded = import("/credit/js/data.js").then((d) => {
+    deals = d.deals; intel = d.intel; managers = d.managers; funds = d.funds;
+    _mById = new Map(managers.map((m) => [m.id, m]));
+  }));
+}
 export const managerName = (id) => (_mById.get(id) || {}).name || "";
 
 // Parse a data date (+optional HH:MM) to epoch-ms; a bare YYYY-MM anchors to the 1st.
