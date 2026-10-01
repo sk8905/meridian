@@ -16,7 +16,7 @@ import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
 import { briefMarkup, nbNums } from "/v2/js/nb-format.js";
-import { h, Fragment, signal, effect, mount } from "/v2/js/ui.js";
+import { h, Fragment, signal, effect, batch, mount } from "/v2/js/ui.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
@@ -620,10 +620,15 @@ function renderXWire(host) {
 // the X wire) and seeded from a per-viewer localStorage cache so a fresh load
 // paints the last-known chart instantly rather than a blank.
 const _HERO_KEY = "wire.hero.v1";
-let _heroData = null;      // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
-let _heroSel = [];         // selected instrument keys (1..all); at least one is always kept
-let _heroRange = "1M";     // 1D | 1W | 1M | 6M | 1Y | ALL — open on 1M, where the
-                           // indexed lines fan out and separate (1D buries them all on 0%)
+// Reactive state (Phase 3 island): the basket data, the selected keys, and the range
+// are signals. A single effect(renderHero) in boot() redraws whenever any of them
+// changes, so there are no scattered manual renderHero() calls — mutating a signal IS
+// the redraw. The SVG drawing + the ticker-row hover path stay imperative (canvas-like,
+// 60fps direct-DOM); only the range toggle is a Preact component (HeroRange).
+const _heroData = signal(null);   // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
+const _heroSel = signal([]);      // selected instrument keys (1..all); at least one is always kept
+const _heroRange = signal("1M");  // 1D | 1W | 1M | 6M | 1Y | ALL — open on 1M, where the
+                                  // indexed lines fan out and separate (1D buries them all on 0%)
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
 // Only 1D is intraday — it reads the 15-min bar series and plots on a real wall-clock
@@ -631,7 +636,7 @@ const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
 // / weekend) and is drawn as a BREAK in the line, not a straight fill across it. 1W
 // and up read daily closes and draw one continuous line.
 const HERO_GAP_MS = 45 * 60000;
-function heroIntraday() { return _heroRange === "1D"; }
+function heroIntraday() { return _heroRange.value === "1D"; }
 // Split a point series into contiguous segments, breaking wherever an intraday gap
 // exceeds HERO_GAP_MS. Daily ranges are one unbroken segment. Returns arrays of
 // point indices.
@@ -655,7 +660,7 @@ const HERO_DAY_OPEN = 7, HERO_DAY_CLOSE = 22;
 // latest day we hold intraday data for — so a weekend 1D still anchors to a real day).
 function heroDayStart() {
   let t = 0;
-  for (const it of (_heroData || [])) { const a = it && it.intraday; if (a && a.length) { const e = a[a.length - 1][0]; if (e > t) t = e; } }
+  for (const it of (_heroData.value || [])) { const a = it && it.intraday; if (a && a.length) { const e = a[a.length - 1][0]; if (e > t) t = e; } }
   if (!t) t = Date.now();
   const d = new Date(t); d.setHours(0, 0, 0, 0); return d.getTime();
 }
@@ -663,7 +668,7 @@ function heroDayStart() {
 // only to the latest bar), never a rolling 24h — so 1D consistently reads as the trading
 // day left→right whatever hours the data happens to cover. Returns [t0, t1, session].
 function heroIntradayDomain(t0data, t1data) {
-  if (_heroRange === "1D") {
+  if (_heroRange.value === "1D") {
     const ds = heroDayStart(), ws = ds + HERO_DAY_OPEN * 3600e3;
     return [ws, Math.max(ds + HERO_DAY_CLOSE * 3600e3, t1data), true];
   }
@@ -727,19 +732,22 @@ const HERO_FALLBACK = ["#3987e5", "#d95926", "#26a9c4", "#b45bb0", "#199e70", "#
 function heroColor(key, i) { return HERO_COLORS[key] || HERO_FALLBACK[i % HERO_FALLBACK.length]; }
 // Short codes for the direct end-of-line labels (the legend carries the full names).
 const HERO_CODE = { spx: "SPX", ndx: "NDX", ftse: "FTSE", sx5e: "STOXX", ust10: "10Y", oil: "Oil", gold: "Gold", btc: "BTC" };
-// The selected instruments, in basket order — never empty once data has loaded.
+// The selected instruments, in basket order — never empty once data has loaded. Pure:
+// it never writes _heroSel (the "≥1 kept" invariant is enforced at the mutation sites
+// below), so it is safe to call inside the redraw effect without self-triggering it.
 function heroSelected() {
-  if (!_heroData || !_heroData.length) return [];
-  let s = _heroData.filter((it) => _heroSel.includes(it.key));
-  if (!s.length) { _heroSel = [_heroData[0].key]; s = [_heroData[0]]; }
-  return s;
+  const data = _heroData.value;
+  if (!data || !data.length) return [];
+  const s = data.filter((it) => _heroSel.value.includes(it.key));
+  return s.length ? s : [data[0]];
 }
-// Toggle a security in/out of the selection; never let it fall below one.
+// Toggle a security in/out of the selection; never let it fall below one. Writes a NEW
+// array to the signal (Object.is identity change) so the redraw effect re-runs.
 function heroToggle(key) {
   if (!key) return;
-  const i = _heroSel.indexOf(key);
-  if (i >= 0) { if (_heroSel.length > 1) _heroSel.splice(i, 1); }
-  else _heroSel.push(key);
+  const cur = _heroSel.value;
+  if (cur.includes(key)) { if (cur.length > 1) _heroSel.value = cur.filter((k) => k !== key); }
+  else _heroSel.value = [...cur, key];
 }
 // The clean DEFAULT overlay: one instrument per asset class (equities · rates ·
 // commodities · crypto), so the chart opens as ~5 distinguishable lines rather than a
@@ -764,9 +772,11 @@ function initHero() {
   if (_heroBooted) { fetchHero(); renderHeroNews(); return; }   // re-entry (Chart chip tapped): refresh
   const boot = () => {
     if (_heroBooted) return; _heroBooted = true;
+    mountHeroRange();            // Preact range toggle (reads/writes _heroRange)
+    wireHeroControls();          // ticker-row delegation + svg hover
+    effect(renderHero);          // reactive redraw: re-runs on any _heroData/_heroSel/_heroRange change
     const cached = heroReadCache();
-    if (cached && cached.length) { _heroData = cached; if (!_heroSel.length) _heroSel = heroDefaultSel(cached); renderHero(); }
-    wireHeroControls();
+    if (cached && cached.length) batch(() => { _heroData.value = cached; if (!_heroSel.value.length) _heroSel.value = heroDefaultSel(cached); });
     fetchHero();
     renderHeroNews();
     startHeroAuto();
@@ -784,11 +794,12 @@ function fetchHero() {
     .then((d) => {
       const insts = (d && Array.isArray(d.instruments)) ? d.instruments : [];
       if (!insts.length) return;                            // keep whatever is showing
-      _heroData = insts;
-      _heroSel = _heroSel.filter((k) => insts.some((i) => i.key === k));   // prune stale keys
-      if (!_heroSel.length) _heroSel = heroDefaultSel(insts);            // default: one per asset class
+      batch(() => {
+        _heroData.value = insts;
+        const pruned = _heroSel.value.filter((k) => insts.some((i) => i.key === k));   // drop stale keys
+        _heroSel.value = pruned.length ? pruned : heroDefaultSel(insts);               // default: one per asset class
+      });
       heroWriteCache(insts);
-      renderHero();
     })
     .catch(() => { /* keep last-good chart */ });
 }
@@ -807,11 +818,11 @@ function startHeroAuto() {
 function wireHeroControls() {
   if (_heroWired) return; _heroWired = true;
   const sel = document.getElementById("g-hero-sel");
-  const rng = document.getElementById("g-hero-range");
   const svg = document.getElementById("g-hero-svg");
-  // A ticker TOGGLES its security on/off the chart (multi-select, ≥1 kept).
-  if (sel) sel.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-tk"); if (!b) return; heroToggle(b.dataset.k); renderHero(); });
-  if (rng) rng.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-rg"); if (!b) return; _heroRange = b.dataset.r; renderHero(); });
+  // A ticker TOGGLES its security on/off the chart (multi-select, ≥1 kept). heroToggle
+  // writes _heroSel, which the redraw effect reacts to — no explicit redraw here. The
+  // range toggle is the HeroRange Preact island (it writes _heroRange directly).
+  if (sel) sel.addEventListener("click", (e) => { const b = e.target.closest(".g-hero-tk"); if (!b) return; heroToggle(b.dataset.k); });
   if (svg) {
     svg.addEventListener("mousemove", heroHover);
     svg.addEventListener("mouseleave", () => {
@@ -838,7 +849,7 @@ function heroSlice(m) {
   // True 1D: today's session only (from the local open), so the ticker % is the
   // day's move and the line sits in its trading hours. Fall back to a rolling window
   // pre-open / on a non-trading day so it never blanks.
-  if (_heroRange === "1D") {
+  if (_heroRange.value === "1D") {
     const ws = heroDayStart() + HERO_DAY_OPEN * 3600e3;
     const day = src.filter((p) => p[0] >= ws);
     // Always the session window — no rolling-24h fallback. If today's session is too
@@ -847,10 +858,11 @@ function heroSlice(m) {
     return day.length >= 2 ? day : src.slice(-2);
   }
   let start = -Infinity;                                    // ALL → everything the series holds
-  if (_heroRange === "1W") start = now - 8 * 864e5;          // ~one week of daily closes (continuous)
-  else if (_heroRange === "1M") start = now - 31 * 864e5;
-  else if (_heroRange === "6M") start = now - 183 * 864e5;
-  else if (_heroRange === "1Y") start = now - 366 * 864e5;
+  const rng = _heroRange.value;
+  if (rng === "1W") start = now - 8 * 864e5;                 // ~one week of daily closes (continuous)
+  else if (rng === "1M") start = now - 31 * 864e5;
+  else if (rng === "6M") start = now - 183 * 864e5;
+  else if (rng === "1Y") start = now - 366 * 864e5;
   const pts = src.filter((p) => p[0] >= start);
   return pts.length >= 2 ? pts : src.slice(-2);
 }
@@ -876,8 +888,9 @@ function heroFmtAxis(v, m) {
 // Axis label: time-of-day on 1D, day+month on 1W/1M/6M, month+'YY on the long ones.
 function heroFmtDate(ms) {
   const d = new Date(ms);
-  if (_heroRange === "1D") { try { return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); } catch { return `${d.getHours()}:00`; } }
-  if (_heroRange === "1W" || _heroRange === "1M" || _heroRange === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
+  const rng = _heroRange.value;
+  if (rng === "1D") { try { return d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); } catch { return `${d.getHours()}:00`; } }
+  if (rng === "1W" || rng === "1M" || rng === "6M") return `${d.getDate()} ${MONTHS[d.getMonth()] || ""}`;
   return `${MONTHS[d.getMonth()] || ""} '${String(d.getFullYear()).slice(2)}`;   // 1Y / ALL
 }
 // Pixel-accurate de-collision of the exit-point labels. They're first placed at their
@@ -1055,8 +1068,8 @@ function drawHeroMulti(svg, series) {
 // dot (filled = plotted, hollow = off), tap to toggle. Doubles as the chart legend.
 // Colour follows the instrument (fixed basket slot), never its selection rank.
 function heroTickerRow(sel) {
-  sel.innerHTML = _heroData.map((it, i) => {
-    const on = _heroSel.includes(it.key);
+  sel.innerHTML = _heroData.value.map((it, i) => {
+    const on = _heroSel.value.includes(it.key);
     const pts = heroSlice(it);
     const first = pts.length >= 2 ? pts[0][1] : null, last = pts.length >= 2 ? pts[pts.length - 1][1] : null;
     const pct = (first) ? (last / first - 1) * 100 : 0;
@@ -1117,15 +1130,38 @@ function heroHover(e) {
     tip.innerHTML = `<span class="g-hero-tip-v">${esc(heroFmt(pts[i][1], m))}</span><span class="g-hero-tip-d">${esc(heroFmtDate(pts[i][0]))}</span>`;
   }
 }
+// The range toggle (1D…ALL) as a Preact island: a segmented tablist bound to the
+// _heroRange signal. Tapping a range writes the signal, which re-renders this control
+// (active state) AND triggers the redraw effect. No hover path touches it, so unlike the
+// ticker row it is safe to let Preact own. Markup matches the old static buttons exactly
+// (.g-hero-rg[data-r] · is-on · role=tab) so the specs and CSS are unchanged.
+const HERO_RANGES = ["1D", "1W", "1M", "6M", "1Y", "ALL"];
+function HeroRange() {
+  const cur = _heroRange.value;
+  return h(Fragment, null, HERO_RANGES.map((r) => h("button", {
+    type: "button", class: "g-hero-rg" + (r === cur ? " is-on" : ""), "data-r": r,
+    role: "tab", "aria-selected": r === cur ? "true" : "false",
+    onClick: () => { _heroRange.value = r; },
+  }, r)));
+}
+function mountHeroRange() {
+  const host = document.getElementById("g-hero-range");
+  if (host && !host.dataset.rangeMounted) { host.dataset.rangeMounted = "1"; mount(host, HeroRange); }
+}
+
+// The imperative redraw — registered as effect(renderHero) in boot(), so it re-runs on
+// any _heroData/_heroSel/_heroRange change, and also called directly (via microtask) when
+// the Chart column is revealed (its SVG had no laid-out geometry while display:none).
+// Reads all three signals so the effect tracks them. The range toggle's active state is
+// owned by the HeroRange island, not reflected here.
 function renderHero() {
-  if (!_heroData || !_heroData.length) return;
+  const data = _heroData.value;
+  if (!data || !data.length) return;
   const sel = document.getElementById("g-hero-sel"), svg = document.getElementById("g-hero-svg");
   if (!sel || !svg) return;
   const chosen = heroSelected();
   heroTickerRow(sel);
-  const rng = document.getElementById("g-hero-range");
-  if (rng) rng.querySelectorAll(".g-hero-rg").forEach((b) => { const on = b.dataset.r === _heroRange; b.classList.toggle("is-on", on); b.setAttribute("aria-selected", on ? "true" : "false"); });
-  const series = chosen.map((c, i) => ({ key: c.key, label: c.label, m: c, color: heroColor(c.key, _heroData.findIndex((d) => d.key === c.key)), pts: heroSlice(c) })).filter((s) => s.pts.length >= 2);
+  const series = chosen.map((c, i) => ({ key: c.key, label: c.label, m: c, color: heroColor(c.key, data.findIndex((d) => d.key === c.key)), pts: heroSlice(c) })).filter((s) => s.pts.length >= 2);
   if (!series.length) return;
   svg._multi = null;
   const els = document.getElementById("g-hero-endlbls"); if (els) els.innerHTML = "";   // cleared for single-line mode; drawHeroMulti repopulates it
@@ -2159,7 +2195,10 @@ function initFocusToggle() {
   effect(() => {
     const layout = document.querySelector(".g-layout");
     if (layout) layout.classList.toggle("focus-x", _focusX.value);
-    if (!_focusX.value) { try { renderHero(); } catch { /* hero may not have booted */ } }
+    // Redraw the hero once the Chart column is shown again (its SVG had no laid-out
+    // geometry while display:none, so the end-label de-collision needs a re-run). Deferred
+    // to a microtask so renderHero's signal reads are NOT tracked by this focus effect.
+    if (!_focusX.value) queueMicrotask(() => { try { renderHero(); } catch { /* hero may not have booted */ } });
   });
 }
 function _placeBriefPane() {

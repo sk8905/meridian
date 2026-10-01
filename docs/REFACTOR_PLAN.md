@@ -223,3 +223,22 @@ manual DOM updates). No JSX (use `h`), so no transform config.
   auto-escaped Preact nodes. Cache-seed-on-mount and keep-alive-on-refresh preserved.
   home-xwire (cards, order, reposts, quotes, permalinks, phone reveal, re-entry) green
   on source + dist. Suite 62/62.
+- **2026-10-01** — Phase 3 island #4: the HERO CHART BAND brought into the reactive
+  model — right-sized, not a full Preact rewrite. The three state atoms (`_heroData`,
+  `_heroSel`, `_heroRange`) are now signals; a single `effect(renderHero)` in boot()
+  redraws on any change, so the scattered manual `renderHero()` calls (boot, fetchHero,
+  each ticker/range click) are gone — mutating a signal IS the redraw. The **range
+  toggle** (1D…ALL) is now a Preact island (`HeroRange`, a tablist bound to `_heroRange`);
+  its active-state reflection + click wiring left `renderHero`/`wireHeroControls`
+  entirely. **Deliberately kept imperative:** the SVG drawing (canvas-like string build
+  with its own caching) and the **ticker-row + axes**, because the hover path mutates
+  `.g-hero-tk-pct` directly at 60fps — letting Preact own that subtree would fight the
+  hover writes for no gain. `heroSelected()` made pure (no signal write) so the effect
+  can't self-trigger; the focus-toggle's forced redraw deferred to a microtask so its
+  signal reads aren't tracked by the focus effect. home-hero (8-instrument legend,
+  curated default overlay, 1D intraday + session verticals, 1W/1Y/ALL axes, end-label
+  de-collision, single vs indexed views, 2×2 geometry, phone Chart chip + related news)
+  green on source + dist. This is the natural end of the Preact-island sweep for the
+  heavy SVG pane — the remaining glance.js work (right-rail market widgets via a shared
+  marketsStore) is the cleaner reactive win; the hero's drawing stays imperative by
+  design.
