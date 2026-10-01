@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e4c0610f-c88e-47e2-a062-46115f08d656",
+    title: "We have forgotten what budgets are for",
+    date: "2026-10-01",
+    time: "11:00",
+    url: "https://www.ft.com/content/e4c0610f-c88e-47e2-a062-46115f08d656",
+  },
+  {
+    id: "b667bf40-1bd5-4565-a7bf-79ba9aae71f2",
+    title: "Wachtell hires former Manhattan US attorney to strengthen litigation ranks",
+    date: "2026-10-01",
+    time: "11:00",
+    url: "https://www.ft.com/content/b667bf40-1bd5-4565-a7bf-79ba9aae71f2",
+  },
+  {
+    id: "c8b3090e-8531-4911-8e9d-6eefbefb4c70",
+    title: "Bank of Japan’s summary of opinions points to accelerated pace of rate rises",
+    date: "2026-10-01",
+    time: "10:29",
+    url: "https://www.ft.com/content/c8b3090e-8531-4911-8e9d-6eefbefb4c70",
+  },
+  {
+    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
+    title: "Submit a question: What’s next for the global economy?",
+    date: "2026-10-01",
+    time: "10:25",
+    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d",
+  },
+  {
     id: "96e004e0-43ab-46e6-9116-fabfc7251496",
     title: "Four potential positives from higher bond yields",
     date: "2026-10-01",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "19:59",
     url: "https://www.ft.com/content/c3a6e3b7-e998-43f0-82b2-f197e5d1730b",
-  },
-  {
-    id: "ecc95946-92ed-426c-bcf9-e6575e1cf6c6",
-    title: "18,000 feet in 90 seconds: Inside Flydubai’s near-catastrophe",
-    date: "2026-09-30",
-    time: "19:31",
-    url: "https://www.ft.com/content/ecc95946-92ed-426c-bcf9-e6575e1cf6c6",
-  },
-  {
-    id: "08109881-f33c-43e0-9dc6-fc3a00d4e35b",
-    title: "How the UAE became a destination for Israelis",
-    date: "2026-09-30",
-    time: "19:30",
-    url: "https://www.ft.com/content/08109881-f33c-43e0-9dc6-fc3a00d4e35b",
-  },
-  {
-    id: "81a5e13f-0a9c-4de2-b02d-f291fccae797",
-    title: "UK retreats on climate reporting rules for listed companies",
-    date: "2026-09-30",
-    time: "19:10",
-    url: "https://www.ft.com/content/81a5e13f-0a9c-4de2-b02d-f291fccae797",
-  },
-  {
-    id: "cd22d20a-3b65-4534-ac04-f5008810e10a",
-    title: "Bond markets resume sell-off after strong US data",
-    date: "2026-09-30",
-    time: "18:25",
-    url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a",
   },
 ];
