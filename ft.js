@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "96e004e0-43ab-46e6-9116-fabfc7251496",
+    title: "Four potential positives from higher bond yields",
+    date: "2026-10-01",
+    time: "09:37",
+    url: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496",
+  },
+  {
+    id: "690967a3-0db5-4dff-9f16-dbf0e9ccc5a6",
+    title: "Andy Burnham’s ‘triple lock’ move reallocates, rather than reduces, spending",
+    date: "2026-10-01",
+    time: "09:30",
+    url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6",
+  },
+  {
     id: "ec55a734-243b-43a2-93ea-8652d6b99309",
     title: "Japan plans $140bn AI data centre push with Dell and Jera",
     date: "2026-10-01",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "18:25",
     url: "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a",
-  },
-  {
-    id: "a3075bf9-5b6c-40c8-bb6b-aca4422d1cbb",
-    title: "US competition watchdog expands investigation of Anthropic and OpenAI",
-    date: "2026-09-30",
-    time: "18:07",
-    url: "https://www.ft.com/content/a3075bf9-5b6c-40c8-bb6b-aca4422d1cbb",
-  },
-  {
-    id: "78431eef-50ee-4ec9-9ca6-af801da1e617",
-    title: "Fed watchdog finds ‘deficiencies’ but no criminal wrongdoing in $2.5bn renovation project",
-    date: "2026-09-30",
-    time: "18:00",
-    url: "https://www.ft.com/content/78431eef-50ee-4ec9-9ca6-af801da1e617",
   },
 ];
