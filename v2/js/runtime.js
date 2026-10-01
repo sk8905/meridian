@@ -29,21 +29,26 @@ const BASE = "/v2";
 const ROUTES = [
   { key: "home",   title: "Wire",        load: () => import("./views/home.js") },
   { key: "dashboard", title: "Wire Dashboard", load: () => import("./views/dashboard.js") },
-  // The Macro desk view is RETIRED (its indicators/news/summaries live on Dashboard +
-  // Home; the long-form cycle/bubble/policy deep-dives were dropped). Credit/Legal
-  // remain routable for now ONLY because Profiles borrows their list/detail builders
-  // via ctx.view(); they are not user destinations and will be decoupled next.
+  // The Credit / Legal / Macro DESKS are retired as destinations (News → Home, Data →
+  // Dashboard, Entities → Profiles) — their URLs redirect (see LEGACY_REDIRECTS). Macro
+  // is gone outright. Credit/Legal stay REGISTERED here (not as user destinations) only
+  // because Profiles borrows their list/detail builders via ctx.view(); mountView()
+  // bypasses the redirect, so the borrow keeps working while /v2/credit|legal redirect.
   { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js") },
   { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js") },
   { key: "profiles", title: "Wire Profiles", load: () => import("./views/profiles.js") },
   { key: "transactions", title: "Wire Transactions", load: () => import("./views/transactions.js") },
   { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js") },
 ];
-// Retired desk roots → their new home. Applied in navigate() so a typed URL, an old
-// bookmark, or a stray in-app link lands somewhere sensible instead of falling back to
-// Home. (Credit/Legal join this list once their views are decoupled from Profiles.)
+// Retired desk roots → their new home, so a typed URL, an old bookmark, or a stray
+// in-app link lands sensibly instead of falling back to Home. Each target is a function
+// of the incoming URL: Macro → the Dashboard macro section (hash dropped — its deep-dive
+// hashes are gone); Credit/Legal → Profiles, PRESERVING the entity hash (#/manager/…,
+// #/item/…, #/firm/…) since Profiles now owns those detail pages.
 const LEGACY_REDIRECTS = [
-  [/^\/v2\/macro(\/|$)/, "/v2/dashboard/macro"],
+  [/^\/v2\/macro(\/|$)/, () => "/v2/dashboard/macro"],
+  [/^\/v2\/credit(\/|$)/, (u) => "/v2/profiles/" + (u.hash || "")],
+  [/^\/v2\/legal(\/|$)/, (u) => "/v2/profiles/" + (u.hash || "")],
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
 
@@ -147,7 +152,7 @@ async function navigate(path, { push = true, replace = false, home = false } = {
   const url = new URL(path, location.origin);
   // Retired desk roots → their new home (replace, so no dead history entry).
   for (const [re, to] of LEGACY_REDIRECTS) {
-    if (re.test(url.pathname)) return navigate(to, { replace: true, home });
+    if (re.test(url.pathname)) return navigate(to(url), { replace: true, home });
   }
   const { key, sub } = parse(url.pathname);
   const same = key === _active;

@@ -29,19 +29,30 @@ async function deepLink(url, view, min, label) {
   await ctx.close();
   // 400 (not a tight 800): managers[0] is data-driven (the daily routine reorders
   // the roster), so assert a real, non-blank render rather than a magic length.
-  await deepLink(`/v2/credit/#/manager/${ids.mgr}`, "credit", 400, "credit #/manager");
-  await deepLink(`/v2/legal/#/item/${ids.item}`, "legal", 400, "legal #/item");
+  // The Credit/Legal desk views are retired as destinations: their entity deep-links
+  // now redirect (hash preserved) to Profiles, which owns the manager/item detail pages.
+  await deepLink(`/v2/credit/#/manager/${ids.mgr}`, "profiles", 400, "credit #/manager → Profiles");
+  await deepLink(`/v2/legal/#/item/${ids.item}`, "profiles", 400, "legal #/item → Profiles");
   // (The macro desk view was retired; /v2/macro now redirects to Dashboard — see below.)
   await deepLink(`/v2/`, "home", 2000, "home");
 }
 
-// ---- 1b. Retired desk root redirects to its new home (LEGACY_REDIRECTS) ----
+// ---- 1b. Retired desk roots redirect to their new home (LEGACY_REDIRECTS) ----
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/macro/#/cycle");
   await pg.waitForTimeout(1900);
   const r = await pg.evaluate(() => ({ path: location.pathname, tab: document.documentElement.dataset.v2tab }));
   check(r.tab === "dashboard" && /\/v2\/dashboard\//.test(r.path), `/v2/macro redirects to the Dashboard (tab=${r.tab}, path=${r.path})`);
   checkErrs(errs, "macro redirect");
+  await ctx.close();
+}
+{
+  // Credit/Legal entity deep-links redirect to Profiles with the hash PRESERVED.
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/credit/#/manager/abc");
+  await pg.waitForTimeout(1900);
+  const r = await pg.evaluate(() => ({ path: location.pathname, hash: location.hash, tab: document.documentElement.dataset.v2tab }));
+  check(r.tab === "profiles" && /\/v2\/profiles\//.test(r.path) && r.hash === "#/manager/abc", `/v2/credit/#/manager/… redirects to Profiles keeping the hash (tab=${r.tab}, hash=${r.hash})`);
+  checkErrs(errs, "credit redirect");
   await ctx.close();
 }
 
@@ -51,21 +62,20 @@ async function deepLink(url, view, min, label) {
 // corrupt "&" into the literal text "&amp;". The stat ticker was removed, so the
 // strategy now shows in the header's strategy chip — assert THAT stays single-escaped.
 {
-  // Open a NON-BARE desk route (#/managers): the bare desk landing is retired and
-  // redirects to Profiles, but every detail/list deep-link still renders on the
-  // desk. This mounts Credit as the active tab, then deep-links to the hedge-fund
-  // header we're asserting on.
-  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/credit/#/managers");
+  // The hedge-fund detail page now lives on PROFILES (which borrows Credit's detail
+  // renderer; the retired Credit desk URL redirects here). Open Profiles, deep-link to
+  // the hedge-fund header, and assert it stays single-escaped.
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/profiles/#/hedgefunds");
   await pg.waitForTimeout(1200);
   const amp = await pg.evaluate(async () => {
     const c = await import("/credit/js/data.js?v=20260722-5");
     const hf = c.HEDGE_FUNDS.find((h) => (h.strategy || "").includes("&"));
     location.hash = "#/hf/" + hf.id;
     await new Promise((r) => setTimeout(r, 500));
-    const head = document.querySelector('.v2-view[data-view="credit"] .tdet-id');
+    const head = document.querySelector('.v2-view[data-view="profiles"] .tdet-id');
     return { text: head ? head.textContent : "", html: head ? head.innerHTML : "" };
   });
-  check(amp.text.includes("&") && !amp.html.includes("&amp;amp;"), `credit hedge-fund header doesn't double-escape "&" (${amp.text.slice(0, 60)})`);
+  check(amp.text.includes("&") && !amp.html.includes("&amp;amp;"), `hedge-fund header doesn't double-escape "&" (${amp.text.slice(0, 60)})`);
   checkErrs(errs, "credit header escaping");
   await ctx.close();
 }

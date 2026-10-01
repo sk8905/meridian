@@ -313,7 +313,27 @@ before first paint even though Home renders only slices.
   (passed only because the palette was eagerly mounted). Full suite 63/63 on source + dist.
   NB: a `record-cap` of the Home slice was considered and REJECTED — the archive must stay
   searchable since 2020, and search reads the full modules (not the slice), so capping the
-  slice would not shrink search and would only truncate the Home wire's history. **Next
-  perf levers (not done):** split the monolithic desk data by sub-dataset for the desk
-  views; per-route CSS split (the 336 KB / 57 KB-gz bundle is render-blocking); consolidate
-  the ~11 Home `/api/*` calls into a snapshot.
+  slice would not shrink search and would only truncate the Home wire's history.
+- **2026-10-01 — Retired the "desk" concept (Credit/Legal/Macro as destinations).** The
+  desks were already not top-level tabs and nothing navigated to them (News → Home, Data →
+  Dashboard, Entities → Profiles). Finished the job: **Macro view deleted outright**
+  (views/macro.js + macro/app.js, ~1,270 lines; its indicators/news/summaries are on
+  Dashboard + Home, the long-form cycle/bubble/policy deep-dives dropped — the Dashboard
+  carries the Dalio+Marks cycle regardless). **Credit/Legal retired as destinations via
+  redirect**: `runtime.js LEGACY_REDIRECTS` sends `/v2/macro*` → `/v2/dashboard/macro` and
+  `/v2/credit|legal*` → `/v2/profiles/` with the entity hash PRESERVED (Profiles owns the
+  manager/hedge/firm/item detail pages). Credit/Legal stay REGISTERED in ROUTES only so
+  Profiles can keep borrowing their list/detail builders via `ctx.view()` (mountView
+  bypasses the redirect) — a deliberate, low-risk stop short of extracting those builders
+  into a headless module (possible future cleanup, high-effort/low-user-value). Specs:
+  v2-parity now asserts the redirects (hash preserved) + repoints the desk deep-links to
+  Profiles; macro-market-cycle/explainer-colors/v2-menu/search-band dropped their
+  desk-view checks. Full suite 63/63 on source + dist. Net: desks gone as a user concept;
+  model is now News=Home · Data=Dashboard · Entities=Profiles · Flow=Transactions.
+- **Deprioritized — Home API snapshot.** On reflection it's low-value: Cloudflare serves
+  HTTP/2, so Home's ~11 `/api/*` calls already multiplex over one connection (little
+  latency to reclaim), and consolidating would churn every spec that stubs an individual
+  endpoint. Skipped in favour of the desk retirement. **Still open:** per-route CSS split
+  (the 336 KB / 57 KB-gz bundle is render-blocking; the macro retirement already made some
+  desk CSS dead — fold that in); and focused Profiles/Dashboard data slices (the reshaped
+  #1, now that the desks are gone).
