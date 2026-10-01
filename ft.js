@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "8702be93-442f-49c5-ac48-f06c541bc7af",
+    title: "UK house prices fall as higher mortgage rates ‘subdue’ market",
+    date: "2026-10-01",
+    time: "08:05",
+    url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af",
+  },
+  {
     id: "639e1943-a5fc-4869-bac8-95cf3c9fe4e8",
     title: "Boodles in the pink with Argyle diamond haul",
     date: "2026-10-01",
@@ -292,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "17:11",
     url: "https://www.ft.com/content/e9f2345f-6d7b-4fbb-831a-5fe576317701",
-  },
-  {
-    id: "bb557b06-6880-4bae-a719-fbd733c63787",
-    title: "‘Strong indications’ Iran was involved in RAF Fairford incident, says Andy Burnham",
-    date: "2026-09-30",
-    time: "17:00",
-    url: "https://www.ft.com/content/bb557b06-6880-4bae-a719-fbd733c63787",
-  },
-  {
-    id: "c05f3ba5-e24e-4c88-86ed-04f4b229cd15",
-    title: "Don’t own bonds and be cautious with stocks",
-    date: "2026-09-30",
-    time: "16:53",
-    url: "https://www.ft.com/content/c05f3ba5-e24e-4c88-86ed-04f4b229cd15",
-  },
-  {
-    id: "3e84fbcb-d064-46f8-be79-44060a722447",
-    title: "Andy Burnham tightens his hold on Labour",
-    date: "2026-09-30",
-    time: "16:35",
-    url: "https://www.ft.com/content/3e84fbcb-d064-46f8-be79-44060a722447",
-  },
-  {
-    id: "f52f7b0e-be7d-414c-b19d-d78a3a5f4882",
-    title: "How will Donald Trump ‘accord’ for AI to ‘self-regulate’ work?",
-    date: "2026-09-30",
-    time: "16:31",
-    url: "https://www.ft.com/content/f52f7b0e-be7d-414c-b19d-d78a3a5f4882",
   },
 ];
