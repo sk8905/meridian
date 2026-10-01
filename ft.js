@@ -35,6 +35,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/122e55bb-b0f9-4106-823d-ac2a435d96d9",
   },
   {
+    id: "e485a228-1efe-426b-addc-26069ba48bf3",
+    title: "Global bond sell-off pushes 10-year Treasury yield to highest since 2002",
+    date: "2026-10-01",
+    time: "15:44",
+    url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3",
+  },
+  {
     id: "716c3491-6547-4c81-bc42-87136aecdac0",
     title: "Do US lawmakers finally have capital in the crosshairs?",
     date: "2026-10-01",
@@ -50,28 +57,14 @@ export const FT_ITEMS = [
   },
   {
     id: "0234bcc7-386c-40b6-9f04-88aef3a1e24c",
-    title: "EU countries in crisis talks over release of diesel stocks ",
+    title: "EU countries in crisis talks over release of diesel stocks",
     date: "2026-10-01",
     time: "14:20",
     url: "https://www.ft.com/content/0234bcc7-386c-40b6-9f04-88aef3a1e24c",
   },
   {
-    id: "ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
-    title: "The best art exhibitions to see in London right now",
-    date: "2026-10-01",
-    time: "12:39",
-    url: "https://www.ft.com/content/ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
-  },
-  {
-    id: "6d644883-c27b-45c9-aef7-445d74fa3efc",
-    title: "The crazy cachet of a colour-block kitchen ",
-    date: "2026-10-01",
-    time: "12:00",
-    url: "https://www.ft.com/content/6d644883-c27b-45c9-aef7-445d74fa3efc",
-  },
-  {
     id: "3a1fb601-9119-4eb6-bfc8-305e281cc7e4",
-    title: "Driver received warning before fatal Bedfordshire rail crash, report finds",
+    title: "Train driver accelerated through red signal before fatal crash",
     date: "2026-10-01",
     time: "14:05",
     url: "https://www.ft.com/content/3a1fb601-9119-4eb6-bfc8-305e281cc7e4",
@@ -96,13 +89,6 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "13:59",
     url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7",
-  },
-  {
-    id: "e485a228-1efe-426b-addc-26069ba48bf3",
-    title: "Global bond sell-off pushes 10-year Treasury yield to highest since 2002",
-    date: "2026-10-01",
-    time: "13:56",
-    url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3",
   },
   {
     id: "75ba3055-625c-4cb5-894b-0696a38f5e79",
@@ -133,6 +119,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/87875b20-4081-4511-9afe-4ee389409742",
   },
   {
+    id: "ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
+    title: "The best art exhibitions to see in London right now",
+    date: "2026-10-01",
+    time: "12:39",
+    url: "https://www.ft.com/content/ef0f6d42-4759-4ce8-8e40-acd83f0c64f1",
+  },
+  {
     id: "45088042-61e6-43e5-b120-e810fecb8906",
     title: "The AI Shift: Is AI supercharging science?",
     date: "2026-10-01",
@@ -159,6 +152,13 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "12:00",
     url: "https://www.ft.com/content/2bd7efcf-db16-476c-89ac-5ac82244364b",
+  },
+  {
+    id: "6d644883-c27b-45c9-aef7-445d74fa3efc",
+    title: "The crazy cachet of a colour-block kitchen",
+    date: "2026-10-01",
+    time: "12:00",
+    url: "https://www.ft.com/content/6d644883-c27b-45c9-aef7-445d74fa3efc",
   },
   {
     id: "bc178357-793b-45d8-ae3b-d5929159c243",
@@ -189,13 +189,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/c8b3090e-8531-4911-8e9d-6eefbefb4c70",
   },
   {
-    id: "db266f36-c6d3-4368-8633-290e2c35e54d",
-    title: "Submit a question: What’s next for the global economy?",
-    date: "2026-10-01",
-    time: "10:25",
-    url: "https://www.ft.com/content/db266f36-c6d3-4368-8633-290e2c35e54d",
-  },
-  {
     id: "96e004e0-43ab-46e6-9116-fabfc7251496",
     title: "Four potential positives from higher bond yields",
     date: "2026-10-01",
@@ -208,13 +201,6 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "09:30",
     url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6",
-  },
-  {
-    id: "e485a228-1efe-426b-addc-26069ba48bf3",
-    title: "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002",
-    date: "2026-10-01",
-    time: "09:09",
-    url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3",
   },
   {
     id: "ec55a734-243b-43a2-93ea-8652d6b99309",

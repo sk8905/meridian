@@ -56,13 +56,13 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-01",
-      time: "12:20 BST",
-      lede: "Thursday's bond rout is still the dominant story at midday, with the US 10-year yield at its highest since 2002 and Treasury selling feeding on itself.",
+      time: "16:15 BST",
+      lede: "Thursday's session closes in on the afternoon with bond markets still setting the tone for everything else, from Treasury yields to UK mortgage costs.",
       bullets: [
-        { html: "<strong>Fixed income &mdash; the global bond sell-off pushed the 10-year Treasury yield to its highest since 2002</strong>, the FT reports.", src: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; FirstFT flags a &lsquo;vicious loop&rsquo; of selling gripping the government bond market</strong>, after Wednesday night&rsquo;s US debt rout.", src: "https://www.ft.com/content/594f10d8-aebd-48d5-af47-5e7232487a35", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; the Bank of Japan&rsquo;s summary of opinions points to an accelerated pace of rate rises</strong>, per the FT.", src: "https://www.ft.com/content/c8b3090e-8531-4911-8e9d-6eefbefb4c70", srcName: "Financial Times" },
-        { html: "<strong>UK &mdash; house prices fell as higher mortgage rates &lsquo;subdue&rsquo; the market</strong>, the FT reports.", src: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the FT sets out four potential positives from higher bond yields</strong> even as the rise in borrowing costs has raised alarm. In the UK, house prices fell as higher mortgage rates &lsquo;subdue&rsquo; the market.", src: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 slipped 0.17% on Tuesday</strong> as the 30-year Treasury yield touched 5.612%, its highest since June 2002.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Fixed income &mdash; the global bond sell-off pushed the 10-year Treasury yield to its highest since 2002</strong>, the FT reports, with the US debt rout earlier described as a &lsquo;vicious loop&rsquo; of selling.", src: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; a US government debt rout triggered a &lsquo;vicious loop&rsquo; of selling</strong> on Wednesday night, per the FT.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
       ],
     },
     evening: {
