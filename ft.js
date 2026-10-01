@@ -28,6 +28,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/08eeee4a-903b-4889-92ef-61ebaeea682a",
   },
   {
+    id: "29e2d078-4476-41f2-a180-faf0b2001068",
+    title: "US sanctions Kremlin-backed fintech A7 for allegedly assisting Iran",
+    date: "2026-10-01",
+    time: "22:20",
+    url: "https://www.ft.com/content/29e2d078-4476-41f2-a180-faf0b2001068",
+  },
+  {
     id: "352e14c5-267d-4c8f-981d-6ae8bea531f9",
     title: "US deploys thousands of troops to Middle East as Donald Trump weighs strikes on Iran",
     date: "2026-10-01",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "09:30",
     url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6",
-  },
-  {
-    id: "ec55a734-243b-43a2-93ea-8652d6b99309",
-    title: "Japan plans $140bn AI data centre push with Dell and Jera",
-    date: "2026-10-01",
-    time: "09:05",
-    url: "https://www.ft.com/content/ec55a734-243b-43a2-93ea-8652d6b99309",
   },
 ];

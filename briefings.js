@@ -67,9 +67,9 @@ export const BRIEFINGS = {
     },
     evening: {
       label: "Evening",
-      date: "2026-10-01",
-      time: "22:15 BST",
-      lede: "Thursday closed with stocks recovering their footing as Treasury yields stepped back from a 24-year high, leaving all eyes on Friday's jobs report.",
+      date: "2026-10-02",
+      time: "00:15 BST",
+      lede: "Markets turn to Friday's US jobs report having ended Thursday with stocks recovering and Treasury yields easing back from a 24-year high.",
       bullets: [
         { html: "<strong>Macro &mdash; a top Fed official has signalled the central bank will keep rates on hold in October</strong>, the FT reports, easing pressure for a further hike despite the surge in long-dated yields.", src: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; US factory activity expansion held steady in September</strong>, Reuters reports, with input prices jumping.", src: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/", srcName: "Reuters" },
