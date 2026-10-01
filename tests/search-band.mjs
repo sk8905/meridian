@@ -27,10 +27,16 @@ const home = await pg.evaluate(() => {
 check(home.q, "Home: search band present (opens the command palette)");
 check(!home.aum, "Home: no AUM button in the band (nothing to filter here)");
 
-// The band's search opens the shared command palette.
+// LAZY: the palette (and the ~1.5MB archive it imports) is NOT mounted on boot — the
+// overlay only exists once search is first opened (chrome.js setupLazyPalette).
+check(await pg.evaluate(() => !document.getElementById("mcmdk")), "palette is not mounted on page load (lazy — loads on first search)");
+
+// The band's search opens the shared command palette — now LAZY-loaded on first use
+// (chrome.js setupLazyPalette), so the overlay appears after the dynamic import; wait
+// for it rather than a fixed delay.
 await pg.evaluate(() => document.querySelector('.v2-view[data-view="home"] .wire-band .wire-band-q').click());
-await pg.waitForTimeout(400);
-check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open, .mcmdk.open .mcmdk-input")), "band search opens the command palette");
+await pg.waitForSelector(".mcmdk.open", { timeout: 8000 });
+check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open .mcmdk-input")), "band search opens the command palette (lazy-loaded on first use)");
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(200);
 
 // The standalone Macro surface carries the shared palette band — search only, no AUM

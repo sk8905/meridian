@@ -297,7 +297,23 @@ before first paint even though Home renders only slices.
   instead of the three full modules: **~1.5 MB gz → ~0.47 MB gz on Home (~3.2×, ~1 MB gz
   saved).** Regenerated on every deploy so it stays in sync with the 5×/day refresh
   (documented in HOUSE_STYLE T2 + refresh-routines). Desk views still import the full
-  modules (unaffected). Full suite 63/63 on source + dist. **Next perf levers (not done):**
-  record-cap the slice to a recent window for a further cut; split the monolithic desk
-  data by sub-dataset for the desk views; per-route CSS split (the 336 KB / 57 KB-gz
-  bundle is render-blocking); consolidate the ~11 Home `/api/*` calls into a snapshot.
+  modules (unaffected). Full suite 63/63 on source + dist.
+- **2026-10-01 — Lazy search palette (the lever #1/#2 were missing).** Investigating a
+  record-cap request surfaced that `chrome.js` eagerly `import()`ed `palette.js` on EVERY
+  page, and `palette.js` STATICALLY imports the full credit/legal/macro modules to build
+  its cross-desk search index — so the whole ~1.5 MB gz archive was loading on every page
+  regardless of #1/#2 (which only addressed `glance`). #2's slice was even additive on top.
+  Fix: `chrome.js setupLazyPalette()` registers a one-shot shim for the palette's triggers
+  (the `/` key, `[data-open-search]`, the `wire:search` event); on first use it imports +
+  mounts `palette.js` and re-fires the open, then the palette's own listeners take over.
+  So the full searchable archive (since 2020 — the point of the depository) now loads ON
+  DEMAND at first search, NOT on every page. Home/desk browsing no longer pulls the 1.5 MB
+  for search; Home lives on its 0.47 MB slice. Specs updated (search-band, assistant,
+  v2-header) to trigger + wait for the lazy mount; the old v2-header check was vacuous
+  (passed only because the palette was eagerly mounted). Full suite 63/63 on source + dist.
+  NB: a `record-cap` of the Home slice was considered and REJECTED — the archive must stay
+  searchable since 2020, and search reads the full modules (not the slice), so capping the
+  slice would not shrink search and would only truncate the Home wire's history. **Next
+  perf levers (not done):** split the monolithic desk data by sub-dataset for the desk
+  views; per-route CSS split (the 336 KB / 57 KB-gz bundle is render-blocking); consolidate
+  the ~11 Home `/api/*` calls into a snapshot.

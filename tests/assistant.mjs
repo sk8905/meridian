@@ -104,9 +104,12 @@ await pg.waitForTimeout(120);
 // ---- Search box: app font 11.5px, GREY (--lift), and its result rows conform ----
 // (dark context — the whole desktop spec runs colorScheme:"dark".)
 const rgbLift = await pg.evaluate(() => { const p = document.createElement("span"); p.style.background = "var(--lift)"; document.body.appendChild(p); const c = getComputedStyle(p).backgroundColor; p.remove(); return c; });
+// The top-bar search pill is gone — open the palette with the "/" shortcut. It is
+// LAZY-loaded on first use (chrome.js setupLazyPalette), so wait for the overlay to
+// mount before inspecting its styles.
+await pg.evaluate(() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "/", bubbles: true })));
+await pg.waitForSelector(".mcmdk-input", { timeout: 8000 });
 const searchFont = await pg.evaluate(() => {
-  // The top-bar search pill is gone — open the palette with the "/" shortcut.
-  window.dispatchEvent(new KeyboardEvent("keydown", { key: "/", bubbles: true }));
   const i = document.querySelector(".mcmdk-input"); if (!i) return null;
   i.value = "a"; i.dispatchEvent(new Event("input", { bubbles: true }));
   const cs = getComputedStyle(i);

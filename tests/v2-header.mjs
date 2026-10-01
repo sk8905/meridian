@@ -144,10 +144,15 @@ check(await opens("na-mkt", "na-mkt-panel"), "Markets button opens the Markets p
 check(await opens("na-saved", "na-saved-panel"), "Saved button opens the Bookmarks panel");
 check(await opens("na-notif", "na-notif-panel"), "Notifications button opens the Notifications panel");
 
-// Search button opens the shared command palette (data-open-search → palette.js).
-await pg.evaluate(() => document.getElementById("na-search")?.click());
-await pg.waitForTimeout(400);
-check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open") || !!document.querySelector(".mcmdk-input")), "Search button opens the command palette");
+// Search opens the shared command palette, which is now LAZY-loaded on first use
+// (chrome.js setupLazyPalette) — nothing mounts it on boot. The "/" shortcut routes
+// through the shim; wait for the overlay to load + open rather than assume it exists.
+// (Previously this clicked a defunct #na-search and passed only because the palette
+// was eagerly mounted — a vacuous check.)
+check(await pg.evaluate(() => !document.getElementById("mcmdk")), "palette is not eagerly mounted (lazy)");
+await pg.evaluate(() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "/", bubbles: true })));
+await pg.waitForSelector(".mcmdk.open", { timeout: 8000 });
+check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open")), "search ('/' shortcut) lazy-loads and opens the command palette");
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(250);
 
 const cdp = await ctx.newCDPSession(pg);

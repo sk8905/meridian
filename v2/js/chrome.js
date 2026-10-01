@@ -21,6 +21,38 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 import { reportRefresh } from "./status.js";
 import { esc } from "/util.js";
 
+// The search command palette (palette.js) is LAZY. To build its cross-desk index —
+// the whole searchable archive since 2020 — it statically imports the full
+// credit/legal/macro data modules (~1.5 MB gz), which nothing on a normal page view
+// needs until the user actually searches. So rather than mounting it on every chrome
+// boot (which pulled that 1.5 MB on every page), a one-shot shim listens for the
+// palette's triggers — the "/" key, a [data-open-search] button, and the wire:search
+// event (assistant / recent searches). On the FIRST one it loads + mounts palette.js
+// and re-fires the open, then the palette's own listeners take over. Full archive,
+// loaded on demand, off every page's load path. Failure-safe: a failed load leaves
+// the shim armed so a later trigger retries.
+let _palReq = false;
+function setupLazyPalette() {
+  const isTyping = (t) => { const g = (t && t.tagName || "").toLowerCase(); return !!t && (t.isContentEditable || g === "input" || g === "textarea" || g === "select"); };
+  const onKey = (ev) => { if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target)) { ev.preventDefault(); load(); } };
+  const onClick = (ev) => { if (ev.target.closest("[data-open-search]")) { ev.preventDefault(); load(); } };
+  const onEvt = (ev) => load(ev && ev.detail && ev.detail.q);
+  function load(seedQ) {
+    if (_palReq) return; _palReq = true;
+    import("/palette.js").then((m) => {
+      m.mountPalette();
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("click", onClick);
+      document.removeEventListener("wire:search", onEvt);
+      // Re-fire the open now that the real palette is listening for wire:search.
+      document.dispatchEvent(new CustomEvent("wire:search", { detail: seedQ ? { q: seedQ } : {} }));
+    }).catch(() => { _palReq = false; });   // leave the shim armed to retry
+  }
+  window.addEventListener("keydown", onKey);
+  document.addEventListener("click", onClick);
+  document.addEventListener("wire:search", onEvt);
+}
+
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
 // columns). Profiles also sits in the desktop platform switch below ("| Profiles").
 // Four pillars: News (Home) · Data (Dashboard) · Entities (Profiles) · Settings
@@ -79,11 +111,11 @@ export function initChrome({ onTab }) {
 
   // Shared, session-long chrome features, reusing the existing modules verbatim:
   //   • ticker + briefing strip (brief.js → #wticker / #wbrief)
-  //   • ⌘K / "/" command palette (palette.js) — one instance for every view
+  //   • "/" / search-button command palette (palette.js) — LAZY, see setupLazyPalette
   //   • pull-to-refresh (ptr.js) — self-guards, touch-only
   // All are idempotent single inits; failures never block the shell.
   import("/brief.js").then((m) => m.initBrief()).catch(() => {});
-  import("/palette.js").then((m) => m.mountPalette()).catch(() => {});
+  setupLazyPalette();
   import("/ptr.js").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own
