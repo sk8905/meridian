@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ec55a734-243b-43a2-93ea-8652d6b99309",
+    title: "Japan plans $140bn AI data centre push with Dell and Jera",
+    date: "2026-10-01",
+    time: "09:05",
+    url: "https://www.ft.com/content/ec55a734-243b-43a2-93ea-8652d6b99309",
+  },
+  {
+    id: "3334f6eb-5eab-4340-a5b7-a2bd0b5f46c8",
+    title: "UBS pushes back against investor call to leave Switzerland",
+    date: "2026-10-01",
+    time: "08:55",
+    url: "https://www.ft.com/content/3334f6eb-5eab-4340-a5b7-a2bd0b5f46c8",
+  },
+  {
+    id: "3d58c75e-035b-4958-89e7-2b2369e3a432",
+    title: "Japanese companies exit China in record numbers",
+    date: "2026-10-01",
+    time: "08:18",
+    url: "https://www.ft.com/content/3d58c75e-035b-4958-89e7-2b2369e3a432",
+  },
+  {
     id: "8702be93-442f-49c5-ac48-f06c541bc7af",
     title: "UK house prices fall as higher mortgage rates ‘subdue’ market",
     date: "2026-10-01",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-09-30",
     time: "18:00",
     url: "https://www.ft.com/content/78431eef-50ee-4ec9-9ca6-af801da1e617",
-  },
-  {
-    id: "f5e98843-7625-4999-9b99-c03f2ec26c4c",
-    title: "To fix housing affordability, build more homes",
-    date: "2026-09-30",
-    time: "17:44",
-    url: "https://www.ft.com/content/f5e98843-7625-4999-9b99-c03f2ec26c4c",
-  },
-  {
-    id: "0d74d66a-a9ee-4c22-83ab-9df6452117de",
-    title: "US oil industry warns diesel prices will not return to normal for a year",
-    date: "2026-09-30",
-    time: "17:20",
-    url: "https://www.ft.com/content/0d74d66a-a9ee-4c22-83ab-9df6452117de",
-  },
-  {
-    id: "e9f2345f-6d7b-4fbb-831a-5fe576317701",
-    title: "National care service may not launch until late 2030s, suggests Burnham",
-    date: "2026-09-30",
-    time: "17:11",
-    url: "https://www.ft.com/content/e9f2345f-6d7b-4fbb-831a-5fe576317701",
   },
 ];
