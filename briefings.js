@@ -43,14 +43,14 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-09-30",
-      time: "10:16 BST",
-      lede: "Wednesday opens with long-end yields still near multi-decade highs and consumer confidence at a 12-year low, while a firmer UK growth revision and softer energy prices offer a little relief ahead of the US GDP and PCE prints.",
+      date: "2026-10-01",
+      time: "05:10 BST",
+      lede: "Thursday opens with the bond sell-off still the market's organising story, as softer inflation data takes some heat out of Fed hike pricing while energy costs keep the Bank of England leaning hawkish.",
       bullets: [
-        { html: "<strong>Macro &mdash; the ONS has revised UK second-quarter growth up to 0.5% from 0.4%</strong>, and sterling rose on the news, keeping Bank of England hike bets alive. In the US, the Conference Board's consumer confidence index fell to its lowest since 2014.", src: "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/", srcName: "investingLive" },
-        { html: "<strong>Macro &mdash; oil climbed after Trump denied he would ease sanctions on Iran</strong>, reversing part of Tuesday's slide, per CNBC.", src: "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html", srcName: "CNBC" },
-        { html: "<strong>Fixed income &mdash; the 30-year Treasury yield climbed to a 24-year high on Tuesday</strong>, and the FT reports bond markets steadied afterwards. UK gilts rallied as oil and gas prices hit new lows.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Equities &mdash; the Dow, S&amp;P 500 and Nasdaq wobbled on Tuesday</strong> as the long-bond yield surge weighed on sentiment, per Yahoo Finance's market wrap.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Macro &mdash; the FT reports weak PCE inflation has eased pressure for Fed rate increases</strong>, a welcome pause after a run of hot prints. In the UK, the Bank of England warned that a surge in AI-related debt raises the risk of a sharp market correction.", src: "https://www.ft.com/content/97043be8-28f7-40c8-936f-617ebeec5d2b", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the ONS revised UK second-quarter growth up to 0.5% from 0.4%</strong>, and the FT notes UK energy price cap forecasts have risen towards &pound;2,000 as the Iran war lifts prices.", src: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the FT reports a US government debt rout has triggered a &lsquo;vicious loop&rsquo; of selling</strong>, even as bond markets steadied after Tuesday's sell-off despite strong US data.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 slipped 0.17% on Tuesday</strong> as the 30-year Treasury yield touched 5.612%, its highest since June 2002; the Nikkei 225 rose 2.0% on Wednesday on chip-led strength.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
       ],
     },
     afternoon: {
