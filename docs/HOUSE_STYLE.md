@@ -268,7 +268,13 @@ notification badge red (`#ef4444`).
   surface. Always give BOTH layers a theme-aware fallback (`var(--chip-ul, #000)`
   in light, `var(--chip-ul, #fff)` under `[data-theme="dark"]`): a bare
   `var(--chip-ul)` with no fallback becomes an invalid declaration the moment the
-  token is missing from a scope, and the whole underline silently vanishes.
+  token is missing from a scope, and the whole underline silently vanishes. The
+  **bottom tab bar's active marker** (`.mtab.is-active::before`, a 2px *top* line
+  over the selected nav tab) belongs to this same family: it also reads
+  `--chip-ul` in BOTH themes — black in light, white in dark — never the accent
+  orange. Flipping it to `--accent` in dark made it the lone orange marker among
+  an otherwise all-white family and read as a stray orange segment on the left of
+  the bar.
 
 ---
 

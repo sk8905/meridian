@@ -1440,16 +1440,18 @@
          the search-band clip and (when the document was overflow-locked) the gap. The "‹
          Wire" back button returns to the wire where the tabs are live again. */
       html.home-reading .wire-band, html.home-reading .g-wiretabs{ display:none !important; }
-      /* Briefing pane: there is nothing to search while reading the brief, so the
-         search band is hidden here. With the band gone, pin the wire tabs DIRECTLY
-         under the header and the pane directly under the tabs — otherwise the band's
-         reserved offset (--wire-band-h) left a dead gap below the header and the tabs
-         rendered overlapping where the band had been (the clipped-label symptom on
-         iOS). The `html.home-brief` hook mirrors `html.home-reading` above. */
-      html.home-brief .wire-band{ display:none !important; }
-      html.home-brief .tui .g-wiretabs{ top:var(--wire-head-h, 57px); }
-      html.home-brief .tui .g-layout.wire-brief .g-hbrief{
-        top:calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); }
+      /* Briefing pane: the document is scroll-locked (html/body overflow:hidden,
+         height:100%) and the brief pane is position:fixed, so .g-main collapses to
+         its two in-flow bars and the STICKY search band + wire tabs misbehave — the
+         band floats 34px below the header (a dead gap) and the tabs render overlapping
+         it (the clipped-label symptom on iOS). Nothing scrolls behind them here, so
+         pin BOTH with position:fixed at explicit offsets — header → band → tabs →
+         pane — mirroring the fixed pane below. The band stays present (it searches
+         everything, not just the pane), so the stack matches the News/Chart/X panes. */
+      html.home-brief .wire-band{ position:fixed; left:0; right:0; z-index:9;
+        top:var(--wire-head-h, 57px); }
+      html.home-brief .tui .g-wiretabs{ position:fixed; left:0; right:0;
+        top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px)); }
       .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
         position:fixed; left:0; right:0; z-index:6;
         top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));

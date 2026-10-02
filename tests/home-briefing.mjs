@@ -245,6 +245,26 @@ const b = await launchChromium();
     return Math.round(hb.top - tabs.bottom);
   });
   check(briefSeam >= 0 && briefSeam <= 2, `phone: the briefing pane butts flush under the wire tabs — no seam (gap ${briefSeam}px)`);
+  // The search band stays PRESENT in the briefing pane (it searches everything,
+  // not just the pane, so the sticky stack matches the News/Chart/X panes) and
+  // sits FLUSH: header → band → tabs → pane, with no dead gap below the header
+  // and no band/tab overlap. The document scroll-lock (html/body overflow:hidden)
+  // used to float the sticky band 34px down and overlap the tabs — the pane is
+  // position:fixed here, so the band + tabs are pinned fixed at explicit offsets.
+  const bandStack = await pg.evaluate(() => {
+    const bandEl = document.querySelector(".wire-band");
+    const band = bandEl.getBoundingClientRect();
+    const tabs = document.querySelector(".g-wiretabs").getBoundingClientRect();
+    const headH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 0;
+    return {
+      shown: getComputedStyle(bandEl).display !== "none",
+      headToBand: Math.round(band.top - headH),
+      bandToTabs: Math.round(tabs.top - band.bottom),
+    };
+  });
+  check(bandStack.shown, "phone: the search band stays present in the briefing pane (consistent with the other panes)");
+  check(Math.abs(bandStack.headToBand) <= 2, `phone: the search band sits flush under the header — no dead gap (gap ${bandStack.headToBand}px)`);
+  check(Math.abs(bandStack.bandToTabs) <= 2, `phone: the wire tabs sit flush under the search band — no overlap (gap ${bandStack.bandToTabs}px)`);
   // Structure: header · body as direct children, in order. Within the FIXED pane the
   // body is the scroll region (a long brief scrolls here, not the page) while the header
   // stays put.
