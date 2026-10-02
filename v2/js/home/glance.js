@@ -364,13 +364,34 @@ function renderHomeBriefing() {
   // Equities, Fixed income) even when a desk carries more than one story: the
   // orange kicker shows once, and every item keeps its own sourced line so
   // grounding (R7) is never lost. Desk order follows first appearance.
-  const groups = [];
+  // Group ALL bullets by desk (first-appearance order within each desk), then re-order
+  // the desk SECTIONS into the canonical house order — Macro, Fixed income, Equities —
+  // so Equities ALWAYS sits directly under Fixed income (see HOUSE_STYLE R28); any other
+  // (owner-requested) desk follows in first-appearance order.
   const byDesk = new Map();
-  for (const b of (s.bullets || []).slice(0, HB_MAX_BULLETS)) {
+  const appear = [];
+  for (const b of (s.bullets || [])) {
     const desk = _briefDesk(b.html);
     let g = byDesk.get(desk);
-    if (!g) { g = { items: [] }; byDesk.set(desk, g); groups.push(g); }
+    if (!g) { g = { desk, items: [], _i: appear.length }; byDesk.set(desk, g); appear.push(g); }
     g.items.push(b);
+  }
+  const DESK_RANK = { "macro": 0, "fixed income": 1, "equities": 2 };
+  const ordered = appear.slice().sort((a, b) =>
+    ((DESK_RANK[a.desk] ?? 50) - (DESK_RANK[b.desk] ?? 50)) || (a._i - b._i));
+  // Budget the bullets to one screen (HB_MAX_BULLETS) WITHOUT dropping a whole desk:
+  // round-robin across the desks in canonical order so every present desk keeps its
+  // lead bullet before any desk takes a second. This is what guarantees the Equities
+  // section (and its data badge) never vanishes under the cap when the slot is heavy on
+  // Macro/Fixed income — the gap a reader photographed.
+  const budget = Math.max(HB_MAX_BULLETS, ordered.length);
+  const groups = ordered.map(() => ({ items: [] }));
+  for (let round = 0, taken = 0, progressed = true; taken < budget && progressed; round++) {
+    progressed = false;
+    for (let gi = 0; gi < ordered.length && taken < budget; gi++) {
+      const src = ordered[gi].items;
+      if (round < src.length) { groups[gi].items.push(src[round]); taken++; progressed = true; }
+    }
   }
   // ALWAYS combine every same-desk item into ONE continuous item. The desk name is
   // lifted out of the first item and rendered as a RUN-IN heading — an inline accent
@@ -2463,21 +2484,13 @@ function renderMacroSnapshot() {
   if (!el || !CYCLE || !BUBBLE || !OUTLOOK) return;
   // One 3-column grid (country · rate · stance) shared by both rows so the rate
   // and stance columns line up even though the two rates differ in width.
-  // Two-part read of the stance: the one-word forecast for the next decision
-  // (the action before the "·", e.g. "Hold") plus the trending mood keyword
-  // (hawkish / dovish / neutral) pulled from the rest. The full detail lives on
-  // the linked Macro › Policy Rate page (the whole block is a link to it).
-  const MOOD = { hawkish: "hawk", dovish: "dove", neutral: "neut" };
+  // The Forecast column shows ONLY the one-word call for the next decision (the
+  // action before the "·", e.g. "Hold") — the trending mood keyword (hawkish /
+  // dovish / neutral) is deliberately dropped here; the full detail lives on the
+  // linked Macro › Policy Rate page (the whole block is a link to it).
   const pol = (cc, o) => {
     const s = String(o.stance || "");
-    const parts = s.split("·");
-    const fc = (parts[0] || s).trim();
-    const rest = parts.slice(1).join("·").toLowerCase();
-    let mood = "";
-    for (const k in MOOD) { if (rest.includes(k)) { mood = k; break; } }
-    const tag = mood
-      ? ` <span class="g-snap-mood">· ${mood[0].toUpperCase()}${mood.slice(1)}</span>`
-      : "";
+    const fc = (s.split("·")[0] || s).trim();
     // The "Next" column is a bare meeting date — strip any parenthetical outcome
     // note (e.g. "(resolved 17 Sep: hold)") a refresh may have appended, so a stale
     // annotation can never spill across into the Forecast column.
@@ -2485,7 +2498,7 @@ function renderMacroSnapshot() {
     return `<span class="g-snap-cc">${cc}</span>`
       + `<span class="g-snap-pv">${esc(o.rate)}</span>`
       + `<span class="g-snap-nx">${esc(nx)}</span>`
-      + `<span class="g-snap-ps"><span class="g-snap-fc">${esc(fc)}</span>${tag}</span>`;
+      + `<span class="g-snap-ps"><span class="g-snap-fc">${esc(fc)}</span></span>`;
   };
   // Meter row: the scale end-labels sit inline either side of the gauge; the
   // per-country / composite detail is tucked into the row's hover tooltip.

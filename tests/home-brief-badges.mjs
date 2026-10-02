@@ -128,6 +128,36 @@ const none = await pg.evaluate(async () => {
 checkEq(none.badges, 0, "a non-canonical desk (no instrument mapping) shows no badge — nothing fabricated");
 checkEq(none.placeholders, 0, "a non-canonical desk emits no badge placeholder at all");
 
+// Fixed house order (Macro → Fixed income → Equities) and the cap-survival guarantee:
+// feed the bullets in a NON-canonical order AND bury the single Equities bullet past
+// the HB_MAX_BULLETS cap behind a Macro/Fixed-income-heavy slot. The renderer must
+// still (a) order the sections Macro, Fixed income, Equities and (b) keep the Equities
+// section — its lead bullet survives the round-robin so it can never be pushed off.
+const ord = await pg.evaluate(async () => {
+  const m = await import("/briefings.js");
+  const B = m.BRIEFINGS || {}, slots = B.slots || {};
+  const order = (B.order || []).filter((k) => slots[k]);
+  const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
+  const key = order.reduce((best, k) => (stamp(k) > stamp(best) ? k : best), order[0]);
+  // Equities appears FIRST in the data and only once, then 3 Macro + 3 Fixed income
+  // (7 bullets, cap is 4) — a worst case for the old slice-first-4 logic.
+  slots[key].bullets = [
+    { html: "<strong>Equities &mdash; US stocks close higher</strong> on a broad rally.", src: "https://example.com/e", srcName: "Ex" },
+    { html: "<strong>Macro &mdash; payrolls undershoot</strong> as hiring cools.", src: "https://example.com/m1", srcName: "Ex" },
+    { html: "<strong>Macro &mdash; eurozone inflation firms</strong> to a three-year high.", src: "https://example.com/m2", srcName: "Ex" },
+    { html: "<strong>Macro &mdash; the housing market stalls</strong> on rate lock-in.", src: "https://example.com/m3", srcName: "Ex" },
+    { html: "<strong>Fixed income &mdash; the bond rout steadies</strong> after a sharp sell-off.", src: "https://example.com/f1", srcName: "Ex" },
+    { html: "<strong>Fixed income &mdash; French spreads widen</strong> toward a 20-year high.", src: "https://example.com/f2", srcName: "Ex" },
+    { html: "<strong>Fixed income &mdash; investors seek refuge</strong> in short-dated paper.", src: "https://example.com/f3", srcName: "Ex" },
+  ];
+  window.__wireRenderBrief();
+  const el = document.getElementById("g-hbrief");
+  const names = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-bk")].map((k) => k.textContent.trim().toLowerCase());
+  return { names, hasEquities: names.includes("equities") };
+});
+checkEq(ord.names.join(" > "), "macro > fixed income > equities", "sections render in the fixed house order (Macro → Fixed income → Equities), not data order");
+check(ord.hasEquities, "the single Equities bullet survives the bullet cap (round-robin keeps each desk's lead) — never pushed off the card");
+
 checkErrs(errs, "home brief badges");
 await ctx.close();
 await b.close(); srv.close();

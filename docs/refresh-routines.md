@@ -667,9 +667,16 @@ quiet slot gets a short output, not padding.
   **Desk focus — EXCLUSIVELY the three market desks: Macro, Equities, Fixed
   income.** Every slot covers those three and only those (no Credit or Legal
   bullets — they have their own surfaces). Tag each bullet's `<strong>` lead with
-  its desk (`Macro — …`, `Equities — …`, `Fixed income — …`). Order the bullets
-  so the first four — the only ones the Home card renders (`HB_MAX_BULLETS`, one
-  iPhone screen) — cover all three desks. **One section per desk:** the card groups
+  its desk (`Macro — …`, `Equities — …`, `Fixed income — …`). **ALWAYS include at
+  least one Equities bullet in every slot — it is a required section, never
+  optional** (an equities-light session still gets an index-level read: the day's
+  S&P 500 / major-index move and its driver). **Section order is fixed: Macro,
+  then Fixed income, then Equities** — i.e. the Equities section sits directly
+  under Fixed income. The renderer now enforces this canonical order and
+  round-robins the per-desk bullets under the `HB_MAX_BULLETS` cap so **each of the
+  three desks always keeps its lead bullet** — a slot heavy on Macro/Fixed income
+  can no longer push Equities off the card. You still author the bullets; just make
+  sure an Equities one is always among them. **One section per desk:** the card groups
   same-desk bullets under a SINGLE kicker, so a desk with two stories (e.g. two
   `Macro —` items) shows one "Macro" section with both items beneath — never a
   repeated kicker. Keep same-desk items adjacent so they group cleanly; each keeps

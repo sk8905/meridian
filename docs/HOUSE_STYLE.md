@@ -510,16 +510,23 @@ notification badge red (`#ef4444`).
   single→indexed-overlay multi-select, axes + vertical grid, Option-C geometry,
   phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.
 
-- **R28 — Home briefing card.** The market brief (`BRIEFINGS` —
-  Macro · Equities · Fixed income) is surfaced **only on Home** — there is **no
-  header button / panel**. On the **desktop terminal** it is the **top-left quadrant
+- **R28 — Home briefing card.** The market brief (`BRIEFINGS` — the three market
+  desks in the **fixed house order Macro · Fixed income · Equities**) is surfaced
+  **only on Home** — there is **no header button / panel**. On the **desktop terminal** it is the **top-left quadrant
   of the 2×2 centre** (its own cell above the news wire, left of the chart), and
   **defaults OPEN** there (a collapsed bar would leave the cell empty). On **phones**
   it flows **inside the News chip pane, below the "Today" filter row** (which stays
   pinned) and **above the live feed** — the `.g-feed-wrap` is `display:contents`
   there so the briefing sits between the pinned filter and the feed — and **defaults
   collapsed** (a slim bar saves stack height). **One section per desk:** the render
-  groups same-desk bullets under a single kicker (see R7/grounding). **One live-data
+  groups same-desk bullets under a single kicker (see R7/grounding). **Fixed desk
+  order — Macro, then Fixed income, then Equities:** the renderer sorts the sections
+  into this canonical order regardless of bullet order in the data, so **Equities
+  always sits directly under Fixed income**. **Equities is a REQUIRED section —
+  every slot carries at least one Equities bullet** (the refresh invariant); the
+  renderer round-robins the per-desk bullets under the four-bullet cap so each of
+  the three desks keeps its lead bullet and **Equities can never be pushed off the
+  card** by a Macro/Fixed-income-heavy slot. **One live-data
   badge per desk section:** each canonical desk carries exactly ONE compact data card
   pinning its lead instrument to a real, sourced number — **Macro → Brent, Equities →
   S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip

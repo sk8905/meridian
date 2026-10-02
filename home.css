@@ -461,9 +461,6 @@
     .g-snap-ps { min-width:0; font-size:var(--fs-body); text-align:right; white-space:nowrap;
       display:inline-flex; align-items:baseline; justify-content:flex-end; gap:.32rem; }
     .g-snap-fc { color:var(--ink); font-weight:400; }
-    /* Trending mood beside the forecast (hawkish / dovish / neutral) — plain
-       muted text, e.g. "Hold · Hawkish". */
-    .g-snap-mood { color:var(--muted); font-weight:400; }
     /* Scale end-labels sit inline either side of the gauge (not below it). */
     .g-snap-meter { display:flex; align-items:center; gap:.5rem; margin:.1rem 0 0; }
     .g-snap-end { flex:0 0 auto; font-size:var(--fs-micro); color:var(--muted); white-space:nowrap; }
@@ -1680,7 +1677,6 @@
     .tui .g-snap-pv{ font-size:var(--fs-num); color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .tui .g-snap-nx,.tui .g-snap-ps{ font-size:var(--fs-micro); color:var(--t-dim); font-family:var(--t-mono); }
     .tui .g-snap-nx{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .tui .g-snap-mood{ color:var(--t-mut); }
     .tui .g-snap-h{ display:flex; align-items:baseline; gap:8px; margin-bottom:5px; }
     .tui .g-snap-cap{ margin-left:auto; font-family:var(--t-mono); font-size:var(--fs-num); color:var(--t-amber); }
     .tui .g-snap-meter{ display:flex; align-items:center; gap:7px; }
