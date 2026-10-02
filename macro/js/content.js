@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-02",
-  lastCheckedTime: "08:30 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-02",
   us: [
-    { title: "Global bond market steadies after sharp sell-off", source: "Financial Times", date: "2026-10-02", time: "06:09", url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79" },
+    { title: "My mortgage is a problem for the Fed, and for America", source: "Financial Times", date: "2026-10-02", time: "12:09", url: "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd" },
+    { title: "Global bond market steadies after sharp sell-off", source: "Financial Times", date: "2026-10-02", time: "11:40", url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79" },
     { title: "Quant hedge funds reap big gains from global bond sell-off", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f" },
     { title: "US refiners reap windfall profits as wars push up fuel prices for consumers", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848" },
     { title: "Top Fed official signals central bank will keep rates on hold in October", source: "Financial Times", date: "2026-10-01", time: "18:52", url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f" },
-    { title: "US factory activity expansion steady as input prices jump", source: "Reuters", date: "2026-10-01", time: "22:15", url: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/" },
   ],
   uk: [
     { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
@@ -1031,7 +1031,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-02",
   items: [
-    {"title": "Global bond market steadies after sharp sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "06:09", "url": "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", "blurb": "Sovereign bond markets stabilise after a sharp sell-off that pushed yields to multi-decade highs."},
+    {"title": "My mortgage is a problem for the Fed, and for America", "source": "Financial Times", "date": "2026-10-02", "time": "12:09", "url": "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd", "blurb": "Homeowners are staying put, the housing market is frozen and affordability is as ugly as in the housing bubble."},
+    {"title": "Diesel falls sharply as EU considers releasing 50mn barrels under pressure from Trump", "source": "Financial Times", "date": "2026-10-02", "time": "11:59", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "The US president has threatened to ban US exports of the fuel if Europe does not unlock reserves."},
+    {"title": "Eurozone inflation hits three-year high of 3.8%", "source": "Financial Times", "date": "2026-10-02", "time": "11:43", "url": "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", "blurb": "Consumer prices rose at a higher rate than expected in September."},
+    {"title": "Global bond market steadies after sharp sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "11:40", "url": "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", "blurb": "Heavy selling this week pushed 10-year US Treasury yields to their highest level since 2002."},
+    {"title": "Higher Eurozone inflation adds pressure on ECB to tighten again", "source": "Financial Times", "date": "2026-10-02", "time": "11:11", "url": "https://www.ft.com/content/e637cd4c-415d-431c-a857-95d6adc33157", "blurb": "After two consecutive rate rises, a December move remains the base case even after headline CPI climbed to 3.8% in September."},
     {"title": "Soaring yields find Europe’s weak spot", "source": "Bloomberg", "date": "2026-10-02", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", "blurb": "John Authers: French bonds are tipping toward a full-blown crisis as the Treasury sell-off exposes the euro zone's weak spot.", "author": "John Authers"},
     {"title": "Quant hedge funds reap big gains from global bond sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", "blurb": "Systematic funds profit from the global rout in sovereign bonds."},
     {"title": "US refiners reap windfall profits as wars push up fuel prices for consumers", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848", "blurb": "Higher fuel prices tied to the conflicts are boosting refining margins."},
@@ -1067,11 +1071,6 @@ export const ARTICLES = {
     {"title": "Why UK Gilt Yields Are Climbing", "source": "Goldman Sachs", "date": "2026-09-28", "url": "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing", "blurb": "Goldman Sachs research traces the UK gilt sell-off to a global long-end duration shock amplified by UK fiscal uncertainty, with 30-year gilt yields near 5.9% mechanically squeezing Chancellor Healey's Budget headroom before any policy decision is made.", "author": null},
     {"title": "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait", "source": "CNBC", "date": "2026-09-28", "url": "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html", "blurb": "WTI rose 1.3% to $93.62 and Brent gained 1.8% to $106.31 in early Monday trading after Trump confirmed he rejected Tehran's latest seven-day Strait of Hormuz reopening offer, weighing on US equity futures.", "author": null},
     {"title": "Healey hails 'new age of industrialisation' brought by Royal Navy", "source": "CityAM", "date": "2026-09-28", "url": "https://www.cityam.com/healey-hails-new-age-of-industrialisation-brought-by-royal-navy/", "blurb": "Previewing his Labour conference speech, Chancellor John Healey cast a Royal Navy shipbuilding push as central to a promised 'new age of industrialisation', even as the gilt sell-off squeezes his fiscal headroom ahead of the 28 October Budget.", "author": null},
-    {"title": "Higher Bond Yields Are Raising Doubts About Europe's Stock Rally", "source": "Bloomberg", "date": "2026-09-28", "url": "https://www.bloomberg.com/news/articles/2026-09-28/higher-bond-yields-are-raising-doubts-about-europe-s-stock-rally", "blurb": "The Stoxx Europe 600 has risen 8% this year against a 13% advance for the S&P 500, and that divergence is widening as global bond yields march toward levels not seen in more than two decades, fuelling doubts over Europe's equity rally.", "author": null},
-    {"title": "Stock futures slip after winning week on Wall Street: Live updates", "source": "CNBC", "date": "2026-09-27", "url": "https://www.cnbc.com/2026/09/27/stock-market-today-live-updates.html", "blurb": "US equity futures eased into the new week as investors weighed a fresh Middle East flare-up against a data-heavy calendar — August core PCE, ISM PMIs and the September jobs report — before the 28 October FOMC.", "author": null},
-    {"title": "Iran Says Won't Soften Demands After Trump Rejects Hormuz Offer", "source": "Bloomberg", "date": "2026-09-27", "url": "https://www.bloomberg.com/news/articles/2026-09-27/iran-says-won-t-soften-demands-after-trump-rejects-hormuz-offer", "blurb": "Tehran said it is awaiting a definitive US response to its seven-day Strait of Hormuz reopening proposal and won't soften its conditions after Trump rejected the offer, keeping Brent above $106/bbl.", "author": null},
-    {"title": "A Difficult Budget Hangs Over John Healey at Labour Gathering", "source": "Bloomberg", "date": "2026-09-27", "url": "https://www.bloomberg.com/news/articles/2026-09-27/a-difficult-budget-hangs-over-john-healey-at-labour-gathering", "blurb": "Bloomberg Economics reckons Chancellor Healey's fiscal buffer has shrunk by about half to roughly £12bn as the gilt-market sell-off runs into Labour's Liverpool conference, upping the odds of tax rises at the 28 October Budget.", "author": null},
-    {"title": "Trump rejects plan to reopen Strait of Hormuz", "source": "NPR", "date": "2026-09-26", "url": "https://www.npr.org/2026/09/26/nx-s1-5981990/trump-rejects-iranian-deal-strait-of-hormuz", "blurb": "Trump said he rejected Iran's seven-day proposal to reopen the Strait of Hormuz — which would have traded a phased reopening for an end to the US naval blockade, $12bn in unfrozen assets and eased oil sanctions — saying Tehran wants an immediate opening 'because they're losing so badly'.", "author": null},
   ],
 };
 

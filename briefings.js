@@ -57,14 +57,15 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-10-01",
-      time: "16:15 BST",
-      lede: "Thursday's session closes in on the afternoon with bond markets still setting the tone for everything else, from Treasury yields to UK mortgage costs.",
+      date: "2026-10-02",
+      time: "12:20 BST",
+      lede: "Euro-area inflation printing at a three-year high has handed the ECB a fresh tightening argument just as bond markets try to steady, with the US jobs report still to come this afternoon.",
       bullets: [
-        { html: "<strong>Macro &mdash; the FT sets out four potential positives from higher bond yields</strong> even as the rise in borrowing costs has raised alarm. In the UK, house prices fell as higher mortgage rates &lsquo;subdue&rsquo; the market.", src: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 slipped 0.17% on Tuesday</strong> as the 30-year Treasury yield touched 5.612%, its highest since June 2002.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Fixed income &mdash; the global bond sell-off pushed the 10-year Treasury yield to its highest since 2002</strong>, the FT reports, with the US debt rout earlier described as a &lsquo;vicious loop&rsquo; of selling.", src: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; a US government debt rout triggered a &lsquo;vicious loop&rsquo; of selling</strong> on Wednesday night, per the FT.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; eurozone inflation hit a three-year high of 3.8% in September</strong>, the FT reports, above expectations, with analysts saying a December ECB move remains the base case after two consecutive rate rises.", src: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; in the US, the housing market is frozen</strong>, an FT column argues, with homeowners staying put and affordability as stretched as in the housing bubble &mdash; a problem for the Fed.", src: "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the global bond market has steadied after a sharp sell-off</strong> that pushed 10-year US Treasury yields to their highest level since 2002, the FT reports.", src: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; French bond spreads over Bunds are nearing the 2011 euro-crisis record</strong>, Bloomberg's John Authers writes, with the 10-year OAT yield at 4.92%.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", srcName: "Bloomberg" },
+        { html: "<strong>Fixed income &mdash; diesel fell sharply as the EU considers releasing 50mn barrels of reserves</strong> under pressure from President Trump, who has threatened to ban US exports of the fuel, the FT reports.", src: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", srcName: "Financial Times" },
       ],
     },
     evening: {
