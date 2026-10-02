@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7a91fa6b-e908-4a28-b04f-02d5a10a6bb1",
+    title: "‘Amateurism and organisation’: Iran’s potential role in RAF Fairford incident",
+    date: "2026-10-02",
+    time: "19:44",
+    url: "https://www.ft.com/content/7a91fa6b-e908-4a28-b04f-02d5a10a6bb1",
+  },
+  {
+    id: "17762862-bdb7-44d0-a0d0-d2285bedbd2d",
+    title: "Low-profile hedge fund smashes record for New York office rent",
+    date: "2026-10-02",
+    time: "19:31",
+    url: "https://www.ft.com/content/17762862-bdb7-44d0-a0d0-d2285bedbd2d",
+  },
+  {
     id: "38176237-e89f-410c-979c-c8c5d68d041a",
     title: "French schools burn as student unrest spreads",
     date: "2026-10-02",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "05:31",
     url: "https://www.ft.com/content/56b239fb-3c85-4b8e-a274-d028d3b153a0",
-  },
-  {
-    id: "83e9a7cb-95b4-48a8-9cdc-88d3fa8f03c0",
-    title: "Black voters rally against new electoral maps in the US South",
-    date: "2026-10-02",
-    time: "05:15",
-    url: "https://www.ft.com/content/83e9a7cb-95b4-48a8-9cdc-88d3fa8f03c0",
-  },
-  {
-    id: "f776933e-3566-4171-a1e1-a8486dc88c83",
-    title: "Meet Man City’s powerbroker",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/f776933e-3566-4171-a1e1-a8486dc88c83",
   },
 ];
