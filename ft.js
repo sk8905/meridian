@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "38176237-e89f-410c-979c-c8c5d68d041a",
+    title: "French schools burn as student unrest spreads",
+    date: "2026-10-02",
+    time: "17:21",
+    url: "https://www.ft.com/content/38176237-e89f-410c-979c-c8c5d68d041a",
+  },
+  {
+    id: "75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
+    title: "Quant hedge funds reap big gains from global bond sell-off",
+    date: "2026-10-02",
+    time: "16:13",
+    url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
+  },
+  {
     id: "f4d387cb-f6a6-40b2-b9ac-52991872e21b",
     title: "Stockpickers: AG Barr, Redcentric, Saga",
     date: "2026-10-02",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "05:00",
     url: "https://www.ft.com/content/f776933e-3566-4171-a1e1-a8486dc88c83",
-  },
-  {
-    id: "b33a6f40-71fe-430d-a130-25f5f841aeb9",
-    title: "UK universities comb records for China links after MI5 warning",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/b33a6f40-71fe-430d-a130-25f5f841aeb9",
-  },
-  {
-    id: "57de6604-70a9-413a-a381-9ba82ec202ec",
-    title: "Monzo courts private equity after Nubank walks away",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/57de6604-70a9-413a-a381-9ba82ec202ec",
   },
 ];

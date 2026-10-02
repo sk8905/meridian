@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-reintegrationdefaultworld-20261002",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: The Podcast: Reintegration WIth the Default World",
+    date: "2026-10-02",
+    time: "19:06",
+    summary: "Podcast with Mary Childs: exchange ETFs, agentic bank runs, cotton market manipulation.",
+    url: "https://bloom.bg/4xRhgu9",
+  },
+  {
     id: "nl-gs-briefings-fedunlikelytohikeinoctober-20261002",
     publication: "Goldman Sachs",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "05:59",
     summary: "Also: The new battle for Iraq.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-bondreckoning-20260930",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "The Bond Market Reckoning Has Only Begun",
-    date: "2026-09-30",
-    time: "05:40",
-    summary: "The effects are starting to be felt in Europe.",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-30/the-big-bond-market-shift-is-impacting-europe",
   },
 ];
