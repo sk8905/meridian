@@ -71,10 +71,13 @@ to keep pinned/full-height on these three sections.
 - **R4c — Newswire content scope (the inclusion rule — STRICT).** The newswire
   carries ONLY these four kinds of item; anything else is off-universe and must
   not appear:
-  1. **Macro-economic news relating to the G7 nations** — US · UK · Canada ·
-     France · Germany · Italy · Japan (plus the **euro area / ECB** the euro-G7
-     members FR/DE/IT sit in). Non-G7 country macro (Austria, Croatia, Hong Kong,
-     Singapore, China, India, Brazil, Switzerland, …) is OUT.
+  1. **Macro-economic news relating to the G7 + the Eurozone + other major European
+     economies** — the G7 (US · UK · Canada · France · Germany · Italy · Japan), every
+     **euro-area** member (Austria, Ireland, Spain, Netherlands, …) and the rest of
+     **developed / EU / EFTA Europe** (Switzerland, the Nordics, Poland, Czechia, …),
+     plus the **ECB / Eurozone** aggregate. OUT = all **non-European** geographies
+     (Hong Kong, Singapore, China, India, Brazil, Australia, …) AND **non-EU/EFTA
+     Europe** (Russia, Ukraine, Belarus, Turkey, Serbia).
   2. **News relating to managers / hedge funds that are covered in the app** —
      ALL of them (the `credit/js/data.js` managers + `HEDGE_FUNDS` rosters),
      **whatever their AUM** (a covered mega-manager's news still qualifies). A
@@ -89,10 +92,10 @@ to keep pinned/full-height on these three sections.
      the $1–15bn band — e.g. to add a specific sub-$1bn or >$15bn name).
 
   **Enforcement.** Rule 1 is enforced automatically in the Worker: `feedQualityKeep`
-  drops any headline **led by a non-G7 country** via `FEED_OFFTOPIC_GEO` (the
-  economic-print pattern — "Austria's inflation …"), so it fires even on a premium
-  source like Investing.com Economics. A non-G7 country that ever leaks is a missing
-  entry in that denylist — add it. Rules 2–3 are **editorial / roster-driven**: the
+  drops any headline **led by an out-of-scope country** via `FEED_OFFTOPIC_GEO` (the
+  economic-print pattern — "Hong Kong retail sales …", "Russia's inflation …"), so it
+  fires even on a premium source like Investing.com Economics. An out-of-scope country
+  that ever leaks is a missing entry in that denylist — add it. Rules 2–3 are **editorial / roster-driven**: the
   curated feeds are scoped to the right verticals (private credit, PE, Big Law), but
   a headline's subject can't always be auto-judged (a new manager's AUM isn't in its
   headline), so the 5×/day refresh routine and the rosters are the gate. A covered

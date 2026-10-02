@@ -64,26 +64,32 @@ check(feedQualityKeep({ source: "The Straits Times", title: "Public sector worke
 check(feedQualityKeep({ source: "The Straits Times", title: "Meta shares climb as Facebook parent lifts ad guidance" }),
   "relevance: a real Meta/Facebook company story is still kept");
 
-// ---- Rule 1: macro is G7-ONLY. A headline led by a NON-G7 country is off-universe and
-// dropped (even from a premium source like Investing.com Economics); a G7-led headline,
-// a euro-area aggregate, and a markets story are kept. ------------------------------
+// ---- Rule 1: macro scope = G7 + Eurozone + other major (EU/EFTA) Europe. A headline
+// led by an OUT-OF-SCOPE country (non-European, or non-EU/EFTA Europe) is off-universe
+// and dropped even from a premium source; an in-scope-led headline, a euro-area
+// aggregate, and a markets story are kept. ------------------------------------------
 const ECON = "Investing.com Economics";
 for (const t of [
-  "Austria’s inflation climbs to 3.5% in September",
-  "Croatia’s September inflation reaches 4.6% in line with forecasts",
   "Hong Kong August retail sales rise 5.6%",
   "Brazil next, US midterms coming, in impactful global election year",
   "China’s exports surge in September",
   "Singapore core inflation eases",
-  "Switzerland cuts rates as the franc strengthens",
-]) check(!feedQualityKeep({ source: ECON, title: t }), `G7-only macro: a non-G7 country headline is dropped ("${t.slice(0, 32)}…")`);
+  "India GDP grows 7.2% in the second quarter",
+  "Australia jobs beat forecasts as unemployment falls",
+  "Russia’s inflation jumps on a weaker rouble",
+  "Turkey’s lira hits a record low after the rate decision",
+]) check(!feedQualityKeep({ source: ECON, title: t }), `macro scope: an out-of-scope country headline is dropped ("${t.slice(0, 30)}…")`);
 for (const t of [
   "UK firms see price, wage growth steady as energy costs squeeze margins",
   "US job growth expected to slow in September; unemployment rate likely steady",
   "German government to raise forecasts due to strong H1, source says",
   "Higher Eurozone inflation adds pressure on ECB to tighten again",
   "Tokyo inflation accelerates in Sept, strengthening case for further BOJ hikes",
-]) check(feedQualityKeep({ source: ECON, title: t }), `G7-only macro: a G7 / euro-area headline is kept ("${t.slice(0, 32)}…")`);
+  "Austria’s inflation climbs to 3.5% in September",        // euro-area member — in scope
+  "Switzerland cuts rates as the franc strengthens",        // EFTA — in scope
+  "Poland holds rates as inflation cools toward target",    // EU — in scope
+  "Sweden’s Riksbank signals a pause after the krona rally", // EU — in scope
+]) check(feedQualityKeep({ source: ECON, title: t }), `macro scope: a G7 / Eurozone / major-Europe headline is kept ("${t.slice(0, 30)}…")`);
 
 // ---- CNBC is a PREFERRED source: an always-pass premium newsroom with roomy caps.
 {
