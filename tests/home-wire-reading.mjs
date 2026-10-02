@@ -8,7 +8,10 @@ import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish
 // pane must link each to its Wire profile (coloured + bold .g-ent). Names chosen to
 // resolve uniquely in the Home roster (home-data.js): Citadel→hf/h4, Bridgewater
 // Associates→hf/h1, Bridgepoint Credit→manager/m1, Proskauer Rose→firm/proskauerrose.
-const ENTITY_PARA = "The deal drew bids from Citadel and Bridgewater Associates, while Bridgepoint Credit led the unitranche and Proskauer Rose advised on the terms.";
+// Also includes the lower-case common word "sector" — which must NOT link, even though
+// "Sector Asset Management" is a tracked fund (a lower-case match is the word, not the
+// entity).
+const ENTITY_PARA = "The deal drew bids from Citadel and Bridgewater Associates across the credit sector, while Bridgepoint Credit led the unitranche and Proskauer Rose advised on the terms.";
 const READ = { source: "The Guardian", title: "Oil slips below $100 as Iran signals a Hormuz offer", byline: "Jane Smith", date: "2026-09-22T16:28:00Z", accessible: true, paragraphs: [
   "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.",
   "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.",
@@ -133,6 +136,8 @@ if (freeSel) {
   check(!!entBy("Bridgepoint Credit") && /\/manager\/m1$/.test((entBy("Bridgepoint Credit") || {}).href || ""), `reading pane: a manager mention links to its profile (Bridgepoint Credit → ${(entBy("Bridgepoint Credit") || {}).href})`);
   check(!!entBy("Proskauer Rose") && /\/firm\/proskauerrose$/.test((entBy("Proskauer Rose") || {}).href || ""), `reading pane: a law firm mention links to its profile (Proskauer Rose → ${(entBy("Proskauer Rose") || {}).href})`);
   check((entBy("Citadel") || {}).weight >= 700 && (entBy("Citadel") || {}).color && (entBy("Citadel") || {}).color !== full.pColor, `reading pane: entity links are bold + coloured (not the body ink) (${(entBy("Citadel") || {}).color} vs ${full.pColor})`);
+  // A lower-case common word is NOT linked, even when it matches a fund's one-word alias.
+  check(!full.ents.some((e) => /^sector$/i.test(e.t)), `reading pane: a lower-case common word ("sector") is not mis-linked as an entity (${full.ents.map((e) => e.t).join(", ")})`);
   // Entity linking is READING-PANE ONLY — the wire feed itself never gets .g-ent links.
   check(await pg.evaluate(() => document.querySelectorAll("#g-feed .g-ent").length === 0), "wire feed: no entity auto-links (reading pane only)");
   // The body prose is JUSTIFIED and set at the SAME size as the rest of the app's

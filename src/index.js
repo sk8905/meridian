@@ -1817,6 +1817,14 @@ function _stripLeadingJunk(blocks) {
   }
   return i ? blocks.slice(i) : blocks;
 }
+// Drop any heading NOT immediately followed by a body paragraph (before the next heading
+// or the end). A run of headings with no prose between them is a NAV MENU / section-link
+// list (e.g. a publisher's "Research · Events · Jobs · Firms A-Z · About" chrome pulled
+// in with the article), never real article structure — a genuine heading always
+// introduces prose. This also subsumes the trailing-dangling-heading drop.
+function _dropBodylessHeadings(blocks) {
+  return (blocks || []).filter((b, i) => !b.h || (blocks[i + 1] && !blocks[i + 1].h));
+}
 function _readTidy(host) { const p = host.replace(/\.(com|co\.uk|org|net|gov|edu|io|us)$/i, "").split(".").pop() || host; return p.charAt(0).toUpperCase() + p.slice(1); }
 export function extractReadable(html, u) {
   const host = u.hostname.replace(/^www\./, "");
@@ -1843,7 +1851,7 @@ export function extractReadable(html, u) {
     const whole = _readBlocks(html);
     if (_readBlocksLen(whole) > _readBlocksLen(blocks)) blocks = whole;
   }
-  blocks = _stripLeadingJunk(blocks);                         // drop a leading recirculation strip
+  blocks = _dropBodylessHeadings(_stripLeadingJunk(blocks));   // drop a leading recirc strip + nav-menu headings
   // `paragraphs` stays the body-only string array (back-compat for callers + specs);
   // `blocks` is the ORDERED sequence incl. section headings ({t, h:true}) so the reading
   // pane can render headings in bold. accessibility is still judged on the body paras.
@@ -1928,9 +1936,8 @@ export function proxyBlocks(md) {
     out.push({ t, h: false });
     if (out.filter((x) => !x.h).length >= 60) break;
   }
-  const stripped = _stripLeadingJunk(out);                     // drop a leading recirculation strip
-  while (stripped.length && stripped[stripped.length - 1].h) stripped.pop();   // no dangling trailing heading
-  return stripped;
+  // Leading recirculation strip + nav-menu headings (a heading with no body after it).
+  return _dropBodylessHeadings(_stripLeadingJunk(out));
 }
 // Body-only paragraph strings (back-compat for callers + specs). The ordered `blocks`
 // (with headings) come from proxyBlocks.
@@ -1999,8 +2006,8 @@ async function handleRead(request, env, ctx) {
   const cache = caches.default;
   // Cache-key version — bump on any extractor change so the edge discards reader
   // responses rendered by the OLD extractor (else a junk/stale body is served for up to
-  // an hour after deploy). v3: recirculation-strip + proxy-headings extractor.
-  const key = new Request("https://read.internal/v3/" + encodeURIComponent(u.toString()));
+  // an hour after deploy). v4: + nav-menu (bodyless-heading) drop.
+  const key = new Request("https://read.internal/v4/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.

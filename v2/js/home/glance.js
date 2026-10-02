@@ -2130,7 +2130,12 @@ function _readShell(it, access, bodyHTML) {
 let _entRe = null, _entMap = null;
 // Generic words that must never become a standalone entity link (they appear as the
 // remainder after stripping an org suffix, or inside many names).
-const _ENT_STOP = new Set(["group", "capital", "partners", "management", "associates", "advisors", "advisers", "investments", "holdings", "global", "asset", "fund", "funds", "credit", "markets", "securities", "investment", "the", "and", "its", "new", "york", "london"]);
+// Generic words that must never become a standalone entity link — org-suffix remainders
+// AND common prose words that happen to be a single-word fund name/alias (e.g. "Sector"
+// from "Sector Asset Management" must not light up the word "sector"). Full multi-word
+// names are unaffected; this only blocks the single-token term.
+const _ENT_STOP = new Set(["group", "capital", "partners", "management", "associates", "advisors", "advisers", "investments", "holdings", "global", "asset", "fund", "funds", "credit", "markets", "securities", "investment", "the", "and", "its", "new", "york", "london",
+  "sector", "growth", "income", "value", "research", "opportunity", "opportunities", "advantage", "strategic", "premier", "select", "core", "prime", "special", "general", "alpha", "beta", "focus", "summit", "frontier", "horizon", "pioneer", "vantage", "venture", "ventures"]);
 // Trim a trailing generic org suffix → a shorter but still-distinctive alias (so
 // "Bridgewater Associates" also links a bare "Bridgewater"). Only kept when ≥5 chars
 // and not itself a generic word.
@@ -2173,6 +2178,9 @@ function linkEntities(escHtml) {
   if (_entRe === null && _entMap === null) { try { _buildEntIndex(); } catch { _entMap = new Map(); _entRe = null; } }
   if (!_entRe) return escHtml;
   return String(escHtml).replace(_entRe, (full, pre, term) => {
+    // Require the mention to be capitalised like a proper noun — a lower-case match is
+    // the common word, not the entity ("the legal sector" ≠ Sector Asset Management).
+    if (!/^[A-Z0-9]/.test(term)) return full;
     const href = _entMap.get(term.toLowerCase());
     return href ? pre + `<a class="g-ent" href="${href}">${term}</a>` : full;
   });

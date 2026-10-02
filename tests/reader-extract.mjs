@@ -191,6 +191,27 @@ check(pr.paragraphs[0].startsWith("Investing.com -- Austria's inflation"), "extr
 check(!pr.paragraphs.some((p) => /Nike falls 9%|Nonfarm payrolls loom|Six AI picks|Dow and Nasdaq mostly flat/.test(p)), "extract: none of the four injected headlines leak into the body");
 check(!pr.paragraphs.some((p) => /generated with the support of AI|see our T&C/i.test(p)), "extract: the AI-disclaimer / T&C footer is dropped");
 
+// 3e) A NAV MENU pulled in with the article — a run of headings with no prose between
+//     them (a publisher's "Research · Events · Jobs · Firms A-Z" chrome) — is dropped;
+//     only headings that actually introduce body prose survive.
+const navMenu = `<html><head><meta property="og:title" content="WilmerHale rebuilds in London"></head><body>
+  <article>
+    <h2>News &amp; Commentary</h2>
+    <p>WilmerHale has rebuilt its London office with a double hire from Clifford Chance and Cooley, the firm confirmed on Friday.</p>
+    <h3>Research</h3>
+    <h3>Events</h3>
+    <h3>Jobs</h3>
+    <h3>Firms A-Z</h3>
+    <h3>Global Elite 2026</h3>
+    <h2>What happens next</h2>
+    <p>The team will focus on cross-border disputes and competition work as the firm expands its European bench this year.</p>
+  </article></body></html>`;
+const nm = extractReadable(navMenu, u("https://www.thelawyer.com/wilmerhale-london/"));
+check(nm.paragraphs.length === 2, `extract: keeps the 2 real paragraphs around the nav menu (${nm.paragraphs.length})`);
+const nmHeads = nm.blocks.filter((b) => b.h).map((b) => b.t);
+check(nmHeads.join("|") === "News & Commentary|What happens next", `extract: bodyless nav headings (Research/Events/Jobs/Firms A-Z/Global Elite) are dropped, content headings kept (${nmHeads.join(" · ")})`);
+check(!nm.blocks.some((b) => /^(Research|Events|Jobs|Firms A-Z|Global Elite)/.test(b.t)), "extract: no nav-menu heading leaks into the reader");
+
 // 5c) proxyBlocks: the markdown proxy path strips the same plain-text recirculation strip
 //     AND preserves a REAL section heading (## …) as a bold block in document order.
 const proxyMd = `# Austria's inflation climbs to 3.5% in September
