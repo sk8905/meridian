@@ -4398,7 +4398,7 @@ async function fetchXApiUsers(handles, apiKey) {
 // list-members call count tiny); a page (20) at a time, a few pages.
 async function fetchXApiListMembers(listId, apiKey, request, ctx) {
   const cache = caches.default;
-  const memKey = new Request(new URL(`/api/xfeed-members?l=${encodeURIComponent(listId)}&v=3`, request.url).toString());
+  const memKey = new Request(new URL(`/api/xfeed-members?l=${encodeURIComponent(listId)}&v=4`, request.url).toString());
   const hit = await cache.match(memKey);
   if (hit) { try { const j = await hit.json(); if (Array.isArray(j)) return j; } catch { /* refetch */ } }
   const handles = [];
@@ -4471,7 +4471,7 @@ async function fetchXApiListTweetAuthors(listId, apiKey) {
 // and it could never leave the feed. Cached ~10 min under its own key.
 async function resolveXRoster(listId, apiKey, handles, request, ctx) {
   const cache = caches.default;
-  const rk = new Request(new URL(`/api/xfeed-roster?l=${encodeURIComponent(listId)}&v=3`, request.url).toString());
+  const rk = new Request(new URL(`/api/xfeed-roster?l=${encodeURIComponent(listId)}&v=4`, request.url).toString());
   const hit = await cache.match(rk);
   if (hit) { try { const j = await hit.json(); if (Array.isArray(j) && j.length) return j; } catch { /* rebuild */ } }
   const set = new Set();
@@ -4592,7 +4592,7 @@ async function handleXFeed(request, env, ctx) {
   }
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + provider;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=10`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=11`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
