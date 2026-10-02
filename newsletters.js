@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-gs-briefings-fedunlikelytohikeinoctober-20261002",
+    publication: "Goldman Sachs",
+    author: null,
+    series: "Briefings",
+    title: "Why the Fed Is Unlikely to Hike in October",
+    date: "2026-10-02",
+    time: "12:25",
+    summary: "Fed hike forecast pushed back after cooler PCE; interns and AI; India's AI enablers; family-business succession.",
+    url: "https://www.goldmansachs.com/insights",
+  },
+  {
     id: "nl-bbg-goingprivate-liquiditygamechanger-20261002",
     publication: "Bloomberg",
     author: "Sinead Cruise",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "05:40",
     summary: "The effects are starting to be felt in Europe.",
     url: "https://www.bloomberg.com/opinion/newsletters/2026-09-30/the-big-bond-market-shift-is-impacting-europe",
-  },
-  {
-    id: "nl-reuters-tradingday-stocksstillinbondsgrip-20260929",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Stocks still in bonds' grip",
-    date: "2026-09-29",
-    time: "22:18",
-    summary: "Give PCE a chance.",
-    url: "https://www.reuters.com/newsletters/trading-day",
   },
 ];

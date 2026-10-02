@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "db7af59f-d434-498c-a460-4f7ed2fa6abd",
+    title: "Obama’s red herring",
+    date: "2026-10-02",
+    time: "14:00",
+    url: "https://www.ft.com/content/db7af59f-d434-498c-a460-4f7ed2fa6abd",
+  },
+  {
+    id: "4d0293d8-2f50-4f33-8fa3-702e48df0386",
+    title: "I’m even more bullish about stocks than a year ago",
+    date: "2026-10-02",
+    time: "13:52",
+    url: "https://www.ft.com/content/4d0293d8-2f50-4f33-8fa3-702e48df0386",
+  },
+  {
+    id: "7fc80097-1926-4306-81e0-83d90a3d8a1d",
+    title: "US economy adds just 29,000 jobs in September as hiring slows sharply",
+    date: "2026-10-02",
+    time: "13:47",
+    url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d",
+  },
+  {
     id: "64d54c96-0124-45d0-842c-587ab0641ee2",
     title: "Gold miner M&A is finally producing something that glitters",
     date: "2026-10-02",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "05:00",
     url: "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848",
-  },
-  {
-    id: "14e6933e-20ce-40be-80fd-c2f0b11450e9",
-    title: "What can Burnham learn from Scotland’s social care system?",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/14e6933e-20ce-40be-80fd-c2f0b11450e9",
-  },
-  {
-    id: "29e2d078-4476-41f2-a180-faf0b2001068",
-    title: "US sanctions Kremlin-backed fintech A7 for allegedly assisting Iran",
-    date: "2026-10-01",
-    time: "22:20",
-    url: "https://www.ft.com/content/29e2d078-4476-41f2-a180-faf0b2001068",
-  },
-  {
-    id: "08eeee4a-903b-4889-92ef-61ebaeea682a",
-    title: "Nike to cut jobs as it forecasts revenue decline in the coming year",
-    date: "2026-10-01",
-    time: "22:11",
-    url: "https://www.ft.com/content/08eeee4a-903b-4889-92ef-61ebaeea682a",
   },
 ];
