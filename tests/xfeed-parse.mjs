@@ -1,7 +1,7 @@
 // Worker /api/xfeed parser: xCollectTweets deep-walks X's syndication JSON for
 // tweet-shaped records (defensive against envelope drift), xNormalizeTweet flattens
 // each into the card shape the app renders. Pure functions — no network.
-import { xCollectTweets, xNormalizeTweet, xNormalizeApiTweet, xQuotedCard } from "../src/index.js";
+import { xCollectTweets, xNormalizeTweet, xNormalizeApiTweet, xQuotedCard, xApiTweetsFromBody } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
 // A realistic __NEXT_DATA__-style envelope: two tweets under different shapes
@@ -161,5 +161,31 @@ check(/next reckoning/.test(synQuote.quoted.text), "quote: the GraphQL quoted te
 // Direct guards.
 check(xQuotedCard(null) === null, "quote: xQuotedCard(null) is safe");
 check(xQuotedCard({}) === null, "quote: an empty quoted object yields nothing to render");
+
+// --- List timeline (Get-List-Tweets) — the source the feed renders to MATCH the X
+// List. Its envelope is the same twitterapi.io tweet shape, and it carries reposts
+// (retweeted_tweet), so xApiTweetsFromBody flattens the whole stream — original posts
+// AND reposts — exactly as the List view shows them. This is what makes the app's X
+// Feed mirror the /Wire List rather than a re-sorted union of member timelines.
+const listBody = { tweets: [
+  { id: "2101000000000000001", createdAt: "Wed Sep 17 09:00:00 +0000 2026",
+    text: "Donald Quintin on why there are so few PE exits right now.",
+    author: { userName: "rbrtrmstrng", name: "Robert Armstrong" } },
+  // A repost surfaced in the List timeline (as X shows "X reposted …").
+  { id: "2101000000000000002", createdAt: "Wed Sep 17 08:30:00 +0000 2026",
+    author: { userName: "RobinWigg", name: "Robin Wigglesworth" },
+    retweeted_tweet: { id: "2100999999999999000", createdAt: "Wed Sep 17 07:00:00 +0000 2026",
+      text: "Nice summary of bonds.", author: { userName: "ekierklo", name: "Edward Kierklo" } } },
+]};
+const listCards = xApiTweetsFromBody(listBody);
+checkEq(listCards.length, 2, "list: both List-timeline tweets flatten to cards");
+const orig = listCards.find((t) => t.handle === "rbrtrmstrng");
+check(!!orig && /so few PE exits/.test(orig.text), "list: an original List post is rendered");
+const rt = listCards.find((t) => t.repostedBy);
+check(!!rt, "list: a repost in the List timeline is carried (not dropped)");
+checkEq(rt.handle, "ekierklo", "list: the repost is attributed to the ORIGINAL author");
+checkEq(rt.repostedBy, "Robin Wigglesworth", "list: repostedBy names the List member who reposted it");
+checkEq(xApiTweetsFromBody(null).length, 0, "list: a null/empty body yields no cards (safe)");
+checkEq(xApiTweetsFromBody({ data: { tweets: [apiTweet] } }).length, 1, "list: the .data.tweets envelope shape is handled too");
 
 finish();
