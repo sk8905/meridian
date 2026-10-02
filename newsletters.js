@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-soaringyieldseuropeweakspot-20261002",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Soaring yields find Europe\u2019s weak spot",
+    date: "2026-10-02",
+    time: "05:00",
+    summary: "France could set off another euro-zone crisis.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france",
+  },
+  {
     id: "nl-reuters-tradingday-stocksfindfooting-20261001",
     publication: "Thomson Reuters",
     author: "Stephen Culp",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "07:58",
     summary: "OpenAI holds back its latest model over security concerns, Goldman Sachs' heir apparent edges closer to succeeding Solomon, and India tackles fake obesity jabs.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-29/openai-holds-version-of-ai-model",
-  },
-  {
-    id: "nl-thelawyer-newsdaily-smallerfirmsai-20260929",
-    publication: "The Lawyer",
-    author: "Ben Lucas",
-    series: "News Daily",
-    title: "“We're not Kirkland & Ellis”: Smaller firms adopt wait-and-see approach to AI",
-    date: "2026-09-29",
-    time: "07:56",
-    summary: "The Lawyer UK200 research reveals a far more cautious attitude to AI within MidLaw.",
-    url: "https://www.thelawyer.com/smaller-firms-ai-2026/",
   },
 ];

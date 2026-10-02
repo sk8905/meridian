@@ -1004,20 +1004,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-01",
+  updated: "2026-10-02",
   us: [
-    { title: "US mortgage rates jump the most in four years as bond sell-off hits Main Street", source: "Financial Times", date: "2026-10-01", time: "19:29", url: "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499" },
+    { title: "Quant hedge funds reap big gains from global bond sell-off", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f" },
+    { title: "Trump’s diesel threats could go very wrong — just look at the soyabean", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/3ae16f02-bb00-46a4-abba-6bfea7f2b1ac" },
+    { title: "US refiners reap windfall profits as wars push up fuel prices for consumers", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848" },
     { title: "Top Fed official signals central bank will keep rates on hold in October", source: "Financial Times", date: "2026-10-01", time: "18:52", url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f" },
-    { title: "Global bond sell-off pushes 10-year Treasury yield to highest since 2002", source: "Financial Times", date: "2026-10-01", time: "09:09", url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3" },
     { title: "US factory activity expansion steady as input prices jump", source: "Reuters", date: "2026-10-01", time: "22:15", url: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/" },
-    { title: "US deploys thousands of troops to Middle East as Donald Trump weighs strikes on Iran", source: "Financial Times", date: "2026-10-01", time: "22:05", url: "https://www.ft.com/content/352e14c5-267d-4c8f-981d-6ae8bea531f9" },
   ],
   uk: [
+    { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
+    { title: "Monzo courts private equity after Nubank walks away", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/57de6604-70a9-413a-a381-9ba82ec202ec" },
     { title: "UK house prices fall as higher mortgage rates ‘subdue’ market", source: "Financial Times", date: "2026-10-01", time: "08:05", url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af" },
     { title: "Andy Burnham’s ‘triple lock’ move reallocates, rather than reduces, spending", source: "Financial Times", date: "2026-10-01", time: "09:30", url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6" },
     { title: "AI debt surge raises risk of sharp market correction, warns Bank of England", source: "Financial Times", date: "2026-09-30", time: "15:02", url: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749" },
-    { title: "UK economy grows faster than first estimated in second quarter", source: "Financial Times", date: "2026-09-30", time: "07:18", url: "https://www.ft.com/content/00d798b3-1579-4bc6-88bf-a1f99ba85a63" },
-    { title: "UK energy price cap forecast to rise to nearly £2,000 as Iran war drives up prices", source: "Financial Times", date: "2026-09-30", time: "07:44", url: "https://www.ft.com/content/3c98053f-2a54-4352-8220-0d0269a00d14" },
   ],
 };
 
@@ -1029,8 +1029,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-01",
+  updated: "2026-10-02",
   items: [
+    {"title": "Soaring yields find Europe’s weak spot", "source": "Bloomberg", "date": "2026-10-02", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", "blurb": "John Authers: French bonds are tipping toward a full-blown crisis as the Treasury sell-off exposes the euro zone's weak spot.", "author": "John Authers"},
+    {"title": "Quant hedge funds reap big gains from global bond sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", "blurb": "Systematic funds profit from the global rout in sovereign bonds."},
+    {"title": "US refiners reap windfall profits as wars push up fuel prices for consumers", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848", "blurb": "Higher fuel prices tied to the conflicts are boosting refining margins."},
     {"title": "US mortgage rates jump the most in four years as bond sell-off hits Main Street", "source": "Financial Times", "date": "2026-10-01", "time": "19:29", "url": "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499", "blurb": "The global bond sell-off is feeding through to US home-loan costs, with mortgage rates rising at their fastest pace in four years."},
     {"title": "Top Fed official signals central bank will keep rates on hold in October", "source": "Financial Times", "date": "2026-10-01", "time": "18:52", "url": "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", "blurb": "A senior Fed policymaker indicates the central bank is leaning towards holding rates at its late-October meeting."},
     {"title": "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002", "source": "Financial Times", "date": "2026-10-01", "time": "09:09", "url": "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", "blurb": "Sovereign debt costs around the world return to multiyear highs."},
@@ -1068,9 +1071,6 @@ export const ARTICLES = {
     {"title": "Iran Says Won't Soften Demands After Trump Rejects Hormuz Offer", "source": "Bloomberg", "date": "2026-09-27", "url": "https://www.bloomberg.com/news/articles/2026-09-27/iran-says-won-t-soften-demands-after-trump-rejects-hormuz-offer", "blurb": "Tehran said it is awaiting a definitive US response to its seven-day Strait of Hormuz reopening proposal and won't soften its conditions after Trump rejected the offer, keeping Brent above $106/bbl.", "author": null},
     {"title": "A Difficult Budget Hangs Over John Healey at Labour Gathering", "source": "Bloomberg", "date": "2026-09-27", "url": "https://www.bloomberg.com/news/articles/2026-09-27/a-difficult-budget-hangs-over-john-healey-at-labour-gathering", "blurb": "Bloomberg Economics reckons Chancellor Healey's fiscal buffer has shrunk by about half to roughly £12bn as the gilt-market sell-off runs into Labour's Liverpool conference, upping the odds of tax rises at the 28 October Budget.", "author": null},
     {"title": "Trump rejects plan to reopen Strait of Hormuz", "source": "NPR", "date": "2026-09-26", "url": "https://www.npr.org/2026/09/26/nx-s1-5981990/trump-rejects-iranian-deal-strait-of-hormuz", "blurb": "Trump said he rejected Iran's seven-day proposal to reopen the Strait of Hormuz — which would have traded a phased reopening for an end to the US naval blockade, $12bn in unfrozen assets and eased oil sanctions — saying Tehran wants an immediate opening 'because they're losing so badly'.", "author": null},
-    {"title": "US Jobs Report Seen Showing 90,000 Payrolls, 4.1% Unemployment Rate", "source": "Bloomberg", "date": "2026-09-26", "url": "https://www.bloomberg.com/news/articles/2026-09-26/us-jobs-report-seen-showing-90-000-payrolls-4-1-unemployment-rate", "blurb": "Economists expect Friday's September employment report to show nonfarm payrolls rose about 90,000 — down from August's 162,000 — with the unemployment rate holding at a one-year low of 4.1%, the last major data test before the 28 October FOMC.", "author": null},
-    {"title": "The 10-year Treasury yield is at its highest in nearly two decades. How we got here", "source": "CNBC", "date": "2026-09-26", "url": "https://www.cnbc.com/2026/09/26/10-year-treasury-yield-is-at-its-highest-in-19-years-how-we-got-here.html", "blurb": "A explainer on the run of hawkish Fed hikes, oil-driven inflation fears and heavy Treasury issuance that has pushed the 10-year yield to its highest level since 2007.", "author": null},
-    {"title": "Pound to Dollar Rate Hits Three-Month Low on Bond Sell-Off", "source": "Currency News UK", "date": "2026-09-27", "time": "22:15", "url": "https://www.currencynews.co.uk/forecast/20260927-47288_pound-to-dollar-rate-hits-three-month-low-on-bond-sell-off.html", "blurb": "GBP/USD slid to a three-month low as the ongoing gilt-market sell-off and elevated Fed-hike odds continued to pressure sterling against the dollar.", "author": null},
   ],
 };
 

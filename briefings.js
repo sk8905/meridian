@@ -43,14 +43,15 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-01",
-      time: "10:12 BST",
-      lede: "Thursday's session opens with the global bond sell-off still deepening, as government borrowing costs reach multiyear highs and the pressure spills into UK housing and fiscal politics.",
+      date: "2026-10-02",
+      time: "05:15 BST",
+      lede: "Friday opens with the bond rout easing in the US but spreading to Europe, and the September jobs report due later is the next test of the Fed's hold-versus-hike debate.",
       bullets: [
-        { html: "<strong>Macro &mdash; the FT reports the 10-year Treasury yield has hit its highest since 2002</strong> as sovereign debt costs around the world return to multiyear highs. In the UK, house prices fell as higher mortgage rates &lsquo;subdue&rsquo; the market, with the prospect of rate rises weighing on demand.", src: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; the FT argues the rise in borrowing costs has raised justified alarm but brings four potential positives</strong>, while Unhedged sets out an optimist&rsquo;s case that it could be a lot worse.", src: "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; a US government debt rout has triggered a &lsquo;vicious loop&rsquo; of selling</strong>, the FT reported on Wednesday night, after bond markets had steadied following Tuesday&rsquo;s sell-off despite strong US data.", src: "https://www.ft.com/content/39de7709-7b5b-42f6-ad90-df50f1308ea2", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 slipped 0.17% on Tuesday</strong> as the 30-year Treasury yield touched 5.612%, its highest since June 2002; the Nikkei 225 rose 2.0% on Wednesday on chip-led strength.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Macro &mdash; a top Fed official has signalled the central bank will keep rates on hold in October</strong>, the FT reports, easing pressure for a further hike after the surge in long-dated yields.", src: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; US factory activity held steady in September</strong>, Reuters reports, with input prices jumping.", src: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/", srcName: "Reuters" },
+        { html: "<strong>Equities &mdash; Wall Street reversed an earlier selloff to close higher on Thursday</strong> as bond yields eased, with Micron and Accenture jumping on upbeat forecasts, while European stocks closed at three-month lows.", src: "https://www.reuters.com/business/dow-futures-hit-three-month-low-yields-surge-micron-earnings-offer-support-2026-10-01/", srcName: "Reuters" },
+        { html: "<strong>Fixed income &mdash; French bond spreads over Bunds are nearing the 2011 euro-crisis record</strong>, Bloomberg's John Authers writes, with the 10-year OAT yield at 4.92% even as Treasury yields eased.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", srcName: "Bloomberg" },
+        { html: "<strong>Fixed income &mdash; quant hedge funds have reaped big gains from the global bond sell-off</strong>, the FT reports.", src: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", srcName: "Financial Times" },
       ],
     },
     afternoon: {
