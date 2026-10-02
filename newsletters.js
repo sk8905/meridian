@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-uscarriertroopsmideast-20261002",
+    publication: "Bloomberg",
+    author: "Lily Nonomiya",
+    series: "Morning Briefing Europe",
+    title: "US Will Send Carrier, More Troops to Mideast",
+    date: "2026-10-02",
+    time: "07:24",
+    summary: "A US carrier and 10,000 more personnel head to the Mideast, a tanker captain's account of crossing Hormuz, and McDonald's global chicken push.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-02/us-will-send-carrier-more-troops-to-mideast",
+  },
+  {
     id: "nl-economist-worldinbrief-bondyieldsmultidecadehighs-20261002",
     publication: "The Economist",
     author: null,
