@@ -370,15 +370,19 @@ notification badge red (`#ef4444`).
   from the X List:** with a key set, the Worker resolves the List's **current
   members** (twitterapi.io Get-List-Members, cached ~15 min) and fetches those — so
   adding/removing an account on the List (`x.com/i/lists/…`) flows into the feed with
-  no code change. `X_ACCOUNTS` in `v2/js/home/xposts.js` is the **fallback roster**
-  (used when membership can't be read or no key); `X_LIST` holds the List id/link.
+  no code change. The List read uses **whichever key is bound** (`XAPI_KEY || XAPIS_KEY`),
+  so **one existing twitterapi.io key unlocks live-List sync on either provider** — no
+  second secret needed. `X_ACCOUNTS` in `v2/js/home/xposts.js` is the **fallback roster**
+  (used only when membership can't be read — a TwitterAPIs.com-only key, a failed call, or
+  no key); `X_LIST` holds the List id/link.
   `/api/xfeed` edge-caches a non-empty result ~15 min (`max-age=900`) and never pins an empty one.
   **Data source (provider ladder — cheapest first):** `/api/xfeed` prefers
-  **TwitterAPIs.com** (`XAPIS_KEY` secret, ~3× cheaper; roster = `X_ACCOUNTS` in
-  `xposts.js`), then **twitterapi.io** (`XAPI_KEY` secret; resolves + auto-syncs the X
-  List's members), then the **free syndication** scrape (no key; X caches/degrades so
-  dates can lag). Each rung falls through to the next if it returns nothing, so a
-  provider swap never leaves the wire worse off. Whichever answers, timelines are merged
+  **TwitterAPIs.com** (`XAPIS_KEY` secret, ~3× cheaper) for the timelines, then
+  **twitterapi.io** (`XAPI_KEY` secret) — but the **roster is resolved from the live X
+  List first** using `XAPI_KEY || XAPIS_KEY`, so the List drives both providers; last is
+  the **free syndication** scrape (no key; X caches/degrades so dates can lag). Each rung
+  falls through to the next if it returns nothing, so a provider swap never leaves the wire
+  worse off. Whichever answers, timelines are merged
   newest-first and **include reposts**; **reposts** render the original with a "reposted
   by …" line, and **quote tweets** keep the quoter's commentary **and nest the embedded
   original** as a bordered sub-card (`xQuotedCard`, `.g-x-quote`) — never dropped. The

@@ -4309,7 +4309,7 @@ async function fetchXApiUsers(handles, apiKey) {
 // list-members call count tiny); a page (20) at a time, a few pages.
 async function fetchXApiListMembers(listId, apiKey, request, ctx) {
   const cache = caches.default;
-  const memKey = new Request(new URL(`/api/xfeed-members?l=${encodeURIComponent(listId)}&v=2`, request.url).toString());
+  const memKey = new Request(new URL(`/api/xfeed-members?l=${encodeURIComponent(listId)}&v=3`, request.url).toString());
   const hit = await cache.match(memKey);
   if (hit) { try { const j = await hit.json(); if (Array.isArray(j)) return j; } catch { /* refetch */ } }
   const handles = [];
@@ -4382,7 +4382,7 @@ async function fetchXApiListTweetAuthors(listId, apiKey) {
 // and it could never leave the feed. Cached ~10 min under its own key.
 async function resolveXRoster(listId, apiKey, handles, request, ctx) {
   const cache = caches.default;
-  const rk = new Request(new URL(`/api/xfeed-roster?l=${encodeURIComponent(listId)}&v=2`, request.url).toString());
+  const rk = new Request(new URL(`/api/xfeed-roster?l=${encodeURIComponent(listId)}&v=3`, request.url).toString());
   const hit = await cache.match(rk);
   if (hit) { try { const j = await hit.json(); if (Array.isArray(j) && j.length) return j; } catch { /* rebuild */ } }
   const set = new Set();
@@ -4444,8 +4444,10 @@ async function handleXFeed(request, env, ctx) {
     .filter((h) => /^[A-Za-z0-9_]{1,15}$/.test(h))
     .slice(0, 12);
   const listId = (url.searchParams.get("listId") || "").replace(/\D/g, "");
-  const apisKey = env && env.XAPIS_KEY;   // TwitterAPIs.com (preferred — cheaper)
-  const apiKey = env && env.XAPI_KEY;     // twitterapi.io (fallback, incl. List auto-sync)
+  const apisKey = env && env.XAPIS_KEY;   // TwitterAPIs.com (preferred — cheaper, tweets only)
+  const apiKey = env && env.XAPI_KEY;     // twitterapi.io (List auto-sync + tweets)
+  // List reads + the twitterapi.io timeline path use whichever key is bound (`apiKey ||
+  // apisKey`), so a single existing key unlocks live-List sync without a second secret.
   const dbg = url.searchParams.get("debug");
   // ?debug=env — presence-only probe (booleans, NEVER the secret values), so you can
   // confirm whether the Worker actually sees each key without exposing anything. Needs
@@ -4473,25 +4475,26 @@ async function handleXFeed(request, env, ctx) {
         }
         return json({ error: "no TwitterAPIs.com path answered", triedPaths: XAPIS_TWEET_PATHS });
       }
-      if (dbg === "members" && listId && apiKey) {
-        const dr = await fetch(`https://api.twitterapi.io/twitter/list/members?listId=${encodeURIComponent(listId)}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
+      if (dbg === "members" && listId && (apiKey || apisKey)) {
+        const dr = await fetch(`https://api.twitterapi.io/twitter/list/members?listId=${encodeURIComponent(listId)}`, { headers: { "X-API-Key": (apiKey || apisKey), "accept": "application/json" } });
         return new Response(await dr.text(), { status: dr.status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
       }
-      if (dbg === "roster" && apiKey) {
-        const mem = listId ? await fetchXApiListMembers(listId, apiKey, request, ctx) : [];
-        const auth = listId ? await fetchXApiListTweetAuthors(listId, apiKey) : [];
-        const resolved = listId ? await resolveXRoster(listId, apiKey, handles, request, ctx) : handles;
-        return json({ listId, clientHandles: handles, members: mem, tweetAuthors: auth, resolved });
+      if (dbg === "roster" && (apiKey || apisKey)) {
+        const lk = apiKey || apisKey;
+        const mem = listId ? await fetchXApiListMembers(listId, lk, request, ctx) : [];
+        const auth = listId ? await fetchXApiListTweetAuthors(listId, lk) : [];
+        const resolved = listId ? await resolveXRoster(listId, lk, handles, request, ctx) : handles;
+        return json({ listId, keyUsed: apiKey ? "XAPI_KEY" : "XAPIS_KEY", clientHandles: handles, members: mem, tweetAuthors: auth, resolved });
       }
-      if (dbg === "1" && apiKey && handles[0]) {
-        const dr = await fetch(`https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handles[0])}`, { headers: { "X-API-Key": apiKey, "accept": "application/json" } });
+      if (dbg === "1" && (apiKey || apisKey) && handles[0]) {
+        const dr = await fetch(`https://api.twitterapi.io/twitter/user/last_tweets?userName=${encodeURIComponent(handles[0])}`, { headers: { "X-API-Key": (apiKey || apisKey), "accept": "application/json" } });
         return new Response(await dr.text(), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
       }
     } catch (e) { return json({ error: "debug fetch failed", message: String((e && e.message) || e) }); }
   }
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + provider;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=9`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=10`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -4504,25 +4507,35 @@ async function handleXFeed(request, env, ctx) {
   // removing an account on X flows through here too. Only if the List can't be resolved
   // (no listId, or no twitterapi.io key) does it fall back to the client's xposts.js
   // handles. (List endpoints are twitterapi.io's; TwitterAPIs.com has no List API here.)
+  // The List endpoints are twitterapi.io's, so List resolution needs a twitterapi.io
+  // key — but it reads from EITHER secret (`apiKey || apisKey`), so a single existing
+  // key enables live-List sync without binding a second one. If the bound key can't
+  // read the List (it's a TwitterAPIs.com-only key, or the call fails), resolveXRoster
+  // returns [] and the roster falls back to the client's xposts.js handles — no worse
+  // than before, never a stale floor that re-pins a removed account.
+  const listKey = apiKey || apisKey;
   if (apisKey && (handles.length || listId)) {
     let roster = handles;
-    if (listId && apiKey) {
-      try { const r = await resolveXRoster(listId, apiKey, handles, request, ctx); if (r.length) roster = r; } catch { /* keep client roster */ }
+    if (listId && listKey) {
+      try { const r = await resolveXRoster(listId, listKey, handles, request, ctx); if (r.length) roster = r; } catch { /* keep client roster */ }
     }
     if (roster.length) {
       try { const a = await fetchXApisUsers(roster, apisKey); for (const t of a) all.push(t); if (a.length) usedProvider = "apis"; } catch { /* fall through */ }
     }
   }
   // Next: the paid twitterapi.io per-account timelines (include reposts + List sync).
-  if (!all.length && apiKey && (handles.length || listId)) {
+  // Runs on `listKey` too, so when the existing key is a twitterapi.io key (even if bound
+  // under XAPIS_KEY) the tweets fetch here after the TwitterAPIs.com attempt comes back
+  // empty — one unified key drives both the roster and the timelines.
+  if (!all.length && listKey && (handles.length || listId)) {
     // Resolve the roster from the X LIST (members ∪ recent tweet authors ∪ the
     // client roster) when a listId is given, so adding/removing an account on the
     // List auto-syncs the feed even if one lookup is unavailable.
     let roster = handles;
     if (listId) {
-      try { const r = await resolveXRoster(listId, apiKey, handles, request, ctx); if (r.length) roster = r; } catch { /* keep client roster */ }
+      try { const r = await resolveXRoster(listId, listKey, handles, request, ctx); if (r.length) roster = r; } catch { /* keep client roster */ }
     }
-    try { const api = await fetchXApiUsers(roster, apiKey); for (const t of api) all.push(t); if (api.length) usedProvider = "api"; } catch { /* fall through */ }
+    try { const api = await fetchXApiUsers(roster, listKey); for (const t of api) all.push(t); if (api.length) usedProvider = "api"; } catch { /* fall through */ }
   }
   // Free fallback (no key, or a paid call came back empty): X syndication per handle.
   if (!all.length && handles.length) {

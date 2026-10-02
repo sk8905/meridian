@@ -593,12 +593,16 @@ is topped up in code.
      isn't pinned in our offline docs, so the Worker tries `/twitter/user/last_tweets`,
      `/twitter/user/tweets`, then `/twitter/user/tweets/complete` and uses the first that
      answers; `xApisTweetsFrom` + the shared `xNormalizeApiTweet` are field-defensive.
-     **Roster here is `X_ACCOUNTS` in `xposts.js`** (the List auto-sync below is a
-     twitterapi.io feature), so on this provider **manage the roster in code**.
-  2. **twitterapi.io** (`XAPI_KEY` secret) — resolves the **X List's current members**
-     (Get-List-Members, cached ~15 min) and fetches each member's timeline
-     (Get-User-Last-Tweets, merged). Here **membership is managed on X**
-     (`x.com/i/lists/2100283810713649423`) and auto-syncs within ~15 min — no code change.
+     **Roster is resolved from the live X List** (see below) when a List-capable key is
+     bound, using `XAPI_KEY || XAPIS_KEY` — so even on this cheaper provider, **membership
+     is managed on X, not in code**. `X_ACCOUNTS` in `xposts.js` is only the fallback
+     (used when the List can't be read).
+  2. **twitterapi.io** (`XAPI_KEY` secret, or `XAPIS_KEY` if it holds a twitterapi.io key)
+     — resolves the **X List's current members** (Get-List-Members, cached ~15 min) and
+     fetches each member's timeline (Get-User-Last-Tweets, merged). **Membership is managed
+     on X** (`x.com/i/lists/2100283810713649423`) and auto-syncs within ~15 min — no code
+     change. The List read runs on **whichever key is bound** (`XAPI_KEY || XAPIS_KEY`), so
+     a single existing twitterapi.io key is enough; a second secret is not required.
   3. **Free X syndication** per handle (no key) — logged-out-safe but can serve stale
      timelines to datacenter IPs; the last resort.
   Each rung **falls through to the next if it returns nothing**, so a provider swap can
