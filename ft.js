@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2c56ac58-87b2-4159-aa83-55567368149a",
+    title: "The Ellison credit complex gets a bit more complex",
+    date: "2026-10-02",
+    time: "16:44",
+    url: "https://www.ft.com/content/2c56ac58-87b2-4159-aa83-55567368149a",
+  },
+  {
+    id: "68d4b1f2-5b77-4604-add3-2c4915b4b267",
+    title: "Green leader Zack Polanski takes credit for UK sanctions on Israel but skirts anti-Zionism motion",
+    date: "2026-10-02",
+    time: "16:29",
+    url: "https://www.ft.com/content/68d4b1f2-5b77-4604-add3-2c4915b4b267",
+  },
+  {
+    id: "8b81e04b-917f-4dda-ac05-83067f7687b1",
+    title: "Paris Fashion Week confronts luxury’s crisis of desire",
+    date: "2026-10-02",
+    time: "13:42",
+    url: "https://www.ft.com/content/8b81e04b-917f-4dda-ac05-83067f7687b1",
+  },
+  {
     id: "79bcc1f3-954a-4c62-96c6-989b1384b9f3",
     title: "Pedro Sánchez loses vote on Spanish housing reform",
     date: "2026-10-02",
