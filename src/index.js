@@ -1784,6 +1784,19 @@ function _readMeta(html, keys) {
   return "";
 }
 const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles)/i;
+// Section labels that head a navigation / recirculation widget (related stories,
+// "Popular Searches", trending, recommended, "more from"…). Matched ONLY against a
+// block that is a heading OR an entire short line — anchored at the start — so a real
+// paragraph that merely contains one of these words is never dropped.
+const READ_NAV_LABEL = /^(?:popular (?:searches|articles|now|stories)|trending(?: now)?|most (?:read|popular|shared|viewed)|recommended(?: for you)?|related(?: (?:articles|stories|news|coverage|content))?|more (?:from|on|stories|news|to explore)|top (?:stories|news|picks)|editor.?s?.? picks|you (?:may|might) (?:also )?like|also (?:read|on)|read (?:more|next)|up next|latest (?:news|updates|from)|sponsored(?: content)?|advertisement|promoted|newsletter|sign ?up|share this)\b/i;
+// A <p> whose visible text sits almost entirely inside <a> links is a related-story /
+// nav row (a headline that links out), not article prose — drop it. Real prose with the
+// odd inline link keeps plenty of text OUTSIDE the anchors, so it is never dropped.
+function _blockIsLinkOnly(inner) {
+  if (!/<a\b/i.test(inner)) return false;
+  const outside = _readStrip(String(inner).replace(/<a\b[\s\S]*?<\/a>/gi, " "));
+  return outside.length < 2;
+}
 function _readTidy(host) { const p = host.replace(/\.(com|co\.uk|org|net|gov|edu|io|us)$/i, "").split(".").pop() || host; return p.charAt(0).toUpperCase() + p.slice(1); }
 export function extractReadable(html, u) {
   const host = u.hostname.replace(/^www\./, "");
@@ -1826,6 +1839,8 @@ function _readBlocks(scope) {
     const isH = m[1][0].toLowerCase() === "h";
     const t = _readStrip(m[2]);
     if (!t || READ_BOILER.test(t)) continue;
+    if (READ_NAV_LABEL.test(t)) continue;                        // nav/widget section label (any block)
+    if (!isH && _blockIsLinkOnly(m[2])) continue;                // a headline that only links out — not prose
     if (isH ? (t.length < 2 || t.length > 120) : (t.length < 40)) continue;
     const k = (isH ? "h:" : "p:") + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     if (total > 20000) break;
@@ -1859,15 +1874,21 @@ export function proxyParagraphs(md) {
   const blocks = String(md || "")
     .replace(/```[\s\S]*?```/g, " ")                     // fenced code
     .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")               // images
-    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")             // links → visible text
     .split(/\n{2,}/);
   for (const b of blocks) {
     const raw = b.trim();
     if (!raw || /^#{1,6}\s/.test(raw)) continue;               // blank block / markdown heading
-    const t = _readDec(raw.replace(/[*_`>#]+/g, " "))
+    // A block that is ONLY links (optionally bulleted) is a related-story / "Popular
+    // Searches" recirculation list — nav, not prose. Detect it BEFORE flattening links:
+    // strip every [text](url), any list markers and all whitespace; if nothing remains,
+    // and the block did carry a link, drop it. (A real paragraph with an inline link or
+    // two keeps its surrounding prose, so it survives.)
+    const sansLinks = raw.replace(/\[[^\]]*\]\([^)]*\)/g, " ").replace(/^[\s>*\-•\d.]+/gm, " ").replace(/\s+/g, "");
+    if (!sansLinks && /\]\(/.test(raw)) continue;
+    const t = _readDec(raw.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/[*_`>#]+/g, " "))   // links → visible text
       .replace(/,?\s*opens? (?:in )?(?:a )?new (?:tab|window)/gi, "")   // Reuters link a11y text
       .replace(/\s+/g, " ").replace(/\s+([,.;:])/g, "$1").trim();
-    if (t.length < 40 || READ_BOILER.test(t)) continue;
+    if (t.length < 40 || READ_BOILER.test(t) || READ_NAV_LABEL.test(t)) continue;
     if (/^\|/.test(t) || /^https?:\/\//i.test(t)) continue;    // table rows / stray URLs
     const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     out.push(t);

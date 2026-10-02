@@ -134,4 +134,40 @@ check(pp.some((p) => /General Motors \(GM\.N\) and Meta \(META\.O\)/.test(p)), "
 check(!pp.some((p) => /opens new tab|\]\(http/.test(p)), "proxy: no 'opens new tab' or leftover link markup");
 check(!pp.some((p) => /Subscribe to our newsletter|Terms of use|financial market professionals|Refinitiv|!\[/.test(p)), "proxy: boilerplate (incl. the Refinitiv header), images dropped");
 
+// 3c) A recirculation widget ("Popular Searches" + a list of headline LINKS) sits
+//     inside the body scope, interleaved with the real prose. The section label and the
+//     link-only headline rows must be dropped, keeping only the article's own sentences.
+const recirc = `<html><head><meta property="og:title" content="Brazil next, US midterms coming, in impactful global election year"></head><body>
+  <article>
+    <h3>Popular Searches</h3>
+    <p><a href="/news/n1">Nike falls 9% as revenue miss, weak guidance signal more pain ahead</a></p>
+    <p><a href="/news/n2">Nonfarm payrolls loom large; bond market volatility - what's moving markets</a></p>
+    <p><a href="/news/n3">S&amp;P 500 ends higher, Dow and Nasdaq mostly flat as bond rally offsets rise in oil</a></p>
+    <p>LONDON, Oct 2 (Reuters) - Brazil's voters will choose from a field of presidential contenders on Sunday in a closely watched race that global markets are following.</p>
+    <p>The contest is one of several remaining races out of some 40 worldwide this year that could impact financial markets and currencies across emerging economies.</p>
+    <p>Analysts at <a href="/pro/cap">Capital Economics</a> said a market-friendly win could lift equities between 10% and 20% and pull local-currency bond yields lower over the quarter.</p>
+  </article></body></html>`;
+const rc = extractReadable(recirc, u("https://www.investing.com/news/economy/x"));
+check(rc.paragraphs.length === 3, `extract: drops the "Popular Searches" headline-link rows, keeps the 3 prose paragraphs (${rc.paragraphs.length})`);
+check(rc.paragraphs[0].startsWith("LONDON, Oct 2 (Reuters)"), "extract: the body starts at the real article lede, not the recirculation list");
+check(!rc.paragraphs.some((p) => /Nike falls 9%|Nonfarm payrolls loom|Dow and Nasdaq mostly flat/.test(p)), "extract: none of the related-headline links leak into the body");
+check(!rc.blocks.some((b) => /^Popular Searches/i.test(b.t)), "extract: the 'Popular Searches' widget heading is dropped (nav label)");
+check(rc.paragraphs.some((p) => /Capital Economics said a market-friendly win/.test(p)), "extract: a prose paragraph with an inline link is kept (not treated as a link row)");
+
+// 5b) The proxy (markdown) path drops a "Popular Searches" recirculation list — blocks
+//     that are only links — while keeping prose that merely carries an inline link.
+const recircMd = `## Popular Searches
+
+[Nike falls 9% as revenue miss, weak guidance signal more pain ahead](/news/n1)
+
+[Nonfarm payrolls loom large; bond market volatility - what's moving markets](/news/n2)
+
+LONDON, Oct 2 (Reuters) - Brazil's voters will choose from a field of presidential contenders on Sunday in a closely watched race that global markets are following.
+
+Analysts at [Capital Economics](/pro/cap) said a market-friendly win could lift equities between 10% and 20% and pull local-currency bond yields lower over the quarter.`;
+const rcp = proxyParagraphs(recircMd);
+check(rcp.length === 2, `proxy: drops the pure-link "Popular Searches" rows, keeps the 2 prose paragraphs (${rcp.length})`);
+check(!rcp.some((p) => /Nike falls 9%|Nonfarm payrolls loom/.test(p)), "proxy: related-headline links do not leak into the body");
+check(rcp[0].startsWith("LONDON, Oct 2 (Reuters)") && rcp.some((p) => /Capital Economics said/.test(p)), "proxy: keeps the lede and a prose paragraph that has an inline link");
+
 finish();
