@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
+    title: "Inflation and interest rates tracker: see how your country compares",
+    date: "2026-10-02",
+    time: "10:49",
+    url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
+  },
+  {
+    id: "6394fdc7-5fa5-4ec3-8bde-52633acd2b57",
+    title: "Eurozone inflation hits three-year high of 3.8%",
+    date: "2026-10-02",
+    time: "10:01",
+    url: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57",
+  },
+  {
+    id: "3f5483d1-31d7-4756-95a0-ce4a2c600519",
+    title: "Goldman Sachs bought Shein shares worth $220mn after dismal IPO",
+    date: "2026-10-02",
+    time: "09:32",
+    url: "https://www.ft.com/content/3f5483d1-31d7-4756-95a0-ce4a2c600519",
+  },
+  {
+    id: "62f754e7-aeee-4ab4-9a6f-d3def374b593",
+    title: "The Burnham tell",
+    date: "2026-10-02",
+    time: "09:30",
+    url: "https://www.ft.com/content/62f754e7-aeee-4ab4-9a6f-d3def374b593",
+  },
+  {
     id: "c7f6d036-abd4-4d8c-a6c8-6dad96cf9fae",
     title: "Shares in spreadbetter IG Group plunge 26%",
     date: "2026-10-02",
@@ -272,32 +300,5 @@ export const FT_ITEMS = [
     time: "18:25",
     url: "https://www.ft.com/content/a357ac2d-fead-4df2-a5cf-cf1aa94cf7a9",
   },
-  {
-    id: "e7c1da68-aed3-471d-911f-0b6086a327ec",
-    title: "France meets fiscal reality with a crunch",
-    date: "2026-10-01",
-    time: "18:05",
-    url: "https://www.ft.com/content/e7c1da68-aed3-471d-911f-0b6086a327ec",
-  },
-  {
-    id: "1206b356-e62b-4e18-9925-e8dd0a283fc4",
-    title: "Tories criticise Burnham over support for Manchester City owners",
-    date: "2026-10-01",
-    time: "16:40",
-    url: "https://www.ft.com/content/1206b356-e62b-4e18-9925-e8dd0a283fc4",
-  },
-  {
-    id: "4b87328c-17da-484d-a92a-0f3582f76f02",
-    title: "BT seeks government nod for potential TalkTalk takeover",
-    date: "2026-10-01",
-    time: "16:02",
-    url: "https://www.ft.com/content/4b87328c-17da-484d-a92a-0f3582f76f02",
-  },
-  {
-    id: "122e55bb-b0f9-4106-823d-ac2a435d96d9",
-    title: "Dealmakers line up to test EU’s appetite to create European champions",
-    date: "2026-10-01",
-    time: "15:49",
-    url: "https://www.ft.com/content/122e55bb-b0f9-4106-823d-ac2a435d96d9",
-  },
+
 ];

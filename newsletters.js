@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-stockstakehitfromrates-20261002",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: Stocks take hit from rates",
+    date: "2026-10-02",
+    time: "10:41",
+    summary: "Spike in interest rates is doing plenty of damage to stocks; France's crisis deepens.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-02/spike-in-interest-rates-is-doing-plenty-of-damage-to-stocks",
+  },
+  {
     id: "nl-nonbillable-weilexitsmount-20261002",
     publication: "Non-Billable",
     author: null,
