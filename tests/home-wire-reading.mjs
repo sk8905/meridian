@@ -185,6 +185,15 @@ await ctx.close();
   });
   check(seam.gap >= 0 && seam.gap <= 2, `phone: the reader butts flush under the wire tabs — no bleed seam (gap ${seam.gap}px)`);
   check(seam.hidden, "phone: the wire content is hidden behind the open reader");
+  // SCROLL-LOCK while reading (the iOS "header bug on scroll" fix): the document is
+  // frozen so the fixed header/search band/chips can't rubber-band out of sync with the
+  // reader's anchored top (which previously went stale on every URL-bar show/hide).
+  const lock = await pg2.evaluate(() => ({
+    cls: document.documentElement.classList.contains("home-reading"),
+    htmlOv: getComputedStyle(document.documentElement).overflowY,
+    bodyOv: getComputedStyle(document.body).overflowY,
+  }));
+  check(lock.cls && lock.htmlOv === "hidden" && lock.bodyOv === "hidden", `phone: reading locks the document scroll so the header can't desync (html.home-reading, overflow ${lock.htmlOv}/${lock.bodyOv})`);
   // A pull-down at the top of the reader must NOT rubber-band the page behind it (that
   // dragged the wire tabs into view through the top seam) — the scroll body contains it.
   const oc = await pg2.evaluate(() => getComputedStyle(document.getElementById("g-reader-body")).overscrollBehaviorY);
@@ -193,6 +202,7 @@ await ctx.close();
   await pg2.evaluate(() => document.querySelector('.g-wiretab[data-wire="chart"]').click());
   await pg2.waitForTimeout(150);
   check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: switching wire tabs closes the reader");
+  check(await pg2.evaluate(() => !document.documentElement.classList.contains("home-reading") && getComputedStyle(document.documentElement).overflowY !== "hidden"), "phone: closing the reader releases the document scroll-lock");
   // Re-open, then Back closes the reader, returning to the wire.
   await pg2.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
   await pg2.waitForTimeout(150);

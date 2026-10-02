@@ -1388,6 +1388,10 @@
          bottom = the nav's height (mtab 42 + 12 padding + safe-area). */
       html.home-brief, html.home-brief body{ height:100%; overflow:hidden; overscroll-behavior:none; }
       html.home-brief body{ padding-bottom:0 !important; }
+      /* Reader modal open (openMobileReader): lock the document exactly like the briefing,
+         so the fixed header / search band / wire chips can't rubber-band out of sync with
+         the CSS-anchored #g-reader overlay on iOS — the stale-pixel clip + gap bug. */
+      html.home-reading, html.home-reading body{ height:100%; overflow:hidden; overscroll-behavior:none; }
       .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
         position:fixed; left:0; right:0; z-index:6;
         top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));

@@ -2190,9 +2190,15 @@ function openMobileReader(it) {
   const ov = document.getElementById("g-reader"); if (!ov) return;
   const src = document.getElementById("g-reader-src"); if (src) src.textContent = it.src || "";
   ov.hidden = false;
-  // Anchor the reader's top to the wire tabs' ACTUAL rendered bottom, not a
-  // vars-based estimate — otherwise a few px of the feed bleed through the seam
-  // between the tab bar and the reader on some devices. Hide the feed behind it too.
+  // SCROLL-LOCK the document while the reader is open (html.home-reading, like the
+  // Briefing pane). This is the real fix for the iOS "header bug on scroll": previously
+  // the reader's top was measured once at open and then went STALE every time an iOS
+  // URL-bar show/hide shifted the sticky header/band/chips — the reader stayed pinned at
+  // the old pixel, clipping the search band and opening a gap. With the document locked,
+  // nothing behind the reader can scroll or rubber-band, so the layout can't shift after
+  // open. The top is still measured (the vars-calc fallback in CSS undercounts the real
+  // tab-bar bottom), but because the page is now frozen the measurement stays exact.
+  document.documentElement.classList.add("home-reading");
   const tabs = document.querySelector(".g-wiretabs");
   if (tabs) { const bt = Math.round(tabs.getBoundingClientRect().bottom); if (bt > 0) ov.style.top = bt + "px"; }
   const main = document.querySelector(".g-main"); if (main) main.classList.add("g-reading");
@@ -2202,6 +2208,7 @@ function openMobileReader(it) {
 }
 function closeMobileReader() {
   const ov = document.getElementById("g-reader"); if (ov) { ov.hidden = true; ov.style.top = ""; }
+  document.documentElement.classList.remove("home-reading");
   const main = document.querySelector(".g-main"); if (main) main.classList.remove("g-reading");
   _readSeq++;                                              // cancel any in-flight fetch
 }
