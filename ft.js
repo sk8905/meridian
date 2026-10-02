@@ -126,6 +126,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e",
   },
   {
+    id: "79bcc1f3-954a-4c62-96c6-989b1384b9f3",
+    title: "Pedro Sánchez loses vote on Spanish housing reform",
+    date: "2026-10-02",
+    time: "15:57",
+    url: "https://www.ft.com/content/79bcc1f3-954a-4c62-96c6-989b1384b9f3",
+  },
+  {
     id: "7f6ccd9a-5846-415d-9967-e1501fb7a6d6",
     title: "Gunvor rebrands in new attempt to distance itself from past Russia links",
     date: "2026-10-02",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "05:00",
     url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
-  },
-  {
-    id: "800a3c22-836f-4cb1-a4d1-f922d2d7e23a",
-    title: "Hungary’s new government goes after Viktor Orbán",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/800a3c22-836f-4cb1-a4d1-f922d2d7e23a",
   },
 ];
