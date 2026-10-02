@@ -53,10 +53,12 @@ extra deep-research pass on watchlisted names is skipped.
 > **Content scope (STRICT) — HOUSE_STYLE R4c.** The newswire carries ONLY: (1)
 > **G7** macro-economic news (US · UK · Canada · France · Germany · Italy · Japan +
 > euro area/ECB — non-G7 country macro is OUT, auto-dropped by `FEED_OFFTOPIC_GEO`);
-> (2) managers/hedge funds covered in the app, to-be-added, or **AUM $1–15bn**; (3)
-> law firms covered in the app or to-be-added; (4) anything the owner explicitly asks
-> for. When curating or adding a source/keyword, stay inside this universe — **when in
-> doubt, leave it out.**
+> (2) managers/hedge funds **covered in the app — ALL of them, any AUM**; a NEW one is
+> added on the routine's own initiative **only if its AUM is $1–15bn** (outside that
+> band needs an explicit request); (3) law firms **covered in the app — all of them**;
+> a new firm is added by Big-Law relevance (no AUM band); (4) anything the owner
+> explicitly asks for (can override the band). When curating or adding a source/keyword,
+> stay inside this universe — **when in doubt, leave it out.**
 
 The Home wire surfaces the three desks' curated content under the labels **CRD**
 (credit managers), **HDG** (hedge funds) and **LEX** (law firms). That content only
