@@ -519,7 +519,16 @@ notification badge red (`#ef4444`).
   pinned) and **above the live feed** — the `.g-feed-wrap` is `display:contents`
   there so the briefing sits between the pinned filter and the feed — and **defaults
   collapsed** (a slim bar saves stack height). **One section per desk:** the render
-  groups same-desk bullets under a single kicker (see R7/grounding). **Only the LATEST available version is
+  groups same-desk bullets under a single kicker (see R7/grounding). **One live-data
+  badge per desk section:** each canonical desk carries exactly ONE compact data card
+  pinning its lead instrument to a real, sourced number — **Macro → Brent, Equities →
+  S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip
+  (▲/▼ + absolute + % move for prices; bp/pp for the yield). The badge reads the **same
+  last-good `/api/markets` + `/api/rates` payloads** the rail panels use (no extra
+  request; it repaints when those land), and **stays empty rather than guessing** when
+  the instrument isn't cached yet (R7 — never fabricate). A non-canonical, owner-requested
+  desk carries no badge. `renderBriefBadges`/`_badgeCard` in `glance.js`; enforced by
+  `tests/home-brief-badges.mjs`. **Only the LATEST available version is
   shown — no slot selector**; the card picks the freshest brief by (date·time)
   stamp. Data: `BRIEFINGS` (tokenless / no-cache — regenerated on **each of the ~5
   daily refresh runs**, so a fresh brief appears with no code push), the shared

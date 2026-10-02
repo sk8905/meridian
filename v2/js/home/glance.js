@@ -390,7 +390,15 @@ function renderHomeBriefing() {
     // Drop any group whose combined body has no visible text so the briefing never
     // shows a textless desk.
     if (!_hasText(text)) return "";
-    return `<li class="g-hbrief-b">${desk ? `<span class="g-hbrief-bk">${esc(desk)}</span> ` : ""}<span class="g-hbrief-bt">${text}</span></li>`;
+    // One live data badge per desk section (R: "1 per section") — a compact card that
+    // pins the desk's headline instrument to a real, sourced number: Macro → Brent,
+    // Equities → S&P 500, Fixed income → US 10Y. The card is filled by renderBriefBadges()
+    // from the SAME last-good markets/rates cache the left-rail panels use (no extra
+    // request), and repainted when fresh data lands — so it never fabricates a value and
+    // simply stays empty for a desk whose instrument isn't in the cache yet.
+    const bk = _briefBadgeKey(desk);
+    const badge = bk ? `<span class="g-hbrief-badge" data-badge="${esc(bk)}"></span>` : "";
+    return `<li class="g-hbrief-b">${desk ? `<span class="g-hbrief-bk">${esc(desk)}</span> ` : ""}<span class="g-hbrief-bt">${text}</span>${badge}</li>`;
   }).filter(Boolean).join("");
   host.hidden = false;
   host.dataset.open = "true";
@@ -406,6 +414,73 @@ function renderHomeBriefing() {
     + `<ul class="g-hbrief-list">${bullets}</ul>`
     + `</div>`
     + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks.</div>`;
+  renderBriefBadges();
+}
+// Map a desk run-in heading to the one live instrument that leads it. Only the three
+// canonical desks carry a badge; anything else (an owner-requested one-off desk) is
+// left bare rather than mis-labelled.
+function _briefBadgeKey(desk) {
+  const d = String(desk || "").toLowerCase();
+  if (/equit|stock|share/.test(d)) return "equities";
+  if (/fixed|rate|bond|yield|credit/.test(d)) return "rates";
+  if (/macro|commod|econ|oil|dollar|fx|energy/.test(d)) return "macro";
+  return "";
+}
+// Fill each desk's badge placeholder from the last-good markets/rates cache. Called on
+// every briefing paint AND whenever the markets/rates panels land fresh data, so the
+// badge tracks the live number without the briefing itself re-fetching anything.
+function renderBriefBadges() {
+  const host = document.getElementById("g-hbrief");
+  if (!host) return;
+  const nodes = host.querySelectorAll(".g-hbrief-badge[data-badge]");
+  if (!nodes.length) return;
+  // Prefer the freshest in-memory rows the panels just rendered; fall back to the
+  // last-good cache for the very first paint (before any fetch has returned).
+  const mkts = (_mktRows && _mktRows.length) ? _mktRows : (((readCache("markets") || {}).markets) || []);
+  const rates = (_rateRows && _rateRows.length) ? _rateRows : (((readCache("rates") || {}).rates) || []);
+  nodes.forEach((n) => { n.innerHTML = _briefBadgeHtml(n.getAttribute("data-badge"), mkts, rates) || ""; });
+}
+function _briefBadgeHtml(key, mkts, rates) {
+  const findM = (lbl) => (mkts || []).find((x) => x && x.label === lbl);
+  const findR = (lbl) => (rates || []).find((x) => x && x.label === lbl);
+  let r, tick, kind;
+  if (key === "equities") { r = findM("S&P 500"); tick = "S&P 500"; kind = "index"; }
+  else if (key === "macro") { r = findM("Oil"); tick = "Brent"; kind = "usd"; }
+  else if (key === "rates") { r = findR("US 10Y"); tick = "US 10Y"; kind = "yield"; }
+  else return "";
+  if (!r || r.value == null) return "";   // no cached value yet — stay empty, never guess
+  return _badgeCard(tick, r, kind);
+}
+// The badge card itself: ticker, live value, and a direction-coloured change chip
+// (▲/▼ + absolute move + % move for prices; bp/pp for the yield). Mirrors the
+// market/rate tile formatting so the numbers read identically to the rail.
+function _badgeCard(tick, r, kind) {
+  const pct = (typeof r.changePct === "number" && isFinite(r.changePct)) ? r.changePct : null;
+  const chg = (typeof r.change === "number" && isFinite(r.change)) ? r.change : null;
+  const sign = chg != null ? chg : (pct != null ? pct : 0);
+  const dir = sign > 0 ? "up" : sign < 0 ? "down" : "flat";
+  const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "·";
+  let val, ctext = "";
+  if (kind === "yield") {
+    val = fmtRate(r.value, r.unit);
+    if (chg != null) ctext = r.unit === "bp"
+      ? `${chg > 0 ? "+" : ""}${Math.round(chg * 100)} bp`
+      : `${chg > 0 ? "+" : ""}${chg.toFixed(2)} pp`;
+  } else {
+    val = Number(r.value).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const parts = [];
+    if (chg != null) parts.push(`${chg > 0 ? "+" : ""}${(Math.abs(chg) >= 100 ? chg.toFixed(1) : chg.toFixed(2))}`);
+    if (pct != null) parts.push(`(${pct > 0 ? "+" : ""}${pct.toFixed(2)}%)`);
+    ctext = parts.join(" ");
+  }
+  const title = `${tick} ${val}${ctext ? " " + ctext : ""} — source: open data`;
+  const tag = r.href ? "a" : "span";
+  const attrs = r.href ? ` href="${esc(r.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  return `<${tag} class="g-hb-badge ${dir}"${attrs} title="${esc(title)}">`
+    + `<span class="g-hb-badge-k">${esc(tick)}</span>`
+    + `<span class="g-hb-badge-v">${esc(val)}</span>`
+    + `<span class="g-hb-badge-c">${arrow} ${esc(ctext || "·")}</span>`
+    + `</${tag}>`;
 }
 function initHomeBriefing() {
   // The briefing is always expanded now (its own Market Briefing pane on phones,
@@ -2593,7 +2668,7 @@ function renderRates(el, d) {
   el.innerHTML = rowsData.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y").map(ratesTile).join("");
   if (!_briefLeads.rates) setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
-  renderTicker(); renderMovers(); renderSpreads(); renderVolRisk(); renderYieldCurve();
+  renderTicker(); renderMovers(); renderSpreads(); renderVolRisk(); renderYieldCurve(); renderBriefBadges();
   return true;
 }
 function initRates() {
@@ -2873,7 +2948,7 @@ function renderMarketsBand(el, d) {
   _mktRows = rows;
   _mktExtra = d.moversExtra || [];
   _mktEtf = d.moversEtf || [];
-  renderTicker(); renderMovers(); renderVolRisk();
+  renderTicker(); renderMovers(); renderVolRisk(); renderBriefBadges();
   return true;
 }
 // FX daily matrix — USD/GBP/EUR/JPY cross rates derived from the three USD pairs

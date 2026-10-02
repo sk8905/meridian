@@ -1216,6 +1216,23 @@
     .tui .g-hbrief-bt{ display:inline; }
     .tui .g-hbrief-lede{ text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     .tui .g-hbrief-foot{ margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); }
+    /* Per-desk live data badge — ONE per section: a compact terminal card pinning the
+       desk's lead instrument (Macro → Brent, Equities → S&P 500, Fixed income → US 10Y)
+       to a real, sourced number. Flows after the desk prose; hides itself when the cache
+       hasn't yet delivered a value (the inner span is empty). */
+    .tui .g-hbrief-badge{ display:block; margin-top:6px; }
+    .tui .g-hbrief-badge:empty{ display:none; }
+    .tui .g-hb-badge{ display:inline-flex; align-items:baseline; gap:8px; padding:3px 9px;
+      border:1px solid var(--t-grid2); border-left:3px solid var(--muted); border-radius:0;
+      background:var(--t-head, #0a0a0a); font-family:var(--t-mono); text-decoration:none;
+      font-variant-numeric:tabular-nums; white-space:nowrap; max-width:100%; }
+    .tui .g-hb-badge.up{ border-left-color:var(--t-up); }
+    .tui .g-hb-badge.down{ border-left-color:var(--t-down); }
+    .tui .g-hb-badge-k{ font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.06em; color:var(--t-faint); font-weight:700; }
+    .tui .g-hb-badge-v{ font-size:var(--fs-body); font-weight:700; color:var(--t-ink); }
+    .tui .g-hb-badge-c{ padding:1px 6px; font-size:var(--fs-micro); font-weight:700; color:var(--muted); }
+    .tui .g-hb-badge.up .g-hb-badge-c{ background:color-mix(in srgb, var(--t-up) 18%, transparent); color:var(--t-up); }
+    .tui .g-hb-badge.down .g-hb-badge-c{ background:color-mix(in srgb, var(--t-down) 18%, transparent); color:var(--t-down); }
     /* DESKTOP briefing: lay the per-desk sections out as a responsive COLUMN GRID (one
        card per desk — Macro · Equities · Fixed income — up to three abreast where the
        quadrant is wide enough, gracefully stacking to 1–2 on narrower screens) under the
