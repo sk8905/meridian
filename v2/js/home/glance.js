@@ -2300,6 +2300,23 @@ function linkEntities(escHtml) {
     return href ? pre + `<a class="g-ent" href="${href}">${term}</a>` : full;
   });
 }
+// An embedded tweet, resolved server-side (X API) into a card and rendered inline in the
+// reading pane: author, the tweet text, its image/media if any, linking to the post. The
+// whole card is a link to the tweet on X.
+function _readEmbedHTML(c) {
+  if (!c || !c.url) return "";
+  const who = esc(c.name || ("@" + (c.handle || "")));
+  const hh = esc(c.handle || "");
+  const av = c.avatar ? `<img class="g-read-tw-av" src="${esc(c.avatar)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="g-read-tw-av"></span>`;
+  const txt = esc(c.text || "").replace(/\n/g, "<br>");
+  const media = (c.media && c.media[0]) ? `<img class="g-read-tw-media" src="${esc(c.media[0])}" alt="" loading="lazy" referrerpolicy="no-referrer">` : "";
+  return `<a class="g-read-tweet" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">`
+    + `<span class="g-read-tw-head">${av}<span class="g-read-tw-who">${who}</span>${hh ? `<span class="g-read-tw-h">@${hh}</span>` : ""}</span>`
+    + (txt ? `<span class="g-read-tw-txt">${txt}</span>` : "")
+    + media
+    + `<span class="g-read-tw-foot">View on X ↗</span>`
+    + `</a>`;
+}
 // Render a story into a reader container (the desktop side pane OR the mobile
 // overlay). Openly-readable sources fetch /api/read and print the terminal body;
 // subscriber sources (and curated/internal items) show a preview + link instead.
@@ -2334,6 +2351,7 @@ function _renderReaderInto(box, it, emptyMsg) {
         // their Wire profile); section headings stay plain (bold + underlined).
         const body = (Array.isArray(d.blocks) && d.blocks.length)
           ? d.blocks.map((b) => {
+              if (b && b.embed) return _readEmbedHTML(b.embed);
               if (b && b.img) return `<figure class="g-read-fig"><img class="g-read-img" src="${esc(b.img)}" alt="${esc(b.alt || "")}" loading="lazy" referrerpolicy="no-referrer">${b.alt ? `<figcaption class="g-read-cap">${esc(b.alt)}</figcaption>` : ""}</figure>`;
               if (b && b.h) return `<h3 class="g-read-h">${esc(b.t)}</h3>`;
               return `<p class="g-read-p">${linkEntities(esc((b && b.t != null) ? b.t : b))}</p>`;

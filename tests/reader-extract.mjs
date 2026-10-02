@@ -310,4 +310,44 @@ check(heroImgs[0] && heroImgs[0].img === "https://www.legalcheek.com/wp-content/
 check(hero.blocks[0] && hero.blocks[0].img, "og-lead: the hero image is placed first, before the body");
 check(hero.paragraphs.length === 2, `og-lead: the two body paragraphs still render (${hero.paragraphs.length})`);
 
+// 9) Relevance — an author HEADSHOT captioned "thumbnail" is chrome, not content, and is
+//    dropped (the figcaption is a bare generic alt).
+const thumbArt = `<!doctype html><html><head><meta property="og:title" content="A piece with an author thumbnail"></head><body><article>
+  <p>Opening paragraph long enough to clear the forty-character body minimum so the body is real and kept.</p>
+  <figure><img src="https://image.cnbcfm.com/api/v1/image/107000000-davis.jpg"><figcaption>thumbnail</figcaption></figure>
+  <p>A second paragraph also comfortably past the minimum length to be unambiguous body prose.</p>
+  </article></body></html>`;
+const th = extractReadable(thumbArt, u("https://www.cnbc.com/2026/10/02/story.html"));
+checkEq(th.blocks.filter((b) => b.img).length, 0, "relevance: an author headshot captioned 'thumbnail' is dropped (not article content)");
+
+// 10) Embedded tweet — DIRECT HTML. A <blockquote class="twitter-tweet"> carrying the
+//     status permalink becomes a {tweetId} placeholder (resolved to a card by the handler
+//     via the X API); its inner text is NOT duplicated as a paragraph.
+const tweetArt = `<!doctype html><html><head><meta property="og:title" content="A story that embeds a tweet"></head><body><article>
+  <p>Opening paragraph of the story, well past the forty-character minimum so it is kept as real body prose.</p>
+  <blockquote class="twitter-tweet"><p lang="en">Lawyers who didn't feature grabbed the popcorn across social media...</p>&mdash; Gareth Weetman KC (@Barrister7) <a href="https://twitter.com/Barrister7/status/1973500000000000001">October 1, 2026</a></blockquote>
+  <p>A closing paragraph, also comfortably past the minimum length to count as genuine body text.</p>
+  </article></body></html>`;
+const ta = extractReadable(tweetArt, u("https://www.legalcheek.com/2026/10/story/"));
+const taEmb = ta.blocks.filter((b) => b.tweetId);
+checkEq(taEmb.length, 1, `embed: a twitter-tweet blockquote emits one {tweetId} placeholder (${taEmb.length})`);
+checkEq((taEmb[0] || {}).tweetId, "1973500000000000001", "embed: the tweet's status id is captured from the permalink");
+check(!ta.paragraphs.some((p) => /grabbed the popcorn/.test(p)), "embed: the tweet's inner text is not duplicated as a paragraph");
+check(ta.blocks[0] && !ta.blocks[0].tweetId && ta.blocks[1] && ta.blocks[1].tweetId && ta.blocks[2] && !ta.blocks[2].tweetId, "embed: the placeholder sits in document order between the paragraphs");
+
+// 11) Embedded tweet — MARKDOWN proxy. A block carrying a twitter/x status URL becomes a
+//     {tweetId} placeholder and is not duplicated as prose.
+const tweetMd = `# Story
+
+Opening paragraph of the proxied story, comfortably past the forty-character minimum so it is kept.
+
+Lawyers who didn't feature grabbed the popcorn across social media... — Gareth Weetman KC (@Barrister7) [October 1, 2026](https://x.com/Barrister7/status/1973500000000000001)
+
+A closing paragraph of the proxied story, also well past the minimum length to count as body prose.`;
+const tmb = proxyBlocks(tweetMd, "https://www.legalcheek.com/2026/10/story/");
+const tmEmb = tmb.filter((b) => b.tweetId);
+checkEq(tmEmb.length, 1, `proxy-embed: a markdown block with a status URL emits one {tweetId} (${tmEmb.length})`);
+checkEq((tmEmb[0] || {}).tweetId, "1973500000000000001", "proxy-embed: the status id is captured from the URL");
+check(!proxyParagraphs(tweetMd).some((p) => /grabbed the popcorn/.test(p)), "proxy-embed: the tweet block is not duplicated as a paragraph");
+
 finish();

@@ -1803,7 +1803,7 @@ function _blockIsLinkOnly(inner) {
 // ABSOLUTE url against the article; a few common lazy-load attrs are honoured. Each
 // article is capped at READ_IMG_MAX so a gallery page can't bloat the payload.
 const READ_IMG_MAX = 8;
-const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag|wordmark|masthead|default[-_.])/i;
+const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag|wordmark|masthead|default[-_.]|thumbnail|thumb[-_/.]|headshot|byline|\/author|contributor|mugshot|\/profile|\/staff\/)/i;
 function _readImgOK(src) {
   if (!src || !/^https?:\/\//i.test(src)) return false;      // absolute http(s) only
   if (/\.svg(?:[?#]|$)/i.test(src)) return false;            // vector = icon/logo
@@ -1812,8 +1812,15 @@ function _readImgOK(src) {
 }
 // A bare wire/agency/brand name as the whole alt text marks a source WORDMARK or stock-
 // agency placeholder (e.g. ![Reuters](…), ![Getty Images](…)), not real content — skip it.
-const READ_IMG_ALT_SKIP = /^(?:reuters|bloomberg|associated press|\bap\b|afp|getty(?:\s*images)?|istock|shutterstock|adobe\s*stock|logo|advertisement|\bad\b|sponsored)$/i;
+const READ_IMG_ALT_SKIP = /^(?:reuters|bloomberg|associated press|\bap\b|afp|getty(?:\s*images)?|istock|shutterstock|adobe\s*stock|logo|advertisement|\bad\b|sponsored|thumbnail|thumb|image|photo|picture|untitled|file)$/i;
 function _readImgAltSkip(alt) { const a = String(alt || "").trim(); return !!a && READ_IMG_ALT_SKIP.test(a); }
+// Embedded tweets. The extractor emits a lightweight {tweetId} placeholder where an
+// article embeds a tweet (a <blockquote class="twitter-tweet"> with the status permalink,
+// or a markdown block carrying a twitter/x status URL); the async reader handler then
+// fetches those tweets via the X API and swaps in a full card ({embed}). Capped per
+// article.
+const READ_EMBED_MAX = 3;
+const READ_TWEET_URL = /(?:twitter\.com|x\.com)\/(?:[^/\s)"']+)\/status(?:es)?\/(\d{5,})/i;
 // Pull the best src (honouring data-src / data-lazy-src / srcset) + alt from an <img>'s
 // attribute string, resolve it against `base`, and return an image block or null.
 function _readImgFrom(attrs, base) {
@@ -1840,7 +1847,7 @@ function _stripLeadingJunk(blocks) {
   let i = 0;
   while (i < blocks.length) {
     const b = blocks[i];
-    if (b.img) break;                                         // a leading image is real content — keep
+    if (b.img || b.tweetId || b.embed) break;                 // a leading image / tweet embed is real content — keep
     const headlineLike = !b.h && b.t.length < 140 && !_ENDS_SENTENCE.test(b.t);
     const navHead = b.h && READ_NAV_LABEL.test(b.t);
     if (headlineLike || navHead) { i++; continue; }
@@ -1898,39 +1905,53 @@ export function extractReadable(html, u) {
   // `blocks` is the ORDERED sequence incl. section headings ({t, h:true}) and content
   // images ({img, alt}) so the reading pane can render headings bold and show images
   // inline. accessibility is judged on the body paras only (images don't count).
-  const paragraphs = blocks.filter((b) => !b.h && !b.img).map((b) => b.t);
+  const paragraphs = blocks.filter((b) => !b.h && !b.img && !b.tweetId && !b.embed).map((b) => b.t);
   return { url: u.toString(), source, title, byline, date, accessible: accessible && paragraphs.length >= 2, paragraphs, blocks };
 }
 // Ordered body blocks: <p> body paragraphs (min length, boilerplate dropped) AND section
 // headings <h2>-<h4> (short, sane), in document order, each {t, h}. A trailing dangling
 // heading (no body after it) is dropped so the pane never ends on a bare header.
 function _readBlocks(scope, base) {
-  const out = [], seen = new Set(), seenImg = new Set(); let total = 0, imgN = 0;
-  // Match body blocks (<p> / <h2>-<h4>), <figure> (its image + optional caption) and
-  // standalone <img>, in DOCUMENT ORDER, so images land where they appear in the story.
-  const re = /<figure\b[^>]*>([\s\S]*?)<\/figure>|<(p|h[2-4])\b[^>]*>([\s\S]*?)<\/\2>|<img\b([^>]*?)\/?>/gi; let m;
+  const out = [], seen = new Set(), seenImg = new Set(), seenTw = new Set(); let total = 0, imgN = 0, embedN = 0;
+  // Match embedded-tweet <blockquote>s, body blocks (<p> / <h2>-<h4>), <figure> (its image
+  // + optional caption) and standalone <img>, in DOCUMENT ORDER, so everything lands where
+  // it appears in the story.
+  const re = /<blockquote\b[^>]*>([\s\S]*?)<\/blockquote>|<figure\b[^>]*>([\s\S]*?)<\/figure>|<(p|h[2-4])\b[^>]*>([\s\S]*?)<\/\3>|<img\b([^>]*?)\/?>/gi; let m;
   const addImg = (attrs, inner) => {
     if (!base || imgN >= READ_IMG_MAX) return;
     const card = _readImgFrom(attrs, base);
     if (!card || seenImg.has(card.img)) return;
     if (inner != null) {                                         // a <figure> — prefer its caption as alt
       const cap = _readStrip((/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/i.exec(inner) || [])[1] || "");
+      if (cap && _readImgAltSkip(cap)) return;                   // a "thumbnail"/brand caption → chrome, not content
       if (cap && !READ_BOILER.test(cap)) card.alt = cap;
     }
     seenImg.add(card.img); out.push(card); imgN++;
   };
   while ((m = re.exec(scope)) && out.length < 90) {
-    if (m[1] !== undefined) {                                    // <figure>…</figure>
-      const im = /<img\b([^>]*?)\/?>/i.exec(m[1]);
-      if (im) addImg(im[1], m[1]);
+    if (m[1] !== undefined) {                                    // <blockquote>…</blockquote>
+      const tw = READ_TWEET_URL.exec(m[1]);
+      if (tw) {                                                  // an embedded tweet → placeholder
+        if (embedN < READ_EMBED_MAX && !seenTw.has(tw[1])) { seenTw.add(tw[1]); out.push({ tweetId: tw[1], t: "" }); embedN++; }
+        continue;
+      }
+      const qt = _readStrip(m[1]);                               // a plain pull-quote → keep its text
+      if (qt && qt.length >= 40 && !READ_BOILER.test(qt) && !READ_NAV_LABEL.test(qt)) {
+        const qk = "p:" + qt.slice(0, 80); if (!seen.has(qk)) { seen.add(qk); out.push({ t: qt, h: false }); total += qt.length; }
+      }
       continue;
     }
-    if (m[4] !== undefined) { addImg(m[4], null); continue; }    // standalone <img>
-    const isH = m[2][0].toLowerCase() === "h";
-    const t = _readStrip(m[3]);
+    if (m[2] !== undefined) {                                    // <figure>…</figure>
+      const im = /<img\b([^>]*?)\/?>/i.exec(m[2]);
+      if (im) addImg(im[1], m[2]);
+      continue;
+    }
+    if (m[5] !== undefined) { addImg(m[5], null); continue; }    // standalone <img>
+    const isH = m[3][0].toLowerCase() === "h";
+    const t = _readStrip(m[4]);
     if (!t || READ_BOILER.test(t)) continue;
     if (READ_NAV_LABEL.test(t)) continue;                        // nav/widget section label (any block)
-    if (!isH && _blockIsLinkOnly(m[3])) continue;                // a headline that only links out — not prose
+    if (!isH && _blockIsLinkOnly(m[4])) continue;                // a headline that only links out — not prose
     if (isH ? (t.length < 2 || t.length > 120) : (t.length < 40)) continue;
     const k = (isH ? "h:" : "p:") + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     if (total > 20000) break;
@@ -1963,7 +1984,7 @@ async function _readDirect(u, host) {
 // is shown separately, so it is skipped. A leading recirculation strip and a dangling
 // trailing heading are dropped, matching the direct extractor.
 export function proxyBlocks(md, base) {
-  const out = [], seen = new Set(), seenImg = new Set(); let imgN = 0;
+  const out = [], seen = new Set(), seenImg = new Set(), seenTw = new Set(); let imgN = 0, embedN = 0;
   const blocks = String(md || "")
     .replace(/```[\s\S]*?```/g, " ")                     // fenced code
     .split(/\n{2,}/);
@@ -1979,6 +2000,14 @@ export function proxyBlocks(md, base) {
       let url = im[2];
       if (base) { try { url = new URL(url, base).toString(); } catch { /* keep as-is */ } }
       if (_readImgOK(url) && !_readImgAltSkip(im[1]) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
+    }
+    // An embedded tweet: a block carrying a twitter/x status URL (the permalink the
+    // proxy keeps). Emit a {tweetId} placeholder and skip the block's text (the fetched
+    // card replaces it); detected BEFORE links are flattened so the URL is still present.
+    const tw = READ_TWEET_URL.exec(raw);
+    if (tw) {
+      if (embedN < READ_EMBED_MAX && !seenTw.has(tw[1])) { seenTw.add(tw[1]); out.push({ tweetId: tw[1], t: "" }); embedN++; }
+      continue;
     }
     raw = raw.replace(imgRe, " ").replace(/\s+/g, " ").trim();
     if (!raw) continue;
@@ -2013,7 +2042,7 @@ export function proxyBlocks(md, base) {
 }
 // Body-only paragraph strings (back-compat for callers + specs). The ordered `blocks`
 // (with headings) come from proxyBlocks.
-export function proxyParagraphs(md) { return proxyBlocks(md).filter((b) => !b.h && !b.img).map((b) => b.t); }
+export function proxyParagraphs(md) { return proxyBlocks(md).filter((b) => !b.h && !b.img && !b.tweetId && !b.embed).map((b) => b.t); }
 const _readCleanTitle = (t) => (t && String(t).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
 // Fallback path: render the article through a browser-based reader that returns the
 // PUBLIC page's text. Used only when the direct fetch was blocked or yielded no body
@@ -2043,7 +2072,7 @@ async function _readViaFirecrawl(u, host, env) {
     const md = d && (d.markdown || d.content || "");
     if (!md) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-empty" };
     const blks = proxyBlocks(md, u.toString());
-    const paras = blks.filter((x) => !x.h && !x.img).map((x) => x.t);
+    const paras = blks.filter((x) => !x.h && !x.img && !x.tweetId && !x.embed).map((x) => x.t);
     const meta = (d && d.metadata) || {};
     return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(meta.title || meta.ogTitle), byline: "", date: meta.publishedTime || meta.publishedDate || "", accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "firecrawl" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-failed" }; }
@@ -2062,7 +2091,7 @@ async function _readViaJina(u, host, env) {
     catch { if (/^\s*[^{[]/.test(raw) && raw.length > 200) content = raw; }
     if (!content) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-empty" };
     const blks = proxyBlocks(content, u.toString());
-    const paras = blks.filter((x) => !x.h && !x.img).map((x) => x.t);
+    const paras = blks.filter((x) => !x.h && !x.img && !x.tweetId && !x.embed).map((x) => x.t);
     return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(title), byline: "", date, accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "proxy" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-failed" }; }
 }
@@ -2079,8 +2108,8 @@ async function handleRead(request, env, ctx) {
   // Cache-key version — bump on any extractor change so the edge discards reader
   // responses rendered by the OLD extractor (else a junk/stale body is served for up to
   // an hour after deploy). v4: + nav-menu (bodyless-heading) drop. v5: + content images.
-  // v6: og:image lead fallback + wordmark/brand-alt image filtering.
-  const key = new Request("https://read.internal/v6/" + encodeURIComponent(u.toString()));
+  // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
+  const key = new Request("https://read.internal/v7/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
@@ -2092,6 +2121,9 @@ async function handleRead(request, env, ctx) {
     // shows what the proxy did, not just the original block.
     else data = { ...data, reason: [data.reason, viaProxy.reason].filter(Boolean).join("/") };
   }
+  // Resolve any embedded-tweet placeholders into full cards (X API) before caching, so the
+  // fetch happens once per article per hour, not on every reader open.
+  if (data && data.accessible) data = await _resolveReaderEmbeds(data, env);
   const resp = json(data);
   // Cache a real body for an hour (re-reads are instant off the edge — important since
   // a proxied render is slow); cache a miss only briefly so a transient block recovers.
@@ -4451,6 +4483,34 @@ async function fetchXApiUsers(handles, apiKey) {
     for (const t of tw) all.push(t);
   }));
   return all;
+}
+// twitterapi.io "Get Tweets by IDs" — fetch specific tweets (used to resolve article
+// tweet-embeds). Returns a map of { <tweetId>: card } for the ids that came back; a
+// normal (non-retweet) tweet's own id is its card id, so we key by that.
+async function fetchXApiTweets(ids, apiKey) {
+  const out = {};
+  if (!ids || !ids.length || !apiKey) return out;
+  const u = `https://api.twitterapi.io/twitter/tweets?tweet_ids=${encodeURIComponent(ids.join(","))}`;
+  let r; try { r = await fetch(u, { headers: { "X-API-Key": apiKey, accept: "application/json" } }); } catch { return out; }
+  if (!r || !r.ok) return out;
+  let d; try { d = await r.json(); } catch { return out; }
+  for (const card of xApiTweetsFromBody(d)) if (card && card.id) out[card.id] = card;
+  return out;
+}
+// Swap each {tweetId} placeholder the extractor emitted for an article's embedded tweet
+// into a full {embed: card} block, fetched via the X API. Placeholders whose tweet can't
+// be fetched (no key, deleted tweet, API error) are dropped so the pane never shows a
+// broken embed. Runs in the reader handler (async) — the pure extractor stays pure.
+async function _resolveReaderEmbeds(data, env) {
+  if (!data || !Array.isArray(data.blocks) || !data.blocks.some((b) => b && b.tweetId)) return data;
+  const ids = [...new Set(data.blocks.filter((b) => b && b.tweetId).map((b) => b.tweetId))].slice(0, READ_EMBED_MAX);
+  const apiKey = (env && (env.XAPI_KEY || env.XAPIS_KEY)) || "";
+  const cards = apiKey ? await fetchXApiTweets(ids, apiKey) : {};
+  const blocks = data.blocks.map((b) => {
+    if (b && b.tweetId) { const c = cards[b.tweetId]; return c ? { embed: c } : null; }
+    return b;
+  }).filter(Boolean);
+  return { ...data, blocks };
 }
 // Resolve a public X List's CURRENT members (their @handles) via twitterapi.io, so
 // adding/removing an account on the List auto-syncs the feed with no code change.

@@ -20,6 +20,7 @@ const READ = { source: "The Guardian", title: "Oil slips below $100 as Iran sign
   { t: "The oil move", h: true },
   { t: "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.", h: false },
   { img: "https://cdn.example.com/photos/hormuz-tankers.jpg", alt: "Tankers near the Strait of Hormuz" },
+  { embed: { handle: "Barrister7", name: "Gareth Weetman KC", avatar: "https://pbs.twimg.com/b.jpg", text: "Lawyers who didn't feature grabbed the popcorn across social media...", media: ["https://pbs.twimg.com/media/legal500.jpg"], url: "https://x.com/Barrister7/status/1973500000000000001", date: "Wed Oct 01 12:00:00 +0000 2026" } },
   { t: "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.", h: false },
   { t: ENTITY_PARA, h: false },
 ] };
@@ -122,6 +123,17 @@ if (freeSel) {
       headDecoration: h && getComputedStyle(h).textDecorationLine,
       ents: [...document.querySelectorAll("#g-readpane .g-read-p a.g-ent")].map((a) => ({ t: a.textContent, href: a.getAttribute("href"), weight: getComputedStyle(a).fontWeight, color: getComputedStyle(a).color })),
       pColor: p && getComputedStyle(p).color,
+      // An embedded tweet renders as a card: author, text, media, linking to the post.
+      tweet: (() => {
+        const tw = document.querySelector("#g-readpane .g-read-tweet"); if (!tw) return null;
+        return {
+          who: (tw.querySelector(".g-read-tw-who") || {}).textContent || "",
+          handle: (tw.querySelector(".g-read-tw-h") || {}).textContent || "",
+          txt: (tw.querySelector(".g-read-tw-txt") || {}).textContent || "",
+          media: !!tw.querySelector("img.g-read-tw-media"),
+          href: tw.getAttribute("href") || "",
+        };
+      })(),
       // A content image block renders as a <figure> with the <img> and its caption, in
       // document order (between the first and second paragraphs here).
       fig: (() => {
@@ -131,8 +143,8 @@ if (freeSel) {
         const kids = body ? [...body.children] : [];
         const figIdx = kids.indexOf(f);
         const prevIsP = figIdx > 0 && kids[figIdx - 1].classList.contains("g-read-p");
-        const nextIsP = figIdx >= 0 && kids[figIdx + 1] && kids[figIdx + 1].classList.contains("g-read-p");
-        return { src: img && img.getAttribute("src"), referrer: img && img.getAttribute("referrerpolicy"), lazy: img && img.getAttribute("loading"), cap: cap ? cap.textContent : "", ordered: prevIsP && nextIsP };
+        const hasNext = figIdx >= 0 && !!kids[figIdx + 1];
+        return { src: img && img.getAttribute("src"), referrer: img && img.getAttribute("referrerpolicy"), lazy: img && img.getAttribute("loading"), cap: cap ? cap.textContent : "", ordered: prevIsP && hasNext };
       })(),
     };
   });
@@ -147,6 +159,10 @@ if (freeSel) {
   check(!!full.fig && full.fig.cap === "Tankers near the Strait of Hormuz", `reading pane: the image caption renders (${full.fig && full.fig.cap})`);
   check(!!full.fig && full.fig.lazy === "lazy" && full.fig.referrer === "no-referrer", "reading pane: the image is lazy-loaded with no-referrer");
   check(!!full.fig && full.fig.ordered, "reading pane: the image sits in document order between the paragraphs");
+  // Embedded tweets render as a card (author · text · media · link to the post).
+  check(!!full.tweet && /Gareth Weetman KC/.test(full.tweet.who) && /@Barrister7/.test(full.tweet.handle), `reading pane: an embedded tweet renders as a card with its author (${full.tweet && full.tweet.who})`);
+  check(!!full.tweet && /grabbed the popcorn/.test(full.tweet.txt) && full.tweet.media, "reading pane: the embedded tweet shows its text and image");
+  check(!!full.tweet && /^https:\/\/x\.com\/Barrister7\/status\/\d+$/.test(full.tweet.href), `reading pane: the tweet card links to the post (${full.tweet && full.tweet.href})`);
   // Entity auto-linking: a tracked manager / hedge fund / law firm named in the body is
   // linked to its Wire profile (coloured + bold), and only in the reading pane.
   const entBy = (name) => full.ents.find((e) => e.t === name);

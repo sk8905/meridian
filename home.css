@@ -956,9 +956,19 @@
     /* Scale to the text column but CAP the height so a large photo never dominates the
        pane (especially the wide desktop reading pane); centre when narrower than the
        column. */
-    .g-read-img{ display:block; max-width:100%; max-height:320px; width:auto; height:auto; margin:0 auto;
+    .g-read-img{ display:block; max-width:100%; max-height:320px; width:auto; height:auto; margin:0;
       border:1px solid var(--t-grid); background:var(--t-panel2, var(--t-panel)); }
-    .g-read-cap{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); line-height:1.5; margin-top:5px; text-align:center; }
+    .g-read-cap{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); line-height:1.5; margin-top:5px; text-align:left; }
+    /* Embedded tweet, resolved to a card and shown inline (author · text · image · link). */
+    .g-read-tweet{ display:block; max-width:520px; margin:14px 0; padding:11px 13px; border:1px solid var(--t-grid2);
+      background:var(--t-panel2, var(--t-panel)); text-decoration:none; }
+    .g-read-tw-head{ display:flex; align-items:center; gap:7px; margin-bottom:6px; }
+    .g-read-tw-av{ width:30px; height:30px; border-radius:50%; flex:0 0 auto; background:var(--t-grid); object-fit:cover; }
+    .g-read-tw-who{ font-family:var(--t-mono); font-size:var(--fs-body); font-weight:700; color:var(--t-ink); }
+    .g-read-tw-h{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); }
+    .g-read-tw-txt{ display:block; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.55; color:var(--t-ink); white-space:normal; overflow-wrap:anywhere; }
+    .g-read-tw-media{ display:block; max-width:100%; max-height:300px; width:auto; height:auto; margin:9px 0 0; border:1px solid var(--t-grid); }
+    .g-read-tw-foot{ display:block; margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-link); }
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
