@@ -21,6 +21,48 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "fcbd4c0f-41cf-440a-b386-5e6c61395b71",
+    title: "Donald Quintin: ‘We’re entering a different market now’",
+    date: "2026-10-02",
+    time: "06:30",
+    url: "https://www.ft.com/content/fcbd4c0f-41cf-440a-b386-5e6c61395b71",
+  },
+  {
+    id: "13fa2121-bca2-4c0b-957d-b12b806fdf08",
+    title: "FTAV’s further reading",
+    date: "2026-10-02",
+    time: "06:30",
+    url: "https://www.ft.com/content/13fa2121-bca2-4c0b-957d-b12b806fdf08",
+  },
+  {
+    id: "4f2ad4c1-22b0-497b-88c8-197d7f301f79",
+    title: "Global bond market steadies after sharp sell-off",
+    date: "2026-10-02",
+    time: "06:09",
+    url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79",
+  },
+  {
+    id: "71a2ec5f-3f28-4462-af96-bab58c86a777",
+    title: "Pro-Russian parties jostle with Kyiv supporters in crowded Latvian election",
+    date: "2026-10-02",
+    time: "06:00",
+    url: "https://www.ft.com/content/71a2ec5f-3f28-4462-af96-bab58c86a777",
+  },
+  {
+    id: "56b239fb-3c85-4b8e-a274-d028d3b153a0",
+    title: "FirstFT: Putin has told military to abandon rules of war, Zelenskyy says",
+    date: "2026-10-02",
+    time: "05:31",
+    url: "https://www.ft.com/content/56b239fb-3c85-4b8e-a274-d028d3b153a0",
+  },
+  {
+    id: "83e9a7cb-95b4-48a8-9cdc-88d3fa8f03c0",
+    title: "Black voters rally against new electoral maps in the US South",
+    date: "2026-10-02",
+    time: "05:15",
+    url: "https://www.ft.com/content/83e9a7cb-95b4-48a8-9cdc-88d3fa8f03c0",
+  },
+  {
     id: "f776933e-3566-4171-a1e1-a8486dc88c83",
     title: "Meet Man City’s powerbroker",
     date: "2026-10-02",
@@ -257,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "15:00",
     url: "https://www.ft.com/content/716c3491-6547-4c81-bc42-87136aecdac0",
-  },
-  {
-    id: "e071ee77-2028-4f40-b7bf-fff19e51c47c",
-    title: "International Criminal Court cuts ties with Axa over US sanctions",
-    date: "2026-10-01",
-    time: "14:23",
-    url: "https://www.ft.com/content/e071ee77-2028-4f40-b7bf-fff19e51c47c",
-  },
-  {
-    id: "0234bcc7-386c-40b6-9f04-88aef3a1e24c",
-    title: "EU countries in crisis talks over release of diesel stocks",
-    date: "2026-10-01",
-    time: "14:20",
-    url: "https://www.ft.com/content/0234bcc7-386c-40b6-9f04-88aef3a1e24c",
-  },
-  {
-    id: "3a1fb601-9119-4eb6-bfc8-305e281cc7e4",
-    title: "Train driver accelerated through red signal before fatal crash",
-    date: "2026-10-01",
-    time: "14:05",
-    url: "https://www.ft.com/content/3a1fb601-9119-4eb6-bfc8-305e281cc7e4",
   },
 ];

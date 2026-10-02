@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-bondyieldsmultidecadehighs-20261002",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Bond yields hit multi-decade highs",
+    date: "2026-10-02",
+    time: "06:31",
+    summary: "Also: Britain\u2019s pubs drown their sorrows.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-soaringyieldseuropeweakspot-20261002",
     publication: "Bloomberg",
     author: "John Authers",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "11:28",
     summary: "Plus, an AI bear capitulates.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-29/a-big-fat-cushion-in-yields-lures-new-bond-bulls",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-openaiholdsmodel-20260929",
-    publication: "Bloomberg",
-    author: "Samson Ellis",
-    series: "Morning Briefing Europe",
-    title: "OpenAI Holds Version of AI Model",
-    date: "2026-09-29",
-    time: "07:58",
-    summary: "OpenAI holds back its latest model over security concerns, Goldman Sachs' heir apparent edges closer to succeeding Solomon, and India tackles fake obesity jabs.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-29/openai-holds-version-of-ai-model",
   },
 ];
