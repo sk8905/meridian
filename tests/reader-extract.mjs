@@ -244,17 +244,20 @@ check(!pbHeads.some((h) => /Austria's inflation climbs/.test(h)), "proxy: the h1
 //    `blocks` only, never in `paragraphs`.
 const imgArt = `<!doctype html><html><head>
   <meta property="og:title" content="A story with pictures">
+  <meta property="og:image" content="https://cdn.site.com/cards/social-card.jpg">
   </head><body><article>
   <p>This is the opening paragraph of the story, comfortably past the forty-character body minimum so it is kept.</p>
   <figure><img src="/media/barristers.jpg" alt="raw alt"><figcaption>Barristers outside the Royal Courts of Justice</figcaption></figure>
   <p>A second substantial paragraph that also clears the minimum length so the body is unambiguous and real.</p>
   <img src="https://cdn.site.com/assets/logo.svg" alt="site logo">
   <img src="https://cdn.site.com/icons/share-facebook.png" alt="share">
+  <img src="https://cdn.site.com/photos/wire-hero.jpg" alt="Reuters">
   <img src="https://cdn.site.com/photos/scene2.jpg?w=800" alt="A second scene">
   </article></body></html>`;
 const ia = extractReadable(imgArt, u("https://www.legalcheek.com/2026/10/story/"));
 const iaImgs = ia.blocks.filter((b) => b.img);
-checkEq(iaImgs.length, 2, `images: keeps the two content images, drops the logo/.svg + share icon + advert (${iaImgs.length})`);
+checkEq(iaImgs.length, 2, `images: keeps the two content images, drops the logo/.svg + share icon + a Reuters-wordmark alt (${iaImgs.length})`);
+check(!iaImgs.some((b) => /wire-hero|social-card/.test(b.img)), "images: a bare-brand-alt image is skipped AND no og:image lead is added when the body already has images");
 checkEq(iaImgs[0].img, "https://www.legalcheek.com/media/barristers.jpg", "images: a relative <figure> src is resolved to an absolute URL");
 checkEq(iaImgs[0].alt, "Barristers outside the Royal Courts of Justice", "images: the <figcaption> is used as the image caption/alt");
 checkEq(iaImgs[1].img, "https://cdn.site.com/photos/scene2.jpg?w=800", "images: a standalone content <img> is kept with its absolute URL");
@@ -275,14 +278,36 @@ A second real paragraph of the proxied story, also well past the minimum length 
 
 ![site logo](https://cdn.site.com/assets/logo.svg)
 ![promo](https://cdn.site.com/ads/advert-banner.png)
+![Reuters](https://cdn.site.com/photos/wire-wordmark.jpg)
 ![A chart of yields](https://cdn.site.com/photos/chart.png)`;
 const mb = proxyBlocks(imgMd, "https://www.legalcheek.com/2026/10/story/");
 const mbImgs = mb.filter((b) => b.img);
-checkEq(mbImgs.length, 2, `proxy-images: keeps the two content images, drops the logo/.svg + advert (${mbImgs.length})`);
+checkEq(mbImgs.length, 2, `proxy-images: keeps the two content images, drops the logo/.svg + advert + a Reuters-wordmark alt (${mbImgs.length})`);
+check(!mbImgs.some((b) => /wire-wordmark/.test(b.img)), "proxy-images: a bare-brand-alt markdown image is skipped");
 checkEq(mbImgs[0].img, "https://www.legalcheek.com/media/barristers.jpg", "proxy-images: a relative markdown image src resolves to an absolute URL");
 checkEq(mbImgs[0].alt, "Barristers outside court", "proxy-images: the markdown alt text is carried as the caption");
 checkEq(mbImgs[1].img, "https://cdn.site.com/photos/chart.png", "proxy-images: an absolute content image is kept");
 check(mb[0] && !mb[0].img && mb[1] && mb[1].img && mb[2] && !mb[2].img, "proxy-images: image order is preserved between the paragraphs");
 check(!proxyParagraphs(imgMd).some((p) => /jpg|svg|png/i.test(p)), "proxy-images: proxyParagraphs stays text-only (no image URLs)");
+
+// 8) og:image LEAD fallback — a WordPress-style page whose featured image sits OUTSIDE
+//    <article>, so the body scan finds no images. The page's og:image is then used as a
+//    single lead hero image (resolved absolute, filtered), placed FIRST. Body text is
+//    long enough that the extractor keeps the <article> scope (no whole-doc fallback that
+//    would otherwise grab the header image).
+const P1 = "The Court of Appeal handed down a lengthy judgment on Tuesday that lawyers said would reshape how commercial disputes over software licensing are argued, with the panel setting out a detailed framework for assessing damages where the alleged breach is technical in character rather than straightforwardly financial.";
+const P2 = "Barristers who acted in the case said the ruling clarified years of uncertainty, and that chambers across London were already circulating notes to clients on what the decision means for ongoing matters and for the careful drafting of future commercial technology agreements between large counterparties.";
+const heroArt = `<!doctype html><html><head>
+  <meta property="og:title" content="A ruling whose photo sits outside the article">
+  <meta property="og:image" content="/wp-content/uploads/2026/10/courts.jpg">
+  </head><body>
+  <header class="site-head"><img src="https://www.legalcheek.com/wp-content/uploads/2026/10/courts.jpg" alt="hero"></header>
+  <article><p>${P1}</p><p>${P2}</p></article></body></html>`;
+const hero = extractReadable(heroArt, u("https://www.legalcheek.com/2026/10/ruling/"));
+const heroImgs = hero.blocks.filter((b) => b.img);
+checkEq(heroImgs.length, 1, `og-lead: a featured image outside <article> is recovered from og:image (${heroImgs.length})`);
+check(heroImgs[0] && heroImgs[0].img === "https://www.legalcheek.com/wp-content/uploads/2026/10/courts.jpg", `og-lead: the og:image is resolved to an absolute URL (${heroImgs[0] && heroImgs[0].img})`);
+check(hero.blocks[0] && hero.blocks[0].img, "og-lead: the hero image is placed first, before the body");
+check(hero.paragraphs.length === 2, `og-lead: the two body paragraphs still render (${hero.paragraphs.length})`);
 
 finish();

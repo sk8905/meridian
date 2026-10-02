@@ -953,8 +953,12 @@
        sits in a figure with an optional caption; it scales to the text column and never
        overflows it. */
     .g-read-fig{ margin:14px 0; }
-    .g-read-img{ display:block; width:100%; max-width:100%; height:auto; border:1px solid var(--t-grid); background:var(--t-panel2, var(--t-panel)); }
-    .g-read-cap{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); line-height:1.5; margin-top:5px; }
+    /* Scale to the text column but CAP the height so a large photo never dominates the
+       pane (especially the wide desktop reading pane); centre when narrower than the
+       column. */
+    .g-read-img{ display:block; max-width:100%; max-height:320px; width:auto; height:auto; margin:0 auto;
+      border:1px solid var(--t-grid); background:var(--t-panel2, var(--t-panel)); }
+    .g-read-cap{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); line-height:1.5; margin-top:5px; text-align:center; }
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }

@@ -1803,13 +1803,17 @@ function _blockIsLinkOnly(inner) {
 // ABSOLUTE url against the article; a few common lazy-load attrs are honoured. Each
 // article is capped at READ_IMG_MAX so a gallery page can't bloat the payload.
 const READ_IMG_MAX = 8;
-const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag)/i;
+const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag|wordmark|masthead|default[-_.])/i;
 function _readImgOK(src) {
   if (!src || !/^https?:\/\//i.test(src)) return false;      // absolute http(s) only
   if (/\.svg(?:[?#]|$)/i.test(src)) return false;            // vector = icon/logo
   if (READ_IMG_SKIP.test(src)) return false;
   return true;
 }
+// A bare wire/agency/brand name as the whole alt text marks a source WORDMARK or stock-
+// agency placeholder (e.g. ![Reuters](…), ![Getty Images](…)), not real content — skip it.
+const READ_IMG_ALT_SKIP = /^(?:reuters|bloomberg|associated press|\bap\b|afp|getty(?:\s*images)?|istock|shutterstock|adobe\s*stock|logo|advertisement|\bad\b|sponsored)$/i;
+function _readImgAltSkip(alt) { const a = String(alt || "").trim(); return !!a && READ_IMG_ALT_SKIP.test(a); }
 // Pull the best src (honouring data-src / data-lazy-src / srcset) + alt from an <img>'s
 // attribute string, resolve it against `base`, and return an image block or null.
 function _readImgFrom(attrs, base) {
@@ -1820,6 +1824,7 @@ function _readImgFrom(attrs, base) {
   let url; try { url = new URL(s, base).toString(); } catch { return null; }
   if (!_readImgOK(url)) return null;
   const alt = g(/\balt\s*=\s*["']([^"']*)["']/i);
+  if (_readImgAltSkip(alt)) return null;                      // a bare source wordmark, not content
   return { img: url, alt: alt || "", t: "" };
 }
 // A body paragraph that ends in sentence punctuation (optionally wrapped by a closing
@@ -1878,6 +1883,17 @@ export function extractReadable(html, u) {
     if (_readBlocksLen(whole) > _readBlocksLen(blocks)) blocks = whole;
   }
   blocks = _dropBodylessHeadings(_stripLeadingJunk(blocks));   // drop a leading recirc strip + nav-menu headings
+  // Lead hero image: when the body yielded NO content images (e.g. a WordPress site whose
+  // featured image sits OUTSIDE <article>, so the block scan never saw it), fall back to
+  // the page's og:image / twitter:image as a single lead image. Filtered like any other
+  // (no logos/icons/trackers) and resolved to an absolute URL.
+  if (!blocks.some((b) => b.img)) {
+    const ogImg = _readMeta(html, ["og:image", "og:image:url", "twitter:image", "twitter:image:src"]);
+    if (ogImg) {
+      let abs; try { abs = new URL(ogImg, u).toString(); } catch { abs = ""; }
+      if (abs && _readImgOK(abs)) blocks = [{ img: abs, alt: "", t: "" }, ...blocks];
+    }
+  }
   // `paragraphs` stays the body-only TEXT string array (back-compat for callers + specs);
   // `blocks` is the ORDERED sequence incl. section headings ({t, h:true}) and content
   // images ({img, alt}) so the reading pane can render headings bold and show images
@@ -1962,7 +1978,7 @@ export function proxyBlocks(md, base) {
       if (imgN >= READ_IMG_MAX) break;
       let url = im[2];
       if (base) { try { url = new URL(url, base).toString(); } catch { /* keep as-is */ } }
-      if (_readImgOK(url) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
+      if (_readImgOK(url) && !_readImgAltSkip(im[1]) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
     }
     raw = raw.replace(imgRe, " ").replace(/\s+/g, " ").trim();
     if (!raw) continue;
@@ -2063,7 +2079,8 @@ async function handleRead(request, env, ctx) {
   // Cache-key version — bump on any extractor change so the edge discards reader
   // responses rendered by the OLD extractor (else a junk/stale body is served for up to
   // an hour after deploy). v4: + nav-menu (bodyless-heading) drop. v5: + content images.
-  const key = new Request("https://read.internal/v5/" + encodeURIComponent(u.toString()));
+  // v6: og:image lead fallback + wordmark/brand-alt image filtering.
+  const key = new Request("https://read.internal/v6/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
