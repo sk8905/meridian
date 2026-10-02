@@ -58,7 +58,7 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-02",
-      time: "14:25 BST",
+      time: "15:29 BST",
       lede: "A far weaker US jobs print has landed on top of a euro-area inflation surprise and a bond market only just steadying, leaving the Fed and ECB pulling in different directions.",
       bullets: [
         { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong>, the FT reports, as hiring slowed sharply &mdash; well short of consensus and bolstering the case for a Fed hold in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
@@ -68,6 +68,7 @@ export const BRIEFINGS = {
         { html: "<strong>Fixed income &mdash; French bond spreads over Bunds are nearing the 2011 euro-crisis record</strong>, Bloomberg's John Authers writes, with the 10-year OAT yield at 4.92%.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", srcName: "Bloomberg" },
         { html: "<strong>Fixed income &mdash; investors are seeking refuge from the bond rout in German Bunds</strong>, the FT reports, as the global sell-off continues.", src: "https://www.ft.com/content/93028839-5f0e-43c4-8ee7-44990115ea57", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; diesel fell sharply as the EU considers releasing 50mn barrels of reserves</strong> under pressure from President Trump, who has threatened to ban US exports of the fuel, the FT reports.", src: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; Wall Street rallied on the soft jobs print</strong>, with the S&amp;P 500 up 0.89%, the Nasdaq 1.35% and the Dow around 300 points as the weak September payrolls pared Fed rate-hike bets and pulled Treasury yields back from multi-decade highs; Europe's Euro Stoxx 50 added 1.12% to 6,246 on tech strength, Yahoo Finance reports.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance" },
       ],
     },
     evening: {
