@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d2f01dd2-2fde-4d3b-aff0-f82aa9e05296",
+    title: "Italy and Greece seek leeway on EU fiscal rules",
+    date: "2026-10-02",
+    time: "15:07",
+    url: "https://www.ft.com/content/d2f01dd2-2fde-4d3b-aff0-f82aa9e05296",
+  },
+  {
+    id: "906051fc-c116-4803-b395-2d56d1bcbf28",
+    title: "Weak US payrolls  likely to keep rate setters on the sidelines in October",
+    date: "2026-10-02",
+    time: "15:01",
+    url: "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28",
+  },
+  {
+    id: "78ed6ae8-1948-4259-be3e-0b3fe4af3663",
+    title: "Tesla deliveries fall 2% as US consumers buy fewer electric vehicles",
+    date: "2026-10-02",
+    time: "14:23",
+    url: "https://www.ft.com/content/78ed6ae8-1948-4259-be3e-0b3fe4af3663",
+  },
+  {
     id: "db7af59f-d434-498c-a460-4f7ed2fa6abd",
     title: "Obama’s red herring",
     date: "2026-10-02",
@@ -278,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "05:00",
     url: "https://www.ft.com/content/800a3c22-836f-4cb1-a4d1-f922d2d7e23a",
-  },
-  {
-    id: "232eac57-80af-4b06-ac48-7346c3df669d",
-    title: "UK ministers resist union demands to rescue Scottish steelmaker",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d",
   },
 ];
