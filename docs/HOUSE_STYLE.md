@@ -137,6 +137,14 @@ notification badge red (`#ef4444`).
 
   `--t-hdg` (`#4aa3f0` dark / `#1f6fd0` light) is a named token (promoted from
   the old raw hex).
+  **Reading-pane entity links.** In the in-app reader body ONLY (never the wire
+  feed), a named tracked entity — manager, hedge fund or law firm — is linked to
+  its Wire profile (`/v2/profiles/#/manager|hf|firm/<id>`), rendered **bold + the
+  blue `--t-link` token** (`#5aa6f2` dark / `#1f63c9` light; `.g-ent`). This is a
+  distinct role from the orange accent link (`--t-accent`, used for CTAs / "Open
+  original"). The index is built in `glance.js` (`linkEntities`) from the Home
+  slice rosters (`managers`, `hedgeFunds`, `firmById`); full names link, plus a
+  distinctive de-suffixed alias, with ambiguous terms disabled.
   **Every wire row carries a label**; anything not clearly classifiable is `NEWS`
   in the neutral domain. The label engine (`feed.js`) resolves colour from the
   item's `dom` (domain) and text from its `desk` (type) — see its "Desk

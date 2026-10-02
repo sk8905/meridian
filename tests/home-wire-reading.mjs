@@ -4,13 +4,20 @@
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 // Stub the reader service: any openly-readable URL returns an extracted body.
+// The entity paragraph names a tracked hedge fund, manager and law firm — the reading
+// pane must link each to its Wire profile (coloured + bold .g-ent). Names chosen to
+// resolve uniquely in the Home roster (home-data.js): Citadel→hf/h4, Bridgewater
+// Associates→hf/h1, Bridgepoint Credit→manager/m1, Proskauer Rose→firm/proskauerrose.
+const ENTITY_PARA = "The deal drew bids from Citadel and Bridgewater Associates, while Bridgepoint Credit led the unitranche and Proskauer Rose advised on the terms.";
 const READ = { source: "The Guardian", title: "Oil slips below $100 as Iran signals a Hormuz offer", byline: "Jane Smith", date: "2026-09-22T16:28:00Z", accessible: true, paragraphs: [
   "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.",
   "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.",
+  ENTITY_PARA,
 ], blocks: [
   { t: "The oil move", h: true },
   { t: "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.", h: false },
   { t: "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.", h: false },
+  { t: ENTITY_PARA, h: false },
 ] };
 const srv = await serve({ "/api/read": () => [200, JSON.stringify(READ)] });
 const b = await launchChromium();
@@ -109,6 +116,8 @@ if (freeSel) {
       headText: (h || {}).textContent || "",
       headWeight: h && getComputedStyle(h).fontWeight,
       headDecoration: h && getComputedStyle(h).textDecorationLine,
+      ents: [...document.querySelectorAll("#g-readpane .g-read-p a.g-ent")].map((a) => ({ t: a.textContent, href: a.getAttribute("href"), weight: getComputedStyle(a).fontWeight, color: getComputedStyle(a).color })),
+      pColor: p && getComputedStyle(p).color,
     };
   });
   check(full.paras >= 2 && full.byline && full.free, `reading pane: an openly-readable source prints the extracted body in-pane (${full.paras} paragraphs)`);
@@ -116,6 +125,16 @@ if (freeSel) {
   // Section headings from `blocks` render in BOLD + UNDERLINED (.g-read-h) for easier reading.
   check(full.headText === "The oil move" && +full.headWeight >= 700, `reading pane: a section heading renders in bold (.g-read-h "${full.headText}" @ ${full.headWeight})`);
   check(/underline/.test(full.headDecoration || ""), `reading pane: a section heading is underlined (${full.headDecoration})`);
+  // Entity auto-linking: a tracked manager / hedge fund / law firm named in the body is
+  // linked to its Wire profile (coloured + bold), and only in the reading pane.
+  const entBy = (name) => full.ents.find((e) => e.t === name);
+  check(!!entBy("Citadel") && /\/v2\/profiles\/#\/hf\/h4$/.test((entBy("Citadel") || {}).href || ""), `reading pane: a hedge fund mention links to its profile (Citadel → ${(entBy("Citadel") || {}).href})`);
+  check(!!entBy("Bridgewater Associates") && /\/hf\/h1$/.test((entBy("Bridgewater Associates") || {}).href || ""), "reading pane: a multi-word hedge fund name links to its profile (Bridgewater Associates → hf/h1)");
+  check(!!entBy("Bridgepoint Credit") && /\/manager\/m1$/.test((entBy("Bridgepoint Credit") || {}).href || ""), `reading pane: a manager mention links to its profile (Bridgepoint Credit → ${(entBy("Bridgepoint Credit") || {}).href})`);
+  check(!!entBy("Proskauer Rose") && /\/firm\/proskauerrose$/.test((entBy("Proskauer Rose") || {}).href || ""), `reading pane: a law firm mention links to its profile (Proskauer Rose → ${(entBy("Proskauer Rose") || {}).href})`);
+  check((entBy("Citadel") || {}).weight >= 700 && (entBy("Citadel") || {}).color && (entBy("Citadel") || {}).color !== full.pColor, `reading pane: entity links are bold + coloured (not the body ink) (${(entBy("Citadel") || {}).color} vs ${full.pColor})`);
+  // Entity linking is READING-PANE ONLY — the wire feed itself never gets .g-ent links.
+  check(await pg.evaluate(() => document.querySelectorAll("#g-feed .g-ent").length === 0), "wire feed: no entity auto-links (reading pane only)");
   // The body prose is JUSTIFIED and set at the SAME size as the rest of the app's
   // reading text (the wire feed titles) — not a larger outlier. It's also lightly
   // tracking-compressed so justified prose doesn't open ragged rivers.

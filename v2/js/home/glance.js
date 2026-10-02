@@ -33,7 +33,7 @@ const on = (t, ty, fn, o) => t.addEventListener(ty, (e) => { if (__ROOT.dataset.
 // pre-load Home paints the live wire + chart and the curated desk items fill in a
 // few hundred ms later. loadDeskData also records the "wire:desk" performance
 // measure that vitals.js beacons — the number proving this win on real devices.
-let deals = [], intel = [], managers = [], funds = [], research = [], HEDGE_INTEL = [];
+let deals = [], intel = [], managers = [], funds = [], research = [], HEDGE_INTEL = [], hedgeFunds = [];
 let LAST_CHECKED = null, LAST_CHECKED_TIME = null;
 let items = [], cases = [], restructurings = [], firmById = {};
 let NEWS = {}, ARTICLES = {}, COMMENTARY = {}, CYCLE = {}, BUBBLE = {}, OUTLOOK = {}, EARNINGS = {};
@@ -45,8 +45,9 @@ function loadDeskData() {
   // (~1.5 MB gz) — see scripts/gen-home-data.mjs. manager-signals reads the same
   // /home-data.js (browser-deduped to a single fetch).
   _deskData = Promise.all([import("/home-data.js"), loadManagerData()]).then(([d]) => {
-    ({ deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } = d);
+    ({ deals, intel, managers, funds, research, HEDGE_INTEL, hedgeFunds, LAST_CHECKED, LAST_CHECKED_TIME } = d);
     ({ items, cases, restructurings, firmById } = d);
+    _entRe = _entMap = null;                               // rebuild the reader entity index from the loaded rosters
     ({ NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } = d);
     try { performance.measure("wire:desk", "wire:desk:start"); } catch { /* no perf API */ }
   }).catch(() => { _deskData = null; /* allow a retry on the next trigger */ });
@@ -2121,6 +2122,61 @@ function _readShell(it, access, bodyHTML) {
     + `<div class="g-read-meta">${meta}${meta && access ? " · " : ""}${access || ""}</div>`
     + bodyHTML + _readOpen(it) + `</article>`;
 }
+// ---- Reading-pane entity auto-linking --------------------------------------
+// Where a tracked entity (manager, hedge fund, law firm) is NAMED in the article
+// body, link the mention to its Wire profile — coloured + bold via .g-ent. READING
+// PANE ONLY (never the wire feed). Built once from the loaded rosters; rebuilt when
+// loadDeskData refreshes them (it nulls _entRe/_entMap).
+let _entRe = null, _entMap = null;
+// Generic words that must never become a standalone entity link (they appear as the
+// remainder after stripping an org suffix, or inside many names).
+const _ENT_STOP = new Set(["group", "capital", "partners", "management", "associates", "advisors", "advisers", "investments", "holdings", "global", "asset", "fund", "funds", "credit", "markets", "securities", "investment", "the", "and", "its", "new", "york", "london"]);
+// Trim a trailing generic org suffix → a shorter but still-distinctive alias (so
+// "Bridgewater Associates" also links a bare "Bridgewater"). Only kept when ≥5 chars
+// and not itself a generic word.
+function _entAlias(name) {
+  const short = String(name).replace(/\s+(Investment Management|Asset Management|Capital Management|Global Management|Management|Associates|Advisers|Advisors|Partners|Capital|Credit|Investments|Holdings|Group|LLP|LLC|Inc\.?|Ltd\.?|plc)\.?$/i, "").trim();
+  return (short && short !== name && short.length >= 5 && !_ENT_STOP.has(short.toLowerCase())) ? short : null;
+}
+function _buildEntIndex() {
+  const byTerm = new Map();   // lowercased RAW term → href, or null when ambiguous (→ disabled)
+  const add = (name, href) => {
+    if (!name || !href) return;
+    for (const term of [name, _entAlias(name)]) {
+      if (!term || term.length < 4) continue;
+      const k = term.toLowerCase();
+      if (_ENT_STOP.has(k)) continue;
+      if (byTerm.has(k)) { if (byTerm.get(k) !== href) byTerm.set(k, null); continue; }   // two entities, same term → drop
+      byTerm.set(k, href);
+    }
+  };
+  for (const m of (managers || [])) add(m.name, `/v2/profiles/#/manager/${encodeURIComponent(m.id)}`);
+  for (const h of (hedgeFunds || [])) add(h.name, `/v2/profiles/#/hf/${encodeURIComponent(h.id)}`);
+  for (const id of Object.keys(firmById || {})) add((firmById[id] || {}).name, `/v2/profiles/#/firm/${encodeURIComponent(id)}`);
+  // The body text is ESCAPED before linking, so key the lookup + build the alternation
+  // from the escaped form (a firm's "&" is "&amp;" in both). Longest first so the
+  // longest name wins at any position.
+  _entMap = new Map();
+  const escTerms = [];
+  for (const [kraw, href] of byTerm) {
+    if (!href) continue;
+    const e = esc(kraw);
+    _entMap.set(e.toLowerCase(), href);
+    escTerms.push(e);
+  }
+  escTerms.sort((a, b) => b.length - a.length);
+  const alt = escTerms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+  _entRe = escTerms.length ? new RegExp("(^|[^A-Za-z0-9&])(" + alt + ")(?![A-Za-z0-9])", "gi") : null;
+}
+// Linkify entity mentions in an already-ESCAPED block of body text.
+function linkEntities(escHtml) {
+  if (_entRe === null && _entMap === null) { try { _buildEntIndex(); } catch { _entMap = new Map(); _entRe = null; } }
+  if (!_entRe) return escHtml;
+  return String(escHtml).replace(_entRe, (full, pre, term) => {
+    const href = _entMap.get(term.toLowerCase());
+    return href ? pre + `<a class="g-ent" href="${href}">${term}</a>` : full;
+  });
+}
 // Render a story into a reader container (the desktop side pane OR the mobile
 // overlay). Openly-readable sources fetch /api/read and print the terminal body;
 // subscriber sources (and curated/internal items) show a preview + link instead.
@@ -2151,9 +2207,11 @@ function _renderReaderInto(box, it, emptyMsg) {
         // Prefer the ordered `blocks` (body paragraphs + section headings) so headings
         // render in BOLD for easier reading; fall back to the plain `paragraphs` strings
         // (older cached responses / the proxy path carry no blocks).
+        // Body paragraphs get entity auto-linking (managers / hedge funds / law firms →
+        // their Wire profile); section headings stay plain (bold + underlined).
         const body = (Array.isArray(d.blocks) && d.blocks.length)
-          ? d.blocks.map((b) => (b && b.h) ? `<h3 class="g-read-h">${esc(b.t)}</h3>` : `<p class="g-read-p">${esc((b && b.t != null) ? b.t : b)}</p>`).join("")
-          : d.paragraphs.map((p) => `<p class="g-read-p">${esc(p)}</p>`).join("");
+          ? d.blocks.map((b) => (b && b.h) ? `<h3 class="g-read-h">${esc(b.t)}</h3>` : `<p class="g-read-p">${linkEntities(esc((b && b.t != null) ? b.t : b))}</p>`).join("")
+          : d.paragraphs.map((p) => `<p class="g-read-p">${linkEntities(esc(p))}</p>`).join("");
         box.innerHTML = _readShell({ ...it, title: d.title || it.title }, `<span class="g-read-free">● reading mode</span>`,
           (bl ? `<div class="g-read-byline">${bl}</div>` : "") + body);
       } else {
