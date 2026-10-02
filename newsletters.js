@@ -484,15 +484,4 @@ export const NEWSLETTERS = [
     summary: "SWFs target private markets to capture AI opportunities as public markets narrow.",
     url: "https://go.preqin.com/webmail/909852/2187983998/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
   },
-  {
-    id: "nl-bbg-marketsdaily-bigfatcushion-20260929",
-    publication: "Bloomberg",
-    author: null,
-    series: "Markets Daily",
-    title: "Markets Daily: ‘A big fat cushion’ on bonds",
-    date: "2026-09-29",
-    time: "11:28",
-    summary: "Plus, an AI bear capitulates.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-29/a-big-fat-cushion-in-yields-lures-new-bond-bulls",
-  },
 ];

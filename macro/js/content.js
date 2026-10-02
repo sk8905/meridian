@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-02",
-  lastCheckedTime: "00:15 BST",
+  lastCheckedTime: "08:30 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,8 +1006,8 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-02",
   us: [
+    { title: "Global bond market steadies after sharp sell-off", source: "Financial Times", date: "2026-10-02", time: "06:09", url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79" },
     { title: "Quant hedge funds reap big gains from global bond sell-off", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f" },
-    { title: "Trump’s diesel threats could go very wrong — just look at the soyabean", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/3ae16f02-bb00-46a4-abba-6bfea7f2b1ac" },
     { title: "US refiners reap windfall profits as wars push up fuel prices for consumers", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848" },
     { title: "Top Fed official signals central bank will keep rates on hold in October", source: "Financial Times", date: "2026-10-01", time: "18:52", url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f" },
     { title: "US factory activity expansion steady as input prices jump", source: "Reuters", date: "2026-10-01", time: "22:15", url: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/" },
@@ -1031,6 +1031,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-02",
   items: [
+    {"title": "Global bond market steadies after sharp sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "06:09", "url": "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", "blurb": "Sovereign bond markets stabilise after a sharp sell-off that pushed yields to multi-decade highs."},
     {"title": "Soaring yields find Europe’s weak spot", "source": "Bloomberg", "date": "2026-10-02", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", "blurb": "John Authers: French bonds are tipping toward a full-blown crisis as the Treasury sell-off exposes the euro zone's weak spot.", "author": "John Authers"},
     {"title": "Quant hedge funds reap big gains from global bond sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", "blurb": "Systematic funds profit from the global rout in sovereign bonds."},
     {"title": "US refiners reap windfall profits as wars push up fuel prices for consumers", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848", "blurb": "Higher fuel prices tied to the conflicts are boosting refining margins."},
