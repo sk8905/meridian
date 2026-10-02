@@ -1216,6 +1216,18 @@
     .tui .g-hbrief-bt{ display:inline; }
     .tui .g-hbrief-lede{ text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     .tui .g-hbrief-foot{ margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); }
+    /* DESKTOP briefing: lay the per-desk sections out as a responsive COLUMN GRID (one
+       card per desk — Macro · Equities · Fixed income — up to three abreast where the
+       quadrant is wide enough, gracefully stacking to 1–2 on narrower screens) under the
+       full-width Overview lede, with each desk name as a small uppercase block header over
+       its prose (not the space-saving run-in used on the narrow phone pane). */
+    @media (min-width:1201px){
+      .tui .g-hbrief-list{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:11px 16px;
+        margin-top:10px; padding-top:10px; border-top:1px solid var(--t-grid); align-items:start; }
+      .tui .g-hbrief-b{ padding:0; border-top:none; text-align:left; -webkit-hyphens:none; hyphens:none; }
+      .tui .g-hbrief-bk{ display:block; text-transform:uppercase; font-size:var(--fs-micro); letter-spacing:.06em; margin-bottom:4px; }
+      .tui .g-hbrief-bt{ display:block; text-align:justify; letter-spacing:-.1px; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
+    }
     /* Numbers read as plain body text here (as in the header briefing panel), while
        the orange desk kicker (.nb-topic) is kept. */
     .tui .g-hbrief .nb-num{ color:inherit; }
