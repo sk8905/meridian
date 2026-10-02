@@ -57,7 +57,7 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-02",
-      time: "15:29 BST",
+      time: "16:15 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong>, the FT reports, as hiring slowed sharply &mdash; well short of consensus and bolstering the case for a Fed hold in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; eurozone inflation hit a three-year high of 3.8% in September</strong>, the FT reports, above expectations, with analysts saying a December ECB move remains the base case after two consecutive rate rises.", src: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", srcName: "Financial Times" },
