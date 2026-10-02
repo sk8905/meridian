@@ -1440,6 +1440,16 @@
          the search-band clip and (when the document was overflow-locked) the gap. The "‹
          Wire" back button returns to the wire where the tabs are live again. */
       html.home-reading .wire-band, html.home-reading .g-wiretabs{ display:none !important; }
+      /* Briefing pane: there is nothing to search while reading the brief, so the
+         search band is hidden here. With the band gone, pin the wire tabs DIRECTLY
+         under the header and the pane directly under the tabs — otherwise the band's
+         reserved offset (--wire-band-h) left a dead gap below the header and the tabs
+         rendered overlapping where the band had been (the clipped-label symptom on
+         iOS). The `html.home-brief` hook mirrors `html.home-reading` above. */
+      html.home-brief .wire-band{ display:none !important; }
+      html.home-brief .tui .g-wiretabs{ top:var(--wire-head-h, 57px); }
+      html.home-brief .tui .g-layout.wire-brief .g-hbrief{
+        top:calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); }
       .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
         position:fixed; left:0; right:0; z-index:6;
         top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));
