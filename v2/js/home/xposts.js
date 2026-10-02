@@ -19,7 +19,6 @@ export const X_LIST = {
 // wire renders the List, not this array — membership is managed on X.
 export const X_ACCOUNTS = [
   { handle: "elerianm",       name: "Mohamed A. El-Erian", note: "Economist · Allianz / Queens' College" },
-  { handle: "negligible_cap", name: "Negligible Capital",  note: "Long/short equity commentary" },
   { handle: "LeylaKuni",      name: "Leyla Kunimoto",      note: "Private markets, from the LP seat" },
   { handle: "lcdnews",        name: "LCD News",            note: "Leveraged loans & private credit · PitchBook" },
   { handle: "michaeljburry",  name: "Michael Burry",       note: "Scion Asset Management" },
