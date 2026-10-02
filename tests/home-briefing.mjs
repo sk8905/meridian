@@ -171,12 +171,10 @@ const b = await launchChromium();
   check(restate.ok, `desktop: the lede does not restate a bullet verbatim${restate.hit ? ` (found "${restate.hit}")` : ""}`);
 
   // The WHOLE summary scrolls as one region (the lede scrolls WITH the bullets — it is
-  // not pinned); only the header + the source-credit foot stay put. The foot is indented
-  // to the text column and butts onto the summary with no dead-space gap above it.
+  // not pinned) beneath the stuck header; there is NO footer note.
   const deskScroll = await pg.evaluate(() => {
     const hb = document.getElementById("g-hbrief");
-    const body = hb.querySelector(".g-hbrief-body"), list = hb.querySelector(".g-hbrief-list"), foot = hb.querySelector(".g-hbrief-foot");
-    const cs = getComputedStyle(foot);
+    const body = hb.querySelector(".g-hbrief-body"), list = hb.querySelector(".g-hbrief-list");
     const ledeTop0 = hb.querySelector(".g-hbrief-lede").getBoundingClientRect().top;
     body.scrollTop = 80;
     const ledeTop1 = hb.querySelector(".g-hbrief-lede").getBoundingClientRect().top;
@@ -185,14 +183,14 @@ const b = await launchChromium();
       listOverflow: getComputedStyle(list).overflowY,
       canScroll: body.scrollHeight > body.clientHeight,
       ledeMoved: ledeTop1 !== ledeTop0,
-      footPadLeft: parseFloat(cs.paddingLeft), footMarginTop: parseFloat(cs.marginTop),
-      footAtBottom: Math.round(hb.getBoundingClientRect().bottom - foot.getBoundingClientRect().bottom),
+      noFoot: !hb.querySelector(".g-hbrief-foot"),
+      bodyAtBottom: Math.round(hb.getBoundingClientRect().bottom - body.getBoundingClientRect().bottom),
     };
   });
   check(deskScroll.bodyScrolls && deskScroll.listOverflow !== "auto" && deskScroll.listOverflow !== "scroll", `desktop: the whole summary scrolls as one region (the bullet list has no separate scroll — list overflow ${deskScroll.listOverflow})`);
   if (deskScroll.canScroll) check(deskScroll.ledeMoved, "desktop: the lede scrolls WITH the bullets, not pinned above them");
-  check(deskScroll.footPadLeft >= 8 && deskScroll.footMarginTop === 0, `desktop: the source note is indented to the text column with no dead space above (pad-left ${deskScroll.footPadLeft}px, margin-top ${deskScroll.footMarginTop}px)`);
-  check(deskScroll.footAtBottom <= 2, `desktop: the source note stays pinned to the bottom of the quadrant (${deskScroll.footAtBottom}px)`);
+  check(deskScroll.noFoot, "desktop: there is NO 'AI-generated…' source-credit footer note");
+  check(deskScroll.bodyAtBottom <= 2, `desktop: the scrolling body runs to the bottom of the quadrant (${deskScroll.bodyAtBottom}px)`);
 
   checkErrs(errs, "home briefing (desktop)");
   await ctx.close();
@@ -232,20 +230,19 @@ const b = await launchChromium();
   check(p.bullets >= 1 && p.bodyVisible && p.open === "true", `phone: the briefing is expanded (${p.bullets} bullet[s])`);
   check(!p.chev, "phone: there is NO collapse chevron — the briefing is always open");
   check(p.fills, "phone: the briefing pane fills the page (not a slim collapsed strip)");
-  // The source note is anchored to the BOTTOM of the pane, hard against the top of the
-  // bottom nav, and fully VISIBLE on first paint. The pane is a FIXED flex column filling
-  // the gap between the sticky tabs and the fixed nav — anchored purely in CSS (no JS
-  // pixel sizing to go stale, which is what left the pane blank / stranded the note). The
-  // PAGE is locked (it cannot scroll when there is nothing to scroll to); a long brief
-  // scrolls inside the pane's body instead.
+  // The scrolling body runs to the BOTTOM of the pane, hard against the top of the bottom
+  // nav. The pane is a FIXED flex column filling the gap between the sticky tabs and the
+  // fixed nav — anchored purely in CSS (no JS pixel sizing to go stale, which is what left
+  // the pane blank). The PAGE is locked (it cannot scroll when there is nothing to scroll
+  // to); a long brief scrolls inside the pane's body instead.
   const pinned = await pg.evaluate(() => {
     const pane = document.getElementById("g-hbrief").getBoundingClientRect();
-    const foot = document.querySelector("#g-hbrief .g-hbrief-foot").getBoundingClientRect();
+    const body = document.querySelector("#g-hbrief .g-hbrief-body").getBoundingClientRect();
     const nav = document.querySelector(".mobile-tabbar").getBoundingClientRect();
     return {
-      gap: Math.round(pane.bottom - foot.bottom),
-      footToNav: Math.round(nav.top - foot.bottom),
-      footVisible: foot.bottom <= window.innerHeight + 2 && foot.top >= 0,
+      gap: Math.round(pane.bottom - body.bottom),
+      bodyToNav: Math.round(nav.top - body.bottom),
+      noFoot: !document.querySelector("#g-hbrief .g-hbrief-foot"),
       noInlineHeight: !document.getElementById("g-hbrief").style.height,
       pageLocked: document.documentElement.scrollHeight <= window.innerHeight + 2,
       // The COMPLETE scroll-lock (html AND body) is what stops the document bouncing on
@@ -256,9 +253,9 @@ const b = await launchChromium();
       noBounce: getComputedStyle(document.documentElement).overscrollBehaviorY === "none",
     };
   });
-  check(pinned.gap <= 14, `phone: the 'AI-generated…' note is anchored to the bottom of the briefing pane (gap ${pinned.gap}px)`);
-  check(pinned.footToNav >= -2 && pinned.footToNav <= 12, `phone: the note lands hard against the top of the bottom nav (footToNav ${pinned.footToNav}px)`);
-  check(pinned.footVisible, "phone: the source note is fully visible on first paint (never stranded off-screen)");
+  check(pinned.noFoot, "phone: there is NO 'AI-generated…' source-credit footer note");
+  check(pinned.gap <= 14, `phone: the scrolling body runs to the bottom of the briefing pane (gap ${pinned.gap}px)`);
+  check(pinned.bodyToNav >= -2 && pinned.bodyToNav <= 12, `phone: the pane's body lands hard against the top of the bottom nav (bodyToNav ${pinned.bodyToNav}px)`);
   check(pinned.noInlineHeight, "phone: the pane carries NO inline pixel height — it is anchored in CSS, not by JS measurement");
   check(pinned.pageLocked, "phone: the page does not scroll when the brief fits (scroll is locked — content scrolls inside the pane)");
   check(pinned.htmlLocked && pinned.bodyLocked && pinned.noBounce, "phone: BOTH html and body are scroll-locked (overflow hidden + overscroll-behavior none) so the document can't rubber-band and detach the pane");
@@ -270,24 +267,23 @@ const b = await launchChromium();
     return Math.round(hb.top - tabs.bottom);
   });
   check(briefSeam >= 0 && briefSeam <= 2, `phone: the briefing pane butts flush under the wire tabs — no seam (gap ${briefSeam}px)`);
-  // Structure: header · body · footer as direct children, in order. Within the FIXED
-  // pane the body is the scroll region (a long brief scrolls here, not the page), while
-  // the header and footer stay put — so the note is always anchored above the nav.
+  // Structure: header · body as direct children, in order. Within the FIXED pane the
+  // body is the scroll region (a long brief scrolls here, not the page) while the header
+  // stays put.
   const struct = await pg.evaluate(() => {
     const hb = document.getElementById("g-hbrief");
     const head = hb.querySelector(":scope > .g-hbrief-head");
     const body = hb.querySelector(":scope > .g-hbrief-body");
-    const foot = hb.querySelector(":scope > .g-hbrief-foot");
     return {
-      headChild: !!head, footChild: !!foot,
+      headChild: !!head, bodyChild: !!body,
       paneFixed: getComputedStyle(hb).position === "fixed",
       bodyScrolls: !!body && getComputedStyle(body).overflowY === "auto",
-      order: head && body && foot ? (head.compareDocumentPosition(body) & 4) !== 0 && (body.compareDocumentPosition(foot) & 4) !== 0 : false,
+      order: head && body ? (head.compareDocumentPosition(body) & 4) !== 0 : false,
     };
   });
-  check(struct.headChild && struct.footChild && struct.order, "phone: the header row and the footer note are direct children (header · body · footer)");
+  check(struct.headChild && struct.bodyChild && struct.order, "phone: the header row and the body are direct children, in order (header · body)");
   check(struct.paneFixed, "phone: the pane is fixed between the tabs and the nav (anchored, not measured)");
-  check(struct.bodyScrolls, "phone: a long brief scrolls INSIDE the pane's body, not the page (footer stays anchored)");
+  check(struct.bodyScrolls, "phone: a long brief scrolls INSIDE the pane's body, not the page");
   // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(100);

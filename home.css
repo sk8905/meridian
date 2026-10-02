@@ -1076,13 +1076,9 @@
       .tui .g-hero-plot{ flex:1 1 auto; min-height:0; grid-template-rows:minmax(0,1fr) auto; }
       .tui .g-hero-canvas{ min-height:0; }
       .tui #g-hero-svg{ height:100%; }
-      /* The WHOLE summary (lede + bullets) scrolls together as ONE region — only the
-         header and the "AI-generated…" foot are pinned, so the source-credit line stays
-         locked at the bottom of the quadrant while all the text scrolls beneath it. The
-         foot is indented to the body's text column and butts straight onto the summary
-         (a hairline, no gap above). */
+      /* The WHOLE summary (lede + bullets) scrolls together as ONE region beneath the
+         pinned header, running to the bottom of the quadrant. */
       .tui .g-hbrief .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-      .tui .g-hbrief .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:6px 12px; border-top:1px solid var(--t-grid); }
       /* Desktop: the briefing is permanently open — no collapse control. Drop the
          chevron and the button affordance so the header reads as a static title row.
          (`.g-hbrief .g-hbrief-head` outranks the base `.g-hbrief-head` cursor rule.) */
@@ -1212,7 +1208,6 @@
     .tui .g-hbrief-bk{ font-weight:600; color:var(--accent); letter-spacing:.005em; -webkit-hyphens:none; hyphens:none; }
     .tui .g-hbrief-bt{ display:inline; }
     .tui .g-hbrief-lede{ text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
-    .tui .g-hbrief-foot{ margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); }
     /* Per-desk live data badge — ONE per section: a compact terminal card pinning the
        desk's lead instrument (Macro → Brent, Equities → S&P 500, Fixed income → US 10Y)
        to a real, sourced number. Flows after the desk prose; hides itself when the cache
@@ -1434,8 +1429,6 @@
         background:var(--t-panel); }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-head{ flex:0 0 auto; }
       .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-body{ flex:1 1 auto; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
-      .tui .g-layout.wire-brief .g-hbrief > .g-hbrief-foot{ flex:0 0 auto; margin-top:0; padding:8px 12px;
-        background:var(--t-head); border-top:1px solid var(--t-grid); }
       /* News/Managers/Chart/X panes hide the feed-wrap (filter + feed) as needed. */
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }

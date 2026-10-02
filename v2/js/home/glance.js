@@ -423,9 +423,8 @@ function renderHomeBriefing() {
   }).filter(Boolean).join("");
   host.hidden = false;
   host.dataset.open = "true";
-  // Structure: a stuck header, a SCROLLING body (lede + desk bullets), then a stuck
-  // footer note — the foot is a SIBLING of the body (not inside it) so it pins to the
-  // bottom while the body scrolls between the two stuck rows.
+  // Structure: a stuck header over a SCROLLING body (lede + desk bullets). The body
+  // runs to the bottom of the card/pane — there is no footer note.
   host.innerHTML =
     `<div class="g-hbrief-head">`
     + `<span class="g-hbrief-ttl">Market briefing</span>`
@@ -433,8 +432,7 @@ function renderHomeBriefing() {
     + `<div class="g-hbrief-body">`
     + (s.lede ? `<div class="g-hbrief-lede-hd">Overview</div><p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
-    + `</div>`
-    + `<div class="g-hbrief-foot">AI-generated summary of Wire’s sourced desks.</div>`;
+    + `</div>`;
   renderBriefBadges();
 }
 // Map a desk run-in heading to the one live instrument that leads it. Only the three
@@ -2490,7 +2488,10 @@ function renderMacroSnapshot() {
   // linked Macro › Policy Rate page (the whole block is a link to it).
   const pol = (cc, o) => {
     const s = String(o.stance || "");
-    const fc = (s.split("·")[0] || s).trim();
+    // Forecast = the one-word call before the "·". Drop a leading action verb when it is
+    // immediately followed by a SIGNED size (e.g. "Hike +25bp" → "+25bp") — the sign
+    // already carries the direction; a bare "Hold" (no signed figure) is left as-is.
+    const fc = (s.split("·")[0] || s).trim().replace(/^(?:hike|cut|raise|lower|rise)\s+(?=[+\-−])/i, "");
     // The "Next" column is a bare meeting date — strip any parenthetical outcome
     // note (e.g. "(resolved 17 Sep: hold)") a refresh may have appended, so a stale
     // annotation can never spill across into the Forecast column.
