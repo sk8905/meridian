@@ -778,16 +778,11 @@ function heroToggle(key) {
   if (cur.includes(key)) { if (cur.length > 1) _heroSel.value = cur.filter((k) => k !== key); }
   else _heroSel.value = [...cur, key];
 }
-// The clean DEFAULT overlay: one instrument per asset class (equities · rates ·
-// commodities · crypto), so the chart opens as ~5 distinguishable lines rather than a
-// near-0% tangle of all eight. Oil + Bitcoin are near-24h, so the intraday line stays
-// continuous with no big overnight blank. Everything else is one tap away on the legend.
-// Falls back to whatever the basket holds if none of the curated keys are present.
-const HERO_DEFAULT_KEYS = ["spx", "ust10", "oil", "gold", "btc"];
+// The DEFAULT overlay: EVERY instrument selected, so the chart opens with all eight
+// lines plotted. Each is one tap away on the legend to hide, and the shared % axis keeps
+// them legible (the 1M default range separates them rather than burying them on ~0%).
 function heroDefaultSel(insts) {
-  const have = (insts || []).map((i) => i.key);
-  const pick = HERO_DEFAULT_KEYS.filter((k) => have.includes(k));
-  return pick.length ? pick : have;
+  return (insts || []).map((i) => i.key);
 }
 // Signed percent, e.g. "+3.4%" / "−1.2%" (real minus glyph).
 function heroPctStr(v) { const a = Math.abs(v); return (v > 0 ? "+" : v < 0 ? "−" : "") + (a >= 100 ? Math.round(a) : a.toFixed(1)) + "%"; }

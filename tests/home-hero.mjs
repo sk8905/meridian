@@ -77,14 +77,14 @@ const b = await launchChromium();
   });
   checkEq(init.labels.length, 8, "hero: the securities row lists all eight instruments");
   check(init.labels.join(",") === "S&P 500,Nasdaq,FTSE 100,Euro Stoxx,US 10Y,Oil,Gold,Bitcoin", `hero: the row reads S&P 500 · Nasdaq · FTSE 100 · Euro Stoxx · US 10Y · Oil · Gold · Bitcoin (${init.labels.join(", ")})`);
-  check(init.onKeys.slice().sort().join(",") === "btc,gold,oil,spx,ust10", `hero: the default overlay is one per asset class — S&P 500 · US 10Y · Oil · Gold · Bitcoin (${init.onKeys.join(", ")})`);
+  check(init.onKeys.slice().sort().join(",") === "btc,ftse,gold,ndx,oil,spx,sx5e,ust10", `hero: the default overlay selects ALL eight instruments (${init.onKeys.join(", ")})`);
   check(init.pcts.every((p) => /%$/.test(p)), `hero: every ticker shows a % change indicator (${init.pcts.join(" · ")})`);
-  check(init.spxFilled && init.goldFilled, "hero: the curated default dots are FILLED (S&P 500 + Gold among them)");
-  check(init.lines === 5, `hero: the curated default plots five lines (${init.lines})`);
+  check(init.spxFilled && init.goldFilled, "hero: the default dots are FILLED (S&P 500 + Gold among them)");
+  check(init.lines === 8, `hero: the default plots all eight lines (${init.lines})`);
   checkEq(init.rangeOn, "1M", "hero: 1M is the default range (lines separate; 1D buries them on 0%)");
   // Each plotted line is named in place by a direct end-of-line label (short code + %),
   // so a line reads off the chart without cross-checking the legend colours.
-  check(init.endLbls.slice().sort().join(",") === "10Y,BTC,Gold,Oil,SPX", `hero: each of the five lines carries a direct end-label (${init.endLbls.join(", ")})`);
+  check(init.endLbls.slice().sort().join(",") === "10Y,BTC,FTSE,Gold,NDX,Oil,SPX,STOXX", `hero: each of the eight lines carries a direct end-label (${init.endLbls.join(", ")})`);
 
   // Default is the INDEXED overlay: a shared % axis, no single-view price tag,
   // a bottom dated time axis, and vertical grid lines.
@@ -134,8 +134,8 @@ const b = await launchChromium();
   check(Math.max(...h1d) >= 19, `hero: the 1D axis spans the full trading day — empty space to the right for the rest of today (${d1.xl})`);
   // Session overlay = clean dashed VERTICAL markers only (no bands, no bottom strip):
   // each bounded market's open, plus its close once it has closed for the day. US
-  // afternoon vs European morning opens land at different x. Only on 1D. Add FTSE (UK)
-  // to the curated default so both a UK and a US market are plotted for this check.
+  // afternoon vs European morning opens land at different x. Only on 1D. Ensure FTSE (UK)
+  // is plotted so both a UK and a US market are shown for this check (on by default now).
   await pg.evaluate(() => { const t = document.querySelector('#g-hero-sel .g-hero-tk[data-k="ftse"]'); if (t && !t.classList.contains("is-on")) t.click(); });
   await pg.waitForTimeout(120);
   const decor = await pg.evaluate(() => {

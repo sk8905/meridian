@@ -159,11 +159,15 @@ const b = await launchChromium();
   check(await vis(".g-hero"), "phone: tapping Chart reveals the hero chart");
   check(!(await vis("#g-feed")), "phone: tapping Chart hides the news feed");
   check(!(await vis(".g-side3")), "phone: tapping Chart keeps the manager wire hidden");
-  // The curated default plots one instrument per asset class (S&P 500 · US 10Y · Oil ·
-  // Gold · Bitcoin) — the rest of the row is one tap away.
+  // The default selects EVERY instrument in the row (all lines plotted on open); each is
+  // one tap away to hide.
   await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });
-  const chartSel = await pg.evaluate(() => [...document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on")].map((t) => t.dataset.k).sort().join(","));
-  checkEq(chartSel, "btc,gold,oil,spx,ust10", "phone: the curated one-per-asset-class default is plotted on the chart");
+  const chartSel = await pg.evaluate(() => {
+    const all = [...document.querySelectorAll("#g-hero-sel .g-hero-tk")].map((t) => t.dataset.k).sort().join(",");
+    const on = [...document.querySelectorAll("#g-hero-sel .g-hero-tk.is-on")].map((t) => t.dataset.k).sort().join(",");
+    return { all, on };
+  });
+  checkEq(chartSel.on, chartSel.all, `phone: every instrument in the row is selected by default (${chartSel.on})`);
   const chartState = await pg.evaluate(() => ({
     on: document.querySelector('.g-wiretab[data-wire="chart"]').classList.contains("is-on"),
     aria: document.querySelector('.g-wiretab[data-wire="chart"]').getAttribute("aria-selected"),
