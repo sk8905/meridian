@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c7f6d036-abd4-4d8c-a6c8-6dad96cf9fae",
+    title: "Shares in spreadbetter IG Group plunge 26%",
+    date: "2026-10-02",
+    time: "08:34",
+    url: "https://www.ft.com/content/c7f6d036-abd4-4d8c-a6c8-6dad96cf9fae",
+  },
+  {
+    id: "e46df108-025d-4326-9774-010ab84f2c9b",
+    title: "UK watchdog signals it may block major broadband deal",
+    date: "2026-10-02",
+    time: "08:16",
+    url: "https://www.ft.com/content/e46df108-025d-4326-9774-010ab84f2c9b",
+  },
+  {
     id: "fcbd4c0f-41cf-440a-b386-5e6c61395b71",
     title: "Donald Quintin: ‘We’re entering a different market now’",
     date: "2026-10-02",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "15:49",
     url: "https://www.ft.com/content/122e55bb-b0f9-4106-823d-ac2a435d96d9",
-  },
-  {
-    id: "e485a228-1efe-426b-addc-26069ba48bf3",
-    title: "Global bond sell-off pushes 10-year Treasury yield to highest since 2002",
-    date: "2026-10-01",
-    time: "15:44",
-    url: "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3",
-  },
-  {
-    id: "716c3491-6547-4c81-bc42-87136aecdac0",
-    title: "Do US lawmakers finally have capital in the crosshairs?",
-    date: "2026-10-01",
-    time: "15:00",
-    url: "https://www.ft.com/content/716c3491-6547-4c81-bc42-87136aecdac0",
   },
 ];
