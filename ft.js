@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2e0eb698-d4d3-4bcc-927a-2997df7709be",
+    title: "Arctic sea routes boom as Gulf war and global warming divert shipping",
+    date: "2026-10-02",
+    time: "21:00",
+    url: "https://www.ft.com/content/2e0eb698-d4d3-4bcc-927a-2997df7709be",
+  },
+  {
+    id: "538ea132-4021-4095-8da3-9db41d42b19d",
+    title: "Ann Widdecombe murder suspect charged with preparing terror acts against Nigel Farage",
+    date: "2026-10-02",
+    time: "20:47",
+    url: "https://www.ft.com/content/538ea132-4021-4095-8da3-9db41d42b19d",
+  },
+  {
+    id: "c89a552e-4720-47ae-9f0d-e9ff85b36dd9",
+    title: "October fall",
+    date: "2026-10-02",
+    time: "20:07",
+    url: "https://www.ft.com/content/c89a552e-4720-47ae-9f0d-e9ff85b36dd9",
+  },
+  {
     id: "7a91fa6b-e908-4a28-b04f-02d5a10a6bb1",
     title: "‘Amateurism and organisation’: Iran’s potential role in RAF Fairford incident",
     date: "2026-10-02",
@@ -33,20 +54,6 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "19:31",
     url: "https://www.ft.com/content/17762862-bdb7-44d0-a0d0-d2285bedbd2d",
-  },
-  {
-    id: "38176237-e89f-410c-979c-c8c5d68d041a",
-    title: "French schools burn as student unrest spreads",
-    date: "2026-10-02",
-    time: "17:21",
-    url: "https://www.ft.com/content/38176237-e89f-410c-979c-c8c5d68d041a",
-  },
-  {
-    id: "75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
-    title: "Quant hedge funds reap big gains from global bond sell-off",
-    date: "2026-10-02",
-    time: "16:13",
-    url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
   },
   {
     id: "f4d387cb-f6a6-40b2-b9ac-52991872e21b",
@@ -77,6 +84,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/0889f36e-cbd6-4df5-a917-9fbb89071a7e",
   },
   {
+    id: "38176237-e89f-410c-979c-c8c5d68d041a",
+    title: "French schools burn as student unrest spreads",
+    date: "2026-10-02",
+    time: "17:21",
+    url: "https://www.ft.com/content/38176237-e89f-410c-979c-c8c5d68d041a",
+  },
+  {
     id: "2c56ac58-87b2-4159-aa83-55567368149a",
     title: "The Ellison credit complex gets a bit more complex",
     date: "2026-10-02",
@@ -89,6 +103,13 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "16:29",
     url: "https://www.ft.com/content/68d4b1f2-5b77-4604-add3-2c4915b4b267",
+  },
+  {
+    id: "75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
+    title: "Quant hedge funds reap big gains from global bond sell-off",
+    date: "2026-10-02",
+    time: "16:13",
+    url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
   },
   {
     id: "79bcc1f3-954a-4c62-96c6-989b1384b9f3",
@@ -271,33 +292,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "06:30",
     url: "https://www.ft.com/content/fcbd4c0f-41cf-440a-b386-5e6c61395b71",
-  },
-  {
-    id: "13fa2121-bca2-4c0b-957d-b12b806fdf08",
-    title: "FTAV’s further reading",
-    date: "2026-10-02",
-    time: "06:30",
-    url: "https://www.ft.com/content/13fa2121-bca2-4c0b-957d-b12b806fdf08",
-  },
-  {
-    id: "4f2ad4c1-22b0-497b-88c8-197d7f301f79",
-    title: "Global bond market steadies after sharp sell-off",
-    date: "2026-10-02",
-    time: "06:09",
-    url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79",
-  },
-  {
-    id: "71a2ec5f-3f28-4462-af96-bab58c86a777",
-    title: "Pro-Russian parties jostle with Kyiv supporters in crowded Latvian election",
-    date: "2026-10-02",
-    time: "06:00",
-    url: "https://www.ft.com/content/71a2ec5f-3f28-4462-af96-bab58c86a777",
-  },
-  {
-    id: "56b239fb-3c85-4b8e-a274-d028d3b153a0",
-    title: "FirstFT: Putin has told military to abandon rules of war, Zelenskyy says",
-    date: "2026-10-02",
-    time: "05:31",
-    url: "https://www.ft.com/content/56b239fb-3c85-4b8e-a274-d028d3b153a0",
   },
 ];
