@@ -532,8 +532,9 @@ notification badge red (`#ef4444`).
   card** by a Macro/Fixed-income-heavy slot. **One live-data
   badge per desk section:** each canonical desk carries exactly ONE compact data card
   pinning its lead instrument to a real, sourced number — **Macro → Brent, Equities →
-  S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip
-  (▲/▼ + absolute + % move for prices; bp/pp for the yield). The badge reads the **same
+  S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip.
+  **Change-chip rule: a PRICE badge shows the % move ONLY (▲/▼ + %) — never the absolute
+  point change (the value already gives the level); a YIELD badge shows the bp/pp move.** The badge reads the **same
   last-good `/api/markets` + `/api/rates` payloads** the rail panels use (no extra
   request; it repaints when those land), and **stays empty rather than guessing** when
   the instrument isn't cached yet (R7 — never fabricate). A non-canonical, owner-requested

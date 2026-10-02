@@ -2,8 +2,8 @@
 // desk's lead instrument to a real, sourced number — Macro → Brent, Equities →
 // S&P 500, Fixed income → US 10Y. The badge reads the SAME last-good markets/rates
 // payloads the left-rail panels use (no extra request), shows value + a
-// direction-coloured change chip (▲/▼ + absolute move + % move for prices; bp/pp for
-// the yield), and simply stays empty — never fabricated — when the instrument isn't in
+// direction-coloured change chip (▲/▼ + % move for prices — no absolute point change;
+// bp/pp for the yield), and simply stays empty — never fabricated — when the instrument isn't in
 // the cache. Here /api/markets + /api/rates are stubbed with known rows so the badge
 // values are deterministic.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
@@ -89,7 +89,7 @@ if (r.macro) {
   check(/brent/i.test(r.macro.k), `Macro badge is Brent (${r.macro.k})`);
   check(r.macro.v === "68.42", `Macro badge shows the live Brent value (${r.macro.v})`);
   check(r.macro.down && !r.macro.up, "Macro badge is down-coloured (Brent fell)");
-  check(/-0\.85/.test(r.macro.c) && /-1\.23%/.test(r.macro.c), `Macro change chip shows absolute + % move (${r.macro.c})`);
+  check(/-1\.23%/.test(r.macro.c) && !/0\.85/.test(r.macro.c), `Macro change chip shows the % move only, no absolute point change (${r.macro.c})`);
   check(r.macro.chipTinted, "Macro change chip carries a direction-coloured band");
   check(/yahoo|finance/i.test(r.macro.href), "Macro badge links to the instrument's source");
 }
@@ -100,7 +100,7 @@ if (r.equities) {
   check(/s&p 500|s&amp;p 500/i.test(r.equities.k), `Equities badge is the S&P 500 (${r.equities.k})`);
   check(r.equities.v === "5,123.45", `Equities badge shows the live index value, thousands-grouped (${r.equities.v})`);
   check(r.equities.up && !r.equities.down, "Equities badge is up-coloured (index rose)");
-  check(/\+24\.10/.test(r.equities.c) && /\+0\.47%/.test(r.equities.c), `Equities change chip shows absolute + % move (${r.equities.c})`);
+  check(/\+0\.47%/.test(r.equities.c) && !/24\.10/.test(r.equities.c), `Equities change chip shows the % move only, no absolute point change (${r.equities.c})`);
 }
 
 // Fixed income → US 10Y (yield rose): up-coloured, yield value + pp change (no % chip).

@@ -470,13 +470,15 @@ function _briefBadgeHtml(key, mkts, rates) {
   if (!r || r.value == null) return "";   // no cached value yet — stay empty, never guess
   return _badgeCard(tick, r, kind);
 }
-// The badge card itself: ticker, live value, and a direction-coloured change chip
-// (▲/▼ + absolute move + % move for prices; bp/pp for the yield). Mirrors the
-// market/rate tile formatting so the numbers read identically to the rail.
+// The badge card itself: ticker, live value, and a direction-coloured change chip.
+// RULE: a PRICE badge shows the % move ONLY (▲/▼ + %) — the absolute point change is
+// NOT shown, since the value already gives the level; a YIELD badge shows the bp/pp move
+// (its natural, and only, change metric). Mirrors the market/rate tile formatting so the
+// numbers read identically to the rail.
 function _badgeCard(tick, r, kind) {
   const pct = (typeof r.changePct === "number" && isFinite(r.changePct)) ? r.changePct : null;
   const chg = (typeof r.change === "number" && isFinite(r.change)) ? r.change : null;
-  const sign = chg != null ? chg : (pct != null ? pct : 0);
+  const sign = pct != null ? pct : (chg != null ? chg : 0);
   const dir = sign > 0 ? "up" : sign < 0 ? "down" : "flat";
   const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "·";
   let val, ctext = "";
@@ -487,10 +489,8 @@ function _badgeCard(tick, r, kind) {
       : `${chg > 0 ? "+" : ""}${chg.toFixed(2)} pp`;
   } else {
     val = Number(r.value).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const parts = [];
-    if (chg != null) parts.push(`${chg > 0 ? "+" : ""}${(Math.abs(chg) >= 100 ? chg.toFixed(1) : chg.toFixed(2))}`);
-    if (pct != null) parts.push(`(${pct > 0 ? "+" : ""}${pct.toFixed(2)}%)`);
-    ctext = parts.join(" ");
+    // Price badge: % move only — the absolute point change is deliberately dropped.
+    if (pct != null) ctext = `${pct > 0 ? "+" : ""}${pct.toFixed(2)}%`;
   }
   const title = `${tick} ${val}${ctext ? " " + ctext : ""} — source: open data`;
   const tag = r.href ? "a" : "span";
