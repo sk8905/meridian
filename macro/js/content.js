@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-02",
-  lastCheckedTime: "20:15 BST",
+  lastCheckedTime: "22:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-02",
   us: [
+    { title: "US justice department will not reopen criminal probe of Fed’s Jay Powell", source: "Financial Times", date: "2026-10-02", time: "22:03", url: "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846" },
     { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
     { title: "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", source: "Financial Times", date: "2026-10-02", time: "17:20", url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e" },
     { title: "Weak US payrolls  likely to keep rate setters on the sidelines in October", source: "Financial Times", date: "2026-10-02", time: "15:01", url: "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28" },
-    { title: "Global bond market steadies after sharp sell-off", source: "Financial Times", date: "2026-10-02", time: "11:40", url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79" },
     { title: "Treasuries are losing their moneyness", source: "Financial Times", date: "2026-10-02", time: "18:00", url: "https://www.ft.com/content/7128ce19-5ea0-4d5d-9d47-1270404831a7" },
   ],
   uk: [
+    { title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget", source: "Financial Times", date: "2026-10-02", time: "21:41", url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3" },
     { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
     { title: "Monzo courts private equity after Nubank walks away", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/57de6604-70a9-413a-a381-9ba82ec202ec" },
     { title: "UK house prices fall as higher mortgage rates ‘subdue’ market", source: "Financial Times", date: "2026-10-01", time: "08:05", url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af" },
     { title: "Andy Burnham’s ‘triple lock’ move reallocates, rather than reduces, spending", source: "Financial Times", date: "2026-10-01", time: "09:30", url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6" },
-    { title: "AI debt surge raises risk of sharp market correction, warns Bank of England", source: "Financial Times", date: "2026-09-30", time: "15:02", url: "https://www.ft.com/content/5c1ccafc-c3e6-49c1-8cdc-b9ed73627749" },
   ],
 };
 
@@ -1031,6 +1031,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-02",
   items: [
+    {"title": "US justice department will not reopen criminal probe of Fed’s Jay Powell", "source": "Financial Times", "date": "2026-10-02", "time": "22:03", "url": "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846", "blurb": "US attorney-general Todd Blanche says not having ‘any oversight’ of the central bank’s $2.5bn renovation project ‘isn’t necessarily a crime’."},
+    {"title": "Healey set to delay difficult choices with ‘breathing space’ UK Budget", "source": "Financial Times", "date": "2026-10-02", "time": "21:41", "url": "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3", "blurb": "Chancellor expected to focus the statement on targeted help for households and businesses rather than tax rises on the scale of recent budgets."},
     {"title": "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", "source": "Financial Times", "date": "2026-10-02", "time": "17:20", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "G7 agrees a coordinated 100mn-barrel stock release as Washington drops its fuel export ban threat."},
     {"title": "Eurozone inflation hits three-year high of 3.8%", "source": "Financial Times", "date": "2026-10-02", "time": "16:45", "url": "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", "blurb": "Euro-area inflation climbs to its highest in three years."},
     {"title": "Weak US payrolls  likely to keep rate setters on the sidelines in October", "source": "Financial Times", "date": "2026-10-02", "time": "15:01", "url": "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28", "blurb": "Soft September jobs data points to a Fed hold at the October meeting."},

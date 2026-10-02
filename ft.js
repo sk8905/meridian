@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "887e90a5-8456-4eba-9ed0-205c873d4846",
+    title: "US justice department will not reopen criminal probe of Fed’s Jay Powell",
+    date: "2026-10-02",
+    time: "22:03",
+    url: "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846",
+  },
+  {
+    id: "9df55c2e-e9c8-4a5a-a025-99fb459721d3",
+    title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget",
+    date: "2026-10-02",
+    time: "21:41",
+    url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3",
+  },
+  {
+    id: "4f2ad4c1-22b0-497b-88c8-197d7f301f79",
+    title: "Global bond market steadies after sharp sell-off",
+    date: "2026-10-02",
+    time: "17:45",
+    url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79",
+  },
+  {
     id: "2e0eb698-d4d3-4bcc-927a-2997df7709be",
     title: "Arctic sea routes boom as Gulf war and global warming divert shipping",
     date: "2026-10-02",
@@ -278,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "08:34",
     url: "https://www.ft.com/content/c7f6d036-abd4-4d8c-a6c8-6dad96cf9fae",
-  },
-  {
-    id: "e46df108-025d-4326-9774-010ab84f2c9b",
-    title: "UK watchdog signals it may block major broadband deal",
-    date: "2026-10-02",
-    time: "08:16",
-    url: "https://www.ft.com/content/e46df108-025d-4326-9774-010ab84f2c9b",
-  },
-  {
-    id: "fcbd4c0f-41cf-440a-b386-5e6c61395b71",
-    title: "Donald Quintin: ‘We’re entering a different market now’",
-    date: "2026-10-02",
-    time: "06:30",
-    url: "https://www.ft.com/content/fcbd4c0f-41cf-440a-b386-5e6c61395b71",
   },
 ];
