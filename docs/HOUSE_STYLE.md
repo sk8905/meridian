@@ -68,6 +68,31 @@ to keep pinned/full-height on these three sections.
 
 ## 2. The wire (feed) — one engine everywhere
 
+- **R4c — Newswire content scope (the inclusion rule — STRICT).** The newswire
+  carries ONLY these four kinds of item; anything else is off-universe and must
+  not appear:
+  1. **Macro-economic news relating to the G7 nations** — US · UK · Canada ·
+     France · Germany · Italy · Japan (plus the **euro area / ECB** the euro-G7
+     members FR/DE/IT sit in). Non-G7 country macro (Austria, Croatia, Hong Kong,
+     Singapore, China, India, Brazil, Switzerland, …) is OUT.
+  2. **News relating to managers / hedge funds** that are **already covered in the
+     app** (the `credit/js/data.js` managers + `HEDGE_FUNDS` rosters), **will be
+     added**, **or have AUM between $1bn and $15bn**.
+  3. **News relating to law firms** that are **already covered in the app**
+     (`legal/js/data.js` `firmById`) or will be added.
+  4. **Anything the owner has explicitly asked to be included.**
+
+  **Enforcement.** Rule 1 is enforced automatically in the Worker: `feedQualityKeep`
+  drops any headline **led by a non-G7 country** via `FEED_OFFTOPIC_GEO` (the
+  economic-print pattern — "Austria's inflation …"), so it fires even on a premium
+  source like Investing.com Economics. A non-G7 country that ever leaks is a missing
+  entry in that denylist — add it. Rules 2–3 are **editorial / roster-driven**: the
+  curated feeds are scoped to the right verticals (private credit, PE, Big Law), but
+  a headline's subject can't always be auto-judged (a new manager's AUM isn't in its
+  headline), so the 5×/day refresh routine and the rosters are the gate — when an
+  off-universe entity leaks, either it genuinely belongs (add the entity) or the
+  source/query is too broad (tighten it). Rule 4 is editorial. **When in doubt, leave
+  it out** — the wire is a curated universe, not a general feed.
 - **R5 — One feed engine, one `.g-feed-row` grid** across Home / Macro / Credit
   / Legal / Palette. No bespoke per-section list markup.
 - **R6 — Standard day breaks** on every dated list — the main wire *and*

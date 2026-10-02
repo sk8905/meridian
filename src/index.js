@@ -3252,11 +3252,20 @@ const FEED_PR_NOISE = /\bto (announce|report)\b.*\b(results|earnings)\b|\breport
 // developed-market story that merely mentions one in passing still passes. This
 // runs before the premium bypass so even a Bloomberg/Reuters frontier-macro
 // story ("Cuba's Population Decline…") is dropped.
-const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:'s|’s)?\b/i;
+// The newswire's MACRO scope is G7-ONLY (HOUSE_STYLE "Newswire content scope", rule 1):
+// macro-economic news must relate to a G7 nation — US · UK · Canada · France · Germany ·
+// Italy · Japan — or the euro area / ECB the euro-G7 members (FR/DE/IT) sit in. A headline
+// that LEADS with a NON-G7 country/region as its subject (the economic-print pattern —
+// "Austria's inflation …", "Hong Kong retail sales …", "Brazil's trade balance …") is
+// off-universe and dropped. Matched only at the START, so a G7-led headline ("UK firms …",
+// "US job growth …", "Tokyo inflation …"), a euro-area aggregate ("Eurozone inflation …"),
+// or a markets/entity story is untouched. A denylist of non-G7 geographies — add a country
+// here if one ever leaks. (G7 names + their cities are deliberately absent.)
+const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:austria|belgium|belgian|netherlands|switzerland|swiss|spain|spanish|portugal|portuguese|greece|greek|ireland|irish|luxembourg|finland|finnish|sweden|swedish|norway|norwegian|denmark|danish|iceland(?:ic)?|poland|polish|czech(?:ia)?|slovak(?:ia)?|sloven(?:ia)?|hungar(?:y|ian)|croatia(?:n)?|romania(?:n)?|bulgaria(?:n)?|serbia(?:n)?|ukrain(?:e|ian)|russia(?:n)?|turk(?:ey|ish)|t[üu]rkiye|cyprus|cypriot|malta|maltese|eston(?:ia|ian)|latvia(?:n)?|lithuania(?:n)?|china|chinese|hong\s*kong|taiwan(?:ese)?|(?:south\s*)?korea(?:n)?|singapore|s['’]pore|malaysia(?:n)?|thai(?:land)?|indonesia(?:n)?|philippine(?:s)?|vietnam(?:ese)?|india(?:n)?|australia(?:n)?|new\s*zealand|israel(?:i)?|saudi(?:\s*arabia)?|u\.?a\.?e\.?|emirat\w*|qatar(?:i)?|kuwait(?:i)?|bahrain(?:i)?|oman(?:i)?|egypt(?:ian)?|morocc(?:o|an)|south\s*africa(?:n)?|brazil(?:ian)?|mexic(?:o|an)|argentin(?:a|e|ian)?|chile(?:an)?|colombia(?:n)?|ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:['’]s)?\b/i;
 export function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
-  if (FEED_OFFTOPIC_GEO.test(it.title)) return false;   // frontier-EM subject — off universe
+  if (FEED_OFFTOPIC_GEO.test(it.title)) return false;   // non-G7 country subject — macro is G7-only (rule 1)
   // Podcast / audio items (e.g. Bloomberg podcasts) are not news — drop them
   // BEFORE the premium bypass so a Bloomberg/FT audio show doesn't slip through.
   if (/\bpodcasts?\b/i.test(it.title) || /\/podcasts?\/|\/audio\/|\.mp3\b/i.test(it.url || "")) return false;
