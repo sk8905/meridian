@@ -3,7 +3,7 @@
 // pass, so we feed it representative HTML and assert the reading-mode output: title,
 // byline/date, clean paragraphs (boilerplate stripped, entities decoded, <article>
 // preferred), and the paywall signal (schema.org isAccessibleForFree=false).
-import { extractReadable, readHostAllowed, proxyParagraphs } from "../src/index.js";
+import { extractReadable, readHostAllowed, proxyParagraphs, proxyBlocks } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
 const u = (s) => new URL(s);
@@ -169,5 +169,52 @@ const rcp = proxyParagraphs(recircMd);
 check(rcp.length === 2, `proxy: drops the pure-link "Popular Searches" rows, keeps the 2 prose paragraphs (${rcp.length})`);
 check(!rcp.some((p) => /Nike falls 9%|Nonfarm payrolls loom/.test(p)), "proxy: related-headline links do not leak into the body");
 check(rcp[0].startsWith("LONDON, Oct 2 (Reuters)") && rcp.some((p) => /Capital Economics said/.test(p)), "proxy: keeps the lede and a prose paragraph that has an inline link");
+
+// 3d) The recirculation strip some sites inject ABOVE the article as PLAIN TEXT (no link
+//     or heading markup) — e.g. Investing.com's fixed four-headline block — must still be
+//     dropped. Signature: a leading run of short headline-like paragraphs with no
+//     sentence-ending punctuation, before the real (terminally-punctuated) body. The
+//     AI-disclaimer / T&C footer is dropped too.
+const plainRecirc = `<html><head><meta property="og:title" content="Austria's inflation climbs to 3.5% in September"></head><body>
+  <article>
+    <p>Nike falls 9% as revenue miss, weak guidance signal more pain ahead</p>
+    <p>Nonfarm payrolls loom large; bond market volatility - what's moving markets</p>
+    <p>Six AI picks are up 34%-106% since picked, the software name leads them all</p>
+    <p>S&amp;P 500 ends higher, Dow and Nasdaq mostly flat as bond rally offsets rise in oil</p>
+    <p>Investing.com -- Austria's inflation rate rose in September, according to a flash estimate released by Statistics Austria on Friday.</p>
+    <p>The Harmonised Index of Consumer Prices showed inflation reached 3.5% year-over-year, up from 2.9% in August.</p>
+    <p>This article was generated with the support of AI and reviewed by an editor. For more information see our T&amp;C.</p>
+  </article></body></html>`;
+const pr = extractReadable(plainRecirc, u("https://www.investing.com/news/economy/y"));
+check(pr.paragraphs.length === 2, `extract: drops the plain-text recirculation headlines + AI/T&C footer, keeps the 2 body paragraphs (${pr.paragraphs.length})`);
+check(pr.paragraphs[0].startsWith("Investing.com -- Austria's inflation"), "extract: the body starts at the real lede, not the injected headline strip");
+check(!pr.paragraphs.some((p) => /Nike falls 9%|Nonfarm payrolls loom|Six AI picks|Dow and Nasdaq mostly flat/.test(p)), "extract: none of the four injected headlines leak into the body");
+check(!pr.paragraphs.some((p) => /generated with the support of AI|see our T&C/i.test(p)), "extract: the AI-disclaimer / T&C footer is dropped");
+
+// 5c) proxyBlocks: the markdown proxy path strips the same plain-text recirculation strip
+//     AND preserves a REAL section heading (## …) as a bold block in document order.
+const proxyMd = `# Austria's inflation climbs to 3.5% in September
+
+Nike falls 9% as revenue miss, weak guidance signal more pain ahead
+
+Nonfarm payrolls loom large; bond market volatility - what's moving markets
+
+Investing.com -- Austria's inflation rate rose in September, according to a flash estimate released by Statistics Austria on Friday.
+
+## What the data shows
+
+The Harmonised Index of Consumer Prices showed inflation reached 3.5% year-over-year, up from 2.9% in August.
+
+This article was generated with the support of AI and reviewed by an editor. For more information see our T&C.`;
+const pb = proxyBlocks(proxyMd);
+const pbBody = pb.filter((x) => !x.h).map((x) => x.t);
+const pbHeads = pb.filter((x) => x.h).map((x) => x.t);
+check(pbBody.length === 2 && pbBody[0].startsWith("Investing.com -- Austria's inflation"), `proxy: strips the leading headline strip, keeps the 2 body paragraphs (${pbBody.length})`);
+check(!pbBody.some((p) => /Nike falls 9%|Nonfarm payrolls loom/.test(p)), "proxy: injected headlines don't leak into the body");
+check(!pbBody.some((p) => /generated with the support of AI|see our T&C/i.test(p)), "proxy: the AI-disclaimer / T&C footer is dropped");
+check(pbHeads.join("|") === "What the data shows", `proxy: a real ## section heading is kept as a bold block (${pbHeads.join(" | ")})`);
+check(pb[0].h === false && pb[1].h === true && pb[2].h === false, "proxy: order preserved — lede paragraph, then the heading, then its paragraph");
+// The article title (# h1) is NOT emitted as a heading block (shown separately).
+check(!pbHeads.some((h) => /Austria's inflation climbs/.test(h)), "proxy: the h1 article title is not duplicated as a section heading");
 
 finish();

@@ -1783,7 +1783,7 @@ function _readMeta(html, keys) {
   }
   return "";
 }
-const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles)/i;
+const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles|generated with the support of ai|reviewed by an editor|see our t&c)/i;
 // Section labels that head a navigation / recirculation widget (related stories,
 // "Popular Searches", trending, recommended, "more from"…). Matched ONLY against a
 // block that is a heading OR an entire short line — anchored at the start — so a real
@@ -1796,6 +1796,26 @@ function _blockIsLinkOnly(inner) {
   if (!/<a\b/i.test(inner)) return false;
   const outside = _readStrip(String(inner).replace(/<a\b[\s\S]*?<\/a>/gi, " "));
   return outside.length < 2;
+}
+// A body paragraph that ends in sentence punctuation (optionally wrapped by a closing
+// quote/bracket). Real article prose ends this way; a recirculation HEADLINE does not.
+const _ENDS_SENTENCE = /[.!?…][”’"')\]]*$/;
+// Drop a LEADING run of recirculation junk: short headline-like paragraphs with no
+// sentence-ending punctuation (e.g. a site's "Popular Searches" / "most read" strip that
+// some pages inject ABOVE the article as plain text, no link or heading markup) and any
+// nav-label headings. Anchored to the first real body paragraph (terminally punctuated),
+// and only runs when such a paragraph exists — so an all-fragment doc is never gutted.
+function _stripLeadingJunk(blocks) {
+  if (!blocks.some((b) => !b.h && b.t.length >= 40 && _ENDS_SENTENCE.test(b.t))) return blocks;
+  let i = 0;
+  while (i < blocks.length) {
+    const b = blocks[i];
+    const headlineLike = !b.h && b.t.length < 140 && !_ENDS_SENTENCE.test(b.t);
+    const navHead = b.h && READ_NAV_LABEL.test(b.t);
+    if (headlineLike || navHead) { i++; continue; }
+    break;                                                    // first real block — keep from here
+  }
+  return i ? blocks.slice(i) : blocks;
 }
 function _readTidy(host) { const p = host.replace(/\.(com|co\.uk|org|net|gov|edu|io|us)$/i, "").split(".").pop() || host; return p.charAt(0).toUpperCase() + p.slice(1); }
 export function extractReadable(html, u) {
@@ -1823,6 +1843,7 @@ export function extractReadable(html, u) {
     const whole = _readBlocks(html);
     if (_readBlocksLen(whole) > _readBlocksLen(blocks)) blocks = whole;
   }
+  blocks = _stripLeadingJunk(blocks);                         // drop a leading recirculation strip
   // `paragraphs` stays the body-only string array (back-compat for callers + specs);
   // `blocks` is the ORDERED sequence incl. section headings ({t, h:true}) so the reading
   // pane can render headings in bold. accessibility is still judged on the body paras.
@@ -1867,9 +1888,12 @@ async function _readDirect(u, host) {
     return extractReadable((await r.text()).slice(0, 1500000), u);
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-failed" }; }
 }
-// Turn a reader-proxy's markdown into clean reading-mode paragraphs (links → their
-// text, images/code/tables/boilerplate dropped) — the text-mode twin of _readParas.
-export function proxyParagraphs(md) {
+// Turn a reader-proxy's markdown into ORDERED reading blocks — body paragraphs (links →
+// their text, images/code/tables/boilerplate dropped) AND section headings (## – ####,
+// rendered bold in the pane), in document order, each {t, h}. The article title (# h1)
+// is shown separately, so it is skipped. A leading recirculation strip and a dangling
+// trailing heading are dropped, matching the direct extractor.
+export function proxyBlocks(md) {
   const out = [], seen = new Set();
   const blocks = String(md || "")
     .replace(/```[\s\S]*?```/g, " ")                     // fenced code
@@ -1877,7 +1901,17 @@ export function proxyParagraphs(md) {
     .split(/\n{2,}/);
   for (const b of blocks) {
     const raw = b.trim();
-    if (!raw || /^#{1,6}\s/.test(raw)) continue;               // blank block / markdown heading
+    if (!raw) continue;
+    const hm = /^(#{1,6})\s+([\s\S]*)$/.exec(raw);
+    if (hm) {                                                  // a markdown heading
+      const level = hm[1].length;
+      const ht = _readDec(hm[2].replace(/[*_`#]+/g, " ")).replace(/\s+/g, " ").trim();
+      // h2–h4 → a bold section heading; h1 is the article title (shown separately) → skip.
+      if (level >= 2 && level <= 4 && ht.length >= 2 && ht.length <= 120 && !READ_BOILER.test(ht) && !READ_NAV_LABEL.test(ht)) {
+        const hk = "h:" + ht.slice(0, 80); if (!seen.has(hk)) { seen.add(hk); out.push({ t: ht, h: true }); }
+      }
+      continue;
+    }
     // A block that is ONLY links (optionally bulleted) is a related-story / "Popular
     // Searches" recirculation list — nav, not prose. Detect it BEFORE flattening links:
     // strip every [text](url), any list markers and all whitespace; if nothing remains,
@@ -1890,12 +1924,17 @@ export function proxyParagraphs(md) {
       .replace(/\s+/g, " ").replace(/\s+([,.;:])/g, "$1").trim();
     if (t.length < 40 || READ_BOILER.test(t) || READ_NAV_LABEL.test(t)) continue;
     if (/^\|/.test(t) || /^https?:\/\//i.test(t)) continue;    // table rows / stray URLs
-    const k = t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
-    out.push(t);
-    if (out.length >= 60) break;
+    const k = "p:" + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
+    out.push({ t, h: false });
+    if (out.filter((x) => !x.h).length >= 60) break;
   }
-  return out;
+  const stripped = _stripLeadingJunk(out);                     // drop a leading recirculation strip
+  while (stripped.length && stripped[stripped.length - 1].h) stripped.pop();   // no dangling trailing heading
+  return stripped;
 }
+// Body-only paragraph strings (back-compat for callers + specs). The ordered `blocks`
+// (with headings) come from proxyBlocks.
+export function proxyParagraphs(md) { return proxyBlocks(md).filter((b) => !b.h).map((b) => b.t); }
 const _readCleanTitle = (t) => (t && String(t).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
 // Fallback path: render the article through a browser-based reader that returns the
 // PUBLIC page's text. Used only when the direct fetch was blocked or yielded no body
@@ -1924,9 +1963,10 @@ async function _readViaFirecrawl(u, host, env) {
     const d = j && j.data;
     const md = d && (d.markdown || d.content || "");
     if (!md) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-empty" };
-    const paras = proxyParagraphs(md);
+    const blks = proxyBlocks(md);
+    const paras = blks.filter((x) => !x.h).map((x) => x.t);
     const meta = (d && d.metadata) || {};
-    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(meta.title || meta.ogTitle), byline: "", date: meta.publishedTime || meta.publishedDate || "", accessible: paras.length >= 2, paragraphs: paras, via: "firecrawl" };
+    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(meta.title || meta.ogTitle), byline: "", date: meta.publishedTime || meta.publishedDate || "", accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "firecrawl" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-failed" }; }
 }
 async function _readViaJina(u, host, env) {
@@ -1942,8 +1982,9 @@ async function _readViaJina(u, host, env) {
     try { const d = (JSON.parse(raw) || {}).data; if (d) { content = d.content || d.text || ""; title = d.title || ""; date = d.publishedTime || ""; } }
     catch { if (/^\s*[^{[]/.test(raw) && raw.length > 200) content = raw; }
     if (!content) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-empty" };
-    const paras = proxyParagraphs(content);
-    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(title), byline: "", date, accessible: paras.length >= 2, paragraphs: paras, via: "proxy" };
+    const blks = proxyBlocks(content);
+    const paras = blks.filter((x) => !x.h).map((x) => x.t);
+    return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(title), byline: "", date, accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "proxy" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-failed" }; }
 }
 async function handleRead(request, env, ctx) {
