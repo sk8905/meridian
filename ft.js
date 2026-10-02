@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "f4d387cb-f6a6-40b2-b9ac-52991872e21b",
+    title: "Stockpickers: AG Barr, Redcentric, Saga",
+    date: "2026-10-02",
+    time: "18:00",
+    url: "https://www.ft.com/content/f4d387cb-f6a6-40b2-b9ac-52991872e21b",
+  },
+  {
+    id: "7128ce19-5ea0-4d5d-9d47-1270404831a7",
+    title: "Treasuries are losing their moneyness",
+    date: "2026-10-02",
+    time: "18:00",
+    url: "https://www.ft.com/content/7128ce19-5ea0-4d5d-9d47-1270404831a7",
+  },
+  {
+    id: "bab346fd-7839-4812-ab27-19309e317938",
+    title: "EU pushes Ukraine for further reforms to unlock funding",
+    date: "2026-10-02",
+    time: "17:31",
+    url: "https://www.ft.com/content/bab346fd-7839-4812-ab27-19309e317938",
+  },
+  {
+    id: "0889f36e-cbd6-4df5-a917-9fbb89071a7e",
+    title: "How to meet Burnham’s ambitions on social care",
+    date: "2026-10-02",
+    time: "17:23",
+    url: "https://www.ft.com/content/0889f36e-cbd6-4df5-a917-9fbb89071a7e",
+  },
+  {
     id: "2c56ac58-87b2-4159-aa83-55567368149a",
     title: "The Ellison credit complex gets a bit more complex",
     date: "2026-10-02",
@@ -33,13 +61,6 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "16:29",
     url: "https://www.ft.com/content/68d4b1f2-5b77-4604-add3-2c4915b4b267",
-  },
-  {
-    id: "8b81e04b-917f-4dda-ac05-83067f7687b1",
-    title: "Paris Fashion Week confronts luxury’s crisis of desire",
-    date: "2026-10-02",
-    time: "13:42",
-    url: "https://www.ft.com/content/8b81e04b-917f-4dda-ac05-83067f7687b1",
   },
   {
     id: "79bcc1f3-954a-4c62-96c6-989b1384b9f3",
@@ -89,6 +110,13 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "13:47",
     url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d",
+  },
+  {
+    id: "8b81e04b-917f-4dda-ac05-83067f7687b1",
+    title: "Paris Fashion Week confronts luxury’s crisis of desire",
+    date: "2026-10-02",
+    time: "13:42",
+    url: "https://www.ft.com/content/8b81e04b-917f-4dda-ac05-83067f7687b1",
   },
   {
     id: "29e2d078-4476-41f2-a180-faf0b2001068",
@@ -271,54 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "05:00",
     url: "https://www.ft.com/content/57de6604-70a9-413a-a381-9ba82ec202ec",
-  },
-  {
-    id: "b72dc264-c1ce-4752-ab99-3c2dab6bfb15",
-    title: "IPO hopeful Zilch needs to prove it’s one of a kind",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/b72dc264-c1ce-4752-ab99-3c2dab6bfb15",
-  },
-  {
-    id: "97d8d346-519e-48fb-8df8-66cf5f12ef62",
-    title: "Amazon seeks to offload $8bn of Nvidia chips to investors",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/97d8d346-519e-48fb-8df8-66cf5f12ef62",
-  },
-  {
-    id: "c2ad4cd1-a08a-4f55-8d57-fa83dbfa98af",
-    title: "Putin has told military leaders to abandon rules of war, Zelenskyy says",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/c2ad4cd1-a08a-4f55-8d57-fa83dbfa98af",
-  },
-  {
-    id: "38176237-e89f-410c-979c-c8c5d68d041a",
-    title: "French high schools burn as student unrest spreads",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/38176237-e89f-410c-979c-c8c5d68d041a",
-  },
-  {
-    id: "1b5ddda2-ac55-4d66-8bf4-bce62b80450d",
-    title: "Paramount picked a bad time to fund a $110bn leveraged buyout",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/1b5ddda2-ac55-4d66-8bf4-bce62b80450d",
-  },
-  {
-    id: "249abfea-3275-40d0-ab98-306b225cbc02",
-    title: "Zack Polanski faces defining week as UK’s Green surge falters",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/249abfea-3275-40d0-ab98-306b225cbc02",
-  },
-  {
-    id: "75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
-    title: "Quant hedge funds reap big gains from global bond sell-off",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
   },
 ];

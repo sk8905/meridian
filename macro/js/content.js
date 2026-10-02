@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-02",
-  lastCheckedTime: "16:15 BST",
+  lastCheckedTime: "18:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1007,10 +1007,10 @@ export const NEWS = {
   updated: "2026-10-02",
   us: [
     { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
-    { title: "My mortgage is a problem for the Fed, and for America", source: "Financial Times", date: "2026-10-02", time: "12:09", url: "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd" },
+    { title: "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", source: "Financial Times", date: "2026-10-02", time: "17:20", url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e" },
+    { title: "Weak US payrolls  likely to keep rate setters on the sidelines in October", source: "Financial Times", date: "2026-10-02", time: "15:01", url: "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28" },
     { title: "Global bond market steadies after sharp sell-off", source: "Financial Times", date: "2026-10-02", time: "11:40", url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79" },
-    { title: "Quant hedge funds reap big gains from global bond sell-off", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f" },
-    { title: "US refiners reap windfall profits as wars push up fuel prices for consumers", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848" },
+    { title: "Treasuries are losing their moneyness", source: "Financial Times", date: "2026-10-02", time: "18:00", url: "https://www.ft.com/content/7128ce19-5ea0-4d5d-9d47-1270404831a7" },
   ],
   uk: [
     { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
@@ -1031,6 +1031,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-02",
   items: [
+    {"title": "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", "source": "Financial Times", "date": "2026-10-02", "time": "17:20", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "G7 agrees a coordinated 100mn-barrel stock release as Washington drops its fuel export ban threat."},
+    {"title": "Eurozone inflation hits three-year high of 3.8%", "source": "Financial Times", "date": "2026-10-02", "time": "16:45", "url": "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", "blurb": "Euro-area inflation climbs to its highest in three years."},
+    {"title": "Weak US payrolls  likely to keep rate setters on the sidelines in October", "source": "Financial Times", "date": "2026-10-02", "time": "15:01", "url": "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28", "blurb": "Soft September jobs data points to a Fed hold at the October meeting."},
     {"title": "US economy adds just 29,000 jobs in September as hiring slows sharply", "source": "Financial Times", "date": "2026-10-02", "time": "14:47", "url": "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", "blurb": "September payrolls come in far below the roughly 90,000 consensus as US hiring slows sharply."},
     {"title": "Investors seek refuge from bond rout in haven German debt", "source": "Financial Times", "date": "2026-10-02", "time": "15:03", "url": "https://www.ft.com/content/93028839-5f0e-43c4-8ee7-44990115ea57", "blurb": "Bunds attract haven flows as the global sovereign-bond sell-off continues."},
     {"title": "My mortgage is a problem for the Fed, and for America", "source": "Financial Times", "date": "2026-10-02", "time": "12:09", "url": "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd", "blurb": "Homeowners are staying put, the housing market is frozen and affordability is as ugly as in the housing bubble."},
@@ -1068,11 +1071,6 @@ export const ARTICLES = {
     {"title": "UK finance minister says 'fiscal discipline' will form core of budget", "source": "Reuters (via Investing.com)", "date": "2026-09-28", "time": "18:11", "url": "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059", "blurb": "Chancellor John Healey told Labour's Liverpool conference that fiscal discipline will sit at the core of his 28 October Budget, saying the cost of servicing Britain's elevated debt is diverting money from public services, as the gilt sell-off keeps squeezing his fiscal headroom.", "author": null},
     {"title": "Stock market today: Dow, S&P 500, Nasdaq slip as US-Iran tensions resurface, Treasury yields jump", "source": "Yahoo Finance", "date": "2026-09-28", "time": "16:19", "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-28-dow-sp-500-nasdaq-080420627.html", "blurb": "Afternoon trading: the S&P 500 fell 0.90% to 7,673.88, the Dow dropped 0.75% to 51,440.97 and the Nasdaq lost 1.14% to 26,760.68 as Brent traded above $106.79/bbl and the 10-year Treasury yield held above 5.2% on the stalled US-Iran Hormuz standoff; Nvidia bucked the selloff (+~1%) after authorising a further $150bn buyback (total $235bn).", "author": null},
     {"title": "5 things to know before the stock market opens Monday", "source": "CNBC", "date": "2026-09-28", "url": "https://www.cnbc.com/2026/09/28/5-things-to-know-before-the-stock-market-opens.html", "blurb": "CNBC's Monday rundown: Trump's rejection of Iran's Hormuz reopening proposal, elevated Treasury yields, and a data-heavy week ahead (core PCE, ISM PMIs, September jobs report) headline the setup for markets before the 28 October FOMC.", "author": null},
-    {"title": "Stock Market Today (Sept. 28, 2026): Dow futures slip amid U.S.-Iran tensions, rising oil prices", "source": "TheStreet", "date": "2026-09-28", "time": "07:45", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-28-2026", "blurb": "Dow futures fell roughly 0.6% and Nasdaq futures dropped about 1% as WTI crude jumped more than 4% to a session peak of $96.44/bbl after Trump rejected Iran's latest Strait of Hormuz proposal, pushing the 10-year Treasury yield up about 7bp to 5.23%.", "author": null},
-    {"title": "US Stock Market Today: S&P 500 Futures Rise As Jobs Data Jitters Build", "source": "Yahoo Finance", "date": "2026-09-28", "time": "09:07", "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080713612.html", "blurb": "E-mini S&P 500 futures rose about 0.5% and Nasdaq futures 0.4% even as the University of Michigan consumer-sentiment gauge sat near record lows and the 30-year mortgage rate stayed above 7% with the 10-year Treasury yield above 5%.", "author": null},
-    {"title": "Why UK Gilt Yields Are Climbing", "source": "Goldman Sachs", "date": "2026-09-28", "url": "https://www.goldmansachs.com/insights/articles/why-uk-gilt-yields-are-climbing", "blurb": "Goldman Sachs research traces the UK gilt sell-off to a global long-end duration shock amplified by UK fiscal uncertainty, with 30-year gilt yields near 5.9% mechanically squeezing Chancellor Healey's Budget headroom before any policy decision is made.", "author": null},
-    {"title": "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait", "source": "CNBC", "date": "2026-09-28", "url": "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html", "blurb": "WTI rose 1.3% to $93.62 and Brent gained 1.8% to $106.31 in early Monday trading after Trump confirmed he rejected Tehran's latest seven-day Strait of Hormuz reopening offer, weighing on US equity futures.", "author": null},
-    {"title": "Healey hails 'new age of industrialisation' brought by Royal Navy", "source": "CityAM", "date": "2026-09-28", "url": "https://www.cityam.com/healey-hails-new-age-of-industrialisation-brought-by-royal-navy/", "blurb": "Previewing his Labour conference speech, Chancellor John Healey cast a Royal Navy shipbuilding push as central to a promised 'new age of industrialisation', even as the gilt sell-off squeezes his fiscal headroom ahead of the 28 October Budget.", "author": null},
   ],
 };
 
