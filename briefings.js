@@ -58,13 +58,15 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-02",
-      time: "12:20 BST",
-      lede: "Euro-area inflation printing at a three-year high has handed the ECB a fresh tightening argument just as bond markets try to steady, with the US jobs report still to come this afternoon.",
+      time: "14:25 BST",
+      lede: "A far weaker US jobs print has landed on top of a euro-area inflation surprise and a bond market only just steadying, leaving the Fed and ECB pulling in different directions.",
       bullets: [
+        { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong>, the FT reports, as hiring slowed sharply &mdash; well short of consensus and bolstering the case for a Fed hold in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; eurozone inflation hit a three-year high of 3.8% in September</strong>, the FT reports, above expectations, with analysts saying a December ECB move remains the base case after two consecutive rate rises.", src: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; in the US, the housing market is frozen</strong>, an FT column argues, with homeowners staying put and affordability as stretched as in the housing bubble &mdash; a problem for the Fed.", src: "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the global bond market has steadied after a sharp sell-off</strong> that pushed 10-year US Treasury yields to their highest level since 2002, the FT reports.", src: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; French bond spreads over Bunds are nearing the 2011 euro-crisis record</strong>, Bloomberg's John Authers writes, with the 10-year OAT yield at 4.92%.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", srcName: "Bloomberg" },
+        { html: "<strong>Fixed income &mdash; investors are seeking refuge from the bond rout in German Bunds</strong>, the FT reports, as the global sell-off continues.", src: "https://www.ft.com/content/93028839-5f0e-43c4-8ee7-44990115ea57", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; diesel fell sharply as the EU considers releasing 50mn barrels of reserves</strong> under pressure from President Trump, who has threatened to ban US exports of the fuel, the FT reports.", src: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", srcName: "Financial Times" },
       ],
     },

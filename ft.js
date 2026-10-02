@@ -42,6 +42,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d",
   },
   {
+    id: "29e2d078-4476-41f2-a180-faf0b2001068",
+    title: "US sanctions Kremlin-backed fintech A7 for allegedly assisting Iran",
+    date: "2026-10-02",
+    time: "13:19",
+    url: "https://www.ft.com/content/29e2d078-4476-41f2-a180-faf0b2001068",
+  },
+  {
     id: "64d54c96-0124-45d0-842c-587ab0641ee2",
     title: "Gold miner M&A is finally producing something that glitters",
     date: "2026-10-02",
@@ -278,26 +285,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "05:00",
     url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d",
-  },
-  {
-    id: "3ae16f02-bb00-46a4-abba-6bfea7f2b1ac",
-    title: "Trump’s diesel threats could go very wrong — just look at the soyabean",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/3ae16f02-bb00-46a4-abba-6bfea7f2b1ac",
-  },
-  {
-    id: "cf4ee5e7-3690-489e-9879-599fa43d8dec",
-    title: "Directors’ Deals: Entain’s new finance chief builds stake",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/cf4ee5e7-3690-489e-9879-599fa43d8dec",
-  },
-  {
-    id: "118785e7-8637-46ad-a60c-286e51370848",
-    title: "US refiners reap windfall profits as wars push up fuel prices for consumers",
-    date: "2026-10-02",
-    time: "05:00",
-    url: "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848",
   },
 ];

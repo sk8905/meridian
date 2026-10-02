@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-02",
-  lastCheckedTime: "12:20 BST",
+  lastCheckedTime: "14:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-02",
   us: [
+    { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
     { title: "My mortgage is a problem for the Fed, and for America", source: "Financial Times", date: "2026-10-02", time: "12:09", url: "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd" },
     { title: "Global bond market steadies after sharp sell-off", source: "Financial Times", date: "2026-10-02", time: "11:40", url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79" },
     { title: "Quant hedge funds reap big gains from global bond sell-off", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f" },
     { title: "US refiners reap windfall profits as wars push up fuel prices for consumers", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848" },
-    { title: "Top Fed official signals central bank will keep rates on hold in October", source: "Financial Times", date: "2026-10-01", time: "18:52", url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f" },
   ],
   uk: [
     { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
@@ -1031,6 +1031,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-02",
   items: [
+    {"title": "US economy adds just 29,000 jobs in September as hiring slows sharply", "source": "Financial Times", "date": "2026-10-02", "time": "14:47", "url": "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", "blurb": "September payrolls come in far below the roughly 90,000 consensus as US hiring slows sharply."},
+    {"title": "Investors seek refuge from bond rout in haven German debt", "source": "Financial Times", "date": "2026-10-02", "time": "15:03", "url": "https://www.ft.com/content/93028839-5f0e-43c4-8ee7-44990115ea57", "blurb": "Bunds attract haven flows as the global sovereign-bond sell-off continues."},
     {"title": "My mortgage is a problem for the Fed, and for America", "source": "Financial Times", "date": "2026-10-02", "time": "12:09", "url": "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd", "blurb": "Homeowners are staying put, the housing market is frozen and affordability is as ugly as in the housing bubble."},
     {"title": "Diesel falls sharply as EU considers releasing 50mn barrels under pressure from Trump", "source": "Financial Times", "date": "2026-10-02", "time": "11:59", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "The US president has threatened to ban US exports of the fuel if Europe does not unlock reserves."},
     {"title": "Eurozone inflation hits three-year high of 3.8%", "source": "Financial Times", "date": "2026-10-02", "time": "11:43", "url": "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", "blurb": "Consumer prices rose at a higher rate than expected in September."},
