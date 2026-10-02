@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "05fd286f-6fac-4479-b560-848970f32af5",
+    title: "Two Iranian small-boat migrants charged with plotting attack on Jewish targets in Manchester",
+    date: "2026-10-02",
+    time: "22:56",
+    url: "https://www.ft.com/content/05fd286f-6fac-4479-b560-848970f32af5",
+  },
+  {
     id: "887e90a5-8456-4eba-9ed0-205c873d4846",
     title: "US justice department will not reopen criminal probe of Fed’s Jay Powell",
     date: "2026-10-02",
@@ -33,13 +40,6 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "21:41",
     url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3",
-  },
-  {
-    id: "4f2ad4c1-22b0-497b-88c8-197d7f301f79",
-    title: "Global bond market steadies after sharp sell-off",
-    date: "2026-10-02",
-    time: "17:45",
-    url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79",
   },
   {
     id: "2e0eb698-d4d3-4bcc-927a-2997df7709be",
@@ -89,6 +89,13 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "18:00",
     url: "https://www.ft.com/content/7128ce19-5ea0-4d5d-9d47-1270404831a7",
+  },
+  {
+    id: "4f2ad4c1-22b0-497b-88c8-197d7f301f79",
+    title: "Global bond market steadies after sharp sell-off",
+    date: "2026-10-02",
+    time: "17:45",
+    url: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79",
   },
   {
     id: "bab346fd-7839-4812-ab27-19309e317938",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "09:30",
     url: "https://www.ft.com/content/62f754e7-aeee-4ab4-9a6f-d3def374b593",
-  },
-  {
-    id: "c7f6d036-abd4-4d8c-a6c8-6dad96cf9fae",
-    title: "Shares in spreadbetter IG Group plunge 26%",
-    date: "2026-10-02",
-    time: "08:34",
-    url: "https://www.ft.com/content/c7f6d036-abd4-4d8c-a6c8-6dad96cf9fae",
   },
 ];
