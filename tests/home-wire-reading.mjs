@@ -124,22 +124,30 @@ if (freeSel) {
 }
 check(!!(pay || freeSel), "reading pane: access state resolves from the source");
 
-// The publication NAME is now a jump-to-the-article link (it no longer filters the
-// wire by that newsroom): clicking it opens the row's story at its source in a new
-// tab, and NO source-filter bar appears.
+// The publication NAME is no longer a special external jump: clicking it opens the
+// row IN THE READING PANE exactly like the rest of the row (never a new tab), and it
+// still does NOT filter the wire by that newsroom.
 await lane(pg, "News");
 await pg.waitForTimeout(200);
 const srcLink = await pg.evaluate(() => {
   window.__opened = null;
   window.open = (u) => { window.__opened = u; return { focus() {} }; };
-  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.querySelector(".g-feed-src") && /^https?:/.test(r.getAttribute("href") || ""));
+  // Pick an openly-readable row (not a padlocked/link-out source) so the pane prints a body.
+  const walled = /financial times|bloomberg|wall street journal|economist|new york times|reuters/i;
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => {
+    const s = ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
+    return s && !walled.test(s) && /^https?:/.test(r.getAttribute("href") || "");
+  });
   if (!row) return null;
-  const href = row.getAttribute("href");
+  const title = (row.querySelector(".g-feed-title") || {}).textContent.replace(/^★\s*/, "").trim();
   row.querySelector(".g-feed-src").click();
-  return { href, opened: window.__opened, srcbar: !!document.querySelector(".g-feed-srcbar") };
+  const pane = document.getElementById("g-readpane");
+  const paneTitle = ((pane && pane.querySelector(".g-read-title")) || {}).textContent || "";
+  return { title, opened: window.__opened, paneTitle: paneTitle.trim(), srcbar: !!document.querySelector(".g-feed-srcbar") };
 });
 if (srcLink) {
-  checkEq(srcLink.opened, srcLink.href, "wire: clicking the publication name opens that story at its source (new tab)");
+  check(srcLink.opened === null, "wire: clicking the publication name does NOT open a new tab (no external jump)");
+  checkEq(srcLink.paneTitle, srcLink.title, "wire: clicking the publication name opens that story in the reading pane");
   check(!srcLink.srcbar, "wire: clicking the publication name does NOT filter the wire by source");
 }
 
@@ -241,14 +249,28 @@ await ctx.close();
   check(await pg2.evaluate(() => !document.getElementById("g-reader").hidden), "phone: a mid-content swipe does NOT close the reader (edge-only)");
   await pg2.evaluate(() => document.getElementById("g-reader-back").click());
   await pg2.waitForTimeout(120);
-  // A padlocked (subscriber) row does NOT open the in-app reader — it opens at the source.
+  // A SUBSCRIBER-padlocked row (needs a login) does NOT open the in-app reader — it opens
+  // at the source. NB: .is-locked also covers bot-walled link-outs (Reuters), which DO
+  // open the reader now, so pick a row whose mark says "needs a login" specifically.
   const locked = await pg2.evaluate(() => {
-    const row = document.querySelector("#g-feed .g-feed-row.is-locked");
+    const row = [...document.querySelectorAll("#g-feed .g-feed-row.is-locked")].find((r) => /needs a login/i.test((r.querySelector(".g-feed-lock") || {}).title || ""));
     if (!row) return { found: false };
     row.click();
     return { found: true, readerOpen: !document.getElementById("g-reader").hidden };
   });
   if (locked.found) check(!locked.readerOpen, "phone: a padlocked subscriber row does not open the in-app reader (opens at the publisher)");
+  await pg2.evaluate(() => { const ov = document.getElementById("g-reader"); if (ov && !ov.hidden) document.getElementById("g-reader-back").click(); });
+  await pg2.waitForTimeout(120);
+  // A bot-walled LINK-OUT row (Reuters) DOES open the in-app reader now — showing the
+  // headline + an "open original" link in-pane, rather than bouncing straight out.
+  const reut = await pg2.evaluate(() => {
+    const row = [...document.querySelectorAll("#g-feed .g-feed-row.is-locked")].find((r) => /reuters/i.test(((r.querySelector(".g-feed-src") || {}).textContent) || ""));
+    if (!row) return { found: false };
+    row.click();
+    const body = document.getElementById("g-reader-body");
+    return { found: true, readerOpen: !document.getElementById("g-reader").hidden, hasOpen: !!(body && body.querySelector(".g-read-open, .g-read-ext")) };
+  });
+  if (reut.found) check(reut.readerOpen && reut.hasOpen, "phone: a bot-walled Reuters row opens the in-app reader with an 'open original' link (not a bare external jump)");
   await ctx2.close();
 }
 

@@ -200,16 +200,9 @@ function initFeedEntityNav() {
   const feed = document.getElementById("g-feed");
   if (!feed) return;
   const handle = (e) => {
-    // The publication name is a jump-to-the-article link: open the row's story at
-    // its source in a new tab (it no longer filters the wire by that newsroom).
-    const src = e.target.closest(".g-feed-src");
-    if (src) {
-      e.preventDefault(); e.stopPropagation();
-      const row = src.closest(".g-feed-row");
-      const href = row && row.getAttribute("href");
-      if (href && !href.startsWith("/")) window.open(href, "_blank", "noopener,noreferrer");
-      return;
-    }
+    // The publication name is NOT a special external jump: a click on it falls through
+    // to the row's own reader handler (opens in the reading pane like the rest of the
+    // row). Only the source-filter clear chip is handled here.
     const clr = e.target.closest("[data-clearsrc]");
     if (clr) { e.preventDefault(); e.stopPropagation(); _feedSrc = null; renderWire(); }
   };
@@ -1256,8 +1249,8 @@ function _wireHeroNewsReader() {
   if (!host || host.dataset.readWired) return;
   host.dataset.readWired = "1";
   host.addEventListener("click", (e) => {
-    if (e.target.closest(".g-feed-src")) return;               // an explicit source link still works
-    const row = e.target.closest(".g-feed-row"); if (!row) return;
+    const row = e.target.closest(".g-feed-row"); if (!row) return;   // source name included → opens in-pane
+
     e.preventDefault(); e.stopPropagation();
     const read = document.getElementById("g-read");
     if (read && read.offsetParent !== null) openInReadPane(row);   // desktop → side reading pane
@@ -2098,7 +2091,7 @@ function _decorateLocks() {
     const mark = document.createElement("span");
     mark.className = "g-feed-lock";
     mark.title = paywalled ? "Subscriber source — needs a login; opens at the publisher"
-                           : "Opens at the publisher — this source won't load in the reading pane";
+                           : "Opens in the reading pane; the full text opens at the publisher (this source blocks in-app fetch)";
     mark.innerHTML = paywalled ? LOCK_SVG : EXT_SVG;
     if (srcEl) srcEl.insertBefore(mark, srcEl.firstChild); else row.appendChild(mark);
   });
@@ -2147,7 +2140,7 @@ function _renderReaderInto(box, it, emptyMsg) {
       : linksOut ? `<span class="g-read-ext">opens at publisher</span>`
       : `<span class="g-read-free">● reading mode</span>`;
     const note = paywalled ? "This source needs a login — open the original below."
-      : linksOut ? "This source doesn't load in the reading pane — open the original below."
+      : linksOut ? "This source blocks in-app fetch, so the full text can't render here — open the original below."
       : "Open the original below to read the full story.";
     box.innerHTML = _readShell(it, badge, `<div class="g-read-note">${note}</div>`);
     return;
@@ -2281,18 +2274,20 @@ function ensureReadWired() {
   if (!feed || feed.dataset.readWired) return;
   feed.dataset.readWired = "1";
   feed.addEventListener("click", (e) => {
-    if (e.target.closest(".g-feed-src, [data-follow], .g-mw-exp")) return;  // in-row controls
-    const row = e.target.closest(".g-feed-row"); if (!row) return;
+    if (e.target.closest("[data-follow], .g-mw-exp")) return;               // in-row controls
+    const row = e.target.closest(".g-feed-row"); if (!row) return;          // (source name included → opens in-pane)
     const read = document.getElementById("g-read");
     if (read && read.offsetParent !== null) {                               // desktop → side pane
       e.preventDefault(); e.stopPropagation();
       openInReadPane(row);
       return;
     }
-    // Mobile: openly-readable sources open in the in-app terminal reader; subscriber
-    // (padlocked) rows and internal links keep their native tap (open at the source).
+    // Mobile: openly-readable AND bot-walled link-outs (e.g. Reuters) open in the in-app
+    // reader — the link-outs show the headline + an "Open original" link in-pane rather
+    // than bouncing straight out. Only subscriber (padlocked) rows and internal links
+    // keep their native tap (open at the source).
     const it = _rowItem(row);
-    if (it.ext && it.href && !_opensExternally(it.src, it.href)) {
+    if (it.ext && it.href && !_isPaywalled(it.src, it.href)) {
       e.preventDefault(); e.stopPropagation();
       openMobileReader(it);
     }
