@@ -955,7 +955,7 @@
        it; the body scrolls and reuses the shared .g-read-* reading-mode typography.
        Never shown on desktop (that uses the side reading pane). */
     .g-reader{ position:fixed; left:0; right:0; z-index:60; display:flex; flex-direction:column; background:var(--t-ground, #000);
-      top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); bottom:0; }
+      top:var(--wire-head-h, 57px); bottom:0; }
     .g-reader[hidden]{ display:none; }
     .g-reader-bar{ flex:0 0 auto; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px;
       background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
@@ -1388,10 +1388,12 @@
          bottom = the nav's height (mtab 42 + 12 padding + safe-area). */
       html.home-brief, html.home-brief body{ height:100%; overflow:hidden; overscroll-behavior:none; }
       html.home-brief body{ padding-bottom:0 !important; }
-      /* Reader modal open (openMobileReader): lock the document exactly like the briefing,
-         so the fixed header / search band / wire chips can't rubber-band out of sync with
-         the CSS-anchored #g-reader overlay on iOS — the stale-pixel clip + gap bug. */
-      html.home-reading, html.home-reading body{ height:100%; overflow:hidden; overscroll-behavior:none; }
+      /* Reader modal open (openMobileReader): HIDE the search band + wire tabs. The reader
+         is a full-screen modal that covers from the header (top:--wire-head-h) down, so
+         nothing sticky sits above it to rubber-band out of sync on iOS — the cause of both
+         the search-band clip and (when the document was overflow-locked) the gap. The "‹
+         Wire" back button returns to the wire where the tabs are live again. */
+      html.home-reading .wire-band, html.home-reading .g-wiretabs{ display:none !important; }
       .tui .g-layout.wire-brief .g-hbrief{ display:flex; flex-direction:column; box-sizing:border-box;
         position:fixed; left:0; right:0; z-index:6;
         top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px));
