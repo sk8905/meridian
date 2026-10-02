@@ -811,7 +811,7 @@
        Manager wire on the right. The left rail and both right rails span both rows
        so they stay full-height. */
     .tui .g-layout{ display:grid; grid-template-columns:300px minmax(0,1fr) minmax(0,1fr) 304px 320px;
-      grid-template-rows:minmax(0,1fr) minmax(0,3fr);   /* top row (briefing + chart) = 25%; wire + reading pane = 75% */
+      grid-template-rows:minmax(0,1fr) minmax(0,4fr);   /* top row (briefing + chart) = 20%; wire + reading pane = 80% */
       grid-template-areas:"side brief hero sidex side2" "side feed mgr sidex side2";
       gap:0; margin:0; align-items:start; }
     .tui .g-side{ grid-area:side; display:block; border-right:1px solid var(--t-grid2); }
