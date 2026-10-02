@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9f960533-9cd7-4475-aed0-17f09fdc28fd",
+    title: "My mortgage is a problem for the Fed, and for America",
+    date: "2026-10-02",
+    time: "12:09",
+    url: "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd",
+  },
+  {
+    id: "c77b86cb-a915-412e-89d9-52cfc32cdc80",
+    title: "Australia’s ‘postcard from the future’ of big batteries",
+    date: "2026-10-02",
+    time: "12:00",
+    url: "https://www.ft.com/content/c77b86cb-a915-412e-89d9-52cfc32cdc80",
+  },
+  {
+    id: "97200b07-755c-40ce-a50b-b51666bd4b7e",
+    title: "Diesel falls sharply as EU considers releasing 50mn barrels under pressure from Trump",
+    date: "2026-10-02",
+    time: "11:59",
+    url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e",
+  },
+  {
+    id: "7f6ccd9a-5846-415d-9967-e1501fb7a6d6",
+    title: "Gunvor rebrands in new attempt to distance itself from past Russia links",
+    date: "2026-10-02",
+    time: "11:13",
+    url: "https://www.ft.com/content/7f6ccd9a-5846-415d-9967-e1501fb7a6d6",
+  },
+  {
+    id: "e637cd4c-415d-431c-a857-95d6adc33157",
+    title: "Higher Eurozone inflation adds pressure on ECB to tighten again",
+    date: "2026-10-02",
+    time: "11:11",
+    url: "https://www.ft.com/content/e637cd4c-415d-431c-a857-95d6adc33157",
+  },
+  {
     id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
     title: "Inflation and interest rates tracker: see how your country compares",
     date: "2026-10-02",
@@ -265,40 +300,4 @@ export const FT_ITEMS = [
     time: "19:28",
     url: "https://www.ft.com/content/21f0822e-eb0b-4056-bcf2-2b6e2a14c221",
   },
-  {
-    id: "04992c30-21da-46f3-8b95-ca82b2791521",
-    title: "Europe braces for ‘severe hybrid attacks’ from Russia, says Merz",
-    date: "2026-10-01",
-    time: "18:54",
-    url: "https://www.ft.com/content/04992c30-21da-46f3-8b95-ca82b2791521",
-  },
-  {
-    id: "e3a53272-385d-40a8-ac77-408f4c136f6f",
-    title: "Top Fed official signals central bank will keep rates on hold in October",
-    date: "2026-10-01",
-    time: "18:52",
-    url: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f",
-  },
-  {
-    id: "a85c5d06-5f8d-4163-8cd6-e42df9f137cb",
-    title: "British-Iranian man arrested under terror laws over RAF Fairford incident",
-    date: "2026-10-01",
-    time: "18:49",
-    url: "https://www.ft.com/content/a85c5d06-5f8d-4163-8cd6-e42df9f137cb",
-  },
-  {
-    id: "ed5aae75-e06b-49bc-8e96-6c596f88f2c7",
-    title: "Ex-HSBC banker banned for dodging £5,900 in train fares",
-    date: "2026-10-01",
-    time: "18:31",
-    url: "https://www.ft.com/content/ed5aae75-e06b-49bc-8e96-6c596f88f2c7",
-  },
-  {
-    id: "a357ac2d-fead-4df2-a5cf-cf1aa94cf7a9",
-    title: "Europe should take Trump’s diesel ban seriously, if not literally",
-    date: "2026-10-01",
-    time: "18:25",
-    url: "https://www.ft.com/content/a357ac2d-fead-4df2-a5cf-cf1aa94cf7a9",
-  },
-
 ];
