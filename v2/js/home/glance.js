@@ -2333,7 +2333,11 @@ function _renderReaderInto(box, it, emptyMsg) {
         // Body paragraphs get entity auto-linking (managers / hedge funds / law firms →
         // their Wire profile); section headings stay plain (bold + underlined).
         const body = (Array.isArray(d.blocks) && d.blocks.length)
-          ? d.blocks.map((b) => (b && b.h) ? `<h3 class="g-read-h">${esc(b.t)}</h3>` : `<p class="g-read-p">${linkEntities(esc((b && b.t != null) ? b.t : b))}</p>`).join("")
+          ? d.blocks.map((b) => {
+              if (b && b.img) return `<figure class="g-read-fig"><img class="g-read-img" src="${esc(b.img)}" alt="${esc(b.alt || "")}" loading="lazy" referrerpolicy="no-referrer">${b.alt ? `<figcaption class="g-read-cap">${esc(b.alt)}</figcaption>` : ""}</figure>`;
+              if (b && b.h) return `<h3 class="g-read-h">${esc(b.t)}</h3>`;
+              return `<p class="g-read-p">${linkEntities(esc((b && b.t != null) ? b.t : b))}</p>`;
+            }).join("")
           : d.paragraphs.map((p) => `<p class="g-read-p">${linkEntities(esc(p))}</p>`).join("");
         box.innerHTML = _readShell({ ...it, title: d.title || it.title }, `<span class="g-read-free">● reading mode</span>`,
           (bl ? `<div class="g-read-byline">${bl}</div>` : "") + body);

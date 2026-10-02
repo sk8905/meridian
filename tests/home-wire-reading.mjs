@@ -19,6 +19,7 @@ const READ = { source: "The Guardian", title: "Oil slips below $100 as Iran sign
 ], blocks: [
   { t: "The oil move", h: true },
   { t: "Brent crude slipped back under $100 a barrel on Tuesday, unwinding part of Monday's spike after reports of an Iran offer over the Strait of Hormuz.", h: false },
+  { img: "https://cdn.example.com/photos/hormuz-tankers.jpg", alt: "Tankers near the Strait of Hormuz" },
   { t: "The move came as UK borrowing overshot the OBR's forecast, with gilt yields ticking higher across the curve.", h: false },
   { t: ENTITY_PARA, h: false },
 ] };
@@ -121,6 +122,18 @@ if (freeSel) {
       headDecoration: h && getComputedStyle(h).textDecorationLine,
       ents: [...document.querySelectorAll("#g-readpane .g-read-p a.g-ent")].map((a) => ({ t: a.textContent, href: a.getAttribute("href"), weight: getComputedStyle(a).fontWeight, color: getComputedStyle(a).color })),
       pColor: p && getComputedStyle(p).color,
+      // A content image block renders as a <figure> with the <img> and its caption, in
+      // document order (between the first and second paragraphs here).
+      fig: (() => {
+        const f = document.querySelector("#g-readpane .g-read-fig"); if (!f) return null;
+        const img = f.querySelector("img.g-read-img"), cap = f.querySelector(".g-read-cap");
+        const body = document.querySelector("#g-readpane .g-read-byline") ? document.querySelector("#g-readpane .g-read-byline").parentElement : null;
+        const kids = body ? [...body.children] : [];
+        const figIdx = kids.indexOf(f);
+        const prevIsP = figIdx > 0 && kids[figIdx - 1].classList.contains("g-read-p");
+        const nextIsP = figIdx >= 0 && kids[figIdx + 1] && kids[figIdx + 1].classList.contains("g-read-p");
+        return { src: img && img.getAttribute("src"), referrer: img && img.getAttribute("referrerpolicy"), lazy: img && img.getAttribute("loading"), cap: cap ? cap.textContent : "", ordered: prevIsP && nextIsP };
+      })(),
     };
   });
   check(full.paras >= 2 && full.byline && full.free, `reading pane: an openly-readable source prints the extracted body in-pane (${full.paras} paragraphs)`);
@@ -128,6 +141,12 @@ if (freeSel) {
   // Section headings from `blocks` render in BOLD + UNDERLINED (.g-read-h) for easier reading.
   check(full.headText === "The oil move" && +full.headWeight >= 700, `reading pane: a section heading renders in bold (.g-read-h "${full.headText}" @ ${full.headWeight})`);
   check(/underline/.test(full.headDecoration || ""), `reading pane: a section heading is underlined (${full.headDecoration})`);
+  // Content images render inline as a <figure> (img + caption), in document order, lazy
+  // + no-referrer (so hotlink/referrer-gated images still load).
+  check(!!full.fig && full.fig.src === "https://cdn.example.com/photos/hormuz-tankers.jpg", `reading pane: a content image renders inline (${full.fig && full.fig.src})`);
+  check(!!full.fig && full.fig.cap === "Tankers near the Strait of Hormuz", `reading pane: the image caption renders (${full.fig && full.fig.cap})`);
+  check(!!full.fig && full.fig.lazy === "lazy" && full.fig.referrer === "no-referrer", "reading pane: the image is lazy-loaded with no-referrer");
+  check(!!full.fig && full.fig.ordered, "reading pane: the image sits in document order between the paragraphs");
   // Entity auto-linking: a tracked manager / hedge fund / law firm named in the body is
   // linked to its Wire profile (coloured + bold), and only in the reading pane.
   const entBy = (name) => full.ents.find((e) => e.t === name);

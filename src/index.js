@@ -1797,6 +1797,31 @@ function _blockIsLinkOnly(inner) {
   const outside = _readStrip(String(inner).replace(/<a\b[\s\S]*?<\/a>/gi, " "));
   return outside.length < 2;
 }
+// ---- Reading-pane content images ------------------------------------------------
+// We keep real article photography/charts and drop chrome: icons, logos, avatars,
+// share/social glyphs, trackers, spacers and vector assets. src is resolved to an
+// ABSOLUTE url against the article; a few common lazy-load attrs are honoured. Each
+// article is capped at READ_IMG_MAX so a gallery page can't bloat the payload.
+const READ_IMG_MAX = 8;
+const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag)/i;
+function _readImgOK(src) {
+  if (!src || !/^https?:\/\//i.test(src)) return false;      // absolute http(s) only
+  if (/\.svg(?:[?#]|$)/i.test(src)) return false;            // vector = icon/logo
+  if (READ_IMG_SKIP.test(src)) return false;
+  return true;
+}
+// Pull the best src (honouring data-src / data-lazy-src / srcset) + alt from an <img>'s
+// attribute string, resolve it against `base`, and return an image block or null.
+function _readImgFrom(attrs, base) {
+  const g = (re) => { const m = re.exec(attrs); return m ? String(m[1]).trim() : ""; };
+  let s = g(/\bdata-src\s*=\s*["']([^"']+)["']/i) || g(/\bdata-lazy-src\s*=\s*["']([^"']+)["']/i) || g(/\bsrc\s*=\s*["']([^"']+)["']/i);
+  if (!s) { const ss = g(/\b(?:data-)?srcset\s*=\s*["']([^"']+)["']/i); if (ss) s = (ss.split(",").pop() || "").trim().split(/\s+/)[0]; }
+  if (!s) return null;
+  let url; try { url = new URL(s, base).toString(); } catch { return null; }
+  if (!_readImgOK(url)) return null;
+  const alt = g(/\balt\s*=\s*["']([^"']*)["']/i);
+  return { img: url, alt: alt || "", t: "" };
+}
 // A body paragraph that ends in sentence punctuation (optionally wrapped by a closing
 // quote/bracket). Real article prose ends this way; a recirculation HEADLINE does not.
 const _ENDS_SENTENCE = /[.!?…][”’"')\]]*$/;
@@ -1810,6 +1835,7 @@ function _stripLeadingJunk(blocks) {
   let i = 0;
   while (i < blocks.length) {
     const b = blocks[i];
+    if (b.img) break;                                         // a leading image is real content — keep
     const headlineLike = !b.h && b.t.length < 140 && !_ENDS_SENTENCE.test(b.t);
     const navHead = b.h && READ_NAV_LABEL.test(b.t);
     if (headlineLike || navHead) { i++; continue; }
@@ -1846,30 +1872,49 @@ export function extractReadable(html, u) {
   // and keep whichever yields more body text.
   const art = /<article[\s\S]*?<\/article>/i.exec(html);
   const ab = /<[^>]+itemprop=["']articleBody["'][\s\S]*?<\/[a-z0-9]+>/i.exec(html);
-  let blocks = _readBlocks(art ? art[0] : (ab ? ab[0] : html));
+  let blocks = _readBlocks(art ? art[0] : (ab ? ab[0] : html), u);
   if (_readBlocksLen(blocks) < 600) {
-    const whole = _readBlocks(html);
+    const whole = _readBlocks(html, u);
     if (_readBlocksLen(whole) > _readBlocksLen(blocks)) blocks = whole;
   }
   blocks = _dropBodylessHeadings(_stripLeadingJunk(blocks));   // drop a leading recirc strip + nav-menu headings
-  // `paragraphs` stays the body-only string array (back-compat for callers + specs);
-  // `blocks` is the ORDERED sequence incl. section headings ({t, h:true}) so the reading
-  // pane can render headings in bold. accessibility is still judged on the body paras.
-  const paragraphs = blocks.filter((b) => !b.h).map((b) => b.t);
+  // `paragraphs` stays the body-only TEXT string array (back-compat for callers + specs);
+  // `blocks` is the ORDERED sequence incl. section headings ({t, h:true}) and content
+  // images ({img, alt}) so the reading pane can render headings bold and show images
+  // inline. accessibility is judged on the body paras only (images don't count).
+  const paragraphs = blocks.filter((b) => !b.h && !b.img).map((b) => b.t);
   return { url: u.toString(), source, title, byline, date, accessible: accessible && paragraphs.length >= 2, paragraphs, blocks };
 }
 // Ordered body blocks: <p> body paragraphs (min length, boilerplate dropped) AND section
 // headings <h2>-<h4> (short, sane), in document order, each {t, h}. A trailing dangling
 // heading (no body after it) is dropped so the pane never ends on a bare header.
-function _readBlocks(scope) {
-  const out = [], seen = new Set(); let total = 0;
-  const re = /<(p|h[2-4])\b[^>]*>([\s\S]*?)<\/\1>/gi; let m;
-  while ((m = re.exec(scope)) && out.length < 80) {
-    const isH = m[1][0].toLowerCase() === "h";
-    const t = _readStrip(m[2]);
+function _readBlocks(scope, base) {
+  const out = [], seen = new Set(), seenImg = new Set(); let total = 0, imgN = 0;
+  // Match body blocks (<p> / <h2>-<h4>), <figure> (its image + optional caption) and
+  // standalone <img>, in DOCUMENT ORDER, so images land where they appear in the story.
+  const re = /<figure\b[^>]*>([\s\S]*?)<\/figure>|<(p|h[2-4])\b[^>]*>([\s\S]*?)<\/\2>|<img\b([^>]*?)\/?>/gi; let m;
+  const addImg = (attrs, inner) => {
+    if (!base || imgN >= READ_IMG_MAX) return;
+    const card = _readImgFrom(attrs, base);
+    if (!card || seenImg.has(card.img)) return;
+    if (inner != null) {                                         // a <figure> — prefer its caption as alt
+      const cap = _readStrip((/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/i.exec(inner) || [])[1] || "");
+      if (cap && !READ_BOILER.test(cap)) card.alt = cap;
+    }
+    seenImg.add(card.img); out.push(card); imgN++;
+  };
+  while ((m = re.exec(scope)) && out.length < 90) {
+    if (m[1] !== undefined) {                                    // <figure>…</figure>
+      const im = /<img\b([^>]*?)\/?>/i.exec(m[1]);
+      if (im) addImg(im[1], m[1]);
+      continue;
+    }
+    if (m[4] !== undefined) { addImg(m[4], null); continue; }    // standalone <img>
+    const isH = m[2][0].toLowerCase() === "h";
+    const t = _readStrip(m[3]);
     if (!t || READ_BOILER.test(t)) continue;
     if (READ_NAV_LABEL.test(t)) continue;                        // nav/widget section label (any block)
-    if (!isH && _blockIsLinkOnly(m[2])) continue;                // a headline that only links out — not prose
+    if (!isH && _blockIsLinkOnly(m[3])) continue;                // a headline that only links out — not prose
     if (isH ? (t.length < 2 || t.length > 120) : (t.length < 40)) continue;
     const k = (isH ? "h:" : "p:") + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     if (total > 20000) break;
@@ -1901,14 +1946,25 @@ async function _readDirect(u, host) {
 // rendered bold in the pane), in document order, each {t, h}. The article title (# h1)
 // is shown separately, so it is skipped. A leading recirculation strip and a dangling
 // trailing heading are dropped, matching the direct extractor.
-export function proxyBlocks(md) {
-  const out = [], seen = new Set();
+export function proxyBlocks(md, base) {
+  const out = [], seen = new Set(), seenImg = new Set(); let imgN = 0;
   const blocks = String(md || "")
     .replace(/```[\s\S]*?```/g, " ")                     // fenced code
-    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")               // images
     .split(/\n{2,}/);
   for (const b of blocks) {
-    const raw = b.trim();
+    let raw = b.trim();
+    if (!raw) continue;
+    // Pull any markdown images out as their OWN image blocks (in order), then strip them
+    // from the text so the remaining prose is processed normally. A block that was only
+    // image(s) yields no paragraph.
+    const imgRe = /!\[([^\]]*)\]\(\s*([^)\s]+)(?:\s+"[^"]*")?\s*\)/g; let im;
+    while ((im = imgRe.exec(raw))) {
+      if (imgN >= READ_IMG_MAX) break;
+      let url = im[2];
+      if (base) { try { url = new URL(url, base).toString(); } catch { /* keep as-is */ } }
+      if (_readImgOK(url) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
+    }
+    raw = raw.replace(imgRe, " ").replace(/\s+/g, " ").trim();
     if (!raw) continue;
     const hm = /^(#{1,6})\s+([\s\S]*)$/.exec(raw);
     if (hm) {                                                  // a markdown heading
@@ -1941,7 +1997,7 @@ export function proxyBlocks(md) {
 }
 // Body-only paragraph strings (back-compat for callers + specs). The ordered `blocks`
 // (with headings) come from proxyBlocks.
-export function proxyParagraphs(md) { return proxyBlocks(md).filter((b) => !b.h).map((b) => b.t); }
+export function proxyParagraphs(md) { return proxyBlocks(md).filter((b) => !b.h && !b.img).map((b) => b.t); }
 const _readCleanTitle = (t) => (t && String(t).replace(/\s*[|\-–—]\s*[^|\-–—]+$/, "").trim()) || "";
 // Fallback path: render the article through a browser-based reader that returns the
 // PUBLIC page's text. Used only when the direct fetch was blocked or yielded no body
@@ -1970,8 +2026,8 @@ async function _readViaFirecrawl(u, host, env) {
     const d = j && j.data;
     const md = d && (d.markdown || d.content || "");
     if (!md) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-empty" };
-    const blks = proxyBlocks(md);
-    const paras = blks.filter((x) => !x.h).map((x) => x.t);
+    const blks = proxyBlocks(md, u.toString());
+    const paras = blks.filter((x) => !x.h && !x.img).map((x) => x.t);
     const meta = (d && d.metadata) || {};
     return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(meta.title || meta.ogTitle), byline: "", date: meta.publishedTime || meta.publishedDate || "", accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "firecrawl" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fc-failed" }; }
@@ -1989,8 +2045,8 @@ async function _readViaJina(u, host, env) {
     try { const d = (JSON.parse(raw) || {}).data; if (d) { content = d.content || d.text || ""; title = d.title || ""; date = d.publishedTime || ""; } }
     catch { if (/^\s*[^{[]/.test(raw) && raw.length > 200) content = raw; }
     if (!content) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-empty" };
-    const blks = proxyBlocks(content);
-    const paras = blks.filter((x) => !x.h).map((x) => x.t);
+    const blks = proxyBlocks(content, u.toString());
+    const paras = blks.filter((x) => !x.h && !x.img).map((x) => x.t);
     return { url: u.toString(), source: _readTidy(host), title: _readCleanTitle(title), byline: "", date, accessible: paras.length >= 2, paragraphs: paras, blocks: blks, via: "proxy" };
   } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "proxy-failed" }; }
 }
@@ -2006,8 +2062,8 @@ async function handleRead(request, env, ctx) {
   const cache = caches.default;
   // Cache-key version — bump on any extractor change so the edge discards reader
   // responses rendered by the OLD extractor (else a junk/stale body is served for up to
-  // an hour after deploy). v4: + nav-menu (bodyless-heading) drop.
-  const key = new Request("https://read.internal/v4/" + encodeURIComponent(u.toString()));
+  // an hour after deploy). v4: + nav-menu (bodyless-heading) drop. v5: + content images.
+  const key = new Request("https://read.internal/v5/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.

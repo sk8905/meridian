@@ -238,4 +238,51 @@ check(pb[0].h === false && pb[1].h === true && pb[2].h === false, "proxy: order 
 // The article title (# h1) is NOT emitted as a heading block (shown separately).
 check(!pbHeads.some((h) => /Austria's inflation climbs/.test(h)), "proxy: the h1 article title is not duplicated as a section heading");
 
+// 6) Content IMAGES — direct HTML path. A <figure> image (caption → alt) and a standalone
+//    content <img> are kept IN ORDER between the paragraphs; a logo (.svg), a share icon
+//    and an advert are dropped; relative src is resolved to an absolute URL. Images are in
+//    `blocks` only, never in `paragraphs`.
+const imgArt = `<!doctype html><html><head>
+  <meta property="og:title" content="A story with pictures">
+  </head><body><article>
+  <p>This is the opening paragraph of the story, comfortably past the forty-character body minimum so it is kept.</p>
+  <figure><img src="/media/barristers.jpg" alt="raw alt"><figcaption>Barristers outside the Royal Courts of Justice</figcaption></figure>
+  <p>A second substantial paragraph that also clears the minimum length so the body is unambiguous and real.</p>
+  <img src="https://cdn.site.com/assets/logo.svg" alt="site logo">
+  <img src="https://cdn.site.com/icons/share-facebook.png" alt="share">
+  <img src="https://cdn.site.com/photos/scene2.jpg?w=800" alt="A second scene">
+  </article></body></html>`;
+const ia = extractReadable(imgArt, u("https://www.legalcheek.com/2026/10/story/"));
+const iaImgs = ia.blocks.filter((b) => b.img);
+checkEq(iaImgs.length, 2, `images: keeps the two content images, drops the logo/.svg + share icon + advert (${iaImgs.length})`);
+checkEq(iaImgs[0].img, "https://www.legalcheek.com/media/barristers.jpg", "images: a relative <figure> src is resolved to an absolute URL");
+checkEq(iaImgs[0].alt, "Barristers outside the Royal Courts of Justice", "images: the <figcaption> is used as the image caption/alt");
+checkEq(iaImgs[1].img, "https://cdn.site.com/photos/scene2.jpg?w=800", "images: a standalone content <img> is kept with its absolute URL");
+check(ia.blocks[0] && !ia.blocks[0].img && ia.blocks[1] && ia.blocks[1].img && ia.blocks[2] && !ia.blocks[2].img,
+  "images: images sit in document order between the paragraphs");
+check(ia.paragraphs.length === 2 && !ia.paragraphs.some((p) => /jpg|svg|png/i.test(p)), `images: paragraphs stay text-only (${ia.paragraphs.length})`);
+check(ia.accessible, "images: the article is still accessible (images don't affect the body check)");
+
+// 7) Content IMAGES — markdown proxy path. ![alt](url) becomes an image block in order;
+//    a logo (.svg) and an advert are dropped; a relative src resolves against the base.
+const imgMd = `# A story with pictures
+
+The opening paragraph of the proxied markdown story, comfortably past the forty-character body minimum so it is kept.
+
+![Barristers outside court](/media/barristers.jpg)
+
+A second real paragraph of the proxied story, also well past the minimum length to count as genuine body prose.
+
+![site logo](https://cdn.site.com/assets/logo.svg)
+![promo](https://cdn.site.com/ads/advert-banner.png)
+![A chart of yields](https://cdn.site.com/photos/chart.png)`;
+const mb = proxyBlocks(imgMd, "https://www.legalcheek.com/2026/10/story/");
+const mbImgs = mb.filter((b) => b.img);
+checkEq(mbImgs.length, 2, `proxy-images: keeps the two content images, drops the logo/.svg + advert (${mbImgs.length})`);
+checkEq(mbImgs[0].img, "https://www.legalcheek.com/media/barristers.jpg", "proxy-images: a relative markdown image src resolves to an absolute URL");
+checkEq(mbImgs[0].alt, "Barristers outside court", "proxy-images: the markdown alt text is carried as the caption");
+checkEq(mbImgs[1].img, "https://cdn.site.com/photos/chart.png", "proxy-images: an absolute content image is kept");
+check(mb[0] && !mb[0].img && mb[1] && mb[1].img && mb[2] && !mb[2].img, "proxy-images: image order is preserved between the paragraphs");
+check(!proxyParagraphs(imgMd).some((p) => /jpg|svg|png/i.test(p)), "proxy-images: proxyParagraphs stays text-only (no image URLs)");
+
 finish();

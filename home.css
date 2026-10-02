@@ -949,6 +949,12 @@
     .g-read-p .g-ent, .g-read-art .g-ent{ color:var(--t-link); font-weight:700; text-decoration:none; }
     .g-read-p .g-ent:hover, .g-read-art .g-ent:hover{ text-decoration:underline; text-underline-offset:2px; }
     .g-read-h:first-child{ margin-top:0; }
+    /* Content images pulled from the article, shown inline in reading order. The image
+       sits in a figure with an optional caption; it scales to the text column and never
+       overflows it. */
+    .g-read-fig{ margin:14px 0; }
+    .g-read-img{ display:block; width:100%; max-width:100%; height:auto; border:1px solid var(--t-grid); background:var(--t-panel2, var(--t-panel)); }
+    .g-read-cap{ font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-faint); line-height:1.5; margin-top:5px; }
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
