@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "79bcc1f3-954a-4c62-96c6-989b1384b9f3",
+    title: "Pedro Sánchez loses vote on Spanish housing reform",
+    date: "2026-10-02",
+    time: "15:57",
+    url: "https://www.ft.com/content/79bcc1f3-954a-4c62-96c6-989b1384b9f3",
+  },
+  {
     id: "d2f01dd2-2fde-4d3b-aff0-f82aa9e05296",
     title: "Italy and Greece seek leeway on EU fiscal rules",
     date: "2026-10-02",
@@ -124,13 +131,6 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "11:59",
     url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e",
-  },
-  {
-    id: "79bcc1f3-954a-4c62-96c6-989b1384b9f3",
-    title: "Pedro Sánchez loses vote on Spanish housing reform",
-    date: "2026-10-02",
-    time: "15:57",
-    url: "https://www.ft.com/content/79bcc1f3-954a-4c62-96c6-989b1384b9f3",
   },
   {
     id: "7f6ccd9a-5846-415d-9967-e1501fb7a6d6",
