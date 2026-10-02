@@ -1997,7 +1997,10 @@ async function handleRead(request, env, ctx) {
   if (_readInSet(host, READ_PAYWALL)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "paywall" });
   if (!readHostAllowed(host)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "blocked-host" });
   const cache = caches.default;
-  const key = new Request("https://read.internal/v2/" + encodeURIComponent(u.toString()));
+  // Cache-key version — bump on any extractor change so the edge discards reader
+  // responses rendered by the OLD extractor (else a junk/stale body is served for up to
+  // an hour after deploy). v3: recirculation-strip + proxy-headings extractor.
+  const key = new Request("https://read.internal/v3/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
