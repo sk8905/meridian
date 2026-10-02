@@ -518,7 +518,10 @@ notification badge red (`#ef4444`).
   it flows **inside the News chip pane, below the "Today" filter row** (which stays
   pinned) and **above the live feed** — the `.g-feed-wrap` is `display:contents`
   there so the briefing sits between the pinned filter and the feed — and **defaults
-  collapsed** (a slim bar saves stack height). **One section per desk:** the render
+  collapsed** (a slim bar saves stack height). **No Overview lede:** the card is desk
+  sections only — the synthesis lede (and its "Overview" heading) is retired and not
+  rendered; the `lede` field is optional/deprecated in the data and need not be
+  authored. **One section per desk:** the render
   groups same-desk bullets under a single kicker (see R7/grounding). **Fixed desk
   order — Macro, then Fixed income, then Equities:** the renderer sorts the sections
   into this canonical order regardless of bullet order in the data, so **Equities
@@ -538,10 +541,10 @@ notification badge red (`#ef4444`).
   `tests/home-brief-badges.mjs`. **Only the LATEST available version is
   shown — no slot selector**; the card picks the freshest brief by (date·time)
   stamp. Data: `BRIEFINGS` (tokenless / no-cache — regenerated on **each of the ~5
-  daily refresh runs**, so a fresh brief appears with no code push), the shared
-  `briefMarkup` colour marking (**orange desk kicker** `.nb-topic`; numbers read as
-  plain body text here), capped to **four bullets** (one screen), each linking its
-  real source (grounding, R7); the header shows the brief's time · date stamp. It
+  daily refresh runs**, so a fresh brief appears with no code push), with the
+  **orange desk kicker** (`.g-hbrief-bk`) carrying the colour accent and numbers read
+  as plain body text, capped to **four bullets** (one screen) drawn from real sourced
+  desk items (grounding, R7); the header shows the brief's time · date stamp. It
   On the **desktop quadrant it is permanently open — no collapse control** (its header
   is a static title row, no chevron). On **phones it is collapsible** (`briefOpen` in
   the Home prefs), **default collapsed** (tap to expand), with an **unread dot**

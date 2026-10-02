@@ -651,17 +651,18 @@ quiet slot gets a short output, not padding.
   each of the **five daily runs, regenerate the slot the current run-time falls in**
   (so 05:00 & 09:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening) and
   restamp it — that run's slot becomes the freshest and is what shows, giving up to
-  **five fresh briefings a day**; leave the other two as they are. Each slot has a `lede` (one **authored** HTML
-  sentence — entities like `&pound;`/`&mdash;` render, matching the bullets) and
-  3–5 `bullets`, each `{ html, src, srcName }` where `html` is authored markup
+  **five fresh briefings a day**; leave the other two as they are. Each slot is
+  **3–5 `bullets`**, each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
+  **No Overview lede:** the synthesis `lede` is RETIRED — it is not rendered, so do
+  NOT author one (the field is optional/deprecated and may be omitted entirely).
   Update the slot's `date`/`time` to the run stamp.
   **Never ship a kicker with no body.** Every bullet's `html` must carry a real
   body sentence AFTER its `<strong>Desk &mdash;` kicker — a bullet that is only a
   kicker (headline written before its sentence) rendered as a bare desk heading
   over an empty void. This is enforced by `tests/briefing-empty-bullet.mjs`, which
-  validates the committed `briefings.js` (every slot: real lede, `date`/`time`,
-  and every bullet a body + `src` URL + `srcName`) — so a half-written brief turns
+  validates the committed `briefings.js` (every slot: `date`/`time`, and every
+  bullet a body + `src` URL + `srcName`) — so a half-written brief turns
   the suite red before it can deploy, and the renderer additionally drops any such
   section as a fallback. Run the full suite before pushing a briefing refresh.
   **Desk focus — EXCLUSIVELY the three market desks: Macro, Equities, Fixed
@@ -683,10 +684,6 @@ quiet slot gets a short output, not padding.
   its own `src`. Draw material from the macro `SUMMARY`/
   `COMMENTARY`/`IND_KEYMOMENTS`/`FX_KEYMOMENT`, the `EQ_INDICES` key moments and
   earnings calendar, and public rates/gilt/Treasury items — all already sourced.
-  **The lede is a top-line synthesis of the day's arc — NOT a restatement of the
-  bullets:** never repeat a bullet's lead sentence or specific claim verbatim in the
-  lede. Keep it tight (the card shows it in full), and lead with the arc, not a
-  comma-spliced list.
   The Home briefing card shows an **accent unread dot** (while collapsed) whenever
   the latest slot's `(date · time)` stamp differs from the one the reader last saw,
   so bumping a slot's `time` on regenerate is what re-lights the dot — always stamp

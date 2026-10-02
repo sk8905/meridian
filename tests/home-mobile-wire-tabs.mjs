@@ -66,10 +66,10 @@ const b = await launchChromium();
     const el = document.getElementById("g-hbrief");
     if (!el || el.hidden) return null;
     return { hasHead: !!el.querySelector(".g-hbrief-head"), chev: !!el.querySelector(".g-hbrief-chev"), open: el.dataset.open,
-      slots: el.querySelectorAll(".g-hbrief-slot").length, bullets: el.querySelectorAll(".g-hbrief-b").length, hasLede: !!el.querySelector(".g-hbrief-lede") };
+      slots: el.querySelectorAll(".g-hbrief-slot").length, bullets: el.querySelectorAll(".g-hbrief-b").length, noLede: !el.querySelector(".g-hbrief-lede") };
   });
   check(brief && brief.hasHead && !brief.chev && brief.open === "true", "phone: the briefing pane is always expanded — no collapse chevron");
-  check(brief && brief.slots === 0 && brief.bullets >= 1 && brief.bullets <= 4 && brief.hasLede, `phone: the briefing shows a lede + capped bullets, latest only (${brief && brief.bullets})`);
+  check(brief && brief.slots === 0 && brief.bullets >= 1 && brief.bullets <= 4 && brief.noLede, `phone: the briefing shows capped desk sections, latest only, no Overview lede (${brief && brief.bullets})`);
 
   // The X feed is PRELOADED while its pane is hidden, so it's ready the instant its
   // chip is tapped (no blank frame).

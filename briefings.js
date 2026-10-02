@@ -45,7 +45,6 @@ export const BRIEFINGS = {
       label: "Morning",
       date: "2026-10-02",
       time: "08:30 BST",
-      lede: "Friday opens with the bond rout easing in the US but spreading to Europe, and the September jobs report due later is the next test of the Fed's hold-versus-hike debate.",
       bullets: [
         { html: "<strong>Macro &mdash; a top Fed official has signalled the central bank will keep rates on hold in October</strong>, the FT reports, easing pressure for a further hike after the surge in long-dated yields.", src: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; US factory activity held steady in September</strong>, Reuters reports, with input prices jumping.", src: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/", srcName: "Reuters" },
@@ -59,7 +58,6 @@ export const BRIEFINGS = {
       label: "Afternoon",
       date: "2026-10-02",
       time: "15:29 BST",
-      lede: "A far weaker US jobs print has landed on top of a euro-area inflation surprise and a bond market only just steadying, leaving the Fed and ECB pulling in different directions.",
       bullets: [
         { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong>, the FT reports, as hiring slowed sharply &mdash; well short of consensus and bolstering the case for a Fed hold in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; eurozone inflation hit a three-year high of 3.8% in September</strong>, the FT reports, above expectations, with analysts saying a December ECB move remains the base case after two consecutive rate rises.", src: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", srcName: "Financial Times" },
@@ -75,7 +73,6 @@ export const BRIEFINGS = {
       label: "Evening",
       date: "2026-10-02",
       time: "00:15 BST",
-      lede: "Markets turn to Friday's US jobs report having ended Thursday with stocks recovering and Treasury yields easing back from a 24-year high.",
       bullets: [
         { html: "<strong>Macro &mdash; a top Fed official has signalled the central bank will keep rates on hold in October</strong>, the FT reports, easing pressure for a further hike despite the surge in long-dated yields.", src: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; US factory activity expansion held steady in September</strong>, Reuters reports, with input prices jumping.", src: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/", srcName: "Reuters" },

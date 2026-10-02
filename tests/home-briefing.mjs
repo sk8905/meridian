@@ -1,6 +1,6 @@
 // Home briefing card: the tri-daily market brief (BRIEFINGS — Morning/Afternoon/
 // Evening) surfaced at the HEAD of the News wire, above "Today". It reuses the
-// orange-accent desk headings (matching the "Overview" lede heading), caps to 4 bullets, links each
+// orange-accent desk headings, caps to 4 bullets, links each
 // source, and is collapsible (per viewer). Here only /api/hero + /api/xfeed are
 // stubbed; the briefing is a static data import, so it renders with real content.
 import fs from "node:fs";
@@ -51,7 +51,7 @@ const b = await launchChromium();
     })();
     const noOrangeKicker = el.querySelectorAll(".g-hbrief-b .nb-topic").length === 0;
     // The desks lay out as a COLUMN GRID (one card per desk) under a hairline that
-    // separates them from the Overview lede (the rule now lives on the grid container).
+    // separates them from the header above (the rule lives on the grid container).
     const desksGrid = (() => {
       const list = el.querySelector(".g-hbrief-list");
       if (!list) return false;
@@ -65,14 +65,8 @@ const b = await launchChromium();
       title: (el.querySelector(".g-hbrief-ttl") || {}).textContent || "",
       slots: el.querySelectorAll(".g-hbrief-slot").length,
       when: (el.querySelector(".g-hbrief-when") || {}).textContent || "",
-      hasLede: !!el.querySelector(".g-hbrief-lede"),
-      // The lede is titled with an ORANGE-accent "Overview" heading on its own line —
-      // colour matches the desk headings (the accent), not the white pane title.
-      ledeHd: ((el.querySelector(".g-hbrief-lede-hd") || {}).textContent || "").trim(),
-      ledeHdAccent: (() => {
-        const h = el.querySelector(".g-hbrief-lede-hd"), t = el.querySelector(".g-hbrief-ttl");
-        return !!(h && t) && getComputedStyle(h).color === accent && accent !== getComputedStyle(t).color;
-      })(),
+      // The Overview lede is retired — the card is desk sections only.
+      noLede: !el.querySelector(".g-hbrief-lede") && !el.querySelector(".g-hbrief-lede-hd"),
       sections: sections.length,
       itemCount: items.length,
       hasKicker: kickers.length > 0,
@@ -101,15 +95,14 @@ const b = await launchChromium();
   check(/briefing/i.test(r.title), `desktop: the card is titled "Market briefing" (${r.title})`);
   checkEq(r.slots, 0, "desktop: NO slot selector — only the latest brief is shown");
   check(/\d/.test(r.when), `desktop: the header shows the brief's freshness stamp (${r.when})`);
-  check(r.hasLede && r.sections >= 1 && r.sections <= 3, `desktop: a lede + one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
-  checkEq(r.ledeHd, "Overview", "desktop: the lede is titled with an 'Overview' heading");
-  check(r.ledeHdAccent, "desktop: the 'Overview' heading is the orange accent (not the white title)");
+  check(r.noLede, "desktop: the Overview lede is retired — the card shows desk sections only");
+  check(r.sections >= 1 && r.sections <= 3, `desktop: one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
   check(r.hasKicker, "desktop: each desk carries its name as a heading (.g-hbrief-bk)");
   check(r.deskHdAccent, "desktop: the desk headings are the orange accent (not the white title)");
   check(r.stackedHeader, "desktop: each desk name is a block header stacked above its prose (column format)");
   check(r.noSourceLinks, "desktop: the per-item source link is dropped from the briefing summary");
   check(r.noOrangeKicker, "desktop: no inline .nb-topic desk kicker survives in the bullets");
-  check(r.desksGrid, "desktop: the desks lay out as a column grid under a hairline separating them from the Overview");
+  check(r.desksGrid, "desktop: the desks lay out as a column grid under a hairline below the header");
   check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
   check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated desk heading (${r.kickers.join(", ")})`);
   check(r.leftOfHero && r.aboveFeed && r.rowAlignedWithHero, "desktop: the briefing is the top-left quadrant of the 2×2 (left of the chart, above the news wire)");
@@ -134,62 +127,47 @@ const b = await launchChromium();
   const stillOpen = await bodyVis() && (await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open)) === "true";
   check(stillOpen, "desktop: clicking the header does NOT collapse it");
 
-  // The briefing shows the latest available version (freshest by date·time stamp).
+  // The briefing shows the latest available version (freshest by date·time stamp): the
+  // header's freshness stamp matches the freshest slot's time·date.
   const latest = await pg.evaluate(async () => {
     const m = await import("/briefings.js");
     const B = m.BRIEFINGS || {}, slots = B.slots || {};
     const order = (B.order || []).filter((k) => slots[k]);
     const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
     const freshest = order.reduce((b, k) => (stamp(k) > stamp(b) ? k : b), order[0]);
-    const key12 = (str) => String(str || "").replace(/<[^>]+>/g, "").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/[^A-Za-z]/g, "").slice(0, 12).toLowerCase();
-    // Strip the leading "Overview —" kicker so this compares the lede PROSE (which is
-    // what the data carries) against the shown text.
-    const shown = ((document.querySelector("#g-hbrief .g-hbrief-lede") || {}).textContent || "").replace(/^\s*Overview\s*[—–-]\s*/, "");
-    return { shownLen: shown.trim().length, match: !!slots[freshest] && key12(shown) === key12(slots[freshest].lede) };
+    const s = slots[freshest];
+    const when = ((document.querySelector("#g-hbrief .g-hbrief-when") || {}).textContent || "");
+    const norm = (t) => String(t || "").replace(/\s+/g, " ").trim().toLowerCase();
+    // The stamp carries the freshest slot's time (e.g. "15:29 BST"); a day·month token
+    // from its date also appears.
+    const timeOk = !!s && norm(when).includes(norm(s.time).split(" ")[0]);
+    return { when, timeOk, freshestBullets: !!s && (s.bullets || []).length > 0 };
   });
-  check(latest.shownLen > 0 && latest.match, "desktop: the shown briefing is the latest available version");
+  check(latest.timeOk && latest.freshestBullets, `desktop: the shown briefing is the latest available version (stamp "${latest.when}")`);
 
-  // The lede is a synthesis, NOT a restatement: no bullet's lead sentence (after its
-  // "Desk —" kicker) is copied verbatim into the lede. A ~28-char normalised run of a
-  // bullet lead appearing in the lede would mean ~5+ words lifted straight in.
-  const restate = await pg.evaluate(async () => {
-    const m = await import("/briefings.js");
-    const B = m.BRIEFINGS || {}, slots = B.slots || {};
-    const order = (B.order || []).filter((k) => slots[k]);
-    const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
-    const k = order.reduce((b, x) => (stamp(x) > stamp(b) ? x : b), order[0]);
-    const s = slots[k]; if (!s) return { ok: true, hit: "" };
-    const norm = (t) => String(t || "").replace(/<[^>]+>/g, " ").replace(/&[a-z]+;|&#\d+;/gi, " ").toLowerCase().replace(/[^a-z0-9]/g, "");
-    const lede = norm(s.lede);
-    let hit = "";
-    for (const b of (s.bullets || [])) {
-      const lead = norm(String(b.html || "").replace(/^\s*<strong>\s*[^<]*?\s*(?:&mdash;|—)\s*/, "")).slice(0, 28);
-      if (lead.length >= 20 && lede.includes(lead)) { hit = lead; break; }
-    }
-    return { ok: !hit, hit };
-  });
-  check(restate.ok, `desktop: the lede does not restate a bullet verbatim${restate.hit ? ` (found "${restate.hit}")` : ""}`);
-
-  // The WHOLE summary scrolls as one region (the lede scrolls WITH the bullets — it is
-  // not pinned) beneath the stuck header; there is NO footer note.
+  // The WHOLE summary scrolls as one region beneath the stuck header; there is NO footer
+  // note and NO Overview lede.
   const deskScroll = await pg.evaluate(() => {
     const hb = document.getElementById("g-hbrief");
     const body = hb.querySelector(".g-hbrief-body"), list = hb.querySelector(".g-hbrief-list");
-    const ledeTop0 = hb.querySelector(".g-hbrief-lede").getBoundingClientRect().top;
+    const sec0 = hb.querySelector(".g-hbrief-b");
+    const secTop0 = sec0.getBoundingClientRect().top;
     body.scrollTop = 80;
-    const ledeTop1 = hb.querySelector(".g-hbrief-lede").getBoundingClientRect().top;
+    const secTop1 = sec0.getBoundingClientRect().top;
     return {
       bodyScrolls: getComputedStyle(body).overflowY === "auto",
       listOverflow: getComputedStyle(list).overflowY,
       canScroll: body.scrollHeight > body.clientHeight,
-      ledeMoved: ledeTop1 !== ledeTop0,
+      secMoved: secTop1 !== secTop0,
       noFoot: !hb.querySelector(".g-hbrief-foot"),
+      noLede: !hb.querySelector(".g-hbrief-lede") && !hb.querySelector(".g-hbrief-lede-hd"),
       bodyAtBottom: Math.round(hb.getBoundingClientRect().bottom - body.getBoundingClientRect().bottom),
     };
   });
   check(deskScroll.bodyScrolls && deskScroll.listOverflow !== "auto" && deskScroll.listOverflow !== "scroll", `desktop: the whole summary scrolls as one region (the bullet list has no separate scroll — list overflow ${deskScroll.listOverflow})`);
-  if (deskScroll.canScroll) check(deskScroll.ledeMoved, "desktop: the lede scrolls WITH the bullets, not pinned above them");
+  if (deskScroll.canScroll) check(deskScroll.secMoved, "desktop: the desk sections scroll inside the body");
   check(deskScroll.noFoot, "desktop: there is NO 'AI-generated…' source-credit footer note");
+  check(deskScroll.noLede, "desktop: there is NO Overview lede");
   check(deskScroll.bodyAtBottom <= 2, `desktop: the scrolling body runs to the bottom of the quadrant (${deskScroll.bodyAtBottom}px)`);
 
   checkErrs(errs, "home briefing (desktop)");

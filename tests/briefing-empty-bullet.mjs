@@ -38,7 +38,7 @@ const data = await pg.evaluate(async () => {
   let bulletN = 0;
   for (const k of keys) {
     const s = slots[k] || {};
-    if (!hasText(s.lede)) bad.push(`${k}: empty lede`);
+    // The Overview lede is retired — not rendered and no longer required in the data.
     if (!s.date || !s.time) bad.push(`${k}: missing date/time`);
     const bl = Array.isArray(s.bullets) ? s.bullets : [];
     if (!bl.length) bad.push(`${k}: no bullets`);

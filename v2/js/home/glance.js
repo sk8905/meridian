@@ -12,7 +12,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
-import { briefMarkup, nbNums } from "/v2/js/nb-format.js";
+import { nbNums } from "/v2/js/nb-format.js";
 import { h, Fragment, signal, effect, batch, mount } from "/v2/js/ui.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
@@ -303,12 +303,13 @@ function initMobileWireTabs() {
 
 // ---- Home briefing (the market brief, at the head of the News wire) ----------
 // The grounded market brief, surfaced atop the News pane so it reads as the day's
-// lede over the feed it summarises. Only the LATEST available version is shown
-// (no slot selector). Data: BRIEFINGS (tokenless / no-cache — regenerated on each
-// of the ~5 daily refresh runs, so a new brief appears with no code push). Colour
-// marking is the shared briefMarkup (orange desk kicker). The card is collapsible
-// per viewer, with an unread dot (localStorage m_brief_read) shown only when a new
-// brief has landed and the card is collapsed. Kept to one screen (HB_MAX_BULLETS).
+// read over the feed it summarises — desk sections only (no Overview lede). Only the
+// LATEST available version is shown (no slot selector). Data: BRIEFINGS (tokenless /
+// no-cache — regenerated on each of the ~5 daily refresh runs, so a new brief appears
+// with no code push). Colour marking is the shared per-desk kicker. The card is
+// collapsible per viewer, with an unread dot (localStorage m_brief_read) shown only
+// when a new brief has landed and the card is collapsed. Kept to one screen
+// (HB_MAX_BULLETS).
 const _BRIEF_READ_KEY = "m_brief_read";
 const HB_MAX_BULLETS = 4;
 function _briefStamp(k) {
@@ -423,14 +424,13 @@ function renderHomeBriefing() {
   }).filter(Boolean).join("");
   host.hidden = false;
   host.dataset.open = "true";
-  // Structure: a stuck header over a SCROLLING body (lede + desk bullets). The body
-  // runs to the bottom of the card/pane — there is no footer note.
+  // Structure: a stuck header over a SCROLLING body of desk sections. The body runs to
+  // the bottom of the card/pane — there is no Overview lede and no footer note.
   host.innerHTML =
     `<div class="g-hbrief-head">`
     + `<span class="g-hbrief-ttl">Market briefing</span>`
     + `<span class="g-hbrief-when">${when}</span></div>`
     + `<div class="g-hbrief-body">`
-    + (s.lede ? `<div class="g-hbrief-lede-hd">Overview</div><p class="g-hbrief-lede">${briefMarkup(s.lede)}</p>` : "")
     + `<ul class="g-hbrief-list">${bullets}</ul>`
     + `</div>`;
   renderBriefBadges();

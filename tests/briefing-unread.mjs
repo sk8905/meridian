@@ -15,9 +15,8 @@ import { serve, launchChromium, open, PHONE, ROOT, check, checkEq, checkErrs, fi
     const m = css.match(new RegExp(sel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*\\{[^}]*?line-height:\\s*([0-9.]+)"));
     return m ? m[1] : null;
   };
-  const read = lh(".g-read-p"), lede = lh(".tui .g-hbrief-lede"), item = lh(".tui .g-hbrief-b");
+  const read = lh(".g-read-p"), item = lh(".tui .g-hbrief-b");
   checkEq(read, "1.72", "reading pane keeps the comfortable 1.72 leading");
-  checkEq(lede, read, "briefing lede matches the reading-pane line-height (consistent spacing)");
   checkEq(item, read, "briefing bullets match the reading-pane line-height (consistent spacing)");
 }
 
@@ -41,18 +40,16 @@ const base = `http://localhost:${srv.port}`;
   const dotShown = () => pg.evaluate(() => { const d = document.querySelector('.g-wiretab[data-wire="brief"] .g-wiretab-dot'); return !!d && !d.hidden && getComputedStyle(d).display !== "none"; });
   const onBrief = () => pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"));
 
-  // Runtime: the rendered lede leads at ~1.72 × font-size (the reading-pane feel)
-  // AND is justified like the reading pane; the body text of a bullet is justified too.
+  // Runtime: a rendered desk section leads at ~1.72 × font-size (the reading-pane feel)
+  // AND is justified like the reading pane.
   const typ = await pg.evaluate(() => {
-    const p = document.querySelector("#g-hbrief .g-hbrief-lede");
-    const bt = document.querySelector("#g-hbrief .g-hbrief-bt");
-    if (!p) return null;
-    const cs = getComputedStyle(p);
-    return { lh: parseFloat(cs.lineHeight) / parseFloat(cs.fontSize), ledeAlign: cs.textAlign, btAlign: bt ? getComputedStyle(bt).textAlign : null };
+    const sec = document.querySelector("#g-hbrief .g-hbrief-b");
+    if (!sec) return null;
+    const cs = getComputedStyle(sec);
+    return { lh: parseFloat(cs.lineHeight) / parseFloat(cs.fontSize), secAlign: cs.textAlign };
   });
-  check(typ && Math.abs(typ.lh - 1.72) < 0.05, `phone: the briefing lede renders at the reading-pane leading (~1.72, got ${typ ? typ.lh.toFixed(2) : "n/a"})`);
-  check(typ && typ.ledeAlign === "justify", `phone: the briefing lede is justified like the reading pane (got ${typ && typ.ledeAlign})`);
-  check(typ && typ.btAlign === "justify", `phone: the briefing bullet text is justified (got ${typ && typ.btAlign})`);
+  check(typ && Math.abs(typ.lh - 1.72) < 0.05, `phone: the briefing prose renders at the reading-pane leading (~1.72, got ${typ ? typ.lh.toFixed(2) : "n/a"})`);
+  check(typ && typ.secAlign === "justify", `phone: the briefing prose is justified like the reading pane (got ${typ && typ.secAlign})`);
 
   check(!(await onBrief()), "phone: the default pane is the wire, not the briefing");
   check(await dotShown(), "phone: an unread brief shows the orange dot on the Briefing chip");
