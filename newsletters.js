@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-goingprivate-liquiditygamechanger-20261002",
+    publication: "Bloomberg",
+    author: "Sinead Cruise",
+    series: "Going Private",
+    title: "Going Private: Liquidity game-changer",
+    date: "2026-10-02",
+    time: "12:19",
+    summary: "Pioneering auction gives hope to investors keen to cash out of logjammed interval funds.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-02/landmark-auction-tackles-evergreen-fund-liquidity-bottlenecks",
+  },
+  {
     id: "nl-bbg-economicsdaily-bessentonwages-20261002",
     publication: "Bloomberg",
     author: "Yash Roy",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "22:18",
     summary: "Give PCE a chance.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-bbg-moneystuff-existentialriskfraud-20260929",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Is Existential Risk Securities Fraud?",
-    date: "2026-09-29",
-    time: "19:25",
-    summary: "Agents, 351, options.",
-    url: "https://bloom.bg/4ymECcd",
   },
 ];

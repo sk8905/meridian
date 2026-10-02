@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "64d54c96-0124-45d0-842c-587ab0641ee2",
+    title: "Gold miner M&A is finally producing something that glitters",
+    date: "2026-10-02",
+    time: "13:01",
+    url: "https://www.ft.com/content/64d54c96-0124-45d0-842c-587ab0641ee2",
+  },
+  {
+    id: "10d99379-b576-46c0-afe6-70c6e2059456",
+    title: "Partners Group splits flagship private equity fund as clients demand cash",
+    date: "2026-10-02",
+    time: "13:00",
+    url: "https://www.ft.com/content/10d99379-b576-46c0-afe6-70c6e2059456",
+  },
+  {
+    id: "929714e8-4ac1-436a-96d0-f81c09864d14",
+    title: "Stand-off over Protestant march pushes Northern Ireland politics to the brink",
+    date: "2026-10-02",
+    time: "12:48",
+    url: "https://www.ft.com/content/929714e8-4ac1-436a-96d0-f81c09864d14",
+  },
+  {
+    id: "93028839-5f0e-43c4-8ee7-44990115ea57",
+    title: "Investors seek refuge from bond rout in haven German debt",
+    date: "2026-10-02",
+    time: "12:35",
+    url: "https://www.ft.com/content/93028839-5f0e-43c4-8ee7-44990115ea57",
+  },
+  {
+    id: "267c7c7e-6596-4ee9-85eb-a0dce1c26f5e",
+    title: "Kemi Badenoch: ‘I refuse to play by Westminster rules’",
+    date: "2026-10-02",
+    time: "12:30",
+    url: "https://www.ft.com/content/267c7c7e-6596-4ee9-85eb-a0dce1c26f5e",
+  },
+  {
     id: "9f960533-9cd7-4475-aed0-17f09fdc28fd",
     title: "My mortgage is a problem for the Fed, and for America",
     date: "2026-10-02",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-01",
     time: "22:11",
     url: "https://www.ft.com/content/08eeee4a-903b-4889-92ef-61ebaeea682a",
-  },
-  {
-    id: "352e14c5-267d-4c8f-981d-6ae8bea531f9",
-    title: "US deploys thousands of troops to Middle East as Donald Trump weighs strikes on Iran",
-    date: "2026-10-01",
-    time: "22:05",
-    url: "https://www.ft.com/content/352e14c5-267d-4c8f-981d-6ae8bea531f9",
-  },
-  {
-    id: "e567ed25-d871-44ac-ad39-aee135eeb6d6",
-    title: "Investigative outlet deepens antisemitism claims against French far right’s Jordan Bardella",
-    date: "2026-10-01",
-    time: "21:46",
-    url: "https://www.ft.com/content/e567ed25-d871-44ac-ad39-aee135eeb6d6",
-  },
-  {
-    id: "9a6e17fe-55e4-4a6d-8761-8346ec765ba9",
-    title: "Andy Burnham searches for UK alternative to Palantir",
-    date: "2026-10-01",
-    time: "21:00",
-    url: "https://www.ft.com/content/9a6e17fe-55e4-4a6d-8761-8346ec765ba9",
-  },
-  {
-    id: "22779c05-8bda-423e-b5bf-6839d597f499",
-    title: "US mortgage rates jump the most in four years as bond sell-off hits Main Street",
-    date: "2026-10-01",
-    time: "19:29",
-    url: "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499",
-  },
-  {
-    id: "21f0822e-eb0b-4056-bcf2-2b6e2a14c221",
-    title: "Bolivia arrests attorney-general after US accuses him of protecting drug traffickers",
-    date: "2026-10-01",
-    time: "19:28",
-    url: "https://www.ft.com/content/21f0822e-eb0b-4056-bcf2-2b6e2a14c221",
   },
 ];
