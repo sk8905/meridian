@@ -943,7 +943,8 @@
     .g-read-p{ font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
     /* Section headings inside the article body — BOLD, set off from the prose, so a long
        read scans easily (see _renderReaderInto's `blocks`). */
-    .g-read-h{ font-family:var(--t-mono); font-size:var(--fs-body); font-weight:700; line-height:1.4; color:var(--t-ink); margin:18px 0 8px; letter-spacing:.01em; }
+    .g-read-h{ font-family:var(--t-mono); font-size:var(--fs-body); font-weight:700; line-height:1.4; color:var(--t-ink); margin:18px 0 8px; letter-spacing:.01em;
+      text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; }
     .g-read-h:first-child{ margin-top:0; }
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }

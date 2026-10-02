@@ -108,12 +108,14 @@ if (freeSel) {
       feedSize: title && getComputedStyle(title).fontSize,
       headText: (h || {}).textContent || "",
       headWeight: h && getComputedStyle(h).fontWeight,
+      headDecoration: h && getComputedStyle(h).textDecorationLine,
     };
   });
   check(full.paras >= 2 && full.byline && full.free, `reading pane: an openly-readable source prints the extracted body in-pane (${full.paras} paragraphs)`);
   check(full.firstP.includes("Brent crude"), "reading pane: the extracted paragraph text renders");
-  // Section headings from `blocks` render in BOLD (.g-read-h) for easier reading.
+  // Section headings from `blocks` render in BOLD + UNDERLINED (.g-read-h) for easier reading.
   check(full.headText === "The oil move" && +full.headWeight >= 700, `reading pane: a section heading renders in bold (.g-read-h "${full.headText}" @ ${full.headWeight})`);
+  check(/underline/.test(full.headDecoration || ""), `reading pane: a section heading is underlined (${full.headDecoration})`);
   // The body prose is JUSTIFIED and set at the SAME size as the rest of the app's
   // reading text (the wire feed titles) — not a larger outlier. It's also lightly
   // tracking-compressed so justified prose doesn't open ragged rivers.
