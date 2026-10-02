@@ -13,6 +13,8 @@ const SAMPLE = { tweets: [
   { id: "2097300000000000000", handle: "TheEconomist", name: "The Economist", avatar: "https://pbs.twimg.com/e.jpg", text: "The most important factor driving up bond yields.", date: new Date(Date.now() - 70 * 60000).toUTCString(), ts: Date.now() - 70 * 60000, url: "https://x.com/TheEconomist/status/2097300000000000000", media: [], repostedBy: "Mohamed A. El-Erian" },
   // A quote tweet: the quoter's own commentary + the embedded ORIGINAL (nested).
   { id: "2097200000000000000", handle: "AntoineGara", name: "Antoine Gara", avatar: "https://pbs.twimg.com/a.jpg", text: "What kind of DCF are we using here??? The cutoff is $4.4bn...", date: new Date(Date.now() - 80 * 60000).toUTCString(), ts: Date.now() - 80 * 60000, url: "https://x.com/AntoineGara/status/2097200000000000000", media: [], quoted: { handle: "Forbes", name: "Forbes", text: "Taylor Swift joined the billionaire ranks in 2023, on the back of her record-breaking global Eras Tour.", media: [], url: "https://x.com/Forbes/status/2097199999999999999" } },
+  // A LONG post — over the clamp threshold — collapsed until expanded.
+  { id: "2097100000000000000", handle: "LongPoster", name: "Long Poster", avatar: "https://pbs.twimg.com/l.jpg", text: "The US jobs data is out and there are surprises: job creation was only 29,000 in September, with the unemployment rate rising to 4.2% and monthly earnings growth moderating to only 0.1%, plus downward revisions to July and August of about 60,000 jobs — a soft report that reinforces the case for the Fed to hold rates in October rather than hike.", date: new Date(Date.now() - 95 * 60000).toUTCString(), ts: Date.now() - 95 * 60000, url: "https://x.com/LongPoster/status/2097100000000000000", media: [] },
 ] };
 
 const srv = await serve({ "/api/xfeed": () => [200, JSON.stringify(SAMPLE)] });
@@ -56,7 +58,7 @@ const b = await launchChromium();
   check(r.inRail, "X wire: panel sits in its own rail (g-side-x)");
   check(r.between, "X wire: the rail sits between the manager wire and the macro rail");
   checkEq(r.count, SAMPLE.tweets.length, `X wire: one card per tweet (${r.count})`);
-  checkEq(r.handles.join(","), "@elerianm,@RayDalio,@TheEconomist,@AntoineGara", "X wire: cards render in the order served (newest-first, merged)");
+  checkEq(r.handles.join(","), "@elerianm,@RayDalio,@TheEconomist,@AntoineGara,@LongPoster", "X wire: cards render in the order served (newest-first, merged)");
   check(/Mohamed A\. El-Erian reposted/.test(r.repostLine), `X wire: reposts show a "reposted" line (${r.repostLine})`);
   check(!!r.quote, "X wire: a quote tweet nests the quoted original as a card");
   check(/Forbes/.test((r.quote || {}).who || ""), `X wire: the quoted card names the original author (${(r.quote || {}).who})`);
@@ -65,6 +67,37 @@ const b = await launchChromium();
   check(/25bp hike/.test(r.firstText), "X wire: the tweet body text renders in the card");
   check(/^https:\/\/x\.com\/elerianm\/status\/\d+$/.test(r.firstPerma || ""), `X wire: each card links the real post permalink (${r.firstPerma})`);
   check(r.noWidgetScript, "X wire: renders our own cards (no client-side X widget script)");
+
+  // Long posts are CLAMPED until expanded. The long card starts collapsed (clamp class +
+  // "Show more"); a short card has no toggle. Clicking "Show more" removes the clamp and
+  // the button flips to "Show less"; clicking again re-collapses.
+  const clamp = await pg.evaluate(() => {
+    const cards = [...document.querySelectorAll("#g-xwire .g-x-card")];
+    const byHandle = (hh) => cards.find((c) => (c.querySelector(".g-x-h") || {}).textContent === hh);
+    const longC = byHandle("@LongPoster"), shortC = byHandle("@elerianm");
+    const longTxt = longC && longC.querySelector(".g-x-txt");
+    const longBtn = longC && longC.querySelector(".g-x-more");
+    return {
+      longClamped: !!longTxt && longTxt.classList.contains("g-x-txt--clamp"),
+      longHasBtn: !!longBtn, longBtnText: longBtn ? longBtn.textContent : "",
+      shortNoBtn: !!shortC && !shortC.querySelector(".g-x-more"),
+      shortNotClamped: !!shortC && !shortC.querySelector(".g-x-txt").classList.contains("g-x-txt--clamp"),
+    };
+  });
+  check(clamp.longClamped && clamp.longHasBtn && /show more/i.test(clamp.longBtnText), `X wire: a long post is clamped with a "Show more" toggle (${clamp.longBtnText})`);
+  check(clamp.shortNoBtn && clamp.shortNotClamped, "X wire: a short post is shown in full, no toggle");
+  await pg.evaluate(() => [...document.querySelectorAll("#g-xwire .g-x-card")].find((c) => (c.querySelector(".g-x-h") || {}).textContent === "@LongPoster").querySelector(".g-x-more").click());
+  await pg.waitForTimeout(80);
+  const expanded = await pg.evaluate(() => {
+    const c = [...document.querySelectorAll("#g-xwire .g-x-card")].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@LongPoster");
+    return { clamped: c.querySelector(".g-x-txt").classList.contains("g-x-txt--clamp"), btn: (c.querySelector(".g-x-more") || {}).textContent || "" };
+  });
+  check(!expanded.clamped && /show less/i.test(expanded.btn), `X wire: tapping "Show more" expands the post and flips to "Show less" (${expanded.btn})`);
+  await pg.evaluate(() => [...document.querySelectorAll("#g-xwire .g-x-card")].find((c) => (c.querySelector(".g-x-h") || {}).textContent === "@LongPoster").querySelector(".g-x-more").click());
+  await pg.waitForTimeout(80);
+  const recollapsed = await pg.evaluate(() => [...document.querySelectorAll("#g-xwire .g-x-card")].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@LongPoster").querySelector(".g-x-txt").classList.contains("g-x-txt--clamp"));
+  check(recollapsed, "X wire: tapping 'Show less' re-collapses the post");
+
   checkErrs(errs, "home X wire (desktop)");
   await ctx.close();
 }

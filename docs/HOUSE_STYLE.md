@@ -436,6 +436,9 @@ notification badge red (`#ef4444`).
   continuation is kept). Cards are **newest-first**; **reposts** render the original with a
   "reposted by …" line, and **quote tweets** keep the quoter's commentary **and nest the
   embedded original** as a bordered sub-card (`xQuotedCard`, `.g-x-quote`) — never dropped.
+  **Long posts are clamped** to a few lines (`.g-x-txt--clamp`) with a **"Show more" /
+  "Show less"** toggle (`.g-x-more`, expand state in the `_xExpanded` signal) so the wire
+  stays scannable; short posts show in full with no toggle.
   **A valid twitterapi.io key (`XAPI_KEY`) is required for live-List membership sync** —
   TwitterAPIs.com has no List API, so with only `XAPIS_KEY` the roster falls back to the
   static `xposts.js` handles (no auto-sync). Diagnostics (key required): `?debug=env`

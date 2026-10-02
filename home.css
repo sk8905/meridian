@@ -1137,6 +1137,12 @@
     .g-x-txt{ font-size:var(--fs-body); line-height:1.42; color:var(--t-ink); white-space:normal; overflow-wrap:anywhere; }
     .g-x-txt a{ color:var(--accent, #fb8b1e); text-decoration:none; }
     .g-x-txt a:hover{ text-decoration:none; }
+    /* Long posts are clamped to a few lines until expanded (keeps the wire scannable);
+       the "Show more"/"Show less" toggle below reveals or re-collapses the full text. */
+    .g-x-txt.g-x-txt--clamp{ display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; overflow:hidden; }
+    .g-x-more{ display:inline-block; margin-top:4px; padding:0; border:0; background:none; cursor:pointer;
+      font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-link); letter-spacing:.01em; }
+    .g-x-more:hover{ text-decoration:underline; }
     .g-x-media{ display:block; margin-top:8px; }
     .g-x-media img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--t-grid); }
     /* Quote tweet: the embedded original, nested as a bordered card beneath the

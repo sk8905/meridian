@@ -682,16 +682,37 @@ function XQuote(q) {
     q.text ? h("div", { class: "g-x-qtxt", dangerouslySetInnerHTML: { __html: esc(q.text).replace(/\n/g, "<br>") } }) : null,
     (q.media && q.media[0]) ? h("span", { class: "g-x-qmedia" }, h("img", { loading: "lazy", src: q.media[0], alt: "", referrerpolicy: "no-referrer" })) : null);
 }
+// Long posts are collapsed to a few lines until the reader taps "Show more". Expanded
+// ids live in a signal (keyed by tweet id) so the toggle re-renders the island; XCard
+// reads it during render, so flipping it repaints just the affected card's state.
+const _xExpanded = signal(new Set());
+function xToggleExpand(id) {
+  const s = new Set(_xExpanded.value);
+  if (s.has(id)) s.delete(id); else s.add(id);
+  _xExpanded.value = s;
+}
+// A post counts as "long" (worth clamping) when its text runs past ~a few lines —
+// judged by character length or several hard line breaks. Short posts show in full with
+// no toggle.
+function xIsLong(text) {
+  const s = String(text || "");
+  return s.length > 220 || (s.match(/\n/g) || []).length >= 4;
+}
 function XCard(t) {
   const hh = t.handle || "", name = t.name || ("@" + (t.handle || ""));
   const perma = t.url || (t.handle ? `https://x.com/${t.handle}/status/${t.id}` : "#");
+  const long = xIsLong(t.text);
+  const expanded = _xExpanded.value.has(t.id);
   return h("article", { class: "g-x-card" },
     t.repostedBy ? h("div", { class: "g-x-rt" }, "↻ " + t.repostedBy + " reposted") : null,
     h("div", { class: "g-x-meta" },
       t.avatar ? h("img", { class: "g-x-av", loading: "lazy", src: t.avatar, alt: "", referrerpolicy: "no-referrer" }) : h("span", { class: "g-x-av g-x-av-ph" }),
       h("a", { class: "g-x-who", href: "https://x.com/" + hh, target: "_blank", rel: "noopener noreferrer" }, name),
       h("span", { class: "g-x-h" }, "@" + hh), h("span", { class: "g-x-d" }, fmtXWhen(t.date))),
-    h("div", { class: "g-x-txt", dangerouslySetInnerHTML: { __html: xLinkify(t.text) } }),
+    h("div", { class: "g-x-txt" + (long && !expanded ? " g-x-txt--clamp" : ""), dangerouslySetInnerHTML: { __html: xLinkify(t.text) } }),
+    long ? h("button", { class: "g-x-more", type: "button",
+      onClick: (e) => { e.preventDefault(); e.stopPropagation(); xToggleExpand(t.id); } },
+      expanded ? "Show less" : "Show more") : null,
     XQuote(t.quoted),
     (t.media && t.media[0]) ? h("a", { class: "g-x-media", href: perma, target: "_blank", rel: "noopener noreferrer" }, h("img", { loading: "lazy", src: t.media[0], alt: "", referrerpolicy: "no-referrer" })) : null,
     h("a", { class: "g-x-permalink", href: perma, target: "_blank", rel: "noopener noreferrer" }, "View on X"));
