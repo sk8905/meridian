@@ -162,30 +162,40 @@ check(/next reckoning/.test(synQuote.quoted.text), "quote: the GraphQL quoted te
 check(xQuotedCard(null) === null, "quote: xQuotedCard(null) is safe");
 check(xQuotedCard({}) === null, "quote: an empty quoted object yields nothing to render");
 
-// --- List timeline (Get-List-Tweets) — the source the feed renders to MATCH the X
-// List. Its envelope is the same twitterapi.io tweet shape, and it carries reposts
-// (retweeted_tweet), so xApiTweetsFromBody flattens the whole stream — original posts
-// AND reposts — exactly as the List view shows them. This is what makes the app's X
-// Feed mirror the /Wire List rather than a re-sorted union of member timelines.
-const listBody = { tweets: [
+// --- Shared tweets-array parser (xApiTweetsFromBody) — flattens a twitterapi.io
+// tweets response (the per-account last_tweets the feed is built from) into cards,
+// handling the envelope shapes and carrying reposts through.
+const body = { tweets: [
   { id: "2101000000000000001", createdAt: "Wed Sep 17 09:00:00 +0000 2026",
     text: "Donald Quintin on why there are so few PE exits right now.",
     author: { userName: "rbrtrmstrng", name: "Robert Armstrong" } },
-  // A repost surfaced in the List timeline (as X shows "X reposted …").
   { id: "2101000000000000002", createdAt: "Wed Sep 17 08:30:00 +0000 2026",
     author: { userName: "RobinWigg", name: "Robin Wigglesworth" },
     retweeted_tweet: { id: "2100999999999999000", createdAt: "Wed Sep 17 07:00:00 +0000 2026",
       text: "Nice summary of bonds.", author: { userName: "ekierklo", name: "Edward Kierklo" } } },
 ]};
-const listCards = xApiTweetsFromBody(listBody);
-checkEq(listCards.length, 2, "list: both List-timeline tweets flatten to cards");
-const orig = listCards.find((t) => t.handle === "rbrtrmstrng");
-check(!!orig && /so few PE exits/.test(orig.text), "list: an original List post is rendered");
-const rt = listCards.find((t) => t.repostedBy);
-check(!!rt, "list: a repost in the List timeline is carried (not dropped)");
-checkEq(rt.handle, "ekierklo", "list: the repost is attributed to the ORIGINAL author");
-checkEq(rt.repostedBy, "Robin Wigglesworth", "list: repostedBy names the List member who reposted it");
-checkEq(xApiTweetsFromBody(null).length, 0, "list: a null/empty body yields no cards (safe)");
-checkEq(xApiTweetsFromBody({ data: { tweets: [apiTweet] } }).length, 1, "list: the .data.tweets envelope shape is handled too");
+const cards = xApiTweetsFromBody(body);
+checkEq(cards.length, 2, "parse: both tweets flatten to cards");
+const orig = cards.find((t) => t.handle === "rbrtrmstrng");
+check(!!orig && /so few PE exits/.test(orig.text), "parse: an original post is rendered");
+const reposted = cards.find((t) => t.repostedBy);
+check(!!reposted && reposted.handle === "ekierklo" && reposted.repostedBy === "Robin Wigglesworth",
+  "parse: a repost is carried, attributed to the original author + repostedBy");
+checkEq(xApiTweetsFromBody(null).length, 0, "parse: a null/empty body yields no cards (safe)");
+checkEq(xApiTweetsFromBody({ data: { tweets: [apiTweet] } }).length, 1, "parse: the .data.tweets envelope shape is handled too");
+
+// --- Reply filtering: a reply TO ANOTHER user is flagged replyToOther (the wire drops
+// these — X's List view hides them); an original, a SELF-thread reply, a quote and a
+// repost are NOT flagged (kept).
+const replyToOther = xNormalizeApiTweet({ id: "2101000000000000010", createdAt: "Wed Sep 17 10:00:00 +0000 2026",
+  text: "@someone the chip will be superseded.", isReply: true, inReplyToUserId: "999",
+  author: { userName: "michaeljburry", name: "Cassandra Unchained", id: "412833880" } });
+check(replyToOther && replyToOther.replyToOther === true, "reply: a reply to another user is flagged replyToOther (dropped by the wire)");
+const selfThread = xNormalizeApiTweet({ id: "2101000000000000011", createdAt: "Wed Sep 17 10:05:00 +0000 2026",
+  text: "…continuing my own thread.", isReply: true, inReplyToUserId: "412833880",
+  author: { userName: "michaeljburry", name: "Cassandra Unchained", id: "412833880" } });
+check(selfThread && !selfThread.replyToOther, "reply: a self-thread continuation is NOT flagged (kept)");
+check(!orig.replyToOther, "reply: an ordinary original is not flagged");
+check(!reposted.replyToOther, "reply: a repost is not flagged as a reply");
 
 finish();

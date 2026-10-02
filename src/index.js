@@ -4333,6 +4333,14 @@ export function xNormalizeApiTweet(t) {
       url: src.url || (handle ? `https://x.com/${handle}/status/${origId}` : `https://x.com/i/status/${origId}`),
       media: media.slice(0, 1) };
     if (rt) { const ra = t.author || t.user || {}; const rn = ra.name || ra.userName || ""; if (rn) out.repostedBy = rn; }
+    // Mark a reply TO ANOTHER USER (not a repost, and not a self-thread continuation) so
+    // the wire can filter it out — X's List view hides these, and they're noise on a
+    // markets wire. A reply to oneself (threading one's own posts) is kept.
+    if (!rt && (t.isReply === true || t.in_reply_to_status_id_str || t.inReplyToId)) {
+      const authId = String((t.author && (t.author.id || t.author.id_str)) || (t.user && (t.user.id || t.user.id_str)) || "");
+      const toId = String(t.inReplyToUserId || t.in_reply_to_user_id_str || t.in_reply_to_user_id || "");
+      if (toId && toId !== authId) out.replyToOther = true;
+    }
     // Quote tweet: the commentary is `src`'s own text; carry the embedded original
     // (from the content source, so a reposted quote tweet still nests it).
     const quoted = xQuotedCard(src.quoted_tweet || src.quotedTweet || src.quoted_status || null);
@@ -4362,27 +4370,6 @@ async function fetchXApiUser(handle, apiKey) {
   if (!r || !r.ok) return [];
   let d; try { d = await r.json(); } catch { return []; }
   return xApiTweetsFromBody(d);
-}
-// The List's OWN timeline (Get-List-Tweets) rendered as cards — the SAME stream the X
-// List view shows, in List order, reposts included (the payload nests retweeted_tweet,
-// which xNormalizeApiTweet renders as a repost). This is the source that MATCHES the
-// List; the per-account timelines are only a fallback. Paginates a few pages (~40+).
-async function fetchXApiListTweets(listId, apiKey) {
-  const all = [];
-  let cursor = "";
-  for (let page = 0; page < 3; page++) {
-    const u = `https://api.twitterapi.io/twitter/list/tweets?listId=${encodeURIComponent(listId)}${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
-    let r;
-    try { r = await fetch(u, { headers: { "X-API-Key": apiKey, "accept": "application/json" } }); } catch { break; }
-    if (!r || !r.ok) break;
-    let d; try { d = await r.json(); } catch { break; }
-    const cards = xApiTweetsFromBody(d);
-    if (!cards.length) break;
-    for (const t of cards) all.push(t);
-    cursor = (d && (d.next_cursor || d.cursor)) || "";
-    if (!cursor || (d && d.has_next_page === false)) break;
-  }
-  return all;
 }
 async function fetchXApiUsers(handles, apiKey) {
   const all = [];
@@ -4552,7 +4539,7 @@ async function handleXFeed(request, env, ctx) {
   // When a List is configured and a List-capable (twitterapi.io) key is bound, the List's
   // OWN timeline is the source — it mirrors the /Wire List view (order + reposts). The
   // per-account providers (apis/api) are the fallback when the List timeline can't be read.
-  const provider = (listId && (apiKey || apisKey)) ? "list" : (apisKey ? "apis" : ((apiKey && (handles.length || listId)) ? "api" : "syn"));
+  const provider = apisKey ? "apis" : ((apiKey && (handles.length || listId)) ? "api" : "syn");
   // Diagnostics (key required, never cached):
   //   ?debug=apis     raw TwitterAPIs.com user-tweets for handles[0] (first path that answers)
   //   ?debug=1        raw twitterapi.io last_tweets for handles[0] (tweet/repost shape)
@@ -4592,7 +4579,7 @@ async function handleXFeed(request, env, ctx) {
   }
   const key = handles.map((h) => h.toLowerCase()).sort().join(",") + "|" + listId + "|" + provider;
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=11`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/xfeed?k=${encodeURIComponent(key)}&v=12`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -4612,19 +4599,16 @@ async function handleXFeed(request, env, ctx) {
   // returns [] and the roster falls back to the client's xposts.js handles — no worse
   // than before, never a stale floor that re-pins a removed account.
   const listKey = apiKey || apisKey;
-  // PRIMARY (when a List is configured): the List's OWN timeline, so the app's X Feed
-  // mirrors the /Wire List on X — same posts, same reposts, same order — in ONE call
-  // (cheaper than N per-account calls). The List endpoint is twitterapi.io's, read with
-  // whichever key is bound (`apiKey || apisKey`). The per-account providers below are the
-  // FALLBACK, used only if the List timeline can't be read (returns empty / errors).
-  if (listId && listKey) {
-    try { const lt = await fetchXApiListTweets(listId, listKey); for (const t of lt) all.push(t); if (lt.length) usedProvider = "list"; } catch { /* fall through to per-account */ }
-  }
-  // Fallback: TwitterAPIs.com per-account timelines when its key is set (cheapest).
-  // The X LIST is still the source of truth: resolve the CURRENT roster from the List
-  // first, then fetch those handles' tweets — so adding/removing an account on X flows
-  // through. Only if the List can't be resolved does it fall back to the client's
-  // xposts.js handles. (List endpoints are twitterapi.io's; TwitterAPIs.com has none.)
+  // The X Feed is the PER-ACCOUNT timelines of the List's CURRENT members, merged
+  // newest-first. This is deliberate: the per-account timeline (last_tweets) INCLUDES an
+  // account's reposts, whereas twitterapi.io's List-tweets endpoint omits reposts and
+  // instead surfaces replies — the opposite of what X's List view shows. So the member
+  // timelines (reposts in, replies filtered out below) mirror the List view far better.
+  // The ROSTER is resolved from the LIVE List membership first (needs a twitterapi.io key
+  // via `apiKey || apisKey`), so adding/removing an account on the List auto-syncs the
+  // feed; only if the List can't be read does it fall back to the client's xposts.js
+  // handles.
+  // Preferred provider: TwitterAPIs.com (cheapest) when its key is set.
   if (!all.length && apisKey && (handles.length || listId)) {
     let roster = handles;
     if (listId && listKey) {
@@ -4658,7 +4642,9 @@ async function handleXFeed(request, env, ctx) {
   }
   const seen = new Set();
   const tweets = all
-    .filter((t) => t && t.id && !seen.has(t.id) && seen.add(t.id))
+    // Drop replies to OTHER users (noise X's List view hides); keep originals, quotes,
+    // reposts and self-threads. Then dedupe by id and order newest-first.
+    .filter((t) => t && t.id && !t.replyToOther && !seen.has(t.id) && seen.add(t.id))
     .sort((a, b) => (b.ts || 0) - (a.ts || 0))
     .slice(0, 40);
 

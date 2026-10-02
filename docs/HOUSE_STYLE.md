@@ -394,10 +394,10 @@ notification badge red (`#ef4444`).
   **wire chip (News · Managers · Chart · X Feed)** — swapping onto the single-column
   workspace like the Managers wire (it is content, not the markets/rates
   data that phones fold into the shared Markets panel). It is a **single,
-  always-current, newest-first** feed mirroring the **/Wire X List**,
-  fetched **server-side by the Worker** (`/api/xfeed` in `src/index.js`) and drawn as
-  **our own cards** (`renderXWire` in `v2/js/home/glance.js`) — the **List's own
-  timeline** when a key is set, else the public feed (see the source ladder below).
+  always-current, newest-first** feed mirroring the **/Wire X List** — built from the
+  **per-account timelines of the List's live members** (reposts included, replies to
+  others filtered out), fetched **server-side by the Worker** (`/api/xfeed` in
+  `src/index.js`) and drawn as **our own cards** (`renderXWire` in `v2/js/home/glance.js`).
   Drawing our own cards is deliberate: X **blanks its client-side
   List/timeline widgets for logged-out webviews** (the iPhone PWA), so an in-app
   embed cannot use them — the Worker reads the public feed with no login and no API
@@ -422,25 +422,28 @@ notification badge red (`#ef4444`).
   (used only when membership can't be read — a TwitterAPIs.com-only key, a failed call, or
   no key); `X_LIST` holds the List id/link.
   `/api/xfeed` edge-caches a non-empty result ~15 min (`max-age=900`) and never pins an empty one.
-  **Data source (source ladder):** when a List is configured and a List-capable key is
-  bound, `/api/xfeed` renders the **List's OWN timeline** (twitterapi.io Get-List-Tweets,
-  `fetchXApiListTweets`, read with `XAPI_KEY || XAPIS_KEY`) — so the app's X Feed **mirrors
-  the /Wire List on X**: same posts, same reposts, same order, in ONE call. This is the
-  PRIMARY source; the earlier per-account approach (a re-sorted *union* of each member's
-  own timeline) did NOT match the List view and is now only the **fallback** when the List
-  timeline can't be read: first **TwitterAPIs.com** (`XAPIS_KEY`, ~3× cheaper) over the
-  List-resolved roster, then **twitterapi.io** per-account (`XAPI_KEY`), then the **free
-  syndication** scrape (no key; X caches/degrades so dates can lag). Each rung falls
-  through to the next if it returns nothing, so a provider swap never leaves the wire worse
-  off. Whichever answers, cards are **newest-first** and **include reposts**; **reposts**
-  render the original with a "reposted by …" line, and **quote tweets** keep the quoter's
-  commentary **and nest the embedded original** as a bordered sub-card (`xQuotedCard`,
-  `.g-x-quote`) — never dropped. The app just renders the cards. Diagnostics (key
-  required): `?debug=roster` (resolved members), `?debug=listtweets` (the List timeline the
-  feed now renders), `?debug=apis` (TwitterAPIs.com raw), `?debug=1` (twitterapi.io raw).
-  Enforced by `tests/home-xwire.mjs` (render), `tests/xfeed-parse.mjs` and
-  `tests/xapis-extract.mjs` (the Worker normalisers incl. `xApiTweetsFromBody` + the
-  TwitterAPIs.com extraction).
+  **Data source (provider ladder — cheapest first):** the feed is the **per-account
+  timelines of the List's live members**, merged newest-first. The per-account timeline
+  (`last_tweets`) is used ON PURPOSE because it **includes an account's reposts**, whereas
+  twitterapi.io's *List-tweets* endpoint omits reposts and instead surfaces replies — the
+  OPPOSITE of what X's List view shows — so the member timelines mirror the List view far
+  better. The ROSTER is resolved from the **live List membership first** (`XAPI_KEY ||
+  XAPIS_KEY`; List endpoints are twitterapi.io's), so add/removes on the List auto-sync.
+  Provider order: **TwitterAPIs.com** (`XAPIS_KEY`, ~3× cheaper), then **twitterapi.io**
+  per-account (`XAPI_KEY`), then the **free syndication** scrape (no key; X caches/degrades
+  so dates can lag). Each rung falls through to the next if it returns nothing. **Replies to
+  OTHER users are filtered out** (`replyToOther` — noise X's List view hides; a self-thread
+  continuation is kept). Cards are **newest-first**; **reposts** render the original with a
+  "reposted by …" line, and **quote tweets** keep the quoter's commentary **and nest the
+  embedded original** as a bordered sub-card (`xQuotedCard`, `.g-x-quote`) — never dropped.
+  **A valid twitterapi.io key (`XAPI_KEY`) is required for live-List membership sync** —
+  TwitterAPIs.com has no List API, so with only `XAPIS_KEY` the roster falls back to the
+  static `xposts.js` handles (no auto-sync). Diagnostics (key required): `?debug=env`
+  (which keys are bound), `?debug=roster` (resolved members), `?debug=listtweets` (raw List
+  stream), `?debug=apis` (TwitterAPIs.com raw), `?debug=1` (twitterapi.io raw). Enforced by
+  `tests/home-xwire.mjs` (render), `tests/xfeed-parse.mjs` and `tests/xapis-extract.mjs`
+  (the Worker normalisers incl. `xApiTweetsFromBody` + reply filtering + the TwitterAPIs.com
+  extraction).
 
 - **R27 — Hero chart band (Home).** The Home terminal carries a **price/performance
   chart band** that, on desktop, is the **top-right quadrant of the 2×2 centre**:
