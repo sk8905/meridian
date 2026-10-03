@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-03",
-  lastCheckedTime: "12:12 BST",
+  lastCheckedTime: "16:14 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1010,14 +1010,14 @@ export const NEWS = {
     { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
     { title: "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", source: "Financial Times", date: "2026-10-02", time: "17:20", url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e" },
     { title: "Weak US payrolls  likely to keep rate setters on the sidelines in October", source: "Financial Times", date: "2026-10-02", time: "15:01", url: "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28" },
-    { title: "Treasuries are losing their moneyness", source: "Financial Times", date: "2026-10-02", time: "18:00", url: "https://www.ft.com/content/7128ce19-5ea0-4d5d-9d47-1270404831a7" },
+    { title: "Chart of the Week: What’s driving the global bond sell-off?", source: "Financial Times", date: "2026-10-03", time: "10:30", url: "https://www.ft.com/content/f212d7b9-95e0-4aa0-84bf-4df7b43bc80a" },
   ],
   uk: [
     { title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de" },
     { title: "CGT rise would deter equity investors, wealth bosses warn", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922" },
     { title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget", source: "Financial Times", date: "2026-10-02", time: "21:41", url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3" },
     { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
-    { title: "Monzo courts private equity after Nubank walks away", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/57de6604-70a9-413a-a381-9ba82ec202ec" },
+    { title: "Does the EU want Britain back?", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/3d4354d0-7273-49c3-89ce-38dcabd6bd7b" },
   ],
 };
 
