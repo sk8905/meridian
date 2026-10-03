@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-03",
-  lastCheckedTime: "00:15 BST",
+  lastCheckedTime: "05:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,7 +1004,7 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-02",
+  updated: "2026-10-03",
   us: [
     { title: "US justice department will not reopen criminal probe of Fed’s Jay Powell", source: "Financial Times", date: "2026-10-02", time: "22:03", url: "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846" },
     { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
@@ -1013,11 +1013,11 @@ export const NEWS = {
     { title: "Treasuries are losing their moneyness", source: "Financial Times", date: "2026-10-02", time: "18:00", url: "https://www.ft.com/content/7128ce19-5ea0-4d5d-9d47-1270404831a7" },
   ],
   uk: [
+    { title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de" },
+    { title: "CGT rise would deter equity investors, wealth bosses warn", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922" },
     { title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget", source: "Financial Times", date: "2026-10-02", time: "21:41", url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3" },
     { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
     { title: "Monzo courts private equity after Nubank walks away", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/57de6604-70a9-413a-a381-9ba82ec202ec" },
-    { title: "UK house prices fall as higher mortgage rates ‘subdue’ market", source: "Financial Times", date: "2026-10-01", time: "08:05", url: "https://www.ft.com/content/8702be93-442f-49c5-ac48-f06c541bc7af" },
-    { title: "Andy Burnham’s ‘triple lock’ move reallocates, rather than reduces, spending", source: "Financial Times", date: "2026-10-01", time: "09:30", url: "https://www.ft.com/content/690967a3-0db5-4dff-9f16-dbf0e9ccc5a6" },
   ],
 };
 
@@ -1029,8 +1029,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-02",
+  updated: "2026-10-03",
   items: [
+    {"title": "Rising gilt yields attract retail investors hunting for tax-efficient assets", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de", "blurb": "Higher gilt yields are drawing retail investors seeking tax-efficient holdings."},
+    {"title": "CGT rise would deter equity investors, wealth bosses warn", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922", "blurb": "Wealth managers warn a capital gains tax increase in the Budget would discourage equity investing."},
+    {"title": "Protests from the City about bank tax ring hollow", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/b50f39c6-4484-4c06-89cb-2884f9e58bd7", "blurb": "FT opinion on City objections to a bank tax ahead of the UK Budget."},
     {"title": "US justice department will not reopen criminal probe of Fed’s Jay Powell", "source": "Financial Times", "date": "2026-10-02", "time": "22:03", "url": "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846", "blurb": "US attorney-general Todd Blanche says not having ‘any oversight’ of the central bank’s $2.5bn renovation project ‘isn’t necessarily a crime’."},
     {"title": "Healey set to delay difficult choices with ‘breathing space’ UK Budget", "source": "Financial Times", "date": "2026-10-02", "time": "21:41", "url": "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3", "blurb": "Chancellor expected to focus the statement on targeted help for households and businesses rather than tax rises on the scale of recent budgets."},
     {"title": "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", "source": "Financial Times", "date": "2026-10-02", "time": "17:20", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "G7 agrees a coordinated 100mn-barrel stock release as Washington drops its fuel export ban threat."},
@@ -1083,7 +1086,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-10-02", country: "US", title: "Employment Situation / Nonfarm payrolls (September)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-10-05", country: "US", title: "ISM Services PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-10-07", country: "US", title: "FOMC Minutes (15–16 September meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },

@@ -43,15 +43,14 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-02",
-      time: "08:30 BST",
+      date: "2026-10-03",
+      time: "05:20 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; a top Fed official has signalled the central bank will keep rates on hold in October</strong>, the FT reports, easing pressure for a further hike after the surge in long-dated yields.", src: "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; US factory activity held steady in September</strong>, Reuters reports, with input prices jumping.", src: "https://www.reuters.com/business/us-manufacturing-steady-september-input-prices-increase-2026-10-01/", srcName: "Reuters" },
-        { html: "<strong>Equities &mdash; Wall Street reversed an earlier selloff to close higher on Thursday</strong> as bond yields eased, with Micron and Accenture jumping on upbeat forecasts, while European stocks closed at three-month lows.", src: "https://www.reuters.com/business/dow-futures-hit-three-month-low-yields-surge-micron-earnings-offer-support-2026-10-01/", srcName: "Reuters" },
-        { html: "<strong>Fixed income &mdash; the global bond market has steadied after a sharp sell-off</strong>, the FT reports, after yields hit multi-decade highs.", src: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; French bond spreads over Bunds are nearing the 2011 euro-crisis record</strong>, Bloomberg's John Authers writes, with the 10-year OAT yield at 4.92% even as Treasury yields eased.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", srcName: "Bloomberg" },
-        { html: "<strong>Fixed income &mdash; quant hedge funds have reaped big gains from the global bond sell-off</strong>, the FT reports.", src: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong> as hiring slowed sharply, the FT reports, and the weak print is likely to keep Fed rate setters on the sidelines in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; eurozone inflation hit a three-year high of 3.8%</strong>, the FT reports, adding pressure on the ECB to tighten again.", src: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the global bond market has steadied after a sharp sell-off</strong> that took 10-year Treasury yields to their highest since 2002, the FT reports, with investors also seeking refuge in German Bunds.", src: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; rising gilt yields are attracting UK retail investors</strong> hunting for tax-efficient assets, the FT reports.", src: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; Wall Street rallied on Friday's soft jobs print</strong>, with the S&amp;P 500 up 0.89%, the Nasdaq 1.35% and the Dow around 300 points as weak payrolls pared Fed rate-hike bets and pulled Treasury yields back from multi-decade highs, Yahoo Finance reports.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance" },
       ],
     },
     afternoon: {
