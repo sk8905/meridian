@@ -69,10 +69,11 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-03",
-      time: "20:12 BST",
+      time: "22:10 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong> as hiring slowed sharply, the FT reports, and the weak print is likely to keep Fed rate setters on the sidelines in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; the G7 agreed to release 100mn barrels of oil</strong> as the US backed down from a fuel export ban threat, the FT reports.", src: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; UK chancellor Healey is expected to deliver a &ldquo;breathing space&rdquo; Budget</strong> without big tax rises, the FT reports.", src: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the FT's Chart of the Week asks what is driving the global bond sell-off</strong>, while rising gilt yields are drawing UK retail investors hunting for tax-efficient assets.", src: "https://www.ft.com/content/f212d7b9-95e0-4aa0-84bf-4df7b43bc80a", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; Wall Street rallied on Friday's soft jobs print</strong>, with the S&amp;P 500 up 0.89% and the Nasdaq 1.35% as weak payrolls pared Fed rate-hike bets, Yahoo Finance reports.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance" },
       ],

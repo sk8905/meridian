@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "82ceae35-e3ef-4b68-8cfa-553b205a4bb0",
+    title: "Tories vow to scrap £100,000 ‘tax trap’ for UK’s higher earners",
+    date: "2026-10-03",
+    time: "22:00",
+    url: "https://www.ft.com/content/82ceae35-e3ef-4b68-8cfa-553b205a4bb0",
+  },
+  {
     id: "b119a81f-2347-4ba8-8b5f-13b380cf45fa",
     title: "Temu’s UK sales more than double to $171mn",
     date: "2026-10-03",
@@ -28,11 +35,25 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/b119a81f-2347-4ba8-8b5f-13b380cf45fa",
   },
   {
+    id: "05fd286f-6fac-4479-b560-848970f32af5",
+    title: "Two Iranian small-boat migrants charged with plotting attack on Jewish targets in Manchester",
+    date: "2026-10-03",
+    time: "13:24",
+    url: "https://www.ft.com/content/05fd286f-6fac-4479-b560-848970f32af5",
+  },
+  {
     id: "e884e8f3-ad16-48a9-af41-29d3122f7d76",
     title: "The town where 94% voted for Lula — and some now waver",
     date: "2026-10-03",
     time: "12:00",
     url: "https://www.ft.com/content/e884e8f3-ad16-48a9-af41-29d3122f7d76",
+  },
+  {
+    id: "bae0af94-f42d-47d1-a1a8-fab608e75a72",
+    title: "China launches anti-dumping probe into European chemical exports",
+    date: "2026-10-03",
+    time: "11:16",
+    url: "https://www.ft.com/content/bae0af94-f42d-47d1-a1a8-fab608e75a72",
   },
   {
     id: "dbe6ccee-e8db-442e-ac0e-210ca74eb5c4",
@@ -49,25 +70,18 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/f212d7b9-95e0-4aa0-84bf-4df7b43bc80a",
   },
   {
-    id: "bae0af94-f42d-47d1-a1a8-fab608e75a72",
-    title: "China launches anti-dumping probe into European chemical exports",
-    date: "2026-10-03",
-    time: "10:26",
-    url: "https://www.ft.com/content/bae0af94-f42d-47d1-a1a8-fab608e75a72",
-  },
-  {
-    id: "782f81e4-7eac-4791-b478-c142119a7ebb",
-    title: "Who let the dogs out? Please put them back",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/782f81e4-7eac-4791-b478-c142119a7ebb",
-  },
-  {
     id: "5703d3c2-26f5-4472-91be-bf8cfdc11a75",
     title: "Manchester City’s fightback begins",
     date: "2026-10-03",
     time: "09:00",
     url: "https://www.ft.com/content/5703d3c2-26f5-4472-91be-bf8cfdc11a75",
+  },
+  {
+    id: "678d61ea-d3f6-467f-a2b0-ffc78f1ed922",
+    title: "Capital gains tax rise would deter equity investors, wealth bosses warn",
+    date: "2026-10-03",
+    time: "05:23",
+    url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922",
   },
   {
     id: "437ca3f0-9db4-4511-a441-ab7763d8f65c",
@@ -103,13 +117,6 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/5501a0c6-7d1e-4c1f-acc7-3b928e1f664a",
-  },
-  {
-    id: "678d61ea-d3f6-467f-a2b0-ffc78f1ed922",
-    title: "CGT rise would deter equity investors, wealth bosses warn",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922",
   },
   {
     id: "864aeb96-e36a-4cea-b914-7996b763dbe4",
@@ -154,6 +161,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/a752a765-8b64-41a5-b051-5237957e13c1",
   },
   {
+    id: "782f81e4-7eac-4791-b478-c142119a7ebb",
+    title: "Who let the dogs out? Please put them back",
+    date: "2026-10-03",
+    time: "05:00",
+    url: "https://www.ft.com/content/782f81e4-7eac-4791-b478-c142119a7ebb",
+  },
+  {
     id: "b50f39c6-4484-4c06-89cb-2884f9e58bd7",
     title: "Protests from the City about bank tax ring hollow",
     date: "2026-10-03",
@@ -173,13 +187,6 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/ac1f4db2-54fe-4a36-b3db-bb96675231f5",
-  },
-  {
-    id: "05fd286f-6fac-4479-b560-848970f32af5",
-    title: "Two Iranian small-boat migrants charged with plotting attack on Jewish targets in Manchester",
-    date: "2026-10-02",
-    time: "22:56",
-    url: "https://www.ft.com/content/05fd286f-6fac-4479-b560-848970f32af5",
   },
   {
     id: "887e90a5-8456-4eba-9ed0-205c873d4846",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "16:13",
     url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
-  },
-  {
-    id: "79bcc1f3-954a-4c62-96c6-989b1384b9f3",
-    title: "Pedro Sánchez loses vote on Spanish housing reform",
-    date: "2026-10-02",
-    time: "15:57",
-    url: "https://www.ft.com/content/79bcc1f3-954a-4c62-96c6-989b1384b9f3",
   },
 ];
