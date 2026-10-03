@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "b119a81f-2347-4ba8-8b5f-13b380cf45fa",
+    title: "Temu’s UK sales more than double to $171mn",
+    date: "2026-10-03",
+    time: "14:54",
+    url: "https://www.ft.com/content/b119a81f-2347-4ba8-8b5f-13b380cf45fa",
+  },
+  {
     id: "e884e8f3-ad16-48a9-af41-29d3122f7d76",
     title: "The town where 94% voted for Lula — and some now waver",
     date: "2026-10-03",
@@ -292,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "15:57",
     url: "https://www.ft.com/content/79bcc1f3-954a-4c62-96c6-989b1384b9f3",
-  },
-  {
-    id: "d2f01dd2-2fde-4d3b-aff0-f82aa9e05296",
-    title: "Italy and Greece seek leeway on EU fiscal rules",
-    date: "2026-10-02",
-    time: "15:07",
-    url: "https://www.ft.com/content/d2f01dd2-2fde-4d3b-aff0-f82aa9e05296",
-  },
-  {
-    id: "906051fc-c116-4803-b395-2d56d1bcbf28",
-    title: "Weak US payrolls  likely to keep rate setters on the sidelines in October",
-    date: "2026-10-02",
-    time: "15:01",
-    url: "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28",
   },
 ];
