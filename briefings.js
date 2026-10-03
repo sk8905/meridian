@@ -69,12 +69,12 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-03",
-      time: "00:15 BST",
+      time: "18:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong> as hiring slowed sharply, the FT reports, and the weak print is likely to keep Fed rate setters on the sidelines in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; eurozone inflation hit a three-year high of 3.8%</strong>, the FT reports, while the G7 agreed to release 100mn barrels of oil as the US backed down from a fuel export ban threat.", src: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; the global bond market has steadied after a sharp sell-off</strong>, the FT reports, with investors also seeking refuge in haven German debt.", src: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; quant hedge funds reaped big gains from the global bond sell-off</strong>, the FT reports.", src: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the G7 agreed to release 100mn barrels of oil</strong> as the US backed down from a fuel export ban threat, the FT reports.", src: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the FT's Chart of the Week asks what is driving the global bond sell-off</strong>, while rising gilt yields are drawing UK retail investors hunting for tax-efficient assets.", src: "https://www.ft.com/content/f212d7b9-95e0-4aa0-84bf-4df7b43bc80a", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; Wall Street rallied on Friday's soft jobs print</strong>, with the S&amp;P 500 up 0.89% and the Nasdaq 1.35% as weak payrolls pared Fed rate-hike bets, Yahoo Finance reports.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance" },
       ],
     },
   },
