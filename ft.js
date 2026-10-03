@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "dbe6ccee-e8db-442e-ac0e-210ca74eb5c4",
+    title: "Europe Express: Lies and statistics",
+    date: "2026-10-03",
+    time: "11:00",
+    url: "https://www.ft.com/content/dbe6ccee-e8db-442e-ac0e-210ca74eb5c4",
+  },
+  {
+    id: "f212d7b9-95e0-4aa0-84bf-4df7b43bc80a",
+    title: "Chart of the Week: What’s driving the global bond sell-off?",
+    date: "2026-10-03",
+    time: "10:30",
+    url: "https://www.ft.com/content/f212d7b9-95e0-4aa0-84bf-4df7b43bc80a",
+  },
+  {
+    id: "bae0af94-f42d-47d1-a1a8-fab608e75a72",
+    title: "China launches anti-dumping probe into European chemical exports",
+    date: "2026-10-03",
+    time: "10:26",
+    url: "https://www.ft.com/content/bae0af94-f42d-47d1-a1a8-fab608e75a72",
+  },
+  {
+    id: "782f81e4-7eac-4791-b478-c142119a7ebb",
+    title: "Who let the dogs out? Please put them back",
+    date: "2026-10-03",
+    time: "05:00",
+    url: "https://www.ft.com/content/782f81e4-7eac-4791-b478-c142119a7ebb",
+  },
+  {
     id: "5703d3c2-26f5-4472-91be-bf8cfdc11a75",
     title: "Manchester City’s fightback begins",
     date: "2026-10-03",
@@ -271,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "15:01",
     url: "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28",
-  },
-  {
-    id: "78ed6ae8-1948-4259-be3e-0b3fe4af3663",
-    title: "Tesla deliveries fall 2% as US consumers buy fewer electric vehicles",
-    date: "2026-10-02",
-    time: "14:23",
-    url: "https://www.ft.com/content/78ed6ae8-1948-4259-be3e-0b3fe4af3663",
-  },
-  {
-    id: "db7af59f-d434-498c-a460-4f7ed2fa6abd",
-    title: "Obama’s red herring",
-    date: "2026-10-02",
-    time: "14:00",
-    url: "https://www.ft.com/content/db7af59f-d434-498c-a460-4f7ed2fa6abd",
-  },
-  {
-    id: "4d0293d8-2f50-4f33-8fa3-702e48df0386",
-    title: "I’m even more bullish about stocks than a year ago",
-    date: "2026-10-02",
-    time: "13:52",
-    url: "https://www.ft.com/content/4d0293d8-2f50-4f33-8fa3-702e48df0386",
-  },
-  {
-    id: "7fc80097-1926-4306-81e0-83d90a3d8a1d",
-    title: "US economy adds just 29,000 jobs in September as hiring slows sharply",
-    date: "2026-10-02",
-    time: "13:47",
-    url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d",
-  },
-  {
-    id: "8b81e04b-917f-4dda-ac05-83067f7687b1",
-    title: "Paris Fashion Week confronts luxury’s crisis of desire",
-    date: "2026-10-02",
-    time: "13:42",
-    url: "https://www.ft.com/content/8b81e04b-917f-4dda-ac05-83067f7687b1",
   },
 ];
