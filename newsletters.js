@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-flippingtheboard-20261003",
+    publication: "Bloomberg",
+    author: "James Crombie",
+    series: "The Brink",
+    title: "The Brink: Flipping the board",
+    date: "2026-10-03",
+    time: "16:00",
+    summary: "A Q&A with Kirkland & Ellis partner H.T. Flanagan on lenders flipping company boards.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-03/kirkland-ellis-sees-more-lenders-flipping-company-boards",
+  },
+  {
     id: "nl-economist-worldinbrief-g7releaseoilreserves-20261003",
     publication: "The Economist",
     author: null,
