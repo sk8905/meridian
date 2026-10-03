@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "31c97a5c-b312-46dd-b6fa-b507e9f18a63",
+    title: "Andy Burnham reverses much of plan to scrap jury trials",
+    date: "2026-10-04",
+    time: "00:01",
+    url: "https://www.ft.com/content/31c97a5c-b312-46dd-b6fa-b507e9f18a63",
+  },
+  {
     id: "82ceae35-e3ef-4b68-8cfa-553b205a4bb0",
     title: "Tories vow to scrap £100,000 ‘tax trap’ for UK’s higher earners",
     date: "2026-10-03",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "16:29",
     url: "https://www.ft.com/content/68d4b1f2-5b77-4604-add3-2c4915b4b267",
-  },
-  {
-    id: "75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
-    title: "Quant hedge funds reap big gains from global bond sell-off",
-    date: "2026-10-02",
-    time: "16:13",
-    url: "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f",
   },
 ];

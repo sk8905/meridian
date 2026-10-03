@@ -68,8 +68,8 @@ export const BRIEFINGS = {
     },
     evening: {
       label: "Evening",
-      date: "2026-10-03",
-      time: "22:10 BST",
+      date: "2026-10-04",
+      time: "00:11 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong> as hiring slowed sharply, the FT reports, and the weak print is likely to keep Fed rate setters on the sidelines in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; the G7 agreed to release 100mn barrels of oil</strong> as the US backed down from a fuel export ban threat, the FT reports.", src: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", srcName: "Financial Times" },
