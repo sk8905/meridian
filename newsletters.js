@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-g7releaseoilreserves-20261003",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: G7 to release oil reserves",
+    date: "2026-10-03",
+    time: "06:25",
+    summary: "Also: Trouble in France\u2019s schools.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-moneystuff-reintegrationdefaultworld-20261002",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "06:56",
     summary: "OpenAI's valuation may top $1.4 trillion, Andy Burnham's radical vision for the UK, and Abu Dhabi's crown prince spends billions to bypass the Strait of Hormuz.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-30/openai-targets-30-billion-in-new-funding-round",
-  },
-  {
-    id: "nl-economist-worldinbrief-treasuryyields-20260930",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: Treasury yields hit 24-year high",
-    date: "2026-09-30",
-    time: "05:59",
-    summary: "Also: The new battle for Iraq.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
