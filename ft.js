@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e884e8f3-ad16-48a9-af41-29d3122f7d76",
+    title: "The town where 94% voted for Lula — and some now waver",
+    date: "2026-10-03",
+    time: "12:00",
+    url: "https://www.ft.com/content/e884e8f3-ad16-48a9-af41-29d3122f7d76",
+  },
+  {
     id: "dbe6ccee-e8db-442e-ac0e-210ca74eb5c4",
     title: "Europe Express: Lies and statistics",
     date: "2026-10-03",
