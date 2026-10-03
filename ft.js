@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5703d3c2-26f5-4472-91be-bf8cfdc11a75",
+    title: "Manchester City’s fightback begins",
+    date: "2026-10-03",
+    time: "09:00",
+    url: "https://www.ft.com/content/5703d3c2-26f5-4472-91be-bf8cfdc11a75",
+  },
+  {
     id: "437ca3f0-9db4-4511-a441-ab7763d8f65c",
     title: "The right and wrong lessons to learn from Spain’s housing crisis",
     date: "2026-10-03",
