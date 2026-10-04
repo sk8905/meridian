@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1fd3b9f8-ac07-4a7c-b968-93fba8b3a978",
+    title: "Burnham could learn a thing or two from Thatcher",
+    date: "2026-10-04",
+    time: "16:00",
+    url: "https://www.ft.com/content/1fd3b9f8-ac07-4a7c-b968-93fba8b3a978",
+  },
+  {
     id: "3302fd5c-8b92-425b-9523-673b2565bb10",
     title: "Investors look to shelter portfolios from rising AI concentration risks",
     date: "2026-10-04",
