@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "dfa07e3f-5557-46ba-8128-72f43aa6558d",
+    title: "Britain’s Budget needs to tame spending and boost growth",
+    date: "2026-10-04",
+    time: "11:00",
+    url: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d",
+  },
+  {
+    id: "8b7e2800-3e36-4d0c-9016-32deaae67b62",
+    title: "Why the IPO market is booming and busting",
+    date: "2026-10-04",
+    time: "10:29",
+    url: "https://www.ft.com/content/8b7e2800-3e36-4d0c-9016-32deaae67b62",
+  },
+  {
+    id: "259b49a1-8eda-4e8d-84c7-45323988b07b",
+    title: "Sahel juntas launch TV channel with Russian backing",
+    date: "2026-10-04",
+    time: "10:24",
+    url: "https://www.ft.com/content/259b49a1-8eda-4e8d-84c7-45323988b07b",
+  },
+  {
     id: "9cbc0aea-259a-41eb-bbf4-ad8a674ca8b7",
     title: "US to receive potash shipment from Belarus as relations thaw",
     date: "2026-10-04",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/ac1f4db2-54fe-4a36-b3db-bb96675231f5",
-  },
-  {
-    id: "887e90a5-8456-4eba-9ed0-205c873d4846",
-    title: "US justice department will not reopen criminal probe of Fed’s Jay Powell",
-    date: "2026-10-02",
-    time: "22:03",
-    url: "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846",
-  },
-  {
-    id: "9df55c2e-e9c8-4a5a-a025-99fb459721d3",
-    title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget",
-    date: "2026-10-02",
-    time: "21:41",
-    url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3",
-  },
-  {
-    id: "2e0eb698-d4d3-4bcc-927a-2997df7709be",
-    title: "Arctic sea routes boom as Gulf war and global warming divert shipping",
-    date: "2026-10-02",
-    time: "21:00",
-    url: "https://www.ft.com/content/2e0eb698-d4d3-4bcc-927a-2997df7709be",
   },
 ];
