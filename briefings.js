@@ -70,7 +70,7 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-04",
-      time: "16:15 BST",
+      time: "20:11 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the FT's Sunday opinion asks &ldquo;The US is looking more like Italy&rdquo;</strong>, while September payrolls of just 29,000 jobs point to a Fed hold in October.", src: "https://www.ft.com/content/a2711e64-145b-4df6-baf7-56a3da7ed0b0", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; the FT argues Britain's Budget needs to tame spending and boost growth</strong>, as chancellor Healey is expected to deliver a &ldquo;breathing space&rdquo; statement.", src: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d", srcName: "Financial Times" },
