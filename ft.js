@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c608d956-22b7-4f23-a6fe-63f39c52c275",
+    title: "Jewish groups attack Greens after anti-Zionism motion passes",
+    date: "2026-10-04",
+    time: "16:31",
+    url: "https://www.ft.com/content/c608d956-22b7-4f23-a6fe-63f39c52c275",
+  },
+  {
     id: "1fd3b9f8-ac07-4a7c-b968-93fba8b3a978",
     title: "Burnham could learn a thing or two from Thatcher",
     date: "2026-10-04",
@@ -292,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/864aeb96-e36a-4cea-b914-7996b763dbe4",
-  },
-  {
-    id: "a1815bc5-b5d5-47ff-bbbc-e1a689929321",
-    title: "The coming futures market in AI compute",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/a1815bc5-b5d5-47ff-bbbc-e1a689929321",
-  },
-  {
-    id: "65860150-c590-425a-822d-c1d015a4d44e",
-    title: "Record 12,000 complaints made against Lasting Powers of Attorney",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/65860150-c590-425a-822d-c1d015a4d44e",
-  },
-  {
-    id: "4e6a9004-fa0d-4b2e-a0a1-d4bc82411754",
-    title: "A senate race runs through the Maine woods",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/4e6a9004-fa0d-4b2e-a0a1-d4bc82411754",
-  },
-  {
-    id: "8869caf9-3cd1-4300-aeb3-828a4d9da4f9",
-    title: "China, America and the new Great Game",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/8869caf9-3cd1-4300-aeb3-828a4d9da4f9",
   },
 ];
