@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9737146d-fda7-440f-a77d-ab954de7a1a5",
+    title: "AkzoNobel nears deal to sell its SE Asia decorative paint unit to Nippon Paint",
+    date: "2026-10-04",
+    time: "19:55",
+    url: "https://www.ft.com/content/9737146d-fda7-440f-a77d-ab954de7a1a5",
+  },
+  {
     id: "d3b09a81-626c-406a-a568-40966ffad074",
     title: "Election season starts with possibly the most contentious result",
     date: "2026-10-04",
@@ -292,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/156ecdf6-9379-48d6-b30f-becfb6b235ff",
-  },
-  {
-    id: "5501a0c6-7d1e-4c1f-acc7-3b928e1f664a",
-    title: "Volodymyr Zelenskyy asked Donald Trump to block Russia and China’s Starlink rival",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/5501a0c6-7d1e-4c1f-acc7-3b928e1f664a",
-  },
-  {
-    id: "864aeb96-e36a-4cea-b914-7996b763dbe4",
-    title: "The ever-shrinking case for expanding Heathrow",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/864aeb96-e36a-4cea-b914-7996b763dbe4",
   },
 ];
