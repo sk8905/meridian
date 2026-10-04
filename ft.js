@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "66897ef7-936b-43d0-a067-576be636f876",
+    title: "US recalls B-1 bombers from UK air base following alleged terror plot",
+    date: "2026-10-04",
+    time: "23:24",
+    url: "https://www.ft.com/content/66897ef7-936b-43d0-a067-576be636f876",
+  },
+  {
+    id: "7feba19e-b498-4453-a744-214638044f0a",
+    title: "FirstFT: Legal risks pile up for OpenAI",
+    date: "2026-10-04",
+    time: "22:45",
+    url: "https://www.ft.com/content/7feba19e-b498-4453-a744-214638044f0a",
+  },
+  {
     id: "1fdb8380-2fac-474a-a184-616c0a29feb6",
     title: "Bull run for Japan stocks at risk, warns boss of biggest trading house",
     date: "2026-10-04",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "09:00",
     url: "https://www.ft.com/content/5703d3c2-26f5-4472-91be-bf8cfdc11a75",
-  },
-  {
-    id: "678d61ea-d3f6-467f-a2b0-ffc78f1ed922",
-    title: "Capital gains tax rise would deter equity investors, wealth bosses warn",
-    date: "2026-10-03",
-    time: "05:23",
-    url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922",
-  },
-  {
-    id: "437ca3f0-9db4-4511-a441-ab7763d8f65c",
-    title: "The right and wrong lessons to learn from Spain’s housing crisis",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/437ca3f0-9db4-4511-a441-ab7763d8f65c",
   },
 ];
