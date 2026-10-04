@@ -28,6 +28,7 @@ const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (un
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
+const ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
 const ICO_ASK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6a8.5 8.5 0 0 1-.9-3.9A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 
@@ -775,15 +776,17 @@ export function initNavActions() {
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =
-      // Cluster order (left→right): Ask/Chat (desktop only) · Markets · Bookmarks ·
-      // Briefing · Notifications. Ask (Chat) leads on desktop; on phones it lives
-      // in the Menu → Chat chip, so the phone header stays Markets · Bookmarks ·
-      // Notifications. The Theme toggle no longer lives here on EITHER
-      // surface — it is reached via the Menu → Settings segmented control (the OS
-      // "system" follow is still wired below). The refresh-countdown ring moved OUT
-      // of this cluster (now beside the "Last refresh" marker, status.js), and
-      // Search moved to the Menu → Chat chip on phones (desktop keeps the topbar
-      // search pill), so there is no phone magnifier button here any more.
+      // Cluster order (left→right): Search (phone only) · Ask/Chat (tablet+desktop) ·
+      // Markets · Bookmarks · Notifications. On PHONES the full-width search band was
+      // pulled out of the page body (the .wire-band row under the chips) and lives
+      // here as a magnifier that opens the global command palette (data-open-search →
+      // the lazy-palette shim in chrome.js), reclaiming a whole row. Tablet + desktop
+      // (>760px) keep the body search band, so no magnifier there; Ask (Chat) leads
+      // on those sizes, and on phones Ask lives in the Menu → Chat chip. The Theme
+      // toggle lives in Menu → Settings (both surfaces; the OS "system" follow is
+      // wired below); the refresh-countdown ring moved beside the "Last refresh"
+      // marker (status.js).
+      (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search Wire" title="Search Wire">${ICO_SEARCH}</button>` : "") +
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire ( ' )">${ICO_ASK}</button>`) +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +

@@ -1521,6 +1521,20 @@
       .tui .g-gl-v{ display:block; flex:1 1 auto; min-width:0; color:var(--t-dim);
         white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } }
 
+    /* ---- Phone: the full-width search band moves to a header magnifier ---- */
+    @media (max-width:760px){
+      /* On phones the "Search everything" band is lifted out of the page body into a
+         magnifier button in the fixed header (nav-actions' cluster → the global
+         command palette), reclaiming a whole row. Hiding the band and zeroing
+         --wire-band-h collapses the sticky stack built in the ≤1200 block above (wire
+         tabs · briefing pane · feed day-break marker all use calc(head + band + …)),
+         so each pins directly under the header with no band row to clear. This must
+         sit AFTER the ≤1200 block so it wins the --wire-band-h cascade on phones.
+         Tablets (761–1200px) keep the band — their --wire-band-h stays 43px. */
+      .tui{ --wire-band-h:0px; }
+      .tui .wire-band{ display:none; }
+    }
+
     /* ---- panels ---- */
     .tui-pnl{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
     .tui-ph{ display:flex; align-items:center; gap:8px; height:30px; padding:0 12px;

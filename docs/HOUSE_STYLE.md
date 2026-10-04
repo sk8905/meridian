@@ -37,6 +37,13 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   the footer is pinned to the viewport bottom on desktop; on phone the bottom
   nav/tab bar is `position:fixed` and the signed-in/last-refresh strip sits
   directly above it. None of these scroll with content.
+- **R2c — On phones (≤760px) search is a header magnifier, not a body row.**
+  The full-width "Search everything" band (`.wire-band`) is hidden on phones and
+  replaced by a magnifier button in the header action cluster (`#na-search`,
+  `data-open-search` → the global command palette), reclaiming a whole row — so
+  the wire tabs pin directly under the header (`--wire-band-h` is zeroed on
+  phones, collapsing the sticky-stack offsets). Tablet + desktop (>760px) keep
+  the body band and carry no magnifier.
 - **R3 — Four-column reading frame on Home** (desktop): markets rail
   (`.g-side`) · aggregated feed (`.g-feed-wrap`) · manager wire (`.g-side3`) ·
   macro rail (`.g-side2`). **Every rail is exactly the viewport height** — pinned

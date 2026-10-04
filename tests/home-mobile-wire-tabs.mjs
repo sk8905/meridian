@@ -196,30 +196,33 @@ const b = await launchChromium();
   check(!(await vis(".g-hero")), "phone: the chart is hidden again under News");
   check(!(await vis(".g-side-x")), "phone: the X wire is hidden again under News");
 
-  // The header · search band · wire chips stay LOCKED when the News pane scrolls, and
-  // the feed's day-break marker pins directly beneath the chips ("sticks to the top of
-  // the wire"). There is no filter row anymore.
+  // The header · wire chips stay LOCKED when the News pane scrolls, and the feed's
+  // day-break marker pins directly beneath the chips ("sticks to the top of the
+  // wire"). The full-width search band is GONE on phones (search moved to the
+  // header magnifier), so the chips pin directly under the header — no band row.
   const at = () => pg.evaluate(() => {
     const r = (s) => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return { top: Math.round(b.top), bot: Math.round(b.bottom) }; };
-    return { header: r("#wire-header .topbar"), band: r(".g-main .wire-band"), tabs: r(".g-wiretabs"), day: r("#g-feed .g-feed-dayhdr") };
+    const bandEl = document.querySelector(".g-main .wire-band");
+    return { header: r("#wire-header .topbar"), bandHidden: !bandEl || getComputedStyle(bandEl).display === "none", tabs: r(".g-wiretabs"), day: r("#g-feed .g-feed-dayhdr") };
   });
   const rest = await at();
+  check(rest.bandHidden, "phone: no full-width search band in the body (search moved to the header magnifier)");
   // At rest the feed's day-break marker sits directly under the wire chips.
   check(rest.day && rest.tabs && rest.day.top >= rest.tabs.bot - 2 && rest.day.top <= rest.tabs.bot + 8,
     `phone: at rest the day marker sits beneath the chips (day.top ${rest.day?.top}, chips.bot ${rest.tabs?.bot})`);
-  // Scroll the feed → the band + chips stay pinned, and the day-break marker pins
-  // directly beneath the chips.
+  // Scroll the feed → the chips stay pinned, and the day-break marker pins directly
+  // beneath them.
   await pg.evaluate(() => window.scrollTo(0, 5000));
   await pg.waitForTimeout(300);
   const scr = await at();
   const same = (a, c) => a && c && Math.abs(a.top - c.top) <= 1;
-  check(same(rest.band, scr.band) && same(rest.tabs, scr.tabs),
-    `phone: band + chips stay pinned on scroll (band ${rest.band?.top}→${scr.band?.top}, chips ${rest.tabs?.top}→${scr.tabs?.top})`);
+  check(same(rest.tabs, scr.tabs),
+    `phone: the wire chips stay pinned on scroll (chips ${rest.tabs?.top}→${scr.tabs?.top})`);
   check(scr.day && scr.day.top <= scr.tabs.bot + 1 && scr.day.top >= scr.tabs.bot - 4,
     `phone: the day-break marker sticks just beneath the chips (day.top ${scr.day?.top}, chips.bot ${scr.tabs?.bot})`);
-  // No overlap in the pinned cluster.
-  const stacked = scr.header.bot <= scr.band.top + 1 && scr.band.bot <= scr.tabs.top + 1;
-  check(stacked, `phone: the pinned cluster stacks without overlap (header→${scr.band.top}, band→${scr.tabs.top})`);
+  // The chips pin flush under the header (no band row between).
+  const stacked = scr.header.bot <= scr.tabs.top + 1 && scr.tabs.top - scr.header.bot <= 2;
+  check(stacked, `phone: the chips pin flush under the header — no band row (header.bot ${scr.header.bot}, chips.top ${scr.tabs.top})`);
 
   checkErrs(errs, "home mobile wire tabs");
   await ctx.close();

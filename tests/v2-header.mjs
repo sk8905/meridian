@@ -17,7 +17,7 @@ const present = await pg.evaluate(() => ({
   mkt: !!document.getElementById("na-mkt"),
   saved: !!document.getElementById("na-saved"),
   notif: !!document.getElementById("na-notif"),
-  searchAbsent: !document.getElementById("na-search"),
+  search: !!document.querySelector("#na-search[data-open-search]"),
   ringOutOfCluster: !document.querySelector(".na-actions .na-ring"),
   panels: document.querySelectorAll(".na-panel").length,
   tabbars: document.querySelectorAll(".mobile-tabbar").length,
@@ -28,9 +28,10 @@ check(present.briefAbsent, "Briefing button removed from the header (the brief l
 check(present.mkt, "Markets button present");
 check(present.saved, "Saved (bookmarks) button present");
 check(present.notif, "Notifications button present");
-// Phone header keeps Markets/Bookmarks/Notifications; Search moved to the Menu →
-// Dialogue chip, and the countdown ring moved beside "Last refresh".
-check(present.searchAbsent, "Search button NOT in the phone header (it moved to the Menu → Dialogue chip)");
+// Phone header carries Search (magnifier) + Markets/Bookmarks/Notifications; the
+// full-width body search band was removed in favour of this magnifier, and the
+// countdown ring moved beside "Last refresh".
+check(present.search, "Search magnifier IS in the phone header (data-open-search; the body band was removed)");
 check(present.ringOutOfCluster, "countdown ring moved out of the header action cluster (now beside Last refresh)");
 check(present.panels >= 3, `Markets/Saved/Notifications panels built (${present.panels})`);
 checkEq(present.tabbars, 1, "still exactly one tab bar (nav-actions did NOT add its own)");
@@ -108,24 +109,26 @@ const anchored = await pg.evaluate(async () => {
   await new Promise((r) => setTimeout(r, 300));
   const top1 = Math.round(bar.getBoundingClientRect().top);
   // On mobile Home the sticky stack under the fixed header is, top-to-bottom:
-  // the search band, the News/Managers chip bar, then the feed filter head —
-  // each pinned flush beneath the one above (no bleed through the seams).
+  // the News/Managers chip bar, then the feed filter head — each pinned flush
+  // beneath the one above (no bleed through the seams). The full-width search
+  // band was removed from the body (search moved to the header magnifier), so
+  // there is no band row between the header and the chips.
   const rect = (s) => { const e = document.querySelector(s); if (!e || getComputedStyle(e).display === "none") return null; const r = e.getBoundingClientRect(); return { top: Math.round(r.top), bot: Math.round(r.bottom) }; };
-  const band = rect(".g-main .wire-band");
+  const bandShown = (() => { const e = document.querySelector(".g-main .wire-band"); return !!e && getComputedStyle(e).display !== "none"; })();
   const chips = rect(".g-wiretabs");
   const fh = rect(".g-feed-head, .g-feed-chips");
   const headVar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 0;
   window.scrollTo(0, 0);
-  return { top0, top1, headVar, band, chips, fh, barH: Math.round(bar.getBoundingClientRect().height) };
+  return { top0, top1, headVar, bandShown, chips, fh, barH: Math.round(bar.getBoundingClientRect().height) };
 });
 check(anchored.top0 === 0 && anchored.top1 === 0, `top bar stays anchored at top through scroll (top ${anchored.top0}→${anchored.top1})`);
 check(anchored.headVar > 0, `--wire-head-h is set for sub-nav offsets (${anchored.headVar}px)`);
+check(!anchored.bandShown, "no full-width search band on phone Home (search moved to the header magnifier)");
 // Each sticky layer pins flush under the one above (no content bleeds through the
-// seam). On mobile Home: search band under the header, chips under the band, feed
-// head under the chips. Elsewhere the feed head pins directly under the header.
+// seam). On mobile Home: chips directly under the header, feed head under the
+// chips. Elsewhere the feed head pins directly under the header.
 if (anchored.chips !== null) {
-  check(Math.abs(anchored.band.top - anchored.headVar) <= 2, `search band pins flush under the header (band ${anchored.band.top} ≈ head ${Math.round(anchored.headVar)})`);
-  check(Math.abs(anchored.chips.top - anchored.band.bot) <= 2, `News/Watchlist chips pin flush under the search band (chips ${anchored.chips.top} ≈ band bottom ${anchored.band.bot})`);
+  check(Math.abs(anchored.chips.top - anchored.headVar) <= 2, `News/Watchlist chips pin flush under the header (chips ${anchored.chips.top} ≈ head ${Math.round(anchored.headVar)})`);
   if (anchored.fh !== null) check(Math.abs(anchored.fh.top - anchored.chips.bot) <= 2, `feed head pins flush under the chip bar (feed head ${anchored.fh.top} ≈ chips bottom ${anchored.chips.bot})`);
 } else if (anchored.fh !== null) {
   check(Math.abs(anchored.fh.top - anchored.headVar) <= 2, `sub-nav pins flush under the header (feed head ${anchored.fh.top} ≈ head ${Math.round(anchored.headVar)})`);
