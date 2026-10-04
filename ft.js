@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "00fb4438-1f86-4bf2-a165-0c39f3fd506b",
+    title: "Dealmaking slowdown threatens early end to M&A boom",
+    date: "2026-10-04",
+    time: "21:00",
+    url: "https://www.ft.com/content/00fb4438-1f86-4bf2-a165-0c39f3fd506b",
+  },
+  {
+    id: "2084f349-0829-4130-a5e6-b98929a6e633",
+    title: "Schneider Electric nears deal to buy industrial software group PTC for $20bn",
+    date: "2026-10-04",
+    time: "20:33",
+    url: "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633",
+  },
+  {
     id: "9737146d-fda7-440f-a77d-ab954de7a1a5",
     title: "AkzoNobel nears deal to sell its SE Asia decorative paint unit to Nippon Paint",
     date: "2026-10-04",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de",
-  },
-  {
-    id: "3d4354d0-7273-49c3-89ce-38dcabd6bd7b",
-    title: "Does the EU want Britain back?",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/3d4354d0-7273-49c3-89ce-38dcabd6bd7b",
-  },
-  {
-    id: "156ecdf6-9379-48d6-b30f-becfb6b235ff",
-    title: "Struggle to handle Fairford plot shows need for reform, local police chief says",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/156ecdf6-9379-48d6-b30f-becfb6b235ff",
   },
 ];
