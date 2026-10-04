@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "3302fd5c-8b92-425b-9523-673b2565bb10",
+    title: "Investors look to shelter portfolios from rising AI concentration risks",
+    date: "2026-10-04",
+    time: "13:00",
+    url: "https://www.ft.com/content/3302fd5c-8b92-425b-9523-673b2565bb10",
+  },
+  {
+    id: "a2711e64-145b-4df6-baf7-56a3da7ed0b0",
+    title: "The US is looking more like Italy",
+    date: "2026-10-04",
+    time: "13:00",
+    url: "https://www.ft.com/content/a2711e64-145b-4df6-baf7-56a3da7ed0b0",
+  },
+  {
     id: "d2d5a5a5-758f-472f-a2c7-1684955b0087",
     title: "BT weighs improved TalkTalk offer after initial approach rejected",
     date: "2026-10-04",
