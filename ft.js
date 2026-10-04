@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9cbc0aea-259a-41eb-bbf4-ad8a674ca8b7",
+    title: "US to receive potash shipment from Belarus as relations thaw",
+    date: "2026-10-04",
+    time: "10:00",
+    url: "https://www.ft.com/content/9cbc0aea-259a-41eb-bbf4-ad8a674ca8b7",
+  },
+  {
+    id: "9972c7fa-ebed-4c0c-8ff6-17e66a547394",
+    title: "Lula and Flávio Bolsonaro neck-and-neck as Brazilians head to polls",
+    date: "2026-10-04",
+    time: "10:00",
+    url: "https://www.ft.com/content/9972c7fa-ebed-4c0c-8ff6-17e66a547394",
+  },
+  {
     id: "b7bd5c45-1c32-4984-af37-21746a02c4ef",
     title: "Germany’s Merz arrives in Kyiv to show support for Ukraine",
     date: "2026-10-04",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "21:00",
     url: "https://www.ft.com/content/2e0eb698-d4d3-4bcc-927a-2997df7709be",
-  },
-  {
-    id: "538ea132-4021-4095-8da3-9db41d42b19d",
-    title: "Ann Widdecombe murder suspect charged with preparing terror acts against Nigel Farage",
-    date: "2026-10-02",
-    time: "20:47",
-    url: "https://www.ft.com/content/538ea132-4021-4095-8da3-9db41d42b19d",
-  },
-  {
-    id: "c89a552e-4720-47ae-9f0d-e9ff85b36dd9",
-    title: "October fall",
-    date: "2026-10-02",
-    time: "20:07",
-    url: "https://www.ft.com/content/c89a552e-4720-47ae-9f0d-e9ff85b36dd9",
   },
 ];
