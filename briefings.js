@@ -70,12 +70,12 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-04",
-      time: "20:11 BST",
+      time: "22:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the FT's Sunday opinion asks &ldquo;The US is looking more like Italy&rdquo;</strong>, while September payrolls of just 29,000 jobs point to a Fed hold in October.", src: "https://www.ft.com/content/a2711e64-145b-4df6-baf7-56a3da7ed0b0", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; the FT argues Britain's Budget needs to tame spending and boost growth</strong>, as chancellor Healey is expected to deliver a &ldquo;breathing space&rdquo; statement.", src: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the FT asks what can revive the battered government bond market</strong> after the global sell-off, while rising gilt yields draw UK retail investors seeking tax-efficient assets.", src: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; Wall Street's IPO fervour is cooling</strong> on tepid demand and valuation worries, the FT reports, while investors look to shelter portfolios from rising AI concentration risks.", src: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the FT reports the boss of Japan's biggest trading house warning that the bull run for Japan stocks is at risk</strong>, while a dealmaking slowdown threatens an early end to the M&amp;A boom.", src: "https://www.ft.com/content/1fdb8380-2fac-474a-a184-616c0a29feb6", srcName: "Financial Times" },
       ],
     },
   },

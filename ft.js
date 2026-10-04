@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1fdb8380-2fac-474a-a184-616c0a29feb6",
+    title: "Bull run for Japan stocks at risk, warns boss of biggest trading house",
+    date: "2026-10-04",
+    time: "22:00",
+    url: "https://www.ft.com/content/1fdb8380-2fac-474a-a184-616c0a29feb6",
+  },
+  {
     id: "00fb4438-1f86-4bf2-a165-0c39f3fd506b",
     title: "Dealmaking slowdown threatens early end to M&A boom",
     date: "2026-10-04",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/437ca3f0-9db4-4511-a441-ab7763d8f65c",
-  },
-  {
-    id: "17a502a2-f8cb-4d79-996e-f2c7018585de",
-    title: "Rising gilt yields attract retail investors hunting for tax-efficient assets",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de",
   },
 ];
