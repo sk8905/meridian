@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-04",
-  lastCheckedTime: "08:15 BST",
+  lastCheckedTime: "10:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,12 +1004,12 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-03",
+  updated: "2026-10-04",
   us: [
-    { title: "US justice department will not reopen criminal probe of Fed’s Jay Powell", source: "Financial Times", date: "2026-10-02", time: "22:03", url: "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846" },
+    { title: "Wall Street’s IPO fervour cools on tepid demand and valuation worries", source: "Financial Times", date: "2026-10-04", time: "06:01", url: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351" },
     { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
     { title: "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", source: "Financial Times", date: "2026-10-02", time: "17:20", url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e" },
-    { title: "Weak US payrolls  likely to keep rate setters on the sidelines in October", source: "Financial Times", date: "2026-10-02", time: "15:01", url: "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28" },
+    { title: "US to receive potash shipment from Belarus as relations thaw", source: "Financial Times", date: "2026-10-04", time: "10:00", url: "https://www.ft.com/content/9cbc0aea-259a-41eb-bbf4-ad8a674ca8b7" },
     { title: "Chart of the Week: What’s driving the global bond sell-off?", source: "Financial Times", date: "2026-10-03", time: "10:30", url: "https://www.ft.com/content/f212d7b9-95e0-4aa0-84bf-4df7b43bc80a" },
   ],
   uk: [
@@ -1017,7 +1017,7 @@ export const NEWS = {
     { title: "CGT rise would deter equity investors, wealth bosses warn", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922" },
     { title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget", source: "Financial Times", date: "2026-10-02", time: "21:41", url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3" },
     { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
-    { title: "Does the EU want Britain back?", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/3d4354d0-7273-49c3-89ce-38dcabd6bd7b" },
+    { title: "Tories vow to scrap £100,000 childcare trap for UK’s higher earners", source: "Financial Times", date: "2026-10-03", time: "23:00", url: "https://www.ft.com/content/82ceae35-e3ef-4b68-8cfa-553b205a4bb0" },
   ],
 };
 
