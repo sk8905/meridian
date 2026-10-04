@@ -57,14 +57,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-10-03",
-      time: "16:14 BST",
+      date: "2026-10-04",
+      time: "14:15 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the US economy added just 29,000 jobs in September</strong> as hiring slowed sharply, the FT reports, and the weak print is likely to keep Fed rate setters on the sidelines in October.", src: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; eurozone inflation hit a three-year high of 3.8%</strong>, the FT reports, adding pressure on the ECB to tighten again.", src: "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; the global bond market has steadied after a sharp sell-off</strong> that took 10-year Treasury yields to their highest since 2002, the FT reports, with investors also seeking refuge in German Bunds.", src: "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the FT's Sunday opinion asks &ldquo;The US is looking more like Italy&rdquo;</strong> as the global bond sell-off keeps fiscal and debt-sustainability worries in focus.", src: "https://www.ft.com/content/a2711e64-145b-4df6-baf7-56a3da7ed0b0", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the FT asks what can revive the battered government bond market</strong> after a sell-off that pushed 10-year Treasury yields to their highest since 2002.", src: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; rising gilt yields are attracting UK retail investors</strong> hunting for tax-efficient assets, the FT reports.", src: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; Wall Street rallied on Friday's soft jobs print</strong>, with the S&amp;P 500 up 0.89%, the Nasdaq 1.35% and the Dow around 300 points as weak payrolls pared Fed rate-hike bets and pulled Treasury yields back from multi-decade highs, Yahoo Finance reports.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Equities &mdash; Wall Street's IPO fervour is cooling</strong> on tepid demand and valuation worries, the FT reports, while investors look to shelter portfolios from rising AI concentration risks after Friday's rally on the soft jobs print.", src: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351", srcName: "Financial Times" },
       ],
     },
     evening: {
