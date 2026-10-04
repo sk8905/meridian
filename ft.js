@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d2d5a5a5-758f-472f-a2c7-1684955b0087",
+    title: "BT weighs improved TalkTalk offer after initial approach rejected",
+    date: "2026-10-04",
+    time: "12:03",
+    url: "https://www.ft.com/content/d2d5a5a5-758f-472f-a2c7-1684955b0087",
+  },
+  {
+    id: "a984ca27-786a-47be-a8b9-9d48201a9e7c",
+    title: "In defence of big business",
+    date: "2026-10-04",
+    time: "12:00",
+    url: "https://www.ft.com/content/a984ca27-786a-47be-a8b9-9d48201a9e7c",
+  },
+  {
+    id: "9e9f0cbd-ef77-4e19-8f6e-97063e9fe9fc",
+    title: "EU countries shoot themselves in the foot when they veto sanctions",
+    date: "2026-10-04",
+    time: "12:00",
+    url: "https://www.ft.com/content/9e9f0cbd-ef77-4e19-8f6e-97063e9fe9fc",
+  },
+  {
+    id: "2c24ece3-ac99-43a8-b0e6-4a3867e37ebf",
+    title: "Legal risks pile up for Altman as OpenAI uncovers dozens of hacks",
+    date: "2026-10-04",
+    time: "12:00",
+    url: "https://www.ft.com/content/2c24ece3-ac99-43a8-b0e6-4a3867e37ebf",
+  },
+  {
+    id: "1a94931f-421e-4d0e-888a-7727f15c3d5f",
+    title: "What can revive the battered government bond market?",
+    date: "2026-10-04",
+    time: "12:00",
+    url: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f",
+  },
+  {
     id: "dfa07e3f-5557-46ba-8128-72f43aa6558d",
     title: "Britain’s Budget needs to tame spending and boost growth",
     date: "2026-10-04",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-03",
     time: "05:00",
     url: "https://www.ft.com/content/8869caf9-3cd1-4300-aeb3-828a4d9da4f9",
-  },
-  {
-    id: "a752a765-8b64-41a5-b051-5237957e13c1",
-    title: "Dethroning FICO won’t much help US homeowners",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/a752a765-8b64-41a5-b051-5237957e13c1",
-  },
-  {
-    id: "782f81e4-7eac-4791-b478-c142119a7ebb",
-    title: "Who let the dogs out? Please put them back",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/782f81e4-7eac-4791-b478-c142119a7ebb",
-  },
-  {
-    id: "b50f39c6-4484-4c06-89cb-2884f9e58bd7",
-    title: "Protests from the City about bank tax ring hollow",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/b50f39c6-4484-4c06-89cb-2884f9e58bd7",
-  },
-  {
-    id: "cc8ac63c-9b03-4efc-b9e5-b90f513ba565",
-    title: "SkyNet satellite battle tests UK pledge to ‘buy British’",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/cc8ac63c-9b03-4efc-b9e5-b90f513ba565",
-  },
-  {
-    id: "ac1f4db2-54fe-4a36-b3db-bb96675231f5",
-    title: "Polymarket’s Alpha traders",
-    date: "2026-10-03",
-    time: "05:00",
-    url: "https://www.ft.com/content/ac1f4db2-54fe-4a36-b3db-bb96675231f5",
   },
 ];
