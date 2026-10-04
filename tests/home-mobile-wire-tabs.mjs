@@ -1,8 +1,8 @@
 // Home on mobile: the multi-column terminal collapses to one column. Four tabs —
-// Market Briefing (default, always expanded, fills the page), News (a merged wire
-// whose lane — All · News · Manager · Watchlist — is chosen from a "Chat"-style
-// dropdown), Chart, and X Feed. On desktop the lane chips + reading pane show and
-// these tabs are hidden.
+// News (the default landing pane; a merged wire whose lane — All · News · Manager ·
+// Watchlist — is chosen from a "Chat"-style dropdown), Chart, X Feed, and Market
+// Briefing (last; always expanded, fills the page). On desktop the lane chips +
+// reading pane show and these tabs are hidden.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 // A minimal hero stub so the Chart pane (the default) has its ticker row.
@@ -40,7 +40,7 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "All · Briefing · Chart · X Feed", `phone: four tabs — All (lane, default) · Briefing · Chart · X Feed (${labels.join(", ")})`);
+  check(labels.join(" · ") === "All · Chart · X Feed · Briefing", `phone: four tabs — All (lane, default) · Chart · X Feed · Briefing (last) (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
   check(laneMenu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire tab's dropdown offers the five lanes (${laneMenu.join(", ")})`);
 

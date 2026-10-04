@@ -13,13 +13,14 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <div class="g-wiretabs" role="tablist" aria-label="Wire, briefing, chart or X">
           <!-- News + Managers share the first tab: the lane (All · News · Manager ·
                Watchlist · Newsletters) is chosen from a dropdown (same style as the
-               Menu → Chat chip). Market Briefing rides its own pane (default,
-               always expanded — no collapse). Rendered/wired by glance.js. -->
-          <button type="button" class="g-wiretab g-wiretab-lane tchip-has-menu" data-wire="news" role="tab" aria-selected="false" aria-haspopup="menu" aria-expanded="false"><span class="g-wire-lanelbl">News</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+               Menu → Chat chip). News is the default landing pane; Market Briefing
+               rides its own pane (always expanded — no collapse) and sits LAST in the
+               strip. Rendered/wired by glance.js. -->
+          <button type="button" class="g-wiretab g-wiretab-lane tchip-has-menu is-on" data-wire="news" role="tab" aria-selected="true" aria-haspopup="menu" aria-expanded="false"><span class="g-wire-lanelbl">News</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="g-wire-lanemenu tchip-menu" id="g-wire-lanemenu" role="menu" hidden></div>
-          <button type="button" class="g-wiretab is-on" data-wire="brief" role="tab" aria-selected="true">Briefing<span class="g-wiretab-dot" hidden aria-hidden="true"></span></button>
           <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
+          <button type="button" class="g-wiretab" data-wire="brief" role="tab" aria-selected="false">Briefing<span class="g-wiretab-dot" hidden aria-hidden="true"></span></button>
         </div>
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
         <aside class="g-side">

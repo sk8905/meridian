@@ -468,8 +468,9 @@ notification badge red (`#ef4444`).
   left rail and both right rails stay full-height (CSS grid `grid-template-areas`).
   It is topped by a **pinned "Chart" header** (`.tui-ph`, matching the other panes).
   On **phones**
-  it is a **wire chip — the tab strip reads News · Managers · Chart · X Feed, in
-  that order; News is the default landing pane** and the Chart chip opens the band
+  it is a **wire chip — the tab strip reads News · Managers · Chart · X Feed ·
+  Briefing, in that order (Briefing sits LAST); News is the default landing pane**
+  and the Chart chip opens the band
   (with **all six tickers plotted** by default). A Home-nav tap resets to News —
   swapping onto the single-column workspace like the other wires. The band plots a fixed basket —
   **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — from **one unified
