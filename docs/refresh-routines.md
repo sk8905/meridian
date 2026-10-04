@@ -309,6 +309,18 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   `/api/macro?v=N` edge-cache key in `src/index.js` on every run (that one is a
   server-side cache key, not an import token, and is unaffected by this). The
   detail below is kept for the code-token case; do not apply it to data files.
+- **Reaching a RESIDENT client — the reopen refresh.** `no-cache` makes a data
+  refresh land on the next page *load*, but an iOS home-screen PWA keeps the page
+  in memory and never re-navigates, so a *resumed* app would keep the in-memory
+  modules (the old briefing) even after a refresh ships. Two client-side self-heals
+  close that, both on foreground (`visibilitychange`): the live feed/markets/rates
+  refetch from `/api/*` (`glance.js` `startLiveRefresh`), and — for the module-baked
+  briefing — `glance.js` `initBriefFreshness()` refetches `briefings.js` after the
+  app has been away >2 min and reloads ONCE if a newer (date·time) edition has
+  landed, pulling in every refreshed module. (The `nav-actions` build self-heal only
+  catches CODE deploys; a data-only refresh keeps the same hashed bundle.) Nothing
+  for the routine to do here — it's automatic — but keep the briefing's per-slot
+  `date`/`time` stamps monotonic each run, since that stamp is the freshness signal.
 - **Home slice (`home-data.js`) — regenerate after a desk-data edit.** The Home
   surface no longer imports the full `credit/js/data.js` / `legal/js/data.js` /
   `macro/js/content.js`; it imports the compact **generated** `home-data.js`

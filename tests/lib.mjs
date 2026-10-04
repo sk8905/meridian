@@ -34,7 +34,7 @@ const feedItems = (n = 30) => Array.from({ length: n }, (_, i) => ({ title: `Sto
 export function serve(apis = {}) {
   const srv = http.createServer((q, r) => {
     let p = q.url.split("?")[0];
-    if (apis[p]) { const [code, body] = apis[p](q); r.writeHead(code, { "content-type": "application/json" }); r.end(body); return; }
+    if (apis[p]) { const [code, body, ctype] = apis[p](q); r.writeHead(code, { "content-type": ctype || "application/json" }); r.end(body); return; }
     if (p === "/api/me") { r.writeHead(200, { "content-type": "application/json" }); r.end('{"email":"tester@wire"}'); return; }
     if (p === "/api/feed") { r.writeHead(200, { "content-type": "application/json" }); r.end(JSON.stringify({ items: feedItems(120) })); return; }
     if (p.startsWith("/api/")) { r.writeHead(200, { "content-type": "application/json" }); r.end("{}"); return; }

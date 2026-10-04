@@ -185,6 +185,7 @@ export function initGlance(ctx) {
   initJumpNav();
   // v2: search is the shell palette (palette.js); glance palette skipped
   startLiveRefresh();
+  initBriefFreshness();   // on reopen, pull a newly-published briefing (see below)
 }
 
 // ---- Unified Saved -----------------------------------------------------------
@@ -320,6 +321,20 @@ function _briefStamp(k) {
 function _briefOrder() { const B = BRIEFINGS || {}; const slots = B.slots || {}; return (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]); }
 // The freshest brief by (date·time) stamp — the only version surfaced.
 function _briefLatest() { const o = _briefOrder(); return o.length ? o.reduce((best, k) => (_briefStamp(k) > _briefStamp(best) ? k : best), o[0]) : ""; }
+// The latest (date time) stamp across ANY BRIEFINGS object — used to tell whether a
+// freshly-fetched briefing module is newer than the one this page loaded (the
+// reopen-freshness check below). Mirrors _briefStamp's normalisation, but pure so it
+// can run against a re-imported module's exports, not just the loaded global.
+function _latestStampOf(B) {
+  const slots = (B && B.slots) || {};
+  const order = ((B && B.order) || ["morning", "afternoon", "evening"]).filter((k) => slots[k]);
+  const stampOf = (k) => {
+    const s = slots[k]; if (!s) return "";
+    const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
+    return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
+  };
+  return order.reduce((best, k) => { const v = stampOf(k); return v > best ? v : best; }, "");
+}
 function _briefIdentity(k) { const s = ((BRIEFINGS || {}).slots || {})[k]; return s ? `${s.date || ""}|${s.time || ""}` : ""; }
 function _briefReadMap() { try { return JSON.parse(localStorage.getItem(_BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; } }
 function _markBriefRead(k) { const id = _briefIdentity(k); if (!id) return; const m = _briefReadMap(); if (m[k] === id) return; m[k] = id; try { localStorage.setItem(_BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ } }
@@ -1421,6 +1436,64 @@ function startLiveRefresh() {
   setInterval(() => { if (!document.hidden) refreshLive(); }, LIVE_REFRESH_MS);
   on(document, "visibilitychange", () => {
     if (!document.hidden && Date.now() - _lastLive > LIVE_REFRESH_MS) refreshLive();
+  });
+}
+
+// ---- Reopen freshness: pull a newly-published briefing without a manual reload ----
+// iOS home-screen PWAs keep the page in memory, so returning to an already-open app
+// does NOT re-import the data modules. The live feed/markets/rates refresh on resume
+// (startLiveRefresh), but the BRIEFING is baked into the /briefings.js ES module at
+// load — a running page can't re-import a module — so a resumed app can show the
+// previous edition even though the 5×/day refresh has published a newer one. (The
+// build self-heal in nav-actions only catches CODE deploys; a data-only refresh keeps
+// the same content-hashed bundle, so it slips past that check.)
+//
+// Fix: when the app is foregrounded after being away a little while, fetch the
+// briefing module fresh — a cache-busting query yields a NEW module instance, and the
+// real file is Cache-Control:no-cache so it's a cheap 304 when unchanged — and compare
+// its latest (date·time) stamp with the one this page loaded. If a newer edition has
+// landed, reload ONCE to pull in every refreshed module (briefing, FT, newsletters,
+// home-data). Guarded, throttled and offline-safe; the last-used wire tab is restored
+// on reload (F8), so the only visible cost is a scroll-to-top.
+// The latest stamp parsed from the briefing module's SOURCE TEXT (not an import), so
+// the reopen check can read a freshly-fetched copy without re-importing the module
+// (which a running page can't do) or polluting the module map. Each slot writes its
+// `date` immediately before its `time`, so one regex captures every (date, time) pair;
+// normalise exactly as _latestStampOf does and keep the max.
+function _latestStampFromText(src) {
+  const re = /\bdate:\s*"([^"]+)"\s*,\s*time:\s*"([^"]*)"/g;
+  let m, best = "";
+  while ((m = re.exec(String(src || "")))) {
+    const t = String(m[2] || "").match(/(\d{1,2}):(\d{2})/);
+    const v = `${m[1]} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
+    if (v > best) best = v;
+  }
+  return best;
+}
+let _briefFreshBusy = false, _briefFreshReloaded = false, _briefFreshAt = 0, _hiddenSince = 0;
+async function _checkBriefRefresh() {
+  if (_briefFreshBusy || _briefFreshReloaded || document.hidden) return;
+  const now = Date.now();
+  if (_briefFreshAt && now - _briefFreshAt < 60 * 1000) return;   // at most once a minute
+  _briefFreshAt = now; _briefFreshBusy = true;
+  try {
+    const mine = _latestStampOf(BRIEFINGS);
+    // Cache-busting query + no-store → a genuinely fresh copy (the file is also
+    // Cache-Control:no-cache, and the SW leaves /briefings.js to the network).
+    const res = await fetch(`/briefings.js?cb=${now}`, { cache: "no-store" });
+    if (res && res.ok) {
+      const theirs = _latestStampFromText(await res.text());
+      if (theirs && mine && theirs > mine) { _briefFreshReloaded = true; location.reload(); }
+    }
+  } catch { /* offline / blocked — keep the loaded briefing */ }
+  finally { _briefFreshBusy = false; }
+}
+function initBriefFreshness() {
+  on(document, "visibilitychange", () => {
+    if (document.hidden) { _hiddenSince = Date.now(); return; }
+    // Foregrounded: only bother checking when we were actually away a while, so a
+    // quick app-switch never triggers a network round-trip or a reload.
+    if (_hiddenSince && Date.now() - _hiddenSince > 2 * 60 * 1000) _checkBriefRefresh();
   });
 }
 
