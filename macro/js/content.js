@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-04",
-  lastCheckedTime: "14:15 BST",
+  lastCheckedTime: "16:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-04",
   us: [
-    { title: "Wall Street’s IPO fervour cools on tepid demand and valuation worries", source: "Financial Times", date: "2026-10-04", time: "06:01", url: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351" },
+    { title: "Wall Street’s IPO fervour cools on tepid demand and valuation worries", source: "Financial Times", date: "2026-10-04", time: "05:01", url: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351" },
+    { title: "Investors look to shelter portfolios from rising AI concentration risks", source: "Financial Times", date: "2026-10-04", time: "13:00", url: "https://www.ft.com/content/3302fd5c-8b92-425b-9523-673b2565bb10" },
+    { title: "The US is looking more like Italy", source: "Financial Times", date: "2026-10-04", time: "13:00", url: "https://www.ft.com/content/a2711e64-145b-4df6-baf7-56a3da7ed0b0" },
+    { title: "What can revive the battered government bond market?", source: "Financial Times", date: "2026-10-04", time: "12:00", url: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f" },
     { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
-    { title: "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", source: "Financial Times", date: "2026-10-02", time: "17:20", url: "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e" },
-    { title: "US to receive potash shipment from Belarus as relations thaw", source: "Financial Times", date: "2026-10-04", time: "10:00", url: "https://www.ft.com/content/9cbc0aea-259a-41eb-bbf4-ad8a674ca8b7" },
-    { title: "Chart of the Week: What’s driving the global bond sell-off?", source: "Financial Times", date: "2026-10-03", time: "10:30", url: "https://www.ft.com/content/f212d7b9-95e0-4aa0-84bf-4df7b43bc80a" },
   ],
   uk: [
+    { title: "Britain’s Budget needs to tame spending and boost growth", source: "Financial Times", date: "2026-10-04", time: "11:00", url: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d" },
+    { title: "Tories vow to end £100,000 childcare trap but keep pensions triple lock", source: "Financial Times", date: "2026-10-04", time: "10:33", url: "https://www.ft.com/content/82ceae35-e3ef-4b68-8cfa-553b205a4bb0" },
     { title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de" },
     { title: "CGT rise would deter equity investors, wealth bosses warn", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922" },
     { title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget", source: "Financial Times", date: "2026-10-02", time: "21:41", url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3" },
-    { title: "UK ministers resist union demands to rescue Scottish steelmaker", source: "Financial Times", date: "2026-10-02", time: "05:00", url: "https://www.ft.com/content/232eac57-80af-4b06-ac48-7346c3df669d" },
-    { title: "Tories vow to scrap £100,000 childcare trap for UK’s higher earners", source: "Financial Times", date: "2026-10-03", time: "23:00", url: "https://www.ft.com/content/82ceae35-e3ef-4b68-8cfa-553b205a4bb0" },
   ],
 };
 
