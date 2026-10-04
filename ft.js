@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d3b09a81-626c-406a-a568-40966ffad074",
+    title: "Election season starts with possibly the most contentious result",
+    date: "2026-10-04",
+    time: "18:15",
+    url: "https://www.ft.com/content/d3b09a81-626c-406a-a568-40966ffad074",
+  },
+  {
     id: "c608d956-22b7-4f23-a6fe-63f39c52c275",
     title: "Jewish groups attack Greens after anti-Zionism motion passes",
     date: "2026-10-04",
