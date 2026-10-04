@@ -2314,7 +2314,7 @@ function _readEmbedHTML(c) {
     + `<span class="g-read-tw-head">${av}<span class="g-read-tw-who">${who}</span>${hh ? `<span class="g-read-tw-h">@${hh}</span>` : ""}</span>`
     + (txt ? `<span class="g-read-tw-txt">${txt}</span>` : "")
     + media
-    + `<span class="g-read-tw-foot">View on X ↗</span>`
+    + `<span class="g-read-tw-foot">View on X</span>`
     + `</a>`;
 }
 // Render a story into a reader container (the desktop side pane OR the mobile

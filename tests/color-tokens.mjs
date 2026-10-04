@@ -364,6 +364,11 @@ for (const [label, src] of [
 check(/g-read-ext">opens at publisher</.test(glanceJs),
   "v2/js/home/glance.js: reader-pane 'opens at publisher' marker has no arrow glyph (R7a)");
 
+// R7a — the reader-pane embedded-tweet footer ("View on X") is a <span> inside an
+// <a>, so ARROW_BEFORE_CLOSE_A missed a trailing "↗" there.
+check(!/g-read-tw-foot">[^<]*[→›»↗]/.test(glanceJs),
+  "v2/js/home/glance.js: reader-pane embedded-tweet footer has no arrow glyph (R7a)");
+
 // R11 — every .g-read-* reader-pane meta line shares the micro step (var(--fs-micro));
 // .g-read-ext had drifted to an off-scale 11px.
 check(/\.g-read-ext\{[^}]*font-size:var\(--fs-micro\)/.test(homeCss),
