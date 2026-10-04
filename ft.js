@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "b7bd5c45-1c32-4984-af37-21746a02c4ef",
+    title: "Germany’s Merz arrives in Kyiv to show support for Ukraine",
+    date: "2026-10-04",
+    time: "07:12",
+    url: "https://www.ft.com/content/b7bd5c45-1c32-4984-af37-21746a02c4ef",
+  },
+  {
     id: "b8924d77-364b-46c1-b783-5db73a91f351",
     title: "Wall Street’s IPO fervour cools on tepid demand and valuation worries",
     date: "2026-10-04",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-02",
     time: "20:07",
     url: "https://www.ft.com/content/c89a552e-4720-47ae-9f0d-e9ff85b36dd9",
-  },
-  {
-    id: "7a91fa6b-e908-4a28-b04f-02d5a10a6bb1",
-    title: "‘Amateurism and organisation’: Iran’s potential role in RAF Fairford incident",
-    date: "2026-10-02",
-    time: "19:44",
-    url: "https://www.ft.com/content/7a91fa6b-e908-4a28-b04f-02d5a10a6bb1",
   },
 ];
