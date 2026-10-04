@@ -1390,6 +1390,12 @@ function _wireHeroNewsReader() {
 // cost of note). Everything else on the page keeps the 5×/day editorial
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
+// On REOPEN (foregrounding an iOS PWA that stayed resident), the news items must be
+// current — not up to ~5 min stale. So the resume refetch uses a much shorter gate
+// than the open-app polling interval: any reopen after the feed has aged past this
+// re-pulls /api/feed (edge-assembled, so always the freshest wire) and re-renders in
+// place. A tiny gate still avoids a redundant fetch on a quick app-flick.
+const LIVE_RESUME_MS = 45 * 1000;
 let _lastLive = Date.now();
 function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); refreshLiveFeed(); renderPredict(); }
 
@@ -1434,8 +1440,10 @@ function refreshLiveFeed() {
 }
 function startLiveRefresh() {
   setInterval(() => { if (!document.hidden) refreshLive(); }, LIVE_REFRESH_MS);
+  // Reopen: refetch the live news/markets/rates in place if the feed has aged past the
+  // short resume gate, so the Home wire is current the moment the app is foregrounded.
   on(document, "visibilitychange", () => {
-    if (!document.hidden && Date.now() - _lastLive > LIVE_REFRESH_MS) refreshLive();
+    if (!document.hidden && Date.now() - _lastLive > LIVE_RESUME_MS) refreshLive();
   });
 }
 

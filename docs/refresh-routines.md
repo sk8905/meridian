@@ -312,12 +312,15 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 - **Reaching a RESIDENT client — the reopen refresh.** `no-cache` makes a data
   refresh land on the next page *load*, but an iOS home-screen PWA keeps the page
   in memory and never re-navigates, so a *resumed* app would keep the in-memory
-  modules (the old briefing) even after a refresh ships. Two client-side self-heals
-  close that, both on foreground (`visibilitychange`): the live feed/markets/rates
-  refetch from `/api/*` (`glance.js` `startLiveRefresh`), and — for the module-baked
-  briefing — `glance.js` `initBriefFreshness()` refetches `briefings.js` after the
-  app has been away >2 min and reloads ONCE if a newer (date·time) edition has
-  landed, pulling in every refreshed module. (The `nav-actions` build self-heal only
+  modules (the old briefing, yesterday's wire) even after a refresh ships. Two
+  client-side self-heals close that, both on foreground (`visibilitychange`): the
+  Home **news** items plus markets/rates refetch from the edge-assembled `/api/*`
+  and re-render IN PLACE (`glance.js` `startLiveRefresh`, on a short ~45 s reopen
+  gate `LIVE_RESUME_MS`, so a reopened PWA shows current headlines — not ones up to
+  the 5-min poll stale); and — for the module-baked **briefing** — `glance.js`
+  `initBriefFreshness()` refetches `briefings.js` after the app has been away >2 min
+  and reloads ONCE if a newer (date·time) edition has landed, pulling in every
+  refreshed module. (The `nav-actions` build self-heal only
   catches CODE deploys; a data-only refresh keeps the same hashed bundle.) Nothing
   for the routine to do here — it's automatic — but keep the briefing's per-slot
   `date`/`time` stamps monotonic each run, since that stamp is the freshness signal.
