@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "93ee425d-9ac7-4543-8cc9-fef2e0670787",
+    title: "Nvidia’s $20bn licensing deal with Groq faces lawsuit from jilted engineers",
+    date: "2026-10-05",
+    time: "10:00",
+    url: "https://www.ft.com/content/93ee425d-9ac7-4543-8cc9-fef2e0670787",
+  },
+  {
+    id: "31a03cac-da1e-47ff-b261-e91f6d0b5e77",
+    title: "Greens’ anti-Zionism motion narrows potential base of support",
+    date: "2026-10-05",
+    time: "09:51",
+    url: "https://www.ft.com/content/31a03cac-da1e-47ff-b261-e91f6d0b5e77",
+  },
+  {
+    id: "1ab64d24-0f32-4dc8-86b5-20d06e3b3588",
+    title: "Brazil’s Bolsonaro dynasty closes in on stunning comeback",
+    date: "2026-10-05",
+    time: "09:49",
+    url: "https://www.ft.com/content/1ab64d24-0f32-4dc8-86b5-20d06e3b3588",
+  },
+  {
+    id: "7a00c5b9-62b5-4101-a5f0-ebf828dc6a90",
+    title: "Former prince Andrew seeks judicial review of police searches",
+    date: "2026-10-05",
+    time: "09:38",
+    url: "https://www.ft.com/content/7a00c5b9-62b5-4101-a5f0-ebf828dc6a90",
+  },
+  {
+    id: "53e88a8d-65b5-445e-82ee-aee253a32094",
+    title: "Saudi Aramco chief warns world’s oil stockpiles are ‘scarily thin’",
+    date: "2026-10-05",
+    time: "09:21",
+    url: "https://www.ft.com/content/53e88a8d-65b5-445e-82ee-aee253a32094",
+  },
+  {
     id: "0d3884be-a2c4-4914-a0a2-f22af8ef3857",
     title: "Top Monte dei Paschi investor backs Intesa’s sweetened €34.5bn takeover bid",
     date: "2026-10-05",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-04",
     time: "18:15",
     url: "https://www.ft.com/content/d3b09a81-626c-406a-a568-40966ffad074",
-  },
-  {
-    id: "c608d956-22b7-4f23-a6fe-63f39c52c275",
-    title: "Jewish groups attack Greens after anti-Zionism motion passes",
-    date: "2026-10-04",
-    time: "16:31",
-    url: "https://www.ft.com/content/c608d956-22b7-4f23-a6fe-63f39c52c275",
-  },
-  {
-    id: "1fd3b9f8-ac07-4a7c-b968-93fba8b3a978",
-    title: "Burnham could learn a thing or two from Thatcher",
-    date: "2026-10-04",
-    time: "16:00",
-    url: "https://www.ft.com/content/1fd3b9f8-ac07-4a7c-b968-93fba8b3a978",
-  },
-  {
-    id: "3302fd5c-8b92-425b-9523-673b2565bb10",
-    title: "Investors look to shelter portfolios from rising AI concentration risks",
-    date: "2026-10-04",
-    time: "13:00",
-    url: "https://www.ft.com/content/3302fd5c-8b92-425b-9523-673b2565bb10",
-  },
-  {
-    id: "a2711e64-145b-4df6-baf7-56a3da7ed0b0",
-    title: "The US is looking more like Italy",
-    date: "2026-10-04",
-    time: "13:00",
-    url: "https://www.ft.com/content/a2711e64-145b-4df6-baf7-56a3da7ed0b0",
-  },
-  {
-    id: "d2d5a5a5-758f-472f-a2c7-1684955b0087",
-    title: "BT weighs improved TalkTalk offer after initial approach rejected",
-    date: "2026-10-04",
-    time: "12:03",
-    url: "https://www.ft.com/content/d2d5a5a5-758f-472f-a2c7-1684955b0087",
   },
 ];
