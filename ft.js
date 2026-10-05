@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0a45595f-4889-4436-847f-1bddce813009",
+    title: "US ‘monitoring’ situation around suspected case of plague in Russia",
+    date: "2026-10-05",
+    time: "14:37",
+    url: "https://www.ft.com/content/0a45595f-4889-4436-847f-1bddce813009",
+  },
+  {
+    id: "4416101f-5072-4ee0-aa12-5b1daf25b31b",
+    title: "Germany and France agree on last-resort tool against trade threats",
+    date: "2026-10-05",
+    time: "14:32",
+    url: "https://www.ft.com/content/4416101f-5072-4ee0-aa12-5b1daf25b31b",
+  },
+  {
     id: "47965ed4-5c40-4c91-ab1e-418aa75bb42a",
     title: "Brazil’s markets rally as investors bet on Flávio Bolsonaro election win",
     date: "2026-10-05",

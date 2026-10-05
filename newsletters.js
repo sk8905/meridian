@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-arinirais15bn-20261005",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: "Author Alert",
+    title: "Arini Raises $1.5 Billion Even as Its Main Fund Sees 13.5% Loss",
+    date: "2026-10-05",
+    time: "14:39",
+    summary: "Arini Capital opens its credit trading strategy to new cash as its main hedge fund extends losses.",
+    url: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss",
+  },
+  {
     id: "nl-preqin-firstclose-airevolutionreturnsrisks-20261005",
     publication: "Preqin",
     author: null,
