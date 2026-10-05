@@ -28,7 +28,7 @@ const b = await launchChromium();
     const items = [...el.querySelectorAll(".g-hbrief-bt")];
     // Desk names render as ORANGE-accent headings (.g-hbrief-bk) — on desktop a small
     // uppercase BLOCK header stacked above its prose (the column format), never an inline
-    // .nb-topic kicker. The per-item source LINK is dropped from this summary view.
+    // .nb-topic kicker. Each desk carries a trailing clickable source link (.g-hbrief-src).
     const kickers = [...el.querySelectorAll(".g-hbrief-b .g-hbrief-bk")].map((k) => k.textContent.trim().toLowerCase());
     // Resolve the real --accent colour via a throwaway probe so the assertion is
     // token-value agnostic (hex/rgb): the headings must equal it, not the white title.
@@ -77,8 +77,12 @@ const b = await launchChromium();
       // ONE continuous combined item per desk: each desk section renders exactly ONE
       // .g-hbrief-bt (same-desk stories folded together), NOT one per story.
       oneItemPerSection: items.length > 0 && items.length === sections.length,
-      // The per-item source LINK is intentionally dropped from this summary view.
-      noSourceLinks: el.querySelectorAll(".g-hbrief-src").length === 0,
+      // Each desk carries a clickable LINK to its source(s) — the source as a link,
+      // replacing the old inline "…X reports" mention. Every link opens the publisher.
+      hasSourceLinks: el.querySelectorAll(".g-hbrief-src").length > 0
+        && [...el.querySelectorAll(".g-hbrief-src")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "") && a.getAttribute("target") === "_blank"),
+      // The inline "who reported it" attribution must be gone from the prose.
+      attribLeak: [...el.querySelectorAll(".g-hbrief-bt")].some((t) => /,\s*(?:the\s+)?[A-Z][\w.&'’]*(?:\s+[A-Z][\w.&'’]*){0,3}\s+reports?\b/.test(t.textContent || "")),
       // ONE section per desk: exactly one desk heading per section, and no desk repeats.
       kickers,
       oneKickerPerSection: kickers.length === sections.length,
@@ -100,7 +104,8 @@ const b = await launchChromium();
   check(r.hasKicker, "desktop: each desk carries its name as a heading (.g-hbrief-bk)");
   check(r.deskHdAccent, "desktop: the desk headings are the orange accent (not the white title)");
   check(r.stackedHeader, "desktop: each desk name is a block header stacked above its prose (column format)");
-  check(r.noSourceLinks, "desktop: the per-item source link is dropped from the briefing summary");
+  check(r.hasSourceLinks, "desktop: each desk links to its source(s) (.g-hbrief-src → publisher, new tab)");
+  check(!r.attribLeak, "desktop: the inline '…X reports' attribution is stripped from the briefing prose");
   check(r.noOrangeKicker, "desktop: no inline .nb-topic desk kicker survives in the bullets");
   check(r.desksGrid, "desktop: the desks lay out as a column grid under a hairline below the header");
   check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
@@ -294,5 +299,10 @@ await b.close(); srv.close();
 const glanceSrc = fs.readFileSync(path.join(ROOT, "v2", "js", "home", "glance.js"), "utf8");
 check(/addEventListener\("resize",\s*\(\)\s*=>\s*\{\s*if\s*\(briefResizeQueued\)/.test(glanceSrc),
   "v2/js/home/glance.js: the brief-pane resize listener is rAF-queued, not raw (T17)");
+// The briefing strips the inline attribution AND reintroduces the clickable source link.
+check(/_stripReported\(_stripDesk\(b\.html\)\)/.test(glanceSrc),
+  "v2/js/home/glance.js: the briefing body runs through _stripReported (drops '…X reports')");
+check(/class="g-hbrief-src"[^>]*href="\$\{esc\(b\.src\)\}"/.test(glanceSrc),
+  "v2/js/home/glance.js: the briefing reintroduces the per-source link (.g-hbrief-src → b.src)");
 
 finish();

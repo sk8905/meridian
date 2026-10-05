@@ -360,6 +360,17 @@ function _capFold(html) { return String(html || "").replace(/^(\s*(?:<strong>\s*
 // Does this authored HTML carry any visible text once tags, entities and whitespace
 // are stripped? Used to drop an empty-body desk group (a bare kicker) from the brief.
 function _hasText(html) { return String(html || "").replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, "").length > 0; }
+// Drop an inline "who reported it" attribution from a briefing body — "…, the FT reports",
+// "…, Bloomberg reports", "…, according to the Wall Street Journal" — because the summary
+// now carries the source as a LINK (reintroduced below), so the prose shouldn't also name
+// the outlet. Anchored to a leading comma + a trailing boundary (punctuation / end), so a
+// real "<Company> reports earnings" verb mid-sentence is never stripped.
+function _stripReported(html) {
+  return String(html || "")
+    .replace(/,\s*(?:the\s+)?[A-Z][\w.&'’]*(?:\s+[A-Z][\w.&'’]*){0,3}\s+reports?(?=[,.)\]]|\s*$)/g, "")
+    .replace(/,\s*according to\s+(?:the\s+)?[A-Z][\w.&'’]*(?:\s+[A-Z][\w.&'’]*){0,3}(?=[,.)\]]|\s*$)/g, "")
+    .replace(/\s+([,.;])/g, "$1").replace(/\s{2,}/g, " ");
+}
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
@@ -413,14 +424,14 @@ function renderHomeBriefing() {
   // lifted out of the first item and rendered as a RUN-IN heading — an inline accent
   // title on the SAME line as the body, to save vertical space. Every item (including
   // the first) is stripped of its kicker, its lead letter re-capitalised and folded into
-  // one flowing body — never stacked as a separate sub-bullet. The per-item source LINK
-  // is dropped from this summary view (the briefing is "a summary of Wire's sourced
-  // desks" — the sources stay in the data and in the wire below); R7 data integrity is
-  // unchanged, only the summary's display is tightened.
+  // one flowing body — never stacked as a separate sub-bullet. The prose's inline "who
+  // reported it" attribution ("…, the FT reports") is stripped (_stripReported); instead
+  // each desk carries a trailing LINK to every source it compresses (`.g-hbrief-srcs`,
+  // middot-joined) — the clickable source, not a textual mention (R7 grounding kept).
   const bullets = groups.map((g) => {
     const m = String(g.items[0].html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/);
     const desk = m ? m[1].trim() : "";
-    const text = g.items.map((b) => nbNums(_capFold(_stripDesk(b.html)))).join(" ");
+    const text = g.items.map((b) => nbNums(_capFold(_stripReported(_stripDesk(b.html))))).join(" ");
     // A desk item with a kicker but NO body (e.g. a half-generated refresh draft where
     // the headline shipped before its sentence did) would otherwise paint as a bare
     // heading above an empty void — the exact ghost section a reader once photographed.
@@ -435,7 +446,12 @@ function renderHomeBriefing() {
     // simply stays empty for a desk whose instrument isn't in the cache yet.
     const bk = _briefBadgeKey(desk);
     const badge = bk ? `<span class="g-hbrief-badge" data-badge="${esc(bk)}"></span>` : "";
-    return `<li class="g-hbrief-b">${desk ? `<span class="g-hbrief-bk">${esc(desk)}</span> ` : ""}<span class="g-hbrief-bt">${text}</span>${badge}</li>`;
+    // Trailing source line: one clickable link per story this desk compresses (middot-
+    // joined), labelled by outlet — the source as a LINK, replacing the old inline "…X
+    // reports" mention. Opens the publisher in a new tab.
+    const _srcLink = (b) => b.src ? `<a class="g-hbrief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : "";
+    const srcs = g.items.map(_srcLink).filter(Boolean).join('<span class="g-hbrief-srcsep" aria-hidden="true"> · </span>');
+    return `<li class="g-hbrief-b">${desk ? `<span class="g-hbrief-bk">${esc(desk)}</span> ` : ""}<span class="g-hbrief-bt">${text}</span>${srcs ? `<span class="g-hbrief-srcs">${srcs}</span>` : ""}${badge}</li>`;
   }).filter(Boolean).join("");
   host.hidden = false;
   host.dataset.open = "true";

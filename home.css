@@ -1231,6 +1231,13 @@
     /* Run-in desk title: inline accent heading sharing the body's first line. */
     .tui .g-hbrief-bk{ font-weight:600; color:var(--accent); letter-spacing:.005em; -webkit-hyphens:none; hyphens:none; }
     .tui .g-hbrief-bt{ display:inline; }
+    /* Trailing source line (.g-hbrief-srcs): the clickable source link(s) for the desk,
+       on their own line below the prose — middot-joined when a desk compresses several. */
+    .tui .g-hbrief-srcs{ display:block; margin-top:3px; }
+    .tui .g-hbrief-srcsep{ color:var(--t-faint); }
+    .tui .g-hbrief-src{ font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.02em;
+      color:var(--t-mut); text-decoration:none; }
+    .tui .g-hbrief-src:hover{ color:var(--t-ink); text-decoration:none; }
     /* Per-desk live data badge — ONE per section: a compact terminal card pinning the
        desk's lead instrument (Macro → Brent, Equities → S&P 500, Fixed income → US 10Y)
        to a real, sourced number. Flows after the desk prose; hides itself when the cache

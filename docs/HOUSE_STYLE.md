@@ -620,7 +620,11 @@ notification badge red (`#ef4444`).
   sections only — the synthesis lede (and its "Overview" heading) is retired and not
   rendered; the `lede` field is optional/deprecated in the data and need not be
   authored. **One section per desk:** the render
-  groups same-desk bullets under a single kicker (see R7/grounding). **Fixed desk
+  groups same-desk bullets under a single kicker (see R7/grounding). **Each desk links
+  its source(s):** the prose's inline "who reported it" attribution ("…, the FT reports")
+  is stripped (`_stripReported`); instead a trailing source line (`.g-hbrief-srcs` →
+  `.g-hbrief-src`, middot-joined) links every story the desk compresses to its publisher —
+  the source as a **clickable link, not a textual mention** (grounding kept, R7). **Fixed desk
   order — Macro, then Fixed income, then Equities:** the renderer sorts the sections
   into this canonical order regardless of bullet order in the data, so **Equities
   always sits directly under Fixed income**. **Equities is a REQUIRED section —
