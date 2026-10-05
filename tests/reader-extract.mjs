@@ -600,4 +600,47 @@ Executives said the strategy would continue through the decade as demand grew fo
 const guardParas = proxyBlocks(guardMd, "https://example.com/story").filter((b) => b.t && !b.h).map((b) => b.t);
 check(guardParas.length === 3, `footer-strip guard: real prose mentioning "registered in" / years is NOT truncated (${guardParas.length}/3 kept)`);
 
+// 23) Trailing NEWSLETTER / APP-DOWNLOAD promo tail — a "subscribe to our stuff" block
+//     appended below the article (newsletter sign-up, "Get the <brand> app", "in your
+//     inbox", "Join our channel…"). It carries no legal-footer signature, so the trailing
+//     strip must also key off promo markers — but only when the whole trailing run is junk,
+//     never cutting real prose. (Observed on Channel NewsAsia.)
+const promoMd = `# Nvidia, Broadcom shielded as AI power crunch hits chip supply chain
+
+Nvidia and Broadcom are relatively insulated from a worsening US data-center power crunch, but any resultant delay in AI deployments can affect makers of memory and other secondary chip components, Morgan Stanley said on Monday.
+
+If chip capacity cannot be deployed, customers could push out deliveries or cancel orders, with memory, optics and analog components most exposed to inventory disruption, the brokerage said.
+
+## Week in Review
+
+Our chief editor shares analysis and picks of the week's biggest news every Saturday.
+
+Get our pick of top stories and thought-provoking articles in your inbox.
+
+## Get the CNA app
+
+Stay updated with notifications for breaking news and our best stories.
+
+Join our channel for the top reads for the day on your preferred chat app.`;
+const promoParas = proxyBlocks(promoMd, "https://www.channelnewsasia.com/business/story").filter((b) => b.t).map((b) => b.t);
+check(promoParas.length === 2, `promo-tail: only the two real body paragraphs survive (${promoParas.length})`);
+check(!promoParas.some((p) => /Week in Review|Get the CNA app|in your inbox|chief editor|Stay updated|Join our channel|preferred chat app/i.test(p)),
+  "promo-tail: the newsletter / app-download / follow-us promo block is dropped");
+check(promoParas.some((p) => /most exposed to inventory disruption/.test(p)), "promo-tail: the final real article sentence is kept");
+
+// GUARD — an article that simply ends on a short section heading + a short real line (no
+// footer / promo signature in the trailing run) must NOT be truncated.
+const tailOkMd = `# A committee story
+
+The committee reached its decision after a long debate that stretched well into the evening on Thursday night.
+
+Members voted by a clear margin to adopt the new rules, which take effect at the start of next month across the region.
+
+## What happens next
+
+The rules will be reviewed again in a year.`;
+const tailOk = proxyBlocks(tailOkMd, "https://example.com/committee").filter((b) => b.t);
+check(tailOk.length === 4 && tailOk.some((b) => /reviewed again in a year/.test(b.t)),
+  `promo-tail guard: a clean article ending on a short heading + line is NOT truncated (${tailOk.length} blocks kept)`);
+
 finish();

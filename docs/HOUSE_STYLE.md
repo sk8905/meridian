@@ -79,15 +79,19 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   read" / headline fragments above the article), **bodyless nav-menu headings**
   (`_dropBodylessHeadings`), per-line boilerplate (`READ_BOILER` — subscribe/CTA/cookie/
   author-bio/photo-credit lines), and a **trailing footer/sponsor strip**
-  (`_stripTrailingJunk`). The trailing strip is the mirror of the leading one: it finds
-  the first block carrying an **unambiguous footer signature** (`READ_FOOTER` — a
+  (`_stripTrailingJunk`). The trailing strip is the mirror of the leading one: it walks
+  **back** from the end over a **contiguous run of junk-like blocks** — dangling headings,
+  short headline fragments, **footer-signature** lines (`READ_FOOTER` — a
   company-registration blurb, "Registered office / in England No.", a `©`-year line,
-  "all rights reserved", a "Website by…" / "…marketing by…" build credit) and truncates
-  from there to the end, walking **back** over the short sponsor / "Associates" fragments
-  and dangling headings that sit just above it, stopping at the last real (terminally
-  punctuated) body sentence. It is **guarded** — it only fires when a real body paragraph
-  exists before the marker, and the markers are footer-specific, so live prose that merely
-  says "registered in Delaware" or names a year is never truncated. Any extraction change
+  "all rights reserved", a "Website by…" / "…marketing by…" build credit) and
+  **newsletter / app-download / follow-us promo** lines (`READ_PROMO` — "sign up", "in
+  your inbox", "Get the <brand> app", "Join our channel…", "Week in Review") — and stops
+  at the last real (terminally punctuated) body sentence, dropping the whole run. It is
+  **doubly guarded**: it fires only when (a) a real body paragraph exists before the run
+  **and** (b) the run actually carries a footer/promo signature — so a clean article (or
+  one that merely ends on a short heading) is never touched, real prose after a mid-article
+  CTA is never cut, and live prose that says "registered in Delaware" or names a year is
+  never truncated. Any extraction change
   must bump the `read.internal/vN` edge-cache key so the edge re-extracts.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
   height; the last panel grows to fill remaining space (no ragged bottoms).

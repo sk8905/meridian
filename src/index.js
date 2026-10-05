@@ -1904,33 +1904,31 @@ function _stripLeadingJunk(blocks) {
 // chrome, never inside article prose: a company-registration blurb, a copyright-year line,
 // a "Website by …" / "… marketing by …" build credit, an "all rights reserved" notice.
 const READ_FOOTER = /(registered (?:office|number|no\.?|charity)|registered in (?:england|wales|scotland|n(?:orthern)? ?ireland|the uk|the united)|company (?:registration )?(?:no\.?|number)\b|vat (?:registration )?(?:no|number)|all rights reserved|website (?:by|built by|designed by|developed by)\b|marketing by \w|©\s*\S[^.]{0,40}\b(?:19|20)\d{2}\b|\b(?:19|20)\d{2}\b\s+[^.]{0,30}all rights reserved)/i;
-// Drop a TRAILING run of footer / recirculation junk — the mirror of _stripLeadingJunk.
-// Find the first block carrying an unambiguous footer signature (company registration,
-// copyright line, "Website by"…), then walk BACKWARD over the short headline-like
-// fragments / dangling headings that sit directly above it (a sponsor / "Associates" strip
-// that pages inject between the last paragraph and the footer), stopping at the last real
-// body sentence. Everything from there down is dropped. Guarded: only runs when a real
-// terminally-punctuated body paragraph exists BEFORE the footer marker, so a short or
-// fragment-only document is never gutted.
+// A newsletter / app-download / follow-us PROMO line — the "subscribe to our stuff" block
+// many news sites (CNA, BBC, Guardian…) append below the article. Softer than READ_FOOTER
+// (these phrases *could* appear mid-article), so it only ever truncates a contiguous
+// ALL-JUNK trailing run (see _stripTrailingJunk) — never cuts into real prose.
+const READ_PROMO = /(sign up (?:for|to|now)|subscribe (?:to|now|for)|in your inbox|our newsletter|download (?:our|the) app|get the .{0,30}app|on the app store|google play\b|follow us on|join our (?:channel|community|whatsapp|telegram|group|newsletter)|stay (?:updated|informed|connected|in the know)|breaking news (?:alert|notification)|notifications for breaking|get our pick|picks of the week|top reads for the day|week in review|thought-provoking|preferred chat app|best stories|sign up here)/i;
+// Drop a TRAILING run of footer / promo / recirculation junk — the mirror of
+// _stripLeadingJunk. Walk BACKWARD from the end over a CONTIGUOUS run of junk-like blocks —
+// dangling headings, short headline fragments, footer-signature lines (READ_FOOTER: company
+// registration, copyright, "Website by"…) and newsletter/app-promo lines (READ_PROMO) — and
+// stop at the last real, terminally-punctuated body sentence. The whole run is dropped, but
+// ONLY when (a) a real body paragraph exists before it and (b) the run actually carries a
+// footer/promo SIGNATURE — so a clean article (or one that merely ends on a short heading)
+// is never touched, and real prose after any mid-article CTA is never cut.
 function _stripTrailingJunk(blocks) {
-  let f = -1;
-  for (let i = 0; i < blocks.length; i++) {
-    const b = blocks[i];
-    if (b.img || b.tweetId || b.embed) continue;
-    if (READ_FOOTER.test(b.t)) { f = i; break; }
-  }
-  if (f < 0) return blocks;
-  // Require real body (a terminally-punctuated paragraph) strictly before the marker.
-  if (!blocks.slice(0, f).some((b) => !b.h && !b.img && b.t.length >= 40 && _ENDS_SENTENCE.test(b.t))) return blocks;
-  let i = f;
+  if (!blocks.some((b) => !b.h && !b.img && !b.tweetId && !b.embed && b.t.length >= 40 && _ENDS_SENTENCE.test(b.t) && !READ_FOOTER.test(b.t) && !READ_PROMO.test(b.t))) return blocks;
+  let i = blocks.length, sawSig = false;
   while (i > 0) {
     const p = blocks[i - 1];
-    if (p.img || p.tweetId || p.embed) break;                 // real content — stop
+    if (p.img || p.tweetId || p.embed) break;                 // real media — stop
+    const sig = READ_FOOTER.test(p.t) || READ_PROMO.test(p.t);
     const fragLike = !p.h && p.t.length < 140 && !_ENDS_SENTENCE.test(p.t);
-    if (p.h || fragLike) { i--; continue; }                   // dangling heading / sponsor fragment — swallow
+    if (p.h || fragLike || sig) { if (sig) sawSig = true; i--; continue; }   // dangling heading / fragment / footer / promo — swallow
     break;                                                    // last real body sentence — keep it
   }
-  return blocks.slice(0, i);
+  return (sawSig && i < blocks.length) ? blocks.slice(0, i) : blocks;
 }
 // Drop any heading NOT immediately followed by a body paragraph (before the next heading
 // or the end). A run of headings with no prose between them is a NAV MENU / section-link
@@ -2212,7 +2210,7 @@ async function handleRead(request, env, ctx) {
   // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
   // v8: images trusted only from the real article scope — a widened (thin) article drops
   //     out-of-scope recirculation/related/promo images and the generic og:image hero.
-  const key = new Request("https://read.internal/v12/" + encodeURIComponent(u.toString()));
+  const key = new Request("https://read.internal/v13/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
