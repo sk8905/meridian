@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "47965ed4-5c40-4c91-ab1e-418aa75bb42a",
+    title: "Brazil’s markets rally as investors bet on Flávio Bolsonaro election win",
+    date: "2026-10-05",
+    time: "14:20",
+    url: "https://www.ft.com/content/47965ed4-5c40-4c91-ab1e-418aa75bb42a",
+  },
+  {
+    id: "c8cf8739-837e-4bb3-9fd9-bb54c02b7289",
+    title: "What people in AI really think about regulation",
+    date: "2026-10-05",
+    time: "14:00",
+    url: "https://www.ft.com/content/c8cf8739-837e-4bb3-9fd9-bb54c02b7289",
+  },
+  {
+    id: "5f235c48-9a4e-4bb6-a454-0915abc2d5df",
+    title: "Sainsbury’s held merger talks with smaller rival Morrisons",
+    date: "2026-10-05",
+    time: "13:58",
+    url: "https://www.ft.com/content/5f235c48-9a4e-4bb6-a454-0915abc2d5df",
+  },
+  {
     id: "6a28fe07-f7bd-4f65-9269-d1409756ef34",
     title: "Latino Americans are the real swing voters",
     date: "2026-10-05",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "05:00",
     url: "https://www.ft.com/content/8463aa5f-d9c0-46f4-bd58-a7f1ee5a83ca",
-  },
-  {
-    id: "c2c6a470-b1c9-4f98-af3a-65983371e6b8",
-    title: "The FT’s stock picking game starts today",
-    date: "2026-10-05",
-    time: "05:00",
-    url: "https://www.ft.com/content/c2c6a470-b1c9-4f98-af3a-65983371e6b8",
-  },
-  {
-    id: "38a54e10-d1ba-48c8-8b4c-e9775eedd957",
-    title: "Reform UK’s Robert Jenrick faces fresh accusation from campaign donor",
-    date: "2026-10-05",
-    time: "05:00",
-    url: "https://www.ft.com/content/38a54e10-d1ba-48c8-8b4c-e9775eedd957",
-  },
-  {
-    id: "01b55406-0d07-4e88-ba6e-5b478b32b1f1",
-    title: "Audit watchdog reviews rules to guard against private equity conflicts",
-    date: "2026-10-05",
-    time: "05:00",
-    url: "https://www.ft.com/content/01b55406-0d07-4e88-ba6e-5b478b32b1f1",
   },
 ];
