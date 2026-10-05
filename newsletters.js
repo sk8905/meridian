@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-mergersandacquihires-20261005",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Mergers and Acqui-hires",
+    date: "2026-10-05",
+    time: "19:12",
+    summary: "Groq, charity, analysts, train fare.",
+    url: "https://bloom.bg/3TMjz3R",
+  },
+  {
     id: "nl-thelawyer-podcast-manchestercityfeedingfrenzy-20261005",
     publication: "The Lawyer",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "12:25",
     summary: "The insider: Preqin’s annual review of service providers to fund managers.",
     url: "https://go.preqin.com/webmail/909852/2190597941/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
-  },
-  {
-    id: "nl-bbg-economicsdaily-wealtheffectspending-20261001",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: Wealth-effect spending",
-    date: "2026-10-01",
-    time: "12:01",
-    summary: "Despite half a decade of inflation, Americans keep consuming.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-01/us-consumers-shrug-off-inflation-and-weak-income-gains-to-keep-on-spending",
   },
 ];

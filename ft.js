@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "353be303-3271-43f0-aefb-69b6ed7a0a6f",
+    title: "Reflection AI boosts US ambition to compete with Chinese ‘open’ models",
+    date: "2026-10-05",
+    time: "20:00",
+    url: "https://www.ft.com/content/353be303-3271-43f0-aefb-69b6ed7a0a6f",
+  },
+  {
+    id: "b8307200-0c5e-440f-94ee-f0d2cc55584e",
+    title: "Tories pledge big tax cuts in push to win over wealthy voters",
+    date: "2026-10-05",
+    time: "19:28",
+    url: "https://www.ft.com/content/b8307200-0c5e-440f-94ee-f0d2cc55584e",
+  },
+  {
     id: "6a66982e-7c57-4081-9fe4-800fa2cd3501",
     title: "Brazil’s Bolsonaro comeback exposes Lula’s weakness",
     date: "2026-10-05",
@@ -110,6 +124,13 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "14:37",
     url: "https://www.ft.com/content/0a45595f-4889-4436-847f-1bddce813009",
+  },
+  {
+    id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
+    title: "Euro slides to 17-month low against dollar",
+    date: "2026-10-05",
+    time: "16:44",
+    url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
   },
   {
     id: "4416101f-5072-4ee0-aa12-5b1daf25b31b",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "09:38",
     url: "https://www.ft.com/content/7a00c5b9-62b5-4101-a5f0-ebf828dc6a90",
-  },
-  {
-    id: "53e88a8d-65b5-445e-82ee-aee253a32094",
-    title: "Saudi Aramco chief warns world’s oil stockpiles are ‘scarily thin’",
-    date: "2026-10-05",
-    time: "09:21",
-    url: "https://www.ft.com/content/53e88a8d-65b5-445e-82ee-aee253a32094",
-  },
-  {
-    id: "0d3884be-a2c4-4914-a0a2-f22af8ef3857",
-    title: "Top Monte dei Paschi investor backs Intesa’s sweetened €34.5bn takeover bid",
-    date: "2026-10-05",
-    time: "09:11",
-    url: "https://www.ft.com/content/0d3884be-a2c4-4914-a0a2-f22af8ef3857",
-  },
-  {
-    id: "028da85c-0e1f-4f1b-ad04-eac78c4f18c0",
-    title: "Flávio Bolsonaro takes commanding lead in Brazil election",
-    date: "2026-10-05",
-    time: "09:05",
-    url: "https://www.ft.com/content/028da85c-0e1f-4f1b-ad04-eac78c4f18c0",
   },
 ];
