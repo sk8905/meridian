@@ -64,6 +64,15 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   `.is-reading` and renders it in `#g-readpane`. Rows are `<a>` links, so arrow-focus
   must not paint the browser's default outline — the `.is-reading` accent marker is the
   indicator.
+- **R3b — Reading-pane images: charts & data only.** The reader (`extractReadable` /
+  `proxyBlocks`) includes an image **only when it is a chart / data-visualisation** — a
+  known chart-service CDN (`READ_IMG_CHART_HOST`: datawrapper, flourish, infogram,
+  quickchart, highcharts, …) or a chart/figure/data word in the image URL or its
+  alt/caption (`READ_IMG_CHART_RE`). **Every photo, portrait, stock image, logo, icon
+  and social-card (og:image) hero is dropped**, however descriptive its alt — publisher
+  "story images" are overwhelmingly decorative and the junk is not worth the rare real
+  photo. Erring toward dropping a real chart beats showing one junk photo. **Embedded
+  tweets/X posts are unaffected** — they ride the `{tweetId}` path, not the image path.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
   height; the last panel grows to fill remaining space (no ragged bottoms).
 

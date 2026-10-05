@@ -1844,6 +1844,21 @@ function _readImgHostSkip(base) {
   try { return READ_IMG_HOST_SKIP.has(new URL(base).hostname.replace(/^www\./, "")); }
   catch { return false; }
 }
+// CHART / DATA-ONLY image policy for the reading pane. Publishers' story "images" are
+// overwhelmingly decorative — stock photos, portraits, editorial art, social-card heroes
+// — and the junk is not worth the rare real photo (a "That '70s Show" still on a 1970s-
+// inflation column was the last straw). So the reader includes an image ONLY when it is a
+// chart, graph or data visualisation; embedded tweets ride their own {tweetId} path and
+// are unaffected. A POSITIVE signal is REQUIRED: a known chart-service CDN, or a
+// chart/figure/data word in the image URL or its alt/caption. Erring toward dropping a
+// real chart beats showing one junk photo. Set a host in READ_IMG_HOST_SKIP to also drop
+// its charts (template chrome); otherwise this whitelist is the gate.
+const READ_IMG_CHART_HOST = /(?:dwcdn\.net|datawrapper\.de|flo\.uri\.sh|flourish\.(?:studio|net|rocks)|infogram\.com|infogr\.am|quickchart\.io|image-charts?\.com|highcharts\.com|chart\.googleapis\.com|statista\.com|chartblocks\.com|e\.infogram)/i;
+const READ_IMG_CHART_RE = /(?:^|[\s\-_/])(?:charts?|graphs?|figures?|fig\d|exhibits?|plots?|heat-?maps?|scatter|bar-?charts?|line-?charts?|candlesticks?|data-?viz|visuali[sz]ations?|infographics?|yield-?curve|spreads?-chart)(?:[\s\-_./]|$)/i;
+function _readImgChart(url, alt) {
+  const u = String(url || ""), a = String(alt || "");
+  return READ_IMG_CHART_HOST.test(u) || READ_IMG_CHART_RE.test(u) || READ_IMG_CHART_RE.test(a);
+}
 // Embedded tweets. The extractor emits a lightweight {tweetId} placeholder where an
 // article embeds a tweet (a <blockquote class="twitter-tweet"> with the status permalink,
 // or a markdown block carrying a twitter/x status URL); the async reader handler then
@@ -1941,7 +1956,7 @@ export function extractReadable(html, u) {
     const ogImg = _readMeta(html, ["og:image", "og:image:url", "twitter:image", "twitter:image:src"]);
     if (ogImg) {
       let abs; try { abs = new URL(ogImg, u).toString(); } catch { abs = ""; }
-      if (abs && _readImgOK(abs)) blocks = [{ img: abs, alt: "", t: "" }, ...blocks];
+      if (abs && _readImgOK(abs) && _readImgChart(abs, "")) blocks = [{ img: abs, alt: "", t: "" }, ...blocks];   // og:image hero only if it's a chart (social-card photos are dropped)
     }
   }
   // `paragraphs` stays the body-only TEXT string array (back-compat for callers + specs);
@@ -1978,6 +1993,7 @@ function _readBlocks(scope, base) {
       // theme banner inline, both alt="".)
       return;
     }
+    if (!_readImgChart(card.img, card.alt)) return;              // chart / data-viz only — drop photos & editorial art
     seenImg.add(card.img); out.push(card); imgN++;
   };
   while ((m = re.exec(scope)) && out.length < 90) {
@@ -2052,7 +2068,7 @@ export function proxyBlocks(md, base) {
       if (imgN >= READ_IMG_MAX) break;
       let url = im[2];
       if (base) { try { url = new URL(url, base).toString(); } catch { /* keep as-is */ } }
-      if (!imgHostSkip && _readImgOK(url) && !_readImgAltSkip(im[1]) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
+      if (!imgHostSkip && _readImgOK(url) && !_readImgAltSkip(im[1]) && _readImgChart(url, im[1]) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
     }
     // An embedded tweet: a block carrying a twitter/x status URL (the permalink the
     // proxy keeps). Emit a {tweetId} placeholder and skip the block's text (the fetched
@@ -2164,7 +2180,7 @@ async function handleRead(request, env, ctx) {
   // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
   // v8: images trusted only from the real article scope — a widened (thin) article drops
   //     out-of-scope recirculation/related/promo images and the generic og:image hero.
-  const key = new Request("https://read.internal/v9/" + encodeURIComponent(u.toString()));
+  const key = new Request("https://read.internal/v10/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.

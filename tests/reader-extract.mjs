@@ -243,27 +243,29 @@ check(!pbHeads.some((h) => /Austria's inflation climbs/.test(h)), "proxy: the h1
 //    content <img> are kept IN ORDER between the paragraphs; a logo (.svg), a share icon
 //    and an advert are dropped; relative src is resolved to an absolute URL. Images are in
 //    `blocks` only, never in `paragraphs`.
+// CHART-ONLY policy: the reading pane includes an image ONLY if it is a chart / data-viz
+// (a chart-service CDN, or a chart/figure word in the URL or alt/caption); every photo,
+// portrait, logo, icon and social-card hero is dropped — however descriptive its alt.
 const imgArt = `<!doctype html><html><head>
   <meta property="og:title" content="A story with pictures">
   <meta property="og:image" content="https://cdn.site.com/cards/social-card.jpg">
   </head><body><article>
   <p>This is the opening paragraph of the story, comfortably past the forty-character body minimum so it is kept.</p>
-  <figure><img src="/media/barristers.jpg" alt="raw alt"><figcaption>Barristers outside the Royal Courts of Justice</figcaption></figure>
+  <figure><img src="/media/hy-spreads-chart.png" alt="raw alt"><figcaption>Chart: HY spreads widened sharply in Q3</figcaption></figure>
   <p>A second substantial paragraph that also clears the minimum length so the body is unambiguous and real.</p>
   <img src="https://cdn.site.com/assets/logo.svg" alt="site logo">
   <img src="https://cdn.site.com/icons/share-facebook.png" alt="share">
   <img src="https://cdn.site.com/photos/wire-hero.jpg" alt="Reuters">
-  <img src="https://cdn.site.com/photos/scene2.jpg?w=800" alt="A second scene">
+  <img src="https://cdn.site.com/photos/scene2.jpg?w=800" alt="A descriptive editorial photo">
   </article></body></html>`;
 const ia = extractReadable(imgArt, u("https://www.legalcheek.com/2026/10/story/"));
 const iaImgs = ia.blocks.filter((b) => b.img);
-checkEq(iaImgs.length, 2, `images: keeps the two content images, drops the logo/.svg + share icon + a Reuters-wordmark alt (${iaImgs.length})`);
-check(!iaImgs.some((b) => /wire-hero|social-card/.test(b.img)), "images: a bare-brand-alt image is skipped AND no og:image lead is added when the body already has images");
-checkEq(iaImgs[0].img, "https://www.legalcheek.com/media/barristers.jpg", "images: a relative <figure> src is resolved to an absolute URL");
-checkEq(iaImgs[0].alt, "Barristers outside the Royal Courts of Justice", "images: the <figcaption> is used as the image caption/alt");
-checkEq(iaImgs[1].img, "https://cdn.site.com/photos/scene2.jpg?w=800", "images: a standalone content <img> is kept with its absolute URL");
+checkEq(iaImgs.length, 1, `images: keeps ONLY the chart; drops the logo, share icon, wordmark AND the editorial photo (${iaImgs.length})`);
+check(!iaImgs.some((b) => /wire-hero|social-card|scene2/.test(b.img)), "images: photos + the og:image social card are not included (chart-only)");
+checkEq(iaImgs[0].img, "https://www.legalcheek.com/media/hy-spreads-chart.png", "images: a relative chart <figure> src is resolved to an absolute URL");
+checkEq(iaImgs[0].alt, "Chart: HY spreads widened sharply in Q3", "images: the <figcaption> is used as the chart caption/alt");
 check(ia.blocks[0] && !ia.blocks[0].img && ia.blocks[1] && ia.blocks[1].img && ia.blocks[2] && !ia.blocks[2].img,
-  "images: images sit in document order between the paragraphs");
+  "images: the chart sits in document order between the paragraphs");
 check(ia.paragraphs.length === 2 && !ia.paragraphs.some((p) => /jpg|svg|png/i.test(p)), `images: paragraphs stay text-only (${ia.paragraphs.length})`);
 check(ia.accessible, "images: the article is still accessible (images don't affect the body check)");
 
@@ -283,12 +285,10 @@ A second real paragraph of the proxied story, also well past the minimum length 
 ![A chart of yields](https://cdn.site.com/photos/chart.png)`;
 const mb = proxyBlocks(imgMd, "https://www.legalcheek.com/2026/10/story/");
 const mbImgs = mb.filter((b) => b.img);
-checkEq(mbImgs.length, 2, `proxy-images: keeps the two content images, drops the logo/.svg + advert + a Reuters-wordmark alt (${mbImgs.length})`);
-check(!mbImgs.some((b) => /wire-wordmark/.test(b.img)), "proxy-images: a bare-brand-alt markdown image is skipped");
-checkEq(mbImgs[0].img, "https://www.legalcheek.com/media/barristers.jpg", "proxy-images: a relative markdown image src resolves to an absolute URL");
-checkEq(mbImgs[0].alt, "Barristers outside court", "proxy-images: the markdown alt text is carried as the caption");
-checkEq(mbImgs[1].img, "https://cdn.site.com/photos/chart.png", "proxy-images: an absolute content image is kept");
-check(mb[0] && !mb[0].img && mb[1] && mb[1].img && mb[2] && !mb[2].img, "proxy-images: image order is preserved between the paragraphs");
+checkEq(mbImgs.length, 1, `proxy-images: keeps ONLY the chart; drops the barristers photo, logo, advert + wordmark (${mbImgs.length})`);
+check(!mbImgs.some((b) => /wire-wordmark|barristers/.test(b.img)), "proxy-images: photos + bare-brand-alt markdown images are skipped (chart-only)");
+checkEq(mbImgs[0].img, "https://cdn.site.com/photos/chart.png", "proxy-images: the chart image (filename + alt) is kept with its absolute URL");
+checkEq(mbImgs[0].alt, "A chart of yields", "proxy-images: the markdown alt text is carried as the caption");
 check(!proxyParagraphs(imgMd).some((p) => /jpg|svg|png/i.test(p)), "proxy-images: proxyParagraphs stays text-only (no image URLs)");
 
 // 8) og:image LEAD fallback — a WordPress-style page whose featured image sits OUTSIDE
@@ -298,18 +298,22 @@ check(!proxyParagraphs(imgMd).some((p) => /jpg|svg|png/i.test(p)), "proxy-images
 //    would otherwise grab the header image).
 const P1 = "The Court of Appeal handed down a lengthy judgment on Tuesday that lawyers said would reshape how commercial disputes over software licensing are argued, with the panel setting out a detailed framework for assessing damages where the alleged breach is technical in character rather than straightforwardly financial.";
 const P2 = "Barristers who acted in the case said the ruling clarified years of uncertainty, and that chambers across London were already circulating notes to clients on what the decision means for ongoing matters and for the careful drafting of future commercial technology agreements between large counterparties.";
-const heroArt = `<!doctype html><html><head>
-  <meta property="og:title" content="A ruling whose photo sits outside the article">
-  <meta property="og:image" content="/wp-content/uploads/2026/10/courts.jpg">
+// og:image lead is recovered ONLY when it is a chart — a photo social card is NOT added.
+const heroChartArt = `<!doctype html><html><head>
+  <meta property="og:title" content="A ruling whose chart sits outside the article">
+  <meta property="og:image" content="/wp-content/uploads/2026/10/damages-framework-chart.png">
   </head><body>
-  <header class="site-head"><img src="https://www.legalcheek.com/wp-content/uploads/2026/10/courts.jpg" alt="hero"></header>
+  <header class="site-head"><img src="https://www.legalcheek.com/wp-content/uploads/2026/10/damages-framework-chart.png" alt="chart"></header>
   <article><p>${P1}</p><p>${P2}</p></article></body></html>`;
-const hero = extractReadable(heroArt, u("https://www.legalcheek.com/2026/10/ruling/"));
+const hero = extractReadable(heroChartArt, u("https://www.legalcheek.com/2026/10/ruling/"));
 const heroImgs = hero.blocks.filter((b) => b.img);
-checkEq(heroImgs.length, 1, `og-lead: a featured image outside <article> is recovered from og:image (${heroImgs.length})`);
-check(heroImgs[0] && heroImgs[0].img === "https://www.legalcheek.com/wp-content/uploads/2026/10/courts.jpg", `og-lead: the og:image is resolved to an absolute URL (${heroImgs[0] && heroImgs[0].img})`);
-check(hero.blocks[0] && hero.blocks[0].img, "og-lead: the hero image is placed first, before the body");
+checkEq(heroImgs.length, 1, `og-lead: a CHART featured image outside <article> is recovered from og:image (${heroImgs.length})`);
+check(heroImgs[0] && heroImgs[0].img === "https://www.legalcheek.com/wp-content/uploads/2026/10/damages-framework-chart.png", `og-lead: the og:image chart is resolved to an absolute URL (${heroImgs[0] && heroImgs[0].img})`);
+check(hero.blocks[0] && hero.blocks[0].img, "og-lead: the hero chart is placed first, before the body");
 check(hero.paragraphs.length === 2, `og-lead: the two body paragraphs still render (${hero.paragraphs.length})`);
+// The SAME page with a PHOTO og:image adds no hero (chart-only).
+const heroPhoto = extractReadable(heroChartArt.replace(/damages-framework-chart\.png/g, "courts-exterior.jpg"), u("https://www.legalcheek.com/2026/10/ruling/"));
+checkEq(heroPhoto.blocks.filter((b) => b.img).length, 0, "og-lead: a PHOTO og:image is NOT added as a hero (chart-only)");
 
 // 9) Relevance — an author HEADSHOT captioned "thumbnail" is chrome, not content, and is
 //    dropped (the figcaption is a bare generic alt).
@@ -358,19 +362,19 @@ check(!proxyParagraphs(tweetMd).some((p) => /grabbed the popcorn/.test(p)), "pro
 const recircArt = `<!doctype html><html><head><meta property="og:title" content="A short story on a busy page"></head><body>
   <article>
     <p>The hedge fund's pay dispute is heading back to court after an appellate panel reopened the long-running matter.</p>
-    <figure><img src="/media/the-real-story-photo.jpg"><figcaption>Outside the courthouse</figcaption></figure>
+    <figure><img src="/media/the-real-story-chart.png"><figcaption>Chart: fund returns since launch</figcaption></figure>
     <p>Lawyers for both sides said the ruling turned on the weight given to recollections of conversations years earlier.</p>
   </article>
   <aside class="related">
     <h3>Related stories</h3>
     <p>Hedge funds endured a difficult September as rising bond yields, stronger oil prices and sharp swings in AI-related stocks dented returns across several major strategies this autumn.</p>
-    <img src="/promo/awards-banner.jpg" alt="Awards banner">
+    <img src="/promo/awards-banner-chart.jpg" alt="Awards banner">
     <img src="/wp-content/uploads/generic-grass.jpg" alt="">
   </aside></body></html>`;
 const recircRes = extractReadable(recircArt, u("https://www.hedgeweek.com/story/"));
 const recircImgs = recircRes.blocks.filter((b) => b.img);
-check(recircImgs.length === 1 && /the-real-story-photo/.test(recircImgs[0].img),
-  `image-trust: a widened article keeps ONLY its in-scope image, dropping the related/promo grid (${recircImgs.map((b) => b.img).join(", ") || "none"})`);
+check(recircImgs.length === 1 && /the-real-story-chart/.test(recircImgs[0].img),
+  `image-trust: a widened article keeps ONLY its in-scope chart, dropping the out-of-scope grid even when a file says "chart" (${recircImgs.map((b) => b.img).join(", ") || "none"})`);
 check(!recircImgs.some((b) => /awards-banner|generic-grass/.test(b.img)), "image-trust: out-of-scope recirculation/promo images are not included");
 
 // 13) Generic hero — a SHORT article that widens must NOT fall back to the page's
@@ -402,12 +406,13 @@ const chromeArt = `<!doctype html><html><head><meta property="og:title" content=
   <img src="https://assets.site.com/2026-08-Copy-of-Square-108456.png" alt="" class="absolute inset-0 w-full h-full object-cover">
   <p>${CHROME_BODY}</p>
   <img src="https://cdn.site.com/photos/trading-floor.jpg" alt="Traders on the floor during the sell-off">
+  <figure><img src="https://cdn.site.com/charts/sell-off-returns.png"><figcaption>Chart: strategy returns through the sell-off</figcaption></figure>
   </article></body></html>`;
 const chromeRes = extractReadable(chromeArt, u("https://www.hedgeweek.com/news/story"));
 const chromeImgs = chromeRes.blocks.filter((b) => b.img);
-check(chromeImgs.length === 1 && /trading-floor/.test(chromeImgs[0].img),
-  `chrome: a standalone alt-less image is dropped, a standalone image WITH a real alt is kept (${chromeImgs.map((b) => b.img).join(", ") || "none"})`);
-check(!chromeImgs.some((b) => /Copy-of-Square/.test(b.img)), "chrome: the alt-less decorative/social banner is not included");
+check(chromeImgs.length === 1 && /sell-off-returns/.test(chromeImgs[0].img),
+  `chrome: the alt-less banner AND the alt'd trading-floor photo are dropped; only the chart is kept (${chromeImgs.map((b) => b.img).join(", ") || "none"})`);
+check(!chromeImgs.some((b) => /Copy-of-Square|trading-floor/.test(b.img)), "chrome: neither the decorative banner nor an editorial photo (even with alt) is included");
 
 // 15) Thumbnails & avatars — a related-post featured image (a small "-WxH" WordPress
 //     thumbnail) and an author headshot (a "-circ-" circular crop) are chrome, not the
@@ -417,14 +422,15 @@ const thumbArt2 = `<!doctype html><html><head><meta property="og:title" content=
   <img src="https://www.lb.co.uk/wp-content/uploads/2026/01/Will-circ-300.png" alt="Will Lewallen">
   <p>A pair of the firm's New York private equity partners are leaving, less than three years after they joined from a rival, in a closely watched lateral move.</p>
   <img src="https://www.lb.co.uk/wp-content/uploads/2026/03/Reception-scaled_cropped.jpg" alt="The firm's New York reception">
+  <figure><img src="https://www.lb.co.uk/wp-content/uploads/2026/03/lateral-moves-chart.png"><figcaption>Chart: partner lateral moves by firm</figcaption></figure>
   <p>The co-head of private capital and the US private capital head are both understood to be moving to a competitor, people familiar with the matter said.</p>
   <img width="300" height="163" src="https://www.lb.co.uk/wp-content/uploads/2024/07/frankfurt_v2-e1789990129855-300x163.jpg" alt="Frankfurt">
   </article></body></html>`;
 const thumbRes = extractReadable(thumbArt2, u("https://www.legalbusiness.co.uk/law-firms/story/"));
 const thumbImgs = thumbRes.blocks.filter((b) => b.img);
-check(thumbImgs.length === 1 && /Reception-scaled_cropped/.test(thumbImgs[0].img),
-  `thumbs: keeps the full-size hero, drops the author avatar + the -WxH related thumbnail (${thumbImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
-check(!thumbImgs.some((b) => /Will-circ|frankfurt/.test(b.img)), "thumbs: the circular author headshot and the related-post thumbnail are not included");
+check(thumbImgs.length === 1 && /lateral-moves-chart/.test(thumbImgs[0].img),
+  `thumbs: keeps only the chart; drops the author avatar, the full-size reception PHOTO and the -WxH related thumbnail (${thumbImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
+check(!thumbImgs.some((b) => /Will-circ|frankfurt|Reception-scaled/.test(b.img)), "thumbs: headshot, related thumbnail AND the reception photo are not included");
 
 // 16) Stock-agency filler — a generic stock photo (filename carries the agency, e.g.
 //     "iStock-1126779135.jpg", getty/shutterstock/adobe stock) is decorative filler, not
@@ -434,13 +440,14 @@ const stockArt = `<!doctype html><html><head><meta property="og:title" content="
   <p>The manager said it had closed its latest direct lending fund well above target, drawing commitments from pensions and insurers across Europe and the United States.</p>
   <img src="https://acreditinvestor.com/wp-content/uploads/2026/09/iStock-1126779135.jpg" alt="City skyline at dusk">
   <img src="https://acreditinvestor.com/wp-content/uploads/2026/09/jane-doe-cio-portrait.jpg" alt="Jane Doe, chief investment officer">
+  <figure><img src="https://acreditinvestor.com/wp-content/uploads/2026/09/direct-lending-fundraising.png"><figcaption>Figure 1: direct-lending fundraising by quarter</figcaption></figure>
   <p>Managers have raced to raise private credit vehicles this year as banks retreat from leveraged lending and investors chase floating-rate yield.</p>
   </article></body></html>`;
 const stockRes = extractReadable(stockArt, u("https://acreditinvestor.com/story/"));
 const stockImgs = stockRes.blocks.filter((b) => b.img);
-check(stockImgs.length === 1 && /jane-doe-cio-portrait/.test(stockImgs[0].img),
-  `stock: a getty/istock/shutterstock stock photo is dropped, a real content photo is kept (${stockImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
-check(!stockImgs.some((b) => /iStock/i.test(b.img)), "stock: the iStock filler image is not included");
+check(stockImgs.length === 1 && /direct-lending-fundraising/.test(stockImgs[0].img),
+  `stock: the iStock filler AND the CIO portrait are dropped; only the figure/chart is kept (${stockImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
+check(!stockImgs.some((b) => /iStock/i.test(b.img) || /jane-doe/.test(b.img)), "stock: neither the stock photo nor the portrait is included");
 
 // 17) Render-size thumbnails via QUERY params — an imgix/CDN "?w=150&h=150" resize marks a
 //     thumbnail (related/nav/author crop) just like a "-WxH" filename suffix; a large
@@ -450,12 +457,13 @@ const imgixArt = `<!doctype html><html><head><meta property="og:title" content="
   <p>The firm confirmed the move on Monday, adding to a run of senior lateral hires across its disputes and corporate practices this year.</p>
   <img src="https://cdn.imgix.net/uploads/author-portrait.jpg?fit=crop&q=45&w=150&h=150" alt="Author portrait">
   <img src="https://cdn.imgix.net/uploads/the-new-office.jpg?fit=crop&q=45&w=1200&h=800" alt="The firm's new office">
+  <figure><img src="https://cdn.imgix.net/uploads/hiring-chart.png?fit=max&q=70&w=1200" alt="Lateral hires by quarter"><figcaption>Chart: lateral hires by quarter</figcaption></figure>
   <p>Rivals have ramped up hiring in the City as transactional work recovers and competition for senior partners intensifies.</p>
   </article></body></html>`;
 const imgixImgs = extractReadable(imgixArt, u("https://www.example-news.com/story/")).blocks.filter((b) => b.img);
-check(imgixImgs.length === 1 && /the-new-office/.test(imgixImgs[0].img),
-  `imgix: a "?w=150" thumbnail is dropped, a "?w=1200" full image is kept (${imgixImgs.map((b) => b.img.split("/").pop().split("?")[0]).join(", ") || "none"})`);
-check(!imgixImgs.some((b) => /author-portrait/.test(b.img)), "imgix: the small query-sized thumbnail is not included");
+check(imgixImgs.length === 1 && /hiring-chart/.test(imgixImgs[0].img),
+  `imgix: the "?w=150" thumbnail AND the full-size office PHOTO are dropped; only the full-size chart is kept (${imgixImgs.map((b) => b.img.split("/").pop().split("?")[0]).join(", ") || "none"})`);
+check(!imgixImgs.some((b) => /author-portrait|the-new-office/.test(b.img)), "imgix: neither the thumbnail nor the full-size photo is included (chart-only)");
 
 // 18) Subscription-only publishers are listed in READ_PAYWALL so the reader never fetches
 //     them (a public fetch returns only the subscribe wall) and the row opens at the
@@ -483,15 +491,36 @@ The firm will review commercial contracts, including non-disclosure and data-pro
 const glpBlocks = proxyBlocks(glpMd, "https://www.globallegalpost.com/news/some-story-123");
 check(glpBlocks.filter((b) => b.img).length === 0, `host-img-skip: all images are suppressed for an image-chrome host (${glpBlocks.filter((b) => b.img).length})`);
 check(glpBlocks.filter((b) => b.t && !b.h && !b.img).length === 2, `host-img-skip: the article body text still renders in full (${glpBlocks.filter((b) => b.t && !b.h && !b.img).length} paras)`);
-// A non-listed host on the SAME markdown keeps its genuine (non-chrome, full-size) image.
+// A non-listed host on the SAME markdown keeps a CHART; a photo on it is still dropped.
 const okMd = `# A markets story
 
 A trading-floor photograph that is the article's own lead image.
 
 ![Traders at work](https://cdn.example-news.com/uploads/2026/10/trading-floor-lead.jpg)
 
+![Chart: index path this week](https://cdn.example-news.com/uploads/2026/10/index-path-chart.png)
+
 The index closed higher as investors weighed the central bank's latest guidance on the path of interest rates.`;
 const okBlocks = proxyBlocks(okMd, "https://www.example-news.com/markets/story");
-check(okBlocks.filter((b) => b.img).length === 1, `host-img-skip: a non-listed host still keeps its genuine lead image (${okBlocks.filter((b) => b.img).length})`);
+const okImgs = okBlocks.filter((b) => b.img);
+check(okImgs.length === 1 && /index-path-chart/.test(okImgs[0].img), `host-img-skip: a non-listed host keeps the chart but drops the trading-floor photo (${okImgs.length})`);
+
+// 20) Chart-only policy, locked. A chart-service CDN image is kept; a descriptive editorial
+//     photo (the "That '70s Show" still on a 1970s-inflation column — the reported bug) is
+//     dropped; an embedded tweet is unaffected (it rides the {tweetId} path, not images).
+const CP = "Surging inflation, falling real wages and an energy crisis have investors reaching for the 1970s playbook, with strategists debating whether the parallels to that decade are real or merely rhyming this time around.";
+const policyArt = `<!doctype html><html><head><meta property="og:title" content="It's beginning to look a lot like the 1970s"></head><body><article>
+  <p>${CP}</p>
+  <figure><img src="https://images.mktw.net/im-99887766/that-70s-show-cast.jpg" alt="Danny Masterson, Ashton Kutcher and Topher Grace in That '70s Show"><figcaption>Are you ready for a '70s show, but for real?</figcaption></figure>
+  <p>${CP}</p>
+  <img src="https://datawrapper.dwcdn.net/Ab3x9/2/full.png" alt="US CPI year over year">
+  <blockquote class="twitter-tweet"><p lang="en">The 1970s called...</p>&mdash; An Economist (@econ) <a href="https://twitter.com/econ/status/1973500000000000999">October 5, 2026</a></blockquote>
+  </article></body></html>`;
+const policy = extractReadable(policyArt, u("https://www.marketwatch.com/story/1970s"));
+const policyImgs = policy.blocks.filter((b) => b.img);
+check(policyImgs.length === 1 && /datawrapper\.dwcdn\.net/.test(policyImgs[0].img),
+  `chart-only: a chart-service CDN image is kept, the editorial photo is dropped (${policyImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
+check(!policyImgs.some((b) => /that-70s-show/.test(b.img)), "chart-only: the 'That '70s Show' editorial still is NOT included");
+check(policy.blocks.some((b) => b.tweetId === "1973500000000000999"), "chart-only: an embedded tweet is still captured (tweets are unaffected by the image policy)");
 
 finish();
