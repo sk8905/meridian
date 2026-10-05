@@ -1736,11 +1736,17 @@ function _blockIsLinkOnly(inner) {
 // ABSOLUTE url against the article; a few common lazy-load attrs are honoured. Each
 // article is capped at READ_IMG_MAX so a gallery page can't bloat the payload.
 const READ_IMG_MAX = 8;
-const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag|wordmark|masthead|default[-_.]|thumbnail|thumb[-_/.]|headshot|byline|\/author|contributor|mugshot|\/profile|\/staff\/)/i;
+const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag|wordmark|masthead|default[-_.]|thumbnail|thumb[-_/.]|headshot|byline|\/author|contributor|mugshot|\/profile|\/staff\/|[-_]circ[-_.])/i;
+// A "-WxH" size suffix with a small max dimension (≤ 500px) marks a RESIZED THUMBNAIL —
+// a related-post featured image, a sidebar/author crop — not the full content photo (which
+// is served without the suffix, or at a larger size). Common on WordPress (`…-300x163.jpg`).
+const READ_IMG_THUMB = /-(\d{2,4})x(\d{2,4})\.(?:jpe?g|png|webp|gif)(?:[?#]|$)/i;
 function _readImgOK(src) {
   if (!src || !/^https?:\/\//i.test(src)) return false;      // absolute http(s) only
   if (/\.svg(?:[?#]|$)/i.test(src)) return false;            // vector = icon/logo
   if (READ_IMG_SKIP.test(src)) return false;
+  const d = READ_IMG_THUMB.exec(src);                        // resized thumbnail, not full content
+  if (d && Math.max(+d[1], +d[2]) <= 500) return false;
   return true;
 }
 // A bare wire/agency/brand name as the whole alt text marks a source WORDMARK or stock-

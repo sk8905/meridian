@@ -408,4 +408,21 @@ check(chromeImgs.length === 1 && /trading-floor/.test(chromeImgs[0].img),
   `chrome: a standalone alt-less image is dropped, a standalone image WITH a real alt is kept (${chromeImgs.map((b) => b.img).join(", ") || "none"})`);
 check(!chromeImgs.some((b) => /Copy-of-Square/.test(b.img)), "chrome: the alt-less decorative/social banner is not included");
 
+// 15) Thumbnails & avatars — a related-post featured image (a small "-WxH" WordPress
+//     thumbnail) and an author headshot (a "-circ-" circular crop) are chrome, not the
+//     story's photo. They are dropped even WITH alt text; the full-size hero (no small
+//     size suffix, descriptive alt) is kept. Mirrors the real Legal Business markup.
+const thumbArt2 = `<!doctype html><html><head><meta property="og:title" content="A firm story with a hero, an author avatar and a related thumb"></head><body><article>
+  <img src="https://www.lb.co.uk/wp-content/uploads/2026/01/Will-circ-300.png" alt="Will Lewallen">
+  <p>A pair of the firm's New York private equity partners are leaving, less than three years after they joined from a rival, in a closely watched lateral move.</p>
+  <img src="https://www.lb.co.uk/wp-content/uploads/2026/03/Reception-scaled_cropped.jpg" alt="The firm's New York reception">
+  <p>The co-head of private capital and the US private capital head are both understood to be moving to a competitor, people familiar with the matter said.</p>
+  <img width="300" height="163" src="https://www.lb.co.uk/wp-content/uploads/2024/07/frankfurt_v2-e1789990129855-300x163.jpg" alt="Frankfurt">
+  </article></body></html>`;
+const thumbRes = extractReadable(thumbArt2, u("https://www.legalbusiness.co.uk/law-firms/story/"));
+const thumbImgs = thumbRes.blocks.filter((b) => b.img);
+check(thumbImgs.length === 1 && /Reception-scaled_cropped/.test(thumbImgs[0].img),
+  `thumbs: keeps the full-size hero, drops the author avatar + the -WxH related thumbnail (${thumbImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
+check(!thumbImgs.some((b) => /Will-circ|frankfurt/.test(b.img)), "thumbs: the circular author headshot and the related-post thumbnail are not included");
+
 finish();
