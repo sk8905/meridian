@@ -68,9 +68,10 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-05",
-      time: "18:11 BST",
+      time: "20:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the Banque de France governor warns France is at risk of being &lsquo;strangled by interest rates&rsquo;</strong>, the FT reports, as euro-area political and bond-market stress builds.", src: "https://www.ft.com/content/74c3cc77-1593-4c49-90f9-0d92fa3a2418", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the euro slid to a 17-month low against the dollar</strong> as Spain&rsquo;s snap election and French fiscal worries rattled markets, the FT reports.", src: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; Badenoch&rsquo;s pitch goes some way to assuaging British business concerns</strong>, the FT reports, while it argues the Budget needs to tame spending and boost growth.", src: "https://www.ft.com/content/711333ba-67a9-480c-bf65-a3e484a6406b", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the FT asks what can revive the battered government bond market</strong> after the global sell-off, while rising gilt yields draw UK retail investors seeking tax-efficient assets.", src: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; Schneider Electric has agreed to buy US software group PTC for $205 a share in cash</strong>, an implied enterprise value of $23.7bn, Bloomberg reports.", src: "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion", srcName: "Bloomberg" },

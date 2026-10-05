@@ -84,6 +84,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/41b567dc-50e9-4c41-95bb-e295caaf2340",
   },
   {
+    id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
+    title: "Euro slides to 17-month low against dollar",
+    date: "2026-10-05",
+    time: "16:44",
+    url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
+  },
+  {
     id: "f77c61bd-ed39-4e20-b8d3-7c62dba74001",
     title: "Ethiopian government seizes Tigray capital in blow to rebels",
     date: "2026-10-05",
