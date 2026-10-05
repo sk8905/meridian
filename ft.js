@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "74c3cc77-1593-4c49-90f9-0d92fa3a2418",
+    title: "French central bank head warns country at risk of being ‘strangled by interest rates’",
+    date: "2026-10-05",
+    time: "17:56",
+    url: "https://www.ft.com/content/74c3cc77-1593-4c49-90f9-0d92fa3a2418",
+  },
+  {
+    id: "126e56d2-c4a6-477f-a1d4-dadbe1013fb4",
+    title: "And the charts quiz winner is…",
+    date: "2026-10-05",
+    time: "17:46",
+    url: "https://www.ft.com/content/126e56d2-c4a6-477f-a1d4-dadbe1013fb4",
+  },
+  {
+    id: "711333ba-67a9-480c-bf65-a3e484a6406b",
+    title: "Badenoch’s pitch goes some way to assuaging British business concerns",
+    date: "2026-10-05",
+    time: "17:16",
+    url: "https://www.ft.com/content/711333ba-67a9-480c-bf65-a3e484a6406b",
+  },
+  {
     id: "41b567dc-50e9-4c41-95bb-e295caaf2340",
     title: "Citi to speed up promotion path for junior bankers as hiring war heats up",
     date: "2026-10-05",
@@ -147,13 +168,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/4ab13290-5208-4f20-9a34-f368b7484304",
   },
   {
-    id: "a48af44e-84fb-4ce9-b7ce-d1895d0a0f05",
-    title: "Yemen launches push to retake territory captured by Houthis",
-    date: "2026-10-05",
-    time: "10:09",
-    url: "https://www.ft.com/content/a48af44e-84fb-4ce9-b7ce-d1895d0a0f05",
-  },
-  {
     id: "4d2078c4-4773-4d4c-8544-c17169362579",
     title: "Big Oil goes to US Supreme Court over pivotal climate damages claim",
     date: "2026-10-05",
@@ -208,6 +222,13 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "10:50",
     url: "https://www.ft.com/content/a3528806-c774-4dea-aec8-5415516a1365",
+  },
+  {
+    id: "a48af44e-84fb-4ce9-b7ce-d1895d0a0f05",
+    title: "Yemen launches push to retake territory captured by Houthis",
+    date: "2026-10-05",
+    time: "10:09",
+    url: "https://www.ft.com/content/a48af44e-84fb-4ce9-b7ce-d1895d0a0f05",
   },
   {
     id: "93ee425d-9ac7-4543-8cc9-fef2e0670787",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "06:30",
     url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
-  },
-  {
-    id: "b26c324e-0384-4c6a-9ccd-56b1cf0939b8",
-    title: "The jobs market is still fine",
-    date: "2026-10-05",
-    time: "06:30",
-    url: "https://www.ft.com/content/b26c324e-0384-4c6a-9ccd-56b1cf0939b8",
-  },
-  {
-    id: "98a0463f-f670-4c12-bd11-48121d670b28",
-    title: "FTAV’s further reading",
-    date: "2026-10-05",
-    time: "06:30",
-    url: "https://www.ft.com/content/98a0463f-f670-4c12-bd11-48121d670b28",
-  },
-  {
-    id: "27d5abde-c1cd-4dc1-932f-4812a41a66c4",
-    title: "BT closes in on deal for embattled TalkTalk",
-    date: "2026-10-05",
-    time: "06:11",
-    url: "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
   },
 ];
