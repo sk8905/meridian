@@ -1,6 +1,5 @@
 // Cloudflare Worker entry — serves the static site (via the ASSETS binding) and
-// the per-user watchlist API at /api/watchlist plus the Wire Legal saved-
-// items API at /api/saved (both backed by the WATCHLIST KV, distinct prefixes).
+// the per-user watchlist API at /api/watchlist (backed by the WATCHLIST KV).
 //
 // The whole Worker is gated by Cloudflare Access, so every request that reaches
 // here is already authenticated; Access injects a signed identity JWT
@@ -32,16 +31,6 @@ function identity(request) {
 }
 
 const keyFor = (email) => "wl:" + email;
-// Wire Legal saved alerts/cases/matters — a flat array of item ids, keyed
-// under a distinct prefix in the same KV namespace so it never collides with a
-// watchlist. Per-user isolation comes from the verified Access email, exactly
-// like the watchlist, so saved items sync across that user's devices.
-// Two distinct saved-items stores share this handler via different key prefixes
-// so the Legal and Credit apps never overwrite each other's saved sets.
-const savedKeyFor = (email) => "lsv:" + email;         // Wire Legal
-const savedCreditKeyFor = (email) => "csv:" + email;   // Wire Credit
-const savedMacroKeyFor = (email) => "msv:" + email;    // Wire Macro
-const savedHomeKeyFor = (email) => "hsv:" + email;     // Home-wire bookmarks (self-contained snapshots)
 // Per-user "notifications seen" sets — the ids a user has already acknowledged in
 // each app's notification bell, so an item marked seen on one device stops
 // showing as new on that user's other devices. One prefix per app.
@@ -99,30 +88,6 @@ async function handleChartPrefs(request, env) {
   return json({ error: "method not allowed" }, 405);
 }
 
-async function handleSaved(request, env, keyFor) {
-  const email = identity(request);
-  if (!email) return json({ error: "unauthenticated" }, 401);
-
-  if (request.method === "GET") {
-    const raw = await env.WATCHLIST.get(keyFor(email));
-    let saved = [];
-    if (raw) { try { const p = JSON.parse(raw); if (Array.isArray(p)) saved = p; } catch { /* keep default */ } }
-    return json({ email, saved });
-  }
-
-  if (request.method === "PUT") {
-    let body;
-    try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
-    const saved = Array.isArray(body.saved)
-      ? body.saved.filter((x) => typeof x === "string" && x.length <= 24).slice(0, 10000)
-      : [];
-    await env.WATCHLIST.put(keyFor(email), JSON.stringify(saved));
-    return json({ ok: true });
-  }
-
-  return json({ error: "method not allowed" }, 405);
-}
-
 // Origination Radar private overlay — the finance partner's BD workspace state
 // (per-target tier / relationship / firm-coverage / notes, plus strengths). One
 // JSON object per user, keyed by the verified Access email, so tiers and notes
@@ -158,38 +123,6 @@ async function handleOrigination(request, env) {
       if (Object.keys(pick).length) targets[id] = pick;
     });
     await env.WATCHLIST.put(origKeyFor(email), JSON.stringify({ strengths, targets }));
-    return json({ ok: true });
-  }
-  return json({ error: "method not allowed" }, 405);
-}
-
-// Home-wire bookmarks — the press-and-hold saves on rows with NO app saved-id
-// (live headlines, Letters, FT, Substacks). Unlike the three id-set stores
-// above these are self-contained SNAPSHOT OBJECTS ({k, desk, title, href, ext,
-// date, time, src}) — the underlying wire is ephemeral, so the row itself is
-// what's kept. Same per-user KV, "hsv:" prefix; fields sanitised and bounded.
-async function handleSavedHome(request, env) {
-  const email = identity(request);
-  if (!email) return json({ error: "unauthenticated" }, 401);
-  if (request.method === "GET") {
-    const raw = await env.WATCHLIST.get(savedHomeKeyFor(email));
-    let saved = [];
-    if (raw) { try { const p = JSON.parse(raw); if (Array.isArray(p)) saved = p; } catch { /* keep default */ } }
-    return json({ email, saved });
-  }
-  if (request.method === "PUT") {
-    let body;
-    try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
-    const str = (v, max) => (typeof v === "string" ? v.slice(0, max) : "");
-    const saved = (Array.isArray(body.saved) ? body.saved : [])
-      .filter((o) => o && typeof o === "object" && typeof o.k === "string" && o.k && typeof o.title === "string" && o.title)
-      .slice(0, 500)
-      .map((o) => ({
-        k: str(o.k, 700), desk: str(o.desk, 12) || "m", title: str(o.title, 500),
-        href: str(o.href, 1000) || "#", ext: !!o.ext,
-        date: str(o.date, 10), time: str(o.time, 5), src: str(o.src, 120),
-      }));
-    await env.WATCHLIST.put(savedHomeKeyFor(email), JSON.stringify(saved));
     return json({ ok: true });
   }
   return json({ error: "method not allowed" }, 405);
@@ -4827,10 +4760,6 @@ export default {
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/origination") return handleOrigination(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
-    if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
-    if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);
-    if (url.pathname === "/api/saved-macro") return handleSaved(request, env, savedMacroKeyFor);
-    if (url.pathname === "/api/saved-home") return handleSavedHome(request, env);
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);
     if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);

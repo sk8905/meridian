@@ -35,16 +35,6 @@ export function markVisitedSoon() {
 const prevVisit = lastVisit();
 export function isNew(item) { return prevVisit && item.date > prevVisit; }
 
-// ---- Saved state (read layer) -----------------------------------------------
-// Saved items persist to a per-user Cloudflare KV store (see app.js) with
-// localStorage as an instant cache / offline fallback. This module holds the
-// getter + the key; the write/sync side lives in app.js.
-export const SAVED_KEY = "lexalert.saved";
-export function getSaved() {
-  try { return new Set(JSON.parse(localStorage.getItem(SAVED_KEY) || "[]")); }
-  catch { return new Set(); }
-}
-
 // ---- Shared rendering bits --------------------------------------------------
 export function areaChip(areaId) {
   const a = areaById[areaId];
@@ -68,7 +58,6 @@ export function firmLink(id, name, cls) {
 export function itemRow(it) {
   const firm = firmById[it.firm] || { name: it.firm, tier: "" };
   const type = (typeById[it.type] || {}).name || it.type;
-  const saved = getSaved().has(it.id);
   const areasHtml = (it.areas || [it.area]).map(areaChip).join("");
   const tierTxt = tierLabel(firm.tier);
   const src = it.url || firm.insightsUrl;
@@ -81,8 +70,6 @@ export function itemRow(it) {
         ${src
           ? `<a class="feed-title" href="${esc(src)}" target="_blank" rel="noopener noreferrer">${esc(it.title)}</a>`
           : `<a class="feed-title" href="#/item/${esc(it.id)}">${esc(it.title)}</a>`}
-        <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
-          aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this update"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
       <p class="feed-summary">${esc(it.summary)}</p>
       <div class="feed-foot">

@@ -89,27 +89,6 @@ export function nameCell(type, id, inner) {
   return `<span class="namecell">${followBtn(type, id)}<span class="namecell-text">${inner}</span></span>`;
 }
 
-// --------------------------- saved items (read layer) ----------------------
-// Individually saved news / deal / fundraising / CLO items. This module holds
-// the getter + the ★/☆ button + the stable content-derived id; the write/sync
-// side (toggle, debounced push, cloud reconcile) lives in app.js.
-export const SAVEDC_KEY = "meridian.credit.saved";
-export function getSavedC() { try { return new Set(JSON.parse(localStorage.getItem(SAVEDC_KEY) || "[]")); } catch { return new Set(); } }
-// Stable content-derived id for a news item — a short hash of its normalised URL
-// (or title) + manager, so a saved news story keeps pointing at the same item
-// across data refreshes (unlike the aggregation index used for row anchors).
-export function newsSaveId(x) {
-  const base = (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
-  const s = base + "|" + (x._mid || x.managerId || "");
-  let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0;
-  return "n" + (h >>> 0).toString(36);
-}
-// Save/unsave button — Wire Legal style. `id` is the item's stable save id.
-export function saveBtn(id) {
-  const on = getSavedC().has(id);
-  return `<button type="button" class="save-btn ${on ? "is-saved" : ""}" data-save="${esc(id)}" aria-pressed="${on}" title="${on ? "Remove from saved" : "Save this item"}">${on ? "★ Saved" : "☆ Save"}</button>`;
-}
-
 // Human-readable source (outlet / wire / manager PR) for a notification/feed
 // item, from its sourceUrl. Known wires & trade-press map to a clean label; an
 // unmapped domain is taken to be the manager's own press release (show the
@@ -251,7 +230,7 @@ export function intelRow(i, mgr) {
     : (ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`);
   return `<div class="intel-row" id="row-${i.id}" data-fkey="${esc(feedDedupKey(i))}">
     <div class="intel-meta">${metaDate(i.date)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}</div><p class="muted small">${esc(i.summary)}</p></div>
   </div>`;
 }
 
@@ -266,6 +245,6 @@ export function dealRow(d, mgr) {
     : (tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`);
   return `<div class="intel-row" id="row-${d.id}" data-fkey="${esc(feedDedupKey(d))}">
     <div class="intel-meta">${metaDate(d.date)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}</div><p class="muted small">${esc(d.summary)}</p></div>
   </div>`;
 }

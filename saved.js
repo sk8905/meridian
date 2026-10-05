@@ -1,19 +1,13 @@
 // =============================================================================
-// Unified cross-desk Saved resolver — shared by the section top bars
-// (nav-actions.js). Each app stores its own starred-id set in localStorage; here
-// we resolve those ids back to items across Macro, Credit and Legal so every
-// page shows the SAME saved list Home shows. Loaded lazily (dynamic import) the
-// first time a Saved panel is opened, so the heavy data modules aren't pulled
-// into each app's initial load. Mirrors glance.js resolveSaved().
+// Unified cross-desk Notifications + Watchlist resolvers — shared by the section
+// top bars (nav-actions.js). Resolves the reader's followed profiles and their
+// news across Macro, Credit and Legal, and builds the notification bell's list.
+// Loaded lazily (dynamic import) the first time a panel is opened, so the heavy
+// data modules aren't pulled into each app's initial load.
 // =============================================================================
-import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
 import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js";
 import { deals, intel, managers, HEDGE_FUNDS, HEDGE_INTEL, lps } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
-
-// ---- id schemes -------------------------------------------------------------
-function _savedHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
-function _savedBase(x) { return (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, ""); }
 
 // ---- source-label helpers (mirror glance.js / credit app.js) ----------------
 const _mgrById = new Map(managers.map((m) => [m.id, m]));
@@ -59,43 +53,6 @@ export function resolveFollows() {
   // was retired).
   arr("fund").forEach((id) => { const m = _mgrById.get(id); if (m) push("Managers", id, m, m.name, m.hq, "/v2/profiles/#/manager/" + encodeURIComponent(id)); });
   return out;
-}
-
-// ---- resolver ---------------------------------------------------------------
-export function resolveSaved() {
-  const rd = (k) => { try { return new Set(JSON.parse(localStorage.getItem(k) || "[]")); } catch { return new Set(); } };
-  const mS = rd("meridian.macro.saved"), cS = rd("meridian.credit.saved"), lS = rd("lexalert.saved");
-  const out = [];
-  // Macro — article ids are "a" + hash(url|title base).
-  [...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || []),
-   ...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])]
-    .forEach((n) => { if (mS.has("a" + _savedHash(_savedBase(n)))) out.push({ desk: "m", title: n.title, href: n.url, ext: true, date: n.date, time: n.time, src: n.source }); });
-  // Credit — deals/intel by raw id; manager press by "n" + hash(base|managerId).
-  deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: creditSource(d) }); });
-  intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: creditSource(i) }); });
-  managers.forEach((m) => [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
-    if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
-  }));
-  // Legal — items/cases/restructurings by raw id.
-  items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: it.url || "/v2/profiles/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
-  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: c.url || "/v2/profiles/#/?tab=firms", ext: !!c.url, date: c.date, time: c.time, src: c.court }); });
-  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/v2/profiles/#/?tab=firms", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
-  // Home-feed long-press bookmarks (Letters, FT, live headlines — rows with no
-  // app saved-id) live in a self-contained Home store; fold them in, deduped by
-  // normalised title against the app-store items above.
-  try {
-    const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]");
-    if (Array.isArray(a)) {
-      const seen = new Set(out.map((x) => String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, "")));
-      a.forEach((o) => {
-        if (!o || !o.title) return;
-        const k = String(o.title).toLowerCase().replace(/[^a-z0-9]+/g, "");
-        if (seen.has(k)) return; seen.add(k);
-        out.push({ desk: o.desk || "m", title: o.title, href: o.href || "#", ext: !!o.ext, date: o.date || "", time: o.time || "", src: o.src || "" });
-      });
-    }
-  } catch { /* ignore */ }
-  return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 
 // =============================================================================
@@ -192,7 +149,7 @@ export async function buildNotifs() {
 
 // Watchlist NEWS — every dated item for the followed managers (deals,
 // fundraising/intel, manager press) and law firms (alerts, scheme/plan
-// analyses), newest first. Rendered by the Bookmarks panel's Watchlist tab.
+// analyses), newest first. Rendered by the Notifications panel's Watchlist tab.
 export function resolveWatchlistNews() {
   let f = {};
   try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
@@ -225,31 +182,4 @@ export function resolveWatchlistNews() {
   return dedupNotif(out)
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || String(b.time || "").localeCompare(String(a.time || "")))
     .slice(0, 80);
-}
-
-// Saved items that ALSO relate to a followed/starred profile — the Bookmarks
-// panel's Watchlist tab. This is the INTERSECTION of your saved (☆) items and
-// your followed managers / law firms, NOT every piece of their news. Only
-// profile-linked saves qualify (a saved deal/intel/press for a followed manager,
-// or a saved alert/scheme/plan for a followed firm); a saved macro or Home-wire
-// story has no profile, so it never appears here.
-export function resolveSavedWatchlist() {
-  const rd = (k) => { try { return new Set(JSON.parse(localStorage.getItem(k) || "[]")); } catch { return new Set(); } };
-  const cS = rd("meridian.credit.saved"), lS = rd("lexalert.saved");
-  let f = {};
-  try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
-  const mset = new Set(Array.isArray(f.manager) ? f.manager : []);
-  const fset = new Set(Array.isArray(f.firm) ? f.firm : []);
-  const out = [];
-  deals.forEach((d) => { if (cS.has(d.id) && mset.has(d.managerId)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: (_mgrById.get(d.managerId) || {}).name || creditSource(d) }); });
-  intel.forEach((i) => { if (cS.has(i.id) && mset.has(i.managerId)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: (_mgrById.get(i.managerId) || {}).name || creditSource(i) }); });
-  managers.forEach((m) => {
-    if (!mset.has(m.id)) return;
-    [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
-      if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
-    });
-  });
-  items.forEach((it) => { if (lS.has(it.id) && fset.has(it.firm)) out.push({ desk: "l", title: it.title, href: it.url || "/v2/profiles/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
-  restructurings.forEach((r) => { if (lS.has(r.id) && fset.has(r.firm)) { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", title: r.company, href: u || "/v2/profiles/#/?tab=firms", ext: !!u, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); } });
-  return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }

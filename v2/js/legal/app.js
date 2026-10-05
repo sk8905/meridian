@@ -4,12 +4,12 @@
 
 import { reportRefresh } from "/v2/js/status.js";
 import {
-  items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
+  items, cases, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, typeById, tierById, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
 } from "/legal/js/data.js";
 import {
-  fmtDate, itemDate, getSaved, SAVED_KEY,
+  fmtDate, itemDate,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js";
 import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js";
@@ -29,22 +29,20 @@ export function mount(host, ctx) {
 //
 // Routes:  #/                dashboard
 //          #/list            all updates (multi-select filters + search)
-//          #/list?area=…     list pre-filtered (also ?saved=1, ?q=…, ?tier=…)
+//          #/list?area=…     list pre-filtered (also ?q=…, ?tier=…)
 //          #/item/<id>       single alert detail
 //
-// Per-user state: saved items sync across devices via the /api/saved Worker/KV
-// endpoint when behind Cloudflare Access (see the "Saved state" block below),
-// with localStorage as an instant cache / offline fallback. The last-visit and
-// notification-seen markers stay device-local in localStorage.
+// Per-user state: the last-visit and notification-seen markers stay device-local
+// in localStorage.
 // =============================================================================
 
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the date formatters, the
-// saved-items read layer, the "new since last visit" marker and the alert
-// feed-row renderer; detail.js holds the single-alert + firm-profile views;
-// this shell keeps the dashboard/list views, the saved write/sync layer, the
-// notifications and the router. All three import ./data.js with the SAME ?v=
-// token above — bump together or data.js loads twice as separate instances.
+// "new since last visit" marker and the alert feed-row renderer; detail.js holds
+// the single-alert + firm-profile views; this shell keeps the dashboard/list
+// views, the notifications and the router. All three import ./data.js with the
+// SAME ?v= token above — bump together or data.js loads twice as separate
+// instances.
 // The shared news-wire engine — so the Legal dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
 // at row end as an in-place source filter).
@@ -111,65 +109,6 @@ on(document, "click", (e) => {
 // re-rendered while filtering, so the user's choice sticks during a session).
 const MOBILE_Q = "(max-width: 760px)";
 function mfOpen() { return !window.matchMedia(MOBILE_Q).matches; }
-
-// ---- Saved state (localStorage + cloud sync) --------------------------------
-// Saved items persist to a per-user Cloudflare KV store (via the /api/saved
-// endpoint) when the site is served behind Cloudflare Access, so saved alerts,
-// cases and restructuring matters sync across the user's devices. localStorage
-// is kept as an instant cache / offline fallback, so the app still works if the
-// API isn't reachable (e.g. plain static hosting or local preview).
-const SAVED_API = "/api/saved";
-let savedCloud = false;        // true once the saved-items API responds
-let savedPushTimer = null;
-
-function setSaved(set) {
-  try { localStorage.setItem(SAVED_KEY, JSON.stringify([...set])); } catch { /* ignore */ }
-  updateSavedCount();
-  pushSavedRemote();
-}
-// Debounced save to the cloud (no-op when not signed in / not on Cloudflare).
-function pushSavedRemote() {
-  if (!savedCloud) return;
-  clearTimeout(savedPushTimer);
-  savedPushTimer = setTimeout(() => {
-    fetch(SAVED_API, {
-      method: "PUT", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ saved: [...getSaved()] }),
-    }).catch(() => {});
-  }, 400);
-}
-function toggleSaved(id) {
-  const s = getSaved();
-  s.has(id) ? s.delete(id) : s.add(id);
-  setSaved(s);
-  return s.has(id);
-}
-function updateSavedCount() {
-  const n = getSaved().size;
-  const el = document.getElementById("saved-count");
-  if (el) el.textContent = n ? String(n) : "";
-}
-// On load, reconcile this device's saved set with the per-user cloud copy. We
-// UNION the two (saving is additive, so we never want to drop an item saved on
-// another device or on this one), persist the merged set locally, and push it
-// back up so every device converges. No-op when the API isn't reachable.
-async function initSavedSync() {
-  let r;
-  try { r = await fetch(SAVED_API, { headers: { accept: "application/json" } }); }
-  catch { return; }            // offline / not on Cloudflare → localStorage only
-  if (!r || !r.ok) return;     // 404 on static hosting, 401 if not authed
-  let d; try { d = await r.json(); } catch { return; }
-  savedCloud = true;
-  const server = Array.isArray(d.saved) ? d.saved : [];
-  const local = [...getSaved()];
-  const union = new Set([...local, ...server]);
-  try { localStorage.setItem(SAVED_KEY, JSON.stringify([...union])); } catch { /* ignore */ }
-  updateSavedCount();
-  // Push only if the merged set differs from what the server already holds.
-  if (union.size !== server.length || server.some((id) => !union.has(id))) pushSavedRemote();
-  router();                    // re-render so saved stars / Saved view reflect the merge
-}
-
 
 
 // Horizontal multi-select dropdown (Wire Credit style): an uppercase label,
@@ -583,7 +522,7 @@ function legalWireDash() {
 // =============================================================================
 // VIEW: List (#/list) — multi-select filters + search
 // =============================================================================
-const filterState = { areas: [], tiers: [], types: [], firms: [], years: [], months: [], q: "", saved: false };
+const filterState = { areas: [], tiers: [], types: [], firms: [], years: [], months: [], q: "" };
 
 function parseHashQuery() {
   const h = location.hash.slice(1); // "/list?area=banking"
@@ -605,7 +544,6 @@ function viewList() {
   filterState.years = q.year ? [q.year] : [];
   filterState.months = q.month ? [q.month] : [];
   filterState.q = q.q || "";
-  filterState.saved = q.saved === "1";
 
   const years = [...new Set(items.map((i) => i.date.slice(0, 4)).filter(Boolean))].sort((a, b) => b.localeCompare(a));
   const monthOpts = [...new Set(items.map((i) => ym(i.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a))
@@ -613,7 +551,7 @@ function viewList() {
 
   app.innerHTML = `
     <div class="list-head">
-      <h1>${filterState.saved ? "Saved items" : "Legal alerts"}</h1>
+      <h1>Legal alerts</h1>
       <p class="muted">Filter by practice area, source tier, type or firm, or search the full text.</p>
     </div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label>
@@ -648,42 +586,10 @@ function matchesFilters(it) {
   if (filterState.firms.length && !filterState.firms.includes(it.firm)) return false;
   if (filterState.years.length && !filterState.years.includes(it.date.slice(0, 4))) return false;
   if (filterState.months.length && !filterState.months.includes(ym(it.date))) return false;
-  if (filterState.saved && !getSaved().has(it.id)) return false;
   if (filterState.q.trim()) {
     const q = filterState.q.trim().toLowerCase();
     const hay = [it.title, it.summary, it.citation, it.court, (it.tags || []).join(" "),
       (firmById[it.firm] || {}).name].join(" ").toLowerCase();
-    if (!hay.includes(q)) return false;
-  }
-  return true;
-}
-
-// Does a case pass the sidebar filters? Cases share area / year / month / search;
-// the alert-only facets (tier/type/firm) exclude cases when active.
-function caseMatchesFilters(c) {
-  if (filterState.areas.length && !filterState.areas.includes(c.area)) return false;
-  if (filterState.tiers.length || filterState.types.length || filterState.firms.length) return false;
-  if (filterState.years.length && !filterState.years.includes(c.date.slice(0, 4))) return false;
-  if (filterState.months.length && !filterState.months.includes(ym(c.date))) return false;
-  if (filterState.q.trim()) {
-    const q = filterState.q.trim().toLowerCase();
-    const hay = [c.name, c.citation, c.court, caseSummaries[c.id] || c.summary].join(" ").toLowerCase();
-    if (!hay.includes(q)) return false;
-  }
-  return true;
-}
-
-// Does a restructuring matter pass the sidebar filters? Schemes/RPs have no
-// practice area / tier / type / firm, so they're hidden when those facets are
-// active (like cases); they do share year / month / search.
-function rxMatchesFilters(r) {
-  if (filterState.areas.length || filterState.tiers.length || filterState.types.length || filterState.firms.length) return false;
-  const yr = (r.date || "").slice(0, 4);
-  if (filterState.years.length && !filterState.years.includes(yr)) return false;
-  if (filterState.months.length && !filterState.months.includes((r.date || "").slice(0, 7))) return false;
-  if (filterState.q.trim()) {
-    const q = filterState.q.trim().toLowerCase();
-    const hay = [r.company, r.citation, r.court, r.sector, (r.creditors || []).join(" "), (r.advisers || []).join(" ")].join(" ").toLowerCase();
     if (!hay.includes(q)) return false;
   }
   return true;
@@ -708,17 +614,10 @@ function lgToFeed(x) {
 function renderResults() {
   const results = document.getElementById("results");
   if (!results) return;
-  let rows = items.filter(matchesFilters).map((it) => ({ ...it, _kind: "item" }));
-  // In the "Saved" view, also surface saved case-law judgments and saved
-  // restructuring matters (schemes/RPs) alongside saved alerts.
-  if (filterState.saved) {
-    const savedSet = getSaved();
-    rows = rows.concat(cases.filter((c) => savedSet.has(c.id) && caseMatchesFilters(c)).map((c) => ({ ...c, _kind: "case" })));
-    rows = rows.concat(restructurings.filter((r) => savedSet.has(r.id) && rxMatchesFilters(r)).map((r) => ({ ...r, _kind: "rx" })));
-  }
+  const rows = items.filter(matchesFilters).map((it) => ({ ...it, _kind: "item" }));
   rows.sort(byDateDesc);
   const n = rows.length;
-  const noun = filterState.saved ? "saved item" : "update";
+  const noun = "update";
   results.innerHTML = n
     ? `<div class="g-feed twire">${feedBodyHTML(rows.map(lgToFeed))}</div>`
     : `<div class="empty">No ${noun}s match these filters.</div>`;
@@ -756,24 +655,10 @@ function router() {
   else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
   else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
   else viewDashboard();
-
-  updateSavedCount();
 }
 
-// Delegate: save buttons + chart drill-down (data-area / data-tier).
+// Delegate: chart drill-down (data-area / data-tier / data-year / data-month).
 on(document, "click", (e) => {
-  const saveBtn = e.target.closest("[data-save]");
-  if (saveBtn) {
-    e.preventDefault();
-    const id = saveBtn.getAttribute("data-save");
-    const nowSaved = toggleSaved(id);
-    saveBtn.classList.toggle("is-saved", nowSaved);
-    saveBtn.setAttribute("aria-pressed", String(nowSaved));
-    saveBtn.textContent = nowSaved ? "★ Saved" : "☆ Save";
-    // If we're viewing "saved only", drop the card immediately.
-    if (filterState.saved && document.getElementById("results")) renderResults();
-    return;
-  }
   const navEl = e.target.closest("[data-area],[data-tier],[data-year],[data-month]");
   if (navEl) {
     const params = new URLSearchParams();
@@ -918,7 +803,6 @@ initChrome();
 initNotif();
 router();
 markVisitedSoon();
-initSavedSync();   // pull + merge the per-user saved list across devices (behind Access)
 
 
   // Expose the list builder so the Profiles tab can render the EXACT same Law

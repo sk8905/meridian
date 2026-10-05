@@ -15,7 +15,6 @@ const present = await pg.evaluate(() => ({
   cluster: !!document.querySelector("#wire-header .na-actions"),
   briefAbsent: !document.getElementById("na-brief") && !document.getElementById("na-brief-panel"),
   mkt: !!document.getElementById("na-mkt"),
-  saved: !!document.getElementById("na-saved"),
   notif: !!document.getElementById("na-notif"),
   search: !!document.querySelector("#na-search[data-open-search]"),
   ringOutOfCluster: !document.querySelector(".na-actions .na-ring"),
@@ -26,14 +25,13 @@ const present = await pg.evaluate(() => ({
 check(present.cluster, "header action cluster mounted (.na-actions in the header)");
 check(present.briefAbsent, "Briefing button removed from the header (the brief lives on the Home News pane)");
 check(present.mkt, "Markets button present");
-check(present.saved, "Saved (bookmarks) button present");
 check(present.notif, "Notifications button present");
-// Phone header carries Search (magnifier) + Markets/Bookmarks/Notifications; the
-// full-width body search band was removed in favour of this magnifier, and the
-// countdown ring moved beside "Last refresh".
+// Phone header carries Search (magnifier) + Markets/Notifications; the full-width
+// body search band was removed in favour of this magnifier, and the countdown ring
+// moved beside "Last refresh".
 check(present.search, "Search magnifier IS in the phone header (data-open-search; the body band was removed)");
 check(present.ringOutOfCluster, "countdown ring moved out of the header action cluster (now beside Last refresh)");
-check(present.panels >= 3, `Markets/Saved/Notifications panels built (${present.panels})`);
+check(present.panels >= 3, `Ask/Markets/Notifications panels built (${present.panels})`);
 checkEq(present.tabbars, 1, "still exactly one tab bar (nav-actions did NOT add its own)");
 check(present.refresh > 0, `refresh indicator populated ("Last refresh…", ${present.refresh} chars)`);
 
@@ -144,7 +142,6 @@ const opens = async (btnId, panelId) => {
   return open;
 };
 check(await opens("na-mkt", "na-mkt-panel"), "Markets button opens the Markets panel");
-check(await opens("na-saved", "na-saved-panel"), "Saved button opens the Bookmarks panel");
 check(await opens("na-notif", "na-notif-panel"), "Notifications button opens the Notifications panel");
 
 // Search opens the shared command palette, which is now LAZY-loaded on first use

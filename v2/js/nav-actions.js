@@ -1,20 +1,19 @@
 // AUTO-PORTED from nav-actions.js for the v2 SPA. The HEADER cluster (Markets /
-// Saved / Notifications / Search buttons + their panels, the notif bell and
-// saved/markets loaders) is reused verbatim; only the parts that clash with the
-// v2 runtime are neutralised: it no longer builds its own bottom tab bar, wires
-// nav onto the bar, or enables swipe-tabs (the runtime owns all navigation).
+// Notifications / Search buttons + their panels, the notif bell and markets
+// loader) is reused verbatim; only the parts that clash with the v2 runtime are
+// neutralised: it no longer builds its own bottom tab bar, wires nav onto the
+// bar, or enables swipe-tabs (the runtime owns all navigation).
 
 // =============================================================================
 // Shared section top-bar actions — one implementation, mounted identically on
 // Credit / Macro / Legal (Home has its own equivalent in glance.js). Every page
-// carries the same three buttons: Markets (live markets, key rates & a cross-
-// asset ETF board), Saved (the unified cross-desk starred list — identical
-// everywhere) and the existing per-app Notifications bell (contextual).
+// carries the same buttons: Markets (live markets, key rates & a cross-asset
+// ETF board) and the existing per-app Notifications bell (contextual).
 //
 // On phones each opens as a FULL-SCREEN page below the sticky top bar, styled as
-// terminal feed rows; on desktop they're compact dropdowns. Markets & Saved are
-// owned here; the bell keeps its own per-app content/seen-state but is layered
-// with the same full-screen presentation on mobile.
+// terminal feed rows; on desktop they're compact dropdowns. Markets is owned
+// here; the bell keeps its own per-app content/seen-state but is layered with
+// the same full-screen presentation on mobile.
 // =============================================================================
 import { esc, MONTHS, setThemeColorMeta } from "/util.js";
 import { mountAssistant } from "/v2/js/assistant.js";
@@ -30,7 +29,6 @@ function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d +
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
 const ICO_ASK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6a8.5 8.5 0 0 1-.9-3.9A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>';
-const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
 
@@ -516,101 +514,6 @@ function savedRow(x) {
     + (x.src ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.src)}</span>` : "")
     + `</span></a>`;
 }
-// Bookmarks panel: Saved | Watchlist chip tabs over one list. Watchlist is
-// managers + law firms only (the follow store the Credit stars write; firms
-// come from the Home row menu).
-let _svTab = "saved";
-async function loadSaved(body, headCount) {
-  body.innerHTML = `<div class="na-chips">`
-    + `<button type="button" class="na-chip" data-k="saved">Saved</button>`
-    + `<button type="button" class="na-chip" data-k="watch">Watchlist</button>`
-    + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
-  const chips = body.querySelector(".na-chips");
-  const tb = body.querySelector(".na-tabbody");
-  const render = async () => {
-    chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
-    try {
-      const mod = await import("/saved.js");
-      // Watchlist tab = SAVED items that relate to a followed/starred profile
-      // (the intersection), NOT all of a followed profile's news.
-      const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveSavedWatchlist();
-      if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
-      tb.innerHTML = list.length
-        ? list.map(savedRow).join("")
-        : (_svTab === "saved"
-          ? '<div class="na-empty">Nothing saved yet. Tap the ☆ on any item — or press and hold a story on the Home wire — to keep it here.</div>'
-          : '<div class="na-empty">Nothing here yet. This shows the items you’ve saved (☆) that belong to a manager or law firm you follow. Follow a profile (☆) and save one of its stories to see it here.</div>');
-    } catch {
-      tb.innerHTML = '<div class="na-load">Unavailable right now.</div>';
-    }
-  };
-  chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _svTab) { _svTab = c.dataset.k; render(); } });
-  render();
-  // Pull the server's saved stores once per open and union them into the local
-  // copies, so bookmarks made on another device show up here without visiting
-  // each app first. Four stores: the three desk id-sets (macro/credit/legal ☆
-  // stars) and the Home-wire snapshot store (press-and-hold saves on live
-  // headlines / Letters / FT rows — the store resolveSaved folds in last).
-  // Union-only, like the watchlist pull below: removals propagate via each
-  // device's own PUT, which excludes what was removed there.
-  const pulls = [
-    ...[["/api/saved-macro", "meridian.macro.saved"], ["/api/saved-credit", "meridian.credit.saved"], ["/api/saved", "lexalert.saved"]]
-      .map(([api, ls]) => fetch(api, { headers: { accept: "application/json" } })
-        .then((r) => (r.ok ? r.json() : null))
-        .then((d) => {
-          const server = (d && d.saved) || [];
-          if (!server.length) return false;
-          let local = [];
-          try { const a = JSON.parse(localStorage.getItem(ls) || "[]"); if (Array.isArray(a)) local = a; } catch { /* */ }
-          const set = new Set(local);
-          const before = set.size;
-          server.forEach((id) => { if (typeof id === "string") set.add(id); });
-          if (set.size === before) return false;
-          try { localStorage.setItem(ls, JSON.stringify([...set])); } catch { /* */ }
-          return true;
-        })
-        .catch(() => false)),
-    fetch("/api/saved-home", { headers: { accept: "application/json" } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => {
-        const server = (d && d.saved) || [];
-        if (!server.length) return false;
-        let local = [];
-        try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); if (Array.isArray(a)) local = a; } catch { /* */ }
-        const have = new Set(local.map((o) => o && o.k));
-        let grew = false;
-        server.forEach((o) => { if (o && o.k && !have.has(o.k)) { local.push(o); have.add(o.k); grew = true; } });
-        if (grew) { try { localStorage.setItem("wire.home.saved", JSON.stringify(local.slice(0, 500))); } catch { /* */ } }
-        return grew;
-      })
-      .catch(() => false),
-  ];
-  Promise.all(pulls).then((grew) => { if (grew.some(Boolean)) render(); });
-  // Pull the server's follow list once per open and union it into the local
-  // store, so follows made on another device (or in the Credit app) show up
-  // here without a Credit visit first. Re-render if anything new arrived.
-  fetch("/api/watchlist", { headers: { accept: "application/json" } })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d) => {
-      const server = (d && d.watchlist) || {};
-      let local = {};
-      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* */ }
-      let grew = false;
-      ["manager", "fund", "lp", "firm"].forEach((t) => {
-        const set = new Set(Array.isArray(local[t]) ? local[t] : []);
-        const before = set.size;
-        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => set.add(x));
-        if (set.size !== before) grew = true;
-        local[t] = [...set];
-      });
-      if (grew) {
-        try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* */ }
-        render();
-      }
-    })
-    .catch(() => {});
-}
-
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
 // Theme preference plumbing — the CONTROL lives in the Menu → Settings segmented
@@ -738,6 +641,33 @@ function lockBody(on) {
   }
 }
 
+// Pull the per-user follow list from the cloud ONCE per page and union it into the
+// local store, so follows made on another device (or in the Credit app) show up in
+// the Notifications "Watchlist" tab without a Credit/Menu visit first. (This union
+// previously rode along in the retired Bookmarks panel's open; it now runs on header
+// init so the notifications surface keeps the same cross-device follow sync.)
+let _followsSynced = false;
+function syncFollowsOnce() {
+  if (_followsSynced) return; _followsSynced = true;
+  fetch("/api/watchlist", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const server = (d && d.watchlist) || {};
+      let local = {};
+      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* */ }
+      let grew = false;
+      ["manager", "fund", "lp", "firm", "hf"].forEach((t) => {
+        const set = new Set(Array.isArray(local[t]) ? local[t] : []);
+        const before = set.size;
+        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => set.add(x));
+        if (set.size !== before) grew = true;
+        local[t] = [...set];
+      });
+      if (grew) { try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* */ } }
+    })
+    .catch(() => {});
+}
+
 export function initNavActions() {
   const run = () => {
     // Idempotence guard FIRST: initNavActions can be invoked more than once, so
@@ -753,6 +683,7 @@ export function initNavActions() {
     const bar = document.querySelector(".topbar-right") || document.querySelector(".g-top .g-actions");
     if (!notif && !bar) return;
     setTopVar();
+    syncFollowsOnce();   // keep the Notifications Watchlist tab synced across devices
     // Shared press-and-hold / right-click row options menu — every page.
     import("/rowmenu.js").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
@@ -777,7 +708,7 @@ export function initNavActions() {
     wrap.className = "na-actions";
     wrap.innerHTML =
       // Cluster order (left→right): Search (phone only) · Ask/Chat (tablet+desktop) ·
-      // Markets · Bookmarks · Notifications. On PHONES the full-width search band was
+      // Markets · Notifications. On PHONES the full-width search band was
       // pulled out of the page body (the .wire-band row under the chips) and lives
       // here as a magnifier that opens the global command palette (data-open-search →
       // the lazy-palette shim in chrome.js), reclaiming a whole row. Tablet + desktop
@@ -789,7 +720,6 @@ export function initNavActions() {
       (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search Wire" title="Search Wire">${ICO_SEARCH}</button>` : "") +
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire ( ' )">${ICO_ASK}</button>`) +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
-      `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>`;
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
@@ -869,7 +799,6 @@ export function initNavActions() {
     };
     const askPanel = mkPanel("na-ask-panel", "Ask Wire");
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
-    const savedPanel = mkPanel("na-saved-panel", "Bookmarks");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
     // Register/refresh the service worker on every visit — it carries Web Push
     // AND the app-shell cache that makes page switches paint instantly.
@@ -993,7 +922,7 @@ export function initNavActions() {
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")
-              : '<div class="na-empty">No watchlist updates yet. Press and hold a manager, hedge-fund or law-firm profile (or story) to add it to your watchlist — their updates appear here.</div>';
+              : '<div class="na-empty">No watchlist updates yet. Press and hold a manager, hedge-fund or law-firm profile to add it to your watchlist — their updates appear here.</div>';
           } catch { tb.innerHTML = '<div class="na-load">Unavailable right now.</div>'; }
         }
       };
@@ -1013,7 +942,6 @@ export function initNavActions() {
       // only when the button exists.
       ...(wrap.querySelector("#na-ask") ? [{ btn: wrap.querySelector("#na-ask"), panel: askPanel, onOpen: (p) => { mountAssistant(p.querySelector(".na-body"), { add: false, state: _headerAskState }); const i = p.querySelector(".na-ask-in"); if (i && !isPhone()) setTimeout(() => i.focus(), 40); } }] : []),
       { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
-      { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },
     ];
 

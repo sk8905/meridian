@@ -79,7 +79,7 @@
 .card, .g-card, .kpi, .kpi-grid > *, .panel, .data-table, .data-table th,
 .data-table td, .wl-panel, .macro-tile, .macro-metrics, .chart, .detail,
 .detail-top, .rx-summary, .rx-expand, .searchbar, .filter, .filter-fold,
-.chip, .pill, .seg-btn, .btn, .save-btn, .rk-toggle, .ms-btn, .ms-opt,
+.chip, .pill, .seg-btn, .btn, .rk-toggle, .ms-btn, .ms-opt,
 .chart-range-btn, .chart-mode-btn, .rel-dd, .rel-dd-btn, .nav-badge,
 .load-more, .focus-toggle, .range-slider, input, select, textarea,
 .notif-item, .compact-item, .provenance, .facts, .legend-item, .sources {
@@ -1214,9 +1214,6 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
   letter-spacing: .04em; color: var(--muted); background: var(--head); border-bottom: 1px solid var(--border);
   padding: 6px 8px; }
 .data-table td { padding: 6px 8px; font-variant-numeric: tabular-nums; }
-.save-btn { font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; letter-spacing: .04em;
-  padding: 2px 7px; border: 1px solid var(--border); background: transparent; color: var(--muted); }
-.save-btn:hover { color: var(--ink); border-color: var(--muted); }
 .chip { font-family: var(--t-mono); font-size:var(--fs-micro); letter-spacing: .02em; padding: 2px 6px; }
 /* table chips (strategies, statuses): ghost style — no light pill fills */
 :root[data-theme="dark"] .data-table .chip { background: transparent; border: 1px solid var(--border); color: var(--muted); }

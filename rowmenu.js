@@ -2,9 +2,9 @@
 // Shared row options menu — press-and-hold (touch) / right-click (desktop) on
 // any story row, on EVERY page: the Home wire (.g-feed-row, which carries
 // data-sk/-sid/-mgr/-firm) and the app wires/minis (.tw-row / .tmini-row /
-// .tui-li, resolved generically from the row's own DOM). Actions: Save/Remove
-// Bookmark, Add/Remove Watchlist (manager & law-firm rows), Show all from
-// <source>, Share, Cancel. Mounted once per page by nav-actions.js.
+// .tui-li, resolved generically from the row's own DOM). Actions: Add/Remove
+// Watchlist (manager & law-firm rows), Show all from <source>, Share, Cancel.
+// Mounted once per page by nav-actions.js.
 // =============================================================================
 import { esc } from "/util.js";
 
@@ -75,78 +75,6 @@ function resolveRow(r) {
     srcEl: r.querySelector("[data-srcfilter], .src-filter[data-srcfilter]"),
   };
 }
-// Toggles the story in Bookmarks. Desk items (macro/credit/legal) toggle the
-// SAME saved store + API the apps' ☆ stars use, so state matches everywhere;
-// rows with no app id (Letters, FT, live RSS headlines) toggle a Home-side
-// store ("wire.home.saved") that the shared Saved panel also reads.
-const SAVED_LS = { m: "meridian.macro.saved", c: "meridian.credit.saved", l: "lexalert.saved" };
-const SAVED_API = { m: "/api/saved-macro", c: "/api/saved-credit", l: "/api/saved" };
-function _readSet(k) { try { const a = JSON.parse(localStorage.getItem(k) || "[]"); return new Set(Array.isArray(a) ? a : []); } catch { return new Set(); } }
-function _syncSaved(desk) {
-  // Merge with the server copy before writing back, so another device's
-  // bookmarks are never clobbered by this one's PUT.
-  const ls = SAVED_LS[desk], api = SAVED_API[desk];
-  fetch(api, { headers: { accept: "application/json" } })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d) => {
-      const server = new Set((d && d.saved) || []);
-      const local = _readSet(ls);
-      const removedHere = (_unsavedRecently[desk] || new Set());
-      server.forEach((id) => { if (!removedHere.has(id)) local.add(id); });
-      localStorage.setItem(ls, JSON.stringify([...local]));
-      return fetch(api, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ saved: [...local] }) });
-    })
-    .catch(() => {});
-}
-const _unsavedRecently = { m: new Set(), c: new Set(), l: new Set() };
-// Home-wire snapshots (rows with no app saved-id) sync to their own per-user KV
-// store (/api/saved-home) exactly like the desk id-sets above — merge the server
-// copy in first (so another device's bookmarks are never clobbered), excluding
-// keys removed on THIS device this session, then PUT the merged list back.
-const _unsavedHome = new Set();
-const _readHome = () => { try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); return Array.isArray(a) ? a : []; } catch { return []; } };
-function _syncSavedHome() {
-  fetch("/api/saved-home", { headers: { accept: "application/json" } })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d) => {
-      const local = _readHome();
-      const have = new Set(local.map((o) => o && o.k));
-      ((d && d.saved) || []).forEach((o) => {
-        if (o && o.k && !have.has(o.k) && !_unsavedHome.has(o.k)) { local.push(o); have.add(o.k); }
-      });
-      try { localStorage.setItem("wire.home.saved", JSON.stringify(local.slice(0, 500))); } catch { /* */ }
-      return fetch("/api/saved-home", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ saved: local.slice(0, 500) }) });
-    })
-    .catch(() => {});
-}
-function toggleRowBookmark(d) {
-  const sk = d.sk;
-  const title = d.title;
-  let added;
-  if (sk === "m" || sk === "c" || sk === "l") {
-    const id = d.sid;
-    if (!id) return;
-    const set = _readSet(SAVED_LS[sk]);
-    added = !set.has(id);
-    if (added) { set.add(id); _unsavedRecently[sk].delete(id); } else { set.delete(id); _unsavedRecently[sk].add(id); }
-    try { localStorage.setItem(SAVED_LS[sk], JSON.stringify([...set])); } catch { /* */ }
-    _syncSaved(sk);
-  } else {
-    // Self-contained row snapshot, keyed on href|title.
-    const key = ((d.href || "") + "|" + title).toLowerCase();
-    const arr = _readHome();
-    const i = arr.findIndex((o) => o && o.k === key);
-    added = i < 0;
-    if (added) {
-      arr.unshift({ k: key, desk: d.desk || "m", title,
-        href: d.href || "#", ext: !!d.ext, date: d.date || "", time: d.time || "", src: d.src || "" });
-      _unsavedHome.delete(key);
-    } else { arr.splice(i, 1); _unsavedHome.add(key); }
-    try { localStorage.setItem("wire.home.saved", JSON.stringify(arr.slice(0, 500))); } catch { /* */ }
-    _syncSavedHome();
-  }
-  wireToast(added ? "Saved to Bookmarks" : "Removed from Bookmarks");
-}
 // Watchlist toggle — the SAME follow store the Credit app's stars use
 // ("meridian.follows"), extended with law firms; synced to /api/watchlist.
 // The PUT merges with the server copy first: this device's store may be cold
@@ -186,17 +114,8 @@ function toggleWatch(type, id) {
 function isWatched(type, id) {
   try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; return Array.isArray(f[type]) && f[type].includes(id); } catch { return false; }
 }
-// Saved-state probe for the options menu label.
-function isRowSaved(d) {
-  if (d.sk === "m" || d.sk === "c" || d.sk === "l") {
-    return !!d.sid && _readSet(SAVED_LS[d.sk]).has(d.sid);
-  }
-  const key = ((d.href || "") + "|" + d.title).toLowerCase();
-  try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); return Array.isArray(a) && a.some((o) => o && o.k === key); } catch { return false; }
-}
-// The options menu the gesture opens: story title + Save/Remove + Cancel.
+// The options menu the gesture opens: story title + actions + Cancel.
 // Phone: bottom sheet above the tab bar; desktop: popover at the cursor.
-const ICO_BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 let _rmEl = null, _rmScrim = null;
 function closeRowMenu() { if (_rmEl) { _rmEl.remove(); _rmEl = null; } if (_rmScrim) { _rmScrim.remove(); _rmScrim = null; } }
 function openRowMenu(r, x, y) {
@@ -255,18 +174,20 @@ function openRowMenu(r, x, y) {
     }
     return;
   }
-  const saved = isRowSaved(d);
   const title = d.title;
   const srcName = d.src || "";
   const mgr = d.mgr, firm = d.firm, href = d.href;
   const canShare = /^https?:\/\//i.test(href) && (!!navigator.share || !!(navigator.clipboard && navigator.clipboard.writeText));
+  // With Save removed, a story row offers only entity/source/share actions. If a
+  // row carries none of those (no manager/firm, no source filter, no shareable
+  // link), the menu would be a bare title — don't open it at all.
+  if (!(mgr || firm) && !(srcName && d.srcEl) && !canShare) { closeRowMenu(); return; }
   const ICO_SRC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>';
   const ICO_GO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
   const ICO_STAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.7 6.3.8-4.6 4.3 1.2 6.2-5.6-3.1-5.6 3.1 1.2-6.2L3 9.5l6.3-.8z"/></svg>';
   const ICO_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7h14v-7"/></svg>';
   _rmEl = document.createElement("div"); _rmEl.className = "rowmenu"; _rmEl.setAttribute("role", "menu");
   _rmEl.innerHTML = `<div class="rowmenu-title">${esc(title)}</div>`
-    + `<button type="button" class="rowmenu-act" data-act="save">${ICO_BM}<span>${saved ? "Remove from Bookmarks" : "Save to Bookmarks"}</span></button>`
     + (mgr || firm ? `<button type="button" class="rowmenu-act" data-act="watch">${ICO_STAR}<span>${(mgr ? isWatched("manager", mgr) : isWatched("firm", firm)) ? "Remove from Watchlist" : "Add to Watchlist"}</span></button>` : "")
     + (srcName && d.srcEl ? `<button type="button" class="rowmenu-act" data-act="src">${ICO_SRC}<span>Show all from ${esc(srcName)}</span></button>` : "")
     + (mgr ? `<button type="button" class="rowmenu-act" data-act="mgr">${ICO_GO}<span>Open manager page</span></button>` : "")
@@ -277,8 +198,7 @@ function openRowMenu(r, x, y) {
     const b = e.target.closest(".rowmenu-act"); if (!b) return;
     const act = b.dataset.act;
     closeRowMenu();
-    if (act === "save") toggleRowBookmark(d);
-    else if (act === "watch") {
+    if (act === "watch") {
       const added = mgr ? toggleWatch("manager", mgr) : toggleWatch("firm", firm);
       wireToast(added ? "Added to Watchlist" : "Removed from Watchlist");
     }

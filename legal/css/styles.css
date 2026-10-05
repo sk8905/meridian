@@ -243,7 +243,6 @@ a.feed-title:hover { text-decoration: none; }
 /* Firm-profile links (footer + detail head) are internal → no ↗; underline on hover. */
 .feed-foot a.firm { color: inherit; }
 a.firm:hover, a.firm-big:hover { text-decoration: none; }
-.feed-foot .save-btn { margin: 0 0 0 .5rem; padding: .1rem .5rem; font-size:var(--fs-body); vertical-align: middle; }
 .src-tag { font-size:var(--fs-body); font-weight: 700; letter-spacing: .4px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: .02rem .35rem; }
 
 /* ---- Panels & charts ---- */
@@ -330,10 +329,6 @@ a.compact-head:hover { text-decoration: none; }
 .card-meta { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; font-size:var(--fs-body); padding-bottom: .9rem; }
 .firm { font-weight: 600; color: var(--ink); }
 .cite { color: var(--muted); font-style: italic; }
-/* .save-btn colour/shape rules live in premium.css (single source of truth);
-   only layout overrides for this page's markup stay here. */
-.save-btn { margin: 0 1.1rem 1rem; align-self: flex-start; }
-.save-btn.big { margin: 0 0 1.2rem; padding: .5rem 1rem; font-size:var(--fs-head); }
 
 /* ---- List view ---- */
 .list-head { margin-bottom: 1.1rem; }
@@ -423,7 +418,6 @@ a.compact-head:hover { text-decoration: none; }
    in a row with the area/type chips; the title sits full-width below. */
 .detail-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .detail-top .detail-chips { flex: 1 1 auto; }
-.detail-top .save-btn { flex: 0 0 auto; margin: 0; }
 .detail-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
 .detail-meta { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; font-size: var(--fs-item-meta); color: var(--ink-soft); margin-bottom: 1rem; }
 .firm-big { font-weight: 700; }
@@ -541,9 +535,6 @@ a.compact-head:hover { text-decoration: none; }
   /* Reserve room on the right of the meta row for the Save button (below). */
   .feed-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; flex-wrap: wrap; padding-right: 4.7rem; }
   .feed-meta .chips { flex-direction: row; flex-wrap: wrap; }
-  /* Lift Save onto the pill + date line (top-right of the box) instead of leaving
-     it floating below the title. */
-  .rx-title-line .rx-save { position: absolute; top: .7rem; right: 0; margin: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -578,9 +569,6 @@ a.compact-head:hover { text-decoration: none; }
 .rx-out-text { flex: 0 0 auto; }
 .rx-name { color: var(--ink); }
 .rx-summary:hover .rx-name { color: var(--ink); }
-/* Save button lives on the title line (replacing the old caret), pinned top-right.
-   It must not inherit the .save-btn block margins meant for the footer layout. */
-.rx-save { margin: 0 0 0 auto; align-self: flex-start; flex-shrink: 0; padding: .15rem .55rem; font-size:var(--fs-body); }
 .rx-compact { display: block; font-size:var(--fs-head); color: var(--muted); margin-top: .25rem; }
 .rx-expand { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); line-height: 1.5; }
 .rx-expand .feed-summary { margin: .1rem 0 .55rem; line-height: 1.55; }
@@ -600,14 +588,6 @@ a.compact-head:hover { text-decoration: none; }
         are clamped to a single line so the cards stay compact. ---- */
 .feature-card > h2 + p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
 
-/* ---- Feed rows: the Save button occupies a fixed top-right column and the row
-        content reserves it, so no title / summary / footer text wraps under the
-        button (≥561px). Phones let text use that space. ---- */
-@media (min-width: 561px) {
-  .feed-row { position: relative; }
-  .rx-title-line .save-btn { position: absolute; top: .8rem; right: 0; margin: 0; }
-  .feed-body { padding-right: 5.2rem; }
-}
 
 /* ===================== Schemes & RPs table (dashboard pane) =====================
    Every Part 26A plan / Part 26 scheme in one dense table — company, debt, status,

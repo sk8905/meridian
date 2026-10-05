@@ -14,7 +14,7 @@ import {
 } from "/legal/js/data.js";
 import { esc, byDateDesc } from "/util.js";
 import {
-  fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink,
+  fmtDate, itemDate, isNew, areaChip, tierLabel, firmLink,
   _chipMem, chipMemKey,
 } from "/legal/js/shared.js";
 import { peersOf, peerDetails } from "../peers.js";
@@ -50,7 +50,6 @@ export function viewItem(id) {
   }
   const firm = firmById[it.firm] || { name: it.firm, tier: "", insightsUrl: "#" };
   const type = (typeById[it.type] || {}).name || it.type;
-  const saved = getSaved().has(it.id);
   const areasHtml = (it.areas || [it.area]).map(areaChip).join(" ");
   const tagsHtml = (it.tags || []).map((t) =>
     `<a class="tag" href="#/list?q=${encodeURIComponent(t)}">#${esc(t)}</a>`).join(" ");
@@ -85,8 +84,7 @@ export function viewItem(id) {
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">
-            <div class="tdet-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}
-              <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}" aria-pressed="${saved}" style="margin-left:auto">${saved ? "★ Saved" : "☆ Save"}</button></div>
+            <div class="tdet-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}</div>
             <h1>${esc(it.title)}</h1>
             <div class="tdet-sub">${firmLink(it.firm, firm.name, `tf-lnk`)} · ${esc(tierLabel(firm.tier))} · ${itemDate(it)}${it.jurisdiction ? " · " + esc(it.jurisdiction) : ""}</div>
           </div>

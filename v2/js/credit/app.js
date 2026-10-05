@@ -13,7 +13,6 @@ import {
 import {
   eur, pct, fmtDate, link, notFound,
   FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell,
-  SAVEDC_KEY, getSavedC,
   creditSource, feedDedupKey,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js";
@@ -114,40 +113,6 @@ function toggleFollow(type, id) {
   saveFollows();
 }
 
-// --------------------------- saved items (cloud sync + localStorage) --------
-// Individually saved news / deal / fundraising / CLO items — distinct from the
-// follow-based watchlist. Persists to a per-user KV store via /api/saved-credit
-// (its OWN prefix, so it never collides with Wire Legal's saved items) with
-// localStorage as an instant cache / offline fallback. Mirrors the Legal app.
-const SAVEDC_API = "/api/saved-credit";
-let savedCloud = false;
-let savedPushTimer = null;
-function setSavedC(set) { try { localStorage.setItem(SAVEDC_KEY, JSON.stringify([...set])); } catch { /* ignore */ } pushSavedC(); }
-function toggleSavedC(id) { const s = getSavedC(); s.has(id) ? s.delete(id) : s.add(id); setSavedC(s); return s.has(id); }
-// Debounced push to the cloud (no-op when not signed in / not on Cloudflare).
-function pushSavedC() {
-  if (!savedCloud) return;
-  clearTimeout(savedPushTimer);
-  savedPushTimer = setTimeout(() => {
-    fetch(SAVEDC_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ saved: [...getSavedC()] }) }).catch(() => {});
-  }, 400);
-}
-// On load, UNION this device's saved set with the per-user cloud copy (saving is
-// additive), persist locally and push back so devices converge. No-op off-cloud.
-async function initSavedSync() {
-  let r;
-  try { r = await fetch(SAVEDC_API, { headers: { accept: "application/json" } }); }
-  catch { return; }
-  if (!r || !r.ok) return;
-  let d; try { d = await r.json(); } catch { return; }
-  savedCloud = true;
-  const server = Array.isArray(d.saved) ? d.saved : [];
-  const local = [...getSavedC()];
-  const union = new Set([...local, ...server]);
-  try { localStorage.setItem(SAVEDC_KEY, JSON.stringify([...union])); } catch { /* ignore */ }
-  if (union.size !== server.length || server.some((id) => !union.has(id))) pushSavedC();
-  router();
-}
 // Topbar data-freshness line: dataset "last updated" date + the time this view
 // was last loaded/refreshed, plus a manual Refresh button that reloads to pull
 // the latest deployed data and re-sync the watchlist.
@@ -1072,22 +1037,6 @@ app.addEventListener("click", (e) => {
     window.scrollTo(0, y); // keep position; don't jump to top on a star toggle
     return;
   }
-  // Save / unsave an individual news/deal/fundraising/CLO item.
-  const sb = e.target.closest("[data-save]");
-  if (sb) {
-    e.stopPropagation();
-    const id = sb.getAttribute("data-save");
-    const nowSaved = toggleSavedC(id);
-    sb.classList.toggle("is-saved", nowSaved);
-    sb.setAttribute("aria-pressed", String(nowSaved));
-    sb.textContent = nowSaved ? "★ Saved" : "☆ Save";
-    // On the watchlist, re-render so the Saved section (and an unsaved item
-    // dropping out of it) stays in sync; elsewhere just update the button.
-    if (document.getElementById("saved-section")) {
-      const y = window.scrollY; router(); window.scrollTo(0, y);
-    }
-    return;
-  }
   // Multi-select dropdown: toggle its popover.
   const msBtn = e.target.closest(".ms-btn");
   if (msBtn) {
@@ -1280,7 +1229,6 @@ router();
 renderDataStatus();
 initNotif();
 initWatchlistSync();
-initSavedSync();
 
 
   // Expose the list builders so the Profiles tab can render the EXACT same
