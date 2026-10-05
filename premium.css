@@ -471,9 +471,8 @@ svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .mobile-tabbar { background: var(--bg, #000); border-top: 1px solid var(--border, #262626); box-shadow: none; }
 [data-theme="dark"] .mtab { color: var(--muted, #7f8ca6); }
 [data-theme="dark"] .mtab:hover { color: var(--ink-soft, #cdd6e6); }
-[data-theme="dark"] .mtab.is-active { color: var(--accent, #fb8b1e); background: none; }   /* label goes orange… */
-[data-theme="dark"] .mtab.is-active .mtab-ico { color: var(--ink, #eaf0fb); }              /* …but the symbol stays white (stroke=currentColor) */
-[data-theme="dark"] .mtab.is-active::before { background: var(--accent, #fb8b1e); }         /* and the top marker is orange */
+[data-theme="dark"] .mtab.is-active { color: var(--ink, #eaf0fb); background: none; }       /* icon + label stay WHITE… */
+[data-theme="dark"] .mtab.is-active::before { background: var(--accent, #fb8b1e); }         /* …only the top chip marker is orange */
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
    existing full-screen #na-menu-panel rules; desktop gets a centred column. */
 /* ---- Cross-document view transitions (Safari 18.2+/26, Chrome 126+). The
