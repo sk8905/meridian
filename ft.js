@@ -35,6 +35,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633",
   },
   {
+    id: "7feba19e-b498-4453-a744-214638044f0a",
+    title: "FirstFT: Flávio Bolsonaro secures early lead in Brazil’s election",
+    date: "2026-10-05",
+    time: "11:33",
+    url: "https://www.ft.com/content/7feba19e-b498-4453-a744-214638044f0a",
+  },
+  {
     id: "e0dfef01-4933-4ab9-8927-d08115f4822c",
     title: "Bond turbulence means it’s time for the ECB to put QT on hold",
     date: "2026-10-05",
