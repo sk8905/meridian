@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "866dea03-4cee-4009-b130-6f7a191336c4",
+    title: "Spanish prime minister Pedro Sánchez calls snap election",
+    date: "2026-10-05",
+    time: "08:09",
+    url: "https://www.ft.com/content/866dea03-4cee-4009-b130-6f7a191336c4",
+  },
+  {
     id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
     title: "Euro tumbles to 17-month low against dollar",
     date: "2026-10-05",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-04",
     time: "12:00",
     url: "https://www.ft.com/content/2c24ece3-ac99-43a8-b0e6-4a3867e37ebf",
-  },
-  {
-    id: "1a94931f-421e-4d0e-888a-7727f15c3d5f",
-    title: "What can revive the battered government bond market?",
-    date: "2026-10-04",
-    time: "12:00",
-    url: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f",
   },
 ];
