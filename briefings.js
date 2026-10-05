@@ -44,7 +44,7 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-05",
-      time: "08:25 BST",
+      time: "10:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the euro hit a 17-month low against the dollar</strong> as political uncertainty in Spain and France rattled markets, while Spanish PM Pedro S&aacute;nchez called a snap general election for 29 November after Congress rejected his housing decrees.", src: "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", srcName: "CNBC" },
         { html: "<strong>Macro &mdash; BT has bought TalkTalk's consumer broadband and PXC wholesale businesses out of administration</strong>, Bloomberg reports, to save the UK provider from collapse.", src: "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse", srcName: "Bloomberg" },
