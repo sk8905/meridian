@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-05",
-  lastCheckedTime: "00:15 BST",
+  lastCheckedTime: "05:14 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,17 +1004,17 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-04",
+  updated: "2026-10-05",
   us: [
-    { title: "Wall Street’s IPO fervour cools on tepid demand and valuation worries", source: "Financial Times", date: "2026-10-04", time: "05:01", url: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351" },
-    { title: "Investors look to shelter portfolios from rising AI concentration risks", source: "Financial Times", date: "2026-10-04", time: "13:00", url: "https://www.ft.com/content/3302fd5c-8b92-425b-9523-673b2565bb10" },
-    { title: "The US is looking more like Italy", source: "Financial Times", date: "2026-10-04", time: "13:00", url: "https://www.ft.com/content/a2711e64-145b-4df6-baf7-56a3da7ed0b0" },
+    { title: "Global pension funds cut US equities over AI concentration risk", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad" },
+    { title: "Why a booming economy is not helping Trump", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a" },
     { title: "What can revive the battered government bond market?", source: "Financial Times", date: "2026-10-04", time: "12:00", url: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f" },
+    { title: "Wall Street’s IPO fervour cools on tepid demand and valuation worries", source: "Financial Times", date: "2026-10-04", time: "05:01", url: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351" },
     { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
   ],
   uk: [
+    { title: "Banks will lobby Healey for capital rules cut, says senior MP", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414" },
     { title: "Britain’s Budget needs to tame spending and boost growth", source: "Financial Times", date: "2026-10-04", time: "11:00", url: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d" },
-    { title: "Tories vow to end £100,000 childcare trap but keep pensions triple lock", source: "Financial Times", date: "2026-10-04", time: "10:33", url: "https://www.ft.com/content/82ceae35-e3ef-4b68-8cfa-553b205a4bb0" },
     { title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de" },
     { title: "CGT rise would deter equity investors, wealth bosses warn", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922" },
     { title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget", source: "Financial Times", date: "2026-10-02", time: "21:41", url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3" },
@@ -1029,8 +1029,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-03",
+  updated: "2026-10-05",
   items: [
+    {"title": "Global pension funds cut US equities over AI concentration risk", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad", "blurb": "Pension funds trim US equity exposure over concentration in AI-linked mega-caps."},
+    {"title": "Why a booming economy is not helping Trump", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a", "blurb": "FT on the disconnect between strong US growth and the president's standing."},
+    {"title": "Banks will lobby Healey for capital rules cut, says senior MP", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414", "blurb": "UK lenders are expected to press the Chancellor to ease capital requirements ahead of the Budget."},
     {"title": "Rising gilt yields attract retail investors hunting for tax-efficient assets", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de", "blurb": "Higher gilt yields are drawing retail investors seeking tax-efficient holdings."},
     {"title": "CGT rise would deter equity investors, wealth bosses warn", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922", "blurb": "Wealth managers warn a capital gains tax increase in the Budget would discourage equity investing."},
     {"title": "Protests from the City about bank tax ring hollow", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/b50f39c6-4484-4c06-89cb-2884f9e58bd7", "blurb": "FT opinion on City objections to a bank tax ahead of the UK Budget."},

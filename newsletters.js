@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-techcantshieldstocks-20261005",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Tech Can’t Shield Stocks From Bonds Forever",
+    date: "2026-10-05",
+    time: "05:00",
+    summary: "Earnings growth has stopped the bond rout from hitting stocks — enjoy the respite.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-05/tech-can-t-shield-stocks-from-the-bond-rout-forever",
+  },
+  {
     id: "nl-bbg-thebrink-flippingtheboard-20261003",
     publication: "Bloomberg",
     author: "James Crombie",
@@ -472,27 +483,5 @@ export const NEWSLETTERS = [
     time: "08:18",
     summary: "Five UK-headquartered firms each house over 1,000 lawyers across mainland Europe, per a new report from The Lawyer.",
     url: "https://www.thelawyer.com/latest-news/",
-  },
-  {
-    id: "nl-nonbillable-petowalkermorris-20260930",
-    publication: "Non-Billable",
-    author: null,
-    series: null,
-    title: "PE wants a piece of Walker Morris",
-    date: "2026-09-30",
-    time: "09:06",
-    summary: "And fee-share firm Mezzle hit with winding-up petition by HMRC amid shareholder spat.",
-    url: "https://www.nonbillable.co.uk/",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-openaifunding-20260930",
-    publication: "Bloomberg",
-    author: "Jill Disis",
-    series: "Morning Briefing Europe",
-    title: "OpenAI Targets $30 Billion in New Funding Round",
-    date: "2026-09-30",
-    time: "06:56",
-    summary: "OpenAI's valuation may top $1.4 trillion, Andy Burnham's radical vision for the UK, and Abu Dhabi's crown prince spends billions to bypass the Strait of Hormuz.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-30/openai-targets-30-billion-in-new-funding-round",
   },
 ];
