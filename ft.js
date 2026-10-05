@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4d2078c4-4773-4d4c-8544-c17169362579",
+    title: "Big Oil goes to US Supreme Court over pivotal climate damages claim",
+    date: "2026-10-05",
+    time: "12:00",
+    url: "https://www.ft.com/content/4d2078c4-4773-4d4c-8544-c17169362579",
+  },
+  {
+    id: "2084f349-0829-4130-a5e6-b98929a6e633",
+    title: "Schneider Electric to buy industrial software group PTC for $23.7bn",
+    date: "2026-10-05",
+    time: "11:54",
+    url: "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633",
+  },
+  {
+    id: "e0dfef01-4933-4ab9-8927-d08115f4822c",
+    title: "Bond turbulence means it’s time for the ECB to put QT on hold",
+    date: "2026-10-05",
+    time: "11:22",
+    url: "https://www.ft.com/content/e0dfef01-4933-4ab9-8927-d08115f4822c",
+  },
+  {
     id: "0f48c61b-a490-4bdc-8473-bab6705e5b61",
     title: "UK business secretary weighs up tariffs on Chinese EVs",
     date: "2026-10-05",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "05:00",
     url: "https://www.ft.com/content/2fa693e7-4ad4-4d6e-bd3c-5561db889a1f",
-  },
-  {
-    id: "66897ef7-936b-43d0-a067-576be636f876",
-    title: "US recalls B-1 bombers from UK air base following alleged terror plot",
-    date: "2026-10-04",
-    time: "23:24",
-    url: "https://www.ft.com/content/66897ef7-936b-43d0-a067-576be636f876",
-  },
-  {
-    id: "7feba19e-b498-4453-a744-214638044f0a",
-    title: "FirstFT: Legal risks pile up for OpenAI",
-    date: "2026-10-04",
-    time: "22:45",
-    url: "https://www.ft.com/content/7feba19e-b498-4453-a744-214638044f0a",
-  },
-  {
-    id: "1fdb8380-2fac-474a-a184-616c0a29feb6",
-    title: "Bull run for Japan stocks at risk, warns boss of biggest trading house",
-    date: "2026-10-04",
-    time: "22:00",
-    url: "https://www.ft.com/content/1fdb8380-2fac-474a-a184-616c0a29feb6",
   },
 ];
