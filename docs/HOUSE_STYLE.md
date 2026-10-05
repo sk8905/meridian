@@ -735,24 +735,25 @@ item keeps a real outbound source link (R7).
 - OECD (`oecd.org`) — Economic Outlook, growth/inflation projections, Economic Surveys (via Google News newsroom bridge)
 
 ### 8.3 News wires & financial press
-- Bloomberg (`feeds.bloomberg.com`)
-- Financial Times (`ft.com`)
-- Dow Jones / The Wall Street Journal (`feeds.content.dowjones.io`)
-- **Financial News London (`fnlondon.com`)**
+> **Readable-only policy (2026-10).** The live wire carries only sources that render
+> in the reading pane. The hard-paywalled **premium four — Financial Times, Bloomberg,
+> The Wall Street Journal, The Economist** — are **switched off** at source (commented
+> out in `FEED_SOURCES`, reversibly; the FT desk's static side is gated by `FT_DESK_ON`
+> in `v2/js/home/glance.js`). **Nikkei Asia** (hard paywall) and **The Lawyer** are
+> dropped. Reuters, AP, CNA and The Straits Times are open-but-bot-shielded and render
+> via the Firecrawl browser proxy. The old ≤30% paywalled-share cap was removed.
 - Reuters (via aggregation)
+- Associated Press (`apnews.com`) — openly-readable global wire (via Google News bridge)
 - CNBC (`cnbc.com`)
-- The Economist (`economist.com`)
-- The Guardian (`theguardian.com`)
-- Axios
-- NBC News
 - MarketWatch
-- Google News (`news.google.com`) — aggregation
-- Nikkei Asia (`asia.nikkei.com`)
+- City AM (`cityam.com`)
+- Channel NewsAsia (`channelnewsasia.com`) — open Asia business desk
 - South China Morning Post (`scmp.com`)
 - The Straits Times (`straitstimes.com`)
-- City AM
-- DealBook — The New York Times (`nytimes.com/section/business/dealbook`)
-- MT Newswires (via Koyfin)
+- Google News (`news.google.com`) — aggregation
+- **Financial News London (`fnlondon.com`)**
+- The Guardian (`theguardian.com`) · Axios · NBC News · MT Newswires (via Koyfin)
+- _Switched off (readable-only): Bloomberg, Financial Times, Dow Jones/WSJ, The Economist, Nikkei Asia, DealBook (NYT)._
 
 ### 8.4 Macro strategy & commentary
 (Roster behind R18 — ≥10 items/day, real dated pieces only.)
@@ -805,7 +806,7 @@ item keeps a real outbound source link (R7).
 - UK courts: High Court (Chancery · Commercial · King's Bench · Administrative;
   Business & Property Courts; Insolvency & Companies List), Court of Appeal,
   UK Supreme Court
-- The Lawyer (`thelawyer.com`)
+- The Lawyer (`thelawyer.com`) — _switched off: subscription-only, opens at publisher (in READ_PAYWALL)_
 - Legal Business (`legalbusiness.co.uk`)
 - Legal Cheek (`legalcheek.com`) — UK magic/silver-circle & Big-Law news
 - Legal Futures (`legalfutures.co.uk`) — UK legal-market regulation & litigation funding

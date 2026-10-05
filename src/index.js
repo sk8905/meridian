@@ -2774,30 +2774,43 @@ async function handlePulse(request, env, ctx) {
 // News search feeds (gnews:true) — reliable and not IP-blocked; the trade-off is
 // that their links route via a news.google.com redirect to the real article.
 export const FEED_SOURCES = [
+  // ══════════════════════════════════════════════════════════════════════════
+  // PREMIUM FOUR — SWITCHED OFF (readable-only policy, 2026-10). FT, Bloomberg,
+  // WSJ and The Economist are hard paywalls: their stories open at the publisher
+  // and never render in the reading pane, so they are disabled here. They are
+  // COMMENTED OUT (not deleted) so they can be switched back on by uncommenting.
+  // The FT desk's static side is gated by FT_DESK_ON in v2/js/home/glance.js.
+  // ══════════════════════════════════════════════════════════════════════════
   // The reader's personalised myFT (followed-topics) feed. `myft: true` marks the
   // emitted items so the Home page routes them to the FT stream, not Macro; no
   // topic/quality filters — the reader curated this feed themselves.
-  { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, myft: true, soft: true },
+  // { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, myft: true, soft: true },
   // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2
   // days). Reuters US + UK are CONSOLIDATED into one query (the two macro keyword
   // sets OR'd together) to save a Worker subrequest — one gnews source instead of
   // two, each of which also spends a variant/Bing fallback.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%20OR%20%22Bank%20of%20England%22%20OR%20gilt%20OR%20%22UK%20economy%22%20OR%20sterling%29%20when%3A2d", source: "Reuters", region: "GEN", cap: 11, gnews: true },
-  { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", cap: 6, gnews: true },
+  // Associated Press — the openly-readable global wire (replaces the dropped
+  // paywalled wires). No first-party RSS, so bridged via Google News scoped to
+  // macro/markets terms; the STANDARD macro-relevance filter then culls AP's broad
+  // general/sport/human-interest copy, keeping only macro/markets/policy (verified
+  // ~18/100 kept). Bot-shielded, so rendered in-pane via the browser proxy (Firecrawl).
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aapnews.com%20(economy%20OR%20markets%20OR%20Fed%20OR%20inflation%20OR%20%22Wall%20Street%22%20OR%20%22interest%20rate%22%20OR%20Treasury%20OR%20GDP%20OR%20%22stock%20market%22%20OR%20earnings%20OR%20tariff%20OR%20jobs)%20when%3A2d", source: "Associated Press", region: "US", cap: 8, gnews: true },
+  // { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", cap: 6, gnews: true },  // OFF: premium four
   // Bloomberg's OFFICIAL section feeds (feeds.bloomberg.com) — live, so stories
   // stream in as published. They carry the Asia-desk's broad industrial/politics
   // coverage overnight, so they take the STANDARD macro-relevance title filter
   // (same as the FT/CNBC/MarketWatch sections) rather than filter:false;
   // title-dedupe collapses overlap with the Google-News Bloomberg fallback.
-  { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", cap: 8, soft: true },
-  { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
-  { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
+  // { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", cap: 8, soft: true },   // OFF: premium four
+  // { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },  // OFF: premium four
+  // { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true }, // OFF: premium four
   // Nishant Kumar (Bloomberg hedge-fund reporter) — his byline via Google News,
   // so his hedge-fund stories are picked up LIVE (the macro Bloomberg feeds above
   // are Fed/inflation-scoped and miss them). hdg:true routes them to the Hedge
   // (HDG) desk; filter:false since hedge-fund copy rarely hits the macro vocab.
   // Title-dedupe collapses overlap with the curated HEDGE_INTEL backfill.
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=%22Nishant%20Kumar%22%20site%3Abloomberg.com%20when%3A7d", source: "Bloomberg", region: "GEN", cap: 15, gnews: true, hdg: true, filter: false },
+  // { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=%22Nishant%20Kumar%22%20site%3Abloomberg.com%20when%3A7d", source: "Bloomberg", region: "GEN", cap: 15, gnews: true, hdg: true, filter: false },  // OFF: premium four (Bloomberg)
   // Hedge-fund specialist desks — dedicated industry publications, every item
   // badged HDG (hdg:true) and filter:false (hedge-fund copy rarely hits the macro
   // vocab). Direct publisher RSS; any feed that blocks the Worker's datacenter IP
@@ -2805,7 +2818,7 @@ export const FEED_SOURCES = [
   // empty, bridge that DOMAIN via Google News (site:<domain>, gnews:true) the way
   // the Bloomberg/Reuters sources above are.
   { url: "https://www.hedgeweek.com/feed/", source: "Hedgeweek", region: "GEN", cap: 12, hdg: true, filter: false },
-  { url: "https://www.ft.com/hedge-funds?format=rss", source: "Financial Times", region: "GEN", cap: 10, hdg: true, filter: false },
+  // { url: "https://www.ft.com/hedge-funds?format=rss", source: "Financial Times", region: "GEN", cap: 10, hdg: true, filter: false },  // OFF: premium four (FT)
   { url: "https://thehedgefundjournal.com/feed/", source: "The Hedge Fund Journal", region: "GEN", cap: 10, hdg: true, filter: false },
   { url: "https://hedgefundalpha.com/feed/", source: "Hedge Fund Alpha", region: "GEN", cap: 10, hdg: true, filter: false },
   // HedgeNordic — Nordic hedge-fund trade desk (manager moves, launches, fund
@@ -2822,6 +2835,12 @@ export const FEED_SOURCES = [
   // facilities, direct lending, spreads, lender-priority). Openly readable
   // in-pane; direct WordPress RSS. fi:true badges it FI (credit/debt desk).
   { url: "https://www.abfjournal.com/feed/", source: "ABF Journal", region: "US", cap: 8, fi: true, filter: false },
+  // Moody's — free credit research (CreditView blog + /insights/credit-risk): rating
+  // trends, private-credit/bank outlooks, default-risk analysis. No RSS and the
+  // ratings site bot-gates, so bridged via Google News scoped to the free
+  // insights/creditview paths. Openly readable in-pane (verified: renders direct,
+  // 400–2,900 words). fi:true badges it FI (credit desk); filter:false.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=(site%3Amoodys.com%2Fweb%2Fen%2Fus%2Finsights%20OR%20site%3Amoodys.com%2Fweb%2Fen%2Fus%2Fcreditview)%20when%3A30d", source: "Moody's", region: "GEN", cap: 6, gnews: true, fi: true, filter: false },
   // (FT Alphaville's Google-News bridge removed: path-scoped site: queries
   // return zero items from Google News — confirmed by the live probe — so it
   // was pure dead weight against the news.google.com rate limit. The direct
@@ -2839,13 +2858,13 @@ export const FEED_SOURCES = [
   // ("Northrop lifts outlook", "luxury taxi tracking") that isn't wire-relevant,
   // so only genuine macro/markets/megacap headlines ("Oil gains on Iran risks")
   // pass. title-dedupe collapses overlap between the two.
-  { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US", cap: 12 },
-  { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US", cap: 10 },
+  // { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US", cap: 12 },   // OFF: premium four
+  // { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US", cap: 10 }, // OFF: premium four
   // WSJ backup behind the direct feeds + last-good cache: the Google-News bridge
   // (5-day depth), used only when the direct feeds miss. (The WSJ GDELT route was
   // removed — the direct feeds solved WSJ, and dropping it leaves GDELT's tight
   // per-IP rate limit entirely for TradingEconomics below.)
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true },
+  // { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true },  // OFF: premium four
   // Macro-data desk (always MAC) — the economic-INDICATOR releases (CPI / GDP /
   // PMI / jobs / rates) TradingEconomics was meant to supply. TE itself is
   // unreachable from this Worker on EVERY route (its RSS 403s the datacenter IP;
@@ -2893,14 +2912,14 @@ export const FEED_SOURCES = [
   // education/biodiversity ones.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aoecd.org%2Fen%2Fabout%2Fnews%20(economic%20OR%20growth%20OR%20inflation%20OR%20GDP%20OR%20outlook%20OR%20trade%20OR%20employment%20OR%20rate)%20when%3A30d", source: "OECD", region: "GEN", cap: 4, gnews: true, filter: false },
   // Financial specialists — UK / Europe
-  { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK", cap: 10 },
-  { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK", cap: 8 },
+  // { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK", cap: 10 },       // OFF: premium four (FT)
+  // { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK", cap: 8 }, // OFF: premium four (FT)
   // Premium, already-curated finance/economics sections — trusted like the Fed feed
   // (filter:false), so the strict macro-keyword title filter doesn't drop their
   // (often oblique) headlines. Capped, so they can't flood the feed.
-  { url: "https://www.ft.com/alphaville?format=rss", source: "FT Alphaville", region: "GEN", cap: 6, filter: false },
-  { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },
-  { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },
+  // { url: "https://www.ft.com/alphaville?format=rss", source: "FT Alphaville", region: "GEN", cap: 6, filter: false },                        // OFF: premium four (FT)
+  // { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },        // OFF: premium four (Economist)
+  // { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },                      // OFF: premium four (Economist)
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
   // City AM — free London business/markets daily (openly readable in-pane). A
   // broad general-business feed, so it takes the STANDARD macro-relevance title
@@ -2908,9 +2927,16 @@ export const FEED_SOURCES = [
   { url: "https://www.cityam.com/feed/", source: "City AM", region: "UK", cap: 6 },
   // (The Guardian and Sharecast removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
-  { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 4 },
-  { url: "https://www.scmp.com/rss/92/feed", source: "South China Morning Post", region: "GEN", cap: 4 },
+  // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP stays
+  // via READ_OPEN (metered, but its public body renders). The Straits Times stays:
+  // its business articles are marked free (isAccessibleForFree=true) — merely
+  // bot-shielded, so the browser proxy (Firecrawl) renders them in-pane.
+  { url: "https://www.scmp.com/rss/92/feed/", source: "South China Morning Post", region: "GEN", cap: 4 },
   { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
+  // Channel NewsAsia — the one solidly-open Asia business desk (markets, economy,
+  // banking, FX; its Business feed is globally-scoped, not SG-local). Renders
+  // in-pane via the browser proxy (Firecrawl). Standard macro/relevance filter.
+  { url: "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml&category=6936", source: "Channel NewsAsia", region: "GEN", cap: 5 },
   // Global aggregators removed: Yahoo Finance (RSS dominated by sensational
   // single-company clickbait with no reliable title signature to filter) and the
   // general Investing.com news feed (news_25). Investing.com is retained ONLY as
@@ -2927,14 +2953,10 @@ export const FEED_SOURCES = [
   // feed returns 200 with zero items. Substack serves the same RSS at /feed on
   // custom domains.
   { url: "https://www.butthistime.com/feed", source: "But This Time It's Different", region: "GEN", cap: 4, filter: false, substack: true },
-  // Legal-industry news — The Lawyer & Legal Business (UK). `legal: true` routes
-  // the emitted items to the Legal desk (labelled NEWS there); filter:false so the
-  // macro-keyword title screen doesn't drop legal-market headlines. Their direct
-  // WordPress feeds carry the recent posts (dated) — the debug probe confirmed
-  // 100 / 10 items, whereas the Google-News site-searches barely indexed these
-  // trade titles AND their variant/Bing fallbacks blew the Worker subrequest cap
-  // (knocking out Business Wire), so the direct feeds are used alone.
-  { url: "https://www.thelawyer.com/feed/", source: "The Lawyer", region: "UK", cap: 12, filter: false, legal: true },
+  // Legal-industry news (UK). `legal: true` routes the emitted items to the Legal
+  // desk (labelled NEWS there); filter:false so the macro-keyword title screen
+  // doesn't drop legal-market headlines. Direct WordPress feeds carry the recent
+  // dated posts. (The Lawyer dropped — subscription-only, opens at the publisher.)
   { url: "https://www.legalbusiness.co.uk/feed/", source: "Legal Business", region: "UK", cap: 12, filter: false, legal: true },
   // UK Big Law trade desk — openly-readable, covering magic/silver-circle and
   // global-elite firms (moves, deals, pay, strategy). legal:true routes it to the
@@ -3335,7 +3357,7 @@ const FEED_PREMIUM = new Set([
   // Economics feed) — trusted macro, never relevance-gated.
   "Investing.com Economics",
 ]);
-const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek", "Legal Futures", "The Global Legal Post"]);
+const FEED_LEGAL_SRC = new Set(["Legal Business", "Legal Cheek", "Legal Futures", "The Global Legal Post"]);
 // Openly-readable, topically-pure private-capital / credit desks — the trade press
 // (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
 // whose Google-News query already restricts them to private-markets/credit deals), so
@@ -3386,11 +3408,25 @@ const FEED_PR_NOISE = /\bto (announce|report)\b.*\b(results|earnings)\b|\breport
 // Ukraine, Belarus, Turkey, Serbia). Matched only at the START, so an in-scope-led
 // headline, a euro-area aggregate ("Eurozone inflation …"), or a markets/entity story
 // is untouched. A denylist — add a country here if an out-of-scope one ever leaks.
+// Country-economic-DATA vocabulary: the signal that an out-of-scope-country-led
+// headline is MACRO (a nation's own GDP / inflation / jobs / trade / rates / FX /
+// budget / election) rather than a global vertical (credit, hedge, PE, M&A, markets,
+// legal, corporate). The G7+Europe geo-scope is applied ONLY to these macro headlines
+// — so an Asian credit/hedge/deal/corporate story is kept while an out-of-scope
+// country's macro print is dropped. See feedQualityKeep.
+const FEED_GEO_MACRO_RE = /\b(gdp|growth|econom\w+|inflation|deflation|disinflation|cpi|ppi|pce|unemploy\w*|jobless|jobs?|payrolls?|nonfarm|labou?r|wages?|retail sales|industrial production|pmi|ism|manufactur\w*|trade|exports?|imports?|tariffs?|current account|trade (balance|surplus|deficit)|budget|fiscal|borrowing|central bank|monetary|interest rates?|rate (cut|hike|rise|hold|decision|cuts|hikes|path)|bond yields?|sovereign|lira|rouble|ruble|peso|yuan|renminbi|rupee|\bwon\b|baht|ringgit|rupiah|currenc\w+|elections?|midterms?|referendum)\b/i;
 const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:russia(?:n)?|ukrain(?:e|ian)|belarus(?:ian)?|turk(?:ey|ish)|t[üu]rkiye|serbia(?:n)?|china|chinese|hong\s*kong|taiwan(?:ese)?|(?:south\s*|north\s*)?korea(?:n)?|singapore|s['’]pore|malaysia(?:n)?|thai(?:land)?|indonesia(?:n)?|philippine(?:s)?|vietnam(?:ese)?|india(?:n)?|australia(?:n)?|new\s*zealand|israel(?:i)?|saudi(?:\s*arabia)?|u\.?a\.?e\.?|emirat\w*|qatar(?:i)?|kuwait(?:i)?|bahrain(?:i)?|oman(?:i)?|egypt(?:ian)?|morocc(?:o|an)|south\s*africa(?:n)?|brazil(?:ian)?|mexic(?:o|an)|argentin(?:a|e|ian)?|chile(?:an)?|colombia(?:n)?|ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:['’]s)?\b/i;
 export function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
-  if (FEED_OFFTOPIC_GEO.test(it.title)) return false;   // out-of-scope country subject — macro = G7 + Europe (rule 1)
+  // The G7+Europe geo-scope applies to MACRO-ECONOMIC headlines only: an out-of-scope
+  // country's own macro data ("Brazil's retail sales …", "China's exports surge …") is
+  // dropped, but a markets / credit / deal / corporate / legal story about an Asian (or
+  // other out-of-scope) entity is kept — those verticals are global. So the geo-cull
+  // fires only when the headline reads as country-macro AND the item is not already
+  // flagged to a global vertical desk (hedge / fixed-income / legal / substack / myFT).
+  if (!(it.hdg || it.fi || it.legal || it.substack || it.myft)
+      && FEED_OFFTOPIC_GEO.test(it.title) && FEED_GEO_MACRO_RE.test(it.title)) return false;
   // Podcast / audio items (e.g. Bloomberg podcasts) are not news — drop them
   // BEFORE the premium bypass so a Bloomberg/FT audio show doesn't slip through.
   if (/\bpodcasts?\b/i.test(it.title) || /\/podcasts?\/|\/audio\/|\.mp3\b/i.test(it.url || "")) return false;

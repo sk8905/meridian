@@ -125,4 +125,30 @@ check(feedQualityKeep({ source: "Financial Times", title: "The best restaurants 
 check(!feedQualityKeep({ source: "Benzinga", title: "3 stocks to buy now for huge gains" }),
   "cull: a low-tier tip-sheet source is still dropped");
 
+// ---- Geo-scope is MACRO-ONLY: a global-vertical story about an out-of-scope country
+// is KEPT (the geo-cull fires only on country-macro headlines), while that country's
+// own macro print is still dropped. -----------------------------------------------
+check(feedQualityKeep({ source: "Business Wire", title: "EQT closes $15.6bn Asia buyout fund in record private equity raise" }),
+  "geo-macro: an Asian private-equity deal is kept (vertical, not macro)");
+check(feedQualityKeep({ source: "Moody's", title: "China Growth and Credit: research, insights and analysis", fi: true }),
+  "geo-macro: a flagged credit-desk item about China is kept (vertical desk is global)");
+check(feedQualityKeep({ source: "The Global Legal Post", title: "Singapore firm Rajah & Tann adds disputes partner in Hong Kong", legal: true }),
+  "geo-macro: an Asian law-firm move is kept (legal vertical is global)");
+check(!feedQualityKeep({ source: "Investing.com Economics", title: "China’s exports surge in September" }),
+  "geo-macro: an out-of-scope country's trade-data print is still dropped");
+check(!feedQualityKeep({ source: "Investing.com Economics", title: "Singapore core inflation eases in August" }),
+  "geo-macro: an out-of-scope country's inflation print is still dropped");
+
+// ---- Readable-only policy: the paywalled premium four are switched OFF at source
+// (commented out of FEED_SOURCES, reversibly), and the openly-readable replacements
+// are wired in. ------------------------------------------------------------------
+for (const off of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville", "The Lawyer", "Nikkei Asia"]) {
+  check(!FEED_SOURCES.some((f) => f.source === off), `readable-only: ${off} is switched off (not an active feed source)`);
+}
+for (const [on, want] of [["Associated Press", {}], ["Channel NewsAsia", {}], ["Moody's", { fi: true }], ["The Straits Times", {}]]) {
+  const src = bySource(on);
+  check(!!src, `readable-only: ${on} is wired as an active source`);
+  if (src && want.fi) check(src.fi === true, `readable-only: ${on} is routed to the FI (credit) desk`);
+}
+
 finish();
