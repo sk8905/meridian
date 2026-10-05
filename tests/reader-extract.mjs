@@ -350,4 +350,44 @@ checkEq(tmEmb.length, 1, `proxy-embed: a markdown block with a status URL emits 
 checkEq((tmEmb[0] || {}).tweetId, "1973500000000000001", "proxy-embed: the status id is captured from the URL");
 check(!proxyParagraphs(tweetMd).some((p) => /grabbed the popcorn/.test(p)), "proxy-embed: the tweet block is not duplicated as a paragraph");
 
+// 12) Image TRUST — a SHORT article whose body makes the extractor WIDEN to the whole
+//     document must NOT pick up images from outside the article scope: a "related
+//     stories" / "latest" recirculation grid, promo banners, or the same generic photo
+//     a site puts on every post. Only the image INSIDE <article> survives.
+const recircArt = `<!doctype html><html><head><meta property="og:title" content="A short story on a busy page"></head><body>
+  <article>
+    <p>The hedge fund's pay dispute is heading back to court after an appellate panel reopened the long-running matter.</p>
+    <figure><img src="/media/the-real-story-photo.jpg"><figcaption>Outside the courthouse</figcaption></figure>
+    <p>Lawyers for both sides said the ruling turned on the weight given to recollections of conversations years earlier.</p>
+  </article>
+  <aside class="related">
+    <h3>Related stories</h3>
+    <p>Hedge funds endured a difficult September as rising bond yields, stronger oil prices and sharp swings in AI-related stocks dented returns across several major strategies this autumn.</p>
+    <img src="/promo/awards-banner.jpg" alt="Awards banner">
+    <img src="/wp-content/uploads/generic-grass.jpg" alt="">
+  </aside></body></html>`;
+const recircRes = extractReadable(recircArt, u("https://www.hedgeweek.com/story/"));
+const recircImgs = recircRes.blocks.filter((b) => b.img);
+check(recircImgs.length === 1 && /the-real-story-photo/.test(recircImgs[0].img),
+  `image-trust: a widened article keeps ONLY its in-scope image, dropping the related/promo grid (${recircImgs.map((b) => b.img).join(", ") || "none"})`);
+check(!recircImgs.some((b) => /awards-banner|generic-grass/.test(b.img)), "image-trust: out-of-scope recirculation/promo images are not included");
+
+// 13) Generic hero — a SHORT article that widens must NOT fall back to the page's
+//     og:image, which on such pages is typically the site's generic social-share default
+//     (the same image on every post), not this story's picture.
+const genericHeroArt = `<!doctype html><html><head>
+  <meta property="og:title" content="A short post with a generic social image">
+  <meta property="og:image" content="/wp-content/uploads/generic-social-default.jpg">
+  </head><body>
+  <article>
+    <p>Quant hedge funds are among the biggest winners from this year's sharp sell-off in government bonds.</p>
+    <p>Trend-following strategies captured the move early and have widened their lead over the rest of the field.</p>
+  </article>
+  <aside class="latest">
+    <h3>Latest news</h3>
+    <p>Castle Hook has set a New York office rent record with a lease valued at more than twenty-one million dollars a year across several midtown floors.</p>
+  </aside></body></html>`;
+const genHeroRes = extractReadable(genericHeroArt, u("https://www.hedgeweek.com/quant-post/"));
+checkEq(genHeroRes.blocks.filter((b) => b.img).length, 0, "generic-hero: a widened (thin) article does not add the og:image social default as a hero");
+
 finish();

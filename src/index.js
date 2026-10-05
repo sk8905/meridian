@@ -1817,17 +1817,30 @@ export function extractReadable(html, u) {
   // and keep whichever yields more body text.
   const art = /<article[\s\S]*?<\/article>/i.exec(html);
   const ab = /<[^>]+itemprop=["']articleBody["'][\s\S]*?<\/[a-z0-9]+>/i.exec(html);
-  let blocks = _readBlocks(art ? art[0] : (ab ? ab[0] : html), u);
+  const artScope = art ? art[0] : (ab ? ab[0] : null);
+  let blocks = _readBlocks(artScope || html, u);
+  // IMAGES are trusted ONLY from the real article scope — capture them before any widen.
+  const scopeImgs = new Set(blocks.filter((b) => b.img).map((b) => b.img));
+  // When the in-scope body reads thin, widen to the whole document for the TEXT: some
+  // sites keep the real copy OUTSIDE <article> (a teaser-card first <article>).
+  let widened = false;
   if (_readBlocksLen(blocks) < 600) {
     const whole = _readBlocks(html, u);
-    if (_readBlocksLen(whole) > _readBlocksLen(blocks)) blocks = whole;
+    if (_readBlocksLen(whole) > _readBlocksLen(blocks)) { blocks = whole; widened = true; }
   }
   blocks = _dropBodylessHeadings(_stripLeadingJunk(blocks));   // drop a leading recirc strip + nav-menu headings
-  // Lead hero image: when the body yielded NO content images (e.g. a WordPress site whose
-  // featured image sits OUTSIDE <article>, so the block scan never saw it), fall back to
-  // the page's og:image / twitter:image as a single lead image. Filtered like any other
-  // (no logos/icons/trackers) and resolved to an absolute URL.
-  if (!blocks.some((b) => b.img)) {
+  // A widen means the article scope read thin, so the widened blocks sweep in images from
+  // OUTSIDE the article — a site's "related stories" / "latest" recirculation grid, promo
+  // banners, award logos, the same generic photo on every post. None of those is part of
+  // THIS story. Keep only images that were in the narrow article scope; with no article
+  // scope at all, drop every inline image (nothing trustworthy to anchor them to).
+  if (widened) blocks = blocks.filter((b) => !b.img || scopeImgs.has(b.img));
+  // Lead hero image: when a WELL-FORMED article (a real <article>/articleBody body that did
+  // NOT need widening) yielded no inline image, fall back to the page's og:image /
+  // twitter:image as a single lead hero (e.g. a WordPress featured image that sits outside
+  // <article>). We skip this for a widened (thin/uncertain) article: there the og:image is
+  // typically the site's generic social-share default — the junk hero we're avoiding.
+  if (!widened && artScope && !blocks.some((b) => b.img)) {
     const ogImg = _readMeta(html, ["og:image", "og:image:url", "twitter:image", "twitter:image:src"]);
     if (ogImg) {
       let abs; try { abs = new URL(ogImg, u).toString(); } catch { abs = ""; }
@@ -2042,7 +2055,9 @@ async function handleRead(request, env, ctx) {
   // responses rendered by the OLD extractor (else a junk/stale body is served for up to
   // an hour after deploy). v4: + nav-menu (bodyless-heading) drop. v5: + content images.
   // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
-  const key = new Request("https://read.internal/v7/" + encodeURIComponent(u.toString()));
+  // v8: images trusted only from the real article scope — a widened (thin) article drops
+  //     out-of-scope recirculation/related/promo images and the generic og:image hero.
+  const key = new Request("https://read.internal/v8/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
