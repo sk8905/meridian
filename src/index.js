@@ -1674,6 +1674,10 @@ const READ_PAYWALL = new Set([
   "ft.com", "bloomberg.com", "wsj.com", "economist.com", "nytimes.com", "barrons.com",
   "businessinsider.com", "thetimes.co.uk", "telegraph.co.uk", "nikkei.com", "forbes.com",
   "washingtonpost.com", "theinformation.com", "seekingalpha.com",
+  // The Lawyer is subscription-only: a public fetch (and the Firecrawl/Jina proxy)
+  // returns only its subscribe-wall promo + 150px nav thumbnails, never the article —
+  // so render nothing and let the row open at the publisher.
+  "thelawyer.com",
 ]);
 // Hosts we render in-pane even though they flag their pages "metered"
 // (isAccessibleForFree=false in the page data). These sites still serve the full
@@ -1737,16 +1741,24 @@ function _blockIsLinkOnly(inner) {
 // article is capped at READ_IMG_MAX so a gallery page can't bloat the payload.
 const READ_IMG_MAX = 8;
 const READ_IMG_SKIP = /(?:\blogo\b|\bicon\b|avatar|sprite|spacer|1x1|pixel|placeholder|blank\.|\bshare\b|social|facebook|twitter|linkedin|whatsapp|tracking|beacon|analytics|\bad[-_/.]|advert|badge|\bbutton\b|emoji|favicon|gravatar|wp-emoji|doubleclick|googletag|wordmark|masthead|default[-_.]|thumbnail|thumb[-_/.]|headshot|byline|\/author|contributor|mugshot|\/profile|\/staff\/|[-_]circ[-_.]|istock|gettyimages|getty-images|shutterstock|adobe-?stock|depositphotos|dreamstime|123rf|\balamy\b|stock-?photo)/i;
-// A "-WxH" size suffix with a small max dimension (≤ 500px) marks a RESIZED THUMBNAIL —
-// a related-post featured image, a sidebar/author crop — not the full content photo (which
-// is served without the suffix, or at a larger size). Common on WordPress (`…-300x163.jpg`).
+// A small RENDER SIZE marks a thumbnail — a related-post featured image, a sidebar/author
+// crop — not the full content photo (served without the suffix, or at a larger size). Two
+// encodings: a WordPress "-WxH" filename suffix (`…-300x163.jpg`) and an imgix/CDN resize
+// query (`…?w=150&h=150`, as The Lawyer and many publishers serve). Max dimension ≤ 500px.
 const READ_IMG_THUMB = /-(\d{2,4})x(\d{2,4})\.(?:jpe?g|png|webp|gif)(?:[?#]|$)/i;
+function _readImgSmall(src) {
+  const f = READ_IMG_THUMB.exec(src);
+  if (f && Math.max(+f[1], +f[2]) <= 500) return true;
+  const qw = /[?&](?:w|width)=(\d{1,5})\b/i.exec(src);       // imgix/CDN render width/height
+  const qh = /[?&](?:h|height)=(\d{1,5})\b/i.exec(src);
+  if ((qw || qh) && Math.max(qw ? +qw[1] : 0, qh ? +qh[1] : 0) <= 500) return true;
+  return false;
+}
 function _readImgOK(src) {
   if (!src || !/^https?:\/\//i.test(src)) return false;      // absolute http(s) only
   if (/\.svg(?:[?#]|$)/i.test(src)) return false;            // vector = icon/logo
   if (READ_IMG_SKIP.test(src)) return false;
-  const d = READ_IMG_THUMB.exec(src);                        // resized thumbnail, not full content
-  if (d && Math.max(+d[1], +d[2]) <= 500) return false;
+  if (_readImgSmall(src)) return false;                      // resized thumbnail, not full content
   return true;
 }
 // A bare wire/agency/brand name as the whole alt text marks a source WORDMARK or stock-

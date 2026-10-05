@@ -5,6 +5,7 @@
 // preferred), and the paywall signal (schema.org isAccessibleForFree=false).
 import { extractReadable, readHostAllowed, proxyParagraphs, proxyBlocks } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
+import fs from "node:fs";
 
 const u = (s) => new URL(s);
 
@@ -440,5 +441,28 @@ const stockImgs = stockRes.blocks.filter((b) => b.img);
 check(stockImgs.length === 1 && /jane-doe-cio-portrait/.test(stockImgs[0].img),
   `stock: a getty/istock/shutterstock stock photo is dropped, a real content photo is kept (${stockImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
 check(!stockImgs.some((b) => /iStock/i.test(b.img)), "stock: the iStock filler image is not included");
+
+// 17) Render-size thumbnails via QUERY params — an imgix/CDN "?w=150&h=150" resize marks a
+//     thumbnail (related/nav/author crop) just like a "-WxH" filename suffix; a large
+//     "?w=1200" render is a full content image. Publishers like The Lawyer size via query,
+//     not filename, so both encodings must be caught.
+const imgixArt = `<!doctype html><html><head><meta property="og:title" content="A story served via an image CDN"></head><body><article>
+  <p>The firm confirmed the move on Monday, adding to a run of senior lateral hires across its disputes and corporate practices this year.</p>
+  <img src="https://cdn.imgix.net/uploads/author-portrait.jpg?fit=crop&q=45&w=150&h=150" alt="Author portrait">
+  <img src="https://cdn.imgix.net/uploads/the-new-office.jpg?fit=crop&q=45&w=1200&h=800" alt="The firm's new office">
+  <p>Rivals have ramped up hiring in the City as transactional work recovers and competition for senior partners intensifies.</p>
+  </article></body></html>`;
+const imgixImgs = extractReadable(imgixArt, u("https://www.example-news.com/story/")).blocks.filter((b) => b.img);
+check(imgixImgs.length === 1 && /the-new-office/.test(imgixImgs[0].img),
+  `imgix: a "?w=150" thumbnail is dropped, a "?w=1200" full image is kept (${imgixImgs.map((b) => b.img.split("/").pop().split("?")[0]).join(", ") || "none"})`);
+check(!imgixImgs.some((b) => /author-portrait/.test(b.img)), "imgix: the small query-sized thumbnail is not included");
+
+// 18) Subscription-only publishers are listed in READ_PAYWALL so the reader never fetches
+//     them (a public fetch returns only the subscribe wall) and the row opens at the
+//     publisher. The Lawyer is one (confirmed live: a public/proxy fetch yields only promo
+//     + 150px nav thumbnails). Config lock — the fetch gate itself needs egress to exercise.
+const _src = fs.readFileSync(new URL("../src/index.js", import.meta.url), "utf8");
+check(/const READ_PAYWALL = new Set\(\[[\s\S]*?"thelawyer\.com"[\s\S]*?\]\)/.test(_src),
+  "paywall: thelawyer.com is in READ_PAYWALL (subscription-only — opens at the publisher, not rendered)");
 
 finish();
