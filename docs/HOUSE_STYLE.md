@@ -346,11 +346,12 @@ notification badge red (`#ef4444`).
   `var(--chip-ul)` with no fallback becomes an invalid declaration the moment the
   token is missing from a scope, and the whole underline silently vanishes. The
   **bottom tab bar's active marker** (`.mtab.is-active::before`, a 2px *top* line
-  over the selected nav tab) belongs to this same family: it also reads
-  `--chip-ul` in BOTH themes — black in light, white in dark — never the accent
-  orange. Flipping it to `--accent` in dark made it the lone orange marker among
-  an otherwise all-white family and read as a stray orange segment on the left of
-  the bar.
+  over the selected nav tab) is the ONE deliberate exception (owner's call): in LIGHT it still reads
+  `--chip-ul` (black) like the rest of the family, but in DARK the selected nav tab
+  is Wire orange — both the 2px top marker AND the active tab's icon + label
+  (`[data-theme="dark"] .mtab.is-active` + `::before`, `var(--accent, #fb8b1e)`).
+  This is the intended look on the black bar; do NOT neutralise it back to
+  `--chip-ul`. Every OTHER tab row stays on `--chip-ul` per the rule above.
 
 ---
 

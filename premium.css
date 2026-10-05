@@ -459,11 +459,10 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 :root[data-density="comfortable"] .mtab { min-height: 52px; font-size:var(--fs-micro); gap: 3px; }
 :root[data-density="comfortable"] svg.mtab-ico { width: 24px; height: 24px; }
 /* Active tab: darker ink + a top line (no pill background). The line is the
-   shared selected-marker colour --chip-ul — BLACK in light, WHITE in dark — so
-   the bottom-nav marker matches every other selected-chip marker on the page
-   (the wire tabs, feed/market chips and view-nav underlines all use --chip-ul).
-   It previously used the orange --accent in dark mode, the lone exception, which
-   read as an odd stray orange segment on the left of the bar. */
+   selected-marker colour: --chip-ul (BLACK) in LIGHT so it matches the page's
+   other selected-chip markers, but the Wire ORANGE --accent in DARK — the owner
+   wants the active bottom-nav tab to read as orange on the black bar (the one
+   deliberate accent exception; do NOT neutralise it back to --chip-ul). */
 .mtab.is-active { color: var(--ink, #1f2733); background: none; }
 .mtab.is-active::before { content: ""; position: absolute; top: -6px; left: 0; right: 0; height: 2px; background: var(--chip-ul, #000); }
 .mtab-ico { display: block; font-size:var(--fs-hero); line-height: 1; }   /* diamond glyph → optically match the SVG icons */
@@ -472,8 +471,8 @@ svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .mobile-tabbar { background: var(--bg, #000); border-top: 1px solid var(--border, #262626); box-shadow: none; }
 [data-theme="dark"] .mtab { color: var(--muted, #7f8ca6); }
 [data-theme="dark"] .mtab:hover { color: var(--ink-soft, #cdd6e6); }
-[data-theme="dark"] .mtab.is-active { color: var(--ink, #eaf0fb); background: none; }
-[data-theme="dark"] .mtab.is-active::before { background: var(--chip-ul, #fff); }
+[data-theme="dark"] .mtab.is-active { color: var(--accent, #fb8b1e); background: none; }
+[data-theme="dark"] .mtab.is-active::before { background: var(--accent, #fb8b1e); }
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
    existing full-screen #na-menu-panel rules; desktop gets a centred column. */
 /* ---- Cross-document view transitions (Safari 18.2+/26, Chrome 126+). The

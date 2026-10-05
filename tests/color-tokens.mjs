@@ -129,13 +129,14 @@ check(/export const fmtDay = \(iso\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\] 
 // hex that can drift from the token if it's ever retuned.
 check(/\.mtab\.is-active::before\s*\{[^}]*background:\s*var\(--chip-ul,\s*#000\)/.test(premiumCss),
   "premium.css .mtab.is-active::before reads var(--chip-ul, #000), not a bare #000");
-// R8 (dark) — the bottom-nav active marker's DARK override must also read the
-// shared --chip-ul (white in dark), NOT the accent orange. It was the lone
-// member of the chip/tab family still flipping to orange in dark mode, which
-// read as a stray orange segment on the left of the bar; it now matches the
-// wire tabs, feed/market chips and dashboard nav chips (all --chip-ul).
-check(/\[data-theme="dark"\]\s*\.mtab\.is-active::before\s*\{[^}]*background:\s*var\(--chip-ul,\s*#fff\)/.test(premiumCss),
-  "premium.css dark .mtab.is-active::before reads var(--chip-ul, #fff), not the accent orange");
+// R14a exception (dark) — the bottom tab bar is the ONE deliberate exception to the
+// --chip-ul family: in DARK the selected nav tab is Wire ORANGE (--accent), both the
+// top marker AND the active tab's icon + label (owner's call — see HOUSE_STYLE R14a).
+// Light mode still uses --chip-ul (checked above). Do NOT neutralise this back.
+check(/\[data-theme="dark"\]\s*\.mtab\.is-active::before\s*\{[^}]*background:\s*var\(--accent,\s*#fb8b1e\)/.test(premiumCss),
+  "premium.css dark .mtab.is-active::before is the accent orange (var(--accent, #fb8b1e))");
+check(/\[data-theme="dark"\]\s*\.mtab\.is-active\s*\{[^}]*color:\s*var\(--accent,\s*#fb8b1e\)/.test(premiumCss),
+  "premium.css dark .mtab.is-active icon+label read the accent orange (var(--accent, #fb8b1e))");
 
 // R9 — Credit's listed-vehicle ticker is plain data text, not accent-coloured
 // (the sibling .veh-nm vehicle name already reads --t-ink; the ticker had
