@@ -549,4 +549,55 @@ check(!junkParas.some((p) => /preferred source|Create a Free Account|unlimited a
   "boilerplate: promo CTAs, the author bio, the anti-adblock line and the photo-credit caption are all dropped");
 check(junkParas.some((p) => /Surging inflation/.test(p)), "boilerplate: the real article prose is kept");
 
+// 22) Trailing site-footer / sponsor strip — a publisher's page chrome at the FOOT of the
+//     article (a sponsor/"Associates" name, a company-registration blurb, a copyright line,
+//     a "Website by…" / "…marketing by…" build credit) is truncated as one tail, the mirror
+//     of the leading-recirc strip. The last real body sentence is the cut point. (Observed
+//     on Legal Futures, whose sitewide footer leaked into the reading pane.)
+const footMd = `# CA overturns ruling that solicitor turned 'blind eye' to fraud
+
+The Court of Appeal has overturned a ruling that a solicitor turned a blind eye to fraud, finding the test for blind-eye knowledge had not been met on the facts of the case.
+
+In this case the findings were consistent with negligence, and the requirements of blind-eye knowledge were not met.
+
+## AspiraCloud
+
+Legal Futures Publishing Limited, Registered in England No. 7135808. Registered office: Handel House, 95 High Street, Edgware, Middlesex, HA8 7DB
+
+© Legal Futures - 2026
+
+Website by Pixel Pixel
+
+Legal marketing by legmark`;
+const footParas = proxyBlocks(footMd, "https://www.legalfutures.co.uk/latest-news/story").filter((b) => b.t).map((b) => b.t);
+check(footParas.length === 2, `footer-strip: only the two real body paragraphs survive (${footParas.length})`);
+check(!footParas.some((p) => /AspiraCloud|Registered in England|Registered office|Website by|marketing by|©/i.test(p)),
+  "footer-strip: the sponsor name, registration blurb, copyright and build-credit lines are all dropped");
+check(footParas.some((p) => /blind-eye knowledge were not met/.test(p)), "footer-strip: the final real article sentence is kept");
+
+// Same footer via the DIRECT-HTML path (inside <article>).
+const footArt = `<html><head><title>CA overturns ruling</title></head><body><article>
+<p>The Court of Appeal has overturned a ruling that a solicitor turned a blind eye to fraud, finding the test had not been met on the facts of the case.</p>
+<p>In this case the findings were consistent with negligence, and the requirements of blind-eye knowledge were not met.</p>
+<h3>AspiraCloud</h3>
+<p>Legal Futures Publishing Limited, Registered in England No. 7135808. Registered office: Handel House, 95 High Street, Edgware, Middlesex, HA8 7DB</p>
+<p>&copy; Legal Futures - 2026</p>
+<p>Website by Pixel Pixel</p>
+</article></body></html>`;
+const footDirect = extractReadable(footArt, u("https://www.legalfutures.co.uk/latest-news/story")).paragraphs;
+check(footDirect.length === 2 && !footDirect.some((p) => /AspiraCloud|Registered|Website by|©/i.test(p)),
+  `footer-strip (direct HTML): footer + sponsor tail dropped, ${footDirect.length} real paragraphs kept`);
+
+// GUARD — real prose that merely mentions "registered in <place>" or a year must NOT be
+// truncated (the footer markers are footer-specific, not word-matches on "registered"/years).
+const guardMd = `# A fund story
+
+The fund is registered in Delaware and has operated since 2019, according to filings reviewed this week by analysts.
+
+In 2026 the firm expanded into Europe, opening offices in three countries and hiring dozens of staff across the year.
+
+Executives said the strategy would continue through the decade as demand grew for the flagship product worldwide.`;
+const guardParas = proxyBlocks(guardMd, "https://example.com/story").filter((b) => b.t && !b.h).map((b) => b.t);
+check(guardParas.length === 3, `footer-strip guard: real prose mentioning "registered in" / years is NOT truncated (${guardParas.length}/3 kept)`);
+
 finish();

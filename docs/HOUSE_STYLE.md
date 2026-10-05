@@ -73,6 +73,22 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   "story images" are overwhelmingly decorative and the junk is not worth the rare real
   photo. Erring toward dropping a real chart beats showing one junk photo. **Embedded
   tweets/X posts are unaffected** — they ride the `{tweetId}` path, not the image path.
+- **R3c — Reader text: strip the page furniture, keep the prose.** The reader removes
+  publisher chrome from both the direct-HTML (`_readBlocks`) and markdown-proxy
+  (`proxyBlocks`) paths: a **leading** recirculation strip (`_stripLeadingJunk` — "most
+  read" / headline fragments above the article), **bodyless nav-menu headings**
+  (`_dropBodylessHeadings`), per-line boilerplate (`READ_BOILER` — subscribe/CTA/cookie/
+  author-bio/photo-credit lines), and a **trailing footer/sponsor strip**
+  (`_stripTrailingJunk`). The trailing strip is the mirror of the leading one: it finds
+  the first block carrying an **unambiguous footer signature** (`READ_FOOTER` — a
+  company-registration blurb, "Registered office / in England No.", a `©`-year line,
+  "all rights reserved", a "Website by…" / "…marketing by…" build credit) and truncates
+  from there to the end, walking **back** over the short sponsor / "Associates" fragments
+  and dangling headings that sit just above it, stopping at the last real (terminally
+  punctuated) body sentence. It is **guarded** — it only fires when a real body paragraph
+  exists before the marker, and the markers are footer-specific, so live prose that merely
+  says "registered in Delaware" or names a year is never truncated. Any extraction change
+  must bump the `read.internal/vN` edge-cache key so the edge re-extracts.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
   height; the last panel grows to fill remaining space (no ragged bottoms).
 
