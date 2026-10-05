@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0d3884be-a2c4-4914-a0a2-f22af8ef3857",
+    title: "Top Monte dei Paschi investor backs Intesa’s sweetened €34.5bn takeover bid",
+    date: "2026-10-05",
+    time: "09:11",
+    url: "https://www.ft.com/content/0d3884be-a2c4-4914-a0a2-f22af8ef3857",
+  },
+  {
+    id: "028da85c-0e1f-4f1b-ad04-eac78c4f18c0",
+    title: "Flávio Bolsonaro takes commanding lead in Brazil election",
+    date: "2026-10-05",
+    time: "09:05",
+    url: "https://www.ft.com/content/028da85c-0e1f-4f1b-ad04-eac78c4f18c0",
+  },
+  {
+    id: "49526246-46ac-4154-942f-3d4d705f1652",
+    title: "Sanae Takaichi tells markets to ‘rest assured’ over Japan’s spending plans",
+    date: "2026-10-05",
+    time: "08:24",
+    url: "https://www.ft.com/content/49526246-46ac-4154-942f-3d4d705f1652",
+  },
+  {
     id: "866dea03-4cee-4009-b130-6f7a191336c4",
     title: "Spanish prime minister Pedro Sánchez calls snap election",
     date: "2026-10-05",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-04",
     time: "12:03",
     url: "https://www.ft.com/content/d2d5a5a5-758f-472f-a2c7-1684955b0087",
-  },
-  {
-    id: "a984ca27-786a-47be-a8b9-9d48201a9e7c",
-    title: "In defence of big business",
-    date: "2026-10-04",
-    time: "12:00",
-    url: "https://www.ft.com/content/a984ca27-786a-47be-a8b9-9d48201a9e7c",
-  },
-  {
-    id: "9e9f0cbd-ef77-4e19-8f6e-97063e9fe9fc",
-    title: "EU countries shoot themselves in the foot when they veto sanctions",
-    date: "2026-10-04",
-    time: "12:00",
-    url: "https://www.ft.com/content/9e9f0cbd-ef77-4e19-8f6e-97063e9fe9fc",
-  },
-  {
-    id: "2c24ece3-ac99-43a8-b0e6-4a3867e37ebf",
-    title: "Legal risks pile up for Altman as OpenAI uncovers dozens of hacks",
-    date: "2026-10-04",
-    time: "12:00",
-    url: "https://www.ft.com/content/2c24ece3-ac99-43a8-b0e6-4a3867e37ebf",
   },
 ];

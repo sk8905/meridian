@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-legal500brutalreviews-20261005",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "\u231b Legal 500's brutal reviews",
+    date: "2026-10-05",
+    time: "09:05",
+    summary: "And former A&O boss launches AI native law firm, says the billable hour is toast.",
+    url: "https://non-billable.beehiiv.com/p/legal-500-s-brutal-reviews",
+  },
+  {
     id: "nl-thelawyer-newsdaily-top20casesstilltocome2026-20261005",
     publication: "The Lawyer",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "12:21",
     summary: "44% of South Korea-based LPs plan to step up infrastructure investment, with digital prominent.",
     url: "https://go.preqin.com/webmail/909852/2188887424/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
-  },
-  {
-    id: "nl-bbg-economicsdaily-chinastimulus-20260930",
-    publication: "Bloomberg",
-    author: "Malcolm Scott",
-    series: "Economics Daily",
-    title: "Economics Daily: China’s stimulus drip feed",
-    date: "2026-09-30",
-    time: "12:00",
-    summary: "China’s latest steps to cushion the economy are in line with Beijing’s quest for steadier growth.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-30/china-delivers-latest-drip-feed-of-stimulus-to-keep-gdp-target-floor-in-reach",
   },
 ];
