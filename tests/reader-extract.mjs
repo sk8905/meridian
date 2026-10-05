@@ -465,4 +465,33 @@ const _src = fs.readFileSync(new URL("../src/index.js", import.meta.url), "utf8"
 check(/const READ_PAYWALL = new Set\(\[[\s\S]*?"thelawyer\.com"[\s\S]*?\]\)/.test(_src),
   "paywall: thelawyer.com is in READ_PAYWALL (subscription-only — opens at the publisher, not rendered)");
 
+// 19) Per-host image CHROME suppression — a few publishers wrap every article in masthead
+//     logos, promo banners and a related-story thumbnail rail whose files share the real
+//     hero's CDN bucket/alt, so the per-file filters can't separate them. The PROXY path
+//     has no <article> scope, so the chrome accumulates. For a READ_IMG_HOST_SKIP host the
+//     article TEXT still renders but ALL images are suppressed; a non-listed host is
+//     unaffected. (Observed on The Global Legal Post.)
+const glpMd = `# Ex-A&O senior partner launches AI-native law firm
+
+![The Global Legal Post](https://www-globallegalpost-static.s3.eu-west-2.amazonaws.com/images/glp_transparent_v2.png)
+
+A senior lawyer who helped orchestrate the merger between Allen & Overy and Shearman & Sterling has co-founded an AI-native law firm aimed at European small and medium-sized businesses.
+
+![Click here to book now](https://www-globallegalpost-static.s3.eu-west-2.amazonaws.com/images/LLS_New_York_600x120px.jpg)
+
+The firm will review commercial contracts, including non-disclosure and data-processing agreements, for a flat monthly fee, undercutting the cost of outsourcing similar work to a traditional law firm.`;
+const glpBlocks = proxyBlocks(glpMd, "https://www.globallegalpost.com/news/some-story-123");
+check(glpBlocks.filter((b) => b.img).length === 0, `host-img-skip: all images are suppressed for an image-chrome host (${glpBlocks.filter((b) => b.img).length})`);
+check(glpBlocks.filter((b) => b.t && !b.h && !b.img).length === 2, `host-img-skip: the article body text still renders in full (${glpBlocks.filter((b) => b.t && !b.h && !b.img).length} paras)`);
+// A non-listed host on the SAME markdown keeps its genuine (non-chrome, full-size) image.
+const okMd = `# A markets story
+
+A trading-floor photograph that is the article's own lead image.
+
+![Traders at work](https://cdn.example-news.com/uploads/2026/10/trading-floor-lead.jpg)
+
+The index closed higher as investors weighed the central bank's latest guidance on the path of interest rates.`;
+const okBlocks = proxyBlocks(okMd, "https://www.example-news.com/markets/story");
+check(okBlocks.filter((b) => b.img).length === 1, `host-img-skip: a non-listed host still keeps its genuine lead image (${okBlocks.filter((b) => b.img).length})`);
+
 finish();

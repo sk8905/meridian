@@ -732,6 +732,7 @@ item keeps a real outbound source link (R7).
 - S&P Global PMI (`pmi.spglobal.com`)
 - ISM (`ismworld.org`)
 - TradingEconomics
+- OECD (`oecd.org`) — Economic Outlook, growth/inflation projections, Economic Surveys (via Google News newsroom bridge)
 
 ### 8.3 News wires & financial press
 - Bloomberg (`feeds.bloomberg.com`)
@@ -808,6 +809,7 @@ item keeps a real outbound source link (R7).
 - Legal Business (`legalbusiness.co.uk`)
 - Legal Cheek (`legalcheek.com`) — UK magic/silver-circle & Big-Law news
 - Legal Futures (`legalfutures.co.uk`) — UK legal-market regulation & litigation funding
+- The Global Legal Post (`globallegalpost.com`) — international legal-market news (via Google News /news bridge; image-chrome suppressed)
 - Bloomberg Law
 - Law-firm client briefings
 

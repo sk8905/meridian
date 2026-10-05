@@ -1765,6 +1765,19 @@ function _readImgOK(src) {
 // agency placeholder (e.g. ![Reuters](…), ![Getty Images](…)), not real content — skip it.
 const READ_IMG_ALT_SKIP = /^(?:reuters|bloomberg|associated press|\bap\b|afp|getty(?:\s*images)?|istock|shutterstock|adobe\s*stock|logo|advertisement|\bad\b|sponsored|thumbnail|thumb|image|photo|picture|untitled|file)$/i;
 function _readImgAltSkip(alt) { const a = String(alt || "").trim(); return !!a && READ_IMG_ALT_SKIP.test(a); }
+// A few publishers wrap every article in heavy image CHROME — masthead logos, promo
+// banners ("book now"), magazine covers and a related-story thumbnail rail — whose
+// files share the article's own CDN bucket and alt text, so the per-file/alt/size
+// filters above cannot cleanly separate them from the real hero. The PROXY path is
+// worst hit: Jina/Firecrawl flatten the whole page with no <article> scope to trust,
+// so the chrome accumulates. For these hosts the article TEXT still renders in-pane;
+// their imagery is suppressed wholesale rather than shown as junk (HOUSE_STYLE — no
+// junk images). Keep this list tight — only hosts proven image-hostile in practice.
+const READ_IMG_HOST_SKIP = new Set(["globallegalpost.com"]);
+function _readImgHostSkip(base) {
+  try { return READ_IMG_HOST_SKIP.has(new URL(base).hostname.replace(/^www\./, "")); }
+  catch { return false; }
+}
 // Embedded tweets. The extractor emits a lightweight {tweetId} placeholder where an
 // article embeds a tweet (a <blockquote class="twitter-tweet"> with the status permalink,
 // or a markdown block carrying a twitter/x status URL); the async reader handler then
@@ -1881,8 +1894,9 @@ function _readBlocks(scope, base) {
   // + optional caption) and standalone <img>, in DOCUMENT ORDER, so everything lands where
   // it appears in the story.
   const re = /<blockquote\b[^>]*>([\s\S]*?)<\/blockquote>|<figure\b[^>]*>([\s\S]*?)<\/figure>|<(p|h[2-4])\b[^>]*>([\s\S]*?)<\/\3>|<img\b([^>]*?)\/?>/gi; let m;
+  const imgHostSkip = _readImgHostSkip(base);
   const addImg = (attrs, inner) => {
-    if (!base || imgN >= READ_IMG_MAX) return;
+    if (imgHostSkip || !base || imgN >= READ_IMG_MAX) return;
     const card = _readImgFrom(attrs, base);
     if (!card || seenImg.has(card.img)) return;
     if (inner != null) {                                         // a <figure> — prefer its caption as alt
@@ -1957,6 +1971,7 @@ async function _readDirect(u, host) {
 // trailing heading are dropped, matching the direct extractor.
 export function proxyBlocks(md, base) {
   const out = [], seen = new Set(), seenImg = new Set(), seenTw = new Set(); let imgN = 0, embedN = 0;
+  const imgHostSkip = _readImgHostSkip(base);
   const blocks = String(md || "")
     .replace(/```[\s\S]*?```/g, " ")                     // fenced code
     .split(/\n{2,}/);
@@ -1971,7 +1986,7 @@ export function proxyBlocks(md, base) {
       if (imgN >= READ_IMG_MAX) break;
       let url = im[2];
       if (base) { try { url = new URL(url, base).toString(); } catch { /* keep as-is */ } }
-      if (_readImgOK(url) && !_readImgAltSkip(im[1]) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
+      if (!imgHostSkip && _readImgOK(url) && !_readImgAltSkip(im[1]) && !seenImg.has(url)) { seenImg.add(url); out.push({ img: url, alt: im[1] || "", t: "" }); imgN++; }
     }
     // An embedded tweet: a block carrying a twitter/x status URL (the permalink the
     // proxy keeps). Emit a {tweetId} placeholder and skip the block's text (the fetched
@@ -2083,7 +2098,7 @@ async function handleRead(request, env, ctx) {
   // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
   // v8: images trusted only from the real article scope — a widened (thin) article drops
   //     out-of-scope recirculation/related/promo images and the generic og:image hero.
-  const key = new Request("https://read.internal/v8/" + encodeURIComponent(u.toString()));
+  const key = new Request("https://read.internal/v9/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
@@ -2869,6 +2884,14 @@ export const FEED_SOURCES = [
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Finance
   { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", cap: 5, core: true },
   { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", cap: 6, filter: false },
+  // OECD — official macro desk (Interim Economic Outlook, growth/inflation
+  // projections, country Economic Surveys). Direct RSS 403s the datacenter IP, so
+  // bridged via Google News scoped to the /en/about/news newsroom path. Openly
+  // readable in-pane via the proxy reader (0 images — clean). filter:false so the
+  // strict macro title screen doesn't drop "Global growth …"-style headlines; the
+  // FEED_RELEVANCE quality cull then keeps the econ releases and drops the
+  // education/biodiversity ones.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aoecd.org%2Fen%2Fabout%2Fnews%20(economic%20OR%20growth%20OR%20inflation%20OR%20GDP%20OR%20outlook%20OR%20trade%20OR%20employment%20OR%20rate)%20when%3A30d", source: "OECD", region: "GEN", cap: 4, gnews: true, filter: false },
   // Financial specialists — UK / Europe
   { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK", cap: 10 },
   { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK", cap: 8 },
@@ -2920,6 +2943,13 @@ export const FEED_SOURCES = [
   // Legal Futures — UK legal-market news (regulation, litigation funding, law-firm
   // M&A, ABS/licensing, SRA). Openly readable in-pane; direct WordPress RSS.
   { url: "https://www.legalfutures.co.uk/feed", source: "Legal Futures", region: "UK", cap: 8, filter: false, legal: true },
+  // The Global Legal Post — international legal-market news (law-firm moves, GC
+  // appointments, legal-tech funding, regulation). Direct RSS 403s the datacenter
+  // IP, so bridged via Google News scoped to the /news article path (a bare site:
+  // query also returns author-bio / section pages). Text renders in-pane via the
+  // proxy reader; its heavy template image-chrome is suppressed by
+  // READ_IMG_HOST_SKIP. legal:true routes it to the Legal desk.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Agloballegalpost.com%2Fnews%20when%3A14d", source: "The Global Legal Post", region: "GEN", cap: 8, gnews: true, filter: false, legal: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -3305,7 +3335,7 @@ const FEED_PREMIUM = new Set([
   // Economics feed) — trusted macro, never relevance-gated.
   "Investing.com Economics",
 ]);
-const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek", "Legal Futures"]);
+const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek", "Legal Futures", "The Global Legal Post"]);
 // Openly-readable, topically-pure private-capital / credit desks — the trade press
 // (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
 // whose Google-News query already restricts them to private-markets/credit deals), so
