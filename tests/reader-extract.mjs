@@ -472,6 +472,12 @@ check(!imgixImgs.some((b) => /author-portrait|the-new-office/.test(b.img)), "img
 const _src = fs.readFileSync(new URL("../src/index.js", import.meta.url), "utf8");
 check(/const READ_PAYWALL = new Set\(\[[\s\S]*?"thelawyer\.com"[\s\S]*?\]\)/.test(_src),
   "paywall: thelawyer.com is in READ_PAYWALL (subscription-only — opens at the publisher, not rendered)");
+// ING Think — the one bank/house macro desk with a clean public RSS — is wired into the
+// wire as a curated source (first-party feed, filter:false, FEED_CURATED_SRC bypass).
+check(/url:\s*"https:\/\/think\.ing\.com\/rss\/",\s*source:\s*"ING Think"[^}]*filter:\s*false/.test(_src),
+  "source: ING Think (think.ing.com/rss) is wired into FEED_SOURCES, filter:false");
+check(/const FEED_CURATED_SRC = new Set\(\[[^\]]*"ING Think"/.test(_src),
+  "source: ING Think is in FEED_CURATED_SRC (bypasses the relevance gate like the other curated desks)");
 
 // 19) Per-host image CHROME suppression — a few publishers wrap every article in masthead
 //     logos, promo banners and a related-story thumbnail rail whose files share the real

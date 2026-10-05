@@ -3050,6 +3050,23 @@ export const FEED_SOURCES = [
   // filter:false (the feed is already indicator-scoped) and the client labels
   // every item MAC by source (feed.js deskFor).
   { url: "https://www.investing.com/rss/news_95.rss", source: "Investing.com Economics", region: "GEN", cap: 16, filter: false },
+  // ─── Bank / house macro research ──────────────────────────────────────────
+  // ING Think — ING's PUBLIC markets desk: rates ("Rates Spark"), FX ("FX Daily"),
+  // macro/economics and commodities. A genuine first-party RSS 2.0 feed (verified:
+  // plain 200, ~10 article-level items/day, per-item <dc:date>), openly readable
+  // in-pane. This is the one bulge-bracket-adjacent house with a clean public feed
+  // (the rest — BofA/Wells Fargo/UBS — distribute by email only; see the relay note
+  // below). filter:false + FEED_CURATED_SRC: curated macro, so it bypasses the
+  // relevance gate (its out-of-G7 country-macro pieces still fall to the geo-cull,
+  // consistent with the app's G7+Europe scope).
+  { url: "https://think.ing.com/rss/", source: "ING Think", region: "GEN", cap: 8, filter: false },
+  // Email-only houses (BofA Institute, Wells Fargo Economics, UBS CIO) publish no
+  // public RSS — only an email newsletter. To ingest them, relay each via an
+  // email-to-RSS bridge (e.g. kill-the-newsletter.com): create a relay inbox+feed,
+  // subscribe that inbox to the bank's newsletter, then add the relay's feed URL
+  // here as `{ url: "<relay-feed-url>", source: "<Bank> Research", region: "GEN",
+  // cap: 6, filter: false }` (and to FEED_CURATED_SRC). Pending the relay feed URLs.
+  // ──────────────────────────────────────────────────────────────────────────
   // Business Wire — corporate press-release wire, SCOPED via Google News to
   // private-markets / credit deals (fund closes, significant risk transfer / SRT,
   // direct lending, CLOs, capital-relief trades) so the general PR firehose stays
@@ -3536,7 +3553,7 @@ const FEED_LEGAL_SRC = new Set(["Legal Business", "Legal Cheek", "Legal Futures"
 // (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
 // whose Google-News query already restricts them to private-markets/credit deals), so
 // they bypass the relevance gate like the legal wire, keeping that coverage readable.
-const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire"]);
+const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think"]);
 // The app's SIX focus verticals — used to hold the paywalled premium newsrooms
 // (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
 // bond markets (iii) private capital markets (iv) credit markets (v) hedge funds

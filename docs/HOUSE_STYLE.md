@@ -842,7 +842,8 @@ item keeps a real outbound source link (R7).
 - TS Lombard
 - Alpine Macro
 - Variant Perception
-- ING (`think.ing.com`)
+- ✅ **ING Think** (`think.ing.com/rss`) — first-party RSS, **live on the wire** (`filter:false` + `FEED_CURATED_SRC`): rates ("Rates Spark"), FX ("FX Daily"), macro/economics, commodities. The one bank/house macro desk with a clean public feed.
+- 📧 **Bulge-bracket houses — email-only, pending a relay.** BofA (Institute), Wells Fargo (Economics) and UBS (CIO House View) publish **no public RSS**; their public commentary goes out by **email newsletter** only (and their sites are JS/cookie-walled). To wire them, bridge each via an email-to-RSS relay (e.g. `kill-the-newsletter.com`): make a relay inbox+feed, subscribe it to the bank's newsletter, then add the relay feed URL to `FEED_SOURCES` (`filter:false` + `FEED_CURATED_SRC`). Goldman / Morgan Stanley / JPM have **no article RSS** either — only podcasts (audio-first) or a Google-News `site:` bridge — so they're not wired as readable sources.
 - 🔒 Bloomberg Opinion (Authers · Dudley · El-Erian) — Bloomberg paywall (switched off on the Home wire)
 - 🔒 Project Syndicate (`project-syndicate.org`) — metered (a short abstract then a register wall); not readable in-pane
 - ✅ Mohamed El-Erian (`mohamedelerian.substack.com`) — substack (live)
