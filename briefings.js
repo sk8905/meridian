@@ -44,12 +44,13 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-05",
-      time: "05:14 BST",
+      time: "08:25 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; Why a booming economy is not helping Trump</strong>, the FT asks, as strong US growth fails to lift the president's standing; Friday's payrolls print showed just 29,000 jobs added in September.", src: "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; UK banks are expected to lobby Chancellor Healey for a cut to capital rules</strong>, a senior MP tells the FT, ahead of the 28 October Budget.", src: "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414", srcName: "Financial Times" },
-        { html: "<strong>Fixed income &mdash; the FT asks what can revive the battered government bond market</strong> after the sell-off that took 10-year Treasury yields to their highest since 2002.", src: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; global pension funds are cutting US equity exposure over AI concentration risk</strong>, the FT reports, while Wall Street's IPO fervour cools on tepid demand and valuation worries.", src: "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the euro hit a 17-month low against the dollar</strong> as political uncertainty in Spain and France rattled markets, while Spanish PM Pedro S&aacute;nchez called a snap general election for 29 November after Congress rejected his housing decrees.", src: "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", srcName: "CNBC" },
+        { html: "<strong>Macro &mdash; BT has bought TalkTalk's consumer broadband and PXC wholesale businesses out of administration</strong>, Bloomberg reports, to save the UK provider from collapse.", src: "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse", srcName: "Bloomberg" },
+        { html: "<strong>Fixed income &mdash; the US 10-year Treasury yield was around 5.26% on Monday</strong>, below last week's 24-year high, though the dollar held firm on still-lofty yields even after the soft jobs report dampened bets on a Fed hike this month.", src: "https://www.investing.com/news/economy-news/dollar-holds-firm-as-french-fiscal-woes-keep-euro-on-back-foot-4930983", srcName: "Reuters (via Investing.com)" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 gained 0.7% on Friday, the Nasdaq 1.2% and the Dow 0.5%</strong> as the weak September payrolls print (29,000 jobs) cemented expectations of a Fed hold in October, with tech leading.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Equities &mdash; Schneider Electric has agreed to buy US software group PTC for $205 a share in cash</strong>, an implied enterprise value of $23.7bn, Bloomberg reports.", src: "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion", srcName: "Bloomberg" },
       ],
     },
     afternoon: {

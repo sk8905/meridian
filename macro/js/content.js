@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-05",
-  lastCheckedTime: "05:14 BST",
+  lastCheckedTime: "08:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-05",
   us: [
-    { title: "Global pension funds cut US equities over AI concentration risk", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad" },
-    { title: "Why a booming economy is not helping Trump", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a" },
-    { title: "What can revive the battered government bond market?", source: "Financial Times", date: "2026-10-04", time: "12:00", url: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f" },
-    { title: "Wall Street’s IPO fervour cools on tepid demand and valuation worries", source: "Financial Times", date: "2026-10-04", time: "05:01", url: "https://www.ft.com/content/b8924d77-364b-46c1-b783-5db73a91f351" },
-    { title: "US economy adds just 29,000 jobs in September as hiring slows sharply", source: "Financial Times", date: "2026-10-02", time: "14:47", url: "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d" },
+    {title: "Schneider Electric to Acquire PTC for More Than $20 Billion", source: "Bloomberg", date: "2026-10-05", url: "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion"},
+    {title: "Global pension funds cut US equities over AI concentration risk", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad"},
+    {title: "Why a booming economy is not helping Trump", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a"},
+    {title: "Stock futures are flat as investors grapple with higher yields, await Fed minutes: Live updates", source: "CNBC", date: "2026-10-04", url: "https://www.cnbc.com/2026/10/04/stock-market-today-live-updates.html"},
+    {title: "What can revive the battered government bond market?", source: "Financial Times", date: "2026-10-04", time: "12:00", url: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f"},
   ],
   uk: [
-    { title: "Banks will lobby Healey for capital rules cut, says senior MP", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414" },
-    { title: "Britain’s Budget needs to tame spending and boost growth", source: "Financial Times", date: "2026-10-04", time: "11:00", url: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d" },
-    { title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de" },
-    { title: "CGT rise would deter equity investors, wealth bosses warn", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922" },
-    { title: "Healey set to delay difficult choices with ‘breathing space’ UK Budget", source: "Financial Times", date: "2026-10-02", time: "21:41", url: "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3" },
+    {title: "BT Buys TalkTalk to Save UK Broadband Provider From Collapse", source: "Bloomberg", date: "2026-10-05", url: "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse"},
+    {title: "Banks will lobby Healey for capital rules cut, says senior MP", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414"},
+    {title: "Britain’s Budget needs to tame spending and boost growth", source: "Financial Times", date: "2026-10-04", time: "11:00", url: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d"},
+    {title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de"},
+    {title: "CGT rise would deter equity investors, wealth bosses warn", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922"},
   ],
 };
 
@@ -1031,6 +1031,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-05",
   items: [
+    {"title": "Spain’s Sánchez Calls Snap Election After Housing Plan Fails", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/spain-s-sanchez-calls-snap-election-after-housing-plan-fails", "blurb": "Prime Minister Pedro Sánchez calls an early general election for 29 November after Congress rejected his government's housing decrees.", "author": null},
+    {"title": "Euro hits 17-month low as political uncertainty in Spain and France rattles markets", "source": "CNBC", "date": "2026-10-05", "time": "08:00", "url": "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", "blurb": "The euro fell to its weakest against the dollar in 17 months as concerns over Spain and France spilled into wider markets.", "author": null},
+    {"title": "Schneider Electric to Acquire PTC for More Than $20 Billion", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion", "blurb": "Schneider agrees an all-cash deal for US engineering-software group PTC at $205 per share, an implied enterprise value of $23.7bn.", "author": null},
+    {"title": "BT Buys TalkTalk to Save UK Broadband Provider From Collapse", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse", "blurb": "BT acquires TalkTalk's consumer broadband business and PXC wholesale arm out of administration.", "author": null},
+    {"title": "Stock futures are flat as investors grapple with higher yields, await Fed minutes: Live updates", "source": "CNBC", "date": "2026-10-04", "time": "20:00", "url": "https://www.cnbc.com/2026/10/04/stock-market-today-live-updates.html", "blurb": "US stock futures were flat on Sunday evening as investors weighed elevated Treasury yields ahead of the Fed minutes.", "author": null},
     {"title": "Global pension funds cut US equities over AI concentration risk", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad", "blurb": "Pension funds trim US equity exposure over concentration in AI-linked mega-caps."},
     {"title": "Why a booming economy is not helping Trump", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a", "blurb": "FT on the disconnect between strong US growth and the president's standing."},
     {"title": "Banks will lobby Healey for capital rules cut, says senior MP", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414", "blurb": "UK lenders are expected to press the Chancellor to ease capital requirements ahead of the Budget."},
@@ -1066,19 +1071,6 @@ export const ARTICLES = {
     {"title": "US core PCE inflation expected to increase, challenging the Fed", "source": "FXStreet", "date": "2026-09-30", "time": "10:13", "url": "https://www.fxstreet.com/news/us-core-pce-inflation-set-to-rise-in-august-pressuring-the-federal-reserve-202609300830", "blurb": "Preview of the 8:30am ET August PCE release: core is forecast at +0.3% m/m and 3.4% y/y, up from 3.3% in July.", "author": null},
     {"title": "US consumer confidence dives to more than 12-year low in September", "source": "Reuters (via Investing.com)", "date": "2026-09-29", "time": "10:13", "url": "https://www.investing.com/news/economic-indicators/us-consumer-confidence-dives-to-more-than-12year-low-in-september-4923037", "blurb": "The Conference Board index fell 6.7 points to 81.9, its lowest since 2014 (Reuters poll: 89.2), with Expectations at 63.6 and references to fuel and prices at record highs.", "author": null},
     {"title": "New 12-year low in consumer confidence", "source": "Axios", "date": "2026-09-29", "time": "10:13", "url": "https://www.axios.com/2026/09/29/new-12-year-low-in-consumer-confidence", "blurb": "Axios on the Conference Board's September reading, which fell to a 12-year low as households absorbed rising fuel costs.", "author": null},
-    {"title": "Stock market today: Dow, S&P 500, Nasdaq wobble as 30-year Treasury yield climbs to 24-year high", "source": "Yahoo Finance", "date": "2026-09-29", "time": "10:13", "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", "blurb": "The 30-year Treasury yield touched 5.612%, its highest since June 2002, with the 10-year near 5.3%; the Dow closed -0.26%, the S&P 500 -0.17% and the Nasdaq -0.09%.", "author": null},
-    {"title": "Is the world really drowning in debt?", "source": "Financial Times", "date": "2026-09-30", "time": "05:00", "url": "https://www.ft.com/content/a1202ae1-0324-4383-a082-4cc522a8fdbc", "blurb": "FT examines whether global debt levels are as alarming as headline figures suggest.", "author": null},
-    {"title": "Bank runs are almost always justified", "source": "Financial Times", "date": "2026-09-30", "time": "06:00", "url": "https://www.ft.com/content/80c78c90-97b2-48db-84e0-26975f47305e", "blurb": "FT opinion on the logic behind bank runs.", "author": null},
-    {"title": "Bond markets steady after sell-off", "source": "Financial Times", "date": "2026-09-30", "time": "06:43", "url": "https://www.ft.com/content/cd22d20a-3b65-4534-ac04-f5008810e10a", "blurb": "FT reports government bond markets stabilising after the recent sell-off.", "author": null},
-    {"title": "Oil price and US Treasury yields in tightest relationship since 1990", "source": "Financial Times", "date": "2026-09-29", "time": "05:00", "url": "https://www.ft.com/content/f894f69a-9e2b-4c3f-bf5d-c5c4dc0e6197", "blurb": "FT analysis of the tightening link between crude oil and US Treasury yields as the bond sell-off deepens.", "author": null},
-    {"title": "What\u2019s going to break in the bondpocalypse?", "source": "Bloomberg", "date": "2026-09-29", "time": "05:02", "url": "https://www.bloomberg.com/opinion/newsletters/2026-09-29/what-s-going-to-break-in-the-bondpocalypse", "blurb": "John Authers: US data might hold the key as the bond sell-off deepens.", "author": "John Authers"},
-    {"title": "Germany issues EU budget ultimatum", "source": "Financial Times", "date": "2026-09-29", "time": "05:00", "url": "https://www.ft.com/content/3b829a46-3eae-4c20-94db-a79c38d0be4c", "blurb": "FT reports Berlin setting terms in the EU budget negotiations.", "author": null},
-    {"title": "Measured ECB hikes to quell inflation remain appropriate, Lagarde says", "source": "Reuters", "date": "2026-09-28", "time": "22:17", "url": "https://www.investing.com/news/economy-news/measured-ecb-hikes-to-quell-inflation-remain-appropriate-lagarde-says-4920668", "blurb": "Lagarde says long-term rates have risen notably, which will slow growth and cut energy pass-through by more than projected, pushing back on the most aggressive hike bets.", "author": null},
-    {"title": "Nvidia boosts share buyback by record $150 billion as AI boom fuels growth", "source": "Reuters", "date": "2026-09-28", "time": "22:17", "url": "https://www.investing.com/news/stock-market-news/nvidia-adds-150-billion-to-existing-share-repurchase-plan-4919956", "blurb": "A record buyback authorisation lifts Nvidia's remaining repurchase capacity to $235bn, to be used through fiscal 2028.", "author": null},
-    {"title": "Key US Data This Week Seen Bolstering Case for October Rate Hike", "source": "Bloomberg", "date": "2026-09-28", "time": "18:11", "url": "https://www.bloomberg.com/news/articles/2026-09-28/key-us-data-this-week-seen-bolstering-case-for-october-rate-hike", "blurb": "Bloomberg previews a data-heavy week — JOLTS, consumer confidence, ADP and the September jobs report — that Fed officials expect to add further evidence the economy is strengthening, bolstering the case some have made for another rate hike as soon as the 28 October FOMC.", "author": null},
-    {"title": "UK finance minister says 'fiscal discipline' will form core of budget", "source": "Reuters (via Investing.com)", "date": "2026-09-28", "time": "18:11", "url": "https://www.investing.com/news/economy-news/uk-finance-minister-says-fiscal-discipline-will-form-core-of-budget-4920059", "blurb": "Chancellor John Healey told Labour's Liverpool conference that fiscal discipline will sit at the core of his 28 October Budget, saying the cost of servicing Britain's elevated debt is diverting money from public services, as the gilt sell-off keeps squeezing his fiscal headroom.", "author": null},
-    {"title": "Stock market today: Dow, S&P 500, Nasdaq slip as US-Iran tensions resurface, Treasury yields jump", "source": "Yahoo Finance", "date": "2026-09-28", "time": "16:19", "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-28-dow-sp-500-nasdaq-080420627.html", "blurb": "Afternoon trading: the S&P 500 fell 0.90% to 7,673.88, the Dow dropped 0.75% to 51,440.97 and the Nasdaq lost 1.14% to 26,760.68 as Brent traded above $106.79/bbl and the 10-year Treasury yield held above 5.2% on the stalled US-Iran Hormuz standoff; Nvidia bucked the selloff (+~1%) after authorising a further $150bn buyback (total $235bn).", "author": null},
-    {"title": "5 things to know before the stock market opens Monday", "source": "CNBC", "date": "2026-09-28", "url": "https://www.cnbc.com/2026/09/28/5-things-to-know-before-the-stock-market-opens.html", "blurb": "CNBC's Monday rundown: Trump's rejection of Iran's Hormuz reopening proposal, elevated Treasury yields, and a data-heavy week ahead (core PCE, ISM PMIs, September jobs report) headline the setup for markets before the 28 October FOMC.", "author": null},
   ],
 };
 
@@ -1097,14 +1089,17 @@ export const RELEASES = [
   { date: "2026-10-15", country: "UK", title: "GDP monthly estimate (August)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/previousreleases" },
   { date: "2026-10-20", country: "UK", title: "Labour market overview (three months to August)", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/previousreleases" },
   { date: "2026-10-21", country: "UK", title: "CPI inflation (September)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukseptember2026" },
+  { date: "2026-10-21", country: "UK", title: "Public sector finances (September)", url: "https://www.ons.gov.uk/releases/publicsectorfinancesukseptember2026" },
   { date: "2026-10-23", country: "US", title: "S&P Global Flash US PMI (October)", url: "https://www.pmi.spglobal.com/Public/Home/PressRelease" },
   { date: "2026-10-23", country: "UK", title: "Retail sales (September)", url: "https://www.ons.gov.uk/businessindustryandtrade/retailindustry/bulletins/retailsales/previousreleases" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
   { date: "2026-10-28", country: "US", title: "FOMC rate decision", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-10-29", country: "US", title: "GDP (Q3 2026, Advance Estimate)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-29", country: "US", title: "Personal Income and Outlays / PCE inflation (September)", url: "https://www.bea.gov/news/schedule" },
+  { date: "2026-10-30", country: "US", title: "Employment Cost Index (Q3 2026)", url: "https://www.bls.gov/schedule/2026/10_sched_list.htm" },
   { date: "2026-11-02", country: "US", title: "ISM Manufacturing PMI (October)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-11-05", country: "UK", title: "BoE MPC decision & Monetary Policy Report", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
+  { date: "2026-11-06", country: "US", title: "Employment Situation (October)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
 ];
 
 // ---- Wall of maturities — corporate credit due over the next five years ----
@@ -1239,7 +1234,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "The 30-year Treasury yield touched 5.612% on Tuesday — its highest since June 2002 — with the 10-year near 5.3%, as rising yields weighed on US equities (Dow -0.26%, S&P 500 -0.17%, Nasdaq -0.09%) even as oil pulled back; the average 30-year mortgage rate rose to 7.58%, the highest since November 2023.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-september-29-dow-sp-500-nasdaq-080526442.html", srcName: "Yahoo Finance", date: "2026-09-29" },
+  "US:two_year": { text: "The US 10-year Treasury yield was around 5.26% on Monday, below the 24-year high it touched last week, but the dollar held firm on still-lofty yields even after the weaker-than-expected jobs report dampened bets on a Fed rate hike this month.", src: "https://www.investing.com/news/economy-news/dollar-holds-firm-as-french-fiscal-woes-keep-euro-on-back-foot-4930983", srcName: "Reuters (via Investing.com)", date: "2026-10-05" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:base_rate": { text: "The ONS revised UK Q2 GDP growth up to 0.5% q/q from 0.4% (services +0.6%), reaffirming market bets on a 25bp Bank of England hike at the 5 November meeting; sterling rose from a two-month low.", src: "https://www.fxstreet.com/news/british-pound-moves-away-from-two-month-low-after-uk-q2-gdp-as-usd-retreats-ahead-of-pce-202609300731", srcName: "FXStreet", date: "2026-09-30" },
   "UK:two_year": { text: "Gilts led European bonds higher on Tuesday as energy prices retreated, with UK yields dropping as oil and gas hit fresh lows — a pause in a sell-off that had already pared Chancellor Healey's fiscal headroom to roughly £12bn ahead of the 28 October Budget.", src: "https://www.bloomberg.com/news/articles/2026-09-29/gilts-lead-european-bonds-higher-as-energy-prices-retreat", srcName: "Bloomberg", date: "2026-09-29" },
@@ -1249,7 +1244,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Sterling rose from a two-month low on Wednesday after the ONS revised UK Q2 GDP growth up to 0.5% q/q from 0.4%, reaffirming market bets on a 25bp Bank of England hike on 5 November, while a softer US dollar ahead of the August PCE release added support.", src: "https://www.fxstreet.com/news/british-pound-moves-away-from-two-month-low-after-uk-q2-gdp-as-usd-retreats-ahead-of-pce-202609300731", srcName: "FXStreet", date: "2026-09-30" };
+export const FX_KEYMOMENT = { text: "The euro hit its weakest level against the dollar in 17 months on Monday, trading about 0.7% lower, as concerns over the political trajectories of Spain (snap election called for 29 November) and France spilled into wider markets while the dollar drew support from still-lofty Treasury yields.", src: "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", srcName: "CNBC", date: "2026-10-05" };
 
 export const EARNINGS = {
   // Monday-transition sweep (14 Sep): no bank/broker, asset-manager, AI-relevant
