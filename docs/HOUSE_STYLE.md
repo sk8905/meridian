@@ -347,11 +347,13 @@ notification badge red (`#ef4444`).
   token is missing from a scope, and the whole underline silently vanishes. The
   **bottom tab bar's active marker** (`.mtab.is-active::before`, a 2px *top* line
   over the selected nav tab) is the ONE deliberate exception (owner's call): in LIGHT it still reads
-  `--chip-ul` (black) like the rest of the family, but in DARK the selected nav tab
-  is Wire orange — both the 2px top marker AND the active tab's icon + label
-  (`[data-theme="dark"] .mtab.is-active` + `::before`, `var(--accent, #fb8b1e)`).
-  This is the intended look on the black bar; do NOT neutralise it back to
-  `--chip-ul`. Every OTHER tab row stays on `--chip-ul` per the rule above.
+  `--chip-ul` (black) like the rest of the family, but in DARK
+  the selected tab's LABEL and 2px top MARKER are Wire orange
+  (`var(--accent, #fb8b1e)`), while the SYMBOL (icon) stays white
+  (`[data-theme="dark"] .mtab.is-active .mtab-ico` → `var(--ink)`, overriding the SVG's
+  `stroke=currentColor`). This is the intended look on the black bar; do NOT neutralise
+  it back to `--chip-ul`, and do NOT let the orange bleed onto the icon. Every OTHER tab
+  row stays on `--chip-ul` per the rule above.
 
 ---
 

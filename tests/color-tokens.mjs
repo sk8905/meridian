@@ -130,13 +130,15 @@ check(/export const fmtDay = \(iso\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\] 
 check(/\.mtab\.is-active::before\s*\{[^}]*background:\s*var\(--chip-ul,\s*#000\)/.test(premiumCss),
   "premium.css .mtab.is-active::before reads var(--chip-ul, #000), not a bare #000");
 // R14a exception (dark) — the bottom tab bar is the ONE deliberate exception to the
-// --chip-ul family: in DARK the selected nav tab is Wire ORANGE (--accent), both the
-// top marker AND the active tab's icon + label (owner's call — see HOUSE_STYLE R14a).
-// Light mode still uses --chip-ul (checked above). Do NOT neutralise this back.
+// --chip-ul family: in DARK the selected nav tab's LABEL and top MARKER are Wire ORANGE
+// (--accent), but the SYMBOL (icon) stays white (--ink) — owner's call, see HOUSE_STYLE
+// R14a. Light mode still uses --chip-ul (checked above). Do NOT neutralise this back.
 check(/\[data-theme="dark"\]\s*\.mtab\.is-active::before\s*\{[^}]*background:\s*var\(--accent,\s*#fb8b1e\)/.test(premiumCss),
-  "premium.css dark .mtab.is-active::before is the accent orange (var(--accent, #fb8b1e))");
+  "premium.css dark .mtab.is-active::before marker is the accent orange (var(--accent, #fb8b1e))");
 check(/\[data-theme="dark"\]\s*\.mtab\.is-active\s*\{[^}]*color:\s*var\(--accent,\s*#fb8b1e\)/.test(premiumCss),
-  "premium.css dark .mtab.is-active icon+label read the accent orange (var(--accent, #fb8b1e))");
+  "premium.css dark .mtab.is-active label reads the accent orange (var(--accent, #fb8b1e))");
+check(/\[data-theme="dark"\]\s*\.mtab\.is-active\s+\.mtab-ico\s*\{[^}]*color:\s*var\(--ink,\s*#eaf0fb\)/.test(premiumCss),
+  "premium.css dark .mtab.is-active .mtab-ico (the symbol) stays white (--ink), NOT orange");
 
 // R9 — Credit's listed-vehicle ticker is plain data text, not accent-coloured
 // (the sibling .veh-nm vehicle name already reads --t-ink; the ticker had
