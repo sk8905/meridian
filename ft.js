@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2915c093-4735-4043-97c9-157a2a2586d1",
+    title: "Burnham’s Budget must not be overshadowed by the OBR",
+    date: "2026-10-05",
+    time: "16:00",
+    url: "https://www.ft.com/content/2915c093-4735-4043-97c9-157a2a2586d1",
+  },
+  {
+    id: "17ca0b3c-604e-4690-b58a-f65dfce15b5d",
+    title: "David Ellison sticks with Mark Thompson as CNN boss amid Trump attacks",
+    date: "2026-10-05",
+    time: "15:31",
+    url: "https://www.ft.com/content/17ca0b3c-604e-4690-b58a-f65dfce15b5d",
+  },
+  {
     id: "0a45595f-4889-4436-847f-1bddce813009",
     title: "US ‘monitoring’ situation around suspected case of plague in Russia",
     date: "2026-10-05",

@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-rpcnewyork-20261005",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "RPC goes bold with New York launch",
+    date: "2026-10-05",
+    time: "16:08",
+    summary: "RPC is opening a New York office, led by insurance partner Scott Schechter.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/aocRAL8_8lPx",
+  },
+  {
     id: "nl-bbg-authoralert-arinirais15bn-20261005",
     publication: "Bloomberg",
     author: "Nishant Kumar",
