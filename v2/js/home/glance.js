@@ -2536,13 +2536,31 @@ function _placeBriefPane() {
   if (hb.style.height) hb.style.height = "";
   if (hb.style.maxHeight) hb.style.maxHeight = "";
 }
+// Is this feed row openable in the reading pane WITHOUT a login — i.e. an external
+// story from a non-subscriber source, whose full text the reader service can print?
+// (Subscriber/padlocked rows and internal links only ever show a preview + link.)
+function _rowOpensInPane(row) {
+  const it = _rowItem(row);
+  return !!(it.ext && it.href && !_opensExternally(it.src, it.href));
+}
+// Auto-open the most-recent story ONCE per page load. Set the first time it opens one,
+// so an in-session re-render (the live/background refresh, a lane switch) never yanks
+// the reader off what they're reading. A reopen that found newer content, a hard manual
+// refresh, or a relaunch re-imports this module → the flag resets → the latest opens
+// again. See HOUSE_STYLE R3a.
+let _readDefaultOpened = false;
 function syncReadDefault() {
   const read = document.getElementById("g-read");
   if (!read || read.offsetParent === null) return;                          // mobile / hidden
   if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // keep current
-  // No auto-open: the reading pane starts on its placeholder and the reader chooses a
-  // story (by click, or by cycling the feed with the ↑/↓ arrow keys — see ensureReadWired).
-  renderReadPane(null);
+  if (_readDefaultOpened) return;                                           // already auto-opened this load — don't re-jump
+  // Default to the MOST RECENT unlocked story — the newest row that actually opens in the
+  // pane without a password. Rows are newest-first, so take the first openable one; only
+  // if every row is locked/internal do we fall back to the very first row.
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+  if (!rows.length) return;                                                 // feed not populated yet — retry next render
+  const pick = rows.find(_rowOpensInPane) || rows[0];
+  if (pick) { openInReadPane(pick); _readDefaultOpened = true; }
 }
 function ensureReadWired() {
   const feed = document.getElementById("g-feed");
@@ -2588,7 +2606,7 @@ function ensureReadWired() {
       if (e.key === "ArrowDown") i = i < 0 ? 0 : (i + 1) % rows.length;
       else i = i < 0 ? rows.length - 1 : (i - 1 + rows.length) % rows.length;
       const next = rows[i];
-      if (next) { openInReadPane(next); next.scrollIntoView({ block: "nearest" }); }
+      if (next) { openInReadPane(next); try { next.focus({ preventScroll: true }); } catch { next.focus(); } next.scrollIntoView({ block: "nearest" }); }
     });
   }
   // The mobile reader's Back control (and a tap on the backdrop) closes it.

@@ -15,6 +15,15 @@ await pg.waitForSelector("#g-wire-lanes .g-wire-lane", { timeout: 8000 });
 await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 await pg.waitForTimeout(500);
 
+// ---- Reading pane auto-opens the most-recent story ON LOAD (R3a) --------------
+// (The .is-reading row highlight is transient — a later re-render rebuilds the feed and
+// drops it — but the opened story persists in the pane, which is what proves auto-open.)
+const auto = await pg.evaluate(() => ({
+  title: ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim().length > 0,
+  open: !!document.querySelector("#g-readpane .g-read-open, #g-readpane .g-read-lock"),
+}));
+check(auto.title && auto.open, `desktop: the most-recent story auto-opens the reading pane on page load (title=${auto.title})`);
+
 // ---- Lane tabs are the only control; no sub-filter rows ----------------------
 const lanes = await pg.evaluate(() => ({
   tabs: [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].map((b) => b.textContent.trim()),
@@ -44,14 +53,16 @@ const nl = await pg.evaluate(() => {
 });
 check(nl.rows > 0, `Newsletters lane renders newsletter items (${nl.rows} rows from ${nl.srcs.filter(Boolean).slice(0,4).join(", ")})`);
 
-// ---- Reading pane: NO auto-open — starts on the placeholder; ↑/↓ arrows cycle the feed.
+// ---- Auto-open runs ONCE per load; a lane switch re-renders but does NOT re-jump the
+// pane (R3a). The ↑/↓ arrows then cycle the feed, and keyboard focus must NOT paint the
+// browser's default outline (the is-reading accent marker is the indicator).
 await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "News"); if (b) b.click(); });
 await pg.waitForTimeout(500);
-const noAuto = await pg.evaluate(() => ({
+const afterSwitch = await pg.evaluate(() => ({
   reading: !!document.querySelector("#g-feed .g-feed-row.is-reading"),
   rows: document.querySelectorAll("#g-feed .g-feed-row").length,
 }));
-check(noAuto.rows > 0 && !noAuto.reading, `desktop: no story is auto-opened — the reading pane starts on its placeholder (${noAuto.reading ? "a row is reading" : "none reading"})`);
+check(afterSwitch.rows > 0 && !afterSwitch.reading, `desktop: a lane switch re-renders without re-jumping the pane (${afterSwitch.reading ? "re-opened" : "no re-jump"})`);
 
 // ↓ opens the first row; ↓ again advances; ↑ steps back — cycling the feed.
 const press = async (key) => { await pg.evaluate((k) => document.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true, cancelable: true })), key); await pg.waitForTimeout(120); };
@@ -65,6 +76,13 @@ check(i1 === 1, `arrows: a second ArrowDown advances to the next story (idx ${i1
 await press("ArrowUp");
 const i2 = await readingIdx();
 check(i2 === 0, `arrows: ArrowUp steps back to the previous story (idx ${i2})`);
+// The keyboard-focused row must not carry the browser's default outline (white ring).
+const outline = await pg.evaluate(() => {
+  const r = document.querySelector("#g-feed .g-feed-row.is-reading"); if (!r) return null;
+  const s = getComputedStyle(r);
+  return { w: s.outlineWidth, style: s.outlineStyle };
+});
+check(outline && (outline.style === "none" || outline.w === "0px"), `arrows: focused row has no default outline ring (${outline ? outline.style + "/" + outline.w : "no row"})`);
 check(await pg.evaluate(() => !!document.querySelector("#g-readpane .g-read-ttl, #g-readpane .g-read-body, #g-readpane [class*='g-read']")), "arrows: the selected story renders in the reading pane");
 
 // ---- Readable-only Home newswire: the News lane carries NO subscriber-paywalled rows.

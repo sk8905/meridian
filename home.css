@@ -972,6 +972,12 @@
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     .tui #g-feed .g-feed-row.is-reading{ background:rgba(127,140,170,.10); box-shadow:inset 2px 0 0 var(--t-accent); }
+    /* Feed rows are <a> links, so ↑/↓ keyboard nav would otherwise paint the browser's
+       default (thick, light) focus ring. Suppress that outline and let the is-reading
+       marker be the indicator — the arrow nav focuses the row it opens, so the focused
+       row always carries the inset accent marker. */
+    #g-feed .g-feed-row:focus, #g-feed .g-feed-row:focus-visible{ outline:none; }
+    .tui #g-feed .g-feed-row:focus-visible{ box-shadow:inset 2px 0 0 var(--t-accent); }
 
     /* MOBILE terminal reader (openly-readable rows open here in-app). It sits in the
        WIRE WORKSPACE — below the fixed header · search band · wire tabs, above the
