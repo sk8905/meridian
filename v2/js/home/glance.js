@@ -2536,23 +2536,13 @@ function _placeBriefPane() {
   if (hb.style.height) hb.style.height = "";
   if (hb.style.maxHeight) hb.style.maxHeight = "";
 }
-// Is this feed row openable in the reading pane WITHOUT a login — i.e. an external
-// story from a non-subscriber source, whose full text the reader service can print?
-// (Subscriber/padlocked rows and internal links only ever show a preview + link.)
-function _rowOpensInPane(row) {
-  const it = _rowItem(row);
-  return !!(it.ext && it.href && !_opensExternally(it.src, it.href));
-}
 function syncReadDefault() {
   const read = document.getElementById("g-read");
   if (!read || read.offsetParent === null) return;                          // mobile / hidden
   if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // keep current
-  // Default to the MOST RECENT unlocked story — the newest row that actually opens in
-  // the pane without a password. Rows are newest-first, so take the first openable one;
-  // only if every row is locked/internal do we fall back to the very first row.
-  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const pick = rows.find(_rowOpensInPane) || rows[0];
-  if (pick) openInReadPane(pick); else renderReadPane(null);
+  // No auto-open: the reading pane starts on its placeholder and the reader chooses a
+  // story (by click, or by cycling the feed with the ↑/↓ arrow keys — see ensureReadWired).
+  renderReadPane(null);
 }
 function ensureReadWired() {
   const feed = document.getElementById("g-feed");
@@ -2577,6 +2567,30 @@ function ensureReadWired() {
       openMobileReader(it);
     }
   });
+  // ↑/↓ arrow keys cycle through the feed, opening each story in the reading pane
+  // (desktop only — mobile has no side pane). Wraps top↔bottom; only VISIBLE rows are
+  // cycled (filters don't trap the cursor), and arrows are ignored while typing in a
+  // field so search keeps its native caret movement. Wired once, on the document.
+  if (!document.body.dataset.feedArrowsWired) {
+    document.body.dataset.feedArrowsWired = "1";
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const read = document.getElementById("g-read");
+      if (!read || read.offsetParent === null) return;                      // mobile / no side pane
+      if (e.target && e.target.closest && e.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      const feedEl = document.getElementById("g-feed"); if (!feedEl) return;
+      const rows = [...feedEl.querySelectorAll(".g-feed-row")].filter((r) => r.offsetParent !== null);
+      if (!rows.length) return;
+      e.preventDefault();
+      const cur = feedEl.querySelector(".g-feed-row.is-reading");
+      let i = cur ? rows.indexOf(cur) : -1;
+      if (e.key === "ArrowDown") i = i < 0 ? 0 : (i + 1) % rows.length;
+      else i = i < 0 ? rows.length - 1 : (i - 1 + rows.length) % rows.length;
+      const next = rows[i];
+      if (next) { openInReadPane(next); next.scrollIntoView({ block: "nearest" }); }
+    });
+  }
   // The mobile reader's Back control (and a tap on the backdrop) closes it.
   const ov = document.getElementById("g-reader");
   if (ov && !ov.dataset.wired) {

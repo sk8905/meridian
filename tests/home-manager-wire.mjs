@@ -25,7 +25,8 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     readVisible: (() => { const r = document.getElementById("g-read"); return !!r && r.offsetParent !== null; })(),
     mgrHidden: (() => { const m = document.getElementById("g-mgrwire"); return !m || m.offsetParent === null; })(),
     cols: getComputedStyle(document.querySelector(".g-layout")).gridTemplateColumns.trim().split(/\s+/).length,
-    defaultRead: ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim().length > 0,
+    autoOpened: ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim().length > 0,
+    reading: !!document.querySelector("#g-feed .g-feed-row.is-reading"),
   }));
   checkEq(shell.lanes.join(" · "), "All · News · Manager · Watchlist · Newsletters", "merged wire: top-level lanes are All · News · Manager · Watchlist · Newsletters");
   check(shell.readVisible && shell.mgrHidden, "desktop: the manager quadrant is now a reading pane (the manager wire is hidden here)");
@@ -34,7 +35,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   // a header toggle (see tests/home-ipad-columns.mjs). The full five-column terminal
   // returns at ≥1501px.
   checkEq(shell.cols, 4, "desktop ≤1500: the terminal collapses to a 4-column grid (Chart/X share a column)");
-  check(shell.defaultRead, "reading pane: defaults to the top story of the day");
+  check(!shell.autoOpened && !shell.reading, "reading pane: no story is auto-opened — starts on the placeholder (R3a)");
 
   // Manager lane: the flat manager-event stream in the shared column.
   await lane(pg, "Manager");

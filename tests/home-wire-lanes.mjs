@@ -44,17 +44,28 @@ const nl = await pg.evaluate(() => {
 });
 check(nl.rows > 0, `Newsletters lane renders newsletter items (${nl.rows} rows from ${nl.srcs.filter(Boolean).slice(0,4).join(", ")})`);
 
-// ---- Reading pane: default is the most-recent UNLOCKED story -----------------
+// ---- Reading pane: NO auto-open — starts on the placeholder; ↑/↓ arrows cycle the feed.
 await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "News"); if (b) b.click(); });
 await pg.waitForTimeout(500);
-const dflt = await pg.evaluate(() => {
-  const reading = document.querySelector("#g-feed .g-feed-row.is-reading");
-  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const firstUnlocked = rows.find((r) => !r.classList.contains("is-locked"));
-  return { hasReading: !!reading, readingLocked: !!(reading && reading.classList.contains("is-locked")), isFirstUnlocked: !!(reading && firstUnlocked && reading === firstUnlocked) };
-});
-check(dflt.hasReading && !dflt.readingLocked, "desktop: the reading pane defaults to an UNLOCKED story");
-check(dflt.isFirstUnlocked, "desktop: the default is the most-recent unlocked row");
+const noAuto = await pg.evaluate(() => ({
+  reading: !!document.querySelector("#g-feed .g-feed-row.is-reading"),
+  rows: document.querySelectorAll("#g-feed .g-feed-row").length,
+}));
+check(noAuto.rows > 0 && !noAuto.reading, `desktop: no story is auto-opened — the reading pane starts on its placeholder (${noAuto.reading ? "a row is reading" : "none reading"})`);
+
+// ↓ opens the first row; ↓ again advances; ↑ steps back — cycling the feed.
+const press = async (key) => { await pg.evaluate((k) => document.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true, cancelable: true })), key); await pg.waitForTimeout(120); };
+const readingIdx = () => pg.evaluate(() => { const rows = [...document.querySelectorAll("#g-feed .g-feed-row")]; return rows.findIndex((r) => r.classList.contains("is-reading")); });
+await press("ArrowDown");
+const i0 = await readingIdx();
+check(i0 === 0, `arrows: ArrowDown opens the first row (idx ${i0})`);
+await press("ArrowDown");
+const i1 = await readingIdx();
+check(i1 === 1, `arrows: a second ArrowDown advances to the next story (idx ${i1})`);
+await press("ArrowUp");
+const i2 = await readingIdx();
+check(i2 === 0, `arrows: ArrowUp steps back to the previous story (idx ${i2})`);
+check(await pg.evaluate(() => !!document.querySelector("#g-readpane .g-read-ttl, #g-readpane .g-read-body, #g-readpane [class*='g-read']")), "arrows: the selected story renders in the reading pane");
 
 // ---- Readable-only Home newswire: the News lane carries NO subscriber-paywalled rows.
 // The premium four (FT/Bloomberg/WSJ/Economist) and Nikkei are culled from the general

@@ -62,14 +62,20 @@ const all = await pg.evaluate(() => ({
 check(all.subs === 0, "All lane: no second-level sub-filters");
 check(all.mgrRows > 0 && all.total > all.mgrRows, `All lane: news + manager interleaved (${all.mgrRows} manager of ${all.total} rows)`);
 
-// Reading pane: default top story renders in reading mode with a source badge.
+// Reading pane: there is NO auto-open (R3a) — the reader opens a story. Open the top
+// readable row (on the News lane, so no manager-event rows) and it renders in reading
+// mode with a kicker + headline + an 'Open original' link.
+await lane(pg, "News");
+await pg.waitForTimeout(250);
+await pg.evaluate(() => { const r = [...document.querySelectorAll("#g-feed .g-feed-row")].find((x) => !x.classList.contains("is-locked")); if (r) r.click(); });
+await pg.waitForTimeout(400);
 const def = await pg.evaluate(() => ({
   title: (document.querySelector("#g-readpane .g-read-title") || {}).textContent.trim(),
   badge: (document.getElementById("g-read-badge") || {}).textContent.trim(),
   open: !!document.querySelector("#g-readpane .g-read-open"),
   kicker: !!document.querySelector("#g-readpane .g-read-kicker"),
 }));
-check(def.title.length > 0 && def.kicker, "reading pane: the default top story renders (kicker + headline)");
+check(def.title.length > 0 && def.kicker, "reading pane: opening the top story renders it (kicker + headline)");
 check(def.open, "reading pane: carries an 'Open original at …' link out");
 
 // Paywall treatment: a subscriber source (FT/Bloomberg/WSJ) shows the lock WITHOUT
