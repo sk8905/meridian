@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "aa851d11-33dc-4f1f-9e95-95907ff7dde5",
+    title: "UK workers expect to retire five years later than they would like",
+    date: "2026-10-06",
+    time: "00:01",
+    url: "https://www.ft.com/content/aa851d11-33dc-4f1f-9e95-95907ff7dde5",
+  },
+  {
+    id: "4087c789-a7ed-4365-bd35-9127bc58c3ae",
+    title: "FCA to examine how it treated whistleblower who died by suicide",
+    date: "2026-10-06",
+    time: "00:01",
+    url: "https://www.ft.com/content/4087c789-a7ed-4365-bd35-9127bc58c3ae",
+  },
+  {
+    id: "71dccbca-4a1f-485a-9790-28cc527cdb82",
+    title: "US affordability tracker: the data that could decide the 2026 midterm elections",
+    date: "2026-10-05",
+    time: "22:56",
+    url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82",
+  },
+  {
     id: "6e57c480-39d9-4b4d-946a-092387cee493",
     title: "Donald Trump says US pulled bombers from UK after ‘threats’",
     date: "2026-10-05",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "11:33",
     url: "https://www.ft.com/content/7feba19e-b498-4453-a744-214638044f0a",
-  },
-  {
-    id: "e0dfef01-4933-4ab9-8927-d08115f4822c",
-    title: "Bond turbulence means it’s time for the ECB to put QT on hold",
-    date: "2026-10-05",
-    time: "11:22",
-    url: "https://www.ft.com/content/e0dfef01-4933-4ab9-8927-d08115f4822c",
-  },
-  {
-    id: "0f48c61b-a490-4bdc-8473-bab6705e5b61",
-    title: "UK business secretary weighs up tariffs on Chinese EVs",
-    date: "2026-10-05",
-    time: "11:03",
-    url: "https://www.ft.com/content/0f48c61b-a490-4bdc-8473-bab6705e5b61",
-  },
-  {
-    id: "91741bbc-9626-41fc-8320-9ab9adbd8631",
-    title: "A Chinese billionaire reckons with the limits of building AI across borders",
-    date: "2026-10-05",
-    time: "11:00",
-    url: "https://www.ft.com/content/91741bbc-9626-41fc-8320-9ab9adbd8631",
   },
 ];

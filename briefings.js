@@ -67,8 +67,8 @@ export const BRIEFINGS = {
     },
     evening: {
       label: "Evening",
-      date: "2026-10-05",
-      time: "22:12 BST",
+      date: "2026-10-06",
+      time: "00:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the Banque de France governor warns France is at risk of being &lsquo;strangled by interest rates&rsquo;</strong>, the FT reports, as euro-area political and bond-market stress builds.", src: "https://www.ft.com/content/74c3cc77-1593-4c49-90f9-0d92fa3a2418", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the euro slid to a 17-month low against the dollar</strong> as Spain&rsquo;s snap election and French fiscal worries rattled markets, the FT reports.", src: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24", srcName: "Financial Times" },
