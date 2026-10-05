@@ -675,4 +675,13 @@ check(/resp\.headers\.set\(["']cache-control["'],\s*["']no-store["']\)/.test(_sr
 check(/edge\.headers\.set\(["']cache-control["'],[^)]*max-age=3600/.test(_src),
   "freshness: the EDGE copy still caches for an hour (fast re-reads)");
 
+// 26) Reader responsiveness — the pane must never get stuck on the loading note, and the
+//     top stories are pre-warmed so the auto-open / first clicks are instant. The fetch
+//     carries an abort timeout, results are memoised per load, and prefetchTopReads is wired.
+check(/const _readMem = new Map\(\)/.test(_cli), "responsiveness: an in-memory reader cache de-dupes prefetch + re-opens");
+check(/signal:\s*_timeoutSignal\(\d+\)/.test(_cli), "responsiveness: the reader fetch has an abort timeout (never stuck on 'Fetching…')");
+check(/function prefetchTopReads\(/.test(_cli) && /prefetchTopReads\(\s*\d+\s*\)/.test(_cli),
+  "responsiveness: prefetchTopReads pre-warms the top stories and is wired into renderWire");
+check(/_fetchRead\(it\.href\)\s*\n?\s*\.then\(/.test(_cli), "responsiveness: the reading pane renders via the memoised _fetchRead path");
+
 finish();

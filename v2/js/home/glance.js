@@ -2235,6 +2235,10 @@ function renderWire() {
   _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();
   syncReadDefault();
+  // Pre-warm the top stories so the auto-open + first clicks are instant (desktop pane only
+  // — the in-memory cache de-dupes, so repeated renders don't re-fetch the same hrefs).
+  const readCol = document.getElementById("g-read");
+  if (readCol && readCol.offsetParent !== null) prefetchTopReads(3);
 }
 
 // ---- Reading pane (desktop right quadrant) ---------------------------------
@@ -2311,6 +2315,33 @@ function openInReadPane(row) {
   renderReadPane(_rowItem(row));
 }
 let _readSeq = 0;
+// Per-page-load reader cache: href -> Promise<parsed /api/read JSON | null>. It de-dupes an
+// in-flight PREFETCH with the real open (they share one request), and makes re-opening a
+// story instant. In-memory only (cleared on reload) so it never pins pre-deploy text — the
+// browser HTTP cache stays bypassed (cache:"no-store"); the EDGE still serves fast.
+const _readMem = new Map();
+function _timeoutSignal(ms) { try { const c = new AbortController(); setTimeout(() => { try { c.abort(); } catch { /* noop */ } }, ms); return c.signal; } catch { return undefined; } }
+function _fetchRead(href) {
+  if (!href) return Promise.resolve(null);
+  const hit = _readMem.get(href); if (hit) return hit;
+  // A 25s ceiling so a hung / very slow cold proxy fetch always resolves (→ null → the
+  // reader shows the "open the original" fallback) instead of pinning the loading note.
+  const p = fetch(`/api/read?url=${encodeURIComponent(href)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(25000) })
+    .then((r) => (r && r.ok) ? r.json() : null).catch(() => null);
+  _readMem.set(href, p);
+  p.then((d) => { if (!d) _readMem.delete(href); });        // a failed/timed-out fetch retries on the next open
+  return p;
+}
+// Warm the reader cache (and the edge) for the top few openable stories, so the auto-opened
+// default and the first ↑/↓ clicks render instantly instead of waiting on a cold fetch.
+function prefetchTopReads(n) {
+  let warmed = 0;
+  for (const row of document.querySelectorAll("#g-feed .g-feed-row")) {
+    if (warmed >= (n || 3)) break;
+    const it = _rowItem(row);
+    if (it && it.ext && it.href && !_opensExternally(it.src, it.href) && !_readMem.has(it.href)) { _fetchRead(it.href); warmed++; }
+  }
+}
 function _readNiceDate(iso) {
   const t = Date.parse(iso || ""); if (!t) return "";
   const d = new Date(t); return `${d.getDate()} ${MONTHS[d.getMonth()] || ""} ${d.getFullYear()}`;
@@ -2424,12 +2455,10 @@ function _renderReaderInto(box, it, emptyMsg) {
     return;
   }
   box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Fetching the full text — a few seconds for some sources…</div>`);
-  // cache:"no-store" — never replay a stale reader body from the BROWSER cache. The Worker
-  // edge-caches the extraction (fast re-reads), but a browser-cached /api/read body would
-  // pin the PRE-deploy text for up to an hour with no way to bust it on the iPhone PWA (no
-  // hard-refresh). Always hit the edge so a reader fix shows on the very next open.
-  fetch(`/api/read?url=${encodeURIComponent(it.href)}`, { headers: { accept: "application/json" }, cache: "no-store" })
-    .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
+  // _fetchRead reuses an in-flight prefetch / a just-read body from the in-memory cache
+  // (instant re-open), fetches the edge with cache:"no-store" (never the stale browser
+  // copy), and ALWAYS resolves within 25s so the pane can't get stuck on the loading note.
+  _fetchRead(it.href)
     .then((d) => {
       if (seq !== _readSeq) return;                                     // superseded by another click
       if (!box.isConnected) return;

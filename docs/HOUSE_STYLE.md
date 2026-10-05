@@ -63,7 +63,13 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   the ends — no wrap; visible rows only; ignored while typing in a field). Selecting a row sets
   `.is-reading` and renders it in `#g-readpane`. Rows are `<a>` links, so arrow-focus
   must not paint the browser's default outline — the `.is-reading` accent marker is the
-  indicator.
+  indicator. **Reader loads must never hang or stall:** `/api/read` is fetched through
+  `_fetchRead`, which (a) memoises the result per page load in `_readMem` (instant
+  re-opens; shares one request with any prefetch in flight) and (b) carries a 25s abort
+  timeout so the pane always resolves to the body or the "open the original" fallback —
+  it can never stick on "Fetching the full text…". `prefetchTopReads(3)` pre-warms the
+  top openable stories (in-memory **and** the edge cache) on each wire render, desktop
+  pane only, so the auto-open and the first ↑/↓ clicks are instant.
 - **R3b — Reading-pane images: charts & data only.** The reader (`extractReadable` /
   `proxyBlocks`) includes an image **only when it is a chart / data-visualisation** — a
   known chart-service CDN (`READ_IMG_CHART_HOST`: datawrapper, flourish, infogram,
