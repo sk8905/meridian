@@ -523,4 +523,30 @@ check(policyImgs.length === 1 && /datawrapper\.dwcdn\.net/.test(policyImgs[0].im
 check(!policyImgs.some((b) => /that-70s-show/.test(b.img)), "chart-only: the 'That '70s Show' editorial still is NOT included");
 check(policy.blocks.some((b) => b.tweetId === "1973500000000000999"), "chart-only: an embedded tweet is still captured (tweets are unaffected by the image policy)");
 
+// 21) Promo / subscription / anti-adblock / photo-credit boilerplate — the proxy flattens a
+//     publisher's page furniture into the markdown; these lines are dropped while the real
+//     prose is kept. (Observed on a MarketWatch opinion column rendered via the proxy.)
+const junkMd = `# Opinion: a 1970s column
+
+Is it time to dust off the financial playbook from that dismal decade?
+
+Choose MarketWatch as a preferred source of financial news
+
+Are you ready for a 70s show, but for real?Photo: 20th Century Fox/Courtesy Everett Collection
+
+Surging inflation, falling wages and an energy crisis have investors reaching for the 1970s playbook as strategists debate whether the decade's parallels are real or merely rhyming.
+
+Create a Free Account
+
+Get unlimited access to MarketWatch, The Wall Street Journal, and Barrons.
+
+Brett Arends is an award-winning financial writer with many years of experience covering markets and economics.
+
+This page has been blocked by an extension`;
+const junkParas = proxyBlocks(junkMd, "https://www.marketwatch.com/story/1970s").filter((b) => b.t && !b.img && !b.tweetId).map((b) => b.t);
+check(junkParas.length === 2, `boilerplate: only the two real body lines survive (${junkParas.length})`);
+check(!junkParas.some((p) => /preferred source|Create a Free Account|unlimited access|award-winning|blocked by an extension|Courtesy Everett Collection|Photo:/i.test(p)),
+  "boilerplate: promo CTAs, the author bio, the anti-adblock line and the photo-credit caption are all dropped");
+check(junkParas.some((p) => /Surging inflation/.test(p)), "boilerplate: the real article prose is kept");
+
 finish();

@@ -1786,7 +1786,7 @@ function _readMeta(html, keys) {
   }
   return "";
 }
-const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles|generated with the support of ai|reviewed by an editor|see our t&c|confirm your subscription|check your inbox|reset your password|enter your (?:username|email))/i;
+const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles|generated with the support of ai|reviewed by an editor|see our t&c|confirm your subscription|check your inbox|reset your password|enter your (?:username|email)|preferred source|create a (?:free )?account|unlimited access|blocked by an extension|page has been blocked|courtesy .{0,30}collection|everett collection|\bphoto:\s|getty\b|\/afp\b|award-winning .{0,25}(?:writer|journalist|columnist|author|correspondent))/i;
 // Section labels that head a navigation / recirculation widget (related stories,
 // "Popular Searches", trending, recommended, "more from"…). Matched ONLY against a
 // block that is a heading OR an entire short line — anchored at the start — so a real
@@ -2180,7 +2180,7 @@ async function handleRead(request, env, ctx) {
   // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
   // v8: images trusted only from the real article scope — a widened (thin) article drops
   //     out-of-scope recirculation/related/promo images and the generic og:image hero.
-  const key = new Request("https://read.internal/v10/" + encodeURIComponent(u.toString()));
+  const key = new Request("https://read.internal/v11/" + encodeURIComponent(u.toString()));
   const hit = await cache.match(key); if (hit) return hit;
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
