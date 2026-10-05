@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0bc54eaf-d545-4591-bb7c-ec3cbc1cb89a",
+    title: "McKesson and CD&R near $5bn-plus deal to buy infusion services provider",
+    date: "2026-10-05",
+    time: "21:01",
+    url: "https://www.ft.com/content/0bc54eaf-d545-4591-bb7c-ec3cbc1cb89a",
+  },
+  {
+    id: "ddcb3e51-4bff-4419-ac2e-01cc632b6f03",
+    title: "When a label costs you $4bn in market cap",
+    date: "2026-10-05",
+    time: "20:30",
+    url: "https://www.ft.com/content/ddcb3e51-4bff-4419-ac2e-01cc632b6f03",
+  },
+  {
     id: "353be303-3271-43f0-aefb-69b6ed7a0a6f",
     title: "Reflection AI boosts US ambition to compete with Chinese ‘open’ models",
     date: "2026-10-05",
@@ -285,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "10:00",
     url: "https://www.ft.com/content/93ee425d-9ac7-4543-8cc9-fef2e0670787",
-  },
-  {
-    id: "31a03cac-da1e-47ff-b261-e91f6d0b5e77",
-    title: "Greens’ anti-Zionism motion narrows potential base of support",
-    date: "2026-10-05",
-    time: "09:51",
-    url: "https://www.ft.com/content/31a03cac-da1e-47ff-b261-e91f6d0b5e77",
-  },
-  {
-    id: "1ab64d24-0f32-4dc8-86b5-20d06e3b3588",
-    title: "Brazil’s Bolsonaro dynasty closes in on stunning comeback",
-    date: "2026-10-05",
-    time: "09:49",
-    url: "https://www.ft.com/content/1ab64d24-0f32-4dc8-86b5-20d06e3b3588",
-  },
-  {
-    id: "7a00c5b9-62b5-4101-a5f0-ebf828dc6a90",
-    title: "Former prince Andrew seeks judicial review of police searches",
-    date: "2026-10-05",
-    time: "09:38",
-    url: "https://www.ft.com/content/7a00c5b9-62b5-4101-a5f0-ebf828dc6a90",
   },
 ];
