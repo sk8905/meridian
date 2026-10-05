@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "6a66982e-7c57-4081-9fe4-800fa2cd3501",
+    title: "Brazil’s Bolsonaro comeback exposes Lula’s weakness",
+    date: "2026-10-05",
+    time: "18:45",
+    url: "https://www.ft.com/content/6a66982e-7c57-4081-9fe4-800fa2cd3501",
+  },
+  {
+    id: "8a733f73-d506-49ae-9030-2bbf0987bc8d",
+    title: "Donald Trump poised to ease red diesel limits in attempt to quell fuel inflation",
+    date: "2026-10-05",
+    time: "18:41",
+    url: "https://www.ft.com/content/8a733f73-d506-49ae-9030-2bbf0987bc8d",
+  },
+  {
+    id: "ae67bb6f-f227-4679-949f-2e79e2dc33e2",
+    title: "TotalEnergies boss hails ‘opportunities’ created by global market turmoil",
+    date: "2026-10-05",
+    time: "18:33",
+    url: "https://www.ft.com/content/ae67bb6f-f227-4679-949f-2e79e2dc33e2",
+  },
+  {
     id: "74c3cc77-1593-4c49-90f9-0d92fa3a2418",
     title: "French central bank head warns country at risk of being ‘strangled by interest rates’",
     date: "2026-10-05",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "09:05",
     url: "https://www.ft.com/content/028da85c-0e1f-4f1b-ad04-eac78c4f18c0",
-  },
-  {
-    id: "49526246-46ac-4154-942f-3d4d705f1652",
-    title: "Sanae Takaichi tells markets to ‘rest assured’ over Japan’s spending plans",
-    date: "2026-10-05",
-    time: "08:24",
-    url: "https://www.ft.com/content/49526246-46ac-4154-942f-3d4d705f1652",
-  },
-  {
-    id: "866dea03-4cee-4009-b130-6f7a191336c4",
-    title: "Spanish prime minister Pedro Sánchez calls snap election",
-    date: "2026-10-05",
-    time: "08:09",
-    url: "https://www.ft.com/content/866dea03-4cee-4009-b130-6f7a191336c4",
-  },
-  {
-    id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
-    title: "Euro tumbles to 17-month low against dollar",
-    date: "2026-10-05",
-    time: "06:30",
-    url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
   },
 ];
