@@ -939,7 +939,10 @@
     /* Justified, but COMPRESSED for the monospace face: tighter letter/word spacing +
        hyphenation lets more fit per line, so justification has far less empty space to
        distribute — no ragged "rivers" of white on a narrow phone column (mockup C). */
-    .g-read-p{ font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:justify; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:auto; hyphens:auto; overflow-wrap:break-word; }
+    /* LEFT-aligned (ragged right), NOT justified: on the narrow phone column justify
+       stretched the word-spacing into ugly "rivers" of whitespace. Auto-hyphenation is
+       off too (it reads fussy in the mono face); overflow-wrap still breaks long tokens. */
+    .g-read-p{ font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.72; color:var(--t-ink); margin:0 0 12px; text-align:left; letter-spacing:-.1px; word-spacing:normal; -webkit-hyphens:none; hyphens:none; overflow-wrap:break-word; }
     /* Section headings inside the article body — BOLD, set off from the prose, so a long
        read scans easily (see _renderReaderInto's `blocks`). */
     .g-read-h{ font-family:var(--t-mono); font-size:var(--fs-body); font-weight:700; line-height:1.4; color:var(--t-ink); margin:18px 0 8px; letter-spacing:.01em;

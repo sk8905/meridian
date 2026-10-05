@@ -183,8 +183,9 @@ if (freeSel) {
   check(await pg.evaluate(() => document.querySelectorAll("#g-feed .g-ent").length === 0), "wire feed: no entity auto-links (reading pane only)");
   // The body prose is JUSTIFIED and set at the SAME size as the rest of the app's
   // reading text (the wire feed titles) — not a larger outlier. It's also lightly
-  // tracking-compressed so justified prose doesn't open ragged rivers.
-  checkEq(full.align, "justify", "reading pane: body text is justified");
+  // LEFT-aligned (ragged right), not justified — justify opened ugly whitespace
+  // "rivers" on the narrow column; left-align reads clean.
+  checkEq(full.align, "left", "reading pane: body text is left-aligned (ragged right), not justified");
   check(full.letter < 0, `reading pane: body text is lightly tracking-compressed for justification (letter-spacing ${full.letter}px)`);
   checkEq(full.readSize, full.feedSize, "reading pane: body font-size matches the wire feed-title size (one app-wide reading size)");
   checkEq(full.readSize, full.feedSize, "reading pane: body font-size matches the wire feed-title size (one app-wide reading size)");
