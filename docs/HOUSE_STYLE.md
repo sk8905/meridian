@@ -776,8 +776,10 @@ item keeps a real outbound source link (R7).
 - Alternatives Watch
 - GlobalCapital
 - Hedgeweek
+- HedgeNordic (`hedgenordic.com`) — Nordic hedge-fund trade desk
 - The Hedge Fund Journal
 - Hedge Fund Alpha
+- ABF Journal (`abfjournal.com`) — US asset-based lending & middle-market debt
 - IPE / IPE Real Assets
 - Credit Village
 - Crowdfund Insider
@@ -805,6 +807,7 @@ item keeps a real outbound source link (R7).
 - The Lawyer (`thelawyer.com`)
 - Legal Business (`legalbusiness.co.uk`)
 - Legal Cheek (`legalcheek.com`) — UK magic/silver-circle & Big-Law news
+- Legal Futures (`legalfutures.co.uk`) — UK legal-market regulation & litigation funding
 - Bloomberg Law
 - Law-firm client briefings
 

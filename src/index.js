@@ -1720,7 +1720,7 @@ function _readMeta(html, keys) {
   }
   return "";
 }
-const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles|generated with the support of ai|reviewed by an editor|see our t&c)/i;
+const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles|generated with the support of ai|reviewed by an editor|see our t&c|confirm your subscription|check your inbox|reset your password|enter your (?:username|email))/i;
 // Section labels that head a navigation / recirculation widget (related stories,
 // "Popular Searches", trending, recommended, "more from"…). Matched ONLY against a
 // block that is a heading OR an entire short line — anchored at the start — so a real
@@ -2793,6 +2793,9 @@ export const FEED_SOURCES = [
   { url: "https://www.ft.com/hedge-funds?format=rss", source: "Financial Times", region: "GEN", cap: 10, hdg: true, filter: false },
   { url: "https://thehedgefundjournal.com/feed/", source: "The Hedge Fund Journal", region: "GEN", cap: 10, hdg: true, filter: false },
   { url: "https://hedgefundalpha.com/feed/", source: "Hedge Fund Alpha", region: "GEN", cap: 10, hdg: true, filter: false },
+  // HedgeNordic — Nordic hedge-fund trade desk (manager moves, launches, fund
+  // closes, allocator flows). Openly readable in-pane; direct WordPress RSS.
+  { url: "https://hedgenordic.com/feed/", source: "HedgeNordic", region: "GEN", cap: 8, hdg: true, filter: false },
   // Fixed-income desk — M&G's Bond Vigilantes blog (rates, credit, high yield,
   // EM debt, inflation). fi:true routes every item to the Fixed Income filter and
   // badges it FI; filter:false since bond-desk copy rarely hits the macro vocab.
@@ -2800,6 +2803,10 @@ export const FEED_SOURCES = [
   // yields nothing (Promise.allSettled skips it) — bridge via Google News
   // (site:bondvigilantes.com, gnews:true) the way the Bloomberg sources are.
   { url: "https://bondvigilantes.com/feed/", source: "Bond Vigilantes", region: "GEN", cap: 10, fi: true, filter: false },
+  // ABF Journal — US asset-based lending / middle-market debt trade press (ABL
+  // facilities, direct lending, spreads, lender-priority). Openly readable
+  // in-pane; direct WordPress RSS. fi:true badges it FI (credit/debt desk).
+  { url: "https://www.abfjournal.com/feed/", source: "ABF Journal", region: "US", cap: 8, fi: true, filter: false },
   // (FT Alphaville's Google-News bridge removed: path-scoped site: queries
   // return zero items from Google News — confirmed by the live probe — so it
   // was pure dead weight against the news.google.com rate limit. The direct
@@ -2872,6 +2879,10 @@ export const FEED_SOURCES = [
   { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },
   { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
+  // City AM — free London business/markets daily (openly readable in-pane). A
+  // broad general-business feed, so it takes the STANDARD macro-relevance title
+  // filter (no filter:false): only genuine markets/economy/policy headlines pass.
+  { url: "https://www.cityam.com/feed/", source: "City AM", region: "UK", cap: 6 },
   // (The Guardian and Sharecast removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
   { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 4 },
@@ -2906,6 +2917,9 @@ export const FEED_SOURCES = [
   // global-elite firms (moves, deals, pay, strategy). legal:true routes it to the
   // Legal desk; filter:false so the macro screen doesn't drop law-market headlines.
   { url: "https://www.legalcheek.com/feed/", source: "Legal Cheek", region: "UK", cap: 8, filter: false, legal: true },
+  // Legal Futures — UK legal-market news (regulation, litigation funding, law-firm
+  // M&A, ABS/licensing, SRA). Openly readable in-pane; direct WordPress RSS.
+  { url: "https://www.legalfutures.co.uk/feed", source: "Legal Futures", region: "UK", cap: 8, filter: false, legal: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -3291,7 +3305,7 @@ const FEED_PREMIUM = new Set([
   // Economics feed) — trusted macro, never relevance-gated.
   "Investing.com Economics",
 ]);
-const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek"]);
+const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business", "Legal Cheek", "Legal Futures"]);
 // Openly-readable, topically-pure private-capital / credit desks — the trade press
 // (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
 // whose Google-News query already restricts them to private-markets/credit deals), so
