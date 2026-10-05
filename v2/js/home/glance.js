@@ -2501,6 +2501,7 @@ function renderReadPane(it) {
 function openMobileReader(it) {
   const ov = document.getElementById("g-reader"); if (!ov) return;
   const src = document.getElementById("g-reader-src"); if (src) src.textContent = it.src || "";
+  ov.style.transition = ""; ov.style.transform = ""; ov.style.willChange = "";   // clear any leftover from a back-swipe
   ov.hidden = false;
   // The reader is a FULL-SCREEN modal: html.home-reading hides the search band + wire
   // tabs (CSS), and the overlay covers from the header (top:--wire-head-h, in CSS) down.
@@ -2651,22 +2652,52 @@ function ensureReadWired() {
   if (ov && !ov.dataset.wired) {
     ov.dataset.wired = "1";
     ov.addEventListener("click", (e) => { if (e.target.closest("#g-reader-back") || e.target === ov) closeMobileReader(); });
-    // iOS-style left-edge swipe → back: a drag that STARTS at the left edge and moves
-    // right past a threshold (staying mostly horizontal, so it never fights the body's
-    // vertical scroll) closes the reader. Passive listeners — scrolling is untouched.
-    let sx = 0, sy = 0, edge = false;
-    const EDGE = 30, GO = 66, VSLOP = 40;                 // start-zone px · trigger px · max vertical drift
+    // iOS-style INTERACTIVE left-edge "back": a drag that STARTS at the left edge drags the
+    // whole reader with the finger (translateX tracks 1:1); on release, past ~a third of the
+    // width — or a quick flick — it slides the rest of the way out and closes, otherwise it
+    // springs back. Horizontal-only: a vertical move hands the gesture straight back to the
+    // body's scroll (we only preventDefault once the drag is committed horizontal, and the
+    // touchmove bails on its first line for every touch that didn't start at the edge).
+    let sx = 0, sy = 0, lastX = 0, lastT = 0, vel = 0, w = 1;
+    let tracking = false, dragging = false;
+    const EDGE = 30;                                      // left start-zone (px)
+    const settle = () => { ov.style.transition = ""; ov.style.transform = ""; ov.style.willChange = ""; };
     ov.addEventListener("touchstart", (e) => {
+      if (ov.hidden) { tracking = false; return; }
       const t = e.touches && e.touches[0];
-      edge = !!(t && t.clientX <= EDGE && !ov.hidden);
-      if (edge) { sx = t.clientX; sy = t.clientY; }
+      if (!t || t.clientX > EDGE) { tracking = false; return; }
+      tracking = true; dragging = false;
+      sx = lastX = t.clientX; sy = t.clientY; lastT = e.timeStamp || Date.now(); vel = 0;
+      w = ov.getBoundingClientRect().width || window.innerWidth || 1;
     }, { passive: true });
     ov.addEventListener("touchmove", (e) => {
-      if (!edge) return;
+      if (!tracking) return;
       const t = e.touches && e.touches[0]; if (!t) return;
-      if (t.clientX - sx > GO && Math.abs(t.clientY - sy) < VSLOP) { edge = false; closeMobileReader(); }
-    }, { passive: true });
-    const end = () => { edge = false; };
+      const dx = t.clientX - sx, dy = t.clientY - sy;
+      if (!dragging) {
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) { tracking = false; return; }   // vertical → leave the scroll alone
+        if (dx > 8 && dx >= Math.abs(dy)) { dragging = true; ov.style.transition = "none"; ov.style.willChange = "transform"; }
+        else return;
+      }
+      e.preventDefault();                                 // own the gesture (non-passive listener below)
+      const now = e.timeStamp || Date.now();
+      if (now > lastT) { vel = (t.clientX - lastX) / (now - lastT); lastX = t.clientX; lastT = now; }
+      ov.style.transform = "translate3d(" + Math.max(0, dx) + "px,0,0)";
+    }, { passive: false });
+    const end = () => {
+      if (!tracking) { return; }
+      const wasDragging = dragging; tracking = false; dragging = false;
+      if (!wasDragging) return;
+      const m = /translate3d\(([-0-9.]+)px/.exec(ov.style.transform || "");
+      const x = m ? parseFloat(m[1]) : 0;
+      const complete = x > w * 0.35 || (x > 48 && vel > 0.45);   // far enough, or a quick flick
+      ov.style.transition = "transform .22s cubic-bezier(.2,.7,.3,1)";
+      ov.style.transform = complete ? "translate3d(100%,0,0)" : "translate3d(0,0,0)";
+      let fired = false;
+      const finish = () => { if (fired) return; fired = true; ov.removeEventListener("transitionend", finish); if (complete) closeMobileReader(); settle(); };
+      ov.addEventListener("transitionend", finish);
+      setTimeout(finish, 280);                            // fallback if transitionend doesn't fire
+    };
     ov.addEventListener("touchend", end, { passive: true });
     ov.addEventListener("touchcancel", end, { passive: true });
   }

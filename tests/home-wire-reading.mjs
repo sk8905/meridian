@@ -291,18 +291,25 @@ await ctx.close();
   await pg2.evaluate(() => document.getElementById("g-reader-back").click());
   await pg2.waitForTimeout(150);
   check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: Back closes the reader");
-  // Re-open, then an iOS-style LEFT-EDGE swipe → back also closes it.
+  // Re-open, then an iOS-style INTERACTIVE left-edge back: the reader TRACKS the finger
+  // (translateX follows the drag) and, released past the threshold, slides out and closes.
   await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
   await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
-  const swiped = await pg2.evaluate(() => {
+  const midDrag = await pg2.evaluate(() => {
     const ov = document.getElementById("g-reader");
-    const mk = (type, x, y) => { const t = new Touch({ identifier: 1, target: ov, clientX: x, clientY: y }); return new TouchEvent(type, { touches: [t], targetTouches: [t], changedTouches: [t], bubbles: true, cancelable: true }); };
+    const mk = (type, x, y) => { const t = new Touch({ identifier: 1, target: ov, clientX: x, clientY: y }); return new TouchEvent(type, { touches: type === "touchend" ? [] : [t], targetTouches: [], changedTouches: [t], bubbles: true, cancelable: true }); };
     ov.dispatchEvent(mk("touchstart", 8, 400));      // start AT the left edge
-    ov.dispatchEvent(mk("touchmove", 90, 405));      // drag right, staying horizontal
-    return true;
+    ov.dispatchEvent(mk("touchmove", 90, 405));      // drag right — the pane should follow the finger
+    const mid = ov.style.transform;                  // captured mid-drag (before release)
+    const far = Math.round((window.innerWidth || 390) * 0.7);
+    ov.dispatchEvent(mk("touchmove", far, 408));     // drag well past the dismiss threshold
+    ov.dispatchEvent(mk("touchend", far, 408));      // release → completes the dismiss
+    return mid;
   });
-  await pg2.waitForTimeout(120);
-  check(swiped && await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: a left-edge swipe-right closes the reader (iOS-style back)");
+  const px = parseFloat((/translate3d\(\s*([-0-9.]+)px/.exec(midDrag || "") || [])[1]);
+  check(Number.isFinite(px) && px > 40, `phone: the reader moves WITH the finger during the back-drag (transform ${JSON.stringify(midDrag)})`);
+  await pg2.waitForTimeout(420);                     // the release animation + close
+  check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: releasing a left-edge back-drag past the threshold closes the reader (iOS-style)");
   // A mid-content horizontal drag (NOT from the edge) must NOT close it — only the edge.
   await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
   await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });

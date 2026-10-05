@@ -69,7 +69,12 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   timeout so the pane always resolves to the body or the "open the original" fallback —
   it can never stick on "Fetching the full text…". `prefetchTopReads(3)` pre-warms the
   top openable stories (in-memory **and** the edge cache) on each wire render, desktop
-  pane only, so the auto-open and the first ↑/↓ clicks are instant.
+  pane only, so the auto-open and the first ↑/↓ clicks are instant. On phone, the in-app
+  reader has an **interactive iOS-style left-edge back gesture**: a drag that starts within
+  ~30px of the left edge moves the whole reader **with the finger** (`translateX` tracks 1:1);
+  released past ~⅓ of the width — or on a quick flick — it slides out and closes, otherwise it
+  springs back. It is horizontal-only (a vertical move hands the gesture straight back to the
+  body scroll) and resolves even if `transitionend` doesn't fire (a timeout fallback).
 - **R3b — Reading-pane images: charts & data only.** The reader (`extractReadable` /
   `proxyBlocks`) includes an image **only when it is a chart / data-visualisation** — a
   known chart-service CDN (`READ_IMG_CHART_HOST`: datawrapper, flourish, infogram,
