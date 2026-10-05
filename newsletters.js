@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-ampaceosacked-20261005",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Ampa Group CEO sacked following investigation",
+    date: "2026-10-05",
+    time: "16:27",
+    summary: "The CEO of legal services group Ampa, which owns Shakespeare Martineau, has been sacked following an investigation.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/WgTZbKNi4iaV",
+  },
+  {
     id: "nl-thelawyer-breaking-rpcnewyork-20261005",
     publication: "The Lawyer",
     author: null,
