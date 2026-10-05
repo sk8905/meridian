@@ -390,4 +390,22 @@ const genericHeroArt = `<!doctype html><html><head>
 const genHeroRes = extractReadable(genericHeroArt, u("https://www.hedgeweek.com/quant-post/"));
 checkEq(genHeroRes.blocks.filter((b) => b.img).length, 0, "generic-hero: a widened (thin) article does not add the og:image social default as a hero");
 
+// 14) Decorative chrome — a STANDALONE <img> with NO alt text is a background/featured/
+//     social-card image (hero cards, section banners, the og:image a site drops inline on
+//     every post), not an editorial photo. It is dropped; a standalone <img> WITH a
+//     descriptive alt is kept. Mirrors the real Hedgeweek markup, which repeats its
+//     og:image + a theme banner inline, both alt="" class="... object-cover".
+const CHROME_BODY = "The fund told investors that performance in the quarter was shaped by rates, oil and a sharp rotation out of crowded AI names, and that it had trimmed risk into month-end rather than chase the move.";
+const chromeArt = `<!doctype html><html><head><meta property="og:title" content="A story with a decorative banner"></head><body><article>
+  <p>${CHROME_BODY}</p>
+  <img src="https://assets.site.com/2026-08-Copy-of-Square-108456.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+  <p>${CHROME_BODY}</p>
+  <img src="https://cdn.site.com/photos/trading-floor.jpg" alt="Traders on the floor during the sell-off">
+  </article></body></html>`;
+const chromeRes = extractReadable(chromeArt, u("https://www.hedgeweek.com/news/story"));
+const chromeImgs = chromeRes.blocks.filter((b) => b.img);
+check(chromeImgs.length === 1 && /trading-floor/.test(chromeImgs[0].img),
+  `chrome: a standalone alt-less image is dropped, a standalone image WITH a real alt is kept (${chromeImgs.map((b) => b.img).join(", ") || "none"})`);
+check(!chromeImgs.some((b) => /Copy-of-Square/.test(b.img)), "chrome: the alt-less decorative/social banner is not included");
+
 finish();

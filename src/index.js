@@ -1871,6 +1871,14 @@ function _readBlocks(scope, base) {
       const cap = _readStrip((/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/i.exec(inner) || [])[1] || "");
       if (cap && _readImgAltSkip(cap)) return;                   // a "thumbnail"/brand caption → chrome, not content
       if (cap && !READ_BOILER.test(cap)) card.alt = cap;
+    } else if (!card.alt) {
+      // A STANDALONE <img> with no alt text is decorative/background chrome — a hero-card
+      // or section-banner background (class="... object-cover" filling a box), or the page's
+      // social-share / generic "featured" image dropped inline on every post. None is an
+      // editorial content photo: those carry a descriptive alt, and captioned photos come
+      // through the <figure> branch above. (Observed: Hedgeweek repeats its og:image + a
+      // theme banner inline, both alt="".)
+      return;
     }
     seenImg.add(card.img); out.push(card); imgN++;
   };
