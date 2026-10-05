@@ -82,7 +82,7 @@ const b = await launchChromium();
       hasSourceLinks: el.querySelectorAll(".g-hbrief-src").length > 0
         && [...el.querySelectorAll(".g-hbrief-src")].every((a) => /^https?:\/\//.test(a.getAttribute("href") || "") && a.getAttribute("target") === "_blank"),
       // The inline "who reported it" attribution must be gone from the prose.
-      attribLeak: [...el.querySelectorAll(".g-hbrief-bt")].some((t) => /,\s*(?:the\s+)?[A-Z][\w.&'’]*(?:\s+[A-Z][\w.&'’]*){0,3}\s+reports?\b/.test(t.textContent || "")),
+      attribLeak: [...el.querySelectorAll(".g-hbrief-bt")].some((t) => /,\s*(?:the\s+)?[A-Z][\w.&'’]*(?:\s+[A-Z][\w.&'’]*){0,3}\s+reports?(?=[,.);:\]]|\s*$)/.test(t.textContent || "")),
       // ONE section per desk: exactly one desk heading per section, and no desk repeats.
       kickers,
       oneKickerPerSection: kickers.length === sections.length,

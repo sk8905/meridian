@@ -366,10 +366,14 @@ function _hasText(html) { return String(html || "").replace(/<[^>]*>/g, "").repl
 // the outlet. Anchored to a leading comma + a trailing boundary (punctuation / end), so a
 // real "<Company> reports earnings" verb mid-sentence is never stripped.
 function _stripReported(html) {
-  return String(html || "")
-    .replace(/,\s*(?:the\s+)?[A-Z][\w.&'’]*(?:\s+[A-Z][\w.&'’]*){0,3}\s+reports?(?=[,.)\]]|\s*$)/g, "")
-    .replace(/,\s*according to\s+(?:the\s+)?[A-Z][\w.&'’]*(?:\s+[A-Z][\w.&'’]*){0,3}(?=[,.)\]]|\s*$)/g, "")
-    .replace(/\s+([,.;])/g, "$1").replace(/\s{2,}/g, " ");
+  // A "word" char is a normal char OR a whole HTML entity, so an entity-encoded apostrophe
+  // in an outlet name ("Reuters&rsquo;", "Barron&rsquo;s") or "&amp;" doesn't break the
+  // match — the body is matched before entities are decoded. Boundary allows , . ; : ) ] or
+  // end, so "…reports;" and "…reports:" are caught too.
+  const W = "(?:&[a-z]+;|&#\\d+;|[\\w.'’])";
+  const rep = new RegExp(",\\s*(?:the\\s+)?[A-Z]" + W + "*(?:\\s+[A-Z]" + W + "*){0,3}\\s+reports?(?=[,.);:\\]]|\\s*$)", "g");
+  const acc = new RegExp(",\\s*according to\\s+(?:the\\s+)?[A-Z]" + W + "*(?:\\s+[A-Z]" + W + "*){0,3}(?=[,.);:\\]]|\\s*$)", "gi");
+  return String(html || "").replace(rep, "").replace(acc, "").replace(/\s+([,.;:])/g, "$1").replace(/\s{2,}/g, " ");
 }
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
