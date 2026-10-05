@@ -729,6 +729,20 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-cons-x { border: 1px solid var(--border, #262626); background: transparent; color: var(--muted); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; padding: 2px 8px; cursor: pointer; border-radius: 0; }
 .hf-cons-x:hover { color: var(--ink); border-color: var(--muted); }
 
+/* OFR Hedge Fund Monitor — compact industry tiles atop the Hedge Funds pane. */
+.hf-ofr { margin: 14px 0 0; border: 1px solid var(--border); }
+.hf-ofr-h { display: flex; align-items: baseline; gap: 6px; padding: 6px 12px; background: var(--head); border-bottom: 1px solid var(--border); font-size:var(--fs-body); font-weight: 600; color: var(--ink); }
+.hf-ofr-src { color: var(--muted); font-weight: 400; font-size:var(--fs-micro); }
+.hf-ofr-asof { margin-left: auto; font-weight: 400; }
+.hf-ofr-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 1px; background: var(--border); }
+.hf-ofr-tile { display: flex; flex-direction: column; gap: 3px; padding: 8px 12px; background: var(--bg); color: inherit; text-decoration: none; }
+.hf-ofr-tile:hover { background: var(--head); }
+.hf-ofr-lbl { font-size:var(--fs-micro); color: var(--muted); letter-spacing: .02em; }
+.hf-ofr-val { font-family: var(--t-mono); font-size:var(--fs-body); font-weight: 600; color: var(--ink); white-space: nowrap; }
+.hf-ofr-chg { font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; }
+.hf-ofr-chg.up { color: var(--t-up); }
+.hf-ofr-chg.dn { color: var(--t-down); }
+
 /* SEC filing-type badges (13D/13G/Forms 3-4-5 on the hedge fund page) */
 .hf-fform { display: inline-block; min-width: 44px; text-align: center; padding: 0 5px; border-radius: 3px; border: 1px solid var(--t-grid2, #262626); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; color: var(--t-ink, #eaf0fb); }
 .hf-fform.hf-fl-13d { color: var(--t-down, #f26d84); border-color: var(--t-down, #f26d84); }   /* activist / control */

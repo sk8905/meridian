@@ -49,6 +49,8 @@ export async function mount(host, ctx) {
   const pfDetail = host.querySelector("#pf-detail");
   const panes = host.querySelector("#pf-panes");
   const chips = host.querySelector("#pf-chips");
+  // Load the OFR Hedge Fund Monitor tiles into the Hedge Funds pane (fails silent).
+  if (credit.loadHfm) credit.loadHfm(host);
 
   // Back control: a leading ‹ chevron injected into each list's search row. When
   // a profile is open the list's tabs + AUM-focus row + search box stay put (the

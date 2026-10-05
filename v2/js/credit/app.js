@@ -443,6 +443,10 @@ function hedgeFundsPaneHTML() {
                 <button type="button" class="tfocus-btn aum-focus-alt" id="hf-cons-btn" title="Most-crowded holdings — aggregate the latest 13F top-10 across all ${withCik} tracked funds that file one">Cross-holdings</button>
                 <button type="button" class="tfocus-btn tfocus-aum" id="cr-hf-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
               </header>
+              <section class="hf-ofr" id="hf-ofr" hidden>
+                <div class="hf-ofr-h">Hedge fund monitor <span class="hf-ofr-src">· US Treasury OFR</span> <span class="hf-ofr-asof muted small" id="hf-ofr-asof"></span></div>
+                <div class="hf-ofr-tiles" id="hf-ofr-tiles"></div>
+              </section>
               <section class="hf-cons">
                 <div id="hf-cons-body"></div>
               </section>
@@ -782,6 +786,48 @@ function viewDashboard() {
   });
   const cb = app.querySelector("#hf-cons-btn");
   if (cb) cb.addEventListener("click", () => loadConsensus(cb));
+  loadHfm(app);
+}
+// OFR Hedge Fund Monitor panel (industry leverage / returns / size / financing from
+// the US Treasury's free Hedge Fund Monitor, via /api/hfm — edge-cached quarterly
+// data). Renders a compact tile row atop the Hedge Funds pane. Fails silent: if the
+// feed is empty/unreachable the panel stays hidden, so it never blocks the league table.
+function hfmFmt(x) {
+  if (x.value == null) return "—";
+  if (x.fmt === "ratio") return x.value.toFixed(1) + "×";
+  if (x.fmt === "pct") return (x.value >= 0 ? "+" : "") + x.value.toFixed(1) + "%";
+  if (x.fmt === "usd") { const v = x.value; return Math.abs(v) >= 1e12 ? "$" + (v / 1e12).toFixed(1) + "T" : "$" + (v / 1e9).toFixed(0) + "bn"; }
+  return String(x.value);
+}
+function hfmChg(x) {
+  if (x.change == null || x.prev == null) return "";
+  const up = x.change >= 0, cls = up ? "up" : "dn", arr = up ? "▲" : "▼";
+  let d;
+  if (x.fmt === "usd") { const c = Math.abs(x.change); d = c >= 1e12 ? (c / 1e12).toFixed(1) + "T" : (c / 1e9).toFixed(0) + "bn"; }
+  else d = Math.abs(x.change).toFixed(1) + (x.fmt === "ratio" ? "×" : "pp");
+  return ` <span class="hf-ofr-chg ${cls}">${arr}&nbsp;${d}</span>`;
+}
+function hfmTileHTML(x) {
+  return `<a class="hf-ofr-tile" href="${esc(x.href)}" target="_blank" rel="noopener noreferrer" title="OFR Hedge Fund Monitor · ${esc(x.label)}${x.asOf ? " (" + esc(x.asOf) + ")" : ""}">`
+    + `<span class="hf-ofr-lbl">${esc(x.label)}</span>`
+    + `<span class="hf-ofr-val">${hfmFmt(x)}${hfmChg(x)}</span></a>`;
+}
+function loadHfm(root) {
+  const panel = root && root.querySelector("#hf-ofr");
+  if (!panel || panel.dataset.loaded) return;
+  panel.dataset.loaded = "1";
+  fetch("/api/hfm", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const rows = ((d && d.hfm) || []).filter((x) => x && x.value != null);
+      if (!rows.length) return;                       // nothing to show — leave hidden
+      const tiles = panel.querySelector("#hf-ofr-tiles");
+      const asof = panel.querySelector("#hf-ofr-asof");
+      if (asof && d.asOf) asof.textContent = "as of " + d.asOf;
+      if (tiles) tiles.innerHTML = rows.map(hfmTileHTML).join("");
+      panel.hidden = false;
+    })
+    .catch(() => { /* fail silent */ });
 }
 // ================================== FUNDS ===================================
 // Multi-select dropdown. `viewKey` is "view:key" (e.g. "funds:strategy").
@@ -1233,5 +1279,5 @@ initWatchlistSync();
 
   // Expose the list builders so the Profiles tab can render the EXACT same
   // Managers / Hedge Funds panes (one source — these close over this app's data).
-  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML, buildInvestors: investorsPaneHTML, loadConsensus };
+  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML, buildInvestors: investorsPaneHTML, loadConsensus, loadHfm };
 }

@@ -536,6 +536,72 @@ async function handleRates(request, env, ctx) {
   return resp;
 }
 
+// ====================== OFR HEDGE FUND MONITOR =============================
+// Aggregated hedge-fund systemic metrics from the U.S. Treasury Office of Financial
+// Research (OFR) Hedge Fund Monitor — a FREE, open, keyless JSON API built on SEC
+// Form PF, CFTC CoT and the Fed's SCOOS. Quarterly series, so cached long. Weighted
+// to the app's credit focus (credit-strategy leverage, return & size) plus the
+// industry-wide leverage/financing backdrop. Each timeseries endpoint returns a plain
+// JSON array of [date, value] pairs (ascending). Source: financialresearch.gov.
+const HFM_BASE = "https://data.financialresearch.gov/hf/v1/series/timeseries?mnemonic=";
+const HFM_HREF = "https://www.financialresearch.gov/hedge-fund-monitor/";
+const HFM_SERIES = [
+  { label: "Credit HF leverage", unit: "x", fmt: "ratio", m: "FPF-STRATEGY_CREDIT_LEVERAGERATIO_GAVWMEAN" },
+  { label: "Credit HF net return", unit: "%", fmt: "pct", m: "FPF-STRATEGY_CREDIT_NETRETURN_NAVWMEAN" },
+  { label: "Credit HF assets", unit: "$", fmt: "usd", m: "FPF-STRATEGY_CREDIT_NAV_SUM" },
+  { label: "All-HF gross exposure", unit: "$", fmt: "usd", m: "FPF-ALLQHF_GNE_SUM" },
+  { label: "All-HF net assets", unit: "$", fmt: "usd", m: "FPF-ALLQHF_NAV_SUM" },
+  { label: "HF repo borrowing", unit: "$", fmt: "usd", m: "FPF-BORROW_REPO_SUM" },
+];
+// Pure: reduce an OFR [[date,value],…] series to its latest value, the prior
+// observation (for the QoQ change) and the as-of date. Tolerant of nulls / holes /
+// out-of-order rows — filters to finite-valued points and sorts by date. Exported so
+// the parser is unit-tested without egress.
+export function hfmLatest(arr) {
+  if (!Array.isArray(arr)) return { value: null };
+  const pts = arr.filter((p) => Array.isArray(p) && p.length >= 2 && p[0] && p[1] != null && isFinite(+p[1]))
+    .sort((a, b) => String(a[0]).localeCompare(String(b[0])));
+  if (!pts.length) return { value: null };
+  const last = pts[pts.length - 1], prev = pts.length > 1 ? pts[pts.length - 2] : null;
+  return { value: +last[1], asOf: last[0], prev: prev ? +prev[1] : null, change: prev ? +last[1] - +prev[1] : null };
+}
+// Fetch one OFR series and reduce it via hfmLatest.
+async function ofrHfmSeries(mnemonic) {
+  const txt = await fetchText(HFM_BASE + encodeURIComponent(mnemonic));
+  if (!txt) return { value: null };
+  let arr; try { arr = JSON.parse(txt); } catch { return { value: null }; }
+  return hfmLatest(arr);
+}
+async function handleHfm(request, env, ctx) {
+  const url = new URL(request.url);
+  // ?debug=1 — probe OFR reachability from the Worker (read-only, uncached).
+  if (url.searchParams.get("debug")) {
+    const probe = async (u) => { try { const r = await fetch(u, { headers: fetchHeaders(u) }); const b = await r.text(); return { status: r.status, len: b.length, snippet: b.slice(0, 160) }; } catch (e) { return { error: String((e && e.message) || e) }; } };
+    return new Response(JSON.stringify({
+      timeseries: await probe(HFM_BASE + HFM_SERIES[0].m),
+      mnemonics: await probe("https://data.financialresearch.gov/hf/v1/metadata/mnemonics/"),
+    }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  }
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/hfm?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const data = await Promise.all(HFM_SERIES.map(async (s) => {
+    const r = await ofrHfmSeries(s.m);
+    return { label: s.label, unit: s.unit, fmt: s.fmt, value: r.value, prev: r.prev, change: r.change, asOf: r.asOf, href: HFM_HREF };
+  }));
+  const asOf = data.map((d) => d.asOf).filter(Boolean).sort().pop() || null;
+  const resp = new Response(JSON.stringify({ hfm: data, asOf, source: "U.S. Treasury OFR Hedge Fund Monitor" }), {
+    // Quarterly data — cache hard at the edge (6h) so the OFR API is barely hit.
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=21600" },
+  });
+  // Only cache once at least the headline credit series resolved (don't stick an empty).
+  if (ctx && ctx.waitUntil && data.some((d) => d.value != null)) {
+    ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  }
+  return resp;
+}
+
 // ============================ MARKETS BANNER ===============================
 // Equity indices + ETFs for the Glance dashboard (the banner above key rates).
 // The two US indices come from FRED (keyed, reliable); the two LSE-listed iShares
@@ -4858,6 +4924,7 @@ export default {
    try {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
+    if (url.pathname === "/api/hfm") return handleHfm(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
     if (url.pathname === "/api/quotes") return handleQuotes(request, env, ctx);
     if (url.pathname === "/api/eqindices") return handleEqIndices(request, env, ctx);
