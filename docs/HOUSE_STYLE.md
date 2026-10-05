@@ -768,39 +768,41 @@ item keeps a real outbound source link (R7).
 - Alpine Macro
 - Variant Perception
 - ING (`think.ing.com`)
-- Bloomberg Opinion (Authers · Dudley · El-Erian)
-- Project Syndicate
-- Mohamed El-Erian (`mohamedelerian.substack.com`)
-- Selected Substacks (`investorama.substack.com`, `debtserious.substack.com`)
+- 🔒 Bloomberg Opinion (Authers · Dudley · El-Erian) — Bloomberg paywall (switched off on the Home wire)
+- 🔒 Project Syndicate (`project-syndicate.org`) — metered (a short abstract then a register wall); not readable in-pane
+- ✅ Mohamed El-Erian (`mohamedelerian.substack.com`) — substack (live)
+- ✅ Selected Substacks (`investorama.substack.com`, `debtserious.substack.com`, `butthistime.com`) — live
+- _Considered and not worth wiring: Yahoo Finance (open but single-stock clickbait, junk images), TradingView (charting platform, thin aggregated "news"). Investing.com is wired only as the Economics indicator feed._
 
 ### 8.5 Credit, private markets & hedge funds
-- Alternative Credit Investor
-- Alternatives Watch
+> **Readability (verified 2026-10).** ✅ = openly-readable in-pane and wired to the live
+> wire; 📄 = readable but **no usable feed route** (not Google-News-indexed and no RSS),
+> so cited as a resource only; 🔒 = subscription/paywalled, opens at the publisher (not
+> on the readable Home wire — may still back Dashboard/Profiles/Transactions).
+- ✅ Alternative Credit Investor — live (credit desk)
+- 🔒 Alternatives Watch (`alternativeswatch.com`) — paywalled ($39/mo; only a lede is public), no RSS. Well-indexed by Google News but not readable.
 - GlobalCapital
-- Hedgeweek
-- HedgeNordic (`hedgenordic.com`) — Nordic hedge-fund trade desk
-- The Hedge Fund Journal
-- Hedge Fund Alpha
-- ABF Journal (`abfjournal.com`) — US asset-based lending & middle-market debt
+- ✅ Hedgeweek · ✅ HedgeNordic (`hedgenordic.com`, Nordic hedge desk) · The Hedge Fund Journal · ✅ Hedge Fund Alpha — hedge desk (live)
+- ✅ ABF Journal (`abfjournal.com`) — US asset-based lending & middle-market debt (FI desk, live)
 - IPE / IPE Real Assets
-- Credit Village
+- Credit Village (`creditvillage.news`) — Italian-language (not wired)
 - Crowdfund Insider
 - Bloomberg Law
-- Newswires: Business Wire, GlobeNewswire, PR Newswire
-- SEC / EDGAR filings
-- Company & sponsor press releases
-- Hedge Fund Research (HFR)
-- Hedge Fund Monitor
-- Aurum
-- Nishant Kumar (Bloomberg)
-- PE Wire
+- ✅ Newswires: Business Wire, GlobeNewswire, PR Newswire (deal-scoped, live)
+- SEC / EDGAR filings · Company & sponsor press releases
+- Hedge Fund Research (HFR) · Hedge Fund Monitor · Aurum
+- 🔒 Nishant Kumar (Bloomberg) — switched off (Bloomberg paywall)
+- ✅ PE Wire
 - Paul Krugman
-- Moody's
-- S&P (Global Ratings)
+- ✅ Moody's — free CreditView blog + /insights research, wired via Google News bridge (FI desk)
+- 📄 S&P (Global Ratings) — free press releases render (`press.spglobal.com`) but are barely Google-News-indexed, so no clean feed route
+- 📄 Preqin (`preqin.com`) — free /insights blogs + press releases render, but no RSS and Google News returns only database "Asset Profile" pages — no feed route
+- 🔒 9fin (`9fin.com`) — subscription (leveraged finance); some free deep-dives render inconsistently
+- 🔒 Debtwire · 🔒 Octus (Reorg) · 🔒 With Intelligence · 🔒 Dealogic — subscription data/intel platforms, no open web content
 - Morningstar
 - KBRA (Kroll Bond Rating Agency) — incl. the quarterly "Private Credit: Middle Market Compendium"
 - AIMA / Alternative Credit Council (ACC) — private-credit research incl. "Private Credit Performance & Valuation Trends"
-- Fitch Ratings (private-credit & leveraged-finance research)
+- 📄 Fitch Ratings (`fitchratings.com`) — private-credit & leveraged-finance research; JS-rendered SPA, unproven in-pane (not wired)
 
 ### 8.6 Legal & courts
 - UK courts: High Court (Chancery · Commercial · King's Bench · Administrative;
