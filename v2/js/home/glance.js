@@ -2424,7 +2424,11 @@ function _renderReaderInto(box, it, emptyMsg) {
     return;
   }
   box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Fetching the full text — a few seconds for some sources…</div>`);
-  fetch(`/api/read?url=${encodeURIComponent(it.href)}`, { headers: { accept: "application/json" } })
+  // cache:"no-store" — never replay a stale reader body from the BROWSER cache. The Worker
+  // edge-caches the extraction (fast re-reads), but a browser-cached /api/read body would
+  // pin the PRE-deploy text for up to an hour with no way to bust it on the iPhone PWA (no
+  // hard-refresh). Always hit the edge so a reader fix shows on the very next open.
+  fetch(`/api/read?url=${encodeURIComponent(it.href)}`, { headers: { accept: "application/json" }, cache: "no-store" })
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
     .then((d) => {
       if (seq !== _readSeq) return;                                     // superseded by another click

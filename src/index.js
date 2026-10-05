@@ -1908,7 +1908,7 @@ const READ_FOOTER = /(registered (?:office|number|no\.?|charity)|registered in (
 // many news sites (CNA, BBC, Guardian…) append below the article. Softer than READ_FOOTER
 // (these phrases *could* appear mid-article), so it only ever truncates a contiguous
 // ALL-JUNK trailing run (see _stripTrailingJunk) — never cuts into real prose.
-const READ_PROMO = /(sign up (?:for|to|now)|subscribe (?:to|now|for)|in your inbox|our newsletter|download (?:our|the) app|get the .{0,30}app|on the app store|google play\b|follow us on|join our (?:channel|community|whatsapp|telegram|group|newsletter)|stay (?:updated|informed|connected|in the know)|breaking news (?:alert|notification)|notifications for breaking|get our pick|picks of the week|top reads for the day|week in review|thought-provoking|preferred chat app|best stories|sign up here)/i;
+const READ_PROMO = /(sign up (?:for|to|now)|subscribe (?:to|now|for)|in your inbox|our newsletter|download (?:our|the) app|get the .{0,30}app|on the app store|google play\b|follow us on|join our (?:channel|community|whatsapp|telegram|group|newsletter)|stay (?:updated|informed|connected|in the know)|breaking news (?:alert|notification)|notifications for breaking|get our pick|picks of the week|top reads for the day|week in review|thought-provoking|preferred chat app|best stories|sign up here|click here (?:for|to)|no password (?:needed|required)|simple access|for more information,? please contact|please contact \S+@|\bcorporate users\b)/i;
 // Drop a TRAILING run of footer / promo / recirculation junk — the mirror of
 // _stripLeadingJunk. Walk BACKWARD from the end over a CONTIGUOUS run of junk-like blocks —
 // dangling headings, short headline fragments, footer-signature lines (READ_FOOTER: company
@@ -2210,8 +2210,13 @@ async function handleRead(request, env, ctx) {
   // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
   // v8: images trusted only from the real article scope — a widened (thin) article drops
   //     out-of-scope recirculation/related/promo images and the generic og:image hero.
-  const key = new Request("https://read.internal/v13/" + encodeURIComponent(u.toString()));
-  const hit = await cache.match(key); if (hit) return hit;
+  const key = new Request("https://read.internal/v14/" + encodeURIComponent(u.toString()));
+  // Edge HIT: serve the cached extraction, but tell the BROWSER not to store it — a
+  // browser-cached reader body would pin the pre-deploy text for up to an hour (the iPhone
+  // PWA has no hard-refresh to bust it). The edge copy stays fast; the browser always
+  // revalidates against the edge (and the client also fetches cache:"no-store").
+  const hit = await cache.match(key);
+  if (hit) { const h = new Response(hit.body, hit); h.headers.set("cache-control", "no-store"); return h; }
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
   let data = await _readDirect(u, host);
@@ -2226,10 +2231,14 @@ async function handleRead(request, env, ctx) {
   // fetch happens once per article per hour, not on every reader open.
   if (data && data.accessible) data = await _resolveReaderEmbeds(data, env);
   const resp = json(data);
-  // Cache a real body for an hour (re-reads are instant off the edge — important since
-  // a proxied render is slow); cache a miss only briefly so a transient block recovers.
-  resp.headers.set("cache-control", data.accessible ? "public, max-age=3600" : "public, max-age=120");
-  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, resp.clone()));
+  // Store a real body on the EDGE for an hour (re-reads are instant off the edge — important
+  // since a proxied render is slow); cache a miss only briefly so a transient block recovers.
+  // But the copy returned to the BROWSER is no-store: a browser-cached body would replay the
+  // old text after a deploy with no way to refresh it on the PWA (see the hit path + client).
+  const edge = resp.clone();
+  edge.headers.set("cache-control", data.accessible ? "public, max-age=3600" : "public, max-age=120");
+  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, edge));
+  resp.headers.set("cache-control", "no-store");
   return resp;
 }
 

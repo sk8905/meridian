@@ -643,4 +643,36 @@ const tailOk = proxyBlocks(tailOkMd, "https://example.com/committee").filter((b)
 check(tailOk.length === 4 && tailOk.some((b) => /reviewed again in a year/.test(b.t)),
   `promo-tail guard: a clean article ending on a short heading + line is NOT truncated (${tailOk.length} blocks kept)`);
 
+// 24) Trailing CTA / contact / data-licence block — a "corporate users click here / for
+//     more information please contact … / <source> data <date>" tail (observed on Legal
+//     Business LB100). Caught by the promo-tail strip via the click-here / contact markers.
+const ctaMd = `# LB100 2026: the firms that stand out from the crowd
+
+This year's LB100 paints a picture of a UK legal market firmly in growth mode, with total turnover rising 8% to £43.3bn and more than 90% of the group seeing revenues rise.
+
+But the headline figures tell only part of the story. While 44 firms posted double-digit growth, others made their mark through standout profit gains and ambitious plays for scale, and here we spotlight the year's most notable performers.
+
+Corporate users - click here for simple access (no password needed).
+
+For more information, please contact jon.maney@legal500.com
+
+Law firm data Legal Business 25 Sep 2026`;
+const ctaParas = proxyBlocks(ctaMd, "https://www.legalbusiness.co.uk/lb100/story").filter((b) => b.t).map((b) => b.t);
+check(ctaParas.length === 2 && !ctaParas.some((p) => /click here|no password|please contact|Law firm data|Corporate users|simple access/i.test(p)),
+  `cta-tail: the "click here / please contact / data licence" tail is dropped, ${ctaParas.length} real paragraphs kept`);
+
+// 25) Reader freshness — the /api/read body must NOT be browser-cacheable (a cached body
+//     replays pre-deploy text for an hour with no PWA hard-refresh). The client fetch opts
+//     out (cache:"no-store") and the handler returns no-store to the browser on BOTH the
+//     cache-hit and the fresh-render path, while still edge-caching for speed.
+const _cli = fs.readFileSync(new URL("../v2/js/home/glance.js", import.meta.url), "utf8");
+check(/fetch\(`\/api\/read\?url=[\s\S]{0,140}cache:\s*["']no-store["']/.test(_cli),
+  "freshness: the client /api/read fetch sets cache:\"no-store\"");
+check(/if \(hit\) \{[^}]*cache-control["']\s*,\s*["']no-store["']/.test(_src),
+  "freshness: handleRead returns no-store to the browser on a cache HIT");
+check(/resp\.headers\.set\(["']cache-control["'],\s*["']no-store["']\)/.test(_src),
+  "freshness: handleRead returns no-store to the browser on a fresh render");
+check(/edge\.headers\.set\(["']cache-control["'],[^)]*max-age=3600/.test(_src),
+  "freshness: the EDGE copy still caches for an hour (fast re-reads)");
+
 finish();

@@ -93,6 +93,15 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   CTA is never cut, and live prose that says "registered in Delaware" or names a year is
   never truncated. Any extraction change
   must bump the `read.internal/vN` edge-cache key so the edge re-extracts.
+- **R3d — Reader bodies are edge-cached, never browser-cached.** `/api/read` stores the
+  extraction on the **edge** (`caches.default`, `max-age=3600`) so re-reads are instant, but
+  the response returned to the **browser** is `Cache-Control: no-store` on both the cache-hit
+  and fresh-render paths, and the client fetches it with `cache:"no-store"`. A
+  browser-cached reader body would replay the **pre-deploy** text for up to an hour — and the
+  iPhone PWA (the primary surface) has **no hard-refresh** to bust it — so a reader fix would
+  never reach the user until the body expired. Keep both halves: edge-cache for speed,
+  no-store to the browser for freshness. (This is why bumping `read.internal/vN` alone is not
+  enough — the key only governs the edge copy, not the browser's.)
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
   height; the last panel grows to fill remaining space (no ragged bottoms).
 
