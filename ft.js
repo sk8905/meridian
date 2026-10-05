@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "6e57c480-39d9-4b4d-946a-092387cee493",
+    title: "Donald Trump says US pulled bombers from UK after ‘threats’",
+    date: "2026-10-05",
+    time: "22:01",
+    url: "https://www.ft.com/content/6e57c480-39d9-4b4d-946a-092387cee493",
+  },
+  {
+    id: "f30a1afc-2aa8-4cdd-a6e8-b18523298456",
+    title: "Tories pledge ‘Britannia Shield’ to protect UK from drone attacks",
+    date: "2026-10-05",
+    time: "22:00",
+    url: "https://www.ft.com/content/f30a1afc-2aa8-4cdd-a6e8-b18523298456",
+  },
+  {
+    id: "5b9c8ce3-d07c-46f9-8cea-cbc4e7f8ccca",
+    title: "Wall Street banks launch record $60bn chip deal for Broadcom and Anthropic",
+    date: "2026-10-05",
+    time: "21:58",
+    url: "https://www.ft.com/content/5b9c8ce3-d07c-46f9-8cea-cbc4e7f8ccca",
+  },
+  {
     id: "0bc54eaf-d545-4591-bb7c-ec3cbc1cb89a",
     title: "McKesson and CD&R near $5bn-plus deal to buy infusion services provider",
     date: "2026-10-05",
@@ -40,6 +61,13 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "20:00",
     url: "https://www.ft.com/content/353be303-3271-43f0-aefb-69b6ed7a0a6f",
+  },
+  {
+    id: "7a00c5b9-62b5-4101-a5f0-ebf828dc6a90",
+    title: "Former prince Andrew seeks judicial review of police searches",
+    date: "2026-10-05",
+    time: "19:34",
+    url: "https://www.ft.com/content/7a00c5b9-62b5-4101-a5f0-ebf828dc6a90",
   },
   {
     id: "b8307200-0c5e-440f-94ee-f0d2cc55584e",
@@ -105,6 +133,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
   },
   {
+    id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
+    title: "Euro slides to 17-month low against dollar",
+    date: "2026-10-05",
+    time: "16:44",
+    url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
+  },
+  {
     id: "f77c61bd-ed39-4e20-b8d3-7c62dba74001",
     title: "Ethiopian government seizes Tigray capital in blow to rebels",
     date: "2026-10-05",
@@ -145,13 +180,6 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "14:37",
     url: "https://www.ft.com/content/0a45595f-4889-4436-847f-1bddce813009",
-  },
-  {
-    id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
-    title: "Euro slides to 17-month low against dollar",
-    date: "2026-10-05",
-    time: "16:44",
-    url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
   },
   {
     id: "4416101f-5072-4ee0-aa12-5b1daf25b31b",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "11:00",
     url: "https://www.ft.com/content/91741bbc-9626-41fc-8320-9ab9adbd8631",
-  },
-  {
-    id: "7dea96bb-12ca-44fd-81c1-395fb8060395",
-    title: "How the booming US healthcare economy is penalising patients",
-    date: "2026-10-05",
-    time: "11:00",
-    url: "https://www.ft.com/content/7dea96bb-12ca-44fd-81c1-395fb8060395",
-  },
-  {
-    id: "a3528806-c774-4dea-aec8-5415516a1365",
-    title: "Norway is first to propose temporary ban on AI glasses in public places",
-    date: "2026-10-05",
-    time: "10:50",
-    url: "https://www.ft.com/content/a3528806-c774-4dea-aec8-5415516a1365",
-  },
-  {
-    id: "a48af44e-84fb-4ce9-b7ce-d1895d0a0f05",
-    title: "Yemen launches push to retake territory captured by Houthis",
-    date: "2026-10-05",
-    time: "10:09",
-    url: "https://www.ft.com/content/a48af44e-84fb-4ce9-b7ce-d1895d0a0f05",
-  },
-  {
-    id: "93ee425d-9ac7-4543-8cc9-fef2e0670787",
-    title: "Nvidia’s $20bn licensing deal with Groq faces lawsuit from jilted engineers",
-    date: "2026-10-05",
-    time: "10:00",
-    url: "https://www.ft.com/content/93ee425d-9ac7-4543-8cc9-fef2e0670787",
   },
 ];

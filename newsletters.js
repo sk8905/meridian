@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-nasdaqhighsbrazilsurprise-20261005",
+    publication: "Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Nasdaq highs, Brazil surprise",
+    date: "2026-10-05",
+    time: "22:00",
+    summary: "Political risk swirls.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-mergersandacquihires-20261005",
     publication: "Bloomberg",
     author: "Matt Levine",
