@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0f48c61b-a490-4bdc-8473-bab6705e5b61",
+    title: "UK business secretary weighs up tariffs on Chinese EVs",
+    date: "2026-10-05",
+    time: "11:03",
+    url: "https://www.ft.com/content/0f48c61b-a490-4bdc-8473-bab6705e5b61",
+  },
+  {
+    id: "91741bbc-9626-41fc-8320-9ab9adbd8631",
+    title: "A Chinese billionaire reckons with the limits of building AI across borders",
+    date: "2026-10-05",
+    time: "11:00",
+    url: "https://www.ft.com/content/91741bbc-9626-41fc-8320-9ab9adbd8631",
+  },
+  {
+    id: "7dea96bb-12ca-44fd-81c1-395fb8060395",
+    title: "How the booming US healthcare economy is penalising patients",
+    date: "2026-10-05",
+    time: "11:00",
+    url: "https://www.ft.com/content/7dea96bb-12ca-44fd-81c1-395fb8060395",
+  },
+  {
+    id: "a3528806-c774-4dea-aec8-5415516a1365",
+    title: "Norway is first to propose temporary ban on AI glasses in public places",
+    date: "2026-10-05",
+    time: "10:50",
+    url: "https://www.ft.com/content/a3528806-c774-4dea-aec8-5415516a1365",
+  },
+  {
     id: "93ee425d-9ac7-4543-8cc9-fef2e0670787",
     title: "Nvidia’s $20bn licensing deal with Groq faces lawsuit from jilted engineers",
     date: "2026-10-05",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-04",
     time: "22:00",
     url: "https://www.ft.com/content/1fdb8380-2fac-474a-a184-616c0a29feb6",
-  },
-  {
-    id: "00fb4438-1f86-4bf2-a165-0c39f3fd506b",
-    title: "Dealmaking slowdown threatens early end to M&A boom",
-    date: "2026-10-04",
-    time: "21:00",
-    url: "https://www.ft.com/content/00fb4438-1f86-4bf2-a165-0c39f3fd506b",
-  },
-  {
-    id: "2084f349-0829-4130-a5e6-b98929a6e633",
-    title: "Schneider Electric nears deal to buy industrial software group PTC for $20bn",
-    date: "2026-10-04",
-    time: "20:33",
-    url: "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633",
-  },
-  {
-    id: "9737146d-fda7-440f-a77d-ab954de7a1a5",
-    title: "AkzoNobel nears deal to sell its SE Asia decorative paint unit to Nippon Paint",
-    date: "2026-10-04",
-    time: "19:55",
-    url: "https://www.ft.com/content/9737146d-fda7-440f-a77d-ab954de7a1a5",
-  },
-  {
-    id: "d3b09a81-626c-406a-a568-40966ffad074",
-    title: "Election season starts with possibly the most contentious result",
-    date: "2026-10-04",
-    time: "18:15",
-    url: "https://www.ft.com/content/d3b09a81-626c-406a-a568-40966ffad074",
   },
 ];

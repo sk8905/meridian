@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-promo-preqinproworkflow-20261005",
+    publication: "Preqin",
+    author: null,
+    series: null,
+    title: "A closer look at how Preqin Pro supports your workflow",
+    date: "2026-10-05",
+    time: "10:09",
+    summary: "See how to use Preqin Pro in practice.",
+    url: "https://go.preqin.com/webmail/909852/2193625328/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
+  },
+  {
     id: "nl-nonbillable-legal500brutalreviews-20261005",
     publication: "Non-Billable",
     author: null,
