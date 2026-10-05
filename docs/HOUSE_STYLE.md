@@ -59,8 +59,8 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   background/live refresh, a lane switch) must **never re-jump** the pane off what the
   reader is on; a hard refresh, or a reopen that reloaded for newer content, re-imports
   the module so the flag resets and the latest opens again. The reader also opens a
-  story by clicking a row, or by cycling the feed with the **↑/↓ arrow keys** (wraps
-  top↔bottom, visible rows only, ignored while typing in a field). Selecting a row sets
+  story by clicking a row, or by cycling the feed with the **↑/↓ arrow keys** (clamps at
+  the ends — no wrap; visible rows only; ignored while typing in a field). Selecting a row sets
   `.is-reading` and renders it in `#g-readpane`. Rows are `<a>` links, so arrow-focus
   must not paint the browser's default outline — the `.is-reading` accent marker is the
   indicator.

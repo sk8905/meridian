@@ -2602,10 +2602,13 @@ function ensureReadWired() {
       if (!rows.length) return;
       e.preventDefault();
       const cur = feedEl.querySelector(".g-feed-row.is-reading");
-      let i = cur ? rows.indexOf(cur) : -1;
-      if (e.key === "ArrowDown") i = i < 0 ? 0 : (i + 1) % rows.length;
-      else i = i < 0 ? rows.length - 1 : (i - 1 + rows.length) % rows.length;
-      const next = rows[i];
+      const i = cur ? rows.indexOf(cur) : -1;
+      // Clamp at the ends — no wrap. At the top, ArrowUp does nothing; at the bottom,
+      // ArrowDown does nothing. With no selection yet, either arrow opens the first row.
+      const j = e.key === "ArrowDown" ? (i < 0 ? 0 : Math.min(i + 1, rows.length - 1))
+                                      : (i < 0 ? 0 : Math.max(i - 1, 0));
+      if (j === i) return;                                       // already at the end — do nothing
+      const next = rows[j];
       if (next) { openInReadPane(next); try { next.focus({ preventScroll: true }); } catch { next.focus(); } next.scrollIntoView({ block: "nearest" }); }
     });
   }

@@ -76,6 +76,10 @@ check(i1 === 1, `arrows: a second ArrowDown advances to the next story (idx ${i1
 await press("ArrowUp");
 const i2 = await readingIdx();
 check(i2 === 0, `arrows: ArrowUp steps back to the previous story (idx ${i2})`);
+// At the TOP, ArrowUp clamps (does nothing) — it must NOT wrap to the last row.
+await press("ArrowUp");
+const i3 = await readingIdx();
+check(i3 === 0, `arrows: ArrowUp at the top does nothing — no wrap to the bottom (idx ${i3})`);
 // The keyboard-focused row must not carry the browser's default outline (white ring).
 const outline = await pg.evaluate(() => {
   const r = document.querySelector("#g-feed .g-feed-row.is-reading"); if (!r) return null;
