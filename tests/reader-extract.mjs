@@ -425,4 +425,20 @@ check(thumbImgs.length === 1 && /Reception-scaled_cropped/.test(thumbImgs[0].img
   `thumbs: keeps the full-size hero, drops the author avatar + the -WxH related thumbnail (${thumbImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
 check(!thumbImgs.some((b) => /Will-circ|frankfurt/.test(b.img)), "thumbs: the circular author headshot and the related-post thumbnail are not included");
 
+// 16) Stock-agency filler — a generic stock photo (filename carries the agency, e.g.
+//     "iStock-1126779135.jpg", getty/shutterstock/adobe stock) is decorative filler, not
+//     the story's own image. Dropped even with alt text. (Observed on Alternative Credit
+//     Investor.) A real content photo on the same page is kept.
+const stockArt = `<!doctype html><html><head><meta property="og:title" content="A credit story with stock filler"></head><body><article>
+  <p>The manager said it had closed its latest direct lending fund well above target, drawing commitments from pensions and insurers across Europe and the United States.</p>
+  <img src="https://acreditinvestor.com/wp-content/uploads/2026/09/iStock-1126779135.jpg" alt="City skyline at dusk">
+  <img src="https://acreditinvestor.com/wp-content/uploads/2026/09/jane-doe-cio-portrait.jpg" alt="Jane Doe, chief investment officer">
+  <p>Managers have raced to raise private credit vehicles this year as banks retreat from leveraged lending and investors chase floating-rate yield.</p>
+  </article></body></html>`;
+const stockRes = extractReadable(stockArt, u("https://acreditinvestor.com/story/"));
+const stockImgs = stockRes.blocks.filter((b) => b.img);
+check(stockImgs.length === 1 && /jane-doe-cio-portrait/.test(stockImgs[0].img),
+  `stock: a getty/istock/shutterstock stock photo is dropped, a real content photo is kept (${stockImgs.map((b) => b.img.split("/").pop()).join(", ") || "none"})`);
+check(!stockImgs.some((b) => /iStock/i.test(b.img)), "stock: the iStock filler image is not included");
+
 finish();
