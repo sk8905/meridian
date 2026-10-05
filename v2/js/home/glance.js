@@ -2235,10 +2235,11 @@ function renderWire() {
   _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();
   syncReadDefault();
-  // Pre-warm the top stories so the auto-open + first clicks are instant (desktop pane only
-  // — the in-memory cache de-dupes, so repeated renders don't re-fetch the same hrefs).
-  const readCol = document.getElementById("g-read");
-  if (readCol && readCol.offsetParent !== null) prefetchTopReads(3);
+  // Pre-warm the top stories so the auto-open (desktop) and the first taps/clicks (BOTH
+  // surfaces — iPhone is the primary one) are instant. The in-memory cache de-dupes, so
+  // repeated renders don't re-fetch the same hrefs, and a client prefetch warms the user's
+  // OWN edge colo — the one their open will hit.
+  prefetchTopReads(6);
 }
 
 // ---- Reading pane (desktop right quadrant) ---------------------------------

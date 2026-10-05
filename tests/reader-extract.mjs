@@ -683,5 +683,19 @@ check(/signal:\s*_timeoutSignal\(\d+\)/.test(_cli), "responsiveness: the reader 
 check(/function prefetchTopReads\(/.test(_cli) && /prefetchTopReads\(\s*\d+\s*\)/.test(_cli),
   "responsiveness: prefetchTopReads pre-warms the top stories and is wired into renderWire");
 check(/_fetchRead\(it\.href\)\s*\n?\s*\.then\(/.test(_cli), "responsiveness: the reading pane renders via the memoised _fetchRead path");
+check(/prefetchTopReads\(\s*6\s*\)/.test(_cli) && !/offsetParent[^\n]*prefetchTopReads/.test(_cli),
+  "responsiveness: prefetch runs on BOTH surfaces (mobile included — no desktop-only gate)");
+
+// 27) Global first-open pre-warm — a 15-min cron extracts the top stories into global KV
+//     (DIRECT fetch only, so zero paid-proxy quota), and handleRead serves that on an edge
+//     miss, so a first open is instant everywhere. Isolated from the push cron.
+check(/async function prewarmReads\(env\)/.test(_src), "pre-warm: prewarmReads exists");
+check(/await Promise\.all\([\s\S]*?_readDirect\(u, host\)/.test(_src) && !/async function prewarmReads[\s\S]*?_readViaProxy/.test(_src.match(/async function prewarmReads[\s\S]*?\n}\n/)?.[0] || ""),
+  "pre-warm: uses DIRECT fetch only — never the paid proxy (no scheduled quota spend)");
+check(/WATCHLIST\.put\(kvKey, body, \{ expirationTtl: \d+ \}\)/.test(_src), "pre-warm: stores the body in global KV with a TTL");
+check(/ctx\.waitUntil\(prewarmReads\(env\)\.catch\(/.test(_src), "pre-warm: the scheduled cron runs it, isolated from the push run");
+check(/env\.WATCHLIST\.get\(_readKvKey\(u\.toString\(\)\)\)/.test(_src), "pre-warm: handleRead serves the KV pre-warm on an edge miss");
+check(/const READ_VER = "v\d+"/.test(_src) && /read\.internal\/" \+ READ_VER/.test(_src),
+  "pre-warm: the edge key and the KV key share one versioned constant (lockstep invalidation)");
 
 finish();

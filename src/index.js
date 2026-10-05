@@ -1754,6 +1754,11 @@ const READ_PAYWALL = new Set([
 const READ_OPEN = new Set([
   "scmp.com",
 ]);
+// Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
+// (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
+// by the old extractor. Keep the two in lockstep through this one constant.
+const READ_VER = "v14";
+const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
 export function readHostAllowed(host) {
@@ -2210,13 +2215,25 @@ async function handleRead(request, env, ctx) {
   // v6: og:image lead fallback + wordmark/brand-alt image filtering. v7: + embedded tweets.
   // v8: images trusted only from the real article scope — a widened (thin) article drops
   //     out-of-scope recirculation/related/promo images and the generic og:image hero.
-  const key = new Request("https://read.internal/v14/" + encodeURIComponent(u.toString()));
+  const key = new Request("https://read.internal/" + READ_VER + "/" + encodeURIComponent(u.toString()));
   // Edge HIT: serve the cached extraction, but tell the BROWSER not to store it — a
   // browser-cached reader body would pin the pre-deploy text for up to an hour (the iPhone
   // PWA has no hard-refresh to bust it). The edge copy stays fast; the browser always
   // revalidates against the edge (and the client also fetches cache:"no-store").
   const hit = await cache.match(key);
   if (hit) { const h = new Response(hit.body, hit); h.headers.set("cache-control", "no-store"); return h; }
+  // GLOBAL pre-warm HIT: the 15-min cron extracts the top stories into KV (direct-readable
+  // sources only — see prewarmReads), so a FIRST open — even in a cold edge colo, even
+  // before any client prefetch — is instant everywhere. Repopulate this colo's edge from it.
+  try {
+    const pw = env && env.WATCHLIST ? await env.WATCHLIST.get(_readKvKey(u.toString())) : null;
+    if (pw) {
+      const data = JSON.parse(pw);
+      const edge = json(data); edge.headers.set("cache-control", "public, max-age=3600");
+      if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, edge));
+      const out = json(data); out.headers.set("cache-control", "no-store"); return out;
+    }
+  } catch { /* KV miss / parse error → fall through to a live fetch */ }
   // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
   // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
   let data = await _readDirect(u, host);
@@ -2240,6 +2257,42 @@ async function handleRead(request, env, ctx) {
   if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(key, edge));
   resp.headers.set("cache-control", "no-store");
   return resp;
+}
+// Pre-warm the reader for the day's top stories into GLOBAL KV, so a first open is instant
+// everywhere (handleRead checks this on an edge miss). DIRECT FETCH ONLY — it never calls the
+// Firecrawl/Jina proxy, so it spends ZERO paid-proxy quota on a schedule; bot-walled sources
+// (which need the proxy) are simply left to the on-demand path. Best-effort and fully
+// isolated: any failure is swallowed so it can never disturb the push cron.
+async function prewarmReads(env) {
+  if (!env || !env.WATCHLIST) return;
+  let items = [];
+  try { items = ((await (await handleFeed(new Request("https://internal/api/feed"), env, null)).json()).items) || []; } catch { return; }
+  // The top openable candidates: a real https article URL, not a known paywall/blocked host.
+  const seen = new Set();
+  const cand = [];
+  for (const it of items) {
+    const href = it && it.url; if (!href || !/^https:\/\//i.test(href)) continue;
+    let host; try { host = new URL(href).hostname.replace(/^www\./, ""); } catch { continue; }
+    if (_readInSet(host, READ_PAYWALL) || !readHostAllowed(host)) continue;
+    if (seen.has(href)) continue; seen.add(href);
+    cand.push({ href, host });
+    if (cand.length >= 14) break;
+  }
+  const cache = caches.default;
+  await Promise.all(cand.map(async ({ href, host }) => {
+    try {
+      const kvKey = _readKvKey(href);
+      if (await env.WATCHLIST.get(kvKey)) return;              // already warm (stable article text) — skip
+      let u; try { u = new URL(href); } catch { return; }
+      let data = await _readDirect(u, host);                   // DIRECT ONLY — no proxy, no paid quota
+      if (!(data && data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length)) return;
+      data = await _resolveReaderEmbeds(data, env);
+      const body = JSON.stringify(data);
+      await env.WATCHLIST.put(kvKey, body, { expirationTtl: 7200 });   // global, 2h (cron re-warms every 15 min)
+      const edge = json(data); edge.headers.set("cache-control", "public, max-age=3600");
+      await cache.put(new Request("https://read.internal/" + READ_VER + "/" + encodeURIComponent(href)), edge);
+    } catch { /* one story's failure never blocks the rest */ }
+  }));
 }
 
 async function handleHero(request, env, ctx) {
@@ -4974,6 +5027,9 @@ async function handleXFeed(request, env, ctx) {
 export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil(pushScheduled(env));
+    // Pre-warm the top stories into global KV so first opens are instant (direct-readable
+    // sources only — zero proxy quota). Isolated: its failure never affects the push run.
+    ctx.waitUntil(prewarmReads(env).catch(() => {}));
   },
   async fetch(request, env, ctx) {
    try {

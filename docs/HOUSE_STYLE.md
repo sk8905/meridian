@@ -108,6 +108,15 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   never reach the user until the body expired. Keep both halves: edge-cache for speed,
   no-store to the browser for freshness. (This is why bumping `read.internal/vN` alone is not
   enough — the key only governs the edge copy, not the browser's.)
+- **R3e — Reader speed: global pre-warm + client prefetch.** First opens must not wait on a
+  cold fetch. Three layers: (1) the client memoises per load and **prefetches the top 6
+  stories** on every wire render, both surfaces (`prefetchTopReads` — warms the viewer's own
+  edge colo); (2) a **15-min cron** (`prewarmReads`) extracts the day's top stories into
+  **global KV** so a first open is instant *everywhere*, even a cold colo — and it is
+  **direct-fetch only**, so it spends **zero** Firecrawl/Jina proxy quota on a schedule
+  (bot-walled sources stay on the on-demand path); (3) `handleRead` checks KV on an edge miss
+  and repopulates the local edge. The edge key and the KV key share one version constant
+  (`READ_VER`) — **bump it on any extractor change** so both invalidate in lockstep.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
   height; the last panel grows to fill remaining space (no ragged bottoms).
 
