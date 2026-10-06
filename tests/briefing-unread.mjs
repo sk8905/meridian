@@ -41,7 +41,7 @@ const base = `http://localhost:${srv.port}`;
   const onBrief = () => pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"));
 
   // Runtime: a rendered desk section leads at ~1.72 × font-size (the reading-pane feel)
-  // AND is justified like the reading pane.
+  // AND is LEFT-aligned (never justified) like the reading pane — ragged right, greedy fill.
   const typ = await pg.evaluate(() => {
     const sec = document.querySelector("#g-hbrief .g-hbrief-b");
     if (!sec) return null;
@@ -49,7 +49,7 @@ const base = `http://localhost:${srv.port}`;
     return { lh: parseFloat(cs.lineHeight) / parseFloat(cs.fontSize), secAlign: cs.textAlign };
   });
   check(typ && Math.abs(typ.lh - 1.72) < 0.05, `phone: the briefing prose renders at the reading-pane leading (~1.72, got ${typ ? typ.lh.toFixed(2) : "n/a"})`);
-  check(typ && typ.secAlign === "justify", `phone: the briefing prose is justified like the reading pane (got ${typ && typ.secAlign})`);
+  check(typ && typ.secAlign === "left", `phone: the briefing prose is left-aligned, not justified (got ${typ && typ.secAlign})`);
 
   check(!(await onBrief()), "phone: the default pane is the wire, not the briefing");
   check(await dotShown(), "phone: an unread brief shows the orange dot on the Briefing chip");

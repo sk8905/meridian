@@ -100,7 +100,7 @@ const b = await launchChromium();
   checkEq(r.slots, 0, "desktop: NO slot selector — only the latest brief is shown");
   check(/\d/.test(r.when), `desktop: the header shows the brief's freshness stamp (${r.when})`);
   check(r.noLede, "desktop: the Overview lede is retired — the card shows desk sections only");
-  check(r.sections >= 1 && r.sections <= 3, `desktop: one section per desk, ≤3 (${r.sections} sections, ${r.itemCount} items)`);
+  check(r.sections >= 1 && r.sections <= 4, `desktop: one section per desk, ≤4 canonical desks — Macro · Fixed income · Equities · Private capital (${r.sections} sections, ${r.itemCount} items)`);
   check(r.hasKicker, "desktop: each desk carries its name as a heading (.g-hbrief-bk)");
   check(r.deskHdAccent, "desktop: the desk headings are the orange accent (not the white title)");
   check(r.stackedHeader, "desktop: each desk name is a block header stacked above its prose (column format)");

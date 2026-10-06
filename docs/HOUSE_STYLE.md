@@ -104,6 +104,10 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   CTA is never cut, and live prose that says "registered in Delaware" or names a year is
   never truncated. Any extraction change
   must bump the `read.internal/vN` edge-cache key so the edge re-extracts.
+  **Prose is left-aligned, never justified** — both the reader body (`.g-read-p`) and the
+  briefing prose (`.g-hbrief-b`/`.g-hbrief-bt`) use `text-align:left` with `hyphens:none` and
+  greedy wrapping (`text-wrap:wrap`), so lines fill the full width (use all available space)
+  and break ragged-right — no justified rivers, no `text-wrap:balance`/`pretty` short lines.
 - **R3d — Reader bodies are edge-cached, never browser-cached.** `/api/read` stores the
   extraction on the **edge** (`caches.default`, `max-age=3600`) so re-reads are instant, but
   the response returned to the **browser** is `Cache-Control: no-store` on both the cache-hit
@@ -607,8 +611,9 @@ notification badge red (`#ef4444`).
   single→indexed-overlay multi-select, axes + vertical grid, Option-C geometry,
   phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.
 
-- **R28 — Home briefing card.** The market brief (`BRIEFINGS` — the three market
-  desks in the **fixed house order Macro · Fixed income · Equities**) is surfaced
+- **R28 — Home briefing card.** The market brief (`BRIEFINGS` — the four market
+  desks in the **fixed house order Macro · Fixed income · Equities · Private capital**
+  (private equity / private credit fund news)) is surfaced
   **only on Home** — there is **no header button / panel**. On the **desktop terminal** it is the **top-left quadrant
   of the 2×2 centre** (its own cell above the news wire, left of the chart), and
   **defaults OPEN** there (a collapsed bar would leave the cell empty). On **phones**
@@ -623,10 +628,14 @@ notification badge red (`#ef4444`).
   its source(s):** the prose's inline "who reported it" attribution ("…, the FT reports")
   is stripped (`_stripReported`); instead a trailing source line (`.g-hbrief-srcs` →
   `.g-hbrief-src`, middot-joined) links every story the desk compresses to its publisher —
-  the source as a **clickable link, not a textual mention** (grounding kept, R7). **Fixed desk
-  order — Macro, then Fixed income, then Equities:** the renderer sorts the sections
-  into this canonical order regardless of bullet order in the data, so **Equities
-  always sits directly under Fixed income**. **Equities is a REQUIRED section —
+  the source as a **clickable link, not a textual mention** (grounding kept, R7). The desk
+  kicker is **entity-decoded before display** (`_deEnt`) so an authored "M&amp;A"/"R&amp;D"
+  renders as "M&A"/"R&D", never the double-encoded literal (`_briefDesk`/`_deEnt` in `glance.js`).
+  **Fixed desk order — Macro, then Fixed income, then Equities, then Private capital:** the
+  renderer (`DESK_RANK`) sorts the sections into this canonical order regardless of bullet order
+  in the data; **M&A / deal stories are NOT a separate desk** — file a corporate deal under
+  Equities, and a **private-equity / private-credit fund** story under **Private capital** (a
+  PE firm's portfolio exit is Private capital, not a standalone "M&A" desk). **Equities is a REQUIRED section —
   every slot carries at least one Equities bullet** (the refresh invariant); the
   renderer round-robins the per-desk bullets under the four-bullet cap so each of
   the three desks keeps its lead bullet and **Equities can never be pushed off the
@@ -646,11 +655,15 @@ notification badge red (`#ef4444`).
   meaning "this figure is the **last close**, not a live price" (tooltip "Last close — market
   closed") — it never swaps in a futures number. It reads the same last-good markets/rates cache
   as the rail (no extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
-  **Market Briefing is the FIRST wire tab** (News/lane is second and still the default
-  landing pane). **Inline security pills (both surfaces):** after a
-  recognised security's first mention in the prose, a small chip (`.g-hbt-tk`) shows its
-  ticker/benchmark + the day's move + a direction arrow (e.g. "Honeywell `HON 0.07% ↓`",
-  "the US 10-year Treasury yield `US 10Y 3bp ↑`"). The pills cover **three kinds** of
+  **Market Briefing is the FIRST wire tab**, and **tapping the Home bottom-nav button opens
+  the Briefing pane** (`homeReset` → `setWire("brief")`); News/lane is second and remains the
+  default pane on a cold load. **Inline security pills (both surfaces):** on a
+  recognised security's first mention the name is **REPLACED** by a chip (`.g-hbt-tk`) — the
+  label stands in for the name, so the security appears **once** (the pill), never as text AND
+  a pill — showing its ticker/benchmark + the day's move + a direction arrow (e.g. "Honeywell
+  gains" → "`HON 0.07% ↓` gains"; "the US 10-year Treasury yield" → "`US 10Y 3bp ↑`"). A
+  yield/index pill carries its label up front so it reads even before its live value fills; an
+  unresolved name keeps its prose text (no pill to replace it). The pills cover **three kinds** of
   instrument — **benchmark yields, indices, and equities (megacaps)** — detected in the
   prose (`_briefSecNames` — capitalised phrases minus a `SEC_STOP` stoplist of
   countries/currencies/central-banks/calendar/common words). **US Treasury benchmark yields**

@@ -64,7 +64,9 @@ const r = await pg.evaluate(() => {
     hon: pill('.g-hbt-tk[data-sym="HON"]'),
     us10: pill('.g-hbt-tk[data-ykey="US 10Y"]'),
     nasdaq: pill('.g-hbt-tk[data-idx="^IXIC"]'),
-    afterName: (() => { const i = html.indexOf("Nvidia"); const j = html.indexOf('data-sym="NVDA"'); return i >= 0 && j > i ? "after" : "not-after"; })(),
+    // The recognised name is REPLACED by its pill (kept the label, dropped the text), so the
+    // resolved names must no longer appear as prose; the ticker/benchmark label stands in.
+    bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " "),
     boeingPill: /Boeing<span class="g-hbt-tk"/.test(html),
     acmePill: /Acme Widgets<span class="g-hbt-tk"/.test(html),
     francePill: /France<span class="g-hbt-tk"/.test(html),
@@ -76,11 +78,29 @@ check(r.nvda && /NVDA/.test(r.nvda.txt) && /2\.13%/.test(r.nvda.txt) && /↑/.te
 check(r.hon && /HON/.test(r.hon.txt) && /0\.07%/.test(r.hon.txt) && /↓/.test(r.hon.txt) && r.hon.down, `megacap pill: Honeywell → HON 0.07% ↓ (down) (${r.hon && r.hon.txt})`);
 check(r.us10 && /US 10Y/.test(r.us10.txt) && /3bp/.test(r.us10.txt) && /↑/.test(r.us10.txt) && r.us10.up, `benchmark pill: US 10-year Treasury yield → US 10Y 3bp ↑ (${r.us10 && r.us10.txt})`);
 check(r.nasdaq && /NASDAQ/.test(r.nasdaq.txt) && /1\.25%/.test(r.nasdaq.txt) && /↑/.test(r.nasdaq.txt) && r.nasdaq.up, `index pill: Nasdaq → NASDAQ 1.25% ↑ (up) (${r.nasdaq && r.nasdaq.txt})`);
-check(r.afterName === "after", "the pill is injected AFTER the name in the prose");
+check(!/\bNvidia\b/.test(r.bodyText) && !/\bHoneywell\b/.test(r.bodyText) && !/\bNasdaq\b/.test(r.bodyText) && !/Treasury/.test(r.bodyText),
+  `the recognised NAME is dropped — the pill label replaces it, not appended (${r.bodyText})`);
+check(/\bBoeing\b/.test(r.bodyText) && /\bAcme Widgets\b/.test(r.bodyText) && /\bFrance\b/.test(r.bodyText),
+  "an unresolved/unmapped/stoplisted name is KEPT as prose (no pill, so the text stays)");
 check(!r.boeingPill, "an UNRESOLVED company (Boeing) gets NO pill (never guessed)");
 check(!r.acmePill, "an unmapped name (Acme Widgets) gets NO pill");
 check(!r.francePill, "a stoplisted country (France) is never pilled");
 checkEq(r.totalPills, 4, "exactly four pills — NVDA, HON, US 10Y, NASDAQ");
+
+// A desk kicker authored with an entity ("M&amp;A", "R&amp;D") must render the literal glyph
+// ("M&A"), not a double-encoded "M&amp;A" — the desk name is decoded before it is re-escaped.
+const amp = await pg.evaluate(async () => {
+  const m = await import("/briefings.js");
+  const B = m.BRIEFINGS || {}, slots = B.slots || {};
+  const key = (B.order || []).filter((k) => slots[k])[0];
+  slots[key].bullets = [
+    { html: "<strong>R&amp;D &mdash; spending rose</strong> across the sector.", src: "https://example.com/x", srcName: "Ex" },
+  ];
+  window.__wireRenderBrief();
+  const bk = document.querySelector("#g-hbrief .g-hbrief-bk");
+  return { txt: bk ? bk.textContent : null };
+});
+check(amp.txt === "R&D", `desk kicker with '&' renders the glyph "R&D", not the literal "R&amp;A" (double-encoded) (text "${amp.txt}")`);
 
 checkErrs(errs, "home brief tickers");
 await ctx.close();

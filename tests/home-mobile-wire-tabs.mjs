@@ -134,22 +134,22 @@ const b = await launchChromium();
   await pg.waitForTimeout(200);
   check(!(await vis("#g-feed-head")), "phone: the News lane has no filter band either (removed)");
 
-  // A bottom-nav Home tap resets to the DEFAULT — the wire (News/All lane) pane — and
+  // A bottom-nav Home tap opens the Market Briefing pane (the Home-button default) and
   // never leaves the lane dropdown open. (The nav routes on pointerup, so a real tap
-  // — not a synthetic click — exercises ctrl.home().) First move OFF the default so the
-  // reset is observable.
-  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').click());
+  // — not a synthetic click — exercises ctrl.home().) First move OFF the briefing (to the
+  // X wire) so the reset is observable.
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').click());
   await pg.waitForTimeout(150);
   await pg.tap('.mtab[data-key="home"]');
   await pg.waitForTimeout(200);
   const afterHome = await pg.evaluate(() => ({
-    newsOn: document.querySelector('.g-wiretab[data-wire="news"]').classList.contains("is-on"),
+    briefOn: document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on"),
     lane: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
-    feedVisible: (() => { const f = document.getElementById("g-feed"); return !!f && getComputedStyle(f).display !== "none" && f.getBoundingClientRect().height > 0; })(),
+    briefVisible: (() => { const h = document.getElementById("g-hbrief"); return !!h && getComputedStyle(h).display !== "none" && h.getBoundingClientRect().height > 0; })(),
     menuHidden: document.getElementById("g-wire-lanemenu").hidden,
   }));
-  check(afterHome.newsOn && afterHome.feedVisible, "phone: a Home tap resets to the wire (News/All) pane");
-  check(afterHome.lane.trim() === "All", `phone: a Home tap resets the lane to All (${afterHome.lane})`);
+  check(afterHome.briefOn && afterHome.briefVisible, "phone: a Home tap opens the Market Briefing pane");
+  check(afterHome.lane.trim() === "All", `phone: a Home tap resets the underlying news lane to All (${afterHome.lane})`);
   check(afterHome.menuHidden, "phone: a Home tap leaves the lane dropdown closed");
   // Already on News/All for the remaining pane-swap checks.
 

@@ -667,7 +667,8 @@ quiet slot gets a short output, not padding.
   (so 05:00 & 09:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening) and
   restamp it — that run's slot becomes the freshest and is what shows, giving up to
   **five fresh briefings a day**; leave the other two as they are. Each slot is
-  **3–5 `bullets`**, each `{ html, src, srcName }` where `html` is authored markup
+  **4–6 `bullets`** (ideally one per desk — Macro · Fixed income · Equities · Private
+  capital), each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
   **No Overview lede:** the synthesis `lede` is RETIRED — it is not rendered, so do
   NOT author one (the field is optional/deprecated and may be omitted entirely).
@@ -680,19 +681,25 @@ quiet slot gets a short output, not padding.
   bullet a body + `src` URL + `srcName`) — so a half-written brief turns
   the suite red before it can deploy, and the renderer additionally drops any such
   section as a fallback. Run the full suite before pushing a briefing refresh.
-  **Desk focus — EXCLUSIVELY the three market desks: Macro, Equities, Fixed
-  income.** Every slot covers those three and only those (no Credit or Legal
+  **Desk focus — the FOUR market desks: Macro, Fixed income, Equities, Private
+  capital.** Every slot covers these and only these (no Credit or Legal
   bullets — they have their own surfaces). Tag each bullet's `<strong>` lead with
-  its desk (`Macro — …`, `Equities — …`, `Fixed income — …`). **ALWAYS include at
+  its desk (`Macro — …`, `Fixed income — …`, `Equities — …`, `Private capital — …`).
+  **There is NO "M&A" desk** — file a corporate deal under **Equities**, and a
+  **private-equity / private-credit fund** story (a PE firm's portfolio exit, a
+  fund raise, a private-credit deal) under **Private capital**. **ALWAYS include at
   least one Equities bullet in every slot — it is a required section, never
   optional** (an equities-light session still gets an index-level read: the day's
-  S&P 500 / major-index move and its driver). **Section order is fixed: Macro,
-  then Fixed income, then Equities** — i.e. the Equities section sits directly
-  under Fixed income. The renderer now enforces this canonical order and
-  round-robins the per-desk bullets under the `HB_MAX_BULLETS` cap so **each of the
-  three desks always keeps its lead bullet** — a slot heavy on Macro/Fixed income
-  can no longer push Equities off the card. You still author the bullets; just make
-  sure an Equities one is always among them. **One section per desk:** the card groups
+  S&P 500 / major-index move and its driver). **Private capital is included when
+  there is a private-markets story that day** (most days there is one worth a line);
+  if there genuinely is none, the slot shows three desks — that is fine. **Section
+  order is fixed: Macro, then Fixed income, then Equities, then Private capital.**
+  The renderer enforces this canonical order (`DESK_RANK`) and round-robins the
+  per-desk bullets under the `HB_MAX_BULLETS` cap so **each present desk always keeps
+  its lead bullet** — author **one strong bullet per desk** (≈4), since the cap shows
+  one per desk; a 2nd same-desk bullet is dropped before another desk's lead.
+  Entities in a kicker are fine (`<strong>M&amp;A …` would double-encode, but you
+  should not use that desk anyway) — author the desk name plainly (`Private capital`). **One section per desk:** the card groups
   same-desk bullets under a SINGLE kicker, so a desk with two stories (e.g. two
   `Macro —` items) shows one "Macro" section with both items beneath — never a
   repeated kicker. Keep same-desk items adjacent so they group cleanly; each keeps

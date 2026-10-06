@@ -350,7 +350,17 @@ function _isPhoneLayout() { try { return !window.matchMedia("(min-width:1201px)"
 function _briefDate(d) { const t = Date.parse((d || "") + "T00:00:00"); if (!t) return d || ""; const dt = new Date(t); return `${dt.getDate()} ${MONTHS[dt.getMonth()] || ""}`; }
 // A bullet's desk = the "<strong>Macro &mdash; …</strong>" lead word(s), lower-cased,
 // used only to group same-desk bullets into one section. No kicker → its own group.
-function _briefDesk(html) { const m = String(html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/); return m ? m[1].trim().toLowerCase() : "\0" + String(html || "").slice(0, 40); }
+// Decode the HTML entities authored in a desk kicker ("M&amp;A" → "M&A", "&pound;" → "£") so
+// the name can be re-escaped once for display — otherwise esc() double-encodes it and the
+// literal "M&amp;A" leaks to the screen.
+function _deEnt(s) {
+  return String(s || "")
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"').replace(/&#0*39;|&apos;/g, "'")
+    .replace(/&rsquo;/g, "’").replace(/&lsquo;/g, "‘")
+    .replace(/&pound;/g, "£").replace(/&euro;/g, "€").replace(/&nbsp;/g, " ");
+}
+function _briefDesk(html) { const m = String(html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/); return m ? _deEnt(m[1].trim()).toLowerCase() : "\0" + String(html || "").slice(0, 40); }
 // Drop the leading "Desk &mdash; " label from a same-desk follow-on item, keeping the
 // rest of its bold headline — so the kicker isn't repeated within a grouped section.
 function _stripDesk(html) { return String(html || "").replace(/^(\s*<strong>)\s*[^<]*?\s*(?:&mdash;|—)\s*/, "$1"); }
@@ -396,9 +406,9 @@ function renderHomeBriefing() {
   // orange kicker shows once, and every item keeps its own sourced line so
   // grounding (R7) is never lost. Desk order follows first appearance.
   // Group ALL bullets by desk (first-appearance order within each desk), then re-order
-  // the desk SECTIONS into the canonical house order — Macro, Fixed income, Equities —
-  // so Equities ALWAYS sits directly under Fixed income (see HOUSE_STYLE R28); any other
-  // (owner-requested) desk follows in first-appearance order.
+  // the desk SECTIONS into the canonical house order — Macro, Fixed income, Equities,
+  // Private capital (private equity / private credit fund news) — see HOUSE_STYLE R28; any
+  // other (owner-requested) desk follows in first-appearance order.
   const byDesk = new Map();
   const appear = [];
   for (const b of (s.bullets || [])) {
@@ -407,7 +417,7 @@ function renderHomeBriefing() {
     if (!g) { g = { desk, items: [], _i: appear.length }; byDesk.set(desk, g); appear.push(g); }
     g.items.push(b);
   }
-  const DESK_RANK = { "macro": 0, "fixed income": 1, "equities": 2 };
+  const DESK_RANK = { "macro": 0, "fixed income": 1, "equities": 2, "private capital": 3 };
   const ordered = appear.slice().sort((a, b) =>
     ((DESK_RANK[a.desk] ?? 50) - (DESK_RANK[b.desk] ?? 50)) || (a._i - b._i));
   // Budget the bullets to one screen (HB_MAX_BULLETS) WITHOUT dropping a whole desk:
@@ -435,7 +445,7 @@ function renderHomeBriefing() {
   const secSeen = new Set();   // pill each recognised security ONCE across the whole brief
   const bullets = groups.map((g) => {
     const m = String(g.items[0].html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/);
-    const desk = m ? m[1].trim() : "";
+    const desk = m ? _deEnt(m[1].trim()) : "";   // decode entities (M&amp;A → M&A) so esc() doesn't double-encode
     // Inject an inline ticker/benchmark pill after a recognised security's first mention
     // (filled live by renderBriefTickers) — BEFORE nbNums so the pill's own markup is left
     // alone and a number isn't split out of a name we match.
@@ -556,22 +566,30 @@ function _secPill(sym, label, mag, dir) {
 // by renderBriefTickers from the rates cache; equities FILLED inline from _secResolved).
 function _injectSecPills(html, seen) {
   let out = String(html || "");
-  const once = (re, replacer) => { let done = false; out = out.replace(re, (mm) => { if (done) return mm; done = true; return replacer(mm); }); };
+  // REPLACE the recognised name with its pill (don't keep the name AND the label) — the pill's
+  // label stands in for the name. Yield/index pills carry their label text up front so they read
+  // even before (or without) the live value filling in (renderBriefTickers overwrites on fill).
+  // Each injected pill is parked as a letter-free PLACEHOLDER token and only expanded back to
+  // HTML at the very end — so a later regex can never match a label INSIDE an already-injected
+  // pill (e.g. "Nasdaq-100" → NASDAQ 100, then the plain "Nasdaq" rule matching its own label).
+  const pills = [];
+  const tok = (h) => `\u0000P${pills.push(h) - 1}\u0000`;
+  const once = (re, make) => { let done = false; out = out.replace(re, (mm) => { if (done) return mm; done = true; return tok(make(mm)); }); };
   for (const y of BRIEF_YIELDS) {
     if (seen.has("y:" + y.ykey)) continue;
-    once(y.re, (mm) => { seen.add("y:" + y.ykey); return mm + `<span class="g-hbt-tk" data-ykey="${esc(y.ykey)}" data-label="${esc(y.label)}"></span>`; });
+    once(y.re, () => { seen.add("y:" + y.ykey); return `<span class="g-hbt-tk" data-ykey="${esc(y.ykey)}" data-label="${esc(y.label)}"><span class="g-hbt-s">${esc(y.label)}</span></span>`; });
   }
   for (const ix of BRIEF_INDEX) {
     if (seen.has("i:" + ix.sym)) continue;
-    once(ix.re, (mm) => { seen.add("i:" + ix.sym); return mm + `<span class="g-hbt-tk" data-idx="${esc(ix.sym)}" data-label="${esc(ix.label)}"></span>`; });
+    once(ix.re, () => { seen.add("i:" + ix.sym); return `<span class="g-hbt-tk" data-idx="${esc(ix.sym)}" data-label="${esc(ix.label)}"><span class="g-hbt-s">${esc(ix.label)}</span></span>`; });
   }
   for (const name of Object.keys(_secResolved)) {
     const d = _secResolved[name];
     if (!d || seen.has("e:" + d.symbol)) continue;
     const re = new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b");
-    once(re, (mm) => { seen.add("e:" + d.symbol); return mm + _secPill(d.symbol, d.label, `${Math.abs(d.pct).toFixed(2)}%`, d.dir); });
+    once(re, () => { seen.add("e:" + d.symbol); return _secPill(d.symbol, d.label, `${Math.abs(d.pct).toFixed(2)}%`, d.dir); });
   }
-  return out;
+  return out.replace(/\u0000P(\d+)\u0000/g, (m, i) => pills[+i] || "");
 }
 let _idxQuotes = {}, _idxFetching = false;
 function _hbtFillPct(n, pct) {
@@ -2372,9 +2390,9 @@ function _closeLaneMenu() {
 export function homeReset() {
   try {
     closeMobileReader();
-    if (_wireSetter) _wireSetter("news");            // the wire (feed) pane
-    if (_wireLane !== "all") _setWireLane("all"); else _closeLaneMenu();   // force the All lane (renders it)
-    _saveHomePref({ wire: "news", wireLane: "all" });
+    if (_wireSetter) _wireSetter("brief");           // land on the Market Briefing pane
+    if (_wireLane !== "all") _setWireLane("all"); else _closeLaneMenu();   // reset the underlying feed to the All lane
+    _saveHomePref({ wire: "brief", wireLane: "all" });
     const feed = document.getElementById("g-feed"); if (feed) feed.scrollTop = 0;
     window.scrollTo(0, 0);
   } catch { /* best-effort reset */ }
