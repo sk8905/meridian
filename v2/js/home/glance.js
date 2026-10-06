@@ -2445,6 +2445,7 @@ function renderWire() {
   else { _feedDesk = "all"; renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
   _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();
+  _markReadingRow();                                   // keep the open story shaded across this repaint
   syncReadDefault();
   // Pre-warm the top stories so the auto-open (desktop) and the first taps/clicks (BOTH
   // surfaces — iPhone is the primary one) are instant. The in-memory cache de-dupes, so
@@ -2523,10 +2524,28 @@ function _rowItem(row) {
 }
 // A stable per-story key for the reading-pane selection (survives a reload).
 function _rowKey(row) { return (row && (row.getAttribute("data-sid") || row.getAttribute("href"))) || ""; }
+// The story currently open in the reading pane, by _rowKey — so its row stays SHADED
+// across in-session re-renders (a live/background refresh, a lane switch). Seeded from
+// the persisted last-selection so the shade survives a reload too.
+let _readOpenKey = (() => { try { return localStorage.getItem("m_read_last") || ""; } catch { return ""; } })();
+let _readPaneOpen = false;   // a story is actually open in the pane this session (not just a stored key)
+// Re-apply the .is-reading shade to the open story's row after a feed repaint (the repaint
+// rebuilds #g-feed and drops the class). Desktop reading pane only; a no-op when the open
+// story isn't in the current lane/feed. Gated on the pane actually being OPEN so it never
+// pre-empts syncReadDefault's first open/restore (which both opens the pane AND shades) —
+// it only re-applies the shade on later repaints, before syncReadDefault's early-return.
+function _markReadingRow() {
+  if (!_readPaneOpen || !_readOpenKey) return;
+  const read = document.getElementById("g-read");
+  if (!read || read.offsetParent === null) return;                 // mobile / hidden pane — rows navigate, no shade
+  document.querySelectorAll("#g-feed .g-feed-row").forEach((r) => r.classList.toggle("is-reading", _rowKey(r) === _readOpenKey));
+}
 function openInReadPane(row) {
   document.querySelectorAll("#g-feed .g-feed-row.is-reading").forEach((r) => r.classList.remove("is-reading"));
   row.classList.add("is-reading");
   const key = _rowKey(row);
+  _readOpenKey = key;                                               // keep this row shaded across re-renders
+  _readPaneOpen = true;
   try { if (key) localStorage.setItem("m_read_last", key); } catch { /* private mode */ }   // remember the selection across reloads
   renderReadPane(_rowItem(row));
 }
@@ -2797,8 +2816,9 @@ function _rowOpensInPane(row) {
 // LAST-SELECTED story (localStorage m_read_last) if it is still in the feed, so the pane
 // keeps their choice across a reload; otherwise default to the first openable story so the
 // pane is never empty on open. The flag resets on each relaunch (module re-import). An
-// in-session re-render (a lane switch, the live/background refresh) does NOT re-jump — the
-// .is-reading highlight is transient, but the opened story stays shown in the pane. See R3a.
+// in-session re-render (a lane switch, the live/background refresh) does NOT re-jump the
+// pane, and the open story's row stays SHADED across the repaint (_markReadingRow re-applies
+// .is-reading by the persisted selection key) as long as that story is still in the feed. R3a.
 let _readDefaultOpened = false;
 function syncReadDefault() {
   const read = document.getElementById("g-read");

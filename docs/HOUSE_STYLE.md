@@ -60,8 +60,10 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   reload/reopen keeps what they were reading; otherwise it **defaults to the first openable
   story** so the pane is never empty on open. An in-session re-render (the
   background/live refresh, a lane switch) must **never re-jump** the pane off what the
-  reader is on — the `.is-reading` highlight is transient (dropped when the feed rebuilds)
-  but the opened story stays shown in the pane; a hard refresh, or a reopen that reloaded
+  reader is on — and the open story's row **stays shaded** across the repaint
+  (`_markReadingRow` re-applies `.is-reading` by the persisted selection key, gated on the
+  pane being open so it never pre-empts the first open/restore) whenever that story is still
+  in the lane; the opened story also stays shown in the pane. A hard refresh, or a reopen that reloaded
   for newer content, re-imports the module so the flag resets and the last selection (or the
   first story) opens again. The reader also opens a
   story by clicking a row, or by cycling the feed with the **↑/↓ arrow keys** (clamps at

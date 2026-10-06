@@ -54,29 +54,39 @@ const nl = await pg.evaluate(() => {
 check(nl.rows > 0, `Newsletters lane renders newsletter items (${nl.rows} rows from ${nl.srcs.filter(Boolean).slice(0,4).join(", ")})`);
 
 // ---- Auto-open runs ONCE per load; a lane switch re-renders but does NOT re-jump the
-// pane (R3a). The ↑/↓ arrows then cycle the feed, and keyboard focus must NOT paint the
-// browser's default outline (the is-reading accent marker is the indicator).
+// pane (R3a), and the OPEN story's row stays SHADED across the repaint when that story is
+// still in the lane (persistent selection — the shade no longer drops on a re-render).
+const readingIdx = () => pg.evaluate(() => { const rows = [...document.querySelectorAll("#g-feed .g-feed-row")]; return rows.findIndex((r) => r.classList.contains("is-reading")); });
+const beforeTitle = await pg.evaluate(() => ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim());
 await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "All"); if (b) b.click(); });
 await pg.waitForTimeout(500);
-const afterSwitch = await pg.evaluate(() => ({
-  reading: !!document.querySelector("#g-feed .g-feed-row.is-reading"),
-  rows: document.querySelectorAll("#g-feed .g-feed-row").length,
-}));
-check(afterSwitch.rows > 0 && !afterSwitch.reading, `desktop: a lane switch re-renders without re-jumping the pane (${afterSwitch.reading ? "re-opened" : "no re-jump"})`);
+const afterSwitch = await pg.evaluate(() => {
+  const shaded = document.querySelector("#g-feed .g-feed-row.is-reading");
+  let last = ""; try { last = localStorage.getItem("m_read_last") || ""; } catch { }
+  const key = (r) => (r && (r.getAttribute("data-sid") || r.getAttribute("href"))) || "";
+  return {
+    rows: document.querySelectorAll("#g-feed .g-feed-row").length,
+    title: ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim(),
+    shadedMatchesSelection: !!shaded && key(shaded) === last,
+  };
+});
+check(afterSwitch.rows > 0 && afterSwitch.title === beforeTitle, `desktop: a lane switch does not re-jump the pane (story unchanged: ${afterSwitch.title === beforeTitle})`);
+check(afterSwitch.shadedMatchesSelection, "desktop: the open story's row stays shaded across the lane switch (persistent selection, not a re-jump)");
 
-// ↓ opens the first row; ↓ again advances; ↑ steps back — cycling the feed.
+// The ↑/↓ arrows cycle the feed FROM the current selection; clamp at the ends (no wrap).
 const press = async (key) => { await pg.evaluate((k) => document.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true, cancelable: true })), key); await pg.waitForTimeout(120); };
-const readingIdx = () => pg.evaluate(() => { const rows = [...document.querySelectorAll("#g-feed .g-feed-row")]; return rows.findIndex((r) => r.classList.contains("is-reading")); });
-await press("ArrowDown");
-const i0 = await readingIdx();
-check(i0 === 0, `arrows: ArrowDown opens the first row (idx ${i0})`);
+const start = await readingIdx();
+check(start >= 0, `arrows: the open story is shaded as the starting point (idx ${start})`);
 await press("ArrowDown");
 const i1 = await readingIdx();
-check(i1 === 1, `arrows: a second ArrowDown advances to the next story (idx ${i1})`);
+check(i1 === start + 1, `arrows: ArrowDown advances to the next story (idx ${i1})`);
 await press("ArrowUp");
 const i2 = await readingIdx();
-check(i2 === 0, `arrows: ArrowUp steps back to the previous story (idx ${i2})`);
-// At the TOP, ArrowUp clamps (does nothing) — it must NOT wrap to the last row.
+check(i2 === start, `arrows: ArrowUp steps back to the previous story (idx ${i2})`);
+// Walk to the TOP, then ArrowUp clamps (does nothing) — it must NOT wrap to the last row.
+for (let k = 0; k <= start; k++) await press("ArrowUp");
+const iTop = await readingIdx();
+check(iTop === 0, `arrows: ArrowUp walks to the top row (idx ${iTop})`);
 await press("ArrowUp");
 const i3 = await readingIdx();
 check(i3 === 0, `arrows: ArrowUp at the top does nothing — no wrap to the bottom (idx ${i3})`);
