@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-06",
-  lastCheckedTime: "14:20 BST",
+  lastCheckedTime: "16:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-06",
   us: [
+    {title: "S&P 500 hits record high as AI stocks shrug off bond market slump", source: "Financial Times", date: "2026-10-06", time: "15:03", url: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7"},
+    {title: "Vitol chief warns of tanker shortage and risk of $200-a-barrel oil", source: "Financial Times", date: "2026-10-06", time: "14:39", url: "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197"},
     {title: "Why are bond yields so high?", source: "Financial Times", date: "2026-10-06", time: "12:30", url: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa"},
-    {title: "Debt in the spotlight as Paramount closes $111bn deal for Warner Bros", source: "Financial Times", date: "2026-10-06", time: "13:52", url: "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00"},
     {title: "Surge in borrowing costs hits corporate America", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/7c7ccb82-2973-47af-ad9b-b469c6ea0048"},
     {title: "Stocks Edge Up to Near Record, Bonds Extend Slide: Markets Wrap", source: "Bloomberg", date: "2026-10-05", time: "08:00", url: "https://bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz"},
-    {title: "Global pension funds cut US equities over AI concentration risk", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad"},
   ],
   uk: [
     {title: "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", source: "Financial Times", date: "2026-10-06", time: "12:23", url: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3"},
@@ -1032,6 +1032,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-06",
   items: [
+    {"title": "S&P 500 hits record high as AI stocks shrug off bond market slump", "source": "Financial Times", "date": "2026-10-06", "time": "15:03", "url": "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", "blurb": "US equities set a fresh record as AI-linked megacaps ignore the global government-bond sell-off."},
+    {"title": "Vitol chief warns of tanker shortage and risk of $200-a-barrel oil", "source": "Financial Times", "date": "2026-10-06", "time": "14:39", "url": "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197", "blurb": "The trading house's chief flags a tight tanker market and tail risk of a far higher oil price."},
     {"title": "Why are bond yields so high?", "source": "Financial Times", "date": "2026-10-06", "time": "12:30", "url": "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", "blurb": "FT explainer on what is driving the global government-bond sell-off."},
     {"title": "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", "source": "Financial Times", "date": "2026-10-06", "time": "12:23", "url": "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", "blurb": "The Chancellor gave lenders no tax answers ahead of the Budget."},
     {"title": "Debt in the spotlight as Paramount closes $111bn deal for Warner Bros", "source": "Financial Times", "date": "2026-10-06", "time": "13:52", "url": "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", "blurb": "The completed takeover puts the combined group's borrowing under scrutiny."},
@@ -1070,11 +1072,6 @@ export const ARTICLES = {
     {"title": "Four potential positives from higher bond yields", "source": "Financial Times", "date": "2026-10-01", "time": "09:37", "url": "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", "blurb": "The sharp rise in borrowing costs has raised justified alarm but there are benefits too."},
     {"title": "An optimist’s guide to the bond market", "source": "Financial Times", "date": "2026-10-01", "time": "06:30", "url": "https://www.ft.com/content/4ab6df98-f14d-49d1-a170-8087dc517b08", "blurb": "FT Unhedged: it could be a lot worse."},
     {"title": "Oil climbs after Trump denies he is willing to ease sanctions on Iran", "source": "CNBC", "date": "2026-09-30", "time": "10:13", "url": "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html", "blurb": "Oil rebounded after Trump dismissed an Axios report that he had offered Iran sanctions relief, writing 'I offered them NOTHING!', as Qatar continues to mediate over reopening the Strait of Hormuz.", "author": null},
-    {"title": "Trump denies offering Iran sanctions relief; Qatar pushes for peace talks", "source": "CNBC", "date": "2026-09-30", "time": "10:13", "url": "https://www.cnbc.com/2026/09/30/us-iran-war-trump-hormuz.html", "blurb": "Trump denied offering Tehran sanctions relief while Qatar mediates; Iran's proposal would swap a Hormuz reopening for frozen funds, sanctions relief and an end to the US naval blockade.", "author": null},
-    {"title": "UK Q2 final GDP +0.5% vs +0.4% q/q prelim", "source": "investingLive", "date": "2026-09-30", "time": "10:13", "url": "https://investinglive.com/news/uk-q2-final-gdp-0-5-vs-0-4-q-q-prelim/", "blurb": "The ONS revised UK second-quarter GDP growth up to 0.5% q/q from the 0.4% preliminary estimate.", "author": null},
-    {"title": "Pound Sterling Today: GBP Rises As UK GDP Growth Revised To 0.5%", "source": "Exchange Rates UK", "date": "2026-09-30", "time": "10:13", "url": "https://www.exchangerates.org.uk/news/47311/2026-09-30-pound-sterling-today-gbp-rises-as-uk-gdp-growth-revised-to-0-5.html", "blurb": "Sterling firmed on Wednesday morning after the ONS revised Q2 growth up to 0.5%, a print that supports market bets on a Bank of England hike.", "author": null},
-    {"title": "British Pound rises from two-month low on UK Q2 GDP, soft USD", "source": "FXStreet", "date": "2026-09-30", "time": "10:13", "url": "https://www.fxstreet.com/news/british-pound-moves-away-from-two-month-low-after-uk-q2-gdp-as-usd-retreats-ahead-of-pce-202609300731", "blurb": "GBP/USD moved off a two-month low as the upward GDP revision reaffirmed bets on a 25bp BoE hike on 5 November and the dollar eased ahead of US PCE.", "author": null},
-    {"title": "Markets in upbeat mood, as UK economy surprises on the upside", "source": "FXStreet", "date": "2026-09-30", "time": "10:13", "url": "https://www.fxstreet.com/analysis/markets-in-upbeat-mood-as-uk-economy-surprises-on-the-upside-202609300833", "blurb": "FXStreet's morning wrap: the upside surprise in UK growth lifted sentiment ahead of the day's US ADP, GDP and core PCE releases.", "author": null},
   ],
 };
 

@@ -63,13 +63,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197",
   },
   {
-    id: "d51a78a8-67d8-45bd-b32c-1eafe39a0794",
-    title: "Submit a question: What is driving the global bond sell-off?",
-    date: "2026-10-06",
-    time: "12:57",
-    url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794",
-  },
-  {
     id: "0bc54eaf-d545-4591-bb7c-ec3cbc1cb89a",
     title: "McKesson and CD&R strike $5.8bn deal to buy infusion services provider",
     date: "2026-10-06",
@@ -96,6 +89,13 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "13:44",
     url: "https://www.ft.com/content/cf0b1e96-0005-4ce0-8720-22247b01c3fd",
+  },
+  {
+    id: "d51a78a8-67d8-45bd-b32c-1eafe39a0794",
+    title: "Submit a question: What is driving the global bond sell-off?",
+    date: "2026-10-06",
+    time: "12:57",
+    url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794",
   },
   {
     id: "4d322475-2996-4b1f-8347-891c588d09df",
@@ -152,13 +152,6 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "11:36",
     url: "https://www.ft.com/content/5b233375-b686-4dc1-ab59-47930f1583ad",
-  },
-  {
-    id: "f30a1afc-2aa8-4cdd-a6e8-b18523298456",
-    title: "Tories pledge ‘Britannia Shield’ to protect UK from drone attacks",
-    date: "2026-10-06",
-    time: "09:36",
-    url: "https://www.ft.com/content/f30a1afc-2aa8-4cdd-a6e8-b18523298456",
   },
   {
     id: "d510c91d-3039-42f7-af4a-63814f0df86f",
@@ -229,6 +222,13 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "10:04",
     url: "https://www.ft.com/content/4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
+  },
+  {
+    id: "f30a1afc-2aa8-4cdd-a6e8-b18523298456",
+    title: "Tories pledge ‘Britannia Shield’ to protect UK from drone attacks",
+    date: "2026-10-06",
+    time: "09:36",
+    url: "https://www.ft.com/content/f30a1afc-2aa8-4cdd-a6e8-b18523298456",
   },
   {
     id: "9f1c65fe-3670-40bd-9223-18cd5c84df3c",

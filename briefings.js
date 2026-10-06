@@ -56,12 +56,12 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-06",
-      time: "14:20 BST",
+      time: "16:15 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; Chancellor Healey warns banks the UK faces a &lsquo;challenging&rsquo; fiscal picture</strong> but stays tight-lipped on tax ahead of the Budget, the FT reports.", src: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to about 5.28%</strong>, pulling back roughly 3bp from Monday&rsquo;s highest level since 2002 as oil prices slid and investors awaited the Fed&rsquo;s FOMC minutes, CNBC reports.", src: "https://www.cnbc.com/2026/10/06/treasury-yields-fed-fomc-minutes.html", srcName: "CNBC" },
-        { html: "<strong>Equities &mdash; Nvidia is on the verge of a $6 trillion market value</strong> as the tech-led rally continues, while Ray Dalio warns on bonds, Bloomberg&rsquo;s Markets Daily reports.", src: "https://www.bloomberg.com/news/newsletters/2026-10-06/nvidia-is-on-the-verge-of-a-6-trillion-market-value", srcName: "Bloomberg" },
-        { html: "<strong>Credit &mdash; debt is in the spotlight as Paramount closes its $111bn deal for Warner Bros</strong>, the FT reports; separately Informa agrees to buy Clarion from Blackstone for &pound;2.2bn.", src: "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; Chancellor Healey warns banks the UK faces a &lsquo;challenging&rsquo; fiscal picture</strong> but stays tight-lipped on tax ahead of the Budget, the FT reports; Vitol&rsquo;s chief separately warns of a tanker shortage and the risk of $200-a-barrel oil.", src: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the global government-bond sell-off is the day&rsquo;s dominant theme</strong>, with the FT explaining why yields are so high and warning of a pre-election debt sell-off in France that many fear could shake the eurozone.", src: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high</strong> as AI-linked stocks shrugged off the bond-market slump, the FT reports.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
+        { html: "<strong>Credit &mdash; debt is in the spotlight as Paramount closes its $111bn deal for Warner Bros</strong>, the FT reports; separately McKesson and CD&amp;R strike a $5.8bn deal to buy an infusion services provider.", src: "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", srcName: "Financial Times" },
       ],
     },
     evening: {
