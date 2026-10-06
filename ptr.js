@@ -62,27 +62,30 @@ export function initPullToRefresh() {
   zone.setAttribute("aria-hidden", "true");
   zone.style.cssText =
     "position:fixed;top:0;left:0;right:0;height:0;z-index:9999;overflow:hidden;pointer-events:none;" +
-    "display:flex;align-items:flex-start;justify-content:center;background:var(--bg,#05080f);";
-  // Polished ring: a conic ARC over a faint full-circle track (masked to a thin ring).
-  // As you pull it scales 0.6 → 1 and the orange arc sweeps with the pull (the gesture
-  // reads as progress); on release it springs to rest and settles into a smooth arc spin.
+    "display:flex;align-items:center;justify-content:center;background:var(--bg,#05080f);";
+  // Polished ring: a conic dial over a faint full-circle track (masked to a thin ring),
+  // centered in the reveal band. As you pull it scales up, fades in from a visible floor
+  // and FILLS clockwise (a determinate progress dial, full at the threshold); on release
+  // the dial becomes a comet (a tail fading round the ring) and spins with a gentle ease.
   const spin = document.createElement("div");
   spin.id = "ptr-ring";
-  spin.style.cssText = "width:26px;height:26px;margin-top:16px;position:relative;opacity:0;transform:scale(.6);";
+  spin.style.cssText = "width:34px;height:34px;position:relative;opacity:0;transform:scale(.6);";
   spin.innerHTML = '<div class="ptr-track"></div><div class="ptr-arc"></div>';
   zone.appendChild(spin);
   const arc = spin.querySelector(".ptr-arc");
   if (!document.getElementById("ptr-kf")) {
     const st = document.createElement("style"); st.id = "ptr-kf";
     st.textContent = "@keyframes ptr-spin{to{transform:rotate(360deg)}}html *{touch-action:manipulation}" +
-      // Polished pull-to-refresh ring (see spin element above): a conic arc over a faint
-      // track, masked to a thin ring. The arc is the --accent sweep while pulling; on
-      // release it becomes a fixed arc that rotates. Theme-aware via --accent / --ink.
+      // Polished pull-to-refresh ring (see spin element above): a conic dial over a faint
+      // track, masked to a thin ring. While pulling it is a determinate FILL (the --accent
+      // grows clockwise from the top by --ptr-sweep); on release it becomes a COMET (a tail
+      // fading round the ring) and the whole ring rotates. Theme-aware via --accent / --ink.
       "#ptr-ring .ptr-track,#ptr-ring .ptr-arc{position:absolute;inset:0;border-radius:50%;" +
       "-webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0)}" +
-      "#ptr-ring .ptr-track{background:conic-gradient(color-mix(in srgb,var(--ink,#fff) 15%,transparent) 0 100%)}" +
+      "#ptr-ring .ptr-track{background:conic-gradient(color-mix(in srgb,var(--ink,#fff) 14%,transparent) 0 100%)}" +
       "#ptr-ring .ptr-arc{background:conic-gradient(from -90deg,var(--accent,#fb8b1e) var(--ptr-sweep,0deg),#0000 0)}" +
-      "#ptr-ring.ptr-spinning .ptr-arc{background:conic-gradient(from -90deg,#0000 0 40deg,var(--accent,#fb8b1e) 90deg 300deg,#0000 300deg);animation:ptr-spin .7s linear infinite}" +
+      "#ptr-ring.ptr-spinning .ptr-arc{background:conic-gradient(from 0deg,color-mix(in srgb,var(--accent,#fb8b1e) 0%,transparent) 0deg,var(--accent,#fb8b1e) 360deg)}" +
+      "#ptr-ring.ptr-spinning{animation:ptr-spin .8s cubic-bezier(.45,.05,.55,.95) infinite}" +
       // Keep the native iOS rubber-band bounce at BOTH ends of the page —
       // hitting the top or bottom shouldn't kill the scroll dead. `contain`
       // preserves the elastic overscroll while suppressing the browser's own
@@ -99,7 +102,9 @@ export function initPullToRefresh() {
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
   restoreTabs();
 
-  const THRESH = 75, SOFT = 120, MAX = 220;
+  const THRESH = 64;       // finger travel that arms a refresh
+  const GAP_MAX = 60;      // the content never slides more than this — a compact reveal band,
+  const GAP_REST = 58;     // never a big empty void (held open at GAP_REST while spinning).
   let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false, clearT = 0;
   // A view can scope the pull to a single scroller (the Home news wire) by tagging
   // it .wire-ptr-list: then ONLY that element slides, everything else — the filter
@@ -111,8 +116,11 @@ export function initPullToRefresh() {
     const list = ptrList();
     return list ? (winTop && list.scrollTop <= 0) : winTop;
   };
-  // Safari-like tracking: 1:1 with the finger up to SOFT, then increasing resistance.
-  const pull = (d) => (d <= SOFT ? d : Math.min(SOFT + (d - SOFT) * 0.35, MAX));
+  // Compact reveal: the gap eases toward GAP_MAX and STOPS there (asymptote), so a gentle
+  // pull tracks the finger and a hard pull still only opens ~GAP_MAX — the page never empties
+  // into a black void. The ring still fills by finger travel (THRESH), so the gesture reads
+  // as progress even though the content barely moves.
+  const gap = (d) => GAP_MAX * (1 - Math.exp(-d / 48));
 
   // Don't hijack the pull when the gesture starts inside a menu/overlay or any
   // vertically-scrollable area (e.g. the notifications panel or command palette)
@@ -226,9 +234,9 @@ export function initPullToRefresh() {
     if (busy) return;                                    // spinning: ring is driven by release()
     const prog = Math.min(dist / THRESH, 1);
     spin.style.transition = animate ? ("transform .3s " + ease + ",opacity .2s ease") : "";
-    spin.style.opacity = String(prog);
-    spin.style.transform = "scale(" + (0.6 + 0.4 * prog) + ")";
-    if (arc) arc.style.setProperty("--ptr-sweep", (prog * 330) + "deg");
+    spin.style.opacity = String(0.25 + 0.75 * prog);     // visible from the first pixel (never a faint void)
+    spin.style.transform = "scale(" + (0.62 + 0.38 * prog) + ")";
+    if (arc) arc.style.setProperty("--ptr-sweep", (prog * 360) + "deg");   // the fill dial completes at the threshold
   }
   function clearPage() {
     for (const el of moveEls.concat(counterEls)) { el.style.transition = ""; el.style.transform = ""; }
@@ -283,7 +291,7 @@ export function initPullToRefresh() {
     dist = y - startY;
     if (dist > 0 && atTop()) {
       if (e.cancelable) e.preventDefault();       // take over the gesture
-      apply(pull(dist), false);
+      apply(gap(dist), false);
     } else { pulling = false; armed = false; apply(0, true, false); clearT = setTimeout(clearPage, 320); }
   }, { passive: false });
 
@@ -293,7 +301,7 @@ export function initPullToRefresh() {
     pulling = false;
     if (dist >= THRESH && atTop()) {
       busy = true;
-      apply(THRESH, true, true);                         // spring the gap to rest (slight overshoot)
+      apply(GAP_REST, true, true);                       // spring the compact band to rest (slight overshoot)
       spin.style.transition = "transform .3s cubic-bezier(.34,1.3,.4,1),opacity .2s ease";
       spin.style.opacity = "1";
       spin.style.transform = "scale(1)";
