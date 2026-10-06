@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "3fd43fc5-4973-4a26-9d9c-47b6361e6217",
+    title: "Donald Trump says he is considering suspending federal petrol tax",
+    date: "2026-10-06",
+    time: "22:09",
+    url: "https://www.ft.com/content/3fd43fc5-4973-4a26-9d9c-47b6361e6217",
+  },
+  {
+    id: "cd851d45-596b-4745-8c28-ce7ace1d3e43",
+    title: "‘Most dangerous product in crypto’ vexes Singapore",
+    date: "2026-10-06",
+    time: "22:00",
+    url: "https://www.ft.com/content/cd851d45-596b-4745-8c28-ce7ace1d3e43",
+  },
+  {
+    id: "6d06a6b2-ea2f-4384-959d-682ce78a1693",
+    title: "There is only one trade",
+    date: "2026-10-06",
+    time: "21:00",
+    url: "https://www.ft.com/content/6d06a6b2-ea2f-4384-959d-682ce78a1693",
+  },
+  {
+    id: "4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
+    title: "France’s Marine Le Pen pledges to rein in public spending",
+    date: "2026-10-06",
+    time: "16:50",
+    url: "https://www.ft.com/content/4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
+  },
+  {
+    id: "5235f78e-5c94-4015-8559-b6d0ec3fea95",
+    title: "Jeffrey Archer, author and politician, 1940-2026",
+    date: "2026-10-06",
+    time: "16:08",
+    url: "https://www.ft.com/content/5235f78e-5c94-4015-8559-b6d0ec3fea95",
+  },
+  {
     id: "0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e",
     title: "Ships’ captains paid $100,000 a month to transit Strait of Hormuz",
     date: "2026-10-06",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "11:02",
     url: "https://www.ft.com/content/f94db6c5-1ad2-4bbf-9fec-4a4ef1e99dba",
-  },
-  {
-    id: "42b6fa88-f730-4f8a-a194-8f53d0759aaf",
-    title: "Palmer Luckey’s Erebor surges to more than $7bn in deposits since launch",
-    date: "2026-10-06",
-    time: "11:00",
-    url: "https://www.ft.com/content/42b6fa88-f730-4f8a-a194-8f53d0759aaf",
-  },
-  {
-    id: "4b4aa8c8-3711-41cf-8702-c4a9650bbecb",
-    title: "What is Black design now?",
-    date: "2026-10-06",
-    time: "11:00",
-    url: "https://www.ft.com/content/4b4aa8c8-3711-41cf-8702-c4a9650bbecb",
-  },
-  {
-    id: "249d277e-86ee-4ea9-affc-12f61e1105ea",
-    title: "Billionaire Newhouse family rules out Condé Nast sale",
-    date: "2026-10-06",
-    time: "11:00",
-    url: "https://www.ft.com/content/249d277e-86ee-4ea9-affc-12f61e1105ea",
-  },
-  {
-    id: "b53870b9-aa82-499a-9898-b5f7475939f8",
-    title: "How Sainsbury’s rediscovered its appetite for supermarket megadeals",
-    date: "2026-10-06",
-    time: "10:41",
-    url: "https://www.ft.com/content/b53870b9-aa82-499a-9898-b5f7475939f8",
-  },
-  {
-    id: "1573393d-f711-41f2-be36-92a5527a7714",
-    title: "FT Innovative Lawyers Asia-Pacific 2027 open for submissions",
-    date: "2026-10-06",
-    time: "10:38",
-    url: "https://www.ft.com/content/1573393d-f711-41f2-be36-92a5527a7714",
   },
 ];

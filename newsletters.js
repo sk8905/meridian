@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-runningwiththebulls-20261006",
+    publication: "Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Running with the bulls",
+    date: "2026-10-06",
+    time: "22:00",
+    summary: "FOMC minutes up next.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-treasuryfuturesmightswitch-20261006",
     publication: "Bloomberg",
     author: "Matt Levine",
