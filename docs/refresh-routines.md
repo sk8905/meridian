@@ -74,6 +74,18 @@ each entity's `name` (and any well-known short/alias form) as a search term:
 - **CRD — every credit manager** in `credit/js/data.js` `managers[]`. New,
   verified, dated news for a manager → its `webNews` (manager press) or a `deals`/
   `intel` record (`managerId` set). Renders on the Home wire as **CRD**.
+  - **Work the roster actively every run — a multi-day gap is a RED FLAG, not a
+    quiet market.** The Home **Managers** lane (and the Transactions deal flow) is
+    built only from `deals`/`intel`/`webNews`, so when the newest such record goes
+    several days stale the lane visibly freezes (observed 2026-10: nothing newer
+    than 28 Sep for over a week while news/FT/newsletters kept updating — a routine
+    miss, since private-credit dealmaking does not stop). Each run, before relying
+    on a headline to surface, SWEEP the roster for new CLO pricings, fund closes,
+    direct-lending / financing deals, SRTs and restructurings (Creditflux,
+    Alternative Credit Investor, Private Equity Wire, Businesswire, the managers'
+    own press) and append the verified, dated ones. If a sweep genuinely finds
+    nothing, say so explicitly in the run summary rather than leaving the gap
+    unremarked. Give preference to the $1–15bn AUM band (the app's core band).
 - **HDG — every hedge fund** in `credit/js/data.js` `HEDGE_FUNDS[]` (currently 151,
   US/UK/Europe/Asia). New, verified, dated hedge-fund news (performance, launches,
   fundraising, personnel, wind-downs, AUM milestones) → a `HEDGE_INTEL` record with
