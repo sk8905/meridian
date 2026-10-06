@@ -52,6 +52,11 @@ const b = await launchChromium();
       oilDir: (cards.find((c) => /OIL/.test((c.querySelector(".g-hbs-lbl") || {}).textContent || "")) || {}).className || "",
       spDir: (cards[0] || {}).className || "",
       spNums: cards[0] ? [...cards[0].querySelectorAll(".g-hbs-n")].map((n) => n.textContent) : [],
+      // Uniform sizing: every card (and its coloured change bar) must be the same height —
+      // the US 10Y card carries a ONE-LINE chip ("+0.03 pp") where the others carry two, so
+      // the change block must GROW to fill the card or its bar would stop short over dark panel.
+      cardH: cards.map((c) => Math.round(c.getBoundingClientRect().height)),
+      chgH: cards.map((c) => { const g = c.querySelector(".g-hbs-chg"); return g ? Math.round(g.getBoundingClientRect().height) : 0; }),
     };
   });
   check(strip.vis, "phone: the briefing markets-snapshot strip is visible");
@@ -60,11 +65,13 @@ const b = await launchChromium();
     `phone: S&P card is up with absolute + % change (${strip.spNums.join(", ")})`);
   check(!strip.spStar, "phone: an OPEN market (S&P, REGULAR) shows NO '*'");
   check(strip.oilStar && /\bdown\b/.test(strip.oilDir), "phone: a CLOSED market (Oil) shows the futures '*' and its direction");
+  check(strip.cardH.length === 5 && new Set(strip.cardH).size === 1, `phone: all five cards are the SAME height — uniform size (${strip.cardH.join(", ")})`);
+  check(strip.chgH.length === 5 && new Set(strip.chgH).size === 1, `phone: every card's coloured change bar is the same height (reaches the bottom on the one-line US 10Y card too) (${strip.chgH.join(", ")})`);
   checkErrs(errs, "home brief strip (phone)");
   await ctx.close();
 }
 
-// ---- DESKTOP: the snapshot strip is hidden (the quadrant keeps the per-desk badges) ----
+// ---- DESKTOP: the snapshot strip is hidden (iPhone-only) ----
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
   await pg.waitForSelector("#g-hbrief .g-hbrief-head", { timeout: 8000 });

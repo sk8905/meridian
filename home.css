@@ -1249,14 +1249,17 @@
     .tui .g-hbrief-strip:empty{ display:none; }
     .tui .g-hbs-card{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; border-radius:4px;
       overflow:hidden; background:var(--t-panel, #15181d); text-decoration:none; }
-    .tui .g-hbs-top{ display:flex; flex-direction:column; gap:0; padding:5px 6px 4px; min-width:0; }
+    .tui .g-hbs-top{ flex:0 0 auto; display:flex; flex-direction:column; gap:0; padding:5px 6px 4px; min-width:0; }
     .tui .g-hbs-lbl{ font-family:var(--t-mono); font-weight:700; font-size:9px; letter-spacing:.02em;
       text-transform:uppercase; color:var(--t-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tui .g-hbs-val{ font-family:var(--t-mono); font-weight:400; font-size:var(--fs-body); line-height:1.2;
       color:var(--t-ink); font-variant-numeric:tabular-nums; white-space:nowrap; }
     .tui .g-hbs-star{ opacity:.55; margin-left:1px; }
-    .tui .g-hbs-chg{ display:flex; align-items:center; justify-content:space-between; gap:4px; padding:4px 6px;
-      background:var(--t-grid); min-width:0; }
+    /* The change block GROWS to fill the card's (stretched) height so its coloured bar always
+       reaches the bottom edge — a one-line chip (a yield's "+0.03 pp") and a two-line chip
+       (a price's abs + %) then read as the same card size, never a short bar over dark panel. */
+    .tui .g-hbs-chg{ flex:1 1 auto; display:flex; align-items:center; justify-content:space-between; gap:4px;
+      padding:4px 6px; background:var(--t-grid); min-width:0; }
     .tui .g-hbs-card.up .g-hbs-chg{ background:var(--t-up); }
     .tui .g-hbs-card.down .g-hbs-chg{ background:var(--t-down); }
     .tui .g-hbs-arw{ font-size:9px; line-height:1; color:#11161f; flex:0 0 auto; }
