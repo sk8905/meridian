@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-06",
-  lastCheckedTime: "12:20 BST",
+  lastCheckedTime: "14:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-06",
   us: [
+    {title: "Why are bond yields so high?", source: "Financial Times", date: "2026-10-06", time: "12:30", url: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa"},
+    {title: "Debt in the spotlight as Paramount closes $111bn deal for Warner Bros", source: "Financial Times", date: "2026-10-06", time: "13:52", url: "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00"},
     {title: "Surge in borrowing costs hits corporate America", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/7c7ccb82-2973-47af-ad9b-b469c6ea0048"},
-    {title: "Schneider Electric to Acquire PTC for More Than $20 Billion", source: "Bloomberg", date: "2026-10-05", url: "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion"},
+    {title: "Stocks Edge Up to Near Record, Bonds Extend Slide: Markets Wrap", source: "Bloomberg", date: "2026-10-05", time: "08:00", url: "https://bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz"},
     {title: "Global pension funds cut US equities over AI concentration risk", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad"},
-    {title: "Why a booming economy is not helping Trump", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a"},
-    {title: "Stock futures are flat as investors grapple with higher yields, await Fed minutes: Live updates", source: "CNBC", date: "2026-10-04", url: "https://www.cnbc.com/2026/10/04/stock-market-today-live-updates.html"},
   ],
   uk: [
+    {title: "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", source: "Financial Times", date: "2026-10-06", time: "12:23", url: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3"},
+    {title: "UK risks ‘uninvestable’ reputation if North Sea projects are blocked, says energy boss", source: "Financial Times", date: "2026-10-06", time: "11:07", url: "https://www.ft.com/content/d510c91d-3039-42f7-af4a-63814f0df86f"},
     {title: "The creditor bloodbath in UK telecoms", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/0e4afbdc-c018-4ee4-86b3-4248ae3e97ab"},
     {title: "BT’s swoop on TalkTalk has regulators over a barrel", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/309a7685-e488-44f4-ad76-4247b7f8bb5b"},
     {title: "Banks will lobby Healey for capital rules cut, says senior MP", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414"},
-    {title: "Britain’s Budget needs to tame spending and boost growth", source: "Financial Times", date: "2026-10-04", time: "11:00", url: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d"},
-    {title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de"},
   ],
 };
 
@@ -1032,6 +1032,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-06",
   items: [
+    {"title": "Why are bond yields so high?", "source": "Financial Times", "date": "2026-10-06", "time": "12:30", "url": "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", "blurb": "FT explainer on what is driving the global government-bond sell-off."},
+    {"title": "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", "source": "Financial Times", "date": "2026-10-06", "time": "12:23", "url": "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", "blurb": "The Chancellor gave lenders no tax answers ahead of the Budget."},
+    {"title": "Debt in the spotlight as Paramount closes $111bn deal for Warner Bros", "source": "Financial Times", "date": "2026-10-06", "time": "13:52", "url": "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", "blurb": "The completed takeover puts the combined group's borrowing under scrutiny."},
     {"title": "A Top-Heavy Stocks Rally Is Daring Bond Yields to Break It", "source": "Bloomberg", "date": "2026-10-06", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", "blurb": "The greatest risk to the simultaneous rise in tech stocks and long bond yields may be political.", "author": "John Authers"},
     {"title": "France: between the bond market and the barricades", "source": "Financial Times", "date": "2026-10-06", "time": "05:00", "url": "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", "blurb": "The country is being hit by a pre-election debt sell-off, and many fear it could shake the eurozone.", "author": null},
     {"title": "Silicon Valley expects AI will kill jobs but economists are not convinced", "source": "Financial Times", "date": "2026-10-06", "time": "05:00", "url": "https://www.ft.com/content/8f783c04-5fc5-43d4-bab2-495ac31806c6", "blurb": "Economists do not see a future without jobs, but they do see scope for rapid, disruptive change in the nature of work.", "author": null},

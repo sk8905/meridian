@@ -56,12 +56,12 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-06",
-      time: "12:20 BST",
+      time: "14:20 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; Chancellor Healey warns banks the UK faces a &lsquo;challenging&rsquo; fiscal picture</strong> but stays tight-lipped on tax ahead of the Budget, the FT reports.", src: "https://www.ft.com/content/5b233375-b686-4dc1-ab59-47930f1583ad", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; a surge in borrowing costs is hitting corporate America</strong>, the FT reports.", src: "https://www.ft.com/content/7c7ccb82-2973-47af-ad9b-b469c6ea0048", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; Chancellor Healey warns banks the UK faces a &lsquo;challenging&rsquo; fiscal picture</strong> but stays tight-lipped on tax ahead of the Budget, the FT reports.", src: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the FT asks why bond yields are so high</strong>, as a surge in borrowing costs hits corporate America.", src: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; Nvidia is on the verge of a $6 trillion market value</strong> as the tech-led rally continues, while Ray Dalio warns on bonds, Bloomberg&rsquo;s Markets Daily reports.", src: "https://www.bloomberg.com/news/newsletters/2026-10-06/nvidia-is-on-the-verge-of-a-6-trillion-market-value", srcName: "Bloomberg" },
-        { html: "<strong>Credit &mdash; Informa agrees to buy events rival Clarion from Blackstone for &pound;2.2bn</strong>, the FT reports, a private-equity portfolio exit.", src: "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1", srcName: "Financial Times" },
+        { html: "<strong>Credit &mdash; debt is in the spotlight as Paramount closes its $111bn deal for Warner Bros</strong>, the FT reports; separately Informa agrees to buy Clarion from Blackstone for &pound;2.2bn.", src: "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", srcName: "Financial Times" },
       ],
     },
     evening: {
