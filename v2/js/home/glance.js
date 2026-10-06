@@ -402,13 +402,13 @@ function renderHomeBriefing() {
   _updateBriefDot();
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
   // Group the rendered bullets by desk so each desk is ONE section (Macro,
-  // Equities, Fixed income) even when a desk carries more than one story: the
+  // Equities, Bonds) even when a desk carries more than one story: the
   // orange kicker shows once, and every item keeps its own sourced line so
   // grounding (R7) is never lost. Desk order follows first appearance.
   // Group ALL bullets by desk (first-appearance order within each desk), then re-order
-  // the desk SECTIONS into the canonical house order — Macro, Fixed income, Equities,
-  // Private capital (private equity / private credit fund news) — see HOUSE_STYLE R28; any
-  // other (owner-requested) desk follows in first-appearance order.
+  // the desk SECTIONS into the canonical house order — Macro, Bonds, Equities, Credit
+  // (private equity / private credit fund news) — see HOUSE_STYLE R28; any other
+  // (owner-requested) desk follows in first-appearance order.
   const byDesk = new Map();
   const appear = [];
   for (const b of (s.bullets || [])) {
@@ -417,14 +417,14 @@ function renderHomeBriefing() {
     if (!g) { g = { desk, items: [], _i: appear.length }; byDesk.set(desk, g); appear.push(g); }
     g.items.push(b);
   }
-  const DESK_RANK = { "macro": 0, "fixed income": 1, "equities": 2, "private capital": 3 };
+  const DESK_RANK = { "macro": 0, "bonds": 1, "equities": 2, "credit": 3 };
   const ordered = appear.slice().sort((a, b) =>
     ((DESK_RANK[a.desk] ?? 50) - (DESK_RANK[b.desk] ?? 50)) || (a._i - b._i));
   // Budget the bullets to one screen (HB_MAX_BULLETS) WITHOUT dropping a whole desk:
   // round-robin across the desks in canonical order so every present desk keeps its
   // lead bullet before any desk takes a second. This is what guarantees the Equities
   // section (and its data badge) never vanishes under the cap when the slot is heavy on
-  // Macro/Fixed income — the gap a reader photographed.
+  // Macro/Bonds — the gap a reader photographed.
   const budget = Math.max(HB_MAX_BULLETS, ordered.length);
   const groups = ordered.map(() => ({ items: [] }));
   for (let round = 0, taken = 0, progressed = true; taken < budget && progressed; round++) {
@@ -1756,11 +1756,11 @@ function renderBrief(byDesk, counts, day) {
 }
 
 // Home-feed primary filters mirror the Dashboard sections (Macro · Equities ·
-// Fixed Income · Credit · Hedge Funds · Legal). Macro/Credit/Hedge/Legal are their
-// own desks; Equities and Fixed Income are keyword VIEWS over the macro stream
+// Bonds · Credit · Hedge Funds · Legal). Macro/Credit/Hedge/Legal are their
+// own desks; Equities and Bonds are keyword VIEWS over the macro stream
 // (equity-index/stock news vs bond/rates news) so the filter set lines up with the
 // dashboard without inventing a separate desk — items keep their real MAC label.
-const FEED_DESK_LABEL = { all: "All news", views: "Views", m: "Macro", eq: "Equities", fi: "Fixed Income", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters" };
+const FEED_DESK_LABEL = { all: "All news", views: "Views", m: "Macro", eq: "Equities", fi: "Bonds", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters" };
 const FEED_EQ_RE = /\b(stocks?|shares?|equit\w+|\bindex\b|indices|nasdaq|s&p ?500|s&p|dow(\s?jones)?|ftse|russell|nikkei|kospi|hang seng|\bdax\b|earnings|\bipo\b|semiconductors?|\bchips?\b|nvidia|mega-?cap|magnificent|rally|sell-?off|bull market|bear market)\b/i;
 const FEED_FI_RE = /\b(bonds?|yields?|treasur\w+|gilts?|bunds?|coupon|duration|yield curve|credit spread|\boas\b|sovereign debt|rate (cut|hike|rise|path|decision)|interest rates?|\bfed\b|\bfomc\b|bank of england|\bboe\b|\becb\b|\bmpc\b|monetary policy|high[- ]yield|investment[- ]grade)\b/i;
 
@@ -2165,7 +2165,7 @@ function renderFeed() {
   // "what's new" counts (items in the most recent ~2 days).
   const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), hdg: dedupe([...hdg].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)), fisrc: dedupe([...fixedincome].sort(byDateDesc)) };
   // Equities is a keyword slice of the macro stream (see FEED_DESK_LABEL note).
-  // Fixed Income is the DEDICATED fi sources (Bond Vigilantes, badged FI) FIRST,
+  // Bonds is the DEDICATED fi sources (Bond Vigilantes, badged BND) FIRST,
   // then the bond/rates keyword slice of the macro stream (which keeps its MAC
   // label). An item can match both a keyword view and macro; fine for a filter.
   byDesk.eq = byDesk.m.filter((x) => FEED_EQ_RE.test(x.title || ""));

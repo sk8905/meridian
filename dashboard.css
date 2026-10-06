@@ -26,10 +26,10 @@
   .dsh-3z[data-pane="hedge-funds"] .dsh-mid { order: 1; }
 }
 /* Sub-tab labels: desktop shows the full label; the narrow iPhone tab bar shows
-   the short one so "Fixed Income"/"Hedge Funds" don't wrap to two lines. */
+   the short one so "Hedge Funds" doesn't wrap to two lines. */
 .dsh-tab-sm { display:none; }
-/* Narrow phone tab bar: show the SHORT label so "Fixed Income"/"Hedge Funds"
-   don't get clipped in their equal segment; the desktop rail keeps the full one. */
+/* Narrow phone tab bar: show the SHORT label so "Hedge Funds"
+   doesn't get clipped in its equal segment; the desktop rail keeps the full one. */
 @media (max-width:760px){ .dsh-railnav .dsh-tab-lg { display:none; } .dsh-railnav .dsh-tab-sm { display:inline; } }
 .dsh-pane { display:flex; flex-direction:column; gap:var(--dsh-gap); padding:var(--dsh-gap); }
 @media (min-width:761px){ .dsh-pane{ display:grid; grid-template-columns:repeat(2,1fr); align-items:start; } .dsh-pane > .dsh-card:first-child, .dsh-pane > .dsh-more{ grid-column:1 / -1; } }
@@ -607,7 +607,7 @@
 .dsh-yc-key { display:inline-block; width:9px; height:9px; border-radius:0; margin-right:5px; vertical-align:baseline; }
 .dsh-yc-key.dsh-yc-us { background:var(--t-accent); } .dsh-yc-key.dsh-yc-uk { background:var(--t-mac); }
 td .dsh-yc-us, td .dsh-yc-uk { border:0; }
-/* Multi-country curve legend (Fixed Income) + the yield-change tenor selector. */
+/* Multi-country curve legend (Bonds) + the yield-change tenor selector. */
 .dsh-yc-leg { display:flex; flex-wrap:wrap; gap:4px 12px; margin:6px 0 10px; }
 .dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-dim); font-size:var(--fs-body); }
 .dsh-yc-lg i { width:9px; height:9px; border-radius:0; display:inline-block; }

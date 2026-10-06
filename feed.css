@@ -98,7 +98,7 @@
    fund/clo/comm/alert/case/scheme/rp never carry their own .g-feed-code class,
    only .hdg does (no domain override for the hedge desk). */
 .g-feed-code.hdg{ color:var(--t-hdg, #4aa3f0); background:color-mix(in srgb,var(--t-hdg, #4aa3f0) 15%,transparent); }
-/* Fixed income (Bond Vigilantes + any fi-flagged source) reads the macro/rates
+/* Bonds (Bond Vigilantes + any fi-flagged source) reads the macro/rates
    palette — bonds & rates sit in the macro domain. */
 .g-feed-code.fi{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
 /* Manager-wire category tags — a soft, PER-CATEGORY pastel (not all credit-orange),

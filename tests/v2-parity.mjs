@@ -147,7 +147,7 @@ async function deepLink(url, view, min, label) {
   await tap("dashboard");
   // Dashboard renders its three sub-tabs; Equities shows the ranked sector bars.
   const dshSubs = await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-railnav .dsh-navchip[data-sub]').length);
-  checkEq(dshSubs, 6, "in-view: Dashboard has six sub-tabs (Macro/Equities/Fixed Income/Credit/Hedge Funds/Legal)");
+  checkEq(dshSubs, 6, "in-view: Dashboard has six sub-tabs (Macro/Equities/Bonds/Credit/Hedge Funds/Legal)");
   await pg.evaluate(() => { const e = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-railnav .dsh-navchip[data-sub]')].find((c) => c.dataset.sub === "equities"); if (e) e.click(); });
   await pg.waitForTimeout(300);
   checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="dashboard"] .dsh-railnav .dsh-navchip.is-on') || {}).dataset?.sub), "equities", "in-view: Dashboard sub-tab switches (active handler fires)");

@@ -79,13 +79,16 @@ each entity's `name` (and any well-known short/alias form) as a search term:
   fundraising, personnel, wind-downs, AUM milestones) → a `HEDGE_INTEL` record with
   `hfId` set to the matching fund (or `null` when the story names no single fund in
   the roster). Renders as **HDG**.
-  - **Work the roster largest-first, actively, every run.** HDG has historically
-    lagged CRD/LEX — the fix is to treat the biggest funds as standing beats, not
-    to wait for a headline to surface. Each run, sweep the top-AUM names
-    (Renaissance, Tiger Global, TCI, Squarepoint, GoldenTree, Viking, Element,
-    Farallon, Silver Point, Marathon, Diameter, Sona, Arini, Sculptor, Magnetar,
-    Tudor, Pentwater, H2O, CFM, Hudson Bay, Greenwoods, …) plus the activists
-    (Trian, Starboard, ValueAct, Cevian, Pershing Square, Third Point) by name.
+  - **Work the roster actively every run, with a PREFERENCE for the $1–15bn AUM
+    band.** HDG has historically lagged CRD/LEX — the fix is to treat the covered
+    funds as standing beats, not to wait for a headline to surface. **Give
+    preference to managers / hedge funds with $1bn–$15bn AUM** (the app's core
+    band — the same band that gates new additions): sweep those names first each
+    run, then the larger marquee names (Renaissance, Tiger Global, TCI, Squarepoint,
+    GoldenTree, Viking, Element, Farallon, Silver Point, Marathon, Diameter, Sona,
+    Arini, Sculptor, Magnetar, Tudor, Pentwater, H2O, CFM, Hudson Bay, Greenwoods, …)
+    plus the activists (Trian, Starboard, ValueAct, Cevian, Pershing Square, Third
+    Point) by name. When two stories compete for a slot, the $1–15bn name wins.
   - **Source playbook (these reliably carry hedge-fund news):** Bloomberg
     (Nishant Kumar's beat especially), Hedgeweek, Institutional Investor,
     Alternatives Watch, Pensions & Investments; **fund closes/launches** →
@@ -667,8 +670,8 @@ quiet slot gets a short output, not padding.
   (so 05:00 & 09:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening) and
   restamp it — that run's slot becomes the freshest and is what shows, giving up to
   **five fresh briefings a day**; leave the other two as they are. Each slot is
-  **4–6 `bullets`** (ideally one per desk — Macro · Fixed income · Equities · Private
-  capital), each `{ html, src, srcName }` where `html` is authored markup
+  **4–6 `bullets`** (ideally one per desk — Macro · Bonds · Equities · Credit),
+  each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
   **No Overview lede:** the synthesis `lede` is RETIRED — it is not rendered, so do
   NOT author one (the field is optional/deprecated and may be omitted entirely).
@@ -681,25 +684,31 @@ quiet slot gets a short output, not padding.
   bullet a body + `src` URL + `srcName`) — so a half-written brief turns
   the suite red before it can deploy, and the renderer additionally drops any such
   section as a fallback. Run the full suite before pushing a briefing refresh.
-  **Desk focus — the FOUR market desks: Macro, Fixed income, Equities, Private
-  capital.** Every slot covers these and only these (no Credit or Legal
-  bullets — they have their own surfaces). Tag each bullet's `<strong>` lead with
-  its desk (`Macro — …`, `Fixed income — …`, `Equities — …`, `Private capital — …`).
-  **There is NO "M&A" desk** — file a corporate deal under **Equities**, and a
-  **private-equity / private-credit fund** story (a PE firm's portfolio exit, a
-  fund raise, a private-credit deal) under **Private capital**. **ALWAYS include at
+  **Desk focus — the FOUR market desks: Macro, Bonds, Equities, Credit.** Every
+  slot covers these and only these (no Legal bullets — they have their own surface;
+  the briefing "Credit" desk is the private-markets line below, distinct from the
+  wire's CRD stream). Tag each bullet's `<strong>` lead with its desk (`Macro — …`,
+  `Bonds — …`, `Equities — …`, `Credit — …`). **There is NO "M&A" or "Fixed income"
+  desk** — the rates/government-and-corporate-bond desk is now **Bonds**; file a
+  corporate deal under **Equities**, and a **private-equity / private-credit fund**
+  story (a PE firm's portfolio exit, a fund raise, a private-credit deal) under
+  **Credit**. The **Credit desk gives PREFERENCE to managers / hedge funds in the
+  $1–15bn AUM band** — lead with an in-band name's story where there's a choice
+  (a mega-fund item is fine when it's the day's clear private-markets headline, but
+  prefer the $1–15bn names the app covers). **ALWAYS include at
   least one Equities bullet in every slot — it is a required section, never
   optional** (an equities-light session still gets an index-level read: the day's
-  S&P 500 / major-index move and its driver). **Private capital is included when
+  S&P 500 / major-index move and its driver). **Credit is included when
   there is a private-markets story that day** (most days there is one worth a line);
   if there genuinely is none, the slot shows three desks — that is fine. **Section
-  order is fixed: Macro, then Fixed income, then Equities, then Private capital.**
-  The renderer enforces this canonical order (`DESK_RANK`) and round-robins the
+  order is fixed: Macro, then Bonds, then Equities, then Credit.**
+  The renderer enforces this canonical order (`DESK_RANK` keys
+  `macro`/`bonds`/`equities`/`credit`) and round-robins the
   per-desk bullets under the `HB_MAX_BULLETS` cap so **each present desk always keeps
   its lead bullet** — author **one strong bullet per desk** (≈4), since the cap shows
   one per desk; a 2nd same-desk bullet is dropped before another desk's lead.
-  Entities in a kicker are fine (`<strong>M&amp;A …` would double-encode, but you
-  should not use that desk anyway) — author the desk name plainly (`Private capital`). **One section per desk:** the card groups
+  Author the desk name plainly (`Bonds`, `Credit`); a kicker entity like
+  `<strong>R&amp;D …` is decoded for display, but these desk names need none. **One section per desk:** the card groups
   same-desk bullets under a SINGLE kicker, so a desk with two stories (e.g. two
   `Macro —` items) shows one "Macro" section with both items beneath — never a
   repeated kicker. Keep same-desk items adjacent so they group cleanly; each keeps

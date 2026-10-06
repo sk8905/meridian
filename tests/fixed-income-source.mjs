@@ -1,6 +1,6 @@
 // A fixed-income-flagged source (M&G Bond Vigilantes, fi:true from the Worker)
-// surfaces in the Home wire under the Fixed Income filter AND carries its own
-// "FI" desk label — not the macro MAC badge. Mirrors how hdg:true sources badge
+// surfaces in the Home wire under the Bonds filter AND carries its own
+// "BND" desk label — not the macro MAC badge. Mirrors how hdg:true sources badge
 // HDG. The Worker sets the flag; here we stub /api/feed to carry one fi item.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
@@ -29,7 +29,7 @@ const fi = await pg.evaluate((title) => {
   };
 }, BV.title);
 check(fi.present, "the News wire surfaces the Bond Vigilantes item");
-checkEq(fi.code, "FI", "Bond Vigilantes item carries the FI desk label (not MAC)");
+checkEq(fi.code, "BND", "Bond Vigilantes item carries the BND (Bonds) desk label (not MAC)");
 check(/Bond Vigilantes/.test(fi.src || ""), "Bond Vigilantes item shows its source name");
 
 // It also appears on the All lane (news + managers interleaved).

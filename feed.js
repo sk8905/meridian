@@ -21,14 +21,14 @@ export const DESK = {
   n: "Letter", f: "myFT", s: "Substack", b: "Brew",
   deal: "Deal", fund: "Fundraising", clo: "CLO", comm: "Commentary",
   alert: "Client alert", case: "Case law", scheme: "Scheme", rp: "Restructuring plan",
-  hdg: "Hedge funds", f13: "13F filing", fi: "Fixed income",
+  hdg: "Hedge funds", f13: "13F filing", fi: "Bonds",
 };
 export const DESK_CODE = {
   news: "NEWS", bbg: "BBG", econ: "ECON", m: "MAC", c: "CRD", l: "LEX",
   n: "LTR", f: "myFT", s: "SUBS", b: "BREW",
   deal: "DEAL", fund: "RAISE", clo: "CLO", comm: "COMM",
   alert: "ALERT", case: "CASE", scheme: "SCHEME", rp: "RP",
-  hdg: "HDG", f13: "13F", fi: "FI",
+  hdg: "HDG", f13: "13F", fi: "BND",
 };
 export const DESK_CLASS = {
   news: "news", bbg: "bbg", econ: "econ", m: "macro", c: "credit", l: "legal",

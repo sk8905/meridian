@@ -1137,7 +1137,7 @@ async function handleChokepoint(request, env, ctx) {
   return resp;
 }
 
-// ---- Government bond yields (Fixed Income dashboard heatmap) ----------------
+// ---- Government bond yields (Bonds dashboard heatmap) ----------------
 // Live US Treasury yields from FRED (the only source reachable + reliable from a
 // Worker — Stooq now JS-challenges datacenter IPs). The US full curve
 // (2Y/5Y/10Y/30Y, daily) gives the current level + the CHANGE over 1W/1M/3M/6M/1Y
@@ -3092,7 +3092,7 @@ export const FEED_SOURCES = [
   // closes, allocator flows). Openly readable in-pane; direct WordPress RSS.
   { url: "https://hedgenordic.com/feed/", source: "HedgeNordic", region: "GEN", cap: 8, hdg: true, filter: false },
   // Fixed-income desk — M&G's Bond Vigilantes blog (rates, credit, high yield,
-  // EM debt, inflation). fi:true routes every item to the Fixed Income filter and
+  // EM debt, inflation). fi:true routes every item to the Bonds filter and
   // badges it FI; filter:false since bond-desk copy rarely hits the macro vocab.
   // Direct WordPress RSS; if the Worker's datacenter IP is blocked it simply
   // yields nothing (Promise.allSettled skips it) — bridge via Google News
@@ -4126,7 +4126,7 @@ export async function pushScheduled(env) {
 const ASK_MODEL = "claude-opus-5";
 const ASK_SYSTEM = [
   "You are Wire's built-in assistant. Wire is a markets terminal covering Macro,",
-  "Equities and Fixed income, plus private Credit (managers & funds), Hedge funds",
+  "Equities and Bonds, plus private Credit (managers & funds), Hedge funds",
   "and Legal (private-capital law firms & case law).",
   "",
   "Rules:",

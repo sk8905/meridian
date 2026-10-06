@@ -1064,7 +1064,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-brief-list { list-style: none; margin: 6px 0 0; padding: 0; }
 .na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size:var(--fs-body); line-height: 1.55; }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
-/* Briefing colour cues: the TOPIC heading (Macro / Fixed income / Equities …) is
+/* Briefing colour cues: the TOPIC heading (Macro / Bonds / Equities …) is
    orange, and every NUMBER (5%, $100, 4.97% …) is blue — in the lede and bullets. */
 /* Explainer colour marks — GLOBAL so every "Key moments" / "why it moved" line and
    briefing bullet reads the same: topic headings orange; numbers read as plain body

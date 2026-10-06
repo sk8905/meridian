@@ -15,7 +15,7 @@ import { serve, launchChromium, PHONE, check, checkErrs, finish } from "./lib.mj
 const brief = (time) => `export const BRIEFINGS = { tz: "BST", order: ["morning"], slots: {
   morning: { label: "Morning", date: "2026-10-04", time: ${JSON.stringify(time)}, bullets: [
     { html: "<strong>Macro &mdash; a test macro line</strong> for the freshness spec.", src: "https://example.test/macro", srcName: "Test" },
-    { html: "<strong>Fixed income &mdash; a test rates line</strong> for the freshness spec.", src: "https://example.test/fi", srcName: "Test" },
+    { html: "<strong>Bonds &mdash; a test rates line</strong> for the freshness spec.", src: "https://example.test/fi", srcName: "Test" },
     { html: "<strong>Equities &mdash; a test equities line</strong> for the freshness spec.", src: "https://example.test/eq", srcName: "Test" }
   ] }
 } };`;

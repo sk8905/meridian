@@ -59,7 +59,7 @@ check(data.bad.length === 0, `every briefing bullet has a real body sentence AND
 
 // --- 2. RENDER GUARD: an empty-body bullet is dropped, not painted -------------
 // Inject a controlled slot into the freshest brief: one good Macro bullet and one
-// EMPTY-BODY Fixed income bullet (a kicker with nothing after the em-dash), repaint,
+// EMPTY-BODY Bonds bullet (a kicker with nothing after the em-dash), repaint,
 // and assert the ghost is dropped while the good bullet survives.
 const r = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
@@ -69,7 +69,7 @@ const r = await pg.evaluate(async () => {
   const key = order.reduce((best, k) => (stamp(k) > stamp(best) ? k : best), order[0]);
   slots[key].bullets = [
     { html: "<strong>Macro &mdash; a real, sourced sentence with actual body text that must survive the render intact</strong> and keep its citation.", src: "https://example.com/macro", srcName: "Example" },
-    { html: "<strong>Fixed income &mdash;</strong>", src: "https://example.com/fi", srcName: "Ghost" },
+    { html: "<strong>Bonds &mdash;</strong>", src: "https://example.com/fi", srcName: "Ghost" },
   ];
   window.__wireRenderBrief();
   const el = document.getElementById("g-hbrief");
@@ -81,13 +81,13 @@ const r = await pg.evaluate(async () => {
       return !!bt && (bt.textContent || "").trim().length > 0;
     }),
     macroShown: secs.some((s) => /a real, sourced sentence/i.test(s.textContent || "")),
-    ghostGone: !secs.some((s) => ((s.querySelector(".g-hbrief-lede-hd") || {}).textContent || "").trim().toLowerCase() === "fixed income"),
+    ghostGone: !secs.some((s) => ((s.querySelector(".g-hbrief-lede-hd") || {}).textContent || "").trim().toLowerCase() === "bonds"),
     sectionCount: secs.length,
   };
 });
 check(r.everySectionHasBody, `every rendered desk section has visible body text — no ghost heading over a void (desks: ${r.deskHeads.join(", ")})`);
 check(r.macroShown, "the good Macro bullet still renders with its full body");
-check(r.ghostGone, "the empty-body 'Fixed income' bullet is dropped, not painted as a bare heading");
+check(r.ghostGone, "the empty-body 'Bonds' bullet is dropped, not painted as a bare heading");
 checkEq(r.sectionCount, 1, "only the one desk with real body text is shown");
 
 checkErrs(errs, "briefing empty-body bullet");

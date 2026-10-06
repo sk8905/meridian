@@ -133,7 +133,7 @@ export const WORLD_INDICES = {
 };
 
 // Government bond benchmark yields (2Y/5Y/10Y/30Y, in %) for the major economies
-// in each jurisdiction, for the Fixed Income dashboard heatmap. Each row: country,
+// in each jurisdiction, for the Bonds dashboard heatmap. Each row: country,
 // y2/y5/y10/y30, an as-of date and a source URL. This is the SEED + fallback: the
 // live /api/govyields (Stooq keyless yield series) refreshes these at runtime.
 // Every value is real + sourced (never fabricated). Nulls are genuine
@@ -171,7 +171,7 @@ export const GOVT_YIELDS = {
 };
 
 // Curated government-bond-yield CHANGES (basis points) by country → tenor, for the
-// Fixed Income yield-change heatmap. Trading Economics country pages publish the
+// Bonds yield-change heatmap. Trading Economics country pages publish the
 // current level plus the trailing 1-month (m1) and 1-year (y1) change; those two are
 // curated here. The 10Y 3M/6M (m3/m6) are filled LIVE from FRED's OECD monthly series
 // via /api/govyields, and the whole US curve (all windows, daily) too — both override

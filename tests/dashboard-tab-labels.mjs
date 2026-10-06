@@ -1,6 +1,6 @@
 // Dashboard section nav: the desktop LEFT rail keeps the full label, while the
 // narrow iPhone TOP tab bar (a full-width segmented bar) shortens the two-word
-// labels ("Fixed Income" -> "Fixed", "Hedge Funds" -> "Hedge") so each fits its
+// labels ("Hedge Funds" -> "Hedge") so each fits its
 // equal segment without clipping.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
@@ -31,11 +31,11 @@ async function visibleLabels(dev) {
 }
 
 const phone = await visibleLabels(PHONE);
-checkEq(phone.fi, "Fixed", "iPhone top tab bar: Fixed Income shows 'Fixed'");
+checkEq(phone.fi, "Bonds", "iPhone top tab bar: the Bonds tab reads 'Bonds' (one word, no short variant)");
 checkEq(phone.hf, "Hedge", "iPhone top tab bar: Hedge Funds shows 'Hedge'");
 
 const desk = await visibleLabels(DESKTOP);
-checkEq(desk.fi, "Fixed Income", "Desktop rail: Fixed Income keeps the full label");
+checkEq(desk.fi, "Bonds", "Desktop rail: the Bonds tab reads 'Bonds'");
 checkEq(desk.hf, "Hedge Funds", "Desktop rail: Hedge Funds keeps the full label");
 
 // Phones: the section tabs pin directly under the fixed Wire header (the old global

@@ -1287,7 +1287,7 @@
     .tui .g-hbt-tk.up .g-hbt-c{ color:var(--t-up); }
     .tui .g-hbt-tk.down .g-hbt-c{ color:var(--t-down); }
     /* DESKTOP briefing: lay the per-desk sections out as a responsive COLUMN GRID (one
-       card per desk — Macro · Fixed income · Equities — up to three abreast where the
+       card per desk — Macro · Bonds · Equities — up to three abreast where the
        quadrant is wide enough, gracefully stacking to 1–2 on narrower screens), with each
        desk name as a small uppercase block header over its prose (not the space-saving
        run-in used on the narrow phone pane). A hairline divides the columns from the

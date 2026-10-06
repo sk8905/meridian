@@ -155,7 +155,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <!-- Order: Key rates → Spreads → Volatility → Yield curve → Policy rate
                (three separate market gauges lead; the central-bank read follows). -->
           <section class="tui-pnl g-anchor" id="jump-rates">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/fixed-income" data-godash="fixed-income" title="Open Dashboard › Fixed Income">Key rates</a><span class="tui-px">%</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/fixed-income" data-godash="fixed-income" title="Open Dashboard › Bonds">Key rates</a><span class="tui-px">%</span></header>
             <div id="g-rates" class="rates-band" aria-label="Key benchmark rates and yields">
               <div class="g-loading">Loading market rates…</div>
             </div>

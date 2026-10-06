@@ -22,7 +22,7 @@ import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, are
 // Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
 // bar (≤760px) where the full two-word labels wrap to two lines; desktop (the
 // fixed-viewport terminal) keeps the full label.
-const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Fixed Income", "Fixed"], ["credit", "Credit"], ["hedge-funds", "Hedge Funds", "Hedge"], ["legal", "Legal"]];
+const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Bonds"], ["credit", "Credit"], ["hedge-funds", "Hedge Funds", "Hedge"], ["legal", "Legal"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
@@ -561,7 +561,7 @@ export function mount(host, ctx) {
       if (card) card.innerHTML = yieldCurveCardHTML();
     } catch { /* keep the compiled curve */ }
   }
-  // Multi-country term structure (Fixed Income pane) — every country's 2Y/5Y/10Y/
+  // Multi-country term structure (Bonds pane) — every country's 2Y/5Y/10Y/
   // 30Y yields from GOVT_YIELDS as a table, one colour key per country. The old
   // 14-line overlay chart added little over the numbers in a narrow tile, so it
   // was dropped in favour of the table alone.
@@ -719,7 +719,7 @@ export function mount(host, ctx) {
     return { mid, news, newsLabel: "Macro wire" };
   }
 
-  // ---- Fixed Income -------------------------------------------------------
+  // ---- Bonds --------------------------------------------------------------
   // Government/sovereign (the US/UK yield curves) + corporate (ICE BofA OAS
   // spreads, loaded live). Reuses the macro yield-curve renderer and the credit
   // spreads loader so there is one source of truth for each.
@@ -819,7 +819,7 @@ export function mount(host, ctx) {
   }
   // Curve shape — the 2s10s and 2s30s slope (basis points) for the key sovereigns,
   // DERIVED from the same sourced GOVT_YIELDS snapshot (y10−y2, y30−y2). A compact
-  // companion tile so Fixed Income reads as a grid; no new data, just arithmetic on
+  // companion tile so Bonds reads as a grid; no new data, just arithmetic on
   // the yields already on the page (each row links the same source).
   function curveShapeHTML() {
     const G = GOVT_YIELDS;
@@ -1049,7 +1049,7 @@ export function mount(host, ctx) {
   function render() {
     const nav = SUBTABS.map(([k, l, s]) => {
       // Full label in the desktop rail; a short label appears on the narrow phone
-      // tab bar (see dashboard.css) so "Fixed Income"/"Hedge Funds" don't wrap.
+      // tab bar (see dashboard.css) so "Hedge Funds" doesn't wrap.
       const label = s ? `<span class="dsh-tab-lg">${l}</span><span class="dsh-tab-sm">${s}</span>` : l;
       return `<a class="dsh-navchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${label}</a>`;
     }).join("");

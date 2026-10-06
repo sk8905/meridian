@@ -612,8 +612,9 @@ notification badge red (`#ef4444`).
   phone Chart chip) and the wire-chip order/default by `tests/home-mobile-wire-tabs.mjs`.
 
 - **R28 — Home briefing card.** The market brief (`BRIEFINGS` — the four market
-  desks in the **fixed house order Macro · Fixed income · Equities · Private capital**
-  (private equity / private credit fund news)) is surfaced
+  desks in the **fixed house order Macro · Bonds · Equities · Credit**
+  (Bonds = rates / government & corporate bonds; Credit = private equity / private
+  credit fund news)) is surfaced
   **only on Home** — there is **no header button / panel**. On the **desktop terminal** it is the **top-left quadrant
   of the 2×2 centre** (its own cell above the news wire, left of the chart), and
   **defaults OPEN** there (a collapsed bar would leave the cell empty). On **phones**
@@ -631,15 +632,17 @@ notification badge red (`#ef4444`).
   the source as a **clickable link, not a textual mention** (grounding kept, R7). The desk
   kicker is **entity-decoded before display** (`_deEnt`) so an authored "M&amp;A"/"R&amp;D"
   renders as "M&A"/"R&D", never the double-encoded literal (`_briefDesk`/`_deEnt` in `glance.js`).
-  **Fixed desk order — Macro, then Fixed income, then Equities, then Private capital:** the
-  renderer (`DESK_RANK`) sorts the sections into this canonical order regardless of bullet order
-  in the data; **M&A / deal stories are NOT a separate desk** — file a corporate deal under
-  Equities, and a **private-equity / private-credit fund** story under **Private capital** (a
-  PE firm's portfolio exit is Private capital, not a standalone "M&A" desk). **Equities is a REQUIRED section —
+  **Fixed desk order — Macro, then Bonds, then Equities, then Credit:** the
+  renderer (`DESK_RANK` keys `macro`/`bonds`/`equities`/`credit`) sorts the sections into this
+  canonical order regardless of bullet order in the data; **M&A / deal stories are NOT a
+  separate desk** — file a corporate deal under Equities, and a **private-equity /
+  private-credit fund** story under **Credit** (a PE firm's portfolio exit is Credit, not a
+  standalone "M&A" desk). The Credit desk **gives preference to managers / hedge funds in the
+  $1–15bn AUM band** (see refresh-routines). **Equities is a REQUIRED section —
   every slot carries at least one Equities bullet** (the refresh invariant); the
   renderer round-robins the per-desk bullets under the four-bullet cap so each of
-  the three desks keeps its lead bullet and **Equities can never be pushed off the
-  card** by a Macro/Fixed-income-heavy slot. **iPhone-only markets snapshot strip:** on the
+  the desks keeps its lead bullet and **Equities can never be pushed off the
+  card** by a Macro/Bonds-heavy slot. **iPhone-only markets snapshot strip:** on the
   phone the briefing opens with a **fitted** strip of five square cards
   (`.g-hbrief-strip` → `.g-hbs-card`, `renderBriefStrip`) — **S&P 500 · VIX · Oil · Gold ·
   US 10Y** — that **all fit the viewport with no horizontal scroll** (`flex:1 1 0`, cards
