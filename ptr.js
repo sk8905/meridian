@@ -63,16 +63,26 @@ export function initPullToRefresh() {
   zone.style.cssText =
     "position:fixed;top:0;left:0;right:0;height:0;z-index:9999;overflow:hidden;pointer-events:none;" +
     "display:flex;align-items:flex-start;justify-content:center;background:var(--bg,#05080f);";
+  // Polished ring: a conic ARC over a faint full-circle track (masked to a thin ring).
+  // As you pull it scales 0.6 → 1 and the orange arc sweeps with the pull (the gesture
+  // reads as progress); on release it springs to rest and settles into a smooth arc spin.
   const spin = document.createElement("div");
-  // Theme-aware ring: now the gap paints the light --bg in light mode, a white
-  // spinner would vanish — use the ink colour so it reads in both themes.
-  spin.style.cssText =
-    "width:22px;height:22px;margin-top:16px;border-radius:50%;opacity:0;" +
-    "border:2.5px solid color-mix(in srgb, var(--ink,#fff) 22%, transparent);border-top-color:var(--ink,#fff);";
+  spin.id = "ptr-ring";
+  spin.style.cssText = "width:26px;height:26px;margin-top:16px;position:relative;opacity:0;transform:scale(.6);";
+  spin.innerHTML = '<div class="ptr-track"></div><div class="ptr-arc"></div>';
   zone.appendChild(spin);
+  const arc = spin.querySelector(".ptr-arc");
   if (!document.getElementById("ptr-kf")) {
     const st = document.createElement("style"); st.id = "ptr-kf";
     st.textContent = "@keyframes ptr-spin{to{transform:rotate(360deg)}}html *{touch-action:manipulation}" +
+      // Polished pull-to-refresh ring (see spin element above): a conic arc over a faint
+      // track, masked to a thin ring. The arc is the --accent sweep while pulling; on
+      // release it becomes a fixed arc that rotates. Theme-aware via --accent / --ink.
+      "#ptr-ring .ptr-track,#ptr-ring .ptr-arc{position:absolute;inset:0;border-radius:50%;" +
+      "-webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0)}" +
+      "#ptr-ring .ptr-track{background:conic-gradient(color-mix(in srgb,var(--ink,#fff) 15%,transparent) 0 100%)}" +
+      "#ptr-ring .ptr-arc{background:conic-gradient(from -90deg,var(--accent,#fb8b1e) var(--ptr-sweep,0deg),#0000 0)}" +
+      "#ptr-ring.ptr-spinning .ptr-arc{background:conic-gradient(from -90deg,#0000 0 40deg,var(--accent,#fb8b1e) 90deg 300deg,#0000 300deg);animation:ptr-spin .7s linear infinite}" +
       // Keep the native iOS rubber-band bounce at BOTH ends of the page —
       // hitting the top or bottom shouldn't kill the scroll dead. `contain`
       // preserves the elastic overscroll while suppressing the browser's own
@@ -205,18 +215,26 @@ export function initPullToRefresh() {
     zone.style.top = Math.round(top) + "px";
     zone.style.zIndex = "1200";      // fills the opened gap, under panels & tab bar
   }
-  function apply(h, animate) {
-    const t = animate ? "transform .22s ease" : "";
-    zone.style.transition = animate ? "height .22s ease" : "";
+  // `spring` adds a slight overshoot (the threshold snap); otherwise a smooth settle.
+  function apply(h, animate, spring) {
+    const ease = spring ? "cubic-bezier(.34,1.3,.4,1)" : "cubic-bezier(.22,1,.36,1)";
+    const t = animate ? ("transform .3s " + ease) : "";
+    zone.style.transition = animate ? ("height .3s " + ease) : "";
     zone.style.height = h + "px";
     for (const el of moveEls) { el.style.transition = t; el.style.transform = h ? "translateY(" + h + "px)" : ""; }
     for (const el of counterEls) { el.style.transition = t; el.style.transform = h ? "translateY(" + (-h) + "px)" : ""; }
+    if (busy) return;                                    // spinning: ring is driven by release()
     const prog = Math.min(dist / THRESH, 1);
+    spin.style.transition = animate ? ("transform .3s " + ease + ",opacity .2s ease") : "";
     spin.style.opacity = String(prog);
-    if (!busy) { spin.style.animation = ""; spin.style.transform = "rotate(" + (prog * 270) + "deg)"; }
+    spin.style.transform = "scale(" + (0.6 + 0.4 * prog) + ")";
+    if (arc) arc.style.setProperty("--ptr-sweep", (prog * 330) + "deg");
   }
   function clearPage() {
     for (const el of moveEls.concat(counterEls)) { el.style.transition = ""; el.style.transform = ""; }
+    spin.classList.remove("ptr-spinning");
+    spin.style.transition = ""; spin.style.opacity = "0"; spin.style.transform = "scale(.6)";
+    if (arc) arc.style.setProperty("--ptr-sweep", "0deg");
     document.body.classList.remove("wire-pulling");
     clearT = 0;
   }
@@ -266,7 +284,7 @@ export function initPullToRefresh() {
     if (dist > 0 && atTop()) {
       if (e.cancelable) e.preventDefault();       // take over the gesture
       apply(pull(dist), false);
-    } else { pulling = false; armed = false; apply(0, true); clearT = setTimeout(clearPage, 240); }
+    } else { pulling = false; armed = false; apply(0, true, false); clearT = setTimeout(clearPage, 320); }
   }, { passive: false });
 
   window.addEventListener("touchend", () => {
@@ -275,10 +293,11 @@ export function initPullToRefresh() {
     pulling = false;
     if (dist >= THRESH && atTop()) {
       busy = true;
-      apply(THRESH, true);
+      apply(THRESH, true, true);                         // spring the gap to rest (slight overshoot)
+      spin.style.transition = "transform .3s cubic-bezier(.34,1.3,.4,1),opacity .2s ease";
       spin.style.opacity = "1";
-      spin.style.transform = "";
-      spin.style.animation = "ptr-spin .6s linear infinite";
+      spin.style.transform = "scale(1)";
+      spin.classList.add("ptr-spinning");                // arc settles into a smooth spin
       saveTabs();
       // Freshen the app-shell cache FIRST (cache:"reload" = network-first in
       // sw.js), then reload: the repaint is served from the just-updated cache
@@ -288,7 +307,7 @@ export function initPullToRefresh() {
         .map((u) => fetch(u, { cache: "reload" }).catch(() => {}));
       Promise.race([Promise.allSettled(fresh), new Promise((r) => setTimeout(r, 3500))])
         .then(() => location.reload());
-    } else { apply(0, true); clearT = setTimeout(clearPage, 240); }
+    } else { apply(0, true, false); clearT = setTimeout(clearPage, 320); }
     dist = 0;
   }, { passive: true });
 }
