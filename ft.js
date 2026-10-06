@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "a7a19bb1-a1ba-4317-a191-c387bbc9f4b9",
+    title: "Pedro Sánchez’s big electoral gamble",
+    date: "2026-10-06",
+    time: "17:47",
+    url: "https://www.ft.com/content/a7a19bb1-a1ba-4317-a191-c387bbc9f4b9",
+  },
+  {
+    id: "a6339e0c-4114-413a-a23c-916ed4392ce0",
+    title: "Anduril plans shipyard to manufacture parts for US Navy’s top submarines",
+    date: "2026-10-06",
+    time: "17:21",
+    url: "https://www.ft.com/content/a6339e0c-4114-413a-a23c-916ed4392ce0",
+  },
+  {
     id: "f923e23b-423a-446c-bf84-a68f7b1d169c",
     title: "Tory plan to rip up UK-EU food deal risks ‘huge uncertainty’, producers warn",
     date: "2026-10-06",
@@ -63,13 +77,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/97d14ed8-d6b7-4f4f-8e22-e87435b8ac0d",
   },
   {
-    id: "de189ac0-6fed-4038-b252-01d3f90aaf1e",
-    title: "Artificial film review — Andrew Garfield is a strangely likeable Sam Altman in OpenAI origin story Artificial",
-    date: "2026-10-06",
-    time: "14:32",
-    url: "https://www.ft.com/content/de189ac0-6fed-4038-b252-01d3f90aaf1e",
-  },
-  {
     id: "094a93af-ad94-4db2-8254-bc415d5161a6",
     title: "Ireland offers tax cuts in budget to help with cost of living",
     date: "2026-10-06",
@@ -110,6 +117,13 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "14:39",
     url: "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197",
+  },
+  {
+    id: "de189ac0-6fed-4038-b252-01d3f90aaf1e",
+    title: "Artificial film review — Andrew Garfield is a strangely likeable Sam Altman in OpenAI origin story Artificial",
+    date: "2026-10-06",
+    time: "14:32",
+    url: "https://www.ft.com/content/de189ac0-6fed-4038-b252-01d3f90aaf1e",
   },
   {
     id: "0bc54eaf-d545-4591-bb7c-ec3cbc1cb89a",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "09:30",
     url: "https://www.ft.com/content/9f1c65fe-3670-40bd-9223-18cd5c84df3c",
-  },
-  {
-    id: "c37419cd-5325-409e-9eac-ea509c8ace51",
-    title: "Warnings of possible Iranian drone attack led US to pull bombers from RAF Fairford",
-    date: "2026-10-06",
-    time: "09:09",
-    url: "https://www.ft.com/content/c37419cd-5325-409e-9eac-ea509c8ace51",
-  },
-  {
-    id: "0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1",
-    title: "Informa to buy rival events business Clarion from Blackstone for £2.2b",
-    date: "2026-10-06",
-    time: "08:05",
-    url: "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1",
   },
 ];

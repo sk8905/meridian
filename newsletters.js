@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-batterymakersrecharge-20261006",
+    publication: "Bloomberg",
+    author: null,
+    series: "The Brink",
+    title: "The Brink: Battery makers need a recharge",
+    date: "2026-10-06",
+    time: "17:46",
+    summary: "Europe's dream for a homegrown battery industry faces economic reality.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-06/europe-s-battery-revolution-needs-more-time-and-patient-lenders",
+  },
+  {
     id: "nl-thelawyer-breaking-macleodsdthearing-20261006",
     publication: "The Lawyer",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "07:24",
     summary: "A US carrier and 10,000 more personnel head to the Mideast, a tanker captain's account of crossing Hormuz, and McDonald's global chicken push.",
     url: "https://www.bloomberg.com/news/newsletters/2026-10-02/us-will-send-carrier-more-troops-to-mideast",
-  },
-  {
-    id: "nl-economist-worldinbrief-bondyieldsmultidecadehighs-20261002",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: Bond yields hit multi-decade highs",
-    date: "2026-10-02",
-    time: "06:31",
-    summary: "Also: Britain\u2019s pubs drown their sorrows.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
