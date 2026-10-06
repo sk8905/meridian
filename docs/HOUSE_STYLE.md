@@ -635,10 +635,14 @@ notification badge red (`#ef4444`).
   (`.g-hbrief-strip` → `.g-hbs-card`, `renderBriefStrip`) — **S&P 500 · VIX · Oil · Gold ·
   US 10Y** — that **all fit the viewport with no horizontal scroll** (`flex:1 1 0`, cards
   share the row width evenly), each with the value on top and a direction-coloured block
-  carrying the absolute + % change below. When a cash market is CLOSED the card shows the
-  **futures** move with a `*` on the value (VIX has no future → last cash level with `*`).
-  It reads the same last-good markets/rates cache as the rail (no extra fetch) and stays
-  empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
+  carrying the change below. The **Oil** card is the **Brent** front-month (the markets feed
+  labels crude "Brent"/"WTI", not "Oil"); price cards show the **absolute + % change**, and the
+  **US 10Y yield** card shows **both the bp move and the relative % change** (two lines, so it
+  reads the same size as the price cards). **Every card is the same height** — the coloured
+  change block grows to fill the card so its bar always reaches the bottom edge (no short bar
+  over dark panel). When a cash market is CLOSED the card shows the **futures** move with a `*`
+  on the value (VIX has no future → last cash level with `*`). It reads the same last-good
+  markets/rates cache as the rail (no extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
   **Market Briefing is the FIRST wire tab** (News/lane is second and still the default
   landing pane). **Inline security pills (both surfaces):** after a
   recognised security's first mention in the prose, a small chip (`.g-hbt-tk`) shows its

@@ -622,7 +622,7 @@ function _resolveBriefSecurities(names) {
 const _HBS = [
   { key: "S&P 500", src: "mkt",   label: "S&P 500", kind: "price" },
   { key: "VIX",     src: "extra", label: "VIX",     kind: "level" },
-  { key: "Oil",     src: "mkt",   label: "OIL",     kind: "price" },
+  { key: "Brent",   src: "mkt",   label: "OIL",     kind: "price" },   // Brent front-month — the house oil benchmark (the markets feed labels crude "Brent"/"WTI", not "Oil")
   { key: "Gold",    src: "mkt",   label: "GOLD",    kind: "price" },
   { key: "US 10Y",  src: "rate",  label: "US 10Y",  kind: "yield" },
 ];
@@ -646,7 +646,15 @@ function _hbsCard(label, row, kind) {
     valTxt = fmtRate(row.value, row.unit);
     const chg = (typeof row.change === "number" && isFinite(row.change)) ? row.change : null;
     dir = chg == null ? "flat" : glSign(chg);
-    if (chg != null) absTxt = row.unit === "bp" ? `${chg > 0 ? "+" : ""}${Math.round(chg * 100)} bp` : `${chg > 0 ? "+" : ""}${chg.toFixed(2)} pp`;
+    if (chg != null) {
+      // Yield cards carry BOTH the basis-point move and the relative % change (two lines, so
+      // they read the same as the price cards). `change` is in the value's own unit — bp for
+      // an OAS series, percentage-points for a Treasury yield (×100 → bp).
+      const bp = row.unit === "bp" ? Math.round(chg) : Math.round(chg * 100);
+      absTxt = `${bp > 0 ? "+" : ""}${bp} bp`;
+      const prev = row.value - chg;
+      if (prev) { const rel = chg / prev * 100; if (isFinite(rel)) pctTxt = `${rel > 0 ? "+" : ""}${rel.toFixed(2)}%`; }
+    }
   } else {
     const open = isMarketOpen(row);
     let pct = null, abs = null;

@@ -13,8 +13,9 @@ const MARKETS = {
   markets: [
     // S&P 500 OPEN (marketState REGULAR) → no star, uses the cash % move.
     { label: "S&P 500", value: 7773.95, change: 51.0, changePct: 0.66, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/%5EGSPC" },
-    // Oil CLOSED with a futures move → star, uses futuresPct.
-    { label: "Oil", value: 89.52, change: null, changePct: null, futuresPct: -3.61, marketState: "CLOSED", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/BZ=F" },
+    // Brent (shown as "OIL") CLOSED with a futures move → star, uses futuresPct. The markets
+    // feed labels crude "Brent"/"WTI" (not "Oil"), so the strip keys on "Brent".
+    { label: "Brent", value: 89.52, change: null, changePct: null, futuresPct: -3.61, marketState: "CLOSED", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/BZ=F" },
     { label: "Gold", value: 3987.40, change: 12.3, changePct: 0.31, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/GC=F" },
   ],
   moversExtra: [
@@ -52,6 +53,8 @@ const b = await launchChromium();
       oilDir: (cards.find((c) => /OIL/.test((c.querySelector(".g-hbs-lbl") || {}).textContent || "")) || {}).className || "",
       spDir: (cards[0] || {}).className || "",
       spNums: cards[0] ? [...cards[0].querySelectorAll(".g-hbs-n")].map((n) => n.textContent) : [],
+      // US 10Y (yield) card: its change block carries BOTH the bp move and the relative % change.
+      us10: (() => { const c = cards.find((x) => /US 10Y/.test((x.querySelector(".g-hbs-lbl") || {}).textContent || "")); return c ? { val: (c.querySelector(".g-hbs-val") || {}).textContent, nums: [...c.querySelectorAll(".g-hbs-n")].map((n) => n.textContent), dir: c.className } : null; })(),
       // Uniform sizing: every card (and its coloured change bar) must be the same height —
       // the US 10Y card carries a ONE-LINE chip ("+0.03 pp") where the others carry two, so
       // the change block must GROW to fill the card or its bar would stop short over dark panel.
@@ -64,9 +67,12 @@ const b = await launchChromium();
   check(/\bup\b/.test(strip.spDir) && strip.spNums.some((n) => /\+0\.66%/.test(n)) && strip.spNums.some((n) => /\+51/.test(n)),
     `phone: S&P card is up with absolute + % change (${strip.spNums.join(", ")})`);
   check(!strip.spStar, "phone: an OPEN market (S&P, REGULAR) shows NO '*'");
-  check(strip.oilStar && /\bdown\b/.test(strip.oilDir), "phone: a CLOSED market (Oil) shows the futures '*' and its direction");
+  check(strip.oilStar && /\bdown\b/.test(strip.oilDir), "phone: a CLOSED market (Oil, shown as OIL from Brent) shows the futures '*' and its direction");
+  check(strip.us10 && /5\.31%/.test(strip.us10.val || ""), `phone: the US 10Y card shows the yield level (${strip.us10 && strip.us10.val})`);
+  check(strip.us10 && strip.us10.nums.some((n) => /\+3 bp/.test(n)) && strip.us10.nums.some((n) => /\+0\.57%/.test(n)) && /\bup\b/.test(strip.us10.dir),
+    `phone: the US 10Y card shows BOTH the bp move and the relative % change (${strip.us10 && strip.us10.nums.join(", ")})`);
   check(strip.cardH.length === 5 && new Set(strip.cardH).size === 1, `phone: all five cards are the SAME height — uniform size (${strip.cardH.join(", ")})`);
-  check(strip.chgH.length === 5 && new Set(strip.chgH).size === 1, `phone: every card's coloured change bar is the same height (reaches the bottom on the one-line US 10Y card too) (${strip.chgH.join(", ")})`);
+  check(strip.chgH.length === 5 && new Set(strip.chgH).size === 1, `phone: every card's coloured change bar is the same height (the bar grows to fill, so it always reaches the bottom edge) (${strip.chgH.join(", ")})`);
   checkErrs(errs, "home brief strip (phone)");
   await ctx.close();
 }
