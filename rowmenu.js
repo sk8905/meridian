@@ -1,14 +1,14 @@
 // =============================================================================
-// Shared row options menu — press-and-hold (touch) / right-click (desktop) on
-// any story row, on EVERY page: the Home wire (.g-feed-row, which carries
-// data-sk/-sid/-mgr/-firm) and the app wires/minis (.tw-row / .tmini-row /
-// .tui-li, resolved generically from the row's own DOM). Actions: Add/Remove
-// Watchlist (manager & law-firm rows), Show all from <source>, Share, Cancel.
-// Mounted once per page by nav-actions.js.
+// Shared row options menu — DESKTOP right-click on any story row, on EVERY page:
+// the Home wire (.g-feed-row, which carries data-sk/-sid/-mgr/-firm) and the app
+// wires/minis (.tw-row / .tmini-row / .tui-li, resolved generically from the
+// row's own DOM). Actions: Add/Remove Watchlist (manager & law-firm rows), Show
+// all from <source>, Share, Cancel. The touch long-press (long-hold) trigger is
+// retired — the menu is right-click only now. Mounted once per page by nav-actions.js.
 // =============================================================================
 import { esc } from "/util.js";
 
-// Profile table rows (Managers / Hedge Funds / Law Firms leagues) — a long-press
+// Profile table rows (Managers / Hedge Funds / Law Firms leagues) — a right-click
 // on the row itself offers "Add to Watchlist" for that profile. Only these three
 // entity kinds are followable, so the selector is scoped to their hrefs.
 const PROFILE_SEL = 'tr.clickable[data-href^="#/manager/"], tr.clickable[data-href^="#/hf/"], tr.clickable[data-href^="#/firm/"]';
@@ -227,31 +227,10 @@ function wireToast(msg) {
 let _mounted = false;
 export function initRowMenu() {
   if (_mounted) return; _mounted = true;
-  let timer = null, sx = 0, sy = 0, fired = false;
+  // The touch LONG-PRESS (press-and-hold) trigger is retired — it popped the menu
+  // mid-scroll and fought the native text callout on the primary iPhone surface.
+  // The menu now opens only on DESKTOP right-click; there is no long-hold menu.
   const findRow = (el) => (el && el.closest ? el.closest(ROW_SEL) : null);
-  const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
-  document.addEventListener("touchstart", (e) => {
-    const r = findRow(e.target); if (!r || e.touches.length !== 1) return;
-    fired = false; sx = e.touches[0].clientX; sy = e.touches[0].clientY;
-    timer = setTimeout(() => { timer = null; fired = true; openRowMenu(r); if (navigator.vibrate) navigator.vibrate(10); }, 550);
-  }, { passive: true });
-  document.addEventListener("touchmove", (e) => {
-    if (!timer) return;
-    const t = e.touches[0];
-    if (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10) cancel();
-  }, { passive: true });
-  // The eaten-click guard must only cover the GHOST click of the long-press
-  // release itself (arrives within ~50ms of touchend when the browser emits one
-  // at all — iOS often doesn't). Disarm shortly after the finger lifts so the
-  // user's NEXT tap (e.g. on the scrim to dismiss) is never swallowed.
-  let fireReset = null;
-  const endPress = () => { cancel(); if (fired) { clearTimeout(fireReset); fireReset = setTimeout(() => { fired = false; }, 350); } };
-  document.addEventListener("touchend", endPress, { passive: true });
-  document.addEventListener("touchcancel", endPress, { passive: true });
-  document.addEventListener("click", (e) => {
-    if (fired) { e.preventDefault(); e.stopPropagation(); fired = false; clearTimeout(fireReset); }
-  }, true);
-  // Desktop: right-click opens the options menu instead of the browser one.
   document.addEventListener("contextmenu", (e) => {
     const r = findRow(e.target); if (!r) return;
     e.preventDefault(); openRowMenu(r, e.clientX, e.clientY);

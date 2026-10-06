@@ -184,6 +184,8 @@ const b = await launchChromium();
   check(await vis(".g-side-x"), "phone: tapping X reveals the X wire");
   check(!(await vis("#g-feed")), "phone: tapping X hides the news feed");
   check(!(await vis(".g-side3")), "phone: tapping X keeps the manager wire hidden");
+  check(await pg.evaluate(() => { const x = document.querySelector(".g-side-x"); return !!x && parseFloat(getComputedStyle(x).borderLeftWidth) === 0; }),
+    "phone: the X wire pane has no left border line on the far-left edge");
   const xState = await pg.evaluate(() => ({
     xOn: document.querySelector('.g-wiretab[data-wire="x"]').classList.contains("is-on"),
     aria: document.querySelector('.g-wiretab[data-wire="x"]').getAttribute("aria-selected"),

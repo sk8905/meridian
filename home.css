@@ -1513,7 +1513,7 @@
       .tui .g-layout.wire-chart .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-chart .g-hero{ display:flex; border-left:0; }   /* full-width on phone — drop the 2×2 desktop divider line on the far-left edge */
       .tui .g-layout.wire-x .g-feed-wrap{ display:none; }
-      .tui .g-layout.wire-x .g-side-x{ display:block; }
+      .tui .g-layout.wire-x .g-side-x{ display:block; border-left:0; }   /* full-width on phone — drop the 2×2 desktop divider line on the far-left edge */
       /* On phones the chart pane gets a taller plot for legibility. */
       .tui .g-layout.wire-chart #g-hero-svg{ height:200px; }
       /* Hide the news feed's relocated filter header under Watchlist/Chart/X (it

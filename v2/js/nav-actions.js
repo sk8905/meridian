@@ -922,7 +922,7 @@ export function initNavActions() {
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")
-              : '<div class="na-empty">No watchlist updates yet. Press and hold a manager, hedge-fund or law-firm profile to add it to your watchlist — their updates appear here.</div>';
+              : '<div class="na-empty">No watchlist updates yet. Tap the ☆ on a manager or hedge fund to follow it — their updates appear here.</div>';
           } catch { tb.innerHTML = '<div class="na-load">Unavailable right now.</div>'; }
         }
       };
