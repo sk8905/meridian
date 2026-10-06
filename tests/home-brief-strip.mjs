@@ -55,7 +55,6 @@ const b = await launchChromium();
       // CLOSED card (Oil) carries it; the open cards (S&P/VIX/Gold) do not.
       spStar: !!(cards[0] && cards[0].querySelector(".g-hbs-star")),
       oilStar: !!(oilCard && oilCard.querySelector(".g-hbs-star")),
-      starTitle: (() => { const s = document.querySelector("#g-hbrief-strip .g-hbs-star"); return s ? s.getAttribute("title") : null; })(),
       oilDir: (oilCard || {}).className || "",
       oilNums: oilCard ? [...oilCard.querySelectorAll(".g-hbs-n")].map((n) => n.textContent) : [],
       spDir: (cards[0] || {}).className || "",
@@ -79,7 +78,6 @@ const b = await launchChromium();
     `phone: S&P card is up with absolute + % change (${strip.spNums.join(", ")})`);
   check(!strip.spStar, "phone: an OPEN market (S&P, REGULAR) shows NO '*'");
   check(strip.oilStar, "phone: a CLOSED market (OIL, from Brent) shows a '*' — the figure is the last close");
-  check(/last close/i.test(strip.starTitle || ""), `phone: the '*' explains it means last close / market closed (title "${strip.starTitle}")`);
   check(/\bdown\b/.test(strip.oilDir) && strip.oilNums.some((n) => /-1\.27%/.test(n)) && strip.oilNums.some((n) => /-1\.14/.test(n)),
     `phone: the CLOSED OIL card still shows its LAST-CLOSE day change — no futures (${strip.oilNums.join(", ")})`);
   check(strip.us10 && /5\.31%/.test(strip.us10.val || ""), `phone: the US 10Y card shows the yield level (${strip.us10 && strip.us10.val})`);

@@ -694,7 +694,7 @@ function _hbsCard(label, row, kind) {
   const attrs = row.href ? ` href="${esc(row.href)}" target="_blank" rel="noopener noreferrer"` : "";
   return `<${tag} class="g-hbs-card ${dir}" role="listitem"${attrs}>`
     + `<span class="g-hbs-top"><span class="g-hbs-lbl">${esc(label)}</span>`
-    + `<span class="g-hbs-val">${esc(valTxt)}${star ? '<span class="g-hbs-star" title="Last close — market closed" aria-label="last close, market closed">*</span>' : ""}</span></span>`
+    + `<span class="g-hbs-val">${esc(valTxt)}${star ? '<span class="g-hbs-star">*</span>' : ""}</span></span>`
     + `<span class="g-hbs-chg"><span class="g-hbs-arw">${arrow}</span><span class="g-hbs-nums">${nums}</span></span>`
     + `</${tag}>`;
 }

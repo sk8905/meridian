@@ -652,8 +652,8 @@ notification badge red (`#ef4444`).
   over dark panel). **Every card shows the LAST CLOSE + its day change** — there is **no
   overnight-futures overlay** (the old futures substitution is retired). A **`*` on the value
   marks a CLOSED market** (`!isMarketOpen`, via `marketState`), with the single, unambiguous
-  meaning "this figure is the **last close**, not a live price" (tooltip "Last close — market
-  closed") — it never swaps in a futures number. It reads the same last-good markets/rates cache
+  meaning "this figure is the **last close**, not a live price" — it never swaps in a futures
+  number. It reads the same last-good markets/rates cache
   as the rail (no extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
   **Market Briefing is the FIRST wire tab**, and **tapping the Home bottom-nav button opens
   the Briefing pane** (`homeReset` → `setWire("brief")`); News/lane is second and remains the
