@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d51a78a8-67d8-45bd-b32c-1eafe39a0794",
+    title: "Submit a question: What is driving the global bond sell-off?",
+    date: "2026-10-06",
+    time: "12:57",
+    url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794",
+  },
+  {
+    id: "4d322475-2996-4b1f-8347-891c588d09df",
+    title: "Forvis Mazars named top UK financial advice firm",
+    date: "2026-10-06",
+    time: "12:51",
+    url: "https://www.ft.com/content/4d322475-2996-4b1f-8347-891c588d09df",
+  },
+  {
+    id: "2761e1ea-3cdc-43e0-b825-e82fff828f58",
+    title: "Fortune favours the brave at Paris Fashion Week — some of them anyway",
+    date: "2026-10-06",
+    time: "12:45",
+    url: "https://www.ft.com/content/2761e1ea-3cdc-43e0-b825-e82fff828f58",
+  },
+  {
+    id: "a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa",
+    title: "Why are bond yields so high?",
+    date: "2026-10-06",
+    time: "12:30",
+    url: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa",
+  },
+  {
+    id: "3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3",
+    title: "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax",
+    date: "2026-10-06",
+    time: "12:23",
+    url: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3",
+  },
+  {
     id: "9a46af48-9c69-48bd-a648-2e496486c504",
     title: "California’s oligarch tax would change America",
     date: "2026-10-06",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "05:00",
     url: "https://www.ft.com/content/a896cda0-cd0c-4aae-bc51-daec26157e56",
-  },
-  {
-    id: "70308419-20a2-4236-a03e-346b4626997b",
-    title: "NextEra’s $67bn Dominion takeover faces political backlash in Virginia",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/70308419-20a2-4236-a03e-346b4626997b",
-  },
-  {
-    id: "b3034c7f-e660-412b-87a4-a212539edba2",
-    title: "Britain has turned digital ID into a growth industry",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/b3034c7f-e660-412b-87a4-a212539edba2",
-  },
-  {
-    id: "55b65eed-89ba-4a7c-b137-b8c5284f7401",
-    title: "Can Kemi Badenoch return the Tories to power?",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/55b65eed-89ba-4a7c-b137-b8c5284f7401",
-  },
-  {
-    id: "7c7ccb82-2973-47af-ad9b-b469c6ea0048",
-    title: "Surge in borrowing costs hits corporate America",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/7c7ccb82-2973-47af-ad9b-b469c6ea0048",
-  },
-  {
-    id: "9b252b46-a87c-45e7-a09a-45a39ce077b8",
-    title: "France: between the bond market and the barricades",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8",
   },
 ];

@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-preqin-firstclose-mesovereignlocaldeals-20261006",
+    publication: "Preqin",
+    author: null,
+    series: "First Close",
+    title: "Local deals in favor with Middle East sovereign wealth funds",
+    date: "2026-10-06",
+    time: "12:26",
+    summary: "The insider: Gulf SWFs increasingly look to invest in private equity and VC at home.",
+    url: "https://go.preqin.com/webmail/909852/2195275463/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
+  },
+  {
     id: "nl-bbg-economicsdaily-dieselinflation-20261006",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "05:00",
     summary: "France could set off another euro-zone crisis.",
     url: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france",
-  },
-  {
-    id: "nl-reuters-tradingday-stocksfindfooting-20261001",
-    publication: "Thomson Reuters",
-    author: "Stephen Culp",
-    series: "Trading Day",
-    title: "Stocks find footing as Treasury yields ease",
-    date: "2026-10-01",
-    time: "22:00",
-    summary: "Wall Street closes higher as the benchmark Treasury yield eases from multi-year highs; focus turns to Friday's jobs report.",
-    url: "https://www.reuters.com/newsletters/trading-day",
   },
 ];
