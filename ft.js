@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c37419cd-5325-409e-9eac-ea509c8ace51",
+    title: "Warnings of possible Iranian drone attack led US to pull bombers from RAF Fairford",
+    date: "2026-10-06",
+    time: "09:09",
+    url: "https://www.ft.com/content/c37419cd-5325-409e-9eac-ea509c8ace51",
+  },
+  {
     id: "0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1",
     title: "Informa to buy rival events business Clarion from Blackstone for £2.2b",
     date: "2026-10-06",

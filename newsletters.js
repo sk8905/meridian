@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-newsdaily-kirklandglobalelite-20261006",
+    publication: "The Lawyer",
+    author: null,
+    series: "News Daily",
+    title: "Kirkland tops new Global Elite ranking of M&A titans",
+    date: "2026-10-06",
+    time: "08:16",
+    summary: "Kirkland & Ellis ranked the standout corporate powerhouse in The Lawyer's new Global Elite report.",
+    url: "https://r.mail2.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/CsyqJ-q4uZ9q",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-redseabattle-20261006",
     publication: "Bloomberg",
     author: null,
