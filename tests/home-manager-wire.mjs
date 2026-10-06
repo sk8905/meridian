@@ -27,7 +27,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     cols: getComputedStyle(document.querySelector(".g-layout")).gridTemplateColumns.trim().split(/\s+/).length,
     defaultRead: ((document.querySelector("#g-readpane .g-read-title") || {}).textContent || "").trim().length > 0,
   }));
-  checkEq(shell.lanes.join(" · "), "All · News · Manager · Watchlist · Newsletters", "merged wire: top-level lanes are All · News · Manager · Watchlist · Newsletters");
+  checkEq(shell.lanes.join(" · "), "All · Research · Managers · Watchlist · Newsletters", "merged wire: top-level lanes are All · Research · Managers · Watchlist · Newsletters");
   check(shell.readVisible && shell.mgrHidden, "desktop: the manager quadrant is now a reading pane (the manager wire is hidden here)");
   // At this width (1280, the narrow-desktop band ≤1500) the terminal collapses to a
   // FOUR-column grid — the Chart/Reading region and the X feed share one column behind
@@ -37,7 +37,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   check(shell.defaultRead, "reading pane: auto-opens the most-recent story on load (R3a)");
 
   // Manager lane: the flat manager-event stream in the shared column.
-  await lane(pg, "Manager");
+  await lane(pg, "Managers");
   await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 6000 });
   const r = await pg.evaluate(() => {
     const rows = [...document.querySelectorAll("#g-feed .g-mw-fev")];
@@ -106,7 +106,7 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   check(/watchlist/i.test(empty), `Watchlist lane (empty): prompts you to follow a manager (${empty.slice(0, 40)})`);
   // Follow the manager behind a Manager-lane row, then the Watchlist lane shows only
   // their activity, each row starred, headline itself not orange.
-  await lane(pg, "Manager");
+  await lane(pg, "Managers");
   await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 6000 });
   const mgr = await pg.evaluate(() => document.querySelector("#g-feed .g-mw-fev[data-mgr]").dataset.mgr);
   await pg.evaluate((id) => localStorage.setItem("meridian.follows", JSON.stringify({ manager: [id] })), mgr);
@@ -144,19 +144,19 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
     chipsHidden: (() => { const l = document.getElementById("g-wire-lanes"); return !l || l.offsetParent === null; })(),
   }));
   check(!shell.tabs.includes("Managers"), `phone: the separate Managers tab is gone — merged into the wire (${shell.tabs.join(" · ")})`);
-  check(shell.menu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire-tab dropdown carries the five lanes (${shell.menu.join(", ")})`);
+  check(shell.menu.join(" · ") === "All · Research · Managers · Watchlist · Newsletters", `phone: the wire-tab dropdown carries the five lanes (${shell.menu.join(", ")})`);
   check(shell.chipsHidden, "phone: the desktop lane chip row is hidden (the dropdown drives the lane on phones)");
   // Pick Manager from the dropdown → manager events render in the shared feed.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(150);
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Managers").click());
   await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 6000 });
   const m = await pg.evaluate(() => ({
     lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
     rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
     labels: [...new Set([...document.querySelectorAll("#g-feed .g-mw-fev .g-feed-code")].map((c) => c.textContent.trim()))].length,
   }));
-  check(m.lbl === "Manager" && m.rows >= 8, `phone: the Manager lane renders the manager wire in the feed (${m.rows} rows)`);
+  check(m.lbl === "Managers" && m.rows >= 8, `phone: the Manager lane renders the manager wire in the feed (${m.rows} rows)`);
   check(m.labels >= 3, `phone: every manager event keeps its colour label (${m.labels} distinct)`);
   checkErrs(errs, "phone merged wire lanes");
   await ctx.close();

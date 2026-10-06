@@ -374,11 +374,25 @@ function naHormuz(h) {
 // left-rail block: per company a date · ticker · timing line and the consensus (Est),
 // with the reported outcome (Act) + share reaction once it prints. Curated + sourced
 // there; nothing fabricated.
+// Monday–Sunday ISO bounds of the week containing now (local) — the window the
+// earnings rail is pinned to, so a stale committed week shows "none this week".
+function _naWeekRange(now = new Date()) {
+  const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const dow = (d.getDay() + 6) % 7;                 // Mon=0 … Sun=6
+  const mon = new Date(d); mon.setDate(d.getDate() - dow);
+  const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+  const iso = (x) => `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, "0")}-${String(x.getDate()).padStart(2, "0")}`;
+  return { mon: iso(mon), sun: iso(sun) };
+}
 function naEarnings() {
   const wk = EARNINGS && EARNINGS.weeks && EARNINGS.weeks[0];
-  const rows = [];
-  ((wk && wk.days) || []).forEach((d) => (d.rows || []).forEach((r) => rows.push({ ...r, date: r.date || d.date })));
-  if (!rows.length) return "";
+  const all = [];
+  ((wk && wk.days) || []).forEach((d) => (d.rows || []).forEach((r) => all.push({ ...r, date: r.date || d.date })));
+  // Only THIS week — drop rows outside the current Mon–Sun window so a stale
+  // (un-rolled) committed week shows the "none this week" state, not an old item.
+  const _wk = _naWeekRange();
+  const rows = all.filter((r) => { const d = String(r.date || "").slice(0, 10); return d && d >= _wk.mon && d <= _wk.sun; });
+  if (!rows.length) return naSec("This week's earnings", "") + `<div class="na-load">No earnings scheduled this week.</div>`;
   rows.sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.when || "").localeCompare(String(b.when || "")));
   const dshort = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]}` : (d || ""); };
   const whenTag = (w) => (/after|post|close/i.test(w || "") ? "Post" : /before|pre|open/i.test(w || "") ? "Pre" : (w || ""));

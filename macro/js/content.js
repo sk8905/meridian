@@ -1247,22 +1247,24 @@ export const IND_KEYMOMENTS = {
 export const FX_KEYMOMENT = { text: "The euro hit its weakest level against the dollar in 17 months on Monday, trading about 0.7% lower, as concerns over the political trajectories of Spain (snap election called for 29 November) and France spilled into wider markets while the dollar drew support from still-lofty Treasury yields.", src: "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", srcName: "CNBC", date: "2026-10-05" };
 
 export const EARNINGS = {
-  // Monday-transition sweep (14 Sep): no bank/broker, asset-manager, AI-relevant
-  // or Mag7 name has a confirmed report date in the 14-18 Sep window (per
-  // Kiplinger/Earnings Whispers/TipRanks calendars checked 14 Sep) \u2014 FedEx (17
-  // Sep) is the week's only notable print but sits outside the priority groups
-  // and consensus EPS varies too widely across trackers ($3.91-4.49) to quote
-  // verbatim, so it is excluded rather than an unverified figure. General Mills
-  // (23 Sep), Darden (24 Sep) and FactSet (30 Sep) were initially flagged as
-  // in-window by a search summary but each company's own IR page places its
-  // report the following week or later \u2014 excluded. Lennar (16 Sep, homebuilder)
-  // is the week's one broad-market-relevant print (rate-sensitive housing data
-  // alongside the week's 10-year-yield-at-5% narrative) with a consistent,
-  // multi-source-verified estimate.
+  // Week-of-6-Oct sweep: the pre-season week before Q3 bank earnings (banks print
+  // the following week, 13-17 Oct). The three broad-market-relevant prints with
+  // consistent, multi-source-verified consensus are Constellation Brands (Q2 FY27,
+  // after close Tue 6 Oct; call 7 Oct), PepsiCo (Q3, before open Thu 8 Oct) and
+  // Delta Air Lines (Q3, before open Fri 9 Oct \u2014 the unofficial start of Q3 airline
+  // earnings). Estimates are quoted as ranges where trackers disagree (notably DAL
+  // EPS $1.83-1.94 and revenue $17.6-17.7bn). None had reported as of the sweep, so
+  // each carries a forecast (Est) and an awaiting state \u2014 outcomes backfill on print.
   weeks: [
-    { label: "This week \u00b7 14\u201318 Sep", days: [
-      { date: "2026-09-16", rows: [
-        { t: "LEN", n: "Lennar", tag: "Homebuilder \u00b7 NYSE", when: "After close", held: [], estEps: "$1.30 (avg est)", estRev: "$8.33-8.37bn (avg est; co. guide $1.20-1.40 EPS issued with Q2 FY26 release)", actEps: "$1.23 adjusted (miss; $1.19 GAAP diluted)", actRev: "$8.05bn (miss; homebuilding revenue -6% y/y to $7.7bn on 3% fewer deliveries)", px: "-2.13%", note: "Q3 FY26 missed on both lines (net earnings $284m vs $591m a year ago); gross margin on home sales compressed to 15.8% from 17.5% and new orders fell 9% to 20,879 homes, prompting the company to cut FY26 delivery guidance to ~80,000-81,000 homes (from 82,000-83,000).", km: { l: "New orders", est: null, act: "20,879 homes (-9% y/y)" }, guide: { est: "co. guided Q3 FY26 EPS to $1.20-1.40 with the Q2 FY26 release", act: "cut FY26 delivery guidance to ~80,000-81,000 homes, down from the 82,000-83,000 range guided last quarter" } },
+    { label: "This week \u00b7 6\u201310 Oct", days: [
+      { date: "2026-10-06", rows: [
+        { t: "STZ", n: "Constellation Brands", tag: "Beer, wine & spirits \u00b7 NYSE", when: "After close", held: [], estEps: "$3.55-3.62 (avg est)", estRev: "$2.54-2.57bn (avg est; ~3-4% y/y)", actEps: null, actRev: null, px: null, note: "Q2 FY2027 (quarter ended Aug). Consensus ~$3.55-3.62 EPS, broadly flat to slightly down y/y, on ~$2.54-2.57bn revenue; beer depletions and aluminium-tariff cost pressure in focus. Conference call 8:00am ET on 7 Oct." },
+      ] },
+      { date: "2026-10-08", rows: [
+        { t: "PEP", n: "PepsiCo", tag: "Food & beverage \u00b7 Nasdaq", when: "Before open", held: [], estEps: "$2.30 (avg est)", estRev: "$24.98bn (avg est; ~4.4% y/y)", actEps: null, actRev: null, px: null, note: "Q3 2026. Consensus ~$2.30 EPS (vs $2.29 a year ago) on ~$24.98bn revenue; North America beverage volumes and Frito-Lay pricing/elasticity in focus." },
+      ] },
+      { date: "2026-10-09", rows: [
+        { t: "DAL", n: "Delta Air Lines", tag: "Airlines \u00b7 NYSE", when: "Before open", held: [], estEps: "$1.83-1.94 (avg est)", estRev: "$17.6-17.7bn (avg est; ~6% y/y)", actEps: null, actRev: null, px: null, note: "Q3 2026, the unofficial start of Q3 airline earnings. Street consensus ~$1.83-1.94 EPS on ~$17.6-17.7bn revenue; premium-cabin and loyalty demand set against a sharp y/y rise in jet-fuel costs." },
       ] },
     ] },
     { label: "Last week \u00b7 7\u201311 Sep", days: [
@@ -1273,6 +1275,13 @@ export const EARNINGS = {
     ] },
   ],
   srcs: [
+    { name: "Alphastreet — Constellation Brands (STZ) Q2 2027 Preview: EPS Est. $3.55, Reports October 7", url: "https://news.alphastreet.com/constellation-brands-stz-q2-2027-preview-eps-est-3-55-reports-october-7/" },
+    { name: "ScanX — Constellation Brands Q2 Earnings: Analysts eye $3.56 EPS, $2.54B revenue", url: "https://scanx.trade/stock-market-news/companies/constellation-brands-q2-earnings-analysts-eye-3-56-eps-2-54b-revenue/52747563" },
+    { name: "StockTitan — Constellation Brands to Report Second Quarter Fiscal 2027 Financial Results on October 6, 2026, After Market Close", url: "https://www.stocktitan.net/news/STZ/constellation-brands-to-report-second-quarter-fiscal-2027-financial-88ejfwqedqtd.html" },
+    { name: "Kiplinger — Earnings Calendar and Analysis for This Week (October 5-9): PepsiCo EPS est $2.30, revenue $24.98bn", url: "https://www.kiplinger.com/investing/stocks/17494/next-week-earnings-calendar-stocks" },
+    { name: "Investing.com — PepsiCo (PEP) Earnings Date & Report", url: "https://www.investing.com/equities/pepsico-earnings" },
+    { name: "Alphastreet — Delta Air Lines Q3 2026 Earnings Preview — October 9, Street Expects $1.83 EPS", url: "https://news.alphastreet.com/delta-air-lines-q3-2026-earnings-preview-october-9-street-expects-1-83-eps/" },
+    { name: "TradingView — DAL Q3'26 Earnings: revenue estimate is 17.62B USD", url: "https://www.tradingview.com/news/tradingview:bcff2d9170578:0-dal-q3-26-earnings-revenue-estimate-is-17-62b-usd/" },
     { name: "Alphastreet — Lennar (LEN) Q3 2026 Preview: EPS Est. $1.30, Reports September 17", url: "https://news.alphastreet.com/lennar-len-q3-2026-preview-eps-est-1-30-reports-september-17/" },
     { name: "Yahoo Finance — Here's What to Expect From Lennar Corporation's Next Earnings Report", url: "https://finance.yahoo.com/markets/stocks/articles/heres-expect-lennar-corporations-next-111202035.html" },
     { name: "MarketBeat — Lennar (LEN) Projected to Post Earnings on Wednesday", url: "https://www.marketbeat.com/instant-alerts/upcoming-lennar-len-projected-to-post-earnings-on-wednesday-2026-09-09/" },

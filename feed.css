@@ -91,6 +91,7 @@
 .g-feed-code.ft{ color:var(--t-ft); background:color-mix(in srgb,var(--t-ft) 15%,transparent); }
 .g-feed-code.substack{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
 .g-feed-code.brew{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
+.g-feed-code.rsch{ color:var(--t-rsch, #3bb6b0); background:color-mix(in srgb,var(--t-rsch, #3bb6b0) 15%,transparent); }
 .g-feed-code.bbg{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
 .g-feed-code.econ{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
 /* App-desk codes (credit + legal taxonomies) resolve to their domain colour via

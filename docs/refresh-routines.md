@@ -1090,6 +1090,14 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      Keep nulls only where the source genuinely gives no figure (e.g. a
 >      bank that reports EPS but not a revenue line). Rows stay for the rest
 >      of their week so forecast vs actual reads side by side.
+>      **The Home right-rail earnings tile is pinned to the CURRENT week**
+>      (`renderEarnings`/`naEarnings` drop any `weeks[0]` row dated outside
+>      this Mon–Sun and fall through to a "No earnings scheduled this week"
+>      state). So if the ahead block (`weeks[0]`) is not rolled forward, the
+>      Home tile goes EMPTY — rolling `weeks[0]` to the live week each Monday
+>      is what keeps it populated. A genuinely empty week (no priority-group
+>      reporters) correctly shows the "none this week" state; never leave a
+>      stale prior week in `weeks[0]` to avoid it.
 >    - **Maturity-wall charts in `macro/js/content.js` `MATWALL.wall` +
 >      `MATWALL.ratedWall`** → feed the two bar charts in Dashboard ›
 >      **Credit** (y = $bn, x = year bucket). `wall` is the US leveraged-finance
@@ -1209,10 +1217,23 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      body text), dedupe, keep ~40 newest, bump the `newsletters.js` token in
 >      `glance.js`. If the Gmail connector is unavailable in this run, skip the
 >      newsletter part and leave `newsletters.js` untouched.
+>    - §4a: RESEARCH sweep → `research.js` (the Research lane's manual half). Same
+>      mechanism as newsletters, but for the sell-side / house research the reader
+>      signs up to (JPMorgan "Eye on the Market", Apollo "Daily Spark", Goldman
+>      "Briefings", Morgan Stanley "Thoughts on the Market", PIMCO, BlackRock
+>      Investment Institute, Guggenheim…). A forwarded email is ROUTED to research
+>      (not newsletters) when its sender domain is in `research.js`'s `PUBLISHERS`
+>      map — extend that map as new sign-ups arrive, confirming each domain on first
+>      receipt. Parse into the `RESEARCH` array (same item shape as `NEWSLETTERS`:
+>      headline, publication/author, date/time, one-line summary, "read online" link
+>      — never body text), dedupe, keep ~40 newest. The Research lane's AUTO half
+>      (Apollo Academy / Oaktree / AQR via `gnews` + `research:true` in
+>      `FEED_SOURCES`) needs no upkeep — it rides `/api/feed` live. If Gmail is
+>      unavailable this run, leave `research.js` untouched.
 >    - §5: AFTER this run's publish (next step) has succeeded, move each processed
 >      email to Gmail Trash (`apply_sensitive_message_label` / thread variant,
 >      `TRASH`). Also sweep stragglers already present in the committed
->      `newsletters.js`. Never trash anything whose data isn't committed.
+>      `newsletters.js` / `research.js`. Never trash anything whose data isn't committed.
 >    - §6: fetch the myFT RSS feed
 >      (`https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss`),
 >      regenerate `FT_ITEMS` in `ft.js` (title, canonical URL, guid id, Europe/London

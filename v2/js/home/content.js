@@ -13,7 +13,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <div class="g-wiretabs" role="tablist" aria-label="Wire, briefing, chart or X">
           <!-- Market Briefing leads the strip (owner's call). It rides its own pane
                (always expanded — no collapse). News + Managers share the lane tab: the
-               lane (All · News · Manager · Watchlist · Newsletters) is chosen from a dropdown
+               lane (All · Research · Managers · Watchlist · Newsletters) is chosen from a dropdown
                (same style as the Menu → Chat chip) and stays the default landing pane.
                Then Chart and X Feed. Rendered/wired by glance.js. -->
           <button type="button" class="g-wiretab" data-wire="brief" role="tab" aria-selected="false">Briefing<span class="g-wiretab-dot" hidden aria-hidden="true"></span></button>

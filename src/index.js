@@ -1082,9 +1082,11 @@ async function handleWorldIndices(request, env, ctx) {
 // ---- Strait of Hormuz vessel transits (IMF PortWatch) ----------------------
 // Daily transit calls through chokepoint6 (Strait of Hormuz) from IMF PortWatch's
 // public, unauthenticated ArcGIS feed (AIS-derived, refreshed weekly on Tuesdays).
-// Returns the latest day's count + the trailing 30-day average so the Home tile
-// can show whether traffic is above/below normal. Never fabricated — a failed or
-// unexpected upstream leaves `latest:null` and the tile stays blank.
+// Returns the latest COMPLETE day's count + the trailing 30-day average so the
+// Home tile can show whether traffic is above/below normal (the newest row is
+// often a partial day and is skipped — see the series picker below). Never
+// fabricated — a failed or unexpected upstream leaves `latest:null` and the tile
+// stays blank.
 async function handleChokepoint(request, env, ctx) {
   const url = new URL(request.url);
   const src = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/ArcGIS/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query"
@@ -1097,7 +1099,7 @@ async function handleChokepoint(request, env, ctx) {
     return new Response(t || "{}", { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/hormuz?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/hormuz?v=3", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   let out = { date: null, total: null, tanker: null, ts: Date.now() };
@@ -1117,15 +1119,28 @@ async function handleChokepoint(request, env, ctx) {
         .map((a) => { const dv = pick(a, DATE_KEYS); return { t: (typeof dv === "number" ? dv : Date.parse(dv)), total: Number(pick(a, TOTAL_KEYS)), tanker: Number(pick(a, TANKER_KEYS)) }; })
         .filter((r) => Number.isFinite(r.t))
         .sort((a, b) => a.t - b.t);
-      // Latest value + trailing 30-day average for one series (rows carrying it).
+      // The NEWEST PortWatch row is frequently a PARTIAL day — a few hours of AIS,
+      // so the counts read abnormally low (e.g. 4 transits vs a ~40/day norm, 0
+      // tankers). Pick the latest COMPLETE day instead: a provisional trailing
+      // average over total-transit days, then walk back from the newest row to the
+      // first whose total is at least half that average — a partial tail is skipped,
+      // but a genuinely quiet (yet complete) day still counts. Both series then
+      // report that same chosen day, so total + tanker stay coherent.
+      const totRows = rows.filter((r) => Number.isFinite(r.total));
+      const provAvg = totRows.length ? totRows.slice(-30).reduce((s, r) => s + r.total, 0) / Math.min(totRows.length, 30) : 0;
+      const isComplete = (r) => provAvg <= 0 ? true : (Number.isFinite(r.total) && r.total >= 0.5 * provAvg);
+      let li = rows.length - 1;
+      while (li > 0 && !isComplete(rows[li])) li--;
+      // Latest value (the chosen complete day) + trailing 30-day average over
+      // complete days up to it, for one series (rows carrying it).
       const series = (key) => {
-        const withVal = rows.filter((r) => Number.isFinite(r[key]));
-        if (!withVal.length) return null;
-        const win = withVal.slice(-30);
-        return { latest: Math.round(withVal[withVal.length - 1][key]), avg30: Math.round(win.reduce((s, r) => s + r[key], 0) / win.length), days: win.length };
+        if (!Number.isFinite(rows[li][key])) return null;
+        const win = rows.slice(0, li + 1).filter((r) => Number.isFinite(r[key]) && isComplete(r)).slice(-30);
+        if (!win.length) return null;
+        return { latest: Math.round(rows[li][key]), avg30: Math.round(win.reduce((s, r) => s + r[key], 0) / win.length), days: win.length };
       };
       if (rows.length) {
-        out = { date: new Date(rows[rows.length - 1].t).toISOString().slice(0, 10), total: series("total"), tanker: series("tanker"), ts: Date.now() };
+        out = { date: new Date(rows[li].t).toISOString().slice(0, 10), total: series("total"), tanker: series("tanker"), ts: Date.now() };
       }
     } catch { /* graceful: leave latest null */ }
   }
@@ -3184,6 +3199,19 @@ export const FEED_SOURCES = [
   // subscribe that inbox to the bank's newsletter, then add the relay's feed URL
   // here as `{ url: "<relay-feed-url>", source: "<Bank> Research", region: "GEN",
   // cap: 6, filter: false }` (and to FEED_CURATED_SRC). Pending the relay feed URLs.
+  // ─── Research desk (sell-side / house research) ────────────────────────────
+  // The Research lane's AUTO half: free, openly-readable house-research shops that
+  // Google News indexes, scoped by site via the gnews route (same mechanism as the
+  // Moody's / Business Wire sources). `research: true` tags every item to the
+  // Research desk (RSCH) and bypasses the relevance cull (curated, topically pure);
+  // filter:false + FEED_CURATED_SRC. Research publishes less often than news, so the
+  // window is wider (when:45-60d) and caps are modest. The MANUAL half — email-only
+  // shops (JPMorgan Eye on the Market, Apollo Daily Spark, Goldman Briefings, Morgan
+  // Stanley, PIMCO, BlackRock Investment Institute) — is Gmail-swept into research.js
+  // by the refresh routine, exactly like newsletters.js (see docs/refresh-routines.md).
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aapolloacademy.com%20when%3A45d", source: "Apollo Academy", region: "GEN", cap: 6, gnews: true, research: true, filter: false },
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aoaktreecapital.com%20when%3A60d", source: "Oaktree", region: "GEN", cap: 4, gnews: true, research: true, filter: false },
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aaqr.com%20when%3A60d", source: "AQR", region: "GEN", cap: 4, gnews: true, research: true, filter: false },
   // ──────────────────────────────────────────────────────────────────────────
   // Business Wire — corporate press-release wire, SCOPED via Google News to
   // private-markets / credit deals (fund closes, significant risk transfer / SRT,
@@ -3443,7 +3471,7 @@ function feedParse(xml, feed) {
     if (feed.gnews) link = unwrapGnews(link);
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
-    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, hdg: feed.hdg || undefined, fi: feed.fi || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
+    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, hdg: feed.hdg || undefined, fi: feed.fi || undefined, research: feed.research || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
   }
   return out;
 }
@@ -3676,7 +3704,7 @@ const FEED_LEGAL_SRC = new Set(["Legal Business", "Legal Cheek", "Legal Futures"
 // (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
 // whose Google-News query already restricts them to private-markets/credit deals), so
 // they bypass the relevance gate like the legal wire, keeping that coverage readable.
-const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think"]);
+const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think", "Apollo Academy", "Oaktree", "AQR"]);
 // The app's SIX focus verticals — used to hold the paywalled premium newsrooms
 // (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
 // bond markets (iii) private capital markets (iv) credit markets (v) hedge funds
@@ -3740,7 +3768,7 @@ export function feedQualityKeep(it) {
   // other out-of-scope) entity is kept — those verticals are global. So the geo-cull
   // fires only when the headline reads as country-macro AND the item is not already
   // flagged to a global vertical desk (hedge / fixed-income / legal / substack / myFT).
-  if (!(it.hdg || it.fi || it.legal || it.substack || it.myft)
+  if (!(it.hdg || it.fi || it.legal || it.substack || it.myft || it.research)
       && FEED_OFFTOPIC_GEO.test(it.title) && FEED_GEO_MACRO_RE.test(it.title)) return false;
   // Podcast / audio items (e.g. Bloomberg podcasts) are not news — drop them
   // BEFORE the premium bypass so a Bloomberg/FT audio show doesn't slip through.
@@ -3752,7 +3780,7 @@ export function feedQualityKeep(it) {
   // Premium newsrooms, the curated legal wire, and reader-flagged streams
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).
-  if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || FEED_CURATED_SRC.has(s) || it.myft || it.substack || it.legal || it.hdg || it.fi) return true;
+  if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || FEED_CURATED_SRC.has(s) || it.myft || it.substack || it.legal || it.hdg || it.fi || it.research) return true;
   if (!(FEED_MACRO_RE.test(it.title) || FEED_MEGACAP_RE.test(it.title) || FEED_RELEVANCE.test(it.title))) return false;
   return !FEED_PR_NOISE.test(it.title);   // drop routine IR/PR boilerplate that slipped through
 }
@@ -3775,7 +3803,7 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
   try { lastGood = (await env.WATCHLIST.get("feed:lastgood", "json")) || {}; } catch { /* KV miss — no reuse this run */ }
   const nowT = Date.now();
   const LASTGOOD_MAX = 24 * 3600e3;
-  const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, myft: x.myft, substack: x.substack, hdg: x.hdg, fi: x.fi, when: x.when ? x.when.toISOString() : null });
+  const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, myft: x.myft, substack: x.substack, hdg: x.hdg, fi: x.fi, research: x.research, when: x.when ? x.when.toISOString() : null });
   const deWhen = (x) => ({ ...x, when: x.when ? new Date(x.when) : null });
   // ONE subrequest budget shared across every source (Cloudflare caps total
   // subrequests per invocation at ~50). Without it, a 429/503 retry burst blew
@@ -3884,7 +3912,7 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
     const { date, time } = feedLondon(it.when);
     if (!date) continue;
     // myFT links carry tracking params — keep the canonical /content/ URL.
-    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, hdg: it.hdg || undefined, fi: it.fi || undefined, date, time });
+    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, hdg: it.hdg || undefined, fi: it.fi || undefined, research: it.research || undefined, date, time });
     // 250 (was 100): with ~270 capped candidates across the sources, a 100-item
     // wire only ever carried the newest ~day — the 5-day back-catalogue (WSJ /
     // TradingEconomics backfill) never made the cut. The 6-day cutoff above

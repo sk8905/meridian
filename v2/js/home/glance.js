@@ -9,6 +9,7 @@ import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData } from "/v2/js/ma
 import { follows, followList, followBtn } from "/credit/js/shared.js";
 import { reportRefresh } from "/v2/js/status.js";
 import { NEWSLETTERS } from "/newsletters.js";
+import { RESEARCH } from "/research.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
@@ -1768,7 +1769,7 @@ function renderBrief(byDesk, counts, day) {
 // own desks; Equities and Bonds are keyword VIEWS over the macro stream
 // (equity-index/stock news vs bond/rates news) so the filter set lines up with the
 // dashboard without inventing a separate desk — items keep their real MAC label.
-const FEED_DESK_LABEL = { all: "All news", views: "Views", m: "Macro", eq: "Equities", fi: "Bonds", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters" };
+const FEED_DESK_LABEL = { all: "All news", views: "Views", m: "Macro", eq: "Equities", fi: "Bonds", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters", research: "Research" };
 const FEED_EQ_RE = /\b(stocks?|shares?|equit\w+|\bindex\b|indices|nasdaq|s&p ?500|s&p|dow(\s?jones)?|ftse|russell|nikkei|kospi|hang seng|\bdax\b|earnings|\bipo\b|semiconductors?|\bchips?\b|nvidia|mega-?cap|magnificent|rally|sell-?off|bull market|bear market)\b/i;
 const FEED_FI_RE = /\b(bonds?|yields?|treasur\w+|gilts?|bunds?|coupon|duration|yield curve|credit spread|\boas\b|sovereign debt|rate (cut|hike|rise|path|decision)|interest rates?|\bfed\b|\bfomc\b|bank of england|\bboe\b|\becb\b|\bmpc\b|monetary policy|high[- ]yield|investment[- ]grade)\b/i;
 
@@ -1811,7 +1812,7 @@ let _feedSrc = null;
 const _HOME_PREFS_KEY = "wire.home.v1";
 function _homePrefs() { try { const o = JSON.parse(localStorage.getItem(_HOME_PREFS_KEY) || "{}"); return (o && typeof o === "object") ? o : {}; } catch { return {}; } }
 function _saveHomePref(patch) { try { localStorage.setItem(_HOME_PREFS_KEY, JSON.stringify({ ..._homePrefs(), ...patch })); } catch { /* ignore */ } }
-const _DESK_KEYS = ["all", "views", "m", "eq", "fi", "c", "hdg", "l", "n"];
+const _DESK_KEYS = ["all", "views", "m", "eq", "fi", "c", "hdg", "l", "n", "research"];
 // ---- Manager wire (Home manager column) -----------------------------------
 // Watchlist-first, then most-recently-active covered managers. Each row leads to
 // the manager profile; the latest event + fundraising status are the preview.
@@ -2156,8 +2157,19 @@ function renderFeed() {
   const fixedincome = [];
   (_liveFeed || []).forEach((n) => { if (n.fi) fixedincome.push(mk("fi", n.url, n.title, n.source || "Bond Vigilantes", true, n.date, n.time)); });
 
+  // Research — sell-side / house research. The MANUAL half is the Gmail-swept notes
+  // in research.js (JPMorgan Eye on the Market, Apollo Daily Spark, …); the AUTO half
+  // is the openly-indexed house shops tagged research:true on the live feed (Apollo
+  // Academy, Oaktree, AQR — see src/index.js). Own "RSCH" desk label (teal); folded
+  // into the All wire and filterable by source like every other desk.
+  // (Named rschFeed, not `research`, to avoid shadowing the module-level credit
+  // white-papers array `research` used above.)
+  const rschFeed = [];
+  (RESEARCH || []).forEach((r) => rschFeed.push(mk("rsch", r.url, r.title, r.author ? `${r.author} · ${r.publication}` : r.publication, true, r.date, r.time)));
+  (_liveFeed || []).forEach((n) => { if (n.research) rschFeed.push(mk("rsch", n.url, n.title, n.source, true, n.date, n.time)); });
+
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome];
+  const all = [...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome, ...rschFeed];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -2171,7 +2183,7 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), hdg: dedupe([...hdg].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)), fisrc: dedupe([...fixedincome].sort(byDateDesc)) };
+  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), hdg: dedupe([...hdg].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)), fisrc: dedupe([...fixedincome].sort(byDateDesc)), research: dedupe([...rschFeed].sort(byDateDesc)) };
   // Equities is a keyword slice of the macro stream (see FEED_DESK_LABEL note).
   // Bonds is the DEDICATED fi sources (Bond Vigilantes, badged BND) FIRST,
   // then the bond/rates keyword slice of the macro stream (which keeps its MAC
@@ -2201,7 +2213,7 @@ function renderFeed() {
     // are ordered by size; day-by-day ordering is replaced by label headers.
     const cut3 = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 2); return d.toISOString().slice(0, 10); })();
     const corpus = _feedDesk === "all"
-      ? dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome].sort(byDateDesc))
+      ? dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome, ...rschFeed].sort(byDateDesc))
       : (byDesk[_feedDesk] || []);
     feed = corpus.filter((x) => !cut3 || day(x) >= cut3);
     // Readable-only Home newswire (see the ungrouped path below): drop subscriber-
@@ -2227,11 +2239,11 @@ function renderFeed() {
   } else if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
-    feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew, ...fixedincome].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+    feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew, ...fixedincome, ...rschFeed].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     // Today's items lead, interleaved across desks so no single desk dominates.
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(news), pick(macro), pick(credit), pick(hdg), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew), pick(fixedincome)];
+    const lists = [pick(news), pick(macro), pick(credit), pick(hdg), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew), pick(fixedincome), pick(rschFeed)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -2246,7 +2258,7 @@ function renderFeed() {
     // (the full Credit/Legal history stays one tap away under their own filter).
     const HEAVY = 200;
     const pool = [byDesk.news, byDesk.m, byDesk.c.slice(0, HEAVY), byDesk.hdg,
-      byDesk.l.slice(0, HEAVY), byDesk.n, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
+      byDesk.l.slice(0, HEAVY), byDesk.n, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc, byDesk.research]
       .flat().filter((x) => day(x) !== target).sort(byDateDesc);
     const GUARD = 900;   // pathological guard, well above the capped pool (~600)
     for (const x of pool) {
@@ -2282,7 +2294,7 @@ function renderFeed() {
   const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : (FEED_DESK_LABEL[_feedDesk] || DESK[_feedDesk]) + " items"} — check back shortly.`);
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   // The desk / type / group-by sub-filters were removed (little-used) — the wire is now
-  // just the lane tabs (All · News · Manager · Watchlist · Newsletters). Each row keeps
+  // just the lane tabs (All · Research · Managers · Watchlist · Newsletters). Each row keeps
   // its own colour label. The lane picks the desk (_feedDesk), set in renderWire.
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
   _lastFeed = feed;      // stashed so the "All" lane can interleave managers in
@@ -2293,11 +2305,15 @@ function renderFeed() {
 // column (#g-feed), with the existing coloured sub-filters (news desks / manager
 // categories) switching to match the lane. The old manager quadrant becomes a
 // reading pane. Mobile keeps its own News/Watch tabs (renderManagerWire → #g-mgrwire).
-let _wireLane = "all";        // all | news | manager | watchlist | newsletters — DEFAULT lane is All
+let _wireLane = "all";        // all | research | manager | watchlist | newsletters — DEFAULT lane is All
 let _wireSetter = null;       // initMobileWireTabs' setWire, hoisted so homeReset() can switch panes
 let _mgrLaneCat = "all";      // manager/watchlist category sub-filter
 let _lastFeed = [];           // last news feed array (for the All interleave)
-const WIRE_LANES = [["all", "All"], ["news", "News"], ["manager", "Manager"], ["watchlist", "Watchlist"], ["newsletters", "Newsletters"]];
+// The wire-lane chips. "News" was retired (the All lane already carries the full
+// news stream, interleaved with manager events); Research sits in its place. The
+// "manager" lane keeps its key but is labelled "Managers" (plural).
+const WIRE_LANES = [["all", "All"], ["research", "Research"], ["manager", "Managers"], ["watchlist", "Watchlist"], ["newsletters", "Newsletters"]];
+const _WIRE_LANE_KEYS = new Set(WIRE_LANES.map(([k]) => k));
 
 // Manager events, flattened + de-duped across managers, for the merged wire.
 function managerFlatEvents(watchOnly, cat) {
@@ -2365,7 +2381,7 @@ const WIRE_LANE_LABEL = Object.fromEntries(WIRE_LANES);
 function renderWireLanes() {
   const host = document.getElementById("g-wire-lanes");
   if (host) {
-    // Just the lane tabs — All · News · Manager · Watchlist · Newsletters (desktop; the
+    // Just the lane tabs — All · Research · Managers · Watchlist · Newsletters (desktop; the
     // lane row is display:none on phones, which use the wire-tab dropdown below). The
     // desk/category sub-filters were removed, so there's no sub-filter slot here.
     host.innerHTML = WIRE_LANES.map(([k, l]) =>
@@ -2409,6 +2425,9 @@ export function homeReset() {
 // selects the lane from the chip row; phones from the wire-tab dropdown (renderWireLanes
 // paints both). The reading pane is desktop-only (mobile rows navigate as before).
 function renderWire() {
+  // Coerce a stale/removed lane (e.g. a persisted "news" from before it was retired)
+  // back to the default so the chip row always has an active chip.
+  if (!_WIRE_LANE_KEYS.has(_wireLane)) _wireLane = "all";
   renderWireLanes();
   const lane = _wireLane;
   // The All lane carries no sub-filters — flag the layout so phones collapse the
@@ -2416,11 +2435,13 @@ function renderWire() {
   const layout = document.querySelector(".g-layout");
   if (layout) layout.classList.toggle("wire-lane-all", lane === "all");
   // The lane picks which desk the news feed shows: Newsletters → the newsletter desk
-  // ("n"); every other feed lane → all news. (No sub-filters, so this is the only
-  // desk control.) Reset the leftover type/group/source state each paint.
+  // ("n"); Research → the research desk ("research"); every other feed lane → all
+  // news. (No sub-filters, so this is the only desk control.) Reset the leftover
+  // type/group/source state each paint.
   _feedType = "all"; _feedGroup = false; _feedSrc = null;
   if (lane === "manager" || lane === "watchlist") renderMgrLane(lane === "watchlist");
   else if (lane === "newsletters") { _feedDesk = "n"; renderFeed(); }
+  else if (lane === "research") { _feedDesk = "research"; renderFeed(); }
   else { _feedDesk = "all"; renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }
   _decorateLocks();                                    // flag subscriber-only rows with a padlock
   ensureReadWired();
@@ -2998,6 +3019,17 @@ function initMacroIndicators() {
 }
 const setHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
+// Monday–Sunday ISO bounds of the week containing `now` (local time) — the window
+// the "This week's earnings" rail is pinned to, so a committed earnings week that
+// hasn't been rolled forward can't keep showing a weeks-old item.
+function _thisWeekRange(now = new Date()) {
+  const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const dow = (d.getDay() + 6) % 7;                 // Mon=0 … Sun=6
+  const mon = new Date(d); mon.setDate(d.getDate() - dow);
+  const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+  const iso = (x) => `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, "0")}-${String(x.getDate()).padStart(2, "0")}`;
+  return { mon: iso(mon), sun: iso(sun) };
+}
 // ---- This week's corporate earnings (right sidebar) ------------------------
 // From EARNINGS.weeks[0] (macro/js/content.js): per company — date, pre/post-
 // market timing, the consensus forecast (Est) and, once reported, the outcome
@@ -3005,8 +3037,13 @@ const setHTML = (id, html) => { const el = document.getElementById(id); if (el) 
 function renderEarnings() {
   const box = document.getElementById("g-earn"); if (!box) return;
   const wk = EARNINGS && EARNINGS.weeks && EARNINGS.weeks[0];
-  const rows = [];
-  ((wk && wk.days) || []).forEach((d) => (d.rows || []).forEach((r) => rows.push({ ...r, date: r.date || d.date })));
+  const all = [];
+  ((wk && wk.days) || []).forEach((d) => (d.rows || []).forEach((r) => all.push({ ...r, date: r.date || d.date })));
+  // Only THIS week — drop any row outside the current Mon–Sun window so a stale
+  // (un-rolled) committed week falls through to the "none this week" state rather
+  // than pinning a weeks-old item.
+  const _wk = _thisWeekRange();
+  const rows = all.filter((r) => { const d = String(r.date || "").slice(0, 10); return d && d >= _wk.mon && d <= _wk.sun; });
   if (!rows.length) { box.innerHTML = `<div class="g-earn-empty">No earnings scheduled this week.</div>`; return; }
   rows.sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.when || "").localeCompare(String(b.when || "")));
   const dshort = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]}` : (d || ""); };

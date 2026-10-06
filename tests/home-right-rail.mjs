@@ -8,7 +8,9 @@ import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish
 const srv = await serve();
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
-await pg.waitForSelector("#g-earn .g-earn-row", { timeout: 8000 });
+// The earnings rail is pinned to the CURRENT week (a stale committed week falls
+// through to a "none this week" empty-state), so wait for EITHER a row or that state.
+await pg.waitForSelector("#g-earn .g-earn-row, #g-earn .g-earn-empty", { timeout: 8000 });
 await pg.waitForTimeout(400);
 
 const r = await pg.evaluate(() => {
@@ -35,6 +37,7 @@ const r = await pg.evaluate(() => {
     moversGrows: getComputedStyle(document.querySelector(".g-movers-pnl")).flexGrow === "1",
     fxAtBottom: (() => { if (!side || !fx) return false; return Math.abs(side.getBoundingClientRect().bottom - fx.getBoundingClientRect().bottom) < 6; })(),
     earnRows: rows.length,
+    earnEmpty: !!document.querySelector("#g-earn .g-earn-empty"),
     firstHasDate: !!(first && first.querySelector(".g-earn-date")),
     firstHasTkr: !!(first && first.querySelector(".g-earn-tkr")),
     firstHasWhen: !!(first && first.querySelector(".g-earn-when")),
@@ -54,15 +57,20 @@ check(r.indicatorsGone, "right rail: Economic indicators panel removed from Home
 check(r.earnInLeft && r.earnNotInRight, "This week's earnings moved to the left rail");
 check(r.ratesInRight && r.spreadsInRight && r.volInRight && r.ratesNotInLeft, "Key rates, Spreads & Volatility are three separate right-rail panels");
 check(r.moversGrows && r.fxAtBottom, "left rail: Top movers stretches to fill (FX pinned at the rail bottom)");
-check(r.earnRows > 0, `earnings: this week's companies render (${r.earnRows})`);
-check(r.firstHasDate && r.firstHasTkr && r.firstHasWhen, "earnings: a row shows date + ticker + pre/post-market");
-check(r.anyEst > 0, `earnings: forecast (Est) shown (${r.anyEst})`);
-// Reported names show an outcome (Act) + price reaction; names not yet reported
-// this week show an "awaiting" marker. Early in the week nothing has reported, so
-// accept either — every row must carry an outcome OR an awaiting state.
-check(r.anyAct > 0 || r.anyAwait > 0, `earnings: outcome (Act) shown for reported names, else awaiting (act ${r.anyAct}, awaiting ${r.anyAwait})`);
-check(r.anyPx > 0 || r.anyAwait > 0, `earnings: price reaction shown for reported names, else awaiting (px ${r.anyPx}, awaiting ${r.anyAwait})`);
-check(r.earnRows <= 5 ? r.wellHugs && !r.bodyMax : true, "earnings: the pane fits its items with no gap (<=5 shows uncapped)");
+// The rail is pinned to the current week: it shows either this week's companies OR a
+// "none this week" empty-state (never a stale committed week). When rows render, they
+// carry the full date · ticker · timing · forecast → outcome structure.
+check(r.earnRows > 0 || r.earnEmpty, `earnings: the rail shows this week's companies or a "none this week" state (rows ${r.earnRows}, empty ${r.earnEmpty})`);
+if (r.earnRows > 0) {
+  check(r.firstHasDate && r.firstHasTkr && r.firstHasWhen, "earnings: a row shows date + ticker + pre/post-market");
+  check(r.anyEst > 0, `earnings: forecast (Est) shown (${r.anyEst})`);
+  // Reported names show an outcome (Act) + price reaction; names not yet reported
+  // this week show an "awaiting" marker. Early in the week nothing has reported, so
+  // accept either — every row must carry an outcome OR an awaiting state.
+  check(r.anyAct > 0 || r.anyAwait > 0, `earnings: outcome (Act) shown for reported names, else awaiting (act ${r.anyAct}, awaiting ${r.anyAwait})`);
+  check(r.anyPx > 0 || r.anyAwait > 0, `earnings: price reaction shown for reported names, else awaiting (px ${r.anyPx}, awaiting ${r.anyAwait})`);
+  check(r.earnRows <= 5 ? r.wellHugs && !r.bodyMax : true, "earnings: the pane fits its items with no gap (<=5 shows uncapped)");
+}
 
 checkErrs(errs, "home right rail");
 await ctx.close();

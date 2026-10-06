@@ -1,5 +1,5 @@
-// Desktop merged wire: the top-level lane tabs are the ONLY control — All · News ·
-// Manager · Watchlist · Newsletters. The desk/category sub-filter rows were removed, so
+// Desktop merged wire: the top-level lane tabs are the ONLY control — All · Research ·
+// Managers · Watchlist · Newsletters. The desk/category sub-filter rows were removed, so
 // there is no #g-wire-subs slot and no #g-feed-head band; every row keeps its own colour
 // label. The Newsletters lane shows the (padlocked) newsletter items. The reading pane
 // still defaults to the most-recent UNLOCKED story and a subscriber story shows just the
@@ -31,7 +31,7 @@ const lanes = await pg.evaluate(() => ({
   headVisible: (() => { const h = document.getElementById("g-feed-head"); return !!h && getComputedStyle(h).display !== "none" && h.getBoundingClientRect().height > 1; })(),
   deskChips: document.querySelectorAll("#g-wire-lanes .g-feed-deskchip, #g-wire-lanes .g-feed-grpbtn, #g-wire-lanes [data-mglcat], #g-feed-head .g-feed-deskchip, #g-feed-head .g-feed-grpbtn, #g-feed-head [data-mglcat]").length,
 }));
-check(lanes.tabs.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `lane tabs are All · News · Manager · Watchlist · Newsletters (${lanes.tabs.join(" · ")})`);
+check(lanes.tabs.join(" · ") === "All · Research · Managers · Watchlist · Newsletters", `lane tabs are All · Research · Managers · Watchlist · Newsletters (${lanes.tabs.join(" · ")})`);
 check(!lanes.hasSubsSlot, "no inline sub-filter slot (#g-wire-subs) exists");
 check(!lanes.headVisible, "the #g-feed-head sub-filter band takes no space");
 check(lanes.deskChips === 0, `no desk / category / group sub-filter chips anywhere (${lanes.deskChips})`);
@@ -56,7 +56,7 @@ check(nl.rows > 0, `Newsletters lane renders newsletter items (${nl.rows} rows f
 // ---- Auto-open runs ONCE per load; a lane switch re-renders but does NOT re-jump the
 // pane (R3a). The ↑/↓ arrows then cycle the feed, and keyboard focus must NOT paint the
 // browser's default outline (the is-reading accent marker is the indicator).
-await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "News"); if (b) b.click(); });
+await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "All"); if (b) b.click(); });
 await pg.waitForTimeout(500);
 const afterSwitch = await pg.evaluate(() => ({
   reading: !!document.querySelector("#g-feed .g-feed-row.is-reading"),
@@ -89,21 +89,24 @@ const outline = await pg.evaluate(() => {
 check(outline && (outline.style === "none" || outline.w === "0px"), `arrows: focused row has no default outline ring (${outline ? outline.style + "/" + outline.w : "no row"})`);
 check(await pg.evaluate(() => !!document.querySelector("#g-readpane .g-read-ttl, #g-readpane .g-read-body, #g-readpane [class*='g-read']")), "arrows: the selected story renders in the reading pane");
 
-// ---- Readable-only Home newswire: the News lane carries NO subscriber-paywalled rows.
+// ---- Readable-only Home newswire: the All lane carries NO subscriber-paywalled rows.
 // The premium four (FT/Bloomberg/WSJ/Economist) and Nikkei are culled from the general
-// news + macro desks, so nothing on the News lane needs a login. (The old ≤30% cap was
+// news + macro desks, so nothing on the All lane needs a login. (The old ≤30% cap was
 // replaced by this hard cull — see renderWire in glance.js. Bot-walled-but-free sources
 // like Reuters still appear: they render in-pane via the Firecrawl proxy, so they carry
 // the "opens at the publisher" mark, not the subscriber padlock.) -------------------
 const sub = await pg.evaluate(() => {
-  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+  // News rows only — manager-event rows (.g-mw-fev) merged into the All lane can be
+  // sourced from Bloomberg/FT and are shown (with a padlock / link-out) by design;
+  // the readable-only cull applies to the news stream, not manager events.
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row:not(.g-mw-fev)")];
   const isSub = (r) => /needs a login/i.test(((r.querySelector(".g-feed-lock") || {}).title) || "");
   const subscriber = rows.filter(isSub);
   const subSrcs = [...new Set(subscriber.map((r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim()))].filter(Boolean);
   return { total: rows.length, subscriber: subscriber.length, subSrcs: subSrcs.slice(0, 6) };
 });
 check(sub.total > 0 && sub.subscriber === 0,
-  `News lane is readable-only — no subscriber-paywalled rows (${sub.subscriber}/${sub.total}${sub.subSrcs.length ? " — leaked: " + sub.subSrcs.join(", ") : ""})`);
+  `All lane is readable-only — no subscriber-paywalled rows (${sub.subscriber}/${sub.total}${sub.subSrcs.length ? " — leaked: " + sub.subSrcs.join(", ") : ""})`);
 
 // ---- Bot-walled (openly-published but reader-refused) sources count as NON-readable
 // too: Reuters &c open at the publisher, get the "opens externally" mark (NOT the

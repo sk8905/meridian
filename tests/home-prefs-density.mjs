@@ -50,7 +50,7 @@ const base = `http://localhost:${srv.port}`;
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector("#g-wire-lanes .g-wire-lane", { timeout: 8000 });
   await pg.waitForTimeout(600);
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((b) => b.textContent.trim() === "Manager").click());
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((b) => b.textContent.trim() === "Managers").click());
   await pg.waitForTimeout(300);
   const stored = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").wireLane; } catch { return null; } });
   checkEq(stored, "manager", "selecting the Manager lane persists it");
@@ -59,7 +59,7 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForSelector("#g-wire-lanes .g-wire-lane", { timeout: 8000 });
   await pg.waitForTimeout(600);
   const restored = await pg.evaluate(() => ((document.querySelector("#g-wire-lanes .g-wire-lane.is-on") || {}).textContent || "").trim());
-  checkEq(restored, "Manager", "Home reopens on the remembered Manager lane");
+  checkEq(restored, "Managers", "Home reopens on the remembered Manager lane");
   checkErrs(errs, "remembered wire lane");
   await ctx.close();
 }
@@ -77,7 +77,7 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForTimeout(120);
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Managers").click());
   await pg.waitForTimeout(200);
   const savedLane = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").wireLane; } catch { return null; } });
   checkEq(savedLane, "manager", "choosing a lane persists it (wireLane)");
@@ -88,7 +88,7 @@ const base = `http://localhost:${srv.port}`;
     lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
     rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
   }));
-  check(restored.lbl === "Manager" && restored.rows > 0, `mobile reopens on the remembered lane (${restored.lbl}, ${restored.rows} rows)`);
+  check(restored.lbl === "Managers" && restored.rows > 0, `mobile reopens on the remembered lane (${restored.lbl}, ${restored.rows} rows)`);
   checkErrs(errs, "remembered wire lane");
   await ctx.close();
 }

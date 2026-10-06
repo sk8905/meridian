@@ -1,6 +1,6 @@
 // Home on mobile: the multi-column terminal collapses to one column. Four tabs —
 // Market Briefing FIRST (always expanded, fills the page), then News (the default
-// landing pane; a merged wire whose lane — All · News · Manager · Watchlist — is chosen
+// landing pane; a merged wire whose lane — All · Research · Managers · Watchlist · Newsletters — is chosen
 // from a "Chat"-style dropdown), Chart, and X Feed. On desktop the lane chips +
 // reading pane show and these tabs are hidden.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
@@ -42,7 +42,7 @@ const b = await launchChromium();
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
   check(labels.join(" · ") === "Briefing · All · Chart · X Feed", `phone: four tabs — Briefing FIRST · All (lane, default) · Chart · X Feed (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
-  check(laneMenu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire tab's dropdown offers the five lanes (${laneMenu.join(", ")})`);
+  check(laneMenu.join(" · ") === "All · Research · Managers · Watchlist · Newsletters", `phone: the wire tab's dropdown offers the five lanes (${laneMenu.join(", ")})`);
 
   // Default: the wire (News/All lane) pane on load — NOT the briefing. The lane chip
   // is active, the feed visible, briefing + the other panes hidden.
@@ -97,14 +97,14 @@ const b = await launchChromium();
   });
   check(Math.abs(anchor.gap) <= 4, `phone: the lane dropdown sits flush under the tab (gap ${anchor.gap}px, not floating in the feed)`);
   check(Math.abs(anchor.dx) <= 4, `phone: the lane dropdown is left-aligned to the tab (dx ${anchor.dx}px)`);
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Manager").click());
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Managers").click());
   await pg.waitForTimeout(250);
   const mgrLane = await pg.evaluate(() => ({
     lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
     rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
     menuClosed: document.getElementById("g-wire-lanemenu").hidden,
   }));
-  check(mgrLane.lbl === "Manager" && mgrLane.rows > 0, `phone: the Manager lane renders manager events in the wire (${mgrLane.rows} rows)`);
+  check(mgrLane.lbl === "Managers" && mgrLane.rows > 0, `phone: the Managers lane renders manager events in the wire (${mgrLane.rows} rows)`);
   check(await vis("#g-feed"), "phone: manager events show in the shared feed pane (no separate Managers tab)");
   check(mgrLane.menuClosed, "phone: the dropdown closes after a lane is picked");
 
@@ -127,12 +127,12 @@ const b = await launchChromium();
   check(allBand.dayUnderTabs != null && allBand.dayUnderTabs >= -1 && allBand.dayUnderTabs <= 6,
     `phone: on All, the feed sits directly under the wire tabs (gap ${allBand.dayUnderTabs}px)`);
 
-  // Back to the News lane — still no filter band (the desk chips are gone everywhere).
+  // The Research lane — still no filter band (the desk chips are gone everywhere).
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
   await pg.waitForTimeout(120);
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "News").click());
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Research").click());
   await pg.waitForTimeout(200);
-  check(!(await vis("#g-feed-head")), "phone: the News lane has no filter band either (removed)");
+  check(!(await vis("#g-feed-head")), "phone: the Research lane has no filter band either (removed)");
 
   // A bottom-nav Home tap opens the Market Briefing pane (the Home-button default) and
   // never leaves the lane dropdown open. (The nav routes on pointerup, so a real tap

@@ -257,6 +257,7 @@ notification badge red (`#ef4444`).
   | Domain | Token | Label types (text) |
   |---|---|---|
   | Newsletters | `--t-amber` | `LTR` · `SUBS` · `BREW` |
+  | Research | `--t-rsch` | `RSCH` (sell-side / house research — teal, distinct from the amber Newsletters family) |
   | myFT | `--t-ft` | `myFT` |
   | Macro | `--t-mac` | `NEWS` · `COMM` · `FI` (fixed-income sources, e.g. Bond Vigilantes) (+ `BBG`/`ECON` macro wires) |
   | Credit | `--t-crd` | `NEWS` · `DEAL` · `RAISE` |
@@ -770,7 +771,7 @@ notification badge red (`#ef4444`).
     fresh deploy is picked up on the next load. Code changes ship on deploy,
     authored by sessions.
   - **Data** (`credit/js/data.js`, `legal/js/data.js`, `macro/js/content.js`,
-    `dashboard/js/data.js`, `newsletters.js`, `ft.js`, and the **generated**
+    `dashboard/js/data.js`, `newsletters.js`, `research.js`, `ft.js`, and the **generated**
     `home-data.js`) is imported with **NO
     `?v=` token** and served `Cache-Control: no-cache` (see `_headers`). Every
     importer therefore uses one tokenless URL → a **single module instance**
@@ -906,6 +907,7 @@ item keeps a real outbound source link (R7).
 - Alpine Macro
 - Variant Perception
 - ✅ **ING Think** (`think.ing.com/rss`) — first-party RSS, **live on the wire** (`filter:false` + `FEED_CURATED_SRC`): rates ("Rates Spark"), FX ("FX Daily"), macro/economics, commodities. The one bank/house macro desk with a clean public feed.
+- ✅ **Research lane (RSCH desk).** A dedicated Home wire lane (All · **Research** · Managers · Watchlist · Newsletters) for sell-side / house research, teal `--t-rsch`. **Self-contained** — it is NOT the Views/commentary or Substack streams. Two halves: (1) **auto** — openly-indexed house shops piped live via Google News `site:` queries, tagged `research: true` in `FEED_SOURCES` (currently **Apollo Academy**, **Oaktree**, **AQR**; `gnews:true` + `filter:false` + `FEED_CURATED_SRC`); the `research` flag threads through `feedParse` → `feedQualityKeep` bypass → `/api/feed`, and the client builds the `research` desk in `glance.js`. (2) **manual** — the Gmail-swept notes in **`research.js`** (same mechanism as `newsletters.js`: a `PUBLISHERS` sender map + a regenerated `RESEARCH` array), for the email-only houses below. See `docs/refresh-routines.md`.
 - 📧 **Bulge-bracket houses — email-only, pending a relay.** BofA (Institute), Wells Fargo (Economics) and UBS (CIO House View) publish **no public RSS**; their public commentary goes out by **email newsletter** only (and their sites are JS/cookie-walled). To wire them, bridge each via an email-to-RSS relay (e.g. `kill-the-newsletter.com`): make a relay inbox+feed, subscribe it to the bank's newsletter, then add the relay feed URL to `FEED_SOURCES` (`filter:false` + `FEED_CURATED_SRC`). Goldman / Morgan Stanley / JPM have **no article RSS** either — only podcasts (audio-first) or a Google-News `site:` bridge — so they're not wired as readable sources.
 - 🔒 Bloomberg Opinion (Authers · Dudley · El-Erian) — Bloomberg paywall (switched off on the Home wire)
 - 🔒 Project Syndicate (`project-syndicate.org`) — metered (a short abstract then a register wall); not readable in-pane
