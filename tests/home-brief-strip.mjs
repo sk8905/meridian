@@ -11,11 +11,13 @@ const HERO = { asOf: "2026-10-06", instruments: ["spx", "ndx"].map((k, i) => ({
 })) };
 const MARKETS = {
   markets: [
-    // S&P 500 OPEN (marketState REGULAR) → no star, uses the cash % move.
+    // Every card shows the LAST CLOSE + its day change — no futures overlay, no "*" (even for
+    // a CLOSED market). S&P 500 up on its cash day change.
     { label: "S&P 500", value: 7773.95, change: 51.0, changePct: 0.66, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/%5EGSPC" },
-    // Brent (shown as "OIL") CLOSED with a futures move → star, uses futuresPct. The markets
-    // feed labels crude "Brent"/"WTI" (not "Oil"), so the strip keys on "Brent".
-    { label: "Brent", value: 89.52, change: null, changePct: null, futuresPct: -3.61, marketState: "CLOSED", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/BZ=F" },
+    // Brent (shown as "OIL") — even CLOSED it shows its own last-close day change, NO star and
+    // NO futuresPct. The markets feed labels crude "Brent"/"WTI" (not "Oil"), so the strip keys
+    // on "Brent". futuresPct is present in the payload but must be IGNORED now.
+    { label: "Brent", value: 89.52, change: -1.14, changePct: -1.27, futuresPct: -3.61, marketState: "CLOSED", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/BZ=F" },
     { label: "Gold", value: 3987.40, change: 12.3, changePct: 0.31, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/GC=F" },
   ],
   moversExtra: [
@@ -45,12 +47,14 @@ const b = await launchChromium();
   const strip = await pg.evaluate(() => {
     const cards = [...document.querySelectorAll("#g-hbrief-strip .g-hbs-card")];
     const vis = (() => { const s = document.getElementById("g-hbrief-strip"); const r = s.getBoundingClientRect(); return getComputedStyle(s).display !== "none" && r.width > 0 && r.height > 0; })();
+    const oilCard = cards.find((c) => /OIL/.test((c.querySelector(".g-hbs-lbl") || {}).textContent || ""));
     return {
       vis,
       labels: cards.map((c) => (c.querySelector(".g-hbs-lbl") || {}).textContent),
-      spStar: !!(cards[0] && cards[0].querySelector(".g-hbs-star")),      // S&P open → no star
-      oilStar: !!(cards.find((c) => /OIL/.test((c.querySelector(".g-hbs-lbl") || {}).textContent || "")) || {}).querySelector?.(".g-hbs-star"),
-      oilDir: (cards.find((c) => /OIL/.test((c.querySelector(".g-hbs-lbl") || {}).textContent || "")) || {}).className || "",
+      anyStar: !!document.querySelector("#g-hbrief-strip .g-hbs-star"),   // asterisks are retired — none anywhere
+      starInText: /\*/.test(document.getElementById("g-hbrief-strip").textContent || ""),
+      oilDir: (oilCard || {}).className || "",
+      oilNums: oilCard ? [...oilCard.querySelectorAll(".g-hbs-n")].map((n) => n.textContent) : [],
       spDir: (cards[0] || {}).className || "",
       spNums: cards[0] ? [...cards[0].querySelectorAll(".g-hbs-n")].map((n) => n.textContent) : [],
       // US 10Y (yield) card: its change block carries BOTH the bp move and the relative % change.
@@ -70,8 +74,9 @@ const b = await launchChromium();
   checkEq(strip.labels.join(" · "), "S&P 500 · VIX · OIL · GOLD · US 10Y", "phone: five cards, in order — S&P 500 · VIX · OIL · GOLD · US 10Y");
   check(/\bup\b/.test(strip.spDir) && strip.spNums.some((n) => /\+0\.66%/.test(n)) && strip.spNums.some((n) => /\+51/.test(n)),
     `phone: S&P card is up with absolute + % change (${strip.spNums.join(", ")})`);
-  check(!strip.spStar, "phone: an OPEN market (S&P, REGULAR) shows NO '*'");
-  check(strip.oilStar && /\bdown\b/.test(strip.oilDir), "phone: a CLOSED market (Oil, shown as OIL from Brent) shows the futures '*' and its direction");
+  check(!strip.anyStar && !strip.starInText, "phone: NO asterisk on any card — the futures/closed '*' is retired");
+  check(/\bdown\b/.test(strip.oilDir) && strip.oilNums.some((n) => /-1\.27%/.test(n)) && strip.oilNums.some((n) => /-1\.14/.test(n)),
+    `phone: a CLOSED market (OIL, from Brent) shows its LAST-CLOSE day change — no futures (${strip.oilNums.join(", ")})`);
   check(strip.us10 && /5\.31%/.test(strip.us10.val || ""), `phone: the US 10Y card shows the yield level (${strip.us10 && strip.us10.val})`);
   check(strip.us10 && strip.us10.nums.some((n) => /\+3 bp/.test(n)) && strip.us10.nums.some((n) => /\+0\.57%/.test(n)) && /\bup\b/.test(strip.us10.dir),
     `phone: the US 10Y card shows BOTH the bp move and the relative % change (${strip.us10 && strip.us10.nums.join(", ")})`);

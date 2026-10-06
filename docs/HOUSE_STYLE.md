@@ -640,9 +640,11 @@ notification badge red (`#ef4444`).
   **US 10Y yield** card shows **both the bp move and the relative % change** (two lines, so it
   reads the same size as the price cards). **Every card is the same height** — the coloured
   change block grows to fill the card so its bar always reaches the bottom edge (no short bar
-  over dark panel). When a cash market is CLOSED the card shows the **futures** move with a `*`
-  on the value (VIX has no future → last cash level with `*`). It reads the same last-good
-  markets/rates cache as the rail (no extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
+  over dark panel). **Every card shows the LAST CLOSE + its day change** — there is **no
+  overnight-futures overlay and no "closed" asterisk** (both were ambiguous — the `*` meant
+  different things across the cards — so they are retired; the strip just reads the instrument's
+  own value and day change). It reads the same last-good markets/rates cache as the rail (no
+  extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
   **Market Briefing is the FIRST wire tab** (News/lane is second and still the default
   landing pane). **Inline security pills (both surfaces):** after a
   recognised security's first mention in the prose, a small chip (`.g-hbt-tk`) shows its

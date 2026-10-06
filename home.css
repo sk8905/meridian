@@ -1254,7 +1254,6 @@
       text-transform:uppercase; color:var(--t-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tui .g-hbs-val{ font-family:var(--t-mono); font-weight:400; font-size:15px; line-height:1.2;
       color:var(--t-ink); font-variant-numeric:tabular-nums; white-space:nowrap; }
-    .tui .g-hbs-star{ opacity:.55; margin-left:1px; }
     /* The change block GROWS to fill the card's (stretched) height so its coloured bar always
        reaches the bottom edge — cards with a shorter chip never leave a short bar over dark
        panel; every card reads as the same size regardless of how many change lines it carries. */

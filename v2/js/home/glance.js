@@ -618,10 +618,10 @@ function _resolveBriefSecurities(names) {
 }
 // The iPhone-only markets snapshot strip at the top of the briefing: square cards for
 // S&P 500 · VIX · Oil · Gold · US 10Y (snip-2 format — label+value on top, a direction-
-// coloured block with the absolute + % change below). When a cash market is CLOSED the
-// card shows the futures move with a "*" on the value (VIX has no future, so it shows the
-// last cash level with "*"). Reads the SAME last-good markets/rates cache the rail uses —
-// no extra fetch — and stays empty rather than guessing when an instrument isn't cached.
+// coloured block with the day's change below). Every card shows the LAST CLOSE and its day
+// change — no overnight-futures overlay and no "closed" asterisk (both were ambiguous). Reads
+// the SAME last-good markets/rates cache the rail uses — no extra fetch — and stays empty
+// rather than guessing when an instrument isn't cached.
 const _HBS = [
   { key: "S&P 500", src: "mkt",   label: "S&P 500", kind: "price" },
   { key: "VIX",     src: "extra", label: "VIX",     kind: "level" },
@@ -644,7 +644,7 @@ function renderBriefStrip() {
 }
 function _hbsCard(label, row, kind) {
   if (!row || row.value == null) return "";
-  let star = false, dir = "flat", valTxt = "", absTxt = "", pctTxt = "";
+  let dir = "flat", valTxt = "", absTxt = "", pctTxt = "";
   if (kind === "yield") {
     valTxt = fmtRate(row.value, row.unit);
     const chg = (typeof row.change === "number" && isFinite(row.change)) ? row.change : null;
@@ -659,14 +659,11 @@ function _hbsCard(label, row, kind) {
       if (prev) { const rel = chg / prev * 100; if (isFinite(rel)) pctTxt = `${rel > 0 ? "+" : ""}${rel.toFixed(2)}%`; }
     }
   } else {
-    const open = isMarketOpen(row);
-    let pct = null, abs = null;
-    if (!open && row.futuresPct != null) { pct = +Number(row.futuresPct); abs = row.value * pct / 100; star = true; }
-    else {
-      pct = (typeof row.changePct === "number" && isFinite(row.changePct)) ? row.changePct : null;
-      abs = (typeof row.change === "number" && isFinite(row.change)) ? row.change : (pct != null ? row.value * pct / 100 : null);
-      if (!open) star = true;
-    }
+    // Always the LAST CLOSE (the instrument's own value) + its day change — no overnight-
+    // futures overlay and no "closed" asterisk (that was ambiguous: it meant different things
+    // across the cards). Every card now reads the same simple way.
+    const pct = (typeof row.changePct === "number" && isFinite(row.changePct)) ? row.changePct : null;
+    const abs = (typeof row.change === "number" && isFinite(row.change)) ? row.change : (pct != null ? row.value * pct / 100 : null);
     dir = pct != null ? glSign(pct) : (abs != null ? glSign(abs) : "flat");
     valTxt = fmtPrice(row.value);
     if (abs != null) absTxt = `${abs > 0 ? "+" : ""}${abs.toFixed(2)}`;
@@ -678,7 +675,7 @@ function _hbsCard(label, row, kind) {
   const attrs = row.href ? ` href="${esc(row.href)}" target="_blank" rel="noopener noreferrer"` : "";
   return `<${tag} class="g-hbs-card ${dir}" role="listitem"${attrs}>`
     + `<span class="g-hbs-top"><span class="g-hbs-lbl">${esc(label)}</span>`
-    + `<span class="g-hbs-val">${esc(valTxt)}${star ? '<span class="g-hbs-star">*</span>' : ""}</span></span>`
+    + `<span class="g-hbs-val">${esc(valTxt)}</span></span>`
     + `<span class="g-hbs-chg"><span class="g-hbs-arw">${arrow}</span><span class="g-hbs-nums">${nums}</span></span>`
     + `</${tag}>`;
 }
