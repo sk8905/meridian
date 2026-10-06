@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-06",
-  lastCheckedTime: "00:12 BST",
+  lastCheckedTime: "05:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,22 +1004,23 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-05",
+  updated: "2026-10-06",
   us: [
+    {title: "Surge in borrowing costs hits corporate America", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/7c7ccb82-2973-47af-ad9b-b469c6ea0048"},
     {title: "Schneider Electric to Acquire PTC for More Than $20 Billion", source: "Bloomberg", date: "2026-10-05", url: "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion"},
     {title: "Global pension funds cut US equities over AI concentration risk", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad"},
     {title: "Why a booming economy is not helping Trump", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a"},
     {title: "Stock futures are flat as investors grapple with higher yields, await Fed minutes: Live updates", source: "CNBC", date: "2026-10-04", url: "https://www.cnbc.com/2026/10/04/stock-market-today-live-updates.html"},
-    {title: "What can revive the battered government bond market?", source: "Financial Times", date: "2026-10-04", time: "12:00", url: "https://www.ft.com/content/1a94931f-421e-4d0e-888a-7727f15c3d5f"},
   ],
   uk: [
-    {title: "BT Buys TalkTalk to Save UK Broadband Provider From Collapse", source: "Bloomberg", date: "2026-10-05", url: "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse"},
+    {title: "The creditor bloodbath in UK telecoms", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/0e4afbdc-c018-4ee4-86b3-4248ae3e97ab"},
+    {title: "BT’s swoop on TalkTalk has regulators over a barrel", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/309a7685-e488-44f4-ad76-4247b7f8bb5b"},
     {title: "Banks will lobby Healey for capital rules cut, says senior MP", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414"},
     {title: "Britain’s Budget needs to tame spending and boost growth", source: "Financial Times", date: "2026-10-04", time: "11:00", url: "https://www.ft.com/content/dfa07e3f-5557-46ba-8128-72f43aa6558d"},
     {title: "Rising gilt yields attract retail investors hunting for tax-efficient assets", source: "Financial Times", date: "2026-10-03", time: "05:00", url: "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de"},
-    {title: "Badenoch’s pitch goes some way to assuaging British business concerns", source: "Financial Times", date: "2026-10-05", time: "17:16", url: "https://www.ft.com/content/711333ba-67a9-480c-bf65-a3e484a6406b"},
   ],
 };
+
 
 // ---- Macro reading list (Commentary tab) -----------------------------------
 // A curated feed of the most important GENERAL global macro-economic news and
@@ -1029,8 +1030,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-05",
+  updated: "2026-10-06",
   items: [
+    {"title": "A Top-Heavy Stocks Rally Is Daring Bond Yields to Break It", "source": "Bloomberg", "date": "2026-10-06", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", "blurb": "The greatest risk to the simultaneous rise in tech stocks and long bond yields may be political.", "author": "John Authers"},
+    {"title": "France: between the bond market and the barricades", "source": "Financial Times", "date": "2026-10-06", "time": "05:00", "url": "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", "blurb": "The country is being hit by a pre-election debt sell-off, and many fear it could shake the eurozone.", "author": null},
+    {"title": "Silicon Valley expects AI will kill jobs but economists are not convinced", "source": "Financial Times", "date": "2026-10-06", "time": "05:00", "url": "https://www.ft.com/content/8f783c04-5fc5-43d4-bab2-495ac31806c6", "blurb": "Economists do not see a future without jobs, but they do see scope for rapid, disruptive change in the nature of work.", "author": null},
     {"title": "Spain’s Sánchez Calls Snap Election After Housing Plan Fails", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/spain-s-sanchez-calls-snap-election-after-housing-plan-fails", "blurb": "Prime Minister Pedro Sánchez calls an early general election for 29 November after Congress rejected his government's housing decrees.", "author": null},
     {"title": "Euro hits 17-month low as political uncertainty in Spain and France rattles markets", "source": "CNBC", "date": "2026-10-05", "time": "08:00", "url": "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", "blurb": "The euro fell to its weakest against the dollar in 17 months as concerns over Spain and France spilled into wider markets.", "author": null},
     {"title": "Schneider Electric to Acquire PTC for More Than $20 Billion", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion", "blurb": "Schneider agrees an all-cash deal for US engineering-software group PTC at $205 per share, an implied enterprise value of $23.7bn.", "author": null},
@@ -1068,9 +1072,6 @@ export const ARTICLES = {
     {"title": "Pound Sterling Today: GBP Rises As UK GDP Growth Revised To 0.5%", "source": "Exchange Rates UK", "date": "2026-09-30", "time": "10:13", "url": "https://www.exchangerates.org.uk/news/47311/2026-09-30-pound-sterling-today-gbp-rises-as-uk-gdp-growth-revised-to-0-5.html", "blurb": "Sterling firmed on Wednesday morning after the ONS revised Q2 growth up to 0.5%, a print that supports market bets on a Bank of England hike.", "author": null},
     {"title": "British Pound rises from two-month low on UK Q2 GDP, soft USD", "source": "FXStreet", "date": "2026-09-30", "time": "10:13", "url": "https://www.fxstreet.com/news/british-pound-moves-away-from-two-month-low-after-uk-q2-gdp-as-usd-retreats-ahead-of-pce-202609300731", "blurb": "GBP/USD moved off a two-month low as the upward GDP revision reaffirmed bets on a 25bp BoE hike on 5 November and the dollar eased ahead of US PCE.", "author": null},
     {"title": "Markets in upbeat mood, as UK economy surprises on the upside", "source": "FXStreet", "date": "2026-09-30", "time": "10:13", "url": "https://www.fxstreet.com/analysis/markets-in-upbeat-mood-as-uk-economy-surprises-on-the-upside-202609300833", "blurb": "FXStreet's morning wrap: the upside surprise in UK growth lifted sentiment ahead of the day's US ADP, GDP and core PCE releases.", "author": null},
-    {"title": "US core PCE inflation expected to increase, challenging the Fed", "source": "FXStreet", "date": "2026-09-30", "time": "10:13", "url": "https://www.fxstreet.com/news/us-core-pce-inflation-set-to-rise-in-august-pressuring-the-federal-reserve-202609300830", "blurb": "Preview of the 8:30am ET August PCE release: core is forecast at +0.3% m/m and 3.4% y/y, up from 3.3% in July.", "author": null},
-    {"title": "US consumer confidence dives to more than 12-year low in September", "source": "Reuters (via Investing.com)", "date": "2026-09-29", "time": "10:13", "url": "https://www.investing.com/news/economic-indicators/us-consumer-confidence-dives-to-more-than-12year-low-in-september-4923037", "blurb": "The Conference Board index fell 6.7 points to 81.9, its lowest since 2014 (Reuters poll: 89.2), with Expectations at 63.6 and references to fuel and prices at record highs.", "author": null},
-    {"title": "New 12-year low in consumer confidence", "source": "Axios", "date": "2026-09-29", "time": "10:13", "url": "https://www.axios.com/2026/09/29/new-12-year-low-in-consumer-confidence", "blurb": "Axios on the Conference Board's September reading, which fell to a 12-year low as households absorbed rising fuel costs.", "author": null},
   ],
 };
 
@@ -1081,7 +1082,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-10-05", country: "US", title: "ISM Services PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-10-07", country: "US", title: "FOMC Minutes (15–16 September meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-10-15", country: "US", title: "PPI (September)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },

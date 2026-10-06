@@ -43,14 +43,12 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-05",
-      time: "10:12 BST",
+      date: "2026-10-06",
+      time: "05:10 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; the euro hit a 17-month low against the dollar</strong> as political uncertainty in Spain and France rattled markets, while Spanish PM Pedro S&aacute;nchez called a snap general election for 29 November after Congress rejected his housing decrees.", src: "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", srcName: "CNBC" },
-        { html: "<strong>Macro &mdash; BT has bought TalkTalk's consumer broadband and PXC wholesale businesses out of administration</strong>, Bloomberg reports, to save the UK provider from collapse.", src: "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse", srcName: "Bloomberg" },
-        { html: "<strong>Fixed income &mdash; the US 10-year Treasury yield was around 5.26% on Monday</strong>, below last week's 24-year high, though the dollar held firm on still-lofty yields even after the soft jobs report dampened bets on a Fed hike this month.", src: "https://www.investing.com/news/economy-news/dollar-holds-firm-as-french-fiscal-woes-keep-euro-on-back-foot-4930983", srcName: "Reuters (via Investing.com)" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 gained 0.7% on Friday, the Nasdaq 1.2% and the Dow 0.5%</strong> as the weak September payrolls print (29,000 jobs) cemented expectations of a Fed hold in October, with tech leading.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Equities &mdash; Schneider Electric has agreed to buy US software group PTC for $205 a share in cash</strong>, an implied enterprise value of $23.7bn, Bloomberg reports.", src: "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion", srcName: "Bloomberg" },
+        { html: "<strong>Macro &mdash; France is being hit by a pre-election debt sell-off</strong> that many fear could shake the eurozone, the FT reports, while Brazil's Bovespa rallied to its highest in dollar terms since 2011 after Flavio Bolsonaro's first-round lead over Lula.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
+        { html: "<strong>Fixed income &mdash; the US 10-year Treasury yield has broken through its 2007 high</strong>, with Monday's ISM services report showing the share of managers citing rising prices at its highest since the post-pandemic surge, Bloomberg's John Authers notes.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; the Nasdaq-100 rose 0.9% on Monday to top 31,000 for the first time</strong>, a rally Authers says is increasingly narrow and dependent on a few mega-cap names even as long bond yields climb.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", srcName: "Bloomberg" },
       ],
     },
     afternoon: {

@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-topheavystocksrally-20261006",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "A Top-Heavy Stocks Rally Is Daring Bond Yields to Break It",
+    date: "2026-10-06",
+    time: "05:00",
+    summary: "The greatest risk to the simultaneous rise in tech stocks and long bond yields may be political.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it",
+  },
+  {
     id: "nl-reuters-tradingday-nasdaqhighsbrazilsurprise-20261005",
     publication: "Reuters",
     author: "Jamie McGeever",
@@ -472,27 +483,5 @@ export const NEWSLETTERS = [
     time: "14:07",
     summary: "Treasuries look cheap against stocks and GDP, but on their own historical terms have more to fall.",
     url: "https://www.bloomberg.com/news/articles/2026-10-01/don-t-be-fooled-treasuries-aren-t-cheap-yet",
-  },
-  {
-    id: "nl-thelawyer-breaking-weilfinancesimpson-20261001",
-    publication: "The Lawyer",
-    author: null,
-    series: "Breaking News",
-    title: "Weil finance team in talks to join Simpson Thacher",
-    date: "2026-10-01",
-    time: "13:38",
-    summary: "A team of Weil Gotshal finance partners in London are in advanced talks to move to Simpson Thacher.",
-    url: "https://www.thelawyer.com/latest-news/",
-  },
-  {
-    id: "nl-preqin-firstclose-serviceproviders-20261001",
-    publication: "Preqin",
-    author: null,
-    series: "First Close",
-    title: "Fund managers prioritize service providers’ expertise, responsiveness, and trust",
-    date: "2026-10-01",
-    time: "12:25",
-    summary: "The insider: Preqin’s annual review of service providers to fund managers.",
-    url: "https://go.preqin.com/webmail/909852/2190597941/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
   },
 ];
