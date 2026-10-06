@@ -11,12 +11,12 @@ const HERO = { asOf: "2026-10-06", instruments: ["spx", "ndx"].map((k, i) => ({
 })) };
 const MARKETS = {
   markets: [
-    // Every card shows the LAST CLOSE + its day change — no futures overlay, no "*" (even for
-    // a CLOSED market). S&P 500 up on its cash day change.
+    // Every card shows the LAST CLOSE + its day change (never futures). A "*" marks a CLOSED
+    // market (figure = last close). S&P 500 is OPEN (REGULAR) → no star, up on its day change.
     { label: "S&P 500", value: 7773.95, change: 51.0, changePct: 0.66, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/%5EGSPC" },
-    // Brent (shown as "OIL") — even CLOSED it shows its own last-close day change, NO star and
-    // NO futuresPct. The markets feed labels crude "Brent"/"WTI" (not "Oil"), so the strip keys
-    // on "Brent". futuresPct is present in the payload but must be IGNORED now.
+    // Brent (shown as "OIL") CLOSED → shows its own last-close day change WITH a "*". The markets
+    // feed labels crude "Brent"/"WTI" (not "Oil"), so the strip keys on "Brent". futuresPct is
+    // present in the payload but must be IGNORED (no futures overlay).
     { label: "Brent", value: 89.52, change: -1.14, changePct: -1.27, futuresPct: -3.61, marketState: "CLOSED", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/BZ=F" },
     { label: "Gold", value: 3987.40, change: 12.3, changePct: 0.31, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/GC=F" },
   ],
@@ -51,8 +51,11 @@ const b = await launchChromium();
     return {
       vis,
       labels: cards.map((c) => (c.querySelector(".g-hbs-lbl") || {}).textContent),
-      anyStar: !!document.querySelector("#g-hbrief-strip .g-hbs-star"),   // asterisks are retired — none anywhere
-      starInText: /\*/.test(document.getElementById("g-hbrief-strip").textContent || ""),
+      // The "*" now means ONE thing: market closed → the figure is the last close. So only the
+      // CLOSED card (Oil) carries it; the open cards (S&P/VIX/Gold) do not.
+      spStar: !!(cards[0] && cards[0].querySelector(".g-hbs-star")),
+      oilStar: !!(oilCard && oilCard.querySelector(".g-hbs-star")),
+      starTitle: (() => { const s = document.querySelector("#g-hbrief-strip .g-hbs-star"); return s ? s.getAttribute("title") : null; })(),
       oilDir: (oilCard || {}).className || "",
       oilNums: oilCard ? [...oilCard.querySelectorAll(".g-hbs-n")].map((n) => n.textContent) : [],
       spDir: (cards[0] || {}).className || "",
@@ -74,9 +77,11 @@ const b = await launchChromium();
   checkEq(strip.labels.join(" · "), "S&P 500 · VIX · OIL · GOLD · US 10Y", "phone: five cards, in order — S&P 500 · VIX · OIL · GOLD · US 10Y");
   check(/\bup\b/.test(strip.spDir) && strip.spNums.some((n) => /\+0\.66%/.test(n)) && strip.spNums.some((n) => /\+51/.test(n)),
     `phone: S&P card is up with absolute + % change (${strip.spNums.join(", ")})`);
-  check(!strip.anyStar && !strip.starInText, "phone: NO asterisk on any card — the futures/closed '*' is retired");
+  check(!strip.spStar, "phone: an OPEN market (S&P, REGULAR) shows NO '*'");
+  check(strip.oilStar, "phone: a CLOSED market (OIL, from Brent) shows a '*' — the figure is the last close");
+  check(/last close/i.test(strip.starTitle || ""), `phone: the '*' explains it means last close / market closed (title "${strip.starTitle}")`);
   check(/\bdown\b/.test(strip.oilDir) && strip.oilNums.some((n) => /-1\.27%/.test(n)) && strip.oilNums.some((n) => /-1\.14/.test(n)),
-    `phone: a CLOSED market (OIL, from Brent) shows its LAST-CLOSE day change — no futures (${strip.oilNums.join(", ")})`);
+    `phone: the CLOSED OIL card still shows its LAST-CLOSE day change — no futures (${strip.oilNums.join(", ")})`);
   check(strip.us10 && /5\.31%/.test(strip.us10.val || ""), `phone: the US 10Y card shows the yield level (${strip.us10 && strip.us10.val})`);
   check(strip.us10 && strip.us10.nums.some((n) => /\+3 bp/.test(n)) && strip.us10.nums.some((n) => /\+0\.57%/.test(n)) && /\bup\b/.test(strip.us10.dir),
     `phone: the US 10Y card shows BOTH the bp move and the relative % change (${strip.us10 && strip.us10.nums.join(", ")})`);

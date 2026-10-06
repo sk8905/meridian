@@ -641,10 +641,11 @@ notification badge red (`#ef4444`).
   reads the same size as the price cards). **Every card is the same height** — the coloured
   change block grows to fill the card so its bar always reaches the bottom edge (no short bar
   over dark panel). **Every card shows the LAST CLOSE + its day change** — there is **no
-  overnight-futures overlay and no "closed" asterisk** (both were ambiguous — the `*` meant
-  different things across the cards — so they are retired; the strip just reads the instrument's
-  own value and day change). It reads the same last-good markets/rates cache as the rail (no
-  extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
+  overnight-futures overlay** (the old futures substitution is retired). A **`*` on the value
+  marks a CLOSED market** (`!isMarketOpen`, via `marketState`), with the single, unambiguous
+  meaning "this figure is the **last close**, not a live price" (tooltip "Last close — market
+  closed") — it never swaps in a futures number. It reads the same last-good markets/rates cache
+  as the rail (no extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
   **Market Briefing is the FIRST wire tab** (News/lane is second and still the default
   landing pane). **Inline security pills (both surfaces):** after a
   recognised security's first mention in the prose, a small chip (`.g-hbt-tk`) shows its
