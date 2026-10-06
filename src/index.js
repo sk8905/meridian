@@ -3554,6 +3554,15 @@ const FEED_LIFESTYLE_RE = new RegExp([
   "crossword", "puzzle", "horoscope", "wellness", "\\byoga\\b", "recipes", "lunch with the ft", "how to spend it",
   "obituar", "\\bdies aged\\b", "\\b(19|20)\\d\\d[–—-](19|20)\\d\\d\\b",
 ].join("|"), "i");
+// HARD lifestyle / human-interest terms that are NEVER a market headline — unlike the soft
+// list above, a stray finance word (a commodity like "gold", a megacap name) does NOT rescue
+// these. This stops e.g. "…recipe for Popo's Wontons is as good as gold…" riding "gold" into
+// the wire. Kept to the unambiguous: a real finance story never carries one of these.
+const FEED_LIFESTYLE_HARD_RE = new RegExp([
+  "\\brecipes?\\b", "cook(ing|book)", "horoscope", "crossword", "\\bpuzzle\\b", "obituar", "\\bdies aged\\b",
+  "\\bpoetry\\b", "\\bmemoir\\b", "gift guide", "what to wear", "how to spend it", "lunch with the ft",
+  "\\bparenting\\b", "\\bdating\\b", "\\byoga\\b", "skincare", "hairstyl", "\\bgrooming\\b",
+].join("|"), "i");
 const feedNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 async function handleFeed(request, env, ctx) {
   const url = new URL(request.url);
@@ -3728,6 +3737,7 @@ const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:russia(?:n)?|ukrain(?:e|ian)|belarus(?
 export function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
+  if (FEED_LIFESTYLE_HARD_RE.test(it.title)) return false;   // recipes/obituaries/horoscopes… never finance, even with a stray "gold"
   // The G7+Europe geo-scope applies to MACRO-ECONOMIC headlines only: an out-of-scope
   // country's own macro data ("Brazil's retail sales …", "China's exports surge …") is
   // dropped, but a markets / credit / deal / corporate / legal story about an Asian (or

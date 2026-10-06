@@ -63,6 +63,15 @@ check(feedQualityKeep({ source: "The Straits Times", title: "Public sector worke
   "relevance: a real pay-rise/labour story is still kept");
 check(feedQualityKeep({ source: "The Straits Times", title: "Meta shares climb as Facebook parent lifts ad guidance" }),
   "relevance: a real Meta/Facebook company story is still kept");
+// HARD lifestyle: a stray finance word (a commodity like "gold", a megacap name) does NOT
+// rescue a recipe / obituary / horoscope — the exact "as good as gold" wontons leak.
+check(!feedQualityKeep({ source: "Associated Press", title: "Ming-Na Wen’s recipe for ‘Popo’s Wontons’ is as good as gold in her family" }),
+  "relevance: a recipe with a stray 'gold' is dropped (hard lifestyle, not rescued by a commodity word)");
+check(!feedQualityKeep({ source: "Associated Press", title: "Legendary gold trader dies aged 88" }),
+  "relevance: an obituary with 'gold' is dropped (hard lifestyle)");
+// …but a genuine gold-market story still passes.
+check(feedQualityKeep({ source: "Associated Press", title: "Gold hits record high as investors seek a haven" }),
+  "relevance: a real gold-market story is still kept (the commodity word still counts for real news)");
 
 // ---- Rule 1: macro scope = G7 + Eurozone + other major (EU/EFTA) Europe. A headline
 // led by an OUT-OF-SCOPE country (non-European, or non-EU/EFTA Europe) is off-universe
