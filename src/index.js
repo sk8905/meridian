@@ -3200,18 +3200,16 @@ export const FEED_SOURCES = [
   // here as `{ url: "<relay-feed-url>", source: "<Bank> Research", region: "GEN",
   // cap: 6, filter: false }` (and to FEED_CURATED_SRC). Pending the relay feed URLs.
   // ─── Research desk (sell-side / house research) ────────────────────────────
-  // The Research lane's AUTO half: free, openly-readable house-research shops that
-  // Google News indexes, scoped by site via the gnews route (same mechanism as the
-  // Moody's / Business Wire sources). `research: true` tags every item to the
-  // Research desk (RSCH) and bypasses the relevance cull (curated, topically pure);
-  // filter:false + FEED_CURATED_SRC. Research publishes less often than news, so the
-  // window is wider (when:45-60d) and caps are modest. The MANUAL half — email-only
-  // shops (JPMorgan Eye on the Market, Apollo Daily Spark, Goldman Briefings, Morgan
-  // Stanley, PIMCO, BlackRock Investment Institute) — is Gmail-swept into research.js
-  // by the refresh routine, exactly like newsletters.js (see docs/refresh-routines.md).
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aapolloacademy.com%20when%3A45d", source: "Apollo Academy", region: "GEN", cap: 6, gnews: true, research: true, filter: false },
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aoaktreecapital.com%20when%3A60d", source: "Oaktree", region: "GEN", cap: 4, gnews: true, research: true, filter: false },
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Aaqr.com%20when%3A60d", source: "AQR", region: "GEN", cap: 4, gnews: true, research: true, filter: false },
+  // The Research lane (RSCH) is Gmail-sweep ONLY: the reader's subscribed house-
+  // research emails (JPMorgan Eye on the Market, Apollo Daily Spark, Goldman
+  // Briefings, Morgan Stanley, PIMCO, BlackRock Investment Institute, Guggenheim…)
+  // swept into research.js by the refresh routine, exactly like newsletters.js — a
+  // readable "read online" link per note. The earlier AUTO half (Apollo / Oaktree /
+  // AQR piped live via Google News site: queries) was RETIRED: those house sites
+  // block server-side reads (503 / proxy 500), so every item fell back to "open at
+  // the publisher" and none rendered in-pane — the Gmail versions read cleanly, so
+  // the lane leans on them instead. The `research` flag plumbing is kept for any
+  // openly-readable research RSS added later. See docs/refresh-routines.md.
   // ──────────────────────────────────────────────────────────────────────────
   // Business Wire — corporate press-release wire, SCOPED via Google News to
   // private-markets / credit deals (fund closes, significant risk transfer / SRT,
@@ -3704,7 +3702,7 @@ const FEED_LEGAL_SRC = new Set(["Legal Business", "Legal Cheek", "Legal Futures"
 // (ACI, PE Wire) plus the deal-scoped press-release wires (GlobeNewswire, PR Newswire,
 // whose Google-News query already restricts them to private-markets/credit deals), so
 // they bypass the relevance gate like the legal wire, keeping that coverage readable.
-const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think", "Apollo Academy", "Oaktree", "AQR"]);
+const FEED_CURATED_SRC = new Set(["Alternative Credit Investor", "Private Equity Wire", "GlobeNewswire", "PR Newswire", "ING Think"]);
 // The app's SIX focus verticals — used to hold the paywalled premium newsrooms
 // (FT/Bloomberg/WSJ/Economist) strictly on-beat: (i) G20 macro (ii) public equity &
 // bond markets (iii) private capital markets (iv) credit markets (v) hedge funds

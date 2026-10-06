@@ -1,8 +1,10 @@
 // =============================================================================
 // Research — sell-side / house research notes, surfaced in the Home wire under
-// the "Research" lane (RSCH desk, teal). The MANUAL half of the Research lane:
-// the AUTO half is a set of openly-indexed house-research shops piped live via
-// Google News in src/index.js (Apollo Academy, Oaktree, AQR — `research: true`).
+// the "Research" lane (RSCH desk, teal). This Gmail sweep is the SOLE source of
+// the lane: a live Google-News auto-pipe (Apollo / Oaktree / AQR) was tried and
+// retired because those house sites block server-side reads, so every item fell
+// back to "open at the publisher" and none read in-pane — the forwarded email
+// versions carry a clean "read online" link and render in the pane instead.
 //
 // Source: research emails the reader signs up to and forwards (via a Gmail
 // filter) to the connected mailbox skaidrive2@gmail.com — e.g. JPMorgan's

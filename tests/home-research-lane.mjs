@@ -49,6 +49,28 @@ check(/\brsch\b/.test(rsch.pillClass), `Research lane: the RSCH pill uses the re
 
 checkErrs(errs, "home research lane");
 await ctx.close();
+
+// ---- Empty state: with no research yet (the Gmail sweep hasn't run), the Research lane
+// prompts the reader to subscribe + forward, rather than a bare "no items" line. This is
+// the lane's primary state until the email sweep populates research.js.
+{
+  const srv2 = await serve({ "/api/feed": () => [200, JSON.stringify({ items: [
+    ...Array.from({ length: 12 }, (_, i) => ({ title: `Markets story ${i}`, url: `https://www.reuters.com/e${i}`, source: "Reuters", date: "2026-10-06", time: "09:00", desk: "m" })),
+  ] })] });
+  const { ctx: c2, pg: p2, errs: e2 } = await open(b, DESKTOP, `http://localhost:${srv2.port}/v2/`);
+  await p2.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
+  await p2.reload({ waitUntil: "load" });
+  await p2.waitForSelector("#g-wire-lanes .g-wire-lane", { timeout: 8000 });
+  await p2.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "Research"); if (b) b.click(); });
+  await p2.waitForTimeout(400);
+  const emptyTxt = await p2.evaluate(() => (document.querySelector("#g-feed") || {}).textContent || "");
+  check(/subscribed house-research emails/i.test(emptyTxt) && /forward them to the mailbox|forward/i.test(emptyTxt),
+    `Research lane: an empty lane prompts the reader to subscribe + forward (${emptyTxt.trim().slice(0, 60)}…)`);
+  checkErrs(e2, "home research empty state");
+  await c2.close();
+  srv2.close();
+}
+
 await b.close();
 srv.close();
 finish();

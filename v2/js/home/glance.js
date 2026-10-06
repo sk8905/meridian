@@ -2291,7 +2291,10 @@ function renderFeed() {
   // engine (feed.js) — the same builders the Macro/Credit/Legal wires use.
   const body = groupedBody != null ? groupedBody : feedBodyHTML(feed);
   const srcBar = _feedSrc ? feedSrcBarHTML(_feedSrc) : "";
-  const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : (FEED_DESK_LABEL[_feedDesk] || DESK[_feedDesk]) + " items"} — check back shortly.`);
+  const empty = feedEmptyHTML(
+    _feedDesk === "research" && !_feedSrc
+      ? "Research fills from your subscribed house-research emails (JPMorgan Eye on the Market, Apollo, Goldman, Morgan Stanley, PIMCO, BlackRock…) swept from Gmail. None yet — subscribe and forward them to the mailbox to populate this lane."
+      : `No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : (FEED_DESK_LABEL[_feedDesk] || DESK[_feedDesk]) + " items"} — check back shortly.`);
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   // The desk / type / group-by sub-filters were removed (little-used) — the wire is now
   // just the lane tabs (All · Research · Managers · Watchlist · Newsletters). Each row keeps

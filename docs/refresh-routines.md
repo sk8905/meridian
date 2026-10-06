@@ -1229,7 +1229,7 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      body text), dedupe, keep ~40 newest, bump the `newsletters.js` token in
 >      `glance.js`. If the Gmail connector is unavailable in this run, skip the
 >      newsletter part and leave `newsletters.js` untouched.
->    - §4a: RESEARCH sweep → `research.js` (the Research lane's manual half). Same
+>    - §4a: RESEARCH sweep → `research.js` (the SOLE source of the Research lane). Same
 >      mechanism as newsletters, but for the sell-side / house research the reader
 >      signs up to (JPMorgan "Eye on the Market", Apollo "Daily Spark", Goldman
 >      "Briefings", Morgan Stanley "Thoughts on the Market", PIMCO, BlackRock
@@ -1238,10 +1238,12 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      map — extend that map as new sign-ups arrive, confirming each domain on first
 >      receipt. Parse into the `RESEARCH` array (same item shape as `NEWSLETTERS`:
 >      headline, publication/author, date/time, one-line summary, "read online" link
->      — never body text), dedupe, keep ~40 newest. The Research lane's AUTO half
->      (Apollo Academy / Oaktree / AQR via `gnews` + `research:true` in
->      `FEED_SOURCES`) needs no upkeep — it rides `/api/feed` live. If Gmail is
->      unavailable this run, leave `research.js` untouched.
+>      — never body text), dedupe, keep ~40 newest. (The earlier live Google-News
+>      auto-pipe — Apollo / Oaktree / AQR — was RETIRED because those house sites
+>      block server-side reads and never rendered in-pane; the lane relies on the
+>      Gmail versions, which do. The `research:true` flag plumbing stays for any
+>      openly-readable research RSS added later.) If Gmail is unavailable this run,
+>      leave `research.js` untouched.
 >    - §5: AFTER this run's publish (next step) has succeeded, move each processed
 >      email to Gmail Trash (`apply_sensitive_message_label` / thread variant,
 >      `TRASH`). Also sweep stragglers already present in the committed
