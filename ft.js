@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "1c1ee003-f041-4c66-a971-f08d488d11f7",
+    title: "S&P 500 hits record high as AI stocks shrug off bond market slump",
+    date: "2026-10-06",
+    time: "15:03",
+    url: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7",
+  },
+  {
+    id: "9b252b46-a87c-45e7-a09a-45a39ce077b8",
+    title: "France: between the bond market and the barricades",
+    date: "2026-10-06",
+    time: "15:00",
+    url: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8",
+  },
+  {
+    id: "2387b6dc-2fe9-4699-b076-57ec2ee68117",
+    title: "Would you buy a Yankees ETF?",
+    date: "2026-10-06",
+    time: "14:56",
+    url: "https://www.ft.com/content/2387b6dc-2fe9-4699-b076-57ec2ee68117",
+  },
+  {
+    id: "95db1fbd-4e1f-45cf-b678-c40635f59197",
+    title: "Vitol chief warns of tanker shortage and risk of $200-a-barrel oil",
+    date: "2026-10-06",
+    time: "14:39",
+    url: "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197",
+  },
+  {
     id: "d51a78a8-67d8-45bd-b32c-1eafe39a0794",
     title: "Submit a question: What is driving the global bond sell-off?",
     date: "2026-10-06",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "05:00",
     url: "https://www.ft.com/content/0b4511be-37a8-4de1-bf7d-1718c1f01351",
-  },
-  {
-    id: "0e4afbdc-c018-4ee4-86b3-4248ae3e97ab",
-    title: "The creditor bloodbath in UK telecoms",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/0e4afbdc-c018-4ee4-86b3-4248ae3e97ab",
-  },
-  {
-    id: "309a7685-e488-44f4-ad76-4247b7f8bb5b",
-    title: "BT’s swoop on TalkTalk has regulators over a barrel",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/309a7685-e488-44f4-ad76-4247b7f8bb5b",
-  },
-  {
-    id: "3410674b-581f-468d-93d3-01fed6411806",
-    title: "Labour mayor of West Midlands urges chancellor to relax electric car targets",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/3410674b-581f-468d-93d3-01fed6411806",
-  },
-  {
-    id: "76db879a-2c53-4aee-8354-b30185f1d3a4",
-    title: "German far-right set to secure its first ever regional parliament president",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/76db879a-2c53-4aee-8354-b30185f1d3a4",
   },
 ];
