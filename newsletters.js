@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-treasuryfuturesmightswitch-20261006",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Treasury Futures Might Switch",
+    date: "2026-10-06",
+    time: "19:37",
+    summary: "Defeasance, sports, securities fraud.",
+    url: "https://bloom.bg/4yaJZun",
+  },
+  {
     id: "nl-bbg-thebrink-batterymakersrecharge-20261006",
     publication: "Bloomberg",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "08:16",
     summary: "Etihad Airways has instructed Quinn Emanuel in a potential legal action against the Premier League.",
     url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/NKWubeKwrIcT",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-uscarriertroopsmideast-20261002",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "US Will Send Carrier, More Troops to Mideast",
-    date: "2026-10-02",
-    time: "07:24",
-    summary: "A US carrier and 10,000 more personnel head to the Mideast, a tanker captain's account of crossing Hormuz, and McDonald's global chicken push.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-02/us-will-send-carrier-more-troops-to-mideast",
   },
 ];
