@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-macleodsdthearing-20261006",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Ex-Post Office GC wins bid to attend SDT hearing from Australia",
+    date: "2026-10-06",
+    time: "16:54",
+    summary: "Jane MacLeod will be able to attend her disciplinary hearing remotely despite the SRA challenging the request.",
+    url: "https://r.mail2.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/UYg4rd_ysg58",
+  },
+  {
     id: "nl-preqin-firstclose-mesovereignlocaldeals-20261006",
     publication: "Preqin",
     author: null,
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "06:31",
     summary: "Also: Britain\u2019s pubs drown their sorrows.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-soaringyieldseuropeweakspot-20261002",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Soaring yields find Europe\u2019s weak spot",
-    date: "2026-10-02",
-    time: "05:00",
-    summary: "France could set off another euro-zone crisis.",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france",
   },
 ];
