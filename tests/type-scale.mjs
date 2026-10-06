@@ -59,28 +59,25 @@ const isAppFont = (fam) => /montserrat|gotham|futura/i.test(fam || "") && !/mono
   checkEq(r.body, 12 + r.adj, "content default (--fs-content / body) is 12px + --fs-adj");
 }
 
-// ---- 3) Transactions type-list rows read at the same BODY size ----
+// ---- 3) Transactions type-filter chips read at the same BODY size ----
 {
   const { pg, errs } = await open(b, PHONE, base + "/v2/transactions/");
-  await pg.waitForSelector(".tx-typelist .tx-typeopt", { timeout: 8000 });
+  await pg.waitForSelector(".tx-typestrip .tx-secchip", { timeout: 8000 });
   await pg.waitForTimeout(300);
   const r = await pg.evaluate(() => {
-    const opt = document.querySelector(".tx-typeopt");
-    const lbl = document.querySelector(".tx-typeopt .tx-typeopt-l") || opt;
-    const n = document.querySelector(".tx-typeopt .tx-typeopt-n");
+    const chip = document.querySelector(".tx-typestrip .tx-secchip");
+    const n = chip && chip.querySelector(".tx-secn");
     const cs = (el) => (el ? getComputedStyle(el) : null);
-    const o = cs(opt), l = cs(lbl), c = cs(n);
+    const o = cs(chip), c = cs(n);
     return {
-      rowSize: o && o.fontSize, lblSize: l && l.fontSize, lblFam: l && l.fontFamily,
-      nFam: c && c.fontFamily,
+      chipSize: o && o.fontSize, chipFam: o && o.fontFamily, nFam: c && c.fontFamily,
       adj: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0,
     };
   });
-  checkEq(r.rowSize, bodyPx(r.adj), `Transactions type-list: the option row is the body size (${bodyPx(r.adj)})`);
-  checkEq(r.lblSize, bodyPx(r.adj), `Transactions type-list: the type name is the body size (${bodyPx(r.adj)})`);
-  check(isAppFont(r.lblFam), "Transactions type-list: the type name uses the one app font (Gotham)");
-  check(isAppFont(r.nFam), "Transactions type-list: the count uses the one app font (Gotham)");
-  checkErrs(errs, "transactions type-list");
+  checkEq(r.chipSize, bodyPx(r.adj), `Transactions type filter: the type chip reads at the body size (${bodyPx(r.adj)})`);
+  check(isAppFont(r.chipFam), "Transactions type filter: the type chip uses the one app font (Gotham)");
+  check(isAppFont(r.nFam), "Transactions type filter: the count uses the one app font (Gotham)");
+  checkErrs(errs, "transactions type filter");
 }
 
 // ---- 4) BODY on BOTH — the same body size holds on the desktop terminal ----

@@ -65,7 +65,7 @@ const ov = await pg.evaluate(() => {
 check(ov.nameWt != null && ov.nameWt <= 400, `Transactions: the deal name is NOT bold — normal weight (${ov.nameWt})`);
 check(ov.subs.length >= 4, `Primary shows a sub-tab per transaction type (${ov.subs.join(", ")})`);
 check(ov.noOverview, "the Overview sub-tab is removed from Primary/Secondaries");
-check(ov.activeIsFirst && ov.paneRows > 0, `it lands on the first (largest) type's deals (${ov.paneRows} rows)`);
+check(ov.activeIsFirst && ov.subs[0] === "All" && ov.paneRows > 0, `it defaults to the All sub-tab — the whole group's deals across every type, not one type (${ov.subs[0]}, ${ov.paneRows} rows)`);
 check(ov.subsHaveCounts, "each sub-tab carries its deal count");
 check(ov.subStacked > 10, `desktop: the sub-tabs stack as a second vertical rail (Δtop ${ov.subStacked}px)`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
@@ -116,6 +116,24 @@ check(spon.n > 0 && spon.diff, `a Sponsor column names the PE backer, distinct f
 // a manager link routes into the Profiles tab
 const nav = await pg.evaluate(() => (document.querySelector(".tx-panes-in .tx-list a.tx-mgr") || {}).getAttribute("href"));
 check(/\/profiles\/#\/manager\//.test(nav), `manager links point into Profiles (${nav})`);
+
+// ---- 3a) the type filter is OFF by default: the "All" sub-tab clears it, restoring the
+// whole group's deals (more rows than any one type). Then re-select Direct lending so the
+// sub-category / group-by checks below run on that type.
+const allRestore = await pg.evaluate(async () => {
+  const typeRows = document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length;
+  const allChip = [...document.querySelectorAll(".tx-subnav [data-sub]")].find((c) => c.dataset.sub === "");
+  if (allChip) allChip.click();
+  await new Promise((r) => setTimeout(r, 150));
+  const allRows = document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length;
+  const onAll = ((document.querySelector(".tx-subnav .tchip.is-on") || {}).dataset || {}).sub === "";
+  const dl = [...document.querySelectorAll(".tx-subnav [data-sub]")].find((x) => /Direct lending/.test(x.textContent));
+  if (dl) dl.click();
+  await new Promise((r) => setTimeout(r, 150));
+  return { typeRows, allRows, onAll };
+});
+check(allRestore.onAll && allRestore.allRows > allRestore.typeRows,
+  `desktop: the All sub-tab clears the type filter — back to the whole group (${allRestore.allRows} > ${allRestore.typeRows} for one type)`);
 
 // ---- 3b) asset-class sub-category chips filter the pane ------------------
 const sub = await pg.evaluate(() => {
@@ -261,27 +279,38 @@ await ctx.close();
   await p.ctx.close();
 }
 
-// ---- 7) phone: types are on-screen OPTIONS (no sub-tab strip); a picked type's
-// deal list FITS the screen — all columns scroll inside its own .tleague-wrap,
-// not squashing the borrower into a ragged char-by-char wrap, and the page itself
-// must NOT gain a horizontal scrollbar.
+// ---- 7) phone: the TYPE filter is a chip strip (All + each type) over the deal list;
+// All is the DEFAULT, so the whole group's deals show without picking a type, and tapping
+// a type narrows in place. The deal list FITS the screen — all columns scroll inside its
+// own .tleague-wrap, not squashing the borrower into a ragged char-by-char wrap, and the
+// page itself must NOT gain a horizontal scrollbar.
 {
   const p = await open(b, PHONE_SHORT, base + "/v2/transactions/");
-  await p.pg.waitForSelector(".tx-typelist .tx-typeopt", { timeout: 8000 });
-  const opts = await p.pg.evaluate(() => {
-    const o = [...document.querySelectorAll(".tx-typelist .tx-typeopt")];
-    const lbl = o[0] && o[0].querySelector(".tx-typeopt-l");
-    const r = { n: o.length, noStrip: !document.querySelector(".tx-subnav"),
-      lblWt: lbl ? parseInt(getComputedStyle(lbl).fontWeight, 10) : null };
-    (o.find((x) => /Direct lending/.test(x.textContent)) || o[0]).click();
-    return r;
+  await p.pg.waitForSelector(".tx-typestrip [data-sub]", { timeout: 8000 });
+  await p.pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
+  const strip = await p.pg.evaluate(() => {
+    const chips = [...document.querySelectorAll(".tx-typestrip [data-sub]")];
+    const allChip = chips.find((c) => c.dataset.sub === "");
+    return {
+      n: chips.length, hasAll: !!allChip, defaultAll: !!(allChip && allChip.classList.contains("is-on")),
+      noStrip: !document.querySelector(".tx-subnav"),   // no desktop left-rail sub-tabs on phone
+      defaultRows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length,
+    };
   });
-  check(opts.n >= 4 && opts.noStrip, `phone: transaction types shown as on-screen options, no sub-tab strip (${opts.n} options)`);
-  check(opts.lblWt != null && opts.lblWt <= 400, `phone: the transaction-type row labels are NOT bold — normal weight (${opts.lblWt})`);
+  check(strip.n >= 5 && strip.hasAll && strip.noStrip, `phone: a type-filter chip strip (All + each type), no left sub-tab rail (${strip.n} chips)`);
+  check(strip.defaultAll && strip.defaultRows > 0, `phone: All is the default — the whole group's deals show without picking a type (${strip.defaultRows} rows)`);
+  // Tapping a type narrows the list to it (the optional, off-by-default filter).
+  const pick = await p.pg.evaluate(async () => {
+    const before = document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length;
+    const c = [...document.querySelectorAll(".tx-typestrip [data-sub]")].find((x) => /Direct lending/.test(x.textContent));
+    if (c) c.click();
+    await new Promise((r) => setTimeout(r, 150));
+    const onChip = document.querySelector(".tx-typestrip [data-sub].is-on");
+    return { before, after: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length, onLabel: (onChip || {}).textContent || "" };
+  });
+  check(/Direct lending/.test(pick.onLabel) && pick.after > 0 && pick.after <= pick.before, `phone: tapping a type filters the list to it (${pick.after}/${pick.before})`);
   await p.pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
   await p.pg.waitForTimeout(400);
-  const hasBack = await p.pg.evaluate(() => !!document.querySelector(".tx-phone-back"));
-  check(hasBack, "phone: a back control returns from a type's deals to the options list");
   const drill = await p.pg.evaluate(() => {
     const t = document.querySelector(".tx-panes-in .tx-list");
     const wrap = t.closest(".tleague-wrap");

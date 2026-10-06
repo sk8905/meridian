@@ -902,6 +902,11 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 /* A single horizontally-scrolling row of chips (no wrap); the .tx-subhead rule adds
    overflow-x:auto so overflowing chips scroll rather than stack. */
 .tx-secfilter { display: flex; flex-wrap: nowrap; gap: 6px; margin-top: 11px; }
+/* The phone TYPE-filter strip (All + each transaction type) sits at the top of the
+   deal pane and scrolls horizontally on its own, like the sub-category row does inside
+   .tx-subhead. Pinned to the top with no top margin. */
+.tx-typestrip { margin-top: 0; margin-bottom: 11px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.tx-typestrip::-webkit-scrollbar { display: none; }
 .tx-secchip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--muted); font: inherit; font-size:var(--fs-body); padding: 3px 9px; border-radius: 0; cursor: pointer; white-space: nowrap; }
 .tx-secchip:hover { color: var(--ink); border-color: var(--muted); }
 .tx-secchip.is-on { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }

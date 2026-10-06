@@ -132,26 +132,25 @@ export function mount(host, ctx) {
   function renderFlow() {
     const types = flowTypes();
     if (!types.length) { body.innerHTML = `<p class="tw-empty muted small">No transactions on record yet.</p>`; return; }
-    const g = TX_GROUPS.find((x) => x.key === st.group) || TX_GROUPS[0];
+    // The TYPE sub-tab is an OPTIONAL filter, OFF by default: st.sub === "" shows ALL of
+    // the active group's deals (across every type); a type chip narrows to that type. A
+    // stale type (left over after a group switch) falls back to All, never auto-selected.
+    if (st.sub && !types.some((s) => s.key === st.sub)) st.sub = "";
+    const groupN = types.reduce((a, s) => a + s.n, 0);
     if (!_txDesktop()) {
-      if (st.sub && types.some((s) => s.key === st.sub)) {
-        // Drilled into a type: back to the option list + that type's deals.
-        const n = (types.find((s) => s.key === st.sub) || {}).n;
-        body.innerHTML = `<div class="tx-phone">`
-          + `<button type="button" class="tx-phone-back" data-sub="">‹ ${esc(g.label)}</button>`
-          + `<h3 class="tx-phone-h">${esc(typeLabel(st.sub))}<span class="tx-phone-n">${n}</span></h3>`
-          + `<div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div>`;
-      } else {
-        // The options: one row per transaction type, tapped to open its deals.
-        const opt = (s) => `<button type="button" class="tx-typeopt" data-sub="${esc(s.key)}"><span class="tx-typeopt-l">${esc(typeLabel(s.key))}</span><span class="tx-typeopt-n">${s.n}</span><span class="tx-typeopt-caret" aria-hidden="true">›</span></button>`;
-        body.innerHTML = `<div class="tx-typelist">${types.map(opt).join("")}</div>`;
-      }
+      // Phone: a horizontal type-filter chip strip (All + each type) over the deal list;
+      // default (All) shows the whole group, tapping a type filters in place.
+      const tchip = (k, label, n, on) => `<button type="button" class="tx-secchip${on ? " is-on" : ""}" data-sub="${esc(k)}">${esc(label)}<span class="tx-secn">${n}</span></button>`;
+      const strip = `<div class="tx-typestrip tx-secfilter" role="group" aria-label="Filter by transaction type">`
+        + tchip("", "All", groupN, !st.sub)
+        + types.map((s) => tchip(s.key, typeLabel(s.key), s.n, st.sub === s.key)).join("")
+        + `</div>`;
+      body.innerHTML = `<div class="tx-phone">${strip}<div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div>`;
       return;
     }
-    // Desktop: the transaction-type sub-tabs now live in the LEFT mode rail, nested
-    // under the active Primary/Secondaries tab (see renderModeNav); the body is just
-    // the active type's deals at full width, filling the space the rail vacated.
-    if (!types.some((s) => s.key === st.sub)) st.sub = types[0].key;
+    // Desktop: the transaction-type sub-tabs live in the LEFT mode rail, nested under the
+    // active Primary/Secondaries tab (see renderModeNav); the body is the current
+    // selection's deals (All by default) at full width.
     body.innerHTML = `<div class="tx-panes"><div class="tx-panes-in">${typeSublist(st.sub, _subSec, _subGrp)}</div></div>`;
     renderModeNav();
   }
@@ -170,9 +169,12 @@ export function mount(host, ctx) {
     if (_txDesktop() && flow) {
       const types = flowTypes();
       if (types.length) {
-        if (!types.some((s) => s.key === st.sub)) st.sub = types[0].key;
+        if (st.sub && !types.some((s) => s.key === st.sub)) st.sub = "";   // stale type after a group switch → All
+        const groupN = types.reduce((a, s) => a + s.n, 0);
         const chip = (s) => `<button type="button" class="tchip${st.sub === s.key ? " is-on" : ""}" data-sub="${esc(s.key)}">${esc(typeLabel(s.key))}<span class="tx-subn">${s.n}</span></button>`;
-        subHTML = `<div class="tx-subnav tx-subnav-nested"><div class="tchips">${types.map(chip).join("")}</div></div>`;
+        // "All" is the default (off-by-default type filter): the whole group's deals.
+        const allChip = `<button type="button" class="tchip${!st.sub ? " is-on" : ""}" data-sub="">All<span class="tx-subn">${groupN}</span></button>`;
+        subHTML = `<div class="tx-subnav tx-subnav-nested"><div class="tchips">${allChip}${types.map(chip).join("")}</div></div>`;
       }
     }
     nav.innerHTML = MODES.map(([k, l]) => {
@@ -219,23 +221,29 @@ export function mount(host, ctx) {
   // this is purely the indented drill-down of the individual deals. `sector`
   // filters within the type; each open type keeps its own filter on its data-sec.
   function typeSublist(key, sector, group) {
-    const t = TX_TYPES.find((x) => x.key === key), s = statsFor(key);
+    // key "" → ALL of the active group's deals (the off-by-default type filter is All);
+    // a real type key → just that type. The sub-category (sector) chips + the deal list
+    // are built over whichever base set that selects.
+    const isAll = !key;
+    const t = isAll ? null : TX_TYPES.find((x) => x.key === key);
+    const gLabel = (TX_GROUPS.find((x) => x.key === st.group) || {}).label || "";
+    const base = isAll ? rows.filter((r) => groupOf(r.tx) === st.group && inFocus(r)) : statsFor(key).list;
     const sec = sector || "all";
     const grp = group === "lender" ? "lender" : "";
-    // Asset-class SUB-CATEGORIES present within this type (+ their counts).
-    const secCount = {}; s.list.forEach((r) => { secCount[r.sec] = (secCount[r.sec] || 0) + 1; });
+    // Asset-class SUB-CATEGORIES present within the base set (+ their counts).
+    const secCount = {}; base.forEach((r) => { secCount[r.sec] = (secCount[r.sec] || 0) + 1; });
     const present = SECTORS.filter((x) => secCount[x.key]);
-    const list = s.list.filter((r) => sec === "all" || r.sec === sec).sort((a, b) => b.ts - a.ts);
+    const list = base.filter((r) => sec === "all" || r.sec === sec).sort((a, b) => b.ts - a.ts);
     const secChip = (k, label, n, on) => `<button type="button" class="tx-secchip${on ? " is-on" : ""}" data-sec="${esc(k)}">${esc(label)}<span class="tx-secn">${n}</span></button>`;
     const chips = present.length > 1
-      ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", s.list.length, sec === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], sec === x.key)).join("")}</div>`
+      ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", base.length, sec === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], sec === x.key)).join("")}</div>`
       : "";
     // Group-by-lender toggle, pinned to the right of the sub-category filter row.
     // The chip strip scrolls horizontally beside it (like the home-page wire
     // filters), so the button never overlaps a chip. Off = newest-first flat list.
     const grpBtn = `<button type="button" class="tx-grpbtn${grp ? " is-on" : ""}" data-txgroup="lender" aria-pressed="${grp ? "true" : "false"}" title="Group the deals by lender / investor">${grpSvg}<span>Group by lender</span></button>`;
     const subhead = `<div class="tx-subhead">${chips}${grpBtn}</div>`;
-    if (!list.length) return subhead + `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${sec !== "all" ? " · " + esc(SECTOR_LABEL[sec]) : ""} transactions on record yet.</p>`;
+    if (!list.length) return subhead + `<p class="tw-empty muted small">No ${isAll ? esc(gLabel.toLowerCase()) : esc(t.label.toLowerCase())}${sec !== "all" ? " · " + esc(SECTOR_LABEL[sec]) : ""} transactions on record yet.</p>`;
     let rowsHtml;
     if (grp === "lender") {
       // Bucket by lender/investor id; most-active lender first, then alphabetical.
@@ -516,7 +524,7 @@ export function mount(host, ctx) {
     // Type navigation (Primary/Secondaries): the desktop sub-tab rail, the iPhone
     // type-option list, or the iPhone back control — all carry data-sub. Switching
     // resets the pane's sub-category filter + lender grouping. Back uses data-sub="".
-    const subt = e.target.closest(".tx-subnav [data-sub], .tx-typeopt, .tx-phone-back");
+    const subt = e.target.closest(".tx-subnav [data-sub], .tx-typestrip [data-sub], .tx-typeopt, .tx-phone-back");
     if (subt) { const k = subt.dataset.sub; if (k !== st.sub) { st.sub = k; _subSec = "all"; _subGrp = ""; renderFlow(); } return; }
     // BDC roster: row expand (detail + sources), holdings fetch.
     const hb = e.target.closest(".tbdc-hold-btn");
