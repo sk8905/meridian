@@ -1850,7 +1850,7 @@ const READ_OPEN = new Set([
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
-const READ_VER = "v14";
+const READ_VER = "v15";
 const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
@@ -2028,6 +2028,31 @@ function _stripTrailingJunk(blocks) {
   }
   return (sawSig && i < blocks.length) ? blocks.slice(0, i) : blocks;
 }
+// A paragraph TRUNCATED with a trailing ellipsis ("…" or "..."): recirculation teasers are
+// cut off this way ("…continuing to build out…"); real article prose runs to a full stop.
+const _ENDS_ELLIPSIS = /(?:\.\.\.|…)[”’"')\]]*\s*$/;
+// Drop a TRAILING "related / recommended stories" block — a run of short linked headlines
+// and ellipsis-truncated teasers that some publishers (Hedgeweek, PE Wire, …) append below
+// the article. Distinct from _stripTrailingJunk (footer/promo): here the SIGNATURE is the
+// recirculation SHAPE — ≥2 ellipsis-truncated teasers (or nav-label/link-only rows) in the
+// trailing run. Guarded: a real, NON-truncated body sentence must sit above the run, and the
+// walk stops at that sentence, so genuine prose (even prose with an odd mid-article heading)
+// is never cut. Runs after _stripTrailingJunk so footer/promo tails are already gone.
+function _stripTrailingRecirc(blocks) {
+  if (!blocks.some((b) => !b.h && !b.img && !b.tweetId && !b.embed && b.t.length >= 40 && _ENDS_SENTENCE.test(b.t) && !_ENDS_ELLIPSIS.test(b.t) && !READ_FOOTER.test(b.t) && !READ_PROMO.test(b.t))) return blocks;
+  let i = blocks.length, strong = 0;
+  while (i > 0) {
+    const p = blocks[i - 1];
+    if (p.img || p.tweetId || p.embed) break;                 // real media — stop
+    const ellipsis = !p.h && _ENDS_ELLIPSIS.test(p.t);        // truncated teaser (strong recirc signal)
+    const navHead = p.h && READ_NAV_LABEL.test(p.t);          // "Related stories" / "Recommended" heading
+    const linkOnly = !p.h && _blockIsLinkOnly(p.t);           // a headline that only links out
+    const fragLike = !p.h && p.t.length < 160 && !_ENDS_SENTENCE.test(p.t);   // a bare headline line
+    if (ellipsis || navHead || linkOnly || fragLike) { if (ellipsis || navHead || linkOnly) strong++; i--; continue; }
+    break;                                                    // a real, non-truncated body sentence — keep it
+  }
+  return (strong >= 2 && i < blocks.length) ? blocks.slice(0, i) : blocks;
+}
 // Drop any heading NOT immediately followed by a body paragraph (before the next heading
 // or the end). A run of headings with no prose between them is a NAV MENU / section-link
 // list (e.g. a publisher's "Research · Events · Jobs · Firms A-Z · About" chrome pulled
@@ -2068,7 +2093,7 @@ export function extractReadable(html, u) {
     const whole = _readBlocks(html, u);
     if (_readBlocksLen(whole) > _readBlocksLen(blocks)) { blocks = whole; widened = true; }
   }
-  blocks = _dropBodylessHeadings(_stripTrailingJunk(_stripLeadingJunk(blocks)));   // drop leading recirc + nav headings + a trailing footer/sponsor strip
+  blocks = _dropBodylessHeadings(_stripTrailingRecirc(_stripTrailingJunk(_stripLeadingJunk(blocks))));   // drop leading recirc + nav headings + trailing footer/sponsor + trailing related-stories block
   // A widen means the article scope read thin, so the widened blocks sweep in images from
   // OUTSIDE the article — a site's "related stories" / "latest" recirculation grid, promo
   // banners, award logos, the same generic photo on every post. None of those is part of
@@ -2235,7 +2260,7 @@ export function proxyBlocks(md, base) {
     if (out.filter((x) => !x.h).length >= 60) break;
   }
   // Leading recirculation strip + nav-menu headings (a heading with no body after it).
-  return _dropBodylessHeadings(_stripTrailingJunk(_stripLeadingJunk(out)));
+  return _dropBodylessHeadings(_stripTrailingRecirc(_stripTrailingJunk(_stripLeadingJunk(out))));
 }
 // Body-only paragraph strings (back-compat for callers + specs). The ordered `blocks`
 // (with headings) come from proxyBlocks.

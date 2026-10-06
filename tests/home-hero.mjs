@@ -246,6 +246,14 @@ const b = await launchChromium();
   const newsHidden = await pg.evaluate(() => { const n = document.getElementById("g-hero-news"); return !n || getComputedStyle(n).display === "none"; });
   check(newsHidden, "hero: the related-news list is hidden on the desktop terminal");
 
+  // The last-used range STICKS across a reload — there is no snap back to a default.
+  await pg.evaluate(() => document.querySelector('#g-hero-range .g-hero-rg[data-r="6M"]').click());
+  await pg.waitForTimeout(120);
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-hero-range .g-hero-rg.is-on", { timeout: 8000 });
+  const persisted = await pg.evaluate(() => (document.querySelector("#g-hero-range .g-hero-rg.is-on") || {}).dataset?.r);
+  checkEq(persisted, "6M", "hero: the last-selected range persists across a reload (no default snap-back)");
+
   checkErrs(errs, "home hero desktop");
   await ctx.close();
 }

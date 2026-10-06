@@ -969,8 +969,8 @@ const _HERO_KEY = "wire.hero.v1";
 // 60fps direct-DOM); only the range toggle is a Preact component (HeroRange).
 const _heroData = signal(null);   // [{ key,label,unit,pre,dp,fi,value,asOf,history:[[ms,v],…] }]
 const _heroSel = signal([]);      // selected instrument keys (1..all); at least one is always kept
-const _heroRange = signal("1M");  // 1D | 1W | 1M | 6M | 1Y | ALL — open on 1M, where the
-                                  // indexed lines fan out and separate (1D buries them all on 0%)
+const _heroRange = signal("1M");  // 1D | 1W | 1M | 6M | 1Y | ALL — cold-start 1M (where the
+                                  // indexed lines fan out); boot() restores the last-used range
 let _heroBooted = false, _heroWatching = false, _heroAuto = 0, _heroWired = false;
 const HERO_W = 900, HERO_H = 150, HERO_PX = 6, HERO_PT = 10, HERO_PB = 10;
 // Only 1D is intraday — it reads the 15-min bar series and plots on a real wall-clock
@@ -1109,6 +1109,8 @@ function initHero() {
   if (_heroBooted) { fetchHero(); renderHeroNews(); return; }   // re-entry (Chart chip tapped): refresh
   const boot = () => {
     if (_heroBooted) return; _heroBooted = true;
+    // No fixed default range — restore whichever range was last used (1M only on a cold start).
+    try { const pr = _homePrefs().heroRange; if (HERO_RANGES.includes(pr)) _heroRange.value = pr; } catch { /* ignore */ }
     mountHeroRange();            // Preact range toggle (reads/writes _heroRange)
     wireHeroControls();          // ticker-row delegation + svg hover
     effect(renderHero);          // reactive redraw: re-runs on any _heroData/_heroSel/_heroRange change
@@ -1478,7 +1480,7 @@ function HeroRange() {
   return h(Fragment, null, HERO_RANGES.map((r) => h("button", {
     type: "button", class: "g-hero-rg" + (r === cur ? " is-on" : ""), "data-r": r,
     role: "tab", "aria-selected": r === cur ? "true" : "false",
-    onClick: () => { _heroRange.value = r; },
+    onClick: () => { _heroRange.value = r; _saveHomePref({ heroRange: r }); },   // remember the last-used range
   }, r)));
 }
 function mountHeroRange() {

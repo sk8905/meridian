@@ -102,7 +102,14 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   **and** (b) the run actually carries a footer/promo signature — so a clean article (or
   one that merely ends on a short heading) is never touched, real prose after a mid-article
   CTA is never cut, and live prose that says "registered in Delaware" or names a year is
-  never truncated. Any extraction change
+  never truncated. A further pass, **`_stripTrailingRecirc`**, drops a trailing
+  **"related / recommended stories"** block — the run of short linked headlines and
+  **ellipsis-truncated teasers** ("…continuing to build out…") some publishers (Hedgeweek,
+  PE Wire) append below the article. Its signature is the recirculation SHAPE: it fires only
+  when the trailing run carries **≥2** strong signals (ellipsis-truncated teasers, nav-label
+  or link-only rows) AND a real, **non-truncated** body sentence sits above it (the cut
+  point), so a clean article — even one whose last line genuinely trails off with one
+  ellipsis — is never cut. Any extraction change
   must bump the `read.internal/vN` edge-cache key so the edge re-extracts.
   **Prose is left-aligned, never justified** — both the reader body (`.g-read-p`) and the
   briefing prose (`.g-hbrief-b`/`.g-hbrief-bt`) use `text-align:left` with `hyphens:none` and

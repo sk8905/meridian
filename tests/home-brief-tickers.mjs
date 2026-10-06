@@ -41,7 +41,9 @@ await pg.waitForSelector("#g-rates .rate-tile", { timeout: 8000 });
 await pg.evaluate(async () => {
   const m = await import("/briefings.js");
   const B = m.BRIEFINGS || {}, slots = B.slots || {};
-  const key = (B.order || []).filter((k) => slots[k])[0];
+  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
+  const _ord = (B.order || []).filter((k) => slots[k]);
+  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);   // the FRESHEST slot (what the card renders)
   slots[key].bullets = [
     { html: "<strong>Equities &mdash; Nvidia leads a rally</strong> as Honeywell gains and Boeing lags in France, with the Nasdaq higher, the US 10-year Treasury yield ticking up and Acme Widgets flat.", src: "https://example.com/e", srcName: "Ex" },
   ];
@@ -92,7 +94,9 @@ checkEq(r.totalPills, 4, "exactly four pills — NVDA, HON, US 10Y, NASDAQ");
 const amp = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
   const B = m.BRIEFINGS || {}, slots = B.slots || {};
-  const key = (B.order || []).filter((k) => slots[k])[0];
+  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
+  const _ord = (B.order || []).filter((k) => slots[k]);
+  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);   // the FRESHEST slot (what the card renders)
   slots[key].bullets = [
     { html: "<strong>R&amp;D &mdash; spending rose</strong> across the sector.", src: "https://example.com/x", srcName: "Ex" },
   ];

@@ -138,7 +138,7 @@ check(!pp.some((p) => /Subscribe to our newsletter|Terms of use|financial market
 // 3c) A recirculation widget ("Popular Searches" + a list of headline LINKS) sits
 //     inside the body scope, interleaved with the real prose. The section label and the
 //     link-only headline rows must be dropped, keeping only the article's own sentences.
-const recirc = `<html><head><meta property="og:title" content="Brazil next, US midterms coming, in impactful global election year"></head><body>
+const recircDoc = `<html><head><meta property="og:title" content="Brazil next, US midterms coming, in impactful global election year"></head><body>
   <article>
     <h3>Popular Searches</h3>
     <p><a href="/news/n1">Nike falls 9% as revenue miss, weak guidance signal more pain ahead</a></p>
@@ -148,12 +148,12 @@ const recirc = `<html><head><meta property="og:title" content="Brazil next, US m
     <p>The contest is one of several remaining races out of some 40 worldwide this year that could impact financial markets and currencies across emerging economies.</p>
     <p>Analysts at <a href="/pro/cap">Capital Economics</a> said a market-friendly win could lift equities between 10% and 20% and pull local-currency bond yields lower over the quarter.</p>
   </article></body></html>`;
-const rc = extractReadable(recirc, u("https://www.investing.com/news/economy/x"));
-check(rc.paragraphs.length === 3, `extract: drops the "Popular Searches" headline-link rows, keeps the 3 prose paragraphs (${rc.paragraphs.length})`);
-check(rc.paragraphs[0].startsWith("LONDON, Oct 2 (Reuters)"), "extract: the body starts at the real article lede, not the recirculation list");
-check(!rc.paragraphs.some((p) => /Nike falls 9%|Nonfarm payrolls loom|Dow and Nasdaq mostly flat/.test(p)), "extract: none of the related-headline links leak into the body");
-check(!rc.blocks.some((b) => /^Popular Searches/i.test(b.t)), "extract: the 'Popular Searches' widget heading is dropped (nav label)");
-check(rc.paragraphs.some((p) => /Capital Economics said a market-friendly win/.test(p)), "extract: a prose paragraph with an inline link is kept (not treated as a link row)");
+const rcOut = extractReadable(recircDoc, u("https://www.investing.com/news/economy/x"));
+check(rcOut.paragraphs.length === 3, `extract: drops the "Popular Searches" headline-link rows, keeps the 3 prose paragraphs (${rcOut.paragraphs.length})`);
+check(rcOut.paragraphs[0].startsWith("LONDON, Oct 2 (Reuters)"), "extract: the body starts at the real article lede, not the recirculation list");
+check(!rcOut.paragraphs.some((p) => /Nike falls 9%|Nonfarm payrolls loom|Dow and Nasdaq mostly flat/.test(p)), "extract: none of the related-headline links leak into the body");
+check(!rcOut.blocks.some((b) => /^Popular Searches/i.test(b.t)), "extract: the 'Popular Searches' widget heading is dropped (nav label)");
+check(rcOut.paragraphs.some((p) => /Capital Economics said a market-friendly win/.test(p)), "extract: a prose paragraph with an inline link is kept (not treated as a link row)");
 
 // 5b) The proxy (markdown) path drops a "Popular Searches" recirculation list — blocks
 //     that are only links — while keeping prose that merely carries an inline link.
@@ -703,5 +703,36 @@ check(/ctx\.waitUntil\(prewarmReads\(env\)\.catch\(/.test(_src), "pre-warm: the 
 check(/env\.WATCHLIST\.get\(_readKvKey\(u\.toString\(\)\)\)/.test(_src), "pre-warm: handleRead serves the KV pre-warm on an edge miss");
 check(/const READ_VER = "v\d+"/.test(_src) && /read\.internal\/" \+ READ_VER/.test(_src),
   "pre-warm: the edge key and the KV key share one versioned constant (lockstep invalidation)");
+
+// N) A TRAILING "recommended / related stories" block — short linked headlines + teasers
+//    truncated with an ellipsis, appended below the real article (as Hedgeweek, PE Wire do).
+//    The real body paragraphs stay; the recirculation run is dropped.
+const hwDoc = `<!doctype html><html><head><meta property="og:title" content="Sovereign TRS risks"></head><body><article>
+  <p>Governments including Senegal and Angola are increasingly using total return swaps to raise funding from banks, but the structures are creating concerns among sovereign bondholders about creditor priority in future debt restructurings, according to a report by Bloomberg.</p>
+  <p>Senegal said the funding cost about 7%, versus an estimated 11% to 12% on international markets, and is now restructuring its debt, leaving bondholders concerned that the banks could receive preferential treatment under the arrangements described in the filings.</p>
+  <p>For hedge funds familiar with the instruments, the growing use by sovereign borrowers highlights a broader issue: financing structures designed to provide cheaper access to capital could ultimately alter creditor seniority during restructurings.</p>
+  <p>Jain Global adds two senior equity PMs in London</p>
+  <p>Jain Global has strengthened its London equities operation with the appointment of two senior portfolio managers, continuing to build out...</p>
+  <p>Bridgewater calls for AI tax and public ownership to spread benefits of tech boom</p>
+  <p>Bridgewater Associates is calling for policymakers to take action to ensure the economic benefits of artificial intelligence are shared...</p>
+  <p>BlueCrest Capital Management is understood to be losing a number of portfolio managers and traders, including a 26-year-old rates...</p>
+  <p>Bloomberg automates Japanese government bond market-on-close trading</p>
+  <p>Balyasny promotes star stock picker to co-lead equities</p>
+  <p>Arini raises $1.5bn for credit strategy despite flagship fund loss</p>
+  </article></body></html>`;
+const hwOut = extractReadable(hwDoc, u("https://www.hedgeweek.com/sovereign-trs"));
+check(hwOut.paragraphs.length === 3, `extract(recirc): keeps only the 3 real article paragraphs (${hwOut.paragraphs.length})`);
+check(hwOut.paragraphs.every((p) => !/Jain Global|Bridgewater|BlueCrest|Balyasny|Arini raises/.test(p)) && !hwOut.blocks.some((b) => /Jain Global|Bridgewater|BlueCrest|Balyasny|Arini raises/.test(b.t)),
+  "extract(recirc): the trailing recommended-stories block is dropped");
+check(hwOut.paragraphs[0].includes("total return swaps") && hwOut.paragraphs[2].includes("creditor seniority"), "extract(recirc): the real body survives intact");
+
+// N2) GUARD: a clean article whose last paragraph genuinely ends in an ellipsis (a single
+//     trailing truncation, not a recirc run) must NOT be cut — needs ≥2 recirc signals.
+const trailDoc = `<!doctype html><html><head><meta property="og:title" content="One ellipsis"></head><body><article>
+  <p>The committee met on Thursday to weigh the latest inflation data and the path for interest rates into the year end, with officials split on the pace of further moves.</p>
+  <p>One member reportedly summed up the mood by trailing off mid-thought, saying the outlook was, as ever, data dependent and therefore impossible to pin down...</p>
+  </article></body></html>`;
+const trOut = extractReadable(trailDoc, u("https://www.example-news.com/ellipsis"));
+check(trOut.paragraphs.length === 2, `extract(recirc guard): a lone trailing ellipsis paragraph is NOT cut (${trOut.paragraphs.length})`);
 
 finish();
