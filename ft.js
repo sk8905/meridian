@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "211b69e4-ae2f-4323-bc31-e07fc1560581",
+    title: "ExxonMobil looks to offshore projects in Trinidad and Tobago for next boom",
+    date: "2026-10-06",
+    time: "18:36",
+    url: "https://www.ft.com/content/211b69e4-ae2f-4323-bc31-e07fc1560581",
+  },
+  {
     id: "a7a19bb1-a1ba-4317-a191-c387bbc9f4b9",
     title: "Pedro Sánchez’s big electoral gamble",
     date: "2026-10-06",
