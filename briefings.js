@@ -55,14 +55,13 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-10-05",
-      time: "12:25 BST",
+      date: "2026-10-06",
+      time: "12:20 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; an FT column argues bond turbulence means it&rsquo;s time for the ECB to put QT on hold</strong>, as the euro slid to a 17-month low against the dollar on Spanish and French political risk. Separately, Spanish prime minister Pedro S&aacute;nchez has called a snap election.", src: "https://www.ft.com/content/e0dfef01-4933-4ab9-8927-d08115f4822c", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; Flávio Bolsonaro has taken an early lead in Brazil&rsquo;s presidential election</strong>, the FT reports, in a stunning comeback for the Bolsonaro dynasty.", src: "https://www.ft.com/content/1ab64d24-0f32-4dc8-86b5-20d06e3b3588", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the euro fell to a 17-month low against the dollar</strong> as political uncertainty in Spain and France weighed on European assets, the FT reports.", src: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; Schneider Electric has agreed to buy US software group PTC for $23.7bn</strong>, the FT reports, while a top Monte dei Paschi investor has backed Intesa&rsquo;s sweetened &euro;34.5bn takeover bid.", src: "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; Nvidia&rsquo;s $20bn licensing deal with Groq faces a lawsuit</strong> from jilted engineers, the FT reports.", src: "https://www.ft.com/content/93ee425d-9ac7-4543-8cc9-fef2e0670787", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; Chancellor Healey warns banks the UK faces a &lsquo;challenging&rsquo; fiscal picture</strong> but stays tight-lipped on tax ahead of the Budget, the FT reports.", src: "https://www.ft.com/content/5b233375-b686-4dc1-ab59-47930f1583ad", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; a surge in borrowing costs is hitting corporate America</strong>, the FT reports.", src: "https://www.ft.com/content/7c7ccb82-2973-47af-ad9b-b469c6ea0048", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; Nvidia is on the verge of a $6 trillion market value</strong> as the tech-led rally continues, while Ray Dalio warns on bonds, Bloomberg&rsquo;s Markets Daily reports.", src: "https://www.bloomberg.com/news/newsletters/2026-10-06/nvidia-is-on-the-verge-of-a-6-trillion-market-value", srcName: "Bloomberg" },
+        { html: "<strong>Credit &mdash; Informa agrees to buy events rival Clarion from Blackstone for &pound;2.2bn</strong>, the FT reports, a private-equity portfolio exit.", src: "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1", srcName: "Financial Times" },
       ],
     },
     evening: {
