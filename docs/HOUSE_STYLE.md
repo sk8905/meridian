@@ -630,7 +630,16 @@ notification badge red (`#ef4444`).
   every slot carries at least one Equities bullet** (the refresh invariant); the
   renderer round-robins the per-desk bullets under the four-bullet cap so each of
   the three desks keeps its lead bullet and **Equities can never be pushed off the
-  card** by a Macro/Fixed-income-heavy slot. **One live-data
+  card** by a Macro/Fixed-income-heavy slot. **iPhone-only markets snapshot strip:** on the
+  phone the briefing opens with a horizontally-scrollable strip of square cards
+  (`.g-hbrief-strip` → `.g-hbs-card`, `renderBriefStrip`) — **S&P 500 · VIX · Oil · Gold ·
+  US 10Y** — each with the value on top and a direction-coloured block carrying the
+  absolute + % change below. When a cash market is CLOSED the card shows the **futures**
+  move with a `*` on the value (VIX has no future → last cash level with `*`). It reads the
+  same last-good markets/rates cache as the rail (no extra fetch) and stays empty rather
+  than guessing (R7). **Hidden on the desktop quadrant** (the quadrant keeps the per-desk
+  badges). On phone the **Market Briefing is the FIRST wire tab** (News/lane is second and
+  still the default landing pane). **One live-data
   badge per desk section:** each canonical desk carries exactly ONE compact data card
   pinning its lead instrument to a real, sourced number — **Macro → Brent, Equities →
   S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip.

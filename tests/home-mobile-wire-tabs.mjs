@@ -1,7 +1,7 @@
 // Home on mobile: the multi-column terminal collapses to one column. Four tabs —
-// News (the default landing pane; a merged wire whose lane — All · News · Manager ·
-// Watchlist — is chosen from a "Chat"-style dropdown), Chart, X Feed, and Market
-// Briefing (last; always expanded, fills the page). On desktop the lane chips +
+// Market Briefing FIRST (always expanded, fills the page), then News (the default
+// landing pane; a merged wire whose lane — All · News · Manager · Watchlist — is chosen
+// from a "Chat"-style dropdown), Chart, and X Feed. On desktop the lane chips +
 // reading pane show and these tabs are hidden.
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
@@ -17,8 +17,8 @@ const XFEED = { tweets: [
 const srv = await serve({ "/api/hero": () => [200, JSON.stringify(HERO)], "/api/xfeed": () => [200, JSON.stringify(XFEED)] });
 const b = await launchChromium();
 
-// --- Phone: chips visible; the lane (News/All) chip leads, Market Briefing is the
-//     default pane (second chip); chips swap panes
+// --- Phone: chips visible; Market Briefing leads the strip, the lane (News/All) chip is
+//     second and the default landing pane; chips swap panes
 {
   const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
   await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
@@ -40,7 +40,7 @@ const b = await launchChromium();
   check(chipsShown, "phone: the wire chips are shown");
 
   const labels = await pg.evaluate(() => [...document.querySelectorAll(".g-wiretab")].map((c) => c.textContent.trim()));
-  check(labels.join(" · ") === "All · Chart · X Feed · Briefing", `phone: four tabs — All (lane, default) · Chart · X Feed · Briefing (last) (${labels.join(", ")})`);
+  check(labels.join(" · ") === "Briefing · All · Chart · X Feed", `phone: four tabs — Briefing FIRST · All (lane, default) · Chart · X Feed (${labels.join(", ")})`);
   const laneMenu = await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()));
   check(laneMenu.join(" · ") === "All · News · Manager · Watchlist · Newsletters", `phone: the wire tab's dropdown offers the five lanes (${laneMenu.join(", ")})`);
 

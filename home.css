@@ -1258,6 +1258,31 @@
     .tui .g-hb-badge-c{ padding:1px 6px; font-size:var(--fs-micro); font-weight:700; color:var(--muted); }
     .tui .g-hb-badge.up .g-hb-badge-c{ background:color-mix(in srgb, var(--t-up) 18%, transparent); color:var(--t-up); }
     .tui .g-hb-badge.down .g-hb-badge-c{ background:color-mix(in srgb, var(--t-down) 18%, transparent); color:var(--t-down); }
+    /* iPhone-only markets snapshot STRIP at the top of the briefing — square cards
+       (label + value on top, a direction-coloured block with the absolute + % change
+       below), horizontally scrollable. Hidden on the desktop quadrant (media query at
+       the end). The '*' on a value marks a closed cash market (futures move shown). */
+    .tui .g-hbrief-strip{ display:flex; gap:8px; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
+      scrollbar-width:none; padding:2px 0; margin:0 0 11px; }
+    .tui .g-hbrief-strip::-webkit-scrollbar{ display:none; }
+    .tui .g-hbrief-strip:empty{ display:none; }
+    .tui .g-hbs-card{ flex:0 0 auto; min-width:46%; display:flex; flex-direction:column; border-radius:4px;
+      overflow:hidden; background:var(--t-panel, #15181d); text-decoration:none; }
+    .tui .g-hbs-top{ display:flex; flex-direction:column; gap:1px; padding:8px 11px 7px; }
+    .tui .g-hbs-lbl{ font-family:var(--t-mono); font-weight:700; font-size:var(--fs-micro); letter-spacing:.06em;
+      text-transform:uppercase; color:var(--t-ink); }
+    .tui .g-hbs-val{ font-family:var(--t-mono); font-weight:400; font-size:var(--fs-body); line-height:1.15;
+      color:var(--t-ink); font-variant-numeric:tabular-nums; }
+    .tui .g-hbs-star{ opacity:.55; margin-left:1px; }
+    .tui .g-hbs-chg{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:7px 11px;
+      background:var(--t-grid); }
+    .tui .g-hbs-card.up .g-hbs-chg{ background:var(--t-up); }
+    .tui .g-hbs-card.down .g-hbs-chg{ background:var(--t-down); }
+    .tui .g-hbs-arw{ font-size:var(--fs-body); line-height:1; color:#11161f; }
+    .tui .g-hbs-nums{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.18; }
+    .tui .g-hbs-n{ font-family:var(--t-mono); font-weight:700; font-size:var(--fs-micro); color:#11161f;
+      font-variant-numeric:tabular-nums; }
+    .tui .g-hbs-card.flat .g-hbs-arw, .tui .g-hbs-card.flat .g-hbs-n{ color:var(--t-mut); }
     /* DESKTOP briefing: lay the per-desk sections out as a responsive COLUMN GRID (one
        card per desk — Macro · Fixed income · Equities — up to three abreast where the
        quadrant is wide enough, gracefully stacking to 1–2 on narrower screens), with each
@@ -1265,6 +1290,7 @@
        run-in used on the narrow phone pane). A hairline divides the columns from the
        header above. */
     @media (min-width:1201px){
+      .tui .g-hbrief-strip{ display:none; }   /* the snapshot strip is iPhone-only */
       .tui .g-hbrief-list{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:11px 16px;
         margin-top:10px; padding-top:10px; border-top:1px solid var(--t-grid); align-items:start; }
       .tui .g-hbrief-b{ padding:0; border-top:none; text-align:left; -webkit-hyphens:none; hyphens:none; }

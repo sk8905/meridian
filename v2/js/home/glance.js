@@ -466,9 +466,69 @@ function renderHomeBriefing() {
     + `<span class="g-hbrief-ttl">Market briefing</span>`
     + `<span class="g-hbrief-when">${when}</span></div>`
     + `<div class="g-hbrief-body">`
+    + `<div class="g-hbrief-strip" id="g-hbrief-strip" role="list" aria-label="Markets snapshot"></div>`   // iPhone-only top strip (CSS-gated); filled by renderBriefStrip()
     + `<ul class="g-hbrief-list">${bullets}</ul>`
     + `</div>`;
   renderBriefBadges();
+  renderBriefStrip();
+}
+// The iPhone-only markets snapshot strip at the top of the briefing: square cards for
+// S&P 500 · VIX · Oil · Gold · US 10Y (snip-2 format — label+value on top, a direction-
+// coloured block with the absolute + % change below). When a cash market is CLOSED the
+// card shows the futures move with a "*" on the value (VIX has no future, so it shows the
+// last cash level with "*"). Reads the SAME last-good markets/rates cache the rail uses —
+// no extra fetch — and stays empty rather than guessing when an instrument isn't cached.
+const _HBS = [
+  { key: "S&P 500", src: "mkt",   label: "S&P 500", kind: "price" },
+  { key: "VIX",     src: "extra", label: "VIX",     kind: "level" },
+  { key: "Oil",     src: "mkt",   label: "OIL",     kind: "price" },
+  { key: "Gold",    src: "mkt",   label: "GOLD",    kind: "price" },
+  { key: "US 10Y",  src: "rate",  label: "US 10Y",  kind: "yield" },
+];
+function renderBriefStrip() {
+  const el = document.getElementById("g-hbrief-strip");
+  if (!el) return;
+  const mcache = readCache("markets") || {};
+  const mkts  = (_mktRows  && _mktRows.length)  ? _mktRows  : (mcache.markets || []);
+  const rates = (_rateRows && _rateRows.length) ? _rateRows : (((readCache("rates") || {}).rates) || []);
+  const extra = (_mktExtra && _mktExtra.length) ? _mktExtra : (mcache.moversExtra || []);
+  const find = (arr, lbl) => (arr || []).find((x) => x && x.label === lbl);
+  el.innerHTML = _HBS.map((d) => {
+    const row = d.src === "rate" ? find(rates, d.key) : d.src === "extra" ? find(extra, d.key) : find(mkts, d.key);
+    return _hbsCard(d.label, row, d.kind);
+  }).filter(Boolean).join("");
+}
+function _hbsCard(label, row, kind) {
+  if (!row || row.value == null) return "";
+  let star = false, dir = "flat", valTxt = "", absTxt = "", pctTxt = "";
+  if (kind === "yield") {
+    valTxt = fmtRate(row.value, row.unit);
+    const chg = (typeof row.change === "number" && isFinite(row.change)) ? row.change : null;
+    dir = chg == null ? "flat" : glSign(chg);
+    if (chg != null) absTxt = row.unit === "bp" ? `${chg > 0 ? "+" : ""}${Math.round(chg * 100)} bp` : `${chg > 0 ? "+" : ""}${chg.toFixed(2)} pp`;
+  } else {
+    const open = isMarketOpen(row);
+    let pct = null, abs = null;
+    if (!open && row.futuresPct != null) { pct = +Number(row.futuresPct); abs = row.value * pct / 100; star = true; }
+    else {
+      pct = (typeof row.changePct === "number" && isFinite(row.changePct)) ? row.changePct : null;
+      abs = (typeof row.change === "number" && isFinite(row.change)) ? row.change : (pct != null ? row.value * pct / 100 : null);
+      if (!open) star = true;
+    }
+    dir = pct != null ? glSign(pct) : (abs != null ? glSign(abs) : "flat");
+    valTxt = fmtPrice(row.value);
+    if (abs != null) absTxt = `${abs > 0 ? "+" : ""}${abs.toFixed(2)}`;
+    if (pct != null) pctTxt = `${pct > 0 ? "+" : ""}${pct.toFixed(2)}%`;
+  }
+  const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "·";
+  const nums = [absTxt, pctTxt].filter(Boolean).map((t) => `<span class="g-hbs-n">${esc(t)}</span>`).join("") || `<span class="g-hbs-n">·</span>`;
+  const tag = row.href ? "a" : "span";
+  const attrs = row.href ? ` href="${esc(row.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  return `<${tag} class="g-hbs-card ${dir}" role="listitem"${attrs}>`
+    + `<span class="g-hbs-top"><span class="g-hbs-lbl">${esc(label)}</span>`
+    + `<span class="g-hbs-val">${esc(valTxt)}${star ? '<span class="g-hbs-star">*</span>' : ""}</span></span>`
+    + `<span class="g-hbs-chg"><span class="g-hbs-arw">${arrow}</span><span class="g-hbs-nums">${nums}</span></span>`
+    + `</${tag}>`;
 }
 // Map a desk run-in heading to the one live instrument that leads it. Only the three
 // canonical desks carry a badge; anything else (an owner-requested one-off desk) is
@@ -2932,7 +2992,7 @@ function renderRates(el, d) {
   el.innerHTML = rowsData.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y").map(ratesTile).join("");
   if (!_briefLeads.rates) setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
-  renderTicker(); renderMovers(); renderSpreads(); renderVolRisk(); renderYieldCurve(); renderBriefBadges();
+  renderTicker(); renderMovers(); renderSpreads(); renderVolRisk(); renderYieldCurve(); renderBriefBadges(); renderBriefStrip();
   return true;
 }
 function initRates() {
@@ -3212,7 +3272,7 @@ function renderMarketsBand(el, d) {
   _mktRows = rows;
   _mktExtra = d.moversExtra || [];
   _mktEtf = d.moversEtf || [];
-  renderTicker(); renderMovers(); renderVolRisk(); renderBriefBadges();
+  renderTicker(); renderMovers(); renderVolRisk(); renderBriefBadges(); renderBriefStrip();
   return true;
 }
 // FX daily matrix — USD/GBP/EUR/JPY cross rates derived from the three USD pairs

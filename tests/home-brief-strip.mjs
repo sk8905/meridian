@@ -1,0 +1,82 @@
+// iPhone-only markets snapshot STRIP at the top of the Market briefing: square cards for
+// S&P 500 · VIX · Oil · Gold · US 10Y (snip-2 format — label+value on top, a direction-
+// coloured block with absolute + % change below). A CLOSED cash market shows the futures
+// move with a "*" on the value. Reads the same last-good markets/rates cache the rail uses.
+// Hidden on the desktop quadrant. Here /api/markets + /api/rates are stubbed deterministically.
+import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+
+const HERO = { asOf: "2026-10-06", instruments: ["spx", "ndx"].map((k, i) => ({
+  key: k, label: k.toUpperCase(), unit: "", pre: "", dp: 2, fi: false, value: 100 + i,
+  history: Array.from({ length: 30 }, (_, j) => [Date.now() - (29 - j) * 864e5, 100 + i + j * 0.1]),
+})) };
+const MARKETS = {
+  markets: [
+    // S&P 500 OPEN (marketState REGULAR) → no star, uses the cash % move.
+    { label: "S&P 500", value: 7773.95, change: 51.0, changePct: 0.66, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/%5EGSPC" },
+    // Oil CLOSED with a futures move → star, uses futuresPct.
+    { label: "Oil", value: 89.52, change: null, changePct: null, futuresPct: -3.61, marketState: "CLOSED", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/BZ=F" },
+    { label: "Gold", value: 3987.40, change: 12.3, changePct: 0.31, marketState: "REGULAR", asOf: "6 Oct", history: [], href: "https://finance.yahoo.com/quote/GC=F" },
+  ],
+  moversExtra: [
+    { label: "VIX", value: 18.44, change: -0.52, changePct: -2.74, marketState: "REGULAR", history: [], href: "https://finance.yahoo.com/quote/%5EVIX" },
+  ],
+  moversEtf: [], portfolio: null,
+};
+const RATES = { rates: [
+  { label: "US 10Y", value: 5.31, change: 0.03, unit: "%", asOf: "6 Oct", history: [], href: "https://www.cnbc.com/quotes/US10Y" },
+] };
+const routes = {
+  "/api/hero": () => [200, JSON.stringify(HERO)],
+  "/api/xfeed": () => [200, JSON.stringify({ tweets: [] })],
+  "/api/markets": () => [200, JSON.stringify(MARKETS)],
+  "/api/rates": () => [200, JSON.stringify(RATES)],
+};
+const srv = await serve(routes);
+const b = await launchChromium();
+
+// ---- PHONE: the strip renders its five cards, in order, with the closed-market star ----
+{
+  const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
+  // On phone the briefing rides its own tab (now FIRST) — open it so the pane is visible.
+  await pg.waitForSelector('.g-wiretab[data-wire="brief"]', { timeout: 8000 });
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').click());
+  await pg.waitForSelector("#g-hbrief-strip .g-hbs-card", { timeout: 9000 });
+  const strip = await pg.evaluate(() => {
+    const cards = [...document.querySelectorAll("#g-hbrief-strip .g-hbs-card")];
+    const vis = (() => { const s = document.getElementById("g-hbrief-strip"); const r = s.getBoundingClientRect(); return getComputedStyle(s).display !== "none" && r.width > 0 && r.height > 0; })();
+    return {
+      vis,
+      labels: cards.map((c) => (c.querySelector(".g-hbs-lbl") || {}).textContent),
+      spStar: !!(cards[0] && cards[0].querySelector(".g-hbs-star")),      // S&P open → no star
+      oilStar: !!(cards.find((c) => /OIL/.test((c.querySelector(".g-hbs-lbl") || {}).textContent || "")) || {}).querySelector?.(".g-hbs-star"),
+      oilDir: (cards.find((c) => /OIL/.test((c.querySelector(".g-hbs-lbl") || {}).textContent || "")) || {}).className || "",
+      spDir: (cards[0] || {}).className || "",
+      spNums: cards[0] ? [...cards[0].querySelectorAll(".g-hbs-n")].map((n) => n.textContent) : [],
+    };
+  });
+  check(strip.vis, "phone: the briefing markets-snapshot strip is visible");
+  checkEq(strip.labels.join(" · "), "S&P 500 · VIX · OIL · GOLD · US 10Y", "phone: five cards, in order — S&P 500 · VIX · OIL · GOLD · US 10Y");
+  check(/\bup\b/.test(strip.spDir) && strip.spNums.some((n) => /\+0\.66%/.test(n)) && strip.spNums.some((n) => /\+51/.test(n)),
+    `phone: S&P card is up with absolute + % change (${strip.spNums.join(", ")})`);
+  check(!strip.spStar, "phone: an OPEN market (S&P, REGULAR) shows NO '*'");
+  check(strip.oilStar && /\bdown\b/.test(strip.oilDir), "phone: a CLOSED market (Oil) shows the futures '*' and its direction");
+  checkErrs(errs, "home brief strip (phone)");
+  await ctx.close();
+}
+
+// ---- DESKTOP: the snapshot strip is hidden (the quadrant keeps the per-desk badges) ----
+{
+  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
+  await pg.waitForSelector("#g-hbrief .g-hbrief-head", { timeout: 8000 });
+  await pg.waitForTimeout(400);
+  const hidden = await pg.evaluate(() => {
+    const s = document.getElementById("g-hbrief-strip");
+    return !s || getComputedStyle(s).display === "none";
+  });
+  check(hidden, "desktop: the markets-snapshot strip is hidden (iPhone-only)");
+  await ctx.close();
+}
+
+await b.close();
+srv.close();
+finish();
