@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9a46af48-9c69-48bd-a648-2e496486c504",
+    title: "California’s oligarch tax would change America",
+    date: "2026-10-06",
+    time: "12:01",
+    url: "https://www.ft.com/content/9a46af48-9c69-48bd-a648-2e496486c504",
+  },
+  {
+    id: "6843c0fe-b1cf-46f9-85d6-d1d4a7da6601",
+    title: "Is your nanny annexe luxe enough?",
+    date: "2026-10-06",
+    time: "12:00",
+    url: "https://www.ft.com/content/6843c0fe-b1cf-46f9-85d6-d1d4a7da6601",
+  },
+  {
+    id: "664a215a-86e4-4e13-ad7c-50119d7ebdb1",
+    title: "Big Oil’s day in court",
+    date: "2026-10-06",
+    time: "12:00",
+    url: "https://www.ft.com/content/664a215a-86e4-4e13-ad7c-50119d7ebdb1",
+  },
+  {
+    id: "5b233375-b686-4dc1-ab59-47930f1583ad",
+    title: "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax",
+    date: "2026-10-06",
+    time: "11:36",
+    url: "https://www.ft.com/content/5b233375-b686-4dc1-ab59-47930f1583ad",
+  },
+  {
+    id: "f30a1afc-2aa8-4cdd-a6e8-b18523298456",
+    title: "Tories pledge ‘Britannia Shield’ to protect UK from drone attacks",
+    date: "2026-10-06",
+    time: "09:36",
+    url: "https://www.ft.com/content/f30a1afc-2aa8-4cdd-a6e8-b18523298456",
+  },
+  {
     id: "d510c91d-3039-42f7-af4a-63814f0df86f",
     title: "UK risks ‘uninvestable’ reputation if North Sea projects are blocked, says energy boss",
     date: "2026-10-06",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "05:00",
     url: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8",
-  },
-  {
-    id: "8f783c04-5fc5-43d4-bab2-495ac31806c6",
-    title: "Silicon Valley expects AI will kill jobs but economists are not convinced",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/8f783c04-5fc5-43d4-bab2-495ac31806c6",
-  },
-  {
-    id: "d1478058-6309-459f-875c-0a5409d715b4",
-    title: "Algeria projects its power in the Sahara",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/d1478058-6309-459f-875c-0a5409d715b4",
-  },
-  {
-    id: "aa851d11-33dc-4f1f-9e95-95907ff7dde5",
-    title: "UK workers expect to retire five years later than they would like",
-    date: "2026-10-06",
-    time: "00:01",
-    url: "https://www.ft.com/content/aa851d11-33dc-4f1f-9e95-95907ff7dde5",
-  },
-  {
-    id: "4087c789-a7ed-4365-bd35-9127bc58c3ae",
-    title: "FCA to examine how it treated whistleblower who died by suicide",
-    date: "2026-10-06",
-    time: "00:01",
-    url: "https://www.ft.com/content/4087c789-a7ed-4365-bd35-9127bc58c3ae",
-  },
-  {
-    id: "71dccbca-4a1f-485a-9790-28cc527cdb82",
-    title: "US affordability tracker: the data that could decide the 2026 midterm elections",
-    date: "2026-10-05",
-    time: "22:56",
-    url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82",
   },
 ];
