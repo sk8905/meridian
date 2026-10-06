@@ -735,4 +735,43 @@ const trailDoc = `<!doctype html><html><head><meta property="og:title" content="
 const trOut = extractReadable(trailDoc, u("https://www.example-news.com/ellipsis"));
 check(trOut.paragraphs.length === 2, `extract(recirc guard): a lone trailing ellipsis paragraph is NOT cut (${trOut.paragraphs.length})`);
 
+// N3) CNBC trailing "News Tips" + "Advertise With Us" page furniture — a fixed two-section
+//     footer CNBC appends below every article (a news-tip CTA that ends in a full sentence,
+//     then a "Data is a real-time snapshot … Market Data and Analysis." data-licence blurb).
+//     It carries no legal-registration signature and ends in sentences, so the promo markers
+//     (news tip / in-your-inbox / advertise with us / real-time snapshot / market data) are
+//     what truncate it. The real body survives. (Observed leaking into the CNBC reader.)
+const cnbcArt = `<!doctype html><html><head><meta property="og:title" content="Fed holds rates steady as officials weigh inflation path"></head><body><article>
+  <p>The Federal Reserve left interest rates unchanged on Wednesday, holding its benchmark in a range of 3.75% to 4% as policymakers weighed cooling inflation against a labor market that has begun to soften over the autumn.</p>
+  <p>Chair Jerome Powell said the central bank was in no hurry to cut again, telling reporters that officials wanted more evidence that price pressures were durably on a path back toward the 2% target before easing further.</p>
+  <h3>News Tips</h3>
+  <p>Got a confidential news tip? We want to hear from you. Get this delivered to your inbox, and more info about our products and services.</p>
+  <h3>Advertise With Us</h3>
+  <p>Data is a real-time snapshot *Data is delayed at least 15 minutes. Global Business and Financial News, Stock Quotes, and Market Data and Analysis.</p>
+  </article></body></html>`;
+const cnbc = extractReadable(cnbcArt, u("https://www.cnbc.com/2026/10/06/fed-holds.html"));
+check(cnbc.paragraphs.length === 2, `cnbc-footer: only the two real body paragraphs survive (${cnbc.paragraphs.length})`);
+check(!cnbc.paragraphs.some((p) => /news tip|in your inbox|real-time snapshot|delayed at least|Market Data and Analysis|Global Business and Financial News/i.test(p)) &&
+  !cnbc.blocks.some((b) => /News Tips|Advertise With Us|real-time snapshot|Market Data and Analysis/i.test(b.t)),
+  "cnbc-footer: the News Tips + Advertise With Us sections are dropped");
+check(cnbc.paragraphs[0].includes("Federal Reserve left interest rates") && cnbc.paragraphs[1].includes("no hurry to cut"), "cnbc-footer: the real article body survives intact");
+
+// Same CNBC footer via the markdown PROXY path.
+const cnbcMd = `# Fed holds rates steady as officials weigh inflation path
+
+The Federal Reserve left interest rates unchanged on Wednesday, holding its benchmark in a range of 3.75% to 4% as policymakers weighed cooling inflation against a softening labor market this autumn.
+
+Chair Jerome Powell said the central bank was in no hurry to cut again, telling reporters officials wanted more evidence that price pressures were durably on a path back toward the 2% target.
+
+## News Tips
+
+Got a confidential news tip? We want to hear from you. Get this delivered to your inbox, and more info about our products and services.
+
+## Advertise With Us
+
+Data is a real-time snapshot *Data is delayed at least 15 minutes. Global Business and Financial News, Stock Quotes, and Market Data and Analysis.`;
+const cnbcParas = proxyBlocks(cnbcMd, "https://www.cnbc.com/2026/10/06/fed-holds.html").filter((b) => b.t).map((b) => b.t);
+check(cnbcParas.length === 2 && !cnbcParas.some((p) => /news tip|in your inbox|real-time snapshot|Market Data and Analysis|Advertise With Us|News Tips/i.test(p)),
+  `cnbc-footer (proxy): the News Tips + Advertise With Us tail is dropped, ${cnbcParas.length} real paragraphs kept`);
+
 finish();

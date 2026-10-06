@@ -1850,7 +1850,7 @@ const READ_OPEN = new Set([
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
-const READ_VER = "v15";
+const READ_VER = "v16";
 const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
@@ -2006,7 +2006,7 @@ const READ_FOOTER = /(registered (?:office|number|no\.?|charity)|registered in (
 // many news sites (CNA, BBC, Guardian…) append below the article. Softer than READ_FOOTER
 // (these phrases *could* appear mid-article), so it only ever truncates a contiguous
 // ALL-JUNK trailing run (see _stripTrailingJunk) — never cuts into real prose.
-const READ_PROMO = /(sign up (?:for|to|now)|subscribe (?:to|now|for)|in your inbox|our newsletter|download (?:our|the) app|get the .{0,30}app|on the app store|google play\b|follow us on|join our (?:channel|community|whatsapp|telegram|group|newsletter)|stay (?:updated|informed|connected|in the know)|breaking news (?:alert|notification)|notifications for breaking|get our pick|picks of the week|top reads for the day|week in review|thought-provoking|preferred chat app|best stories|sign up here|click here (?:for|to)|no password (?:needed|required)|simple access|for more information,? please contact|please contact \S+@|\bcorporate users\b)/i;
+const READ_PROMO = /(sign up (?:for|to|now)|subscribe (?:to|now|for)|in your inbox|(?:delivered|get this delivered) to your inbox|our newsletter|download (?:our|the) app|get the .{0,30}app|on the app store|google play\b|follow us on|join our (?:channel|community|whatsapp|telegram|group|newsletter)|stay (?:updated|informed|connected|in the know)|breaking news (?:alert|notification)|notifications for breaking|get our pick|picks of the week|top reads for the day|week in review|thought-provoking|preferred chat app|best stories|sign up here|click here (?:for|to)|no password (?:needed|required)|simple access|for more information,? please contact|please contact \S+@|\bcorporate users\b|got a (?:confidential )?news tip|\badvertise with us\b|data is a real-time snapshot|data is delayed at least|global business and financial news|market data and analysis)/i;
 // Drop a TRAILING run of footer / promo / recirculation junk — the mirror of
 // _stripLeadingJunk. Walk BACKWARD from the end over a CONTIGUOUS run of junk-like blocks —
 // dangling headings, short headline fragments, footer-signature lines (READ_FOOTER: company
@@ -3230,11 +3230,7 @@ export const FEED_SOURCES = [
   // { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },        // OFF: premium four (Economist)
   // { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },                      // OFF: premium four (Economist)
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
-  // City AM — free London business/markets daily (openly readable in-pane). A
-  // broad general-business feed, so it takes the STANDARD macro-relevance title
-  // filter (no filter:false): only genuine markets/economy/policy headlines pass.
-  { url: "https://www.cityam.com/feed/", source: "City AM", region: "UK", cap: 6 },
-  // (The Guardian and Sharecast removed as newswire sources.)
+  // (The Guardian, Sharecast and City AM removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
   // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP stays
   // via READ_OPEN (metered, but its public body renders). The Straits Times stays:
