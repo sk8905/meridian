@@ -1241,48 +1241,33 @@
     .tui .g-hbrief-src{ font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.02em;
       color:var(--t-mut); text-decoration:none; }
     .tui .g-hbrief-src:hover{ color:var(--t-ink); text-decoration:none; }
-    /* Per-desk live data badge — ONE per section: a compact terminal card pinning the
-       desk's lead instrument (Macro → Brent, Equities → S&P 500, Fixed income → US 10Y)
-       to a real, sourced number. Flows after the desk prose; hides itself when the cache
-       hasn't yet delivered a value (the inner span is empty). */
-    .tui .g-hbrief-badge{ display:block; margin-top:6px; }
-    .tui .g-hbrief-badge:empty{ display:none; }
-    .tui .g-hb-badge{ display:inline-flex; align-items:baseline; gap:8px; padding:3px 9px;
-      border:1px solid var(--t-grid2); border-left:3px solid var(--muted); border-radius:0;
-      background:var(--t-head, #0a0a0a); font-family:var(--t-mono); text-decoration:none;
-      font-variant-numeric:tabular-nums; white-space:nowrap; max-width:100%; }
-    .tui .g-hb-badge.up{ border-left-color:var(--t-up); }
-    .tui .g-hb-badge.down{ border-left-color:var(--t-down); }
-    .tui .g-hb-badge-k{ font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.06em; color:var(--t-faint); font-weight:700; }
-    .tui .g-hb-badge-v{ font-size:var(--fs-body); font-weight:700; color:var(--t-ink); }
-    .tui .g-hb-badge-c{ padding:1px 6px; font-size:var(--fs-micro); font-weight:700; color:var(--muted); }
-    .tui .g-hb-badge.up .g-hb-badge-c{ background:color-mix(in srgb, var(--t-up) 18%, transparent); color:var(--t-up); }
-    .tui .g-hb-badge.down .g-hb-badge-c{ background:color-mix(in srgb, var(--t-down) 18%, transparent); color:var(--t-down); }
-    /* iPhone-only markets snapshot STRIP at the top of the briefing — square cards
-       (label + value on top, a direction-coloured block with the absolute + % change
-       below), horizontally scrollable. Hidden on the desktop quadrant (media query at
-       the end). The '*' on a value marks a closed cash market (futures move shown). */
-    .tui .g-hbrief-strip{ display:flex; gap:8px; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch;
-      scrollbar-width:none; padding:2px 0; margin:0 0 11px; }
-    .tui .g-hbrief-strip::-webkit-scrollbar{ display:none; }
+    /* iPhone-only markets snapshot STRIP at the top of the briefing — square cards (label +
+       value on top, a direction-coloured block with the absolute + % change below). ALL
+       cards fit the width with NO horizontal scroll (flex:1 share). Hidden on the desktop
+       quadrant (media query at the end). The '*' on a value marks a closed cash market. */
+    .tui .g-hbrief-strip{ display:flex; gap:5px; padding:2px 0; margin:0 0 11px; }
     .tui .g-hbrief-strip:empty{ display:none; }
-    .tui .g-hbs-card{ flex:0 0 auto; min-width:46%; display:flex; flex-direction:column; border-radius:4px;
+    .tui .g-hbs-card{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; border-radius:4px;
       overflow:hidden; background:var(--t-panel, #15181d); text-decoration:none; }
-    .tui .g-hbs-top{ display:flex; flex-direction:column; gap:1px; padding:8px 11px 7px; }
-    .tui .g-hbs-lbl{ font-family:var(--t-mono); font-weight:700; font-size:var(--fs-micro); letter-spacing:.06em;
-      text-transform:uppercase; color:var(--t-ink); }
-    .tui .g-hbs-val{ font-family:var(--t-mono); font-weight:400; font-size:var(--fs-body); line-height:1.15;
-      color:var(--t-ink); font-variant-numeric:tabular-nums; }
+    .tui .g-hbs-top{ display:flex; flex-direction:column; gap:0; padding:5px 6px 4px; min-width:0; }
+    .tui .g-hbs-lbl{ font-family:var(--t-mono); font-weight:700; font-size:9px; letter-spacing:.02em;
+      text-transform:uppercase; color:var(--t-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tui .g-hbs-val{ font-family:var(--t-mono); font-weight:400; font-size:var(--fs-body); line-height:1.2;
+      color:var(--t-ink); font-variant-numeric:tabular-nums; white-space:nowrap; }
     .tui .g-hbs-star{ opacity:.55; margin-left:1px; }
-    .tui .g-hbs-chg{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:7px 11px;
-      background:var(--t-grid); }
+    .tui .g-hbs-chg{ display:flex; align-items:center; justify-content:space-between; gap:4px; padding:4px 6px;
+      background:var(--t-grid); min-width:0; }
     .tui .g-hbs-card.up .g-hbs-chg{ background:var(--t-up); }
     .tui .g-hbs-card.down .g-hbs-chg{ background:var(--t-down); }
-    .tui .g-hbs-arw{ font-size:var(--fs-body); line-height:1; color:#11161f; }
-    .tui .g-hbs-nums{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.18; }
-    .tui .g-hbs-n{ font-family:var(--t-mono); font-weight:700; font-size:var(--fs-micro); color:#11161f;
-      font-variant-numeric:tabular-nums; }
+    .tui .g-hbs-arw{ font-size:9px; line-height:1; color:#11161f; flex:0 0 auto; }
+    .tui .g-hbs-nums{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.15; min-width:0; }
+    .tui .g-hbs-n{ font-family:var(--t-mono); font-weight:700; font-size:9px; color:#11161f;
+      font-variant-numeric:tabular-nums; white-space:nowrap; }
     .tui .g-hbs-card.flat .g-hbs-arw, .tui .g-hbs-card.flat .g-hbs-n{ color:var(--t-mut); }
+    /* Freshness FOOTER — on the phone the briefing is its own labelled tab, so the header
+       row is hidden there (max-width media below) and the stamp moves to this footer. */
+    .tui .g-hbrief-stamp{ display:none; margin-top:9px; padding-top:7px; border-top:1px solid var(--t-grid);
+      font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.02em; color:var(--t-faint); }
     /* Inline security pill in the briefing prose (snip-3 style): a small bordered chip right
        after a recognised company / benchmark — ticker + day's move + direction arrow. Stays
        EMPTY (hidden) until its live quote is filled, so it never shows a guessed value. */
@@ -1300,6 +1285,9 @@
        desk name as a small uppercase block header over its prose (not the space-saving
        run-in used on the narrow phone pane). A hairline divides the columns from the
        header above. */
+    /* Phone: the briefing is its own labelled tab, so drop the "Market briefing" header row
+       and surface the freshness stamp in the footer instead. */
+    @media (max-width:1200px){ .tui .g-hbrief-head{ display:none; } .tui .g-hbrief-stamp{ display:block; } }
     @media (min-width:1201px){
       .tui .g-hbrief-strip{ display:none; }   /* the snapshot strip is iPhone-only */
       .tui .g-hbrief-list{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:11px 16px;

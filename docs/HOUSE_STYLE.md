@@ -631,38 +631,38 @@ notification badge red (`#ef4444`).
   renderer round-robins the per-desk bullets under the four-bullet cap so each of
   the three desks keeps its lead bullet and **Equities can never be pushed off the
   card** by a Macro/Fixed-income-heavy slot. **iPhone-only markets snapshot strip:** on the
-  phone the briefing opens with a horizontally-scrollable strip of square cards
+  phone the briefing opens with a **fitted** strip of five square cards
   (`.g-hbrief-strip` → `.g-hbs-card`, `renderBriefStrip`) — **S&P 500 · VIX · Oil · Gold ·
-  US 10Y** — each with the value on top and a direction-coloured block carrying the
-  absolute + % change below. When a cash market is CLOSED the card shows the **futures**
-  move with a `*` on the value (VIX has no future → last cash level with `*`). It reads the
-  same last-good markets/rates cache as the rail (no extra fetch) and stays empty rather
-  than guessing (R7). **Hidden on the desktop quadrant** (the quadrant keeps the per-desk
-  badges). On phone the **Market Briefing is the FIRST wire tab** (News/lane is second and
-  still the default landing pane). **Inline security pills (both surfaces):** after a
+  US 10Y** — that **all fit the viewport with no horizontal scroll** (`flex:1 1 0`, cards
+  share the row width evenly), each with the value on top and a direction-coloured block
+  carrying the absolute + % change below. When a cash market is CLOSED the card shows the
+  **futures** move with a `*` on the value (VIX has no future → last cash level with `*`).
+  It reads the same last-good markets/rates cache as the rail (no extra fetch) and stays
+  empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
+  **Market Briefing is the FIRST wire tab** (News/lane is second and still the default
+  landing pane). **Inline security pills (both surfaces):** after a
   recognised security's first mention in the prose, a small chip (`.g-hbt-tk`) shows its
   ticker/benchmark + the day's move + a direction arrow (e.g. "Honeywell `HON 0.07% ↓`",
-  "the US 10-year Treasury yield `US 10Y 3bp ↑`"). **Equities/indices are DETECTED in the
-  prose** (`_briefSecNames` — capitalised phrases minus a `SEC_STOP` stoplist of
-  countries/currencies/central-banks/calendar/common words) and **resolved LIVE** via
-  **`/api/secq`** → `handleSecq`: Yahoo **search** for candidates, then a **market-cap
-  tiebreaker** over them (crumb-gated `/v7/quote`, cookie+crumb cached in KV) so the biggest
-  listing wins — "Honeywell" → **HON**, not HONA. Resolutions, **including negatives**, are
-  KV-cached so a non-security name isn't re-searched. **US Treasury benchmark yields** come
-  from the rates cache. The tradeoff for broad "any-equity" coverage is a **rare wrong pill**
+  "the US 10-year Treasury yield `US 10Y 3bp ↑`"). The pills cover **three kinds** of
+  instrument — **benchmark yields, indices, and equities (megacaps)** — detected in the
+  prose (`_briefSecNames` — capitalised phrases minus a `SEC_STOP` stoplist of
+  countries/currencies/central-banks/calendar/common words). **US Treasury benchmark yields**
+  (`BRIEF_YIELDS`) come from the rates cache (bp move). **Major indices** (`BRIEF_INDEX` — a
+  curated name→symbol map, **S&P 500 · Nasdaq · Dow · Russell · FTSE · DAX · Nikkei · Hang
+  Seng · VIX · …**, most-specific first so "Nasdaq 100" beats "Nasdaq") are matched by that
+  map — a curated set is accurate where fuzzy name-resolution isn't — and their live % comes
+  from **`/api/quotes`** (the only endpoint that accepts `^`-prefixed index symbols).
+  **Equities are resolved LIVE** via **`/api/secq`** → `handleSecq`: Yahoo **search** for
+  candidates, then a **market-cap tiebreaker** over them (crumb-gated `/v7/quote`, cookie+crumb
+  cached in KV) so the biggest listing wins — "Honeywell" → **HON**, not HONA. Resolutions,
+  **including negatives**, are KV-cached so a non-security name isn't re-searched (names already
+  handled as a yield or index are skipped by `_briefSecNames`). The tradeoff for broad "any-equity" coverage is a **rare wrong pill**
   (an ambiguous name binding the wrong listing); it is bounded by the name-match + market-cap
   floor gate, and a name that doesn't confidently resolve to a live quote gets **no pill**
-  (never a fabricated number, R7). **One live-data
-  badge per desk section:** each canonical desk carries exactly ONE compact data card
-  pinning its lead instrument to a real, sourced number — **Macro → Brent, Equities →
-  S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip.
-  **Change-chip rule: a PRICE badge shows the % move ONLY (▲/▼ + %) — never the absolute
-  point change (the value already gives the level); a YIELD badge shows the bp/pp move.** The badge reads the **same
-  last-good `/api/markets` + `/api/rates` payloads** the rail panels use (no extra
-  request; it repaints when those land), and **stays empty rather than guessing** when
-  the instrument isn't cached yet (R7 — never fabricate). A non-canonical, owner-requested
-  desk carries no badge. `renderBriefBadges`/`_badgeCard` in `glance.js`; enforced by
-  `tests/home-brief-badges.mjs`. **Only the LATEST available version is
+  (never a fabricated number, R7). **No per-desk data badges:** the inline pills carry the
+  live price/value change, so the retired trailing per-desk badge row (one card per desk
+  pinning Brent / S&P 500 / US 10Y) is **removed** — the card is prose + source links + pills
+  only. **Only the LATEST available version is
   shown — no slot selector**; the card picks the freshest brief by (date·time)
   stamp. Data: `BRIEFINGS` (tokenless / no-cache — regenerated on **each of the ~5
   daily refresh runs**, so a fresh brief appears with no code push), with the
@@ -672,9 +672,13 @@ notification badge red (`#ef4444`).
   On the **desktop quadrant it is permanently open — no collapse control** (its header
   is a static title row, no chevron). On **phones it is collapsible** (`briefOpen` in
   the Home prefs), **default collapsed** (tap to expand), with an **unread dot**
-  (`localStorage m_brief_read`) shown only while collapsed. **The header row matches
-  the other panes** (`.tui-ph`: title-case "Market briefing" left, faint time·date
-  sub-label right — like Chart / X feed / Policy rate). `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
+  (`localStorage m_brief_read`) shown only while collapsed. **Header / freshness stamp:** on
+  the **desktop quadrant** the header row (`.g-hbrief-head`: title-case "Market briefing" left,
+  faint time·date right — like Chart / X feed / Policy rate) is shown. On the **phone** the
+  briefing is its own labelled wire tab, so that **header row is hidden** and the freshness
+  stamp moves to a **footer at the bottom of the body** (`.g-hbrief-stamp`, "Updated <time·date>",
+  CSS-gated under `max-width:1200px`) — there is no redundant "Market briefing" row above the
+  card. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
   `v2/js/home/glance.js` (`#g-hbrief` in `content.js`); enforced by
   `tests/home-briefing.mjs`. The News feed's **day-break marker** (`.g-feed-dayhdr`)
   sticks directly beneath the filter row as the feed scrolls (Home-scoped offset in

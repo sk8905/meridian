@@ -899,7 +899,7 @@ const DASH_INDEX_SERIES = [
 // cache. Symbols are sanitised and capped so this can't be turned into an open proxy.
 async function handleQuotes(request, env, ctx) {
   const url = new URL(request.url);
-  const syms = [...new Set((url.searchParams.get("symbols") || "").split(",").map((s) => s.trim().toUpperCase()).filter((s) => /^[A-Z][A-Z0-9.\-]{0,9}$/.test(s)))].slice(0, 60);
+  const syms = [...new Set((url.searchParams.get("symbols") || "").split(",").map((s) => s.trim().toUpperCase()).filter((s) => /^\^?[A-Z0-9][A-Z0-9.\-]{0,11}$/.test(s)))].slice(0, 60);   // ^-prefixed index symbols allowed (^GSPC, ^NDX, …)
   if (!syms.length) return json({ quotes: {}, asOf: new Date().toISOString() });
   const cache = caches.default;
   const cacheKey = new Request(new URL(`/api/quotes?symbols=${syms.join(",")}&v=1`, request.url).toString());
