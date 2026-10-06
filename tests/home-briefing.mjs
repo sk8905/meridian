@@ -221,10 +221,15 @@ const b = await launchChromium();
   const pinned = await pg.evaluate(() => {
     const pane = document.getElementById("g-hbrief").getBoundingClientRect();
     const body = document.querySelector("#g-hbrief .g-hbrief-body").getBoundingClientRect();
+    const stamp = document.querySelector("#g-hbrief .g-hbrief-stamp").getBoundingClientRect();
     const nav = document.querySelector(".mobile-tabbar").getBoundingClientRect();
     return {
-      gap: Math.round(pane.bottom - body.bottom),
-      bodyToNav: Math.round(nav.top - body.bottom),
+      // The STAMP is the pane's bottom element now (pinned above the nav); the body fills the
+      // gap above it. So: stamp runs to the pane bottom, stamp lands against the nav, and the
+      // body butts contiguously against the stamp with no dead space.
+      gap: Math.round(pane.bottom - stamp.bottom),
+      bodyToNav: Math.round(nav.top - stamp.bottom),
+      bodyToStamp: Math.round(stamp.top - body.bottom),
       noFoot: !document.querySelector("#g-hbrief .g-hbrief-foot"),
       noInlineHeight: !document.getElementById("g-hbrief").style.height,
       pageLocked: document.documentElement.scrollHeight <= window.innerHeight + 2,
@@ -237,8 +242,9 @@ const b = await launchChromium();
     };
   });
   check(pinned.noFoot, "phone: there is NO 'AI-generated…' source-credit footer note");
-  check(pinned.gap <= 14, `phone: the scrolling body runs to the bottom of the briefing pane (gap ${pinned.gap}px)`);
-  check(pinned.bodyToNav >= -2 && pinned.bodyToNav <= 12, `phone: the pane's body lands hard against the top of the bottom nav (bodyToNav ${pinned.bodyToNav}px)`);
+  check(pinned.gap <= 2, `phone: the freshness stamp runs to the bottom of the briefing pane (gap ${pinned.gap}px)`);
+  check(pinned.bodyToNav >= -2 && pinned.bodyToNav <= 12, `phone: the freshness stamp lands hard against the top of the bottom nav (stampToNav ${pinned.bodyToNav}px)`);
+  check(Math.abs(pinned.bodyToStamp) <= 2, `phone: the scrolling body butts up against the stamp — no dead space between them (${pinned.bodyToStamp}px)`);
   check(pinned.noInlineHeight, "phone: the pane carries NO inline pixel height — it is anchored in CSS, not by JS measurement");
   check(pinned.pageLocked, "phone: the page does not scroll when the brief fits (scroll is locked — content scrolls inside the pane)");
   check(pinned.htmlLocked && pinned.bodyLocked && pinned.noBounce, "phone: BOTH html and body are scroll-locked (overflow hidden + overscroll-behavior none) so the document can't rubber-band and detach the pane");
@@ -271,16 +277,28 @@ const b = await launchChromium();
     const hb = document.getElementById("g-hbrief");
     const head = hb.querySelector(":scope > .g-hbrief-head");
     const body = hb.querySelector(":scope > .g-hbrief-body");
+    const stamp = hb.querySelector(":scope > .g-hbrief-stamp");
+    const pr = hb.getBoundingClientRect();
+    const sr = stamp ? stamp.getBoundingClientRect() : null;
     return {
       headChild: !!head, bodyChild: !!body,
       paneFixed: getComputedStyle(hb).position === "fixed",
       bodyScrolls: !!body && getComputedStyle(body).overflowY === "auto",
       order: head && body ? (head.compareDocumentPosition(body) & 4) !== 0 : false,
+      // Freshness stamp: a direct child AFTER the body (not inside the scroll region), visible,
+      // and pinned to the pane's bottom edge (glued just above the bottom nav).
+      stampChild: !!stamp,
+      stampNotInBody: !!stamp && !body.contains(stamp),
+      stampAfterBody: !!stamp && !!body && (body.compareDocumentPosition(stamp) & 4) !== 0,
+      stampVisible: !!stamp && getComputedStyle(stamp).display !== "none",
+      stampAtBottom: !!sr && Math.abs(Math.round(sr.bottom - pr.bottom)) <= 2,
     };
   });
   check(struct.headChild && struct.bodyChild && struct.order, "phone: the header row and the body are direct children, in order (header · body)");
   check(struct.paneFixed, "phone: the pane is fixed between the tabs and the nav (anchored, not measured)");
   check(struct.bodyScrolls, "phone: a long brief scrolls INSIDE the pane's body, not the page");
+  check(struct.stampChild && struct.stampNotInBody && struct.stampAfterBody, "phone: the freshness stamp is a direct child AFTER the body (not inside the scroll region)");
+  check(struct.stampVisible && struct.stampAtBottom, "phone: the freshness stamp is anchored to the pane's bottom edge (glued above the bottom nav)");
   // The header is inert now (no collapse): tapping it keeps the body open.
   await pg.evaluate(() => document.querySelector("#g-hbrief .g-hbrief-head").click());
   await pg.waitForTimeout(100);

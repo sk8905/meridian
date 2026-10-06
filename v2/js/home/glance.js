@@ -466,8 +466,11 @@ function renderHomeBriefing() {
     + `<div class="g-hbrief-body">`
     + `<div class="g-hbrief-strip" id="g-hbrief-strip" role="list" aria-label="Markets snapshot"></div>`   // iPhone-only top strip (CSS-gated); filled by renderBriefStrip()
     + `<ul class="g-hbrief-list">${bullets}</ul>`
-    + (when ? `<div class="g-hbrief-stamp">Updated ${when}</div>` : "")
-    + `</div>`;
+    + `</div>`
+    // Freshness stamp — a SIBLING of the scrolling body (not inside it), so on the phone it
+    // pins to the bottom of the fixed pane (glued above the bottom nav) instead of scrolling
+    // with the brief. CSS-gated: hidden on the desktop quadrant (the header carries the stamp).
+    + (when ? `<div class="g-hbrief-stamp">Updated ${when}</div>` : "");
   renderBriefStrip();
   renderBriefTickers();
   _resolveBriefSecurities(_briefSecNames(groups));   // detect prose securities → resolve live → repaint once

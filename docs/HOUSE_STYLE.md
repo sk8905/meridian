@@ -680,9 +680,11 @@ notification badge red (`#ef4444`).
   the **desktop quadrant** the header row (`.g-hbrief-head`: title-case "Market briefing" left,
   faint time·date right — like Chart / X feed / Policy rate) is shown. On the **phone** the
   briefing is its own labelled wire tab, so that **header row is hidden** and the freshness
-  stamp moves to a **footer at the bottom of the body** (`.g-hbrief-stamp`, "Updated <time·date>",
-  CSS-gated under `max-width:1200px`) — there is no redundant "Market briefing" row above the
-  card. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
+  stamp (`.g-hbrief-stamp`, "Updated <time·date>", CSS-gated under `max-width:1200px`) is a
+  **sibling of the scrolling body, pinned to the bottom of the fixed pane** (`flex:0 0 auto`) —
+  so it **anchors to the bottom nav bar** for a brief of any length instead of scrolling away
+  with the prose; the body fills the gap above it. There is no redundant "Market briefing" row
+  above the card. `renderHomeBriefing`/`initHomeBriefing` + `.g-hbrief` in
   `v2/js/home/glance.js` (`#g-hbrief` in `content.js`); enforced by
   `tests/home-briefing.mjs`. The News feed's **day-break marker** (`.g-feed-dayhdr`)
   sticks directly beneath the filter row as the feed scrolls (Home-scoped offset in

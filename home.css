@@ -1268,9 +1268,12 @@
       font-variant-numeric:tabular-nums; white-space:nowrap; }
     .tui .g-hbs-card.flat .g-hbs-arw, .tui .g-hbs-card.flat .g-hbs-n{ color:var(--t-mut); }
     /* Freshness FOOTER — on the phone the briefing is its own labelled tab, so the header
-       row is hidden there (max-width media below) and the stamp moves to this footer. */
-    .tui .g-hbrief-stamp{ display:none; margin-top:9px; padding-top:7px; border-top:1px solid var(--t-grid);
-      font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.02em; color:var(--t-faint); }
+       row is hidden there (max-width media below) and the stamp moves to this footer. It is a
+       SIBLING of the scrolling body and holds its height (flex:0 0 auto), so it pins to the
+       bottom of the fixed briefing pane — glued just above the bottom nav — for a brief of any
+       length. A full-width bar with a hairline above and the panel background behind it. */
+    .tui .g-hbrief-stamp{ display:none; flex:0 0 auto; padding:7px 12px; border-top:1px solid var(--t-grid2);
+      background:var(--t-panel); font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.02em; color:var(--t-faint); }
     /* Inline security pill in the briefing prose (snip-3 style): a small bordered chip right
        after a recognised company / benchmark — ticker + day's move + direction arrow. Stays
        EMPTY (hidden) until its live quote is filled, so it never shows a guessed value. */
