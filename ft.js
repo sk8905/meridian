@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
+    title: "France’s Marine Le Pen pledges to rein in public spending",
+    date: "2026-10-06",
+    time: "10:04",
+    url: "https://www.ft.com/content/4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
+  },
+  {
+    id: "9f1c65fe-3670-40bd-9223-18cd5c84df3c",
+    title: "A plausible theory for reviving the Conservatives",
+    date: "2026-10-06",
+    time: "09:30",
+    url: "https://www.ft.com/content/9f1c65fe-3670-40bd-9223-18cd5c84df3c",
+  },
+  {
     id: "c37419cd-5325-409e-9eac-ea509c8ace51",
     title: "Warnings of possible Iranian drone attack led US to pull bombers from RAF Fairford",
     date: "2026-10-06",
@@ -285,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "18:45",
     url: "https://www.ft.com/content/6a66982e-7c57-4081-9fe4-800fa2cd3501",
-  },
-  {
-    id: "8a733f73-d506-49ae-9030-2bbf0987bc8d",
-    title: "Donald Trump poised to ease red diesel limits in attempt to quell fuel inflation",
-    date: "2026-10-05",
-    time: "18:41",
-    url: "https://www.ft.com/content/8a733f73-d506-49ae-9030-2bbf0987bc8d",
-  },
-  {
-    id: "ae67bb6f-f227-4679-949f-2e79e2dc33e2",
-    title: "TotalEnergies boss hails ‘opportunities’ created by global market turmoil",
-    date: "2026-10-05",
-    time: "18:33",
-    url: "https://www.ft.com/content/ae67bb6f-f227-4679-949f-2e79e2dc33e2",
-  },
-  {
-    id: "74c3cc77-1593-4c49-90f9-0d92fa3a2418",
-    title: "French central bank head warns country at risk of being ‘strangled by interest rates’",
-    date: "2026-10-05",
-    time: "17:56",
-    url: "https://www.ft.com/content/74c3cc77-1593-4c49-90f9-0d92fa3a2418",
   },
 ];
