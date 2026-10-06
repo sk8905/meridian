@@ -907,6 +907,12 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     overflow-y: auto; overscroll-behavior: contain;
     padding: 0 0 1.2rem;
   }
+  /* The dark-mode hairline border (the coplanar desktop-dropdown look, ~L298) has
+     higher specificity than the border:0 above, so it re-draws on the full-screen phone
+     sheet as grey vertical lines down the far-left/right screen edges. Suppress it here —
+     a full-screen takeover needs no border. (Same specificity as L298, later in source,
+     scoped to phones, so it wins only on mobile and leaves the desktop hairline intact.) */
+  :root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .notif-panel { border: 0; }
   /* The Briefing carries a wider desktop width (#id rule ~50vw) that would
      otherwise out-rank the full-screen phone treatment above and leave a dead
      strip on the right — reset it here so it fills the screen like the others. */
