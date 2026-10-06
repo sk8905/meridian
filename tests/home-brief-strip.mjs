@@ -60,6 +60,10 @@ const b = await launchChromium();
       // the change block must GROW to fill the card or its bar would stop short over dark panel.
       cardH: cards.map((c) => Math.round(c.getBoundingClientRect().height)),
       chgH: cards.map((c) => { const g = c.querySelector(".g-hbs-chg"); return g ? Math.round(g.getBoundingClientRect().height) : 0; }),
+      // Width fit: the whole strip must fit the viewport (no horizontal scroll), and no card's
+      // numbers may be clipped — the five cards share the row (flex:1 1 0) and stay readable.
+      stripOverflow: (() => { const s = document.getElementById("g-hbrief-strip"); return s.scrollWidth - s.clientWidth; })(),
+      numClip: Math.max(0, ...[...document.querySelectorAll("#g-hbrief-strip .g-hbs-n, #g-hbrief-strip .g-hbs-val")].map((n) => n.scrollWidth - n.clientWidth)),
     };
   });
   check(strip.vis, "phone: the briefing markets-snapshot strip is visible");
@@ -71,6 +75,8 @@ const b = await launchChromium();
   check(strip.us10 && /5\.31%/.test(strip.us10.val || ""), `phone: the US 10Y card shows the yield level (${strip.us10 && strip.us10.val})`);
   check(strip.us10 && strip.us10.nums.some((n) => /\+3 bp/.test(n)) && strip.us10.nums.some((n) => /\+0\.57%/.test(n)) && /\bup\b/.test(strip.us10.dir),
     `phone: the US 10Y card shows BOTH the bp move and the relative % change (${strip.us10 && strip.us10.nums.join(", ")})`);
+  check(strip.stripOverflow <= 1, `phone: the strip fits the viewport width — no horizontal scroll (overflow ${strip.stripOverflow}px)`);
+  check(strip.numClip <= 1, `phone: no card value/number is clipped at the larger font size (max overflow ${strip.numClip}px)`);
   check(strip.cardH.length === 5 && new Set(strip.cardH).size === 1, `phone: all five cards are the SAME height — uniform size (${strip.cardH.join(", ")})`);
   check(strip.chgH.length === 5 && new Set(strip.chgH).size === 1, `phone: every card's coloured change bar is the same height (the bar grows to fill, so it always reaches the bottom edge) (${strip.chgH.join(", ")})`);
   checkErrs(errs, "home brief strip (phone)");
