@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-nvidia6trillion-20261006",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: Nvidia nears $6 trillion",
+    date: "2026-10-06",
+    time: "11:10",
+    summary: "Nvidia is on the verge of a $6 trillion market value; plus Dalio warns on bonds.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-06/nvidia-is-on-the-verge-of-a-6-trillion-market-value",
+  },
+  {
     id: "nl-bbg-authoralert-kitelake-20261006",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "18:59",
     summary: "Fees, tests, votes, Knicks.",
     url: "https://bloom.bg/4hH9Kw3",
-  },
-  {
-    id: "nl-thelawyer-breaking-gibsondunndespacfees-20261001",
-    publication: "The Lawyer",
-    author: null,
-    series: "Breaking News",
-    title: "Gibson Dunn accused of pursuing fees from \u2018utter failure\u2019 deSPAC",
-    date: "2026-10-01",
-    time: "17:16",
-    summary: "New York litigation alleges the firm pressed ahead with a deSPAC a judge deemed financially disastrous, amid a row over unpaid legal bills.",
-    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/uitLvW2LFb8a",
   },
 ];
