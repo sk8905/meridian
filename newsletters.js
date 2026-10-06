@@ -45,6 +45,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-redseabattle-20261006",
+    publication: "Bloomberg",
+    author: null,
+    series: "Morning Briefing Europe",
+    title: "Red Sea battle",
+    date: "2026-10-06",
+    time: "06:46",
+    summary: "Yemen Armed Forces retake control over Red Sea chokepoint; stocks near record highs despite oil and bond yields.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-06/yemen-armed-forces-retake-control-over-red-sea-chokepoint",
+  },
+  {
+    id: "nl-economist-worldinbrief-saudiaid-20261006",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Turkey and Pakistan come to Saudi Arabia\u2019s aid",
+    date: "2026-10-06",
+    time: "06:22",
+    summary: "Also: Spain gets a surprise election.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-topheavystocksrally-20261006",
     publication: "Bloomberg",
     author: "John Authers",

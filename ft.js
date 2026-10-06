@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "47061507-f20e-4ff6-961d-e1f1b919cb89",
+    title: "How AI could scupper the dollar",
+    date: "2026-10-06",
+    time: "06:30",
+    url: "https://www.ft.com/content/47061507-f20e-4ff6-961d-e1f1b919cb89",
+  },
+  {
+    id: "ce3027d8-3990-4a74-942c-9a0fbdfbbe13",
+    title: "FTAV’s further reading",
+    date: "2026-10-06",
+    time: "06:30",
+    url: "https://www.ft.com/content/ce3027d8-3990-4a74-942c-9a0fbdfbbe13",
+  },
+  {
     id: "792366b3-e010-4e0e-a1c4-692ffae3f5aa",
     title: "China fuels tensions with partners over scaled-back summit plans",
     date: "2026-10-06",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "16:49",
     url: "https://www.ft.com/content/41b567dc-50e9-4c41-95bb-e295caaf2340",
-  },
-  {
-    id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
-    title: "Euro slides to 17-month low against dollar",
-    date: "2026-10-05",
-    time: "16:44",
-    url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
-  },
-  {
-    id: "8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
-    title: "Euro slides to 17-month low against dollar",
-    date: "2026-10-05",
-    time: "16:44",
-    url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
   },
 ];
