@@ -270,11 +270,14 @@ await ctx.close();
   await p.pg.waitForSelector(".tx-typelist .tx-typeopt", { timeout: 8000 });
   const opts = await p.pg.evaluate(() => {
     const o = [...document.querySelectorAll(".tx-typelist .tx-typeopt")];
-    const r = { n: o.length, noStrip: !document.querySelector(".tx-subnav") };
+    const lbl = o[0] && o[0].querySelector(".tx-typeopt-l");
+    const r = { n: o.length, noStrip: !document.querySelector(".tx-subnav"),
+      lblWt: lbl ? parseInt(getComputedStyle(lbl).fontWeight, 10) : null };
     (o.find((x) => /Direct lending/.test(x.textContent)) || o[0]).click();
     return r;
   });
   check(opts.n >= 4 && opts.noStrip, `phone: transaction types shown as on-screen options, no sub-tab strip (${opts.n} options)`);
+  check(opts.lblWt != null && opts.lblWt <= 400, `phone: the transaction-type row labels are NOT bold — normal weight (${opts.lblWt})`);
   await p.pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
   await p.pg.waitForTimeout(400);
   const hasBack = await p.pg.evaluate(() => !!document.querySelector(".tx-phone-back"));
