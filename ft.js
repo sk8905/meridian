@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "792366b3-e010-4e0e-a1c4-692ffae3f5aa",
+    title: "China fuels tensions with partners over scaled-back summit plans",
+    date: "2026-10-06",
+    time: "06:00",
+    url: "https://www.ft.com/content/792366b3-e010-4e0e-a1c4-692ffae3f5aa",
+  },
+  {
+    id: "8a6b5b97-5fed-4013-804b-c631863010db",
+    title: "Germany’s pivot on China trade is a long time coming for other EU capitals",
+    date: "2026-10-06",
+    time: "06:00",
+    url: "https://www.ft.com/content/8a6b5b97-5fed-4013-804b-c631863010db",
+  },
+  {
+    id: "372d018c-df75-4bf8-9699-7f87b8511c37",
+    title: "The not very secret life of A7’s front companies",
+    date: "2026-10-06",
+    time: "06:00",
+    url: "https://www.ft.com/content/372d018c-df75-4bf8-9699-7f87b8511c37",
+  },
+  {
+    id: "1d152b5b-decb-41c3-a197-8de1d1ca26fc",
+    title: "FirstFT: French central bank chief warns on rising rates",
+    date: "2026-10-06",
+    time: "05:32",
+    url: "https://www.ft.com/content/1d152b5b-decb-41c3-a197-8de1d1ca26fc",
+  },
+  {
+    id: "0b4511be-37a8-4de1-bf7d-1718c1f01351",
+    title: "The politics of losing sleep",
+    date: "2026-10-06",
+    time: "05:00",
+    url: "https://www.ft.com/content/0b4511be-37a8-4de1-bf7d-1718c1f01351",
+  },
+  {
     id: "0e4afbdc-c018-4ee4-86b3-4248ae3e97ab",
     title: "The creditor bloodbath in UK telecoms",
     date: "2026-10-06",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "16:44",
     url: "https://www.ft.com/content/8b19b9f7-9237-47bf-bc50-d8b78aa7fe24",
-  },
-  {
-    id: "f77c61bd-ed39-4e20-b8d3-7c62dba74001",
-    title: "Ethiopian government seizes Tigray capital in blow to rebels",
-    date: "2026-10-05",
-    time: "16:36",
-    url: "https://www.ft.com/content/f77c61bd-ed39-4e20-b8d3-7c62dba74001",
-  },
-  {
-    id: "7c6bfe8f-eae2-47f7-98e5-19e714195c58",
-    title: "Spanish PM Pedro Sánchez looks for political lifeline in snap election",
-    date: "2026-10-05",
-    time: "16:33",
-    url: "https://www.ft.com/content/7c6bfe8f-eae2-47f7-98e5-19e714195c58",
-  },
-  {
-    id: "f30f83da-96d0-45bf-8fb6-36550d2b9f7d",
-    title: "Giorgia Meloni seeks to trademark her voice to counter AI deepfakes",
-    date: "2026-10-05",
-    time: "16:31",
-    url: "https://www.ft.com/content/f30f83da-96d0-45bf-8fb6-36550d2b9f7d",
-  },
-  {
-    id: "2915c093-4735-4043-97c9-157a2a2586d1",
-    title: "Burnham’s Budget must not be overshadowed by the OBR",
-    date: "2026-10-05",
-    time: "16:00",
-    url: "https://www.ft.com/content/2915c093-4735-4043-97c9-157a2a2586d1",
-  },
-  {
-    id: "17ca0b3c-604e-4690-b58a-f65dfce15b5d",
-    title: "David Ellison sticks with Mark Thompson as CNN boss amid Trump attacks",
-    date: "2026-10-05",
-    time: "15:31",
-    url: "https://www.ft.com/content/17ca0b3c-604e-4690-b58a-f65dfce15b5d",
   },
 ];
