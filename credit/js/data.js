@@ -18,7 +18,7 @@
 // =============================================================================
 
 // When the dataset was last compiled/updated (i.e. the last time data actually changed).
-export const DATA_UPDATED = "2026-10-05";
+export const DATA_UPDATED = "2026-10-06";
 
 // When the refresh routine last ran (even if it found nothing new) — shown in the
 // topbar as "Last refresh" so a run can be confirmed regardless of data changes.
@@ -27,7 +27,7 @@ export const LAST_CHECKED = "2026-10-06";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "16:15 BST";
+export const LAST_CHECKED_TIME = "18:10 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -738,6 +738,7 @@ export const lps = [
 // a sourceUrl). Sorted most-recent first.
 // ---------------------------------------------------------------------------
 export const intel = [
+  { id: "i836", date: "2026-10-05", time: "18:10", type: "Fundraising", headline: "Arini raises $1.5 billion even as its main fund sees 13.5% loss", managerId: "m40", fundId: null, summary: "Hamza Lemssouguer's Arini Capital Management opened its credit trading strategy to new cash for the first time in two years, even as the firm's main hedge fund has suffered losses for five consecutive months amid widespread market dislocation (Bloomberg).", sourceUrl: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss" },
   { id: "i825", date: "2026-09-04", time: "10:12", type: "Mandate", managerId: "m24", fundId: null, headline: "France's FRR awards €420m of unitranche private-debt mandates to Eurazeo, Eiffel Investment Group and Zencap Asset Management", summary: "France's Fonds de Réserve pour les Retraites (FRR) awarded three dedicated unitranche private-debt mandates totalling €420m to Eurazeo Global Investor, Eiffel Investment Group and Zencap Asset Management, aimed at financing French SMEs and mid-sized companies (over 80% expected to be headquartered in France) for growth, ownership-transfer transactions and development; the mandates run an initial 12-year term (renewable).", sourceUrl: "https://www.ipe.com/news/frances-pension-reserve-fund-commits-420m-to-unitranche-debt/10138295.article", clo: false },
   { id: "i824", date: "2026-09-22", time: "08:15", type: "Ownership", managerId: "m54", fundId: null, headline: "Goldman Sachs emerges as lead bidder for $37bn credit firm Palmer Square", summary: "Goldman Sachs Group emerged as the lead bidder to acquire Palmer Square Capital Management, the Kansas-based, husband-and-wife-founded credit and CLO manager that has been exploring a sale of its ~$37bn credit business since early September 2026; Palmer Square's CLO platform accounts for roughly $27bn of that AUM, and a deal would meaningfully scale Goldman's CLO, opportunistic-credit and private-credit capabilities. Talks are ongoing and may not result in an agreement.", sourceUrl: "https://www.bloomberg.com/news/articles/2026-09-22/goldman-in-talks-to-buy-37-billion-credit-firm-palmer-square", clo: false },
   { id: "i823", date: "2026-09-02", time: "05:10", type: "Personnel", managerId: "m81", fundId: null, headline: "KKR appoints Jonty Edwards and Paula Weisshuber to Credit & Markets platform", summary: "KKR expanded its Global Credit & Markets platform (~$293bn AUM) with two managing-director hires: Jonty Edwards, joining from J.P. Morgan's M&A team in London to focus on UK/European capital solutions, and Paula Weisshuber, joining from Bank of America where she was Head of EMEA Corporate Debt Capital Markets, based in Frankfurt covering the DACH region.", sourceUrl: "https://www.alternativeswatch.com/2026/09/02/kkr-hires-europe-credit-markets-edwards-weisshuber/", clo: false },
@@ -2658,6 +2659,7 @@ export const HEDGE_FUNDS = [
 // Never fabricated: an item with no verifiable date is simply not listed.
 // Fields: { id, hfId, date, time?, type, headline, summary, outlet, url }.
 export const HEDGE_INTEL = [
+  { id: "hi211", hfId: "h90", date: "2026-10-06", time: "18:10", type: "Launch", headline: "Kite Lake to start new hedge fund run by former Tyrus partner", summary: "Kite Lake Capital Management is preparing to start a new fund run by a former Tyrus Capital partner, joining peers capitalizing on investor appetite for hedge-fund products.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-10-06/kite-lake-to-start-new-hedge-fund-run-by-former-tyrus-partner" },
   { id: "hi200", hfId: "h10", date: "2025-11-03", type: "Strategy", headline: "Point72 launches new equity unit, Valist Asset Management, as assets soar to $42bn", summary: "Steve Cohen's Point72 Asset Management restructured its equities platform, splitting it into two units from January 2026 — Point72 Equities and a new stock-picking business, Valist Asset Management — each with separate trading teams and sell-side coverage but overseen by the same management group, as firm assets climbed to $42bn. Valist starts with about a dozen portfolio managers and is expected to expand, mirroring multi-unit equity structures at rivals Citadel and Balyasny.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2025-11-03/point72-launching-new-equity-unit-as-assets-soar-to-42-billion" },
   { id: "hi199", hfId: "h44", date: "2026-04-29", type: "Launch", headline: "Pershing Square USA completes $5bn combined IPO with Pershing Square Inc.", summary: "Bill Ackman's Pershing Square USA, Ltd. (PSUS), a new closed-end fund, and Pershing Square Inc., the manager's own listed shares, began trading on the NYSE in a combined $5bn offering — $2.2bn from a public offering of 44m PSUS shares plus $2.8bn from a private placement to institutional investors (family offices, pension funds, insurers). PSUS closed its first day at $40.90 versus a $50 offer price; it is the largest-ever launch of a new closed-end fund.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-04-29/ackman-s-5-billion-pershing-ipo-squeaks-across-the-finish-line" },
   { id: "hi198", hfId: "h104", date: "2026-05-12", type: "AUM", headline: "CFM opens Shanghai office as assets top $27bn", summary: "Paris-based quant manager Capital Fund Management opened a data-and-engineering office in Shanghai's Citigroup Tower to enhance its ability to trade Chinese markets, as firm-wide assets under management passed $27bn.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-05-12/hedge-fund-cfm-opens-office-in-shanghai-assets-top-27-billion" },
