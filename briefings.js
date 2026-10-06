@@ -67,7 +67,7 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-06",
-      time: "18:10 BST",
+      time: "20:13 BST",
       bullets: [
         { html: "<strong>Macro &mdash; Spain&rsquo;s Pedro S&aacute;nchez is gambling on a snap election</strong>, the FT reports, while in France Marine Le Pen pledged to rein in public spending as euro-area political risk keeps markets on edge.", src: "https://www.ft.com/content/a7a19bb1-a1ba-4317-a191-c387bbc9f4b9", srcName: "Financial Times" },
         { html: "<strong>Bonds &mdash; the global government-bond sell-off remains the dominant theme</strong>: the FT explains why yields are so high, and reports France is caught between the bond market and the barricades ahead of its elections, after the euro fell to a 17-month low against the dollar on Monday.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
