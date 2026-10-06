@@ -913,6 +913,99 @@ async function handleQuotes(request, env, ctx) {
   if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;
 }
+// ── Inline-security resolver for the briefing pills (Yahoo-driven) ───────────────────────
+// Resolve an arbitrary company/index NAME → its correct symbol + live % change via Yahoo
+// search, disambiguated by a MARKET-CAP tiebreaker over the candidates (so "Honeywell" →
+// HON, the mega-cap, not HONA). Market cap is on the crumb-gated /v7 quote endpoint, so a
+// cookie + crumb are fetched once and cached in KV. Resolutions — INCLUDING negatives — are
+// KV-cached so a non-security name isn't re-searched. Best-effort throughout: any failure →
+// null → no pill (never a guessed value, R7).
+async function _yhCrumb(env, force) {
+  if (!force && env && env.WATCHLIST) {
+    try { const c = await env.WATCHLIST.get("yh:crumb", "json"); if (c && c.crumb && c.cookie) return c; } catch { /* miss */ }
+  }
+  try {
+    const r = await fetch("https://finance.yahoo.com/", { headers: { "user-agent": READ_UA, accept: "text/html" } });
+    const sc = (typeof r.headers.getSetCookie === "function" ? r.headers.getSetCookie().join("; ") : (r.headers.get("set-cookie") || ""));
+    const parts = [];
+    for (const k of ["A1", "A3", "A1S", "GUC"]) { const m = new RegExp("(?:^|[;,\\s])(" + k + "=[^;]+)").exec(sc); if (m) parts.push(m[1]); }
+    const cookie = parts.join("; ");
+    const cr = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", { headers: { "user-agent": READ_UA, accept: "text/plain", ...(cookie ? { cookie } : {}) } });
+    const crumb = ((await cr.text()) || "").trim();
+    if (!crumb || crumb.length > 24 || /[<{]/.test(crumb)) return null;
+    const rec = { cookie, crumb, ts: Date.now() };
+    if (env && env.WATCHLIST) { try { await env.WATCHLIST.put("yh:crumb", JSON.stringify(rec), { expirationTtl: 21600 }); } catch { /* ignore */ } }
+    return rec;
+  } catch { return null; }
+}
+async function _yhV7(symbols, env) {
+  const out = {};
+  const syms = [...new Set((symbols || []).filter(Boolean))].slice(0, 25);
+  if (!syms.length) return out;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const cr = await _yhCrumb(env, attempt > 0);
+    if (!cr) return out;
+    try {
+      const u = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(syms.join(","))}&crumb=${encodeURIComponent(cr.crumb)}`;
+      const r = await fetch(u, { headers: { "user-agent": READ_UA, accept: "application/json", ...(cr.cookie ? { cookie: cr.cookie } : {}) } });
+      if (r.status === 401 || r.status === 403) continue;   // stale crumb → refresh + retry once
+      if (!r.ok) return out;
+      const j = await r.json().catch(() => null);
+      for (const q of (((j || {}).quoteResponse || {}).result || [])) {
+        if (q && q.symbol) out[q.symbol] = { marketCap: (typeof q.marketCap === "number") ? q.marketCap : null, changePct: (typeof q.regularMarketChangePercent === "number") ? q.regularMarketChangePercent : null, quoteType: q.quoteType || null };
+      }
+      return out;
+    } catch { return out; }
+  }
+  return out;
+}
+// Normalise a company name for matching: lowercase, drop punctuation + corp suffixes.
+const SECQ_NAME = (s) => String(s || "").toLowerCase().replace(/&amp;/g, "&").replace(/[.,'’]/g, "")
+  .replace(/\b(inc|incorporated|corp|corporation|co|company|plc|sa|se|ag|nv|ltd|limited|holdings|group|the)\b/g, "")
+  .replace(/\s+/g, " ").trim();
+async function _secResolve(name, env) {
+  const key = "secq:v2:" + SECQ_NAME(name);
+  if (env && env.WATCHLIST) { try { const v = await env.WATCHLIST.get(key); if (v != null) return v || null; } catch { /* miss */ } }
+  let sym = null;
+  try {
+    const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(name)}&quotesCount=6&newsCount=0&enableFuzzyQuery=false`);
+    const j = txt ? JSON.parse(txt) : null;
+    const want = SECQ_NAME(name);
+    const cands = (((j || {}).quotes) || []).filter((x) => x && x.symbol && (x.quoteType === "EQUITY" || x.quoteType === "INDEX") && /^[A-Z^][A-Z0-9.\-^]{0,10}$/.test(x.symbol));
+    // Keep only candidates whose OWN name closely matches the query (so "France" doesn't bind
+    // a random equity, and a person's name doesn't bind a same-ish ticker).
+    const named = cands.filter((x) => { const nm = SECQ_NAME(x.shortname || x.longname || ""); return !!nm && (nm === want || nm.startsWith(want + " ") || want.startsWith(nm + " ") || (want.length >= 5 && nm.startsWith(want))); });
+    const eq = named.filter((x) => x.quoteType === "EQUITY");
+    if (eq.length) {
+      const caps = await _yhV7(eq.map((x) => x.symbol), env);
+      let best = null, bestCap = -1;
+      for (const x of eq) { const c = (caps[x.symbol] || {}).marketCap; if (typeof c === "number" && c > bestCap) { bestCap = c; best = x.symbol; } }
+      if (best && bestCap >= 2e9) sym = best;                       // real, liquid listing only
+      else if (best == null) sym = eq[0].symbol;                    // caps unavailable → top name-match
+    }
+    if (!sym) { const ix = named.find((x) => x.quoteType === "INDEX"); if (ix) sym = ix.symbol; }
+  } catch { /* leave null */ }
+  if (env && env.WATCHLIST) { try { await env.WATCHLIST.put(key, sym || "", { expirationTtl: sym ? 2592000 : 604800 }); } catch { /* ignore */ } }
+  return sym;
+}
+async function handleSecq(request, env, ctx) {
+  const names = [...new Set((new URL(request.url).searchParams.get("names") || "").split("|").map((s) => s.trim()).filter((s) => s.length >= 2 && s.length <= 48))].slice(0, 24);
+  if (!names.length) return json({ securities: {} });
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/secq?names=${encodeURIComponent(names.join("|"))}&v=1`, request.url).toString());
+  const hit = await cache.match(cacheKey); if (hit) return hit;
+  const pairs = await Promise.all(names.map(async (n) => [n, await _secResolve(n, env)]));   // KV-cached resolution
+  const q = await _yhV7([...new Set(pairs.map(([, s]) => s).filter(Boolean))], env);          // one batched quote call
+  const securities = {};
+  for (const [n, s] of pairs) {
+    const pct = (s && q[s] && typeof q[s].changePct === "number") ? q[s].changePct : null;
+    securities[n] = (s && pct != null) ? { symbol: s, label: s.replace(/^\^/, ""), pct: +pct.toFixed(2), dir: pct > 0 ? "up" : pct < 0 ? "down" : "flat" } : null;
+  }
+  const resp = json({ securities, asOf: new Date().toISOString() });
+  resp.headers.set("cache-control", "public, max-age=300");
+  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
 async function handleEqIndices(request, env, ctx) {
   const cosd = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
   const cache = caches.default;
@@ -5055,6 +5148,7 @@ export default {
     if (url.pathname === "/api/hfm") return handleHfm(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
     if (url.pathname === "/api/quotes") return handleQuotes(request, env, ctx);
+    if (url.pathname === "/api/secq") return handleSecq(request, env, ctx);
     if (url.pathname === "/api/eqindices") return handleEqIndices(request, env, ctx);
     if (url.pathname === "/api/worldindices") return handleWorldIndices(request, env, ctx);
     if (url.pathname === "/api/hormuz") return handleChokepoint(request, env, ctx);

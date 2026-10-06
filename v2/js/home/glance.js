@@ -476,56 +476,76 @@ function renderHomeBriefing() {
   renderBriefBadges();
   renderBriefStrip();
   renderBriefTickers();
+  _resolveBriefSecurities(_briefSecNames(groups));   // detect prose securities → resolve live → repaint once
 }
-// Inline security pills (snip-3 style) in the briefing prose: a tight, CERTAIN curated map —
-// US/EU MEGACAPS (live % via /api/quotes) and US Treasury BENCHMARK yields (from the rates
-// cache). No arbitrary name-resolution (which mis-picks — "Honeywell" → HONA) and no
-// arbitrary-bond quotes (no free data), so a pill never shows a wrong/guessed value (R7).
-const BRIEF_SEC = [
-  { re: /\bNvidia\b/i,            sym: "NVDA",  label: "NVDA" },
-  { re: /\bMicrosoft\b/i,         sym: "MSFT",  label: "MSFT" },
-  { re: /\bApple\b/i,             sym: "AAPL",  label: "AAPL" },
-  { re: /\b(?:Meta Platforms|Meta|Facebook)\b/i, sym: "META", label: "META" },
-  { re: /\bTesla\b/i,             sym: "TSLA",  label: "TSLA" },
-  { re: /\b(?:Alphabet|Google)\b/i, sym: "GOOGL", label: "GOOGL" },
-  { re: /\bAmazon\b/i,            sym: "AMZN",  label: "AMZN" },
-  { re: /\bBroadcom\b/i,          sym: "AVGO",  label: "AVGO" },
-  { re: /\bNetflix\b/i,           sym: "NFLX",  label: "NFLX" },
-  { re: /\b(?:JPMorgan|JP ?Morgan)\b/i, sym: "JPM", label: "JPM" },
-  { re: /\bGoldman Sachs\b/i,     sym: "GS",    label: "GS" },
-  { re: /\bMorgan Stanley\b/i,    sym: "MS",    label: "MS" },
-  { re: /\bHoneywell\b/i,         sym: "HON",   label: "HON" },
-  { re: /\bBoeing\b/i,            sym: "BA",    label: "BA" },
-  { re: /\bIntel\b/i,             sym: "INTC",  label: "INTC" },
-  { re: /\bPalantir\b/i,          sym: "PLTR",  label: "PLTR" },
-  { re: /\bSchneider Electric\b/i, sym: "SU.PA", label: "SU" },
-  { re: /\bASML\b/i,             sym: "ASML",  label: "ASML" },
-  { re: /\bNovo Nordisk\b/i,      sym: "NVO",   label: "NVO" },
-  { re: /\bLVMH\b/i,             sym: "MC.PA", label: "MC" },
-  // US Treasury benchmark yields (from the rates cache, not a quote).
+// Inline security pills (snip-3 style) in the briefing prose. EQUITIES/INDICES are DETECTED
+// in the prose and resolved LIVE via /api/secq (Yahoo search + a market-cap tiebreaker, so
+// "Honeywell" → HON not HONA); US Treasury BENCHMARK yields come from the rates cache. A
+// pill shows only for a confident resolution with a live quote — an unmapped/ambiguous name
+// or a missing quote yields NO pill (never a guessed value, R7).
+const BRIEF_YIELDS = [
   { re: /\b(?:US\s*)?10-?year Treasury(?:\s+yield)?\b|\bUS\s*10-?year\b/i, ykey: "US 10Y", label: "US 10Y" },
   { re: /\b(?:US\s*)?2-?year Treasury(?:\s+yield)?\b|\bUS\s*2-?year\b/i,  ykey: "US 2Y",  label: "US 2Y" },
 ];
+// Proper-noun phrases that are NEVER a tradeable security — countries/demonyms, currencies,
+// central banks / institutions, markets-not-tickers, calendar + common words — pre-filtered
+// so they're not even queried (the server also negative-caches). The server's name-match +
+// market-cap gate catches the rest; the tradeoff for broad coverage is a rare wrong pill.
+const SEC_STOP = new Set(("the a an and or but of in on at to for with as after before while "
+  + "us usa america american united states uk britain british england english europe european eurozone euro-area "
+  + "france french spain spanish germany german italy italian japan japanese china chinese brazil brazilian india indian "
+  + "russia russian ukraine canada canadian mexico asia asian africa middle east gulf nordic scandinavia latin "
+  + "dollar euro sterling pound yen yuan renminbi franc peso real lira rupee bitcoin crypto "
+  + "fed federal reserve ecb boe bank of england banque treasury imf oecd opec congress parliament senate budget "
+  + "white house supreme court government ministry central bank mpc fomc "
+  + "wall street main street city markets market stocks stock shares share bonds bond equities equity yields yield "
+  + "oil crude brent gold silver copper gas energy commodities commodity "
+  + "monday tuesday wednesday thursday friday saturday sunday "
+  + "january february march april may june july august september october november december "
+  + "q1 q2 q3 q4 gdp cpi ppi pmi ism "
+  + "north south east west new this that these those it they we i he she his her their "
+  + "monte dei paschi").split(/\s+/).filter(Boolean));
+// Pull candidate company/index names out of the briefing prose (visible text only): runs of
+// Capitalised tokens (allowing internal connectors de/dei/van/von/&/of/and), minus the
+// stoplist. Multi-word phrases + single proper nouns (Nvidia, Honeywell) both qualify.
+function _briefSecNames(groups) {
+  const text = (groups || []).map((g) => (g.items || []).map((b) => _stripReported(_stripDesk(b.html))).join(" ")).join(" ")
+    .replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/&#\d+;/g, " ");
+  const re = /\b[A-Z][A-Za-z.&'’-]+(?:\s+(?:[A-Z][A-Za-z.&'’-]+|de|dei|del|du|van|von|der|of|and|&)){0,4}\b/g;
+  const names = new Set(); let m;
+  while ((m = re.exec(text)) && names.size < 24) {
+    let p = m[0].replace(/\s+(?:of|and|de|the)$/i, "").replace(/[’'".,]+$/, "").trim();
+    if (p.length < 3) continue;
+    const low = p.toLowerCase();
+    if (SEC_STOP.has(low)) continue;
+    if (low.split(/\s+/).every((w) => SEC_STOP.has(w))) continue;   // e.g. "United States", "Bank of England"
+    if (BRIEF_YIELDS.some((y) => y.re.test(p))) continue;           // handled as a yield
+    names.add(p);
+  }
+  return [...names];
+}
+// Resolved equities for THIS page load: name -> { symbol, label, pct, dir } | null. In-memory
+// only (re-fetched per load) so a quote is never stale across a deploy.
+let _secResolved = {}, _secqFetching = false;
+function _secPill(sym, label, mag, dir) {
+  return `<span class="g-hbt-tk ${dir}" data-sym="${esc(sym)}"><span class="g-hbt-s">${esc(label)}</span><span class="g-hbt-c">${esc(mag)} ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span></span>`;
+}
+// Inject a pill after the FIRST mention of a recognised security (yields via data-ykey, filled
+// by renderBriefTickers from the rates cache; equities FILLED inline from _secResolved).
 function _injectSecPills(html, seen) {
   let out = String(html || "");
-  for (const e of BRIEF_SEC) {
-    if (seen.has(e.label)) continue;
-    let done = false;
-    out = out.replace(e.re, (mm) => {   // first match only (no /g)
-      if (done) return mm; done = true; seen.add(e.label);
-      const attr = e.sym ? ` data-sym="${esc(e.sym)}"` : ` data-ykey="${esc(e.ykey)}"`;
-      return mm + `<span class="g-hbt-tk"${attr} data-label="${esc(e.label)}"></span>`;
-    });
+  const once = (re, replacer) => { let done = false; out = out.replace(re, (mm) => { if (done) return mm; done = true; return replacer(mm); }); };
+  for (const y of BRIEF_YIELDS) {
+    if (seen.has("y:" + y.ykey)) continue;
+    once(y.re, (mm) => { seen.add("y:" + y.ykey); return mm + `<span class="g-hbt-tk" data-ykey="${esc(y.ykey)}" data-label="${esc(y.label)}"></span>`; });
+  }
+  for (const name of Object.keys(_secResolved)) {
+    const d = _secResolved[name];
+    if (!d || seen.has("e:" + d.symbol)) continue;
+    const re = new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b");
+    once(re, (mm) => { seen.add("e:" + d.symbol); return mm + _secPill(d.symbol, d.label, `${Math.abs(d.pct).toFixed(2)}%`, d.dir); });
   }
   return out;
-}
-// Fill the inline pills: yields straight from the rates cache; equities from one batched
-// /api/quotes call (cached per load in _secQuotes). A pill with no available quote stays
-// EMPTY (CSS-hidden) — never a fabricated number.
-let _secQuotes = {}, _secFetching = false;
-function _secFill(n, label, mag, dir) {
-  n.className = "g-hbt-tk " + dir;
-  n.innerHTML = `<span class="g-hbt-s">${esc(label)}</span><span class="g-hbt-c">${esc(mag)} ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span>`;
 }
 function renderBriefTickers() {
   const host = document.getElementById("g-hbrief");
@@ -534,26 +554,25 @@ function renderBriefTickers() {
   host.querySelectorAll(".g-hbt-tk[data-ykey]").forEach((n) => {
     const r = (rates || []).find((x) => x && x.label === n.getAttribute("data-ykey"));
     if (!r || typeof r.change !== "number" || !isFinite(r.change)) return;
-    const bp = Math.round(r.change * 100);
-    _secFill(n, n.getAttribute("data-label"), `${Math.abs(bp)}bp`, glSign(bp));
+    const bp = Math.round(r.change * 100), dir = glSign(bp);
+    n.className = "g-hbt-tk " + dir;
+    n.innerHTML = `<span class="g-hbt-s">${esc(n.getAttribute("data-label"))}</span><span class="g-hbt-c">${Math.abs(bp)}bp ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span>`;
   });
-  const applyEq = () => host.querySelectorAll(".g-hbt-tk[data-sym]").forEach((n) => {
-    const pct = _secQuotes[n.getAttribute("data-sym")];
-    if (pct == null || !isFinite(pct)) return;   // no quote → leave empty (hidden)
-    _secFill(n, n.getAttribute("data-label"), `${Math.abs(pct).toFixed(2)}%`, glSign(pct));
-  });
-  const syms = [...new Set([...host.querySelectorAll(".g-hbt-tk[data-sym]")].map((n) => n.getAttribute("data-sym")))];
-  const missing = syms.filter((s) => !(s in _secQuotes));
-  if (!missing.length) { applyEq(); return; }
-  if (_secFetching) return;
-  _secFetching = true;
-  fetch(`/api/quotes?symbols=${encodeURIComponent(missing.join(","))}`, { headers: { accept: "application/json" } })
+}
+// Detect the prose's securities and resolve them live; when new ones resolve, repaint once so
+// their pills inject. Equities carry their quote in _secResolved, so no second fill is needed.
+function _resolveBriefSecurities(names) {
+  const pending = (names || []).filter((n) => !(n in _secResolved));
+  if (!pending.length || _secqFetching) return;
+  _secqFetching = true;
+  fetch(`/api/secq?names=${encodeURIComponent(pending.join("|"))}`, { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
     .then((d) => {
-      _secFetching = false;
-      const q = (d && d.quotes) || {};
-      for (const s of missing) _secQuotes[s] = (q[s] && typeof q[s].changePct === "number") ? q[s].changePct : null;
-      applyEq();
+      _secqFetching = false;
+      const sec = (d && d.securities) || {};
+      let gained = false;
+      for (const n of pending) { _secResolved[n] = sec[n] || null; if (sec[n]) gained = true; }
+      if (gained) renderHomeBriefing();   // repaint once so the resolved pills inject
     });
 }
 // The iPhone-only markets snapshot strip at the top of the briefing: square cards for

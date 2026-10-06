@@ -640,15 +640,19 @@ notification badge red (`#ef4444`).
   than guessing (R7). **Hidden on the desktop quadrant** (the quadrant keeps the per-desk
   badges). On phone the **Market Briefing is the FIRST wire tab** (News/lane is second and
   still the default landing pane). **Inline security pills (both surfaces):** after a
-  recognised security's first mention in the prose, a small chip (`.g-hbt-tk`,
-  `_injectSecPills`/`renderBriefTickers`) shows its ticker/benchmark + the day's move + a
-  direction arrow (e.g. "Honeywell `HON 0.07% ↓`", "the US 10-year Treasury yield
-  `US 10Y 3bp ↑`"). Coverage is a **tight, certain curated map** — US/EU **megacaps** (live
-  % via `/api/quotes`) and **US Treasury benchmark yields** (from the rates cache) — never
-  arbitrary name-resolution (which mis-picks: "Honeywell" → HONA) and never arbitrary-bond
-  quotes (no free data). A pill therefore **never shows a wrong/guessed value (R7)**: an
-  unmapped name gets no pill, and a mapped name with no live quote stays empty (hidden).
-  **One live-data
+  recognised security's first mention in the prose, a small chip (`.g-hbt-tk`) shows its
+  ticker/benchmark + the day's move + a direction arrow (e.g. "Honeywell `HON 0.07% ↓`",
+  "the US 10-year Treasury yield `US 10Y 3bp ↑`"). **Equities/indices are DETECTED in the
+  prose** (`_briefSecNames` — capitalised phrases minus a `SEC_STOP` stoplist of
+  countries/currencies/central-banks/calendar/common words) and **resolved LIVE** via
+  **`/api/secq`** → `handleSecq`: Yahoo **search** for candidates, then a **market-cap
+  tiebreaker** over them (crumb-gated `/v7/quote`, cookie+crumb cached in KV) so the biggest
+  listing wins — "Honeywell" → **HON**, not HONA. Resolutions, **including negatives**, are
+  KV-cached so a non-security name isn't re-searched. **US Treasury benchmark yields** come
+  from the rates cache. The tradeoff for broad "any-equity" coverage is a **rare wrong pill**
+  (an ambiguous name binding the wrong listing); it is bounded by the name-match + market-cap
+  floor gate, and a name that doesn't confidently resolve to a live quote gets **no pill**
+  (never a fabricated number, R7). **One live-data
   badge per desk section:** each canonical desk carries exactly ONE compact data card
   pinning its lead instrument to a real, sourced number — **Macro → Brent, Equities →
   S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip.
