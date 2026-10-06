@@ -159,6 +159,10 @@ const b = await launchChromium();
   check(await vis(".g-hero"), "phone: tapping Chart reveals the hero chart");
   check(!(await vis("#g-feed")), "phone: tapping Chart hides the news feed");
   check(!(await vis(".g-side3")), "phone: tapping Chart keeps the manager wire hidden");
+  // The full-width chart pane carries NO left border (the 2×2 desktop divider must not draw
+  // a vertical line down the far-left edge on phone).
+  check(await pg.evaluate(() => { const h = document.querySelector(".g-hero"); return !!h && parseFloat(getComputedStyle(h).borderLeftWidth) === 0; }),
+    "phone: the chart pane has no left border line on the far-left edge");
   // The default selects EVERY instrument in the row (all lines plotted on open); each is
   // one tap away to hide.
   await pg.waitForSelector("#g-hero-sel .g-hero-tk", { timeout: 8000 });

@@ -1511,7 +1511,7 @@
       .tui .g-layout.wire-watch .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-watch .g-side3{ display:block; }
       .tui .g-layout.wire-chart .g-feed-wrap{ display:none; }
-      .tui .g-layout.wire-chart .g-hero{ display:flex; }
+      .tui .g-layout.wire-chart .g-hero{ display:flex; border-left:0; }   /* full-width on phone — drop the 2×2 desktop divider line on the far-left edge */
       .tui .g-layout.wire-x .g-feed-wrap{ display:none; }
       .tui .g-layout.wire-x .g-side-x{ display:block; }
       /* On phones the chart pane gets a taller plot for legibility. */
