@@ -685,6 +685,13 @@ quiet slot gets a short output, not padding.
   **4–6 `bullets`** (ideally one per desk — Macro · Bonds · Equities · Credit),
   each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
+  **State the news, never narrate the reporting (HOUSE_STYLE R28).** The bullet prose
+  states the fact directly; the outlet is the `srcName` link only. NEVER write "the FT
+  reports/explains", "Bloomberg notes", "according to …", "<byline> says/writes/warns
+  that", and never fold a second outlet's claim into a bullet ("… Bloomberg's Markets
+  Daily notes …") — a bullet carries ONE `src`, so keep only what that source supports
+  or drop the clause. (`_stripReported` removes a simple trailing "…, the FT reports" as a
+  backstop but cannot unpick a woven-in "the FT explains why …" — so don't author one.)
   **No Overview lede:** the synthesis `lede` is RETIRED — it is not rendered, so do
   NOT author one (the field is optional/deprecated and may be omitted entirely).
   Update the slot's `date`/`time` to the run stamp.

@@ -641,10 +641,15 @@ notification badge red (`#ef4444`).
   rendered; the `lede` field is optional/deprecated in the data and need not be
   authored. **One section per desk:** the render
   groups same-desk bullets under a single kicker (see R7/grounding). **Each desk links
-  its source(s):** the prose's inline "who reported it" attribution ("…, the FT reports")
-  is stripped (`_stripReported`); instead a trailing source line (`.g-hbrief-srcs` →
-  `.g-hbrief-src`, middot-joined) links every story the desk compresses to its publisher —
-  the source as a **clickable link, not a textual mention** (grounding kept, R7). The desk
+  its source(s), and the prose NEVER narrates the reporting.** State the news directly as
+  fact; **never** attribute it via the publication's act — no "the FT reports/explains",
+  "Bloomberg notes", "according to …", "<byline> says/writes/warns that", and never fold a
+  second outlet's claim into a bullet ("… Bloomberg's Markets Daily notes …"). The source is
+  the trailing source line (`.g-hbrief-srcs` → `.g-hbrief-src`, middot-joined) — a
+  **clickable link, not a textual mention** (grounding kept, R7). This is an **authoring**
+  rule (the daily routine must write bullets this way); `_stripReported` only removes a
+  simple TRAILING "…, the FT reports/notes/writes/says" as a backstop and cannot unpick a
+  woven-in "the FT explains why …", so those must never be authored in the first place. The desk
   kicker is **entity-decoded before display** (`_deEnt`) so an authored "M&amp;A"/"R&amp;D"
   renders as "M&A"/"R&D", never the double-encoded literal (`_briefDesk`/`_deEnt` in `glance.js`).
   **Fixed desk order — Macro, then Bonds, then Equities, then Credit:** the

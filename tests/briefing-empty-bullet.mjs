@@ -33,6 +33,18 @@ const data = await pg.evaluate(async () => {
   const stripDesk = (h) => String(h || "").replace(/^(\s*<strong>)\s*[^<]*?\s*(?:&mdash;|—)\s*/, "$1");
   const hasText = (h) => String(h || "").replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, "").length > 0;
   const isUrl = (u) => /^https?:\/\//.test(String(u || ""));
+  // Briefing prose must STATE THE NEWS, not narrate who reported it (HOUSE_STYLE R28):
+  // no "according to", no "explains why", and no outlet/byline named next to an
+  // attribution verb ("the FT reports/explains/notes", "Bloomberg's Markets Daily notes").
+  // Newsmaker statements ("Chancellor Healey warns…") are fine — "warns/warned" are not
+  // flagged, and the ban is scoped to publication names, so a real quote is untouched.
+  const narratesSource = (h) => {
+    const t = String(h || "");
+    if (/\baccording to\b/i.test(t)) return "according to";
+    if (/\bexplains?\s+why\b/i.test(t)) return "explains why";
+    if (/\b(?:the\s+)?(?:FT|Financial\s+Times|Bloomberg|Reuters|CNBC|WSJ|the\s+Journal|the\s+Economist|the\s+Times|Barron)\b(?:&rsquo;s|&#8217;s|’s|'s)?[^.<]{0,40}?\b(?:reports?|explains?|notes?|writes?|says?)\b/i.test(t)) return "outlet + reporting verb";
+    return null;
+  };
   const keys = Object.keys(slots);
   const bad = [];
   let bulletN = 0;
@@ -49,6 +61,8 @@ const data = await pg.evaluate(async () => {
       else if (!hasText(stripDesk(x.html))) bad.push(`${k}[${i}]: kicker with no body ("${String(x.html).replace(/<[^>]*>/g, "").slice(0, 40)}")`);
       if (!isUrl(x && x.src)) bad.push(`${k}[${i}]: bad/missing src`);
       if (!(x && String(x.srcName || "").trim())) bad.push(`${k}[${i}]: missing srcName`);
+      const nv = narratesSource(x && x.html);
+      if (nv) bad.push(`${k}[${i}]: narrates the source (${nv}) — state the news; the srcName link is the attribution`);
     });
   }
   return { slots: keys.length, bulletN, bad };

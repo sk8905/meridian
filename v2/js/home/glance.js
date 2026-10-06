@@ -382,7 +382,13 @@ function _stripReported(html) {
   // match — the body is matched before entities are decoded. Boundary allows , . ; : ) ] or
   // end, so "…reports;" and "…reports:" are caught too.
   const W = "(?:&[a-z]+;|&#\\d+;|[\\w.'’])";
-  const rep = new RegExp(",\\s*(?:the\\s+)?[A-Z]" + W + "*(?:\\s+[A-Z]" + W + "*){0,3}\\s+reports?(?=[,.);:\\]]|\\s*$)", "g");
+  // A TRAILING "who said it" clause: ", the FT reports/notes/writes/says" (or a named
+  // byline, "…, Bloomberg's John Authers notes"). The prose should state the news; the
+  // source is the trailing srcName link. This is only a backstop — woven-in forms ("the FT
+  // explains why …", "Bloomberg's Markets Daily notes <fact>") are the author's job to
+  // avoid (see briefings.js header + HOUSE_STYLE R28); the strip stays trailing-only so it
+  // can never cut real facts mid-sentence.
+  const rep = new RegExp(",\\s*(?:the\\s+)?[A-Z]" + W + "*(?:\\s+[A-Z]" + W + "*){0,3}\\s+(?:reports?|notes?|writes?|says?)(?=[,.);:\\]]|\\s*$)", "g");
   const acc = new RegExp(",\\s*according to\\s+(?:the\\s+)?[A-Z]" + W + "*(?:\\s+[A-Z]" + W + "*){0,3}(?=[,.);:\\]]|\\s*$)", "gi");
   return String(html || "").replace(rep, "").replace(acc, "").replace(/\s+([,.;:])/g, "$1").replace(/\s{2,}/g, " ");
 }
