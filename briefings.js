@@ -44,9 +44,10 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-06",
-      time: "05:10 BST",
+      time: "08:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; France is being hit by a pre-election debt sell-off</strong> that many fear could shake the eurozone, the FT reports, while Brazil's Bovespa rallied to its highest in dollar terms since 2011 after Flavio Bolsonaro's first-round lead over Lula.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the governor of the Banque de France has warned on rising rates</strong>, according to the FT&rsquo;s FirstFT morning briefing, as French and wider euro-area debt stays under pressure ahead of the Spanish snap election.", src: "https://www.ft.com/content/1d152b5b-decb-41c3-a197-8de1d1ca26fc", srcName: "Financial Times" },
         { html: "<strong>Fixed income &mdash; the US 10-year Treasury yield has broken through its 2007 high</strong>, with Monday's ISM services report showing the share of managers citing rising prices at its highest since the post-pandemic surge, Bloomberg's John Authers notes.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", srcName: "Bloomberg" },
         { html: "<strong>Equities &mdash; the Nasdaq-100 rose 0.9% on Monday to top 31,000 for the first time</strong>, a rally Authers says is increasingly narrow and dependent on a few mega-cap names even as long bond yields climb.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", srcName: "Bloomberg" },
       ],
