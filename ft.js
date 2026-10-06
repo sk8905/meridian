@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "094a93af-ad94-4db2-8254-bc415d5161a6",
+    title: "Ireland offers tax cuts in budget to help with cost of living",
+    date: "2026-10-06",
+    time: "15:59",
+    url: "https://www.ft.com/content/094a93af-ad94-4db2-8254-bc415d5161a6",
+  },
+  {
+    id: "76db879a-2c53-4aee-8354-b30185f1d3a4",
+    title: "German far right secures first regional parliament president",
+    date: "2026-10-06",
+    time: "15:35",
+    url: "https://www.ft.com/content/76db879a-2c53-4aee-8354-b30185f1d3a4",
+  },
+  {
     id: "1c1ee003-f041-4c66-a971-f08d488d11f7",
     title: "S&P 500 hits record high as AI stocks shrug off bond market slump",
     date: "2026-10-06",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "06:00",
     url: "https://www.ft.com/content/372d018c-df75-4bf8-9699-7f87b8511c37",
-  },
-  {
-    id: "1d152b5b-decb-41c3-a197-8de1d1ca26fc",
-    title: "FirstFT: French central bank chief warns on rising rates",
-    date: "2026-10-06",
-    time: "05:32",
-    url: "https://www.ft.com/content/1d152b5b-decb-41c3-a197-8de1d1ca26fc",
-  },
-  {
-    id: "0b4511be-37a8-4de1-bf7d-1718c1f01351",
-    title: "The politics of losing sleep",
-    date: "2026-10-06",
-    time: "05:00",
-    url: "https://www.ft.com/content/0b4511be-37a8-4de1-bf7d-1718c1f01351",
   },
 ];
