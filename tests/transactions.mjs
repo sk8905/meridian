@@ -58,8 +58,11 @@ const ov = await pg.evaluate(() => {
     subsNestedInRail: !!document.querySelector("#tx-mode .tx-subnav-nested [data-sub]"),
     railLeft: (() => { const h = document.querySelector(".tx-dash .twire-head"), m = document.querySelector(".tx-dash .tcol-main"); return !!(h && m) && h.getBoundingClientRect().right <= m.getBoundingClientRect().left + 5 && Math.round(h.getBoundingClientRect().width) < 220; })(),
     bodyBg: getComputedStyle(document.querySelector("#tx-body")).backgroundColor,
+    // The deal NAME cell is WHITE but NOT bold (the bold was removed, matching Profiles).
+    nameWt: (() => { const nm = document.querySelector(".tx-panes-in .tx-list tbody tr.tx-row td.tx-bd"); return nm ? parseInt(getComputedStyle(nm).fontWeight, 10) : null; })(),
   };
 });
+check(ov.nameWt != null && ov.nameWt <= 400, `Transactions: the deal name is NOT bold — normal weight (${ov.nameWt})`);
 check(ov.subs.length >= 4, `Primary shows a sub-tab per transaction type (${ov.subs.join(", ")})`);
 check(ov.noOverview, "the Overview sub-tab is removed from Primary/Secondaries");
 check(ov.activeIsFirst && ov.paneRows > 0, `it lands on the first (largest) type's deals (${ov.paneRows} rows)`);

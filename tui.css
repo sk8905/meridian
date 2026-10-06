@@ -238,14 +238,14 @@
 .tleague .tl-nm { color: var(--ink); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague .tl-n { color: var(--muted); font-family: var(--t-mono); }
 /* Uniform format across EVERY league/data table family (profile leagues, Deal Flow
-   / Credits, holdings, Investments): LEFT-ALIGNED throughout, and ONLY the first
-   column is bold (the name) — every other column is normal-weight muted text. A
-   cell's own link/badge sets its colour on its own element, which still wins (up/
-   down arrows, rating badges, source links, sortable-header accents). */
+   / Credits, holdings, Investments): LEFT-ALIGNED throughout; the first column (the
+   name) is WHITE but NORMAL weight — not bold — every other column is normal-weight
+   muted text. A cell's own link/badge sets its colour on its own element, which
+   still wins (up/down arrows, rating badges, source links, sortable-header accents). */
 .tleague th, .tleague td, .tx-tbl th, .tx-tbl td, .tx-list th, .tx-list td,
 .tcr-tbl th, .tcr-tbl td, .tl-holdings th, .tl-holdings td { text-align: left; }
 .tleague td:first-child, .tx-tbl td:first-child, .tx-list td:first-child,
-.tcr-tbl td:first-child, .tl-holdings td:first-child { color: var(--ink); font-weight: 700; }
+.tcr-tbl td:first-child, .tl-holdings td:first-child { color: var(--ink); font-weight: 400; }
 .tleague td:not(:first-child), .tx-tbl td:not(:first-child), .tx-list td:not(:first-child),
 .tcr-tbl td:not(:first-child), .tl-holdings td:not(:first-child) { color: var(--muted); font-weight: 400; }
 .tleague tr.clickable { cursor: pointer; }
@@ -756,7 +756,7 @@
    (e.g. "CCC+") is never cut off. */
 .tcr-nm, .tcr-jur, .tcr-sec { overflow: hidden; text-overflow: ellipsis; }
 .tcr-rt-cell { white-space: nowrap; }
-.tcr-nm { color: var(--ink); font-weight: 600; }
+.tcr-nm { color: var(--ink); font-weight: 400; }
 /* Borrower domicile — the full country name, a muted categorical column. */
 .tcr-jur { color: var(--muted); font-weight: 400; }
 .tcr-sec { color: var(--muted); font-weight: 400; }
@@ -780,7 +780,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-list td.tx-hd { color: var(--ink); white-space: normal; line-height: 1.35; }
 /* Borrower / company cell: JUST the name (bold); the full headline is the hover
    title and the source link lives in the Source column. */
-.tx-list td.tx-bd { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.3; }
+.tx-list td.tx-bd { color: var(--ink); font-weight: 400; white-space: normal; line-height: 1.3; }
 .tx-list td.tx-sp { color: var(--muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-list td.tx-mg { color: var(--muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-list td.tx-cat { color: var(--muted); white-space: nowrap; }
@@ -928,7 +928,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-src:hover { color: var(--ink); }
 
 /* ---- BDC roster (Transactions ▸ BDCs) ------------------------------------- */
-.tbdc-tbl td.tbdc-nm { color: var(--ink); font-weight: 600; white-space: normal; line-height: 1.25; }
+.tbdc-tbl td.tbdc-nm { color: var(--ink); font-weight: 400; white-space: normal; line-height: 1.25; }
 .tbdc-sub { display: block; color: var(--faint); font-weight: 400; font-size:var(--fs-micro); letter-spacing: .02em; margin-top: 1px; }
 .tbdc-szt { margin-left: 3px; color: var(--faint); font-size:var(--fs-micro); font-weight: 400; text-transform: uppercase; letter-spacing: .03em; vertical-align: 1px; }
 .tbdc-ty-l, .tbdc-ty-p { font-size:var(--fs-micro); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }

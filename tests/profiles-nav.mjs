@@ -34,6 +34,14 @@ checkEq(focusLbl.lg.btn, "$1–15bn", "managers AUM focus toggle reads $1–15bn
 checkEq(focusLbl.hf.btn, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
 check(focusLbl.lg.inSearch && focusLbl.lg.noBar, "Managers: the $1–15bn toggle is merged into the search row (no 'AUM focus' label)");
 check(focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle is merged into the search row");
+// The manager/fund NAME cell is WHITE but NOT bold (the bold was removed).
+const nameWt = await pg.evaluate(() => {
+  const nm = document.querySelector("#pf-panes .tleague .tl-nm");
+  if (!nm) return null;
+  const cs = getComputedStyle(nm);
+  return { w: parseInt(cs.fontWeight, 10), color: cs.color };
+});
+check(nameWt && nameWt.w <= 400, `Profiles: the manager name is NOT bold — normal weight (${nameWt && nameWt.w})`);
 // The Hedge Funds "Cross-holdings" button now sits IN the search row, just to the
 // left of the $1–15bn AUM filter.
 const cons = await pg.evaluate(() => {
