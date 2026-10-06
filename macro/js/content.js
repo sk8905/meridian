@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-06",
-  lastCheckedTime: "22:12 BST",
+  lastCheckedTime: "00:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-06",
   us: [
+    {title: "Donald Trump says he is considering suspending federal petrol tax", source: "Financial Times", date: "2026-10-06", time: "22:09", url: "https://www.ft.com/content/3fd43fc5-4973-4a26-9d9c-47b6361e6217"},
+    {title: "Ships’ captains paid $100,000 a month to transit Strait of Hormuz", source: "Financial Times", date: "2026-10-06", time: "21:00", url: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e"},
     {title: "S&P 500 hits record high as AI stocks shrug off bond market slump", source: "Financial Times", date: "2026-10-06", time: "15:03", url: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7"},
     {title: "Vitol chief warns of tanker shortage and risk of $200-a-barrel oil", source: "Financial Times", date: "2026-10-06", time: "14:39", url: "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197"},
     {title: "Why are bond yields so high?", source: "Financial Times", date: "2026-10-06", time: "12:30", url: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa"},
-    {title: "Surge in borrowing costs hits corporate America", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/7c7ccb82-2973-47af-ad9b-b469c6ea0048"},
-    {title: "Stocks Edge Up to Near Record, Bonds Extend Slide: Markets Wrap", source: "Bloomberg", date: "2026-10-05", time: "08:00", url: "https://bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz"},
   ],
   uk: [
+    {title: "Badenoch pledges to halve employers’ NI contributions for younger workers", source: "Financial Times", date: "2026-10-06", time: "17:00", url: "https://www.ft.com/content/aae1fc0b-2c24-4e44-a2b7-886ad2cc5ffe"},
+    {title: "Tory plan to rip up UK-EU food deal risks ‘huge uncertainty’", source: "Financial Times", date: "2026-10-06", time: "17:00", url: "https://www.ft.com/content/f923e23b-423a-446c-bf84-a68f7b1d169c"},
     {title: "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", source: "Financial Times", date: "2026-10-06", time: "12:23", url: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3"},
     {title: "UK risks ‘uninvestable’ reputation if North Sea projects are blocked, says energy boss", source: "Financial Times", date: "2026-10-06", time: "11:07", url: "https://www.ft.com/content/d510c91d-3039-42f7-af4a-63814f0df86f"},
     {title: "The creditor bloodbath in UK telecoms", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/0e4afbdc-c018-4ee4-86b3-4248ae3e97ab"},
-    {title: "BT’s swoop on TalkTalk has regulators over a barrel", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/309a7685-e488-44f4-ad76-4247b7f8bb5b"},
-    {title: "Banks will lobby Healey for capital rules cut, says senior MP", source: "Financial Times", date: "2026-10-05", time: "05:00", url: "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414"},
   ],
 };
 

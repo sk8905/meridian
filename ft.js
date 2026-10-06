@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d3f5928d-f38c-4666-8f7a-8737f9c45f51",
+    title: "SpaceX looks to raise $40bn to buy Nvidia chips in financing led by Apollo",
+    date: "2026-10-06",
+    time: "23:28",
+    url: "https://www.ft.com/content/d3f5928d-f38c-4666-8f7a-8737f9c45f51",
+  },
+  {
+    id: "29d249eb-ed06-4ab1-8f17-c11c5589cf74",
+    title: "FirstFT: Crypto company known for risky ‘perps’ vexes Singapore",
+    date: "2026-10-06",
+    time: "22:35",
+    url: "https://www.ft.com/content/29d249eb-ed06-4ab1-8f17-c11c5589cf74",
+  },
+  {
     id: "3fd43fc5-4973-4a26-9d9c-47b6361e6217",
     title: "Donald Trump says he is considering suspending federal petrol tax",
     date: "2026-10-06",
@@ -40,20 +54,6 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "21:00",
     url: "https://www.ft.com/content/6d06a6b2-ea2f-4384-959d-682ce78a1693",
-  },
-  {
-    id: "4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
-    title: "France’s Marine Le Pen pledges to rein in public spending",
-    date: "2026-10-06",
-    time: "16:50",
-    url: "https://www.ft.com/content/4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
-  },
-  {
-    id: "5235f78e-5c94-4015-8559-b6d0ec3fea95",
-    title: "Jeffrey Archer, author and politician, 1940-2026",
-    date: "2026-10-06",
-    time: "16:08",
-    url: "https://www.ft.com/content/5235f78e-5c94-4015-8559-b6d0ec3fea95",
   },
   {
     id: "0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e",
@@ -126,6 +126,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/7d3a362b-1bbc-4022-8f44-19544716f331",
   },
   {
+    id: "4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
+    title: "France’s Marine Le Pen pledges to rein in public spending",
+    date: "2026-10-06",
+    time: "16:50",
+    url: "https://www.ft.com/content/4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
+  },
+  {
     id: "fba91434-70d3-40e6-adb1-8d0c5d6f4fe6",
     title: "Ion tells creditors it won’t play hardball on $11bn debt pile",
     date: "2026-10-06",
@@ -133,11 +140,25 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/fba91434-70d3-40e6-adb1-8d0c5d6f4fe6",
   },
   {
+    id: "42b6fa88-f730-4f8a-a194-8f53d0759aaf",
+    title: "Palmer Luckey’s Erebor surges to more than $7bn in deposits since launch",
+    date: "2026-10-06",
+    time: "16:32",
+    url: "https://www.ft.com/content/42b6fa88-f730-4f8a-a194-8f53d0759aaf",
+  },
+  {
     id: "97d14ed8-d6b7-4f4f-8e22-e87435b8ac0d",
     title: "Taking stock of public trust in the Kevin Warsh Fed era",
     date: "2026-10-06",
     time: "16:30",
     url: "https://www.ft.com/content/97d14ed8-d6b7-4f4f-8e22-e87435b8ac0d",
+  },
+  {
+    id: "5235f78e-5c94-4015-8559-b6d0ec3fea95",
+    title: "Jeffrey Archer, author and politician, 1940-2026",
+    date: "2026-10-06",
+    time: "16:08",
+    url: "https://www.ft.com/content/5235f78e-5c94-4015-8559-b6d0ec3fea95",
   },
   {
     id: "094a93af-ad94-4db2-8254-bc415d5161a6",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "11:36",
     url: "https://www.ft.com/content/5b233375-b686-4dc1-ab59-47930f1583ad",
-  },
-  {
-    id: "d510c91d-3039-42f7-af4a-63814f0df86f",
-    title: "UK risks ‘uninvestable’ reputation if North Sea projects are blocked, says energy boss",
-    date: "2026-10-06",
-    time: "11:07",
-    url: "https://www.ft.com/content/d510c91d-3039-42f7-af4a-63814f0df86f",
-  },
-  {
-    id: "bf5f9eec-8f31-4ecd-8f0b-d27340d10767",
-    title: "Indian protesters demand electoral chief resign over alleged voter roll fraud",
-    date: "2026-10-06",
-    time: "11:03",
-    url: "https://www.ft.com/content/bf5f9eec-8f31-4ecd-8f0b-d27340d10767",
-  },
-  {
-    id: "f94db6c5-1ad2-4bbf-9fec-4a4ef1e99dba",
-    title: "Saudi Arabia, Pakistan and Turkey trigger mutual defence pact over Houthis",
-    date: "2026-10-06",
-    time: "11:02",
-    url: "https://www.ft.com/content/f94db6c5-1ad2-4bbf-9fec-4a4ef1e99dba",
   },
 ];

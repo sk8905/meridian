@@ -81,10 +81,11 @@ export const BRIEFINGS = {
     },
     evening: {
       label: "Evening",
-      date: "2026-10-06",
-      time: "22:12 BST",
+      date: "2026-10-07",
+      time: "00:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; Spain&rsquo;s Pedro S&aacute;nchez is gambling on a snap election</strong>, while in France Marine Le Pen pledged to rein in public spending as euro-area political risk keeps markets on edge.", src: "https://www.ft.com/content/a7a19bb1-a1ba-4317-a191-c387bbc9f4b9", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; Donald Trump said he is considering suspending the federal petrol tax</strong> as energy costs stay elevated.", src: "https://www.ft.com/content/3fd43fc5-4973-4a26-9d9c-47b6361e6217", srcName: "Financial Times" },
         { html: "<strong>Bonds &mdash; the global government-bond sell-off remains the dominant theme</strong>, with the US 10-year Treasury yield at 5.27% and France caught between the bond market and the barricades ahead of its elections, after the euro fell to a 17-month low against the dollar on Monday.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high, up 0.6% to around 7,820,</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
         { html: "<strong>Credit &mdash; Arini raised $1.5 billion for its credit trading strategy</strong>, reopening it to new cash after two years even as its main hedge fund extended losses to a 13.5% decline.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg" },
