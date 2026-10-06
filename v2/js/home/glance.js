@@ -432,10 +432,14 @@ function renderHomeBriefing() {
   // reported it" attribution ("…, the FT reports") is stripped (_stripReported); instead
   // each desk carries a trailing LINK to every source it compresses (`.g-hbrief-srcs`,
   // middot-joined) — the clickable source, not a textual mention (R7 grounding kept).
+  const secSeen = new Set();   // pill each recognised security ONCE across the whole brief
   const bullets = groups.map((g) => {
     const m = String(g.items[0].html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/);
     const desk = m ? m[1].trim() : "";
-    const text = g.items.map((b) => nbNums(_capFold(_stripReported(_stripDesk(b.html))))).join(" ");
+    // Inject an inline ticker/benchmark pill after a recognised security's first mention
+    // (filled live by renderBriefTickers) — BEFORE nbNums so the pill's own markup is left
+    // alone and a number isn't split out of a name we match.
+    const text = g.items.map((b) => nbNums(_capFold(_injectSecPills(_stripReported(_stripDesk(b.html)), secSeen)))).join(" ");
     // A desk item with a kicker but NO body (e.g. a half-generated refresh draft where
     // the headline shipped before its sentence did) would otherwise paint as a bare
     // heading above an empty void — the exact ghost section a reader once photographed.
@@ -471,6 +475,86 @@ function renderHomeBriefing() {
     + `</div>`;
   renderBriefBadges();
   renderBriefStrip();
+  renderBriefTickers();
+}
+// Inline security pills (snip-3 style) in the briefing prose: a tight, CERTAIN curated map —
+// US/EU MEGACAPS (live % via /api/quotes) and US Treasury BENCHMARK yields (from the rates
+// cache). No arbitrary name-resolution (which mis-picks — "Honeywell" → HONA) and no
+// arbitrary-bond quotes (no free data), so a pill never shows a wrong/guessed value (R7).
+const BRIEF_SEC = [
+  { re: /\bNvidia\b/i,            sym: "NVDA",  label: "NVDA" },
+  { re: /\bMicrosoft\b/i,         sym: "MSFT",  label: "MSFT" },
+  { re: /\bApple\b/i,             sym: "AAPL",  label: "AAPL" },
+  { re: /\b(?:Meta Platforms|Meta|Facebook)\b/i, sym: "META", label: "META" },
+  { re: /\bTesla\b/i,             sym: "TSLA",  label: "TSLA" },
+  { re: /\b(?:Alphabet|Google)\b/i, sym: "GOOGL", label: "GOOGL" },
+  { re: /\bAmazon\b/i,            sym: "AMZN",  label: "AMZN" },
+  { re: /\bBroadcom\b/i,          sym: "AVGO",  label: "AVGO" },
+  { re: /\bNetflix\b/i,           sym: "NFLX",  label: "NFLX" },
+  { re: /\b(?:JPMorgan|JP ?Morgan)\b/i, sym: "JPM", label: "JPM" },
+  { re: /\bGoldman Sachs\b/i,     sym: "GS",    label: "GS" },
+  { re: /\bMorgan Stanley\b/i,    sym: "MS",    label: "MS" },
+  { re: /\bHoneywell\b/i,         sym: "HON",   label: "HON" },
+  { re: /\bBoeing\b/i,            sym: "BA",    label: "BA" },
+  { re: /\bIntel\b/i,             sym: "INTC",  label: "INTC" },
+  { re: /\bPalantir\b/i,          sym: "PLTR",  label: "PLTR" },
+  { re: /\bSchneider Electric\b/i, sym: "SU.PA", label: "SU" },
+  { re: /\bASML\b/i,             sym: "ASML",  label: "ASML" },
+  { re: /\bNovo Nordisk\b/i,      sym: "NVO",   label: "NVO" },
+  { re: /\bLVMH\b/i,             sym: "MC.PA", label: "MC" },
+  // US Treasury benchmark yields (from the rates cache, not a quote).
+  { re: /\b(?:US\s*)?10-?year Treasury(?:\s+yield)?\b|\bUS\s*10-?year\b/i, ykey: "US 10Y", label: "US 10Y" },
+  { re: /\b(?:US\s*)?2-?year Treasury(?:\s+yield)?\b|\bUS\s*2-?year\b/i,  ykey: "US 2Y",  label: "US 2Y" },
+];
+function _injectSecPills(html, seen) {
+  let out = String(html || "");
+  for (const e of BRIEF_SEC) {
+    if (seen.has(e.label)) continue;
+    let done = false;
+    out = out.replace(e.re, (mm) => {   // first match only (no /g)
+      if (done) return mm; done = true; seen.add(e.label);
+      const attr = e.sym ? ` data-sym="${esc(e.sym)}"` : ` data-ykey="${esc(e.ykey)}"`;
+      return mm + `<span class="g-hbt-tk"${attr} data-label="${esc(e.label)}"></span>`;
+    });
+  }
+  return out;
+}
+// Fill the inline pills: yields straight from the rates cache; equities from one batched
+// /api/quotes call (cached per load in _secQuotes). A pill with no available quote stays
+// EMPTY (CSS-hidden) — never a fabricated number.
+let _secQuotes = {}, _secFetching = false;
+function _secFill(n, label, mag, dir) {
+  n.className = "g-hbt-tk " + dir;
+  n.innerHTML = `<span class="g-hbt-s">${esc(label)}</span><span class="g-hbt-c">${esc(mag)} ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span>`;
+}
+function renderBriefTickers() {
+  const host = document.getElementById("g-hbrief");
+  if (!host) return;
+  const rates = (_rateRows && _rateRows.length) ? _rateRows : (((readCache("rates") || {}).rates) || []);
+  host.querySelectorAll(".g-hbt-tk[data-ykey]").forEach((n) => {
+    const r = (rates || []).find((x) => x && x.label === n.getAttribute("data-ykey"));
+    if (!r || typeof r.change !== "number" || !isFinite(r.change)) return;
+    const bp = Math.round(r.change * 100);
+    _secFill(n, n.getAttribute("data-label"), `${Math.abs(bp)}bp`, glSign(bp));
+  });
+  const applyEq = () => host.querySelectorAll(".g-hbt-tk[data-sym]").forEach((n) => {
+    const pct = _secQuotes[n.getAttribute("data-sym")];
+    if (pct == null || !isFinite(pct)) return;   // no quote → leave empty (hidden)
+    _secFill(n, n.getAttribute("data-label"), `${Math.abs(pct).toFixed(2)}%`, glSign(pct));
+  });
+  const syms = [...new Set([...host.querySelectorAll(".g-hbt-tk[data-sym]")].map((n) => n.getAttribute("data-sym")))];
+  const missing = syms.filter((s) => !(s in _secQuotes));
+  if (!missing.length) { applyEq(); return; }
+  if (_secFetching) return;
+  _secFetching = true;
+  fetch(`/api/quotes?symbols=${encodeURIComponent(missing.join(","))}`, { headers: { accept: "application/json" } })
+    .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
+    .then((d) => {
+      _secFetching = false;
+      const q = (d && d.quotes) || {};
+      for (const s of missing) _secQuotes[s] = (q[s] && typeof q[s].changePct === "number") ? q[s].changePct : null;
+      applyEq();
+    });
 }
 // The iPhone-only markets snapshot strip at the top of the briefing: square cards for
 // S&P 500 · VIX · Oil · Gold · US 10Y (snip-2 format — label+value on top, a direction-

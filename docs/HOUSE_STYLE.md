@@ -639,7 +639,16 @@ notification badge red (`#ef4444`).
   same last-good markets/rates cache as the rail (no extra fetch) and stays empty rather
   than guessing (R7). **Hidden on the desktop quadrant** (the quadrant keeps the per-desk
   badges). On phone the **Market Briefing is the FIRST wire tab** (News/lane is second and
-  still the default landing pane). **One live-data
+  still the default landing pane). **Inline security pills (both surfaces):** after a
+  recognised security's first mention in the prose, a small chip (`.g-hbt-tk`,
+  `_injectSecPills`/`renderBriefTickers`) shows its ticker/benchmark + the day's move + a
+  direction arrow (e.g. "Honeywell `HON 0.07% ↓`", "the US 10-year Treasury yield
+  `US 10Y 3bp ↑`"). Coverage is a **tight, certain curated map** — US/EU **megacaps** (live
+  % via `/api/quotes`) and **US Treasury benchmark yields** (from the rates cache) — never
+  arbitrary name-resolution (which mis-picks: "Honeywell" → HONA) and never arbitrary-bond
+  quotes (no free data). A pill therefore **never shows a wrong/guessed value (R7)**: an
+  unmapped name gets no pill, and a mapped name with no live quote stays empty (hidden).
+  **One live-data
   badge per desk section:** each canonical desk carries exactly ONE compact data card
   pinning its lead instrument to a real, sourced number — **Macro → Brent, Equities →
   S&P 500, Fixed income → US 10Y** — with the value and a direction-coloured change chip.
