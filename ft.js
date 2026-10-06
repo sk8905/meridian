@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1",
+    title: "Informa to buy rival events business Clarion from Blackstone for £2.2b",
+    date: "2026-10-06",
+    time: "08:05",
+    url: "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1",
+  },
+  {
+    id: "aba4589e-070a-493b-8c16-512070c20b60",
+    title: "France’s BPCE buys ‘friendly’ stake in Spain’s Sabadell",
+    date: "2026-10-06",
+    time: "07:59",
+    url: "https://www.ft.com/content/aba4589e-070a-493b-8c16-512070c20b60",
+  },
+  {
+    id: "fb32e9f8-4bf7-44ad-983d-1a03f50f66f5",
+    title: "AI models used in bank cyber attacks, warns South Korea’s president",
+    date: "2026-10-06",
+    time: "07:19",
+    url: "https://www.ft.com/content/fb32e9f8-4bf7-44ad-983d-1a03f50f66f5",
+  },
+  {
     id: "47061507-f20e-4ff6-961d-e1f1b919cb89",
     title: "How AI could scupper the dollar",
     date: "2026-10-06",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-05",
     time: "17:56",
     url: "https://www.ft.com/content/74c3cc77-1593-4c49-90f9-0d92fa3a2418",
-  },
-  {
-    id: "126e56d2-c4a6-477f-a1d4-dadbe1013fb4",
-    title: "And the charts quiz winner is…",
-    date: "2026-10-05",
-    time: "17:46",
-    url: "https://www.ft.com/content/126e56d2-c4a6-477f-a1d4-dadbe1013fb4",
-  },
-  {
-    id: "711333ba-67a9-480c-bf65-a3e484a6406b",
-    title: "Badenoch’s pitch goes some way to assuaging British business concerns",
-    date: "2026-10-05",
-    time: "17:16",
-    url: "https://www.ft.com/content/711333ba-67a9-480c-bf65-a3e484a6406b",
-  },
-  {
-    id: "41b567dc-50e9-4c41-95bb-e295caaf2340",
-    title: "Citi to speed up promotion path for junior bankers as hiring war heats up",
-    date: "2026-10-05",
-    time: "16:49",
-    url: "https://www.ft.com/content/41b567dc-50e9-4c41-95bb-e295caaf2340",
   },
 ];
