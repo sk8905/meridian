@@ -1,10 +1,14 @@
 // Reopen freshness — the NEWS items (not just the briefing). The Home wire is built
 // from the edge-assembled /api/feed, which refetches on foreground. The resume gate is
-// short (LIVE_RESUME_MS, ~45s) so a reopened iOS PWA shows current headlines, not ones
-// up to the ~5-min polling interval stale. This drives it with a swappable /api/feed and
-// a controllable clock/visibility: after a reopen past the gate, the wire re-pulls and
-// re-renders IN PLACE (no reload — a sentinel survives), showing the new headlines.
+// tiny (LIVE_RESUME_MS, a few seconds) so a reopened iOS PWA shows current headlines the
+// instant it is foregrounded, not ones up to the ~5-min polling interval stale. The open
+// app also polls every 5 min REGARDLESS of visibility (background refresh). This drives it
+// with a swappable /api/feed and a controllable clock/visibility: after a reopen past the
+// gate, the wire re-pulls and re-renders IN PLACE (no reload — a sentinel survives).
 import { serve, launchChromium, PHONE, check, checkErrs, finish } from "./lib.mjs";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const feed = (marker) => ({ items: [
   { title: `${marker} — markets headline one`, url: "https://example.test/1", source: "Reuters", date: "2026-10-04", time: "09:00", desk: "m" },
@@ -38,15 +42,22 @@ const feedText = () => pg.evaluate(() => (document.getElementById("g-feed") || {
 await pg.waitForFunction(() => /ALPHAMARK/.test((document.getElementById("g-feed") || {}).textContent || ""), null, { timeout: 8000 });
 check(/ALPHAMARK/.test(await feedText()), "loads the first edition of headlines (ALPHAMARK)");
 
-// Publish a new edition, mark the live page, then reopen AFTER the short resume gate.
+// Publish a new edition, mark the live page, then reopen just PAST the short dedupe gate —
+// a near-instant foreground refresh (the gate is only a few seconds now).
 feedBody = JSON.stringify(feed("BETAMARK"));
 await pg.evaluate(() => { window.__sentinel = 1; });
 await pg.evaluate(() => window.__setVis("hidden"));
-await pg.evaluate(() => window.__setVis("visible", 60 * 1000));   // 60s away (> ~45s gate, < 2 min)
+await pg.evaluate(() => window.__setVis("visible", 5 * 1000));   // 5s away (> 3s dedupe gate) → refreshes on foreground
 await pg.waitForFunction(() => /BETAMARK/.test((document.getElementById("g-feed") || {}).textContent || ""), null, { timeout: 8000 });
 check(/BETAMARK/.test(await feedText()), "shows the new headlines after reopen (BETAMARK)");
 check(!/ALPHAMARK/.test(await feedText()), "the stale headlines are gone (refetched, not appended)");
 check((await pg.evaluate(() => window.__sentinel)) === 1, "news refreshed IN PLACE on reopen — no reload (sentinel survives)");
+
+// Source invariant: the live poll runs regardless of visibility (keeps a backgrounded-but-
+// resident app current), rather than skipping while hidden as it used to.
+const _gsrc = fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "v2", "js", "home", "glance.js"), "utf8");
+check(/setInterval\(\(\)\s*=>\s*\{\s*refreshLive\(\);\s*\},\s*LIVE_REFRESH_MS\)/.test(_gsrc), "live poll: runs on every tick regardless of visibility (background refresh)");
+check(!/if \(!document\.hidden\) refreshLive\(\)/.test(_gsrc), "live poll: no longer skips the tick while hidden");
 
 checkErrs(errs, "home news resume");
 await ctx.close();

@@ -1574,12 +1574,12 @@ function _wireHeroNewsReader() {
 // cost of note). Everything else on the page keeps the 5×/day editorial
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
-// On REOPEN (foregrounding an iOS PWA that stayed resident), the news items must be
-// current — not up to ~5 min stale. So the resume refetch uses a much shorter gate
-// than the open-app polling interval: any reopen after the feed has aged past this
-// re-pulls /api/feed (edge-assembled, so always the freshest wire) and re-renders in
-// place. A tiny gate still avoids a redundant fetch on a quick app-flick.
-const LIVE_RESUME_MS = 45 * 1000;
+// On REOPEN (foregrounding an iOS PWA that stayed resident), the news/markets must be
+// current — not up to ~5 min stale. The resume refetch fires on EVERY foreground, gated
+// only by a tiny dedupe window so a live refresh that just ran (the background interval,
+// or a quick app-flick) isn't repeated. Any reopen past this re-pulls /api/feed (edge-
+// assembled, always the freshest wire) + markets/rates and re-renders in place.
+const LIVE_RESUME_MS = 3 * 1000;
 let _lastLive = Date.now();
 function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); refreshLiveFeed(); renderPredict(); }
 
@@ -1623,9 +1623,15 @@ function refreshLiveFeed() {
     .catch(() => { /* keep cached/static feed */ });
 }
 function startLiveRefresh() {
-  setInterval(() => { if (!document.hidden) refreshLive(); }, LIVE_REFRESH_MS);
-  // Reopen: refetch the live news/markets/rates in place if the feed has aged past the
-  // short resume gate, so the Home wire is current the moment the app is foregrounded.
+  // Poll every 5 min REGARDLESS of visibility — a backgrounded-but-resident app keeps its
+  // markets/rates/feed current, so foregrounding shows live data with nothing to fetch.
+  // (The OS still governs this: a desktop/Android background tab keeps ticking, while iOS
+  // usually SUSPENDS a backgrounded standalone PWA — its timer simply pauses until resume,
+  // where the visibilitychange refetch below takes over. maybeReauth stays visible-only, so
+  // a hidden poll never reloads the app.)
+  setInterval(() => { refreshLive(); }, LIVE_REFRESH_MS);
+  // Reopen: refetch the live news/markets/rates in place the moment the app is foregrounded
+  // (gated only by the short dedupe window), so the Home wire is current on every resume.
   on(document, "visibilitychange", () => {
     if (!document.hidden && Date.now() - _lastLive > LIVE_RESUME_MS) refreshLive();
   });
