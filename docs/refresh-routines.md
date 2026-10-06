@@ -692,6 +692,13 @@ quiet slot gets a short output, not padding.
   Daily notes …") — a bullet carries ONE `src`, so keep only what that source supports
   or drop the clause. (`_stripReported` removes a simple trailing "…, the FT reports" as a
   backstop but cannot unpick a woven-in "the FT explains why …" — so don't author one.)
+  **Bonds & Equities bullets ALWAYS carry a concrete price reference (R28):** a Bonds
+  bullet names a benchmark yield level (the US 10-year / Bund / gilt — a `%` or a `bp`
+  move); an Equities bullet names an index level / `%` move (S&P 500, Nasdaq) or a mega-cap
+  price or market value. Pull the figure from the bullet's `src` or Wire's own live market
+  data (the `/api/markets` levels the briefing strip shows) — never invent one; where a
+  level isn't verifiable, quote the move or "record high" with the index named. A
+  Bonds/Equities bullet with no figure fails `tests/briefing-empty-bullet.mjs`.
   **No Overview lede:** the synthesis `lede` is RETIRED — it is not rendered, so do
   NOT author one (the field is optional/deprecated and may be omitted entirely).
   Update the slot's `date`/`time` to the run stamp.

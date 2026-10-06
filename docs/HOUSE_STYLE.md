@@ -662,7 +662,13 @@ notification badge red (`#ef4444`).
   every slot carries at least one Equities bullet** (the refresh invariant); the
   renderer round-robins the per-desk bullets under the four-bullet cap so each of
   the desks keeps its lead bullet and **Equities can never be pushed off the
-  card** by a Macro/Bonds-heavy slot. **iPhone-only markets snapshot strip:** on the
+  card** by a Macro/Bonds-heavy slot. **Bonds & Equities bullets always carry a
+  concrete PRICE REFERENCE:** a Bonds bullet names a benchmark yield level (the US
+  10-year, Bund or gilt — a `%` or a `bp` move); an Equities bullet names an index
+  level / `%` move (S&P 500, Nasdaq) or a mega-cap's price or market value. A
+  Bonds/Equities bullet with no figure is incomplete — enforced on the committed data
+  by `tests/briefing-empty-bullet.mjs`. Every figure is real + sourced (the bullet's
+  `src` or Wire's own live market data), never invented. **iPhone-only markets snapshot strip:** on the
   phone the briefing opens with a **fitted** strip of five square cards
   (`.g-hbrief-strip` → `.g-hbs-card`, `renderBriefStrip`) — **S&P 500 · VIX · Oil · Gold ·
   US 10Y** — that **all fit the viewport with no horizontal scroll** (`flex:1 1 0`, cards

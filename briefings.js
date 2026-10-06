@@ -24,7 +24,14 @@
 // self-contained sentence that reads cleanly when run on after the one before it.
 // Equities & Bonds bullets LEAD WITH THE MOVE AND ITS DRIVER — the index
 // or yield change, then the specific catalyst behind it (a stock, a data print,
-// an issuance event) — not a standing description.
+// an issuance event) — not a standing description. ALWAYS carry a concrete PRICE
+// REFERENCE: a Bonds bullet names a benchmark yield level (the US 10-year, Bund or
+// gilt — a % or a bp move); an Equities bullet names an index level / % move (S&P
+// 500, Nasdaq) or a mega-cap's price or market value. A Bonds/Equities bullet with
+// no number is incomplete (enforced by tests/briefing-empty-bullet.mjs). Every
+// figure is real + sourced (the `src` item or Wire's own live market data) — never
+// invented; where a level isn't verifiable, quote the move or "record high" with the
+// index named, not a made-up number.
 //
 // ATTRIBUTION — STATE THE NEWS, DON'T NARRATE THE REPORTING. Each bullet states the
 // news directly as fact; NEVER attribute it via the publication's act of reporting —
@@ -56,7 +63,7 @@ export const BRIEFINGS = {
       bullets: [
         { html: "<strong>Macro &mdash; France is being hit by a pre-election debt sell-off</strong> that many fear could shake the eurozone, while Brazil's Bovespa rallied to its highest in dollar terms since 2011 after Flavio Bolsonaro's first-round lead over Lula.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
         { html: "<strong>Macro &mdash; the governor of the Banque de France has warned on rising rates</strong> as French and wider euro-area debt stays under pressure ahead of the Spanish snap election.", src: "https://www.ft.com/content/1d152b5b-decb-41c3-a197-8de1d1ca26fc", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield has broken through its 2007 high</strong>, with Monday's ISM services report showing the share of managers citing rising prices at its highest since the post-pandemic surge.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", srcName: "Bloomberg" },
+        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield has broken through its 2007 high of around 5.3%</strong>, with Monday's ISM services report showing the share of managers citing rising prices at its highest since the post-pandemic surge.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", srcName: "Bloomberg" },
         { html: "<strong>Credit &mdash; Blackstone has agreed to sell its events business Clarion to Informa for &pound;2.2bn</strong>, a sizeable exit for the private-equity group.", src: "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the Nasdaq-100 rose 0.9% on Monday to top 31,000 for the first time</strong>, a rally that is increasingly narrow and dependent on a few mega-cap names even as long bond yields climb.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", srcName: "Bloomberg" },
       ],
@@ -67,8 +74,8 @@ export const BRIEFINGS = {
       time: "16:15 BST",
       bullets: [
         { html: "<strong>Macro &mdash; Chancellor Healey warns banks the UK faces a &lsquo;challenging&rsquo; fiscal picture</strong> but stays tight-lipped on tax ahead of the Budget; Vitol&rsquo;s chief separately warns of a tanker shortage and the risk of $200-a-barrel oil.", src: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the global government-bond sell-off is the day&rsquo;s dominant theme</strong>, with a pre-election debt sell-off in France that many fear could shake the eurozone keeping yields elevated.", src: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the global government-bond sell-off is the day&rsquo;s dominant theme</strong>, with a pre-election debt sell-off in France that many fear could shake the eurozone keeping the US 10-year yield near 5.3%.", src: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high, up about 0.6% to around 7,820,</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
         { html: "<strong>Credit &mdash; debt is in the spotlight as Paramount closes its $111bn deal for Warner Bros</strong>; separately McKesson and CD&amp;R strike a $5.8bn deal to buy an infusion services provider.", src: "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", srcName: "Financial Times" },
       ],
     },
@@ -78,8 +85,8 @@ export const BRIEFINGS = {
       time: "22:12 BST",
       bullets: [
         { html: "<strong>Macro &mdash; Spain&rsquo;s Pedro S&aacute;nchez is gambling on a snap election</strong>, while in France Marine Le Pen pledged to rein in public spending as euro-area political risk keeps markets on edge.", src: "https://www.ft.com/content/a7a19bb1-a1ba-4317-a191-c387bbc9f4b9", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the global government-bond sell-off remains the dominant theme</strong>, with France caught between the bond market and the barricades ahead of its elections, after the euro fell to a 17-month low against the dollar on Monday.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the global government-bond sell-off remains the dominant theme</strong>, with the US 10-year Treasury yield at 5.27% and France caught between the bond market and the barricades ahead of its elections, after the euro fell to a 17-month low against the dollar on Monday.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high, up 0.6% to around 7,820,</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
         { html: "<strong>Credit &mdash; Arini raised $1.5 billion for its credit trading strategy</strong>, reopening it to new cash after two years even as its main hedge fund extended losses to a 13.5% decline.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg" },
         { html: "<strong>Credit &mdash; Ion has told creditors it will not play hardball over its $11bn debt pile</strong>.", src: "https://www.ft.com/content/fba91434-70d3-40e6-adb1-8d0c5d6f4fe6", srcName: "Financial Times" },
       ],

@@ -45,6 +45,12 @@ const data = await pg.evaluate(async () => {
     if (/\b(?:the\s+)?(?:FT|Financial\s+Times|Bloomberg|Reuters|CNBC|WSJ|the\s+Journal|the\s+Economist|the\s+Times|Barron)\b(?:&rsquo;s|&#8217;s|’s|'s)?[^.<]{0,40}?\b(?:reports?|explains?|notes?|writes?|says?)\b/i.test(t)) return "outlet + reporting verb";
     return null;
   };
+  // Bonds & Equities bullets must carry a concrete PRICE REFERENCE (HOUSE_STYLE R28):
+  // a Bonds bullet names a benchmark yield level (a % or a bp move); an Equities bullet
+  // names an index level / % move or a mega-cap price / market value.
+  const deskOf = (h) => { const m = String(h || "").match(/<strong>\s*(Macro|Bonds|Equities|Credit)\s*(?:&mdash;|—)/i); return m ? m[1].toLowerCase() : ""; };
+  const bondsHasPrice = (h) => /\b\d+(?:\.\d+)?\s*(?:%|bps?|basis\s+points?)/i.test(String(h || ""));
+  const eqHasPrice = (h) => /\b\d{1,3}(?:,\d{3})+\b|\b\d+(?:\.\d+)?\s*%|\$\s?\d/.test(String(h || ""));
   const keys = Object.keys(slots);
   const bad = [];
   let bulletN = 0;
@@ -63,6 +69,9 @@ const data = await pg.evaluate(async () => {
       if (!(x && String(x.srcName || "").trim())) bad.push(`${k}[${i}]: missing srcName`);
       const nv = narratesSource(x && x.html);
       if (nv) bad.push(`${k}[${i}]: narrates the source (${nv}) — state the news; the srcName link is the attribution`);
+      const desk = deskOf(x && x.html);
+      if (desk === "bonds" && !bondsHasPrice(x && x.html)) bad.push(`${k}[${i}]: Bonds bullet has no benchmark yield reference (a % or bp level)`);
+      if (desk === "equities" && !eqHasPrice(x && x.html)) bad.push(`${k}[${i}]: Equities bullet has no index level / % move / mega-cap price`);
     });
   }
   return { slots: keys.length, bulletN, bad };
