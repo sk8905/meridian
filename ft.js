@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e",
+    title: "Ships’ captains paid $100,000 a month to transit Strait of Hormuz",
+    date: "2026-10-06",
+    time: "21:00",
+    url: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e",
+  },
+  {
+    id: "793d9121-1dae-498b-bae1-db8c69e67e2d",
+    title: "Democratic powerbroker Clyburn urges party to woo Black voters with affordability pitch",
+    date: "2026-10-06",
+    time: "20:26",
+    url: "https://www.ft.com/content/793d9121-1dae-498b-bae1-db8c69e67e2d",
+  },
+  {
+    id: "2ad1ff25-f08e-4e78-83c9-90e7ea3844ee",
+    title: "Goldman Sachs and Man Group exposed in EY data breach",
+    date: "2026-10-06",
+    time: "20:24",
+    url: "https://www.ft.com/content/2ad1ff25-f08e-4e78-83c9-90e7ea3844ee",
+  },
+  {
     id: "211b69e4-ae2f-4323-bc31-e07fc1560581",
     title: "ExxonMobil looks to offshore projects in Trinidad and Tobago for next boom",
     date: "2026-10-06",
@@ -278,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "10:38",
     url: "https://www.ft.com/content/1573393d-f711-41f2-be36-92a5527a7714",
-  },
-  {
-    id: "4c565931-6ac7-4b4c-be72-d86e8e3a8aec",
-    title: "Former German spy chief arrested for treason",
-    date: "2026-10-06",
-    time: "10:11",
-    url: "https://www.ft.com/content/4c565931-6ac7-4b4c-be72-d86e8e3a8aec",
-  },
-  {
-    id: "4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
-    title: "France’s Marine Le Pen pledges to rein in public spending",
-    date: "2026-10-06",
-    time: "10:04",
-    url: "https://www.ft.com/content/4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
-  },
-  {
-    id: "f30a1afc-2aa8-4cdd-a6e8-b18523298456",
-    title: "Tories pledge ‘Britannia Shield’ to protect UK from drone attacks",
-    date: "2026-10-06",
-    time: "09:36",
-    url: "https://www.ft.com/content/f30a1afc-2aa8-4cdd-a6e8-b18523298456",
-  },
-  {
-    id: "9f1c65fe-3670-40bd-9223-18cd5c84df3c",
-    title: "A plausible theory for reviving the Conservatives",
-    date: "2026-10-06",
-    time: "09:30",
-    url: "https://www.ft.com/content/9f1c65fe-3670-40bd-9223-18cd5c84df3c",
   },
 ];
