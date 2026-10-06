@@ -53,12 +53,17 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   Prediction markets `.g-flow-body`), and it *shrinks* to fit rather than pushing
   the column past the screen. A rail that scrolls as a whole is a bug. On phone
   the columns stack (feed → manager wire → markets → macro).
-- **R3a — Reading pane: auto-open once per load; keyboard-cyclable** (desktop). On a
-  fresh view the pane **auto-opens the most-recent openable story** — but only **once
-  per page load** (`syncReadDefault` sets a flag). An in-session re-render (the
+- **R3a — Reading pane: auto-open once per load; remembers the last selection; keyboard-cyclable** (desktop). On a
+  fresh view the pane **auto-opens a story** — but only **once per page load**
+  (`syncReadDefault` sets a flag). It opens the reader's **LAST-SELECTED story** when that
+  story is still in the feed (persisted across reloads in `localStorage m_read_last`), so a
+  reload/reopen keeps what they were reading; otherwise it **defaults to the first openable
+  story** so the pane is never empty on open. An in-session re-render (the
   background/live refresh, a lane switch) must **never re-jump** the pane off what the
-  reader is on; a hard refresh, or a reopen that reloaded for newer content, re-imports
-  the module so the flag resets and the latest opens again. The reader also opens a
+  reader is on — the `.is-reading` highlight is transient (dropped when the feed rebuilds)
+  but the opened story stays shown in the pane; a hard refresh, or a reopen that reloaded
+  for newer content, re-imports the module so the flag resets and the last selection (or the
+  first story) opens again. The reader also opens a
   story by clicking a row, or by cycling the feed with the **↑/↓ arrow keys** (clamps at
   the ends — no wrap; visible rows only; ignored while typing in a field). Selecting a row sets
   `.is-reading` and renders it in `#g-readpane`. Rows are `<a>` links, so arrow-focus

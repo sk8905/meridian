@@ -2500,9 +2500,13 @@ function _rowItem(row) {
     ext: row.getAttribute("target") === "_blank" || /^https?:/i.test(row.getAttribute("href") || ""),
   };
 }
+// A stable per-story key for the reading-pane selection (survives a reload).
+function _rowKey(row) { return (row && (row.getAttribute("data-sid") || row.getAttribute("href"))) || ""; }
 function openInReadPane(row) {
   document.querySelectorAll("#g-feed .g-feed-row.is-reading").forEach((r) => r.classList.remove("is-reading"));
   row.classList.add("is-reading");
+  const key = _rowKey(row);
+  try { if (key) localStorage.setItem("m_read_last", key); } catch { /* private mode */ }   // remember the selection across reloads
   renderReadPane(_rowItem(row));
 }
 let _readSeq = 0;
@@ -2768,23 +2772,25 @@ function _rowOpensInPane(row) {
   const it = _rowItem(row);
   return !!(it.ext && it.href && !_opensExternally(it.src, it.href));
 }
-// Auto-open the most-recent story ONCE per page load. Set the first time it opens one,
-// so an in-session re-render (the live/background refresh, a lane switch) never yanks
-// the reader off what they're reading. A reopen that found newer content, a hard manual
-// refresh, or a relaunch re-imports this module → the flag resets → the latest opens
-// again. See HOUSE_STYLE R3a.
+// Auto-open a story ONCE per page load: on a fresh load / reload, restore the reader's
+// LAST-SELECTED story (localStorage m_read_last) if it is still in the feed, so the pane
+// keeps their choice across a reload; otherwise default to the first openable story so the
+// pane is never empty on open. The flag resets on each relaunch (module re-import). An
+// in-session re-render (a lane switch, the live/background refresh) does NOT re-jump — the
+// .is-reading highlight is transient, but the opened story stays shown in the pane. See R3a.
 let _readDefaultOpened = false;
 function syncReadDefault() {
   const read = document.getElementById("g-read");
   if (!read || read.offsetParent === null) return;                          // mobile / hidden
-  if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // keep current
+  if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // a row is already highlighted — keep it
   if (_readDefaultOpened) return;                                           // already auto-opened this load — don't re-jump
-  // Default to the MOST RECENT unlocked story — the newest row that actually opens in the
-  // pane without a password. Rows are newest-first, so take the first openable one; only
-  // if every row is locked/internal do we fall back to the very first row.
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
   if (!rows.length) return;                                                 // feed not populated yet — retry next render
-  const pick = rows.find(_rowOpensInPane) || rows[0];
+  // Restore the last-selected story if it is still in the feed AND openable; else default to
+  // the first openable story (rows are newest-first; fall back to the very first if all locked).
+  let pick = null;
+  try { const last = localStorage.getItem("m_read_last"); if (last) pick = rows.find((r) => _rowKey(r) === last); } catch { /* private mode */ }   // restore the exact selection (even a locked preview)
+  if (!pick) pick = rows.find(_rowOpensInPane) || rows[0];                   // default: the first openable story
   if (pick) { openInReadPane(pick); _readDefaultOpened = true; }
 }
 function ensureReadWired() {

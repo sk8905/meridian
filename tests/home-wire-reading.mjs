@@ -219,6 +219,33 @@ if (srcLink) {
   check(!srcLink.srcbar, "wire: clicking the publication name does NOT filter the wire by source");
 }
 
+// Reading-pane selection: a story is auto-selected by default, and the LAST-SELECTED story
+// is restored across a reload (not reset to the newest).
+await lane(pg, "News");
+await pg.waitForTimeout(250);
+const autoSel = await pg.evaluate(() => !!document.querySelector("#g-feed .g-feed-row.is-reading"));
+check(autoSel, "reading pane: a story is auto-selected by default on load (no empty pane)");
+// Open a LATER openable story (not the first), remember it, then reload.
+const chosen = await pg.evaluate(() => {
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")].filter((r) => !r.classList.contains("is-locked"));
+  const row = rows[2] || rows[1] || rows[0]; if (!row) return null;
+  row.click();
+  return { key: row.getAttribute("data-sid") || row.getAttribute("href"), title: (row.querySelector(".g-feed-title") || {}).textContent.replace(/^★\s*/, "").trim() };
+});
+await pg.waitForTimeout(300);
+// The persisted selection key is remembered for the reload to restore.
+const storedKey = await pg.evaluate(() => { try { return localStorage.getItem("m_read_last"); } catch { return null; } });
+check(storedKey && chosen && storedKey === chosen.key, `reading pane: the selection is remembered (m_read_last = ${storedKey})`);
+await pg.reload({ waitUntil: "load" });
+// After reload the RESTORED story is shown in the pane (the .is-reading row highlight is
+// transient — a later live re-render drops it — so assert the pane CONTENT, not the row).
+await pg.waitForFunction((t) => {
+  const el = document.querySelector("#g-readpane .g-read-title");
+  return el && el.textContent.trim().includes(t);
+}, chosen.title.slice(0, 22), { timeout: 8000 });
+const paneTitle = await pg.evaluate(() => (document.querySelector("#g-readpane .g-read-title") || {}).textContent.trim());
+check(paneTitle.includes(chosen.title.slice(0, 22)), `reading pane: the last-selected story is restored in the pane across a reload (${paneTitle.slice(0, 40)})`);
+
 checkErrs(errs, "merged wire news/all + reading pane");
 await ctx.close();
 

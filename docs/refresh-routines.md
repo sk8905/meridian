@@ -698,7 +698,10 @@ quiet slot gets a short output, not padding.
   prefer the $1–15bn names the app covers). **ALWAYS include at
   least one Equities bullet in every slot — it is a required section, never
   optional** (an equities-light session still gets an index-level read: the day's
-  S&P 500 / major-index move and its driver). **Credit is included when
+  S&P 500 / major-index move and its driver). **Bonds & Equities bullets LEAD WITH
+  THE MOVE AND ITS DRIVER** — a concrete yield/level and the catalyst behind it (e.g.
+  "the US 10-year yield eased ~3bp to 5.28% as oil slid"), **NOT** a vague framing like
+  "the FT asks why yields are so high": name the number and what moved it. **Credit is included when
   there is a private-markets story that day** (most days there is one worth a line);
   if there genuinely is none, the slot shows three desks — that is fine. **Section
   order is fixed: Macro, then Bonds, then Equities, then Credit.**
