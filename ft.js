@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "a21ec190-edcd-454e-886a-302b0a16ea82",
+    title: "AI agents could cost banks $500bn — by winning savers better rates",
+    date: "2026-10-07",
+    time: "09:51",
+    url: "https://www.ft.com/content/a21ec190-edcd-454e-886a-302b0a16ea82",
+  },
+  {
+    id: "8b0ad0c9-88a1-412e-8658-7f93f510d008",
+    title: "Five things Kemi Badenoch must do to win",
+    date: "2026-10-07",
+    time: "09:38",
+    url: "https://www.ft.com/content/8b0ad0c9-88a1-412e-8658-7f93f510d008",
+  },
+  {
+    id: "9e1cf8ac-68b7-44bf-8e99-0bc1c75e2c21",
+    title: "Tory conference live: Kemi Badenoch to address Conservative Party",
+    date: "2026-10-07",
+    time: "09:37",
+    url: "https://www.ft.com/content/9e1cf8ac-68b7-44bf-8e99-0bc1c75e2c21",
+  },
+  {
+    id: "87155c48-b8fc-4a24-bace-5d20b3f40162",
+    title: "Mike Ashley’s Frasers Group snaps up stake in Under Armour",
+    date: "2026-10-07",
+    time: "09:19",
+    url: "https://www.ft.com/content/87155c48-b8fc-4a24-bace-5d20b3f40162",
+  },
+  {
+    id: "84d9a203-7231-452d-846b-8e502ca2e2a5",
+    title: "Japan to slash hundreds of stocks from Topix index in record revamp",
+    date: "2026-10-07",
+    time: "09:15",
+    url: "https://www.ft.com/content/84d9a203-7231-452d-846b-8e502ca2e2a5",
+  },
+  {
     id: "2895a744-9538-4bc9-ac9b-686677f5cdb2",
     title: "August wage growth poses no obstacle to more BoJ tightening",
     date: "2026-10-07",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "18:36",
     url: "https://www.ft.com/content/211b69e4-ae2f-4323-bc31-e07fc1560581",
-  },
-  {
-    id: "a7a19bb1-a1ba-4317-a191-c387bbc9f4b9",
-    title: "Pedro Sánchez’s big electoral gamble",
-    date: "2026-10-06",
-    time: "17:47",
-    url: "https://www.ft.com/content/a7a19bb1-a1ba-4317-a191-c387bbc9f4b9",
-  },
-  {
-    id: "a6339e0c-4114-413a-a23c-916ed4392ce0",
-    title: "Anduril plans shipyard to manufacture parts for US Navy’s top submarines",
-    date: "2026-10-06",
-    time: "17:21",
-    url: "https://www.ft.com/content/a6339e0c-4114-413a-a23c-916ed4392ce0",
-  },
-  {
-    id: "f923e23b-423a-446c-bf84-a68f7b1d169c",
-    title: "Tory plan to rip up UK-EU food deal risks ‘huge uncertainty’, producers warn",
-    date: "2026-10-06",
-    time: "17:00",
-    url: "https://www.ft.com/content/f923e23b-423a-446c-bf84-a68f7b1d169c",
-  },
-  {
-    id: "aae1fc0b-2c24-4e44-a2b7-886ad2cc5ffe",
-    title: "Badenoch pledges to halve employers’ NI contributions for younger workers",
-    date: "2026-10-06",
-    time: "17:00",
-    url: "https://www.ft.com/content/aae1fc0b-2c24-4e44-a2b7-886ad2cc5ffe",
-  },
-  {
-    id: "4aabf94b-2c5c-4ea6-9e5a-660c17ca84db",
-    title: "Silicon Valley’s acqui-hire ruse may have passed its prime",
-    date: "2026-10-06",
-    time: "16:59",
-    url: "https://www.ft.com/content/4aabf94b-2c5c-4ea6-9e5a-660c17ca84db",
   },
 ];
