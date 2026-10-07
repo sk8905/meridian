@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2895a744-9538-4bc9-ac9b-686677f5cdb2",
+    title: "August wage growth poses no obstacle to more BoJ tightening",
+    date: "2026-10-07",
+    time: "09:01",
+    url: "https://www.ft.com/content/2895a744-9538-4bc9-ac9b-686677f5cdb2",
+  },
+  {
     id: "7eb5da58-d909-4cec-9a30-1c6ec8ffb0a6",
     title: "IMF’s Kristalina Georgieva urges governments to rein in spending",
     date: "2026-10-07",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "16:59",
     url: "https://www.ft.com/content/4aabf94b-2c5c-4ea6-9e5a-660c17ca84db",
-  },
-  {
-    id: "7d3a362b-1bbc-4022-8f44-19544716f331",
-    title: "UK threatens to expel Israeli diplomats if Jerusalem consulate is closed",
-    date: "2026-10-06",
-    time: "16:54",
-    url: "https://www.ft.com/content/7d3a362b-1bbc-4022-8f44-19544716f331",
   },
 ];
