@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "8d1cb8e2-ed48-4d7c-ac19-2693973894b4",
+    title: "Higher mortgage rates inflict ‘pain’ on UK housing market",
+    date: "2026-10-08",
+    time: "00:01",
+    url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4",
+  },
+  {
+    id: "5539d473-604b-42b3-ba6d-0dbb3353957b",
+    title: "FirstFT: China rejects EU request for voluntary curbs on hybrid car exports",
+    date: "2026-10-07",
+    time: "22:34",
+    url: "https://www.ft.com/content/5539d473-604b-42b3-ba6d-0dbb3353957b",
+  },
+  {
+    id: "ea58254a-947e-4e87-86d2-95ffbd8a1c9d",
+    title: "Trump considers ‘terminating’ campaign advisers over Balkans trip",
+    date: "2026-10-07",
+    time: "22:24",
+    url: "https://www.ft.com/content/ea58254a-947e-4e87-86d2-95ffbd8a1c9d",
+  },
+  {
     id: "ec8b74b6-0cf7-4ded-abd4-85bde8a80df4",
     title: "AI upends Singapore’s ‘quant Olympics’",
     date: "2026-10-07",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "12:26",
     url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794",
-  },
-  {
-    id: "8832caa0-2867-4754-841a-75e673686f18",
-    title: "Kemi Badenoch’s European nightmare",
-    date: "2026-10-07",
-    time: "12:14",
-    url: "https://www.ft.com/content/8832caa0-2867-4754-841a-75e673686f18",
-  },
-  {
-    id: "3616b259-723d-4797-a96c-be617d673feb",
-    title: "Germany blocks Chinese acquisition in its largest seaport",
-    date: "2026-10-07",
-    time: "12:08",
-    url: "https://www.ft.com/content/3616b259-723d-4797-a96c-be617d673feb",
-  },
-  {
-    id: "aed8a3e0-04d8-4037-b1d7-8a87d0bc9abd",
-    title: "Safeguarding rules threaten Andy Burnham’s work experience plans, companies and educators warn",
-    date: "2026-10-07",
-    time: "12:06",
-    url: "https://www.ft.com/content/aed8a3e0-04d8-4037-b1d7-8a87d0bc9abd",
   },
 ];
