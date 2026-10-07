@@ -63,18 +63,18 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/2895a744-9538-4bc9-ac9b-686677f5cdb2",
   },
   {
+    id: "713ccee6-855f-48d8-acf1-161265041ad8",
+    title: "India raises interest rates for first time in 3 years",
+    date: "2026-10-07",
+    time: "08:04",
+    url: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8",
+  },
+  {
     id: "7eb5da58-d909-4cec-9a30-1c6ec8ffb0a6",
     title: "IMF’s Kristalina Georgieva urges governments to rein in spending",
     date: "2026-10-07",
     time: "07:00",
     url: "https://www.ft.com/content/7eb5da58-d909-4cec-9a30-1c6ec8ffb0a6",
-  },
-  {
-    id: "713ccee6-855f-48d8-acf1-161265041ad8",
-    title: "India raises interest rates for first time in 3 years",
-    date: "2026-10-07",
-    time: "06:34",
-    url: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8",
   },
   {
     id: "dcf35eaf-e1d3-4289-bc7a-e0c91725ad59",
@@ -112,11 +112,11 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/0c188b13-a8e5-4447-8e54-2d50ce4ab082",
   },
   {
-    id: "3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
-    title: "Can I appoint a guardian to look after my children if I die?",
+    id: "29d249eb-ed06-4ab1-8f17-c11c5589cf74",
+    title: "FirstFT: Brussels explores broad levy targeting revenue from US tech",
     date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
+    time: "05:31",
+    url: "https://www.ft.com/content/29d249eb-ed06-4ab1-8f17-c11c5589cf74",
   },
   {
     id: "0a64ce3b-d56a-4829-948c-4abc4978b1c9",
@@ -159,6 +159,13 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "05:00",
     url: "https://www.ft.com/content/8178bed1-ef14-4ebc-b291-921cef8866e7",
+  },
+  {
+    id: "3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
+    title: "Can I appoint a guardian to look after my children if I die?",
+    date: "2026-10-07",
+    time: "05:00",
+    url: "https://www.ft.com/content/3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
   },
   {
     id: "16dc05f9-f7d2-455b-a91e-4c8570bd846a",
@@ -243,13 +250,6 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "23:28",
     url: "https://www.ft.com/content/d3f5928d-f38c-4666-8f7a-8737f9c45f51",
-  },
-  {
-    id: "29d249eb-ed06-4ab1-8f17-c11c5589cf74",
-    title: "FirstFT: Crypto company known for risky ‘perps’ vexes Singapore",
-    date: "2026-10-06",
-    time: "22:35",
-    url: "https://www.ft.com/content/29d249eb-ed06-4ab1-8f17-c11c5589cf74",
   },
   {
     id: "3fd43fc5-4973-4a26-9d9c-47b6361e6217",
