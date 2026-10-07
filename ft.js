@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2761b6af-df11-49e8-a348-792a9597c9af",
+    title: "Diesel price jumps after IEA says no additional fuel will be released",
+    date: "2026-10-07",
+    time: "20:02",
+    url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af",
+  },
+  {
+    id: "404bfe74-3778-4acc-8a01-329a6744b078",
+    title: "Marco Rubio urges western countries to uphold traditional values",
+    date: "2026-10-07",
+    time: "19:55",
+    url: "https://www.ft.com/content/404bfe74-3778-4acc-8a01-329a6744b078",
+  },
+  {
     id: "4f2417d3-3de6-4f62-bd3a-8c8f740a4b29",
     title: "SpaceX credit risk jumps on worries over its borrowing spree",
     date: "2026-10-07",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "11:28",
     url: "https://www.ft.com/content/76adb82b-3181-4d05-a383-a8131bdb19af",
-  },
-  {
-    id: "a04ef3b4-2fcf-48f9-ab34-2c40c39d9a0c",
-    title: "How US mortgage bonds can trigger a ‘vicious loop’ for Treasury yields",
-    date: "2026-10-07",
-    time: "11:20",
-    url: "https://www.ft.com/content/a04ef3b4-2fcf-48f9-ab34-2c40c39d9a0c",
-  },
-  {
-    id: "a5bd820e-fc7c-4414-ad90-f77bd7aa3a44",
-    title: "Deadly Russian strikes cut power in several Kyiv districts",
-    date: "2026-10-07",
-    time: "10:46",
-    url: "https://www.ft.com/content/a5bd820e-fc7c-4414-ad90-f77bd7aa3a44",
   },
 ];

@@ -116,7 +116,7 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-07",
-      time: "18:11 BST",
+      time: "20:20 BST",
       lede: "Markets held their lines into the close: the S&P 500 sat at a record on AI-mega-cap strength even as the long end of the Treasury curve stayed under pressure, with Brent elevated on the Hormuz shock.",
       bullets: [
         { html: "<strong>Macro &mdash; the Hormuz energy shock keeps biting</strong>, with Brent crude still elevated as ships&rsquo; captains are paid $100,000 a month to transit the strait, while President Trump says he is considering suspending the federal petrol tax.", src: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e", srcName: "Financial Times", date: "2026-10-07" },

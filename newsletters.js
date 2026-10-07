@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-esggetsmoreillegal-20261007",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: ESG Gets More Illegal",
+    date: "2026-10-07",
+    time: "19:20",
+    summary: "ESG, 401ks, universe.",
+    url: "https://bloom.bg/4AT3Ss9",
+  },
+  {
     id: "nl-bbg-authoralert-rokosreturn-20261007",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "08:16",
     summary: "A rundown of the year's remaining big trials, from The Lawyer's Top 20 Cases of 2026.",
     url: "https://r.mail2.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/CNjFifokSFDs",
-  },
-  {
-    id: "nl-businesspost-crenewsletter-dublinpropertymarket-20261005",
-    publication: "Business Post",
-    author: "Tina-Marie O’Neill",
-    series: "CRE newsletter",
-    title: "The path ahead for Dublin's property market",
-    date: "2026-10-05",
-    time: "08:00",
-    summary: "Plus: What's in store for RTÉ's Montrose site.",
-    url: "https://bpm.businesspost.ie/w/axhNScGGU9435d89200FnGng/Pe5PTEw0pLHXiV2kox0pPw/HjUPEM892FZ763YxvJQLJGanlw",
   },
 ];

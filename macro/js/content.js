@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-07",
-  lastCheckedTime: "18:11 BST",
+  lastCheckedTime: "20:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1082,7 +1082,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-10-07", country: "US", title: "FOMC Minutes (15–16 September meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-10-15", country: "US", title: "PPI (September)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-10-15", country: "US", title: "Retail sales (September)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
