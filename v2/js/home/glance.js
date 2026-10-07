@@ -2714,6 +2714,10 @@ function _renderReaderInto(box, it, emptyMsg) {
   Promise.race([_fetchRead(it.href), new Promise((res) => setTimeout(() => res(null), uiTimeout))])
     .then((d) => {
       if (seq !== _readSeq) return;                                     // superseded by another click
+      // Re-query the live pane: a repaint can swap the #g-readpane node out from under
+      // the captured `box`, and rendering into a detached node would silently lose the
+      // body (leaving "Fetching…" on screen forever). Fall back to the live element.
+      if (!box.isConnected && box.id) { const live = document.getElementById(box.id); if (live) box = live; }
       if (!box.isConnected) return;
       if (d && d.accessible && Array.isArray(d.paragraphs) && d.paragraphs.length) {
         const bl = [d.byline, _readNiceDate(d.date)].filter(Boolean).map(esc).join(" · ");
@@ -2769,10 +2773,18 @@ function openMobileReader(it) {
   _renderReaderInto(body, it, "");
 }
 function closeMobileReader() {
-  const ov = document.getElementById("g-reader"); if (ov) ov.hidden = true;
+  const ov = document.getElementById("g-reader");
+  // Only CANCEL an in-flight read (bump _readSeq) when a MOBILE reader was actually
+  // open. closeMobileReader is also called on every pane switch and on init (setWire),
+  // including on DESKTOP where the mobile overlay is never shown — bumping _readSeq there
+  // wrongly cancelled the DESKTOP side-pane's auto-open fetch, so its .then bailed on the
+  // seq guard and the pane sat on "Fetching the full text…" forever. Gate the cancel on
+  // the overlay having been open so a desktop pane switch never kills the reading pane.
+  const wasOpen = !!(ov && !ov.hidden);
+  if (ov) ov.hidden = true;
   document.documentElement.classList.remove("home-reading");   // restores the band + tabs
   const main = document.querySelector(".g-main"); if (main) main.classList.remove("g-reading");
-  _readSeq++;                                              // cancel any in-flight fetch
+  if (wasOpen) _readSeq++;                                 // cancel the in-flight MOBILE fetch only when one was open
 }
 // Give the fixed-height, internally-scrolling mobile Briefing box an exact height:
 // the measured gap between the wire tabs and the bottom nav. In-flow (no fixed
