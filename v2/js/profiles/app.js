@@ -49,8 +49,8 @@ export async function mount(host, ctx) {
   const pfDetail = host.querySelector("#pf-detail");
   const panes = host.querySelector("#pf-panes");
   const chips = host.querySelector("#pf-chips");
-  // Load the OFR Hedge Fund Monitor tiles into the Hedge Funds pane (fails silent).
-  if (credit.loadHfm) credit.loadHfm(host);
+  // The OFR Hedge Fund Monitor is collapsed on open — it loads lazily when the
+  // "Monitor" toggle in the Hedge Funds header is first opened (wired below).
 
   // Back control: a leading ‹ chevron injected into each list's search row. When
   // a profile is open the list's tabs + AUM-focus row + search box stay put (the
@@ -257,6 +257,35 @@ export async function mount(host, ctx) {
     }
     const cons = e.target.closest("#hf-cons-btn");
     if (cons) { if (credit.loadConsensus) credit.loadConsensus(cons); return; }
+    // Hedge fund monitor — collapsed by default, revealed by the header "Monitor"
+    // toggle. Lazy-loads the OFR feed on first open; the ✕ in the panel (or a
+    // second tap) collapses it again. Scoped to this host (duplicate ids on the
+    // retired Credit desk).
+    const mon = e.target.closest("#hf-mon-btn");
+    if (mon) {
+      if (host.classList.contains("pf-detailing")) exitDetail();   // show the list + monitor
+      const ofr = host.querySelector("#hf-ofr");
+      const on = mon.getAttribute("aria-pressed") !== "true";
+      mon.setAttribute("aria-pressed", on ? "true" : "false");
+      mon.classList.toggle("is-on", on);
+      if (ofr) {
+        ofr.hidden = !on;
+        if (on) {
+          const tiles = ofr.querySelector("#hf-ofr-tiles");
+          if (tiles && !ofr.dataset.loaded && !tiles.children.length) tiles.innerHTML = `<div class="hf-ofr-note muted small">Loading monitor…</div>`;
+          if (credit.loadHfm) credit.loadHfm(host);
+        }
+      }
+      return;
+    }
+    const ofrx = e.target.closest(".hf-ofr-x");
+    if (ofrx) {
+      const ofr = host.querySelector("#hf-ofr");
+      const mb = host.querySelector("#hf-mon-btn");
+      if (ofr) ofr.hidden = true;
+      if (mb) { mb.setAttribute("aria-pressed", "false"); mb.classList.remove("is-on"); }
+      return;
+    }
     // Watchlist star (☆/★) — Profiles HOSTS the profile pages, so the follow
     // toggle must be wired HERE too (the retired Credit desk's own handler is not
     // loaded). Reuse Credit's single toggle (local persist + debounced cloud PUT

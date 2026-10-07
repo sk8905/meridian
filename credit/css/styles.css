@@ -745,6 +745,11 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-ofr-chg { font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; }
 .hf-ofr-chg.up { color: var(--t-up); }
 .hf-ofr-chg.dn { color: var(--t-down); }
+/* In-panel close affordance (the Monitor header button also toggles it shut). */
+.hf-ofr-x { margin-left: 6px; border: 0; background: transparent; color: var(--muted); font-family: var(--t-mono); font-size:var(--fs-micro); line-height: 1; padding: 2px 4px; cursor: pointer; }
+.hf-ofr-x:hover { color: var(--ink); }
+/* Loading / unavailable placeholder inside the tiles grid (spans the full row). */
+.hf-ofr-note { grid-column: 1 / -1; padding: 10px 12px; background: var(--bg); }
 
 /* SEC filing-type badges (13D/13G/Forms 3-4-5 on the hedge fund page) */
 .hf-fform { display: inline-block; min-width: 44px; text-align: center; padding: 0 5px; border-radius: 3px; border: 1px solid var(--t-grid2, #262626); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; color: var(--t-ink, #eaf0fb); }

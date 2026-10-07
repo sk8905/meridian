@@ -441,11 +441,12 @@ function hedgeFundsPaneHTML() {
   return `<div class="tpane" data-pane="hedgefunds" hidden>
               <header class="tpanel-h thead-search">
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
+                <button type="button" class="tfocus-btn" id="hf-mon-btn" aria-pressed="false" aria-controls="hf-ofr" title="Hedge fund monitor — industry leverage, returns, size & financing (US Treasury OFR)">Monitor</button>
                 <button type="button" class="tfocus-btn aum-focus-alt" id="hf-cons-btn" title="Most-crowded holdings — aggregate the latest 13F top-10 across all ${withCik} tracked funds that file one">Cross-holdings</button>
                 <button type="button" class="tfocus-btn tfocus-aum" id="cr-hf-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
               </header>
               <section class="hf-ofr" id="hf-ofr" hidden>
-                <div class="hf-ofr-h">Hedge fund monitor <span class="hf-ofr-src">· US Treasury OFR</span> <span class="hf-ofr-asof muted small" id="hf-ofr-asof"></span></div>
+                <div class="hf-ofr-h">Hedge fund monitor <span class="hf-ofr-src">· US Treasury OFR</span> <span class="hf-ofr-asof muted small" id="hf-ofr-asof"></span> <button type="button" class="hf-ofr-x" aria-label="Hide the hedge fund monitor">✕</button></div>
                 <div class="hf-ofr-tiles" id="hf-ofr-tiles"></div>
               </section>
               <section class="hf-cons">
@@ -787,7 +788,25 @@ function viewDashboard() {
   });
   const cb = app.querySelector("#hf-cons-btn");
   if (cb) cb.addEventListener("click", () => loadConsensus(cb));
-  loadHfm(app);
+  // Hedge fund monitor: collapsed by default (doesn't show on open). The Monitor
+  // button in the header toggles it; the feed is fetched lazily on first open.
+  const mon = app.querySelector("#hf-mon-btn");
+  const ofr = app.querySelector("#hf-ofr");
+  if (mon && ofr) {
+    const setOpen = (on) => {
+      mon.setAttribute("aria-pressed", on ? "true" : "false");
+      mon.classList.toggle("is-on", on);
+      ofr.hidden = !on;
+      if (on) {
+        const tiles = ofr.querySelector("#hf-ofr-tiles");
+        if (tiles && !ofr.dataset.loaded && !tiles.children.length) tiles.innerHTML = `<div class="hf-ofr-note muted small">Loading monitor…</div>`;
+        loadHfm(app);
+      }
+    };
+    mon.addEventListener("click", () => setOpen(mon.getAttribute("aria-pressed") !== "true"));
+    const x = ofr.querySelector(".hf-ofr-x");
+    if (x) x.addEventListener("click", () => setOpen(false));
+  }
 }
 // OFR Hedge Fund Monitor panel (industry leverage / returns / size / financing from
 // the US Treasury's free Hedge Fund Monitor, via /api/hfm — edge-cached quarterly
@@ -817,18 +836,19 @@ function loadHfm(root) {
   const panel = root && root.querySelector("#hf-ofr");
   if (!panel || panel.dataset.loaded) return;
   panel.dataset.loaded = "1";
+  const tiles = panel.querySelector("#hf-ofr-tiles");
+  const note = (msg) => { if (tiles) tiles.innerHTML = `<div class="hf-ofr-note muted small">${msg}</div>`; };
   fetch("/api/hfm", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
       const rows = ((d && d.hfm) || []).filter((x) => x && x.value != null);
-      if (!rows.length) return;                       // nothing to show — leave hidden
-      const tiles = panel.querySelector("#hf-ofr-tiles");
+      if (!rows.length) { note("Monitor data unavailable right now."); return; }
       const asof = panel.querySelector("#hf-ofr-asof");
       if (asof && d.asOf) asof.textContent = "as of " + d.asOf;
       if (tiles) tiles.innerHTML = rows.map(hfmTileHTML).join("");
-      panel.hidden = false;
+      // Visibility is owned by the Monitor toggle — never auto-reveal here.
     })
-    .catch(() => { /* fail silent */ });
+    .catch(() => { panel.dataset.loaded = ""; note("Monitor data unavailable — tap Monitor to retry."); });
 }
 // ================================== FUNDS ===================================
 // Multi-select dropdown. `viewKey` is "view:key" (e.g. "funds:strategy").
