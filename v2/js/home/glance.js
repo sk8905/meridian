@@ -2569,11 +2569,12 @@ function _timeoutSignal(ms) { try { const c = new AbortController(); setTimeout(
 function _fetchRead(href) {
   if (!href) return Promise.resolve(null);
   const hit = _readMem.get(href); if (hit) return hit;
-  // A 31s ceiling so a hung fetch always resolves, but with enough room for the SERVER to
-  // return real text: the worker bounds its own work (direct fetch 10s + one retry, then a
-  // proxy render ~20s), so this must outwait the proxy path to actually LOAD the body rather
-  // than giving up on it. Only a genuinely dead source falls through to the UI fallback.
-  const p = fetch(`/api/read?url=${encodeURIComponent(href)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(31000) })
+  // A 40s ceiling so a hung fetch always resolves, but with enough room for the SERVER to
+  // return real text: the worker bounds its own work (direct fetch 8s × up to 4 tries for a
+  // flaky origin, then a proxy render ~20s), so this must outwait those retries to actually
+  // LOAD the body rather than giving up on it. Only a genuinely dead source falls through to
+  // the UI fallback — and the worker caches any success, so a later open is instant anyway.
+  const p = fetch(`/api/read?url=${encodeURIComponent(href)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) })
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null);
   _readMem.set(href, p);
   p.then((d) => { if (!d) _readMem.delete(href); });        // a failed/timed-out fetch retries on the next open
@@ -2709,7 +2710,7 @@ function _renderReaderInto(box, it, emptyMsg) {
   // promise somehow never settles (a hung prefetch, an abort that didn't reject) — the
   // timeout resolves null → the "open the original" fallback renders. Fixes a reading pane
   // that could sit on "Fetching the full text…" indefinitely.
-  const uiTimeout = (typeof window !== "undefined" && +window.__readUiTimeoutMs) || 33000;   // test-overridable; outwaits the fetch ceiling
+  const uiTimeout = (typeof window !== "undefined" && +window.__readUiTimeoutMs) || 42000;   // test-overridable; outwaits the fetch ceiling
   Promise.race([_fetchRead(it.href), new Promise((res) => setTimeout(() => res(null), uiTimeout))])
     .then((d) => {
       if (seq !== _readSeq) return;                                     // superseded by another click

@@ -700,7 +700,8 @@ check(/prefetchTopReads\(\s*6\s*\)/.test(_cli) && !/offsetParent[^\n]*prefetchTo
 // and a transient stall is retried once so the real text still loads rather than giving up.
 const _readDirectBody = (_src.match(/async function _readDirect\([\s\S]*?\n}\n/) || [""])[0];
 check(/AbortSignal\.timeout\(\d+\)/.test(_readDirectBody), "responsiveness (server): the direct publisher fetch is time-bounded — a stalled origin can't hang /api/read");
-check(/attempt\s*<\s*2/.test(_readDirectBody) && /attempt === 0\)\s*continue/.test(_readDirectBody), "responsiveness (server): a transient direct-fetch stall is retried once so the text still loads");
+const _attemptsM = _readDirectBody.match(/attempt\s*<\s*(\d+)/);
+check(!!_attemptsM && +_attemptsM[1] >= 3, `responsiveness (server): a flaky origin's direct fetch is retried several times so the text still loads (attempts=${_attemptsM ? _attemptsM[1] : "?"})`);
 
 // 27) Global first-open pre-warm — a 15-min cron extracts the top stories into global KV
 //     (DIRECT fetch only, so zero paid-proxy quota), and handleRead serves that on an edge
