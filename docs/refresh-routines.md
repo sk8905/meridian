@@ -356,68 +356,10 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   it). A code change busts its own cache automatically via the new hash, and the
   `no-cache` `v2/index.html` entry points at the current hashed bundle. You still
   bump the `/api/macro?v=N` **edge-cache key** in `src/index.js` each run (a
-  server-side key, not an import token). The detailed token dance below is retained
-  only as history of the retired scheme — do NOT re-add `?v=` tokens to v2 imports.
-- **Cache-busters (CODE files, RETIRED pre-Vite scheme — kept for history).**
-  Each app has `?v=YYYYMMDD-N` tokens that MUST move in
-  lockstep or the browser serves a stale `app.js`.
-  - **⚠️ THE LIVE SURFACE IS `v2/` — bump the v2 importers, not just the legacy
-    files.** The `data.js` / `content.js` files are shared, but the modules that
-    import them on the live site live under **`v2/js/`**, and they carry their OWN
-    `?v=` tokens that this section historically forgot. If you bump
-    `credit/js/shared.js`'s `./data.js?v=` but leave `v2/js/credit/app.js`'s
-    `/credit/js/data.js?v=` behind, the browser loads `data.js` twice as separate
-    instances and **the whole desk renders blank** (this exact incident hit all
-    three desks on the 2026-07-24 09:20 run). **Foolproof procedure: after editing
-    a data file, grep every reference to it and set them ALL to the one new token**
-    — e.g. `grep -rn "credit/js/data.js?v=" v2/js/ credit/js/` and make every hit
-    identical (same for `legal/js/data.js` and `macro/js/content.js`). The live
-    chains that MUST agree per file:
-    - **Credit `data.js`:** `v2/js/credit/app.js`, `v2/js/credit/detail.js`, and
-      `credit/js/shared.js` (which the v2 app imports) — all identical. Also bump
-      the `v2/js/credit/shared.js?v=`/`detail.js?v=` **module** tokens in
-      `v2/js/credit/app.js` when those files change, and the runtime token
-      `v2/js/runtime.js?v=` in `v2/index.html` when any `v2/js/**/app.js` changes.
-    - **Legal `data.js`:** `v2/js/legal/app.js`, `v2/js/legal/detail.js`,
-      `legal/js/shared.js` — all identical (+ the v2 detail module token + runtime).
-    - **Macro `content.js`:** `v2/js/macro/app.js`, plus `macro/js/shared.js` and
-      `macro/js/dashboard.js` (imported by the v2 app) — all identical (+ runtime).
-    - **Home:** `v2/js/home/glance.js` and `v2/js/nav-actions.js` also import all
-      three data files; keep them on the same tokens (they're busted by the runtime
-      token). `_headers` no-cache keeps the files fresh regardless, but matching
-      tokens keeps ONE instance and avoids waste.
-  - Legacy per-file detail (kept for reference; the v2 rule above governs the live
-    site):
-  - Credit: `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
-    `./data.js?v=` & `./charts.js?v=` imports in `credit/js/app.js`. NB `app.js`
-    also imports `./shared.js?v=` + `./detail.js?v=`, and BOTH `credit/js/shared.js`
-    and `credit/js/detail.js` import `./data.js?v=` too — the `./data.js?v=` token
-    MUST stay identical across `app.js`, `shared.js` and `detail.js` (bump all
-    three together) or the browser instantiates `data.js` twice.
-  - Legal: the same under `legal/` — `js/app.js?v=` + `css/styles.css?v=` in
-    `legal/index.html`, and the `./data.js?v=` token identical across
-    `legal/js/app.js`, `legal/js/shared.js` and `legal/js/detail.js`.
-  - Macro (THREE): `css/styles.css?v=` & `js/app.js?v=` in `macro/index.html`; the
-    `./content.js?v=` import in `macro/js/app.js` AND its siblings `macro/js/dashboard.js` + `macro/js/shared.js` — all three MUST carry the SAME content token, or the browser instantiates content.js twice. Macro has no `data.js`/`charts.js`.
-  **RULE: whenever you change an app's data (`data.js`, or for Macro its
-  `content.js`/`src/index.js` curated series) at all, you MUST advance that app's
-  tokens to a value not already present in its files (increment the sequence if it
-  already shows today's date, else start the day at -1).** Leaving them unchanged
-  ships a data change that never goes live (a real bug seen on 2026-06-23 run 2,
-  where a credit webNews was added but credit's tokens stayed at -2). Because the
-  refresh stamp changes every run, ALL three apps' tokens move on every run. Before
-  committing, `git diff --stat` MUST show `index.html` and `js/app.js` changed for
-  every app whose data changed. The three apps keep independent sequence numbers.
-  - **Home landing + in-app palette.** The root `glance.js` (Home briefing)
-    and `palette.js` (the `/` command palette mounted in every app) ALSO import
-    `credit/js/data.js`, `legal/js/data.js` and `macro/js/content.js`. They are
-    NOT part of the per-app token bumping above, so to stop them pinning a stale
-    copy those three data modules are served `Cache-Control: no-cache` in
-    `_headers` (they revalidate → cheap 304, always fresh). So a routine run does
-    **not** need to touch `glance.js`/`palette.js` — but if you ever stop
-    revalidating a data module in `_headers`, you must instead bump its `?v=`
-    import token inside `glance.js` and `palette.js` (and their own cache tokens)
-    on every data change, or Home will show out-of-date items.
+  server-side key, not an import token). The pre-Vite per-file `?v=` token dance (and
+  the old `glance.js`/`palette.js` token note) is REMOVED — do NOT re-add `?v=` tokens to
+  v2 imports; `_headers` `no-cache` keeps the tokenless data modules fresh on its own, and
+  `tests/token-lockstep.mjs` fails any `?v=` that creeps back under `v2/js`.
 - **Macro edge cache.** Macro's `/api/macro` endpoint is cached at the edge under a
   key `"/api/macro?v=N"` in `src/index.js`. Bump `N` on every run so the redeploy
   serves a freshly-pulled set of live indicators (and any curated-series edit takes
@@ -1257,12 +1199,16 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      mechanism as newsletters, but for the sell-side / house research the reader
 >      signs up to (JPMorgan "Eye on the Market", Apollo "Daily Spark", Goldman
 >      "Briefings", Morgan Stanley "Thoughts on the Market", PIMCO, BlackRock
->      Investment Institute, Guggenheim…). A forwarded email is ROUTED to research
->      (not newsletters) when its sender domain is in `research.js`'s `PUBLISHERS`
->      map — extend that map as new sign-ups arrive, confirming each domain on first
->      receipt. Parse into the `RESEARCH` array (same item shape as `NEWSLETTERS`:
->      headline, publication/author, date/time, one-line summary, "read online" link
->      — never body text), dedupe, keep ~40 newest. (The earlier live Google-News
+>      Investment Institute, Guggenheim, and the rating agencies Fitch (Fitch Wire ·
+>      fitchratings.com), Moody's Ratings and S&P Global Ratings…). A forwarded email
+>      is ROUTED to research (not newsletters) when its sender domain is in
+>      `research.js`'s `PUBLISHERS` map — extend that map as new sign-ups arrive,
+>      confirming each domain on first receipt. SKIP pure subscription-confirmation /
+>      account-activation emails (no content). Parse into the `RESEARCH` array (same
+>      item shape as `NEWSLETTERS`: headline, publication/author, date/time, one-line
+>      summary, "read online" link — never body text), dedupe, keep ~40 newest. For the
+>      link, PREFER the note's CANONICAL publisher URL (verify via WebSearch) over a
+>      personalised email tracking redirect — it's durable and renders in-pane. (The earlier live Google-News
 >      auto-pipe — Apollo / Oaktree / AQR — was RETIRED because those house sites
 >      block server-side reads and never rendered in-pane; the lane relies on the
 >      Gmail versions, which do. The `research:true` flag plumbing stays for any
