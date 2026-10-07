@@ -60,9 +60,13 @@ export function initPullToRefresh() {
   const zone = document.createElement("div");
   zone.id = "ptr-zone";
   zone.setAttribute("aria-hidden", "true");
+  // The PAGE no longer slides — only the ring descends. So the zone is a transparent,
+  // non-interactive overlay pinned below the frozen header/chips; its TOP PADDING grows with
+  // the pull to push the flex-topped ring down OVER the (stationary) content. overflow:visible
+  // so the descending ring isn't clipped; transparent so no ground band covers the content.
   zone.style.cssText =
-    "position:fixed;top:0;left:0;right:0;height:0;z-index:9999;overflow:hidden;pointer-events:none;" +
-    "display:flex;align-items:center;justify-content:center;background:var(--bg,#05080f);";
+    "position:fixed;top:0;left:0;right:0;height:0;z-index:9999;overflow:visible;pointer-events:none;" +
+    "display:flex;align-items:flex-start;justify-content:center;background:transparent;padding-top:0;";
   // Polished ring: a conic dial over a faint full-circle track (masked to a thin ring),
   // centered in the reveal band. As you pull it scales up, fades in from a visible floor
   // and FILLS clockwise (a determinate progress dial, full at the threshold); on release
@@ -136,11 +140,11 @@ export function initPullToRefresh() {
     return false;
   }
 
-  // Bloomberg-style pull: the top bar, the chip rows under it and the bottom
-  // tab bar stay FROZEN while the content slides down with the finger, opening
-  // a gap below the chips with the spinner in it. Mechanically: the in-flow
-  // page translates down, and the header/chip bars inside it get an equal
-  // counter-translate so they hold still.
+  // The page stays STILL — only the loading ring descends. gatherSets positions the ring's
+  // overlay (the zone) just below the frozen header/chips (and, on Home, scoped to the wire
+  // column) so the ring emerges from there and slides down OVER the stationary content as you
+  // pull. (moveEls/counterEls are retained from the old "slide the page" model only as a map
+  // of the frozen stack used to find where the ring should start; nothing is translated now.)
   let moveEls = [], counterEls = [];
   function gatherSets() {
     // Scoped pull (Home wire): slide ONLY the tagged list, freeze all else, and
@@ -224,13 +228,14 @@ export function initPullToRefresh() {
     zone.style.zIndex = "1200";      // fills the opened gap, under panels & tab bar
   }
   // `spring` adds a slight overshoot (the threshold snap); otherwise a smooth settle.
+  // ONLY the ring moves: the zone's top padding descends it over the stationary page — the
+  // content never slides (the padding is on the ring's own overlay, not the page). The ring's
+  // OWN transform is left for scale (and the spin rotation), so the descent and the spin can't
+  // fight over the transform property.
   function apply(h, animate, spring) {
     const ease = spring ? "cubic-bezier(.34,1.3,.4,1)" : "cubic-bezier(.22,1,.36,1)";
-    const t = animate ? ("transform .3s " + ease) : "";
-    zone.style.transition = animate ? ("height .3s " + ease) : "";
-    zone.style.height = h + "px";
-    for (const el of moveEls) { el.style.transition = t; el.style.transform = h ? "translateY(" + h + "px)" : ""; }
-    for (const el of counterEls) { el.style.transition = t; el.style.transform = h ? "translateY(" + (-h) + "px)" : ""; }
+    zone.style.transition = animate ? ("padding-top .3s " + ease) : "";
+    zone.style.paddingTop = h + "px";
     if (busy) return;                                    // spinning: ring is driven by release()
     const prog = Math.min(dist / THRESH, 1);
     spin.style.transition = animate ? ("transform .3s " + ease + ",opacity .2s ease") : "";
@@ -239,7 +244,7 @@ export function initPullToRefresh() {
     if (arc) arc.style.setProperty("--ptr-sweep", (prog * 360) + "deg");   // the fill dial completes at the threshold
   }
   function clearPage() {
-    for (const el of moveEls.concat(counterEls)) { el.style.transition = ""; el.style.transform = ""; }
+    zone.style.transition = ""; zone.style.paddingTop = "0px";
     spin.classList.remove("ptr-spinning");
     spin.style.transition = ""; spin.style.opacity = "0"; spin.style.transform = "scale(.6)";
     if (arc) arc.style.setProperty("--ptr-sweep", "0deg");
