@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-newiranattacks-20261007",
+    publication: "Bloomberg",
+    author: "Joe Flynn",
+    series: "Morning Briefing Europe",
+    title: "New Iran attacks",
+    date: "2026-10-07",
+    time: "07:25",
+    summary: "Oil gains as Iran ramps up pace of attacks on tankers in the Strait of Hormuz.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-07/oil-gains-as-iran-ramps-up-pace-of-attacks-on-tankers-in-strait",
+  },
+  {
     id: "nl-economist-worldinbrief-franceschoolblazes-20261007",
     publication: "The Economist",
     author: null,
