@@ -2201,18 +2201,28 @@ function _readBlocksLen(blocks) { let n = 0; for (const b of blocks) n += b.t.le
 // result on success, or a { accessible:false, reason } object when the publisher
 // blocked us (fetch-503 etc.), redirected off-host, served non-HTML, or errored.
 async function _readDirect(u, host) {
-  try {
-    const r = await fetch(u.toString(), { headers: { "user-agent": READ_UA, accept: "text/html,application/xhtml+xml" }, redirect: "follow", cf: { cacheTtl: 900, cacheEverything: true } });
-    // Re-check where we actually landed: a redirect must not have escaped to a
-    // paywalled or internal host (SSRF via 3xx).
-    let finalHost = host;
-    try { finalHost = new URL(r.url).hostname.replace(/^www\./, ""); } catch { /* keep host */ }
-    if (finalHost !== host && (_readInSet(finalHost, READ_PAYWALL) || !readHostAllowed(finalHost)))
-      return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "redirect-blocked" };
-    if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-" + r.status };
-    if (!/text\/html|xml/i.test(r.headers.get("content-type") || "text/html")) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "not-html" };
-    return extractReadable((await r.text()).slice(0, 1500000), u);
-  } catch { return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-failed" }; }
+  // Each attempt is bounded by a 10s timeout so a STALLED publisher origin can never hang
+  // the whole /api/read request (the bug that left the reader pane on "Fetching the full
+  // text…" indefinitely). A network error / timeout is usually transient — most sources
+  // serve in ~1s — so retry ONCE before giving up, which recovers a one-off stall and
+  // still returns the real text instead of falling through to a slow proxy or a dead end.
+  // Definitive outcomes (a real block, an off-host redirect, non-HTML, or a successful
+  // extract) return immediately and are never retried.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const r = await fetch(u.toString(), { headers: { "user-agent": READ_UA, accept: "text/html,application/xhtml+xml" }, redirect: "follow", signal: AbortSignal.timeout(10000), cf: { cacheTtl: 900, cacheEverything: true } });
+      // Re-check where we actually landed: a redirect must not have escaped to a
+      // paywalled or internal host (SSRF via 3xx).
+      let finalHost = host;
+      try { finalHost = new URL(r.url).hostname.replace(/^www\./, ""); } catch { /* keep host */ }
+      if (finalHost !== host && (_readInSet(finalHost, READ_PAYWALL) || !readHostAllowed(finalHost)))
+        return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "redirect-blocked" };
+      if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-" + r.status };
+      if (!/text\/html|xml/i.test(r.headers.get("content-type") || "text/html")) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "not-html" };
+      return extractReadable((await r.text()).slice(0, 1500000), u);
+    } catch { if (attempt === 0) continue; }   // transient stall/timeout → one quick retry, then give up
+  }
+  return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-failed" };
 }
 // Turn a reader-proxy's markdown into ORDERED reading blocks — body paragraphs (links →
 // their text, images/code/tables/boilerplate dropped) AND section headings (## – ####,

@@ -695,6 +695,12 @@ check(/_fetchRead\(it\.href\)[\s\S]{0,120}\.then\(/.test(_cli), "responsiveness:
 check(/Promise\.race\(\[\s*_fetchRead\(it\.href\)/.test(_cli), "responsiveness: the fetch is raced against a UI timeout so the pane never stays stuck on the loading note");
 check(/prefetchTopReads\(\s*6\s*\)/.test(_cli) && !/offsetParent[^\n]*prefetchTopReads/.test(_cli),
   "responsiveness: prefetch runs on BOTH surfaces (mobile included — no desktop-only gate)");
+// SERVER: the direct publisher fetch MUST be time-bounded so a stalled origin can't hang
+// /api/read indefinitely (the root cause of a reader pane stuck on "Fetching…" for minutes),
+// and a transient stall is retried once so the real text still loads rather than giving up.
+const _readDirectBody = (_src.match(/async function _readDirect\([\s\S]*?\n}\n/) || [""])[0];
+check(/AbortSignal\.timeout\(\d+\)/.test(_readDirectBody), "responsiveness (server): the direct publisher fetch is time-bounded — a stalled origin can't hang /api/read");
+check(/attempt\s*<\s*2/.test(_readDirectBody) && /attempt === 0\)\s*continue/.test(_readDirectBody), "responsiveness (server): a transient direct-fetch stall is retried once so the text still loads");
 
 // 27) Global first-open pre-warm — a 15-min cron extracts the top stories into global KV
 //     (DIRECT fetch only, so zero paid-proxy quota), and handleRead serves that on an edge
