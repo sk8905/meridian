@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "a5bd820e-fc7c-4414-ad90-f77bd7aa3a44",
+    title: "Deadly Russian strikes cut power in several Kyiv districts",
+    date: "2026-10-07",
+    time: "10:46",
+    url: "https://www.ft.com/content/a5bd820e-fc7c-4414-ad90-f77bd7aa3a44",
+  },
+  {
     id: "a21ec190-edcd-454e-886a-302b0a16ea82",
     title: "AI agents could cost banks $500bn — by winning savers better rates",
     date: "2026-10-07",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "20:24",
     url: "https://www.ft.com/content/2ad1ff25-f08e-4e78-83c9-90e7ea3844ee",
-  },
-  {
-    id: "211b69e4-ae2f-4323-bc31-e07fc1560581",
-    title: "ExxonMobil looks to offshore projects in Trinidad and Tobago for next boom",
-    date: "2026-10-06",
-    time: "18:36",
-    url: "https://www.ft.com/content/211b69e4-ae2f-4323-bc31-e07fc1560581",
   },
 ];
