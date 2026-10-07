@@ -2082,8 +2082,9 @@ function renderFeed() {
     // myFT / Substack ride their own desks; fixed-income (fi:true) items ride the
     // dedicated `fixedincome` bucket below (desk "fi", badged FI) — routing them
     // here too would mint a NEWS-desk duplicate that wins the title-dedupe on the
-    // merged wire and buries the FI label. Skip all three so each keeps its own code.
-    if (n.myft || n.substack || n.fi) return;
+    // merged wire and buries the FI label. Same for house research (research:true → RSCH).
+    // Skip all four so each keeps its own code.
+    if (n.myft || n.substack || n.fi || n.research) return;
     // The Legal chip reads the `legal` bucket, so route legal-flagged items there
     // (with desk "l"); macro headlines to `macro`, the rest to `news`.
     const desk = n.legal ? "l" : deskFor(n.title, n.source);
