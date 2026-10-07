@@ -96,13 +96,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-10-06",
-      time: "16:15 BST",
+      date: "2026-10-07",
+      time: "12:17 BST",
+      lede: "Treasury yields stay near 20-year highs as the S&P 500 holds at a record, with the energy shock and UK fiscal worries framing the afternoon.",
       bullets: [
-        { html: "<strong>Macro &mdash; Chancellor Healey warns banks the UK faces a &lsquo;challenging&rsquo; fiscal picture</strong> but stays tight-lipped on tax ahead of the Budget; Vitol&rsquo;s chief separately warns of a tanker shortage and the risk of $200-a-barrel oil.", src: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the global government-bond sell-off is the day&rsquo;s dominant theme</strong>, with a pre-election debt sell-off in France that many fear could shake the eurozone keeping the US 10-year yield near 5.3%.", src: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high, up about 0.6% to around 7,820,</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
-        { html: "<strong>Credit &mdash; debt is in the spotlight as Paramount closes its $111bn deal for Warner Bros</strong>; separately McKesson and CD&amp;R strike a $5.8bn deal to buy an infusion services provider.", src: "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the Hormuz energy shock keeps biting</strong>: ships&rsquo; captains are being paid $100,000 a month to transit the strait, while President Trump says he is considering suspending the federal petrol tax.", src: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield sits near 5.27%</strong>, off Monday&rsquo;s 5.35% peak (highest since 2002), with the FT flagging how US mortgage-bond hedging can trigger a &lsquo;vicious loop&rsquo; in Treasury yields.", src: "https://www.ft.com/content/a04ef3b4-2fcf-48f9-ab34-2c40c39d9a0c", srcName: "Financial Times" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 is holding at a record after a 0.66% gain</strong> on AI mega-cap strength, while Japan prepares a record revamp cutting hundreds of stocks from the Topix index.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
+        { html: "<strong>Credit &mdash; Hayfin provided &euro;305m of financing to Condis</strong> to support management and Portobello in its next phase of growth, among the latest European direct-lending deals tracked on Wire.", src: "https://www.hayfin.com/hayfin-provides-e305m-financing-to-condis-to-support-management-and-portobello-in-its-next-phase-of-growth/", srcName: "Hayfin" },
       ],
     },
     evening: {
