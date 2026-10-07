@@ -77,6 +77,20 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/20557850-9cd1-4685-8238-f292023afc1f",
   },
   {
+    id: "2761b6af-df11-49e8-a348-792a9597c9af",
+    title: "Diesel price jumps after IEA says no additional fuel will be released",
+    date: "2026-10-07",
+    time: "20:02",
+    url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af",
+  },
+  {
+    id: "404bfe74-3778-4acc-8a01-329a6744b078",
+    title: "Marco Rubio urges western countries to uphold traditional values",
+    date: "2026-10-07",
+    time: "19:55",
+    url: "https://www.ft.com/content/404bfe74-3778-4acc-8a01-329a6744b078",
+  },
+  {
     id: "21d4101f-ba5e-49e9-8c38-6b38ed5f1ca3",
     title: "Badenoch’s UK Conservatives are a work in progress",
     date: "2026-10-07",
