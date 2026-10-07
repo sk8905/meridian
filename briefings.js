@@ -97,11 +97,11 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-07",
-      time: "12:17 BST",
-      lede: "Treasury yields stay near 20-year highs as the S&P 500 holds at a record, with the energy shock and UK fiscal worries framing the afternoon.",
+      time: "14:22 BST",
+      lede: "A renewed global bond sell-off has pushed the 30-year Treasury yield to its highest since 2002, with the energy shock and UK fiscal worries framing the afternoon.",
       bullets: [
         { html: "<strong>Macro &mdash; the Hormuz energy shock keeps biting</strong>: ships&rsquo; captains are being paid $100,000 a month to transit the strait, while President Trump says he is considering suspending the federal petrol tax.", src: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield sits near 5.27%</strong>, off Monday&rsquo;s 5.35% peak (highest since 2002), with the FT flagging how US mortgage-bond hedging can trigger a &lsquo;vicious loop&rsquo; in Treasury yields.", src: "https://www.ft.com/content/a04ef3b4-2fcf-48f9-ab34-2c40c39d9a0c", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the global bond sell-off resumed</strong> as the US 30-year Treasury yield hit its highest since 2002, while the Banque de France chief said ECB intervention is not needed to ease the rout.", src: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6", srcName: "Financial Times" },
         { html: "<strong>Equities &mdash; the S&amp;P 500 is holding at a record after a 0.66% gain</strong> on AI mega-cap strength, while Japan prepares a record revamp cutting hundreds of stocks from the Topix index.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
         { html: "<strong>Credit &mdash; Hayfin provided &euro;305m of financing to Condis</strong> to support management and Portobello in its next phase of growth, among the latest European direct-lending deals tracked on Wire.", src: "https://www.hayfin.com/hayfin-provides-e305m-financing-to-condis-to-support-management-and-portobello-in-its-next-phase-of-growth/", srcName: "Hayfin" },
       ],
