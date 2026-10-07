@@ -87,6 +87,27 @@ const b = await launchChromium();
   check(strip.numClip <= 1, `phone: no card value/number is clipped at the larger font size (max overflow ${strip.numClip}px)`);
   check(strip.cardH.length === 5 && new Set(strip.cardH).size === 1, `phone: all five cards are the SAME height — uniform size (${strip.cardH.join(", ")})`);
   check(strip.chgH.length === 5 && new Set(strip.chgH).size === 1, `phone: every card's coloured change bar is the same height (the bar grows to fill, so it always reaches the bottom edge) (${strip.chgH.join(", ")})`);
+  // The strip PINS to the top of the scrolling briefing body (position:sticky, top:0)
+  // so the cards stay visible while the prose scrolls beneath them.
+  const sticky = await pg.evaluate(() => {
+    const s = document.getElementById("g-hbrief-strip");
+    const cs = s ? getComputedStyle(s) : null;
+    return { pos: cs && cs.position, top: cs && cs.top };
+  });
+  checkEq(sticky.pos, "sticky", "phone: the snapshot strip is position:sticky (pins at the top of the briefing)");
+  checkEq(sticky.top, "0px", "phone: the snapshot strip pins to top:0 of the scrolling briefing body");
+  // Scroll the briefing body down; the strip must stay pinned at the body's top (the
+  // prose scrolls beneath it) rather than scrolling away with the content.
+  const pinned = await pg.evaluate(() => {
+    const body = document.querySelector("#g-hbrief .g-hbrief-body");
+    const strip = document.getElementById("g-hbrief-strip");
+    if (!body || !strip) return null;
+    body.scrollTop = Math.max(60, body.scrollHeight - body.clientHeight);
+    const br = body.getBoundingClientRect(), sr = strip.getBoundingClientRect();
+    return { scrolled: body.scrollTop, deltaTop: Math.round(sr.top - br.top) };
+  });
+  check(pinned && pinned.scrolled > 10, `phone: the briefing body actually scrolled (${pinned && pinned.scrolled}px)`);
+  check(pinned && Math.abs(pinned.deltaTop) <= 2, `phone: the strip stays pinned at the top of the body after scrolling (offset ${pinned && pinned.deltaTop}px)`);
   checkErrs(errs, "home brief strip (phone)");
   await ctx.close();
 }

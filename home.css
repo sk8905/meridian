@@ -1248,7 +1248,15 @@
        value on top, a direction-coloured block with the absolute + % change below). ALL
        cards fit the width with NO horizontal scroll (flex:1 share). Hidden on the desktop
        quadrant (media query at the end). The '*' on a value marks a closed cash market. */
-    .tui .g-hbrief-strip{ display:flex; gap:5px; padding:2px 0; margin:0 0 11px; }
+    /* The snapshot strip PINS to the top of the scrolling briefing body (position:
+       sticky within .g-hbrief-body's overflow) so the five market cards stay visible
+       while the Macro/Bonds/Equities/Credit prose scrolls beneath them. The opaque
+       --t-ground background + bottom hairline cover the scrolling text (gaps between
+       cards included) and draw the "scroll beneath this line" divider; the former
+       11px margin becomes padding so the background covers it. */
+    .tui .g-hbrief-strip{ display:flex; gap:5px; padding:2px 0 10px; margin:0;
+      position:sticky; top:0; z-index:3; background:var(--t-ground, #141414);
+      border-bottom:1px solid var(--t-grid, #282828); }
     .tui .g-hbrief-strip:empty{ display:none; }
     .tui .g-hbs-card{ flex:1 1 0; min-width:0; display:flex; flex-direction:column; border-radius:4px;
       overflow:hidden; background:var(--t-panel, #15181d); text-decoration:none; }

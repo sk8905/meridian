@@ -2702,8 +2702,13 @@ function _renderReaderInto(box, it, emptyMsg) {
   box.innerHTML = _readShell(it, `<span class="g-read-free">● reading mode</span>`, `<div class="g-read-note g-read-loading">Fetching the full text — a few seconds for some sources…</div>`);
   // _fetchRead reuses an in-flight prefetch / a just-read body from the in-memory cache
   // (instant re-open), fetches the edge with cache:"no-store" (never the stale browser
-  // copy), and ALWAYS resolves within 25s so the pane can't get stuck on the loading note.
-  _fetchRead(it.href)
+  // copy), and aborts its own request at 25s. BELT AND BRACES: race it against a 26s UI
+  // timeout so the pane NEVER stays stuck on the loading note even if the underlying
+  // promise somehow never settles (a hung prefetch, an abort that didn't reject) — the
+  // timeout resolves null → the "open the original" fallback renders. Fixes a reading pane
+  // that could sit on "Fetching the full text…" indefinitely.
+  const uiTimeout = (typeof window !== "undefined" && +window.__readUiTimeoutMs) || 26000;   // test-overridable
+  Promise.race([_fetchRead(it.href), new Promise((res) => setTimeout(() => res(null), uiTimeout))])
     .then((d) => {
       if (seq !== _readSeq) return;                                     // superseded by another click
       if (!box.isConnected) return;
@@ -2842,7 +2847,13 @@ function syncReadDefault() {
   let pick = null;
   try { const last = localStorage.getItem("m_read_last"); if (last) pick = rows.find((r) => _rowKey(r) === last); } catch { /* private mode */ }   // restore the exact selection (even a locked preview)
   if (!pick) pick = rows.find(_rowOpensInPane) || rows[0];                   // default: the first openable story
-  if (pick) { openInReadPane(pick); _readDefaultOpened = true; }
+  if (pick) {
+    openInReadPane(pick); _readDefaultOpened = true;
+    // Bring the shaded selection into view, so a RESTORED story buried below today's
+    // items (its .is-reading row) is visible rather than silently off-screen — the user
+    // can see which story the pane is showing. A no-op when the pick is already on screen.
+    try { pick.scrollIntoView({ block: "nearest" }); } catch { /* older engines */ }
+  }
 }
 function ensureReadWired() {
   const feed = document.getElementById("g-feed");

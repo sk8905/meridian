@@ -688,7 +688,11 @@ check(/const _readMem = new Map\(\)/.test(_cli), "responsiveness: an in-memory r
 check(/signal:\s*_timeoutSignal\(\d+\)/.test(_cli), "responsiveness: the reader fetch has an abort timeout (never stuck on 'Fetching…')");
 check(/function prefetchTopReads\(/.test(_cli) && /prefetchTopReads\(\s*\d+\s*\)/.test(_cli),
   "responsiveness: prefetchTopReads pre-warms the top stories and is wired into renderWire");
-check(/_fetchRead\(it\.href\)\s*\n?\s*\.then\(/.test(_cli), "responsiveness: the reading pane renders via the memoised _fetchRead path");
+// The render path still goes through the memoised _fetchRead(it.href), now raced
+// against a UI timeout (Promise.race) so the pane can't hang even if that promise
+// never settles — so _fetchRead(it.href) is followed (within the race) by a .then.
+check(/_fetchRead\(it\.href\)[\s\S]{0,120}\.then\(/.test(_cli), "responsiveness: the reading pane renders via the memoised _fetchRead path");
+check(/Promise\.race\(\[\s*_fetchRead\(it\.href\)/.test(_cli), "responsiveness: the fetch is raced against a UI timeout so the pane never stays stuck on the loading note");
 check(/prefetchTopReads\(\s*6\s*\)/.test(_cli) && !/offsetParent[^\n]*prefetchTopReads/.test(_cli),
   "responsiveness: prefetch runs on BOTH surfaces (mobile included — no desktop-only gate)");
 
