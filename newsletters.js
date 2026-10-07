@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-alert-bootsdeal-20261007",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "Quartet of firms lead on $8.9bn Boots deal",
+    date: "2026-10-07",
+    time: "16:42",
+    summary: "Sale to Canadian investors' consortium sees UK retailer secure its second new owner in less than 18 months.",
+    url: "https://www.legalbusiness.co.uk/law-firms/quartet-of-firms-lead-on-near-9bn-boots-deal/",
+  },
+  {
     id: "nl-thelawyer-podcast-manchestercityfeedingfrenzy-20261007",
     publication: "The Lawyer",
     author: null,
