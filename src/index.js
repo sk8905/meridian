@@ -249,6 +249,82 @@ async function handleVitals(request) {
   return new Response(null, { status: 204 });   // always cheap, never blocks the client
 }
 
+// ---- Reader "Not interested" feedback sink (/api/feedback) -----------------
+// The Home reader's ⋯ menu posts a dislike here: "Not interested" on a single story,
+// "Mute source" on a whole outlet (or "unmute" to undo). Each tap is stored per-user in
+// KV (fb:<email>) so (a) the client can read back the reader's own mutes on another
+// device (?mine=1) and (b) the scheduled refresh routine can see what the reader wants
+// filtered out and bake durable excludes into curation. Writes + the ?mine=1 read are
+// gated by the Access identity (like /api/watchlist). The cross-user DUMP for the routine
+// is gated by the RESEARCH_KEY secret (like /api/research-targets); because the whole
+// site is behind Access, that admin read needs an Access *Bypass* on this path (or a
+// service token). Bounded hard so a hostile client can never cost anything.
+const fbKey = (email) => "fb:" + email;
+const FB_MAX = 500;                         // most-recent N mute records kept per user
+export async function handleFeedback(request, env) {
+  const url = new URL(request.url);
+  // Admin dump for the refresh routine — ?key=/X-Research-Key. Checked BEFORE the identity
+  // gate so a headless (cookieless) call past an Access Bypass still works.
+  const adminKey = request.headers.get("x-research-key") || url.searchParams.get("key");
+  if (request.method === "GET" && adminKey != null) {
+    const secret = env.RESEARCH_KEY;
+    if (!secret) return json({ error: "not configured" }, 503);
+    if (adminKey !== secret) return json({ error: "forbidden" }, 403);
+    const out = []; let users = 0, cursor;
+    try {
+      do {
+        const page = await env.WATCHLIST.list({ prefix: fbKey(""), cursor, limit: 1000 });
+        for (const k of page.keys) {
+          const raw = await env.WATCHLIST.get(k.name);
+          if (!raw) continue;
+          let arr; try { arr = JSON.parse(raw); } catch { continue; }
+          if (Array.isArray(arr) && arr.length) { users++; for (const r of arr) out.push(r); }
+        }
+        cursor = page.list_complete ? null : page.cursor;
+      } while (cursor);
+    } catch (e) { return json({ error: String((e && e.message) || e) }, 500); }
+    out.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+    return json({ users, count: out.length, ts: Date.now(), feedback: out });
+  }
+
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+
+  const readItems = async () => {
+    const raw = await env.WATCHLIST.get(fbKey(email));
+    if (raw) { try { const p = JSON.parse(raw); if (Array.isArray(p)) return p; } catch { /* corrupt → reset */ } }
+    return [];
+  };
+
+  if (request.method === "GET") {
+    // ?mine=1 → the caller's own mute records, for the cross-device merge on load.
+    return json({ email, items: await readItems() });
+  }
+
+  if (request.method === "POST") {
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
+    const s = (x, n) => (typeof x === "string" ? x.slice(0, n) : "");
+    const reason = ["not-interested", "mute-source", "unmute"].includes(body.reason) ? body.reason : "not-interested";
+    const rec = { reason, url: s(body.url, 400), source: s(body.source, 120), title: s(body.title, 300), desk: s(body.desk, 24), ts: Date.now() };
+    if (!rec.url && !rec.source) return json({ error: "empty" }, 400);
+    let items = await readItems();
+    if (reason === "unmute") {
+      // Drop matching mute records: a source-mute by source, a story-mute by url.
+      items = items.filter((r) => !((rec.source && r.reason === "mute-source" && r.source === rec.source) || (rec.url && r.reason === "not-interested" && r.url === rec.url)));
+    } else {
+      // De-dupe: one record per (reason, source|url), newest wins.
+      items = items.filter((r) => !(r.reason === reason && (reason === "mute-source" ? r.source === rec.source : r.url === rec.url)));
+      items.push(rec);
+    }
+    if (items.length > FB_MAX) items = items.slice(items.length - FB_MAX);
+    await env.WATCHLIST.put(fbKey(email), JSON.stringify(items));
+    return json({ ok: true, count: items.length });
+  }
+
+  return json({ error: "method not allowed" }, 405);
+}
+
 // Key rates & credit spreads for the Credit dashboard. Pulled server-side (so
 // there's no CORS issue and no browser-visible key). Five series come from FRED's
 // public keyless CSV feed; 3M EURIBOR comes from the ECB Data Portal (also
@@ -5257,6 +5333,7 @@ export default {
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/origination") return handleOrigination(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
+    if (url.pathname === "/api/feedback") return handleFeedback(request, env);
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);
     if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);

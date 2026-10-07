@@ -805,6 +805,24 @@ notification badge red (`#ef4444`).
   figure is real and sourced — a feed that can't be reached shows an "unavailable"
   state, never a fabricated number (R7).
 
+- **R31 — Reader feedback (⋯ "Not interested" / "Mute source").** Every reading-pane
+  article carries a **⋯ overflow button** top-right (`_readMenuHTML` in
+  `_readShell`, desktop pane + mobile overlay) offering **Not interested** (hide this
+  story), **Mute source** (hide every story from that outlet) and **Manage muted…** (a
+  review/un-mute sheet). Mutes persist in the shared home prefs
+  (`wire.home.v1` → `muted:{ srcs, urls, titles }`) and the **one feed engine drops
+  muted items across every lane AND the briefing candidate pool** at a single choke
+  point (before `byDesk`/`renderBrief`), so a mute hides content instantly and
+  everywhere. Each tap also **POSTs `/api/feedback`** (KV `fb:<email>`, keyed on the
+  Access identity) so (a) the client merges the reader's own mutes across devices on
+  load (`?mine=1`) and (b) the scheduled refresh routine reads the aggregated dislikes
+  (`GET /api/feedback?key=<RESEARCH_KEY>`, same guard as `/api/research-targets`) and
+  bakes **durable source/topic excludes into curation**. The admin read needs a
+  **Cloudflare Access *Bypass* on `/api/feedback`** (like `/api/research-targets`);
+  no new KV namespace or secret. Specs: `tests/home-reader-mute.mjs` (menu + mute hides
+  across lanes + persistence + un-mute) and `tests/feedback-route.mjs` (write / `?mine=1`
+  / secret dump).
+
 ---
 
 ## 7. Technical rules
@@ -847,7 +865,7 @@ notification badge red (`#ef4444`).
   reload). The app still runs unbundled from source (`node tests/run.mjs` serves
   the repo; `TEST_ROOT=dist node tests/run.mjs` proves the built output serves
   identically).
-- **T3 — Full suite green before deploy.** `node tests/run.mjs` (73 specs) must
+- **T3 — Full suite green before deploy.** `node tests/run.mjs` (79 specs) must
   pass; any new user-visible behaviour gets a spec.
 - **T4 — Zero console/page errors** on every view (enforced by the page-error
   checks).

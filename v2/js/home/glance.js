@@ -1839,6 +1839,68 @@ let _feedSrc = null;
 const _HOME_PREFS_KEY = "wire.home.v1";
 function _homePrefs() { try { const o = JSON.parse(localStorage.getItem(_HOME_PREFS_KEY) || "{}"); return (o && typeof o === "object") ? o : {}; } catch { return {}; } }
 function _saveHomePref(patch) { try { localStorage.setItem(_HOME_PREFS_KEY, JSON.stringify({ ..._homePrefs(), ...patch })); } catch { /* ignore */ } }
+// ---- Reader "Not interested" / "Mute source" mutes --------------------------
+// The reader's ⋯ menu lets the reader hide a single story ("Not interested") or an
+// entire source ("Mute source"). Mutes are kept in the shared home prefs
+// (wire.home.v1 → muted:{ srcs:[], urls:[], titles:{} }) so they apply instantly and
+// persist on-device, AND mirrored to the server (/api/feedback) so a mute made on one
+// device applies on the others and the scheduled refresh routine can see what the reader
+// wants filtered out of curation. _mutedSet() returns live Sets for the feed filter.
+function _mutedRaw() { const m = _homePrefs().muted; return (m && typeof m === "object") ? m : {}; }
+function _mutedSet() {
+  const m = _mutedRaw();
+  return { srcs: new Set(Array.isArray(m.srcs) ? m.srcs : []), urls: new Set(Array.isArray(m.urls) ? m.urls : []), titles: (m.titles && typeof m.titles === "object") ? m.titles : {} };
+}
+function _saveMuted(srcs, urls, titles) {
+  const t = {}; const us = new Set(urls);
+  Object.keys(titles || {}).forEach((u) => { if (us.has(u)) t[u] = String(titles[u]).slice(0, 300); });   // keep titles only for live mutes
+  _saveHomePref({ muted: { srcs: [...new Set(srcs)].slice(0, 400), urls: [...us].slice(0, 2000), titles: t } });
+}
+function _isItemMuted(it) {
+  const m = _mutedSet();
+  return !!(it && ((it.src && m.srcs.has(it.src)) || (it.href && m.urls.has(it.href))));
+}
+// Fire-and-forget POST so the tap reaches the server (cross-device + the refresh routine).
+function _postFeedback(rec) {
+  try { fetch("/api/feedback", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(rec), keepalive: true }).catch(() => {}); } catch { /* best effort */ }
+}
+function muteSource(src, it) {
+  if (!src) return;
+  const m = _mutedSet(); m.srcs.add(src); _saveMuted([...m.srcs], [...m.urls], m.titles);
+  _postFeedback({ reason: "mute-source", source: src, title: (it && it.title) || "", url: (it && it.href) || "", desk: (it && it.code) || "" });
+}
+function notInterested(it) {
+  if (!it || !it.href) return;
+  const m = _mutedSet(); m.urls.add(it.href); if (it.title) m.titles[it.href] = it.title; _saveMuted([...m.srcs], [...m.urls], m.titles);
+  _postFeedback({ reason: "not-interested", url: it.href, source: it.src || "", title: it.title || "", desk: it.code || "" });
+}
+function unmute(sel) {
+  const m = _mutedSet();
+  if (sel && sel.src) m.srcs.delete(sel.src);
+  if (sel && sel.url) { m.urls.delete(sel.url); delete m.titles[sel.url]; }
+  _saveMuted([...m.srcs], [...m.urls], m.titles);
+  _postFeedback({ reason: "unmute", source: (sel && sel.src) || "", url: (sel && sel.url) || "" });
+}
+// On load, merge the reader's server-side mutes into the local set so a mute made on
+// another device takes effect here. Best-effort; re-renders the feed if anything changed.
+let _mutesSynced = false;
+function syncMutesFromServer() {
+  if (_mutesSynced) return; _mutesSynced = true;
+  try {
+    fetch("/api/feedback?mine=1", { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d || !Array.isArray(d.items)) return;
+        const m = _mutedSet(); let changed = false;
+        for (const r of d.items) {
+          if (r && r.reason === "mute-source" && r.source && !m.srcs.has(r.source)) { m.srcs.add(r.source); changed = true; }
+          else if (r && r.reason === "not-interested" && r.url && !m.urls.has(r.url)) { m.urls.add(r.url); if (r.title) m.titles[r.url] = r.title; changed = true; }
+        }
+        if (changed) { _saveMuted([...m.srcs], [...m.urls], m.titles); try { renderFeed(); } catch { /* feed not ready */ } }
+      })
+      .catch(() => {});
+  } catch { /* best effort */ }
+}
 const _DESK_KEYS = ["all", "views", "m", "eq", "fi", "c", "hdg", "l", "n", "research"];
 // ---- Manager wire (Home manager column) -----------------------------------
 // Watchlist-first, then most-recently-active covered managers. Each row leads to
@@ -2196,6 +2258,19 @@ function renderFeed() {
   (RESEARCH || []).forEach((r) => rschFeed.push(mk("rsch", r.url, r.title, r.author ? `${r.author} · ${r.publication}` : r.publication, true, r.date, r.time)));
   (_liveFeed || []).forEach((n) => { if (n.research) rschFeed.push(mk("rsch", n.url, n.title, n.source, true, n.date, n.time)); });
 
+  // Reader "Not interested" / "Mute source" filter — drop muted stories EVERYWHERE
+  // (every lane, the "what's new" counts and the briefing candidate pool) at the single
+  // point where the raw desk streams are assembled, before byDesk / renderBrief / the
+  // display branches read them. The arrays are rebuilt fresh each render, so splicing in
+  // place only affects this pass — un-muting + re-render restores them. Manager/legal
+  // event rows carry their own sources and simply won't match a muted news source.
+  const _mz = _mutedSet();
+  if (_mz.srcs.size || _mz.urls.size) {
+    const drop = (x) => !!(x && ((x.src && _mz.srcs.has(x.src)) || (x.href && _mz.urls.has(x.href))));
+    [news, macro, credit, hdg, legal, newsletter, ft, substacks, brew, fixedincome, rschFeed].forEach((a) => {
+      for (let i = a.length - 1; i >= 0; i--) if (drop(a[i])) a.splice(i, 1);
+    });
+  }
   const day = (x) => String(x.date || "").slice(0, 10);
   const all = [...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome, ...rschFeed];
   const now = new Date();
@@ -2616,13 +2691,79 @@ function _readNiceDate(iso) {
   const d = new Date(t); return `${d.getDate()} ${MONTHS[d.getMonth()] || ""} ${d.getFullYear()}`;
 }
 function _readOpen(it) { return (it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">Open original at ${esc(it.src || "source")}</a>` : ""; }
+// The ⋯ overflow menu pinned top-right of the article: feedback controls that mute a
+// story or a source (and a shortcut to review/undo). Rendered only when there's a real
+// source/url to act on; the menu buttons carry the story fields as data-* so the
+// delegated handler needs no closure over the current reader item.
+function _readMenuHTML(it) {
+  const src = it.src || "", url = it.href || "";
+  if (!src && !url) return "";
+  const a = (s) => esc(s || "");
+  const data = ` data-url="${a(url)}" data-src="${a(src)}" data-title="${a(it.title)}" data-desk="${a(it.code)}"`;
+  return `<div class="g-read-menu-wrap">`
+    + `<button class="g-read-menu-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Story options" title="Story options">&#8943;</button>`
+    + `<div class="g-read-menu" role="menu" hidden>`
+    + (url ? `<button class="g-read-menu-item" type="button" role="menuitem" data-act="not-interested"${data}>Not interested in this story</button>` : "")
+    + (src ? `<button class="g-read-menu-item" type="button" role="menuitem" data-act="mute-source"${data}>Mute source &middot; ${a(src)}</button>` : "")
+    + `<button class="g-read-menu-item g-read-menu-manage" type="button" role="menuitem" data-act="manage">Manage muted&hellip;</button>`
+    + `</div></div>`;
+}
 function _readShell(it, access, bodyHTML) {
   const meta = [it.src, it.when].filter(Boolean).map(esc).join(" · ");
   return `<article class="g-read-art">`
+    + _readMenuHTML(it)
     + (it.code ? `<div class="g-read-kicker">${esc(it.code)}</div>` : "")
     + `<h1 class="g-read-title">${esc(it.title)}</h1>`
     + `<div class="g-read-meta">${meta}${meta && access ? " · " : ""}${access || ""}</div>`
     + bodyHTML + _readOpen(it) + `</article>`;
+}
+// Close any open reader ⋯ menu + reset its button state.
+function _closeReadMenus() {
+  document.querySelectorAll(".g-read-menu").forEach((m) => { m.hidden = true; });
+  document.querySelectorAll(".g-read-menu-btn[aria-expanded='true']").forEach((b) => b.setAttribute("aria-expanded", "false"));
+}
+// After a mute, the just-hidden story mustn't stay open: re-render the feed, then on
+// mobile close the reader, on desktop drop the selection and let syncReadDefault re-pick.
+function _afterMute() {
+  try { renderFeed(); } catch { /* ignore */ }
+  const ov = document.getElementById("g-reader");
+  if (ov && !ov.hidden) { closeMobileReader(); return; }
+  const read = document.getElementById("g-read");
+  if (read && read.offsetParent !== null) {
+    _readPaneOpen = false; _readOpenKey = ""; _readDefaultOpened = false;
+    try { localStorage.removeItem("m_read_last"); } catch { /* private mode */ }
+    document.querySelectorAll("#g-feed .g-feed-row.is-reading").forEach((r) => r.classList.remove("is-reading"));
+    try { syncReadDefault(); } catch { /* ignore */ }
+  }
+}
+// The "Manage muted…" sheet — a self-contained modal listing muted sources + stories,
+// each with an Unmute button. Created lazily on first open and re-rendered in place.
+function openMutedManager() {
+  _closeReadMenus();
+  let ov = document.getElementById("g-muted-mgr");
+  if (!ov) {
+    ov = document.createElement("div");
+    ov.id = "g-muted-mgr"; ov.className = "g-muted-mgr"; ov.hidden = true;
+    document.body.appendChild(ov);
+    ov.addEventListener("click", (e) => {
+      if (e.target === ov || e.target.closest("[data-mm-close]")) { ov.hidden = true; return; }
+      const un = e.target.closest("[data-mm-unmute]");
+      if (un) { unmute(un.dataset.mmKind === "src" ? { src: un.dataset.mmVal } : { url: un.dataset.mmVal }); try { renderFeed(); } catch { /* ignore */ } openMutedManager(); }
+    });
+  }
+  const m = _mutedSet();
+  const srcs = [...m.srcs], urls = [...m.urls];
+  const row = (label, kind, val) => `<li class="g-mm-row"><span class="g-mm-label">${esc(label)}</span><button class="g-mm-unmute" type="button" data-mm-unmute data-mm-kind="${kind}" data-mm-val="${esc(val)}">Unmute</button></li>`;
+  const list = (srcs.length || urls.length)
+    ? `<ul class="g-mm-list">`
+      + srcs.map((s) => row("Source · " + s, "src", s)).join("")
+      + urls.map((u) => row(m.titles[u] || u, "url", u)).join("")
+      + `</ul>`
+    : `<p class="g-mm-empty">Nothing muted yet. Use the ⋯ menu on a story to hide it or mute its source.</p>`;
+  ov.innerHTML = `<div class="g-mm-card" role="dialog" aria-modal="true" aria-label="Muted sources and stories">`
+    + `<div class="g-mm-head"><h2 class="g-mm-title">Muted</h2><button class="g-mm-x" type="button" data-mm-close aria-label="Close">&times;</button></div>`
+    + list + `</div>`;
+  ov.hidden = false;
 }
 // ---- Reading-pane entity auto-linking --------------------------------------
 // Where a tracked entity (manager, hedge fund, law firm) is NAMED in the article
@@ -2915,6 +3056,38 @@ function ensureReadWired() {
       openMobileReader(it);
     }
   });
+  // Reader ⋯ overflow menu — one delegated handler on the document (the menu lives inside
+  // .g-read-art, which is re-rendered on every reader paint in BOTH the desktop pane and
+  // the mobile overlay, so per-button listeners would leak). Toggle on the ⋯ button; act
+  // on a menu item from its data-*; any other click closes an open menu. Also kick off the
+  // one-shot cross-device mute sync now the reader is live.
+  if (!document.body.dataset.readMenuWired) {
+    document.body.dataset.readMenuWired = "1";
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".g-read-menu-btn");
+      if (btn) {
+        e.preventDefault(); e.stopPropagation();
+        const menu = btn.parentElement && btn.parentElement.querySelector(".g-read-menu");
+        const wasOpen = !!(menu && menu.hidden === false);
+        _closeReadMenus();
+        if (menu && !wasOpen) { menu.hidden = false; btn.setAttribute("aria-expanded", "true"); }
+        return;
+      }
+      const item = e.target.closest(".g-read-menu-item");
+      if (item) {
+        e.preventDefault(); e.stopPropagation();
+        const act = item.dataset.act;
+        if (act === "manage") { openMutedManager(); return; }
+        const it = { href: item.dataset.url || "", src: item.dataset.src || "", title: item.dataset.title || "", code: item.dataset.desk || "" };
+        if (act === "mute-source") muteSource(it.src, it);
+        else if (act === "not-interested") notInterested(it);
+        _afterMute();
+        return;
+      }
+      if (!e.target.closest(".g-read-menu")) _closeReadMenus();
+    });
+  }
+  syncMutesFromServer();
   // ↑/↓ arrow keys cycle through the feed, opening each story in the reading pane
   // (desktop only — mobile has no side pane). Wraps top↔bottom; only VISIBLE rows are
   // cycled (filters don't trap the cursor), and arrows are ignored while typing in a
