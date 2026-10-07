@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7eb5da58-d909-4cec-9a30-1c6ec8ffb0a6",
+    title: "IMF’s Kristalina Georgieva urges governments to rein in spending",
+    date: "2026-10-07",
+    time: "07:00",
+    url: "https://www.ft.com/content/7eb5da58-d909-4cec-9a30-1c6ec8ffb0a6",
+  },
+  {
+    id: "713ccee6-855f-48d8-acf1-161265041ad8",
+    title: "India raises interest rates for first time in 3 years",
+    date: "2026-10-07",
+    time: "06:34",
+    url: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8",
+  },
+  {
+    id: "dcf35eaf-e1d3-4289-bc7a-e0c91725ad59",
+    title: "Donald Trump says he will speak with Vladimir Putin about pneumonic plague",
+    date: "2026-10-07",
+    time: "06:33",
+    url: "https://www.ft.com/content/dcf35eaf-e1d3-4289-bc7a-e0c91725ad59",
+  },
+  {
+    id: "16df642e-dc1a-4d17-8f18-b97f32efc5db",
+    title: "Neat tricks to help French bonds",
+    date: "2026-10-07",
+    time: "06:30",
+    url: "https://www.ft.com/content/16df642e-dc1a-4d17-8f18-b97f32efc5db",
+  },
+  {
+    id: "2a7ccefb-416c-4aa7-91a0-b1a2ac56dea5",
+    title: "FTAV’s further reading",
+    date: "2026-10-07",
+    time: "06:30",
+    url: "https://www.ft.com/content/2a7ccefb-416c-4aa7-91a0-b1a2ac56dea5",
+  },
+  {
     id: "f065a2f6-6109-46d8-b11b-37ce2a81017c",
     title: "Brussels pleads with EU capitals not to slash the bloc’s next shared budget",
     date: "2026-10-07",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "16:54",
     url: "https://www.ft.com/content/7d3a362b-1bbc-4022-8f44-19544716f331",
-  },
-  {
-    id: "4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
-    title: "France’s Marine Le Pen pledges to rein in public spending",
-    date: "2026-10-06",
-    time: "16:50",
-    url: "https://www.ft.com/content/4e1a4297-62f4-4b42-a41a-2ad23b64cbe9",
-  },
-  {
-    id: "fba91434-70d3-40e6-adb1-8d0c5d6f4fe6",
-    title: "Ion tells creditors it won’t play hardball on $11bn debt pile",
-    date: "2026-10-06",
-    time: "16:48",
-    url: "https://www.ft.com/content/fba91434-70d3-40e6-adb1-8d0c5d6f4fe6",
-  },
-  {
-    id: "42b6fa88-f730-4f8a-a194-8f53d0759aaf",
-    title: "Palmer Luckey’s Erebor surges to more than $7bn in deposits since launch",
-    date: "2026-10-06",
-    time: "16:32",
-    url: "https://www.ft.com/content/42b6fa88-f730-4f8a-a194-8f53d0759aaf",
-  },
-  {
-    id: "97d14ed8-d6b7-4f4f-8e22-e87435b8ac0d",
-    title: "Taking stock of public trust in the Kevin Warsh Fed era",
-    date: "2026-10-06",
-    time: "16:30",
-    url: "https://www.ft.com/content/97d14ed8-d6b7-4f4f-8e22-e87435b8ac0d",
-  },
-  {
-    id: "5235f78e-5c94-4015-8559-b6d0ec3fea95",
-    title: "Jeffrey Archer, author and politician, 1940-2026",
-    date: "2026-10-06",
-    time: "16:08",
-    url: "https://www.ft.com/content/5235f78e-5c94-4015-8559-b6d0ec3fea95",
   },
 ];
