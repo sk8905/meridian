@@ -42,7 +42,10 @@ h1 { font-size:var(--fs-hero); margin: 0 0 .25rem; }
 h2 { font-size:var(--fs-title); margin: 0 0 .75rem; }
 h3 { font-size:var(--fs-title); margin: 0; }
 .muted { color: var(--muted); }
-.small { font-size:var(--fs-head); }
+/* `.small` size is owned by premium.css (the canonical scale): it is fine-print
+   / meta text (dates, sources, captions, empty states) at --fs-item-meta — NOT
+   --fs-head. Do not re-add a font-size here: it would load after premium.css in
+   the v2 bundle and inflate every "muted small" caption above the body size. */
 .lead { font-size:var(--fs-title); color: var(--muted); }
 /* Neater multi-line wrapping: balance short headings; use "pretty" on feed
    headlines & prose so a single word never wraps alone on the last line.

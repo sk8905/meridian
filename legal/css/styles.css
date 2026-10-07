@@ -300,7 +300,9 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
 }
 .feature-card { border-top: 3px solid var(--accent); }
 .card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--line); font-size:var(--fs-head); font-weight: 600; }
-.small { font-size:var(--fs-head); }
+/* `.small` size is owned by premium.css (the canonical scale): fine-print / meta
+   text at --fs-item-meta, not --fs-head. Re-adding a font-size here would load
+   after premium.css in the v2 bundle and inflate every "muted small" caption. */
 .compact-list { list-style: none; margin: .25rem 0 0; padding: 0; }
 .compact-item { padding: .5rem 0; border-bottom: 1px solid var(--line); }
 .compact-item:last-child { border-bottom: none; }

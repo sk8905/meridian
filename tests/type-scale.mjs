@@ -96,6 +96,37 @@ const isAppFont = (fam) => /montserrat|gotham|futura/i.test(fam || "") && !/mono
   checkErrs(errs, "desktop home");
 }
 
+// ---- 5) fine print (`.small`) is the META tier, never larger than body ----
+// `.small` tags dates, sources, captions and empty states ("Nothing tracked
+// yet."). premium.css owns it as --fs-item-meta (= --fs-micro, 10 + adj), i.e.
+// SMALLER than body. The retired desk stylesheets each used to carry a legacy
+// `.small { font-size:var(--fs-head) }` (14 + adj) that, imported AFTER premium
+// in the v2 bundle, inflated every "muted small" caption ABOVE the body size.
+// This guards against that regression — on a REAL empty state and on a probe.
+{
+  const { pg, errs } = await open(b, PHONE, base + "/v2/transactions/");
+  await pg.waitForSelector(".tx-typestrip", { timeout: 8000 });
+  await pg.waitForTimeout(400);
+  const r = await pg.evaluate(() => {
+    const adj = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0;
+    const body = parseFloat(getComputedStyle(document.body).fontSize);
+    // Probe the cascade directly: a bare `.small` and a `.muted.small` caption.
+    const mk = (cls) => { const el = document.createElement("span"); el.className = cls; el.textContent = "x"; document.body.appendChild(el); const s = parseFloat(getComputedStyle(el).fontSize); el.remove(); return s; };
+    // A real rendered empty state: filter the type list to nothing.
+    const q = document.querySelector(".tx-dash input[type='search'], .tx-dash .tx-q, #tx-q");
+    let emptyPx = null;
+    if (q) { q.value = "zzzqqqnomatch"; q.dispatchEvent(new Event("input", { bubbles: true })); }
+    const empty = document.querySelector(".tw-empty.small, .tw-empty.muted.small");
+    if (empty) emptyPx = parseFloat(getComputedStyle(empty).fontSize);
+    return { adj, body, smallPx: mk("small"), mutedSmallPx: mk("muted small"), emptyPx };
+  });
+  checkEq(r.smallPx, 10 + r.adj, `.small is the meta tier (--fs-micro ${10 + r.adj}px), not head size`);
+  checkEq(r.mutedSmallPx, 10 + r.adj, `"muted small" captions are the meta tier (${10 + r.adj}px)`);
+  check(r.smallPx < r.body, `fine print (.small ${r.smallPx}px) is smaller than body (${r.body}px) — not larger`);
+  if (r.emptyPx != null) check(r.emptyPx <= r.body + 0.01, `real empty-state text (${r.emptyPx}px) is not larger than body (${r.body}px)`);
+  checkErrs(errs, "fine-print scale");
+}
+
 await b.close();
 srv.close();
 finish();
