@@ -50,9 +50,10 @@ check(/\brsch\b/.test(rsch.pillClass), `Research lane: the RSCH pill uses the re
 checkErrs(errs, "home research lane");
 await ctx.close();
 
-// ---- Empty state: with no research yet (the Gmail sweep hasn't run), the Research lane
-// prompts the reader to subscribe + forward, rather than a bare "no items" line. This is
-// the lane's primary state until the email sweep populates research.js.
+// ---- Manual Gmail-swept notes: even with NO research-tagged items on the live feed,
+// the Research lane is populated by the hand-curated notes in research.js (the Gmail
+// sweep) — real house research (Goldman, Guggenheim) with a real "read online" URL.
+// This is the lane's steady state now the sweep has run.
 {
   const srv2 = await serve({ "/api/feed": () => [200, JSON.stringify({ items: [
     ...Array.from({ length: 12 }, (_, i) => ({ title: `Markets story ${i}`, url: `https://www.reuters.com/e${i}`, source: "Reuters", date: "2026-10-06", time: "09:00", desk: "m" })),
@@ -63,10 +64,17 @@ await ctx.close();
   await p2.waitForSelector("#g-wire-lanes .g-wire-lane", { timeout: 8000 });
   await p2.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "Research"); if (b) b.click(); });
   await p2.waitForTimeout(400);
-  const emptyTxt = await p2.evaluate(() => (document.querySelector("#g-feed") || {}).textContent || "");
-  check(/subscribed house-research emails/i.test(emptyTxt) && /forward them to the mailbox|forward/i.test(emptyTxt),
-    `Research lane: an empty lane prompts the reader to subscribe + forward (${emptyTxt.trim().slice(0, 60)}…)`);
-  checkErrs(e2, "home research empty state");
+  const swept = await p2.evaluate(() => {
+    const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
+    const codes = rows.map((r) => (r.querySelector(".g-feed-code") || {}).textContent || "");
+    const srcs = [...new Set(rows.map((r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim()))].filter(Boolean);
+    return { rows: rows.length, allRsch: rows.length > 0 && codes.every((c) => /RESEARCH/.test(c)), srcs };
+  });
+  check(swept.rows >= 2, `Research lane: the Gmail-swept notes populate the lane (${swept.rows} rows from ${swept.srcs.join(", ")})`);
+  check(swept.allRsch, "Research lane: every swept row carries the RESEARCH desk code");
+  check(swept.srcs.some((s) => /Goldman Sachs/i.test(s)) && swept.srcs.some((s) => /Guggenheim/i.test(s)),
+    `Research lane: house sources shown (${swept.srcs.join(", ")})`);
+  checkErrs(e2, "home research swept notes");
   await c2.close();
   srv2.close();
 }
