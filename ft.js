@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d9ba8e1f-54f9-4739-9ce3-94e62d585e26",
+    title: "French central bank chief says ECB intervention not needed to ease bond rout",
+    date: "2026-10-07",
+    time: "13:19",
+    url: "https://www.ft.com/content/d9ba8e1f-54f9-4739-9ce3-94e62d585e26",
+  },
+  {
+    id: "0cb02773-d207-4920-8c74-d9707d2622a0",
+    title: "Google launches platform to create video games from text prompts",
+    date: "2026-10-07",
+    time: "13:00",
+    url: "https://www.ft.com/content/0cb02773-d207-4920-8c74-d9707d2622a0",
+  },
+  {
+    id: "33c67aa0-bfdb-457b-84bb-960b4fed94b6",
+    title: "Global bond sell-off resumes as 30-year Treasury yield hits highest since 2002",
+    date: "2026-10-07",
+    time: "12:42",
+    url: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6",
+  },
+  {
+    id: "d51a78a8-67d8-45bd-b32c-1eafe39a0794",
+    title: "Submit a question: What is driving the global bond sell-off?",
+    date: "2026-10-07",
+    time: "12:26",
+    url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794",
+  },
+  {
     id: "8832caa0-2867-4754-841a-75e673686f18",
     title: "Kemi Badenoch’s European nightmare",
     date: "2026-10-07",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "05:00",
     url: "https://www.ft.com/content/f5d01c83-6133-4a01-a9c7-f8a2067b7c32",
-  },
-  {
-    id: "ad06ed89-f600-4694-8c95-7d53b6d3315b",
-    title: "Brussels looks to capture Big Tech through tax on large corporations",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/ad06ed89-f600-4694-8c95-7d53b6d3315b",
-  },
-  {
-    id: "bd20289f-2d51-4b3d-9eb9-68945f9ae309",
-    title: "Russian hostile activity costs UK up to £2.5bn a year, report warns",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/bd20289f-2d51-4b3d-9eb9-68945f9ae309",
-  },
-  {
-    id: "7811d98a-7693-4596-a0f8-7329ed293116",
-    title: "African governments launch rating agency to challenge global ‘big three’",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/7811d98a-7693-4596-a0f8-7329ed293116",
-  },
-  {
-    id: "37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb",
-    title: "What comes next with the energy shock?",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb",
   },
 ];
