@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9c61d1a4-c982-41d5-a96e-f06df406c7e9",
+    title: "Ex-Barclays traders’ rate-rigging convictions quashed",
+    date: "2026-10-07",
+    time: "14:03",
+    url: "https://www.ft.com/content/9c61d1a4-c982-41d5-a96e-f06df406c7e9",
+  },
+  {
+    id: "a52c092f-b93b-472b-8e18-83910c3a6260",
+    title: "We need a US debt conversation — will the Republicans have one?",
+    date: "2026-10-07",
+    time: "14:00",
+    url: "https://www.ft.com/content/a52c092f-b93b-472b-8e18-83910c3a6260",
+  },
+  {
+    id: "586b9209-7eee-441f-8455-36a1fd40822f",
+    title: "Ann Widdecombe murder suspect accused of trying to break into Nigel Farage’s home",
+    date: "2026-10-07",
+    time: "13:42",
+    url: "https://www.ft.com/content/586b9209-7eee-441f-8455-36a1fd40822f",
+  },
+  {
+    id: "89a7f4f6-2c7a-45bb-9a09-b9d94a9c7944",
+    title: "What we know about the suspected plague case in Russia",
+    date: "2026-10-07",
+    time: "13:34",
+    url: "https://www.ft.com/content/89a7f4f6-2c7a-45bb-9a09-b9d94a9c7944",
+  },
+  {
+    id: "f642cd3b-303e-48e2-82c9-15c07c6b9042",
+    title: "Royal Mail to cut 2,500 jobs to fund £500mn delivery improvement plan",
+    date: "2026-10-07",
+    time: "13:30",
+    url: "https://www.ft.com/content/f642cd3b-303e-48e2-82c9-15c07c6b9042",
+  },
+  {
     id: "d9ba8e1f-54f9-4739-9ce3-94e62d585e26",
     title: "French central bank chief says ECB intervention not needed to ease bond rout",
     date: "2026-10-07",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "05:00",
     url: "https://www.ft.com/content/3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
-  },
-  {
-    id: "16dc05f9-f7d2-455b-a91e-4c8570bd846a",
-    title: "Greens braced for loss in Keir Starmer’s old seat in London",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/16dc05f9-f7d2-455b-a91e-4c8570bd846a",
-  },
-  {
-    id: "dd553fc2-532c-4afc-a773-47cd7f786260",
-    title: "HSBC plans sweeping job cuts across UK wealth business in AI push",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/dd553fc2-532c-4afc-a773-47cd7f786260",
-  },
-  {
-    id: "47c82e53-aa63-4b0d-95fd-ecc04d81e6ab",
-    title: "Blue Owl to launch ‘big push’ into insurance",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/47c82e53-aa63-4b0d-95fd-ecc04d81e6ab",
-  },
-  {
-    id: "3c86343d-e280-4263-940e-e09b1d75d32a",
-    title: "Chemical groups succeed in watering down EU pesticide rules",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/3c86343d-e280-4263-940e-e09b1d75d32a",
-  },
-  {
-    id: "f5d01c83-6133-4a01-a9c7-f8a2067b7c32",
-    title: "How AI tempts the lazy mind",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/f5d01c83-6133-4a01-a9c7-f8a2067b7c32",
   },
 ];

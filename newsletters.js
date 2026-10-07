@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-podcast-manchestercityfeedingfrenzy-20261007",
+    publication: "The Lawyer",
+    author: null,
+    series: "The Lawyer Podcast",
+    title: "Manchester City - the lawyers' feeding frenzy has only just begun",
+    date: "2026-10-07",
+    time: "12:46",
+    summary: "The team discuss the more unusual parts of the Manchester City judgment, plus how broadcasters react to legal news.",
+    url: "https://www.thelawyer.com/the-lawyer-podcast-manchester-city-the-lawyers-feeding-frenzy-has-only-just-begun/",
+  },
+  {
     id: "nl-bbg-goingprivate-shortsellerscircling-20261007",
     publication: "Bloomberg",
     author: "Sinead Cruise",
@@ -472,16 +483,5 @@ export const NEWSLETTERS = [
     time: "06:33",
     summary: "Euro hits a 17-month low, US bombers leave RAF Fairford, and London's multimillion-pound homes face a new threat.",
     url: "https://www.bloomberg.com/news/newsletters/2026-10-05/euro-slides-over-mounting-fiscal-and-political-concerns",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-techcantshieldstocks-20261005",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Tech Can’t Shield Stocks From Bonds Forever",
-    date: "2026-10-05",
-    time: "05:00",
-    summary: "Earnings growth has stopped the bond rout from hitting stocks — enjoy the respite.",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-05/tech-can-t-shield-stocks-from-the-bond-rout-forever",
   },
 ];
