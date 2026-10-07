@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7efb6b02-a2dd-4940-9768-68c508fd838f",
+    title: "Reform UK internal probe clears senior officials of breaking law over donor sting",
+    date: "2026-10-07",
+    time: "14:50",
+    url: "https://www.ft.com/content/7efb6b02-a2dd-4940-9768-68c508fd838f",
+  },
+  {
+    id: "68c0fcb8-a69e-4767-a7fc-f84acb04cbd7",
+    title: "Billionaire Weston family to buy Boots in $8.9bn deal",
+    date: "2026-10-07",
+    time: "14:50",
+    url: "https://www.ft.com/content/68c0fcb8-a69e-4767-a7fc-f84acb04cbd7",
+  },
+  {
     id: "9c61d1a4-c982-41d5-a96e-f06df406c7e9",
     title: "Ex-Barclays traders’ rate-rigging convictions quashed",
     date: "2026-10-07",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "05:00",
     url: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb",
-  },
-  {
-    id: "8178bed1-ef14-4ebc-b291-921cef8866e7",
-    title: "Bank mergers arrive in Europe with a whimper rather than a bang",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/8178bed1-ef14-4ebc-b291-921cef8866e7",
-  },
-  {
-    id: "3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
-    title: "Can I appoint a guardian to look after my children if I die?",
-    date: "2026-10-07",
-    time: "05:00",
-    url: "https://www.ft.com/content/3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
   },
 ];
