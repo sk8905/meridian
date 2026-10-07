@@ -255,10 +255,12 @@ async function handleVitals(request) {
 // KV (fb:<email>) so (a) the client can read back the reader's own mutes on another
 // device (?mine=1) and (b) the scheduled refresh routine can see what the reader wants
 // filtered out and bake durable excludes into curation. Writes + the ?mine=1 read are
-// gated by the Access identity (like /api/watchlist). The cross-user DUMP for the routine
-// is gated by the RESEARCH_KEY secret (like /api/research-targets); because the whole
-// site is behind Access, that admin read needs an Access *Bypass* on this path (or a
-// service token). Bounded hard so a hostile client can never cost anything.
+// gated by the Access identity (like /api/watchlist), so /api/feedback MUST stay behind
+// Access — a blanket Bypass there would strip the identity and 401 every write. The
+// cross-user DUMP for the routine is therefore served on a SEPARATE path,
+// /api/feedback-export (same handler, RESEARCH_KEY-guarded like /api/research-targets):
+// bypass ONLY that path in Access so the headless routine can read it while the per-user
+// writes stay authenticated. Bounded hard so a hostile client can never cost anything.
 const fbKey = (email) => "fb:" + email;
 const FB_MAX = 500;                         // most-recent N mute records kept per user
 export async function handleFeedback(request, env) {
@@ -5334,6 +5336,7 @@ export default {
     if (url.pathname === "/api/origination") return handleOrigination(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
     if (url.pathname === "/api/feedback") return handleFeedback(request, env);
+    if (url.pathname === "/api/feedback-export") return handleFeedback(request, env);   // admin dump path — Access-Bypass this one, secret-guarded
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);
     if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);

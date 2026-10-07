@@ -816,10 +816,12 @@ notification badge red (`#ef4444`).
   everywhere. Each tap also **POSTs `/api/feedback`** (KV `fb:<email>`, keyed on the
   Access identity) so (a) the client merges the reader's own mutes across devices on
   load (`?mine=1`) and (b) the scheduled refresh routine reads the aggregated dislikes
-  (`GET /api/feedback?key=<RESEARCH_KEY>`, same guard as `/api/research-targets`) and
-  bakes **durable source/topic excludes into curation**. The admin read needs a
-  **Cloudflare Access *Bypass* on `/api/feedback`** (like `/api/research-targets`);
-  no new KV namespace or secret. Specs: `tests/home-reader-mute.mjs` (menu + mute hides
+  and bakes **durable source/topic excludes into curation**. Because the per-user POST /
+  `?mine=1` paths rely on the Access identity, **`/api/feedback` MUST stay behind
+  Access** (a Bypass there would 401 every write); the admin dump is therefore served on
+  a **separate path `/api/feedback-export`** (same handler, `RESEARCH_KEY`-guarded like
+  `/api/research-targets`), and it is **only that path that gets a Cloudflare Access
+  *Bypass*** (`GET /api/feedback-export?key=<RESEARCH_KEY>`). No new KV namespace or secret. Specs: `tests/home-reader-mute.mjs` (menu + mute hides
   across lanes + persistence + un-mute) and `tests/feedback-route.mjs` (write / `?mine=1`
   / secret dump).
 
