@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-franceschoolblazes-20261007",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: France\u2019s school blazes",
+    date: "2026-10-07",
+    time: "05:50",
+    summary: "Also: Israel\u2019s anniversary vote on Bibi.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-sesamestreetrecordrally-20261007",
     publication: "Bloomberg",
     author: "John Authers",

@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "f065a2f6-6109-46d8-b11b-37ce2a81017c",
+    title: "Brussels pleads with EU capitals not to slash the bloc’s next shared budget",
+    date: "2026-10-07",
+    time: "06:00",
+    url: "https://www.ft.com/content/f065a2f6-6109-46d8-b11b-37ce2a81017c",
+  },
+  {
+    id: "0c188b13-a8e5-4447-8e54-2d50ce4ab082",
+    title: "Who’d be betting against Webuild, the builder that built Italy?",
+    date: "2026-10-07",
+    time: "06:00",
+    url: "https://www.ft.com/content/0c188b13-a8e5-4447-8e54-2d50ce4ab082",
+  },
+  {
+    id: "3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
+    title: "Can I appoint a guardian to look after my children if I die?",
+    date: "2026-10-07",
+    time: "05:00",
+    url: "https://www.ft.com/content/3fb9f6ee-4ce2-412a-ab0c-c542d76cb9ec",
+  },
+  {
     id: "0a64ce3b-d56a-4829-948c-4abc4978b1c9",
     title: "Germany’s beleaguered spies face a fresh scandal",
     date: "2026-10-07",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-06",
     time: "16:08",
     url: "https://www.ft.com/content/5235f78e-5c94-4015-8559-b6d0ec3fea95",
-  },
-  {
-    id: "094a93af-ad94-4db2-8254-bc415d5161a6",
-    title: "Ireland offers tax cuts in budget to help with cost of living",
-    date: "2026-10-06",
-    time: "15:59",
-    url: "https://www.ft.com/content/094a93af-ad94-4db2-8254-bc415d5161a6",
-  },
-  {
-    id: "76db879a-2c53-4aee-8354-b30185f1d3a4",
-    title: "German far right secures first regional parliament president",
-    date: "2026-10-06",
-    time: "15:35",
-    url: "https://www.ft.com/content/76db879a-2c53-4aee-8354-b30185f1d3a4",
-  },
-  {
-    id: "1c1ee003-f041-4c66-a971-f08d488d11f7",
-    title: "S&P 500 hits record high as AI stocks shrug off bond market slump",
-    date: "2026-10-06",
-    time: "15:03",
-    url: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7",
   },
 ];
