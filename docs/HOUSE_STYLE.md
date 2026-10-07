@@ -250,24 +250,25 @@ notification badge red (`#ef4444`).
   "Sign out" → `--t-mut`). No one-off greys, no orange labels.
 - **R10a — Feed labels: EIGHT domains, colour + text both name the domain.** The
   wire pill (`.g-feed-code`) is the ONE place a non-delta colour carries meaning.
-  Rationalised to **eight domain labels** — the pill names the item's **domain**,
-  matching the colour; it NEVER spells a granular sub-type (DEAL/RAISE/CLO/13F/
-  ALERT/CASE/SCHEME/RP/COMM) or a SOURCE brand (BBG/ECON/myFT/Substack/Brew), since
-  the **publication name on the row already carries the source**. Every desk/type key
-  maps UP to its domain in `feed.js` (`DESK`/`DESK_CODE`/`DESK_CLASS` collapse to 8
-  values; `codeKey = o.type || o.desk` still selects the key, now resolving to the
-  domain label). The eight:
+  Rationalised to **eight domains, each a compact 3-LETTER code** so every pill fits
+  the fixed 34px code column neatly — the pill names the item's **domain**, matching the
+  colour; it NEVER spells a granular sub-type (DEAL/RAISE/CLO/13F/ALERT/CASE/SCHEME/RP/
+  COMM) or a SOURCE brand (BBG/ECON/myFT/Substack/Brew), since the **publication name on
+  the row already carries the source**. The **full domain name is the tooltip** (`DESK`).
+  Every desk/type key maps UP to its domain in `feed.js` (`DESK`/`DESK_CODE`/`DESK_CLASS`
+  collapse to 8 values; `codeKey = o.type || o.desk` still selects the key, now resolving
+  to the 3-letter code). The eight (code · full name):
 
-  | Domain | Label | Colour token | Absorbs (keys) |
+  | Domain | Code | Colour token | Absorbs (keys) |
   |---|---|---|---|
-  | News | `NEWS` | `--t-news` | `news`, `bbg`, `econ` |
-  | Macro | `MACRO` | `--t-mac` | `m`, `comm` |
-  | Bonds | `BONDS` | `--t-fi` | `fi` (fixed-income sources, e.g. Bond Vigilantes) |
-  | Credit | `CREDIT` | `--t-crd` | `c`, `deal`, `fund`, `clo` |
-  | Legal | `LEGAL` | `--t-lex` | `l`, `alert`, `case`, `scheme`, `rp` |
-  | Hedge funds | `HEDGE` | `--t-hdg` | `hdg`, `f13` |
-  | Research | `RESEARCH` | `--t-rsch` | `rsch` (sell-side / house research, teal) |
-  | Letter | `LETTER` | `--t-amber` | `n`, `f` (myFT), `s` (Substack), `b` (Brew) |
+  | News | `NWS` | `--t-news` | `news`, `bbg`, `econ` |
+  | Macro | `MAC` | `--t-mac` | `m`, `comm` |
+  | Bonds | `BND` | `--t-fi` | `fi` (fixed-income sources, e.g. Bond Vigilantes) |
+  | Credit | `CRD` | `--t-crd` | `c`, `deal`, `fund`, `clo` |
+  | Legal | `LAW` | `--t-lex` | `l`, `alert`, `case`, `scheme`, `rp` |
+  | Hedge funds | `HDG` | `--t-hdg` | `hdg`, `f13` |
+  | Research | `RSH` | `--t-rsch` | `rsch` (sell-side / house research, teal) |
+  | Letter | `LTR` | `--t-amber` | `n`, `f` (myFT), `s` (Substack), `b` (Brew) |
 
   `--t-hdg` (`#4aa3f0` dark / `#1f6fd0` light) is a named token. The old per-type and
   per-source classes (`bbg`/`econ`/`ft`/`substack`/`brew`/`deal`/`fund`/`clo`/`comm`/

@@ -2328,7 +2328,7 @@ function renderFeed() {
     const groups = new Map();
     feed.forEach((x) => {
       const codeKey = x.desk === "hdg" ? "hdg" : (x.type || x.desk);
-      const label = DESK_CODE[codeKey] || "NEWS";
+      const label = DESK_CODE[codeKey] || "NWS";
       if (!groups.has(label)) groups.set(label, []);
       groups.get(label).push(x);
     });

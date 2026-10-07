@@ -20,15 +20,18 @@ const DESK_CODE = parseMap("DESK_CODE");
 const DESK_CLASS = parseMap("DESK_CLASS");
 const DESK = parseMap("DESK");
 
-const DOMAINS = ["NEWS", "MACRO", "BONDS", "CREDIT", "LEGAL", "HEDGE", "RESEARCH", "LETTER"];
-const DOMAIN_CLASS = { NEWS: "news", MACRO: "macro", BONDS: "fi", CREDIT: "credit", LEGAL: "legal", HEDGE: "hdg", RESEARCH: "rsch", LETTER: "newsletter" };
+// The pill text is ONE compact 3-LETTER code per domain (so it fits the fixed 34px code
+// column neatly); the full domain name lives in the DESK tooltip. Eight codes, one each.
+const DOMAINS = ["NWS", "MAC", "BND", "CRD", "LAW", "HDG", "RSH", "LTR"];
+const DOMAIN_CLASS = { NWS: "news", MAC: "macro", BND: "fi", CRD: "credit", LAW: "legal", HDG: "hdg", RSH: "rsch", LTR: "newsletter" };
 
 check(Object.keys(DESK_CODE).length >= 20, `parsed DESK_CODE (${Object.keys(DESK_CODE).length} keys)`);
 const codeVals = [...new Set(Object.values(DESK_CODE))];
-check(codeVals.every((v) => DOMAINS.includes(v)), `every DESK_CODE value is one of the 8 domain labels (${codeVals.join(", ")})`);
-checkEq(codeVals.length, 8, `DESK_CODE collapses to exactly 8 distinct labels (${codeVals.slice().sort().join(", ")})`);
-check(!codeVals.some((v) => ["DEAL", "RAISE", "CLO", "13F", "ALERT", "CASE", "SCHEME", "RP", "COMM", "BBG", "ECON", "SUBS", "BREW", "myFT", "LTR", "RSCH", "MAC", "LEX", "CRD", "HDG", "BND"].includes(v)),
-  "no granular sub-type / source-brand / old-abbreviation label survives");
+check(codeVals.every((v) => /^[A-Z]{3}$/.test(v)), `every DESK_CODE value is exactly 3 uppercase letters (${codeVals.join(", ")})`);
+check(codeVals.every((v) => DOMAINS.includes(v)), `every DESK_CODE value is one of the 8 domain codes (${codeVals.join(", ")})`);
+checkEq(codeVals.length, 8, `DESK_CODE collapses to exactly 8 distinct codes (${codeVals.slice().sort().join(", ")})`);
+check(!codeVals.some((v) => ["DEAL", "RAISE", "CLO", "13F", "ALERT", "CASE", "SCHEME", "RP", "COMM", "BBG", "ECON", "SUBS", "BREW", "myFT", "LEX", "FIN", "EXIT"].includes(v)),
+  "no granular sub-type / source-brand label survives as a domain code");
 
 // Colour stays in lockstep with the label: each key's DESK_CLASS is the colour class of the
 // domain its DESK_CODE names.

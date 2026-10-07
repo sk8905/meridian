@@ -29,7 +29,7 @@ const fi = await pg.evaluate((title) => {
   };
 }, BV.title);
 check(fi.present, "the News wire surfaces the Bond Vigilantes item");
-checkEq(fi.code, "BONDS", "Bond Vigilantes item carries the BONDS desk label (not MACRO)");
+checkEq(fi.code, "BND", "Bond Vigilantes item carries the BND desk label (not MAC)");
 check(/Bond Vigilantes/.test(fi.src || ""), "Bond Vigilantes item shows its source name");
 
 // It also appears on the All lane (news + managers interleaved).

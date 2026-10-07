@@ -31,15 +31,18 @@ export const DESK = {
   rsch: "Research",
   n: "Newsletter", f: "Newsletter", s: "Newsletter", b: "Newsletter",
 };
+// The visible pill text — ONE compact 3-LETTER code per domain so every pill fits
+// the fixed 34px code column neatly (HOUSE_STYLE R10a). The full domain name lives in
+// DESK (the tooltip). Eight codes, one per domain: NWS·MAC·BND·CRD·LAW·HDG·RSH·LTR.
 export const DESK_CODE = {
-  news: "NEWS", bbg: "NEWS", econ: "NEWS",
-  m: "MACRO", comm: "MACRO",
-  fi: "BONDS",
-  c: "CREDIT", deal: "CREDIT", fund: "CREDIT", clo: "CREDIT",
-  l: "LEGAL", alert: "LEGAL", case: "LEGAL", scheme: "LEGAL", rp: "LEGAL",
-  hdg: "HEDGE", hedge: "HEDGE", f13: "HEDGE",
-  rsch: "RESEARCH",
-  n: "LETTER", f: "LETTER", s: "LETTER", b: "LETTER",
+  news: "NWS", bbg: "NWS", econ: "NWS",
+  m: "MAC", comm: "MAC",
+  fi: "BND",
+  c: "CRD", deal: "CRD", fund: "CRD", clo: "CRD",
+  l: "LAW", alert: "LAW", case: "LAW", scheme: "LAW", rp: "LAW",
+  hdg: "HDG", hedge: "HDG", f13: "HDG",
+  rsch: "RSH",
+  n: "LTR", f: "LTR", s: "LTR", b: "LTR",
 };
 export const DESK_CLASS = {
   news: "news", bbg: "news", econ: "news",
