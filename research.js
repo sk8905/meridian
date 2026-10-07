@@ -32,6 +32,13 @@ export const PUBLISHERS = {
   // the Newsletter one.
   "newsletter.mail.gs.com": "Goldman Sachs Research",
   "guggenheiminvestments.com": "Guggenheim Investments",
+  // Rating-agency private-credit / credit research — signed up 2026-10-07. Routed here so
+  // the moment real content arrives it lands in Research. Confirm the content-sender domain
+  // on the first real note (Fitch Wire so far mails from comms@fitchratings.com; Moody's
+  // registration from idm-no-reply@moodys.com; S&P not yet delivered).
+  "fitchratings.com": "Fitch Ratings",
+  "moodys.com": "Moody's Ratings",
+  "spglobal.com": "S&P Global Ratings",
   // SIGNED UP, awaiting first real note (only subscription confirmations so far as of
   // 2026-10-07). Confirm each domain against the first real email, then activate.
   // "email.apolloacademy.com": "Apollo Academy",      // also piped live via gnews
