@@ -244,6 +244,12 @@
    still wins (up/down arrows, rating badges, source links, sortable-header accents). */
 .tleague th, .tleague td, .tx-tbl th, .tx-tbl td, .tx-list th, .tx-list td,
 .tcr-tbl th, .tcr-tbl td, .tl-holdings th, .tl-holdings td { text-align: left; }
+/* Match the data tables' type treatment to the market briefing (glance.js
+   .g-hbrief-bt): the same 12.5px body size but the briefing's tightened -0.1px
+   tracking, so the profiles league and the transactions tables read at the same
+   visual size as the briefing prose rather than looking a notch larger/looser. */
+.tleague td, .tx-tbl td, .tx-list td, .tcr-tbl td, .tl-holdings td,
+.tx-typestrip .tx-secchip { letter-spacing: -0.1px; }
 .tleague td:first-child, .tx-tbl td:first-child, .tx-list td:first-child,
 .tcr-tbl td:first-child, .tl-holdings td:first-child { color: var(--ink); font-weight: 400; }
 .tleague td:not(:first-child), .tx-tbl td:not(:first-child), .tx-list td:not(:first-child),

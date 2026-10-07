@@ -33,6 +33,22 @@
 // invented; where a level isn't verifiable, quote the move or "record high" with the
 // index named, not a made-up number.
 //
+// HARD INFORMATION — GIVE THE NUMBERS, NOT A HEADLINE. Each bullet must deliver
+// specific, quantified fact a professional can act on: the actual level/size and
+// its move (a %, a bp count, a $ or £ amount, a multiple, a date), the named
+// parties, and the mechanism or driver behind the move — never a bare qualitative
+// characterisation. BAN empty headline phrases that carry no information unless the
+// concrete figure is given in the SAME breath: "a big push into X", "surprisingly
+// manageable", "in the spotlight", "under pressure", "a challenging picture",
+// "weighs on", "eyes a deal", "ramping up". If a bullet would work as a newspaper
+// headline — a claim with no number, size or mechanism — it is INCOMPLETE; add the
+// figure or cut it. Prefer ONE fully-informative sentence over two thin ones, and
+// never ship a one-clause stub (tests/briefing-empty-bullet.mjs flags a body that
+// is headline-short). Example — NOT "Blue Owl is preparing a big push into
+// insurance" but "Blue Owl ($319bn AUM) is pushing into insurance capital: CEO
+// Ostrover wants a larger insurance balance sheet to fund bespoke private-credit
+// deals, backing insurers rather than buying one outright."
+//
 // ATTRIBUTION — STATE THE NEWS, DON'T NARRATE THE REPORTING. Each bullet states the
 // news directly as fact; NEVER attribute it via the publication's act of reporting —
 // no "the FT reports/explains", "Bloomberg notes", "according to …", "<name> says/
@@ -61,11 +77,11 @@ export const BRIEFINGS = {
       date: "2026-10-07",
       time: "08:15 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; the disruption to oil supply, oil prices and the world economy from the energy shock has been surprisingly manageable so far</strong>.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; India raised interest rates for the first time in three years</strong>, joining the global tightening drive as the IMF&rsquo;s Georgieva urges governments to rein in spending.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; French yield spreads retreated after Marine Le Pen vowed to cut the deficit</strong>, a pause in the euro-area debt sell-off while the US 10-year Treasury yield sits around its 2007 high of about 5.3%.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 closed Tuesday at an all-time high, its first since August</strong>, on AI-led gains; third-quarter S&amp;P 500 earnings are forecast to rise 27% as the reporting season begins next week.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times" },
-        { html: "<strong>Credit &mdash; Blue Owl is preparing a &lsquo;big push&rsquo; into insurance</strong>.", src: "https://www.ft.com/content/47c82e53-aa63-4b0d-95fd-ecc04d81e6ab", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the energy shock has proved more manageable than feared</strong>: with the Strait of Hormuz shut since February, roughly 11% of world oil supply is offline or stranded and Brent spiked near $120 a barrel at its peak, yet analysts now see it averaging about $89 this year as demand cools and non-OPEC output fills the gap.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; India raised its repo rate 25bp to 5.50%</strong>, its first hike since February 2023, as a weak rupee and Middle East-driven imported inflation push the Reserve Bank to &lsquo;calibrated tightening&rsquo; with near-term cuts now off the table.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to 5.27%</strong> after touching 5.35% on Monday, its highest since 2002, while French spreads narrowed after Marine Le Pen vowed to cut the deficit &mdash; a pause in the euro-area debt sell-off.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.66% to a fresh record</strong>, its first all-time high since August and led by the AI mega-caps, with third-quarter S&amp;P 500 earnings now forecast up 29.5% year on year as reporting season opens next week.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times" },
+        { html: "<strong>Credit &mdash; Blue Owl ($319bn AUM) is pushing into insurance capital</strong>: chief executive Marc Ostrover wants a larger insurance balance sheet to fund bespoke private-credit solutions, and the firm plans to back insurers rather than buy one outright, hiring Deva Mishra to lead the effort.", src: "https://www.ft.com/content/47c82e53-aa63-4b0d-95fd-ecc04d81e6ab", srcName: "Financial Times" },
       ],
     },
     afternoon: {

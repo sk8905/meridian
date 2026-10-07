@@ -699,6 +699,16 @@ quiet slot gets a short output, not padding.
   data (the `/api/markets` levels the briefing strip shows) — never invent one; where a
   level isn't verifiable, quote the move or "record high" with the index named. A
   Bonds/Equities bullet with no figure fails `tests/briefing-empty-bullet.mjs`.
+  **HARD INFORMATION, not a headline (R28).** Every bullet — not just Bonds/Equities —
+  must give specific, quantified fact: the level/size and its move (a `%`, a `bp`, a
+  `$`/`£` amount, a multiple, a date), the named parties and the mechanism behind it,
+  never a vague characterisation. Do NOT ship empty headline phrases ("a big push into
+  X", "surprisingly manageable", "in the spotlight", "under pressure", "a challenging
+  picture") unless the concrete number is in the same clause. A bullet that reads like a
+  one-line newspaper headline is incomplete — add the figure or drop it, and prefer one
+  fully-informative sentence to two thin ones. The test rejects a **headline-short body**
+  (under 60 visible chars after the kicker is stripped), so verify each figure (WebSearch
+  — paywalled FT/Bloomberg bodies may be egress-blocked) and write the number in.
   **No Overview lede:** the synthesis `lede` is RETIRED — it is not rendered, so do
   NOT author one (the field is optional/deprecated and may be omitted entirely).
   Update the slot's `date`/`time` to the run stamp.

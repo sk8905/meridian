@@ -51,6 +51,12 @@ const data = await pg.evaluate(async () => {
   const deskOf = (h) => { const m = String(h || "").match(/<strong>\s*(Macro|Bonds|Equities|Credit)\s*(?:&mdash;|—)/i); return m ? m[1].toLowerCase() : ""; };
   const bondsHasPrice = (h) => /\b\d+(?:\.\d+)?\s*(?:%|bps?|basis\s+points?)/i.test(String(h || ""));
   const eqHasPrice = (h) => /\b\d{1,3}(?:,\d{3})+\b|\b\d+(?:\.\d+)?\s*%|\$\s?\d/.test(String(h || ""));
+  // A briefing bullet must carry hard information, not a one-line newspaper headline
+  // (HOUSE_STYLE R28). The visible body AFTER the "Desk —" kicker is stripped must
+  // be a real, substantive sentence — a headline-short stub ("Blue Owl is preparing
+  // a big push into insurance.") tells the reader nothing and is rejected. 60 chars
+  // is the floor: well under a normal informative sentence, well over a bare clause.
+  const visLen = (h) => stripDesk(h).replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, " ").trim().length;
   const keys = Object.keys(slots);
   const bad = [];
   let bulletN = 0;
@@ -72,6 +78,8 @@ const data = await pg.evaluate(async () => {
       const desk = deskOf(x && x.html);
       if (desk === "bonds" && !bondsHasPrice(x && x.html)) bad.push(`${k}[${i}]: Bonds bullet has no benchmark yield reference (a % or bp level)`);
       if (desk === "equities" && !eqHasPrice(x && x.html)) bad.push(`${k}[${i}]: Equities bullet has no index level / % move / mega-cap price`);
+      const vl = visLen(x && x.html);
+      if (hasText(x && x.html) && vl < 60) bad.push(`${k}[${i}]: headline-short body (${vl} chars) — give the hard information, not a one-line headline ("${stripDesk(String(x.html)).replace(/<[^>]*>/g, "").slice(0, 50)}")`);
     });
   }
   return { slots: keys.length, bulletN, bad };

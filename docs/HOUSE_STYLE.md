@@ -678,7 +678,18 @@ notification badge red (`#ef4444`).
   level / `%` move (S&P 500, Nasdaq) or a mega-cap's price or market value. A
   Bonds/Equities bullet with no figure is incomplete — enforced on the committed data
   by `tests/briefing-empty-bullet.mjs`. Every figure is real + sourced (the bullet's
-  `src` or Wire's own live market data), never invented. **iPhone-only markets snapshot strip:** on the
+  `src` or Wire's own live market data), never invented. **HARD INFORMATION, not a
+  headline (every desk):** each bullet must deliver specific, quantified fact — the
+  level/size and its move (a `%`, a `bp` count, a `$`/`£` amount, a multiple, a date),
+  the named parties, and the mechanism/driver — never a bare qualitative
+  characterisation. **Banned** unless the concrete number sits in the same breath: "a
+  big push into X", "surprisingly manageable", "in the spotlight", "under pressure",
+  "a challenging picture", "weighs on", "eyes a deal". A bullet that would work as a
+  newspaper headline (a claim with no figure, size or mechanism) is INCOMPLETE — add
+  the number or cut it; prefer one fully-informative sentence over two thin ones. The
+  test flags a **headline-short body** (under 60 visible chars after the kicker is
+  stripped) so a one-clause stub ("Blue Owl is preparing a big push into insurance")
+  turns the suite red before it can ship. **iPhone-only markets snapshot strip:** on the
   phone the briefing opens with a **fitted** strip of five square cards
   (`.g-hbrief-strip` → `.g-hbs-card`, `renderBriefStrip`) — **S&P 500 · VIX · Oil · Gold ·
   US 10Y** — that **all fit the viewport with no horizontal scroll** (`flex:1 1 0`, cards
