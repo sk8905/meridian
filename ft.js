@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "20557850-9cd1-4685-8238-f292023afc1f",
+    title: "SEC warns asset managers against collaborating on activist campaigns",
+    date: "2026-10-07",
+    time: "18:07",
+    url: "https://www.ft.com/content/20557850-9cd1-4685-8238-f292023afc1f",
+  },
+  {
+    id: "21d4101f-ba5e-49e9-8c38-6b38ed5f1ca3",
+    title: "Badenoch’s UK Conservatives are a work in progress",
+    date: "2026-10-07",
+    time: "18:00",
+    url: "https://www.ft.com/content/21d4101f-ba5e-49e9-8c38-6b38ed5f1ca3",
+  },
+  {
+    id: "32e1c801-fe7d-4389-b3fc-ab687cbb087b",
+    title: "China slaps down EU request for voluntary curbs on hybrid car exports",
+    date: "2026-10-07",
+    time: "17:56",
+    url: "https://www.ft.com/content/32e1c801-fe7d-4389-b3fc-ab687cbb087b",
+  },
+  {
+    id: "8b9709f4-fc67-488d-ace6-8a5e2bcb775b",
+    title: "London gold market body accused of causing deaths of two miners",
+    date: "2026-10-07",
+    time: "17:53",
+    url: "https://www.ft.com/content/8b9709f4-fc67-488d-ace6-8a5e2bcb775b",
+  },
+  {
+    id: "1f101722-bfb7-4872-b7d9-70039c981615",
+    title: "Merz’s conservatives in new crisis over alleged support for AfD",
+    date: "2026-10-07",
+    time: "17:24",
+    url: "https://www.ft.com/content/1f101722-bfb7-4872-b7d9-70039c981615",
+  },
+  {
     id: "870ed142-0418-4685-9347-d8c0caacdc58",
     title: "Australian court ruling on climate impact of coal mining a ‘blow’, says industry",
     date: "2026-10-07",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "09:15",
     url: "https://www.ft.com/content/84d9a203-7231-452d-846b-8e502ca2e2a5",
-  },
-  {
-    id: "2895a744-9538-4bc9-ac9b-686677f5cdb2",
-    title: "August wage growth poses no obstacle to more BoJ tightening",
-    date: "2026-10-07",
-    time: "09:01",
-    url: "https://www.ft.com/content/2895a744-9538-4bc9-ac9b-686677f5cdb2",
-  },
-  {
-    id: "713ccee6-855f-48d8-acf1-161265041ad8",
-    title: "India raises interest rates for first time in 3 years",
-    date: "2026-10-07",
-    time: "08:04",
-    url: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8",
-  },
-  {
-    id: "7eb5da58-d909-4cec-9a30-1c6ec8ffb0a6",
-    title: "IMF’s Kristalina Georgieva urges governments to rein in spending",
-    date: "2026-10-07",
-    time: "07:00",
-    url: "https://www.ft.com/content/7eb5da58-d909-4cec-9a30-1c6ec8ffb0a6",
-  },
-  {
-    id: "dcf35eaf-e1d3-4289-bc7a-e0c91725ad59",
-    title: "Donald Trump says he will speak with Vladimir Putin about pneumonic plague",
-    date: "2026-10-07",
-    time: "06:33",
-    url: "https://www.ft.com/content/dcf35eaf-e1d3-4289-bc7a-e0c91725ad59",
-  },
-  {
-    id: "16df642e-dc1a-4d17-8f18-b97f32efc5db",
-    title: "Neat tricks to help French bonds",
-    date: "2026-10-07",
-    time: "06:30",
-    url: "https://www.ft.com/content/16df642e-dc1a-4d17-8f18-b97f32efc5db",
   },
 ];
