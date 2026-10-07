@@ -155,6 +155,22 @@ check(!rcOut.paragraphs.some((p) => /Nike falls 9%|Nonfarm payrolls loom|Dow and
 check(!rcOut.blocks.some((b) => /^Popular Searches/i.test(b.t)), "extract: the 'Popular Searches' widget heading is dropped (nav label)");
 check(rcOut.paragraphs.some((p) => /Capital Economics said a market-friendly win/.test(p)), "extract: a prose paragraph with an inline link is kept (not treated as a link row)");
 
+// A byline + tag / related-firm STRIP (a comma-separated run of proper-noun names with no
+// sentence structure) that some templates emit as the first <p> must be dropped — it reads as
+// junk and, auto-linked, as a wall of highlighted names. Real prose that lists firms (full of
+// lowercase connective words) is KEPT.
+const tagDoc = `<html><head><title>Perch</title></head><body><article>
+  <p>Aysha Gilmore News, Top 3, Ashurst, Perkins Coie, Ellis Diamanti, Fieldfisher, Hampshire Trust Bank, Hunton Andrews Kurth, Lloyds, NatWest Group, Paragon Bank, Perch Group, Quilam Capital, Shawbrook Bank, Triple Point Capital</p>
+  <p>Investment group Triple Point has lent Blackpool-based debt firm Perch Group &pound;55m as part of a &pound;400m funding package to support the company's growth.</p>
+  <p>Triple Point joins a lending group that includes NatWest Group, Hampshire Trust Bank, Shawbrook Bank, Paragon Bank and Lloyds, while Quilam Capital remains an investor in the business.</p>
+  <p>Fieldfisher advised Perch Group, Hunton Andrews Kurth advised Triple Point and Ashurst advised the senior lending syndicate.</p>
+</article></body></html>`;
+const tagOut = extractReadable(tagDoc, u("https://alternativecreditinvestor.com/2026/10/07/perch/"));
+check(!tagOut.paragraphs.some((p) => /Aysha Gilmore News/.test(p)), "extract: the byline + tag/related-firm name-list strip is dropped (not prose)");
+check(tagOut.paragraphs[0] && /Triple Point has lent Blackpool/.test(tagOut.paragraphs[0]), `extract: the body starts at the real lede, not the tag strip (${(tagOut.paragraphs[0] || "").slice(0, 40)})`);
+check(tagOut.paragraphs.some((p) => /joins a lending group that includes/.test(p)), "extract: real prose that lists firms (full of lowercase connectives) is KEPT, not mistaken for a tag strip");
+check(tagOut.paragraphs.some((p) => /Fieldfisher advised Perch Group/.test(p)), "extract: a short 'X advised Y' prose paragraph with firm names is kept");
+
 // 5b) The proxy (markdown) path drops a "Popular Searches" recirculation list — blocks
 //     that are only links — while keeping prose that merely carries an inline link.
 const recircMd = `## Popular Searches

@@ -1865,7 +1865,7 @@ const READ_OPEN = new Set([
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
-const READ_VER = "v16";
+const READ_VER = "v17";   // v17: drop byline/tag name-list strips (comma-separated proper nouns, no prose) from the body
 const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
@@ -1912,6 +1912,22 @@ function _blockIsLinkOnly(inner) {
   if (!/<a\b/i.test(inner)) return false;
   const outside = _readStrip(String(inner).replace(/<a\b[\s\S]*?<\/a>/gi, " "));
   return outside.length < 2;
+}
+// A byline + tag / related-firm strip that some templates emit as a <p> at the top of the
+// body — a comma-separated RUN of short proper-noun names ("Aysha Gilmore News, Top 3,
+// Ashurst, Perkins Coie, Lloyds, NatWest Group, …") with no sentence structure. It reads as
+// junk and, auto-linked, as a wall of highlighted names. Detect it by its shape: many comma
+// segments and almost NO plain lowercase words (sentence glue — articles/verbs/connectives).
+// Real prose that happens to list firms ("Triple Point joins a group that includes NatWest,
+// Lloyds…") is kept, because it is full of lowercase words; a pure name/tag list has ~none.
+function _readIsNameList(t) {
+  const s = String(t || "");
+  const segs = s.split(",").map((x) => x.trim()).filter(Boolean);
+  if (segs.length < 6) return false;
+  const words = s.split(/\s+/).filter(Boolean);
+  if (words.length < 6) return false;
+  const lower = words.filter((w) => /^[a-z][a-z’'-]+$/.test(w)).length;   // plain lowercase words = sentence glue
+  return lower / words.length < 0.2;                                      // <20% lowercase → a name/tag list, not prose
 }
 // ---- Reading-pane content images ------------------------------------------------
 // We keep real article photography/charts and drop chrome: icons, logos, avatars,
@@ -2188,6 +2204,7 @@ function _readBlocks(scope, base) {
     if (!t || READ_BOILER.test(t)) continue;
     if (READ_NAV_LABEL.test(t)) continue;                        // nav/widget section label (any block)
     if (!isH && _blockIsLinkOnly(m[4])) continue;                // a headline that only links out — not prose
+    if (!isH && _readIsNameList(t)) continue;                    // a byline + tag/related-firm strip (comma-separated names), not prose
     if (isH ? (t.length < 2 || t.length > 120) : (t.length < 40)) continue;
     const k = (isH ? "h:" : "p:") + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     if (total > 20000) break;
