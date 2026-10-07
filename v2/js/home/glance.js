@@ -582,8 +582,27 @@ function _briefSecNames(groups) {
 // Resolved equities for THIS page load: name -> { symbol, label, pct, dir } | null. In-memory
 // only (re-fetched per load) so a quote is never stale across a deploy.
 let _secResolved = {}, _secqFetching = false;
-function _secPill(sym, label, mag, dir) {
-  return `<span class="g-hbt-tk ${dir}" data-sym="${esc(sym)}"><span class="g-hbt-s">${esc(label)}</span><span class="g-hbt-c">${esc(mag)} ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span></span>`;
+// Format a price/level for a pill: ≥1000 → thousands-separated whole number (7,771 · 4,129),
+// otherwise two decimals (101.97 · 5.27). Empty string when there's no usable number.
+function _fmtLevel(v) {
+  if (v == null || !isFinite(+v)) return "";
+  const n = +v;
+  return Math.abs(n) >= 1000 ? Math.round(n).toLocaleString("en-US") : n.toFixed(2);
+}
+// A briefing ticker pill ALWAYS shows the LEVEL (price/value/points) AND the change
+// (%/bp) + a direction arrow (HOUSE_STYLE R28). `levelStr` is pre-formatted (may carry a
+// unit like "%"); `changeStr` is the move (e.g. "4bp", "0.62%").
+function _hbtArrow(dir) { return dir === "up" ? "↑" : dir === "down" ? "↓" : "·"; }
+function _hbtPill(n, label, levelStr, changeStr, dir) {
+  n.className = "g-hbt-tk " + dir;
+  n.innerHTML = `<span class="g-hbt-s">${esc(label)}</span>`
+    + (levelStr ? `<span class="g-hbt-v">${esc(levelStr)}</span>` : "")
+    + `<span class="g-hbt-c">${esc(changeStr)} ${_hbtArrow(dir)}</span>`;
+}
+function _secPill(sym, label, levelStr, changeStr, dir) {
+  return `<span class="g-hbt-tk ${dir}" data-sym="${esc(sym)}"><span class="g-hbt-s">${esc(label)}</span>`
+    + (levelStr ? `<span class="g-hbt-v">${esc(levelStr)}</span>` : "")
+    + `<span class="g-hbt-c">${esc(changeStr)} ${_hbtArrow(dir)}</span></span>`;
 }
 // Inject a pill after the FIRST mention of a recognised security (yields via data-ykey, filled
 // by renderBriefTickers from the rates cache; equities FILLED inline from _secResolved).
@@ -614,44 +633,43 @@ function _injectSecPills(html, seen) {
     const d = _secResolved[name];
     if (!d || seen.has("e:" + d.symbol)) continue;
     const re = new RegExp("\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b");
-    once(re, () => { seen.add("e:" + d.symbol); return _secPill(d.symbol, d.label, `${Math.abs(d.pct).toFixed(2)}%`, d.dir); });
+    once(re, () => { seen.add("e:" + d.symbol); return _secPill(d.symbol, d.label, _fmtLevel(d.price), `${Math.abs(d.pct).toFixed(2)}%`, d.dir); });
   }
   return out.replace(/\u0000P(\d+)\u0000/g, (m, i) => pills[+i] || "");
 }
 let _idxQuotes = {}, _idxFetching = false;
-function _hbtFillPct(n, pct) {
-  const dir = glSign(pct);
-  n.className = "g-hbt-tk " + dir;
-  n.innerHTML = `<span class="g-hbt-s">${esc(n.getAttribute("data-label"))}</span><span class="g-hbt-c">${Math.abs(pct).toFixed(2)}% ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span>`;
-}
 function renderBriefTickers() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
-  // Yields — straight from the rates cache (bp move).
+  // Yields — straight from the rates cache: LEVEL (the yield, e.g. 5.27%) + the bp move.
   const rates = (_rateRows && _rateRows.length) ? _rateRows : (((readCache("rates") || {}).rates) || []);
   host.querySelectorAll(".g-hbt-tk[data-ykey]").forEach((n) => {
     const r = (rates || []).find((x) => x && x.label === n.getAttribute("data-ykey"));
     if (!r || typeof r.change !== "number" || !isFinite(r.change)) return;
     const bp = Math.round(r.change * 100), dir = glSign(bp);
-    n.className = "g-hbt-tk " + dir;
-    n.innerHTML = `<span class="g-hbt-s">${esc(n.getAttribute("data-label"))}</span><span class="g-hbt-c">${Math.abs(bp)}bp ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span>`;
+    const lvl = (typeof r.value === "number" && isFinite(r.value)) ? r.value.toFixed(2) + "%" : "";
+    _hbtPill(n, n.getAttribute("data-label"), lvl, `${Math.abs(bp)}bp`, dir);
   });
-  // Commodities — from the markets cache (the SAME source the snapshot strip uses), matched
-  // by the markets-feed label; /api/quotes can't take the "=F" futures symbols. Live % move.
+  // Commodities — from the markets cache (the SAME source the snapshot strip uses): the price
+  // LEVEL + the % move. /api/quotes can't take the "=F" futures symbols, so these fill here.
   const mkts = (_mktRows && _mktRows.length) ? _mktRows : (((readCache("markets") || {}).markets) || []);
   host.querySelectorAll(".g-hbt-tk[data-mkt]").forEach((n) => {
     const row = (mkts || []).find((x) => x && x.label === n.getAttribute("data-mkt"));
     if (!row || typeof row.changePct !== "number" || !isFinite(row.changePct)) return;
-    _hbtFillPct(n, row.changePct);
+    _hbtPill(n, n.getAttribute("data-label"), _fmtLevel(row.value), `${Math.abs(row.changePct).toFixed(2)}%`, glSign(row.changePct));
   });
-  // Indices — curated symbols, live % via /api/quotes (cached per load in _idxQuotes).
-  const fillIdx = () => host.querySelectorAll(".g-hbt-tk[data-idx]").forEach((n) => { const pct = _idxQuotes[n.getAttribute("data-idx")]; if (pct != null && isFinite(pct)) _hbtFillPct(n, pct); });
+  // Indices — curated symbols, live price + % via /api/quotes (cached per load in _idxQuotes
+  // as { pct, price }).
+  const fillIdx = () => host.querySelectorAll(".g-hbt-tk[data-idx]").forEach((n) => {
+    const q = _idxQuotes[n.getAttribute("data-idx")];
+    if (q && typeof q.pct === "number" && isFinite(q.pct)) _hbtPill(n, n.getAttribute("data-label"), _fmtLevel(q.price), `${Math.abs(q.pct).toFixed(2)}%`, glSign(q.pct));
+  });
   const idxSyms = [...new Set([...host.querySelectorAll(".g-hbt-tk[data-idx]")].map((n) => n.getAttribute("data-idx")))].filter((s) => !(s in _idxQuotes));
   if (!idxSyms.length || _idxFetching) { fillIdx(); return; }
   _idxFetching = true;
   fetch(`/api/quotes?symbols=${encodeURIComponent(idxSyms.join(","))}`, { headers: { accept: "application/json" } })
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null)
-    .then((d) => { _idxFetching = false; const q = (d && d.quotes) || {}; for (const s of idxSyms) _idxQuotes[s] = (q[s] && typeof q[s].changePct === "number") ? q[s].changePct : null; fillIdx(); });
+    .then((d) => { _idxFetching = false; const q = (d && d.quotes) || {}; for (const s of idxSyms) _idxQuotes[s] = (q[s] && typeof q[s].changePct === "number") ? { pct: q[s].changePct, price: (typeof q[s].price === "number" ? q[s].price : null) } : null; fillIdx(); });
 }
 // Detect the prose's securities and resolve them live; when new ones resolve, repaint once so
 // their pills inject. Equities carry their quote in _secResolved, so no second fill is needed.

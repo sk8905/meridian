@@ -598,7 +598,7 @@ async function handleRates(request, env, ctx) {
 
   const cache = caches.default;
   // Versioned key so a previously-cached partial response is ignored.
-  const cacheKey = new Request(new URL("/api/rates?v=12", request.url).toString());
+  const cacheKey = new Request(new URL("/api/rates?v=13", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const data = await Promise.all(RATE_SERIES.map(async (s) => {
@@ -1035,7 +1035,7 @@ async function _yhV7(symbols, env) {
       if (!r.ok) return out;
       const j = await r.json().catch(() => null);
       for (const q of (((j || {}).quoteResponse || {}).result || [])) {
-        if (q && q.symbol) out[q.symbol] = { marketCap: (typeof q.marketCap === "number") ? q.marketCap : null, changePct: (typeof q.regularMarketChangePercent === "number") ? q.regularMarketChangePercent : null, quoteType: q.quoteType || null };
+        if (q && q.symbol) out[q.symbol] = { marketCap: (typeof q.marketCap === "number") ? q.marketCap : null, changePct: (typeof q.regularMarketChangePercent === "number") ? q.regularMarketChangePercent : null, price: (typeof q.regularMarketPrice === "number") ? q.regularMarketPrice : null, quoteType: q.quoteType || null };
       }
       return out;
     } catch { return out; }
@@ -1082,7 +1082,8 @@ async function handleSecq(request, env, ctx) {
   const securities = {};
   for (const [n, s] of pairs) {
     const pct = (s && q[s] && typeof q[s].changePct === "number") ? q[s].changePct : null;
-    securities[n] = (s && pct != null) ? { symbol: s, label: s.replace(/^\^/, ""), pct: +pct.toFixed(2), dir: pct > 0 ? "up" : pct < 0 ? "down" : "flat" } : null;
+    const px = (s && q[s] && typeof q[s].price === "number") ? q[s].price : null;
+    securities[n] = (s && pct != null) ? { symbol: s, label: s.replace(/^\^/, ""), pct: +pct.toFixed(2), price: px, dir: pct > 0 ? "up" : pct < 0 ? "down" : "flat" } : null;
   }
   const resp = json({ securities, asOf: new Date().toISOString() });
   resp.headers.set("cache-control", "public, max-age=300");

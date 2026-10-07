@@ -724,7 +724,14 @@ notification badge red (`#ef4444`).
   a pill — showing its ticker/benchmark + the day's move + a direction arrow (e.g. "Honeywell
   gains" → "`HON 0.07% ↓` gains"; "the US 10-year Treasury yield" → "`US 10Y 3bp ↑`"). A
   yield/index pill carries its label up front so it reads even before its live value fills; an
-  unresolved name keeps its prose text (no pill to replace it). The pills cover **three kinds** of
+  unresolved name keeps its prose text (no pill to replace it). **Each pill shows the LEVEL
+  (price / yield / points) AND the move (%/bp) + a direction arrow** — e.g. `US 10Y 5.27% 4bp↓`,
+  `S&P 500 7,771 0.62%↓`, `BRENT 101.97 1.38%↑`, `US 30Y 5.52% 2bp↓` (level in the `.g-hbt-v` span,
+  move in `.g-hbt-c`). **Prices come from Yahoo Finance** (indices via `/api/quotes`, equities via
+  `/api/secq` → `_yhV7` `regularMarketPrice`, commodities via `/api/markets`); yield LEVELS come
+  from the Treasury par curve (`/api/rates`, which also carries **US 30Y** — filtered out of the
+  Key-rates rail like the 2Y). A level-less pill is a bug; `tests/home-brief-tickers.mjs` asserts
+  every filled pill carries both a level and a change. The pills cover **three kinds** of
   instrument — **benchmark yields, indices, and equities (megacaps)** — detected in the
   prose (`_briefSecNames` — capitalised phrases minus a `SEC_STOP` stoplist of
   countries/currencies/central-banks/calendar/common words). **US Treasury benchmark yields**

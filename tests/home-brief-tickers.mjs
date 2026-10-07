@@ -14,8 +14,8 @@ const HERO = { asOf: "2026-10-06", instruments: ["spx"].map((k) => ({
 // The resolver echoes known names; anything else (Boeing, Acme Widgets) is absent → the
 // client reads it as null → no pill. Country names are stoplisted and never reach here.
 const SECQ = { securities: {
-  "Nvidia":    { symbol: "NVDA",  label: "NVDA", pct: 2.13,  dir: "up" },
-  "Honeywell": { symbol: "HON",   label: "HON",  pct: -0.07, dir: "down" },
+  "Nvidia":    { symbol: "NVDA",  label: "NVDA", pct: 2.13,  price: 182.40, dir: "up" },
+  "Honeywell": { symbol: "HON",   label: "HON",  pct: -0.07, price: 210.15, dir: "down" },
 } };
 const RATES = { rates: [
   { label: "US 10Y", value: 5.31, change: 0.03, unit: "%", asOf: "6 Oct", history: [], href: "https://www.cnbc.com/quotes/US10Y" },
@@ -23,7 +23,7 @@ const RATES = { rates: [
 ] };
 // Indices are DETECTED via a curated name→symbol map (Nasdaq → ^IXIC) and their live % comes
 // from /api/quotes (the only endpoint that accepts `^`-prefixed index symbols).
-const QUOTES = { quotes: { "^IXIC": { changePct: 1.25 } } };
+const QUOTES = { quotes: { "^IXIC": { changePct: 1.25, price: 20150.5 } } };
 const srv = await serve({
   "/api/hero": () => [200, JSON.stringify(HERO)],
   "/api/xfeed": () => [200, JSON.stringify({ tweets: [] })],
@@ -65,13 +65,17 @@ await pg.waitForFunction(() => {
 
 const r = await pg.evaluate(() => {
   const host = document.getElementById("g-hbrief");
-  const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
+  const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), lvl: ((n.querySelector(".g-hbt-v") || {}).textContent || "").trim(), chg: ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
   const html = host.innerHTML;
+  // STRICT: every FILLED pill (one with a change) must ALSO carry a non-empty LEVEL span.
+  const filled = [...host.querySelectorAll(".g-hbt-tk")].filter((n) => ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim());
+  const missingLevel = filled.filter((n) => !((n.querySelector(".g-hbt-v") || {}).textContent || "").trim()).map((n) => n.textContent.trim());
   return {
     nvda: pill('.g-hbt-tk[data-sym="NVDA"]'),
     hon: pill('.g-hbt-tk[data-sym="HON"]'),
     us10: pill('.g-hbt-tk[data-ykey="US 10Y"]'),
     nasdaq: pill('.g-hbt-tk[data-idx="^IXIC"]'),
+    filledCount: filled.length, missingLevel,
     // The recognised name is REPLACED by its pill (kept the label, dropped the text), so the
     // resolved names must no longer appear as prose; the ticker/benchmark label stands in.
     bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " "),
@@ -82,10 +86,12 @@ const r = await pg.evaluate(() => {
   };
 });
 
-check(r.nvda && /NVDA/.test(r.nvda.txt) && /2\.13%/.test(r.nvda.txt) && /↑/.test(r.nvda.txt) && r.nvda.up, `megacap pill: Nvidia → NVDA 2.13% ↑ (up) (${r.nvda && r.nvda.txt})`);
-check(r.hon && /HON/.test(r.hon.txt) && /0\.07%/.test(r.hon.txt) && /↓/.test(r.hon.txt) && r.hon.down, `megacap pill: Honeywell → HON 0.07% ↓ (down) (${r.hon && r.hon.txt})`);
-check(r.us10 && /US 10Y/.test(r.us10.txt) && /3bp/.test(r.us10.txt) && /↑/.test(r.us10.txt) && r.us10.up, `benchmark pill: US 10-year Treasury yield → US 10Y 3bp ↑ (${r.us10 && r.us10.txt})`);
-check(r.nasdaq && /NASDAQ/.test(r.nasdaq.txt) && /1\.25%/.test(r.nasdaq.txt) && /↑/.test(r.nasdaq.txt) && r.nasdaq.up, `index pill: Nasdaq → NASDAQ 1.25% ↑ (up) (${r.nasdaq && r.nasdaq.txt})`);
+// EVERY pill shows the LEVEL (price/yield/points) AND the change (%/bp) — R28, strict.
+check(r.filledCount >= 4 && r.missingLevel.length === 0, `every filled pill carries a level + a change (${r.filledCount} pills${r.missingLevel.length ? "; MISSING level: " + r.missingLevel.join(" | ") : ""})`);
+check(r.nvda && /NVDA/.test(r.nvda.txt) && /182\.40/.test(r.nvda.lvl) && /2\.13%/.test(r.nvda.chg) && /↑/.test(r.nvda.chg) && r.nvda.up, `megacap pill: Nvidia → NVDA 182.40 2.13% ↑ (${r.nvda && r.nvda.txt})`);
+check(r.hon && /HON/.test(r.hon.txt) && /210\.15/.test(r.hon.lvl) && /0\.07%/.test(r.hon.chg) && /↓/.test(r.hon.chg) && r.hon.down, `megacap pill: Honeywell → HON 210.15 0.07% ↓ (${r.hon && r.hon.txt})`);
+check(r.us10 && /US 10Y/.test(r.us10.txt) && /5\.31%/.test(r.us10.lvl) && /3bp/.test(r.us10.chg) && /↑/.test(r.us10.chg) && r.us10.up, `benchmark pill: US 10Y → 5.31% level + 3bp move (${r.us10 && r.us10.txt})`);
+check(r.nasdaq && /NASDAQ/.test(r.nasdaq.txt) && /20,151/.test(r.nasdaq.lvl) && /1\.25%/.test(r.nasdaq.chg) && /↑/.test(r.nasdaq.chg) && r.nasdaq.up, `index pill: Nasdaq → 20,151 level + 1.25% move (${r.nasdaq && r.nasdaq.txt})`);
 check(!/\bNvidia\b/.test(r.bodyText) && !/\bHoneywell\b/.test(r.bodyText) && !/\bNasdaq\b/.test(r.bodyText) && !/Treasury/.test(r.bodyText),
   `the recognised NAME is dropped — the pill label replaces it, not appended (${r.bodyText})`);
 check(/\bBoeing\b/.test(r.bodyText) && /\bAcme Widgets\b/.test(r.bodyText) && /\bFrance\b/.test(r.bodyText),
@@ -117,13 +123,14 @@ await pg.waitForFunction(() => {
 const comR = await pg.evaluate(() => {
   const host = document.getElementById("g-hbrief");
   const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
-  return { brent: pill('.g-hbt-tk[data-mkt="Brent"]'), wti: pill('.g-hbt-tk[data-mkt="WTI"]'),
+  const pillL = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), lvl: ((n.querySelector(".g-hbt-v") || {}).textContent || "").trim(), chg: ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
+  return { brent: pillL('.g-hbt-tk[data-mkt="Brent"]'), wti: pillL('.g-hbt-tk[data-mkt="WTI"]'),
     bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " ") };
 });
-check(comR.brent && /BRENT/.test(comR.brent.txt) && /1\.27%/.test(comR.brent.txt) && /↓/.test(comR.brent.txt) && comR.brent.down,
-  `commodity pill: Brent → BRENT 1.27% ↓ from the markets cache (${comR.brent && comR.brent.txt})`);
-check(comR.wti && /WTI/.test(comR.wti.txt) && /0\.60%/.test(comR.wti.txt) && comR.wti.up,
-  `commodity pill: WTI → WTI 0.60% ↑ (${comR.wti && comR.wti.txt})`);
+check(comR.brent && /BRENT/.test(comR.brent.txt) && /89\.52/.test(comR.brent.lvl) && /1\.27%/.test(comR.brent.chg) && /↓/.test(comR.brent.chg) && comR.brent.down,
+  `commodity pill: Brent → 89.52 level + 1.27% move from the markets cache (${comR.brent && comR.brent.txt})`);
+check(comR.wti && /WTI/.test(comR.wti.txt) && /83\.90/.test(comR.wti.lvl) && /0\.60%/.test(comR.wti.chg) && comR.wti.up,
+  `commodity pill: WTI → 83.90 level + 0.60% move (${comR.wti && comR.wti.txt})`);
 check(!/\bBrent\b/.test(comR.bodyText) && !/\bWTI\b/.test(comR.bodyText), `the commodity NAME is replaced by its pill, not kept as prose (${comR.bodyText})`);
 
 // Treasury pills: a Bonds bullet that LEADS with the long bond pills the 30-year, and a bare
@@ -146,13 +153,13 @@ await pg.waitForFunction(() => {
 }, { timeout: 8000 }).catch(() => {});
 const yldR = await pg.evaluate(() => {
   const host = document.getElementById("g-hbrief");
-  const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
+  const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), lvl: ((n.querySelector(".g-hbt-v") || {}).textContent || "").trim(), chg: ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
   return { us30: pill('.g-hbt-tk[data-ykey="US 30Y"]'), us10: pill('.g-hbt-tk[data-ykey="US 10Y"]'),
     bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " ") };
 });
-check(yldR.us30 && /US 30Y/.test(yldR.us30.txt) && /2bp/.test(yldR.us30.txt) && /↓/.test(yldR.us30.txt) && yldR.us30.down,
-  `long-bond pill: US 30-year Treasury yield → US 30Y 2bp ↓ (${yldR.us30 && yldR.us30.txt})`);
-check(yldR.us10 && /US 10Y/.test(yldR.us10.txt), `a bare "the 10-year" still pills → US 10Y (${yldR.us10 && yldR.us10.txt})`);
+check(yldR.us30 && /US 30Y/.test(yldR.us30.txt) && /5\.52%/.test(yldR.us30.lvl) && /2bp/.test(yldR.us30.chg) && /↓/.test(yldR.us30.chg) && yldR.us30.down,
+  `long-bond pill: US 30Y → 5.52% level + 2bp move (${yldR.us30 && yldR.us30.txt})`);
+check(yldR.us10 && /US 10Y/.test(yldR.us10.txt) && /5\.31%/.test(yldR.us10.lvl), `a bare "the 10-year" still pills → US 10Y with its 5.31% level (${yldR.us10 && yldR.us10.txt})`);
 check(!/Treasury/.test(yldR.bodyText), `the 30-year phrase is replaced by its pill, not kept as prose (${yldR.bodyText})`);
 
 // A desk kicker authored with an entity ("M&amp;A", "R&amp;D") must render the literal glyph

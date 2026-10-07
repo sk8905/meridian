@@ -1337,6 +1337,8 @@
       line-height:1.5; white-space:nowrap; vertical-align:baseline; translate:0 -1px; }
     .tui .g-hbt-tk:empty{ display:none; }
     .tui .g-hbt-s{ font-weight:700; letter-spacing:.02em; color:var(--t-mut); }
+    /* The LEVEL (price/yield/points) — the prominent ink value, between the label and the move. */
+    .tui .g-hbt-v{ color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
     .tui .g-hbt-c{ color:var(--t-mut); font-variant-numeric:tabular-nums; }
     .tui .g-hbt-tk.up .g-hbt-c{ color:var(--t-up); }
     .tui .g-hbt-tk.down .g-hbt-c{ color:var(--t-down); }
