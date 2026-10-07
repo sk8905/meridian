@@ -24,7 +24,10 @@ const QUOTES = { quotes: { "^IXIC": { changePct: 1.25 } } };
 const srv = await serve({
   "/api/hero": () => [200, JSON.stringify(HERO)],
   "/api/xfeed": () => [200, JSON.stringify({ tweets: [] })],
-  "/api/markets": () => [200, JSON.stringify({ markets: [], moversExtra: [], moversEtf: [], portfolio: null })],
+  "/api/markets": () => [200, JSON.stringify({ markets: [
+    { label: "Brent", value: 89.52, change: -1.14, changePct: -1.27, marketState: "CLOSED" },
+    { label: "WTI", value: 83.90, change: 0.50, changePct: 0.60, marketState: "REGULAR" },
+  ], moversExtra: [], moversEtf: [], portfolio: null })],
   "/api/rates": () => [200, JSON.stringify(RATES)],
   "/api/secq": () => [200, JSON.stringify(SECQ)],
   "/api/quotes": () => [200, JSON.stringify(QUOTES)],
@@ -88,6 +91,37 @@ check(!r.boeingPill, "an UNRESOLVED company (Boeing) gets NO pill (never guessed
 check(!r.acmePill, "an unmapped name (Acme Widgets) gets NO pill");
 check(!r.francePill, "a stoplisted country (France) is never pilled");
 checkEq(r.totalPills, 4, "exactly four pills — NVDA, HON, US 10Y, NASDAQ");
+
+// Commodity pill: a "Brent" (or WTI/Gold) mention is detected and pilled with the day's %
+// from the MARKETS cache (the same source the snapshot strip uses) — /api/quotes can't take
+// the "=F" futures symbols, so these fill from /api/markets like the strip does.
+const com = await pg.evaluate(async () => {
+  const m = await import("/briefings.js");
+  const B = m.BRIEFINGS || {}, slots = B.slots || {};
+  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
+  const _ord = (B.order || []).filter((k) => slots[k]);
+  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);
+  slots[key].bullets = [
+    { html: "<strong>Macro &mdash; the energy shock stays contained</strong> as Brent trades near $89 a barrel and WTI holds around $84.", src: "https://example.com/c", srcName: "Ex" },
+  ];
+  window.__wireRenderBrief();
+  return key;
+});
+await pg.waitForFunction(() => {
+  const n = document.querySelector('#g-hbrief .g-hbt-tk[data-mkt="Brent"]');
+  return n && /%/.test(n.textContent);
+}, { timeout: 8000 }).catch(() => {});
+const comR = await pg.evaluate(() => {
+  const host = document.getElementById("g-hbrief");
+  const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
+  return { brent: pill('.g-hbt-tk[data-mkt="Brent"]'), wti: pill('.g-hbt-tk[data-mkt="WTI"]'),
+    bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " ") };
+});
+check(comR.brent && /BRENT/.test(comR.brent.txt) && /1\.27%/.test(comR.brent.txt) && /↓/.test(comR.brent.txt) && comR.brent.down,
+  `commodity pill: Brent → BRENT 1.27% ↓ from the markets cache (${comR.brent && comR.brent.txt})`);
+check(comR.wti && /WTI/.test(comR.wti.txt) && /0\.60%/.test(comR.wti.txt) && comR.wti.up,
+  `commodity pill: WTI → WTI 0.60% ↑ (${comR.wti && comR.wti.txt})`);
+check(!/\bBrent\b/.test(comR.bodyText) && !/\bWTI\b/.test(comR.bodyText), `the commodity NAME is replaced by its pill, not kept as prose (${comR.bodyText})`);
 
 // A desk kicker authored with an entity ("M&amp;A", "R&amp;D") must render the literal glyph
 // ("M&A"), not a double-encoded "M&amp;A" — the desk name is decoded before it is re-escaped.

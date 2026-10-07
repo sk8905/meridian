@@ -31,7 +31,11 @@
 // no number is incomplete (enforced by tests/briefing-empty-bullet.mjs). Every
 // figure is real + sourced (the `src` item or Wire's own live market data) — never
 // invented; where a level isn't verifiable, quote the move or "record high" with the
-// index named, not a made-up number.
+// index named, not a made-up number. EVERY SLOT names at least one pillable benchmark —
+// a Treasury yield, a major index, or a commodity (Brent/WTI/Gold) — so each brief carries
+// an inline live ticker pill (enforced by tests/briefing-empty-bullet.mjs). Mentioning the
+// benchmark by name (e.g. "Brent", "the US 10-year", "the S&P 500") is enough; the renderer
+// detects it and injects the pill with the live move.
 //
 // HARD INFORMATION — GIVE THE NUMBERS, NOT A HEADLINE. Each bullet must deliver
 // specific, quantified fact a professional can act on: the actual level/size and

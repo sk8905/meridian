@@ -57,6 +57,10 @@ const data = await pg.evaluate(async () => {
   // a big push into insurance.") tells the reader nothing and is rejected. 60 chars
   // is the floor: well under a normal informative sentence, well over a bare clause.
   const visLen = (h) => stripDesk(h).replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, " ").trim().length;
+  // EVERY slot must name at least one instrument that renders as an inline ticker pill
+  // (HOUSE_STYLE R28) — a curated benchmark the briefing resolves live: a Treasury yield,
+  // a major index, or a commodity. Mirrors glance.js BRIEF_YIELDS/BRIEF_INDEX/BRIEF_COMMODITY.
+  const pillable = /\b(?:US\s*)?(?:10|2)-?year Treasury|\bUS\s*(?:10|2)-?year\b|\bS&(?:amp;)?P\s*500\b|\bNasdaq\b|\b(?:Dow Jones|the Dow)\b|\bRussell\s*2000\b|\bFTSE\b|\bDAX\b|\bCAC\b|\bStoxx\b|\bIBEX\b|\bNikkei\b|\bHang Seng\b|\bShanghai Composite\b|\bKospi\b|\bSensex\b|\bNifty\b|\bBovespa\b|\bVIX\b|\bBrent\b|\bWTI\b|\bgold\b/i;
   const keys = Object.keys(slots);
   const bad = [];
   let bulletN = 0;
@@ -66,7 +70,9 @@ const data = await pg.evaluate(async () => {
     if (!s.date || !s.time) bad.push(`${k}: missing date/time`);
     const bl = Array.isArray(s.bullets) ? s.bullets : [];
     if (!bl.length) bad.push(`${k}: no bullets`);
+    let slotHasPill = false;
     bl.forEach((x, i) => {
+      if (pillable.test(String((x && x.html) || ""))) slotHasPill = true;
       bulletN++;
       if (!hasText(x && x.html)) bad.push(`${k}[${i}]: empty html`);
       // The defect that started this: a kicker with no body sentence after the dash.
@@ -86,6 +92,7 @@ const data = await pg.evaluate(async () => {
       // number-rich brief, so it only catches a genuine overrun.
       if (vl > 360) bad.push(`${k}[${i}]: over-long body (${vl} chars) — trim to ~1–2 sentences so it fits the desktop quadrant column (keep the figure, cut connective filler)`);
     });
+    if (bl.length && !slotHasPill) bad.push(`${k}: no pillable instrument — every slot must name a benchmark that renders an inline ticker pill (a Treasury yield, a major index, or a commodity like Brent)`);
   }
   return { slots: keys.length, bulletN, bad };
 });

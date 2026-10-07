@@ -952,8 +952,13 @@
       text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; }
     /* Entity cross-reference links in the body — a tracked manager / hedge fund / law
        firm, coloured + bold, linking to its Wire profile (glance.js linkEntities). */
-    .g-read-p .g-ent, .g-read-art .g-ent{ color:var(--t-link); font-weight:700; text-decoration:none; }
-    .g-read-p .g-ent:hover, .g-read-art .g-ent:hover{ text-decoration:underline; text-underline-offset:2px; }
+    /* Softer entity links: entities read as normal body prose (no bold, no blue fill) with
+       just a faint link-coloured underline so they're discoverable without overwhelming the
+       text; hover brings up the full link colour. */
+    .g-read-p a.g-ent, .g-read-art a.g-ent{ color:inherit; font-weight:inherit;
+      text-decoration-line:underline !important; text-decoration-style:solid; text-decoration-thickness:1px;
+      text-underline-offset:2px; text-decoration-color:var(--t-link) !important; }
+    .g-read-p a.g-ent:hover, .g-read-art a.g-ent:hover{ color:var(--t-link); }
     .g-read-h:first-child{ margin-top:0; }
     /* Content images pulled from the article, shown inline in reading order. The image
        sits in a figure with an optional caption; it scales to the text column and never

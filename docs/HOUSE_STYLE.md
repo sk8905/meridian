@@ -728,6 +728,11 @@ notification badge red (`#ef4444`).
   Seng · VIX · …**, most-specific first so "Nasdaq 100" beats "Nasdaq") are matched by that
   map — a curated set is accurate where fuzzy name-resolution isn't — and their live % comes
   from **`/api/quotes`** (the only endpoint that accepts `^`-prefixed index symbols).
+  **Commodities** (`BRIEF_COMMODITY` — **Brent · WTI · Gold**) pill the same way but fill
+  from the **markets cache** (the source the snapshot strip uses), since `/api/quotes` rejects
+  the `=F` futures symbols (`BZ=F`/`CL=F`/`GC=F`). **Every slot must name at least one pillable
+  benchmark** (a Treasury yield, a major index, or a commodity) so each brief carries a live
+  data point — enforced on the committed data by `tests/briefing-empty-bullet.mjs`.
   **Equities are resolved LIVE** via **`/api/secq`** → `handleSecq`: Yahoo **search** for
   candidates, then a **market-cap tiebreaker** over them (crumb-gated `/v7/quote`, cookie+crumb
   cached in KV) so the biggest listing wins — "Honeywell" → **HON**, not HONA. Resolutions,

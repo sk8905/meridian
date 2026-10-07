@@ -5,7 +5,7 @@ import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish
 
 // Stub the reader service: any openly-readable URL returns an extracted body.
 // The entity paragraph names a tracked hedge fund, manager and law firm — the reading
-// pane must link each to its Wire profile (coloured + bold .g-ent). Names chosen to
+// pane must link each to its Wire profile (.g-ent, soft underline). Names chosen to
 // resolve uniquely in the Home roster (home-data.js): Citadel→hf/h4, Bridgewater
 // Associates→hf/h1, Bridgepoint Credit→manager/m1, Proskauer Rose→firm/proskauerrose.
 // Also includes the lower-case common word "sector" — which must NOT link, even though
@@ -128,7 +128,7 @@ if (freeSel) {
       headText: (h || {}).textContent || "",
       headWeight: h && getComputedStyle(h).fontWeight,
       headDecoration: h && getComputedStyle(h).textDecorationLine,
-      ents: [...document.querySelectorAll("#g-readpane .g-read-p a.g-ent")].map((a) => ({ t: a.textContent, href: a.getAttribute("href"), weight: getComputedStyle(a).fontWeight, color: getComputedStyle(a).color })),
+      ents: [...document.querySelectorAll("#g-readpane .g-read-p a.g-ent")].map((a) => { const c = getComputedStyle(a); return { t: a.textContent, href: a.getAttribute("href"), weight: c.fontWeight, color: c.color, decoLine: c.textDecorationLine, decoColor: c.textDecorationColor }; }),
       pColor: p && getComputedStyle(p).color,
       // An embedded tweet renders as a card: author, text, media, linking to the post.
       tweet: (() => {
@@ -171,13 +171,18 @@ if (freeSel) {
   check(!!full.tweet && /grabbed the popcorn/.test(full.tweet.txt) && full.tweet.media, "reading pane: the embedded tweet shows its text and image");
   check(!!full.tweet && /^https:\/\/x\.com\/Barrister7\/status\/\d+$/.test(full.tweet.href), `reading pane: the tweet card links to the post (${full.tweet && full.tweet.href})`);
   // Entity auto-linking: a tracked manager / hedge fund / law firm named in the body is
-  // linked to its Wire profile (coloured + bold), and only in the reading pane.
+  // linked to its Wire profile, and only in the reading pane.
   const entBy = (name) => full.ents.find((e) => e.t === name);
   check(!!entBy("Citadel") && /\/v2\/profiles\/#\/hf\/h4$/.test((entBy("Citadel") || {}).href || ""), `reading pane: a hedge fund mention links to its profile (Citadel → ${(entBy("Citadel") || {}).href})`);
   check(!!entBy("Bridgewater Associates") && /\/hf\/h1$/.test((entBy("Bridgewater Associates") || {}).href || ""), "reading pane: a multi-word hedge fund name links to its profile (Bridgewater Associates → hf/h1)");
   check(!!entBy("Bridgepoint Credit") && /\/manager\/m1$/.test((entBy("Bridgepoint Credit") || {}).href || ""), `reading pane: a manager mention links to its profile (Bridgepoint Credit → ${(entBy("Bridgepoint Credit") || {}).href})`);
   check(!!entBy("Proskauer Rose") && /\/firm\/proskauerrose$/.test((entBy("Proskauer Rose") || {}).href || ""), `reading pane: a law firm mention links to its profile (Proskauer Rose → ${(entBy("Proskauer Rose") || {}).href})`);
-  check((entBy("Citadel") || {}).weight >= 700 && (entBy("Citadel") || {}).color && (entBy("Citadel") || {}).color !== full.pColor, `reading pane: entity links are bold + coloured (not the body ink) (${(entBy("Citadel") || {}).color} vs ${full.pColor})`);
+  // SOFTER treatment (R28): entities read as normal body prose — NOT bold, the body ink
+  // colour — with just a faint link-coloured underline, so they're discoverable without
+  // overwhelming the text (hover brings the full link colour).
+  const cit = entBy("Citadel") || {};
+  check(cit.weight < 700 && cit.color === full.pColor, `reading pane: entity links are NOT bold/blue — they read as body prose (${cit.weight}/${cit.color} vs body ${full.pColor})`);
+  check(/underline/.test(cit.decoLine || "") && cit.decoColor && cit.decoColor !== cit.color, `reading pane: entity links carry a faint link-coloured underline (${cit.decoLine}/${cit.decoColor})`);
   // A lower-case common word is NOT linked, even when it matches a fund's one-word alias.
   check(!full.ents.some((e) => /^sector$/i.test(e.t)), `reading pane: a lower-case common word ("sector") is not mis-linked as an entity (${full.ents.map((e) => e.t).join(", ")})`);
   // Entity linking is READING-PANE ONLY — the wire feed itself never gets .g-ent links.

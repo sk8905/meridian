@@ -525,6 +525,14 @@ const BRIEF_INDEX = [
   { re: /\bBovespa\b/i,                     sym: "^BVSP", label: "BOVESPA" },
   { re: /\bVIX\b/i,                         sym: "^VIX",  label: "VIX" },
 ];
+// Commodity benchmarks — a curated name→markets-feed-label map, filled from the markets
+// cache (the SAME source the snapshot strip uses) rather than /api/quotes, which rejects the
+// "=F" futures symbols (BZ=F/CL=F/GC=F). Matched by the markets-feed label; live % move.
+const BRIEF_COMMODITY = [
+  { re: /\bBrent(?:\s+crude)?\b/i, mkt: "Brent", label: "BRENT" },
+  { re: /\bWTI(?:\s+crude)?\b/i,   mkt: "WTI",   label: "WTI" },
+  { re: /\bgold\b/i,               mkt: "Gold",  label: "GOLD" },
+];
 // Proper-noun phrases that are NEVER a tradeable security — countries/demonyms, currencies,
 // central banks / institutions, markets-not-tickers, calendar + common words — pre-filtered
 // so they're not even queried (the server also negative-caches). The server's name-match +
@@ -559,6 +567,7 @@ function _briefSecNames(groups) {
     if (low.split(/\s+/).every((w) => SEC_STOP.has(w))) continue;   // e.g. "United States", "Bank of England"
     if (BRIEF_YIELDS.some((y) => y.re.test(p))) continue;           // handled as a yield
     if (BRIEF_INDEX.some((ix) => ix.re.test(p))) continue;          // handled as an index (curated)
+    if (BRIEF_COMMODITY.some((c) => c.re.test(p))) continue;        // handled as a commodity (curated)
     names.add(p);
   }
   return [...names];
@@ -590,6 +599,10 @@ function _injectSecPills(html, seen) {
     if (seen.has("i:" + ix.sym)) continue;
     once(ix.re, () => { seen.add("i:" + ix.sym); return `<span class="g-hbt-tk" data-idx="${esc(ix.sym)}" data-label="${esc(ix.label)}"><span class="g-hbt-s">${esc(ix.label)}</span></span>`; });
   }
+  for (const c of BRIEF_COMMODITY) {
+    if (seen.has("c:" + c.mkt)) continue;
+    once(c.re, () => { seen.add("c:" + c.mkt); return `<span class="g-hbt-tk" data-mkt="${esc(c.mkt)}" data-label="${esc(c.label)}"><span class="g-hbt-s">${esc(c.label)}</span></span>`; });
+  }
   for (const name of Object.keys(_secResolved)) {
     const d = _secResolved[name];
     if (!d || seen.has("e:" + d.symbol)) continue;
@@ -615,6 +628,14 @@ function renderBriefTickers() {
     const bp = Math.round(r.change * 100), dir = glSign(bp);
     n.className = "g-hbt-tk " + dir;
     n.innerHTML = `<span class="g-hbt-s">${esc(n.getAttribute("data-label"))}</span><span class="g-hbt-c">${Math.abs(bp)}bp ${dir === "up" ? "↑" : dir === "down" ? "↓" : "·"}</span>`;
+  });
+  // Commodities — from the markets cache (the SAME source the snapshot strip uses), matched
+  // by the markets-feed label; /api/quotes can't take the "=F" futures symbols. Live % move.
+  const mkts = (_mktRows && _mktRows.length) ? _mktRows : (((readCache("markets") || {}).markets) || []);
+  host.querySelectorAll(".g-hbt-tk[data-mkt]").forEach((n) => {
+    const row = (mkts || []).find((x) => x && x.label === n.getAttribute("data-mkt"));
+    if (!row || typeof row.changePct !== "number" || !isFinite(row.changePct)) return;
+    _hbtFillPct(n, row.changePct);
   });
   // Indices — curated symbols, live % via /api/quotes (cached per load in _idxQuotes).
   const fillIdx = () => host.querySelectorAll(".g-hbt-tk[data-idx]").forEach((n) => { const pct = _idxQuotes[n.getAttribute("data-idx")]; if (pct != null && isFinite(pct)) _hbtFillPct(n, pct); });
@@ -2605,7 +2626,8 @@ function _readShell(it, access, bodyHTML) {
 }
 // ---- Reading-pane entity auto-linking --------------------------------------
 // Where a tracked entity (manager, hedge fund, law firm) is NAMED in the article
-// body, link the mention to its Wire profile — coloured + bold via .g-ent. READING
+// body, link the mention to its Wire profile — a SOFT link via .g-ent (body prose with a
+// faint link-coloured underline, not bold/blue). READING
 // PANE ONLY (never the wire feed). Built once from the loaded rosters; rebuilt when
 // loadDeskData refreshes them (it nulls _entRe/_entMap).
 let _entRe = null, _entMap = null;
