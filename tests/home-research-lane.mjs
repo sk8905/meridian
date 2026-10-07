@@ -28,10 +28,10 @@ checkEq(lanes.join(" · "), "All · Research · Managers · Watchlist · Newslet
 // Research items fold into the All lane (the default) — tagged RSCH, not culled.
 const inAll = await pg.evaluate(() => {
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const rsch = rows.filter((r) => /RSCH/.test((r.querySelector(".g-feed-code") || {}).textContent || ""));
+  const rsch = rows.filter((r) => /RESEARCH/.test((r.querySelector(".g-feed-code") || {}).textContent || ""));
   return { count: rsch.length, titles: rsch.map((r) => (r.querySelector(".g-feed-title") || {}).textContent || "") };
 });
-check(inAll.count >= 1, `All lane: research items fold in with the RSCH code (${inAll.count})`);
+check(inAll.count >= 1, `All lane: research items fold in with the RESEARCH code (${inAll.count})`);
 
 // Switch to the Research lane → only the research items, each with the teal RSCH pill.
 await pg.evaluate(() => { const b = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === "Research"); if (b) b.click(); });
@@ -41,10 +41,10 @@ const rsch = await pg.evaluate(() => {
   const codes = rows.map((r) => (r.querySelector(".g-feed-code") || {}).textContent || "");
   const srcs = [...new Set(rows.map((r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim()))].filter(Boolean);
   const pill = rows[0] && rows[0].querySelector(".g-feed-code");
-  return { rows: rows.length, allRsch: rows.length > 0 && codes.every((c) => /RSCH/.test(c)), srcs, pillClass: pill ? pill.className : "" };
+  return { rows: rows.length, allRsch: rows.length > 0 && codes.every((c) => /RESEARCH/.test(c)), srcs, pillClass: pill ? pill.className : "" };
 });
 check(rsch.rows >= 2, `Research lane: shows the research notes (${rsch.rows} rows from ${rsch.srcs.join(", ")})`);
-check(rsch.allRsch, "Research lane: every row carries the RSCH desk code");
+check(rsch.allRsch, "Research lane: every row carries the RESEARCH desk code");
 check(/\brsch\b/.test(rsch.pillClass), `Research lane: the RSCH pill uses the research (teal) colour class (${rsch.pillClass})`);
 
 checkErrs(errs, "home research lane");

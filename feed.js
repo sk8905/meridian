@@ -15,27 +15,41 @@ import { esc, MONTHS } from "/util.js";
 // finer taxonomy (credit: deal/fund/clo/comm; legal: alert/case/scheme/rp).
 // One shared map so the code chip, its colour class and the tooltip all agree
 // wherever the wire is rendered.
+// RATIONALISED to EIGHT domain labels (HOUSE_STYLE R10a): the pill names the item's DOMAIN,
+// one of NEWS · MACRO · BONDS · CREDIT · LEGAL · HEDGE · RESEARCH · LETTER — never a granular
+// sub-type (DEAL/RAISE/CLO/13F/ALERT/CASE/…) and never a SOURCE brand (Bloomberg/Economist/
+// myFT/Substack/Brew), since the publication name already sits on the row. Every desk/type key
+// maps up to its domain, so the three maps stay keyed by the same keys but collapse to 8
+// values; the colour (DESK_CLASS → domClass) encodes the same 8 domains.
 export const DESK = {
-  news: "News", bbg: "Bloomberg", econ: "The Economist",
-  m: "Macro", c: "Credit", l: "Legal",
-  n: "Letter", f: "myFT", s: "Substack", b: "Brew", rsch: "Research",
-  deal: "Deal", fund: "Fundraising", clo: "CLO", comm: "Commentary",
-  alert: "Client alert", case: "Case law", scheme: "Scheme", rp: "Restructuring plan",
-  hdg: "Hedge funds", f13: "13F filing", fi: "Bonds",
+  news: "News", bbg: "News", econ: "News",
+  m: "Macro", comm: "Macro",
+  fi: "Bonds",
+  c: "Credit", deal: "Credit", fund: "Credit", clo: "Credit",
+  l: "Legal", alert: "Legal", case: "Legal", scheme: "Legal", rp: "Legal",
+  hdg: "Hedge funds", hedge: "Hedge funds", f13: "Hedge funds",
+  rsch: "Research",
+  n: "Newsletter", f: "Newsletter", s: "Newsletter", b: "Newsletter",
 };
 export const DESK_CODE = {
-  news: "NEWS", bbg: "BBG", econ: "ECON", m: "MAC", c: "CRD", l: "LEX",
-  n: "LTR", f: "myFT", s: "SUBS", b: "BREW", rsch: "RSCH",
-  deal: "DEAL", fund: "RAISE", clo: "CLO", comm: "COMM",
-  alert: "ALERT", case: "CASE", scheme: "SCHEME", rp: "RP",
-  hdg: "HDG", f13: "13F", fi: "BND",
+  news: "NEWS", bbg: "NEWS", econ: "NEWS",
+  m: "MACRO", comm: "MACRO",
+  fi: "BONDS",
+  c: "CREDIT", deal: "CREDIT", fund: "CREDIT", clo: "CREDIT",
+  l: "LEGAL", alert: "LEGAL", case: "LEGAL", scheme: "LEGAL", rp: "LEGAL",
+  hdg: "HEDGE", hedge: "HEDGE", f13: "HEDGE",
+  rsch: "RESEARCH",
+  n: "LETTER", f: "LETTER", s: "LETTER", b: "LETTER",
 };
 export const DESK_CLASS = {
-  news: "news", bbg: "bbg", econ: "econ", m: "macro", c: "credit", l: "legal",
-  n: "newsletter", f: "ft", s: "substack", b: "brew", rsch: "rsch",
-  deal: "deal", fund: "fund", clo: "clo", comm: "comm",
-  alert: "alert", case: "case", scheme: "scheme", rp: "rp",
-  hdg: "hdg", hedge: "hdg", f13: "hdg", fi: "fi",
+  news: "news", bbg: "news", econ: "news",
+  m: "macro", comm: "macro",
+  fi: "fi",
+  c: "credit", deal: "credit", fund: "credit", clo: "credit",
+  l: "legal", alert: "legal", case: "legal", scheme: "legal", rp: "legal",
+  hdg: "hdg", hedge: "hdg", f13: "hdg",
+  rsch: "rsch",
+  n: "newsletter", f: "newsletter", s: "newsletter", b: "newsletter",
 };
 // Domain (colour) for a type-desk — HOUSE_STYLE R10a: the pill's COLOUR encodes
 // the domain (Credit/Hedge/Legal/…), its TEXT the type (DEAL/RAISE/13F/…). Only

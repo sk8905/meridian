@@ -248,27 +248,31 @@ notification badge red (`#ef4444`).
   only** (never body text).
 - **R10 — One muted grey** for all secondary labels ("Signed in as",
   "Sign out" → `--t-mut`). No one-off greys, no orange labels.
-- **R10a — Feed labels: colour = domain, text = type.** The wire pill
-  (`.g-feed-code`) is the ONE place a non-delta colour carries meaning. Its
-  **colour encodes the domain** (which desk the item belongs to) and its **text
-  encodes the type** (what kind of item it is). One domain = one token, reused for
-  every type within it — a Credit `DEAL` and a Credit `RAISE` are both `--t-crd`;
-  a Hedge `DEAL` is `--t-hdg`. **No per-type hex** (this retires the old ad-hoc
-  `deal`/`fund`/`case`/`scheme`/`rp` label hexes). Domain colour tokens:
+- **R10a — Feed labels: EIGHT domains, colour + text both name the domain.** The
+  wire pill (`.g-feed-code`) is the ONE place a non-delta colour carries meaning.
+  Rationalised to **eight domain labels** — the pill names the item's **domain**,
+  matching the colour; it NEVER spells a granular sub-type (DEAL/RAISE/CLO/13F/
+  ALERT/CASE/SCHEME/RP/COMM) or a SOURCE brand (BBG/ECON/myFT/Substack/Brew), since
+  the **publication name on the row already carries the source**. Every desk/type key
+  maps UP to its domain in `feed.js` (`DESK`/`DESK_CODE`/`DESK_CLASS` collapse to 8
+  values; `codeKey = o.type || o.desk` still selects the key, now resolving to the
+  domain label). The eight:
 
-  | Domain | Token | Label types (text) |
-  |---|---|---|
-  | Newsletters | `--t-amber` | `LTR` · `SUBS` · `BREW` |
-  | Research | `--t-rsch` | `RSCH` (sell-side / house research — teal, distinct from the amber Newsletters family) |
-  | myFT | `--t-ft` | `myFT` |
-  | Macro | `--t-mac` | `NEWS` · `COMM` · `FI` (fixed-income sources, e.g. Bond Vigilantes) (+ `BBG`/`ECON` macro wires) |
-  | Credit | `--t-crd` | `NEWS` · `DEAL` · `RAISE` |
-  | Hedge funds | `--t-hdg` | `NEWS` · `DEAL` · `RAISE` · `13F` |
-  | Legal | `--t-lex` | `NEWS` · `ALERT` · `CASE` |
-  | (neutral) | `--t-news` | `NEWS` — item not in any desk above |
+  | Domain | Label | Colour token | Absorbs (keys) |
+  |---|---|---|---|
+  | News | `NEWS` | `--t-news` | `news`, `bbg`, `econ` |
+  | Macro | `MACRO` | `--t-mac` | `m`, `comm` |
+  | Bonds | `BONDS` | `--t-fi` | `fi` (fixed-income sources, e.g. Bond Vigilantes) |
+  | Credit | `CREDIT` | `--t-crd` | `c`, `deal`, `fund`, `clo` |
+  | Legal | `LEGAL` | `--t-lex` | `l`, `alert`, `case`, `scheme`, `rp` |
+  | Hedge funds | `HEDGE` | `--t-hdg` | `hdg`, `f13` |
+  | Research | `RESEARCH` | `--t-rsch` | `rsch` (sell-side / house research, teal) |
+  | Letter | `LETTER` | `--t-amber` | `n`, `f` (myFT), `s` (Substack), `b` (Brew) |
 
-  `--t-hdg` (`#4aa3f0` dark / `#1f6fd0` light) is a named token (promoted from
-  the old raw hex).
+  `--t-hdg` (`#4aa3f0` dark / `#1f6fd0` light) is a named token. The old per-type and
+  per-source classes (`bbg`/`econ`/`ft`/`substack`/`brew`/`deal`/`fund`/`clo`/`comm`/
+  `alert`/`case`/`scheme`/`rp`) still carry CSS but no item is assigned them any more —
+  every key resolves to one of the eight domain classes above.
   **Reading-pane entity links.** In the in-app reader body ONLY (never the wire
   feed), a named tracked entity — manager, hedge fund or law firm — is linked to
   its Wire profile (`/v2/profiles/#/manager|hf|firm/<id>`), rendered **bold + the
