@@ -1931,8 +1931,21 @@ const _DESK_KEYS = ["all", "views", "m", "eq", "fi", "c", "hdg", "l", "n", "rese
 // Watchlist-first, then most-recently-active covered managers. Each row leads to
 // the manager profile; the latest event + fundraising status are the preview.
 function _mgrFollows() {
-  try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}"); return new Set(Array.isArray(f.manager) ? f.manager : []); }
-  catch { return new Set(); }
+  try {
+    const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}");
+    const set = new Set(Array.isArray(f.manager) ? f.manager : []);
+    // A followed HEDGE FUND that is the SAME FIRM as a covered manager (identical name —
+    // e.g. Sona Asset Management is both a credit manager and a hedge fund) should also
+    // surface that manager's activity on the watchlist, whichever profile the star was
+    // tapped on. Resolve hf follows to their same-named manager.
+    const hfIds = Array.isArray(f.hf) ? f.hf : [];
+    if (hfIds.length && Array.isArray(hedgeFunds) && Array.isArray(managers) && managers.length) {
+      const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const names = new Set(hfIds.map((id) => { const h = (hedgeFunds || []).find((x) => x.id === id); return h ? norm(h.name) : ""; }).filter(Boolean));
+      if (names.size) for (const m of managers) if (names.has(norm(m.name))) set.add(m.id);
+    }
+    return set;
+  } catch { return new Set(); }
 }
 // A CSS-safe category class for a manager-wire tag ("m&a" → "cat-ma"), so each
 // category paints in its own soft pastel (see feed.css) instead of all-orange.
@@ -2449,7 +2462,15 @@ const _WIRE_LANE_KEYS = new Set(WIRE_LANES.map(([k]) => k));
 // Manager events, flattened + de-duped across managers, for the merged wire.
 function managerFlatEvents(watchOnly, cat) {
   const rows = managerWire(_mgrFollows(), { limit: 0 });
-  const nd = new Date(), winStart = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth() - 1, 1);
+  // The general Managers lane is a RECENCY wire — current month + the previous one.
+  // The WATCHLIST lane is the user's deliberate follows, so it uses a much WIDER
+  // window (~12 months): a followed name must not disappear just because its last
+  // activity was a few weeks ago (e.g. a manager whose newest record is late August
+  // would otherwise show nothing in a watchlist opened in October).
+  const nd = new Date();
+  const winStart = watchOnly
+    ? Date.UTC(nd.getUTCFullYear() - 1, nd.getUTCMonth(), 1)
+    : Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth() - 1, 1);
   const ok = (e, w) => (!watchOnly || w) && (!cat || cat === "all" || e.cat === cat);
   const present = new Set(rows.flatMap((r) => (r.events || []).map((e) => e.cat)).filter(Boolean));
   const events = dedupeEvents(

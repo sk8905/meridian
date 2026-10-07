@@ -879,6 +879,14 @@ notification badge red (`#ef4444`).
   record so it surfaces in the Managers/Watchlist lanes, not only the raw wire.
   Personnel/strategy moves count (observed 2026-10: M&G / Duncan Batty sat in the
   newswire but not the Managers lane until tagged to `m105`).
+  - **Watchlist window + cross-type follows.** The **Managers** lane is a recency
+    wire (current + previous month); the **Watchlist** lane is the user's deliberate
+    follows, so it uses a much WIDER window (~12 months) — a followed name must not
+    vanish because its newest activity is a few weeks old. A follow is also resolved
+    ACROSS entity types: a watchlisted **hedge fund** that is the same firm as a
+    covered **manager** (identical name — e.g. Sona Asset Management is both) surfaces
+    that manager's activity whichever profile the ☆ was tapped on (`_mgrFollows` in
+    `glance.js`). Spec: `tests/home-watchlist-lane.mjs`.
 
 ---
 
