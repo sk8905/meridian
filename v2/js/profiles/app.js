@@ -257,6 +257,23 @@ export async function mount(host, ctx) {
     }
     const cons = e.target.closest("#hf-cons-btn");
     if (cons) { if (credit.loadConsensus) credit.loadConsensus(cons); return; }
+    // Watchlist star (☆/★) — Profiles HOSTS the profile pages, so the follow
+    // toggle must be wired HERE too (the retired Credit desk's own handler is not
+    // loaded). Reuse Credit's single toggle (local persist + debounced cloud PUT
+    // to /api/watchlist, which the refresh routine reads for deep-research), then
+    // flip the button in place so the tap doesn't scroll-jump the profile.
+    const fav = e.target.closest("[data-follow]");
+    if (fav) {
+      e.preventDefault(); e.stopPropagation();
+      const [type, id] = (fav.getAttribute("data-follow") || "").split(":");
+      if (type && id && credit.toggleFollow) {
+        const on = credit.toggleFollow(type, id);
+        fav.classList.toggle("on", on);
+        fav.textContent = on ? "★" : "☆";
+        fav.setAttribute("title", on ? "Following — click to remove from watchlist" : "Add to your watchlist");
+      }
+      return;
+    }
     // Internal hash links inside Profiles — breadcrumbs, the Managers/Hedge Funds/
     // Law firms section chips, and the detail views' own sub-entity anchors (a
     // manager's funds/CLOs, a fund's manager, etc.). Route HERE, synchronously,
@@ -291,7 +308,7 @@ export async function mount(host, ctx) {
     if (Math.abs(t.clientX - start.x) + Math.abs(t.clientY - start.y) > 12) return; // a scroll, not a tap
     if (e.target.closest("a")) return;                 // inner links keep native behaviour
     const row = e.target.closest("[data-href]");
-    if (!row) return;                                  // buttons/links/inputs: leave to click
+    if (!row) return;                                  // buttons/links/inputs (incl. the watchlist star): leave to click
     e.preventDefault();
     goRow(row);
   }, { passive: false });

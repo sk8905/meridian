@@ -111,6 +111,7 @@ function toggleFollow(type, id) {
   const a = followList(type); const i = a.indexOf(id);
   if (i >= 0) a.splice(i, 1); else a.push(id);
   saveFollows();
+  return i < 0;   // the new state: was absent → now following
 }
 
 // Topbar data-freshness line: dataset "last updated" date + the time this view
@@ -1279,5 +1280,5 @@ initWatchlistSync();
 
   // Expose the list builders so the Profiles tab can render the EXACT same
   // Managers / Hedge Funds panes (one source — these close over this app's data).
-  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML, buildInvestors: investorsPaneHTML, loadConsensus, loadHfm };
+  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML, buildInvestors: investorsPaneHTML, loadConsensus, loadHfm, toggleFollow };
 }

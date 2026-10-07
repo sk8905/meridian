@@ -863,6 +863,22 @@ notification badge red (`#ef4444`).
   `null`); coverage must improve or hold each run, never regress. Spec:
   `tests/manager-coverage.mjs` (tool present; profile-feeding records carry real
   date + URL, none future-dated; backfilled reference profiles keep depth).
+- **R33 — Lane-coverage invariant: an item reaches EVERY lane its nature implies.**
+  The Home wire lanes are **All · Research · Managers · Watchlist · Newsletters**
+  (`WIRE_LANES` in `glance.js`). Each of these MUST catch what belongs to it:
+  (a) **research** → the **Research** lane (`RSH` desk code / `research[]`);
+  (b) a **newsletter** → the **Newsletters** lane (`LTR` / `newsletters.js`);
+  (c) anything **about a covered manager / fund / hedge fund** → the **Managers**
+  lane (and the All lane) — via a `managerId`-tagged `deals`/`intel`/`webNews`
+  record; (d) anything **about a watchlisted name** → the **Watchlist** lane. The
+  client routes any correctly-TAGGED item automatically (by desk code, `managerId`,
+  or the follow set) — so coverage is a **tagging** duty, not a routing one. A story
+  that only appears as a raw newswire row but concerns a covered or watchlisted
+  entity is a **tagging miss**: the refresh routine's newswire cross-check
+  (docs/refresh-routines.md → Credit) must promote it into a tagged `deals`/`intel`
+  record so it surfaces in the Managers/Watchlist lanes, not only the raw wire.
+  Personnel/strategy moves count (observed 2026-10: M&G / Duncan Batty sat in the
+  newswire but not the Managers lane until tagged to `m105`).
 
 ---
 
@@ -906,7 +922,7 @@ notification badge red (`#ef4444`).
   reload). The app still runs unbundled from source (`node tests/run.mjs` serves
   the repo; `TEST_ROOT=dist node tests/run.mjs` proves the built output serves
   identically).
-- **T3 — Full suite green before deploy.** `node tests/run.mjs` (81 specs) must
+- **T3 — Full suite green before deploy.** `node tests/run.mjs` (82 specs) must
   pass; any new user-visible behaviour gets a spec.
 - **T4 — Zero console/page errors** on every view (enforced by the page-error
   checks).
