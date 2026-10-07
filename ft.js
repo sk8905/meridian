@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2cb13aed-f6bf-4f45-b906-fa1194405a0c",
+    title: "Iran war blows near-£12bn hole in Britain’s public finances",
+    date: "2026-10-07",
+    time: "21:00",
+    url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c",
+  },
+  {
     id: "2761b6af-df11-49e8-a348-792a9597c9af",
     title: "Diesel price jumps after IEA says no additional fuel will be released",
     date: "2026-10-07",
@@ -292,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "11:56",
     url: "https://www.ft.com/content/a7af63b4-70de-4c08-8aa1-1eb2298d7f2f",
-  },
-  {
-    id: "6a2dc960-c9fd-4795-b5ea-78f9bb77309d",
-    title: "Houthi rebels target Riyadh and Aden in new missile barrage",
-    date: "2026-10-07",
-    time: "11:46",
-    url: "https://www.ft.com/content/6a2dc960-c9fd-4795-b5ea-78f9bb77309d",
-  },
-  {
-    id: "b4896507-e830-44b4-a402-52a980c912aa",
-    title: "Ineos arm’s oil and gas earnings offset chemicals downturn",
-    date: "2026-10-07",
-    time: "11:41",
-    url: "https://www.ft.com/content/b4896507-e830-44b4-a402-52a980c912aa",
-  },
-  {
-    id: "76adb82b-3181-4d05-a383-a8131bdb19af",
-    title: "David Ellison built a Hollywood colossus. Now he needs to run it",
-    date: "2026-10-07",
-    time: "11:28",
-    url: "https://www.ft.com/content/76adb82b-3181-4d05-a383-a8131bdb19af",
   },
 ];
