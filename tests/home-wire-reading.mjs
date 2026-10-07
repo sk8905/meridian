@@ -233,12 +233,25 @@ await lane(pg, "All");
 await pg.waitForFunction(() => !!document.querySelector("#g-feed .g-feed-row.is-reading"), { timeout: 8000 }).catch(() => {});
 const autoSel = await pg.evaluate(() => !!document.querySelector("#g-feed .g-feed-row.is-reading"));
 check(autoSel, "reading pane: a story is auto-selected by default on load (no empty pane)");
-// Open a LATER openable story (not the first), remember it, then reload.
+// Open a LATER openable story (not the auto-selected default), remember it, then
+// reload. Pick a story with a STABLE external URL that is NOT a manager-event row
+// (.g-mw-fev) — those interleave by recency and their identity/position shifts as
+// the feed re-renders, so a positional pick could land on one and then fail to
+// restore deterministically (the flake this removes). Restore matches on the href
+// (there is no data-sid), so the chosen row must be one whose href reappears
+// verbatim after a reload: a real news/newsletter URL.
+await pg.waitForFunction(() => [...document.querySelectorAll("#g-feed .g-feed-row")]
+  .filter((r) => !r.classList.contains("is-locked") && !r.classList.contains("g-mw-fev") && /^https?:/.test(r.getAttribute("href") || "")).length >= 2,
+  { timeout: 8000 }).catch(() => {});
 const chosen = await pg.evaluate(() => {
-  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")].filter((r) => !r.classList.contains("is-locked"));
-  const row = rows[2] || rows[1] || rows[0]; if (!row) return null;
+  const rows = [...document.querySelectorAll("#g-feed .g-feed-row")].filter((r) =>
+    !r.classList.contains("is-locked") &&          // openable (not a subscriber padlock)
+    !r.classList.contains("g-mw-fev") &&           // a stable news/newsletter row, not a volatile manager event
+    !r.classList.contains("is-reading") &&         // NOT the auto-selected default (prove a deliberate restore)
+    /^https?:/.test(r.getAttribute("href") || "")); // stable external URL — reappears verbatim across reloads
+  const row = rows[1] || rows[0]; if (!row) return null;
   row.click();
-  return { key: row.getAttribute("data-sid") || row.getAttribute("href"), title: (row.querySelector(".g-feed-title") || {}).textContent.replace(/^★\s*/, "").trim() };
+  return { key: row.getAttribute("href"), title: (row.querySelector(".g-feed-title") || {}).textContent.replace(/^★\s*/, "").trim() };
 });
 // Wait for the click's selection to persist (a fixed 300ms wait races under load).
 await pg.waitForFunction((k) => { try { return k && localStorage.getItem("m_read_last") === k; } catch { return false; } }, chosen && chosen.key, { timeout: 8000 }).catch(() => {});

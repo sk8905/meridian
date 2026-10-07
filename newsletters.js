@@ -41,9 +41,21 @@ export const PUBLISHERS = {
   "equitypartner.substack.com": "Equity Partner",
   "go.reuters.com": "Reuters",
   "mail.thelawyer.com": "The Lawyer",
+  "morganstanley.com": "Morgan Stanley",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-ms-fiveideas-healthcaregrowthdrivers-20261007",
+    publication: "Morgan Stanley",
+    author: null,
+    series: "Five Ideas",
+    title: "Healthcare’s Next Growth Drivers",
+    date: "2026-10-07",
+    time: "21:26",
+    summary: "How healthcare leaders are navigating patent expirations, M&A and AI adoption to shape the industry’s future.",
+    url: "https://www.morganstanley.com/ideas",
+  },
   {
     id: "nl-bbg-moneystuff-esggetsmoreillegal-20261007",
     publication: "Bloomberg",
