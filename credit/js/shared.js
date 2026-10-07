@@ -73,7 +73,7 @@ export function notFound(app) {
 // live `follows` store + the read helpers the views use to render stars; the
 // write/sync side (toggle, debounced push, cloud reconcile) lives in app.js.
 export const FOLLOW_KEY = "meridian.follows";
-export const FOLLOW_TYPES = ["manager", "fund", "lp", "hf"];
+export const FOLLOW_TYPES = ["manager", "fund", "lp", "hf", "firm"];
 export function loadFollows() { try { return JSON.parse(localStorage.getItem(FOLLOW_KEY)) || {}; } catch { return {}; } }
 export const follows = loadFollows();
 export function followList(type) { return follows[type] || (follows[type] = []); }

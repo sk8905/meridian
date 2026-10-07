@@ -879,14 +879,17 @@ notification badge red (`#ef4444`).
   record so it surfaces in the Managers/Watchlist lanes, not only the raw wire.
   Personnel/strategy moves count (observed 2026-10: M&G / Duncan Batty sat in the
   newswire but not the Managers lane until tagged to `m105`).
-  - **Watchlist window + cross-type follows.** The **Managers** lane is a recency
-    wire (current + previous month); the **Watchlist** lane is the user's deliberate
-    follows, so it uses a much WIDER window (~12 months) — a followed name must not
-    vanish because its newest activity is a few weeks old. A follow is also resolved
-    ACROSS entity types: a watchlisted **hedge fund** that is the same firm as a
-    covered **manager** (identical name — e.g. Sona Asset Management is both) surfaces
-    that manager's activity whichever profile the ☆ was tapped on (`_mgrFollows` in
-    `glance.js`). Spec: `tests/home-watchlist-lane.mjs`.
+  - **Watchlist = every followed profile, NO date limit.** The **Managers** lane is
+    a recency wire (current + previous month). The **Watchlist** lane is the user's
+    deliberate follows and has **NO backdate limit** — only NOTIFICATIONS are
+    time-boxed (the 7-day bell). It aggregates **every followed profile type**:
+    managers → their `deals`/`intel`/`webNews`; hedge funds (`follows.hf`) →
+    `HEDGE_INTEL`; law firms (`follows.firm`) → legal alerts (`items`). Every profile
+    type is **followable** — the ☆ star (`FOLLOW_TYPES` in `credit/js/shared.js`, now
+    incl. `firm`) is on the manager, investor, hedge-fund (`credit/detail.js`) and
+    law-firm (`legal/detail.js`) pages. `watchlistEvents()` in `glance.js` merges and
+    de-dups them newest-first (a story recorded under two identities of one firm
+    collapses to one row). Spec: `tests/home-watchlist-lane.mjs`.
 
 ---
 

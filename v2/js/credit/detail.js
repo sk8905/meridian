@@ -677,7 +677,7 @@ export function viewHedgeFund(id) {
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
-            <h1>${esc(f.name)}</h1>
+            <h1>${nameCell("hf", f.id, esc(f.name))}</h1>
             <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>
             ${f.perf && f.perf.text ? `<p class="tdet-desc">Performance: ${esc(f.perf.text)}${f.perf.asOf ? ` <span class="tf-est">${esc(f.perf.asOf)}</span>` : ""}${f.perf.source ? ` · <a href="${esc(f.perf.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : ""}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(f.aum.toFixed(2))}bn AUM</span>` : ""}</div>

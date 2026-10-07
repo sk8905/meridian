@@ -1931,21 +1931,13 @@ const _DESK_KEYS = ["all", "views", "m", "eq", "fi", "c", "hdg", "l", "n", "rese
 // Watchlist-first, then most-recently-active covered managers. Each row leads to
 // the manager profile; the latest event + fundraising status are the preview.
 function _mgrFollows() {
-  try {
-    const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}");
-    const set = new Set(Array.isArray(f.manager) ? f.manager : []);
-    // A followed HEDGE FUND that is the SAME FIRM as a covered manager (identical name —
-    // e.g. Sona Asset Management is both a credit manager and a hedge fund) should also
-    // surface that manager's activity on the watchlist, whichever profile the star was
-    // tapped on. Resolve hf follows to their same-named manager.
-    const hfIds = Array.isArray(f.hf) ? f.hf : [];
-    if (hfIds.length && Array.isArray(hedgeFunds) && Array.isArray(managers) && managers.length) {
-      const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-      const names = new Set(hfIds.map((id) => { const h = (hedgeFunds || []).find((x) => x.id === id); return h ? norm(h.name) : ""; }).filter(Boolean));
-      if (names.size) for (const m of managers) if (names.has(norm(m.name))) set.add(m.id);
-    }
-    return set;
-  } catch { return new Set(); }
+  try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}"); return new Set(Array.isArray(f.manager) ? f.manager : []); }
+  catch { return new Set(); }
+}
+// The raw follow set across ALL profile types (manager / hedge fund / law firm / …).
+function _allFollows() {
+  try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}"); return f && typeof f === "object" ? f : {}; }
+  catch { return {}; }
 }
 // A CSS-safe category class for a manager-wire tag ("m&a" → "cat-ma"), so each
 // category paints in its own soft pastel (see feed.css) instead of all-orange.
@@ -2462,15 +2454,9 @@ const _WIRE_LANE_KEYS = new Set(WIRE_LANES.map(([k]) => k));
 // Manager events, flattened + de-duped across managers, for the merged wire.
 function managerFlatEvents(watchOnly, cat) {
   const rows = managerWire(_mgrFollows(), { limit: 0 });
-  // The general Managers lane is a RECENCY wire — current month + the previous one.
-  // The WATCHLIST lane is the user's deliberate follows, so it uses a much WIDER
-  // window (~12 months): a followed name must not disappear just because its last
-  // activity was a few weeks ago (e.g. a manager whose newest record is late August
-  // would otherwise show nothing in a watchlist opened in October).
-  const nd = new Date();
-  const winStart = watchOnly
-    ? Date.UTC(nd.getUTCFullYear() - 1, nd.getUTCMonth(), 1)
-    : Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth() - 1, 1);
+  // The Managers lane is a RECENCY wire — current month + the previous one. (The
+  // Watchlist lane does NOT use this path — it has NO date limit, see watchlistEvents.)
+  const nd = new Date(), winStart = Date.UTC(nd.getUTCFullYear(), nd.getUTCMonth() - 1, 1);
   const ok = (e, w) => (!watchOnly || w) && (!cat || cat === "all" || e.cat === cat);
   const present = new Set(rows.flatMap((r) => (r.events || []).map((e) => e.cat)).filter(Boolean));
   const events = dedupeEvents(
@@ -2480,9 +2466,39 @@ function managerFlatEvents(watchOnly, cat) {
   ).sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
   return { events, present };
 }
+// Watchlist events: EVERY followed profile's activity, regardless of type and with
+// NO date limit (a deliberate follow is a standing interest — only NOTIFICATIONS are
+// time-boxed). Managers → their deals/intel/webNews; hedge funds → HEDGE_INTEL;
+// law firms → legal alerts/case notes. Each is shaped into the shared manager-event
+// row (date/ts/cat/title/outlet/source/_href), newest first.
+function _wlTs(d, t) {
+  if (!d) return 0;
+  const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d;
+  return Date.parse(t && /^\d{2}:\d{2}/.test(t) ? `${s}T${t}` : s) || Date.parse(s) || 0;
+}
+function _hfEv(h) {
+  const t = String(h.type || "").toLowerCase();
+  const cat = /fundrais|close|launch|raise/.test(t) ? "fundraising" : /personnel|hire|team|depart/.test(t) ? "team" : "news";
+  return { date: h.date || "", time: h.time || "", ts: _wlTs(h.date, h.time), cat, title: h.headline, outlet: h.outlet || "", source: h.url || "", ext: !!h.url, _href: h.url || `/v2/profiles/#/hf/${encodeURIComponent(h.hfId)}`, mgrId: h.hfId, watched: true };
+}
+function _firmEv(it) {
+  return { date: it.date || "", time: "", ts: _wlTs(it.date, ""), cat: "news", title: it.title, outlet: ((firmById || {})[it.firm] || {}).name || "", source: it.url || "", ext: !!it.url, _href: it.url || `/v2/profiles/#/firm/${encodeURIComponent(it.firm)}`, mgrId: it.firm, watched: true };
+}
+function watchlistEvents() {
+  const f = _allFollows();
+  const out = [];
+  const mset = new Set(Array.isArray(f.manager) ? f.manager : []);
+  if (mset.size) managerWire(mset, { limit: 0 }).filter((r) => mset.has(r.id))
+    .forEach((r) => (r.events || []).forEach((e) => out.push({ ...e, mgrId: r.id, watched: true })));
+  const hset = new Set(Array.isArray(f.hf) ? f.hf : []);
+  if (hset.size) (HEDGE_INTEL || []).forEach((h) => { if (h && hset.has(h.hfId)) out.push(_hfEv(h)); });
+  const fset = new Set(Array.isArray(f.firm) ? f.firm : []);
+  if (fset.size) (items || []).forEach((it) => { if (it && fset.has(it.firm)) out.push(_firmEv(it)); });
+  return dedupeEvents(out, { fuzzy: false }).sort((a, b) => (b.ts - a.ts) || String(b.date).localeCompare(String(a.date)));
+}
 // A manager event as a shared .g-feed-row (same markup as the manager wire's flat row).
 function mgrEventRow(x) {
-  const to = x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`;
+  const to = x._href || (x.ext ? x.source : `/v2/profiles/#/manager/${encodeURIComponent(x.mgrId)}`);
   const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
   return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
     + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
@@ -2495,7 +2511,9 @@ function mgrEventRow(x) {
 // colour label (RAISE / DEAL / CLO …).
 function renderMgrLane(watchOnly) {
   const box = document.getElementById("g-feed"); if (!box) return;
-  const { events } = managerFlatEvents(watchOnly, "all");
+  // Watchlist: every followed profile (manager / hedge fund / law firm), NO date limit.
+  // Managers lane: the recency-windowed manager wire.
+  const events = watchOnly ? watchlistEvents() : managerFlatEvents(false, "all").events;
   let out = "", lastMonth = "";
   events.forEach((r) => {
     const mk = String(r.date || "").slice(0, 7);
@@ -2503,7 +2521,7 @@ function renderMgrLane(watchOnly) {
     out += mgrEventRow(r);
   });
   const empty = watchOnly
-    ? `<div class="g-mw-empty">No activity from your watchlist in this window. Tap ☆ on a manager to follow them.</div>`
+    ? `<div class="g-mw-empty">Nothing on your watchlist yet. Tap ☆ on any manager, hedge fund or law firm profile to follow it.</div>`
     : `<div class="g-mw-empty">No manager activity yet.</div>`;
   setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";

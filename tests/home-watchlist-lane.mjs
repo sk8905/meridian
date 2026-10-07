@@ -1,18 +1,16 @@
-// Watchlist lane shows a FOLLOWED name's activity even when it is older than the
-// general Managers-lane recency window (current + previous month). A deliberate
-// follow is a standing interest, so the lane uses a ~12-month window — otherwise a
-// manager whose newest record is a few weeks old (e.g. Sona Asset Management, m38,
-// whose latest is late August) shows NOTHING in a watchlist opened in October.
-// Also: a hedge-fund follow resolves to its same-named covered manager (Sona is
-// both m38 and the hedge fund h56), so starring either profile populates the lane.
+// Watchlist lane = EVERY followed profile's activity, regardless of type, with NO
+// date limit (only NOTIFICATIONS are time-boxed). A followed manager shows its
+// deals/intel/webNews (even older than the Managers-lane recency window); a followed
+// hedge fund shows its HEDGE_INTEL; a followed law firm shows its legal alerts. This
+// is the guard for "I added X to my watchlist and its stories don't show up".
 import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
 
-// Sanity: m38's newest activity really is OUTSIDE the general window (so this test
-// genuinely exercises the wide watchlist window, not just any coverage).
+// m38 (Sona Asset Management) — a manager whose newest record predates the general
+// Managers-lane window, so showing it proves the watchlist has NO date limit.
 const newest = await pg.evaluate(async () => {
   const m = await import("/home-data.js");
   const ds = [...m.deals, ...m.intel].filter((x) => x.managerId === "m38" && x.date).map((x) => x.date);
@@ -20,38 +18,51 @@ const newest = await pg.evaluate(async () => {
   return ds.sort().reverse()[0] || "";
 });
 const now = new Date();
-const genWinStart = `${now.getUTCFullYear()}-${String(now.getUTCMonth()).padStart(2, "0")}-01`; // month index = prev month number
-check(newest && newest < genWinStart, `setup: m38's newest record (${newest}) is older than the general window start (${genWinStart}) — a valid discriminator`);
+const genWinStart = `${now.getUTCFullYear()}-${String(now.getUTCMonth()).padStart(2, "0")}-01`;
+check(newest && newest < genWinStart, `setup: m38's newest record (${newest}) predates the Managers-lane window (${genWinStart}) — a no-limit discriminator`);
 
-async function watchlistFor(mid) {
+async function watchlistRows(key) {
   await pg.evaluate(() => { const el = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane, .tchip-menu-item")].find((b) => /watchlist/i.test(b.textContent)); if (el) el.click(); });
   await pg.waitForTimeout(1000);
-  return pg.evaluate((m) => ({
+  return pg.evaluate((k) => ({
     total: document.querySelectorAll("#g-feed .g-feed-row").length,
-    mine: document.querySelectorAll(`#g-feed .g-feed-row[data-mgr="${m}"]`).length,
+    mine: document.querySelectorAll(`#g-feed .g-feed-row[data-mgr="${k}"]`).length,
     empty: !!document.querySelector("#g-feed .g-mw-empty"),
-  }), mid);
+  }), key);
+}
+async function setFollows(obj) {
+  await pg.evaluate((o) => { try { localStorage.setItem("m_signed_in", "1"); localStorage.setItem("meridian.follows", JSON.stringify(o)); } catch {} }, obj);
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
+  await pg.waitForTimeout(700);
 }
 
-// (1) Follow the MANAGER (m38). Its newest activity predates the general window, so
-// under the old code the watchlist was empty; the wide window must now show it.
-await pg.evaluate(() => { try { localStorage.setItem("m_signed_in", "1"); localStorage.setItem("meridian.follows", JSON.stringify({ manager: ["m38"], fund: [], lp: [], hf: [] })); } catch {} });
-await pg.reload({ waitUntil: "load" });
-await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
-await pg.waitForTimeout(600);
-const asMgr = await watchlistFor("m38");
-check(asMgr.mine > 0, `followed manager's older-than-window activity shows in the Watchlist lane (m38 rows: ${asMgr.mine}, empty=${asMgr.empty})`);
+// (1) MANAGER follow — shows its activity with NO date limit.
+await setFollows({ manager: ["m38"], fund: [], lp: [], hf: [], firm: [] });
+const mgr = await watchlistRows("m38");
+check(mgr.mine > 0, `followed MANAGER shows its activity with no date limit (m38 rows: ${mgr.mine}, empty=${mgr.empty})`);
 
-// (2) Follow ONLY the same firm's HEDGE FUND (h56) — no manager follow. It must
-// resolve to the same-named manager m38 and still populate the watchlist.
-await pg.evaluate(() => { try { localStorage.setItem("meridian.follows", JSON.stringify({ manager: [], fund: [], lp: [], hf: ["h56"] })); } catch {} });
-await pg.reload({ waitUntil: "load" });
-await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
-await pg.waitForTimeout(600);
-const asHf = await watchlistFor("m38");
-check(asHf.mine > 0, `following the same-named hedge fund surfaces its manager on the Watchlist lane (m38 rows: ${asHf.mine})`);
+// (2) HEDGE FUND follow — shows its HEDGE_INTEL stream.
+await setFollows({ manager: [], fund: [], lp: [], hf: ["h56"], firm: [] });
+const hf = await watchlistRows("h56");
+check(hf.mine > 0, `followed HEDGE FUND shows its news on the Watchlist lane (h56 rows: ${hf.mine})`);
 
-checkErrs(errs, "watchlist lane window + hf resolution");
+// (3) LAW FIRM follow — shows its legal alerts.
+await setFollows({ manager: [], fund: [], lp: [], hf: [], firm: ["cliffordchance"] });
+const firm = await watchlistRows("cliffordchance");
+check(firm.mine > 0, `followed LAW FIRM shows its legal alerts on the Watchlist lane (cliffordchance rows: ${firm.mine})`);
+
+// (4) Mixed follow — all three types appear together.
+await setFollows({ manager: ["m38"], fund: [], lp: [], hf: ["h56"], firm: ["cliffordchance"] });
+const mix = await watchlistRows("m38");
+const mixCounts = await pg.evaluate(() => ({
+  m: document.querySelectorAll('#g-feed .g-feed-row[data-mgr="m38"]').length,
+  h: document.querySelectorAll('#g-feed .g-feed-row[data-mgr="h56"]').length,
+  f: document.querySelectorAll('#g-feed .g-feed-row[data-mgr="cliffordchance"]').length,
+}));
+check(mixCounts.m > 0 && mixCounts.h > 0 && mixCounts.f > 0, `mixed watchlist shows all three types together (manager ${mixCounts.m}, hedge fund ${mixCounts.h}, law firm ${mixCounts.f})`);
+
+checkErrs(errs, "watchlist lane — all follow types, no date limit");
 await ctx.close();
 await b.close(); srv.close();
 finish();

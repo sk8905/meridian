@@ -17,6 +17,9 @@ import {
   fmtDate, itemDate, isNew, areaChip, tierLabel, firmLink,
   _chipMem, chipMemKey,
 } from "/legal/js/shared.js";
+// The watchlist (follow) store is shared app-wide and lives in credit/js/shared.js —
+// a law firm is followable too, so its profile gets the same ☆ star (type "firm").
+import { nameCell } from "/credit/js/shared.js";
 import { peersOf, peerDetails } from "../peers.js";
 
 export let app = null;
@@ -262,7 +265,7 @@ export function viewFirm(id) {
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">
-            <h1>${esc(firm.name)}</h1>
+            <h1>${nameCell("firm", firm.id, esc(firm.name))}</h1>
             ${firmPeersDetails}
             <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
           </div>
