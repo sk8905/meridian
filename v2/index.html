@@ -7,7 +7,7 @@
   <script>
     // Resolve the stored theme choice BEFORE first paint (no flash), exactly as
     // the current app does — one inline script, no dependency.
-    (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var sd=mq&&mq.matches;var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="system"&&p!=="light"&&p!=="dark"){p=(p==="other")?(sd?"light":"dark"):"system";}var t=p==="system"?(sd?"dark":"light"):p;r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);var dz;try{dz=localStorage.getItem("m_density");}catch(e){}r.setAttribute("data-density",dz==="comfortable"?"comfortable":"compact");})();
+    (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var sd=mq&&mq.matches;var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="system"&&p!=="light"&&p!=="dark"){p=(p==="other")?(sd?"light":"dark"):"system";}var t=p==="system"?(sd?"dark":"light"):p;r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);var dz;try{dz=localStorage.getItem("m_density");}catch(e){}r.setAttribute("data-density",dz==="comfortable"?"comfortable":"compact");var fa;try{fa=parseFloat(localStorage.getItem("m_fs_adj"));}catch(e){}if(fa===fa&&isFinite(fa)){if(fa<-1.5)fa=-1.5;if(fa>4.5)fa=4.5;r.style.setProperty("--fs-adj",fa+"px");}})();
     ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
   </script>
   <style>html{background:#141414}</style>

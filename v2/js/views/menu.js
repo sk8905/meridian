@@ -7,7 +7,8 @@
 //     grouped by kind, each a link to its profile. Reads the local follow store
 //     (meridian.follows) and unions the per-user cloud copy (/api/watchlist).
 //   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
-//   • Settings — Notifications (push toggle) + Appearance (theme). Sign out and
+//   • Settings — Notifications (push toggle), Appearance (theme) + Text size (a
+//     1px-step adjuster on the app-wide --fs-adj knob). Sign out and
 //     density live elsewhere: sign out in the phone bottom strip; density is not
 //     user-configurable.
 // On PHONES this is where Search + the Ask/Add assistant live (the header keeps
@@ -38,6 +39,24 @@ function applyTheme(pref) {
   r.setAttribute("data-theme-choice", pref);
   try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
   setThemeColorMeta(t);
+}
+// Text size — the whole app rides ONE knob, --fs-adj in premium.css (every type
+// token is basePx + --fs-adj). The reader nudges it in 1px steps here; the value
+// is an absolute px offset written inline on <html> (so it overrides the :root
+// default) and persisted to m_fs_adj, which the index.html boot script re-applies
+// before first paint (no flash). FS_DEFAULT mirrors the CSS baseline, so an unset
+// store reads as "Default" and the control centres there.
+const FS_DEFAULT = 0.5, FS_MIN = -1.5, FS_MAX = 4.5, FS_STEP = 1;
+const fsClamp = (v) => Math.max(FS_MIN, Math.min(FS_MAX, v));
+const fsStored = () => {
+  let v; try { v = parseFloat(localStorage.getItem("m_fs_adj")); } catch { /* ignore */ }
+  return Number.isFinite(v) ? fsClamp(v) : FS_DEFAULT;
+};
+const fsLabel = (v) => { const d = Math.round(v - FS_DEFAULT); return d === 0 ? "Default" : (d > 0 ? "+" + d : String(d)); };
+function applyFontSize(v) {
+  v = fsClamp(v);
+  document.documentElement.style.setProperty("--fs-adj", v + "px");
+  try { localStorage.setItem("m_fs_adj", String(v)); } catch { /* ignore */ }
 }
 // Four chips: Chat (Ask), Watchlist (follows), Coverage (Add a firm + Network)
 // and Settings (Notifications + Appearance).
@@ -157,6 +176,12 @@ function settingsPaneHTML() {
     + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
     + `<div class="na-theme-seg" id="v2-theme-seg" role="group" aria-label="Theme">`
     + THEME_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedPref() === pf ? " is-on" : ""}" data-pref="${pf}" aria-pressed="${storedPref() === pf ? "true" : "false"}">${THEME_LABEL[pf]}</button>`).join("")
+    + `</div></div>`
+    + `<div class="na-menu-row na-menu-pushrow"><span>Text size</span>`
+    + `<div class="na-fs-seg" id="v2-fs-seg" role="group" aria-label="Text size">`
+    + `<button type="button" class="na-fs-opt" data-fs="down" aria-label="Smaller text"${fsStored() <= FS_MIN ? " disabled" : ""}>A&minus;</button>`
+    + `<span class="na-fs-val" role="status" aria-live="polite">${fsLabel(fsStored())}</span>`
+    + `<button type="button" class="na-fs-opt" data-fs="up" aria-label="Larger text"${fsStored() >= FS_MAX ? " disabled" : ""}>A+</button>`
     + `</div></div>`;
 }
 function paneHTML(sec) {
@@ -270,6 +295,11 @@ export function mount(host, ctx) {
     if (chatMenuOpen) { chatMenuOpen = false; render(); }
     const opt = e.target.closest("#v2-theme-seg .na-theme-opt");
     if (opt) { applyTheme(opt.dataset.pref); render(); return; }
+    const fsBtn = e.target.closest("#v2-fs-seg .na-fs-opt");
+    if (fsBtn && !fsBtn.disabled) {
+      applyFontSize(fsStored() + (fsBtn.dataset.fs === "up" ? FS_STEP : -FS_STEP));
+      render(); return;
+    }
     const push = e.target.closest("#v2-push");
     if (push && typeof Notification !== "undefined" && Notification.requestPermission) {
       Notification.requestPermission().then(() => render()).catch(() => {});

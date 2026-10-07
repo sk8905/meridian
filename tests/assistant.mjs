@@ -102,7 +102,7 @@ check(await pg.evaluate(() => !document.getElementById("na-ask-panel").hidden), 
 await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
 await pg.waitForTimeout(120);
 
-// ---- Search box: app font 11.5px, GREY (--lift), and its result rows conform ----
+// ---- Search box: app BODY font, GREY (--lift), and its result rows conform ----
 // (dark context — the whole desktop spec runs colorScheme:"dark".)
 const rgbLift = await pg.evaluate(() => { const p = document.createElement("span"); p.style.background = "var(--lift)"; document.body.appendChild(p); const c = getComputedStyle(p).backgroundColor; p.remove(); return c; });
 // The top-bar search pill is gone — open the palette with the "/" shortcut. It is
@@ -115,12 +115,15 @@ const searchFont = await pg.evaluate(() => {
   i.value = "a"; i.dispatchEvent(new Event("input", { bubbles: true }));
   const cs = getComputedStyle(i);
   const t = document.querySelector(".mcmdk-t");
-  return { size: cs.fontSize, fam: cs.fontFamily, bg: cs.backgroundColor, rowSize: t ? getComputedStyle(t).fontSize : null };
+  // Body size is read live from the --fs-adj knob (12 + adj) so this tracks the
+  // scale rather than pinning a stale literal.
+  const adj = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0;
+  return { size: cs.fontSize, fam: cs.fontFamily, bg: cs.backgroundColor, rowSize: t ? getComputedStyle(t).fontSize : null, bodyPx: `${12 + adj}px` };
 });
-check(searchFont && searchFont.size === "11.5px", `search box text is 11.5px like the app (${searchFont && searchFont.size})`);
+check(searchFont && searchFont.size === searchFont.bodyPx, `search box text is the app body size (${searchFont && searchFont.bodyPx}; got ${searchFont && searchFont.size})`);
 check(searchFont && /montserrat|gotham|futura/i.test(searchFont.fam) && !/mono/i.test(searchFont.fam), `search box uses the one app font (Gotham) (${searchFont && searchFont.fam})`);
 check(searchFont && searchFont.bg === rgbLift, `search box is shaded grey (--lift): field ${searchFont && searchFont.bg} vs --lift ${rgbLift}`);
-check(searchFont && searchFont.rowSize === "11.5px", `palette result/recent rows are 11.5px, not oversized (${searchFont && searchFont.rowSize})`);
+check(searchFont && searchFont.rowSize === searchFont.bodyPx, `palette result/recent rows are the body size (${searchFont && searchFont.bodyPx}), not oversized (got ${searchFont && searchFont.rowSize})`);
 await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
 await pg.waitForTimeout(120);
 

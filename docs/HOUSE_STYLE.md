@@ -308,23 +308,33 @@ notification badge red (`#ef4444`).
   `--fs-card-title`, … — which resolve to one), so changing `--fs-adj` alone
   resizes the **whole app**, phone and desktop, with layout untouched.
 
-  | token | base px | `--fs-adj:-0.5px` → | used for |
+  | token | base px | `--fs-adj:0.5px` → | used for |
   | --- | --- | --- | --- |
-  | `--fs-micro` | 10px | **9.5px** | day breaks · eyebrows · column heads · timestamps · source tags · SRC chips |
-  | `--fs-num` | 11px | **10.5px** | numeric DATA — rail/table/FX values, changes, prices, %; one notch under body so tall lining figures don't dominate the text beside them. Text row-labels (names, codes, dates, moods) stay `--fs-body`. |
-  | `--fs-body` | 12px | **11.5px** | THE default — prose, feed headlines, list & table row text, reading pane, buttons |
-  | `--fs-head` | 14px | **13.5px** | card / panel headings, section sub-heads |
-  | `--fs-title` | 16px | **15.5px** | page / article headline (h1) |
-  | `--fs-hero` | 26px | **25.5px** | dashboard KPI display figures only |
+  | `--fs-micro` | 10px | **10.5px** | day breaks · eyebrows · column heads · timestamps · source tags · SRC chips |
+  | `--fs-num` | 11px | **11.5px** | numeric DATA — rail/table/FX values, changes, prices, %; one notch under body so tall lining figures don't dominate the text beside them. Text row-labels (names, codes, dates, moods) stay `--fs-body`. |
+  | `--fs-body` | 12px | **12.5px** | THE default — prose, feed headlines, list & table row text, reading pane, buttons |
+  | `--fs-head` | 14px | **14.5px** | card / panel headings, section sub-heads |
+  | `--fs-title` | 16px | **16.5px** | page / article headline (h1) |
+  | `--fs-hero` | 26px | **26.5px** | dashboard KPI display figures only |
 
-  `--fs-adj` is currently **-0.5px** (the scale reads 9.5/11.5/13.5/15.5/25.5); set
-  it to `0px` for the original 10/12/14/16/26. Body text is one size on phone AND
-  desktop — identical. The old per-device `--fs-bump` is **retired** (kept defined
-  at `0`). **Never hand-write a px font-size** — always reference a grid token, so
-  the knob reaches it; this binds every NEW surface too (mobile tap-lists, option
-  rows, drill headers, empty states). A tappable row is still a **body** list row
-  (padding gives the touch target, not font-size). Pin any new body surface in
-  `tests/type-scale.mjs`, which reads `--fs-adj` live so it tracks the knob.
+  `--fs-adj`'s **baseline is `0.5px`** (the scale reads 10.5/11.5/12.5/14.5/16.5/26.5);
+  set it to `0px` for the original 10/12/14/16/26, `-0.5px` was the previous baseline.
+  Body text is one size on phone AND desktop — identical. The old per-device
+  `--fs-bump` is **retired** (kept defined at `0`). **Never hand-write a px
+  font-size** — always reference a grid token, so the knob reaches it; this binds
+  every NEW surface too (mobile tap-lists, option rows, drill headers, empty
+  states). A tappable row is still a **body** list row (padding gives the touch
+  target, not font-size). Pin any new body surface in `tests/type-scale.mjs`,
+  which reads `--fs-adj` live so it tracks the knob.
+- **R11a — The reader can nudge the whole-app size.** Menu → Settings → **Text
+  size** is a 1px-step A−/A+ adjuster on the same `--fs-adj` knob (so every surface
+  moves together, nothing bespoke). The chosen offset is written inline on `<html>`
+  (overriding the `:root` baseline) and persisted to `localStorage.m_fs_adj`; the
+  `v2/index.html` boot script re-applies it before first paint, so there is no
+  flash and the choice survives reloads/navigation. It clamps to **[-1.5px, 4.5px]**
+  (body 10.5 → 16.5), centring on "Default" (0.5px) when unset. The control lives in
+  `v2/js/views/menu.js` beside the Theme segmented control; it is covered by
+  `tests/v2-menu.mjs` (step/persist/reload/clamp).
 - **R11b — No SECOND font family, and only the weights already in use** (400 / 500 /
   600 / 700 / 800; Montserrat ships them all in one variable file). 500 is the
   inactive-chip/label weight, paired with 600 for the active state. Hierarchy comes

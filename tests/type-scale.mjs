@@ -1,8 +1,10 @@
 // Type-scale contract — ONE font, ONE size knob, no per-device bump.
 // The app is unified to a flat 5-step scale driven by a SINGLE offset token,
 // --fs-adj (premium.css): micro/body/head/title/hero = 10/12/14/16/26px + --fs-adj.
-// --fs-adj is currently -0.5px, so BODY = 11.5px everywhere. The whole app resizes
-// by changing that one number. Body text — feed headlines, reading pane, list rows,
+// --fs-adj's baseline is 0.5px, so BODY = 12.5px everywhere (the reader can nudge
+// it in Menu → Settings → Text size). The whole app resizes by changing that one
+// number, so every assertion reads --fs-adj live. Body text — feed headlines,
+// reading pane, list rows,
 // table values, the league, the transactions type-list — is BODY on phone AND
 // desktop. This guards against drift back to the old mixed sans/mono and the +1px
 // mobile bump. The one font is --t-mono (Gotham, self-hosted via Montserrat).

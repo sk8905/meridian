@@ -310,5 +310,73 @@ async function menuState(pg) {
   await ctx.close();
 }
 
+// 9) Text size adjuster (Settings → Text size): one A−/A+ stepper drives the
+// app-wide --fs-adj knob in 1px steps, the whole app resizes, the choice persists
+// across a reload (applied before paint by the boot script), and it clamps at the
+// ends. Baseline is "Default" = --fs-adj 0.5px → body 12.5px.
+{
+  const ctx = await b.newContext(PHONE);
+  const pg = await ctx.newPage();
+  const errs = [];
+  pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
+  // A fresh context starts with empty localStorage (no m_fs_adj), so the control
+  // begins at its Default baseline — nothing to clear.
+  await pg.goto(base + "/v2/menu/", { waitUntil: "load" });
+  await pg.waitForTimeout(900);
+  const gotoSettings = () => pg.evaluate(() => document.querySelector('.v2-view[data-view="menu"] .na-menu-bar .tchip[data-sec="settings"]').click());
+  await gotoSettings();
+  await pg.waitForSelector("#v2-fs-seg .na-fs-opt", { timeout: 6000 });
+  const readFs = () => pg.evaluate(() => ({
+    label: (document.querySelector("#v2-fs-seg .na-fs-val")?.textContent || "").trim(),
+    body: parseFloat(getComputedStyle(document.body).fontSize),
+    adjVar: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0,
+    inline: document.documentElement.style.getPropertyValue("--fs-adj").trim(),
+    stored: (() => { try { return localStorage.getItem("m_fs_adj"); } catch { return null; } })(),
+    upDisabled: !!document.querySelector('#v2-fs-seg .na-fs-opt[data-fs="up"]')?.disabled,
+    downDisabled: !!document.querySelector('#v2-fs-seg .na-fs-opt[data-fs="down"]')?.disabled,
+  }));
+  const clickUp = () => pg.evaluate(() => document.querySelector('#v2-fs-seg .na-fs-opt[data-fs="up"]').click());
+  const clickDown = () => pg.evaluate(() => document.querySelector('#v2-fs-seg .na-fs-opt[data-fs="down"]').click());
+
+  const base0 = await readFs();
+  checkEq(base0.label, "Default", "Text size: unset store centres on 'Default'");
+  checkEq(base0.body, 12.5, `Text size: the default baseline is body 12.5px (--fs-adj 0.5; got ${base0.body})`);
+
+  await clickUp(); await pg.waitForTimeout(80);
+  const up1 = await readFs();
+  checkEq(up1.label, "+1", "Text size: one A+ step reads '+1'");
+  checkEq(up1.body, 13.5, `Text size: A+ grows the whole app by 1px (body 13.5; got ${up1.body})`);
+  checkEq(up1.adjVar, 1.5, "Text size: --fs-adj resolves to the stepped value (1.5)");
+  checkEq(up1.stored, "1.5", "Text size: the choice persists to m_fs_adj");
+
+  // Persist across a full reload — the inline boot script must apply it BEFORE
+  // paint (no flash), so body is already 13.5 on load and the readout matches.
+  await pg.goto(base + "/v2/menu/", { waitUntil: "load" });
+  await pg.waitForTimeout(700);
+  const bootBody = await pg.evaluate(() => ({
+    body: parseFloat(getComputedStyle(document.body).fontSize),
+    inline: document.documentElement.style.getPropertyValue("--fs-adj").trim(),
+  }));
+  checkEq(bootBody.inline, "1.5px", "Text size: the boot script re-applies the inline --fs-adj before paint");
+  checkEq(bootBody.body, 13.5, `Text size: the saved size survives a reload (body 13.5; got ${bootBody.body})`);
+  await gotoSettings();
+  await pg.waitForSelector("#v2-fs-seg .na-fs-opt", { timeout: 6000 });
+  checkEq((await readFs()).label, "+1", "Text size: the readout reflects the saved size after reload");
+
+  // Step all the way down to the floor; the A− button disables at the minimum.
+  for (let i = 0; i < 6; i++) { await clickDown(); await pg.waitForTimeout(40); }
+  const floor = await readFs();
+  checkEq(floor.adjVar, -1.5, "Text size: stepping down clamps at the --fs-adj floor (-1.5)");
+  checkEq(floor.body, 10.5, `Text size: the floor is body 10.5px (got ${floor.body})`);
+  check(floor.downDisabled, "Text size: the A− button disables at the minimum size");
+  // And back up to the ceiling; A+ disables at the maximum.
+  for (let i = 0; i < 8; i++) { await clickUp(); await pg.waitForTimeout(40); }
+  const ceil = await readFs();
+  checkEq(ceil.adjVar, 4.5, "Text size: stepping up clamps at the --fs-adj ceiling (4.5)");
+  check(ceil.upDisabled, "Text size: the A+ button disables at the maximum size");
+  checkErrs(errs, "text size adjuster");
+  await ctx.close();
+}
+
 await b.close(); srv.close();
 finish();
