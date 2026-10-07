@@ -86,6 +86,31 @@ each entity's `name` (and any well-known short/alias form) as a search term:
     own press) and append the verified, dated ones. If a sweep genuinely finds
     nothing, say so explicitly in the run summary rather than leaving the gap
     unremarked. Give preference to the $1–15bn AUM band (the app's core band).
+  - **Manager-profile depth — MANDATORY historical backfill to 2020 (HOUSE_STYLE
+    R32).** The manager/profile surface is a material feature: **every** covered
+    profile must carry history back to **2020** *and* current activity — not just
+    the watchlisted subset. The watchlist deep-research pass (above) narrows the
+    *extra* budget; it does **not** bound this. Each run, make a BOUNDED, ROTATING
+    whole-roster backfill a **primary deliverable** (not an afterthought that only
+    happens if a headline surfaces):
+    1. Run **`node scripts/manager-coverage.mjs`** (add `--size=N`, default 10) to
+       get this run's worklist — the thinnest-covered / missing-history / stale
+       profiles, thinnest-first, rotated by day-of-year so consecutive runs sweep
+       different slices and the whole roster is covered over time. `--all` prints
+       every profile's coverage; `--json` is machine-readable.
+    2. For each manager on the worklist, WebSearch its history — fund launches/
+       closes, financings, CLO pricings, restructurings, personnel, AUM milestones —
+       from **2020 to present**, and append every **verified, dated** item (real
+       source URL + real date; unknown fields `null`; **never fabricate**) to
+       `deals` / `intel` (with `managerId`) or the manager's `webNews`.
+    3. A firm genuinely younger than 2020 (check `founded`) legitimately has no
+       pre-2020 history — add what exists back to inception; it stays flagged only
+       until its earliest real event is recorded. If a run cannot source a dated
+       item for a worklisted name, say so in the summary and leave it for the
+       rotation — do **not** pad or invent.
+    The goal is monotonic: coverage (`node scripts/manager-coverage.mjs`, the
+    "reach ≤2020" and "flagged" counts) should improve or hold every run, never
+    regress. `tests/manager-coverage.mjs` guards the tool and roster integrity.
 - **HDG — every hedge fund** in `credit/js/data.js` `HEDGE_FUNDS[]` (currently 151,
   US/UK/Europe/Asia). New, verified, dated hedge-fund news (performance, launches,
   fundraising, personnel, wind-downs, AUM milestones) → a `HEDGE_INTEL` record with

@@ -846,6 +846,23 @@ notification badge red (`#ef4444`).
   *Bypass*** (`GET /api/feedback-export?key=<RESEARCH_KEY>`). No new KV namespace or secret. Specs: `tests/home-reader-mute.mjs` (menu + mute hides
   across lanes + persistence + un-mute) and `tests/feedback-route.mjs` (write / `?mine=1`
   / secret dump).
+- **R32 — Manager profiles are a MATERIAL feature: history to 2020 + current, for
+  the WHOLE roster.** Every covered manager profile (`credit/js/data.js` `managers[]`,
+  the Managers lane and `/v2/profiles/`) must carry a real event stream — `deals` /
+  `intel` (keyed `managerId`) and the manager's `webNews` — reaching back to **2020**
+  (or the firm's inception, where it is younger — check `founded`) **and** kept
+  current. This is **not** limited to watchlisted names: the refresh routine makes a
+  **bounded, rotating, whole-roster historical backfill a PRIMARY deliverable every
+  run** (docs/refresh-routines.md → "Manager-profile depth"), targeting the
+  thinnest-covered / missing-pre-2021 / stale profiles first. The worklist is
+  computed deterministically by **`node scripts/manager-coverage.mjs`** (`--all` for
+  the full table, `--json` machine-readable, `--size=N` for the per-run batch), which
+  scores every profile's depth and recency and rotates the target slice by day so the
+  whole roster is swept over time. Every backfilled item obeys the non-negotiable **no
+  fabrication** rule: a real source URL and a real, non-future date (unknown fields
+  `null`); coverage must improve or hold each run, never regress. Spec:
+  `tests/manager-coverage.mjs` (tool present; profile-feeding records carry real
+  date + URL, none future-dated; backfilled reference profiles keep depth).
 
 ---
 
@@ -889,7 +906,7 @@ notification badge red (`#ef4444`).
   reload). The app still runs unbundled from source (`node tests/run.mjs` serves
   the repo; `TEST_ROOT=dist node tests/run.mjs` proves the built output serves
   identically).
-- **T3 — Full suite green before deploy.** `node tests/run.mjs` (79 specs) must
+- **T3 — Full suite green before deploy.** `node tests/run.mjs` (81 specs) must
   pass; any new user-visible behaviour gets a spec.
 - **T4 — Zero console/page errors** on every view (enforced by the page-error
   checks).
