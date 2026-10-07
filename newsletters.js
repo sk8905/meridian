@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-sesamestreetrecordrally-20261007",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Sesame Street Meets Wall Street’s Record Rally",
+    date: "2026-10-07",
+    time: "05:00",
+    summary: "This record has been brought to you by the letters A and I.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally",
+  },
+  {
     id: "nl-reuters-tradingday-runningwiththebulls-20261006",
     publication: "Reuters",
     author: "Jamie McGeever",
@@ -472,27 +483,5 @@ export const NEWSLETTERS = [
     time: "10:41",
     summary: "Spike in interest rates is doing plenty of damage to stocks; France's crisis deepens.",
     url: "https://www.bloomberg.com/news/newsletters/2026-10-02/spike-in-interest-rates-is-doing-plenty-of-damage-to-stocks",
-  },
-  {
-    id: "nl-nonbillable-weilexitsmount-20261002",
-    publication: "Non-Billable",
-    author: null,
-    series: null,
-    title: "\u231b Weil exits mount",
-    date: "2026-10-02",
-    time: "09:07",
-    summary: "And meet the law firm growing where Big Law retreats.",
-    url: "https://non-billable.beehiiv.com/p/from-mishcon-to-500m-2",
-  },
-  {
-    id: "nl-thelawyer-newsdaily-etihadquinnemanuelpremierleague-20261002",
-    publication: "The Lawyer",
-    author: null,
-    series: "News Daily",
-    title: "Man City fallout: Etihad Airways calls on Quinn Emanuel in case against Premier League",
-    date: "2026-10-02",
-    time: "08:16",
-    summary: "Etihad Airways has instructed Quinn Emanuel in a potential legal action against the Premier League.",
-    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/NKWubeKwrIcT",
   },
 ];

@@ -12,8 +12,8 @@ export const UPDATED = "28 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-10-06",
-  lastCheckedTime: "00:12 BST",
+  lastChecked: "2026-10-07",
+  lastCheckedTime: "05:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,20 +1004,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-06",
+  updated: "2026-10-07",
   us: [
+    {title: "Sesame Street Meets Wall Street’s Record Rally", source: "Bloomberg", date: "2026-10-07", time: "05:00", url: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally"},
+    {title: "Robust AI spending sets investors up for another bumper US earnings season", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb"},
+    {title: "What comes next with the energy shock?", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb"},
     {title: "Donald Trump says he is considering suspending federal petrol tax", source: "Financial Times", date: "2026-10-06", time: "22:09", url: "https://www.ft.com/content/3fd43fc5-4973-4a26-9d9c-47b6361e6217"},
     {title: "Ships’ captains paid $100,000 a month to transit Strait of Hormuz", source: "Financial Times", date: "2026-10-06", time: "21:00", url: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e"},
-    {title: "S&P 500 hits record high as AI stocks shrug off bond market slump", source: "Financial Times", date: "2026-10-06", time: "15:03", url: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7"},
-    {title: "Vitol chief warns of tanker shortage and risk of $200-a-barrel oil", source: "Financial Times", date: "2026-10-06", time: "14:39", url: "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197"},
-    {title: "Why are bond yields so high?", source: "Financial Times", date: "2026-10-06", time: "12:30", url: "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa"},
   ],
   uk: [
+    {title: "HSBC plans sweeping job cuts across UK wealth business in AI push", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/dd553fc2-532c-4afc-a773-47cd7f786260"},
+    {title: "The tide of bank branch closures is starting to reverse", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/10ce1086-a9ae-4851-92e4-3b6efc8a030f"},
     {title: "Badenoch pledges to halve employers’ NI contributions for younger workers", source: "Financial Times", date: "2026-10-06", time: "17:00", url: "https://www.ft.com/content/aae1fc0b-2c24-4e44-a2b7-886ad2cc5ffe"},
-    {title: "Tory plan to rip up UK-EU food deal risks ‘huge uncertainty’", source: "Financial Times", date: "2026-10-06", time: "17:00", url: "https://www.ft.com/content/f923e23b-423a-446c-bf84-a68f7b1d169c"},
     {title: "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", source: "Financial Times", date: "2026-10-06", time: "12:23", url: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3"},
     {title: "UK risks ‘uninvestable’ reputation if North Sea projects are blocked, says energy boss", source: "Financial Times", date: "2026-10-06", time: "11:07", url: "https://www.ft.com/content/d510c91d-3039-42f7-af4a-63814f0df86f"},
-    {title: "The creditor bloodbath in UK telecoms", source: "Financial Times", date: "2026-10-06", time: "05:00", url: "https://www.ft.com/content/0e4afbdc-c018-4ee4-86b3-4248ae3e97ab"},
   ],
 };
 
@@ -1030,8 +1030,13 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-06",
+  updated: "2026-10-07",
   items: [
+    {"title": "Sesame Street Meets Wall Street’s Record Rally", "source": "Bloomberg", "date": "2026-10-07", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", "blurb": "John Authers: this record has been brought to you by the letters A and I."},
+    {"title": "Robust AI spending sets investors up for another bumper US earnings season", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", "blurb": "S&P 500 earnings are forecast to rise 27% against a backdrop of stock market highs and elevated longer-term borrowing costs."},
+    {"title": "What comes next with the energy shock?", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", "blurb": "The disruption to oil supply, oil prices and the world economy has been surprisingly manageable so far."},
+    {"title": "Brussels looks to capture Big Tech through tax on large corporations", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/ad06ed89-f600-4694-8c95-7d53b6d3315b", "blurb": "The European Commission considers a broad levy on all large companies to avoid singling out US digital services groups."},
+    {"title": "Bank mergers arrive in Europe with a whimper rather than a bang", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/8178bed1-ef14-4ebc-b291-921cef8866e7", "blurb": "More banking consolidation requires things that don’t yet exist, such as harmonised regulation and acquiescent local politicians."},
     {"title": "S&P 500 hits record high as AI stocks shrug off bond market slump", "source": "Financial Times", "date": "2026-10-06", "time": "15:03", "url": "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", "blurb": "US equities set a fresh record as AI-linked megacaps ignore the global government-bond sell-off."},
     {"title": "Vitol chief warns of tanker shortage and risk of $200-a-barrel oil", "source": "Financial Times", "date": "2026-10-06", "time": "14:39", "url": "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197", "blurb": "The trading house's chief flags a tight tanker market and tail risk of a far higher oil price."},
     {"title": "Why are bond yields so high?", "source": "Financial Times", "date": "2026-10-06", "time": "12:30", "url": "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", "blurb": "FT explainer on what is driving the global government-bond sell-off."},
@@ -1067,11 +1072,6 @@ export const ARTICLES = {
     {"title": "Quant hedge funds reap big gains from global bond sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", "blurb": "Systematic funds profit from the global rout in sovereign bonds."},
     {"title": "US refiners reap windfall profits as wars push up fuel prices for consumers", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848", "blurb": "Higher fuel prices tied to the conflicts are boosting refining margins."},
     {"title": "US mortgage rates jump the most in four years as bond sell-off hits Main Street", "source": "Financial Times", "date": "2026-10-01", "time": "19:29", "url": "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499", "blurb": "The global bond sell-off is feeding through to US home-loan costs, with mortgage rates rising at their fastest pace in four years."},
-    {"title": "Top Fed official signals central bank will keep rates on hold in October", "source": "Financial Times", "date": "2026-10-01", "time": "18:52", "url": "https://www.ft.com/content/e3a53272-385d-40a8-ac77-408f4c136f6f", "blurb": "A senior Fed policymaker indicates the central bank is leaning towards holding rates at its late-October meeting."},
-    {"title": "Global bond sell-off deepens as 10-year Treasury yield hits highest since 2002", "source": "Financial Times", "date": "2026-10-01", "time": "09:09", "url": "https://www.ft.com/content/e485a228-1efe-426b-addc-26069ba48bf3", "blurb": "Sovereign debt costs around the world return to multiyear highs."},
-    {"title": "Four potential positives from higher bond yields", "source": "Financial Times", "date": "2026-10-01", "time": "09:37", "url": "https://www.ft.com/content/96e004e0-43ab-46e6-9116-fabfc7251496", "blurb": "The sharp rise in borrowing costs has raised justified alarm but there are benefits too."},
-    {"title": "An optimist’s guide to the bond market", "source": "Financial Times", "date": "2026-10-01", "time": "06:30", "url": "https://www.ft.com/content/4ab6df98-f14d-49d1-a170-8087dc517b08", "blurb": "FT Unhedged: it could be a lot worse."},
-    {"title": "Oil climbs after Trump denies he is willing to ease sanctions on Iran", "source": "CNBC", "date": "2026-09-30", "time": "10:13", "url": "https://www.cnbc.com/2026/09/30/oil-climbs-after-trump-denies-he-is-willing-to-ease-sanctions-on-iran.html", "blurb": "Oil rebounded after Trump dismissed an Axios report that he had offered Iran sanctions relief, writing 'I offered them NOTHING!', as Qatar continues to mediate over reopening the Strait of Hormuz.", "author": null},
   ],
 };
 
