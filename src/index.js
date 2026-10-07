@@ -354,6 +354,11 @@ const RATE_SERIES = [
   // the Key rates panel); it feeds the Yield-curve panel's 2Y row and the 2s10s
   // slope + its aligned diff sparkline.
   { label: "US 2Y", unit: "%", src: "treasury", col: "2 Yr", href: "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve" },
+  // US 30Y — same daily Treasury source, the "30 Yr" column. Like the 2Y it is NOT a
+  // "key rate" tile (the client filters it out of the Key rates panel); it feeds the
+  // briefing's long-bond ticker pill (BRIEF_YIELDS "US 30Y") so a Bonds bullet that leads
+  // with the 30-year renders a live pill with its bp move.
+  { label: "US 30Y", unit: "%", src: "treasury", col: "30 Yr", href: "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve" },
   // ICE BofA option-adjusted spreads (FRED, via the API key). Reported in % → shown as bp.
   { label: "US IG OAS", unit: "bp", src: "fred", id: "BAMLC0A0CM", href: "https://fred.stlouisfed.org/series/BAMLC0A0CM" },
   { label: "US HY OAS", unit: "bp", src: "fred", id: "BAMLH0A0HYM2", href: "https://fred.stlouisfed.org/series/BAMLH0A0HYM2" },

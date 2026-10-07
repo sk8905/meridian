@@ -735,9 +735,15 @@ notification badge red (`#ef4444`).
   from **`/api/quotes`** (the only endpoint that accepts `^`-prefixed index symbols).
   **Commodities** (`BRIEF_COMMODITY` — **Brent · WTI · Gold**) pill the same way but fill
   from the **markets cache** (the source the snapshot strip uses), since `/api/quotes` rejects
-  the `=F` futures symbols (`BZ=F`/`CL=F`/`GC=F`). **Every slot must name at least one pillable
-  benchmark** (a Treasury yield, a major index, or a commodity) so each brief carries a live
-  data point — enforced on the committed data by `tests/briefing-empty-bullet.mjs`.
+  the `=F` futures symbols (`BZ=F`/`CL=F`/`GC=F`). Treasury pills cover **US 30Y · 10Y · 2Y**
+  (the rates feed carries all three; 2Y/30Y are feed-only, filtered out of the Key-rates rail),
+  and the regex matches a bare "30-year"/"10-year" the way a Bonds bullet names it — not
+  "10-year high/low". **STRICT per-desk rule: the Macro, Bonds and Equities bullets must EACH
+  name a pillable benchmark** (a Treasury yield, a major index, or a commodity like Brent) so
+  every brief shows a live ticker pill on all three desks; **Credit carries a pill only when one
+  is available** (optional). This is a hard gate on the committed data — `tests/briefing-empty-bullet.mjs`
+  turns the suite red (blocking deploy) if any slot's Macro/Bonds/Equities desk has no pillable
+  instrument, and its `pillable` regex is kept in lockstep with glance.js `BRIEF_YIELDS`/`BRIEF_INDEX`/`BRIEF_COMMODITY`.
   **Equities are resolved LIVE** via **`/api/secq`** → `handleSecq`: Yahoo **search** for
   candidates, then a **market-cap tiebreaker** over them (crumb-gated `/v7/quote`, cookie+crumb
   cached in KV) so the biggest listing wins — "Honeywell" → **HON**, not HONA. Resolutions,

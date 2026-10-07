@@ -497,9 +497,16 @@ function renderHomeBriefing() {
 // "Honeywell" → HON not HONA); US Treasury BENCHMARK yields come from the rates cache. A
 // pill shows only for a confident resolution with a live quote — an unmapped/ambiguous name
 // or a missing quote yields NO pill (never a guessed value, R7).
+// Treasury-yield pills — filled live from the rates cache (renderBriefTickers matches
+// `ykey` to a /api/rates label; the feed carries US 10Y, US 2Y and US 30Y, so all three
+// fill with their bp move). Each regex matches "US <n>-year", "<n>-year Treasury", OR a
+// bare "<n>-year" (the way a Bonds bullet usually names it, e.g. "the 10-year near 5.27%")
+// — but NOT "<n>-year high/low". 30Y is listed first so a bullet that leads with the long
+// bond pills the 30-year; a bullet naming both still pills each once.
 const BRIEF_YIELDS = [
-  { re: /\b(?:US\s*)?10-?year Treasury(?:\s+yield)?\b|\bUS\s*10-?year\b/i, ykey: "US 10Y", label: "US 10Y" },
-  { re: /\b(?:US\s*)?2-?year Treasury(?:\s+yield)?\b|\bUS\s*2-?year\b/i,  ykey: "US 2Y",  label: "US 2Y" },
+  { re: /\b(?:US\s+)?(?:30|thirty)[\s-]?year(?:\s+Treasury(?:\s+yield)?)?\b(?!\s+(?:high|low|peak|anniversary|period|plan|highs|lows))/i, ykey: "US 30Y", label: "US 30Y" },
+  { re: /\b(?:US\s+)?(?:10|ten)[\s-]?year(?:\s+Treasury(?:\s+yield)?)?\b(?!\s+(?:high|low|peak|anniversary|period|plan|highs|lows))/i, ykey: "US 10Y", label: "US 10Y" },
+  { re: /\b(?:US\s+)?(?:2|two)[\s-]?year(?:\s+Treasury(?:\s+yield)?)?\b(?!\s+(?:high|low|peak|anniversary|period|plan|highs|lows))/i, ykey: "US 2Y", label: "US 2Y" },
 ];
 // Major INDICES — a curated name→symbol map (indices are a small, stable set, so a curated
 // map is accurate where fuzzy name-resolution isn't). Live % via /api/quotes. MOST SPECIFIC
@@ -3393,7 +3400,7 @@ function renderRates(el, d) {
   _rateRows = rowsData;
   // The "Key rates" panel is the benchmark yields ONLY (EURIBOR/SONIA/SOFR/US 10Y);
   // the OAS credit spreads move to their own "Spreads" panel (renderSpreads).
-  el.innerHTML = rowsData.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y").map(ratesTile).join("");
+  el.innerHTML = rowsData.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y" && x.label !== "US 30Y").map(ratesTile).join("");
   if (!_briefLeads.rates) setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
   renderTicker(); renderMovers(); renderSpreads(); renderVolRisk(); renderYieldCurve(); renderBriefStrip();

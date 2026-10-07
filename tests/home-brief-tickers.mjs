@@ -17,7 +17,10 @@ const SECQ = { securities: {
   "Nvidia":    { symbol: "NVDA",  label: "NVDA", pct: 2.13,  dir: "up" },
   "Honeywell": { symbol: "HON",   label: "HON",  pct: -0.07, dir: "down" },
 } };
-const RATES = { rates: [ { label: "US 10Y", value: 5.31, change: 0.03, unit: "%", asOf: "6 Oct", history: [], href: "https://www.cnbc.com/quotes/US10Y" } ] };
+const RATES = { rates: [
+  { label: "US 10Y", value: 5.31, change: 0.03, unit: "%", asOf: "6 Oct", history: [], href: "https://www.cnbc.com/quotes/US10Y" },
+  { label: "US 30Y", value: 5.52, change: -0.02, unit: "%", asOf: "6 Oct", history: [], href: "https://home.treasury.gov" },
+] };
 // Indices are DETECTED via a curated name→symbol map (Nasdaq → ^IXIC) and their live % comes
 // from /api/quotes (the only endpoint that accepts `^`-prefixed index symbols).
 const QUOTES = { quotes: { "^IXIC": { changePct: 1.25 } } };
@@ -122,6 +125,35 @@ check(comR.brent && /BRENT/.test(comR.brent.txt) && /1\.27%/.test(comR.brent.txt
 check(comR.wti && /WTI/.test(comR.wti.txt) && /0\.60%/.test(comR.wti.txt) && comR.wti.up,
   `commodity pill: WTI → WTI 0.60% ↑ (${comR.wti && comR.wti.txt})`);
 check(!/\bBrent\b/.test(comR.bodyText) && !/\bWTI\b/.test(comR.bodyText), `the commodity NAME is replaced by its pill, not kept as prose (${comR.bodyText})`);
+
+// Treasury pills: a Bonds bullet that LEADS with the long bond pills the 30-year, and a bare
+// "10-year" (no "US"/"Treasury" prefix) still pills — both filled with their bp move from the
+// rates cache. Verifies the broadened BRIEF_YIELDS + the new US 30Y entry.
+await pg.evaluate(async () => {
+  const m = await import("/briefings.js");
+  const B = m.BRIEFINGS || {}, slots = B.slots || {};
+  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
+  const _ord = (B.order || []).filter((k) => slots[k]);
+  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);
+  slots[key].bullets = [
+    { html: "<strong>Bonds &mdash; the sell-off resumed</strong>, with the US 30-year Treasury yield at its highest since 2002 and the 10-year near 5.27%.", src: "https://example.com/y", srcName: "Ex" },
+  ];
+  window.__wireRenderBrief();
+});
+await pg.waitForFunction(() => {
+  const n = document.querySelector('#g-hbrief .g-hbt-tk[data-ykey="US 30Y"]');
+  return n && /bp/.test(n.textContent);
+}, { timeout: 8000 }).catch(() => {});
+const yldR = await pg.evaluate(() => {
+  const host = document.getElementById("g-hbrief");
+  const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
+  return { us30: pill('.g-hbt-tk[data-ykey="US 30Y"]'), us10: pill('.g-hbt-tk[data-ykey="US 10Y"]'),
+    bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " ") };
+});
+check(yldR.us30 && /US 30Y/.test(yldR.us30.txt) && /2bp/.test(yldR.us30.txt) && /↓/.test(yldR.us30.txt) && yldR.us30.down,
+  `long-bond pill: US 30-year Treasury yield → US 30Y 2bp ↓ (${yldR.us30 && yldR.us30.txt})`);
+check(yldR.us10 && /US 10Y/.test(yldR.us10.txt), `a bare "the 10-year" still pills → US 10Y (${yldR.us10 && yldR.us10.txt})`);
+check(!/Treasury/.test(yldR.bodyText), `the 30-year phrase is replaced by its pill, not kept as prose (${yldR.bodyText})`);
 
 // A desk kicker authored with an entity ("M&amp;A", "R&amp;D") must render the literal glyph
 // ("M&A"), not a double-encoded "M&amp;A" — the desk name is decoded before it is re-escaped.

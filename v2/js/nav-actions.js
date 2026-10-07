@@ -445,7 +445,7 @@ function macroPane(d) {
   let html = "";
 
   // Key rates — benchmark yields only (US 2Y is a yield-curve input, not shown here).
-  const keyRates = rates.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y");
+  const keyRates = rates.filter((x) => !/OAS/i.test(x.label) && x.label !== "US 2Y" && x.label !== "US 30Y");
   if (keyRates.length) html += naSec("Key rates", "%") + keyRates.map(rateRow).join("");
 
   // Spreads — the OAS levels plus the derived HY−IG (quality) / CCC−HY (distress).

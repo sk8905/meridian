@@ -57,10 +57,12 @@ const data = await pg.evaluate(async () => {
   // a big push into insurance.") tells the reader nothing and is rejected. 60 chars
   // is the floor: well under a normal informative sentence, well over a bare clause.
   const visLen = (h) => stripDesk(h).replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, " ").trim().length;
-  // EVERY slot must name at least one instrument that renders as an inline ticker pill
-  // (HOUSE_STYLE R28) — a curated benchmark the briefing resolves live: a Treasury yield,
-  // a major index, or a commodity. Mirrors glance.js BRIEF_YIELDS/BRIEF_INDEX/BRIEF_COMMODITY.
-  const pillable = /\b(?:US\s*)?(?:10|2)-?year Treasury|\bUS\s*(?:10|2)-?year\b|\bS&(?:amp;)?P\s*500\b|\bNasdaq\b|\b(?:Dow Jones|the Dow)\b|\bRussell\s*2000\b|\bFTSE\b|\bDAX\b|\bCAC\b|\bStoxx\b|\bIBEX\b|\bNikkei\b|\bHang Seng\b|\bShanghai Composite\b|\bKospi\b|\bSensex\b|\bNifty\b|\bBovespa\b|\bVIX\b|\bBrent\b|\bWTI\b|\bgold\b/i;
+  // The Macro, Bonds and Equities desks must EACH name an instrument that renders as an
+  // inline ticker pill (HOUSE_STYLE R28) — a curated benchmark the briefing resolves live:
+  // a Treasury yield, a major index, or a commodity (Credit is optional). Mirrors glance.js
+  // BRIEF_YIELDS/BRIEF_INDEX/BRIEF_COMMODITY exactly — incl. a bare "10-year"/"2-year" (the
+  // way a Bonds bullet usually names it), but not "10-year high/low".
+  const pillable = /\b(?:US\s+)?(?:30|10|2|thirty|ten|two)[\s-]?year(?:\s+Treasury(?:\s+yield)?)?\b(?!\s+(?:high|low|peak|anniversary|period|plan|highs|lows))|\bS&(?:amp;)?P\s*500\b|\bNasdaq\b|\b(?:Dow Jones|the Dow)\b|\bRussell\s*2000\b|\bFTSE\b|\bDAX\b|\bCAC\b|\bStoxx\b|\bIBEX\b|\bNikkei\b|\bHang Seng\b|\bShanghai Composite\b|\bKospi\b|\bSensex\b|\bNifty\b|\bBovespa\b|\bVIX\b|\bBrent\b|\bWTI\b|\bgold\b/i;
   const keys = Object.keys(slots);
   const bad = [];
   let bulletN = 0;
@@ -70,9 +72,8 @@ const data = await pg.evaluate(async () => {
     if (!s.date || !s.time) bad.push(`${k}: missing date/time`);
     const bl = Array.isArray(s.bullets) ? s.bullets : [];
     if (!bl.length) bad.push(`${k}: no bullets`);
-    let slotHasPill = false;
+    const deskSeen = {}, deskPill = {};
     bl.forEach((x, i) => {
-      if (pillable.test(String((x && x.html) || ""))) slotHasPill = true;
       bulletN++;
       if (!hasText(x && x.html)) bad.push(`${k}[${i}]: empty html`);
       // The defect that started this: a kicker with no body sentence after the dash.
@@ -82,6 +83,7 @@ const data = await pg.evaluate(async () => {
       const nv = narratesSource(x && x.html);
       if (nv) bad.push(`${k}[${i}]: narrates the source (${nv}) — state the news; the srcName link is the attribution`);
       const desk = deskOf(x && x.html);
+      if (desk) { deskSeen[desk] = true; if (pillable.test(String((x && x.html) || ""))) deskPill[desk] = true; }
       if (desk === "bonds" && !bondsHasPrice(x && x.html)) bad.push(`${k}[${i}]: Bonds bullet has no benchmark yield reference (a % or bp level)`);
       if (desk === "equities" && !eqHasPrice(x && x.html)) bad.push(`${k}[${i}]: Equities bullet has no index level / % move / mega-cap price`);
       const vl = visLen(x && x.html);
@@ -92,7 +94,13 @@ const data = await pg.evaluate(async () => {
       // number-rich brief, so it only catches a genuine overrun.
       if (vl > 360) bad.push(`${k}[${i}]: over-long body (${vl} chars) — trim to ~1–2 sentences so it fits the desktop quadrant column (keep the figure, cut connective filler)`);
     });
-    if (bl.length && !slotHasPill) bad.push(`${k}: no pillable instrument — every slot must name a benchmark that renders an inline ticker pill (a Treasury yield, a major index, or a commodity like Brent)`);
+    // STRICT per-desk rule (HOUSE_STYLE R28): the Macro, Bonds and Equities desks must EACH
+    // carry a bullet AND that desk must name a pill-detectable benchmark, so every brief shows
+    // a live ticker pill on all three. Credit is exempt (a pill only when one is available).
+    if (bl.length) for (const d of ["macro", "bonds", "equities"]) {
+      if (!deskSeen[d]) bad.push(`${k}: missing a ${d} bullet — each slot must carry Macro, Bonds and Equities`);
+      else if (!deskPill[d]) bad.push(`${k}: the ${d} desk names no pillable benchmark — Macro, Bonds and Equities must EACH carry an inline ticker pill (a Treasury yield, a major index, or a commodity like Brent); Credit is optional`);
+    }
   }
   return { slots: keys.length, bulletN, bad };
 });
