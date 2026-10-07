@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-07",
-  lastCheckedTime: "14:22 BST",
+  lastCheckedTime: "18:11 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-07",
   us: [
+    {title: "Global bond sell-off resumes as 30-year Treasury yield hits highest since 2002", source: "Financial Times", date: "2026-10-07", time: "17:25", url: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6"},
     {title: "Sesame Street Meets Wall Street’s Record Rally", source: "Bloomberg", date: "2026-10-07", time: "05:00", url: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally"},
     {title: "Robust AI spending sets investors up for another bumper US earnings season", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb"},
     {title: "What comes next with the energy shock?", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb"},
     {title: "Donald Trump says he is considering suspending federal petrol tax", source: "Financial Times", date: "2026-10-06", time: "22:09", url: "https://www.ft.com/content/3fd43fc5-4973-4a26-9d9c-47b6361e6217"},
-    {title: "Ships’ captains paid $100,000 a month to transit Strait of Hormuz", source: "Financial Times", date: "2026-10-06", time: "21:00", url: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e"},
   ],
   uk: [
+    {title: "Kemi Badenoch promises to scrap inheritance tax on family homes", source: "Financial Times", date: "2026-10-07", time: "16:03", url: "https://www.ft.com/content/742f1f44-1b5f-4905-8a09-1c14bce54b4d"},
     {title: "HSBC plans sweeping job cuts across UK wealth business in AI push", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/dd553fc2-532c-4afc-a773-47cd7f786260"},
     {title: "The tide of bank branch closures is starting to reverse", source: "Financial Times", date: "2026-10-07", time: "05:00", url: "https://www.ft.com/content/10ce1086-a9ae-4851-92e4-3b6efc8a030f"},
     {title: "Badenoch pledges to halve employers’ NI contributions for younger workers", source: "Financial Times", date: "2026-10-06", time: "17:00", url: "https://www.ft.com/content/aae1fc0b-2c24-4e44-a2b7-886ad2cc5ffe"},
     {title: "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", source: "Financial Times", date: "2026-10-06", time: "12:23", url: "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3"},
-    {title: "UK risks ‘uninvestable’ reputation if North Sea projects are blocked, says energy boss", source: "Financial Times", date: "2026-10-06", time: "11:07", url: "https://www.ft.com/content/d510c91d-3039-42f7-af4a-63814f0df86f"},
   ],
 };
 
@@ -1032,6 +1032,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-07",
   items: [
+    {"title": "Global bond sell-off resumes as 30-year Treasury yield hits highest since 2002", "source": "Financial Times", "date": "2026-10-07", "time": "17:25", "url": "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6", "blurb": "The global government-bond rout resumes, pushing the US 30-year yield to its highest level since 2002."},
+    {"title": "The important judgments for Healey in the coming Budget", "source": "Financial Times", "date": "2026-10-07", "time": "16:06", "url": "https://www.ft.com/content/b07bd481-a492-4b95-af55-914176f8d2b6", "blurb": "FT analysis of the key choices facing the Chancellor at the Autumn Budget."},
+    {"title": "Billionaire Weston family to buy Boots in $8.9bn deal", "source": "Financial Times", "date": "2026-10-07", "time": "14:50", "url": "https://www.ft.com/content/68c0fcb8-a69e-4767-a7fc-f84acb04cbd7", "blurb": "The UK retailer secures its second new owner in under 18 months."},
     {"title": "Sesame Street Meets Wall Street’s Record Rally", "source": "Bloomberg", "date": "2026-10-07", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", "blurb": "John Authers: this record has been brought to you by the letters A and I."},
     {"title": "Robust AI spending sets investors up for another bumper US earnings season", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", "blurb": "S&P 500 earnings are forecast to rise 27% against a backdrop of stock market highs and elevated longer-term borrowing costs."},
     {"title": "What comes next with the energy shock?", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", "blurb": "The disruption to oil supply, oil prices and the world economy has been surprisingly manageable so far."},
@@ -1069,9 +1072,6 @@ export const ARTICLES = {
     {"title": "Global bond market steadies after sharp sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "11:40", "url": "https://www.ft.com/content/4f2ad4c1-22b0-497b-88c8-197d7f301f79", "blurb": "Heavy selling this week pushed 10-year US Treasury yields to their highest level since 2002."},
     {"title": "Higher Eurozone inflation adds pressure on ECB to tighten again", "source": "Financial Times", "date": "2026-10-02", "time": "11:11", "url": "https://www.ft.com/content/e637cd4c-415d-431c-a857-95d6adc33157", "blurb": "After two consecutive rate rises, a December move remains the base case even after headline CPI climbed to 3.8% in September."},
     {"title": "Soaring yields find Europe’s weak spot", "source": "Bloomberg", "date": "2026-10-02", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-02/soaring-yields-find-europe-s-weak-spot-in-france", "blurb": "John Authers: French bonds are tipping toward a full-blown crisis as the Treasury sell-off exposes the euro zone's weak spot.", "author": "John Authers"},
-    {"title": "Quant hedge funds reap big gains from global bond sell-off", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/75b0ab84-a252-4ea1-9058-c9ee7ca07f4f", "blurb": "Systematic funds profit from the global rout in sovereign bonds."},
-    {"title": "US refiners reap windfall profits as wars push up fuel prices for consumers", "source": "Financial Times", "date": "2026-10-02", "time": "05:00", "url": "https://www.ft.com/content/118785e7-8637-46ad-a60c-286e51370848", "blurb": "Higher fuel prices tied to the conflicts are boosting refining margins."},
-    {"title": "US mortgage rates jump the most in four years as bond sell-off hits Main Street", "source": "Financial Times", "date": "2026-10-01", "time": "19:29", "url": "https://www.ft.com/content/22779c05-8bda-423e-b5bf-6839d597f499", "blurb": "The global bond sell-off is feeding through to US home-loan costs, with mortgage rates rising at their fastest pace in four years."},
   ],
 };
 
