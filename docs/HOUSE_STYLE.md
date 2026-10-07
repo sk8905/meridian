@@ -689,7 +689,13 @@ notification badge red (`#ef4444`).
   the number or cut it; prefer one fully-informative sentence over two thin ones. The
   test flags a **headline-short body** (under 60 visible chars after the kicker is
   stripped) so a one-clause stub ("Blue Owl is preparing a big push into insurance")
-  turns the suite red before it can ship. **iPhone-only markets snapshot strip:** on the
+  turns the suite red before it can ship. **KEEP IT TIGHT:** the desktop card lays the
+  four desks out as side-by-side columns in a **fixed quadrant**, so an over-long bullet
+  overflows/clips it. One or two sentences per desk (~30–45 words) — lead with the fact +
+  its number, add the single most important qualifier, stop; drop connective filler. The
+  column grid sits directly under the header (no top margin/rule) and each column is
+  line-clamped as a safety; the test flags a body over **360 visible chars**.
+  **iPhone-only markets snapshot strip:** on the
   phone the briefing opens with a **fitted** strip of five square cards
   (`.g-hbrief-strip` → `.g-hbs-card`, `renderBriefStrip`) — **S&P 500 · VIX · Oil · Gold ·
   US 10Y** — that **all fit the viewport with no horizontal scroll** (`flex:1 1 0`, cards

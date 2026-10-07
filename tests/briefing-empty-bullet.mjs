@@ -80,6 +80,11 @@ const data = await pg.evaluate(async () => {
       if (desk === "equities" && !eqHasPrice(x && x.html)) bad.push(`${k}[${i}]: Equities bullet has no index level / % move / mega-cap price`);
       const vl = visLen(x && x.html);
       if (hasText(x && x.html) && vl < 60) bad.push(`${k}[${i}]: headline-short body (${vl} chars) — give the hard information, not a one-line headline ("${stripDesk(String(x.html)).replace(/<[^>]*>/g, "").slice(0, 50)}")`);
+      // Upper bound: the desktop card shows the four desks as side-by-side columns in a
+      // fixed quadrant, so an over-long bullet overflows/clips it. Keep each to ~1–2
+      // sentences (HOUSE_STYLE R28). 360 visible chars is the ceiling — well above a tight,
+      // number-rich brief, so it only catches a genuine overrun.
+      if (vl > 360) bad.push(`${k}[${i}]: over-long body (${vl} chars) — trim to ~1–2 sentences so it fits the desktop quadrant column (keep the figure, cut connective filler)`);
     });
   }
   return { slots: keys.length, bulletN, bad };

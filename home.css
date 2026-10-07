@@ -1308,11 +1308,18 @@
     @media (max-width:1200px){ .tui .g-hbrief-head{ display:none; } .tui .g-hbrief-stamp{ display:block; } }
     @media (min-width:1201px){
       .tui .g-hbrief-strip{ display:none; }   /* the snapshot strip is iPhone-only */
-      .tui .g-hbrief-list{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:11px 16px;
-        margin-top:10px; padding-top:10px; border-top:1px solid var(--t-grid); align-items:start; }
+      /* No top gap/line: the column grid sits directly under the "Market briefing"
+         header (the old 10px margin + 10px padding + hairline wasted a whole row of
+         quadrant height and pushed the columns into overflow). */
+      .tui .g-hbrief-list{ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px 16px;
+        margin-top:4px; padding-top:0; border-top:none; align-items:start; }
       .tui .g-hbrief-b{ padding:0; border-top:none; text-align:left; -webkit-hyphens:none; hyphens:none; }
       .tui .g-hbrief-bk{ display:block; text-transform:uppercase; font-size:var(--fs-micro); letter-spacing:.06em; margin-bottom:4px; }
-      .tui .g-hbrief-bt{ display:block; text-align:left; text-wrap:wrap; letter-spacing:-.1px; -webkit-hyphens:none; hyphens:none; overflow-wrap:break-word; }
+      /* Height safety: cap each desk column at 10 lines so one long brief can never push
+         the grid past the quadrant and clip the others (the body also scrolls as a last
+         resort). Briefs are authored short enough to fit; this only catches an overrun. */
+      .tui .g-hbrief-bt{ display:-webkit-box; -webkit-line-clamp:10; -webkit-box-orient:vertical; overflow:hidden;
+        text-align:left; text-wrap:wrap; letter-spacing:-.1px; -webkit-hyphens:none; hyphens:none; overflow-wrap:break-word; }
     }
     /* Numbers read as plain body text here (as in the header briefing panel), while
        the orange desk kicker (.nb-topic) is kept. */

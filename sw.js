@@ -28,7 +28,7 @@
 // stale-while-revalidate path would otherwise serve once more. Bumped to flush
 // the pre-PTR /menu/ shell (it had no ptr.js, so its dark inline html showed as
 // a black band on pull and it couldn't self-update).
-const CACHE = "wire-shell-v9";   // bumped: Home now loads the compact /home-data.js slice (added to DATA_PATHS + precache); forces a fresh SW activation so clients pick up the new data-path handling
+const CACHE = "wire-shell-v10";  // bumped: changing this file's bytes makes the browser detect a new SW → skipWaiting + clients.claim + PURGE every old cache on activation, so clients stuck on a stale app shell (installed PWAs that a plain reload didn't update) pull the fresh build — the one carrying the reader-pane fixes (bounded fetch + retry, UI timeout) — on their next launch
 // The no-cache data modules (see _headers). Cached under their bare pathname —
 // importers reference them with assorted stale ?v= tokens; the bodies are
 // identical, so all variants map to one entry.

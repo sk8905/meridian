@@ -97,14 +97,19 @@ const b = await launchChromium();
   checkEq(sticky.pos, "sticky", "phone: the snapshot strip is position:sticky (pins at the top of the briefing)");
   checkEq(sticky.top, "0px", "phone: the snapshot strip pins to top:0 of the scrolling briefing body");
   // Scroll the briefing body down; the strip must stay pinned at the body's top (the
-  // prose scrolls beneath it) rather than scrolling away with the content.
+  // prose scrolls beneath it) rather than scrolling away with the content. A tight brief
+  // can be shorter than the pane, so append a tall spacer first to guarantee scroll room —
+  // the pin behaviour is what's under test, not the brief's length.
   const pinned = await pg.evaluate(() => {
     const body = document.querySelector("#g-hbrief .g-hbrief-body");
     const strip = document.getElementById("g-hbrief-strip");
     if (!body || !strip) return null;
+    const spacer = document.createElement("div"); spacer.style.height = "600px"; body.appendChild(spacer);
     body.scrollTop = Math.max(60, body.scrollHeight - body.clientHeight);
     const br = body.getBoundingClientRect(), sr = strip.getBoundingClientRect();
-    return { scrolled: body.scrollTop, deltaTop: Math.round(sr.top - br.top) };
+    const res = { scrolled: body.scrollTop, deltaTop: Math.round(sr.top - br.top) };
+    spacer.remove();
+    return res;
   });
   check(pinned && pinned.scrolled > 10, `phone: the briefing body actually scrolled (${pinned && pinned.scrolled}px)`);
   check(pinned && Math.abs(pinned.deltaTop) <= 2, `phone: the strip stays pinned at the top of the body after scrolling (offset ${pinned && pinned.deltaTop}px)`);

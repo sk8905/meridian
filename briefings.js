@@ -48,6 +48,12 @@
 // insurance" but "Blue Owl ($319bn AUM) is pushing into insurance capital: CEO
 // Ostrover wants a larger insurance balance sheet to fund bespoke private-credit
 // deals, backing insurers rather than buying one outright."
+// KEEP IT TIGHT — the desktop card lays the four desks out as side-by-side columns in
+// a fixed quadrant, so an over-long bullet overflows/clips it. One or two sentences per
+// desk, roughly 30–45 words: lead with the fact + its number, then the single most
+// important qualifier, and stop. Pack the figure in; drop connective filler ("as demand
+// cools and non-OPEC output fills the gap", "with near-term cuts now off the table").
+// tests/briefing-empty-bullet.mjs flags a body that runs too long.
 //
 // ATTRIBUTION — STATE THE NEWS, DON'T NARRATE THE REPORTING. Each bullet states the
 // news directly as fact; NEVER attribute it via the publication's act of reporting —
@@ -77,11 +83,11 @@ export const BRIEFINGS = {
       date: "2026-10-07",
       time: "08:15 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; the energy shock has proved more manageable than feared</strong>: with the Strait of Hormuz shut since February, roughly 11% of world oil supply is offline or stranded and Brent spiked near $120 a barrel at its peak, yet analysts now see it averaging about $89 this year as demand cools and non-OPEC output fills the gap.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; India raised its repo rate 25bp to 5.50%</strong>, its first hike since February 2023, as a weak rupee and Middle East-driven imported inflation push the Reserve Bank to &lsquo;calibrated tightening&rsquo; with near-term cuts now off the table.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to 5.27%</strong> after touching 5.35% on Monday, its highest since 2002, while French spreads narrowed after Marine Le Pen vowed to cut the deficit &mdash; a pause in the euro-area debt sell-off.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.66% to a fresh record</strong>, its first all-time high since August and led by the AI mega-caps, with third-quarter S&amp;P 500 earnings now forecast up 29.5% year on year as reporting season opens next week.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times" },
-        { html: "<strong>Credit &mdash; Blue Owl ($319bn AUM) is pushing into insurance capital</strong>: chief executive Marc Ostrover wants a larger insurance balance sheet to fund bespoke private-credit solutions, and the firm plans to back insurers rather than buy one outright, hiring Deva Mishra to lead the effort.", src: "https://www.ft.com/content/47c82e53-aa63-4b0d-95fd-ecc04d81e6ab", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the energy shock has proved more manageable than feared</strong>: with Hormuz shut since February, about 11% of world oil supply is offline and Brent spiked near $120, yet analysts now see it averaging about $89 a barrel this year.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; India raised its repo rate 25bp to 5.50%</strong>, its first hike since February 2023, as a weak rupee and Middle East-driven imported inflation push the central bank to &lsquo;calibrated tightening&rsquo;.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to 5.27%</strong> after touching 5.35% on Monday, its highest since 2002, while French spreads narrowed after Marine Le Pen vowed to cut the deficit.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.66% to a fresh record</strong>, its first all-time high since August, led by the AI mega-caps, with third-quarter earnings now forecast up 29.5% year on year.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times" },
+        { html: "<strong>Credit &mdash; Blue Owl ($319bn AUM) is pushing into insurance capital</strong>: CEO Marc Ostrover wants a bigger insurance balance sheet to fund bespoke private-credit deals, backing insurers rather than buying one outright.", src: "https://www.ft.com/content/47c82e53-aa63-4b0d-95fd-ecc04d81e6ab", srcName: "Financial Times" },
       ],
     },
     afternoon: {

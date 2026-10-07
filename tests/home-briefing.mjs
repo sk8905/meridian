@@ -50,13 +50,14 @@ const b = await launchChromium();
       });
     })();
     const noOrangeKicker = el.querySelectorAll(".g-hbrief-b .nb-topic").length === 0;
-    // The desks lay out as a COLUMN GRID (one card per desk) under a hairline that
-    // separates them from the header above (the rule lives on the grid container).
+    // The desks lay out as a COLUMN GRID (one card per desk) sitting DIRECTLY under
+    // the header — no top rule/gap (that wasted a row of quadrant height and pushed the
+    // columns into overflow; the hairline + 10px margin/padding were removed).
     const desksGrid = (() => {
       const list = el.querySelector(".g-hbrief-list");
       if (!list) return false;
       const cs = getComputedStyle(list);
-      return cs.display === "grid" && parseFloat(cs.borderTopWidth) >= 1;
+      return cs.display === "grid" && parseFloat(cs.borderTopWidth) === 0 && parseFloat(cs.marginTop) <= 6;
     })();
     const box = (n) => { const b = n.getBoundingClientRect(); return { top: Math.round(b.top), bottom: Math.round(b.bottom), left: Math.round(b.left), right: Math.round(b.right) }; };
     const eb = box(el), hb = hero && box(hero), fb = feedWrap && box(feedWrap);
@@ -107,7 +108,7 @@ const b = await launchChromium();
   check(r.hasSourceLinks, "desktop: each desk links to its source(s) (.g-hbrief-src → publisher, new tab)");
   check(!r.attribLeak, "desktop: the inline '…X reports' attribution is stripped from the briefing prose");
   check(r.noOrangeKicker, "desktop: no inline .nb-topic desk kicker survives in the bullets");
-  check(r.desksGrid, "desktop: the desks lay out as a column grid under a hairline below the header");
+  check(r.desksGrid, "desktop: the desks lay out as a column grid directly under the header — no top rule/gap");
   check(r.oneItemPerSection, `desktop: each desk is ONE continuous combined item (same-desk stories folded, not stacked) (${r.itemCount} items / ${r.sections} sections)`);
   check(r.oneKickerPerSection && r.kickersUnique, `desktop: one section per desk — no repeated desk heading (${r.kickers.join(", ")})`);
   check(r.leftOfHero && r.aboveFeed && r.rowAlignedWithHero, "desktop: the briefing is the top-left quadrant of the 2×2 (left of the chart, above the news wire)");
