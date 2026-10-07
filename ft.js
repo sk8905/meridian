@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ec8b74b6-0cf7-4ded-abd4-85bde8a80df4",
+    title: "AI upends Singapore’s ‘quant Olympics’",
+    date: "2026-10-07",
+    time: "22:00",
+    url: "https://www.ft.com/content/ec8b74b6-0cf7-4ded-abd4-85bde8a80df4",
+  },
+  {
+    id: "acca8690-c230-4abc-b2c5-4a1d2f082753",
+    title: "Fed minutes indicate broad agreement for another rate rise this year",
+    date: "2026-10-07",
+    time: "21:18",
+    url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753",
+  },
+  {
     id: "2cb13aed-f6bf-4f45-b906-fa1194405a0c",
     title: "Iran war blows near-£12bn hole in Britain’s public finances",
     date: "2026-10-07",
@@ -33,6 +47,20 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "20:02",
     url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af",
+  },
+  {
+    id: "2761b6af-df11-49e8-a348-792a9597c9af",
+    title: "Diesel price jumps after IEA says no additional fuel will be released",
+    date: "2026-10-07",
+    time: "20:02",
+    url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af",
+  },
+  {
+    id: "404bfe74-3778-4acc-8a01-329a6744b078",
+    title: "Marco Rubio urges western countries to uphold traditional values",
+    date: "2026-10-07",
+    time: "19:55",
+    url: "https://www.ft.com/content/404bfe74-3778-4acc-8a01-329a6744b078",
   },
   {
     id: "404bfe74-3778-4acc-8a01-329a6744b078",
@@ -82,20 +110,6 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "18:07",
     url: "https://www.ft.com/content/20557850-9cd1-4685-8238-f292023afc1f",
-  },
-  {
-    id: "2761b6af-df11-49e8-a348-792a9597c9af",
-    title: "Diesel price jumps after IEA says no additional fuel will be released",
-    date: "2026-10-07",
-    time: "20:02",
-    url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af",
-  },
-  {
-    id: "404bfe74-3778-4acc-8a01-329a6744b078",
-    title: "Marco Rubio urges western countries to uphold traditional values",
-    date: "2026-10-07",
-    time: "19:55",
-    url: "https://www.ft.com/content/404bfe74-3778-4acc-8a01-329a6744b078",
   },
   {
     id: "21d4101f-ba5e-49e9-8c38-6b38ed5f1ca3",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "12:06",
     url: "https://www.ft.com/content/aed8a3e0-04d8-4037-b1d7-8a87d0bc9abd",
-  },
-  {
-    id: "ad767b0a-d6c4-4728-b82d-56a33154ddd8",
-    title: "Volkswagen sets aside £725mn for car mis-selling scandal",
-    date: "2026-10-07",
-    time: "12:05",
-    url: "https://www.ft.com/content/ad767b0a-d6c4-4728-b82d-56a33154ddd8",
-  },
-  {
-    id: "a7af63b4-70de-4c08-8aa1-1eb2298d7f2f",
-    title: "UK urged to impose tariffs on Chinese chemical at centre of EU trade dispute",
-    date: "2026-10-07",
-    time: "11:56",
-    url: "https://www.ft.com/content/a7af63b4-70de-4c08-8aa1-1eb2298d7f2f",
   },
 ];
