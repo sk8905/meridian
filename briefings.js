@@ -59,9 +59,10 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-07",
-      time: "05:20 BST",
+      time: "08:15 BST",
       bullets: [
         { html: "<strong>Macro &mdash; the disruption to oil supply, oil prices and the world economy from the energy shock has been surprisingly manageable so far</strong>.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; India raised interest rates for the first time in three years</strong>, joining the global tightening drive as the IMF&rsquo;s Georgieva urges governments to rein in spending.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times" },
         { html: "<strong>Bonds &mdash; French yield spreads retreated after Marine Le Pen vowed to cut the deficit</strong>, a pause in the euro-area debt sell-off while the US 10-year Treasury yield sits around its 2007 high of about 5.3%.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
         { html: "<strong>Equities &mdash; the S&amp;P 500 closed Tuesday at an all-time high, its first since August</strong>, on AI-led gains; third-quarter S&amp;P 500 earnings are forecast to rise 27% as the reporting season begins next week.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times" },
         { html: "<strong>Credit &mdash; Blue Owl is preparing a &lsquo;big push&rsquo; into insurance</strong>.", src: "https://www.ft.com/content/47c82e53-aa63-4b0d-95fd-ecc04d81e6ab", srcName: "Financial Times" },
