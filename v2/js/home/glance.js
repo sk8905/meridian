@@ -3048,24 +3048,35 @@ function _rowOpensInPane(row) {
 // pane, and the open story's row stays SHADED across the repaint (_markReadingRow re-applies
 // .is-reading by the persisted selection key) as long as that story is still in the feed. R3a.
 let _readDefaultOpened = false;
+// The saved selection to restore on this load (captured ONCE at module load, BEFORE any
+// fallback open can overwrite m_read_last). The feed fills in passes — home-data first,
+// then /api/feed news — so the saved story's row may not exist on the first render; we
+// must not lock the auto-open to a fallback and lose the restore (R3a / observed flake).
+let _restorePending = (() => { try { return localStorage.getItem("m_read_last") || null; } catch { return null; } })();
+let _userPickedRead = false;   // set once the reader opens a story the user actually tapped
 function syncReadDefault() {
   const read = document.getElementById("g-read");
   if (!read || read.offsetParent === null) return;                          // mobile / hidden
-  if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // a row is already highlighted — keep it
-  if (_readDefaultOpened) return;                                           // already auto-opened this load — don't re-jump
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
   if (!rows.length) return;                                                 // feed not populated yet — retry next render
-  // Restore the last-selected story if it is still in the feed AND openable; else default to
-  // the first openable story (rows are newest-first; fall back to the very first if all locked).
-  let pick = null;
-  try { const last = localStorage.getItem("m_read_last"); if (last) pick = rows.find((r) => _rowKey(r) === last); } catch { /* private mode */ }   // restore the exact selection (even a locked preview)
-  if (!pick) pick = rows.find(_rowOpensInPane) || rows[0];                   // default: the first openable story
+  // Restore the saved story as soon as its row is in the feed — even if an earlier render
+  // had to open a fallback while the feed was still filling. Yield the restore once the
+  // user has picked their own story (don't yank the pane out from under them).
+  if (_restorePending && !_userPickedRead) {
+    const saved = rows.find((r) => _rowKey(r) === _restorePending);
+    if (saved) { openInReadPane(saved); try { saved.scrollIntoView({ block: "nearest" }); } catch { /* older engines */ } _restorePending = null; _readDefaultOpened = true; return; }
+  }
+  if (document.querySelector("#g-feed .g-feed-row.is-reading")) return;     // a row is already highlighted — keep it
+  if (_readDefaultOpened) return;                                           // already auto-opened this load — don't re-jump
+  // Saved story not in the feed yet → open the first openable story so the pane is never
+  // empty (rows are newest-first; fall back to the very first if all locked). Only LOCK the
+  // auto-open when there is no pending restore — otherwise keep retrying above as later
+  // renders add rows, so the saved story still wins when it finally loads.
+  const pick = rows.find(_rowOpensInPane) || rows[0];
   if (pick) {
-    openInReadPane(pick); _readDefaultOpened = true;
-    // Bring the shaded selection into view, so a RESTORED story buried below today's
-    // items (its .is-reading row) is visible rather than silently off-screen — the user
-    // can see which story the pane is showing. A no-op when the pick is already on screen.
+    openInReadPane(pick);
     try { pick.scrollIntoView({ block: "nearest" }); } catch { /* older engines */ }
+    if (!_restorePending) _readDefaultOpened = true;
   }
 }
 function ensureReadWired() {
@@ -3075,6 +3086,7 @@ function ensureReadWired() {
   feed.addEventListener("click", (e) => {
     if (e.target.closest("[data-follow], .g-mw-exp")) return;               // in-row controls
     const row = e.target.closest(".g-feed-row"); if (!row) return;          // (source name included → opens in-pane)
+    _userPickedRead = true;                                                 // a deliberate pick — don't let a late restore override it
     const read = document.getElementById("g-read");
     if (read && read.offsetParent !== null) {                               // desktop → side pane
       e.preventDefault(); e.stopPropagation();

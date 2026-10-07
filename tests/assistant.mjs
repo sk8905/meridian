@@ -167,9 +167,11 @@ await pg.route("**/api/ask", (route) => {
   route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: `Answer number ${askN}.`, sources: [{ url: "https://example.com/s" + askN, title: "Source " + askN }] }) });
 });
 await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "First question about Apollo?"; c.querySelector(".na-ask-form").requestSubmit(); });
-await pg.waitForTimeout(400);
+// Wait for the first answer before the follow-up (the form is busy until it lands;
+// a fixed wait races under parallel load). Pass `undefined` so {timeout} is options.
+await pg.waitForFunction(() => document.querySelectorAll("#v2-menu-omni .na-ask-answer").length >= 1, undefined, { timeout: 15000 });
 await pg.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "And its AUM?"; c.querySelector(".na-ask-form").requestSubmit(); });
-await pg.waitForTimeout(400);
+await pg.waitForFunction(() => document.querySelectorAll("#v2-menu-omni .na-ask-answer").length >= 2, undefined, { timeout: 15000 });
 const chat = await pg.evaluate(() => {
   const c = document.querySelector("#v2-menu-omni");
   const turns = [...c.querySelectorAll(".na-chat-turn")];
@@ -326,9 +328,14 @@ await ctx.close();
   check(empty.suggs.every((s) => /^\S+$/.test(s)), `each suggested topic is one word (${empty.suggs.join(", ")})`);
   await pp.route("**/api/ask", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ answer: "Answer text.", sources: [{ url: "https://example.com/", title: "Src" }] }) }));
   await pp.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "First?"; c.querySelector(".na-ask-form").requestSubmit(); });
-  await pp.waitForTimeout(400);
+  // Wait for the FIRST turn's ANSWER to render before sending the second — the form
+  // is busy (showing .na-load) until the answer lands, so submitting "Second?" early
+  // is a no-op. A fixed 400ms wait raced under parallel CPU load; waiting on the
+  // actual answer element is deterministic. (Pass `undefined` arg so {timeout} is the
+  // options param, not the predicate's arg.)
+  await pp.waitForFunction(() => document.querySelectorAll("#v2-menu-omni .na-ask-answer").length >= 1, undefined, { timeout: 15000 });
   await pp.evaluate(() => { const c = document.querySelector("#v2-menu-omni"); c.querySelector(".na-ask-in").value = "Second?"; c.querySelector(".na-ask-form").requestSubmit(); });
-  await pp.waitForTimeout(400);
+  await pp.waitForFunction(() => document.querySelectorAll("#v2-menu-omni .na-ask-answer").length >= 2, undefined, { timeout: 15000 });
   const dock = await pp.evaluate(() => {
     const c = document.querySelector("#v2-menu-omni");
     const view = document.querySelector('.v2-view[data-view="menu"]');

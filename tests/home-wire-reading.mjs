@@ -228,7 +228,9 @@ if (srcLink) {
 // Reading-pane selection: a story is auto-selected by default, and the LAST-SELECTED story
 // is restored across a reload (not reset to the newest).
 await lane(pg, "All");
-await pg.waitForTimeout(250);
+// Wait for the default auto-selection to land (a fixed 250ms wait races under
+// parallel CPU load — the flake this removes).
+await pg.waitForFunction(() => !!document.querySelector("#g-feed .g-feed-row.is-reading"), { timeout: 8000 }).catch(() => {});
 const autoSel = await pg.evaluate(() => !!document.querySelector("#g-feed .g-feed-row.is-reading"));
 check(autoSel, "reading pane: a story is auto-selected by default on load (no empty pane)");
 // Open a LATER openable story (not the first), remember it, then reload.
@@ -238,7 +240,8 @@ const chosen = await pg.evaluate(() => {
   row.click();
   return { key: row.getAttribute("data-sid") || row.getAttribute("href"), title: (row.querySelector(".g-feed-title") || {}).textContent.replace(/^★\s*/, "").trim() };
 });
-await pg.waitForTimeout(300);
+// Wait for the click's selection to persist (a fixed 300ms wait races under load).
+await pg.waitForFunction((k) => { try { return k && localStorage.getItem("m_read_last") === k; } catch { return false; } }, chosen && chosen.key, { timeout: 8000 }).catch(() => {});
 // The persisted selection key is remembered for the reload to restore.
 const storedKey = await pg.evaluate(() => { try { return localStorage.getItem("m_read_last"); } catch { return null; } });
 check(storedKey && chosen && storedKey === chosen.key, `reading pane: the selection is remembered (m_read_last = ${storedKey})`);
