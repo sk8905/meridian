@@ -654,6 +654,15 @@ quiet slot gets a short output, not padding.
   **No Overview lede:** the synthesis `lede` is RETIRED — it is not rendered, so do
   NOT author one (the field is optional/deprecated and may be omitted entirely).
   Update the slot's `date`/`time` to the run stamp.
+  **FRESHNESS — every bullet is CURRENT as of the refresh (strict).** Give each bullet a
+  `date` field = the cited item's REAL publication date (`"YYYY-MM-DD"`), and only include
+  items within **4 days** of the slot date. Never reach back for a stale deal to fill a
+  desk: the **Credit desk goes quiet for days** (see the "multi-day gap is a RED FLAG" sweep
+  rule above) — when a sweep finds NO fresh, verified Credit item this run, DROP the Credit
+  bullet for the slot rather than re-running an 11-day-old deal. Macro/Bonds/Equities are
+  always current (daily market levels), so they stay; Credit is optional. Enforced by
+  `tests/briefing-empty-bullet.mjs` — a bullet with no `date`, or one >4 days older than its
+  slot, fails the suite and blocks the deploy.
   **Never ship a kicker with no body.** Every bullet's `html` must carry a real
   body sentence AFTER its `<strong>Desk &mdash;` kicker — a bullet that is only a
   kicker (headline written before its sentence) rendered as a bare desk heading

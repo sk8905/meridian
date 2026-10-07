@@ -744,6 +744,14 @@ notification badge red (`#ef4444`).
   is available** (optional). This is a hard gate on the committed data — `tests/briefing-empty-bullet.mjs`
   turns the suite red (blocking deploy) if any slot's Macro/Bonds/Equities desk has no pillable
   instrument, and its `pillable` regex is kept in lockstep with glance.js `BRIEF_YIELDS`/`BRIEF_INDEX`/`BRIEF_COMMODITY`.
+  **FRESHNESS — briefing news is CURRENT as of the refresh (strict).** Every bullet carries a
+  `date` (the cited item's real `"YYYY-MM-DD"`) and it must be within **4 days of its slot date** —
+  the card never surfaces stale news. The **Credit desk goes quiet for days**; when a desk has no
+  fresh, verified item this run, **DROP that desk's bullet for the slot rather than back-fill a
+  stale deal** (Macro/Bonds/Equities stay — their daily market levels are always current; Credit is
+  optional). `tests/briefing-empty-bullet.mjs` fails any bullet with no `date` or one more than 4
+  days older than its slot (so an 11-day-old deal can't reach the card). This ties to the Credit
+  desk's "a multi-day gap is a RED FLAG" sweep rule in `docs/refresh-routines.md`.
   **Equities are resolved LIVE** via **`/api/secq`** → `handleSecq`: Yahoo **search** for
   candidates, then a **market-cap tiebreaker** over them (crumb-gated `/v7/quote`, cookie+crumb
   cached in KV) so the biggest listing wins — "Honeywell" → **HON**, not HONA. Resolutions,

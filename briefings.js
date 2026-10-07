@@ -70,7 +70,15 @@
 // GROUNDING (HOUSE_STYLE / non-negotiables): a briefing is a SUMMARY of items
 // Wire already holds — every bullet carries a real `src` URL to the wire/desk item
 // it compresses. No invented figures, no uncited claims. A thin news slot gets a
-// short briefing, never padding. Both the `lede` and each bullet `html` are
+// short briefing, never padding.
+// FRESHNESS — every bullet must be CURRENT as of the refresh. Each bullet carries a
+// `date` (the cited item's real "YYYY-MM-DD"), and it must be within ~4 days of the
+// slot date — the briefing never surfaces stale news. The Credit desk in particular
+// goes quiet for days; when a desk has NO fresh, verified item this run, DROP that
+// desk's bullet for the slot rather than back-filling a stale deal (Macro/Bonds/
+// Equities stay — their daily market levels are always current; Credit is optional).
+// Enforced on the committed data by tests/briefing-empty-bullet.mjs (a bullet older
+// than 4 days, or with no date, fails the suite and blocks deploy). Both the `lede` and each bullet `html` are
 // authored, trusted HTML (entities like &pound;/&mdash; render). Served no-cache +
 // tokenless (see _headers), so a routine refresh is picked up without a code token
 // bump (HOUSE_STYLE T1). The lede is a TOP-LINE SYNTHESIS of the day's arc — it must
@@ -87,11 +95,10 @@ export const BRIEFINGS = {
       date: "2026-10-07",
       time: "08:15 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; the energy shock has proved more manageable than feared</strong>: with Hormuz shut since February, about 11% of world oil supply is offline and Brent spiked near $120, yet analysts now see it averaging about $89 a barrel this year.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; India raised its repo rate 25bp to 5.50%</strong>, its first hike since February 2023, as a weak rupee and Middle East-driven imported inflation push the central bank to &lsquo;calibrated tightening&rsquo;.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to 5.27%</strong> after touching 5.35% on Monday, its highest since 2002, while French spreads narrowed after Marine Le Pen vowed to cut the deficit.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.66% to a fresh record</strong>, its first all-time high since August, led by the AI mega-caps, with third-quarter earnings now forecast up 29.5% year on year.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times" },
-        { html: "<strong>Credit &mdash; Blue Owl ($319bn AUM) is pushing into insurance capital</strong>: CEO Marc Ostrover wants a bigger insurance balance sheet to fund bespoke private-credit deals, backing insurers rather than buying one outright.", src: "https://www.ft.com/content/47c82e53-aa63-4b0d-95fd-ecc04d81e6ab", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; the energy shock has proved more manageable than feared</strong>: with Hormuz shut since February, about 11% of world oil supply is offline and Brent spiked near $120, yet analysts now see it averaging about $89 a barrel this year.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Macro &mdash; India raised its repo rate 25bp to 5.50%</strong>, its first hike since February 2023, as a weak rupee and Middle East-driven imported inflation push the central bank to &lsquo;calibrated tightening&rsquo;.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to 5.27%</strong> after touching 5.35% on Monday, its highest since 2002, while French spreads narrowed after Marine Le Pen vowed to cut the deficit.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg", date: "2026-10-07" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.66% to a fresh record</strong>, its first all-time high since August, led by the AI mega-caps, with third-quarter earnings now forecast up 29.5% year on year.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times", date: "2026-10-07" },
       ],
     },
     afternoon: {
@@ -100,10 +107,10 @@ export const BRIEFINGS = {
       time: "14:22 BST",
       lede: "A renewed global bond sell-off has pushed the 30-year Treasury yield to its highest since 2002, with the energy shock and UK fiscal worries framing the afternoon.",
       bullets: [
-        { html: "<strong>Macro &mdash; the Hormuz energy shock keeps biting</strong>: with Brent crude still elevated, ships&rsquo; captains are being paid $100,000 a month to transit the strait, while President Trump says he is considering suspending the federal petrol tax.", src: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the global bond sell-off resumed</strong>, with the US 30-year Treasury yield at its highest since 2002 and the 10-year near 5.27%, as the Banque de France chief said ECB intervention is not needed to ease the rout.", src: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 is holding at a record after a 0.66% gain</strong> on AI mega-cap strength, while Japan prepares a record revamp cutting hundreds of stocks from the Topix index.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg" },
-        { html: "<strong>Credit &mdash; Hayfin provided &euro;305m of financing to Condis</strong> to support management and Portobello in its next phase of growth, among the latest European direct-lending deals tracked on Wire.", src: "https://www.hayfin.com/hayfin-provides-e305m-financing-to-condis-to-support-management-and-portobello-in-its-next-phase-of-growth/", srcName: "Hayfin" },
+        { html: "<strong>Macro &mdash; the Hormuz energy shock keeps biting</strong>: with Brent crude still elevated, ships&rsquo; captains are being paid $100,000 a month to transit the strait, while President Trump says he is considering suspending the federal petrol tax.", src: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Bonds &mdash; the global bond sell-off resumed</strong>, with the US 30-year Treasury yield at its highest since 2002 and the 10-year near 5.27%, as the Banque de France chief said ECB intervention is not needed to ease the rout.", src: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 is holding at a record after a 0.66% gain</strong> on AI mega-cap strength, while Japan prepares a record revamp cutting hundreds of stocks from the Topix index.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg", date: "2026-10-07" },
+        { html: "<strong>Credit &mdash; Arini raised $1.5 billion for its credit trading strategy</strong>, reopening it to new cash after two years even as its main hedge fund extended losses to a 13.5% decline.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg", date: "2026-10-05" },
       ],
     },
     evening: {
@@ -111,12 +118,11 @@ export const BRIEFINGS = {
       date: "2026-10-07",
       time: "00:12 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; Spain&rsquo;s Pedro S&aacute;nchez is gambling on a snap election</strong>, while in France Marine Le Pen pledged to rein in public spending as euro-area political risk keeps markets on edge.", src: "https://www.ft.com/content/a7a19bb1-a1ba-4317-a191-c387bbc9f4b9", srcName: "Financial Times" },
-        { html: "<strong>Macro &mdash; Donald Trump said he is considering suspending the federal petrol tax</strong> as Brent crude stays elevated after the Hormuz disruption.", src: "https://www.ft.com/content/3fd43fc5-4973-4a26-9d9c-47b6361e6217", srcName: "Financial Times" },
-        { html: "<strong>Bonds &mdash; the global government-bond sell-off remains the dominant theme</strong>, with the US 10-year Treasury yield at 5.27% and France caught between the bond market and the barricades ahead of its elections, after the euro fell to a 17-month low against the dollar on Monday.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high, up 0.6% to around 7,820,</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times" },
-        { html: "<strong>Credit &mdash; Arini raised $1.5 billion for its credit trading strategy</strong>, reopening it to new cash after two years even as its main hedge fund extended losses to a 13.5% decline.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg" },
-        { html: "<strong>Credit &mdash; Ion has told creditors it will not play hardball over its $11bn debt pile</strong>.", src: "https://www.ft.com/content/fba91434-70d3-40e6-adb1-8d0c5d6f4fe6", srcName: "Financial Times" },
+        { html: "<strong>Macro &mdash; Spain&rsquo;s Pedro S&aacute;nchez is gambling on a snap election</strong>, while in France Marine Le Pen pledged to rein in public spending as euro-area political risk keeps markets on edge.", src: "https://www.ft.com/content/a7a19bb1-a1ba-4317-a191-c387bbc9f4b9", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Macro &mdash; Donald Trump said he is considering suspending the federal petrol tax</strong> as Brent crude stays elevated after the Hormuz disruption.", src: "https://www.ft.com/content/3fd43fc5-4973-4a26-9d9c-47b6361e6217", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Bonds &mdash; the global government-bond sell-off remains the dominant theme</strong>, with the US 10-year Treasury yield at 5.27% and France caught between the bond market and the barricades ahead of its elections, after the euro fell to a 17-month low against the dollar on Monday.", src: "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Equities &mdash; the S&amp;P 500 hit a record high, up 0.6% to around 7,820,</strong> as AI-linked stocks shrugged off the bond-market slump.", src: "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Credit &mdash; Arini raised $1.5 billion for its credit trading strategy</strong>, reopening it to new cash after two years even as its main hedge fund extended losses to a 13.5% decline.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg", date: "2026-10-05" },
       ],
     },
   },

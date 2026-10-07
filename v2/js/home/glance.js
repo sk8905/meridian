@@ -2478,8 +2478,18 @@ function _newsTs(x) {
 function mergeManagersIntoFeed() {
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
   const news = (_lastFeed || []).map((x) => ({ it: x, mgr: false, ts: _newsTs(x) }));
+  // DEDUPE manager events against the news feed. The SAME deal is routinely recorded both
+  // as a credit deal (CRD, already in _lastFeed) and as a manager-wire event (e.g. FIN), so
+  // without this the All lane shows it twice (observed: a Hayfin €305m financing as both
+  // CRD and FIN). Keep the news row (richer, desk-coded) and drop any manager event whose
+  // normalised title — or external URL — already appears on the feed.
+  const _ntitle = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const seenT = new Set(news.map((m) => _ntitle(m.it.title)).filter(Boolean));
+  const seenU = new Set(news.map((m) => m.it.href).filter(Boolean));
   const { events } = managerFlatEvents(false, "all");
-  const mgr = events.map((e) => ({ it: e, mgr: true, ts: e.ts || _newsTs(e) }));
+  const mgr = events
+    .filter((e) => !(seenT.has(_ntitle(e.title)) || (e.ext && e.source && seenU.has(e.source))))
+    .map((e) => ({ it: e, mgr: true, ts: e.ts || _newsTs(e) }));
   const merged = news.concat(mgr).sort((a, b) => b.ts - a.ts);
   let out = "", lastDay = "";
   for (const m of merged) {

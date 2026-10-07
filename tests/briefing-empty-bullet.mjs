@@ -93,6 +93,20 @@ const data = await pg.evaluate(async () => {
       // sentences (HOUSE_STYLE R28). 360 visible chars is the ceiling — well above a tight,
       // number-rich brief, so it only catches a genuine overrun.
       if (vl > 360) bad.push(`${k}[${i}]: over-long body (${vl} chars) — trim to ~1–2 sentences so it fits the desktop quadrant column (keep the figure, cut connective filler)`);
+      // FRESHNESS (HOUSE_STYLE R28): every bullet carries the cited item's real date, and it
+      // must be CURRENT as of the refresh — within 4 days of its slot (not future). A desk with
+      // no fresh item is DROPPED for that slot, never back-filled with a stale deal (the Credit
+      // desk goes quiet for days — this is what stops an 11-day-old deal reaching the card).
+      const bdate = (x && typeof x.date === "string") ? x.date : "";
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(bdate)) bad.push(`${k}[${i}]: missing/invalid date — every briefing bullet must carry the cited item's date (YYYY-MM-DD)`);
+      else {
+        const bt = Date.parse(bdate + "T00:00:00Z"), st = Date.parse(String(s.date || "") + "T00:00:00Z");
+        if (isFinite(bt) && isFinite(st)) {
+          const days = Math.round((st - bt) / 864e5);   // +ve = bullet OLDER than the slot
+          if (days > 4) bad.push(`${k}[${i}]: STALE — cited item ${bdate} is ${days}d older than the ${s.date} slot (max 4); briefing news must be current as of the refresh — drop the desk rather than surface a stale item`);
+          if (days < -1) bad.push(`${k}[${i}]: future-dated (${bdate} is after the ${s.date} slot)`);
+        }
+      }
     });
     // STRICT per-desk rule (HOUSE_STYLE R28): the Macro, Bonds and Equities desks must EACH
     // carry a bullet AND that desk must name a pill-detectable benchmark, so every brief shows
