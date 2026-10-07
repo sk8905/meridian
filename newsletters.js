@@ -45,6 +45,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-rokosreturn-20261007",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: "Author Alert",
+    title: "Hedge Fund Rokos Returned 4.2% in Turbulent Month for Trading",
+    date: "2026-10-07",
+    time: "19:05",
+    summary: "Chris Rokos's macro fund made 4.2% last month as many peers eked out meagre returns amid bond-market volatility.",
+    url: "https://www.bloomberg.com/news/articles/2026-10-07/hedge-fund-rokos-returned-4-2-in-turbulent-month-for-trading",
+  },
+  {
     id: "nl-legalbusiness-alert-bootsdeal-20261007",
     publication: "Legal Business",
     author: null,
@@ -472,27 +483,5 @@ export const NEWSLETTERS = [
     time: "08:00",
     summary: "Plus: What's in store for RTÉ's Montrose site.",
     url: "https://bpm.businesspost.ie/w/axhNScGGU9435d89200FnGng/Pe5PTEw0pLHXiV2kox0pPw/HjUPEM892FZ763YxvJQLJGanlw",
-  },
-  {
-    id: "nl-economist-worldinbrief-brazilrunoff-20261005",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: Bolsonaro and Lula go to a run-off in Brazil",
-    date: "2026-10-05",
-    time: "06:37",
-    summary: "Also: The Nobel prizes show their age.",
-    url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-euroslides-20261005",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "Euro Slides Over Mounting Fiscal and Political Concerns",
-    date: "2026-10-05",
-    time: "06:33",
-    summary: "Euro hits a 17-month low, US bombers leave RAF Fairford, and London's multimillion-pound homes face a new threat.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-05/euro-slides-over-mounting-fiscal-and-political-concerns",
   },
 ];

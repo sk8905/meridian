@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4f2417d3-3de6-4f62-bd3a-8c8f740a4b29",
+    title: "SpaceX credit risk jumps on worries over its borrowing spree",
+    date: "2026-10-07",
+    time: "19:05",
+    url: "https://www.ft.com/content/4f2417d3-3de6-4f62-bd3a-8c8f740a4b29",
+  },
+  {
+    id: "1aa5c0f1-962d-4164-a375-74ac4bdd9d25",
+    title: "Tory inheritance tax pledge: do the sums add up?",
+    date: "2026-10-07",
+    time: "18:58",
+    url: "https://www.ft.com/content/1aa5c0f1-962d-4164-a375-74ac4bdd9d25",
+  },
+  {
+    id: "b52c8acc-7ea5-4bd0-b26a-b9956e19867b",
+    title: "London hedge fund Arini falls 16 per cent on soured credit bets",
+    date: "2026-10-07",
+    time: "18:33",
+    url: "https://www.ft.com/content/b52c8acc-7ea5-4bd0-b26a-b9956e19867b",
+  },
+  {
+    id: "7380c978-9b65-4a07-8ce3-bdf88f2484d1",
+    title: "Kirkland & Ellis to stop disclosing financial performance",
+    date: "2026-10-07",
+    time: "18:30",
+    url: "https://www.ft.com/content/7380c978-9b65-4a07-8ce3-bdf88f2484d1",
+  },
+  {
+    id: "d72a1a53-4989-4e48-88e7-5ca467708823",
+    title: "Chrysler Building taken over as New York luxury office market booms",
+    date: "2026-10-07",
+    time: "18:20",
+    url: "https://www.ft.com/content/d72a1a53-4989-4e48-88e7-5ca467708823",
+  },
+  {
     id: "20557850-9cd1-4685-8238-f292023afc1f",
     title: "SEC warns asset managers against collaborating on activist campaigns",
     date: "2026-10-07",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "10:46",
     url: "https://www.ft.com/content/a5bd820e-fc7c-4414-ad90-f77bd7aa3a44",
-  },
-  {
-    id: "a21ec190-edcd-454e-886a-302b0a16ea82",
-    title: "AI agents could cost banks $500bn — by winning savers better rates",
-    date: "2026-10-07",
-    time: "09:51",
-    url: "https://www.ft.com/content/a21ec190-edcd-454e-886a-302b0a16ea82",
-  },
-  {
-    id: "8b0ad0c9-88a1-412e-8658-7f93f510d008",
-    title: "Five things Kemi Badenoch must do to win",
-    date: "2026-10-07",
-    time: "09:38",
-    url: "https://www.ft.com/content/8b0ad0c9-88a1-412e-8658-7f93f510d008",
-  },
-  {
-    id: "9e1cf8ac-68b7-44bf-8e99-0bc1c75e2c21",
-    title: "Tory conference live: Kemi Badenoch to address Conservative Party",
-    date: "2026-10-07",
-    time: "09:37",
-    url: "https://www.ft.com/content/9e1cf8ac-68b7-44bf-8e99-0bc1c75e2c21",
-  },
-  {
-    id: "87155c48-b8fc-4a24-bace-5d20b3f40162",
-    title: "Mike Ashley’s Frasers Group snaps up stake in Under Armour",
-    date: "2026-10-07",
-    time: "09:19",
-    url: "https://www.ft.com/content/87155c48-b8fc-4a24-bace-5d20b3f40162",
-  },
-  {
-    id: "84d9a203-7231-452d-846b-8e502ca2e2a5",
-    title: "Japan to slash hundreds of stocks from Topix index in record revamp",
-    date: "2026-10-07",
-    time: "09:15",
-    url: "https://www.ft.com/content/84d9a203-7231-452d-846b-8e502ca2e2a5",
   },
 ];
