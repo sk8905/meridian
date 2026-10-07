@@ -1285,6 +1285,16 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >    the legal equivalent, and Macro:
 >    `node --input-type=module -e "import('./macro/js/content.js').then(m=>console.log(m.META.lastChecked, m.BUBBLE.dimensions.length))"`
 >    plus `node --check src/index.js`.
+> 7b. RUN THE TEST SUITE — the pre-publish gate (NON-NEGOTIABLE; it is what stops a
+>    malformed briefing or data defect from deploying). After editing, run at least
+>    the data + briefing specs and only publish if GREEN:
+>    `node tests/run.mjs briefing-empty-bullet home-briefing briefing home-brief-tickers home-brief-freshness credit-roster-integrity manager-coverage tx-profiles-coverage feed-quality`
+>    (run it in the background and poll — it may exceed the 120s foreground limit).
+>    A FAILURE means the data you just wrote violates a house rule — FIX IT before
+>    pushing (e.g. a briefing slot must carry Macro/Bonds/Equities each with a
+>    pillable benchmark + a Bonds yield level + an Equities index level, ≤4 canonical
+>    desks, every bullet dated within 4 days — see HOUSE_STYLE R28). Prefer the FULL
+>    suite (`node tests/run.mjs`, ~2 min, 82 specs) when time allows; never push red.
 >
 > 8. HOUSE-STYLE QC — TEXT-SIZE CONFORMANCE (every run, not optional). The five-role
 >    type scale (`--fs-*` tokens in `premium.css` → "CANONICAL TYPE SCALE"; see the
