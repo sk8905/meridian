@@ -81,11 +81,25 @@ each entity's `name` (and any well-known short/alias form) as a search term:
     than 28 Sep for over a week while news/FT/newsletters kept updating — a routine
     miss, since private-credit dealmaking does not stop). Each run, before relying
     on a headline to surface, SWEEP the roster for new CLO pricings, fund closes,
-    direct-lending / financing deals, SRTs and restructurings (Creditflux,
+    direct-lending / financing deals, SRTs and restructurings, **AND senior
+    personnel / team moves (hires, departures, promotions → `intel` type
+    `Personnel`) and strategy / partnership / mandate news** (Creditflux,
     Alternative Credit Investor, Private Equity Wire, Businesswire, the managers'
     own press) and append the verified, dated ones. If a sweep genuinely finds
     nothing, say so explicitly in the run summary rather than leaving the gap
     unremarked. Give preference to the $1–15bn AUM band (the app's core band).
+  - **Cross-check the live newswire against the roster (critical — the two feeds
+    are SEPARATE).** The Home newswire (NWS/CRD/HDG/LEX) is the live RSS/API feed;
+    the Managers lane is built only from committed `deals`/`intel`/`webNews`. A
+    story can therefore sit in the newswire yet be ABSENT from the Managers lane
+    (observed 2026-10-07: "M&G rehires Duncan Batty as head of real estate finance",
+    Alternative Credit Investor — a Personnel event at covered manager M&G
+    (`m105`), in-window, never captured). So each run, scan the newswire items that
+    name a covered manager/fund/hedge fund and, for any that is a real transaction
+    or capital/personnel/strategy event, ADD the matching `deals`/`intel` record
+    (same date, headline, sourceUrl, correct `managerId`, `type` from the vocab,
+    `clo:true` where apt) so it also surfaces in the Managers lane — not only the
+    raw wire.
   - **Manager-profile depth — MANDATORY historical backfill to 2020 (HOUSE_STYLE
     R32).** The manager/profile surface is a material feature: **every** covered
     profile must carry history back to **2020** *and* current activity — not just
