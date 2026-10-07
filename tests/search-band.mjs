@@ -48,6 +48,14 @@ check(await pg.evaluate(() => !document.getElementById("mcmdk")), "palette is no
 await pg.evaluate(() => document.querySelector("#na-search").click());
 await pg.waitForSelector(".mcmdk.open", { timeout: 8000 });
 check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open .mcmdk-input")), "the header magnifier opens the command palette (lazy-loaded on first use)");
+// The search field (and its placeholder) must use the app BODY size — not the
+// oversized page-headline size the mobile overlay used to force (--fs-title). It
+// should match the document body / the result rows, like the rest of the app.
+const fsz = await pg.evaluate(() => ({
+  input: parseFloat(getComputedStyle(document.querySelector(".mcmdk.open .mcmdk-input")).fontSize),
+  body: parseFloat(getComputedStyle(document.body).fontSize),
+}));
+check(Math.abs(fsz.input - fsz.body) < 0.6, `phone: the search input uses the app body size (${fsz.input}px ≈ body ${fsz.body}px), not the page-title size`);
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(200);
 
 // (The standalone Macro/Credit/Legal desk surfaces are retired — the search band lives

@@ -182,7 +182,7 @@ html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;
   .mcmdk-panel{position:fixed;top:0;left:0;right:0;bottom:0;margin:0;max-width:none;width:100vw;height:auto;max-height:none;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#05080f)}
   .mcmdk-bar{flex:0 0 auto;gap:9px;padding:6px 8px 6px 13px;padding-top:calc(env(safe-area-inset-top,0px) + 8px);background:var(--head,#080d17);border-bottom:1px solid var(--border,#232f47)}
   .mcmdk-mag{display:block;flex:0 0 auto;width:18px;height:18px;color:var(--faint,#5c6a86)}
-  .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:var(--fs-title)}
+  .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:var(--fs-body)}
   .mcmdk-cancel{display:block;flex:0 0 auto;border:0;background:transparent;color:var(--accent,#fb8b1e);font:inherit;font-size:var(--fs-head);font-weight:600;padding:.4rem .35rem;cursor:pointer;white-space:nowrap}
   .mcmdk-results{flex:1 1 auto;max-height:none;padding:0 0 48vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .mcmdk-row{padding:9px 14px}
