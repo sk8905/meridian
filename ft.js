@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "edb717f9-6512-424c-a3a5-50e43239adf8",
+    title: "Tips and Linkers",
+    date: "2026-10-08",
+    time: "06:30",
+    url: "https://www.ft.com/content/edb717f9-6512-424c-a3a5-50e43239adf8",
+  },
+  {
+    id: "2ce052aa-6212-4d4d-99f0-6edacd254e4d",
+    title: "FTAV’s further reading",
+    date: "2026-10-08",
+    time: "06:30",
+    url: "https://www.ft.com/content/2ce052aa-6212-4d4d-99f0-6edacd254e4d",
+  },
+  {
     id: "166d0909-235d-4402-8ed7-d42d59401f6c",
     title: "Šefčovič goes to Beijing with a final plea to avoid an EU-China trade war",
     date: "2026-10-08",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "17:56",
     url: "https://www.ft.com/content/32e1c801-fe7d-4389-b3fc-ab687cbb087b",
-  },
-  {
-    id: "8b9709f4-fc67-488d-ace6-8a5e2bcb775b",
-    title: "London gold market body accused of causing deaths of two miners",
-    date: "2026-10-07",
-    time: "17:53",
-    url: "https://www.ft.com/content/8b9709f4-fc67-488d-ace6-8a5e2bcb775b",
-  },
-  {
-    id: "1f101722-bfb7-4872-b7d9-70039c981615",
-    title: "Merz’s conservatives in new crisis over alleged support for AfD",
-    date: "2026-10-07",
-    time: "17:24",
-    url: "https://www.ft.com/content/1f101722-bfb7-4872-b7d9-70039c981615",
   },
 ];
