@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "fbe78f9b-e71d-49dc-b03b-e762e073b658",
+    title: "Singapore gears up for smog-choked Grand Prix",
+    date: "2026-10-08",
+    time: "22:00",
+    url: "https://www.ft.com/content/fbe78f9b-e71d-49dc-b03b-e762e073b658",
+  },
+  {
+    id: "dbcc35ba-db23-4be3-b2c0-4a0d8ecb7375",
+    title: "US justice department orders playbook refresh for frauds on government",
+    date: "2026-10-08",
+    time: "21:35",
+    url: "https://www.ft.com/content/dbcc35ba-db23-4be3-b2c0-4a0d8ecb7375",
+  },
+  {
     id: "19a73ec7-a014-4776-bef7-4aa34e5b543a",
     title: "US adds torture charges to case against former Venezuelan president",
     date: "2026-10-08",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "10:00",
     url: "https://www.ft.com/content/dbd6e14c-2d47-4f6b-9981-98a42e172097",
-  },
-  {
-    id: "d51a78a8-67d8-45bd-b32c-1eafe39a0794",
-    title: "Submit a question: What is driving the global bond sell-off?",
-    date: "2026-10-08",
-    time: "09:50",
-    url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794",
-  },
-  {
-    id: "771d64f2-dacf-4c12-83c2-e6bc97c0161a",
-    title: "Kemi Badenoch’s speech drew a moral dividing line between Tories and Reform",
-    date: "2026-10-08",
-    time: "09:30",
-    url: "https://www.ft.com/content/771d64f2-dacf-4c12-83c2-e6bc97c0161a",
   },
 ];

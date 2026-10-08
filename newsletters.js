@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-paintradestrikes-20261008",
+    publication: "Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "The pAIn trade strikes",
+    date: "2026-10-08",
+    time: "22:04",
+    summary: "Spotlight turns to US payrolls.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-preipoperpetualfuturesswapetf-20261008",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -476,16 +487,5 @@ export const NEWSLETTERS = [
     time: "12:01",
     summary: "How the pulling power of diesel risks higher inflation into 2027.",
     url: "https://www.bloomberg.com/news/newsletters/2026-10-06/us-inflation-diesel-s-pulling-power-poses-2027-risk",
-  },
-  {
-    id: "nl-tpa-cgtreformdead-20261006",
-    publication: "Tax Policy Associates",
-    author: "Dan Neidle",
-    series: null,
-    title: "Capital gains tax reform was right. Now it’s dead.",
-    date: "2026-10-06",
-    time: "11:50",
-    summary: "Why CGT reform was the right policy but is now dead after the last two Budgets.",
-    url: "https://newsletter.taxpolicy.org.uk/campaign/713087af-48cb-418f-bb70-154835779909/fd0b23db-b61a-4813-bcbf-44577160c2d1",
   },
 ];
