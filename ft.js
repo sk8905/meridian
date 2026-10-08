@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "19a73ec7-a014-4776-bef7-4aa34e5b543a",
+    title: "US adds torture charges to case against former Venezuelan president",
+    date: "2026-10-08",
+    time: "20:03",
+    url: "https://www.ft.com/content/19a73ec7-a014-4776-bef7-4aa34e5b543a",
+  },
+  {
     id: "30034598-7ca3-4379-b91c-dc7ef419ad40",
     title: "Setting up an African rating agency is the easy part",
     date: "2026-10-08",

@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-preipoperpetualfuturesswapetf-20261008",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Pre-IPO Perpetual Futures Swap ETF",
+    date: "2026-10-08",
+    time: "19:21",
+    summary: "MANGOS, prime, longshots, buffet.",
+    url: "https://bloom.bg/4jMk7RK",
+  },
+  {
     id: "nl-thelawyer-breaking-visamastercardpostbrexitclaim-20261008",
     publication: "The Lawyer",
     author: null,
