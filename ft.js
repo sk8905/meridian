@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "eec1e15d-78b9-4706-a518-2a9db4f37128",
+    title: "Repeated US Treasury interventions risk an erosion of credibility",
+    date: "2026-10-08",
+    time: "15:30",
+    url: "https://www.ft.com/content/eec1e15d-78b9-4706-a518-2a9db4f37128",
+  },
+  {
+    id: "212f15c8-a897-4db0-bacf-d1556a11b9ed",
+    title: "Goldman Sachs to pay top executives $500mn in special bonuses",
+    date: "2026-10-08",
+    time: "15:14",
+    url: "https://www.ft.com/content/212f15c8-a897-4db0-bacf-d1556a11b9ed",
+  },
+  {
+    id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7",
+    title: "Latest savings rates",
+    date: "2026-10-08",
+    time: "13:02",
+    url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7",
+  },
+  {
+    id: "75ba3055-625c-4cb5-894b-0696a38f5e79",
+    title: "Latest Isa rates",
+    date: "2026-10-08",
+    time: "12:56",
+    url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79",
+  },
+  {
     id: "79cef26a-e5e9-41d0-9af2-876dc23a9a7d",
     title: "Starbucks has explored takeover of Chipotle in restaurant megadeal",
     date: "2026-10-08",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "05:00",
     url: "https://www.ft.com/content/5371b147-4984-43ed-95d4-b009cf060446",
-  },
-  {
-    id: "e3e45a40-41da-4062-8c47-f51ab710bf02",
-    title: "Former prince Andrew could face witness summons in £40mn London fraud trial",
-    date: "2026-10-08",
-    time: "05:00",
-    url: "https://www.ft.com/content/e3e45a40-41da-4062-8c47-f51ab710bf02",
-  },
-  {
-    id: "681bea76-370b-4cbe-b1aa-239946ae6e4d",
-    title: "Wise to pay customers’ tax bills after errors",
-    date: "2026-10-08",
-    time: "05:00",
-    url: "https://www.ft.com/content/681bea76-370b-4cbe-b1aa-239946ae6e4d",
-  },
-  {
-    id: "9cf103ed-548e-4b06-baed-71632abca961",
-    title: "Big investors ‘bottom fish’ in Eurozone bond markets after France sell-off",
-    date: "2026-10-08",
-    time: "05:00",
-    url: "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961",
-  },
-  {
-    id: "177f9fba-841a-4448-ad54-ac621dc58f2a",
-    title: "Norway lays down a line for EU on AI glasses",
-    date: "2026-10-08",
-    time: "05:00",
-    url: "https://www.ft.com/content/177f9fba-841a-4448-ad54-ac621dc58f2a",
   },
 ];
