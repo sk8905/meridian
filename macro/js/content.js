@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-08",
-  lastCheckedTime: "14:20 BST",
+  lastCheckedTime: "16:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1007,17 +1007,17 @@ export const NEWS = {
   updated: "2026-10-08",
   us: [
     {title: "Crowding out pits sovereigns against AI", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6"},
-    {title: "How a trillion-dollar hedge fund borrowing spree became Wall Street’s cash cow", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec"},
-    {title: "What is the real price of oil any more?", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/5cad1f95-b06d-4ee1-b1c7-0244999337d4"},
+    {title: "Repeated US Treasury interventions risk an erosion of credibility", source: "Financial Times", date: "2026-10-08", time: "15:30", url: "https://www.ft.com/content/eec1e15d-78b9-4706-a518-2a9db4f37128"},
+    {title: "What is driving the global bond sell-off? You asked, we answered", source: "Financial Times", date: "2026-10-08", time: "13:01", url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794"},
     {title: "Fed minutes indicate broad agreement for another rate rise this year", source: "Financial Times", date: "2026-10-07", time: "21:18", url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753"},
-    {title: "Oil prices jump on tanker attack and slowing flows through Strait of Hormuz", source: "Financial Times", date: "2026-10-08", time: "12:14", url: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba"},
+    {title: "Oil prices jump on tanker attacks and slowing flows through Strait of Hormuz", source: "Financial Times", date: "2026-10-08", time: "16:04", url: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba"},
   ],
   uk: [
     {title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties", source: "Financial Times", date: "2026-10-08", time: "08:09", url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d"},
     {title: "Higher mortgage rates inflict ‘pain’ on UK housing market", source: "Financial Times", date: "2026-10-08", time: "01:01", url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4"},
     {title: "Iran war blows near-£12bn hole in Britain’s public finances", source: "Financial Times", date: "2026-10-07", time: "23:00", url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c"},
     {title: "Banks lead FTSE 100 lower as gilt yields, oil prices climb", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/energy/banks-lead-ftse-100-lower-gilt-yields-oil-prices-climb-2026-10-07/"},
-    {title: "Hedge funds warn BoE repo reforms could backfire", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/finance/hedge-funds-warn-boe-repo-reforms-could-backfire-2026-10-07/"},
+    {title: "UK investors face three-month wait to recoup money from property funds", source: "Financial Times", date: "2026-10-08", time: "15:03", url: "https://www.ft.com/content/96474d3e-7d61-4327-b6c2-ed37eecad3f8"},
   ],
 };
 

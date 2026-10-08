@@ -105,14 +105,14 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-08",
-      time: "14:20 BST",
-      lede: "Oil jumped on a tanker attack near the Strait of Hormuz, while the global bond sell-off and France's fiscal stress kept bond markets, and UK public finances, in focus.",
+      time: "16:15 BST",
+      lede: "Oil jumped on tanker attacks near the Strait of Hormuz, while repeated US Treasury interventions and the global bond sell-off kept sovereign credibility and UK public finances in focus.",
       bullets: [
-        { html: "<strong>Macro &mdash; oil prices jumped</strong> on a tanker attack and slowing flows through the Strait of Hormuz, reviving the energy-shock theme behind this week&rsquo;s inflation and rate worries.", src: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba", srcName: "Financial Times", date: "2026-10-08" },
+        { html: "<strong>Macro &mdash; oil prices jumped</strong> on tanker attacks and slowing flows through the Strait of Hormuz, reviving the energy-shock theme behind this week&rsquo;s inflation and rate worries.", src: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba", srcName: "Financial Times", date: "2026-10-08" },
         { html: "<strong>Bonds &mdash; big investors are &lsquo;bottom fishing&rsquo; in Eurozone bonds</strong> after the France sell-off, with asset managers saying fears of a blow-up like the Eurozone debt crisis have been overdone.", src: "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961", srcName: "Financial Times", date: "2026-10-08" },
         { html: "<strong>Macro &mdash; the Iran war has blown a near-&pound;12bn hole</strong> in Britain&rsquo;s public finances, adding to fiscal pressure ahead of the Autumn Budget.", src: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c", srcName: "Financial Times", date: "2026-10-07" },
         { html: "<strong>Bonds &mdash; what is driving the global bond sell-off?</strong> The FT answers reader questions as French and US long-dated yields stay elevated.", src: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794", srcName: "Financial Times", date: "2026-10-08" },
-        { html: "<strong>Credit &mdash; hedge funds have become a cash cow for Wall Street banks</strong>, as a trillion-dollar borrowing spree turns prime-brokerage lending into a major earner.", src: "https://www.ft.com/content/5539d473-604b-42b3-ba6d-0dbb3353957b", srcName: "Financial Times", date: "2026-10-08" },
+        { html: "<strong>Bonds &mdash; repeated US Treasury interventions</strong> risk eroding the credibility of Treasury market backstops, the FT argues, with the 30-year yield at a 24-year high after this week&rsquo;s global sell-off.", src: "https://www.ft.com/content/eec1e15d-78b9-4706-a518-2a9db4f37128", srcName: "Financial Times", date: "2026-10-08" },
       ],
     },
     evening: {
