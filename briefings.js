@@ -117,8 +117,8 @@ export const BRIEFINGS = {
     },
     evening: {
       label: "Evening",
-      date: "2026-10-08",
-      time: "22:15 BST",
+      date: "2026-10-09",
+      time: "00:15 BST",
       lede: "Oil jumped on tanker attacks near the Strait of Hormuz before Trump said the US will not attack Iran before the midterms, while the global bond sell-off kept the US 30-year Treasury yield near a 24-year high.",
       bullets: [
         { html: "<strong>Macro &mdash; Donald Trump said the US &lsquo;will not be attacking Iran&rsquo;</strong> before the midterm elections, after oil prices jumped earlier on tanker attacks and slowing flows through the Strait of Hormuz.", src: "https://www.ft.com/content/e0cc2789-0e71-401d-8096-d58303970a37", srcName: "Financial Times", date: "2026-10-08" },
