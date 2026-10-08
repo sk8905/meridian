@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e069daa0-7d33-409f-9e52-1bd7b1cafdb6",
+    title: "Cyber war won\u2019t be the same in the age of AI",
+    date: "2026-10-08",
+    time: "13:14",
+    url: "https://www.ft.com/content/e069daa0-7d33-409f-9e52-1bd7b1cafdb6",
+  },
+  {
     id: "ec860f96-5a2b-461a-a897-a957860c3dba",
     title: "Oil prices jump on tanker attack and slowing flows through Strait of Hormuz",
     date: "2026-10-08",
