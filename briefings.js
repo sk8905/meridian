@@ -93,11 +93,12 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-08",
-      time: "05:15 BST",
+      time: "08:15 BST",
       bullets: [
         { html: "<strong>Macro &mdash; September FOMC minutes</strong> show the unanimous 25bp hike was backed for differing reasons (energy-driven price pressure vs demand-led inflation), with broad agreement on another rise this year; the next decision is at the late-October meeting.", src: "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
         { html: "<strong>Bonds &mdash; the US 30-year Treasury yield hit a fresh 24-year high</strong> and the 10-year touched a 24-year high too, before a 10-year auction drawing the strongest demand since 2016 steadied the market; the French/German spread widened 10bp to 138bp.", src: "https://www.reuters.com/business/us-30-year-bond-yield-hits-fresh-24-year-high-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
         { html: "<strong>Equities &mdash; stocks slid on rising yields</strong>: the FTSE 100 fell 0.8% led by banks and Europe lost about 1%, while the S&amp;P 500&rsquo;s record run was questioned as the US term premium hit a 12-year high of 96bp.", src: "https://www.reuters.com/business/energy/banks-lead-ftse-100-lower-gilt-yields-oil-prices-climb-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
+        { html: "<strong>Macro &mdash; sovereign borrowing is crowding out against AI capex</strong>: FT Alphaville argues rising government funding needs and the AI investment boom are now competing for the same pool of capital as bond yields hover near multi-decade highs.", src: "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6", srcName: "Financial Times", date: "2026-10-08" },
         { html: "<strong>Credit &mdash; London hedge fund Arini fell 16%</strong> on soured credit bets, extending its losses as private-credit and bond-market volatility continues.", src: "https://www.ft.com/content/b52c8acc-7ea5-4bd0-b26a-b9956e19867b", srcName: "Financial Times", date: "2026-10-07" },
       ],
     },

@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-08",
-  lastCheckedTime: "05:15 BST",
+  lastCheckedTime: "08:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-08",
   us: [
+    {title: "Crowding out pits sovereigns against AI", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6"},
     {title: "How a trillion-dollar hedge fund borrowing spree became Wall Street’s cash cow", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec"},
     {title: "What is the real price of oil any more?", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/5cad1f95-b06d-4ee1-b1c7-0244999337d4"},
     {title: "Fed minutes indicate broad agreement for another rate rise this year", source: "Financial Times", date: "2026-10-07", time: "21:18", url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753"},
     {title: "Fed policymakers divided over rate-hike logic in September, minutes show", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/"},
-    {title: "US government bonds steady after strong 10-year Treasury auction", source: "Financial Times", date: "2026-10-07", time: "20:58", url: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6"},
   ],
   uk: [
+    {title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties", source: "Financial Times", date: "2026-10-08", time: "08:09", url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d"},
     {title: "Higher mortgage rates inflict ‘pain’ on UK housing market", source: "Financial Times", date: "2026-10-08", time: "01:01", url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4"},
     {title: "Iran war blows near-£12bn hole in Britain’s public finances", source: "Financial Times", date: "2026-10-07", time: "23:00", url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c"},
     {title: "Banks lead FTSE 100 lower as gilt yields, oil prices climb", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/energy/banks-lead-ftse-100-lower-gilt-yields-oil-prices-climb-2026-10-07/"},
     {title: "Hedge funds warn BoE repo reforms could backfire", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/finance/hedge-funds-warn-boe-repo-reforms-could-backfire-2026-10-07/"},
-    {title: "The important judgments for Healey in the coming Budget", source: "Financial Times", date: "2026-10-07", time: "16:06", url: "https://www.ft.com/content/b07bd481-a492-4b95-af55-914176f8d2b6"},
   ],
 };
 
