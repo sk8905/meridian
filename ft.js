@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "12c60e75-48be-45f8-a763-02ad0b2c0f8c",
+    title: "Royal Navy serviceman charged with spying for foreign power",
+    date: "2026-10-08",
+    time: "08:40",
+    url: "https://www.ft.com/content/12c60e75-48be-45f8-a763-02ad0b2c0f8c",
+  },
+  {
+    id: "f21b32f5-011f-4716-a206-9382fd335fa6",
+    title: "Deloitte fined £6mn for audit failures at Southeastern rail operator",
+    date: "2026-10-08",
+    time: "08:36",
+    url: "https://www.ft.com/content/f21b32f5-011f-4716-a206-9382fd335fa6",
+  },
+  {
     id: "3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
     title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties",
     date: "2026-10-08",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "18:20",
     url: "https://www.ft.com/content/d72a1a53-4989-4e48-88e7-5ca467708823",
-  },
-  {
-    id: "20557850-9cd1-4685-8238-f292023afc1f",
-    title: "SEC warns asset managers against collaborating on activist campaigns",
-    date: "2026-10-07",
-    time: "18:07",
-    url: "https://www.ft.com/content/20557850-9cd1-4685-8238-f292023afc1f",
-  },
-  {
-    id: "21d4101f-ba5e-49e9-8c38-6b38ed5f1ca3",
-    title: "Badenoch’s UK Conservatives are a work in progress",
-    date: "2026-10-07",
-    time: "18:00",
-    url: "https://www.ft.com/content/21d4101f-ba5e-49e9-8c38-6b38ed5f1ca3",
   },
 ];
