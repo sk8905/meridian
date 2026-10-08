@@ -16,6 +16,7 @@
 // PUBLISHERS maps a sender address/domain to a display name (used by the refresh
 // routine); extend it as new newsletters are added.
 export const PUBLISHERS = {
+  "withintelligence-email.com": "With Intelligence",
   "news.bloomberg.com": "Bloomberg",
   "e.economist.com": "The Economist",
   "legalbusiness.co.uk": "Legal Business",
@@ -45,6 +46,17 @@ export const PUBLISHERS = {
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-withintelligence-privatecreditinsights-20261008",
+    publication: "With Intelligence",
+    author: null,
+    series: "Private Credit Insights",
+    title: "Private Credit Insights: Amundi Alpha Associates targets up to ten PC managers",
+    date: "2026-10-08",
+    time: "11:12",
+    summary: "Weekly private credit roundup: Amundi Alpha Associates, Vista Equity $2.2bn close, M&G-backed transition credit fund.",
+    url: "https://pardot.withintelligence.com/webmail/284832/3598997631/23fcdd7c20d30df223e97a343c7c91b872fd93050b0c889e2b0abf0950a7caa2",
+  },
   {
     id: "nl-thelawyer-newsdaily-weilsheppardaibootcamp-20261008",
     publication: "The Lawyer",

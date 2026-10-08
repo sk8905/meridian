@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "48991d0c-79df-4222-99d4-4e45c9aa6fee",
+    title: "France’s far right goes woke. Or is it neoliberal?",
+    date: "2026-10-08",
+    time: "11:00",
+    url: "https://www.ft.com/content/48991d0c-79df-4222-99d4-4e45c9aa6fee",
+  },
+  {
+    id: "4bfd5cc1-b330-42f1-9906-e6932a92932a",
+    title: "Irate farmers should not limit the EU’s geopolitical ambitions",
+    date: "2026-10-08",
+    time: "11:00",
+    url: "https://www.ft.com/content/4bfd5cc1-b330-42f1-9906-e6932a92932a",
+  },
+  {
+    id: "d31ea247-c2c1-439e-83b1-d5b7470a792f",
+    title: "LIV Golf accelerates negotiations with players over plans to revive bankrupt tour",
+    date: "2026-10-08",
+    time: "11:00",
+    url: "https://www.ft.com/content/d31ea247-c2c1-439e-83b1-d5b7470a792f",
+  },
+  {
+    id: "c09ef0e4-c5f8-4b69-a510-9864f907fe55",
+    title: "Flávio Bolsonaro’s plan to ‘wield the big scissors’ to Brazil’s budget",
+    date: "2026-10-08",
+    time: "11:00",
+    url: "https://www.ft.com/content/c09ef0e4-c5f8-4b69-a510-9864f907fe55",
+  },
+  {
+    id: "7e39cdb9-977c-4a4c-b35c-6f775a9822db",
+    title: "Houthi attacks on Saudi airports kill three people",
+    date: "2026-10-08",
+    time: "10:44",
+    url: "https://www.ft.com/content/7e39cdb9-977c-4a4c-b35c-6f775a9822db",
+  },
+  {
     id: "dbd6e14c-2d47-4f6b-9981-98a42e172097",
     title: "US critical minerals stockpile risks driving up prices, defence groups warn",
     date: "2026-10-08",
@@ -68,6 +103,13 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "08:09",
     url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
+  },
+  {
+    id: "70f36d8e-ab07-4b58-a5d5-70908ef5f6ee",
+    title: "Tesco predicts less boozy Christmas for UK shoppers",
+    date: "2026-10-08",
+    time: "07:45",
+    url: "https://www.ft.com/content/70f36d8e-ab07-4b58-a5d5-70908ef5f6ee",
   },
   {
     id: "edb717f9-6512-424c-a3a5-50e43239adf8",
@@ -257,47 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "21:18",
     url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753",
-  },
-  {
-    id: "2cb13aed-f6bf-4f45-b906-fa1194405a0c",
-    title: "Iran war blows near-£12bn hole in Britain’s public finances",
-    date: "2026-10-07",
-    time: "21:00",
-    url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c",
-  },
-  {
-    id: "2761b6af-df11-49e8-a348-792a9597c9af",
-    title: "Diesel price jumps after IEA says no additional fuel will be released",
-    date: "2026-10-07",
-    time: "20:02",
-    url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af",
-  },
-  {
-    id: "2761b6af-df11-49e8-a348-792a9597c9af",
-    title: "Diesel price jumps after IEA says no additional fuel will be released",
-    date: "2026-10-07",
-    time: "20:02",
-    url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af",
-  },
-  {
-    id: "404bfe74-3778-4acc-8a01-329a6744b078",
-    title: "Marco Rubio urges western countries to uphold traditional values",
-    date: "2026-10-07",
-    time: "19:55",
-    url: "https://www.ft.com/content/404bfe74-3778-4acc-8a01-329a6744b078",
-  },
-  {
-    id: "404bfe74-3778-4acc-8a01-329a6744b078",
-    title: "Marco Rubio urges western countries to uphold traditional values",
-    date: "2026-10-07",
-    time: "19:55",
-    url: "https://www.ft.com/content/404bfe74-3778-4acc-8a01-329a6744b078",
-  },
-  {
-    id: "4f2417d3-3de6-4f62-bd3a-8c8f740a4b29",
-    title: "SpaceX credit risk jumps on worries over its borrowing spree",
-    date: "2026-10-07",
-    time: "19:05",
-    url: "https://www.ft.com/content/4f2417d3-3de6-4f62-bd3a-8c8f740a4b29",
   },
 ];
