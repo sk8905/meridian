@@ -46,6 +46,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-spectacularearningsnotenough-20261008",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Earnings will be spectacular. It may not be enough",
+    date: "2026-10-08",
+    time: "05:00",
+    summary: "Can profit growth like we are likely to see this season be sustained?",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-08/spectacular-earnings-growth-may-not-be-enough-to-keep-the-stock-rally-going",
+  },
+  {
     id: "nl-reuters-tradingday-stocksbondsdelicatedance-20261007",
     publication: "Reuters",
     author: "Jamie McGeever",
@@ -473,16 +484,5 @@ export const NEWSLETTERS = [
     time: "11:18",
     summary: "Freshfields' co-head of private capital and its US practice head have departed for Debevoise & Plimpton in New York.",
     url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/r66k3hmYLbZr",
-  },
-  {
-    id: "nl-bbg-marketsdaily-contagionplaybook-20261005",
-    publication: "Bloomberg",
-    author: null,
-    series: "Markets Daily",
-    title: "Markets Daily: Europe’s contagion risk",
-    date: "2026-10-05",
-    time: "11:16",
-    summary: "Traders are dusting off the contagion playbook for European bonds; plus a shift in Fed expectations.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-05/traders-are-dusting-off-the-contagion-playbook-for-european-bonds",
   },
 ];

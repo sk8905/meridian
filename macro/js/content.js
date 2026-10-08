@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-08",
-  lastCheckedTime: "00:15 BST",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,19 +1004,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-07",
+  updated: "2026-10-08",
   us: [
+    {title: "How a trillion-dollar hedge fund borrowing spree became Wall Street’s cash cow", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec"},
+    {title: "What is the real price of oil any more?", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/5cad1f95-b06d-4ee1-b1c7-0244999337d4"},
     {title: "Fed minutes indicate broad agreement for another rate rise this year", source: "Financial Times", date: "2026-10-07", time: "21:18", url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753"},
     {title: "Fed policymakers divided over rate-hike logic in September, minutes show", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/"},
     {title: "US government bonds steady after strong 10-year Treasury auction", source: "Financial Times", date: "2026-10-07", time: "20:58", url: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6"},
-    {title: "Diesel price jumps after IEA says no additional fuel will be released", source: "Financial Times", date: "2026-10-07", time: "20:02", url: "https://www.ft.com/content/2761b6af-df11-49e8-a348-792a9597c9af"},
-    {title: "SEC warns asset managers against collaborating on activist campaigns", source: "Financial Times", date: "2026-10-07", time: "20:04", url: "https://www.ft.com/content/20557850-9cd1-4685-8238-f292023afc1f"},
   ],
   uk: [
-    {title: "Iran war blows near-£12bn hole in Britain’s public finances", source: "Financial Times", date: "2026-10-07", time: "22:00", url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c"},
+    {title: "Higher mortgage rates inflict ‘pain’ on UK housing market", source: "Financial Times", date: "2026-10-08", time: "01:01", url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4"},
+    {title: "Iran war blows near-£12bn hole in Britain’s public finances", source: "Financial Times", date: "2026-10-07", time: "23:00", url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c"},
     {title: "Banks lead FTSE 100 lower as gilt yields, oil prices climb", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/energy/banks-lead-ftse-100-lower-gilt-yields-oil-prices-climb-2026-10-07/"},
     {title: "Hedge funds warn BoE repo reforms could backfire", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/finance/hedge-funds-warn-boe-repo-reforms-could-backfire-2026-10-07/"},
-    {title: "Tory inheritance tax pledge: do the sums add up?", source: "Financial Times", date: "2026-10-07", time: "18:58", url: "https://www.ft.com/content/1aa5c0f1-962d-4164-a375-74ac4bdd9d25"},
     {title: "The important judgments for Healey in the coming Budget", source: "Financial Times", date: "2026-10-07", time: "16:06", url: "https://www.ft.com/content/b07bd481-a492-4b95-af55-914176f8d2b6"},
   ],
 };
@@ -1030,8 +1030,13 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-07",
+  updated: "2026-10-08",
   items: [
+    {"title": "Big investors ‘bottom fish’ in Eurozone bond markets after France sell-off", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961", "blurb": "Fears of a blow-up similar to the Eurozone debt crisis have been overdone, asset managers say."},
+    {"title": "What is the real price of oil any more?", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/5cad1f95-b06d-4ee1-b1c7-0244999337d4", "blurb": "Crude futures are no longer a reliable guide to the inflationary impact of fuel prices."},
+    {"title": "How a trillion-dollar hedge fund borrowing spree became Wall Street’s cash cow", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec", "blurb": "Banks’ trading businesses are booming, but post-crisis regulation means it is no longer them placing the bets."},
+    {"title": "Oil majors look beyond Middle East war in pursuit of region’s vast reserves", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/3534cf93-be7b-49ec-bf58-cea84e73cb28", "blurb": "Western groups look to new investment opportunities despite the chaos and heightened risks caused by the conflict with Iran."},
+    {"title": "Higher mortgage rates inflict ‘pain’ on UK housing market", "source": "Financial Times", "date": "2026-10-08", "time": "01:01", "url": "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4", "blurb": "UK housing market feels the effect of higher mortgage rates."},
     {"title": "Fed minutes indicate broad agreement for another rate rise this year", "source": "Financial Times", "date": "2026-10-07", "time": "21:18", "url": "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753", "blurb": "Minutes of the September FOMC meeting point to broad support for a further hike this year."},
     {"title": "Can Wall Street keep partying while bond markets burn?", "source": "Reuters", "date": "2026-10-07", "url": "https://www.reuters.com/commentary/reuters-open-interest/can-wall-street-keep-partying-while-bond-markets-burn-2026-10-07/", "blurb": "Jamie McGeever on record US equity highs alongside 24-year highs in long-dated Treasury yields."},
     {"title": "IMF chief warns energy shock, growing debt and AI risks threaten global growth", "source": "Reuters", "date": "2026-10-07", "url": "https://www.reuters.com/world/asia-pacific/imf-chief-warns-energy-shock-growing-debt-ai-risks-threaten-global-growth-2026-10-07/", "blurb": "The IMF managing director flags energy, debt and AI-valuation risks to the global outlook."},
@@ -1067,11 +1072,6 @@ export const ARTICLES = {
     {"title": "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", "source": "Financial Times", "date": "2026-10-02", "time": "17:20", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "G7 agrees a coordinated 100mn-barrel stock release as Washington drops its fuel export ban threat."},
     {"title": "Eurozone inflation hits three-year high of 3.8%", "source": "Financial Times", "date": "2026-10-02", "time": "16:45", "url": "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", "blurb": "Euro-area inflation climbs to its highest in three years."},
     {"title": "Weak US payrolls  likely to keep rate setters on the sidelines in October", "source": "Financial Times", "date": "2026-10-02", "time": "15:01", "url": "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28", "blurb": "Soft September jobs data points to a Fed hold at the October meeting."},
-    {"title": "US economy adds just 29,000 jobs in September as hiring slows sharply", "source": "Financial Times", "date": "2026-10-02", "time": "14:47", "url": "https://www.ft.com/content/7fc80097-1926-4306-81e0-83d90a3d8a1d", "blurb": "September payrolls come in far below the roughly 90,000 consensus as US hiring slows sharply."},
-    {"title": "Investors seek refuge from bond rout in haven German debt", "source": "Financial Times", "date": "2026-10-02", "time": "15:03", "url": "https://www.ft.com/content/93028839-5f0e-43c4-8ee7-44990115ea57", "blurb": "Bunds attract haven flows as the global sovereign-bond sell-off continues."},
-    {"title": "My mortgage is a problem for the Fed, and for America", "source": "Financial Times", "date": "2026-10-02", "time": "12:09", "url": "https://www.ft.com/content/9f960533-9cd7-4475-aed0-17f09fdc28fd", "blurb": "Homeowners are staying put, the housing market is frozen and affordability is as ugly as in the housing bubble."},
-    {"title": "Diesel falls sharply as EU considers releasing 50mn barrels under pressure from Trump", "source": "Financial Times", "date": "2026-10-02", "time": "11:59", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "The US president has threatened to ban US exports of the fuel if Europe does not unlock reserves."},
-    {"title": "Eurozone inflation hits three-year high of 3.8%", "source": "Financial Times", "date": "2026-10-02", "time": "11:43", "url": "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", "blurb": "Consumer prices rose at a higher rate than expected in September."},
   ],
 };
 

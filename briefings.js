@@ -92,13 +92,13 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-07",
-      time: "08:15 BST",
+      date: "2026-10-08",
+      time: "05:15 BST",
       bullets: [
-        { html: "<strong>Macro &mdash; the energy shock has proved more manageable than feared</strong>: with Hormuz shut since February, about 11% of world oil supply is offline and Brent spiked near $120, yet analysts now see it averaging about $89 a barrel this year.", src: "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", srcName: "Financial Times", date: "2026-10-07" },
-        { html: "<strong>Macro &mdash; India raised its repo rate 25bp to 5.50%</strong>, its first hike since February 2023, as a weak rupee and Middle East-driven imported inflation push the central bank to &lsquo;calibrated tightening&rsquo;.", src: "https://www.ft.com/content/713ccee6-855f-48d8-acf1-161265041ad8", srcName: "Financial Times", date: "2026-10-07" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to 5.27%</strong> after touching 5.35% on Monday, its highest since 2002, while French spreads narrowed after Marine Le Pen vowed to cut the deficit.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg", date: "2026-10-07" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 rose 0.66% to a fresh record</strong>, its first all-time high since August, led by the AI mega-caps, with third-quarter earnings now forecast up 29.5% year on year.", src: "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Macro &mdash; September FOMC minutes</strong> show the unanimous 25bp hike was backed for differing reasons (energy-driven price pressure vs demand-led inflation), with broad agreement on another rise this year; the next decision is at the late-October meeting.", src: "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
+        { html: "<strong>Bonds &mdash; the US 30-year Treasury yield hit a fresh 24-year high</strong> and the 10-year touched a 24-year high too, before a 10-year auction drawing the strongest demand since 2016 steadied the market; the French/German spread widened 10bp to 138bp.", src: "https://www.reuters.com/business/us-30-year-bond-yield-hits-fresh-24-year-high-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
+        { html: "<strong>Equities &mdash; stocks slid on rising yields</strong>: the FTSE 100 fell 0.8% led by banks and Europe lost about 1%, while the S&amp;P 500&rsquo;s record run was questioned as the US term premium hit a 12-year high of 96bp.", src: "https://www.reuters.com/business/energy/banks-lead-ftse-100-lower-gilt-yields-oil-prices-climb-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
+        { html: "<strong>Credit &mdash; London hedge fund Arini fell 16%</strong> on soured credit bets, extending its losses as private-credit and bond-market volatility continues.", src: "https://www.ft.com/content/b52c8acc-7ea5-4bd0-b26a-b9956e19867b", srcName: "Financial Times", date: "2026-10-07" },
       ],
     },
     afternoon: {

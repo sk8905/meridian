@@ -18,7 +18,7 @@
 // =============================================================================
 
 // When the dataset was last compiled/updated (i.e. the last time data actually changed).
-export const DATA_UPDATED = "2026-10-06";
+export const DATA_UPDATED = "2026-10-08";
 
 // When the refresh routine last ran (even if it found nothing new) — shown in the
 // topbar as "Last refresh" so a run can be confirmed regardless of data changes.
@@ -27,7 +27,7 @@ export const LAST_CHECKED = "2026-10-08";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "00:15 BST";
+export const LAST_CHECKED_TIME = "05:15 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -1574,6 +1574,10 @@ export const commitments = [
 // ---------------------------------------------------------------------------
 export const deals = [
   { id: "d914", date: "2026-09-23", type: "Structured Credit", managerId: "m49", fundId: null, headline: "Fasanara prices its inaugural CLO (Valey Primus CLO) at around €404m", summary: "Fasanara Capital priced its first CLO, the ~€404m Valey Primus CLO, a European deal arranged by BNP Paribas — Creditflux framed the debut as a sign of a wave of first-time managers entering the CLO market, with Kartesia pricing its own inaugural European CLO about a week later.", sourceUrl: "https://www.creditflux.com/CLOs/2026-09-23/Fasanara-prints-inaugural-CLO-as-market-anticipates-new-manager-rush", clo: true },
+  {"id": "d915", "date": "2020-08-27", "time": "05:30", "type": "Structured Credit", "managerId": "m199", "fundId": null, "headline": "Monroe Capital closes $406.27m CLO, Monroe Capital MML CLO X, its fifth since March 2018", "summary": "Monroe Capital closed Monroe Capital MML CLO X, a $406.27m collateralised loan obligation backed by middle-market senior secured loans with rated notes from AAA to BB; Deutsche Bank was lead manager and bookrunner, and Monroe and its affiliates retained the majority of the subordinated notes.", "sourceUrl": "https://www.businesswire.com/news/home/20200827005151/en/Monroe-Capital-Closes-406.27-Million-Collateralized-Loan", "clo": true},
+  {"id": "d916", "date": "2021-05-11", "time": "05:30", "type": "Structured Credit", "managerId": "m199", "fundId": null, "headline": "Monroe Capital closes $455m CLO, its sixth since March 2018", "summary": "Monroe Capital closed a $455m collateralised loan obligation transaction, its sixth since March 2018, with BNP Paribas as lead manager.", "sourceUrl": "https://www.businesswire.com/news/home/20210511005463/en/Monroe-Capital-Closes-%24455-Million-Collateralized-Loan-Obligation-Transaction", "clo": true},
+  {"id": "d917", "date": "2021-09-28", "time": "05:30", "type": "Structured Credit", "managerId": "m199", "fundId": null, "headline": "Monroe Capital closes $505m CLO, its seventh since March 2018", "summary": "Monroe Capital closed a $505m collateralised loan obligation transaction, its seventh since March 2018, with SMBC as lead manager.", "sourceUrl": "https://www.businesswire.com/news/home/20210928005293/en/Monroe-Capital-Closes-%24505-Million-Collateralized-Loan-Obligation-Transaction", "clo": true},
+  {"id": "d918", "date": "2021-04-22", "time": "05:30", "type": "Financing", "managerId": "m164", "fundId": null, "headline": "VPC Specialty Lending Investments closes $200m credit facility with MassMutual", "summary": "VPC Specialty Lending Investments PLC, managed by Victory Park Capital, closed a $200m credit facility from MassMutual to fund its growth plans.", "sourceUrl": "https://www.businesswire.com/news/home/20210422005918/en/VPC-Specialty-Lending-Investments-PLC-Closes-200-Million-Credit-Facility-with-MassMutual"},
   { id: "d913", date: "2026-09-30", type: "Structured Credit", managerId: "m25", fundId: null, headline: "Kartesia prices its inaugural CLO (Kartesia CLO I) at €459m", summary: "Kartesia priced its first CLO, Kartesia CLO I, a European BSL vehicle, at €459m — upsized from an initial €400m target on strong demand, with the AAA tranche at Euribor +129bp and no arranger on that tranche. It is the first deal from the Kartesia Loan Management (KLM) platform launched in May 2026 and backed by New York Life Investment Management and Candriam.", sourceUrl: "https://alternativecreditinvestor.com/2026/09/30/kartesia-prices-inaugural-clo-at-e459m/", clo: true },
   { id: "d911", date: "2021-08-16", type: "Financing", managerId: "m113", fundId: null, headline: "White Oak delivers $45m acquisition term-loan financing", summary: "White Oak Global Advisors provided a $45m acquisition term-loan facility, part of the firm's direct-lending and specialty-finance origination across term loans, asset-based loans and equipment financing.", sourceUrl: "https://www.businesswire.com/news/home/20210816005022/en/White-Oak-Delivers-45-Million-Acquisition-Term-Loan-Financing", clo: false },
   { id: "d912", date: "2024-06-13", type: "NAV / Fund Finance", managerId: "m113", fundId: null, headline: "Wells Fargo leads syndicate providing $1.1bn ABL credit facility to White Oak", summary: "White Oak Commercial Finance closed a $1.1bn asset-based lending credit facility led by Wells Fargo Bank alongside eleven other banks, expanding the firm's lending capacity across its specialty-finance and asset-based lending strategies.", sourceUrl: "https://www.alternativeswatch.com/2024/06/13/wells-fargo-leads-syndicate-providing-1-1bn-abl-credit-facility-to-white-oak/", clo: false },
