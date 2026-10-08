@@ -48,6 +48,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-notjustdejavuinfrance-20261008",
+    publication: "Reuters",
+    author: "Mark John",
+    series: "Econ World",
+    title: "Not just a case of d\u00e9j\u00e0 vu in France",
+    date: "2026-10-08",
+    time: "14:06",
+    summary: "The budgetary and political context make this different.",
+    url: "https://www.reuters.com/newsletters/reuters-econ-world",
+  },
+  {
     id: "nl-thelawyer-breaking-legorasplitsfromrivals-20261008",
     publication: "The Lawyer",
     author: null,

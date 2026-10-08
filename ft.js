@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "467d5151-91bb-4463-8cda-3fd72b5b2627",
+    title: "Ohio Senate race puts Donald Trump\u2019s record with blue-collar voters to the test",
+    date: "2026-10-08",
+    time: "14:00",
+    url: "https://www.ft.com/content/467d5151-91bb-4463-8cda-3fd72b5b2627",
+  },
+  {
+    id: "fb4d6b18-3b72-473c-90a5-3864c1dad27e",
+    title: "Russian bomb attack kills dozens at Ukraine bus stop",
+    date: "2026-10-08",
+    time: "13:38",
+    url: "https://www.ft.com/content/fb4d6b18-3b72-473c-90a5-3864c1dad27e",
+  },
+  {
+    id: "795ffd25-1b11-4531-b4bc-2974d798389c",
+    title: "On the LLMternet, nobody cares you\u2019re a plant",
+    date: "2026-10-08",
+    time: "12:32",
+    url: "https://www.ft.com/content/795ffd25-1b11-4531-b4bc-2974d798389c",
+  },
+  {
     id: "e069daa0-7d33-409f-9e52-1bd7b1cafdb6",
     title: "Cyber war won\u2019t be the same in the age of AI",
     date: "2026-10-08",
