@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9cf103ed-548e-4b06-baed-71632abca961",
+    title: "Big investors ‘bottom fish’ in Eurozone bond markets after France sell-off",
+    date: "2026-10-08",
+    time: "17:06",
+    url: "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961",
+  },
+  {
+    id: "05f80d05-c80f-48ff-a65d-f379d77ed8af",
+    title: "EY challenges Deloitte in outsourcing as revenue growth accelerates",
+    date: "2026-10-08",
+    time: "17:00",
+    url: "https://www.ft.com/content/05f80d05-c80f-48ff-a65d-f379d77ed8af",
+  },
+  {
+    id: "b2325cbe-44b6-4941-a60d-97fd9cff47ce",
+    title: "Two Latvian nationals arrested on suspicion of trespass at RAF base",
+    date: "2026-10-08",
+    time: "16:37",
+    url: "https://www.ft.com/content/b2325cbe-44b6-4941-a60d-97fd9cff47ce",
+  },
+  {
+    id: "efdc00f5-2e70-40ba-803b-538e9e63462e",
+    title: "UK pension ‘triple lock’ was first costed at just £50mn, says ex-government adviser",
+    date: "2026-10-08",
+    time: "16:21",
+    url: "https://www.ft.com/content/efdc00f5-2e70-40ba-803b-538e9e63462e",
+  },
+  {
+    id: "c163a470-e73f-4fdb-91fb-426004b21f22",
+    title: "Daughter of Trump’s chief of staff works at firm that lobbies for Republika Srpska",
+    date: "2026-10-08",
+    time: "16:17",
+    url: "https://www.ft.com/content/c163a470-e73f-4fdb-91fb-426004b21f22",
+  },
+  {
     id: "eec1e15d-78b9-4706-a518-2a9db4f37128",
     title: "Repeated US Treasury interventions risk an erosion of credibility",
     date: "2026-10-08",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "06:00",
     url: "https://www.ft.com/content/166d0909-235d-4402-8ed7-d42d59401f6c",
-  },
-  {
-    id: "bf40e0fb-9542-4ddf-9ac3-c216be55a5a6",
-    title: "Crowding out pits sovereigns against AI",
-    date: "2026-10-08",
-    time: "06:00",
-    url: "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6",
-  },
-  {
-    id: "e1823a4a-7a0d-4550-aa00-d685bc642c98",
-    title: "EU’s top trade envoy in China for tense talks over cars",
-    date: "2026-10-08",
-    time: "05:37",
-    url: "https://www.ft.com/content/e1823a4a-7a0d-4550-aa00-d685bc642c98",
-  },
-  {
-    id: "160f902e-60ed-4e8e-9e27-47e9f0bc51e3",
-    title: "Why people don’t want to have children any more",
-    date: "2026-10-08",
-    time: "05:00",
-    url: "https://www.ft.com/content/160f902e-60ed-4e8e-9e27-47e9f0bc51e3",
-  },
-  {
-    id: "eba99693-2abc-4b08-9133-98452bc01290",
-    title: "Kirkland’s money machine goes dark",
-    date: "2026-10-08",
-    time: "05:00",
-    url: "https://www.ft.com/content/eba99693-2abc-4b08-9133-98452bc01290",
-  },
-  {
-    id: "5371b147-4984-43ed-95d4-b009cf060446",
-    title: "Andy Burnham’s government to press ahead with Oxford-Cambridge corridor",
-    date: "2026-10-08",
-    time: "05:00",
-    url: "https://www.ft.com/content/5371b147-4984-43ed-95d4-b009cf060446",
   },
 ];
