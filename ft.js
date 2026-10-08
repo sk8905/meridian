@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "166d0909-235d-4402-8ed7-d42d59401f6c",
+    title: "Šefčovič goes to Beijing with a final plea to avoid an EU-China trade war",
+    date: "2026-10-08",
+    time: "06:00",
+    url: "https://www.ft.com/content/166d0909-235d-4402-8ed7-d42d59401f6c",
+  },
+  {
+    id: "bf40e0fb-9542-4ddf-9ac3-c216be55a5a6",
+    title: "Crowding out pits sovereigns against AI",
+    date: "2026-10-08",
+    time: "06:00",
+    url: "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6",
+  },
+  {
+    id: "e1823a4a-7a0d-4550-aa00-d685bc642c98",
+    title: "EU’s top trade envoy in China for tense talks over cars",
+    date: "2026-10-08",
+    time: "05:37",
+    url: "https://www.ft.com/content/e1823a4a-7a0d-4550-aa00-d685bc642c98",
+  },
+  {
+    id: "160f902e-60ed-4e8e-9e27-47e9f0bc51e3",
+    title: "Why people don’t want to have children any more",
+    date: "2026-10-08",
+    time: "05:00",
+    url: "https://www.ft.com/content/160f902e-60ed-4e8e-9e27-47e9f0bc51e3",
+  },
+  {
     id: "eba99693-2abc-4b08-9133-98452bc01290",
     title: "Kirkland’s money machine goes dark",
     date: "2026-10-08",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "17:24",
     url: "https://www.ft.com/content/1f101722-bfb7-4872-b7d9-70039c981615",
-  },
-  {
-    id: "870ed142-0418-4685-9347-d8c0caacdc58",
-    title: "Australian court ruling on climate impact of coal mining a ‘blow’, says industry",
-    date: "2026-10-07",
-    time: "16:59",
-    url: "https://www.ft.com/content/870ed142-0418-4685-9347-d8c0caacdc58",
-  },
-  {
-    id: "5465abcc-4c04-4cee-a0bc-455a63533480",
-    title: "Israelis commemorate October 7 attack as election looms",
-    date: "2026-10-07",
-    time: "16:56",
-    url: "https://www.ft.com/content/5465abcc-4c04-4cee-a0bc-455a63533480",
-  },
-  {
-    id: "b07bd481-a492-4b95-af55-914176f8d2b6",
-    title: "The important judgments for Healey in the coming Budget",
-    date: "2026-10-07",
-    time: "16:06",
-    url: "https://www.ft.com/content/b07bd481-a492-4b95-af55-914176f8d2b6",
-  },
-  {
-    id: "742f1f44-1b5f-4905-8a09-1c14bce54b4d",
-    title: "Kemi Badenoch promises to scrap inheritance tax on family homes",
-    date: "2026-10-07",
-    time: "16:03",
-    url: "https://www.ft.com/content/742f1f44-1b5f-4905-8a09-1c14bce54b4d",
   },
 ];

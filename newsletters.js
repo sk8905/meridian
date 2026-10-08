@@ -46,6 +46,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-bondselloffeases-20261008",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: America\u2019s bond sell-off eases",
+    date: "2026-10-08",
+    time: "06:00",
+    summary: "Also: The new Polar politics.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-spectacularearningsnotenough-20261008",
     publication: "Bloomberg",
     author: "John Authers",
@@ -473,16 +484,5 @@ export const NEWSLETTERS = [
     time: "12:04",
     summary: "More possible euro turmoil looms, and this time it's in a much bigger economy.",
     url: "https://www.bloomberg.com/news/newsletters/2026-10-05/a-french-crisis-would-be-a-nightmare-for-ecb",
-  },
-  {
-    id: "nl-thelawyer-breaking-freshfieldsdebevoise-20261005",
-    publication: "The Lawyer",
-    author: null,
-    series: "Breaking News",
-    title: "Freshfields’ US private capital duo defect to Debevoise",
-    date: "2026-10-05",
-    time: "11:18",
-    summary: "Freshfields' co-head of private capital and its US practice head have departed for Debevoise & Plimpton in New York.",
-    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/r66k3hmYLbZr",
   },
 ];
