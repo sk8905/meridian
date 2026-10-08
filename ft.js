@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "dbd6e14c-2d47-4f6b-9981-98a42e172097",
+    title: "US critical minerals stockpile risks driving up prices, defence groups warn",
+    date: "2026-10-08",
+    time: "10:00",
+    url: "https://www.ft.com/content/dbd6e14c-2d47-4f6b-9981-98a42e172097",
+  },
+  {
+    id: "d51a78a8-67d8-45bd-b32c-1eafe39a0794",
+    title: "Submit a question: What is driving the global bond sell-off?",
+    date: "2026-10-08",
+    time: "09:50",
+    url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794",
+  },
+  {
+    id: "771d64f2-dacf-4c12-83c2-e6bc97c0161a",
+    title: "Kemi Badenoch’s speech drew a moral dividing line between Tories and Reform",
+    date: "2026-10-08",
+    time: "09:30",
+    url: "https://www.ft.com/content/771d64f2-dacf-4c12-83c2-e6bc97c0161a",
+  },
+  {
+    id: "a57290ab-eadd-4e12-b8cc-37befed8d3bb",
+    title: "British consulate in Jerusalem becomes ‘UK Mission’ after Israel orders closure",
+    date: "2026-10-08",
+    time: "09:29",
+    url: "https://www.ft.com/content/a57290ab-eadd-4e12-b8cc-37befed8d3bb",
+  },
+  {
     id: "12c60e75-48be-45f8-a763-02ad0b2c0f8c",
     title: "Royal Navy serviceman charged with spying for foreign power",
     date: "2026-10-08",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "19:05",
     url: "https://www.ft.com/content/4f2417d3-3de6-4f62-bd3a-8c8f740a4b29",
-  },
-  {
-    id: "1aa5c0f1-962d-4164-a375-74ac4bdd9d25",
-    title: "Tory inheritance tax pledge: do the sums add up?",
-    date: "2026-10-07",
-    time: "18:58",
-    url: "https://www.ft.com/content/1aa5c0f1-962d-4164-a375-74ac4bdd9d25",
-  },
-  {
-    id: "b52c8acc-7ea5-4bd0-b26a-b9956e19867b",
-    title: "London hedge fund Arini falls 16 per cent on soured credit bets",
-    date: "2026-10-07",
-    time: "18:33",
-    url: "https://www.ft.com/content/b52c8acc-7ea5-4bd0-b26a-b9956e19867b",
-  },
-  {
-    id: "7380c978-9b65-4a07-8ce3-bdf88f2484d1",
-    title: "Kirkland & Ellis to stop disclosing financial performance",
-    date: "2026-10-07",
-    time: "18:30",
-    url: "https://www.ft.com/content/7380c978-9b65-4a07-8ce3-bdf88f2484d1",
-  },
-  {
-    id: "d72a1a53-4989-4e48-88e7-5ca467708823",
-    title: "Chrysler Building taken over as New York luxury office market booms",
-    date: "2026-10-07",
-    time: "18:20",
-    url: "https://www.ft.com/content/d72a1a53-4989-4e48-88e7-5ca467708823",
   },
 ];
