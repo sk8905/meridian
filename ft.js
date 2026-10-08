@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ec860f96-5a2b-461a-a897-a957860c3dba",
+    title: "Oil prices jump on tanker attack and slowing flows through Strait of Hormuz",
+    date: "2026-10-08",
+    time: "12:14",
+    url: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba",
+  },
+  {
+    id: "c4ef549c-0451-4884-b922-23cd24cf35a6",
+    title: "Houston start-up aims to loosen China’s grip on critical metal",
+    date: "2026-10-08",
+    time: "12:00",
+    url: "https://www.ft.com/content/c4ef549c-0451-4884-b922-23cd24cf35a6",
+  },
+  {
+    id: "2cb13aed-f6bf-4f45-b906-fa1194405a0c",
+    title: "Iran war blows near-£12bn hole in Britain’s public finances",
+    date: "2026-10-08",
+    time: "11:38",
+    url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c",
+  },
+  {
+    id: "30ea577a-d2e0-4366-9489-223cd38dca82",
+    title: "Badenoch’s punchy plan to reunite the right",
+    date: "2026-10-08",
+    time: "11:27",
+    url: "https://www.ft.com/content/30ea577a-d2e0-4366-9489-223cd38dca82",
+  },
+  {
+    id: "e160b16c-6c39-47fd-9e6c-98a8d6b81eed",
+    title: "Germany heads for fastest growth since 2022",
+    date: "2026-10-08",
+    time: "11:15",
+    url: "https://www.ft.com/content/e160b16c-6c39-47fd-9e6c-98a8d6b81eed",
+  },
+  {
     id: "48991d0c-79df-4222-99d4-4e45c9aa6fee",
     title: "France’s far right goes woke. Or is it neoliberal?",
     date: "2026-10-08",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "05:00",
     url: "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec",
-  },
-  {
-    id: "8d1cb8e2-ed48-4d7c-ac19-2693973894b4",
-    title: "Higher mortgage rates inflict ‘pain’ on UK housing market",
-    date: "2026-10-08",
-    time: "00:01",
-    url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4",
-  },
-  {
-    id: "5539d473-604b-42b3-ba6d-0dbb3353957b",
-    title: "FirstFT: China rejects EU request for voluntary curbs on hybrid car exports",
-    date: "2026-10-07",
-    time: "22:34",
-    url: "https://www.ft.com/content/5539d473-604b-42b3-ba6d-0dbb3353957b",
-  },
-  {
-    id: "ea58254a-947e-4e87-86d2-95ffbd8a1c9d",
-    title: "Trump considers ‘terminating’ campaign advisers over Balkans trip",
-    date: "2026-10-07",
-    time: "22:24",
-    url: "https://www.ft.com/content/ea58254a-947e-4e87-86d2-95ffbd8a1c9d",
-  },
-  {
-    id: "ec8b74b6-0cf7-4ded-abd4-85bde8a80df4",
-    title: "AI upends Singapore’s ‘quant Olympics’",
-    date: "2026-10-07",
-    time: "22:00",
-    url: "https://www.ft.com/content/ec8b74b6-0cf7-4ded-abd4-85bde8a80df4",
-  },
-  {
-    id: "acca8690-c230-4abc-b2c5-4a1d2f082753",
-    title: "Fed minutes indicate broad agreement for another rate rise this year",
-    date: "2026-10-07",
-    time: "21:18",
-    url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753",
   },
 ];
