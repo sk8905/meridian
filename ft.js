@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
+    title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties",
+    date: "2026-10-08",
+    time: "08:09",
+    url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
+  },
+  {
     id: "edb717f9-6512-424c-a3a5-50e43239adf8",
     title: "Tips and Linkers",
     date: "2026-10-08",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-07",
     time: "18:00",
     url: "https://www.ft.com/content/21d4101f-ba5e-49e9-8c38-6b38ed5f1ca3",
-  },
-  {
-    id: "32e1c801-fe7d-4389-b3fc-ab687cbb087b",
-    title: "China slaps down EU request for voluntary curbs on hybrid car exports",
-    date: "2026-10-07",
-    time: "17:56",
-    url: "https://www.ft.com/content/32e1c801-fe7d-4389-b3fc-ab687cbb087b",
   },
 ];

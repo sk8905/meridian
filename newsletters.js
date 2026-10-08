@@ -46,6 +46,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-strikerisks-20261008",
+    publication: "Bloomberg",
+    author: null,
+    series: "Morning Briefing Europe",
+    title: "Strike risks",
+    date: "2026-10-08",
+    time: "07:30",
+    summary: "Oil gains on report White House is mulling Iran strikes.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-08/oil-gains-on-report-white-house-is-mulling-iran-strikes",
+  },
+  {
     id: "nl-economist-worldinbrief-bondselloffeases-20261008",
     publication: "The Economist",
     author: null,
@@ -473,16 +484,5 @@ export const NEWSLETTERS = [
     time: "12:13",
     summary: "The big picture: fund managers and advisors on the AI revolution in private markets.",
     url: "https://go.preqin.com/webmail/909852/2194204031/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
-  },
-  {
-    id: "nl-bbg-economicsdaily-frenchcrisisecb-20261005",
-    publication: "Bloomberg",
-    author: "Craig Stirling",
-    series: "Economics Daily",
-    title: "Economics Daily: Nightmare scenario",
-    date: "2026-10-05",
-    time: "12:04",
-    summary: "More possible euro turmoil looms, and this time it's in a much bigger economy.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-05/a-french-crisis-would-be-a-nightmare-for-ecb",
   },
 ];
