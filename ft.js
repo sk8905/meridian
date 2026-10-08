@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "30034598-7ca3-4379-b91c-dc7ef419ad40",
+    title: "Setting up an African rating agency is the easy part",
+    date: "2026-10-08",
+    time: "18:24",
+    url: "https://www.ft.com/content/30034598-7ca3-4379-b91c-dc7ef419ad40",
+  },
+  {
     id: "e0cc2789-0e71-401d-8096-d58303970a37",
     title: "Donald Trump says US ‘will not be attacking Iran’ before midterm elections",
     date: "2026-10-08",
