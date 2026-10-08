@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e0cc2789-0e71-401d-8096-d58303970a37",
+    title: "Donald Trump says US ‘will not be attacking Iran’ before midterm elections",
+    date: "2026-10-08",
+    time: "18:05",
+    url: "https://www.ft.com/content/e0cc2789-0e71-401d-8096-d58303970a37",
+  },
+  {
+    id: "9884d785-8ddc-43a6-ac8d-b9c7f9a99df3",
+    title: "Big Tech sets out its pitches on AI agents",
+    date: "2026-10-08",
+    time: "17:44",
+    url: "https://www.ft.com/content/9884d785-8ddc-43a6-ac8d-b9c7f9a99df3",
+  },
+  {
+    id: "b66a9858-f8fb-46cb-b506-44bfe26fca2a",
+    title: "OpenAI annualised revenues $20bn less than previously signalled",
+    date: "2026-10-08",
+    time: "17:42",
+    url: "https://www.ft.com/content/b66a9858-f8fb-46cb-b506-44bfe26fca2a",
+  },
+  {
+    id: "04d6ae65-5d5f-4ed6-9c15-16aa0f4d0713",
+    title: "US mortgage rates rise for seventh straight week to hit highest since 2023",
+    date: "2026-10-08",
+    time: "17:38",
+    url: "https://www.ft.com/content/04d6ae65-5d5f-4ed6-9c15-16aa0f4d0713",
+  },
+  {
+    id: "5cfecbba-69ed-42d0-98fd-3ae019144692",
+    title: "Trump bans Microsoft from sponsoring foreign workers for US residency",
+    date: "2026-10-08",
+    time: "17:29",
+    url: "https://www.ft.com/content/5cfecbba-69ed-42d0-98fd-3ae019144692",
+  },
+  {
     id: "9cf103ed-548e-4b06-baed-71632abca961",
     title: "Big investors ‘bottom fish’ in Eurozone bond markets after France sell-off",
     date: "2026-10-08",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "08:36",
     url: "https://www.ft.com/content/f21b32f5-011f-4716-a206-9382fd335fa6",
-  },
-  {
-    id: "3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
-    title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties",
-    date: "2026-10-08",
-    time: "08:09",
-    url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
-  },
-  {
-    id: "70f36d8e-ab07-4b58-a5d5-70908ef5f6ee",
-    title: "Tesco predicts less boozy Christmas for UK shoppers",
-    date: "2026-10-08",
-    time: "07:45",
-    url: "https://www.ft.com/content/70f36d8e-ab07-4b58-a5d5-70908ef5f6ee",
-  },
-  {
-    id: "edb717f9-6512-424c-a3a5-50e43239adf8",
-    title: "Tips and Linkers",
-    date: "2026-10-08",
-    time: "06:30",
-    url: "https://www.ft.com/content/edb717f9-6512-424c-a3a5-50e43239adf8",
-  },
-  {
-    id: "2ce052aa-6212-4d4d-99f0-6edacd254e4d",
-    title: "FTAV’s further reading",
-    date: "2026-10-08",
-    time: "06:30",
-    url: "https://www.ft.com/content/2ce052aa-6212-4d4d-99f0-6edacd254e4d",
-  },
-  {
-    id: "166d0909-235d-4402-8ed7-d42d59401f6c",
-    title: "Šefčovič goes to Beijing with a final plea to avoid an EU-China trade war",
-    date: "2026-10-08",
-    time: "06:00",
-    url: "https://www.ft.com/content/166d0909-235d-4402-8ed7-d42d59401f6c",
   },
 ];

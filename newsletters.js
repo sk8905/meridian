@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-visamastercardpostbrexitclaim-20261008",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Visa and Mastercard face new \u00a3700m claim over post-Brexit fees",
+    date: "2026-10-08",
+    time: "17:35",
+    summary: "Geradin Partners has launched a new class action against Visa and Mastercard, with magic circle and US firms acting for the defendants.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/xbhiNY3LlbXf",
+  },
+  {
     id: "nl-fitch-wiredaily-trucksabs-20261008",
     publication: "Fitch Ratings",
     author: null,
@@ -476,16 +487,5 @@ export const NEWSLETTERS = [
     time: "11:10",
     summary: "Nvidia is on the verge of a $6 trillion market value; plus Dalio warns on bonds.",
     url: "https://www.bloomberg.com/news/newsletters/2026-10-06/nvidia-is-on-the-verge-of-a-6-trillion-market-value",
-  },
-  {
-    id: "nl-bbg-authoralert-kitelake-20261006",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: "Author Alert",
-    title: "Kite Lake to Start New Hedge Fund Run by Former Tyrus Partner",
-    date: "2026-10-06",
-    time: "09:31",
-    summary: "Kite Lake Capital Management is preparing to start a new fund, joining peers capitalizing on investor appetite for hedge-fund products.",
-    url: "https://www.bloomberg.com/news/articles/2026-10-06/kite-lake-to-start-new-hedge-fund-run-by-former-tyrus-partner",
   },
 ];
