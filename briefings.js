@@ -104,14 +104,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-10-07",
-      time: "14:22 BST",
-      lede: "A renewed global bond sell-off has pushed the 30-year Treasury yield to its highest since 2002, with the energy shock and UK fiscal worries framing the afternoon.",
+      date: "2026-10-08",
+      time: "12:20 BST",
+      lede: "Oil jumped on a tanker attack and slowing flows through the Strait of Hormuz, keeping the energy shock — and its drag on UK public finances — at the centre of an already fragile bond market.",
       bullets: [
-        { html: "<strong>Macro &mdash; the Hormuz energy shock keeps biting</strong>: with Brent crude still elevated, ships&rsquo; captains are being paid $100,000 a month to transit the strait, while President Trump says he is considering suspending the federal petrol tax.", src: "https://www.ft.com/content/0d665e5b-d8c8-4f1e-acf5-bba7193b4e6e", srcName: "Financial Times", date: "2026-10-07" },
-        { html: "<strong>Bonds &mdash; the global bond sell-off resumed</strong>, with the US 30-year Treasury yield at its highest since 2002 and the 10-year near 5.27%, as the Banque de France chief said ECB intervention is not needed to ease the rout.", src: "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6", srcName: "Financial Times", date: "2026-10-07" },
-        { html: "<strong>Equities &mdash; the S&amp;P 500 is holding at a record after a 0.66% gain</strong> on AI mega-cap strength, while Japan prepares a record revamp cutting hundreds of stocks from the Topix index.", src: "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", srcName: "Bloomberg", date: "2026-10-07" },
-        { html: "<strong>Credit &mdash; Arini raised $1.5 billion for its credit trading strategy</strong>, reopening it to new cash after two years even as its main hedge fund extended losses to a 13.5% decline.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg", date: "2026-10-05" },
+        { html: "<strong>Macro &mdash; oil prices jumped</strong> on a tanker attack and slowing flows through the Strait of Hormuz, reviving the energy-shock theme behind this week&rsquo;s inflation and rate worries.", src: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba", srcName: "Financial Times", date: "2026-10-08" },
+        { html: "<strong>Bonds &mdash; big investors are &lsquo;bottom fishing&rsquo; in Eurozone bonds</strong> after the France sell-off, with asset managers saying fears of a blow-up like the Eurozone debt crisis have been overdone.", src: "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961", srcName: "Financial Times", date: "2026-10-08" },
+        { html: "<strong>Macro &mdash; the Iran war has blown a near-&pound;12bn hole</strong> in Britain&rsquo;s public finances, adding to fiscal pressure ahead of the Autumn Budget.", src: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Credit &mdash; hedge funds have become a cash cow for Wall Street banks</strong>, as a trillion-dollar borrowing spree turns prime-brokerage lending into a major earner.", src: "https://www.ft.com/content/5539d473-604b-42b3-ba6d-0dbb3353957b", srcName: "Financial Times", date: "2026-10-08" },
       ],
     },
     evening: {

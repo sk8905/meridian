@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-08",
-  lastCheckedTime: "10:15 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1010,7 +1010,7 @@ export const NEWS = {
     {title: "How a trillion-dollar hedge fund borrowing spree became Wall Street’s cash cow", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec"},
     {title: "What is the real price of oil any more?", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/5cad1f95-b06d-4ee1-b1c7-0244999337d4"},
     {title: "Fed minutes indicate broad agreement for another rate rise this year", source: "Financial Times", date: "2026-10-07", time: "21:18", url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753"},
-    {title: "Fed policymakers divided over rate-hike logic in September, minutes show", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/"},
+    {title: "Oil prices jump on tanker attack and slowing flows through Strait of Hormuz", source: "Financial Times", date: "2026-10-08", time: "12:14", url: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba"},
   ],
   uk: [
     {title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties", source: "Financial Times", date: "2026-10-08", time: "08:09", url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d"},

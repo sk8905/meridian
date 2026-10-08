@@ -56,6 +56,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/e160b16c-6c39-47fd-9e6c-98a8d6b81eed",
   },
   {
+    id: "5539d473-604b-42b3-ba6d-0dbb3353957b",
+    title: "FirstFT: How hedge funds became Wall Street banks’ cash cow",
+    date: "2026-10-08",
+    time: "11:06",
+    url: "https://www.ft.com/content/5539d473-604b-42b3-ba6d-0dbb3353957b",
+  },
+  {
     id: "48991d0c-79df-4222-99d4-4e45c9aa6fee",
     title: "France’s far right goes woke. Or is it neoliberal?",
     date: "2026-10-08",
