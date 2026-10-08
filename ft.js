@@ -300,11 +300,4 @@ export const FT_ITEMS = [
     time: "09:30",
     url: "https://www.ft.com/content/771d64f2-dacf-4c12-83c2-e6bc97c0161a",
   },
-  {
-    id: "a57290ab-eadd-4e12-b8cc-37befed8d3bb",
-    title: "British consulate in Jerusalem becomes ‘UK Mission’ after Israel orders closure",
-    date: "2026-10-08",
-    time: "09:29",
-    url: "https://www.ft.com/content/a57290ab-eadd-4e12-b8cc-37befed8d3bb",
-  },
 ];

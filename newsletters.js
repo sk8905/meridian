@@ -488,15 +488,4 @@ export const NEWSLETTERS = [
     summary: "Why CGT reform was the right policy but is now dead after the last two Budgets.",
     url: "https://newsletter.taxpolicy.org.uk/campaign/713087af-48cb-418f-bb70-154835779909/fd0b23db-b61a-4813-bcbf-44577160c2d1",
   },
-  {
-    id: "nl-bbg-marketsdaily-nvidia6trillion-20261006",
-    publication: "Bloomberg",
-    author: null,
-    series: "Markets Daily",
-    title: "Markets Daily: Nvidia nears $6 trillion",
-    date: "2026-10-06",
-    time: "11:10",
-    summary: "Nvidia is on the verge of a $6 trillion market value; plus Dalio warns on bonds.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-06/nvidia-is-on-the-verge-of-a-6-trillion-market-value",
-  },
 ];
