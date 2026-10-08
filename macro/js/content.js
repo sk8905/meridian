@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-08",
-  lastCheckedTime: "16:15 BST",
+  lastCheckedTime: "18:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,7 +1006,7 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-08",
   us: [
-    {title: "Crowding out pits sovereigns against AI", source: "Financial Times", date: "2026-10-08", time: "05:00", url: "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6"},
+    {title: "Donald Trump says US ‘will not be attacking Iran’ before midterm elections", source: "Financial Times", date: "2026-10-08", time: "18:05", url: "https://www.ft.com/content/e0cc2789-0e71-401d-8096-d58303970a37"},
     {title: "Repeated US Treasury interventions risk an erosion of credibility", source: "Financial Times", date: "2026-10-08", time: "15:30", url: "https://www.ft.com/content/eec1e15d-78b9-4706-a518-2a9db4f37128"},
     {title: "What is driving the global bond sell-off? You asked, we answered", source: "Financial Times", date: "2026-10-08", time: "13:01", url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794"},
     {title: "Fed minutes indicate broad agreement for another rate rise this year", source: "Financial Times", date: "2026-10-07", time: "21:18", url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753"},
