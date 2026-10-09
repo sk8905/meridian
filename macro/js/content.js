@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-09",
-  lastCheckedTime: "18:15 BST",
+  lastCheckedTime: "20:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-09",
   us: [
-    {title: "Delta slashes profit outlook as higher fuel prices bite", source: "Financial Times", date: "2026-10-09", time: "12:44", url: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4"},
+    {title: "Trump agrees deal with Putin for Russia to release diesel on to global market", source: "Financial Times", date: "2026-10-09", time: "20:01", url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8"},
+    {title: "Scott Bessent to miss IMF annual meetings in Bangkok", source: "Financial Times", date: "2026-10-09", time: "19:22", url: "https://www.ft.com/content/9496dd1d-fabf-4c58-bbc3-88cb51f2a68d"},
     {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
     {title: "Why bank stocks are falling despite surging interest rates", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b"},
     {title: "Donald Trump launches committee to investigate Fed governor Lisa Cook", source: "Financial Times", date: "2026-10-09", time: "16:08", url: "https://www.ft.com/content/d0c81cd2-f944-46b9-a859-abc3f0bd3516"},
-    {title: "How to shield your portfolio if AI goes ka-boom", source: "Financial Times", date: "2026-10-09", time: "14:00", url: "https://www.ft.com/content/ee329e29-aec9-4876-829e-022683f425f8"},
   ],
   uk: [
     {title: "Number of people caught in UK’s £100,000 tax trap doubles in four years", source: "Financial Times", date: "2026-10-09", time: "12:00", url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4"},

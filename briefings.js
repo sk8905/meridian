@@ -117,7 +117,7 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-09",
-      time: "18:15 BST",
+      time: "20:15 BST",
       lede: "Trump launched a committee to investigate Fed governor Lisa Cook; Pimco warned the US 10-year yield could reach 6%; US telcos lost $45bn of value on SpaceX's spectrum purchase; and AI-borrower CDS costs kept climbing.",
       bullets: [
         { html: "<strong>Macro &mdash; Trump launched a committee to investigate Fed governor Lisa Cook</strong>, escalating the White House&rsquo;s pressure on the central bank with the FOMC due to meet on 27&ndash;28 October.", src: "https://www.ft.com/content/d0c81cd2-f944-46b9-a859-abc3f0bd3516", srcName: "Financial Times", date: "2026-10-09" },
