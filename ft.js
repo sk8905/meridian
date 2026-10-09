@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ca31d01f-d5a0-4bd4-bcc2-4aaa68f4ca22",
+    title: "Most countries unprepared for bank failures, watchdog warns",
+    date: "2026-10-09",
+    time: "07:00",
+    url: "https://www.ft.com/content/ca31d01f-d5a0-4bd4-bcc2-4aaa68f4ca22",
+  },
+  {
+    id: "c1a8b8f4-7508-49bc-990b-3ecc5a4f20ee",
+    title: "Hedge funds as systemic risks",
+    date: "2026-10-09",
+    time: "06:30",
+    url: "https://www.ft.com/content/c1a8b8f4-7508-49bc-990b-3ecc5a4f20ee",
+  },
+  {
+    id: "b2efb147-5380-4d78-b648-cc5e442d1ce1",
+    title: "FTAV’s further reading",
+    date: "2026-10-09",
+    time: "06:30",
+    url: "https://www.ft.com/content/b2efb147-5380-4d78-b648-cc5e442d1ce1",
+  },
+  {
     id: "782c8c63-0db5-499e-8a0b-b7e263bc1f97",
     title: "EU capitals caught between markets and metrics as debt fears rise",
     date: "2026-10-09",
@@ -159,6 +180,13 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "05:00",
     url: "https://www.ft.com/content/2adb9508-6874-400e-adc3-231a7daebfd6",
+  },
+  {
+    id: "fb16d97c-b8ce-4a4a-b300-14f38a95278b",
+    title: "Could The Celebrity Traitors tempt workers back to the office?",
+    date: "2026-10-09",
+    time: "05:00",
+    url: "https://www.ft.com/content/fb16d97c-b8ce-4a4a-b300-14f38a95278b",
   },
   {
     id: "fa7d4016-a914-4f68-97bd-82081cbde886",
