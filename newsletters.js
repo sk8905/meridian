@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-techvisabar-20261009",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Trump bars tech firms from visa programme",
+    date: "2026-10-09",
+    time: "06:05",
+    summary: "Also: A murder case ignites fury in Okinawa.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-paintradestrikes-20261008",
     publication: "Reuters",
     author: "Jamie McGeever",
@@ -477,15 +488,5 @@ export const NEWSLETTERS = [
     summary: "The insider: Gulf SWFs increasingly look to invest in private equity and VC at home.",
     url: "https://go.preqin.com/webmail/909852/2195275463/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
   },
-  {
-    id: "nl-bbg-economicsdaily-dieselinflation-20261006",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: Diesel’s inflation pull",
-    date: "2026-10-06",
-    time: "12:01",
-    summary: "How the pulling power of diesel risks higher inflation into 2027.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-06/us-inflation-diesel-s-pulling-power-poses-2027-risk",
-  },
+
 ];

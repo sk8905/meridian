@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "782c8c63-0db5-499e-8a0b-b7e263bc1f97",
+    title: "EU capitals caught between markets and metrics as debt fears rise",
+    date: "2026-10-09",
+    time: "06:00",
+    url: "https://www.ft.com/content/782c8c63-0db5-499e-8a0b-b7e263bc1f97",
+  },
+  {
+    id: "42a5c77c-d09c-40b3-8ad2-4a01633dd6a0",
+    title: "Is Warhammer still winning?",
+    date: "2026-10-09",
+    time: "06:00",
+    url: "https://www.ft.com/content/42a5c77c-d09c-40b3-8ad2-4a01633dd6a0",
+  },
+  {
+    id: "3bc0eaa5-a8d4-47e8-903c-7dd762d947dd",
+    title: "SoftBank seeks $100bn from Gulf investors to expand AI bet",
+    date: "2026-10-09",
+    time: "05:30",
+    url: "https://www.ft.com/content/3bc0eaa5-a8d4-47e8-903c-7dd762d947dd",
+  },
+  {
+    id: "0d411bea-ee6a-4300-9b1e-cc5a6bba4b7c",
+    title: "Venezuela opposition leader María Corina Machado calls for elections next year",
+    date: "2026-10-09",
+    time: "05:23",
+    url: "https://www.ft.com/content/0d411bea-ee6a-4300-9b1e-cc5a6bba4b7c",
+  },
+  {
     id: "cbebae69-3986-46af-90a7-4cf702a6593d",
     title: "The Business of Formula 1",
     date: "2026-10-09",
@@ -272,32 +300,5 @@ export const FT_ITEMS = [
     time: "16:37",
     url: "https://www.ft.com/content/b2325cbe-44b6-4941-a60d-97fd9cff47ce",
   },
-  {
-    id: "efdc00f5-2e70-40ba-803b-538e9e63462e",
-    title: "UK pension ‘triple lock’ was first costed at just £50mn, says ex-government adviser",
-    date: "2026-10-08",
-    time: "16:21",
-    url: "https://www.ft.com/content/efdc00f5-2e70-40ba-803b-538e9e63462e",
-  },
-  {
-    id: "c163a470-e73f-4fdb-91fb-426004b21f22",
-    title: "Daughter of Trump’s chief of staff works at firm that lobbies for Republika Srpska",
-    date: "2026-10-08",
-    time: "16:17",
-    url: "https://www.ft.com/content/c163a470-e73f-4fdb-91fb-426004b21f22",
-  },
-  {
-    id: "eec1e15d-78b9-4706-a518-2a9db4f37128",
-    title: "Repeated US Treasury interventions risk an erosion of credibility",
-    date: "2026-10-08",
-    time: "15:30",
-    url: "https://www.ft.com/content/eec1e15d-78b9-4706-a518-2a9db4f37128",
-  },
-  {
-    id: "212f15c8-a897-4db0-bacf-d1556a11b9ed",
-    title: "Goldman Sachs to pay top executives $500mn in special bonuses",
-    date: "2026-10-08",
-    time: "15:14",
-    url: "https://www.ft.com/content/212f15c8-a897-4db0-bacf-d1556a11b9ed",
-  },
+
 ];
