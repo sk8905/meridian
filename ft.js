@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ec5cf1f8-e4cf-4b87-ae89-276ab9532856",
+    title: "The rightwing rapper taking on Pedro Sánchez in Spain",
+    date: "2026-10-09",
+    time: "11:00",
+    url: "https://www.ft.com/content/ec5cf1f8-e4cf-4b87-ae89-276ab9532856",
+  },
+  {
+    id: "baa39f13-36d8-4fb5-8bbc-a67249c900d4",
+    title: "Number of people caught in UK’s £100,000 tax trap doubles in four years",
+    date: "2026-10-09",
+    time: "11:00",
+    url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4",
+  },
+  {
+    id: "77b79f83-9dd1-49b1-be59-b5ca3c2ad5fd",
+    title: "EU countries to overhaul financial market supervision",
+    date: "2026-10-09",
+    time: "10:54",
+    url: "https://www.ft.com/content/77b79f83-9dd1-49b1-be59-b5ca3c2ad5fd",
+  },
+  {
+    id: "20efce56-8ef3-475d-8084-26e5ab942f5e",
+    title: "German spy agency under pressure from allies over ‘treason’ scandal",
+    date: "2026-10-09",
+    time: "10:44",
+    url: "https://www.ft.com/content/20efce56-8ef3-475d-8084-26e5ab942f5e",
+  },
+  {
     id: "3ae8dc9c-ee3a-4fe5-9749-b88390b5930b",
     title: "Nobel Peace Prize awarded to human rights lawyer Navi Pillay",
     date: "2026-10-09",
@@ -54,6 +82,13 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "07:00",
     url: "https://www.ft.com/content/ca31d01f-d5a0-4bd4-bcc2-4aaa68f4ca22",
+  },
+  {
+    id: "5cfecbba-69ed-42d0-98fd-3ae019144692",
+    title: "Microsoft banned from sponsoring foreign workers for US residency",
+    date: "2026-10-09",
+    time: "06:31",
+    url: "https://www.ft.com/content/5cfecbba-69ed-42d0-98fd-3ae019144692",
   },
   {
     id: "c1a8b8f4-7508-49bc-990b-3ecc5a4f20ee",
@@ -265,40 +300,4 @@ export const FT_ITEMS = [
     time: "21:35",
     url: "https://www.ft.com/content/dbcc35ba-db23-4be3-b2c0-4a0d8ecb7375",
   },
-  {
-    id: "67a64928-6278-4a83-8f9c-4ec9dcf26039",
-    title: "Is France too blasé about borrowing costs?",
-    date: "2026-10-08",
-    time: "21:00",
-    url: "https://www.ft.com/content/67a64928-6278-4a83-8f9c-4ec9dcf26039",
-  },
-  {
-    id: "19a73ec7-a014-4776-bef7-4aa34e5b543a",
-    title: "US adds torture charges to case against former Venezuelan president",
-    date: "2026-10-08",
-    time: "20:03",
-    url: "https://www.ft.com/content/19a73ec7-a014-4776-bef7-4aa34e5b543a",
-  },
-  {
-    id: "30034598-7ca3-4379-b91c-dc7ef419ad40",
-    title: "Setting up an African rating agency is the easy part",
-    date: "2026-10-08",
-    time: "18:24",
-    url: "https://www.ft.com/content/30034598-7ca3-4379-b91c-dc7ef419ad40",
-  },
-  {
-    id: "e0cc2789-0e71-401d-8096-d58303970a37",
-    title: "Donald Trump says US ‘will not be attacking Iran’ before midterm elections",
-    date: "2026-10-08",
-    time: "18:05",
-    url: "https://www.ft.com/content/e0cc2789-0e71-401d-8096-d58303970a37",
-  },
-  {
-    id: "3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
-    title: "UK open to Germany joining fighter jet programme as Andy Burnham bids for deeper ties",
-    date: "2026-10-08",
-    time: "17:49",
-    url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
-  },
-
 ];
