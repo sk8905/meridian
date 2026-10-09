@@ -99,10 +99,11 @@ await pg.waitForTimeout(700);
 const anchored = await pg.evaluate(async () => {
   const bar = document.querySelector(".topbar");
   const top0 = Math.round(bar.getBoundingClientRect().top);
-  // Home defaults to the Market Briefing pane; switch to the News pane so the feed
-  // filter head exists in the sticky stack we're checking here.
-  document.querySelector('.g-wiretab[data-wire="news"]')?.click();
-  await new Promise((r) => setTimeout(r, 250));
+  // Home defaults to the Market Briefing pane; go to the News tab (news mode) so the
+  // feed exists in the sticky stack we're checking here. News is its own route now.
+  history.pushState({ v2: true }, "", "/v2/news/");
+  dispatchEvent(new PopStateEvent("popstate"));
+  await new Promise((r) => setTimeout(r, 350));
   // Scroll well past the top of the feed so the filter row reaches its pinned
   // position beneath the chips.
   window.scrollTo(0, 3000);

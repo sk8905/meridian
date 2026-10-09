@@ -22,7 +22,7 @@ await pg.click('.mtab[data-key="home"]');
 await pg.waitForTimeout(250);
 check(await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').classList.contains("is-on")), "Home tab: opens the Market Briefing chip (the Home-button default)");
 check(await vis("#g-hbrief"), "Home tab: the briefing pane is shown");
-check(await pg.evaluate(() => { const l = document.querySelector(".g-wiretab-lane .g-wire-lanelbl"); return (l && l.textContent || "").trim() === "All"; }), "Home tab: the underlying news lane is reset to All");
+check(await pg.evaluate(() => { const l = document.querySelector("#g-wire-lanechips .g-wire-lane.is-on"); return (l && l.textContent || "").trim() === "All"; }), "Home tab: the underlying news lane is reset to All");
 check(!(await vis(".g-side-x")), "Home tab: the X wire is hidden");
 
 // --- Dashboard: non-default sub-tab → tap Dashboard → Macro -----------------

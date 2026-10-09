@@ -129,30 +129,30 @@ const lane = (pg, name) => pg.evaluate((n) => [...document.querySelectorAll("#g-
   await ctx.close();
 }
 
-// ---- Phone: the Manager/Watchlist lanes reached via the wire-tab dropdown --------
+// ---- Phone: the Manager/Watchlist lanes reached via the News-tab chip row --------
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
   await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); localStorage.removeItem("wire.home.v1"); } catch {} });
   await pg.reload({ waitUntil: "load" });
-  // Market Briefing is the default pane on phones, so the feed is present but hidden
-  // until the News tab is chosen — wait on attachment, not visibility.
   await pg.waitForSelector("#g-feed .g-feed-row", { state: "attached", timeout: 8000 });
+  // The news wire + its lane selector are the News bottom tab now (news mode); the
+  // lane selector is a CHIP ROW (#g-wire-lanechips), not the old dropdown.
+  await pg.waitForSelector('.mtab[data-key="news"]', { timeout: 8000 });
+  await pg.click('.mtab[data-key="news"]');
+  await pg.waitForTimeout(500);
   const shell = await pg.evaluate(() => ({
     tabs: [...document.querySelectorAll(".g-wiretabs .g-wiretab")].map((t) => t.textContent.trim()),
-    laneLbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
-    menu: [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].map((i) => i.textContent.trim()),
-    chipsHidden: (() => { const l = document.getElementById("g-wire-lanes"); return !l || l.offsetParent === null; })(),
+    chips: [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].map((c) => c.textContent.trim()),
+    chipsRowHidden: (() => { const l = document.getElementById("g-wire-lanes"); return !l || l.offsetParent === null; })(),
   }));
-  check(!shell.tabs.includes("Managers"), `phone: the separate Managers tab is gone — merged into the wire (${shell.tabs.join(" · ")})`);
-  check(shell.menu.join(" · ") === "All · Research · Managers · Watchlist · Newsletters", `phone: the wire-tab dropdown carries the five lanes (${shell.menu.join(", ")})`);
-  check(shell.chipsHidden, "phone: the desktop lane chip row is hidden (the dropdown drives the lane on phones)");
-  // Pick Manager from the dropdown → manager events render in the shared feed.
-  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
-  await pg.waitForTimeout(150);
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Managers").click());
+  check(!shell.tabs.includes("Managers"), `phone: no separate Managers tab — lanes live in the news chip row (${shell.tabs.join(" · ")})`);
+  check(shell.chips.join(" · ") === "All · Research · Managers · Watchlist · Newsletters", `phone: the news chip row carries the five lanes (${shell.chips.join(", ")})`);
+  check(shell.chipsRowHidden, "phone: the desktop lane chip row (#g-wire-lanes) is hidden");
+  // Pick Managers from the chip row → manager events render in the shared feed.
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "Managers").click());
   await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 6000 });
   const m = await pg.evaluate(() => ({
-    lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
+    lbl: ((document.querySelector("#g-wire-lanechips .g-wire-lane.is-on") || {}).textContent || "").trim(),
     rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
     labels: [...new Set([...document.querySelectorAll("#g-feed .g-mw-fev .g-feed-code")].map((c) => c.textContent.trim()))].length,
   }));

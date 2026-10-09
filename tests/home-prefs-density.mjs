@@ -70,12 +70,10 @@ const base = `http://localhost:${srv.port}`;
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/news/");
   await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
   await pg.goto(base + "/v2/news/", { waitUntil: "load" });
-  await pg.waitForSelector(".g-wiretab-lane", { timeout: 8000 });
+  await pg.waitForSelector("#g-wire-lanechips .g-wire-lane", { timeout: 8000 });
   await pg.waitForTimeout(400);
-  // In news mode the lane chip IS the active pane, so one tap opens its dropdown.
-  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
-  await pg.waitForTimeout(150);
-  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Managers").click());
+  // News mode: the lane selector is a chip row — pick Managers directly.
+  await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanechips .g-wire-lane")].find((c) => c.textContent.trim() === "Managers").click());
   await pg.waitForTimeout(200);
   const savedLane = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").wireLane; } catch { return null; } });
   checkEq(savedLane, "manager", "choosing a lane persists it (wireLane)");
@@ -84,7 +82,7 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 8000 });
   await pg.waitForTimeout(300);
   const restored = await pg.evaluate(() => ({
-    lbl: (document.querySelector(".g-wiretab-lane .g-wire-lanelbl") || {}).textContent || "",
+    lbl: ((document.querySelector("#g-wire-lanechips .g-wire-lane.is-on") || {}).textContent || "").trim(),
     rows: document.querySelectorAll("#g-feed .g-mw-fev").length,
   }));
   check(restored.lbl === "Managers" && restored.rows > 0, `mobile reopens on the remembered lane (${restored.lbl}, ${restored.rows} rows)`);

@@ -127,17 +127,29 @@ let _mktTab = "equities";
 // "Ask Wire" (B) + "Add a firm" (C) now live in the shared assistant module
 // (v2/js/assistant.js), mounted both here (desktop header, Ask only) and in the
 // Menu → Dialogue chip (Ask + Add). See mountAssistant().
-export function loadMarkets(body) {
-  body.innerHTML = `<div class="na-chips">`
-    + `<button type="button" class="na-chip" data-k="equities">Equities</button>`
-    + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
-    + `<button type="button" class="na-chip" data-k="predict">Predictions</button>`
-    + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
+export function loadMarkets(body, opts = {}) {
+  // The Equities/Macro/Predictions switcher renders as chips in the desktop header
+  // panel, OR as a dropdown on the iPhone Markets tab (opts.switcher === "dropdown"),
+  // matching the News tab's lane selector. Same tab state (_mktTab) and body either way.
+  const TAB_LABEL = { equities: "Equities", macro: "Macro", predict: "Predictions" };
+  const useDropdown = opts && opts.switcher === "dropdown";
+  const switcherHTML = useDropdown
+    ? `<div class="na-mktsel"><button type="button" class="na-mktsel-btn tchip-has-menu" aria-haspopup="menu" aria-expanded="false"><span class="na-mktsel-lbl">${esc(TAB_LABEL[_mktTab] || "Equities")}</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button><div class="na-mktsel-menu tchip-menu" role="menu" hidden>`
+      + ["equities", "macro", "predict"].map((k) => `<button type="button" class="tchip-menu-item${k === _mktTab ? " is-on" : ""}" data-k="${k}" role="menuitem">${esc(TAB_LABEL[k])}</button>`).join("")
+      + `</div></div>`
+    : `<div class="na-chips"><button type="button" class="na-chip" data-k="equities">Equities</button><button type="button" class="na-chip" data-k="macro">Macro</button><button type="button" class="na-chip" data-k="predict">Predictions</button></div>`;
+  body.innerHTML = switcherHTML + `<div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
   const chips = body.querySelector(".na-chips");
+  const selBtn = body.querySelector(".na-mktsel-btn");
+  const selMenu = body.querySelector(".na-mktsel-menu");
+  const selLbl = body.querySelector(".na-mktsel-lbl");
   const tb = body.querySelector(".na-tabbody");
   let data = null, predict = null, predictLoading = false;
+  const closeSel = () => { if (selMenu && !selMenu.hidden) { selMenu.hidden = true; selBtn.setAttribute("aria-expanded", "false"); } };
   const render = () => {
-    chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
+    if (chips) chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
+    if (selLbl) selLbl.textContent = TAB_LABEL[_mktTab] || "Equities";
+    if (selMenu) selMenu.querySelectorAll(".tchip-menu-item").forEach((m) => m.classList.toggle("is-on", m.dataset.k === _mktTab));
     if (_mktTab === "predict") { tb.innerHTML = predictPane(predict, predictLoading); return; }
     if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
     tb.innerHTML = _mktTab === "macro" ? macroPane(data) : marketsPane(data);
@@ -149,7 +161,13 @@ export function loadMarkets(body) {
     fetch("/api/predict?v=8", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
-  chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
+  const pick = (k) => { if (k && k !== _mktTab) { _mktTab = k; if (_mktTab === "predict") loadPredict(); render(); } };
+  if (chips) chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c) pick(c.dataset.k); });
+  if (selBtn) {
+    selBtn.addEventListener("click", (e) => { e.stopPropagation(); const open = selMenu.hidden; selMenu.hidden = !open; selBtn.setAttribute("aria-expanded", open ? "true" : "false"); });
+    selMenu.addEventListener("click", (e) => { const it = e.target.closest(".tchip-menu-item"); if (!it) return; e.preventDefault(); e.stopPropagation(); closeSel(); pick(it.dataset.k); });
+    document.addEventListener("click", (e) => { if (selMenu && !selMenu.hidden && !e.target.closest(".na-mktsel")) closeSel(); });
+  }
   // Delegated in-pane controls. stopPropagation is essential: render() replaces
   // tb's innerHTML, detaching the tapped button; without it the document-level
   // outside-click closer then sees a now-orphaned target (closest(".na-panel") ===

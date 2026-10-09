@@ -1604,9 +1604,21 @@
       .tui .g-layout.wire-markets .g-side-x,
       .tui .g-layout.wire-markets .g-hero{ display:none; }
       .tui .g-layout.wire-markets .g-mktpane{ display:block; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-      .tui .g-wiretabs .g-wiretab-lane{ display:none; }
-      .tui .g-layout.wire-newsmode .g-wiretabs .g-wiretab:not(.g-wiretab-lane){ display:none; }
-      .tui .g-layout.wire-newsmode .g-wiretabs .g-wiretab-lane{ display:flex; flex:0 0 auto; justify-content:flex-start; padding-left:12px; gap:5px; }
+      /* NEWS MODE: the four home tabs hide; the lane CHIP ROW (#g-wire-lanechips —
+         All · Research · Managers · Watchlist · Newsletters) shows as a horizontally-
+         scrollable strip filling the wire-tab bar. The market/macro rails that stack
+         under the base feed are dropped so News is just the chips + feed. */
+      .tui .g-wire-lanechips{ display:none; }
+      .tui .g-layout.wire-newsmode .g-wiretabs .g-wiretab{ display:none; }
+      .tui .g-layout.wire-newsmode .g-wire-lanechips{ display:flex; flex:1 1 auto; min-width:0; height:100%;
+        align-items:stretch; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .tui .g-wire-lanechips::-webkit-scrollbar{ display:none; }
+      .tui .g-wire-lanechips .g-wire-lane{ flex:0 0 auto; height:100%; display:inline-flex; align-items:center;
+        padding:0 13px; border:0; background:var(--t-head); color:var(--t-mut); font:inherit; font-size:var(--fs-body);
+        font-weight:400; white-space:nowrap; cursor:pointer; }
+      .tui .g-wire-lanechips .g-wire-lane.is-on{ color:var(--t-ink); font-weight:600;
+        box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
+      [data-theme="dark"] .tui .g-wire-lanechips .g-wire-lane.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
       .tui .g-layout.wire-newsmode .g-side,
       .tui .g-layout.wire-newsmode .g-side2{ display:none; }
       }

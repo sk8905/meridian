@@ -332,9 +332,10 @@ await ctx.close();
   await pg2.waitForTimeout(150);
   check(await pg2.evaluate(() => document.getElementById("g-reader").hidden), "phone: switching wire tabs closes the reader");
   check(await pg2.evaluate(() => !document.documentElement.classList.contains("home-reading") && getComputedStyle(document.querySelector(".g-wiretabs")).display !== "none"), "phone: closing the reader restores the search band + wire tabs");
-  // Re-open, then Back closes the reader, returning to the wire.
-  await pg2.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
-  await pg2.waitForTimeout(150);
+  // Re-open, then Back closes the reader, returning to the wire. News is the News
+  // bottom tab now (news mode) — tap it to get back to the feed.
+  await pg2.click('.mtab[data-key="news"]');
+  await pg2.waitForTimeout(250);
   await pg2.evaluate(() => { const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => r.getAttribute("target") === "_blank" && !r.classList.contains("is-locked")); if (row) row.click(); });
   await pg2.waitForSelector("#g-reader:not([hidden])", { timeout: 4000 });
   await pg2.evaluate(() => document.getElementById("g-reader-back").click());

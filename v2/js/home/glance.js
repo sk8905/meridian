@@ -21,7 +21,11 @@ import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
-const on = (t, ty, fn, o) => t.addEventListener(ty, (e) => { if (__ROOT.dataset.v2tab !== __KEY) return; return fn(e); }, o);
+// This view owns BOTH the "home" and "news" tabs (News is a mode of the Home view —
+// see runtime.js / home.js showNews), so its document-level listeners must run on
+// either. Gating on "home" alone silenced the resume refetch, PTR, etc. on News.
+const __OWNS = () => { const t = __ROOT.dataset.v2tab; return t === __KEY || t === "news"; };
+const on = (t, ty, fn, o) => t.addEventListener(ty, (e) => { if (!__OWNS()) return; return fn(e); }, o);
 
 // ---- Deferred desk data (the heavy modules) --------------------------------
 // credit/js/data.js (~686 KB gz), legal/js/data.js (~639 KB gz) and
@@ -225,7 +229,7 @@ function _mountMarketsPane() {
   const host = document.getElementById("g-mktpane"); if (!host) return;
   _mktPaneLoaded = true;
   import("../nav-actions.js")
-    .then((m) => { if (m && typeof m.loadMarkets === "function") m.loadMarkets(host); else host.innerHTML = '<div class="g-loading">Markets unavailable right now.</div>'; })
+    .then((m) => { if (m && typeof m.loadMarkets === "function") m.loadMarkets(host, { switcher: "dropdown" }); else host.innerHTML = '<div class="g-loading">Markets unavailable right now.</div>'; })
     .catch(() => { _mktPaneLoaded = false; host.innerHTML = '<div class="g-loading">Markets unavailable — tap Markets to retry.</div>'; });
 }
 
@@ -294,40 +298,18 @@ function initMobileWireTabs() {
   // /v2/news/.
   const _wp = _homePrefs().wire;
   setWire(["brief", "markets", "chart", "x"].includes(_wp) ? _wp : "brief");
-  const laneMenu = document.getElementById("g-wire-lanemenu");
-  const laneTab = tabs.querySelector(".g-wiretab-lane");
+  // Delegated taps on the wire-tab strip: a NEWS-MODE lane chip (#g-wire-lanechips —
+  // the All · Research · Managers · Watchlist · Newsletters chip row) switches lane;
+  // a home tab (Briefing · Markets · Chart · X Feed) switches pane. (The old lane
+  // DROPDOWN was replaced by this chip row — see renderWireLanes.)
   tabs.addEventListener("click", (e) => {
-    // A lane pick from the dropdown.
-    const item = e.target.closest("#g-wire-lanemenu .tchip-menu-item");
-    if (item) { e.preventDefault(); e.stopPropagation(); _setWireLane(item.dataset.lane); return; }
+    const chip = e.target.closest("#g-wire-lanechips .g-wire-lane");
+    if (chip) { e.preventDefault(); e.stopPropagation(); if (chip.dataset.lane !== _wireLane) _setWireLane(chip.dataset.lane); return; }
     const btn = e.target.closest(".g-wiretab");
     if (!btn) return;
-    // The merged-wire tab: if it's already the active pane, a tap toggles the lane
-    // dropdown; otherwise it switches to the wire pane (closing any open menu).
-    if (btn === laneTab && btn.classList.contains("is-on") && laneMenu) {
-      const open = laneMenu.hidden;
-      laneMenu.hidden = !open;
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-      // Anchor the dropdown directly under the lane tab (now the first chip). We set BOTH top and left
-      // explicitly from measured rects (relative to the menu's real offset parent)
-      // rather than leaning on the CSS `top:100%` — on iOS Safari the sticky tab
-      // bar resolves that percentage against the wrong containing block, dropping
-      // the menu ~200px into the feed. Measured coords are correct on every engine.
-      if (open) {
-        const op = laneMenu.offsetParent || tabs;
-        const mw = laneMenu.offsetWidth || 150;
-        const t = laneTab.getBoundingClientRect(), o = op.getBoundingClientRect();
-        laneMenu.style.top = Math.round(t.bottom - o.top) + "px";
-        laneMenu.style.left = Math.round(Math.max(0, Math.min(t.left - o.left, op.clientWidth - mw))) + "px";
-      }
-      return;
-    }
-    _closeLaneMenu();
     setWire(btn.dataset.wire);
     _saveHomePref({ wire: btn.dataset.wire });
   });
-  // A tap outside the tab bar dismisses the lane dropdown.
-  document.addEventListener("click", (e) => { if (laneMenu && !laneMenu.hidden && !e.target.closest(".g-wiretabs")) _closeLaneMenu(); });
 }
 
 // ---- Home briefing (the market brief, at the head of the News wire) ----------
@@ -1227,7 +1209,7 @@ function fetchHero() {
 function startHeroAuto() {
   if (_heroAuto) return;
   _heroAuto = setInterval(() => {
-    if (__ROOT.dataset.v2tab !== __KEY) return;
+    if (!__OWNS()) return;
     const host = document.getElementById("jump-hero");
     if (!host || host.offsetParent === null || document.hidden) return;
     fetchHero();
@@ -2598,12 +2580,12 @@ function renderWireLanes() {
       host.addEventListener("click", (e) => { const b = e.target.closest(".g-wire-lane"); if (b && b.dataset.lane !== _wireLane) { _setWireLane(b.dataset.lane); } });
     }
   }
-  // Phone: the wire tab's label reflects the lane; its dropdown offers all four.
-  const lbl = document.querySelector(".g-wiretab-lane .g-wire-lanelbl");
-  if (lbl) lbl.textContent = WIRE_LANE_LABEL[_wireLane] || "News";
-  const menu = document.getElementById("g-wire-lanemenu");
-  if (menu) menu.innerHTML = WIRE_LANES.map(([k, l]) =>
-    `<button type="button" class="tchip-menu-item${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="menuitem">${esc(l)}</button>`).join("");
+  // Phone (NEWS MODE): the lane chip row inside the wire-tab strip — the same lanes
+  // as the desktop row, as a horizontally-scrollable chip strip (clicks delegated on
+  // .g-wiretabs). This replaced the lane DROPDOWN.
+  const chips = document.getElementById("g-wire-lanechips");
+  if (chips) chips.innerHTML = WIRE_LANES.map(([k, l]) =>
+    `<button type="button" class="g-wire-lane${_wireLane === k ? " is-on" : ""}" data-lane="${esc(k)}" role="tab" aria-selected="${_wireLane === k}">${esc(l)}</button>`).join("");
 }
 function _setWireLane(k) {
   if (!k || k === _wireLane) { _closeLaneMenu(); return; }

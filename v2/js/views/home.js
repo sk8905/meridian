@@ -19,6 +19,11 @@ export function mount(host, ctx) {
     // to THIS view (so the feed engine isn't double-mounted) in "news mode" — the feed
     // + lane selector, home tabs hidden. glance.showNews() flips the pane.
     const showNews = () => { try { glance.showNews(); } catch { /* best-effort */ } };
+    // Self-correct to news mode when this view mounts on (or is navigated to during
+    // mount) the /v2/news/ route — covers a cold load of /v2/news/ AND a News-tab tap
+    // that races the view's own mount (the runtime's same-view branch can't apply the
+    // mode before mounted===true, so the URL is the source of truth here).
+    try { if (/\/v2\/news\/?$/.test(location.pathname)) showNews(); } catch { /* noop */ }
     // The Briefing pane sets `html.home-brief` (drops the page's bottom-nav padding so
     // it can't scroll). That class is Home-only — clear it when Home is hidden so it
     // never strips the nav clearance on other tabs, and restore it on return.

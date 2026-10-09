@@ -46,13 +46,16 @@ const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/
 // (the header chart icon was removed on phones). Open it via the wire tab.
 await pg.waitForSelector('.g-wiretab[data-wire="markets"]', { timeout: 8000 });
 await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="markets"]').click());
-await pg.waitForSelector("#g-mktpane .na-chip", { timeout: 8000 });
+// The iPhone Markets tab uses a DROPDOWN switcher (not chips) for Equities/Macro/
+// Predictions — the same selector pattern as the News lane dropdown.
+await pg.waitForSelector("#g-mktpane .na-mktsel-btn", { timeout: 8000 });
 await pg.waitForTimeout(500);
 
-// ---- Tabs: Equities | Macro | Predictions, and NO Portfolio -----------------
-const chips = await pg.evaluate(() => [...document.querySelectorAll("#g-mktpane .na-chip")].map((c) => c.textContent.trim()));
-checkEq(chips.join(" | "), "Equities | Macro | Predictions", "the panel tabs are Equities · Macro · Predictions");
-check(!chips.some((c) => /portfolio/i.test(c)), `no Portfolio tab (${chips.join(", ")})`);
+// ---- Switcher dropdown: Equities | Macro | Predictions, and NO Portfolio -----
+const chips = await pg.evaluate(() => [...document.querySelectorAll("#g-mktpane .na-mktsel-menu .tchip-menu-item")].map((c) => c.textContent.trim()));
+checkEq(chips.join(" | "), "Equities | Macro | Predictions", "the switcher offers Equities · Macro · Predictions");
+check(!chips.some((c) => /portfolio/i.test(c)), `no Portfolio option (${chips.join(", ")})`);
+check(await pg.evaluate(() => (document.querySelector("#g-mktpane .na-mktsel-lbl") || {}).textContent.trim()) === "Equities", "the switcher defaults to Equities");
 
 // ---- Equities tab (the left rail): markets rows carry a sparkline -----------
 const eq = await pg.evaluate(() => {
@@ -75,7 +78,7 @@ check(eq.secs.includes("Strait of Hormuz") && eq.transitsVal === "108", `Equitie
 check(eq.secs.includes("This week's earnings") && eq.earnRows >= 1 && eq.earnHasEst, `Equities: this week's earnings block renders with Est/Act lines (${eq.earnRows} rows)`);
 
 // ---- Macro tab: the five right-rail sections, sparklines, correct OAS -------
-await pg.evaluate(() => [...document.querySelectorAll("#g-mktpane .na-chip")].find((c) => c.dataset.k === "macro").click());
+await pg.evaluate(() => { document.querySelector("#g-mktpane .na-mktsel-btn").click(); [...document.querySelectorAll("#g-mktpane .na-mktsel-menu .tchip-menu-item")].find((c) => c.dataset.k === "macro").click(); });
 await pg.waitForSelector("#g-mktpane .na-srow", { timeout: 5000 });
 await pg.waitForTimeout(200);
 const mac = await pg.evaluate(() => {

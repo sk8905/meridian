@@ -115,7 +115,7 @@ const b = await launchChromium();
   check(n === SAMPLE.tweets.length, `phone: the X chip reveals and loads the feed (${n} cards)`);
   // Re-entering the X wire refreshes in place WITHOUT blanking: leave (News) and
   // return (X); the cards must stay put — no "Loading" state flashes.
-  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="news"]').click());
+  await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="brief"]').click());
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="x"]').click());
   const kept = await pg.evaluate(() => ({ cards: document.querySelectorAll("#g-xwire .g-x-card").length, loading: !!document.querySelector("#g-xwire .g-loading") }));
   check(kept.cards === SAMPLE.tweets.length && !kept.loading, `phone: re-entering keeps the cards, no blank (${kept.cards} cards, loading=${kept.loading})`);

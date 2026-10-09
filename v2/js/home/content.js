@@ -22,8 +22,11 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <button type="button" class="g-wiretab" data-wire="markets" role="tab" aria-selected="false">Markets</button>
           <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
-          <button type="button" class="g-wiretab g-wiretab-lane tchip-has-menu" data-wire="news" role="tab" aria-selected="false" aria-haspopup="menu" aria-expanded="false"><span class="g-wire-lanelbl">All</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <div class="g-wire-lanemenu tchip-menu" id="g-wire-lanemenu" role="menu" hidden></div>
+          <!-- NEWS MODE lane chips (All · Research · Managers · Watchlist · Newsletters),
+               a horizontally-scrollable chip strip — replaces the old lane dropdown.
+               Rendered by glance.js renderWireLanes(); shown only in news mode, where the
+               four home tabs above are hidden. -->
+          <div class="g-wire-lanechips" id="g-wire-lanechips" role="tablist" aria-label="News lanes"></div>
         </div>
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
         <aside class="g-side">
