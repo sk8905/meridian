@@ -105,7 +105,7 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-09",
-      time: "14:24 BST",
+      time: "16:17 BST",
       lede: "Pimco warned the US 10-year Treasury yield could reach 6%; Delta cut its full-year profit outlook as fuel costs bite; and AI-credit stress and OpenAI revenue doubts weighed on valuations.",
       bullets: [
         { html: "<strong>Macro &mdash; Delta cut its full-year profit outlook as higher fuel prices bite</strong>, the latest corporate sign of the energy shock from the Iran conflict feeding through, with Brent still elevated.", src: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4", srcName: "Financial Times", date: "2026-10-09" },
