@@ -104,14 +104,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-10-08",
-      time: "16:15 BST",
-      lede: "Oil jumped on tanker attacks near the Strait of Hormuz; the US 30-year Treasury yield held near a 24-year high as repeated Treasury interventions drew scrutiny; and AI valuations faced a fresh test as OpenAI revenues undershot.",
+      date: "2026-10-09",
+      time: "12:21 BST",
+      lede: "Pimco warned the US 10-year Treasury yield could reach 6%; Delta cut its full-year profit outlook as fuel costs bite; and AI-credit stress and OpenAI revenue doubts weighed on valuations.",
       bullets: [
-        { html: "<strong>Macro &mdash; oil jumped on tanker attacks and slowing flows through the Strait of Hormuz</strong>, reviving the energy-shock theme behind this week&rsquo;s inflation and rate worries and keeping Brent elevated.", src: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba", srcName: "Financial Times", date: "2026-10-08" },
-        { html: "<strong>Bonds &mdash; repeated US Treasury interventions risk eroding confidence in the market&rsquo;s backstops</strong>, with the 30-year yield near 5.66%, a 24-year high, after this week&rsquo;s global sell-off.", src: "https://www.ft.com/content/eec1e15d-78b9-4706-a518-2a9db4f37128", srcName: "Financial Times", date: "2026-10-08" },
-        { html: "<strong>Equities &mdash; OpenAI&rsquo;s annualised revenues are running about $20bn below earlier signals</strong>, a fresh test for AI valuations as the S&amp;P 500 and Nasdaq hold near record highs.", src: "https://www.ft.com/content/b66a9858-f8fb-46cb-b506-44bfe26fca2a", srcName: "Financial Times", date: "2026-10-08" },
-        { html: "<strong>Credit &mdash; London hedge fund Arini fell about 16% on soured credit bets</strong>, extending its losses as private-credit and bond-market volatility persists.", src: "https://www.ft.com/content/b52c8acc-7ea5-4bd0-b26a-b9956e19867b", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Macro &mdash; Delta cut its full-year profit outlook as higher fuel prices bite</strong>, the latest corporate sign of the energy shock from the Iran conflict feeding through, with Brent still elevated.", src: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Bonds &mdash; Pimco says the US 10-year Treasury yield risks hitting 6%</strong> for the first time since 2000, warning a further sharp rise in borrowing costs is &lsquo;feasible&rsquo; as market participants unwind losing bets.", src: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Equities &mdash; OpenAI&rsquo;s annualised revenues are running about $20bn below earlier signals</strong>, a fresh test for AI valuations as the S&amp;P 500 and Nasdaq trade near record highs.", src: "https://www.ft.com/content/b66a9858-f8fb-46cb-b506-44bfe26fca2a", srcName: "Financial Times", date: "2026-10-08" },
+        { html: "<strong>Credit &mdash; the cost of credit-default swaps for AI companies looking to borrow is climbing</strong>, among a cluster of market-stress signals pointing to trouble ahead for leveraged tech credit.", src: "https://www.ft.com/content/7acb5862-cde5-49b4-a5f1-5f6e6977a9c7", srcName: "Financial Times", date: "2026-10-09" },
       ],
     },
     evening: {

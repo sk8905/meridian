@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-09",
-  lastCheckedTime: "10:13 BST",
+  lastCheckedTime: "12:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-09",
   us: [
+    {title: "Delta slashes profit outlook as higher fuel prices bite", source: "Financial Times", date: "2026-10-09", time: "12:44", url: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4"},
     {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
     {title: "Why bank stocks are falling despite surging interest rates", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b"},
     {title: "Donald Trump says US ‘will not be attacking Iran’ before midterm elections", source: "Financial Times", date: "2026-10-08", time: "19:16", url: "https://www.ft.com/content/e0cc2789-0e71-401d-8096-d58303970a37"},
     {title: "What is driving the global bond sell-off? You asked, we answered", source: "Financial Times", date: "2026-10-08", time: "13:01", url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794"},
-    {title: "Oil prices jump on tanker attacks and slowing flows through Strait of Hormuz", source: "Financial Times", date: "2026-10-08", time: "19:51", url: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba"},
   ],
   uk: [
+    {title: "Number of people caught in UK’s £100,000 tax trap doubles in four years", source: "Financial Times", date: "2026-10-09", time: "12:00", url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4"},
     {title: "Drop in fiscal headroom better option than Budget tax rises, says Jim O’Neill", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612"},
     {title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties", source: "Financial Times", date: "2026-10-08", time: "08:09", url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d"},
     {title: "Higher mortgage rates inflict ‘pain’ on UK housing market", source: "Financial Times", date: "2026-10-08", time: "01:01", url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4"},
     {title: "Iran war blows near-£12bn hole in Britain’s public finances", source: "Financial Times", date: "2026-10-07", time: "23:00", url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c"},
-    {title: "UK investors face three-month wait to recoup money from property funds", source: "Financial Times", date: "2026-10-08", time: "15:03", url: "https://www.ft.com/content/96474d3e-7d61-4327-b6c2-ed37eecad3f8"},
   ],
 };
 
