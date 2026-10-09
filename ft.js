@@ -299,5 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "06:30",
     url: "https://www.ft.com/content/c1a8b8f4-7508-49bc-990b-3ecc5a4f20ee",
-  },,
+  },
 ];
