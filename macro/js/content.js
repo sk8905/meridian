@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-09",
-  lastCheckedTime: "20:15 BST",
+  lastCheckedTime: "22:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1009,7 +1009,7 @@ export const NEWS = {
     {title: "Trump agrees deal with Putin for Russia to release diesel on to global market", source: "Financial Times", date: "2026-10-09", time: "20:01", url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8"},
     {title: "Scott Bessent to miss IMF annual meetings in Bangkok", source: "Financial Times", date: "2026-10-09", time: "19:22", url: "https://www.ft.com/content/9496dd1d-fabf-4c58-bbc3-88cb51f2a68d"},
     {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
-    {title: "Why bank stocks are falling despite surging interest rates", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b"},
+    {title: "The hazy OpenAI growth metric driving Wall Street", source: "Financial Times", date: "2026-10-09", time: "21:57", url: "https://www.ft.com/content/62653892-2333-4953-a8d5-cfd760ae3257"},
     {title: "Donald Trump launches committee to investigate Fed governor Lisa Cook", source: "Financial Times", date: "2026-10-09", time: "16:08", url: "https://www.ft.com/content/d0c81cd2-f944-46b9-a859-abc3f0bd3516"},
   ],
   uk: [
@@ -1032,6 +1032,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-09",
   items: [
+    {"title": "The hazy OpenAI growth metric driving Wall Street", "source": "Financial Times", "date": "2026-10-09", "time": "21:57", "url": "https://www.ft.com/content/62653892-2333-4953-a8d5-cfd760ae3257", "blurb": "Revelations that the AI giant's annualised revenues were $20bn less than previously reported triggered volatility in US stocks."},
     {"title": "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", "blurb": "Bond giant’s investment chief warns a further sharp rise in borrowing costs is ‘feasible’ as market participants are forced to unwind losing bets."},
     {"title": "Why bank stocks are falling despite surging interest rates", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b", "blurb": "If funding costs rise, the expanding profit margins banks have enjoyed may start to reverse."},
     {"title": "The energy crisis is changing what investors want from oil majors", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/7b354a5d-9702-407a-a4bc-8703c6ba7b72", "blurb": "Iran conflict has snarled up usually free-flowing energy markets."},
@@ -1071,7 +1072,6 @@ export const ARTICLES = {
     {"title": "Rising gilt yields attract retail investors hunting for tax-efficient assets", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de", "blurb": "Higher gilt yields are drawing retail investors seeking tax-efficient holdings."},
     {"title": "CGT rise would deter equity investors, wealth bosses warn", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922", "blurb": "Wealth managers warn a capital gains tax increase in the Budget would discourage equity investing."},
     {"title": "Protests from the City about bank tax ring hollow", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/b50f39c6-4484-4c06-89cb-2884f9e58bd7", "blurb": "FT opinion on City objections to a bank tax ahead of the UK Budget."},
-    {"title": "US justice department will not reopen criminal probe of Fed’s Jay Powell", "source": "Financial Times", "date": "2026-10-02", "time": "22:03", "url": "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846", "blurb": "US attorney-general Todd Blanche says not having ‘any oversight’ of the central bank’s $2.5bn renovation project ‘isn’t necessarily a crime’."},
   ],
 };
 

@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-10-03";
+export const LAST_REVIEWED = "2026-10-09";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
 export const LAST_CHECKED = "2026-10-09";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "20:15 BST";
+export const LAST_CHECKED_TIME = "22:25 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -8509,6 +8509,14 @@ export const cases = [
     date: "2026-09-30", time: "22:10", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2489",
     counsel: [],
     summary: "Robin Knowles J determined an application by a Luxembourg credit provider, RS Lender IV, to strike out parts of the Defence and the whole Counterclaim, or obtain summary judgment on particular issues, in a claim on a sponsor guarantee given by Spanish real-estate businessman Fernando Oscar Gil Marin for a €37m advance (of €50m arranged) under a 2020 facility to Aster for Life SL. The judge ordered the defendant to serve an Amended Defence and Counterclaim complying with the CPR and Commercial Court Guide by 9 October 2026, warning of no further flexibility, with trial still due from 23 June 2027." },
+  { id: "c281", name: "Rasmala Trade Finance Fund v Trafigura Pte Ltd", citation: "[2026] EWCA Civ 1259", court: "Court of Appeal",
+    date: "2026-10-07", time: "22:25", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/1259",
+    counsel: [],
+    summary: "Court of Appeal (Nugee, Baker and Falk LJJ) dismissed Rasmala's appeal against Rajah J's rejection of its restitution claim to recover about $22.6m paid to Trafigura in 2017–18 under a mistaken belief that it was financing genuine coal contracts." },
+  { id: "c282", name: "SCRP Fund I Finance S.A.R.L. v Paul Robson & Anor", citation: "[2026] EWHC 2477 (Comm)", court: "High Court (Comm)",
+    date: "2026-10-06", time: "22:25", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2477",
+    counsel: [],
+    summary: "HHJ Kelly (sitting as a Judge of the High Court, Circuit Commercial Court, Newcastle) refused the claimant assignee permission to make very late amendments adding fraudulent misrepresentation and overvaluation claims to its share purchase agreement claim." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -8744,6 +8752,8 @@ export const caseSummaries = {
   c278: "FW Aviation (Holdings) 1 Limited, an aircraft lessor, applied for post-judgment receivers over assets of Vietjet Aviation Joint Stock Company, which owes it somewhat over US$250m under a series of Commercial Court judgments but has paid only about US$2m, with enforcement steps in other jurisdictions having so far failed. Butcher J applied the 'just and convenient' test under section 37(1) of the Senior Courts Act 1981 and CPR PD 69 and found the case a clear one for a receivership. He held that it was appropriate to grant a receivership order, subject to the proportionality of the probable costs, restricted in the first instance to assets not located in Vietnam. The judgment illustrates the court's willingness to use receivers as an equitable enforcement tool against a recalcitrant foreign judgment debtor in aircraft-leasing disputes.",
   c279: "G.I. Globinvestment Limited, the di Montezemolo family's investment vehicle, and Matteo Cordero di Montezemolo appealed Jacobs J's judgment ([2025] EWHC 740 (Comm)) on whether XY ERS UK Limited, a wealth-technology and consultancy provider, breached fiduciary duties owed to them when they invested in structured 'stability' notes and related products following XY's consultancy engagement. The Court of Appeal (Newey, Asplin and Popplewell LJJ), after a hearing on 21 and 22 July 2026, dismissed the appeal. Newey LJ gave the leading judgment, with Asplin and Popplewell LJJ agreeing. The decision is a recent appellate treatment of when an adviser or service provider to a high-net-worth investor owes fiduciary duties in respect of investment products.",
   c280: "RS Lender IV, S.à r.l., a Luxembourg credit provider, advanced €37m of a €50m facility to Aster for Life SL under a July 2020 facility agreement, backed by a sponsor guarantee from Spanish real-estate businessman Fernando Oscar Gil Marin and a share pledge over Aster Lux S.à r.l. After the claimant appropriated the pledged shares at nil value, accelerated the loan and called on the guarantee, it applied to strike out parts of the Defence and the whole Counterclaim, or for summary judgment on particular issues. Robin Knowles J criticised the defendant's failure to plead the material facts he relied on and ordered an Amended Defence and Counterclaim complying with the CPR and the Commercial Court Guide by 9 October 2026, warning that no further flexibility should be expected if it fell short. Trial remains listed from 23 June 2027.",
+  c281: "Rasmala Trade Finance Fund, a trade financier, paid Trafigura about $22.6m between 2017 and 2018 believing it was funding genuine coal contracts; the contracts were forged, and Trafigura applied the payments to old debts of its customer Farlin. Rajah J dismissed Rasmala's unjust-enrichment claim on the basis that Trafigura had a change of position defence. Nugee LJ, giving the lead judgment, held that Trafigura acted in good faith and that its continued trading in reliance on the payments supplied a sufficient causal connection, so that it would be inequitable to require repayment. Falk and Baker LJJ agreed and the appeal was dismissed; the decision is a useful appellate application of the change of position defence in trade-finance fraud recoveries.",
+  c282: "SCRP Fund I Finance, as assignee of a buyer's rights under a share purchase agreement, sought permission shortly before trial to amend its claim to add allegations of fraudulent misrepresentation and overvaluation. HHJ Kelly extended time for the claimant's latest draft pleading but dismissed the amendment application. She found the fraud case had a realistic but not strong prospect of success, and that the lateness and the need to vacate the trial weighed heavily against permission. The overvaluation claim also failed because the notice given within the contractual limitation period lacked the reasonable detail the agreement required.",
 };
 
 export const restructurings = [

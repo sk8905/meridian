@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "62653892-2333-4953-a8d5-cfd760ae3257",
+    title: "The hazy OpenAI growth metric driving Wall Street",
+    date: "2026-10-09",
+    time: "21:57",
+    url: "https://www.ft.com/content/62653892-2333-4953-a8d5-cfd760ae3257",
+  },
+  {
+    id: "77d73223-3cfc-4892-a3c5-5502595f42d4",
+    title: "Delta slashes profit outlook as higher fuel prices bite",
+    date: "2026-10-09",
+    time: "21:31",
+    url: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4",
+  },
+  {
+    id: "c3d9f370-153e-4846-aded-fbb7d200b365",
+    title: "JD Vance casts doubt on Pentagon’s plan to livestream execution",
+    date: "2026-10-09",
+    time: "21:29",
+    url: "https://www.ft.com/content/c3d9f370-153e-4846-aded-fbb7d200b365",
+  },
+  {
     id: "847e6d14-08e4-4477-8722-40bd7162b992",
     title: "Airlines sound the alarm as bleak winter looms",
     date: "2026-10-09",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "12:00",
     url: "https://www.ft.com/content/f242bf0c-89bb-4263-b781-27438bad5088",
-  },
-  {
-    id: "21b41e8f-3df3-4c77-8bdc-b71b7b3c8df5",
-    title: "Germany Rearmed — a historic shift back to military power raises alarm",
-    date: "2026-10-09",
-    time: "12:00",
-    url: "https://www.ft.com/content/21b41e8f-3df3-4c77-8bdc-b71b7b3c8df5",
-  },
-  {
-    id: "78cfa32b-b117-4c49-b061-72519878cd54",
-    title: "The struggle to fix Africa’s debt crisis",
-    date: "2026-10-09",
-    time: "12:00",
-    url: "https://www.ft.com/content/78cfa32b-b117-4c49-b061-72519878cd54",
-  },
-  {
-    id: "297ca864-737c-4112-b368-f21a20cc78d2",
-    title: "Burnham pledges to end use of non-compete clauses",
-    date: "2026-10-09",
-    time: "11:44",
-    url: "https://www.ft.com/content/297ca864-737c-4112-b368-f21a20cc78d2",
   },
 ];
