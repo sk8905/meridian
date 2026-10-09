@@ -15,6 +15,10 @@ export function mount(host, ctx) {
     // on the All lane — and scrolls to top. glance.homeReset() switches the pane,
     // forces the All lane, persists both, and closes any open reader/lane menu.
     const home = () => { try { glance.homeReset(); } catch { /* best-effort reset */ } };
+    // showNews(): the News bottom tab routes to /v2/news/, which the runtime resolves
+    // to THIS view (so the feed engine isn't double-mounted) in "news mode" — the feed
+    // + lane selector, home tabs hidden. glance.showNews() flips the pane.
+    const showNews = () => { try { glance.showNews(); } catch { /* best-effort */ } };
     // The Briefing pane sets `html.home-brief` (drops the page's bottom-nav padding so
     // it can't scroll). That class is Home-only — clear it when Home is hidden so it
     // never strips the nav clearance on other tabs, and restore it on return.
@@ -23,6 +27,7 @@ export function mount(host, ctx) {
       enter() { try { document.documentElement.classList.toggle("home-brief", _brief()); } catch { /* noop */ } },
       leave() { try { document.documentElement.classList.remove("home-brief"); } catch { /* noop */ } },
       home,
+      showNews,
     };
   });
 }

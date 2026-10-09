@@ -508,10 +508,11 @@ notification badge red (`#ef4444`).
 
 - **R26 — X wire (Home).** The Home terminal carries an **X wire** in its **own
   rail, between the manager wire and the macro rail**, topped by a **pinned "X feed"
-  header** (`.tui-ph`, matching Chart / Policy rate / the other panes). On **phones** it is the
-  **wire chip (News · Managers · Chart · X Feed)** — swapping onto the single-column
-  workspace like the Managers wire (it is content, not the markets/rates
-  data that phones fold into the shared Markets panel). It is a **single,
+  header** (`.tui-ph`, matching Chart / Policy rate / the other panes). On **phones** it is a
+  **home wire tab (Briefing · Markets · Chart · X Feed)** — swapping onto the single-column
+  workspace (it is content, not the markets/rates data, which lives in the **Markets
+  home tab** / the shared `loadMarkets` panel; the aggregated news wire is the separate
+  News bottom tab). It is a **single,
   always-current, newest-first** feed mirroring the **/Wire X List** — built from the
   **per-account timelines of the List's live members** (reposts included, replies to
   others filtered out), fetched **server-side by the Worker** (`/api/xfeed` in
@@ -573,11 +574,12 @@ notification badge red (`#ef4444`).
   left rail and both right rails stay full-height (CSS grid `grid-template-areas`).
   It is topped by a **pinned "Chart" header** (`.tui-ph`, matching the other panes).
   On **phones**
-  it is a **wire chip — the tab strip reads News · Managers · Chart · X Feed ·
-  Briefing, in that order (Briefing sits LAST); News is the default landing pane**
-  and the Chart chip opens the band
-  (with **all six tickers plotted** by default). A Home-nav tap resets to News —
-  swapping onto the single-column workspace like the other wires. The band plots a fixed basket —
+  the Chart is a **home wire tab — the home top-nav reads Briefing · Markets · Chart
+  · X Feed (Briefing is the default pane)**. The aggregated news wire + its lane
+  selector are the **separate News bottom tab** (news mode), NOT a home pane. The
+  Chart tab opens the band
+  (with **all six tickers plotted** by default) — swapping onto the single-column
+  workspace like the other home wires. The band plots a fixed basket —
   **S&P 500 · Nasdaq · US 10Y · Oil · Gold · Bitcoin** — from **one unified
   securities row**: every instrument with its window **change indicator**, tapped to
   toggle **on/off the chart** (**multi-select**, one to all six, at least one kept),
@@ -716,9 +718,10 @@ notification badge red (`#ef4444`).
   meaning "this figure is the **last close**, not a live price" — it never swaps in a futures
   number. It reads the same last-good markets/rates cache
   as the rail (no extra fetch) and stays empty rather than guessing (R7). **Hidden on the desktop quadrant.** On phone the
-  **Market Briefing is the FIRST wire tab**, and **tapping the Home bottom-nav button opens
-  the Briefing pane** (`homeReset` → `setWire("brief")`); News/lane is second and remains the
-  default pane on a cold load. **Inline security pills (both surfaces):** on a
+  **Market Briefing is the FIRST home wire tab AND the cold-load Home default**, and
+  **tapping the Home bottom-nav button opens the Briefing pane** (`homeReset` →
+  `setWire("brief")`). The news wire + lane selector are the **separate News bottom
+  tab** (`showNews` → `setWire("news")`, news mode), not a Home pane. **Inline security pills (both surfaces):** on a
   recognised security's first mention the name is **REPLACED** by a chip (`.g-hbt-tk`) — the
   label stands in for the name, so the security appears **once** (the pill), never as text AND
   a pill — showing its ticker/benchmark + the day's move + a direction arrow (e.g. "Honeywell
@@ -890,6 +893,23 @@ notification badge red (`#ef4444`).
     law-firm (`legal/detail.js`) pages. `watchlistEvents()` in `glance.js` merges and
     de-dups them newest-first (a story recorded under two identities of one firm
     collapses to one row). Spec: `tests/home-watchlist-lane.mjs`.
+- **R34 — iPhone navigation (the five-tab reorg).** On phones the chrome is:
+  **(a) bottom tab bar = `Home · News · Dashboard · Profiles · Transactions`**
+  (`TABS` in `chrome.js`; Menu is NOT a bottom tab). **(b) Menu is the top-right
+  hamburger** in the header action cluster (`#na-menu`, `data-key="menu"`), so the
+  phone cluster is **Search · Notifications · Menu** — the header **chart/markets icon
+  (`#na-mkt`) is desktop-only**. **(c) Home top-nav = `Briefing · Markets · Chart ·
+  X Feed`** (`.g-wiretabs`); **Briefing is the cold-load default**; **Markets** is the
+  full Equities/Macro/Predictions panel, mounted into `#g-mktpane` via the shared
+  `nav-actions.loadMarkets` (`wire-markets`). The market-snapshot pills stay on
+  **Briefing only** (`#g-hbrief-strip`), not duplicated into Markets. **(d) News is its
+  own bottom tab** — `/v2/news/` resolves to the **Home view in news mode** (so the
+  feed engine is never double-mounted): the runtime flags `data-v2tab="news"` and calls
+  `ctrl.showNews()` (`setWire("news")` → `.wire-newsmode`), which shows the aggregated
+  feed + the lane selector (`All · Research · Managers · Watchlist · Newsletters`) and
+  **hides the four home tabs**. The desktop terminal is untouched (all of this is
+  `≤1200px` / phone-gated). Specs: `tests/v2-shell.mjs`, `tests/v2-header.mjs`,
+  `tests/home-mobile-wire-tabs.mjs`, `tests/markets-panel.mjs`.
 
 ---
 

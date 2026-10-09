@@ -66,22 +66,21 @@ const base = `http://localhost:${srv.port}`;
 
 // ---- F8: mobile remembers the chosen wire LANE (dropdown) ----
 {
-  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
+  // The lane selector lives on the NEWS tab now (news mode) — load /v2/news/.
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/news/");
   await pg.evaluate(() => { try { localStorage.removeItem("wire.home.v1"); } catch {} });
-  await pg.reload({ waitUntil: "load" });
+  await pg.goto(base + "/v2/news/", { waitUntil: "load" });
   await pg.waitForSelector(".g-wiretab-lane", { timeout: 8000 });
   await pg.waitForTimeout(400);
-  // Market Briefing is the default pane, so tap the News tab once to make it the
-  // active pane, then again to open its lane dropdown.
+  // In news mode the lane chip IS the active pane, so one tap opens its dropdown.
   await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
-  await pg.waitForTimeout(120);
-  await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
-  await pg.waitForTimeout(120);
+  await pg.waitForTimeout(150);
   await pg.evaluate(() => [...document.querySelectorAll("#g-wire-lanemenu .tchip-menu-item")].find((i) => i.textContent.trim() === "Managers").click());
   await pg.waitForTimeout(200);
   const savedLane = await pg.evaluate(() => { try { return JSON.parse(localStorage.getItem("wire.home.v1") || "{}").wireLane; } catch { return null; } });
   checkEq(savedLane, "manager", "choosing a lane persists it (wireLane)");
-  await pg.reload({ waitUntil: "load" });
+  // Reopen the News tab → the remembered lane is restored.
+  await pg.goto(base + "/v2/news/", { waitUntil: "load" });
   await pg.waitForSelector("#g-feed .g-mw-fev", { timeout: 8000 });
   await pg.waitForTimeout(300);
   const restored = await pg.evaluate(() => ({

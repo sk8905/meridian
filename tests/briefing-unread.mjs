@@ -31,9 +31,10 @@ const base = `http://localhost:${srv.port}`;
 // ---- (2) Unread dot on the phone Briefing chip, + runtime spacing sanity ---------
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
-  // Fresh viewer: no read record, and land on the wire (not the brief) so the latest
-  // brief stays UNREAD.
-  await pg.evaluate(() => { try { localStorage.removeItem("m_brief_read"); localStorage.setItem("wire.home.v1", JSON.stringify({ wire: "news" })); } catch {} });
+  // Fresh viewer: no read record, and land on a NON-brief home pane (X Feed) so the
+  // latest brief stays UNREAD while the Briefing chip is still visible (home mode).
+  // (Home now DEFAULTS to the Briefing pane, which would mark it read on load.)
+  await pg.evaluate(() => { try { localStorage.removeItem("m_brief_read"); localStorage.setItem("wire.home.v1", JSON.stringify({ wire: "x" })); } catch {} });
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector('.g-wiretab[data-wire="brief"] .g-wiretab-dot', { state: "attached", timeout: 8000 });
   await pg.waitForTimeout(400);
@@ -51,7 +52,7 @@ const base = `http://localhost:${srv.port}`;
   check(typ && Math.abs(typ.lh - 1.72) < 0.05, `phone: the briefing prose renders at the reading-pane leading (~1.72, got ${typ ? typ.lh.toFixed(2) : "n/a"})`);
   check(typ && typ.secAlign === "left", `phone: the briefing prose is left-aligned, not justified (got ${typ && typ.secAlign})`);
 
-  check(!(await onBrief()), "phone: the default pane is the wire, not the briefing");
+  check(!(await onBrief()), "phone: landed on a non-brief home pane (so the brief stays unread)");
   check(await dotShown(), "phone: an unread brief shows the orange dot on the Briefing chip");
 
   // Opening the pane clears the dot.
@@ -60,8 +61,8 @@ const base = `http://localhost:${srv.port}`;
   check(await onBrief(), "phone: tapping Briefing activates its pane");
   check(!(await dotShown()), "phone: opening the briefing clears the dot (brief marked read)");
 
-  // The read state persists: reload back onto the wire — the same (seen) brief shows no dot.
-  await pg.evaluate(() => { try { localStorage.setItem("wire.home.v1", JSON.stringify({ wire: "news" })); } catch {} });
+  // The read state persists: reload back onto the non-brief pane — the same (seen) brief shows no dot.
+  await pg.evaluate(() => { try { localStorage.setItem("wire.home.v1", JSON.stringify({ wire: "x" })); } catch {} });
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector('.g-wiretab[data-wire="brief"] .g-wiretab-dot', { state: "attached", timeout: 8000 });
   await pg.waitForTimeout(400);

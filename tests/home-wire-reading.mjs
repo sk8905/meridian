@@ -278,9 +278,8 @@ await ctx.close();
   const ctx2 = await b.newContext({ ...PHONE });
   const pg2 = await ctx2.newPage();
   pg2.on("popup", (p) => p.close().catch(() => {}));   // swallow any external-link popup
-  await pg2.goto(base + "/v2/", { waitUntil: "load" });
-  await pg2.evaluate(() => { try { localStorage.setItem("wire.home.v1", JSON.stringify({ wire: "news" })); } catch {} });
-  await pg2.reload({ waitUntil: "load" });
+  // News mode (the feed + lane selector) is the News bottom tab now — load it directly.
+  await pg2.goto(base + "/v2/news/", { waitUntil: "load" });
   await pg2.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
   await pg2.waitForTimeout(300);
   // Desktop side pane is hidden on phones; the reader overlay exists but is hidden.

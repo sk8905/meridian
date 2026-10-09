@@ -37,12 +37,24 @@ const tap = async (key) => {
   }));
 };
 
-for (const [key, path] of [["dashboard", "/v2/dashboard/"], ["profiles", "/v2/profiles/"], ["menu", "/v2/menu/"]]) {
+// Bottom tabs route client-side. "news" shares the HOME view (news mode), so its
+// visible section is still data-view="home" — the tab identity is on data-v2tab.
+for (const [key, path, view] of [["dashboard", "/v2/dashboard/", "dashboard"], ["profiles", "/v2/profiles/", "profiles"], ["news", "/v2/news/", "home"]]) {
   const s = await tap(key);
   checkEq(s.path, path, `tap ${key}: URL is ${path}`);
-  checkEq(s.active, key, `tap ${key}: ${key} view is the visible one`);
+  checkEq(s.active, view, `tap ${key}: ${view} view is the visible one`);
   checkEq(s.booted, boot0, `tap ${key}: same document (no reload)`);
 }
+checkEq(await pg.evaluate(() => document.documentElement.dataset.v2tab), "news", "News tab flags data-v2tab=news (Home view in news mode)");
+
+// Menu left the bottom bar — the top-right hamburger (#na-menu) opens it now. The
+// header handler routes its data-key, so a click is enough.
+await pg.evaluate(() => document.getElementById("na-menu").click());
+await pg.waitForTimeout(850);
+const menuNav = await pg.evaluate(() => ({ path: location.pathname, active: (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view, booted: window.__boot }));
+checkEq(menuNav.path, "/v2/menu/", "menu hamburger: URL is /v2/menu/");
+checkEq(menuNav.active, "menu", "menu hamburger: the Menu view is the visible one");
+checkEq(menuNav.booted, boot0, "menu hamburger: same document (no reload)");
 
 // Keep-alive: tag Credit's section node, leave, come back — the SAME node (tag
 // intact) and exactly one section prove the view stayed alive (mounted once,
@@ -68,7 +80,8 @@ checkEq(back.views, 6, "tab views + Profiles' borrowed Credit/Legal cached (6)")
 // edge-swipe / back gesture has nothing to walk — swipe-to-change-page is gone.
 // Assert switching tabs does not grow history.length.
 const hlen0 = await pg.evaluate(() => history.length);
-await tap("dashboard"); await tap("home"); await tap("menu");
+await tap("dashboard"); await tap("home"); await tap("news");
+await pg.evaluate(() => document.getElementById("na-menu").click()); await pg.waitForTimeout(600);
 checkEq(await pg.evaluate(() => history.length), hlen0, "touch: tab switches don't grow history (no swipe-to-change-page)");
 
 checkErrs(errs, "v2 shell");

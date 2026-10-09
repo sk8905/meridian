@@ -213,11 +213,26 @@ function initFeedEntityNav() {
   feed.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") handle(e); });
 }
 
-// Mobile-only News / Watchlist swap. On phones the aggregated news wire and the
-// manager (watchlist) wire can't sit side by side, so a chip pair at the top of
-// the workspace toggles which one is on screen (a `.wire-watch` class on the
-// grid drives the CSS show/hide). Inert on desktop, where the chips are hidden
-// and both columns show at once.
+// Markets pane (iPhone "Markets" tab): the full Equities · Macro · Predictions
+// panel, reused verbatim from the shared header controller (nav-actions.loadMarkets)
+// so there is ONE markets panel in the app. Mounted lazily into #g-mktpane the first
+// time the Markets tab is opened; nav-actions is already loaded by the shell boot, so
+// the dynamic import resolves to the same module instance (no second fetch).
+let _mktPaneLoaded = false;
+function _mountMarketsPane() {
+  if (_mktPaneLoaded) return;
+  if (!_isPhoneLayout()) return;                        // desktop terminal shows markets inline — no duplicate panel/fetch
+  const host = document.getElementById("g-mktpane"); if (!host) return;
+  _mktPaneLoaded = true;
+  import("../nav-actions.js")
+    .then((m) => { if (m && typeof m.loadMarkets === "function") m.loadMarkets(host); else host.innerHTML = '<div class="g-loading">Markets unavailable right now.</div>'; })
+    .catch(() => { _mktPaneLoaded = false; host.innerHTML = '<div class="g-loading">Markets unavailable — tap Markets to retry.</div>'; });
+}
+
+// Mobile-only wire panes. On phones one pane is on screen at a time, chosen by the
+// wire-tab strip: Briefing · Markets · Chart · X Feed (home mode), or the news feed +
+// lane selector (news mode). A `.wire-*` class on the grid drives the CSS show/hide.
+// Inert on the desktop terminal, where the tabs are hidden and every column shows.
 function initMobileWireTabs() {
   const tabs = document.querySelector(".g-wiretabs");
   const layout = document.querySelector(".g-layout");
@@ -225,13 +240,19 @@ function initMobileWireTabs() {
   if (!tabs || !layout) return;
   const setWire = (k) => {
     closeMobileReader();                                  // a pane switch leaves the in-app reader
+    // "news" is NEWS MODE (the News bottom tab): the base feed pane + the lane
+    // selector, with the four home tabs hidden (wire-newsmode). Every other key is a
+    // HOME-mode pane (Briefing · Markets · Chart · X Feed), which clears news mode.
+    const isNews = k === "news";
     layout.classList.toggle("wire-brief", k === "brief");
+    layout.classList.toggle("wire-markets", k === "markets");
     layout.classList.toggle("wire-watch", k === "watch");
     layout.classList.toggle("wire-x", k === "x");
     layout.classList.toggle("wire-chart", k === "chart");
+    layout.classList.toggle("wire-newsmode", isNews);
     // Mirror the state onto .g-main too (kept for any .g-main.wire-* rules that
     // target content lifted out of the hidden panes on phones).
-    if (main) { main.classList.toggle("wire-brief", k === "brief"); main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); main.classList.toggle("wire-chart", k === "chart"); }
+    if (main) { main.classList.toggle("wire-brief", k === "brief"); main.classList.toggle("wire-markets", k === "markets"); main.classList.toggle("wire-watch", k === "watch"); main.classList.toggle("wire-x", k === "x"); main.classList.toggle("wire-chart", k === "chart"); main.classList.toggle("wire-newsmode", isNews); }
     tabs.querySelectorAll(".g-wiretab").forEach((t) => {
       const on = t.dataset.wire === k;
       t.classList.toggle("is-on", on);
@@ -241,6 +262,7 @@ function initMobileWireTabs() {
     // pane lets the observer boot them, but also kick directly so no blank frame.
     if (k === "x") initXWire();
     if (k === "chart") initHero();
+    if (k === "markets") _mountMarketsPane();
     // The Briefing pane is a fixed-height, internally-scrolling box; drop the page's
     // bottom-nav padding so the page itself doesn't scroll (the box's body does), and
     // size the box to the exact gap between the tabs and the nav. The class is cleared
@@ -265,8 +287,13 @@ function initMobileWireTabs() {
   // F8 — restore the last-used wire tab on load, else land on the DEFAULT pane, which
   // is now the wire (News/All lane), not the Market Briefing. Always call setWire so a
   // stored chart/watch/x class is cleared back on a fresh visit.
+  // Cold-load default pane. News mode is driven by the News bottom tab (the runtime
+  // calls showNews after mount), so the wire pref only restores a HOME-mode pane —
+  // Briefing · Markets · Chart · X Feed. An old stored "news"/"watch" coerces to
+  // Briefing (the Home default); the runtime then flips to news mode if the route is
+  // /v2/news/.
   const _wp = _homePrefs().wire;
-  setWire(["brief", "news", "chart", "x"].includes(_wp) ? _wp : "news");   // "watch" retired — merged into the wire lanes
+  setWire(["brief", "markets", "chart", "x"].includes(_wp) ? _wp : "brief");
   const laneMenu = document.getElementById("g-wire-lanemenu");
   const laneTab = tabs.querySelector(".g-wiretab-lane");
   tabs.addEventListener("click", (e) => {
@@ -2588,18 +2615,32 @@ function _closeLaneMenu() {
   const menu = document.getElementById("g-wire-lanemenu"); if (menu) menu.hidden = true;
   const tab = document.querySelector(".g-wiretab-lane"); if (tab) tab.setAttribute("aria-expanded", "false");
 }
-// A Home-nav tap (home.js ctrl.home) lands on the DEFAULT: the wire pane, All lane —
-// not the Market Briefing. Switches the pane, forces the All lane, persists both so a
-// cold load lands there too, and scrolls to top. Closes any open in-app reader/menu.
+// A Home-nav tap (home.js ctrl.home) lands on the Home DEFAULT — the Market Briefing
+// pane — and leaves news mode. Resets the underlying feed to the All lane (so the News
+// tab opens clean next time), persists the Home pane, and scrolls to top. Closes any
+// open in-app reader/menu.
 export function homeReset() {
   try {
     closeMobileReader();
-    if (_wireSetter) _wireSetter("brief");           // land on the Market Briefing pane
+    if (_wireSetter) _wireSetter("brief");           // land on the Market Briefing pane (clears news mode)
     if (_wireLane !== "all") _setWireLane("all"); else _closeLaneMenu();   // reset the underlying feed to the All lane
     _saveHomePref({ wire: "brief", wireLane: "all" });
     const feed = document.getElementById("g-feed"); if (feed) feed.scrollTop = 0;
     window.scrollTo(0, 0);
   } catch { /* best-effort reset */ }
+}
+// A News-nav tap (home.js ctrl.showNews) enters NEWS MODE: the aggregated feed + its
+// lane selector (All · Research · Managers · Watchlist · Newsletters), with the four
+// home tabs hidden. The lane itself is NOT reset — News remembers the reader's last
+// lane. News mode is driven by the News bottom tab, so it is not persisted as the Home
+// wire pref (a cold /v2/ still opens on Briefing).
+export function showNews() {
+  try {
+    closeMobileReader();
+    if (_wireSetter) _wireSetter("news");            // base feed pane + lane selector (wire-newsmode)
+    const feed = document.getElementById("g-feed"); if (feed) feed.scrollTop = 0;
+    window.scrollTo(0, 0);
+  } catch { /* best-effort */ }
 }
 // The dispatcher — the single entry point for (re)painting the merged wire. Desktop
 // selects the lane from the chip row; phones from the wire-tab dropdown (renderWireLanes

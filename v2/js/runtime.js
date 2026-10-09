@@ -155,6 +155,11 @@ async function navigate(path, { push = true, replace = false, home = false } = {
     if (re.test(url.pathname)) return navigate(to(url), { replace: true, home });
   }
   const { key, sub } = parse(url.pathname);
+  // "news" is a bottom-tab that shares the HOME view (so the feed engine isn't
+  // double-mounted): /v2/news/ parses to the home view with sub=["news"]. The TAB
+  // identity (home vs news) drives the chrome highlight + the [data-v2tab] flag +
+  // which mode method the view runs; the VIEW key ("home") drives the section swap.
+  const tab = (key === "home" && sub[0] === "news") ? "news" : key;
   const same = key === _active;
 
   // A tap arriving mid-swap (a heavy view can hold the transition briefly) must
@@ -173,10 +178,12 @@ async function navigate(path, { push = true, replace = false, home = false } = {
   if (same) {
     const r = _views.get(key);
     if (r && r.mounted && r.ctrl) {
-      if (home && r.ctrl.home) r.ctrl.home();
+      if (tab === "news" && r.ctrl.showNews) r.ctrl.showNews();
+      else if (home && r.ctrl.home) r.ctrl.home();
       else if (r.ctrl.enter) r.ctrl.enter(sub);
     }
-    setChromeActive(key); return;
+    document.documentElement.dataset.v2tab = tab;   // keep the flag in sync on a same-view tab (home↔news)
+    setChromeActive(tab); return;
   }
   _busy = true;
 
@@ -194,10 +201,10 @@ async function navigate(path, { push = true, replace = false, home = false } = {
   }
   rec.section.hidden = false;
   rec.section.classList.remove("v2-fade"); void rec.section.offsetWidth; rec.section.classList.add("v2-fade");
-  document.documentElement.dataset.v2tab = key;    // active-tab flag before any enter()
+  document.documentElement.dataset.v2tab = tab;    // active-tab flag before any enter()
   _active = key;
   document.title = ROUTE_BY_KEY[key].title;
-  setChromeActive(key);
+  setChromeActive(tab);
   window.scrollTo(0, 0);
   _busy = false;
   if (_pending) { const [p, o] = _pending; _pending = null; navigate(p, o); return; }
@@ -212,6 +219,12 @@ async function navigate(path, { push = true, replace = false, home = false } = {
   if (!rec.mounted) {
     try { await mountView(key); }
     catch { if (_active === key) rec.section.innerHTML = '<div class="v2-loading">Could not load this view.</div>'; }
+    // First visit to Home via the News tab: mount() rendered the Home default
+    // (Briefing); flip it to news mode now.
+    if (tab === "news" && rec.mounted && rec.ctrl && rec.ctrl.showNews) rec.ctrl.showNews();
+  } else if (tab === "news" && rec.ctrl && rec.ctrl.showNews) {
+    // A kept-alive Home shown via the News tab → news mode.
+    rec.ctrl.showNews();
   } else if (home && rec.ctrl && rec.ctrl.home) {
     // A nav-bar tap onto a kept-alive view resets it to its first part (so, e.g.,
     // tapping Home from the X wire lands on the news wire, not the preserved tab).

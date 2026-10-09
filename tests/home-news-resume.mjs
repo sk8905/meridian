@@ -36,6 +36,10 @@ const pg = await ctx.newPage();
 const errs = [];
 pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
 await pg.goto(`http://localhost:${srv.port}/v2/`, { waitUntil: "load" });
+// The aggregated news feed is the News tab now — switch into news mode (the lane
+// chip's handler does this) so the wire is the visible pane.
+await pg.waitForSelector(".g-wiretab-lane", { state: "attached", timeout: 8000 });
+await pg.evaluate(() => document.querySelector(".g-wiretab-lane").click());
 await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 
 const feedText = () => pg.evaluate(() => (document.getElementById("g-feed") || {}).textContent || "");

@@ -15,6 +15,7 @@ const present = await pg.evaluate(() => ({
   cluster: !!document.querySelector("#wire-header .na-actions"),
   briefAbsent: !document.getElementById("na-brief") && !document.getElementById("na-brief-panel"),
   mkt: !!document.getElementById("na-mkt"),
+  menu: !!document.getElementById("na-menu"),
   notif: !!document.getElementById("na-notif"),
   search: !!document.querySelector("#na-search[data-open-search]"),
   ringOutOfCluster: !document.querySelector(".na-actions .na-ring"),
@@ -24,7 +25,8 @@ const present = await pg.evaluate(() => ({
 }));
 check(present.cluster, "header action cluster mounted (.na-actions in the header)");
 check(present.briefAbsent, "Briefing button removed from the header (the brief lives on the Home News pane)");
-check(present.mkt, "Markets button present");
+check(!present.mkt, "Markets chart icon removed from the phone header (Markets is now a Home top-nav tab)");
+check(present.menu, "Menu hamburger present in the phone header cluster (moved off the bottom bar)");
 check(present.notif, "Notifications button present");
 // Phone header carries Search (magnifier) + Markets/Notifications; the full-width
 // body search band was removed in favour of this magnifier, and the countdown ring
@@ -141,7 +143,8 @@ const opens = async (btnId, panelId) => {
   await pg.waitForTimeout(250);
   return open;
 };
-check(await opens("na-mkt", "na-mkt-panel"), "Markets button opens the Markets panel");
+// (The Markets panel moved to the Home "Markets" tab on iPhone — no header chart
+// icon here; see markets-panel.mjs for that pane.)
 check(await opens("na-notif", "na-notif-panel"), "Notifications button opens the Notifications panel");
 
 // Search opens the shared command palette, which is now LAZY-loaded on first use
@@ -167,10 +170,12 @@ await tapKey("profiles");
 checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "profiles", "tab navigation still works with the header cluster loaded");
 
 // A tab tap dismisses an open header panel (no lingering overlay over the new view).
-await pg.evaluate(() => document.getElementById("na-mkt")?.click()); await pg.waitForTimeout(400);
-check(await pg.evaluate(() => { const p = document.getElementById("na-mkt-panel"); return p && !p.hidden && getComputedStyle(p).display !== "none"; }), "Markets panel is open before the tab tap");
+// Use the Notifications panel — the one header panel the phone cluster still opens.
+await tapKey("home");
+await pg.evaluate(() => document.getElementById("na-notif")?.click()); await pg.waitForTimeout(400);
+check(await pg.evaluate(() => { const p = document.getElementById("na-notif-panel"); return p && !p.hidden && getComputedStyle(p).display !== "none"; }), "Notifications panel is open before the tab tap");
 await tapKey("dashboard");
-const closed = await pg.evaluate(() => { const p = document.getElementById("na-mkt-panel"); return !p || p.hidden || getComputedStyle(p).display === "none" || !p.classList.contains("open"); });
+const closed = await pg.evaluate(() => { const p = document.getElementById("na-notif-panel"); return !p || p.hidden || getComputedStyle(p).display === "none" || !p.classList.contains("open"); });
 check(closed, "tab tap dismisses the open header panel");
 
 // App-wide "Last refresh" + notifications: identical on every desk (not split).

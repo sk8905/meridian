@@ -7,7 +7,8 @@ import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./
 
 const srv = await serve();
 const b = await launchChromium();
-const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
+// The wire column (.g-feed-wrap) lives on the News tab now (news mode) — load it.
+const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/news/`);
 await pg.waitForSelector("#g-feed .g-feed-row", { timeout: 8000 });
 await pg.waitForTimeout(400);
 

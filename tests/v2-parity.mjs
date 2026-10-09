@@ -113,8 +113,13 @@ async function deepLink(url, view, min, label) {
     await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
     await pg.waitForTimeout(900);
   };
-  const order = ["dashboard", "profiles", "menu", "home", "dashboard", "profiles", "menu", "home"];
+  // "news" shares the Home view (news mode), so it must NOT mint a second home
+  // section. Menu moved to the top-right hamburger (#na-menu), not a bottom tab.
+  const order = ["dashboard", "profiles", "news", "home", "dashboard", "profiles", "news", "home"];
   for (const k of order) await tap(k);
+  // Visit Menu via the hamburger (so it mounts once), then return Home.
+  await pg.evaluate(() => document.getElementById("na-menu").click()); await pg.waitForTimeout(900);
+  await tap("home");
   const counts = await pg.evaluate(() => ({
     headers: document.querySelectorAll("#wire-header .topbar").length,
     tabbars: document.querySelectorAll(".mobile-tabbar").length,
@@ -126,7 +131,7 @@ async function deepLink(url, view, min, label) {
     visible: document.querySelectorAll(".v2-view:not([hidden])").length,
     activeTab: (document.querySelector(".mobile-tabbar .mtab.is-active") || {}).dataset?.key,
   }));
-  checkEq(counts.headers, 1, "cycle: one header after 10 switches");
+  checkEq(counts.headers, 1, "cycle: one header after the nav cycle");
   checkEq(counts.tabbars, 1, "cycle: one tab bar");
   checkEq(counts.apps, 1, "cycle: one #app");
   checkEq(counts.dashboard, 1, "cycle: dashboard mounted once (no leak)");

@@ -11,16 +11,19 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
              the very top swaps between them. Hidden on desktop, where both
              columns show at once. -->
         <div class="g-wiretabs" role="tablist" aria-label="Wire, briefing, chart or X">
-          <!-- Market Briefing leads the strip (owner's call). It rides its own pane
-               (always expanded — no collapse). News + Managers share the lane tab: the
-               lane (All · Research · Managers · Watchlist · Newsletters) is chosen from a dropdown
-               (same style as the Menu → Chat chip) and stays the default landing pane.
-               Then Chart and X Feed. Rendered/wired by glance.js. -->
-          <button type="button" class="g-wiretab" data-wire="brief" role="tab" aria-selected="false">Briefing<span class="g-wiretab-dot" hidden aria-hidden="true"></span></button>
-          <button type="button" class="g-wiretab g-wiretab-lane tchip-has-menu is-on" data-wire="news" role="tab" aria-selected="true" aria-haspopup="menu" aria-expanded="false"><span class="g-wire-lanelbl">News</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <div class="g-wire-lanemenu tchip-menu" id="g-wire-lanemenu" role="menu" hidden></div>
+          <!-- HOME-MODE top nav (iPhone): Briefing · Markets · Chart · X Feed. Briefing
+               leads (owner's call); Markets is the full Equities/Macro/Predictions panel
+               as its own pane; then Chart and X Feed. The lane chip (News) is for NEWS
+               MODE only — it's the News bottom-tab's control (All · Research · Managers ·
+               Watchlist · Newsletters, picked from a dropdown) and is CSS-hidden in home
+               mode / the four home tabs are CSS-hidden in news mode. Rendered/wired by
+               glance.js. -->
+          <button type="button" class="g-wiretab" data-wire="brief" role="tab" aria-selected="true">Briefing<span class="g-wiretab-dot" hidden aria-hidden="true"></span></button>
+          <button type="button" class="g-wiretab" data-wire="markets" role="tab" aria-selected="false">Markets</button>
           <button type="button" class="g-wiretab" data-wire="chart" role="tab" aria-selected="false">Chart</button>
           <button type="button" class="g-wiretab" data-wire="x" role="tab" aria-selected="false">X Feed</button>
+          <button type="button" class="g-wiretab g-wiretab-lane tchip-has-menu" data-wire="news" role="tab" aria-selected="false" aria-haspopup="menu" aria-expanded="false"><span class="g-wire-lanelbl">All</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="g-wire-lanemenu tchip-menu" id="g-wire-lanemenu" role="menu" hidden></div>
         </div>
         <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
         <aside class="g-side">
@@ -92,6 +95,15 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
                Shown on the phone/tablet Chart pane, where there is room beneath the
                chart; the desktop terminal already carries the full News column. -->
           <div class="g-hero-news" id="g-hero-news" aria-label="News for the charted securities"></div>
+        </section>
+
+        <!-- MARKETS PANE (iPhone "Markets" tab): the full Equities · Macro · Predictions
+             panel (the same one the desktop header chart icon opens), mounted here by
+             glance.js on first reveal via nav-actions' loadMarkets(). Phone-only — a
+             swappable pane in the wire-tab strip; hidden on the desktop terminal, which
+             carries the market columns inline. -->
+        <section class="g-mktpane g-anchor" id="g-mktpane" aria-label="Markets" hidden>
+          <div class="g-loading">Loading markets…</div>
         </section>
 
         <!-- MARKET BRIEFING: on the desktop terminal this is its own quadrant (top-

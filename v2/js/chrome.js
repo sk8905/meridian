@@ -66,13 +66,20 @@ function setupLazyPalette() {
 // "transactions" is the deal-flow-by-transaction-type workspace (see
 // v2/js/transactions/app.js); it replaced the retired Origination radar in this
 // slot. The two-arrows icon reads as flow/transactions.
+// Bottom tab bar (iPhone): Home · News · Dashboard · Profiles · Transactions. Menu
+// left the bottom bar — its hamburger now lives in the top-right header cluster (shown
+// on phones too; see header.css). "News" is the aggregated news wire with its lane
+// selector (All · Research · Managers · Watchlist · Newsletters); it routes to /v2/news/,
+// which the runtime resolves to the Home view in "news mode" (so the feed engine isn't
+// double-mounted) — Home itself now carries Briefing · Markets · Chart · X Feed.
 const TABS = [
-  ["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["transactions", "Transactions"], ["menu", "Menu"],
+  ["home", "Home"], ["news", "News"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["transactions", "Transactions"],
 ];
 const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["transactions", "Transactions"]];
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
+  news: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2V5z"/><path d="M17 8h3v9a2 2 0 0 1-2 2"/><line x1="7" y1="9" x2="14" y2="9"/><line x1="7" y1="12" x2="14" y2="12"/><line x1="7" y1="15" x2="11" y2="15"/></svg>',
   dashboard: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.2"/><rect x="13" y="3" width="8" height="5" rx="1.2"/><rect x="13" y="10" width="8" height="11" rx="1.2"/><rect x="3" y="13" width="8" height="8" rx="1.2"/></svg>',
   macro: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20V9"/></svg>',
   credit: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg>',

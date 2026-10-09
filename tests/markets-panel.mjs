@@ -1,5 +1,6 @@
-// iPhone Markets panel (header chart icon → full-screen tabs). Reorganised to
-// mirror the Home rails: Equities (the left rail — markets · top movers · FX),
+// iPhone Markets panel — the Home "Markets" top-nav tab (#g-mktpane), which mounts
+// the shared nav-actions.loadMarkets panel (the header chart icon was dropped on
+// phones in the nav reorg). Mirrors the Home rails: Equities (the left rail — markets · top movers · FX),
 // Macro (the right rail bar predictions — Key rates · Spreads · Volatility · Yield
 // curve · Policy rate) and Predictions. Portfolio is gone. Every data row carries a
 // ~1-month sparkline tinted green-up / red-down, on an evenly-spread grid.
@@ -40,27 +41,30 @@ const srv = await serve({
 });
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/`);
-await pg.waitForSelector("#na-mkt", { timeout: 8000 });
-await pg.evaluate(() => document.getElementById("na-mkt").click());
-await pg.waitForSelector("#na-mkt-panel .na-chip", { timeout: 8000 });
+// iPhone: the Markets panel is now the Home "Markets" top-nav tab (#g-mktpane),
+// which mounts the SAME Equities/Macro/Predictions panel via nav-actions.loadMarkets
+// (the header chart icon was removed on phones). Open it via the wire tab.
+await pg.waitForSelector('.g-wiretab[data-wire="markets"]', { timeout: 8000 });
+await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="markets"]').click());
+await pg.waitForSelector("#g-mktpane .na-chip", { timeout: 8000 });
 await pg.waitForTimeout(500);
 
 // ---- Tabs: Equities | Macro | Predictions, and NO Portfolio -----------------
-const chips = await pg.evaluate(() => [...document.querySelectorAll("#na-mkt-panel .na-chip")].map((c) => c.textContent.trim()));
+const chips = await pg.evaluate(() => [...document.querySelectorAll("#g-mktpane .na-chip")].map((c) => c.textContent.trim()));
 checkEq(chips.join(" | "), "Equities | Macro | Predictions", "the panel tabs are Equities · Macro · Predictions");
 check(!chips.some((c) => /portfolio/i.test(c)), `no Portfolio tab (${chips.join(", ")})`);
 
 // ---- Equities tab (the left rail): markets rows carry a sparkline -----------
 const eq = await pg.evaluate(() => {
-  const secs = [...document.querySelectorAll("#na-mkt-panel .na-sec span:first-child")].map((s) => s.textContent.trim());
-  const mkt = [...document.querySelectorAll("#na-mkt-panel .na-srow")];
-  const rowByLabel = (lbl) => [...document.querySelectorAll("#na-mkt-panel .na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
+  const secs = [...document.querySelectorAll("#g-mktpane .na-sec span:first-child")].map((s) => s.textContent.trim());
+  const mkt = [...document.querySelectorAll("#g-mktpane .na-srow")];
+  const rowByLabel = (lbl) => [...document.querySelectorAll("#g-mktpane .na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
   const transits = rowByLabel("Transits");
-  return { secs, srows: mkt.length, sparks: document.querySelectorAll("#na-mkt-panel .na-srow .na-spark svg polyline").length,
-    hasFx: !!document.querySelector("#na-mkt-panel .na-fx-tbl"),
+  return { secs, srows: mkt.length, sparks: document.querySelectorAll("#g-mktpane .na-srow .na-spark svg polyline").length,
+    hasFx: !!document.querySelector("#g-mktpane .na-fx-tbl"),
     transitsVal: transits ? (transits.querySelector(".na-v") || {}).textContent.trim() : null,
-    earnRows: document.querySelectorAll("#na-mkt-panel .na-earn-row").length,
-    earnHasEst: !!document.querySelector("#na-mkt-panel .na-earn-row .na-earn-l") };
+    earnRows: document.querySelectorAll("#g-mktpane .na-earn-row").length,
+    earnHasEst: !!document.querySelector("#g-mktpane .na-earn-row .na-earn-l") };
 });
 check(eq.secs.includes("Markets") && eq.secs.includes("Top movers"), `Equities: Markets + Top movers sections (${eq.secs.join(" · ")})`);
 check(eq.hasFx, "Equities: the FX matrix renders");
@@ -71,25 +75,25 @@ check(eq.secs.includes("Strait of Hormuz") && eq.transitsVal === "108", `Equitie
 check(eq.secs.includes("This week's earnings") && eq.earnRows >= 1 && eq.earnHasEst, `Equities: this week's earnings block renders with Est/Act lines (${eq.earnRows} rows)`);
 
 // ---- Macro tab: the five right-rail sections, sparklines, correct OAS -------
-await pg.evaluate(() => [...document.querySelectorAll("#na-mkt-panel .na-chip")].find((c) => c.dataset.k === "macro").click());
-await pg.waitForSelector("#na-mkt-panel .na-srow", { timeout: 5000 });
+await pg.evaluate(() => [...document.querySelectorAll("#g-mktpane .na-chip")].find((c) => c.dataset.k === "macro").click());
+await pg.waitForSelector("#g-mktpane .na-srow", { timeout: 5000 });
 await pg.waitForTimeout(200);
 const mac = await pg.evaluate(() => {
-  const secs = [...document.querySelectorAll("#na-mkt-panel .na-sec span:first-child")].map((s) => s.textContent.trim());
-  const rowByLabel = (lbl) => [...document.querySelectorAll("#na-mkt-panel .na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
+  const secs = [...document.querySelectorAll("#g-mktpane .na-sec span:first-child")].map((s) => s.textContent.trim());
+  const rowByLabel = (lbl) => [...document.querySelectorAll("#g-mktpane .na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
   const ig = rowByLabel("US IG OAS");
   const igStroke = (() => { const p = ig && ig.querySelector(".na-spark svg polyline"); return p ? getComputedStyle(p).stroke : null; })();
   const eur = rowByLabel("3M EURIBOR");
   const eurStroke = (() => { const p = eur && eur.querySelector(".na-spark svg polyline"); return p ? getComputedStyle(p).stroke : null; })();
-  const probe = (v) => { const t = document.querySelector("#na-mkt-panel .na-srow"); const s = document.createElement("span"); s.style.color = v; t.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; };
-  const gc = document.querySelector("#na-mkt-panel .na-srow");
+  const probe = (v) => { const t = document.querySelector("#g-mktpane .na-srow"); const s = document.createElement("span"); s.style.color = v; t.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; };
+  const gc = document.querySelector("#g-mktpane .na-srow");
   return {
     secs,
     igVal: ig ? (ig.querySelector(".na-v") || {}).textContent.trim() : null,
     igStroke, eurStroke, up: probe("var(--t-up)"), down: probe("var(--t-down)"),
     cols: gc ? getComputedStyle(gc).gridTemplateColumns : null,
     hasPolicy: secs.includes("Policy rate"),
-    moodColor: (() => { const m = document.querySelector("#na-mkt-panel .na-pol-mood"); return m ? getComputedStyle(m).color : null; })(),
+    moodColor: (() => { const m = document.querySelector("#g-mktpane .na-pol-mood"); return m ? getComputedStyle(m).color : null; })(),
     // Phase 2: the DERIVED rows (HY−IG, CCC−HY, 2s10s) now draw a diff sparkline, and
     // the US 2Y feeds the Yield-curve panel (not shown as a Key rate).
     derivedDrawn: ["HY − IG", "CCC − HY", "2s10s"].filter((l) => { const r = rowByLabel(l); return r && r.querySelector(".na-spark svg polyline"); }).length,

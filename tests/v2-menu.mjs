@@ -127,14 +127,12 @@ async function menuState(pg) {
   await ctx.close();
 }
 
-// 2) Client-side tab tap (real touch) from Home.
+// 2) Client-side open from Home via the top-right hamburger (#na-menu) — Menu left
+//    the bottom bar in the nav reorg.
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
   await pg.waitForTimeout(1400);
-  const cdp = await ctx.newCDPSession(pg);
-  const box = await pg.evaluate(() => { const t = document.querySelector('.mobile-tabbar .mtab[data-key="menu"]'); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
-  await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: box.x, y: box.y }] });
-  await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  await pg.evaluate(() => document.getElementById("na-menu").click());
   await pg.waitForTimeout(900);
   const s = await menuState(pg);
   check(s.hasMenu && s.visible && s.w >= 300, `tap Menu: renders full-width + visible chips (w=${s.w}, visible=${s.visible})`);

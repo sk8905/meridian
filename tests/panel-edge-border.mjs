@@ -13,7 +13,7 @@ const srv = await serve({
 });
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, DARK_PHONE, `http://localhost:${srv.port}/v2/`);
-await pg.waitForSelector("#na-mkt", { timeout: 8000 });
+await pg.waitForSelector("#na-notif", { timeout: 8000 });
 
 const edges = async (panelId) => pg.evaluate((id) => {
   const p = document.getElementById(id); if (!p || p.hidden) return null;
@@ -26,14 +26,9 @@ const edges = async (panelId) => pg.evaluate((id) => {
   };
 }, panelId);
 
-// ---- Markets panel ----
-await pg.evaluate(() => document.getElementById("na-mkt").click());
-await pg.waitForSelector("#na-mkt-panel .na-chip", { timeout: 8000 });
-await pg.waitForTimeout(200);
-const m = await edges("na-mkt-panel");
-check(m && m.bl === "0px" && m.brr === "0px", `dark phone: the Markets panel has no left/right border (${m && m.bl}/${m && m.brr})`);
-check(m && m.left === 0 && m.right === m.vw && m.bodyLeft === 0 && m.bodyRight === m.vw,
-  `dark phone: the Markets panel + content span the full width, no edge inset (panel [${m && m.left},${m && m.right}], body [${m && m.bodyLeft},${m && m.bodyRight}], vw ${m && m.vw})`);
+// (The Markets panel is no longer a phone header sheet — it moved to the Home
+// "Markets" tab in the nav reorg — so the only header sheet left on the phone is
+// Notifications, which still exercises this dark-mode full-width / no-side-border path.)
 
 // ---- Notifications panel ----
 await pg.evaluate(() => document.getElementById("na-notif").click());

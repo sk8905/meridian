@@ -29,6 +29,7 @@ function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d +
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';
 const ICO_ASK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6a8.5 8.5 0 0 1-.9-3.9A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>';
+const ICO_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>';
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
 
@@ -126,7 +127,7 @@ let _mktTab = "equities";
 // "Ask Wire" (B) + "Add a firm" (C) now live in the shared assistant module
 // (v2/js/assistant.js), mounted both here (desktop header, Ask only) and in the
 // Menu → Dialogue chip (Ask + Add). See mountAssistant().
-function loadMarkets(body) {
+export function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
     + `<button type="button" class="na-chip" data-k="equities">Equities</button>`
     + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
@@ -686,7 +687,7 @@ export function initNavActions() {
   const run = () => {
     // Idempotence guard FIRST: initNavActions can be invoked more than once, so
     // a second pass must be a no-op (the buttons are already mounted).
-    if (document.getElementById("na-mkt")) return; // already mounted
+    if (document.getElementById("na-notif")) return; // already mounted (the bell renders on every viewport)
     // v2: the runtime owns the tab bar and the header layout (a sticky top bar),
     // so nav-actions' own tab-bar / header-layout builder is omitted from this
     // port — only the header buttons + panels below are used.
@@ -733,8 +734,15 @@ export function initNavActions() {
       // marker (status.js).
       (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search Wire" title="Search Wire">${ICO_SEARCH}</button>` : "") +
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire ( ' )">${ICO_ASK}</button>`) +
-      `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
-      `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>`;
+      // Markets panel button: DESKTOP only. On iPhone, Markets is a Home top-nav tab
+      // (the full Equities/Macro/Predictions panel lives there), so the header chart
+      // icon is dropped — the phone cluster is Search · Notifications · Menu.
+      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>`) +
+      `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
+      // Menu: on iPhone the hamburger lives here in the top-right cluster (Menu left
+      // the bottom tab bar). data-key routes it through the header's tab handler, same
+      // as any platform tab. Desktop keeps its own .nav-menu-btn in the header.
+      (isPhone() ? `<button type="button" class="na-btn" id="na-menu" data-key="menu" aria-label="Menu" title="Menu">${ICO_MENU}</button>` : "");
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
     } else if (bar) {
@@ -955,7 +963,9 @@ export function initNavActions() {
       // Ask panel: desktop-only (no #na-ask button on phones), so include the rec
       // only when the button exists.
       ...(wrap.querySelector("#na-ask") ? [{ btn: wrap.querySelector("#na-ask"), panel: askPanel, onOpen: (p) => { mountAssistant(p.querySelector(".na-body"), { add: false, state: _headerAskState }); const i = p.querySelector(".na-ask-in"); if (i && !isPhone()) setTimeout(() => i.focus(), 40); } }] : []),
-      { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
+      // Markets panel: desktop-only (no #na-mkt button on phones — Markets is a Home
+      // tab there), so include the rec only when the button exists.
+      ...(wrap.querySelector("#na-mkt") ? [{ btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } }] : []),
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },
     ];
 

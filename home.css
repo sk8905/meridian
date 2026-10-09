@@ -1590,7 +1590,31 @@
          sub-filter band was removed, so there is no extra row to clear (this holds on
          every lane now). Scoped to the Home feed (#g-feed) so other desks keep theirs. */
       .tui #g-feed .g-feed-dayhdr{ top:calc(var(--wire-head-h, 57px) + var(--wire-band-h, 43px) + var(--chip-h, 34px)); z-index:7; }
+      /* ---- iPhone nav reorg: Markets tab + News mode -------------------------------
+         Home top nav = Briefing · Markets · Chart · X Feed. "Markets" swaps in the full
+         Equities/Macro/Predictions panel (#g-mktpane, mounted by glance via
+         nav-actions.loadMarkets). The lane chip is NEWS MODE only (the News bottom
+         tab): there the four home tabs hide and only the lane selector shows, over the
+         feed — the market/macro rails that stack under the base feed are dropped so
+         News is just the feed + lane selector. */
+      .tui .g-layout.wire-markets .g-feed-wrap,
+      .tui .g-layout.wire-markets .g-side,
+      .tui .g-layout.wire-markets .g-side2,
+      .tui .g-layout.wire-markets .g-side3,
+      .tui .g-layout.wire-markets .g-side-x,
+      .tui .g-layout.wire-markets .g-hero{ display:none; }
+      .tui .g-layout.wire-markets .g-mktpane{ display:block; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+      .tui .g-wiretabs .g-wiretab-lane{ display:none; }
+      .tui .g-layout.wire-newsmode .g-wiretabs .g-wiretab:not(.g-wiretab-lane){ display:none; }
+      .tui .g-layout.wire-newsmode .g-wiretabs .g-wiretab-lane{ display:flex; flex:0 0 auto; justify-content:flex-start; padding-left:12px; gap:5px; }
+      .tui .g-layout.wire-newsmode .g-side,
+      .tui .g-layout.wire-newsmode .g-side2{ display:none; }
       }
+
+    /* The Markets pane is phone/tablet-only (the desktop terminal carries the market
+       columns inline) — hidden by default at every width; the ≤1200px wire-markets
+       rule above re-shows it when its tab is active. */
+    .tui .g-mktpane{ display:none; }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
     .tui .g-hello{ display:flex; align-items:baseline; gap:10px; padding:6px 14px; margin:0;
