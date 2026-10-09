@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "847e6d14-08e4-4477-8722-40bd7162b992",
+    title: "Airlines sound the alarm as bleak winter looms",
+    date: "2026-10-09",
+    time: "21:00",
+    url: "https://www.ft.com/content/847e6d14-08e4-4477-8722-40bd7162b992",
+  },
+  {
     id: "84ca76fd-0eed-4fb6-aea4-f72638a9d9c8",
     title: "Trump agrees deal with Putin for Russia to release diesel on to global market",
     date: "2026-10-09",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "11:44",
     url: "https://www.ft.com/content/297ca864-737c-4112-b368-f21a20cc78d2",
-  },
-  {
-    id: "77d73223-3cfc-4892-a3c5-5502595f42d4",
-    title: "Delta slashes profit outlook as higher fuel prices bite",
-    date: "2026-10-09",
-    time: "11:44",
-    url: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4",
   },
 ];
