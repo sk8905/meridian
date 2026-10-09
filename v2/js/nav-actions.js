@@ -128,65 +128,123 @@ let _mktTab = "equities";
 // (v2/js/assistant.js), mounted both here (desktop header, Ask only) and in the
 // Menu → Dialogue chip (Ask + Add). See mountAssistant().
 export function loadMarkets(body, opts = {}) {
-  // The Equities/Macro/Predictions switcher renders as chips in the desktop header
-  // panel, OR as a dropdown on the iPhone Markets tab (opts.switcher === "dropdown"),
-  // matching the News tab's lane selector. Same tab state (_mktTab) and body either way.
+  // The Equities/Macro/Predictions views render three ways, same data + panes:
+  //   • chips    — the desktop header panel (default): a chip row switches the body.
+  //   • dropdown — (legacy) a single selector, like the News lane dropdown.
+  //   • swipe    — the iPhone Markets tab: NO switcher row; the three panes sit
+  //                side by side and the reader SWIPES between them (a dot strip
+  //                shows which is centred). opts.switcher === "swipe".
   const TAB_LABEL = { equities: "Equities", macro: "Macro", predict: "Predictions" };
-  const useDropdown = opts && opts.switcher === "dropdown";
-  const switcherHTML = useDropdown
-    ? `<div class="na-mktsel"><button type="button" class="na-mktsel-btn tchip-has-menu" aria-haspopup="menu" aria-expanded="false"><span class="na-mktsel-lbl">${esc(TAB_LABEL[_mktTab] || "Equities")}</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button><div class="na-mktsel-menu tchip-menu" role="menu" hidden>`
-      + ["equities", "macro", "predict"].map((k) => `<button type="button" class="tchip-menu-item${k === _mktTab ? " is-on" : ""}" data-k="${k}" role="menuitem">${esc(TAB_LABEL[k])}</button>`).join("")
-      + `</div></div>`
-    : `<div class="na-chips"><button type="button" class="na-chip" data-k="equities">Equities</button><button type="button" class="na-chip" data-k="macro">Macro</button><button type="button" class="na-chip" data-k="predict">Predictions</button></div>`;
-  body.innerHTML = switcherHTML + `<div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
-  const chips = body.querySelector(".na-chips");
-  const selBtn = body.querySelector(".na-mktsel-btn");
-  const selMenu = body.querySelector(".na-mktsel-menu");
-  const selLbl = body.querySelector(".na-mktsel-lbl");
-  const tb = body.querySelector(".na-tabbody");
+  const mode = (opts && opts.switcher) || "chips";
+  const KEYS = ["equities", "macro", "predict"];
   let data = null, predict = null, predictLoading = false;
-  const closeSel = () => { if (selMenu && !selMenu.hidden) { selMenu.hidden = true; selBtn.setAttribute("aria-expanded", "false"); } };
-  const render = () => {
-    if (chips) chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
-    if (selLbl) selLbl.textContent = TAB_LABEL[_mktTab] || "Equities";
-    if (selMenu) selMenu.querySelectorAll(".tchip-menu-item").forEach((m) => m.classList.toggle("is-on", m.dataset.k === _mktTab));
-    if (_mktTab === "predict") { tb.innerHTML = predictPane(predict, predictLoading); return; }
-    if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
-    tb.innerHTML = _mktTab === "macro" ? macroPane(data) : marketsPane(data);
-  };
-  // Predictions load lazily on first view (their own upstream fetch).
+  // onData repaints the Equities/Macro views once market data lands; onPredict
+  // repaints the Predictions view. Each mode wires these to its own renderer.
+  let onData = () => {}, onPredict = () => {};
+  // Predictions load lazily (their own upstream fetch) — on first view in the
+  // chip/dropdown modes, or on the first swipe off Equities in swipe mode.
   const loadPredict = () => {
     if (predict != null || predictLoading) return;
-    predictLoading = true;
+    predictLoading = true; onPredict();
     fetch("/api/predict?v=8", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
-      .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
+      .then((p) => { predict = (p && p.markets) || []; predictLoading = false; onPredict(); });
   };
-  const pick = (k) => { if (k && k !== _mktTab) { _mktTab = k; if (_mktTab === "predict") loadPredict(); render(); } };
-  if (chips) chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c) pick(c.dataset.k); });
-  if (selBtn) {
-    selBtn.addEventListener("click", (e) => { e.stopPropagation(); const open = selMenu.hidden; selMenu.hidden = !open; selBtn.setAttribute("aria-expanded", open ? "true" : "false"); });
-    selMenu.addEventListener("click", (e) => { const it = e.target.closest(".tchip-menu-item"); if (!it) return; e.preventDefault(); e.stopPropagation(); closeSel(); pick(it.dataset.k); });
-    document.addEventListener("click", (e) => { if (selMenu && !selMenu.hidden && !e.target.closest(".na-mktsel")) closeSel(); });
+
+  if (mode === "swipe") {
+    // Three slides in a horizontal scroll-snap track — no switcher, no row for it.
+    body.innerHTML =
+      `<div class="na-mktswipe" role="group" aria-roledescription="carousel" aria-label="Markets views">`
+      + KEYS.map((k) => `<section class="na-mktslide" data-k="${k}" aria-label="${esc(TAB_LABEL[k])}"><div class="na-tabbody" data-k="${k}"><div class="na-load">Loading…</div></div></section>`).join("")
+      + `</div>`
+      + `<div class="na-mktdots" role="tablist" aria-label="Markets views">`
+      + KEYS.map((k, i) => `<button type="button" class="na-mktdot${i === 0 ? " is-on" : ""}" data-k="${k}" role="tab" aria-selected="${i === 0 ? "true" : "false"}" aria-label="${esc(TAB_LABEL[k])}"></button>`).join("")
+      + `</div>`;
+    const track = body.querySelector(".na-mktswipe");
+    const dots = [...body.querySelectorAll(".na-mktdot")];
+    const slides = [...body.querySelectorAll(".na-mktslide")];
+    const tbOf = (k) => body.querySelector(`.na-tabbody[data-k="${k}"]`);
+    const fillOne = (k) => {
+      const tb = tbOf(k); if (!tb) return;
+      if (k === "predict") tb.innerHTML = predictPane(predict, predictLoading);
+      else tb.innerHTML = data ? (k === "macro" ? macroPane(data) : marketsPane(data)) : '<div class="na-load">Loading…</div>';
+    };
+    onData = () => { fillOne("equities"); fillOne("macro"); };
+    onPredict = () => fillOne("predict");
+    // Light the dot of the centred slide; warm Predictions the moment the reader
+    // swipes off Equities (so its slide isn't a dead "Loading…" when reached).
+    let cur = 0;
+    const sync = () => {
+      const w = track.clientWidth || 1;
+      const i = Math.max(0, Math.min(KEYS.length - 1, Math.round(track.scrollLeft / w)));
+      if (i !== cur) { cur = i; dots.forEach((d, j) => { const on = j === i; d.classList.toggle("is-on", on); d.setAttribute("aria-selected", on ? "true" : "false"); }); }
+      if (track.scrollLeft > 0) loadPredict();
+    };
+    track.addEventListener("scroll", sync, { passive: true });
+    // Tapping a dot jumps to its slide.
+    body.querySelector(".na-mktdots").addEventListener("click", (e) => {
+      const d = e.target.closest(".na-mktdot"); if (!d) return;
+      const i = KEYS.indexOf(d.dataset.k); if (i < 0) return;
+      if (d.dataset.k === "predict") loadPredict();
+      track.scrollTo({ left: i * (track.clientWidth || 0), behavior: "smooth" });
+    });
+    // Delegated in-pane Predictions controls (super-filter chips / mover direction).
+    body.addEventListener("click", (e) => {
+      const ps = e.target.closest(".na-pred-fchip");
+      if (ps && !ps.disabled) { e.preventDefault(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; fillOne("predict"); } return; }
+      const dir = e.target.closest(".na-pred-dir");
+      if (dir) { e.preventDefault(); if (dir.dataset.dir !== _predMoveDir) { _predMoveDir = dir.dataset.dir; fillOne("predict"); } }
+    });
+    KEYS.forEach(fillOne);
+  } else {
+    const useDropdown = mode === "dropdown";
+    const switcherHTML = useDropdown
+      ? `<div class="na-mktsel"><button type="button" class="na-mktsel-btn tchip-has-menu" aria-haspopup="menu" aria-expanded="false"><span class="na-mktsel-lbl">${esc(TAB_LABEL[_mktTab] || "Equities")}</span><svg class="tchip-caret" viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button><div class="na-mktsel-menu tchip-menu" role="menu" hidden>`
+        + KEYS.map((k) => `<button type="button" class="tchip-menu-item${k === _mktTab ? " is-on" : ""}" data-k="${k}" role="menuitem">${esc(TAB_LABEL[k])}</button>`).join("")
+        + `</div></div>`
+      : `<div class="na-chips"><button type="button" class="na-chip" data-k="equities">Equities</button><button type="button" class="na-chip" data-k="macro">Macro</button><button type="button" class="na-chip" data-k="predict">Predictions</button></div>`;
+    body.innerHTML = switcherHTML + `<div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
+    const chips = body.querySelector(".na-chips");
+    const selBtn = body.querySelector(".na-mktsel-btn");
+    const selMenu = body.querySelector(".na-mktsel-menu");
+    const selLbl = body.querySelector(".na-mktsel-lbl");
+    const tb = body.querySelector(".na-tabbody");
+    const closeSel = () => { if (selMenu && !selMenu.hidden) { selMenu.hidden = true; selBtn.setAttribute("aria-expanded", "false"); } };
+    const render = () => {
+      if (chips) chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
+      if (selLbl) selLbl.textContent = TAB_LABEL[_mktTab] || "Equities";
+      if (selMenu) selMenu.querySelectorAll(".tchip-menu-item").forEach((m) => m.classList.toggle("is-on", m.dataset.k === _mktTab));
+      if (_mktTab === "predict") { tb.innerHTML = predictPane(predict, predictLoading); return; }
+      if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
+      tb.innerHTML = _mktTab === "macro" ? macroPane(data) : marketsPane(data);
+    };
+    onData = render; onPredict = render;
+    const pick = (k) => { if (k && k !== _mktTab) { _mktTab = k; if (_mktTab === "predict") loadPredict(); render(); } };
+    if (chips) chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c) pick(c.dataset.k); });
+    if (selBtn) {
+      selBtn.addEventListener("click", (e) => { e.stopPropagation(); const open = selMenu.hidden; selMenu.hidden = !open; selBtn.setAttribute("aria-expanded", open ? "true" : "false"); });
+      selMenu.addEventListener("click", (e) => { const it = e.target.closest(".tchip-menu-item"); if (!it) return; e.preventDefault(); e.stopPropagation(); closeSel(); pick(it.dataset.k); });
+      document.addEventListener("click", (e) => { if (selMenu && !selMenu.hidden && !e.target.closest(".na-mktsel")) closeSel(); });
+    }
+    // Delegated in-pane controls. stopPropagation is essential: render() replaces
+    // tb's innerHTML, detaching the tapped button; without it the document-level
+    // outside-click closer then sees a now-orphaned target (closest(".na-panel") ===
+    // null) and dismisses the panel.
+    tb.addEventListener("click", (e) => {
+      const ps = e.target.closest(".na-pred-fchip");     // predictions Macro/Politics/Finance
+      if (ps && !ps.disabled) { e.preventDefault(); e.stopPropagation(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; render(); } return; }
+      const dir = e.target.closest(".na-pred-dir");      // Top Movers Up/Down
+      if (dir) { e.preventDefault(); e.stopPropagation(); if (dir.dataset.dir !== _predMoveDir) { _predMoveDir = dir.dataset.dir; render(); } }
+    });
+    if (_mktTab === "predict") loadPredict();
+    render();
   }
-  // Delegated in-pane controls. stopPropagation is essential: render() replaces
-  // tb's innerHTML, detaching the tapped button; without it the document-level
-  // outside-click closer then sees a now-orphaned target (closest(".na-panel") ===
-  // null) and dismisses the panel.
-  tb.addEventListener("click", (e) => {
-    const ps = e.target.closest(".na-pred-fchip");     // predictions Macro/Politics/Finance
-    if (ps && !ps.disabled) { e.preventDefault(); e.stopPropagation(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; render(); } return; }
-    const dir = e.target.closest(".na-pred-dir");      // Top Movers Up/Down
-    if (dir) { e.preventDefault(); e.stopPropagation(); if (dir.dataset.dir !== _predMoveDir) { _predMoveDir = dir.dataset.dir; render(); } }
-  });
-  if (_mktTab === "predict") loadPredict();
-  render();
   Promise.all([
     fetch("/api/markets?v=14", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
     fetch("/api/rates?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
     fetch("/api/hormuz", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]).then(([m, rt, hz]) => {
     data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], rates: (rt && rt.rates) || [], hormuz: hz || null };
-    render();
+    onData();
   });
 }
 // Prediction-market rows — matches the desktop rail: question + meta (venue ·

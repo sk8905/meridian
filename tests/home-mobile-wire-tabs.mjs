@@ -71,11 +71,11 @@ const b = await launchChromium();
   await pg.waitForSelector("#g-xwire .g-x-card", { state: "attached", timeout: 8000 });
   check(await pg.evaluate(() => document.querySelectorAll("#g-xwire .g-x-card").length) >= 1, "phone: the X feed is preloaded while hidden — ready before its chip is tapped");
 
-  // Tap MARKETS → the full panel mounts in #g-mktpane with a DROPDOWN switcher.
+  // Tap MARKETS → the full panel mounts in #g-mktpane as a SWIPE carousel (no switcher).
   await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="markets"]').click());
-  await pg.waitForFunction(() => { const p = document.getElementById("g-mktpane"); return p && getComputedStyle(p).display !== "none" && p.querySelector(".na-mktsel-btn"); }, undefined, { timeout: 8000 });
-  const mk = await pg.evaluate(() => ({ opts: [...document.querySelectorAll("#g-mktpane .na-mktsel-menu .tchip-menu-item")].map((c) => c.textContent.trim()), lbl: (document.querySelector("#g-mktpane .na-mktsel-lbl") || {}).textContent.trim() }));
-  check(mk.opts.join(" | ") === "Equities | Macro | Predictions" && mk.lbl === "Equities", `phone: the Markets tab shows the Equities/Macro/Predictions dropdown (${mk.lbl}: ${mk.opts.join(" | ")})`);
+  await pg.waitForFunction(() => { const p = document.getElementById("g-mktpane"); return p && getComputedStyle(p).display !== "none" && p.querySelector(".na-mktswipe"); }, undefined, { timeout: 8000 });
+  const mk = await pg.evaluate(() => ({ slides: [...document.querySelectorAll("#g-mktpane .na-mktslide")].map((s) => s.dataset.k), dots: document.querySelectorAll("#g-mktpane .na-mktdot").length, noSwitcher: !document.querySelector("#g-mktpane .na-mktsel") }));
+  check(mk.slides.join(" | ") === "equities | macro | predict" && mk.dots === 3 && mk.noSwitcher, `phone: the Markets tab is an Equities/Macro/Predictions swipe carousel (slides: ${mk.slides.join(" | ")}, dots: ${mk.dots})`);
   check(!(await vis("#g-hbrief")), "phone: the briefing hides under the Markets tab");
 
   // Tap CHART → hero chart (feed + manager hidden), all instruments plotted, no left border.

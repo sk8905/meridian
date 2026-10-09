@@ -1603,7 +1603,20 @@
       .tui .g-layout.wire-markets .g-side3,
       .tui .g-layout.wire-markets .g-side-x,
       .tui .g-layout.wire-markets .g-hero{ display:none; }
-      .tui .g-layout.wire-markets .g-mktpane{ display:block; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+      /* Markets pane = a horizontal SWIPE carousel (Equities · Macro · Predictions):
+         the pane is a flex column (track fills, dot strip pinned beneath), so each
+         slide scrolls vertically inside the track while the track scroll-snaps across. */
+      .tui .g-layout.wire-markets .g-mktpane{ display:flex; flex-direction:column; min-height:0; overflow:hidden; }
+      .tui .g-mktpane .na-mktswipe{ flex:1 1 auto; min-height:0; display:flex; overflow-x:auto; overflow-y:hidden;
+        scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+      .tui .g-mktpane .na-mktswipe::-webkit-scrollbar{ display:none; }
+      .tui .g-mktpane .na-mktslide{ flex:0 0 100%; width:100%; min-width:0; scroll-snap-align:start; scroll-snap-stop:always;
+        overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; }
+      .tui .g-mktpane .na-mktdots{ flex:0 0 auto; display:flex; justify-content:center; align-items:center; gap:8px;
+        padding:9px 0 calc(9px + env(safe-area-inset-bottom, 0px)); background:var(--t-head); border-top:1px solid var(--border, #262626); }
+      .tui .g-mktpane .na-mktdot{ width:7px; height:7px; padding:0; border:0; border-radius:50%; background:var(--t-mut);
+        opacity:.38; cursor:pointer; transition:opacity .15s ease, transform .15s ease, background .15s ease; }
+      .tui .g-mktpane .na-mktdot.is-on{ opacity:1; background:var(--accent, #fb8b1e); transform:scale(1.18); }
       /* NEWS MODE: the four home tabs hide; the lane CHIP ROW (#g-wire-lanechips —
          All · Research · Managers · Watchlist · Newsletters) shows as a horizontally-
          scrollable strip filling the wire-tab bar. The market/macro rails that stack

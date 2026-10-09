@@ -901,7 +901,10 @@ notification badge red (`#ef4444`).
   (`#na-mkt`) is desktop-only**. **(c) Home top-nav = `Briefing · Markets · Chart ·
   X Feed`** (`.g-wiretabs`); **Briefing is the cold-load default**; **Markets** is the
   full Equities/Macro/Predictions panel, mounted into `#g-mktpane` via the shared
-  `nav-actions.loadMarkets` (`wire-markets`). The market-snapshot pills stay on
+  `nav-actions.loadMarkets({switcher:"swipe"})` (`wire-markets`) — on the phone the
+  three views are a **horizontal swipe carousel** (`.na-mktswipe` scroll-snap track +
+  a 3-dot `.na-mktdots` strip), **no switcher row**; the reader swipes between
+  Equities · Macro · Predictions. The market-snapshot pills stay on
   **Briefing only** (`#g-hbrief-strip`), not duplicated into Markets. **(d) News is its
   own bottom tab** — `/v2/news/` resolves to the **Home view in news mode** (so the
   feed engine is never double-mounted): the runtime flags `data-v2tab="news"` and calls

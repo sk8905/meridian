@@ -46,28 +46,45 @@ const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/
 // (the header chart icon was removed on phones). Open it via the wire tab.
 await pg.waitForSelector('.g-wiretab[data-wire="markets"]', { timeout: 8000 });
 await pg.evaluate(() => document.querySelector('.g-wiretab[data-wire="markets"]').click());
-// The iPhone Markets tab uses a DROPDOWN switcher (not chips) for Equities/Macro/
-// Predictions — the same selector pattern as the News lane dropdown.
-await pg.waitForSelector("#g-mktpane .na-mktsel-btn", { timeout: 8000 });
+// The iPhone Markets tab is a SWIPE carousel (no switcher row): the three views —
+// Equities · Macro · Predictions — sit side by side in a scroll-snap track and the
+// reader swipes between them, with a dot strip showing which is centred.
+await pg.waitForSelector("#g-mktpane .na-mktswipe", { timeout: 8000 });
 await pg.waitForTimeout(500);
 
-// ---- Switcher dropdown: Equities | Macro | Predictions, and NO Portfolio -----
-const chips = await pg.evaluate(() => [...document.querySelectorAll("#g-mktpane .na-mktsel-menu .tchip-menu-item")].map((c) => c.textContent.trim()));
-checkEq(chips.join(" | "), "Equities | Macro | Predictions", "the switcher offers Equities · Macro · Predictions");
-check(!chips.some((c) => /portfolio/i.test(c)), `no Portfolio option (${chips.join(", ")})`);
-check(await pg.evaluate(() => (document.querySelector("#g-mktpane .na-mktsel-lbl") || {}).textContent.trim()) === "Equities", "the switcher defaults to Equities");
+// ---- Swipe carousel: three slides, a 3-dot strip, and NO switcher/chips/dropdown
+const car = await pg.evaluate(() => {
+  const slides = [...document.querySelectorAll("#g-mktpane .na-mktslide")].map((s) => s.dataset.k);
+  const track = document.querySelector("#g-mktpane .na-mktswipe");
+  return {
+    slides,
+    dots: document.querySelectorAll("#g-mktpane .na-mktdot").length,
+    noSwitcher: !document.querySelector("#g-mktpane .na-mktsel") && !document.querySelector("#g-mktpane .na-chips"),
+    snap: track ? getComputedStyle(track).scrollSnapType : "",
+    slideFull: (() => { const t = track, s = document.querySelector('#g-mktpane .na-mktslide[data-k="macro"]'); return !!t && !!s && Math.abs(s.clientWidth - t.clientWidth) <= 1; })(),
+    onDot: (document.querySelector("#g-mktpane .na-mktdot.is-on") || {}).dataset ? document.querySelector("#g-mktpane .na-mktdot.is-on").dataset.k : null,
+  };
+});
+checkEq(car.slides.join(" | "), "equities | macro | predict", "the carousel holds the Equities · Macro · Predictions slides in order");
+check(!car.slides.some((k) => /portfolio/i.test(k)), `no Portfolio slide (${car.slides.join(", ")})`);
+checkEq(car.dots, 3, "a 3-dot indicator strip shows which slide is centred");
+check(car.noSwitcher, "there is NO dropdown/chip switcher row — the reader swipes instead");
+check(/\bx\b/.test(car.snap), `the track scroll-snaps horizontally (${car.snap})`);
+check(car.slideFull, "each slide is exactly one track-width wide (one pane per swipe)");
+checkEq(car.onDot, "equities", "the carousel opens on Equities (first dot lit)");
 
-// ---- Equities tab (the left rail): markets rows carry a sparkline -----------
+// ---- Equities slide (the left rail): markets rows carry a sparkline ---------
 const eq = await pg.evaluate(() => {
-  const secs = [...document.querySelectorAll("#g-mktpane .na-sec span:first-child")].map((s) => s.textContent.trim());
-  const mkt = [...document.querySelectorAll("#g-mktpane .na-srow")];
-  const rowByLabel = (lbl) => [...document.querySelectorAll("#g-mktpane .na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
+  const EQ = '#g-mktpane .na-mktslide[data-k="equities"] ';
+  const secs = [...document.querySelectorAll(EQ + ".na-sec span:first-child")].map((s) => s.textContent.trim());
+  const mkt = [...document.querySelectorAll(EQ + ".na-srow")];
+  const rowByLabel = (lbl) => [...document.querySelectorAll(EQ + ".na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
   const transits = rowByLabel("Transits");
-  return { secs, srows: mkt.length, sparks: document.querySelectorAll("#g-mktpane .na-srow .na-spark svg polyline").length,
-    hasFx: !!document.querySelector("#g-mktpane .na-fx-tbl"),
+  return { secs, srows: mkt.length, sparks: document.querySelectorAll(EQ + ".na-srow .na-spark svg polyline").length,
+    hasFx: !!document.querySelector(EQ + ".na-fx-tbl"),
     transitsVal: transits ? (transits.querySelector(".na-v") || {}).textContent.trim() : null,
-    earnRows: document.querySelectorAll("#g-mktpane .na-earn-row").length,
-    earnHasEst: !!document.querySelector("#g-mktpane .na-earn-row .na-earn-l") };
+    earnRows: document.querySelectorAll(EQ + ".na-earn-row").length,
+    earnHasEst: !!document.querySelector(EQ + ".na-earn-row .na-earn-l") };
 });
 check(eq.secs.includes("Markets") && eq.secs.includes("Top movers"), `Equities: Markets + Top movers sections (${eq.secs.join(" · ")})`);
 check(eq.hasFx, "Equities: the FX matrix renders");
@@ -77,19 +94,19 @@ check(eq.srows >= 3 && eq.sparks >= 1, `Equities: market rows carry a sparkline 
 check(eq.secs.includes("Strait of Hormuz") && eq.transitsVal === "108", `Equities: Strait of Hormuz transits row from /api/hormuz (${eq.transitsVal})`);
 check(eq.secs.includes("This week's earnings") && eq.earnRows >= 1 && eq.earnHasEst, `Equities: this week's earnings block renders with Est/Act lines (${eq.earnRows} rows)`);
 
-// ---- Macro tab: the five right-rail sections, sparklines, correct OAS -------
-await pg.evaluate(() => { document.querySelector("#g-mktpane .na-mktsel-btn").click(); [...document.querySelectorAll("#g-mktpane .na-mktsel-menu .tchip-menu-item")].find((c) => c.dataset.k === "macro").click(); });
-await pg.waitForSelector("#g-mktpane .na-srow", { timeout: 5000 });
-await pg.waitForTimeout(200);
+// ---- Macro slide: the five right-rail sections, sparklines, correct OAS -----
+// (No switch to perform — in swipe mode all three slides are rendered at once;
+// query the Macro slide directly.)
 const mac = await pg.evaluate(() => {
-  const secs = [...document.querySelectorAll("#g-mktpane .na-sec span:first-child")].map((s) => s.textContent.trim());
-  const rowByLabel = (lbl) => [...document.querySelectorAll("#g-mktpane .na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
+  const MC = '#g-mktpane .na-mktslide[data-k="macro"] ';
+  const secs = [...document.querySelectorAll(MC + ".na-sec span:first-child")].map((s) => s.textContent.trim());
+  const rowByLabel = (lbl) => [...document.querySelectorAll(MC + ".na-mrow")].find((r) => (r.querySelector(".na-l") || {}).textContent.trim().startsWith(lbl));
   const ig = rowByLabel("US IG OAS");
   const igStroke = (() => { const p = ig && ig.querySelector(".na-spark svg polyline"); return p ? getComputedStyle(p).stroke : null; })();
   const eur = rowByLabel("3M EURIBOR");
   const eurStroke = (() => { const p = eur && eur.querySelector(".na-spark svg polyline"); return p ? getComputedStyle(p).stroke : null; })();
-  const probe = (v) => { const t = document.querySelector("#g-mktpane .na-srow"); const s = document.createElement("span"); s.style.color = v; t.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; };
-  const gc = document.querySelector("#g-mktpane .na-srow");
+  const probe = (v) => { const t = document.querySelector(MC + ".na-srow"); const s = document.createElement("span"); s.style.color = v; t.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c; };
+  const gc = document.querySelector(MC + ".na-srow");
   return {
     secs,
     igVal: ig ? (ig.querySelector(".na-v") || {}).textContent.trim() : null,

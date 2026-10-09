@@ -162,8 +162,12 @@ check(yldR.us30 && /US 30Y/.test(yldR.us30.txt) && /5\.52%/.test(yldR.us30.lvl) 
 check(yldR.us10 && /US 10Y/.test(yldR.us10.txt) && /5\.31%/.test(yldR.us10.lvl), `a bare "the 10-year" still pills → US 10Y with its 5.31% level (${yldR.us10 && yldR.us10.txt})`);
 check(!/Treasury/.test(yldR.bodyText), `the 30-year phrase is replaced by its pill, not kept as prose (${yldR.bodyText})`);
 
-// A desk kicker authored with an entity ("M&amp;A", "R&amp;D") must render the literal glyph
-// ("M&A"), not a double-encoded "M&amp;A" — the desk name is decoded before it is re-escaped.
+// Entity handling under the canonical-desk render guard (HOUSE_STYLE R28):
+//   • a NON-canonical desk kicker ("R&D") is DROPPED — the brief shows only the four
+//     house desks (Macro/Bonds/Equities/Credit), so a malformed refresh can't paint an
+//     off-house section (the same invariant the data gate enforces on committed data).
+//   • a canonical bullet whose authored BODY carries an entity ("R&amp;D") still renders
+//     the literal glyph ("R&D"), never a double-encoded "R&amp;D".
 const amp = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
   const B = m.BRIEFINGS || {}, slots = B.slots || {};
@@ -171,13 +175,16 @@ const amp = await pg.evaluate(async () => {
   const _ord = (B.order || []).filter((k) => slots[k]);
   const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);   // the FRESHEST slot (what the card renders)
   slots[key].bullets = [
+    { html: "<strong>Equities &mdash; spending on R&amp;D rose</strong> as megacaps led the tape higher.", src: "https://example.com/eq", srcName: "Ex" },
     { html: "<strong>R&amp;D &mdash; spending rose</strong> across the sector.", src: "https://example.com/x", srcName: "Ex" },
   ];
   window.__wireRenderBrief();
-  const bk = document.querySelector("#g-hbrief .g-hbrief-bk");
-  return { txt: bk ? bk.textContent : null };
+  const heads = [...document.querySelectorAll("#g-hbrief .g-hbrief-bk")].map((e) => e.textContent.trim());
+  const body = (document.querySelector("#g-hbrief .g-hbrief-bt") || {}).textContent || "";
+  return { heads, body };
 });
-check(amp.txt === "R&D", `desk kicker with '&' renders the glyph "R&D", not the literal "R&amp;A" (double-encoded) (text "${amp.txt}")`);
+check(!amp.heads.some((h) => /r&d/i.test(h)), `a non-canonical desk kicker ("R&D") is dropped by the render guard — only house desks surface (heads: ${amp.heads.join(" · ") || "none"})`);
+check(/R&D/.test(amp.body) && !/R&amp;D/.test(amp.body), `a canonical bullet's body entity renders the glyph "R&D", not a double-encoded "R&amp;D" (body "${amp.body.slice(0, 60)}")`);
 
 checkErrs(errs, "home brief tickers");
 await ctx.close();

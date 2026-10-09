@@ -218,10 +218,11 @@ function initFeedEntityNav() {
 }
 
 // Markets pane (iPhone "Markets" tab): the full Equities · Macro · Predictions
-// panel, reused verbatim from the shared header controller (nav-actions.loadMarkets)
-// so there is ONE markets panel in the app. Mounted lazily into #g-mktpane the first
-// time the Markets tab is opened; nav-actions is already loaded by the shell boot, so
-// the dynamic import resolves to the same module instance (no second fetch).
+// panel, reused from the shared header controller (nav-actions.loadMarkets) so there
+// is ONE markets panel in the app. On the phone it mounts in SWIPE mode — the three
+// views sit side by side and the reader swipes between them (no switcher row). Mounted
+// lazily into #g-mktpane the first time the Markets tab is opened; nav-actions is
+// already loaded by the shell boot, so the import resolves to the same module instance.
 let _mktPaneLoaded = false;
 function _mountMarketsPane() {
   if (_mktPaneLoaded) return;
@@ -229,7 +230,7 @@ function _mountMarketsPane() {
   const host = document.getElementById("g-mktpane"); if (!host) return;
   _mktPaneLoaded = true;
   import("../nav-actions.js")
-    .then((m) => { if (m && typeof m.loadMarkets === "function") m.loadMarkets(host, { switcher: "dropdown" }); else host.innerHTML = '<div class="g-loading">Markets unavailable right now.</div>'; })
+    .then((m) => { if (m && typeof m.loadMarkets === "function") m.loadMarkets(host, { switcher: "swipe" }); else host.innerHTML = '<div class="g-loading">Markets unavailable right now.</div>'; })
     .catch(() => { _mktPaneLoaded = false; host.innerHTML = '<div class="g-loading">Markets unavailable — tap Markets to retry.</div>'; });
 }
 
