@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-09",
-  lastCheckedTime: "12:21 BST",
+  lastCheckedTime: "14:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1010,7 +1010,7 @@ export const NEWS = {
     {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
     {title: "Why bank stocks are falling despite surging interest rates", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b"},
     {title: "Donald Trump says US ‘will not be attacking Iran’ before midterm elections", source: "Financial Times", date: "2026-10-08", time: "19:16", url: "https://www.ft.com/content/e0cc2789-0e71-401d-8096-d58303970a37"},
-    {title: "What is driving the global bond sell-off? You asked, we answered", source: "Financial Times", date: "2026-10-08", time: "13:01", url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794"},
+    {title: "How to shield your portfolio if AI goes ka-boom", source: "Financial Times", date: "2026-10-09", time: "14:00", url: "https://www.ft.com/content/ee329e29-aec9-4876-829e-022683f425f8"},
   ],
   uk: [
     {title: "Number of people caught in UK’s £100,000 tax trap doubles in four years", source: "Financial Times", date: "2026-10-09", time: "12:00", url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4"},
