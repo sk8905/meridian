@@ -48,14 +48,17 @@ const sectionNav = (active) => profilesMode
 export function viewItem(id) {
   const it = items.find((x) => x.id === id);
   if (!it) {
-    app.innerHTML = `<div class="empty">Update not found. <a href="#/list">Back to all updates</a></div>`;
+    app.innerHTML = `<div class="empty">Update not found. <a href="${profilesMode ? "#/?tab=firms" : "#/list"}">Back to all updates</a></div>`;
     return;
   }
   const firm = firmById[it.firm] || { name: it.firm, tier: "", insightsUrl: "#" };
   const type = (typeById[it.type] || {}).name || it.type;
   const areasHtml = (it.areas || [it.area]).map(areaChip).join(" ");
+  // Tag chips filter the all-updates LIST — a Legal-desk route. The Profiles host has
+  // no updates list, so there a tag link would dead-end back to the profile list; show
+  // the tags as plain text instead (the firm/item content is the destination here).
   const tagsHtml = (it.tags || []).map((t) =>
-    `<a class="tag" href="#/list?q=${encodeURIComponent(t)}">#${esc(t)}</a>`).join(" ");
+    profilesMode ? `<span class="tag">#${esc(t)}</span>` : `<a class="tag" href="#/list?q=${encodeURIComponent(t)}">#${esc(t)}</a>`).join(" ");
   const pointsHtml = (it.points || []).map((p) => `<li>${esc(p)}</li>`).join("");
 
   const areaNames = (it.areas || [it.area]).map((a) => (areaById[a] ? areaById[a].name : a));
@@ -98,7 +101,7 @@ export function viewItem(id) {
             ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ""}
             <div class="source-box">
               <span class="lbl">Source</span>
-              <a href="${esc(it.url || firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — ${it.url ? "read the article" : "insights / know-how"}</a>
+              ${(() => { const u = it.url || firm.insightsUrl; const lbl = `${esc(firm.name)} — ${it.url ? "read the article" : "insights / know-how"}`; return (u && u !== "#") ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${lbl}</a>` : `<span>${lbl}</span>`; })()}
               <p class="source-note">${it.url ? "Links to the cited publication." : "Links to the firm's public landing page."} This summary is written for this prototype and is not legal advice — confirm against the firm's actual publication.</p>
             </div>
           </div>
@@ -167,7 +170,7 @@ const pcDealRow = (d) => `<li class="compact-item tw-row" data-kind="deal">`
 export function viewFirm(id) {
   const firm = firmById[id];
   if (!firm) {
-    app.innerHTML = `<div class="empty">Firm not found. <a href="#/list">Back to all updates</a></div>`;
+    app.innerHTML = `<div class="empty">Firm not found. <a href="${profilesMode ? "#/?tab=firms" : "#/list"}">Back to all updates</a></div>`;
     return;
   }
   const firmAlerts = items.filter((i) => i.firm === id).sort(byDateDesc);
@@ -267,7 +270,7 @@ export function viewFirm(id) {
           <div class="tdet-id">
             <h1>${nameCell("firm", firm.id, esc(firm.name))}</h1>
             ${firmPeersDetails}
-            <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
+            <div class="tdet-src"><span class="lbl">Insights:</span> ${(firm.insightsUrl && firm.insightsUrl !== "#") ? `<a href="${esc(firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a>` : `<span>${esc(firm.name)} — insights / know-how</span>`}</div>
           </div>
           <header class="tpanel-h twire-head">
             <div class="tchips" id="firm-chips">${[["all", "All"], ["alerts", "Alerts"], ["matters", "Matters"], ["deals", pcDeals.length ? `PC deals ${pcDeals.length}` : "PC deals"]]

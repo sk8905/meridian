@@ -76,8 +76,14 @@ function crWireRow(x, inline) {
   const title = isNews ? x.title : x.headline;
   const src = isNews ? (x.outlet || "") : creditSource(x);
   const url = isNews ? x.url : x.sourceUrl;
-  const head = isNews
-    ? `<a href="${esc(url || "#")}"${url ? ' target="_blank" rel="noopener noreferrer"' : ""} class="tw-head">${esc(title)}</a>`
+  // The story link. A news item opens its source article; a deal/intel item opens the
+  // in-app deal/intel detail on the CREDIT DESK (data-goto) — BUT the Profiles host has
+  // no deals/intel route, so there #/deals / #/intel would dead-end back to the list
+  // (the Arini bug). In Profiles, send deal/intel straight to the source story instead;
+  // an item with no URL (news or deal) is plain text, never a bare "#" that bounces.
+  const ext = (t, u) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(t)}</a>`;
+  const head = isNews || profilesMode
+    ? (url ? ext(title, url) : `<span class="tw-head">${esc(title)}</span>`)
     : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
   return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}>`
     + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : "undated"}</span>`
