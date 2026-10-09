@@ -93,7 +93,7 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-09",
-      time: "05:15 BST",
+      time: "08:20 BST",
       lede: "Pimco warned the US 10-year Treasury yield could reach 6% for the first time since 2000, with the bond sell-off also weighing on bank stocks and UK Budget debate turning to fiscal headroom.",
       bullets: [
         { html: "<strong>Bonds &mdash; Pimco says the US 10-year Treasury yield risks hitting 6%</strong> for the first time since 2000, warning a further sharp rise in borrowing costs is &lsquo;feasible&rsquo; as market participants unwind losing bets.", src: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", srcName: "Financial Times", date: "2026-10-09" },
