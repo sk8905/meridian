@@ -434,8 +434,16 @@ function renderHomeBriefing() {
     g.items.push(b);
   }
   const DESK_RANK = { "macro": 0, "bonds": 1, "equities": 2, "credit": 3 };
-  const ordered = appear.slice().sort((a, b) =>
-    ((DESK_RANK[a.desk] ?? 50) - (DESK_RANK[b.desk] ?? 50)) || (a._i - b._i));
+  // RENDER GUARD (defense in depth, HOUSE_STYLE R28): the brief shows ONLY the four
+  // canonical desks — Macro · Bonds · Equities · Credit — one section each, in house
+  // order. A refresh that ships a non-canonical desk (Banks / UK / Energy …) or a
+  // duplicate can never surface it on screen: such groups are dropped here, so the
+  // worst a malformed brief can do live is show FEWER desks, never an off-house one.
+  // (The data gate — tests/briefing-empty-bullet.mjs — still fails the suite on such
+  // data, which is the signal that the refresh must fix; this just protects readers.)
+  const ordered = appear.slice()
+    .filter((g) => DESK_RANK[g.desk] !== undefined)
+    .sort((a, b) => (DESK_RANK[a.desk] - DESK_RANK[b.desk]) || (a._i - b._i));
   // Budget the bullets to one screen (HB_MAX_BULLETS) WITHOUT dropping a whole desk:
   // round-robin across the desks in canonical order so every present desk keeps its
   // lead bullet before any desk takes a second. This is what guarantees the Equities

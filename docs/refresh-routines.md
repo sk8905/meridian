@@ -734,7 +734,13 @@ quiet slot gets a short output, not padding.
   The renderer enforces this canonical order (`DESK_RANK` keys
   `macro`/`bonds`/`equities`/`credit`) and round-robins the
   per-desk bullets under the `HB_MAX_BULLETS` cap so **each present desk always keeps
-  its lead bullet** — author **one strong bullet per desk** (≈4), since the cap shows
+  its lead bullet**. **A NON-CANONICAL desk kicker is a hard error.** A bullet whose
+  `<strong>` lead is anything other than `Macro`/`Bonds`/`Equities`/`Credit` (a stray
+  `Banks —`, `Energy —`, `M&A —`, `UK —` from a malformed draft) is rejected two ways:
+  `tests/briefing-empty-bullet.mjs` flags it at the data gate (suite red, deploy
+  blocked), and `glance.js renderHomeBriefing` filters it out live (`DESK_RANK` lookup),
+  so even if bad data slipped through, the card shows FEWER desks rather than an
+  off-house one. Author only the four — do not invent a fifth desk — author **one strong bullet per desk** (≈4), since the cap shows
   one per desk; a 2nd same-desk bullet is dropped before another desk's lead.
   Author the desk name plainly (`Bonds`, `Credit`); a kicker entity like
   `<strong>R&amp;D …` is decoded for display, but these desk names need none. **One section per desk:** the card groups

@@ -49,6 +49,13 @@ const data = await pg.evaluate(async () => {
   // a Bonds bullet names a benchmark yield level (a % or a bp move); an Equities bullet
   // names an index level / % move or a mega-cap price / market value.
   const deskOf = (h) => { const m = String(h || "").match(/<strong>\s*(Macro|Bonds|Equities|Credit)\s*(?:&mdash;|—)/i); return m ? m[1].toLowerCase() : ""; };
+  // The kicker word actually written before the em-dash, whatever it is — used to
+  // reject a NON-CANONICAL desk ("Banks —", "Energy —", "M&A —", "UK —"). The briefing
+  // covers ONLY the four market desks (HOUSE_STYLE R28); a kicker outside that set is the
+  // malformed-refresh defect the render guard drops for readers, caught here at the data
+  // gate so it also turns the suite red and blocks the deploy.
+  const CANON = new Set(["macro", "bonds", "equities", "credit"]);
+  const kickerWord = (h) => { const m = String(h || "").match(/<strong>\s*([^<]*?)\s*(?:&mdash;|—)/); return m ? m[1].trim().toLowerCase() : ""; };
   const bondsHasPrice = (h) => /\b\d+(?:\.\d+)?\s*(?:%|bps?|basis\s+points?)/i.test(String(h || ""));
   const eqHasPrice = (h) => /\b\d{1,3}(?:,\d{3})+\b|\b\d+(?:\.\d+)?\s*%|\$\s?\d/.test(String(h || ""));
   // A briefing bullet must carry hard information, not a one-line newspaper headline
@@ -84,6 +91,9 @@ const data = await pg.evaluate(async () => {
       if (nv) bad.push(`${k}[${i}]: narrates the source (${nv}) — state the news; the srcName link is the attribution`);
       const desk = deskOf(x && x.html);
       if (desk) { deskSeen[desk] = true; if (pillable.test(String((x && x.html) || ""))) deskPill[desk] = true; }
+      // A bullet MUST be tagged with one of the four canonical desks. A kicker with any
+      // other word (or none) is a malformed refresh — flag it so the suite blocks deploy.
+      else { const kw = kickerWord(x && x.html); if (!CANON.has(kw)) bad.push(`${k}[${i}]: non-canonical desk kicker ("${kw || "—"}") — briefing bullets must lead with Macro, Bonds, Equities or Credit`); }
       if (desk === "bonds" && !bondsHasPrice(x && x.html)) bad.push(`${k}[${i}]: Bonds bullet has no benchmark yield reference (a % or bp level)`);
       if (desk === "equities" && !eqHasPrice(x && x.html)) bad.push(`${k}[${i}]: Equities bullet has no index level / % move / mega-cap price`);
       const vl = visLen(x && x.html);
