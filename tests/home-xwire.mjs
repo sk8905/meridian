@@ -12,7 +12,10 @@ const SAMPLE = { tweets: [
   { id: "2097400000000000000", handle: "RayDalio", name: "Ray Dalio", avatar: "https://pbs.twimg.com/y.jpg", text: "At this stage in my life my main goal is to pass along principles.", date: new Date(Date.now() - 53 * 60000).toUTCString(), ts: Date.now() - 53 * 60000, url: "https://x.com/RayDalio/status/2097400000000000000", media: [] },
   { id: "2097300000000000000", handle: "TheEconomist", name: "The Economist", avatar: "https://pbs.twimg.com/e.jpg", text: "The most important factor driving up bond yields.", date: new Date(Date.now() - 70 * 60000).toUTCString(), ts: Date.now() - 70 * 60000, url: "https://x.com/TheEconomist/status/2097300000000000000", media: [], repostedBy: "Mohamed A. El-Erian" },
   // A quote tweet: the quoter's own commentary + the embedded ORIGINAL (nested).
-  { id: "2097200000000000000", handle: "AntoineGara", name: "Antoine Gara", avatar: "https://pbs.twimg.com/a.jpg", text: "What kind of DCF are we using here??? The cutoff is $4.4bn...", date: new Date(Date.now() - 80 * 60000).toUTCString(), ts: Date.now() - 80 * 60000, url: "https://x.com/AntoineGara/status/2097200000000000000", media: [], quoted: { handle: "Forbes", name: "Forbes", text: "Taylor Swift joined the billionaire ranks in 2023, on the back of her record-breaking global Eras Tour.", media: [], url: "https://x.com/Forbes/status/2097199999999999999" } },
+  // Entities: X's syndication returns HTML-escaped text ("S&amp;P", "&lt;"); the card must
+  // render the real glyph, never a double-encoded "S&amp;P". Exercised in BOTH the main body
+  // and the nested quote ("AT&amp;T").
+  { id: "2097200000000000000", handle: "AntoineGara", name: "Antoine Gara", avatar: "https://pbs.twimg.com/a.jpg", text: "S&amp;P 500 earnings &amp; the P&lt;E debate: what kind of DCF are we using here???", date: new Date(Date.now() - 80 * 60000).toUTCString(), ts: Date.now() - 80 * 60000, url: "https://x.com/AntoineGara/status/2097200000000000000", media: [], quoted: { handle: "Forbes", name: "Forbes", text: "Taylor Swift &amp; AT&amp;T joined the billionaire ranks in 2023, on the back of her record-breaking global Eras Tour.", media: [], url: "https://x.com/Forbes/status/2097199999999999999" } },
   // A LONG post — over the clamp threshold — collapsed until expanded.
   { id: "2097100000000000000", handle: "LongPoster", name: "Long Poster", avatar: "https://pbs.twimg.com/l.jpg", text: "The US jobs data is out and there are surprises: job creation was only 29,000 in September, with the unemployment rate rising to 4.2% and monthly earnings growth moderating to only 0.1%, plus downward revisions to July and August of about 60,000 jobs — a soft report that reinforces the case for the Fed to hold rates in October rather than hike.", date: new Date(Date.now() - 95 * 60000).toUTCString(), ts: Date.now() - 95 * 60000, url: "https://x.com/LongPoster/status/2097100000000000000", media: [] },
 ] };
@@ -67,6 +70,15 @@ const b = await launchChromium();
   check(/25bp hike/.test(r.firstText), "X wire: the tweet body text renders in the card");
   check(/^https:\/\/x\.com\/elerianm\/status\/\d+$/.test(r.firstPerma || ""), `X wire: each card links the real post permalink (${r.firstPerma})`);
   check(r.noWidgetScript, "X wire: renders our own cards (no client-side X widget script)");
+
+  // HTML entities in the post/quote text decode to the real glyph — never a double-encoded
+  // "&amp;" (the bug: esc() ran on already-escaped syndication text). Covers & and < > .
+  const ent = await pg.evaluate(() => {
+    const c = [...document.querySelectorAll("#g-xwire .g-x-card")].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@AntoineGara");
+    return { body: (c.querySelector(".g-x-txt") || {}).textContent || "", quote: (c.querySelector(".g-x-qtxt") || {}).textContent || "" };
+  });
+  check(/S&P 500 earnings & the P<E debate/.test(ent.body) && !/&amp;|&lt;/.test(ent.body), `X wire: post entities decode to glyphs (S&P, &, <) — not double-encoded (${ent.body.slice(0, 48)})`);
+  check(/Taylor Swift & AT&T/.test(ent.quote) && !/&amp;/.test(ent.quote), `X wire: quote-card entities decode too (${ent.quote.slice(0, 40)})`);
 
   // Long posts are CLAMPED until expanded. The long card starts collapsed (clamp class +
   // "Show more"); a short card has no toggle. Clicking "Show more" removes the clamp and

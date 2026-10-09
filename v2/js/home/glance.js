@@ -928,7 +928,10 @@ function fmtXWhen(s) {
 }
 // Escape, then linkify URLs · @handles · #hashtags (opened on X, new tab).
 function xLinkify(text) {
-  let s = esc(String(text || ""));
+  // Decode first: X's syndication endpoint returns HTML-escaped text (e.g. "S&amp;P
+  // 500", "AT&amp;T"), so esc() alone would double-encode it to a literal "&amp;".
+  // _deEnt → esc gives the real glyph (& < >) rendered safely.
+  let s = esc(_deEnt(String(text || "")));
   s = s.replace(/https?:\/\/[^\s<]+/g, (u) => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u.replace(/^https?:\/\//, "")}</a>`);
   s = s.replace(/(^|[^\w@\/])@([A-Za-z0-9_]{1,15})/g, (_m, p, h) => `${p}<a href="https://x.com/${h}" target="_blank" rel="noopener noreferrer">@${h}</a>`);
   s = s.replace(/(^|\s)#(\w{1,60})/g, (_m, p, h) => `${p}<a href="https://x.com/hashtag/${h}" target="_blank" rel="noopener noreferrer">#${h}</a>`);
@@ -947,7 +950,7 @@ function XQuote(q) {
   const href = q.url || (q.handle ? `https://x.com/${q.handle}` : "#");
   return h("a", { class: "g-x-quote", href, target: "_blank", rel: "noopener noreferrer" },
     (qn || q.handle) ? h("div", { class: "g-x-qhead" }, h("span", { class: "g-x-qwho" }, qn), q.handle ? h("span", { class: "g-x-qh" }, "@" + q.handle) : null) : null,
-    q.text ? h("div", { class: "g-x-qtxt", dangerouslySetInnerHTML: { __html: esc(q.text).replace(/\n/g, "<br>") } }) : null,
+    q.text ? h("div", { class: "g-x-qtxt", dangerouslySetInnerHTML: { __html: esc(_deEnt(q.text)).replace(/\n/g, "<br>") } }) : null,
     (q.media && q.media[0]) ? h("span", { class: "g-x-qmedia" }, h("img", { loading: "lazy", src: q.media[0], alt: "", referrerpolicy: "no-referrer" })) : null);
 }
 // Long posts are collapsed to a few lines until the reader taps "Show more". Expanded

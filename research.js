@@ -44,14 +44,21 @@ export const PUBLISHERS = {
   // (NOT the earlier-guessed `email.apolloacademy.com`). The notes publish openly on
   // apolloacademy.com, so the canonical "read online" link is the Daily Spark archive.
   "e.apollo.com": "Apollo Academy",
-  // SIGNED UP, awaiting first real note (only subscription confirmations so far — e.g.
-  // JPMorgan "Eye on the Market" activation arrived 2026-10-09 from pb.jpmorgan.com, no
-  // content yet). Confirm each content-sender domain against the first real email, then
-  // activate (as Apollo was above — the confirmation's sender domain is often NOT the
-  // content sender's).
+  // UBS Global Wealth Management Chief Investment Office — signed up 2026-10-09 (daily
+  // economic briefing + CIO commentary). Content sender is `message-center@mailing.ubs.com`.
+  // Activated on request; the first real CIO note will route to Research automatically.
+  "mailing.ubs.com": "UBS CIO",
+  // SIGNED UP / arriving but NOT yet activated — a sweep candidate, pending a call on
+  // whether it belongs in Research vs Newsletters (see docs/refresh-routines.md §4a):
+  //   • pb.jpmorgan.com — JP Morgan Private Bank "Top Market Takeaways" (real content
+  //     now arriving; a clear house-research candidate). jpmpb.jpmorgan.com is the same.
+  //   • withintelligence-email.com — With Intelligence "Private Credit Insights" (curated
+  //     private-credit research/intelligence; real content arriving).
+  //   • preqin.blackrock.com — Preqin "First Close" (private-markets data/intelligence).
+  // Confirm each content-sender domain against the first real email, then activate (as
+  // Apollo/UBS were — the confirmation's sender domain is often NOT the content sender's).
   // "oaktreecapital.com": "Oaktree Capital",          // also piped live via gnews
   // "morganstanley.com": "Morgan Stanley Research",   // Thoughts on the Market
-  // "pb.jpmorgan.com": "JPMorgan — Eye on the Market", // activation seen; await content
   // "pimco.com": "PIMCO",
   // "blackrock.com": "BlackRock Investment Institute",
 };
@@ -62,16 +69,20 @@ export const PUBLISHERS = {
 //   { id, publication, author, series, title, date, time, summary, url }
 // NEVER fabricate an item — every entry keeps a real "read online" URL and the
 // real send date/time (unknown fields are null). See docs/refresh-routines.md.
+// Author `title` and `summary` as PLAIN TEXT with real Unicode punctuation
+// (’ ‘ “ ” — – …), NOT HTML entities: the wire renders a feed title through esc(),
+// so an entity like "AI&rsquo;s" or "S&amp;P" would show LITERALLY. (Only the
+// AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
     id: "rsch-apollo-ai-rate-insensitivity-20261009",
     publication: "Apollo Academy",
     author: "Torsten Slok",
     series: "The Daily Spark",
-    title: "AI&rsquo;s Insensitivity to Interest Rates Is a Problem for the Fed",
+    title: "AI’s Insensitivity to Interest Rates Is a Problem for the Fed",
     date: "2026-10-09",
     time: "11:46",
-    summary: "AI&rsquo;s rate-insensitive boom is draining capital, power and labour from rate-sensitive sectors like housing and autos &mdash; a &lsquo;Dutch disease&rsquo; effect &mdash; leaving the Fed caught between AI-driven inflation and weakness elsewhere, so rates stay higher for longer; the durable fix is expanding the supply of power, chips and infrastructure, not monetary policy.",
+    summary: "AI’s rate-insensitive boom is draining capital, power and labour from rate-sensitive sectors like housing and autos — a ‘Dutch disease’ effect — leaving the Fed caught between AI-driven inflation and weakness elsewhere, so rates stay higher for longer; the durable fix is expanding the supply of power, chips and infrastructure, not monetary policy.",
     url: "https://www.apolloacademy.com/the-daily-spark/",
   },
   {
