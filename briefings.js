@@ -92,14 +92,15 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-08",
-      time: "08:15 BST",
+      date: "2026-10-09",
+      time: "05:15 BST",
+      lede: "Pimco warned the US 10-year Treasury yield could reach 6% for the first time since 2000, with the bond sell-off also weighing on bank stocks and UK Budget debate turning to fiscal headroom.",
       bullets: [
-        { html: "<strong>Macro &mdash; September FOMC minutes</strong> show the unanimous 25bp hike was backed for differing reasons (energy-driven price pressure vs demand-led inflation), with broad agreement on another rise this year; the next decision is at the late-October meeting.", src: "https://www.reuters.com/business/fed-policymakers-divided-over-rate-hike-logic-september-minutes-show-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
-        { html: "<strong>Bonds &mdash; the US 30-year Treasury yield hit a fresh 24-year high</strong> and the 10-year touched a 24-year high too, before a 10-year auction drawing the strongest demand since 2016 steadied the market; the French/German spread widened 10bp to 138bp.", src: "https://www.reuters.com/business/us-30-year-bond-yield-hits-fresh-24-year-high-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
-        { html: "<strong>Equities &mdash; stocks slid on rising yields</strong>: the FTSE 100 fell 0.8% led by banks and Europe lost about 1%, while the S&amp;P 500&rsquo;s record run was questioned as the US term premium hit a 12-year high of 96bp.", src: "https://www.reuters.com/business/energy/banks-lead-ftse-100-lower-gilt-yields-oil-prices-climb-2026-10-07/", srcName: "Reuters", date: "2026-10-07" },
-        { html: "<strong>Macro &mdash; sovereign borrowing is crowding out against AI capex</strong>: FT Alphaville argues rising government funding needs and the AI investment boom are now competing for the same pool of capital as bond yields hover near multi-decade highs.", src: "https://www.ft.com/content/bf40e0fb-9542-4ddf-9ac3-c216be55a5a6", srcName: "Financial Times", date: "2026-10-08" },
-        { html: "<strong>Credit &mdash; London hedge fund Arini fell 16%</strong> on soured credit bets, extending its losses as private-credit and bond-market volatility continues.", src: "https://www.ft.com/content/b52c8acc-7ea5-4bd0-b26a-b9956e19867b", srcName: "Financial Times", date: "2026-10-07" },
+        { html: "<strong>Bonds &mdash; Pimco says the US 10-year Treasury yield risks hitting 6%</strong> for the first time since 2000, warning a further sharp rise in borrowing costs is &lsquo;feasible&rsquo; as market participants unwind losing bets.", src: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Banks &mdash; bank stocks are falling despite surging interest rates</strong>: if funding costs rise, the expanding profit margins banks have enjoyed may start to reverse.", src: "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>UK &mdash; Jim O&rsquo;Neill says a drop in fiscal headroom</strong> is a better option than Budget tax rises, as the Autumn Budget approaches.", src: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Energy &mdash; the Iran conflict is changing what investors want from oil majors</strong> after snarling usually free-flowing energy markets.", src: "https://www.ft.com/content/7b354a5d-9702-407a-a4bc-8703c6ba7b72", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Credit &mdash; the cost of credit default swaps for AI companies looking to borrow is rising</strong>, one of five signals the FT flags for market trouble ahead.", src: "https://www.ft.com/content/7acb5862-cde5-49b4-a5f1-5f6e6977a9c7", srcName: "Financial Times", date: "2026-10-09" },
       ],
     },
     afternoon: {

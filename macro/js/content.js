@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-09",
-  lastCheckedTime: "00:15 BST",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,19 +1004,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-08",
+  updated: "2026-10-09",
   us: [
+    {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
+    {title: "Why bank stocks are falling despite surging interest rates", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b"},
     {title: "Donald Trump says US ‘will not be attacking Iran’ before midterm elections", source: "Financial Times", date: "2026-10-08", time: "19:16", url: "https://www.ft.com/content/e0cc2789-0e71-401d-8096-d58303970a37"},
-    {title: "Repeated US Treasury interventions risk an erosion of credibility", source: "Financial Times", date: "2026-10-08", time: "15:30", url: "https://www.ft.com/content/eec1e15d-78b9-4706-a518-2a9db4f37128"},
     {title: "What is driving the global bond sell-off? You asked, we answered", source: "Financial Times", date: "2026-10-08", time: "13:01", url: "https://www.ft.com/content/d51a78a8-67d8-45bd-b32c-1eafe39a0794"},
-    {title: "Fed minutes indicate broad agreement for another rate rise this year", source: "Financial Times", date: "2026-10-07", time: "21:18", url: "https://www.ft.com/content/acca8690-c230-4abc-b2c5-4a1d2f082753"},
     {title: "Oil prices jump on tanker attacks and slowing flows through Strait of Hormuz", source: "Financial Times", date: "2026-10-08", time: "19:51", url: "https://www.ft.com/content/ec860f96-5a2b-461a-a897-a957860c3dba"},
   ],
   uk: [
+    {title: "Drop in fiscal headroom better option than Budget tax rises, says Jim O’Neill", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612"},
     {title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties", source: "Financial Times", date: "2026-10-08", time: "08:09", url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d"},
     {title: "Higher mortgage rates inflict ‘pain’ on UK housing market", source: "Financial Times", date: "2026-10-08", time: "01:01", url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4"},
     {title: "Iran war blows near-£12bn hole in Britain’s public finances", source: "Financial Times", date: "2026-10-07", time: "23:00", url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c"},
-    {title: "Banks lead FTSE 100 lower as gilt yields, oil prices climb", source: "Reuters", date: "2026-10-07", url: "https://www.reuters.com/business/energy/banks-lead-ftse-100-lower-gilt-yields-oil-prices-climb-2026-10-07/"},
     {title: "UK investors face three-month wait to recoup money from property funds", source: "Financial Times", date: "2026-10-08", time: "15:03", url: "https://www.ft.com/content/96474d3e-7d61-4327-b6c2-ed37eecad3f8"},
   ],
 };
@@ -1030,8 +1030,12 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-08",
+  updated: "2026-10-09",
   items: [
+    {"title": "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", "blurb": "Bond giant’s investment chief warns a further sharp rise in borrowing costs is ‘feasible’ as market participants are forced to unwind losing bets."},
+    {"title": "Why bank stocks are falling despite surging interest rates", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b", "blurb": "If funding costs rise, the expanding profit margins banks have enjoyed may start to reverse."},
+    {"title": "The energy crisis is changing what investors want from oil majors", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/7b354a5d-9702-407a-a4bc-8703c6ba7b72", "blurb": "Iran conflict has snarled up usually free-flowing energy markets."},
+    {"title": "Five ways to tell if market trouble lies ahead", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/7acb5862-cde5-49b4-a5f1-5f6e6977a9c7", "blurb": "The cost of credit default swaps for AI companies looking to borrow is rising."},
     {"title": "Big investors ‘bottom fish’ in Eurozone bond markets after France sell-off", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961", "blurb": "Fears of a blow-up similar to the Eurozone debt crisis have been overdone, asset managers say."},
     {"title": "What is the real price of oil any more?", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/5cad1f95-b06d-4ee1-b1c7-0244999337d4", "blurb": "Crude futures are no longer a reliable guide to the inflationary impact of fuel prices."},
     {"title": "How a trillion-dollar hedge fund borrowing spree became Wall Street’s cash cow", "source": "Financial Times", "date": "2026-10-08", "time": "05:00", "url": "https://www.ft.com/content/d313d0ce-d552-463e-9e84-6fa8c3efeeec", "blurb": "Banks’ trading businesses are booming, but post-crisis regulation means it is no longer them placing the bets."},
@@ -1068,10 +1072,6 @@ export const ARTICLES = {
     {"title": "CGT rise would deter equity investors, wealth bosses warn", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922", "blurb": "Wealth managers warn a capital gains tax increase in the Budget would discourage equity investing."},
     {"title": "Protests from the City about bank tax ring hollow", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/b50f39c6-4484-4c06-89cb-2884f9e58bd7", "blurb": "FT opinion on City objections to a bank tax ahead of the UK Budget."},
     {"title": "US justice department will not reopen criminal probe of Fed’s Jay Powell", "source": "Financial Times", "date": "2026-10-02", "time": "22:03", "url": "https://www.ft.com/content/887e90a5-8456-4eba-9ed0-205c873d4846", "blurb": "US attorney-general Todd Blanche says not having ‘any oversight’ of the central bank’s $2.5bn renovation project ‘isn’t necessarily a crime’."},
-    {"title": "Healey set to delay difficult choices with ‘breathing space’ UK Budget", "source": "Financial Times", "date": "2026-10-02", "time": "21:41", "url": "https://www.ft.com/content/9df55c2e-e9c8-4a5a-a025-99fb459721d3", "blurb": "Chancellor expected to focus the statement on targeted help for households and businesses rather than tax rises on the scale of recent budgets."},
-    {"title": "US backs down from fuel export ban threat as G7 agrees to release 100mn barrels", "source": "Financial Times", "date": "2026-10-02", "time": "17:20", "url": "https://www.ft.com/content/97200b07-755c-40ce-a50b-b51666bd4b7e", "blurb": "G7 agrees a coordinated 100mn-barrel stock release as Washington drops its fuel export ban threat."},
-    {"title": "Eurozone inflation hits three-year high of 3.8%", "source": "Financial Times", "date": "2026-10-02", "time": "16:45", "url": "https://www.ft.com/content/6394fdc7-5fa5-4ec3-8bde-52633acd2b57", "blurb": "Euro-area inflation climbs to its highest in three years."},
-    {"title": "Weak US payrolls  likely to keep rate setters on the sidelines in October", "source": "Financial Times", "date": "2026-10-02", "time": "15:01", "url": "https://www.ft.com/content/906051fc-c116-4803-b395-2d56d1bcbf28", "blurb": "Soft September jobs data points to a Fed hold at the October meeting."},
   ],
 };
 
