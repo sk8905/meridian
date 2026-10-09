@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "84ca76fd-0eed-4fb6-aea4-f72638a9d9c8",
+    title: "Trump agrees deal with Putin for Russia to release diesel on to global market",
+    date: "2026-10-09",
+    time: "20:01",
+    url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8",
+  },
+  {
+    id: "f7d90625-0d78-44b2-927f-d63f4dbc5e8d",
+    title: "Oil and gas production disrupted as Hurricane Isaias barrels towards Gulf",
+    date: "2026-10-09",
+    time: "19:38",
+    url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d",
+  },
+  {
+    id: "9496dd1d-fabf-4c58-bbc3-88cb51f2a68d",
+    title: "Scott Bessent to miss IMF annual meetings in Bangkok",
+    date: "2026-10-09",
+    time: "19:22",
+    url: "https://www.ft.com/content/9496dd1d-fabf-4c58-bbc3-88cb51f2a68d",
+  },
+  {
     id: "af3454c2-c425-4d4f-bac9-3e073bbfc1a7",
     title: "The remarkable resilience of the global economy",
     date: "2026-10-09",
@@ -278,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "11:44",
     url: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4",
-  },
-  {
-    id: "2d4333d1-8119-44a4-a5a5-2ee9ef2544fa",
-    title: "Japan declares cyber space emergency as attacks soar",
-    date: "2026-10-09",
-    time: "11:40",
-    url: "https://www.ft.com/content/2d4333d1-8119-44a4-a5a5-2ee9ef2544fa",
-  },
-  {
-    id: "c49f7d52-4b43-4dc9-b21b-a61e8756152f",
-    title: "FirstFT: SoftBank turns to Gulf for $100bn in AI financing",
-    date: "2026-10-09",
-    time: "11:02",
-    url: "https://www.ft.com/content/c49f7d52-4b43-4dc9-b21b-a61e8756152f",
-  },
-  {
-    id: "ec5cf1f8-e4cf-4b87-ae89-276ab9532856",
-    title: "The rightwing rapper taking on Pedro Sánchez in Spain",
-    date: "2026-10-09",
-    time: "11:00",
-    url: "https://www.ft.com/content/ec5cf1f8-e4cf-4b87-ae89-276ab9532856",
-  },
-  {
-    id: "baa39f13-36d8-4fb5-8bbc-a67249c900d4",
-    title: "Number of people caught in UK’s £100,000 tax trap doubles in four years",
-    date: "2026-10-09",
-    time: "11:00",
-    url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4",
-  },
-  {
-    id: "77b79f83-9dd1-49b1-be59-b5ca3c2ad5fd",
-    title: "EU countries to overhaul financial market supervision",
-    date: "2026-10-09",
-    time: "10:54",
-    url: "https://www.ft.com/content/77b79f83-9dd1-49b1-be59-b5ca3c2ad5fd",
   },
 ];
