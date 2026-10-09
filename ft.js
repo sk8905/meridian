@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "523fa1fa-0764-47d6-907b-4f72bd4a6cc0",
+    title: "Lib Dem MP launches attempt to topple leader Ed Davey",
+    date: "2026-10-09",
+    time: "14:25",
+    url: "https://www.ft.com/content/523fa1fa-0764-47d6-907b-4f72bd4a6cc0",
+  },
+  {
     id: "2823ef6f-b3d7-494b-b131-414c02d6a59f",
     title: "China and EU reach ‘understanding’ on hybrid cars, Beijing says",
     date: "2026-10-09",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "05:00",
     url: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612",
-  },
-  {
-    id: "7acb5862-cde5-49b4-a5f1-5f6e6977a9c7",
-    title: "Five ways to tell if market trouble lies ahead",
-    date: "2026-10-09",
-    time: "05:00",
-    url: "https://www.ft.com/content/7acb5862-cde5-49b4-a5f1-5f6e6977a9c7",
   },
 ];
