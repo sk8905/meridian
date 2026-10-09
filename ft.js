@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "83b817d5-df71-41a6-bef5-3db55a3a89cf",
+    title: "Iran attacks tankers beyond Strait of Hormuz",
+    date: "2026-10-09",
+    time: "16:10",
+    url: "https://www.ft.com/content/83b817d5-df71-41a6-bef5-3db55a3a89cf",
+  },
+  {
+    id: "d0c81cd2-f944-46b9-a859-abc3f0bd3516",
+    title: "Donald Trump launches committee to investigate Fed governor Lisa Cook",
+    date: "2026-10-09",
+    time: "16:08",
+    url: "https://www.ft.com/content/d0c81cd2-f944-46b9-a859-abc3f0bd3516",
+  },
+  {
+    id: "8354b63b-44ae-4aef-9c6b-5cef1f9bb001",
+    title: "Germany pivots away from ECB presidency push",
+    date: "2026-10-09",
+    time: "16:07",
+    url: "https://www.ft.com/content/8354b63b-44ae-4aef-9c6b-5cef1f9bb001",
+  },
+  {
+    id: "8c3f95ec-2428-4102-9f67-b707f1264c69",
+    title: "US telcos shed $45bn in value after SpaceX announces spectrum purchase",
+    date: "2026-10-09",
+    time: "15:37",
+    url: "https://www.ft.com/content/8c3f95ec-2428-4102-9f67-b707f1264c69",
+  },
+  {
     id: "523fa1fa-0764-47d6-907b-4f72bd4a6cc0",
     title: "Lib Dem MP launches attempt to topple leader Ed Davey",
     date: "2026-10-09",
@@ -70,13 +98,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/084bf164-ee7b-4744-a869-4dea488459f8",
   },
   {
-    id: "f242bf0c-89bb-4263-b781-27438bad5088",
-    title: "This Cursed Beautiful Land — Evan Gershkovich on being Putin’s human bargaining chip",
-    date: "2026-10-09",
-    time: "12:00",
-    url: "https://www.ft.com/content/f242bf0c-89bb-4263-b781-27438bad5088",
-  },
-  {
     id: "76cbf6b8-55a4-48b6-b309-c0d7b8e75990",
     title: "High earners are right to wail about childcare costs",
     date: "2026-10-09",
@@ -119,25 +140,18 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/d16e8abb-ce63-4ed4-b2f2-3a0805e9cab1",
   },
   {
-    id: "297ca864-737c-4112-b368-f21a20cc78d2",
-    title: "Burnham pledges to end use of non-compete clauses",
-    date: "2026-10-09",
-    time: "11:44",
-    url: "https://www.ft.com/content/297ca864-737c-4112-b368-f21a20cc78d2",
-  },
-  {
-    id: "c49f7d52-4b43-4dc9-b21b-a61e8756152f",
-    title: "FirstFT: SoftBank turns to Gulf for $100bn in AI financing",
-    date: "2026-10-09",
-    time: "11:02",
-    url: "https://www.ft.com/content/c49f7d52-4b43-4dc9-b21b-a61e8756152f",
-  },
-  {
     id: "7c0e4294-0b7c-488c-8b76-ab2d411b8f66",
     title: "Student revolt tests France’s shrinking fiscal room",
     date: "2026-10-09",
     time: "12:18",
     url: "https://www.ft.com/content/7c0e4294-0b7c-488c-8b76-ab2d411b8f66",
+  },
+  {
+    id: "f242bf0c-89bb-4263-b781-27438bad5088",
+    title: "This Cursed Beautiful Land — Evan Gershkovich on being Putin’s human bargaining chip",
+    date: "2026-10-09",
+    time: "12:00",
+    url: "https://www.ft.com/content/f242bf0c-89bb-4263-b781-27438bad5088",
   },
   {
     id: "21b41e8f-3df3-4c77-8bdc-b71b7b3c8df5",
@@ -154,6 +168,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/78cfa32b-b117-4c49-b061-72519878cd54",
   },
   {
+    id: "297ca864-737c-4112-b368-f21a20cc78d2",
+    title: "Burnham pledges to end use of non-compete clauses",
+    date: "2026-10-09",
+    time: "11:44",
+    url: "https://www.ft.com/content/297ca864-737c-4112-b368-f21a20cc78d2",
+  },
+  {
     id: "77d73223-3cfc-4892-a3c5-5502595f42d4",
     title: "Delta slashes profit outlook as higher fuel prices bite",
     date: "2026-10-09",
@@ -166,6 +187,13 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "11:40",
     url: "https://www.ft.com/content/2d4333d1-8119-44a4-a5a5-2ee9ef2544fa",
+  },
+  {
+    id: "c49f7d52-4b43-4dc9-b21b-a61e8756152f",
+    title: "FirstFT: SoftBank turns to Gulf for $100bn in AI financing",
+    date: "2026-10-09",
+    time: "11:02",
+    url: "https://www.ft.com/content/c49f7d52-4b43-4dc9-b21b-a61e8756152f",
   },
   {
     id: "ec5cf1f8-e4cf-4b87-ae89-276ab9532856",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "05:30",
     url: "https://www.ft.com/content/3bc0eaa5-a8d4-47e8-903c-7dd762d947dd",
-  },
-  {
-    id: "0d411bea-ee6a-4300-9b1e-cc5a6bba4b7c",
-    title: "Venezuela opposition leader María Corina Machado calls for elections next year",
-    date: "2026-10-09",
-    time: "05:23",
-    url: "https://www.ft.com/content/0d411bea-ee6a-4300-9b1e-cc5a6bba4b7c",
-  },
-  {
-    id: "cbebae69-3986-46af-90a7-4cf702a6593d",
-    title: "The Business of Formula 1",
-    date: "2026-10-09",
-    time: "05:09",
-    url: "https://www.ft.com/content/cbebae69-3986-46af-90a7-4cf702a6593d",
-  },
-  {
-    id: "4dabb3fd-70fd-46f1-9773-f38411ecb162",
-    title: "A Starbucks-Chipotle merger offers the wrong kind of synergy",
-    date: "2026-10-09",
-    time: "05:00",
-    url: "https://www.ft.com/content/4dabb3fd-70fd-46f1-9773-f38411ecb162",
-  },
-  {
-    id: "6cc1fe34-7235-424c-a80a-407fe9c13612",
-    title: "Drop in fiscal headroom better option than Budget tax rises, says Jim O’Neill",
-    date: "2026-10-09",
-    time: "05:00",
-    url: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612",
   },
 ];
