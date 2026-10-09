@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "84583bb0-dbd7-4623-851c-1f9381dfe280",
+    title: "Northern Ireland’s Drumcree parade banned",
+    date: "2026-10-10",
+    time: "00:05",
+    url: "https://www.ft.com/content/84583bb0-dbd7-4623-851c-1f9381dfe280",
+  },
+  {
+    id: "c3d9f370-153e-4846-aded-fbb7d200b365",
+    title: "JD Vance says he will not watch Pentagon’s livestreamed execution",
+    date: "2026-10-09",
+    time: "23:18",
+    url: "https://www.ft.com/content/c3d9f370-153e-4846-aded-fbb7d200b365",
+  },
+  {
+    id: "84ca76fd-0eed-4fb6-aea4-f72638a9d9c8",
+    title: "Trump agrees deal with Putin for Russia to release diesel on to global market",
+    date: "2026-10-09",
+    time: "23:06",
+    url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8",
+  },
+  {
+    id: "58e684a0-b8ed-4d7a-a2d6-6bf739cb2fa2",
+    title: "Why OpenAI’s revenue numbers really matter",
+    date: "2026-10-09",
+    time: "22:48",
+    url: "https://www.ft.com/content/58e684a0-b8ed-4d7a-a2d6-6bf739cb2fa2",
+  },
+  {
     id: "62653892-2333-4953-a8d5-cfd760ae3257",
     title: "The hazy OpenAI growth metric driving Wall Street",
     date: "2026-10-09",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "12:51",
     url: "https://www.ft.com/content/63c058b6-77e9-453f-bb87-6763336fe6b4",
-  },
-  {
-    id: "462c303b-b96c-4262-a7ca-e9ae7e440828",
-    title: "Computer scientist David Silver: ‘Where are we going without AI?’",
-    date: "2026-10-09",
-    time: "12:30",
-    url: "https://www.ft.com/content/462c303b-b96c-4262-a7ca-e9ae7e440828",
-  },
-  {
-    id: "d16e8abb-ce63-4ed4-b2f2-3a0805e9cab1",
-    title: "Former Deutsche Bank star trader has rate-rigging conviction quashed",
-    date: "2026-10-09",
-    time: "12:23",
-    url: "https://www.ft.com/content/d16e8abb-ce63-4ed4-b2f2-3a0805e9cab1",
-  },
-  {
-    id: "7c0e4294-0b7c-488c-8b76-ab2d411b8f66",
-    title: "Student revolt tests France’s shrinking fiscal room",
-    date: "2026-10-09",
-    time: "12:18",
-    url: "https://www.ft.com/content/7c0e4294-0b7c-488c-8b76-ab2d411b8f66",
-  },
-  {
-    id: "f242bf0c-89bb-4263-b781-27438bad5088",
-    title: "This Cursed Beautiful Land — Evan Gershkovich on being Putin’s human bargaining chip",
-    date: "2026-10-09",
-    time: "12:00",
-    url: "https://www.ft.com/content/f242bf0c-89bb-4263-b781-27438bad5088",
   },
 ];
