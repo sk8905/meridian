@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "af3454c2-c425-4d4f-bac9-3e073bbfc1a7",
+    title: "The remarkable resilience of the global economy",
+    date: "2026-10-09",
+    time: "18:39",
+    url: "https://www.ft.com/content/af3454c2-c425-4d4f-bac9-3e073bbfc1a7",
+  },
+  {
+    id: "dda61be8-88bd-4ebc-bde5-ba440308d518",
+    title: "Donald Trump pressures Mexico for energy deals in crunch trade talks",
+    date: "2026-10-09",
+    time: "18:29",
+    url: "https://www.ft.com/content/dda61be8-88bd-4ebc-bde5-ba440308d518",
+  },
+  {
     id: "873b1b9c-5e5c-4f34-9b96-6250ffd26783",
     title: "Stockpickers: Avingtrans, Tesco, JD Wetherspoon",
     date: "2026-10-09",
