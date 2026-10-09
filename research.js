@@ -39,12 +39,19 @@ export const PUBLISHERS = {
   "fitchratings.com": "Fitch Ratings",
   "moodys.com": "Moody's Ratings",
   "spglobal.com": "S&P Global Ratings",
-  // SIGNED UP, awaiting first real note (only subscription confirmations so far as of
-  // 2026-10-07). Confirm each domain against the first real email, then activate.
-  // "email.apolloacademy.com": "Apollo Academy",      // also piped live via gnews
+  // Apollo "Daily Spark" (Torsten Slok) — CONFIRMED + swept 2026-10-09. The real
+  // content sender is `agm@e.apollo.com`, so the routed domain is `e.apollo.com`
+  // (NOT the earlier-guessed `email.apolloacademy.com`). The notes publish openly on
+  // apolloacademy.com, so the canonical "read online" link is the Daily Spark archive.
+  "e.apollo.com": "Apollo Academy",
+  // SIGNED UP, awaiting first real note (only subscription confirmations so far — e.g.
+  // JPMorgan "Eye on the Market" activation arrived 2026-10-09 from pb.jpmorgan.com, no
+  // content yet). Confirm each content-sender domain against the first real email, then
+  // activate (as Apollo was above — the confirmation's sender domain is often NOT the
+  // content sender's).
   // "oaktreecapital.com": "Oaktree Capital",          // also piped live via gnews
   // "morganstanley.com": "Morgan Stanley Research",   // Thoughts on the Market
-  // "jpmorgan.com": "JPMorgan — Eye on the Market",
+  // "pb.jpmorgan.com": "JPMorgan — Eye on the Market", // activation seen; await content
   // "pimco.com": "PIMCO",
   // "blackrock.com": "BlackRock Investment Institute",
 };
@@ -56,6 +63,28 @@ export const PUBLISHERS = {
 // NEVER fabricate an item — every entry keeps a real "read online" URL and the
 // real send date/time (unknown fields are null). See docs/refresh-routines.md.
 export const RESEARCH = [
+  {
+    id: "rsch-apollo-ai-rate-insensitivity-20261009",
+    publication: "Apollo Academy",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "AI&rsquo;s Insensitivity to Interest Rates Is a Problem for the Fed",
+    date: "2026-10-09",
+    time: "11:46",
+    summary: "AI&rsquo;s rate-insensitive boom is draining capital, power and labour from rate-sensitive sectors like housing and autos &mdash; a &lsquo;Dutch disease&rsquo; effect &mdash; leaving the Fed caught between AI-driven inflation and weakness elsewhere, so rates stay higher for longer; the durable fix is expanding the supply of power, chips and infrastructure, not monetary policy.",
+    url: "https://www.apolloacademy.com/the-daily-spark/",
+  },
+  {
+    id: "rsch-apollo-french-spreads-20261008",
+    publication: "Apollo Academy",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "Outlook for French Spreads",
+    date: "2026-10-08",
+    time: "11:46",
+    summary: "A France/ECB chart book shows French spreads over German Bunds at their widest since the 2011 euro crisis as fiscal pressures build ahead of the October 13 budget debate; still, the macro backdrop remains solid, European banks are in their best health in decades, and the ECB has several options should financial stability be threatened.",
+    url: "https://www.apolloacademy.com/the-daily-spark/",
+  },
   {
     id: "rsch-gs-long-bonds-20260911",
     publication: "Goldman Sachs Research",
