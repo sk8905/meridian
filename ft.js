@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "3ae8dc9c-ee3a-4fe5-9749-b88390b5930b",
+    title: "Nobel Peace Prize awarded to human rights lawyer Navi Pillay",
+    date: "2026-10-09",
+    time: "10:09",
+    url: "https://www.ft.com/content/3ae8dc9c-ee3a-4fe5-9749-b88390b5930b",
+  },
+  {
+    id: "4597f34b-f376-4c45-9379-24e79a724053",
+    title: "FTAV’s Friday charts quiz",
+    date: "2026-10-09",
+    time: "10:03",
+    url: "https://www.ft.com/content/4597f34b-f376-4c45-9379-24e79a724053",
+  },
+  {
+    id: "5272dfe2-a1b4-4628-a8f1-9959bc954441",
+    title: "Labour holds off Greens’ Polanski to win London by-election",
+    date: "2026-10-09",
+    time: "09:48",
+    url: "https://www.ft.com/content/5272dfe2-a1b4-4628-a8f1-9959bc954441",
+  },
+  {
+    id: "f9391cdf-cd10-4895-8192-3d4e91a31d89",
+    title: "Left-of-Labour vote stagnates in Holborn and St Pancras",
+    date: "2026-10-09",
+    time: "09:38",
+    url: "https://www.ft.com/content/f9391cdf-cd10-4895-8192-3d4e91a31d89",
+  },
+  {
     id: "ca31d01f-d5a0-4bd4-bcc2-4aaa68f4ca22",
     title: "Most countries unprepared for bank failures, watchdog warns",
     date: "2026-10-09",
@@ -75,13 +103,6 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "05:09",
     url: "https://www.ft.com/content/cbebae69-3986-46af-90a7-4cf702a6593d",
-  },
-  {
-    id: "5272dfe2-a1b4-4628-a8f1-9959bc954441",
-    title: "Labour holds on to Starmer’s seat in north London",
-    date: "2026-10-09",
-    time: "05:05",
-    url: "https://www.ft.com/content/5272dfe2-a1b4-4628-a8f1-9959bc954441",
   },
   {
     id: "4dabb3fd-70fd-46f1-9773-f38411ecb162",
@@ -278,55 +299,6 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "17:49",
     url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d",
-  },
-  {
-    id: "9884d785-8ddc-43a6-ac8d-b9c7f9a99df3",
-    title: "Big Tech sets out its pitches on AI agents",
-    date: "2026-10-08",
-    time: "17:44",
-    url: "https://www.ft.com/content/9884d785-8ddc-43a6-ac8d-b9c7f9a99df3",
-  },
-  {
-    id: "b66a9858-f8fb-46cb-b506-44bfe26fca2a",
-    title: "OpenAI annualised revenues $20bn less than previously signalled",
-    date: "2026-10-08",
-    time: "17:42",
-    url: "https://www.ft.com/content/b66a9858-f8fb-46cb-b506-44bfe26fca2a",
-  },
-  {
-    id: "04d6ae65-5d5f-4ed6-9c15-16aa0f4d0713",
-    title: "US mortgage rates rise for seventh straight week to hit highest since 2023",
-    date: "2026-10-08",
-    time: "17:38",
-    url: "https://www.ft.com/content/04d6ae65-5d5f-4ed6-9c15-16aa0f4d0713",
-  },
-  {
-    id: "5cfecbba-69ed-42d0-98fd-3ae019144692",
-    title: "Trump bans Microsoft from sponsoring foreign workers for US residency",
-    date: "2026-10-08",
-    time: "17:29",
-    url: "https://www.ft.com/content/5cfecbba-69ed-42d0-98fd-3ae019144692",
-  },
-  {
-    id: "9cf103ed-548e-4b06-baed-71632abca961",
-    title: "Big investors ‘bottom fish’ in Eurozone bond markets after France sell-off",
-    date: "2026-10-08",
-    time: "17:06",
-    url: "https://www.ft.com/content/9cf103ed-548e-4b06-baed-71632abca961",
-  },
-  {
-    id: "05f80d05-c80f-48ff-a65d-f379d77ed8af",
-    title: "EY challenges Deloitte in outsourcing as revenue growth accelerates",
-    date: "2026-10-08",
-    time: "17:00",
-    url: "https://www.ft.com/content/05f80d05-c80f-48ff-a65d-f379d77ed8af",
-  },
-  {
-    id: "b2325cbe-44b6-4941-a60d-97fd9cff47ce",
-    title: "Two Latvian nationals arrested on suspicion of trespass at RAF base",
-    date: "2026-10-08",
-    time: "16:37",
-    url: "https://www.ft.com/content/b2325cbe-44b6-4941-a60d-97fd9cff47ce",
   },
 
 ];
