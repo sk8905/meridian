@@ -48,15 +48,19 @@ export const PUBLISHERS = {
   // economic briefing + CIO commentary). Content sender is `message-center@mailing.ubs.com`.
   // Activated on request; the first real CIO note will route to Research automatically.
   "mailing.ubs.com": "UBS CIO",
+  // JP Morgan Private Bank "Top Market Takeaways" — CONFIRMED + swept 2026-10-09. Content
+  // sender is `jp.morgan.private.bank@pb.jpmorgan.com` (older forwards: jpmpb.jpmorgan.com).
+  "pb.jpmorgan.com": "JPMorgan Private Bank",
+  "jpmpb.jpmorgan.com": "JPMorgan Private Bank",
+  // With Intelligence "Private Credit Insights" — CONFIRMED + swept 2026-10-08. A curated
+  // weekly private-credit intelligence roundup. Content sender is `withintelligence-email.com`.
+  "withintelligence-email.com": "With Intelligence",
   // SIGNED UP / arriving but NOT yet activated — a sweep candidate, pending a call on
   // whether it belongs in Research vs Newsletters (see docs/refresh-routines.md §4a):
-  //   • pb.jpmorgan.com — JP Morgan Private Bank "Top Market Takeaways" (real content
-  //     now arriving; a clear house-research candidate). jpmpb.jpmorgan.com is the same.
-  //   • withintelligence-email.com — With Intelligence "Private Credit Insights" (curated
-  //     private-credit research/intelligence; real content arriving).
   //   • preqin.blackrock.com — Preqin "First Close" (private-markets data/intelligence).
   // Confirm each content-sender domain against the first real email, then activate (as
-  // Apollo/UBS were — the confirmation's sender domain is often NOT the content sender's).
+  // Apollo/UBS/JPM/With Intelligence were — the confirmation's sender domain is often NOT
+  // the content sender's).
   // "oaktreecapital.com": "Oaktree Capital",          // also piped live via gnews
   // "morganstanley.com": "Morgan Stanley Research",   // Thoughts on the Market
   // "pimco.com": "PIMCO",
@@ -74,6 +78,17 @@ export const PUBLISHERS = {
 // so an entity like "AI&rsquo;s" or "S&amp;P" would show LITERALLY. (Only the
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
+  {
+    id: "rsch-jpm-tmt-earnings-20261009",
+    publication: "JPMorgan Private Bank",
+    author: null,
+    series: "Top Market Takeaways",
+    title: "What risks? Earnings are up and to the right",
+    date: "2026-10-09",
+    time: "14:34",
+    summary: "JP Morgan Private Bank’s weekly note argues corporate earnings growth remains strong — ‘up and to the right’ — and is the main force driving the market’s upside, then turns to the risks that could challenge that as third-quarter results arrive.",
+    url: "https://www.jpmorgan.com/insights/markets-and-economy/top-market-takeaways",
+  },
   {
     id: "rsch-apollo-ai-rate-insensitivity-20261009",
     publication: "Apollo Academy",
@@ -95,6 +110,17 @@ export const RESEARCH = [
     time: "11:46",
     summary: "A France/ECB chart book shows French spreads over German Bunds at their widest since the 2011 euro crisis as fiscal pressures build ahead of the October 13 budget debate; still, the macro backdrop remains solid, European banks are in their best health in decades, and the ECB has several options should financial stability be threatened.",
     url: "https://www.apolloacademy.com/the-daily-spark/",
+  },
+  {
+    id: "rsch-withintel-pc-insights-20261008",
+    publication: "With Intelligence",
+    author: null,
+    series: "Private Credit Insights",
+    title: "Private Credit Insights: Amundi Alpha Associates targets up to ten PC managers",
+    date: "2026-10-08",
+    time: "11:12",
+    summary: "A curated weekly roundup of private-credit investor appetite and activity: Amundi Alpha Associates is targeting up to ten PC managers for senior corporate direct lending across Europe and the US; Vista Equity is nearing a $2.2bn final close for its direct-lending fund; an M&G-backed firm is launching a €1bn+ transition-credit fund; and a former SVB executive is prepping a venture-debt fund.",
+    url: "https://www.withintelligence.com/solutions/private-credit/",
   },
   {
     id: "rsch-gs-long-bonds-20260911",

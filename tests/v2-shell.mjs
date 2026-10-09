@@ -22,6 +22,24 @@ check(await pg.evaluate(() => !!document.querySelector(".mobile-tabbar")), "bott
 check(await pg.evaluate(() => document.querySelectorAll(".mobile-tabbar").length === 1), "exactly one tab bar");
 check(await pg.evaluate(() => !!document.querySelector('.v2-view[data-view="home"]')), "home view mounted on boot");
 
+// Bottom-nav spacing: the outer tabs sit inside a gutter (not flush to the screen
+// edges), and a long label ("Transactions") never bleeds past its own cell — even at
+// the largest text-size bump. Guards the fix for Transactions crowding the right border.
+const barFit = await pg.evaluate(() => {
+  document.documentElement.style.setProperty("--fs-adj", "6px");   // simulate the largest text-size bump
+  const vw = window.innerWidth;
+  const bar = document.querySelector(".mobile-tabbar");
+  const home = bar.querySelector('.mtab[data-key="home"]').getBoundingClientRect();
+  const txn = bar.querySelector('.mtab[data-key="transactions"]');
+  const tr = txn.getBoundingClientRect();
+  const lbl = txn.querySelector(".mtab-lbl").getBoundingClientRect();
+  document.documentElement.style.removeProperty("--fs-adj");
+  return { vw, homeLeft: home.left, txnRight: tr.right, lblLeft: lbl.left, lblRight: lbl.right, trLeft: tr.left, trRight: tr.right };
+});
+check(barFit.homeLeft >= 4, `bottom nav: the left tab is inset from the screen edge (home.left ${barFit.homeLeft.toFixed(0)})`);
+check(barFit.txnRight <= barFit.vw - 4, `bottom nav: the right tab is inset from the screen edge (txn.right ${barFit.txnRight.toFixed(0)} ≤ ${(barFit.vw - 4).toFixed(0)})`);
+check(barFit.lblRight <= barFit.trRight + 0.5 && barFit.lblLeft >= barFit.trLeft - 0.5, `bottom nav: the "Transactions" label stays inside its cell even at a bumped text size — no bleed (lbl ${barFit.lblLeft.toFixed(0)}–${barFit.lblRight.toFixed(0)} in cell ${barFit.trLeft.toFixed(0)}–${barFit.trRight.toFixed(0)})`);
+
 const cdp = await ctx.newCDPSession(pg);
 const tap = async (key) => {
   const box = await pg.evaluate((k) => { const t = document.querySelector(`.mobile-tabbar .mtab[data-key="${k}"]`); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, key);

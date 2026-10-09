@@ -433,7 +433,11 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   z-index: 9500;
   grid-template-columns: repeat(5, 1fr);
   border-radius: 0;
-  padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px));
+  /* A side gutter (plus the device safe-area) keeps the outer tabs — "Home" and
+     "Transactions" — off the screen edges; without it the long "Transactions"
+     label bled right up to the border. Columns stay equal; the label itself is
+     clamped below so a bumped text size can never overflow its cell. */
+  padding: 6px max(8px, env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left));
   background: var(--bg, #f4f6fb);
   border: 0; border-top: 1px solid rgba(15,23,42,.12);
   -webkit-backdrop-filter: none; backdrop-filter: none;
@@ -461,6 +465,11 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   -webkit-appearance: none; appearance: none;
 }
 .mtab:hover { color: var(--muted, #4a5566); }
+/* Let each tab shrink to its grid cell and keep its label inside it: a long label
+   ("Transactions") stays on one line and, only if a large text size would push it
+   past the cell, truncates with an ellipsis instead of bleeding to the screen edge. */
+.mtab { min-width: 0; }
+.mtab-lbl { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: normal; }
 /* Comfortable density (F7): a taller tab bar with slightly larger labels — an
    easier touch target than the compact ~9px default. Opt-in via data-density. */
 :root[data-density="comfortable"] .mtab { min-height: 52px; font-size:var(--fs-micro); gap: 3px; }
