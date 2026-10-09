@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "ffb13044-216b-4b31-885c-cda9c78cbfdb",
+    title: "EU to explore windfall tax on energy companies",
+    date: "2026-10-09",
+    time: "17:05",
+    url: "https://www.ft.com/content/ffb13044-216b-4b31-885c-cda9c78cbfdb",
+  },
+  {
+    id: "d57c427a-2625-4297-bd29-01aac0d69e2f",
+    title: "Flávio Bolsonaro, scion of a Brazilian political dynasty now eyeing victory",
+    date: "2026-10-09",
+    time: "17:00",
+    url: "https://www.ft.com/content/d57c427a-2625-4297-bd29-01aac0d69e2f",
+  },
+  {
+    id: "4d5757e9-78b5-42f6-b26b-d9556321c0c8",
+    title: "US announces sanctions campaign to ‘end’ ICC",
+    date: "2026-10-09",
+    time: "16:50",
+    url: "https://www.ft.com/content/4d5757e9-78b5-42f6-b26b-d9556321c0c8",
+  },
+  {
+    id: "9ce4df82-5ba4-42a5-9935-f21b6d6d5ce4",
+    title: "A very German spy scandal",
+    date: "2026-10-09",
+    time: "16:19",
+    url: "https://www.ft.com/content/9ce4df82-5ba4-42a5-9935-f21b6d6d5ce4",
+  },
+  {
     id: "83b817d5-df71-41a6-bef5-3db55a3a89cf",
     title: "Iran attacks tankers beyond Strait of Hormuz",
     date: "2026-10-09",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "06:30",
     url: "https://www.ft.com/content/c1a8b8f4-7508-49bc-990b-3ecc5a4f20ee",
-  },
-  {
-    id: "b2efb147-5380-4d78-b648-cc5e442d1ce1",
-    title: "FTAV’s further reading",
-    date: "2026-10-09",
-    time: "06:30",
-    url: "https://www.ft.com/content/b2efb147-5380-4d78-b648-cc5e442d1ce1",
-  },
-  {
-    id: "782c8c63-0db5-499e-8a0b-b7e263bc1f97",
-    title: "EU capitals caught between markets and metrics as debt fears rise",
-    date: "2026-10-09",
-    time: "06:00",
-    url: "https://www.ft.com/content/782c8c63-0db5-499e-8a0b-b7e263bc1f97",
-  },
-  {
-    id: "42a5c77c-d09c-40b3-8ad2-4a01633dd6a0",
-    title: "Is Warhammer still winning?",
-    date: "2026-10-09",
-    time: "06:00",
-    url: "https://www.ft.com/content/42a5c77c-d09c-40b3-8ad2-4a01633dd6a0",
-  },
-  {
-    id: "3bc0eaa5-a8d4-47e8-903c-7dd762d947dd",
-    title: "SoftBank seeks $100bn from Gulf investors to expand AI bet",
-    date: "2026-10-09",
-    time: "05:30",
-    url: "https://www.ft.com/content/3bc0eaa5-a8d4-47e8-903c-7dd762d947dd",
-  },
+  },,
 ];
