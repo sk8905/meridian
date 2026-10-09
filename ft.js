@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7c0e4294-0b7c-488c-8b76-ab2d411b8f66",
+    title: "Student revolt tests France’s shrinking fiscal room",
+    date: "2026-10-09",
+    time: "12:18",
+    url: "https://www.ft.com/content/7c0e4294-0b7c-488c-8b76-ab2d411b8f66",
+  },
+  {
+    id: "21b41e8f-3df3-4c77-8bdc-b71b7b3c8df5",
+    title: "Germany Rearmed — a historic shift back to military power raises alarm",
+    date: "2026-10-09",
+    time: "12:00",
+    url: "https://www.ft.com/content/21b41e8f-3df3-4c77-8bdc-b71b7b3c8df5",
+  },
+  {
+    id: "78cfa32b-b117-4c49-b061-72519878cd54",
+    title: "The struggle to fix Africa’s debt crisis",
+    date: "2026-10-09",
+    time: "12:00",
+    url: "https://www.ft.com/content/78cfa32b-b117-4c49-b061-72519878cd54",
+  },
+  {
+    id: "77d73223-3cfc-4892-a3c5-5502595f42d4",
+    title: "Delta slashes profit outlook as higher fuel prices bite",
+    date: "2026-10-09",
+    time: "11:44",
+    url: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4",
+  },
+  {
+    id: "2d4333d1-8119-44a4-a5a5-2ee9ef2544fa",
+    title: "Japan declares cyber space emergency as attacks soar",
+    date: "2026-10-09",
+    time: "11:40",
+    url: "https://www.ft.com/content/2d4333d1-8119-44a4-a5a5-2ee9ef2544fa",
+  },
+  {
     id: "ec5cf1f8-e4cf-4b87-ae89-276ab9532856",
     title: "The rightwing rapper taking on Pedro Sánchez in Spain",
     date: "2026-10-09",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-08",
     time: "23:28",
     url: "https://www.ft.com/content/0c390d03-427f-40a8-b5cb-d12c8d925d9d",
-  },
-  {
-    id: "6777c34c-876f-4f72-9eec-d3cddb2f1f45",
-    title: "Amex fined $350mn for failing to flag suspected money laundering",
-    date: "2026-10-08",
-    time: "23:03",
-    url: "https://www.ft.com/content/6777c34c-876f-4f72-9eec-d3cddb2f1f45",
-  },
-  {
-    id: "297ca864-737c-4112-b368-f21a20cc78d2",
-    title: "Burnham set to launch crackdown on non-compete clauses",
-    date: "2026-10-08",
-    time: "23:02",
-    url: "https://www.ft.com/content/297ca864-737c-4112-b368-f21a20cc78d2",
-  },
-  {
-    id: "c49f7d52-4b43-4dc9-b21b-a61e8756152f",
-    title: "FirstFT: OpenAI’s $20bn annualised revenue gap",
-    date: "2026-10-08",
-    time: "22:48",
-    url: "https://www.ft.com/content/c49f7d52-4b43-4dc9-b21b-a61e8756152f",
-  },
-  {
-    id: "fbe78f9b-e71d-49dc-b03b-e762e073b658",
-    title: "Singapore gears up for smog-choked Grand Prix",
-    date: "2026-10-08",
-    time: "22:00",
-    url: "https://www.ft.com/content/fbe78f9b-e71d-49dc-b03b-e762e073b658",
-  },
-  {
-    id: "dbcc35ba-db23-4be3-b2c0-4a0d8ecb7375",
-    title: "US justice department orders playbook refresh for frauds on government",
-    date: "2026-10-08",
-    time: "21:35",
-    url: "https://www.ft.com/content/dbcc35ba-db23-4be3-b2c0-4a0d8ecb7375",
   },
 ];
