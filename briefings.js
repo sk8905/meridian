@@ -92,13 +92,13 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-09",
-      time: "10:13 BST",
-      lede: "Pimco warned the US 10-year Treasury yield could reach 6% for the first time since 2000; AI-valuation and credit stress built as OpenAI revenues undershot; and the Iran conflict kept energy markets and oil majors in focus.",
+      date: "2026-10-10",
+      time: "05:15 BST",
+      lede: "Slowing dealmaking added to equity-market warning signs, UK tracker-mortgage demand jumped as fixed rates rose, and Pimco's call that the US 10-year yield could reach 6% kept bond markets on edge.",
       bullets: [
-        { html: "<strong>Macro &mdash; the Iran conflict is reshaping what investors want from oil majors</strong>, after it snarled usually free-flowing energy markets and kept Brent elevated with the energy-shock risk still live.", src: "https://www.ft.com/content/7b354a5d-9702-407a-a4bc-8703c6ba7b72", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Macro &mdash; demand for UK tracker mortgages has jumped</strong> as rates on fixed-rate deals rise, the latest sign of higher borrowing costs feeding through to households.", src: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b", srcName: "Financial Times", date: "2026-10-10" },
         { html: "<strong>Bonds &mdash; Pimco says the US 10-year Treasury yield risks hitting 6%</strong> for the first time since 2000, warning a further sharp rise in borrowing costs is &lsquo;feasible&rsquo; as market participants unwind losing bets.", src: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", srcName: "Financial Times", date: "2026-10-09" },
-        { html: "<strong>Equities &mdash; OpenAI&rsquo;s annualised revenues are running about $20bn below earlier signals</strong>, a fresh test for AI valuations as the S&amp;P 500 and Nasdaq trade near record highs.", src: "https://www.ft.com/content/b66a9858-f8fb-46cb-b506-44bfe26fca2a", srcName: "Financial Times", date: "2026-10-08" },
+        { html: "<strong>Equities &mdash; slowing deal activity is another flashing red sign for equity markets</strong>, adding to a cluster of warning signals for stocks.", src: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782", srcName: "Financial Times", date: "2026-10-10" },
         { html: "<strong>Credit &mdash; the cost of credit-default swaps for AI companies looking to borrow is climbing</strong>, among a cluster of market-stress signals pointing to trouble ahead for leveraged tech credit.", src: "https://www.ft.com/content/7acb5862-cde5-49b4-a5f1-5f6e6977a9c7", srcName: "Financial Times", date: "2026-10-09" },
       ],
     },

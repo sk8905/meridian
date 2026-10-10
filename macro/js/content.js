@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-10",
-  lastCheckedTime: "00:10 BST",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,20 +1004,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-09",
+  updated: "2026-10-10",
   us: [
+    {title: "Slowing deals are another flashing red sign for equity markets", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782"},
     {title: "Trump agrees deal with Putin for Russia to release diesel on to global market", source: "Financial Times", date: "2026-10-09", time: "20:01", url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8"},
     {title: "Scott Bessent to miss IMF annual meetings in Bangkok", source: "Financial Times", date: "2026-10-09", time: "19:22", url: "https://www.ft.com/content/9496dd1d-fabf-4c58-bbc3-88cb51f2a68d"},
     {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
     {title: "The hazy OpenAI growth metric driving Wall Street", source: "Financial Times", date: "2026-10-09", time: "21:57", url: "https://www.ft.com/content/62653892-2333-4953-a8d5-cfd760ae3257"},
-    {title: "Donald Trump launches committee to investigate Fed governor Lisa Cook", source: "Financial Times", date: "2026-10-09", time: "16:08", url: "https://www.ft.com/content/d0c81cd2-f944-46b9-a859-abc3f0bd3516"},
   ],
   uk: [
+    {title: "Demand for tracker mortgages jumps as rates on fixed deals rise", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b"},
     {title: "Number of people caught in UK’s £100,000 tax trap doubles in four years", source: "Financial Times", date: "2026-10-09", time: "12:00", url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4"},
     {title: "Drop in fiscal headroom better option than Budget tax rises, says Jim O’Neill", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612"},
     {title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties", source: "Financial Times", date: "2026-10-08", time: "08:09", url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d"},
     {title: "Higher mortgage rates inflict ‘pain’ on UK housing market", source: "Financial Times", date: "2026-10-08", time: "01:01", url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4"},
-    {title: "Iran war blows near-£12bn hole in Britain’s public finances", source: "Financial Times", date: "2026-10-07", time: "23:00", url: "https://www.ft.com/content/2cb13aed-f6bf-4f45-b906-fa1194405a0c"},
   ],
 };
 
@@ -1030,8 +1030,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-09",
+  updated: "2026-10-10",
   items: [
+    {"title": "Slowing deals are another flashing red sign for equity markets", "source": "Financial Times", "date": "2026-10-10", "time": "05:00", "url": "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782", "blurb": "A slowdown in dealmaking adds to warning signals for stock markets."},
+    {"title": "Demand for tracker mortgages jumps as rates on fixed deals rise", "source": "Financial Times", "date": "2026-10-10", "time": "05:00", "url": "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b", "blurb": "Borrowers turn to trackers as fixed-rate mortgage pricing climbs."},
+    {"title": "Russia targets Ukraine’s bridges as Vladimir Putin expands air war", "source": "Financial Times", "date": "2026-10-10", "time": "05:00", "url": "https://www.ft.com/content/4e4ea744-6603-499b-baf7-83c74e4dc53e", "blurb": "Moscow widens its air campaign against Ukrainian infrastructure."},
     {"title": "The hazy OpenAI growth metric driving Wall Street", "source": "Financial Times", "date": "2026-10-09", "time": "21:57", "url": "https://www.ft.com/content/62653892-2333-4953-a8d5-cfd760ae3257", "blurb": "Revelations that the AI giant's annualised revenues were $20bn less than previously reported triggered volatility in US stocks."},
     {"title": "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", "blurb": "Bond giant’s investment chief warns a further sharp rise in borrowing costs is ‘feasible’ as market participants are forced to unwind losing bets."},
     {"title": "Why bank stocks are falling despite surging interest rates", "source": "Financial Times", "date": "2026-10-09", "time": "05:00", "url": "https://www.ft.com/content/83993bb2-35dd-4ae1-a4b2-8b6c3762a84b", "blurb": "If funding costs rise, the expanding profit margins banks have enjoyed may start to reverse."},
@@ -1069,9 +1072,6 @@ export const ARTICLES = {
     {"title": "Global pension funds cut US equities over AI concentration risk", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad", "blurb": "Pension funds trim US equity exposure over concentration in AI-linked mega-caps."},
     {"title": "Why a booming economy is not helping Trump", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a", "blurb": "FT on the disconnect between strong US growth and the president's standing."},
     {"title": "Banks will lobby Healey for capital rules cut, says senior MP", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414", "blurb": "UK lenders are expected to press the Chancellor to ease capital requirements ahead of the Budget."},
-    {"title": "Rising gilt yields attract retail investors hunting for tax-efficient assets", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/17a502a2-f8cb-4d79-996e-f2c7018585de", "blurb": "Higher gilt yields are drawing retail investors seeking tax-efficient holdings."},
-    {"title": "CGT rise would deter equity investors, wealth bosses warn", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/678d61ea-d3f6-467f-a2b0-ffc78f1ed922", "blurb": "Wealth managers warn a capital gains tax increase in the Budget would discourage equity investing."},
-    {"title": "Protests from the City about bank tax ring hollow", "source": "Financial Times", "date": "2026-10-03", "time": "05:00", "url": "https://www.ft.com/content/b50f39c6-4484-4c06-89cb-2884f9e58bd7", "blurb": "FT opinion on City objections to a bank tax ahead of the UK Budget."},
   ],
 };
 
