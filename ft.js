@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0923247c-298b-4536-8bef-e7e0cfd5f0d4",
+    title: "Taxpayer-funded Trump TV ads continue despite pledge to use private money",
+    date: "2026-10-10",
+    time: "13:00",
+    url: "https://www.ft.com/content/0923247c-298b-4536-8bef-e7e0cfd5f0d4",
+  },
+  {
+    id: "b373cf00-9a94-4dc7-bdda-bc7006da1148",
+    title: "India’s central bank tries to shore up rupee as it nears record lows",
+    date: "2026-10-10",
+    time: "12:57",
+    url: "https://www.ft.com/content/b373cf00-9a94-4dc7-bdda-bc7006da1148",
+  },
+  {
+    id: "7fd4dffc-8adf-4ad8-9fba-333e1ced991d",
+    title: "US warns Kyiv that strikes on Russia jeopardise intelligence-sharing",
+    date: "2026-10-10",
+    time: "12:29",
+    url: "https://www.ft.com/content/7fd4dffc-8adf-4ad8-9fba-333e1ced991d",
+  },
+  {
     id: "9c13d40e-d2b2-45d5-921c-a68cd4b308f9",
     title: "AI borrowing slows as investors grow wary of debt binge",
     date: "2026-10-10",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "17:00",
     url: "https://www.ft.com/content/d57c427a-2625-4297-bd29-01aac0d69e2f",
-  },
-  {
-    id: "4d5757e9-78b5-42f6-b26b-d9556321c0c8",
-    title: "US announces sanctions campaign to ‘end’ ICC",
-    date: "2026-10-09",
-    time: "16:50",
-    url: "https://www.ft.com/content/4d5757e9-78b5-42f6-b26b-d9556321c0c8",
-  },
-  {
-    id: "9ce4df82-5ba4-42a5-9935-f21b6d6d5ce4",
-    title: "A very German spy scandal",
-    date: "2026-10-09",
-    time: "16:19",
-    url: "https://www.ft.com/content/9ce4df82-5ba4-42a5-9935-f21b6d6d5ce4",
-  },
-  {
-    id: "83b817d5-df71-41a6-bef5-3db55a3a89cf",
-    title: "Iran attacks tankers beyond Strait of Hormuz",
-    date: "2026-10-09",
-    time: "16:10",
-    url: "https://www.ft.com/content/83b817d5-df71-41a6-bef5-3db55a3a89cf",
   },
 ];
