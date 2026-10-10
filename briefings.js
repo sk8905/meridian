@@ -105,7 +105,7 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-10",
-      time: "12:10 BST",
+      time: "14:10 BST",
       lede: "Slowing dealmaking added to equity-market warning signs, Pimco said the US 10-year yield could reach 6%, UK tracker-mortgage demand jumped as fixed rates rose, and Partners Group launched an evergreen private credit income strategy.",
       bullets: [
         { html: "<strong>Equities &mdash; slowing deal activity is another flashing red sign for equity markets</strong>, adding to a cluster of warning signals for stocks.", src: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782", srcName: "Financial Times" },
