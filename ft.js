@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9c13d40e-d2b2-45d5-921c-a68cd4b308f9",
+    title: "AI borrowing slows as investors grow wary of debt binge",
+    date: "2026-10-10",
+    time: "12:00",
+    url: "https://www.ft.com/content/9c13d40e-d2b2-45d5-921c-a68cd4b308f9",
+  },
+  {
     id: "e3945b16-13f0-4640-882d-fafaca9d25e9",
     title: "Nixonmaxxing: the strange revival of America’s disgraced president",
     date: "2026-10-10",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "16:10",
     url: "https://www.ft.com/content/83b817d5-df71-41a6-bef5-3db55a3a89cf",
-  },
-  {
-    id: "d0c81cd2-f944-46b9-a859-abc3f0bd3516",
-    title: "Donald Trump launches committee to investigate Fed governor Lisa Cook",
-    date: "2026-10-09",
-    time: "16:08",
-    url: "https://www.ft.com/content/d0c81cd2-f944-46b9-a859-abc3f0bd3516",
   },
 ];

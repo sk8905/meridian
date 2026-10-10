@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-apollo-dailyspark-newacademicpapers-20261010",
+    publication: "Apollo",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "New Academic Papers",
+    date: "2026-10-10",
+    time: "11:46",
+    summary: "Five new papers on US-China investment decoupling, AI and graduate employment, and AI's macro effect.",
+    url: "https://click.e.apollo.com/?qs=ABp7ImQiOjUwMjUsInQiOjM5MzIsInMiOjEyfQAMAAAAAANvbdaocOJ98Ra44QafzLUKo_k2ZwSAgM5e_mS7IO6RKGFGueRip0MeKOPORIYpSgAtPVI1EuWrYZIocS9queZkr5UsBfhZ6qrPjZoqS9vF",
+  },
+  {
     id: "nl-economist-worldinbrief-trumpputindiesel-20261010",
     publication: "The Economist",
     author: null,
@@ -476,16 +487,5 @@ export const NEWSLETTERS = [
     time: "19:20",
     summary: "ESG, 401ks, universe.",
     url: "https://bloom.bg/4AT3Ss9",
-  },
-  {
-    id: "nl-bbg-authoralert-rokosreturn-20261007",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: "Author Alert",
-    title: "Hedge Fund Rokos Returned 4.2% in Turbulent Month for Trading",
-    date: "2026-10-07",
-    time: "19:05",
-    summary: "Chris Rokos's macro fund made 4.2% last month as many peers eked out meagre returns amid bond-market volatility.",
-    url: "https://www.bloomberg.com/news/articles/2026-10-07/hedge-fund-rokos-returned-4-2-in-turbulent-month-for-trading",
   },
 ];
