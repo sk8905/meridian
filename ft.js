@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "d6c7a14d-c05e-43b6-9eab-5fcdb067c2c8",
+    title: "Reality bites for the Gulf and sport",
+    date: "2026-10-10",
+    time: "09:00",
+    url: "https://www.ft.com/content/d6c7a14d-c05e-43b6-9eab-5fcdb067c2c8",
+  },
+  {
     id: "3f54c442-c2b7-4876-a960-5229951c9a46",
     title: "The world of one trade — AI",
     date: "2026-10-10",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "14:11",
     url: "https://www.ft.com/content/2823ef6f-b3d7-494b-b131-414c02d6a59f",
-  },
-  {
-    id: "0a39fcdb-860c-4739-8454-21fb429f6336",
-    title: "Submit your questions: who’s doing better in their trade battles with China — the EU or the US?",
-    date: "2026-10-09",
-    time: "14:04",
-    url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336",
   },
 ];
