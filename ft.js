@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e3945b16-13f0-4640-882d-fafaca9d25e9",
+    title: "Nixonmaxxing: the strange revival of America’s disgraced president",
+    date: "2026-10-10",
+    time: "11:00",
+    url: "https://www.ft.com/content/e3945b16-13f0-4640-882d-fafaca9d25e9",
+  },
+  {
+    id: "abaab361-8714-422f-b2eb-9eb447e4d8c3",
+    title: "Chart of the Week: The US productivity-pay gap",
+    date: "2026-10-10",
+    time: "10:30",
+    url: "https://www.ft.com/content/abaab361-8714-422f-b2eb-9eb447e4d8c3",
+  },
+  {
+    id: "a96adda5-89fb-4f8b-96c4-96c171489a40",
+    title: "EU joint budget proposal slashed in race to find end-year agreement",
+    date: "2026-10-10",
+    time: "10:28",
+    url: "https://www.ft.com/content/a96adda5-89fb-4f8b-96c4-96c171489a40",
+  },
+  {
     id: "407fa757-cc77-49c0-871a-5140dd3a9a80",
     title: "Police arrest leader of India’s ‘Cockroach’ movement before mass protest",
     date: "2026-10-10",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "16:08",
     url: "https://www.ft.com/content/d0c81cd2-f944-46b9-a859-abc3f0bd3516",
-  },
-  {
-    id: "8354b63b-44ae-4aef-9c6b-5cef1f9bb001",
-    title: "Germany pivots away from ECB presidency push",
-    date: "2026-10-09",
-    time: "16:07",
-    url: "https://www.ft.com/content/8354b63b-44ae-4aef-9c6b-5cef1f9bb001",
-  },
-  {
-    id: "8c3f95ec-2428-4102-9f67-b707f1264c69",
-    title: "US telcos shed $45bn in value after SpaceX announces spectrum purchase",
-    date: "2026-10-09",
-    time: "15:37",
-    url: "https://www.ft.com/content/8c3f95ec-2428-4102-9f67-b707f1264c69",
-  },
-  {
-    id: "523fa1fa-0764-47d6-907b-4f72bd4a6cc0",
-    title: "Lib Dem MP launches attempt to topple leader Ed Davey",
-    date: "2026-10-09",
-    time: "14:25",
-    url: "https://www.ft.com/content/523fa1fa-0764-47d6-907b-4f72bd4a6cc0",
   },
 ];
