@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-lawsuitblocksbroadbandma-20261010",
+    publication: "Bloomberg",
+    author: "Reshmi Basu",
+    series: "The Brink",
+    title: "The Brink: Lawsuit blocks broadband M&A",
+    date: "2026-10-10",
+    time: "16:00",
+    summary: "Last-minute legal action has given Cable One another headache; also Virgin Media, Braskem and First Brands.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-10/last-minute-lawsuit-upends-cable-one-s-480-million-mega-broadband-deal",
+  },
+  {
     id: "nl-apollo-dailyspark-newacademicpapers-20261010",
     publication: "Apollo",
     author: "Torsten Slok",
