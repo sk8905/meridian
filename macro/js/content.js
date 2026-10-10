@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-10",
-  lastCheckedTime: "05:15 BST",
+  lastCheckedTime: "08:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------

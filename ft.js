@@ -300,11 +300,4 @@ export const FT_ITEMS = [
     time: "14:04",
     url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336",
   },
-  {
-    id: "ee329e29-aec9-4876-829e-022683f425f8",
-    title: "How to shield your portfolio if AI goes ka-boom",
-    date: "2026-10-09",
-    time: "14:00",
-    url: "https://www.ft.com/content/ee329e29-aec9-4876-829e-022683f425f8",
-  },
 ];
