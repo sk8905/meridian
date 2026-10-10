@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-trumpputindiesel-20261010",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Trump agrees diesel deal with Putin",
+    date: "2026-10-10",
+    time: "05:52",
+    summary: "Also: Michelle Bolsonaro, Brazil’s most powerful woman.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-moneystuff-podcastjeremymaletz-20261009",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -476,16 +487,5 @@ export const NEWSLETTERS = [
     time: "19:05",
     summary: "Chris Rokos's macro fund made 4.2% last month as many peers eked out meagre returns amid bond-market volatility.",
     url: "https://www.bloomberg.com/news/articles/2026-10-07/hedge-fund-rokos-returned-4-2-in-turbulent-month-for-trading",
-  },
-  {
-    id: "nl-legalbusiness-alert-bootsdeal-20261007",
-    publication: "Legal Business",
-    author: null,
-    series: "Legal Business Alert",
-    title: "Quartet of firms lead on $8.9bn Boots deal",
-    date: "2026-10-07",
-    time: "16:42",
-    summary: "Sale to Canadian investors' consortium sees UK retailer secure its second new owner in less than 18 months.",
-    url: "https://www.legalbusiness.co.uk/law-firms/quartet-of-firms-lead-on-near-9bn-boots-deal/",
   },
 ];

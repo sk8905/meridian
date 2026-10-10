@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "910fc2b8-5b6a-425b-856c-589a3fdf1c0e",
+    title: "The tax pitfalls of moving abroad",
+    date: "2026-10-10",
+    time: "05:00",
+    url: "https://www.ft.com/content/910fc2b8-5b6a-425b-856c-589a3fdf1c0e",
+  },
+  {
     id: "1babfbe0-f50e-4be8-8f2b-d93fdd472f8f",
     title: "UK universities withdraw offers from international students to avoid blanket ban",
     date: "2026-10-10",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "14:00",
     url: "https://www.ft.com/content/ee329e29-aec9-4876-829e-022683f425f8",
-  },
-  {
-    id: "3c8d6ab0-595f-4121-9901-a784be75bb09",
-    title: "Rubio and the will to power",
-    date: "2026-10-09",
-    time: "14:00",
-    url: "https://www.ft.com/content/3c8d6ab0-595f-4121-9901-a784be75bb09",
   },
 ];
