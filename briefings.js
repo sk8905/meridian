@@ -93,7 +93,7 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-10",
-      time: "08:15 BST",
+      time: "10:10 BST",
       lede: "Slowing dealmaking added to equity-market warning signs, UK tracker-mortgage demand jumped as fixed rates rose, and Pimco's call that the US 10-year yield could reach 6% kept bond markets on edge.",
       bullets: [
         { html: "<strong>Macro &mdash; demand for UK tracker mortgages has jumped</strong> as rates on fixed-rate deals rise, the latest sign of higher borrowing costs feeding through to households.", src: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b", srcName: "Financial Times", date: "2026-10-10" },
