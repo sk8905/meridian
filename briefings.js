@@ -117,7 +117,7 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-10",
-      time: "18:10 BST",
+      time: "20:10 BST",
       lede: "AI borrowing slowed as investors grew wary of the debt binge, hurricane disruption hit US oil and gas output, Pimco warned the US 10-year yield could reach 6%, and slowing dealmaking added to equity warning signs.",
       bullets: [
         { html: "<strong>Macro &mdash; oil and gas production was disrupted as Hurricane Isaias hit the US</strong>, adding a fresh supply shock to an energy market already on edge.", src: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d", srcName: "Financial Times", date: "2026-10-10" },
