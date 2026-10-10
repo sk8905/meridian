@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "3f54c442-c2b7-4876-a960-5229951c9a46",
+    title: "The world of one trade — AI",
+    date: "2026-10-10",
+    time: "07:36",
+    url: "https://www.ft.com/content/3f54c442-c2b7-4876-a960-5229951c9a46",
+  },
+  {
     id: "910fc2b8-5b6a-425b-856c-589a3fdf1c0e",
     title: "The tax pitfalls of moving abroad",
     date: "2026-10-10",
