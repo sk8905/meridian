@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "391ddf3f-b233-41fd-819b-fcdbfb0ed010",
+    title: "Riyadh airport suspends operations after missile strike injures dozens",
+    date: "2026-10-10",
+    time: "19:28",
+    url: "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010",
+  },
+  {
+    id: "052610c5-22b4-4dd4-932e-b7f9f0628b6a",
+    title: "Nvidia in talks to acquire US ‘open’ model start-up Reflection AI",
+    date: "2026-10-10",
+    time: "19:14",
+    url: "https://www.ft.com/content/052610c5-22b4-4dd4-932e-b7f9f0628b6a",
+  },
+  {
     id: "0923247c-298b-4536-8bef-e7e0cfd5f0d4",
     title: "Taxpayer-funded Trump TV ads continue despite pledge to use private money",
     date: "2026-10-10",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "17:50",
     url: "https://www.ft.com/content/b35a575d-ff53-4580-8946-9054d7aeb388",
-  },
-  {
-    id: "39f9b46f-b7ee-43b6-b377-6e47aa1af9a1",
-    title: "EU leads fight against fossil-fuel nations’ push to delay climate science reports",
-    date: "2026-10-09",
-    time: "17:32",
-    url: "https://www.ft.com/content/39f9b46f-b7ee-43b6-b377-6e47aa1af9a1",
-  },
-  {
-    id: "39764d10-6b87-4103-8e7d-290a72a5ea5a",
-    title: "Trump and Hegseth’s execution-type deal",
-    date: "2026-10-09",
-    time: "17:18",
-    url: "https://www.ft.com/content/39764d10-6b87-4103-8e7d-290a72a5ea5a",
   },
 ];
