@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-10",
-  lastCheckedTime: "14:10 BST",
+  lastCheckedTime: "18:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1008,9 +1008,9 @@ export const NEWS = {
   us: [
     {title: "Slowing deals are another flashing red sign for equity markets", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782"},
     {title: "Trump agrees deal with Putin for Russia to release diesel on to global market", source: "Financial Times", date: "2026-10-09", time: "20:01", url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8"},
-    {title: "Scott Bessent to miss IMF annual meetings in Bangkok", source: "Financial Times", date: "2026-10-09", time: "19:22", url: "https://www.ft.com/content/9496dd1d-fabf-4c58-bbc3-88cb51f2a68d"},
+    {title: "AI borrowing slows as investors grow wary of debt binge", source: "Financial Times", date: "2026-10-10", time: "12:00", url: "https://www.ft.com/content/9c13d40e-d2b2-45d5-921c-a68cd4b308f9"},
     {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
-    {title: "The hazy OpenAI growth metric driving Wall Street", source: "Financial Times", date: "2026-10-09", time: "21:57", url: "https://www.ft.com/content/62653892-2333-4953-a8d5-cfd760ae3257"},
+    {title: "Oil and gas production disrupted as Hurricane Isaias hits US", source: "Financial Times", date: "2026-10-10", time: "11:58", url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d"},
   ],
   uk: [
     {title: "Demand for tracker mortgages jumps as rates on fixed deals rise", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b"},
