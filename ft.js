@@ -91,6 +91,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/3f54c442-c2b7-4876-a960-5229951c9a46",
   },
   {
+    id: "767e9e15-1afd-447e-9e37-ed9390e0890f",
+    title: "Pink Snow 2026: a winter sports special",
+    date: "2026-10-10",
+    time: "05:02",
+    url: "https://www.ft.com/content/767e9e15-1afd-447e-9e37-ed9390e0890f",
+  },
+  {
     id: "910fc2b8-5b6a-425b-856c-589a3fdf1c0e",
     title: "The tax pitfalls of moving abroad",
     date: "2026-10-10",
@@ -138,6 +145,20 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "05:00",
     url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b",
+  },
+  {
+    id: "c518cc4c-a9cb-4b5a-b038-165f3ad92765",
+    title: "Our 1990s nostalgia is far too rose-tinted",
+    date: "2026-10-10",
+    time: "05:00",
+    url: "https://www.ft.com/content/c518cc4c-a9cb-4b5a-b038-165f3ad92765",
+  },
+  {
+    id: "2b2b4eef-b4b8-4ab0-a997-ee2bf6b96a24",
+    title: "The 79-year-old ski bum",
+    date: "2026-10-10",
+    time: "05:00",
+    url: "https://www.ft.com/content/2b2b4eef-b4b8-4ab0-a997-ee2bf6b96a24",
   },
   {
     id: "84583bb0-dbd7-4623-851c-1f9381dfe280",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "17:18",
     url: "https://www.ft.com/content/39764d10-6b87-4103-8e7d-290a72a5ea5a",
-  },
-  {
-    id: "b6e6542f-045b-4a38-9fb9-6857b7d1fee3",
-    title: "Battle for the soul of the Green Party",
-    date: "2026-10-09",
-    time: "17:14",
-    url: "https://www.ft.com/content/b6e6542f-045b-4a38-9fb9-6857b7d1fee3",
-  },
-  {
-    id: "ffb13044-216b-4b31-885c-cda9c78cbfdb",
-    title: "EU to explore windfall tax on energy companies",
-    date: "2026-10-09",
-    time: "17:05",
-    url: "https://www.ft.com/content/ffb13044-216b-4b31-885c-cda9c78cbfdb",
-  },
-  {
-    id: "d57c427a-2625-4297-bd29-01aac0d69e2f",
-    title: "Flávio Bolsonaro, scion of a Brazilian political dynasty now eyeing victory",
-    date: "2026-10-09",
-    time: "17:00",
-    url: "https://www.ft.com/content/d57c427a-2625-4297-bd29-01aac0d69e2f",
   },
 ];
