@@ -27,7 +27,7 @@ export const LAST_CHECKED = "2026-10-10";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "10:10 BST";
+export const LAST_CHECKED_TIME = "12:10 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -1551,6 +1551,7 @@ export const intel = [
   { id: "i833", date: "2026-09-22", time: "05:11", type: "Equity / PE", managerId: "m23", fundId: null, headline: "Sixth Street revives bid for Brighthouse Financial as Aquarian deal stalls", summary: "Talcott Financial Group, an insurer backed by Sixth Street, sent Brighthouse Financial's board a private letter reaffirming its interest in acquiring the life insurer at roughly $55 a share (valuing it near $3.1bn) should Aquarian Holdings' pending deal collapse; Delaware's insurance regulator is reviewing the funding sources behind Aquarian's earlier agreed purchase, and Brighthouse can walk away from that deal if approvals are not secured by 6 December 2026.", sourceUrl: "https://www.bloomberg.com/news/articles/2026-09-22/sixth-street-revives-brighthouse-bid-as-rival-deal-hits-delays", clo: false },
   { id: "i834", date: "2019-11-25", time: "08:25", type: "Final Close", managerId: "m180", fundId: "f369", headline: "CIC Private Debt closes CIC Debt Fund 3 at €530m", summary: "CIC Private Debt held the final close of its third senior debt fund, CIC Debt Fund 3, at €530m, above its original €450m target.", sourceUrl: "https://www.creditflux.com/Funds/2019-11-25/CIC-collects-530-million-for-direct-lending-fund" },
   { id: "i835", date: "2025-02-13", time: "08:25", type: "Launch", managerId: "m180", fundId: null, headline: "CIC Private Debt structures CIC Private Debt Opportunités, its first evergreen private-debt ELTIF", summary: "CIC Private Debt, with Assurances du Crédit Mutuel, structured CIC Private Debt Opportunités, a pure private-debt evergreen ELTIF 2.0 approved by the AMF, aimed at retirement-savings products and covering senior and junior debt, corporate and green infrastructure strategies.", sourceUrl: "https://presse.la-francaise.com/assets/130225-cp-cic-private-debt-opportunites-pdf-941cf-61d2f.html?dl=1" },
+  { id: "i853", date: "2026-10-09", time: "12:10", type: "Launch", managerId: "m91", fundId: null, headline: "Partners Group launches evergreen multi-sector private credit income strategy", summary: "Partners Group introduced a global evergreen private credit income strategy for institutional and private wealth investors, spanning senior direct lending, credit secondaries, fund financing, royalties, opportunistic and liquid credit across Europe, North America and Asia-Pacific, targeting high single-digit to low double-digit returns.", sourceUrl: "https://alternativecreditinvestor.com/2026/10/09/partners-group-launches-private-credit-income-fund/" },
 ];
 
 // ---------------------------------------------------------------------------

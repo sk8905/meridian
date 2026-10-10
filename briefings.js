@@ -104,14 +104,14 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-10-09",
-      time: "16:17 BST",
-      lede: "Pimco warned the US 10-year Treasury yield could reach 6%; Delta cut its full-year profit outlook as fuel costs bite; and AI-credit stress and OpenAI revenue doubts weighed on valuations.",
+      date: "2026-10-10",
+      time: "12:10 BST",
+      lede: "Slowing dealmaking added to equity-market warning signs, Pimco said the US 10-year yield could reach 6%, UK tracker-mortgage demand jumped as fixed rates rose, and Partners Group launched an evergreen private credit income strategy.",
       bullets: [
-        { html: "<strong>Macro &mdash; Delta cut its full-year profit outlook as higher fuel prices bite</strong>, the latest corporate sign of the energy shock from the Iran conflict feeding through, with Brent still elevated.", src: "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4", srcName: "Financial Times", date: "2026-10-09" },
-        { html: "<strong>Bonds &mdash; Pimco says the US 10-year Treasury yield risks hitting 6%</strong> for the first time since 2000, warning a further sharp rise in borrowing costs is &lsquo;feasible&rsquo; as market participants unwind losing bets.", src: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", srcName: "Financial Times", date: "2026-10-09" },
-        { html: "<strong>Equities &mdash; OpenAI&rsquo;s annualised revenues are running about $20bn below earlier signals</strong>, a fresh test for AI valuations as the S&amp;P 500 and Nasdaq trade near record highs.", src: "https://www.ft.com/content/b66a9858-f8fb-46cb-b506-44bfe26fca2a", srcName: "Financial Times", date: "2026-10-08" },
-        { html: "<strong>Credit &mdash; the cost of credit-default swaps for AI companies looking to borrow is climbing</strong>, among a cluster of market-stress signals pointing to trouble ahead for leveraged tech credit.", src: "https://www.ft.com/content/7acb5862-cde5-49b4-a5f1-5f6e6977a9c7", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Equities &mdash; slowing deal activity is another flashing red sign for equity markets</strong>, adding to a cluster of warning signals for stocks.", src: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782", srcName: "Financial Times" },
+        { html: "<strong>Bonds &mdash; Pimco says the US 10-year Treasury yield risks hitting 6%</strong> for the first time since 2000.", src: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", srcName: "Financial Times" },
+        { html: "<strong>UK &mdash; demand for tracker mortgages has jumped</strong> as rates on fixed-rate deals rise.", src: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b", srcName: "Financial Times" },
+        { html: "<strong>Credit &mdash; Partners Group launched an evergreen multi-sector private credit income strategy</strong> for institutional and private wealth investors, spanning direct lending, credit secondaries, fund financing and royalties.", src: "https://alternativecreditinvestor.com/2026/10/09/partners-group-launches-private-credit-income-fund/", srcName: "Alternative Credit Investor" },
       ],
     },
     evening: {
