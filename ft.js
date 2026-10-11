@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "bd2c7385-184e-425e-997f-0f5a8c54184e",
+    title: "Houthis show military reach with deadly missile strikes on Riyadh",
+    date: "2026-10-11",
+    time: "14:04",
+    url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e",
+  },
+  {
+    id: "724ef0e2-4d50-49fd-aef8-abc0534f2f84",
+    title: "Ukraine’s allies vow to pressure Moscow after Trump-Putin diesel deal",
+    date: "2026-10-11",
+    time: "13:45",
+    url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84",
+  },
+  {
     id: "eaaf7c65-fc11-41ab-8b83-9a163337fa6b",
     title: "Europe can fight the ‘China shock’",
     date: "2026-10-11",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "05:00",
     url: "https://www.ft.com/content/59ce3c26-55d2-4b54-bf00-34104ed67be7",
-  },
-  {
-    id: "4e4ea744-6603-499b-baf7-83c74e4dc53e",
-    title: "Russia targets Ukraine’s bridges as Vladimir Putin expands air war",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/4e4ea744-6603-499b-baf7-83c74e4dc53e",
-  },
-  {
-    id: "3e0c76d3-885b-4945-b374-1477f141418c",
-    title: "Caribbean cruises are going cheap, and so are operators’ shares",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/3e0c76d3-885b-4945-b374-1477f141418c",
   },
 ];
