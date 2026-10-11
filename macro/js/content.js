@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-11",
-  lastCheckedTime: "14:15 BST",
+  lastCheckedTime: "16:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-11",
   us: [
+    {title: "Ukraine’s allies vow to pressure Moscow as Trump claims ‘energy ceasefire’ in place", source: "Financial Times", date: "2026-10-11", time: "15:59", url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84"},
     {title: "Houthis show military reach with deadly missile strikes on Riyadh", source: "Financial Times", date: "2026-10-11", time: "14:04", url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e"},
-    {title: "Ukraine’s allies vow to pressure Moscow after Trump-Putin diesel deal", source: "Financial Times", date: "2026-10-11", time: "13:45", url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84"},
+    {title: "US affordability tracker: the data that could decide the 2026 midterm elections", source: "Financial Times", date: "2026-10-11", time: "14:39", url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82"},
     {title: "Will September inflation cement US interest rate policy for the rest of the year?", source: "Financial Times", date: "2026-10-11", time: "12:00", url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"},
     {title: "US hits commercial tanker in Gulf of Oman as tensions flare", source: "Financial Times", date: "2026-10-11", time: "06:26", url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"},
-    {title: "Hurricane Isaias kills at least two and disrupts US oil and gas production", source: "Financial Times", date: "2026-10-10", time: "21:26", url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d"},
   ],
   uk: [
+    {title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham", source: "Financial Times", date: "2026-10-11", time: "15:50", url: "https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de"},
     {title: "John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget", source: "Financial Times", date: "2026-10-11", time: "11:38", url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8"},
     {title: "Energy secretary pushes Healey for more Budget support on rising bills", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f"},
     {title: "UK could be fast-tracked back into EU, pro-Brussels group argues", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/3aa9641e-55a6-45fd-bd08-1806306716e9"},
     {title: "Demand for tracker mortgages jumps as rates on fixed deals rise", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b"},
-    {title: "Number of people caught in UK’s £100,000 tax trap doubles in four years", source: "Financial Times", date: "2026-10-09", time: "12:00", url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4"},
   ],
 };
 
@@ -1032,8 +1032,10 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-11",
   items: [
+    {"title":"Ukraine’s allies vow to pressure Moscow as Trump claims ‘energy ceasefire’ in place","source":"Financial Times","date":"2026-10-11","time":"15:59","url":"https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84","blurb":"European and other allies pledge to keep up pressure on Moscow even as Trump says an energy ceasefire is in place after the Trump-Putin diesel deal."},
+    {"title":"Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham","source":"Financial Times","date":"2026-10-11","time":"15:50","url":"https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de","blurb":"Burnham’s claim of Russian interference in the 2016 referendum adds to the UK’s political and Europe debate."},
+    {"title":"US affordability tracker: the data that could decide the 2026 midterm elections","source":"Financial Times","date":"2026-10-11","time":"14:39","url":"https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82","blurb":"FT tracker of the cost-of-living data likely to shape voters’ choices in the US midterms."},
     {"title":"Houthis show military reach with deadly missile strikes on Riyadh","source":"Financial Times","date":"2026-10-11","time":"14:04","url":"https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e","blurb":"Missile strikes on Riyadh underline Houthi reach and add to Gulf energy-supply risk."},
-    {"title":"Ukraine’s allies vow to pressure Moscow after Trump-Putin diesel deal","source":"Financial Times","date":"2026-10-11","time":"13:45","url":"https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84","blurb":"European and other allies pledge to keep pressure on Russia following the US-Russia diesel agreement."},
     {"title":"Will September inflation cement US interest rate policy for the rest of the year?","source":"Financial Times","date":"2026-10-11","time":"12:00","url":"https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4","blurb":"Preview of how September’s US inflation data could shape the Federal Reserve’s path through year-end."},
     {"title":"John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget","source":"Financial Times","date":"2026-10-11","time":"11:38","url":"https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8","blurb":"Healey’s position on the high-value property tax threshold ahead of the UK Budget."},
     {"title":"Europe can fight the ‘China shock’","source":"Financial Times","date":"2026-10-11","time":"12:00","url":"https://www.ft.com/content/eaaf7c65-fc11-41ab-8b83-9a163337fa6b","blurb":"FT commentary on Europe’s response to Chinese export competition."},
@@ -1070,10 +1072,6 @@ export const ARTICLES = {
     {"title": "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", "source": "Financial Times", "date": "2026-10-06", "time": "12:23", "url": "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", "blurb": "The Chancellor gave lenders no tax answers ahead of the Budget."},
     {"title": "Debt in the spotlight as Paramount closes $111bn deal for Warner Bros", "source": "Financial Times", "date": "2026-10-06", "time": "13:52", "url": "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", "blurb": "The completed takeover puts the combined group's borrowing under scrutiny."},
     {"title": "A Top-Heavy Stocks Rally Is Daring Bond Yields to Break It", "source": "Bloomberg", "date": "2026-10-06", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", "blurb": "The greatest risk to the simultaneous rise in tech stocks and long bond yields may be political.", "author": "John Authers"},
-    {"title": "France: between the bond market and the barricades", "source": "Financial Times", "date": "2026-10-06", "time": "05:00", "url": "https://www.ft.com/content/9b252b46-a87c-45e7-a09a-45a39ce077b8", "blurb": "The country is being hit by a pre-election debt sell-off, and many fear it could shake the eurozone.", "author": null},
-    {"title": "Silicon Valley expects AI will kill jobs but economists are not convinced", "source": "Financial Times", "date": "2026-10-06", "time": "05:00", "url": "https://www.ft.com/content/8f783c04-5fc5-43d4-bab2-495ac31806c6", "blurb": "Economists do not see a future without jobs, but they do see scope for rapid, disruptive change in the nature of work.", "author": null},
-    {"title": "Spain’s Sánchez Calls Snap Election After Housing Plan Fails", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/spain-s-sanchez-calls-snap-election-after-housing-plan-fails", "blurb": "Prime Minister Pedro Sánchez calls an early general election for 29 November after Congress rejected his government's housing decrees.", "author": null},
-    {"title": "Euro hits 17-month low as political uncertainty in Spain and France rattles markets", "source": "CNBC", "date": "2026-10-05", "time": "08:00", "url": "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", "blurb": "The euro fell to its weakest against the dollar in 17 months as concerns over Spain and France spilled into wider markets.", "author": null},
   ],
 };
 
