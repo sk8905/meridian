@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "4fcbf57e-c73e-4ced-be4a-5ecc6f4874de",
+    title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham",
+    date: "2026-10-11",
+    time: "15:50",
+    url: "https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de",
+  },
+  {
     id: "71dccbca-4a1f-485a-9790-28cc527cdb82",
     title: "US affordability tracker: the data that could decide the 2026 midterm elections",
     date: "2026-10-11",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "05:00",
     url: "https://www.ft.com/content/910fc2b8-5b6a-425b-856c-589a3fdf1c0e",
-  },
-  {
-    id: "1babfbe0-f50e-4be8-8f2b-d93fdd472f8f",
-    title: "UK universities withdraw offers from international students to avoid blanket ban",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/1babfbe0-f50e-4be8-8f2b-d93fdd472f8f",
   },
 ];
