@@ -106,11 +106,12 @@ export const BRIEFINGS = {
     afternoon: {
       label: "Afternoon",
       date: "2026-10-11",
-      time: "12:15 BST",
-      lede: "The FT previews whether September US inflation will cement Fed policy for the rest of the year, the US hit a commercial tanker in the Gulf of Oman, and Healey ruled out lowering the mansion-tax threshold in the UK Budget.",
+      time: "14:15 BST",
+      lede: "Houthi missile strikes hit Riyadh, Ukraine's allies vowed to pressure Moscow after the Trump-Putin diesel deal, and the FT previews whether September US inflation will cement Fed policy.",
       bullets: [
         { html: "<strong>Macro &mdash; will September inflation cement US interest rate policy for the rest of the year?</strong> The FT previews the data and its implications for the Fed.", src: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Oil &mdash; the US hit a commercial tanker in the Gulf of Oman</strong> as tensions flare.", src: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>Oil &mdash; Houthis showed their military reach with deadly missile strikes on Riyadh</strong>, a Gulf escalation that adds to energy-supply risk alongside the US strike on a tanker in the Gulf of Oman.", src: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>Geopolitics &mdash; Ukraine&rsquo;s allies vowed to pressure Moscow</strong> after the Trump-Putin diesel deal.", src: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>UK &mdash; John Healey ruled out cutting the &lsquo;mansion tax&rsquo; threshold to &pound;1.5mn</strong> in the UK Budget.", src: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>Credit &mdash; Partners Group launched an evergreen multi-sector private credit income strategy</strong> for institutional and private wealth investors, spanning direct lending, credit secondaries, fund financing and royalties.", src: "https://alternativecreditinvestor.com/2026/10/09/partners-group-launches-private-credit-income-fund/", srcName: "Alternative Credit Investor" },
       ],

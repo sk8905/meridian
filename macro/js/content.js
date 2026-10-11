@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-11",
-  lastCheckedTime: "12:15 BST",
+  lastCheckedTime: "14:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-11",
   us: [
+    {title: "Houthis show military reach with deadly missile strikes on Riyadh", source: "Financial Times", date: "2026-10-11", time: "14:04", url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e"},
+    {title: "Ukraine’s allies vow to pressure Moscow after Trump-Putin diesel deal", source: "Financial Times", date: "2026-10-11", time: "13:45", url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84"},
     {title: "Will September inflation cement US interest rate policy for the rest of the year?", source: "Financial Times", date: "2026-10-11", time: "12:00", url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"},
     {title: "US hits commercial tanker in Gulf of Oman as tensions flare", source: "Financial Times", date: "2026-10-11", time: "06:26", url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"},
     {title: "Hurricane Isaias kills at least two and disrupts US oil and gas production", source: "Financial Times", date: "2026-10-10", time: "21:26", url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d"},
-    {title: "Slowing deals are another flashing red sign for equity markets", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782"},
-    {title: "AI borrowing slows as investors grow wary of debt binge", source: "Financial Times", date: "2026-10-10", time: "12:00", url: "https://www.ft.com/content/9c13d40e-d2b2-45d5-921c-a68cd4b308f9"},
   ],
   uk: [
     {title: "John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget", source: "Financial Times", date: "2026-10-11", time: "11:38", url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8"},
@@ -1032,6 +1032,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-11",
   items: [
+    {"title":"Houthis show military reach with deadly missile strikes on Riyadh","source":"Financial Times","date":"2026-10-11","time":"14:04","url":"https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e","blurb":"Missile strikes on Riyadh underline Houthi reach and add to Gulf energy-supply risk."},
+    {"title":"Ukraine’s allies vow to pressure Moscow after Trump-Putin diesel deal","source":"Financial Times","date":"2026-10-11","time":"13:45","url":"https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84","blurb":"European and other allies pledge to keep pressure on Russia following the US-Russia diesel agreement."},
     {"title":"Will September inflation cement US interest rate policy for the rest of the year?","source":"Financial Times","date":"2026-10-11","time":"12:00","url":"https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4","blurb":"Preview of how September’s US inflation data could shape the Federal Reserve’s path through year-end."},
     {"title":"John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget","source":"Financial Times","date":"2026-10-11","time":"11:38","url":"https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8","blurb":"Healey’s position on the high-value property tax threshold ahead of the UK Budget."},
     {"title":"Europe can fight the ‘China shock’","source":"Financial Times","date":"2026-10-11","time":"12:00","url":"https://www.ft.com/content/eaaf7c65-fc11-41ab-8b83-9a163337fa6b","blurb":"FT commentary on Europe’s response to Chinese export competition."},
