@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7553fae9-f65a-4101-be93-cdac921d4c2f",
+    title: "Smelly seaweed and strong peso hurt tourism at Mexico’s beach resorts",
+    date: "2026-10-11",
+    time: "11:00",
+    url: "https://www.ft.com/content/7553fae9-f65a-4101-be93-cdac921d4c2f",
+  },
+  {
     id: "9b30ee59-b542-48b8-85f6-d60dce897342",
     title: "India’s ‘Cockroach’ leaders released as movement calls for more protests",
     date: "2026-10-11",
