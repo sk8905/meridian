@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-11",
-  lastCheckedTime: "16:20 BST",
+  lastCheckedTime: "18:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-11",
   us: [
+    {title: "Oil chiefs pull out of Riyadh energy congress after airport missile strike", source: "Financial Times", date: "2026-10-11", time: "17:05", url: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe"},
     {title: "Ukraine’s allies vow to pressure Moscow as Trump claims ‘energy ceasefire’ in place", source: "Financial Times", date: "2026-10-11", time: "15:59", url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84"},
     {title: "Houthis show military reach with deadly missile strikes on Riyadh", source: "Financial Times", date: "2026-10-11", time: "14:04", url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e"},
     {title: "US affordability tracker: the data that could decide the 2026 midterm elections", source: "Financial Times", date: "2026-10-11", time: "14:39", url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82"},
     {title: "Will September inflation cement US interest rate policy for the rest of the year?", source: "Financial Times", date: "2026-10-11", time: "12:00", url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"},
-    {title: "US hits commercial tanker in Gulf of Oman as tensions flare", source: "Financial Times", date: "2026-10-11", time: "06:26", url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"},
   ],
   uk: [
     {title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham", source: "Financial Times", date: "2026-10-11", time: "15:50", url: "https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de"},
