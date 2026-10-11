@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "eaaf7c65-fc11-41ab-8b83-9a163337fa6b",
+    title: "Europe can fight the ‘China shock’",
+    date: "2026-10-11",
+    time: "12:00",
+    url: "https://www.ft.com/content/eaaf7c65-fc11-41ab-8b83-9a163337fa6b",
+  },
+  {
+    id: "eae9d22f-3722-427f-a33b-aebc58fba2c4",
+    title: "Will September inflation cement US interest rate policy for the rest of the year?",
+    date: "2026-10-11",
+    time: "12:00",
+    url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4",
+  },
+  {
+    id: "ae389f53-ebd4-4188-9b44-266770595158",
+    title: "The collective global duty to safeguard time",
+    date: "2026-10-11",
+    time: "12:00",
+    url: "https://www.ft.com/content/ae389f53-ebd4-4188-9b44-266770595158",
+  },
+  {
+    id: "b1ff2ac0-843d-4b2a-b848-c840a2decfb8",
+    title: "John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget",
+    date: "2026-10-11",
+    time: "11:38",
+    url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8",
+  },
+  {
     id: "7553fae9-f65a-4101-be93-cdac921d4c2f",
     title: "Smelly seaweed and strong peso hurt tourism at Mexico’s beach resorts",
     date: "2026-10-11",
@@ -271,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "05:00",
     url: "https://www.ft.com/content/3e0c76d3-885b-4945-b374-1477f141418c",
-  },
-  {
-    id: "a7532546-d9b2-4889-b2a6-ff68658a1782",
-    title: "Slowing deals are another flashing red sign for equity markets",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782",
-  },
-  {
-    id: "08e41a4a-425b-4fcd-98e6-e2283faed94b",
-    title: "Demand for tracker mortgages jumps as rates on fixed deals rise",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b",
-  },
-  {
-    id: "c518cc4c-a9cb-4b5a-b038-165f3ad92765",
-    title: "Our 1990s nostalgia is far too rose-tinted",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/c518cc4c-a9cb-4b5a-b038-165f3ad92765",
-  },
-  {
-    id: "2b2b4eef-b4b8-4ab0-a997-ee2bf6b96a24",
-    title: "The 79-year-old ski bum",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/2b2b4eef-b4b8-4ab0-a997-ee2bf6b96a24",
-  },
-  {
-    id: "84583bb0-dbd7-4623-851c-1f9381dfe280",
-    title: "Northern Ireland’s Drumcree parade banned",
-    date: "2026-10-10",
-    time: "00:05",
-    url: "https://www.ft.com/content/84583bb0-dbd7-4623-851c-1f9381dfe280",
   },
 ];

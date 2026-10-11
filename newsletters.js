@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-apollo-dailyspark-publicbondmanagersconverging-20261011",
+    publication: "Apollo",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "Public Bond Managers: Converging and Underperforming",
+    date: "2026-10-11",
+    time: "11:46",
+    summary: "The gap between top and bottom public core bond managers has narrowed, with most active Treasury managers underperforming benchmarks.",
+    url: "https://click.e.apollo.com/?qs=ABp7ImQiOjUwMjYsInQiOjM5MzIsInMiOjEyfQAMAAAAAAN0HA5a9sn65HGd5R1z0jHlDL3YLdPvVvd2vB6XHMsit426i_yb79WkDeCiBxrlQtcWGXglWohACN2sC9HEMCEJ56OpTAtq74sApmAU10A",
+  },
+  {
     id: "nl-bbg-thebrink-lawsuitblocksbroadbandma-20261010",
     publication: "Bloomberg",
     author: "Reshmi Basu",
