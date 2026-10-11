@@ -119,8 +119,8 @@ export const BRIEFINGS = {
     },
     evening: {
       label: "Evening",
-      date: "2026-10-11",
-      time: "22:15 BST",
+      date: "2026-10-12",
+      time: "00:15 BST",
       lede: "Oil chiefs pulled out of a Riyadh energy congress after a missile strike at the airport, the US threatens to block arms for Ukraine over refinery attacks, and the US September inflation print looms for Fed policy.",
       bullets: [
         { html: "<strong>Oil &mdash; oil chiefs pulled out of the Riyadh energy congress</strong> after a missile strike at the airport, following the Houthi strikes on the Saudi capital.", src: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe", srcName: "Financial Times", date: "2026-10-11" },

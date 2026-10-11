@@ -21,283 +21,283 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "b00db29e-4334-4e04-8f09-a140aafd4b05",
+    title: "Andy Burnham to step up UK business outreach amid fears of Budget tax rises",
+    date: "2026-10-12",
+    time: "00:01",
+    url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"
+  },
+  {
+    id: "47b02f06-cbfc-49cb-afb8-1ae015399c4e",
+    title: "City of London hits out at Andy Burnham’s plan to scrap non-compete clauses",
+    date: "2026-10-12",
+    time: "00:01",
+    url: "https://www.ft.com/content/47b02f06-cbfc-49cb-afb8-1ae015399c4e"
+  },
+  {
+    id: "dcdc4427-2104-4b6f-91e5-af9d13bb49a1",
+    title: "How to pay for social care",
+    date: "2026-10-12",
+    time: "00:01",
+    url: "https://www.ft.com/content/dcdc4427-2104-4b6f-91e5-af9d13bb49a1"
+  },
+  {
+    id: "619800ae-b2f2-46e3-b34e-23f0525637da",
+    title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns",
+    date: "2026-10-12",
+    time: "00:01",
+    url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"
+  },
+  {
+    id: "7dc561ba-a386-479d-9633-9209b76b1812",
+    title: "FirstFT: India’s ‘Cockroach’ movement vows more protests after release of leaders",
+    date: "2026-10-11",
+    time: "22:22",
+    url: "https://www.ft.com/content/7dc561ba-a386-479d-9633-9209b76b1812"
+  },
+  {
+    id: "debf0be6-d5aa-4ba7-bb66-7daf770d99ff",
+    title: "Trump faces Republican opposition to his diesel deal with Russia’s Putin",
+    date: "2026-10-11",
+    time: "22:17",
+    url: "https://www.ft.com/content/debf0be6-d5aa-4ba7-bb66-7daf770d99ff"
+  },
+  {
     id: "655af6f3-552f-4f51-aa52-02168cdae4fa",
     title: "Raphaël Glucksmann wins nomination for France’s centre-left",
     date: "2026-10-11",
     time: "21:50",
-    url: "https://www.ft.com/content/655af6f3-552f-4f51-aa52-02168cdae4fa",
+    url: "https://www.ft.com/content/655af6f3-552f-4f51-aa52-02168cdae4fa"
   },
   {
     id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
     title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
     date: "2026-10-11",
     time: "21:00",
-    url: "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a",
+    url: "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a"
+  },
+  {
+    id: "f9b9f937-97b0-4a03-90f6-05d7c7344ab9",
+    title: "US hits commercial tanker in Gulf of Oman as tensions flare",
+    date: "2026-10-11",
+    time: "20:53",
+    url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"
+  },
+  {
+    id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
+    title: "US threatens to block arms for Ukraine over attacks on Russian refineries",
+    date: "2026-10-11",
+    time: "19:40",
+    url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031"
   },
   {
     id: "258611cc-d4ec-40f7-9d3e-930991725837",
     title: "VW chief calls for France and Germany to co-operate on China car fightback",
     date: "2026-10-11",
     time: "19:09",
-    url: "https://www.ft.com/content/258611cc-d4ec-40f7-9d3e-930991725837",
+    url: "https://www.ft.com/content/258611cc-d4ec-40f7-9d3e-930991725837"
   },
-   {
-    id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
-    title: "US threatens to block arms for Ukraine over attacks on Russian refineries",
+  {
+    id: "4fcbf57e-c73e-4ced-be4a-5ecc6f4874de",
+    title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham",
     date: "2026-10-11",
-    time: "18:59",
-    url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031",
+    time: "19:01",
+    url: "https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de"
   },
   {
     id: "5b90cdd3-b78b-44ee-8045-8a0602ac0ef4",
     title: "IMF and World Bank to warn central bankers of a gathering storm",
     date: "2026-10-11",
     time: "18:15",
-    url: "https://www.ft.com/content/5b90cdd3-b78b-44ee-8045-8a0602ac0ef4",
+    url: "https://www.ft.com/content/5b90cdd3-b78b-44ee-8045-8a0602ac0ef4"
   },
   {
     id: "445b2856-a276-4d4c-bdea-44799d771c21",
     title: "Can Russia meet Trump’s diesel demands?",
     date: "2026-10-11",
     time: "18:13",
-    url: "https://www.ft.com/content/445b2856-a276-4d4c-bdea-44799d771c21",
+    url: "https://www.ft.com/content/445b2856-a276-4d4c-bdea-44799d771c21"
   },
   {
     id: "a01776ea-4a12-4195-8820-e43a885ba5fe",
     title: "Oil chiefs pull out of Riyadh energy congress after airport missile strike",
     date: "2026-10-11",
-    time: "17:05",
-    url: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe",
+    time: "17:56",
+    url: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe"
+  },
+  {
+    id: "724ef0e2-4d50-49fd-aef8-abc0534f2f84",
+    title: "Ukraine’s allies vow to pressure Moscow as Trump claims ‘energy ceasefire’ in place",
+    date: "2026-10-11",
+    time: "16:46",
+    url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84"
   },
   {
     id: "dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f",
     title: "Democrats need a foreign policy",
     date: "2026-10-11",
     time: "16:13",
-    url: "https://www.ft.com/content/dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f",
-  },
-  {
-    id: "4fcbf57e-c73e-4ced-be4a-5ecc6f4874de",
-    title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham",
-    date: "2026-10-11",
-    time: "15:50",
-    url: "https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de",
+    url: "https://www.ft.com/content/dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f"
   },
   {
     id: "71dccbca-4a1f-485a-9790-28cc527cdb82",
     title: "US affordability tracker: the data that could decide the 2026 midterm elections",
     date: "2026-10-11",
     time: "14:39",
-    url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82",
+    url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82"
+  },
+  {
+    id: "9b30ee59-b542-48b8-85f6-d60dce897342",
+    title: "India’s ‘Cockroach’ movement plans more protests after release of leaders",
+    date: "2026-10-11",
+    time: "14:07",
+    url: "https://www.ft.com/content/9b30ee59-b542-48b8-85f6-d60dce897342"
   },
   {
     id: "bd2c7385-184e-425e-997f-0f5a8c54184e",
     title: "Houthis show military reach with deadly missile strikes on Riyadh",
     date: "2026-10-11",
     time: "14:04",
-    url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e",
-  },
-  {
-    id: "724ef0e2-4d50-49fd-aef8-abc0534f2f84",
-    title: "Ukraine’s allies vow to pressure Moscow after Trump-Putin diesel deal",
-    date: "2026-10-11",
-    time: "13:45",
-    url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84",
+    url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e"
   },
   {
     id: "eaaf7c65-fc11-41ab-8b83-9a163337fa6b",
     title: "Europe can fight the ‘China shock’",
     date: "2026-10-11",
     time: "12:00",
-    url: "https://www.ft.com/content/eaaf7c65-fc11-41ab-8b83-9a163337fa6b",
+    url: "https://www.ft.com/content/eaaf7c65-fc11-41ab-8b83-9a163337fa6b"
   },
   {
     id: "eae9d22f-3722-427f-a33b-aebc58fba2c4",
     title: "Will September inflation cement US interest rate policy for the rest of the year?",
     date: "2026-10-11",
     time: "12:00",
-    url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4",
+    url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"
   },
   {
     id: "ae389f53-ebd4-4188-9b44-266770595158",
     title: "The collective global duty to safeguard time",
     date: "2026-10-11",
     time: "12:00",
-    url: "https://www.ft.com/content/ae389f53-ebd4-4188-9b44-266770595158",
+    url: "https://www.ft.com/content/ae389f53-ebd4-4188-9b44-266770595158"
   },
   {
     id: "b1ff2ac0-843d-4b2a-b848-c840a2decfb8",
     title: "John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget",
     date: "2026-10-11",
     time: "11:38",
-    url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8",
+    url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8"
   },
   {
     id: "7553fae9-f65a-4101-be93-cdac921d4c2f",
     title: "Smelly seaweed and strong peso hurt tourism at Mexico’s beach resorts",
     date: "2026-10-11",
     time: "11:00",
-    url: "https://www.ft.com/content/7553fae9-f65a-4101-be93-cdac921d4c2f",
-  },
-  {
-    id: "9b30ee59-b542-48b8-85f6-d60dce897342",
-    title: "India’s ‘Cockroach’ leaders released as movement calls for more protests",
-    date: "2026-10-11",
-    time: "08:03",
-    url: "https://www.ft.com/content/9b30ee59-b542-48b8-85f6-d60dce897342",
+    url: "https://www.ft.com/content/7553fae9-f65a-4101-be93-cdac921d4c2f"
   },
   {
     id: "3004a030-d64e-4ff7-a70d-ea379b4784af",
     title: "US justice department probes TV networks over Trump pool coverage",
     date: "2026-10-11",
     time: "05:28",
-    url: "https://www.ft.com/content/3004a030-d64e-4ff7-a70d-ea379b4784af",
+    url: "https://www.ft.com/content/3004a030-d64e-4ff7-a70d-ea379b4784af"
   },
   {
     id: "3aa9641e-55a6-45fd-bd08-1806306716e9",
     title: "UK could be fast-tracked back into EU, pro-Brussels group argues",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/3aa9641e-55a6-45fd-bd08-1806306716e9",
+    url: "https://www.ft.com/content/3aa9641e-55a6-45fd-bd08-1806306716e9"
   },
   {
     id: "b42bb760-3eda-430d-adfd-69c359425c1d",
     title: "Private equity can cut ‘best’ deals in current climate, says Permira boss",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/b42bb760-3eda-430d-adfd-69c359425c1d",
+    url: "https://www.ft.com/content/b42bb760-3eda-430d-adfd-69c359425c1d"
   },
   {
     id: "cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f",
     title: "Energy secretary pushes Healey for more Budget support on rising bills",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f",
+    url: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f"
   },
   {
     id: "bad44d91-2324-444c-9070-ea5beb406593",
     title: "JPMorgan bets on European asset management growth",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/bad44d91-2324-444c-9070-ea5beb406593",
+    url: "https://www.ft.com/content/bad44d91-2324-444c-9070-ea5beb406593"
   },
   {
     id: "cdf8f2d0-dcde-42ab-9ec3-fc840b2b5c55",
     title: "The fall of Germany’s ex-spymaster",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/cdf8f2d0-dcde-42ab-9ec3-fc840b2b5c55",
+    url: "https://www.ft.com/content/cdf8f2d0-dcde-42ab-9ec3-fc840b2b5c55"
   },
   {
     id: "5da2dd05-9583-4a75-b018-2c5024383ec4",
     title: "Russia steps up bid to kill European defence chiefs, spy agencies warn",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/5da2dd05-9583-4a75-b018-2c5024383ec4",
+    url: "https://www.ft.com/content/5da2dd05-9583-4a75-b018-2c5024383ec4"
   },
   {
     id: "a0ffc43a-231a-40aa-b5f9-521757830087",
     title: "China’s growing debt burden limits space for economic stimulus",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/a0ffc43a-231a-40aa-b5f9-521757830087",
+    url: "https://www.ft.com/content/a0ffc43a-231a-40aa-b5f9-521757830087"
   },
   {
     id: "b9822f5d-260a-4db0-8ab1-7551c5907a49",
     title: "Heart disease patients treated at home under new NHS scheme",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/b9822f5d-260a-4db0-8ab1-7551c5907a49",
+    url: "https://www.ft.com/content/b9822f5d-260a-4db0-8ab1-7551c5907a49"
   },
   {
     id: "1ef0813e-843a-477b-bca8-457afba61ed4",
     title: "Why are our children not flourishing at school?",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/1ef0813e-843a-477b-bca8-457afba61ed4",
+    url: "https://www.ft.com/content/1ef0813e-843a-477b-bca8-457afba61ed4"
   },
   {
     id: "eee10b3e-5a61-4e75-bc7e-c815dab30dd6",
     title: "Inside KKR’s €22bn bet on Italy’s telecoms network",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/eee10b3e-5a61-4e75-bc7e-c815dab30dd6",
+    url: "https://www.ft.com/content/eee10b3e-5a61-4e75-bc7e-c815dab30dd6"
   },
   {
     id: "f6d29414-412d-4422-a5f4-cb3338f73d3a",
     title: "Trump is failing to arrest decline in popularity, FT poll shows",
     date: "2026-10-11",
     time: "05:00",
-    url: "https://www.ft.com/content/f6d29414-412d-4422-a5f4-cb3338f73d3a",
+    url: "https://www.ft.com/content/f6d29414-412d-4422-a5f4-cb3338f73d3a"
   },
   {
     id: "09cde3c2-26d3-4390-8fc0-f6292561a5bf",
     title: "Global private equity fuels Indian healthcare’s push into smaller cities",
     date: "2026-10-11",
     time: "04:02",
-    url: "https://www.ft.com/content/09cde3c2-26d3-4390-8fc0-f6292561a5bf",
-  },
-  {
-    id: "f9b9f937-97b0-4a03-90f6-05d7c7344ab9",
-    title: "US hits commercial tanker in Gulf of Oman as tensions flare",
-    date: "2026-10-11",
-    time: "03:45",
-    url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9",
+    url: "https://www.ft.com/content/09cde3c2-26d3-4390-8fc0-f6292561a5bf"
   },
   {
     id: "ff4ec1b7-1ccf-4aa2-8ca0-8faa3bfa0c6e",
     title: "The prisoners of war at the heart of Korean-Ukrainian tensions",
     date: "2026-10-11",
     time: "03:01",
-    url: "https://www.ft.com/content/ff4ec1b7-1ccf-4aa2-8ca0-8faa3bfa0c6e",
+    url: "https://www.ft.com/content/ff4ec1b7-1ccf-4aa2-8ca0-8faa3bfa0c6e"
   },
   {
     id: "f7d90625-0d78-44b2-927f-d63f4dbc5e8d",
     title: "Hurricane Isaias kills at least two and disrupts US oil and gas production",
     date: "2026-10-10",
     time: "21:26",
-    url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d",
-  },
-  {
-    id: "391ddf3f-b233-41fd-819b-fcdbfb0ed010",
-    title: "Riyadh airport suspends operations after missile strike injures dozens",
-    date: "2026-10-10",
-    time: "19:28",
-    url: "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010",
-  },
-  {
-    id: "052610c5-22b4-4dd4-932e-b7f9f0628b6a",
-    title: "Nvidia in talks to acquire US ‘open’ model start-up Reflection AI",
-    date: "2026-10-10",
-    time: "19:14",
-    url: "https://www.ft.com/content/052610c5-22b4-4dd4-932e-b7f9f0628b6a",
-  },
-  {
-    id: "0923247c-298b-4536-8bef-e7e0cfd5f0d4",
-    title: "Taxpayer-funded Trump TV ads continue despite pledge to use private money",
-    date: "2026-10-10",
-    time: "13:00",
-    url: "https://www.ft.com/content/0923247c-298b-4536-8bef-e7e0cfd5f0d4",
-  },
-  {
-    id: "b373cf00-9a94-4dc7-bdda-bc7006da1148",
-    title: "India’s central bank tries to shore up rupee as it nears record lows",
-    date: "2026-10-10",
-    time: "12:57",
-    url: "https://www.ft.com/content/b373cf00-9a94-4dc7-bdda-bc7006da1148",
-  },
-  {
-    id: "7fd4dffc-8adf-4ad8-9fba-333e1ced991d",
-    title: "US warns Kyiv that strikes on Russia jeopardise intelligence-sharing",
-    date: "2026-10-10",
-    time: "12:29",
-    url: "https://www.ft.com/content/7fd4dffc-8adf-4ad8-9fba-333e1ced991d",
-  },
-  {
-    id: "9c13d40e-d2b2-45d5-921c-a68cd4b308f9",
-    title: "AI borrowing slows as investors grow wary of debt binge",
-    date: "2026-10-10",
-    time: "12:00",
-    url: "https://www.ft.com/content/9c13d40e-d2b2-45d5-921c-a68cd4b308f9",
-  },
+    url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d"
+  }
 ];
