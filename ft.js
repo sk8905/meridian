@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "3004a030-d64e-4ff7-a70d-ea379b4784af",
+    title: "US justice department probes TV networks over Trump pool coverage",
+    date: "2026-10-11",
+    time: "05:28",
+    url: "https://www.ft.com/content/3004a030-d64e-4ff7-a70d-ea379b4784af",
+  },
+  {
     id: "3aa9641e-55a6-45fd-bd08-1806306716e9",
     title: "UK could be fast-tracked back into EU, pro-Brussels group argues",
     date: "2026-10-11",
@@ -117,6 +124,13 @@ export const FT_ITEMS = [
     date: "2026-10-11",
     time: "03:01",
     url: "https://www.ft.com/content/ff4ec1b7-1ccf-4aa2-8ca0-8faa3bfa0c6e",
+  },
+  {
+    id: "f7d90625-0d78-44b2-927f-d63f4dbc5e8d",
+    title: "Hurricane Isaias kills at least two and disrupts US oil and gas production",
+    date: "2026-10-10",
+    time: "21:26",
+    url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d",
   },
   {
     id: "391ddf3f-b233-41fd-819b-fcdbfb0ed010",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-09",
     time: "23:18",
     url: "https://www.ft.com/content/c3d9f370-153e-4846-aded-fbb7d200b365",
-  },
-  {
-    id: "84ca76fd-0eed-4fb6-aea4-f72638a9d9c8",
-    title: "Trump agrees deal with Putin for Russia to release diesel on to global market",
-    date: "2026-10-09",
-    time: "23:06",
-    url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8",
-  },
-  {
-    id: "58e684a0-b8ed-4d7a-a2d6-6bf739cb2fa2",
-    title: "Why OpenAI’s revenue numbers really matter",
-    date: "2026-10-09",
-    time: "22:48",
-    url: "https://www.ft.com/content/58e684a0-b8ed-4d7a-a2d6-6bf739cb2fa2",
   },
 ];
