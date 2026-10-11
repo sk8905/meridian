@@ -20,6 +20,27 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+   {
+    id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
+    title: "US threatens to block arms for Ukraine over attacks on Russian refineries",
+    date: "2026-10-11",
+    time: "18:59",
+    url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031",
+  },
+  {
+    id: "5b90cdd3-b78b-44ee-8045-8a0602ac0ef4",
+    title: "IMF and World Bank to warn central bankers of a gathering storm",
+    date: "2026-10-11",
+    time: "18:15",
+    url: "https://www.ft.com/content/5b90cdd3-b78b-44ee-8045-8a0602ac0ef4",
+  },
+  {
+    id: "445b2856-a276-4d4c-bdea-44799d771c21",
+    title: "Can Russia meet Trump’s diesel demands?",
+    date: "2026-10-11",
+    time: "18:13",
+    url: "https://www.ft.com/content/445b2856-a276-4d4c-bdea-44799d771c21",
+  },
   {
     id: "a01776ea-4a12-4195-8820-e43a885ba5fe",
     title: "Oil chiefs pull out of Riyadh energy congress after airport missile strike",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "10:28",
     url: "https://www.ft.com/content/a96adda5-89fb-4f8b-96c4-96c171489a40",
-  },
-  {
-    id: "407fa757-cc77-49c0-871a-5140dd3a9a80",
-    title: "Police arrest leader of India’s ‘Cockroach’ movement before mass protest",
-    date: "2026-10-10",
-    time: "09:35",
-    url: "https://www.ft.com/content/407fa757-cc77-49c0-871a-5140dd3a9a80",
-  },
-  {
-    id: "d6c7a14d-c05e-43b6-9eab-5fcdb067c2c8",
-    title: "Reality bites for the Gulf and sport",
-    date: "2026-10-10",
-    time: "09:00",
-    url: "https://www.ft.com/content/d6c7a14d-c05e-43b6-9eab-5fcdb067c2c8",
-  },
-  {
-    id: "3f54c442-c2b7-4876-a960-5229951c9a46",
-    title: "The world of one trade — AI",
-    date: "2026-10-10",
-    time: "07:36",
-    url: "https://www.ft.com/content/3f54c442-c2b7-4876-a960-5229951c9a46",
   },
 ];
