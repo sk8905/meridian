@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "a01776ea-4a12-4195-8820-e43a885ba5fe",
+    title: "Oil chiefs pull out of Riyadh energy congress after airport missile strike",
+    date: "2026-10-11",
+    time: "17:05",
+    url: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe",
+  },
+  {
+    id: "dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f",
+    title: "Democrats need a foreign policy",
+    date: "2026-10-11",
+    time: "16:13",
+    url: "https://www.ft.com/content/dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f",
+  },
+  {
     id: "4fcbf57e-c73e-4ced-be4a-5ecc6f4874de",
     title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham",
     date: "2026-10-11",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "07:36",
     url: "https://www.ft.com/content/3f54c442-c2b7-4876-a960-5229951c9a46",
-  },
-  {
-    id: "767e9e15-1afd-447e-9e37-ed9390e0890f",
-    title: "Pink Snow 2026: a winter sports special",
-    date: "2026-10-10",
-    time: "05:02",
-    url: "https://www.ft.com/content/767e9e15-1afd-447e-9e37-ed9390e0890f",
-  },
-  {
-    id: "910fc2b8-5b6a-425b-856c-589a3fdf1c0e",
-    title: "The tax pitfalls of moving abroad",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/910fc2b8-5b6a-425b-856c-589a3fdf1c0e",
   },
 ];
