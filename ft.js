@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "71dccbca-4a1f-485a-9790-28cc527cdb82",
+    title: "US affordability tracker: the data that could decide the 2026 midterm elections",
+    date: "2026-10-11",
+    time: "14:39",
+    url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82",
+  },
+  {
     id: "bd2c7385-184e-425e-997f-0f5a8c54184e",
     title: "Houthis show military reach with deadly missile strikes on Riyadh",
     date: "2026-10-11",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "05:00",
     url: "https://www.ft.com/content/1babfbe0-f50e-4be8-8f2b-d93fdd472f8f",
-  },
-  {
-    id: "59ce3c26-55d2-4b54-bf00-34104ed67be7",
-    title: "The narrow Tory path to power",
-    date: "2026-10-10",
-    time: "05:00",
-    url: "https://www.ft.com/content/59ce3c26-55d2-4b54-bf00-34104ed67be7",
   },
 ];
