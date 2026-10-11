@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "655af6f3-552f-4f51-aa52-02168cdae4fa",
+    title: "Raphaël Glucksmann wins nomination for France’s centre-left",
+    date: "2026-10-11",
+    time: "21:50",
+    url: "https://www.ft.com/content/655af6f3-552f-4f51-aa52-02168cdae4fa",
+  },
+  {
     id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
     title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
     date: "2026-10-11",
@@ -292,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "12:00",
     url: "https://www.ft.com/content/9c13d40e-d2b2-45d5-921c-a68cd4b308f9",
-  },
-  {
-    id: "e3945b16-13f0-4640-882d-fafaca9d25e9",
-    title: "Nixonmaxxing: the strange revival of America’s disgraced president",
-    date: "2026-10-10",
-    time: "11:00",
-    url: "https://www.ft.com/content/e3945b16-13f0-4640-882d-fafaca9d25e9",
-  },
-  {
-    id: "abaab361-8714-422f-b2eb-9eb447e4d8c3",
-    title: "Chart of the Week: The US productivity-pay gap",
-    date: "2026-10-10",
-    time: "10:30",
-    url: "https://www.ft.com/content/abaab361-8714-422f-b2eb-9eb447e4d8c3",
   },
 ];

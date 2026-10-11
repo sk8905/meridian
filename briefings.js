@@ -120,11 +120,11 @@ export const BRIEFINGS = {
     evening: {
       label: "Evening",
       date: "2026-10-11",
-      time: "20:10 BST",
-      lede: "Oil chiefs pulled out of a Riyadh energy congress after a missile strike at the airport, Trump claims an energy ceasefire as Ukraine's allies vow to pressure Moscow, and the US September inflation print looms for Fed policy.",
+      time: "22:15 BST",
+      lede: "Oil chiefs pulled out of a Riyadh energy congress after a missile strike at the airport, the US threatens to block arms for Ukraine over refinery attacks, and the US September inflation print looms for Fed policy.",
       bullets: [
         { html: "<strong>Oil &mdash; oil chiefs pulled out of the Riyadh energy congress</strong> after a missile strike at the airport, following the Houthi strikes on the Saudi capital.", src: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Geopolitics &mdash; Ukraine&rsquo;s allies vowed to pressure Moscow</strong> as Trump claimed an &lsquo;energy ceasefire&rsquo; is in place.", src: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>Geopolitics &mdash; the US threatened to block arms for Ukraine</strong> over its attacks on Russian refineries, even as Trump claimed an &lsquo;energy ceasefire&rsquo; is in place.", src: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>Macro &mdash; will September inflation cement US interest rate policy for the rest of the year?</strong> The FT previews the data and its implications for the Fed.", src: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>UK &mdash; John Healey ruled out cutting the &lsquo;mansion tax&rsquo; threshold to &pound;1.5mn</strong> in the UK Budget.", src: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8", srcName: "Financial Times", date: "2026-10-11" },
       ],
