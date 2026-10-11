@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  {
+    id: "258611cc-d4ec-40f7-9d3e-930991725837",
+    title: "VW chief calls for France and Germany to co-operate on China car fightback",
+    date: "2026-10-11",
+    time: "19:09",
+    url: "https://www.ft.com/content/258611cc-d4ec-40f7-9d3e-930991725837",
+  },
    {
     id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
     title: "US threatens to block arms for Ukraine over attacks on Russian refineries",
