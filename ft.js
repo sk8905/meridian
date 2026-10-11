@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9b30ee59-b542-48b8-85f6-d60dce897342",
+    title: "India’s ‘Cockroach’ leaders released as movement calls for more protests",
+    date: "2026-10-11",
+    time: "08:03",
+    url: "https://www.ft.com/content/9b30ee59-b542-48b8-85f6-d60dce897342",
+  },
+  {
     id: "3004a030-d64e-4ff7-a70d-ea379b4784af",
     title: "US justice department probes TV networks over Trump pool coverage",
     date: "2026-10-11",
