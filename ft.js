@@ -300,11 +300,4 @@ export const FT_ITEMS = [
     time: "00:05",
     url: "https://www.ft.com/content/84583bb0-dbd7-4623-851c-1f9381dfe280",
   },
-  {
-    id: "c3d9f370-153e-4846-aded-fbb7d200b365",
-    title: "JD Vance says he will not watch Pentagon’s livestreamed execution",
-    date: "2026-10-09",
-    time: "23:18",
-    url: "https://www.ft.com/content/c3d9f370-153e-4846-aded-fbb7d200b365",
-  },
 ];

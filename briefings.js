@@ -93,13 +93,13 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-11",
-      time: "05:10 BST",
-      lede: "China's debt load is narrowing its room for stimulus while Europe's security services warn of a stepped-up Russian threat, and private-markets and asset-management dealmaking stays in focus.",
+      time: "08:15 BST",
+      lede: "US forces hit a commercial tanker in the Gulf of Oman as tensions flare, China's debt load narrows its room for stimulus, and UK ministers press the Chancellor for Budget support on rising energy bills.",
       bullets: [
+        { html: "<strong>Oil &mdash; the US hit a commercial tanker in the Gulf of Oman</strong> as tensions flare.", src: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>Macro &mdash; China&rsquo;s growing debt burden limits space for economic stimulus</strong>, constraining Beijing&rsquo;s policy options.", src: "https://www.ft.com/content/a0ffc43a-231a-40aa-b5f9-521757830087", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>Geopolitics &mdash; Russia is stepping up its bid to kill European defence chiefs</strong>, spy agencies warn.", src: "https://www.ft.com/content/5da2dd05-9583-4a75-b018-2c5024383ec4", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>Private markets &mdash; Permira&rsquo;s boss says private equity can cut the &lsquo;best&rsquo; deals in the current climate</strong>.", src: "https://www.ft.com/content/b42bb760-3eda-430d-adfd-69c359425c1d", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Asset management &mdash; JPMorgan is betting on European asset-management growth</strong>.", src: "https://www.ft.com/content/bad44d91-2324-444c-9070-ea5beb406593", srcName: "Financial Times", date: "2026-10-11" },
         { html: "<strong>UK &mdash; the energy secretary is pushing Healey for more Budget support on rising bills</strong>.", src: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f", srcName: "Financial Times", date: "2026-10-11" },
       ],
     },

@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-11",
-  lastCheckedTime: "05:10 BST",
+  lastCheckedTime: "08:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,20 +1004,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-10",
+  updated: "2026-10-11",
   us: [
+    {title: "US hits commercial tanker in Gulf of Oman as tensions flare", source: "Financial Times", date: "2026-10-11", time: "06:26", url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"},
+    {title: "Hurricane Isaias kills at least two and disrupts US oil and gas production", source: "Financial Times", date: "2026-10-10", time: "21:26", url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d"},
     {title: "Slowing deals are another flashing red sign for equity markets", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782"},
-    {title: "Trump agrees deal with Putin for Russia to release diesel on to global market", source: "Financial Times", date: "2026-10-09", time: "20:01", url: "https://www.ft.com/content/84ca76fd-0eed-4fb6-aea4-f72638a9d9c8"},
     {title: "AI borrowing slows as investors grow wary of debt binge", source: "Financial Times", date: "2026-10-10", time: "12:00", url: "https://www.ft.com/content/9c13d40e-d2b2-45d5-921c-a68cd4b308f9"},
     {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
-    {title: "Oil and gas production disrupted as Hurricane Isaias hits US", source: "Financial Times", date: "2026-10-10", time: "11:58", url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d"},
   ],
   uk: [
+    {title: "Energy secretary pushes Healey for more Budget support on rising bills", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f"},
+    {title: "UK could be fast-tracked back into EU, pro-Brussels group argues", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/3aa9641e-55a6-45fd-bd08-1806306716e9"},
     {title: "Demand for tracker mortgages jumps as rates on fixed deals rise", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b"},
     {title: "Number of people caught in UK’s £100,000 tax trap doubles in four years", source: "Financial Times", date: "2026-10-09", time: "12:00", url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4"},
     {title: "Drop in fiscal headroom better option than Budget tax rises, says Jim O’Neill", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612"},
-    {title: "Andy Burnham heads to Berlin in bid to win support from Friedrich Merz for closer EU ties", source: "Financial Times", date: "2026-10-08", time: "08:09", url: "https://www.ft.com/content/3d482d55-dc7d-44d9-9ad3-a374e6d5e97d"},
-    {title: "Higher mortgage rates inflict ‘pain’ on UK housing market", source: "Financial Times", date: "2026-10-08", time: "01:01", url: "https://www.ft.com/content/8d1cb8e2-ed48-4d7c-ac19-2693973894b4"},
   ],
 };
 
@@ -1030,8 +1030,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-10",
+  updated: "2026-10-11",
   items: [
+    {"title":"China’s growing debt burden limits space for economic stimulus","source":"Financial Times","date":"2026-10-11","time":"05:00","url":"https://www.ft.com/content/a0ffc43a-231a-40aa-b5f9-521757830087","blurb":"Beijing’s rising debt load narrows its room for economic stimulus."},
+    {"title":"US hits commercial tanker in Gulf of Oman as tensions flare","source":"Financial Times","date":"2026-10-11","time":"06:26","url":"https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9","blurb":"Gulf tensions flare again, keeping the oil-supply risk premium in focus."},
+    {"title":"Energy secretary pushes Healey for more Budget support on rising bills","source":"Financial Times","date":"2026-10-11","time":"05:00","url":"https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f","blurb":"Rising household energy bills add to pressure on the Chancellor ahead of the 28 October Budget."},
     {"title": "Slowing deals are another flashing red sign for equity markets", "source": "Financial Times", "date": "2026-10-10", "time": "05:00", "url": "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782", "blurb": "A slowdown in dealmaking adds to warning signals for stock markets."},
     {"title": "Demand for tracker mortgages jumps as rates on fixed deals rise", "source": "Financial Times", "date": "2026-10-10", "time": "05:00", "url": "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b", "blurb": "Borrowers turn to trackers as fixed-rate mortgage pricing climbs."},
     {"title": "Russia targets Ukraine’s bridges as Vladimir Putin expands air war", "source": "Financial Times", "date": "2026-10-10", "time": "05:00", "url": "https://www.ft.com/content/4e4ea744-6603-499b-baf7-83c74e4dc53e", "blurb": "Moscow widens its air campaign against Ukrainian infrastructure."},
@@ -1069,9 +1072,6 @@ export const ARTICLES = {
     {"title": "Schneider Electric to Acquire PTC for More Than $20 Billion", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion", "blurb": "Schneider agrees an all-cash deal for US engineering-software group PTC at $205 per share, an implied enterprise value of $23.7bn.", "author": null},
     {"title": "BT Buys TalkTalk to Save UK Broadband Provider From Collapse", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse", "blurb": "BT acquires TalkTalk's consumer broadband business and PXC wholesale arm out of administration.", "author": null},
     {"title": "Stock futures are flat as investors grapple with higher yields, await Fed minutes: Live updates", "source": "CNBC", "date": "2026-10-04", "time": "20:00", "url": "https://www.cnbc.com/2026/10/04/stock-market-today-live-updates.html", "blurb": "US stock futures were flat on Sunday evening as investors weighed elevated Treasury yields ahead of the Fed minutes.", "author": null},
-    {"title": "Global pension funds cut US equities over AI concentration risk", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad", "blurb": "Pension funds trim US equity exposure over concentration in AI-linked mega-caps."},
-    {"title": "Why a booming economy is not helping Trump", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/8f4525eb-ce7c-4323-9dda-698aa1e8521a", "blurb": "FT on the disconnect between strong US growth and the president's standing."},
-    {"title": "Banks will lobby Healey for capital rules cut, says senior MP", "source": "Financial Times", "date": "2026-10-05", "time": "05:00", "url": "https://www.ft.com/content/6296da53-a9e3-4441-ae6d-f579b3c1b414", "blurb": "UK lenders are expected to press the Chancellor to ease capital requirements ahead of the Budget."},
   ],
 };
 
