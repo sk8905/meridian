@@ -93,7 +93,7 @@ export const BRIEFINGS = {
     morning: {
       label: "Morning",
       date: "2026-10-11",
-      time: "08:15 BST",
+      time: "10:15 BST",
       lede: "US forces hit a commercial tanker in the Gulf of Oman as tensions flare, China's debt load narrows its room for stimulus, and UK ministers press the Chancellor for Budget support on rising energy bills.",
       bullets: [
         { html: "<strong>Oil &mdash; the US hit a commercial tanker in the Gulf of Oman</strong> as tensions flare.", src: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9", srcName: "Financial Times", date: "2026-10-11" },
