@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
+    title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
+    date: "2026-10-11",
+    time: "21:00",
+    url: "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a",
+  },
+  {
     id: "258611cc-d4ec-40f7-9d3e-930991725837",
     title: "VW chief calls for France and Germany to co-operate on China car fightback",
     date: "2026-10-11",
@@ -299,12 +306,5 @@ export const FT_ITEMS = [
     date: "2026-10-10",
     time: "10:30",
     url: "https://www.ft.com/content/abaab361-8714-422f-b2eb-9eb447e4d8c3",
-  },
-  {
-    id: "a96adda5-89fb-4f8b-96c4-96c171489a40",
-    title: "EU joint budget proposal slashed in race to find end-year agreement",
-    date: "2026-10-10",
-    time: "10:28",
-    url: "https://www.ft.com/content/a96adda5-89fb-4f8b-96c4-96c171489a40",
   },
 ];
