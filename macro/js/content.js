@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-11",
-  lastCheckedTime: "10:15 BST",
+  lastCheckedTime: "12:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,18 +1006,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-11",
   us: [
+    {title: "Will September inflation cement US interest rate policy for the rest of the year?", source: "Financial Times", date: "2026-10-11", time: "12:00", url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"},
     {title: "US hits commercial tanker in Gulf of Oman as tensions flare", source: "Financial Times", date: "2026-10-11", time: "06:26", url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"},
     {title: "Hurricane Isaias kills at least two and disrupts US oil and gas production", source: "Financial Times", date: "2026-10-10", time: "21:26", url: "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d"},
     {title: "Slowing deals are another flashing red sign for equity markets", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782"},
     {title: "AI borrowing slows as investors grow wary of debt binge", source: "Financial Times", date: "2026-10-10", time: "12:00", url: "https://www.ft.com/content/9c13d40e-d2b2-45d5-921c-a68cd4b308f9"},
-    {title: "US 10-year Treasury yields risk hitting 6% for first time since 2000, Pimco says", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0"},
   ],
   uk: [
+    {title: "John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget", source: "Financial Times", date: "2026-10-11", time: "11:38", url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8"},
     {title: "Energy secretary pushes Healey for more Budget support on rising bills", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f"},
     {title: "UK could be fast-tracked back into EU, pro-Brussels group argues", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/3aa9641e-55a6-45fd-bd08-1806306716e9"},
     {title: "Demand for tracker mortgages jumps as rates on fixed deals rise", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b"},
     {title: "Number of people caught in UK’s £100,000 tax trap doubles in four years", source: "Financial Times", date: "2026-10-09", time: "12:00", url: "https://www.ft.com/content/baa39f13-36d8-4fb5-8bbc-a67249c900d4"},
-    {title: "Drop in fiscal headroom better option than Budget tax rises, says Jim O’Neill", source: "Financial Times", date: "2026-10-09", time: "05:00", url: "https://www.ft.com/content/6cc1fe34-7235-424c-a80a-407fe9c13612"},
   ],
 };
 
@@ -1032,6 +1032,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-11",
   items: [
+    {"title":"Will September inflation cement US interest rate policy for the rest of the year?","source":"Financial Times","date":"2026-10-11","time":"12:00","url":"https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4","blurb":"Preview of how September’s US inflation data could shape the Federal Reserve’s path through year-end."},
+    {"title":"John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget","source":"Financial Times","date":"2026-10-11","time":"11:38","url":"https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8","blurb":"Healey’s position on the high-value property tax threshold ahead of the UK Budget."},
+    {"title":"Europe can fight the ‘China shock’","source":"Financial Times","date":"2026-10-11","time":"12:00","url":"https://www.ft.com/content/eaaf7c65-fc11-41ab-8b83-9a163337fa6b","blurb":"FT commentary on Europe’s response to Chinese export competition."},
     {"title":"China’s growing debt burden limits space for economic stimulus","source":"Financial Times","date":"2026-10-11","time":"05:00","url":"https://www.ft.com/content/a0ffc43a-231a-40aa-b5f9-521757830087","blurb":"Beijing’s rising debt load narrows its room for economic stimulus."},
     {"title":"US hits commercial tanker in Gulf of Oman as tensions flare","source":"Financial Times","date":"2026-10-11","time":"06:26","url":"https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9","blurb":"Gulf tensions flare again, keeping the oil-supply risk premium in focus."},
     {"title":"Energy secretary pushes Healey for more Budget support on rising bills","source":"Financial Times","date":"2026-10-11","time":"05:00","url":"https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f","blurb":"Rising household energy bills add to pressure on the Chancellor ahead of the 28 October Budget."},
@@ -1069,9 +1072,6 @@ export const ARTICLES = {
     {"title": "Silicon Valley expects AI will kill jobs but economists are not convinced", "source": "Financial Times", "date": "2026-10-06", "time": "05:00", "url": "https://www.ft.com/content/8f783c04-5fc5-43d4-bab2-495ac31806c6", "blurb": "Economists do not see a future without jobs, but they do see scope for rapid, disruptive change in the nature of work.", "author": null},
     {"title": "Spain’s Sánchez Calls Snap Election After Housing Plan Fails", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/spain-s-sanchez-calls-snap-election-after-housing-plan-fails", "blurb": "Prime Minister Pedro Sánchez calls an early general election for 29 November after Congress rejected his government's housing decrees.", "author": null},
     {"title": "Euro hits 17-month low as political uncertainty in Spain and France rattles markets", "source": "CNBC", "date": "2026-10-05", "time": "08:00", "url": "https://www.cnbc.com/2026/10/05/euro-dollar-spain-france-risk.html", "blurb": "The euro fell to its weakest against the dollar in 17 months as concerns over Spain and France spilled into wider markets.", "author": null},
-    {"title": "Schneider Electric to Acquire PTC for More Than $20 Billion", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion", "blurb": "Schneider agrees an all-cash deal for US engineering-software group PTC at $205 per share, an implied enterprise value of $23.7bn.", "author": null},
-    {"title": "BT Buys TalkTalk to Save UK Broadband Provider From Collapse", "source": "Bloomberg", "date": "2026-10-05", "time": "08:00", "url": "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse", "blurb": "BT acquires TalkTalk's consumer broadband business and PXC wholesale arm out of administration.", "author": null},
-    {"title": "Stock futures are flat as investors grapple with higher yields, await Fed minutes: Live updates", "source": "CNBC", "date": "2026-10-04", "time": "20:00", "url": "https://www.cnbc.com/2026/10/04/stock-market-today-live-updates.html", "blurb": "US stock futures were flat on Sunday evening as investors weighed elevated Treasury yields ahead of the Fed minutes.", "author": null},
   ],
 };
 
