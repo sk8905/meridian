@@ -92,14 +92,15 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-10",
-      time: "10:10 BST",
-      lede: "Slowing dealmaking added to equity-market warning signs, UK tracker-mortgage demand jumped as fixed rates rose, and Pimco's call that the US 10-year yield could reach 6% kept bond markets on edge.",
+      date: "2026-10-11",
+      time: "05:10 BST",
+      lede: "China's debt load is narrowing its room for stimulus while Europe's security services warn of a stepped-up Russian threat, and private-markets and asset-management dealmaking stays in focus.",
       bullets: [
-        { html: "<strong>Macro &mdash; demand for UK tracker mortgages has jumped</strong> as rates on fixed-rate deals rise, the latest sign of higher borrowing costs feeding through to households.", src: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b", srcName: "Financial Times", date: "2026-10-10" },
-        { html: "<strong>Bonds &mdash; Pimco says the US 10-year Treasury yield risks hitting 6%</strong> for the first time since 2000, warning a further sharp rise in borrowing costs is &lsquo;feasible&rsquo; as market participants unwind losing bets.", src: "https://www.ft.com/content/a752a86c-cf05-4152-b842-2ae6b6bf3fe0", srcName: "Financial Times", date: "2026-10-09" },
-        { html: "<strong>Equities &mdash; slowing deal activity is another flashing red sign for equity markets</strong>, adding to a cluster of warning signals for stocks.", src: "https://www.ft.com/content/a7532546-d9b2-4889-b2a6-ff68658a1782", srcName: "Financial Times", date: "2026-10-10" },
-        { html: "<strong>Credit &mdash; the cost of credit-default swaps for AI companies looking to borrow is climbing</strong>, among a cluster of market-stress signals pointing to trouble ahead for leveraged tech credit.", src: "https://www.ft.com/content/7acb5862-cde5-49b4-a5f1-5f6e6977a9c7", srcName: "Financial Times", date: "2026-10-09" },
+        { html: "<strong>Macro &mdash; China&rsquo;s growing debt burden limits space for economic stimulus</strong>, constraining Beijing&rsquo;s policy options.", src: "https://www.ft.com/content/a0ffc43a-231a-40aa-b5f9-521757830087", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>Geopolitics &mdash; Russia is stepping up its bid to kill European defence chiefs</strong>, spy agencies warn.", src: "https://www.ft.com/content/5da2dd05-9583-4a75-b018-2c5024383ec4", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>Private markets &mdash; Permira&rsquo;s boss says private equity can cut the &lsquo;best&rsquo; deals in the current climate</strong>.", src: "https://www.ft.com/content/b42bb760-3eda-430d-adfd-69c359425c1d", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>Asset management &mdash; JPMorgan is betting on European asset-management growth</strong>.", src: "https://www.ft.com/content/bad44d91-2324-444c-9070-ea5beb406593", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>UK &mdash; the energy secretary is pushing Healey for more Budget support on rising bills</strong>.", src: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f", srcName: "Financial Times", date: "2026-10-11" },
       ],
     },
     afternoon: {
