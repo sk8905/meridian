@@ -67,6 +67,19 @@ export const PUBLISHERS = {
   // "blackrock.com": "BlackRock Investment Institute",
 };
 
+// isResearchPublication — the canonical test for "this house belongs in the Research
+// lane, not Newsletters." A sell-side bank, asset manager, rating agency or markets-
+// intelligence house, matched on the item's `publication` name (NOT its title, so a
+// Bloomberg piece that merely mentions Goldman stays a newsletter). The feed engine
+// (v2/js/home/glance.js) uses this to RECLASSIFY any research-house note that the
+// Gmail sweep misfiled into newsletters.js back into Research — a runtime safety net
+// so a routing slip can never again show house research under "Newsletters". Keep this
+// list in step with the PUBLISHERS map above (same houses, by display-name pattern).
+const RESEARCH_PUBLISHER_RE = /\b(?:apollo|goldman\s+sachs|guggenheim|fitch|moody'?s|s&p\s+global|morgan\s+stanley|jp\.?\s*morgan|jpmorgan|pimco|blackrock|preqin|ubs|with\s+intelligence|oaktree|aqr)\b/i;
+export function isResearchPublication(name) {
+  return RESEARCH_PUBLISHER_RE.test(String(name || ""));
+}
+
 // RESEARCH — the swept research notes, newest first. Regenerated on each refresh
 // from the Gmail sweep above; starts empty and fills as the reader signs up to and
 // forwards research emails. Item shape mirrors newsletters.js exactly:

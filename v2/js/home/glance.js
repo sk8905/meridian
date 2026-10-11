@@ -9,7 +9,7 @@ import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData } from "/v2/js/ma
 import { follows, followList, followBtn } from "/credit/js/shared.js";
 import { reportRefresh } from "/v2/js/status.js";
 import { NEWSLETTERS } from "/newsletters.js";
-import { RESEARCH } from "/research.js";
+import { RESEARCH, isResearchPublication } from "/research.js";
 import { FT_ITEMS } from "/ft.js";
 import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
@@ -2260,7 +2260,17 @@ function renderFeed() {
   // strictly-macro issue reads MAC. Bloomberg & Economist STORIES are fetched
   // separately as live wire items and carry BBG / ECON there.
   const newsletter = [];
-  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(nlDesk(n.title), n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
+  // House research (Apollo, Goldman, Fitch, JPM, With Intelligence…) belongs in the
+  // RESEARCH lane, not Newsletters. If the Gmail sweep misfiled such a note into
+  // newsletters.js (both stores list overlapping senders), RECLASSIFY it to Research
+  // here (RSCH desk) so it never shows under "Newsletters"; it folds into rschFeed
+  // below and dedupes against the research.js copy. Everything else stays a newsletter.
+  const nlResearch = [];
+  (NEWSLETTERS || []).forEach((n) => {
+    const rsch = isResearchPublication(n.publication);
+    const src = n.author ? `${n.author} · ${n.publication}` : n.publication;
+    (rsch ? nlResearch : newsletter).push(mk(rsch ? "rsch" : nlDesk(n.title), n.url, n.title, src, true, n.date, n.time));
+  });
 
   // The reader's personalised myFT (followed-topics) headlines — pulled from the
   // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
@@ -2308,6 +2318,7 @@ function renderFeed() {
   const rschFeed = [];
   (RESEARCH || []).forEach((r) => rschFeed.push(mk("rsch", r.url, r.title, r.author ? `${r.author} · ${r.publication}` : r.publication, true, r.date, r.time)));
   (_liveFeed || []).forEach((n) => { if (n.research) rschFeed.push(mk("rsch", n.url, n.title, n.source, true, n.date, n.time)); });
+  rschFeed.push(...nlResearch);   // research-house notes rescued from the newsletter store (see above)
 
   // Reader "Not interested" / "Mute source" filter — drop muted stories EVERYWHERE
   // (every lane, the "what's new" counts and the briefing candidate pool) at the single

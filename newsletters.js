@@ -15,36 +15,35 @@
 //
 // PUBLISHERS maps a sender address/domain to a display name (used by the refresh
 // routine); extend it as new newsletters are added.
+//
+// RESEARCH HOUSES DO NOT BELONG HERE. A sell-side bank, asset manager, rating
+// agency or markets-intelligence house (Apollo, Goldman, JPM, Fitch, Guggenheim,
+// With Intelligence, Preqin, Morgan Stanley, …) is routed to the RESEARCH lane via
+// research.js PUBLISHERS — NOT here. They were previously duplicated in this map, so
+// the newsletter sweep claimed them and filed house research under "Newsletters".
+// Keep this map to genuine newsletters/media only; research.js owns the research
+// senders, and glance.js reclassifies any that still slip through (isResearchPublication).
 export const PUBLISHERS = {
-  "withintelligence-email.com": "With Intelligence",
   "news.bloomberg.com": "Bloomberg",
   "e.economist.com": "The Economist",
   "legalbusiness.co.uk": "Legal Business",
-  "pb.jpmorgan.com": "JP Morgan Private Bank",
   "mail.sailthru.com": "Thomson Reuters",
   "thomsonreuters.com": "Thomson Reuters",
   "mailbrew.com": "Mailbrew",
   "cntraveller.com": "Condé Nast Traveller",
   "mail.nonbillable.co.uk": "Non-Billable",
-  "newsletter.mail.gs.com": "Goldman Sachs",
   "businesspost.ie": "Business Post",
   "cf.com": "Chatham Financial",
-  "guggenheiminvestments.com": "Guggenheim Investments",
   "newsletter.newyorker.com": "The New Yorker",
   "pe-insights.com": "Private Equity Insights",
   "getmatter.com": "Matter",
   "editorial.theguardian.com": "The Guardian",
   "taxpolicy.org.uk": "Tax Policy Associates",
-  "preqin.blackrock.com": "Preqin",
   "infos.lemonde.fr": "Le Monde",
-  "jpmpb.jpmorgan.com": "JP Morgan Private Bank",
   "the42.ie": "The 42",
   "equitypartner.substack.com": "Equity Partner",
   "go.reuters.com": "Reuters",
   "mail.thelawyer.com": "The Lawyer",
-  "morganstanley.com": "Morgan Stanley",
-  "e.apollo.com": "Apollo",
-  "fitchratings.com": "Fitch Ratings",
 };
 
 export const NEWSLETTERS = [
