@@ -100,12 +100,13 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-12",
-  time: "17:15 BST",
+  time: "19:15 BST",
   lede: "Diesel prices slip after Trump's 'energy ceasefire' in Ukraine, Macron says a Franco-German deal on EU car policy is imminent, and Germany's labour minister resigns as Merz's coalition strains.",
   bullets: [
     { html: "<strong>Oil &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, easing pressure on Brent, though Zelenskyy says Putin is already breaching it.", src: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", srcName: "Financial Times", date: "2026-10-12" },
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield held near 5.24% ahead of Wednesday&rsquo;s September CPI</strong>, steadying after touching 5.36% on 7 October &mdash; its highest since 2002 &mdash; with the cash market shut Monday for the Columbus Day holiday.", src: "https://tradingeconomics.com/united-states/government-bond-yield/news/516491", srcName: "Trading Economics", date: "2026-10-12" },
     { html: "<strong>Equities &mdash; the S&amp;P 500&rsquo;s record-breaking run is set to cool</strong> after a streak of record highs left Wall Street near all-time peaks.", src: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", srcName: "Financial Times", date: "2026-10-12" },
+    { html: "<strong>Credit &mdash; French 10-year spreads over Bunds hit their widest since 2012</strong> as the French debt sell-off continues, while Fitch lifts its 2027 Brent assumption to $70/bbl and sees the US 10-year ending the year at 4.8%.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk0EF6x_k39VObMuvWHUNqvvEoaxcwCLzBTuTkTeNH0E_H8MkNmsMQTyG8ATas_nAqQqhlBpc=", srcName: "Fitch Ratings", date: "2026-10-12" },
     { html: "<strong>Macro &mdash; the Nobel prize for economics was awarded to Robert E Hall and Michael Woodford</strong>.", src: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb", srcName: "Financial Times", date: "2026-10-12" },
     { html: "<strong>Europe &mdash; Germany&rsquo;s labour minister resigned as strains deepen in Chancellor Merz&rsquo;s coalition</strong>.", src: "https://www.ft.com/content/46b33d0d-274d-496e-9c42-1d4cf18b65cb", srcName: "Financial Times", date: "2026-10-12" },
   ],

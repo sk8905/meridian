@@ -48,6 +48,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-fitch-insidecredit-weekahead-20261012",
+    publication: "Fitch Ratings",
+    author: "Justin Patrie",
+    series: "Inside Credit",
+    title: "Inside Credit | The Week Ahead: Geopolitical Risks Prompt Higher Oil Price Assumptions; French Sovereign Debt Pressures Persist",
+    date: "2026-10-12",
+    time: "19:03",
+    summary: "Fitch raises its 2027 Brent assumption to $70/bbl; French 10-year spreads over Bunds at their widest since 2012.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk0EF6x_k39VObMuvWHUNqvvEoaxcwCLzBTuTkTeNH0E_H8MkNmsMQTyG8ATas_nAqQqhlBpc=",
+  },
+  {
     id: "nl-legalbusiness-alert-pogustgoodheadmariana-20261012",
     publication: "Legal Business",
     author: null,
