@@ -703,13 +703,22 @@ quiet slot gets a short output, not padding.
   Daily notes …") — a bullet carries ONE `src`, so keep only what that source supports
   or drop the clause. (`_stripReported` removes a simple trailing "…, the FT reports" as a
   backstop but cannot unpick a woven-in "the FT explains why …" — so don't author one.)
-  **Bonds & Equities bullets ALWAYS carry a concrete price reference (R28):** a Bonds
-  bullet names a benchmark yield level (the US 10-year / Bund / gilt — a `%` or a `bp`
-  move); an Equities bullet names an index level / `%` move (S&P 500, Nasdaq) or a mega-cap
-  price or market value. Pull the figure from the bullet's `src` or Wire's own live market
-  data (the `/api/markets` levels the briefing strip shows) — never invent one; where a
-  level isn't verifiable, quote the move or "record high" with the index named. A
-  Bonds/Equities bullet with no figure fails `tests/briefing-empty-bullet.mjs`.
+  **EVERY desk carries a benchmark + a one-line market snapshot (all four — R28):** a Bonds
+  bullet names a benchmark yield level (the US 10-year / Bund / gilt — a `%` or a `bp` move);
+  an Equities bullet names an index level / `%` move (S&P 500, Nasdaq, FTSE) or a mega-cap
+  price / market value; a Macro bullet names a macro benchmark (the US 10-year, the
+  dollar/DXY, Brent/WTI/Gold, or the S&P 500 as the risk gauge) with the catalyst; a **Credit**
+  bullet names an **actual credit metric** — a high-yield or IG spread / yield (US HY ≈ HYG,
+  IG ≈ LQD, a CDX/iTraxx level), a CLO / new-issue spread, or a specific private-credit deal's
+  **size and pricing** (e.g. "$1.2bn unitranche at SOFR+525"). **CREDIT IS DEBT, NOT EQUITY —
+  a private-equity buyout / M&A auction / "PE puts X up for sale" is an Equities story; file it
+  under Equities, never the Credit desk.** Pull the figure from the bullet's `src` or Wire's
+  own live market data (the `/api/markets` levels the briefing strip shows) — never invent one;
+  where a level isn't verifiable, quote the move or "record high" with the benchmark named. A
+  bullet with no figure fails `tests/briefing-empty-bullet.mjs`. (If a desk genuinely has no
+  fresh story the renderer shows a live benchmark fallback — Bonds US+UK 10Y, Equities
+  S&P+NASDAQ, Credit HYG+LQD, Macro US 10Y — so never mislabel an equity story as Credit to
+  fill the desk.)
   **HARD INFORMATION, not a headline (R28).** Every bullet — not just Bonds/Equities —
   must give specific, quantified fact: the level/size and its move (a `%`, a `bp`, a
   `$`/`£` amount, a multiple, a date), the named parties and the mechanism behind it,

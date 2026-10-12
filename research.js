@@ -55,6 +55,10 @@ export const PUBLISHERS = {
   // With Intelligence "Private Credit Insights" — CONFIRMED + swept 2026-10-08. A curated
   // weekly private-credit intelligence roundup. Content sender is `withintelligence-email.com`.
   "withintelligence-email.com": "With Intelligence",
+  // M&G "Bond Vigilantes" — M&G Investments' fixed-income research blog — CONFIRMED + swept
+  // 2026-10-12 ("Bonds have their mojo back", Joe Sullivan-Bissett). Content sender is
+  // `info@digital.mandg.com`; canonical "read online" is the bondvigilantes.com post.
+  "digital.mandg.com": "M&G Bond Vigilantes",
   // PIMCO — signed up 2026-10-12 (registration/verify mail from `no_reply@pimco.com`). PIMCO's
   // macro research is its Economic Outlook / Cyclical & Secular Outlook / Viewpoints notes.
   // Activated on request so the first real note routes to Research automatically; CONFIRM the
@@ -80,7 +84,7 @@ export const PUBLISHERS = {
 // Gmail sweep misfiled into newsletters.js back into Research — a runtime safety net
 // so a routing slip can never again show house research under "Newsletters". Keep this
 // list in step with the PUBLISHERS map above (same houses, by display-name pattern).
-const RESEARCH_PUBLISHER_RE = /\b(?:apollo|goldman\s+sachs|guggenheim|fitch|moody'?s|s&p\s+global|morgan\s+stanley|jp\.?\s*morgan|jpmorgan|pimco|blackrock|preqin|ubs|with\s+intelligence|oaktree|aqr)\b/i;
+const RESEARCH_PUBLISHER_RE = /\b(?:apollo|goldman\s+sachs|guggenheim|fitch|moody'?s|s&p\s+global|morgan\s+stanley|jp\.?\s*morgan|jpmorgan|pimco|blackrock|preqin|ubs|with\s+intelligence|oaktree|aqr|m&g|bond\s+vigilantes)\b/i;
 export function isResearchPublication(name) {
   return RESEARCH_PUBLISHER_RE.test(String(name || ""));
 }
@@ -96,6 +100,28 @@ export function isResearchPublication(name) {
 // so an entity like "AI&rsquo;s" or "S&amp;P" would show LITERALLY. (Only the
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
+  {
+    id: "rsch-apollo-ai-transatlantic-20261012",
+    publication: "Apollo Academy",
+    author: "Huw van Steenis",
+    series: "The Daily Spark",
+    title: "AI Building vs. AI Buying: The Transatlantic Split",
+    date: "2026-10-12",
+    time: "11:46",
+    summary: "The US dominates the AI supply side — hyperscaler capex approaching $800bn in 2026, data-centre capacity roughly 3× Europe’s, and the dominant share of global AI models and semiconductor value — yet several European countries are ahead on adoption. Europe is an eager user of infrastructure it did not build and cannot easily replicate: the US is the dominant AI builder, but both the US and Europe are AI adopters.",
+    url: "https://www.apolloacademy.com/the-daily-spark/",
+  },
+  {
+    id: "rsch-mandg-bonds-mojo-20261012",
+    publication: "M&G Bond Vigilantes",
+    author: "Joe Sullivan-Bissett",
+    series: "Bond Vigilantes",
+    title: "Bonds have their mojo back",
+    date: "2026-10-12",
+    time: "11:29",
+    summary: "M&G’s Bond Vigilantes make the case that fixed income has regained its appeal — bonds returning to their defining role as income and portfolio ballast after the recent government-bond sell-off drove yields to multi-year highs.",
+    url: "https://bondvigilantes.com/blog/2026/10/bonds-have-their-mojo-back/",
+  },
   {
     id: "rsch-ubs-donovan-fastfurious-20261012",
     publication: "UBS CIO",

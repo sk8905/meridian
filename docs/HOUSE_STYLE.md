@@ -699,13 +699,24 @@ notification badge red (`#ef4444`).
   every briefing carries at least one Equities bullet** (the refresh invariant); the
   renderer round-robins the per-desk bullets under the four-bullet cap so each of
   the desks keeps its lead bullet and **Equities can never be pushed off the
-  card** by a Macro/Bonds-heavy briefing. **Bonds & Equities bullets always carry a
-  concrete PRICE REFERENCE:** a Bonds bullet names a benchmark yield level (the US
-  10-year, Bund or gilt — a `%` or a `bp` move); an Equities bullet names an index
-  level / `%` move (S&P 500, Nasdaq) or a mega-cap's price or market value. A
-  Bonds/Equities bullet with no figure is incomplete — enforced on the committed data
-  by `tests/briefing-empty-bullet.mjs`. Every figure is real + sourced (the bullet's
-  `src` or Wire's own live market data), never invented. **HARD INFORMATION, not a
+  card** by a Macro/Bonds-heavy briefing. **EVERY desk carries a BENCHMARK + a one-line
+  market SNAPSHOT (all four, owner rule):** a Bonds bullet names a benchmark yield level
+  (the US 10-year, Bund or gilt — a `%` or a `bp` move); an Equities bullet names an index
+  level / `%` move (S&P 500, Nasdaq, FTSE) or a mega-cap's price or market value; a Macro
+  bullet names a macro benchmark (the US 10-year, the dollar/DXY, Brent/WTI/Gold, or the
+  S&P 500 as the risk gauge) with the data/policy catalyst; a **Credit** bullet names an
+  **actual credit metric** — a high-yield or IG spread / yield (US HY ≈ HYG, IG ≈ LQD, a
+  CDX/iTraxx level), a CLO / new-issue spread, or a specific private-credit deal's **size
+  and pricing** (e.g. "$1.2bn unitranche at SOFR+525"). **CREDIT IS DEBT, NOT EQUITY:** a
+  private-equity buyout, an M&A auction, or "PE puts X up for sale" is an Equities/M&A story
+  and must be filed under **Equities**, never the Credit desk — the renderer's Credit
+  fallback shows a live HY (HYG) + IG (LQD) proxy when there is genuinely no fresh credit
+  story, so there is never a reason to mislabel an equity story as Credit. A bullet with no
+  figure is incomplete — enforced on the committed data by `tests/briefing-empty-bullet.mjs`.
+  Every figure is real + sourced (the bullet's `src` or Wire's own live market data), never
+  invented. The renderer's per-desk fallbacks each carry a live pill (Bonds US+UK 10Y,
+  Equities S&P 500+NASDAQ, Credit HYG+LQD, Macro US 10Y) so even a synthesised desk shows a
+  benchmark. **HARD INFORMATION, not a
   headline (every desk):** each bullet must deliver specific, quantified fact — the
   level/size and its move (a `%`, a `bp` count, a `$`/`£` amount, a multiple, a date),
   the named parties, and the mechanism/driver — never a bare qualitative

@@ -471,11 +471,20 @@ function renderHomeBriefing() {
   // fills them from the rates cache like any yield pill — and, being real nodes rather than
   // a prose match, they never steal a pill from a real bullet. (Macro/Equities/Credit stay
   // pill-free; their live levels are in the top snapshot strip.)
+  // Each desk's fallback carries a LIVE benchmark pill + a short market snapshot, so a
+  // category with no authored story still shows a number the reader can act on (owner rule):
+  //   • Bonds    → US + UK 10-year yields (rates cache, data-ykey)
+  //   • Equities → S&P 500 + NASDAQ levels (/api/quotes, data-idx)
+  //   • Credit   → US high-yield proxy HYG + IG proxy LQD (/api/quotes, data-idx)
+  //   • Macro    → the US 10-year as the policy anchor
+  // These are EXPLICIT pill nodes (not prose matches), so renderBriefTickers fills them live
+  // and they never steal a pill from a real bullet. Synth bullets skip the prose pill pipeline,
+  // so this markup is preserved verbatim.
   const FALLBACK = {
-    macro: "<strong>Macro &mdash; the global growth and policy backdrop frames the session.</strong>",
+    macro: 'The global growth and policy backdrop frames the session; the policy anchor: <span class="g-hbt-tk" data-ykey="US 10Y" data-label="US 10Y"><span class="g-hbt-s">US 10Y</span></span>',
     bonds: '<span class="g-hbt-tk" data-ykey="US 10Y" data-label="US 10Y"><span class="g-hbt-s">US 10Y</span></span> <span class="g-hbt-tk" data-ykey="UK 10Y" data-label="UK 10Y"><span class="g-hbt-s">UK 10Y</span></span>',
-    equities: "<strong>Equities &mdash; the main stock indices set the equity tone.</strong>",
-    credit: "<strong>Credit &mdash; no fresh private-credit headline this slot; conditions steady.</strong>",
+    equities: 'The major stock indices set the tone: <span class="g-hbt-tk" data-idx="^GSPC" data-label="S&P 500"><span class="g-hbt-s">S&P 500</span></span> <span class="g-hbt-tk" data-idx="^IXIC" data-label="NASDAQ"><span class="g-hbt-s">NASDAQ</span></span>',
+    credit: 'No fresh private-credit headline right now; the broad credit market proxies conditions: <span class="g-hbt-tk" data-idx="HYG" data-label="US HY (HYG)"><span class="g-hbt-s">US HY (HYG)</span></span> <span class="g-hbt-tk" data-idx="LQD" data-label="US IG (LQD)"><span class="g-hbt-s">US IG (LQD)</span></span>',
   };
   const deskHasBody = (g) => !!g && g.items.some((it) => _hasText(_stripDesk(String(it.html || ""))));
   for (const d of ["macro", "bonds", "equities", "credit"]) {
