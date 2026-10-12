@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e67a9120-4dec-4796-8414-3f4990b01f11",
+    title: "Labour plan to cut funds from heat pump scheme sparks industry backlash",
+    date: "2026-10-12",
+    time: "13:26",
+    url: "https://www.ft.com/content/e67a9120-4dec-4796-8414-3f4990b01f11"
+  },
+  {
+    id: "463be44f-5477-46e6-b4d2-460fa2551064",
+    title: "India’s Narendra Modi faces ‘bitter pill’ as Cockroach protests mount",
+    date: "2026-10-12",
+    time: "13:08",
+    url: "https://www.ft.com/content/463be44f-5477-46e6-b4d2-460fa2551064"
+  },
+  {
+    id: "90d5003e-dbec-4db3-88d2-d30d9c2a119d",
+    title: "The EU has more bark but lacks bite towards China",
+    date: "2026-10-12",
+    time: "12:31",
+    url: "https://www.ft.com/content/90d5003e-dbec-4db3-88d2-d30d9c2a119d"
+  },
+  {
     id: "48b8c4ce-b2bf-44e2-badf-8159a9d664e4",
     title: "Private equity puts string of UK high street names up for sale",
     date: "2026-10-12",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-11",
     time: "19:09",
     url: "https://www.ft.com/content/258611cc-d4ec-40f7-9d3e-930991725837"
-  },
-  {
-    id: "4fcbf57e-c73e-4ced-be4a-5ecc6f4874de",
-    title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham",
-    date: "2026-10-11",
-    time: "19:01",
-    url: "https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de"
-  },
-  {
-    id: "5b90cdd3-b78b-44ee-8045-8a0602ac0ef4",
-    title: "IMF and World Bank to warn central bankers of a gathering storm",
-    date: "2026-10-11",
-    time: "18:15",
-    url: "https://www.ft.com/content/5b90cdd3-b78b-44ee-8045-8a0602ac0ef4"
-  },
-  {
-    id: "445b2856-a276-4d4c-bdea-44799d771c21",
-    title: "Can Russia meet Trump’s diesel demands?",
-    date: "2026-10-11",
-    time: "18:13",
-    url: "https://www.ft.com/content/445b2856-a276-4d4c-bdea-44799d771c21"
-  },
+  }
 ];
