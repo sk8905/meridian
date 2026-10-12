@@ -16,6 +16,17 @@ await pg.evaluate(() => {
 await pg.waitForTimeout(1600);
 
 check(await pg.evaluate(() => !!document.getElementById("na-notif")), "Notifications bell present in the header");
+
+// Badge count: the boot baseline seeded everything as seen BEFORE we overwrote the
+// seen-sets with empty above, so the badge was painted 0. Returning to the app
+// (visibilitychange / pageshow) must re-sync and recount — previously the badge was
+// computed only once at boot and never updated within a session. After the return it
+// should show the real unread count for the (now empty) seen-state.
+await pg.evaluate(() => { document.dispatchEvent(new Event("visibilitychange")); window.dispatchEvent(new Event("pageshow")); });
+await pg.waitForTimeout(600);
+const badge = await pg.evaluate(() => { const b = document.querySelector("#na-notif .na-badge"); return { hidden: !b || b.hidden, text: b ? (b.textContent || "") : "" }; });
+check(!badge.hidden && /^(?:[1-9]|9\+)$/.test(badge.text), `notifications badge shows the unread count on return to the app (${badge.text})`);
+
 await pg.evaluate(() => document.getElementById("na-notif") && document.getElementById("na-notif").click());
 await pg.waitForTimeout(700);
 
@@ -35,6 +46,10 @@ check(first.rows > 0, `notifications pane lists recent items (${first.rows})`);
 check(first.groups.includes("New"), "first view groups new items under a 'New' heading");
 check(first.firstRowNew, "the first row is a new (orange) item");
 check(first.newContiguous, "all new items sit contiguously at the top");
+
+// Opening the panel marked everything seen and cleared the badge.
+const badgeAfterOpen = await pg.evaluate(() => { const b = document.querySelector("#na-notif .na-badge"); return !b || b.hidden; });
+check(badgeAfterOpen, "notifications badge clears to hidden once the panel has been opened");
 
 // Close and reopen — the first open marked them seen, so nothing is fresh now.
 await pg.evaluate(() => document.getElementById("na-notif").click());

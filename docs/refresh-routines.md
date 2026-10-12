@@ -124,7 +124,17 @@ each entity's `name` (and any well-known short/alias form) as a search term:
        rotation — do **not** pad or invent.
     The goal is monotonic: coverage (`node scripts/manager-coverage.mjs`, the
     "reach ≤2020" and "flagged" counts) should improve or hold every run, never
-    regress. `tests/manager-coverage.mjs` guards the tool and roster integrity.
+    regress. `tests/manager-coverage.mjs` guards the tool and roster integrity, and
+    now holds an **AGGREGATE COVERAGE RATCHET**: it fails if fewer than
+    `COVERAGE_FLOOR_2020` profiles reach ≤2020, or if more than
+    `DEPTH_DEFICIT_CEILING` are still thin / missing-history (both clock-independent).
+    When a backfill pass improves these numbers, **tighten the two constants in
+    `tests/manager-coverage.mjs` in the same commit** (raise the floor, lower the
+    ceiling) — that is how the ratchet drives coverage up. **Never loosen them to make
+    a red suite pass:** a regression means a profile lost history/depth, or a new
+    profile was added without backfilling it. A stalled backfill no longer hides — the
+    ratchet turns red the moment coverage slips, and the surface's live freshness cue
+    (below) shows a stale ledger to readers.
 - **HDG — every hedge fund** in `credit/js/data.js` `HEDGE_FUNDS[]` (currently 151,
   US/UK/Europe/Asia). New, verified, dated hedge-fund news (performance, launches,
   fundraising, personnel, wind-downs, AUM milestones) → a `HEDGE_INTEL` record with

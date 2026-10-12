@@ -1103,12 +1103,26 @@ export function initNavActions() {
     // Prime the cross-desk notifications + unread badge in the background. Hydrate
     // the server-side seen-state FIRST so notifications read on another device are
     // already reflected before the baseline is set and the badge is counted.
+    const paintBadge = (n) => {
+      const b = notifBtn.querySelector(".na-badge"); if (!b) return;
+      if (n > 0) { b.textContent = n > 9 ? "9+" : String(n); b.hidden = false; } else { b.hidden = true; }
+    };
+    // Recompute the unread badge from the current notif set + seen-state. Cheap and
+    // idempotent (countUnread re-reads seen from localStorage), so it is safe to run
+    // on every return-to-app, not just once at boot.
+    const refreshBadge = () => { if (_notifItems) paintBadge(countUnread(_notifItems)); };
     hydrateSeen().finally(() => ensureNotifs().then((items) => {
       establishBaseline(items);
-      const n = countUnread(items);
-      const b = notifBtn.querySelector(".na-badge");
-      if (b) { if (n) { b.textContent = n > 9 ? "9+" : String(n); b.hidden = false; } else { b.hidden = true; } }
+      paintBadge(countUnread(items));
     }).catch(() => {}));
+    // The badge used to be counted ONCE at boot, so a notification read on another
+    // device — or a newly-deployed item picked up after an SW update — never changed
+    // this tab until a full reload. Re-sync the cross-device seen-state and recount
+    // whenever the app returns to the foreground, so the badge reflects "new since you
+    // were last here". Bounded: it only fires on a visibility/pageshow transition.
+    const onReturn = () => { if (document.visibilityState === "visible") hydrateSeen().finally(refreshBadge); };
+    document.addEventListener("visibilitychange", onReturn);
+    window.addEventListener("pageshow", onReturn);
   };
   // First-paint reveal: the HTML boot script holds the content area invisible
   // (html.wire-boot) so a page switch never paints the half-built state — the

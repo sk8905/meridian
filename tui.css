@@ -704,6 +704,15 @@
 .aum-focus .aum-focus-alt { margin-right: auto; }
 
 /* ---- Transactions tab (deal flow by transaction type) — Profiles furniture --- */
+/* Freshness cue: the ledger's "as of" date on its own full-width line inside the flow
+   search header; the stale flag lights the brand accent when no new deal has landed
+   within TX_STALE_DAYS, so a quiet pipeline is visible rather than masked. */
+.tx-asof { flex: 1 0 100%; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+  font-family: var(--mono, ui-monospace, monospace); font-size: 11px; letter-spacing: .02em; }
+.tx-asof[hidden] { display: none; }
+.tx-asof-lbl { color: var(--muted); text-transform: uppercase; }
+.tx-asof-flag { color: var(--accent); font-weight: 600; }
+.tx-asof.is-stale .tx-asof-lbl { color: var(--ink, inherit); }
 /* Sit on the white --surface like the Profiles panes (.tpanes); the body was
    transparent, so the grey terminal ground showed through the table. */
 .tx-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; background: var(--surface); }

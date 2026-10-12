@@ -85,6 +85,13 @@ export function mount(host, ctx) {
           </header>
           <div class="tcol-main">
             <header class="tpanel-h thead-search" id="tx-flow-search">
+              <!-- Freshness cue (flow modes only — this header shows only for Primary /
+                   Secondaries): the deals ledger's "as of" date on its own line, with a
+                   stale flag when no new deal has landed within TX_STALE_DAYS, so a quiet
+                   pipeline is visible instead of being masked by the back-catalogue. It
+                   lives INSIDE this sticky header so it never adds an unpinned row above
+                   the search bar. -->
+              <div class="tx-asof" id="tx-asof" hidden></div>
               <input type="search" id="tx-q" class="tsearch" placeholder="Search a deal, manager or type…" aria-label="Search transactions">
               <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
             </header>
@@ -123,6 +130,26 @@ export function mount(host, ctx) {
 
   const _txDesktop = () => { try { return window.matchMedia("(min-width:901px)").matches; } catch { return true; } };
   const typeLabel = (key) => (TX_TYPES.find((x) => x.key === key) || {}).label || key;
+
+  // ---- freshness cue -------------------------------------------------------
+  // The newest dated deal in the ledger. A deal older than TX_STALE_DAYS means the
+  // Transactions ledger has gone quiet (the refresh routine hasn't appended a verified
+  // deal lately) — surface it rather than let the full back-catalogue hide the drought.
+  const TX_STALE_DAYS = 7;
+  let _newestRow = null;
+  for (const r of rows) if (!_newestRow || r.ts > _newestRow.ts) _newestRow = r;
+  function renderAsOf() {
+    const el = host.querySelector("#tx-asof");
+    if (!el) return;
+    const flow = _crMode === "primary" || _crMode === "secondary";
+    if (!flow || !_newestRow) { el.hidden = true; el.innerHTML = ""; return; }
+    el.hidden = false;
+    const ageDays = Math.round((Date.now() - _newestRow.ts) / DAY);
+    const stale = ageDays > TX_STALE_DAYS;
+    el.className = "tx-asof" + (stale ? " is-stale" : "");
+    el.innerHTML = `<span class="tx-asof-lbl">Deal flow as of ${esc(fmtDay(_newestRow.d.date))}</span>`
+      + (stale ? `<span class="tx-asof-flag" title="No new deal recorded in ${ageDays} days — the ledger is awaiting fresh, verified filings">${ageDays}d ago · awaiting fresh filings</span>` : "");
+  }
 
   // ---- flow view. DESKTOP: a blue sub-tab rail (one per transaction type, each
   // with its deal count) beside the active type's dated deals, second-level vertical
@@ -181,6 +208,7 @@ export function mount(host, ctx) {
       const on = _crMode === k;
       return `<button type="button" class="tchip${on ? " is-on" : ""}" data-mode="${esc(k)}">${esc(l)}</button>` + (on ? subHTML : "");
     }).join("");
+    renderAsOf();
   }
 
   // ---- deal rows (shared by the inline type sub-list and the search list) ---

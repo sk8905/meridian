@@ -68,6 +68,29 @@ check(ov.noOverview, "the Overview sub-tab is removed from Primary/Secondaries")
 check(ov.activeIsFirst && ov.subs[0] === "All" && ov.paneRows > 0, `it defaults to the All sub-tab — the whole group's deals across every type, not one type (${ov.subs[0]}, ${ov.paneRows} rows)`);
 check(ov.subsHaveCounts, "each sub-tab carries its deal count");
 check(ov.subStacked > 10, `desktop: the sub-tabs stack as a second vertical rail (Δtop ${ov.subStacked}px)`);
+
+// ---- 2a) freshness cue: the ledger's "as of" date + a stale flag when the newest
+// deal is older than the threshold (7d). Asserted against the live data so it holds
+// whether the ledger is currently fresh or stale.
+const asof = await pg.evaluate(async () => {
+  const D = await import("/credit/js/data.js");
+  const ts = D.deals.filter((d) => d && d.date).map((d) => Date.parse((d.date || "").slice(0, 10)) || 0).filter((x) => x > 0);
+  const newest = Math.max(...ts);
+  const ageDays = Math.round((Date.now() - newest) / 864e5);
+  const el = document.querySelector("#tx-asof");
+  return {
+    ageDays,
+    shown: !!el && !el.hidden,
+    hasLbl: !!(el && el.querySelector(".tx-asof-lbl")),
+    lbl: el ? (el.querySelector(".tx-asof-lbl") || {}).textContent || "" : "",
+    staleClass: !!(el && el.classList.contains("is-stale")),
+    hasFlag: !!(el && el.querySelector(".tx-asof-flag")),
+  };
+});
+check(asof.shown && asof.hasLbl && /deal flow as of/i.test(asof.lbl),
+  `Transactions: a freshness cue shows the ledger's "as of" date (${asof.lbl})`);
+check(asof.staleClass === (asof.ageDays > 7) && asof.hasFlag === (asof.ageDays > 7),
+  `Transactions: the stale flag reflects the real ledger age (${asof.ageDays}d → ${asof.ageDays > 7 ? "stale flag shown" : "fresh, no flag"})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed");
 check(ov.modeChips.join(",") === "Primary,Secondaries,Credits,BDCs", `the Primary / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);

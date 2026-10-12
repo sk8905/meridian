@@ -63,4 +63,40 @@ for (const [id, name] of Object.entries(REF)) {
     `coverage: ${name} keeps history (≤2021) and current activity (≥2024)${ys.length ? ` (span ${Math.min(...ys)}–${Math.max(...ys)})` : " (NO EVENTS)"}`);
 }
 
+// (4) AGGREGATE COVERAGE RATCHET — the teeth that stops the whole-roster backfill
+// decaying silently. The reference-profile locks in (3) only guard five firms; this
+// scores the ENTIRE roster and holds two clock-INDEPENDENT numbers (they move only
+// when the committed data changes, never with the wall clock, so the gate is
+// deterministic and can't time-bomb a green-required suite):
+//   • reach2020  — profiles with an event dated ≤2020 (real history). Must not FALL.
+//   • depthDeficit — profiles still missing history (founded ≤2021 but no pre-2021
+//     event) OR thin (<4 events). Must not RISE.
+// The "stale" gap is deliberately EXCLUDED here because it is clock-driven (a profile
+// crosses STALE_DAYS with no data change), so it belongs in the live freshness cue on
+// the surface, not in a pass/fail gate. These constants are a RATCHET: when a backfill
+// pass improves coverage, TIGHTEN them (raise the floor, lower the ceiling) IN THE SAME
+// COMMIT. Never loosen them to make a red suite pass — a regression means a profile's
+// history/depth was lost, or a new profile was added without backfilling it, and that
+// is exactly what must turn the suite red (see docs/refresh-routines.md → backfill, and
+// HOUSE_STYLE R16/§8).
+const COVERAGE_FLOOR_2020 = 50;   // ≥ this many profiles must reach ≤2020 (today: 50)
+const DEPTH_DEFICIT_CEILING = 146; // ≤ this many may still be thin / missing-history (today: 146)
+const BACKFILL_YEAR = 2021, THIN_TOTAL = 4;
+let reach2020 = 0, depthDeficit = 0;
+for (const m of managers) {
+  const ys = events.get(m.id) || [];
+  const total = ys.length;
+  const oldestYear = ys.length ? Math.min(...ys) : null;
+  const founded = m.founded != null ? Number(m.founded) : null;
+  const old = founded == null || founded <= BACKFILL_YEAR;
+  const needsHistory = old && !(oldestYear != null && oldestYear <= BACKFILL_YEAR);
+  const thin = total < THIN_TOTAL;
+  if (oldestYear != null && oldestYear <= 2020) reach2020++;
+  if (needsHistory || thin) depthDeficit++;
+}
+check(reach2020 >= COVERAGE_FLOOR_2020,
+  `coverage: ≥${COVERAGE_FLOOR_2020} profiles reach ≤2020 history (ratchet floor) — have ${reach2020}${reach2020 < COVERAGE_FLOOR_2020 ? " (REGRESSED — a profile lost its pre-2021 history)" : ""}`);
+check(depthDeficit <= DEPTH_DEFICIT_CEILING,
+  `coverage: ≤${DEPTH_DEFICIT_CEILING} profiles thin/missing-history (ratchet ceiling) — have ${depthDeficit}${depthDeficit > DEPTH_DEFICIT_CEILING ? " (REGRESSED — depth lost, or a new profile added without backfill)" : ""}`);
+
 finish();
