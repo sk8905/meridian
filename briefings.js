@@ -92,15 +92,13 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-10-11",
-      time: "10:15 BST",
-      lede: "US forces hit a commercial tanker in the Gulf of Oman as tensions flare, China's debt load narrows its room for stimulus, and UK ministers press the Chancellor for Budget support on rising energy bills.",
+      date: "2026-10-12",
+      time: "05:15 BST",
       bullets: [
-        { html: "<strong>Oil &mdash; the US hit a commercial tanker in the Gulf of Oman</strong> as tensions flare.", src: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Macro &mdash; China&rsquo;s growing debt burden limits space for economic stimulus</strong>, constraining Beijing&rsquo;s policy options.", src: "https://www.ft.com/content/a0ffc43a-231a-40aa-b5f9-521757830087", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Geopolitics &mdash; Russia is stepping up its bid to kill European defence chiefs</strong>, spy agencies warn.", src: "https://www.ft.com/content/5da2dd05-9583-4a75-b018-2c5024383ec4", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Private markets &mdash; Permira&rsquo;s boss says private equity can cut the &lsquo;best&rsquo; deals in the current climate</strong>.", src: "https://www.ft.com/content/b42bb760-3eda-430d-adfd-69c359425c1d", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>UK &mdash; the energy secretary is pushing Healey for more Budget support on rising bills</strong>.", src: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f", srcName: "Financial Times", date: "2026-10-11" },
+        { html: "<strong>Macro &mdash; &lsquo;worrying omens&rsquo; lurk over the global economy despite resilient growth</strong>, ahead of Wednesday&rsquo;s US September CPI print.", src: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229", srcName: "Financial Times", date: "2026-10-12" },
+        { html: "<strong>Equities &mdash; Wall Street&rsquo;s record-breaking trading streak is set to cool</strong> after the S&amp;P 500&rsquo;s run of record highs.", src: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", srcName: "Financial Times", date: "2026-10-12" },
+        { html: "<strong>Credit &mdash; the huge lurking leverage of AI hyperscalers</strong> is drawing scrutiny as debt-funded data-centre spending builds.", src: "https://www.ft.com/content/17a207f4-1563-48af-91e3-14bac89ab4b8", srcName: "Financial Times", date: "2026-10-12" },
+        { html: "<strong>UK &mdash; the IFS warns Chancellor Healey&rsquo;s Budget (28 October) will be &lsquo;fiction&rsquo; without a plan for a &pound;35bn hole in spending</strong>.", src: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da", srcName: "Financial Times", date: "2026-10-12" },
       ],
     },
     afternoon: {

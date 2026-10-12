@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-12",
-  lastCheckedTime: "00:15 BST",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1004,20 +1004,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-11",
+  updated: "2026-10-12",
   us: [
-    {title: "Oil chiefs pull out of Riyadh energy congress after airport missile strike", source: "Financial Times", date: "2026-10-11", time: "17:05", url: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe"},
-    {title: "Ukraine’s allies vow to pressure Moscow as Trump claims ‘energy ceasefire’ in place", source: "Financial Times", date: "2026-10-11", time: "15:59", url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84"},
-    {title: "Houthis show military reach with deadly missile strikes on Riyadh", source: "Financial Times", date: "2026-10-11", time: "14:04", url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e"},
-    {title: "US affordability tracker: the data that could decide the 2026 midterm elections", source: "Financial Times", date: "2026-10-11", time: "14:39", url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82"},
-    {title: "Will September inflation cement US interest rate policy for the rest of the year?", source: "Financial Times", date: "2026-10-11", time: "12:00", url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"},
+    {title: "Trump battles for the Senate", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/62bab2c8-d4e2-4ec2-a911-80439f61f238"},
+    {title: "Wall Street’s record-breaking trading streak set to cool", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2"},
+    {title: "‘Worrying omens’ lurk over global economy despite resilient growth", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229"},
+    {title: "The huge lurking leverage of AI hyperscalers", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/17a207f4-1563-48af-91e3-14bac89ab4b8"},
+    {title: "Trump faces Republican opposition to his diesel deal with Russia’s Putin", source: "Financial Times", date: "2026-10-11", time: "22:17", url: "https://www.ft.com/content/debf0be6-d5aa-4ba7-bb66-7daf770d99ff"},
   ],
   uk: [
-    {title: "Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham", source: "Financial Times", date: "2026-10-11", time: "15:50", url: "https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de"},
-    {title: "John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget", source: "Financial Times", date: "2026-10-11", time: "11:38", url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8"},
-    {title: "Energy secretary pushes Healey for more Budget support on rising bills", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f"},
-    {title: "UK could be fast-tracked back into EU, pro-Brussels group argues", source: "Financial Times", date: "2026-10-11", time: "05:00", url: "https://www.ft.com/content/3aa9641e-55a6-45fd-bd08-1806306716e9"},
-    {title: "Demand for tracker mortgages jumps as rates on fixed deals rise", source: "Financial Times", date: "2026-10-10", time: "05:00", url: "https://www.ft.com/content/08e41a4a-425b-4fcd-98e6-e2283faed94b"},
+    {title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"},
+    {title: "Andy Burnham to step up UK business outreach amid fears of Budget tax rises", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"},
+    {title: "Heathrow needs Burnham green light for runway by end of year, warns boss", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/b0acd823-ca55-481c-93de-0e292a401b37"},
+    {title: "City of London hits out at Andy Burnham’s plan to scrap non-compete clauses", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/47b02f06-cbfc-49cb-afb8-1ae015399c4e"},
+    {title: "UK ministers explore compulsory AI safety reporting", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/ba28b7cd-293e-4eee-a073-ad81aaefced3"},
   ],
 };
 
@@ -1030,8 +1030,13 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-11",
+  updated: "2026-10-12",
   items: [
+    {"title": "Trump battles for the Senate", "source": "Financial Times", "date": "2026-10-12", "time": "05:00", "url": "https://www.ft.com/content/62bab2c8-d4e2-4ec2-a911-80439f61f238", "blurb": "Midterm Senate control is in play as the president campaigns."},
+    {"title": "Wall Street’s record-breaking trading streak set to cool", "source": "Financial Times", "date": "2026-10-12", "time": "05:00", "url": "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", "blurb": "Record run of Wall Street trading volumes looks set to cool."},
+    {"title": "‘Worrying omens’ lurk over global economy despite resilient growth", "source": "Financial Times", "date": "2026-10-12", "time": "05:00", "url": "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229", "blurb": "Resilient global growth masks risks flagged ahead of the IMF meetings."},
+    {"title": "The huge lurking leverage of AI hyperscalers", "source": "Financial Times", "date": "2026-10-12", "time": "05:00", "url": "https://www.ft.com/content/17a207f4-1563-48af-91e3-14bac89ab4b8", "blurb": "Hyperscaler borrowing and leverage in the AI build-out."},
+    {"title": "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns", "source": "Financial Times", "date": "2026-10-12", "time": "00:01", "url": "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da", "blurb": "IFS warns the Budget lacks a plan for a £35bn spending gap."},
     {"title":"Ukraine’s allies vow to pressure Moscow as Trump claims ‘energy ceasefire’ in place","source":"Financial Times","date":"2026-10-11","time":"15:59","url":"https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84","blurb":"European and other allies pledge to keep up pressure on Moscow even as Trump says an energy ceasefire is in place after the Trump-Putin diesel deal."},
     {"title":"Russia ‘interfered’ in 2016 Brexit vote, says Andy Burnham","source":"Financial Times","date":"2026-10-11","time":"15:50","url":"https://www.ft.com/content/4fcbf57e-c73e-4ced-be4a-5ecc6f4874de","blurb":"Burnham’s claim of Russian interference in the 2016 referendum adds to the UK’s political and Europe debate."},
     {"title":"US affordability tracker: the data that could decide the 2026 midterm elections","source":"Financial Times","date":"2026-10-11","time":"14:39","url":"https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82","blurb":"FT tracker of the cost-of-living data likely to shape voters’ choices in the US midterms."},
@@ -1067,11 +1072,6 @@ export const ARTICLES = {
     {"title": "Brussels looks to capture Big Tech through tax on large corporations", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/ad06ed89-f600-4694-8c95-7d53b6d3315b", "blurb": "The European Commission considers a broad levy on all large companies to avoid singling out US digital services groups."},
     {"title": "Bank mergers arrive in Europe with a whimper rather than a bang", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/8178bed1-ef14-4ebc-b291-921cef8866e7", "blurb": "More banking consolidation requires things that don’t yet exist, such as harmonised regulation and acquiescent local politicians."},
     {"title": "S&P 500 hits record high as AI stocks shrug off bond market slump", "source": "Financial Times", "date": "2026-10-06", "time": "15:03", "url": "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", "blurb": "US equities set a fresh record as AI-linked megacaps ignore the global government-bond sell-off."},
-    {"title": "Vitol chief warns of tanker shortage and risk of $200-a-barrel oil", "source": "Financial Times", "date": "2026-10-06", "time": "14:39", "url": "https://www.ft.com/content/95db1fbd-4e1f-45cf-b678-c40635f59197", "blurb": "The trading house's chief flags a tight tanker market and tail risk of a far higher oil price."},
-    {"title": "Why are bond yields so high?", "source": "Financial Times", "date": "2026-10-06", "time": "12:30", "url": "https://www.ft.com/content/a6161dfd-bfb9-4bf5-866f-1ca0a0c8e6aa", "blurb": "FT explainer on what is driving the global government-bond sell-off."},
-    {"title": "Healey warns banks that UK faces ‘challenging’ fiscal picture but stays tight-lipped on tax", "source": "Financial Times", "date": "2026-10-06", "time": "12:23", "url": "https://www.ft.com/content/3cd5097b-b5ca-4b9f-83fd-f008bb2b72d3", "blurb": "The Chancellor gave lenders no tax answers ahead of the Budget."},
-    {"title": "Debt in the spotlight as Paramount closes $111bn deal for Warner Bros", "source": "Financial Times", "date": "2026-10-06", "time": "13:52", "url": "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00", "blurb": "The completed takeover puts the combined group's borrowing under scrutiny."},
-    {"title": "A Top-Heavy Stocks Rally Is Daring Bond Yields to Break It", "source": "Bloomberg", "date": "2026-10-06", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-06/a-top-heavy-stocks-rally-is-daring-bond-yields-to-break-it", "blurb": "The greatest risk to the simultaneous rise in tech stocks and long bond yields may be political.", "author": "John Authers"},
   ],
 };
 
