@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "48b8c4ce-b2bf-44e2-badf-8159a9d664e4",
+    title: "Private equity puts string of UK high street names up for sale",
+    date: "2026-10-12",
+    time: "12:00",
+    url: "https://www.ft.com/content/48b8c4ce-b2bf-44e2-badf-8159a9d664e4"
+  },
+  {
+    id: "0a66d390-149d-4cdc-83b6-88015da1e835",
+    title: "Britain, Brexit and the cat-flap option",
+    date: "2026-10-12",
+    time: "11:59",
+    url: "https://www.ft.com/content/0a66d390-149d-4cdc-83b6-88015da1e835"
+  },
+  {
     id: "46b33d0d-274d-496e-9c42-1d4cf18b65cb",
     title: "German labour minister resigns as Merz coalition strains deepen",
     date: "2026-10-12",
@@ -286,11 +300,4 @@ export const FT_ITEMS = [
     time: "18:13",
     url: "https://www.ft.com/content/445b2856-a276-4d4c-bdea-44799d771c21"
   },
-  {
-    id: "a01776ea-4a12-4195-8820-e43a885ba5fe",
-    title: "Oil chiefs pull out of Riyadh energy congress after airport missile strike",
-    date: "2026-10-11",
-    time: "17:56",
-    url: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe"
-  }
 ];
