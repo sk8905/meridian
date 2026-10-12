@@ -801,4 +801,40 @@ const cnbcParas = proxyBlocks(cnbcMd, "https://www.cnbc.com/2026/10/06/fed-holds
 check(cnbcParas.length === 2 && !cnbcParas.some((p) => /news tip|in your inbox|real-time snapshot|Market Data and Analysis|Advertise With Us|News Tips/i.test(p)),
   `cnbc-footer (proxy): the News Tips + Advertise With Us tail is dropped, ${cnbcParas.length} real paragraphs kept`);
 
+// 27) Inline links are PRESERVED as clickable anchors in the body (blocks[].html), so a
+//     newsletter round-up (e.g. Legal Cheek's "Headline [ Source ]" rows) reads with live
+//     links in-pane instead of dead bracketed text. A relative href resolves to absolute; a
+//     non-http(s) href (mailto:) degrades to plain text; a link-free paragraph carries no
+//     `html` (stays on the lean text path); the plain-text `t` stays tag-free for back-compat.
+//     The outdated-browser nag some templates inject is dropped as boilerplate.
+const linkDoc = `<!doctype html><html><head><meta property="og:title" content="Monday morning round-up"></head><body><article>
+  <p>We noticed you're using an outdated browser. To get the best experience please visit the Browse Happy site to download a better browser.</p>
+  <p>The 27-year-old whose &pound;4bn AI firm is wooing City lawyers <a href="https://www.thetimes.co.uk/article/ai-firm">The Sunday Times</a> covered the profile in depth, and it was widely shared across the City this weekend.</p>
+  <p>Read the <a href="/news/judge-only-trials">full local story</a> on judge-only fraud trials, or email <a href="mailto:tips@legalcheek.com">the newsdesk</a> with any tips about the government's plan.</p>
+  <p>This closing paragraph is ordinary prose with no links at all, comfortably past the forty-character body minimum so it is kept.</p>
+  </article></body></html>`;
+const lk = extractReadable(linkDoc, u("https://www.legalcheek.com/2026/10/12/round-up/"));
+check(!lk.paragraphs.some((p) => /outdated browser|Browse Happy/i.test(p)), "links: the outdated-browser nag is dropped as boilerplate");
+const lkB1 = lk.blocks.find((b) => b.t && /27-year-old/.test(b.t));
+check(lkB1 && /<a href="https:\/\/www\.thetimes\.co\.uk\/article\/ai-firm" target="_blank" rel="noopener noreferrer">The Sunday Times<\/a>/.test(lkB1.html || ""),
+  "links: an inline publisher link is preserved as a clickable anchor in blocks[].html");
+check(lkB1 && lkB1.t && !/[<>]/.test(lkB1.t), "links: the plain-text `t` stays tag-free (back-compat for callers/specs)");
+const lkB2 = lk.blocks.find((b) => b.t && /judge-only fraud trials/.test(b.t));
+check(lkB2 && /<a href="https:\/\/www\.legalcheek\.com\/news\/judge-only-trials"/.test(lkB2.html || ""), "links: a relative href is resolved to an absolute URL");
+check(lkB2 && lkB2.html && !/mailto:/.test(lkB2.html) && /the newsdesk/.test(lkB2.html), "links: a non-http(s) href (mailto:) degrades to plain text, not a link");
+const lkB3 = lk.blocks.find((b) => b.t && /ordinary prose with no links/.test(b.t));
+check(lkB3 && !lkB3.html, "links: a link-free paragraph carries no `html` (stays on the lean text path)");
+check(!lk.blocks.some((b) => b.html && /<(?!a\b|\/a>)[a-z]/i.test(b.html)), "links: rich html emits no markup other than sanitised <a> anchors (XSS-safe)");
+
+// 28) XSS safety — a link whose text carries markup and a stray <script> in the paragraph are
+//     neutralised: the anchor text is stripped+escaped and the script never survives.
+const xssDoc = `<!doctype html><html><head><meta property="og:title" content="Safety"></head><body><article>
+  <p>Opening paragraph that is comfortably past the forty-character minimum so the body is real and kept in full.</p>
+  <p>A report from <a href="https://example.com/x"><b>Example</b> News<script>alert(1)</script></a> set out the detail, and the piece ran long enough to clear the body-length minimum this week.</p>
+  </article></body></html>`;
+const xss = extractReadable(xssDoc, u("https://www.legalcheek.com/x/"));
+const xssB = xss.blocks.find((b) => b.html && /example\.com/.test(b.html));
+check(xssB && !/<script|<b>|alert\(1\)/i.test(xssB.html), "xss: anchor text is stripped+escaped — no <script>/<b> or script payload survives in blocks[].html");
+check(xssB && /<a href="https:\/\/example\.com\/x" target="_blank" rel="noopener noreferrer">Example News<\/a>/.test(xssB.html), "xss: the anchor keeps its http(s) href with clean, escaped link text");
+
 finish();

@@ -3085,6 +3085,10 @@ function _renderReaderInto(box, it, emptyMsg) {
               if (b && b.embed) return _readEmbedHTML(b.embed);
               if (b && b.img) return `<figure class="g-read-fig"><img class="g-read-img" src="${esc(b.img)}" alt="${esc(b.alt || "")}" loading="lazy" referrerpolicy="no-referrer">${b.alt ? `<figcaption class="g-read-cap">${esc(b.alt)}</figcaption>` : ""}</figure>`;
               if (b && b.h) return `<h3 class="g-read-h">${esc(b.t)}</h3>`;
+              // `b.html` carries the paragraph with its inline publisher links preserved
+              // (server-sanitised to <a href> only — safe to inject). Entity auto-linking is
+              // skipped for these so we never nest a Wire-profile link inside a real link.
+              if (b && b.html) return `<p class="g-read-p">${b.html}</p>`;
               return `<p class="g-read-p">${linkEntities(esc((b && b.t != null) ? b.t : b))}</p>`;
             }).join("")
           : d.paragraphs.map((p) => `<p class="g-read-p">${linkEntities(esc(p))}</p>`).join("");

@@ -959,6 +959,12 @@
       text-decoration-line:underline !important; text-decoration-style:solid; text-decoration-thickness:1px;
       text-underline-offset:2px; text-decoration-color:var(--t-link) !important; }
     .g-read-p a.g-ent:hover, .g-read-art a.g-ent:hover{ color:var(--t-link); }
+    /* Publisher links preserved from the article body (e.g. a newsletter round-up's
+       "[ Source ]" links) — a real outbound link, so give it the link colour + a solid
+       underline, distinct from the softer inherit-coloured entity links above. */
+    .g-read-p a:not(.g-ent), .g-read-art a:not(.g-ent){ color:var(--t-link);
+      text-decoration-line:underline; text-decoration-thickness:1px; text-underline-offset:2px; }
+    .g-read-p a:not(.g-ent):hover, .g-read-art a:not(.g-ent):hover{ text-decoration-thickness:2px; }
     .g-read-h:first-child{ margin-top:0; }
     /* Content images pulled from the article, shown inline in reading order. The image
        sits in a figure with an optional caption; it scales to the text column and never

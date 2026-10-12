@@ -1969,7 +1969,7 @@ const READ_OPEN = new Set([
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
-const READ_VER = "v17";   // v17: drop byline/tag name-list strips (comma-separated proper nouns, no prose) from the body
+const READ_VER = "v18";   // v18: preserve inline <a href> links in body paragraphs (clickable in-pane) + drop the outdated-browser nag
 const _readKvKey = (url) => "rdr:" + READ_VER + ":" + url;
 // A host is fetchable only if it is a real, public, dotted domain name — never an
 // IP literal (v4/v6), a port, or a reserved/internal name. This is the SSRF gate.
@@ -1995,6 +1995,35 @@ function _readDec(s) {
 function _readStrip(s) {
   return _readDec(String(s || "").replace(/<(?:script|style|figure|figcaption|aside)[\s\S]*?<\/(?:script|style|figure|figcaption|aside)>/gi, "").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
 }
+// HTML-escape a plain string for safe insertion as text or an attribute value.
+function _htmlEsc(s) {
+  return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+// Rich body text: keep inline <a href> anchors (absolutised, http(s) only) as CLICKABLE
+// links while escaping everything else and dropping every other tag. The ONLY markup this
+// emits is `<a href="…" target="_blank" rel="noopener noreferrer">escaped-text</a>` with an
+// escaped href + escaped link text, so the client can inject it verbatim — XSS-safe. A
+// newsletter round-up (e.g. Legal Cheek) renders its "Headline [ Source ]" links in-pane
+// instead of as dead bracketed text. Returns a string with no anchors when the block had
+// no usable links (the caller then keeps the plain-text path).
+function _readRich(inner, base) {
+  let s = String(inner || "").replace(/<(?:script|style|figure|figcaption|aside)[\s\S]*?<\/(?:script|style|figure|figcaption|aside)>/gi, "");
+  const escFrag = (frag) => _htmlEsc(_readDec(String(frag).replace(/<[^>]+>/g, " ")).replace(/\s+/g, " "));
+  let out = "", last = 0, m;
+  const re = /<a\b([^>]*)>([\s\S]*?)<\/a>/gi;
+  while ((m = re.exec(s))) {
+    out += escFrag(s.slice(last, m.index));
+    const hrefM = /href\s*=\s*["']([^"']*)["']/i.exec(m[1]);
+    const txt = _readStrip(m[2]);
+    let abs = "";
+    if (hrefM && hrefM[1]) { try { abs = new URL(_readDec(hrefM[1]), base).toString(); } catch { abs = ""; } }
+    if (abs && /^https?:\/\//i.test(abs) && txt) out += `<a href="${_htmlEsc(abs)}" target="_blank" rel="noopener noreferrer">${_htmlEsc(txt)}</a>`;
+    else if (txt) out += _htmlEsc(txt);
+    last = re.lastIndex;
+  }
+  out += escFrag(s.slice(last));
+  return out.trim();
+}
 function _readMeta(html, keys) {
   for (const k of keys) {
     const re = new RegExp(`<meta[^>]+(?:property|name|itemprop)=["']${k}["'][^>]*>`, "i");
@@ -2003,7 +2032,7 @@ function _readMeta(html, keys) {
   }
   return "";
 }
-const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles|generated with the support of ai|reviewed by an editor|see our t&c|confirm your subscription|check your inbox|reset your password|enter your (?:username|email)|preferred source|create a (?:free )?account|unlimited access|blocked by an extension|page has been blocked|courtesy .{0,30}collection|everett collection|\bphoto:\s|getty\b|\/afp\b|award-winning .{0,25}(?:writer|journalist|columnist|author|correspondent)|registered (?:office|number|no\.?|charity)|registered in (?:england|wales|scotland|n(?:orthern)? ?ireland|the uk|the united)|company (?:registration )?(?:no\.?|number)\b|vat (?:registration )?(?:no|number)|website (?:by|built by|designed by|developed by)\b|marketing by \w)/i;
+const READ_BOILER = /(subscribe|sign ?in|sign ?up|create an account|newsletter|cookie|advertisement|read more|continue reading|all rights reserved|©|terms of (?:use|service)|privacy policy|follow us|share this|most read|related (?:articles|stories)|photograph:|getty images|reuters\/|©\s?\d{4}|financial market professionals|\brefinitiv\b|thomson reuters trust principles|generated with the support of ai|reviewed by an editor|see our t&c|confirm your subscription|check your inbox|reset your password|enter your (?:username|email)|preferred source|create a (?:free )?account|unlimited access|blocked by an extension|page has been blocked|courtesy .{0,30}collection|everett collection|\bphoto:\s|getty\b|\/afp\b|award-winning .{0,25}(?:writer|journalist|columnist|author|correspondent)|registered (?:office|number|no\.?|charity)|registered in (?:england|wales|scotland|n(?:orthern)? ?ireland|the uk|the united)|company (?:registration )?(?:no\.?|number)\b|vat (?:registration )?(?:no|number)|website (?:by|built by|designed by|developed by)\b|marketing by \w|outdated browser|browse happy)/i;
 // Section labels that head a navigation / recirculation widget (related stories,
 // "Popular Searches", trending, recommended, "more from"…). Matched ONLY against a
 // block that is a heading OR an entire short line — anchored at the start — so a real
@@ -2312,7 +2341,12 @@ function _readBlocks(scope, base) {
     if (isH ? (t.length < 2 || t.length > 120) : (t.length < 40)) continue;
     const k = (isH ? "h:" : "p:") + t.slice(0, 80); if (seen.has(k)) continue; seen.add(k);
     if (total > 20000) break;
-    out.push({ t, h: isH }); total += t.length;
+    const blk = { t, h: isH };
+    // Body paragraphs keep their inline links (clickable in-pane). Attach `html` ONLY when
+    // the block actually carries a usable anchor, so plain prose stays on the lean text path
+    // (and older cached responses without `html` still render via `t`).
+    if (!isH) { const rich = _readRich(m[4], base); if (/<a\s/i.test(rich)) blk.html = rich; }
+    out.push(blk); total += t.length;
   }
   while (out.length && out[out.length - 1].h) out.pop();
   return out;
