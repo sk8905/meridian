@@ -4,8 +4,8 @@
 //
 // Source: the reader's myFT RSS feed —
 //   https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss
-// It is fetched by the scheduled refresh routines (see
-// docs/newsletter-refresh.md, "myFT pull" section), parsed, and written here.
+// It is fetched by the scheduled refresh routine (see docs/refresh-routines.md,
+// the "Email sweep → myFT" section), parsed, and written here.
 // This list is regenerated on each refresh: dedupe by id (the RSS guid/link),
 // keep the ~40 most recent, newest first.
 //

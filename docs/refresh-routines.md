@@ -201,11 +201,11 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   prior same-day run that should exist is absent — call it out at the top of the run
   summary. This turns a silently-dropped earlier run (e.g. one that lost the publish
   race) into something visible instead of letting it hide behind the next run.
-- **Window.** Add items published since the last run. The five runs are ~4h
-  (05:00→09:00), ~3h (09:00→12:00), ~5h (12:00→17:00), ~4h (17:00→21:00) and ~8h (21:00→05:00) apart,
-  so look back ~24 hours to be safe — dedup removes any overlap. Verify each item's EXACT publication date from the
-  source; never invent a URL, date, figure or quote. Dedupe every candidate by URL
-  and normalised headline/citation against the data already in the file.
+- **Window.** Add items published since the last run. The routine fires roughly
+  every 2 hours through the London day (and not overnight), so look back ~24 hours
+  to be safe — dedup removes any overlap. Verify each item's EXACT publication date
+  from the source; never invent a URL, date, figure or quote. Dedupe every candidate
+  by URL and normalised headline/citation against the data already in the file.
 - **`time` field (Home feed ranking) — stamp it once, at creation.** For every NEW
   item you ADD that carries a `date` — Credit `deals`/`intel`, Legal
   `items`/`cases`/`restructurings`, Macro `NEWS`/`ARTICLES`/`COMMENTARY` items —
@@ -446,13 +446,13 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     as a pre-formatted `"HH:MM TZ"` string with a timezone label (London, e.g.
     `"05:22 BST"` / `"12:01 BST"`; use `GMT` in winter). It is pre-formatted (not a
     parsed Date) so it renders identically regardless of the viewer's browser
-    timezone. Because five runs land each day (~05:00, ~09:00, ~12:00, ~17:00 and ~21:00), this is
+    timezone. Because a run lands roughly every 2 hours through the day, this is
     what tells which run produced the shown data; it appears in the topbar and the
     notification header next to `LAST_CHECKED`. Keep both apps' value identical
     when a single run touches both.
     - **DERIVE it from the clock — never copy a value.** Read the real time with
       `TZ='Europe/London' date '+%H:%M %Z'` and use that. Do NOT reuse the example
-      strings above, the previous run's value, or a "05:00"/"09:00"/"12:00"/"17:00"/"21:00" schedule label:
+      strings above, the previous run's value, or any hard-coded schedule label:
       a manually-triggered run can fire at any time, and a routine fired at 15:41
       must stamp `"15:41 BST"`, not `"06:01 BST"`. (Real bug on 2026-06-24: a run
       executed ~15:41 wrote `LAST_CHECKED_TIME = "06:01 BST"` and titled its commit
@@ -836,577 +836,120 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 
 ---
 
-## The routine prompt
+## The live routine prompt
 
-> **NOTE — this is a REFERENCE SNAPSHOT, not the authoritative copy.** The live
-> prompt is stored in the "/Wire: full refresh" Routine in the Claude Code Routines
-> UI and is edited there; it may be ahead of this snapshot. Treat the invariants
-> above (and the rest of this doc) as authoritative, and the live Routine as the
-> operational copy. Current live behaviour: fires **every ~2 hours**, writes a
-> **single** briefing every run, runs the **freshness audit first**, and sweeps
-> **research + newsletters + myFT** every run. There are **no `?v=` cache tokens to
-> bump** (code is Vite-hashed, data is no-cache).
->
-> Do a full refresh of ALL THREE Meridian platforms — Credit, Legal and Macro —
-> and publish the changes live. (This routine fires every ~2 hours.)
-> Follow the invariants in `docs/refresh-routines.md`. The repo has `credit/`,
-> `legal/` and `macro/` apps and deploys from `main`.
->
-> 1. SYNC: `git fetch origin`, then
->    `git checkout -B claude/affectionate-einstein-9hhzga origin/main`. Do all work
->    on this branch. Hunt for items published since the last run (look back ~24h;
->    dedup removes overlap) — but the window bounds the HUNT, not eligibility:
->    whenever a search surfaces a genuine, source-verifiable item that is not already
->    tracked, ADD it even if its own date falls outside that window (as far back as
->    2016). Never drop a verified item as "too old", and never bump an item's date to
->    fit the window — record its real publication date. Verify every date from the
->    source; never invent URLs, dates, figures or quotes; dedupe against what's
->    already in each file. For every array compute the current max id and use the
->    next integer.
->
-> 2. CREDIT — `credit/js/data.js` (European private credit):
->    - **Deals** → append to the `deals` array (id `d<next>`): date (YYYY-MM-DD),
->      managerId (must match an existing manager — skip if not in the dataset),
->      fundId if applicable, type (reuse an existing deal type), headline, summary,
->      sourceUrl. **Transactions tab:** each deal is auto-classified into a
->      transaction type and its size parsed from the headline/summary by
->      `credit/js/tx.js` — so keep the headline's currency figure explicit
->      (e.g. "€400m") and its wording specific. When the sourced wording can't
->      convey a *specialist* type the classifier keys off (LP-led secondary, NAV
->      loan, ABL, rescue financing), add a one-line entry to `TX_TAG` in
->      `credit/js/tx.js` mapping the new deal id → its type key (verified against
->      the source). Never invent a size — omit the figure and it stays undisclosed.
->    - **Fundraising / mandates / launches** → append to the `intel` array (id
->      `i<next>`): date, type (reuse an existing intel type — Fundraising, First
->      Close, Final Close, Launch, Mandate, Personnel, Strategy, Equity / PE),
->      headline, summary, managerId/fundId, sourceUrl. (Mandates & fund launches
->      are intel items of type "Mandate"/"Launch" — they feed the Mandates tab.)
->    - **Manager website news** → for managers with an active news/press page, add
->      new announcements to that manager's `webNews` array ({date, outlet, title,
->      url}), deduped against their existing `news` + `webNews`; prefer the
->      manager's own press-release URL. (The Home Manager wire also collapses
->      duplicates at render time — `manager-signals.dedupeEvents` folds the same
->      story recorded under several tags or outlets into one row, keeping the most
->      specific tag — so a story landing as both a `deals`/`intel` item and `webNews`
->      won't show twice; still avoid gratuitous exact repeats.)
->    - **SLS column (`structured` on managers) — PRESERVE and EXTEND.** The
->      managers league table renders an **SLS** column ("Structured Liquidity
->      Solutions") of chips — NAV / SRT / CFO / CONT / OTH — from each manager's
->      `structured: [{type, label, url, outlet, date, note}]` array. NEVER drop
->      or rewrite existing `structured` entries in a refresh; they are curated,
->      dated evidence (same standing as the maturity-wall figures). When new
->      coverage lands on a manager's NAV financing, significant risk transfer,
->      collateralised fund obligation, continuation fund/vehicle or GP-led /
->      secondaries / fund-finance activity, APPEND a new `structured` item —
->      type from that fixed vocab (OTH = other structured liquidity), every
->      claim verbatim from the cited article, `note` attributing the vehicle
->      and the manager's role (fund-level vs manager-level; provider vs user
->      vs investor) — and ALSO add the source article to that manager's
->      `news`/`webNews` (deduped by URL, and mirrored into deals/intel per the
->      rule above when it is a transaction). No source, no chip: a manager with
->      no sourced item renders an em-dash, which is the correct outcome — never
->      stretch weak or asset-level evidence (portfolio-company ABS, CLO
->      issuance, a "CFO" job title) into an SLS chip.
->    - **SRT — running/originating, NOT opportunistic buying.** A `type:"SRT"`
->      chip is for a manager whose franchise *uses* significant/synthetic risk
->      transfer: running dedicated SRT/bank-capital funds or strategies,
->      structuring/originating/leading SRT transactions with banks. A manager
->      merely **buying SRT paper** as one investment among many does NOT earn an
->      SRT chip — "buying SRTs is different to using/selling SRTs, so it should
->      not count towards a label" (per the app owner). Tell them apart from the
->      cited article's framing: "X is buying up SRTs", "X bought SRTs tied to …"
->      → buy-side, no chip (the story can still live in `webNews`); "X raises
->      €Xbn for its SRT strategy", "X leads/closes/structures an SRT", "dedicated
->      SRT manager, N bilateral deals" → franchise, chip stands. When in doubt,
->      classify as buy-side (no chip). If a future refresh only has buy-side
->      evidence for a manager, leave `structured` empty rather than adding an SRT
->      chip.
->    - **CFOs — standing check EVERY run.** Collateralised fund obligations are
->      under-covered. Seeded so far (keep, extend): AlpInvest/Carlyle (two CFOs,
->      $1bn 2024 + $1.25bn 2025), KKR (REIGN I $1.58bn), Ardian ($1bn 2026). On
->      each refresh, actively search each tracked manager for CFO / rated-feeder /
->      rated-note-feeder / fund-securitisation activity and APPEND a `type:"CFO"`
->      structured item wherever a dated, sourced deal exists (sponsor or arranger
->      role stated in the `note`), also adding the source article to the manager's
->      news. RESEARCH VIA THE **WebSearch** TOOL — it runs on Anthropic
->      infrastructure and works regardless of the environment's network policy
->      (Trusted or Full). Do NOT conclude research is blocked because a direct
->      `curl`/`WebFetch` 403s: that only measures the container's own egress
->      (what "Trusted" governs), which the established pattern never used. Quote
->      WebSearch snippets verbatim with their source URLs (the three CFOs above
->      were sourced exactly this way). If one specific page genuinely must be
->      fetched rather than searched, add that fetch to the Worker (production
->      side, unaffected by container egress) — never treat "flip the environment
->      to Full" as a prerequisite for routine research.
->    - **MIRROR webNews into deals/intel (critical).** A `webNews` entry shows ONLY
->      in the notifications bell — it does NOT appear in the Deal Activity or
->      Fundraising Intelligence feeds, the dashboard KPIs, or any tab/list (those
->      render solely from `deals` / `intel`). So whenever a webNews item is itself a
->      transaction (investment, financing, unitranche, acquisition, disposal/exit,
->      refinancing, restructuring, structured credit/CLO, continuation vehicle) or a
->      capital-formation/strategy event (first/final close, fundraise, launch,
->      mandate, partnership/JV/MoU, senior personnel, strategy), you MUST ALSO add a
->      matching item to `deals` (transactions) or `intel` (everything else) — same
->      date, headline and sourceUrl, with the right `managerId` and a `type` from the
->      existing vocab — so the item appears on the dashboard and in its tab, not just
->      the bell. Only pure manager PR (quarterly/annual results, market commentary,
->      thought-leadership, awards, outlooks) stays webNews-only. Audit: every recent
->      webNews URL should also be a `sourceUrl` in deals/intel unless it is one of
->      those PR-only categories.
->    - **Tag CLO items (`clo: true`).** Meridian Credit has a dedicated **CLOs**
->      section (`#/clos`) that renders ONLY `deals`/`intel` items carrying
->      `clo: true`, and the Deals, Fundraising, Mandates and dashboard views
->      EXCLUDE those items. So any collateralised-loan-obligation item — a CLO
->      pricing/closing/reset/new-issue, a CLO fund or CLO-equity fund, a CLO ETF,
->      a CLO platform launch, a CLO-team hire, or a CLO award — MUST be added with
->      `clo: true` (CLO transactions → `deals` type `Structured Credit`; CLO
->      platforms/funds/ETFs/personnel/awards → `intel`). Without the flag a CLO
->      story shows in the bell and in Deals/Fundraising but NOT in the CLOs
->      section. Do NOT flag items where CLO is merely incidental (e.g. an M&A or
->      IPO whose target happens to run a CLO business). Detect the acronym
->      case-sensitively (`CLO`/`CLOs`) so "close"/"closes" don't false-match.
->    - **Reconcile fund records** → when a first/final close (or material fund
->      raise) is found, also update the matching fund in the `funds` array: set
->      `status` (Open → "First Close" → "Final Close"), update `raised` (and
->      `hardCap`/`targetSize` if newly disclosed), and refresh its `asOf`. Match the
->      fund by name + managerId; if it doesn't exist yet, add it (next bullet).
->    - **Add new managers / funds** → if a deal or raise involves a manager or fund
->      not yet tracked, add it (only with a verifiable public source; never
->      fabricate — set unknown fields to `null`, mark estimates with
->      `estimated: true`). **First apply the private-credit scope test (see the
->      "Private-credit scope" invariant): skip any equity-only firm — PE/buyout,
->      equity real estate/infrastructure, growth/venture equity — and NEVER re-add
->      the removed equity-only firms (EQT, PAI Partners, TDR Capital, Astorg,
->      BlackRock Private Equity Partners, Amro Partners, Equitix, Greycoat Real
->      Estate); add a manager only if it runs a private-credit strategy, and a fund
->      only if it is a credit fund.**
->      - New manager → append to `managers` (id `m<next>`): name, hq, founded, aum
->        (€bn number) + aumText, strategies (array), description, asOf, owners,
->        financials, headcount, news: [], sources (≥1 real URL).
->      - New fund → append to `funds` (id `f<next>`): name, managerId, strategy,
->        vintage, targetSize, hardCap, raised, status, domicile, geoFocus,
->        sectorFocus, description, asOf, sources (≥1 real URL).
->    - **Re-verify manager profiles (rotating)** → each run, take the ~3 managers
->      with the OLDEST `asOf`, check their public AUM / headcount / financials /
->      description against a current public source, update any that changed, and set
->      their `asOf` to today (even if unchanged, so the rotation advances). This
->      keeps the slow-moving profile data fresh without re-checking all of them
->      every run.
->    - **Watchlist deep-research (priority names) — DO THIS EVERY RUN.** The names
->      users follow deserve a DEEPER, more complete profile than the normal sweep
->      above. Get the live list first: `GET https://<site>/api/research-targets` with
->      header `X-Research-Key: <the RESEARCH_KEY secret in this routine's env>`. It
->      returns `{ users, manager:[ids], fund:[ids], lp:[ids], firm:[ids], hf:[ids] }` (plus a `ts` stamp) — the union of every
->      user's watchlist. Resolve those ids to names via `credit/js/data.js`. If the
->      endpoint is unreachable or the secret is unset, SKIP this block and carry on
->      with the rest of the refresh — never fail the run over it. Because the list is
->      fetched live each run, any newly-starred name is picked up automatically next
->      run. Pick the watchlisted entities whose `deepAsOf` is missing or oldest and
->      deep-research **up to ~5–8 of them per run** (the rest roll to the next run so
->      one routine stays bounded). For EACH chosen name go WIDE and go BACK:
->      - **News (historical + new)** → backfill its `webNews` as far back as 2016,
->        not just the last day — add every source-verifiable announcement, press
->        release and article you can confirm that isn't already tracked, and MIRROR
->        each transaction/capital event into `deals`/`intel` (flagging CLO items)
->        exactly as the rules above require.
->      - **New funds / CLOs / vehicles** → find funds, CLOs, CLO-equity vehicles,
->        continuation funds and managed accounts run by that name that aren't yet in
->        `funds`/`deals`, and add them (the private-credit scope test still applies).
->      - **Investors / LPs** → capture disclosed limited partners / cornerstone
->        investors (pension plans, insurers, sovereign funds, fund-of-funds) tied to
->        that name's vehicles, where the platform models them.
->      - **Profile gaps** → fill any missing manager/fund fields (AUM, owners,
->        financials, headcount, filings, strategies) from current public sources.
->      - **Stamp progress** → set `deepAsOf` (YYYY-MM-DD) on every entity you deep-
->        research this run, even if nothing changed, so the rotation advances. A name
->        with a recent `deepAsOf` only needs an incremental top-up (items since), not
->        another full historical dig.
->    - If Credit's data changed (any of the above), set `DATA_UPDATED` to today.
->
-> 3. LEGAL — `legal/js/data.js` (English law). Cover the four practice areas only:
->    banking, ri, corporate, funds. (`funds` covers both funds-regulatory and
->    fund-tax topics — the two were merged into one "Funds" area 2026-07-01; do NOT
->    use the old `fundsreg`/`fundtax` ids.)
->    - **Legal alerts** → append to the `items` array (id `u<next>`) from the
->      tracked firms'/chambers' own insights/client-alert pages: title; area (one
->      of the four); areas (array); type (one of case/update/alert/insight/
->      knowhow); firm (MUST be one of: aoshearman, cliffordchance, freshfields,
->      linklaters, slaughtermay, ashurst, hsf, macfarlanes, traverssmith, simmons,
->      latham, kirkland, whitecase, weil, sidley, cleary, ropesgray,
->      simpsonthacher, davispolk, southsquare — skip items not from these);
->      date; jurisdiction; court + citation for case notes; summary; points
->      (array); tags (array); url. **url is REQUIRED** — a verifiable public
->      source is essential. NEVER add an alert without a working source URL;
->      if an existing alert's source page disappears, replace the URL or
->      delete the record.
->    - **Case law** → search BAILII and caselaw.nationalarchives.gov.uk for
->      judgments handed down in-window in the five areas AND one of the tracked
->      courts ONLY (Supreme Court, Court of Appeal, High Court (Ch), High Court
->      (Comm), High Court (KB), High Court (QB)). Append to the `cases` array (id
->      `c<next>`): id, name, citation, court (exactly one tracked label), date,
->      area, url (prefer the BAILII/National Archives URL), summary — AND add a
->      matching 3–4 sentence entry to the `caseSummaries` map keyed by the same id.
->    - **Schemes & restructuring plans** → search for new English-law Part 26A
->      restructuring plans and Part 26 (distressed) schemes of arrangement that
->      reached the court (convening, sanction, refusal or appeal) in-window. Cover
->      matters since 2020. Good sources: BAILII / National Archives for the
->      judgment, plus the tracked firms' restructuring-team analyses found via
->      `site:<firm-domain>` searches (the same firm list as Legal alerts). Append to
->      the `restructurings` array (id `rx<next>`) using a neighbouring entry as the
->      field template: company, type (`"plan"` or `"scheme"`), date (the hearing/
->      judgment date, YYYY-MM-DD — REQUIRED, see below), court, citation,
->      judgmentUrl, sector, debt, creditors (array), features (array), advisers
->      (array — the company's own legal/financial advisers), firm (a tracked firm id
->      whose article you link), articleUrl (that firm's analysis), outcome (reuse an
->      existing string — e.g. `Sanctioned`, `Refused`, `Convened (meetings ordered)`,
->      `Appeal dismissed — plan upheld`), notes. Set unknown fields to `null`/`[]`;
->      never fabricate creditors, debt figures, advisers or URLs — leave them empty
->      if unverified. Dedupe by company + citation against the existing array.
->    - **Pending re-check.** The `restructurings` array can look "stale" simply
->      because the English Part 26/26A docket is quiet (e.g. the Jul–Sep 2026 summer
->      lull) — that is NOT a coverage miss and is not a reason to pad it. Carry a
->      short watch-list of convened-but-not-yet-sanctioned matters and re-check each
->      run for the sanction judgment. **Currently watching: Schleich (SCUR-Alpha
->      1092 GmbH)** — Part 26 scheme convened 10 Jun 2026 ([2026] EWHC 1414 (Ch));
->      look for a sanction judgment on the National Archives caselaw site / GRR /
->      South Square (expected citation roughly in the [2026] EWHC 1600–2200 (Ch)
->      range). Add it once — and only once — a real sanction date/citation is
->      verifiable.
->    - **Counsel capture (firm profile pages).** The Legal firm pages
->      (`/legal/#/firm/<id>`) compile every case/scheme/plan whose record text
->      NAMES a tracked firm. So for every NEW case and scheme/plan you add,
->      check the judgment's counsel/representation listing (BAILII and National
->      Archives judgments open with it) and record which tracked firms or
->      chambers acted:
->      - cases → add a `counsel` array, e.g.
->        `counsel: ["Kirkland & Ellis (appellant)", "South Square (respondent)"]`
->      - restructurings → keep filling the existing `advisers` array the same way
->      Use the firm's full display name exactly as in the `firms` table (e.g.
->      "Freshfields", "A&O Shearman", "South Square") so the profile-page matcher
->      picks it up. Only record what the judgment/coverage verifiably states —
->      never infer who acted; omit the field rather than guess. Untracked firms
->      may be listed too (they're harmless); tracked ones are what light up the
->      profile pages.
->    - **Schemes/RPs auto-surface in notifications** (no mirror step needed). Unlike
->      Credit `webNews`, the `restructurings` array already feeds BOTH the
->      Schemes-and-RPs tab AND the notification bell (kind = Plan/Scheme). The ONE
->      requirement: give every new entry a real `date` — that is what sorts it and
->      drives the "new" badge; an entry with no date will not surface as new.
->    - If Legal's data changed, set `LAST_REVIEWED` to today.
->
-> 4. MACRO — Meridian Macro (US & UK indicators + rate outlook, cycle & bubble
->    views). Macro's headline indicators are fetched LIVE by the Worker on each
->    request (FRED / ONS / DBnomics), so they refresh automatically — this step keeps
->    the CURATED series, the editorial guidance and the refresh stamp current:
->    - **Force-refresh the live cache** → bump the edge-cache key `"/api/macro?v=N"`
->      in `src/index.js` (increment `N`) so the redeploy serves a freshly-pulled set
->      of indicators, not the previously cached payload.
->    - **Curated series in `src/index.js` `MACRO_SERIES`** (these have no free live
->      feed) → when a new monthly print or a central-bank decision has landed
->      in-window, append it to the relevant `curated: [...]` array, verified from the
->      source: US ISM Services PMI (`services_pmi`), UK S&P Global/CIPS Services PMI,
->      UK 2-year gilt, UK Bank Rate step function and — if the Fed/BoE changed rates —
->      the US/UK `base_rate`. Keep months in `YYYY-MM` order; never invent a figure.
->    - **Upcoming-releases calendar in `macro/js/content.js` `RELEASES`** → this
->      feeds the **"Upcoming releases" dropdown** pinned to the top-right of the
->      dashboard header (it lists the next six scheduled US/UK releases, soonest
->      first), so the array must always contain the near-term future. Each run:
->      DROP any entry whose date is now in the past, and ADD newly-confirmed
->      scheduled US/UK data releases & central-bank announcements so the list runs
->      ~4 weeks forward. Cover the significant items — FOMC & BoE MPC meetings/
->      decisions/minutes, CPI, PPI, PCE, GDP, retail sales, jobs report / nonfarm
->      payrolls, ONS labour market & CPI, ISM & (where a date is confirmed) S&P
->      Global/CIPS PMIs. Each entry is `{date:"YYYY-MM-DD", country:"US"|"UK",
->      title, url}` — the `url` is the official release-calendar / source page the
->      banner tile links to (e.g. the BLS CPI schedule, the Fed FOMC calendar, the
->      ONS release page, the BoE upcoming-MPC-dates page). VERIFY every date from an
->      official release calendar (BLS/BEA/Census/Fed/ISM, ONS, BoE) or a reliable
->      economic-calendar source; never invent or approximate a date — omit an item
->      you cannot verify. Keep the list sorted by date. (Omit the recurring weekly
->      initial-jobless-claims prints — too noisy for the banner.)
->    - **Earnings wall in `macro/js/content.js` `EARNINGS`** → feeds the
->      Dashboard › **Earnings** sub-section: the coming week's market-moving
->      reporters, FOCUSED on (in priority order): banks & brokers, asset
->      managers, AI-relevant names (hyperscalers, chip companies, AI software),
->      the Mag 7, and any other release likely to move the broad market. Skip
->      minor names outside those groups. Private AI leaders (OpenAI, Anthropic,
->      SpaceX, xAI) have no earnings releases — never add rows for them; their
->      funding news runs in the wire. (The panel renders NO explainer footnote —
->      there is no `foot` field; the sources list renders collapsed.) Each row also carries `held[]` — which of the
->      reader's ETFs hold the name, shown as a small colour-coded label — each
->      entry is `{etf, w}` where `w` is the stock's weight in that ETF/index
->      quoted VERBATIM from a published source (MSCI factsheet top-10 or the
->      iShares holdings page); leave `w` null when no published figure is
->      reachable (the label then renders without a percentage): `IGWD` (iShares
->      MSCI World GBP-hedged — ANY developed large cap qualifies), `WMVG`
->      (iShares Edge MSCI World Min Vol GBP-hedged — tag ONLY names verified in
->      the MSCI World Minimum Volatility factsheet constituents), `EMEE`
->      (iShares EM Equity Enhanced Active — EM names only, verify against the
->      iShares holdings page). `COMM` (iShares Diversified Commodity Swap)
->      holds futures, never equities — never tag it. The block holds TWO
->      weeks (`weeks[]`): a LOOK-BACK week (results + share reaction) and the
->      week AHEAD (consensus). Every row carries `est`/`act` × `Eps`/`Rev`,
->      plus two OPTIONAL rows: `km: {l, est, act}` — the sector's KEY METRIC
->      with its own short label (bank markets/equities revenue or NII, chip
->      gross margin, TSLA deliveries, NOW cRPO, VZ adj EBITDA, BX DE/inflows,
->      KO organic growth…) — and `guide: {est, act}` where `est` is the
->      guidance in force going INTO the print (company's own guide for the
->      quarter, or standing FY guidance) and `act` is the new guidance issued
->      WITH the results. Omit `km`/`guide` when nothing is published. Quote
->      each figure a source publishes; leave the rest null (renders as an
->      em-dash pre-release, N/R after — never derive one).
->      Upkeep each run: (a) on the FIRST run of each Monday, the look-back
->      block becomes the week just ended (rows keep their actuals) and the
->      ahead block is rebuilt with the new week's calendar (`days[].rows[]`
->      with consensus figures quoted VERBATIM from a named source —
->      `srcs[]` must carry working URLs; omit an estimate you cannot verify,
->      leave it null). **Each row MUST sit under its verified report date.**
->      Every `days[].date` is a real calendar day and each row belongs under
->      the day the company actually reports — look the date up from a named
->      source (the company's own "announces timing of Q_ earnings" release,
->      or a calendar page), do NOT lump the whole week under one day. If a
->      confirmed report date falls OUTSIDE the block's window (e.g. a name
->      that slips to the following week), drop that row from the ahead block —
->      it does not belong under any day shown. Set each row's `when`
->      ("Pre-mkt" / "After close" / null) to match that source too.
->      (b) on EVERY run, before anything else, sweep the ahead block: for
->      every row whose report date is today or earlier, the actuals MUST be
->      filled — pull `actEps`/`actRev` and `px` (the source's quoted
->      same/next-day share move, e.g. "+4.1%") from the coverage, NEVER
->      computed or guessed, and add a one-line `note` on the headline result.
->      A reported row still showing `actEps: null` is a routine miss, not an
->      expected state — treat a null actual on a past-dated row as work owed.
->      Keep nulls only where the source genuinely gives no figure (e.g. a
->      bank that reports EPS but not a revenue line). Rows stay for the rest
->      of their week so forecast vs actual reads side by side.
->      **The Home right-rail earnings tile is pinned to the CURRENT week**
->      (`renderEarnings`/`naEarnings` drop any `weeks[0]` row dated outside
->      this Mon–Sun and fall through to a "No earnings scheduled this week"
->      state). So if the ahead block (`weeks[0]`) is not rolled forward, the
->      Home tile goes EMPTY — rolling `weeks[0]` to the live week each Monday
->      is what keeps it populated. A genuinely empty week (no priority-group
->      reporters) correctly shows the "none this week" state; never leave a
->      stale prior week in `weeks[0]` to avoid it.
->    - **Maturity-wall charts in `macro/js/content.js` `MATWALL.wall` +
->      `MATWALL.ratedWall`** → feed the two bar charts in Dashboard ›
->      **Credit** (y = $bn, x = year bucket). `wall` is the US leveraged-finance
->      view (LSTA Morningstar-index monthly analysis for loans — the PDF is
->      member-gated, so cite PitchBook's public write-up in `srcs.loansAlt`
->      alongside — and PitchBook/LCD coverage for HY bonds); `ratedWall` is the
->      global rated per-year series quoted VERBATIM from S&P's PUBLIC investor
->      factbook (its own caption: "Data as of January 1, 2025" — fresher
->      per-year global splits sit behind S&P's registration wall). Every
->      plotted value is quoted VERBATIM from a public source; `null` renders
->      as "n/p" — NEVER estimate, interpolate, or back out a missing year.
->      Each sub-block carries a visible `asOf` vintage; NEVER mix two vintages
->      in one series — replace a series wholesale (values, `note`, `asOf`,
->      `srcs` together), and where sources conflict across vintages (e.g.
->      factbook Jan-2025 vs refinancing-study Jul-2025) show both side by
->      side, each with its own attribution. Upkeep is occasional, not per-run:
->      when a newer index analysis, factbook edition or outlook publishes
->      updated figures, swap the whole affected series and keep the as-of
->      dates current. `hyMin: true` marks a ">$Xbn" floor figure.
->    - **Key macro news headlines in `macro/js/content.js` `NEWS`** → REWRITE every
->      run. The dashboard renders these as ONE newest-first feed: it prefers items
->      dated within the last 3 days, but if none are that recent it falls back to
->      whatever headlines are in `NEWS` (so the feed is never empty). Refresh them
->      each run so the dashboard keeps showing genuinely current stories. Run targeted
->      web searches for the most important CURRENT US and UK macro / monetary-policy /
->      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
->      reputable financial outlets — wires & majors (Reuters, AP, Bloomberg, Financial
->      Times, Wall Street Journal, CNBC, The Economist, TradingEconomics, MarketWatch,
->      Yahoo Finance, Briefing.com, MT Newswires (via Koyfin),
->      DealBook (NYT), TradingView, Financial News London); fast US
->      business/policy (Axios, Semafor, Barron's, Politico); UK (The Guardian, BBC,
->      Sky News, CityAM); and — to fill the quiet overnight / early
->      (05:00-run) window when US/UK desks are dark — round-the-clock FX/rates & Asia
->      desks (FXStreet, ForexLive, MNI/Market News, Trading Economics, Nikkei Asia,
->      Reuters/Bloomberg Asia). These named outlets are the PREFERRED set — lead with
->      them — but the list is NOT exhaustive: any other reputable, verifiable source is
->      fine when a genuine story breaks elsewhere. Diversify across this wider set — do
->      not lean on the same two or three outlets every run — then replace the arrays with **exactly five** US and
->      **exactly five** UK headlines, ideally all dated the refresh day. The Macro
->      dashboard's "Key macro headlines" panel shows the newest **ten** merged (a
->      2×5 grid), and the Home landing card shows the newest **three** of each
->      country ("US headlines" / "UK headlines") — so five per country fills the
->      dashboard panel to ten while still surfacing three current items per country
->      on Home. (If fewer than five verifiable same-day stories exist for a country,
->      include the best recent ones rather than padding — never fabricate.) Each
->      item is `{title, source, date, url}` — use the exact published headline, the
->      outlet, the verified `YYYY-MM-DD` publication date and the real article URL;
->      never fabricate a headline, date or link. Diversify outlets within each country
->      and favour genuine macro stories over single-company news. Set `NEWS.updated`
->      to today. If egress is blocked so no headline can be verified this run, leave
->      the existing `NEWS` arrays unchanged (do not invent replacements) and say so in
->      the summary — the pre-existing headlines stay on the dashboard until the next
->      successful run.
->    - **Macro reading list in `macro/js/content.js` `ARTICLES`** → the Commentary
->      tab renders `ARTICLES.items` as a newest-first reading list **grouped into
->      month sections** ("JULY 2026" etc.) and **paginated** (25 per page, with a
->      "Show more" control and a per-item Save button), so it now carries a deeper
->      backlog than before. Each item is `{title, source, date, url, blurb, author?}`
->      (`blurb` a one-line dek). These are the most important GENERAL global
->      macro-economic news & analysis stories — monetary policy, growth, inflation,
->      oil, bonds, geopolitics — from reputable outlets (Financial Times, Bloomberg,
->      Reuters, Wall Street Journal, The Economist, CNBC, TradingEconomics, The
->      Guardian, Axios, Semafor, Barron's, Project Syndicate, Politico, MNI/Market
->      News, and round-the-clock FX/rates & Asia desks such as FXStreet and Nikkei
->      Asia for the overnight window, etc.). Refresh each run: prepend genuinely current
->      stories and keep roughly the **most recent ~30–40** (dropping the oldest beyond
->      that), newest first, so the month sections stay populated a few months back;
->      **make sure the newest three are dated the refresh day** — the Home landing
->      card's "Market headlines" section shows the newest three of `ARTICLES.items`, so
->      those three should be current (same-day). Diversify outlets; use the exact
->      published headline, outlet, verified `YYYY-MM-DD` date and real URL — never
->      fabricate. Set `ARTICLES.updated` to today. If egress is blocked so nothing can
->      be verified, leave `ARTICLES` unchanged and say so in the summary.
->    - **Recent market commentary in `macro/js/content.js` `COMMENTARY`** → the
->      Policy Rate tab renders these as a two-column (US/UK) newest-first feed styled
->      like the dashboard headlines. Unlike `NEWS`, these are ANALYSIS/opinion/research
->      pieces (economist columns, research-house notes, interviews) and stay relevant
->      longer, so there is NO recency cut-off and no need to rewrite every run — but
->      refresh them whenever notably fresher/better commentary appears (e.g. after an
->      FOMC/MPC decision or a prominent economist piece), keeping ~three US and ~three
->      UK, newest first. Cover a MIX of source types: (a) sell-side BANK research /
->      analyst notes and named bank economists (Goldman Sachs, J.P. Morgan, Morgan
->      Stanley, BofA, Citi, Wells Fargo, Deutsche Bank, Barclays, UBS, HSBC, Nomura,
->      ING, etc. — their rate calls/forecasts), (b) research-house reports (Capital
->      Economics, Oxford Economics, Pantheon Macroeconomics, TS Lombard, Absolute
->      Strategy Research, NIESR, Resolution Foundation), and (c) named
->      economist/columnist opinion (FT, Bloomberg Opinion,
->      Reuters Breakingviews, WSJ, The Economist, Project Syndicate, CNBC). A bank
->      item may be either the firm's own insights page OR a reputable article
->      reporting its forecast. Each item is `{title, source, author, date, url}` —
->      put the FIRM (and person where named) in `author` for bank/house pieces
->      (e.g. "BofA — Aditya Bhave", "Goldman Sachs"), a named columnist in `author`
->      for opinion pieces, `null` only when genuinely unattributable; verify every
->      title/date/URL and never fabricate. Skip low-quality aggregators (GuruFocus,
->      etc. — see the Sourcing invariant). Set `COMMENTARY.updated` to today when
->      changed.
->    - **Editorial guidance in `macro/js/content.js`** → review against current
->      sources and update only when materially changed (e.g. after an FOMC/MPC
->      decision, a major data surprise, or a notable market move):
->      `OUTLOOK` (Fed/BoE rate outlook), `CYCLE` (Dalio positions), `BUBBLE`
->      (valuation/credit/breadth readings & composite), the `SUMMARY` one-liners and
->      the `ALERTS` bell items (bump an alert's `id` when its guidance changes so it
->      re-flags). Bump `UPDATED` to today when guidance changed. Keep every claim
->      tied to a real source URL; educational-only framing stays.
->    - **Always** set `META.lastChecked` / `META.lastCheckedTime` in
->      `macro/js/content.js` (Macro's "Last refresh" stamp) and advance Macro's three
->      cache tokens — every run, even when nothing else changed.
->
-> 5. NEWSLETTERS & myFT — MANDATORY every run, never skip (a 2026-07-18 manual
->    run omitted it silently). Even when Credit/Legal/Macro found nothing, run
->    both pulls and report their counts (0 is fine) in the summary — a summary
->    without newsletter/myFT counts means the run is incomplete. Follow
->    `docs/newsletter-refresh.md` exactly:
->    - §§1–4: pull newly forwarded newsletters from the connected Gmail
->      (skaidrive2@gmail.com), parse into `newsletters.js` (headline, publication/
->      author, date/time, one-line topic summary, "view in browser" link — never
->      body text), dedupe, keep ~40 newest, bump the `newsletters.js` token in
->      `glance.js`. If the Gmail connector is unavailable in this run, skip the
->      newsletter part and leave `newsletters.js` untouched.
->    - §4a: RESEARCH sweep → `research.js` (the SOLE source of the Research lane). Same
->      mechanism as newsletters, but for the sell-side / house research the reader
->      signs up to (JPMorgan "Eye on the Market", Apollo "Daily Spark", Goldman
->      "Briefings", Morgan Stanley "Thoughts on the Market", PIMCO, BlackRock
->      Investment Institute, Guggenheim, and the rating agencies Fitch (Fitch Wire ·
->      fitchratings.com), Moody's Ratings and S&P Global Ratings…). A forwarded email
->      is ROUTED to research (not newsletters) when its sender domain is in
->      `research.js`'s `PUBLISHERS` map — extend that map as new sign-ups arrive,
->      confirming each domain on first receipt. SKIP pure subscription-confirmation /
->      account-activation emails (no content). Parse into the `RESEARCH` array (same
->      item shape as `NEWSLETTERS`: headline, publication/author, date/time, one-line
->      summary, "read online" link — never body text), dedupe, keep ~40 newest. For the
->      link, PREFER the note's CANONICAL publisher URL (verify via WebSearch) over a
->      personalised email tracking redirect — it's durable and renders in-pane. (The earlier live Google-News
->      auto-pipe — Apollo / Oaktree / AQR — was RETIRED because those house sites
->      block server-side reads and never rendered in-pane; the lane relies on the
->      Gmail versions, which do. The `research:true` flag plumbing stays for any
->      openly-readable research RSS added later.) If Gmail is unavailable this run,
->      leave `research.js` untouched.
->    - §5: AFTER this run's publish (next step) has succeeded, move each processed
->      email to Gmail Trash (`apply_sensitive_message_label` / thread variant,
->      `TRASH`). Also sweep stragglers already present in the committed
->      `newsletters.js` / `research.js`. Never trash anything whose data isn't committed.
->    - §6: fetch the myFT RSS feed
->      (`https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss`),
->      regenerate `FT_ITEMS` in `ft.js` (title, canonical URL, guid id, Europe/London
->      date + HH:MM; dedupe by id, newest first, ~40) and bump the `ft.js` token in
->      `glance.js`. If ft.com is unreachable, skip — never blank `ft.js`.
->
-> 6. ALWAYS set `LAST_CHECKED` to today in BOTH `credit/js/data.js` and
->    `legal/js/data.js`, and `META.lastChecked`/`META.lastCheckedTime` in
->    `macro/js/content.js` (these are the "Last refresh" stamps in each topbar — they
->    must advance every run so a run is visible even when nothing was added). Then
->    advance the `/api/macro?v=N` edge key (increment N). (There are NO `?v=` module/app cache tokens to bump — code is Vite content-hashed and data is served no-cache; ignore any older "bump Credit/Legal/Macro tokens" step.)
->    to today's date with the next sequence, plus the `/api/macro?v=N` edge key.
->
-> 7. VALIDATE as an ES module (plain `node --check` misses module-only errors and
->    array holes — see the "Validate" invariant):
->    `node --input-type=module -e "import('./credit/js/data.js').then(m=>console.log(m.deals.length))"`,
->    the legal equivalent, and Macro:
->    `node --input-type=module -e "import('./macro/js/content.js').then(m=>console.log(m.META.lastChecked, m.BUBBLE.dimensions.length))"`
->    plus `node --check src/index.js`.
-> 7b. RUN THE TEST SUITE — the pre-publish gate (NON-NEGOTIABLE; it is what stops a
->    malformed briefing or data defect from deploying). After editing, run at least
->    the data + briefing specs and only publish if GREEN:
->    `node tests/run.mjs briefing-empty-bullet home-briefing briefing home-brief-tickers home-brief-freshness credit-roster-integrity manager-coverage tx-profiles-coverage feed-quality`
->    (run it in the background and poll — it may exceed the 120s foreground limit).
->    A FAILURE means the data you just wrote violates a house rule — FIX IT before
->    pushing (e.g. a briefing slot must carry Macro/Bonds/Equities each with a
->    pillable benchmark + a Bonds yield level + an Equities index level, ≤4 canonical
->    desks, every bullet dated within 4 days — see HOUSE_STYLE R28). Prefer the FULL
->    suite (`node tests/run.mjs`, ~2 min, 82 specs) when time allows; never push red.
->
-> 8. HOUSE-STYLE QC — TEXT-SIZE CONFORMANCE (every run, not optional). The five-role
->    type scale (`--fs-*` tokens in `premium.css` → "CANONICAL TYPE SCALE"; see the
->    "House typography" invariant) must hold across all four surfaces. Check it:
->    - If this run added/edited any UI or markup, confirm every piece of text maps to
->      one of the five roles and uses its token / role class — never a literal
->      `font-size`: section title (`--fs-section-title`), tagline (`--fs-tagline`
->      .85rem), item headline (`--fs-item-title` .9rem/600), item meta
->      (`--fs-item-meta` .76rem muted), and **content** (`--fs-content` .85rem — the
->      default; any summary/description/narrative renders at this size). Card/panel
->      headings use `--fs-card-title` (1.05rem); "Sign out" = `#0ea5e9`.
->    - Grep for drift the run (or a prior one) may have introduced:
->      `grep -rnE "font-size:\s*(1[0-9]|[0-9](\.[0-9]+)?rem|[0-9]+px)" credit/css legal/css macro/css`
->      then confirm each hit is either a token (`var(--fs-*)`) or a deliberate
->      non-text size (icons, chart ticks). A raw body-copy `font-size` that is not a
->      `--fs-*` token IS drift — fold it into the right token.
->    - Spot-check the rendered result against the agreed sizes (the Playwright harness
->      in the session scratchpad reports computed `font-size` per role — home,
->      a dashboard, a list and a detail page should all show h1 25.6px / tagline &
->      content 13.6px / item title 14.4px / meta 12.16px).
->    - Fix any drift in the shared `premium.css` (preferred — one place, all apps) by
->      pointing the rule at the correct `--fs-*` token. If a divergence is intentional
->      / out of scope to fix safely, note it in the run summary rather than silently
->      leaving it. Bump the touched files' cache tokens.
->    This step never blocks publishing data — it just keeps the type system from
->    drifting run to run.
->
-> 9. PUBLISH (every run, even if nothing new): commit — message ending with the two
->    required trailers — then publish to `main` AND the dev branch. `main` has other
->    writers (dev sessions), so publish by **rebasing onto the latest `main` and
->    retrying**, NOT a bare fast-forward: `git fetch origin main` → `git rebase
->    origin/main` → `git push origin HEAD:main` (+ push the dev branch); on a
->    `non-fast-forward` rejection, refetch/rebase and retry up to ~5× (see the
->    "Publishing to a MOVING `main`" invariant). Pushing to `main` triggers the live
->    redeploy. Only if `main` pushes keep failing with a **transport** error
->    (`HTTP 503` / "remote end hung up") after ~2 tries do you fall back to the
->    **GitHub API** (`create_or_update_file` per changed file — see "API fallback")
->    and say so in the summary.
->
-> 10. Reply with a short summary: counts of new Credit deals / intel / webNews,
->    Legal alerts / cases / schemes & plans, Macro curated prints / guidance
->    updates, and newsletters added (+ emails trashed) / myFT items pulled (or "no
->    new items — refresh timestamp updated"). If the preflight staleness check
->    flagged a missing prior run, or egress was blocked so nothing could be
->    verified, say so at the top.
+The operational prompt is stored in the **"/Wire: full refresh"** Routine in the
+Claude Code Routines UI and is edited there — it is the executable copy. This
+document is the **authoritative reference** for what that run must do: the
+**Invariants**, **Briefings & Key Moments**, and **Email sweep** sections are the
+contract; the Routine prompt orchestrates them (sync → freshness audit → the desk
+refreshes → briefing → stamps → email sweep → publish) and should defer here for
+the detail rather than restating it. Current live behaviour: fires **every ~2
+hours** through the London day, writes a **single** briefing every run, runs the
+**freshness audit first**, and sweeps **research + newsletters + myFT** every run.
+There are **no `?v=` cache tokens to bump** (code is Vite-hashed, data is no-cache).
 
 ---
 
-### Notes
+## Email sweep — research · newsletters · myFT
+
+Run every refresh, after the desk data. It folds the reader's forwarded email and
+the Financial Times followed-topics feed into Wire. **Prerequisite:** the run needs
+the **Gmail connector** pointed at `skaidrive2@gmail.com` (the ingestion mailbox).
+If the Gmail tools aren't available this run, **skip the research + newsletter steps
+and leave `research.js` / `newsletters.js` unchanged** — never blank them out. The
+**myFT** step is independent of Gmail and runs regardless.
+
+Research houses and newsletters are **disjoint**: a sell-side bank, asset manager,
+rating agency or markets-intelligence house (Apollo, Goldman, JPM, Fitch, Guggenheim,
+Moody's, S&P, UBS, With Intelligence, M&G Bond Vigilantes, PIMCO, …) goes to
+**Research → `research.js`**; everything else the reader forwards goes to
+**Newsletters → `newsletters.js`**. A sender belongs to ONE map, never both.
+(Belt-and-braces: `glance.js` reclassifies any research-house note that lands in
+`newsletters.js` into the Research lane via `isResearchPublication`, but keep the two
+`PUBLISHERS` maps disjoint so it never has to.)
+
+### 1. Research → `research.js` (the SOLE source of the Research lane)
+
+Search Gmail for research-house emails received in the last ~2 days from the senders
+in `research.js`'s `PUBLISHERS` map. Parse each real note into the `RESEARCH` array:
+`{ id, publication, author, series, title, date "YYYY-MM-DD", time "HH:MM" (London),
+summary, url }` — a one-line topic summary in **plain text with real Unicode
+punctuation** (never HTML entities, never article body text), and the note's own
+"read online" / canonical link as `url`. SKIP account-activation / verify /
+preference-centre emails (no content). If a research house signs up that isn't in
+`PUBLISHERS` yet, ADD its content-sender domain to the map (confirm the real sender on
+the first delivery). Dedupe against existing entries (same `url`, or same `title` +
+`publication`), keep ~40 newest. `research.js` is TOKENLESS and served
+`Cache-Control: no-cache` — do NOT add any import token for it. Validate as an ES
+module: `node --input-type=module -e "import('./research.js').then(m=>console.log(m.RESEARCH.length))"`.
+
+### 2. Newsletters → `newsletters.js`
+
+Newsletters reach the mailbox two ways, and BOTH searches must run every time —
+auto-forwarding preserves the ORIGINAL sender, so a `from:stevedkennedy` search alone
+misses every auto-forwarded newsletter:
+
+1. **Manual forwards** (sender = stevedkennedy; original sender in the body's `From:`):
+   `in:anywhere from:stevedkennedy@gmail.com newer_than:2d`
+2. **Auto-forwarded copies** (sender = the publisher; `To:` still shows stevedkennedy).
+   Build the from-list from the `PUBLISHERS` map in `newsletters.js`, e.g.
+   `in:anywhere {from:news.bloomberg.com from:e.economist.com from:legalbusiness.co.uk …} newer_than:2d`
+3. **Catch-all sweep** for NEW senders (self-healing):
+   `in:anywhere deliveredto:skaidrive2@gmail.com newer_than:2d` — ignore system/admin
+   mail (google.com / workspace, forwarding confirmations). Anything that reads as a
+   newsletter from a sender NOT yet in `PUBLISHERS` is a newly-added subscription: ADD
+   its sender domain → publication name to the map (unless it is a research house —
+   that goes to §1), then parse it like any other.
+
+Parse each: **publication/author** from the forwarded `From:` line (map domain →
+publication via `PUBLISHERS`; set `series` for Bloomberg "Money Stuff" etc.); **title**
+= subject with leading `Fwd:`/`Re:` stripped; **date/time** from the forwarded `Date:`
+header (`YYYY-MM-DD` + `HH:MM`, 24h); **url** = the newsletter's own "View in browser"
+link; **summary** = ONE short line (the newsletter's own subhead / lead sentence — a
+phrase, never body paragraphs). If the links are all click-tracking redirects, use the
+newsletter's canonical web page. Prepend to `NEWSLETTERS` with schema
+`{ id, publication, author, series, title, date, time, summary, url }`; `id` = stable
+slug `nl-<pub>-<slug>-<YYYYMMDD>`. Dedupe on `id` and `url`; keep the ~40 newest. Store
+only headline + one-line summary + link — no article body text. `newsletters.js` is
+TOKENLESS + `no-cache`; no import token to bump. `glance.js` renders `NEWSLETTERS` into
+the feed under the `LETTER` label.
+
+### 3. myFT → `ft.js` (independent of Gmail — run every time)
+
+**Prerequisite:** the environment's network policy must allow `www.ft.com`. If the
+fetch fails (403 / blocked / timeout), skip and leave `ft.js` unchanged — never blank
+it on a failed fetch.
+
+1. Fetch the reader's myFT RSS:
+   `curl -sSL "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss"`
+2. Parse each `<item>`: `title` (decode XML entities), `url` (the `<link>`, tracking
+   params stripped — keep the canonical `https://www.ft.com/content/<uuid>` form),
+   `id` (the `<guid>`, else the cleaned URL), `date`/`time` from `<pubDate>` → Europe/London.
+3. **Lifestyle screen (required):** KEEP every news/business/politics/geopolitics/sport
+   story EXCEPT lifestyle (arts, culture, film/TV/music, travel, dining, fashion,
+   obituaries, general-interest features). Mirror the live feed's soft screen in
+   `src/index.js` (`FEED_LIFESTYLE_RE` rejects; a headline also matching
+   `FEED_MACRO_RE`/`FEED_MEGACAP_RE` is rescued).
+4. Regenerate `FT_ITEMS` in `ft.js` — dedupe by `id`, newest first, keep the most
+   recent ~40 that pass the screen. Headline, date, time and URL only — never body
+   text (paywalled). `ft.js` is TOKENLESS + `no-cache`; no token to bump. `glance.js`
+   renders `FT_ITEMS` under the `FT` label.
+
+### 4. Publish, then clean the inbox
+
+Commit `research.js` / `newsletters.js` / `ft.js` with the rest of the refresh (one
+commit, published to `main` by the rebase-and-retry flow). **Only after the commit has
+pushed successfully**, move each processed research/newsletter email to Gmail **Trash**
+(`apply_sensitive_message_label(messageId, "TRASH")`, or the thread variant) — this
+auto-purges after ~30 days and gives a recovery window. Never trash an email whose data
+wasn't committed; if a message dedupes as already-present (a prior run parsed it but
+couldn't trash it), trash it now so the ingestion inbox never lingers. These are
+disposable forwarded copies; the originals stay in the source mailbox.
+
+---
+
+## Notes
 
 - New `deals`/`intel` `type` values that aren't already in the transaction-type
   vocabulary (`credit/js/tx.js` `TX_TYPES` + the v2 credit views) render with default

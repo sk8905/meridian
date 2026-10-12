@@ -14,8 +14,8 @@ debt, structured credit, NAV/fund finance) across Europe.
 > Debtwire). Figures are shown in € for consistency (several originally in
 > USD/GBP, so approximate); items marked "Est." or "undisclosed" are proxies or
 > not precisely disclosed — verify against the cited sources before relying on
-> any figure. Each record carries source links and an "as of" date in the app;
-> the fuller sourcing trail is in [`docs/research-notes.md`](docs/research-notes.md).
+> any figure. Each record carries its own source links and an "as of" date in the
+> app, which are the authoritative sourcing trail.
 
 ## What it does
 

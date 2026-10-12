@@ -14,7 +14,7 @@
 //  • Many fund target sizes / hard caps are undisclosed (null) — left blank
 //    rather than guessed. Evergreen funds have no fixed target.
 //  • `sources` carry the public URL(s) and `asOf` the reference date.
-//  See docs/research-notes.md for the fuller sourcing trail and caveats.
+//  Each record's own `sources` URL(s) + `asOf` date are the authoritative sourcing trail.
 // =============================================================================
 
 // When the dataset was last compiled/updated (i.e. the last time data actually changed).

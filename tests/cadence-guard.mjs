@@ -16,16 +16,35 @@ const BANNED = [
   /\btri-daily\b/i,
   /5×\/day/,
   /5x\/day/i,
-  /05:00,\s*09:00,\s*12:00,\s*17:00/,   // the literal fixed-slot schedule claim
+  // the fixed-slot schedule claim, comma-separated and tilde tolerant
+  // (catches "05:00, 09:00, 12:00, 17:00" and "~05:00, ~09:00, …"); a slash-separated
+  // "don't hard-code a 05:00/09:00 label" warning is intentionally NOT matched.
+  /~?0?5:00,\s*~?0?9:00,\s*~?12:00,\s*~?17:00/,
+  /\bfive runs\b/i,   // "the five runs land each day …" — the retired 5×/day framing
 ];
 
 // Hand-authored source only. home-data.js is generated (scanned via its generator).
-const FILES = [
+const CODE = [
   "v2/js/home/glance.js", "v2/js/chrome.js", "v2/js/status.js", "v2/js/nav-actions.js",
   "macro/js/content.js", "src/index.js", "vite.config.js",
   "scripts/gen-home-data.mjs", "scripts/manager-coverage.mjs", "scripts/freshness-audit.mjs",
   "briefings.js", "research.js", "newsletters.js", "ft.js",
 ];
+
+// Active docs, discovered so a NEW doc is covered automatically. The refresh cadence
+// drifted in the governing docs once already (why this spec scans them now); excludes
+// vendored/built trees.
+function walkMd(dir, acc) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (e.name === "node_modules" || e.name === "dist" || e.name.startsWith(".")) continue;
+    const full = path.join(dir, e.name);
+    if (e.isDirectory()) walkMd(full, acc);
+    else if (e.name.endsWith(".md")) acc.push(path.relative(ROOT, full));
+  }
+  return acc;
+}
+
+const FILES = [...CODE, ...walkMd(ROOT, [])];
 
 const hits = [];
 for (const rel of FILES) {
@@ -37,6 +56,6 @@ for (const rel of FILES) {
   });
 }
 
-check(hits.length === 0, `cadence-guard: no retired 5×/day schedule language in source${hits.length ? ` — found:\n    ${hits.join("\n    ")}` : ""}`);
+check(hits.length === 0, `cadence-guard: no retired 5×/day schedule language in source or docs${hits.length ? ` — found:\n    ${hits.join("\n    ")}` : ""}`);
 
 finish();

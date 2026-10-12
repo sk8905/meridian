@@ -66,21 +66,17 @@ number in `index.html` (and the matching import suffixes in `app.js`).
 
 No change to your existing setup is needed — the repo's `wrangler.jsonc` already
 serves the whole repo as static assets, so once Cloudflare is connected to the
-repo (see [`../docs/cloudflare-setup.md`](../docs/cloudflare-setup.md)) Meridian Legal
-is live at `https://<your-worker>.<account>.workers.dev/legal/` (or
-`https://<project>.pages.dev/legal/`). The one-time dashboard clicks:
-
-1. **Workers & Pages → Create → Pages → Connect to Git**, pick this repo, framework
-   preset **None**, build command **blank**, output dir **`/`**. Save & deploy.
-2. Push to your production branch → Cloudflare auto-deploys. Visit `/legal/`.
+repo Meridian Legal is live at
+`https://<your-worker>.<account>.workers.dev/legal/`. See the repo root
+`CLAUDE.md` and `wrangler.jsonc` for the current build/deploy setup (Cloudflare
+Workers Builds runs `npm run build` on each push to `main`).
 
 ### Make it private (optional, one-time)
 
 Gate the whole site to just you with **Cloudflare Access** (free):
 **Zero Trust → Access → Applications → Add → Self-hosted**, set the app domain to
 your `*.pages.dev`/`workers.dev` host, add an **Allow** policy with **Include →
-Emails → your email**. Default **One-time PIN** login needs no extra setup. Full
-walk-through in [`../docs/cloudflare-setup.md`](../docs/cloudflare-setup.md).
+Emails → your email**. Default **One-time PIN** login needs no extra setup.
 
 ### Sync saved alerts across devices later (optional)
 
