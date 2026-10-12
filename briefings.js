@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-12",
-  time: "21:10 BST",
+  time: "23:11 BST",
   lede: "Diesel prices slip after Trump's 'energy ceasefire' in Ukraine, Macron says a Franco-German deal on EU car policy is imminent, and Germany's labour minister resigns as Merz's coalition strains.",
   bullets: [
     { html: "<strong>Oil &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, easing pressure on Brent, though Zelenskyy says Putin is already breaching it.", src: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", srcName: "Financial Times", date: "2026-10-12" },
