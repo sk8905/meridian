@@ -92,6 +92,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-ubs-donovan-fastfurious-20261012",
+    publication: "UBS CIO",
+    author: "Paul Donovan",
+    series: "Morning audio comment",
+    title: "The Fast and the Furious",
+    date: "2026-10-12",
+    time: "07:59",
+    summary: "UBS Chief Economist Paul Donovan: oil-market politics dominated — a Trump–Putin deal to buy Russian diesel and a short-lived ‘energy ceasefire’ — underscoring the political weight of the US affordability crisis; the diesel fixation risks enabling profit-led inflation and raises the stakes of this week’s US CPI, while a 16-point EU–China auto pact shows trade tension recurring.",
+    url: "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html",
+  },
+  {
     id: "rsch-jpm-tmt-earnings-20261009",
     publication: "JPMorgan Private Bank",
     author: null,
