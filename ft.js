@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "09f24d32-9bc5-4011-85f8-410625e7717f",
+    title: "Can a financier really revive LIV Golf?",
+    date: "2026-10-12",
+    time: "14:59",
+    url: "https://www.ft.com/content/09f24d32-9bc5-4011-85f8-410625e7717f"
+  },
+  {
     id: "da71c823-ca31-4eaa-8e6e-6baacea986a4",
     title: "Nato’s supreme commander warns Moscow against attacks in Europe",
     date: "2026-10-12",
@@ -292,12 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-12",
     time: "05:00",
     url: "https://www.ft.com/content/6235bf20-80da-42c0-b9cc-e4d996d6c135"
-  },
-  {
-    id: "b00db29e-4334-4e04-8f09-a140aafd4b05",
-    title: "Andy Burnham to step up UK business outreach amid fears of Budget tax rises",
-    date: "2026-10-12",
-    time: "00:01",
-    url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"
   }
 ];
