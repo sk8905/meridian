@@ -674,8 +674,10 @@ notification badge red (`#ef4444`).
   section on every card: it NORMALISES each bullet's kicker to a canonical desk (an
   off-house kicker the refresh may write — Oil, Geopolitics, UK, Private markets, Rates… —
   is folded into the desk it belongs to via `DESK_ALIAS`, never shown as its own section or
-  dropped), and SYNTHESISES any still-missing desk with a short pill-free state line (the
-  live levels sit in the top snapshot strip). So a reader never sees a category missing,
+  dropped), and SYNTHESISES any still-missing desk with a short state line. The synthesised
+  **Bonds** line always carries the live **US and UK 10-year** yields (filled from the rates
+  cache like any yield pill — `/api/rates` now serves a `UK 10Y` gilt via CNBC); Macro /
+  Equities / Credit fallbacks are pill-free (their live levels sit in the top snapshot strip). So a reader never sees a category missing,
   whatever the refresh wrote. The authoring target below still stands — the routine should
   write real Macro/Bonds/Equities/Credit bullets — but a slip can no longer leave a gap, and
   `tests/briefing-empty-bullet.mjs` asserts the four-desk render guarantee (not the raw data's

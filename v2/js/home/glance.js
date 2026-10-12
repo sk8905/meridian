@@ -463,9 +463,14 @@ function renderHomeBriefing() {
   // (no benchmark phrase a pill would latch onto) so a synthesised line never steals the
   // live pill from a real bullet — the top market-snapshot strip already carries the live
   // S&P/VIX/Oil/Gold/US-10Y levels, so the numbers are never far away.
+  // Bonds carries the live US + UK 10-year yields even with no story (owner rule: at least
+  // show the latest rate). These are EXPLICIT data-ykey pill nodes, so renderBriefTickers
+  // fills them from the rates cache like any yield pill — and, being real nodes rather than
+  // a prose match, they never steal a pill from a real bullet. (Macro/Equities/Credit stay
+  // pill-free; their live levels are in the top snapshot strip.)
   const FALLBACK = {
     macro: "<strong>Macro &mdash; the global growth and policy backdrop frames the session.</strong>",
-    bonds: "<strong>Bonds &mdash; government bond yields set the rates tone today.</strong>",
+    bonds: '<strong>Bonds &mdash; no fresh bond-market story</strong> this slot; latest government-bond yields: <span class="g-hbt-tk" data-ykey="US 10Y" data-label="US 10Y"><span class="g-hbt-s">US 10Y</span></span> <span class="g-hbt-tk" data-ykey="UK 10Y" data-label="UK 10Y"><span class="g-hbt-s">UK 10Y</span></span>',
     equities: "<strong>Equities &mdash; the main stock indices set the equity tone.</strong>",
     credit: "<strong>Credit &mdash; no fresh private-credit headline this slot; conditions steady.</strong>",
   };
@@ -507,7 +512,13 @@ function renderHomeBriefing() {
     // Inject an inline ticker/benchmark pill after a recognised security's first mention
     // (filled live by renderBriefTickers) — BEFORE nbNums so the pill's own markup is left
     // alone and a number isn't split out of a name we match.
-    const text = g.items.map((b) => nbNums(_capFold(_injectSecPills(_stripReported(_stripDesk(b.html)), secSeen)))).join(" ");
+    // Synth fallback bullets carry controlled HTML (the Bonds one embeds explicit yield
+    // pills), so they skip the prose pill/number pipeline — which would mangle a pill's
+    // own label digits — and only strip the kicker + capitalise. Real bullets get the
+    // full treatment (strip reporting, inject security/benchmark pills, no-break numbers).
+    const text = g.items.map((b) => b._synth
+      ? _capFold(_stripDesk(String(b.html || "")))
+      : nbNums(_capFold(_injectSecPills(_stripReported(_stripDesk(b.html)), secSeen)))).join(" ");
     // A desk item with a kicker but NO body (e.g. a half-generated refresh draft where
     // the headline shipped before its sentence did) would otherwise paint as a bare
     // heading above an empty void — the exact ghost section a reader once photographed.
@@ -3571,7 +3582,7 @@ function initRates() {
   // the tiles back to a "Loading…/unavailable" placeholder — the values just sit
   // until fresh ones land.
   renderRates(el, readCache("rates"));
-  fetch("/api/rates?v=10")
+  fetch("/api/rates?v=14")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderRates(el, d)) writeCache("rates", d); })
     .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_briefLeads.rates) setGlance("gl-rates", "Rates data unavailable right now."); } });

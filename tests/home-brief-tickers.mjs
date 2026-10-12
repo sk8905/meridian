@@ -20,6 +20,7 @@ const SECQ = { securities: {
 const RATES = { rates: [
   { label: "US 10Y", value: 5.31, change: 0.03, unit: "%", asOf: "6 Oct", history: [], href: "https://www.cnbc.com/quotes/US10Y" },
   { label: "US 30Y", value: 5.52, change: -0.02, unit: "%", asOf: "6 Oct", history: [], href: "https://home.treasury.gov" },
+  { label: "UK 10Y", value: 4.77, change: 0.05, unit: "%", asOf: "6 Oct", history: [], href: "https://www.cnbc.com/quotes/UK10Y-GB" },
 ] };
 // Indices are DETECTED via a curated name→symbol map (Nasdaq → ^IXIC) and their live % comes
 // from /api/quotes (the only endpoint that accepts `^`-prefixed index symbols).
@@ -85,7 +86,11 @@ const r = await pg.evaluate(() => {
     boeingPill: /Boeing<span class="g-hbt-tk"/.test(html),
     acmePill: /Acme Widgets<span class="g-hbt-tk"/.test(html),
     francePill: /France<span class="g-hbt-tk"/.test(html),
-    totalPills: host.querySelectorAll(".g-hbt-tk").length,
+    // Scoped to the Equities section — the synthesised Bonds desk carries its own US/UK
+    // 10Y pills, so a global count would include those.
+    totalPills: (() => { const li = [...host.querySelectorAll(".g-hbrief-b")].find((x) => /^Equities$/i.test(((x.querySelector(".g-hbrief-bk") || {}).textContent || "").trim())); return li ? li.querySelectorAll(".g-hbt-tk").length : -1; })(),
+    // The synthesised Bonds desk always shows the live US + UK 10-year yields (owner rule).
+    bondsFb: (() => { const li = [...host.querySelectorAll(".g-hbrief-b")].find((x) => /^Bonds$/i.test(((x.querySelector(".g-hbrief-bk") || {}).textContent || "").trim())); if (!li) return null; const p = (k) => { const n = li.querySelector(`.g-hbt-tk[data-ykey="${k}"]`); return n ? { lvl: ((n.querySelector(".g-hbt-v") || {}).textContent || "").trim(), chg: ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim() } : null; }; return { us: p("US 10Y"), uk: p("UK 10Y") }; })(),
   };
 });
 
@@ -102,7 +107,10 @@ check(/\bBoeing\b/.test(r.bodyText) && /\bAcme Widgets\b/.test(r.bodyText) && /\
 check(!r.boeingPill, "an UNRESOLVED company (Boeing) gets NO pill (never guessed)");
 check(!r.acmePill, "an unmapped name (Acme Widgets) gets NO pill");
 check(!r.francePill, "a stoplisted country (France) is never pilled");
-checkEq(r.totalPills, 4, "exactly four pills — NVDA, HON, US 10Y, NASDAQ");
+checkEq(r.totalPills, 4, "exactly four pills in the Equities bullet — NVDA, HON, US 10Y, NASDAQ");
+// Owner rule: when a slot has no bond-market story, the synthesised Bonds desk still shows
+// the latest US AND UK 10-year yields, filled live from the rates cache.
+check(r.bondsFb && r.bondsFb.us && /5\.31%/.test(r.bondsFb.us.lvl) && /3bp/.test(r.bondsFb.us.chg) && r.bondsFb.uk && /4\.77%/.test(r.bondsFb.uk.lvl) && /5bp/.test(r.bondsFb.uk.chg), `synthesised Bonds desk shows live US + UK 10Y (US ${r.bondsFb && r.bondsFb.us && r.bondsFb.us.lvl}, UK ${r.bondsFb && r.bondsFb.uk && r.bondsFb.uk.lvl})`);
 
 // Commodity pill: a "Brent" (or WTI/Gold) mention is detected and pilled with the day's %
 // from the MARKETS cache (the same source the snapshot strip uses) — /api/quotes can't take

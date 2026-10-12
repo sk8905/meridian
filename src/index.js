@@ -347,6 +347,10 @@ const RATE_SERIES = [
     "M.U2.EUR.RT.MM.EURIBOR3MD_.HSTA",
   ] },
   { label: "SONIA", unit: "%", src: "fred", id: "IUDSOIA", href: "https://fred.stlouisfed.org/series/IUDSOIA" },
+  // UK 10-year gilt — the keyless feeds don't carry it, so pull the live yield from CNBC
+  // (UK10Y-GB, the same quote the yield-curve panel uses). optional: a CNBC miss must not
+  // block the whole /api/rates edge cache (see the cache-put guard below).
+  { label: "UK 10Y", unit: "%", src: "cnbc", sym: "UK10Y-GB", optional: true, href: "https://www.cnbc.com/quotes/UK10Y-GB" },
   { label: "SOFR", unit: "%", src: "nyfed", href: "https://www.newyorkfed.org/markets/reference-rates/sofr" },
   { label: "US 10Y", unit: "%", src: "treasury", col: "10 Yr", href: "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve" },
   // US 2Y — same daily Treasury source/column as the 10Y, so their ~1-month
@@ -510,6 +514,20 @@ async function cnbcYield(symbol) {
     return Number.isFinite(v) ? v : null;
   } catch { return null; }
 }
+// CNBC quote as a RATE row: the current yield (value, %) PLUS the day's change (in yield
+// points — e.g. 0.02 = +2bp; the briefing renders it as bp). Used for benchmarks the keyless
+// US Treasury / FRED / ECB feeds don't carry, notably the UK 10-year gilt (UK10Y-GB).
+async function cnbcRate(symbol) {
+  const url = `https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=${encodeURIComponent(symbol)}&requestMethod=itv&noform=1&partnerId=2&fund=1&exthrs=1&output=json&events=1`;
+  const txt = await fetchText(url);
+  if (!txt) return { value: null, change: null, asOf: null, history: [] };
+  try {
+    const j = JSON.parse(txt);
+    const q = j && j.FormattedQuoteResult && j.FormattedQuoteResult.FormattedQuote && j.FormattedQuoteResult.FormattedQuote[0];
+    const num = (x) => { const v = parseFloat(String(x == null ? "" : x).replace(/[%,+]/g, "")); return Number.isFinite(v) ? v : null; };
+    return { value: q ? num(q.last) : null, change: q ? num(q.change) : null, asOf: (q && (q.last_time_msec || q.last_time)) || null, history: [] };
+  } catch { return { value: null, change: null, asOf: null, history: [] }; }
+}
 
 // Parse a FRED CSV body (DATE,VALUE header) into [date, value] pairs.
 function parseFredCsv(txt) {
@@ -598,13 +616,14 @@ async function handleRates(request, env, ctx) {
 
   const cache = caches.default;
   // Versioned key so a previously-cached partial response is ignored.
-  const cacheKey = new Request(new URL("/api/rates?v=13", request.url).toString());
+  const cacheKey = new Request(new URL("/api/rates?v=14", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const data = await Promise.all(RATE_SERIES.map(async (s) => {
     const r = s.src === "ecb" ? await ecbSeries(s.keys)
       : s.src === "nyfed" ? await nyfedSofr()
       : s.src === "treasury" ? await treasurySeries(s.col)
+      : s.src === "cnbc" ? await cnbcRate(s.sym)
       : await fredSeries(s.id, cosd, env);
     return { label: s.label, unit: s.unit, value: r.value, change: r.change, asOf: r.asOf, href: s.href, history: r.history || [] };
   }));
@@ -612,8 +631,9 @@ async function handleRates(request, env, ctx) {
     // Short browser cache (band also caches in-module per load); edge does the heavy lifting.
     headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
   });
-  // Only cache once every series resolved, so a transient miss doesn't stick 30 min.
-  if (ctx && ctx.waitUntil && data.every((d) => d.value != null)) {
+  // Only cache once every REQUIRED series resolved, so a transient miss doesn't stick 30 min.
+  // optional:true series (e.g. the CNBC UK 10Y) may be null without blocking the cache.
+  if (ctx && ctx.waitUntil && RATE_SERIES.every((s, i) => s.optional || (data[i] && data[i].value != null))) {
     ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   }
   return resp;
