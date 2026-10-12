@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "b5faacca-4561-4e9d-bec5-c8ef843b0419",
+    title: "EU budget battle intensifies ahead of leaders’ summit",
+    date: "2026-10-12",
+    time: "06:00",
+    url: "https://www.ft.com/content/b5faacca-4561-4e9d-bec5-c8ef843b0419"
+  },
+  {
+    id: "97a2c4ae-79df-4e67-a408-91a07bfc2546",
+    title: "Misery, thy name is pulled IPO",
+    date: "2026-10-12",
+    time: "06:00",
+    url: "https://www.ft.com/content/97a2c4ae-79df-4e67-a408-91a07bfc2546"
+  },
+  {
+    id: "d3a342a9-0b64-4dd3-8f12-54c6750509de",
+    title: "Wall Street’s great money spinner",
+    date: "2026-10-12",
+    time: "06:00",
+    url: "https://www.ft.com/content/d3a342a9-0b64-4dd3-8f12-54c6750509de"
+  },
+  {
+    id: "a663781e-2709-41f2-99df-4fb5a6162e6b",
+    title: "Oil prices fall after Trump claims ‘energy ceasefire’ in Ukraine war",
+    date: "2026-10-12",
+    time: "05:43",
+    url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"
+  },
+  {
+    id: "1d85912b-7a70-4ba1-87df-3b683adee91e",
+    title: "Houthis attack Riyadh airport",
+    date: "2026-10-12",
+    time: "05:00",
+    url: "https://www.ft.com/content/1d85912b-7a70-4ba1-87df-3b683adee91e"
+  },
+  {
     id: "62bab2c8-d4e2-4ec2-a911-80439f61f238",
     title: "Trump battles for the Senate",
     date: "2026-10-12",
@@ -264,40 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-11",
     time: "11:00",
     url: "https://www.ft.com/content/7553fae9-f65a-4101-be93-cdac921d4c2f"
-  },
-  {
-    id: "3004a030-d64e-4ff7-a70d-ea379b4784af",
-    title: "US justice department probes TV networks over Trump pool coverage",
-    date: "2026-10-11",
-    time: "05:28",
-    url: "https://www.ft.com/content/3004a030-d64e-4ff7-a70d-ea379b4784af"
-  },
-  {
-    id: "3aa9641e-55a6-45fd-bd08-1806306716e9",
-    title: "UK could be fast-tracked back into EU, pro-Brussels group argues",
-    date: "2026-10-11",
-    time: "05:00",
-    url: "https://www.ft.com/content/3aa9641e-55a6-45fd-bd08-1806306716e9"
-  },
-  {
-    id: "b42bb760-3eda-430d-adfd-69c359425c1d",
-    title: "Private equity can cut ‘best’ deals in current climate, says Permira boss",
-    date: "2026-10-11",
-    time: "05:00",
-    url: "https://www.ft.com/content/b42bb760-3eda-430d-adfd-69c359425c1d"
-  },
-  {
-    id: "cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f",
-    title: "Energy secretary pushes Healey for more Budget support on rising bills",
-    date: "2026-10-11",
-    time: "05:00",
-    url: "https://www.ft.com/content/cfb7a7a9-90c2-4ed9-8b3b-e8477430d77f"
-  },
-  {
-    id: "bad44d91-2324-444c-9070-ea5beb406593",
-    title: "JPMorgan bets on European asset management growth",
-    date: "2026-10-11",
-    time: "05:00",
-    url: "https://www.ft.com/content/bad44d91-2324-444c-9070-ea5beb406593"
   }
 ];
