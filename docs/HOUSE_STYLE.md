@@ -669,7 +669,17 @@ notification badge red (`#ef4444`).
   woven-in "the FT explains why …", so those must never be authored in the first place. The desk
   kicker is **entity-decoded before display** (`_deEnt`) so an authored "M&amp;A"/"R&amp;D"
   renders as "M&A"/"R&D", never the double-encoded literal (`_briefDesk`/`_deEnt` in `glance.js`).
-  **Fixed desk order — Macro, then Bonds, then Equities, then Credit:** the
+  **ALL FOUR DESKS ALWAYS SHOW — no exceptions (owner rule).** The renderer
+  (`renderHomeBriefing` in `glance.js`) guarantees a Macro · Bonds · Equities · Credit
+  section on every card: it NORMALISES each bullet's kicker to a canonical desk (an
+  off-house kicker the refresh may write — Oil, Geopolitics, UK, Private markets, Rates… —
+  is folded into the desk it belongs to via `DESK_ALIAS`, never shown as its own section or
+  dropped), and SYNTHESISES any still-missing desk with a short pill-free state line (the
+  live levels sit in the top snapshot strip). So a reader never sees a category missing,
+  whatever the refresh wrote. The authoring target below still stands — the routine should
+  write real Macro/Bonds/Equities/Credit bullets — but a slip can no longer leave a gap, and
+  `tests/briefing-empty-bullet.mjs` asserts the four-desk render guarantee (not the raw data's
+  exact kickers). **Fixed desk order — Macro, then Bonds, then Equities, then Credit:** the
   renderer (`DESK_RANK` keys `macro`/`bonds`/`equities`/`credit`) sorts the sections into this
   canonical order regardless of bullet order in the data; **M&A / deal stories are NOT a
   separate desk** — file a corporate deal under Equities, and a **private-equity /

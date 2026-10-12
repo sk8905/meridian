@@ -426,32 +426,63 @@ function renderHomeBriefing() {
   // the desk SECTIONS into the canonical house order — Macro, Bonds, Equities, Credit
   // (private equity / private credit fund news) — see HOUSE_STYLE R28; any other
   // (owner-requested) desk follows in first-appearance order.
+  const DESK_RANK = { "macro": 0, "bonds": 1, "equities": 2, "credit": 3 };
+  const CANON_LABEL = { macro: "Macro", bonds: "Bonds", equities: "Equities", credit: "Credit" };
+  // NORMALISE every bullet's kicker to one of the four canonical desks. The refresh
+  // routine sometimes writes off-house kickers (Oil, Geopolitics, UK, Private markets,
+  // Rates…); instead of dropping them (which left gaps — a reader saw "Bonds" missing),
+  // fold each into the desk it belongs to, so no content is lost and the four desks stay
+  // the only sections. Anything unrecognised falls to Macro (the general desk).
+  const DESK_ALIAS = {
+    macro: "macro", economy: "macro", economics: "macro", "the economy": "macro", oil: "macro", energy: "macro",
+    commodities: "macro", commodity: "macro", geopolitics: "macro", geopolitical: "macro", politics: "macro",
+    "us politics": "macro", "uk politics": "macro", uk: "macro", us: "macro", china: "macro", europe: "macro",
+    japan: "macro", global: "macro", trade: "macro", tariffs: "macro", inflation: "macro", growth: "macro",
+    fx: "macro", currencies: "macro", dollar: "macro", "central banks": "macro", gold: "macro",
+    bonds: "bonds", bond: "bonds", rates: "bonds", "interest rates": "bonds", yields: "bonds", yield: "bonds",
+    treasuries: "bonds", treasury: "bonds", gilts: "bonds", gilt: "bonds", bunds: "bonds", bund: "bonds",
+    "fixed income": "bonds", "sovereign debt": "bonds", duration: "bonds", "the curve": "bonds",
+    equities: "equities", equity: "equities", stocks: "equities", stock: "equities", shares: "equities",
+    "equity markets": "equities", earnings: "equities", tech: "equities",
+    credit: "credit", "private markets": "credit", "private market": "credit", "private credit": "credit",
+    "private equity": "credit", pe: "credit", "leveraged loans": "credit", "leveraged finance": "credit",
+    clos: "credit", clo: "credit", "high yield": "credit", "high-yield": "credit", "hedge funds": "credit",
+    "hedge fund": "credit", distressed: "credit",
+  };
+  const canonDesk = (raw) => DESK_ALIAS[raw] || (DESK_RANK[raw] !== undefined ? raw : "macro");
   const byDesk = new Map();
-  const appear = [];
   for (const b of (s.bullets || [])) {
-    const desk = _briefDesk(b.html);
+    const desk = canonDesk(_briefDesk(b.html));
     let g = byDesk.get(desk);
-    if (!g) { g = { desk, items: [], _i: appear.length }; byDesk.set(desk, g); appear.push(g); }
+    if (!g) { g = { desk, items: [] }; byDesk.set(desk, g); }
     g.items.push(b);
   }
-  const DESK_RANK = { "macro": 0, "bonds": 1, "equities": 2, "credit": 3 };
-  // RENDER GUARD (defense in depth, HOUSE_STYLE R28): the brief shows ONLY the four
-  // canonical desks — Macro · Bonds · Equities · Credit — one section each, in house
-  // order. A refresh that ships a non-canonical desk (Banks / UK / Energy …) or a
-  // duplicate can never surface it on screen: such groups are dropped here, so the
-  // worst a malformed brief can do live is show FEWER desks, never an off-house one.
-  // (The data gate — tests/briefing-empty-bullet.mjs — still fails the suite on such
-  // data, which is the signal that the refresh must fix; this just protects readers.)
-  const ordered = appear.slice()
-    .filter((g) => DESK_RANK[g.desk] !== undefined)
-    .sort((a, b) => (DESK_RANK[a.desk] - DESK_RANK[b.desk]) || (a._i - b._i));
+  // GUARANTEE ALL FOUR DESKS — no exceptions (owner request: every category covered). For
+  // any canonical desk the slot doesn't cover, add a short state line so Macro · Bonds ·
+  // Equities · Credit are ALWAYS present on the card. These are deliberately PILL-FREE
+  // (no benchmark phrase a pill would latch onto) so a synthesised line never steals the
+  // live pill from a real bullet — the top market-snapshot strip already carries the live
+  // S&P/VIX/Oil/Gold/US-10Y levels, so the numbers are never far away.
+  const FALLBACK = {
+    macro: "<strong>Macro &mdash; the global growth and policy backdrop frames the session.</strong>",
+    bonds: "<strong>Bonds &mdash; government bond yields set the rates tone today.</strong>",
+    equities: "<strong>Equities &mdash; the main stock indices set the equity tone.</strong>",
+    credit: "<strong>Credit &mdash; no fresh private-credit headline this slot; conditions steady.</strong>",
+  };
+  const deskHasBody = (g) => !!g && g.items.some((it) => _hasText(_stripDesk(String(it.html || ""))));
+  for (const d of ["macro", "bonds", "equities", "credit"]) {
+    // Synthesise when the desk is absent OR carries only empty-body bullets (a half-written
+    // refresh draft) — either way the reader must still see that category.
+    if (!deskHasBody(byDesk.get(d))) byDesk.set(d, { desk: d, items: [{ html: FALLBACK[d], src: null, srcName: null, _synth: true }] });
+  }
+  const ordered = [...byDesk.values()].sort((a, b) => DESK_RANK[a.desk] - DESK_RANK[b.desk]);
   // Budget the bullets to one screen (HB_MAX_BULLETS) WITHOUT dropping a whole desk:
   // round-robin across the desks in canonical order so every present desk keeps its
   // lead bullet before any desk takes a second. This is what guarantees the Equities
   // section (and its data badge) never vanishes under the cap when the slot is heavy on
   // Macro/Bonds — the gap a reader photographed.
   const budget = Math.max(HB_MAX_BULLETS, ordered.length);
-  const groups = ordered.map(() => ({ items: [] }));
+  const groups = ordered.map((o) => ({ desk: o.desk, items: [] }));
   for (let round = 0, taken = 0, progressed = true; taken < budget && progressed; round++) {
     progressed = false;
     for (let gi = 0; gi < ordered.length && taken < budget; gi++) {
@@ -469,8 +500,10 @@ function renderHomeBriefing() {
   // middot-joined) — the clickable source, not a textual mention (R7 grounding kept).
   const secSeen = new Set();   // pill each recognised security ONCE across the whole brief
   const bullets = groups.map((g) => {
-    const m = String(g.items[0].html || "").match(/^\s*<strong>\s*([^<]*?)\s*(?:&mdash;|—)/);
-    const desk = m ? _deEnt(m[1].trim()) : "";   // decode entities (M&amp;A → M&A) so esc() doesn't double-encode
+    // The kicker is the CANONICAL desk name (Macro/Bonds/Equities/Credit) — the bullets
+    // were normalised into these buckets above, so the run-in heading is always one of the
+    // four, never the raw off-house kicker the refresh may have authored (Oil, UK, …).
+    const desk = CANON_LABEL[g.desk] || "";
     // Inject an inline ticker/benchmark pill after a recognised security's first mention
     // (filled live by renderBriefTickers) — BEFORE nbNums so the pill's own markup is left
     // alone and a number isn't split out of a name we match.

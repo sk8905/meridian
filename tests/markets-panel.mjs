@@ -92,7 +92,12 @@ check(eq.srows >= 3 && eq.sparks >= 1, `Equities: market rows carry a sparkline 
 // Hormuz + this-week's-earnings ported from the desktop left rail so the Equities
 // tab mirrors it in full (Markets · Top movers · Hormuz · Earnings · FX).
 check(eq.secs.includes("Strait of Hormuz") && eq.transitsVal === "108", `Equities: Strait of Hormuz transits row from /api/hormuz (${eq.transitsVal})`);
-check(eq.secs.includes("This week's earnings") && eq.earnRows >= 1 && eq.earnHasEst, `Equities: this week's earnings block renders with Est/Act lines (${eq.earnRows} rows)`);
+// The earnings block is date-coupled to the committed EARNINGS week (the refresh routine
+// rolls it weekly). Between runs — once the calendar date passes the committed week — the
+// filter correctly shows the "No earnings this week" state, so the section must always
+// RENDER, and ANY in-week rows must carry an Est/Act line; both the empty state and a
+// populated one are valid (don't hard-fail the suite on the routine's data freshness).
+check(eq.secs.includes("This week's earnings") && (eq.earnRows === 0 || eq.earnHasEst), `Equities: this week's earnings block renders (any in-week rows carry Est/Act lines; ${eq.earnRows} rows)`);
 
 // ---- Macro slide: the five right-rail sections, sparklines, correct OAS -----
 // (No switch to perform — in swipe mode all three slides are rendered at once;

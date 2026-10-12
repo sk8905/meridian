@@ -65,6 +65,9 @@ await pg.waitForFunction(() => {
 
 const r = await pg.evaluate(() => {
   const host = document.getElementById("g-hbrief");
+  // The brief now always renders the four canonical desks (Macro/Bonds/Equities/Credit);
+  // read the body of the specific desk this case injected into, not whichever renders first.
+  const dBody = (n) => { const li = [...host.querySelectorAll(".g-hbrief-b")].find((x) => new RegExp("^" + n + "$", "i").test(((x.querySelector(".g-hbrief-bk") || {}).textContent || "").trim())); return li ? (li.querySelector(".g-hbrief-bt") || {}).textContent.replace(/\s+/g, " ") : ""; };
   const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), lvl: ((n.querySelector(".g-hbt-v") || {}).textContent || "").trim(), chg: ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
   const html = host.innerHTML;
   // STRICT: every FILLED pill (one with a change) must ALSO carry a non-empty LEVEL span.
@@ -78,7 +81,7 @@ const r = await pg.evaluate(() => {
     filledCount: filled.length, missingLevel,
     // The recognised name is REPLACED by its pill (kept the label, dropped the text), so the
     // resolved names must no longer appear as prose; the ticker/benchmark label stands in.
-    bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " "),
+    bodyText: dBody("Equities"),
     boeingPill: /Boeing<span class="g-hbt-tk"/.test(html),
     acmePill: /Acme Widgets<span class="g-hbt-tk"/.test(html),
     francePill: /France<span class="g-hbt-tk"/.test(html),
@@ -124,8 +127,9 @@ const comR = await pg.evaluate(() => {
   const host = document.getElementById("g-hbrief");
   const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
   const pillL = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), lvl: ((n.querySelector(".g-hbt-v") || {}).textContent || "").trim(), chg: ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
+  const dBody = (n) => { const li = [...host.querySelectorAll(".g-hbrief-b")].find((x) => new RegExp("^" + n + "$", "i").test(((x.querySelector(".g-hbrief-bk") || {}).textContent || "").trim())); return li ? (li.querySelector(".g-hbrief-bt") || {}).textContent.replace(/\s+/g, " ") : ""; };
   return { brent: pillL('.g-hbt-tk[data-mkt="Brent"]'), wti: pillL('.g-hbt-tk[data-mkt="WTI"]'),
-    bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " ") };
+    bodyText: dBody("Macro") };
 });
 check(comR.brent && /BRENT/.test(comR.brent.txt) && /89\.52/.test(comR.brent.lvl) && /1\.27%/.test(comR.brent.chg) && /↓/.test(comR.brent.chg) && comR.brent.down,
   `commodity pill: Brent → 89.52 level + 1.27% move from the markets cache (${comR.brent && comR.brent.txt})`);
@@ -154,18 +158,19 @@ await pg.waitForFunction(() => {
 const yldR = await pg.evaluate(() => {
   const host = document.getElementById("g-hbrief");
   const pill = (sel) => { const n = host.querySelector(sel); return n ? { txt: n.textContent.replace(/\s+/g, " ").trim(), lvl: ((n.querySelector(".g-hbt-v") || {}).textContent || "").trim(), chg: ((n.querySelector(".g-hbt-c") || {}).textContent || "").trim(), up: n.classList.contains("up"), down: n.classList.contains("down") } : null; };
+  const dBody = (n) => { const li = [...host.querySelectorAll(".g-hbrief-b")].find((x) => new RegExp("^" + n + "$", "i").test(((x.querySelector(".g-hbrief-bk") || {}).textContent || "").trim())); return li ? (li.querySelector(".g-hbrief-bt") || {}).textContent.replace(/\s+/g, " ") : ""; };
   return { us30: pill('.g-hbt-tk[data-ykey="US 30Y"]'), us10: pill('.g-hbt-tk[data-ykey="US 10Y"]'),
-    bodyText: (host.querySelector(".g-hbrief-bt") || host).textContent.replace(/\s+/g, " ") };
+    bodyText: dBody("Bonds") };
 });
 check(yldR.us30 && /US 30Y/.test(yldR.us30.txt) && /5\.52%/.test(yldR.us30.lvl) && /2bp/.test(yldR.us30.chg) && /↓/.test(yldR.us30.chg) && yldR.us30.down,
   `long-bond pill: US 30Y → 5.52% level + 2bp move (${yldR.us30 && yldR.us30.txt})`);
 check(yldR.us10 && /US 10Y/.test(yldR.us10.txt) && /5\.31%/.test(yldR.us10.lvl), `a bare "the 10-year" still pills → US 10Y with its 5.31% level (${yldR.us10 && yldR.us10.txt})`);
 check(!/Treasury/.test(yldR.bodyText), `the 30-year phrase is replaced by its pill, not kept as prose (${yldR.bodyText})`);
 
-// Entity handling under the canonical-desk render guard (HOUSE_STYLE R28):
-//   • a NON-canonical desk kicker ("R&D") is DROPPED — the brief shows only the four
-//     house desks (Macro/Bonds/Equities/Credit), so a malformed refresh can't paint an
-//     off-house section (the same invariant the data gate enforces on committed data).
+// Entity + desk normalisation (HOUSE_STYLE R28):
+//   • the card shows ONLY the four house desks (Macro/Bonds/Equities/Credit) — an
+//     off-house kicker ("R&D") is folded into a canonical desk (Macro, the catch-all),
+//     never painted as its own "R&D" section.
 //   • a canonical bullet whose authored BODY carries an entity ("R&amp;D") still renders
 //     the literal glyph ("R&D"), never a double-encoded "R&amp;D".
 const amp = await pg.evaluate(async () => {
@@ -179,11 +184,12 @@ const amp = await pg.evaluate(async () => {
     { html: "<strong>R&amp;D &mdash; spending rose</strong> across the sector.", src: "https://example.com/x", srcName: "Ex" },
   ];
   window.__wireRenderBrief();
-  const heads = [...document.querySelectorAll("#g-hbrief .g-hbrief-bk")].map((e) => e.textContent.trim());
-  const body = (document.querySelector("#g-hbrief .g-hbrief-bt") || {}).textContent || "";
-  return { heads, body };
+  const host = document.getElementById("g-hbrief");
+  const heads = [...host.querySelectorAll(".g-hbrief-bk")].map((e) => e.textContent.trim());
+  const eq = [...host.querySelectorAll(".g-hbrief-b")].find((x) => /^Equities$/i.test(((x.querySelector(".g-hbrief-bk") || {}).textContent || "").trim()));
+  return { heads, body: eq ? (eq.querySelector(".g-hbrief-bt") || {}).textContent || "" : "" };
 });
-check(!amp.heads.some((h) => /r&d/i.test(h)), `a non-canonical desk kicker ("R&D") is dropped by the render guard — only house desks surface (heads: ${amp.heads.join(" · ") || "none"})`);
+check(amp.heads.length > 0 && amp.heads.every((h) => /^(Macro|Bonds|Equities|Credit)$/.test(h)) && !amp.heads.some((h) => /r&d/i.test(h)), `only the four house desks surface — no off-house "R&D" section (heads: ${amp.heads.join(" · ") || "none"})`);
 check(/R&D/.test(amp.body) && !/R&amp;D/.test(amp.body), `a canonical bullet's body entity renders the glyph "R&D", not a double-encoded "R&amp;D" (body "${amp.body.slice(0, 60)}")`);
 
 checkErrs(errs, "home brief tickers");
