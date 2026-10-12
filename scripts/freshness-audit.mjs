@@ -20,6 +20,7 @@
 // =============================================================================
 import * as CR from "../credit/js/data.js";
 import * as LG from "../legal/js/data.js";
+import * as BR from "../briefings.js";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -29,6 +30,9 @@ const args = process.argv.slice(2);
 const flag = (n) => args.includes(n);
 const opt = (n, d) => { const a = args.find((x) => x.startsWith(n + "=")); return a ? a.split("=")[1] : d; };
 const STALE_DAYS = Math.max(1, parseInt(opt("--stale", "7"), 10) || 7);
+// The Home briefing restamps on EVERY full-refresh run (the cron fires ~every 2h), so
+// it is measured in HOURS, not days: freshest slot older than this ⇒ a run skipped it.
+const BRIEF_STALE_HOURS = Math.max(1, parseInt(opt("--brief-stale", "6"), 10) || 6);
 
 const now = Date.now();
 const msOf = (d) => { const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d || "").slice(0, 10); const t = Date.parse(s); return Number.isNaN(t) ? 0 : t; };
@@ -58,6 +62,27 @@ const SURFACES = [
   surface("legal_cases", "Case law", LG.cases),
   surface("legal_rx", "Restructurings", LG.restructurings),
 ];
+
+// The Home market briefing: the freshest of its three rolling slots, by (date·time)
+// stamp. It must restamp on every ~2-hourly run, so it is judged in hours. A freshest
+// slot older than BRIEF_STALE_HOURS means a run skipped the briefing (the 2026-10-12
+// bug: the slot-time map only fired at a few fixed hours, so 08:00/10:00 runs left the
+// morning slot frozen at 05:15).
+function briefingState() {
+  const slots = (BR.BRIEFINGS && BR.BRIEFINGS.slots) || {};
+  let bestMs = 0, bestSlot = null, bestStamp = null;
+  for (const k of Object.keys(slots)) {
+    const s = slots[k]; if (!s || !s.date) continue;
+    const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
+    const hh = t ? t[1].padStart(2, "0") : "00", mm = t ? t[2] : "00";
+    const ms = Date.parse(`${s.date}T${hh}:${mm}:00Z`);
+    if (ms && ms > bestMs) { bestMs = ms; bestSlot = k; bestStamp = `${s.date} ${hh}:${mm}`; }
+  }
+  const ageHours = bestMs ? Math.round(((now - bestMs) / 3600000) * 10) / 10 : null;
+  const stale = ageHours == null || ageHours > BRIEF_STALE_HOURS;
+  return { key: "briefing", label: "Home market briefing", slots: Object.keys(slots).length, freshestSlot: bestSlot, newestStamp: bestStamp, ageHours, stale };
+}
+const briefing = briefingState();
 
 // Manager-profile depth: borrow the authoritative scorer so the audit and the
 // backfill worklist never drift. Run it as --json and fold its summary in.
@@ -99,6 +124,7 @@ for (const s of staleSurfaces) {
   };
   actions.push({ surface: s.key, newest: s.newestDate, ageDays: s.ageDays, do: map[s.key] || `Refresh ${s.label}.` });
 }
+if (briefing.stale) actions.push({ surface: "briefing", newest: briefing.newestStamp, ageHours: briefing.ageHours, do: "Regenerate the briefing slot for the current London window (morning <12:00 / afternoon 12:00–17:00 / evening ≥17:00) and restamp it — every run, never skipped." });
 if (coverageStale) actions.push({ surface: "coverage", flagged: coverage.flagged, reach2020: coverage.reach2020, do: "Backfill the worklisted managers' history to 2020 (deals / intel / webNews), all VERIFIED + dated." });
 
 const ok = actions.length === 0;
@@ -108,8 +134,10 @@ if (flag("--json")) {
   console.log(JSON.stringify({
     generated: new Date().toISOString().slice(0, 10),
     staleWindowDays: STALE_DAYS,
+    briefingStaleHours: BRIEF_STALE_HOURS,
     ok,
     surfaces: SURFACES,
+    briefing,
     coverage,
     worklist,
     actions,
@@ -121,6 +149,11 @@ if (flag("--json")) {
     const tag = s.stale ? "STALE " : "fresh ";
     const age = s.ageDays == null ? "no dated items" : `${s.ageDays}d old`;
     console.log(`  [${tag}] ${s.label.padEnd(48)} newest ${String(s.newestDate || "—").padEnd(11)} (${age}, ${s.count} items)`);
+  }
+  {
+    const tag = briefing.stale ? "STALE " : "fresh ";
+    const age = briefing.ageHours == null ? "no slots" : `${briefing.ageHours}h old`;
+    console.log(`  [${tag}] ${briefing.label.padEnd(48)} newest ${String(briefing.newestStamp || "—").padEnd(11)} (${age}, slot: ${briefing.freshestSlot || "—"})`);
   }
   if (coverage) {
     const tag = coverageStale ? "STALE " : "fresh ";

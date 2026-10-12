@@ -43,11 +43,17 @@ if (j) {
   const mismatches = (j.surfaces || []).filter((s) => s.stale !== expect[s.key]).map((s) => s.key);
   check(mismatches.length === 0, `freshness-audit: the stale verdict matches the committed data${mismatches.length ? ` (mismatch: ${mismatches.join(", ")})` : ""}`);
 
+  // The Home briefing is audited in HOURS (it restamps every ~2h run). Well-formed,
+  // and when stale it must raise a "briefing" action so a run can't silently skip it.
+  check(j.briefing && j.briefing.key === "briefing" && typeof j.briefing.stale === "boolean" && (j.briefing.ageHours === null || typeof j.briefing.ageHours === "number"),
+    "freshness-audit: the Home briefing is audited (hours-based) and well-formed");
+
   // ok === "no actions", and a stale surface (or coverage deficit) must raise an action.
   check(j.ok === (j.actions.length === 0), "freshness-audit: ok is true exactly when there are no actions");
   const actionSurfaces = new Set(j.actions.map((a) => a.surface));
   const staleSurfaces = (j.surfaces || []).filter((s) => s.stale).map((s) => s.key);
   check(staleSurfaces.every((k) => actionSurfaces.has(k)), "freshness-audit: every stale surface raises a resolve-action");
+  if (j.briefing && j.briefing.stale) check(actionSurfaces.has("briefing"), "freshness-audit: a stale briefing raises a resolve-action");
 
   // When coverage work remains, it carries the rotating backfill worklist for the routine.
   if (actionSurfaces.has("coverage")) check(Array.isArray(j.worklist) && j.worklist.length > 0, "freshness-audit: a coverage action ships the backfill worklist");

@@ -683,11 +683,18 @@ quiet slot gets a short output, not padding.
   The **Home News pane shows only the LATEST (freshest-stamped) slot** — there is
   **no header button and no slot selector** — so what the reader sees is whichever
   slot this run rewrites. The data keeps three rolling slots as its store:
-  `morning` (< 12:00), `afternoon` (12:00–17:00), `evening` (≥ 17:00 London). On
-  each of the **five daily runs, regenerate the slot the current run-time falls in**
-  (so 05:00 & 09:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening) and
-  restamp it — that run's slot becomes the freshest and is what shows, giving up to
-  **five fresh briefings a day**; leave the other two as they are. Each slot is
+  `morning` (< 12:00), `afternoon` (12:00–17:00), `evening` (≥ 17:00 London).
+  **On EVERY run — the full-refresh cron fires every ~2 hours, NOT only at a few fixed
+  clock times — regenerate and restamp the slot whose WINDOW the current London
+  run-time falls in**, and leave the other two as they are. Choose the slot by the
+  window, never by matching a specific hour: run-time **before 12:00 → `morning`**,
+  **12:00–16:59 → `afternoon`**, **17:00 or later → `evening`**. That run's slot
+  becomes the freshest and is what shows, so the briefing is never more than one run
+  (~2h) stale during the day. **Do NOT skip the briefing on a run just because its
+  hour isn't one of the old 05/09/12/17/21 times** — that bug left the morning slot
+  frozen at 05:15 through the 08:00 and 10:00 runs (observed 2026-10-12). Even when
+  little else changed, restamp the current slot (new `date`+`time`) and refresh its
+  bullets so the "Updated …" stamp advances every run. Each slot is
   **4–6 `bullets`** (ideally one per desk — Macro · Bonds · Equities · Credit),
   each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
