@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "f4463a28-832d-4a2d-acc5-d83e258610cb",
+    title: "Alphaville’s Nobel Prize for Economics live blog",
+    date: "2026-10-12",
+    time: "10:09",
+    url: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb"
+  },
+  {
+    id: "ad0b6e93-708c-46c6-a1f2-e6248c934faf",
+    title: "Riyadh defiant as Houthis launch new  missile strikes on Saudi Arabia",
+    date: "2026-10-12",
+    time: "09:45",
+    url: "https://www.ft.com/content/ad0b6e93-708c-46c6-a1f2-e6248c934faf"
+  },
+  {
+    id: "c9eea573-6d36-467e-b7f4-90c1d957cb33",
+    title: "Andy Burnham’s own goal",
+    date: "2026-10-12",
+    time: "09:30",
+    url: "https://www.ft.com/content/c9eea573-6d36-467e-b7f4-90c1d957cb33"
+  },
+  {
+    id: "3e94e815-95b9-4e8d-9219-c9066cec08f6",
+    title: "And the FTAV charts quiz winner is . . .",
+    date: "2026-10-12",
+    time: "09:01",
+    url: "https://www.ft.com/content/3e94e815-95b9-4e8d-9219-c9066cec08f6"
+  },
+  {
     id: "011a7926-402e-4baa-90ba-bab4a44a74de",
     title: "Andy Burnham to tell MPs that refusing closer EU ties a ‘dereliction of duty’",
     date: "2026-10-12",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-11",
     time: "14:39",
     url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82"
-  },
-  {
-    id: "9b30ee59-b542-48b8-85f6-d60dce897342",
-    title: "India’s ‘Cockroach’ movement plans more protests after release of leaders",
-    date: "2026-10-11",
-    time: "14:07",
-    url: "https://www.ft.com/content/9b30ee59-b542-48b8-85f6-d60dce897342"
-  },
-  {
-    id: "bd2c7385-184e-425e-997f-0f5a8c54184e",
-    title: "Houthis show military reach with deadly missile strikes on Riyadh",
-    date: "2026-10-11",
-    time: "14:04",
-    url: "https://www.ft.com/content/bd2c7385-184e-425e-997f-0f5a8c54184e"
-  },
-  {
-    id: "eaaf7c65-fc11-41ab-8b83-9a163337fa6b",
-    title: "Europe can fight the ‘China shock’",
-    date: "2026-10-11",
-    time: "12:00",
-    url: "https://www.ft.com/content/eaaf7c65-fc11-41ab-8b83-9a163337fa6b"
-  },
-  {
-    id: "eae9d22f-3722-427f-a33b-aebc58fba2c4",
-    title: "Will September inflation cement US interest rate policy for the rest of the year?",
-    date: "2026-10-11",
-    time: "12:00",
-    url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"
-  },
+  }
 ];
