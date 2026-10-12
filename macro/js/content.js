@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-12",
-  lastCheckedTime: "05:15 BST",
+  lastCheckedTime: "08:30 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1006,11 +1006,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-12",
   us: [
-    {title: "Trump battles for the Senate", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/62bab2c8-d4e2-4ec2-a911-80439f61f238"},
+    {title: "Oil prices volatile after Trump claims ‘energy ceasefire’ in Ukraine war", source: "Financial Times", date: "2026-10-12", time: "07:47", url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"},
+    {title: "US threatens to block arms for Ukraine over attacks on Russian refineries", source: "Financial Times", date: "2026-10-12", time: "07:42", url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031"},
+    {title: "Is the US economy as narrow as its stock market?", source: "Financial Times", date: "2026-10-12", time: "06:30", url: "https://www.ft.com/content/2aa849df-5670-4577-87dd-2c40f2bac2aa"},
     {title: "Wall Street’s record-breaking trading streak set to cool", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2"},
-    {title: "‘Worrying omens’ lurk over global economy despite resilient growth", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229"},
-    {title: "The huge lurking leverage of AI hyperscalers", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/17a207f4-1563-48af-91e3-14bac89ab4b8"},
-    {title: "Trump faces Republican opposition to his diesel deal with Russia’s Putin", source: "Financial Times", date: "2026-10-11", time: "22:17", url: "https://www.ft.com/content/debf0be6-d5aa-4ba7-bb66-7daf770d99ff"},
+    {title: "‘Worrying omens’ stalk global economy despite resilient growth", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229"},
   ],
   uk: [
     {title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"},
@@ -1032,6 +1032,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-10-12",
   items: [
+    {"title": "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal", "source": "Financial Times", "date": "2026-10-12", "time": "08:20", "url": "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a", "blurb": "New EU arrangement protects the bloc’s hybrid-car makers from Chinese imports."},
+    {"title": "Oil prices volatile after Trump claims ‘energy ceasefire’ in Ukraine war", "source": "Financial Times", "date": "2026-10-12", "time": "07:47", "url": "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", "blurb": "Crude swings as markets weigh the claimed energy ceasefire between Russia and Ukraine."},
+    {"title": "Is the US economy as narrow as its stock market?", "source": "Financial Times", "date": "2026-10-12", "time": "06:30", "url": "https://www.ft.com/content/2aa849df-5670-4577-87dd-2c40f2bac2aa", "blurb": "Asks whether US growth is as concentrated as the equity rally."},
     {"title": "Trump battles for the Senate", "source": "Financial Times", "date": "2026-10-12", "time": "05:00", "url": "https://www.ft.com/content/62bab2c8-d4e2-4ec2-a911-80439f61f238", "blurb": "Midterm Senate control is in play as the president campaigns."},
     {"title": "Wall Street’s record-breaking trading streak set to cool", "source": "Financial Times", "date": "2026-10-12", "time": "05:00", "url": "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", "blurb": "Record run of Wall Street trading volumes looks set to cool."},
     {"title": "‘Worrying omens’ lurk over global economy despite resilient growth", "source": "Financial Times", "date": "2026-10-12", "time": "05:00", "url": "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229", "blurb": "Resilient global growth masks risks flagged ahead of the IMF meetings."},

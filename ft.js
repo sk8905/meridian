@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
+    title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
+    date: "2026-10-12",
+    time: "08:20",
+    url: "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a"
+  },
+  {
+    id: "a663781e-2709-41f2-99df-4fb5a6162e6b",
+    title: "Oil prices volatile after Trump claims ‘energy ceasefire’ in Ukraine war",
+    date: "2026-10-12",
+    time: "07:47",
+    url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"
+  },
+  {
+    id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
+    title: "US threatens to block arms for Ukraine over attacks on Russian refineries",
+    date: "2026-10-12",
+    time: "07:42",
+    url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031"
+  },
+  {
     id: "2aa849df-5670-4577-87dd-2c40f2bac2aa",
     title: "Is the US economy as narrow as its stock market?",
     date: "2026-10-12",
@@ -56,22 +77,15 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/d3a342a9-0b64-4dd3-8f12-54c6750509de"
   },
   {
-    id: "a663781e-2709-41f2-99df-4fb5a6162e6b",
-    title: "Oil prices fall after Trump claims ‘energy ceasefire’ in Ukraine war",
+    id: "7dc561ba-a386-479d-9633-9209b76b1812",
+    title: "FirstFT: US threatens to cut arms support for Ukraine over Russian refinery strikes",
     date: "2026-10-12",
-    time: "05:43",
-    url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"
-  },
-  {
-    id: "1d85912b-7a70-4ba1-87df-3b683adee91e",
-    title: "Houthis attack Riyadh airport",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/1d85912b-7a70-4ba1-87df-3b683adee91e"
+    time: "05:33",
+    url: "https://www.ft.com/content/7dc561ba-a386-479d-9633-9209b76b1812"
   },
   {
     id: "62bab2c8-d4e2-4ec2-a911-80439f61f238",
-    title: "Trump battles for the Senate",
+    title: "Trump battles to save the Senate",
     date: "2026-10-12",
     time: "05:00",
     url: "https://www.ft.com/content/62bab2c8-d4e2-4ec2-a911-80439f61f238"
@@ -106,7 +120,7 @@ export const FT_ITEMS = [
   },
   {
     id: "e0457dd5-8e75-4803-8ce8-6651157d2229",
-    title: "‘Worrying omens’ lurk over global economy despite resilient growth",
+    title: "‘Worrying omens’ stalk global economy despite resilient growth",
     date: "2026-10-12",
     time: "05:00",
     url: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229"
@@ -117,6 +131,13 @@ export const FT_ITEMS = [
     date: "2026-10-12",
     time: "05:00",
     url: "https://www.ft.com/content/e6c9d380-7108-405a-8393-5240771809fe"
+  },
+  {
+    id: "1d85912b-7a70-4ba1-87df-3b683adee91e",
+    title: "Houthis attack Riyadh airport",
+    date: "2026-10-12",
+    time: "05:00",
+    url: "https://www.ft.com/content/1d85912b-7a70-4ba1-87df-3b683adee91e"
   },
   {
     id: "4886bddc-0554-450c-9459-d67200c57cc4",
@@ -168,13 +189,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"
   },
   {
-    id: "7dc561ba-a386-479d-9633-9209b76b1812",
-    title: "FirstFT: India’s ‘Cockroach’ movement vows more protests after release of leaders",
-    date: "2026-10-11",
-    time: "22:22",
-    url: "https://www.ft.com/content/7dc561ba-a386-479d-9633-9209b76b1812"
-  },
-  {
     id: "debf0be6-d5aa-4ba7-bb66-7daf770d99ff",
     title: "Trump faces Republican opposition to his diesel deal with Russia’s Putin",
     date: "2026-10-11",
@@ -189,25 +203,11 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/655af6f3-552f-4f51-aa52-02168cdae4fa"
   },
   {
-    id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
-    title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
-    date: "2026-10-11",
-    time: "21:00",
-    url: "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a"
-  },
-  {
     id: "f9b9f937-97b0-4a03-90f6-05d7c7344ab9",
     title: "US hits commercial tanker in Gulf of Oman as tensions flare",
     date: "2026-10-11",
     time: "20:53",
     url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"
-  },
-  {
-    id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
-    title: "US threatens to block arms for Ukraine over attacks on Russian refineries",
-    date: "2026-10-11",
-    time: "19:40",
-    url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031"
   },
   {
     id: "258611cc-d4ec-40f7-9d3e-930991725837",
@@ -299,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-11",
     time: "12:00",
     url: "https://www.ft.com/content/ae389f53-ebd4-4188-9b44-266770595158"
-  },
-  {
-    id: "b1ff2ac0-843d-4b2a-b848-c840a2decfb8",
-    title: "John Healey rules out cutting ‘mansion tax’ threshold to £1.5mn in UK Budget",
-    date: "2026-10-11",
-    time: "11:38",
-    url: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8"
-  },
-  {
-    id: "7553fae9-f65a-4101-be93-cdac921d4c2f",
-    title: "Smelly seaweed and strong peso hurt tourism at Mexico’s beach resorts",
-    date: "2026-10-11",
-    time: "11:00",
-    url: "https://www.ft.com/content/7553fae9-f65a-4101-be93-cdac921d4c2f"
   }
 ];
