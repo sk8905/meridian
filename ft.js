@@ -21,6 +21,13 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "011a7926-402e-4baa-90ba-bab4a44a74de",
+    title: "Andy Burnham to tell MPs that refusing closer EU ties a ‘dereliction of duty’",
+    date: "2026-10-12",
+    time: "08:52",
+    url: "https://www.ft.com/content/011a7926-402e-4baa-90ba-bab4a44a74de"
+  },
+  {
     id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
     title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
     date: "2026-10-12",
@@ -293,11 +300,4 @@ export const FT_ITEMS = [
     time: "12:00",
     url: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4"
   },
-  {
-    id: "ae389f53-ebd4-4188-9b44-266770595158",
-    title: "The collective global duty to safeguard time",
-    date: "2026-10-11",
-    time: "12:00",
-    url: "https://www.ft.com/content/ae389f53-ebd4-4188-9b44-266770595158"
-  }
 ];
