@@ -28,6 +28,13 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/da71c823-ca31-4eaa-8e6e-6baacea986a4"
   },
   {
+    id: "a663781e-2709-41f2-99df-4fb5a6162e6b",
+    title: "Diesel prices slip after Trump claims ‘energy ceasefire’ in Ukraine war",
+    date: "2026-10-12",
+    time: "14:23",
+    url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"
+  },
+  {
     id: "af0a5da6-abc7-41ab-85cf-da806fc7a6e5",
     title: "Franco-German deal on EU car policy is ‘imminent’, says Emmanuel Macron",
     date: "2026-10-12",
@@ -56,11 +63,39 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/463be44f-5477-46e6-b4d2-460fa2551064"
   },
   {
+    id: "ba28b7cd-293e-4eee-a073-ad81aaefced3",
+    title: "AI regulation must mimic Industrial Revolution laws, UK minister says",
+    date: "2026-10-12",
+    time: "13:01",
+    url: "https://www.ft.com/content/ba28b7cd-293e-4eee-a073-ad81aaefced3"
+  },
+  {
     id: "90d5003e-dbec-4db3-88d2-d30d9c2a119d",
     title: "The EU has more bark but lacks bite towards China",
     date: "2026-10-12",
     time: "12:31",
     url: "https://www.ft.com/content/90d5003e-dbec-4db3-88d2-d30d9c2a119d"
+  },
+  {
+    id: "863619b6-c4a7-4b1a-8a53-6950d47d1833",
+    title: "Putin is breaching Trump’s ‘energy ceasefire’, Zelenskyy says",
+    date: "2026-10-12",
+    time: "12:22",
+    url: "https://www.ft.com/content/863619b6-c4a7-4b1a-8a53-6950d47d1833"
+  },
+  {
+    id: "c5ff7ed6-a42d-4ff3-8efa-485b1046102d",
+    title: "Prune Nourry: how I resurrected Paris’s forgotten female artists",
+    date: "2026-10-12",
+    time: "12:00",
+    url: "https://www.ft.com/content/c5ff7ed6-a42d-4ff3-8efa-485b1046102d"
+  },
+  {
+    id: "910e014c-4716-49e2-86cc-53eae31c9607",
+    title: "Redwood — Ben Macintyre decodes the murky ethics of the cold war",
+    date: "2026-10-12",
+    time: "12:00",
+    url: "https://www.ft.com/content/910e014c-4716-49e2-86cc-53eae31c9607"
   },
   {
     id: "48b8c4ce-b2bf-44e2-badf-8159a9d664e4",
@@ -77,6 +112,34 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/0a66d390-149d-4cdc-83b6-88015da1e835"
   },
   {
+    id: "51089f41-6f8b-4381-aab5-a83bbe4048c4",
+    title: "Whisky highballs, fantastic fairies and a very White House indeed – don’t miss HTSI’s top reads",
+    date: "2026-10-12",
+    time: "11:44",
+    url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4"
+  },
+  {
+    id: "011a7926-402e-4baa-90ba-bab4a44a74de",
+    title: "Rejecting closer ties with EU would be ‘dereliction of duty’, Burnham says",
+    date: "2026-10-12",
+    time: "11:30",
+    url: "https://www.ft.com/content/011a7926-402e-4baa-90ba-bab4a44a74de"
+  },
+  {
+    id: "7dc561ba-a386-479d-9633-9209b76b1812",
+    title: "FirstFT: Diesel prices slip after Trump announces ‘energy ceasefire’",
+    date: "2026-10-12",
+    time: "11:24",
+    url: "https://www.ft.com/content/7dc561ba-a386-479d-9633-9209b76b1812"
+  },
+  {
+    id: "d154e42d-5243-44f3-a837-a67681e20311",
+    title: "To the manor reborn",
+    date: "2026-10-12",
+    time: "11:00",
+    url: "https://www.ft.com/content/d154e42d-5243-44f3-a837-a67681e20311"
+  },
+  {
     id: "46b33d0d-274d-496e-9c42-1d4cf18b65cb",
     title: "German labour minister resigns as Merz coalition strains deepen",
     date: "2026-10-12",
@@ -84,22 +147,15 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/46b33d0d-274d-496e-9c42-1d4cf18b65cb"
   },
   {
-    id: "863619b6-c4a7-4b1a-8a53-6950d47d1833",
-    title: "Putin is breaching Trump’s ‘energy ceasefire’, Zelenskyy says",
-    date: "2026-10-12",
-    time: "10:15",
-    url: "https://www.ft.com/content/863619b6-c4a7-4b1a-8a53-6950d47d1833"
-  },
-  {
     id: "f4463a28-832d-4a2d-acc5-d83e258610cb",
-    title: "Alphaville’s Nobel Prize for Economics live blog",
+    title: "Nobel Prize for economics awarded to Robert E Hall and Michael Woodford",
     date: "2026-10-12",
     time: "10:09",
     url: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb"
   },
   {
     id: "ad0b6e93-708c-46c6-a1f2-e6248c934faf",
-    title: "Riyadh defiant as Houthis launch new  missile strikes on Saudi Arabia",
+    title: "Riyadh defiant as Houthis launch new missile strikes on Saudi Arabia",
     date: "2026-10-12",
     time: "09:45",
     url: "https://www.ft.com/content/ad0b6e93-708c-46c6-a1f2-e6248c934faf"
@@ -119,25 +175,11 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/3e94e815-95b9-4e8d-9219-c9066cec08f6"
   },
   {
-    id: "011a7926-402e-4baa-90ba-bab4a44a74de",
-    title: "Andy Burnham to tell MPs that refusing closer EU ties a ‘dereliction of duty’",
-    date: "2026-10-12",
-    time: "08:52",
-    url: "https://www.ft.com/content/011a7926-402e-4baa-90ba-bab4a44a74de"
-  },
-  {
     id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
     title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
     date: "2026-10-12",
     time: "08:20",
     url: "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a"
-  },
-  {
-    id: "a663781e-2709-41f2-99df-4fb5a6162e6b",
-    title: "Oil prices volatile after Trump claims ‘energy ceasefire’ in Ukraine war",
-    date: "2026-10-12",
-    time: "07:47",
-    url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"
   },
   {
     id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
@@ -182,13 +224,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/d3a342a9-0b64-4dd3-8f12-54c6750509de"
   },
   {
-    id: "7dc561ba-a386-479d-9633-9209b76b1812",
-    title: "FirstFT: US threatens to cut arms support for Ukraine over Russian refinery strikes",
-    date: "2026-10-12",
-    time: "05:33",
-    url: "https://www.ft.com/content/7dc561ba-a386-479d-9633-9209b76b1812"
-  },
-  {
     id: "62bab2c8-d4e2-4ec2-a911-80439f61f238",
     title: "Trump battles to save the Senate",
     date: "2026-10-12",
@@ -201,13 +236,6 @@ export const FT_ITEMS = [
     date: "2026-10-12",
     time: "05:00",
     url: "https://www.ft.com/content/b0acd823-ca55-481c-93de-0e292a401b37"
-  },
-  {
-    id: "ba28b7cd-293e-4eee-a073-ad81aaefced3",
-    title: "UK ministers explore compulsory AI safety reporting",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/ba28b7cd-293e-4eee-a073-ad81aaefced3"
   },
   {
     id: "50bb9758-abf7-43a4-bd8b-0c1e5895b4c2",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-12",
     time: "00:01",
     url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"
-  },
-  {
-    id: "47b02f06-cbfc-49cb-afb8-1ae015399c4e",
-    title: "City of London hits out at Andy Burnham’s plan to scrap non-compete clauses",
-    date: "2026-10-12",
-    time: "00:01",
-    url: "https://www.ft.com/content/47b02f06-cbfc-49cb-afb8-1ae015399c4e"
-  },
-  {
-    id: "dcdc4427-2104-4b6f-91e5-af9d13bb49a1",
-    title: "How to pay for social care",
-    date: "2026-10-12",
-    time: "00:01",
-    url: "https://www.ft.com/content/dcdc4427-2104-4b6f-91e5-af9d13bb49a1"
-  },
-  {
-    id: "619800ae-b2f2-46e3-b34e-23f0525637da",
-    title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns",
-    date: "2026-10-12",
-    time: "00:01",
-    url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"
-  },
-  {
-    id: "debf0be6-d5aa-4ba7-bb66-7daf770d99ff",
-    title: "Trump faces Republican opposition to his diesel deal with Russia’s Putin",
-    date: "2026-10-11",
-    time: "22:17",
-    url: "https://www.ft.com/content/debf0be6-d5aa-4ba7-bb66-7daf770d99ff"
   }
 ];

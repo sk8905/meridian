@@ -100,8 +100,8 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-12",
-  time: "12:25 BST",
-  lede: "Diesel prices slip after Trump's 'energy ceasefire' in the Ukraine war, Germany's labour minister resigns as Merz's coalition strains, and the Nobel economics prize goes to Robert Hall and Michael Woodford.",
+  time: "14:38 BST",
+  lede: "Diesel prices slip after Trump's 'energy ceasefire' in Ukraine, Macron says a Franco-German deal on EU car policy is imminent, and Germany's labour minister resigns as Merz's coalition strains.",
   bullets: [
     { html: "<strong>Oil &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, easing pressure on Brent, though Zelenskyy says Putin is already breaching it.", src: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", srcName: "Financial Times", date: "2026-10-12" },
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield held near 5.24% ahead of Wednesday&rsquo;s September CPI</strong>, steadying after touching 5.36% on 7 October &mdash; its highest since 2002 &mdash; with the cash market shut Monday for the Columbus Day holiday.", src: "https://tradingeconomics.com/united-states/government-bond-yield/news/516491", srcName: "Trading Economics", date: "2026-10-12" },
