@@ -727,7 +727,14 @@ quiet slot gets a short output, not padding.
   S&P 500 / major-index move and its driver). **Bonds & Equities bullets LEAD WITH
   THE MOVE AND ITS DRIVER** — a concrete yield/level and the catalyst behind it (e.g.
   "the US 10-year yield eased ~3bp to 5.28% as oil slid"), **NOT** a vague framing like
-  "the FT asks why yields are so high": name the number and what moved it. **Credit is included when
+  "the FT asks why yields are so high": name the number and what moved it. **A real Bonds
+  bullet is effectively mandatory — there is almost always a rates/government-bond story.**
+  Make full effort to source one every slot from WSJ, FT, Bloomberg, the Economist or a
+  comparable outlet (treasuries, gilts, Bunds, auctions, central-bank/rate-path moves,
+  credit spreads — anything with a concrete yield level or `bp` move). The renderer's
+  **yields-only Bonds fallback** (bare live US + UK 10-year pills, no "no story" wording) is
+  a **LAST RESORT that means you did not look hard enough**, not an acceptable default — do
+  not rely on it to fill the desk. **Credit is included when
   there is a private-markets story that day** (most days there is one worth a line);
   if there genuinely is none, the slot shows three desks — that is fine. **Section
   order is fixed: Macro, then Bonds, then Equities, then Credit.**

@@ -18,6 +18,9 @@ const SAMPLE = { tweets: [
   { id: "2097200000000000000", handle: "AntoineGara", name: "Antoine Gara", avatar: "https://pbs.twimg.com/a.jpg", text: "S&amp;P 500 earnings &amp; the P&lt;E debate: what kind of DCF are we using here???", date: new Date(Date.now() - 80 * 60000).toUTCString(), ts: Date.now() - 80 * 60000, url: "https://x.com/AntoineGara/status/2097200000000000000", media: [], quoted: { handle: "Forbes", name: "Forbes", text: "Taylor Swift &amp; AT&amp;T joined the billionaire ranks in 2023, on the back of her record-breaking global Eras Tour.", media: [], url: "https://x.com/Forbes/status/2097199999999999999" } },
   // A LONG post — over the clamp threshold — collapsed until expanded.
   { id: "2097100000000000000", handle: "LongPoster", name: "Long Poster", avatar: "https://pbs.twimg.com/l.jpg", text: "The US jobs data is out and there are surprises: job creation was only 29,000 in September, with the unemployment rate rising to 4.2% and monthly earnings growth moderating to only 0.1%, plus downward revisions to July and August of about 60,000 jobs — a soft report that reinforces the case for the Fed to hold rates in October rather than hike.", date: new Date(Date.now() - 95 * 60000).toUTCString(), ts: Date.now() - 95 * 60000, url: "https://x.com/LongPoster/status/2097100000000000000", media: [] },
+  // A post WITH an attached image — the image is HIDDEN by default and revealed by a
+  // "Show image" toggle (and re-hidden by "Hide image").
+  { id: "2097000000000000000", handle: "MediaPoster", name: "Media Poster", avatar: "https://pbs.twimg.com/m.jpg", text: "Chart of the day: yields vs equities.", date: new Date(Date.now() - 110 * 60000).toUTCString(), ts: Date.now() - 110 * 60000, url: "https://x.com/MediaPoster/status/2097000000000000000", media: ["https://pbs.twimg.com/media/chart.jpg"] },
 ] };
 
 const srv = await serve({ "/api/xfeed": () => [200, JSON.stringify(SAMPLE)] });
@@ -61,7 +64,7 @@ const b = await launchChromium();
   check(r.inRail, "X wire: panel sits in its own rail (g-side-x)");
   check(r.between, "X wire: the rail sits between the manager wire and the macro rail");
   checkEq(r.count, SAMPLE.tweets.length, `X wire: one card per tweet (${r.count})`);
-  checkEq(r.handles.join(","), "@elerianm,@RayDalio,@TheEconomist,@AntoineGara,@LongPoster", "X wire: cards render in the order served (newest-first, merged)");
+  checkEq(r.handles.join(","), "@elerianm,@RayDalio,@TheEconomist,@AntoineGara,@LongPoster,@MediaPoster", "X wire: cards render in the order served (newest-first, merged)");
   check(/Mohamed A\. El-Erian reposted/.test(r.repostLine), `X wire: reposts show a "reposted" line (${r.repostLine})`);
   check(!!r.quote, "X wire: a quote tweet nests the quoted original as a card");
   check(/Forbes/.test((r.quote || {}).who || ""), `X wire: the quoted card names the original author (${(r.quote || {}).who})`);
@@ -109,6 +112,40 @@ const b = await launchChromium();
   await pg.waitForTimeout(80);
   const recollapsed = await pg.evaluate(() => [...document.querySelectorAll("#g-xwire .g-x-card")].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@LongPoster").querySelector(".g-x-txt").classList.contains("g-x-txt--clamp"));
   check(recollapsed, "X wire: tapping 'Show less' re-collapses the post");
+
+  // Images are HIDDEN by default: a media post renders no <img>, just a "Show image"
+  // toggle. A text-only post has no toggle at all. Tapping reveals the image and flips
+  // the label to "Hide image"; tapping again re-hides it.
+  const media0 = await pg.evaluate(() => {
+    const cards = [...document.querySelectorAll("#g-xwire .g-x-card")];
+    const byHandle = (hh) => cards.find((c) => (c.querySelector(".g-x-h") || {}).textContent === hh);
+    const mediaC = byHandle("@MediaPoster"), textC = byHandle("@elerianm");
+    const btn = mediaC && mediaC.querySelector(".g-x-mediatoggle");
+    return {
+      noImgByDefault: !!mediaC && !mediaC.querySelector(".g-x-media"),
+      hasToggle: !!btn, toggleText: btn ? btn.textContent.trim() : "", collapsedAria: btn ? btn.getAttribute("aria-expanded") : "",
+      textNoToggle: !!textC && !textC.querySelector(".g-x-mediatoggle"),
+    };
+  });
+  check(media0.noImgByDefault && media0.hasToggle && /show image/i.test(media0.toggleText) && media0.collapsedAria === "false",
+    `X wire: a media post hides the image by default behind a "Show image" toggle (${media0.toggleText})`);
+  check(media0.textNoToggle, "X wire: a text-only post has no image toggle");
+  await pg.evaluate(() => [...document.querySelectorAll("#g-xwire .g-x-card")].find((c) => (c.querySelector(".g-x-h") || {}).textContent === "@MediaPoster").querySelector(".g-x-mediatoggle").click());
+  await pg.waitForTimeout(80);
+  const mediaOn = await pg.evaluate(() => {
+    const c = [...document.querySelectorAll("#g-xwire .g-x-card")].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@MediaPoster");
+    const img = c.querySelector(".g-x-media img"), btn = c.querySelector(".g-x-mediatoggle");
+    return { imgShown: !!img, src: img ? img.getAttribute("src") : "", btnText: btn ? btn.textContent.trim() : "", aria: btn ? btn.getAttribute("aria-expanded") : "" };
+  });
+  check(mediaOn.imgShown && /chart\.jpg$/.test(mediaOn.src) && /hide image/i.test(mediaOn.btnText) && mediaOn.aria === "true",
+    `X wire: tapping "Show image" reveals the image and flips to "Hide image" (${mediaOn.btnText})`);
+  await pg.evaluate(() => [...document.querySelectorAll("#g-xwire .g-x-card")].find((c) => (c.querySelector(".g-x-h") || {}).textContent === "@MediaPoster").querySelector(".g-x-mediatoggle").click());
+  await pg.waitForTimeout(80);
+  const mediaOff = await pg.evaluate(() => {
+    const c = [...document.querySelectorAll("#g-xwire .g-x-card")].find((x) => (x.querySelector(".g-x-h") || {}).textContent === "@MediaPoster");
+    return { reHidden: !c.querySelector(".g-x-media"), btnText: (c.querySelector(".g-x-mediatoggle") || {}).textContent || "" };
+  });
+  check(mediaOff.reHidden && /show image/i.test(mediaOff.btnText), "X wire: tapping 'Hide image' re-collapses the image");
 
   checkErrs(errs, "home X wire (desktop)");
   await ctx.close();

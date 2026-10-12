@@ -470,7 +470,7 @@ function renderHomeBriefing() {
   // pill-free; their live levels are in the top snapshot strip.)
   const FALLBACK = {
     macro: "<strong>Macro &mdash; the global growth and policy backdrop frames the session.</strong>",
-    bonds: '<strong>Bonds &mdash; no fresh bond-market story</strong> this slot; latest government-bond yields: <span class="g-hbt-tk" data-ykey="US 10Y" data-label="US 10Y"><span class="g-hbt-s">US 10Y</span></span> <span class="g-hbt-tk" data-ykey="UK 10Y" data-label="UK 10Y"><span class="g-hbt-s">UK 10Y</span></span>',
+    bonds: '<span class="g-hbt-tk" data-ykey="US 10Y" data-label="US 10Y"><span class="g-hbt-s">US 10Y</span></span> <span class="g-hbt-tk" data-ykey="UK 10Y" data-label="UK 10Y"><span class="g-hbt-s">UK 10Y</span></span>',
     equities: "<strong>Equities &mdash; the main stock indices set the equity tone.</strong>",
     credit: "<strong>Credit &mdash; no fresh private-credit headline this slot; conditions steady.</strong>",
   };
@@ -1006,6 +1006,16 @@ function xToggleExpand(id) {
   if (s.has(id)) s.delete(id); else s.add(id);
   _xExpanded.value = s;
 }
+// Post images are HIDDEN BY DEFAULT — the feed reads as a compact text column and the
+// reader taps "Show image" to load the attached media (and "Hide image" to re-collapse
+// it). Revealed ids live in a signal keyed by tweet id, mirroring _xExpanded, so the
+// toggle repaints just the affected card.
+const _xMedia = signal(new Set());
+function xToggleMedia(id) {
+  const s = new Set(_xMedia.value);
+  if (s.has(id)) s.delete(id); else s.add(id);
+  _xMedia.value = s;
+}
 // A post counts as "long" (worth clamping) when its text runs past ~a few lines —
 // judged by character length or several hard line breaks. Short posts show in full with
 // no toggle.
@@ -1018,6 +1028,8 @@ function XCard(t) {
   const perma = t.url || (t.handle ? `https://x.com/${t.handle}/status/${t.id}` : "#");
   const long = xIsLong(t.text);
   const expanded = _xExpanded.value.has(t.id);
+  const hasMedia = !!(t.media && t.media[0]);
+  const mediaShown = _xMedia.value.has(t.id);
   return h("article", { class: "g-x-card" },
     t.repostedBy ? h("div", { class: "g-x-rt" }, "↻ " + t.repostedBy + " reposted") : null,
     h("div", { class: "g-x-meta" },
@@ -1029,7 +1041,10 @@ function XCard(t) {
       onClick: (e) => { e.preventDefault(); e.stopPropagation(); xToggleExpand(t.id); } },
       expanded ? "Show less" : "Show more") : null,
     XQuote(t.quoted),
-    (t.media && t.media[0]) ? h("a", { class: "g-x-media", href: perma, target: "_blank", rel: "noopener noreferrer" }, h("img", { loading: "lazy", src: t.media[0], alt: "", referrerpolicy: "no-referrer" })) : null,
+    hasMedia ? h("button", { class: "g-x-more g-x-mediatoggle", type: "button", "aria-expanded": mediaShown ? "true" : "false",
+      onClick: (e) => { e.preventDefault(); e.stopPropagation(); xToggleMedia(t.id); } },
+      mediaShown ? "Hide image" : "Show image") : null,
+    (hasMedia && mediaShown) ? h("a", { class: "g-x-media", href: perma, target: "_blank", rel: "noopener noreferrer" }, h("img", { loading: "lazy", src: t.media[0], alt: "", referrerpolicy: "no-referrer" })) : null,
     h("a", { class: "g-x-permalink", href: perma, target: "_blank", rel: "noopener noreferrer" }, "View on X"));
 }
 function XWire() {

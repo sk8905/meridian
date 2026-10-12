@@ -1218,6 +1218,15 @@
     .g-x-more{ display:inline-block; margin-top:4px; padding:0; border:0; background:none; cursor:pointer;
       font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-link); letter-spacing:.01em; }
     .g-x-more:hover{ text-decoration:underline; }
+    /* Image reveal: posts render text-only by default; this chip loads (or re-hides)
+       the attached media on tap. Styled as a small outlined control — distinct from the
+       plain-link "Show more" text toggle — so the affordance reads clearly. */
+    .g-x-mediatoggle{ display:inline-flex; align-items:center; gap:5px; margin-top:8px; padding:3px 9px;
+      border:1px solid var(--t-grid); border-radius:999px; background:none; cursor:pointer;
+      font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-mut); letter-spacing:.02em; text-transform:uppercase; }
+    .g-x-mediatoggle::before{ content:"▸"; font-size:.85em; line-height:1; color:var(--t-link); }
+    .g-x-mediatoggle[aria-expanded="true"]::before{ content:"▾"; }
+    .g-x-mediatoggle:hover{ border-color:var(--t-mut); color:var(--t-ink); text-decoration:none; }
     .g-x-media{ display:block; margin-top:8px; }
     .g-x-media img{ display:block; width:100%; height:auto; border-radius:6px; border:1px solid var(--t-grid); }
     /* Quote tweet: the embedded original, nested as a bordered card beneath the

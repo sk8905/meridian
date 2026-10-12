@@ -675,11 +675,18 @@ notification badge red (`#ef4444`).
   off-house kicker the refresh may write — Oil, Geopolitics, UK, Private markets, Rates… —
   is folded into the desk it belongs to via `DESK_ALIAS`, never shown as its own section or
   dropped), and SYNTHESISES any still-missing desk with a short state line. The synthesised
-  **Bonds** line always carries the live **US and UK 10-year** yields (filled from the rates
-  cache like any yield pill — `/api/rates` now serves a `UK 10Y` gilt via CNBC); Macro /
-  Equities / Credit fallbacks are pill-free (their live levels sit in the top snapshot strip). So a reader never sees a category missing,
-  whatever the refresh wrote. The authoring target below still stands — the routine should
-  write real Macro/Bonds/Equities/Credit bullets — but a slip can no longer leave a gap, and
+  **Bonds** line is **bare live yield pills only** — the **US and UK 10-year** (filled from the
+  rates cache like any yield pill — `/api/rates` now serves a `UK 10Y` gilt via CNBC), with **no
+  "no fresh story" wording** — and Macro / Equities / Credit fallbacks are pill-free (their live
+  levels sit in the top snapshot strip). So a reader never sees a category missing,
+  whatever the refresh wrote. **The yields-only Bonds fallback is a LAST RESORT, not a target.**
+  There is almost always a live rates/government-bond story on a given day — the refresh routine
+  must make **full effort to source a real Bonds bullet** (a WSJ, FT, Bloomberg, Economist or
+  comparable rates/treasuries/gilts/credit-spread story with a concrete yield level or `bp`
+  move) **before** it ever leaves Bonds to the synthesis. Falling back to bare yields means the
+  routine failed to look hard enough, not that no story existed. The authoring target below
+  still stands — the routine should write real Macro/Bonds/Equities/Credit bullets — but a slip
+  can no longer leave a gap, and
   `tests/briefing-empty-bullet.mjs` asserts the four-desk render guarantee (not the raw data's
   exact kickers). **Fixed desk order — Macro, then Bonds, then Equities, then Credit:** the
   renderer (`DESK_RANK` keys `macro`/`bonds`/`equities`/`credit`) sorts the sections into this

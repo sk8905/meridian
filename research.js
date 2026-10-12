@@ -55,6 +55,12 @@ export const PUBLISHERS = {
   // With Intelligence "Private Credit Insights" — CONFIRMED + swept 2026-10-08. A curated
   // weekly private-credit intelligence roundup. Content sender is `withintelligence-email.com`.
   "withintelligence-email.com": "With Intelligence",
+  // PIMCO — signed up 2026-10-12 (registration/verify mail from `no_reply@pimco.com`). PIMCO's
+  // macro research is its Economic Outlook / Cyclical & Secular Outlook / Viewpoints notes.
+  // Activated on request so the first real note routes to Research automatically; CONFIRM the
+  // actual content-sender domain against that first delivery (the verify mail's `pimco.com` may
+  // not be the sending domain for the notes themselves, as with Apollo/UBS).
+  "pimco.com": "PIMCO",
   // SIGNED UP / arriving but NOT yet activated — a sweep candidate, pending a call on
   // whether it belongs in Research vs Newsletters (see docs/refresh-routines.md §4a):
   //   • preqin.blackrock.com — Preqin "First Close" (private-markets data/intelligence).
@@ -63,7 +69,6 @@ export const PUBLISHERS = {
   // the content sender's).
   // "oaktreecapital.com": "Oaktree Capital",          // also piped live via gnews
   // "morganstanley.com": "Morgan Stanley Research",   // Thoughts on the Market
-  // "pimco.com": "PIMCO",
   // "blackrock.com": "BlackRock Investment Institute",
 };
 
