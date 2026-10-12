@@ -39,11 +39,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The suite drives ~23 specs through a real headless Chromium. Playwright
+      # is deliberately NOT a package.json dependency (the dev container and this
+      # remote env both ship it pre-installed at a global path); on a stock runner
+      # we install it ourselves, pinned to the version those envs use (1.56.1), so
+      # CI and local behave identically. WIRE_PW then points tests/lib.mjs at it;
+      # Chromium resolves from Playwright's default browsers path.
+      - name: Install Playwright + Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+
       - name: Full suite (source)
+        env:
+          WIRE_PW: ${{ github.workspace }}/node_modules/playwright/index.js
         run: node tests/run.mjs
 
       - name: Build (Vite pipeline, same as the deploy)
         run: npm run build
 
       - name: Full suite (built dist/)
+        env:
+          WIRE_PW: ${{ github.workspace }}/node_modules/playwright/index.js
         run: TEST_ROOT=dist node tests/run.mjs
