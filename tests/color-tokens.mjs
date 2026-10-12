@@ -161,13 +161,14 @@ check(/\.data-meter\.dm-lo \.dm-fill\s*\{\s*background:\s*var\(--faint,/.test(cr
 check(/dsh-tag-\$\{\(x\.status \|\| ""\)\.toLowerCase\(\)\}/.test(dashboardApp),
   "v2/js/dashboard/app.js ipoHTML() guards x.status before .toLowerCase()");
 
-// R15 — the "Last refresh" tooltip must describe the real five-times-daily
-// schedule (05:00/09:00/12:00/17:00/21:00 London), not a stale four-times
-// description missing 09:00.
-check(/five-times-daily/.test(statusJs) && !/four-times-daily/.test(statusJs),
-  "v2/js/status.js describes the five-times-daily refresh schedule, not a stale four-times one");
-check(/05:00, 09:00, 12:00, 17:00/.test(statusJs),
-  "v2/js/status.js refresh tooltip lists all five London refresh times, including 09:00");
+// R15 — the "Last refresh" tooltip must describe the ACTUAL cadence (refreshed
+// roughly every 2 hours), NOT the retired fixed 5×/day schedule. The refresh moved
+// to ~every 2h; a tooltip naming fixed clock times (05:00/09:00/…) is a lie, so
+// guard against those strings coming back.
+check(/every\s*2\s*hours/i.test(statusJs) && !/five-times-daily|four-times-daily/i.test(statusJs),
+  "v2/js/status.js describes the ~2-hourly refresh, not a fixed-times schedule");
+check(!/05:00, 09:00, 12:00, 17:00/.test(statusJs),
+  "v2/js/status.js tooltip does NOT hard-list fixed London refresh times");
 
 // R12 — home.css must not carry an unscoped .ps-btn.is-active rule: it loads
 // after header.css (which correctly draws the active platform tab as an

@@ -6,7 +6,7 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 
 // The v2 SPA (its own /v2/js + /v2/css + the shared CSS) is bundled and content-
 // hashed by Vite. EVERYTHING ELSE loaded from a root path — the desk data modules
-// (ft.js, credit/js/data.js, …, refreshed ~5×/day by the routine) and the shared
+// (ft.js, credit/js/data.js, …, refreshed ~2-hourly by the routine) and the shared
 // runtime modules at root (feed.js, palette.js, credit/js/shared.js, …) — stays
 // EXTERNAL: emitted as-is so a data refresh only rewrites that one small file and
 // never re-hashes the app bundle. postbuild.mjs copies them into dist/.

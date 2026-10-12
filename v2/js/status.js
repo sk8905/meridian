@@ -1,8 +1,8 @@
 import { esc } from "/util.js";
 
 // App-wide "Last refresh" — ONE value for the whole app, not split by desk.
-// Wire's data is refreshed together by the five-times-daily routine, so the
-// header should show a single refresh time that doesn't change just because you
+// Wire's data is refreshed together by the full-refresh routine (roughly every 2
+// hours), so the header should show a single refresh time that doesn't change just because you
 // switched tabs. Each desk reports its data stamp when it loads; the MOST RECENT
 // wins (monotonic), and every report renders into the shared #data-status. So
 // whichever desk loads first sets it and later desks only ever move it forward.
@@ -45,7 +45,7 @@ function render() {
   // it finds in the document, so the ring animates here too — one ticker, one
   // ring geometry, wherever "Last refresh" surfaces.
   const ring = `<span class="ds-ring na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>`;
-  const title = "Wire data is refreshed together by the five-times-daily routine (05:00, 09:00, 12:00, 17:00 &amp; 21:00 London).";
+  const title = "Wire data is refreshed together roughly every 2 hours through the day (London time).";
   const html = `<span class="ds-text" title="${title}">${ring}<span class="ds-part">Last refresh ${esc(_label)}</span></span>`;
   // The phone bottom-meta strip (Menu tab) is tight — show a compact "Last: <time>"
   // (time only, no date). The header rail and desktop footer keep the full stamp.

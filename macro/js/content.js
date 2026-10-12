@@ -10,7 +10,7 @@ export const UPDATED = "28 September 2026";
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
-// viewer timezone. The four-times-daily refresh routine advances both on every run.
+// viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-12",
   lastCheckedTime: "14:38 BST",
@@ -396,7 +396,7 @@ export const OUTLOOK = {
 // ---- Recent market commentary from economists (Commentary tab) -------------
 // Analysis / opinion / research pieces on Fed & BoE policy from named economists
 // and reputable houses, newest first. Rendered as a two-column feed styled like
-// the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
+// the dashboard's Key macro headlines; the ~2-hourly routine keeps it current.
 //
 // REFRESH DIRECTIVE — coverage target: at least 10 commentary items PER DAY
 // across US+UK (this list has been running too light). Draw from a broad roster
@@ -1000,7 +1000,7 @@ export const SUMMARY = {
 // ---- Key macro news headlines (Dashboard) ----------------------------------
 // The most important US & UK macro / monetary-policy / markets stories from the
 // past few days, from reputable financial-news outlets. The dashboard renders a
-// single newest-first feed and shows only items ≤ 3 days old, so the four-times-daily
+// single newest-first feed and shows only items ≤ 3 days old, so the ~2-hourly
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
@@ -1026,7 +1026,7 @@ export const NEWS = {
 // A curated feed of the most important GENERAL global macro-economic news and
 // analysis — monetary policy, growth, inflation, oil, bonds, geopolitics — from
 // reputable outlets (FT, Bloomberg, Reuters, WSJ, The Economist, The Guardian,
-// etc.). Rendered as a single newest-first reading list; the four-times-daily routine
+// etc.). Rendered as a single newest-first reading list; the ~2-hourly routine
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
@@ -1082,7 +1082,7 @@ export const ARTICLES = {
 // ---- Upcoming economic releases (Dashboard banner) -------------------------
 // Scheduled US & UK data releases and central-bank announcements. The dashboard
 // banner shows only those falling in the current and following calendar week, so
-// the four-times-daily routine keeps this rolling forward (dropping past items and
+// the ~2-hourly routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
   { date: "2026-10-14", country: "US", title: "CPI (September)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },

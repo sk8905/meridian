@@ -3,7 +3,7 @@
 //
 // The manager/profile surface is a material feature: every covered manager must
 // carry history back to 2020 AND current activity. Coverage used to decay because
-// the 5×/day refresh only deep-backfilled WATCHLIST names, so ~150 of the 219
+// the earlier refresh only deep-backfilled WATCHLIST names, so ~150 of the 219
 // profiles never got a historical pass. This script removes the guesswork: it
 // reads the committed credit data, scores every manager's coverage, and prints a
 // BOUNDED, ROTATING worklist so each refresh run backfills the thinnest profiles
@@ -30,7 +30,7 @@ const SIZE = Math.max(1, parseInt(opt("--size", "10"), 10) || 10);
 
 // Coverage thresholds — a manager is "thin" if ANY of these hold.
 const THIN_TOTAL = 4;      // fewer than this many events total
-const BACKFILL_YEAR = 2021; // must carry at least one event dated this year or earlier…
+const BACKFILL_YEAR = 2020; // must carry at least one event dated this year or earlier (R32: history to 2020)…
 const STALE_DAYS = 150;     // …AND at least one event within this many days (current activity)
 
 const TODAY = new Date();
@@ -61,7 +61,7 @@ for (const m of managers) if (Array.isArray(m.webNews)) for (const w of m.webNew
 const rows = [...byId.values()].map((c) => {
   const ageDays = c.newestMs ? Math.round((todayMs - c.newestMs) / 86400000) : null;
   const oldestYear = c.oldestMs < Infinity ? Number(yr(new Date(c.oldestMs).toISOString())) : null;
-  // "needs backfill to 2020": the firm is old enough to have pre-2021 history but none is recorded.
+  // "needs backfill to 2020": the firm is old enough to have pre-2020 history but none is recorded.
   const old = c.founded == null || c.founded <= BACKFILL_YEAR;
   const needsHistory = old && !(oldestYear != null && oldestYear <= BACKFILL_YEAR);
   const needsCurrent = ageDays == null || ageDays > STALE_DAYS;

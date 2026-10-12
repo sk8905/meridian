@@ -20,6 +20,7 @@
 // =============================================================================
 import * as CR from "../credit/js/data.js";
 import * as LG from "../legal/js/data.js";
+import * as MAC from "../macro/js/content.js";
 import * as BR from "../briefings.js";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -54,6 +55,22 @@ function surface(key, label, rows, field = "date") {
   return { key, label, count: (rows || []).length, newestDate, ageDays, stale };
 }
 
+// Macro editorial arrays: NEWS and COMMENTARY are US+UK buckets; ARTICLES is .items.
+const _NEWS = [...(((MAC.NEWS || {}).us) || []), ...(((MAC.NEWS || {}).uk) || [])];
+const _CMT = [...(((MAC.COMMENTARY || {}).us) || []), ...(((MAC.COMMENTARY || {}).uk) || [])];
+const _ART = ((MAC.ARTICLES || {}).items) || [];
+
+// R18 — the Macro commentary feed targets ≥10 items. Flag it stale if the feed has
+// thinned below that OR its newest piece is older than the window, so the ≥10/day rule
+// can no longer rot unnoticed (it was previously only a code comment nobody checked).
+const MACRO_COMMENTARY_MIN = 10;
+function macroCommentarySurface() {
+  const s = surface("macro_commentary", "Macro commentary (R18 ≥10)", _CMT);
+  if (s.count < MACRO_COMMENTARY_MIN) s.stale = true;
+  s.min = MACRO_COMMENTARY_MIN;
+  return s;
+}
+
 const SURFACES = [
   surface("deals", "Transactions (credit deals)", CR.deals),
   surface("intel", "Credit intel (fundraising / mandates / personnel)", CR.intel),
@@ -61,6 +78,9 @@ const SURFACES = [
   surface("legal_items", "Legal updates", LG.items),
   surface("legal_cases", "Case law", LG.cases),
   surface("legal_rx", "Restructurings", LG.restructurings),
+  surface("macro_news", "Macro headlines", _NEWS),
+  macroCommentarySurface(),
+  surface("macro_articles", "Macro reading list", _ART),
 ];
 
 // The Home market briefing: the freshest of its three rolling slots, by (date·time)
@@ -126,6 +146,9 @@ for (const s of staleSurfaces) {
     legal_items: "Sweep NEW verified legal updates / client alerts and append to legal `items`.",
     legal_cases: "Sweep NEW verified reported judgments and append to legal `cases`.",
     legal_rx: "Sweep NEW verified restructurings / schemes / RPs and append to legal `restructurings`.",
+    macro_news: "REWRITE macro NEWS — exactly 5 US + 5 UK current, verified, dated headlines (macro/js/content.js).",
+    macro_commentary: "Top up macro COMMENTARY to ≥10 items (bank/house research + named-economist opinion), newest first (macro/js/content.js).",
+    macro_articles: "Prepend current, verified macro reading-list items (newest 3 dated today) to ARTICLES.items (macro/js/content.js).",
   };
   actions.push({ surface: s.key, newest: s.newestDate, ageDays: s.ageDays, do: map[s.key] || `Refresh ${s.label}.` });
 }

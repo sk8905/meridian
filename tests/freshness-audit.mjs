@@ -32,11 +32,21 @@ if (j) {
   const recompute = async () => {
     const CR = await import("../credit/js/data.js");
     const LG = await import("../legal/js/data.js");
+    const MAC = await import("../macro/js/content.js");
     const msOf = (d) => { const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d || "").slice(0, 10); const t = Date.parse(s); return Number.isNaN(t) ? 0 : t; };
     const newest = (rows, f = "date") => rows.reduce((m, x) => Math.max(m, msOf(x && x[f])), 0);
-    const src = { deals: CR.deals, intel: CR.intel, hedge_intel: CR.HEDGE_INTEL, legal_items: LG.items, legal_cases: LG.cases, legal_rx: LG.restructurings };
+    const cmt = [...(((MAC.COMMENTARY || {}).us) || []), ...(((MAC.COMMENTARY || {}).uk) || [])];
+    const src = {
+      deals: CR.deals, intel: CR.intel, hedge_intel: CR.HEDGE_INTEL,
+      legal_items: LG.items, legal_cases: LG.cases, legal_rx: LG.restructurings,
+      macro_news: [...(((MAC.NEWS || {}).us) || []), ...(((MAC.NEWS || {}).uk) || [])],
+      macro_articles: ((MAC.ARTICLES || {}).items) || [],
+    };
     const out = {};
     for (const [k, rows] of Object.entries(src)) { const ms = newest(rows); out[k] = ms === 0 ? true : Math.round((now - ms) / DAY) > 7; }
+    // Macro commentary is stale when thin (<10, R18) OR its newest piece is past the window.
+    const cmtMs = newest(cmt);
+    out.macro_commentary = cmt.length < 10 || cmtMs === 0 || Math.round((now - cmtMs) / DAY) > 7;
     return out;
   };
   const expect = await recompute();

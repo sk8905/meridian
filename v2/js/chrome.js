@@ -20,6 +20,7 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // desk's real stamp share one monotonic keep-latest state.
 import { reportRefresh } from "./status.js";
 import { esc } from "/util.js";
+import { BRIEFINGS } from "/briefings.js";
 
 // The search command palette (palette.js) is LAZY. To build its cross-desk index —
 // the whole searchable archive since 2020 — it statically imports the full
@@ -222,30 +223,18 @@ function buildFooter() {
 }
 
 // Populate the app-wide "Last refresh" right away, independent of which tab
-// loads first. Wire's data lands on a fixed London schedule (05:00, 09:00,
-// 12:00, 17:00, 21:00), so the most recent slot is a good immediate value —
-// and status.js keeps the LATEST report, so a desk's real stamp (e.g.
-// "05:22 BST") supersedes this as soon as any desk mounts. This just closes
-// the gap where a tab with no data (e.g. Menu) would otherwise show a blank
-// refresh.
+// loads first — from REAL committed data, never a fabricated clock value. The
+// briefing (briefings.js) is rewritten on every ~2-hourly refresh run and carries
+// that run's stamp, so its date+time is an accurate "last refresh" proxy; status.js
+// keeps the LATEST report, so a desk's own stamp still supersedes this once any desk
+// mounts. This just closes the gap where a tab with no data (e.g. Menu) would show a
+// blank refresh. (Previously this synthesised a stamp from a hard-coded 05/09/12/17/21
+// schedule, which became wrong once the refresh moved to every ~2 hours.)
 function bootRefreshFallback() {
   try {
-    const slots = [5, 9, 12, 17, 21];
-    const partsIn = (d) => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hour12: false }).formatToParts(d);
-    const val = (p, t) => p.find((x) => x.type === t).value;
-    const p = partsIn(new Date());
-    let Y = +val(p, "year"), M = +val(p, "month"), D = +val(p, "day");
-    const H = +val(p, "hour") % 24;
-    let slot = null;
-    for (let i = slots.length - 1; i >= 0; i--) { if (H >= slots[i]) { slot = slots[i]; break; } }
-    if (slot === null) {
-      // Before 05:00 London → the previous day's 21:00 slot. Step back ~12h and
-      // re-read the London date (safe across month/year boundaries).
-      const pp = partsIn(new Date(Date.UTC(Y, M - 1, D) - 12 * 3600 * 1000));
-      Y = +val(pp, "year"); M = +val(pp, "month"); D = +val(pp, "day"); slot = 21;
-    }
-    const iso = `${Y}-${String(M).padStart(2, "0")}-${String(D).padStart(2, "0")}`;
-    reportRefresh(iso, `${String(slot).padStart(2, "0")}:00`);
+    const b = BRIEFINGS || {};
+    const t = String(b.time || "").match(/(\d{1,2}):(\d{2})/);
+    if (b.date && t) reportRefresh(b.date, `${t[1].padStart(2, "0")}:${t[2]}`);
   } catch { /* leave it to the desks */ }
 }
 

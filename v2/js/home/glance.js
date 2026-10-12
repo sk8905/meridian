@@ -69,7 +69,7 @@ function loadDeskData() {
 // only once the user is authenticated.
 // =============================================================================
 // Data modules are versioned (matching each app) so the live Glance busts its
-// cache with the four-times-daily data refresh instead of serving a stale copy.
+// cache with the ~2-hourly data refresh instead of serving a stale copy.
 
 // The shared news-wire engine — row/day-header/chip/source-filter markup + the
 // desk vocabulary. Home assembles its cross-desk streams below and hands them to
@@ -157,7 +157,7 @@ export function initGlance(ctx) {
   // ---- Paint NOW: the shell, the briefing, and every live/API pane. None of
   // these need the heavy desk data, so Home paints without waiting on ~1.5 MB gz.
   renderWire();                                          // live wire (lanes) + reading pane — desk items merge in after load
-  initHomeBriefing();                                    // the tri-daily brief atop the News wire (BRIEFINGS — small, static)
+  initHomeBriefing();                                    // the market brief atop the News wire (BRIEFINGS — small, static)
   refreshLiveFeed();                                     // then pull fresh headlines
   initMarkets();
   initRates();
@@ -317,7 +317,7 @@ function initMobileWireTabs() {
 // The grounded market brief, surfaced atop the News pane so it reads as the day's
 // read over the feed it summarises — desk sections only (no Overview lede). Only the
 // LATEST available version is shown (no slot selector). Data: BRIEFINGS (tokenless /
-// no-cache — regenerated on each of the ~5 daily refresh runs, so a new brief appears
+// no-cache — regenerated on each ~2-hourly refresh run, so a new brief appears
 // with no code push). Colour marking is the shared per-desk kicker. The card is
 // collapsible per viewer, with an unread dot (localStorage m_brief_read) shown only
 // when a new brief has landed and the card is collapsed. Kept to one screen
@@ -1716,7 +1716,7 @@ function _wireHeroNewsReader() {
 // Auto-refresh the live markets + rates bands and the two hero one-liners every
 // 5 minutes while the page is open. This is CLIENT-SIDE ONLY — it just re-hits
 // the /api/markets and /api/rates feeds (no Claude, no scheduled routine, no
-// cost of note). Everything else on the page keeps the 5×/day editorial
+// cost of note). Everything else on the page keeps the ~2-hourly editorial
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 // On REOPEN (foregrounding an iOS PWA that stayed resident), the news/markets must be
@@ -1787,7 +1787,7 @@ function startLiveRefresh() {
 // does NOT re-import the data modules. The live feed/markets/rates refresh on resume
 // (startLiveRefresh), but the BRIEFING is baked into the /briefings.js ES module at
 // load — a running page can't re-import a module — so a resumed app can show the
-// previous edition even though the 5×/day refresh has published a newer one. (The
+// previous edition even though the ~2-hourly refresh has published a newer one. (The
 // build self-heal in nav-actions only catches CODE deploys; a data-only refresh keeps
 // the same content-hashed bundle, so it slips past that check.)
 //
@@ -2247,7 +2247,7 @@ function renderManagerWire() {
 
 function renderFeed() {
   // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
-  // data carries one — the four-times-daily routine populates it; rows lead with
+  // data carries one — the refresh routine populates it; rows lead with
   // it and the feed ranks newest→oldest by date+time. Absent → row leads with the
   // headline (no fabricated time) until the next refresh backfills it.
   // `sk`/`sid`: which app saved-store this row toggles in (m/c/l + the item's
@@ -2357,7 +2357,7 @@ function renderFeed() {
   if (FT_DESK_ON) {
     (FT_ITEMS || []).forEach((n) => ft.push(mk(ftDesk(n.title), n.url, n.title, "Financial Times", true, n.date, n.time)));
     // Live myFT headlines from /api/feed (~5 min of publication) — the committed
-    // FT_ITEMS above are the 5×/day backfill; title-dedupe collapses the overlap.
+    // FT_ITEMS above are the ~2-hourly backfill; title-dedupe collapses the overlap.
     (_liveFeed || []).forEach((n) => { if (n.myft) ft.push(mk(ftDesk(n.title), n.url, n.title, "Financial Times", true, n.date, n.time)); });
   }
 
@@ -3722,7 +3722,7 @@ function marketDot(x) {
 // ---- At-a-glance one-liners (hero) -----------------------------------------
 // Two short, plain-language NARRATIVES synthesised from the same live feeds as
 // the bands below (which carry the numbers) — a qualitative read, refreshed
-// automatically on each four-times-daily data pull.
+// automatically on each ~2-hourly data pull.
 const glSign = (v) => (v > 0 ? "up" : v < 0 ? "down" : "flat");
 // Qualitative move word from a % change, using a caller-supplied vocabulary.
 function moveWord(v, w) {
