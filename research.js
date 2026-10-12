@@ -26,10 +26,11 @@
 // a generic newsletter (newsletters.js), not research — this map is what routes an
 // email to the Research lane.
 export const PUBLISHERS = {
-  // CONFIRMED senders (real emails received + swept below). A research sender that
-  // ALSO appears in newsletters.js PUBLISHERS (Goldman, Guggenheim) is routed here
-  // — Research wins over Newsletters — so these notes land in the Research lane, not
-  // the Newsletter one.
+  // CONFIRMED senders (real emails received + swept below). research.js and
+  // newsletters.js PUBLISHERS are kept DISJOINT by domain (research houses live only
+  // here); as a runtime safety net, if a research-house note ever lands in
+  // newsletters.js, isResearchPublication() reclassifies it into the Research lane
+  // (Research wins over Newsletters).
   "newsletter.mail.gs.com": "Goldman Sachs Research",
   "guggenheiminvestments.com": "Guggenheim Investments",
   // Rating-agency private-credit / credit research — signed up 2026-10-07. Routed here so

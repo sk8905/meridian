@@ -576,9 +576,11 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     tool on branch `main` (owner `sk8905`, repo `sk-default-repo` — the API
     follows the rename redirect to `meridian`): supply the file's current blob
     `sha` from `get_file_contents` (ref `refs/heads/main`), the full new content,
-    and the same commit message + trailers. A single run usually touches only
-    `credit/js/data.js` + `credit/index.html` + `credit/js/app.js` and/or the
-    legal equivalents, so this is a handful of calls.
+    and the same commit message + trailers. A single run usually touches only the
+    data modules (`credit/js/data.js`, `legal/js/data.js`, `macro/js/content.js`),
+    `briefings.js` / `research.js` / `newsletters.js` / `ft.js`, and the regenerated
+    `home-data.js` — a handful of calls. (The old per-app `credit/index.html` /
+    `credit/js/app.js` no longer exist post-v2; do not PUT them.)
   - Then locally `git fetch origin && git branch -f main origin/main` to resync.
   - Note in the run summary that the API fallback was used (so the stale-allowlist
     session can be flagged/restarted against `sk8905/meridian`).
@@ -836,8 +838,17 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 
 ## The routine prompt
 
+> **NOTE — this is a REFERENCE SNAPSHOT, not the authoritative copy.** The live
+> prompt is stored in the "/Wire: full refresh" Routine in the Claude Code Routines
+> UI and is edited there; it may be ahead of this snapshot. Treat the invariants
+> above (and the rest of this doc) as authoritative, and the live Routine as the
+> operational copy. Current live behaviour: fires **every ~2 hours**, writes a
+> **single** briefing every run, runs the **freshness audit first**, and sweeps
+> **research + newsletters + myFT** every run. There are **no `?v=` cache tokens to
+> bump** (code is Vite-hashed, data is no-cache).
+>
 > Do a full refresh of ALL THREE Meridian platforms — Credit, Legal and Macro —
-> and publish the changes live. (This routine runs five times a day, at 05:00, 09:00, 12:00, 17:00 and 21:00.)
+> and publish the changes live. (This routine fires every ~2 hours.)
 > Follow the invariants in `docs/refresh-routines.md`. The repo has `credit/`,
 > `legal/` and `macro/` apps and deploys from `main`.
 >
@@ -985,7 +996,7 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      users follow deserve a DEEPER, more complete profile than the normal sweep
 >      above. Get the live list first: `GET https://<site>/api/research-targets` with
 >      header `X-Research-Key: <the RESEARCH_KEY secret in this routine's env>`. It
->      returns `{ users, manager:[ids], fund:[ids], lp:[ids] }` — the union of every
+>      returns `{ users, manager:[ids], fund:[ids], lp:[ids], firm:[ids], hf:[ids] }` (plus a `ts` stamp) — the union of every
 >      user's watchlist. Resolve those ids to names via `credit/js/data.js`. If the
 >      endpoint is unreachable or the secret is unset, SKIP this block and carry on
 >      with the rest of the refresh — never fail the run over it. Because the list is
@@ -1328,7 +1339,7 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >    `legal/js/data.js`, and `META.lastChecked`/`META.lastCheckedTime` in
 >    `macro/js/content.js` (these are the "Last refresh" stamps in each topbar — they
 >    must advance every run so a run is visible even when nothing was added). Then
->    bump all three apps' cache-buster tokens (Credit/Legal four each, Macro three)
+>    advance the `/api/macro?v=N` edge key (increment N). (There are NO `?v=` module/app cache tokens to bump — code is Vite content-hashed and data is served no-cache; ignore any older "bump Credit/Legal/Macro tokens" step.)
 >    to today's date with the next sequence, plus the `/api/macro?v=N` edge key.
 >
 > 7. VALIDATE as an ES module (plain `node --check` misses module-only errors and
@@ -1397,9 +1408,9 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 
 ### Notes
 
-- New `deals`/`intel` `type` values not in `dealTypeClass`/`intelTypeClass`
-  (`credit/js/app.js`) still render with default chip styling — reuse existing
-  type strings where possible. Legal `area`/`type`/`firm` values MUST reuse the
-  existing ids (records are looked up by them).
+- New `deals`/`intel` `type` values that aren't already in the transaction-type
+  vocabulary (`credit/js/tx.js` `TX_TYPES` + the v2 credit views) render with default
+  chip styling — reuse existing type strings where possible. Legal `area`/`type`/`firm`
+  values MUST reuse the existing ids (records are looked up by them).
 - Manager `legal` (general counsel) data and the firm/area/tier reference tables
   change rarely and are not part of the refresh.

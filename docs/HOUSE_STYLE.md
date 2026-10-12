@@ -192,7 +192,7 @@ to keep pinned/full-height on these three sections.
   that ever leaks is a missing entry in that denylist — add it. Rules 2–3 are **editorial / roster-driven**: the
   curated feeds are scoped to the right verticals (private credit, PE, Big Law), but
   a headline's subject can't always be auto-judged (a new manager's AUM isn't in its
-  headline), so the 5×/day refresh routine and the rosters are the gate. A covered
+  headline), so the ~2-hourly refresh routine and the rosters are the gate. A covered
   entity's news always qualifies; the **$1–15bn band governs only the routine's choice
   of which NEW managers/hedge funds to add on its own initiative** — not what's kept
   for an already-covered name. When an off-universe entity leaks, either it genuinely
@@ -392,9 +392,11 @@ notification badge red (`#ef4444`).
 
 ## 6. Behaviour & data
 
-- **R15 — Five refreshes per day, London time: 05:00, 09:00, 12:00, 17:00,
-  21:00.** Last-refresh reflects the actual run. (The full-refresh routine now fires
-  every ~2 hours; the briefing is a single edition rewritten on every run — no slots.)
+- **R15 — Refreshed every ~2 hours (London).** The full-refresh routine fires every
+  ~2 hours through the day; there is NO fixed 05/09/12/17/21 schedule. **Last-refresh
+  reflects the actual run** — derive the stamp from the data's real `LAST_CHECKED` /
+  the briefing stamp, never synthesise it from a hard-coded clock. The briefing is a
+  single edition rewritten on every run (no slots).
 - **R16 — Notifications:** badge = genuinely-unseen count; opening the panel
   shows fresh rows (left accent bar) then marks them seen; no "N New
   Notifications" chrome text. **Law-firm "advised" deal announcements are
@@ -805,8 +807,8 @@ notification badge red (`#ef4444`).
   pinning Brent / S&P 500 / US 10Y) is **removed** — the card is prose + source links + pills
   only. **Only the LATEST available version is
   shown — no slot selector**; the card picks the freshest brief by (date·time)
-  stamp. Data: `BRIEFINGS` (tokenless / no-cache — regenerated on **each of the ~5
-  daily refresh runs**, so a fresh brief appears with no code push), with the
+  stamp. Data: `BRIEFINGS` (tokenless / no-cache — **rewritten on every ~2-hourly
+  refresh run**, so a fresh brief appears with no code push), with the
   **orange desk kicker** (`.g-hbrief-bk`) carrying the colour accent and numbers read
   as plain body text, capped to **four bullets** (one screen) drawn from real sourced
   desk items (grounding, R7); the header shows the brief's time · date stamp. It
@@ -966,7 +968,7 @@ notification badge red (`#ef4444`).
     importer therefore uses one tokenless URL → a **single module instance**
     (the old cross-file `?v=` drift that double-instanced a module and blanked a
     page is now structurally impossible), and freshness comes from ETag
-    revalidation, not a hand-bumped token. This is deliberate: the 5×/day refresh
+    revalidation, not a hand-bumped token. This is deliberate: the ~2-hourly refresh
     routine edits ONLY these data files and never a token, so routine commits and
     session commits stop colliding. **Never add a `?v=` back to a data-file
     import**, and never hand-bump a data token.
@@ -980,21 +982,26 @@ notification badge red (`#ef4444`).
   `npm run build`) projects the full credit/legal/macro modules down to the compact
   slice the Home surface imports (fields Home + the manager wire render, heavy
   profile/detail bodies stripped — ~0.47 MB gz vs the ~1.5 MB gz of the three full
-  modules). Because it runs on every build it is ALWAYS in sync with the 5×/day data
+  modules). Because it runs on every build it is ALWAYS in sync with the ~2-hourly data
   refresh; the committed copy is a source-mode/dev convenience (regenerate it with
   `node scripts/gen-home-data.mjs` after editing a desk data module). One runtime
   loads once; switching tabs swaps a keep-alive view in memory (no document
   reload). The app still runs unbundled from source (`node tests/run.mjs` serves
   the repo; `TEST_ROOT=dist node tests/run.mjs` proves the built output serves
   identically).
-- **T3 — Full suite green before deploy.** `node tests/run.mjs` (82 specs) must
+- **T3 — Full suite green before deploy.** `node tests/run.mjs` (the full suite) must
   pass; any new user-visible behaviour gets a spec.
 - **T4 — Zero console/page errors** on every view (enforced by the page-error
   checks).
 - **T5 — No horizontal page scroll;** safe-area insets respected; touch targets
   meet the current minimum.
-- **T6 — Deploy discipline:** commit → push branch → rebase onto `origin/main`
-  → fast-forward `main`. Never stack on already-merged history.
+- **T6 — Deploy discipline:** publish to `main` by rebasing onto the latest
+  `origin/main` and pushing (`git fetch origin main` → `git rebase origin/main` →
+  `git push origin HEAD:main`, retrying on non-fast-forward). An interactive session
+  may also commit directly to `main`. Any working branch is **ephemeral** — rebased
+  and pushed to `main` straight away; **no long-lived feature branch and no PR**
+  unless explicitly asked. Never stack on already-merged history. (CLAUDE.md "Branch
+  & deploy policy" says the same.)
 - **T7 — Graceful degradation:** feature-detect browser APIs (e.g.
   `Notification` guarded) so nothing throws when unavailable.
 - **T8 — No secrets or model identifiers** in committed artifacts (commits,

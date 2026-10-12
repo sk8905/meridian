@@ -1,15 +1,18 @@
 # Static-asset HTTP headers for Cloudflare Workers Assets.
 #
 # The app HTML documents must ALWAYS revalidate so a fresh deploy's index.html —
-# and the bumped ?v= asset references it carries — is picked up immediately,
-# instead of a stale cached HTML page pinning the old ?v= JS/CSS/data. These
+# and the content-hashed /assets/*-[hash].js|css references it carries — is picked up
+# immediately, instead of a stale cached HTML page pinning the old bundle. These
 # documents are served directly by the asset system BEFORE the Worker runs, so
 # the Worker cannot set their cache headers; this file does.
 #
-# no-cache = the browser/edge may store the page but MUST revalidate with the
+# no-cache = the browser/edge may store the file but MUST revalidate with the
 # origin before using it (ETag → cheap 304 when unchanged), so a new deploy shows
-# up on the next load. Fingerprinted JS/CSS/data are versioned by their ?v= tokens
-# and keep the default long cache — only these HTML entry points are pinned here.
+# up on the next load. Two classes are pinned no-cache here: the HTML entry points,
+# and the TOKENLESS data modules below (credit/js/data.js, …, briefings.js,
+# research.js, newsletters.js, ft.js, home-data.js) which the ~2-hourly refresh edits
+# in place at a stable URL. Vite's content-hashed /assets/* get the default long cache
+# (the hash is the buster). There are NO ?v= query tokens anywhere.
 /
   Cache-Control: no-cache
 /index.html

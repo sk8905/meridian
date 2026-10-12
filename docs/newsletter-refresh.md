@@ -51,7 +51,7 @@ Economist issue was missed on 2026-07-18):
    map in `newsletters.js`:
 
    ```
-   in:anywhere {from:news.bloomberg.com from:e.economist.com from:legalbusiness.co.uk from:pb.jpmorgan.com from:mail.sailthru.com from:mailbrew.com from:cntraveller.com} newer_than:2d
+   in:anywhere {from:news.bloomberg.com from:e.economist.com from:legalbusiness.co.uk from:mail.sailthru.com from:mailbrew.com from:cntraveller.com} newer_than:2d
    ```
 
 3. Catch-all sweep for NEW senders (self-healing). Everything delivered to the
