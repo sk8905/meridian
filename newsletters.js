@@ -48,6 +48,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-breaking-weilfreshfieldspepartner-20261012",
+    publication: "The Lawyer",
+    author: null,
+    series: "Breaking News",
+    title: "Breaking News: Weil fights back as Freshfields PE partner joins firm",
+    date: "2026-10-12",
+    time: "07:03",
+    summary: "Weil recruits a City partner from Freshfields’ private equity team after a series of London departures.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/RnNUpT1VOpyc",
+  },
+  {
     id: "nl-economist-worldinbrief-riyadhairport-20261012",
     publication: "The Economist",
     author: null,

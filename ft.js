@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "2aa849df-5670-4577-87dd-2c40f2bac2aa",
+    title: "Is the US economy as narrow as its stock market?",
+    date: "2026-10-12",
+    time: "06:30",
+    url: "https://www.ft.com/content/2aa849df-5670-4577-87dd-2c40f2bac2aa"
+  },
+  {
+    id: "b01366df-466d-44ee-91c6-1c71932da89e",
+    title: "FTAV’s further read",
+    date: "2026-10-12",
+    time: "06:30",
+    url: "https://www.ft.com/content/b01366df-466d-44ee-91c6-1c71932da89e"
+  },
+  {
     id: "b5faacca-4561-4e9d-bec5-c8ef843b0419",
     title: "EU budget battle intensifies ahead of leaders’ summit",
     date: "2026-10-12",
