@@ -71,6 +71,21 @@ budget; it does **not** bound the keyword universe).
 On every run, the keyword universe is the **entire roster in the data files** — use
 each entity's `name` (and any well-known short/alias form) as a search term:
 
+- **STEP 0 — run the freshness audit FIRST (every run, before anything else).**
+  `node scripts/freshness-audit.mjs` (and `--json` for the machine-readable form).
+  It is the single deterministic detector: it scans every content surface (credit
+  `deals`/`intel`, hedge-fund intel, legal updates/cases/restructurings) and the
+  manager-profile depth, prints exactly which are **STALE** (newest item older than
+  the 7-day window) and the rotating **backfill worklist**, and exits non-zero when
+  anything needs resolving. **Its output is this run's mandatory worklist** — every
+  surface it marks STALE and every worklisted manager is a target you must work.
+  **A run that ends in a few seconds having appended nothing is a FAILED run, not a
+  quiet market:** the audit has already named the gaps, so you either append ≥1
+  verified, dated item, or — per stale surface / per worklisted name — record in the
+  summary the specific search you ran and why it yielded nothing verifiable. The
+  no-fabrication rule OVERRIDES this: an honest "searched X/Y/Z, nothing verifiable
+  this run" is always acceptable; inventing or date-bumping to satisfy the worklist is
+  never. Re-run the audit at the end to show the before/after.
 - **CRD — every credit manager** in `credit/js/data.js` `managers[]`. New,
   verified, dated news for a manager → its `webNews` (manager press) or a `deals`/
   `intel` record (`managerId` set). Renders on the Home wire as **CRD**.
