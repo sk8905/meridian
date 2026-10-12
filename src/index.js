@@ -1846,6 +1846,56 @@ async function handleBDC(request, env, ctx) {
   } catch (e) { return json({ cik, holdings: null, error: String((e && e.message) || e) }); }
 }
 
+// ===================== FORM D DEAL FEED (SEC EDGAR full-text) ===============
+// Recent Form D exempt-offering notices matching a manager/fund name, straight
+// from the SEC EDGAR full-text search API (efts.sec.gov). A deterministic cue for
+// the deal-flow sweep: a new private-credit fund / SPV files Form D when it raises,
+// so this surfaces US capital-formation the WebSearch pass can miss. Returns filing
+// METADATA only (issuer, date, CIK, filing URL) — NEVER a fabricated amount; the
+// offering size lives in the filing's primary_doc.xml, which the routine opens to
+// VERIFY before recording. A name query matches ANY issuer carrying that name
+// (e.g. "Apollo" → unrelated "Apollo Atomics"), so every hit is a CANDIDATE the
+// routine must confirm is the tracked manager's vehicle, not a coincidence.
+// Edge-cached ~3h. Egress is Cloudflare's (the Worker), so the routine reaches it
+// via the live site even when its own environment blocks direct SEC fetches.
+// Pure: map an EDGAR full-text-search response to Form D candidate rows. Exported
+// so the mapping (issuer name cleaned of the "(CIK …)" suffix, the EDGAR filing-
+// index URL built from accession + CIK, metadata-only — no amount) is unit-tested
+// without egress.
+export function formdParse(j) {
+  return (((j && j.hits && j.hits.hits) || [])).slice(0, 25).map((h) => {
+    const s = (h && h._source) || {};
+    const adsh = s.adsh || String((h && h._id) || "").split(":")[0] || "";
+    const cik = (s.ciks || [])[0] || "";
+    const issuer = String((s.display_names || [])[0] || "").replace(/\s*\(CIK\s*\d+\)\s*$/i, "").trim();
+    const link = (cik && adsh) ? `https://www.sec.gov/Archives/edgar/data/${Number(cik)}/${adsh.replace(/-/g, "")}/${adsh}-index.htm` : null;
+    return { issuer, cik, date: s.file_date || "", form: s.file_type || "D", accession: adsh, url: link };
+  }).filter((f) => f.issuer && f.date);
+}
+async function handleFormD(request, env, ctx) {
+  const url = new URL(request.url);
+  const q = (url.searchParams.get("q") || "").trim();
+  const days = Math.min(120, Math.max(1, parseInt(url.searchParams.get("days") || "30", 10) || 30));
+  if (!q || q.length < 2) return json({ q, filings: null, error: "missing q" });
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/formd?q=${encodeURIComponent(q)}&days=${days}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const iso = (ms) => new Date(ms).toISOString().slice(0, 10);
+  const enddt = iso(Date.now()), startdt = iso(Date.now() - days * 86400000);
+  try {
+    const api = `https://efts.sec.gov/LATEST/search-index?q=${encodeURIComponent('"' + q + '"')}&forms=D&startdt=${startdt}&enddt=${enddt}`;
+    const r = await secFetch(api);
+    if (!r.ok) return json({ q, days, filings: null, error: `efts ${r.status}` });
+    const j = await r.json();
+    const hits = formdParse(j);
+    const resp = json({ q, days, count: hits.length, note: "CANDIDATES — verify each is the tracked manager's vehicle, then open the filing for the offering amount before recording. Never record an unverified hit.", filings: hits });
+    resp.headers.set("cache-control", "public, max-age=10800");
+    if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+    return resp;
+  } catch (e) { return json({ q, days, filings: null, error: String((e && e.message) || e) }); }
+}
+
 // ===================== PRICE PERFORMANCE (13F holdings) ====================
 // 1-day / 3-month / 6-month / 12-month price return for a set of tickers, from
 // Yahoo's 1y daily closes. Used by the Hedge Funds fund page to annotate each
@@ -5385,6 +5435,7 @@ export default {
     if (url.pathname === "/api/filings") return handleFilings(request, env, ctx);
     if (url.pathname === "/api/nport") return handleNPort(request, env, ctx);
     if (url.pathname === "/api/bdc") return handleBDC(request, env, ctx);
+    if (url.pathname === "/api/formd") return handleFormD(request, env, ctx);
     if (url.pathname === "/api/xfeed") return handleXFeed(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/hero") return handleHero(request, env, ctx);

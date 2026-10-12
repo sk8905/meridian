@@ -620,6 +620,43 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
+## Deterministic deal sources — SEC EDGAR (`/api/formd`, `/api/bdc`)
+
+WebSearch alone is an effort-dependent source for the **Transactions deal ledger**
+(`credit/js/data.js` `deals`) — it is why the ledger can quietly go days without a
+new transaction. Two Worker endpoints give the sweep a DETERMINISTIC cue, fetched on
+Cloudflare's egress (so a routine reaches them via the live site even when its own
+environment blocks direct SEC fetches). Both return VERIFIED filing facts or a link —
+**never a fabricated figure**; the routine opens the filing to confirm before recording.
+
+- **`/api/bdc?cik=<CIK>` — BDC Schedule of Investments (borrower-level deal flow).**
+  Each US BDC files its Consolidated Schedule of Investments in its latest 10-Q/10-K;
+  this parses it to the top portfolio positions `{name, value, weight}` plus `asOf`,
+  `filedAt`, `form` and the filing `source` URL. A position that is **new this quarter**
+  (not already in `deals` for that manager) is a real financing to that borrower —
+  append it as a `deals` item (type `Financing`/`Unitranche`/…), `managerId` the BDC's
+  manager, `sourceUrl` the filing. The BDC→CIK map is the `type:"bdc"` entries in
+  `credit/js/data.js` (e.g. ARCC `0001287750`, OBDC `0001655888`, BXSL `0001736035`,
+  HLEND `0001838126`, GBDC `0001476765`, …). Each call parses a multi-MB 10-Q, so the
+  sweep rotates a few BDC CIKs per run rather than all at once. Only act when `filedAt`
+  is recent (a fresh quarter); an unchanged filing adds nothing.
+
+- **`/api/formd?q=<name>&days=<N>` — Form D exempt-offering notices (US fund raises).**
+  Proxies SEC EDGAR full-text search for Form D / D/A filings matching a manager/fund
+  name in the last `N` days (≤120), returning `{issuer, cik, date, form, accession, url}`
+  CANDIDATES — metadata only. A name query matches ANY issuer carrying that name, so
+  each hit MUST be confirmed as the tracked manager's own vehicle (not a coincidence),
+  and its offering amount read from the filing's `primary_doc.xml`, before it is
+  recorded (a verified fund raise → `intel` type `Fundraising`/`First Close`/…). Query
+  the US credit managers by name (Apollo, Ares, Blackstone, KKR, HPS, Blue Owl, Monroe,
+  Golub, Barings, Sixth Street, …); European-only managers rarely file Form D.
+
+These are CUES, not auto-ingest: the no-fabrication rule stands — verify every item
+against its filing, dedupe against what is already in `deals`/`intel`, record the real
+date and source URL, and skip anything you cannot confirm.
+
+---
+
 ## X wire (Home) — a live server-fetched feed, roster in code
 
 The Home **X wire** is a live, merged feed fetched **server-side** by the Worker
