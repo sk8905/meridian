@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "da71c823-ca31-4eaa-8e6e-6baacea986a4",
+    title: "Nato’s supreme commander warns Moscow against attacks in Europe",
+    date: "2026-10-12",
+    time: "14:34",
+    url: "https://www.ft.com/content/da71c823-ca31-4eaa-8e6e-6baacea986a4"
+  },
+  {
+    id: "af0a5da6-abc7-41ab-85cf-da806fc7a6e5",
+    title: "Franco-German deal on EU car policy is ‘imminent’, says Emmanuel Macron",
+    date: "2026-10-12",
+    time: "14:10",
+    url: "https://www.ft.com/content/af0a5da6-abc7-41ab-85cf-da806fc7a6e5"
+  },
+  {
+    id: "e374bc1a-bd56-40b4-98c9-d1b502ef9d47",
+    title: "Europe is finally confronting China",
+    date: "2026-10-12",
+    time: "14:00",
+    url: "https://www.ft.com/content/e374bc1a-bd56-40b4-98c9-d1b502ef9d47"
+  },
+  {
     id: "e67a9120-4dec-4796-8414-3f4990b01f11",
     title: "Labour plan to cut funds from heat pump scheme sparks industry backlash",
     date: "2026-10-12",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-11",
     time: "22:17",
     url: "https://www.ft.com/content/debf0be6-d5aa-4ba7-bb66-7daf770d99ff"
-  },
-  {
-    id: "655af6f3-552f-4f51-aa52-02168cdae4fa",
-    title: "Raphaël Glucksmann wins nomination for France’s centre-left",
-    date: "2026-10-11",
-    time: "21:50",
-    url: "https://www.ft.com/content/655af6f3-552f-4f51-aa52-02168cdae4fa"
-  },
-  {
-    id: "f9b9f937-97b0-4a03-90f6-05d7c7344ab9",
-    title: "US hits commercial tanker in Gulf of Oman as tensions flare",
-    date: "2026-10-11",
-    time: "20:53",
-    url: "https://www.ft.com/content/f9b9f937-97b0-4a03-90f6-05d7c7344ab9"
-  },
-  {
-    id: "258611cc-d4ec-40f7-9d3e-930991725837",
-    title: "VW chief calls for France and Germany to co-operate on China car fightback",
-    date: "2026-10-11",
-    time: "19:09",
-    url: "https://www.ft.com/content/258611cc-d4ec-40f7-9d3e-930991725837"
   }
 ];

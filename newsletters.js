@@ -48,6 +48,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-alert-pogustgoodheadmariana-20261012",
+    publication: "Legal Business",
+    author: null,
+    series: "Legal Business Alert",
+    title: "High Court rules in favour of Pogust Goodhead in Mariana Dam dispute",
+    date: "2026-10-12",
+    time: "13:34",
+    summary: "Pogust Goodhead keeps its claimant role in the landmark group action after the judge finds the client committee had no power to change firms.",
+    url: "https://www.legalbusiness.co.uk/law-firms/high-court-judge-rules-in-favour-of-pogust-goodhead-in-mariana-dam-dispute/",
+  },
+  {
     id: "nl-bbg-economicsdaily-debtoffenders-20261012",
     publication: "Bloomberg",
     author: "Jorgelina Do Rosario",
@@ -475,16 +486,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "China’s mini-stimulus may shore up GDP while reinforcing imbalances, per JPMorgan Chase economists.",
     url: "https://www.bloomberg.com/news/newsletters/2026-10-08/china-s-stimulus-may-shore-up-gdp-while-reinforcing-imbalances",
-  },
-  {
-    id: "nl-bbg-marketsdaily-francestressbellwether-20261008",
-    publication: "Bloomberg",
-    author: null,
-    series: "Markets Daily",
-    title: "Markets Daily: France as the stress bellwether",
-    date: "2026-10-08",
-    time: "11:49",
-    summary: "France is the canary for global market stress; plus Treasury yield forecasts.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-10-08/france-is-the-bellwether-for-stress-in-global-markets",
   },
 ];
