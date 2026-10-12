@@ -393,7 +393,8 @@ notification badge red (`#ef4444`).
 ## 6. Behaviour & data
 
 - **R15 — Five refreshes per day, London time: 05:00, 09:00, 12:00, 17:00,
-  21:00.** Last-refresh reflects the actual slot.
+  21:00.** Last-refresh reflects the actual run. (The full-refresh routine now fires
+  every ~2 hours; the briefing is a single edition rewritten on every run — no slots.)
 - **R16 — Notifications:** badge = genuinely-unseen count; opening the panel
   shows fresh rows (left accent bar) then marks them seen; no "N New
   Notifications" chrome text. **Law-firm "advised" deal announcements are
@@ -695,10 +696,10 @@ notification badge red (`#ef4444`).
   private-credit fund** story under **Credit** (a PE firm's portfolio exit is Credit, not a
   standalone "M&A" desk). The Credit desk **gives preference to managers / hedge funds in the
   $1–15bn AUM band** (see refresh-routines). **Equities is a REQUIRED section —
-  every slot carries at least one Equities bullet** (the refresh invariant); the
+  every briefing carries at least one Equities bullet** (the refresh invariant); the
   renderer round-robins the per-desk bullets under the four-bullet cap so each of
   the desks keeps its lead bullet and **Equities can never be pushed off the
-  card** by a Macro/Bonds-heavy slot. **Bonds & Equities bullets always carry a
+  card** by a Macro/Bonds-heavy briefing. **Bonds & Equities bullets always carry a
   concrete PRICE REFERENCE:** a Bonds bullet names a benchmark yield level (the US
   10-year, Bund or gilt — a `%` or a `bp` move); an Equities bullet names an index
   level / `%` move (S&P 500, Nasdaq) or a mega-cap's price or market value. A
@@ -771,15 +772,15 @@ notification badge red (`#ef4444`).
   name a pillable benchmark** (a Treasury yield, a major index, or a commodity like Brent) so
   every brief shows a live ticker pill on all three desks; **Credit carries a pill only when one
   is available** (optional). This is a hard gate on the committed data — `tests/briefing-empty-bullet.mjs`
-  turns the suite red (blocking deploy) if any slot's Macro/Bonds/Equities desk has no pillable
+  turns the suite red (blocking deploy) if the briefing's Macro/Bonds/Equities desk has no pillable
   instrument, and its `pillable` regex is kept in lockstep with glance.js `BRIEF_YIELDS`/`BRIEF_INDEX`/`BRIEF_COMMODITY`.
   **FRESHNESS — briefing news is CURRENT as of the refresh (strict).** Every bullet carries a
-  `date` (the cited item's real `"YYYY-MM-DD"`) and it must be within **4 days of its slot date** —
+  `date` (the cited item's real `"YYYY-MM-DD"`) and it must be within **4 days of the briefing date** —
   the card never surfaces stale news. The **Credit desk goes quiet for days**; when a desk has no
-  fresh, verified item this run, **DROP that desk's bullet for the slot rather than back-fill a
+  fresh, verified item this run, **DROP that desk's bullet rather than back-fill a
   stale deal** (Macro/Bonds/Equities stay — their daily market levels are always current; Credit is
   optional). `tests/briefing-empty-bullet.mjs` fails any bullet with no `date` or one more than 4
-  days older than its slot (so an 11-day-old deal can't reach the card). This ties to the Credit
+  days older than the briefing date (so an 11-day-old deal can't reach the card). This ties to the Credit
   desk's "a multi-day gap is a RED FLAG" sweep rule in `docs/refresh-routines.md`.
   **Equities are resolved LIVE** via **`/api/secq`** → `handleSecq`: Yahoo **search** for
   candidates, then a **market-cap tiebreaker** over them (crumb-gated `/v7/quote`, cookie+crumb

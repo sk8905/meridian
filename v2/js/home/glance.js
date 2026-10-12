@@ -274,7 +274,7 @@ function initMobileWireTabs() {
     // when Home is left (home.js).
     try { document.documentElement.classList.toggle("home-brief", k === "brief"); } catch { /* noop */ }
     // Opening the Briefing pane counts as reading the latest brief → clear its dot.
-    if (k === "brief") _markBriefRead(_briefLatest());
+    if (k === "brief") _markBriefRead();
     _updateBriefDot();
     _placeBriefPane();
   };
@@ -323,35 +323,40 @@ function initMobileWireTabs() {
 // when a new brief has landed and the card is collapsed. Kept to one screen
 // (HB_MAX_BULLETS).
 const _BRIEF_READ_KEY = "m_brief_read";
+const _BRIEF_KEY = "brief";   // single-briefing read-map key (no more per-slot keys)
 const HB_MAX_BULLETS = 4;
-function _briefStamp(k) {
-  const s = ((BRIEFINGS || {}).slots || {})[k]; if (!s) return "";
+// (date time) stamp of a briefing object, normalised for lexical max-comparison.
+function _stampOfSlot(s) {
+  if (!s) return "";
   const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
   return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
 }
-function _briefOrder() { const B = BRIEFINGS || {}; const slots = B.slots || {}; return (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]); }
-// The freshest brief by (date·time) stamp — the only version surfaced.
-function _briefLatest() { const o = _briefOrder(); return o.length ? o.reduce((best, k) => (_briefStamp(k) > _briefStamp(best) ? k : best), o[0]) : ""; }
+// The current briefing object, whatever shape the data file is in. The model is now a
+// SINGLE briefing ({ date, time, lede, bullets }), rewritten on EVERY ~2-hourly refresh
+// run — there are no more morning/afternoon/evening slots. A legacy { slots, order }
+// object (written before this change, or by a not-yet-updated routine) collapses to its
+// freshest slot, so the renderer keeps working across the transition.
+function _briefSlotOf(B) {
+  if (!B || typeof B !== "object") return null;
+  if (Array.isArray(B.bullets)) return B;                 // single-briefing model
+  const slots = B.slots || {};                            // legacy slots model → freshest
+  const order = (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]);
+  if (!order.length) return null;
+  let best = order[0];
+  for (const k of order) if (_stampOfSlot(slots[k]) > _stampOfSlot(slots[best])) best = k;
+  return slots[best];
+}
+function _briefSlot() { return _briefSlotOf(BRIEFINGS); }
 // The latest (date time) stamp across ANY BRIEFINGS object — used to tell whether a
 // freshly-fetched briefing module is newer than the one this page loaded (the
-// reopen-freshness check below). Mirrors _briefStamp's normalisation, but pure so it
-// can run against a re-imported module's exports, not just the loaded global.
-function _latestStampOf(B) {
-  const slots = (B && B.slots) || {};
-  const order = ((B && B.order) || ["morning", "afternoon", "evening"]).filter((k) => slots[k]);
-  const stampOf = (k) => {
-    const s = slots[k]; if (!s) return "";
-    const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
-    return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
-  };
-  return order.reduce((best, k) => { const v = stampOf(k); return v > best ? v : best; }, "");
-}
-function _briefIdentity(k) { const s = ((BRIEFINGS || {}).slots || {})[k]; return s ? `${s.date || ""}|${s.time || ""}` : ""; }
+// reopen-freshness check below). Pure, so it runs against a re-imported module too.
+function _latestStampOf(B) { return _stampOfSlot(_briefSlotOf(B)); }
+function _briefIdentity() { const s = _briefSlot(); return s ? `${s.date || ""}|${s.time || ""}` : ""; }
 function _briefReadMap() { try { return JSON.parse(localStorage.getItem(_BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; } }
-function _markBriefRead(k) { const id = _briefIdentity(k); if (!id) return; const m = _briefReadMap(); if (m[k] === id) return; m[k] = id; try { localStorage.setItem(_BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ } }
-// A brief is UNREAD when the latest slot's identity (date|time) differs from the one
-// this viewer last opened. Drives the Briefing tab's notification dot on phones.
-function _briefUnread() { const k = _briefLatest(); if (!k) return false; const id = _briefIdentity(k); return !!id && _briefReadMap()[k] !== id; }
+function _markBriefRead() { const id = _briefIdentity(); if (!id) return; const m = _briefReadMap(); if (m[_BRIEF_KEY] === id) return; m[_BRIEF_KEY] = id; try { localStorage.setItem(_BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ } }
+// A brief is UNREAD when the current briefing's identity (date|time) differs from the
+// one this viewer last opened. Drives the Briefing tab's notification dot on phones.
+function _briefUnread() { const id = _briefIdentity(); return !!id && _briefReadMap()[_BRIEF_KEY] !== id; }
 // Show/hide the orange dot on the phone Briefing chip to match the unread state.
 function _updateBriefDot() { const dot = document.querySelector('.g-wiretab[data-wire="brief"] .g-wiretab-dot'); if (dot) dot.hidden = !_briefUnread(); }
 // Desktop (≥1201px) shows the briefing as a permanent, always-visible quadrant;
@@ -405,9 +410,7 @@ function _stripReported(html) {
 function renderHomeBriefing() {
   const host = document.getElementById("g-hbrief");
   if (!host) return;
-  const slots = (BRIEFINGS || {}).slots || {};
-  const key = _briefLatest();
-  const s = slots[key];
+  const s = _briefSlot();
   if (!s) { host.hidden = true; return; }
   // The briefing is ALWAYS expanded now — a permanent 2×2 quadrant on desktop, and
   // its own always-open pane (the Market Briefing tab) on phones. On desktop it is
@@ -415,7 +418,7 @@ function renderHomeBriefing() {
   // Briefing tab, so leave it unread until that tab is opened (setWire marks it) and
   // let the tab carry a notification dot for a brief the viewer hasn't seen.
   const open = true;
-  if (!_isPhoneLayout()) _markBriefRead(key);
+  if (!_isPhoneLayout()) _markBriefRead();
   _updateBriefDot();
   const when = `${s.time ? esc(s.time) : ""}${s.date ? (s.time ? " · " : "") + esc(_briefDate(s.date)) : ""}`;
   // Group the rendered bullets by desk so each desk is ONE section (Macro,

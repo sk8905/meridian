@@ -1,15 +1,17 @@
 // =============================================================================
 // briefings.js — the AI market briefing surfaced at the head of the Home News
-// wire (v2/js/home/glance.js renderHomeBriefing). Only the LATEST (freshest-
-// stamped) slot is shown — there is no header button and no slot selector.
+// wire (v2/js/home/glance.js renderHomeBriefing). There is ONE briefing (no
+// morning/afternoon/evening slots, no selector) — the single latest edition is
+// always what the reader sees.
 //
-// GENERATION (see docs/refresh-routines.md): these are written by the 5×/day
-// refresh routine, NOT at runtime. Three rolling slots are kept as the store;
-// each run regenerates whichever slot the clock is in (morning < 12:00 · afternoon
-// 12:00–17:00 · evening ≥ 17:00 BST) and restamps it, so the freshest slot — the
-// one the reader sees — is renewed on every run (up to 5× a day).
+// GENERATION (see docs/refresh-routines.md): this is written by the full-refresh
+// routine, NOT at runtime. The routine fires every ~2 hours and REWRITES this whole
+// briefing on EVERY run — new `date`+`time` stamp, fresh `lede` and `bullets` — so the
+// "Updated …" stamp advances roughly every two hours and the briefing is never more
+// than one run stale. (The client also re-fetches this module when the app is
+// foregrounded and reloads once if a newer edition has landed.)
 //
-// DESK FOCUS: the briefings cover the four MARKET desks — Macro, Bonds, Equities
+// DESK FOCUS: the briefing covers the four MARKET desks — Macro, Bonds, Equities
 // and Credit (private equity / private credit fund news) — and ONLY those (no
 // Legal; it has its own surface). Each bullet's <strong> lead is tagged with its
 // desk. The first four bullets are the ones the Home card renders
@@ -31,7 +33,7 @@
 // no number is incomplete (enforced by tests/briefing-empty-bullet.mjs). Every
 // figure is real + sourced (the `src` item or Wire's own live market data) — never
 // invented; where a level isn't verifiable, quote the move or "record high" with the
-// index named, not a made-up number. EVERY SLOT names at least one pillable benchmark —
+// index named, not a made-up number. EVERY briefing names at least one pillable benchmark —
 // a Treasury yield, a major index, or a commodity (Brent/WTI/Gold) — so each brief carries
 // an inline live ticker pill (enforced by tests/briefing-empty-bullet.mjs). Mentioning the
 // benchmark by name (e.g. "Brent", "the US 10-year", "the S&P 500") is enough; the renderer
@@ -69,63 +71,33 @@
 //
 // GROUNDING (HOUSE_STYLE / non-negotiables): a briefing is a SUMMARY of items
 // Wire already holds — every bullet carries a real `src` URL to the wire/desk item
-// it compresses. No invented figures, no uncited claims. A thin news slot gets a
+// it compresses. No invented figures, no uncited claims. A thin news run gets a
 // short briefing, never padding.
 // FRESHNESS — every bullet must be CURRENT as of the refresh. Each bullet carries a
 // `date` (the cited item's real "YYYY-MM-DD"), and it must be within ~4 days of the
-// slot date — the briefing never surfaces stale news. The Credit desk in particular
-// goes quiet for days; when a desk has NO fresh, verified item this run, DROP that
-// desk's bullet for the slot rather than back-filling a stale deal (Macro/Bonds/
-// Equities stay — their daily market levels are always current; Credit is optional).
+// briefing `date` — the briefing never surfaces stale news. The Credit desk in
+// particular goes quiet for days; when a desk has NO fresh, verified item this run,
+// DROP that desk's bullet rather than back-filling a stale deal (Macro/Bonds/Equities
+// stay — their daily market levels are always current; Credit is optional).
 // Enforced on the committed data by tests/briefing-empty-bullet.mjs (a bullet older
-// than 4 days, or with no date, fails the suite and blocks deploy). Both the `lede` and each bullet `html` are
-// authored, trusted HTML (entities like &pound;/&mdash; render). Served no-cache +
-// tokenless (see _headers), so a routine refresh is picked up without a code token
-// bump (HOUSE_STYLE T1). The lede is a TOP-LINE SYNTHESIS of the day's arc — it must
-// NOT restate the bullets: no bullet's lead sentence or specific claim is repeated
-// verbatim in the lede. Keep it tight (the card shows it in full).
+// than 4 days, or with no date, fails the suite and blocks deploy). Both the `lede`
+// and each bullet `html` are authored, trusted HTML (entities like &pound;/&mdash;
+// render). Served no-cache + tokenless (see _headers), so a routine refresh is picked
+// up without a code token bump (HOUSE_STYLE T1). The lede is a TOP-LINE SYNTHESIS of
+// the day's arc — it must NOT restate the bullets: no bullet's lead sentence or
+// specific claim is repeated verbatim in the lede. Keep it tight (the card shows it
+// in full).
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  // Ordered for the slot chips; the view picks the current slot by clock.
-  order: ["morning", "afternoon", "evening"],
-  slots: {
-    morning: {
-      label: "Morning",
-      date: "2026-10-12",
-      time: "05:15 BST",
-      bullets: [
-        { html: "<strong>Macro &mdash; &lsquo;worrying omens&rsquo; lurk over the global economy despite resilient growth</strong>, ahead of Wednesday&rsquo;s US September CPI print.", src: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229", srcName: "Financial Times", date: "2026-10-12" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield held near 5.24% ahead of Wednesday&rsquo;s September CPI</strong>, steadying after touching 5.36% on 7 October &mdash; its highest since 2002 &mdash; with the cash market shut Monday for the Columbus Day holiday.", src: "https://tradingeconomics.com/united-states/government-bond-yield/news/516491", srcName: "Trading Economics", date: "2026-10-12" },
-        { html: "<strong>Equities &mdash; Wall Street&rsquo;s record-breaking trading streak is set to cool</strong> after the S&amp;P 500&rsquo;s run of record highs.", src: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", srcName: "Financial Times", date: "2026-10-12" },
-        { html: "<strong>Credit &mdash; the huge lurking leverage of AI hyperscalers</strong> is drawing scrutiny as debt-funded data-centre spending builds.", src: "https://www.ft.com/content/17a207f4-1563-48af-91e3-14bac89ab4b8", srcName: "Financial Times", date: "2026-10-12" },
-        { html: "<strong>UK &mdash; the IFS warns Chancellor Healey&rsquo;s Budget (28 October) will be &lsquo;fiction&rsquo; without a plan for a &pound;35bn hole in spending</strong>.", src: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da", srcName: "Financial Times", date: "2026-10-12" },
-      ],
-    },
-    afternoon: {
-      label: "Afternoon",
-      date: "2026-10-12",
-      time: "12:25 BST",
-      lede: "Diesel prices slip after Trump's 'energy ceasefire' in the Ukraine war, Germany's labour minister resigns as Merz's coalition strains, and the Nobel economics prize goes to Robert Hall and Michael Woodford.",
-      bullets: [
-        { html: "<strong>Oil &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, easing pressure on Brent, though Zelenskyy says Putin is already breaching it.", src: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", srcName: "Financial Times", date: "2026-10-12" },
-        { html: "<strong>Bonds &mdash; the US 10-year Treasury yield held near 5.24% ahead of Wednesday&rsquo;s September CPI</strong>, steadying after touching 5.36% on 7 October &mdash; its highest since 2002 &mdash; with the cash market shut Monday for the Columbus Day holiday.", src: "https://tradingeconomics.com/united-states/government-bond-yield/news/516491", srcName: "Trading Economics", date: "2026-10-12" },
-        { html: "<strong>Macro &mdash; the Nobel prize for economics was awarded to Robert E Hall and Michael Woodford</strong>.", src: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb", srcName: "Financial Times", date: "2026-10-12" },
-        { html: "<strong>Credit &mdash; private equity is putting a string of UK high street names up for sale</strong>.", src: "https://www.ft.com/content/48b8c4ce-b2bf-44e2-badf-8159a9d664e4", srcName: "Financial Times", date: "2026-10-12" },
-        { html: "<strong>Europe &mdash; Germany&rsquo;s labour minister resigned as strains deepen in Chancellor Merz&rsquo;s coalition</strong>.", src: "https://www.ft.com/content/46b33d0d-274d-496e-9c42-1d4cf18b65cb", srcName: "Financial Times", date: "2026-10-12" },
-      ],
-    },
-    evening: {
-      label: "Evening",
-      date: "2026-10-12",
-      time: "00:15 BST",
-      lede: "Oil chiefs pulled out of a Riyadh energy congress after a missile strike at the airport, the US threatens to block arms for Ukraine over refinery attacks, and the US September inflation print looms for Fed policy.",
-      bullets: [
-        { html: "<strong>Oil &mdash; oil chiefs pulled out of the Riyadh energy congress</strong> after a missile strike at the airport, following the Houthi strikes on the Saudi capital.", src: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Geopolitics &mdash; the US threatened to block arms for Ukraine</strong> over its attacks on Russian refineries, even as Trump claimed an &lsquo;energy ceasefire&rsquo; is in place.", src: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>Macro &mdash; will September inflation cement US interest rate policy for the rest of the year?</strong> The FT previews the data and its implications for the Fed.", src: "https://www.ft.com/content/eae9d22f-3722-427f-a33b-aebc58fba2c4", srcName: "Financial Times", date: "2026-10-11" },
-        { html: "<strong>UK &mdash; John Healey ruled out cutting the &lsquo;mansion tax&rsquo; threshold to &pound;1.5mn</strong> in the UK Budget.", src: "https://www.ft.com/content/b1ff2ac0-843d-4b2a-b848-c840a2decfb8", srcName: "Financial Times", date: "2026-10-11" },
-      ],
-    },
-  },
+  date: "2026-10-12",
+  time: "12:25 BST",
+  lede: "Diesel prices slip after Trump's 'energy ceasefire' in the Ukraine war, Germany's labour minister resigns as Merz's coalition strains, and the Nobel economics prize goes to Robert Hall and Michael Woodford.",
+  bullets: [
+    { html: "<strong>Oil &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, easing pressure on Brent, though Zelenskyy says Putin is already breaching it.", src: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", srcName: "Financial Times", date: "2026-10-12" },
+    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield held near 5.24% ahead of Wednesday&rsquo;s September CPI</strong>, steadying after touching 5.36% on 7 October &mdash; its highest since 2002 &mdash; with the cash market shut Monday for the Columbus Day holiday.", src: "https://tradingeconomics.com/united-states/government-bond-yield/news/516491", srcName: "Trading Economics", date: "2026-10-12" },
+    { html: "<strong>Macro &mdash; the Nobel prize for economics was awarded to Robert E Hall and Michael Woodford</strong>.", src: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb", srcName: "Financial Times", date: "2026-10-12" },
+    { html: "<strong>Credit &mdash; private equity is putting a string of UK high street names up for sale</strong>.", src: "https://www.ft.com/content/48b8c4ce-b2bf-44e2-badf-8159a9d664e4", srcName: "Financial Times", date: "2026-10-12" },
+    { html: "<strong>Europe &mdash; Germany&rsquo;s labour minister resigned as strains deepen in Chancellor Merz&rsquo;s coalition</strong>.", src: "https://www.ft.com/content/46b33d0d-274d-496e-9c42-1d4cf18b65cb", srcName: "Financial Times", date: "2026-10-12" },
+  ],
 };

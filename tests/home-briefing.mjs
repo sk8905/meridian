@@ -133,15 +133,14 @@ const b = await launchChromium();
   const stillOpen = await bodyVis() && (await pg.evaluate(() => document.getElementById("g-hbrief").dataset.open)) === "true";
   check(stillOpen, "desktop: clicking the header does NOT collapse it");
 
-  // The briefing shows the latest available version (freshest by date·time stamp): the
-  // header's freshness stamp matches the freshest slot's time·date.
+  // The briefing shows the single latest edition: the header's freshness stamp matches
+  // the briefing's time·date. (Single-briefing model; a legacy {slots} object collapses
+  // to its freshest slot — handled so the spec spans the transition.)
   const latest = await pg.evaluate(async () => {
     const m = await import("/briefings.js");
-    const B = m.BRIEFINGS || {}, slots = B.slots || {};
-    const order = (B.order || []).filter((k) => slots[k]);
-    const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
-    const freshest = order.reduce((b, k) => (stamp(k) > stamp(b) ? k : b), order[0]);
-    const s = slots[freshest];
+    const B = m.BRIEFINGS || {};
+    let s = Array.isArray(B.bullets) ? B : null;
+    if (!s) { const slots = B.slots || {}; const order = (B.order || []).filter((k) => slots[k]); const stamp = (k) => { const x = slots[k]; const t = String(x.time || "").match(/(\d{1,2}):(\d{2})/); return `${x.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; }; s = slots[order.reduce((b, k) => (stamp(k) > stamp(b) ? k : b), order[0])]; }
     const when = ((document.querySelector("#g-hbrief .g-hbrief-when") || {}).textContent || "");
     const norm = (t) => String(t || "").replace(/\s+/g, " ").trim().toLowerCase();
     // The stamp carries the freshest slot's time (e.g. "15:29 BST"); a day·month token

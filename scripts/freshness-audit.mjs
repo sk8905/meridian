@@ -69,18 +69,23 @@ const SURFACES = [
 // bug: the slot-time map only fired at a few fixed hours, so 08:00/10:00 runs left the
 // morning slot frozen at 05:15).
 function briefingState() {
-  const slots = (BR.BRIEFINGS && BR.BRIEFINGS.slots) || {};
-  let bestMs = 0, bestSlot = null, bestStamp = null;
-  for (const k of Object.keys(slots)) {
-    const s = slots[k]; if (!s || !s.date) continue;
+  const B = BR.BRIEFINGS || {};
+  const msOfBrief = (s) => {
+    if (!s || !s.date) return 0;
     const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
     const hh = t ? t[1].padStart(2, "0") : "00", mm = t ? t[2] : "00";
-    const ms = Date.parse(`${s.date}T${hh}:${mm}:00Z`);
-    if (ms && ms > bestMs) { bestMs = ms; bestSlot = k; bestStamp = `${s.date} ${hh}:${mm}`; }
-  }
+    return Date.parse(`${s.date}T${hh}:${mm}:00Z`) || 0;
+  };
+  // Single-briefing model ({date,time,bullets}); fall back to the freshest of a legacy
+  // {slots} object so the audit works across the transition.
+  let best = null;
+  if (Array.isArray(B.bullets)) best = B;
+  else { const slots = B.slots || {}; for (const k of Object.keys(slots)) { if (!best || msOfBrief(slots[k]) > msOfBrief(best)) best = slots[k]; } }
+  const bestMs = msOfBrief(best);
+  const bestStamp = bestMs ? new Date(bestMs).toISOString().slice(0, 16).replace("T", " ") : null;
   const ageHours = bestMs ? Math.round(((now - bestMs) / 3600000) * 10) / 10 : null;
   const stale = ageHours == null || ageHours > BRIEF_STALE_HOURS;
-  return { key: "briefing", label: "Home market briefing", slots: Object.keys(slots).length, freshestSlot: bestSlot, newestStamp: bestStamp, ageHours, stale };
+  return { key: "briefing", label: "Home market briefing", newestStamp: bestStamp, ageHours, stale };
 }
 const briefing = briefingState();
 
@@ -152,8 +157,8 @@ if (flag("--json")) {
   }
   {
     const tag = briefing.stale ? "STALE " : "fresh ";
-    const age = briefing.ageHours == null ? "no slots" : `${briefing.ageHours}h old`;
-    console.log(`  [${tag}] ${briefing.label.padEnd(48)} newest ${String(briefing.newestStamp || "—").padEnd(11)} (${age}, slot: ${briefing.freshestSlot || "—"})`);
+    const age = briefing.ageHours == null ? "no briefing" : `${briefing.ageHours}h old`;
+    console.log(`  [${tag}] ${briefing.label.padEnd(48)} newest ${String(briefing.newestStamp || "—").padEnd(11)} (${age})`);
   }
   if (coverage) {
     const tag = coverageStale ? "STALE " : "fresh ";

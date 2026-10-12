@@ -680,21 +680,19 @@ carries that item's real source URL.** No invented figures, no uncited claims; a
 quiet slot gets a short output, not padding.
 
 - **Market briefing — `briefings.js` (root; served no-cache, tokenless).**
-  The **Home News pane shows only the LATEST (freshest-stamped) slot** — there is
-  **no header button and no slot selector** — so what the reader sees is whichever
-  slot this run rewrites. The data keeps three rolling slots as its store:
-  `morning` (< 12:00), `afternoon` (12:00–17:00), `evening` (≥ 17:00 London).
-  **On EVERY run — the full-refresh cron fires every ~2 hours, NOT only at a few fixed
-  clock times — regenerate and restamp the slot whose WINDOW the current London
-  run-time falls in**, and leave the other two as they are. Choose the slot by the
-  window, never by matching a specific hour: run-time **before 12:00 → `morning`**,
-  **12:00–16:59 → `afternoon`**, **17:00 or later → `evening`**. That run's slot
-  becomes the freshest and is what shows, so the briefing is never more than one run
-  (~2h) stale during the day. **Do NOT skip the briefing on a run just because its
-  hour isn't one of the old 05/09/12/17/21 times** — that bug left the morning slot
-  frozen at 05:15 through the 08:00 and 10:00 runs (observed 2026-10-12). Even when
-  little else changed, restamp the current slot (new `date`+`time`) and refresh its
-  bullets so the "Updated …" stamp advances every run. Each slot is
+  There is **ONE briefing — no morning/afternoon/evening slots, no selector.** The
+  data model is a single object: `export const BRIEFINGS = { tz, date, time, lede,
+  bullets:[…] }`. **REWRITE THE WHOLE briefing on EVERY run** — the full-refresh cron
+  fires every ~2 hours — setting a new `date`+`time` stamp (London) and fresh `lede`
+  and `bullets`. So the "Updated …" stamp advances roughly every two hours and the
+  briefing is never more than one run (~2h) stale. **Never skip the briefing on a run**
+  — even when little else changed, restamp it so the reader always sees a current
+  edition. (History: the old three-slot, fixed-hour model left the morning slot frozen
+  at 05:15 through the 08:00 and 10:00 runs on 2026-10-12, because those hours matched
+  none of the hard-coded slot times; the single-briefing-every-run model removes that
+  failure mode entirely.) The renderer still tolerates a legacy `{ slots, order }`
+  object (collapsing to its freshest slot) for safety, but **author the single-object
+  model** — that is canonical. Each slot is
   **4–6 `bullets`** (ideally one per desk — Macro · Bonds · Equities · Credit),
   each `{ html, src, srcName }` where `html` is authored markup
   (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.

@@ -47,11 +47,10 @@ await pg.waitForSelector("#g-rates .rate-tile", { timeout: 8000 });
 // country (France) that must NEVER be queried or pilled.
 await pg.evaluate(async () => {
   const m = await import("/briefings.js");
-  const B = m.BRIEFINGS || {}, slots = B.slots || {};
-  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
-  const _ord = (B.order || []).filter((k) => slots[k]);
-  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);   // the FRESHEST slot (what the card renders)
-  slots[key].bullets = [
+  const B = m.BRIEFINGS || {};
+  // Single-briefing model ({bullets}); a legacy {slots} object resolves to its freshest.
+  const tgt = Array.isArray(B.bullets) ? B : (() => { const slots = B.slots || {}; const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); }; const _ord = (B.order || []).filter((k) => slots[k]); return slots[_ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0])]; })();
+  tgt.bullets = [
     { html: "<strong>Equities &mdash; Nvidia leads a rally</strong> as Honeywell gains and Boeing lags in France, with the Nasdaq higher, the US 10-year Treasury yield ticking up and Acme Widgets flat.", src: "https://example.com/e", srcName: "Ex" },
   ];
   window.__wireRenderBrief();
@@ -117,15 +116,13 @@ check(r.bondsFb && r.bondsFb.us && /5\.31%/.test(r.bondsFb.us.lvl) && /3bp/.test
 // the "=F" futures symbols, so these fill from /api/markets like the strip does.
 const com = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
-  const B = m.BRIEFINGS || {}, slots = B.slots || {};
-  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
-  const _ord = (B.order || []).filter((k) => slots[k]);
-  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);
-  slots[key].bullets = [
+  const B = m.BRIEFINGS || {};
+  const tgt = Array.isArray(B.bullets) ? B : (() => { const slots = B.slots || {}; const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); }; const _ord = (B.order || []).filter((k) => slots[k]); return slots[_ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0])]; })();
+  tgt.bullets = [
     { html: "<strong>Macro &mdash; the energy shock stays contained</strong> as Brent trades near $89 a barrel and WTI holds around $84.", src: "https://example.com/c", srcName: "Ex" },
   ];
   window.__wireRenderBrief();
-  return key;
+  return true;
 });
 await pg.waitForFunction(() => {
   const n = document.querySelector('#g-hbrief .g-hbt-tk[data-mkt="Brent"]');
@@ -150,11 +147,9 @@ check(!/\bBrent\b/.test(comR.bodyText) && !/\bWTI\b/.test(comR.bodyText), `the c
 // rates cache. Verifies the broadened BRIEF_YIELDS + the new US 30Y entry.
 await pg.evaluate(async () => {
   const m = await import("/briefings.js");
-  const B = m.BRIEFINGS || {}, slots = B.slots || {};
-  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
-  const _ord = (B.order || []).filter((k) => slots[k]);
-  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);
-  slots[key].bullets = [
+  const B = m.BRIEFINGS || {};
+  const tgt = Array.isArray(B.bullets) ? B : (() => { const slots = B.slots || {}; const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); }; const _ord = (B.order || []).filter((k) => slots[k]); return slots[_ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0])]; })();
+  tgt.bullets = [
     { html: "<strong>Bonds &mdash; the sell-off resumed</strong>, with the US 30-year Treasury yield at its highest since 2002 and the 10-year near 5.27%.", src: "https://example.com/y", srcName: "Ex" },
   ];
   window.__wireRenderBrief();
@@ -183,11 +178,10 @@ check(!/Treasury/.test(yldR.bodyText), `the 30-year phrase is replaced by its pi
 //     the literal glyph ("R&D"), never a double-encoded "R&amp;D".
 const amp = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
-  const B = m.BRIEFINGS || {}, slots = B.slots || {};
-  const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); };
-  const _ord = (B.order || []).filter((k) => slots[k]);
-  const key = _ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0]);   // the FRESHEST slot (what the card renders)
-  slots[key].bullets = [
+  const B = m.BRIEFINGS || {};
+  // Single-briefing model ({bullets}); a legacy {slots} object resolves to its freshest.
+  const tgt = Array.isArray(B.bullets) ? B : (() => { const slots = B.slots || {}; const _st = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return (s.date || "") + " " + (t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"); }; const _ord = (B.order || []).filter((k) => slots[k]); return slots[_ord.reduce((b, k) => (_st(k) > _st(b) ? k : b), _ord[0])]; })();
+  tgt.bullets = [
     { html: "<strong>Equities &mdash; spending on R&amp;D rose</strong> as megacaps led the tape higher.", src: "https://example.com/eq", srcName: "Ex" },
     { html: "<strong>R&amp;D &mdash; spending rose</strong> across the sector.", src: "https://example.com/x", srcName: "Ex" },
   ];

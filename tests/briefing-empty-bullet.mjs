@@ -29,7 +29,9 @@ await pg.waitForFunction(() => typeof window.__wireRenderBrief === "function", {
 // the raw data. This keeps the gate from blocking on the refresh routine's house style.)
 const data = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
-  const B = m.BRIEFINGS || {}, slots = B.slots || {};
+  const B = m.BRIEFINGS || {};
+  // Single-briefing model: one briefing object. (Legacy {slots} → its slot objects.)
+  const briefs = Array.isArray(B.bullets) ? [B] : Object.values(B.slots || {});
   const stripDesk = (h) => String(h || "").replace(/^(\s*<strong>)\s*[^<]*?\s*(?:&mdash;|—)\s*/, "$1");
   const hasText = (h) => String(h || "").replace(/<[^>]*>/g, "").replace(/&(?:[a-z]+|#\d+);/gi, " ").replace(/\s+/g, "").length > 0;
   const isUrl = (u) => /^https?:\/\//.test(String(u || ""));
@@ -43,11 +45,9 @@ const data = await pg.evaluate(async () => {
     if (/\b(?:the\s+)?(?:FT|Financial\s+Times|Bloomberg|Reuters|CNBC|WSJ|the\s+Journal|the\s+Economist|the\s+Times|Barron)\b(?:&rsquo;s|&#8217;s|’s|'s)?[^.<]{0,40}?\b(?:reports?|explains?|notes?|writes?|says?)\b/i.test(t)) return "outlet + reporting verb";
     return null;
   };
-  const keys = Object.keys(slots);
   const bad = [];
   let bulletN = 0;
-  for (const k of keys) {
-    const s = slots[k] || {};
+  for (const [k, s] of briefs.entries()) {
     if (!s.date || !s.time) bad.push(`${k}: missing date/time`);
     const bl = Array.isArray(s.bullets) ? s.bullets : [];
     if (!bl.length) bad.push(`${k}: no bullets`);
@@ -61,9 +61,9 @@ const data = await pg.evaluate(async () => {
       if (nv) bad.push(`${k}[${i}]: narrates the source (${nv}) — state the news; the srcName link is the attribution`);
     });
   }
-  return { slots: keys.length, bulletN, bad };
+  return { count: briefs.length, bulletN, bad };
 });
-check(data.slots >= 1, `briefings.js has at least one slot (${data.slots})`);
+check(data.count >= 1, `briefings.js carries a briefing (${data.count})`);
 check(data.bulletN >= 1, `briefings.js carries bullets (${data.bulletN})`);
 check(data.bad.length === 0, `every briefing bullet has a real body sentence AND a source, and states the news (R7) — no defects${data.bad.length ? ": " + data.bad.join("; ") : ""}`);
 
@@ -77,11 +77,9 @@ check(data.bad.length === 0, `every briefing bullet has a real body sentence AND
 // This is the owner's "force a note on every category" rule, enforced on the real renderer.
 const r = await pg.evaluate(async () => {
   const m = await import("/briefings.js");
-  const B = m.BRIEFINGS || {}, slots = B.slots || {};
-  const order = (B.order || []).filter((k) => slots[k]);
-  const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
-  const key = order.reduce((best, k) => (stamp(k) > stamp(best) ? k : best), order[0]);
-  slots[key].bullets = [
+  const B = m.BRIEFINGS || {};
+  const tgt = Array.isArray(B.bullets) ? B : (() => { const slots = B.slots || {}; const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; }; const order = (B.order || []).filter((k) => slots[k]); return slots[order.reduce((best, k) => (stamp(k) > stamp(best) ? k : best), order[0])]; })();
+  tgt.bullets = [
     { html: "<strong>Macro &mdash; a real, sourced sentence with actual body text that must survive the render intact</strong> and keep its citation.", src: "https://example.com/macro", srcName: "Example" },
     { html: "<strong>Oil &mdash; crude slipped as supply fears eased</strong> across the complex.", src: "https://example.com/oil", srcName: "Example" },
     { html: "<strong>Bonds &mdash;</strong>", src: "https://example.com/fi", srcName: "Ghost" },
