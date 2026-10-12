@@ -66,8 +66,12 @@ switch that turns the Vite pipeline on.
   branch or a pull request** unless I explicitly ask. An ephemeral working branch that
   is immediately rebased and pushed to `main` is not a "feature branch".
 - Always verify changes (build/tests or a quick sanity check) before pushing, since a
-  push to `main` deploys immediately. There is **no CI test gate** — the suite is
-  honour-system, so run it.
+  push to `main` deploys immediately. CI is **advisory, not a gate**: a GitHub Action
+  (`.github/workflows/tests.yml`) runs `npm run build` + the full suite (source and
+  built `dist/`) on every push to `main` and goes red on the commit when something
+  breaks — but it **cannot block** the Cloudflare git-connected deploy, which ships
+  regardless. So the suite is still yours to run **before** you push; the Action is the
+  safety net that makes a bad push visible, not a reason to skip local testing.
 - **Commit trailers:** end commit messages with the `Claude-Session:` link and a
   co-author line that carries **no model identifier** (HOUSE_STYLE **T8**) — use
   `Co-Authored-By: Claude Code <noreply@anthropic.com>`, never a `claude-<model>`

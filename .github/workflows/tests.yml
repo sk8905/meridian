@@ -1,0 +1,49 @@
+name: tests
+
+# Advisory CI — NOT a deploy gate.
+#
+# Cloudflare Workers Builds deploys Wire straight off a push to `main` (it runs
+# `npm run build` only), and a GitHub Action cannot block that git-connected
+# deploy. So this workflow's job is to make "test before deploy" VISIBLE rather
+# than honour-system: it runs the full suite on every push to `main`, goes red
+# and notifies on the commit when something breaks, and lets a human react. It
+# does not stop the deploy — it is the safety net that tells you a bad one shipped.
+#
+# It runs the suite twice, matching CLAUDE.md's own recipe: once against source,
+# then once against the Vite-built `dist/` to prove the built output serves
+# identically.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same ref supersedes an in-flight run.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  suite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Full suite (source)
+        run: node tests/run.mjs
+
+      - name: Build (Vite pipeline, same as the deploy)
+        run: npm run build
+
+      - name: Full suite (built dist/)
+        run: TEST_ROOT=dist node tests/run.mjs
