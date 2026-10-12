@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-12",
-  lastCheckedTime: "14:38 BST",
+  lastCheckedTime: "17:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -409,16 +409,20 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-09-28",
+  updated: "2026-10-12",
   us: [
     { title: "The Big One Is Rumbling in the Bond Market", source: "Bloomberg Opinion", author: "John Authers", date: "2026-09-25", url: "https://www.bloomberg.com/opinion/articles/2026-09-25/the-big-one-is-rumbling-in-the-bond-market" },
     { title: "AIndicators: Fed Hiking Cycle Is a Red-Flag Moment", source: "Bloomberg Opinion", author: "John Authers & Richard Abbey", date: "2026-09-21", url: "https://www.bloomberg.com/opinion/newsletters/2026-09-21/aindicators-fed-hiking-cycle-is-a-red-flag-moment" },
     { title: "Goldman Sachs Revises Fed Outlook After Hawkish Meeting, Flags October Rate Increase", source: "Crowdfund Insider", author: "Goldman Sachs — David Mericle", date: "2026-09-17", url: "https://www.crowdfundinsider.com/2026/09/310827-goldman-sachs-revises-fed-outlook-after-hawkish-meeting-flags-october-rate-increase/" },
+    { title: "Federal Reserve: More hikes ahead after October pause", source: "FXStreet", author: "UOB Group", date: "2026-10-08", url: "https://www.fxstreet.com/news/federal-reserve-more-hikes-ahead-after-october-pause-uob-202610081303" },
+    { title: "America Added Just 29,000 Jobs in September. Did the Fed Just Get Its First Warning That It Went Too Far?", source: "24/7 Wall St.", author: null, date: "2026-10-04", url: "https://247wallst.com/investing/2026/10/04/america-added-just-29000-jobs-in-september-did-the-fed-just-get-its-first-warning-that-it-went-too-far/" },
   ],
   uk: [
     { title: "Morgan Stanley now expects two quarterly BoE hikes amid tough fiscal backdrop", source: "Reuters (via Investing.com)", author: "Morgan Stanley — Bruna Skarica", date: "2026-09-25", url: "https://www.investing.com/news/economy-news/morgan-stanley-now-expects-two-quarterly-boe-hikes-amid-tough-fiscal-backdrop-4917094" },
     { title: "BofA forecasts two BoE rate hikes as energy prices stoke inflation concerns", source: "Reuters (via Investing.com)", author: "BofA Global Research", date: "2026-09-23", url: "https://www.investing.com/news/economy-news/bofa-forecasts-two-boe-rate-hikes-as-energy-prices-stoke-inflation-concerns-4912807" },
     { title: "Pound Sterling Today: PMI Slowdown Leaves November BoE Hike In Play", source: "Exchange Rates UK", author: "Pantheon Macroeconomics", date: "2026-09-23", url: "https://www.exchangerates.org.uk/news/47257/2026-09-23-pound-sterling-today-pmi-slowdown-leaves-november-boe-hike-in-play.html" },
+    { title: "Barclays, UBS back BoE hikes as inflation risks mount", source: "Reuters (via Devdiscourse)", author: "UBS — Anna Titareva; Barclays", date: "2026-09-18", url: "https://www.devdiscourse.com/article/international/3978978-barclays-ubs-back-boe-hikes-as-inflation-risks-mount" },
+    { title: "Goldman Sachs sees BoE rate hike in November amid inflation concerns", source: "Kitco (via Reuters)", author: "Goldman Sachs", date: "2026-09-14", url: "https://www.kitco.com/news/off-the-wire/2026-09-14/goldman-sachs-sees-boe-rate-hike-november-amid-inflation-concerns" },
   ],
 };
 
