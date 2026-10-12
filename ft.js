@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "46b33d0d-274d-496e-9c42-1d4cf18b65cb",
+    title: "German labour minister resigns as Merz coalition strains deepen",
+    date: "2026-10-12",
+    time: "10:27",
+    url: "https://www.ft.com/content/46b33d0d-274d-496e-9c42-1d4cf18b65cb"
+  },
+  {
+    id: "863619b6-c4a7-4b1a-8a53-6950d47d1833",
+    title: "Putin is breaching Trump’s ‘energy ceasefire’, Zelenskyy says",
+    date: "2026-10-12",
+    time: "10:15",
+    url: "https://www.ft.com/content/863619b6-c4a7-4b1a-8a53-6950d47d1833"
+  },
+  {
     id: "f4463a28-832d-4a2d-acc5-d83e258610cb",
     title: "Alphaville’s Nobel Prize for Economics live blog",
     date: "2026-10-12",
@@ -278,26 +292,5 @@ export const FT_ITEMS = [
     date: "2026-10-11",
     time: "17:56",
     url: "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe"
-  },
-  {
-    id: "724ef0e2-4d50-49fd-aef8-abc0534f2f84",
-    title: "Ukraine’s allies vow to pressure Moscow as Trump claims ‘energy ceasefire’ in place",
-    date: "2026-10-11",
-    time: "16:46",
-    url: "https://www.ft.com/content/724ef0e2-4d50-49fd-aef8-abc0534f2f84"
-  },
-  {
-    id: "dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f",
-    title: "Democrats need a foreign policy",
-    date: "2026-10-11",
-    time: "16:13",
-    url: "https://www.ft.com/content/dddba87c-3ed9-4cb5-8fe2-1b1dcc71da6f"
-  },
-  {
-    id: "71dccbca-4a1f-485a-9790-28cc527cdb82",
-    title: "US affordability tracker: the data that could decide the 2026 midterm elections",
-    date: "2026-10-11",
-    time: "14:39",
-    url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82"
   }
 ];
