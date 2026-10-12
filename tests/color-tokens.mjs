@@ -43,6 +43,10 @@ const glanceJs = read(path.join("v2", "js", "home", "glance.js"));
 check(/--t-news\s*:\s*#[0-9a-fA-F]{3,8}/.test(homeCss), "home.css declares a real --t-news custom property on :root (not fallback-only)");
 check(!/--t-news\s*:\s*#/.test(feedCss), "feed.css no longer carries its own --t-news copy (tokens consolidated to :root)");
 
+// Feed-row headlines are clamped to ONE line with an ellipsis on overrun (no 2-line wrap).
+check(/\.g-feed-title\s*\{[^}]*white-space:nowrap[^}]*overflow:hidden[^}]*text-overflow:ellipsis/.test(feedCss.replace(/\n/g, " ")),
+  "feed.css .g-feed-title is a single-line headline (white-space:nowrap + overflow:hidden + text-overflow:ellipsis)");
+
 // R6 — the main wire's day-break band uses --t-head (grey band), matching the
 // documented spec and its .tw-day sibling in tui.css, not --t-ground.
 check(/\.g-feed-dayhdr\s*\{[^}]*background:var\(--t-head\)/.test(feedCss),
@@ -376,6 +380,16 @@ check(!/g-read-tw-foot">[^<]*[→›»↗]/.test(glanceJs),
 // .g-read-ext had drifted to an off-scale 11px.
 check(/\.g-read-ext\{[^}]*font-size:var\(--fs-micro\)/.test(homeCss),
   "home.css .g-read-ext reads the micro scale step (var(--fs-micro)), not an off-scale size (R11)");
+
+// Reading-pane link styling: internal (entity) links read as white body prose with a BLUE
+// underline; external (publisher) links are white text with an ORANGE underline; the
+// "Open original" link is bold orange. All three key off the --t-* tokens, no raw hex.
+check(/\.g-read-p a:not\(\.g-ent\)[^{]*\{[^}]*color:var\(--t-ink\)[^}]*text-decoration-color:var\(--t-accent\)/.test(homeCss.replace(/\n/g, " ")),
+  "home.css reading-pane external links are white text (--t-ink) with an orange underline (--t-accent)");
+check(/\.g-read-open\{[^}]*color:var\(--t-accent\)[^}]*font-weight:700/.test(homeCss),
+  "home.css .g-read-open ('Open original') is bold orange (--t-accent, font-weight:700)");
+check(!/\.g-read-p a\.g-ent:hover[^}]*color:var\(--t-link\)/.test(homeCss.replace(/\n/g, " ")),
+  "home.css entity-link hover keeps the text white (no recolour to blue) — thickens the underline instead");
 
 // R8/R9 — the unified Saved panel (.g-sv-panel, Home/Macro/Credit/Legal) must
 // theme with the app's dark/light tokens like every other overlay. It hardcoded

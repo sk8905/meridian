@@ -120,8 +120,10 @@
 .g-mw-ev-c.cat-strategy,.g-mw-ev-c.cat-exit{ color:var(--t-ft); }
 .g-mw-ev-c.cat-restructuring{ color:var(--t-crd); }
 .g-mw-ev-c.cat-news{ color:var(--t-news,#8aa0c8); }
+/* Headlines are clamped to a SINGLE line; an overrun is truncated with an ellipsis
+   (keeps the wire scannable — one row, one headline, on desktop and phone alike). */
 .g-feed-title { font-size:var(--fs-body); color:var(--t-ink); font-weight:400; line-height:1.4;
-  white-space:normal; overflow:visible; min-width:0; }
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
 /* Entity chip (a manager/firm named in the headline, linking to its profile). */
 .g-feed-ent { font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-accent);
   border:0; background:transparent; padding:0; margin-left:7px; white-space:nowrap; cursor:pointer; }

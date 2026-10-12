@@ -958,12 +958,15 @@
     .g-read-p a.g-ent, .g-read-art a.g-ent{ color:inherit; font-weight:inherit;
       text-decoration-line:underline !important; text-decoration-style:solid; text-decoration-thickness:1px;
       text-underline-offset:2px; text-decoration-color:var(--t-link) !important; }
-    .g-read-p a.g-ent:hover, .g-read-art a.g-ent:hover{ color:var(--t-link); }
-    /* Publisher links preserved from the article body (e.g. a newsletter round-up's
-       "[ Source ]" links) — a real outbound link, so give it the link colour + a solid
-       underline, distinct from the softer inherit-coloured entity links above. */
-    .g-read-p a:not(.g-ent), .g-read-art a:not(.g-ent){ color:var(--t-link);
-      text-decoration-line:underline; text-decoration-thickness:1px; text-underline-offset:2px; }
+    /* Internal (entity) links read as white body prose with a BLUE underline; hover keeps
+       the text white and just thickens the underline (never recolours the text). */
+    .g-read-p a.g-ent:hover, .g-read-art a.g-ent:hover{ text-decoration-thickness:2px; }
+    /* External publisher links preserved from the article body (e.g. a newsletter round-up's
+       "[ Source ]" links) — white text with an ORANGE underline, so an outbound link is
+       visually distinct from a blue-underlined internal entity link. */
+    .g-read-p a:not(.g-ent), .g-read-art a:not(.g-ent){ color:var(--t-ink);
+      text-decoration-line:underline; text-decoration-style:solid; text-decoration-thickness:1px;
+      text-underline-offset:2px; text-decoration-color:var(--t-accent); }
     .g-read-p a:not(.g-ent):hover, .g-read-art a:not(.g-ent):hover{ text-decoration-thickness:2px; }
     .g-read-h:first-child{ margin-top:0; }
     /* Content images pulled from the article, shown inline in reading order. The image
@@ -986,7 +989,7 @@
     .g-read-tw-txt{ display:block; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.55; color:var(--t-ink); white-space:normal; overflow-wrap:anywhere; }
     .g-read-tw-media{ display:block; max-width:100%; max-height:300px; width:auto; height:auto; margin:9px 0 0; border:1px solid var(--t-grid); }
     .g-read-tw-foot{ display:block; margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-link); }
-    .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); text-decoration:none; }
+    .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); font-weight:700; text-decoration:none; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     /* Reader ⋯ overflow menu — pinned top-right of the article; opens a small feedback
        menu ("Not interested" / "Mute source" / "Manage muted…"). The kicker/title clear it
