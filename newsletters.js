@@ -48,6 +48,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-houthisstrikeagain-20261012",
+    publication: "Bloomberg",
+    author: "Joe Flynn",
+    series: "Morning Briefing Europe",
+    title: "Houthis strike again",
+    date: "2026-10-12",
+    time: "08:15",
+    summary: "Houthi’s ramp up strikes with another Saudi Arabia attack; oil slips and futures advance; EU caps Chinese hybrid imports.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-12/houthi-s-ramp-up-strikes-with-another-saudi-arabia-attack",
+  },
+  {
+    id: "nl-businesspost-commercialrealestate-forvismazarsmoves-20261012",
+    publication: "Business Post",
+    author: "Tina-Marie O’Neill",
+    series: "Commercial Real Estate",
+    title: "Forvis Mazars moves next door",
+    date: "2026-10-12",
+    time: "08:01",
+    summary: "LDA chief defends €2.15m purchase of Dundrum objector’s house; Deutsche Bank fund sells Irish property.",
+    url: "https://bpm.businesspost.ie/w/axhNScGGU9435d89200FnGng/Pe5PTEw0pLHXiV2kox0pPw/FDOZreQmdJPAwXezV6UiqQ",
+  },
+  {
     id: "nl-thelawyer-breaking-weilfreshfieldspepartner-20261012",
     publication: "The Lawyer",
     author: null,
