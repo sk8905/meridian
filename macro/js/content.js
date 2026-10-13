@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-13",
-  lastCheckedTime: "05:12 BST",
+  lastCheckedTime: "07:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1010,13 +1010,12 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-13",
   us: [
+    {title: "Rising Treasury bill issuance puts pressure on short-term rates", source: "Financial Times", date: "2026-10-13", time: "05:30", url: "https://www.ft.com/content/f5ca22c7-8340-4189-8c40-224a1e16c5ef"},
+    {title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss", source: "Financial Times", date: "2026-10-13", time: "06:44", url: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63"},
     {title: "Investors brave US Treasury rout to lock in highest yields in decades", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8"},
-    {title: "Why Trump is going for Zelenskyy’s jugular", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1"},
-    {title: "Trump’s loan to a US defence start-up adds to Apollo’s war chest too", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/e3b31db9-5fe2-4ce8-a1f4-0327c69900a8"},
+    {title: "Trump-Zelenskyy diesel spat reignites Europe’s White House angst", source: "Financial Times", date: "2026-10-13", time: "06:00", url: "https://www.ft.com/content/73c8d82e-68ea-4846-b28c-a0bc4069be36"},
     {title: "Wall Street’s record-breaking trading streak set to cool", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2"},
-    {title: "‘Worrying omens’ stalk global economy despite resilient growth", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229"},
-  ],
-  uk: [
+  ],  uk: [
     {title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"},
     {title: "How BT’s TalkTalk swoop left broadband rivals fuming", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/39da2672-e57a-41aa-8f03-970ae37d88a6"},
     {title: "Companies face rising number of UK complaints over conduct", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/c16b5a2d-f653-494f-9c18-587685f34bc2"},

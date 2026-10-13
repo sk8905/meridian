@@ -21,6 +21,55 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "e16f0422-cf75-4cc9-962d-4605e421dc63",
+    title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss",
+    date: "2026-10-13",
+    time: "06:44",
+    url: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63"
+  },
+  {
+    id: "27be530d-2faf-43ce-874f-0e6e0802bee2",
+    title: "China gets spiky on currencies",
+    date: "2026-10-13",
+    time: "06:30",
+    url: "https://www.ft.com/content/27be530d-2faf-43ce-874f-0e6e0802bee2"
+  },
+  {
+    id: "d0d8cfb8-ca9e-4d0d-a9cf-e3e4989a4694",
+    title: "FTAV’s further reading",
+    date: "2026-10-13",
+    time: "06:30",
+    url: "https://www.ft.com/content/d0d8cfb8-ca9e-4d0d-a9cf-e3e4989a4694"
+  },
+  {
+    id: "73c8d82e-68ea-4846-b28c-a0bc4069be36",
+    title: "Trump-Zelenskyy diesel spat reignites Europe’s White House angst",
+    date: "2026-10-13",
+    time: "06:00",
+    url: "https://www.ft.com/content/73c8d82e-68ea-4846-b28c-a0bc4069be36"
+  },
+  {
+    id: "0c821d3e-241f-46a9-a54b-e0d0cf8ee4cf",
+    title: "How Michael Woodford made modern macro relevant to central bankers",
+    date: "2026-10-13",
+    time: "06:00",
+    url: "https://www.ft.com/content/0c821d3e-241f-46a9-a54b-e0d0cf8ee4cf"
+  },
+  {
+    id: "e03b74a1-6f7f-4f2c-ad39-c70b8e63ae39",
+    title: "FirstFT: IMF sounds alarm on dire public finances",
+    date: "2026-10-13",
+    time: "05:40",
+    url: "https://www.ft.com/content/e03b74a1-6f7f-4f2c-ad39-c70b8e63ae39"
+  },
+  {
+    id: "f5ca22c7-8340-4189-8c40-224a1e16c5ef",
+    title: "Rising Treasury bill issuance puts pressure on short-term rates",
+    date: "2026-10-13",
+    time: "05:30",
+    url: "https://www.ft.com/content/f5ca22c7-8340-4189-8c40-224a1e16c5ef"
+  },
+  {
     id: "15eac7b8-df53-41f4-bf51-bc28225eec51",
     title: "‘A game of snakes and ladders’",
     date: "2026-10-13",
@@ -250,54 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-12",
     time: "12:00",
     url: "https://www.ft.com/content/48b8c4ce-b2bf-44e2-badf-8159a9d664e4"
-  },
-  {
-    id: "0a66d390-149d-4cdc-83b6-88015da1e835",
-    title: "Britain, Brexit and the cat-flap option",
-    date: "2026-10-12",
-    time: "11:59",
-    url: "https://www.ft.com/content/0a66d390-149d-4cdc-83b6-88015da1e835"
-  },
-  {
-    id: "51089f41-6f8b-4381-aab5-a83bbe4048c4",
-    title: "Whisky highballs, fantastic fairies and a very White House indeed – don’t miss HTSI’s top reads",
-    date: "2026-10-12",
-    time: "11:44",
-    url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4"
-  },
-  {
-    id: "011a7926-402e-4baa-90ba-bab4a44a74de",
-    title: "Rejecting closer ties with EU would be ‘dereliction of duty’, Burnham says",
-    date: "2026-10-12",
-    time: "11:30",
-    url: "https://www.ft.com/content/011a7926-402e-4baa-90ba-bab4a44a74de"
-  },
-  {
-    id: "7dc561ba-a386-479d-9633-9209b76b1812",
-    title: "FirstFT: Diesel prices slip after Trump announces ‘energy ceasefire’",
-    date: "2026-10-12",
-    time: "11:24",
-    url: "https://www.ft.com/content/7dc561ba-a386-479d-9633-9209b76b1812"
-  },
-  {
-    id: "d154e42d-5243-44f3-a837-a67681e20311",
-    title: "To the manor reborn",
-    date: "2026-10-12",
-    time: "11:00",
-    url: "https://www.ft.com/content/d154e42d-5243-44f3-a837-a67681e20311"
-  },
-  {
-    id: "46b33d0d-274d-496e-9c42-1d4cf18b65cb",
-    title: "German labour minister resigns as Merz coalition strains deepen",
-    date: "2026-10-12",
-    time: "10:27",
-    url: "https://www.ft.com/content/46b33d0d-274d-496e-9c42-1d4cf18b65cb"
-  },
-  {
-    id: "f4463a28-832d-4a2d-acc5-d83e258610cb",
-    title: "Nobel Prize for economics awarded to Robert E Hall and Michael Woodford",
-    date: "2026-10-12",
-    time: "10:09",
-    url: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb"
   }
 ];

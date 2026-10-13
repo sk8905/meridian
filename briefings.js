@@ -100,11 +100,11 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-13",
-  time: "05:12 BST",
+  time: "07:20 BST",
   lede: "Investors are locking in the highest US Treasury yields in decades despite the sell-off, Trump pressure on Kyiv dominates the geopolitical tape, and Arini raises $1.5bn even as its main fund loses 13.5%.",
   bullets: [
-    { html: "<strong>Bonds &mdash; US Treasury yields sit at their highest in decades</strong> as buyers step in to lock in the levels despite the rout, with Wednesday&rsquo;s September CPI the next test.", src: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8", srcName: "Financial Times", date: "2026-10-13" },
-    { html: "<strong>Equities &mdash; Wall Street&rsquo;s record-breaking trading streak is set to cool</strong> after a run of highs left the S&amp;P 500 near its peak.", src: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", srcName: "Financial Times", date: "2026-10-12" },
+    { html: "<strong>Bonds &mdash; US Treasury yields sit at their highest in decades</strong> as buyers step in to lock in the levels despite the rout, while rising Treasury bill issuance is adding pressure on short-term rates.", src: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8", srcName: "Financial Times", date: "2026-10-13" },
+    { html: "<strong>Equities &mdash; chip stocks slid</strong> after a &lsquo;casino&rsquo; comment from Broadcom&rsquo;s boss, with Samsung and SK Hynix dragging the Kospi sharply lower on AI-spending worries.", src: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63", srcName: "Financial Times", date: "2026-10-13" },
     { html: "<strong>Macro &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, while FT analysis points to mounting US pressure on Zelenskyy.", src: "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1", srcName: "Financial Times", date: "2026-10-13" },
     { html: "<strong>Credit &mdash; Arini raised $1.5bn</strong> even as its main fund reported a 13.5% loss, while Partners Group launched an evergreen multi-sector private credit income strategy.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg", date: "2026-10-05" },
   ],
