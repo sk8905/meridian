@@ -1,0 +1,461 @@
+{
+ "generated": "2026-10-13T21:43:33.861Z",
+ "file": "ia09012026.csv",
+ "byId": {
+  "h1": {
+   "raum": 150.2,
+   "filed": "2026-08-18",
+   "crd": "105129",
+   "name": "BRIDGEWATER ASSOCIATES, LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/105129"
+  },
+  "h3": {
+   "raum": 720.8,
+   "filed": "2026-08-25",
+   "crd": "158117",
+   "name": "MILLENNIUM MANAGEMENT LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/158117"
+  },
+  "h4": {
+   "raum": 570.6,
+   "filed": "2026-06-11",
+   "crd": "148826",
+   "name": "CITADEL ADVISORS LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/148826"
+  },
+  "h5": {
+   "raum": 128.6,
+   "filed": "2026-07-24",
+   "crd": "307151",
+   "name": "ELLIOTT INVESTMENT MANAGEMENT L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/307151"
+  },
+  "h7": {
+   "raum": 232.8,
+   "filed": "2026-03-31",
+   "crd": "137137",
+   "name": "TWO SIGMA INVESTMENTS, LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/137137"
+  },
+  "h8": {
+   "raum": 96.4,
+   "filed": "2026-07-01",
+   "crd": "106661",
+   "name": "RENAISSANCE TECHNOLOGIES LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/106661"
+  },
+  "h9": {
+   "raum": 311.7,
+   "filed": "2026-08-27",
+   "crd": "111883",
+   "name": "AQR CAPITAL MANAGEMENT, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/111883"
+  },
+  "h10": {
+   "raum": 274.1,
+   "filed": "2026-08-14",
+   "crd": "283077",
+   "name": "POINT72 ASSET MANAGEMENT, L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/283077"
+  },
+  "h11": {
+   "raum": 52.1,
+   "filed": "2026-09-23",
+   "crd": "107322",
+   "name": "FARALLON CAPITAL MANAGEMENT, L.L.C.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/107322"
+  },
+  "h12": {
+   "raum": 46.6,
+   "filed": "2026-04-01",
+   "crd": "155680",
+   "name": "DAVIDSON KEMPNER CAPITAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/155680"
+  },
+  "h16": {
+   "raum": 24.7,
+   "filed": "2026-03-30",
+   "crd": "109530",
+   "name": "THE BAUPOST GROUP, L.L.C.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/109530"
+  },
+  "h17": {
+   "raum": 248.1,
+   "filed": "2026-06-30",
+   "crd": "138111",
+   "name": "BALYASNY ASSET MANAGEMENT L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/138111"
+  },
+  "h21": {
+   "raum": 5.5,
+   "filed": "2026-07-31",
+   "crd": "147329",
+   "name": "CQS (US), LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/147329"
+  },
+  "h22": {
+   "raum": 19.1,
+   "filed": "2026-05-21",
+   "crd": "156384",
+   "name": "EGERTON CAPITAL (UK) LLP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/156384"
+  },
+  "h23": {
+   "raum": 159.4,
+   "filed": "2026-08-19",
+   "crd": "294156",
+   "name": "EXODUSPOINT CAPITAL MANAGEMENT, LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/294156"
+  },
+  "h25": {
+   "raum": 139.4,
+   "filed": "2026-03-30",
+   "crd": "156610",
+   "name": "VERITION FUND MANAGEMENT LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/156610"
+  },
+  "h28": {
+   "raum": 10.3,
+   "filed": "2026-07-27",
+   "crd": "172244",
+   "name": "LANSDOWNE PARTNERS (UK) LLP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/172244"
+  },
+  "h31": {
+   "raum": 78,
+   "filed": "2026-03-27",
+   "crd": "160318",
+   "name": "TIGER GLOBAL MANAGEMENT, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/160318"
+  },
+  "h33": {
+   "raum": 227,
+   "filed": "2026-08-07",
+   "crd": "172116",
+   "name": "SQUAREPOINT OPS LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/172116"
+  },
+  "h35": {
+   "raum": 78.2,
+   "filed": "2026-06-15",
+   "crd": "132272",
+   "name": "VIKING GLOBAL INVESTORS LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/132272"
+  },
+  "h38": {
+   "raum": 43.4,
+   "filed": "2026-10-01",
+   "crd": "160309",
+   "name": "ELEMENT CAPITAL MANAGEMENT LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/160309"
+  },
+  "h39": {
+   "raum": 46.2,
+   "filed": "2026-09-16",
+   "crd": "157738",
+   "name": "SILVER POINT CAPITAL, L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/157738"
+  },
+  "h40": {
+   "raum": 50.4,
+   "filed": "2026-03-27",
+   "crd": "287999",
+   "name": "HOLOCENE ADVISORS, LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/287999"
+  },
+  "h44": {
+   "raum": 25.1,
+   "filed": "2026-06-03",
+   "crd": "132982",
+   "name": "PERSHING SQUARE CAPITAL MANAGEMENT, L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/132982"
+  },
+  "h45": {
+   "raum": 35.5,
+   "filed": "2026-06-12",
+   "crd": "331241",
+   "name": "ARINI CAPITAL MANAGEMENT LIMITED",
+   "src": "https://adviserinfo.sec.gov/firm/summary/331241"
+  },
+  "h46": {
+   "raum": 40.7,
+   "filed": "2026-08-31",
+   "crd": "155910",
+   "name": "HUDSON BAY CAPITAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/155910"
+  },
+  "h48": {
+   "raum": 28.8,
+   "filed": "2026-08-27",
+   "crd": "289307",
+   "name": "DIAMETER CAPITAL PARTNERS LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/289307"
+  },
+  "h50": {
+   "raum": 29.4,
+   "filed": "2026-07-10",
+   "crd": "147443",
+   "name": "VOLEON CAPITAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/147443"
+  },
+  "h51": {
+   "raum": 32,
+   "filed": "2026-08-05",
+   "crd": "136045",
+   "name": "MAGNETAR FINANCIAL LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/136045"
+  },
+  "h52": {
+   "raum": 29.8,
+   "filed": "2026-08-07",
+   "crd": "148885",
+   "name": "BEACH POINT CAPITAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/148885"
+  },
+  "h53": {
+   "raum": 42.9,
+   "filed": "2026-07-07",
+   "crd": "160925",
+   "name": "GRAHAM CAPITAL MANAGEMENT, L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/160925"
+  },
+  "h54": {
+   "raum": 19.3,
+   "filed": "2026-03-31",
+   "crd": "156873",
+   "name": "PENTWATER CAPITAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/156873"
+  },
+  "h55": {
+   "raum": 21.6,
+   "filed": "2026-03-30",
+   "crd": "156602",
+   "name": "LONE PINE CAPITAL LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/156602"
+  },
+  "h56": {
+   "raum": 33.5,
+   "filed": "2026-07-09",
+   "crd": "291738",
+   "name": "SONA ASSET MANAGEMENT (US) LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/291738"
+  },
+  "h58": {
+   "raum": 106.8,
+   "filed": "2026-03-30",
+   "crd": "159792",
+   "name": "TUDOR INVESTMENT CORPORATION",
+   "src": "https://adviserinfo.sec.gov/firm/summary/159792"
+  },
+  "h59": {
+   "raum": 16.7,
+   "filed": "2026-07-31",
+   "crd": "159465",
+   "name": "MONARCH",
+   "src": "https://adviserinfo.sec.gov/firm/summary/159465"
+  },
+  "h60": {
+   "raum": 15.8,
+   "filed": "2026-08-24",
+   "crd": "108262",
+   "name": "MAVERICK CAPITAL LTD",
+   "src": "https://adviserinfo.sec.gov/firm/summary/108262"
+  },
+  "h62": {
+   "raum": 17.8,
+   "filed": "2026-04-07",
+   "crd": "140659",
+   "name": "CEVIAN CAPITAL II GP LIMITED",
+   "src": "https://adviserinfo.sec.gov/firm/summary/140659"
+  },
+  "h67": {
+   "raum": 19.2,
+   "filed": "2026-03-31",
+   "crd": "163776",
+   "name": "PDT PARTNERS, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/163776"
+  },
+  "h71": {
+   "raum": 11,
+   "filed": "2026-05-12",
+   "crd": "158243",
+   "name": "REDWOOD CAPITAL MANAGEMENT, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/158243"
+  },
+  "h74": {
+   "raum": 13,
+   "filed": "2026-06-02",
+   "crd": "140746",
+   "name": "WHALE ROCK CAPITAL MANAGEMENT",
+   "src": "https://adviserinfo.sec.gov/firm/summary/140746"
+  },
+  "h84": {
+   "raum": 8.2,
+   "filed": "2026-09-11",
+   "crd": "156943",
+   "name": "STARBOARD VALUE LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/156943"
+  },
+  "h85": {
+   "raum": 5.1,
+   "filed": "2026-03-04",
+   "crd": "282219",
+   "name": "NUT TREE CAPITAL MANAGEMENT, LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/282219"
+  },
+  "h86": {
+   "raum": 5.1,
+   "filed": "2026-03-26",
+   "crd": "110858",
+   "name": "TT INTERNATIONAL",
+   "src": "https://adviserinfo.sec.gov/firm/summary/110858"
+  },
+  "h88": {
+   "raum": 5,
+   "filed": "2026-04-30",
+   "crd": "139217",
+   "name": "KIRKOSWALD CAPITAL MANAGEMENT LIMITED",
+   "src": "https://adviserinfo.sec.gov/firm/summary/139217"
+  },
+  "h91": {
+   "raum": 2.9,
+   "filed": "2026-02-25",
+   "crd": "287888",
+   "name": "MELQART ASSET MANAGEMENT (UK) LTD",
+   "src": "https://adviserinfo.sec.gov/firm/summary/287888"
+  },
+  "h93": {
+   "raum": 0.9,
+   "filed": "2026-06-26",
+   "crd": "155132",
+   "name": "TOSCAFUND ASSET MANAGEMENT",
+   "src": "https://adviserinfo.sec.gov/firm/summary/155132"
+  },
+  "h113": {
+   "raum": 41.7,
+   "filed": "2026-03-23",
+   "crd": "155058",
+   "name": "ALYESKA INVESTMENT GROUP, L.P.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/155058"
+  },
+  "h114": {
+   "raum": 33,
+   "filed": "2026-07-22",
+   "crd": "144078",
+   "name": "BRIGADE CAPITAL MANAGEMENT, LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/144078"
+  },
+  "h115": {
+   "raum": 19.1,
+   "filed": "2026-07-31",
+   "crd": "157876",
+   "name": "DEERFIELD MANAGEMENT COMPANY",
+   "src": "https://adviserinfo.sec.gov/firm/summary/157876"
+  },
+  "h116": {
+   "raum": 19,
+   "filed": "2026-05-07",
+   "crd": "157483",
+   "name": "KNIGHTHEAD CAPITAL MANAGEMENT, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/157483"
+  },
+  "h117": {
+   "raum": 15.7,
+   "filed": "2026-03-25",
+   "crd": "121995",
+   "name": "WHITEBOX ADVISORS LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/121995"
+  },
+  "h118": {
+   "raum": 100.3,
+   "filed": "2026-03-31",
+   "crd": "158343",
+   "name": "BRACEBRIDGE CAPITAL, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/158343"
+  },
+  "h119": {
+   "raum": 91.5,
+   "filed": "2026-08-05",
+   "crd": "155563",
+   "name": "CAPSTONE INVESTMENT ADVISORS, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/155563"
+  },
+  "h121": {
+   "raum": 13.9,
+   "filed": "2026-06-30",
+   "crd": "157630",
+   "name": "SRS INVESTMENT MANAGEMENT, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/157630"
+  },
+  "h125": {
+   "raum": 7.9,
+   "filed": "2026-07-01",
+   "crd": "165153",
+   "name": "MONTANOVA CAPITAL, LLC",
+   "src": "https://adviserinfo.sec.gov/firm/summary/165153"
+  },
+  "h127": {
+   "raum": 7.9,
+   "filed": "2026-03-26",
+   "crd": "157934",
+   "name": "KENSICO CAPITAL MANAGEMENT CORP.",
+   "src": "https://adviserinfo.sec.gov/firm/summary/157934"
+  },
+  "h131": {
+   "raum": 5.2,
+   "filed": "2026-03-18",
+   "crd": "283493",
+   "name": "SKYE GLOBAL MANAGEMENT LP",
+   "src": "https://adviserinfo.sec.gov/firm/summary/283493"
+  }
+ },
+ "unmatched": [
+  "h2",
+  "h6",
+  "h14",
+  "h15",
+  "h18",
+  "h19",
+  "h24",
+  "h26",
+  "h27",
+  "h29",
+  "h32",
+  "h34",
+  "h36",
+  "h37",
+  "h41",
+  "h42",
+  "h43",
+  "h47",
+  "h49",
+  "h61",
+  "h63",
+  "h64",
+  "h65",
+  "h66",
+  "h68",
+  "h69",
+  "h70",
+  "h78",
+  "h80",
+  "h81",
+  "h83",
+  "h89",
+  "h90",
+  "h97",
+  "h103",
+  "h105",
+  "h123",
+  "h124",
+  "h126",
+  "h128",
+  "h129",
+  "h130",
+  "h142",
+  "h144",
+  "h148",
+  "h149",
+  "h151"
+ ]
+}
