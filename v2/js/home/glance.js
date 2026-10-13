@@ -2517,7 +2517,7 @@ function renderFeed() {
   // reading pane. The dedicated sections keep their Bloomberg/FT sourcing — the Credit
   // page (Transactions), the hedge/manager Profiles and the Dashboard data panels have
   // their own renderers and are untouched; that beat is reported there and can't be
-  // re-sourced. Bot-walled-but-free sources (Reuters / AP / CNA / Straits Times) are NOT
+  // re-sourced. Bot-walled-but-free sources (AP / Straits Times) are NOT
   // dropped — they render in-pane via the Firecrawl browser proxy. The Newsletters lane
   // (_feedDesk "n") is exempt (subscriber content by nature). This replaces the old
   // ≤30% paywalled-share cap.

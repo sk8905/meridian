@@ -161,10 +161,10 @@ check(!feedQualityKeep({ source: "Investing.com Economics", title: "Singapore co
 // ---- Readable-only policy: the paywalled premium four are switched OFF at source
 // (commented out of FEED_SOURCES, reversibly), and the openly-readable replacements
 // are wired in. ------------------------------------------------------------------
-for (const off of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville", "The Lawyer", "Nikkei Asia"]) {
+for (const off of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville", "The Lawyer", "Nikkei Asia", "Channel NewsAsia"]) {
   check(!FEED_SOURCES.some((f) => f.source === off), `readable-only: ${off} is switched off (not an active feed source)`);
 }
-for (const [on, want] of [["Associated Press", {}], ["Channel NewsAsia", {}], ["Moody's", { fi: true }], ["The Straits Times", {}]]) {
+for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], ["The Straits Times", {}]]) {
   const src = bySource(on);
   check(!!src, `readable-only: ${on} is wired as an active source`);
   if (src && want.fi) check(src.fi === true, `readable-only: ${on} is routed to the FI (credit) desk`);

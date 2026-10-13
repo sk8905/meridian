@@ -3468,10 +3468,7 @@ export const FEED_SOURCES = [
   // bot-shielded, so the browser proxy (Firecrawl) renders them in-pane.
   { url: "https://www.scmp.com/rss/92/feed/", source: "South China Morning Post", region: "GEN", cap: 4 },
   { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
-  // Channel NewsAsia — the one solidly-open Asia business desk (markets, economy,
-  // banking, FX; its Business feed is globally-scoped, not SG-local). Renders
-  // in-pane via the browser proxy (Firecrawl). Standard macro/relevance filter.
-  { url: "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml&category=6936", source: "Channel NewsAsia", region: "GEN", cap: 5 },
+  // Channel NewsAsia removed as a wire source (2026-10, owner request).
   // Global aggregators removed: Yahoo Finance (RSS dominated by sensational
   // single-company clickbait with no reliable title signature to filter) and the
   // general Investing.com news feed (news_25). Investing.com is retained ONLY as

@@ -1093,9 +1093,10 @@ item keeps a real outbound source link (R7).
 > The Wall Street Journal, The Economist** — are **switched off** at source (commented
 > out in `FEED_SOURCES`, reversibly; the FT desk's static side is gated by `FT_DESK_ON`
 > in `v2/js/home/glance.js`). **Nikkei Asia** (hard paywall) and **The Lawyer** are
-> dropped. **Reuters was removed as a wire source (2026-10)** — reuters.com is bot-walled
+> dropped. **Channel NewsAsia was removed as a wire source (2026-10, owner request).**
+> **Reuters was removed as a wire source (2026-10)** — reuters.com is bot-walled
 > and never opened in the reading pane, so its headlines were dead-ends. The remaining
-> open-but-bot-shielded sources (AP, CNA, The Straits Times) render via the on-demand
+> open-but-bot-shielded sources (AP, The Straits Times) render via the on-demand
 > browser proxy — **Jina by default; Firecrawl only for an explicit `READ_FC_HOSTS`
 > allowlist** (empty by default) so interactive reading doesn't drain paid Firecrawl
 > credit (see `_readViaProxy` / `readProxyChoice` in `src/index.js`). The old ≤30%
@@ -1104,7 +1105,6 @@ item keeps a real outbound source link (R7).
 - CNBC (`cnbc.com`)
 - MarketWatch
 - City AM (`cityam.com`)
-- Channel NewsAsia (`channelnewsasia.com`) — open Asia business desk
 - South China Morning Post (`scmp.com`)
 - The Straits Times (`straitstimes.com`)
 - Google News (`news.google.com`) — aggregation
