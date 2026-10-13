@@ -48,6 +48,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-fullofforeboding-20261013",
+    publication: "Bloomberg",
+    author: "Ben Holland",
+    series: "Economics Daily",
+    title: "Economics Daily: Full of foreboding",
+    date: "2026-10-13",
+    time: "12:00",
+    summary: "Headline numbers in the IMF's latest forecasts aren't too bad, but its report is full of gloom.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-13/why-the-ai-boom-is-papering-over-cracks-in-global-economy",
+  },
+  {
     id: "nl-reuters-tradingday-fogofwar-20261012",
     publication: "Reuters",
     author: "Jamie McGeever",

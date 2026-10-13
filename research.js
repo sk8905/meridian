@@ -66,6 +66,7 @@ export const PUBLISHERS = {
   // actual content-sender domain against that first delivery (the verify mail's `pimco.com` may
   // not be the sending domain for the notes themselves, as with Apollo/UBS).
   "pimco.com": "PIMCO",
+  "preqin.blackrock.com": "Preqin",
   // SIGNED UP / arriving but NOT yet activated — a sweep candidate, pending a call on
   // whether it belongs in Research vs Newsletters (see docs/refresh-routines.md §4a):
   //   • preqin.blackrock.com — Preqin "First Close" (private-markets data/intelligence).
@@ -101,6 +102,39 @@ export function isResearchPublication(name) {
 // so an entity like "AI&rsquo;s" or "S&amp;P" would show LITERALLY. (Only the
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
+  {
+    id: "rsch-apollo-10yr-decomposition-20261013",
+    publication: "Apollo Academy",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "Decomposing the Move Higher in 10-Year Rates",
+    date: "2026-10-13",
+    time: "11:46",
+    summary: "US 10-year yields are up about 100bp year to date; a Fed-economist model attributes the rise to a higher expected path of real short rates and a higher term premium.",
+    url: "https://www.apolloacademy.com/the-daily-spark/",
+  },
+  {
+    id: "rsch-withintelligence-pe-insights-arclinespinout-20261013",
+    publication: "With Intelligence",
+    author: null,
+    series: "Private Equity Insights",
+    title: "Private Equity Insights: Arcline spinout preps 2027 fundraise",
+    date: "2026-10-13",
+    time: "14:20",
+    summary: "Weekly private equity roundup led by Arcline spinout Fathom Point preparing a 2027 fundraise, plus Ajax Health at $1bn toward a $1.5bn medtech fund.",
+    url: "https://pardot.withintelligence.com/webmail/284832/3602101148/23fcdd7c20d30df223e97a343c7c91b872fd93050b0c889e2b0abf0950a7caa2",
+  },
+  {
+    id: "rsch-preqin-firstclose-middleeast-20261013",
+    publication: "Preqin",
+    author: "Younes Omar",
+    series: "First Close",
+    title: "Middle East institutions look to energy, renewables, and digital infrastructure",
+    date: "2026-10-13",
+    time: "12:27",
+    summary: "Preqin data shows 61% of Middle East-based institutions are interested in regional infrastructure, with energy the most-cited sector at about 45% of LPs.",
+    url: "https://go.preqin.com/webmail/909852/2206475236/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665",
+  },
   {
     id: "rsch-withintelligence-weekly-jpmametf-20261012",
     publication: "With Intelligence",

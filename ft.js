@@ -21,6 +21,132 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "0a39fcdb-860c-4739-8454-21fb429f6336",
+    title: "Submit your questions: Who’s winning the trade war with China — the EU or US?",
+    date: "2026-10-13",
+    time: "15:16",
+    url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336"
+  },
+  {
+    id: "87a1a5a1-4942-47dd-856a-d9a694f7d2fd",
+    title: "White House asks US envoy to Greece Kimberly Guilfoyle to resign",
+    date: "2026-10-13",
+    time: "15:14",
+    url: "https://www.ft.com/content/87a1a5a1-4942-47dd-856a-d9a694f7d2fd"
+  },
+  {
+    id: "fbaeca48-5f50-40ca-b45e-5de62ad52b83",
+    title: "London Stock Exchange owner in talks to buy credit specialist Octus",
+    date: "2026-10-13",
+    time: "14:41",
+    url: "https://www.ft.com/content/fbaeca48-5f50-40ca-b45e-5de62ad52b83"
+  },
+  {
+    id: "900ff462-3cbb-41af-9a29-1e4aa3d0ab4e",
+    title: "Why we need a proper conversation about death",
+    date: "2026-10-13",
+    time: "14:34",
+    url: "https://www.ft.com/content/900ff462-3cbb-41af-9a29-1e4aa3d0ab4e"
+  },
+  {
+    id: "787acc7e-f0d3-4552-a369-4b4c967e4ca5",
+    title: "European gas hits Iran wartime high",
+    date: "2026-10-13",
+    time: "14:32",
+    url: "https://www.ft.com/content/787acc7e-f0d3-4552-a369-4b4c967e4ca5"
+  },
+  {
+    id: "f7e3debb-613a-4b33-8f57-341a493693de",
+    title: "Elon Musk becomes Republicans’ biggest donor for US midterm elections",
+    date: "2026-10-13",
+    time: "14:21",
+    url: "https://www.ft.com/content/f7e3debb-613a-4b33-8f57-341a493693de"
+  },
+  {
+    id: "e4c33601-88e9-43fc-b920-1cecc2709dbd",
+    title: "Gulf oil production rebounds ahead of increase in Iran war hostilities",
+    date: "2026-10-13",
+    time: "13:53",
+    url: "https://www.ft.com/content/e4c33601-88e9-43fc-b920-1cecc2709dbd"
+  },
+  {
+    id: "d63348fb-901d-4ff3-9cdc-0d023778dbc2",
+    title: "Healey rejects calls to equalise capital gains and income tax rates",
+    date: "2026-10-13",
+    time: "13:43",
+    url: "https://www.ft.com/content/d63348fb-901d-4ff3-9cdc-0d023778dbc2"
+  },
+  {
+    id: "c6bd25b8-ef9e-41a3-90d2-29c132e10ec2",
+    title: "Bulgaria suggests Russia behind ship attack that left 11 sailors missing",
+    date: "2026-10-13",
+    time: "13:21",
+    url: "https://www.ft.com/content/c6bd25b8-ef9e-41a3-90d2-29c132e10ec2"
+  },
+  {
+    id: "da00e3ff-4392-46d8-bab5-13b4ccc49995",
+    title: "Zelenskyy says Kyiv’s partners failed to warn of ballistic missile attack",
+    date: "2026-10-13",
+    time: "13:06",
+    url: "https://www.ft.com/content/da00e3ff-4392-46d8-bab5-13b4ccc49995"
+  },
+  {
+    id: "a4ab83d4-81b5-4336-9569-a0708b41e894",
+    title: "Ships in Hormuz strait hit by worst spate of attacks since start of war",
+    date: "2026-10-13",
+    time: "13:04",
+    url: "https://www.ft.com/content/a4ab83d4-81b5-4336-9569-a0708b41e894"
+  },
+  {
+    id: "a0921eb6-637e-4fac-b15d-ea7aef441e6a",
+    title: "Iran has made ‘major shift’ to target UK military sites, says MI5 chief",
+    date: "2026-10-13",
+    time: "13:00",
+    url: "https://www.ft.com/content/a0921eb6-637e-4fac-b15d-ea7aef441e6a"
+  },
+  {
+    id: "183ace53-2a89-43a9-88c1-9ea1e1b4437d",
+    title: "The world economy is running hotter than expected",
+    date: "2026-10-13",
+    time: "12:30",
+    url: "https://www.ft.com/content/183ace53-2a89-43a9-88c1-9ea1e1b4437d"
+  },
+  {
+    id: "73257952-844b-4f5f-a1cb-112ae9cb0249",
+    title: "Can energy help Mexico in trade talks with Trump?",
+    date: "2026-10-13",
+    time: "12:00",
+    url: "https://www.ft.com/content/73257952-844b-4f5f-a1cb-112ae9cb0249"
+  },
+  {
+    id: "46bd62aa-73e1-4944-a242-f883d05191f1",
+    title: "Can a Hollywood star persuade you to become an art collector?",
+    date: "2026-10-13",
+    time: "12:00",
+    url: "https://www.ft.com/content/46bd62aa-73e1-4944-a242-f883d05191f1"
+  },
+  {
+    id: "763bf1f5-9b5d-4f7e-b865-b16d7a9a313a",
+    title: "JPMorgan fixed income miss: a signal the boom is fading?",
+    date: "2026-10-13",
+    time: "11:59",
+    url: "https://www.ft.com/content/763bf1f5-9b5d-4f7e-b865-b16d7a9a313a"
+  },
+  {
+    id: "c6a28cf5-cd3c-447b-ad79-dcc247fc6fdf",
+    title: "How governments spend money",
+    date: "2026-10-13",
+    time: "11:49",
+    url: "https://www.ft.com/content/c6a28cf5-cd3c-447b-ad79-dcc247fc6fdf"
+  },
+  {
+    id: "25ddd4fb-0075-4642-8f76-fa4ac912a172",
+    title: "Dimon ‘prepared for a wide range of outcomes’ in US economy",
+    date: "2026-10-13",
+    time: "11:45",
+    url: "https://www.ft.com/content/25ddd4fb-0075-4642-8f76-fa4ac912a172"
+  },
+  {
     id: "5d92ea15-6211-43c4-9e41-d1b7f085dd4c",
     title: "BP to set out new strategy after windfall year",
     date: "2026-10-13",
@@ -173,131 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-13",
     time: "05:00",
     url: "https://www.ft.com/content/2caa52e1-637a-4934-802e-418b649b4c12"
-  },
-  {
-    id: "f01b8a11-559f-4a65-a642-246b78bbdd93",
-    title: "The best gilets for finance bros",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/f01b8a11-559f-4a65-a642-246b78bbdd93"
-  },
-  {
-    id: "83d2fb38-4b98-40c4-b700-39190b605e38",
-    title: "Daisy Lafarge wants to dress her disability differently",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/83d2fb38-4b98-40c4-b700-39190b605e38"
-  },
-  {
-    id: "f304f929-62b7-4c15-8da4-5dcfb78b8117",
-    title: "Landowners should look to regenerative agriculture for their future",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/f304f929-62b7-4c15-8da4-5dcfb78b8117"
-  },
-  {
-    id: "15ae6a2e-6010-4d78-a752-2eeeca1e1c55",
-    title: "Will Accenture survive or thrive in the age of AI?",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/15ae6a2e-6010-4d78-a752-2eeeca1e1c55"
-  },
-  {
-    id: "6cfc1469-df2d-4f56-953a-77a15ed26e1f",
-    title: "Unreliable Boyfriend — Chrystia Freeland’s roadmap for dealing with a chaotic superpower",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/6cfc1469-df2d-4f56-953a-77a15ed26e1f"
-  },
-  {
-    id: "987c9d16-f77c-4307-a9a8-66d67da5f658",
-    title: "Biotech start-ups turn to reverse mergers to fast-track listings",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/987c9d16-f77c-4307-a9a8-66d67da5f658"
-  },
-  {
-    id: "080dfd83-3d5b-4256-a002-3e61e4c0a1c8",
-    title: "Selling a home? Think documents before decor",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/080dfd83-3d5b-4256-a002-3e61e4c0a1c8"
-  },
-  {
-    id: "09f24d32-9bc5-4011-85f8-410625e7717f",
-    title: "Can a financier really revive LIV Golf?",
-    date: "2026-10-12",
-    time: "14:59",
-    url: "https://www.ft.com/content/09f24d32-9bc5-4011-85f8-410625e7717f"
-  },
-  {
-    id: "da71c823-ca31-4eaa-8e6e-6baacea986a4",
-    title: "Nato’s supreme commander warns Moscow against attacks in Europe",
-    date: "2026-10-12",
-    time: "14:34",
-    url: "https://www.ft.com/content/da71c823-ca31-4eaa-8e6e-6baacea986a4"
-  },
-  {
-    id: "a663781e-2709-41f2-99df-4fb5a6162e6b",
-    title: "Diesel prices slip after Trump claims ‘energy ceasefire’ in Ukraine war",
-    date: "2026-10-12",
-    time: "14:23",
-    url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"
-  },
-  {
-    id: "af0a5da6-abc7-41ab-85cf-da806fc7a6e5",
-    title: "Franco-German deal on EU car policy is ‘imminent’, says Emmanuel Macron",
-    date: "2026-10-12",
-    time: "14:10",
-    url: "https://www.ft.com/content/af0a5da6-abc7-41ab-85cf-da806fc7a6e5"
-  },
-  {
-    id: "e374bc1a-bd56-40b4-98c9-d1b502ef9d47",
-    title: "Europe is finally confronting China",
-    date: "2026-10-12",
-    time: "14:00",
-    url: "https://www.ft.com/content/e374bc1a-bd56-40b4-98c9-d1b502ef9d47"
-  },
-  {
-    id: "e67a9120-4dec-4796-8414-3f4990b01f11",
-    title: "Labour plan to cut funds from heat pump scheme sparks industry backlash",
-    date: "2026-10-12",
-    time: "13:26",
-    url: "https://www.ft.com/content/e67a9120-4dec-4796-8414-3f4990b01f11"
-  },
-  {
-    id: "463be44f-5477-46e6-b4d2-460fa2551064",
-    title: "India’s Narendra Modi faces ‘bitter pill’ as Cockroach protests mount",
-    date: "2026-10-12",
-    time: "13:08",
-    url: "https://www.ft.com/content/463be44f-5477-46e6-b4d2-460fa2551064"
-  },
-  {
-    id: "ba28b7cd-293e-4eee-a073-ad81aaefced3",
-    title: "AI regulation must mimic Industrial Revolution laws, UK minister says",
-    date: "2026-10-12",
-    time: "13:01",
-    url: "https://www.ft.com/content/ba28b7cd-293e-4eee-a073-ad81aaefced3"
-  },
-  {
-    id: "90d5003e-dbec-4db3-88d2-d30d9c2a119d",
-    title: "The EU has more bark but lacks bite towards China",
-    date: "2026-10-12",
-    time: "12:31",
-    url: "https://www.ft.com/content/90d5003e-dbec-4db3-88d2-d30d9c2a119d"
-  },
-  {
-    id: "863619b6-c4a7-4b1a-8a53-6950d47d1833",
-    title: "Putin is breaching Trump’s ‘energy ceasefire’, Zelenskyy says",
-    date: "2026-10-12",
-    time: "12:22",
-    url: "https://www.ft.com/content/863619b6-c4a7-4b1a-8a53-6950d47d1833"
-  },
-  {
-    id: "c5ff7ed6-a42d-4ff3-8efa-485b1046102d",
-    title: "Prune Nourry: how I resurrected Paris’s forgotten female artists",
-    date: "2026-10-12",
-    time: "12:00",
-    url: "https://www.ft.com/content/c5ff7ed6-a42d-4ff3-8efa-485b1046102d"
   }
 ];
