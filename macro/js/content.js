@@ -1013,8 +1013,8 @@ export const NEWS = {
     {title: "Rising Treasury bill issuance puts pressure on short-term rates", source: "Financial Times", date: "2026-10-13", time: "05:30", url: "https://www.ft.com/content/f5ca22c7-8340-4189-8c40-224a1e16c5ef"},
     {title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss", source: "Financial Times", date: "2026-10-13", time: "06:44", url: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63"},
     {title: "Investors brave US Treasury rout to lock in highest yields in decades", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8"},
-    {title: "Trump-Zelenskyy diesel spat reignites Europe’s White House angst", source: "Financial Times", date: "2026-10-13", time: "06:00", url: "https://www.ft.com/content/73c8d82e-68ea-4846-b28c-a0bc4069be36"},
-    {title: "Wall Street’s record-breaking trading streak set to cool", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2"},
+    {title: "Bank earnings live updates: Here's how JPMorgan, Goldman, Wells Fargo and Citi performed in Q3", source: "CNBC", date: "2026-10-13", url: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html"},
+    {title: "JPMorgan, Goldman Sachs, Citigroup and Wells Fargo post strong profits, but warn rising interest rates and 'sticky inflation' will bite", source: "Fortune", date: "2026-10-13", url: "https://fortune.com/2026/10/13/jpmorgan-goldman-sachs-citigroup-wells-fargo-interest-inflation/"},
   ],  uk: [
     {title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"},
     {title: "How BT’s TalkTalk swoop left broadband rivals fuming", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/39da2672-e57a-41aa-8f03-970ae37d88a6"},
@@ -1260,23 +1260,17 @@ export const EARNINGS = {
   weeks: [
     { label: "This week \u00b7 12\u201316 Oct", days: [
       { date: "2026-10-13", rows: [
-        { t: "JPM", n: "JPMorgan Chase", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
-        { t: "GS", n: "Goldman Sachs", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
-        { t: "C", n: "Citigroup", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+        { t: "JPM", n: "JPMorgan Chase", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: "$5.93 (LSEG consensus)", estRev: "$51.23bn (LSEG consensus)", actEps: "$5.57", actRev: "$50.2bn", px: null, note: "Q3 2026. Reported diluted EPS $5.57 on $50.2bn revenue \u2014 below consensus; $5.75 ex $658m securities losses. Equities trading revenue strong, fixed income softer; buybacks reduced." },
+        { t: "GS", n: "Goldman Sachs", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: "$13.65 (avg est)", estRev: null, actEps: "$17.01", actRev: "$18.68bn", px: null, note: "Q3 2026 (8-K). Net earnings $5.29bn, diluted EPS $17.01 on $18.68bn revenue; equities revenue $6.44bn, up 72% y/y." },
+        { t: "C", n: "Citigroup", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: "$2.65 (avg est)", estRev: null, actEps: "$2.85", actRev: "$23.8bn", px: null, note: "Q3 2026. Net income ~$5.2bn, EPS $2.85 on ~$23.8bn revenue; best third-quarter fixed-income result in at least a decade; 2026 EPS guidance raised to $11.05-11.15." },
+        { t: "WFC", n: "Wells Fargo", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: "$1.84 (avg est)", estRev: null, actEps: "$1.87", actRev: "$21.9bn", px: null, note: "Q3 2026. Net income $5.95bn, EPS $1.87 on ~$21.9bn revenue (+2% y/y); shares fell on the revenue read." },
       ] },
       { date: "2026-10-14", rows: [
-        { t: "BLK", n: "BlackRock", tag: "Asset management \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
-        { t: "BAC", n: "Bank of America", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
-        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
-      ] },
-      { date: "2026-10-15", rows: [
-        { t: "SCHW", n: "Charles Schwab", tag: "Brokerage \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
-      ] },
-      { date: "2026-10-16", rows: [
-        { t: "TRV", n: "Travelers", tag: "Insurance \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+        { t: "BAC", n: "Bank of America", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 results scheduled Wed 14 Oct before the open. Consensus not yet verified." },
+        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 NYSE", when: "Before open", held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 results scheduled Wed 14 Oct before the open. Consensus not yet verified." },
       ] },
     ] },
-      { label: "Last week \u00b7 6\u201310 Oct", days: [
+    { label: "Last week \u00b7 5\u20139 Oct", days: [
       { date: "2026-10-06", rows: [
         { t: "STZ", n: "Constellation Brands", tag: "Beer, wine & spirits \u00b7 NYSE", when: "After close", held: [], estEps: "$3.55-3.62 (avg est)", estRev: "$2.54-2.57bn (avg est; ~3-4% y/y)", actEps: null, actRev: null, px: null, note: "Q2 FY2027 (quarter ended Aug). Consensus ~$3.55-3.62 EPS, broadly flat to slightly down y/y, on ~$2.54-2.57bn revenue; beer depletions and aluminium-tariff cost pressure in focus. Conference call 8:00am ET on 7 Oct." },
       ] },
@@ -1289,7 +1283,10 @@ export const EARNINGS = {
     ] },
   ],
   srcs: [
-    { name: "Newsquawk \u2014 Weekly US Earnings Estimates: 12-16th October 2026", url: "https://www.newsquawk.com/headlines/newsquawk-weekly-us-earnings-estimates-12-16th-october-2026-earnings-season-begins-with-big-banks-the-highlights" },
+    { name: "CNBC \u2014 Bank earnings live updates: JPMorgan, Goldman, Wells Fargo and Citi in Q3", url: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html" },
+    { name: "Goldman Sachs \u2014 Form 8-K, third quarter 2026 earnings results", url: "https://www.sec.gov/Archives/edgar/data/0000886982/000088698226000529/a3q26gsearningsresults.htm" },
+    { name: "Fortune \u2014 JPMorgan, Goldman Sachs, Citigroup and Wells Fargo post strong profits", url: "https://fortune.com/2026/10/13/jpmorgan-goldman-sachs-citigroup-wells-fargo-interest-inflation/" },
+    { name: "24/7 Wall St. \u2014 Earnings on deck, 12-16 Oct", url: "https://247wallst.com/cards/q3-earnings-season-front-loads-everything-into-two-mornings-unh-earnings-calendar-01m4gswtqct7fbk8xh1qmb2pkm" },
     { name: "Alphastreet — Constellation Brands (STZ) Q2 2027 Preview: EPS Est. $3.55, Reports October 7", url: "https://news.alphastreet.com/constellation-brands-stz-q2-2027-preview-eps-est-3-55-reports-october-7/" },
     { name: "ScanX — Constellation Brands Q2 Earnings: Analysts eye $3.56 EPS, $2.54B revenue", url: "https://scanx.trade/stock-market-news/companies/constellation-brands-q2-earnings-analysts-eye-3-56-eps-2-54b-revenue/52747563" },
     { name: "StockTitan — Constellation Brands to Report Second Quarter Fiscal 2027 Financial Results on October 6, 2026, After Market Close", url: "https://www.stocktitan.net/news/STZ/constellation-brands-to-report-second-quarter-fiscal-2027-financial-88ejfwqedqtd.html" },

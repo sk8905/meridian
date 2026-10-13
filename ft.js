@@ -21,6 +21,41 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "bd1f3385-1985-4a8a-a781-22cbe1292d2d",
+    title: "Wall Street plays down investor fears of faltering trading boom",
+    date: "2026-10-13",
+    time: "17:10",
+    url: "https://www.ft.com/content/bd1f3385-1985-4a8a-a781-22cbe1292d2d"
+  },
+  {
+    id: "591cf3da-e7c1-4b04-9511-fea8785f983d",
+    title: "English football on ‘edge of financial disaster’, warns game’s new regulator",
+    date: "2026-10-13",
+    time: "17:01",
+    url: "https://www.ft.com/content/591cf3da-e7c1-4b04-9511-fea8785f983d"
+  },
+  {
+    id: "87a1a5a1-4942-47dd-856a-d9a694f7d2fd",
+    title: "White House asks US envoy to Greece Kimberly Guilfoyle to resign",
+    date: "2026-10-13",
+    time: "16:32",
+    url: "https://www.ft.com/content/87a1a5a1-4942-47dd-856a-d9a694f7d2fd"
+  },
+  {
+    id: "b31aaac7-69c1-40da-9c2f-d4f025104d24",
+    title: "Creditors sue Patrick Drahi’s Altice International over asset shifts",
+    date: "2026-10-13",
+    time: "16:27",
+    url: "https://www.ft.com/content/b31aaac7-69c1-40da-9c2f-d4f025104d24"
+  },
+  {
+    id: "52a1bbdd-2171-4fcb-9efe-99ed4283def5",
+    title: "How not to revive Europe’s auto industry",
+    date: "2026-10-13",
+    time: "16:03",
+    url: "https://www.ft.com/content/52a1bbdd-2171-4fcb-9efe-99ed4283def5"
+  },
+  {
     id: "0a39fcdb-860c-4739-8454-21fb429f6336",
     title: "Submit your questions: Who’s winning the trade war with China — the EU or US?",
     date: "2026-10-13",
@@ -28,11 +63,11 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336"
   },
   {
-    id: "87a1a5a1-4942-47dd-856a-d9a694f7d2fd",
-    title: "White House asks US envoy to Greece Kimberly Guilfoyle to resign",
+    id: "e16f0422-cf75-4cc9-962d-4605e421dc63",
+    title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss",
     date: "2026-10-13",
-    time: "15:14",
-    url: "https://www.ft.com/content/87a1a5a1-4942-47dd-856a-d9a694f7d2fd"
+    time: "14:53",
+    url: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63"
   },
   {
     id: "fbaeca48-5f50-40ca-b45e-5de62ad52b83",
@@ -61,6 +96,13 @@ export const FT_ITEMS = [
     date: "2026-10-13",
     time: "14:21",
     url: "https://www.ft.com/content/f7e3debb-613a-4b33-8f57-341a493693de"
+  },
+  {
+    id: "93c7f91d-7daa-44bb-8a45-62b214106e73",
+    title: "Pope Leo admitted to hospital for lung surgery",
+    date: "2026-10-13",
+    time: "14:01",
+    url: "https://www.ft.com/content/93c7f91d-7daa-44bb-8a45-62b214106e73"
   },
   {
     id: "e4c33601-88e9-43fc-b920-1cecc2709dbd",
@@ -161,13 +203,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/1cf8da1d-8abd-40a6-bcd2-055ee49c7fcb"
   },
   {
-    id: "e16f0422-cf75-4cc9-962d-4605e421dc63",
-    title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss",
-    date: "2026-10-13",
-    time: "06:44",
-    url: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63"
-  },
-  {
     id: "27be530d-2faf-43ce-874f-0e6e0802bee2",
     title: "China gets spiky on currencies",
     date: "2026-10-13",
@@ -224,13 +259,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/c913d391-f4e2-439c-82d6-8f6205b31b0f"
   },
   {
-    id: "93c7f91d-7daa-44bb-8a45-62b214106e73",
-    title: "Pope Leo prepares to undergo lung surgery",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/93c7f91d-7daa-44bb-8a45-62b214106e73"
-  },
-  {
     id: "6fa735a2-a590-4461-b092-920ba489e7a8",
     title: "Investors brave US Treasury rout to lock in highest yields in decades",
     date: "2026-10-13",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-13",
     time: "05:00",
     url: "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1"
-  },
-  {
-    id: "bbe24952-d66f-480e-b0a8-94339d75bc48",
-    title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"
-  },
-  {
-    id: "c16b5a2d-f653-494f-9c18-587685f34bc2",
-    title: "Companies face rising number of UK complaints over conduct",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/c16b5a2d-f653-494f-9c18-587685f34bc2"
-  },
-  {
-    id: "16e1d29b-3680-4712-b8e7-ed4a4125041a",
-    title: "Who’s really hiring you — HR or cyber security?",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/16e1d29b-3680-4712-b8e7-ed4a4125041a"
-  },
-  {
-    id: "2caa52e1-637a-4934-802e-418b649b4c12",
-    title: "Criminals could walk free without controls on AI use, police watchdog warns",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/2caa52e1-637a-4934-802e-418b649b4c12"
   }
 ];

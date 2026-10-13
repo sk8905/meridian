@@ -48,6 +48,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-newsdaily-mancitysupersilk-20261013",
+    publication: "The Lawyer",
+    author: null,
+    series: "News Daily",
+    title: "Manchester City adds £9m ‘super silk’ to legal team",
+    date: "2026-10-13",
+    time: "16:41",
+    summary: "Brick Court Chambers' Mark Howard KC is assisting Manchester City with its ongoing legal case against the Premier League.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/eiZPL0RC3hfD",
+  },
+  {
+    id: "nl-bloomberg-marketsdaily-aiexposure-20261013",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: AI exposure",
+    date: "2026-10-13",
+    time: "11:24",
+    summary: "AI exposure surges along with investor expectations; plus why the fiscal focus is on France and the UK.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-13/ai-exposure-surges-along-with-investor-expectations",
+  },
+  {
     id: "nl-bbg-economicsdaily-fullofforeboding-20261013",
     publication: "Bloomberg",
     author: "Ben Holland",
