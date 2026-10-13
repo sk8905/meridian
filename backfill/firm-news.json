@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T17:52:26.322Z",
+ "generated": "2026-10-13T17:59:10.171Z",
  "since": "2026-09-29",
  "firms": {
   "proskauerrose": {
@@ -10,7 +10,15 @@
    "urls": 25323,
    "kept": 0,
    "fetched": 0,
-   "errors": 0
+   "errors": 0,
+   "samples": [
+    "https://www.proskauer.com/practices/latin-america @2026-07-31",
+    "https://www.proskauer.com/practices/white-collar-defense-investigations @2026-07-31",
+    "https://www.proskauer.com/practices/whistleblowing-retaliation @2026-07-31",
+    "https://www.proskauer.com/practices/disability-accommodations-leave-management @2026-07-31",
+    "https://www.proskauer.com/practices/environmental @2026-07-31",
+    "https://www.proskauer.com/practices/employment-litigation @2026-07-31"
+   ]
   },
   "freshfields": {
    "domains": [
@@ -18,8 +26,8 @@
    ],
    "sitemaps": 5,
    "urls": 7352,
-   "kept": 38,
-   "fetched": 38,
+   "kept": 35,
+   "fetched": 35,
    "errors": 0
   },
   "aoshearman": {
@@ -66,6 +74,16 @@
    "fetched": 18,
    "errors": 22
   },
+  "cliffordchance": {
+   "domains": [
+    "www.cliffordchance.com"
+   ],
+   "sitemaps": 27,
+   "urls": 13013,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 7
+  },
   "traverssmith": {
    "domains": [
     "www.traverssmith.com"
@@ -84,17 +102,8 @@
    "urls": 0,
    "kept": 0,
    "fetched": 0,
-   "errors": 1
-  },
-  "cliffordchance": {
-   "domains": [
-    "www.cliffordchance.com"
-   ],
-   "sitemaps": 27,
-   "urls": 13013,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 7
+   "errors": 1,
+   "samples": []
   },
   "macfarlanes": {
    "domains": [
@@ -140,11 +149,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 5,
-   "urls": 6762,
+   "sitemaps": 6,
+   "urls": 7173,
    "kept": 7,
    "fetched": 7,
-   "errors": 12
+   "errors": 11
   },
   "ropesgray": {
    "domains": [
@@ -164,7 +173,15 @@
    "urls": 21599,
    "kept": 0,
    "fetched": 0,
-   "errors": 0
+   "errors": 0,
+   "samples": [
+    "https://www.stblaw.com/ @2025-03-20",
+    "https://www.stblaw.com/about-us/news/view/ @2025-03-20",
+    "https://www.stblaw.com/about-us/publications/view/ @2025-03-20",
+    "https://www.stblaw.com/client-services/practices @2025-03-20",
+    "https://www.stblaw.com/our-team @2025-03-20",
+    "https://www.stblaw.com/client-services/practices/corporate @2025-03-20"
+   ]
   },
   "davispolk": {
    "domains": [
@@ -177,27 +194,6 @@
    "fetched": 27,
    "errors": 0
   },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2
-  },
-  "klgates": {
-   "domains": [
-    "www.klgates.com"
-   ],
-   "sitemaps": 1,
-   "urls": 12270,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0
-  },
   "stephensonharwood": {
    "domains": [
     "www.shlegal.com"
@@ -208,14 +204,14 @@
    "fetched": 15,
    "errors": 0
   },
-  "reedsmith": {
+  "klgates": {
    "domains": [
-    "www.reedsmith.com"
+    "www.klgates.com"
    ],
-   "sitemaps": 5,
-   "urls": 11549,
-   "kept": 16,
-   "fetched": 16,
+   "sitemaps": 1,
+   "urls": 12270,
+   "kept": 15,
+   "fetched": 15,
    "errors": 0
   },
   "weil": {
@@ -232,6 +228,37 @@
    "fetched": 40,
    "errors": 0
   },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11549,
+   "kept": 16,
+   "fetched": 16,
+   "errors": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18687,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1
+  },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16321,
+   "kept": 39,
+   "fetched": 39,
+   "errors": 0
+  },
   "southsquare": {
    "domains": [
     "southsquare.com"
@@ -240,27 +267,15 @@
    "urls": 450,
    "kept": 0,
    "fetched": 0,
-   "errors": 0
-  },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
-   ],
-   "sitemaps": 9,
-   "urls": 16321,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0
-  },
-  "hoganlovells": {
-   "domains": [
-    "www.hoganlovells.com"
-   ],
-   "sitemaps": 2,
-   "urls": 21366,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0
+   "errors": 0,
+   "samples": [
+    "https://southsquare.com/third-six-pupillage-applications/ @2023-06-06",
+    "https://southsquare.com/south-square-team-in-the-lawyers-top-20-cases-for-london-capital-finance/ @2024-01-09",
+    "https://southsquare.com/south-square-grows-its-adr-service-with-international-arbitrator-and-mediator/ @2024-01-19",
+    "https://southsquare.com/court-of-appeal-overturns-adler-restructuring-plan/ @2024-01-23",
+    "https://southsquare.com/rabin-kok-triumphs-in-royalelife-collapse/ @2024-01-23",
+    "https://southsquare.com/south-square-integral-to-the-successful-sanction-of-aoyuans-restructuring-schemes/ @2024-01-23"
+   ]
   },
   "latham": {
    "domains": [
@@ -271,63 +286,19 @@
    "kept": 40,
    "fetched": 38,
    "errors": 2
+  },
+  "hoganlovells": {
+   "domains": [
+    "www.hoganlovells.com"
+   ],
+   "sitemaps": 2,
+   "urls": 21366,
+   "kept": 40,
+   "fetched": 35,
+   "errors": 5
   }
  },
  "items": [
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/12/georgetown-law-irs-annual-institute-on-current-issues-in-international-taxation",
-   "title": "Georgetown Law/IRS Annual Institute on Current Issues in International Taxation | Insights | Mayer Brown",
-   "description": "Mayer Brown is proud to sponsor the Georgetown Law/IRS Annual Institute on Current Issues in International Taxation. Tax partners Sonal Majmudar and",
-   "date": "2026-12-14",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/11/randd-tax-credit-roundtable",
-   "title": "R&D Tax Credit Roundtable | Insights | Mayer Brown",
-   "description": "The R&D tax credit is changing quickly; Form 6765 is being redesigned, the IRS is looking more closely at ASC 730 positions, and new case law is",
-   "date": "2026-11-04",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/11/imn-cre-clos-conference",
-   "title": "IMN CRE CLOs Conference | Insights | Mayer Brown",
-   "description": "We are proud to be a partner sponsor of the IMN&#x27;s CRE CLOs Conference, taking place November 3, 2026, in New York, New York. The forum brings",
-   "date": "2026-11-03",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/11/tei-sjsu-high-tech-tax-institute",
-   "title": "TEI-SJSU High Tech Tax Institute | Insights | Mayer Brown",
-   "description": "Mayer Brown is proud to sponsor TEI and SJSU&#x27;s 42nd Annual High Tech Tax Institute. Tax partners Maria Critelli, Brian Kittle, and Paul DiSangro will",
-   "date": "2026-11-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/10/capital-markets-know-how-series-investor-due-diligence-under-the-eu-securitisation-regulation",
-   "title": "Capital Markets Know-How Series | Investor due diligence under the EU Securitisation Regulation | Insights | Mayer Brown",
-   "description": "Mayer Brown&#x27;s Capital Markets and Financial Services Regulatory Team cordially invites you to our 30-Minute Know-How Webinar Series. Throughout this",
-   "date": "2026-10-22",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/10/tax-executives-institute-tei-2026-annual-conference",
-   "title": "Tax Executives Institute (TEI) 2026 Annual Conference | Insights | Mayer Brown",
-   "description": "Mayer Brown is proud to sponsor TEI&#x27;s 2026 Annual Conference. The four-day program will cover critical developments in federal, international, state",
-   "date": "2026-10-18",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
   {
    "firm": "aoshearman",
    "url": "https://www.aoshearman.com/en/download/media/project/aoshearman/aoshearman/blogs/documents/uk-industrial-relations---key-changes-at-a-glance.pdf",
@@ -367,7 +338,7 @@
   {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/asia-funds-and-financial-services-newsletter",
-   "title": "Asia Funds & Financial Services Newsletter | Insights | Sidley Austin LLP",
+   "title": "Asia Funds & Financial Services Newsletter",
    "description": null,
    "date": "2026-10-13",
    "dateSource": "datePublished",
@@ -376,10 +347,37 @@
   {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/in-sec-rulemaking-agency-appears-open-to-broad-expansion-of-cross-trading-by-registered-funds",
-   "title": "In SEC Rulemaking, Agency Appears Open to Broad Expansion of Cross Trading by Registered Funds | Insights | Sidley Austin LLP",
+   "title": "In SEC Rulemaking, Agency Appears Open to Broad Expansion of Cross Trading by Registered Funds",
    "description": null,
    "date": "2026-10-13",
    "dateSource": "datePublished",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/New-South-Wales-No-Shortcuts-on-Scope-3-High-Court-Puts-Scope-3-Emissions-Back-on-the-Table-for-Resource-Projects-10-12-2026",
+   "title": "New South Wales–No Shortcuts on Scope 3: High Court Puts Scope 3 Emissions Back on the Table for Resource Projects",
+   "description": "The High Court of Australia has confirmed that NSW planning authorities are required to consider Scope 3 emissions when assessing the climate impacts of resource and energy projects.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/There-Is-a-New-Sheriff-in-Town-Why-Community-Approval-Now-Rules-Major-Project-Development-10-13-2026",
+   "title": "There Is a New Sheriff in Town: Why Community Approval Now Rules Major Project Development",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advised-omers-private-equity-and-its-portfolio-companies-the-kenan-advantage-group-and-kenan",
+   "title": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in $1.89B Refinancing",
+   "description": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in $1.89B Refinancing",
+   "date": null,
+   "dateSource": null,
    "lastmod": "2026-10-13"
   },
   {
@@ -392,18 +390,18 @@
    "lastmod": "2026-10-13"
   },
   {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advised-omers-private-equity-and-its-portfolio-companies-the-kenan-advantage-group-and-kenan",
-   "title": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in $1.89B Refinancing - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in $1.89B Refinancing",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-13"
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
+   "date": "2026-10-13",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/fdic-proposes-state-bank-parity-rule-for-interstate-services",
-   "title": "FDIC Proposes State Bank Parity Rule for Interstate Services | Insights | Mayer Brown",
+   "title": "FDIC Proposes State Bank Parity Rule for Interstate Services",
    "description": "On September 17, 2026, the Federal Deposit Insurance Corporation (“FDIC”) announced that it is inviting comment on a notice of proposed rulemaking",
    "date": "2026-10-13",
    "dateSource": "datePublished",
@@ -412,20 +410,11 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/asia-tax-bulletin-autumn-2026",
-   "title": "Asia Tax Bulletin - Autumn 2026 | Insights | Mayer Brown",
+   "title": "Asia Tax Bulletin - Autumn 2026",
    "description": "Subscribe The Asia Tax Bulletin helps you stay up-to-speed on the tax implications for your company’s investments all over the region. The",
    "date": "2026-10-13",
    "dateSource": "datePublished",
    "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/10/sweat-equity-the-intersection-of-sports-tech-and-capital",
-   "title": "LA Tech Week | Sweat Equity: The Intersection of Sports, Tech, and Capital | Insights | Mayer Brown",
-   "description": "Join Mayer Brown, Musa Capital, 726 Capital, A2X Foundry and Ballin AI during LA Tech Week for Sweat Equity: The Intersection of Sports, Tech, and",
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
   },
   {
    "firm": "aoshearman",
@@ -511,7 +500,7 @@
   {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/uk-eu-investment-management-update",
-   "title": "UK/EU Investment Management Update (October 2026) | Insights | Sidley Austin LLP",
+   "title": "UK/EU Investment Management Update (October 2026)",
    "description": null,
    "date": "2026-10-12",
    "dateSource": "datePublished",
@@ -527,9 +516,18 @@
    "lastmod": "2026-10-12"
   },
   {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Luxembourg-Financial-Services-Regulator-CSSF-Issues-First-FAQ-on-Fund-Tokenisation-10-12-2026",
+   "title": "Luxembourg Financial Services Regulator CSSF Issues First FAQ on Fund Tokenisation",
+   "description": "CSSF FAQ clarifies how Luxembourg investment funds may issue tokenised shares on DLT, outlining registrar, control agent, and DORA requirements.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-12"
+  },
+  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/leading-china-corporate-lawyer-shu-du-joins-weil-to-launch-asia-capital-markets-practice",
-   "title": "Leading China Corporate Lawyer Shu Du Joins Weil to Launch Asia Capital Markets Practice - Weil, Gotshal & Manges LLP",
+   "title": "Leading China Corporate Lawyer Shu Du Joins Weil to Launch Asia Capital Markets Practice",
    "description": "International law firm Weil, Gotshal & Manges LLP announced today that leading corporate attorney Shu Du will join the Firm as a partner in the Corporate practice, based in Hong Kong.",
    "date": null,
    "dateSource": null,
@@ -538,7 +536,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-adds-prominent-private-equity-partner-in-london",
-   "title": "Weil Adds Prominent Private Equity Partner in London - Weil, Gotshal & Manges LLP",
+   "title": "Weil Adds Prominent Private Equity Partner in London",
    "description": "International law firm Weil, Gotshal & Manges LLP announced today that partner Rebecca Ward will join the firm’s market-leading Private Equity practice in London.",
    "date": null,
    "dateSource": null,
@@ -547,7 +545,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/mark-lawford-identified-as-one-of-financier-worldwides-2026-power-players-distinguished-advisers",
-   "title": "Mark Lawford Identified as One of Financier Worldwide’s 2026 “Power Players: Distinguished Advisers” - Announcements - Weil, Gotshal & Manges LLP",
+   "title": "Mark Lawford Identified as One of Financier Worldwide’s 2026 “Power Players: Distinguished Advisers”",
    "description": "Weil’s Mark Lawford was named a 2026 Power Player by Financier Worldwide for his expertise in cross-border restructuring, bankruptcy and insolvency.",
    "date": null,
    "dateSource": null,
@@ -556,7 +554,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/financial-times-names-weil-a-finalist-for-2026-innovative-lawyers-in-disputes-award",
-   "title": "Financial Times Names Weil a Finalist for 2026 “Innovative Lawyers in Disputes” Award - Weil, Gotshal & Manges LLP",
+   "title": "Financial Times Names Weil a Finalist for 2026 “Innovative Lawyers in Disputes” Award",
    "description": "Weil has been named a finalist in the “Innovative Lawyers in Disputes” category of the 2026 Financial Times Innovative Lawyers North America awards.",
    "date": null,
    "dateSource": null,
@@ -565,7 +563,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weils-european-restructuring-practice-recognized-by-turnarounds-workouts",
-   "title": "Weil’s European Restructuring Practice Recognized by Turnarounds & Workouts - Weil, Gotshal & Manges LLP",
+   "title": "Weil’s European Restructuring Practice Recognized by Turnarounds & Workouts",
    "description": "The publication’s special report highlights the leading restructuring lawyers at US firms in Europe.",
    "date": null,
    "dateSource": null,
@@ -574,7 +572,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-abcs-of-credit-agreement-waterfalls",
-   "title": "The ABCs of Credit Agreement Waterfalls | Insights | Mayer Brown",
+   "title": "The ABCs of Credit Agreement Waterfalls",
    "description": "This is the first in a two-part series on waterfalls in syndicated and private credit transactions. This Legal Update explains how waterfalls",
    "date": "2026-10-12",
    "dateSource": "datePublished",
@@ -592,7 +590,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-new-us-fiber-joint-venture",
-   "title": "Weil Advises CPP Investments in New U.S. Fiber Joint Venture - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises CPP Investments in New U.S. Fiber Joint Venture",
    "description": "Weil is advising CPP Investments on a new U.S. fiber joint venture with AT&T and Global Infrastructure Partners to expand fiber internet access nationwide.",
    "date": null,
    "dateSource": null,
@@ -601,7 +599,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-infrastructure-at-goldman-sachs-alternatives-in-acquisition",
-   "title": "Weil Advises Infrastructure at Goldman Sachs Alternatives in Acquisition of RWE’s U.S. Distributed Clean Energy Business - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Infrastructure at Goldman Sachs Alternatives in Acquisition of RWE’s U.S. Distributed Clean Energy Business",
    "description": "Weil Advises Infrastructure at Goldman Sachs Alternatives in Acquisition of RWE’s U.S. Distributed Clean Energy Business",
    "date": null,
    "dateSource": null,
@@ -610,7 +608,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-american-securities-in-950m-sale-of-mw-components-to-rosebank-industries",
-   "title": "Weil Advises American Securities in $950M Sale of MW Components to Rosebank Industries - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises American Securities in $950M Sale of MW Components to Rosebank Industries",
    "description": "Weil advised American Securities LLC, a leading U.S. private equity firm, in the completion of the sale of MW Components to Rosebank Industries plc (LON: ROSE), in a transaction valued at approximately $950 million.",
    "date": null,
    "dateSource": null,
@@ -619,7 +617,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-american-securities-in-2-1b-sale-of-cpm-holdings-to-rosebank-industries",
-   "title": "Weil Advises American Securities in $2.1B Sale of CPM Holdings to Rosebank Industries - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises American Securities in $2.1B Sale of CPM Holdings to Rosebank Industries",
    "description": "Weil advised American Securities LLC, a leading U.S. private equity firm, in the completion of its sale of CPM Holdings Inc. to Rosebank Industries (LON: ROSE), in a transaction valued at approximately $2.1 billion (excluding consideration from a potential earn out).",
    "date": null,
    "dateSource": null,
@@ -628,7 +626,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-providence-equity-partners-and-365-retail-markets-in-acquisition-of-cantaloupe",
-   "title": "Weil Advises Providence Equity Partners and 365 Retail Markets in Acquisition of Cantaloupe - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Providence Equity Partners and 365 Retail Markets in Acquisition of Cantaloupe",
    "description": "Weil Advises Providence Equity Partners and 365 Retail Markets in Acquisition of Cantaloupe",
    "date": null,
    "dateSource": null,
@@ -637,7 +635,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advised-blackstone-in-400m-series-f-funding-for-cyera",
-   "title": "Weil Advised Blackstone in $400M Series F Funding for Cyera - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advised Blackstone in $400M Series F Funding for Cyera",
    "description": "Weil advised Blackstone as lead investor in a $400 million Series F funding round for Cyera, the industry’s leading AI and data security company, bringing Cyera’s total funding to over $1.7 billion.",
    "date": null,
    "dateSource": null,
@@ -646,7 +644,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-brookfield-in-900m-acquisition-of-fosber",
-   "title": "Weil Advises Brookfield in $900M Acquisition of Fosber - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Brookfield in $900M Acquisition of Fosber",
    "description": "Weil Advises Brookfield in $900M Acquisition of Fosber",
    "date": null,
    "dateSource": null,
@@ -655,7 +653,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-lee-equity-partners-in-1-6b-reinvestment-in-mclarens-global-limited",
-   "title": "Weil Advises Lee Equity Partners in $1.6B Reinvestment in McLarens Global Limited - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Lee Equity Partners in $1.6B Reinvestment in McLarens Global Limited",
    "description": "Weil advised Lee Equity Partners in the closing of a $1.6 billion recapitalization of McLarens Global Limited, the largest pure-play provider of technical insurance claims services to the complex commercial insurance claims market.",
    "date": null,
    "dateSource": null,
@@ -664,7 +662,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-its-1-billion-investment-in-alphagen",
-   "title": "Weil Advises CPP Investments in its $1 Billion Investment in AlphaGen - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises CPP Investments in its $1 Billion Investment in AlphaGen",
    "description": "Weil advised CPP Investments in its definitive agreement to invest $1 billion for a strategic minority position in AlphaGen, one of the largest independent power portfolios in the U.S., with over 11 gigawatts of critical power assets located in strategic markets across the country.",
    "date": null,
    "dateSource": null,
@@ -673,7 +671,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-cobepa-in-its-acquisition-of-eagle-fire-and-investment-in-sax",
-   "title": "Weil Advises Cobepa in its Acquisition of Eagle Fire and Investment in SAX - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Cobepa in its Acquisition of Eagle Fire and Investment in SAX",
    "description": "Weil Advises Cobepa in its Acquisition of Eagle Fire and Investment in SAX",
    "date": null,
    "dateSource": null,
@@ -682,7 +680,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-eqt-and-wash-multifamily-laundry-systems-in-sale-of-wash-to-northleaf-capital-partners",
-   "title": "Weil Advises EQT and WASH Multifamily Laundry Systems in Sale of WASH to Northleaf Capital Partners and AVALT - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises EQT and WASH Multifamily Laundry Systems in Sale of WASH to Northleaf Capital Partners and AVALT",
    "description": "Weil is advising EQT and WASH Multifamily Laundry Systems, a leading provider of essential laundry services to multifamily, campus, and on-premise laundry operations, in the sale of WASH to Northleaf Capital Partners and AVALT.",
    "date": null,
    "dateSource": null,
@@ -691,7 +689,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-tpg-in-acquisition-of-peppertree-capital-management",
-   "title": "Weil Advises TPG in Acquisition of Peppertree Capital Management - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises TPG in Acquisition of Peppertree Capital Management",
    "description": "Weil is advising TPG Inc., a leading global asset management firm, in its acquisition of the business of Peppertree Capital Management, Inc., a specialized digital infrastructure investment firm with a focus on wireless communications towers.",
    "date": null,
    "dateSource": null,
@@ -700,7 +698,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-stone-ridge-in-its-acquisition-of-wincoram",
-   "title": "Weil Advises Stone Ridge in its Acquisition of Wincoram - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Stone Ridge in its Acquisition of Wincoram",
    "description": "Weil advised Stone Ridge Holdings Group, a financial services firm focused on alternative asset management, reinsurance, and bitcoin, in its acquisition of Wincoram Asset Management, a capital solutions provider to the physical and financial energy markets.",
    "date": null,
    "dateSource": null,
@@ -709,7 +707,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-visualize-in-acquisition-of-bmm-testlabs",
-   "title": "Weil Advises Visualize in Acquisition of BMM Testlabs - Announcements - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Visualize in Acquisition of BMM Testlabs",
    "description": "Weil Advises Visualize in Acquisition of BMM Testlabs",
    "date": null,
    "dateSource": null,
@@ -718,7 +716,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-american-securities-and-lasership-inc-in-its-comprehensive-finance",
-   "title": "Weil Advises American Securities and its Portfolio Company LaserShip, Inc. (d/b/a OnTrac Final Mile) in its Comprehensive Finance and Exchange Transaction - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises American Securities and its Portfolio Company LaserShip, Inc. (d/b/a OnTrac Final Mile) in its Comprehensive Finance and Exchange Transaction",
    "description": "Weil advised American Securities and its portfolio company LaserShip, Inc. (d/b/a OnTrac Final Mile) (“OnTrac”) in its comprehensive financing and exchange transaction that included a new senior secured term loan and revolving facility, extended debt maturities and other liquidity enhancements",
    "date": null,
    "dateSource": null,
@@ -727,7 +725,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-blackstone-in-preferred-equity-investment-in-inhabit",
-   "title": "Weil Advises Blackstone in Preferred Equity Investment in Inhabit - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises Blackstone in Preferred Equity Investment in Inhabit",
    "description": "Weil Advises Blackstone in Preferred Equity Investment in Inhabit",
    "date": null,
    "dateSource": null,
@@ -736,7 +734,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advised-omers-private-equity-and-its-portfolio-companies",
-   "title": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in Multiple Loans and Revolving Credit Commitments - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in Multiple Loans and Revolving Credit Commitments",
    "description": "Weil advised OMERS Private Equity and its portfolio companies The Kenan Advantage Group and Kenan Canada, a tank truck transporter and logistics provider, in approximately $1.56 billion of U.S. and Canadian Term B-3 and B-2 loans, respectively, as well as incremental U.S. Revolving Credit Commitments, all with a maturity date on January 25, 2029.",
    "date": null,
    "dateSource": null,
@@ -745,7 +743,7 @@
   {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-eqt-transition-infrastructure-in-acquisition-of-scale-microgrids",
-   "title": "Weil Advises EQT Transition Infrastructure in Acquisition of Scale Microgrids - Weil, Gotshal & Manges LLP",
+   "title": "Weil Advises EQT Transition Infrastructure in Acquisition of Scale Microgrids",
    "description": "The transaction marks EQT’s first North American investment out of its recently launched Transition Infrastructure strategy.",
    "date": null,
    "dateSource": null,
@@ -790,7 +788,7 @@
   {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/september/linklaters-advises-on-the-worlds-largest-digital-bond-offering-by-the-hong-kong-sar-government",
-   "title": "World’s Largest Digital Bond Offering by Hong Kong SAR Government | Linklaters",
+   "title": "World’s Largest Digital Bond Offering by Hong Kong SAR Government",
    "description": "Linklaters advised on the HK$20bn equivalent multi-currency digital green bond issuance by the Hong Kong SAR Government, the world’s largest digital bond offering.",
    "date": null,
    "dateSource": null,
@@ -817,7 +815,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-lenders-cityfast-refinancing",
-   "title": "White & Case advises lenders on CityFast refinancing | White & Case LLP",
+   "title": "White & Case advises lenders on CityFast refinancing",
    "description": "Global law firm White & Case LLP has advised BBVA, Caisse d’Epargne et de Prévoyance Bretagne Pays de Loire, Caisse d’Epargne et de Prévoyance Normandie, Caisse d’Epargne et de Prévoyance Île-de-France and CACIB on the refinancing of CityFast’s indebtedness, amounting to approximately €328 mi",
    "date": "2026-10-09",
    "dateSource": "<time datetime>",
@@ -826,7 +824,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-maccaferris-acquisition-surface-tech",
-   "title": "White & Case advises on Maccaferri’s acquisition of Surface Tech | White & Case LLP",
+   "title": "White & Case advises on Maccaferri’s acquisition of Surface Tech",
    "description": "Global law firm White & Case LLP has advised Ambienta SGR S.p.A. (Ambienta), through its portfolio company Officine Maccaferri S.p.A. (Maccaferri), on the acquisition of Surface Tech.",
    "date": "2026-10-09",
    "dateSource": "<time datetime>",
@@ -835,7 +833,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-danske-bank-ipo-and-listing-sensofusion-nasdaq-helsinki",
-   "title": "White & Case advises Danske Bank on the IPO and listing of Sensofusion on Nasdaq Helsinki | White & Case LLP",
+   "title": "White & Case advises Danske Bank on the IPO and listing of Sensofusion on Nasdaq Helsinki",
    "description": "Global law firm White & Case LLP has advised Danske Bank A/S, Finland Branch as sole global coordinator and bookrunner on the initial public offering (IPO) and listing of Sensofusion Plc (Sensofusion) on the regulated market maintained by Nasdaq Helsinki.",
    "date": "2026-10-09",
    "dateSource": "<time datetime>",
@@ -844,7 +842,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/financial-regulatory-observer-autumn-2021",
-   "title": "Financial Regulatory Observer - Autumn 2021 | White & Case LLP",
+   "title": "Financial Regulatory Observer - Autumn 2021",
    "description": "The Financial Regulatory Observer spotlights selected topics currently driving regulatory and technological changes in the financial industry.",
    "date": null,
    "dateSource": null,
@@ -871,7 +869,7 @@
   {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
-   "title": "California Adopts Regulations Expanding Healthcare Transaction Review | Insights | Sidley Austin LLP",
+   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
    "description": null,
    "date": "2026-10-09",
    "dateSource": "datePublished",
@@ -905,9 +903,18 @@
    "lastmod": "2026-10-10"
   },
   {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/10/australian-debtors-1250-retainers-meet-ch-15-test",
-   "title": "Australian Debtors&#x27; $1,250 Retainers Meet Ch. 15 Test | News | Mayer Brown",
+   "title": "Australian Debtors&#x27; $1,250 Retainers Meet Ch. 15 Test",
    "description": "Benjamin Bright is mentioned in this article.",
    "date": "2026-10-09",
    "dateSource": "datePublished",
@@ -916,7 +923,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/what-is-capital-solutions-bridging-the-gap-between-debt-and-equity",
-   "title": "What Is Capital Solutions? Bridging the Gap Between Debt and Equity | Insights | Mayer Brown",
+   "title": "What Is Capital Solutions? Bridging the Gap Between Debt and Equity",
    "description": "Michael Fiddy , Electra Callan, Mark Evans and Christopher Street discuss the growing role of capital solutions in bridging the gap between",
    "date": "2026-10-09",
    "dateSource": "datePublished",
@@ -925,7 +932,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/10/private-capitals-new-hedging-habit-boosting-business-on-wall-street",
-   "title": "Private Capital’s New Hedging Habit Boosting Business on Wall Street | News | Mayer Brown",
+   "title": "Private Capital’s New Hedging Habit Boosting Business on Wall Street",
    "description": "Sarah Goodwin comments on how private equity sponsors are changing the way they use interest rate hedging.",
    "date": "2026-10-09",
    "dateSource": "datePublished",
@@ -934,7 +941,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/federal-reserve-board-proposes-comprehensive-reforms-to-regulation-o-and-insider-lending",
-   "title": "Federal Reserve Board Proposes Comprehensive Reforms to Rules on Lending to Insiders | Insights | Mayer Brown",
+   "title": "Federal Reserve Board Proposes Comprehensive Reforms to Rules on Lending to Insiders",
    "description": "On August 4, 2026, the Board of Governors of the Federal Reserve System (the “Federal Reserve”) published in the Federal Register a notice of",
    "date": "2026-10-09",
    "dateSource": "datePublished",
@@ -943,17 +950,8 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/general-repercussion-theme-no-843-stf-rules-that-icms-presumed-credits-must-be-excluded-from-pis-and-cofins-tax-basis",
-   "title": "General Repercussion Theme No. 843: STF Rules that ICMS Presumed Credits Must Be Excluded from PIS and COFINS Tax Basis | Insights | Mayer Brown",
+   "title": "General Repercussion Theme No. 843: STF Rules that ICMS Presumed Credits Must Be Excluded from PIS and COFINS Tax Basis",
    "description": "On October 7, 2026, the Brazilian Supreme Court (&quot;STF&quot;) concluded the trial of the Extraordinary Appeal No. 835,818/PR (General Repercussion",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/how-to-preserve-optimization-of-a-business-in-bankruptcy",
-   "title": "How to preserve optimization of a business in bankruptcy",
-   "description": "In a new article for Pratt",
    "date": "2026-10-09",
    "dateSource": "datePublished",
    "lastmod": "2026-10-09"
@@ -995,6 +993,15 @@
    "lastmod": "2026-10-09"
   },
   {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/publications/how-to-preserve-optimization-of-a-business-in-bankruptcy",
+   "title": "How to preserve optimization of a business in bankruptcy",
+   "description": "In a new article for Pratt",
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
    "firm": "aoshearman",
    "url": "https://www.aoshearman.com/en/insights/adgms-new-fund-and-fund-manager-rules",
    "title": "ADGM’s new fund and fund manager rules: Which route is right for global sponsors and institutional capital?",
@@ -1024,7 +1031,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/sp-capital-iq-pro-private-equity-leans-more-heavily-earnouts-exit-deals",
-   "title": "S&P Capital IQ Pro | Private equity leans more heavily on earnouts in exit deals | White & Case LLP",
+   "title": "S&P Capital IQ Pro | Private equity leans more heavily on earnouts in exit deals",
    "description": "In an article for S&P Capital IQ Pro, White & Case partner Jalpit Amin discusses the growing use of earnout structures in private equity exits.",
    "date": "2026-10-08",
    "dateSource": "<time datetime>",
@@ -1049,6 +1056,15 @@
    "lastmod": "2026-10-08"
   },
   {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/California-Expands-Sales-and-Use-Tax-to-SaaS-and-Certain-Digital-Products-Starting-1-January-2027-CDTFA-Proposes-Emergency-Regulations-to-Implement-the-New-Law-10-8-2026",
+   "title": "California Expands Sales and Use Tax to SaaS and Certain Digital Products Starting 1 January 2027",
+   "description": "California",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-08"
+  },
+  {
    "firm": "reedsmith",
    "url": "https://www.reedsmith.com/our-insights/blogs/ship-law-log/102o4rx/arrest-of-vessels-under-the-arrest-convention-1952-charterers-debts-and-privile/",
    "title": "Arrest of Vessels Under the Arrest Convention 1952: Charterer",
@@ -1069,7 +1085,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/release-of-surplus-from-db-pension-schemes-proposed-new-rules",
-   "title": "Release of Surplus From DB Pension Schemes: Proposed New Rules | Insights | Mayer Brown",
+   "title": "Release of Surplus From DB Pension Schemes: Proposed New Rules",
    "description": "Proposed New Surplus Release Rules The Pension Schemes Act 2026 gives trustees new powers to release surplus from ongoing DB schemes. It also",
    "date": "2026-10-08",
    "dateSource": "datePublished",
@@ -1078,7 +1094,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-rise-of-private-capital-capital-solutions-and-the-new-architecture-of-credit",
-   "title": "The Rise of Private Capital: Capital Solutions and the New Architecture of Credit | Insights | Mayer Brown",
+   "title": "The Rise of Private Capital: Capital Solutions and the New Architecture of Credit",
    "description": "The global financing landscape has undergone a structural transformation. The progressive reallocation of credit risk from regulated bank balance",
    "date": "2026-10-08",
    "dateSource": "datePublished",
@@ -1087,62 +1103,8 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/projet-de-loi-de-finances-pour-2027",
-   "title": "Projet de loi de finances pour 2027 | Insights | Mayer Brown",
+   "title": "Projet de loi de finances pour 2027",
    "description": "Le projet de loi de finances pour 2027 (« PLF 2027 ») a été présenté à l’Assemblée nationale le 1 er octobre 2026. Notre équipe fiscale",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-the-central-america-bottling-corporation-in-a-benchmark-us$875-million-notes-offering-and-related-cash-tender-offer",
-   "title": "Hogan Lovells Cadwalader advises the Central America Bottling Corporation in a benchmark US$875 million notes offering and related cash tender offer",
-   "description": "New York, Miami, Madrid, Singapore – 8 October 2026 – Hogan Lovells Cadwalader advised The Central America Bottling Corporation (“CBC”), CBC Bottling Holdco, S.L.U. (“CBC Bottling”) and Beliv Holdco, S.L.U. (“Beliv”), as co-issuers (CBC, CBC Bottling and Beliv, collectively, the “Co-Issuers”) in connection with an offering pursuant to Rule 144A and Regulation S of US$875 million aggregate principal amount of the Co-Issuers’ 6.950% Senior Guaranteed Notes due 2036 and a successful concurrent cash tender offer for US$400 million of the Co-Issuers’ outstanding 5.250% Senior Guaranteed Sustainability-Linked Notes due 2029.",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-joint-lead-managers-on-spuerkeess-inaugural-covered-bond-issuance-under-new-luxembourg-bond-legislation",
-   "title": "Hogan Lovells Cadwalader advises Joint Lead Managers on Spuerkeess’ inaugural covered bond issuance under new Luxembourg bond legislation",
-   "description": "Global law firm Hogan Lovells Cadwalader has advised Belfius Bank NV/SA, Deutsche Bank, Landesbank Baden-Württemberg, Natixis and Banque et Caisse d",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/california-finalizes-expanded-health-care-transaction-review-regulations",
-   "title": "California finalizes expanded health care transaction review regulations",
-   "description": "On October 2, 2026, the California Office of Administrative Law approvedupdated regulations issued by the California Office of Health CareAffordability (OHCA) implementing Assembly Bill 1415 (AB 1415). The changes to the regulations will take effect on November 2, 2026. The updatedregulations implement AB 1415",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/the-future-of-manufacturing-international-trade-and-investment",
-   "title": "The Future of Manufacturing: International Trade and Investment – One year on",
-   "description": "One year after our November 2025 podcast on international trade and investment, we revisit the evolving global manufacturing landscape, focusing on the impact of U.S. tariffs and sanctions. This update explores the key developments since our original discussion, the effects of increased enforcement of tariffs, sanctions, and export controls, and the growing importance of supply chain transparency, compliance, and regulatory risk management. For those new to the topic, we recommend listening to the original episode first for essential background and context.",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/two-regulators-one-message-what-the-new-afrcsfc-mou-means-for-hong-kongs-financial-markets",
-   "title": "Two regulators, one message: What the new AFRC–SFC MoU means for Hong Kong",
-   "description": "On 28 September 2026, the AFRC and the SFC signed a new MOU, replacing the 2021 MoU between the SFC and the former Financial Reporting Council. The message is clear: where financial reporting, audit quality and market conduct meet, Hong Kong",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/uk-fcas-supervisory-spotlight-is-fixed-on-financial-crime-firms-should-review-systems-and-controls",
-   "title": "UK FCA’s supervisory spotlight is fixed on financial crime: firms should review systems and controls now",
-   "description": "The FCA’s September 2026 Regulation Round-Up includes a feature piece by Steve Smart, FCA Executive Director of Enforcement and Market Oversight and lead for fighting financial crime. The article emphasises the ‘vital’ importance of firms’ readiness to combat financial crime as it continues to grow in scale, sophistication and impact. It also outlines recent and planned FCA activity in this area. The combined message of this work is clear: the FCA is honing its strategic focus on fighting financial crime and could well be looking to further demonstrate the power of its technology-enabled, data-led approach through more supervisory and enforcement action in the not-too-distant future. In anticipation of such action, firms would be wise to carefully consider the FCA’s recent publications – including the findings from its multi-firm review of money mule activity – and carry out a comprehensive evaluation of their financial crime systems and controls, strengthening them where necessary. In this article, we set out key takeaways from some of the FCA’s most recent publications, including a few suggested next steps for firms.",
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
@@ -1238,9 +1200,36 @@
    "lastmod": "2026-10-08"
   },
   {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-the-central-america-bottling-corporation-in-a-benchmark-us$875-million-notes-offering-and-related-cash-tender-offer",
+   "title": "Hogan Lovells Cadwalader advises the Central America Bottling Corporation in a benchmark US$875 million notes offering and related cash tender offer",
+   "description": "New York, Miami, Madrid, Singapore – 8 October 2026 – Hogan Lovells Cadwalader advised The Central America Bottling Corporation (“CBC”), CBC Bottling Holdco, S.L.U. (“CBC Bottling”) and Beliv Holdco, S.L.U. (“Beliv”), as co-issuers (CBC, CBC Bottling and Beliv, collectively, the “Co-Issuers”) in connection with an offering pursuant to Rule 144A and Regulation S of US$875 million aggregate principal amount of the Co-Issuers’ 6.950% Senior Guaranteed Notes due 2036 and a successful concurrent cash tender offer for US$400 million of the Co-Issuers’ outstanding 5.250% Senior Guaranteed Sustainability-Linked Notes due 2029.",
+   "date": "2026-10-08",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-joint-lead-managers-on-spuerkeess-inaugural-covered-bond-issuance-under-new-luxembourg-bond-legislation",
+   "title": "Hogan Lovells Cadwalader advises Joint Lead Managers on Spuerkeess’ inaugural covered bond issuance under new Luxembourg bond legislation",
+   "description": "Global law firm Hogan Lovells Cadwalader has advised Belfius Bank NV/SA, Deutsche Bank, Landesbank Baden-Württemberg, Natixis and Banque et Caisse d",
+   "date": "2026-10-08",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-08"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/publications/uk-fcas-supervisory-spotlight-is-fixed-on-financial-crime-firms-should-review-systems-and-controls",
+   "title": "UK FCA’s supervisory spotlight is fixed on financial crime: firms should review systems and controls now",
+   "description": "The FCA’s September 2026 Regulation Round-Up includes a feature piece by Steve Smart, FCA Executive Director of Enforcement and Market Oversight and lead for fighting financial crime. The article emphasises the ‘vital’ importance of firms’ readiness to combat financial crime as it continues to grow in scale, sophistication and impact. It also outlines recent and planned FCA activity in this area. The combined message of this work is clear: the FCA is honing its strategic focus on fighting financial crime and could well be looking to further demonstrate the power of its technology-enabled, data-led approach through more supervisory and enforcement action in the not-too-distant future. In anticipation of such action, firms would be wise to carefully consider the FCA’s recent publications – including the findings from its multi-firm review of money mule activity – and carry out a comprehensive evaluation of their financial crime systems and controls, strengthening them where necessary. In this article, we set out key takeaways from some of the FCA’s most recent publications, including a few suggested next steps for firms.",
+   "date": "2026-10-08",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-08"
+  },
+  {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/thought-leadership/podcasts/practice-podcast-series/payments",
-   "title": "Payment podcasts | Thought Leadership | Insights | Linklaters",
+   "title": "Payment podcasts | Thought Leadership",
    "description": "In this podcast series lawyers from the Linklaters payments team discuss the legal and regulatory developments that are shaping the sector",
    "date": null,
    "dateSource": null,
@@ -1249,7 +1238,7 @@
   {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/thought-leadership/podcasts/practice-podcast-series/work-it-out",
-   "title": "Work It Out: The Employment Q&A Series | Linklaters",
+   "title": "Work It Out: The Employment Q&A Series",
    "description": "In this bite-sized podcast series, Partners from our UK Employment & Incentives practice answer a series of questions on some of the most topical, contentious, and challenging areas of HR and employment law.",
    "date": null,
    "dateSource": null,
@@ -1267,7 +1256,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-huvepharma-eur490-million-refinancing",
-   "title": "White & Case advises Huvepharma on €490 million refinancing | White & Case LLP",
+   "title": "White & Case advises Huvepharma on €490 million refinancing",
    "description": "Global law firm White & Case LLP has advised Huvepharma Group, a leading and fast-growing global pharmaceutical company with a focus on developing, manufacturing and marketing human and animal health products, on the successful closing of a €490 million refinancing, securing its syndicated cr",
    "date": "2026-10-07",
    "dateSource": "<time datetime>",
@@ -1276,7 +1265,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/cnbc-uk-leading-destination-defense-tech-investment",
-   "title": "CNBC | UK is a leading destination for defense tech investment | White & Case LLP",
+   "title": "CNBC | UK is a leading destination for defense tech investment",
    "description": "White & Case partner Angus Nunn was interviewed on CNBC&#039;s Squawk Box about White & Case&#039;s new Defense Technology Sector Report.",
    "date": "2026-10-07",
    "dateSource": "<time datetime>",
@@ -1285,7 +1274,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/us-infrastructure-2021",
-   "title": "US infrastructure 2021 – 22: The path to growth | White & Case LLP",
+   "title": "US infrastructure 2021 – 22: The path to growth",
    "description": "Our survey shows investment in infrastructure assets looks set to accelerate with an anticipated boost from the US infrastructure bill and a growing focus on sustainability and technology",
    "date": null,
    "dateSource": null,
@@ -1294,7 +1283,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/global-ipos-blockbuster-year",
-   "title": "Global IPOs: A blockbuster year | White & Case LLP",
+   "title": "Global IPOs: A blockbuster year",
    "description": "IPOs boomed in 2021, with both the number of new listings and the total proceeds raised breaking records. But dealmakers face a tougher road ahead.",
    "date": null,
    "dateSource": null,
@@ -1303,7 +1292,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/financial-ma-july-2022",
-   "title": "Financial institutions M&A: Sector trends - July 2022 | White & Case LLP",
+   "title": "Financial institutions M&A: Sector trends - July 2022",
    "description": "We highlight the key UK & European M&A trends in H2 2021 and H1 2022, and provide our insights into the outlook for M&A moving forward.",
    "date": null,
    "dateSource": null,
@@ -1337,6 +1326,141 @@
    "lastmod": "2026-10-07"
   },
   {
+   "firm": "weil",
+   "url": "https://eurorestructuring.weil.com/news/restructuring/the-weil-european-distress-index-18/",
+   "title": "The Weil European Distress Index - European Restructuring Watch",
+   "description": "The latest Weil European Distress Index (WEDI), an indicator of corporate distress and an early-warning indicator of default risk, shows that distress across Europe eased in the latest quarter, while remaining above the long-run average.",
+   "date": "2026-10-07",
+   "dateSource": "article:published_time",
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-sun-capital-on-gp-led-secondary-transaction-involving-anderson-global",
+   "title": "Weil Advises Sun Capital on GP-Led Secondary Transaction Involving Anderson Global",
+   "description": "Weil advised Sun Capital on a GP-led secondary transaction involving Anderson Global through a continuation vehicle sponsored by a Sun Capital affiliate.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/the-weil-european-distress-index-july-2026",
+   "title": "European Corporate Distress Rises in Q2 2026",
+   "description": "Weil European Distress Index shows corporate distress rising across all European markets in Q2 2026, with Retail hitting post-financial-crisis highs.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-1-point-2b-financing-for-caturus-llcs-13b-commonwealth-lng-facility",
+   "title": "Weil Advises CPP Investments in $1.2B Financing for Caturus LLC’s $13B Commonwealth LNG Facility",
+   "description": "Weil Advises CPP Investments in $1.2B Financing for Caturus LLC’s $13B Commonwealth LNG Facility",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-brookfield-as-colead-investor-in-the-openai-deployment-company",
+   "title": "Weil Advises Brookfield as Co-Lead Investor in The OpenAI Deployment Company",
+   "description": "The OpenAI Deployment Company is a new company designed to help organizations build and deploy AI systems they can rely on every day across their most important work.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-bain-capital-in-its-strategic-growth-investment-in-duravent",
+   "title": "Weil Advises Bain Capital in its Strategic Growth Investment in Duravent",
+   "description": "Weil Advises Bain Capital in its Strategic Growth Investment in Duravent",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-paradigm-an-omers-portfolio-company-in-its-sale-to-patient-square-capital",
+   "title": "Weil Advises Paradigm, an OMERS Portfolio Company, in its Sale to Patient Square Capital",
+   "description": "Weil Advises Paradigm, an OMERS Portfolio Company, in its Sale to Patient Square Capital",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-strategic-growth-investment-in-boats-group",
+   "title": "Weil Advises CPP Investments in Strategic Growth Investment in Boats Group",
+   "description": "Weil is advising Canada Pension Plan Investment Board (CPP Investments) in its strategic growth investment, together with General Atlantic, in Boats Group, a global provider of online marketplaces for boats and yachts.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-convex-insurance-and-psp-investments-on-convexs-new-long-term-ownership-structure",
+   "title": "Weil Advises Convex Insurance and PSP Investments on Convex’s New Long Term Ownership Structure led by Onex Corporation and American International Group, Inc.",
+   "description": "Weil is advising Convex Group Limited (“Convex”), the international specialty insurer and reinsurer, and PSP Investments, as existing investor in Convex, on a new, long term ownership structure led by Onex Corporation (“Onex”), with American International Group, Inc. (“AIG”) becoming a strategic minority equity investor in Convex.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-viterra-shareholders-in-merger-of-viterra-and-bunge",
+   "title": "Weil Advises Viterra Shareholders in Merger of Viterra and Bunge",
+   "description": "Weil advised the Glencore PLC, CPP Investments and British Columbia Investment Management Corporation, as shareholders of Viterra Limited, in the successful closing of Viterra&#39;s previously announced merger with Bunge Global SA, marking the creation of a premier global agribusiness solutions company for food, feed and fuel.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-omers-and-its-portfolio-company-paradigm-in-strategic-investment-by-neuberger-berman",
+   "title": "Weil Advises OMERS and its Portfolio Company Paradigm in Strategic Investment by Neuberger Berman Capital Solutions",
+   "description": "Weil Advises OMERS and Its Portfolio Company Paradigm in Strategic Investment by Neuberger Berman Capital Solutions",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-on-preferred-equity-financing-for-protective-industrial-products-acquisition",
+   "title": "Weil Advises on Preferred Equity Financing for Protective Industrial Product’s Acquisition of Honeywell’s Personal Protective Equipment",
+   "description": "Weil Advises on Preferred Equity Financing for Protective Industrial Product’s Acquisition of Honeywell’s Personal Protective Equipment",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-omers-private-equity-and-paradigm-corp-on-240-million-term-loan-and-recap",
+   "title": "Weil Advises OMERS Private Equity and Paradigm Corp. on $240 Million Term Loan and Recap",
+   "description": "Weil Advises OMERS Private Equity and Paradigm Corp. on $240 Million Term Loan and Recap",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-private-equity-at-goldman-sachs-alternatives-and-omega-healthcare-on-investment",
+   "title": "Weil Advises Private Equity at Goldman Sachs Alternatives and Omega Healthcare on Investment by Ontario Teachers’",
+   "description": "Weil Advises Private Equity at Goldman Sachs Alternatives and Omega Healthcare on Investment by Ontario Teachers’",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "weil",
+   "url": "https://eurorestructuring.weil.com/news/restructuring/the-weil-european-distress-index-18/attachment/image-16/",
+   "title": "image - European Restructuring Watch",
+   "description": null,
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-07"
+  },
+  {
    "firm": "reedsmith",
    "url": "https://www.reedsmith.com/articles/pemacom-2026-insights-on-the-private-equity-and-ma-landscape/",
    "title": "PEMACOM 2026: Insights on the private equity and M&A landscape",
@@ -1355,144 +1479,9 @@
    "lastmod": "2026-10-07"
   },
   {
-   "firm": "weil",
-   "url": "https://eurorestructuring.weil.com/news/restructuring/the-weil-european-distress-index-18/",
-   "title": "The Weil European Distress Index - European Restructuring Watch",
-   "description": "The latest Weil European Distress Index (WEDI), an indicator of corporate distress and an early-warning indicator of default risk, shows that distress across Europe eased in the latest quarter, while remaining above the long-run average.",
-   "date": "2026-10-07",
-   "dateSource": "article:published_time",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-sun-capital-on-gp-led-secondary-transaction-involving-anderson-global",
-   "title": "Weil Advises Sun Capital on GP-Led Secondary Transaction Involving Anderson Global - Announcements - Weil, Gotshal & Manges LLP",
-   "description": "Weil advised Sun Capital on a GP-led secondary transaction involving Anderson Global through a continuation vehicle sponsored by a Sun Capital affiliate.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/the-weil-european-distress-index-july-2026",
-   "title": "European Corporate Distress Rises in Q2 2026 | WEDI - Weil, Gotshal & Manges LLP",
-   "description": "Weil European Distress Index shows corporate distress rising across all European markets in Q2 2026, with Retail hitting post-financial-crisis highs.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-1-point-2b-financing-for-caturus-llcs-13b-commonwealth-lng-facility",
-   "title": "Weil Advises CPP Investments in $1.2B Financing for Caturus LLC’s $13B Commonwealth LNG Facility - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advises CPP Investments in $1.2B Financing for Caturus LLC’s $13B Commonwealth LNG Facility",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-brookfield-as-colead-investor-in-the-openai-deployment-company",
-   "title": "Weil Advises Brookfield as Co-Lead Investor in The OpenAI Deployment Company - Weil, Gotshal & Manges LLP",
-   "description": "The OpenAI Deployment Company is a new company designed to help organizations build and deploy AI systems they can rely on every day across their most important work.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-bain-capital-in-its-strategic-growth-investment-in-duravent",
-   "title": "Weil Advises Bain Capital in its Strategic Growth Investment in Duravent - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advises Bain Capital in its Strategic Growth Investment in Duravent",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-paradigm-an-omers-portfolio-company-in-its-sale-to-patient-square-capital",
-   "title": "Weil Advises Paradigm, an OMERS Portfolio Company, in its Sale to Patient Square Capital - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advises Paradigm, an OMERS Portfolio Company, in its Sale to Patient Square Capital",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-strategic-growth-investment-in-boats-group",
-   "title": "Weil Advises CPP Investments in Strategic Growth Investment in Boats Group - Weil, Gotshal & Manges LLP",
-   "description": "Weil is advising Canada Pension Plan Investment Board (CPP Investments) in its strategic growth investment, together with General Atlantic, in Boats Group, a global provider of online marketplaces for boats and yachts.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-convex-insurance-and-psp-investments-on-convexs-new-long-term-ownership-structure",
-   "title": "Weil Advises Convex Insurance and PSP Investments on Convex’s New Long Term Ownership Structure led by Onex Corporation and American International Group, Inc. - Weil, Gotshal & Manges LLP",
-   "description": "Weil is advising Convex Group Limited (“Convex”), the international specialty insurer and reinsurer, and PSP Investments, as existing investor in Convex, on a new, long term ownership structure led by Onex Corporation (“Onex”), with American International Group, Inc. (“AIG”) becoming a strategic minority equity investor in Convex.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-viterra-shareholders-in-merger-of-viterra-and-bunge",
-   "title": "Weil Advises Viterra Shareholders in Merger of Viterra and Bunge - Weil, Gotshal & Manges LLP",
-   "description": "Weil advised the Glencore PLC, CPP Investments and British Columbia Investment Management Corporation, as shareholders of Viterra Limited, in the successful closing of Viterra&#39;s previously announced merger with Bunge Global SA, marking the creation of a premier global agribusiness solutions company for food, feed and fuel.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-omers-and-its-portfolio-company-paradigm-in-strategic-investment-by-neuberger-berman",
-   "title": "Weil Advises OMERS and its Portfolio Company Paradigm in Strategic Investment by Neuberger Berman Capital Solutions - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advises OMERS and Its Portfolio Company Paradigm in Strategic Investment by Neuberger Berman Capital Solutions",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-on-preferred-equity-financing-for-protective-industrial-products-acquisition",
-   "title": "Weil Advises on Preferred Equity Financing for Protective Industrial Product’s Acquisition of Honeywell’s Personal Protective Equipment - Announcements - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advises on Preferred Equity Financing for Protective Industrial Product’s Acquisition of Honeywell’s Personal Protective Equipment",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-omers-private-equity-and-paradigm-corp-on-240-million-term-loan-and-recap",
-   "title": "Weil Advises OMERS Private Equity and Paradigm Corp. on $240 Million Term Loan and Recap - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advises OMERS Private Equity and Paradigm Corp. on $240 Million Term Loan and Recap",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-private-equity-at-goldman-sachs-alternatives-and-omega-healthcare-on-investment",
-   "title": "Weil Advises Private Equity at Goldman Sachs Alternatives and Omega Healthcare on Investment by Ontario Teachers’ - Weil, Gotshal & Manges LLP",
-   "description": "Weil Advises Private Equity at Goldman Sachs Alternatives and Omega Healthcare on Investment by Ontario Teachers’",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://eurorestructuring.weil.com/news/restructuring/the-weil-european-distress-index-18/attachment/image-16/",
-   "title": "image - European Restructuring Watch",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/booking-etraveli-eu-general-court-upholds-commissions-new-template-for-digital-merger-control",
-   "title": "Booking/Etraveli: EU General Court Upholds Commission’s new Template for Digital Merger Control | Insights | Mayer Brown",
+   "title": "Booking/Etraveli: EU General Court Upholds Commission’s new Template for Digital Merger Control",
    "description": "Introduction The EU General Court’s (the &quot; Court &quot;) judgment in Booking/Etraveli marks a watershed moment for digital merger control in Europe.",
    "date": "2026-10-07",
    "dateSource": "datePublished",
@@ -1501,44 +1490,8 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/10/mayer-brown-and-tauil-chequer-advogados-advise-on-multiple-award-winning-transactions-at-latinfinance-project-infrastructure-finance-awards",
-   "title": "Mayer Brown and Tauil & Chequer Advogados advise on multiple award-winning transactions at LatinFinance’s 2026 Project & Infrastructure Finance Awards | News | Mayer Brown",
+   "title": "Mayer Brown and Tauil & Chequer Advogados advise on multiple award-winning transactions at LatinFinance’s 2026 Project & Infrastructure Finance Awards",
    "description": "Mayer Brown advised on three transactions recognized at LatinFinance’s 2026 Project & Infrastructure Finance Awards, including one transaction on",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/fca-finalises-guidance-for-cryptoasset-firms-on-approach-to-overall-risk-assessments",
-   "title": "FCA finalises guidance for cryptoasset firms on approach to overall risk assessments",
-   "description": "The Financial Conduct Authority (FCA) has published two pieces of final non-Handbook guidance explaining how firms within its new prudential regime for regulated cryptoasset activities should approach their obligation under the FCA Handbook to perform an overall risk assessment: FG26/9 on COREPRU 7 and FG26/10 on CRYPTOPRU 7. The guidance describes how firms should evaluate their business models, risks and resource needs in order to maintain adequate financial resources to continue operating or, if necessary, to wind down without causing material harm to customers or the UK market. It is illustrative and non-exhaustive and does not impose a single methodology. Both publications take effect on 25 October 2027.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/uk-regulator-allows-more-flexibility-for-investment-funds-investing-into-crypto-etns",
-   "title": "UK regulator allows more flexibility for investment funds investing into crypto ETNs",
-   "description": "The UK’s Financial Conduct Authority (FCA) is proposing to relax its current restrictions for investment funds who wish to invest in exchange traded notes that reference cryptoassets (cETNs).",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-abn-amro-on-downlisting-of-h2apex-group-spa",
-   "title": "Hogan Lovells Cadwalader advises ABN AMRO on downlisting of H2APEX Group SPA",
-   "description": "Global law firm Hogan Lovells Cadwalader has advised ABN AMRO on the downlisting of H2APEX Group SPA.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/de/news/hogan-lovells-cadwalader-advises-abn-amro-on-downlisting-of-h2apex-group-spa",
-   "title": "Hogan Lovells Cadwalader berät ABN AMRO bei Downlisting der H2APEX Group SPA",
-   "description": "Die globale Wirtschaftskanzlei Hogan Lovells Cadwalader hat unter der Leitung von Professor Dr. Michael Schlitt und Dr. Susanne Ries ABN AMRO beim Downlisting der H2APEX Group SPA beraten.",
    "date": "2026-10-07",
    "dateSource": "datePublished",
    "lastmod": "2026-10-07"
@@ -1616,9 +1569,27 @@
    "lastmod": "2026-10-07"
   },
   {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-abn-amro-on-downlisting-of-h2apex-group-spa",
+   "title": "Hogan Lovells Cadwalader advises ABN AMRO on downlisting of H2APEX Group SPA",
+   "description": "Global law firm Hogan Lovells Cadwalader has advised ABN AMRO on the downlisting of H2APEX Group SPA.",
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/de/news/hogan-lovells-cadwalader-advises-abn-amro-on-downlisting-of-h2apex-group-spa",
+   "title": "Hogan Lovells Cadwalader berät ABN AMRO bei Downlisting der H2APEX Group SPA",
+   "description": "Die globale Wirtschaftskanzlei Hogan Lovells Cadwalader hat unter der Leitung von Professor Dr. Michael Schlitt und Dr. Susanne Ries ABN AMRO beim Downlisting der H2APEX Group SPA beraten.",
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-07"
+  },
+  {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-longstanding-client-talktalk-on-acquisition-by-bt-group",
-   "title": "Freshfields advises longstanding client TalkTalk on acquisition by BT Group | Freshfields",
+   "title": "Freshfields advises longstanding client TalkTalk on acquisition by BT Group",
    "description": null,
    "date": "2026-10-06",
    "dateSource": "datePublished",
@@ -1627,7 +1598,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advised-ontic-on-aero-mach-companies-acquisition",
-   "title": "Freshfields Advises Ontic on Aero-Mach Companies Acquisition | Freshfields",
+   "title": "Freshfields Advises Ontic on Aero-Mach Companies Acquisition",
    "description": "Freshfields advised Ontic on its acquisition of Aero-Mach Companies, a Wichita-based aerospace business comprising three specialist aviation brands.",
    "date": "2026-10-06",
    "dateSource": "datePublished",
@@ -1690,7 +1661,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-investors-landmark-financing-chile-battery-storage-project",
-   "title": "White & Case advises investors on landmark financing for Chile battery storage project | White & Case LLP",
+   "title": "White & Case advises investors on landmark financing for Chile battery storage project",
    "description": "Global law firm White & Case LLP has advised the investors on the financing of El Pelicano Solar Company SpA&#039;s battery energy storage system (an Actis Long-Life Infrastructure company), to be located in La Higuera, Chile.",
    "date": "2026-10-06",
    "dateSource": "<time datetime>",
@@ -1699,7 +1670,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/ft-specialist-ignites-earnout-lawsuit-over-acquired-etf",
-   "title": "FT Specialist – Ignites | Earnout lawsuit over acquired ETF | White & Case LLP",
+   "title": "FT Specialist – Ignites | Earnout lawsuit over acquired ETF",
    "description": "In an article for Ignites, a Financial Times Specialist publication, White & Case partner Dario de Martino discussed the earnout at the center of Knowledge Leaders Capital’s lawsuit against AXS Investments.",
    "date": "2026-10-06",
    "dateSource": "<time datetime>",
@@ -1708,7 +1679,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-atalian-global-recapitalization-and-change-ownership",
-   "title": "White & Case advises Atalian on global recapitalization and change of ownership | White & Case LLP",
+   "title": "White & Case advises Atalian on global recapitalization and change of ownership",
    "description": "Global law firm White & Case LLP has advised the Atalian group, one of the leading Facilities Management companies in Europe, in connection with its global recapitalization and a change of ownership of the Group, with the support of an ad hoc group of bondholders (AHG) representing more than",
    "date": "2026-10-06",
    "dateSource": "<time datetime>",
@@ -1717,7 +1688,7 @@
   {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/congressional-democrats-propose-first-federal-corporate-practice-of-medicine-law-unlikely-to-pass",
-   "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass | Insights | Sidley Austin LLP",
+   "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass",
    "description": null,
    "date": "2026-10-06",
    "dateSource": "datePublished",
@@ -1760,6 +1731,24 @@
    "lastmod": "2026-10-06"
   },
   {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/The-End-of-Chevron-Deference-What-the-Supreme-Courts-Ruling-in-Loper-Bright-Means-for-the-Regulated-Community-6-28-2024",
+   "title": "The End of Chevron Deference: What the Supreme Court",
+   "description": "The US Supreme Court",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Corner-Post-Magnifies-Regulatory-Uncertainty-After-Loper-Bright-7-12-2024",
+   "title": "Corner Post Magnifies Regulatory Uncertainty After Loper Bright",
+   "description": "In its last opinion of this term, the US Supreme Court in Corner Post v. Board of Governors of the Federal Reserve System significantly extended the timeframe in which courts can review certain current and future regulations.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-06"
+  },
+  {
    "firm": "reedsmith",
    "url": "https://www.reedsmith.com/articles/regulatory-considerations-for-investment-advisers-compliance-reviews-valuation-and-proposed-rulemaking/",
    "title": "Regulatory Considerations for Investment Advisers: Compliance Reviews, Valuation, and Proposed Rulemaking",
@@ -1771,107 +1760,8 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/sec-proposes-amendments-addressing-retailization-modernizing-regulated-funds-and-performance-based-compensation",
-   "title": "SEC Proposes Amendments Addressing Retailization; Modernizing Regulated Funds and Performance-Based Compensation | Insights | Mayer Brown",
+   "title": "SEC Proposes Amendments Addressing Retailization; Modernizing Regulated Funds and Performance-Based Compensation",
    "description": "On September 30, 2026, the Securities and Exchange Commission (the “SEC”) issued two proposing releases containing amendments that would materially",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/de/news/hogan-lovells-cadwalader-advises-hig-capital-on-the-acquisition-of-rothschenk",
-   "title": "Hogan Lovells Cadwalader berät H.I.G. Capital beim Erwerb von Rothschenk",
-   "description": "Unter der Leitung von Dr. Jan Philipp Feigen und Dr. Malte Ingwersen hat die globale Wirtschaftskanzlei Hogan Lovells Cadwalader die CargoTuff LLC (CargoTuff), ein Portfoliounternehmen der globalen Investmentgesellschaft H.I.G. Capital, bei der Übernahme der G+H GmbH Rothschenk (Rothschenk) beraten.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/proposed-federal-legislation-would-significantly-expand-corporate-practice-of-medicine-restrictions",
-   "title": "Proposed federal legislation would significantly expand corporate practice of medicine restrictions nationwide",
-   "description": "On September 16, 2026, a group of Democratic lawmakers introduced the Stop Corporate Takeovers ofPhysicians Act, legislation that would establish the firstfederal prohibition on the corporate ownership and control of physicianpractices. If enacted, the bill would represent a significant departure fromthe longstanding approach to corporate practice of medicine (“CPOM”)regulation, which historically has been regulated almost exclusively by thestates.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-a-group-of-international-lenders-on-syndicated-loan-facility-to-jsc-almalyk-mmc",
-   "title": "Hogan Lovells Cadwalader advises a group of international lenders on syndicated loan facility to JSC Almalyk MMC",
-   "description": "Dubai, 6 October 2026 – Global law firm Hogan Lovells Cadwalader has advised a group of international lenders on a US$700m facility to JSC Almalyk MMC.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eaton-corporation-on-the-acquisition-of-col-group",
-   "title": "Hogan Lovells Cadwalader advises Eaton Corporation on the acquisition of COL Group",
-   "description": "6 October 2026 – Hogan Lovells Cadwalader has advised Eaton Corporation, a global intelligent power management company, on its agreement to acquire 100% of the share capital of COL Group from the Power Opportunities fund managed by Oaktree Capital Management and other minority shareholders, at an enterprise value of €810 million.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-fremman-capital-on-acquisition-of-proteko-group",
-   "title": "Hogan Lovells Cadwalader advises Fremman Capital on acquisition of Proteko Group",
-   "description": "6 October 2026 – Global law firm Hogan Lovells Cadwalader has advised Fremman Capital on the acquisition of a controlling stake in Proteko S.p.A., a leading provider of workplace safety management services, from Finint Investments and funders, which will reinvest alongside the incoming investor to retain a minority interest in the business.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-hig-capital-on-the-acquisition-of-rothschenk",
-   "title": "Hogan Lovells Cadwalader advises H.I.G. Capital on the acquisition of Rothschenk",
-   "description": "Global law firm Hogan Lovells Cadwalader has advised CargoTuff LLC (CargoTuff), a portfolio Company of global investment firm H.I.G. Capital, on its acquisition of G+H GmbH Rothschenk (Rothschenk).",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-unicredit-on-the-authorisations-for-the-landmark-5bn-usd-denominated-at1-issuance",
-   "title": "Hogan Lovells Cadwalader advises UniCredit on the authorisations for the landmark €5bn USD-denominated AT1 issuance",
-   "description": "6 October 2026 – Global law firm Hogan Lovells Cadwalader has advised UniCredit S.p.A. in connection with the approval by its Extraordinary Shareholders",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/fr/news/hogan-lovells-cadwalader-conseille-andera-partners-dans-le-cadre-de-sa-prise-de-participation-au-capital-de-sabena-aerospace-holding",
-   "title": "Hogan Lovells Cadwalader conseille Andera Partners dans le cadre de sa prise de participation au capital de Sabena Aerospace Holding",
-   "description": "Hogan Lovells Cadwalader a conseillé Andera Partners dans le cadre de sa prise de participation au capital de Sabena Aerospace Holding, contrôlant Sabena Engineering, l’un des leaders indépendants spécialisé dans les services de maintenance, réparation et révision (MRO) d’aéronefs civils et militaires.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/fr/news/hogan-lovells-cadwalader-conseille-les-preteurs-seniors-dans-le-cadre-du-financement-du-lbo-primaire-d-eds-emballage-a-l-occasion-de-l-entree-de-b-et-capital-a-son-capital-aux-cotes-du-management",
-   "title": "Hogan Lovells Cadwalader conseille les prêteurs seniors dans le cadre du financement du LBO primaire d",
-   "description": "Hogan Lovells Cadwalader a conseillé BNP Paribas, Banque Populaire Grand Ouest, la Caisse d",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-secures-hong-kong-recognition-and-assistance-to-us-bankruptcy-trustee-in-first-of-its-kind-case",
-   "title": "Hogan Lovells Cadwalader secures Hong Kong recognition and assistance to U.S. bankruptcy trustee in first-of-its-kind case",
-   "description": "Hong Kong, Los Angeles – 6 October 2026 – In what is believed to be the first case of its kind, a cross-border Hogan Lovells Cadwalader team successfully petitioned the Hong Kong High Court of Justice for an order recognizing and granting assistance to a U.S. bankruptcy trustee in Hong Kong.",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/japans-critical-infrastructure-cybersecurity-regime-key-developments-took-effect-on-1-october-2026",
-   "title": "Japan",
-   "description": "Why companies supporting Japan",
    "date": "2026-10-06",
    "dateSource": "datePublished",
    "lastmod": "2026-10-06"
@@ -1976,37 +1866,109 @@
    "lastmod": "2026-10-06"
   },
   {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/de/news/hogan-lovells-cadwalader-advises-hig-capital-on-the-acquisition-of-rothschenk",
+   "title": "Hogan Lovells Cadwalader berät H.I.G. Capital beim Erwerb von Rothschenk",
+   "description": "Unter der Leitung von Dr. Jan Philipp Feigen und Dr. Malte Ingwersen hat die globale Wirtschaftskanzlei Hogan Lovells Cadwalader die CargoTuff LLC (CargoTuff), ein Portfoliounternehmen der globalen Investmentgesellschaft H.I.G. Capital, bei der Übernahme der G+H GmbH Rothschenk (Rothschenk) beraten.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/publications/proposed-federal-legislation-would-significantly-expand-corporate-practice-of-medicine-restrictions",
+   "title": "Proposed federal legislation would significantly expand corporate practice of medicine restrictions nationwide",
+   "description": "On September 16, 2026, a group of Democratic lawmakers introduced the Stop Corporate Takeovers ofPhysicians Act, legislation that would establish the firstfederal prohibition on the corporate ownership and control of physicianpractices. If enacted, the bill would represent a significant departure fromthe longstanding approach to corporate practice of medicine (“CPOM”)regulation, which historically has been regulated almost exclusively by thestates.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-a-group-of-international-lenders-on-syndicated-loan-facility-to-jsc-almalyk-mmc",
+   "title": "Hogan Lovells Cadwalader advises a group of international lenders on syndicated loan facility to JSC Almalyk MMC",
+   "description": "Dubai, 6 October 2026 – Global law firm Hogan Lovells Cadwalader has advised a group of international lenders on a US$700m facility to JSC Almalyk MMC.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-eaton-corporation-on-the-acquisition-of-col-group",
+   "title": "Hogan Lovells Cadwalader advises Eaton Corporation on the acquisition of COL Group",
+   "description": "6 October 2026 – Hogan Lovells Cadwalader has advised Eaton Corporation, a global intelligent power management company, on its agreement to acquire 100% of the share capital of COL Group from the Power Opportunities fund managed by Oaktree Capital Management and other minority shareholders, at an enterprise value of €810 million.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-fremman-capital-on-acquisition-of-proteko-group",
+   "title": "Hogan Lovells Cadwalader advises Fremman Capital on acquisition of Proteko Group",
+   "description": "6 October 2026 – Global law firm Hogan Lovells Cadwalader has advised Fremman Capital on the acquisition of a controlling stake in Proteko S.p.A., a leading provider of workplace safety management services, from Finint Investments and funders, which will reinvest alongside the incoming investor to retain a minority interest in the business.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-hig-capital-on-the-acquisition-of-rothschenk",
+   "title": "Hogan Lovells Cadwalader advises H.I.G. Capital on the acquisition of Rothschenk",
+   "description": "Global law firm Hogan Lovells Cadwalader has advised CargoTuff LLC (CargoTuff), a portfolio Company of global investment firm H.I.G. Capital, on its acquisition of G+H GmbH Rothschenk (Rothschenk).",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-unicredit-on-the-authorisations-for-the-landmark-5bn-usd-denominated-at1-issuance",
+   "title": "Hogan Lovells Cadwalader advises UniCredit on the authorisations for the landmark €5bn USD-denominated AT1 issuance",
+   "description": "6 October 2026 – Global law firm Hogan Lovells Cadwalader has advised UniCredit S.p.A. in connection with the approval by its Extraordinary Shareholders",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/fr/news/hogan-lovells-cadwalader-conseille-andera-partners-dans-le-cadre-de-sa-prise-de-participation-au-capital-de-sabena-aerospace-holding",
+   "title": "Hogan Lovells Cadwalader conseille Andera Partners dans le cadre de sa prise de participation au capital de Sabena Aerospace Holding",
+   "description": "Hogan Lovells Cadwalader a conseillé Andera Partners dans le cadre de sa prise de participation au capital de Sabena Aerospace Holding, contrôlant Sabena Engineering, l’un des leaders indépendants spécialisé dans les services de maintenance, réparation et révision (MRO) d’aéronefs civils et militaires.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/fr/news/hogan-lovells-cadwalader-conseille-les-preteurs-seniors-dans-le-cadre-du-financement-du-lbo-primaire-d-eds-emballage-a-l-occasion-de-l-entree-de-b-et-capital-a-son-capital-aux-cotes-du-management",
+   "title": "Hogan Lovells Cadwalader conseille les prêteurs seniors dans le cadre du financement du LBO primaire d",
+   "description": "Hogan Lovells Cadwalader a conseillé BNP Paribas, Banque Populaire Grand Ouest, la Caisse d",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-secures-hong-kong-recognition-and-assistance-to-us-bankruptcy-trustee-in-first-of-its-kind-case",
+   "title": "Hogan Lovells Cadwalader secures Hong Kong recognition and assistance to U.S. bankruptcy trustee in first-of-its-kind case",
+   "description": "Hong Kong, Los Angeles – 6 October 2026 – In what is believed to be the first case of its kind, a cross-border Hogan Lovells Cadwalader team successfully petitioned the Hong Kong High Court of Justice for an order recognizing and granting assistance to a U.S. bankruptcy trustee in Hong Kong.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/publications/japans-critical-infrastructure-cybersecurity-regime-key-developments-took-effect-on-1-october-2026",
+   "title": "Japan",
+   "description": "Why companies supporting Japan",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-banner-ridge-on-$280m-acquisition-of-lp-interests-in-true-green-capital-fund-iii",
-   "title": "Freshfields Advises Banner Ridge on $280m Fund Secondaries Deal | Freshfields",
+   "title": "Freshfields Advises Banner Ridge on $280m Fund Secondaries Deal",
    "description": "Freshfields advises Banner Ridge on a $280 million private funds secondary transaction involving limited partner interests in True Green Capital Fund III.",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/events/2026/01/iib-freshfields-foreign-bank-regulatory-breakfast-a-structural-reset-in-u.s.-banking-regulation",
-   "title": "IIB-Freshfields U.S. Banking Regulation Breakfast 2026 | Freshfields",
-   "description": "What regulatory developments should foreign banks prioritize in 2026? IIB and Freshfields examine U.S. banking regulation, enforcement and public policy.",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/events/2025/11/banking-law-institute-2025--practising-law-institute-pli",
-   "title": "PLI Banking Law Institute 2025 | Freshfields",
-   "description": "How are U.S. regulatory changes affecting foreign banks? Alison Hashmall discusses cross-border supervision, stablecoins, fintech and Banking-as-a-Service.",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/events/2024/06/esg-around-the-world-the-evolving-regulatory-landscape-for-financial-services-firms--freshfields-global-webinar",
-   "title": "ESG Around the World: Financial Services Regulation | Freshfields",
-   "description": "How are ESG regulations affecting financial institutions? Freshfields examines sustainability disclosures, governance, risk management and greenwashing worldwide.",
    "date": "2026-10-05",
    "dateSource": "datePublished",
    "lastmod": "2026-10-05"
@@ -2041,7 +2003,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-joint-lead-managers-mbanks-eur250-million-additional-tier-1",
-   "title": "White & Case advises joint lead managers on mBank’s €250 million Additional Tier 1 notes issuance | White & Case LLP",
+   "title": "White & Case advises joint lead managers on mBank’s €250 million Additional Tier 1 notes issuance",
    "description": "Global law firm White & Case LLP has advised the joint lead managers on mBank S.A.&#039;s issuance of €250 million Additional Tier 1 perpetual notes.",
    "date": "2026-10-05",
    "dateSource": "<time datetime>",
@@ -2050,7 +2012,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-lenders-eur561-million-financing-13gwp-dama-solar-project",
-   "title": "White & Case advises lenders on €561 million financing for the 1.3GWp Dama Solar project in Romania | White & Case LLP",
+   "title": "White & Case advises lenders on €561 million financing for the 1.3GWp Dama Solar project in Romania",
    "description": "Global law firm White & Case LLP has advised a consortium of 14 lenders on the up-to €561 million financing of the construction of Rezolv Energy&#039;s 1.3GWp Dama Solar project in Arad County Romania.",
    "date": "2026-10-05",
    "dateSource": "<time datetime>",
@@ -2120,33 +2082,6 @@
    "lastmod": "2026-10-06"
   },
   {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/fr/news/hogan-lovells-cadwalader-advises-lvo-on-its-acquisition-of-a-majority-stake-in-seatram-logistics-group",
-   "title": "Hogan Lovells Cadwalader conseille LVO dans le cadre de l",
-   "description": "Hogan Lovells Cadwalader a conseillé Léon Vincent Overseas (LVO), groupe français de logistique internationale soutenu par la société de capital-investissement MML Capital Partners, dans le cadre de l",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-boosts-private-capital-and-manda-capabilities-in-asia-pacific-with-arrival-of-paul-guan-in-hong-kong",
-   "title": "Hogan Lovells Cadwalader boosts private capital and M&A capabilities in Asia Pacific with arrival of Paul Guan in Hong Kong",
-   "description": "Hong Kong, 5 October 2026 – Global law firm Hogan Lovells Cadwalader today announced that Paul Guan has joined the firm",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/esg-focus-ukeuinternational-esg-regulation-monthly-roundup-augustseptember-2026",
-   "title": "ESG Focus: UK/EU/International ESG Regulation Monthly Round-Up – August/September 2026",
-   "description": "We took a brief summer break but are back with this edition of the ESG Regulation Monthly Round-Up covering developments from the UK, EU and internationally during August and September 2026.Generally there have been a lot of developments around corporate sustainability reporting in the UK, EU, Australia, New Zealand and California. The direction of travel seems to be a recalibration of mandatory expectations on companies. There have also been a number of conversations and plans announced around adaptation and resilience – which is a leading topic as we head to the end of 2026.",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
    "firm": "latham",
    "url": "https://www.lw.com/en/insights/2026/10/Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "title": "Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
@@ -2183,9 +2118,36 @@
    "lastmod": "2026-10-05"
   },
   {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/fr/news/hogan-lovells-cadwalader-advises-lvo-on-its-acquisition-of-a-majority-stake-in-seatram-logistics-group",
+   "title": "Hogan Lovells Cadwalader conseille LVO dans le cadre de l",
+   "description": "Hogan Lovells Cadwalader a conseillé Léon Vincent Overseas (LVO), groupe français de logistique internationale soutenu par la société de capital-investissement MML Capital Partners, dans le cadre de l",
+   "date": "2026-10-05",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-05"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-boosts-private-capital-and-manda-capabilities-in-asia-pacific-with-arrival-of-paul-guan-in-hong-kong",
+   "title": "Hogan Lovells Cadwalader boosts private capital and M&A capabilities in Asia Pacific with arrival of Paul Guan in Hong Kong",
+   "description": "Hong Kong, 5 October 2026 – Global law firm Hogan Lovells Cadwalader today announced that Paul Guan has joined the firm",
+   "date": "2026-10-05",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-05"
+  },
+  {
+   "firm": "hoganlovells",
+   "url": "https://www.hlc.com/en/publications/esg-focus-ukeuinternational-esg-regulation-monthly-roundup-augustseptember-2026",
+   "title": "ESG Focus: UK/EU/International ESG Regulation Monthly Round-Up – August/September 2026",
+   "description": "We took a brief summer break but are back with this edition of the ESG Regulation Monthly Round-Up covering developments from the UK, EU and internationally during August and September 2026.Generally there have been a lot of developments around corporate sustainability reporting in the UK, EU, Australia, New Zealand and California. The direction of travel seems to be a recalibration of mandatory expectations on companies. There have also been a number of conversations and plans announced around adaptation and resilience – which is a leading topic as we head to the end of 2026.",
+   "date": "2026-10-05",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-05"
+  },
+  {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-the-underwriting-banks-on-the-500m-equity-raise-by-land-securities-group-plc",
-   "title": "Freshfields advises the underwriting banks on the £500m equity raise by Land Securities Group PLC | Freshfields",
+   "title": "Freshfields advises the underwriting banks on the £500m equity raise by Land Securities Group PLC",
    "description": null,
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2194,7 +2156,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-phoenix-tower-international-on-a-$6.5bn-financing",
-   "title": "Freshfields advises Phoenix Tower International on a $6.5bn financing | Freshfields",
+   "title": "Freshfields advises Phoenix Tower International on a $6.5bn financing",
    "description": "Global law firm Freshfields has advised Phoenix Tower International (“PTI”), a leading global provider of wireless communications infrastructure, on the Spanish law matters of its $6.5bn multi-jurisdiction financing.",
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2221,7 +2183,7 @@
   {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-irb-invit-funds-inr-20bn-qualified-institutional-placement-of-units",
-   "title": "IRB InvIT Fund INR 20bn qualified institutional placement of units | Linklaters",
+   "title": "IRB InvIT Fund INR 20bn qualified institutional placement of units",
    "description": "Linklaters advised the banks as sole international counsel on IRB InvIT Fund’s INR 20 billion qualified institutional placement and preferential allotment of units, supporting one of India’s leading infrastructure investment platforms.",
    "date": null,
    "dateSource": null,
@@ -2230,7 +2192,7 @@
   {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-opmobility-on-the-acquisition-of-hyundai-mobis-lighting-activity",
-   "title": "Linklaters advises OPmobility on Hyundai Mobis lighting acquisition | Linklaters",
+   "title": "Linklaters advises OPmobility on Hyundai Mobis lighting acquisition",
    "description": "Linklaters advised OPmobility on its agreement to acquire Hyundai Mobis&#x27; lighting business, strengthening its global lighting operations and mobility offering.",
    "date": null,
    "dateSource": null,
@@ -2275,7 +2237,7 @@
   {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/blogs/foreigninvestmentlinks/2026/october/a-new-era-for-german-investment-screening-investitionsprufungsgesetz-ipg",
-   "title": "German Investment Screening Act (IPG): Key Changes for Investors | Linklaters",
+   "title": "German Investment Screening Act (IPG): Key Changes for Investors",
    "description": "Germany&#x27;s draft Investment Screening Act (IPG) would reshape foreign investment reviews, introducing new rules on investor nationality, minority stakes, sector coverage and deal timing.",
    "date": null,
    "dateSource": null,
@@ -2293,7 +2255,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/cnbc-bargain-britain-lures-foreign-buyers-hostile-takeovers-surge",
-   "title": "CNBC | Bargain Britain lures foreign buyers as hostile takeovers surge | White & Case LLP",
+   "title": "CNBC | Bargain Britain lures foreign buyers as hostile takeovers surge",
    "description": null,
    "date": "2026-10-02",
    "dateSource": "<time datetime>",
@@ -2302,8 +2264,17 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-bold-eagle-acquisition-corp-business-combination-redlattice",
-   "title": "White & Case advises Bold Eagle Acquisition Corp. on business combination with REDLattice | White & Case LLP",
+   "title": "White & Case advises Bold Eagle Acquisition Corp. on business combination with REDLattice",
    "description": "Global law firm White & Case LLP has advised Bold Eagle Acquisition Corp., a publicly listed special purpose acquisition company (SPAC), on its entrance into a definitive agreement for a business combination with REDLattice, which will result in REDLattice becoming a publicly traded company o",
+   "date": "2026-10-02",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-02"
+  },
+  {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/press-release/white-case-advises-pearson-acquisition-workera",
+   "title": "White & Case advises Pearson on acquisition of Workera",
+   "description": "Global law firm White & Case LLP has advised Pearson (FTSE: PSON.L), the world&#039;s largest lifelong learning company, on its definitive agreement to acquire Workera, an AI-native skills intelligence platform.",
    "date": "2026-10-02",
    "dateSource": "<time datetime>",
    "lastmod": "2026-10-02"
@@ -2338,7 +2309,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/10/us-banking-regulator-says-srts-cannot-provide-concentration-relief",
-   "title": "US banking regulator says SRTs cannot provide concentration relief | News | Mayer Brown",
+   "title": "US banking regulator says SRTs cannot provide concentration relief",
    "description": "The Office of the Comptroller of the Currency (OCC) has updated its handbook to clarify that synthetic risk transfers can provide capital relief but",
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2347,7 +2318,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/10/trump-administration-further-narrows-path-for-h-1b-hiring",
-   "title": "Trump Administration Further Narrows Path for H-1B Hiring | News | Mayer Brown",
+   "title": "Trump Administration Further Narrows Path for H-1B Hiring",
    "description": "The Trump administration has introduced new restrictions and proposed rules that further narrow the use of H-1B visas, including heightened scrutiny",
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2356,7 +2327,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/brazils-ministry-of-ports-and-airports-opens-public-consultation-on-insurance-policy-for-infrastructure-concessions",
-   "title": "Brazil’s Ministry of Ports and Airports Opens Public Consultation on Insurance Policy for Infrastructure Concessions | Insights | Mayer Brown",
+   "title": "Brazil’s Ministry of Ports and Airports Opens Public Consultation on Insurance Policy for Infrastructure Concessions",
    "description": "The Ministry of Ports and Airports (Ministério de Portos e Aeroportos – MPor) has opened a 30-calendar-day public consultation on a proposed",
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2365,7 +2336,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/proposed-expansions-to-the-accredited-investor-definition-for-natural-persons",
-   "title": "Proposed Expansions to the Accredited Investor Definition for Natural Persons | Insights | Mayer Brown",
+   "title": "Proposed Expansions to the Accredited Investor Definition for Natural Persons",
    "description": "Earlier this week, the Securities and Exchange Commission (the “Commission”) continued to implement its capital-formation agenda by publishing a",
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2374,7 +2345,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/irs-targets-351-conversion-transactions-and-flags-various-other-etf-investment-fund-strategies-as-possibly-abusive",
-   "title": "IRS Targets “351 Conversion Transactions” and Flags Various Other ETF/Investment Fund Strategies as Possibly Abusive | Insights | Mayer Brown",
+   "title": "IRS Targets “351 Conversion Transactions” and Flags Various Other ETF/Investment Fund Strategies as Possibly Abusive",
    "description": "On Monday, September 28, 2026, the US Department of the Treasury and the IRS issued (i) Revenue Ruling 2026-20 (the “Ruling”), which targets an",
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2383,7 +2354,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/five-key-takeaways-from-mayer-browns-financial-services-ma-summit-chicago",
-   "title": "Five Key Takeaways from Mayer Brown’s Financial Services M&A Summit – Chicago | Insights | Mayer Brown",
+   "title": "Five Key Takeaways from Mayer Brown’s Financial Services M&A Summit – Chicago",
    "description": "Mayer Brown’s Financial Services M&A Summit in Chicago brought together senior industry leaders and Mayer Brown lawyers to discuss the forces",
    "date": "2026-10-02",
    "dateSource": "datePublished",
@@ -2401,7 +2372,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-durr-on-promissory-note-loan-placement",
-   "title": "Freshfields advises Dürr on promissory note loan placement | Freshfields",
+   "title": "Freshfields advises Dürr on promissory note loan placement",
    "description": "The global business law firm Freshfields advised Dürr AG on the successful placement of a promissory note loan totaling €200m. The proceeds from the issuance will be used for general corporate financing.",
    "date": "2026-10-01",
    "dateSource": "datePublished",
@@ -2410,7 +2381,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-strengthens-global-ma-and-capital-practice-with-tokyo-partner-appointment",
-   "title": "Freshfields strengthens Global M&A and Capital practice with Tokyo partner appointment | Freshfields",
+   "title": "Freshfields strengthens Global M&A and Capital practice with Tokyo partner appointment",
    "description": "Global law firm Freshfields has appointed Gregory Salathé as a partner in its Global M&A and Capital practice based in Tokyo.",
    "date": "2026-10-01",
    "dateSource": "datePublished",
@@ -2419,7 +2390,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2026/10/freshfields-strengthens-global-ma-and-capital-practice-with-tokyo-partner-appointment",
-   "title": "東京オフィスにグレゴリー・サラテがパートナーとして参画―グローバルM&A・キャピタル・プラクティスを強化 | Freshfields",
+   "title": "東京オフィスにグレゴリー・サラテがパートナーとして参画―グローバルM&A・キャピタル・プラクティスを強化",
    "description": "フレッシュフィールズは、このたび、グレゴリー・サラテ（Gregory Salathé）が、グローバルM&A・キャピタル・プラクティスのパートナーとして東京オフィスに参画したことをお知らせいたします。",
    "date": null,
    "dateSource": null,
@@ -2428,7 +2399,7 @@
   {
    "firm": "linklaters",
    "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-the-financing-of-usss-acquisition-of-vtg-rail-uk",
-   "title": "USS acquisition of VTG Rail UK financing | Linklaters",
+   "title": "USS acquisition of VTG Rail UK financing",
    "description": "Linklaters advised the underwriters and lenders on the financing of USS’s acquisition of VTG Rail UK, the UK’s leading rail freight wagon leasing business.",
    "date": "2026-10-01",
    "dateSource": "datePublished",
@@ -2473,7 +2444,7 @@
   {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-international-lenders-us15-billion-acelen-saf-biorefinery",
-   "title": "White & Case advises international lenders on US$1.5 billion Acelen SAF biorefinery project | White & Case LLP",
+   "title": "White & Case advises international lenders on US$1.5 billion Acelen SAF biorefinery project",
    "description": "Global law firm White & Case LLP has advised a consortium of international lenders on the project financing of Acelen Renewables&#039; landmark greenfield biorefinery project in Brazil, one of the first large-scale facilities in Latin America dedicated to producing both sustainable aviation fuel (",
    "date": "2026-10-01",
    "dateSource": "<time datetime>",
@@ -2579,6 +2550,69 @@
    "lastmod": "2026-10-01"
   },
   {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/USCIS-Issues-Major-New-Immigration-Regulations-for-Highly-Skilled-Workers-01-18-2017",
+   "title": "USCIS Issues Major New Immigration Regulations for Highly Skilled Workers",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Agribusiness--Leveraging-the-Opportunity-Zones-Tax-Incentive-to-Improve-Returns-on-Investments-in-the-Agribusiness-Sector-12-12-2018",
+   "title": "Agribusiness: Leveraging the Opportunity Zones Tax Incentive to Improve Returns on Investments in the Agribusiness Sector",
+   "description": "Alert regarding use of Opportunity Zone federal tax incentive by agribusiness clients",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Acquisition-and-Dispositions-of-US-Agricultural-Land-by-Foreign-Investors-Federal-and-State-Legislative-Restrictions-Limitations-and-Disclosure-Requirements-09-12-2018",
+   "title": "Acquisition and Disposition of U.S. Agricultural Land by Foreign Investors: Federal and State Legislative Restrictions, Limitations, and Disclosure Requirements",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Second-Circuit-Rejects-Setoff-Between-PACA-Merchants-in-Bankruptcy-Cases-01-29-2019",
+   "title": "Second Circuit Rejects Setoff Between PACA Merchants in Bankruptcy Cases",
+   "description": "Analysis of hold in recent Second Circuit opinion related to Perishable Agricultural Commodities cases and bankruptcy law.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Dust-Off-Your-Chapter-12-Knowledge-Increase-to-Debt-Limits-May-Revive-Family-Farmer-Bankruptcies-08-08-2019",
+   "title": "Dust Off Your Chapter 12 Knowledge: Increase to Debt Limits May Revive Family Farmer Bankruptcies",
+   "description": "Alert on increase to debt limit in Chapter 12.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Real-Estate-Beneficial-Ownership-Regulatory-Alert-Complying-with-Foreign-Ownership-Reporting-Requirements-in-US-Real-Estate-7-24-2023",
+   "title": "Real Estate Beneficial Ownership Regulatory Alert: Complying With Foreign Ownership Reporting Requirements in US Real Estate",
+   "description": "The rise of foreign investment in the United States has renewed concern about tracking foreign inbound investment. This alert provides a brief overview of AFIDA, describes the impact of state level laws, and discusses the evolving developments in the law at both the federal and state level and how these rules impact investment in US real estate.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Real-Estate-Beneficial-Ownership-Regulatory-Alert-USDA-Seeks-Input-on-Information-Reporting-for-Foreign-Ownership-of-Agricultural-Land-12-27-2023",
+   "title": "Real Estate Beneficial Ownership Regulatory Alert: USDA Seeks Input on Information Reporting for Foreign Ownership of Agricultural Land",
+   "description": "On 15 December, the United States Department of Agriculture (USDA) announced a request for information on proposed revisions to the Agricultural Foreign Investment Disclosure Act (AFIDA) Report.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-01"
+  },
+  {
    "firm": "reedsmith",
    "url": "https://www.reedsmith.com/news/reed-smith-earns-six-tier-1-practice-rankings-in-legal-500-uk/",
    "title": "Reed Smith earns six Tier 1 practice rankings in Legal 500 UK",
@@ -2608,7 +2642,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2025/12/freshfields-advises-kansai-electric-power-company-on-its-investment-in-offshore-wind-developer-simply-blue",
-   "title": "洋上風力発電開発事業者であるシンプリー・ブルー・エナジー社に対する出資について、関西電力株式会社に助言を提供 | Freshfields",
+   "title": "洋上風力発電開発事業者であるシンプリー・ブルー・エナジー社に対する出資について、関西電力株式会社に助言を提供",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -2617,7 +2651,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2023/05/freshfields-advises-nippon-express-holdings-inc.-on-acquisition-of-cargo-partner",
-   "title": "Cargo-Partnerの買収について、NIPPON EXPRESS ホールディングス株式会社にアドバイスを提供 | Freshfields",
+   "title": "Cargo-Partnerの買収について、NIPPON EXPRESS ホールディングス株式会社にアドバイスを提供",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -2626,7 +2660,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2021/05/freshfields-advises-eneos-corporation-on-acquisition-of-jsr-corporations-elastomer-business",
-   "title": "JSR株式会社のエラストマー事業の取得について、ENEOS株式会社にアドバイスを提供 | Freshfields",
+   "title": "JSR株式会社のエラストマー事業の取得について、ENEOS株式会社にアドバイスを提供",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -2635,7 +2669,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2022/08/freshfields-advises-on-se-asias-largest-ipo-of-2022-to-date",
-   "title": "フレッシュフィールズ、2022年（現時点）における東南アジア最大規模のIPOに関してアドバイスを提供 | Freshfields",
+   "title": "フレッシュフィールズ、2022年（現時点）における東南アジア最大規模のIPOに関してアドバイスを提供",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -2644,7 +2678,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2022/03/freshfields-advises-yokohama-rubber-on-2bn-acquisition-of-swedens-trelleborg-wheel-systems-holding",
-   "title": "スウェーデンに本社を置くTrelleborg Wheel Systems Holdingの買収（約20億ユーロ）について、横浜ゴム株式会社にアドバイスを提供 | Freshfields",
+   "title": "スウェーデンに本社を置くTrelleborg Wheel Systems Holdingの買収（約20億ユーロ）について、横浜ゴム株式会社にアドバイスを提供",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -2653,7 +2687,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2024/09/the-sun-also-rises-towards-japans-healthily-functioning-fair-ma-market2024819the-globe-and-mailcouche-tard-approaches-7-eleven-owner-about-takeover-in-potentially-historic-transaction",
-   "title": "中島 智子弁護士のブリーフィング記事「The Sun Also Rises: Towards Japan&#x27;s &quot;Healthily Functioning Fair M&A Market」が、2024年8月19日付、カナダの全国紙「The Globe and Mail」の記事「Couche-Tard approaches 7-Eleven owner about takeover in potentially historic transaction」に引用されました。 | Freshfields",
+   "title": "中島 智子弁護士のブリーフィング記事「The Sun Also Rises: Towards Japan&#x27;s &quot;Healthily Functioning Fair M&A Market」が、2024年8月19日付、カナダの全国紙「The Globe and Mail」の記事「Couche-Tard approaches 7-Eleven owner about takeover in potentially historic transaction」に引用されました。",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -2662,7 +2696,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/ja/our-thinking/news/news-search/2025/01/freshfields-leads-global-ma-league-tables-by-value-excelling-in-cross-border-european-us-asia-mena-and-private-equity-markets-ja",
-   "title": "クロスボーダーM&A部門で2年連続世界首位に－米国、ヨーロッパ、アジア、中東・北アフリカ、プライベートエクイティのランキングでも高い評価を獲得 | Freshfields",
+   "title": "クロスボーダーM&A部門で2年連続世界首位に－米国、ヨーロッパ、アジア、中東・北アフリカ、プライベートエクイティのランキングでも高い評価を獲得",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -2725,7 +2759,7 @@
   {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/09/mas-charts-the-next-phase-of-stablecoin-regulation-in-singapore",
-   "title": "MAS Charts the Next Phase of Stablecoin Regulation in Singapore | Insights | Sidley Austin LLP",
+   "title": "MAS Charts the Next Phase of Stablecoin Regulation in Singapore",
    "description": null,
    "date": "2026-09-30",
    "dateSource": "datePublished",
@@ -2748,6 +2782,24 @@
    "date": "2026-09-30",
    "dateSource": "datePublished",
    "lastmod": "2026-09-29"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Legal-Reforms-Underpin-US60-Billion-Investment-Pipeline-Announced-at-QEF-2026-9-29-2026",
+   "title": "Legal Reforms Underpin US$60 Billion Investment Pipeline Announced at QEF 2026",
+   "description": "Qatar",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-09-30"
+  },
+  {
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Investment-Management-Client-Alert-September-2026-9-29-2026",
+   "title": "Investment Management Client Alert September 2026",
+   "description": "EU and German regulators advance SFDR 2.0, risk management, prospectus, MiCAR, and AIF rules affecting asset managers and funds.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-09-30"
   },
   {
    "firm": "reedsmith",
@@ -2779,7 +2831,7 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/09/private-credit-firms-tool-up-for-takeovers-as-borrower-stress-builds",
-   "title": "Private Credit Firms Tool Up for Takeovers as Borrower Stress Builds | News | Mayer Brown",
+   "title": "Private Credit Firms Tool Up for Takeovers as Borrower Stress Builds",
    "description": "Philip Butler comments on how private credit funds are now investing in restructuring and ownership-management expertise, hiring from restructuring",
    "date": "2026-09-30",
    "dateSource": "datePublished",
@@ -2788,11 +2840,29 @@
   {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/09/building-safety-levy-could-make-housing-projects-unviable",
-   "title": "Building Safety Levy Could Make Housing Projects Unviable | News | Mayer Brown",
+   "title": "Building Safety Levy Could Make Housing Projects Unviable",
    "description": "Charles Pacey comments on the Building Safety Levy as part of the Building Safety Act 2022.",
    "date": "2026-09-30",
    "dateSource": "datePublished",
    "lastmod": "2026-10-03"
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/news/2026/10/the-legal-500-uk-2027-ranks-mayer-brown-in-47-practice-areas-and-recognises-74-lawyers-in-individual-rankings",
+   "title": "The Legal 500 UK 2027 ranks Mayer Brown in 47 practice areas and recognises 74 lawyers in individual rankings",
+   "description": "London – The Legal 500 United Kingdom 2027 guide has ranked Mayer Brown in 47 practice areas. Of these rankings, five are in the top tier:",
+   "date": "2026-09-30",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/risks-for-the-licensee-in-the-event-of-the-licensors-insolvency",
+   "title": "Risks for the Licensee in the Event of the Licensor&#x27;s Insolvency",
+   "description": "I. WHY THIS TOPIC IS IMPORTANT IP licenses—whether for trademarks, patents, or copyrights—are typically business-critical for licensee companies.",
+   "date": "2026-09-30",
+   "dateSource": "datePublished",
+   "lastmod": "2026-09-30"
   },
   {
    "firm": "hoganlovells",
@@ -2806,7 +2876,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/09/freshfields-advises-the-initial-purchasers-on-grunenthals-dual-tranche-high-yield-bond-offering",
-   "title": "Freshfields advises the Initial Purchasers on Grünenthal’s dual-tranche high yield bond offering | Freshfields",
+   "title": "Freshfields advises the Initial Purchasers on Grünenthal’s dual-tranche high yield bond offering",
    "description": "Global law firm Freshfields has advised the initial purchasers led by BNP Paribas, Deutsche Bank and ING on Grünenthal GmbH’s €850 million high yield bond offering.",
    "date": "2026-09-29",
    "dateSource": "datePublished",
@@ -2815,7 +2885,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/09/freshfields-advises-on-the-us$-660-million-global-offering-and-listing-of-robotechnik-on-hkse",
-   "title": "Freshfields advises on the US$ 660 million global offering and listing of RoboTechnik on HKSE | Freshfields",
+   "title": "Freshfields advises on the US$ 660 million global offering and listing of RoboTechnik on HKSE",
    "description": "Global law firm Freshfields has advised RoboTechnik Intelligent Technology Co., Ltd. (“RoboTechnik”) on the Hong Kong and US law aspects of its US$ 660 million global offering and listing of H shares on the Hong Kong Stock Exchange (“HKSE”).",
    "date": "2026-09-29",
    "dateSource": "datePublished",
@@ -2824,7 +2894,7 @@
   {
    "firm": "freshfields",
    "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/09/freshfields-expands-capital-markets-team-with-two-partners-in-new-york-and-silicon-valley",
-   "title": "Freshfields Expands Capital Markets Team with Two Partners in New York and Silicon Valley | Freshfields",
+   "title": "Freshfields Expands Capital Markets Team with Two Partners in New York and Silicon Valley",
    "description": "New York and Silicon Valley (September 29, 2026) – Global law firm Freshfields expands its Capital Markets practice with two partner additions, further positioning the firm to advise companies and financial institutions on complex capital markets transactions: Jeffrey Gould and Justin Michael.",
    "date": "2026-09-29",
    "dateSource": "datePublished",
@@ -2887,7 +2957,7 @@
   {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/09/hong-kong-regulator-reframes-enforcement-priorities-around-outcomes",
-   "title": "Hong Kong Regulator Reframes Enforcement Priorities Around Outcomes | Insights | Sidley Austin LLP",
+   "title": "Hong Kong Regulator Reframes Enforcement Priorities Around Outcomes",
    "description": null,
    "date": "2026-09-29",
    "dateSource": "datePublished",
@@ -2940,17 +3010,26 @@
   },
   {
    "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/events/2026/09/sifma-global-tax-reporting-symposium",
-   "title": "SIFMA Global Tax Reporting Symposium | Insights | Mayer Brown",
-   "description": "Mayer Brown is proud to sponsor SIFMA and the Wall Street Tax Educational Corporation’s Global Tax Reporting Symposium, where top tax experts will",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/federal-banking-agencies-issue-proposed-updates-to-interagency-third-party-risk-management-guidance-and-joint-statement-on-core-service-providers",
+   "title": "Federal Banking Agencies Issue Proposed Updates to Interagency Third-Party Risk Management Guidance and Joint Statement on Core Service Providers",
+   "description": "On September 11, 2026, the Board of Governors of the Federal Reserve System (the “Federal Reserve”), the Federal Deposit Insurance Corporation",
    "date": "2026-09-29",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
+   "lastmod": "2026-09-29"
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/news/2026/09/mayer-brown-named-energy-and-infrastructure-team-of-the-year-at-the-lexisnexis-middle-east-legal-awards-2026",
+   "title": "Mayer Brown Named Energy & Infrastructure Team of the Year at the LexisNexis Middle East Legal Awards 2026",
+   "description": "Dubai - Mayer Brown has been recognised as Energy & Infrastructure Team of the Year at the LexisNexis Middle East Legal Awards 2026. The",
+   "date": "2026-09-29",
+   "dateSource": "datePublished",
+   "lastmod": "2026-09-29"
   },
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-a-conseille-atos-dans-le-cadre-de-sa-restructura.html",
-   "title": "Clifford Chance | Clifford Chance a conseillé Atos dans le cadre de sa restructuration financière",
+   "title": "Clifford Chance",
    "description": "L",
    "date": null,
    "dateSource": null,
@@ -2959,7 +3038,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-investe-nella-practice-sport-entertainment-co-ingresso-di-stella-riberti-come-counsel.html",
-   "title": "Clifford Chance | Clifford Chance investe nella practice Sport & Entertainment con l’ingresso di Stella Riberti come Counsel",
+   "title": "Clifford Chance",
    "description": "Lo studio legale Clifford Chance investe nella propria practice di Entertainment & Sports con l’ingresso di Stella Riberti, in qualità di Counsel.",
    "date": null,
    "dateSource": null,
@@ -2968,7 +3047,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-european-bridge-travel-on-the-disposal-of-invia.html",
-   "title": "Clifford Chance | Clifford Chance advises European Bridge Travel on the disposal of Invia, a pan-European market leader in online travel",
+   "title": "Clifford Chance",
    "description": "The Prague office of Clifford Chance advised European Bridge Travel and its shareholders, Rockaway Capital and CITIC Europe Holdings, on the successful disposal of 100% of the shares in Invia Group, a leading online travel agency in Central and Eastern Europe, to WP Holding. The transaction value is approximately 240 million euros (approx. 6 billion crowns), which makes it one of the largest transactions of the year.",
    "date": null,
    "dateSource": null,
@@ -2977,7 +3056,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-sunfire-ag-on-200-million-syndicated-loan-agreement.html",
-   "title": "Clifford Chance | Clifford Chance advises Sunfire AG on €200 million syndicated loan agreement",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Sunfire AG on the conclusion of a guarantee credit facility with a volume of €200 million. The financing was provided by a syndicate of six international banks, with Commerzbank Aktiengesellschaft acting as mandated lead arranger, bookrunner, agent and collateral trustee.",
    "date": null,
    "dateSource": null,
@@ -2986,7 +3065,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-further-strengthens-private-credit-offering.html",
-   "title": "Clifford Chance | Clifford Chance further strengthens Private Credit offering with hire of Fund Finance partners Aimee Sharman and Matt Lilley",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has appointed Aimee Sharman and Matt Lilley as partners, based in London, within its Global Financial Markets practice. Their addition significantly enhances the firm",
    "date": null,
    "dateSource": null,
@@ -2995,7 +3074,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-credit-agricole-s-a--on-the-acquisition-.html",
-   "title": "Clifford Chance | Clifford Chance advises Crédit Agricole S.A. on the acquisition of Santander’s 30.5% stake in CACEIS",
+   "title": "Clifford Chance",
    "description": "Crédit Agricole S.A. and Santander announced on 19 December 2024 having entered into an agreement for the acquisition by Crédit Agricole S.A. of Santander’s 30.5% stake in CACEIS, its asset servicing provider. Following the envisaged transaction, Crédit Agricole S.A. will control 100% of the share capital of CACEIS.",
    "date": null,
    "dateSource": null,
@@ -3004,7 +3083,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-on-bloks-ipo-and-listing-in-hong-kong.html",
-   "title": "Clifford Chance | Clifford Chance advises on Bloks Group",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Goldman Sachs and Huatai Financial as the joint sponsors as well as the underwriters for Bloks Group Limited (Bloks Group) on its initial public offering and listing on the Main Board of the Hong Kong Stock Exchange.",
    "date": null,
    "dateSource": null,
@@ -3013,7 +3092,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-on-euro-3-3-billion-financing-of-data.html",
-   "title": "Clifford Chance | Clifford Chance advises on €3.3 billion financing of DATA4",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised the underwriters, mandated lead arrangers and lenders on the €3.3 billion financing of European data centres owned and operated by DATA4, the Brookfield-owned data centre operator in France, Italy, Spain, Poland, Germany and Greece. This transaction constitutes one of Europe",
    "date": null,
    "dateSource": null,
@@ -3022,7 +3101,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-yibin-city-commercial-bank-on-its-ipo-an.html",
-   "title": "Clifford Chance | Clifford Chance advises Yibin City Commercial Bank on its IPO and listing in Hong Kong",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Yibin City Commercial Bank on its initial public offering and listing on the Main Board of the Hong Kong Stock Exchange. The IPO is expected to raise approximately HK$ 1.783 billion.",
    "date": null,
    "dateSource": null,
@@ -3031,7 +3110,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-a-club-of-banks.html",
-   "title": "Clifford Chance | Clifford Chance advises a club of banks on financing the extension of Centrum Černý Most",
+   "title": "Clifford Chance",
    "description": "Clifford Chance has successfully advised a club of ING Bank, Erste Group Bank AG, Erste Group’s Czech subsidiary, Česká spořitelna, and Komerční banka on the EUR 268,000,000 facility agreement in connection with entry of a new JV partner and the ambitious extension of Centrum Černý Most, one of the leading shopping destinations in the Czech Republic.",
    "date": null,
    "dateSource": null,
@@ -3040,7 +3119,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-adds-structured-finance-counsel-stuart-stahl-in-.html",
-   "title": "Clifford Chance | Clifford Chance adds structured finance counsel Stuart Stahl in New York",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has hired Stuart Stahl to join its Global Financial Markets team, further expanding the firm",
    "date": null,
    "dateSource": null,
@@ -3049,7 +3128,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-continues-to-grow-private-capital-team-with-hire-of-bruce-embley.html",
-   "title": "Clifford Chance | Clifford Chance Continues to Grow Private Capital Team with Hire of Bruce Embley",
+   "title": "Clifford Chance",
    "description": "Global Law Firm Clifford Chance is pleased to announce the appointment of leading Private Equity Partner Bruce Embley, based in London, as part of the firm",
    "date": null,
    "dateSource": null,
@@ -3058,7 +3137,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-on-the-refinancing-of-telefonica.html",
-   "title": "Clifford Chance | Clifford Chance advises on the refinancing of Telefónica",
+   "title": "Clifford Chance",
    "description": "Clifford Chance has advised a pool of c. 30 financial institutions led by Natwest as agent on the refinancing of Telefónica",
    "date": null,
    "dateSource": null,
@@ -3067,7 +3146,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-jbic-on-eur800-million-financing-for-5g.html",
-   "title": "Clifford Chance | Clifford Chance advises JBIC on EUR800 million financing for 5G Open RAN",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Japan Bank for International Cooperation (JBIC) on an up to EUR800 million financing for United Internet AG, of which JBIC’s portion is EUR300 million. The financing will support United Internet",
    "date": null,
    "dateSource": null,
@@ -3076,7 +3155,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-expands-european-private-credit-capability.html",
-   "title": "Clifford Chance | Clifford Chance expands European Private Credit capability with hire of partner Gianluca Fanti",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance announces that Gianluca Fanti has been appointed as a partner in its Global Financial Markets team based in Milan, as the firm expands its European structured debt and special situations team. He joins the firm from White and Case in early 2025.",
    "date": null,
    "dateSource": null,
@@ -3085,7 +3164,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-investor-consortium-on-sale-of-cambodian.html",
-   "title": "Clifford Chance | Clifford Chance advises investor consortium on sale of Cambodian microfinance institution Amret to Bank SinoPac",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised a consortium, including financial institutions and development banks Advans SA SICAR, FMO NV and IFC, on the sale of 100% of their interests in Cambodian microfinance deposit-taking institution (MDI) Amret to Bank SinoPac.",
    "date": null,
    "dateSource": null,
@@ -3094,7 +3173,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-hong-kong-investment-corporation-on-invi.html",
-   "title": "Clifford Chance | Clifford Chance advises Hong Kong Investment Corporation on Invitation for Proposals and relevant selection processes for service providers of the Investment Portfolio under the New Capital Investment Entrant Scheme",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance is advising the Hong Kong Investment Corporation (HKIC) Limited on the Invitation for Proposals (IFPs) for fund managers and service provider for asset management administration and related services of the Investment Portfolio (CIES IP), under the New Capital Investment Entrant Scheme (New CIES), and relevant selection processes .",
    "date": null,
    "dateSource": null,
@@ -3103,7 +3182,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-interpath-on-the-acquisition-of-kerkhoff.html",
-   "title": "Clifford Chance | Clifford Chance advises Interpath on the acquisition of Kerkhoff",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised international advisory firm Interpath on the acquisition of Kerkhoff, one of Europe’s leading purchasing and supply chain management consultancies. With the transaction Interpath expands its international footprint into Germany, Austria and Switzerland.",
    "date": null,
    "dateSource": null,
@@ -3112,7 +3191,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-sanofi-on-acquisition-of-exclusive-great1.html",
-   "title": "Clifford Chance | Clifford Chance advises Sanofi on acquisition of exclusive Greater China rights to develop and commercialise aficamten",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised global healthcare company Sanofi on the acquisition of exclusive rights to develop and commercialise aficamten in Greater China from Corxel Pharmaceuticals.",
    "date": null,
    "dateSource": null,
@@ -3121,7 +3200,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-acciona-on-us-600-million-green-loan-to-finance-infrastructure-projects-in-latin-america.html",
-   "title": "Clifford Chance | Clifford Chance advises Acciona on US$600 million green loan to finance infrastructure projects in Latin America",
+   "title": "Clifford Chance",
    "description": "Clifford Chance has advised Acciona on the US$600 million green and sustainability-linked loan (SLL).",
    "date": null,
    "dateSource": null,
@@ -3130,7 +3209,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-grenergy-on-financing-phase-four-of-oasis-de-atacama.html",
-   "title": "Clifford Chance | Clifford Chance advises Grenergy on financing phase four of Oasis de Atacama",
+   "title": "Clifford Chance",
    "description": "Clifford Chance has advised Grenergy on the financing of phase 4 of the Oasis de Atacama, which comprises 269 MWp of solar capacity and 1.1 GWh of energy storage.",
    "date": null,
    "dateSource": null,
@@ -3139,7 +3218,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-ascentium-on-the-acquisition-of-virtuzon.html",
-   "title": "Clifford Chance | Clifford Chance advises Ascentium on the acquisition of Virtuzone",
+   "title": "Clifford Chance",
    "description": "International law firm Clifford Chance has advised Ascentium, a leading global business services platform headquartered in Singapore, on the acquisition of Virtuzone, the UAE’s award-winning provider of company formation solutions, corporate services, and tax consultancy.",
    "date": null,
    "dateSource": null,
@@ -3148,7 +3227,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-beijing-capital-city-development-group-c.html",
-   "title": "Clifford Chance | Clifford Chance advises Beijing Capital City Development Group Co., Ltd. as offeror on the privatisation of Beijing Capital Grand Limited",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Beijing Capital City Development Group Co., Ltd. (BCCDG) on the privatisation, through its wholly-owned subsidiary, of Beijing Capital Grand Limited, a company incorporated in the Cayman Islands and listed on the Hong Kong Stock Exchange. The privatisation was implemented by way of scheme of arrangement and involved a conditional cash offer for all of the outstanding perpetual convertible bond securities issued by Beijing Capital Grand Limited. The scheme was effective on 27 January 2025.",
    "date": null,
    "dateSource": null,
@@ -3157,7 +3236,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-tristan-capital-partners.html",
-   "title": "Clifford Chance | Clifford Chance advises Tristan Capital Partners on two sales from its Selection Portfolio",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised pan-European investment manager Tristan Capital Partners on two sales from its Selection Portfolio. Specifically, the Neumarkt ensemble at Neumarkt in Cologne was sold to a KVG structure represented by PAMERA Real Estate Partners GmbH. The sale was carried out by Sonar Real Estate on behalf of the CCP 5 Fund fund managed by Tristan Capital Partners. Additionally, Tristan also sold the Lombard House in Hamburg, with the buyer being REInvest based in Luxembourg.",
    "date": null,
    "dateSource": null,
@@ -3166,7 +3245,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-ijsselmeerwint-and-rebel-on-the-senior-financing-of-55mw-nearshore-wind-farm.html",
-   "title": "Clifford Chance | Clifford Chance advises IJsselmeerwinT and Rebel on the senior financing of the 55MW nearshore wind farm IJsselmeerwinT",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised IJsselmeerwinT, together with its financial advisor Rebel, on the successful financing of the 10 turbines of IJsselmeerwinT B.V. (",
    "date": null,
    "dateSource": null,
@@ -3175,7 +3254,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-banco-bradesco-on-usd750-million-notes-offering.html",
-   "title": "Clifford Chance | Clifford Chance advises Banco Bradesco on US$750 million notes offering",
+   "title": "Clifford Chance",
    "description": "Clifford Chance advised Brazil",
    "date": null,
    "dateSource": null,
@@ -3184,7 +3263,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-suedzucker-on-500-million-bond-issue.html",
-   "title": "Clifford Chance | Clifford Chance advises Südzucker on €500 million bond issue",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Südzucker on the issue of a bond by Südzucker International Finance B.V. guaranteed by Südzucker AG which attracted €500 million from international markets.",
    "date": null,
    "dateSource": null,
@@ -3193,7 +3272,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-volkswagen-immobilien-on-the-acquisition.html",
-   "title": "Clifford Chance | Clifford Chance advises Volkswagen Immobilien on the acquisition of the",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Volkswagen Immobilien GmbH (VWI) on the acquisition of the Forum AutoVision, a large-scale office complex in Wolfsburg. The seller was Wolfsburg AG. As a result of the purchase, the real estate subsidiary of Volkswagen AG will not only take over the operation of the premises from 1 February 2025 but also 16 employees in order to continue technical operations and services at Forum AutoVision.The purchase price remains confidential.",
    "date": null,
    "dateSource": null,
@@ -3202,7 +3281,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-grubb-properties-with-usd55-million-nav-credit-facility.html",
-   "title": "Clifford Chance | Clifford Chance advises Grubb Properties in connection with US$55 million NAV credit facility",
+   "title": "Clifford Chance",
    "description": "Clifford Chance has advised a Real Estate Investment Trust (REIT) managed by Grubb Fund Management in connection with a US$55 million Net Asset Value (NAV) credit facility.",
    "date": null,
    "dateSource": null,
@@ -3211,7 +3290,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-further-expands-global-private-capital-expertise.html",
-   "title": "Clifford Chance | Clifford Chance Further Expands Global Private Capital Expertise with Hire of Emma Ghaffari",
+   "title": "Clifford Chance",
    "description": "Global Law Firm Clifford Chance is delighted to announce the appointment of Emma Ghaffari as a Partner in our global Private Capital team, based in London.",
    "date": null,
    "dateSource": null,
@@ -3220,7 +3299,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/01/clifford-chance-advises-the-finance-parties-on-the-financing-of-pge-stake.html",
-   "title": "Clifford Chance | Clifford Chance advises the Finance Parties on the financing of PGE’s stake",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance advised the Finance Parties in connection with the financing of PGE’s stake in the 1.5GW Baltica 2 Wind Farm Project. The multi-sourced green financing is arranged by over 25 lenders, including BGK, EIB and EBRD, with ING Bank N.V. acting as documentation agent. EIFO, the Danish Export Credit Agency, provides ECA coverage for a part of the term financing. The Transaction also involves over 20 financial institutions providing hedging.",
    "date": null,
    "dateSource": null,
@@ -3229,7 +3308,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-advises-health-and-happiness-on-refinancing-tran.html",
-   "title": "Clifford Chance | Clifford Chance advises Health and Happiness on refinancing transactions",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised Health and Happiness (H&H) International Holdings Limited on a loan/bond combination refinancing exercise involving:",
    "date": null,
    "dateSource": null,
@@ -3238,7 +3317,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-advises-lenders-to-vertex-bioenergy-on-350m-sustainability-linked-financing.html",
-   "title": "Clifford Chance | Clifford Chance advises lenders to Vertex Bioenergy on €350m sustainability-linked financing",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised the lenders to Vertex Bioenergy on a new sustainability-linked long-term financing of approximately €350 million.",
    "date": null,
    "dateSource": null,
@@ -3247,7 +3326,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-advises-ing-bank.html",
-   "title": "Clifford Chance | Clifford Chance advises ING Bank, a branch of ING-DiBa AG, on a new €200 million ESG credit facility for KWS SAAT SE & Co. KGaA",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised ING Bank, a branch of ING-DiBa AG, on the conclusion of a new €200 million credit facility (with an option to increase by €100 million) for KWS SAAT SE & Co. KGaA (KWS SAAT), a world-leading plant breeding company.",
    "date": null,
    "dateSource": null,
@@ -3256,7 +3335,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-strengthens-capital-markets-practice.html",
-   "title": "Clifford Chance | Clifford Chance strengthens capital markets practice with experienced counsel",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance is strengthening its market-leading capital markets practice as of 1 March 2025 with the addition of counsel Dr. Henrik Gildehaus. The experienced capital markets lawyer is joining from Hengeler Mueller and will be based at the firm",
    "date": null,
    "dateSource": null,
@@ -3265,7 +3344,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-advises-nord-lb-on-the-financing-of-ox2-rutki-solar-farm.html",
-   "title": "Clifford Chance | Clifford Chance advises NORD/LB on the financing of OX2’s Rutki Solar Farm",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance advised NORD/LB as lender on the financing granted to OX2 for the construction of the 100 MW solar farm Rutki located in the south-west of Poland. The farm is expected to produce about 108 GWh a year, which is equivalent to the yearly electricity consumption of about 22,000 households. Rutki Solar Farm benefits from a 15-year CfD-contract with the Energy Regulatory Office for about 50 percent of the expected production.",
    "date": null,
    "dateSource": null,
@@ -3274,7 +3353,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-continues-to-grow-global-private-capital-team.html",
-   "title": "Clifford Chance | Clifford Chance Continues to Grow Global Private Capital Team with Hire of Angharad Lewis",
+   "title": "Clifford Chance",
    "description": "Global Law Firm Clifford Chance is delighted to announce the appointment of Annie Lewis as a Partner in our global Private Capital team, based in London. Annie will re-join the firm in a few months",
    "date": null,
    "dateSource": null,
@@ -3283,7 +3362,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-advised-the-lenders-on-the-innovative-financing-of-ai-wahda.html",
-   "title": "Clifford Chance | Clifford Chance advised the lenders on the innovative financing of Al Wahda 990MW gas-fired power plant in Morocco by a mix of debt funds and commercial banks",
+   "title": "Clifford Chance",
    "description": "Clifford Chance advised the lenders, Attijariwafa bank, Bank of Africa and debt funds, Nord Energy and Flexenergy on the financing of Al Wahda 990 MW gas-fired power plant in Morocco, a project led by l",
    "date": null,
    "dateSource": null,
@@ -3292,7 +3371,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-advises-amadeus-real-estate.html",
-   "title": "Clifford Chance | Clifford Chance advises AMADEUS Real Estate on the sale of Máj Národní shopping and entertainment center",
+   "title": "Clifford Chance",
    "description": "The Prague office of Clifford Chance has advised AMADEUS Real Estate on the sale of a majority shareholding interest in Máj Národní a.s., a company owning this historically significant shopping and now also entertainment center situated in the heart of Prague. The share was acquired by Fond Realita, one of the oldest professionally managed real estate funds in the Czech Republic, managed by ATRIS investiční společnost.",
    "date": null,
    "dateSource": null,
@@ -3301,7 +3380,7 @@
   {
    "firm": "cliffordchance",
    "url": "http://www.cliffordchance.com/news/news/2025/02/clifford-chance-advises-lenders-on-eur-2-billion.html",
-   "title": "Clifford Chance | Clifford Chance advises lenders on €2 billion revolving credit facility for Infineon",
+   "title": "Clifford Chance",
    "description": "Global law firm Clifford Chance has advised the lenders in relation to a €2 billion revolving facility agreement for Infineon Technologies AG, a global semiconductor leader in power systems and IoT.",
    "date": null,
    "dateSource": null,
@@ -3310,7 +3389,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/insights/cybersecurity-regulatory-roundup",
-   "title": "Regulatory Roundup | Kirkland & Ellis LLP",
+   "title": "Regulatory Roundup",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3319,7 +3398,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/insights/energy-and-infrastructure",
-   "title": "Energy & Infrastructure | Kirkland & Ellis LLP",
+   "title": "Energy & Infrastructure",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3328,7 +3407,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/insights/private-fund-adviser-rules",
-   "title": "Regulatory Roundup | Kirkland & Ellis LLP",
+   "title": "Regulatory Roundup",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3337,7 +3416,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/insights/tax-reform",
-   "title": "Tax Reform | Kirkland & Ellis LLP",
+   "title": "Tax Reform",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3346,7 +3425,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arsenal-capital-on-investment-in-esprigas",
-   "title": "Kirkland Advises Arsenal Capital on Investment in EspriGas | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Arsenal Capital on Investment in EspriGas",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3355,7 +3434,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-ithaca-holdings-on-1-3-billion-acquisition-of-bumble-inc",
-   "title": "Kirkland Advises Ithaca Holdings on $1.3 Billion Acquisition of Bumble Inc. | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Ithaca Holdings on $1.3 Billion Acquisition of Bumble Inc.",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3364,7 +3443,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-ta-associates-backed-rocscience-on-acquisition-by-hexagon",
-   "title": "Kirkland Advises TA Associates-Backed Rocscience on Acquisition by Hexagon | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises TA Associates-Backed Rocscience on Acquisition by Hexagon",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3373,7 +3452,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-aphias-capital-on-close-of-inaugural-fund",
-   "title": "Kirkland Advises Aphias Capital on Close of Inaugural Fund at Over $1.05 Billion | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Aphias Capital on Close of Inaugural Fund at Over $1.05 Billion",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3382,7 +3461,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-bdt-msd-on-acquisition-of-sunrise-senior",
-   "title": "Kirkland Advises BDT & MSD on Acquisition of Sunrise Senior Living | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises BDT & MSD on Acquisition of Sunrise Senior Living",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3391,7 +3470,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-centalion-on-acquisition-of-haynesville-upstream-and-midstream-natural-gas-assets",
-   "title": "Kirkland Advises Centalion on Acquisition of Haynesville Upstream and Midstream Natural Gas Assets from Silver Hill Energy Partners | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Centalion on Acquisition of Haynesville Upstream and Midstream Natural Gas Assets from Silver Hill Energy Partners",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3400,7 +3479,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/10/tmt-finance-awards-digital-infrastructure-legal-advisor-of-the-year",
-   "title": "Kirkland’s Digital Infrastructure Practice Honored at TMT Finance Awards | News | Kirkland & Ellis LLP",
+   "title": "Kirkland’s Digital Infrastructure Practice Honored at TMT Finance Awards",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3409,7 +3488,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-sheridan-capital-on-close-of-two-funds-totaling-more-than-1-3-billion",
-   "title": "Kirkland Advises Sheridan Capital on Close of Two Funds Totaling More Than $1.3 Billion | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Sheridan Capital on Close of Two Funds Totaling More Than $1.3 Billion",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3418,7 +3497,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-crcp-on-closing-of-oversubscribed-continuation-vehicle-for-psg",
-   "title": "Kirkland Advises Center Rock Capital Partners on Closing of Oversubscribed Continuation Vehicle for Power Services Group | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Center Rock Capital Partners on Closing of Oversubscribed Continuation Vehicle for Power Services Group",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3427,7 +3506,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-gen-ii-fund-services-on-5-1-billion-sale-to-kkr",
-   "title": "Kirkland Advises Gen II Fund Services on $5.1 Billion Sale to KKR | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Gen II Fund Services on $5.1 Billion Sale to KKR",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3436,7 +3515,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-option-care-health-on-acquisition-by-cdr-and-mckesson",
-   "title": "Kirkland Advises Option Care Health on $5.8 Billion Acquisition by CD&R and McKesson | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Option Care Health on $5.8 Billion Acquisition by CD&R and McKesson",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3445,7 +3524,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-tdr-capital-on-acquisition-of-ocu-group",
-   "title": "Kirkland Advises TDR Capital on Acquisition of OCU Group | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises TDR Capital on Acquisition of OCU Group",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3454,7 +3533,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-trilantic-backed-sofie-biosciences-on-acquisition-by-ge-healthcare",
-   "title": "Kirkland Advises Trilantic-Backed SOFIE Biosciences on Acquisition by GE HealthCare | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Trilantic-Backed SOFIE Biosciences on Acquisition by GE HealthCare",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3463,7 +3542,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-banner-capital-on-acquisition-of-seaway-plastics-engineering-from-icg",
-   "title": "Kirkland Advises Banner Capital on Acquisition of Seaway Plastics Engineering from ICG | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Banner Capital on Acquisition of Seaway Plastics Engineering from ICG",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3472,7 +3551,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-ftv-capital-on-investment-in-kingsview-partners",
-   "title": "Kirkland Advises FTV Capital on Investment in Kingsview Partners | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises FTV Capital on Investment in Kingsview Partners",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3481,7 +3560,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-ardian-and-slv-lighting-group-on-refinancing",
-   "title": "Kirkland Advises Ardian and SLV Lighting Group on Refinancing | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Ardian and SLV Lighting Group on Refinancing",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3490,7 +3569,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2025/08/kirkland-represents-m-one-capital-on-single-asset-cv-for-scooters",
-   "title": "Kirkland Represents M-One Capital on Single-Asset Continuation Vehicle for Scooter&#39;s Coffee | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Represents M-One Capital on Single-Asset Continuation Vehicle for Scooter&#39;s Coffee",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3499,7 +3578,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-invictus-cap-part-on-majority-investment-by-ny-life-investment-management",
-   "title": "Kirkland Advises Invictus Capital Partners on Majority Investment by New York Life Investment Management | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Invictus Capital Partners on Majority Investment by New York Life Investment Management",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3508,7 +3587,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/in-the-news/2026/10/credit-edge",
-   "title": "Bloomberg News: “Credit Edge” | News | Kirkland & Ellis LLP",
+   "title": "Bloomberg News: “Credit Edge”",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3517,7 +3596,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-blue-owl-cedar-and-powerhouse-jv-on-112-billion-notes-offering",
-   "title": "Kirkland Advises Blue Owl, Cedar and PowerHouse JV on $1.12 Billion Notes Offering | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Blue Owl, Cedar and PowerHouse JV on $1.12 Billion Notes Offering",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3526,7 +3605,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-bain-capital-on-strategic-growth-investment-in-kahua",
-   "title": "Kirkland Advises Bain Capital on Strategic Growth Investment in Kahua | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Bain Capital on Strategic Growth Investment in Kahua",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3535,7 +3614,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-represents-camsense-on-its-hong-kong-ipo",
-   "title": "Kirkland Represents Camsense on its Hong Kong IPO | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Represents Camsense on its Hong Kong IPO",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3544,7 +3623,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/09/restructuring-team-of-the-year",
-   "title": "Kirkland Recognized as “Restructuring Team of the Year” at Legal Business Awards | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Recognized as “Restructuring Team of the Year” at Legal Business Awards",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3553,7 +3632,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-luminate-capital-on-strategic-growth-investment-in-itpipes",
-   "title": "Kirkland Advises Luminate Capital on Strategic Growth Investment in ITpipes | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Luminate Capital on Strategic Growth Investment in ITpipes",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3562,7 +3641,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-greenbriar-on-acquisition-of-spectrum-control",
-   "title": "Kirkland Advises Greenbriar on Acquisition of Spectrum Control | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Greenbriar on Acquisition of Spectrum Control",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3571,7 +3650,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-transom-on-acquisition-of-soundthinking",
-   "title": "Kirkland Advises Transom on Acquisition of SoundThinking | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Transom on Acquisition of SoundThinking",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3580,7 +3659,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-represents-ae-industrial-backed-redlattice-in-public-listing-transaction",
-   "title": "Kirkland Represents AE Industrial-Backed REDLattice in Public Listing Transaction | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Represents AE Industrial-Backed REDLattice in Public Listing Transaction",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3589,7 +3668,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-represents-aar-corp-on-acquisition-of-a-controlling-interest-in-mro-holdings",
-   "title": "Kirkland Represents AAR CORP. on Acquisition of a Controlling Interest in MRO Holdings | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Represents AAR CORP. on Acquisition of a Controlling Interest in MRO Holdings",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3598,7 +3677,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-hibernia-resources-on-closing-of-inaugural-580-million-pdp-abs",
-   "title": "Kirkland Advises Hibernia Resources on Closing of Inaugural $580 Million PDP Asset-Backed Securitization | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Hibernia Resources on Closing of Inaugural $580 Million PDP Asset-Backed Securitization",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3607,7 +3686,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/09/la-times-studios-commercial-real-estate-visionaries",
-   "title": "Partners Kevin Ehrhart and Robert Keane Named “Commercial Real Estate Visionaries” by LA Times Studios | News | Kirkland & Ellis LLP",
+   "title": "Partners Kevin Ehrhart and Robert Keane Named “Commercial Real Estate Visionaries” by LA Times Studios",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3616,7 +3695,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/09/international-tax-review-europe-tax-awards",
-   "title": "Kirkland Honored With Three Awards at ITR’s “Europe Tax Awards” | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Honored With Three Awards at ITR’s “Europe Tax Awards”",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3625,7 +3704,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/leading-project-energy-and-infrastructure-finance-lawyer-fern-han-joins-kirkland",
-   "title": "Leading Project, Energy and Infrastructure Finance Lawyer Fern Han Joins Kirkland | News | Kirkland & Ellis LLP",
+   "title": "Leading Project, Energy and Infrastructure Finance Lawyer Fern Han Joins Kirkland",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3634,7 +3713,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-amulet-capital-p-on-closing-of-continuation-vehicle-to-support-continued-growth",
-   "title": "Kirkland Advises Amulet Capital Partners on Closing of Continuation Vehicle to Support Continued Growth of U.S. Fertility Led by StepStone | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Advises Amulet Capital Partners on Closing of Continuation Vehicle to Support Continued Growth of U.S. Fertility Led by StepStone",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3643,7 +3722,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/in-the-news/2026/09/border-crossing-a-canadian-guide-to-us-merger-enforcement",
-   "title": "Border Crossing: A Canadian Guide to U.S. Merger Enforcement | News | Kirkland & Ellis LLP",
+   "title": "Border Crossing: A Canadian Guide to U.S. Merger Enforcement",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3652,7 +3731,7 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/09/tax-lawyer-matt-donnelly-joins-kirkland-ellis",
-   "title": "Tax Lawyer Matt Donnelly Joins Kirkland Ellis | News | Kirkland & Ellis LLP",
+   "title": "Tax Lawyer Matt Donnelly Joins Kirkland Ellis",
    "description": null,
    "date": null,
    "dateSource": null,
@@ -3661,8 +3740,350 @@
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/09/digital-infrastructure-deal-of-the-year-infra-global",
-   "title": "Kirkland Recognized at Infra Global Awards | News | Kirkland & Ellis LLP",
+   "title": "Kirkland Recognized at Infra Global Awards",
    "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing",
+   "title": "Events Listing",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/when-international-arbitration-meets-the-rule-of-law",
+   "title": "When International Arbitration Meets the Rule of Law: Lessons Learned and Challenges Ahead",
+   "description": "When International Arbitration Meets the Rule of Law: Lessons Learned and Challenges Ahead",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/the-ai-strategy-summit-ip-data-and-compliance",
+   "title": "The AI Strategy Summit: IP, Data, and Compliance",
+   "description": "The AI Strategy Summit: IP, Data, and Compliance",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/governance-watch-webcast-what-is-the-future-of-esg-in-corporate-debt-markets",
+   "title": "Governance Watch Webcast: What Is the Future of ESG in Corporate Debt Markets?",
+   "description": "Governance Watch Webcast: What Is the Future of ESG in Corporate Debt Markets?",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/cleary-breakfast-foreign-subsidies-regulation-and-public-procurement-procedures",
+   "title": "Cleary Breakfast: Foreign Subsidies Regulation and Public Procurement Procedures",
+   "description": "Cleary Breakfast: Foreign Subsidies Regulation and Public Procurement Procedures",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/2024-aba-international-cartel-workshop",
+   "title": "2024 ABA International Cartel Workshop",
+   "description": "2024 ABA International Cartel Workshop",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/the-interdisciplinary-sovereign-debt-research-and-management-conference-2024",
+   "title": "The Interdisciplinary Sovereign Debt Research and Management Conference 2024",
+   "description": "The Interdisciplinary Sovereign Debt Research and Management Conference 2024",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/31st-oecd-global-forum-on-public-debt-management",
+   "title": "31st OECD Global Forum on Public Debt Management",
+   "description": "31st OECD Global Forum on Public Debt Management",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/2024-ils-annual-conference",
+   "title": "2024 ILS Annual Conference",
+   "description": "2024 ILS Annual Conference",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/the-competition-collective-actions-forum-2024",
+   "title": "Competition Collective Actions Forum | Events",
+   "description": "The 2024 Competition Collective Actions Forum convenes top professionals to discuss collective actions and antitrust trends, shaping global competition law.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/reimagining-in-house-pro-bono-case-studies-successes-and-challenges",
+   "title": "Reimagining In-House Pro Bono: Case Studies, Successes, and Challenges",
+   "description": "Reimagining In-House Pro Bono: Case Studies, Successes, and Challenges",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/the-power-of-advocacy-from-getting-the-job-to-mediating-the-case-and-winning-the-arbitration",
+   "title": "The Power of Advocacy: From Getting the Job, to Mediating the Case and/or Winning the Arbitration",
+   "description": "The Power of Advocacy: From Getting the Job, to Mediating the Case and/or Winning the Arbitration",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/bonds-loans-sukuk-middle-east-2024",
+   "title": "Bonds, Loans & Sukuk Event | Events",
+   "description": "Cleary Gottlieb associate Mohamed Taha was a speaker at the Bonds, Loans & Sukuk Middle East 2024 conference in Dubai, organized by GFC Media Group.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/38th-aaaicdr-icc-icsid-joint-colloquium-on-international-arbitration",
+   "title": "38th AAA-ICDR – ICC – ICSID Joint Colloquium on International Arbitration",
+   "description": "38th AAA-ICDR – ICC – ICSID Joint Colloquium on International Arbitration",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/copyright-office-comes-to-california",
+   "title": "Copyright Office Comes to California",
+   "description": "Copyright Office Comes to California",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/sf-transaction-advisors-institute-march-2024",
+   "title": "Transaction Advisors Institute M&A Conference San Francisco March 2024 | Events",
+   "description": "Transaction Advisors Institute M&A Conference San Francisco | March 2024",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/aia-arbit-40-mentorship-series-may-13-2024",
+   "title": "AIA-ArbIt-40 Mentorship Series",
+   "description": "AIA-ArbIt-40 Mentorship Series",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/14th-investment-treaty-arbitration-conference",
+   "title": "14th Investment Treaty Arbitration Conference",
+   "description": "14th Investment Treaty Arbitration Conference",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/gcr-live-state-aid-and-international-subsidy-control-2024",
+   "title": "State Aid & Subsidy Control Event | Events",
+   "description": "GCR Live State Aid and International Subsidy Control 2024 features discussions on global subsidy control and its impacts on international trade and investment.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/distressed-airlines-the-modern-toolkit-for-asia-and-beyond",
+   "title": "Distressed Airlines Event | Events| Cleary Gottlieb",
+   "description": "Luke Barefoot will participate in the webinar,",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/gcr-live-competition-litigation-2024",
+   "title": "GCR Live Competition Litigation 2024 | Events",
+   "description": "GCR Live Competition Litigation 2024 features Cleary Gottlieb’s insights on the latest trends and developments in global competition law litigation.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/abis-2024-winter-leadership-conference",
+   "title": "ABI’s 2024 Leadership Event | Events",
+   "description": "Cleary Gottlieb partner Lisa Schweitzer will be a speaker at the 2024 Winter Leadership Conference, organized by the American Bankruptcy Institute (ABI).",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/how-to-sell-it-right-the-future-of-audio-visual-rights",
+   "title": "How to Sell It Right – The Future of Audio-Visual Rights",
+   "description": "How to Sell It Right – The Future of Audio-Visual Rights",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/the-italian-lump-sum-taxation-regime-and-comparable-jurisdictions",
+   "title": "The Italian Lump-Sum Taxation Regime and Comparable Jurisdictions",
+   "description": "The Italian Lump-Sum Taxation Regime and Comparable Jurisdictions",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/insol-channel-islands-seminar-let-it-go-frozen-funds-and-empowering-practitioners",
+   "title": "INSoL Channel Islands Seminar | Events",
+   "description": "Cleary Gottlieb will join the INSOL Channel Islands Seminar to discuss challenges like frozen funds and empowering practitioners in cross-border insolvency.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/2024-society-for-corporate-governance-eastern-regional-fall-conference",
+   "title": "2024 Society for Corporate Governance Eastern Regional Fall Conference",
+   "description": "2024 Society for Corporate Governance Eastern Regional Fall Conference",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/plis-26th-annual-commercial-real-estate-institute",
+   "title": "PLI’s 26th Annual Commercial Real Estate Institute",
+   "description": "PLI’s 26th Annual Commercial Real Estate Institute",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/certificate-in-international-commercial-and-investment-arbitration-2024",
+   "title": "Certificate in International Commercial and Investment Arbitration",
+   "description": "Certificate in International Commercial and Investment Arbitration",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/worlds-arbitration-2-new-york-3rd-edition",
+   "title": "Arbitration 2 Worlds, 3rd Edition",
+   "description": "Arbitration 2 Worlds, 3rd Edition",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/lear-competition-festival-2024",
+   "title": "Lear Competition Festival 2024",
+   "description": "Lear Competition Festival 2024",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/13th-annual-atlas-conference",
+   "title": "13th Annual AtlAS Conference",
+   "description": "13th Annual AtlAS Conference",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/plis-hot-topics-in-mergers-acquisitions-2024",
+   "title": "PLI’s Hot Topics in Mergers & Acquisitions 2024",
+   "description": "PLI’s Hot Topics in Mergers & Acquisitions 2024",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/superreturn-middle-east-2024",
+   "title": "SuperReturn Middle East 2024 Event | Events",
+   "description": "Cleary Gottlieb will participate in SuperReturn Middle East 2024, a leading private equity event focused on investment opportunities in the region.",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/transaction-advisors-institute-ma-conference-at-cornell-tech-new-york-city-2024",
+   "title": "Transaction Advisors Institute M&A Conference at Cornell Tech New York City",
+   "description": "Transaction Advisors Institute M&A Conference at Cornell Tech New York City",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/in-conversation-with-nick-robinson",
+   "title": "In Conversation With Nick Robinson: A View From the Frontline",
+   "description": "In Conversation With Nick Robinson: A View From the Frontline",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/10th-annual-oslo-anti-corruption-conference",
+   "title": "10th Annual Oslo Anti-Corruption Conference",
+   "description": "10th Annual Oslo Anti-Corruption Conference",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/19th-annual-fcpa-anti-corruption-for-the-life-sciences-industry",
+   "title": "19th Annual FCPA & Anti-Corruption for the Life Sciences Industry",
+   "description": "19th Annual FCPA & Anti-Corruption for the Life Sciences Industry",
+   "date": null,
+   "dateSource": null,
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/events-listing/the-sec-at-90-a-celebration-and-retrospective",
+   "title": "The SEC at 90: A Celebration and Retrospective",
+   "description": "The SEC at 90: A Celebration and Retrospective",
    "date": null,
    "dateSource": null,
    "lastmod": null
