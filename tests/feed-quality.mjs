@@ -3,7 +3,7 @@
 // survive the shared quality cull even when their headlines don't hit the macro
 // vocab — so the wire stays ≥70% readable AND covers private capital, credit and
 // the legal/Big-Law beat. Pure logic (no browser / no egress).
-import { FEED_SOURCES, feedQualityKeep } from "../src/index.js";
+import { FEED_SOURCES, feedQualityKeep, feedBanned } from "../src/index.js";
 import { check, finish } from "./lib.mjs";
 
 const bySource = (s) => FEED_SOURCES.find((f) => f.source === s);
@@ -170,4 +170,12 @@ for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], [
   if (src && want.fi) check(src.fi === true, `readable-only: ${on} is routed to the FI (credit) desk`);
 }
 
+// Banned outlet (owner request): Channel NewsAsia is dropped from ANY feed — a direct
+// link or a Google News bridge item labelled "CNA" — even on an otherwise-strong headline.
+for (const it of [
+  { source: "CNA", title: "ECB raises rates as inflation climbs", url: "https://news.google.com/rss/articles/abc" },
+  { source: "Channel NewsAsia", title: "Fed holds rates steady", url: "https://www.channelnewsasia.com/business/x" },
+  { source: "Some Wire", title: "Bank of England holds rates", url: "https://www.channelnewsasia.com/business/y" },
+]) check(feedBanned(it) && !feedQualityKeep(it), `banned outlet: "${it.source}" / ${new URL(it.url).hostname} is dropped`);
+check(!feedBanned({ source: "CNBC", title: "x", url: "https://www.cnbc.com/x" }), "banned outlet: CNBC is not caught by the CNA ban");
 finish();

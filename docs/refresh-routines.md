@@ -759,6 +759,8 @@ Work in parallel: give each sub-agent ONE entity (fill or build), have it return
 verified records + checklist rows as JSON, and apply them centrally — never let two
 agents edit the data files at once.
 
+**Banned outlet.** Never cite Channel NewsAsia (`channelnewsasia.com`, "CNA") for any record — the owner removed it from the app; `tests/data-integrity.mjs` rejects it and the Worker drops it from every feed.
+
 ## Deterministic candidate collector (`scripts/collect-candidates.mjs`) — run it FIRST
 
 The routines' hunt used to be free-form web search, and it under-collected badly (in

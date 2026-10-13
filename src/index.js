@@ -2181,7 +2181,7 @@ function _stripLeadingJunk(blocks) {
 // a "Website by …" / "… marketing by …" build credit, an "all rights reserved" notice.
 const READ_FOOTER = /(registered (?:office|number|no\.?|charity)|registered in (?:england|wales|scotland|n(?:orthern)? ?ireland|the uk|the united)|company (?:registration )?(?:no\.?|number)\b|vat (?:registration )?(?:no|number)|all rights reserved|website (?:by|built by|designed by|developed by)\b|marketing by \w|©\s*\S[^.]{0,40}\b(?:19|20)\d{2}\b|\b(?:19|20)\d{2}\b\s+[^.]{0,30}all rights reserved)/i;
 // A newsletter / app-download / follow-us PROMO line — the "subscribe to our stuff" block
-// many news sites (CNA, BBC, Guardian…) append below the article. Softer than READ_FOOTER
+// many news sites (BBC, Guardian…) append below the article. Softer than READ_FOOTER
 // (these phrases *could* appear mid-article), so it only ever truncates a contiguous
 // ALL-JUNK trailing run (see _stripTrailingJunk) — never cuts into real prose.
 const READ_PROMO = /(sign up (?:for|to|now)|subscribe (?:to|now|for)|in your inbox|(?:delivered|get this delivered) to your inbox|our newsletter|download (?:our|the) app|get the .{0,30}app|on the app store|google play\b|follow us on|join our (?:channel|community|whatsapp|telegram|group|newsletter)|stay (?:updated|informed|connected|in the know)|breaking news (?:alert|notification)|notifications for breaking|get our pick|picks of the week|top reads for the day|week in review|thought-provoking|preferred chat app|best stories|sign up here|click here (?:for|to)|no password (?:needed|required)|simple access|for more information,? please contact|please contact \S+@|\bcorporate users\b|got a (?:confidential )?news tip|\badvertise with us\b|data is a real-time snapshot|data is delayed at least|global business and financial news|market data and analysis)/i;
@@ -3883,6 +3883,14 @@ async function handleFeed(request, env, ctx) {
 // surface (Home + the Macro/Credit/Legal live-wire folds) consumes ONE filtered
 // set: drop low-tier sources, and require a general-news headline (non-premium,
 // non-flagged, non-macro) to read as finance/markets/economy/policy/dealmaking.
+// Outlets the owner has banned from the app outright (2026-10: Channel NewsAsia) — dropped
+// whatever feed carries them (a direct RSS or a Google News bridge, which labels it "CNA").
+const FEED_BANNED_SRC = /^(channel\s*news\s*asia|cna)$/i;
+const FEED_BANNED_HOST = /(^|\.)(channelnewsasia\.com|cna\.asia)$/i;
+export function feedBanned(it) {
+  if (FEED_BANNED_SRC.test(String((it && it.source) || "").trim())) return true;
+  try { return FEED_BANNED_HOST.test(new URL((it && it.url) || "").hostname); } catch { return false; }
+}
 const FEED_LOWTIER = new Set([
   "Benzinga", "TheStreet", "Yahoo Finance", "Yahoo Finance UK", "Sunday Guardian Live",
   "HomeOwners Alliance", "U.S. News", "CityAM", "Enterprise AM", "exchangerates.org.uk",
@@ -3960,6 +3968,7 @@ const FEED_GEO_MACRO_RE = /\b(gdp|growth|econom\w+|inflation|deflation|disinflat
 const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:russia(?:n)?|ukrain(?:e|ian)|belarus(?:ian)?|turk(?:ey|ish)|t[üu]rkiye|serbia(?:n)?|pol(?:and|ish)|czech(?:ia|\s*republic)?|hungar(?:y|ian)|romania(?:n)?|bulgaria(?:n)?|slovak(?:ia)?|sloven(?:ia|ian)|croatia(?:n)?|eston(?:ia|ian)|latvia(?:n)?|lithuania(?:n)?|bosnia(?:n)?|albania(?:n)?|(?:north\s*)?macedonia(?:n)?|montenegr(?:o|in)|kosov(?:o|an)|moldova(?:n)?|armenia(?:n)?|azerbaijan(?:i)?|china|chinese|hong\s*kong|taiwan(?:ese)?|(?:south\s*|north\s*)?korea(?:n)?|singapore|s['’]pore|malaysia(?:n)?|thai(?:land)?|indonesia(?:n)?|philippine(?:s)?|vietnam(?:ese)?|india(?:n)?|australia(?:n)?|new\s*zealand|israel(?:i)?|saudi(?:\s*arabia)?|u\.?a\.?e\.?|emirat\w*|qatar(?:i)?|kuwait(?:i)?|bahrain(?:i)?|oman(?:i)?|egypt(?:ian)?|morocc(?:o|an)|south\s*africa(?:n)?|brazil(?:ian)?|mexic(?:o|an)|argentin(?:a|e|ian)?|chile(?:an)?|colombia(?:n)?|ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:['’]s)?\b/i;
 export function feedQualityKeep(it) {
   const s = it.source || "";
+  if (feedBanned(it)) return false;                          // owner-banned outlets — never shown, from any feed
   if (FEED_LOWTIER.has(s)) return false;
   if (FEED_LIFESTYLE_HARD_RE.test(it.title)) return false;   // recipes/obituaries/horoscopes… never finance, even with a stray "gold"
   // The G7+Western Europe geo-scope applies to MACRO-ECONOMIC headlines only: an out-of-scope

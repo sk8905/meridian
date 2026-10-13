@@ -87,4 +87,11 @@ check(strayFirm.length === 0, `legal.items: every firm id is a tracked firm${str
 const badStatus = (C.funds || []).filter((f) => f.status && !C.FUND_STATUS.includes(f.status)).length;
 check(badStatus <= MAX_BAD_FUND_STATUS, `funds: status outside FUND_STATUS does not grow (${badStatus} ≤ ${MAX_BAD_FUND_STATUS})`);
 
+// Banned outlets (owner request, 2026-10): no record may cite Channel NewsAsia.
+{
+  const BANNED = /(^|\.)(channelnewsasia\.com|cna\.asia)$/i;
+  const all = [...(C.deals || []), ...(C.intel || []), ...(C.HEDGE_INTEL || []), ...(L.items || []), ...(L.cases || [])];
+  const hits = all.filter((r) => [r.url, r.sourceUrl].some((u) => { try { return u && BANNED.test(new URL(u).hostname); } catch { return false; } })).map((r) => r.id);
+  check(!hits.length, `no record cites a banned outlet (Channel NewsAsia)${hits.length ? " — " + hits.join(", ") : ""}`);
+}
 finish();
