@@ -10,7 +10,7 @@ The v2 SPA is **built by Vite** (`npm run build` → `dist/`). `npm run build` i
 steps: `node scripts/gen-home-data.mjs` (regenerates the tokenless `home-data.js` slice
 the Managers lane reads) → `vite build` (bundles + content-hashes the JS and the eleven
 `@import`ed stylesheets) → `node scripts/postbuild.mjs` (copies everything else the
-Worker serves — desk data modules, shared root modules, the retired top-level pages,
+Worker serves — data modules, shared root modules, the retired top-level pages,
 static files — into `dist/` as-is). `wrangler.jsonc` serves assets from `dist`, and
 Cloudflare Workers Builds runs `npm run build` on each deploy — that build setting is the
 switch that turns the Vite pipeline on.
@@ -41,7 +41,7 @@ switch that turns the Vite pipeline on.
 - **Cache-busting: code is hashed, data is tokenless.** The v2 SPA's JS/CSS is
   content-hashed by Vite (the `/assets/*-[hash]` filename is the buster) — never
   hand-add a `?v=` token to a module import under `v2/js` (enforced by
-  `tests/token-lockstep.mjs`). The desk data modules (`credit/js/data.js`, …) are
+  `tests/token-lockstep.mjs`). The data modules (`credit/js/data.js`, …) are
   imported by a stable tokenless URL and revalidated `no-cache` via `_headers`, so
   the ~2-hourly refresh routine edits only those data files. There are **no `?v=`
   cache tokens anywhere** — not on code (Vite hashes it) and not on data (no-cache);

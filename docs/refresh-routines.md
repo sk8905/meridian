@@ -1,27 +1,26 @@
 # Auto-refresh routine (Claude Routines)
 
-**Five identical routines** keep all three Meridian platforms current — scheduled
-at **05:00**, **09:00**, **12:00**, **17:00** and **21:00** (Claude Routines runs a single schedule per
-routine, so create five routines that all use the prompt below). Each does a **full
-refresh of all three apps** — Credit (deals, fundraising, mandates/launches, manager website
-news, **fund-record reconciliation, new managers/funds, rotating manager-profile
-re-verification, and deep-research enrichment of watchlisted names**), Legal (legal alerts, case law, **and restructuring schemes &
-plans**) and Macro (**refresh the live-indicator cache, update curated recent prints
-and central-bank rates, roll the upcoming-releases dropdown forward, rewrite the key
-macro news headlines, and review the Commentary/Cycle/Bubble guidance**). Together
-they replace the previous separate Credit-daily, Credit-weekly and Legal-daily
-routines.
+**Wire is one app** — the v2 SPA (bottom tabs **Home · News · Dashboard · Profiles ·
+Transactions**), served by the Cloudflare Worker (`src/index.js`) + Cloudflare Assets
+and deploying on every push to `main`. Its content is kept current by the scheduled
+**~2-hourly full refresh** ("/Wire: full refresh") plus the interleaved **heavy data
+sweep** offset routine: together they refresh the Credit, Legal and Macro content that
+feeds those surfaces, rewrite the Home briefing + Key Moments, and sweep
+research / newsletters / myFT from email. This file is the authoritative procedure;
+the live prompts are stored in the Routines UI (see "The live routine prompt" below).
 
-Keep this file in sync with the routine prompt pasted into the Routines UI — it is
-the source of truth for the prompt.
+Credit, Legal and Macro are the three **content domains** (the data the refresh edits) —
+not separate apps; the pre-v2 standalone pages are retired behind edge redirects. Where
+each domain's data lives, and which of the app's surfaces it feeds:
 
-> **Repo structure.** The repo is split into a root sign-in landing page +
-> **`credit/`** (Meridian Credit) + **`legal/`** (Meridian Legal) + **`macro/`**
-> (Meridian Macro). Credit and Legal keep their data in `js/data.js`; Macro's live
-> indicators are fetched server-side by the Worker (`src/index.js`, the `/api/macro`
-> endpoint), with a few curated series and all editorial guidance in
-> `macro/js/content.js`. The site deploys from the **`main`** branch (Cloudflare
-> redeploys on every push to `main`).
+> - **Credit** — private-credit deals, fundraising/mandates, manager & fund profiles →
+>   `credit/js/data.js`. Feeds the **Transactions** tab, the **Profiles** tab, the
+>   **Dashboard**, and the Home **Managers** lane.
+> - **Legal** — English-law alerts, case law, schemes & restructuring plans →
+>   `legal/js/data.js`. Feeds the Legal **Profiles** + the Home **LEX** stream.
+> - **Macro** — live indicators are fetched server-side by the Worker (`/api/macro`);
+>   curated series + all editorial guidance live in `macro/js/content.js`. Feeds the
+>   **Dashboard** + the Home macro content. The site deploys from **`main`**.
 
 ## Watchlist deep-research — one-time setup
 
@@ -61,7 +60,7 @@ extra deep-research pass on watchlisted names is skipped.
 > explicitly asks for (can override the band). When curating or adding a source/keyword,
 > stay inside this universe — **when in doubt, leave it out.**
 
-The Home wire surfaces the three desks' curated content under the labels **CRD**
+The Home wire surfaces the three content domains' curated content under the labels **CRD**
 (credit managers), **HDG** (hedge funds) and **LEX** (law firms). That content only
 appears if the refresh routine has actually *researched* it — so every entity the
 apps profile must be a standing search keyword, not just the watchlisted subset the
@@ -186,7 +185,7 @@ Rules that still bind: never fabricate — each new item keeps a real, dated, so
 URL and only lands in the roster entity it genuinely concerns (skip rather than
 mis-tag). Credit-desk scope (below) still governs which *new managers/funds* may be
 created; this keyword pass is about **finding news for entities already in the
-roster**, across all three desks, so the Home wire's CRD/HDG/LEX streams stay live.
+roster**, across all three content domains, so the Home wire's CRD/HDG/LEX streams stay live.
 Hedge-fund keyword coverage explicitly includes Nishant Kumar's Bloomberg beat — all
 of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
@@ -403,12 +402,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   catches CODE deploys; a data-only refresh keeps the same hashed bundle.) Nothing
   for the routine to do here — it's automatic — but keep the briefing's per-slot
   `date`/`time` stamps monotonic each run, since that stamp is the freshness signal.
-- **Home slice (`home-data.js`) — regenerate after a desk-data edit.** The Home
+- **Home slice (`home-data.js`) — regenerate after a data-module edit.** The Home
   surface no longer imports the full `credit/js/data.js` / `legal/js/data.js` /
   `macro/js/content.js`; it imports the compact **generated** `home-data.js`
   (`scripts/gen-home-data.mjs`, a projection to the fields Home renders — see
   HOUSE_STYLE T2). The deploy build regenerates it automatically, so **production is
-  always in sync**. But if your refresh commits an edit to any of those three desk
+  always in sync**. But if your refresh commits an edit to any of those three data
   modules, run `node scripts/gen-home-data.mjs` and commit the updated
   `home-data.js` alongside it, so the committed copy (used by source-mode
   `node tests/run.mjs` and dev) does not lag the data. It is tokenless + `no-cache`
