@@ -174,57 +174,57 @@
      "key": "mezz-2019-close",
      "date": "2020-10-05",
      "what": "Mezzanine Partners 2019 closes, $11bn+",
-     "source": "https://prnewswire.com/news-releases/hps-investment-partners-closes-hps-mezzanine-partners-2019-301145295.html",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.prnewswire.com/news-releases/hps-investment-partners-closes-hps-mezzanine-partners-2019-301145295.html",
+     "recordId": "i1012",
+     "status": "present"
     },
     {
      "key": "slf-v-close",
      "date": "2021-09-15",
      "what": "Specialty Loan Fund V ~$11bn",
-     "source": "https://www.alternativeswatch.com/2021/09/15/hps-investment-partners-raises-11-billion-dollars-specialty-loan-fund-v/",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.hpspartners.com/insights-and-news/hps-investment-partners-closes-11-7-billion-in-new-equity-commitments-to-specialty-loan-fund-v-and-parallel-funds",
+     "recordId": "i1013",
+     "status": "present"
     },
     {
      "key": "sip-v-close",
      "date": "2023-04-11",
      "what": "Strategic Investment Partners V $17bn",
-     "source": "https://www.alternativeswatch.com/2023/04/12/hps-strategic-investment-partners-v-junior-credit-flagship/",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.hpspartners.com/insights-and-news/hps-investment-partners-close-capital",
+     "recordId": "i1014",
+     "status": "present"
     },
     {
      "key": "csl-ii-close",
      "date": "2023-06-05",
      "what": "Core Senior Lending II ~$10bn",
-     "source": "https://www.alternativeswatch.com/2023/06/05/hps-attracts-10bn-for-senior-lending/",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.hpspartners.com/insights-and-news/hps-investment-partners-closes-10-billion-in-new-investable-capital-for-hps-core-senior-lending-fund-ii-and-parallel-funds",
+     "recordId": "i1015",
+     "status": "present"
     },
     {
      "key": "slf-vi-close",
      "date": "2024-06-24",
      "what": "Specialty Loan Fund VI $21.1bn final close",
-     "source": "https://alternativecreditinvestor.com/2024/06/24/hps-raises-21-1bn-for-private-credit-fund",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.hpspartners.com/insights-and-news/hps-investment-partners-raises-over-21-billion-for-specialty-loan-fund-vi",
+     "recordId": "i1016",
+     "status": "present"
     },
     {
      "key": "lunate-stake-talks",
      "date": "2024-10-10",
      "what": "Lunate explores $1bn minority stake",
      "source": "https://www.bloomberg.com/news/articles/2024-10-10/uae-s-lunate-said-to-explore-1-billion-stake-in-credit-firm-hps",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1017",
+     "status": "present"
     },
     {
      "key": "blackrock-deal-announced",
      "date": "2024-12-03",
      "what": "BlackRock agrees to buy HPS (~$12bn)",
-     "source": "https://www.pehub.com/blackrock-to-buy-hps-investment-partners-for-12bn/",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.blackrock.com/corporate/newsroom/media/press-releases/blackrock-agrees-to-acquire-hps",
+     "recordId": "i1018",
+     "status": "present"
     },
     {
      "key": "blackrock-deal-completed",
@@ -311,65 +311,65 @@
      "key": "spac-listing",
      "date": "2021-05-20",
      "what": "Owl Rock + Dyal close SPAC merger, list as Blue Owl",
-     "source": "https://privatedebtinvestor.com/dyal-owl-rock-complete-merger-with-spac-and-begin-trading",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.blueowl.com/news/newly-formed-blue-owl-commences-trading-nyse",
+     "recordId": "d1001",
+     "status": "present"
     },
     {
      "key": "oak-street-close",
      "date": "2021-12-29",
      "what": "Oak Street acquisition closes",
-     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394525000013/Financial_Report.xlsx",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.blueowl.com/news/blue-owl-capital-completes-acquisition-oak-street-real-estate-capital",
+     "recordId": "d1002",
+     "status": "present"
     },
     {
      "key": "wellfleet-close",
      "date": "2022-04-01",
      "what": "Wellfleet Credit Partners acquisition closes",
-     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394525000013/Financial_Report.xlsx",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.blueowl.com/news/blue-owl-capital-completes-acquisition-wellfleet-credit-partners",
+     "recordId": "d1003",
+     "status": "present"
     },
     {
      "key": "kuvare-close",
      "date": "2024-07-01",
      "what": "Kuvare Asset Management ($750m) closes",
-     "source": "https://www.blueowl.com/news/blue-owl-capital-acquire-kuvare-asset-management-750-million",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.blueowl.com/news/blue-owl-capital-completes-acquisition-kuvare-asset-management",
+     "recordId": "d1004",
+     "status": "present"
     },
     {
      "key": "atalaya-close",
      "date": "2024-09-30",
      "what": "Atalaya acquisition closes",
-     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394526000009/owl-20251231.htm",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://ir.blueowl.com/Investors/news/news-details/2024/Blue-Owl-Capital-Completes-Acquisition-of-Atalaya-Capital-Managements-Business/default.aspx",
+     "recordId": "d1005",
+     "status": "present"
     },
     {
      "key": "ipi-close",
      "date": "2025-01-03",
      "what": "IPI Partners acquisition closes",
-     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394526000009/owl-20251231.htm",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.blueowl.com/news/blue-owl-capital-completes-acquisition-ipi-partners-business",
+     "recordId": "d1006",
+     "status": "present"
     },
     {
      "key": "obdc-merger-terminated",
      "date": "2025-11-19",
      "what": "OBDC / OBDC II merger terminated",
-     "source": "https://alternativecreditinvestor.com/2025/11/19/blue-owl-terminates-merger-of-private-credit-funds/",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.sec.gov/Archives/edgar/data/1655888/000162828025053061/exhibit991-obdc8xk.htm",
+     "recordId": "i1010",
+     "status": "present"
     },
     {
      "key": "obdc-ii-gates",
      "date": "2026-02-19",
      "what": "OBDC II gates redemptions and sells loans",
      "source": "https://alternativecreditinvestor.com/2026/02/19/blue-owl-gates-retail-private-credit-fund-amid-redemption-pressure/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1011",
+     "status": "present"
     },
     {
      "key": "asof-close",
@@ -759,43 +759,43 @@
    "events": [
     {
      "key": "jain-departs",
-     "date": "2023-06",
+     "date": "2022-11-08",
      "what": "Co-CIO Bobby Jain steps down — exact date to confirm",
-     "source": "https://www.privatebankerinternational.com/news/millennium-management-co-cio-reshuffle/",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.bloomberg.com/news/articles/2022-11-08/millennium-s-bobby-jain-is-stepping-back-amid-management-shuffle",
+     "recordId": "hi249",
+     "status": "present"
     },
     {
      "key": "capital-raise-2024",
      "date": "2024-10-18",
      "what": "$10bn raise draws $20bn demand",
      "source": "https://bnnbloomberg.ca/investing/2024/10/18/millenniums-10-billion-capital-raise-attracts-20-billion",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "hi250",
+     "status": "present"
     },
     {
      "key": "stake-sale-talks",
      "date": "2025-06-16",
      "what": "Stake-sale talks at ~$14bn valuation",
      "source": "https://www.bloomberg.com/news/articles/2025-06-16/millennium-stake-sale-talks-value-hedge-fund-at-14-billion",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "hi251",
+     "status": "present"
     },
     {
      "key": "stake-sale-15pct",
-     "date": "2025",
+     "date": "2025-11-03",
      "what": "15% stake sold via Petershill (~$2bn) — exact date to confirm",
-     "source": "https://www.marketscreener.com/news/hedge-fund-millennium-sells-15-stake-to-select-investors-internal-email-shows-ce7d5cd9dc8ef326",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.bloomberg.com/news/articles/2025-11-03/millennium-sells-2-billion-minority-stake-in-hedge-fund-firm",
+     "recordId": "hi252",
+     "status": "present"
     },
     {
      "key": "fy2025-return",
-     "date": "2026-01",
+     "date": "2026-01-05",
      "what": "FY2025 +10.5% — exact date to confirm",
      "source": "https://www.hedgeweek.com/millennium-and-citadel-post-double-digit-2025-gains-but-lag-smaller-hedge-funds/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "hi253",
+     "status": "present"
     },
     {
      "key": "record-raise-2026",
@@ -826,33 +826,33 @@
      "key": "twitter-settlement",
      "date": "2020-03-09",
      "what": "Twitter settlement; Jesse Cohn joins board",
-     "source": "https://www.cnbc.com/2020/03/09/twitter-strikes-investment-deal-with-elliott-management-silver-lake-after-attempt-to-oust-ceo-jack-dorsey.html",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.sec.gov/Archives/edgar/data/1418091/000119312520067362/d846415d8k.htm",
+     "recordId": "hi254",
+     "status": "present"
     },
     {
      "key": "starbucks-stake",
      "date": "2024-07-19",
      "what": "Starbucks stake reported",
      "source": "https://www.bnnbloomberg.ca/business/2024/07/19/starbucks-shares-jump-after-wsj-reports-elliott-bought-stake/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "hi255",
+     "status": "present"
     },
     {
      "key": "southwest-settlement",
      "date": "2024-10-24",
      "what": "Southwest settlement, five nominees",
      "source": "https://sportsday.dallasnews.com/business/airlines/2024/10/24/southwest-airlines-reaches-settlement-with-elliott-adds-new-board-directors",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "hi256",
+     "status": "present"
     },
     {
      "key": "honeywell-stake",
      "date": "2024-11-12",
      "what": "Honeywell $5bn+ stake, pushes breakup",
      "source": "https://nbcbayarea.com/news/business/money-report/activist-investor-elliott-management-has-5-billion-honeywell-stake-seeks-breakup/3706950",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "hi257",
+     "status": "present"
     },
     {
      "key": "bp-stake",
@@ -866,9 +866,9 @@
      "key": "phillips66-proxy",
      "date": "2025-05-21",
      "what": "Phillips 66 proxy fight: 2 of 4 seats",
-     "source": "https://www.semafor.com/article/05/21/2025/phillips-66-narrowly-survives-elliott-proxy-fight",
-     "recordId": null,
-     "status": "missing"
+     "source": "https://www.sec.gov/Archives/edgar/data/1534701/000119312525124014/d920674dex991.htm",
+     "recordId": "hi258",
+     "status": "present"
     },
     {
      "key": "pepsico-stake",

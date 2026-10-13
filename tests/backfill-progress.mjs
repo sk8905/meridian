@@ -6,7 +6,7 @@
 import { loadChecklist, progress, recordById } from "../scripts/backfill-progress.mjs";
 import { check, finish } from "./lib.mjs";
 
-const MIN_PRESENT = 24;   // present (linked) events across built checklists
+const MIN_PRESENT = 49;   // present (linked) events across built checklists
 const MIN_BUILT = 8;      // entities whose 2020→today checklist has been researched
 
 const cl = loadChecklist();
