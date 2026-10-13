@@ -78,12 +78,13 @@ export function buildPanel(funds, asOf, { tick = {} } = {}) {
     for (const p of f.prev.rows.slice(0, TOP)) { const r = now.get(p.cusip); if (!r || r.shares < p.shares * 0.5) bump(cut, p, f); }
   }
   const rank = (m) => [...m.values()].sort((a, b) => b.funds.length - a.funds.length || b.value - a.value);
-  const label = (e) => tick[e.cusip] || null;
-  const consensus = rank(top).slice(0, 8).map((e) => ({ t: label(e), name: e.name, cusip: e.cusip,
+  const label = (e) => (tick[e.cusip] && tick[e.cusip].t) || null;
+  const nm = (e) => (tick[e.cusip] && tick[e.cusip].name) || tidy(e.name);
+  const consensus = rank(top).slice(0, 8).map((e) => ({ t: label(e), name: nm(e), cusip: e.cusip,
     note: `A top-${TOP} holding at ${e.funds.length} of ${N} tracked funds (${names(e.funds)}); ${bn(e.value)} combined.`, src: e.src }));
-  const buys = rank(add).filter((e) => e.funds.length >= 2).slice(0, 3).map((e) => ({ t: label(e), name: e.name, cusip: e.cusip, dir: "buy", by: names(e.funds),
+  const buys = rank(add).filter((e) => e.funds.length >= 2).slice(0, 3).map((e) => ({ t: label(e), name: nm(e), cusip: e.cusip, dir: "buy", by: names(e.funds),
     note: `New or added to (>50% more shares) by ${e.funds.length} of ${N} tracked funds versus their previous filing.`, src: e.src }));
-  const sells = rank(cut).filter((e) => e.funds.length >= 2).slice(0, 2).map((e) => ({ t: label(e), name: e.name, cusip: e.cusip, dir: "sell", by: names(e.funds),
+  const sells = rank(cut).filter((e) => e.funds.length >= 2).slice(0, 2).map((e) => ({ t: label(e), name: nm(e), cusip: e.cusip, dir: "sell", by: names(e.funds),
     note: `Exited or cut by more than half at ${e.funds.length} of ${N} tracked funds versus their previous filing.`, src: e.src }));
   return { consensus, moves: [...buys, ...sells], fundsCounted: N };
 }
@@ -115,6 +116,9 @@ async function filing(cik, f) {
   }
   return null;
 }
+const US_EXCH = new Set(["NMS", "NGM", "NCM", "NAS", "NYQ", "NYS", "ASE", "PCX", "BTS", "NIM"]);
+// "AMAZON.COM, INC." / "Warner Bros. Discovery, Inc." → "Amazon.com" / "Warner Bros. Discovery".
+export function tidy(n) { return String(n || "").replace(/\s+/g, " ").replace(/,?\s+(inc\.?|incorporated|corp\.?|corporation|co\.?|ltd\.?|limited|plc|holdings?|hldgs|n\.?v\.?|s\.?a\.?|ag|se)$/i, "").replace(/,\s*$/, "").trim(); }
 async function tickers(cusips) {
   const out = {};
   for (const c of cusips) {
@@ -122,8 +126,10 @@ async function tickers(cusips) {
       const r = await fetch(`https://query1.finance.yahoo.com/v1/finance/search?q=${c}&quotesCount=3&newsCount=0`, { headers: { "user-agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(10000) });
       const j = r.ok ? await r.json() : null;
       const q = (j && j.quotes) || [];
-      const hit = q.find((x) => x.symbol && (x.quoteType === "EQUITY" || x.quoteType === "ETF"));
-      if (hit) out[c] = hit.symbol.replace(/\..*$/, "");
+      // US listings only (a 13F security trades in the US; e.g. TSMC's ADR is TSM, not
+      // its London line "0LCV"), with the listing's own clean company name.
+      const hit = q.find((x) => x.symbol && (x.quoteType === "EQUITY" || x.quoteType === "ETF") && US_EXCH.has(x.exchange) && !/[.^]/.test(x.symbol));
+      if (hit) out[c] = { t: hit.symbol, name: tidy(hit.shortname || hit.longname || "") };
     } catch { /* leave unresolved */ }
   }
   return out;

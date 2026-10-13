@@ -2,7 +2,7 @@
 // latest ORIGINAL 13F-HR filings, parse the information table into equity positions
 // (options / debt lines excluded, pre-2023 $000 values scaled), and build the
 // consensus panel only from funds filing for the panel's quarter.
-import { pickFilings, parseInfoTable, buildPanel, quarterLabel } from "../scripts/collect-sec.mjs";
+import { pickFilings, parseInfoTable, buildPanel, quarterLabel, tidy } from "../scripts/collect-sec.mjs";
 import { check, checkEq, finish } from "./lib.mjs";
 
 const sub = { filings: { recent: {
@@ -30,7 +30,7 @@ const funds = [
   F("c", [R("MSFT", "Microsoft", 700, 7)], null),
   F("old", [R("AMZN", "Amazon", 999, 9)], null, "2026-03-31"),
 ];
-const p = buildPanel(funds, "2026-06-30", { tick: { AMZN: "AMZN", MSFT: "MSFT", META: "META" } });
+const p = buildPanel(funds, "2026-06-30", { tick: { AMZN: { t: "AMZN", name: "Amazon.com" }, MSFT: { t: "MSFT", name: "Microsoft" }, META: { t: "META", name: "Meta Platforms" } } });
 checkEq(p.fundsCounted, 3, "only funds filing for the panel's quarter count");
 checkEq(p.consensus[0].t, "MSFT", "consensus ranks by how many funds hold it in their top 20 (MSFT: 3 funds)");
 check(/3 of 3 tracked funds/.test(p.consensus[0].note) && /^https:\/\/www\.sec\.gov\//.test(p.consensus[0].src), "a consensus row states the count over the filings and cites an EDGAR filing");
@@ -39,4 +39,6 @@ check(buy && buy.t === "AMZN" && /2 of 3/.test(buy.note), "most-added = new or >
 const sell = p.moves.find((m) => m.dir === "sell");
 check(sell && sell.t === "META", "most-sold = exited or cut by more than half at the most funds (META exited at A and B)");
 checkEq(quarterLabel("2026-06-30"), "Q2 2026", "quarter label from the period end");
+checkEq(p.consensus[0].name, "Microsoft", "rows carry the listing's clean company name");
+checkEq(tidy("WARNER   BROS    DISCOVERY     INC"), "WARNER BROS DISCOVERY", "a raw 13F issuer name is tidied (spaces collapsed, legal suffix dropped)");
 finish();
