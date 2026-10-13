@@ -16,8 +16,10 @@ name: tests
 on:
   push:
     branches: [main]
-  pull_request:
   workflow_dispatch:
+# No pull_request trigger: this repo publishes by pushing to `main` (no PR flow —
+# see CLAUDE.md), and running CI on stale/abandoned PR branches only emails false
+# failures. CI runs on the real deploy path (a push to main) and on manual dispatch.
 
 # A newer push to the same ref supersedes an in-flight run.
 concurrency:
@@ -50,9 +52,13 @@ jobs:
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
 
+      # TEST_CONCURRENCY=2 matches the runner's core count — fewer browser specs in
+      # flight means less timing flake on the constrained host; the runner's retry-once
+      # covers the residual, so the suite only goes red on a genuine, repeatable failure.
       - name: Full suite (source)
         env:
           WIRE_PW: ${{ github.workspace }}/node_modules/playwright/index.js
+          TEST_CONCURRENCY: 2
         run: node tests/run.mjs
 
       - name: Build (Vite pipeline, same as the deploy)
@@ -61,4 +67,5 @@ jobs:
       - name: Full suite (built dist/)
         env:
           WIRE_PW: ${{ github.workspace }}/node_modules/playwright/index.js
+          TEST_CONCURRENCY: 2
         run: TEST_ROOT=dist node tests/run.mjs

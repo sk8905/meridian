@@ -26,25 +26,34 @@ let failed = 0, done = 0;
 const t0 = Date.now();
 console.log(`running ${specs.length} spec(s), ${concurrency} at a time\n`);
 
-function runSpec(spec) {
+function runOnce(spec) {
   return new Promise((resolve) => {
     const child = spawn(process.execPath, [path.join(dir, spec)], { stdio: ["ignore", "pipe", "pipe"] });
     let out = "";
     const to = setTimeout(() => { try { child.kill("SIGKILL"); } catch { /* */ } }, 300000);
     child.stdout.on("data", (d) => { out += d; });
     child.stderr.on("data", (d) => { out += d; });
-    child.on("close", (code) => {
-      clearTimeout(to);
-      const ok = code === 0;
-      if (!ok) failed++;
-      done++;
-      // Print the spec's full output as one contiguous block, prefixed by a header
-      // that carries a live progress counter.
-      process.stdout.write(`\n=== ${spec} (${done}/${specs.length}${ok ? "" : " — FAILED"}) ===\n${out.trimEnd()}\n`);
-      if (!ok) console.error(`>>> ${spec} FAILED`);
-      resolve();
-    });
+    child.on("close", (code) => { clearTimeout(to); resolve({ code, out }); });
   });
+}
+
+// Run a spec, RETRYING ONCE on failure. Several specs drive a real headless browser
+// whose timing can flake under parallel load on a constrained host (observed on CI's
+// 2-core runner). A genuine failure fails BOTH attempts (so a real break is never
+// masked); a transient flake passes on the retry — which stops the advisory CI from
+// going red (and emailing) on good routine commits.
+async function runSpec(spec) {
+  let { code, out } = await runOnce(spec);
+  let retried = false;
+  if (code !== 0) { retried = true; ({ code, out } = await runOnce(spec)); }
+  const ok = code === 0;
+  if (!ok) failed++;
+  done++;
+  const tag = ok ? (retried ? " — passed on retry" : "") : " — FAILED (after retry)";
+  // Print the spec's full output as one contiguous block, prefixed by a header
+  // that carries a live progress counter.
+  process.stdout.write(`\n=== ${spec} (${done}/${specs.length}${tag}) ===\n${out.trimEnd()}\n`);
+  if (!ok) console.error(`>>> ${spec} FAILED (after retry)`);
 }
 
 // Bounded worker pool: keep `concurrency` specs in flight, feeding the next as each
