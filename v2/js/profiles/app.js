@@ -98,6 +98,34 @@ export async function mount(host, ctx) {
     });
   }
 
+  // Sortable columns: tap a list header to sort by it (again to reverse). Money cells
+  // ("€1.2tn", "$227.60bn", "€600m") sort by value; "—" / "n/a" always sort last.
+  const cellVal = (td) => {
+    const t = (td ? td.textContent : "").trim();
+    if (!t || /^(—|n\/a|-)$/i.test(t)) return null;
+    const m = t.match(/^[~≈]?\s*[€$£]?\s*(-?[\d,.]+)\s*(tn|bn|m|k|%)?/i);
+    if (m) { let v = parseFloat(m[1].replace(/,/g, "")); const u = (m[2] || "").toLowerCase(); if (u === "tn") v *= 1000; else if (u === "m") v /= 1000; else if (u === "k") v /= 1e6; if (isFinite(v)) return v; }
+    return t.toLowerCase();
+  };
+  panes.querySelectorAll(".tleague thead th").forEach((th) => { th.classList.add("pf-sortable"); th.setAttribute("tabindex", "0"); th.setAttribute("aria-sort", "none"); });
+  function sortBy(th) {
+    const table = th.closest("table"), tb = table && table.tBodies[0]; if (!tb) return;
+    const i = [...th.parentNode.children].indexOf(th);
+    const dir = th.getAttribute("aria-sort") === "descending" ? "ascending" : "descending";
+    th.parentNode.querySelectorAll("th").forEach((h) => h.setAttribute("aria-sort", "none"));
+    th.setAttribute("aria-sort", dir);
+    const rowsArr = [...tb.rows];
+    const k = (tr) => cellVal(tr.cells[i]);
+    rowsArr.sort((a, b) => {
+      const x = k(a), y = k(b);
+      if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1;
+      const c = (typeof x === "number" && typeof y === "number") ? x - y : String(x).localeCompare(String(y));
+      return dir === "ascending" ? c : -c;
+    });
+    rowsArr.forEach((r) => tb.appendChild(r));
+  }
+  panes.addEventListener("keydown", (e) => { const th = e.target.closest && e.target.closest("th.pf-sortable"); if (th && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); sortBy(th); } });
+
   // ---- list <-> detail plumbing -------------------------------------------
   const showPane = (p) => panes.querySelectorAll(".tpane").forEach((el) => { el.hidden = el.dataset.pane !== p; });
   const selectChip = (p) => {
@@ -273,6 +301,8 @@ export async function mount(host, ctx) {
       filterList(fol.closest(".tpane"));
       return;
     }
+    const sth = e.target.closest("#pf-panes th.pf-sortable");
+    if (sth) { sortBy(sth); return; }
     const cons = e.target.closest("#hf-cons-btn");
     if (cons) { if (credit.loadConsensus) credit.loadConsensus(cons); return; }
     // Hedge fund monitor — collapsed by default, revealed by the header "Monitor"

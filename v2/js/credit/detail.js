@@ -122,6 +122,15 @@ export function fundManagerId(id) { const f = fundById[id]; return (f && f.manag
 // The header's AUM figures — the SAME fields, labels and currency as the Managers
 // list columns (Group AUM · Credit AUM), so a number never changes meaning between
 // the list and the profile. The sourced aumText + as-of date ride on the tooltip.
+// Coverage at a glance: how many tracked items, and the date of the latest — so a
+// thin or stale profile is visible from the header, without explanatory prose.
+function latestLine(items) {
+  const dated = (items || []).filter((x) => x && x.date);
+  if (!dated.length) return `<div class="tdet-latest">No tracked items yet</div>`;
+  const last = dated.reduce((a, b) => (String(b.date) > String(a.date) ? b : a));
+  const d90 = dated.filter((x) => Date.parse(x.date) >= Date.now() - 90 * 864e5).length;
+  return `<div class="tdet-latest"><span>${dated.length} tracked</span><span>${d90} in 90 days</span><span>latest ${esc(fmtDate(last.date))}</span></div>`;
+}
 function aumLine(m) {
   if (m.notAum) return "";
   const g = m.aumTotal != null ? m.aumTotal : m.aum;
@@ -474,6 +483,7 @@ export function viewManager(id, tab0) {
           <div class="tdet-id">
             <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
             <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${aumLine(m)}</div>
+            ${latestLine(mgrFeed)}
             ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
             ${mgrPeersDetails}
             ${srcDetails(m)}
@@ -813,6 +823,7 @@ export function viewHedgeFund(id, tab0) {
           <div class="tdet-id">
             <h1>${nameCell("hf", f.id, esc(f.name))}</h1>
             <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>
+            ${latestLine(news)}
             ${f.perf && f.perf.text ? `<p class="tdet-desc">Performance: ${esc(f.perf.text)}${f.perf.asOf ? ` <span class="tf-est">${esc(f.perf.asOf)}</span>` : ""}${f.perf.source ? ` · <a href="${esc(f.perf.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : ""}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(f.aum.toFixed(2))}bn AUM</span>` : ""}${f.raum != null ? `<span class="tdet-chip" data-raum title="Regulatory assets under management from the firm's SEC Form ADV — gross of leverage, so usually above net AUM">$${esc(f.raum.toFixed(1))}bn regulatory AUM (SEC)</span>` : ""}</div>
             ${hfPeersDetails}

@@ -1322,3 +1322,11 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tcr-n { margin-right: 6px; padding: 0 4px; border: 1px solid var(--border); color: var(--muted); font-size: var(--fs-micro); font-variant-numeric: tabular-nums; }
 .tcr-exp > td { background: var(--head); border-bottom: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 0; white-space: normal; }
 .tcr-lenders { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 4px 0 8px; font-size: var(--fs-body); }
+/* Profile header: coverage line (count · last 90 days · latest date). */
+.tdet-latest { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 3px; font-size: var(--fs-micro); color: var(--muted); font-variant-numeric: tabular-nums; }
+.tdet-latest > span + span::before { content: "· "; color: var(--faint); }
+/* Profiles lists: sortable column headers (▲/▼ on the active one). */
+th.pf-sortable { cursor: pointer; user-select: none; }
+th.pf-sortable:hover { color: var(--ink); }
+th.pf-sortable[aria-sort="descending"]::after { content: " ▼"; color: var(--faint); }
+th.pf-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--faint); }

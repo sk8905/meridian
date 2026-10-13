@@ -164,6 +164,17 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   await pg.fill("#pf-panes #mgr-q", "ares"); await pg.waitForTimeout(150);
   const vis2 = await pg.evaluate(() => [...document.querySelectorAll("#pf-panes #mgr-rows tr")].filter((r) => r.style.display !== "none").map((r) => r.dataset.href));
   check(vis2.length === 1 && vis2[0] === "#/manager/m20", `…and combines with the search box (${vis2.join(", ")})`);
+  // Sortable list columns: Group AUM descending puts the largest first; again → ascending.
+  await pg.fill("#pf-panes #mgr-q", ""); await pg.locator('#pf-panes .tpane[data-pane="managers"] .pf-follow-btn').click(); await pg.waitForTimeout(100);
+  const th = pg.locator('#pf-panes .tpane[data-pane="managers"] thead th', { hasText: "Group" });
+  await th.click(); await pg.waitForTimeout(100);
+  const firstDesc = await pg.evaluate(() => document.querySelector("#pf-panes #mgr-rows tr").dataset.href);
+  await th.click(); await pg.waitForTimeout(100);
+  const sortState = await pg.evaluate(() => ({ first: document.querySelector("#pf-panes #mgr-rows tr").dataset.href, aria: [...document.querySelectorAll('#pf-panes .tpane[data-pane="managers"] thead th')].map((h) => h.getAttribute("aria-sort")).filter((a) => a !== "none") }));
+  check(firstDesc !== sortState.first && sortState.aria.join() === "ascending", `list columns sort on tap, and reverse on a second tap (${firstDesc} → ${sortState.first})`);
+  // Profile header coverage line
+  await pg.goto(base + "/v2/profiles/#/manager/m21"); await pg.waitForSelector("#pf-detail .tdet-latest", { timeout: 8000 });
+  check(/tracked.*latest/i.test(await pg.evaluate(() => document.querySelector("#pf-detail .tdet-latest").textContent)), "a profile header shows its coverage (count · 90 days · latest date)");
   await pg.goto(base + "/v2/news/"); await pg.waitForTimeout(1500);
   await pg.evaluate(() => { const l = [...document.querySelectorAll("button, [data-lane]")].find((x) => /^Watchlist$/i.test((x.textContent || "").trim())); if (l) l.click(); });
   await pg.waitForTimeout(600);
