@@ -1,0 +1,87 @@
+name: collect-firm-news
+
+# Law firms' OWN publications, read from their own sites (sitemaps + each page's own
+# metadata) by scripts/collect-firm-news.mjs. Runs here because GitHub's runners have
+# open internet, while the refresh routines' containers can't reach most firm sites.
+# Output lands in backfill/ (excluded from the deployed site by postbuild), committed
+# to main only when it changed, with [skip ci]. The heavy-sweep routine records the
+# recent items; the 2020 backfill works through the history file.
+#
+#   every 2h        → backfill/firm-news.json     (last 14 days, ≤40 pages/firm)
+#   Sundays 03:47   → backfill/firm-history.json  (since 2020-01-01, ≤400 pages/firm)
+#   manual dispatch → choose the mode
+
+on:
+  schedule:
+    - cron: "23 */2 * * *"
+    - cron: "47 3 * * 0"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "recent (14 days) or history (since 2020)"
+        required: true
+        default: recent
+        type: choice
+        options: [recent, history]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-firm-news
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Pick mode
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then m="${{ inputs.mode }}";
+          elif [ "${{ github.event.schedule }}" = "47 3 * * 0" ]; then m=history; else m=recent; fi
+          echo "mode=$m" >> "$GITHUB_OUTPUT"
+          echo "Mode: $m"
+
+      - name: Collect
+        run: |
+          mkdir -p backfill
+          if [ "${{ steps.mode.outputs.mode }}" = "history" ]; then
+            node scripts/collect-firm-news.mjs --since=2020-01-01 --max=400 > /tmp/out.json
+            dest=backfill/firm-history.json
+          else
+            node scripts/collect-firm-news.mjs --since=14d --max=40 > /tmp/out.json
+            dest=backfill/firm-news.json
+          fi
+          # Fail loudly if nothing at all was readable (a blocked runner / broken script),
+          # rather than committing an empty file that reads as "no news".
+          node -e 'const j=require("/tmp/out.json");const ok=Object.values(j.firms).filter(s=>s.sitemaps>0).length;console.log(`${j.items.length} items, ${ok}/${Object.keys(j.firms).length} firms with a readable sitemap`);for(const[id,s]of Object.entries(j.firms))console.log(id.padEnd(18),JSON.stringify(s));if(!ok)process.exit(1)'
+          cp /tmp/out.json "$dest"
+          echo "DEST=$dest" >> "$GITHUB_ENV"
+
+      - name: Commit if changed
+        run: |
+          # Compare items only (the "generated" stamp changes every run).
+          if git show "HEAD:$DEST" > /tmp/prev.json 2>/dev/null && \
+             node -e 'const a=require("/tmp/prev.json").items,b=require(process.argv[1]).items;process.exit(JSON.stringify(a)===JSON.stringify(b)?0:1)' "$PWD/$DEST"; then
+            echo "No change in $DEST"; exit 0
+          fi
+          git config user.name "wire-collector[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DEST"
+          n=$(node -e 'console.log(require(process.argv[1]).items.length)' "$PWD/$DEST")
+          git commit -m "collector: $DEST — $n firm publications [skip ci]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          echo "push failed after retries"; exit 1

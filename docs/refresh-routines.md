@@ -646,6 +646,25 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
+## Law firms' own publications (`backfill/firm-news.json`, `backfill/firm-history.json`)
+
+Routine containers can't reach most firm websites, so a GitHub Action
+(`.github/workflows/collect-firm-news.yml`, open internet) runs
+`scripts/collect-firm-news.mjs` and commits what it finds to `backfill/` on main
+(excluded from the deployed site; `[skip ci]`; only when changed):
+- every 2h → `firm-news.json` (last 14 days, ≤40 pages per firm);
+- Sundays → `firm-history.json` (since 2020-01-01, ≤400 pages per firm).
+
+It reads each tracked firm's sitemaps, keeps in-scope publication URLs that Wire does
+not hold, and fetches each page's OWN metadata: `title` (og:title), `description`,
+`date` (the page's published date) + `dateSource`. That metadata IS the primary
+source — record a legal `items` entry straight from it: `url` (the firm page), `date`
+(only when `dateSource` is a published-date field, not just `url`/lastmod — otherwise
+confirm by search), `title`, `firm`, `area` (one of the four, from the title/description;
+skip if none fits), `type` (alert for deals/news, insight/update for articles), and a
+`summary` taken ONLY from `description`. Dedupe on firm + URL. The same files also
+give exact dates for undated / estimated items (match by URL).
+
 ## Profile rota (`scripts/profile-rota.mjs`) — slow data no feed refreshes
 
 `node scripts/profile-rota.mjs` prints this run's bounded slice, oldest first. Work it
