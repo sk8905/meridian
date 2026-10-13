@@ -48,6 +48,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bloomberg-thebrink-virginmediaaltice-20261013",
+    publication: "Bloomberg",
+    author: "Irene Garcia Perez, Giulia Morpurgo",
+    series: "The Brink",
+    title: "The Brink: Virgin Media spirals",
+    date: "2026-10-13",
+    time: "17:55",
+    summary: "Virgin Media stirs fears of punitive debt overhaul.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-13/virgin-media-has-bondholders-thinking-about-altice"
+  },
+  {
     id: "nl-fitch-wiredaily-perpetualbdcredemptions-20261013",
     publication: "Fitch Ratings",
     author: null,
