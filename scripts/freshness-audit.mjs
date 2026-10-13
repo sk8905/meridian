@@ -8,10 +8,18 @@
 // no-op'ing). It identifies the issue; the routine resolves it by WebSearch-sourcing
 // VERIFIED, dated events for the surfaces/managers this prints, then appending them.
 //
-// Pure read over the committed data (credit/js/data.js, legal/js/data.js) + the
-// manager-coverage scorer — no fetch, no writes, no state. Exit code is 0 when
-// everything is fresh, 1 when any surface is stale or coverage is below target, so
-// a routine (or CI) can branch on it.
+// Covers EVERY dated content surface the app renders — the credit feeds (deals, intel,
+// CLOs, the credit-desk research array), hedge-fund intel, the legal surfaces, the macro
+// feeds (headlines, commentary, reading list) PLUS the macro releases calendar and
+// editorial, the dashboard equity Key Moments, the Home briefing, and the X-feed sources
+// (myFT, newsletters, the research lane) — so nothing can rot unseen by the health check
+// or the refresh routines. Each surface carries its own cadence window where a daily one
+// would misfire (CLO new-issue 21d, dashboard captions 21d, macro editorial 45d, the
+// releases calendar is judged forward-looking).
+//
+// Pure read over the committed data modules + the manager-coverage scorer — no fetch, no
+// writes, no state. Exit code is 0 when everything is fresh, 1 when any surface is stale
+// or coverage is below target, so a routine (or CI) can branch on it.
 //
 // Usage:
 //   node scripts/freshness-audit.mjs            # human report + exit code
@@ -22,6 +30,10 @@ import * as CR from "../credit/js/data.js";
 import * as LG from "../legal/js/data.js";
 import * as MAC from "../macro/js/content.js";
 import * as BR from "../briefings.js";
+import * as FT from "../ft.js";
+import * as NL from "../newsletters.js";
+import * as RSCH from "../research.js";
+import * as DASH from "../dashboard/js/data.js";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -47,12 +59,14 @@ function newest(rows, field = "date") {
 }
 
 // A content surface: its freshest item's age, and whether that breaches the window.
-function surface(key, label, rows, field = "date") {
+// windowDays lets a surface carry its own cadence (e.g. CLO new-issue is lumpy, the
+// macro editorial moves monthly) instead of the global default.
+function surface(key, label, rows, field = "date", windowDays = STALE_DAYS) {
   const ms = newest(rows, field);
   const ageDays = ageDaysOf(ms);
   const newestDate = ms ? new Date(ms).toISOString().slice(0, 10) : null;
-  const stale = ageDays == null || ageDays > STALE_DAYS;
-  return { key, label, count: (rows || []).length, newestDate, ageDays, stale };
+  const stale = ageDays == null || ageDays > windowDays;
+  return { key, label, count: (rows || []).length, newestDate, ageDays, stale, windowDays };
 }
 
 // Macro editorial arrays: NEWS and COMMENTARY are US+UK buckets; ARTICLES is .items.
@@ -71,9 +85,41 @@ function macroCommentarySurface() {
   return s;
 }
 
+// CLOs section (#/clos) renders ONLY clo:true items out of deals+intel. New-issue /
+// reset flow is lumpy, so judge it on a wider window than daily feeds.
+const _CLO = [...(CR.deals || []), ...(CR.intel || [])].filter((x) => x && x.clo);
+// Dashboard equity-index "Key Moments" — the per-index editorial caption carries its
+// own date; audit the freshest of them.
+const _EQ_KM = ((DASH.EQ_INDICES || []).map((i) => i && i.keyMoment).filter(Boolean));
+
+// Macro releases calendar must run FORWARD: it is "stale" when nothing dated today-or-
+// later remains (nobody rolled it on), not when its newest row is old.
+function macroReleasesSurface() {
+  const rel = MAC.RELEASES || [];
+  const startToday = Date.parse(new Date().toISOString().slice(0, 10) + "T00:00:00Z");
+  const futureMs = rel.map((r) => msOf(r && r.date)).filter((ms) => ms >= startToday).sort((a, b) => a - b);
+  const nextDate = futureMs.length ? new Date(futureMs[0]).toISOString().slice(0, 10) : null;
+  return {
+    key: "macro_releases", label: "Macro releases calendar (forward)", count: rel.length,
+    newestDate: nextDate, ageDays: null, stale: futureMs.length === 0, windowDays: null,
+    note: futureMs.length ? `${futureMs.length} upcoming, next ${nextDate}` : "no upcoming entries — roll the calendar forward",
+  };
+}
+// Macro editorial (OUTLOOK / CYCLE / BUBBLE) restamps only on a material shift — judge
+// it on a slow (45d) window so it is COVERED without flagging ordinary quiet weeks.
+function macroEditorialSurface() {
+  const t = Date.parse(MAC.UPDATED || "");
+  const iso = Number.isNaN(t) ? null : new Date(t).toISOString().slice(0, 10);
+  const s = surface("macro_editorial", "Macro editorial (Outlook/Cycle/Bubble)", iso ? [{ date: iso }] : [], "date", 45);
+  s.count = 1;
+  return s;
+}
+
 const SURFACES = [
   surface("deals", "Transactions (credit deals)", CR.deals),
   surface("intel", "Credit intel (fundraising / mandates / personnel)", CR.intel),
+  surface("clos", "CLOs (clo:true items)", _CLO, "date", 21),
+  surface("credit_research", "Credit-desk research array", CR.research),
   surface("hedge_intel", "Hedge-fund intel", CR.HEDGE_INTEL),
   surface("legal_items", "Legal updates", LG.items),
   surface("legal_cases", "Case law", LG.cases),
@@ -81,6 +127,12 @@ const SURFACES = [
   surface("macro_news", "Macro headlines", _NEWS),
   macroCommentarySurface(),
   surface("macro_articles", "Macro reading list", _ART),
+  macroReleasesSurface(),
+  macroEditorialSurface(),
+  surface("dashboard_eq", "Dashboard equity Key Moments", _EQ_KM, "date", 21),
+  surface("xfeed_myft", "X feed · myFT (ft.js)", FT.FT_ITEMS),
+  surface("xfeed_newsletters", "X feed · newsletters", NL.NEWSLETTERS),
+  surface("research_lane", "Research lane (research.js)", RSCH.RESEARCH, "date", 10),
 ];
 
 // The Home market briefing: the freshest of its three rolling slots, by (date·time)
@@ -149,6 +201,14 @@ for (const s of staleSurfaces) {
     macro_news: "REWRITE macro NEWS — exactly 5 US + 5 UK current, verified, dated headlines (macro/js/content.js).",
     macro_commentary: "Top up macro COMMENTARY to ≥10 items (bank/house research + named-economist opinion), newest first (macro/js/content.js).",
     macro_articles: "Prepend current, verified macro reading-list items (newest 3 dated today) to ARTICLES.items (macro/js/content.js).",
+    clos: "Sweep NEW verified CLO pricings / resets / new issues and append to deals/intel with clo:true.",
+    credit_research: "Refresh the credit-desk research array (CR.research in credit/js/data.js) — or confirm it is retired and remove it from this audit.",
+    macro_releases: "Roll the macro releases calendar forward — drop past entries, add confirmed upcoming US/UK releases (macro/js/content.js RELEASES).",
+    macro_editorial: "Review the macro editorial (OUTLOOK / CYCLE / BUBBLE) and restamp UPDATED when materially changed (macro/js/content.js).",
+    dashboard_eq: "Refresh the dashboard equity-index Key Moments (dashboard/js/data.js EQ_INDICES keyMoment).",
+    xfeed_myft: "Re-run the myFT RSS sweep into ft.js (FT_ITEMS).",
+    xfeed_newsletters: "Sweep forwarded newsletters into newsletters.js (NEWSLETTERS).",
+    research_lane: "Sweep research-house publications into research.js (RESEARCH) — the Research lane's source.",
   };
   actions.push({ surface: s.key, newest: s.newestDate, ageDays: s.ageDays, do: map[s.key] || `Refresh ${s.label}.` });
 }
@@ -175,7 +235,7 @@ if (flag("--json")) {
   console.log(`WIRE FRESHNESS AUDIT — ${today} (stale window: ${STALE_DAYS}d)\n`);
   for (const s of SURFACES) {
     const tag = s.stale ? "STALE " : "fresh ";
-    const age = s.ageDays == null ? "no dated items" : `${s.ageDays}d old`;
+    const age = s.note ? s.note : (s.ageDays == null ? "no dated items" : `${s.ageDays}d old`);
     console.log(`  [${tag}] ${s.label.padEnd(48)} newest ${String(s.newestDate || "—").padEnd(11)} (${age}, ${s.count} items)`);
   }
   {
