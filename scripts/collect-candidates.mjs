@@ -151,7 +151,49 @@ export async function collect(entities, { fetcher = fetchFeed } = {}) {
     }
   }
   await Promise.all(Array.from({ length: CONC }, worker));
-  return { candidates: clusterStories(out), fetched, failed };
+  return { candidates: clusterStories(out), raw: out, fetched, failed };
+}
+
+// ---- PREMIUM leads: the paywalled specialists' HEADLINES ------------------------
+// Specialist outlets (Private Debt Investor, Creditflux, 9fin, Debtwire, FT, Bloomberg,
+// Law360, GRR, IPE …) can't be read in Wire, but their headlines are public. Their
+// beat is exactly Wire's, so each headline naming a tracked entity becomes a CUE: the
+// routine finds the readable primary (the firm's own release, a filing, an open
+// outlet) and records from that — or, if none exists, cites the paywalled article
+// with a summary limited to what its public headline/standfirst states.
+export const PREMIUM_QUERIES = [
+  "site:privatedebtinvestor.com", "site:creditflux.com", "site:9fin.com", "site:debtwire.com", "site:octus.com",
+  'site:ft.com ("private credit" OR "direct lending" OR "hedge fund" OR CLO OR restructuring OR "law firm")',
+  'site:bloomberg.com ("private credit" OR "direct lending" OR "hedge fund" OR CLO OR restructuring OR "law firm")',
+  'site:wsj.com ("private credit" OR "direct lending" OR "hedge fund")',
+  "site:law360.com (restructuring OR \"private credit\" OR financing OR \"capital markets\")",
+  "site:law.com (\"Big Law\" OR partner OR restructuring OR finance)", "site:globalrestructuringreview.com",
+  'site:ipe.com ("private credit" OR "private debt" OR "hedge fund")', 'site:institutionalinvestor.com ("hedge fund" OR "private credit")',
+];
+export const PAYWALLED_OUTLET = /financial times|\bft\b|bloomberg|wall street journal|\bwsj\b|private debt investor|creditflux|9fin|debtwire|octus|law360|law\.com|global restructuring review|\bgrr\b|\bipe\b|institutional investor|economist|the times|telegraph|barron/i;
+export async function collectPremium(entities, { fetcher = fetchFeed } = {}) {
+  const idx = knownIndex(), out = [], seen = new Set();
+  let fetched = 0, failed = 0;
+  for (const q of PREMIUM_QUERIES) {
+    const xml = await fetcher(q);
+    if (!xml) { failed++; continue; }
+    fetched++;
+    for (const c of parseRss(xml)) {
+      if (!c.title || !EVENT.test(c.title) || NOISE.test(c.title) || isKnown(idx, c)) continue;
+      const e = entities.find((x) => namedIn(c.title, x.name));
+      if (!e) continue;
+      const k = normUrl(c.link) || normT(c.title);
+      if (seen.has(k)) continue; seen.add(k);
+      out.push({ kind: e.kind, entityId: e.id, entity: e.name, title: c.title, url: c.link, source: c.source, date: c.date, premium: true });
+    }
+    await new Promise((res) => setTimeout(res, 300));
+  }
+  return { items: out, fetched, failed };
+}
+// Merge both passes into one clustered list; flag stories carried ONLY by paywalled
+// outlets so the routine knows to look for a readable primary first.
+export function mergeCandidates(open, premium) {
+  return clusterStories([...open, ...premium]).map((c) => ({ ...c, paywalledOnly: (c.outlets || []).every((o) => PAYWALLED_OUTLET.test(String(o || ""))) }));
 }
 
 // ---- CLI --------------------------------------------------------------------
@@ -161,12 +203,19 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const res = offline
     ? await collect(ents.slice(0, 1), { fetcher: async () => fs.readFileSync(offline, "utf8") })
     : await collect(ents);
-  const meta = { generated: new Date().toISOString(), days: DAYS, entities: ents.length, ...res, candidates: undefined };
+  // Premium headlines are matched against the WHOLE roster (not just this run's slice).
+  if (!offline && !args.includes("--no-premium")) {
+    const prem = await collectPremium(rosterEntities());
+    res.premium = { fetched: prem.fetched, failed: prem.failed, matched: prem.items.length };
+    res.candidates = mergeCandidates(res.raw || [], prem.items);
+  }
+  const meta = { generated: new Date().toISOString(), days: DAYS, entities: ents.length, ...res, candidates: undefined, raw: undefined };
   if (asJson) console.log(JSON.stringify({ ...meta, candidates: res.candidates }, null, 2));
   else {
     console.log(`CANDIDATES — ${meta.generated.slice(0, 16)}Z · ${ents.length} entities (${KIND}), last ${DAYS}d · feeds ok ${res.fetched}, failed ${res.failed}`);
     console.log(`${res.candidates.length} recent STORIES (outlets grouped) naming a tracked entity that Wire does NOT hold yet (CUES — verify each before recording):\n`);
-    for (const c of res.candidates) console.log(`  ${c.date || "????-??-??"}  [${c.kind}:${c.entityId}] ${c.entity} — ${c.title}\n      outlets (${c.outlets.length}): ${[...new Set(c.outlets)].slice(0, 6).join(", ")}\n      ${c.url}`);
+    if (res.premium) console.log(`Premium (paywalled) headlines: ${res.premium.matched} named a tracked entity (${res.premium.fetched} queries ok); ⚿ = only paywalled outlets — find a readable primary first.\n`);
+    for (const c of res.candidates) console.log(`  ${c.date || "????-??-??"}  [${c.kind}:${c.entityId}] ${c.paywalledOnly ? "⚿ " : ""}${c.entity} — ${c.title}\n      outlets (${c.outlets.length}): ${[...new Set(c.outlets)].slice(0, 6).join(", ")}\n      ${c.url}`);
   }
   if (res.fetched === 0) process.exit(2);   // nothing reachable — say so, don't pretend
 }

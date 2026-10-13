@@ -164,7 +164,7 @@ check(!feedQualityKeep({ source: "Investing.com Economics", title: "Singapore co
 for (const off of ["Financial Times", "Bloomberg", "The Wall Street Journal", "The Economist", "FT Alphaville", "The Lawyer", "Nikkei Asia", "Channel NewsAsia"]) {
   check(!FEED_SOURCES.some((f) => f.source === off), `readable-only: ${off} is switched off (not an active feed source)`);
 }
-for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], ["The Straits Times", {}]]) {
+for (const [on, want] of [["Associated Press", {}], ["Moody's", { fi: true }], ["The Straits Times", {}], ["European Central Bank", {}], ["Bank of Japan", {}], ["Bank of Canada", {}], ["Euronews Business", {}], ["AltAssets", {}]]) {
   const src = bySource(on);
   check(!!src, `readable-only: ${on} is wired as an active source`);
   if (src && want.fi) check(src.fi === true, `readable-only: ${on} is routed to the FI (credit) desk`);

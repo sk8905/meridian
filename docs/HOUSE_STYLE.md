@@ -1102,6 +1102,7 @@ item keeps a real outbound source link (R7).
 > credit (see `_readViaProxy` / `readProxyChoice` in `src/index.js`). The old ≤30%
 > paywalled-share cap was removed.
 - Associated Press (`apnews.com`) — openly-readable global wire (via Google News bridge)
+- **Added 2026-10 (owner-approved, trialled in-pane by `scripts/source-trial.mjs`):** European Central Bank, Bank of Japan, Bank of Canada (central-bank feeds); Euronews Business; AltAssets (private markets). The Guardian and Above the Law also passed the trial but stay OFF (removed 2026-09; not re-added without the owner's say-so). Law Society Gazette is pending — its feed returned no items in the trial.
 - CNBC (`cnbc.com`)
 - MarketWatch
 - City AM (`cityam.com`)

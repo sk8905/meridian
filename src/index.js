@@ -3434,6 +3434,9 @@ export const FEED_SOURCES = [
   // quality cull via FEED_CURATED_SRC below.
   { url: "https://alternativecreditinvestor.com/feed/", source: "Alternative Credit Investor", region: "GEN", cap: 8, filter: false },
   { url: "https://www.privateequitywire.co.uk/feed/", source: "Private Equity Wire", region: "GEN", cap: 6, filter: false },
+  // AltAssets — private-markets fundraising / closes / deal round-ups (trialled: renders
+  // in-pane via the proxy). Relevance-filtered: it also runs VC and lifestyle pieces.
+  { url: "https://altassets.net/feed", source: "AltAssets", region: "GEN", cap: 5 },
   // CNBC — a PREFERRED source (openly readable in-pane, trusted always-pass in
   // FEED_PREMIUM). Roomier caps so more of its economy/markets/finance coverage
   // surfaces on the wire.
@@ -3460,6 +3463,16 @@ export const FEED_SOURCES = [
   // { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },        // OFF: premium four (Economist)
   // { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },                      // OFF: premium four (Economist)
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
+  // G7 / euro-area central banks (owner-approved 2026-10; each trialled by
+  // scripts/source-trial.mjs: live feed, articles render in the reading pane). The ECB
+  // feed is press releases + speeches + press conferences — all policy, so unfiltered;
+  // the BoJ and BoC feeds also carry statistics/admin notices, so they keep the macro filter.
+  { url: "https://www.ecb.europa.eu/rss/press.xml", source: "European Central Bank", region: "GEN", cap: 6, filter: false },
+  { url: "https://www.boj.or.jp/en/rss/whatsnew.xml", source: "Bank of Japan", region: "GEN", cap: 4 },
+  { url: "https://www.bankofcanada.ca/content_type/press-releases/feed/", source: "Bank of Canada", region: "GEN", cap: 3 },
+  // Open European business desk (trialled: in-pane readable). Standard macro /
+  // relevance filter — they are general business sections.
+  { url: "https://www.euronews.com/rss?level=theme&name=business", source: "Euronews Business", region: "GEN", cap: 6 },
   // (The Guardian, Sharecast and City AM removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
   // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP stays

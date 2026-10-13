@@ -785,6 +785,15 @@ only then append it (deals / intel / HEDGE_INTEL / legal items). Reject noise si
 (earnings commentary, an unrelated entity with a similar name). Exit code 2 means no
 feed was reachable — say so and fall back to search; never treat that as "no news".
 
+**Premium (paywalled) leads.** The collector also reads the public HEADLINES of the
+paywalled specialists (Private Debt Investor, Creditflux, 9fin, Debtwire, Octus, FT,
+Bloomberg, WSJ, Law360, Law.com, GRR, IPE, Institutional Investor) via Google News and
+keeps those naming a tracked entity. A candidate with `paywalledOnly: true` is carried
+ONLY by paywalled outlets: first find the readable primary (the firm's/manager's own
+release, a filing, an open outlet) and cite that; only if none exists, cite the
+paywalled article itself (allowed — it simply opens externally) with a summary limited
+to what its public headline/standfirst states. Never paraphrase paywalled body text.
+
 ## Deterministic deal sources — SEC EDGAR (`/api/formd`, `/api/bdc`)
 
 WebSearch alone is an effort-dependent source for the **Transactions deal ledger**

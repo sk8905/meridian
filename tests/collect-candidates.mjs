@@ -3,7 +3,7 @@
 // keep only headlines that NAME the entity (not "Blue Man Group" for Man Group) AND
 // carry an event word; drop stories Wire already holds; drop aggregator-only stories;
 // and group one event syndicated by several outlets into ONE candidate.
-import { parseRss, collect, rosterEntities } from "../scripts/collect-candidates.mjs";
+import { parseRss, collect, rosterEntities, collectPremium, mergeCandidates } from "../scripts/collect-candidates.mjs";
 import { deals } from "../credit/js/data.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
@@ -37,4 +37,19 @@ check(!titles.includes(known.headline), "a story Wire already holds (by URL/head
 const ents = rosterEntities();
 check(ents.some((e) => e.kind === "manager") && ents.some((e) => e.kind === "hf") && ents.some((e) => e.kind === "firm"),
   `the roster covers managers, hedge funds and law firms (${ents.length} entities)`);
+// PREMIUM leads: a paywalled specialist's public headline naming a tracked entity becomes
+// a cue, matched across the roster; stories carried only by paywalled outlets are flagged.
+{
+  const pxml = `<rss><channel>
+${item("Man Group raises $2bn for European direct lending", "Private Debt Investor", "https://www.privatedebtinvestor.com/p1")}
+${item("Private credit market outlook for 2027", "Private Debt Investor", "https://www.privatedebtinvestor.com/p2")}
+</channel></rss>`;
+  const prem = await collectPremium([man, { kind: "hf", id: "hX", name: "Unrelated Capital", q: "x" }], { fetcher: async () => pxml });
+  check(prem.items.length >= 1 && prem.items.every((x) => x.entityId === "mX" && x.premium), `a paywalled headline naming a tracked entity becomes a premium cue (${prem.items.length})`);
+  check(!prem.items.some((x) => /outlook/.test(x.title)), "a paywalled headline naming no tracked entity is ignored");
+  const merged = mergeCandidates([], prem.items.slice(0, 1));
+  check(merged.length === 1 && merged[0].paywalledOnly === true, "a story carried only by paywalled outlets is flagged paywalledOnly");
+  const mixed = mergeCandidates([{ kind: "manager", entityId: "mX", entity: man.name, title: "Man Group raises $2bn for European direct lending fund", url: "https://open.example/x", source: "Alternative Credit Investor", date: "2026-10-12" }], prem.items.slice(0, 1));
+  check(mixed.length === 1 && mixed[0].paywalledOnly === false, "the same story also carried by an open outlet is one candidate, not paywalled-only");
+}
 finish();
