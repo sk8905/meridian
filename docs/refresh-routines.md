@@ -659,7 +659,9 @@ It reads each tracked firm's sitemaps, keeps in-scope publication URLs that Wire
 not hold, and fetches each page's OWN metadata: `title` (og:title), `description`,
 `date` (the page's published date) + `dateSource`. That metadata IS the primary
 source — record a legal `items` entry straight from it: `url` (the firm page), `date`
-(only when `dateSource` is a published-date field, not just `url`/lastmod — otherwise
+(only when `dateSource` is a published-date field — `article:published_time`, `datePublished`,
+`publishDate`, `<time datetime>` or `page date label` (the page's own displayed date), not
+`url`/lastmod/null — otherwise
 confirm by search), `title`, `firm`, `area` (one of the four, from the title/description;
 skip if none fits), `type` (alert for deals/news, insight/update for articles), and a
 `summary` taken ONLY from `description`. Dedupe on firm + URL. The same files also

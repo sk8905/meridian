@@ -69,7 +69,7 @@ export function sitemapsFromRobots(txt) { return [...String(txt || "").matchAll(
 
 // Publication paths, and slugs that look in scope for the four practice areas.
 const PUB_PATH = /\/(news|insights?|publications?|pubs?|deals?|knowledge|our-thinking|thinking|what-we-think|briefings?|client-alerts?|alerts?|articles?|articles-publications|perspectives|press|press-releases|releases?|newsroom|blogs?|updates?|legal-updates|transactions|experience|thought-leadership|client-memos?|memos?|news-and-insights)\//i;
-const NOT_PUB = /\/(events?|webinars?|people|lawyers|professionals|careers|offices?|locations)(?:[-/]|$)/i;
+const NOT_PUB = /\/(events?|webinars?|people|lawyers|professionals|careers|offices?|locations|practices?|services|sectors?|industries)(?:[-/]|$)/i;
 // Non-English locale copies of a page ("/ja/our-thinking/…") duplicate the English one.
 const NON_EN = /\/(ja|zh|fr|de|es|it|pt|ko|ar|ru|nl|pl|tr)(?:-[a-z]{2,4})?\//i;
 const IN_SCOPE = /(financ|lend|loan|credit|debt|bond|notes?-|note-offering|securiti[sz]|clo\b|clos\b|abs\b|cmbs|rmbs|refinanc|restructur|insolven|scheme|part-26|chapter-11|administration|distress|fund|capital|private-equity|acqui|merger|m-a\b|takeover|disposal|ipo|listing|investment|investor|lender|bank|regulat|fca|pra|aifm|eltif|tax|nav-|continuation|secondar|infrastructure|project|real-estate)/i;
@@ -94,6 +94,33 @@ export function dateProbe(html) {
   for (const m of h.matchAll(DATEISH)) { out.push(h.slice(Math.max(0, m.index - 70), m.index + m[0].length + 20)); if (out.length >= 3) break; }
   return out;
 }
+// A page's own DISPLAYED publication date in a labelled element — firms whose pages
+// carry no machine date (Clifford Chance's hiddenDate, Weil's article-date, Latham's
+// article-hero__info-date, Kirkland's oni_displaydate, K&L Gates' "Date:" label, …).
+const MONTHS = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+export function humanDate(s) {
+  const t = String(s || "").replace(/\s+/g, " ").trim();
+  let m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t);
+  let y, mo, d;
+  if (m) [y, mo, d] = [+m[1], +m[2], +m[3]];
+  else if ((m = /^(\d{1,2})\s+([a-z]{3})[a-z]*\.?,?\s+(\d{4})$/i.exec(t))) [d, mo, y] = [+m[1], MONTHS[m[2].toLowerCase()], +m[3]];
+  else if ((m = /^([a-z]{3})[a-z]*\.?\s+(\d{1,2}),?\s+(\d{4})$/i.exec(t))) [mo, d, y] = [MONTHS[m[1].toLowerCase()], +m[2], +m[3]];
+  else return null;
+  if (!mo || mo > 12 || d < 1 || y < 2000 || new Date(Date.UTC(y, mo - 1, d)).getUTCDate() !== d) return null;   // a real calendar day
+  return `${y}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+}
+const LABELLED = [
+  /<meta[^>]+name=["'][^"']*displaydate["'][^>]*content=["']([^"']+)["']/gi,
+  /id=["']hiddenDate["'][^>]*>\s*([^<]+)</gi,
+  /class=["'][^"']*(?:article-date|info-date|article-content__date|subtitle--date|articles-heading__meta-item|metaLabel)[^"']*["'][^>]*>\s*(?:<strong>)?\s*([^<]+)</gi,
+  /class=["']date__label["'][^>]*>[^<]*<\/span>\s*([^<]+)</gi,
+];
+function labelledDate(h) {
+  for (const re of LABELLED) for (const m of h.matchAll(re)) { const d = humanDate(decode(m[1])); if (d) return d; }
+  // Stephenson Harwood: "… | <span class="ml-3 font-medium">01/10/2026</span>" (UK day/month)
+  const sh = /\|<\/span>\s*<span class=["']ml-3 font-medium["']>(\d{2})\/(\d{2})\/(20\d{2})</.exec(h);
+  return sh ? humanDate(`${sh[3]}-${sh[2]}-${sh[1]}`) : null;
+}
 export function pageMeta(html, url, firmName = "") {
   const h = String(html || "");
   let title = attr(h, "property", "og:title") || attr(h, "name", "twitter:title") || meta(h, /<title[^>]*>([\s\S]*?)<\/title>/i);
@@ -111,6 +138,7 @@ export function pageMeta(html, url, firmName = "") {
     ["publishDate", meta(h, /"(?:publishDate|publishedDate|publicationDate|publish_date|published_date|releaseDate)"\s*:\s*"([^"]+)"/i)],
     ["publish-date meta", attr(h, "name", "(?:publish(?:ed)?[-_]?date|date|dc\\.date)")],
     ["<time datetime>", meta(h, /<time[^>]+datetime=["']([^"']+)["']/i)],
+    ["page date label", labelledDate(h)],
     ["url", (/\/(20\d{2})\/(\d{2})\/(\d{2})\//.exec(url) || []).slice(1).join("-")
       || ((m) => m ? `${m[3]}-${m[1]}-${m[2]}` : null)(/-(\d{2})-(\d{2})-(20\d{2})(?:[/?#.]|$)/.exec(url)) || null],   // …/slug-MM-DD-YYYY (K&L Gates)
   ];

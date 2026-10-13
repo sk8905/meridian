@@ -44,6 +44,16 @@ check(!wanted({ loc: "https://x.com/en/download/blogs/finance-note.pdf", lastmod
 check(!wanted({ loc: "https://www.clearygottlieb.com/news-and-insights/events-listing/a-finance-seminar", lastmod: "2026-10-10" }, "2026-10-01"), "events listings are skipped");
 check(!wanted({ loc: "https://www.freshfields.com/ja/our-thinking/news/2026/10/financing-deal", lastmod: "2026-10-10" }, "2026-10-01") && wanted({ loc: "https://www.freshfields.com/en/our-thinking/news/2026/10/financing-deal", lastmod: "2026-10-10" }, "2026-10-01"), "non-English locale copies are skipped, English kept");
 check(dateProbe("<p class=d>Published 13 October 2026</p>")[0].includes("13 October 2026"), "undated pages carry a date-text probe for diagnosis");
+for (const [h, want, what] of [
+  ["<p hidden id=\"hiddenDate\">2025-01-06</p>", "2025-01-06", "Clifford Chance hiddenDate"],
+  ["<p class=\"article-date\">October 13, 2026</p>", "2026-10-13", "Weil article-date"],
+  ["<span class=\"article-hero__info-date\">October 9, 2026</span>", "2026-10-09", "Latham article-hero date"],
+  ["<meta name=\"oni_displaydate\" content=\"13 October 2026\">", "2026-10-13", "Kirkland displaydate"],
+  ["<div class=\"date\"><span class=\"date__label\">Date: </span>28 June 2024</div>", "2024-06-28", "K&L Gates Date: label"],
+  ["<span class=\"text-lg\">|</span> <span class=\"ml-3 font-medium\">01/10/2026</span>", "2026-10-01", "Stephenson Harwood day/month date"],
+  ["<p class=\"article-date\">Sept. 31, 2026</p>", null, "an impossible calendar day is rejected"],
+]) check(pageMeta("<title>T</title>" + h, "u").date === want, `labelled page date: ${what}`);
+check(!wanted({ loc: "https://www.weil.com/experience/practices/restructuring", lastmod: "2026-10-10" }, "2026-10-01") && wanted({ loc: "https://x.com/insights/financial-services-regulation-update", lastmod: "2026-10-10" }, "2026-10-01"), "practice/service pages are skipped; financial-services articles kept");
 const doms = firmDomains();
 check((doms.latham || []).includes("www.lw.com") && (doms.proskauerrose || []).length > 0, "every tracked firm resolves to its own site domain(s)");
 check(parseSince("2020-01-01") === "2020-01-01" && /^\d{4}-\d{2}-\d{2}$/.test(parseSince("14d")), "window parses as a date or N days");
