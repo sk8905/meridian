@@ -692,14 +692,19 @@ a guess; if a figure can't be confirmed, leave the old one and say so.
   from those filings: consensus = names in the most tracked funds' top-20 positions;
   moves = names the most funds bought new / added >50% to, or exited / cut >50%, versus
   each fund's previous filing; every row cites an EDGAR filing and its note is a count
-  over the filings. When `panel.asOf` is newer than `HF_13F.asOf`, REPLACE `HF_13F` with
-  `panel` verbatim (no searching, no edits to the notes). Only if the file is missing or
+  over the filings. Apply it with `node scripts/apply-sec.mjs` — it replaces `HF_13F` with
+  `panel` verbatim only when `panel.asOf` is newer (no searching, no hand edits). Only if the file is missing or
   stale, fall back to the manual route: rewrite it for the latest FILED quarter (13F-HR is due 45 days after quarter
   end): `quarter`, `asOf` (the quarter-end date), `filed`, ~8 `consensus` names and ~5
   `moves`, each `{t, name, note, src}` with a note stating ONLY what the source says.
   Sources: reputable 13F coverage of that quarter (Bloomberg, WSJ, CNBC, FT, Reuters,
   Barron's, Goldman Sachs' Hedge Fund VIP report coverage) — not aggregator lists.
   (Per-fund Top-10 holdings on the hedge-fund profiles are already LIVE via /api/13f.)
+- **Regulatory AUM (`raum` on `HEDGE_FUNDS`)** — the same Action reads the SEC's monthly
+  registered-adviser file (Form ADV Item 5.F(2)(c)) and matches tracked funds by CIK →
+  `backfill/sec-adv.json`; `node scripts/apply-sec.mjs` writes `raum` (US$bn), `raumAsOf`
+  (the ADV filing date) and `raumSource` (the IAPD page). It is GROSS of leverage, shown
+  as its own labelled chip — never copy it into net `aum`.
 - **Hedge-fund AUM (`HEDGE_FUNDS`)** — the rota's ~5 oldest `aumAsOf`: find the latest
   firm-wide AUM — prefer regulatory AUM from SEC Form ADV (as reported in search results
   for the IAPD record), then the firm's own disclosure, then Bloomberg / HFM /

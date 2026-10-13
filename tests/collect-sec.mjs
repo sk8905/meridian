@@ -40,5 +40,5 @@ const sell = p.moves.find((m) => m.dir === "sell");
 check(sell && sell.t === "META", "most-sold = exited or cut by more than half at the most funds (META exited at A and B)");
 checkEq(quarterLabel("2026-06-30"), "Q2 2026", "quarter label from the period end");
 checkEq(p.consensus[0].name, "Microsoft", "rows carry the listing's clean company name");
-checkEq(tidy("WARNER   BROS    DISCOVERY     INC"), "WARNER BROS DISCOVERY", "a raw 13F issuer name is tidied (spaces collapsed, legal suffix dropped)");
+checkEq(tidy("Warner Bros. Discovery, Inc. -"), "Warner Bros. Discovery", "a raw 13F issuer name is tidied (spaces collapsed, legal suffix dropped)");
 finish();

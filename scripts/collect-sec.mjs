@@ -118,14 +118,19 @@ async function filing(cik, f) {
 }
 const US_EXCH = new Set(["NMS", "NGM", "NCM", "NAS", "NYQ", "NYS", "ASE", "PCX", "BTS", "NIM"]);
 // "AMAZON.COM, INC." / "Warner Bros. Discovery, Inc." → "Amazon.com" / "Warner Bros. Discovery".
-export function tidy(n) { return String(n || "").replace(/\s+/g, " ").replace(/,?\s+(inc\.?|incorporated|corp\.?|corporation|co\.?|ltd\.?|limited|plc|holdings?|hldgs|n\.?v\.?|s\.?a\.?|ag|se)$/i, "").replace(/,\s*$/, "").trim(); }
-async function tickers(cusips) {
+export function tidy(n) { return String(n || "").replace(/\s+/g, " ").replace(/[\s\-–—]+$/, "").replace(/,?\s+(inc\.?|incorporated|corp\.?|corporation|co\.?|ltd\.?|limited|plc|holdings?|hldgs|n\.?v\.?|s\.?a\.?|ag|se)$/i, "").replace(/,\s*$/, "").trim(); }
+async function tickers(cusips, names = {}) {
   const out = {};
+  const search = async (q) => { try { const r = await fetch(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&quotesCount=6&newsCount=0`, { headers: { "user-agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(10000) }); const j = r.ok ? await r.json() : null; return (j && j.quotes) || []; } catch { return []; } };
   for (const c of cusips) {
     try {
-      const r = await fetch(`https://query1.finance.yahoo.com/v1/finance/search?q=${c}&quotesCount=3&newsCount=0`, { headers: { "user-agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(10000) });
-      const j = r.ok ? await r.json() : null;
-      const q = (j && j.quotes) || [];
+      let q = await search(c);
+      // No US listing by CUSIP (e.g. an ADR) → try the issuer name, accepting a US
+      // listing whose name starts with the same word.
+      if (!q.some((x) => US_EXCH.has(x.exchange)) && names[c]) {
+        const w = tidy(names[c]).split(" ")[0].toLowerCase();
+        q = (await search(tidy(names[c]))).filter((x) => String(x.shortname || x.longname || "").toLowerCase().startsWith(w));
+      }
       // US listings only (a 13F security trades in the US; e.g. TSMC's ADR is TSM, not
       // its London line "0LCV"), with the listing's own clean company name.
       const hit = q.find((x) => x.symbol && (x.quoteType === "EQUITY" || x.quoteType === "ETF") && US_EXCH.has(x.exchange) && !/[.^]/.test(x.symbol));
@@ -156,7 +161,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   let panel = null;
   if (asOf) {
     const draft = buildPanel(funds, asOf);
-    const tick = await tickers([...new Set([...draft.consensus, ...draft.moves].map((x) => x.cusip))]);
+    const rowsAll = [...draft.consensus, ...draft.moves];
+    const tick = await tickers([...new Set(rowsAll.map((x) => x.cusip))], Object.fromEntries(rowsAll.map((x) => [x.cusip, x.name])));
     const p = buildPanel(funds, asOf, { tick });
     const lastFiled = funds.filter((f) => f.cur.asOf === asOf).map((f) => f.cur.filedAt).sort().pop();
     panel = { quarter: quarterLabel(asOf), asOf, filed: `Built from ${p.fundsCounted} tracked funds' own 13F-HR filings for ${quarterLabel(asOf)} (SEC EDGAR; latest filed ${lastFiled}).`,
