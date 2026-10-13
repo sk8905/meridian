@@ -50,9 +50,12 @@ extra deep-research pass on watchlisted names is skipped.
 ## Home-feed keyword coverage — the full entity roster (CRD / HDG / LEX)
 
 > **Content scope (STRICT) — HOUSE_STYLE R4c.** The newswire carries ONLY: (1)
-> macro-economic news for the **G7 + Eurozone + other major (EU/EFTA) European**
-> economies (non-European and non-EU/EFTA Europe — Russia, Ukraine, Turkey — are OUT,
-> auto-dropped by `FEED_OFFTOPIC_GEO`);
+> macro-economic news for the **G7 + Western Europe** (incl. the Nordics, Ireland,
+> Iberia, Benelux, Austria, Switzerland, Greece, and the ECB/Eurozone aggregate);
+> non-European geographies AND Central & Eastern Europe (Poland, Czechia, Hungary,
+> Romania, the Baltics, the Balkans, Russia, Ukraine, Turkey …) are OUT — a CEE
+> country's own macro data is auto-dropped by `FEED_OFFTOPIC_GEO`. The same scope
+> governs the routine-written macro content (briefing, Key Moments, macro alerts);
 > (2) managers/hedge funds **covered in the app — ALL of them, any AUM**; a NEW one is
 > added on the routine's own initiative **only if its AUM is $1–15bn** (outside that
 > band needs an explicit request); (3) law firms **covered in the app — all of them**;

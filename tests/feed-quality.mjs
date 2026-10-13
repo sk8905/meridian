@@ -87,6 +87,11 @@ for (const t of [
   "Australia jobs beat forecasts as unemployment falls",
   "Russia’s inflation jumps on a weaker rouble",
   "Turkey’s lira hits a record low after the rate decision",
+  "Poland holds rates as inflation cools toward target",       // CEE — out (G7 + Western Europe only)
+  "Czech central bank cuts interest rates",
+  "Hungary’s forint slides as budget deficit widens",
+  "Romanian inflation slows to 4.8%",
+  "Lithuania’s GDP grows faster than expected",
 ]) check(!feedQualityKeep({ source: ECON, title: t }), `macro scope: an out-of-scope country headline is dropped ("${t.slice(0, 30)}…")`);
 for (const t of [
   "UK firms see price, wage growth steady as energy costs squeeze margins",
@@ -96,9 +101,14 @@ for (const t of [
   "Tokyo inflation accelerates in Sept, strengthening case for further BOJ hikes",
   "Austria’s inflation climbs to 3.5% in September",        // euro-area member — in scope
   "Switzerland cuts rates as the franc strengthens",        // EFTA — in scope
-  "Poland holds rates as inflation cools toward target",    // EU — in scope
+  "Spain’s inflation eases to 2.1% in September",            // Western Europe — in scope
+  "Greece raises growth forecast as tourism booms",         // Western Europe — in scope
+  "Norway’s central bank holds rates steady",               // Nordics — in scope
   "Sweden’s Riksbank signals a pause after the krona rally", // EU — in scope
 ]) check(feedQualityKeep({ source: ECON, title: t }), `macro scope: a G7 / Eurozone / major-Europe headline is kept ("${t.slice(0, 30)}…")`);
+
+// A CEE company's deal / credit story is not country-macro — kept (the verticals are global).
+check(feedQualityKeep({ source: ECON, title: "Polish retailer Pepco agrees €500m refinancing with private lenders" }), "macro scope: a CEE corporate/credit story is kept (only CEE country-macro is out)");
 
 // ---- CNBC is a PREFERRED source: an always-pass premium newsroom with roomy caps.
 {

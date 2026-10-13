@@ -166,13 +166,17 @@ to keep pinned/full-height on these three sections.
 - **R4c — Newswire content scope (the inclusion rule — STRICT).** The newswire
   carries ONLY these four kinds of item; anything else is off-universe and must
   not appear:
-  1. **Macro-economic news relating to the G7 + the Eurozone + other major European
-     economies** — the G7 (US · UK · Canada · France · Germany · Italy · Japan), every
-     **euro-area** member (Austria, Ireland, Spain, Netherlands, …) and the rest of
-     **developed / EU / EFTA Europe** (Switzerland, the Nordics, Poland, Czechia, …),
-     plus the **ECB / Eurozone** aggregate. OUT = all **non-European** geographies
-     (Hong Kong, Singapore, China, India, Brazil, Australia, …) AND **non-EU/EFTA
-     Europe** (Russia, Ukraine, Belarus, Turkey, Serbia).
+  1. **Macro-economic news relating to the G7 + Western Europe** — the G7 (US · UK ·
+     Canada · France · Germany · Italy · Japan), the rest of **Western Europe**
+     (Ireland, Spain, Portugal, Netherlands, Belgium, Luxembourg, Austria,
+     Switzerland, the Nordics — Denmark, Sweden, Norway, Finland, Iceland — Greece,
+     Malta, Cyprus), plus the **ECB / Eurozone** aggregate. OUT = all **non-European**
+     geographies (Hong Kong, Singapore, China, India, Brazil, Australia, …) AND
+     **Central & Eastern Europe** (Poland, Czechia, Hungary, Romania, Bulgaria,
+     Slovakia, Slovenia, Croatia, the Baltics, the Balkans, Russia, Ukraine, Belarus,
+     Turkey, …). Geopolitics that moves G7/Western markets (e.g. the Russia–Ukraine war,
+     Iran) is still covered as it bears on those economies — what's OUT is the CEE
+     country's own macro data (its CPI, GDP, rates, currency).
   2. **News relating to managers / hedge funds that are covered in the app** —
      ALL of them (the `credit/js/data.js` managers + `HEDGE_FUNDS` rosters),
      **whatever their AUM** (a covered mega-manager's news still qualifies). A

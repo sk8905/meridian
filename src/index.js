@@ -3395,7 +3395,7 @@ export const FEED_SOURCES = [
   // (the rest — BofA/Wells Fargo/UBS — distribute by email only; see the relay note
   // below). filter:false + FEED_CURATED_SRC: curated macro, so it bypasses the
   // relevance gate (its out-of-G7 country-macro pieces still fall to the geo-cull,
-  // consistent with the app's G7+Europe scope).
+  // consistent with the app's G7+Western Europe scope).
   { url: "https://think.ing.com/rss/", source: "ING Think", region: "GEN", cap: 8, filter: false },
   // Email-only houses (BofA Institute, Wells Fargo Economics, UBS CIO) publish no
   // public RSS — only an email newsletter. To ingest them, relay each via an
@@ -3942,29 +3942,30 @@ const FEED_PR_NOISE = /\bto (announce|report)\b.*\b(results|earnings)\b|\breport
 // runs before the premium bypass so even a Bloomberg/Reuters frontier-macro
 // story ("Cuba's Population Decline…") is dropped.
 // The newswire's MACRO scope (HOUSE_STYLE "Newswire content scope", rule 1): macro-
-// economic news must relate to the **G7 + the Eurozone + other major (EU / EFTA)
-// European** economies — i.e. the G7 (US · UK · Canada · France · Germany · Italy ·
-// Japan), every euro-area member, and the rest of developed/EU Europe (Switzerland,
-// the Nordics, Poland, Czechia, Hungary, Romania …). A headline that LEADS with a
-// country OUTSIDE that set as its subject (the economic-print pattern — "Hong Kong
-// retail sales …", "Brazil's trade balance …", "Russia's inflation …") is off-universe
-// and dropped. OUT = all non-European geographies AND non-EU/EFTA Europe (Russia,
-// Ukraine, Belarus, Turkey, Serbia). Matched only at the START, so an in-scope-led
+// economic news must relate to the **G7 + Western Europe** — the G7 (US · UK · Canada ·
+// France · Germany · Italy · Japan), the rest of Western Europe (Ireland, Spain,
+// Portugal, the Benelux, Austria, Switzerland, the Nordics, Greece, …) and the
+// ECB / Eurozone aggregate. A headline that LEADS with a country OUTSIDE that set as
+// its subject (the economic-print pattern — "Hong Kong retail sales …", "Brazil's
+// trade balance …", "Poland's inflation …") is off-universe and dropped. OUT = all
+// non-European geographies AND Central & Eastern Europe (Poland, Czechia, Hungary,
+// Romania, Bulgaria, Slovakia, Slovenia, Croatia, the Baltics, the Balkans, Russia,
+// Ukraine, Belarus, Turkey, …). Matched only at the START, so an in-scope-led
 // headline, a euro-area aggregate ("Eurozone inflation …"), or a markets/entity story
 // is untouched. A denylist — add a country here if an out-of-scope one ever leaks.
 // Country-economic-DATA vocabulary: the signal that an out-of-scope-country-led
 // headline is MACRO (a nation's own GDP / inflation / jobs / trade / rates / FX /
 // budget / election) rather than a global vertical (credit, hedge, PE, M&A, markets,
-// legal, corporate). The G7+Europe geo-scope is applied ONLY to these macro headlines
+// legal, corporate). The G7+Western Europe geo-scope is applied ONLY to these macro headlines
 // — so an Asian credit/hedge/deal/corporate story is kept while an out-of-scope
 // country's macro print is dropped. See feedQualityKeep.
-const FEED_GEO_MACRO_RE = /\b(gdp|growth|econom\w+|inflation|deflation|disinflation|cpi|ppi|pce|unemploy\w*|jobless|jobs?|payrolls?|nonfarm|labou?r|wages?|retail sales|industrial production|pmi|ism|manufactur\w*|trade|exports?|imports?|tariffs?|current account|trade (balance|surplus|deficit)|budget|fiscal|borrowing|central bank|monetary|interest rates?|rate (cut|hike|rise|hold|decision|cuts|hikes|path)|bond yields?|sovereign|lira|rouble|ruble|peso|yuan|renminbi|rupee|\bwon\b|baht|ringgit|rupiah|currenc\w+|elections?|midterms?|referendum)\b/i;
-const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:russia(?:n)?|ukrain(?:e|ian)|belarus(?:ian)?|turk(?:ey|ish)|t[üu]rkiye|serbia(?:n)?|china|chinese|hong\s*kong|taiwan(?:ese)?|(?:south\s*|north\s*)?korea(?:n)?|singapore|s['’]pore|malaysia(?:n)?|thai(?:land)?|indonesia(?:n)?|philippine(?:s)?|vietnam(?:ese)?|india(?:n)?|australia(?:n)?|new\s*zealand|israel(?:i)?|saudi(?:\s*arabia)?|u\.?a\.?e\.?|emirat\w*|qatar(?:i)?|kuwait(?:i)?|bahrain(?:i)?|oman(?:i)?|egypt(?:ian)?|morocc(?:o|an)|south\s*africa(?:n)?|brazil(?:ian)?|mexic(?:o|an)|argentin(?:a|e|ian)?|chile(?:an)?|colombia(?:n)?|ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:['’]s)?\b/i;
+const FEED_GEO_MACRO_RE = /\b(gdp|growth|econom\w+|inflation|deflation|disinflation|cpi|ppi|pce|unemploy\w*|jobless|jobs?|payrolls?|nonfarm|labou?r|wages?|retail sales|industrial production|pmi|ism|manufactur\w*|trade|exports?|imports?|tariffs?|current account|trade (balance|surplus|deficit)|budget|fiscal|borrowing|central bank|monetary|interest rates?|rate (cut|hike|rise|hold|decision|cuts|hikes|path)|bond yields?|sovereign|lira|rouble|ruble|zloty|forint|koruna|\bleu\b|\blei\b|peso|yuan|renminbi|rupee|\bwon\b|baht|ringgit|rupiah|currenc\w+|elections?|midterms?|referendum)\b/i;
+const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:russia(?:n)?|ukrain(?:e|ian)|belarus(?:ian)?|turk(?:ey|ish)|t[üu]rkiye|serbia(?:n)?|pol(?:and|ish)|czech(?:ia|\s*republic)?|hungar(?:y|ian)|romania(?:n)?|bulgaria(?:n)?|slovak(?:ia)?|sloven(?:ia|ian)|croatia(?:n)?|eston(?:ia|ian)|latvia(?:n)?|lithuania(?:n)?|bosnia(?:n)?|albania(?:n)?|(?:north\s*)?macedonia(?:n)?|montenegr(?:o|in)|kosov(?:o|an)|moldova(?:n)?|armenia(?:n)?|azerbaijan(?:i)?|china|chinese|hong\s*kong|taiwan(?:ese)?|(?:south\s*|north\s*)?korea(?:n)?|singapore|s['’]pore|malaysia(?:n)?|thai(?:land)?|indonesia(?:n)?|philippine(?:s)?|vietnam(?:ese)?|india(?:n)?|australia(?:n)?|new\s*zealand|israel(?:i)?|saudi(?:\s*arabia)?|u\.?a\.?e\.?|emirat\w*|qatar(?:i)?|kuwait(?:i)?|bahrain(?:i)?|oman(?:i)?|egypt(?:ian)?|morocc(?:o|an)|south\s*africa(?:n)?|brazil(?:ian)?|mexic(?:o|an)|argentin(?:a|e|ian)?|chile(?:an)?|colombia(?:n)?|ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:['’]s)?\b/i;
 export function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
   if (FEED_LIFESTYLE_HARD_RE.test(it.title)) return false;   // recipes/obituaries/horoscopes… never finance, even with a stray "gold"
-  // The G7+Europe geo-scope applies to MACRO-ECONOMIC headlines only: an out-of-scope
+  // The G7+Western Europe geo-scope applies to MACRO-ECONOMIC headlines only: an out-of-scope
   // country's own macro data ("Brazil's retail sales …", "China's exports surge …") is
   // dropped, but a markets / credit / deal / corporate / legal story about an Asian (or
   // other out-of-scope) entity is kept — those verticals are global. So the geo-cull
