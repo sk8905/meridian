@@ -646,6 +646,40 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
+## 2020 backfill project (`backfill/checklist.json` + `scripts/backfill-progress.mjs`)
+
+"Complete since 2020" is measured against a **checklist**, not "has any 2020 item". For
+each priority entity (top 50 credit managers + top 30 hedge funds by AUM, in
+`priority` order) the checklist lists the major public events 2020 → today — flagship
+fund first/final closes, the firm's own M&A and stake sales (announcement **and**
+completion), CIO / senior leadership changes, marquee financings; for hedge funds,
+activist campaigns, major raises/returns, leadership and stake sales — each with a
+source URL and date. Every event is `present` (with the `recordId` of the Wire record
+that carries it), `missing` (with its `source`), or `rejected` (with a `note`).
+
+`node scripts/backfill-progress.mjs` prints % complete and the next worklist:
+**FILL** = a built entity with missing events; **BUILD** = research an unbuilt
+entity's checklist. `tests/backfill-progress.mjs` checks every row and ratchets the
+present/built counts (raise `MIN_PRESENT` / `MIN_BUILT` in the same commit when you make
+progress — never lower them). The health email reports the %.
+
+**FILL an event:** open its `source` (or find the primary — the firm's release, the
+filing); confirm the exact date and facts; append the record (`deals` / `intel` /
+`HEDGE_INTEL`, normal record rules, dedupe first — if Wire already holds it under
+another URL, just link that id); then set the event's `recordId` + `status:"present"`.
+If no source supports it, set `status:"rejected"` with a `note`. A `YYYY` / `YYYY-MM`
+date means "exact date still to confirm" — the record needs the exact date.
+
+**BUILD a checklist:** WebSearch the entity's history year by year (2020 … today) and
+list 6–15 MAJOR events, each verified with a real URL + date (never from memory). Set
+`status:"present"` + `recordId` for those Wire already holds (search the data first),
+`missing` + `source` for the rest; set the entity's `status:"built"`, `builtAt`. Then
+FILL its missing events in the same run where budget allows.
+
+Work in parallel: give each sub-agent ONE entity (fill or build), have it return the
+verified records + checklist rows as JSON, and apply them centrally — never let two
+agents edit the data files at once.
+
 ## Deterministic candidate collector (`scripts/collect-candidates.mjs`) — run it FIRST
 
 The routines' hunt used to be free-form web search, and it under-collected badly (in

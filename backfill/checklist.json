@@ -1,0 +1,1198 @@
+{
+ "version": 1,
+ "scope": "Major public events 2020-01-01 → today per entity: flagship fund first/final closes, the firm's own M&A and stake sales (announcement AND completion), CIO / senior leadership changes, marquee financings; hedge funds: activist campaigns, major raises/returns, leadership, stake sales. Each event: a real source URL + exact date (YYYY-MM-DD; YYYY-MM or YYYY only while unconfirmed).",
+ "entities": {
+  "m133": {
+   "kind": "manager",
+   "name": "HSBC Asset Management (Alternative Credit)",
+   "priority": 1,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m7": {
+   "kind": "manager",
+   "name": "Apollo Global Management",
+   "priority": 2,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m124": {
+   "kind": "manager",
+   "name": "Neuberger Berman (Specialty Finance)",
+   "priority": 3,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m125": {
+   "kind": "manager",
+   "name": "Mubadala Capital",
+   "priority": 4,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m98": {
+   "kind": "manager",
+   "name": "Aegon Asset Management",
+   "priority": 5,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m8": {
+   "kind": "manager",
+   "name": "Blackstone Credit & Insurance (BXCI)",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "cof-iv-final-close",
+     "date": "2022-01-12",
+     "what": "COF IV final close at $8.75bn",
+     "source": "https://www.businesswire.com/news/home/20220112005592/en/Blackstone-Announces-Final-Close-for-Fourth-Capital-Opportunities-Fund",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "bgreen-iii-close",
+     "date": "2023-08-10",
+     "what": "BGREEN III final close at $7.1bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20230810773196/en/Blackstone-Closes-Record-Energy-Transition-Private-Credit-Fund-at-Over-$7-Billion",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "bxci-formed",
+     "date": "2023-09-13",
+     "what": "BXCI formed under Gilles Dellaert",
+     "source": "https://www.blackstone.com/news/press/blackstone-integrates-leading-credit-and-insurance-businesses-to-form-blackstone-credit-and-insurance-bxci-in-push-toward-next-1-trillion/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "dwight-scott-retires",
+     "date": "2024-08-14",
+     "what": "BXCI chairman Dwight Scott to retire",
+     "source": "https://www.bnnbloomberg.ca/investing/2024/08/14/blackstone-s-dwight-scott-to-retire-after-building-credit-colossus/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "santander-portfolio",
+     "date": "2024-11-25",
+     "what": "~$1bn infrastructure-loan portfolio from Santander",
+     "source": null,
+     "recordId": "d65",
+     "status": "present"
+    },
+    {
+     "key": "coady-hire",
+     "date": "2025-11-03",
+     "what": "Laura Coady hired",
+     "source": null,
+     "recordId": "i135",
+     "status": "present"
+    },
+    {
+     "key": "cof-v-close",
+     "date": "2026-04-07",
+     "what": "COF V close",
+     "source": null,
+     "recordId": "i560",
+     "status": "present"
+    },
+    {
+     "key": "bock-resigns",
+     "date": "2026-07-24",
+     "what": "Jonathan Bock resigns",
+     "source": null,
+     "recordId": "i526",
+     "status": "present"
+    },
+    {
+     "key": "hsbc-loan-book",
+     "date": "2026-07-30",
+     "what": "HSBC Australia loan book",
+     "source": null,
+     "recordId": "d691",
+     "status": "present"
+    }
+   ]
+  },
+  "m81": {
+   "kind": "manager",
+   "name": "KKR (KKR Credit)",
+   "priority": 7,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m14": {
+   "kind": "manager",
+   "name": "AXA IM Alts",
+   "priority": 8,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m62": {
+   "kind": "manager",
+   "name": "Guggenheim Investments",
+   "priority": 9,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m187": {
+   "kind": "manager",
+   "name": "Royal London Asset Management",
+   "priority": 10,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m189": {
+   "kind": "manager",
+   "name": "Carlyle Global Credit",
+   "priority": 11,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m31": {
+   "kind": "manager",
+   "name": "HPS Investment Partners (BlackRock)",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "mezz-2019-close",
+     "date": "2020-10-05",
+     "what": "Mezzanine Partners 2019 closes, $11bn+",
+     "source": "https://prnewswire.com/news-releases/hps-investment-partners-closes-hps-mezzanine-partners-2019-301145295.html",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "slf-v-close",
+     "date": "2021-09-15",
+     "what": "Specialty Loan Fund V ~$11bn",
+     "source": "https://www.alternativeswatch.com/2021/09/15/hps-investment-partners-raises-11-billion-dollars-specialty-loan-fund-v/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "sip-v-close",
+     "date": "2023-04-11",
+     "what": "Strategic Investment Partners V $17bn",
+     "source": "https://www.alternativeswatch.com/2023/04/12/hps-strategic-investment-partners-v-junior-credit-flagship/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "csl-ii-close",
+     "date": "2023-06-05",
+     "what": "Core Senior Lending II ~$10bn",
+     "source": "https://www.alternativeswatch.com/2023/06/05/hps-attracts-10bn-for-senior-lending/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "slf-vi-close",
+     "date": "2024-06-24",
+     "what": "Specialty Loan Fund VI $21.1bn final close",
+     "source": "https://alternativecreditinvestor.com/2024/06/24/hps-raises-21-1bn-for-private-credit-fund",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "lunate-stake-talks",
+     "date": "2024-10-10",
+     "what": "Lunate explores $1bn minority stake",
+     "source": "https://www.bloomberg.com/news/articles/2024-10-10/uae-s-lunate-said-to-explore-1-billion-stake-in-credit-firm-hps",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "blackrock-deal-announced",
+     "date": "2024-12-03",
+     "what": "BlackRock agrees to buy HPS (~$12bn)",
+     "source": "https://www.pehub.com/blackrock-to-buy-hps-investment-partners-for-12bn/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "blackrock-deal-completed",
+     "date": "2025-07-01",
+     "what": "BlackRock completes HPS acquisition",
+     "source": null,
+     "recordId": "i38",
+     "status": "present"
+    },
+    {
+     "key": "citi-emea-programme",
+     "date": "2026-05-18",
+     "what": "Citi €15bn EMEA programme",
+     "source": null,
+     "recordId": "i25",
+     "status": "present"
+    }
+   ]
+  },
+  "m196": {
+   "kind": "manager",
+   "name": "IFM Investors",
+   "priority": 13,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m92": {
+   "kind": "manager",
+   "name": "Ardian",
+   "priority": 14,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m178": {
+   "kind": "manager",
+   "name": "Ninety One",
+   "priority": 15,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m89": {
+   "kind": "manager",
+   "name": "Oaktree Capital Management",
+   "priority": 16,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m96": {
+   "kind": "manager",
+   "name": "Azimut (Italy private credit)",
+   "priority": 17,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m120": {
+   "kind": "manager",
+   "name": "Macquarie Asset Management (Credit & Insurance)",
+   "priority": 18,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m221": {
+   "kind": "manager",
+   "name": "HarbourVest Partners",
+   "priority": 19,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m90": {
+   "kind": "manager",
+   "name": "Blue Owl Capital",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "spac-listing",
+     "date": "2021-05-20",
+     "what": "Owl Rock + Dyal close SPAC merger, list as Blue Owl",
+     "source": "https://privatedebtinvestor.com/dyal-owl-rock-complete-merger-with-spac-and-begin-trading",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "oak-street-close",
+     "date": "2021-12-29",
+     "what": "Oak Street acquisition closes",
+     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394525000013/Financial_Report.xlsx",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "wellfleet-close",
+     "date": "2022-04-01",
+     "what": "Wellfleet Credit Partners acquisition closes",
+     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394525000013/Financial_Report.xlsx",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "kuvare-close",
+     "date": "2024-07-01",
+     "what": "Kuvare Asset Management ($750m) closes",
+     "source": "https://www.blueowl.com/news/blue-owl-capital-acquire-kuvare-asset-management-750-million",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "atalaya-close",
+     "date": "2024-09-30",
+     "what": "Atalaya acquisition closes",
+     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394526000009/owl-20251231.htm",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "ipi-close",
+     "date": "2025-01-03",
+     "what": "IPI Partners acquisition closes",
+     "source": "https://www.sec.gov/Archives/edgar/data/1823945/000182394526000009/owl-20251231.htm",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "obdc-merger-terminated",
+     "date": "2025-11-19",
+     "what": "OBDC / OBDC II merger terminated",
+     "source": "https://alternativecreditinvestor.com/2025/11/19/blue-owl-terminates-merger-of-private-credit-funds/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "obdc-ii-gates",
+     "date": "2026-02-19",
+     "what": "OBDC II gates redemptions and sells loans",
+     "source": "https://alternativecreditinvestor.com/2026/02/19/blue-owl-gates-retail-private-credit-fund-amid-redemption-pressure/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "asof-close",
+     "date": "2026-03-31",
+     "what": "Asset Special Opportunities $2.9bn",
+     "source": null,
+     "recordId": "i93",
+     "status": "present"
+    }
+   ]
+  },
+  "m23": {
+   "kind": "manager",
+   "name": "Sixth Street",
+   "priority": 21,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m9": {
+   "kind": "manager",
+   "name": "Goldman Sachs Alternatives",
+   "priority": 22,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m153": {
+   "kind": "manager",
+   "name": "Starwood Capital Group",
+   "priority": 23,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m159": {
+   "kind": "manager",
+   "name": "LGT Capital Partners",
+   "priority": 24,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m2": {
+   "kind": "manager",
+   "name": "ICG (Intermediate Capital Group)",
+   "priority": 25,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m111": {
+   "kind": "manager",
+   "name": "Schroders Capital",
+   "priority": 26,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m155": {
+   "kind": "manager",
+   "name": "Oak Hill Advisors (OHA)",
+   "priority": 27,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m18": {
+   "kind": "manager",
+   "name": "AlpInvest (Carlyle)",
+   "priority": 28,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m82": {
+   "kind": "manager",
+   "name": "TPG (TPG Angelo Gordon)",
+   "priority": 29,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m64": {
+   "kind": "manager",
+   "name": "PGIM Private Capital",
+   "priority": 30,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m99": {
+   "kind": "manager",
+   "name": "D. E. Shaw & Co.",
+   "priority": 31,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m15": {
+   "kind": "manager",
+   "name": "Allianz Global Investors",
+   "priority": 32,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m152": {
+   "kind": "manager",
+   "name": "GCM Grosvenor",
+   "priority": 33,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m63": {
+   "kind": "manager",
+   "name": "Nuveen Private Capital",
+   "priority": 34,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m73": {
+   "kind": "manager",
+   "name": "Antares Capital",
+   "priority": 35,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m93": {
+   "kind": "manager",
+   "name": "BSP-Alcentra (Franklin Templeton)",
+   "priority": 36,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m188": {
+   "kind": "manager",
+   "name": "Invesco Real Estate",
+   "priority": 37,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m20": {
+   "kind": "manager",
+   "name": "Ares Management (European Credit)",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "ardonagh-2020",
+     "date": "2020-06-22",
+     "what": "Ares leads £1.875bn Ardonagh financing",
+     "source": null,
+     "recordId": "d120",
+     "status": "present"
+    },
+    {
+     "key": "ace-v-final-close",
+     "date": "2021-04-29",
+     "what": "ACE V final close at €11bn hard cap",
+     "source": "https://www.businesswire.com/news/home/20210428006205/en",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "landmark-acquisition",
+     "date": "2021-06-02",
+     "what": "Ares completes Landmark Partners acquisition",
+     "source": "https://www.businesswire.com/news/home/20210602006014/en",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "black-creek-acquisition",
+     "date": "2021-07-01",
+     "what": "Ares completes Black Creek Group acquisition",
+     "source": "https://www.globest.com/amp/2021/05/24/ares-management-to-acquire-black-creek-group/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "asof-ii-final-close",
+     "date": "2022-10-24",
+     "what": "ASOF II final close at $7.1bn hard cap",
+     "source": "https://www.alternativeswatch.com/2022/10/25/ares-special-opportunities-fund-ii-private-public-market-debt-equity-investments/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "pathfinder-ii-close",
+     "date": "2023-10-27",
+     "what": "Pathfinder II final close at $6.6bn",
+     "source": "https://www.businesswire.com/news/home/20231027398910/en/Ares-Management-Closes-6.6-Billion-Pathfinder-II-Alternative-Credit-Fund-to-Invest-in-Private-Asset-Based-Credit",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "sdl-iii-close",
+     "date": "2024-07-31",
+     "what": "Senior Direct Lending III $34bn",
+     "source": null,
+     "recordId": "i717",
+     "status": "present"
+    },
+    {
+     "key": "ace-vi-close",
+     "date": "2025-01-14",
+     "what": "ACE VI €17.1bn hard cap",
+     "source": null,
+     "recordId": "i35",
+     "status": "present"
+    },
+    {
+     "key": "gcp-acquisition",
+     "date": "2025-03-03",
+     "what": "Ares completes GCP International (GLP) acquisition (~$3.9bn)",
+     "source": "https://www.businesswire.com/news/home/20250303508549/en/Ares-Management-Corporation-Completes-Acquisition-of-GCP-International",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "acs-final-close",
+     "date": "2026-01-13",
+     "what": "Ares Credit Secondaries $7.1bn",
+     "source": null,
+     "recordId": "i666",
+     "status": "present"
+    },
+    {
+     "key": "asof-iii-close",
+     "date": "2026-03-31",
+     "what": "Opportunistic credit (ASOF III) close",
+     "source": null,
+     "recordId": "i674",
+     "status": "present"
+    },
+    {
+     "key": "pathfinder-iii-close",
+     "date": "2026-06-12",
+     "what": "Pathfinder III close",
+     "source": null,
+     "recordId": "i482",
+     "status": "present"
+    }
+   ]
+  },
+  "m74": {
+   "kind": "manager",
+   "name": "Golub Capital",
+   "priority": 39,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m105": {
+   "kind": "manager",
+   "name": "M&G Investments",
+   "priority": 40,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m17": {
+   "kind": "manager",
+   "name": "L&G Asset Management (LGIM)",
+   "priority": 41,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m41": {
+   "kind": "manager",
+   "name": "H.I.G. Capital",
+   "priority": 42,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m56": {
+   "kind": "manager",
+   "name": "GoldenTree Asset Management",
+   "priority": 43,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m173": {
+   "kind": "manager",
+   "name": "Janus Henderson Investors",
+   "priority": 44,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m191": {
+   "kind": "manager",
+   "name": "Cerberus Capital Management",
+   "priority": 45,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m171": {
+   "kind": "manager",
+   "name": "Aberdeen Investments",
+   "priority": 46,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m6": {
+   "kind": "manager",
+   "name": "Barings (European Private Credit)",
+   "priority": 47,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m158": {
+   "kind": "manager",
+   "name": "Churchill Asset Management",
+   "priority": 48,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m21": {
+   "kind": "manager",
+   "name": "CVC (Credit)",
+   "priority": 49,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m169": {
+   "kind": "manager",
+   "name": "Man Group (Credit)",
+   "priority": 50,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h2": {
+   "kind": "hf",
+   "name": "Man Group",
+   "priority": 51,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h9": {
+   "kind": "hf",
+   "name": "AQR Capital Management",
+   "priority": 52,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h8": {
+   "kind": "hf",
+   "name": "Renaissance Technologies",
+   "priority": 53,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h1": {
+   "kind": "hf",
+   "name": "Bridgewater Associates",
+   "priority": 54,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h3": {
+   "kind": "hf",
+   "name": "Millennium Management",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "jain-departs",
+     "date": "2023-06",
+     "what": "Co-CIO Bobby Jain steps down — exact date to confirm",
+     "source": "https://www.privatebankerinternational.com/news/millennium-management-co-cio-reshuffle/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "capital-raise-2024",
+     "date": "2024-10-18",
+     "what": "$10bn raise draws $20bn demand",
+     "source": "https://bnnbloomberg.ca/investing/2024/10/18/millenniums-10-billion-capital-raise-attracts-20-billion",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "stake-sale-talks",
+     "date": "2025-06-16",
+     "what": "Stake-sale talks at ~$14bn valuation",
+     "source": "https://www.bloomberg.com/news/articles/2025-06-16/millennium-stake-sale-talks-value-hedge-fund-at-14-billion",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "stake-sale-15pct",
+     "date": "2025",
+     "what": "15% stake sold via Petershill (~$2bn) — exact date to confirm",
+     "source": "https://www.marketscreener.com/news/hedge-fund-millennium-sells-15-stake-to-select-investors-internal-email-shows-ce7d5cd9dc8ef326",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "fy2025-return",
+     "date": "2026-01",
+     "what": "FY2025 +10.5% — exact date to confirm",
+     "source": "https://www.hedgeweek.com/millennium-and-citadel-post-double-digit-2025-gains-but-lag-smaller-hedge-funds/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "record-raise-2026",
+     "date": "2026-07-29",
+     "what": "Record $20bn raise",
+     "source": null,
+     "recordId": "hi67",
+     "status": "present"
+    },
+    {
+     "key": "nears-100bn",
+     "date": "2026-09-07",
+     "what": "Nears $100bn AUM",
+     "source": null,
+     "recordId": "hi157",
+     "status": "present"
+    }
+   ]
+  },
+  "h5": {
+   "kind": "hf",
+   "name": "Elliott Investment Management",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "twitter-settlement",
+     "date": "2020-03-09",
+     "what": "Twitter settlement; Jesse Cohn joins board",
+     "source": "https://www.cnbc.com/2020/03/09/twitter-strikes-investment-deal-with-elliott-management-silver-lake-after-attempt-to-oust-ceo-jack-dorsey.html",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "starbucks-stake",
+     "date": "2024-07-19",
+     "what": "Starbucks stake reported",
+     "source": "https://www.bnnbloomberg.ca/business/2024/07/19/starbucks-shares-jump-after-wsj-reports-elliott-bought-stake/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "southwest-settlement",
+     "date": "2024-10-24",
+     "what": "Southwest settlement, five nominees",
+     "source": "https://sportsday.dallasnews.com/business/airlines/2024/10/24/southwest-airlines-reaches-settlement-with-elliott-adds-new-board-directors",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "honeywell-stake",
+     "date": "2024-11-12",
+     "what": "Honeywell $5bn+ stake, pushes breakup",
+     "source": "https://nbcbayarea.com/news/business/money-report/activist-investor-elliott-management-has-5-billion-honeywell-stake-seeks-breakup/3706950",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "bp-stake",
+     "date": "2025-04-22",
+     "what": "BP 5% stake",
+     "source": null,
+     "recordId": "hi9",
+     "status": "present"
+    },
+    {
+     "key": "phillips66-proxy",
+     "date": "2025-05-21",
+     "what": "Phillips 66 proxy fight: 2 of 4 seats",
+     "source": "https://www.semafor.com/article/05/21/2025/phillips-66-narrowly-survives-elliott-proxy-fight",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "pepsico-stake",
+     "date": "2025-09-02",
+     "what": "PepsiCo $4bn stake",
+     "source": null,
+     "recordId": "hi8",
+     "status": "present"
+    },
+    {
+     "key": "deutsche-telekom",
+     "date": "2026-09-02",
+     "what": "Deutsche Telekom stake",
+     "source": null,
+     "recordId": "hi160",
+     "status": "present"
+    }
+   ]
+  },
+  "h31": {
+   "kind": "hf",
+   "name": "Tiger Global Management",
+   "priority": 57,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h14": {
+   "kind": "hf",
+   "name": "Marshall Wace",
+   "priority": 58,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h32": {
+   "kind": "hf",
+   "name": "TCI Fund Management",
+   "priority": 59,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h33": {
+   "kind": "hf",
+   "name": "Squarepoint Capital",
+   "priority": 60,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h4": {
+   "kind": "hf",
+   "name": "Citadel",
+   "priority": 61,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h7": {
+   "kind": "hf",
+   "name": "Two Sigma Investments",
+   "priority": 62,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h6": {
+   "kind": "hf",
+   "name": "D. E. Shaw & Co.",
+   "priority": 63,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h34": {
+   "kind": "hf",
+   "name": "GoldenTree Asset Management",
+   "priority": 64,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h35": {
+   "kind": "hf",
+   "name": "Viking Global Investors",
+   "priority": 65,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h36": {
+   "kind": "hf",
+   "name": "Coatue Management",
+   "priority": 66,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h37": {
+   "kind": "hf",
+   "name": "Adage Capital Management",
+   "priority": 67,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h38": {
+   "kind": "hf",
+   "name": "Element Capital Management",
+   "priority": 68,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h11": {
+   "kind": "hf",
+   "name": "Farallon Capital Management",
+   "priority": 69,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h39": {
+   "kind": "hf",
+   "name": "Silver Point Capital",
+   "priority": 70,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h113": {
+   "kind": "hf",
+   "name": "Alyeska Investment Group",
+   "priority": 71,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h10": {
+   "kind": "hf",
+   "name": "Point72 Asset Management",
+   "priority": 72,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h19": {
+   "kind": "hf",
+   "name": "Qube Research & Technologies",
+   "priority": 73,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h12": {
+   "kind": "hf",
+   "name": "Davidson Kempner Capital",
+   "priority": 74,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h40": {
+   "kind": "hf",
+   "name": "Holocene Advisors",
+   "priority": 75,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h41": {
+   "kind": "hf",
+   "name": "HBK Capital Management",
+   "priority": 76,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h42": {
+   "kind": "hf",
+   "name": "King Street Capital Management",
+   "priority": 77,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h13": {
+   "kind": "hf",
+   "name": "Brevan Howard",
+   "priority": 78,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h43": {
+   "kind": "hf",
+   "name": "Sculptor Capital Management",
+   "priority": 79,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "h15": {
+   "kind": "hf",
+   "name": "Capula Investment Management",
+   "priority": 80,
+   "status": "todo",
+   "builtAt": null,
+   "events": []
+  },
+  "m29": {
+   "kind": "manager",
+   "name": "Arcmont Asset Management",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "nuveen-deal-announced",
+     "date": "2022-10-27",
+     "what": "Nuveen agrees controlling stake in Arcmont",
+     "source": "https://www.privateequitywire.co.uk/nuveen-creates-665bn-private-debt-manager/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "nuveen-deal-completed",
+     "date": "2023-03-01",
+     "what": "Nuveen completes Arcmont acquisition",
+     "source": "https://arcmont.com/app/uploads/content/1677522215105421533/23.3.1-Media-Release-Nuveen-Closes-Acquisition-of-Arcmont-FINAL.pdf",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "dlf-iv-close",
+     "date": "2024-01-23",
+     "what": "DLF IV final close at €10bn",
+     "source": "https://alternativecreditinvestor.com/2024/01/23/arcmont-closes-e10bn-european-direct-lending-fund",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "csf-ii-close",
+     "date": "2026-02-26",
+     "what": "Capital Solutions Fund II €1.5bn",
+     "source": null,
+     "recordId": "i340",
+     "status": "present"
+    },
+    {
+     "key": "continuation-vehicle",
+     "date": "2026-04-10",
+     "what": "$2.5bn continuation vehicle",
+     "source": null,
+     "recordId": "d988",
+     "status": "present"
+    }
+   ]
+  },
+  "m30": {
+   "kind": "manager",
+   "name": "Hayfin Capital Management",
+   "priority": 0,
+   "status": "built",
+   "builtAt": "2026-10-13",
+   "events": [
+    {
+     "key": "dlf-iii-close",
+     "date": "2020",
+     "what": "DLF III final close (>€5bn) — exact date to confirm",
+     "source": "https://www.privateequitywire.co.uk/hayfin-sees-record-deployment-direct-lending-strategy/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "sof-iii-close",
+     "date": "2021-12-20",
+     "what": "Special Opportunities Fund III >€2bn",
+     "source": "https://www.creditflux.com/Funds/2021-12-20/Hayfin-raises-more-than-2-billion-for-special-opportunities-strategy",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "dlf-iv-close",
+     "date": "2023-08-18",
+     "what": "DLF IV >€6bn",
+     "source": "https://www.alternativeswatch.com/2023/08/21/hayfin-surpasses-6bn-euro-target-for-direct-lending-fund-iv/",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "arctos-mbo-announced",
+     "date": "2024-07-30",
+     "what": "Arctos-backed MBO agreed",
+     "source": "https://www.businesswire.com/news/home/20240730669345/en/Hayfin-Agrees-to-Arctos-Backed-Management-Buyout",
+     "recordId": null,
+     "status": "missing"
+    },
+    {
+     "key": "arctos-mbo-completed",
+     "date": "2025-02-10",
+     "what": "MBO completed",
+     "source": null,
+     "recordId": "i37",
+     "status": "present"
+    },
+    {
+     "key": "marsh-hire",
+     "date": "2026-05-07",
+     "what": "Michael Marsh appointed",
+     "source": null,
+     "recordId": "i356",
+     "status": "present"
+    },
+    {
+     "key": "dlf-v-close",
+     "date": "2026-07-02",
+     "what": "DLF V >€15bn",
+     "source": null,
+     "recordId": "i371",
+     "status": "present"
+    }
+   ]
+  }
+ }
+}

@@ -147,6 +147,13 @@ try {
   });
 } catch { /* not a git checkout */ }
 
+// ---- 2d. 2020 backfill (checklist completeness — progress, not a failure) ----
+let backfill = null;
+try {
+  const r = spawnSync("node", [path.join(HERE, "backfill-progress.mjs"), "--json"], { cwd: ROOT, encoding: "utf8", maxBuffer: 8 << 20 });
+  if (r.status === 0) { const j = JSON.parse(r.stdout); backfill = { pct: j.pct, present: j.present, events: j.events, built: j.built, entities: j.entities }; }
+} catch { /* script missing — skip */ }
+
 // ---- 3. Build sanity ------------------------------------------------------
 const MODULES = [
   { label: "Worker (src/index.js)", cmd: ["node", "--check", "src/index.js"] },
@@ -172,7 +179,7 @@ const verdict = fails.length ? "FAIL" : attention.length ? "ATTENTION" : "GOOD";
 const ok = verdict === "GOOD";
 
 if (asJson) {
-  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24 }, null, 2));
+  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill }, null, 2));
 } else {
   const date = new Date().toISOString().slice(0, 10);
   console.log(`WIRE HEALTH CHECK — ${date}`);
@@ -189,6 +196,7 @@ if (asJson) {
     console.log("");
   }
   if (coverage) console.log(`Manager-profile backfill (ongoing, not a failure): ${coverage.reach2020}/${coverage.totalManagers} profiles reach ≤2020, ${coverage.flagged} flagged for depth.`);
+  if (backfill) console.log(`2020 backfill (checklist): ${backfill.present}/${backfill.events} events present = ${backfill.pct}% · ${backfill.built}/${backfill.entities} priority entities researched.`);
   if (yield24) console.log(`New records published in the last 24h: ${yieldTotal} (deals ${yield24.deals} · intel ${yield24.intel} · hedge ${yield24.hedge} · legal ${yield24.legal}).`);
   if (lastCommitAgeH != null) console.log(`Last publish to this checkout: ${lastCommitAgeH.toFixed(1)}h ago — "${lastCommitSubject}".`);
   if (ok) console.log("\nAll content surfaces fresh, the refresh is publishing on cadence, and every module builds cleanly.");

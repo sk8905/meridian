@@ -20,6 +20,7 @@ const DIST = path.join(ROOT, "dist");
 const SKIP = new Set([
   "dist", "node_modules", ".git", ".github", ".claude",
   "tests", "docs", "src", "scripts", "v2",              // v2 = Vite's job
+  "backfill",                                            // routine worklist, not served
   "fonts",                                               // Vite fingerprints these woff2 into /assets
   // Cloudflare Pages Functions: an ALTERNATE (Pages) deploy path, kept in the repo but
   // NEVER executed under the live Worker deploy (wrangler main: src/index.js handles
