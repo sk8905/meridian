@@ -54,32 +54,32 @@
      "date": "2022-01-12",
      "what": "COF IV final close at $8.75bn",
      "source": "https://www.businesswire.com/news/home/20220112005592/en/Blackstone-Announces-Final-Close-for-Fourth-Capital-Opportunities-Fund",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "d1010",
+     "status": "present"
     },
     {
      "key": "bgreen-iii-close",
      "date": "2023-08-10",
      "what": "BGREEN III final close at $7.1bn hard cap",
      "source": "https://www.businesswire.com/news/home/20230810773196/en/Blackstone-Closes-Record-Energy-Transition-Private-Credit-Fund-at-Over-$7-Billion",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "d1011",
+     "status": "present"
     },
     {
      "key": "bxci-formed",
      "date": "2023-09-13",
      "what": "BXCI formed under Gilles Dellaert",
      "source": "https://www.blackstone.com/news/press/blackstone-integrates-leading-credit-and-insurance-businesses-to-form-blackstone-credit-and-insurance-bxci-in-push-toward-next-1-trillion/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1032",
+     "status": "present"
     },
     {
      "key": "dwight-scott-retires",
      "date": "2024-08-14",
      "what": "BXCI chairman Dwight Scott to retire",
      "source": "https://www.bnnbloomberg.ca/investing/2024/08/14/blackstone-s-dwight-scott-to-retire-after-building-credit-colossus/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1033",
+     "status": "present"
     },
     {
      "key": "santander-portfolio",
@@ -537,40 +537,40 @@
      "date": "2021-04-29",
      "what": "ACE V final close at €11bn hard cap",
      "source": "https://www.businesswire.com/news/home/20210428006205/en",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1026",
+     "status": "present"
     },
     {
      "key": "landmark-acquisition",
      "date": "2021-06-02",
      "what": "Ares completes Landmark Partners acquisition",
      "source": "https://www.businesswire.com/news/home/20210602006014/en",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1027",
+     "status": "present"
     },
     {
      "key": "black-creek-acquisition",
      "date": "2021-07-01",
      "what": "Ares completes Black Creek Group acquisition",
      "source": "https://www.globest.com/amp/2021/05/24/ares-management-to-acquire-black-creek-group/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1028",
+     "status": "present"
     },
     {
      "key": "asof-ii-final-close",
      "date": "2022-10-24",
      "what": "ASOF II final close at $7.1bn hard cap",
      "source": "https://www.alternativeswatch.com/2022/10/25/ares-special-opportunities-fund-ii-private-public-market-debt-equity-investments/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1029",
+     "status": "present"
     },
     {
      "key": "pathfinder-ii-close",
      "date": "2023-10-27",
      "what": "Pathfinder II final close at $6.6bn",
      "source": "https://www.businesswire.com/news/home/20231027398910/en/Ares-Management-Closes-6.6-Billion-Pathfinder-II-Alternative-Credit-Fund-to-Invest-in-Private-Asset-Based-Credit",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1030",
+     "status": "present"
     },
     {
      "key": "sdl-iii-close",
@@ -593,8 +593,8 @@
      "date": "2025-03-03",
      "what": "Ares completes GCP International (GLP) acquisition (~$3.9bn)",
      "source": "https://www.businesswire.com/news/home/20250303508549/en/Ares-Management-Corporation-Completes-Acquisition-of-GCP-International",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1031",
+     "status": "present"
     },
     {
      "key": "acs-final-close",
@@ -1092,24 +1092,24 @@
      "date": "2022-10-27",
      "what": "Nuveen agrees controlling stake in Arcmont",
      "source": "https://www.privateequitywire.co.uk/nuveen-creates-665bn-private-debt-manager/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1020",
+     "status": "present"
     },
     {
      "key": "nuveen-deal-completed",
      "date": "2023-03-01",
      "what": "Nuveen completes Arcmont acquisition",
      "source": "https://arcmont.com/app/uploads/content/1677522215105421533/23.3.1-Media-Release-Nuveen-Closes-Acquisition-of-Arcmont-FINAL.pdf",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1021",
+     "status": "present"
     },
     {
      "key": "dlf-iv-close",
      "date": "2024-01-23",
      "what": "DLF IV final close at €10bn",
      "source": "https://alternativecreditinvestor.com/2024/01/23/arcmont-closes-e10bn-european-direct-lending-fund",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "d1009",
+     "status": "present"
     },
     {
      "key": "csf-ii-close",
@@ -1138,35 +1138,35 @@
    "events": [
     {
      "key": "dlf-iii-close",
-     "date": "2020",
-     "what": "DLF III final close (>€5bn) — exact date to confirm",
+     "date": "2021-04-01",
+     "what": "DLF III final close (>€5bn) — closed in 2020, announced 1 Apr 2021 (no exact 2020 close date published)",
      "source": "https://www.privateequitywire.co.uk/hayfin-sees-record-deployment-direct-lending-strategy/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1022",
+     "status": "present"
     },
     {
      "key": "sof-iii-close",
      "date": "2021-12-20",
      "what": "Special Opportunities Fund III >€2bn",
      "source": "https://www.creditflux.com/Funds/2021-12-20/Hayfin-raises-more-than-2-billion-for-special-opportunities-strategy",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1023",
+     "status": "present"
     },
     {
      "key": "dlf-iv-close",
      "date": "2023-08-18",
      "what": "DLF IV >€6bn",
      "source": "https://www.alternativeswatch.com/2023/08/21/hayfin-surpasses-6bn-euro-target-for-direct-lending-fund-iv/",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1024",
+     "status": "present"
     },
     {
      "key": "arctos-mbo-announced",
      "date": "2024-07-30",
      "what": "Arctos-backed MBO agreed",
      "source": "https://www.businesswire.com/news/home/20240730669345/en/Hayfin-Agrees-to-Arctos-Backed-Management-Buyout",
-     "recordId": null,
-     "status": "missing"
+     "recordId": "i1025",
+     "status": "present"
     },
     {
      "key": "arctos-mbo-completed",
