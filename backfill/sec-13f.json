@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13T21:25:08.838Z",
+ "generated": "2026-10-13T21:32:25.333Z",
  "tracked": 105,
  "filed": 104,
  "panel": {
@@ -32,14 +32,26 @@
     "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
    },
    {
+    "t": "GOOG",
+    "name": "Alphabet",
+    "note": "A top-20 holding at 27 of 96 tracked funds (Bridgewater Associates, Man Group, Citadel +24 more); $21bn combined.",
+    "src": "https://www.sec.gov/Archives/edgar/data/1009207/000110465926097217/0001104659-26-097217-index.htm"
+   },
+   {
     "t": "AMD",
     "name": "Advanced Micro Devices",
     "note": "A top-20 holding at 25 of 96 tracked funds (Bridgewater Associates, Man Group, Citadel +22 more); $14bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1318757/000131875726000010/0001318757-26-000010-index.htm"
    },
    {
+    "t": "TSM",
+    "name": "Taiwan Semiconductor Manufactur",
+    "note": "A top-20 holding at 21 of 96 tracked funds (Man Group, Millennium Management, Point72 Asset Management +18 more); $15bn combined.",
+    "src": "https://www.sec.gov/Archives/edgar/data/1135730/000091957426005478/0000919574-26-005478-index.htm"
+   },
+   {
     "t": "WBD",
-    "name": "Warner Bros. Discovery, Inc. -",
+    "name": "Warner Bros. Discovery",
     "note": "A top-20 holding at 21 of 96 tracked funds (Millennium Management, Citadel, D. E. Shaw & Co. +18 more); $8.6bn combined.",
     "src": "https://www.sec.gov/Archives/edgar/data/1273087/000127308726000007/0001273087-26-000007-index.htm"
    }
