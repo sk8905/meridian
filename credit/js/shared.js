@@ -71,7 +71,7 @@ export function notFound(app) {
 // Watchlist persists to a per-user Cloudflare KV store (see app.js) with
 // localStorage as an instant cache / offline fallback. This module holds the
 // live `follows` store + the read helpers the views use to render stars; the
-// write/sync side (toggle, debounced push, cloud reconcile) lives in app.js.
+// write/sync side (toggleFollow / syncFollows) lives just below — one implementation.
 export const FOLLOW_KEY = "meridian.follows";
 export const FOLLOW_TYPES = ["manager", "fund", "lp", "hf", "firm"];
 export function loadFollows() { try { return JSON.parse(localStorage.getItem(FOLLOW_KEY)) || {}; } catch { return {}; } }
@@ -79,6 +79,61 @@ export const follows = loadFollows();
 export function followList(type) { return follows[type] || (follows[type] = []); }
 export function isFollowed(type, id) { return followList(type).includes(id); }
 export function followCount() { return FOLLOW_TYPES.reduce((n, t) => n + followList(t).length, 0); }
+
+// --------------------------- watchlist (write + sync — the ONE implementation) ---
+// Every follow/unfollow in the app goes through toggleFollow, and every cloud
+// reconcile through syncFollows, so the device copy (localStorage) and the per-user
+// cloud copy (/api/watchlist) can't drift. Merge rule: UNION of device + cloud,
+// minus this device's explicit unfollows ("tombstones"), so a follow made on another
+// device is kept while an unfollow made here is never resurrected by the next sync.
+const UNFOLLOW_KEY = "meridian.unfollowed";
+const WATCHLIST_API = "/api/watchlist";
+const readJSON = (k) => { try { return JSON.parse(localStorage.getItem(k) || "{}") || {}; } catch { return {}; } };
+const writeJSON = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* quota / private mode */ } };
+function persistFollows() { writeJSON(FOLLOW_KEY, follows); }
+function mergeServer(server) {
+  const tomb = readJSON(UNFOLLOW_KEY);
+  let changed = false, needPush = false;
+  for (const t of FOLLOW_TYPES) {
+    const dead = new Set(Array.isArray(tomb[t]) ? tomb[t] : []);
+    const local = followList(t), sv = Array.isArray(server[t]) ? server[t] : [];
+    for (const x of sv) if (!dead.has(x) && !local.includes(x)) { local.push(x); changed = true; }
+    if (local.some((x) => !sv.includes(x)) || sv.some((x) => dead.has(x))) needPush = true;
+  }
+  if (changed) persistFollows();
+  return { changed, needPush };
+}
+function putFollows() {
+  const body = {}; FOLLOW_TYPES.forEach((t) => (body[t] = followList(t).slice()));
+  return fetch(WATCHLIST_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) })
+    .then((r) => { if (r && r.ok) writeJSON(UNFOLLOW_KEY, {}); })   // cloud now reflects the unfollows
+    .catch(() => {});
+}
+// Pull the cloud copy, merge it in, and push back anything the cloud is missing.
+// Resolves { ok, changed } — ok=false when the API isn't reachable (offline /
+// static hosting / signed out), in which case the device copy stands.
+export function syncFollows() {
+  return fetch(WATCHLIST_API, { headers: { accept: "application/json" } })
+    .then((r) => (r && r.ok ? r.json() : null))
+    .then((d) => {
+      if (!d) return { ok: false, changed: false, email: null };
+      const { changed, needPush } = mergeServer(d.watchlist || {});
+      if (needPush) putFollows();
+      return { ok: true, changed, email: d.email || null };
+    })
+    .catch(() => ({ ok: false, changed: false, email: null }));
+}
+// Follow ⇄ unfollow one entity; returns the new state (true = now following).
+export function toggleFollow(type, id) {
+  const a = followList(type), i = a.indexOf(id), added = i < 0;
+  const tomb = readJSON(UNFOLLOW_KEY), dead = new Set(Array.isArray(tomb[type]) ? tomb[type] : []);
+  if (added) { a.push(id); dead.delete(id); } else { a.splice(i, 1); dead.add(id); }
+  tomb[type] = [...dead]; writeJSON(UNFOLLOW_KEY, tomb);
+  persistFollows();
+  try { window.dispatchEvent(new CustomEvent("watchlist:changed", { detail: { type, id, added } })); } catch { /* ignore */ }
+  syncFollows();   // merge with the cloud, then push the result
+  return added;
+}
 export function followBtn(type, id) {
   const on = isFollowed(type, id);
   return `<button type="button" class="follow-btn ${on ? "on" : ""}" data-follow="${type}:${id}" title="${on ? "Following — click to remove from watchlist" : "Add to your watchlist"}" aria-label="Follow">${on ? "★" : "☆"}</button>`;

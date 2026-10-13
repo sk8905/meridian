@@ -15,7 +15,7 @@ async function menuState(pg) {
     const cs = getComputedStyle(m);
     const chips = [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')]
       .map((c) => { const cr = c.getBoundingClientRect(); return cr.width > 0 && cr.height > 0; });
-    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 4 && chips.every(Boolean), labels: [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].map((c) => c.textContent.trim()) };
+    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 5 && chips.every(Boolean) && chips.every((c) => c), labels: [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].map((c) => c.textContent.trim()) };
   });
 }
 
@@ -27,8 +27,8 @@ async function menuState(pg) {
   check(s.hasMenu, "direct /v2/menu/: menu container present");
   check(s.w >= 300, `direct /v2/menu/: menu is full-width (${s.w}px), not a dropdown sliver`);
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
-  check(s.visible, `direct /v2/menu/: the four chips (Chat/Watchlist/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
-  checkEq((s.labels || []).join("/"), "Chat/Watchlist/Coverage/Settings", "direct /v2/menu/: chips are Chat / Watchlist / Coverage / Settings (Watchlist 2nd)");
+  check(s.visible, `direct /v2/menu/: the five chips (Chat/Watchlist/New/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
+  checkEq((s.labels || []).join("/"), "Chat/Watchlist/New/Coverage/Settings", "direct /v2/menu/: chips are Chat / Watchlist / New / Coverage / Settings (Watchlist 2nd)");
   // Dialogue is a BARE Ask field rendered EXACTLY like the search band: one input,
   // NO action button, placeholder "Ask…". The band form sits on the --head ground
   // with a bottom divider; the FIELD (.na-ask-in) takes the lifted --lift ground

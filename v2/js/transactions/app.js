@@ -37,13 +37,18 @@ export function mount(host, ctx) {
     .map((d) => { const amt = amountOf(d); return { d, tx: txOf(d), sec: sectorOf(d), amt, usd: toUsd(amt), ts: Date.parse((d.date || "").slice(0, 10)) || 0 }; })
     .filter((r) => r.ts > 0);
 
-  // No period toggle — the tab shows ALL transaction history (the overview's "12mo
-  // vs prior" column still carries the recency trend).
+  // Defaults to ALL transaction history; the date-range / minimum-size selects in the
+  // search header narrow it (the overview's "12mo vs prior" column keeps the trend).
   // group is the top-level split — Primary issuance vs Secondaries — now its own
   // nav entry (replacing the old single "Deal flow"). Each shows only its group's
   // transaction types. q set → search (scoped to the active group).
-  const st = { period: "all", group: "primary", sub: "", focus: false, q: "" };   // sub "" → renderFlow picks the first (largest) type
-  const inPeriod = () => true;
+  const st = { period: "all", minUsd: 0, group: "primary", sub: "", focus: false, q: "" };   // sub "" → renderFlow picks the first (largest) type
+  // Date + size filters (monitoring): narrow every view (overview, type detail,
+  // search) to a recency window and/or a minimum disclosed deal size. A size filter
+  // keeps only deals whose amount is DISCLOSED (≥ the threshold, in ≈USD).
+  const PERIODS = { all: () => 0, "30d": () => now - 30 * DAY, "12m": () => now - 365 * DAY, ytd: () => Date.UTC(new Date(now).getUTCFullYear(), 0, 1), since2020: () => Date.UTC(2020, 0, 1) };
+  const inPeriod = (r) => st.period === "all" || r.ts >= (PERIODS[st.period] || PERIODS.all)();
+  const inSize = (r) => !st.minUsd || (r.usd != null && r.usd >= st.minUsd);
   // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
   // qualifies when its manager sits in the target band. Off → everything.
   const inFocus = (r) => !st.focus || mInFocus(_mById.get(r.d.managerId));
@@ -54,7 +59,7 @@ export function mount(host, ctx) {
   const median = (arr) => { if (!arr.length) return null; const a = [...arr].sort((x, y) => x - y); const m = a.length >> 1; return a.length % 2 ? a[m] : Math.round((a[m - 1] + a[m]) / 2); };
   function statsFor(key) {
     const all = rows.filter((r) => r.tx === key && inFocus(r));
-    const inP = all.filter(inPeriod);
+    const inP = all.filter((r) => inPeriod(r) && inSize(r));
     const withAmt = inP.filter((r) => r.usd != null);
     const last12 = all.filter((r) => r.ts >= now - 365 * DAY).length;
     const prev12 = all.filter((r) => r.ts < now - 365 * DAY && r.ts >= now - 730 * DAY).length;
@@ -93,6 +98,12 @@ export function mount(host, ctx) {
                    the search bar. -->
               <div class="tx-asof" id="tx-asof" hidden></div>
               <input type="search" id="tx-q" class="tsearch" placeholder="Search a deal, manager or type…" aria-label="Search transactions">
+              <select id="tx-period" class="tx-filt" aria-label="Date range">
+                <option value="all">All dates</option><option value="30d">Last 30 days</option><option value="12m">Last 12 months</option><option value="ytd">Year to date</option><option value="since2020">Since 2020</option>
+              </select>
+              <select id="tx-min" class="tx-filt" aria-label="Minimum deal size">
+                <option value="0">Any size</option><option value="100">≥ $100m</option><option value="500">≥ $500m</option><option value="1000">≥ $1bn</option>
+              </select>
               <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
             </header>
             <header class="tpanel-h thead-search" id="tx-credits-search">
@@ -302,7 +313,7 @@ export function mount(host, ctx) {
         || !!(t && t.label.toLowerCase().includes(q));
     };
     const g = TX_GROUPS.find((x) => x.key === st.group) || TX_GROUPS[0];
-    const list = rows.filter((r) => inPeriod(r) && inFocus(r) && groupOf(r.tx) === st.group && hit(r)).sort((a, b) => b.ts - a.ts);
+    const list = rows.filter((r) => inPeriod(r) && inSize(r) && inFocus(r) && groupOf(r.tx) === st.group && hit(r)).sort((a, b) => b.ts - a.ts);
     const CAP = 200, shown = list.slice(0, CAP);
     body.innerHTML = `
       <div class="tx-head">
@@ -539,6 +550,8 @@ export function mount(host, ctx) {
   });
   // $1–15bn AUM focus toggle — narrows every view (overview + type detail) to the
   // target-band managers' deal flow, then re-renders in place.
+  host.querySelector("#tx-period").addEventListener("change", (e) => { st.period = e.currentTarget.value; render(); });
+  host.querySelector("#tx-min").addEventListener("change", (e) => { st.minUsd = Number(e.currentTarget.value) || 0; render(); });
   host.querySelector("#tx-focus").addEventListener("click", (e) => {
     const b = e.currentTarget;
     st.focus = b.getAttribute("aria-pressed") !== "true";

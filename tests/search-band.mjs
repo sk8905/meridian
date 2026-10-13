@@ -56,6 +56,13 @@ const fsz = await pg.evaluate(() => ({
   body: parseFloat(getComputedStyle(document.body).fontSize),
 }));
 check(Math.abs(fsz.input - fsz.body) < 0.6, `phone: the search input uses the app body size (${fsz.input}px ≈ body ${fsz.body}px), not the page-title size`);
+// Investors (LPs) are searchable — a pension's name finds its investor profile.
+const lpHit = await pg.evaluate(async () => {
+  const i = document.querySelector(".mcmdk.open .mcmdk-input"); i.value = "APG"; i.dispatchEvent(new Event("input"));
+  await new Promise((r) => setTimeout(r, 300));
+  return [...document.querySelectorAll(".mcmdk-row")].map((r) => r.textContent).some((t) => /APG/.test(t) && /Investor/.test(t));
+});
+check(lpHit, "search finds investor (LP) profiles (\"APG\" → an Investor result)");
 await pg.keyboard.press("Escape"); await pg.waitForTimeout(200);
 
 // (The standalone Macro/Credit/Legal desk surfaces are retired — the search band lives

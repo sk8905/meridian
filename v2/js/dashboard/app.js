@@ -873,7 +873,7 @@ export function mount(host, ctx) {
         const firm = (LGL_FIRM_BY_ID[x.firm] || {}).name || null;
         const long = Array.isArray(x.points) ? x.points.join(" ") : "";
         const tags = Array.isArray(x.tags) ? x.tags.join(" ") : "";
-        return { title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm, summary: x.summary, url: x.url, date: x.date,
+        return { title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm, summary: x.summary, url: x.url, date: x.date, est: !!x.dateEstimated,
           thay: _norm(`${x.title} ${x.citation || ""}`),
           hay: _norm(`${x.title} ${x.summary || ""} ${long} ${tags} ${x.court || ""} ${x.citation || ""} ${firm || ""}`) };
       });
@@ -931,7 +931,7 @@ export function mount(host, ctx) {
     const row = (x) => {
       const area = LGL_AREA_BY_ID[x.area];
       const meta = [area && area.name, x.court, x.citation, x.firm].filter(Boolean).map(esc).join(" · ");
-      return `<div class="dsh-lgl-i" data-date="${esc(x.date || "")}"><div class="dsh-lgl-i-h">${badge(x.type)}<span class="dsh-lgl-d">${esc(fmtDate(x.date))}</span></div>`
+      return `<div class="dsh-lgl-i" data-date="${esc(x.date || "")}"><div class="dsh-lgl-i-h">${badge(x.type)}<span class="dsh-lgl-d"${x.est ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${x.est ? "c. " : ""}${esc(fmtDate(x.date))}</span></div>`
         + (x.url ? `<a class="dsh-lgl-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>` : `<span class="dsh-lgl-t">${esc(x.title)}</span>`)
         + (meta ? `<div class="dsh-lgl-m">${meta}</div>` : "") + `</div>`;
     };

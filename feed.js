@@ -159,10 +159,14 @@ const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 // is unaffected.
 export const cleanSource = (s) => String(s || "").replace(/\s*\((?:via|from)\b[^)]*\)/gi, "").replace(/\s{2,}/g, " ").trim();
 export function feedRow(o) {
-  const t = o.time || "";
+  // An item whose source shows no exact publication date (o.est — e.g. a legal
+  // insight dated from context) shows "≈" in the time cell instead of a clock time,
+  // so its day placement never reads as an exact date.
+  const t = o.est ? "≈" : (o.time || "");
   // Added-time (no source publish time) carries a tooltip so it isn't mistaken
   // for a real publish time.
-  const timeAttr = o.added ? ` title="Added to Wire at ${esc(t)} — the source gave no publish time"` : "";
+  const timeAttr = o.est ? ` title="Approximate date — the source shows no exact publication date"`
+    : o.added ? ` title="Added to Wire at ${esc(t)} — the source gave no publish time"` : "";
   // Badge key: most desks show their sub-type when present (credit → DEAL/FUND/CLO),
   // but the Hedge desk always badges HDG — its items carry a news/fund `type` only
   // to drive the sub-filter chips, and that must not override the desk code (else a
@@ -170,7 +174,7 @@ export function feedRow(o) {
   const codeKey = o.desk === "hdg" ? "hdg" : (o.type || o.desk);
   return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
-    + `<span class="g-feed-time${o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
+    + `<span class="g-feed-time${o.est ? " g-feed-time-est" : o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
     + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[codeKey] || "")}">${DESK_CODE[codeKey] || ""}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
     + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(cleanSource(o.src))} stories">${esc(cleanSource(o.src))}</span>` : "")
@@ -194,7 +198,7 @@ export function stampAddedTimes(items) {
   let dirty = false;
   const now = Date.now();
   for (const o of items) {
-    if (o.time) continue;
+    if (o.time || o.est) continue;
     const k = norm(o.title);
     if (!k) continue;
     if (!map[k]) { map[k] = now; dirty = true; }

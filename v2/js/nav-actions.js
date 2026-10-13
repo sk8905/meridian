@@ -738,25 +738,10 @@ function lockBody(on) {
 // previously rode along in the retired Bookmarks panel's open; it now runs on header
 // init so the notifications surface keeps the same cross-device follow sync.)
 let _followsSynced = false;
+// One cloud reconcile per page load, through the shared merge (credit/js/shared.js).
 function syncFollowsOnce() {
   if (_followsSynced) return; _followsSynced = true;
-  fetch("/api/watchlist", { headers: { accept: "application/json" } })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d) => {
-      const server = (d && d.watchlist) || {};
-      let local = {};
-      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* */ }
-      let grew = false;
-      ["manager", "fund", "lp", "firm", "hf"].forEach((t) => {
-        const set = new Set(Array.isArray(local[t]) ? local[t] : []);
-        const before = set.size;
-        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => set.add(x));
-        if (set.size !== before) grew = true;
-        local[t] = [...set];
-      });
-      if (grew) { try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* */ } }
-    })
-    .catch(() => {});
+  import("/credit/js/shared.js").then((m) => m.syncFollows()).catch(() => {});
 }
 
 export function initNavActions() {

@@ -9,7 +9,7 @@
 // All the data modules are served Cache-Control: no-cache (see _headers), so
 // these tokenless imports always revalidate. There are no ?v= cache tokens — code
 // is content-hashed by Vite, data is tokenless (HOUSE_STYLE T1/T2).
-import { deals, intel, managers, funds, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
+import { deals, intel, managers, funds, lps, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js";
 import { FT_ITEMS } from "/ft.js";
@@ -58,8 +58,12 @@ function buildIndex() {
   // pill colour (macro / credit / legal). Falls back to the section name.
   const add = (tag, title, sub, href, rank, date, label, source) => idx.push({ tag, title, sub, href, rank, date: date || "", label: label || "", source: (source || "").toLowerCase(), hay: expandHay(title + " " + sub) });
   add("view", "Home", "Cross-desk briefing", "/", 4, "");
-  [["commentary", "Commentary", "Commentary"], ["policy", "Rate outlook", "Policy"], ["cycle", "Cycle", "Cycle"], ["bubble", "Bubble risk", "Bubble"], ["chart", "Chart", "Chart"], ["saved", "Saved", "Saved"]]
-    .forEach(([k, l, tl]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, "", tl));
+  // The macro desk and its #/ deep-dive pages are retired — its sections live on the
+  // Dashboard ▸ Macro tab, so every macro shortcut opens there (the old /macro/#/…
+  // links redirected and dropped the hash, landing nowhere useful).
+  const MACRO_DASH = "/v2/dashboard/macro";
+  [["Commentary", "Commentary"], ["Rate outlook", "Policy"], ["Cycle", "Cycle"], ["Bubble risk", "Bubble"]]
+    .forEach(([l, tl]) => add("macro", `Macro — ${l}`, "Dashboard · Macro", MACRO_DASH, 4, "", tl));
   // Entity profiles (manager / hedge fund / law firm) open in the PROFILES tab —
   // its list nav + active chip — not the retired desk chrome.
   managers.forEach((m) => add("credit", m.name, "Manager", `/v2/profiles/#/manager/${encodeURIComponent(m.id)}`, 0, "", "Manager"));
@@ -70,6 +74,8 @@ function buildIndex() {
   intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise"));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
   const hfNm = {};
+  // Investors (LPs) — rank 1, opening the Profiles ▸ Investors page.
+  (lps || []).forEach((l) => add("credit", l.name, `Investor${l.type ? " · " + l.type : ""}${l.hq ? " · " + l.hq : ""}`, `/v2/profiles/#/lp/${encodeURIComponent(l.id)}`, 1, "", "Investor"));
   (HEDGE_FUNDS || []).forEach((f) => { hfNm[f.id] = f.name; add("credit", f.name, `Hedge fund · ${f.strategy}`, `/v2/profiles/#/hf/${encodeURIComponent(f.id)}`, 1, "", "Hedge fund"); });
   (HEDGE_INTEL || []).forEach((h) => add("credit", h.headline, `Hedge fund${hfNm[h.hfId] ? " · " + hfNm[h.hfId] : ""}${h.date ? " · " + fmt(h.date) : ""}`, h.url || `/v2/profiles/#/hf/${encodeURIComponent(h.hfId)}`, 2, h.date, "HDG", h.outlet));
   // Law firms — rank 0 (like managers) so "Freshfields" surfaces the firm page
@@ -80,7 +86,7 @@ function buildIndex() {
   items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + (firmNm[i.firm] || i.firm) : ""}${i.date ? " · " + fmt(i.date) : ""}`, i.url || `/v2/profiles/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
   cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || `/v2/profiles/#/?tab=firms`, 2, c.date, "Case"));
   restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, r.judgmentUrl || r.articleUrl || `/v2/profiles/#/?tab=firms`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
-  ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Open in Chart", `/macro/#/chart?add=${c}:${k}`, 3, "", "Chart")));
+  ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Dashboard · Macro", MACRO_DASH, 3, "", "Indicator")));
   // News items — so a search for e.g. "Federal Reserve" finds macro headlines too.
   const seenNews = new Set();
   // NEWS default; strictly-macro → MAC, Bloomberg → BBG, The Economist → ECON —
@@ -99,7 +105,7 @@ function buildIndex() {
     const lf = JSON.parse(localStorage.getItem("m_glance_feed") || "null");
     ((lf && lf.items) || []).forEach((n) => { if (n.myft || n.substack || n.brew) return; addNews(n); });
   } catch { /* no cached feed — skip */ }
-  (ALERTS || []).forEach((a) => add("macro", a.title, `Macro guidance${a.kind ? " · " + a.kind : ""}`, `/macro/${a.href || "#/policy"}`, 3, a.date, "Guidance"));
+  (ALERTS || []).forEach((a) => add("macro", a.title, `Macro guidance${a.kind ? " · " + a.kind : ""}`, MACRO_DASH, 3, a.date, "Guidance"));
   managers.forEach((m) => {
     const seen = new Set();
     [...(m.news || []), ...(m.webNews || [])].forEach((w) => {

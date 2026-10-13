@@ -81,7 +81,7 @@ export function viewItem(id) {
     .filter((x) => x.id !== it.id && (x.areas || [x.area]).some((a) => (it.areas || [it.area]).includes(a)))
     .sort(byDateDesc).slice(0, 8);
   const relatedRail = relatedList.length
-    ? `<ul class="tmini">${relatedList.map((r) => `<li class="tmini-row clickable" data-href="#/item/${encodeURIComponent(r.id)}"><span class="tmini-t">${esc(r.title)}</span><span class="tmini-m">${esc((firmById[r.firm] || {}).name || r.firm)}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`).join("")}</ul>`
+    ? `<ul class="tmini">${relatedList.map((r) => `<li class="tmini-row clickable" data-href="#/item/${encodeURIComponent(r.id)}"><span class="tmini-t">${esc(r.title)}</span><span class="tmini-m">${esc((firmById[r.firm] || {}).name || r.firm)}${r.date ? " · " + (r.dateEstimated ? "c. " : "") + esc(fmtDate(r.date)) : ""}</span></li>`).join("")}</ul>`
     : `<p class="tw-empty muted small">No related updates.</p>`;
 
   app.innerHTML = `
@@ -190,7 +190,7 @@ export function viewFirm(id) {
   const areaMixRows = Object.entries(areaMix).sort((a, b) => b[1] - a[1]);
 
   const alertWireRow = (it) => `<li class="compact-item tw-row" data-kind="alert">`
-    + `<span class="tw-date">${it.date ? esc(fmtDate(it.date)) : ""}</span>`
+    + `<span class="tw-date"${it.dateEstimated ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${it.date ? (it.dateEstimated ? "c. " : "") + esc(fmtDate(it.date)) : ""}</span>`
     + `<span class="tw-tag alert">ALERT</span>`
     + `<span class="tw-body">${it.url ? `<a href="${esc(it.url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(it.title)}</a>` : `<a href="#/item/${encodeURIComponent(it.id)}" class="tw-head">${esc(it.title)}</a>`}`
     + `${(it.areas || [it.area]).length ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc((areaById[(it.areas || [it.area])[0]] || {}).name || (it.areas || [it.area])[0])}</span></span>` : ""}</span>`

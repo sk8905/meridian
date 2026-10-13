@@ -48,7 +48,7 @@ const ov = await pg.evaluate(() => {
     paneRows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length,
     // Desktop: the sub-tabs stack as a SECOND vertical rail (differing tops) beside the pane.
     subStacked: subChips.length > 1 ? Math.round(subChips[1].getBoundingClientRect().top - subChips[0].getBoundingClientRect().top) : 0,
-    noPeriodChips: !document.querySelector("#tx-period"),
+    noPeriodChips: !document.querySelector(".tchip[data-period], [data-period]"),
     // The four PRIMARY nav chips carry data-mode; the transaction-type sub-tabs now
     // nest under the active one (data-sub) in the same rail, so scope to data-mode.
     modeChips: [...document.querySelectorAll("#tx-mode .tchip[data-mode]")].map((c) => c.textContent.trim().replace(/\s+\d+$/, "")),
@@ -92,7 +92,7 @@ check(asof.shown && asof.hasLbl && /deal flow as of/i.test(asof.lbl),
 check(asof.staleClass === (asof.ageDays > 7) && asof.hasFlag === (asof.ageDays > 7),
   `Transactions: the stale flag reflects the real ledger age (${asof.ageDays}d → ${asof.ageDays > 7 ? "stale flag shown" : "fresh, no flag"})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
-check(ov.noPeriodChips, "the Last 12 months / All time period chips are removed");
+check(ov.noPeriodChips, "the old Last 12 months / All time period CHIPS stay removed (a compact date-range select replaces them)");
 check(ov.modeChips.join(",") === "Primary,Secondaries,Credits,BDCs", `the Primary / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
@@ -370,6 +370,23 @@ await ctx.close();
   check(gb && gb.oneRow && gb.stripScrolls && gb.noOverlap, `phone: the sub-category chips are one horizontally-scrolling row, not overlapping the button (oneRow ${gb && gb.oneRow}, scrolls ${gb && gb.stripScrolls})`);
   checkErrs(p.errs, "transactions phone column fit");
   await p.ctx.close();
+}
+
+// Date-range + minimum-size filters narrow the deal list (monitoring filters).
+{
+  const f = await open(b, DESKTOP, base + "/v2/transactions/");
+  await f.pg.waitForSelector("#tx-period", { state: "attached", timeout: 8000 });
+  await f.pg.waitForSelector(".tx-subnav [data-sub] .tx-subn", { state: "attached", timeout: 8000 });
+  const total = () => f.pg.evaluate(() => [...document.querySelectorAll(".tx-subnav [data-sub] .tx-subn")].reduce((n, x) => n + (parseInt(x.textContent, 10) || 0), 0));
+  const all = await total();
+  await f.pg.selectOption("#tx-period", "30d"); await f.pg.waitForTimeout(250);
+  const recent = await total();
+  await f.pg.selectOption("#tx-period", "all"); await f.pg.selectOption("#tx-min", "1000"); await f.pg.waitForTimeout(250);
+  const big = await total();
+  check(all > 0 && recent < all, `the date filter narrows the counts (last 30 days ${recent} < all ${all})`);
+  check(big > 0 && big < all, `the minimum-size filter narrows to disclosed deals ≥ $1bn (${big} < ${all})`);
+  checkErrs(f.errs, "transactions filters");
+  await f.ctx.close();
 }
 
 await b.close(); srv.close();

@@ -7,6 +7,7 @@
 // retired — the menu is right-click only now. Mounted once per page by nav-actions.js.
 // =============================================================================
 import { esc } from "/util.js";
+import { toggleFollow, isFollowed } from "/credit/js/shared.js";
 
 // Profile table rows (Managers / Hedge Funds / Law Firms leagues) — a right-click
 // on the row itself offers "Add to Watchlist" for that profile. Only these three
@@ -75,45 +76,9 @@ function resolveRow(r) {
     srcEl: r.querySelector("[data-srcfilter], .src-filter[data-srcfilter]"),
   };
 }
-// Watchlist toggle — the SAME follow store the Credit app's stars use
-// ("meridian.follows"), extended with law firms; synced to /api/watchlist.
-// The PUT merges with the server copy first: this device's store may be cold
-// (user follows from another device / the Credit app) and a bare local PUT
-// would wipe those. Removals made here are excluded from the merge-back.
-const _unwatched = { manager: new Set(), fund: new Set(), lp: new Set(), firm: new Set(), hf: new Set() };
-function toggleWatch(type, id) {
-  let f = {};
-  try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
-  if (!Array.isArray(f[type])) f[type] = [];
-  const i = f[type].indexOf(id);
-  const added = i < 0;
-  if (added) { f[type].push(id); (_unwatched[type] || (_unwatched[type] = new Set())).delete(id); } else { f[type].splice(i, 1); (_unwatched[type] || (_unwatched[type] = new Set())).add(id); }
-  try { localStorage.setItem("meridian.follows", JSON.stringify(f)); } catch { /* ignore */ }
-  // Let any mounted app (Credit "My Watchlist", stars) re-read the store and
-  // re-render, so a follow made by long-press shows without a reload.
-  try { window.dispatchEvent(new CustomEvent("watchlist:changed", { detail: { type, id, added } })); } catch { /* ignore */ }
-  fetch("/api/watchlist", { headers: { accept: "application/json" } })
-    .then((r) => (r.ok ? r.json() : null))
-    .then((d) => {
-      const server = (d && d.watchlist) || {};
-      let local = {};
-      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
-      const body = {};
-      ["manager", "fund", "lp", "firm", "hf"].forEach((t) => {
-        const merged = new Set(Array.isArray(local[t]) ? local[t] : []);
-        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => { if (!_unwatched[t].has(x)) merged.add(x); });
-        body[t] = [...merged];
-        local[t] = body[t];
-      });
-      try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* ignore */ }
-      return fetch("/api/watchlist", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-    })
-    .catch(() => {});
-  return added;
-}
-function isWatched(type, id) {
-  try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; return Array.isArray(f[type]) && f[type].includes(id); } catch { return false; }
-}
+// Watchlist toggle — the ONE shared follow store + cloud sync (credit/js/shared.js).
+function toggleWatch(type, id) { return toggleFollow(type, id); }
+function isWatched(type, id) { return isFollowed(type, id); }
 // The options menu the gesture opens: story title + actions + Cancel.
 // Phone: bottom sheet above the tab bar; desktop: popover at the cursor.
 let _rmEl = null, _rmScrim = null;

@@ -57,9 +57,9 @@ function applyFontSize(v) {
   document.documentElement.style.setProperty("--fs-adj", v + "px");
   try { localStorage.setItem("m_fs_adj", String(v)); } catch { /* ignore */ }
 }
-// Four chips: Chat (Ask), Watchlist (follows), Coverage (Add a firm)
-// and Settings (Notifications + Appearance).
-const SECTIONS = [["dialogue", "Chat"], ["watchlist", "Watchlist"], ["coverage", "Coverage"], ["settings", "Settings"]];
+// Five chips: Chat (Ask), Watchlist (follows), New (records that arrived since you
+// last looked), Coverage (Add a firm) and Settings (Notifications + Appearance).
+const SECTIONS = [["dialogue", "Chat"], ["watchlist", "Watchlist"], ["new", "New"], ["coverage", "Coverage"], ["settings", "Settings"]];
 
 function dialoguePaneHTML() {
   // Ask Wire (mounted into #v2-menu-omni after render): Enter / "Ask" answers
@@ -121,6 +121,7 @@ function paneHTML(sec) {
   if (sec === "settings") return settingsPaneHTML();
   if (sec === "coverage") return coveragePaneHTML();
   if (sec === "watchlist") return watchPaneHTML();
+  if (sec === "new") return `<div class="wire-watch" id="v2-menu-new"><p class="watch-loading">Loading what’s new…</p></div>`;
   return dialoguePaneHTML();
 }
 
@@ -162,7 +163,23 @@ export function mount(host, ctx) {
     if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-omni"), { search: false, ask: true, add: false, bare: true, placeholder: "Ask…", state: askState });
     if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
     if (sec === "watchlist") mountWatchlist();
+    if (sec === "new") mountWhatsNew();
   };
+
+  // What's new: diff the record ids in the Home slice against this device's last
+  // "seen" snapshot (whatsnew.js). The first visit just sets the starting point.
+  let _wnData = null;
+  async function mountWhatsNew() {
+    const box = () => host.querySelector("#v2-menu-new");
+    try {
+      const [d, W] = await Promise.all([import("/home-data.js"), import("/v2/js/whatsnew.js")]);
+      _wnData = { d, W };
+      let snap = W.readSnap();
+      const html = W.whatsNewHTML(d, snap);
+      if (!snap) W.writeSnap(W.currentIds(d));
+      const b = box(); if (b) b.innerHTML = html;
+    } catch { const b = box(); if (b) b.innerHTML = `<p class="watch-empty">Couldn’t load what’s new.</p>`; }
+  }
 
   // Lazy-load saved.js (resolveFollows resolves the follow id-store against the
   // roster), paint the grouped rows, then union the /api/watchlist cloud copy
@@ -175,22 +192,12 @@ export function mount(host, ctx) {
     catch { const b = host.querySelector("#v2-menu-watch"); if (b) b.innerHTML = `<p class="watch-empty">Couldn’t load your watchlist.</p>`; return; }
     const paint = () => { if (tok !== watchToken) return; const b = host.querySelector("#v2-menu-watch"); if (b) b.innerHTML = renderWatch(resolveFollows()); };
     paint();
+    // Reconcile with the cloud copy through the ONE shared merge (credit/js/shared.js),
+    // then repaint if a follow arrived from another device.
     try {
-      const r = await fetch("/api/watchlist", { headers: { accept: "application/json" } });
-      if (!r || !r.ok) return;
-      const d = await r.json();
-      const server = (d && d.watchlist) || {};
-      let local = {};
-      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
-      let grew = false;
-      ["manager", "fund", "lp", "hf", "firm"].forEach((t) => {
-        const set = new Set(Array.isArray(local[t]) ? local[t] : []);
-        const before = set.size;
-        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => set.add(x));
-        if (set.size !== before) grew = true;
-        local[t] = [...set];
-      });
-      if (grew) { try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* ignore */ } paint(); }
+      const { syncFollows } = await import("/credit/js/shared.js");
+      const { changed } = await syncFollows();
+      if (changed) paint();
     } catch { /* offline / not on cloud — local follows already painted */ }
   }
 
@@ -221,6 +228,8 @@ export function mount(host, ctx) {
     if (push && typeof Notification !== "undefined" && Notification.requestPermission) {
       Notification.requestPermission().then(() => render()).catch(() => {});
     }
+    // What's new: "Mark all as seen" re-baselines the snapshot to the current records.
+    if (e.target.closest("#v2-new-seen") && _wnData) { _wnData.W.writeSnap(_wnData.W.currentIds(_wnData.d)); mountWhatsNew(); return; }
     // A watchlist row → open that profile (cross-page to /v2/profiles/).
     const wrow = e.target.closest("[data-watch-href]");
     if (wrow) { e.preventDefault(); ctx.navigate(wrow.dataset.watchHref); return; }

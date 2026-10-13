@@ -6,7 +6,7 @@ import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData } from "/v2/js/ma
 // Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
-import { follows, followList, followBtn } from "/credit/js/shared.js";
+import { follows, followList, followBtn, toggleFollow } from "/credit/js/shared.js";
 import { reportRefresh } from "/v2/js/status.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { RESEARCH, isResearchPublication } from "/research.js";
@@ -2219,17 +2219,14 @@ function renderManagerWire() {
   if (!box.dataset.wired) {
     box.dataset.wired = "1";
     box.addEventListener("click", (e) => {
-      // One-tap follow ☆/★: mutate the shared follows store + persist to
-      // localStorage (mirrors the credit app's persistLocal; cloud sync reconciles
-      // when the Credit view next loads), then re-render so the row restacks.
+      // One-tap follow ☆/★ through the shared toggleFollow (device + cloud), then
+      // re-render so the row restacks.
       const fav = e.target.closest("[data-follow]");
       if (fav) {
         e.preventDefault(); e.stopPropagation();
         const [type, id] = String(fav.dataset.follow || "").split(":");
         if (type && id) {
-          const a = followList(type); const i = a.indexOf(id);
-          if (i >= 0) a.splice(i, 1); else a.push(id);
-          try { localStorage.setItem("meridian.follows", JSON.stringify(follows)); } catch { /* ignore */ }
+          toggleFollow(type, id);   // shared store + cloud sync (one implementation)
           renderManagerWire();
         }
         return;

@@ -131,6 +131,22 @@ if (yield24 && yieldTotal === 0 && lastCommitAgeH != null && lastCommitAgeH < 24
   });
 }
 
+// ---- 2c. Commit hygiene (HOUSE_STYLE T8) -----------------------------------
+// No model identifier in any committed artifact — including commit trailers
+// ("Co-Authored-By: Claude Opus 4.8" broke this through Oct 2026). Flag the last 24h.
+try {
+  const hasOrigin = spawnSync("git", ["rev-parse", "--verify", "-q", "origin/main"], { cwd: ROOT, encoding: "utf8" }).status === 0;
+  const r = spawnSync("git", ["log", "--since=24 hours ago", "--format=%h%x09%B%x00", hasOrigin ? "origin/main" : "HEAD"], { cwd: ROOT, encoding: "utf8", maxBuffer: 16 << 20 });
+  const bad = (r.stdout || "").split("\0").map((c) => c.trim()).filter(Boolean)
+    .filter((c) => /\b(Opus|Sonnet|Haiku|Fable)\b|claude-(opus|sonnet|haiku|fable)/i.test(c)).map((c) => c.split("\t")[0]);
+  if (bad.length) issues.push({
+    area: "commit-hygiene",
+    severity: "attention",
+    detail: `${bad.length} commit(s) in the last 24h carry a model identifier (${bad.slice(0, 5).join(", ")})`,
+    solution: "Use the model-free trailer `Co-Authored-By: Claude Code <noreply@anthropic.com>` (CLAUDE.md, HOUSE_STYLE T8). History can't be rewritten on main; fix the session/routine that writes it.",
+  });
+} catch { /* not a git checkout */ }
+
 // ---- 3. Build sanity ------------------------------------------------------
 const MODULES = [
   { label: "Worker (src/index.js)", cmd: ["node", "--check", "src/index.js"] },

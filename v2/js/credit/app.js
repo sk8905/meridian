@@ -12,7 +12,7 @@ import {
 } from "/credit/js/data.js";
 import {
   eur, pct, fmtDate, link, notFound,
-  FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell,
+  FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell, toggleFollow, syncFollows,
   creditSource, feedDedupKey,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js";
@@ -87,31 +87,9 @@ function chip(text, cls = "") { return `<span class="chip ${cls}">${esc(text)}</
 
 
 
-// --------------------------- watchlist (cloud sync + localStorage) ---------
-// Watchlist persists to a per-user Cloudflare KV store (via the /api/watchlist
-// Pages Function) when the site is served behind Cloudflare Access, so it syncs
-// across devices. localStorage is kept as an instant cache / offline fallback,
-// so the app still works if the API isn't reachable (e.g. plain static hosting).
-const WATCHLIST_API = "/api/watchlist";
-let cloudSync = false;       // true once the watchlist API responds
-let pushTimer = null;
-function persistLocal() { try { localStorage.setItem(FOLLOW_KEY, JSON.stringify(follows)); } catch { /* ignore */ } }
-// Debounced save to the cloud (no-op when not signed in / not on Cloudflare).
-function pushRemote() {
-  if (!cloudSync) return;
-  clearTimeout(pushTimer);
-  pushTimer = setTimeout(() => {
-    const body = {}; FOLLOW_TYPES.forEach((t) => (body[t] = followList(t)));
-    fetch(WATCHLIST_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).catch(() => {});
-  }, 400);
-}
-function saveFollows() { persistLocal(); pushRemote(); }
-function toggleFollow(type, id) {
-  const a = followList(type); const i = a.indexOf(id);
-  if (i >= 0) a.splice(i, 1); else a.push(id);
-  saveFollows();
-  return i < 0;   // the new state: was absent → now following
-}
+// --------------------------- watchlist ----------------------------------------
+// Follow/unfollow + cloud sync are the ONE shared implementation in
+// credit/js/shared.js (toggleFollow / syncFollows) — imported above.
 
 // Topbar data-freshness line: dataset "last updated" date + the time this view
 // was last loaded/refreshed, plus a manual Refresh button that reloads to pull
@@ -231,28 +209,13 @@ on(document, "click", (e) => {
 }, true);
 on(window, "hashchange", closeNotif);
 
-// devices; if the server is empty but this device has items, migrate them up.
-async function initWatchlistSync() {
-  let r;
-  try { r = await fetch(WATCHLIST_API, { headers: { accept: "application/json" } }); }
-  catch { return; }            // offline / not on Cloudflare → localStorage only
-  if (!r || !r.ok) return;     // 404 on static hosting, 401 if not authed
-  let d; try { d = await r.json(); } catch { return; }
-  cloudSync = true;
-  // Remember verified sign-in so the Glance home can render optimistically
-  // (skip its "Checking your sign-in…" splash) when the user navigates there.
-  // The identity chip itself is chrome.js's fillAccount() job (one #account-nav
-  // writer, app-wide) — this view only needs cloudSync for the watchlist push.
-  if (d.email) { try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ } }
-  const sv = d.watchlist || {};
-  const svCount = FOLLOW_TYPES.reduce((n, t) => n + ((sv[t] || []).length), 0);
-  if (svCount > 0) {
-    FOLLOW_TYPES.forEach((t) => (follows[t] = Array.isArray(sv[t]) ? sv[t] : []));
-    persistLocal();
-  } else if (followCount() > 0) {
-    pushRemote();              // first-time migration of this device's list
-  }
-  router();                    // re-render with synced watchlist data
+// Reconcile the watchlist with the per-user cloud copy (shared merge: device ∪
+// cloud minus this device's unfollows), then re-render if it changed.
+function initWatchlistSync() {
+  syncFollows().then(({ ok, changed, email }) => {
+    if (ok && email) { try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ } }
+    if (changed) router();
+  });
 }
 
 

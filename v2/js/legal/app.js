@@ -224,7 +224,7 @@ function caseCompact(c) {
 }
 function rxCompact(r) {
   const kind = r.type === "scheme" ? "Scheme" : "Plan";
-  const meta = [r.date ? fmtDate(r.date) : "undated", kind, r.citation ? esc(r.citation) : ""].filter(Boolean).join(" · ");
+  const meta = [r.date ? (r.dateEstimated ? "c. " : "") + fmtDate(r.date) : "undated", kind, r.citation ? esc(r.citation) : ""].filter(Boolean).join(" · ");
   const u = r.judgmentUrl || r.articleUrl;
   return `<li class="compact-item">
     <a class="compact-head" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}</a>
@@ -387,7 +387,7 @@ function viewDashboard() {
     ...practiceAreas.map((a) => [a.name, areaCount(a)]),
     ["Case law", cases.length], ["Scheme/RPs", restructurings.length],
   ];
-  const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: it.url || (firmById[it.firm] || {}).insightsUrl || `#/item/${encodeURIComponent(it.id)}`, ext: !!(it.url || (firmById[it.firm] || {}).insightsUrl), mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT", firmId: it.firm || "" }));
+  const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: it.url || (firmById[it.firm] || {}).insightsUrl || `#/item/${encodeURIComponent(it.id)}`, ext: !!(it.url || (firmById[it.firm] || {}).insightsUrl), mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT", firmId: it.firm || "", est: !!it.dateEstimated }));
   // A case headline opens its source directly (BAILII / National Archives judgment).
   // A scheme/RP headline jumps to that matter's row in the Schemes & RPs table
   // (goScheme); its citation still links to the judgment in the source column.
@@ -412,7 +412,7 @@ function viewDashboard() {
     ? { desk: x.code === "SCHEME" ? "scheme" : "rp", href: "#/", ext: false, title: x.title,
         src: x.src || "", date: x.date || "", sid: x.goScheme || "" }
     : { desk: x._k, href: x.href, ext: x.ext, title: x.title,
-        src: x.src || "", date: x.date || "", firm: x.firmId || "" });
+        src: x.src || "", date: x.date || "", firm: x.firmId || "", est: !!x.est });
   // Fold in ONLY legal-industry NEWS from the shared wire (The Lawyer, Legal
   // Business, flagged legal:true) — labelled NEWS — alongside the LEGAL desk
   // (client alerts, case law, schemes/RPs). General macro/markets wire stays out.
