@@ -2,7 +2,7 @@
 // only the nav-actions boot and glance's own palette are skipped (the shell
 // owns chrome + search), and listeners self-guard on the active tab.
 
-import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData } from "/v2/js/manager-signals.js";
+import { managerWire, CAT_LABEL, dedupeEvents, loadManagerData, fundEvents, namedEvents } from "/v2/js/manager-signals.js";
 // Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
@@ -38,7 +38,7 @@ const on = (t, ty, fn, o) => t.addEventListener(ty, (e) => { if (!__OWNS()) retu
 // pre-load Home paints the live wire + chart and the curated desk items fill in a
 // few hundred ms later. loadDeskData also records the "wire:desk" performance
 // measure that vitals.js beacons — the number proving this win on real devices.
-let deals = [], intel = [], managers = [], funds = [], research = [], HEDGE_INTEL = [], hedgeFunds = [];
+let deals = [], intel = [], managers = [], funds = [], research = [], HEDGE_INTEL = [], hedgeFunds = [], lps = [];
 let LAST_CHECKED = null, LAST_CHECKED_TIME = null;
 let items = [], cases = [], restructurings = [], firmById = {};
 let NEWS = {}, ARTICLES = {}, COMMENTARY = {}, CYCLE = {}, BUBBLE = {}, OUTLOOK = {}, EARNINGS = {};
@@ -51,6 +51,7 @@ function loadDeskData() {
   // /home-data.js (browser-deduped to a single fetch).
   _deskData = Promise.all([import("/home-data.js"), loadManagerData()]).then(([d]) => {
     ({ deals, intel, managers, funds, research, HEDGE_INTEL, hedgeFunds, LAST_CHECKED, LAST_CHECKED_TIME } = d);
+    lps = d.lps || [];
     ({ items, cases, restructurings, firmById } = d);
     _entRe = _entMap = null;                               // rebuild the reader entity index from the loaded rosters
     ({ NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } = d);
@@ -2439,6 +2440,9 @@ function renderFeed() {
   // computed from the full per-desk streams, so it doesn't change when the reader
   // filters the feed below.
   renderBrief(byDesk, counts, day);
+  // The live/streamed wire items (not the desk records, which the Watchlist reads
+  // directly) — the Watchlist lane scans these for headlines naming a followed entity.
+  _wirePool = [byDesk.news, byDesk.hdg, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc, byDesk.n, byDesk.research, byDesk.m].flat().filter(Boolean);
 
   let feed, groupedBody = null;
   if (_feedGroup && !_feedSrc) {
@@ -2546,6 +2550,7 @@ let _wireLane = "all";        // all | research | manager | watchlist | newslett
 let _wireSetter = null;       // initMobileWireTabs' setWire, hoisted so homeReset() can switch panes
 let _mgrLaneCat = "all";      // manager/watchlist category sub-filter
 let _lastFeed = [];           // last news feed array (for the All interleave)
+let _wirePool = [];           // live/streamed wire items (Watchlist name-matching)
 // The wire-lane chips. "News" was retired (the All lane already carries the full
 // news stream, interleaved with manager events); Research sits in its place. The
 // "manager" lane keeps its key but is labelled "Managers" (plural).
@@ -2585,6 +2590,21 @@ function _hfEv(h) {
 function _firmEv(it) {
   return { date: it.date || "", time: "", ts: _wlTs(it.date, ""), cat: "news", title: it.title, outlet: ((firmById || {})[it.firm] || {}).name || "", source: it.url || "", ext: !!it.url, _href: it.url || `/v2/profiles/#/firm/${encodeURIComponent(it.firm)}`, mgrId: it.firm, watched: true };
 }
+// A followed entity's names as one headline matcher: the full name plus its short
+// alias ("Bridgewater Associates" → "Bridgewater"), never a generic word alone
+// (the reader's entity-link rules: _entAlias / _ENT_STOP).
+function _termsRe(names) {
+  const terms = new Set();
+  for (const raw of names) {
+    // "ADIA (Abu Dhabi Investment Authority)" → also "ADIA" and "Abu Dhabi Investment Authority".
+    const paren = /^(.*?)\s*\(([^)]+)\)\s*$/.exec(String(raw || ""));
+    const parts = paren ? [paren[1], /^manages\b/i.test(paren[2]) ? "" : paren[2]] : [raw];
+    for (const n of parts) for (const t of [n, n && _entAlias(n)]) { if (t && t.length >= 4 && !_ENT_STOP.has(t.toLowerCase())) terms.add(t); }
+  }
+  if (!terms.size) return null;
+  const alt = [...terms].sort((a, b) => b.length - a.length).map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+  return new RegExp("(^|[^A-Za-z0-9&])(" + alt + ")(?![A-Za-z0-9])", "i");
+}
 function watchlistEvents() {
   const f = _allFollows();
   const out = [];
@@ -2595,6 +2615,27 @@ function watchlistEvents() {
   if (hset.size) (HEDGE_INTEL || []).forEach((h) => { if (h && hset.has(h.hfId)) out.push(_hfEv(h)); });
   const fset = new Set(Array.isArray(f.firm) ? f.firm : []);
   if (fset.size) (items || []).forEach((it) => { if (it && fset.has(it.firm)) out.push(_firmEv(it)); });
+  // Followed FUNDS → the deals/intel recorded against them (fundId).
+  const fundSet = new Set(Array.isArray(f.fund) ? f.fund : []);
+  fundEvents(fundSet).forEach((e) => out.push({ ...e, watched: true }));
+  // Followed INVESTORS → deal/intel headlines that name them.
+  const lpSet = new Set(Array.isArray(f.lp) ? f.lp : []);
+  const lpRe = _termsRe((lps || []).filter((l) => lpSet.has(l.id)).map((l) => l.name));
+  namedEvents(lpRe).forEach((e) => out.push({ ...e, watched: true }));
+  // The LIVE wire: any streamed headline (news RSS, hedge/fixed-income reporters, myFT,
+  // Substack, newsletters, research) that names a followed manager / hedge fund / law
+  // firm / investor — not just Wire's own curated records.
+  const names = [
+    ...(managers || []).filter((m) => mset.has(m.id)).map((m) => m.name),
+    ...(hedgeFunds || []).filter((h) => hset.has(h.id)).map((h) => h.name),
+    ...[...fset].map((id) => (firmById[id] || {}).name),
+    ...(lps || []).filter((l) => lpSet.has(l.id)).map((l) => l.name),
+  ];
+  const wireRe = _termsRe(names);
+  if (wireRe) (_wirePool || []).forEach((x) => {
+    if (!x || !x.title || !wireRe.test(x.title)) return;
+    out.push({ date: x.date || "", time: x.time || "", ts: _newsTs(x), cat: "news", title: x.title, outlet: x.src || "", source: x.href || "", ext: !!x.ext, _href: x.href || "", mgrId: "", watched: true });
+  });
   return dedupeEvents(out, { fuzzy: false }).sort((a, b) => (b.ts - a.ts) || String(b.date).localeCompare(String(a.date)));
 }
 // A manager event as a shared .g-feed-row (same markup as the manager wire's flat row).
@@ -2622,7 +2663,7 @@ function renderMgrLane(watchOnly) {
     out += mgrEventRow(r);
   });
   const empty = watchOnly
-    ? `<div class="g-mw-empty">Nothing on your watchlist yet. Tap ☆ on any manager, hedge fund or law firm profile to follow it.</div>`
+    ? `<div class="g-mw-empty">Nothing on your watchlist yet. Tap ☆ on any manager, hedge fund, law firm, fund or investor profile to follow it.</div>`
     : `<div class="g-mw-empty">No manager activity yet.</div>`;
   setHTML("g-feed", out ? `<div class="g-mw-flat">${out}</div>` : empty);
   const head = document.getElementById("g-feed-head"); if (head) head.innerHTML = "";
@@ -2734,7 +2775,8 @@ function renderWire() {
   // news. (No sub-filters, so this is the only desk control.) Reset the leftover
   // type/group/source state each paint.
   _feedType = "all"; _feedGroup = false; _feedSrc = null;
-  if (lane === "manager" || lane === "watchlist") renderMgrLane(lane === "watchlist");
+  if (lane === "watchlist") { _feedDesk = "all"; renderFeed(); renderMgrLane(true); }   // renderFeed first: it refreshes the live wire pool the Watchlist scans
+  else if (lane === "manager") renderMgrLane(false);
   else if (lane === "newsletters") { _feedDesk = "n"; renderFeed(); }
   else if (lane === "research") { _feedDesk = "research"; renderFeed(); }
   else { _feedDesk = "all"; renderFeed(); if (lane === "all") mergeManagersIntoFeed(); }

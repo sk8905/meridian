@@ -705,6 +705,11 @@ a guess; if a figure can't be confirmed, leave the old one and say so.
   `backfill/sec-adv.json`; `node scripts/apply-sec.mjs` writes `raum` (US$bn), `raumAsOf`
   (the ADV filing date) and `raumSource` (the IAPD page). It is GROSS of leverage, shown
   as its own labelled chip — never copy it into net `aum`.
+- **Hedge funds with no news (`hedgeFundNoNews`)** — about half the tracked hedge funds
+  have no `HEDGE_INTEL` record, so following one shows nothing on the Watchlist. Each
+  run, find the rota's ~5 (biggest first) latest 1–3 real, dated news events since 2025
+  (fund launches/closes, performance, senior hires/departures, stake sales) from the
+  firm's own release or a reputable outlet, and append them to `HEDGE_INTEL`.
 - **Hedge-fund AUM (`HEDGE_FUNDS`)** — the rota's ~5 oldest `aumAsOf`: find the latest
   firm-wide AUM — prefer regulatory AUM from SEC Form ADV (as reported in search results
   for the IAPD record), then the firm's own disclosure, then Bloomberg / HFM /

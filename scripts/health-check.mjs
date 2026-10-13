@@ -154,6 +154,34 @@ try {
   if (r.status === 0) { const j = JSON.parse(r.stdout); backfill = { pct: j.pct, present: j.present, events: j.events, built: j.built, entities: j.entities }; }
 } catch { /* script missing — skip */ }
 
+// ---- 2e. Newswire lanes — is each Home lane actually stocked? ---------------
+// The live RSS part of the wire is fetched by the Worker at view time (not checkable
+// here); this measures the curated content each lane draws on, plus how much a
+// Watchlist follow can show for each entity type.
+let lanes = null;
+try {
+  const [C, L, NL, RS] = await Promise.all([import("../credit/js/data.js"), import("../legal/js/data.js"), import("../newsletters.js"), import("../research.js")]);
+  const now = new Date(), iso = (d) => d.toISOString().slice(0, 10);
+  const since = (days) => iso(new Date(now.getTime() - days * 864e5));
+  const monthStart = iso(new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1)));
+  const mgrEv = [...(C.deals || []), ...(C.intel || [])].filter((x) => x.date >= monthStart).length
+    + (C.managers || []).reduce((n, m) => n + (m.webNews || []).filter((w) => (w.date || "") >= monthStart).length, 0);
+  const hfWith = new Set((C.HEDGE_INTEL || []).map((h) => h.hfId));
+  const hfTotal = (C.HEDGE_FUNDS || []).length, hfCovered = (C.HEDGE_FUNDS || []).filter((h) => hfWith.has(h.id)).length;
+  const firmRecent = new Set((L.items || []).filter((i) => (i.date || "") >= since(30)).map((i) => i.firm)).size;
+  lanes = {
+    managers: mgrEv,
+    research14: (RS.RESEARCH || []).filter((x) => (x.date || "") >= since(14)).length,
+    newsletters7: (NL.NEWSLETTERS || []).filter((x) => (x.date || "") >= since(7)).length,
+    hfCovered, hfTotal, firmRecent, firmTotal: (L.firms || []).length,
+  };
+  const lane = (area, cond, detail, solution) => { if (cond) issues.push({ area, severity: "attention", detail, solution }); };
+  lane("lane:managers", mgrEv < 20, `Managers lane has only ${mgrEv} manager events since ${monthStart}`, "The heavy sweep's candidate collector should be adding manager deals/intel every run — check its last runs for 'no feed reachable' or mass rejections.");
+  lane("lane:research", lanes.research14 === 0, "Research lane: no house-research items in the last 14 days", "The refresh routine's research email sweep (Gmail) found nothing — check the mailbox forwarding and the sweep step.");
+  lane("lane:newsletters", lanes.newsletters7 === 0, "Newsletters lane: no newsletter items in the last 7 days", "The refresh routine's newsletter email sweep found nothing — check the mailbox and the sweep step.");
+  lane("lane:watchlist-hedge", hfCovered / Math.max(1, hfTotal) < 0.6, `Watchlist depth: only ${hfCovered}/${hfTotal} tracked hedge funds have any news on record, so following one often shows little`, "Hedge-fund news needs building out: the 2020 backfill and heavy sweep should prioritise hedge funds with no HEDGE_INTEL records.");
+} catch { /* lane sources missing — skip */ }
+
 // ---- 3. Build sanity ------------------------------------------------------
 const MODULES = [
   { label: "Worker (src/index.js)", cmd: ["node", "--check", "src/index.js"] },
@@ -179,7 +207,7 @@ const verdict = fails.length ? "FAIL" : attention.length ? "ATTENTION" : "GOOD";
 const ok = verdict === "GOOD";
 
 if (asJson) {
-  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill }, null, 2));
+  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24, backfill, lanes }, null, 2));
 } else {
   const date = new Date().toISOString().slice(0, 10);
   console.log(`WIRE HEALTH CHECK — ${date}`);
@@ -196,6 +224,7 @@ if (asJson) {
     console.log("");
   }
   if (coverage) console.log(`Manager-profile backfill (ongoing, not a failure): ${coverage.reach2020}/${coverage.totalManagers} profiles reach ≤2020, ${coverage.flagged} flagged for depth.`);
+  if (lanes) console.log(`Newswire lanes: Managers ${lanes.managers} events (this + last month) · Research ${lanes.research14} (14d) · Newsletters ${lanes.newsletters7} (7d) · Watchlist depth — hedge funds with news ${lanes.hfCovered}/${lanes.hfTotal}, law firms active in 30d ${lanes.firmRecent}/${lanes.firmTotal}.`);
   if (backfill) console.log(`2020 backfill (checklist): ${backfill.present}/${backfill.events} events present = ${backfill.pct}% · ${backfill.built}/${backfill.entities} priority entities researched.`);
   if (yield24) console.log(`New records published in the last 24h: ${yieldTotal} (deals ${yield24.deals} · intel ${yield24.intel} · hedge ${yield24.hedge} · legal ${yield24.legal}).`);
   if (lastCommitAgeH != null) console.log(`Last publish to this checkout: ${lastCommitAgeH.toFixed(1)}h ago — "${lastCommitSubject}".`);

@@ -13,4 +13,5 @@ checkEq(latest13fQuarter(at("2026-10-13")).asOf, "2026-06-30", "quarter-end date
 const r = rota({ hf: 5, lp: 2 });
 check(r.hedgeFundAum.length === 5 && r.lpProfiles.length === 2, "rota returns the requested oldest-first slices");
 check(r.hedgeFundAum.every((h, i, a) => i === 0 || String(a[i - 1].aumAsOf || "") <= String(h.aumAsOf || "~")), "hedge-fund AUM slice is oldest-first");
+check(r.hedgeFundNoNews.length === 5 && r.hedgeFundsWithoutNews >= r.hedgeFundNoNews.length && r.hedgeFundNoNews.every((h, i, a) => i === 0 || (a[i - 1].aum || 0) >= (h.aum || 0)), "rota lists hedge funds with no news on record, biggest first");
 finish();

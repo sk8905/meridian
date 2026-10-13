@@ -32,7 +32,7 @@ export function latest13fQuarter(now = Date.now()) {
   return null;
 }
 
-export function rota({ hf = 5, lp = 2, now = Date.now() } = {}) {
+export function rota({ hf = 5, lp = 2, news = 5, now = Date.now() } = {}) {
   const want = latest13fQuarter(now);
   const panel = C.HF_13F || {};
   const f13 = { current: panel.quarter || null, latestAvailable: want, stale: !!(want && panel.asOf !== want.asOf) };
@@ -40,8 +40,13 @@ export function rota({ hf = 5, lp = 2, now = Date.now() } = {}) {
     .map((h) => ({ id: h.id, name: h.name, aum: h.aum, aumAsOf: h.aumAsOf || null, aumSource: h.aumSource || null, cik: h.cik || null, ageDays: ms(h.aumAsOf) ? Math.floor((now - ms(h.aumAsOf)) / DAY) : null }));
   const lps = [...(C.lps || [])].sort((a, b) => ms(a.asOf) - ms(b.asOf)).slice(0, lp)
     .map((l) => ({ id: l.id, name: l.name, type: l.type, aum: l.aum, asOf: l.asOf || null }));
+  // Hedge funds with NO news on record (HEDGE_INTEL) — following one shows nothing on
+  // the Watchlist. Biggest first, so the most-followed names fill first.
+  const withNews = new Set((C.HEDGE_INTEL || []).map((h) => h.hfId));
+  const hfNoNews = (C.HEDGE_FUNDS || []).filter((h) => !withNews.has(h.id)).sort((a, b) => (b.aum || 0) - (a.aum || 0)).slice(0, news)
+    .map((h) => ({ id: h.id, name: h.name, aum: h.aum, strategy: h.strategy || null }));
   const dashAge = ms(D.DASH_ASOF) ? Math.floor((now - ms(D.DASH_ASOF)) / DAY) : null;
-  return { f13, hedgeFundAum: hfs, lpProfiles: lps, dashboardSnapshot: { asOf: D.DASH_ASOF || null, ageDays: dashAge, stale: dashAge == null || dashAge > 45 } };
+  return { f13, hedgeFundAum: hfs, hedgeFundNoNews: hfNoNews, hedgeFundsWithoutNews: (C.HEDGE_FUNDS || []).filter((h) => !withNews.has(h.id)).length, lpProfiles: lps, dashboardSnapshot: { asOf: D.DASH_ASOF || null, ageDays: dashAge, stale: dashAge == null || dashAge > 45 } };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -52,6 +57,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`  Dashboard fallback snapshot: DASH_ASOF ${r.dashboardSnapshot.asOf} (${r.dashboardSnapshot.ageDays}d) → ${r.dashboardSnapshot.stale ? "REFRESH" : "current"}`);
   console.log(`\n  Hedge-fund AUM (oldest ${r.hedgeFundAum.length}):`);
   for (const h of r.hedgeFundAum) console.log(`    ${h.name} [${h.id}] — $${h.aum}bn as of ${h.aumAsOf || "?"}${h.ageDays != null ? ` (${h.ageDays}d)` : ""}${h.cik ? ` · CIK ${h.cik}` : ""}`);
+  console.log(`\n  Hedge funds with NO news on record (${r.hedgeFundsWithoutNews} in all; ${r.hedgeFundNoNews.length} this run — find their latest 1–3 real, dated news events since 2025 → HEDGE_INTEL):`);
+  for (const h of r.hedgeFundNoNews) console.log(`    ${h.name} [${h.id}] — $${h.aum}bn · ${h.strategy || "?"}`);
   console.log(`\n  Investor (LP) profiles (oldest ${r.lpProfiles.length}):`);
   for (const l of r.lpProfiles) console.log(`    ${l.name} [${l.id}] — ${l.type}, €${l.aum}bn as of ${l.asOf || "?"}`);
 }

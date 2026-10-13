@@ -125,6 +125,20 @@ export function managerEvents(managerId, { limit = 0 } = {}) {
 }
 
 // Funds a manager is actively raising (in-market fundraising statuses).
+// Watchlist helpers: the deal/intel events for a set of followed FUNDS (records carry
+// fundId), and for records whose headline matches `re` (a followed investor's name).
+const _dealEv = (d) => ({ ts: tsOf(d.date, d.time), date: d.date || "", cat: DEAL_CAT[d.type] || "deal", title: d.headline || "", href: d.sourceUrl || mgrHref(d.managerId), ext: !!d.sourceUrl, source: d.sourceUrl || "", kind: "deal", mgrId: d.managerId });
+const _intelEv = (i) => ({ ts: tsOf(i.date, i.time), date: i.date || "", cat: INTEL_CAT[i.type] || "news", title: i.headline || "", href: i.sourceUrl || mgrHref(i.managerId), ext: !!i.sourceUrl, source: i.sourceUrl || "", kind: "intel", mgrId: i.managerId });
+export function fundEvents(fundIds) {
+  const f = fundIds instanceof Set ? fundIds : new Set(fundIds || []);
+  if (!f.size) return [];
+  return [...deals.filter((d) => f.has(d.fundId)).map(_dealEv), ...intel.filter((i) => f.has(i.fundId)).map(_intelEv)];
+}
+export function namedEvents(re) {
+  if (!re) return [];
+  return [...deals.filter((d) => re.test(d.headline || "")).map(_dealEv), ...intel.filter((i) => re.test(i.headline || "")).map(_intelEv)];
+}
+
 const IN_MARKET = new Set(["Pre-marketing", "Open", "First Close"]);
 function managerFundsInMarket(managerId) {
   return funds.filter((f) => f.managerId === managerId && IN_MARKET.has(f.status));

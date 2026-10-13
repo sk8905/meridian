@@ -3,9 +3,17 @@
 // deals/intel/webNews (even older than the Managers-lane recency window); a followed
 // hedge fund shows its HEDGE_INTEL; a followed law firm shows its legal alerts. This
 // is the guard for "I added X to my watchlist and its stories don't show up".
+// It also covers followed FUNDS (records carrying fundId), followed INVESTORS (records
+// naming them) and LIVE wire headlines that name any followed entity.
 import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 
-const srv = await serve();
+const today = new Date().toISOString().slice(0, 10);
+const LIVE = [
+  { title: "Bridgewater Associates trims risk as bond volatility jumps", url: "https://www.reuters.com/markets/bridgewater-trims-risk", source: "Reuters", date: today, time: "08:15", desk: "m" },
+  { title: "Allianz weighs a bigger private credit allocation", url: "https://www.cnbc.com/allianz-private-credit", source: "CNBC", date: today, time: "07:40", desk: "m" },
+  { title: "Story about markets and rates", url: "https://www.reuters.com/markets/other", source: "Reuters", date: today, time: "07:00", desk: "m" },
+];
+const srv = await serve({ "/api/feed": () => [200, JSON.stringify({ items: LIVE })] });
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/`);
 
@@ -61,6 +69,25 @@ const mixCounts = await pg.evaluate(() => ({
   f: document.querySelectorAll('#g-feed .g-feed-row[data-mgr="cliffordchance"]').length,
 }));
 check(mixCounts.m > 0 && mixCounts.h > 0 && mixCounts.f > 0, `mixed watchlist shows all three types together (manager ${mixCounts.m}, hedge fund ${mixCounts.h}, law firm ${mixCounts.f})`);
+
+// (5) FUND follow — the deals/intel recorded against that fund (f19, Cheyne ESVC III).
+await setFollows({ manager: [], fund: ["f19"], lp: [], hf: [], firm: [] });
+const fund = await watchlistRows("__none__");
+check(fund.total > 0 && !fund.empty, `followed FUND shows the records against it (rows: ${fund.total})`);
+
+// (6) INVESTOR follow — deal/intel headlines that name it, plus live headlines (Allianz, l14).
+await setFollows({ manager: [], fund: [], lp: ["l14"], hf: [], firm: [] });
+await watchlistRows("__none__");
+const lp = await pg.evaluate(() => [...document.querySelectorAll("#g-feed .g-feed-row .g-feed-title")].map((x) => x.textContent));
+check(lp.length > 1 && lp.every((t) => /allianz/i.test(t)), `followed INVESTOR shows only headlines naming it (${lp.length} rows)`);
+check(lp.some((t) => /bigger private credit allocation/.test(t)), "…including a LIVE wire headline that names it");
+
+// (7) LIVE wire headlines naming a followed hedge fund (Bridgewater, h1) appear; unrelated ones don't.
+await setFollows({ manager: [], fund: [], lp: [], hf: ["h1"], firm: [] });
+await watchlistRows("h1");
+const live = await pg.evaluate(() => [...document.querySelectorAll("#g-feed .g-feed-row .g-feed-title")].map((x) => x.textContent));
+check(live.some((t) => /Bridgewater Associates trims risk/.test(t)), "a LIVE wire headline naming a followed hedge fund appears on the Watchlist");
+check(!live.some((t) => /Story about markets and rates/.test(t)), "unrelated live headlines stay off the Watchlist");
 
 checkErrs(errs, "watchlist lane — all follow types, no date limit");
 await ctx.close();

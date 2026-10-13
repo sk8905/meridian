@@ -48,6 +48,8 @@ const HEDGE_INTEL = (CR.HEDGE_INTEL || []).map((h) => omit(h, ["summary"]));
 // Compact hedge-fund roster (id + name only) — the reading pane links entity mentions
 // to /v2/profiles/#/hf/<id>; nothing else on Home needs the fuller record.
 const hedgeFunds = (CR.HEDGE_FUNDS || []).map((h) => pick(h, ["id", "name"]));
+// Compact investor (LP) roster — the Watchlist matches a followed investor by name.
+const lps = (CR.lps || []).map((l) => pick(l, ["id", "name"]));
 const LAST_CHECKED = CR.LAST_CHECKED ?? null;
 const LAST_CHECKED_TIME = CR.LAST_CHECKED_TIME ?? null;
 
@@ -63,7 +65,7 @@ const { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } = MC;
 
 const J = (v) => JSON.stringify(v);
 const EXPORTS = {
-  managers, deals, intel, funds, research, HEDGE_INTEL, hedgeFunds, LAST_CHECKED, LAST_CHECKED_TIME,
+  managers, deals, intel, funds, research, HEDGE_INTEL, hedgeFunds, lps, LAST_CHECKED, LAST_CHECKED_TIME,
   items, cases, restructurings, firmById,
   NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS,
 };
