@@ -845,4 +845,19 @@ check(readProxyChoice("someblog.example.com", false) === "jina", "proxy: with no
 check(readProxyChoice("reuters.com", true) === "jina", "proxy: Reuters is NOT on the Firecrawl allowlist (removed as a source)");
 check(readProxyChoice("zzz-nohost.invalidtld", true) === "jina", "proxy: an unknown host never escalates to Firecrawl");
 
+// ---- Publisher contact-footer junk is stripped (the Legal Business "Company /
+//      Legalease Ltd … / T: … E: …" block that leaked into the reading pane).
+const footer = `<!doctype html><html><head><title>Clifford Chance ends 14 | Legal Business</title>
+  <meta property="og:title" content="Clifford Chance ends 14-year Singapore alliance"></head><body><article>
+  <p>Clifford Chance and Singapore litigation firm Cavenagh Law are set to terminate their formal law alliance after 14 years, a notable move in the market this quarter.</p>
+  <p>The firms confirmed today that they have reached a mutual decision to end the alliance, which gave clients access to Singapore litigation advice since 2012 overall.</p>
+  <h3>Company</h3>
+  <p>Legalease Ltd, 188 Fleet Street, London, EC4A 2AG</p>
+  <p>T: +44 (0)20 4604 0667 | E: jon.maney@legal500.com</p>
+  </article></body></html>`;
+const fr = extractReadable(footer, u("https://www.legalbusiness.co.uk/x/"));
+const frBlob = JSON.stringify(fr.blocks || fr.paragraphs || []);
+check(!/Company|Legalease|4604 0667|legal500\.com/.test(frBlob), "footer: publisher Company/address/contact block is stripped from the reader");
+check((fr.paragraphs || []).length === 2, `footer: the two real body paragraphs survive (got ${(fr.paragraphs || []).length})`);
+
 finish();

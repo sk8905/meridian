@@ -926,7 +926,7 @@
     .g-read{ display:none; }
     .g-read-head{ display:flex; align-items:baseline; justify-content:space-between; gap:8px; padding:7px 12px;
       background:var(--t-head); border-bottom:1px solid var(--t-grid); }
-    .g-read-h-t{ font-size:var(--fs-body); font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--t-ink); }
+    .g-read-h-t{ font-size:var(--fs-body); font-weight:700; letter-spacing:.01em; color:var(--t-ink); }
     .g-read-h-x{ font-size:var(--fs-micro); color:var(--t-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
     .g-read-art{ padding:14px 16px 22px; position:relative; }
     .g-read-kicker{ font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.05em; text-transform:uppercase; color:var(--t-accent); margin-bottom:8px; }
@@ -964,10 +964,10 @@
     /* External publisher links preserved from the article body (e.g. a newsletter round-up's
        "[ Source ]" links) — white text with an ORANGE underline, so an outbound link is
        visually distinct from a blue-underlined internal entity link. */
-    .g-read-p a:not(.g-ent), .g-read-art a:not(.g-ent){ color:var(--t-ink);
+    .g-read-p a:not(.g-ent), .g-read-art a:not(.g-ent):not(.g-read-open){ color:var(--t-ink);
       text-decoration-line:underline; text-decoration-style:solid; text-decoration-thickness:1px;
       text-underline-offset:2px; text-decoration-color:var(--t-accent); }
-    .g-read-p a:not(.g-ent):hover, .g-read-art a:not(.g-ent):hover{ text-decoration-thickness:2px; }
+    .g-read-p a:not(.g-ent):hover, .g-read-art a:not(.g-ent):not(.g-read-open):hover{ text-decoration-thickness:2px; }
     .g-read-h:first-child{ margin-top:0; }
     /* Content images pulled from the article, shown inline in reading order. The image
        sits in a figure with an optional caption; it scales to the text column and never
