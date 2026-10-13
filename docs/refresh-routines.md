@@ -653,7 +653,8 @@ Routine containers can't reach most firm websites, so a GitHub Action
 `scripts/collect-firm-news.mjs` and commits what it finds to `backfill/` on main
 (excluded from the deployed site; `[skip ci]`; only when changed):
 - every 2h → `firm-news.json` (last 14 days, ≤40 pages per firm);
-- Sundays → `firm-history.json` (since 2020-01-01, ≤400 pages per firm).
+- daily 03:47 UTC → `firm-history.json` (since 2020-01-01; each run keeps the dated items it
+  holds and fetches the next ≤400 unseen pages per firm, so coverage works back towards 2020).
 
 It reads each tracked firm's sitemaps, keeps in-scope publication URLs that Wire does
 not hold, and fetches each page's OWN metadata: `title` (og:title), `description`,

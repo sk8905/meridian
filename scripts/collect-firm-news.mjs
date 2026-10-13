@@ -21,6 +21,7 @@
 //   node scripts/collect-firm-news.mjs --since=2020-01-01 --max=400 > firm-history.json
 //   node scripts/collect-firm-news.mjs --firm=latham --since=30d
 // =============================================================================
+import fs from "node:fs";
 import * as LG from "../legal/js/data.js";
 
 const args = process.argv.slice(2);
@@ -156,10 +157,12 @@ async function get(url, ms = 15000) {
 }
 const normUrl = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.)?/, "").split(/[?#]/)[0].replace(/\/+$/, "");
 
-export async function collectFirm(id, domains, { since, max = 40, fetcher = get } = {}) {
+// `skip`: URLs already collected (a previous history file) — not re-fetched, so each
+// run reaches the next `max` pages further back instead of the same newest ones.
+export async function collectFirm(id, domains, { since, max = 40, fetcher = get, skip = new Set() } = {}) {
   const stat = { domains, sitemaps: 0, urls: 0, kept: 0, fetched: 0, errors: 0 };
   const fname = ((LG.firms || []).find((f) => f.id === id) || {}).name || "";
-  const known = new Set((LG.items || []).map((i) => normUrl(i.url)));
+  const known = new Set([...(LG.items || []).map((i) => normUrl(i.url)), ...skip]);
   const seenMaps = new Set(), cands = [];
   for (const d of domains) {
     const base = `https://${d}`;
@@ -208,13 +211,22 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const only = opt("--firm", "");
   const doms = firmDomains();
   const ids = Object.keys(doms).filter((id) => !only || id === only);
-  const firms = {}, items = [];
+  // --merge=<file>: keep that file's dated items and only fetch pages it doesn't hold
+  // (undated ones are retried, as extractors improve).
+  const mergeFile = opt("--merge", "");
+  let prev = [];
+  if (mergeFile) { try { prev = JSON.parse(fs.readFileSync(mergeFile, "utf8")).items || []; } catch { prev = []; } }
+  const held = new Set((LG.items || []).map((l) => normUrl(l.url)));
+  prev = prev.filter((i) => i.date && i.date >= since && ids.includes(i.firm) && !held.has(normUrl(i.url)));
+  const firms = {}, items = [...prev];
   // A few firms at a time (different hosts); pages within a firm are sequential.
   const queue = [...ids];
   await Promise.all(Array.from({ length: 4 }, async () => {
     while (queue.length) {
       const id = queue.shift();
-      const r = await collectFirm(id, doms[id], { since, max });
+      const skip = new Set(prev.filter((i) => i.firm === id).map((i) => normUrl(i.url)));
+      const r = await collectFirm(id, doms[id], { since, max, skip });
+      r.stat.carried = skip.size;
       firms[id] = r.stat; items.push(...r.items);
     }
   }));

@@ -30,6 +30,8 @@ check(it.title === "Latham & Watkins Advises Acme on US$500 Million Refinancing"
 check(it.date === "2026-10-09" && it.dateSource === "article:published_time", "the page's own published date is captured, with where it came from");
 check(it.description === "Latham advised Acme on its refinancing.", "the page's own description is captured");
 check(r.stat.sitemaps === 3, `robots.txt → sitemap index → child sitemaps are all read (${r.stat.sitemaps})`);
+const r2 = await collectFirm("latham", ["www.lw.com"], { since: "2026-10-01", max: 10, fetcher, skip: new Set(["lw.com/en/news/latham-advises-acme-on-500m-refinancing"]) });
+checkEq(r2.items.length, 0, "pages already collected (a previous history file) are skipped, so the next run reaches further back");
 
 // Unit pieces.
 checkEq(parseSitemap(site["https://www.lw.com/sitemap-index.xml"]).index.length, 2, "sitemap index parsed");

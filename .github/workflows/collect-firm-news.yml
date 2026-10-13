@@ -8,13 +8,14 @@ name: collect-firm-news
 # recent items; the 2020 backfill works through the history file.
 #
 #   every 2h        → backfill/firm-news.json     (last 14 days, ≤40 pages/firm)
-#   Sundays 03:47   → backfill/firm-history.json  (since 2020-01-01, ≤400 pages/firm)
+#   daily 03:47     → backfill/firm-history.json  (since 2020-01-01; keeps what it holds and
+#                     fetches the next ≤400 unseen pages per firm, so it works back towards 2020)
 #   manual dispatch → choose the mode
 
 on:
   schedule:
     - cron: "23 */2 * * *"
-    - cron: "47 3 * * 0"
+    - cron: "47 3 * * *"
   workflow_dispatch:
     inputs:
       mode:
@@ -48,7 +49,7 @@ jobs:
         id: mode
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then m="${{ inputs.mode }}";
-          elif [ "${{ github.event.schedule }}" = "47 3 * * 0" ]; then m=history; else m=recent; fi
+          elif [ "${{ github.event.schedule }}" = "47 3 * * *" ]; then m=history; else m=recent; fi
           echo "mode=$m" >> "$GITHUB_OUTPUT"
           echo "Mode: $m"
 
@@ -56,7 +57,7 @@ jobs:
         run: |
           mkdir -p backfill
           if [ "${{ steps.mode.outputs.mode }}" = "history" ]; then
-            node scripts/collect-firm-news.mjs --since=2020-01-01 --max=400 > /tmp/out.json
+            node scripts/collect-firm-news.mjs --since=2020-01-01 --max=400 --merge=backfill/firm-history.json > /tmp/out.json
             dest=backfill/firm-history.json
           else
             node scripts/collect-firm-news.mjs --since=14d --max=40 > /tmp/out.json
