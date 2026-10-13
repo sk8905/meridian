@@ -73,11 +73,21 @@ each entity's `name` (and any well-known short/alias form) as a search term:
 - **STEP 0 — run the freshness audit FIRST (every run, before anything else).**
   `node scripts/freshness-audit.mjs` (and `--json` for the machine-readable form).
   It is the single deterministic detector: it scans every content surface (credit
-  `deals`/`intel`, hedge-fund intel, legal updates/cases/restructurings) and the
-  manager-profile depth, prints exactly which are **STALE** (newest item older than
-  the 7-day window) and the rotating **backfill worklist**, and exits non-zero when
-  anything needs resolving. **Its output is this run's mandatory worklist** — every
-  surface it marks STALE and every worklisted manager is a target you must work.
+  `deals`/`intel`, CLOs, hedge-fund intel, the legal surfaces, the macro feeds +
+  calendar + editorial, the dashboard Key Moments and the X-feed sources) and the
+  manager-profile depth, prints exactly which are **STALE** and the rotating
+  **backfill worklist**, and exits non-zero when anything needs resolving. Each surface
+  carries its own cadence window (default 7 days); **credit `deals` and `intel` are held
+  to a TIGHTER 3-day window** — the Transactions ledger must never sit a week without a
+  new item, so a 3-day gap already flags STALE. **Its output is this run's mandatory
+  worklist** — every surface it marks STALE and every worklisted manager is a target you
+  must work.
+- **CREDIT TRANSACTIONS — sweep for NEW verified deals/intel EVERY run, UNCONDITIONALLY**
+  — do NOT skip this just because the audit happens to show `deals` fresh. The audit
+  window is a *floor that forces* a sweep, never a licence to stop hunting: every run,
+  search the last ~1–2 weeks for new private-credit transactions, fund closes, CLO
+  pricings and exits across the roster and append every verified, dated one. The audit
+  flagging `deals` only means you are already overdue.
   **A run that ends in a few seconds having appended nothing is a FAILED run, not a
   quiet market:** the audit has already named the gaps, so you either append ≥1
   verified, dated item, or — per stale surface / per worklisted name — record in the

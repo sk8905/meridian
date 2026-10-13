@@ -14,8 +14,9 @@
 // editorial, the dashboard equity Key Moments, the Home briefing, and the X-feed sources
 // (myFT, newsletters, the research lane) — so nothing can rot unseen by the health check
 // or the refresh routines. Each surface carries its own cadence window where a daily one
-// would misfire (CLO new-issue 21d, dashboard captions 21d, macro editorial 45d, the
-// releases calendar is judged forward-looking).
+// would misfire (credit deals/intel a TIGHTER 3d since the Transactions ledger should
+// never sit a week without a new item, CLO new-issue 21d, dashboard captions 21d, macro
+// editorial 45d, the releases calendar is judged forward-looking).
 //
 // Pure read over the committed data modules + the manager-coverage scorer — no fetch, no
 // writes, no state. Exit code is 0 when everything is fresh, 1 when any surface is stale
@@ -115,9 +116,15 @@ function macroEditorialSurface() {
   return s;
 }
 
+// Credit deals (the Transactions ledger) and intel flow often enough that a 7-day
+// window lets the ledger sit visibly stale for a week before anything chases it (the
+// "nothing new since 9 Oct" plateau). Hold them to a TIGHTER 3-day window so the audit —
+// and therefore the refresh / heavy-sweep routines and the daily health email — flag a
+// stalled credit collector within a couple of days, not a week.
+const CREDIT_WIN = 3;
 const SURFACES = [
-  surface("deals", "Transactions (credit deals)", CR.deals),
-  surface("intel", "Credit intel (fundraising / mandates / personnel)", CR.intel),
+  surface("deals", "Transactions (credit deals)", CR.deals, "date", CREDIT_WIN),
+  surface("intel", "Credit intel (fundraising / mandates / personnel)", CR.intel, "date", CREDIT_WIN),
   surface("clos", "CLOs (clo:true items)", _CLO, "date", 21),
   surface("credit_research", "Credit-desk research array", CR.research),
   surface("hedge_intel", "Hedge-fund intel", CR.HEDGE_INTEL),
@@ -232,7 +239,7 @@ if (flag("--json")) {
   }, null, 2));
 } else {
   const today = new Date().toISOString().slice(0, 10);
-  console.log(`WIRE FRESHNESS AUDIT — ${today} (stale window: ${STALE_DAYS}d)\n`);
+  console.log(`WIRE FRESHNESS AUDIT — ${today} (default stale window: ${STALE_DAYS}d; credit deals/intel ${CREDIT_WIN}d; some surfaces wider — see per-row)\n`);
   for (const s of SURFACES) {
     const tag = s.stale ? "STALE " : "fresh ";
     const age = s.note ? s.note : (s.ageDays == null ? "no dated items" : `${s.ageDays}d old`);

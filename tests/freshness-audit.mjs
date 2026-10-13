@@ -39,7 +39,7 @@ if (j) {
   // dated item is older than THAT surface's window (or it has none). Re-derive
   // independently, mirroring the script's per-surface cadence windows.
   const DAY = 86400000, now = Date.now();
-  const WIN = { clos: 21, dashboard_eq: 21, research_lane: 10, macro_editorial: 45 }; // default 7
+  const WIN = { deals: 3, intel: 3, clos: 21, dashboard_eq: 21, research_lane: 10, macro_editorial: 45 }; // default 7
   const recompute = async () => {
     const CR = await import("../credit/js/data.js");
     const LG = await import("../legal/js/data.js");
