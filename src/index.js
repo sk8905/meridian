@@ -2503,10 +2503,31 @@ const _readCleanTitle = (t) => (t && String(t).replace(/\s*[|\-–—]\s*[^|\-�
 // PUBLIC page's text. Used only when the direct fetch was blocked or yielded no body
 // — never for READ_PAYWALL hosts (refused before any fetch), so no subscriber content
 // is ever proxied. No login or credentials: exactly what the public page serves.
-// Firecrawl (a real browser + auto residential proxy) is preferred when its key is
-// present, since it gets past the toughest bot walls (Reuters); otherwise Jina.
+//
+// Proxy policy (COST). Jina is the DEFAULT browser-reader for every host: it renders in
+// a real headless browser and opens the great majority of bot-walled public pages, and
+// it spends ZERO Firecrawl credit. Firecrawl (a real browser + auto RESIDENTIAL proxy)
+// is stronger on the very toughest walls but costs a paid credit per scrape, so it is
+// RESERVED for an explicit allowlist of hosts that Jina demonstrably cannot open and that
+// are worth the spend — with Jina as the backstop if Firecrawl itself fails. Everything
+// OFF the list reads via Jina only, with no Firecrawl fallback, so a burst of interactive
+// reading can never quietly drain Firecrawl credit. Add a host to READ_FC_HOSTS only after
+// confirming Jina fails on it. (Reuters was removed as a source — intentionally not here.)
+const READ_FC_HOSTS = new Set([
+  // (empty — Firecrawl is off by default; add specific bot-walled-but-readable hosts here)
+]);
+// Pure decision for which proxy a host uses — exported so a spec can lock the policy:
+// Firecrawl only for an allowlisted host AND only when its key is configured; else Jina.
+export function readProxyChoice(host, hasKey) {
+  const h = String(host || "").replace(/^www\./, "").toLowerCase();
+  return (hasKey && _readInSet(h, READ_FC_HOSTS)) ? "firecrawl" : "jina";
+}
 async function _readViaProxy(u, host, env) {
-  if (env && env.FIRECRAWL_API_KEY) return _readViaFirecrawl(u, host, env);
+  if (readProxyChoice(host, !!(env && env.FIRECRAWL_API_KEY)) === "firecrawl") {
+    const r = await _readViaFirecrawl(u, host, env);   // allowlisted host only
+    if (r && r.accessible) return r;
+    return _readViaJina(u, host, env);                 // Firecrawl miss → Jina backstop
+  }
   return _readViaJina(u, host, env);
 }
 async function _readViaFirecrawl(u, host, env) {
@@ -3310,11 +3331,12 @@ export const FEED_SOURCES = [
   // emitted items so the Home page routes them to the FT stream, not Macro; no
   // topic/quality filters — the reader curated this feed themselves.
   // { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, myft: true, soft: true },
-  // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2
-  // days). Reuters US + UK are CONSOLIDATED into one query (the two macro keyword
-  // sets OR'd together) to save a Worker subrequest — one gnews source instead of
-  // two, each of which also spends a variant/Bing fallback.
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%20OR%20%22Bank%20of%20England%22%20OR%20gilt%20OR%20%22UK%20economy%22%20OR%20sterling%29%20when%3A2d", source: "Reuters", region: "GEN", cap: 11, gnews: true },
+  // Reuters — SWITCHED OFF (2026-10). reuters.com is bot-walled and never opens in the
+  // reading pane (even the browser proxy fails), so its headlines were read-nowhere
+  // dead-ends. Removed as a wire source; AP (below) carries the openly-readable global
+  // wire. Commented out (not deleted) so it can be restored by uncommenting if that
+  // changes — but note the reader would still need to open reuters.com for it to be useful.
+  // { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%20OR%20%22Bank%20of%20England%22%20OR%20gilt%20OR%20%22UK%20economy%22%20OR%20sterling%29%20when%3A2d", source: "Reuters", region: "GEN", cap: 11, gnews: true },
   // Associated Press — the openly-readable global wire (replaces the dropped
   // paywalled wires). No first-party RSS, so bridged via Google News scoped to
   // macro/markets terms; the STANDARD macro-relevance filter then culls AP's broad

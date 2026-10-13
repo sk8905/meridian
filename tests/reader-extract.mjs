@@ -3,7 +3,7 @@
 // pass, so we feed it representative HTML and assert the reading-mode output: title,
 // byline/date, clean paragraphs (boilerplate stripped, entities decoded, <article>
 // preferred), and the paywall signal (schema.org isAccessibleForFree=false).
-import { extractReadable, readHostAllowed, proxyParagraphs, proxyBlocks } from "../src/index.js";
+import { extractReadable, readHostAllowed, proxyParagraphs, proxyBlocks, readProxyChoice } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 import fs from "node:fs";
 
@@ -836,5 +836,13 @@ const xss = extractReadable(xssDoc, u("https://www.legalcheek.com/x/"));
 const xssB = xss.blocks.find((b) => b.html && /example\.com/.test(b.html));
 check(xssB && !/<script|<b>|alert\(1\)/i.test(xssB.html), "xss: anchor text is stripped+escaped — no <script>/<b> or script payload survives in blocks[].html");
 check(xssB && /<a href="https:\/\/example\.com\/x" target="_blank" rel="noopener noreferrer">Example News<\/a>/.test(xssB.html), "xss: the anchor keeps its http(s) href with clean, escaped link text");
+
+// ---- Reader proxy policy (COST): Jina by default, Firecrawl only for an allowlisted
+//      host AND only when the key is configured. This keeps a burst of interactive
+//      reading from quietly draining Firecrawl credit.
+check(readProxyChoice("someblog.example.com", true) === "jina", "proxy: a non-allowlisted host uses Jina even when the Firecrawl key is set");
+check(readProxyChoice("someblog.example.com", false) === "jina", "proxy: with no Firecrawl key, every host uses Jina");
+check(readProxyChoice("reuters.com", true) === "jina", "proxy: Reuters is NOT on the Firecrawl allowlist (removed as a source)");
+check(readProxyChoice("zzz-nohost.invalidtld", true) === "jina", "proxy: an unknown host never escalates to Firecrawl");
 
 finish();

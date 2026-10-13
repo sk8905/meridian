@@ -136,8 +136,9 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   stories** on every wire render, both surfaces (`prefetchTopReads` — warms the viewer's own
   edge colo); (2) a **15-min cron** (`prewarmReads`) extracts the day's top stories into
   **global KV** so a first open is instant *everywhere*, even a cold colo — and it is
-  **direct-fetch only**, so it spends **zero** Firecrawl/Jina proxy quota on a schedule
-  (bot-walled sources stay on the on-demand path); (3) `handleRead` checks KV on an edge miss
+  **direct-fetch only**, so it spends **zero** Jina/Firecrawl proxy quota on a schedule
+  (bot-walled sources stay on the on-demand path; and on-demand, Jina is the default —
+  Firecrawl is reserved for the `READ_FC_HOSTS` allowlist, see R-reader below); (3) `handleRead` checks KV on an edge miss
   and repopulates the local edge. The edge key and the KV key share one version constant
   (`READ_VER`) — **bump it on any extractor change** so both invalidate in lockstep.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
@@ -1075,9 +1076,13 @@ item keeps a real outbound source link (R7).
 > The Wall Street Journal, The Economist** — are **switched off** at source (commented
 > out in `FEED_SOURCES`, reversibly; the FT desk's static side is gated by `FT_DESK_ON`
 > in `v2/js/home/glance.js`). **Nikkei Asia** (hard paywall) and **The Lawyer** are
-> dropped. Reuters, AP, CNA and The Straits Times are open-but-bot-shielded and render
-> via the Firecrawl browser proxy. The old ≤30% paywalled-share cap was removed.
-- Reuters (via aggregation)
+> dropped. **Reuters was removed as a wire source (2026-10)** — reuters.com is bot-walled
+> and never opened in the reading pane, so its headlines were dead-ends. The remaining
+> open-but-bot-shielded sources (AP, CNA, The Straits Times) render via the on-demand
+> browser proxy — **Jina by default; Firecrawl only for an explicit `READ_FC_HOSTS`
+> allowlist** (empty by default) so interactive reading doesn't drain paid Firecrawl
+> credit (see `_readViaProxy` / `readProxyChoice` in `src/index.js`). The old ≤30%
+> paywalled-share cap was removed.
 - Associated Press (`apnews.com`) — openly-readable global wire (via Google News bridge)
 - CNBC (`cnbc.com`)
 - MarketWatch

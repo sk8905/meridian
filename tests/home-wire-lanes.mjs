@@ -103,8 +103,9 @@ check(await pg.evaluate(() => !!document.querySelector("#g-readpane .g-read-ttl,
 // The premium four (FT/Bloomberg/WSJ/Economist) and Nikkei are culled from the general
 // news + macro desks, so nothing on the All lane needs a login. (The old ≤30% cap was
 // replaced by this hard cull — see renderWire in glance.js. Bot-walled-but-free sources
-// like Reuters still appear: they render in-pane via the Firecrawl proxy, so they carry
-// the "opens at the publisher" mark, not the subscriber padlock.) -------------------
+// (e.g. AP) still appear: they render in-pane via the browser proxy (Jina by default),
+// so they carry the "opens at the publisher" mark, not the subscriber padlock. Reuters
+// was removed as a wire source in 2026-10 — it never opened in the reading pane.) -----
 const sub = await pg.evaluate(() => {
   // News rows only — manager-event rows (.g-mw-fev) merged into the All lane can be
   // sourced from Bloomberg/FT and are shown (with a padlock / link-out) by design;

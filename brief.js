@@ -74,7 +74,9 @@ export function initBrief() {
   };
   // Top story = the single freshest PREMIUM-newsroom headline (same premium set
   // Home leads with), so the app pages open on the same "Top story" as Home.
-  const PREMIUM = new Set(["Financial Times", "Bloomberg", "Reuters", "CNBC", "The Wall Street Journal", "The Economist", "The Guardian", "MarketWatch", "FT Alphaville"]);
+  // Reuters is intentionally excluded — reuters.com is bot-walled and never opens in the
+  // reading pane, so it must not become the "Top story" lead (a dead-end link).
+  const PREMIUM = new Set(["Financial Times", "Bloomberg", "CNBC", "The Wall Street Journal", "The Economist", "The Guardian", "MarketWatch", "FT Alphaville"]);
   fetch("/api/feed", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {

@@ -29,7 +29,10 @@ export async function launchChromium() {
 }
 
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json", ".png": "image/png" };
-const feedItems = (n = 30) => Array.from({ length: n }, (_, i) => ({ title: `Story ${i} on markets and rates`, url: `https://www.ft.com/x${i}`, source: i % 2 ? "FT" : "Reuters", date: "2026-07-19", time: `0${9 - (i % 9)}:00`, desk: "m" }));
+// item 0 is a premium-AND-readable source (CNBC) so the briefing "Top story" lead
+// always resolves (Reuters was removed from the premium lead set — it was bot-walled);
+// the remaining even items stay "Reuters" to exercise the bot-walled link-out rendering.
+const feedItems = (n = 30) => Array.from({ length: n }, (_, i) => ({ title: `Story ${i} on markets and rates`, url: i === 0 ? "https://www.cnbc.com/x0" : `https://www.ft.com/x${i}`, source: i === 0 ? "CNBC" : (i % 2 ? "FT" : "Reuters"), date: "2026-07-19", time: `0${9 - (i % 9)}:00`, desk: "m" }));
 
 export function serve(apis = {}) {
   const srv = http.createServer((q, r) => {
