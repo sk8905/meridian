@@ -351,12 +351,16 @@ function fetchHeaders(url) {
   };
 }
 
+// Upstream market/macro fetches (FRED, ECB, Treasury, CNBC, Yahoo, stooq …) are
+// time-boxed so one stalled source can't hang /api/rates, /api/markets or /api/macro.
+const MARKET_FETCH_MS = 6000;
+
 // Fetch text with a couple of retries; small CSVs so this is cheap. Only 200s are
 // cached (no cacheEverything) so a transient 404/403 is never held.
 async function fetchText(url) {
   for (let i = 0; i < 3; i++) {
     try {
-      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 900 } });
+      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 900 }, signal: AbortSignal.timeout(MARKET_FETCH_MS) });
       if (r.ok) return await r.text();
     } catch { /* retry */ }
   }
@@ -571,7 +575,7 @@ async function handleRates(request, env, ctx) {
     }
     const probes = await Promise.all(probeUrls.map(async ([label, u]) => {
       try {
-        const r = await fetch(u, { headers: fetchHeaders(u) });
+        const r = await fetch(u, { headers: fetchHeaders(u), signal: AbortSignal.timeout(MARKET_FETCH_MS) });
         const body = await r.text();
         return { label, status: r.status, ok: r.ok, len: body.length, snippet: body.slice(0, 200) };
       } catch (e) {
@@ -648,7 +652,7 @@ async function handleHfm(request, env, ctx) {
   const url = new URL(request.url);
   // ?debug=1 — probe OFR reachability from the Worker (read-only, uncached).
   if (url.searchParams.get("debug")) {
-    const probe = async (u) => { try { const r = await fetch(u, { headers: fetchHeaders(u) }); const b = await r.text(); return { status: r.status, len: b.length, snippet: b.slice(0, 160) }; } catch (e) { return { error: String((e && e.message) || e) }; } };
+    const probe = async (u) => { try { const r = await fetch(u, { headers: fetchHeaders(u), signal: AbortSignal.timeout(MARKET_FETCH_MS) }); const b = await r.text(); return { status: r.status, len: b.length, snippet: b.slice(0, 160) }; } catch (e) { return { error: String((e && e.message) || e) }; } };
     return new Response(JSON.stringify({
       timeseries: await probe(HFM_BASE + HFM_SERIES[0].m),
       mnemonics: await probe("https://data.financialresearch.gov/hf/v1/metadata/mnemonics/"),
@@ -865,7 +869,7 @@ async function handleMarkets(request, env, ctx) {
       ["stooq igwd.uk", "https://stooq.com/q/d/l/?s=igwd.uk&i=d"],
     ].map(async ([label, u]) => {
       try {
-        const r = await fetch(u, { headers: fetchHeaders(u) }); const b = await r.text();
+        const r = await fetch(u, { headers: fetchHeaders(u), signal: AbortSignal.timeout(MARKET_FETCH_MS) }); const b = await r.text();
         // Surface Yahoo's session status so the /api/markets dot source is verifiable.
         let marketState;
         try { marketState = JSON.parse(b).chart.result[0].meta.marketState; } catch { /* stooq / non-JSON */ }
@@ -997,12 +1001,12 @@ async function _yhCrumb(env, force) {
     try { const c = await env.WATCHLIST.get("yh:crumb", "json"); if (c && c.crumb && c.cookie) return c; } catch { /* miss */ }
   }
   try {
-    const r = await fetch("https://finance.yahoo.com/", { headers: { "user-agent": READ_UA, accept: "text/html" } });
+    const r = await fetch("https://finance.yahoo.com/", { signal: AbortSignal.timeout(MARKET_FETCH_MS), headers: { "user-agent": READ_UA, accept: "text/html" } });
     const sc = (typeof r.headers.getSetCookie === "function" ? r.headers.getSetCookie().join("; ") : (r.headers.get("set-cookie") || ""));
     const parts = [];
     for (const k of ["A1", "A3", "A1S", "GUC"]) { const m = new RegExp("(?:^|[;,\\s])(" + k + "=[^;]+)").exec(sc); if (m) parts.push(m[1]); }
     const cookie = parts.join("; ");
-    const cr = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", { headers: { "user-agent": READ_UA, accept: "text/plain", ...(cookie ? { cookie } : {}) } });
+    const cr = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", { signal: AbortSignal.timeout(MARKET_FETCH_MS), headers: { "user-agent": READ_UA, accept: "text/plain", ...(cookie ? { cookie } : {}) } });
     const crumb = ((await cr.text()) || "").trim();
     if (!crumb || crumb.length > 24 || /[<{]/.test(crumb)) return null;
     const rec = { cookie, crumb, ts: Date.now() };
@@ -1019,7 +1023,7 @@ async function _yhV7(symbols, env) {
     if (!cr) return out;
     try {
       const u = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(syms.join(","))}&crumb=${encodeURIComponent(cr.crumb)}`;
-      const r = await fetch(u, { headers: { "user-agent": READ_UA, accept: "application/json", ...(cr.cookie ? { cookie: cr.cookie } : {}) } });
+      const r = await fetch(u, { signal: AbortSignal.timeout(MARKET_FETCH_MS), headers: { "user-agent": READ_UA, accept: "application/json", ...(cr.cookie ? { cookie: cr.cookie } : {}) } });
       if (r.status === 401 || r.status === 403) continue;   // stale crumb → refresh + retry once
       if (!r.ok) return out;
       const j = await r.json().catch(() => null);
@@ -3089,7 +3093,7 @@ function cleanHeadline(s) {
 async function fetchUtf8(url) {
   for (let i = 0; i < 2; i++) {
     try {
-      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 900 } });
+      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 900 }, signal: AbortSignal.timeout(MARKET_FETCH_MS) });
       if (r.ok) return new TextDecoder("utf-8").decode(await r.arrayBuffer());
     } catch { /* retry */ }
   }

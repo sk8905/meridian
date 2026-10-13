@@ -3594,7 +3594,18 @@ function ratesTile(x) {
 // Last-good market/rates payloads, persisted so a reload (or a failed refetch)
 // shows the most recent numbers immediately instead of a "Loading…" placeholder.
 function readCache(key) { try { const s = localStorage.getItem("m_glance_" + key); return s ? JSON.parse(s) : null; } catch { return null; } }
-function writeCache(key, d) { try { localStorage.setItem("m_glance_" + key, JSON.stringify(d)); } catch { /* quota/private mode — skip */ } }
+function writeCache(key, d) { try { localStorage.setItem("m_glance_" + key, JSON.stringify(d)); localStorage.setItem("m_glance_" + key + "_t", String(Date.now())); } catch { /* quota/private mode — skip */ } }
+// When a refetch FAILS and last-good tiles are still on screen, say so visibly (the
+// as-of tooltip never shows on a phone), so cached prices never read as live.
+function markStale(el, key) {
+  if (!el || !el.querySelector(".rate-tile") || el.querySelector(".g-stale")) return;
+  let t = 0; try { t = +localStorage.getItem("m_glance_" + key + "_t") || 0; } catch { /* ignore */ }
+  const when = t ? new Date(t) : null;
+  const stamp = when ? (when.toDateString() === new Date().toDateString()
+    ? when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    : when.toLocaleDateString([], { day: "numeric", month: "short" }) + " " + when.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })) : "";
+  el.insertAdjacentHTML("beforeend", `<div class="g-stale" role="status">Live update failed — showing cached values${stamp ? ` from ${esc(stamp)}` : ""}</div>`);
+}
 function renderRates(el, d) {
   const rowsData = (d && d.rates) || [];
   if (!rowsData.length) return false;
@@ -3617,7 +3628,7 @@ function initRates() {
   fetch("/api/rates?v=14")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderRates(el, d)) writeCache("rates", d); })
-    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_briefLeads.rates) setGlance("gl-rates", "Rates data unavailable right now."); } });
+    .catch(() => { markStale(el, "rates"); if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_briefLeads.rates) setGlance("gl-rates", "Rates data unavailable right now."); } });
 }
 // ---- Strait of Hormuz vessel transits (IMF PortWatch) ----------------------
 // Two separate daily counts — ALL vessels (n_total) and OIL TANKERS (n_tanker) —
@@ -4213,7 +4224,7 @@ function initMarkets() {
   fetch("/api/markets?v=10")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderMarketsBand(el, d)) writeCache("markets", d); })
-    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.markets) { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_briefLeads.markets) setGlance("gl-markets", "Markets data unavailable right now."); } });
+    .catch(() => { markStale(el, "markets"); if (!el.querySelector(".rate-tile") && !_pulse.markets) { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_briefLeads.markets) setGlance("gl-markets", "Markets data unavailable right now."); } });
 }
 
 // The "market pulse" — two direction+driver one-liners written server-side by

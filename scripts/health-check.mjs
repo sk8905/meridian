@@ -95,6 +95,42 @@ if (lastCommitAgeH != null && inActiveWindow && lastCommitAgeH > CADENCE_MAX_HOU
   });
 }
 
+// ---- 2b. Collection yield ------------------------------------------------
+// The cadence check proves a routine COMMITTED, not that it COLLECTED: in the week to
+// 2026-10-13 ~80 routine runs restamped on schedule while adding ~27 records. Count the
+// records actually added to the data modules in the last 24h (new `id:` lines in the
+// diff) so a restamp-only routine can't read as healthy.
+const YIELD_FILES = { deals: /"?id"?\s*:\s*"d\d+"/, intel: /"?id"?\s*:\s*"i\d+"/, hedge: /"?id"?\s*:\s*"hi\d+"/, legal: /"?id"?\s*:\s*"(u|c|rx)\d+"/ };
+let yield24 = null;
+try {
+  const hasOrigin = spawnSync("git", ["rev-parse", "--verify", "-q", "origin/main"], { cwd: ROOT, encoding: "utf8" }).status === 0;
+  const r = spawnSync("git", ["log", "--since=24 hours ago", "-p", "--format=", hasOrigin ? "origin/main" : "HEAD", "--", "credit/js/data.js", "legal/js/data.js"],
+    { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 });
+  if (r.status === 0) {
+    yield24 = { deals: 0, intel: 0, hedge: 0, legal: 0 };
+    const added = new Set(), removed = new Set();
+    for (const line of r.stdout.split("\n")) {
+      const sign = line[0];
+      if (sign !== "+" && sign !== "-") continue;
+      const m = line.match(/"?id"?\s*:\s*"((?:d|i|hi|u|c|rx)\d+)"/); if (!m) continue;
+      (sign === "+" ? added : removed).add(m[1]);
+    }
+    for (const id of added) {
+      if (removed.has(id)) continue; // an edited record, not a new one
+      for (const [k, re] of Object.entries(YIELD_FILES)) if (re.test(`id: "${id}"`)) { yield24[k]++; break; }
+    }
+  }
+} catch { /* not a git checkout — skip yield */ }
+const yieldTotal = yield24 ? Object.values(yield24).reduce((a, b) => a + b, 0) : null;
+if (yield24 && yieldTotal === 0 && lastCommitAgeH != null && lastCommitAgeH < 24) {
+  issues.push({
+    area: "yield",
+    severity: "attention",
+    detail: "the routines published in the last 24h but added NO new deals, intel, hedge-fund or legal records",
+    solution: "The refresh is restamping without collecting. Check the routine run summaries for the searches run; a full day with zero new verified records across ~200 managers and 26 law firms means the sweep is not running.",
+  });
+}
+
 // ---- 3. Build sanity ------------------------------------------------------
 const MODULES = [
   { label: "Worker (src/index.js)", cmd: ["node", "--check", "src/index.js"] },
@@ -120,7 +156,7 @@ const verdict = fails.length ? "FAIL" : attention.length ? "ATTENTION" : "GOOD";
 const ok = verdict === "GOOD";
 
 if (asJson) {
-  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH }, null, 2));
+  console.log(JSON.stringify({ generated: new Date().toISOString(), verdict, ok, fails, attention, coverage, cadenceHours: lastCommitAgeH, newRecords24h: yield24 }, null, 2));
 } else {
   const date = new Date().toISOString().slice(0, 10);
   console.log(`WIRE HEALTH CHECK — ${date}`);
@@ -137,6 +173,7 @@ if (asJson) {
     console.log("");
   }
   if (coverage) console.log(`Manager-profile backfill (ongoing, not a failure): ${coverage.reach2020}/${coverage.totalManagers} profiles reach ≤2020, ${coverage.flagged} flagged for depth.`);
+  if (yield24) console.log(`New records published in the last 24h: ${yieldTotal} (deals ${yield24.deals} · intel ${yield24.intel} · hedge ${yield24.hedge} · legal ${yield24.legal}).`);
   if (lastCommitAgeH != null) console.log(`Last publish to this checkout: ${lastCommitAgeH.toFixed(1)}h ago — "${lastCommitSubject}".`);
   if (ok) console.log("\nAll content surfaces fresh, the refresh is publishing on cadence, and every module builds cleanly.");
 }

@@ -29,6 +29,8 @@ if (j) {
     "legal_items", "legal_cases", "legal_rx",
     "macro_news", "macro_commentary", "macro_articles", "macro_releases", "macro_editorial",
     "dashboard_eq", "xfeed_myft", "xfeed_newsletters", "research_lane",
+    "manager_webnews", "macro_alerts", "macro_keymoments", "earnings", "hf_13f",
+    "dashboard_snapshot", "hf_aum", "lp_profiles", "legal_volume", "credit_volume",
   ];
   const missing = REQUIRED.filter((k) => !keys.has(k));
   check(missing.length === 0, `freshness-audit: audits every content surface${missing.length ? ` (MISSING: ${missing.join(", ")})` : ` (${REQUIRED.length} surfaces)`}`);

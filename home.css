@@ -613,6 +613,7 @@
     .g-sec:first-of-type { padding-top:.35rem; }
     .g-empty { color:var(--muted); font-size:var(--fs-head); padding:.4rem 0; }
     .g-loading { color:var(--muted); font-size:var(--fs-head); padding:.5rem 0; }
+    .g-stale { flex-basis:100%; color:var(--t-down, var(--muted)); font-size:var(--fs-micro); padding:4px 2px 0; }
     .g-foot { padding-top:.9rem; }
     .g-cta { display:inline-block; margin-top:.7rem; font-size:var(--fs-head); font-weight:700; color:var(--ac); }
     .g-cta:hover { text-decoration:none; }

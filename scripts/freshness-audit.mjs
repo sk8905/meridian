@@ -50,7 +50,7 @@ const BRIEF_STALE_HOURS = Math.max(1, parseInt(opt("--brief-stale", "6"), 10) ||
 
 const now = Date.now();
 const msOf = (d) => { const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d || "").slice(0, 10); const t = Date.parse(s); return Number.isNaN(t) ? 0 : t; };
-const ageDaysOf = (ms) => (ms ? Math.round((now - ms) / 86400000) : null);
+const ageDaysOf = (ms) => (ms ? Math.floor((now - ms) / 86400000) : null);
 
 // Newest dated record across one or more arrays, by the given date field(s).
 function newest(rows, field = "date") {
@@ -121,6 +121,49 @@ function macroEditorialSurface() {
 // "nothing new since 9 Oct" plateau). Hold them to a TIGHTER 3-day window so the audit —
 // and therefore the refresh / heavy-sweep routines and the daily health email — flag a
 // stalled credit collector within a couple of days, not a week.
+// ---- Surfaces the newest-date check alone can't judge (added by the 2026-10-13 audit,
+// which found these rotting unseen) ------------------------------------------------
+const DAY_MS = 86400000;
+const startOfWeekUTC = () => { const d = new Date(); d.setUTCHours(0, 0, 0, 0); const dow = (d.getUTCDay() + 6) % 7; return d.getTime() - dow * DAY_MS; };
+// A one-off "as of" stamp judged on its own window (13F quarter, dashboard snapshot …).
+function stampSurface(key, label, stamp, windowDays, count = 1, note) {
+  const s = surface(key, label, stamp ? [{ date: stamp }] : [], "date", windowDays);
+  s.count = count; if (note) s.note = note; return s;
+}
+// Profile-style collections: stale when MOST records' as-of dates are older than maxAgeDays.
+function asOfSurface(key, label, rows, field, maxAgeDays) {
+  const ms = (rows || []).map((r) => msOf(r && r[field]));
+  const old = ms.filter((m) => !m || (now - m) / DAY_MS > maxAgeDays).length;
+  const share = rows && rows.length ? old / rows.length : 1;
+  const newest = Math.max(0, ...ms);
+  return { key, label, count: (rows || []).length, newestDate: newest ? new Date(newest).toISOString().slice(0, 10) : null,
+    ageDays: ageDaysOf(newest), stale: share > 0.5, windowDays: maxAgeDays,
+    note: `${Math.round(share * 100)}% older than ${maxAgeDays}d` };
+}
+// VOLUME: a single new item resets a newest-date check, so a collector that has
+// slowed to a trickle still reads "fresh" (legal alerts fell from ~320/month to
+// single digits in Oct 2026 unseen). Stale when the last 7 days carry under a
+// quarter of the trailing 8-week weekly median.
+function volumeSurface(key, label, rows) {
+  const t = (rows || []).map((r) => msOf(r && r.date)).filter(Boolean);
+  const weeks = [];
+  for (let w = 1; w <= 8; w++) weeks.push(t.filter((m) => m <= now - w * 7 * DAY_MS && m > now - (w + 1) * 7 * DAY_MS).length);
+  const sorted = [...weeks].sort((a, b) => a - b), median = (sorted[3] + sorted[4]) / 2;
+  const last7 = t.filter((m) => m > now - 7 * DAY_MS).length;
+  return { key, label, count: last7, newestDate: null, ageDays: null, windowDays: 7,
+    stale: median >= 4 && last7 < median / 4, note: `${last7} in last 7d vs ${median}/wk median` };
+}
+// 13F: a quarter's filings are public 45 days after quarter-end, so the panel is a
+// quarter behind once quarter-end + 135 days passes.
+const _13F = (CR.HF_13F || {}).asOf || null;
+// Earnings: rows must reach into the current week (the "This week" label is otherwise wrong).
+const _earnRows = ((MAC.EARNINGS || {}).weeks || []).flatMap((w) => (w.days || []).map((d) => ({ date: d.date })));
+const _earnNewest = newest(_earnRows);
+const earningsSurface = { key: "earnings", label: "Earnings calendar (this week)", count: _earnRows.length,
+  newestDate: _earnNewest ? new Date(_earnNewest).toISOString().slice(0, 10) : null, ageDays: ageDaysOf(_earnNewest),
+  windowDays: null, stale: !_earnNewest || _earnNewest < startOfWeekUTC(), note: "must include the current week" };
+const _webNews = (CR.managers || []).flatMap((m) => m.webNews || []);
+const _indKm = [...Object.values(MAC.IND_KEYMOMENTS || {}), MAC.FX_KEYMOMENT].filter(Boolean);
 const CREDIT_WIN = 3;
 const SURFACES = [
   surface("deals", "Transactions (credit deals)", CR.deals, "date", CREDIT_WIN),
@@ -139,6 +182,16 @@ const SURFACES = [
   surface("xfeed_myft", "X feed · myFT (ft.js)", FT.FT_ITEMS),
   surface("xfeed_newsletters", "X feed · newsletters", NL.NEWSLETTERS),
   surface("research_lane", "Research lane (research.js)", RSCH.RESEARCH, "date", 10),
+  surface("manager_webnews", "Manager website news (bell)", _webNews),
+  surface("macro_alerts", "Macro alerts (bell)", MAC.ALERTS, "date", 21),
+  surface("macro_keymoments", "Macro indicator / FX Key Moments", _indKm, "date", 21),
+  earningsSurface,
+  stampSurface("hf_13f", "Hedge-fund 13F panel (quarter end)", _13F, 135),
+  stampSurface("dashboard_snapshot", "Dashboard fallback snapshot (DASH_ASOF)", DASH.DASH_ASOF, 45),
+  asOfSurface("hf_aum", "Hedge-fund AUM (aumAsOf)", CR.HEDGE_FUNDS, "aumAsOf", 540),
+  asOfSurface("lp_profiles", "Investor (LP) profiles (asOf)", CR.lps, "asOf", 365),
+  volumeSurface("legal_volume", "Legal alerts — weekly volume", LG.items),
+  volumeSurface("credit_volume", "Credit deals + intel — weekly volume", [...(CR.deals || []), ...(CR.intel || [])]),
 ];
 
 // The Home market briefing: the freshest of its three rolling slots, by (date·time)
@@ -214,6 +267,16 @@ for (const s of staleSurfaces) {
     xfeed_myft: "Re-run the myFT RSS sweep into ft.js (FT_ITEMS).",
     xfeed_newsletters: "Sweep forwarded newsletters into newsletters.js (NEWSLETTERS).",
     research_lane: "Sweep research-house publications into research.js (RESEARCH) — the Research lane's source.",
+    manager_webnews: "Sweep managers' own press pages into `webNews` (and mirror capital events into deals/intel).",
+    macro_alerts: "Review the macro ALERTS bell items against current guidance (macro/js/content.js).",
+    macro_keymoments: "Refresh IND_KEYMOMENTS / FX_KEYMOMENT with current, sourced captions (macro/js/content.js).",
+    earnings: "Roll the EARNINGS calendar to the current and previous week (macro/js/content.js) — verified dates/tickers only.",
+    hf_13f: "Update HF_13F to the latest filed 13F quarter (SEC EDGAR 13F-HR) — credit/js/data.js.",
+    dashboard_snapshot: "Refresh the dashboard fallback snapshot (EQ_*/CR_*/WORLD_INDICES/GOVT_YIELDS) and DASH_ASOF — it shows whenever a live call fails.",
+    hf_aum: "Refresh hedge-fund AUM from Form ADV (SEC IAPD) / firm disclosures; set aumAsOf to the figure's date.",
+    lp_profiles: "Refresh investor (LP) profiles from their latest annual reports; set asOf to the report date.",
+    legal_volume: "Legal alert flow has collapsed vs its weekly median — sweep EVERY firm in `firms` (insights/news pages), firm by firm.",
+    credit_volume: "Credit deal/intel flow has collapsed vs its weekly median — run the full manager + category sweep.",
   };
   actions.push({ surface: s.key, newest: s.newestDate, ageDays: s.ageDays, do: map[s.key] || `Refresh ${s.label}.` });
 }
