@@ -21,6 +21,34 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9c5501bc-7297-4864-a5a7-b2f2001e2dd9",
+    title: "Modi cannot silence India’s disaffected youth",
+    date: "2026-10-13",
+    time: "18:28",
+    url: "https://www.ft.com/content/9c5501bc-7297-4864-a5a7-b2f2001e2dd9"
+  },
+  {
+    id: "e582246d-c869-46dc-a8a5-5ea52fa689e7",
+    title: "‘Pro-business’ Burnham reassures chief executives on tax",
+    date: "2026-10-13",
+    time: "18:28",
+    url: "https://www.ft.com/content/e582246d-c869-46dc-a8a5-5ea52fa689e7"
+  },
+  {
+    id: "9fcf1e27-e0b7-4016-bf19-2f87ac62a13b",
+    title: "Number of UK Isa millionaires jumps 50 per cent in a year",
+    date: "2026-10-13",
+    time: "17:56",
+    url: "https://www.ft.com/content/9fcf1e27-e0b7-4016-bf19-2f87ac62a13b"
+  },
+  {
+    id: "9f6ec5b2-4f0b-4ed3-9541-588d49e3ad7e",
+    title: "Will bank earnings growth become a thing of the past?",
+    date: "2026-10-13",
+    time: "17:49",
+    url: "https://www.ft.com/content/9f6ec5b2-4f0b-4ed3-9541-588d49e3ad7e"
+  },
+  {
     id: "bd1f3385-1985-4a8a-a781-22cbe1292d2d",
     title: "Wall Street plays down investor fears of faltering trading boom",
     date: "2026-10-13",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-13",
     time: "05:00",
     url: "https://www.ft.com/content/ec433e1f-bdb4-4a1c-868e-e1c7c4121f45"
-  },
-  {
-    id: "6219e3f2-e9c1-48d4-ae47-1337e636ce0a",
-    title: "Informa’s trade show bet has a vulnerability — geopolitics",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/6219e3f2-e9c1-48d4-ae47-1337e636ce0a"
-  },
-  {
-    id: "39da2672-e57a-41aa-8f03-970ae37d88a6",
-    title: "How BT’s TalkTalk swoop left broadband rivals fuming",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/39da2672-e57a-41aa-8f03-970ae37d88a6"
-  },
-  {
-    id: "e3b31db9-5fe2-4ce8-a1f4-0327c69900a8",
-    title: "Trump’s loan to a US defence start-up adds to Apollo’s war chest too",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/e3b31db9-5fe2-4ce8-a1f4-0327c69900a8"
-  },
-  {
-    id: "1724a30e-cf50-4a4e-ade8-bca72ea4b9a1",
-    title: "Why Trump is going for Zelenskyy’s jugular",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1"
   }
 ];

@@ -100,12 +100,12 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-13",
-  time: "17:20 BST",
-  lede: "Big-bank earnings open Q3 season with Goldman far ahead and JPMorgan short, the US 10-year yield eases to about 5.2% from a 24-year high, and Arini raises $1.5bn despite a 13.5% fund loss.",
+  time: "19:20 BST",
+  lede: "Treasury yields, bank earnings and IMF warnings on bond-market risk framed the day, while private-credit redemption pressure at non-traded BDCs showed early signs of easing.",
   bullets: [
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to about 5.20% from 5.24%</strong>, stepping back from the 24-year high of 5.364% hit last week as oil prices retreated.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html", srcName: "Yahoo Finance", date: "2026-10-13" },
     { html: "<strong>Equities &mdash; bank earnings split the tape:</strong> Goldman Sachs earned $17.01 a share (vs $12.25 a year ago) on $18.68bn revenue, while JPMorgan&rsquo;s $5.57 EPS missed the $5.93 consensus; chip stocks slid, with Micron down about 5.8% early.", src: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html", srcName: "CNBC", date: "2026-10-13" },
     { html: "<strong>Macro &mdash; the IMF&rsquo;s latest outlook holds up but nears the limits of resilience</strong>, while the Fund&rsquo;s separate stability report singles out surging bond yields as the top risk to the financial system.", src: "https://www.bloomberg.com/news/articles/2026-10-13/world-economy-holds-up-but-nears-limits-of-resilience-imf-says", srcName: "Bloomberg", date: "2026-10-13" },
-    { html: "<strong>Credit &mdash; Arini raised $1.5bn</strong> even as its main fund reported a 13.5% loss, while Partners Group launched an evergreen multi-sector private credit income strategy.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg", date: "2026-10-05" },
+    { html: "<strong>Credit &mdash; redemption requests at perpetual non-traded BDCs fell quarter on quarter at 13 of 15 tracked vehicles</strong> but still averaged 9.8% of shares, above the 5% cap at nine, per Fitch; Fitch expects further declines in coming quarters.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk1Rb7mMWlAmc_OtJ58Ixz-D4naVC4G8VQQGmARJOZKvK_7Hs_WgDiZftmyZrOEi3XWC1L9BA=", srcName: "Fitch Ratings", date: "2026-10-13" },
   ],
 };

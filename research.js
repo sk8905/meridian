@@ -103,6 +103,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-pimco-creditmarketlens-directlending-20261013",
+    publication: "PIMCO",
+    author: "Lotfi Karoui",
+    series: "The Credit Market Lens",
+    title: "Green Shoots and Legacy Risks in Direct Lending",
+    date: "2026-10-13",
+    time: "17:30",
+    summary: "New direct-lending vintages are improving on wider spreads and lower leverage while legacy portfolios still carry peak-era terms; BDC marks remain widely dispersed.",
+    url: "https://mktg-alerts.pimco.com/v/ODc5LUFFTC0xNTgAAAGk1RLo3LCAxndLv7Vsp-M2yO_90uJ3Yl7reUDYRqb4f5ECJwmeOnqxkp-eZ08LIwdjlPef29g="
+  },
+  {
     id: "rsch-ubs-donovan-dangerousgame-20261013",
     publication: "UBS CIO",
     author: "Paul Donovan",

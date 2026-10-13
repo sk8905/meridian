@@ -48,6 +48,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-fitch-wiredaily-perpetualbdcredemptions-20261013",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "Fitch Wire Daily",
+    title: "Fitch Wire Daily: First Rated Saudi RMBS Deal Highlights Scope for SF Market Development; Perpetual BDC Redemption Wave Eases as Pro-Rated Requests Fulfilled",
+    date: "2026-10-13",
+    time: "17:35",
+    summary: "Redemption requests fell quarter on quarter at 13 of 15 perpetual non-traded BDCs but still averaged 9.8% of shares, above the 5% cap at nine.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk1Rb7mMWlAmc_OtJ58Ixz-D4naVC4G8VQQGmARJOZKvK_7Hs_WgDiZftmyZrOEi3XWC1L9BA="
+  },
+  {
+    id: "nl-bbg-moneystuff-theyfoundsomewaltervictims-20261013",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: They Found Some Walter Victims",
+    date: "2026-10-13",
+    time: "18:53",
+    summary: "Annuities, contempt, swaps, options.",
+    url: "https://bloom.bg/4ztiLQz"
+  },
+  {
     id: "nl-thelawyer-newsdaily-mancitysupersilk-20261013",
     publication: "The Lawyer",
     author: null,
