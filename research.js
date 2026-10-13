@@ -103,6 +103,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-ubs-donovan-dangerousgame-20261013",
+    publication: "UBS CIO",
+    author: "Paul Donovan",
+    series: "Morning audio comment",
+    title: "A dangerous game?",
+    date: "2026-10-13",
+    time: "08:24",
+    summary: "The Fed is trying to hold rates at the top of the neutral range using imprecise data; chip-stock volatility after Broadcom's \u201ccasino\u201d remark has limited global economic impact.",
+    url: "https://www.ubs.com/global/en/wealth-management/insights/chief-investment-office/market-insights/paul-donovan.html",
+  },
+  {
     id: "rsch-apollo-10yr-decomposition-20261013",
     publication: "Apollo Academy",
     author: "Torsten Slok",
