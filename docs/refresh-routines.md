@@ -672,6 +672,13 @@ skip if none fits), `type` (alert for deals/news, insight/update for articles), 
 give exact dates for undated / estimated items (match by URL; set `date`, delete
 `dateEstimated`, then lower the MAX_UNDATED_LEGAL / MAX_ESTIMATED_LEGAL ratchets).
 
+**Date repair — `firm-history.json` → `repairs`.** The collector skips URLs Wire
+already holds, so a URL match against `items` finds nothing for Wire's own undated /
+estimated legal items. Instead the daily history run re-reads each of those pages and
+writes `repairs: [{id, url, date, dateSource, was}]` — the page's own published date
+(never a URL date). Apply by `id`: set `date`, delete `dateEstimated`, then lower the
+MAX_UNDATED_LEGAL / MAX_ESTIMATED_LEGAL ratchets.
+
 ## Profile rota (`scripts/profile-rota.mjs`) — slow data no feed refreshes
 
 `node scripts/profile-rota.mjs` prints this run's bounded slice, oldest first. Work it

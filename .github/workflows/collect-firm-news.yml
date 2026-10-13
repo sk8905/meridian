@@ -9,7 +9,9 @@ name: collect-firm-news
 #
 #   every 2h        → backfill/firm-news.json     (last 14 days, ≤40 pages/firm)
 #   daily 03:47     → backfill/firm-history.json  (since 2020-01-01; keeps what it holds and
-#                     fetches the next ≤400 unseen pages per firm, so it works back towards 2020)
+#                     fetches the next ≤400 unseen pages per firm, so it works back towards 2020;
+#                     --repair also re-reads Wire's undated/estimated legal items' own pages →
+#                     `repairs: [{id, url, date, dateSource}]`)
 #   manual dispatch → choose the mode
 
 on:
@@ -57,7 +59,7 @@ jobs:
         run: |
           mkdir -p backfill
           if [ "${{ steps.mode.outputs.mode }}" = "history" ]; then
-            node scripts/collect-firm-news.mjs --since=2020-01-01 --max=400 --merge=backfill/firm-history.json > /tmp/out.json
+            node scripts/collect-firm-news.mjs --since=2020-01-01 --max=400 --merge=backfill/firm-history.json --repair > /tmp/out.json
             dest=backfill/firm-history.json
           else
             node scripts/collect-firm-news.mjs --since=14d --max=40 > /tmp/out.json
@@ -73,7 +75,7 @@ jobs:
         run: |
           # Compare items only (the "generated" stamp changes every run).
           if git show "HEAD:$DEST" > /tmp/prev.json 2>/dev/null && \
-             node -e 'const a=require("/tmp/prev.json").items,b=require(process.argv[1]).items;process.exit(JSON.stringify(a)===JSON.stringify(b)?0:1)' "$PWD/$DEST"; then
+             node -e 'const p=require("/tmp/prev.json"),q=require(process.argv[1]);process.exit(JSON.stringify([p.items,p.repairs])===JSON.stringify([q.items,q.repairs])?0:1)' "$PWD/$DEST"; then
             echo "No change in $DEST"; exit 0
           fi
           git config user.name "wire-collector[bot]"

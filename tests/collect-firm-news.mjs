@@ -32,6 +32,12 @@ check(it.description === "Latham advised Acme on its refinancing.", "the page's 
 check(r.stat.sitemaps === 3, `robots.txt → sitemap index → child sitemaps are all read (${r.stat.sitemaps})`);
 const r2 = await collectFirm("latham", ["www.lw.com"], { since: "2026-10-01", max: 10, fetcher, skip: new Set(["lw.com/en/news/latham-advises-acme-on-500m-refinancing"]) });
 checkEq(r2.items.length, 0, "pages already collected (a previous history file) are skipped, so the next run reaches further back");
+{
+  const { repairDates } = await import("../scripts/collect-firm-news.mjs");
+  const fx = async (u) => u.endsWith("/a") ? "<title>A</title><p class=\"article-date\">October 9, 2026</p>" : u.endsWith("/b") ? "<title>B</title>" : null;
+  const rep = await repairDates([{ id: "u2", firm: "weil", url: "https://www.weil.com/articles/b", date: "2026-10" }, { id: "u1", firm: "weil", url: "https://www.weil.com/articles/a", date: "2026-10-01", dateEstimated: true }], { fetcher: fx, firmName: () => "Weil" });
+  check(rep.length === 1 && rep[0].id === "u1" && rep[0].date === "2026-10-09" && rep[0].was === "2026-10-01", "date repair returns the page's own date for an estimated item Wire holds, by id (pages without a date are left out)");
+}
 
 // Unit pieces.
 checkEq(parseSitemap(site["https://www.lw.com/sitemap-index.xml"]).index.length, 2, "sitemap index parsed");

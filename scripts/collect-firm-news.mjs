@@ -205,6 +205,30 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get,
   return { stat, items };
 }
 
+// DATE REPAIR: the legal items Wire already holds without an exact date (undated or
+// `dateEstimated`) on a tracked firm's own site. The collectors above skip URLs Wire
+// holds, so these are fetched separately; each page's own published date comes back
+// as `repairs: [{id, url, date, dateSource}]` for the routines to apply by id.
+export function repairTargets(doms = firmDomains()) {
+  const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
+  return (LG.items || []).filter((i) => (!i.date || i.dateEstimated) && (doms[i.firm] || []).some((d) => d.replace(/^www\./, "") === host(i.url)));
+}
+export async function repairDates(targets, { fetcher = get, firmName = (id) => ((LG.firms || []).find((f) => f.id === id) || {}).name || "" } = {}) {
+  const out = [], queue = [...targets];
+  await Promise.all(Array.from({ length: 4 }, async () => {
+    while (queue.length) {
+      const t = queue.shift();
+      const html = await fetcher(t.url);
+      if (html) {
+        const m = pageMeta(html, t.url, firmName(t.firm));
+        if (m.date && m.dateSource !== "url" && m.date <= new Date().toISOString().slice(0, 10)) out.push({ id: t.id, url: t.url, date: m.date, dateSource: m.dateSource, was: t.date || null });
+      }
+      await new Promise((r) => setTimeout(r, 300));
+    }
+  }));
+  return out.sort((a, b) => a.id.localeCompare(b.id, "en", { numeric: true }));
+}
+
 if (import.meta.url === `file://${process.argv[1]}`) {
   const since = parseSince(opt("--since", "14d"));
   const max = Math.max(1, parseInt(opt("--max", "40"), 10) || 40);
@@ -231,7 +255,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     }
   }));
   items.sort((a, b) => String(b.date || b.lastmod || "").localeCompare(String(a.date || a.lastmod || "")));
-  console.log(JSON.stringify({ generated: new Date().toISOString(), since, firms, items }, null, 1));
+  const repairs = args.includes("--repair") ? await repairDates(repairTargets(doms)) : undefined;
+  console.log(JSON.stringify({ generated: new Date().toISOString(), since, firms, items, ...(repairs ? { repairs } : {}) }, null, 1));
   const ok = Object.values(firms).filter((s) => s.sitemaps > 0).length;
   console.error(`firm news: ${items.length} items from ${ok}/${ids.length} firms with a readable sitemap (since ${since})`);
 }
