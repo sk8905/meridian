@@ -57,7 +57,7 @@ for (const s of staleSurfaces) {
   issues.push({
     area: `content:${s.key}`,
     severity: "attention",
-    detail: `${s.label} is ${s.ageDays}d old (newest ${s.newestDate}, ${s.count} items)` + (s.min ? ` — below the ≥${s.min} floor` : ""),
+    detail: (s.ageDays == null && s.note ? `${s.label}: ${s.note}` : `${s.label} is ${s.ageDays}d old (newest ${s.newestDate}, ${s.count} items)`) + (s.min ? ` — below the ≥${s.min} floor` : ""),
     solution: actionBy[s.key] || GENERIC_FIX,
   });
 }
