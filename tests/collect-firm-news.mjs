@@ -41,6 +41,8 @@ check(pageMeta("<title>Travers Smith&#x27;s view &#x2013; funds | Travers Smith<
 check(pageMeta("<title>T</title>", "https://www.klgates.com/thought-leadership/CSSF-FAQ-10-12-2026").date === "2026-10-12", "a slug-end MM-DD-YYYY date in the URL is read");
 check(pageMeta("<title>T</title>", "https://a.com/news/x-13-45-2026").date === null, "an impossible URL date is rejected");
 check(!wanted({ loc: "https://x.com/en/download/blogs/finance-note.pdf", lastmod: "2026-10-10" }, "2026-10-01"), "PDF downloads are skipped");
+check(!wanted({ loc: "https://www.clearygottlieb.com/news-and-insights/events-listing/a-finance-seminar", lastmod: "2026-10-10" }, "2026-10-01"), "events listings are skipped");
+check(!wanted({ loc: "https://www.freshfields.com/ja/our-thinking/news/2026/10/financing-deal", lastmod: "2026-10-10" }, "2026-10-01") && wanted({ loc: "https://www.freshfields.com/en/our-thinking/news/2026/10/financing-deal", lastmod: "2026-10-10" }, "2026-10-01"), "non-English locale copies are skipped, English kept");
 check(dateProbe("<p class=d>Published 13 October 2026</p>")[0].includes("13 October 2026"), "undated pages carry a date-text probe for diagnosis");
 const doms = firmDomains();
 check((doms.latham || []).includes("www.lw.com") && (doms.proskauerrose || []).length > 0, "every tracked firm resolves to its own site domain(s)");

@@ -69,10 +69,12 @@ export function sitemapsFromRobots(txt) { return [...String(txt || "").matchAll(
 
 // Publication paths, and slugs that look in scope for the four practice areas.
 const PUB_PATH = /\/(news|insights?|publications?|pubs?|deals?|knowledge|our-thinking|thinking|what-we-think|briefings?|client-alerts?|alerts?|articles?|articles-publications|perspectives|press|press-releases|releases?|newsroom|blogs?|updates?|legal-updates|transactions|experience|thought-leadership|client-memos?|memos?|news-and-insights)\//i;
-const NOT_PUB = /\/(events?|webinars?|people|lawyers|professionals|careers|offices?|locations)\//i;
+const NOT_PUB = /\/(events?|webinars?|people|lawyers|professionals|careers|offices?|locations)(?:[-/]|$)/i;
+// Non-English locale copies of a page ("/ja/our-thinking/…") duplicate the English one.
+const NON_EN = /\/(ja|zh|fr|de|es|it|pt|ko|ar|ru|nl|pl|tr)(?:-[a-z]{2,4})?\//i;
 const IN_SCOPE = /(financ|lend|loan|credit|debt|bond|notes?-|note-offering|securiti[sz]|clo\b|clos\b|abs\b|cmbs|rmbs|refinanc|restructur|insolven|scheme|part-26|chapter-11|administration|distress|fund|capital|private-equity|acqui|merger|m-a\b|takeover|disposal|ipo|listing|investment|investor|lender|bank|regulat|fca|pra|aifm|eltif|tax|nav-|continuation|secondar|infrastructure|project|real-estate)/i;
 export function wanted(u, since) {
-  if (!PUB_PATH.test(u.loc) || NOT_PUB.test(u.loc) || /\.pdf(?:[?#]|$)|\/download\//i.test(u.loc)) return false;
+  if (!PUB_PATH.test(u.loc) || NOT_PUB.test(u.loc) || NON_EN.test(u.loc) || /\.pdf(?:[?#]|$)|\/download\//i.test(u.loc)) return false;
   if (u.lastmod && u.lastmod < since) return false;
   const slug = decodeURIComponent(u.loc.split(/[?#]/)[0]).toLowerCase();
   return IN_SCOPE.test(slug);
