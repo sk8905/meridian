@@ -646,6 +646,34 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
+## Profile rota (`scripts/profile-rota.mjs`) — slow data no feed refreshes
+
+`node scripts/profile-rota.mjs` prints this run's bounded slice, oldest first. Work it
+every heavy-sweep run (it is small); every figure needs a dated, sourced value — never
+a guess; if a figure can't be confirmed, leave the old one and say so.
+
+- **13F consensus panel (`HF_13F` in credit/js/data.js)** — when the rota says
+  REFRESH, rewrite it for the latest FILED quarter (13F-HR is due 45 days after quarter
+  end): `quarter`, `asOf` (the quarter-end date), `filed`, ~8 `consensus` names and ~5
+  `moves`, each `{t, name, note, src}` with a note stating ONLY what the source says.
+  Sources: reputable 13F coverage of that quarter (Bloomberg, WSJ, CNBC, FT, Reuters,
+  Barron's, Goldman Sachs' Hedge Fund VIP report coverage) — not aggregator lists.
+  (Per-fund Top-10 holdings on the hedge-fund profiles are already LIVE via /api/13f.)
+- **Hedge-fund AUM (`HEDGE_FUNDS`)** — the rota's ~5 oldest `aumAsOf`: find the latest
+  firm-wide AUM — prefer regulatory AUM from SEC Form ADV (as reported in search results
+  for the IAPD record), then the firm's own disclosure, then Bloomberg / HFM /
+  Institutional Investor / Pensions & Investments rankings. Set `aum` (US$bn), `aumAsOf`
+  (the date the figure is AS OF, not today), `aumSource` (the URL), and `estimated` only
+  if rounded/ranged. Bump `HEDGE_FUNDS_ASOF` to the newest `aumAsOf`.
+- **Investor (LP) profiles (`lps`)** — the rota's ~2 oldest: latest annual/interim
+  report AUM and any disclosed private-credit allocation; set `asOf` to the report date
+  and add the report URL to `sources`.
+- **Dashboard fallback snapshot (dashboard/js/data.js)** — when REFRESH (>45 days):
+  re-source the snapshot values the page falls back to when a live call fails
+  (`EQ_INDICES` level/ytd/asOf, `EQ_VALUATION`, `EQ_VOL`, `WORLD_INDICES`,
+  `GOVT_YIELDS`), each with its own `asOf` + `source`, then set `DASH_ASOF`. Do a few
+  series per run if budget is short — leave the rest for the next run.
+
 ## 2020 backfill project (`backfill/checklist.json` + `scripts/backfill-progress.mjs`)
 
 "Complete since 2020" is measured against a **checklist**, not "has any 2020 item". For
