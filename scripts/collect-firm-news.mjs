@@ -53,7 +53,9 @@ export function firmDomains() {
 }
 
 // ---- sitemap parsing (no deps) -------------------------------------------------------
-const decode = (s) => String(s || "").replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").trim();
+const ENT = { amp: "&", quot: '"', apos: "'", lt: "<", gt: ">", nbsp: " ", rsquo: "’", lsquo: "‘", rdquo: "”", ldquo: "“", ndash: "–", mdash: "—", hellip: "…" };
+const decode = (s) => String(s || "").replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+  .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => e[0] === "#" ? String.fromCodePoint(/^#x/i.test(e) ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10)) : ENT[e.toLowerCase()] ?? m).trim();
 export function parseSitemap(xml) {
   const x = String(xml || "");
   const index = [...x.matchAll(/<sitemap>([\s\S]*?)<\/sitemap>/g)].map(([, b]) => decode((/<loc>([\s\S]*?)<\/loc>/.exec(b) || [])[1]));
@@ -70,7 +72,7 @@ const PUB_PATH = /\/(news|insights?|publications?|pubs?|deals?|knowledge|our-thi
 const NOT_PUB = /\/(events?|webinars?|people|lawyers|professionals|careers|offices?|locations)\//i;
 const IN_SCOPE = /(financ|lend|loan|credit|debt|bond|notes?-|note-offering|securiti[sz]|clo\b|clos\b|abs\b|cmbs|rmbs|refinanc|restructur|insolven|scheme|part-26|chapter-11|administration|distress|fund|capital|private-equity|acqui|merger|m-a\b|takeover|disposal|ipo|listing|investment|investor|lender|bank|regulat|fca|pra|aifm|eltif|tax|nav-|continuation|secondar|infrastructure|project|real-estate)/i;
 export function wanted(u, since) {
-  if (!PUB_PATH.test(u.loc) || NOT_PUB.test(u.loc)) return false;
+  if (!PUB_PATH.test(u.loc) || NOT_PUB.test(u.loc) || /\.pdf(?:[?#]|$)|\/download\//i.test(u.loc)) return false;
   if (u.lastmod && u.lastmod < since) return false;
   const slug = decodeURIComponent(u.loc.split(/[?#]/)[0]).toLowerCase();
   return IN_SCOPE.test(slug);
@@ -80,12 +82,24 @@ export function wanted(u, since) {
 const meta = (html, re) => { const m = re.exec(html); return m ? decode(m[1]).replace(/\s+/g, " ").trim() : null; };
 const attr = (html, key, val) => meta(html, new RegExp(`<meta[^>]+${key}=["']${val}["'][^>]*content=["']([^"']+)["']`, "i"))
   || meta(html, new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]*${key}=["']${val}["']`, "i"));
-const iso = (s) => { if (!s) return null; const m = /(\d{4})-(\d{2})-(\d{2})/.exec(s); if (m) return `${m[1]}-${m[2]}-${m[3]}`; const t = Date.parse(s); return Number.isNaN(t) ? null : new Date(t).toISOString().slice(0, 10); };
-export function pageMeta(html, url) {
+const iso = (s) => { if (!s) return null; const m = /(\d{4})-(\d{2})-(\d{2})/.exec(s); if (m) return +m[2] >= 1 && +m[2] <= 12 && +m[3] >= 1 && +m[3] <= 31 ? `${m[1]}-${m[2]}-${m[3]}` : null; const t = Date.parse(s); return Number.isNaN(t) ? null : new Date(t).toISOString().slice(0, 10); };
+const MONTH = "(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\\.?";
+const DATEISH = new RegExp(`\\b20\\d{2}-\\d{2}-\\d{2}\\b|\\b\\d{1,2}\\s+${MONTH}\\s+20\\d{2}\\b|\\b${MONTH}\\s+\\d{1,2},?\\s+20\\d{2}\\b|\\b\\d{1,2}[./]\\d{1,2}[./]20\\d{2}\\b`, "gi");
+// Diagnostic only (never a date source): where an undated page shows date-like text, so
+// a firm-specific extractor can be added. Up to 3 short snippets.
+export function dateProbe(html) {
+  const h = String(html || "").replace(/\s+/g, " "), out = [];
+  for (const m of h.matchAll(DATEISH)) { out.push(h.slice(Math.max(0, m.index - 70), m.index + m[0].length + 20)); if (out.length >= 3) break; }
+  return out;
+}
+export function pageMeta(html, url, firmName = "") {
   const h = String(html || "");
   let title = attr(h, "property", "og:title") || attr(h, "name", "twitter:title") || meta(h, /<title[^>]*>([\s\S]*?)<\/title>/i);
   // Drop the site-name trailer ("… | Insights | Mayer Brown").
   if (title) title = title.replace(/\s+[|–—-]\s+(insights?|news|publications?|knowledge|perspectives|[^|]*\b(llp|law|lawyers|&|gottlieb|watkins|chance|linklaters|freshfields)\b[^|]*)(\s+[|–—-]\s+.*)?$/i, "").trim();
+  // …and a trailing " | <firm name>" segment ("… | Travers Smith", "… | Slaughter and May").
+  const fw = (String(firmName).match(/[A-Za-z]{4,}/) || [])[0];
+  if (title && fw) title = title.replace(new RegExp(`(\\s+[|–—-]\\s+[^|–—]*\\b${fw}\\b[^|–—]*)+$`, "i"), "").trim();
   const description = attr(h, "property", "og:description") || attr(h, "name", "description");
   let date = null, dateSource = null;
   const tries = [
@@ -95,7 +109,8 @@ export function pageMeta(html, url) {
     ["publishDate", meta(h, /"(?:publishDate|publishedDate|publicationDate|publish_date|published_date|releaseDate)"\s*:\s*"([^"]+)"/i)],
     ["publish-date meta", attr(h, "name", "(?:publish(?:ed)?[-_]?date|date|dc\\.date)")],
     ["<time datetime>", meta(h, /<time[^>]+datetime=["']([^"']+)["']/i)],
-    ["url", (/\/(20\d{2})\/(\d{2})\/(\d{2})\//.exec(url) || []).slice(1).join("-") || null],
+    ["url", (/\/(20\d{2})\/(\d{2})\/(\d{2})\//.exec(url) || []).slice(1).join("-")
+      || ((m) => m ? `${m[3]}-${m[1]}-${m[2]}` : null)(/-(\d{2})-(\d{2})-(20\d{2})(?:[/?#.]|$)/.exec(url)) || null],   // …/slug-MM-DD-YYYY (K&L Gates)
   ];
   for (const [src, v] of tries) { const d = iso(v); if (d && d >= "2000-01-01") { date = d; dateSource = src; break; } }
   return { title, description, date, dateSource };
@@ -113,6 +128,7 @@ const normUrl = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.
 
 export async function collectFirm(id, domains, { since, max = 40, fetcher = get } = {}) {
   const stat = { domains, sitemaps: 0, urls: 0, kept: 0, fetched: 0, errors: 0 };
+  const fname = ((LG.firms || []).find((f) => f.id === id) || {}).name || "";
   const known = new Set((LG.items || []).map((i) => normUrl(i.url)));
   const seenMaps = new Set(), cands = [];
   for (const d of domains) {
@@ -146,11 +162,11 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get 
     const html = await fetcher(c.loc);
     if (!html) { stat.errors++; continue; }
     stat.fetched++;
-    const m = pageMeta(html, c.loc);
+    const m = pageMeta(html, c.loc, fname);
     if (!m.title) continue;
     if (m.date && m.date < since) continue;            // lastmod ≠ published: drop old pages re-touched
     if (m.date && m.date > new Date(Date.now() + DAY).toISOString().slice(0, 10)) continue;   // a future date = an event page, not a publication
-    items.push({ firm: id, url: c.loc, title: m.title, description: m.description, date: m.date, dateSource: m.dateSource, lastmod: c.lastmod });
+    items.push({ firm: id, url: c.loc, title: m.title, description: m.description, date: m.date, dateSource: m.dateSource, lastmod: c.lastmod, ...(m.date ? {} : { dateProbe: dateProbe(html) }) });
     await new Promise((r) => setTimeout(r, 300));       // be polite: one firm, sequential pages
   }
   return { stat, items };
