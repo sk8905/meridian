@@ -66,10 +66,11 @@ export function parseSitemap(xml) {
 export function sitemapsFromRobots(txt) { return [...String(txt || "").matchAll(/^\s*sitemap:\s*(\S+)/gim)].map((m) => m[1]); }
 
 // Publication paths, and slugs that look in scope for the four practice areas.
-const PUB_PATH = /\/(news|insights?|publications?|deals?|knowledge|our-thinking|thinking|what-we-think|briefings?|client-alerts?|alerts?|articles?|perspectives|press|blogs?|updates?|legal-updates|transactions|experience)\//i;
+const PUB_PATH = /\/(news|insights?|publications?|pubs?|deals?|knowledge|our-thinking|thinking|what-we-think|briefings?|client-alerts?|alerts?|articles?|articles-publications|perspectives|press|press-releases|releases?|newsroom|blogs?|updates?|legal-updates|transactions|experience|thought-leadership|client-memos?|memos?|news-and-insights)\//i;
+const NOT_PUB = /\/(events?|webinars?|people|lawyers|professionals|careers|offices?|locations)\//i;
 const IN_SCOPE = /(financ|lend|loan|credit|debt|bond|notes?-|note-offering|securiti[sz]|clo\b|clos\b|abs\b|cmbs|rmbs|refinanc|restructur|insolven|scheme|part-26|chapter-11|administration|distress|fund|capital|private-equity|acqui|merger|m-a\b|takeover|disposal|ipo|listing|investment|investor|lender|bank|regulat|fca|pra|aifm|eltif|tax|nav-|continuation|secondar|infrastructure|project|real-estate)/i;
 export function wanted(u, since) {
-  if (!PUB_PATH.test(u.loc)) return false;
+  if (!PUB_PATH.test(u.loc) || NOT_PUB.test(u.loc)) return false;
   if (u.lastmod && u.lastmod < since) return false;
   const slug = decodeURIComponent(u.loc.split(/[?#]/)[0]).toLowerCase();
   return IN_SCOPE.test(slug);
@@ -82,12 +83,16 @@ const attr = (html, key, val) => meta(html, new RegExp(`<meta[^>]+${key}=["']${v
 const iso = (s) => { if (!s) return null; const m = /(\d{4})-(\d{2})-(\d{2})/.exec(s); if (m) return `${m[1]}-${m[2]}-${m[3]}`; const t = Date.parse(s); return Number.isNaN(t) ? null : new Date(t).toISOString().slice(0, 10); };
 export function pageMeta(html, url) {
   const h = String(html || "");
-  const title = attr(h, "property", "og:title") || attr(h, "name", "twitter:title") || meta(h, /<title[^>]*>([\s\S]*?)<\/title>/i);
+  let title = attr(h, "property", "og:title") || attr(h, "name", "twitter:title") || meta(h, /<title[^>]*>([\s\S]*?)<\/title>/i);
+  // Drop the site-name trailer ("… | Insights | Mayer Brown").
+  if (title) title = title.replace(/\s+[|–—-]\s+(insights?|news|publications?|knowledge|perspectives|[^|]*\b(llp|law|lawyers|&|gottlieb|watkins|chance|linklaters|freshfields)\b[^|]*)(\s+[|–—-]\s+.*)?$/i, "").trim();
   const description = attr(h, "property", "og:description") || attr(h, "name", "description");
   let date = null, dateSource = null;
   const tries = [
     ["article:published_time", attr(h, "property", "article:published_time")],
     ["datePublished", meta(h, /"datePublished"\s*:\s*"([^"]+)"/i)],
+    ["itemprop datePublished", meta(h, /itemprop=["']datePublished["'][^>]*(?:content|datetime)=["']([^"']+)["']/i)],
+    ["publishDate", meta(h, /"(?:publishDate|publishedDate|publicationDate|publish_date|published_date|releaseDate)"\s*:\s*"([^"]+)"/i)],
     ["publish-date meta", attr(h, "name", "(?:publish(?:ed)?[-_]?date|date|dc\\.date)")],
     ["<time datetime>", meta(h, /<time[^>]+datetime=["']([^"']+)["']/i)],
     ["url", (/\/(20\d{2})\/(\d{2})\/(\d{2})\//.exec(url) || []).slice(1).join("-") || null],
@@ -128,11 +133,14 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get 
       }
       stat.urls += urls.length;
       for (const x of urls) if (wanted(x, since) && !known.has(normUrl(x.loc))) cands.push(x);
+      if (!stat.samples) stat.samples = [];
+      for (const x of urls) { if (stat.samples.length >= 6) break; if (!/\/(people|lawyers|professionals)\//i.test(x.loc)) stat.samples.push(x.loc + (x.lastmod ? " @" + x.lastmod : "")); }
     }
   }
   // Newest lastmod first; fetch each page's own metadata.
   const uniq = [...new Map(cands.map((c) => [normUrl(c.loc), c])).values()].sort((a, b) => String(b.lastmod || "").localeCompare(String(a.lastmod || ""))).slice(0, max);
   stat.kept = uniq.length;
+  if (uniq.length) delete stat.samples;   // samples are a debugging aid for firms that yield nothing
   const items = [];
   for (const c of uniq) {
     const html = await fetcher(c.loc);
@@ -141,6 +149,7 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get 
     const m = pageMeta(html, c.loc);
     if (!m.title) continue;
     if (m.date && m.date < since) continue;            // lastmod ≠ published: drop old pages re-touched
+    if (m.date && m.date > new Date(Date.now() + DAY).toISOString().slice(0, 10)) continue;   // a future date = an event page, not a publication
     items.push({ firm: id, url: c.loc, title: m.title, description: m.description, date: m.date, dateSource: m.dateSource, lastmod: c.lastmod });
     await new Promise((r) => setTimeout(r, 300));       // be polite: one firm, sequential pages
   }
