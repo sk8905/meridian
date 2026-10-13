@@ -248,6 +248,7 @@ const chosen = await pg.evaluate(() => {
     !r.classList.contains("is-locked") &&          // openable (not a subscriber padlock)
     !r.classList.contains("g-mw-fev") &&           // a stable news/newsletter row, not a volatile manager event
     !r.classList.contains("is-reading") &&         // NOT the auto-selected default (prove a deliberate restore)
+    !r.hasAttribute("data-sid") &&                 // keyed by its href, not a desk-record id (data-sid rows persist the id)
     /^https?:/.test(r.getAttribute("href") || "")); // stable external URL — reappears verbatim across reloads
   const row = rows[1] || rows[0]; if (!row) return null;
   row.click();
