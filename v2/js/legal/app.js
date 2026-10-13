@@ -40,9 +40,9 @@ export function mount(host, ctx) {
 // app.js -> detail.js -> shared.js. shared.js holds the date formatters, the
 // "new since last visit" marker and the alert feed-row renderer; detail.js holds
 // the single-alert + firm-profile views; this shell keeps the dashboard/list
-// views, the notifications and the router. All three import ./data.js with the
-// SAME ?v= token above — bump together or data.js loads twice as separate
-// instances.
+// views, the notifications and the router. app.js, detail.js and shared.js all
+// import ./data.js by the same tokenless URL (served no-cache; no ?v= tokens —
+// HOUSE_STYLE T1/T2), so the browser shares one module instance.
 // The shared news-wire engine — so the Legal dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
 // at row end as an in-place source filter).

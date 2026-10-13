@@ -1,7 +1,7 @@
-# Meridian Legal — English-law legal & case-law alerts
+# Legal data module — English-law legal & case-law alerts
 
-A **zero-build, dependency-free static web app** that surfaces Practical-Law-style
-legal updates and case-law alerts for English-law practice areas:
+This directory holds the **legal content domain** for Wire: English-law legal
+updates and case-law / restructuring alerts across these practice areas:
 
 - **Banking & Finance**
 - **Restructuring & Insolvency (R&I)**
@@ -11,78 +11,44 @@ legal updates and case-law alerts for English-law practice areas:
 
 Each alert is curated from the public **insights / know-how / legal-update**
 pages of **UK Magic Circle**, **UK Silver Circle** and the **London offices of
-US-elite firms**. It lives in `/legal/` so it sits alongside the existing
-*Meridian* app in the same repo without touching it — the same Cloudflare Worker
-serves both (Meridian Credit at `/credit/`, Meridian Legal at `/legal/`).
+US-elite firms**.
 
-> ⚠️ The seed alerts summarise **genuine** English-law developments so the app is
-> realistic out of the box, but the summaries are written for this prototype and
-> each *Source* link points at the firm's public insights landing page (deep
-> links rot), **not** a verbatim article. This is **not legal advice** — verify
-> against the cited source. Nothing leaves your browser.
+> ℹ️ The old standalone `/legal/` page (a separate pre-v2 prototype) is
+> **retired behind an edge redirect** — it is no longer a user-facing surface.
+> What lives on is **`legal/js/data.js`**, the data module the single v2 SPA
+> reads to render legal updates in the unified News feed and on the relevant
+> profiles. The alerts summarise **genuine** English-law developments; every
+> record carries a real **source URL and date** (verify against the cited source
+> — this is not legal advice).
 
-## What it does
+## The data
 
-| View | Route | What you get |
-| --- | --- | --- |
-| **Dashboard** | `#/` | KPIs, inline-SVG charts (alerts by practice area, by source tier, by month), browse-by-area cards and the latest updates. |
-| **All updates** | `#/list` | Multi-select filters (practice area, source tier, type, firm), full-text search, and a "Saved only" toggle. Deep-linkable, e.g. `#/list?area=banking`, `#/list?tier=magic`, `#/list?q=carried%20interest`. |
-| **Detail** | `#/item/<id>` | Full summary, key points, court/citation for case notes, tags, the source link, and related updates. |
-
-- **Save** any alert with the ☆ button — stored in `localStorage` (per-device, no
-  account). The nav shows a saved count.
-- **"New since last visit"** badges highlight alerts dated after your previous
-  visit.
-
-## Files
+Everything is in **`legal/js/data.js`** — plain ES-module exports:
 
 ```
-legal/
-  index.html        # shell: nav + empty <main id="app">, ?v= cache-buster on css/js
-  css/styles.css    # all styling (responsive, accessible, no horizontal overflow)
-  js/data.js        # ALL data hardcoded as ES-module exports (items, firms, areas…)
-  js/charts.js      # inline-SVG bar / donut / column charts — no chart library
-  js/app.js         # hash router (#/, #/list, #/item/<id>) + all views
+legal/js/data.js   # items (legal updates), restructurings, firms, areas, case notes
 ```
 
-## Run it locally
+- `items` — legal updates / client alerts, each tagged to an `area` and `firm`.
+- `restructurings` — restructuring plans, schemes and RPs.
+- `firms` / `areas` — the id tables `items` point at.
+- case-note commentary keyed by id.
 
-ES modules need a web server (not `file://`):
-
-```bash
-# from the repo root
-python3 -m http.server 8000
-# then open http://localhost:8000/legal/
-```
+The module is imported by a stable **tokenless** URL and revalidated `no-cache`,
+so the ~2-hourly content refresh edits only this file. There are **no `?v=`
+cache tokens** — code is content-hashed by Vite, data is tokenless (see the repo
+root `CLAUDE.md` and `docs/HOUSE_STYLE.md` T1/T2).
 
 ## Curate the feed
 
-Everything is in **`legal/js/data.js`** — add objects to `items` (give each a
-unique `id`), keep `area`/`firm`/`type` pointing at ids defined at the top of the
-file, and bump `LAST_REVIEWED`. To cache-bust after edits, increment the `?v=`
-number in `index.html` (and the matching import suffixes in `app.js`).
+Add objects to `items` (or `restructurings`) in `legal/js/data.js`:
 
-## Deploy on Cloudflare (free tier)
+1. Give each a unique `id`.
+2. Keep `area` / `firm` / `type` pointing at ids defined at the top of the file.
+3. Every item needs a real, verified `url` **and** a precise `date` — never
+   fabricate; leave unknown fields blank.
+4. Bump `LAST_REVIEWED`.
+5. Run `node tests/run.mjs` before pushing (a push to `main` deploys live).
 
-No change to your existing setup is needed — the repo's `wrangler.jsonc` already
-serves the whole repo as static assets, so once Cloudflare is connected to the
-repo Meridian Legal is live at
-`https://<your-worker>.<account>.workers.dev/legal/`. See the repo root
-`CLAUDE.md` and `wrangler.jsonc` for the current build/deploy setup (Cloudflare
-Workers Builds runs `npm run build` on each push to `main`).
-
-### Make it private (optional, one-time)
-
-Gate the whole site to just you with **Cloudflare Access** (free):
-**Zero Trust → Access → Applications → Add → Self-hosted**, set the app domain to
-your `*.pages.dev`/`workers.dev` host, add an **Allow** policy with **Include →
-Emails → your email**. Default **One-time PIN** login needs no extra setup.
-
-### Sync saved alerts across devices later (optional)
-
-Saved alerts are device-local today. To sync them, add a tiny Worker endpoint
-backed by **Cloudflare KV** (nothing else) — the pattern already exists in this
-repo at [`../src/index.js`](../src/index.js) / [`../functions/api/watchlist.js`](../functions/api/watchlist.js).
-Add a `/api/legal-saved` route keyed by the Access identity, then swap the two
-functions in the *"Saved state"* block of `js/app.js` to `fetch` that endpoint.
-This stays within the free tier and needs no API key.
+See [`../docs/refresh-routines.md`](../docs/refresh-routines.md) for the full
+content-refresh invariants (sourcing, ES-module validation, publishing).

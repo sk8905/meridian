@@ -32,12 +32,11 @@ export function mount(host, ctx) {
 // Plain ES modules, no framework. Hash-based routing for a clickable prototype.
 // =============================================================================
 
-// NOTE: these internal module imports carry the same ?v= cache-buster as the
-// <script>/<link> tags in index.html. Bump ALL of them together on every release
-// — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
-// app.js and the app fails to load (blank page). shared.js AND detail.js also
-// import ./data.js with this SAME token; keep all three identical or the browser
-// loads data.js twice as separate module instances.
+// NOTE: these internal module imports are tokenless. Code is content-hashed by
+// Vite and the data modules are served Cache-Control: no-cache, so there are no
+// ?v= cache tokens to keep in lockstep (HOUSE_STYLE T1/T2). shared.js and detail.js
+// import ./data.js by the same tokenless URL, so the browser shares one module
+// instance rather than loading data.js twice.
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the format/render helpers,
 // the watchlist/saved read layer, the paginated-feed + pending-focus machinery

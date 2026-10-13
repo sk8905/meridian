@@ -17,7 +17,7 @@ import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
 } from "/v2/js/legal/detail.js";
-// Same shared.js instance the detail views read (identical ?v= token), so seeding
+// Same shared.js instance the detail views read (same tokenless import), so seeding
 // the URL-driven row highlight here is the pending focus viewManager applies.
 import { setPendingFocus } from "/credit/js/shared.js";
 import { esc } from "/util.js";

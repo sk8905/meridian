@@ -319,7 +319,7 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   Never fabricate an adviser tie or a book attribute; if it isn't in a real source this
   run, leave it for a later run. These fields never gate anything — a manager without
   them renders fine.
-- **Private-credit scope — exclude equity-only entities.** Meridian Credit tracks
+- **Private-credit scope — exclude equity-only entities.** The credit domain tracks
   European **private credit** only. Do NOT add a manager (or its funds) whose
   business is purely **equity** — private-equity/buyout, equity real estate, equity
   infrastructure, or growth/venture equity — even if it turns up in a deal or raise.

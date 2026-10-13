@@ -60,16 +60,17 @@ function loadDeskData() {
 }
 
 // =============================================================================
-// Wire Glance — the cross-desk landing. Imports the three apps' data modules
-// (same-origin ES modules), renders a sectioned highlight card per platform
+// Wire Glance — the Home landing. Imports the content-domain data modules
+// (same-origin ES modules), renders a sectioned highlight card per domain
 // (Macro, Credit, Legal — 3 most-recent items per section), mounts the Credit
 // "key rates & credit spreads" bar, and powers a unified ⌘K command palette that
 // searches deals, managers, funds, legal alerts, cases, restructurings, macro
-// indicators and views — deep-linking into each app. Zero dependencies; loaded
+// indicators and views — deep-linking into each view. Zero dependencies; loaded
 // only once the user is authenticated.
 // =============================================================================
-// Data modules are versioned (matching each app) so the live Glance busts its
-// cache with the ~2-hourly data refresh instead of serving a stale copy.
+// Data modules are served tokenless and Cache-Control: no-cache (see _headers),
+// so the live Glance always revalidates and picks up the ~2-hourly data refresh
+// instead of serving a stale copy. There are no ?v= cache tokens (HOUSE_STYLE T1/T2).
 
 // The shared news-wire engine — row/day-header/chip/source-filter markup + the
 // desk vocabulary. Home assembles its cross-desk streams below and hands them to
@@ -1948,7 +1949,7 @@ const TYPE_CHIPS = {
   l:   [["all", "All"], ["alert", "Alerts"], ["case", "Cases"]],
 };
 // Active source filter (e.g. "Financial Times"): when set, the feed shows every
-// story from that newsroom across all three desks. Cleared by the pill or a chip.
+// story from that newsroom across all content streams. Cleared by the pill or a chip.
 let _feedSrc = null;
 // F8 — remembered Home preferences (on-device): the last wire desk filter, the
 // group-by-type toggle, and the mobile News/Watchlist wire tab. So Home reopens
@@ -2436,8 +2437,8 @@ function renderFeed() {
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
   const counts = { m: recentN(byDesk.m), c: recentN(byDesk.c), l: recentN(byDesk.l) };
 
-  // One-line cross-desk morning briefing atop the page: how much is new across the
-  // three desks (last ~2 days) plus the single freshest headline as a link. Always
+  // One-line morning briefing atop the page: how much is new across the
+  // macro/credit/legal content streams (last ~2 days) plus the single freshest headline as a link. Always
   // computed from the full per-desk streams, so it doesn't change when the reader
   // filters the feed below.
   renderBrief(byDesk, counts, day);
@@ -2473,8 +2474,8 @@ function renderFeed() {
       + items.slice().sort(byFeedDesc).map(feedRow).join("")
     ).join("") + `<div class="g-feed-end">· end of wire ·</div>`;
   } else if (_feedSrc) {
-    // Source filter wins over the desk chips: every story from that newsroom,
-    // across all three desks, newest first.
+    // Source filter wins over the domain chips: every story from that newsroom,
+    // across all content streams, newest first.
     feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew, ...fixedincome, ...rschFeed].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     // Today's items lead, interleaved across desks so no single desk dominates.

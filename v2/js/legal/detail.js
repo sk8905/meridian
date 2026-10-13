@@ -6,8 +6,9 @@
 // profile (#/firm/<id>). Extracted from app.js, which routes to them via
 // viewItem/viewFirm. Imports flow app.js -> detail.js -> shared.js (never
 // backwards) so the module graph stays acyclic.
-// NOTE: keep the ./data.js ?v= token identical to app.js / shared.js (see the
-// shared.js header) or the browser loads data.js twice as separate instances.
+// NOTE: ./data.js is imported by the same tokenless URL as app.js / shared.js
+// (served no-cache; no ?v= tokens — HOUSE_STYLE T1/T2), so the browser shares
+// one module instance rather than loading data.js twice.
 // =============================================================================
 import {
   items, cases, restructurings, firms, firmById, areaById, typeById,

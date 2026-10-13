@@ -7,8 +7,9 @@
 // them via viewManager/viewClo/viewLp (the standalone Fund page is retired —
 // #/fund/<id> redirects to the fund's manager; see fundManagerId). Imports flow
 // app.js -> detail.js -> shared.js (never backwards) so the graph stays acyclic.
-// NOTE: keep the ./data.js ?v= token identical to app.js / shared.js (see the
-// shared.js header) or the browser loads data.js twice as separate instances.
+// NOTE: ./data.js is imported by the same tokenless URL as app.js / shared.js
+// (served no-cache; no ?v= tokens — HOUSE_STYLE T1/T2), so the browser shares
+// one module instance rather than loading data.js twice.
 // =============================================================================
 import {
   managers, managerById, fundById, lpById, funds, lps, intel, deals,

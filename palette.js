@@ -1,14 +1,14 @@
 // =============================================================================
-// Wire unified command palette — a self-contained ⌘K search that any of the
-// three apps mounts in-place. It imports all three data modules (same-origin ES
-// modules), builds one index across deals, managers, funds, legal alerts, cases,
+// Wire unified command palette — a self-contained ⌘K search mounted in-place by
+// the app. It imports the content-domain data modules (same-origin ES modules),
+// builds one index across deals, managers, funds, legal alerts, cases,
 // restructurings, macro indicators and views, injects its own overlay + styles
-// (namespaced so they never clash with the host app), and deep-links on select.
+// (namespaced so they never clash), and deep-links on select.
 // Import dynamically and call mountPalette() once.  Zero dependencies.
 // =============================================================================
-// All five data modules are served Cache-Control: no-cache (see _headers), so
-// these imports always revalidate — the ?v= tokens on the app-owned modules
-// are inert here and kept only to mirror each app's own import line.
+// All the data modules are served Cache-Control: no-cache (see _headers), so
+// these tokenless imports always revalidate. There are no ?v= cache tokens — code
+// is content-hashed by Vite, data is tokenless (HOUSE_STYLE T1/T2).
 import { deals, intel, managers, funds, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js";

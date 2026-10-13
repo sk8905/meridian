@@ -1,99 +1,105 @@
-# Meridian Credit Intelligence
+# Wire
 
-A clickable prototype of an information / market-intelligence platform for
-**fundraising in European private credit** — modelled on the kind of product
-*With Intelligence* offers, but focused on the alternative credit fund space
-(direct lending, mezzanine, special situations, infrastructure & real estate
-debt, structured credit, NAV/fund finance) across Europe.
+A market-intelligence web app for **European private credit** — managers,
+funds, LP allocators, fundraising news, deal activity and English-law legal /
+restructuring alerts, plus a daily markets briefing. iPhone PWA is the primary
+surface; desktop is a fixed-viewport terminal.
 
-> ℹ️ **The dataset is now real**, compiled **16 June 2026 from public sources
-> only** (manager & investor press releases, regulatory/results disclosures and
-> trade press) — covering ~112 managers, ~103 funds, ~23 LP allocators, ~48
-> fundraising-news items and ~64 deal-activity items. It is **not affiliated with, and contains no data
-> from, any subscription database** (With Intelligence, Preqin, PitchBook,
-> Debtwire). Figures are shown in € for consistency (several originally in
-> USD/GBP, so approximate); items marked "Est." or "undisclosed" are proxies or
-> not precisely disclosed — verify against the cited sources before relying on
-> any figure. Each record carries its own source links and an "as of" date in the
-> app, which are the authoritative sourcing trail.
+> ℹ️ **The dataset is real and public-source-only.** Every manager, fund, LP,
+> fundraising item, deal, legal update and briefing figure carries its own
+> verified **source URL and date** in the app; unknown fields are left blank. It
+> is **not affiliated with, and contains no data from, any subscription
+> database** (With Intelligence, Preqin, PitchBook, Debtwire, Octus). Each
+> record's source links and "as of" date are the authoritative sourcing trail —
+> verify against them before relying on any figure.
 
-## What it does
+## One app
 
-Nine cross-linked modules:
+Wire is a **single v2 single-page app**, served under `/v2/` and mounted at the
+site root. It has five tabs:
 
-| Module | What you get |
+| Tab | What you get |
 | --- | --- |
-| **Dashboard** | KPIs (funds in market, capital raised, closes) plus charts: capital raised by strategy, funds by status, capital by geography, fundraising momentum by quarter, and latest intelligence + deal-activity strips. |
-| **Funds** | Searchable / filterable directory of funds in market (strategy, status, geography) with raise-progress bars; click through to a full fund profile. |
-| **Managers** | Directory of GPs with AUM, fund counts and strategies; manager profile shows all their funds, known investors and related intelligence. |
-| **Investors** | LP / allocator profiles — type, AUM, private-credit allocation, ticket size, mandate status and strategy interests, with known commitments and matching live funds. |
-| **Intelligence** | A fundraising news feed (launches, first/final closes, mandates, personnel, strategy) tagged to managers and funds, sorted newest-first. |
-| **Deals** | A deal-activity feed (investments, financings, disposals/exits, refinancings, restructurings, bankruptcies/distress, NPL/portfolio, M&A) tagged to managers/funds; also shown on each manager and fund profile. |
-| **Mandates** | Live LP mandates / RFPs and new-fund launches, plus a "who backs whom" LP → manager commitments map. |
-| **League Tables** | Rankings: top managers by capital raised, largest fund closes, biggest investors by AUM, most active managers. |
-| **Watchlist** | Follow any manager / fund / investor (saved locally in your browser) to build a personalised intelligence feed. |
+| **Home** | The landing glance: the daily markets briefing, live market pills, a price chart and the X (news) feed, drawn from across every content domain. |
+| **News** | The unified newswire — one feed engine, filtered by a chip row across the content domains (credit, legal, macro and the rest). |
+| **Dashboard** | KPIs and inline-SVG charts: capital raised by strategy, funds by status, capital by geography, fundraising momentum, and the latest intelligence + deal strips. |
+| **Profiles** | Managers, funds and LP allocators, fully cross-linked — a manager profile shows its funds, known investors, deals and related intelligence. |
+| **Transactions** | The deal-activity feed (investments, financings, exits, refinancings, restructurings, NPL/portfolio, M&A), tagged to managers and funds. |
 
 Everything is interlinked: funds → managers → their other funds → known/interested
-LPs → their commitments → matching funds → related intelligence.
+LPs → their commitments → matching funds → related intelligence and deals.
 
-## Tech
+The pre-v2 top-level pages (the old standalone `/credit/` and `/legal/`
+prototypes) are **retired behind edge redirects** — they are no longer a
+user-facing surface. What survives from them are the **data modules** the v2 SPA
+reads (see below).
 
-Deliberately a **zero-build, dependency-free static app** so it runs instantly
-and offline:
+## How it's built
 
-- Plain HTML + CSS + ES-module JavaScript — no framework, no bundler, no npm install.
-- Charts are hand-rolled inline SVG (`js/charts.js`) — no charting library or CDN.
-- Hash-based client-side routing.
-
-This repo hosts **two** independent zero-build apps under one Cloudflare Worker:
+- **Cloudflare Worker** (`src/index.js`) + Cloudflare Assets. A git-connected
+  `main` auto-deploys: pushing to `origin/main` ships live.
+- The v2 SPA is **built by Vite** (`npm run build` → `dist/`): `gen-home-data.mjs`
+  regenerates the tokenless `home-data.js` slice → `vite build` bundles and
+  content-hashes the JS and CSS → `postbuild.mjs` copies the data modules, shared
+  root modules, retired pages and static files into `dist/` as-is.
+- **Data modules** are plain ES-module exports, imported by a stable tokenless
+  URL and revalidated `no-cache`, so the ~2-hourly content refresh edits only
+  these files:
+  - `credit/js/data.js` — managers, funds, LPs, intelligence (fundraising news)
+    and deals (the Transactions feed).
+  - `legal/js/data.js` — English-law legal updates and restructuring alerts (see
+    [`legal/README.md`](legal/README.md)).
+  - `macro/js/content.js` — the macro/markets content behind the briefing and
+    Home glance.
+- **No `?v=` cache tokens anywhere** — code is content-hashed by Vite; data is
+  tokenless and `no-cache`.
 
 ```
-index.html            # root landing page linking the two apps
-credit/               # Meridian Credit Intelligence  →  served at /credit/
-  index.html          #   shell + top navigation
-  css/styles.css      #   all styling
-  js/data.js          #   dataset (managers, funds, LPs, intelligence)
-  js/charts.js        #   inline-SVG bar / donut / line charts
-  js/app.js           #   router + all views
-legal/                # Lexalert English-law alerts    →  served at /legal/  (see legal/README.md)
-wrangler.jsonc        # Worker config (serves the whole repo as static assets)
-src/index.js          # Worker entry (static assets + /api/watchlist KV endpoint)
+src/index.js          # Worker entry (static assets + /api/* endpoints: reader, SEC EDGAR, feedback, KV)
+wrangler.jsonc        # Worker config (serves dist/ as static assets)
+vite.config.*         # Vite build config
+v2/                   # the live SPA — shell, router, shared chrome, feed engine, per-tab views
+credit/js/data.js     # credit data module (managers, funds, LPs, intelligence, deals)
+legal/js/data.js      # legal data module (updates, restructurings)
+macro/js/content.js   # macro/markets content module
+home-data.js          # generated tokenless slice the Managers lane reads
+docs/                 # HOUSE_STYLE.md (the rulebook) + refresh-routines.md (the content-refresh invariants)
+tests/                # headless Playwright regression suite
 ```
+
+## Authoritative docs — read these first
+
+- **[`docs/HOUSE_STYLE.md`](docs/HOUSE_STYLE.md)** — the rulebook for layout,
+  feed conventions, colour tokens, typography, chrome, behaviour and engineering
+  discipline (rules R1–R18, T1–T19), plus §8 the canonical data-resource roster.
+  Every change must conform; when it and anything else conflict, HOUSE_STYLE wins.
+- **[`docs/refresh-routines.md`](docs/refresh-routines.md)** — the invariants for
+  the ~2-hourly content refresh (credit / legal / macro + briefing + the
+  research / newsletters / myFT email sweep), including sourcing, ES-module
+  validation and publishing.
 
 ## Run it
 
-Because it uses ES modules, open it via a local web server (not `file://`):
-
 ```bash
-# from the repo root:
-python3 -m http.server 8000
-# then visit http://localhost:8000        (landing page)
-#            http://localhost:8000/credit/ (Meridian)
-#            http://localhost:8000/legal/  (Lexalert)
+npm install
+npm run build          # Vite pipeline → dist/
+npx wrangler dev       # or serve dist/ behind any static server
 ```
 
 ## Tests
 
 A headless Playwright regression suite lives in [`tests/`](tests/README.md) —
 page boot on every route, the shared chrome, swipe/sticky interplay, the chip
-lifecycle, the notifications bell and the pinned filter bars:
+lifecycle, the notifications bell, the pinned filter bars, the reader, the feed
+engine and the content-coverage guards.
 
 ```bash
-node tests/run.mjs        # all specs (needs a host Playwright install)
+node tests/run.mjs                      # full suite (bounded parallel pool)
+node tests/run.mjs <name>               # iterate on one spec
+TEST_ROOT=dist node tests/run.mjs       # prove the built output serves identically
 ```
 
-Run it after touching the shared modules (nav-actions, swipetabs, ptr, glance,
-saved, util) or the sticky/chrome CSS, and extend it when fixing a new class
-of bug.
-
-## Extending toward a real platform
-
-This prototype is intentionally front-end only. Natural next steps:
-
-1. Replace `js/data.js` with a real API (the data shapes are already normalised
-   with IDs and lookups).
-2. Add a backend + database (managers, funds, LPs, intelligence as tables).
-3. Add auth, saved searches, alerts/email digests on the intelligence feed,
-   CSV/Excel export, and an admin/back-office for data entry.
-4. Layer in analytics: league tables, time-to-close, average fund-size trends,
-   and investor-coverage tracking (which LPs a GP has/hasn't met).
+Run the full suite before every push to `main` (a push deploys immediately). The
+GitHub Action in `.github/workflows/tests.yml` re-runs it on each push as an
+**advisory** safety net — it cannot block the Cloudflare deploy, so the suite is
+yours to run first.
