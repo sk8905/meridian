@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-13",
-  time: "09:15 BST",
+  time: "11:15 BST",
   lede: "Investors are locking in the highest US Treasury yields in decades despite the sell-off, Trump pressure on Kyiv dominates the geopolitical tape, and Arini raises $1.5bn even as its main fund loses 13.5%.",
   bullets: [
     { html: "<strong>Bonds &mdash; US Treasury yields sit at their highest in decades</strong> as buyers step in to lock in the levels despite the rout, while rising Treasury bill issuance is adding pressure on short-term rates.", src: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8", srcName: "Financial Times", date: "2026-10-13" },
