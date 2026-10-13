@@ -1071,6 +1071,20 @@ item keeps a real outbound source link (R7).
 - OECD (`oecd.org`) — Economic Outlook, growth/inflation projections, Economic Surveys (via Google News newsroom bridge)
 
 ### 8.3 News wires & financial press
+> **DISPLAY-ONLY exclusion — never a data/search exclusion.** The readable-only policy
+> below governs ONLY what the live **newswire displays**. It does NOT restrict which
+> sources may be used anywhere else in the app. Every source — including the paywalled
+> premium outlets (Bloomberg, FT, WSJ, The Economist, Reuters) and specialist/paywalled
+> data services (Creditflux, Private Debt Investor, Octus/Reorg, Debtwire, With
+> Intelligence, Preqin, Hedge Fund Alert, Institutional Investor) — remains **fully in
+> scope for DATA COLLECTION and provenance**: deal / intel / manager / hedge-fund /
+> legal / macro records should cite whatever reputable source verifies the fact and its
+> exact date, paywalled or not. When SEARCHING for verified data, **never exclude or
+> down-rank a source for being paywalled or non-reader-openable** — that property only
+> decides whether a headline is shown in the live wire, never whether a fact may be
+> recorded. (A data item whose `sourceUrl` is a paywalled outlet is correct; its "open
+> original" link simply opens externally rather than in the reading pane.)
+>
 > **Readable-only policy (2026-10).** The live wire carries only sources that render
 > in the reading pane. The hard-paywalled **premium four — Financial Times, Bloomberg,
 > The Wall Street Journal, The Economist** — are **switched off** at source (commented

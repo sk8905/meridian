@@ -193,7 +193,13 @@ each entity's `name` (and any well-known short/alias form) as a search term:
 
 Rules that still bind: never fabricate — each new item keeps a real, dated, sourced
 URL and only lands in the roster entity it genuinely concerns (skip rather than
-mis-tag). Credit-desk scope (below) still governs which *new managers/funds* may be
+mis-tag). **All sources are in scope for data collection.** Cite whatever reputable
+source verifies the fact + exact date — the paywalled premium outlets (Bloomberg, FT,
+WSJ, The Economist, Reuters) and specialist/paywalled services (Creditflux, PDI,
+Octus, Debtwire, With Intelligence, Hedge Fund Alert, Institutional Investor) are all
+fair game and often the ONLY source (hedge-fund news especially). The newswire
+"readable-only" cull is **display-only** (HOUSE_STYLE §8.3) and must never make you
+skip or down-rank a source when SEARCHING for or recording verified data. Credit-desk scope (below) still governs which *new managers/funds* may be
 created; this keyword pass is about **finding news for entities already in the
 roster**, across all three content domains, so the Home wire's CRD/HDG/LEX streams stay live.
 Hedge-fund keyword coverage explicitly includes Nishant Kumar's Bloomberg beat — all
