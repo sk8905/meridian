@@ -88,15 +88,6 @@ async function handleChartPrefs(request, env) {
   return json({ error: "method not allowed" }, 405);
 }
 
-// Origination Radar (retired 2026-10-13): Wire is monitoring-only, so the BD overlay
-// (tiers / notes / next actions) is gone. Any request to the old route deletes the
-// caller's stored overlay and returns 410, so one signed-in visit purges it from KV.
-async function handleOriginationRetired(request, env) {
-  const email = identity(request);
-  if (email && env.WATCHLIST) await env.WATCHLIST.delete("org:" + email);
-  return json({ error: "gone", purged: !!email }, 410);
-}
-
 async function handleWatchlist(request, env) {
   const email = identity(request);
   if (!email) return json({ error: "unauthenticated" }, 401);
@@ -5398,7 +5389,6 @@ export default {
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
-    if (url.pathname === "/api/origination") return handleOriginationRetired(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
     if (url.pathname === "/api/feedback") return handleFeedback(request, env);
     if (url.pathname === "/api/feedback-export") return handleFeedback(request, env);   // admin dump path — Access-Bypass this one, secret-guarded
