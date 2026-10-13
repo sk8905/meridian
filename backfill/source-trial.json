@@ -1,0 +1,363 @@
+{
+ "generated": "2026-10-13T22:15:44.760Z",
+ "results": [
+  {
+   "source": "European Central Bank",
+   "feed": "https://www.ecb.europa.eu/rss/press.xml",
+   "feedStatus": [
+    "200 https://www.ecb.europa.eu/rss/press.xml"
+   ],
+   "items": 15,
+   "newestDays": 0,
+   "sample": [
+    "Philip R. Lane: The AI opportunity for Europe",
+    "Meeting of 9-10 September 2026",
+    "Piero Cipollone: Interview with Corriere della Sera",
+    "Results of the September 2026 survey on credit terms and conditions in euro-denominated securities financing and OTC derivatives markets (SESFOD)",
+    "Frank Elderson: Effective supervision through timely remediation"
+   ],
+   "articles": [
+    {
+     "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261013~9db9bf4fd6.en.html",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 26
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.ecb.europa.eu//press/accounts/2026/html/ecb.mg261008~a10153d090.en.html",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 26
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in261008~3184e7d0d0.en.html",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 23
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Bank of Japan",
+   "feed": "https://www.boj.or.jp/en/rss/whatsnew.xml",
+   "feedStatus": [
+    "200 https://www.boj.or.jp/en/rss/whatsnew.xml"
+   ],
+   "items": 48,
+   "newestDays": 1,
+   "sample": [
+    "Basic Figures on Fails (Sept.)",
+    "Results of the 107th Opinion Survey on the General Public's Views and Behavior",
+    "Principal Figures of Financial Institutions (Sept.)",
+    "Corporate Goods Price Index (Sept.)",
+    "Twenty-fifth Meeting of the \"Council for Cooperation on Financial Stability\""
+   ],
+   "articles": [
+    {
+     "url": "http://www.boj.or.jp/en/statistics/set/bffail/sjgb2609.pdf",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 0
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 11
+     },
+     "inPane": true
+    },
+    {
+     "url": "http://www.boj.or.jp/en/research/o_survey/ishiki2610.htm",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 1
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 31
+     },
+     "inPane": true
+    },
+    {
+     "url": "http://www.boj.or.jp/en/statistics/dl/depo/kashi/kasi2609.pdf",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 0
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 16
+     },
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Bank of Canada",
+   "feed": "https://www.bankofcanada.ca/content_type/press-releases/feed/",
+   "feedStatus": [
+    "200 https://www.bankofcanada.ca/content_type/press-releases/feed/"
+   ],
+   "items": 10,
+   "newestDays": 33,
+   "sample": [
+    "Bank of Canada Board launches process to fill external Deputy Governor position",
+    "Bank of Canada unveils new vertical $20 bank note",
+    "Bank of Canada maintains the policy rate at 2¼%",
+    "G7 2026 Cross-Border Coordination Exercise (CBCE)",
+    "Bank of Canada publishes its 2027 schedule for policy interest rate announcements and other major publications"
+   ],
+   "articles": [
+    {
+     "url": "https://www.bankofcanada.ca/2026/09/bank-canada-board-launches-process-fill-external-deputy-governor-position/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 20
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.bankofcanada.ca/2026/09/bank-canada-unveils-new-vertical-20-bank-note/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 26
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.bankofcanada.ca/2026/09/fad-press-release-2026-09-02/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 27
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": false
+  },
+  {
+   "source": "Euronews Business",
+   "feed": "https://www.euronews.com/rss?level=theme&name=business",
+   "feedStatus": [
+    "200 https://www.euronews.com/rss?level=theme&name=business"
+   ],
+   "items": 50,
+   "newestDays": 0,
+   "sample": [
+    "Europe’s satellite sovereignty push faces funding test as EU space budget cycle ends",
+    "US banks post strong earnings but economic risks cloud the sector’s outlook",
+    "Stellantis bets on Chinese partnerships to avoid European plant closures",
+    "LVMH sales miss growth forecasts as China luxury demand slows",
+    "EU-China trade deal raises fears Brussels will go soft on Beijing"
+   ],
+   "articles": [
+    {
+     "url": "https://www.euronews.com/2026/10/13/europes-satellite-sovereignty-push-faces-funding-test-as-eu-space-budget-cycle-ends",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 32
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.euronews.com/2026/10/13/us-banks-post-strong-earnings-but-economic-risks-cloud-the-sectors-outlook",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 19
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.euronews.com/2026/10/13/stellantis-bets-on-chinese-partnerships-to-avoid-european-plant-closures",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 24
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "The Guardian",
+   "feed": "https://www.theguardian.com/uk/business/rss",
+   "feedStatus": [
+    "200 https://www.theguardian.com/uk/business/rss"
+   ],
+   "items": 40,
+   "newestDays": 0,
+   "sample": [
+    "UK high street bosses urge chancellor to cut cost of employing young people",
+    "Chip stocks slide after Broadcom boss likens AI investing to ‘casino’",
+    "Britons travelling to EU countries told not to apply for delayed Etias visa waiver",
+    "IMF raises UK growth forecast as economist says Healey should ‘stay the course’",
+    "Burnham’s Your First Home scheme ‘could boost Bellway’s house output by 10%’"
+   ],
+   "articles": [
+    {
+     "url": "https://www.theguardian.com/business/2026/oct/13/uk-high-street-bosses-urge-chancellor-to-cut-cost-of-employing-young-people",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 17
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.theguardian.com/business/2026/oct/13/chip-stocks-broadcom-ai-samsung-shares-cxmt",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 18
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://www.theguardian.com/world/2026/oct/13/britons-travelling-to-europe-told-not-to-apply-for-delayed-etias-visa-waiver",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 12
+     },
+     "proxy": null,
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "AltAssets",
+   "feed": "https://altassets.net/feed",
+   "feedStatus": [
+    "200 https://altassets.net/feed"
+   ],
+   "items": 10,
+   "newestDays": 0,
+   "sample": [
+    "Deal Roundup: CVC agrees Isreali camo tech maker Fibrotex deal, Asterion in talks to buy Fraikin",
+    "Finance Earth targets $100m for African nature and carbon investment fund",
+    "CDP Venture Capital backs Jolt Capital’s €1.1bn deeptech fund",
+    "CPP Investments commits A$300m as Nuveen Australian debt strategy passes A$1bn",
+    "New Mountain opens Abu Dhabi office under former Blackstone executive Hameed"
+   ],
+   "articles": [
+    {
+     "url": "https://www.altassets.net/private-equity-news/by-region/global-by-region/deal-roundup-cvc-agrees-isreali-camo-tech-maker-fibrotex-deal-asterion-in-talks-to-buy-fraikin.html",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 1
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 17
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://www.altassets.net/private-equity-news/by-region/africa-by-region/finance-earth-targets-100m-for-african-nature-and-carbon-investment-fund.html",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 1
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 17
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://www.altassets.net/private-equity-news/by-region/europe-by-region/western-europe-europe-by-region/italy-western-europe-europe-by-region/cdp-venture-capital-backs-jolt-capitals-e1-1bn-deeptech-fund.html",
+     "direct": {
+      "accessible": false,
+      "paragraphs": 1
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 17
+     },
+     "inPane": true
+    }
+   ],
+   "pass": true
+  },
+  {
+   "source": "Law Society Gazette",
+   "feed": null,
+   "feedStatus": [
+    "404 https://www.lawgazette.co.uk/rss",
+    "200 https://www.lawgazette.co.uk/XmlServers/navsectionRSS.aspx?navsectioncode=0",
+    "404 https://www.lawgazette.co.uk/news/rss"
+   ],
+   "items": 0,
+   "newestDays": null,
+   "sample": [],
+   "articles": [],
+   "pass": false
+  },
+  {
+   "source": "Above the Law",
+   "feed": "https://abovethelaw.com/feed/",
+   "feedStatus": [
+    "200 https://abovethelaw.com/feed/"
+   ],
+   "items": 30,
+   "newestDays": 0,
+   "sample": [
+    "‘Adventures In Legal Tech’: Where Knowledge Management Meets AI",
+    "AI And Front-End Loading: The Highest And Best Use",
+    "ChatGPT’s Anti-Trump Slogans",
+    "Not All Heroes Wear Capes, Some Wear Judicial Robes",
+    "Where Am I Now? A Legal Tech Evangelist Checks In"
+   ],
+   "articles": [
+    {
+     "url": "https://abovethelaw.com/2026/10/adventures-in-legal-tech-where-knowledge-management-meets-ai/",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 20
+     },
+     "inPane": true
+    },
+    {
+     "url": "https://abovethelaw.com/2026/10/ai-and-front-end-loading-the-highest-and-best-use/",
+     "direct": {
+      "accessible": true,
+      "paragraphs": 3
+     },
+     "proxy": null,
+     "inPane": true
+    },
+    {
+     "url": "https://abovethelaw.com/2026/10/chatgpts-anti-trump-slogans/",
+     "direct": {
+      "status": 403
+     },
+     "proxy": {
+      "status": 200,
+      "paragraphs": 28
+     },
+     "inPane": true
+    }
+   ],
+   "pass": true
+  }
+ ]
+}
