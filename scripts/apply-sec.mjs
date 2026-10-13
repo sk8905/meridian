@@ -18,7 +18,7 @@ export function applySec(src, { sec, adv } = {}) {
   let out = src; const log = [];
   // 13F panel.
   const panel = sec && sec.panel;
-  const cur = /export const HF_13F = \{[\s\S]*?\n\s*asOf:\s*"(\d{4}-\d{2}-\d{2})"/.exec(out);
+  const cur = /export const HF_13F = \{[\s\S]*?\n\s*"?asOf"?:\s*"(\d{4}-\d{2}-\d{2})"/.exec(out);   // JS or JSON key form
   if (panel && panel.asOf && panel.consensus && panel.consensus.length && (!cur || panel.asOf > cur[1])) {
     const start = out.indexOf("export const HF_13F = {");
     const end = out.indexOf("\n};", start);

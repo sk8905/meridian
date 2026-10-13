@@ -24,6 +24,7 @@ const again = applySec(out, { sec: { panel }, adv });
 check(again.out === out, "re-applying the same data changes nothing (idempotent)");
 const older = applySec(src, { sec: { panel: { ...panel, asOf: "2000-03-31" } } });
 check(!older.log.length, "an older panel is not applied");
+check(!applySec(out, { sec: { panel: { ...panel, asOf: "2099-06-30" } } }).log.length, "an older panel is not applied over one the apply step itself wrote (JSON key form)");
 
 const csv = 'CIK#,Organization CRD#,Primary Business Name,Latest ADV Filing Date,5F(2)(c)\n"0001350694",105129,"BRIDGEWATER ASSOCIATES, LP",03/30/2026,"171234567890"\n,999,"NO CIK LLC",01/01/2026,5\n';
 const rows = parseCsv(csv);
