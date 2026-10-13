@@ -149,8 +149,8 @@ export function renderAsk(body, st, opts) {
 
   // Add-only single-shot output. Once a draft PR is open, PREVIEW the drafted
   // fields inline so the reader can eyeball an obvious error (an off-by-1000
-  // AUM, a wrong HQ) before approving the merge in-app — no trip to GitHub. The
-  // "Review on GitHub" link stays for anyone who wants the full diff.
+  // AUM, a wrong HQ). There is deliberately no in-app merge: a merge to main
+  // deploys, so it must go through review + the test suite, never a phone tap.
   const fieldRow = (k, v) => v ? `<div class="na-firm-row"><span class="na-firm-k">${esc(k)}</span><span class="na-firm-v">${v}</span></div>` : "";
   const firmPreview = (d) => {
     d = d || {};
@@ -166,13 +166,10 @@ export function renderAsk(body, st, opts) {
       + (d.description ? `<div class="na-firm-desc">${esc(d.description)}</div>` : "")
       + `</div>`;
   };
-  const prOut = st.approved
-    ? `<div class="na-ask-answer">Merged <strong>${esc(st.prName || "the entry")}</strong> — it’s now live in the roster.</div>` + srcList(st.sources)
-    : `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong>. Check the fields, then approve to merge — or review the full pull request on GitHub.</div>`
+  const prOut = `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong>. Check the fields below, then review the pull request on GitHub.</div>`
       + firmPreview(st.draft)
-      + (st.approveError ? `<div class="na-ask-err">${esc(st.approveError)}</div>` : "")
-      + `<div class="na-approve-row"><button type="button" class="na-approve"${st.approving ? " disabled" : ""}>${st.approving ? "Merging…" : "Approve &amp; merge"}</button><a class="na-approve-gh" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">Review on GitHub</a></div>`
-      + `<div class="na-approve-note">Merging publishes straight to the live site — verify every field first (HOUSE_STYLE R7).</div>`
+      + `<div class="na-approve-row"><a class="na-approve-gh" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">Review on GitHub</a></div>`
+      + `<div class="na-approve-note">Nothing goes live from here — the entry is only added once the pull request is verified and merged (HOUSE_STYLE R7).</div>`
       + srcList(st.sources);
   const addOut = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`
     : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
@@ -310,22 +307,6 @@ export function mountAssistant(container, opts) {
       })
       .catch(() => setState({ q, error: "Network error — try again." }));
   };
-  // Approve & merge the drafted PR in-app (→ /api/approve). Keeps the current
-  // state (pr/draft/prName) so the preview stays put; flips to `approved` on
-  // success, or surfaces `approveError` and leaves the button live to retry.
-  const runApprove = () => {
-    if (state.approving || !state.prNumber) return;
-    setState(Object.assign({}, state, { approving: true, approveError: null }));
-    fetch("/api/approve", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ prNumber: state.prNumber }) })
-      .then((r) => r.json())
-      .then((d) => {
-        if (d && d.merged) setState(Object.assign({}, state, { approving: false, approved: true, approveError: null }));
-        else if (d && d.unconfigured) setState(Object.assign({}, state, { approving: false, approveError: d.message || "Merging isn’t switched on yet." }));
-        else setState(Object.assign({}, state, { approving: false, approveError: (d && d.message) || "Couldn’t merge — try again or use GitHub." }));
-      })
-      .catch(() => setState(Object.assign({}, state, { approving: false, approveError: "Network error — try again." })));
-  };
-
   // Enter/submit runs Ask when present, else Add (so an Add-only field still works).
   container.addEventListener("submit", (e) => {
     const form = e.target.closest(".na-ask-form"); if (!form) return;
@@ -342,7 +323,6 @@ export function mountAssistant(container, opts) {
     if (isChat && sugg) { e.preventDefault(); e.stopPropagation(); const i = container.querySelector(".na-ask-in"); if (i) i.value = sugg.dataset.ask || sugg.textContent || ""; runAsk(); return; }
     if (withSearch && e.target.closest(".na-ask-search")) { e.preventDefault(); e.stopPropagation(); runSearch(); return; }
     if (withAdd && e.target.closest(".na-ask-add")) { e.preventDefault(); e.stopPropagation(); runAdd(); return; }
-    if (withAdd && e.target.closest(".na-approve")) { e.preventDefault(); e.stopPropagation(); runApprove(); return; }
   });
   // Docked chat only: while the input is focused (keyboard up), flag <html> so the
   // bottom tab bar hides and the fixed chat column ends at the keyboard top — no

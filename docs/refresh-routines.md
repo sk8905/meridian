@@ -316,8 +316,8 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     surfaces, where the post-restructuring level is unconfirmed, or where the domicile
     is non-EMEA. A distressed exchange or default inside the trailing 12 months is
     `trend: "down"` even if the post-event re-rating is nominally higher.
-- **Origination fields (`book` + `advisers`) — capture opportunistically.** The Radar
-  tab reads two optional manager fields (spec: `docs/origination-radar-spec.md` Part H).
+- **Profile facts (`book` + `advisers`) — capture opportunistically.** The manager
+  profile's Business tab reads two optional, sourced manager fields.
   When a run surfaces source-verifiable evidence for a manager it is already touching
   (during that manager's rotating re-verification, or when its news is being added),
   fill or extend them — do NOT chase them for every manager on every run.

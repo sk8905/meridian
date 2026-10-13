@@ -25,14 +25,13 @@ for (const c of CASES) {
   const r = await pg.evaluate(() => {
     const id = document.querySelector("#pf-detail .tdet-id");
     // The Peers dropdown is a collapsible <details> in the identity header, styled
-    // like Sources, and it sits ABOVE the LinkedIn-connections + Sources lines.
+    // like Sources, and it sits ABOVE the Sources line.
     const det = id && id.querySelector("details.tdet-peers");
     if (!det) return { has: false };
     const sum = (det.querySelector("summary") || {}).textContent?.trim() || "";
     const links = [...det.querySelectorAll("a.tdet-peer[href]")];
     const kids = [...id.children];
     const src = id.querySelector(":scope > .tdet-src-det:not(.tdet-peers), :scope > .tdet-src");
-    const net = id.querySelector(":scope > .wn-badge");
     return {
       has: true, summary: sum,
       count: links.length,
@@ -40,7 +39,6 @@ for (const c of CASES) {
       names: links.map((x) => x.textContent.trim()),
       allHaveSub: links.every((x) => (x.nextElementSibling && x.nextElementSibling.classList.contains("tdet-peer-sub") && x.nextElementSibling.textContent.trim())),
       aboveSources: src ? kids.indexOf(det) < kids.indexOf(src) : true,
-      aboveNet: net ? kids.indexOf(det) < kids.indexOf(net) : true,
     };
   });
   check(r.has, `${c.label}: a "Peers" dropdown renders in the profile header`);
@@ -50,7 +48,7 @@ for (const c of CASES) {
   check(r.has && !r.hrefs.some((h) => h === c.prefix + c.selfId), `${c.label}: the profile is not listed as its own peer`);
   check(r.has && new Set(r.hrefs).size === r.hrefs.length, `${c.label}: peers are distinct (no duplicates)`);
   check(r.has && r.names.every(Boolean) && r.allHaveSub, `${c.label}: each peer shows a name + a strategy/size rationale`);
-  check(r.has && r.aboveSources && r.aboveNet, `${c.label}: the Peers dropdown sits above the LinkedIn / Sources lines`);
+  check(r.has && r.aboveSources, `${c.label}: the Peers dropdown sits above the Sources line`);
   checkErrs(errs, `${c.label} peers`);
   await ctx.close();
 }

@@ -64,7 +64,7 @@ export function peersOf(target, roster, cfg) {
 export function peerDetails(peers, hrefOf, subOf, esc) {
   if (!peers || !peers.length) return "";
   const n = peers.length;
-  // One faint line per peer — "Name · rationale" — matching the Sources / LinkedIn
+  // One faint line per peer — "Name · rationale" — matching the Sources
   // rows (the body inherits .tdet-src-body's faint small type).
   const body = peers.map((p) => {
     const sub = subOf ? subOf(p) : "";

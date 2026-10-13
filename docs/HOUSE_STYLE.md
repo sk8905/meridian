@@ -415,13 +415,12 @@ notification badge red (`#ef4444`).
   Oxford Economics, TS Lombard, Alpine Macro, Variant Perception, ING,
   Bloomberg Opinion, Project Syndicate, El-Erian, Authers, …). Real headline +
   source link only; never fabricate (see R7).
-- **R19 — On-device personal data stays on-device.** The LinkedIn-connections
-  importer (menu ▸ Network, `v2/js/network/store.js`) parses the user's
-  `Connections.csv` **in the browser**, keeps only rows that match a roster
-  entity (manager / hedge fund / law firm), and persists them in `localStorage`
-  (`wire.li.v1`) — never to the Worker or any third party. There is no fetch in
-  that module. Any future personal-data import must follow the same rule:
-  client-side parse, minimal on-device persistence, no egress.
+- **R19 — Monitoring only; no BD tooling.** Wire is a market-monitoring dashboard.
+  It holds no personal-contact or relationship data and has no CRM features: no
+  contact/LinkedIn imports, target tiers, relationship notes, next-action or
+  follow-up reminders, pipeline or outreach drafting. (The Origination Radar
+  overlay and the LinkedIn importer were removed 2026-10-13.) Follows/watchlist,
+  alerts and search are monitoring and stay.
 - **R20 — No explainer / legend / methodology prose in the UI.** The terminal
   shows data, not instructions about the data. Do **not** add caption blocks that
   (a) define abbreviations or tag codes (a legend like "CONT: continuation fund ·

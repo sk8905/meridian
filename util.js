@@ -48,7 +48,7 @@ export const setThemeColorMeta = (t) => {
 };
 
 // Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
-// Shared by the Credit Managers table and the Origination Radar target table.
+// Shared by the Credit Managers table.
 export const fmtAum = (n) => {
   if (n == null) return "—";
   if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;

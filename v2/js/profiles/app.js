@@ -21,7 +21,9 @@ import {
 // the URL-driven row highlight here is the pending focus viewManager applies.
 import { setPendingFocus } from "/credit/js/shared.js";
 import { esc } from "/util.js";
-import { matchesFor, pendingFor } from "/v2/js/network/store.js";
+// The LinkedIn-connections importer was retired (monitoring-only app); clear any
+// connections a previous version left on this device.
+try { localStorage.removeItem("wire.li.v1"); } catch { /* ignore */ }
 
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
@@ -118,42 +120,6 @@ export async function mount(host, ctx) {
   const renderCredit = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); syncHeadH(); };
   const renderLegal = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); syncHeadH(); };
 
-  // If the viewer has imported their LinkedIn connections (menu ▸ Network) and
-  // knows anyone at this entity, prepend a COLLAPSIBLE badge to the freshly-
-  // rendered profile: a clickable "N connections here" summary that expands to the
-  // people. Confident matches are asserted; still-ambiguous ones are surfaced too
-  // (so nobody silently goes missing) but clearly labelled "possible". Reads
-  // localStorage by "<kind>:<id>" — no roster load, never throws.
-  function decorateNet(kind, id) {
-    try {
-      const people = matchesFor(kind, id);
-      const pend = pendingFor(kind, id);
-      if ((!people.length && !pend.length) || !pfDetail.firstChild) return;
-      const line = (p) => esc(p.name) + (p.position ? ` · ${esc(p.position)}` : "");
-      const confHTML = people.length ? `<div class="wn-badge-people">${people.map(line).join("<br>")}</div>` : "";
-      const pendHTML = pend.length
-        ? `<div class="wn-badge-pending"><span class="wn-badge-plbl">Possible — confirm in Menu ▸ Network</span>${pend.map((p) => line(p) + (p.company ? ` <span class="wn-badge-co">(${esc(p.company)})</span>` : "")).join("<br>")}</div>`
-        : "";
-      const n = people.length;
-      // Label mirrors the "Sources (n)" line: a count only when there's more than one.
-      const label = n
-        ? `LinkedIn connections${n > 1 ? ` (${n})` : ""}`
-        : `Possible connections${pend.length > 1 ? ` (${pend.length})` : ""}`;
-      const el = document.createElement("details");
-      el.className = "wire-net wn-badge";
-      el.innerHTML = `<summary class="wn-badge-h">${label}</summary><div class="wn-badge-body">${confHTML}${pendHTML}</div>`;
-      // Sit the badge INSIDE the identity header, above the Sources line but BELOW
-      // the Peers dropdown (order: Peers · LinkedIn · Sources). The Peers dropdown
-      // reuses the .tdet-src-det chrome, so exclude it from the anchor or the badge
-      // would land above it. Fall back to the host end if the header shape is odd.
-      const host = pfDetail.querySelector(".tdet-id");
-      const anchor = host && host.querySelector(":scope > .tdet-src-det:not(.tdet-peers), :scope > .tdet-src");
-      if (anchor) anchor.parentNode.insertBefore(el, anchor);
-      else if (host) host.appendChild(el);
-      else pfDetail.prepend(el);
-    } catch { /* the badge is optional — never block the profile */ }
-  }
-
   // Hash router (Profiles owns /v2/profiles/#/…). No route → the list, honouring
   // ?tab=; a detail route renders the matching desk view in place.
   const dec = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
@@ -180,7 +146,7 @@ export async function mount(host, ctx) {
       try { history.replaceState(null, "", location.pathname + location.search + raw.split("?")[0]); } catch { /* keep the param if replaceState is blocked */ }
     }
     switch (route) {
-      case "manager": renderCredit("managers", () => viewManager(arg)); return decorateNet("manager", arg);
+      case "manager": renderCredit("managers", () => viewManager(arg)); return;
       // The standalone fund page is retired — redirect to the fund's manager so no
       // link (search, peer lists, connections, feed items) can reach a dead page.
       case "fund": {
@@ -188,12 +154,12 @@ export async function mount(host, ctx) {
         if (!mid) return showList("managers");
         const mh = `#/manager/${encodeURIComponent(mid)}`;
         try { history.replaceState(null, "", location.pathname + location.search + mh); } catch { location.hash = mh; }
-        renderCredit("managers", () => viewManager(mid)); return decorateNet("manager", mid);
+        renderCredit("managers", () => viewManager(mid)); return;
       }
       case "clo": return renderCredit("managers", () => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
       case "lp": return renderCredit("investors", () => viewLp(arg));
-      case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg)); return decorateNet("hf", arg);
-      case "firm": renderLegal("firms", () => viewFirm(dec(arg))); return decorateNet("firm", dec(arg));
+      case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg)); return;
+      case "firm": renderLegal("firms", () => viewFirm(dec(arg))); return;
       case "item": return renderLegal("firms", () => viewItem(dec(arg)));
       default: return showList(readTab());
     }

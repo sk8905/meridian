@@ -6,7 +6,7 @@
 //   • Watchlist — every firm/manager/fund/investor you follow across the app,
 //     grouped by kind, each a link to its profile. Reads the local follow store
 //     (meridian.follows) and unions the per-user cloud copy (/api/watchlist).
-//   • Coverage — Add a firm (C, opens a review PR) + the LinkedIn Network importer.
+//   • Coverage — Add a firm (C, opens a review PR).
 //   • Settings — Notifications (push toggle), Appearance (theme) + Text size (a
 //     1px-step adjuster on the app-wide --fs-adj knob). Sign out and
 //     density live elsewhere: sign out in the phone bottom strip; density is not
@@ -16,7 +16,6 @@
 // carries the search pill and the Ask chat, and this menu mirrors the same chips.
 // The Ask/Add/omnibox UI is the shared assistant module (mountAssistant).
 import { esc, setThemeColorMeta } from "/util.js";
-import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js";
 import { mountAssistant } from "/v2/js/assistant.js";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
@@ -58,72 +57,9 @@ function applyFontSize(v) {
   document.documentElement.style.setProperty("--fs-adj", v + "px");
   try { localStorage.setItem("m_fs_adj", String(v)); } catch { /* ignore */ }
 }
-// Four chips: Chat (Ask), Watchlist (follows), Coverage (Add a firm + Network)
+// Four chips: Chat (Ask), Watchlist (follows), Coverage (Add a firm)
 // and Settings (Notifications + Appearance).
 const SECTIONS = [["dialogue", "Chat"], ["watchlist", "Watchlist"], ["coverage", "Coverage"], ["settings", "Settings"]];
-
-// ---- Network (LinkedIn connections) ---------------------------------------
-// The importer + "My network" list. All state comes from network/store.js
-// (localStorage; nothing leaves the device). The import controls carry stable
-// ids so the mount() handlers below find them; the roster match runs in the
-// store's importCSV (lazy-loads the heavy data), so this builder stays sync.
-const NET_GROUPS = [["manager", "Managers"], ["hf", "Hedge Funds"], ["firm", "Law firms"]];
-function netWhen(iso) { try { return new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }); } catch { return ""; } }
-function netPeople(people) { return (people || []).map((p) => esc(p.name) + (p.position ? ` · ${esc(p.position)}` : "")).join("<br>"); }
-function netImporter() {
-  return `<div class="wn-import">
-    <label class="wn-btn wn-file"><input type="file" id="wn-file" accept=".csv,text/csv" hidden>Choose Connections.csv…</label>
-    <details class="wn-paste"><summary>or paste CSV text</summary>
-      <textarea id="wn-paste-txt" rows="4" placeholder="Paste the contents of Connections.csv here"></textarea>
-      <button type="button" class="wn-btn wn-paste-go" id="wn-paste-go">Import pasted text</button></details>
-    <div class="wn-status" id="wn-status" role="status" aria-live="polite"></div></div>`;
-}
-function netPaneHTML() {
-  const s = netLoad();
-  if (!s) {
-    return `<div class="wire-net">
-      <div class="na-menu-recent-h">LinkedIn connections</div>
-      ${netImporter()}
-      <p class="wn-how">Get the file from LinkedIn: <em>Settings → Data privacy → Get a copy of your data → Connections</em>, then open the archive and import <code>Connections.csv</code>.</p>
-    </div>`;
-  }
-  const groups = { manager: [], hf: [], firm: [] };
-  Object.values(s.confident || {}).forEach((e) => { (groups[e.kind] || []).push(e); });
-  Object.keys(groups).forEach((k) => groups[k].sort((a, b) => b.people.length - a.people.length || a.name.localeCompare(b.name)));
-  const matched = Object.keys(s.confident || {}).length;
-  const known = Object.values(s.confident || {}).reduce((n, e) => n + e.people.length, 0);
-
-  const pending = (s.pending && s.pending.length)
-    ? `<div class="wn-pending"><div class="na-menu-recent-h">Confirm these matches</div>
-       <p class="wn-hint">Company names that look close but aren’t exact — accept the ones that are the same firm.</p>
-       ${s.pending.map((p) => `<div class="wn-pend">
-         <div class="wn-pend-q"><span class="wn-pend-co">${esc(p.company)}</span> → <span class="wn-pend-nm">${esc(p.name)}</span>?</div>
-         <div class="wn-pend-people">${netPeople(p.people)}</div>
-         <div class="wn-pend-acts"><button type="button" class="wn-yes" data-acc="${esc(p.company)}">Yes, same firm</button><button type="button" class="wn-no" data-dis="${esc(p.company)}">No</button></div>
-       </div>`).join("")}</div>`
-    : "";
-
-  const list = matched
-    ? `<div class="wn-list">${NET_GROUPS.map(([k, label]) => {
-        const arr = groups[k]; if (!arr.length) return "";
-        return `<div class="wn-grp"><div class="wn-grp-h">${label} <span class="wn-grp-ct">${arr.length}</span></div>`
-          + arr.map((e) => `<details class="wn-ent">
-              <summary class="wn-ent-nm"><span class="wn-ent-t">${esc(e.name)}</span><span class="wn-ent-ct">${e.people.length}</span></summary>
-              <div class="wn-ent-people">${netPeople(e.people)}</div>
-              <a class="wn-ent-open" href="/v2/profiles/${esc(e.route)}" data-net-route="${esc(e.route)}">Open ${esc(e.name)} profile</a></details>`).join("")
-          + `</div>`;
-      }).join("")}</div>`
-    : `<p class="wn-empty">None of your connections are at a firm Wire currently tracks.</p>`;
-
-  return `<div class="wire-net">
-    <div class="na-menu-recent-h">LinkedIn connections</div>
-    <div class="wn-sum"><strong>${known}</strong> connection${known === 1 ? "" : "s"} at <strong>${matched}</strong> firm${matched === 1 ? "" : "s"} you follow · ${s.total} scanned · imported ${esc(netWhen(s.savedAt))}</div>
-    ${pending}
-    ${list}
-    <div class="wn-foot"><details class="wn-paste wn-reimport"><summary>Re-import / replace file</summary>${netImporter()}</details>
-      <button type="button" class="wn-clear" id="wn-clear">Remove imported data</button></div>
-  </div>`;
-}
 
 function dialoguePaneHTML() {
   // Ask Wire (mounted into #v2-menu-omni after render): Enter / "Ask" answers
@@ -159,12 +95,9 @@ function renderWatch(rows) {
 }
 function coveragePaneHTML() {
   // "Add a firm" (C) drafts a roster entry and opens a review PR; the Add (C)
-  // assistant mounts into #v2-menu-add after render(). Network is the LinkedIn
-  // importer that maps your connections onto Wire's covered firms.
+  // assistant mounts into #v2-menu-add after render().
   return `<div class="na-menu-recent-h">Add a firm</div>`
-    + `<div class="menu-asst" id="v2-menu-add"></div>`
-    + `<div class="na-menu-recent-h">Network</div>`
-    + netPaneHTML();
+    + `<div class="menu-asst" id="v2-menu-add"></div>`;
 }
 function settingsPaneHTML() {
   const perm = (typeof Notification !== "undefined" && Notification.permission) || "default";
@@ -263,22 +196,6 @@ export function mount(host, ctx) {
 
   render();   // initial render on mount (revisits keep this DOM alive)
 
-  // Parse + match a Connections.csv body. On success re-render (the pane swaps to
-  // the summary); on failure keep the pane and surface the reason inline.
-  async function runImport(text) {
-    const st = host.querySelector("#wn-status");
-    if (st) st.textContent = "Matching…";
-    try { await netImport(text); render(); }
-    catch (err) { const s2 = host.querySelector("#wn-status"); if (s2) s2.textContent = (err && err.message) || "Could not import that file."; }
-  }
-
-  host.addEventListener("change", (e) => {
-    const f = e.target.closest("#wn-file");
-    if (f && f.files && f.files[0]) {
-      f.files[0].text().then(runImport).catch(() => { const st = host.querySelector("#wn-status"); if (st) st.textContent = "Couldn’t read that file."; });
-    }
-  });
-
   host.addEventListener("click", (e) => {
     // "New chat" (Chat-chip dropdown): drop the transcript and start a fresh chat.
     const newChat = e.target.closest("#v2-newchat");
@@ -304,17 +221,6 @@ export function mount(host, ctx) {
     if (push && typeof Notification !== "undefined" && Notification.requestPermission) {
       Notification.requestPermission().then(() => render()).catch(() => {});
     }
-    // ---- Network section ----
-    const pasteGo = e.target.closest("#wn-paste-go");
-    if (pasteGo) { const ta = host.querySelector("#wn-paste-txt"); runImport(ta ? ta.value : ""); return; }
-    const acc = e.target.closest("[data-acc]");
-    if (acc) { netAccept(acc.dataset.acc); render(); return; }
-    const dis = e.target.closest("[data-dis]");
-    if (dis) { netDismiss(dis.dataset.dis); render(); return; }
-    const clr = e.target.closest("#wn-clear");
-    if (clr) { netClear(); render(); return; }
-    const netrow = e.target.closest("[data-net-route]");
-    if (netrow) { e.preventDefault(); ctx.navigate("/v2/profiles/" + netrow.dataset.netRoute); return; }
     // A watchlist row → open that profile (cross-page to /v2/profiles/).
     const wrow = e.target.closest("[data-watch-href]");
     if (wrow) { e.preventDefault(); ctx.navigate(wrow.dataset.watchHref); return; }

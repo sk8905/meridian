@@ -157,8 +157,8 @@ function cloRosterFor(items) {
   }).sort((a, b) => String(b.vintage).localeCompare(String(a.vintage)) || byDateDesc(a, b));
 }
 
-// "Book & business" — additive, render-if-present manager detail (docs/
-// origination-radar-spec.md Part E). Every value is optional and sourced.
+// "Book & business" — additive, render-if-present manager detail. Every value is
+// optional and sourced.
 // A stacked label→value row (label above, value wraps below) — the single
 // key/value primitive for the Business tab, so prose facts (strategy, origination)
 // and short ones (check size, AUM) read the same way instead of the old mix of
@@ -179,7 +179,7 @@ function bookHTML(m) {
   const src = (b.sources && b.sources.length) ? `<div class="tpg-src">${b.sources.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">source${b.sources.length > 1 ? " " + (i + 1) : ""}</a>`).join(" · ")}</div>` : "";
   return `<div class="tpg"><div class="tpg-h">Strategy &amp; book</div>${note}${facts}${src}</div>`;
 }
-// "Advisers" — incumbent counsel grouped by product line (Part F). `firm` is a
+// "Advisers" — law firms seen acting for the manager, grouped by product line. `firm` is a
 // display name; `confidence:"inferred"` edges (derived from public deal coverage)
 // are marked. Roles render in a fixed order, unknown roles appended.
 const ADV_ROLES = ["Fund formation", "Fund finance", "Financing/deals", "Restructuring", "Regulatory", "Tax"];
@@ -191,7 +191,7 @@ function advisersHTML(m) {
     + `${x.source ? `<a href="${esc(x.source)}" target="_blank" rel="noopener noreferrer">${esc(x.firm)}</a>` : esc(x.firm)}`
     + `${x.confidence === "inferred" ? ` <span class="adv-inf" title="Inferred from public deal coverage — not confirmed panel counsel">inferred</span>` : ""}</span>`
     + `<span class="tmini-m">${esc(x.scope || "")}${x.lastSeen ? " · " + esc(x.lastSeen) : ""}</span></li>`;
-  return `<div class="tpg"><div class="tpg-h">Advisers <span class="muted small" style="font-weight:400">· incumbent counsel by line</span></div>`
+  return `<div class="tpg"><div class="tpg-h">Advisers</div>`
     + roles.map((r) => `<div class="adv-grp"><div class="adv-role">${esc(r)}</div><ul class="tmini">${a.filter((x) => x.role === r).map(row).join("")}</ul></div>`).join("")
     + `</div>`;
 }
@@ -395,7 +395,7 @@ export function viewManager(id) {
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
   // Peers: nearest managers by strategy overlap + AUM proximity (see peers.js) —
-  // a collapsible header dropdown above the LinkedIn/Sources lines.
+  // a collapsible header dropdown above the Sources line.
   const mgrPeers = peersOf(m, managers, { tags: (x) => x.strategies || [], size: (x) => x.groupAum != null ? x.groupAum : x.aum, n: 5 });
   const mgrPeersDetails = peerDetails(mgrPeers, (e) => `#/manager/${e.id}`, (p) => {
     const s = p.shared[0] || (p.e.strategies || [])[0] || "";
