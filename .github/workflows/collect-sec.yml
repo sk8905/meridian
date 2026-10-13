@@ -59,7 +59,7 @@ jobs:
             echo "== SEC adviser data page: zip links"
             curl -sSL -A "$UA" "https://www.sec.gov/data-research/sec-markets-data/information-about-registered-investment-advisers-exempt-reporting-advisers" -o /tmp/advpage.html; echo "page bytes: $(wc -c < /tmp/advpage.html)"
             grep -oE 'href="[^"]+\.(zip|csv|xlsx)"' /tmp/advpage.html | head -20
-            z=$(grep -oE 'href="[^"]+\.zip"' /tmp/advpage.html | head -1 | sed -E 's/href="([^"]+)"/\1/')
+            z=$(grep -oE 'href="[^"]+\.zip"' /tmp/advpage.html | grep -vi exempt | head -1 | sed -E 's/href="([^"]+)"/\1/')
             case "$z" in /*) z="https://www.sec.gov$z";; esac
             echo "== first zip: $z"
             if [ -n "$z" ]; then
@@ -67,7 +67,20 @@ jobs:
               mkdir -p /tmp/adv && unzip -o -q /tmp/adv.zip -d /tmp/adv
               f=$(ls /tmp/adv | head -1); echo "== file: $f"
               case "$f" in
-                *.csv|*.txt) head -c 3000 "/tmp/adv/$f"; echo; grep -i "bridgewater\|millennium management\|citadel advisors" "/tmp/adv/$f" | head -5 | cut -c1-1500;;
+                *.csv|*.txt) python3 - "/tmp/adv/$f" <<'PY'
+          import sys, csv
+          r = csv.reader(open(sys.argv[1], encoding="latin-1", newline=""))
+          hdr = next(r)
+          print("COLUMNS:", len(hdr))
+          for i, c in enumerate(hdr): print(i, c)
+          n = 0
+          for row in r:
+              s = " ".join(row).lower()
+              if any(k in s for k in ("bridgewater associates", "millennium management", "citadel advisors")):
+                  print("ROW:", {h: v for h, v in zip(hdr, row) if v and v not in ("N",)}); n += 1
+              if n >= 3: break
+          PY
+                ;;
                 *.xlsx) pip install -q openpyxl && python3 - "/tmp/adv/$f" <<'PY'
           import sys, openpyxl
           wb = openpyxl.load_workbook(sys.argv[1], read_only=True); ws = wb.active
