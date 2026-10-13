@@ -646,6 +646,30 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
+## Deterministic candidate collector (`scripts/collect-candidates.mjs`) — run it FIRST
+
+The routines' hunt used to be free-form web search, and it under-collected badly (in
+the week to 13 Oct 2026 ~80 routine runs added ~27 records; legal alerts fell from
+~320/month to single digits). The collector makes the hunt deterministic: it pulls the
+Google News RSS search feed for **every tracked entity** — all credit managers, hedge
+funds and law firms in the data files — and prints the recent stories (outlets grouped
+into one event) that Wire does **not** already hold (by URL or headline). A full
+roster pass is ~400 feeds in under a minute.
+
+```
+node scripts/collect-candidates.mjs --size=400 --days=7          # human list
+node scripts/collect-candidates.mjs --size=400 --days=7 --json   # machine-readable
+node scripts/collect-candidates.mjs --kind=firm --size=40        # law firms only
+```
+
+Each candidate is a **cue, never a record**. For each one: open/verify it (WebSearch
+the headline), find the primary (the firm's own release, the filing, or the tier-1
+outlet in its `outlets` list — never cite an aggregator), take the exact date from the
+source, apply the scope rules (credit, not equity; tracked firm; tracked court), and
+only then append it (deals / intel / HEDGE_INTEL / legal items). Reject noise silently
+(earnings commentary, an unrelated entity with a similar name). Exit code 2 means no
+feed was reachable — say so and fall back to search; never treat that as "no news".
+
 ## Deterministic deal sources — SEC EDGAR (`/api/formd`, `/api/bdc`)
 
 WebSearch alone is an effort-dependent source for the **Transactions deal ledger**
