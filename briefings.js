@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-13",
-  time: "15:20 BST",
+  time: "17:20 BST",
   lede: "The IMF flags surging bond yields as the top risk to financial stability as US Treasury yields sit at multi-decade highs, chip stocks slide on AI-spending worries, and Arini raises $1.5bn despite a 13.5% fund loss.",
   bullets: [
     { html: "<strong>Bonds &mdash; US Treasury yields sit at their highest in decades</strong> as buyers step in to lock in the levels despite the rout, while rising Treasury bill issuance is adding pressure on short-term rates.", src: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8", srcName: "Financial Times", date: "2026-10-13" },

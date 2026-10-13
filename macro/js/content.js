@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-13",
-  lastCheckedTime: "15:20 BST",
+  lastCheckedTime: "17:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1258,7 +1258,25 @@ export const EARNINGS = {
   // EPS $1.83-1.94 and revenue $17.6-17.7bn). None had reported as of the sweep, so
   // each carries a forecast (Est) and an awaiting state \u2014 outcomes backfill on print.
   weeks: [
-    { label: "This week \u00b7 6\u201310 Oct", days: [
+    { label: "This week \u00b7 12\u201316 Oct", days: [
+      { date: "2026-10-13", rows: [
+        { t: "JPM", n: "JPMorgan Chase", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+        { t: "GS", n: "Goldman Sachs", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+        { t: "C", n: "Citigroup", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+      ] },
+      { date: "2026-10-14", rows: [
+        { t: "BLK", n: "BlackRock", tag: "Asset management \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+        { t: "BAC", n: "Bank of America", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+      ] },
+      { date: "2026-10-15", rows: [
+        { t: "SCHW", n: "Charles Schwab", tag: "Brokerage \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+      ] },
+      { date: "2026-10-16", rows: [
+        { t: "TRV", n: "Travelers", tag: "Insurance \u00b7 NYSE", when: null, held: [], estEps: null, estRev: null, actEps: null, actRev: null, px: null, note: "Q3 2026 report scheduled this week (date per Newsquawk weekly US earnings calendar); consensus and timing not yet verified." },
+      ] },
+    ] },
+      { label: "Last week \u00b7 6\u201310 Oct", days: [
       { date: "2026-10-06", rows: [
         { t: "STZ", n: "Constellation Brands", tag: "Beer, wine & spirits \u00b7 NYSE", when: "After close", held: [], estEps: "$3.55-3.62 (avg est)", estRev: "$2.54-2.57bn (avg est; ~3-4% y/y)", actEps: null, actRev: null, px: null, note: "Q2 FY2027 (quarter ended Aug). Consensus ~$3.55-3.62 EPS, broadly flat to slightly down y/y, on ~$2.54-2.57bn revenue; beer depletions and aluminium-tariff cost pressure in focus. Conference call 8:00am ET on 7 Oct." },
       ] },
@@ -1269,14 +1287,9 @@ export const EARNINGS = {
         { t: "DAL", n: "Delta Air Lines", tag: "Airlines \u00b7 NYSE", when: "Before open", held: [], estEps: "$1.83-1.94 (avg est)", estRev: "$17.6-17.7bn (avg est; ~6% y/y)", actEps: null, actRev: null, px: null, note: "Q3 2026, the unofficial start of Q3 airline earnings. Street consensus ~$1.83-1.94 EPS on ~$17.6-17.7bn revenue; premium-cabin and loyalty demand set against a sharp y/y rise in jet-fuel costs." },
       ] },
     ] },
-    { label: "Last week \u00b7 7\u201311 Sep", days: [
-      { date: "2026-09-10", rows: [
-        { t: "ORCL", n: "Oracle", tag: "AI/cloud infrastructure \u00b7 NYSE", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$1.30 (avg est)", estRev: "$19.13bn (avg est; co. guide total revenue +27-29% y/y, cloud revenue +58-64% y/y)", actEps: "$1.92 non-GAAP (beat ~$1.74 consensus)", actRev: "$19.35bn (+30% y/y, beat $19.14bn est)", px: "+7% after hours", note: "Q1 FY27 beat on both lines; cloud infrastructure revenue +121% y/y to $7.4bn and total cloud revenue +62% y/y to $11.6bn. Raised FY27 guidance to $8.10 non-GAAP EPS on $90bn+ revenue.", km: { l: "Cloud infrastructure revenue", est: null, act: "$7.4bn (+121% y/y)" }, guide: { est: "co. guided Q1 FY27 non-GAAP EPS to $1.72-1.76 and total revenue growth of 27-29% y/y (cloud +58-64% y/y) with the Q4 FY26 release", act: "guided Q2 FY27 total revenue growth to 30-34% (cloud +64-71%) and non-GAAP EPS to $1.85-1.93; raised FY27 guidance to $8.10 non-GAAP EPS on $90bn+ revenue" } },
-        { t: "ADBE", n: "Adobe", tag: "Enterprise software/AI \u00b7 Nasdaq", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$6.09 adjusted (avg est)", estRev: "$6.70bn (avg est; co. guide $6.67-6.72bn, ~12% y/y)", actEps: "$6.13 non-GAAP (beat $6.09 est; $4.62 GAAP)", actRev: "$6.76bn (+13% y/y, beat $6.70bn est)", px: "-2.14% after hours (to ~$243.50)", note: "Q3 FY26 beat on both lines and FY26 guidance raised to $26.576-26.626bn revenue / $24.45-24.50 non-GAAP EPS, but shares fell after hours on Q4 revenue guidance seen as soft ($6.80-6.85bn) and freemium AI-monetisation timing concerns; comes a week after the Sept 3 announcement that Anil Chakravarthy succeeds Shantanu Narayen as CEO on Dec 1, 2026 (Narayen becomes executive chair).", km: { l: "AI-first Ending ARR", est: null, act: ">$650m (+150%+ y/y)" }, guide: { est: "co. guided Q3 FY26 non-GAAP EPS to $6.05-6.10 and revenue to $6.67-6.72bn with the Q2 FY26 release", act: "guided Q4 FY26 revenue to $6.80-6.85bn and non-GAAP EPS to $6.30-6.35; raised FY26 revenue guidance to $26.576-26.626bn and non-GAAP EPS to $24.45-24.50" } },
-      ] },
-    ] },
   ],
   srcs: [
+    { name: "Newsquawk \u2014 Weekly US Earnings Estimates: 12-16th October 2026", url: "https://www.newsquawk.com/headlines/newsquawk-weekly-us-earnings-estimates-12-16th-october-2026-earnings-season-begins-with-big-banks-the-highlights" },
     { name: "Alphastreet — Constellation Brands (STZ) Q2 2027 Preview: EPS Est. $3.55, Reports October 7", url: "https://news.alphastreet.com/constellation-brands-stz-q2-2027-preview-eps-est-3-55-reports-october-7/" },
     { name: "ScanX — Constellation Brands Q2 Earnings: Analysts eye $3.56 EPS, $2.54B revenue", url: "https://scanx.trade/stock-market-news/companies/constellation-brands-q2-earnings-analysts-eye-3-56-eps-2-54b-revenue/52747563" },
     { name: "StockTitan — Constellation Brands to Report Second Quarter Fiscal 2027 Financial Results on October 6, 2026, After Market Close", url: "https://www.stocktitan.net/news/STZ/constellation-brands-to-report-second-quarter-fiscal-2027-financial-88ejfwqedqtd.html" },
