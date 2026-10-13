@@ -663,7 +663,8 @@ source — record a legal `items` entry straight from it: `url` (the firm page),
 confirm by search), `title`, `firm`, `area` (one of the four, from the title/description;
 skip if none fits), `type` (alert for deals/news, insight/update for articles), and a
 `summary` taken ONLY from `description`. Dedupe on firm + URL. The same files also
-give exact dates for undated / estimated items (match by URL).
+give exact dates for undated / estimated items (match by URL; set `date`, delete
+`dateEstimated`, then lower the MAX_UNDATED_LEGAL / MAX_ESTIMATED_LEGAL ratchets).
 
 ## Profile rota (`scripts/profile-rota.mjs`) — slow data no feed refreshes
 
