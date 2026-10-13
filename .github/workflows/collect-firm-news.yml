@@ -34,7 +34,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 150   # history mode: up to 400 pages × 26 firms, politely sequential per firm
     steps:
       - uses: actions/checkout@v4
         with:
