@@ -19,7 +19,7 @@ import {
 } from "/v2/js/legal/detail.js";
 // Same shared.js instance the detail views read (same tokenless import), so seeding
 // the URL-driven row highlight here is the pending focus viewManager applies.
-import { setPendingFocus } from "/credit/js/shared.js";
+import { setPendingFocus, isFollowed } from "/credit/js/shared.js";
 import { esc } from "/util.js";
 // The LinkedIn-connections importer was retired (monitoring-only app); clear any
 // connections a previous version left on this device.
@@ -67,7 +67,36 @@ export async function mount(host, ctx) {
     b.setAttribute("title", "Back to list");
     b.textContent = "‹";
     h.insertBefore(b, h.firstChild);
+    // "★ Following" — narrows the list to the entities on your watchlist.
+    const f = document.createElement("button");
+    f.type = "button";
+    f.className = "tfocus-btn pf-follow-btn";
+    f.setAttribute("aria-pressed", "false");
+    f.title = "Show only the names you follow";
+    f.textContent = "★ Following";
+    const inp = h.querySelector(".tsearch");
+    if (inp && inp.nextSibling) h.insertBefore(f, inp.nextSibling); else h.appendChild(f);
   });
+  // ONE row filter per list — the search text, the $1–15bn AUM focus and Following
+  // combine (each used to overwrite the others' result).
+  const ROWSEL = { managers: "#mgr-rows tr", hedgefunds: "#hf-rows tr", investors: "#lp-rows tr", firms: "#lf-rows tr" };
+  const FTYPE = { manager: "manager", hf: "hf", lp: "lp", firm: "firm" };
+  const dec0 = (x) => { try { return decodeURIComponent(x); } catch { return x; } };
+  function filterList(pane) {
+    if (!pane) return;
+    const key = pane.dataset.pane, sel = ROWSEL[key]; if (!sel) return;
+    const q = ((pane.querySelector(".tsearch") || {}).value || "").toLowerCase().trim();
+    const fb = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
+    const focus = !!fb && fb.getAttribute("aria-pressed") === "true";
+    const fol = (pane.querySelector(".pf-follow-btn") || {}).getAttribute?.("aria-pressed") === "true";
+    host.querySelectorAll(sel).forEach((tr) => {
+      const [, type, id] = (tr.getAttribute("data-href") || "").match(/^#\/(\w+)\/(.+)$/) || [];
+      const ok = (!q || (tr.dataset.name || "").includes(q))
+        && (!focus || tr.dataset.focus === "1")
+        && (!fol || (FTYPE[type] && isFollowed(FTYPE[type], dec0(id))));
+      tr.style.display = ok ? "" : "none";
+    });
+  }
 
   // ---- list <-> detail plumbing -------------------------------------------
   const showPane = (p) => panes.querySelectorAll(".tpane").forEach((el) => { el.hidden = el.dataset.pane !== p; });
@@ -229,11 +258,19 @@ export async function mount(host, ctx) {
     const focus = e.target.closest("#cr-hf-focus, #cr-lg-focus");
     if (focus) {
       if (host.classList.contains("pf-detailing")) exitDetail();   // filtering means you want the list
-      const rowsSel = focus.id === "cr-hf-focus" ? "#hf-rows tr" : "#mgr-rows tr";
       const on = focus.getAttribute("aria-pressed") !== "true";
       focus.setAttribute("aria-pressed", on ? "true" : "false");
       focus.classList.toggle("is-on", on);
-      host.querySelectorAll(rowsSel).forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
+      filterList(focus.closest(".tpane"));
+      return;
+    }
+    const fol = e.target.closest(".pf-follow-btn");
+    if (fol) {
+      if (host.classList.contains("pf-detailing")) exitDetail();
+      const on = fol.getAttribute("aria-pressed") !== "true";
+      fol.setAttribute("aria-pressed", on ? "true" : "false");
+      fol.classList.toggle("is-on", on);
+      filterList(fol.closest(".tpane"));
       return;
     }
     const cons = e.target.closest("#hf-cons-btn");
@@ -327,9 +364,7 @@ export async function mount(host, ctx) {
   host.addEventListener("input", (e) => {
     const inp = e.target.closest("#mgr-q, #hf-q, #lp-q, #lf-q"); if (!inp) return;
     if (host.classList.contains("pf-detailing")) exitDetail();   // typing a search returns to the list
-    const sel = inp.id === "mgr-q" ? "#mgr-rows tr" : inp.id === "hf-q" ? "#hf-rows tr" : inp.id === "lp-q" ? "#lp-rows tr" : "#lf-rows tr";
-    const v = inp.value.toLowerCase().trim();
-    host.querySelectorAll(sel).forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
+    filterList(inp.closest(".tpane"));
   });
 
   router();                                             // land on the list (or a deep-linked profile)

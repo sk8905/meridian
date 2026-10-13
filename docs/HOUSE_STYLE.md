@@ -454,7 +454,10 @@ notification badge red (`#ef4444`).
   deal's own type + the wording of the surfaced article, asserting a class only on
   an explicit signal and a sub-type only when named — anything unclear stays
   *Type unspecified* (never guessed). Auto-derived tags carry a `~` marker; every
-  investment links its source so the label can be checked (R7). Ongoing curation of
+  investment links its source so the label can be checked (R7), and opens in the
+  Transactions deal drawer (R36). A fund in *Vehicles* expands in place to its sourced
+  facts, named investors (linked to their Investor profile) and sources — there is no
+  separate fund page. Ongoing curation of
   `instrument`/`instrumentType` is a daily-refresh task (see refresh-routines).
 - **R22 — European credit universe (Transactions ▸ Credits).** The Credits sub-tab
   (`credit/js/eu-credits.js` → `EUR_CREDITS`, rendered in `v2/js/transactions/app.js`)
@@ -976,6 +979,29 @@ notification badge red (`#ef4444`).
   segment (`#/manager/<id>/investments`, `#/hf/<id>/holdings`, `#/firm/<id>/alerts`),
   written with `replaceState` so Back leaves the profile in one step. `?tab=` is honoured
   in the hash or the query. Spec: `tests/nav-backstack.mjs`.
+
+- **R36 — Transactions: modes, deals as objects, URL state.** (UX review 2026-10.) The
+  modes are **Lending · Structured credit · Secondaries · Credits · BDCs** — the deal-flow
+  groups (`TX_GROUPS` in `credit/js/tx.js`) named as the market uses them: *Lending* =
+  origination (direct lending/unitranche, ABL, NAV/fund finance, rescue, restructuring,
+  other); *Structured credit* = CLO, CFO, SRT; *Secondaries* = GP-/LP-led and NPL/loan
+  portfolios. (The retired `#/primary` URL canonicalises to `#/lending`.) **Every view is
+  in the hash** — `#/<mode>[/<type>]?sec=&grp=lender&period=&min=&focus=1&q=&deal=`,
+  `#/credits?q=&grp=&open=`, `#/bdc?q=&open=`; a filter / type / mode change or an opened
+  deal is a history step (Back undoes it), typing a search replaces. **A deal is a
+  first-class object:** a row opens its **drawer** (borrower, sponsor, lender → profile,
+  fund, type, sector, amount, date, source, and *same borrower / same sponsor / more from
+  this lender*); `#/deal/<id>` deep-links to it (search results, What's new, a manager's
+  Investments row all open deals here). **Period / size / AUM filters apply to every
+  view** (incl. the default All list) and show as removable pills with *Clear all*; the
+  type and sector chip strips are labelled. **Search spans all three groups.** **Phone:**
+  deals are two-line cards (borrower · amount / date · lender · type), never a
+  sideways-scrolling table; the drawer replaces the list in the page flow. The **borrower**
+  column never repeats the lender: `dealCounterparty()` (`v2/js/deal-parse.js`) falls back
+  to the sourced headline when the parse only found the lender. **Credits** rows open the
+  tracked deals that name the obligor + their lenders; **BDCs** carry `managerId` for
+  every adviser on the roster and appear on the manager's Vehicles tab. Specs:
+  `tests/transactions.mjs`, `tests/tx-credits.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`.
 
 ---
 

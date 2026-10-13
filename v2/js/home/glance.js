@@ -2857,7 +2857,21 @@ function _rowItem(row) {
     when: ((row.querySelector(".g-feed-time") || {}).textContent || "").trim(),
     href: row.getAttribute("href") || "",
     ext: row.getAttribute("target") === "_blank" || /^https?:/i.test(row.getAttribute("href") || ""),
+    ent: _entityOf(row.getAttribute("data-mgr") || ""),
   };
+}
+// The tracked entity a manager-wire / Watchlist row belongs to (data-mgr carries a
+// manager, hedge-fund or law-firm id) → { name, href } of its Wire profile, so the
+// reader can offer the hop from a story to the profile it is about.
+function _entityOf(id) {
+  if (!id) return null;
+  const m = (managers || []).find((x) => x.id === id);
+  if (m) return { name: m.name, href: `/v2/profiles/#/manager/${encodeURIComponent(id)}` };
+  const h = (hedgeFunds || []).find((x) => x.id === id);
+  if (h) return { name: h.name, href: `/v2/profiles/#/hf/${encodeURIComponent(id)}` };
+  const f = (firmById || {})[id];
+  if (f) return { name: f.name, href: `/v2/profiles/#/firm/${encodeURIComponent(id)}` };
+  return null;
 }
 // A stable per-story key for the reading-pane selection (survives a reload).
 function _rowKey(row) { return (row && (row.getAttribute("data-sid") || row.getAttribute("href"))) || ""; }
@@ -2921,7 +2935,12 @@ function _readNiceDate(iso) {
   const t = Date.parse(iso || ""); if (!t) return "";
   const d = new Date(t); return `${d.getDate()} ${MONTHS[d.getMonth()] || ""} ${d.getFullYear()}`;
 }
-function _readOpen(it) { return (it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">Open original at ${esc(it.src || "source")}</a>` : ""; }
+function _readOpen(it) {
+  // The source (external) and — for a story about a tracked manager / hedge fund / law
+  // firm — that entity's profile (in-app), so an internal row is never a dead end.
+  return ((it.ext && it.href) ? `<a class="g-read-open" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">Open original at ${esc(it.src || "source")}</a>` : "")
+    + (it.ent ? `<a class="g-read-open g-read-ent" href="${esc(it.ent.href)}">Open ${esc(it.ent.name)} profile</a>` : "");
+}
 // The ⋯ overflow menu pinned top-right of the article: feedback controls that mute a
 // story or a source (and a shortcut to review/undo). Rendered only when there's a real
 // source/url to act on; the menu buttons carry the story fields as data-* so the
@@ -3092,6 +3111,7 @@ function _renderReaderInto(box, it, emptyMsg) {
       : `<span class="g-read-free">● reading mode</span>`;
     const note = paywalled ? "This source needs a login — open the original below."
       : linksOut ? "This source blocks in-app fetch, so the full text can't render here — open the original below."
+      : (!it.ext && it.ent) ? `Open the ${esc(it.ent.name)} profile below for this update.`
       : "Open the original below to read the full story.";
     box.innerHTML = _readShell(it, badge, `<div class="g-read-note">${note}</div>`);
     return;

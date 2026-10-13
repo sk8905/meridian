@@ -1,4 +1,4 @@
-// Transactions ▸ Credits sub-tab: a Primary/Secondaries/Credits/BDCs nav. Credits mode
+// Transactions ▸ Credits sub-tab: a Lending/Structured credit/Secondaries/Credits/BDCs nav. Credits mode
 // shows the European credit universe (ELLI) organised by sector with issuer
 // ratings — or, until the sourced roster has landed, an honest "being compiled"
 // state. Toggling swaps the chrome + body (no leftover deal-flow controls).
@@ -10,14 +10,14 @@ const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/
 await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await pg.waitForTimeout(1600);
 
-// The top-level nav: Primary (default, on) + Secondaries + Credits + BDCs.
+// The top-level nav: Lending (default, on) + Structured credit + Secondaries + Credits + BDCs.
 const modes = await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].map((c) => ({ label: c.textContent.trim().replace(/\s+\d+$/, ""), on: c.classList.contains("is-on") })));
-check(modes.length === 4 && modes[0].label === "Primary" && modes[1].label === "Secondaries" && modes[2].label === "Credits" && modes[3].label === "BDCs", `nav chips are Primary / Secondaries / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
-check(modes[0].on && !modes[1].on, "Primary is the default mode");
+check(modes.map((m) => m.label).join("/") === "Lending/Structured credit/Secondaries/Credits/BDCs", `nav chips are Lending / Structured credit / Secondaries / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
+check(modes[0].on && !modes[1].on, "Lending is the default mode");
 
 // Deal-flow chrome (shared by Primary/Secondaries) shows the type table; the credits body is hidden.
 const flow = await pg.evaluate(() => { const d = (id) => getComputedStyle(document.querySelector("#" + id)).display; return { search: d("tx-flow-search"), body: d("tx-body"), credits: d("tx-credits-body") }; });
-check(flow.search !== "none" && flow.body !== "none" && flow.credits === "none", "Primary mode shows the deal-flow body, hides the credits body");
+check(flow.search !== "none" && flow.body !== "none" && flow.credits === "none", "Lending mode shows the deal-flow body, hides the credits body");
 
 // Switch to Credits.
 await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="credits"]').click());
@@ -97,8 +97,30 @@ if (cr.rows > 0) {
   check(!g2.anyOn && g2.rows === q.total, `Credits: clicking the active group-by button again turns it off (${g2.rows} rows)`);
 }
 
-// Toggling back restores the deal-flow table (Primary issuance).
-await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="primary"]').click());
+// A credit row opens what the app knows about the name: the tracked deals that NAME
+// it (each opening its deal) and the covered lenders behind them; the open row is in
+// the URL (?open=), so search / a pasted link can land on it.
+{
+  const rel = await pg.evaluate(async () => {
+    const row = [...document.querySelectorAll("#tx-credits-body tr.tcr-row")].find((r) => r.querySelector(".tcr-n"));
+    if (!row) return null;
+    row.click(); await new Promise((r) => setTimeout(r, 120));
+    const exp = row.nextElementSibling;
+    return { name: row.dataset.cr, shown: !exp.hidden, deals: exp.querySelectorAll("[data-deal]").length, n: +row.querySelector(".tcr-n").textContent, hash: location.hash };
+  });
+  check(!!rel, "Credits: at least one obligor is named in a tracked deal (count badge)");
+  if (rel) {
+    check(rel.shown && rel.deals > 0 && rel.deals <= rel.n, `Credits: a row opens the deals that name it (${rel.name}: ${rel.deals} shown of ${rel.n})`);
+    check(/^#\/credits\?.*open=/.test(rel.hash), `Credits: the open row is in the URL (${rel.hash})`);
+    await pg.evaluate(() => document.querySelector("#tx-credits-body tr.tcr-exp:not([hidden]) [data-deal]").click());
+    await pg.waitForTimeout(200);
+    const d = await pg.evaluate(() => ({ mode: (document.querySelector("#tx-mode .tchip.is-on") || {}).dataset.mode, drawer: !document.querySelector("#tx-drawer").hidden }));
+    check(d.drawer && ["lending", "structured", "secondary"].includes(d.mode), `Credits: a named deal opens its deal drawer (${d.mode})`);
+  }
+}
+
+// Toggling back restores the deal-flow table (Lending).
+await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="lending"]').click());
 await pg.waitForTimeout(200);
 checkEq(await pg.evaluate(() => getComputedStyle(document.querySelector("#tx-body")).display !== "none" && getComputedStyle(document.querySelector("#tx-credits-body")).display === "none"), true, "toggling back restores the deal-flow table");
 

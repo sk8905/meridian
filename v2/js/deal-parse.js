@@ -97,6 +97,20 @@ export function dealSubject(d) {
   return "";
 }
 
+// The COUNTERPARTY to show beside a known lender: dealSubject(), unless the parse
+// fell back to the lender's OWN name (a headline that leads with the lender, e.g.
+// "Sixth Street co-leads Waymo's $5bn debt financing") — then "" so callers show
+// the sourced headline instead of repeating the lender as the "borrower". CLO
+// deals keep their vehicle name.
+export function dealCounterparty(d, lenderName) {
+  const s = dealSubject(d);
+  if (!s || !lenderName || (d && d.clo) || (d && (d.company || COMPANY_OVERRIDES[d.id]))) return s;
+  const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
+  const a = norm(s), b = norm(lenderName);
+  const first = a.split(" ")[0];
+  return (a && (b === a || b.startsWith(a + " ") || a.startsWith(b) || (first.length >= 3 && b.split(" ")[0] === first))) ? "" : s;
+}
+
 // The SPONSOR / private-equity backer behind a deal, when one is named — distinct
 // from the borrower (the target company) and the lender (which finances the
 // buyout). Found via the possessive that precedes an acquisition/buyout verb:

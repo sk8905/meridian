@@ -46,9 +46,9 @@ function rowsFor(d, fresh) {
   const fName = (id) => ((d.firmById || {})[id] || {}).name || id || "";
   const P = "/v2/profiles/#/";
   const rows = {
-    // A deal / fundraising item opens its manager's profile FOCUSED on that item's row
-    // (?focus=<id> → scroll + flash); an item with no manager has no in-app home.
-    deals: (d.deals || []).filter((x) => fresh.deals.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: mName[x.managerId] || "", href: x.managerId ? P + "manager/" + encodeURIComponent(x.managerId) + "?focus=" + encodeURIComponent(x.id) : (x.sourceUrl || ""), ext: !x.managerId && !!x.sourceUrl, star: fm.has(x.managerId) })),
+    // A deal opens its Transactions deal drawer; a fundraising item opens its manager's
+    // profile FOCUSED on that item's row (?focus=<id> → scroll + flash).
+    deals: (d.deals || []).filter((x) => fresh.deals.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: mName[x.managerId] || "", href: x.date ? "/v2/transactions/#/deal/" + encodeURIComponent(x.id) : (x.sourceUrl || ""), ext: !x.date && !!x.sourceUrl, star: fm.has(x.managerId) })),
     intel: (d.intel || []).filter((x) => fresh.intel.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: [x.type, mName[x.managerId]].filter(Boolean).join(" · "), href: x.managerId ? P + "manager/" + encodeURIComponent(x.managerId) + "?focus=" + encodeURIComponent(x.id) : (x.sourceUrl || ""), ext: !x.managerId && !!x.sourceUrl, star: fm.has(x.managerId) })),
     hedge: (d.HEDGE_INTEL || []).filter((x) => fresh.hedge.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: hName[x.hfId] || "", href: P + "hf/" + encodeURIComponent(x.hfId || ""), star: fh.has(x.hfId) })),
     legal: (d.items || []).filter((x) => fresh.legal.has(x.id)).map((x) => ({ t: x.title, date: x.date, sub: fName(x.firm), href: x.url || P + "item/" + encodeURIComponent(x.id), ext: !!x.url, star: ff.has(x.firm), est: !!x.dateEstimated })),

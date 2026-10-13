@@ -11,6 +11,8 @@
 // is content-hashed by Vite, data is tokenless (HOUSE_STYLE T1/T2).
 import { deals, intel, managers, funds, lps, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
+import { BDCS } from "/credit/js/bdcs.js";
+import { EUR_CREDITS } from "/credit/js/eu-credits.js";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js";
 import { FT_ITEMS } from "/ft.js";
 import { NEWSLETTERS } from "/newsletters.js";
@@ -70,8 +72,16 @@ function buildIndex() {
   // A fund is searchable by name, but the standalone fund page is retired — the
   // result opens the fund's MANAGER profile (never a dead #/fund/ page).
   funds.forEach((f) => { if (f.managerId) add("credit", f.name, `Fund${mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/v2/profiles/#/manager/${encodeURIComponent(f.managerId)}`, 1, "", "Fund"); });
-  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
-  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise"));
+  // A deal opens IN-APP as its Transactions deal drawer (borrower, lender → profile,
+  // related deals, source); a fundraising/people item opens its manager's profile
+  // focused on that row (else its source).
+  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, d.date ? `/v2/transactions/#/deal/${encodeURIComponent(d.id)}` : creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
+  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, i.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(i.managerId)}?focus=${encodeURIComponent(i.id)}` : creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise"));
+  // BDCs and the European credit universe (Transactions) — each opens its row.
+  (BDCS || []).forEach((b) => add("credit", b.name, `BDC${b.ticker ? " · " + b.ticker : ""} · ${b.manager || ""}`, `/v2/transactions/#/bdc?open=${encodeURIComponent(b.ticker || b.name)}`, 1, "", "BDC"));
+  (EUR_CREDITS || []).forEach((c) => add("credit", c.name, `European credit · ${c.sector || ""}${c.rating ? " · " + c.rating : ""}${c.jurisdiction ? " · " + c.jurisdiction : ""}`, `/v2/transactions/#/credits?open=${encodeURIComponent(c.name)}`, 1, "", "Credit"));
+  [["lending", "Lending"], ["structured", "Structured credit"], ["secondary", "Secondaries"], ["credits", "Credits"], ["bdc", "BDCs"]]
+    .forEach(([k, l]) => add("view", `Transactions — ${l}`, "Transactions", `/v2/transactions/#/${k}`, 4, ""));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
   const hfNm = {};
   // Investors (LPs) — rank 1, opening the Profiles ▸ Investors page.

@@ -19,7 +19,7 @@ import {
 import { esc, byDateDesc } from "/util.js";
 import { BDCS } from "/credit/js/bdcs.js";
 import { firms as LAW_FIRMS } from "/legal/js/data.js";
-import { dealSubject, dealSponsor, dealAmount } from "../deal-parse.js";
+import { dealCounterparty, dealSponsor, dealAmount } from "../deal-parse.js";
 import { peersOf, peerDetails } from "../peers.js";
 import {
   eur, pct, fmtDate, link, nameCell,
@@ -293,7 +293,7 @@ function classifyInstrument(d) {
 }
 // The manager is implicit on its own profile, so an Investments row LEADS with the
 // other named party — the portfolio company / borrower — derived best-effort from
-// the sourced headline (dealSubject/dealAmount, shared with the Transactions
+// the sourced headline (dealCounterparty/dealAmount, shared with the Transactions
 // tables; see v2/js/deal-parse.js). The verbatim headline always stays visible
 // beneath, so a headline that doesn’t parse simply leads with itself.
 // One Investments table row: the portfolio company / borrower leads (linking to
@@ -307,7 +307,7 @@ function invRow(d) {
     ? `<span class="tinv-tag ${cls === "Debt" ? "is-debt" : "is-equity"}"${curated ? "" : ' title="Auto-derived from the linked article"'}>${esc(cls)}${sub ? " · " + esc(sub) : ""}${curated ? "" : "<span class=\"tinv-inf\">~</span>"}</span>`
     : `<span class="tinv-tag is-unspec">—</span>`;
   const outlet = creditSource(d) || "";
-  const subj = dealSubject(d);
+  const subj = dealCounterparty(d, (managerById[d.managerId] || {}).name);
   const sponsor = dealSponsor(d);   // the PE backer, when the deal names one
   const amt = dealAmount(d);
   const url = esc(d.sourceUrl);
@@ -317,10 +317,11 @@ function invRow(d) {
   // A click reveals the short sourced narrative (same summary the Transactions tab
   // shows), plus the sponsor when one is named and a "Full source" link. Only rows
   // that carry a summary or a source are made expandable.
-  const hasDetail = !!(d.summary || d.sourceUrl);
+  const hasDetail = !!(d.summary || d.sourceUrl || d.date);
   const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
     + (sponsor ? `<p class="tinv-spon"><span class="tinv-spon-l">Sponsor</span> ${esc(sponsor)}</p>` : "")
-    + (url ? `<a class="tx-src" href="${url}" target="_blank" rel="noopener noreferrer">Full source</a>` : "");
+    + (url ? `<a class="tx-src" href="${url}" target="_blank" rel="noopener noreferrer">Full source</a>` : "")
+    + (d.date ? ` <a class="tx-src" href="/v2/transactions/#/deal/${esc(encodeURIComponent(d.id))}">Open in Transactions</a>` : "");
   return `<tr class="tinv-row${hasDetail ? " is-exp" : ""}" data-id="${esc(d.id)}">`
     + `<td class="tinv-c-co" title="${esc(d.headline)}">${hasDetail ? `<span class="tx-caret" aria-hidden="true">▸</span>` : ""}${esc(name)}</td>`
     + `<td class="tinv-c-type">${esc(d.type || "—")}</td>`

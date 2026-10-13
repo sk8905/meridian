@@ -991,6 +991,7 @@
     .g-read-tw-media{ display:block; max-width:100%; max-height:300px; width:auto; height:auto; margin:9px 0 0; border:1px solid var(--t-grid); }
     .g-read-tw-foot{ display:block; margin-top:8px; font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-link); }
     .g-read-open{ font-family:var(--t-mono); font-size:var(--fs-body); color:var(--t-accent); font-weight:700; text-decoration:none; }
+    .g-read-open + .g-read-ent{ margin-left:16px; }
     .g-read-empty{ padding:16px 14px; font-family:var(--t-mono); font-size:var(--fs-body); line-height:1.5; color:var(--t-mut); }
     /* Reader ⋯ overflow menu — pinned top-right of the article; opens a small feedback
        menu ("Not interested" / "Mute source" / "Manage muted…"). The kicker/title clear it

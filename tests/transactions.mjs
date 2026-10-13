@@ -93,7 +93,7 @@ check(asof.staleClass === (asof.ageDays > 7) && asof.hasFlag === (asof.ageDays >
   `Transactions: the stale flag reflects the real ledger age (${asof.ageDays}d → ${asof.ageDays > 7 ? "stale flag shown" : "fresh, no flag"})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.noPeriodChips, "the old Last 12 months / All time period CHIPS stay removed (a compact date-range select replaces them)");
-check(ov.modeChips.join(",") === "Primary,Secondaries,Credits,BDCs", `the Primary / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
+check(ov.modeChips.join(",") === "Lending,Structured credit,Secondaries,Credits,BDCs", `the Lending / Structured credit / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 check(ov.subsNestedInRail, "desktop: the type sub-tabs nest under the active mode in the left rail");
@@ -211,23 +211,26 @@ check(grp.named && grp.descending, "each group is headed by its lender name, mos
 check(grp.sumCounts === grp.rowsFlat && grp.rowsGrouped === grp.rowsFlat, `grouping keeps every deal (${grp.rowsGrouped}/${grp.rowsFlat}, counts ${grp.sumCounts})`);
 check(grp.on && grp.offAgain === 0, "toggling the button off restores the flat list");
 
-// a transaction row expands to its full-width narrative detail
-const expd = await pg.evaluate(async () => {
+// A deal is a first-class object: tapping a row opens its DRAWER (borrower, lender →
+// profile, type, amount, date, source, related deals), recorded in the URL (?deal=),
+// and Back / ‹ closes it again.
+const drw = await pg.evaluate(async () => {
   let e = document.querySelector(".tx-panes-in");
   const allChip = e.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
   await new Promise((r) => setTimeout(r, 80));
-  e = document.querySelector(".tx-panes-in");
-  const row = e.querySelector(".tx-list tr.tx-row"); let det = row.nextElementSibling;
-  const before = det.hidden; row.click(); det = row.nextElementSibling;
-  const td = det.querySelector("td");
-  return {
-    before, after: det.hidden, isExp: det.classList.contains("tx-exp"),
-    noBox: det.querySelectorAll(".tx-fields").length === 0,           // the snapshot box is gone
-    fullWidth: td ? td.getAttribute("colspan") : null,               // the detail spans every column
-  };
+  const row = document.querySelector(".tx-panes-in .tx-list tr.tx-row");
+  const id = row.dataset.deal;
+  row.querySelector("td.tx-bd").click();
+  await new Promise((r) => setTimeout(r, 120));
+  const d = document.querySelector("#tx-drawer");
+  const txt = d && !d.hidden ? d.innerText : "";
+  return { id, open: !!d && !d.hidden, hash: location.hash, facts: ["lender", "type", "date", "source", "amount"].every((k) => txt.toLowerCase().includes(k)),
+    lender: !!(d && d.querySelector("a.tx-mgr")), rowOn: row.classList.contains("is-open") };
 });
-check(expd.isExp && expd.before === true && expd.after === false, "a transaction row expands to its detail");
-check(expd.noBox && expd.fullWidth === "7", `the expanded detail is a full-width narrative — no snapshot box (colspan ${expd.fullWidth})`);
+check(drw.open && drw.facts && drw.lender && drw.rowOn, `tapping a deal opens its drawer with the deal's facts and the lender's profile link (${JSON.stringify(drw)})`);
+check(new RegExp("deal=" + drw.id + "$").test(drw.hash), `the open deal is in the URL (${drw.hash})`);
+await pg.goBack(); await pg.waitForTimeout(250);
+check(await pg.evaluate(() => document.querySelector("#tx-drawer").hidden && !/deal=/.test(location.hash)), "Back closes the deal drawer");
 
 // ---- 4) $1–15bn AUM focus toggle -----------------------------------------
 // A target-band filter (identical to the Profiles league toggle) narrows every
@@ -310,45 +313,51 @@ await ctx.close();
 {
   const p = await open(b, PHONE_SHORT, base + "/v2/transactions/");
   await p.pg.waitForSelector(".tx-typestrip [data-sub]", { timeout: 8000 });
-  await p.pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
+  await p.pg.waitForSelector(".tx-panes-in .tx-card", { timeout: 8000 });
   const strip = await p.pg.evaluate(() => {
     const chips = [...document.querySelectorAll(".tx-typestrip [data-sub]")];
     const allChip = chips.find((c) => c.dataset.sub === "");
     return {
       n: chips.length, hasAll: !!allChip, defaultAll: !!(allChip && allChip.classList.contains("is-on")),
       noStrip: !document.querySelector(".tx-subnav"),   // no desktop left-rail sub-tabs on phone
-      defaultRows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length,
+      defaultRows: document.querySelectorAll(".tx-panes-in .tx-card").length,
     };
   });
   check(strip.n >= 5 && strip.hasAll && strip.noStrip, `phone: a type-filter chip strip (All + each type), no left sub-tab rail (${strip.n} chips)`);
   check(strip.defaultAll && strip.defaultRows > 0, `phone: All is the default — the whole group's deals show without picking a type (${strip.defaultRows} rows)`);
   // Tapping a type narrows the list to it (the optional, off-by-default filter).
   const pick = await p.pg.evaluate(async () => {
-    const before = document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length;
+    const before = document.querySelectorAll(".tx-panes-in .tx-card").length;
     const c = [...document.querySelectorAll(".tx-typestrip [data-sub]")].find((x) => /Direct lending/.test(x.textContent));
     if (c) c.click();
     await new Promise((r) => setTimeout(r, 150));
     const onChip = document.querySelector(".tx-typestrip [data-sub].is-on");
-    return { before, after: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length, onLabel: (onChip || {}).textContent || "" };
+    return { before, after: document.querySelectorAll(".tx-panes-in .tx-card").length, onLabel: (onChip || {}).textContent || "" };
   });
   check(/Direct lending/.test(pick.onLabel) && pick.after > 0 && pick.after <= pick.before, `phone: tapping a type filters the list to it (${pick.after}/${pick.before})`);
-  await p.pg.waitForSelector(".tx-panes-in .tx-list tbody tr.tx-row", { timeout: 8000 });
+  await p.pg.waitForSelector(".tx-panes-in .tx-card", { timeout: 8000 });
   await p.pg.waitForTimeout(400);
+  // Phone: each deal is a two-line CARD (borrower · amount, then date · lender · type)
+  // — the facts that matter fit 390px with no sideways-scrolling table, and the page
+  // itself never scrolls horizontally.
   const drill = await p.pg.evaluate(() => {
-    const t = document.querySelector(".tx-panes-in .tx-list");
-    const wrap = t.closest(".tleague-wrap");
-    const row = t.querySelector("tbody tr.tx-row");
-    const cells = [...row.children].filter((td) => getComputedStyle(td).display !== "none").map((td) => td.className.replace(/\s*tl-n\s*/, "").trim());
-    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width),
-      wrapScrolls: wrap ? wrap.scrollWidth > wrap.clientWidth + 1 : false,
-      wrapFits: wrap ? Math.round(wrap.getBoundingClientRect().width) <= window.innerWidth + 1 : false,
-      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth, cells };
+    const c = document.querySelector(".tx-panes-in .tx-card");
+    const r = c.getBoundingClientRect();
+    return { vw: window.innerWidth, cardW: Math.round(r.width), table: !!document.querySelector(".tx-panes-in .tx-list"),
+      nm: !!c.querySelector(".tx-card-nm"), meta: c.querySelectorAll(".tx-card-b > span").length, lender: !!c.querySelector(".tx-card-b a.tx-mgr"),
+      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth };
   });
-  check(drill.wrapScrolls && drill.wrapFits, `phone: the deal list scrolls horizontally inside its wrap (tbl ${drill.tblW} > vw ${drill.vw}, wrap fits screen)`);
+  check(!drill.table && drill.nm && drill.meta === 3 && drill.cardW <= drill.vw, `phone: deals are cards — name + amount, then date · lender · type (${drill.meta} meta, ${drill.cardW}px ≤ ${drill.vw})`);
+  check(drill.lender, "phone: the card's lender links to its profile");
   check(drill.pageOverflow <= 1, `phone: the page itself does not scroll sideways (overflow ${drill.pageOverflow}px)`);
-  check(drill.cells.length === 7 && ["tx-bd", "tx-sp", "tx-dt", "tx-mg", "tx-cat", "tx-sz", "tx-src2"].every((c) => drill.cells.includes(c)),
-    `phone: the deal list keeps all seven columns to scroll through (${drill.cells.join(", ")})`);
-  // The sub-category chips sit on ONE row that scrolls horizontally (like the
+  // Tapping a card opens the deal in place of the list; Back returns to the list.
+  await p.pg.evaluate(() => document.querySelector(".tx-panes-in .tx-card .tx-card-nm").click());
+  await p.pg.waitForTimeout(200);
+  const dv = await p.pg.evaluate(() => ({ open: !document.querySelector("#tx-drawer").hidden, listHidden: getComputedStyle(document.querySelector("#tx-body")).display === "none" }));
+  check(dv.open && dv.listHidden, "phone: a card opens the deal in place of the list");
+  await p.pg.goBack(); await p.pg.waitForTimeout(250);
+  check(await p.pg.evaluate(() => document.querySelector("#tx-drawer").hidden && getComputedStyle(document.querySelector("#tx-body")).display !== "none"), "phone: Back returns from the deal to the list");
+// The sub-category chips sit on ONE row that scrolls horizontally (like the
   // home-page wire filters); the Group-by-lender button stays pinned to the right
   // of that row, on the same line, never overlapping a chip.
   const gb = await p.pg.evaluate(() => {

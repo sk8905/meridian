@@ -713,7 +713,7 @@
    search header; the stale flag lights the brand accent when no new deal has landed
    within TX_STALE_DAYS, so a quiet pipeline is visible rather than masked. */
 .tx-asof { flex: 1 0 100%; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
-  font-family: var(--mono, ui-monospace, monospace); font-size: 11px; letter-spacing: .02em; }
+  font-family: var(--mono, ui-monospace, monospace); font-size: var(--fs-micro); letter-spacing: .02em; }
 .tx-asof[hidden] { display: none; }
 .tx-asof-lbl { color: var(--muted); text-transform: uppercase; }
 .tx-asof-flag { color: var(--accent); font-weight: 600; }
@@ -1263,3 +1263,62 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
   font-size:var(--fs-micro); font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
   color: var(--t-accent, var(--accent, #fb8b1e)); background: var(--t-head, #0a0a0a); border-bottom: 1px solid var(--border); }
 :root[data-theme="light"] .tw-day { color: #2f6cae; background: var(--t-head, #f4f7fb); border-bottom: 1px solid var(--border); }
+
+/* ==== Transactions (UX review 2026-10): deal drawer, phone cards, filter pills ==== */
+/* The borrower cell shows the sourced headline (muted) when the headline only names
+   the lender — capped so a long headline never widens the table. */
+.tx-list td.tx-bd .tx-hl { color: var(--muted); }
+.tx-list td.tx-bd { max-width: 340px; overflow: hidden; text-overflow: ellipsis; }
+.tx-row.is-open > td { background: var(--lift); }
+.tx-row:focus-visible, .tx-card:focus-visible, .tcr-row:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+/* Labels on the chip strips ("Type", "Sector") so two "All" rows never read alike. */
+.tx-striplbl { flex: 0 0 auto; align-self: center; padding-right: 2px; font-size: var(--fs-micro); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--faint); }
+/* Active-filter pills + Clear all (inside the sticky search header). */
+.tx-active { flex: 1 0 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 2px 0 4px; }
+.tx-active[hidden] { display: none; }
+.tx-pill { display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 0 8px; border: 1px solid var(--border); background: var(--lift); color: var(--ink); font-family: var(--t-mono); font-size: var(--fs-micro); cursor: pointer; border-radius: 0; }
+.tx-pill span { color: var(--faint); }
+.tx-pill:hover span { color: var(--ink); }
+.tx-clear { min-height: 26px; padding: 0 6px; border: 0; background: transparent; color: var(--muted); font-family: var(--t-mono); font-size: var(--fs-micro); text-decoration: underline; cursor: pointer; }
+/* Phone deal cards: borrower · amount, then date · lender · type. */
+.tx-cards { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--border); }
+.tx-card { padding: 10px 12px; border-bottom: 1px solid var(--border); cursor: pointer; background: var(--surface); }
+.tx-card.is-open { box-shadow: inset 2px 0 0 var(--accent); }
+.tx-card-a { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: var(--fs-body); color: var(--ink); line-height: 1.3; }
+.tx-card-nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tx-card-nm .tx-hl { color: var(--muted); }
+.tx-card-amt { flex: 0 0 auto; font-size: var(--fs-num); font-variant-numeric: tabular-nums; }
+.tx-card-b { display: flex; flex-wrap: wrap; gap: 2px 8px; margin-top: 3px; font-size: var(--fs-micro); color: var(--muted); }
+.tx-card-b > span + span::before { content: "· "; color: var(--faint); }
+.tx-card-b .tx-mgr { color: var(--muted); }
+.tx-cards .tx-grp { display: flex; justify-content: space-between; padding: 8px 12px; background: var(--head); border-bottom: 1px solid var(--border); font-size: var(--fs-micro); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+/* The deal drawer. Desktop: a panel over the right of the list. Phone: the list
+   gives way to the deal (in the page flow; Back / ‹ returns to the list). */
+.tcol-main { position: relative; }
+.tx-drawer { background: var(--surface); }
+.tx-drawer[hidden] { display: none; }
+.tx-drawer-h { display: flex; align-items: center; gap: 8px; position: sticky; top: 0; }
+.tx-drawer-x { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 22px; padding: 0; border: 1px solid var(--border); background: transparent; color: var(--ink); font-size: var(--fs-title); line-height: 1; cursor: pointer; border-radius: 0; }
+.tx-drawer-x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }
+.tx-drawer-x:hover { border-color: var(--accent); color: var(--accent); }
+.tx-drawer-b { padding: 12px 14px 18px; }
+.tx-drawer-t { margin: 0 0 10px; font-size: var(--fs-head); font-weight: 600; line-height: 1.35; color: var(--ink); }
+.tx-drawer-b .tbiz { margin-bottom: 10px; }
+.tx-drawer-b .tpg-h { margin-top: 12px; }
+.tx-drawer-b .tmini-row { padding: 6px 0; }
+.tx-drawer-b .tbiz-v a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 2px; }
+.tx-drawer-b .tbiz-v a:hover { text-decoration-color: var(--accent); }
+@media (max-width: 760px) { .tx-mlong { display: none; } }
+@media (min-width: 761px) {
+  .tx-drawer { position: absolute; top: 0; right: 0; bottom: 0; width: min(460px, 48%); overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--border); box-shadow: -10px 0 26px rgba(0, 0, 0, .18); z-index: 9; }
+}
+@media (max-width: 760px) {
+  .tx-has-deal #tx-body, .tx-has-deal #tx-flow-search { display: none; }
+  .tx-drawer-h { top: calc(var(--wire-head-h, 57px) + var(--chip-h, 34px)); z-index: 7; }
+}
+/* Credits: a row opens the deals that name it + their lenders. */
+.tcr-row { cursor: pointer; }
+.tcr-row.is-open .tx-caret { transform: rotate(90deg); color: var(--accent); }
+.tcr-n { margin-right: 6px; padding: 0 4px; border: 1px solid var(--border); color: var(--muted); font-size: var(--fs-micro); font-variant-numeric: tabular-nums; }
+.tcr-exp > td { background: var(--head); border-bottom: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 0; white-space: normal; }
+.tcr-lenders { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 4px 0 8px; font-size: var(--fs-body); }
