@@ -1,0 +1,36 @@
+name: source-trial
+
+# Trials candidate newswire sources from open internet: is the feed live, and do its
+# articles render in Wire's reading pane (the Worker's own extractor, with the same
+# Jina proxy fallback)? Writes backfill/source-trial.json (excluded from the site).
+# Manual only.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Trial sources
+        run: |
+          mkdir -p backfill
+          node scripts/source-trial.mjs > backfill/source-trial.json
+      - name: Commit
+        run: |
+          git config user.name "wire-collector[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backfill/source-trial.json
+          git commit -m "source trial: backfill/source-trial.json [skip ci]" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0; sleep $((i * 5)); done
+          exit 1

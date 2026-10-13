@@ -3646,7 +3646,7 @@ export function unwrapGnews(link) {
     return /^https?:\/\/[^/]+\.[a-z]{2,}/i.test(url) ? url : link;
   } catch { return link; }
 }
-function feedParse(xml, feed) {
+export function feedParse(xml, feed) {
   const out = [];
   const blocks = xml.match(/<(item|entry)\b[\s\S]*?<\/\1>/gi) || [];
   for (const block of blocks) {
