@@ -24,6 +24,32 @@ export const fmtAum = (n) => {
   return `€${n}bn`;
 };
 
+// The CURRENCY a stored AUM figure is actually in. The roster mixes conventions —
+// older records hold an approximate €-equivalent, newer ones (R29) the reported
+// figure as-is, usually $ — so the symbol is read off the record's own sourced
+// aumText: if a figure there matches the stored number (±3%), that figure's currency
+// is the number's currency; otherwise the file's documented € convention applies.
+// No exchange rate is ever applied — the label is corrected, the number is not.
+export function aumCcyOf(m, v) {
+  if (!m || v == null) return "€";
+  const re = /([€$£])\s*~?\s*(\d[\d.,]*)\s*(tn|trillion|bn|billion|m|million)?/gi;
+  let hit;
+  while ((hit = re.exec(String(m.aumText || "")))) {
+    let n = parseFloat(hit[2].replace(/,/g, ""));
+    const u = (hit[3] || "bn").toLowerCase();
+    if (u[0] === "t") n *= 1000; else if (u[0] === "m") n /= 1000;
+    if (n > 0 && Math.abs(v / n - 1) <= 0.03) return hit[1];
+  }
+  return "€";
+}
+// fmtAum with an explicit currency symbol (defaults to the € convention).
+export const fmtAumC = (n, ccy = "€") => {
+  if (n == null) return "—";
+  if (n >= 1000) return `${ccy}${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
+  if (n < 1) return `${ccy}${Math.round(n * 1000)}m`;
+  return `${ccy}${n}bn`;
+};
+
 // ----------------------------- small render helpers -------------------------
 export function link(href, text, cls = "") { return `<a href="${href}" class="${cls}">${esc(text)}</a>`; }
 
@@ -64,7 +90,7 @@ export function raiseDisplay(x) {
 export const metaDate = (d) => `<span class="muted small">${d ? esc(fmtDate(d)) : ""}</span>`;
 
 export function notFound(app) {
-  app.innerHTML = `<div class="page-head"><h1>Not found</h1><p class="muted">That record doesn't exist. ${link("#/", "Back to dashboard")}.</p></div>`;
+  app.innerHTML = `<div class="page-head"><h1>Not found</h1><p class="muted">That record doesn't exist. ${link("#/", "Back to the list")}.</p></div>`;
 }
 
 // --------------------------- watchlist (read layer) ------------------------

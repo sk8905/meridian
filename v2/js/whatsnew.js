@@ -46,8 +46,10 @@ function rowsFor(d, fresh) {
   const fName = (id) => ((d.firmById || {})[id] || {}).name || id || "";
   const P = "/v2/profiles/#/";
   const rows = {
-    deals: (d.deals || []).filter((x) => fresh.deals.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: mName[x.managerId] || "", href: P + "manager/" + encodeURIComponent(x.managerId || ""), star: fm.has(x.managerId) })),
-    intel: (d.intel || []).filter((x) => fresh.intel.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: [x.type, mName[x.managerId]].filter(Boolean).join(" · "), href: P + "manager/" + encodeURIComponent(x.managerId || ""), star: fm.has(x.managerId) })),
+    // A deal / fundraising item opens its manager's profile FOCUSED on that item's row
+    // (?focus=<id> → scroll + flash); an item with no manager has no in-app home.
+    deals: (d.deals || []).filter((x) => fresh.deals.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: mName[x.managerId] || "", href: x.managerId ? P + "manager/" + encodeURIComponent(x.managerId) + "?focus=" + encodeURIComponent(x.id) : (x.sourceUrl || ""), ext: !x.managerId && !!x.sourceUrl, star: fm.has(x.managerId) })),
+    intel: (d.intel || []).filter((x) => fresh.intel.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: [x.type, mName[x.managerId]].filter(Boolean).join(" · "), href: x.managerId ? P + "manager/" + encodeURIComponent(x.managerId) + "?focus=" + encodeURIComponent(x.id) : (x.sourceUrl || ""), ext: !x.managerId && !!x.sourceUrl, star: fm.has(x.managerId) })),
     hedge: (d.HEDGE_INTEL || []).filter((x) => fresh.hedge.has(x.id)).map((x) => ({ t: x.headline, date: x.date, sub: hName[x.hfId] || "", href: P + "hf/" + encodeURIComponent(x.hfId || ""), star: fh.has(x.hfId) })),
     legal: (d.items || []).filter((x) => fresh.legal.has(x.id)).map((x) => ({ t: x.title, date: x.date, sub: fName(x.firm), href: x.url || P + "item/" + encodeURIComponent(x.id), ext: !!x.url, star: ff.has(x.firm), est: !!x.dateEstimated })),
     cases: (d.cases || []).filter((x) => fresh.cases.has(x.id)).map((x) => ({ t: x.name, date: x.date, sub: [x.court, x.citation].filter(Boolean).join(" · "), href: x.url || "", ext: !!x.url })),
@@ -69,9 +71,14 @@ export function whatsNewHTML(d, snap) {
   return head + GROUPS.map(([k, label]) => {
     const arr = rows[k]; if (!arr.length) return "";
     return `<div class="watch-grp"><div class="watch-grp-h">${esc(label)} <span class="watch-grp-ct">${arr.length}</span></div>`
-      + arr.slice(0, CAP).map((r) => `<a class="watch-row" href="${esc(r.href || "#")}"${r.ext ? ' target="_blank" rel="noopener noreferrer"' : ` data-watch-href="${esc(r.href || "")}"`}>`
-        + `<span class="watch-nm">${r.star ? "★ " : ""}${esc(r.t || "")}</span>`
-        + `<span class="watch-sub">${r.date ? (r.est ? "c. " : "") + esc(fmtDay(r.date)) : "undated"}${r.sub ? " · " + esc(r.sub) : ""}</span></a>`).join("")
+      + arr.slice(0, CAP).map((r) => {
+        // A row with no destination (a case with no judgment link) is shown as plain
+        // text — never a dead link that does nothing on tap.
+        const inner = `<span class="watch-nm">${r.star ? "★ " : ""}${esc(r.t || "")}</span>`
+          + `<span class="watch-sub">${r.date ? (r.est ? "c. " : "") + esc(fmtDay(r.date)) : "undated"}${r.sub ? " · " + esc(r.sub) : ""}</span>`;
+        if (!r.href) return `<div class="watch-row watch-row-nolink">${inner}</div>`;
+        return `<a class="watch-row" href="${esc(r.href)}"${r.ext ? ' target="_blank" rel="noopener noreferrer"' : ` data-watch-href="${esc(r.href)}"`}>${inner}</a>`;
+      }).join("")
       + (arr.length > CAP ? `<p class="watch-empty">+${arr.length - CAP} more</p>` : "")
       + `</div>`;
   }).join("");

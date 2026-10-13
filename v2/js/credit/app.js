@@ -14,7 +14,7 @@ import {
   eur, pct, fmtDate, link, notFound,
   FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell, toggleFollow, syncFollows,
   creditSource, feedDedupKey,
-  applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
+  applyPendingFocus, setPendingFocus, _chipMem, chipMemKey, aumCcyOf, fmtAumC,
 } from "/credit/js/shared.js";
 import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js";
@@ -360,8 +360,8 @@ function managersPaneHTML() {
   const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "") + " " + (r.m.strategies || []).join(" ")).toLowerCase())}">`
     + `<td class="tl-nm">${esc(r.m.name)}</td>`
     + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
-    + `<td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td>`
-    + `<td class="tl-n">${r.m.aumCredit != null ? esc(fmtAum(r.m.aumCredit)) : "—"}</td>`
+    + `<td class="tl-n"${r.m.aumText ? ` title="${esc(r.m.aumText)}${r.m.asOf ? " · as of " + esc(r.m.asOf) : ""}"` : ""}>${r.aum == null ? "n/a" : esc(fmtAumC(r.aum, aumCcyOf(r.m, r.aum)))}</td>`
+    + `<td class="tl-n">${r.m.aumCredit != null ? esc(fmtAumC(r.m.aumCredit, aumCcyOf(r.m, r.m.aumCredit))) : "—"}</td>`
     + `<td class="tl-n">${r.nf}</td>`
     + `<td class="tl-n">${r.live || ""}</td>`
     + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td>`
@@ -373,7 +373,7 @@ function managersPaneHTML() {
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full">
-                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Secondaries & structured liquidity — sell-side transactions">Secondaries</th></tr></thead>
+                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th title="Group (firm-wide) AUM where reported, else the credit platform's">Group&nbsp;AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Secondaries & structured liquidity — sell-side transactions">Secondaries</th></tr></thead>
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
               </div>

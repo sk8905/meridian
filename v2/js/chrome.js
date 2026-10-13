@@ -35,7 +35,9 @@ import { BRIEFINGS } from "/briefings.js";
 let _palReq = false;
 function setupLazyPalette() {
   const isTyping = (t) => { const g = (t && t.tagName || "").toLowerCase(); return !!t && (t.isContentEditable || g === "input" || g === "textarea" || g === "select"); };
-  const onKey = (ev) => { if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target)) { ev.preventDefault(); load(); } };
+  // "/" (outside a field) or ⌘K / Ctrl-K (anywhere) opens search.
+  const isCmdK = (ev) => (ev.metaKey || ev.ctrlKey) && !ev.altKey && (ev.key === "k" || ev.key === "K");
+  const onKey = (ev) => { if ((ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target)) || isCmdK(ev)) { ev.preventDefault(); load(); } };
   const onClick = (ev) => { if (ev.target.closest("[data-open-search]")) { ev.preventDefault(); load(); } };
   const onEvt = (ev) => load(ev && ev.detail && ev.detail.q);
   function load(seedQ) {

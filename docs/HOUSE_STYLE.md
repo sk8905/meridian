@@ -846,6 +846,13 @@ notification badge red (`#ef4444`).
     `normAum()` in `src/index.js` folds a stray raw value back to billions; the
     `/api/propose` prompt states the unit. `aumText` is the human string.
   - be marked `_draft:true` + `estimated:true` so the daily routine finds it.
+  - **Display currency is read, never assumed.** The roster mixes older approximate
+    €-equivalents with reported figures stored as-is (mostly $). Every AUM figure is shown
+    with the currency its own sourced `aumText` uses for that number (`aumCcyOf` in
+    `credit/js/shared.js`, ±3% match), falling back to the file's € convention — no FX
+    rate is ever applied. The Managers list and the profile header show the SAME two
+    figures with the same labels: **Group AUM** (`aumTotal ?? aum`) · **Credit AUM**
+    (`aumCredit`).
   **Every new `_draft` name must then be researched and filled out** — real, sourced
   AUM/strategies/owners/description and, where verifiable, deals & news (never
   fabricated, R7) — and `_draft` cleared once the profile is solid. New names are
@@ -950,6 +957,25 @@ notification badge red (`#ef4444`).
   **hides the four home tabs**. The desktop terminal is untouched (all of this is
   `≤1200px` / phone-gated). Specs: `tests/v2-shell.mjs`, `tests/v2-header.mjs`,
   `tests/home-mobile-wire-tabs.mjs`, `tests/markets-panel.mjs`.
+
+- **R35 — Navigation keeps your place (back-stack, tab memory, URL state).** (UX review
+  2026-10.) **(a) Drill-downs are history entries on every device:** a link, a search
+  result, a notification or a row that opens another section (Transactions → a manager,
+  a BDC → its adviser, News → a profile) `pushState`s, so Back / the iPhone edge-swipe
+  returns to the exact previous view. Only **bottom-tab taps on touch** replace the entry
+  (the R34 rule that the edge-swipe never pages between top-level tabs). **(b) Tab memory:**
+  tapping a DIFFERENT bottom tab returns that section to wherever it was left (its URL +
+  scroll, `_lastUrl`/`_scrollY` in `runtime.js`); only re-tapping the ACTIVE tab resets it
+  to its first part (`home()`, guarded by `tests/nav-reset.mjs`). Home ↔ News share one
+  view and keep their own switch behaviour. **(c) In-app links never reload:** any
+  same-origin `<a href="/v2/…">` is routed by the runtime's delegated click handler (bubble
+  phase, so a view's own handler wins); non-anchor callers (the search palette) use
+  `window.__wireNavigate`. **(d) Lists keep their scroll:** Profiles remembers each list's
+  scroll when a profile opens and restores it on Back / ‹ / the chip (instant, never the
+  smooth `html` scroll). **(e) State lives in the URL:** a profile's sub-tab is a path
+  segment (`#/manager/<id>/investments`, `#/hf/<id>/holdings`, `#/firm/<id>/alerts`),
+  written with `replaceState` so Back leaves the profile in one step. `?tab=` is honoured
+  in the hash or the query. Spec: `tests/nav-backstack.mjs`.
 
 ---
 

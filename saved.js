@@ -6,7 +6,7 @@
 // data modules aren't pulled into each app's initial load.
 // =============================================================================
 import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js";
-import { deals, intel, managers, HEDGE_FUNDS, HEDGE_INTEL, lps } from "/credit/js/data.js";
+import { deals, intel, managers, funds, HEDGE_FUNDS, HEDGE_INTEL, lps } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 
 // ---- source-label helpers (mirror glance.js / credit app.js) ----------------
@@ -51,7 +51,13 @@ export function resolveFollows() {
   arr("firm").forEach((id) => { const fm = _firmById.get(id); push("Law firms", id, fm, fm && fm.name, "", "/v2/profiles/#/firm/" + encodeURIComponent(id)); });
   // Legacy "fund" follows resolve to their manager page (the standalone fund page
   // was retired).
-  arr("fund").forEach((id) => { const m = _mgrById.get(id); if (m) push("Managers", id, m, m.name, m.hq, "/v2/profiles/#/manager/" + encodeURIComponent(id)); });
+  // (a fund id resolves to its MANAGER via the fund record — looking the fund id up in
+  // the manager map silently dropped every legacy fund follow).
+  const _fundById = new Map((funds || []).map((x) => [x.id, x]));
+  arr("fund").forEach((id) => {
+    const fd = _fundById.get(id), mid = fd && fd.managerId, m = mid && _mgrById.get(mid);
+    if (m && !arr("manager").includes(mid)) push("Managers", mid, m, m.name, fd.name, "/v2/profiles/#/manager/" + encodeURIComponent(mid));
+  });
   return out;
 }
 

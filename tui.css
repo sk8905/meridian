@@ -685,6 +685,10 @@
   width: 26px; height: 26px; padding: 0; background: transparent; border: 1px solid var(--border);
   color: var(--ink); font-family: var(--t-mono); font-size:var(--fs-title); line-height: 1; cursor: pointer; border-radius: 0; }
 .pf-back-chev:hover { border-color: var(--accent); color: var(--accent); }
+/* The chevron stays visually 26px, but its TAP target is 44×44 (T5 / Apple HIG): an
+   invisible hit area centred on it. */
+.pf-back-chev { position: relative; }
+.pf-back-chev::after { content: ""; position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); }
 .pf-detailing .tpane:not([hidden]) .thead-search .pf-back-chev { display: inline-flex; }
 /* Mobile: the list search normally takes a full-width row (flex 1 1 100%); with a
    leading chevron beside it, let it share the row instead of wrapping below. */
@@ -931,7 +935,18 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 /* expandable transaction → borrower/advisers (prose) + structured fields */
 .tx-row, .tinv-row.is-exp { cursor: pointer; }
 .tx-caret { display: inline-block; margin-right: 5px; color: var(--faint); transition: transform .12s ease; }
-.tx-row.is-open .tx-caret, .tinv-row.is-open .tx-caret { transform: rotate(90deg); color: var(--accent); }
+.tx-row.is-open .tx-caret, .tinv-row.is-open .tx-caret, .fund-exp.is-open > .tmini-t .tx-caret { transform: rotate(90deg); color: var(--accent); }
+/* Vehicles ▸ a fund row expands in place to its facts / investors / sources. */
+.fund-body { margin: 8px 0 2px; padding: 2px 0 2px 10px; border-left: 2px solid var(--accent); cursor: default; }
+.fund-body .tx-sum { margin: 0 0 6px; }
+.fund-body .tmini-row { padding: 5px 0; }
+.fund-body .tpg-h { margin-top: 8px; }
+.tw-fundlink { background: none; border: 0; padding: 0; margin: 0; cursor: pointer; font: inherit; color: var(--muted); text-align: left; }
+.tw-fundlink:hover { color: var(--ink); }
+/* Hedge fund ▸ Holdings: the 13F reporting period (stale after ~5 months). */
+.hf-asof-line { margin: 0; padding: 7px 12px; font-size: var(--fs-micro); color: var(--muted); border-bottom: 1px solid var(--border); }
+.hf-asof-line .tf-k { text-transform: uppercase; letter-spacing: .04em; margin-right: 4px; }
+.hf-asof-line.is-stale #hf-asof, .hf-asof-line.is-stale #hf-asof a { color: var(--t-down, #f26d84); }
 .tx-usd { color: var(--faint); font-size:var(--fs-micro); }
 .tx-exp > td, .tinv-exp > td { background: var(--head); border-bottom: 1px solid var(--border); border-left: 2px solid var(--accent); padding: 0; }
 /* Investments expand: the sourced narrative + the deal's sponsor when named. */

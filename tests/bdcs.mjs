@@ -2,7 +2,7 @@
 // split into LISTED and INTERVAL/PRIVATE, with total assets, NAV, non-accruals,
 // a LIVE price÷NAV ratio (listed) or repurchase/gating (non-traded), each row
 // expanding to its sourced figures + a holdings fetch. Certifiable data only.
-import { serve, launchChromium, open, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 import { BDCS } from "../credit/js/bdcs.js";
 
 // ---- 1) Data integrity (pure): every reported figure is sourced, never guessed --
@@ -79,8 +79,32 @@ check(exp.navAfterNa, "NAV / share sits beneath Non-accruals (stacked)");
 check(exp.srcs > 0, `the detail links its SEC source(s) (${exp.srcs})`);
 check(exp.holdBtn, "a listed BDC offers a live SEC holdings fetch");
 
+// Every manager link resolves to a real profile, and a BDC whose adviser is a covered
+// manager is linked (the roster used to leave 27 of 31 unlinked — and one pointed at a
+// non-existent id).
+const links = await pg.evaluate(async () => {
+  const [{ BDCS }, D] = await Promise.all([import("/credit/js/bdcs.js"), import("/credit/js/data.js")]);
+  const ids = new Set(D.managers.map((m) => m.id));
+  const linked = BDCS.filter((b) => b.managerId);
+  return { n: BDCS.length, linked: linked.length, dead: linked.filter((b) => !ids.has(b.managerId)).map((b) => b.name),
+    rows: document.querySelectorAll("#tx-bdc-body a.tx-mgr").length };
+});
+check(links.dead.length === 0, `every BDC manager link resolves to a profile (dead: ${links.dead.join(", ") || "none"})`);
+check(links.linked >= 20 && links.rows === links.linked, `BDCs advised by covered managers link to them (${links.linked}/${links.n}, ${links.rows} links rendered)`);
+
 checkErrs(errs, "BDC roster");
 await ctx.close();
+
+// ---- 2b) A manager profile lists the BDCs it advises under Vehicles ----
+{
+  const { ctx: c3, pg: p3, errs: e3 } = await open(b, DESKTOP, base + "/v2/profiles/#/manager/m90/vehicles");
+  await p3.waitForSelector("#pf-detail #mgr-panes", { timeout: 8000 });
+  const veh = await p3.evaluate(() => [...document.querySelectorAll('#pf-detail #mgr-panes .tpane[data-p="vehicles"] .veh-load')].map((r) => r.dataset.nm));
+  check(veh.some((n) => /Blue Owl Capital Corp/.test(n)) && veh.some((n) => /Blue Owl Credit Income/.test(n)), `Blue Owl's Vehicles tab lists its BDCs (${veh.join(", ")})`);
+  check(veh.filter((n) => /Blue Owl Capital Corp/.test(n)).length === 1, "a BDC already on the manager's SEC vehicle list is not listed twice (same CIK)");
+  checkErrs(e3, "manager vehicles BDCs");
+  await c3.close();
+}
 
 // ---- 3) Phone: the BDC table fits the screen (no horizontal scroll) ----
 {

@@ -57,7 +57,7 @@ function buildIndex() {
   // "Legal alert", "Case law", "Deal", "Fundraising"); `tag` still drives the
   // pill colour (macro / credit / legal). Falls back to the section name.
   const add = (tag, title, sub, href, rank, date, label, source) => idx.push({ tag, title, sub, href, rank, date: date || "", label: label || "", source: (source || "").toLowerCase(), hay: expandHay(title + " " + sub) });
-  add("view", "Home", "Cross-desk briefing", "/", 4, "");
+  add("view", "Home", "Cross-desk briefing", "/v2/", 4, "");
   // The macro desk and its #/ deep-dive pages are retired — its sections live on the
   // Dashboard ▸ Macro tab, so every macro shortcut opens there (the old /macro/#/…
   // links redirected and dropped the hash, landing nowhere useful).
@@ -280,7 +280,7 @@ export function mountPalette() {
   };
   // Recents record ONLY when a result is actually opened — a typed-then-cancelled
   // query (or a half-typed fragment) never lands in the list.
-  const go = (e) => { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
+  const go = (e) => { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else if (window.__wireNavigate && /^\/v2\//.test(e.href)) window.__wireNavigate(e.href); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
   // The panel stays FULL-SCREEN (top:0 → bottom:0) and the results scroll with a
@@ -318,7 +318,9 @@ export function mountPalette() {
   });
   const isTyping = (t) => { const tag = (t && t.tagName || "").toLowerCase(); return !!t && (t.isContentEditable || tag === "input" || tag === "textarea" || tag === "select"); };
   window.addEventListener("keydown", (ev) => {
-    if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target) && !ov.classList.contains("open")) { ev.preventDefault(); open(); }
+    const cmdK = (ev.metaKey || ev.ctrlKey) && !ev.altKey && (ev.key === "k" || ev.key === "K");
+    if (cmdK) { ev.preventDefault(); if (ov.classList.contains("open")) close(); else open(); }
+    else if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target) && !ov.classList.contains("open")) { ev.preventDefault(); open(); }
     else if (ev.key === "Escape" && ov.classList.contains("open")) close();
   });
 

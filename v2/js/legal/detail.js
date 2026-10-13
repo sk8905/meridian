@@ -25,6 +25,8 @@ import { peersOf, peerDetails } from "../peers.js";
 
 export let app = null;
 export function __setHost(h) { app = h; }
+// Scope id lookups to the current host (the retired Legal desk can hold a hidden copy).
+const $id = (id) => (app && app.querySelector && app.querySelector("#" + CSS.escape(id))) || $id(id);
 
 // The Legal desk's section chips (the same set the dashboard shows). Rendered at
 // the top of every detail view so you navigate the desk the same way from a
@@ -168,7 +170,7 @@ const pcDealRow = (d) => `<li class="compact-item tw-row" data-kind="deal">`
   + `<span class="tw-src">${esc(d.value || "")}</span>`
   + `</li>`;
 
-export function viewFirm(id) {
+export function viewFirm(id, tab0) {
   const firm = firmById[id];
   if (!firm) {
     app.innerHTML = `<div class="empty">Firm not found. <a href="${profilesMode ? "#/?tab=firms" : "#/list"}">Back to all updates</a></div>`;
@@ -207,7 +209,7 @@ export function viewFirm(id) {
     + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
     + `<span class="tw-tag ${x.tag}">${x.code}</span>`
     + `<span class="tw-body"><a href="${esc(x.href)}"${x.ext ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(x.title)}</a>`
-    + `${x.meta ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.meta)}</span></span>` : ""}</span>`
+    + `${x.meta ? `<span class="tw-mgr-w">${x.metaHref ? `<a class="tw-mgr" href="${esc(x.metaHref)}">${esc(x.meta)}</a>` : `<span class="tw-mgr">${esc(x.meta)}</span>`}</span>` : ""}</span>`
     + `</li>`;
   const areaRail = areaMixRows.length
     ? `<ul class="tfacts">${areaMixRows.map(([a, n]) => `<li><span class="tf-k">${esc((areaById[a] || {}).name || a)}</span><span class="tf-v">${n}</span></li>`).join("")}</ul>`
@@ -243,11 +245,11 @@ export function viewFirm(id) {
   ];
   let dealRows = null; // null = credit wire still loading
   const pcDeals = (firm.pcDeals || []).slice().sort(byDateDesc);
-  let firmTab = _chipMem[chipMemKey("firm-chips")] || "all";
+  let firmTab = tab0 || _chipMem[chipMemKey("firm-chips")] || "all";
   if (!["all", "alerts", "matters", "deals"].includes(firmTab)) firmTab = "all";
   const emptyRow = (t) => `<li class="tw-empty muted small">${t}</li>`;
   const renderFirmWire = () => {
-    const list = document.getElementById("firm-wire"); if (!list) return;
+    const list = $id("firm-wire"); if (!list) return;
     if (firmTab === "deals") {
       list.innerHTML = pcDeals.length ? pcDeals.map(pcDealRow).join("")
         : emptyRow("No private-capital deals recorded for this firm's London office in the last 12 months.");
@@ -287,11 +289,16 @@ export function viewFirm(id) {
     </div>
   `;
   renderFirmWire();
-  const chips = document.getElementById("firm-chips");
+  const chips = $id("firm-chips");
   chips.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     firmTab = b.dataset.k;
     _chipMem[chipMemKey("firm-chips")] = firmTab || "all";
+    // Record the tab in the URL (replace, not push) — see tabUrl in credit/detail.js.
+    if (profilesMode) {
+      const h = `#/firm/${encodeURIComponent(id)}` + (firmTab && firmTab !== "all" ? "/" + firmTab : "");
+      if (location.hash.split("?")[0] !== h) { try { history.replaceState(history.state, "", location.pathname + location.search + h); } catch { /* keep */ } }
+    }
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     renderFirmWire();
   });
@@ -308,6 +315,9 @@ export function viewFirm(id) {
         title: d.headline || d.title || "", ext: !!d.sourceUrl,
         href: d.sourceUrl || (d.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(d.managerId)}` : "/v2/profiles/"),
         meta: mgr(d.managerId),
+        // The manager the deal belongs to links to its profile (in-app), alongside the
+        // headline's external source.
+        metaHref: d.managerId && mgr(d.managerId) ? `#/manager/${encodeURIComponent(d.managerId)}` : "",
       }));
     renderFirmWire();
   }).catch(() => { dealRows = []; });

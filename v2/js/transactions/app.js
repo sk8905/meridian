@@ -266,7 +266,7 @@ export function mount(host, ctx) {
     const isAll = !key;
     const t = isAll ? null : TX_TYPES.find((x) => x.key === key);
     const gLabel = (TX_GROUPS.find((x) => x.key === st.group) || {}).label || "";
-    const base = isAll ? rows.filter((r) => groupOf(r.tx) === st.group && inFocus(r)) : statsFor(key).list;
+    const base = isAll ? rows.filter((r) => groupOf(r.tx) === st.group && inFocus(r) && inPeriod(r) && inSize(r)) : statsFor(key).list;
     const sec = sector || "all";
     const grp = group === "lender" ? "lender" : "";
     // Asset-class SUB-CATEGORIES present within the base set (+ their counts).
@@ -495,6 +495,17 @@ export function mount(host, ctx) {
       : `<p class="tw-empty muted small">No credits match “${esc(_crQ)}”.</p>`;
   }
 
+  // Paint every filter control from the state (the ONE direction state → UI), so a
+  // reset or a URL-driven restore can never leave a select/toggle showing a filter
+  // that is no longer applied.
+  function syncControls() {
+    const set = (sel, v) => { const el = host.querySelector(sel); if (el && el.value !== v) el.value = v; };
+    set("#tx-q", st.q); set("#tx-period", st.period); set("#tx-min", String(st.minUsd || 0));
+    set("#tx-cr-q", _crQ); set("#tx-bdc-q", _bdcQ);
+    const f = host.querySelector("#tx-focus");
+    if (f) { f.setAttribute("aria-pressed", st.focus ? "true" : "false"); f.classList.toggle("is-on", st.focus); }
+    host.querySelectorAll("#tx-cr-ctl .tcr-grpbtn").forEach((b) => { const on = b.dataset.crgroup === _crGroup; b.classList.toggle("is-on", on); b.setAttribute("aria-pressed", String(on)); });
+  }
   function render() { st.q ? renderSearch() : renderFlow(); renderModeNav(); }
   // Re-render just the active type sub-tab's pane (keeps the rail; used when the
   // pane's sub-category filter or group-by-lender toggle changes).
@@ -601,8 +612,8 @@ export function mount(host, ctx) {
     // home(): a nav-bar tap resets Transactions to its first part — Primary
     // issuance, no search, default filters, scrolled to top.
     home() {
-      st.q = ""; st.focus = false; st.period = "all"; st.group = "primary"; st.sub = ""; _subSec = "all"; _subGrp = ""; _crGroup = null;
-      try { host.querySelectorAll("input").forEach((i) => { i.value = ""; }); } catch { /* */ }
+      st.q = ""; st.focus = false; st.period = "all"; st.minUsd = 0; st.group = "primary"; st.sub = ""; _subSec = "all"; _subGrp = ""; _crGroup = null; _crQ = ""; _bdcQ = "";
+      syncControls();
       setMode("primary");
       render();
       window.scrollTo(0, 0);

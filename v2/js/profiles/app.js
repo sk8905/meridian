@@ -83,11 +83,23 @@ export async function mount(host, ctx) {
   // scroll and (optionally) the active tab.
   const setDetailing = (on) => host.classList.toggle("pf-detailing", on);
   const exitDetail = () => { setDetailing(false); pfDetail.hidden = true; pfDetail.innerHTML = ""; };
+  // Scroll memory per list tab: opening a profile records where the list was, and
+  // returning to that list (Back, the ‹ chevron, the tab chip) puts the reader back on
+  // the same row. Desktop scrolls inside the view section (fixed-viewport terminal);
+  // the phone scrolls the window.
+  const _listY = {};
+  const scroller = () => (host.scrollHeight > host.clientHeight + 1 && /(auto|scroll)/.test(getComputedStyle(host).overflowY)) ? host : null;
+  const getY = () => { const s = scroller(); return s ? s.scrollTop : window.scrollY; };
+  const setY = (y) => { const s = scroller(); if (s) s.scrollTo({ top: y, behavior: "instant" }); else window.scrollTo({ top: y, behavior: "instant" }); };
+  const activeTab = () => { const on = chips.querySelector(".tchip.is-on"); return on ? on.dataset.p : "managers"; };
+  const rememberList = () => { if (!host.classList.contains("pf-detailing") && !pfList.hidden) _listY[activeTab()] = getY(); };
   function showList(tab) {
     exitDetail();
     pfList.hidden = false;
     if (tab) selectChip(tab);
-    window.scrollTo(0, 0);
+    const y = _listY[activeTab()] || 0;
+    setY(y);
+    if (y) requestAnimationFrame(() => setY(y));   // re-apply once the table has re-laid out
   }
   // Render a desk detail view into the Profiles-owned host. The list stays
   // mounted (only its table is hidden by .pf-detailing); point the shared detail
@@ -117,15 +129,17 @@ export async function mount(host, ctx) {
       const sb = activeSearch(); if (sb) _headRO.observe(sb);
     }
   };
-  const renderCredit = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); syncHeadH(); };
-  const renderLegal = (p, fn) => { selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); syncHeadH(); };
+  const renderCredit = (p, fn) => { rememberList(); selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); setY(0); fn(); syncHeadH(); };
+  const renderLegal = (p, fn) => { rememberList(); selectChip(p); setDetailing(true); pfList.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); setY(0); fn(); syncHeadH(); };
 
   // Hash router (Profiles owns /v2/profiles/#/…). No route → the list, honouring
   // ?tab=; a detail route renders the matching desk view in place.
   const dec = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
   function readTab() {
+    // ?tab= inside the hash (#/?tab=…) is the canonical form; a plain query string
+    // (/v2/profiles/?tab=…, e.g. a pasted link) is honoured too.
     const q = (location.hash || "").split("?")[1] || "";
-    const t = new URLSearchParams(q).get("tab");
+    const t = new URLSearchParams(q).get("tab") || new URLSearchParams(location.search).get("tab");
     return CHIPS.some(([k]) => k === t) ? t : "managers";
   }
   function router() {
@@ -146,7 +160,7 @@ export async function mount(host, ctx) {
       try { history.replaceState(null, "", location.pathname + location.search + raw.split("?")[0]); } catch { /* keep the param if replaceState is blocked */ }
     }
     switch (route) {
-      case "manager": renderCredit("managers", () => viewManager(arg)); return;
+      case "manager": renderCredit("managers", () => viewManager(arg, seg[2])); return;
       // The standalone fund page is retired — redirect to the fund's manager so no
       // link (search, peer lists, connections, feed items) can reach a dead page.
       case "fund": {
@@ -158,8 +172,8 @@ export async function mount(host, ctx) {
       }
       case "clo": return renderCredit("managers", () => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
       case "lp": return renderCredit("investors", () => viewLp(arg));
-      case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg)); return;
-      case "firm": renderLegal("firms", () => viewFirm(dec(arg))); return;
+      case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg, seg[2])); return;
+      case "firm": renderLegal("firms", () => viewFirm(dec(arg), seg[2])); return;
       case "item": return renderLegal("firms", () => viewItem(dec(arg)));
       default: return showList(readTab());
     }
@@ -203,6 +217,7 @@ export async function mount(host, ctx) {
     // A tab tap always lands on that list (closing any open profile).
     const chip = e.target.closest("#pf-chips .tchip");
     if (chip) {
+      rememberList();
       const h = "#/?tab=" + chip.dataset.p;
       if (location.hash !== h) location.hash = h;
       router();
@@ -318,14 +333,15 @@ export async function mount(host, ctx) {
   });
 
   router();                                             // land on the list (or a deep-linked profile)
-  // On re-entry, re-run the router (honours a deep link, else shows the list).
-  // On leave, collapse any open detail back to the list so returning to Profiles
-  // never flashes a stale profile before the router re-decides.
+  // On re-entry at a different route, re-run the router (the runtime only calls
+  // enter() when the URL differs from the one Profiles was left on). Leaving keeps
+  // the open profile/list exactly as it was, so switching tabs and coming back — or
+  // Back from another section — returns to the same place.
   return {
     enter: () => router(),
-    leave() { showList(); },
+    leave() { rememberList(); },
     // home(): a nav-bar tap resets Profiles to its first part — the Managers list
     // (closing any open profile, first category tab, scrolled to top).
-    home() { showList("managers"); },
+    home() { Object.keys(_listY).forEach((k) => delete _listY[k]); showList("managers"); },
   };
 }
