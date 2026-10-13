@@ -12,8 +12,8 @@ export const UPDATED = "28 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-10-12",
-  lastCheckedTime: "23:11 BST",
+  lastChecked: "2026-10-13",
+  lastCheckedTime: "05:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1008,20 +1008,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-12",
+  updated: "2026-10-13",
   us: [
-    {title: "Oil prices volatile after Trump claims ‘energy ceasefire’ in Ukraine war", source: "Financial Times", date: "2026-10-12", time: "07:47", url: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b"},
-    {title: "US threatens to block arms for Ukraine over attacks on Russian refineries", source: "Financial Times", date: "2026-10-12", time: "07:42", url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031"},
-    {title: "Is the US economy as narrow as its stock market?", source: "Financial Times", date: "2026-10-12", time: "06:30", url: "https://www.ft.com/content/2aa849df-5670-4577-87dd-2c40f2bac2aa"},
+    {title: "Investors brave US Treasury rout to lock in highest yields in decades", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8"},
+    {title: "Why Trump is going for Zelenskyy’s jugular", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1"},
+    {title: "Trump’s loan to a US defence start-up adds to Apollo’s war chest too", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/e3b31db9-5fe2-4ce8-a1f4-0327c69900a8"},
     {title: "Wall Street’s record-breaking trading streak set to cool", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2"},
     {title: "‘Worrying omens’ stalk global economy despite resilient growth", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229"},
   ],
   uk: [
+    {title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"},
+    {title: "How BT’s TalkTalk swoop left broadband rivals fuming", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/39da2672-e57a-41aa-8f03-970ae37d88a6"},
+    {title: "Companies face rising number of UK complaints over conduct", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/c16b5a2d-f653-494f-9c18-587685f34bc2"},
     {title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"},
     {title: "Andy Burnham to step up UK business outreach amid fears of Budget tax rises", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"},
-    {title: "Heathrow needs Burnham green light for runway by end of year, warns boss", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/b0acd823-ca55-481c-93de-0e292a401b37"},
-    {title: "City of London hits out at Andy Burnham’s plan to scrap non-compete clauses", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/47b02f06-cbfc-49cb-afb8-1ae015399c4e"},
-    {title: "UK ministers explore compulsory AI safety reporting", source: "Financial Times", date: "2026-10-12", time: "05:00", url: "https://www.ft.com/content/ba28b7cd-293e-4eee-a073-ad81aaefced3"},
   ],
 };
 
@@ -1034,8 +1034,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-10-12",
+  updated: "2026-10-13",
   items: [
+    {"title": "Investors brave US Treasury rout to lock in highest yields in decades", "source": "Financial Times", "date": "2026-10-13", "time": "05:00", "url": "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8", "blurb": "Buyers step in to lock in the highest US Treasury yields in decades despite the sell-off."},
+    {"title": "The election supercycle set to drag Europe right", "source": "Financial Times", "date": "2026-10-13", "time": "05:00", "url": "https://www.ft.com/content/ec433e1f-bdb4-4a1c-868e-e1c7c4121f45", "blurb": "A run of European elections is expected to shift the continent’s politics to the right."},
+    {"title": "Why Trump is going for Zelenskyy’s jugular", "source": "Financial Times", "date": "2026-10-13", "time": "05:00", "url": "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1", "blurb": "Analysis of Washington’s pressure on Kyiv over the war."},
     {"title": "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal", "source": "Financial Times", "date": "2026-10-12", "time": "08:20", "url": "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a", "blurb": "New EU arrangement protects the bloc’s hybrid-car makers from Chinese imports."},
     {"title": "Oil prices volatile after Trump claims ‘energy ceasefire’ in Ukraine war", "source": "Financial Times", "date": "2026-10-12", "time": "07:47", "url": "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", "blurb": "Crude swings as markets weigh the claimed energy ceasefire between Russia and Ukraine."},
     {"title": "Is the US economy as narrow as its stock market?", "source": "Financial Times", "date": "2026-10-12", "time": "06:30", "url": "https://www.ft.com/content/2aa849df-5670-4577-87dd-2c40f2bac2aa", "blurb": "Asks whether US growth is as concentrated as the equity rally."},
@@ -1073,12 +1076,6 @@ export const ARTICLES = {
     {"title": "Global bond sell-off resumes as 30-year Treasury yield hits highest since 2002", "source": "Financial Times", "date": "2026-10-07", "time": "17:25", "url": "https://www.ft.com/content/33c67aa0-bfdb-457b-84bb-960b4fed94b6", "blurb": "The global government-bond rout resumes, pushing the US 30-year yield to its highest level since 2002."},
     {"title": "The important judgments for Healey in the coming Budget", "source": "Financial Times", "date": "2026-10-07", "time": "16:06", "url": "https://www.ft.com/content/b07bd481-a492-4b95-af55-914176f8d2b6", "blurb": "FT analysis of the key choices facing the Chancellor at the Autumn Budget."},
     {"title": "Billionaire Weston family to buy Boots in $8.9bn deal", "source": "Financial Times", "date": "2026-10-07", "time": "14:50", "url": "https://www.ft.com/content/68c0fcb8-a69e-4767-a7fc-f84acb04cbd7", "blurb": "The UK retailer secures its second new owner in under 18 months."},
-    {"title": "Sesame Street Meets Wall Street’s Record Rally", "source": "Bloomberg", "date": "2026-10-07", "time": "05:00", "url": "https://www.bloomberg.com/opinion/newsletters/2026-10-07/sesame-street-has-two-letters-for-the-record-us-stock-rally", "blurb": "John Authers: this record has been brought to you by the letters A and I."},
-    {"title": "Robust AI spending sets investors up for another bumper US earnings season", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/7c38e8e3-8035-4036-8bc0-5fba2fbf77cb", "blurb": "S&P 500 earnings are forecast to rise 27% against a backdrop of stock market highs and elevated longer-term borrowing costs."},
-    {"title": "What comes next with the energy shock?", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/37e12a42-d473-4b1b-8fc5-4ea5f06d3bfb", "blurb": "The disruption to oil supply, oil prices and the world economy has been surprisingly manageable so far."},
-    {"title": "Brussels looks to capture Big Tech through tax on large corporations", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/ad06ed89-f600-4694-8c95-7d53b6d3315b", "blurb": "The European Commission considers a broad levy on all large companies to avoid singling out US digital services groups."},
-    {"title": "Bank mergers arrive in Europe with a whimper rather than a bang", "source": "Financial Times", "date": "2026-10-07", "time": "05:00", "url": "https://www.ft.com/content/8178bed1-ef14-4ebc-b291-921cef8866e7", "blurb": "More banking consolidation requires things that don’t yet exist, such as harmonised regulation and acquiescent local politicians."},
-    {"title": "S&P 500 hits record high as AI stocks shrug off bond market slump", "source": "Financial Times", "date": "2026-10-06", "time": "15:03", "url": "https://www.ft.com/content/1c1ee003-f041-4c66-a971-f08d488d11f7", "blurb": "US equities set a fresh record as AI-linked megacaps ignore the global government-bond sell-off."},
   ],
 };
 

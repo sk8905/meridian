@@ -102,6 +102,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-withintelligence-weekly-jpmametf-20261012",
+    publication: "With Intelligence",
+    author: null,
+    series: "Weekly roundup",
+    title: "JPMAM global ETF head talks product dev plans | Plus more intel",
+    date: "2026-10-12",
+    time: "15:15",
+    summary: "Weekly roundup of investor and manager updates, led by JPMAM’s global ETF head on product development and institutional demand.",
+    url: "https://pardot.withintelligence.com/webmail/284832/3601340654/23fcdd7c20d30df223e97a343c7c91b872fd93050b0c889e2b0abf0950a7caa2",
+  },
+  {
     id: "rsch-apollo-ai-transatlantic-20261012",
     publication: "Apollo Academy",
     author: "Huw van Steenis",

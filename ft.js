@@ -21,6 +21,146 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "15eac7b8-df53-41f4-bf51-bc28225eec51",
+    title: "‘A game of snakes and ladders’",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/15eac7b8-df53-41f4-bf51-bc28225eec51"
+  },
+  {
+    id: "c913d391-f4e2-439c-82d6-8f6205b31b0f",
+    title: "EU hybrid curbs to offer only ‘temporary’ respite against Chinese carmakers",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/c913d391-f4e2-439c-82d6-8f6205b31b0f"
+  },
+  {
+    id: "93c7f91d-7daa-44bb-8a45-62b214106e73",
+    title: "Pope Leo prepares to undergo lung surgery",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/93c7f91d-7daa-44bb-8a45-62b214106e73"
+  },
+  {
+    id: "6fa735a2-a590-4461-b092-920ba489e7a8",
+    title: "Investors brave US Treasury rout to lock in highest yields in decades",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8"
+  },
+  {
+    id: "ec433e1f-bdb4-4a1c-868e-e1c7c4121f45",
+    title: "The election supercycle set to drag Europe right",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/ec433e1f-bdb4-4a1c-868e-e1c7c4121f45"
+  },
+  {
+    id: "6219e3f2-e9c1-48d4-ae47-1337e636ce0a",
+    title: "Informa’s trade show bet has a vulnerability — geopolitics",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/6219e3f2-e9c1-48d4-ae47-1337e636ce0a"
+  },
+  {
+    id: "39da2672-e57a-41aa-8f03-970ae37d88a6",
+    title: "How BT’s TalkTalk swoop left broadband rivals fuming",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/39da2672-e57a-41aa-8f03-970ae37d88a6"
+  },
+  {
+    id: "e3b31db9-5fe2-4ce8-a1f4-0327c69900a8",
+    title: "Trump’s loan to a US defence start-up adds to Apollo’s war chest too",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/e3b31db9-5fe2-4ce8-a1f4-0327c69900a8"
+  },
+  {
+    id: "1724a30e-cf50-4a4e-ade8-bca72ea4b9a1",
+    title: "Why Trump is going for Zelenskyy’s jugular",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1"
+  },
+  {
+    id: "bbe24952-d66f-480e-b0a8-94339d75bc48",
+    title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"
+  },
+  {
+    id: "c16b5a2d-f653-494f-9c18-587685f34bc2",
+    title: "Companies face rising number of UK complaints over conduct",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/c16b5a2d-f653-494f-9c18-587685f34bc2"
+  },
+  {
+    id: "16e1d29b-3680-4712-b8e7-ed4a4125041a",
+    title: "Who’s really hiring you — HR or cyber security?",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/16e1d29b-3680-4712-b8e7-ed4a4125041a"
+  },
+  {
+    id: "2caa52e1-637a-4934-802e-418b649b4c12",
+    title: "Criminals could walk free without controls on AI use, police watchdog warns",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/2caa52e1-637a-4934-802e-418b649b4c12"
+  },
+  {
+    id: "f01b8a11-559f-4a65-a642-246b78bbdd93",
+    title: "The best gilets for finance bros",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/f01b8a11-559f-4a65-a642-246b78bbdd93"
+  },
+  {
+    id: "83d2fb38-4b98-40c4-b700-39190b605e38",
+    title: "Daisy Lafarge wants to dress her disability differently",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/83d2fb38-4b98-40c4-b700-39190b605e38"
+  },
+  {
+    id: "f304f929-62b7-4c15-8da4-5dcfb78b8117",
+    title: "Landowners should look to regenerative agriculture for their future",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/f304f929-62b7-4c15-8da4-5dcfb78b8117"
+  },
+  {
+    id: "15ae6a2e-6010-4d78-a752-2eeeca1e1c55",
+    title: "Will Accenture survive or thrive in the age of AI?",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/15ae6a2e-6010-4d78-a752-2eeeca1e1c55"
+  },
+  {
+    id: "6cfc1469-df2d-4f56-953a-77a15ed26e1f",
+    title: "Unreliable Boyfriend — Chrystia Freeland’s roadmap for dealing with a chaotic superpower",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/6cfc1469-df2d-4f56-953a-77a15ed26e1f"
+  },
+  {
+    id: "987c9d16-f77c-4307-a9a8-66d67da5f658",
+    title: "Biotech start-ups turn to reverse mergers to fast-track listings",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/987c9d16-f77c-4307-a9a8-66d67da5f658"
+  },
+  {
+    id: "080dfd83-3d5b-4256-a002-3e61e4c0a1c8",
+    title: "Selling a home? Think documents before decor",
+    date: "2026-10-13",
+    time: "05:00",
+    url: "https://www.ft.com/content/080dfd83-3d5b-4256-a002-3e61e4c0a1c8"
+  },
+  {
     id: "09f24d32-9bc5-4011-85f8-410625e7717f",
     title: "Can a financier really revive LIV Golf?",
     date: "2026-10-12",
@@ -159,145 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-12",
     time: "10:09",
     url: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb"
-  },
-  {
-    id: "ad0b6e93-708c-46c6-a1f2-e6248c934faf",
-    title: "Riyadh defiant as Houthis launch new missile strikes on Saudi Arabia",
-    date: "2026-10-12",
-    time: "09:45",
-    url: "https://www.ft.com/content/ad0b6e93-708c-46c6-a1f2-e6248c934faf"
-  },
-  {
-    id: "c9eea573-6d36-467e-b7f4-90c1d957cb33",
-    title: "Andy Burnham’s own goal",
-    date: "2026-10-12",
-    time: "09:30",
-    url: "https://www.ft.com/content/c9eea573-6d36-467e-b7f4-90c1d957cb33"
-  },
-  {
-    id: "3e94e815-95b9-4e8d-9219-c9066cec08f6",
-    title: "And the FTAV charts quiz winner is . . .",
-    date: "2026-10-12",
-    time: "09:01",
-    url: "https://www.ft.com/content/3e94e815-95b9-4e8d-9219-c9066cec08f6"
-  },
-  {
-    id: "7e48dd50-957c-4f45-ad24-ce628ca7e06a",
-    title: "EU ‘safeguards’ hybrid car sector from Chinese imports under new deal",
-    date: "2026-10-12",
-    time: "08:20",
-    url: "https://www.ft.com/content/7e48dd50-957c-4f45-ad24-ce628ca7e06a"
-  },
-  {
-    id: "68fd8c4f-6f34-4f6e-a52c-76f635164031",
-    title: "US threatens to block arms for Ukraine over attacks on Russian refineries",
-    date: "2026-10-12",
-    time: "07:42",
-    url: "https://www.ft.com/content/68fd8c4f-6f34-4f6e-a52c-76f635164031"
-  },
-  {
-    id: "2aa849df-5670-4577-87dd-2c40f2bac2aa",
-    title: "Is the US economy as narrow as its stock market?",
-    date: "2026-10-12",
-    time: "06:30",
-    url: "https://www.ft.com/content/2aa849df-5670-4577-87dd-2c40f2bac2aa"
-  },
-  {
-    id: "b01366df-466d-44ee-91c6-1c71932da89e",
-    title: "FTAV’s further read",
-    date: "2026-10-12",
-    time: "06:30",
-    url: "https://www.ft.com/content/b01366df-466d-44ee-91c6-1c71932da89e"
-  },
-  {
-    id: "b5faacca-4561-4e9d-bec5-c8ef843b0419",
-    title: "EU budget battle intensifies ahead of leaders’ summit",
-    date: "2026-10-12",
-    time: "06:00",
-    url: "https://www.ft.com/content/b5faacca-4561-4e9d-bec5-c8ef843b0419"
-  },
-  {
-    id: "97a2c4ae-79df-4e67-a408-91a07bfc2546",
-    title: "Misery, thy name is pulled IPO",
-    date: "2026-10-12",
-    time: "06:00",
-    url: "https://www.ft.com/content/97a2c4ae-79df-4e67-a408-91a07bfc2546"
-  },
-  {
-    id: "d3a342a9-0b64-4dd3-8f12-54c6750509de",
-    title: "Wall Street’s great money spinner",
-    date: "2026-10-12",
-    time: "06:00",
-    url: "https://www.ft.com/content/d3a342a9-0b64-4dd3-8f12-54c6750509de"
-  },
-  {
-    id: "62bab2c8-d4e2-4ec2-a911-80439f61f238",
-    title: "Trump battles to save the Senate",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/62bab2c8-d4e2-4ec2-a911-80439f61f238"
-  },
-  {
-    id: "b0acd823-ca55-481c-93de-0e292a401b37",
-    title: "Heathrow needs Burnham green light for runway by end of year, warns boss",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/b0acd823-ca55-481c-93de-0e292a401b37"
-  },
-  {
-    id: "50bb9758-abf7-43a4-bd8b-0c1e5895b4c2",
-    title: "Wall Street’s record-breaking trading streak set to cool",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2"
-  },
-  {
-    id: "0c5a10f4-5aca-456e-9c3a-4c4dc8132a63",
-    title: "Nato should prepare for deadly Russian ‘hybrid’ attack, says Poland",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/0c5a10f4-5aca-456e-9c3a-4c4dc8132a63"
-  },
-  {
-    id: "e0457dd5-8e75-4803-8ce8-6651157d2229",
-    title: "‘Worrying omens’ stalk global economy despite resilient growth",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/e0457dd5-8e75-4803-8ce8-6651157d2229"
-  },
-  {
-    id: "e6c9d380-7108-405a-8393-5240771809fe",
-    title: "There is a smarter way to tax the rich",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/e6c9d380-7108-405a-8393-5240771809fe"
-  },
-  {
-    id: "1d85912b-7a70-4ba1-87df-3b683adee91e",
-    title: "Houthis attack Riyadh airport",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/1d85912b-7a70-4ba1-87df-3b683adee91e"
-  },
-  {
-    id: "4886bddc-0554-450c-9459-d67200c57cc4",
-    title: "How the Man City cheating scandal laid a geopolitical minefield",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/4886bddc-0554-450c-9459-d67200c57cc4"
-  },
-  {
-    id: "17a207f4-1563-48af-91e3-14bac89ab4b8",
-    title: "The huge lurking leverage of AI hyperscalers",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/17a207f4-1563-48af-91e3-14bac89ab4b8"
-  },
-  {
-    id: "6235bf20-80da-42c0-b9cc-e4d996d6c135",
-    title: "CVC planned to hush Israel defence deal to avoid controversy",
-    date: "2026-10-12",
-    time: "05:00",
-    url: "https://www.ft.com/content/6235bf20-80da-42c0-b9cc-e4d996d6c135"
   }
 ];

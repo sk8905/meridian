@@ -18,16 +18,16 @@
 // =============================================================================
 
 // When the dataset was last compiled/updated (i.e. the last time data actually changed).
-export const DATA_UPDATED = "2026-10-10";
+export const DATA_UPDATED = "2026-10-13";
 
 // When the refresh routine last ran (even if it found nothing new) — shown in the
 // topbar as "Last refresh" so a run can be confirmed regardless of data changes.
-export const LAST_CHECKED = "2026-10-12";
+export const LAST_CHECKED = "2026-10-13";
 // Time-of-day the routine last ran, as a pre-formatted string WITH a timezone
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "23:11 BST";
+export const LAST_CHECKED_TIME = "05:12 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -2446,6 +2446,7 @@ export const deals = [
   { id: "d908", date: "2026-09-28", time: "08:00", type: "Structured Credit", managerId: "m105", fundId: null, headline: "M&G upsizes fifth Margay CLO to €457m", summary: "M&G Investments priced the fifth transaction in its Margay European CLO programme, upsized to €457m (£392m) on strong investor demand — the first Margay CLO since Ontario Teachers' Pension Plan agreed in July 2026 to commit up to €200m to help scale M&G's European CLO business. Margay, launched in 2023, now manages more than €2bn of CLO assets within M&G's broader €10bn loan platform, which sits within the firm's wider €27bn structured and private credit strategy.", sourceUrl: "https://alternativecreditinvestor.com/2026/09/28/mg-upsizes-fifth-margay-clo-to-e457m/", clo: true },
   { id: "d909", date: "2026-09-28", time: "16:19", type: "Investment", managerId: "m74", fundId: null, headline: "Golub Capital invests $5m in F2, an agentic AI operating system for private credit", summary: "Golub Capital announced a strategic partnership with F2, the agentic operating system for global credit, including a $5m equity investment; as part of the deal Golub will deploy F2's suite of AI agents across investment screening, due diligence, underwriting and portfolio monitoring, and the two firms will establish the Global Credit AI Council, an invitation-only forum for private-markets executives chaired by David Golub.", sourceUrl: "https://www.bloomberg.com/news/articles/2026-09-28/f2-gets-investment-from-golub-signs-deal-to-provide-ai-platform", clo: false },
   { id: "d910", date: "2024-08-08", time: "18:11", type: "Financing", managerId: "m22", fundId: null, headline: "Pemberton supports A&M Capital Europe-backed Ayesa's refinancing and its acquisition of Ibermática", summary: "Pemberton Asset Management provided refinancing to support the growth trajectory of A&M Capital Europe's portfolio company Ayesa, the international IT and engineering services provider, and its acquisition of Spanish IT services company Ibermática, strengthening Ayesa's position in the Spanish IT services market.", sourceUrl: "https://pembertonam.com/news/pemberton-supports-am-capital-europe-backed-ayesas-refinancing-and-its-acquisition-of-ibermatica/", clo: false },
+  { id: "d920", date: "2022-03-02", type: "Structured Credit", managerId: "m216", fundId: null, headline: "PennantPark closes $304m CLO IV, its fourth middle-market CLO", summary: "PennantPark Senior Loan Fund, LLC, through its subsidiary PennantPark CLO IV, LLC, closed a $304.0m debt securitisation in the form of a collateralised loan obligation with a four-year reinvestment period and 12-year final maturity; proceeds repaid part of PSLF's $275m secured credit facility. It is the fourth middle-market CLO for PennantPark Investment Advisers, which has issued CLO vehicles since 2019.", sourceUrl: "https://pnnt.pennantpark.com/node/10986", clo: true },
 ];
 
 // Keep both feeds strictly newest-first regardless of insertion order.

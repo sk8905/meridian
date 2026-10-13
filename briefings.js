@@ -99,15 +99,13 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-12",
-  time: "23:11 BST",
-  lede: "Diesel prices slip after Trump's 'energy ceasefire' in Ukraine, Macron says a Franco-German deal on EU car policy is imminent, and Germany's labour minister resigns as Merz's coalition strains.",
+  date: "2026-10-13",
+  time: "05:12 BST",
+  lede: "Investors are locking in the highest US Treasury yields in decades despite the sell-off, Trump pressure on Kyiv dominates the geopolitical tape, and Arini raises $1.5bn even as its main fund loses 13.5%.",
   bullets: [
-    { html: "<strong>Oil &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, easing pressure on Brent, though Zelenskyy says Putin is already breaching it.", src: "https://www.ft.com/content/a663781e-2709-41f2-99df-4fb5a6162e6b", srcName: "Financial Times", date: "2026-10-12" },
-    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield held near 5.24% ahead of Wednesday&rsquo;s September CPI</strong>, steadying after touching 5.36% on 7 October &mdash; its highest since 2002 &mdash; with the cash market shut Monday for the Columbus Day holiday.", src: "https://tradingeconomics.com/united-states/government-bond-yield/news/516491", srcName: "Trading Economics", date: "2026-10-12" },
-    { html: "<strong>Equities &mdash; the S&amp;P 500&rsquo;s record-breaking run is set to cool</strong> after a streak of record highs left Wall Street near all-time peaks.", src: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", srcName: "Financial Times", date: "2026-10-12" },
-    { html: "<strong>Credit &mdash; French 10-year spreads over Bunds hit their widest since 2012</strong> as the French debt sell-off continues, while Fitch lifts its 2027 Brent assumption to $70/bbl and sees the US 10-year ending the year at 4.8%.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk0EF6x_k39VObMuvWHUNqvvEoaxcwCLzBTuTkTeNH0E_H8MkNmsMQTyG8ATas_nAqQqhlBpc=", srcName: "Fitch Ratings", date: "2026-10-12" },
-    { html: "<strong>Macro &mdash; the Nobel prize for economics was awarded to Robert E Hall and Michael Woodford</strong>.", src: "https://www.ft.com/content/f4463a28-832d-4a2d-acc5-d83e258610cb", srcName: "Financial Times", date: "2026-10-12" },
-    { html: "<strong>Europe &mdash; Germany&rsquo;s labour minister resigned as strains deepen in Chancellor Merz&rsquo;s coalition</strong>.", src: "https://www.ft.com/content/46b33d0d-274d-496e-9c42-1d4cf18b65cb", srcName: "Financial Times", date: "2026-10-12" },
+    { html: "<strong>Bonds &mdash; US Treasury yields sit at their highest in decades</strong> as buyers step in to lock in the levels despite the rout, with Wednesday&rsquo;s September CPI the next test.", src: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8", srcName: "Financial Times", date: "2026-10-13" },
+    { html: "<strong>Equities &mdash; Wall Street&rsquo;s record-breaking trading streak is set to cool</strong> after a run of highs left the S&amp;P 500 near its peak.", src: "https://www.ft.com/content/50bb9758-abf7-43a4-bd8b-0c1e5895b4c2", srcName: "Financial Times", date: "2026-10-12" },
+    { html: "<strong>Macro &mdash; diesel prices slipped after Trump claimed an &lsquo;energy ceasefire&rsquo; in the Ukraine war</strong>, while FT analysis points to mounting US pressure on Zelenskyy.", src: "https://www.ft.com/content/1724a30e-cf50-4a4e-ade8-bca72ea4b9a1", srcName: "Financial Times", date: "2026-10-13" },
+    { html: "<strong>Credit &mdash; Arini raised $1.5bn</strong> even as its main fund reported a 13.5% loss, while Partners Group launched an evergreen multi-sector private credit income strategy.", src: "https://www.bloomberg.com/news/articles/2026-10-05/arini-raises-1-5-billion-even-as-its-main-fund-sees-13-5-loss", srcName: "Bloomberg", date: "2026-10-05" },
   ],
 };
