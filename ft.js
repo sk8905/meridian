@@ -21,6 +21,20 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "5d92ea15-6211-43c4-9e41-d1b7f085dd4c",
+    title: "BP to set out new strategy after windfall year",
+    date: "2026-10-13",
+    time: "08:38",
+    url: "https://www.ft.com/content/5d92ea15-6211-43c4-9e41-d1b7f085dd4c"
+  },
+  {
+    id: "1cf8da1d-8abd-40a6-bcd2-055ee49c7fcb",
+    title: "Premier Inn owner urges investors to resist pressure from activist hedge fund",
+    date: "2026-10-13",
+    time: "08:09",
+    url: "https://www.ft.com/content/1cf8da1d-8abd-40a6-bcd2-055ee49c7fcb"
+  },
+  {
     id: "e16f0422-cf75-4cc9-962d-4605e421dc63",
     title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss",
     date: "2026-10-13",
@@ -285,19 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-12",
     time: "12:00",
     url: "https://www.ft.com/content/c5ff7ed6-a42d-4ff3-8efa-485b1046102d"
-  },
-  {
-    id: "910e014c-4716-49e2-86cc-53eae31c9607",
-    title: "Redwood — Ben Macintyre decodes the murky ethics of the cold war",
-    date: "2026-10-12",
-    time: "12:00",
-    url: "https://www.ft.com/content/910e014c-4716-49e2-86cc-53eae31c9607"
-  },
-  {
-    id: "48b8c4ce-b2bf-44e2-badf-8159a9d664e4",
-    title: "Private equity puts string of UK high street names up for sale",
-    date: "2026-10-12",
-    time: "12:00",
-    url: "https://www.ft.com/content/48b8c4ce-b2bf-44e2-badf-8159a9d664e4"
   }
 ];
