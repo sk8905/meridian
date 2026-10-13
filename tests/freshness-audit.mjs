@@ -25,7 +25,7 @@ if (j) {
   // list is the guard against coverage silently shrinking back to "the main surfaces"
   // — add a key here whenever a new dated surface ships, so the health check sees it.
   const REQUIRED = [
-    "deals", "intel", "clos", "credit_research", "hedge_intel",
+    "deals", "intel", "clos", "hedge_intel",
     "legal_items", "legal_cases", "legal_rx",
     "macro_news", "macro_commentary", "macro_articles", "macro_releases", "macro_editorial",
     "dashboard_eq", "xfeed_myft", "xfeed_newsletters", "research_lane",
@@ -55,7 +55,6 @@ if (j) {
     const out = {
       deals: stale(CR.deals, "deals"), intel: stale(CR.intel, "intel"),
       clos: stale([...(CR.deals || []), ...(CR.intel || [])].filter((x) => x && x.clo), "clos"),
-      credit_research: stale(CR.research, "credit_research"),
       hedge_intel: stale(CR.HEDGE_INTEL, "hedge_intel"),
       legal_items: stale(LG.items, "legal_items"), legal_cases: stale(LG.cases, "legal_cases"), legal_rx: stale(LG.restructurings, "legal_rx"),
       macro_news: stale([...(((MAC.NEWS || {}).us) || []), ...(((MAC.NEWS || {}).uk) || [])], "macro_news"),

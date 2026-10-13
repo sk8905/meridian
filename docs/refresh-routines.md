@@ -207,6 +207,17 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ## Invariants
 
+- **Data integrity is test-gated (`tests/data-integrity.mjs`).** Before appending any
+  record, dedupe on entity + source URL (`managerId`/`hfId`/`firm` + `sourceUrl`/`url`)
+  — the same article is ONE record; a second deal from one article needs a different
+  entity. Every record carries an exact ISO date you saw on the source (no
+  `dateEstimated`, no blank `date`); cite the specific article, never a homepage, and
+  prefer the issuer / filing / tier-1 outlet over an aggregator or republisher
+  (Yahoo, TradingView, MarketScreener, cbonds, Kalkine, Finviz, pulse2 …). The summary
+  states ONLY what the cited source says — no context added from memory. Run
+  `node tests/run.mjs data-integrity` with the other gating specs before publishing.
+- **Never restamp `asOf` without a change.** `asOf` is the date of the data, not the
+  date you looked. A re-verification that changes nothing leaves `asOf` alone.
 - **Sync first.** Always start from the latest `main`: `git fetch origin`, then
   `git checkout -B claude/affectionate-einstein-9hhzga origin/main`.
 - **Preflight staleness check.** After syncing, read the current `LAST_CHECKED` /
