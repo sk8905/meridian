@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-13",
-  time: "19:20 BST",
+  time: "21:20 BST",
   lede: "Treasury yields, bank earnings and IMF warnings on bond-market risk framed the day, while private-credit redemption pressure at non-traded BDCs showed early signs of easing.",
   bullets: [
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to about 5.20% from 5.24%</strong>, stepping back from the 24-year high of 5.364% hit last week as oil prices retreated.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html", srcName: "Yahoo Finance", date: "2026-10-13" },
