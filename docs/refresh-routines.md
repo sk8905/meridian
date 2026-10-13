@@ -685,8 +685,16 @@ MAX_UNDATED_LEGAL / MAX_ESTIMATED_LEGAL ratchets.
 every heavy-sweep run (it is small); every figure needs a dated, sourced value — never
 a guess; if a figure can't be confirmed, leave the old one and say so.
 
-- **13F consensus panel (`HF_13F` in credit/js/data.js)** — when the rota says
-  REFRESH, rewrite it for the latest FILED quarter (13F-HR is due 45 days after quarter
+- **13F consensus panel (`HF_13F` in credit/js/data.js)** — PRIMARY: the SEC collector.
+  A daily GitHub Action (`.github/workflows/collect-sec.yml`, open internet) reads every
+  tracked hedge fund's own 13F-HR filings from EDGAR (`scripts/collect-sec.mjs`) and
+  writes `backfill/sec-13f.json`, whose `panel` is a ready `HF_13F` object built ONLY
+  from those filings: consensus = names in the most tracked funds' top-20 positions;
+  moves = names the most funds bought new / added >50% to, or exited / cut >50%, versus
+  each fund's previous filing; every row cites an EDGAR filing and its note is a count
+  over the filings. When `panel.asOf` is newer than `HF_13F.asOf`, REPLACE `HF_13F` with
+  `panel` verbatim (no searching, no edits to the notes). Only if the file is missing or
+  stale, fall back to the manual route: rewrite it for the latest FILED quarter (13F-HR is due 45 days after quarter
   end): `quarter`, `asOf` (the quarter-end date), `filed`, ~8 `consensus` names and ~5
   `moves`, each `{t, name, note, src}` with a note stating ONLY what the source says.
   Sources: reputable 13F coverage of that quarter (Bloomberg, WSJ, CNBC, FT, Reuters,

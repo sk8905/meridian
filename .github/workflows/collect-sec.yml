@@ -1,0 +1,109 @@
+name: collect-sec
+
+# The tracked hedge funds' own SEC filings, read straight from EDGAR by
+# scripts/collect-sec.mjs. Runs here because SEC hosts are blocked from the refresh
+# routines' containers. Output: backfill/sec-13f.json (per-fund latest 13F-HR + a
+# ready HF_13F consensus panel built only from those filings). backfill/ is excluded
+# from the deployed site; committed to main only when it changed, with [skip ci].
+# The heavy-sweep routine applies the panel when the profile rota says REFRESH.
+#
+#   daily 05:17 UTC → backfill/sec-13f.json (13F is quarterly; daily catches filings as they land)
+#   manual dispatch  → optionally also probe SEC's Form ADV adviser data (fund sizes)
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+    inputs:
+      adv_probe:
+        description: "Also probe SEC Form ADV adviser data (writes backfill/sec-adv-probe.txt)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-sec
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      UA: "Wire meridian admin (kenneds7@tcd.ie)"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Collect 13F filings
+        run: |
+          mkdir -p backfill
+          node scripts/collect-sec.mjs > /tmp/sec.json
+          node -e 'const j=require("/tmp/sec.json");console.log(`${j.filed}/${j.tracked} funds read; panel: ${j.panel?j.panel.quarter+" — "+j.panel.consensus.length+" consensus, "+j.panel.moves.length+" moves":"none"}`);for(const[id,f]of Object.entries(j.funds))if(f.error)console.log(" ",id,f.name,"—",f.error)'
+          cp /tmp/sec.json backfill/sec-13f.json
+
+      - name: Probe Form ADV adviser data
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.adv_probe }}
+        continue-on-error: true
+        run: |
+          out=backfill/sec-adv-probe.txt
+          {
+            echo "== SEC adviser data page: zip links"
+            curl -sSL -A "$UA" "https://www.sec.gov/data-research/sec-markets-data/information-about-registered-investment-advisers-exempt-reporting-advisers" -o /tmp/advpage.html; echo "page bytes: $(wc -c < /tmp/advpage.html)"
+            grep -oE 'href="[^"]+\.(zip|csv|xlsx)"' /tmp/advpage.html | head -20
+            z=$(grep -oE 'href="[^"]+\.zip"' /tmp/advpage.html | head -1 | sed -E 's/href="([^"]+)"/\1/')
+            case "$z" in /*) z="https://www.sec.gov$z";; esac
+            echo "== first zip: $z"
+            if [ -n "$z" ]; then
+              curl -sSL -A "$UA" "$z" -o /tmp/adv.zip; ls -l /tmp/adv.zip; unzip -l /tmp/adv.zip | head -10
+              mkdir -p /tmp/adv && unzip -o -q /tmp/adv.zip -d /tmp/adv
+              f=$(ls /tmp/adv | head -1); echo "== file: $f"
+              case "$f" in
+                *.csv|*.txt) head -c 3000 "/tmp/adv/$f"; echo; grep -i "bridgewater\|millennium management\|citadel advisors" "/tmp/adv/$f" | head -5 | cut -c1-1500;;
+                *.xlsx) pip install -q openpyxl && python3 - "/tmp/adv/$f" <<'PY'
+          import sys, openpyxl
+          wb = openpyxl.load_workbook(sys.argv[1], read_only=True); ws = wb.active
+          rows = ws.iter_rows(values_only=True); hdr = next(rows)
+          print("HEADER:", list(hdr))
+          n = 0
+          for r in rows:
+              s = " ".join(str(x) for x in r if x is not None)
+              if any(k in s.lower() for k in ("bridgewater", "millennium management", "citadel advisors")):
+                  print("ROW:", dict(zip(hdr, r))); n += 1
+              if n >= 4: break
+          PY
+                ;;
+              esac
+            fi
+            echo "== IAPD firm search (Bridgewater)"
+            curl -sS -A "$UA" "https://api.adviserinfo.sec.gov/search/firm?query=Bridgewater%20Associates&hl=true&nrows=3&start=0&r=25&wt=json" | head -c 2500; echo
+          } > "$out" 2>&1
+          cat "$out" | head -120
+
+      - name: Commit if changed
+        run: |
+          changed=0
+          if git show HEAD:backfill/sec-13f.json > /tmp/prev.json 2>/dev/null; then
+            node -e 'const a=require("/tmp/prev.json"),b=require(process.argv[1]);process.exit(JSON.stringify([a.panel,a.funds])===JSON.stringify([b.panel,b.funds])?0:1)' "$PWD/backfill/sec-13f.json" || changed=1
+          else changed=1; fi
+          [ -f backfill/sec-adv-probe.txt ] && changed=1
+          if [ "$changed" = 0 ]; then echo "No change"; git checkout -- backfill/sec-13f.json; exit 0; fi
+          git config user.name "wire-collector[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backfill/sec-13f.json
+          [ -f backfill/sec-adv-probe.txt ] && git add backfill/sec-adv-probe.txt
+          q=$(node -e 'const j=require(process.argv[1]);console.log(j.panel?j.panel.quarter:"no panel")' "$PWD/backfill/sec-13f.json")
+          git commit -m "collector: backfill/sec-13f.json — 13F filings, panel $q [skip ci]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          echo "push failed after retries"; exit 1
