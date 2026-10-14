@@ -1,5 +1,5 @@
-// R35f — a working Back after any internal link. Desktop: an arrow icon leads the
-// top-right header cluster (#nav-back) — dimmed/inert on the entry the app opened on,
+// R35f — a working Back after any internal link. Desktop: an arrow at the right end of
+// the ticker row, directly under the Menu icon (#nav-back) — dimmed/inert on the entry the app opened on,
 // live after any drill-down (a runtime link or a view's own `location.hash =` move),
 // and clicking it returns to exactly where you were. iPhone: no button — the iOS
 // left-edge swipe is Back (history.back), so the phone header stays clean.
@@ -26,12 +26,12 @@ const back = async (pg, name) => { if (name === "phone") await pg.goBack(); else
   check(!(await visible(pg)), "phone: no header Back button (the edge-swipe is Back)");
   await ctx.close();
 }
-// Desktop: the arrow sits in the top-right cluster, left of the action icons.
+// Desktop: the arrow sits on the row below the header, directly under the Menu icon.
 {
   const { ctx, pg } = await open(b, DESKTOP, base + "/v2/transactions/");
   await pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
-  const pos = await pg.evaluate(() => { const r = document.querySelector("#nav-back").getBoundingClientRect(), a = document.querySelector(".na-actions").getBoundingClientRect(); return { x: r.left, ax: a.left, w: innerWidth }; });
-  check(await visible(pg) && pos.x > pos.w / 2 && pos.x < pos.ax, `desktop: Back sits top-right, just left of the action icons (${JSON.stringify(pos)})`);
+  const pos = await pg.evaluate(() => { const r = document.querySelector("#nav-back").getBoundingClientRect(), m = document.querySelector(".nav-menu-btn").getBoundingClientRect(), t = document.querySelector(".topbar").getBoundingClientRect(); return { cx: Math.round(r.left + r.width / 2), mx: Math.round(m.left + m.width / 2), top: Math.round(r.top), barBottom: Math.round(t.bottom) }; });
+  check(await visible(pg) && Math.abs(pos.cx - pos.mx) <= 2 && pos.top >= pos.barBottom, `desktop: Back sits on the row below the header, under the Menu icon (${JSON.stringify(pos)})`);
   await ctx.close();
 }
 

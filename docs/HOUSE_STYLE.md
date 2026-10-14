@@ -984,9 +984,10 @@ notification badge red (`#ef4444`).
   history entry carries `wdepth` (0 on the entry the app opened on, +1 per push — a runtime
   link or a view's `location.hash =` drill-down; a replace keeps it), mirrored onto `<html
   data-can-back>`. **iPhone:** Back is the iOS left-edge swipe (`history.back`) — no button,
-  the phone header stays clean. **Desktop:** a ← arrow icon (`#nav-back`, `.na-btn`) leads
-  the top-right header cluster, left of Ask · Markets · Notifications; dimmed and inert at
-  depth 0, live otherwise, and it calls `history.back()`. The header's left side (logo,
+  the phone header stays clean. **Desktop:** a ← arrow (`#nav-back`) at the right end of the
+  ticker row (`.wtk-bar`, beside `#wticker` — never inside it, brief.js rewrites it),
+  directly under the Menu icon; dimmed and inert at depth 0, live otherwise, and it calls
+  `history.back()`. The header's left side (logo,
   platform pills) never changes. Never push a history entry that bypasses the runtime's
   `pushState` wrapper. Specs: `tests/nav-backstack.mjs`, `tests/nav-back-button.mjs`.
 

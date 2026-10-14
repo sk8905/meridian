@@ -33,12 +33,6 @@
 .topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
 @media (min-width: 1101px) { .topbar-inner { padding-left: 2rem; padding-right: 2rem; } }
 
-/* Desktop Back (R35f) — the first icon of the top-right cluster (inherits .na-btn).
-   Dimmed + inert until the runtime flags an in-app entry to return to
-   (<html data-can-back>). Phones hide it: the iOS left-edge swipe is Back there. */
-.nav-back { flex: 0 0 auto; margin-left: auto; margin-right: calc(.4rem - 2rem); }   /* sit at the cluster's .4rem pitch, not the bar's 2rem gap */
-:root:not([data-can-back]) .nav-back { opacity: .35; cursor: default; pointer-events: none; }
-@media (max-width: 760px) { .nav-back { display: none !important; } }
 .brand { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; text-decoration: none; color: #fff; }
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
@@ -135,6 +129,21 @@
 .wtk .s { color: var(--muted); } .wtk .v { color: var(--ink); }
 .wtk .up { color: var(--t-up, #3fc08d); } .wtk .down { color: var(--t-down, #f26d84); } .wtk .flat { color: var(--faint); }
 @media (max-width: 760px) { .wticker { display: none; } }
+
+/* Desktop Back (R35f) — the ticker row's right end, directly under the Menu icon
+   (same 34px width, same right gutter as .topbar-inner). Dimmed + inert until the
+   runtime flags an in-app entry to return to (<html data-can-back>). Phones hide the
+   whole row: the iOS left-edge swipe is Back there. */
+.wtk-bar { display: flex; align-items: stretch; flex: 0 0 auto; background: var(--head); border-bottom: 1px solid var(--border); }
+.wtk-bar > .wticker { flex: 1 1 auto; min-width: 0; border-bottom: 0; }
+.nav-back { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 26px;
+  margin: 0 1.5rem 0 auto; padding: 0; background: transparent; border: 0; border-radius: 0; color: var(--muted); cursor: pointer; }
+@media (min-width: 1101px) { .nav-back { margin-right: 2rem; } }
+.nav-back:hover { color: var(--ink); background: rgba(127,127,127,.12); }
+.nav-back svg { width: 18px; height: 18px; }
+:root:not([data-can-back]) .nav-back { opacity: .35; cursor: default; pointer-events: none; }
+:root[data-theme="dark"] .wtk-bar { background: var(--bg, #141414); }
+@media (max-width: 760px) { .wtk-bar { display: none; } }
 
 /* ---------- Briefing strip — one compact horizontal row: greeting · Top story ·
    Markets · Rates & spreads, ellipsis-clipped. Labels are Wire-orange caps; the

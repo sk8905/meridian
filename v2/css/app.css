@@ -88,7 +88,7 @@ a { color: inherit; text-decoration: none; }
   .v2-view .nl-wrap > .g-feed { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
   /* The header strips (bar · ticker · briefing) must keep their natural height —
      as flex items they were shrinking, which clipped the one-line briefing. */
-  #wire-header .topbar, #wire-header .wticker, #wire-header .wbrief { flex: 0 0 auto; }
+  #wire-header .topbar, #wire-header .wtk-bar, #wire-header .wticker, #wire-header .wbrief { flex: 0 0 auto; }
   /* Left rail: DO NOT re-cap Top movers here. home.css's own terminal rules
      (@media min-width:901px) already make each rail exactly the viewport height
      with the market/rate panels pinned, Top movers flexing to fill *and shrink*

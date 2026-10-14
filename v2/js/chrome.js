@@ -171,16 +171,17 @@ function buildHeader(onTab) {
         <div id="account-nav" class="account-nav"></div>
         <div id="data-status" class="data-status" data-refresh-slot></div>
       </div>
-      <button type="button" class="na-btn nav-back" id="nav-back" aria-label="Back" title="Back" aria-disabled="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button>
       <div id="notif" class="notif"></div>
       <button type="button" class="nav-menu-btn" data-key="menu" aria-label="Menu" title="Menu">${TAB_ICONS.menu}</button>
     </div>
   </header>
-  <div class="wticker" id="wticker"></div>
+  <div class="wtk-bar"><div class="wticker" id="wticker"></div><button type="button" class="nav-back" id="nav-back" aria-label="Back" title="Back" aria-disabled="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button></div>
   <div class="wbrief" id="wbrief"></div>`;
   // Platform pills / brand route via the SPA; the search button is left for
   // palette.js (data-open-search) — don't treat it as a tab.
-  // Desktop header Back (R35f): the first icon in the top-right cluster. Steps back
+  // Desktop Back (R35f): an arrow at the right end of the ticker row, directly under
+  // the Menu icon (it lives beside #wticker, not inside it — brief.js rewrites the
+  // ticker's innerHTML). Steps back
   // one in-app history entry — to exactly where you were before the last internal
   // link. Dimmed while there is no in-app entry to return to (the runtime sets
   // <html data-can-back>). Phones hide it: there the iOS edge-swipe is Back.
