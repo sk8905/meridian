@@ -38,10 +38,14 @@ export const DOCS = [
     "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf",
     "https://www.spglobal.com/spdji/jp/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf",
   ] },
-  { id: "afme_hyll", name: "AFME data & research (HY / leveraged loan / private credit reports)", urls: ["https://www.afme.eu/publications/data-research"], follow: /european-high-yield[^"'#?]*report[^"'#?]*/i },
+  // render: the chart page(s) matching `chart` are saved as PNGs (backfill/) so the routine
+  // can read a chart's PRINTED labels — never values read off unlabelled bars.
+  { id: "afme_hyll", name: "AFME data & research (HY / leveraged loan / private credit reports)", urls: ["https://www.afme.eu/publications/data-research"], follow: /european-high-yield[^"'#?]*report[^"'#?]*/i,
+    chart: /high yield maturity wall/i, renderTo: "backfill/matwall-afme" },
   { id: "spratings_cmr", name: "S&P Global Ratings — Credit Markets Research hub (Global Refinancing items)", kind: "page", urls: ["https://www.spglobal.com/ratings/en/research/credit-market-research"], pick: /refinanc|maturit/i },
   { id: "fitch_levfin_maturity", name: "Fitch — Global Leveraged Finance Maturity Profile (free reprint)", kind: "page", urls: ["https://www.hellenicshippingnews.com/global-leveraged-finance-maturity-profile-supports-refinancing-flexibility/"], pick: /matur|refinanc|EMEA/i },
-  { id: "maalot_pubs", name: "Maalot (S&P affiliate) — free S&P research PDFs", kind: "page", urls: ["https://www.maalot.co.il/Publications"], pick: /refinanc|maturit|credit trends/i, pdfLinks: true },
+  // Maalot publishes no public report index; its home / English pages link recent PDFs.
+  { id: "maalot_pubs", name: "Maalot (S&P affiliate) — free S&P research PDFs", kind: "page", urls: ["https://www.maalot.co.il/en", "https://www.maalot.co.il/"], pick: /refinanc|maturit|credit trends/i, pdfLinks: true },
   { id: "indexology", name: "Indexology (S&P DJI blog) — leveraged loan commentary", kind: "rss", urls: ["https://www.indexologyblog.com/feed/"], pick: /leveraged loan|european leveraged|western europe/i },
 ];
 const ON_TOPIC = /maturit|refinanc|wall|leveraged loan|high.yield|speculative/i;
@@ -69,6 +73,16 @@ export function maturityLines(text, max = 60) {
   });
   return [...out].filter((l) => !/^\d+(\.\d+)+\s/.test(l) || /€|\$|bn|%/.test(l)).slice(0, max);
 }
+// PDF links on a page with their link text (title), de-duplicated.
+export function pdfAnchors(html, base) {
+  const seen = new Set(), out = [];
+  for (const m of String(html || "").matchAll(/<a\b[^>]*href=["']([^"']+\.pdf)(?:\?[^"']*)?["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+    let u; try { u = new URL(m[1], base).href; } catch { continue; }
+    if (seen.has(u)) continue; seen.add(u);
+    out.push({ url: u, text: m[2].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() || null });
+  }
+  return out;
+}
 // An HTML page's own published date + the paragraphs matching `pick`.
 export function pageFacts(html, pick) {
   const h = String(html || "");
@@ -90,12 +104,31 @@ function pdfText(buf) {
   try { fs.writeFileSync(f, buf); return execFileSync("pdftotext", ["-layout", f, "-"], { encoding: "utf8", maxBuffer: 32 << 20 }); }
   catch { return null; } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 }
+// Pages whose text matches `re` (skipping a contents page — the first of several
+// matches) → PNG at <prefix>-p<N>.png plus that page's own text (labels, if vector).
+export function chartPages(pageTexts, re) {
+  const hits = pageTexts.map((t, i) => (re.test(t) ? i + 1 : 0)).filter(Boolean);
+  return (hits.length > 1 ? hits.slice(1) : hits).slice(0, 2);
+}
+function renderCharts(buf, re, prefix) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "mwc-")), f = path.join(dir, "d.pdf");
+  try {
+    fs.writeFileSync(f, buf);
+    const all = execFileSync("pdftotext", ["-layout", f, "-"], { encoding: "utf8", maxBuffer: 32 << 20 });
+    const pages = all.split("\f");
+    return chartPages(pages, re).map((n) => {
+      const png = `${prefix}-p${n}`;
+      try { execFileSync("pdftoppm", ["-f", String(n), "-l", String(n), "-r", "110", "-png", "-singlefile", f, png]); } catch { return { page: n, error: "pdftoppm failed" }; }
+      return { page: n, png: png + ".png", text: pages[n - 1].split(/\n/).map((l) => l.replace(/\s+/g, " ").trim()).filter(Boolean).slice(0, 80) };
+    });
+  } catch { return [{ error: "pdftotext/pdftoppm missing" }]; } finally { fs.rmSync(dir, { recursive: true, force: true }); }
+}
 async function readDoc(d) {
   const tried = [];
   for (const u of d.urls) {
     const res = await readOne(d, u);
     tried.push(`${u} → ${res.status}`);
-    if (res.ok) return { ...d, urls: undefined, pick: undefined, follow: undefined, ...res, tried };
+    if (res.ok) return { ...d, urls: undefined, pick: undefined, follow: undefined, chart: undefined, ...res, tried };
   }
   return { id: d.id, name: d.name, status: "unreachable", tried };
 }
@@ -108,7 +141,7 @@ async function readOne(d, url) {
   if (d.kind === "page") {
     const r = await get(url); if (!r.body) return { status: r.status };
     const f = pageFacts(r.body, d.pick);
-    const pdfs = d.pdfLinks ? [...new Set([...String(r.body).matchAll(/href=["']([^"']+\.pdf)["']/gi)].map((m) => new URL(m[1], url).href))].slice(0, 20) : undefined;
+    const pdfs = d.pdfLinks ? pdfAnchors(r.body, url).slice(0, 40) : undefined;
     return { ok: true, status: r.status, fetched: url, ...f, pdfs };
   }
   let r = await get(url, !d.follow);
@@ -124,8 +157,9 @@ async function readOne(d, url) {
   const isPdf = /pdf/i.test(r.type) || url.endsWith(".pdf");
   if (isPdf && !String(r.body.slice(0, 5)).startsWith("%PDF")) return { status: r.status, note: "not a PDF (blocked page?)" };
   const txt = isPdf ? pdfText(r.body) : String(r.body);
+  const charts = isPdf && d.chart ? renderCharts(r.body, d.chart, d.renderTo) : undefined;
   const dated = txt && (txt.match(/\b(?:as of|data as of|published)\s+([A-Z][a-z]+ \d{1,2}, \d{4}|\d{1,2} [A-Z][a-z]+ \d{4})/) || [])[1];
-  return { ok: !!txt, status: r.status, fetched: url, dated: dated || null, lines: txt ? maturityLines(txt) : [], note: txt ? null : "no text (pdftotext missing?)" };
+  return { ok: !!txt, status: r.status, fetched: url, dated: dated || null, lines: txt ? maturityLines(txt) : [], charts, note: txt ? null : "no text (pdftotext missing?)" };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
