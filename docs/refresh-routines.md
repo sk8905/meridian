@@ -774,6 +774,18 @@ agents edit the data files at once.
 
 **Banned outlet.** Never cite Channel NewsAsia (`channelnewsasia.com`, "CNA") for any record — the owner removed it from the app; `tests/data-integrity.mjs` rejects it and the Worker drops it from every feed.
 
+## Data hygiene after every data edit (`scripts/normalise-data.mjs`)
+
+After appending or editing fund records, run `node scripts/normalise-data.mjs`. It is
+idempotent and evidence-only: it sets a fund's `ccy` only where the fund's own text
+states that figure with a currency (no FX, no guessing), folds status/strategy synonyms
+onto `FUND_STATUS`/`STRATEGIES`, and splits "Luxembourg (SCSp)" into `domicile` +
+`structure`. New records should already use the controlled values: fund `status` ∈
+FUND_STATUS (an open-ended fund is `"Open"` + `evergreen:true`), `domicile` a country or
+`null` (never "Undisclosed"/"Pan-European"/"[est]" — use `domicileEstimated:true`).
+`tests/data-currency.mjs` ratchets the remaining off-vocabulary values. (Manager and
+investor AUM is USD by convention — R29.)
+
 ## Deterministic candidate collector (`scripts/collect-candidates.mjs`) — run it FIRST
 
 The routines' hunt used to be free-form web search, and it under-collected badly (in
