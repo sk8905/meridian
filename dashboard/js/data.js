@@ -74,8 +74,8 @@ export const EQ_INDICES = [
     "id": "sxxp",
     "name": "Stoxx Europe 600",
     "region": "Europe",
-    "level": 638.09,
-    "ytd": 7.64,
+    "level": 638.52,
+    "ytd": 7.72,
     "asOf": "2026-10-14",
     "stooq": "^stoxx",
     "source": "https://finance.yahoo.com/quote/%5ESTOXX"
@@ -84,8 +84,8 @@ export const EQ_INDICES = [
     "id": "ukx",
     "name": "FTSE 100",
     "region": "Europe",
-    "level": 10677.14,
-    "ytd": 7.51,
+    "level": 10690.76,
+    "ytd": 7.65,
     "asOf": "2026-10-14",
     "stooq": "^ftse",
     "source": "https://finance.yahoo.com/quote/%5EFTSE",
@@ -100,8 +100,8 @@ export const EQ_INDICES = [
     "id": "dax",
     "name": "DAX",
     "region": "Europe",
-    "level": 25368.04,
-    "ytd": 3.58,
+    "level": 25391.16,
+    "ytd": 3.68,
     "asOf": "2026-10-14",
     "stooq": "^dax",
     "source": "https://finance.yahoo.com/quote/%5EGDAXI"
@@ -110,8 +110,8 @@ export const EQ_INDICES = [
     "id": "cac",
     "name": "CAC 40",
     "region": "Europe",
-    "level": 7865.63,
-    "ytd": -3.48,
+    "level": 7880.78,
+    "ytd": -3.3,
     "asOf": "2026-10-14",
     "stooq": "^cac",
     "source": "https://finance.yahoo.com/quote/%5EFCHI"
@@ -277,23 +277,23 @@ export const WORLD_INDICES = {
       "rows": [
         {
           "name": "FTSE 100",
-          "level": 10677.16,
-          "w1": 2.09,
-          "m1": -0.19,
-          "m3": 1.53,
-          "m6": 1.11,
-          "y1": 12.95,
+          "level": 10690.76,
+          "w1": 2.22,
+          "m1": -0.06,
+          "m3": 1.66,
+          "m6": 1.24,
+          "y1": 13.1,
           "asOf": "2026-10-14",
           "source": "https://finance.yahoo.com/quote/%5EFTSE/"
         },
         {
           "name": "FTSE 250",
-          "level": 24500.88,
-          "w1": 1.93,
-          "m1": 2.8,
-          "m3": 4.43,
-          "m6": 8.1,
-          "y1": 11.23,
+          "level": 24515.35,
+          "w1": 1.99,
+          "m1": 2.86,
+          "m3": 4.49,
+          "m6": 8.16,
+          "y1": 11.29,
           "asOf": "2026-10-14",
           "source": "https://finance.yahoo.com/quote/%5EFTMC/"
         }
@@ -304,45 +304,45 @@ export const WORLD_INDICES = {
       "rows": [
         {
           "name": "Euro Stoxx 50",
-          "level": 6204.99,
-          "w1": 0.4,
-          "m1": -0.88,
-          "m3": -0.97,
-          "m6": 4.46,
-          "y1": 11.76,
+          "level": 6207.9,
+          "w1": 0.45,
+          "m1": -0.84,
+          "m3": -0.92,
+          "m6": 4.5,
+          "y1": 11.81,
           "asOf": "2026-10-14",
           "source": "https://finance.yahoo.com/quote/%5ESTOXX50E/"
         },
         {
           "name": "DAX",
-          "level": 25368.04,
-          "w1": 1.05,
-          "m1": -0.29,
-          "m3": 1.47,
-          "m6": 5.41,
-          "y1": 4.67,
+          "level": 25391.16,
+          "w1": 1.14,
+          "m1": -0.2,
+          "m3": 1.57,
+          "m6": 5.5,
+          "y1": 4.76,
           "asOf": "2026-10-14",
           "source": "https://finance.yahoo.com/quote/%5EGDAXI/"
         },
         {
           "name": "CAC 40",
-          "level": 7865.63,
-          "w1": 1.24,
-          "m1": -3.11,
-          "m3": -6.17,
-          "m6": -4.94,
-          "y1": -0.68,
+          "level": 7880.78,
+          "w1": 1.44,
+          "m1": -2.92,
+          "m3": -5.98,
+          "m6": -4.76,
+          "y1": -0.49,
           "asOf": "2026-10-14",
           "source": "https://finance.yahoo.com/quote/%5EFCHI/"
         },
         {
           "name": "IBEX 35",
-          "level": 19295.7,
-          "w1": 0.93,
-          "m1": -1.38,
-          "m3": 0.1,
-          "m6": 6.1,
-          "y1": 23.8,
+          "level": 19329.4,
+          "w1": 1.11,
+          "m1": -1.21,
+          "m3": 0.28,
+          "m6": 6.29,
+          "y1": 24.01,
           "asOf": "2026-10-14",
           "source": "https://finance.yahoo.com/quote/%5EIBEX/"
         }
@@ -421,12 +421,12 @@ export const GOVT_YIELDS = {
       "rows": [
         {
           "country": "United States",
-          "y2": 4.31,
-          "y5": 4.35,
-          "y10": 4.65,
-          "y30": 5.12,
-          "asOf": "2026-07-28",
-          "source": "https://www.worldgovernmentbonds.com/country/united-states/"
+          "y2": 4.79,
+          "y5": 5,
+          "y10": 5.21,
+          "y30": 5.56,
+          "asOf": "2026-10-13",
+          "source": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
         }
       ]
     },
@@ -579,20 +579,32 @@ export const GOVT_YIELDS = {
 export const GOVT_YIELD_CHG = {
   "United States": {
     "y2": {
-      "m1": 4,
-      "y1": 26
+      "w1": 0,
+      "m1": 16,
+      "m3": 61,
+      "m6": 103,
+      "y1": 127
     },
     "y5": {
-      "m1": 13,
-      "y1": 40
+      "w1": -3,
+      "m1": 22,
+      "m3": 69,
+      "m6": 113,
+      "y1": 135
     },
     "y10": {
-      "m1": 22,
-      "y1": 33
+      "w1": -6,
+      "m1": 25,
+      "m3": 63,
+      "m6": 95,
+      "y1": 116
     },
     "y30": {
-      "m1": 23,
-      "y1": 31
+      "w1": -8,
+      "m1": 21,
+      "m3": 48,
+      "m6": 69,
+      "y1": 93
     }
   },
   "Brazil": {
