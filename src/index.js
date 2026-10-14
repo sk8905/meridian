@@ -3771,34 +3771,6 @@ async function feedFetch(url, delayMs = 0, diag = null, budget = null) {
   } catch (e) { if (diag) diag.err = String((e && e.message) || e).slice(0, 80); }
   return null;
 }
-// Google News pins 503s to SPECIFIC query strings from datacenter IPs (live
-// probes: the same three queries fail run after run while structurally
-// identical siblings pass — per-query-hash scoring, not burst throttling).
-// Re-roll the bucket: flip the locale params and nudge the when: window, so
-// the variant hashes differently but returns the same journalism. Used as an
-// automatic fallback whenever a gnews primary comes back empty.
-function gnewsVariant(url) {
-  let v = url.replace(/when%3A(\d+)d/, (m, d) => "when%3A" + Math.max(1, +d - 1) + "d");
-  v = /ceid=US%3Aen/.test(v)
-    ? v.replace("hl=en-US", "hl=en-GB").replace("gl=US", "gl=GB").replace("ceid=US%3Aen", "ceid=GB%3Aen")
-    : v.replace("hl=en-GB", "hl=en-US").replace("gl=GB", "gl=US").replace("ceid=GB%3Aen", "ceid=US%3Aen");
-  return v;
-}
-// LAST-resort mirror when Google pins a query no matter how it's dressed up
-// (live probes: three queries 503 across hours, surviving param reordering AND
-// the locale-flipped variant — Google has scored the SEARCH itself, likely a
-// scraping heuristic on broad site: queries). Bing News serves the same
-// site:-scoped news search as RSS, tolerates datacenter IPs, and links land
-// on the article directly (its apiclick redirect is unwrapped in feedParse).
-// The when: window doesn't map — sortbydate + the wire's own 6-day cutoff and
-// newest-first per-source cap do the windowing instead.
-function bingMirror(url) {
-  try {
-    const q = (new URL(url).searchParams.get("q") || "").replace(/\s*when:\d+[dh]\s*/i, " ").trim();
-    if (!q) return null;
-    return "https://www.bing.com/news/search?q=" + encodeURIComponent(q) + "&format=RSS&qft=sortbydate%3d%221%22";
-  } catch { return null; }
-}
 // Soft screen for the reader-curated feeds (myFT + Bloomberg's official section
 // wires): EVERYTHING passes except lifestyle / arts / culture / travel / sport.
 // A headline that ALSO matches the finance vocabulary survives even when it
@@ -3840,23 +3812,7 @@ async function handleFeed(request, env, ctx) {
           await feedSleep(700);
           r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         }
-        // Mirror the assembly's fallbacks for stuck Google queries — the
-        // locale-flipped variant, then the Bing mirror; `via` marks which
-        // fallback served the row.
-        let via;
-        if (!r.ok && f.gnews) {
-          await feedSleep(300);
-          const vr = await fetch(gnewsVariant(f.url), { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
-          if (vr.ok) { r = vr; via = "variant"; }
-        }
-        if (!r.ok && f.gnews) {
-          const b = bingMirror(f.url);
-          if (b) {
-            await feedSleep(200);
-            const br = await fetch(b, { headers: fetchHeaders(b), cf: { cacheTtl: 0 } });
-            if (br.ok) { r = br; via = "bing"; }
-          }
-        }
+        let via;   // (Google-variant / Bing fallbacks removed 2026-10: a 503 from Google is respected)
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
         const kept = f.soft ? parsed.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title))
@@ -4068,10 +4024,9 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
     const key = f.url;
     const d = trace ? { source: f.source, url: f.url } : null;
     let txt = await feedFetch(f.url, delays[i], d, budget);
-    // Stuck Google query → one locale-flipped variant (also budget-gated). The
-    // Bing mirror was removed: live probes showed it returns empty for these
-    // site: queries, and the per-source last-good cache now covers persistence.
-    if (!txt && f.gnews) { txt = await feedFetch(gnewsVariant(f.url), 300, d, budget); if (txt && d) d.via = "variant"; }
+    // A stuck Google query is RESPECTED (2026-10): no re-rolled locale variant or
+    // mirror to get round Google's per-query block — the per-source last-good cache
+    // covers the gap until Google serves it again (docs/implementation-plan.md §4).
     if (d) d.bytes = txt ? txt.length : 0;
     let items = [];
     if (txt) {

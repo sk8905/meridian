@@ -26,4 +26,8 @@ const src = fs.readFileSync(new URL("../src/index.js", import.meta.url), "utf8")
 const pw = src.slice(src.indexOf("async function prewarmReads"), src.indexOf("async function handleHero"));
 check(/!_readInSet\(host, READ_PREWARM_OK\)/.test(pw), "reader: prewarmReads only stores READ_PREWARM_OK hosts");
 check(!/READ_OPEN/.test(src), "reader: READ_OPEN (render metered pages) is retired");
+// Feeds never get round a refusal either: no re-rolled Google query, no Bing mirror,
+// no X syndication scrape (docs/implementation-plan.md §4).
+check(!/function gnewsVariant|function bingMirror|bing\.com\/news/.test(src), "feeds: no Google re-roll variant or Bing mirror after a Google 503");
+check(!/syndication\.twitter\.com/.test(src), "x: no syndication scrape");
 finish();
