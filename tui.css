@@ -1443,22 +1443,30 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 }
 
 
-/* ---- Link convention (Transactions + Profiles), matching the newswire reader -------
-   INTERNAL links (a manager / fund / deal / profile inside Wire) read as body text with a
-   BLUE underline; EXTERNAL links (a source, filing, website — target=_blank) read as body
-   text with an ORANGE underline. Hover thickens the underline. Badge-style anchors (the
-   rating chip, SLS chips, tab chips) keep their own box treatment. The underline needs
-   !important only to beat the global `a { text-decoration: none !important }` reset, as
-   the newswire reader's entity links do (home.css .g-ent). */
-:is(.tx-dash, #pf-detail, #pf-panes) a:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn):not([target="_blank"]) {
+/* ---- Link convention — app-wide (HOUSE_STYLE R39l), matching the newswire reader -------
+   INTERNAL text links (a manager / fund / deal / profile inside Wire) read as body text
+   with a BLUE underline; EXTERNAL text links (a source, filing, website — target=_blank)
+   carry an ORANGE underline. Hover thickens the underline. NOT underlined: navigation
+   and whole-row links (feed rows, profile news rows, Dashboard news / report lists, tab
+   chips, panel headers, the welcome band) and badge anchors (rating chip, SLS chips),
+   which keep their own treatment; the reader's "Open original" stays orange + bold.
+   The !important only beats premium.css's global `a { text-decoration: none !important }`
+   (the reader's entity links do the same, home.css .g-ent). */
+:is(.tx-dash, #pf-detail, #pf-panes) a:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn):not(.tw-head):not([target="_blank"]),
+.dsh a.dsh-drill:not(.dsh-hf-prof):not(.dsh-news-i > a) {
   color: inherit; text-decoration-line: underline !important; text-decoration-style: solid !important; text-decoration-thickness: 1px !important;
   text-underline-offset: 2px; text-decoration-color: var(--t-link, var(--wb-txt)) !important;
 }
-:is(.tx-dash, #pf-detail, #pf-panes) a[target="_blank"]:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn) {
+:is(.tx-dash, #pf-detail, #pf-panes) a[target="_blank"]:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn):not(.tw-head),
+.dsh a[target="_blank"]:not([class]):not(.dsh-news-i > a),
+.dsh :is(a.dsh-src, a.dsh-kv-yoy, a.dsh-cyc-src, a.dsh-earn-tk, a.dsh-hf-t),
+a.g-hbrief-src {
   text-decoration-line: underline !important; text-decoration-style: solid !important; text-decoration-thickness: 1px !important;
   text-underline-offset: 2px; text-decoration-color: var(--accent) !important;
 }
-:is(.tx-dash, #pf-detail, #pf-panes) a:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn):hover { text-decoration-thickness: 2px !important; }
+/* The Dashboard's source tag reads as an underlined label now, not a boxed badge. */
+.dsh a.dsh-src { border: 0; padding: 0; }
+:is(.tx-dash, #pf-detail, #pf-panes, .dsh) a:hover, a.g-hbrief-src:hover { text-decoration-thickness: 2px !important; }
 
 /* Deal drawer: every block (facts, summary, related lists) shares the body's left edge. */
 .tx-drawer-b .tbiz li { padding-left: 0; padding-right: 0; }

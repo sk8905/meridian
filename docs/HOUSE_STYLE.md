@@ -1122,11 +1122,14 @@ notification badge red (`#ef4444`).
   even though it is the lender, and a CLO vehicle) · target · fund · seller · none. It wins
   over the headline parse (`dealCounterparty` in `v2/js/deal-parse.js`); never a
   descriptor ("AI", "UK", "fintech"). The drawer labels the row by role. Spec:
-  `tests/deal-parse.mjs`. **(l) Link convention** (Transactions + Profiles, as the newswire
-  reader): an INTERNAL link (profile / deal / fund in Wire) is body text with a **blue**
+  `tests/deal-parse.mjs`. **(l) Link convention — app-wide** (Home briefing, Dashboard,
+  Profiles, Transactions; the newswire reader already did this): an INTERNAL link (profile / deal / fund in Wire) is body text with a **blue**
   underline (`--t-link`); an EXTERNAL link (source / filing / website, `target=_blank`)
-  is body text with an **orange** underline (`--accent`); hover thickens it. Badge
-  anchors (rating chip, SLS chips) keep their box. The newswire's "Open original" stays
+  is body text with an **orange** underline (`--accent`); hover thickens it. Not
+  underlined: navigation and whole-row links (feed rows, profile news rows, Dashboard
+  news / report lists, chips, panel headers, the welcome band) and badge anchors (rating
+  chip, SLS chips). The Dashboard's SRC tag is an underlined label, not a box. Spec:
+  `tests/link-convention.mjs`. The newswire's "Open original" stays
   orange, bold, no underline. (The `!important` on these underlines exists only to beat
   premium.css's global `a { text-decoration: none !important }`.)
 

@@ -216,6 +216,8 @@ export function tagsOf(deal, TAGS) {
     // (where a traded loan portfolio's assets are).
     countrySource: t ? t.countrySource || null : null,
     countryBasis: t ? t.countryBasis || null : null,
+    // A researched counterparty (not named in the deal text) carries its source.
+    partySource: t ? t.partySource || null : null,
     region: regionOf(country),
     sector: (t && t.sector) || _SECTOR_FALLBACK[sectorOf(deal)] || "Diversified",
     amountKind: t ? t.amountKind || null : null,
