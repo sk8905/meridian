@@ -1116,7 +1116,19 @@ notification badge red (`#ef4444`).
   under the ticker, sortable size / name / NAV / non-accrual / Px/NAV, and the sticky
   header pins to its own scroller (no hidden first row). Specs: `tests/transactions.mjs`,
   `tests/tx-credits.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`,
-  `tests/profiles-filters.mjs`.
+  `tests/profiles-filters.mjs`. **(k) Borrower / issuer column.** Every deal was audited
+  (2026-10): `p` in deal-tags is the counterparty verbatim from the deal's own text and
+  `r` its role — borrower · issuer (incl. a BDC / manager issuing its own notes, shown
+  even though it is the lender, and a CLO vehicle) · target · fund · seller · none. It wins
+  over the headline parse (`dealCounterparty` in `v2/js/deal-parse.js`); never a
+  descriptor ("AI", "UK", "fintech"). The drawer labels the row by role. Spec:
+  `tests/deal-parse.mjs`. **(l) Link convention** (Transactions + Profiles, as the newswire
+  reader): an INTERNAL link (profile / deal / fund in Wire) is body text with a **blue**
+  underline (`--t-link`); an EXTERNAL link (source / filing / website, `target=_blank`)
+  is body text with an **orange** underline (`--accent`); hover thickens it. Badge
+  anchors (rating chip, SLS chips) keep their box. The newswire's "Open original" stays
+  orange, bold, no underline. (The `!important` on these underlines exists only to beat
+  premium.css's global `a { text-decoration: none !important }`.)
 
 ---
 

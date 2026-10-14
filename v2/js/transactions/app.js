@@ -27,7 +27,7 @@ import { targetFit } from "/credit/js/target.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
 import { esc } from "/util.js";
 import { fmtDay } from "/feed.js";
-import { dealCounterparty, dealSponsor } from "../deal-parse.js";
+import { dealCounterparty, dealSponsor, dealPartyRole } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
 import { downloadCSV } from "../csv.js";
 
@@ -64,6 +64,8 @@ const KIND_LABEL = { financing: "Financing", fund: "Vehicle size", portfolio: "P
 const KIND_SHORT = { ev: "EV", aum: "AUM", other: "" };
 // Where a researched country comes from (deal-tags cb).
 const BASIS_LABEL = { hq: "HQ", incorporated: "incorporation", issuer: "issuer domicile", portfolio: "portfolio location" };
+// The audited role of the deal's counterparty (deal-tags `r`) → its drawer label.
+const ROLE_LABEL = { borrower: "Borrower / company", issuer: "Issuer", target: "Target", fund: "Fund / vehicle", seller: "Seller", none: "Counterparty" };
 const EVENT_LABEL = { new: "New issue", reset: "Reset", refi: "Refi" };
 const SORTS = [["date-desc", "Newest"], ["date-asc", "Oldest"], ["size-desc", "Largest"], ["size-asc", "Smallest"], ["lender-asc", "Lender A–Z"], ["name-asc", "Name A–Z"]];
 const SORT_DEFAULT_DIR = { date: "desc", size: "desc", lender: "asc", name: "asc" };
@@ -647,7 +649,7 @@ export function mount(host, ctx) {
       ? `${esc(fmtAmt(r.amt))}${r.usd != null && r.amt.ccy !== "USD" ? ` <span class="tf-est">≈ ${esc(fmtUsd(r.usd))}</span>` : ""}${kind && kind !== "financing" ? ` <span class="tf-est">${esc(KIND_LABEL[kind])}</span>` : ""}`
       : "Undisclosed";
     const facts = [
-      [r.mode === "mna" ? "Target" : "Borrower / company", r.cp ? esc(r.cp) : "—"],
+      [r.mode === "mna" ? "Target" : ROLE_LABEL[dealPartyRole(d)] || "Borrower / company", r.cp ? esc(r.cp) : "—"],
       ...(r.sponsor ? [["Sponsor", esc(r.sponsor)]] : []),
       [r.mode === "mna" ? "Acquirer" : "Lender / investor", mgrLink(d.managerId)],
       ...(fund ? [["Fund", `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(fund.managerId)}/vehicles">${esc(fund.name)}</a>`]] : []),
@@ -932,8 +934,8 @@ export function mount(host, ctx) {
     if (kind === "flow") {
       const list = currentList();
       downloadCSV(`wire-transactions-${st.q ? "search" : st.mode}`,
-        ["Date", "Borrower / company", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Country", "Country basis", "Country source", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
-        list.map((r) => [r.d.date, r.cp, r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? `${BASIS_LABEL[r.tags.countryBasis] || "HQ"} (researched)` : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
+        ["Date", "Borrower / company", "Party role", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Country", "Country basis", "Country source", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
+        list.map((r) => [r.d.date, r.cp, dealPartyRole(r.d), r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? `${BASIS_LABEL[r.tags.countryBasis] || "HQ"} (researched)` : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
           r.amt ? fmtAmt(r.amt) : "", r.tags.amountKind || "", r.usd != null ? Math.round(r.usd) : "", r.tags.event || "", r.d.headline || "", r.d.sourceUrl || "", r.alt.map((a) => a.sourceUrl).filter(Boolean).join(" ")]));
     } else if (kind === "credits") {
       downloadCSV("wire-eu-credits", ["Borrower", "Jurisdiction", "Sector", "Rating", "Agency", "Rating as of", "12m trend", "Tracked deals naming it", "Source"],

@@ -553,6 +553,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   a supplier or the sponsor). Leave it unset when there is no single counterparty (the
   lender's own fund raise / CLO pricing / hire / platform launch) — the UI then shows the
   sourced headline. (2026-10 baseline: 90 curated, 90 legitimately without one.)
+- **Name the counterparty (HOUSE_STYLE R39k).** If `dealCounterparty(deal, lender)` would
+  show a descriptor ("AI", "UK", a sector word), the lender's name where the lender is
+  not the issuer, or nothing while the text names a party, add `p` (the party, verbatim
+  from the deal text) and `r` (borrower | issuer | target | fund | seller | none) to the
+  deal's entry in `credit/js/deal-tags.js`. A BDC / manager issuing its own notes or
+  raising its own fund → `p` = itself, `r` = issuer / fund.
 - **Tag every new deal (HOUSE_STYLE R39).** Each deal you add to `credit/js/data.js`
   gets an entry in `credit/js/deal-tags.js` (`T` map, compact keys) in the same commit:
   `c` country of the borrower / asset / target (from the allowed list in the file header;

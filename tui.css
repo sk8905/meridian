@@ -1310,8 +1310,6 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-drawer-b .tbiz { margin-bottom: 10px; }
 .tx-drawer-b .tpg-h { margin-top: 12px; }
 .tx-drawer-b .tmini-row { padding: 6px 0; }
-.tx-drawer-b .tbiz-v a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 2px; }
-.tx-drawer-b .tbiz-v a:hover { text-decoration-color: var(--accent); }
 @media (max-width: 760px) { .tx-mlong { display: none; } }
 @media (min-width: 761px) {
   .tx-drawer { position: absolute; top: 0; right: 0; bottom: 0; width: min(460px, 48%); overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--border); box-shadow: -10px 0 26px rgba(0, 0, 0, .18); z-index: 9; }
@@ -1444,3 +1442,24 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   #pf-panes .pf-cards tbody td.pf-c-meta .pf-nil { display: none; }
 }
 
+
+/* ---- Link convention (Transactions + Profiles), matching the newswire reader -------
+   INTERNAL links (a manager / fund / deal / profile inside Wire) read as body text with a
+   BLUE underline; EXTERNAL links (a source, filing, website — target=_blank) read as body
+   text with an ORANGE underline. Hover thickens the underline. Badge-style anchors (the
+   rating chip, SLS chips, tab chips) keep their own box treatment. The underline needs
+   !important only to beat the global `a { text-decoration: none !important }` reset, as
+   the newswire reader's entity links do (home.css .g-ent). */
+:is(.tx-dash, #pf-detail, #pf-panes) a:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn):not([target="_blank"]) {
+  color: inherit; text-decoration-line: underline !important; text-decoration-style: solid !important; text-decoration-thickness: 1px !important;
+  text-underline-offset: 2px; text-decoration-color: var(--t-link, var(--wb-txt)) !important;
+}
+:is(.tx-dash, #pf-detail, #pf-panes) a[target="_blank"]:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn) {
+  text-decoration-line: underline !important; text-decoration-style: solid !important; text-decoration-thickness: 1px !important;
+  text-underline-offset: 2px; text-decoration-color: var(--accent) !important;
+}
+:is(.tx-dash, #pf-detail, #pf-panes) a:not(.tcr-rt):not(.sls-chip):not(.tchip):not(.tfocus-btn):hover { text-decoration-thickness: 2px !important; }
+
+/* Deal drawer: every block (facts, summary, related lists) shares the body's left edge. */
+.tx-drawer-b .tbiz li { padding-left: 0; padding-right: 0; }
+.tx-drawer-b .tpg-h { padding-left: 0; padding-right: 0; }

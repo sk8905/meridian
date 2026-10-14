@@ -4,8 +4,17 @@
 // leads the headline, a bare descriptor ("Danish", "SME"), a money figure, or an
 // instrument acronym ("ABS", "CLO"). A pure-node spec (no browser).
 import { check, checkEq, finish } from "./lib.mjs";
-import { dealSubject, dealSponsor } from "../v2/js/deal-parse.js";
-import { managers, deals } from "../credit/js/data.js";
+import { register } from "node:module";
+// The parser imports the tokenless data module by its site-root URL ("/credit/js/…", kept
+// external by Vite); map site-root specifiers onto the repo so the spec runs in Node.
+register("data:text/javascript," + encodeURIComponent(`
+  const ROOT = ${JSON.stringify(new URL("../", import.meta.url).href)};
+  export async function resolve(spec, ctx, next) {
+    if (spec.startsWith("/credit/")) return next(ROOT + spec.slice(1), ctx);
+    return next(spec, ctx);
+  }`));
+const { dealSubject, dealSponsor, dealCounterparty, dealPartyRole } = await import("../v2/js/deal-parse.js");
+const { managers, deals } = await import("../credit/js/data.js");
 
 // 1) The reported case + a spread of headline shapes resolve to the BORROWER.
 const cases = [
@@ -65,7 +74,8 @@ check(offenders.length === 0, `no deal surfaces a money figure / bare acronym as
 //    the whole headline — at most a handful may legitimately have no named party.
 const mgrById = new Map(managers.map((m) => [m.id, m.name]));
 let empty = 0;
-for (const d of deals) { if (!dealSubject(d)) empty++; }
+// (A deal the audit marked as having no named counterparty — role "none" — is blank on purpose.)
+for (const d of deals) { if (!dealSubject(d) && dealPartyRole(d) !== "none") empty++; }
 check(empty <= 3, `nearly every deal yields a named subject (empty: ${empty})`);
 
 // Curated borrowers (2026-10 block of COMPANY_OVERRIDES): each name must appear verbatim
@@ -79,5 +89,18 @@ check(empty <= 3, `nearly every deal yields a named subject (empty: ${empty})`);
   const pairs = [...blk.matchAll(/\b(d\d+): ("(?:[^"\\]|\\.)*")/g)].map((m) => [m[1], JSON.parse(m[2])]);
   const bad = pairs.filter(([id, name]) => { const x = byId.get(id); if (!x) return true; const t = ((x.headline || "") + " " + (x.summary || "")).toLowerCase(); return !t.includes(name.toLowerCase()); });
   check(pairs.length >= 80 && bad.length === 0, `curated borrowers are verbatim from their own deal text (${pairs.length} entries, bad: ${bad.map((b) => b[0]).join(", ") || "none"})`);
+}
+// The 2026-10 audit: the audited party (deal-tags `p`) wins over the parse — never a
+// descriptor ("AI"), and the issuer is shown even when it is the lender itself.
+{
+  const mname = new Map(managers.map((m) => [m.id, m.name]));
+  const byHl = (re) => deals.find((d) => re.test(d.headline || ""));
+  const sc = byHl(/financing for AI computing infrastructure provider SourceCode/);
+  if (sc) checkEq(dealCounterparty(sc, mname.get(sc.managerId)), "SourceCode", "SourceCode, not the descriptor \"AI\"");
+  const hc = byHl(/Hercules Capital closes upsized \$400m/);
+  if (hc) { checkEq(dealCounterparty(hc, mname.get(hc.managerId)), "Hercules Capital", "a BDC's own notes show the BDC as issuer"); checkEq(dealPartyRole(hc), "issuer", "…with role issuer"); }
+  const BAD = /^(AI|UK|US|EU|European|Fintech|SME|Danish|German|French|Spanish|Italian)$/i;
+  const bad = deals.filter((d) => d.date && BAD.test(dealCounterparty(d, mname.get(d.managerId)) || "")).map((d) => d.id);
+  check(!bad.length, `no deal shows a bare descriptor as its borrower (${bad.join(", ") || "none"})`);
 }
 finish();

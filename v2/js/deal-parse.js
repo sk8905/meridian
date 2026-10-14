@@ -7,6 +7,7 @@
 // Conservative by design: only high-confidence connective patterns count, and
 // every caller keeps the verbatim, sourced headline visible, so a miss leads with
 // the headline itself rather than fabricating a name.
+import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 const _NAME = "[A-Z][A-Za-z0-9&.’'-]*(?:\\s+[A-Z0-9][A-Za-z0-9&.’'-]*){0,4}";
 // Geographic / nationality adjectives that commonly sit between a connective verb
 // and the borrower's proper name ("… refinances GERMAN mid-market group Kaffee
@@ -76,6 +77,10 @@ const CLO_STOP = /^(?:European|US|New|Global|Euro|Dollar|Second|Third|Fourth|Fif
 const okName = (s) => s.length >= 2 && !STOP.test(s) && !REJECT.test(s);
 export function dealSubject(d) {
   const h = String((d && d.headline) || "");
+  // The audited party (credit/js/deal-tags.js `p`, HOUSE_STYLE R39) wins over everything —
+  // including "" (no counterparty: a hire, a launch, an unnamed borrower).
+  const t = d && d.id && DEAL_TAGS[d.id];
+  if (t && t.party != null) return t.party;
   // An explicit, verified borrower/company on the deal wins over any parse — set
   // this when the headline leads with the LENDER and the parser can't recover the
   // borrower (see COMPANY_OVERRIDES for the audited backlog). Never fabricated: the
@@ -104,11 +109,22 @@ export function dealSubject(d) {
 // deals keep their vehicle name.
 export function dealCounterparty(d, lenderName) {
   const s = dealSubject(d);
+  const t = d && d.id && DEAL_TAGS[d.id];
+  // An audited party is shown as-is — even when it IS the lender (a BDC issuing its own
+  // notes, a manager raising its own fund).
+  if (t && t.party != null) return t.party;
   if (!s || !lenderName || (d && d.clo) || (d && (d.company || COMPANY_OVERRIDES[d.id]))) return s;
   const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
   const a = norm(s), b = norm(lenderName);
   const first = a.split(" ")[0];
   return (a && (b === a || b.startsWith(a + " ") || a.startsWith(b) || (first.length >= 3 && b.split(" ")[0] === first))) ? "" : s;
+}
+
+// The audited role of the deal's counterparty: borrower | issuer | target | fund |
+// seller | none — "borrower" when the deal hasn't been audited.
+export function dealPartyRole(d) {
+  const t = d && d.id && DEAL_TAGS[d.id];
+  return (t && t.partyRole) || "borrower";
 }
 
 // The SPONSOR / private-equity backer behind a deal, when one is named — distinct
