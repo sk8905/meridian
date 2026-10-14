@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-14",
-  lastCheckedTime: "19:12 BST",
+  lastCheckedTime: "21:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1038,11 +1038,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-10-14",
   us: [
-    {title: "US inflation jumps to 3.7% as Iran war drives up prices", source: "Financial Times", date: "2026-10-14", time: "13:51", url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"},
-    {title: "Houthis strike Saudi Aramco headquarters", source: "Financial Times", date: "2026-10-14", time: "10:03", url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"},
-    {title: "Global diesel prices set to rise again, warns IEA", source: "Financial Times", date: "2026-10-14", time: "13:25", url: "https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397"},
-    {title: "Bank of America profits drop 17% after $1.2bn money laundering fine", source: "Financial Times", date: "2026-10-14", time: "13:19", url: "https://www.ft.com/content/a82b4275-6519-4142-b1df-e74c66ead877"},
-    {title: "US grocery prices poised to climb as soaring fuel costs drive inflation", source: "Financial Times", date: "2026-10-14", time: "15:10", url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"},
+    {title: "US inflation jumps to 3.7% as Iran war drives up prices", source: "Financial Times", date: "2026-10-14", time: "21:06", url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"},
+    {title: "Hot September CPI inflation keeps Fed on course for further tightening", source: "Financial Times", date: "2026-10-14", time: "14:21", url: "https://www.ft.com/content/6934f481-b61c-4ab0-8064-a79493702f2c"},
+    {title: "US chip stocks slide as inflation and AI debt fears unsettle investors", source: "Financial Times", date: "2026-10-14", time: "21:01", url: "https://www.ft.com/content/fb258413-e88d-47fe-98c8-f645adaea1e1"},
+    {title: "Houthis attack Saudi Aramco headquarters", source: "Financial Times", date: "2026-10-14", time: "14:25", url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"},
+    {title: "US grocery prices poised to climb as soaring fuel costs drive inflation", source: "Financial Times", date: "2026-10-14", time: "15:14", url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"},
   ],
   uk: [
     {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},

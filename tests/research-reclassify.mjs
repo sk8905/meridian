@@ -29,7 +29,8 @@ const data = await pg.evaluate(async () => {
   };
 });
 check(data.nlResearchCount >= 1, `newsletters.js carries research-house notes to reclassify (${data.nlResearchCount}: ${data.nlResearchPubs.join(", ")})`);
-check(data.nlHasFitch && !data.researchHasFitch, "Fitch exists only in newsletters.js (a Fitch research row therefore proves reclassification)");
+// research.js may now carry its own Fitch notes (real "Fitch Ratings" research emails), so the proof is that newsletters.js ALSO holds Fitch items that must be reclassified.
+check(data.nlHasFitch, "newsletters.js carries Fitch items that reclassification must move into Research");
 
 const laneRows = async (lane) => {
   await pg.evaluate((l) => { const btn = [...document.querySelectorAll("#g-wire-lanes .g-wire-lane")].find((x) => x.textContent.trim() === l); if (btn) btn.click(); }, lane);

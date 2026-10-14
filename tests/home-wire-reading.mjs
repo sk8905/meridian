@@ -81,8 +81,11 @@ check(def.open, "reading pane: carries an 'Open original at …' link out");
 
 // Paywall treatment: a subscriber source (FT/Bloomberg/WSJ) shows the lock WITHOUT
 // fetching; an openly-readable source fetches the reader service and prints the body.
-const pay = await pg.evaluate(() => {
-  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => /financial times|bloomberg|wall street journal/i.test(((r.querySelector(".g-feed-src") || {}).textContent || "")));
+// (A newsletter whose full text was ingested — `body: true` — is deliberately NOT locked: it
+// reads in-pane from KV, so those rows are skipped here.)
+const pay = await pg.evaluate(async () => {
+  const bodyUrls = new Set(((await import("/newsletters.js")).NEWSLETTERS || []).filter((n) => n.body).map((n) => n.url));
+  const row = [...document.querySelectorAll("#g-feed .g-feed-row")].find((r) => !bodyUrls.has(r.getAttribute("href")) && /financial times|bloomberg|wall street journal/i.test(((r.querySelector(".g-feed-src") || {}).textContent || "")));
   if (!row) return null; row.click();
   const box = document.getElementById("g-readpane");
   return { lock: !!box.querySelector(".g-read-lock"), paras: box.querySelectorAll(".g-read-p").length };
@@ -91,12 +94,13 @@ if (pay) check(pay.lock && pay.paras === 0, "reading pane: a subscriber source s
 
 // Row-level lock: a subscriber source carries an outline padlock right in the wire
 // (a glance-level "needs a login") — an openly-readable source does not.
-const rowLocks = await pg.evaluate((walledPattern) => {
+const rowLocks = await pg.evaluate(async (walledPattern) => {
+  const bodyUrls = new Set(((await import("/newsletters.js")).NEWSLETTERS || []).filter((n) => n.body).map((n) => n.url));
   const walled = new RegExp(walledPattern, "i");
   const has = (r) => !!(r && r.querySelector(".g-feed-lock svg"));
   const src = (r) => ((r.querySelector(".g-feed-src") || {}).textContent || "").trim();
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
-  const paid = rows.find((r) => /financial times|bloomberg|wall street journal|economist|new york times/i.test(src(r)));
+  const paid = rows.find((r) => !bodyUrls.has(r.getAttribute("href")) && /financial times|bloomberg|wall street journal|economist|new york times/i.test(src(r)));
   const free = rows.find((r) => { const s = src(r); return s && !walled.test(s); });
   return { paidFound: !!paid, paidLock: has(paid), paidClass: !!(paid && paid.classList.contains("is-locked")), freeFound: !!free, freeLock: has(free) };
 }, WALLED_SRC_PATTERN);

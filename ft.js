@@ -21,11 +21,53 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
-    id: "a3621421-bee4-4e96-a5f2-28fa545e6397",
-    title: "Ministers to launch statutory probe of English authority led by Ben Houchen",
+    id: "18b65495-9e2a-45d6-be85-7641442ab61a",
+    title: "OpenAI claims employee sent secret device information to Apple",
     date: "2026-10-14",
-    time: "19:09",
+    time: "21:07",
+    url: "https://www.ft.com/content/18b65495-9e2a-45d6-be85-7641442ab61a"
+  },
+  {
+    id: "c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d",
+    title: "US inflation jumps to 3.7% as Iran war drives up prices",
+    date: "2026-10-14",
+    time: "21:06",
+    url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"
+  },
+  {
+    id: "fb258413-e88d-47fe-98c8-f645adaea1e1",
+    title: "US chip stocks slide as inflation and AI debt fears unsettle investors",
+    date: "2026-10-14",
+    time: "21:01",
+    url: "https://www.ft.com/content/fb258413-e88d-47fe-98c8-f645adaea1e1"
+  },
+  {
+    id: "dadac221-a4dd-4935-897e-7f7faebe8f17",
+    title: "Perella Weinberg and Piper Sandler abandon merger talks",
+    date: "2026-10-14",
+    time: "20:35",
+    url: "https://www.ft.com/content/dadac221-a4dd-4935-897e-7f7faebe8f17"
+  },
+  {
+    id: "a3621421-bee4-4e96-a5f2-28fa545e6397",
+    title: "Ministers to launch probe of English mayoral authority led by Ben Houchen",
+    date: "2026-10-14",
+    time: "20:35",
     url: "https://www.ft.com/content/a3621421-bee4-4e96-a5f2-28fa545e6397"
+  },
+  {
+    id: "9209fd59-386b-4399-a870-0a3451548251",
+    title: "Sally Rooney withdraws books from UK sale over support for Palestine Action",
+    date: "2026-10-14",
+    time: "19:37",
+    url: "https://www.ft.com/content/9209fd59-386b-4399-a870-0a3451548251"
+  },
+  {
+    id: "3f821be4-f137-4cc9-b0b0-b2014f2607c2",
+    title: "Berkshire Hathaway adds $330mn to stake in tech group Bending Spoons",
+    date: "2026-10-14",
+    time: "18:58",
+    url: "https://www.ft.com/content/3f821be4-f137-4cc9-b0b0-b2014f2607c2"
   },
   {
     id: "16ceb1fb-662c-4379-8187-0a51a7f4106f",
@@ -70,6 +112,27 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/5f1b2f31-2067-4c3a-8093-54210a7c0e72"
   },
   {
+    id: "b71e0dc4-b190-49ec-b000-bd585054ddc8",
+    title: "He linked Saudi Arabia to Silicon Valley. Then OpenAI found a bug wrapped in toilet paper",
+    date: "2026-10-14",
+    time: "15:40",
+    url: "https://www.ft.com/content/b71e0dc4-b190-49ec-b000-bd585054ddc8"
+  },
+  {
+    id: "d9aaf82c-1975-4f07-99b1-f3b858b4dc7c",
+    title: "Burnham rules out coalition with Greens while ‘Zionism is Racism’ policy remains",
+    date: "2026-10-14",
+    time: "15:39",
+    url: "https://www.ft.com/content/d9aaf82c-1975-4f07-99b1-f3b858b4dc7c"
+  },
+  {
+    id: "13929c26-1c01-41b2-b81a-d337fa5c9d27",
+    title: "US grocery prices poised to climb as soaring fuel costs drive inflation",
+    date: "2026-10-14",
+    time: "15:14",
+    url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"
+  },
+  {
     id: "3c23e59b-f4c9-4837-b534-ec19fb77a0c8",
     title: "Unshackle workers from non-compete clauses",
     date: "2026-10-14",
@@ -82,13 +145,6 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "14:52",
     url: "https://www.ft.com/content/9af2b0d0-e31f-46e8-9041-36b37a9cd3ba"
-  },
-  {
-    id: "c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d",
-    title: "US inflation jumps to 3.7% as Iran war drives up prices",
-    date: "2026-10-14",
-    time: "14:51",
-    url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"
   },
   {
     id: "a82b4275-6519-4142-b1df-e74c66ead877",
@@ -105,13 +161,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/8c3c631c-e37f-4209-aefd-112c4c58020c"
   },
   {
-    id: "3f821be4-f137-4cc9-b0b0-b2014f2607c2",
-    title: "Berkshire Hathaway adds $330mn to stake in tech group Bending Spoons",
-    date: "2026-10-14",
-    time: "14:36",
-    url: "https://www.ft.com/content/3f821be4-f137-4cc9-b0b0-b2014f2607c2"
-  },
-  {
     id: "a25417b3-d4e4-4b89-b14d-6370a85ce3c4",
     title: "Houthis attack Saudi Aramco headquarters",
     date: "2026-10-14",
@@ -124,13 +173,6 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "14:21",
     url: "https://www.ft.com/content/6934f481-b61c-4ab0-8064-a79493702f2c"
-  },
-  {
-    id: "d9aaf82c-1975-4f07-99b1-f3b858b4dc7c",
-    title: "Burnham rules out ‘partnership’ with Greens while ‘Zionism is Racism’ policy remains",
-    date: "2026-10-14",
-    time: "14:16",
-    url: "https://www.ft.com/content/d9aaf82c-1975-4f07-99b1-f3b858b4dc7c"
   },
   {
     id: "60a8f4e6-5da4-4f59-b009-baed53215497",
@@ -147,32 +189,11 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2"
   },
   {
-    id: "13929c26-1c01-41b2-b81a-d337fa5c9d27",
-    title: "US grocery prices poised to climb as soaring fuel costs drive inflation",
-    date: "2026-10-14",
-    time: "14:10",
-    url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"
-  },
-  {
-    id: "b71e0dc4-b190-49ec-b000-bd585054ddc8",
-    title: "He linked Saudi Arabia to Silicon Valley. Then OpenAI found a bug wrapped in toilet paper",
-    date: "2026-10-14",
-    time: "13:56",
-    url: "https://www.ft.com/content/b71e0dc4-b190-49ec-b000-bd585054ddc8"
-  },
-  {
     id: "b06d00da-9df7-405b-9410-b5485c267397",
     title: "Global diesel prices set to rise again, warns IEA",
     date: "2026-10-14",
     time: "13:25",
     url: "https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397"
-  },
-  {
-    id: "18b65495-9e2a-45d6-be85-7641442ab61a",
-    title: "Apple and OpenAI head to court in trade secrets battle",
-    date: "2026-10-14",
-    time: "13:15",
-    url: "https://www.ft.com/content/18b65495-9e2a-45d6-be85-7641442ab61a"
   },
   {
     id: "7addd5d0-11d6-4706-bf0b-995084ef7bb6",
@@ -278,26 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "09:30",
     url: "https://www.ft.com/content/04ceedc2-8ec0-481f-8982-6bb331f11e41"
-  },
-  {
-    id: "fa1aae13-a352-47cb-97aa-6667c070f308",
-    title: "FTAV’s further reading",
-    date: "2026-10-14",
-    time: "06:30",
-    url: "https://www.ft.com/content/fa1aae13-a352-47cb-97aa-6667c070f308"
-  },
-  {
-    id: "694aa230-fbad-40f2-b2dc-e663f24583d1",
-    title: "The rollout of 24-hour* trading",
-    date: "2026-10-14",
-    time: "06:30",
-    url: "https://www.ft.com/content/694aa230-fbad-40f2-b2dc-e663f24583d1"
-  },
-  {
-    id: "45e8941a-9f4d-4186-baec-eef5be5ce495",
-    title: "Le Pen casts doubt on future EU funding for Ukraine",
-    date: "2026-10-14",
-    time: "06:00",
-    url: "https://www.ft.com/content/45e8941a-9f4d-4186-baec-eef5be5ce495"
   }
 ];
