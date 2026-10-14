@@ -38,7 +38,7 @@ Status key: ✅ shipped · 🟡 in progress · ⬜ not started · ⛔ blocked (o
 | B1 | **Fund-terms schema**: `targetIRR {low, high, basis, ccy}`, `structure`, `closes[]` (first / interim / final with date + amount), `evergreen` | ⬜ | A5, A7 | Funds with a sourced target return: 10 → 60+ |
 | B2 | **Deal ↔ adviser**: parse the law-firm "advises" alerts (already collected, 1,595 items) into `deals[].advisers[{firmId, role, side, sourceUrl}]` | ⬜ | — | % of deals with ≥1 adviser |
 | B3 | **GLEIF LEI enrichment** (CC0) as a GitHub Action — managers/funds/SPVs get `lei` + parent chain | 🟡 collector shipped (`collect-gleif.yml` → `backfill/gleif.json`, candidates only); applying confirmed LEIs next | — | Managers with an LEI |
-| B4 | **The Gazette corporate notices** (🟡 format probe `probe-gazette.yml` first) (OGL; corporate only — personal-insolvency notices excluded) for tracked obligors (Transactions ▸ Credits) and restructuring names | ⬜ | — | Notices/week matched to a tracked entity |
+| B4 | **The Gazette corporate notices** (OGL; 24xx corporate codes only, person fields dropped, Crawl-delay 10s) for restructuring companies + UK obligors | 🟡 collector shipped (`collect-gazette.yml` daily → `backfill/gazette.json`, candidates only); routine applies | — | Notices/week matched to a tracked entity |
 | B5 | **Companies House** charges (MR01) + streaming for UK borrowers/managers | ⛔ owner: free API key | key as repo secret `CH_API_KEY` | Charges matched to tracked borrowers |
 | B6 | **SEC Form D** amount-sold for tracked funds (EDGAR full-text search already proxied at `/api/formd`) → fund `raised` cues | ⬜ | — | Fund closes with a filing-backed amount |
 | B7 | **LP commitments** from UK LGPS ModernGov papers + US public-pension board documents (CalPERS, PSERS, WSIB, Oregon) → `commitments` | ⬜ | B1 | commitments 9 → 200+ |
@@ -101,6 +101,28 @@ fact itself is recorded from a source that does allow it.
 | O2 | Register a Companies House API key (and streaming key) → GitHub repo secret `CH_API_KEY` | B5 |
 | O3 | (Optional) FCA Register API key → secret `FCA_API_KEY` | regulatory verification |
 | O4 | Approve the routine-prompt change when C1/C2 land (Routines UI) | C1–C2 |
+| O5 | Confirm the Worker secret `FRED_API_KEY` is bound (free key at fred.stlouisfed.org) — then the `fredgraph.csv` fallback and the spoofed browser headers can be removed | §4 FRED row |
+| O6 | Decide the **market-data** replacement for Yahoo/Stooq/CNBC-restQuote and the **X** route (§4) | §4 |
+
+### Draft — Find Case Law computational-analysis licence (O1)
+
+> To: caselawlicence@nationalarchives.gov.uk — Subject: Application for a computational
+> analysis licence (Find Case Law)
+>
+> I am a finance lawyer applying for a licence to carry out computational analysis of
+> Find Case Law records for a private, non-commercial monitoring tool used only by me.
+> **Purpose:** to be alerted to new judgments in the Business and Property Courts
+> (Insolvency and Companies List, Commercial Court, Financial List) and the appellate
+> courts that concern restructuring plans and schemes (Part 26/26A CA 2006), insolvency,
+> fund and finance documents. **Processing:** a scheduled query of the Find Case Law
+> Atom feeds/API (a few requests per day, within published rate limits) for new
+> judgments matching those courts/terms; for each, storing the neutral citation, court,
+> date, parties, a link to the record and a short summary of the issues decided. No
+> bulk download of the corpus; no re-publication of judgment text; no training of AI
+> models; no profiling of individuals (names of individuals are not extracted or
+> indexed beyond the case title). **Safeguards:** access restricted to me (Cloudflare
+> Access); records deleted on request; Five Safes / MoJ principles applied. I am happy
+> to provide further detail.
 
 ## 6. Hand-offs to the Profiles & Transactions session
 

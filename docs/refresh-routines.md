@@ -786,6 +786,21 @@ FUND_STATUS (an open-ended fund is `"Open"` + `evergreen:true`), `domicile` a co
 `tests/data-currency.mjs` ratchets the remaining off-vocabulary values. (Manager and
 investor AUM is USD by convention — R29.)
 
+## Register collectors — GLEIF LEIs and Gazette notices (GitHub Actions, candidates only)
+
+Two Actions read official sources the routine containers can't reach and commit CANDIDATES
+to `backfill/` (never to the data files):
+- **`backfill/gleif.json`** (weekly, CC0): LEI candidates per manager/fund. Where a
+  manager has a single `match:"exact"` candidate whose jurisdiction/address fits the
+  manager (check the parent chain too), write `lei` (and `leiParent` = the ultimate
+  parent's LEI) on the record. Ambiguous or `near` matches are left alone.
+- **`backfill/gazette.json`** (daily, OGL): corporate insolvency notices (24xx codes —
+  winding-up petitions, administrations, liquidations, meetings) whose title IS a
+  tracked restructuring company or UK obligor. For each new notice: open the notice
+  page, confirm, and record it — a `restructurings` note / a Credits status line — with
+  the notice URL and its published date. Never record personal-insolvency notices or
+  individuals' names (the OGL excludes personal data).
+
 ## Deterministic candidate collector (`scripts/collect-candidates.mjs`) — run it FIRST
 
 The routines' hunt used to be free-form web search, and it under-collected badly (in

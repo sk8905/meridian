@@ -1,0 +1,58 @@
+name: collect-gazette
+
+# UK Gazette CORPORATE insolvency notices (24xx codes only) about the companies Wire
+# tracks (restructuring-plan/scheme companies + UK obligors), by
+# scripts/collect-gazette.mjs. OGL v3.0 — which excludes personal data, so personal-
+# insolvency notices and person-name fields are never stored. robots.txt Crawl-delay
+# (10s) honoured. Output: backfill/gazette.json — candidates for the routine to verify
+# and record; nothing is applied to the data files. Committed only when changed.
+#
+#   daily 02:53 UTC (~100 companies × 11s ≈ 20 min) + manual dispatch
+
+on:
+  schedule:
+    - cron: "53 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-gazette
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Collect corporate notices
+        run: |
+          mkdir -p backfill
+          node scripts/collect-gazette.mjs > /tmp/gazette.json
+          node -e 'const j=require("/tmp/gazette.json");console.log(JSON.stringify(j.summary))'
+          cp /tmp/gazette.json backfill/gazette.json
+
+      - name: Commit if changed
+        run: |
+          if git show HEAD:backfill/gazette.json > /tmp/prev.json 2>/dev/null && \
+             node -e 'const a=require("/tmp/prev.json"),b=require(process.argv[1]);const k=(j)=>JSON.stringify(Object.fromEntries(Object.entries(j.companies).map(([n,c])=>[n,c.notices||null])));process.exit(k(a)===k(b)?0:1)' "$PWD/backfill/gazette.json"; then
+            echo "No change"; exit 0
+          fi
+          git config user.name "wire-collector[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backfill/gazette.json
+          git commit -m "collector: backfill/gazette.json — $(node -e 'const s=require(process.argv[1]).summary;console.log(s.notices+" corporate notices / "+s.queried+" companies")' "$PWD/backfill/gazette.json") [skip ci]"
+          for i in 1 2 3 4; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          exit 1
