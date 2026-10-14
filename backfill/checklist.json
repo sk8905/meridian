@@ -2373,6 +2373,258 @@
      "recordId": "i863"
     }
    ]
+  },
+  "m128": {
+   "kind": "manager",
+   "name": "Trimontium",
+   "priority": 94,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "launch-2026-06-15",
+     "date": "2026-06-15",
+     "what": "Trimontium launches with $1.5bn AUM (founder Vlado Spasov)",
+     "source": "https://www.businesswire.com/news/home/20260615892895/en/Trimontium-Launches-with-$1.5-billion-in-AUM-Redefining-Flexible-Capital-Solutions",
+     "status": "present",
+     "recordId": "i471"
+    },
+    {
+     "key": "gc-appointment-2026-07-28",
+     "date": "2026-07-28",
+     "what": "Graham Morrison joins as General Counsel",
+     "source": "https://www.manilatimes.net/2026/07/28/tmt-newswire/globenewswire/trimontium-strengthens-senior-team-with-key-appointment-as-platform-momentum-accelerates/2392759",
+     "status": "present",
+     "recordId": "i535"
+    },
+    {
+     "key": "sci-evergreen-fund-2026-06-23",
+     "date": "2026-06-23",
+     "what": "Structured Credit Investor coverage: evergreen fund with $1.5bn AUM",
+     "source": "https://www.structuredcreditinvestor.com/news/asset-backed-finance/84890/trimontium-launches-evergreen-fund-with-us$1.5bn-aum",
+     "status": "rejected",
+     "note": "Trade-press coverage of the launch already held as i471; no new verified facts."
+    }
+   ]
+  },
+  "m230": {
+   "kind": "manager",
+   "name": "Zencap Asset Management",
+   "priority": 95,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "zdl4-final",
+     "date": "2026-05-07",
+     "what": "Zencap Direct Lending IV final close at EUR 403m",
+     "source": "https://www.boursorama.com/bourse/actualites/zencap-am-closing-final-du-fonds-zencap-direct-lending-iv-a-plus-de-400-millions-d-euros-0d995adab1ae08376781af82a654848e",
+     "status": "present",
+     "recordId": "i929"
+    },
+    {
+     "key": "zest2-final",
+     "date": "2024-11-05",
+     "what": "ZEST II final close EUR 255m (EIF EUR 75m anchor)",
+     "source": "https://www.eif.org/press/all/eif-supports-zencap-asset-management-in-final-closing-of-sustainable-transition-fund-raising-eur255-million",
+     "status": "present",
+     "recordId": "i955"
+    },
+    {
+     "key": "frr-unitranche",
+     "date": "2026-09-04",
+     "what": "FRR awards EUR 420m unitranche mandates to Eurazeo, Eiffel and Zencap",
+     "source": "https://www.ipe.com/news/frances-pension-reserve-fund-commits-420m-to-unitranche-debt/10138295.article",
+     "status": "rejected",
+     "note": "Wire holds this FRR mandate (i825) under another manager id; not attributed to Zencap here."
+    },
+    {
+     "key": "enersweet-unitranche",
+     "date": "2026-03-19",
+     "what": "Zencap and Bpifrance Investissement take over Enersweet unitranche from Pictet AM",
+     "source": "https://www.morganlewis.com/news/2026/03/morgan-lewis-advises-zencap-asset-management-on-enersweet-investment",
+     "status": "present",
+     "recordId": "d1044"
+    },
+    {
+     "key": "zdl4-first-close",
+     "date": "2023-11",
+     "what": "ZDL IV first close EUR 225m (end-Nov 2023)",
+     "source": "https://aoshearman.com/en/news/allen-overy-advises-zencap-am-on-the-launch-of-zencap-direct-lending-iv-fund",
+     "status": "rejected",
+     "note": "Only month known; no exact date seen. Referenced in held i929/i852 summaries."
+    },
+    {
+     "key": "ofi-regroup",
+     "date": "2023",
+     "what": "Zencap joins Ofi Invest diversification pole (planned H1 2023)",
+     "source": "https://www.professioncgp.com/article/les-acteurs/fournisseurs/naissance-dofi-invest.html",
+     "status": "rejected",
+     "note": "Planned only; completion and date unconfirmed."
+    }
+   ]
+  },
+  "m206": {
+   "kind": "manager",
+   "name": "Capital Four",
+   "priority": 96,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "pd3-first-close-2020",
+     "date": "2020-08",
+     "what": "Private Debt III first close (>€500m)",
+     "source": "https://hedgenordic.com/2020/08/fundraising-in-tough-times",
+     "status": "rejected",
+     "note": "Exact day not seen on source."
+    },
+    {
+     "key": "pd3-final-close-2022",
+     "date": "2022-09-26",
+     "what": "Private Debt III final close €1.5bn",
+     "source": "https://www.creditflux.com/Funds/2022-09-26/Capital-Four-closes-15bn-direct-lending-fund-more-than-90-deployed-and-launches-successor",
+     "status": "present",
+     "recordId": "i972"
+    },
+    {
+     "key": "pd5-first-close-2023",
+     "date": "2023-03-08",
+     "what": "Private Debt V Senior first close ~€1bn",
+     "source": "https://www.capital-four.com/news-and-insights/capital-four-raises-eu1-0bn-for-first-close-of-its-new-private-debt-v-senior-vintage",
+     "status": "present",
+     "recordId": "i734"
+    },
+    {
+     "key": "pd5-final-close-2025",
+     "date": "2025-03-31",
+     "what": "Private Debt V Senior final close at €3bn hard cap",
+     "source": "https://alternativecreditinvestor.com/2025/03/31/capital-four-private-debt-fund-reaches-hard-cap-of-e3bn/",
+     "status": "present",
+     "recordId": "i946"
+    },
+    {
+     "key": "pd4-flexible",
+     "date": "2021-04",
+     "what": "Private Debt IV first close",
+     "source": "https://hedgenordic.com/2021/04/growing-private-debt-muscle/",
+     "status": "rejected",
+     "note": "No exact date or size found."
+    },
+    {
+     "key": "us-expansion-wiant-2021",
+     "date": "2021-03",
+     "what": "Jim Wiant hired to lead US business",
+     "source": "https://hedgenordic.com/2021/03/capital-four-eyes-u-s-expansion/",
+     "status": "rejected",
+     "note": "Month only; exact day not seen."
+    },
+    {
+     "key": "us-debut-clo-2021",
+     "date": "2021-12",
+     "what": "Debut US CLO ($400m)",
+     "source": "https://hedgenordic.com/2022/01/capital-four-issues-debut-us-clo",
+     "status": "rejected",
+     "note": "Dec 2021 only; exact day unverified."
+    },
+    {
+     "key": "wiant-departure-2024",
+     "date": "2024-05-06",
+     "what": "Capital Four US CEO Jim Wiant leaves",
+     "source": "https://www.creditflux.com/CLOs/2024-05-06/Capital-Four-loses-US-CEO",
+     "status": "present",
+     "recordId": "i1082"
+    },
+    {
+     "key": "seb-eltif-2025",
+     "date": "2025-05-12",
+     "what": "SEB launches perpetual private debt ELTIF with Capital Four",
+     "source": "https://alternativecreditinvestor.com/2025/05/12/seb-launches-private-debt-fund-with-capital-four/",
+     "status": "present",
+     "recordId": "i1083"
+    },
+    {
+     "key": "allianz-talks-2025",
+     "date": "2025-06-05",
+     "what": "Bloomberg: Allianz in early talks to buy Capital Four",
+     "source": "https://www.bloomberg.com/news/articles/2025-06-05/allianz-said-in-talks-to-buy-private-credit-manager-capital-four",
+     "status": "present",
+     "recordId": "i1084"
+    },
+    {
+     "key": "clo-x-2025",
+     "date": "2025-08-15",
+     "what": "Capital Four CLO X DAC priced, €407.28m",
+     "source": "https://alternativecreditinvestor.com/2025/08/15/capital-four-prices-10th-european-clo-at-e407m/",
+     "status": "present",
+     "recordId": "d1045"
+    }
+   ]
+  },
+  "m204": {
+   "kind": "manager",
+   "name": "Claret Capital Partners",
+   "priority": 97,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "mbo-2020",
+     "date": "2020-10-29",
+     "what": "Claret MBO of Harbert European Growth Capital",
+     "source": "https://www.businesswire.com/news/home/20201029005642/en",
+     "status": "present",
+     "recordId": "i918"
+    },
+    {
+     "key": "fund3-first-close",
+     "date": "2021-01-19",
+     "what": "Fund III first close",
+     "source": "https://www.businesswire.com/news/home/20210119005593/es",
+     "status": "present",
+     "recordId": "i914"
+    },
+    {
+     "key": "eib-egf-facility",
+     "date": "2022-01-27",
+     "what": "EIB EUR35m co-investment facility alongside Fund III",
+     "source": "https://www.eib.org/en/projects/all/20210217",
+     "status": "rejected",
+     "note": "EIB project sheet (released 28 Mar 2022) lists the facility but no signing announcement or signing date was confirmed."
+    },
+    {
+     "key": "fund3-final-close",
+     "date": "2022-08-31",
+     "what": "Fund III final close EUR297m",
+     "source": "https://tech.eu/2022/08/31/london-based-claret-capital-wraps-up-eur297-million-fund-to-back-life-science-startups/",
+     "status": "present",
+     "recordId": "i908"
+    },
+    {
+     "key": "fund4-first-close",
+     "date": "2024-08-02",
+     "what": "Fund IV first closing",
+     "source": "https://www.dlapiper.com/en/news/2024/08/dla-piper-advises-claret-capital-partners-limited-on-the-first-closing",
+     "status": "present",
+     "recordId": "i1085"
+    },
+    {
+     "key": "fund4-second-close",
+     "date": "2025-09-10",
+     "what": "Fund IV second close, over EUR350m",
+     "source": "https://tech.eu/2025/09/10/claret-secures-eur350m-second-close-for-fund-iv/",
+     "status": "present",
+     "recordId": "i1086"
+    },
+    {
+     "key": "fund4-final-close",
+     "date": "2026-09-07",
+     "what": "Fund IV final close EUR575m",
+     "source": "https://alternativecreditinvestor.com/2026/09/07/claret-inks-e575m-for-european-growth-debt/",
+     "status": "present",
+     "recordId": "i729"
+    }
+   ]
   }
  }
 }
