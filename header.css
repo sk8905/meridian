@@ -33,14 +33,12 @@
 .topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
 @media (min-width: 1101px) { .topbar-inner { padding-left: 2rem; padding-right: 2rem; } }
 
-/* Lead cluster: the header Back button (R35f) + the brand. Back shows only while the
-   runtime flags an in-app entry to return to (<html data-can-back>). */
-.tb-lead { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; }
-.nav-back { display: none; align-items: center; gap: .15rem; flex: 0 0 auto; height: 34px; padding: 0 .55rem 0 .3rem;
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 0; color: #fff;
-  font: inherit; font-size:var(--fs-head); font-weight: 700; cursor: pointer; }
-.nav-back:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.3); }
-:root[data-can-back] .nav-back { display: inline-flex; }
+/* Desktop Back (R35f) — the first icon of the top-right cluster (inherits .na-btn).
+   Dimmed + inert until the runtime flags an in-app entry to return to
+   (<html data-can-back>). Phones hide it: the iOS left-edge swipe is Back there. */
+.nav-back { flex: 0 0 auto; margin-left: auto; margin-right: calc(.4rem - 2rem); }   /* sit at the cluster's .4rem pitch, not the bar's 2rem gap */
+:root:not([data-can-back]) .nav-back { opacity: .35; cursor: default; pointer-events: none; }
+@media (max-width: 760px) { .nav-back { display: none !important; } }
 .brand { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; text-decoration: none; color: #fff; }
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
@@ -103,7 +101,7 @@
 @media (max-width: 760px) {
   .topbar-inner { height: auto; padding: .5rem .85rem; display: grid; align-items: center;
     grid-template-columns: auto 1fr auto; gap: .3rem .7rem; grid-template-areas: "brand account bell"; }
-  .tb-lead { grid-area: brand; justify-self: start; gap: .5rem; }
+  .brand { grid-area: brand; justify-self: start; }
   .platform-switch, .nav-search { display: none; }
   .topbar-right { grid-area: account; align-items: flex-end; text-align: right; }
   .notif { grid-area: bell; justify-self: end; align-self: center; }

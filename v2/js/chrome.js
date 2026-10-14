@@ -162,18 +162,16 @@ function buildHeader(onTab) {
   mount.innerHTML = `
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="tb-lead">
-        <button type="button" class="nav-back" id="nav-back" aria-label="Back" title="Back"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="nav-back-lbl">Back</span></button>
-        <a class="brand" href="${location.origin}/v2/" aria-label="Wire Home" data-key="home">
-          <span class="logo" aria-hidden="true">/</span>
-          <span class="brand-text"><strong>Wire</strong></span>
-        </a>
-      </div>
+      <a class="brand" href="${location.origin}/v2/" aria-label="Wire Home" data-key="home">
+        <span class="logo" aria-hidden="true">/</span>
+        <span class="brand-text"><strong>Wire</strong></span>
+      </a>
       <div class="platform-switch" role="group" aria-label="Switch platform">${pills}</div>
       <div class="topbar-right">
         <div id="account-nav" class="account-nav"></div>
         <div id="data-status" class="data-status" data-refresh-slot></div>
       </div>
+      <button type="button" class="na-btn nav-back" id="nav-back" aria-label="Back" title="Back" aria-disabled="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg></button>
       <div id="notif" class="notif"></div>
       <button type="button" class="nav-menu-btn" data-key="menu" aria-label="Menu" title="Menu">${TAB_ICONS.menu}</button>
     </div>
@@ -182,9 +180,10 @@ function buildHeader(onTab) {
   <div class="wbrief" id="wbrief"></div>`;
   // Platform pills / brand route via the SPA; the search button is left for
   // palette.js (data-open-search) — don't treat it as a tab.
-  // Header Back (R35f): steps back one in-app history entry — to exactly where you
-  // were before the last internal link. Shown only while there is an in-app entry
-  // to return to (the runtime sets <html data-can-back>; header.css hides it else).
+  // Desktop header Back (R35f): the first icon in the top-right cluster. Steps back
+  // one in-app history entry — to exactly where you were before the last internal
+  // link. Dimmed while there is no in-app entry to return to (the runtime sets
+  // <html data-can-back>). Phones hide it: there the iOS edge-swipe is Back.
   mount.addEventListener("click", (e) => {
     if (e.target.closest("#nav-back")) { e.preventDefault(); if (document.documentElement.hasAttribute("data-can-back")) history.back(); return; }
     const b = e.target.closest("[data-key]");

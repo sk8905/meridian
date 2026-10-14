@@ -283,7 +283,10 @@ function setChromeActive(key) { _setActive(key); }
 // data-can-back> so the chrome's header Back button shows only when it has
 // somewhere in the app to go.
 let _depth = 0;
-function setBackDepth(d) { document.documentElement.toggleAttribute("data-can-back", d > 0); }
+function setBackDepth(d) {
+  document.documentElement.toggleAttribute("data-can-back", d > 0);
+  const b = document.getElementById("nav-back"); if (b) b.setAttribute("aria-disabled", d > 0 ? "false" : "true");
+}
 
 function onPop() {
   const { key, sub } = parse(location.pathname);
