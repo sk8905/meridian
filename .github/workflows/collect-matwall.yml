@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 22
       - name: Install pdftotext
-        run: sudo apt-get install -y -qq poppler-utils >/dev/null || echo "poppler-utils unavailable"
+        run: (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils >/dev/null && pdftotext -v 2>&1 | head -1) || echo "poppler-utils unavailable"
       - name: Collect
         run: |
           mkdir -p backfill

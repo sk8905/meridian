@@ -53,7 +53,9 @@ export function maturityLines(text) {
   return near.filter((l) => /maturit/i.test(l) || (/\b20[2-3]\d\b/.test(l) && /\d[\d.,]*/.test(l.replace(/\b20[2-3]\d\b/g, "")))).slice(0, 40);
 }
 
-const UA = { "user-agent": "Mozilla/5.0 (Wire maturity-wall collector)" };
+// Browser-like headers: S&P DJI's document server refuses bare bot requests (403).
+const UA = { "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+  accept: "text/html,application/pdf,application/xhtml+xml,*/*;q=0.8", "accept-language": "en-GB,en;q=0.9", referer: "https://www.spglobal.com/spdji/en/" };
 async function get(url, bin = false) {
   try { const r = await fetch(url, { headers: UA, redirect: "follow", signal: AbortSignal.timeout(30000) }); if (!r.ok) return { status: r.status }; return { status: r.status, body: bin ? Buffer.from(await r.arrayBuffer()) : await r.text(), type: r.headers.get("content-type") || "" }; }
   catch (e) { return { status: 0, error: String(e).slice(0, 120) }; }
