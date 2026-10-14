@@ -560,8 +560,11 @@ notification badge red (`#ef4444`).
   better. The ROSTER is resolved from the **live List membership first** (`XAPI_KEY ||
   XAPIS_KEY`; List endpoints are twitterapi.io's), so add/removes on the List auto-sync.
   Provider order: **TwitterAPIs.com** (`XAPIS_KEY`, ~3× cheaper), then **twitterapi.io**
-  per-account (`XAPI_KEY`), then the **free syndication** scrape (no key; X caches/degrades
-  so dates can lag). Each rung falls through to the next if it returns nothing. **Replies to
+  per-account (`XAPI_KEY`). Each rung falls through to the next if it returns nothing. The
+  free X **syndication scrape was removed (2026-10)** — X's terms bar scraping without
+  written consent — so with no key / an empty paid read the wire shows its unavailable
+  state. (The paid rungs are third-party resellers of public X data; whether to move to
+  the official X API is an owner decision — docs/implementation-plan.md §4.) **Replies to
   OTHER users are filtered out** (`replyToOther` — noise X's List view hides; a self-thread
   continuation is kept). Cards are **newest-first**; **reposts** render the original with a
   "reposted by …" line, and **quote tweets** keep the quoter's commentary **and nest the
@@ -1241,7 +1244,7 @@ item keeps a real outbound source link (R7).
 
 ### 8.8 X wire (Home)
 A merged, live feed of these **public** X accounts, fetched server-side by the
-Worker (`/api/xfeed`) from X's public syndication endpoint — see **R26**. The
+Worker (`/api/xfeed`) via the keyed providers in **R26** (no syndication scrape). The
 handles live in `v2/js/home/xposts.js` (`X_ACCOUNTS`); `X_LIST`
 (id `2100283810713649423`) is kept only for the "Open list on X" link. Roster:
 - `@elerianm` — Mohamed A. El-Erian (economist)

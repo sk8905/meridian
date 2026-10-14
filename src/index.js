@@ -4981,30 +4981,6 @@ export function xNormalizeTweet(t) {
   } catch { return null; }
 }
 
-async function fetchXProfile(handle) {
-  // Time-bucketed cache-buster (~3-min buckets) to slip past X's per-account CDN
-  // cache — the syndication endpoint otherwise hands back stale embed snapshots.
-  // Our own /api/xfeed edge cache still keeps request volume to X tiny.
-  const bust = Math.floor(Date.now() / 180000);
-  const u = `https://syndication.twitter.com/srv/timeline-profile/screen-name/${encodeURIComponent(handle)}?showReplies=false&dnt=true&lang=en&_=${bust}`;
-  let r;
-  try {
-    r = await fetch(u, { headers: {
-      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-      "accept-language": "en-US,en;q=0.9",
-      "referer": "https://platform.twitter.com/",
-    }, cf: { cacheTtl: 0, cacheEverything: false } });
-  } catch { return []; }
-  if (!r || !r.ok) return [];
-  const html = await r.text();
-  const m = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
-  if (!m) return [];
-  let data; try { data = JSON.parse(m[1]); } catch { return []; }
-  const raw = [];
-  xCollectTweets(data, raw);
-  return raw.map(xNormalizeTweet).filter(Boolean);
-}
 
 // Normalise one twitterapi.io tweet object → our flat card shape. Handles reposts:
 // a retweet nests the original under retweeted_tweet — we render the ORIGINAL's
@@ -5368,14 +5344,9 @@ async function handleXFeed(request, env, ctx) {
     }
     try { const api = await fetchXApiUsers(roster, listKey); for (const t of api) all.push(t); if (api.length) usedProvider = "api"; } catch { /* fall through */ }
   }
-  // Free fallback (no key, or a paid call came back empty): X syndication per handle.
-  if (!all.length && handles.length) {
-    await Promise.all(handles.map(async (h) => {
-      const tw = await fetchXProfile(h);
-      for (const t of tw) all.push(t);
-    }));
-    if (all.length) usedProvider = "syn";
-  }
+  // (The free X-syndication scrape fallback was REMOVED 2026-10: X's terms bar crawling
+  // or scraping without prior written consent. With no key, or an empty paid read, the
+  // wire shows its "X unavailable" state — docs/implementation-plan.md §4.)
   const seen = new Set();
   const tweets = all
     // Drop replies to OTHER users (noise X's List view hides); keep originals, quotes,
