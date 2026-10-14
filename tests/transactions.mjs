@@ -36,7 +36,7 @@ const tg = await pg.evaluate(async () => {
     || !(t.amountKind == null || ["financing", "fund", "portfolio", "ev", "aum", "other"].includes(t.amountKind))
     || !(t.event == null || ["new", "reset", "refi"].includes(t.event)) || typeof t.managerMA !== "boolean"
     // A researched country carries its source URL and basis (HQ | incorporation).
-    || (t.countrySource != null && (!t.country || !/^https?:\/\//.test(t.countrySource) || !["hq", "incorporated"].includes(t.countryBasis)))).map(([id]) => id);
+    || (t.countrySource != null && (!t.country || !/^https?:\/\//.test(t.countrySource) || !["hq", "incorporated", "issuer", "portfolio"].includes(t.countryBasis)))).map(([id]) => id);
   const evOnNonClo = Object.entries(G.DEAL_TAGS).filter(([id, t]) => t.event && D.deals.find((d) => d.id === id) && T.txOf(D.deals.find((d) => d.id === id)) !== "clo").map(([id]) => id);
   return { missing, bad, evOnNonClo };
 });
@@ -500,7 +500,7 @@ for (const w of [1280, 1024]) {
   await f.pg.click("#tx-filters"); await f.pg.waitForTimeout(120);
   await f.pg.locator("#tx-sheet [data-europe]").click(); await f.pg.waitForTimeout(150);
   const eu = await f.pg.evaluate(() => ({ h: location.hash, pills: [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()), ctry: [...document.querySelectorAll("#tx-body td.txc-ctry")].map((td) => td.textContent.trim()) }));
-  const nonEu = eu.ctry.filter((c) => ["US", "Canada", "Australia", "Asia", "Middle East", "Latin America", "Africa", "Global", "—"].includes(c));
+  const nonEu = eu.ctry.filter((c) => ["US", "Canada", "Australia", "Asia", "Middle East", "Latin America", "Africa", "Global", "Cayman Islands", "Jersey", "Guernsey", "Bermuda", "—"].includes(c));
   check(/reg=uki,dach/.test(eu.h) && eu.pills.join("|") === "Europe" && eu.ctry.length > 0 && !nonEu.length, `All Europe narrows to European deals under one pill (${eu.ctry.length} rows, ${nonEu.length} non-European)`);
   checkErrs(f.errs, "transactions R39");
   await f.ctx.close();

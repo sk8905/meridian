@@ -558,9 +558,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   `c` country of the borrower / asset / target (from the allowed list in the file header;
   when the text doesn't say, WebSearch the borrower's headquarters (else country of
   incorporation) and record it with `cs` (the source URL — company site, registry, filing
-  or reputable press) and `cb` (`"hq"` | `"incorporated"`); leave `c: null` only when there
-  is no single borrower (CLO, fund raise, portfolio) or no source confirms it — never the
-  lender's HQ, never inferred from a name), `s` sector (one of
+  or reputable press) and `cb` (`"hq"` | `"incorporated"`). With no single borrower, record the vehicle instead:
+  a CLO / CFO / SRT / securitisation issuer's or a fund's / continuation vehicle's domicile
+  (`cb: "issuer"` — e.g. "… CLO DAC" → Ireland, a Cayman Ltd, a Delaware LP, from a listing,
+  registry, SEC filing or the deal's own source) or a traded portfolio's location
+  (`cb: "portfolio"`). Leave `c: null` only when no source confirms it — never the
+  lender's HQ, never inferred from a name or a sister vehicle), `s` sector (one of
   `SECTOR_TAGS`; "Diversified" for CLO pools and mixed portfolios), `a` what the parsed
   amount measures (`financing` | `fund` | `portfolio` | `ev` | `aum` | `other`; `null`
   when there is no amount), `e` for CLO issuance only (`new` | `reset` | `refi`), and

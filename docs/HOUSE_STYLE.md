@@ -1070,8 +1070,10 @@ notification badge red (`#ef4444`).
   data.js) holds, per deal id, curated fields read from the deal's OWN sourced text —
   `country` (borrower / asset / target, not the lender — from the deal text, else
   researched from a public source and stored with `cs` = source URL and `cb` = hq |
-  incorporated, shown in the drawer and CSV; `null` only when there is no single
-  borrower — a CLO / fund raise / portfolio — or no source confirms it), `sector`
+  incorporated (an operating borrower) | issuer (a CLO / CFO / fund / vehicle's domicile)
+  | portfolio (where a traded portfolio's assets are), shown in the drawer and CSV;
+  offshore issuer domiciles (Cayman, Jersey, Guernsey, Bermuda) form their own
+  "Offshore centres" region, never Europe; `null` only when no source confirms it), `sector`
   (the borrower's industry: `SECTOR_TAGS` in `credit/js/tx.js`), `amountKind`
   (financing · fund · portfolio · ev · aum · other — what the parsed amount measures),
   `event` (CLO issuance only: new · reset · refi) and `managerMA` (an acquisition of / stake

@@ -62,6 +62,8 @@ const SPONSOR_OPTS = [["yes", "Sponsor-backed"], ["no", "No sponsor named"]];
 const LEGACY_MIN = { 100: ["100to500", "500to1bn", "gt1bn"], 500: ["500to1bn", "gt1bn"], 1000: ["gt1bn"] };
 const KIND_LABEL = { financing: "Financing", fund: "Vehicle size", portfolio: "Portfolio size", ev: "Enterprise value", aum: "AUM of the target", other: "Other figure" };
 const KIND_SHORT = { ev: "EV", aum: "AUM", other: "" };
+// Where a researched country comes from (deal-tags cb).
+const BASIS_LABEL = { hq: "HQ", incorporated: "incorporation", issuer: "issuer domicile", portfolio: "portfolio location" };
 const EVENT_LABEL = { new: "New issue", reset: "Reset", refi: "Refi" };
 const SORTS = [["date-desc", "Newest"], ["date-asc", "Oldest"], ["size-desc", "Largest"], ["size-asc", "Smallest"], ["lender-asc", "Lender A–Z"], ["name-asc", "Name A–Z"]];
 const SORT_DEFAULT_DIR = { date: "desc", size: "desc", lender: "asc", name: "asc" };
@@ -652,7 +654,7 @@ export function mount(host, ctx) {
       ["Type", `${esc(MODE_LABEL[r.mode])} · ${esc(typeLabel(r.tx))}${r.tags.event ? " · " + esc(EVENT_LABEL[r.tags.event]) : ""}`],
       ["Sector", esc(r.tags.sector)],
       ["Country", r.tags.country
-        ? esc(r.tags.country) + (r.tags.countrySource ? ` <span class="tf-est">${r.tags.countryBasis === "incorporated" ? "incorporation" : "HQ"} · <a href="${esc(r.tags.countrySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")
+        ? esc(r.tags.country) + (r.tags.countrySource ? ` <span class="tf-est">${esc(BASIS_LABEL[r.tags.countryBasis] || "HQ")} · <a href="${esc(r.tags.countrySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")
         : "—"],
       ["Amount", amount],
       ["Date", esc(fmtDay(d.date))],
@@ -931,7 +933,7 @@ export function mount(host, ctx) {
       const list = currentList();
       downloadCSV(`wire-transactions-${st.q ? "search" : st.mode}`,
         ["Date", "Borrower / company", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Country", "Country basis", "Country source", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
-        list.map((r) => [r.d.date, r.cp, r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? (r.tags.countryBasis === "incorporated" ? "incorporation (researched)" : "HQ (researched)") : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
+        list.map((r) => [r.d.date, r.cp, r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? `${BASIS_LABEL[r.tags.countryBasis] || "HQ"} (researched)` : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
           r.amt ? fmtAmt(r.amt) : "", r.tags.amountKind || "", r.usd != null ? Math.round(r.usd) : "", r.tags.event || "", r.d.headline || "", r.d.sourceUrl || "", r.alt.map((a) => a.sourceUrl).filter(Boolean).join(" ")]));
     } else if (kind === "credits") {
       downloadCSV("wire-eu-credits", ["Borrower", "Jurisdiction", "Sector", "Rating", "Agency", "Rating as of", "12m trend", "Tracked deals naming it", "Source"],
