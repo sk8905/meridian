@@ -1003,5 +1003,9 @@ const T = {
   d1037: {"c":"France","s":"Diversified","a":null,"cs":"https://www.cbinsights.com/company/mazarine","cb":"hq"},
   d1038: {"c":"France","s":"Healthcare","a":null,"cs":"https://www.lbofrance.com/en/lbo-france-announces-the-sale-of-dutscher-group-to-vivo-capital/","cb":"hq"},
   d1039: {"c":"Pan-European","s":"Diversified","a":"fund","e":"new"},
+  d1040: {"c":"UK","s":"Financial services","a":"financing"},
+  d1041: {"c":null,"s":"Transport & logistics","a":null},
+  d1042: {"c":null,"s":"TMT","a":null},
+  d1043: {"c":null,"s":"TMT","a":"financing"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m }]));
