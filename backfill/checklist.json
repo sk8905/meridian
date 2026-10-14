@@ -3460,6 +3460,460 @@
      "note": "No source links Mandatum to CapMan."
     }
    ]
+  },
+  "m51": {
+   "kind": "manager",
+   "name": "Metric Capital Partners",
+   "priority": 106,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "fund-iv-final-close",
+     "date": "2020-11-26",
+     "what": "MCP IV fundraising completed at EUR1.2bn vs EUR1.1bn target",
+     "source": "https://www.debevoise.com/news/2020/11/debevoise-advises-metric-capital-partners-in-its",
+     "recordId": "i1112",
+     "status": "present"
+    },
+    {
+     "key": "npl-portfolio-2021",
+     "date": "2021-03-22",
+     "what": "NPL / portfolio transaction",
+     "recordId": "d137",
+     "status": "present"
+    },
+    {
+     "key": "louis-robert-partner",
+     "date": "2024-01-08",
+     "what": "Louis Robert named partner",
+     "source": "https://www.cfnews.net/L-actualite/Nominations/Fonds/Metric-Capital-Partners-associe-467412",
+     "recordId": "i1113",
+     "status": "present"
+    },
+    {
+     "key": "fund-v-final-close",
+     "date": "2025-05-13",
+     "what": "MCP V final close EUR1bn",
+     "source": "https://alternativecreditinvestor.com/2025/05/13/metric-capital-partners-closes-fifth-fund-at-e1bn/",
+     "recordId": "i73",
+     "status": "present"
+    },
+    {
+     "key": "adalvo-exit-eqt",
+     "date": "2025-08-22",
+     "what": "EQT buys Adalvo from Metric; largest exit since 2011",
+     "source": "https://ionanalytics.com/insights/mergermarket/eqt-purchase-of-adalvo-marks-metric-capitals-largest-exit/",
+     "recordId": "d1083",
+     "status": "present"
+    },
+    {
+     "key": "den-group-agreed",
+     "date": "2025-11-20",
+     "what": "Metric agrees to buy DEN Group from CapMan Buyout",
+     "source": "https://www.inderes.se/releases/capman-oyj-capman-buyout-exits-den-group-to-metric-capital-partners",
+     "recordId": "d1084",
+     "status": "present"
+    },
+    {
+     "key": "beedigital-exit",
+     "date": "2026-06-01",
+     "what": "GPF Partners buys 95% of BeeDigital from Metric and Evolvere",
+     "source": "https://www.elespanol.com/invertia/mis-finanzas/fondos-de-inversion/20260601/gpf-partners-compra-beedigital-antigua-paginas-amarillas-metric-evolvere/1003744269196_0.html",
+     "recordId": "d1085",
+     "status": "present"
+    },
+    {
+     "key": "dental-company-acquisition",
+     "date": "2026-06-25",
+     "what": "Metric leads consortium acquiring Dental & Company Center via Fund V",
+     "source": "https://www.alimarket.es/sanidad/noticia/428322/metric-capital-partners-lidera-la-adquisicion-de-dental-company-junto-con-el-accionista-actual-alter-capital-y-el-ceo-de-la-compania",
+     "recordId": "d1086",
+     "status": "present"
+    },
+    {
+     "key": "au-vodka-exit-completion",
+     "date": "2026-09-14",
+     "what": "Sazerac completes Au Vodka acquisition",
+     "source": "https://bebeez.eu/2026/09/14/sazerac-completes-acquisition-of-au-vodka-accelerating-global-growth-and-expanding-on-diverse-portfolio-of-brands/",
+     "recordId": "i832",
+     "status": "present"
+    },
+    {
+     "key": "fund-v-first-close",
+     "date": "2023",
+     "what": "Fund V first close",
+     "source": "https://sfbox.realdealsmedia.com/index.php/article/exclusive-metric-capital-partners-confirms-first-close-for-fifth-fund",
+     "status": "rejected",
+     "note": "Page returned 503; date and details seen only in a search snippet, unverified"
+    },
+    {
+     "key": "adalvo-financing-1q24",
+     "date": "2024",
+     "what": "EUR211m senior credit to Adalvo",
+     "source": "https://ionanalytics.com/insights/mergermarket/eqt-purchase-of-adalvo-marks-metric-capitals-largest-exit/",
+     "status": "present",
+     "note": "Only \"1Q24\" given, no exact date",
+     "recordId": "d1083"
+    },
+    {
+     "key": "fund-vi-launch",
+     "date": "2026",
+     "what": "Fund VI (EUR1.5bn target) launch",
+     "source": "https://www.unquote.com/unquote/official-record/3028754/metric-capital-to-hold-first-close-for-eur-15bn-fund-in-spring",
+     "status": "rejected",
+     "note": "Headline-only snippet with no date; no first close confirmed"
+    },
+    {
+     "key": "famar-exit-2024",
+     "date": "2024-07",
+     "what": "Famar exit",
+     "source": "https://www.cbinsights.com/company/metric-capital-partners",
+     "status": "rejected",
+     "note": "Aggregator only, no primary source with an exact date"
+    }
+   ]
+  },
+  "m113": {
+   "kind": "manager",
+   "name": "White Oak Global Advisors",
+   "priority": 107,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "financing-2021-08-16",
+     "date": "2021-08-16",
+     "what": "Existing Wire financing record",
+     "recordId": "d911",
+     "status": "present"
+    },
+    {
+     "key": "yield-spectrum-v-final-close",
+     "date": "2021-10-20",
+     "what": "Fifth-generation fund close, over USD1.3bn Yield Spectrum Fund V",
+     "source": "https://www.privateequitywire.co.uk/white-oak-global-advisors-closes-fifth-generation-private-credit-fund-total/",
+     "recordId": "i839",
+     "status": "present"
+    },
+    {
+     "key": "nav-fund-finance-2024-06-13",
+     "date": "2024-06-13",
+     "what": "Existing NAV / fund finance record",
+     "recordId": "d912",
+     "status": "present"
+    },
+    {
+     "key": "annual-deployment-2023",
+     "date": "2024-02-05",
+     "what": "Deployed USD1.1bn in 2023",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2024/02/05/white-oak-deploys-over-$1-billion-in-2023-amidst-record-abl-volume",
+     "recordId": "i1114",
+     "status": "present"
+    },
+    {
+     "key": "wire-held-2026-02-26",
+     "date": "2026-02-26",
+     "what": "Existing Wire record",
+     "recordId": "d848",
+     "status": "present"
+    },
+    {
+     "key": "wire-held-2026-04-15",
+     "date": "2026-04-15",
+     "what": "Existing Wire record",
+     "recordId": "d849",
+     "status": "present"
+    },
+    {
+     "key": "susan-george-head-of-asset-management",
+     "date": "2020-06-25",
+     "what": "Susan George joins as Head of Asset Management",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2020/06/25/susan-george-joins-white-oak-global-advisors-as-head-of-asset-management",
+     "status": "missing",
+     "note": "Date from URL path/search snippet; page not opened - confirm on page before recording"
+    },
+    {
+     "key": "white-oak-real-estate-capital-launch",
+     "date": "2021-07-26",
+     "what": "Launch of White Oak Real Estate Capital",
+     "source": "https://www.sfnet.com/home/chapters/canada/news-detail/2021/07/26/white-oak-global-advisors-announces-launch-of-white-oak-real-estate-capital",
+     "status": "missing",
+     "note": "Date from search snippet only; confirm on page"
+    },
+    {
+     "key": "finacity-acquisition-completed",
+     "date": "2021-09-20",
+     "what": "Completion of Finacity acquisition",
+     "source": "https://www.businesswire.com/news/home/20210920005141/en",
+     "status": "missing",
+     "note": "Business Wire 403; date from URL stamp/search result - confirm"
+    },
+    {
+     "key": "submarine-alliance-partnership",
+     "date": "2024-11-18",
+     "what": "Partnership with United Submarine Alliance QOF",
+     "source": "https://www.businesswire.com/news/home/20241118482144/en/White-Oak-Global-Advisors-Announces-Partnership-with-the-United-Submarine-Alliance-Qualified-Opportunity-Fund-LP-to-Bolster-Domestic-Submarine-Development",
+     "status": "missing",
+     "note": "Business Wire 403; date from snippet - confirm"
+    },
+    {
+     "key": "software-recap-senior-loan",
+     "date": "2025-11-19",
+     "what": "$17m senior secured loan for software platform recapitalisation",
+     "source": "https://www.businesswire.com/news/home/20251119182658/en/White-Oak-Global-Advisors-Provides-Senior-Secured-Loan-to-Support-the-Recapitalization-of-a-Leading-Global-Software-Platform",
+     "status": "missing",
+     "note": "Business Wire 403; date from URL stamp (SFNet reprint 2025-11-20) - confirm"
+    },
+    {
+     "key": "finacity-acquisition-signing",
+     "date": "2021",
+     "what": "Earlier announcement of agreement to acquire Finacity",
+     "status": "rejected",
+     "note": "No separate signing announcement found; only the completion release"
+    },
+    {
+     "key": "no-fund-or-ma-event-2022-2026",
+     "date": "2022",
+     "what": "New flagship fund close, firm M&A or CIO change 2022-2026",
+     "status": "rejected",
+     "note": "Searches found none"
+    }
+   ]
+  },
+  "m172": {
+   "kind": "manager",
+   "name": "Aperture Investors",
+   "priority": 108,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "macnaughton-us-credit",
+     "date": "2023-12-11",
+     "what": "Rob MacNaughton added to head U.S. Credit strategy",
+     "source": "https://www.businesswire.com/news/home/20231211231335/en/Aperture-Investors-Adds-Rob-MacNaughton-to-Head-U.S.-Credit-Strategy",
+     "recordId": "i963",
+     "status": "present"
+    },
+    {
+     "key": "litigation-finance-darkow",
+     "date": "2024-09-11",
+     "what": "Luke Darkow hired to launch Litigation Finance strategy",
+     "source": "https://www.businesswire.com/news/home/20240910520493/en/Aperture-Investors-Hires-Luke-Darkow-to-Launch-Litigation-Finance-Strategy",
+     "recordId": "i958",
+     "status": "present"
+    },
+    {
+     "key": "structured-credit-lemin",
+     "date": "2025-01-08",
+     "what": "Vladimir Lemin joins to lead Structured Credit",
+     "source": "https://www.businesswire.com/news/home/20250108138076/en",
+     "recordId": "i951",
+     "status": "present"
+    },
+    {
+     "key": "abf-turgeon",
+     "date": "2025-08-05",
+     "what": "Nick Turgeon hired to launch Asset-Based Finance strategy",
+     "source": "https://www.businesswire.com/news/home/20250805338563/en/Aperture-Investors-Hires-Nick-Turgeon-to-Launch-and-Lead-Asset-Based-Finance-Strategy",
+     "recordId": "i940",
+     "status": "present"
+    },
+    {
+     "key": "avant-300m-abf-facility",
+     "date": "2026-07-29",
+     "what": "Aperture leads $300m asset-based facility with Avant",
+     "source": "https://www.businesswire.com/news/home/20260729324784/en/",
+     "recordId": "d947",
+     "status": "present"
+    },
+    {
+     "key": "litigation-finance-expansion",
+     "date": "2026-08-12",
+     "what": "Litigation finance platform expansion, $600m assets",
+     "source": "https://news.bloomberglaw.com/litigation-finance/aperture-sees-demand-aims-for-1-billion-litigation-finance",
+     "recordId": "i608",
+     "status": "present"
+    },
+    {
+     "key": "jk-brown-board",
+     "date": "2023-09-06",
+     "what": "James Keith (JK) Brown appointed to Board",
+     "source": "https://www.businesswire.com/news/home/20230906438841/en/Aperture-Investors-Announces-the-Appointment-of-James-Keith-JK-Brown-to-Board-of-Directors",
+     "status": "missing",
+     "note": "Date from URL id only; a snippet said effective May 4 2023 - confirm on page"
+    },
+    {
+     "key": "molinari-cmo",
+     "date": "2024-02-05",
+     "what": "Louis Molinari named Chief Marketing Officer",
+     "source": "https://www.alternativeswatch.com/2024/02/05/aperture-taps-former-barclays-exec/",
+     "status": "missing",
+     "note": "Date from URL path only; page not opened - confirm"
+    },
+    {
+     "key": "expands-offerings-three-year-track",
+     "date": "2023-09-27",
+     "what": "Strategies reach three-year track record; Aperture expands its offerings",
+     "source": "https://www.businesswire.com/news/home/20230927362245/en/On-Heels-of-Strategies-Achieving-Three-Year-Track-Record-Aperture-Investors-Expands-its-Offerings",
+     "status": "missing",
+     "note": "Date from URL id only; page unreadable - confirm"
+    },
+    {
+     "key": "trex-stake-exit",
+     "date": "2026-02",
+     "what": "Sold entire Trex stake",
+     "source": "https://www.nasdaq.com/articles/decking-stock-down-35-year-and-one-investor-just-reported-21-million-exit",
+     "status": "rejected",
+     "note": "Portfolio holding disposal, not a firm-level event; exact date not seen"
+    },
+    {
+     "key": "endeavour-atomx-launch",
+     "date": "2022",
+     "what": "Endeavour Equity Fund (ATOMX) launch",
+     "source": "https://mutualfundobserver.com/discuss/discussion/53259/aperture-investors-second-performance-linked-fund-now-available-in-the-u-s-atomx",
+     "status": "rejected",
+     "note": "Year and date not seen"
+    },
+    {
+     "key": "uae-hard-currency-bond-fund",
+     "date": "2024",
+     "what": "Short-duration hard currency bond fund in the UAE",
+     "source": "https://citywire.com/middle-east/news/aperture-investors-launches-hard-currency-bond-fund/a1415752",
+     "status": "rejected",
+     "note": "Page content did not load; no date seen"
+    }
+   ]
+  },
+  "m45": {
+   "kind": "manager",
+   "name": "Aurelius",
+   "priority": 109,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "fund-iv-final-close",
+     "date": "2021-04-19",
+     "what": "European Opportunities IV final close EUR350m",
+     "source": "https://aurelius-group.com/aurelius-successfully-closes-new-mid-market-private-equity-fund-eur-500-million-of-firepower-for-european-deals",
+     "recordId": "i1115",
+     "status": "present"
+    },
+    {
+     "key": "mckesson-uk-agreed",
+     "date": "2021-11-01",
+     "what": "Agrees to acquire McKesson UK, EV GBP477m",
+     "source": "https://aurelius-group.com/in-its-biggest-deal-in-history-aurelius-acquires-mckesson-uk",
+     "recordId": "d1087",
+     "status": "present"
+    },
+    {
+     "key": "mckesson-uk-completed",
+     "date": "2022-04-07",
+     "what": "Completes McKesson UK acquisition",
+     "source": "https://aurelius-group.com/aurelius-completes-acquisition-of-lloydspharmacys-parent-company-mckesson-uk",
+     "recordId": "d1088",
+     "status": "present"
+    },
+    {
+     "key": "afc-wells-fargo-100m-line",
+     "date": "2022-07-27",
+     "what": "AFC secures GBP100m Wells Fargo funding line",
+     "source": "https://aurelius-group.com/100-million-funding-line-for-aurelius-finance-company",
+     "recordId": "d1089",
+     "status": "present"
+    },
+    {
+     "key": "lsg-group-agreed",
+     "date": "2023-04-05",
+     "what": "Lufthansa agrees to sell LSG Group to AURELIUS",
+     "source": "https://www.pax-intl.com/passenger-services/partnerships-collaborations-and-acquisitions/2023/04/05/aurelius-group-acquires-lsg-group/",
+     "recordId": "d1090",
+     "status": "present"
+    },
+    {
+     "key": "lsg-group-completed",
+     "date": "2023-10-31",
+     "what": "Completes LSG Group acquisition",
+     "source": "https://newsroom.lufthansagroup.com/en/lufthansa-group-concludes-sale-of-the-lsg-group/",
+     "recordId": "d1091",
+     "status": "present"
+    },
+    {
+     "key": "body-shop-agreed",
+     "date": "2023-11-14",
+     "what": "Agrees to acquire The Body Shop, GBP207m",
+     "source": "https://aurelius-group.com/aurelius-acquires-iconic-global-beauty-brand-and-retailer-body-shop",
+     "recordId": "d1092",
+     "status": "present"
+    },
+    {
+     "key": "body-shop-uk-administration",
+     "date": "2024-02-13",
+     "what": "The Body Shop UK appoints FRP as administrators",
+     "source": "https://www.retailgazette.co.uk/blog/2024/02/the-body-shop-hires-administrators/",
+     "recordId": "i1116",
+     "status": "present"
+    },
+    {
+     "key": "afc-james-elliott",
+     "date": "2025-02-19",
+     "what": "AFC hires James Elliott, North of England",
+     "source": "https://alternativecreditinvestor.com/2025/02/19/aurelius-finance-makes-key-hire-in-north-of-england/",
+     "recordId": "i171",
+     "status": "present"
+    },
+    {
+     "key": "fund-v-final-close",
+     "date": "2025-06-30",
+     "what": "Fund V final close EUR830m",
+     "source": "https://aurelius-group.com/aurelius-closes-oversubscribed-fund-v-eur-830m-fresh-capital-to-be-deployed",
+     "recordId": "i74",
+     "status": "present"
+    },
+    {
+     "key": "lsg-apac-sale",
+     "date": "2026-03-31",
+     "what": "Signs sale of LSG Asia-Pacific",
+     "source": "https://aurelius-group.com/aurelius-to-sell-lsg-asia-pacific",
+     "recordId": "d1093",
+     "status": "present"
+    },
+    {
+     "key": "afc-mettis",
+     "date": "2026-09-02",
+     "what": "AFC GBP30m super-senior ABL for Mettis Aerospace",
+     "source": "https://www.aurelius-group.com/aurelius-finance-company-provides-bespoke-30m-super-senior-abl-facility-for-mettis-aerospace",
+     "recordId": "d903",
+     "status": "present"
+    },
+    {
+     "key": "hain-international-agreed",
+     "date": "2026-09-14",
+     "what": "Agrees to buy Hain Celestial International, ~$323m",
+     "source": "https://www.just-food.com/newsletters/hain-celestial-sells-international-assets-to-private-equity-investor",
+     "recordId": "d1094",
+     "status": "present"
+    },
+    {
+     "key": "gkn-wheels-structures-2020",
+     "date": "2020",
+     "what": "Agrees to acquire GKN Wheels & Structures",
+     "source": "https://www.fleetnews.co.uk/news/car-industry-news/2020/10/20/aurelius-to-acquire-gkn-wheels-and-structure",
+     "status": "rejected",
+     "note": "Page 403; date only inferred from URL/snippets"
+    },
+    {
+     "key": "distrelec-sale-2023",
+     "date": "2023",
+     "what": "Sells Distrelec to RS Group",
+     "source": "https://eqs-news.com/news/adhoc/aurelius-equity-opportunities-se-co-kgaa-sells-distrelec-group/1805279",
+     "status": "rejected",
+     "note": "Date not verified on page"
+    }
+   ]
   }
  }
 }
