@@ -85,6 +85,42 @@ const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf
   await ctx.close();
 }
 
+// List state lives in the URL: reload, Back from a profile and a tab round-trip restore it.
+{
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
+  await pg.waitForSelector("#pf-panes #mgr-rows tr", { timeout: 8000 });
+  const M = '#pf-panes .tpane[data-pane="managers"]';
+  await pg.locator(M + " .pf-filter-btn").click(); await pg.waitForTimeout(120);
+  await pg.locator(M + ' [data-pfacet="region"][data-v="UK & Ireland"]').click(); await pg.waitForTimeout(100);
+  await pg.locator(M + ' [data-pfacet="strategy"][data-v="Opportunistic"]').click(); await pg.waitForTimeout(100);
+  await pg.locator(M + " .pf-sheet-done").click();
+  await pg.locator("#pf-panes #cr-lg-focus").click(); await pg.waitForTimeout(100);
+  await pg.locator(M + " th.tl-fit").click(); await pg.waitForTimeout(100);
+  await pg.fill("#pf-panes #mgr-q", "capital"); await pg.waitForTimeout(150);
+  const snap = () => pg.evaluate((M) => ({ h: location.hash, n: [...document.querySelectorAll("#pf-panes #mgr-rows tr")].filter((t) => t.style.display !== "none").length,
+    first: (document.querySelector("#pf-panes #mgr-rows tr:not([style*='none'])") || {}).dataset?.href, q: document.querySelector("#pf-panes #mgr-q").value,
+    focus: document.querySelector("#pf-panes #cr-lg-focus").textContent, pills: [...document.querySelectorAll(M + " .pf-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()).join("|") }), M);
+  const a = await snap();
+  check(/tab=managers/.test(a.h) && /q=capital/.test(a.h) && /aum=band/.test(a.h) && /region=UK/.test(a.h) && /strategy=Opportunistic/.test(a.h) && /sort=2-desc/.test(a.h), `Profiles list filters + sort are in the URL (${a.h})`);
+  await pg.reload(); await pg.waitForSelector("#pf-panes #mgr-rows tr", { state: "attached", timeout: 8000 }); await pg.waitForTimeout(300);
+  const r = await snap();
+  check(r.h === a.h && r.n === a.n && r.first === a.first && r.q === "capital" && r.focus === "$1–15bn" && r.pills === a.pills, `a reload restores the filtered, sorted list (${r.n} rows; ${r.pills})`);
+  await pg.evaluate(() => document.querySelector("#pf-panes #mgr-rows tr:not([style*='none']) td.tl-nm").click());
+  await pg.waitForSelector("#pf-detail .tdet-id", { timeout: 8000 });
+  await pg.goBack(); await pg.waitForTimeout(400);
+  const bk = await snap();
+  check(bk.h === a.h && bk.n === a.n, `Back from a profile returns to the same filtered list (${bk.n})`);
+  await pg.locator('#pf-chips .tchip[data-p="hedgefunds"]').click(); await pg.waitForTimeout(200);
+  await pg.locator('#pf-chips .tchip[data-p="managers"]').click(); await pg.waitForTimeout(200);
+  const tr = await snap();
+  check(tr.h === a.h && tr.n === a.n, "switching list tabs and back keeps each list's filters");
+  await pg.locator('[data-key="profiles"]').filter({ visible: true }).first().click(); await pg.waitForTimeout(300);
+  const hm = await snap();
+  check(!hm.pills && hm.q === "" && hm.focus === "$1–15bn" && !/q=|region=|aum=/.test(hm.h), `re-tapping Profiles resets the list filters (${hm.h})`);
+  checkErrs(errs, "profiles URL state");
+  await ctx.close();
+}
+
 // Phone: card rows, a sort select, Monitor / Cross-holdings in the HF sheet.
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/profiles/");

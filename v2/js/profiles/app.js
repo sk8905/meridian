@@ -153,6 +153,61 @@ export async function mount(host, ctx) {
     const key = pane.dataset.pane, sel = ROWSEL[key]; if (!sel) return;
     host.querySelectorAll(sel).forEach((tr) => { tr.style.display = rowPasses(pane, tr) ? "" : "none"; });
     renderPfChrome(pane);
+    writeListState(pane);
+  }
+  // ---- list state in the URL (HOUSE_STYLE R35/R39) --------------------------------
+  // #/?tab=<list>&q=&aum=band|target&following=1&<facet>=a|b&sort=<col>-<asc|desc>
+  // Filter / sort changes REPLACE the entry (Back never walks chip taps); reload, a
+  // pasted link and Back from a profile restore the list exactly. Each list keeps its
+  // own last URL so switching tabs and back returns to the same filtered view.
+  const _paneHash = {};
+  const listHash = (tab) => _paneHash[tab] || "#/?tab=" + tab;
+  let _applying = false;
+  function stateHash(pane) {
+    const key = pane.dataset.pane, p = new URLSearchParams();
+    p.set("tab", key);
+    const q = ((pane.querySelector(".tsearch") || {}).value || "").trim(); if (q) p.set("q", q);
+    const f = focusOf(pane); if (f) p.set("aum", f);
+    if ((pane.querySelector(".pf-follow-btn") || {}).getAttribute?.("aria-pressed") === "true") p.set("following", "1");
+    const sel = selOf(key); for (const [k] of PF_FACETS[key] || []) if (sel[k].length) p.set(k, sel[k].join("|"));
+    const th = [...pane.querySelectorAll(".tleague-wrap table thead th")].find((h) => ["ascending", "descending"].includes(h.getAttribute("aria-sort")));
+    if (th) p.set("sort", `${[...th.parentNode.children].indexOf(th)}-${th.getAttribute("aria-sort") === "ascending" ? "asc" : "desc"}`);
+    return "#/?" + p.toString().replace(/%7C/gi, "|");
+  }
+  function writeListState(pane) {
+    if (_applying || !pane || pane.hidden || host.classList.contains("pf-detailing")) return;
+    const h = stateHash(pane);
+    _paneHash[pane.dataset.pane] = h;
+    if (document.documentElement.dataset.v2tab !== "profiles" || location.hash === h) return;
+    try { history.replaceState(history.state, "", location.pathname + location.search + h); } catch { /* keep */ }
+  }
+  function applyListState(tab, rawIn) {
+    const pane = panes.querySelector(`.tpane[data-pane="${tab}"]`); if (!pane) return;
+    const raw = rawIn != null ? rawIn : ((location.hash || "").split("?")[1] || location.search.slice(1));
+    const q = new URLSearchParams(raw);
+    _applying = true;
+    try {
+      const inp = pane.querySelector(".tsearch"); if (inp) inp.value = q.get("q") || "";
+      const fb = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
+      if (fb) {
+        const v = q.get("aum") || "";
+        if (fb.id === "cr-lg-focus") setFocus(fb, ["band", "target"].includes(v) ? v : "");
+        else { const on = v === "band"; fb.setAttribute("aria-pressed", String(on)); fb.classList.toggle("is-on", on); }
+      }
+      const fol = pane.querySelector(".pf-follow-btn");
+      if (fol) { const on = q.get("following") === "1"; fol.setAttribute("aria-pressed", String(on)); fol.classList.toggle("is-on", on); }
+      const sel = selOf(tab);
+      for (const [k] of PF_FACETS[tab] || []) sel[k] = (q.get(k) || "").split("|").filter(Boolean);
+      const m = /^(\d+)-(asc|desc)$/.exec(q.get("sort") || "");
+      const th = m && pane.querySelector(".tleague-wrap table").tHead.rows[0].cells[+m[1]];
+      if (th) sortBy(th, m[2] === "asc" ? "ascending" : "descending"); else resetOrder(pane);
+      filterList(pane);
+    } finally { _applying = false; }
+    _paneHash[tab] = stateHash(pane);
+    // Canonicalise (e.g. a bare /v2/profiles/?tab=… or dropped unknown params) in place.
+    if (rawIn == null && document.documentElement.dataset.v2tab === "profiles" && location.hash && location.hash !== _paneHash[tab]) {
+      try { history.replaceState(history.state, "", location.pathname + location.search + _paneHash[tab]); } catch { /* keep */ }
+    }
   }
   // Pills + the Filters button count + (when open) the sheet with live counts.
   function renderPfChrome(pane) {
@@ -218,6 +273,7 @@ export async function mount(host, ctx) {
     rowsArr.forEach((r) => tb.appendChild(r));
     const ps = th.closest(".tpane") && th.closest(".tpane").querySelector(".pf-sort");
     if (ps) ps.value = `${i}:${dir}`;
+    writeListState(th.closest(".tpane"));
   }
   // The builder's own order (target-first on Managers), for "Default order".
   const _origOrder = new Map([...panes.querySelectorAll(".tleague-wrap table")].map((t) => [t, t.tBodies[0] ? [...t.tBodies[0].rows] : []]));
@@ -225,6 +281,8 @@ export async function mount(host, ctx) {
     const t = pane.querySelector(".tleague-wrap table"); if (!t || !_origOrder.has(t)) return;
     _origOrder.get(t).forEach((r) => t.tBodies[0].appendChild(r));
     t.tHead.querySelectorAll("th").forEach((h) => h.setAttribute("aria-sort", "none"));
+    const ps = pane.querySelector(".pf-sort"); if (ps) ps.value = "";
+    writeListState(pane);
   }
   panes.addEventListener("keydown", (e) => { const th = e.target.closest && e.target.closest("th.pf-sortable"); if (th && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); sortBy(th); } });
 
@@ -335,7 +393,7 @@ export async function mount(host, ctx) {
       case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg, seg[2])); return;
       case "firm": renderLegal("firms", () => viewFirm(dec(arg), seg[2])); return;
       case "item": return renderLegal("firms", () => viewItem(dec(arg)));
-      default: return showList(readTab());
+      default: { const t = readTab(); showList(t); applyListState(t); return; }
     }
   }
   // Only act on hash moves while Profiles is the active tab — other tabs drive
@@ -369,7 +427,7 @@ export async function mount(host, ctx) {
     const back = e.target.closest(".pf-back-chev");
     if (back) {
       const on = chips.querySelector(".tchip.is-on");
-      const h = "#/?tab=" + (on ? on.dataset.p : "managers");
+      const h = listHash(on ? on.dataset.p : "managers");
       if (location.hash !== h) location.hash = h;
       router();
       return;
@@ -378,7 +436,7 @@ export async function mount(host, ctx) {
     const chip = e.target.closest("#pf-chips .tchip");
     if (chip) {
       rememberList();
-      const h = "#/?tab=" + chip.dataset.p;
+      const h = listHash(chip.dataset.p);
       if (location.hash !== h) location.hash = h;
       router();
       return;
@@ -554,6 +612,11 @@ export async function mount(host, ctx) {
     leave() { rememberList(); },
     // home(): a nav-bar tap resets Profiles to its first part — the Managers list
     // (closing any open profile, first category tab, scrolled to top).
-    home() { Object.keys(_listY).forEach((k) => delete _listY[k]); showList("managers"); },
+    // Every list's filters, focus, Following and sort reset too.
+    home() {
+      Object.keys(_listY).forEach((k) => delete _listY[k]);
+      CHIPS.forEach(([k]) => { delete _paneHash[k]; applyListState(k, "tab=" + k); });
+      showList("managers");
+    },
   };
 }

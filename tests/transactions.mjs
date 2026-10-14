@@ -34,7 +34,9 @@ const tg = await pg.evaluate(async () => {
   const missing = deals.filter((d) => !G.DEAL_TAGS[d.id]).map((d) => d.id);
   const bad = Object.entries(G.DEAL_TAGS).filter(([, t]) => !(t.country == null || countries.has(t.country)) || !T.SECTOR_TAGS.includes(t.sector)
     || !(t.amountKind == null || ["financing", "fund", "portfolio", "ev", "aum", "other"].includes(t.amountKind))
-    || !(t.event == null || ["new", "reset", "refi"].includes(t.event)) || typeof t.managerMA !== "boolean").map(([id]) => id);
+    || !(t.event == null || ["new", "reset", "refi"].includes(t.event)) || typeof t.managerMA !== "boolean"
+    // A researched country carries its source URL and basis (HQ | incorporation).
+    || (t.countrySource != null && (!t.country || !/^https?:\/\//.test(t.countrySource) || !["hq", "incorporated"].includes(t.countryBasis)))).map(([id]) => id);
   const evOnNonClo = Object.entries(G.DEAL_TAGS).filter(([id, t]) => t.event && D.deals.find((d) => d.id === id) && T.txOf(D.deals.find((d) => d.id === id)) !== "clo").map(([id]) => id);
   return { missing, bad, evOnNonClo };
 });

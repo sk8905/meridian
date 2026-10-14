@@ -195,7 +195,7 @@ export const REGIONS = [
   ["paneu", "Pan-European", ["Pan-European"]],
   ["oeu", "Other Europe", ["Poland", "Other Europe"]],
   ["na", "North America", ["US", "Canada"]],
-  ["row", "Rest of world", ["Australia", "Asia", "Middle East", "Latin America", "Africa", "Global"]],
+  ["row", "Rest of world", ["Australia", "Asia", "Middle East", "Latin America", "Africa", "Bermuda", "Global"]],
   ["none", "Unspecified", []],
 ];
 export const EUROPE_REGIONS = ["uki", "dach", "frbnl", "south", "nordics", "paneu", "oeu"];
@@ -209,6 +209,9 @@ export function tagsOf(deal, TAGS) {
   return {
     tagged: !!t,
     country,
+    // Researched (not stated in the deal text): the source + whether it is HQ or incorporation.
+    countrySource: t ? t.countrySource || null : null,
+    countryBasis: t ? t.countryBasis || null : null,
     region: regionOf(country),
     sector: (t && t.sector) || _SECTOR_FALLBACK[sectorOf(deal)] || "Diversified",
     amountKind: t ? t.amountKind || null : null,

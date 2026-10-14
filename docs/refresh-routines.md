@@ -556,7 +556,11 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 - **Tag every new deal (HOUSE_STYLE R39).** Each deal you add to `credit/js/data.js`
   gets an entry in `credit/js/deal-tags.js` (`T` map, compact keys) in the same commit:
   `c` country of the borrower / asset / target (from the allowed list in the file header;
-  `null` when the text doesn't say — never the lender's HQ), `s` sector (one of
+  when the text doesn't say, WebSearch the borrower's headquarters (else country of
+  incorporation) and record it with `cs` (the source URL — company site, registry, filing
+  or reputable press) and `cb` (`"hq"` | `"incorporated"`); leave `c: null` only when there
+  is no single borrower (CLO, fund raise, portfolio) or no source confirms it — never the
+  lender's HQ, never inferred from a name), `s` sector (one of
   `SECTOR_TAGS`; "Diversified" for CLO pools and mixed portfolios), `a` what the parsed
   amount measures (`financing` | `fund` | `portfolio` | `ev` | `aum` | `other`; `null`
   when there is no amount), `e` for CLO issuance only (`new` | `reset` | `refi`), and

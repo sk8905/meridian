@@ -651,7 +651,9 @@ export function mount(host, ctx) {
       ...(fund ? [["Fund", `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(fund.managerId)}/vehicles">${esc(fund.name)}</a>`]] : []),
       ["Type", `${esc(MODE_LABEL[r.mode])} · ${esc(typeLabel(r.tx))}${r.tags.event ? " · " + esc(EVENT_LABEL[r.tags.event]) : ""}`],
       ["Sector", esc(r.tags.sector)],
-      ["Country", esc(r.tags.country || "—")],
+      ["Country", r.tags.country
+        ? esc(r.tags.country) + (r.tags.countrySource ? ` <span class="tf-est">${r.tags.countryBasis === "incorporated" ? "incorporation" : "HQ"} · <a href="${esc(r.tags.countrySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")
+        : "—"],
       ["Amount", amount],
       ["Date", esc(fmtDay(d.date))],
       ["Source", srcLink(d)],
@@ -928,8 +930,8 @@ export function mount(host, ctx) {
     if (kind === "flow") {
       const list = currentList();
       downloadCSV(`wire-transactions-${st.q ? "search" : st.mode}`,
-        ["Date", "Borrower / company", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Country", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
-        list.map((r) => [r.d.date, r.cp, r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", REGION_LABEL[r.tags.region] || "",
+        ["Date", "Borrower / company", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Country", "Country basis", "Country source", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
+        list.map((r) => [r.d.date, r.cp, r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? (r.tags.countryBasis === "incorporated" ? "incorporation (researched)" : "HQ (researched)") : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
           r.amt ? fmtAmt(r.amt) : "", r.tags.amountKind || "", r.usd != null ? Math.round(r.usd) : "", r.tags.event || "", r.d.headline || "", r.d.sourceUrl || "", r.alt.map((a) => a.sourceUrl).filter(Boolean).join(" ")]));
     } else if (kind === "credits") {
       downloadCSV("wire-eu-credits", ["Borrower", "Jurisdiction", "Sector", "Rating", "Agency", "Rating as of", "12m trend", "Tracked deals naming it", "Source"],

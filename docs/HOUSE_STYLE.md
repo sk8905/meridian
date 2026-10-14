@@ -1068,7 +1068,10 @@ notification badge red (`#ef4444`).
 - **R39 — Transactions + Profiles filters; deal tags; Target.** (Filters review 2026-10.)
   **(a) Deal tags.** `credit/js/deal-tags.js` (`DEAL_TAGS`, tokenless + `no-cache` like
   data.js) holds, per deal id, curated fields read from the deal's OWN sourced text —
-  `country` (borrower / asset / target, not the lender; `null` when unstated), `sector`
+  `country` (borrower / asset / target, not the lender — from the deal text, else
+  researched from a public source and stored with `cs` = source URL and `cb` = hq |
+  incorporated, shown in the drawer and CSV; `null` only when there is no single
+  borrower — a CLO / fund raise / portfolio — or no source confirms it), `sector`
   (the borrower's industry: `SECTOR_TAGS` in `credit/js/tx.js`), `amountKind`
   (financing · fund · portfolio · ev · aum · other — what the parsed amount measures),
   `event` (CLO issuance only: new · reset · refi) and `managerMA` (an acquisition of / stake
