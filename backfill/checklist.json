@@ -2066,8 +2066,8 @@
      "date": "2020-10-14",
      "what": "Alantra AM acquires 49% of Indigo Capital SAS (Paris pan-European private debt manager)",
      "source": "https://www.alantra.com/alantra-acquires-a-strategic-stake-in-indigo-capital-a-pan-european-private-debt-asset-manager/",
-     "status": "missing",
-     "note": "date from search summary of trade coverage; Alantra page itself not opened — confirm exact date"
+     "status": "present",
+     "recordId": "i1075"
     },
     {
      "key": "red1-final-close-2021",
@@ -2082,8 +2082,8 @@
      "date": "2022-04-20",
      "what": "Alberto Pierotti and Jean-Philippe Lantrade join as Managing Directors",
      "source": "https://www.alantra.com/alantra-strengthens-its-private-debt-team-as-part-of-its-diversification-and-growth-ambitions/",
-     "status": "missing",
-     "note": "Alantra release reported 20 Apr 2022 but BeBeez covered it 13 Apr 2022 — confirm date on the page"
+     "status": "present",
+     "recordId": "i1076"
     },
     {
      "key": "italy-milan-launch-2022",
@@ -2185,11 +2185,11 @@
     },
     {
      "key": "cic-mezzanine-unitranche-6-final-close-610m",
-     "date": "2025-04",
+     "date": "2025-04-30",
      "what": "CIC Mezzanine & Unitranche Financing Fund 6 closed at EUR610m",
      "source": "https://presse.la-francaise.com/assets/300425-cp-cic-private-debt-pdf-fa995-61d2f.html?dl=1",
-     "status": "missing",
-     "note": "release dated 28 or 30 Apr 2025 — confirm exact day on the page"
+     "status": "present",
+     "recordId": "i1077"
     },
     {
      "key": "dach-expansion-schreiber-ebutec",
@@ -2217,11 +2217,11 @@
     },
     {
      "key": "head-of-risk-operations-khamlich-fischer",
-     "date": "2026-02",
+     "date": "2026-02-26",
      "what": "Mounia Khamlich Fischer appointed Head of Risk & Operations",
      "source": "https://www.la-francaise.com/en-de/investor/cic-private-debt-appoints-mounia-khamlich-fischer.html",
-     "status": "missing",
-     "note": "French release date 26 Feb 2026 per search; English page date not shown — confirm"
+     "status": "present",
+     "recordId": "i1078"
     },
     {
      "key": "victory-street-clo-i-reset-307-5m",
@@ -2271,6 +2271,106 @@
      "source": "https://www.hedgeweek.com/former-taconic-european-credit-team-spins-out-as-dolomite-capital-with-1-3bn/",
      "status": "present",
      "recordId": "i472"
+    }
+   ]
+  },
+  "m102": {
+   "kind": "manager",
+   "name": "Kimmik Capital",
+   "priority": 92,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "founding-2024",
+     "date": "2024-05",
+     "what": "Firm founded by Julien Farre; GBP300-500m debut evergreen fund target",
+     "source": "https://www.withintelligence.com/insights/private-credit-emerging-managers-to-watch-2025/",
+     "status": "present",
+     "recordId": "i319",
+     "note": "Wire date is approximate; no exact date confirmable"
+    },
+    {
+     "key": "senior-hires",
+     "date": "2024-09",
+     "what": "Karen Ives (COO) and Sheenal Thaker (Partner) hires",
+     "source": "https://www.withintelligence.com/insights/private-credit-emerging-managers-to-watch-2025-where-are-they-now/",
+     "status": "present",
+     "recordId": "i320",
+     "note": "Wire date is approximate; no exact date confirmable"
+    },
+    {
+     "key": "launch-article",
+     "date": "2025-11-20",
+     "what": "Alternatives Watch reports Kimmik Capital raising GBP300-500m evergreen opportunistic credit",
+     "source": "https://www.alternativeswatch.com/2025/11/20/new-european-credit-firm-kimmik-draws-on-angelo-gordon-goldman-sachs-roots/",
+     "status": "present",
+     "recordId": "i110"
+    }
+   ]
+  },
+  "m150": {
+   "kind": "manager",
+   "name": "Mercia Asset Management",
+   "priority": 93,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "fdc-acq",
+     "date": "2022-12-05",
+     "what": "Mercia completes acquisition of Frontier Development Capital (up to £9.5m)",
+     "source": "https://www.mercia.co.uk/?p=26067",
+     "status": "present",
+     "recordId": "i907"
+    },
+    {
+     "key": "fdc-30m-raise",
+     "date": "2023-05-02",
+     "what": "FDC raises a further £30.0m for FDC Debt LP",
+     "source": "https://www.sharesmagazine.co.uk/news/market/LSE20230502070009_4754769/mercia-adds-c80million-of-managed-funds-inflows",
+     "status": "present",
+     "recordId": "i1079"
+    },
+    {
+     "key": "meif2-debt",
+     "date": "2024-02-29",
+     "what": "Mercia appointed to manage three MEIF II mandates totalling £207m incl. £44m FDC debt fund",
+     "source": "https://www.mercia.co.uk/three-new-major-british-business-bank-fund-management-contracts-secured/",
+     "status": "present",
+     "recordId": "i1080"
+    },
+    {
+     "key": "fdc-100m-target",
+     "date": "2024-04-10",
+     "what": "FDC reaches £100m third-party fundraising target eight months early",
+     "source": "https://sharesmagazine.co.uk/news/market/LSE20240410070005_5136051/year-end-trading-summary-and-date-of-results",
+     "status": "present",
+     "recordId": "i1081"
+    },
+    {
+     "key": "cio-viggars",
+     "date": "2025-04-16",
+     "what": "CIO Julian Viggars steps down from the board",
+     "source": "https://www.mercia.co.uk/year-end-trading-summary-notice-of-full-year-results-and-directorate-change/",
+     "status": "rejected",
+     "note": "Equity-focused role, not the credit/debt business"
+    },
+    {
+     "key": "fy26-results",
+     "date": "2026-06-30",
+     "what": "FY26 preliminary results: c.£2.2bn group AuM",
+     "source": "https://www.lse.co.uk/rns/MERC/preliminary-results-dogwoblxfg5784g.html",
+     "status": "rejected",
+     "note": "Group-wide AuM; FDC debt figures not confirmed on the page"
+    },
+    {
+     "key": "red-fund",
+     "date": "2026-07-21",
+     "what": "FDC seeks up to £500m for UK Real Estate Development Debt Fund",
+     "source": "https://www.thebusinessdesk.com/yorkshire/news/2157749-mercia-targets-up-to-500m-for-uk-real-estate-development-fund",
+     "status": "present",
+     "recordId": "i863"
     }
    ]
   }
