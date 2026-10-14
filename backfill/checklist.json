@@ -1857,6 +1857,194 @@
      "status": "present"
     }
    ]
+  },
+  "m103": {
+   "kind": "manager",
+   "name": "Kinnerton Hill Capital",
+   "priority": 85,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "kinnerton-hill-founding-launch",
+     "date": "2024-01-01",
+     "what": "Kinnerton Hill Capital founded in London in 2024 by Jacob Ucar, formerly of Park Square Capital",
+     "source": "https://www.hedgeweek.com/stable-asset-management-expands-private-credit-initiative/",
+     "recordId": "i154",
+     "status": "present"
+    },
+    {
+     "key": "stable-gp-stake-150m",
+     "date": "2026-06-16",
+     "what": "Stable takes ownership stake in Kinnerton Hill Capital with $150m investment",
+     "source": "https://www.bloomberg.com/news/articles/2026-06-16/hedge-fund-backer-stable-deepens-private-credit-push",
+     "status": "present",
+     "recordId": "i213"
+    }
+   ]
+  },
+  "m88": {
+   "kind": "manager",
+   "name": "LBO France",
+   "priority": 86,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "dutscher-acquisition-2020",
+     "date": "2020-07-09",
+     "what": "LBO France completes majority acquisition of Dutscher Group",
+     "source": "https://www.dcadvisory.com/news-deals-insights/deal-announcements/dc-advisory-advised-dutscher-group-on-its-sale-to-lbo-france/",
+     "recordId": "d1035",
+     "status": "present"
+    },
+    {
+     "key": "orange-digital-health-2-2020",
+     "date": "2020-11-19",
+     "what": "Orange Digital Investment commits to LBO France Digital Health 2 fund",
+     "source": "https://newsroom.orange.com/orange-invests-in-lbo-frances-digital-health-2-fund-to-accelerate-e-health-through-its-subsidiary-enovacom?lang=eng",
+     "status": "rejected",
+     "note": "Investor commitment, minor; covered in the Digital Health 2 final-close record"
+    },
+    {
+     "key": "digital-health-2-final-close",
+     "date": "2021-10-20",
+     "what": "LBO France closes Digital Health 2 fund at EUR155m",
+     "source": "https://lbofrance.com/en/?p=5792",
+     "recordId": "d1036",
+     "status": "present"
+    },
+    {
+     "key": "casciola-ceo-daussun-stake-sale",
+     "date": "2022-06-27",
+     "what": "LBO France appoints Stephanie Casciola CEO as Robert Daussun sells 30% stake",
+     "source": "https://www.lbofrance.com/en/lbo-france-evolves-in-its-governance-and-capital-structureand-appoints-stephanie-casciola-as-chief-executive-officer/",
+     "recordId": "i1066",
+     "status": "present"
+    },
+    {
+     "key": "mazarine-minority-stake",
+     "date": "2023-01-23",
+     "what": "LBO France takes minority stake in Mazarine Group",
+     "source": "https://www.lbofrance.com/en/new-partners-acquire-stake-in-mazarine-to-accelerate-its-growth-in-france-and-worldwide/",
+     "recordId": "d1037",
+     "status": "present"
+    },
+    {
+     "key": "mid-market-reorg-boulman-guez",
+     "date": "2025-09-12",
+     "what": "LBO France reorganises Mid Market team",
+     "source": "https://www.lbofrance.com/en/lbo-france-reorganizes-its-mid-market-team/",
+     "recordId": "i317",
+     "status": "present"
+    },
+    {
+     "key": "lbo-france-selection-evergreen",
+     "date": "2025-10-22",
+     "what": "LBO France Selection evergreen FCPR listed on Generali Vie/Retraite",
+     "source": "https://iznes.io/wp-content/uploads/2025/11/Communique-de-presse-LBO-FranceGENERALIIZNES.pdf",
+     "recordId": "i318",
+     "status": "present"
+    },
+    {
+     "key": "dutscher-sale-vivo",
+     "date": "2026-02-03",
+     "what": "LBO France agrees to sell Dutscher Group to Vivo Capital",
+     "source": "https://www.lbofrance.com/en/lbo-france-announces-the-sale-of-dutscher-group-to-vivo-capital/",
+     "recordId": "d1038",
+     "status": "present"
+    }
+   ]
+  },
+  "m130": {
+   "kind": "manager",
+   "name": "Rantum Capital",
+   "priority": 87,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "janus-henderson-announces-rantum-acquisition",
+     "date": "2026-06-09",
+     "what": "Janus Henderson to acquire Rantum Capital",
+     "source": "https://alternativecreditinvestor.com/2026/06/09/janus-henderson-acquires-rantum-capital-in-private-credit-push/",
+     "recordId": "d1033",
+     "status": "present"
+    },
+    {
+     "key": "janus-henderson-completes-rantum-acquisition",
+     "date": "2026-10-01",
+     "what": "Janus Henderson completes acquisition of Rantum Capital",
+     "source": "https://www.janushenderson.com/corporate/press-releases/janus-henderson-completes-rantum-capital-acquisition/",
+     "recordId": "i856",
+     "status": "present"
+    }
+   ]
+  },
+  "m195": {
+   "kind": "manager",
+   "name": "21 Next",
+   "priority": 88,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "tages-helios-ii-partial-close-252m",
+     "date": "2020-03-03",
+     "what": "Tages Helios II partial closing of over EUR104m takes fund to about EUR252m",
+     "source": "https://bebeez.it/2020/03/03/closing-104-mln-euro-fondo-tages-helios-ii-raggiunge-quota-252-mln/",
+     "status": "missing",
+     "note": "date from BeBeez URL; exact page date to confirm"
+    },
+    {
+     "key": "tages-credit-fund-first-close-80m",
+     "date": "2023-12-22",
+     "what": "Tages Capital SGR launches Tages Credit Fund with EUR80m first closing",
+     "source": "https://bebeez.it/private-debt/tages-capital-sgr-raccoglie-i-primi-80-mln-euro-per-il-suo-nuovo-fondo-di-private-debt-tages-credit-fund/",
+     "recordId": "d1034",
+     "status": "present"
+    },
+    {
+     "key": "21-invest-healthcare-first-close-70m",
+     "date": "2024-11-21",
+     "what": "21 Invest Healthcare fund first closing of EUR70m",
+     "source": "https://www.milanofinanza.it/news/alessandro-benetton-punta-sull-healthcare-primo-closing-a-70-milioni-per-il-fondo-specializzato-di-21-202411211815457618",
+     "status": "missing",
+     "note": "date from URL; not private debt"
+    },
+    {
+     "key": "21-next-announced",
+     "date": "2025-12-01",
+     "what": "Edizione agrees to combine 21 Invest and Tages into 21 Next",
+     "source": "https://alternativecreditinvestor.com/2025/12/01/new-alts-firm-21-next-launched-by-benetton-founders/",
+     "recordId": "i873",
+     "status": "present"
+    },
+    {
+     "key": "21-next-first-fund-500m-target",
+     "date": "2026-02-10",
+     "what": "Edizione targets EUR500m for 21 Next first fund",
+     "source": "https://www.milanofinanza.it/news/edizione-obiettivo-500-milioni-per-il-primo-fondo-di-21-next-ecco-le-caratteristiche-202602102113118251",
+     "status": "missing",
+     "note": "date from URL; content unread"
+    },
+    {
+     "key": "tages-credit-fund-145m-helios-net-zero-554m",
+     "date": "2026-03-10",
+     "what": "Tages reports Helios Net Zero at EUR554m and Tages Credit Fund at EUR145m",
+     "source": "https://www.milanofinanza.it/news/tages-chiude-helios-net-zero-a-554-milioni-e-il-credit-fund-a-145-milioni-raccolta-totale-a-700-202603102236259001",
+     "recordId": "d928",
+     "status": "present"
+    },
+    {
+     "key": "21-next-closing-completed",
+     "date": "2026-09-03",
+     "what": "Edizione completes launch of 21 Next after regulatory approvals",
+     "source": "https://rankiapro.com/it/notizie/21-next-closing/",
+     "recordId": "i699",
+     "status": "present"
+    }
+   ]
   }
  }
 }
