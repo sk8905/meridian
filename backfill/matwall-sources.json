@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T09:22:56.435Z",
+ "generated": "2026-10-14T09:24:00.030Z",
  "held": "2026-08-05",
  "leads": [
   {
@@ -83,8 +83,13 @@
    "fetched": "https://www.afme.eu/media/1ygbf3ae/hyllpc-report-2q-2026.pdf",
    "status": 200,
    "dated": null,
-   "lines": [],
-   "note": "no text (pdftotext missing?)"
+   "lines": [
+    "6.7 European Corporate Bonds Outstanding 6.8 European Corporate High Yield Maturity Wall",
+    "6.9 European Corporate High Yield Outstanding by Sector: June 2026 6.10 European Corporate High Yield Outstanding by Current Rating:",
+    "High Yield, Leveraged Loan and Private Credit Report - Q2 2026 / 26",
+    "High Yield, Leveraged Loan and Private Credit Report - Q2 2026 /27"
+   ],
+   "note": null
   }
  ]
 }
