@@ -25,7 +25,7 @@ import { dealCounterparty, dealSponsor, dealAmount } from "../deal-parse.js";
 import { peersOf, peerDetails } from "../peers.js";
 import {
   eur, pct, fmtDate, link, nameCell,
-  notFound, applyPendingFocus, commitmentsForLp, investorsForFund, fmtAumC, aumNote, usdM,
+  notFound, applyPendingFocus, commitmentsForLp, investorsForFund, fmtAumC, aumNote, usdM, money,
   pageList, feedDedupKey, creditSource,
   _chipMem, chipMemKey, pendingFocus,
 } from "/credit/js/shared.js";
@@ -341,9 +341,9 @@ function fundBodyHTML(f) {
   const rows = [];
   if (f.strategy) rows.push(["Strategy", esc(f.strategy)]);
   if (f.status) rows.push(["Status", esc(f.status)]);
-  if (f.targetSize != null) rows.push(["Target", esc(eur(f.targetSize))]);
-  if (f.hardCap != null) rows.push(["Hard cap", esc(eur(f.hardCap))]);
-  if (f.raised != null) rows.push([f.evergreen ? "AUM / NAV" : "Raised", esc(eur(f.raised)) + (f.estimated ? ' <span class="tf-est">est.</span>' : "")]);
+  if (f.targetSize != null) rows.push(["Target", esc(money(f.targetSize, f.ccy))]);
+  if (f.hardCap != null) rows.push(["Hard cap", esc(money(f.hardCap, f.ccy))]);
+  if (f.raised != null) rows.push([f.evergreen ? "AUM / NAV" : "Raised", esc(money(f.raised, f.ccy)) + (f.estimated ? ' <span class="tf-est">est.</span>' : "")]);
   if (f.deployedPct != null) rows.push(["Deployed", esc(f.deployedPct + "%") + (f.deployedAsOf ? ` <span class="tf-est">${esc(f.deployedAsOf)}</span>` : "")]);
   if (f.targetIRR) rows.push(["Target return", esc(String(f.targetIRR))]);
   const focus = [f.domicile, f.geoFocus, f.sectorFocus].filter(Boolean).map(esc).join(" · ");
@@ -497,7 +497,7 @@ export function viewManager(id, tab0) {
   // A fund has no page of its own (retired), so its row EXPANDS in place to the
   // fund's facts, named investors (linked to their profile when covered) and sources —
   // a real destination, instead of a link that redirected back to this same page.
-  const fundSize = (x) => x.evergreen ? "Evergreen" : x.raised != null ? eur(x.raised) + (x.status === "Final Close" ? "" : " raised") : (x.targetSize ? eur(x.targetSize) + " target" : "—");
+  const fundSize = (x) => x.evergreen ? "Evergreen" : x.raised != null ? money(x.raised, x.ccy) + (x.status === "Final Close" ? "" : " raised") : (x.targetSize ? money(x.targetSize, x.ccy) + " target" : "—");
   const fundsList = fs.length
     ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable fund-exp" id="row-fund-${esc(x.id)}" data-fund="${esc(x.id)}" role="button" tabindex="0" aria-expanded="false"><span class="tmini-t"><span class="tx-caret" aria-hidden="true">▸</span>${esc(x.name)}<span class="tmini-r">${esc(fundSize(x))}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span><div class="fund-body" hidden></div></li>`).join("")}</ul>`
     : "";

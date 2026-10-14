@@ -14,6 +14,10 @@ import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js";
 
 // ----------------------------- formatting utils ----------------------------
 export const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
+// A fund-size figure ($m-style units, i.e. millions) in the record's OWN currency
+// (`ccy`, ISO code); falls back to the historic € convention when unset.
+const CCY_SIGN = { EUR: "€", USD: "$", GBP: "£", CAD: "C$", AUD: "A$", CHF: "CHF ", SEK: "SEK " };
+export const money = (m, ccy) => (m == null ? "Undisclosed" : (CCY_SIGN[ccy] || (ccy ? ccy + " " : "€")) + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
 export const pct = (n) => (n == null ? "Undisclosed" : Math.round(n) + "%");
 export const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 // Format a $bn AUM figure: $Xtn above 1,000bn, $Xm below 1bn, else $Xbn.

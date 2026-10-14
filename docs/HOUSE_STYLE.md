@@ -860,7 +860,7 @@ notification badge red (`#ef4444`).
     currency), shown on the figure's tooltip ("restated from €…"). The reported figure stays
     verbatim in `aumText`. The $1–15bn focus band is therefore a true USD band. The Managers
     list and the profile header show the SAME figures with the same labels: **Group AUM**
-    (`aumTotal ?? aum`) · **Credit AUM** (`aumCredit`). Fund sizes stay in EUR as reported.
+    (`aumTotal ?? aum`) · **Credit AUM** (`aumCredit`). Fund sizes stay in their own reported currency (`ccy`, shown with its symbol).
   **Every new `_draft` name must then be researched and filled out** — real, sourced
   AUM/strategies/owners/description and, where verifiable, deals & news (never
   fabricated, R7) — and `_draft` cleared once the profile is solid. New names are
