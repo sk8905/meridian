@@ -169,6 +169,29 @@ const COMPANY_OVERRIDES = {
   d703: "1Box Group", d81: "Wolf IV securitisation", d595: "Very Group",
   d60: "Lyocontract", d613: "Hotel Don Juan Center",
   d656: "HR Path", d622: "German healthcare RE portfolio (PATRIZIA)",
+  // Curated 2026-10 (UX review): lender-led headlines whose borrower / target is named in
+  // the deal's own headline or summary — each value checked verbatim against that text.
+  d10: "EDF", d11: "RWE", d18: "Urban Logistics REIT", d27: "Hurtigruten", d29: "Condor",
+  d30: "Lemma Technologies", d32: "emeis", d34: "Altice France", d35: "Hurtigruten", d37: "WVT Industries",
+  d50: "Bionic", d59: "Arche MC2 Group", d62: "JBF Group", d64: "Karo Healthcare", d65: "Santander",
+  d78: "Condor", d110: "Veld Capital", d158: "Cargill", d173: "Finepoint", d196: "G.Network",
+  d200: "Elara Caring", d205: "SIGNAL/W.RE JV", d209: "emeis", d228: "Happy Money", d259: "Altavair",
+  d274: "Estela Group", d278: "Euclid Transactional", d280: "Health in Code",
+  d286: "Auction Technology Group", d505: "GEOGREEN", d518: "MS Lending Group", d520: "OceanFirst Bank",
+  d521: "Fusion Specialty Group", d531: "Groupe Carso", d541: "Peridot Solar",
+  d543: "Auction Technology Group", d547: "Ionic Digital", d562: "McAvoy Group", d565: "Typhoo Tea",
+  d568: "Limelight", d570: "Six Senses Loire Valley", d585: "Ricasoli Fund", d586: "FGH Bank",
+  d589: "Marabu", d590: "Casino Group", d597: "Ardagh", d598: "Intrum", d604: "Arqiva", d606: "Piraeus Bank",
+  d607: "Ster-Kinekor", d645: "ABN AMRO", d647: "Shurco", d675: "Pharmacy2U", d704: "1Box", d706: "Solace",
+  d709: "Saks Global", d733: "SME Finance and Leasing Solutions", d734: "SRE Capital", d738: "DKB",
+  d740: "Deutsche Pfandbriefbank", d755: "Yankee Global Enterprises", d765: "Yankee Global Enterprises",
+  d768: "SIRE platform", d797: "Horus Finance", d802: "Upstart", d815: "Bridge", d832: "F2 Finance",
+  d861: "Loparex", d867: "36th Street Capital", d869: "Altice International", d874: "BMG", d875: "Bayer",
+  d876: "Onyx CenterSource", d877: "Alacrity Solutions", d879: "Global Gruppe", d929: "LNG Canada",
+  d949: "SubCom", d952: "Hilson Management", d954: "Zolva", d959: "Marble Point Credit Management",
+  d964: "Fortress", d967: "Waymo", d977: "Paradigm HSE", d981: "BUKO Group",
+  d992: "Phoenix Tower International", d993: "Phoenix Tower International", d1000: "LIV Golf",
+  d1013: "Athene", d1014: "Athene", d1027: "CI Financial",
 };
 
 // First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn") — for

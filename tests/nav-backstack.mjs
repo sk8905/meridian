@@ -172,6 +172,15 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   await th.click(); await pg.waitForTimeout(100);
   const sortState = await pg.evaluate(() => ({ first: document.querySelector("#pf-panes #mgr-rows tr").dataset.href, aria: [...document.querySelectorAll('#pf-panes .tpane[data-pane="managers"] thead th')].map((h) => h.getAttribute("aria-sort")).filter((a) => a !== "none") }));
   check(firstDesc !== sortState.first && sortState.aria.join() === "ascending", `list columns sort on tap, and reverse on a second tap (${firstDesc} → ${sortState.first})`);
+  // AUM is USD everywhere (R29): no € figure in the Managers / Investors AUM columns, and
+  // a restated figure carries its provenance on the tooltip.
+  const ccy = await pg.evaluate(async () => {
+    const D = await import("/credit/js/data.js");
+    const cells = [...document.querySelectorAll("#pf-panes #mgr-rows td:nth-child(3), #pf-panes #lp-rows td:nth-child(4)")].map((td) => td.textContent.trim()).filter((t) => t && t !== "n/a" && t !== "—");
+    const restated = [...document.querySelectorAll("#pf-panes #mgr-rows td:nth-child(3)[title*='restated from']")].length;
+    return { euro: cells.filter((t) => /€|£/.test(t)).length, usd: cells.filter((t) => t.startsWith("$")).length, restated, fx: !!(D.AUM_FX && D.AUM_FX.EURUSD > 0) };
+  });
+  check(ccy.euro === 0 && ccy.usd > 200 && ccy.restated > 50 && ccy.fx, `AUM columns are all USD (${ccy.usd} $, ${ccy.euro} €/£; ${ccy.restated} restated with provenance)`);
   // Profile header coverage line
   await pg.goto(base + "/v2/profiles/#/manager/m21"); await pg.waitForSelector("#pf-detail .tdet-latest", { timeout: 8000 });
   check(/tracked.*latest/i.test(await pg.evaluate(() => document.querySelector("#pf-detail .tdet-latest").textContent)), "a profile header shows its coverage (count · 90 days · latest date)");
@@ -187,6 +196,25 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   });
   check(!!ent && /\/v2\/profiles\/#\/(manager|hf|firm)\//.test(ent.href || ""), `a Watchlist story's reader links to its profile (${ent && ent.txt})`);
   checkErrs(errs, "following + reader entity link");
+  await ctx.close();
+}
+
+// ---- 6c) The bell opens items IN the app (deal panel / focused profile / alert page),
+// closes itself, and never reloads the document ----
+{
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
+  await pg.waitForTimeout(800);
+  const items = await pg.evaluate(async () => { const S = await import("/saved.js"); return (await S.buildNotifs()).map((x) => ({ href: x.href, ext: x.ext, id: x.id })); });
+  const credit = items.filter((x) => /^[dil]:|^u:/.test(x.id));
+  const inApp = credit.filter((x) => /^\/v2\//.test(x.href) && !x.ext).length;
+  check(credit.length > 0 && inApp === credit.length, `every deal / fundraising / alert in the bell opens in the app (${inApp}/${credit.length})`);
+  await setMarker(pg);
+  await pg.locator('[aria-label*="otification"]').filter({ visible: true }).first().click();
+  await pg.waitForSelector(".na-panel:not([hidden]) a.nf-row[href^='/v2/']", { timeout: 8000 });
+  await pg.locator(".na-panel:not([hidden]) a.nf-row[href^='/v2/']").first().click(); await pg.waitForTimeout(700);
+  const st = await pg.evaluate(() => ({ open: !![...document.querySelectorAll(".na-panel")].find((p) => !p.hidden), url: location.pathname + location.hash }));
+  check(!st.open && /^\/v2\/(transactions|profiles)\//.test(st.url) && await marker(pg), `a bell row opens its Wire page in-app and closes the panel (${st.url})`);
+  checkErrs(errs, "bell in-app");
   await ctx.close();
 }
 

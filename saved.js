@@ -33,6 +33,15 @@ const creditItemHref = (x) => x.sourceUrl
   ? x.sourceUrl
   : (x.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(x.managerId)}` : "/v2/profiles/");
 const creditItemExt = (x) => !!x.sourceUrl;
+// IN-APP destinations for the bell + its Watchlist tab (the source link lives on the
+// destination): a deal → its Transactions deal panel; a fundraising/people item →
+// its manager's profile focused on that row; a hedge-fund story → the fund's profile
+// focused on it; a law-firm alert → its in-app alert page. Cases and schemes/RPs have
+// no in-app page, so they keep their judgment / article link.
+const dealHref = (d) => (d.date ? `/v2/transactions/#/deal/${encodeURIComponent(d.id)}` : creditItemHref(d));
+const intelHref = (i) => (i.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(i.managerId)}?focus=${encodeURIComponent(i.id)}` : creditItemHref(i));
+const hfHref = (h) => `/v2/profiles/#/hf/${encodeURIComponent(h.hfId)}?focus=k:${encodeURIComponent(feedDedupKey({ url: h.url, title: h.headline }))}`;
+const itemHref = (it) => "/v2/profiles/#/item/" + encodeURIComponent(it.id);
 
 // ---- watchlist (followed profiles) -----------------------------------------
 // The WATCHLIST = every profile the reader has starred (★) across the app —
@@ -97,8 +106,8 @@ function dedupNotif(list) {
 // prints) and institutional research are excluded — they have their own surfaces.
 function creditNotif() {
   const out = [];
-  deals.forEach((d) => out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
-  intel.forEach((i) => out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
+  deals.forEach((d) => { const h = dealHref(d); out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: h, ext: /^https?:/.test(h) }); });
+  intel.forEach((i) => { const h = intelHref(i); out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: h, ext: /^https?:/.test(h) }); });
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
   return recentNotif(dedupNotif(out));
 }
@@ -144,7 +153,7 @@ export const __suppressedAdvised = _suppressedAdvised;
 export const __caseInBell = _caseInBell;
 function legalNotif() {
   const out = [];
-  items.forEach((it) => { if (_suppressedAdvised(it.title)) return; out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/v2/profiles/#/item/" + encodeURIComponent(it.id), ext: !!it.url }); });
+  items.forEach((it) => { if (_suppressedAdvised(it.title)) return; out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: itemHref(it), ext: false }); });
   cases.forEach((c) => { if (!_caseInBell(c)) return; out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/v2/profiles/#/?tab=firms", ext: !!c.url }); });
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/v2/profiles/#/?tab=firms", ext: !!u }); });
   return recentNotif(dedupNotif(out));
@@ -166,12 +175,12 @@ export function resolveWatchlistNews() {
   if (hset.size) {
     (HEDGE_INTEL || []).forEach((h) => {
       if (!h.hfId || !hset.has(h.hfId)) return;
-      out.push({ desk: "c", title: h.headline, href: h.url || "/v2/profiles/#/hf/" + encodeURIComponent(h.hfId), ext: !!h.url, date: h.date, time: h.time, src: h.outlet || (_hfById.get(h.hfId) || {}).name || "" });
+      out.push({ desk: "c", title: h.headline, href: hfHref(h), ext: false, date: h.date, time: h.time, src: h.outlet || (_hfById.get(h.hfId) || {}).name || "" });
     });
   }
   if (mset.size) {
-    deals.forEach((d) => { if (mset.has(d.managerId)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: (_mgrById.get(d.managerId) || {}).name || creditSource(d) }); });
-    intel.forEach((i) => { if (mset.has(i.managerId)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: (_mgrById.get(i.managerId) || {}).name || creditSource(i) }); });
+    deals.forEach((d) => { if (mset.has(d.managerId)) { const h = dealHref(d); out.push({ desk: "c", title: d.headline, href: h, ext: /^https?:/.test(h), url: d.sourceUrl, date: d.date, time: d.time, src: (_mgrById.get(d.managerId) || {}).name || creditSource(d) }); } });
+    intel.forEach((i) => { if (mset.has(i.managerId)) { const h = intelHref(i); out.push({ desk: "c", title: i.headline, href: h, ext: /^https?:/.test(h), url: i.sourceUrl, date: i.date, time: i.time, src: (_mgrById.get(i.managerId) || {}).name || creditSource(i) }); } });
     managers.forEach((m) => {
       if (!mset.has(m.id)) return;
       const seen = new Set();
@@ -182,7 +191,7 @@ export function resolveWatchlistNews() {
     });
   }
   if (fset.size) {
-    items.forEach((i) => { if (fset.has(i.firm)) out.push({ desk: "l", title: i.title, href: i.url || "/v2/profiles/#/item/" + encodeURIComponent(i.id), ext: !!i.url, date: i.date, time: i.time, src: (_firmById.get(i.firm) || {}).name || "" }); });
+    items.forEach((i) => { if (fset.has(i.firm)) out.push({ desk: "l", title: i.title, href: itemHref(i), ext: false, url: i.url, date: i.date, time: i.time, src: (_firmById.get(i.firm) || {}).name || "" }); });
     restructurings.forEach((r) => { if (fset.has(r.firm)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/v2/profiles/#/?tab=firms", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   }
   return dedupNotif(out)

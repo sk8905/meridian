@@ -68,4 +68,16 @@ let empty = 0;
 for (const d of deals) { if (!dealSubject(d)) empty++; }
 check(empty <= 3, `nearly every deal yields a named subject (empty: ${empty})`);
 
+// Curated borrowers (2026-10 block of COMPANY_OVERRIDES): each name must appear verbatim
+// in its own deal's headline/summary, and is never the lender itself (R7 — never invented).
+{
+  const { readFileSync } = await import("node:fs");
+  const src = readFileSync(new URL("../v2/js/deal-parse.js", import.meta.url), "utf8");
+  const blk = src.slice(src.indexOf("// Curated 2026-10"), src.indexOf("\n};", src.indexOf("// Curated 2026-10")));
+  const D = await import("../credit/js/data.js");
+  const byId = new Map(D.deals.map((x) => [x.id, x]));
+  const pairs = [...blk.matchAll(/\b(d\d+): ("(?:[^"\\]|\\.)*")/g)].map((m) => [m[1], JSON.parse(m[2])]);
+  const bad = pairs.filter(([id, name]) => { const x = byId.get(id); if (!x) return true; const t = ((x.headline || "") + " " + (x.summary || "")).toLowerCase(); return !t.includes(name.toLowerCase()); });
+  check(pairs.length >= 80 && bad.length === 0, `curated borrowers are verbatim from their own deal text (${pairs.length} entries, bad: ${bad.map((b) => b[0]).join(", ") || "none"})`);
+}
 finish();

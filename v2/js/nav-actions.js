@@ -1057,7 +1057,13 @@ export function initNavActions() {
         e.stopPropagation(); e.preventDefault();
         if (rec.panel.hidden) openPanel(rec); else closeAll();
       });
-      rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll(); });
+      rec.panel.addEventListener("click", (e) => {
+        if (e.target.closest("[data-na-close]")) { closeAll(); return; }
+        // A row that opens an in-app destination (a deal panel, a profile, an alert
+        // page) closes the panel so the destination is visible; the runtime routes it.
+        const a = e.target.closest("a.nf-row[href^='/v2/']");
+        if (a) closeAll();
+      });
     });
 
     document.addEventListener("click", (e) => {

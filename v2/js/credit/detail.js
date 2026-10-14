@@ -14,7 +14,7 @@
 import {
   managers, managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, dealsForManager, intelForManager,
-  HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
+  HEDGE_FUNDS, HEDGE_INTEL, VEHICLES, AUM_FX,
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js";
 import { BDCS } from "/credit/js/bdcs.js";
@@ -23,7 +23,7 @@ import { dealCounterparty, dealSponsor, dealAmount } from "../deal-parse.js";
 import { peersOf, peerDetails } from "../peers.js";
 import {
   eur, pct, fmtDate, link, nameCell,
-  notFound, applyPendingFocus, commitmentsForLp, investorsForFund, aumCcyOf, fmtAumC,
+  notFound, applyPendingFocus, commitmentsForLp, investorsForFund, fmtAumC, aumNote, usdM,
   pageList, feedDedupKey, creditSource,
   _chipMem, chipMemKey, pendingFocus,
 } from "/credit/js/shared.js";
@@ -135,10 +135,10 @@ function aumLine(m) {
   if (m.notAum) return "";
   const g = m.aumTotal != null ? m.aumTotal : m.aum;
   const parts = [];
-  if (g != null) parts.push(`Group AUM ${fmtAumC(g, aumCcyOf(m, g))}`);
-  if (m.aumCredit != null) parts.push(`Credit AUM ${fmtAumC(m.aumCredit, aumCcyOf(m, m.aumCredit))}`);
+  if (g != null) parts.push(`Group AUM ${fmtAumC(g)}`);
+  if (m.aumCredit != null) parts.push(`Credit AUM ${fmtAumC(m.aumCredit)}`);
   if (!parts.length) return "";
-  const tip = [m.aumText, m.asOf ? "as of " + m.asOf : ""].filter(Boolean).join(" · ");
+  const tip = [m.aumText, m.asOf ? "as of " + m.asOf : "", aumNote(m, m.aumTotal != null ? "aumTotal" : "aum", AUM_FX)].filter(Boolean).join(" · ");
   return ` · <span class="tdet-aum"${tip ? ` title="${esc(tip)}"` : ""}>${esc(parts.join(" · "))}</span>`;
 }
 
@@ -471,7 +471,7 @@ export function viewManager(id, tab0) {
   const mgrPeers = peersOf(m, managers, { tags: (x) => x.strategies || [], size: (x) => x.groupAum != null ? x.groupAum : x.aum, n: 5 });
   const mgrPeersDetails = peerDetails(mgrPeers, (e) => `#/manager/${e.id}`, (p) => {
     const s = p.shared[0] || (p.e.strategies || [])[0] || "";
-    const a = p.e.aum != null ? fmtAumC(p.e.aum, aumCcyOf(p.e, p.e.aum)) : "";
+    const a = p.e.aum != null ? fmtAumC(p.e.aum) : "";
     return [s, a].filter(Boolean).join(" · ");
   }, esc);
 
@@ -673,13 +673,13 @@ export function viewLp(id) {
   const fundsIn = funds.filter((f) => (f.investors || []).some((i) => i.lpId === l.id) && !commits.some((c) => c.fundId === f.id));
   const mentions = lpMentions(l);
   const metrics = [
-    ["AUM", "€" + l.aum + "bn"], ["PC alloc", pct(l.pcAllocationPct)],
-    ["Implied PC", pcAum != null ? "€" + pcAum.toFixed(1) + "bn" : "—"],
+    ["AUM", fmtAumC(l.aum)], ["PC alloc", pct(l.pcAllocationPct)],
+    ["Implied PC", pcAum != null ? "$" + pcAum.toFixed(1) + "bn" : "—"],
     ["Commitments", commits.length + fundsIn.length], ["Mentions", mentions.length],
   ];
   const kvFig = [
-    ["Total AUM", "€" + l.aum + "bn"], ["PC allocation", pct(l.pcAllocationPct)],
-    ["Implied PC AUM", pcAum != null ? "€" + pcAum.toFixed(1) + "bn" : "—"], ["Typical ticket", eur(l.typicalTicket)],
+    ["Total AUM", fmtAumC(l.aum)], ["PC allocation", pct(l.pcAllocationPct)],
+    ["Implied PC AUM", pcAum != null ? "$" + pcAum.toFixed(1) + "bn" : "—"], ["Typical ticket", usdM(l.typicalTicket)],
   ];
   const commitRows = [
     ...commits.map((c) => `<li class="tmini-row clickable" data-href="#/manager/${esc(c.managerId)}"><span class="tmini-t">${esc((managerById[c.managerId] || {}).name)}${c.fundId && fundById[c.fundId] ? `<span class="tmini-r">${esc(fundById[c.fundId].name)}</span>` : ""}</span>${c.note ? `<span class="tmini-m">${esc(c.note)}</span>` : ""}</li>`),
@@ -696,7 +696,7 @@ export function viewLp(id) {
   // Peers: nearest investors by allocator type + strategy overlap + AUM proximity.
   const lpPeers = peersOf(l, lps, { tags: (x) => x.strategies || [], cat: (x) => x.type, size: (x) => x.aum, n: 5 });
   const lpPeersDetails = peerDetails(lpPeers, (e) => `#/lp/${e.id}`, (p) => {
-    const a = p.e.aum != null ? `€${p.e.aum}bn` : "";
+    const a = p.e.aum != null ? fmtAumC(p.e.aum) : "";
     return [p.e.type || "", a].filter(Boolean).join(" · ");
   }, esc);
 
@@ -917,8 +917,11 @@ export function viewHedgeFund(id, tab0) {
   if (tabs) {
     // The URL's tab wins; else the last tab viewed here; else — for a fund with no
     // tracked news but a 13F on file — open on Holdings rather than an empty News pane.
-    const k0 = tab0 || _chipMem[chipMemKey("hf-tabs")] || (!news.length && f.cik ? "holdings" : "");
+    const focusNews = pendingFocus && pendingFocus.view === "hf";
+    const k0 = tab0 || (focusNews ? "news" : _chipMem[chipMemKey("hf-tabs")] || (!news.length && f.cik ? "holdings" : ""));
     const b0 = k0 && k0 !== "news" ? tabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
     if (b0 && !b0.classList.contains("is-on")) b0.click();
   }
+  // A bell / Watchlist story deep link (?focus=k:…) scrolls to and flashes its row.
+  applyPendingFocus("hf");
 }

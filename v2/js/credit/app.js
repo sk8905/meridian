@@ -8,13 +8,13 @@ import {
   managers, funds, lps, intel, deals, research,
   managerById, fundById,
   fundsByManager,
-  HEDGE_FUNDS, HEDGE_INTEL,
+  HEDGE_FUNDS, HEDGE_INTEL, AUM_FX,
 } from "/credit/js/data.js";
 import {
   eur, pct, fmtDate, link, notFound,
   FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell, toggleFollow, syncFollows,
   creditSource, feedDedupKey,
-  applyPendingFocus, setPendingFocus, _chipMem, chipMemKey, aumCcyOf, fmtAumC,
+  applyPendingFocus, setPendingFocus, _chipMem, chipMemKey, fmtAumC, aumNote, usdM,
 } from "/credit/js/shared.js";
 import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js";
@@ -360,8 +360,8 @@ function managersPaneHTML() {
   const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "") + " " + (r.m.strategies || []).join(" ")).toLowerCase())}">`
     + `<td class="tl-nm">${esc(r.m.name)}</td>`
     + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
-    + `<td class="tl-n"${r.m.aumText ? ` title="${esc(r.m.aumText)}${r.m.asOf ? " · as of " + esc(r.m.asOf) : ""}"` : ""}>${r.aum == null ? "n/a" : esc(fmtAumC(r.aum, aumCcyOf(r.m, r.aum)))}</td>`
-    + `<td class="tl-n">${r.m.aumCredit != null ? esc(fmtAumC(r.m.aumCredit, aumCcyOf(r.m, r.m.aumCredit))) : "—"}</td>`
+    + `<td class="tl-n" title="${esc([r.m.aumText, r.m.asOf ? "as of " + r.m.asOf : "", aumNote(r.m, r.m.aumTotal != null ? "aumTotal" : "aum", AUM_FX)].filter(Boolean).join(" · "))}">${r.aum == null ? "n/a" : esc(fmtAumC(r.aum))}</td>`
+    + `<td class="tl-n"${aumNote(r.m, "aumCredit", AUM_FX) ? ` title="${esc(aumNote(r.m, "aumCredit", AUM_FX))}"` : ""}>${r.m.aumCredit != null ? esc(fmtAumC(r.m.aumCredit)) : "—"}</td>`
     + `<td class="tl-n">${r.nf}</td>`
     + `<td class="tl-n">${r.live || ""}</td>`
     + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td>`
@@ -439,9 +439,9 @@ function investorsPaneHTML() {
     + `<td class="tl-nm">${esc(l.name)}</td>`
     + `<td class="tl-hq">${esc(l.hq || "")}</td>`
     + `<td>${esc(l.type || "")}</td>`
-    + `<td class="tl-n">${l.aum == null ? "—" : "€" + esc(l.aum) + "bn"}</td>`
+    + `<td class="tl-n"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>${l.aum == null ? "—" : esc(fmtAumC(l.aum))}</td>`
     + `<td class="tl-n">${l.pcAllocationPct == null ? "—" : pct(l.pcAllocationPct)}</td>`
-    + `<td class="tl-n">${l.typicalTicket == null ? "—" : eur(l.typicalTicket)}</td>`
+    + `<td class="tl-n">${l.typicalTicket == null ? "—" : usdM(l.typicalTicket)}</td>`
     + `<td class="tl-mnd">${mandateBadge(l.mandateStatus)}</td></tr>`;
   return `<div class="tpane" data-pane="investors" hidden>
               <header class="tpanel-h thead-search">
@@ -952,7 +952,7 @@ function viewLps() {
       <tbody>
         ${sorted.map((l) => `<tr class="clickable" data-href="#/lp/${l.id}">
           <td>${nameCell("lp", l.id, `<strong>${esc(l.name)}</strong>`)}</td><td>${esc(l.type)}</td><td>${esc(l.hq)}</td>
-          <td>€${l.aum}bn</td><td>${pct(l.pcAllocationPct)}</td><td>${eur(l.typicalTicket)}</td>
+          <td>${fmtAumC(l.aum)}</td><td>${pct(l.pcAllocationPct)}</td><td>${usdM(l.typicalTicket)}</td>
           <td>${mandateBadge(l.mandateStatus)}</td>
         </tr>`).join("")}
         ${rows.length === 0 ? '<tr><td colspan="7" class="empty">No investors match these filters.</td></tr>' : ""}

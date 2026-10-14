@@ -170,7 +170,7 @@ export function managerSummary(managerId, nowTs) {
   const m = _mById.get(managerId) || {};
   const inMkt = managerFundsInMarket(managerId);
   const aumVal = (m.aumTotal != null) ? m.aumTotal : (m.aum != null ? m.aum : null);
-  const aumSym = (String(m.aumText || "").match(/[$€£]/) || [""])[0];
+  const aumSym = "$";   // the roster is stored in USD bn (R29; legacy €/£ restated)
   const ageM = m.asOf ? monthsSince(m.asOf, now) : null;
   return {
     id: managerId,

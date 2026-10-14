@@ -547,6 +547,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   (a real party from its own sourced headline/summary — never invented); it wins over
   the parse. Audited back-corrections live in the `COMPANY_OVERRIDES` map in
   `deal-parse.js`. Enforced by **`tests/deal-parse.mjs`** (part of the full suite).
+  **Every run:** list the deals where `dealCounterparty(deal, lenderName)` returns `""`
+  (the parse only found the lender) and curate a `company` for each one whose own
+  headline/summary names a single borrower/target (verbatim; never the lender, a buyer,
+  a supplier or the sponsor). Leave it unset when there is no single counterparty (the
+  lender's own fund raise / CLO pricing / hire / platform launch) — the UI then shows the
+  sourced headline. (2026-10 baseline: 90 curated, 90 legitimately without one.)
 - **Borrower vs Sponsor vs Lender.** A sponsor-backed deal names three parties: the
   BORROWER / target company ("Borrower / company"), the SPONSOR / PE backer
   (`dealSponsor` → the Transactions "Sponsor" column), and the LENDER that provides

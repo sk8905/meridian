@@ -47,11 +47,11 @@ export const setThemeColorMeta = (t) => {
   if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
 };
 
-// Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
+// Format a $bn AUM figure (the roster is USD — R29): $Xtn / $Xm / $Xbn.
 // Shared by the Credit Managers table.
 export const fmtAum = (n) => {
   if (n == null) return "—";
-  if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
-  if (n < 1) return `€${Math.round(n * 1000)}m`;
-  return `€${n}bn`;
+  if (n >= 1000) return `$${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
+  if (n < 1) return `$${Math.round(n * 1000)}m`;
+  return `$${n}bn`;
 };

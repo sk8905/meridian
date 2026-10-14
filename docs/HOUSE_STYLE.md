@@ -849,13 +849,14 @@ notification badge red (`#ef4444`).
     `normAum()` in `src/index.js` folds a stray raw value back to billions; the
     `/api/propose` prompt states the unit. `aumText` is the human string.
   - be marked `_draft:true` + `estimated:true` so the daily routine finds it.
-  - **Display currency is read, never assumed.** The roster mixes older approximate
-    €-equivalents with reported figures stored as-is (mostly $). Every AUM figure is shown
-    with the currency its own sourced `aumText` uses for that number (`aumCcyOf` in
-    `credit/js/shared.js`, ±3% match), falling back to the file's € convention — no FX
-    rate is ever applied. The Managers list and the profile header show the SAME two
-    figures with the same labels: **Group AUM** (`aumTotal ?? aum`) · **Credit AUM**
-    (`aumCredit`).
+  - **USD everywhere (restated 2026-10).** Every manager AUM field (`aum`, `aumTotal`,
+    `aumCredit`, `groupAum`) and investor `aum` / `typicalTicket` is USD ($bn / $m). Legacy
+    €/£-equivalents were restated ONCE at the ECB reference rates in `AUM_FX`
+    (`credit/js/data.js`); each restated record carries `aumFrom` (field → original
+    currency), shown on the figure's tooltip ("restated from €…"). The reported figure stays
+    verbatim in `aumText`. The $1–15bn focus band is therefore a true USD band. The Managers
+    list and the profile header show the SAME figures with the same labels: **Group AUM**
+    (`aumTotal ?? aum`) · **Credit AUM** (`aumCredit`). Fund sizes stay in EUR as reported.
   **Every new `_draft` name must then be researched and filled out** — real, sourced
   AUM/strategies/owners/description and, where verifiable, deals & news (never
   fabricated, R7) — and `_draft` cleared once the profile is solid. New names are

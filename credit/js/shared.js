@@ -16,39 +16,34 @@ import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js";
 export const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
 export const pct = (n) => (n == null ? "Undisclosed" : Math.round(n) + "%");
 export const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-// Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
+// Format a $bn AUM figure: $Xtn above 1,000bn, $Xm below 1bn, else $Xbn.
 export const fmtAum = (n) => {
   if (n == null) return "—";
-  if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
-  if (n < 1) return `€${Math.round(n * 1000)}m`;
-  return `€${n}bn`;
+  if (n >= 1000) return `$${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
+  if (n < 1) return `$${Math.round(n * 1000)}m`;
+  return `$${n}bn`;
 };
 
-// The CURRENCY a stored AUM figure is actually in. The roster mixes conventions —
-// older records hold an approximate €-equivalent, newer ones (R29) the reported
-// figure as-is, usually $ — so the symbol is read off the record's own sourced
-// aumText: if a figure there matches the stored number (±3%), that figure's currency
-// is the number's currency; otherwise the file's documented € convention applies.
-// No exchange rate is ever applied — the label is corrected, the number is not.
-export function aumCcyOf(m, v) {
-  if (!m || v == null) return "€";
-  const re = /([€$£])\s*~?\s*(\d[\d.,]*)\s*(tn|trillion|bn|billion|m|million)?/gi;
-  let hit;
-  while ((hit = re.exec(String(m.aumText || "")))) {
-    let n = parseFloat(hit[2].replace(/,/g, ""));
-    const u = (hit[3] || "bn").toLowerCase();
-    if (u[0] === "t") n *= 1000; else if (u[0] === "m") n /= 1000;
-    if (n > 0 && Math.abs(v / n - 1) <= 0.03) return hit[1];
-  }
-  return "€";
-}
-// fmtAum with an explicit currency symbol (defaults to the € convention).
-export const fmtAumC = (n, ccy = "€") => {
+// AUM is stored in USD bn across the whole roster (R29). Legacy €/£ figures were
+// restated once at the ECB reference rates in AUM_FX (credit/js/data.js); the record's
+// `aumFrom` names the fields restated and their original currency, so the tooltip can
+// say so.
+export const fmtAumC = (n, ccy = "$") => {
   if (n == null) return "—";
   if (n >= 1000) return `${ccy}${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
   if (n < 1) return `${ccy}${Math.round(n * 1000)}m`;
   return `${ccy}${n}bn`;
 };
+// "$9.4bn · restated from €8.4bn at ECB 13 Oct 2026" style provenance for a tooltip.
+export function aumNote(rec, field, fx) {
+  const from = rec && rec.aumFrom && rec.aumFrom[field];
+  if (!from || !fx) return "";
+  const r = from === "GBP" ? fx.GBPUSD : fx.EURUSD;
+  const orig = rec[field] != null && r ? rec[field] / r : null;
+  return `restated from ${from === "GBP" ? "£" : "€"}${orig != null ? (orig >= 100 ? Math.round(orig) : orig.toFixed(1)) + "bn" : ""} at the ECB reference rate (${fx.asOf})`;
+}
+// A USD amount in $m (LP tickets).
+export const usdM = (m) => (m == null ? "Undisclosed" : "$" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
 
 // ----------------------------- small render helpers -------------------------
 export function link(href, text, cls = "") { return `<a href="${href}" class="${cls}">${esc(text)}</a>`; }
