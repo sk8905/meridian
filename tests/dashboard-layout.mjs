@@ -3,7 +3,8 @@
 // with no card overflowing its frame, no two cards overlapping and no vertical
 // gap > 14px between a card and the one above it (fill cards / frame stretch
 // absorb the slack). The new sourced gauge cards render live values with their
-// source links: All-in yields & BBB (Credit), Central-bank balance sheets, FX and
+// source links: All-in yields & BBB (Credit), Central-bank balance sheets (incl. the
+// BoE Weekly Report lines), FX and
 // Euro AAA curve history (Rates), VIX history (Equities) — all from /api/eurates.
 // With an EMPTY /api/eurates payload they show an "unavailable" line with a
 // source link, never a number.
@@ -14,7 +15,14 @@ const apis = { ...LIVE, "/api/13f": () => [200, JSON.stringify({ asOf: "2026-06-
 const TABS = ["credit", "rates", "legal", "equities", "hedge-funds"];
 const b = await launchChromium();
 const srv = await serve(apis);
-const go = async (pg, k) => { await pg.evaluate((s) => document.querySelector(`.dsh-navchip[data-sub="${s}"]`).click(), k); await pg.waitForTimeout(900); };
+// Switch tab, then wait for the packed layout to settle (live data lands and the
+// packer re-runs) — positions unchanged across two reads 300ms apart, max ~6s.
+const snap = (pg) => pg.evaluate(() => [...document.querySelectorAll(".dsh-mid > .dsh-card")].map((c) => `${c.style.left}|${c.style.top}|${c.offsetHeight}`).join(","));
+const go = async (pg, k) => {
+  await pg.evaluate((s) => document.querySelector(`.dsh-navchip[data-sub="${s}"]`).click(), k); await pg.waitForTimeout(600);
+  let prev = await snap(pg);
+  for (let i = 0; i < 20; i++) { await pg.waitForTimeout(300); const cur = await snap(pg); if (cur === prev) break; prev = cur; }
+};
 
 for (const [w, h] of [[1280, 800], [1366, 768], [1536, 864], [1920, 1080], [2560, 1440], [3440, 1440]]) {
   const ctx = await b.newContext({ viewport: { width: w, height: h } }); const pg = await ctx.newPage();
@@ -54,12 +62,39 @@ for (const [w, h] of [[1280, 800], [1366, 768], [1536, 864], [1920, 1080], [2560
   check(await pg.evaluate(() => document.querySelector('.dsh-live[data-live="yld"]').textContent === "live"), "Credit: yields badge flips to live");
   await go(pg, "rates");
   const bs = await rowTxt("#dsh-cbbs");
-  check(bs.length === 2 && /Eurosystem total assets €5,944/.test(bs[0].t) && /Fed total assets \$6,748/.test(bs[1].t), `Rates: balance sheets in €bn / $bn (${bs.map((x) => x.t).join(" / ")})`);
+  check(bs.length === 4 && /Eurosystem total assets €5,944/.test(bs[0].t) && /Fed total assets \$6,748/.test(bs[1].t)
+    && /BoE reserve balances £650/.test(bs[2].t) && /BoE loan to APF \(QE stock\) £522/.test(bs[3].t) && bs.every((x) => x.src), `Rates: balance sheets — Eurosystem €bn, Fed $bn, BoE Weekly Report reserves + APF £bn, each sourced (${bs.map((x) => x.t).join(" / ")})`);
+  check(await pg.evaluate(() => [...document.querySelectorAll("#dsh-cbbs a.dsh-src")].some((a) => /bankofengland\.co\.uk\/boeapps\/database\/.*RPWB56A/.test(a.href))), "Rates: BoE reserves row links its IADB series (RPWB56A)");
+  // Every chart is labelled: y ticks with values, an x row with start / end and an axis title.
+  const charts = await pg.evaluate(() => [...document.querySelectorAll(".dsh-mid .dsh-chart")].map((c) => { const x = c.nextElementSibling; const sp = x && x.classList.contains("dsh-chart-x") ? [...x.children].map((e) => e.textContent.trim()) : [];
+    return { y: c.querySelectorAll(".dsh-chart-y span").length, xl: sp[0] || "", t: sp[1] || "", xr: sp[2] || "" }; }));
+  check(charts.length >= 4 && charts.every((c) => c.y >= 3 && c.xl && c.t && c.xr), `Rates: every line chart has value ticks, start/end labels and an axis title (${JSON.stringify(charts)})`);
+  const yc = await pg.evaluate(() => ({ y: document.querySelectorAll("#dsh-yc-card .dsh-yc2-y span").length, yt: (document.querySelector("#dsh-yc-card .dsh-yc2-y em") || {}).textContent, xt: (document.querySelector("#dsh-yc-card .dsh-yc2-x em") || {}).textContent }));
+  check(yc.y === 3 && yc.yt === "Yield" && yc.xt === "Maturity", `Rates: yield-curve chart carries a value axis and both axis titles (${JSON.stringify(yc)})`);
+  // House type scale (R11): card titles at body size, column heads at micro.
+  const fs = await pg.evaluate(() => ({ h: getComputedStyle(document.querySelector(".dsh-mid .dsh-h")).fontSize, th: getComputedStyle(document.querySelector(".dsh-mid .dsh-tbl th")).fontSize,
+    body: getComputedStyle(document.documentElement).getPropertyValue("--fs-body").trim(), adj: parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0 }));
+  check(fs.h === `${12 + fs.adj}px` && fs.th === `${10 + fs.adj}px`, `Type scale: card titles ${fs.h} (body), column heads ${fs.th} (micro)`);
   const fx = await rowTxt("#dsh-fx");
   check(fx.length === 2 && /EUR\/USD 1\.1193/.test(fx[0].t) && /GBP\/USD 1\.3229/.test(fx[1].t), "Rates: FX card shows EUR/USD and GBP/USD");
   const ch = await pg.evaluate(() => ["#dsh-aaa", "#dsh-cbbs", "#dsh-fx", "#dsh-mmhist"].map((s) => document.querySelectorAll(`${s} .dsh-chart polyline`).length));
-  checkEq(ch.join(","), "3,2,2,4", "Rates: chart lines — AAA 2Y/10Y/30Y, two balance sheets, two FX pairs, four money-market rates");
+  checkEq(ch.join(","), "3,4,2,4", "Rates: chart lines — AAA 2Y/10Y/30Y, four balance-sheet lines (Eurosystem, Fed, BoE reserves, BoE APF), two FX pairs, four money-market rates");
   check(await pg.evaluate(() => /2s10s \d+bp/.test(document.querySelector("#dsh-aaa .dsh-lgs").textContent)), "Rates: Euro AAA chart legend carries the 2s10s slope");
+  await go(pg, "equities");
+  const eqc = await pg.evaluate(() => [...document.querySelectorAll(".dsh-mid .dsh-chart")].every((c) => { const x = c.nextElementSibling; return x && x.classList.contains("dsh-chart-x") && [...x.children].every((e) => e.textContent.trim()); }));
+  check(eqc, "Equities: VIX chart labelled on both axes");
+  // Legal + Hedge Funds lists are not capped: every tracked item is listed.
+  const L = await import("../legal/js/data.js"), C = await import("../credit/js/data.js");
+  await go(pg, "hedge-funds");
+  const hf = await pg.evaluate(() => ({ aum: document.querySelectorAll("#dsh-hfaum tbody tr").length, news: document.querySelectorAll("#dsh-hfnews .dsh-news-i").length,
+    fam: [...document.querySelectorAll("#dsh-hfaum ~ * td, .dsh-card td")].length, strat: [...document.querySelectorAll(".dsh-card")].find((c) => /By strategy/.test(c.textContent))?.querySelectorAll("tbody tr").length }));
+  checkEq(hf.aum, C.HEDGE_FUNDS.filter((f) => f.aum != null).length, "Hedge Funds: the AUM table lists every tracked fund (no cap)");
+  checkEq(hf.news, C.HEDGE_INTEL.filter((x) => x && x.date && x.headline && (x.sourceUrl || x.url)).length, "Hedge Funds: the news card lists every tracked item (no cap)");
+  check(hf.strat >= 4 && hf.strat <= 7, `Hedge Funds: strategies grouped into families (${hf.strat} rows)`);
+  check(await pg.evaluate(() => document.querySelectorAll("#dsh-hfperf tbody tr").length > 0 && document.querySelectorAll("#dsh-hfin tbody tr").length > 0), "Hedge Funds: reported-performance and funds-in-the-news cards render");
+  await go(pg, "legal");
+  const lg = await pg.evaluate(() => ({ cases: document.querySelectorAll("#dsh-cases .dsh-news-i").length, funds: document.querySelectorAll("#dsh-lfunds .dsh-news-i").length, areas: document.querySelectorAll("#dsh-areas tbody tr").length, firms: document.querySelectorAll("#dsh-firms tbody tr").length }));
+  check(lg.cases > 40 && lg.funds > 40 && lg.areas === 4 && lg.firms > 10, `Legal: case law, funds alerts, practice areas and firms are listed in full (${JSON.stringify(lg)})`);
   await go(pg, "equities");
   check(await pg.evaluate(() => document.querySelectorAll("#dsh-vix .dsh-chart polyline").length === 1 && /15\.21/.test(document.querySelector("#dsh-vix .dsh-lgs").textContent)), "Equities: VIX chart with the latest close");
   await ctx.close();

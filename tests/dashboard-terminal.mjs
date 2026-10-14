@@ -71,7 +71,7 @@ for (const key of ["rates", "equities", "hedge-funds", "legal"]) {
   check(p.threeZone && p.navChips === 5 && p.dshFlex === "flex", `${key}: renders the 3-zone workspace with the left nav rail`);
   check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
   check(p.hasRail && !p.norail, `${key}: keeps a news rail on the right`);
-  check(p.hSize === `${14 + p.adj}px`, `${key}: panel headers use the card-heading token --fs-head (14px + --fs-adj = ${14 + p.adj}px, got ${p.hSize}) — R40 one anatomy`);
+  check(p.hSize === `${12 + p.adj}px`, `${key}: panel headers use the app's body scale (12px + --fs-adj = ${12 + p.adj}px, got ${p.hSize})`);
 }
 checkErrs(errs, "dashboard 3-zone all sections");
 

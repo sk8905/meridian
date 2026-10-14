@@ -638,7 +638,7 @@ export const EU_AAA_TENORS = [["3M", "SR_3M"], ["2Y", "SR_2Y"], ["5Y", "SR_5Y"],
 const EU_AAA_HREF = "https://data.ecb.europa.eu/data/datasets/YC";
 // Extra Dashboard gauges, all keyless official/benchmark series: central-bank
 // balance sheets (ECB weekly ILM statement, Fed H.4.1 via FRED WALCL — both in
-// millions, scaled to bn), ICE BofA all-in yields + BBB OAS (FRED, in %), the VIX
+// millions, scaled to bn; BoE Weekly Report lines below), ICE BofA all-in yields + BBB OAS (FRED, in %), the VIX
 // and EUR/USD · GBP/USD (FRED).
 // `days` is the lookback fetched; a series that can't be read is value:null.
 export const EU_EXTRA_SERIES = [
@@ -647,6 +647,12 @@ export const EU_EXTRA_SERIES = [
   { key: "ehy_yld", label: "Euro HY effective yield", unit: "%", src: "fred", id: "BAMLHE00EHYIEY", days: 70, href: "https://fred.stlouisfed.org/series/BAMLHE00EHYIEY", source: "FRED" },
   { key: "ushy_yld", label: "US HY effective yield", unit: "%", src: "fred", id: "BAMLH0A0HYM2EY", days: 70, href: "https://fred.stlouisfed.org/series/BAMLH0A0HYM2EY", source: "FRED" },
   { key: "usbbb_oas", label: "US BBB OAS", unit: "%", src: "fred", id: "BAMLC0A4CBBB", days: 70, href: "https://fred.stlouisfed.org/series/BAMLC0A4CBBB", source: "FRED" },
+  // Bank of England Weekly Report (IADB table "Bank of England Weekly Report", £m,
+  // Wednesday positions). The Report publishes no total line, so its two headline
+  // monetary-policy lines are shown as what they are: reserve balances (liability)
+  // and the loan to the Asset Purchase Facility (the QE stock).
+  { key: "boe_res", label: "BoE reserve balances", unit: "£bn", src: "boe", code: "RPWB56A", days: 330, scale: 1e-3, href: "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2025&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=RPWB56A&UsingCodes=Y&Filter=N&title=RPWB56A&VPD=Y", source: "Bank of England" },
+  { key: "boe_apf", label: "BoE loan to APF (QE stock)", unit: "£bn", src: "boe", code: "RPWZ4TM", days: 330, scale: 1e-3, href: "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2025&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=RPWZ4TM&UsingCodes=Y&Filter=N&title=RPWZ4TM&VPD=Y", source: "Bank of England" },
   // Cboe VIX close and the Fed H.10 noon-NY FX rates (USD per EUR / per GBP).
   { key: "vix", label: "VIX", unit: "", src: "fred", id: "VIXCLS", days: 70, href: "https://fred.stlouisfed.org/series/VIXCLS", source: "FRED" },
   { key: "eurusd", label: "EUR/USD", unit: "", src: "fred", id: "DEXUSEU", days: 70, href: "https://fred.stlouisfed.org/series/DEXUSEU", source: "FRED" },
@@ -759,7 +765,12 @@ async function handleEuRates(request, env, ctx) {
     return { key: s.key, label: s.label, unit: s.unit, href: s.href, source: s.source, ...euPoint(pairs) };
   });
   const curvePts = await Promise.all(EU_AAA_TENORS.map(([, k]) => ecb("YC", `B.U2.EUR.4F.G_N_A.SV_C_YM.${k}`, 45).catch(() => [])));
-  const extraRows = await Promise.all(EU_EXTRA_SERIES.map((s) => (s.src === "ecb" ? ecb(s.flow, s.sk, s.n) : fredWindow(s.id, s.days, env)).catch(() => [])));
+  const boeX = EU_EXTRA_SERIES.filter((s) => s.src === "boe");
+  const boeXFrom = new Date(Date.now() - Math.max(0, ...boeX.map((s) => s.days)) * 864e5);
+  const boeXRows = boeX.length ? await fetchText(`https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&SeriesCodes=${boeX.map((s) => s.code).join(",")}&Datefrom=${String(boeXFrom.getUTCDate()).padStart(2, "0")}/${Object.keys(_MON)[boeXFrom.getUTCMonth()]}/${boeXFrom.getUTCFullYear()}&Dateto=now&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`)
+    .then((t) => boeCsvSeries(t, boeX.map((s) => s.code))).catch(() => ({})) : {};
+  const extraRows = await Promise.all(EU_EXTRA_SERIES.map((s) => (s.src === "ecb" ? ecb(s.flow, s.sk, s.n)
+    : s.src === "boe" ? Promise.resolve((boeXRows && boeXRows[s.code]) || []) : fredWindow(s.id, s.days, env)).catch(() => [])));
   const extra = EU_EXTRA_SERIES.map((s, i) => {
     const pairs = (extraRows[i] || []).map(([d, v]) => [d, s.scale ? +(v * s.scale).toFixed(1) : v]);
     return { key: s.key, label: s.label, unit: s.unit, href: s.href, source: s.source, ...euPoint(pairs) };

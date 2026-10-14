@@ -1154,16 +1154,18 @@ notification badge red (`#ef4444`).
   `tests/newsletter-reader.mjs`.
 
 - **R40 — Dashboard: one anatomy, responsive packing, fill cards.** (Design review
-  2026-10; supersedes R37(f).) **(a) One anatomy.** Card header = title (14.5/600 ink,
+  2026-10; supersedes R37(f).) **(a) One anatomy.** Card header = title (`--fs-body`/600
+  ink — the Dashboard's dense terminal scale; weight, not size, carries the hierarchy;
   truncates) · meta on the right (count, LIVE/snapshot badge, date, select), split by
-  `tidyHeaders()` into `.dsh-h-t` / `.dsh-h-r`. Numbers are right-aligned and tabular;
-  dates are micro/faint in ONE format ("13 Oct 2026", `isoDay`). Metric lists use the
+  `tidyHeaders()` into `.dsh-h-t` / `.dsh-h-r`. Table column heads are `--fs-micro`/600 muted (R11);
+  numbers are right-aligned, tabular, `--fs-num`; dates are micro/faint in ONE format ("13 Oct 2026", `isoDay`). Metric lists use the
   KPI row (`kpiRow`: label · value · period · SRC, grid `minmax(0,1fr) auto 64px 34px`);
   rate / spread / gauge lists use the mini table (`dsh-mini`: name · level · 1W · 1M ·
   As of · SRC; on phone the As-of column drops and the date rides under the name). Empty
   cells read "—". **(b) Responsive packing (desktop ≥901px).** `packMid()` places the
   middle-column cards absolutely in `round(width / 480)` columns (max 6, never more than
-  the tab's cards can fill); cards keep a natural size — std = 1 column, `dsh-wide` = 2,
+  the tab's cards can fill; a tab too short to reach ~80% of the screen height steps down
+  to fewer, wider columns, never wider than ~960px); cards keep a natural size — std = 1 column, `dsh-wide` = 2,
   `dsh-span` = all. It hill-climbs over nearby swaps scoring empty space plus a cost per
   place a card moves from its priority order; full-span strips and the Reference block
   are pinned. Slack is absorbed by **fill cards** first and, for a remainder ≤120px with
@@ -1171,14 +1173,24 @@ notification badge red (`#ef4444`).
   A ResizeObserver re-packs on width or content change (`dataset.ph` stops loops). Rail
   width steps 320 / 380 (≥1700) / 420 (≥2300) / 460px (≥3000). **(c) Fill cards**
   (`fillCard`, `.dsh-fill`) are charts (`lineChart`, natural height up to 460px) or long
-  lists (start 240px, show more rows or scroll) built ONLY from data Wire already holds or
+  lists (start 240px, show more rows or scroll; spare height goes first to the list with
+  the most content still hidden). **Every chart is labelled on both axes**: value ticks
+  carrying the unit, an x row with the first / last date (or the caller's labels) and the
+  y-axis title between them; the yield-curve chart carries "Yield" ticks and "Maturity".
+  **Lists are never capped at an arbitrary N** — every tracked item is listed and the card
+  scrolls. Fill cards built ONLY from data Wire already holds or
   a sourced live series: Credit — spread history 1M, all-in yields & BBB (ICE BofA via
   FRED), most active lenders (90d) and restructuring & distress deals (tracked by Wire),
   CLOs & fund closes; Rates — central-bank calendar (`CB_CALENDAR`, verified dates),
-  money-market rates 2M, central-bank balance sheets (Eurosystem ILM weekly · Fed WALCL),
+  money-market rates 2M, central-bank balance sheets (Eurosystem ILM weekly · Fed WALCL ·
+  BoE Weekly Report reserve balances `RPWB56A` and loan to the APF `RPWZ4TM` — the Report
+  publishes no total line, so those two are shown and labelled as what they are),
   FX EUR/USD · GBP/USD (Fed H.10), Euro AAA curve 2M (2Y/10Y/30Y + 2s10s), why it moved;
-  Legal — case law, most active firms (30d), restructuring; Equities — VIX 2M, earnings;
-  Hedge Funds — HF news, largest funds by AUM, per-fund 13F holdings. A gauge whose feed
+  Legal — case law, restructuring, funds alerts, banking & finance, most active firms
+  (30d / 90d, main area, latest), activity by practice area; Equities — VIX 2M, earnings;
+  Hedge Funds — every tracked fund by AUM (strategy, HQ, "est." where estimated), strategy
+  families (keyword-grouped from each fund's own label), reported performance, HF news,
+  funds in the news (90d), per-fund 13F holdings. A gauge whose feed
   is missing shows "… unavailable — <source link>", never a number. **(d) Data:** the
   gauges ride `/api/eurates` `extra` (`EU_EXTRA_SERIES` in `src/index.js`: FRED via the API
   key when set, else fredgraph CSV; ECB weekly periods dated to the statement Friday).
@@ -1299,7 +1311,7 @@ item keeps a real outbound source link (R7).
 - Bank of England (`bankofengland.co.uk`)
 - European Central Bank (`data.ecb.europa.eu`) — deposit rate (FM), €STR (EST), monthly 3M Euribor (FM), euro-area AAA curve (YC), Eurosystem weekly balance sheet (ILM) via `/api/eurates` (R37, R40)
 - FRED gauges via `/api/eurates` `extra` (R40) — ICE BofA Euro/US HY effective yield (`BAMLHE00EHYIEY`, `BAMLH0A0HYM2EY`), US BBB OAS (`BAMLC0A4CBBB`), Fed total assets (`WALCL`), VIX (`VIXCLS`), EUR/USD · GBP/USD (`DEXUSEU`, `DEXUSUK`)
-- Bank of England database (IADB) — Bank Rate `IUDBEDR`, SONIA `IUDSOIA` via `/api/eurates`
+- Bank of England database (IADB) — Bank Rate `IUDBEDR`, SONIA `IUDSOIA`, Weekly Report reserve balances `RPWB56A` and loan to the APF `RPWZ4TM` via `/api/eurates`
 - Eurostat `sts_rb_q` — EU27 bankruptcy-declarations index via `/api/eurates`
 - UK Insolvency Service official statistics (`gov.uk`, OGL) — monthly company insolvencies (curated, `EU_DISTRESS`)
 - UK Office for National Statistics (`ons.gov.uk`)

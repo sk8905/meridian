@@ -752,9 +752,12 @@ td .dsh-yc-ea { border:0; }
    R40 — ONE ANATOMY (design-consistency pass). Every card, row, number, date and
    chip on the Dashboard is drawn by the rules below so the page lines up.
    ============================================================================= */
-/* -- Card frame: title 14.5/600 ink (both themes) · meta pinned right, one line -- */
+/* -- Card frame: title body-size/600 ink (the Dashboard's dense terminal scale —
+   weight, not size, carries the hierarchy) · meta pinned right, one line -- */
 .dsh-h { display:flex; align-items:baseline; flex-wrap:nowrap; gap:10px; min-height:20px; margin:0 0 8px; padding:0 0 8px;
-  font-size:var(--fs-head); font-weight:600; letter-spacing:0; color:var(--t-ink); }
+  font-size:var(--fs-body); font-weight:600; letter-spacing:0; color:var(--t-ink); }
+/* -- Column heads: the scale's micro step (R11), muted -- */
+.dsh-tbl th { font-size:var(--fs-micro); font-weight:600; color:var(--t-mut); }
 :root[data-theme="dark"] .dsh-h { color:var(--t-ink); font-weight:600; }
 .dsh-h-t { flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-h-r { flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
@@ -831,8 +834,14 @@ td .dsh-yc-ea { border:0; }
 /* Phone (R40): mini tables drop the As-of column (the date rides under the name);
    the policy table stacks each bank into a two-line card — no sideways scroll. */
 .dsh-mini-d { display:none; }
+/* Date cells in list tables (latest / period): micro, faint, kept on phone. */
+.dsh-tbl td.dsh-d { font-size:var(--fs-micro); color:var(--t-faint); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.dsh-tbl td.dsh-wrap { white-space:normal; }
+.dsh-tbl td.dsh-rank { color:var(--t-faint); width:28px; }
+.dsh-est { color:var(--t-faint); font-size:var(--fs-micro); font-weight:400; }
+.dsh-mini.dsh-hfaum-tbl th:first-child, .dsh-mini.dsh-hfaum-tbl td:first-child { width:28px; }
 @media (max-width:760px){
-  .dsh-mini th:nth-child(5), .dsh-mini td.dsh-spread-as { display:none; }
+  .dsh-mini th.dsh-as-h, .dsh-mini td.dsh-spread-as { display:none; }
   .dsh-mini-d { display:block; font-size:var(--fs-micro); color:var(--t-faint); margin-top:1px; }
   .dsh-mini th:first-child, .dsh-mini td:first-child { width:auto; }
   .dsh-mini td, .dsh-mini th { padding-left:4px; padding-right:4px; }
@@ -902,6 +911,16 @@ td .dsh-yc-ea { border:0; }
 .dsh-chart-y { position:absolute; top:0; bottom:0; right:-44px; width:40px; pointer-events:none; }
 .dsh-chart-y span { position:absolute; right:0; transform:translateY(-50%); font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; }
 .dsh-lgs { display:flex; flex-wrap:wrap; gap:4px 14px; margin:0 0 8px; flex:0 0 auto; }
+.dsh-chart-x { display:flex; justify-content:space-between; gap:8px; margin:3px 44px 0 0; font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; flex:0 0 auto; }
+.dsh-chart-x .dsh-chart-t { color:var(--t-mut); text-align:center; }
+/* Yield-curve axes: value ticks + "Yield" title in the 92px label column, "Maturity" under it. */
+.dsh-yc2-plot { position:relative; }
+.dsh-yc2-y { position:absolute; left:0; top:0; bottom:0; width:84px; pointer-events:none; font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; }
+.dsh-yc2-y span { position:absolute; right:0; transform:translateY(-50%); }
+.dsh-yc2-y em, .dsh-yc2-x em { position:absolute; left:0; font-style:normal; color:var(--t-mut); font-size:var(--fs-micro); }
+.dsh-yc2-y em { top:0; }
+.dsh-yc2-x { position:relative; }
+.dsh-yc2-x em { top:0; }
 .dsh-lg { display:inline-flex; align-items:center; gap:5px; font-size:var(--fs-micro); color:var(--t-mut); }
 .dsh-lg i { width:10px; height:2px; display:inline-block; }
 .dsh-lg b { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
