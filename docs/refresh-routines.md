@@ -736,7 +736,9 @@ amount maturing by year with each bar LABELLED (EUR bn). S&P refuses automated
 downloads (403 from routines and Actions alike), so the owner supplies it (PDF or
 screenshot) after each month end; copy every labelled bar verbatim and replace the
 whole series with `asOf` (the dashboard's "Data as of" date) and `asOfIso` together.
-Never read a value off an unlabelled bar.
+Never read a value off an unlabelled bar — AFME's HY maturity-wall chart
+(`backfill/matwall-afme-p<N>.png`, rendered weekly) has none as of Q2 2026, so it is a
+reading link only; use it for figures only if a later edition prints bar labels.
 
 When a `newer` lead (or a doc's `lines`) states fresher European maturity figures:
 open the article/PDF, copy each figure **verbatim** into `MATWALL.europe.rows`

@@ -44,8 +44,6 @@ export const DOCS = [
     chart: /high yield maturity wall/i, renderTo: "backfill/matwall-afme" },
   { id: "spratings_cmr", name: "S&P Global Ratings — Credit Markets Research hub (Global Refinancing items)", kind: "page", urls: ["https://www.spglobal.com/ratings/en/research/credit-market-research"], pick: /refinanc|maturit/i },
   { id: "fitch_levfin_maturity", name: "Fitch — Global Leveraged Finance Maturity Profile (free reprint)", kind: "page", urls: ["https://www.hellenicshippingnews.com/global-leveraged-finance-maturity-profile-supports-refinancing-flexibility/"], pick: /matur|refinanc|EMEA/i },
-  // Maalot publishes no public report index; its home / English pages link recent PDFs.
-  { id: "maalot_pubs", name: "Maalot (S&P affiliate) — free S&P research PDFs", kind: "page", urls: ["https://www.maalot.co.il/en", "https://www.maalot.co.il/"], pick: /refinanc|maturit|credit trends/i, pdfLinks: true },
   { id: "indexology", name: "Indexology (S&P DJI blog) — leveraged loan commentary", kind: "rss", urls: ["https://www.indexologyblog.com/feed/"], pick: /leveraged loan|european leveraged|western europe/i },
 ];
 const ON_TOPIC = /maturit|refinanc|wall|leveraged loan|high.yield|speculative/i;

@@ -1257,7 +1257,7 @@ export const MATWALL = {
     { group: "Leveraged finance / leveraged loans", items: [
       { name: "S&P \u2014 US Leveraged Finance Q3 2025 update", use: "Quarterly maturity walls, issuance and default expectations.", url: "https://www.spglobal.com/ratings/en/regulatory/article/us-leveraged-finance-q3-2025-update-issuers-adjust-to-slower-growth-s101652207" },
       { name: "S&P \u2014 European Leveraged Finance Monthly", use: "European leveraged loans/HY, incl. upcoming maturities and rating actions.", url: "https://www.spglobal.com/ratings/en/research/credit-market-research" },
-      { name: "AFME \u2014 Q1 2026 European HY, LL & Private Credit report", use: "Integrates HY, leveraged loans and private credit in one quarterly report (published 3 Jun 2026; free PDF).", url: "https://www.afme.eu/publications/data-research/european-high-yield-leveraged-loan-and-private-credit-report-q1-2026/" },
+      { name: "AFME \u2014 Q2 2026 European HY, LL & Private Credit report", use: "Quarterly HY, leveraged-loan and private-credit report; p.26 charts the European corporate HY maturity wall by year (SIFMA data, chart only \u2014 no printed figures). Free PDF.", url: "https://www.afme.eu/media/1ygbf3ae/hyllpc-report-2q-2026.pdf" },
     ] },
     { group: "Public corporate credit (IG & broad market)", items: [
       { name: "Federal Reserve \u2014 Financial Stability Report", use: "Charts on corporate debt, with maturity/refi risk by sector.", url: "https://www.federalreserve.gov/publications/financial-stability-report.htm" },
