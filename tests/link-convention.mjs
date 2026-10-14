@@ -1,25 +1,29 @@
-// Link convention (HOUSE_STYLE R39l), app-wide: every INTERNAL text link has a blue
-// underline and every EXTERNAL text link an orange one; rows / navigation are exempt.
+// Link convention (HOUSE_STYLE R39l): underlined links only in READING content.
+//  • deal card (Transactions drawer) + profile info cards: internal → blue underline;
+//  • deal card: external → orange underline;
+//  • tables, lists, briefing sources, Dashboard SRC tags: no underline (source style kept).
 import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 const srv = await serve(); const b = await launchChromium(); const base = `http://localhost:${srv.port}`;
-const ROWS = ".g-feed-row, .tw-head, .dsh-news-i > a, .dsh-pc-report, .dsh-hf-prof, .tchip, .dsh-navchip, .g-ph-link, .g-snap-blk, .wb-link, .brand, .g-read-open, .tcr-rt, .sls-chip, .tfocus-btn";
-const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/");
-for (const u of ["/v2/", "/v2/dashboard/", "/v2/dashboard/rates", "/v2/profiles/#/manager/m8", "/v2/profiles/#/lp/l1", "/v2/transactions/#/lending?deal=d1", "/v2/transactions/#/bdc?open=ARCC"]) {
-  await pg.goto(base + u); await pg.waitForTimeout(1500);
-  const r = await pg.evaluate((ROWS) => {
-    const links = [...document.querySelectorAll("#app a[href]")].filter((a) => a.offsetParent && a.textContent.trim() && !a.closest(ROWS) && !a.matches(ROWS));
-    const bad = [], seen = { int: 0, ext: 0 };
-    for (const a of links) {
-      const ext = a.target === "_blank"; const s = getComputedStyle(a);
-      const c = s.textDecorationColor, u = s.textDecorationLine === "underline";
-      const want = ext ? "rgb(251, 139, 30)" : null;
-      if (!u || (ext && c !== want) || (!ext && (c === "rgb(251, 139, 30)" || c === s.color))) bad.push(`${ext ? "EXT" : "INT"} ${a.className || a.parentElement.className} "${a.textContent.trim().slice(0, 30)}" ${s.textDecorationLine} ${c}`);
-      seen[ext ? "ext" : "int"]++;
-    }
-    return { bad: bad.slice(0, 6), n: bad.length, seen };
-  }, ROWS);
-  check(!r.n, `${u}: internal links blue-underlined, external orange (${r.seen.int} int, ${r.seen.ext} ext${r.n ? "; bad: " + r.bad.join(" | ") : ""})`);
-}
+const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/#/lending?deal=d1");
+await pg.waitForSelector("#tx-drawer a.tx-mgr", { timeout: 8000 });
+const ORANGE = "rgb(251, 139, 30)";
+const st = (sel) => pg.evaluate((sel) => [...document.querySelectorAll(sel)].filter((a) => a.offsetParent).map((a) => { const s = getComputedStyle(a); return [s.textDecorationLine, s.textDecorationColor, s.borderTopStyle]; }), sel);
+const card = { int: await st("#tx-drawer a.tx-mgr"), ext: await st('#tx-drawer a[target="_blank"]') };
+check(card.int.length && card.int.every(([l, c]) => l === "underline" && c !== ORANGE), `deal card: internal links have a blue underline (${JSON.stringify(card.int[0])})`);
+check(card.ext.length && card.ext.every(([l, c]) => l === "underline" && c === ORANGE), `deal card: external links have an orange underline (${card.ext.length})`);
+const table = await st("#tx-body .tx-list a");
+check(table.length && table.every(([l]) => l === "none"), `Transactions table: names and sources keep their plain style (${table.length} links, none underlined)`);
+await pg.goto(base + "/v2/transactions/#/bdc"); await pg.waitForTimeout(600);
+check((await st("#tx-bdc-body a")).every(([l]) => l === "none"), "BDC table: no underlined links");
+await pg.goto(base + "/v2/profiles/#/manager/m8"); await pg.waitForTimeout(1200);
+const pfSrc = await st("#pf-detail .tw-src a, #pf-detail .tdet-src a, #pf-detail .tw-head");
+check(pfSrc.every(([l]) => l === "none"), `Profiles: news rows and sources keep their source style (${pfSrc.length})`);
+await pg.goto(base + "/v2/dashboard/"); await pg.waitForTimeout(1800);
+const src = await st(".dsh a.dsh-src");
+check(src.length && src.every(([l, , bd]) => l === "none" && bd === "solid"), `Dashboard: SRC tags are the grey boxed tag, not underlined (${src.length})`);
+check((await st(".dsh a.dsh-drill")).every(([l]) => l === "none"), "Dashboard: drill-down names in tables are plain");
+await pg.goto(base + "/v2/"); await pg.waitForTimeout(1500);
+check((await st("a.g-hbrief-src")).every(([l]) => l === "none"), "Home briefing: sources keep the subtle source style");
 checkErrs(errs, "link convention");
 await ctx.close(); await b.close(); srv.close();
 finish();

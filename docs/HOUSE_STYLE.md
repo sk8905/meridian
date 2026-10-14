@@ -1125,13 +1125,15 @@ notification badge red (`#ef4444`).
   in the text but researched carries `ps` (source); `pq: "unconfirmed"` (inferred, e.g. from
   a CLO series' numbering) shows with an **asterisk** ("Margay CLO V*"); `pq: "placeholder"`
   reads "<Manager> vehicle" where no source names the vehicle. Spec:
-  `tests/deal-parse.mjs`. **(l) Link convention — app-wide** (Home briefing, Dashboard,
-  Profiles, Transactions; the newswire reader already did this): an INTERNAL link (profile / deal / fund in Wire) is body text with a **blue**
-  underline (`--t-link`); an EXTERNAL link (source / filing / website, `target=_blank`)
-  is body text with an **orange** underline (`--accent`); hover thickens it. Not
-  underlined: navigation and whole-row links (feed rows, profile news rows, Dashboard
-  news / report lists, chips, panel headers, the welcome band) and badge anchors (rating
-  chip, SLS chips). The Dashboard's SRC tag is an underlined label, not a box. Spec:
+  `tests/deal-parse.mjs`. **(l) Link convention** (as the newswire reader): underlined links appear only in
+  READING content. In the Transactions **deal card** (and the reader body) an EXTERNAL link
+  has an **orange** underline (`--accent`); in the deal card and profile info cards (`.tbiz`
+  facts, the description) an INTERNAL link (profile / deal / fund) has a **blue** underline
+  (`--t-link`). Everywhere else links keep their own style: a source stays the subtle grey
+  source name or the boxed SRC tag (briefings, Dashboard, profile news rows, table Source
+  columns), and a name in a table or list is plain text (still clickable). The reader's
+  "Open original" stays orange, bold, no underline. (The `!important` on these underlines
+  only beats premium.css's global `a { text-decoration: none !important }`.) Spec:
   `tests/link-convention.mjs`. The newswire's "Open original" stays
   orange, bold, no underline. (The `!important` on these underlines exists only to beat
   premium.css's global `a { text-decoration: none !important }`.)

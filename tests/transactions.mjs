@@ -258,7 +258,8 @@ const drw = await pg.evaluate(async () => {
 });
 check(drw.open && drw.facts && drw.lender && drw.rowOn, `tapping a deal opens its drawer with the deal's facts and the lender's profile link (${JSON.stringify(drw)})`);
 check(new RegExp("deal=" + drw.id + "$").test(drw.hash), `the open deal is in the URL (${drw.hash})`);
-// Link convention (R39l): internal links blue-underlined, external links orange-underlined;
+// Link convention (R39l): in the deal card internal links are blue-underlined and external
+// links orange-underlined (tables keep plain names / grey sources);
 // the drawer's facts share the body's left edge.
 const lk = await pg.evaluate(() => {
   const st = (a) => a ? [getComputedStyle(a).textDecorationLine, getComputedStyle(a).textDecorationColor] : null;
@@ -267,7 +268,7 @@ const lk = await pg.evaluate(() => {
   return { int: st(d.querySelector("a.tx-mgr")), ext: st(d.querySelector('.tbiz-v a[target="_blank"]')), row: st(document.querySelector("#tx-body td.tx-src2 a")),
     aligned: Math.abs(li.getBoundingClientRect().left + parseFloat(getComputedStyle(li).paddingLeft) - (t.getBoundingClientRect().left)) < 1 };
 });
-check(lk.int && lk.int[0] === "underline" && lk.ext && lk.ext[0] === "underline" && lk.int[1] !== lk.ext[1] && lk.row && lk.row[1] === lk.ext[1], `internal links are blue-underlined, external orange-underlined (${JSON.stringify(lk)})`);
+check(lk.int && lk.int[0] === "underline" && lk.ext && lk.ext[0] === "underline" && lk.int[1] !== lk.ext[1] && lk.row && lk.row[0] === "none", `deal card: internal links blue-underlined, external orange-underlined; the table's source keeps its plain style (${JSON.stringify(lk)})`);
 check(lk.aligned, "the drawer's facts align with its title");
 await pg.goBack(); await pg.waitForTimeout(250);
 check(await pg.evaluate(() => document.querySelector("#tx-drawer").hidden && !/deal=/.test(location.hash)), "Back closes the deal drawer");
