@@ -284,7 +284,7 @@ for (const s of staleSurfaces) {
     macro_keymoments: "Refresh IND_KEYMOMENTS / FX_KEYMOMENT with current, sourced captions (macro/js/content.js).",
     earnings: "Roll the EARNINGS calendar to the current and previous week (macro/js/content.js) — verified dates/tickers only.",
     hf_13f: "Update HF_13F to the latest filed 13F quarter (SEC EDGAR 13F-HR) — credit/js/data.js.",
-    dashboard_snapshot: "Refresh the dashboard fallback snapshot (EQ_*/WORLD_INDICES/GOVT_YIELDS) and DASH_ASOF — it shows whenever a live call fails.",
+    dashboard_snapshot: "Refreshed daily by the refresh-dash-snapshot GitHub Action (scripts/refresh-dash-snapshot.mjs) from the live sources — if stale, check that Action's last run.",
     dashboard_pc: "Roll PRIVATE_CREDIT (dashboard/js/data.js) to Fitch's latest monthly US PCDR + KBRA's latest quarterly compendium; set asOf.",
     dashboard_eu_distress: "Refresh EU_DISTRESS (dashboard/js/data.js): latest LCD ELLI / Fitch / S&P European default rates + the Insolvency Service monthly release; set asOf.",
     dashboard_regcal: "Review REG_CALENDAR (dashboard/js/data.js): add newly confirmed AIFMD II / ELTIF / FCA / CRR dates; set asOf.",

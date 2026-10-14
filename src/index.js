@@ -1147,7 +1147,7 @@ async function handleMarkets(request, env, ctx) {
 // Yahoo (regularMarketPrice + daily %), with FRED daily close as the fallback for
 // the US benchmarks. Edge-cached ~2 min (near-live without hammering upstreams),
 // and only once ≥6 resolve so a transient miss can't stick.
-const DASH_INDEX_SERIES = [
+export const DASH_INDEX_SERIES = [
   { id: "spx",  label: "S&P 500",         symbol: "^GSPC",  fred: "SP500",     href: "https://finance.yahoo.com/quote/%5EGSPC" },
   { id: "ndq",  label: "Nasdaq Composite", symbol: "^IXIC", fred: "NASDAQCOM", href: "https://finance.yahoo.com/quote/%5EIXIC" },
   { id: "dji",  label: "Dow Jones",        symbol: "^DJI",  fred: "DJIA",      href: "https://finance.yahoo.com/quote/%5EDJI" },
@@ -1272,7 +1272,7 @@ async function handleSecq(request, env, ctx) {
   if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;
 }
-async function handleEqIndices(request, env, ctx) {
+export async function handleEqIndices(request, env, ctx) {
   const cosd = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
   const cache = caches.default;
   const cacheKey = new Request(new URL("/api/eqindices?v=1", request.url).toString());
@@ -1302,7 +1302,7 @@ async function handleEqIndices(request, env, ctx) {
 // (dashboard/js/data.js). Yahoo primary (^ index symbols); a Stooq daily-close
 // fallback for the majors. Any symbol Yahoo/Stooq can't serve just stays null and
 // the client keeps that row's sourced snapshot value.
-const WORLD_INDEX_SERIES = [
+export const WORLD_INDEX_SERIES = [
   { name: "S&P 500", symbol: "^GSPC", stooq: "^spx" },
   { name: "Nasdaq Composite", symbol: "^IXIC", stooq: "^ndq" },
   { name: "Dow Jones", symbol: "^DJI", stooq: "^dji" },
@@ -1329,7 +1329,7 @@ const WORLD_INDEX_SERIES = [
   { name: "KOSPI", symbol: "^KS11" },
   { name: "TAIEX", symbol: "^TWII" },
 ];
-async function handleWorldIndices(request, env, ctx) {
+export async function handleWorldIndices(request, env, ctx) {
   const cache = caches.default;
   const cacheKey = new Request(new URL("/api/worldindices?v=1", request.url).toString());
   const cached = await cache.match(cacheKey);
@@ -1472,7 +1472,7 @@ function oecdGapChanges(pts) {
   const m3 = chg(91), m6 = chg(182);
   return (m3 == null && m6 == null) ? null : { ...(m3 != null ? { m3 } : {}), ...(m6 != null ? { m6 } : {}) };
 }
-async function handleGovYields(request, env, ctx) {
+export async function handleGovYields(request, env, ctx) {
   const cache = caches.default;
   const cacheKey = new Request(new URL("/api/govyields?v=4", request.url).toString());
   const cached = await cache.match(cacheKey);

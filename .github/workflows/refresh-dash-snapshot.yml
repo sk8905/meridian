@@ -1,0 +1,50 @@
+name: refresh-dash-snapshot
+
+# Refreshes the Dashboard's FALLBACK snapshot (dashboard/js/data.js — what the
+# Dashboard shows when a live call fails) from the same free sources the live
+# Dashboard reads (Yahoo Finance index history, FRED US Treasury series), by running
+# the Worker's own live handlers (scripts/refresh-dash-snapshot.mjs). Daily on
+# weekdays after the European close and US open data settle; commits to main only
+# when the data changed (a normal commit — the tests workflow re-checks it).
+
+on:
+  schedule:
+    - cron: "7 6 * * 1-6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-dash-snapshot
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refresh snapshot
+        run: node scripts/refresh-dash-snapshot.mjs
+      - name: Validate
+        run: |
+          node --input-type=module -e "import('./dashboard/js/data.js').then(m=>{if(!Array.isArray(m.EQ_INDICES)||!m.DASH_ASOF)throw new Error('bad module');console.log('DASH_ASOF',m.DASH_ASOF)})"
+          node tests/refresh-dash-snapshot.mjs
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- dashboard/js/data.js; then echo "No change"; exit 0; fi
+          git config user.name "wire-collector[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dashboard/js/data.js
+          git commit -m "Dashboard: refresh fallback snapshot from live sources ($(date -u +%F))"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0
+            sleep $((i * 5))
+          done
+          echo "push failed after retries"; exit 1
