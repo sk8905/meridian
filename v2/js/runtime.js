@@ -279,6 +279,11 @@ async function navigate(path, { push = true, replace = false, home = false, tabT
 
 let _setActive = () => {};
 function setChromeActive(key) { _setActive(key); }
+// In-app history depth — see "Back depth" in boot(). Mirrored onto <html
+// data-can-back> so the chrome's header Back button shows only when it has
+// somewhere in the app to go.
+let _depth = 0;
+function setBackDepth(d) { document.documentElement.toggleAttribute("data-can-back", d > 0); }
 
 function onPop() {
   const { key, sub } = parse(location.pathname);
@@ -326,6 +331,21 @@ async function boot() {
     return navigate(_lastUrl.get(key) || tabPath(key), { push: true, tabTap: true });
   } });
   try { history.scrollRestoration = "manual"; } catch { /* older engines */ }
+  // Back depth (R35f): every in-app history entry carries `wdepth` — 0 for the entry
+  // the app booted on, +1 per pushed entry (a link, a row, a `location.hash =` drill
+  // down). A REPLACE keeps the depth. The chrome's header Back button shows whenever
+  // depth > 0, so after any internal link there is always a visible way back — the
+  // iPhone home-screen app has no browser Back button of its own.
+  const origReplace = history.replaceState.bind(history);
+  const withDepth = (s, d) => Object.assign({}, (s && typeof s === "object") ? s : null, { wdepth: d });
+  const syncDepth = () => {
+    const s = history.state;
+    if (s && typeof s.wdepth === "number") _depth = s.wdepth;
+    else { _depth += 1; try { origReplace(withDepth(s, _depth), ""); } catch { /* keep */ } }   // a new hash entry
+    setBackDepth(_depth);
+  };
+  window.addEventListener("popstate", syncDepth);
+  window.addEventListener("hashchange", syncDepth);
   window.addEventListener("popstate", onPop);
   window.addEventListener("hashchange", () => { _curUrl = curUrl(); });
   // Views also rewrite their URL in place (a profile's sub-tab, a dropped ?focus=,
@@ -333,8 +353,12 @@ async function boot() {
   // returns to that exact state.
   for (const fn of ["replaceState", "pushState"]) {
     const orig = history[fn].bind(history);
-    history[fn] = (...a) => { const r = orig(...a); _curUrl = curUrl(); return r; };
+    history[fn] = (s, ...a) => {
+      const d = fn === "pushState" ? _depth + 1 : _depth;
+      const r = orig(withDepth(s, d), ...a); _depth = d; setBackDepth(d); _curUrl = curUrl(); return r;
+    };
   }
+  { const s = history.state; _depth = (s && typeof s.wdepth === "number") ? s.wdepth : 0; origReplace(withDepth(s, _depth), ""); setBackDepth(_depth); }
   document.addEventListener("click", onLinkClick);
   // Non-anchor callers (the search palette) route through the same in-app path.
   window.__wireNavigate = (path) => navigate(path, { push: true });

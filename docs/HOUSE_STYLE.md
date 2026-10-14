@@ -980,7 +980,14 @@ notification badge red (`#ef4444`).
   smooth `html` scroll). **(e) State lives in the URL:** a profile's sub-tab is a path
   segment (`#/manager/<id>/investments`, `#/hf/<id>/holdings`, `#/firm/<id>/alerts`),
   written with `replaceState` so Back leaves the profile in one step. `?tab=` is honoured
-  in the hash or the query. Spec: `tests/nav-backstack.mjs`.
+  in the hash or the query. **(f) A visible Back button, always (owner rule 2026-10-14):**
+  the iPhone home-screen app has no browser Back, so the header carries `#nav-back` (‹ Back,
+  left of the brand). Every in-app history entry carries `wdepth` (0 on the entry the app
+  opened on, +1 per push — a runtime link or a view's `location.hash =` drill-down; a
+  replace keeps it), mirrored onto `<html data-can-back>`; the button shows while depth > 0
+  and calls `history.back()`, returning to exactly where you were. Never push a history entry
+  that bypasses the runtime's `pushState` wrapper. Specs: `tests/nav-backstack.mjs`,
+  `tests/nav-back-button.mjs`.
 
 - **R36 — Transactions: modes, deals as objects, URL state.** (UX review 2026-10.) The
   modes are **Lending · Structured credit · Secondaries · Manager M&A · Credits · BDCs**
