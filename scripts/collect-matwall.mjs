@@ -28,9 +28,23 @@ export const QUERIES = [
   "Moody's EMEA speculative-grade maturities",
   'AFME "European High Yield" "Leveraged Loan" report',
 ];
+// Each doc: `urls` tried in order until one answers (S&P DJI refuses some hosts — its
+// month-stamped copies and Japanese mirror are alternates); `follow` = a listing page
+// whose report link (then PDF) is followed; kind "page" = an HTML article (its own
+// published date is read); kind "rss" = a feed (on-topic items kept).
+const ym = (k) => { const d = new Date(); d.setUTCDate(1); d.setUTCMonth(d.getUTCMonth() - k); return d.toISOString().slice(0, 7); };
 export const DOCS = [
-  { id: "spdji_weu_ll", name: "S&P UBS Western European Leveraged Loan Index dashboard", url: "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf" },
-  { id: "afme_hyll", name: "AFME data & research (HY / leveraged loan / private credit reports)", url: "https://www.afme.eu/publications/data-research", follow: /european-high-yield[^"'#?]*report[^"'#?]*/i },
+  { id: "spdji_weu_ll", name: "S&P UBS Western European Leveraged Loan Index dashboard", urls: [
+    "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf",
+    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf",
+    ...[1, 2, 3].map((k) => `https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-${ym(k)}.pdf`),
+    "https://www.spglobal.com/spdji/jp/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf",
+  ] },
+  { id: "afme_hyll", name: "AFME data & research (HY / leveraged loan / private credit reports)", urls: ["https://www.afme.eu/publications/data-research"], follow: /european-high-yield[^"'#?]*report[^"'#?]*/i },
+  { id: "spratings_cmr", name: "S&P Global Ratings — Credit Markets Research hub (Global Refinancing items)", kind: "page", urls: ["https://www.spglobal.com/ratings/en/research/credit-market-research"], pick: /refinanc|maturit/i },
+  { id: "fitch_levfin_maturity", name: "Fitch — Global Leveraged Finance Maturity Profile (free reprint)", kind: "page", urls: ["https://www.hellenicshippingnews.com/global-leveraged-finance-maturity-profile-supports-refinancing-flexibility/"], pick: /matur|refinanc|EMEA/i },
+  { id: "maalot_pubs", name: "Maalot (S&P affiliate) — free S&P research PDFs", kind: "page", urls: ["https://www.maalot.co.il/Publications"], pick: /refinanc|maturit|credit trends/i, pdfLinks: true },
+  { id: "indexology", name: "Indexology (S&P DJI blog) — leveraged loan commentary", kind: "rss", urls: ["https://www.indexologyblog.com/feed/"], pick: /leveraged loan|european leveraged|western europe/i },
 ];
 const ON_TOPIC = /maturit|refinanc|wall|leveraged loan|high.yield|speculative/i;
 
@@ -46,14 +60,27 @@ export function leadsFrom(xmls, heldIso) {
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 // Lines of a PDF's text that carry the maturity schedule (a year and a number).
-export function maturityLines(text) {
+export function maturityLines(text, max = 60) {
   const lines = String(text || "").split(/\r?\n/).map((l) => l.replace(/\s+/g, " ").trim()).filter(Boolean);
-  const i = lines.findIndex((l) => /maturit/i.test(l));
-  const near = i < 0 ? [] : lines.slice(Math.max(0, i - 2), i + 40);
-  return near.filter((l) => /maturit/i.test(l) || (/\b20[2-3]\d\b/.test(l) && /\d[\d.,]*/.test(l.replace(/\b20[2-3]\d\b/g, "")))).slice(0, 40);
+  const out = new Set();
+  lines.forEach((l, i) => {
+    // A sentence/line that states a maturity figure (a number beyond a bare year) …
+    if (/matur|refinanc|maturity wall/i.test(l) && /\d/.test(l.replace(/\b20[2-3]\d\b/g, "").replace(/\b\d{1,2}(\.\d+)*\s+[A-Z]/g, ""))) out.add(l);
+    // … or a schedule table under a maturity heading (year followed by a number).
+    if (/maturit/i.test(l)) for (const n of lines.slice(i + 1, i + 15)) if (/^\D{0,12}\b20[2-3]\d\b\D{0,6}[\d.,]+/.test(n)) out.add(n);
+  });
+  return [...out].filter((l) => !/^\d+(\.\d+)+\s/.test(l) || /€|\$|bn|%/.test(l)).slice(0, max);
 }
-
-// Browser-like headers: S&P DJI's document server refuses bare bot requests (403).
+// An HTML page's own published date + the paragraphs matching `pick`.
+export function pageFacts(html, pick) {
+  const h = String(html || "");
+  const meta = (h.match(/(?:article:published_time|datePublished|og:updated_time)["']?\s*(?:content=|:)\s*["']([^"']{10,30})/i) || [])[1];
+  const time = (h.match(/<time[^>]*datetime=["']([^"']+)/i) || [])[1];
+  const text = h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, " ").replace(/<\/(p|li|h\d|div|tr)>/gi, "\n").replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&#8217;|&rsquo;/g, "'").replace(/&#\d+;/g, " ");
+  const paras = text.split(/\n+/).map((x) => x.replace(/\s+/g, " ").trim()).filter((x) => x.length > 30 && (!pick || pick.test(x)));
+  return { published: (meta || time || "").slice(0, 10) || null, paras: [...new Set(paras)].slice(0, 25) };
+}
 const UA = { "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
   accept: "text/html,application/pdf,application/xhtml+xml,*/*;q=0.8", "accept-language": "en-GB,en;q=0.9", referer: "https://www.spglobal.com/spdji/en/" };
 async function get(url, bin = false) {
@@ -66,19 +93,41 @@ function pdfText(buf) {
   catch { return null; } finally { fs.rmSync(dir, { recursive: true, force: true }); }
 }
 async function readDoc(d) {
-  let url = d.url, r = await get(url, !d.follow);
+  const tried = [];
+  for (const u of d.urls) {
+    const res = await readOne(d, u);
+    tried.push(`${u} → ${res.status}`);
+    if (res.ok) return { ...d, urls: undefined, pick: undefined, follow: undefined, ...res, tried };
+  }
+  return { id: d.id, name: d.name, status: "unreachable", tried };
+}
+async function readOne(d, url) {
+  if (d.kind === "rss") {
+    const r = await get(url); if (!r.body) return { status: r.status };
+    const items = parseRss(r.body).filter((it) => !d.pick || d.pick.test(it.title || "")).slice(0, 15).map((it) => ({ title: it.title, url: it.link, date: it.date }));
+    return { ok: true, status: r.status, fetched: url, items };
+  }
+  if (d.kind === "page") {
+    const r = await get(url); if (!r.body) return { status: r.status };
+    const f = pageFacts(r.body, d.pick);
+    const pdfs = d.pdfLinks ? [...new Set([...String(r.body).matchAll(/href=["']([^"']+\.pdf)["']/gi)].map((m) => new URL(m[1], url).href))].slice(0, 20) : undefined;
+    return { ok: true, status: r.status, fetched: url, ...f, pdfs };
+  }
+  let r = await get(url, !d.follow);
   if (d.follow && r.body) {
     const m = String(r.body).match(new RegExp(`href=["']([^"']*${d.follow.source})["']`, "i"));
-    if (!m) return { ...d, status: r.status, note: "no report link found on the listing page" };
-    url = new URL(m[1], d.url).href;
+    if (!m) return { status: r.status, note: "no report link found on the listing page" };
+    url = new URL(m[1], url).href;
     const page = await get(url); const pdf = page.body && String(page.body).match(/href=["']([^"']+\.pdf)["']/i);
-    if (!pdf) return { ...d, report: url, status: page.status, note: "report page has no PDF link" };
+    if (!pdf) return { status: page.status, report: url, note: "report page has no PDF link" };
     url = new URL(pdf[1], url).href; r = await get(url, true);
   }
-  if (!r.body) return { ...d, fetched: url, status: r.status, error: r.error || null };
-  const txt = /pdf/i.test(r.type) || url.endsWith(".pdf") ? pdfText(r.body) : String(r.body);
+  if (!r.body) return { status: r.status, error: r.error || null };
+  const isPdf = /pdf/i.test(r.type) || url.endsWith(".pdf");
+  if (isPdf && !String(r.body.slice(0, 5)).startsWith("%PDF")) return { status: r.status, note: "not a PDF (blocked page?)" };
+  const txt = isPdf ? pdfText(r.body) : String(r.body);
   const dated = txt && (txt.match(/\b(?:as of|data as of|published)\s+([A-Z][a-z]+ \d{1,2}, \d{4}|\d{1,2} [A-Z][a-z]+ \d{4})/) || [])[1];
-  return { ...d, fetched: url, status: r.status, dated: dated || null, lines: txt ? maturityLines(txt) : [], note: txt ? null : "no text (pdftotext missing?)" };
+  return { ok: !!txt, status: r.status, fetched: url, dated: dated || null, lines: txt ? maturityLines(txt) : [], note: txt ? null : "no text (pdftotext missing?)" };
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -92,5 +141,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const docs = [];
   for (const d of DOCS) docs.push(await readDoc(d));
   console.log(JSON.stringify({ generated: new Date().toISOString(), held, leads, docs }, null, 1));
-  console.error(`maturity wall: ${leads.length} leads (${leads.filter((l) => l.newer).length} newer than ${held}); docs ${docs.map((d) => `${d.id}:${d.status}${d.lines ? "/" + d.lines.length + " lines" : ""}`).join(" ")}`);
+  console.error(`maturity wall: ${leads.length} leads (${leads.filter((l) => l.newer).length} newer than ${held}); docs ${docs.map((d) => `${d.id}:${d.status}${d.lines ? "/" + d.lines.length + " lines" : d.paras ? "/" + d.paras.length + " paras" : d.items ? "/" + d.items.length + " items" : ""}`).join(" ")}`);
 }

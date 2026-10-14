@@ -1,7 +1,7 @@
 // Maturity-wall lead collector (scripts/collect-matwall.mjs) — offline. Leads are
 // on-topic, de-duplicated, newest first and flagged when published after the held
 // write-up; a PDF's maturity schedule lines are picked out for the routine to verify.
-import { leadsFrom, maturityLines, QUERIES, DOCS } from "../scripts/collect-matwall.mjs";
+import { leadsFrom, maturityLines, pageFacts, QUERIES, DOCS } from "../scripts/collect-matwall.mjs";
 import { MATWALL } from "../macro/js/content.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
@@ -16,9 +16,14 @@ check(leads[0].date === "2026-10-02" && leads[0].newer && !leads[1].newer, "newe
 
 const pdf = ["Index Dashboard", "Maturity Wall (EUR bn)", "2026 1.2", "2027 8.4", "2028 41.0", "Sector weights", "Healthcare 14%"].join("\n");
 const lines = maturityLines(pdf);
-check(lines.includes("2028 41.0") && lines.includes("Maturity Wall (EUR bn)") && !lines.includes("Healthcare 14%"), "maturity schedule lines are picked out of a PDF's text");
+check(lines.includes("2028 41.0") && lines.includes("2026 1.2") && !lines.includes("Healthcare 14%"), "a schedule table under a maturity heading is picked out of a PDF's text");
+const body = ["1. Contents", "6.8 European Corporate High Yield Maturity Wall", "Executive summary", "Sector weights", "Healthcare 14%", "Market overview", "More text", "Still more", "And more", "Filler", "Filler 2", "Filler 3", "Filler 4", "Filler 5", "Filler 6", "Filler 7", "Later page: €96bn of European high yield bonds mature in 2027, up from €70bn."].join("\n");
+check(maturityLines(body).some((l) => /€96bn/.test(l)), "a maturity figure stated in the body text (past the contents page) is picked out");
 checkEq(maturityLines("no schedule here").length, 0, "a document without a maturity schedule yields nothing");
 
-check(QUERIES.some((q) => /Europe/i.test(q)) && DOCS.every((d) => /^https:\/\//.test(d.url)), "European queries and free official documents are configured");
+const pf = pageFacts('<meta property="article:published_time" content="2026-01-30T10:00:00+00:00"><p>Fitch: 40% of EMEA leveraged loans mature in 2028-2029.</p><p>Unrelated shipping news paragraph here.</p>', /matur/i);
+check(pf.published === "2026-01-30" && pf.paras.length === 1 && /40%/.test(pf.paras[0]), "an article page yields its own published date and the on-topic paragraphs");
+check(DOCS.find((d) => d.id === "spdji_weu_ll").urls.length >= 4, "the S&P loan-index report has alternate copies to try");
+check(QUERIES.some((q) => /Europe/i.test(q)) && DOCS.every((d) => d.urls.every((u) => /^https:\/\//.test(u))), "European queries and free official documents are configured");
 check(MATWALL.europe && /^\d{4}-\d{2}-\d{2}$/.test(MATWALL.europe.published || ""), "the held European block records its source's publication date");
 finish();
