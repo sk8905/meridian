@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-14",
-  lastCheckedTime: "17:11 BST",
+  lastCheckedTime: "19:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1042,11 +1042,11 @@ export const NEWS = {
     {title: "Houthis strike Saudi Aramco headquarters", source: "Financial Times", date: "2026-10-14", time: "10:03", url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"},
     {title: "Global diesel prices set to rise again, warns IEA", source: "Financial Times", date: "2026-10-14", time: "13:25", url: "https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397"},
     {title: "Bank of America profits drop 17% after $1.2bn money laundering fine", source: "Financial Times", date: "2026-10-14", time: "13:19", url: "https://www.ft.com/content/a82b4275-6519-4142-b1df-e74c66ead877"},
-    {title: "Maybe R-star never even existed?", source: "Financial Times", date: "2026-10-14", time: "06:00", url: "https://www.ft.com/content/76cd58f0-3a5c-4715-8879-d83c90ab6f2c"},
+    {title: "US grocery prices poised to climb as soaring fuel costs drive inflation", source: "Financial Times", date: "2026-10-14", time: "15:10", url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"},
   ],
   uk: [
     {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},
-    {title: "Companies face rising number of UK complaints over conduct", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/c16b5a2d-f653-494f-9c18-587685f34bc2"},
+    {title: "Healey’s Budget is a moment he must not miss", source: "Financial Times", date: "2026-10-14", time: "18:31", url: "https://www.ft.com/content/9f3713fb-6b0a-41f8-8ccc-b23f2395740e"},
     {title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"},
     {title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"},
     {title: "Andy Burnham to step up UK business outreach amid fears of Budget tax rises", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"},

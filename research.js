@@ -105,6 +105,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-mandg-wigglesworth-20261014",
+    publication: "M&G Bond Vigilantes",
+    author: "Anjulie Rusius",
+    series: "Bond Vigilantes",
+    title: "Wigglesworth the Wait? A bond fund manager’s take on A Fabulous Debt.",
+    date: "2026-10-14",
+    time: "17:19",
+    summary: "A bond fund manager’s take on Robin Wigglesworth’s book A Fabulous Debt.",
+    url: "https://bondvigilantes.com/blog/2026/10/wigglesworth-the-wait-a-bond-fund-managers-take-on-a-fabulous-debt/",
+  },
+  {
     id: "rsch-fitch-europeanbanksupdate-20261014",
     publication: "Fitch Ratings",
     author: null,

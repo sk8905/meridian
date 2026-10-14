@@ -21,6 +21,62 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "a3621421-bee4-4e96-a5f2-28fa545e6397",
+    title: "Ministers to launch statutory probe of English authority led by Ben Houchen",
+    date: "2026-10-14",
+    time: "19:09",
+    url: "https://www.ft.com/content/a3621421-bee4-4e96-a5f2-28fa545e6397"
+  },
+  {
+    id: "16ceb1fb-662c-4379-8187-0a51a7f4106f",
+    title: "Burnham wants to ‘repair bridges’ between Trump and Zelenskyy",
+    date: "2026-10-14",
+    time: "18:23",
+    url: "https://www.ft.com/content/16ceb1fb-662c-4379-8187-0a51a7f4106f"
+  },
+  {
+    id: "badcd536-6e53-4968-8fea-914ffc3d8d0c",
+    title: "Palantir drops legal case against Sadiq Khan over cancelled £50mn contract",
+    date: "2026-10-14",
+    time: "17:35",
+    url: "https://www.ft.com/content/badcd536-6e53-4968-8fea-914ffc3d8d0c"
+  },
+  {
+    id: "9f3713fb-6b0a-41f8-8ccc-b23f2395740e",
+    title: "Healey’s Budget is a moment he must not miss",
+    date: "2026-10-14",
+    time: "17:31",
+    url: "https://www.ft.com/content/9f3713fb-6b0a-41f8-8ccc-b23f2395740e"
+  },
+  {
+    id: "64f058ff-c8c2-4e63-bf7f-57c08ce685cb",
+    title: "Freshfields partners explore carve-out of AI unit worth ‘billions’, leaked emails reveal",
+    date: "2026-10-14",
+    time: "16:48",
+    url: "https://www.ft.com/content/64f058ff-c8c2-4e63-bf7f-57c08ce685cb"
+  },
+  {
+    id: "9acc4f6f-2faa-4ac1-aa7b-42166d677316",
+    title: "Transcription: Marine Le Pen en entretien avec le Financial Times",
+    date: "2026-10-14",
+    time: "16:35",
+    url: "https://www.ft.com/content/9acc4f6f-2faa-4ac1-aa7b-42166d677316"
+  },
+  {
+    id: "5f1b2f31-2067-4c3a-8093-54210a7c0e72",
+    title: "Netflix to cut 1,000 jobs as growth concerns mount",
+    date: "2026-10-14",
+    time: "15:57",
+    url: "https://www.ft.com/content/5f1b2f31-2067-4c3a-8093-54210a7c0e72"
+  },
+  {
+    id: "3c23e59b-f4c9-4837-b534-ec19fb77a0c8",
+    title: "Unshackle workers from non-compete clauses",
+    date: "2026-10-14",
+    time: "15:04",
+    url: "https://www.ft.com/content/3c23e59b-f4c9-4837-b534-ec19fb77a0c8"
+  },
+  {
     id: "9af2b0d0-e31f-46e8-9041-36b37a9cd3ba",
     title: "This is an era of Davids, not Goliaths",
     date: "2026-10-14",
@@ -243,61 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "06:00",
     url: "https://www.ft.com/content/45e8941a-9f4d-4186-baec-eef5be5ce495"
-  },
-  {
-    id: "76cd58f0-3a5c-4715-8879-d83c90ab6f2c",
-    title: "Maybe R-star never even existed?",
-    date: "2026-10-14",
-    time: "06:00",
-    url: "https://www.ft.com/content/76cd58f0-3a5c-4715-8879-d83c90ab6f2c"
-  },
-  {
-    id: "3cad49d9-4c88-46bc-bddd-7b237a399a7b",
-    title: "Gold Fields mounts charm offensive to woo Northern Star investors",
-    date: "2026-10-14",
-    time: "05:44",
-    url: "https://www.ft.com/content/3cad49d9-4c88-46bc-bddd-7b237a399a7b"
-  },
-  {
-    id: "25c6e29b-f6e6-40a4-b9df-cd0883e9234f",
-    title: "FirstFT: Marine Le Pen gears up for EU fight",
-    date: "2026-10-14",
-    time: "05:30",
-    url: "https://www.ft.com/content/25c6e29b-f6e6-40a4-b9df-cd0883e9234f"
-  },
-  {
-    id: "b77a0094-c6f1-449a-9323-2b4d16696cb7",
-    title: "Russia arrests Japanese journalist on espionage charges",
-    date: "2026-10-14",
-    time: "05:24",
-    url: "https://www.ft.com/content/b77a0094-c6f1-449a-9323-2b4d16696cb7"
-  },
-  {
-    id: "6a8811f5-18bb-4ee1-97e1-2e931db6972d",
-    title: "Move over New York and LA: red states are the new home for art",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/6a8811f5-18bb-4ee1-97e1-2e931db6972d"
-  },
-  {
-    id: "42209791-2167-4c4e-81a0-f610a981b745",
-    title: "UK’s Schillings sets up private investigations business with US law firm Clare Locke",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/42209791-2167-4c4e-81a0-f610a981b745"
-  },
-  {
-    id: "60d09841-052a-44f3-a8ae-52c38fdbb5ab",
-    title: "France’s Marine Le Pen gears up for fight with EU",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/60d09841-052a-44f3-a8ae-52c38fdbb5ab"
-  },
-  {
-    id: "16d4fa95-0532-4461-a7a2-588624202362",
-    title: "Top London private school reverses plan to scrap GCSEs",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/16d4fa95-0532-4461-a7a2-588624202362"
   }
 ];
