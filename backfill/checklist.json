@@ -2625,6 +2625,369 @@
      "recordId": "i729"
     }
    ]
+  },
+  "m209": {
+   "kind": "manager",
+   "name": "Downing",
+   "priority": 98,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "foresight-ventures-sale-announced",
+     "date": "2022-06-13",
+     "what": "Downing agrees sale of technology ventures business to Foresight Group",
+     "source": "https://www.investegate.co.uk/announcement/rns/foresight-group-holdings-limited-npv--fsg/foresight-acquires-downing-s-ventures-businesses/6937334",
+     "status": "present",
+     "recordId": "d1047"
+    },
+    {
+     "key": "foresight-ventures-sale-completed",
+     "date": "2022-07-05",
+     "what": "Downing completes sale of non-healthcare ventures business to Foresight",
+     "source": "https://data.fca.org.uk/artefacts/NSM/GNW/1000672815-en.html",
+     "status": "present",
+     "recordId": "d1048"
+    },
+    {
+     "key": "whitehall-debt-facility",
+     "date": "2022-10-24",
+     "what": "Debt facility to Whitehall Capital",
+     "source": "https://www.mortgagesolutions.co.uk/mortgage-news/2022/10/24/downing-llp-agrees-debt-facility-to-support-bridging-lender-whitehall-capital/",
+     "status": "present",
+     "recordId": "d941"
+    },
+    {
+     "key": "private-credit-500m-commitments",
+     "date": "2023-06-08",
+     "what": "Specialist lending team passes GBP500m commitments",
+     "status": "present",
+     "recordId": "i904"
+    },
+    {
+     "key": "listed-infra-fund-closure",
+     "date": "2024-02-26",
+     "what": "Downing Fund Managers closes VT Downing Listed Infrastructure Income fund",
+     "source": "https://investmentweek.co.uk/news/4178673/calls-infrastructure-fund-trusts",
+     "status": "rejected",
+     "note": "Source article is paywalled; the closure reasons could not be verified from the page."
+    },
+    {
+     "key": "dore-bagnall-takeover",
+     "date": "2025-06-20",
+     "what": "Bagnall Energy offers ~GBP175m to take Downing Renewables & Infrastructure Trust private",
+     "source": "https://www.ajbell.co.uk/news/articles/downing-renewables-be-bought-bagnall-ps175-million-deal",
+     "status": "present",
+     "recordId": "d1049"
+    },
+    {
+     "key": "care-concern-nine-homes-exit",
+     "date": "2025-08-27",
+     "what": "Downing exits nine Care Concern Group care homes via sale and leaseback",
+     "source": "https://institutional.downing.co.uk/insights/downing-successfully-exits-nine-elderly-care-homes-in-sale-and-leaseback-transaction",
+     "status": "present",
+     "recordId": "d1050"
+    },
+    {
+     "key": "private-credit-1bn-milestone",
+     "date": "2026-03-18",
+     "what": "Private credit passes GBP1bn lending",
+     "source": "https://www.mortgagesolutions.co.uk/specialist-lending/bridging/2026/03/18/downing-hits-1bn-lending-milestone/",
+     "status": "present",
+     "recordId": "i867"
+    },
+    {
+     "key": "tornionlaakson-hydro-acquisition",
+     "date": "2026-03-27",
+     "what": "Downing acquires Tornionlaakson Voima Oy (three Finnish hydropower plants)",
+     "source": "https://www.castren.fi/people/topi-lusenius-2/",
+     "status": "rejected",
+     "note": "Only a law-firm adviser page was found; no primary Downing release or tier-1 outlet confirming the date."
+    },
+    {
+     "key": "500m-funding-line-cre-head",
+     "date": "2026-09-10",
+     "what": "GBP500m institutional funding line and CRE lending head hire",
+     "source": "https://alternativecreditinvestor.com/2026/09/10/downing-expands-credit-platform-with-500m-funding-line/",
+     "status": "present",
+     "recordId": "i745"
+    }
+   ]
+  },
+  "m76": {
+   "kind": "manager",
+   "name": "Gardant",
+   "priority": 99,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "gardant-spin-off-credito-fondiario",
+     "date": "2021-07-22",
+     "what": "Credito Fondiario spins off servicing/purchasing into new Gardant group",
+     "source": "https://www.italia-informa.com/Public/italiainforma/Documenti/Credito_Fondiario_Comunicato_Stampa_22_07_2021_1626964842.pdf",
+     "status": "present",
+     "recordId": "i1088"
+    },
+    {
+     "key": "gardant-investor-sgr-first-fund-close-500m",
+     "date": "2021-12-23",
+     "what": "Gardant Investor SGR closes first credit fund at EUR 500m",
+     "source": "https://bebeez.it/private-debt/closing-a-500-mln-euro-per-il-primo-fondo-di-gardant-investor-sgr/",
+     "status": "present",
+     "recordId": "i1089"
+    },
+    {
+     "key": "bper-amco-gardant-framework",
+     "date": "2022-11-28",
+     "what": "Gardant/AMCO/BPER framework agreement: servicing JV and up to EUR 2.5bn NPE disposals",
+     "source": "https://www.amco.it/en/agreement-with-gardant-and-amco-and-the-bper-group/",
+     "status": "present",
+     "recordId": "d1057"
+    },
+    {
+     "key": "bper-loira-utp-securitisation",
+     "date": "2023-04-27",
+     "what": "BPER completes ~EUR 470m UTP sale to Loira SPV",
+     "source": "https://vorvel.eu/sites/default/files/27.04.23_comunicato_stampa_it_s.pdf",
+     "status": "present",
+     "recordId": "d1058"
+    },
+    {
+     "key": "bper-gardant-bridge-servicing-closing",
+     "date": "2024-01-15",
+     "what": "BPER and Gardant complete servicing partnership",
+     "source": "https://italia-informa.com/public/italiainforma/ComunicatiStampa/BPer/BPER_16_GENNAIO.pdf",
+     "status": "present",
+     "recordId": "i1090"
+    },
+    {
+     "key": "dovalue-gardant-exclusive-talks",
+     "date": "2024-03-21",
+     "what": "doValue, Elliott and Tiber enter exclusive talks on Gardant combination",
+     "source": "https://www.emarketstorage.it/sites/default/files/comunicati/2024-03/20240321_144194.pdf",
+     "status": "present",
+     "recordId": "i1091"
+    },
+    {
+     "key": "dovalue-gardant-binding-agreement",
+     "date": "2024-06-07",
+     "what": "doValue signs binding agreement to acquire 100% of Gardant",
+     "source": "https://www.emarketstorage.it/sites/default/files/comunicati/2024-06/20240607_150341.pdf",
+     "status": "present",
+     "recordId": "i1092"
+    },
+    {
+     "key": "caesar-fund-launch",
+     "date": "2024-07-05",
+     "what": "Gardant Investor SGR launches Caesar real-estate credit fund",
+     "source": "https://bebeez.it/private-debt/gardant-investor-lancia-il-fondo-caesar-dedicato-ai-crediti-con-sottostante-immobiliare/",
+     "status": "present",
+     "recordId": "i1093"
+    },
+    {
+     "key": "dovalue-gardant-completion",
+     "date": "2024-11-25",
+     "what": "doValue completes acquisition of Gardant",
+     "source": "https://www.emarketstorage.it/sites/default/files/comunicati/2024-11/20241122_157655.pdf",
+     "status": "present",
+     "recordId": "i146"
+    },
+    {
+     "key": "lounge-fund-launch",
+     "date": "2025-12-23",
+     "what": "doValue/Gardant Investor SGR launch Lounge contribution fund",
+     "source": "https://www.soldionline.it/?p=1852",
+     "status": "present",
+     "recordId": "i1094"
+    },
+    {
+     "key": "amco-outsourced-servicers",
+     "date": "2026-01-01",
+     "what": "AMCO assigns outsourced NPL portfolio to eight servicers incl. doValue-Gardant",
+     "source": "https://www.amco.it/en/amco-optimises-its-outsourced-credit-management/",
+     "status": "present",
+     "recordId": "d91"
+    },
+    {
+     "key": "gardant-investor-pan-european-platform",
+     "date": "2026-03-02",
+     "what": "Gardant Investor SGR evaluates pan-European alternatives platform",
+     "source": "https://www.amco.it/en/amco-optimises-its-outsourced-credit-management/",
+     "status": "present",
+     "recordId": "i603"
+    }
+   ]
+  },
+  "m77": {
+   "kind": "manager",
+   "name": "Oquendo Capital",
+   "priority": 100,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "mezzanine-iv-launch-banca-march",
+     "date": "2020-06-04",
+     "what": "Banca March and Oquendo launch Oquendo IV mezzanine fund",
+     "source": "https://www.fundssociety.com/es/?p=90046",
+     "status": "rejected",
+     "note": "Held as fund record f69; no separate intel record exists to link."
+    },
+    {
+     "key": "senior-debt-fund-final-close",
+     "date": "2021-03-15",
+     "what": "Oquendo Senior Debt Fund final close",
+     "source": "https://aztec.group/news/aztec-supports-oquendo-capital-on-final-closing-of-senior-debt-fund/",
+     "status": "rejected",
+     "note": "Held as fund record f206; no separate intel record exists to link."
+    },
+    {
+     "key": "paris-office-opening",
+     "date": "2022-01-24",
+     "what": "Oquendo Capital opens a local office in Paris",
+     "source": "https://www.cfnews.net/L-actualite/Marche-General/Tetes-d-affiche/Oquendo-Capital-s-invite-a-Paris-390705",
+     "status": "present",
+     "recordId": "i1087"
+    },
+    {
+     "key": "third-senior-and-fifth-flex-raising",
+     "date": "2024-05-24",
+     "what": "Founder says Oquendo raising third senior fund and planning fifth Flex fund",
+     "source": "https://ionanalytics.com/insights/debtwire/alfonso-erhardt-founder-of-oquendo-on-how-to-find-opportunities-in-private-credit-in-southern-europe/",
+     "status": "present",
+     "recordId": "i309"
+    },
+    {
+     "key": "azora-oquendo-re-financing-platform",
+     "date": "2024-07-23",
+     "what": "Azora and Oquendo launch Iberian real-estate financing platform",
+     "source": "https://realassets.ipe.com/news/azora-and-oquendo-create-300m-real-estate-financing-platform/10027712.article",
+     "status": "present",
+     "recordId": "i294"
+    },
+    {
+     "key": "synergym-syndicated-financing",
+     "date": "2025-07-08",
+     "what": "Oquendo joins EUR120m syndicated financing for Synergym",
+     "source": "https://capital-riesgo.es/en/articles/oquendo-capital-santander-caixabank-bbva-and-unicaja-provide-50-million-in-financing-to-the-gym-chain-synergym/",
+     "status": "present",
+     "recordId": "d250"
+    },
+    {
+     "key": "litalsa-mbo",
+     "date": "2025-11-03",
+     "what": "MCH sells Litalsa stake to CEO and Oquendo",
+     "source": "https://finder.techleap.nl/news/feed/litalsa-sold-to-ceo-and-oquendo",
+     "status": "rejected",
+     "note": "Only an aggregator citing Expansion was found; no primary source opened."
+    },
+    {
+     "key": "basque-debt-fund-mandate",
+     "date": "2026-07-01",
+     "what": "IVF selects Oquendo to manage the Basque productive-transformation debt fund",
+     "source": "https://www.deia.eus/economia/2026/07/01/ivf-adjudica-oquendo-capital-gestion-11273345.html",
+     "status": "present",
+     "recordId": "i372"
+    }
+   ]
+  },
+  "m145": {
+   "kind": "manager",
+   "name": "Cross Ocean Partners",
+   "priority": 101,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "bosphorus-takeover-approved",
+     "date": "2021-11-23",
+     "what": "Noteholders approve transfer of Bosphorus CLO management rights to Cross Ocean",
+     "source": "https://www.creditflux.com/CLOs/2021-11-23/Commerzbank-CLO-triple-A-investors-approve-Cross-Ocean-management-rights-transfer",
+     "status": "present",
+     "recordId": "i980"
+    },
+    {
+     "key": "bosphorus-platform-completion-dec-2021",
+     "date": "2021-12",
+     "what": "Completion of Bosphorus platform acquisition",
+     "source": "https://dev-2024.structuredcreditinvestor.com/market-moves/all/78264/bosphorus-clos-transferred",
+     "status": "rejected",
+     "note": "Exact completion date not verifiable (source returned 403); covered in substance by i980."
+    },
+    {
+     "key": "bosphorus-clo-vii-first-clo",
+     "date": "2022-10-26",
+     "what": "Cross Ocean completes Bosphorus CLO VII, first CLO under its management",
+     "source": "https://www.crossoceanpartners.com/news-press/cross-ocean-partners-launches-its-first-clo-post-acquisition-of-the-bosphorus-european-clo-platform-from-commerzbank",
+     "status": "present",
+     "recordId": "d960"
+    },
+    {
+     "key": "celsa-takeover-formalised",
+     "date": "2023-11-29",
+     "what": "Creditor funds incl. Cross Ocean formalise takeover of Celsa",
+     "source": "https://eurometal.net/investment-funds-formalise-celsa-takeover-reorganise-management/",
+     "status": "present",
+     "recordId": "d1051"
+    },
+    {
+     "key": "bosphorus-clo-ix-ratings",
+     "date": "2024-04-05",
+     "what": "S&P assigns ratings to Cross Ocean Bosphorus CLO IX DAC",
+     "source": "https://www.spglobal.com/ratings/en/research/articles/240405-cross-ocean-bosphorus-clo-ix-dac-european-cash-flow-clo-notes-assigned-ratings-12992882",
+     "status": "present",
+     "recordId": "d956"
+    },
+    {
+     "key": "470-vanderbilt-brooklyn-acquisition",
+     "date": "2025-08-11",
+     "what": "Cross Ocean and Lincoln acquire 470 Vanderbilt Avenue, Brooklyn",
+     "source": "https://lpc.com/local-news/cross-ocean-partners-and-lincoln-property-company-acquire-650000-sf-office-building-in-downtown-brooklyn/",
+     "status": "present",
+     "recordId": "d1052"
+    },
+    {
+     "key": "sunseeker-capital-injection",
+     "date": "2025-11-10",
+     "what": "Cross Ocean and Cheyne inject new capital into Sunseeker",
+     "source": "https://www.yachtbuyer.com/en/news/sunseeker-international-secures-fresh-investment-amid-strategic-restructure",
+     "status": "present",
+     "recordId": "d1053"
+    },
+    {
+     "key": "140-kendrick-needham-acquisition",
+     "date": "2025-12-17",
+     "what": "Cross Ocean and Lincoln acquire 140 Kendrick Street, Needham for $132m",
+     "source": "https://www.mannpublications.com/mannreport/2025/12/17/cross-ocean-partners-and-lincoln-property-co-acquire-ma-office-campus-for-132m/",
+     "status": "present",
+     "recordId": "d1054"
+    },
+    {
+     "key": "sunseeker-ownership-announced",
+     "date": "2026-04-09",
+     "what": "Cross Ocean and Cheyne to take ownership of Sunseeker",
+     "source": "https://marineindustrynews.co.uk/sunseeker-ownership-update-kcp-deal-collapses-interim-ceo-named",
+     "status": "present",
+     "recordId": "d1055"
+    },
+    {
+     "key": "sunseeker-ownership-completed",
+     "date": "2026-07-28",
+     "what": "Sunseeker completes ownership transfer to Cross Ocean and Cheyne",
+     "source": "https://www.yachtbuyer.com/en/news/sunseeker-confirms-new-ownership-and-appoints-scott-millar-as-ceo",
+     "status": "present",
+     "recordId": "d1056"
+    },
+    {
+     "key": "ess-iv-final-close",
+     "date": "2020",
+     "what": "European Special Situations Fund IV close",
+     "source": "https://pitchbook.com/profiles/fund/19200-43F",
+     "status": "rejected",
+     "note": "No dated primary or tier-1 source; only a database profile with conflicting vintage."
+    }
+   ]
   }
  }
 }
