@@ -49,6 +49,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-goingprivate-aibonusbooster-20261014",
+    publication: "Bloomberg",
+    author: "Sinead Cruise",
+    series: "Going Private",
+    title: "Going Private: AI’s bonus booster",
+    date: "2026-10-14",
+    time: "12:10",
+    summary: "New tech starts to reshape hiring and pay in private capital.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-14/ai-skills-overtake-ivy-league-in-private-capital-hiring-wishlist",
+  },
+  {
+    id: "nl-thelawyer-newsdaily-harveylegorabrandchaos-20261014",
+    publication: "The Lawyer",
+    author: null,
+    series: "News Daily",
+    title: "Brand chaos as Legora and Harvey launch products with identical names on same day",
+    date: "2026-10-14",
+    time: "14:31",
+    summary: "Legal tech rivals Harvey and Legora launched identically-named products within hours of each other.",
+    url: "https://r.mail2.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/tXS5aHqVZajq",
+  },
+  {
     id: "nl-bbg-economicsdaily-feedbackloop-20261014",
     publication: "Bloomberg",
     author: "Zoe Schneeweiss",

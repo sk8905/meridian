@@ -100,10 +100,10 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-14",
-  time: "14:25 BST",
-  lede: "A hotter-than-expected US inflation print lands on a market already pricing higher-for-longer, with energy the common thread from the Iran war to the Houthi strike on Aramco and the IMF's warning on debt and yields.",
+  time: "14:58 BST",
+    lede: "A hotter-than-expected US inflation print lands on a market already pricing higher-for-longer, with FT reporting September CPI keeps the Fed on course for further tightening while energy remains the common thread from the Iran war to the Houthi strike on Aramco.",
   bullets: [
-    { html: "<strong>Macro &mdash; US inflation jumped to 3.7% y/y in September, above the 3.6% consensus,</strong> as the Iran war pushed up energy prices; Brent was trading around $105 earlier in the session after Houthi attacks hit Saudi Aramco&rsquo;s headquarters.", src: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d", srcName: "Financial Times", date: "2026-10-14" },
+    { html: "<strong>Macro &mdash; US inflation jumped to 3.7% y/y in September, above the 3.6% consensus, keeping the Fed on course for further tightening,</strong> as the Iran war pushed up energy prices; Brent was trading around $105 earlier in the session after Houthi attacks hit Saudi Aramco&rsquo;s headquarters.", src: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d", srcName: "Financial Times", date: "2026-10-14" },
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield stood near 5.20% (30-year 5.549%) going into the September CPI print</strong>, while ECB Governing Council member Pierre Wunsch said the bank will &ldquo;probably have to hike again&rdquo; with euro-area inflation approaching 4%.", src: "https://www.cnbc.com/2026/10/14/us-treasury-yields-cpi-inflation-report.html", srcName: "CNBC", date: "2026-10-14" },
     { html: "<strong>Equities &mdash; S&amp;P 500 futures pointed to a modest rise (7,872, +0.2%)</strong> before the CPI release as ASML raised its full-year sales outlook for a third straight quarter on AI demand.", src: "https://www.bloomberg.com/news/articles/2026-10-14/asml-raises-full-year-sales-outlook-as-ai-boom-drives-demand", srcName: "Bloomberg", date: "2026-10-14" },
     { html: "<strong>Credit &mdash; redemption requests at perpetual non-traded BDCs fell quarter on quarter at 13 of 15 tracked vehicles</strong> but still averaged 9.8% of shares, above the 5% cap at nine, per Fitch; Fitch expects further declines in coming quarters.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk1Rb7mMWlAmc_OtJ58Ixz-D4naVC4G8VQQGmARJOZKvK_7Hs_WgDiZftmyZrOEi3XWC1L9BA=", srcName: "Fitch Ratings", date: "2026-10-13" },

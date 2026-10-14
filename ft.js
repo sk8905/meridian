@@ -21,6 +21,69 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "9af2b0d0-e31f-46e8-9041-36b37a9cd3ba",
+    title: "This is an era of Davids, not Goliaths",
+    date: "2026-10-14",
+    time: "14:52",
+    url: "https://www.ft.com/content/9af2b0d0-e31f-46e8-9041-36b37a9cd3ba"
+  },
+  {
+    id: "c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d",
+    title: "US inflation jumps to 3.7% as Iran war drives up prices",
+    date: "2026-10-14",
+    time: "14:51",
+    url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"
+  },
+  {
+    id: "a82b4275-6519-4142-b1df-e74c66ead877",
+    title: "Bank of America profits drop 17% after $1.2bn money laundering fine",
+    date: "2026-10-14",
+    time: "14:39",
+    url: "https://www.ft.com/content/a82b4275-6519-4142-b1df-e74c66ead877"
+  },
+  {
+    id: "8c3c631c-e37f-4209-aefd-112c4c58020c",
+    title: "German prosecutors accuse Ukraine of Nord Stream sabotage",
+    date: "2026-10-14",
+    time: "14:39",
+    url: "https://www.ft.com/content/8c3c631c-e37f-4209-aefd-112c4c58020c"
+  },
+  {
+    id: "3f821be4-f137-4cc9-b0b0-b2014f2607c2",
+    title: "Berkshire Hathaway adds $330mn to stake in tech group Bending Spoons",
+    date: "2026-10-14",
+    time: "14:36",
+    url: "https://www.ft.com/content/3f821be4-f137-4cc9-b0b0-b2014f2607c2"
+  },
+  {
+    id: "a25417b3-d4e4-4b89-b14d-6370a85ce3c4",
+    title: "Houthis attack Saudi Aramco headquarters",
+    date: "2026-10-14",
+    time: "14:25",
+    url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"
+  },
+  {
+    id: "6934f481-b61c-4ab0-8064-a79493702f2c",
+    title: "Hot September CPI inflation keeps Fed on course for further tightening",
+    date: "2026-10-14",
+    time: "14:21",
+    url: "https://www.ft.com/content/6934f481-b61c-4ab0-8064-a79493702f2c"
+  },
+  {
+    id: "d9aaf82c-1975-4f07-99b1-f3b858b4dc7c",
+    title: "Burnham rules out ‘partnership’ with Greens while ‘Zionism is Racism’ policy remains",
+    date: "2026-10-14",
+    time: "14:16",
+    url: "https://www.ft.com/content/d9aaf82c-1975-4f07-99b1-f3b858b4dc7c"
+  },
+  {
+    id: "60a8f4e6-5da4-4f59-b009-baed53215497",
+    title: "Lufthansa wins battle to buy stake in Portugal’s TAP airline",
+    date: "2026-10-14",
+    time: "14:16",
+    url: "https://www.ft.com/content/60a8f4e6-5da4-4f59-b009-baed53215497"
+  },
+  {
     id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
     title: "Inflation and interest rates tracker: see how your country compares",
     date: "2026-10-14",
@@ -42,32 +105,11 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/b71e0dc4-b190-49ec-b000-bd585054ddc8"
   },
   {
-    id: "c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d",
-    title: "US inflation jumps to 3.7% as Iran war drives up prices",
-    date: "2026-10-14",
-    time: "13:51",
-    url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"
-  },
-  {
     id: "b06d00da-9df7-405b-9410-b5485c267397",
     title: "Global diesel prices set to rise again, warns IEA",
     date: "2026-10-14",
     time: "13:25",
     url: "https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397"
-  },
-  {
-    id: "60a8f4e6-5da4-4f59-b009-baed53215497",
-    title: "Lufthansa wins battle to buy stake in Portugal’s TAP airline",
-    date: "2026-10-14",
-    time: "13:23",
-    url: "https://www.ft.com/content/60a8f4e6-5da4-4f59-b009-baed53215497"
-  },
-  {
-    id: "a82b4275-6519-4142-b1df-e74c66ead877",
-    title: "Bank of America profits drop 17% after $1.2bn money laundering fine",
-    date: "2026-10-14",
-    time: "13:19",
-    url: "https://www.ft.com/content/a82b4275-6519-4142-b1df-e74c66ead877"
   },
   {
     id: "18b65495-9e2a-45d6-be85-7641442ab61a",
@@ -91,18 +133,18 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/c5fb2ea9-9a41-416a-90b8-337936ec4971"
   },
   {
-    id: "d9aaf82c-1975-4f07-99b1-f3b858b4dc7c",
-    title: "UK Greens split widens after deputy leader says Zionism vote must be ‘respected’",
-    date: "2026-10-14",
-    time: "12:53",
-    url: "https://www.ft.com/content/d9aaf82c-1975-4f07-99b1-f3b858b4dc7c"
-  },
-  {
     id: "63e3c39b-357f-4a87-adf0-090c60c929a7",
     title: "BlackRock pulls in $205bn to take assets to record high",
     date: "2026-10-14",
     time: "12:39",
     url: "https://www.ft.com/content/63e3c39b-357f-4a87-adf0-090c60c929a7"
+  },
+  {
+    id: "37085602-726a-44dc-a859-51caab38eb75",
+    title: "Ukraine blindsided by Starlink restrictions and intelligence gaps",
+    date: "2026-10-14",
+    time: "12:09",
+    url: "https://www.ft.com/content/37085602-726a-44dc-a859-51caab38eb75"
   },
   {
     id: "73cfaf41-d3ea-4202-bd9b-f355c9e5b504",
@@ -154,13 +196,6 @@ export const FT_ITEMS = [
     url: "https://www.ft.com/content/4ffa1853-0e2c-424f-b941-88c6bcac5765"
   },
   {
-    id: "37085602-726a-44dc-a859-51caab38eb75",
-    title: "Ukraine blindsided by Starlink restrictions and intelligence gaps",
-    date: "2026-10-14",
-    time: "10:47",
-    url: "https://www.ft.com/content/37085602-726a-44dc-a859-51caab38eb75"
-  },
-  {
     id: "0c178261-2c29-4677-9649-5b9257662d7e",
     title: "Turkish authorities take over country’s most-watched news channel",
     date: "2026-10-14",
@@ -173,13 +208,6 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "10:30",
     url: "https://www.ft.com/content/8e82ae33-cc11-4731-826a-bcd0752f79bf"
-  },
-  {
-    id: "a25417b3-d4e4-4b89-b14d-6370a85ce3c4",
-    title: "Houthis strike Saudi Aramco headquarters",
-    date: "2026-10-14",
-    time: "10:03",
-    url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"
   },
   {
     id: "c69ef2f5-0644-4ec3-accb-cbc8d633e008",
@@ -271,33 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "05:00",
     url: "https://www.ft.com/content/16d4fa95-0532-4461-a7a2-588624202362"
-  },
-  {
-    id: "8c3c631c-e37f-4209-aefd-112c4c58020c",
-    title: "Germany puts Ukrainian ex-officer in the dock over Nord Stream sabotage",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/8c3c631c-e37f-4209-aefd-112c4c58020c"
-  },
-  {
-    id: "dc21da0b-25b7-402e-8dbe-e7d9f7431b93",
-    title: "How Ukraine’s data centre strikes threw Russia into turmoil",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/dc21da0b-25b7-402e-8dbe-e7d9f7431b93"
-  },
-  {
-    id: "5e6d1d30-0934-4fda-b2c0-27b0d96aeba3",
-    title: "The global economy and the art of living dangerously",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/5e6d1d30-0934-4fda-b2c0-27b0d96aeba3"
-  },
-  {
-    id: "24818a5c-64d0-4d6c-a9c0-825156edf43b",
-    title: "Celebrity lawyer accused of participating in ‘outright plunder’ of BHS",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/24818a5c-64d0-4d6c-a9c0-825156edf43b"
-  },
+  }
 ];
