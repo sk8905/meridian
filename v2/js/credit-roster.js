@@ -91,7 +91,7 @@ function creditsBody() {
   const shown = cr.all || narrowed ? list : list.slice(0, Math.max(CR_PREVIEW, list.findIndex((c) => c.name === cr.open) + 1));
   const down = EUR_CREDITS.filter((c) => c.trend === "down").length, up = EUR_CREDITS.filter((c) => c.trend === "up").length;
   const chip = (v, l) => `<button type="button" class="crr-chip${cr.trend === v ? " is-on" : ""}" data-crtrend="${v}" aria-pressed="${cr.trend === v}">${l}</button>`;
-  return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="credits" placeholder="Search a credit or sector…" aria-label="Search credits" value="${esc(cr.q)}">`
+  return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="credits" placeholder="Search credits" aria-label="Search credits" value="${esc(cr.q)}">`
     + `<select class="crr-sort" data-roster="credits" aria-label="Sort the credits">${CR_SORTS.map(([v, l]) => `<option value="${v}"${cr.sort === v ? " selected" : ""}>${l}</option>`).join("")}</select>`
     + `<button type="button" class="crr-csv" data-csv="credits">CSV</button></div>`
     + `<div class="crr-chips">${chip("", `All ${EUR_CREDITS.length}`)}${chip("down", `▼ Downgraded ${down}`)}${chip("up", `▲ Upgraded ${up}`)}</div>`
@@ -169,7 +169,7 @@ function bdcRow(b) {
 function bdcBody() {
   const list = bdcSorted(BDCS.filter(bdcMatch));
   const sec = (label, rows) => rows.length ? `<div class="crr-sec">${esc(label)} <span class="crr-n">${rows.length}</span></div><ul class="crr-list">${rows.map(bdcRow).join("")}</ul>` : "";
-  return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="bdc" placeholder="Search a BDC or manager…" aria-label="Search BDCs" value="${esc(bdc.q)}">`
+  return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="bdc" placeholder="Search BDCs" aria-label="Search BDCs" value="${esc(bdc.q)}">`
     + `<select class="crr-sort" data-roster="bdc" aria-label="Sort the BDCs">${BDC_SORTS.map(([v, l]) => `<option value="${v}"${bdc.sort === v ? " selected" : ""}>${l}</option>`).join("")}</select>`
     + `<button type="button" class="crr-csv" data-csv="bdc">CSV</button></div>`
     + `<div class="crr-body">${list.length ? sec("Listed", list.filter((b) => b.structure === "listed")) + sec("Private (non-traded)", list.filter((b) => b.structure !== "listed"))

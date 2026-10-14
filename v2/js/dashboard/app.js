@@ -308,8 +308,85 @@ export function mount(host, ctx) {
       _ro.observe(mid);
       mid.querySelectorAll(":scope > .dsh-card").forEach((c) => _ro.observe(c));
     }
+    phoneTidy();
     packMid();
   }
+  // ---- Phone (R40): no scrolling inside cards. A long list shows a short preview
+  // and "See all N ›", which opens the whole list in a full-screen sheet (its own
+  // scroll, a filter box for long lists, ✕ to close). Wide tables re-render as
+  // stacked rows: name + key figure on one line, the other fields on a small grey
+  // line beneath — nothing clipped, nothing scrolling sideways.
+  const PREVIEW = 6;
+  const PHONE_MQ = "(max-width:900px)";
+  const isPhone = () => !!(window.matchMedia && window.matchMedia(PHONE_MQ).matches);
+  function stackTables(root) {
+    root.querySelectorAll("table.dsh-stk-src").forEach((t) => {
+      const anchor = t.closest(".dsh-scroll") || t;
+      const old = anchor.nextElementSibling; if (old && old.classList.contains("dsh-stk-list")) old.remove();
+      const heads = [...t.querySelectorAll("thead th")].map((th) => th.textContent.trim());
+      const nm = +(t.dataset.stkName || 0), key = t.dataset.stkKey != null ? +t.dataset.stkKey : -1, rank = t.dataset.stkRank != null ? +t.dataset.stkRank : -1;
+      const lab = new Set(String(t.dataset.stkLab || "").split(",").filter((x) => x !== "").map(Number));
+      const li = [...t.querySelectorAll("tbody tr")].map((tr) => {
+        const td = [...tr.children];
+        const isSrc = (c) => c.querySelector("a.dsh-src") && !c.textContent.replace(/src/i, "").trim();
+        const src = td.filter((c, i) => i !== nm && isSrc(c)).map((c) => c.innerHTML).join("");
+        const meta = td.map((c, i) => [c, i]).filter(([c, i]) => i !== nm && i !== key && i !== rank && !isSrc(c) && c.textContent.trim() && c.textContent.trim() !== "—")
+          .map(([c, i]) => `<span>${lab.has(i) && heads[i] ? `<span class="dsh-stk-l">${esc(heads[i])}</span> ` : ""}${c.innerHTML}</span>`);
+        const kv = key >= 0 && td[key] ? `<span class="dsh-stk-v">${lab.has(key) && heads[key] ? `<span class="dsh-stk-l">${esc(heads[key])}</span> ` : ""}${td[key].innerHTML}</span>` : "";
+        return `<li class="dsh-stk-i"><div class="dsh-stk-h"><span class="dsh-stk-n">${rank >= 0 && td[rank] ? `<span class="dsh-stk-r">${esc(td[rank].textContent.trim())}</span>` : ""}${td[nm] ? td[nm].innerHTML : ""}</span>${kv}${src ? `<span class="dsh-stk-s">${src}</span>` : ""}</div>`
+          + (meta.length ? `<div class="dsh-stk-m">${meta.join("")}</div>` : "") + `</li>`;
+      });
+      anchor.insertAdjacentHTML("afterend", `<ul class="dsh-stk-list">${li.join("")}</ul>`);
+    });
+  }
+  const itemsOf = (body) => {
+    const stk = body.querySelector(".dsh-stk-list"); if (stk) return [...stk.children];
+    for (const sel of ["li.dsh-news-i", ".dsh-km", ".dsh-earn-rel", ".dsh-hf-i", ".dsh-lgl-i"]) { const a = [...body.querySelectorAll(sel)]; if (a.length) return a; }
+    return [...body.querySelectorAll("tbody tr")];
+  };
+  function previewList(body) {
+    body.querySelectorAll(".dsh-pv-hide").forEach((e) => e.classList.remove("dsh-pv-hide"));
+    body.querySelectorAll(":scope > .dsh-seeall").forEach((e) => e.remove());
+    if (!isPhone() || body.querySelector(".dsh-chart")) return;
+    const items = itemsOf(body); if (items.length <= PREVIEW + 2) return;
+    items.slice(PREVIEW).forEach((e) => e.classList.add("dsh-pv-hide"));
+    // A sub-heading (earnings week) left with nothing visible after it hides too.
+    body.querySelectorAll(".dsh-earn-wk").forEach((h) => { if (items[PREVIEW].compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING) h.classList.add("dsh-pv-hide"); });
+    body.insertAdjacentHTML("beforeend", `<button type="button" class="dsh-seeall">See all ${items.length} <span aria-hidden="true">›</span></button>`);
+  }
+  function phoneTidy() {
+    stackTables(host);
+    host.querySelectorAll(".dsh-mid .dsh-fill-body, #dsh-lgl-body").forEach(previewList);
+  }
+  let _closeSheet = null;
+  function openSheet(body) {
+    if (_closeSheet) _closeSheet();
+    const card = body.closest(".dsh-card");
+    const title = card ? ((card.querySelector(".dsh-h-t") || card.querySelector(".dsh-h") || {}).textContent || "").trim() : "";
+    const clone = body.cloneNode(true);
+    clone.className = "dsh-sheet-body"; clone.removeAttribute("id"); clone.removeAttribute("style");
+    clone.querySelectorAll("[id]").forEach((e) => e.removeAttribute("id"));
+    clone.querySelectorAll(".dsh-pv-hide").forEach((e) => e.classList.remove("dsh-pv-hide"));
+    clone.querySelectorAll(".dsh-seeall").forEach((e) => e.remove());
+    const n = itemsOf(clone).length;
+    const sh = document.createElement("div");
+    // Mounted on <body> (above the app's tab bar), carrying .dsh so card styles apply.
+    sh.className = "dsh dsh-sheet"; sh.setAttribute("role", "dialog"); sh.setAttribute("aria-modal", "true"); sh.setAttribute("aria-label", title);
+    sh.innerHTML = `<div class="dsh-sheet-hd"><span class="dsh-sheet-t">${esc(title)} <span class="dsh-n">(${n})</span></span><button type="button" class="dsh-sheet-x" aria-label="Close">✕</button></div>`
+      + (n > 12 ? `<div class="dsh-sheet-f"><input type="search" class="dsh-sheet-q" placeholder="Filter" aria-label="Filter this list" autocomplete="off"></div>` : "");
+    sh.appendChild(clone);
+    document.body.appendChild(sh);
+    document.documentElement.classList.add("dsh-sheet-open");
+    const onKey = (e) => { if (e.key === "Escape") close(); };
+    const close = () => { sh.remove(); document.documentElement.classList.remove("dsh-sheet-open"); document.removeEventListener("keydown", onKey); _closeSheet = null; };
+    document.addEventListener("keydown", onKey);
+    sh.querySelector(".dsh-sheet-x").addEventListener("click", close);
+    sh.addEventListener("click", (e) => { if (e.target.closest("a[href]")) close(); });
+    const q = sh.querySelector(".dsh-sheet-q");
+    if (q) q.addEventListener("input", () => { const v = q.value.trim().toLowerCase(); itemsOf(clone).forEach((it) => { it.style.display = !v || it.textContent.toLowerCase().includes(v) ? "" : "none"; }); });
+    _closeSheet = close;
+  }
+  if (window.matchMedia) { try { window.matchMedia(PHONE_MQ).addEventListener("change", () => phoneTidy()); } catch { /* old Safari */ } }
   const liveOr = (id) => (_live[id] ? `<span class="dsh-live" data-live="${id}" title="Live">live</span>` : liveTag(id));
   let _eu = null;                        // /api/eurates payload (ECB · BoE · Eurostat)
   let _rates = null;                     // /api/rates payload (FRED OAS, SOFR, Treasury)
@@ -342,7 +419,7 @@ export function mount(host, ctx) {
   }
   function ipoHTML() {
     const row = (x) => `<tr><td class="dsh-nm">${esc(x.company)}</td><td>${esc(x.exchange)}</td><td class="dsh-r">${esc(x.size)}</td><td>${esc(x.timing)}</td><td><span class="dsh-tag dsh-tag-${(x.status || "").toLowerCase()}">${esc(x.status)}</span>${srcLink(x.source, x.company + " source")}</td></tr>`;
-    return `<table class="dsh-tbl"><thead><tr><th>Company</th><th>Listing</th><th class="dsh-r">Size</th><th>Timing</th><th>Status</th></tr></thead><tbody>${EQ_IPO.map(row).join("")}</tbody></table>`;
+    return `<table class="dsh-tbl dsh-stk-src" data-stk-name="0" data-stk-key="2"><thead><tr><th>Company</th><th>Listing</th><th class="dsh-r">Size</th><th>Timing</th><th>Status</th></tr></thead><tbody>${EQ_IPO.map(row).join("")}</tbody></table>`;
   }
   // Two-week earnings calendar from the macro desk's EARNINGS structure
   // (weeks → days → rows): THIS week's slate first (forecast, not yet reported),
@@ -561,7 +638,7 @@ export function mount(host, ctx) {
       + `<td class="dsh-note">${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
       + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("region", "Region")}${chip("status", "Status")}${chip("debt", "Debt")}${chip("name", "Debtor")}</div>`
-      + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Latest</th><th>Src</th></tr></thead>`
+      + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl dsh-stk-src" id="dsh-stress-body" data-stk-name="0" data-stk-key="3"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Latest</th><th>Src</th></tr></thead>`
       + `<tbody>${stressRows().map(row).join("")}</tbody></table></div></div>`;
   }
   // European loan maturities by year (S&P UBS index dashboard) — bar + cumulative %,
@@ -760,7 +837,7 @@ export function mount(host, ctx) {
     (deals || []).forEach((d) => { if (d && d.managerId && d.date >= cut && byId.has(d.managerId)) n.set(d.managerId, (n.get(d.managerId) || 0) + 1); });
     const rows = [...n.entries()].sort((a, b) => b[1] - a[1] || byId.get(a[0]).name.localeCompare(byId.get(b[0]).name)).slice(0, 40);
     if (!rows.length) return `<p class="dsh-load">No tracked deals in the last 90 days.</p>`;
-    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>Manager</th><th class="dsh-r">Deals</th></tr></thead><tbody>`
+    return `<table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="1" data-stk-lab="1"><thead><tr><th>Manager</th><th class="dsh-r">Deals</th></tr></thead><tbody>`
       + rows.map(([id, c]) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${id}`)}">${esc(byId.get(id).name)}</a></td><td class="dsh-r">${c}</td></tr>`).join("") + `</tbody></table>`;
   }
   // Credit · distress & restructuring deals Wire has tracked (newest first, deal drawer).
@@ -1504,7 +1581,7 @@ export function mount(host, ctx) {
   function hfFundsBody() {
     const rows = (HEDGE_FUNDS || []).filter((f) => f && f.aum != null).sort((a, b) => b.aum - a.aum);
     if (!rows.length) return `<p class="dsh-load">No AUM figures.</p>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-hfaum-tbl"><thead><tr><th>#</th><th>Fund</th><th>Strategy</th><th>HQ</th><th class="dsh-r">AUM $bn</th><th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead><tbody>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-hfaum-tbl dsh-stk-src" data-stk-rank="0" data-stk-name="1" data-stk-key="4" data-stk-lab="4"><thead><tr><th>#</th><th>Fund</th><th>Strategy</th><th>HQ</th><th class="dsh-r">AUM $bn</th><th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead><tbody>`
       + rows.map((f, i) => `<tr><td class="dsh-r dsh-rank">${i + 1}</td><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${f.id}`)}">${esc(f.name)}</a></td><td class="dsh-mut dsh-wrap">${esc(f.strategy || "—")}</td><td class="dsh-mut dsh-wrap">${esc(f.hq || f.region || "—")}</td>`
         + `<td class="dsh-r"${f.estimated ? ' title="Estimate — see source"' : ""}>${esc((+f.aum).toFixed(1))}${f.estimated ? `<span class="dsh-est"> est.</span>` : ""}</td><td class="dsh-r dsh-d">${esc(isoDay(f.aumAsOf || ""))}</td><td class="dsh-srccol">${srcLink(f.aumSource, f.name + " AUM")}</td></tr>`).join("") + `</tbody></table></div>`;
   }
@@ -1513,7 +1590,7 @@ export function mount(host, ctx) {
     const rows = (HEDGE_FUNDS || []).filter((f) => f && f.perf && f.perf.text && f.perf.source)
       .sort((a, b) => String(b.perf.asOf || "").localeCompare(String(a.perf.asOf || "")) || a.name.localeCompare(b.name));
     if (!rows.length) return `<p class="dsh-load">No reported performance.</p>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini"><thead><tr><th>Fund</th><th>Reported</th><th class="dsh-r">Period</th><th class="dsh-srccol"></th></tr></thead><tbody>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="2"><thead><tr><th>Fund</th><th>Reported</th><th class="dsh-r">Period</th><th class="dsh-srccol"></th></tr></thead><tbody>`
       + rows.map((f) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${f.id}`)}">${esc(f.name)}</a></td><td class="dsh-mut dsh-wrap">${txt(f.perf.text)}</td><td class="dsh-r dsh-d">${esc(isoDay(f.perf.asOf || ""))}</td><td class="dsh-srccol">${srcLink(f.perf.source, f.name + " performance")}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   // Hedge funds · the covered universe by strategy family: each fund's own strategy
@@ -1527,7 +1604,7 @@ export function mount(host, ctx) {
     (HEDGE_FUNDS || []).forEach((f) => { if (!f) return; const k = hfFamily(f.strategy); const r = m.get(k) || { n: 0, aum: 0, eu: 0, top: null }; r.n++; r.aum += +f.aum || 0; if (/europe|uk/i.test(f.region || "")) r.eu++; if (!r.top || (+f.aum || 0) > (+r.top.aum || 0)) r.top = f; m.set(k, r); });
     const rows = [...m.entries()].sort((a, b) => b[1].aum - a[1].aum);
     if (!rows.length) return `<p class="dsh-load">No funds tracked.</p>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini"><thead><tr><th>Strategy family</th><th>Largest</th><th class="dsh-r">Funds</th><th class="dsh-r" title="Europe / UK based">EU/UK</th><th class="dsh-r">AUM $bn</th></tr></thead><tbody>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="4" data-stk-lab="1,2,3,4"><thead><tr><th>Strategy family</th><th>Largest</th><th class="dsh-r">Funds</th><th class="dsh-r" title="Europe / UK based">EU/UK</th><th class="dsh-r">AUM $bn</th></tr></thead><tbody>`
       + rows.map(([k, r]) => `<tr><td class="dsh-wrap">${esc(k)}</td><td class="dsh-mut dsh-wrap">${r.top ? esc(r.top.name) : "—"}</td><td class="dsh-r">${r.n}</td><td class="dsh-r">${r.eu}</td><td class="dsh-r">${esc(r.aum.toFixed(0))}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   // Hedge funds · which covered funds are in the news (last 90 days, tracked by Wire).
@@ -1537,7 +1614,7 @@ export function mount(host, ctx) {
     (HEDGE_INTEL || []).forEach((x) => { if (x && x.hfId && x.date >= cut && hfById.has(x.hfId)) { const r = m.get(x.hfId) || { n: 0, last: "", types: new Set() }; r.n++; if (x.date > r.last) r.last = x.date; if (x.type) r.types.add(x.type); m.set(x.hfId, r); } });
     const rows = [...m.entries()].sort((a, b) => b[1].n - a[1].n || (a[1].last < b[1].last ? 1 : -1));
     if (!rows.length) return `<p class="dsh-load">No fund news in the last 90 days.</p>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini"><thead><tr><th>Fund</th><th>Topics</th><th class="dsh-r">Items</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="3" data-stk-lab="2"><thead><tr><th>Fund</th><th>Topics</th><th class="dsh-r">Items</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
       + rows.map(([id, r]) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${id}`)}">${esc(hfById.get(id).name)}</a></td><td class="dsh-mut dsh-wrap">${esc([...r.types].join(", "))}</td><td class="dsh-r">${r.n}</td><td class="dsh-r dsh-d">${esc(isoDay(r.last))}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   function hedgeFundsHTML() {
@@ -1635,7 +1712,7 @@ export function mount(host, ctx) {
     const tbc = R.filter((x) => !x.date);
     const row = (x, cls) => `<tr class="${cls}"><td class="dsh-stress-as">${x.date ? esc(isoDay(x.date)) : "TBC"}</td>`
       + `<td class="dsh-nm">${esc(x.item)}${srcLink(x.src, (x.srcName || "source") + " — source")}</td><td class="dsh-reg-note">${esc(x.note || "")}</td></tr>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-reg-tbl"><thead><tr><th>Date</th><th>Milestone</th><th>What</th></tr></thead><tbody>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-reg-tbl dsh-stk-src" data-stk-name="1" data-stk-key="0"><thead><tr><th>Date</th><th>Milestone</th><th>What</th></tr></thead><tbody>`
       + up.map((x) => row(x, "dsh-reg-up")).join("") + tbc.map((x) => row(x, "dsh-reg-tbc")).join("") + past.map((x) => row(x, "dsh-reg-past")).join("")
       + `</tbody></table></div>`;
   }
@@ -1660,7 +1737,7 @@ export function mount(host, ctx) {
       if (x.date >= d90) r.n90++; if (x.date >= d30) { if (x.type === "case") r.c30++; else r.a30++; } if ((x.date || "") > r.last) r.last = x.date; m.set(x.area, r); });
     const rows = [...m.entries()].sort((a, b) => b[1].n90 - a[1].n90 || b[1].all - a[1].all);
     if (!rows.length) return `<p class="dsh-load">No legal items tracked.</p>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini"><thead><tr><th>Practice area</th><th class="dsh-r" title="Alerts, last 30 days">Alerts 30d</th><th class="dsh-r" title="Judgments, last 30 days">Cases 30d</th><th class="dsh-r">90d</th><th class="dsh-r">All</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-lab="1,2,3,4,5"><thead><tr><th>Practice area</th><th class="dsh-r" title="Alerts, last 30 days">Alerts 30d</th><th class="dsh-r" title="Judgments, last 30 days">Cases 30d</th><th class="dsh-r">90d</th><th class="dsh-r">All</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
       + rows.map(([k, r]) => `<tr><td class="dsh-wrap">${esc((LGL_AREA_BY_ID[k] || {}).name || k)}</td><td class="dsh-r">${r.a30}</td><td class="dsh-r">${r.c30}</td><td class="dsh-r">${r.n90}</td><td class="dsh-r">${r.all}</td><td class="dsh-r dsh-d">${esc(isoDay(r.last))}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   // Legal · most active firms: every firm publishing in the last 90 days — 30-day and
@@ -1674,7 +1751,7 @@ export function mount(host, ctx) {
     const rows = [...m.entries()].sort((a, b) => b[1].n30 - a[1].n30 || b[1].n90 - a[1].n90 || a[0].localeCompare(b[0]));
     if (!rows.length) return `<p class="dsh-load">No firm publications in the last 90 days.</p>`;
     const top = (r) => { const a = [...r.areas.entries()].sort((x, y) => y[1] - x[1])[0]; return a ? ((LGL_AREA_BY_ID[a[0]] || {}).short || a[0]) : "—"; };
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini"><thead><tr><th>Firm</th><th>Main area</th><th class="dsh-r">30d</th><th class="dsh-r">90d</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-lab="2,3,4"><thead><tr><th>Firm</th><th>Main area</th><th class="dsh-r">30d</th><th class="dsh-r">90d</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
       + rows.map(([nm, r]) => { const id = idByName.get(nm); return `<tr><td>${id ? `<a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/firm/${encodeURIComponent(id)}`)}">${esc(nm)}</a>` : esc(nm)}</td><td class="dsh-mut">${esc(top(r))}</td><td class="dsh-r">${r.n30}</td><td class="dsh-r">${r.n90}</td><td class="dsh-r dsh-d">${esc(isoDay(r.last))}</td></tr>`; }).join("") + `</tbody></table></div>`;
   }
   function legalHTML() {
@@ -1692,7 +1769,7 @@ export function mount(host, ctx) {
     const cal = regCalendarHTML();
     const mid = `<section class="dsh-card dsh-legal-panel dsh-span">
         <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
-        <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search all legal alerts &amp; case law — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
+        <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search alerts &amp; case law" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
         ${typeChips}${areaChips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
       </section>
@@ -1710,12 +1787,12 @@ export function mount(host, ctx) {
   function wireLegal() {
     const q = host.querySelector("#dsh-lgl-q");
     const body = host.querySelector("#dsh-lgl-body");
-    if (q && body) q.addEventListener("input", () => { _legalQuery = q.value; body.innerHTML = legalListHTML(); });
+    if (q && body) q.addEventListener("input", () => { _legalQuery = q.value; body.innerHTML = legalListHTML(); previewList(body); });
     host.querySelectorAll(".dsh-lgl-chip").forEach((c) => c.addEventListener("click", () => {
       if (c.dataset.type) { const t = c.dataset.type; _legalTypes.has(t) ? _legalTypes.delete(t) : _legalTypes.add(t); }
       else { const a = c.dataset.area; _legalAreas.has(a) ? _legalAreas.delete(a) : _legalAreas.add(a); }
       c.classList.toggle("is-on");
-      if (body) body.innerHTML = legalListHTML();
+      if (body) { body.innerHTML = legalListHTML(); previewList(body); }
     }));
   }
 
@@ -1725,6 +1802,7 @@ export function mount(host, ctx) {
   // the section's news wire as a right-hand rail (omitted for Legal, which is a
   // full-width search).
   function render() {
+    if (_closeSheet) _closeSheet();
     const nav = SUBTABS.map(([k, l, s]) => {
       // Full label in the desktop rail; a short label appears on the narrow phone
       // tab bar (see dashboard.css) so "Hedge Funds" doesn't wrap.
@@ -1759,10 +1837,12 @@ export function mount(host, ctx) {
       const k = btn.dataset.sort;
       if (_stressSort.key === k) _stressSort.dir *= -1; else { _stressSort.key = k; _stressSort.dir = k === "debt" ? -1 : 1; }
       const wrap = host.querySelector(".dsh-stresswrap");
-      if (wrap) { wrap.outerHTML = stressHTML(); wireStressSort(); }
+      if (wrap) { wrap.outerHTML = stressHTML(); stackTables(host); wireStressSort(); }
     }));
   }
   host.addEventListener("click", (e) => {
+    const more = e.target.closest(".dsh-seeall");
+    if (more) { e.preventDefault(); openSheet(more.parentElement); return; }
     const a = e.target.closest(".dsh-navchip[data-sub], .tchip[data-sub]");
     if (a) { e.preventDefault(); e.stopPropagation(); pane = a.dataset.sub; render(); try { history.replaceState(null, "", a.getAttribute("href")); } catch { /* */ } }
   });
@@ -1786,7 +1866,7 @@ export function mount(host, ctx) {
       pane = resolve((sub && sub[0]) || subFromUrl());
       render();
     },
-    leave() { if (_ro) { _ro.disconnect(); _ro = null; } },
+    leave() { if (_ro) { _ro.disconnect(); _ro = null; } if (_closeSheet) _closeSheet(); },
     // home(): a nav-bar tap resets the Dashboard to its first sub-tab (Credit).
     home() { pane = DEFAULT_SUB; render(); window.scrollTo(0, 0); },
   };

@@ -1225,9 +1225,20 @@ notification badge red (`#ef4444`).
   is missing shows "… unavailable — <source link>", never a number. **(d) Data:** the
   gauges ride `/api/eurates` `extra` (`EU_EXTRA_SERIES` in `src/index.js`: FRED via the API
   key when set, else fredgraph CSV; ECB weekly periods dated to the statement Friday).
+  **(e) iPhone (≤900px).** No card scrolls inside the page: a long list (fill-card lists,
+  tables, Legal search results) shows a **6-row preview + "See all N ›"**, which opens the
+  whole list in a **full-screen sheet** (`openSheet`: mounted on `<body>` above the tab bar,
+  its own scroll, a Filter box past 12 items, ✕ / Esc to close; a link inside navigates and
+  closes it). At ≤760px a wide table marked `dsh-stk-src` re-renders as **stacked rows**
+  (`stackTables`: name + key figure + SRC on one line, the other fields on a micro grey line,
+  labels from `data-stk-lab`) — nothing scrolls sideways or is clipped; heatmaps tighten so
+  every window column fits. **No tap colours:** every Dashboard `:hover` rule sits inside
+  `@media (hover:hover)` and changes to ink, never orange; names in tables/lists are plain
+  text (no underline); toggles ("Show detail") are muted grey; focus borders grey.
   Specs: `tests/dashboard-layout.mjs` (six widths 1280–3440: no spill, no overlap, no
   vertical gap >14px; gauge values + sources; empty-payload honesty),
-  `tests/eurates-parse.mjs`.
+  `tests/dashboard-phone.mjs` (390px, both themes: no inner scroll, no sideways scroll, no
+  ellipsis, no orange at rest or on tap; See-all sheet), `tests/eurates-parse.mjs`.
 
 ## 7. Technical rules
 
