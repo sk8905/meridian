@@ -21,6 +21,76 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "eb0be26c-8ff7-49b8-b232-fc283aaebf22",
+    title: "Is this the greatest Versace collection in the world?",
+    date: "2026-10-14",
+    time: "11:00",
+    url: "https://www.ft.com/content/eb0be26c-8ff7-49b8-b232-fc283aaebf22"
+  },
+  {
+    id: "1cc06862-6767-4f22-a7c2-56945ff693de",
+    title: "Good Times – Potato Head’s design store in Bali",
+    date: "2026-10-14",
+    time: "11:00",
+    url: "https://www.ft.com/content/1cc06862-6767-4f22-a7c2-56945ff693de"
+  },
+  {
+    id: "0f7511ee-efb1-4bf0-8f87-67f572193fd3",
+    title: "General Atlantic plans early 2027 IPO at up to $10bn valuation",
+    date: "2026-10-14",
+    time: "11:00",
+    url: "https://www.ft.com/content/0f7511ee-efb1-4bf0-8f87-67f572193fd3"
+  },
+  {
+    id: "4ffa1853-0e2c-424f-b941-88c6bcac5765",
+    title: "CoreWeave targets ‘unlimited’ insurance money to fund AI build-out",
+    date: "2026-10-14",
+    time: "10:58",
+    url: "https://www.ft.com/content/4ffa1853-0e2c-424f-b941-88c6bcac5765"
+  },
+  {
+    id: "37085602-726a-44dc-a859-51caab38eb75",
+    title: "Ukraine blindsided by Starlink restrictions and intelligence gaps",
+    date: "2026-10-14",
+    time: "10:47",
+    url: "https://www.ft.com/content/37085602-726a-44dc-a859-51caab38eb75"
+  },
+  {
+    id: "0c178261-2c29-4677-9649-5b9257662d7e",
+    title: "Turkish authorities take over country’s most-watched news channel",
+    date: "2026-10-14",
+    time: "10:47",
+    url: "https://www.ft.com/content/0c178261-2c29-4677-9649-5b9257662d7e"
+  },
+  {
+    id: "8e82ae33-cc11-4731-826a-bcd0752f79bf",
+    title: "Crypto exchange Kraken owner to buy European bank",
+    date: "2026-10-14",
+    time: "10:30",
+    url: "https://www.ft.com/content/8e82ae33-cc11-4731-826a-bcd0752f79bf"
+  },
+  {
+    id: "a25417b3-d4e4-4b89-b14d-6370a85ce3c4",
+    title: "Houthis strike Saudi Aramco headquarters",
+    date: "2026-10-14",
+    time: "10:03",
+    url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"
+  },
+  {
+    id: "c69ef2f5-0644-4ec3-accb-cbc8d633e008",
+    title: "European oil refineries’ margins collapse as input costs soar",
+    date: "2026-10-14",
+    time: "09:32",
+    url: "https://www.ft.com/content/c69ef2f5-0644-4ec3-accb-cbc8d633e008"
+  },
+  {
+    id: "04ceedc2-8ec0-481f-8982-6bb331f11e41",
+    title: "Government finally signals action on AI",
+    date: "2026-10-14",
+    time: "09:30",
+    url: "https://www.ft.com/content/04ceedc2-8ec0-481f-8982-6bb331f11e41"
+  },
+  {
     id: "fa1aae13-a352-47cb-97aa-6667c070f308",
     title: "FTAV’s further reading",
     date: "2026-10-14",
@@ -68,6 +138,13 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "05:24",
     url: "https://www.ft.com/content/b77a0094-c6f1-449a-9323-2b4d16696cb7"
+  },
+  {
+    id: "6a8811f5-18bb-4ee1-97e1-2e931db6972d",
+    title: "Move over New York and LA: red states are the new home for art",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/6a8811f5-18bb-4ee1-97e1-2e931db6972d"
   },
   {
     id: "42209791-2167-4c4e-81a0-f610a981b745",
@@ -222,82 +299,6 @@ export const FT_ITEMS = [
     date: "2026-10-13",
     time: "14:41",
     url: "https://www.ft.com/content/fbaeca48-5f50-40ca-b45e-5de62ad52b83"
-  },
-  {
-    id: "900ff462-3cbb-41af-9a29-1e4aa3d0ab4e",
-    title: "Why we need a proper conversation about death",
-    date: "2026-10-13",
-    time: "14:34",
-    url: "https://www.ft.com/content/900ff462-3cbb-41af-9a29-1e4aa3d0ab4e"
-  },
-  {
-    id: "787acc7e-f0d3-4552-a369-4b4c967e4ca5",
-    title: "European gas hits Iran wartime high",
-    date: "2026-10-13",
-    time: "14:32",
-    url: "https://www.ft.com/content/787acc7e-f0d3-4552-a369-4b4c967e4ca5"
-  },
-  {
-    id: "f7e3debb-613a-4b33-8f57-341a493693de",
-    title: "Elon Musk becomes Republicans’ biggest donor for US midterm elections",
-    date: "2026-10-13",
-    time: "14:21",
-    url: "https://www.ft.com/content/f7e3debb-613a-4b33-8f57-341a493693de"
-  },
-  {
-    id: "93c7f91d-7daa-44bb-8a45-62b214106e73",
-    title: "Pope Leo admitted to hospital for lung surgery",
-    date: "2026-10-13",
-    time: "14:01",
-    url: "https://www.ft.com/content/93c7f91d-7daa-44bb-8a45-62b214106e73"
-  },
-  {
-    id: "e4c33601-88e9-43fc-b920-1cecc2709dbd",
-    title: "Gulf oil production rebounds ahead of increase in Iran war hostilities",
-    date: "2026-10-13",
-    time: "13:53",
-    url: "https://www.ft.com/content/e4c33601-88e9-43fc-b920-1cecc2709dbd"
-  },
-  {
-    id: "d63348fb-901d-4ff3-9cdc-0d023778dbc2",
-    title: "Healey rejects calls to equalise capital gains and income tax rates",
-    date: "2026-10-13",
-    time: "13:43",
-    url: "https://www.ft.com/content/d63348fb-901d-4ff3-9cdc-0d023778dbc2"
-  },
-  {
-    id: "c6bd25b8-ef9e-41a3-90d2-29c132e10ec2",
-    title: "Bulgaria suggests Russia behind ship attack that left 11 sailors missing",
-    date: "2026-10-13",
-    time: "13:21",
-    url: "https://www.ft.com/content/c6bd25b8-ef9e-41a3-90d2-29c132e10ec2"
-  },
-  {
-    id: "da00e3ff-4392-46d8-bab5-13b4ccc49995",
-    title: "Zelenskyy says Kyiv’s partners failed to warn of ballistic missile attack",
-    date: "2026-10-13",
-    time: "13:06",
-    url: "https://www.ft.com/content/da00e3ff-4392-46d8-bab5-13b4ccc49995"
-  },
-  {
-    id: "a4ab83d4-81b5-4336-9569-a0708b41e894",
-    title: "Ships in Hormuz strait hit by worst spate of attacks since start of war",
-    date: "2026-10-13",
-    time: "13:04",
-    url: "https://www.ft.com/content/a4ab83d4-81b5-4336-9569-a0708b41e894"
-  },
-  {
-    id: "a0921eb6-637e-4fac-b15d-ea7aef441e6a",
-    title: "Iran has made ‘major shift’ to target UK military sites, says MI5 chief",
-    date: "2026-10-13",
-    time: "13:00",
-    url: "https://www.ft.com/content/a0921eb6-637e-4fac-b15d-ea7aef441e6a"
-  },
-  {
-    id: "183ace53-2a89-43a9-88c1-9ea1e1b4437d",
-    title: "The world economy is running hotter than expected",
-    date: "2026-10-13",
-    time: "12:30",
-    url: "https://www.ft.com/content/183ace53-2a89-43a9-88c1-9ea1e1b4437d"
   }
 ];
+

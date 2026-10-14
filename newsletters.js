@@ -49,6 +49,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bloomberg-marketsdaily-beatingthepros-20261014",
+    publication: "Bloomberg",
+    author: "Greg Ritchie, Denitsa Tsekova",
+    series: "Markets Daily",
+    title: "Markets Daily: Beating the pros",
+    date: "2026-10-14",
+    time: "10:28",
+    summary: "The former theater director who keeps beating Wall Street on CPI; plus, Wall Street bond traders dethroned.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-14/the-former-theater-director-who-keeps-beating-wall-street",
+  },
+  {
+    id: "nl-bloomberg-morningbriefingeurope-asmloutlook-20261014",
+    publication: "Bloomberg",
+    author: "Samson Ellis",
+    series: "Morning Briefing Europe",
+    title: "ASML raises its outlook",
+    date: "2026-10-14",
+    time: "07:34",
+    summary: "ASML raises its outlook, an ECB council member hints at more hikes, and British executives say the AI jobs cull is only starting.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-14/asml-raises-outlook-sees-demand-outstripping-supply-in-coming-years",
+  },
+  {
     id: "nl-economist-worldinbrief-openaibugging-20261014",
     publication: "The Economist",
     author: null,

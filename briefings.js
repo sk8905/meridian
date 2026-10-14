@@ -100,12 +100,13 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-14",
-  time: "09:15 BST",
-  lede: "Treasury yields edged lower ahead of today's September CPI release (8:30am ET), staying near multi-decade highs after bank earnings; while the New York Fed's Williams saw no need for 2027 rate hikes and private-credit redemption pressure at non-traded BDCs showed signs of easing.",
+  time: "11:13 BST",
+  lede: "Markets are in wait-and-see mode ahead of today's US September CPI (consensus 3.6% y/y), with the US 10-year near 5.19%, Brent above $105 after a Houthi strike on Aramco's HQ, and the ECB's Wunsch saying it will probably have to hike again.",
   bullets: [
-    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to about 5.20% from 5.24%</strong>, stepping back from the 24-year high of 5.364% hit last week as oil prices retreated.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html", srcName: "Yahoo Finance", date: "2026-10-13" },
-    { html: "<strong>Equities &mdash; bank earnings split the tape:</strong> Goldman Sachs earned $17.01 a share (vs $12.25 a year ago) on $18.68bn revenue, while JPMorgan&rsquo;s $5.57 EPS missed the $5.93 consensus; chip stocks slid, with Micron down about 5.8% early.", src: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html", srcName: "CNBC", date: "2026-10-13" },
-    { html: "<strong>Macro &mdash; the New York Fed&rsquo;s John Williams said he currently sees no need for a rate hike in 2027</strong>, easing hawkish expectations as the US 10-year Treasury yield held near 5.2% after the IMF flagged surging bond yields as a top financial-stability risk.", src: "https://www.bloomberg.com/news/articles/2026-10-13/fed-s-williams-currently-sees-no-need-for-rate-hike-in-2027", srcName: "Bloomberg", date: "2026-10-13" },
+    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield held at 5.19% (down 1bp)</strong> ahead of CPI, while ECB Governing Council member Pierre Wunsch said the bank will &ldquo;probably have to hike again&rdquo; with euro-area inflation approaching 4%.", src: "https://www.bloomberg.com/news/articles/2026-10-14/ecb-will-probably-have-to-hike-interest-rates-again-wunsch-says", srcName: "Bloomberg", date: "2026-10-14" },
+    { html: "<strong>Equities &mdash; S&amp;P 500 futures pointed to a modest rise (7,872, +0.2%)</strong> as ASML raised its full-year sales outlook for a third straight quarter on AI demand, while Bank of America slid 1.8% on a $1.2bn+ money-laundering and sanctions fine.", src: "https://www.bloomberg.com/news/articles/2026-10-14/asml-raises-full-year-sales-outlook-as-ai-boom-drives-demand", srcName: "Bloomberg", date: "2026-10-14" },
+    { html: "<strong>Macro &mdash; Brent crude traded around $105.40 (&minus;0.3%)</strong> after Houthi attacks hit Saudi Aramco&rsquo;s headquarters, and the IMF head said Treasury Secretary Bessent&rsquo;s growth-out-of-debt plan won&rsquo;t work fast enough, with GDP needing ~6% annual growth to stabilise US debt.", src: "https://www.bloomberg.com/news/articles/2026-10-14/imf-says-us-growth-not-enough-to-fight-high-debt-deficit-levels", srcName: "Bloomberg", date: "2026-10-14" },
     { html: "<strong>Credit &mdash; redemption requests at perpetual non-traded BDCs fell quarter on quarter at 13 of 15 tracked vehicles</strong> but still averaged 9.8% of shares, above the 5% cap at nine, per Fitch; Fitch expects further declines in coming quarters.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk1Rb7mMWlAmc_OtJ58Ixz-D4naVC4G8VQQGmARJOZKvK_7Hs_WgDiZftmyZrOEi3XWC1L9BA=", srcName: "Fitch Ratings", date: "2026-10-13" },
   ],
 };
+
