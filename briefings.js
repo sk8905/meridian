@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-14",
-  time: "21:15 BST",
+  time: "23:15 BST",
     lede: "US September CPI came in hot at 3.7% and the FT says it keeps the Fed on course for further tightening, with US chip stocks sliding on inflation and AI-debt fears as energy costs stay the common thread.",
   bullets: [
     { html: "<strong>Macro &mdash; US inflation jumped to 3.7% y/y in September, above the 3.6% consensus, keeping the Fed on course for further tightening,</strong> as the Iran war pushed up energy prices; Brent was trading around $105 earlier in the session after Houthi attacks hit Saudi Aramco&rsquo;s headquarters.", src: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d", srcName: "Financial Times", date: "2026-10-14" },
