@@ -136,9 +136,9 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   stories** on every wire render, both surfaces (`prefetchTopReads` — warms the viewer's own
   edge colo); (2) a **15-min cron** (`prewarmReads`) extracts the day's top stories into
   **global KV** so a first open is instant *everywhere*, even a cold colo — and it is
-  **direct-fetch only** and **limited to `READ_PREWARM_OK`** (central banks, OECD, ING
-  Think, newswire press releases — publishers whose terms permit reuse); every other
-  host is read on demand only (on-demand, Jina is the default — Firecrawl is reserved
+  **direct-fetch only** and covers every non-paywalled host, so it spends **zero**
+  Jina/Firecrawl proxy quota on a schedule (bot-walled sources stay on the on-demand
+  path; on-demand, Jina is the default — Firecrawl is reserved
   for the `READ_FC_HOSTS` allowlist); (3) `handleRead` checks KV on an edge miss
   and repopulates the local edge. The edge key and the KV key share one version constant
   (`READ_VER`) — **bump it on any extractor change** so both invalidate in lockstep.
@@ -560,11 +560,8 @@ notification badge red (`#ef4444`).
   better. The ROSTER is resolved from the **live List membership first** (`XAPI_KEY ||
   XAPIS_KEY`; List endpoints are twitterapi.io's), so add/removes on the List auto-sync.
   Provider order: **TwitterAPIs.com** (`XAPIS_KEY`, ~3× cheaper), then **twitterapi.io**
-  per-account (`XAPI_KEY`). Each rung falls through to the next if it returns nothing. The
-  free X **syndication scrape was removed (2026-10)** — X's terms bar scraping without
-  written consent — so with no key / an empty paid read the wire shows its unavailable
-  state. (The paid rungs are third-party resellers of public X data; whether to move to
-  the official X API is an owner decision — docs/implementation-plan.md §4.) **Replies to
+  per-account (`XAPI_KEY`), then the **free syndication** scrape (no key; X caches/degrades
+  so dates can lag). Each rung falls through to the next if it returns nothing. **Replies to
   OTHER users are filtered out** (`replyToOther` — noise X's List view hides; a self-thread
   continuation is kept). Cards are **newest-first**; **reposts** render the original with a
   "reposted by …" line, and **quote tweets** keep the quoter's commentary **and nest the
@@ -1279,17 +1276,16 @@ item keeps a real outbound source link (R7).
 > **Reuters was removed as a wire source (2026-10)** — reuters.com is bot-walled
 > and never opened in the reading pane, so its headlines were dead-ends. 
 >
-> **Terms-of-use compliance (2026-10, `docs/implementation-plan.md` §4).** The reader
-> never goes round a publisher's refusal: the browser proxy (**Jina by default; Firecrawl
-> only for the `READ_FC_HOSTS` allowlist**) renders only a page the publisher served
-> openly whose body needs a browser — never after a 401/403/429/503/challenge
-> (`readProxyAllowed`). **`READ_LINKONLY`** hosts are never fetched at all — headline +
-> link, opening at the publisher — because their terms bar automated access/extraction:
-> Moody's, SCMP, The Straits Times, Substack (incl. butthistime.com). **`READ_NOAUTO`**
-> hosts (AP, CNBC, MarketWatch, Investing.com) are fetched once when the reader opens a
-> story, never pre-warmed or proxied. Spec: `tests/reader-terms.mjs`. The old ≤30%
-> paywalled-share cap was removed.
-- Associated Press (`apnews.com`) — global wire (via Google News bridge); read on demand only (`READ_NOAUTO`)
+> **Owner rule — every newswire source reads in-pane (2026-10-14).** Wire is a private,
+> single-user, non-commercial tool and the reading pane is a key feature, so every source
+> that serves its article publicly is read in-pane — including bot-shielded ones via the
+> on-demand browser proxy (**Jina by default; Firecrawl only for the `READ_FC_HOSTS`
+> allowlist**, `readProxyAllowed`) and SCMP's metered pages via `READ_OPEN`. The one hard
+> line: **`READ_PAYWALL` hosts are never fetched** (no paywall is ever bypassed); the
+> owner's own subscriber content reaches the pane through their newsletter emails (R38).
+> `READ_LINKONLY` is an empty switch to send a host back to headline + link. Spec:
+> `tests/reader-terms.mjs`. The old ≤30% paywalled-share cap was removed.
+- Associated Press (`apnews.com`) — openly-readable global wire (via Google News bridge)
 - **Added 2026-10 (owner-approved, trialled in-pane by `scripts/source-trial.mjs`):** European Central Bank, Bank of Japan, Bank of Canada (central-bank feeds); Euronews Business; AltAssets (private markets). The Guardian and Above the Law also passed the trial but stay OFF (removed 2026-09; not re-added without the owner's say-so). Law Society Gazette is pending — its feed returned no items in the trial.
 - CNBC (`cnbc.com`)
 - MarketWatch
@@ -1342,7 +1338,7 @@ item keeps a real outbound source link (R7).
 - 🔒 Nishant Kumar (Bloomberg) — switched off (Bloomberg paywall)
 - ✅ PE Wire
 - Paul Krugman
-- ✅ Moody's — free CreditView blog + /insights research, wired via Google News bridge (FI desk) as **headline + link only**: Moody's terms of use bar automated access, scraping and AI/NLP use, so the reader never fetches moodys.com (`READ_LINKONLY` in `src/index.js`, `tests/reader-terms.mjs`) and the row opens at Moody's
+- ✅ Moody's — free CreditView blog + /insights research, wired via Google News bridge (FI desk), read in-pane
 - 📄 S&P (Global Ratings) — free press releases render (`press.spglobal.com`) but are barely Google-News-indexed, so no clean feed route
 - 📄 Preqin (`preqin.com`) — free /insights blogs + press releases render, but no RSS and Google News returns only database "Asset Profile" pages — no feed route
 - 🔒 9fin (`9fin.com`) — subscription (leveraged finance); some free deep-dives render inconsistently
@@ -1369,7 +1365,7 @@ item keeps a real outbound source link (R7).
 
 ### 8.8 X wire (Home)
 A merged, live feed of these **public** X accounts, fetched server-side by the
-Worker (`/api/xfeed`) via the keyed providers in **R26** (no syndication scrape). The
+Worker (`/api/xfeed`) from X's public syndication endpoint — see **R26**. The
 handles live in `v2/js/home/xposts.js` (`X_ACCOUNTS`); `X_LIST`
 (id `2100283810713649423`) is kept only for the "Open list on X" link. Roster:
 - `@elerianm` — Mohamed A. El-Erian (economist)

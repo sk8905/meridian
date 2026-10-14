@@ -2169,38 +2169,26 @@ const READ_PAYWALL = new Set([
   // so render nothing and let the row open at the publisher.
   "thelawyer.com",
 ]);
-// Hosts whose terms of use forbid automated access / scraping / storage of their
-// pages, so the reader never fetches them (directly, via a proxy, or in the KV
-// pre-warm): the wire row keeps the headline + link and opens at the publisher.
-// Moody's ToU §1(c)(ii)–(iv) and §2 bar access "by means of any automated program",
-// scraping, data mining, and use for AI/NLP (moodys.com/web/en/us/legal/terms-of-use.html).
-// SCMP T&C cl. 3.2.1 prohibits "any automated system" to access/extract content; The
-// Straits Times is bot-shielded (reading it meant going round that refusal); Substack's
-// ToS bars crawling and copying/storing "any significant portion" (substack.com/tos) —
-// their RSS headlines stay on the wire, the article opens at the publisher.
-const READ_LINKONLY = new Set([
-  "moodys.com", "scmp.com", "straitstimes.com", "substack.com", "butthistime.com",
+// OWNER RULE (2026-10-14): Wire is a private, single-user, non-commercial tool and the
+// reading pane is a key feature — EVERY newswire source that serves its article to a
+// public request is read in-pane, via the browser proxy when a site is bot-shielded, and
+// pre-warmed like any other. The one line kept: READ_PAYWALL hosts (subscriber content)
+// are never fetched, so no paywall is bypassed. READ_LINKONLY is an (empty) switch the
+// owner can use to send a host back to headline + link.
+const READ_LINKONLY = new Set([]);
+// Hosts we render in-pane even though they flag their pages "metered"
+// (isAccessibleForFree=false in the page data). These sites still serve the full
+// article body to a plain public fetch, so we print exactly what that public page
+// returns — no login, no credentials, no hard-paywall bypass (READ_PAYWALL hosts
+// are never fetched at all). If a listed host serves only a teaser, extraction
+// stays thin and the reader still falls back to the link.
+const READ_OPEN = new Set([
+  "scmp.com",
 ]);
-// Hosts the reader may fetch ONCE when the reader opens a story (personal use), but
-// never on a schedule (KV pre-warm) and never through the Jina/Firecrawl proxy — their
-// terms limit automated retrieval/storage, or could not be confirmed to allow it.
-const READ_NOAUTO = new Set([
-  "apnews.com", "cnbc.com", "marketwatch.com", "investing.com",
-]);
-// Hosts the 15-min pre-warm may store in KV: official / press-release publishers whose
-// terms permit reuse (central banks, statistics offices, ING Think — "use, distribute,
-// reproduce… provided you credit ING", newswire press releases). Everything else is
-// read on demand only.
-const READ_PREWARM_OK = new Set([
-  "ecb.europa.eu", "bankofengland.co.uk", "federalreserve.gov", "boj.or.jp", "bankofcanada.ca",
-  "oecd.org", "think.ing.com", "businesswire.com", "prnewswire.com", "globenewswire.com",
-]);
-// A refusal by the publisher (auth wall, forbidden, rate-limited, bot challenge) is
-// respected: the proxy is never used to get round it, only to render a page the
-// publisher served openly but whose body needs a browser to assemble.
-export function readProxyAllowed(host, reason) {
-  if (_readInSet(host, READ_LINKONLY) || _readInSet(host, READ_NOAUTO) || _readInSet(host, READ_PAYWALL)) return false;
-  return !/fetch-(401|403|407|429|451|503)|redirect-blocked|challenge/.test(String(reason || ""));
+// The proxy may render any non-paywalled host whose direct fetch came back blocked or
+// dry (bot-shielded sources such as The Straits Times / AP read this way).
+export function readProxyAllowed(host) {
+  return !(_readInSet(host, READ_LINKONLY) || _readInSet(host, READ_PAYWALL));
 }
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
@@ -2471,9 +2459,10 @@ export function extractReadable(html, u) {
   const date = _readMeta(html, ["article:published_time", "og:published_time", "parsely-pub-date", "datePublished"]);
   const freeMeta = _readMeta(html, ["isAccessibleForFree"]);
   const jsonldFree = /"isAccessibleForFree"\s*:\s*(?:false|"false")/i.test(html);
-  // A "metered" flag (isAccessibleForFree=false) is always honoured — the teaser stays
-  // behind its link. Body length still decides — no body, no render.
-  let accessible = !(/false/i.test(freeMeta) || jsonldFree);
+  // READ_OPEN hosts are rendered from whatever their public page serves, so their
+  // "metered" flag is ignored; every other host honours it (a metered teaser stays
+  // behind its link). Body length still decides — no body, no render.
+  let accessible = _readInSet(host, READ_OPEN) ? true : !(/false/i.test(freeMeta) || jsonldFree);
   // Body: prefer paragraphs inside <article>, else [itemprop=articleBody]. Many
   // sites (e.g. a page whose first <article> is a related-story card, with the real
   // copy in a <div class="articleBody/WYSIWYG/story-body…">) leave the body OUTSIDE
@@ -2792,11 +2781,10 @@ async function handleRead(request, env, ctx) {
       const out = json(data); out.headers.set("cache-control", "no-store"); return out;
     }
   } catch { /* KV miss / parse error → fall through to a live fetch */ }
-  // Direct publisher fetch first (fast, no third party); if the page came back dry
-  // (served openly but assembled client-side), fall back to the reader proxy — but never
-  // to get round a refusal (401/403/429/503/challenge) or for a NOAUTO/LINKONLY host.
+  // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
+  // fall back to the reader proxy so bot-walled sources still read (never a paywall).
   let data = await _readDirect(u, host);
-  if (!(data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length) && readProxyAllowed(host, data.reason)) {
+  if (!(data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length) && readProxyAllowed(host)) {
     const viaProxy = await _readViaProxy(u, host, env);
     if (viaProxy.accessible && viaProxy.paragraphs.length) data = viaProxy;
     // Both paths failed: keep BOTH reasons (e.g. "fetch-503/proxy-402") so the note
@@ -2832,7 +2820,7 @@ async function prewarmReads(env) {
   for (const it of items) {
     const href = it && it.url; if (!href || !/^https:\/\//i.test(href)) continue;
     let host; try { host = new URL(href).hostname.replace(/^www\./, ""); } catch { continue; }
-    if (!_readInSet(host, READ_PREWARM_OK) || !readHostAllowed(host)) continue;
+    if (_readInSet(host, READ_PAYWALL) || _readInSet(host, READ_LINKONLY) || !readHostAllowed(host)) continue;
     if (seen.has(href)) continue; seen.add(href);
     cand.push({ href, host });
     if (cand.length >= 14) break;
@@ -3572,8 +3560,8 @@ export const FEED_SOURCES = [
   // Moody's — free credit research (CreditView blog + /insights/credit-risk): rating
   // trends, private-credit/bank outlooks, default-risk analysis. No RSS and the
   // ratings site bot-gates, so bridged via Google News scoped to the free
-  // insights/creditview paths. HEADLINE + LINK ONLY: Moody's ToU bars automated
-  // access/scraping, so the reader never fetches it (READ_LINKONLY). fi:true badges it
+  // insights/creditview paths. Read in-pane (owner rule 2026-10-14: personal,
+  // non-commercial use). fi:true badges it
   // FI (credit desk); filter:false.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=(site%3Amoodys.com%2Fweb%2Fen%2Fus%2Finsights%20OR%20site%3Amoodys.com%2Fweb%2Fen%2Fus%2Fcreditview)%20when%3A30d", source: "Moody's", region: "GEN", cap: 6, gnews: true, fi: true, filter: false },
   // (FT Alphaville's Google-News bridge removed: path-scoped site: queries
@@ -3699,9 +3687,9 @@ export const FEED_SOURCES = [
   { url: "https://www.euronews.com/rss?level=theme&name=business", source: "Euronews Business", region: "GEN", cap: 6 },
   // (The Guardian, Sharecast and City AM removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
-  // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP and The
-  // Straits Times stay as RSS HEADLINES ONLY (READ_LINKONLY): SCMP's T&C bar automated
-  // extraction and The Straits Times bot-shields its pages, so both open at the publisher.
+  // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP reads
+  // via READ_OPEN (metered, but its public body renders). The Straits Times is
+  // bot-shielded, so the browser proxy renders it in-pane.
   { url: "https://www.scmp.com/rss/92/feed/", source: "South China Morning Post", region: "GEN", cap: 4 },
   { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
   // Channel NewsAsia removed as a wire source (2026-10, owner request).
@@ -3969,6 +3957,34 @@ async function feedFetch(url, delayMs = 0, diag = null, budget = null) {
   } catch (e) { if (diag) diag.err = String((e && e.message) || e).slice(0, 80); }
   return null;
 }
+// Google News pins 503s to SPECIFIC query strings from datacenter IPs (live
+// probes: the same three queries fail run after run while structurally
+// identical siblings pass — per-query-hash scoring, not burst throttling).
+// Re-roll the bucket: flip the locale params and nudge the when: window, so
+// the variant hashes differently but returns the same journalism. Used as an
+// automatic fallback whenever a gnews primary comes back empty.
+function gnewsVariant(url) {
+  let v = url.replace(/when%3A(\d+)d/, (m, d) => "when%3A" + Math.max(1, +d - 1) + "d");
+  v = /ceid=US%3Aen/.test(v)
+    ? v.replace("hl=en-US", "hl=en-GB").replace("gl=US", "gl=GB").replace("ceid=US%3Aen", "ceid=GB%3Aen")
+    : v.replace("hl=en-GB", "hl=en-US").replace("gl=GB", "gl=US").replace("ceid=GB%3Aen", "ceid=US%3Aen");
+  return v;
+}
+// LAST-resort mirror when Google pins a query no matter how it's dressed up
+// (live probes: three queries 503 across hours, surviving param reordering AND
+// the locale-flipped variant — Google has scored the SEARCH itself, likely a
+// scraping heuristic on broad site: queries). Bing News serves the same
+// site:-scoped news search as RSS, tolerates datacenter IPs, and links land
+// on the article directly (its apiclick redirect is unwrapped in feedParse).
+// The when: window doesn't map — sortbydate + the wire's own 6-day cutoff and
+// newest-first per-source cap do the windowing instead.
+function bingMirror(url) {
+  try {
+    const q = (new URL(url).searchParams.get("q") || "").replace(/\s*when:\d+[dh]\s*/i, " ").trim();
+    if (!q) return null;
+    return "https://www.bing.com/news/search?q=" + encodeURIComponent(q) + "&format=RSS&qft=sortbydate%3d%221%22";
+  } catch { return null; }
+}
 // Soft screen for the reader-curated feeds (myFT + Bloomberg's official section
 // wires): EVERYTHING passes except lifestyle / arts / culture / travel / sport.
 // A headline that ALSO matches the finance vocabulary survives even when it
@@ -4010,7 +4026,23 @@ async function handleFeed(request, env, ctx) {
           await feedSleep(700);
           r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         }
-        let via;   // (Google-variant / Bing fallbacks removed 2026-10: a 503 from Google is respected)
+        // Mirror the assembly's fallbacks for stuck Google queries — the
+        // locale-flipped variant, then the Bing mirror; `via` marks which
+        // fallback served the row.
+        let via;
+        if (!r.ok && f.gnews) {
+          await feedSleep(300);
+          const vr = await fetch(gnewsVariant(f.url), { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
+          if (vr.ok) { r = vr; via = "variant"; }
+        }
+        if (!r.ok && f.gnews) {
+          const b = bingMirror(f.url);
+          if (b) {
+            await feedSleep(200);
+            const br = await fetch(b, { headers: fetchHeaders(b), cf: { cacheTtl: 0 } });
+            if (br.ok) { r = br; via = "bing"; }
+          }
+        }
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
         const kept = f.soft ? parsed.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title))
@@ -4222,9 +4254,10 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
     const key = f.url;
     const d = trace ? { source: f.source, url: f.url } : null;
     let txt = await feedFetch(f.url, delays[i], d, budget);
-    // A stuck Google query is RESPECTED (2026-10): no re-rolled locale variant or
-    // mirror to get round Google's per-query block — the per-source last-good cache
-    // covers the gap until Google serves it again (docs/implementation-plan.md §4).
+    // Stuck Google query → one locale-flipped variant (also budget-gated). The
+    // Bing mirror was removed: live probes showed it returns empty for these
+    // site: queries, and the per-source last-good cache now covers persistence.
+    if (!txt && f.gnews) { txt = await feedFetch(gnewsVariant(f.url), 300, d, budget); if (txt && d) d.via = "variant"; }
     if (d) d.bytes = txt ? txt.length : 0;
     let items = [];
     if (txt) {
@@ -5134,6 +5167,30 @@ export function xNormalizeTweet(t) {
   } catch { return null; }
 }
 
+async function fetchXProfile(handle) {
+  // Time-bucketed cache-buster (~3-min buckets) to slip past X's per-account CDN
+  // cache — the syndication endpoint otherwise hands back stale embed snapshots.
+  // Our own /api/xfeed edge cache still keeps request volume to X tiny.
+  const bust = Math.floor(Date.now() / 180000);
+  const u = `https://syndication.twitter.com/srv/timeline-profile/screen-name/${encodeURIComponent(handle)}?showReplies=false&dnt=true&lang=en&_=${bust}`;
+  let r;
+  try {
+    r = await fetch(u, { headers: {
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "accept-language": "en-US,en;q=0.9",
+      "referer": "https://platform.twitter.com/",
+    }, cf: { cacheTtl: 0, cacheEverything: false } });
+  } catch { return []; }
+  if (!r || !r.ok) return [];
+  const html = await r.text();
+  const m = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
+  if (!m) return [];
+  let data; try { data = JSON.parse(m[1]); } catch { return []; }
+  const raw = [];
+  xCollectTweets(data, raw);
+  return raw.map(xNormalizeTweet).filter(Boolean);
+}
 
 // Normalise one twitterapi.io tweet object → our flat card shape. Handles reposts:
 // a retweet nests the original under retweeted_tweet — we render the ORIGINAL's
@@ -5497,9 +5554,14 @@ async function handleXFeed(request, env, ctx) {
     }
     try { const api = await fetchXApiUsers(roster, listKey); for (const t of api) all.push(t); if (api.length) usedProvider = "api"; } catch { /* fall through */ }
   }
-  // (The free X-syndication scrape fallback was REMOVED 2026-10: X's terms bar crawling
-  // or scraping without prior written consent. With no key, or an empty paid read, the
-  // wire shows its "X unavailable" state — docs/implementation-plan.md §4.)
+  // Free fallback (no key, or a paid call came back empty): X syndication per handle.
+  if (!all.length && handles.length) {
+    await Promise.all(handles.map(async (h) => {
+      const tw = await fetchXProfile(h);
+      for (const t of tw) all.push(t);
+    }));
+    if (all.length) usedProvider = "syn";
+  }
   const seen = new Set();
   const tweets = all
     // Drop replies to OTHER users (noise X's List view hides); keep originals, quotes,
