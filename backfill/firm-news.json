@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-13T22:57:15.892Z",
- "since": "2026-09-29",
+ "generated": "2026-10-14T05:16:12.590Z",
+ "since": "2026-09-30",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -27,21 +27,8 @@
    ],
    "sitemaps": 5,
    "urls": 7352,
-   "kept": 19,
-   "fetched": 19,
-   "errors": 0,
-   "carried": 0
-  },
-  "aoshearman": {
-   "domains": [
-    "www.aoshearman.com",
-    "www.lit-antitrust.aoshearman.com",
-    "finreg.aoshearman.com"
-   ],
-   "sitemaps": 5,
-   "urls": 16523,
-   "kept": 40,
-   "fetched": 40,
+   "kept": 5,
+   "fetched": 5,
    "errors": 0,
    "carried": 0
   },
@@ -56,6 +43,25 @@
    "errors": 0,
    "carried": 0
   },
+  "ashurst": {
+   "domains": [
+    "www.ashurst.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5614,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [
+    "https://www.ashurstperkinscoie.com/ @2026-10-12",
+    "https://www.ashurstperkinscoie.com/en/careers/ @2026-07-27",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/ @2026-07-30",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/commercial-awareness-and-legal-tech/ @2026-06-26",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/secondment-experience-in-japan-insights-by-georgia-bertoloni/ @2026-06-18",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/trainee-insights-by-kelsey-reid-jones/ @2026-06-18"
+   ],
+   "carried": 0
+  },
   "hsf": {
    "domains": [
     "www.hsfkramer.com"
@@ -67,15 +73,54 @@
    "errors": 1,
    "carried": 0
   },
-  "cliffordchance": {
+  "macfarlanes": {
    "domains": [
-    "www.cliffordchance.com"
+    "www.macfarlanes.com"
    ],
-   "sitemaps": 27,
-   "urls": 13013,
+   "sitemaps": 4,
+   "urls": 3549,
+   "kept": 6,
+   "fetched": 6,
+   "errors": 0,
+   "carried": 0
+  },
+  "linklaters": {
+   "domains": [
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
+   ],
+   "sitemaps": 6,
+   "urls": 17764,
+   "kept": 26,
+   "fetched": 18,
+   "errors": 8,
+   "carried": 0
+  },
+  "simmons": {
+   "domains": [
+    "www.simmons-simmons.com"
+   ],
+   "sitemaps": 1,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [],
+   "disallowed": 1,
+   "carried": 0
+  },
+  "aoshearman": {
+   "domains": [
+    "www.aoshearman.com",
+    "www.lit-antitrust.aoshearman.com",
+    "finreg.aoshearman.com"
+   ],
+   "sitemaps": 5,
+   "urls": 16524,
    "kept": 40,
    "fetched": 40,
-   "errors": 7,
+   "errors": 0,
    "carried": 0
   },
   "traverssmith": {
@@ -89,50 +134,14 @@
    "errors": 0,
    "carried": 0
   },
-  "simmons": {
-   "domains": [
-    "www.simmons-simmons.com"
-   ],
-   "sitemaps": 1,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1,
-   "samples": [],
-   "carried": 0
-  },
-  "macfarlanes": {
-   "domains": [
-    "www.macfarlanes.com"
-   ],
-   "sitemaps": 4,
-   "urls": 3549,
-   "kept": 11,
-   "fetched": 11,
-   "errors": 0,
-   "carried": 0
-  },
-  "linklaters": {
-   "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
-   ],
-   "sitemaps": 6,
-   "urls": 17767,
-   "kept": 40,
-   "fetched": 22,
-   "errors": 18,
-   "carried": 0
-  },
   "whitecase": {
    "domains": [
     "www.whitecase.com"
    ],
    "sitemaps": 11,
-   "urls": 10370,
-   "kept": 32,
-   "fetched": 32,
+   "urls": 10381,
+   "kept": 33,
+   "fetched": 33,
    "errors": 0,
    "carried": 0
   },
@@ -141,21 +150,21 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17399,
+   "urls": 17400,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
    "carried": 0
   },
-  "ashurst": {
+  "latham": {
    "domains": [
-    "www.ashurst.com"
+    "www.lw.com"
    ],
-   "sitemaps": 1,
-   "urls": 5594,
+   "sitemaps": 9,
+   "urls": 20128,
    "kept": 40,
-   "fetched": 40,
-   "errors": 0,
+   "fetched": 38,
+   "errors": 2,
    "carried": 0
   },
   "sidley": {
@@ -163,9 +172,9 @@
     "www.sidley.com"
    ],
    "sitemaps": 6,
-   "urls": 7173,
-   "kept": 7,
-   "fetched": 7,
+   "urls": 7174,
+   "kept": 6,
+   "fetched": 6,
    "errors": 11,
    "carried": 0
   },
@@ -205,7 +214,7 @@
     "davispolk.com"
    ],
    "sitemaps": 11,
-   "urls": 16182,
+   "urls": 16192,
    "kept": 14,
    "fetched": 14,
    "errors": 0,
@@ -217,32 +226,17 @@
    ],
    "sitemaps": 1,
    "urls": 2847,
-   "kept": 12,
-   "fetched": 12,
-   "errors": 0,
-   "carried": 0
-  },
-  "latham": {
-   "domains": [
-    "www.lw.com"
-   ],
-   "sitemaps": 9,
-   "urls": 20128,
-   "kept": 40,
-   "fetched": 38,
-   "errors": 2,
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
    "kept": 0,
    "fetched": 0,
-   "errors": 2,
+   "errors": 0,
+   "samples": [
+    "https://www.stephensonharwood.com/ @2026-10-12",
+    "https://www.stephensonharwood.com/expertise/ @2025-10-24",
+    "https://www.stephensonharwood.com/expertise/sectors/ @2025-12-02",
+    "https://www.stephensonharwood.com/expertise/sectors/energy-transition-infrastructure/ @2026-08-14",
+    "https://www.stephensonharwood.com/expertise/sectors/energy-transition-infrastructure/built-natural-environment/ @2026-02-02",
+    "https://www.stephensonharwood.com/expertise/sectors/energy-transition-infrastructure/greenwashing-risk/ @2026-02-02"
+   ],
    "carried": 0
   },
   "klgates": {
@@ -250,9 +244,20 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12273,
+   "urls": 12274,
    "kept": 15,
    "fetched": 15,
+   "errors": 0,
+   "carried": 0
+  },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11555,
+   "kept": 14,
+   "fetched": 14,
    "errors": 0,
    "carried": 0
   },
@@ -272,26 +277,23 @@
    "errors": 0,
    "carried": 0
   },
-  "reedsmith": {
+  "hoganlovells": {
    "domains": [
-    "www.reedsmith.com"
+    "www.hoganlovells.com"
    ],
-   "sitemaps": 5,
-   "urls": 11555,
-   "kept": 16,
-   "fetched": 16,
+   "sitemaps": 2,
+   "urls": 21366,
+   "kept": 0,
+   "fetched": 0,
    "errors": 0,
-   "carried": 0
-  },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
+   "samples": [
+    "https://www.hlc.com/en/knowledge @2023-12-08",
+    "https://www.hlc.com/de/knowledge @2023-12-08",
+    "https://www.hlc.com/fr/knowledge @2023-12-08",
+    "https://www.hlc.com/ja/knowledge @2023-12-08",
+    "https://www.hlc.com/es/knowledge @2023-12-08",
+    "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
-   "sitemaps": 9,
-   "urls": 16323,
-   "kept": 31,
-   "fetched": 31,
-   "errors": 0,
    "carried": 0
   },
   "southsquare": {
@@ -313,19 +315,69 @@
    ],
    "carried": 0
   },
-  "hoganlovells": {
+  "cleary": {
    "domains": [
-    "www.hoganlovells.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 2,
-   "urls": 21366,
-   "kept": 25,
-   "fetched": 25,
+   "sitemaps": 1,
+   "urls": 18685,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16323,
+   "kept": 28,
+   "fetched": 28,
    "errors": 0,
+   "carried": 0
+  },
+  "cliffordchance": {
+   "domains": [
+    "www.cliffordchance.com"
+   ],
+   "sitemaps": 27,
+   "urls": 13013,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 7,
    "carried": 0
   }
  },
  "items": [
+  {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/asia-funds-and-financial-services-newsletter",
+   "title": "Asia Funds & Financial Services Newsletter",
+   "description": null,
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/press-release/white-case-advises-bregal-milestone-majority-investment-asolvi",
+   "title": "White & Case advises Bregal Milestone on majority investment in Asolvi",
+   "description": "Global law firm White & Case LLP has advised leading software growth private equity firm Bregal Milestone on its majority investment in Asolvi, a provider of field service management (FSM) software for compliance-critical and asset-intensive industries.",
+   "date": "2026-10-13",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/media/dealist-northbound-capital-inside-us-nordics-ma-surge",
+   "title": "The Dealist",
+   "description": "White & Case partners Airi Hammalov and Johan Steen joined SS&C Intralinks' The Dealist podcast to discuss the increasingly active US-Nordic M&A pipeline and the Nordic region's appeal as a destination for cross-border investment.",
+   "date": "2026-10-13",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-13"
+  },
   {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-represents-argano-on-acquisition-of-oktana",
@@ -372,28 +424,19 @@
    "lastmod": null
   },
   {
-   "firm": "ashurst",
-   "url": "https://www.ashurstperkinscoie.com/en/insights/financial-services-snapshots-13-october-2026/",
-   "title": "Financial Services Snapshots",
-   "description": "Financial Services Snapshots 12 October 2026",
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
    "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/asia-funds-and-financial-services-newsletter",
-   "title": "Asia Funds & Financial Services Newsletter",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/in-sec-rulemaking-agency-appears-open-to-broad-expansion-of-cross-trading-by-registered-funds",
+   "title": "In SEC Rulemaking, Agency Appears Open to Broad Expansion of Cross Trading by Registered Funds",
    "description": null,
    "date": "2026-10-13",
    "dateSource": "datePublished",
    "lastmod": "2026-10-13"
   },
   {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/in-sec-rulemaking-agency-appears-open-to-broad-expansion-of-cross-trading-by-registered-funds",
-   "title": "In SEC Rulemaking, Agency Appears Open to Broad Expansion of Cross Trading by Registered Funds",
-   "description": null,
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/eswin-computing-technology-hk-2-5-billion-ipo",
+   "title": "ESWIN Computing Technology HK$2.5 billion IPO",
+   "description": "We advised ESWIN Computing Technology on its IPO and HKEX listing",
    "date": "2026-10-13",
    "dateSource": "datePublished",
    "lastmod": "2026-10-13"
@@ -408,6 +451,15 @@
    "lastmod": "2026-10-13"
   },
   {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/articles/the-fdic-s-proposed-overhaul-of-bank-merger-review-what-financial-institutions-need-to-know/",
+   "title": "The FDIC’s proposed overhaul of bank merger review: what financial institutions need to know",
+   "description": null,
+   "date": "2026-10-13",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-13"
+  },
+  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advised-omers-private-equity-and-its-portfolio-companies-the-kenan-advantage-group-and-kenan",
    "title": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in $1.89B Refinancing",
@@ -417,13 +469,13 @@
    "lastmod": "2026-10-13"
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/the-fdic-s-proposed-overhaul-of-bank-merger-review-what-financial-institutions-need-to-know/",
-   "title": "The FDIC’s proposed overhaul of bank merger review: what financial institutions need to know",
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
    "description": null,
    "date": "2026-10-13",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
+   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -453,15 +505,6 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "ashurst",
-   "url": "https://www.ashurstperkinscoie.com/en/insights/third-circuit-affirms-copyright-in-westlaw-headnotes-and-rejects-fair-use-defense/",
-   "title": "Third Circuit affirms copyright in Westlaw headnotes and rejects fair use defense",
-   "description": "The U.S. Court of Appeals for the Third Circuit has affirmed that Westlaw headnotes are original works protected by copyright.",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/uk-eu-investment-management-update",
    "title": "UK/EU Investment Management Update (October 2026)",
@@ -469,6 +512,15 @@
    "date": "2026-10-12",
    "dateSource": "datePublished",
    "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/brightline-florida-chapter-11-filing-and-restructuring-support-agreement",
+   "title": "Brightline Florida chapter 11 filing and restructuring support agreement",
+   "description": "We are advising an ad hoc group of noteholders in connection with Brightline Florida's chapter 11 proceedings",
+   "date": "2026-10-12",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-13"
   },
   {
    "firm": "klgates",
@@ -534,24 +586,6 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/evidence-damages-and-criminal-enforcement-practical-implications-of-vietnams",
-   "title": "Evidence, damages and criminal enforcement: Practical implications of Vietnam’s three new IP case precedents",
-   "description": "Under Vietnam",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/pioneering-issuance-marks-milestone-in-polands-bank-capital-market",
-   "title": "mBank completes landmark EUR250m AT1 bond issuance",
-   "description": "A&O Shearman advised mBank on the EUR250 million AT1 issuance, the first euro-denominated Additional Tier 1 bond by a Polish bank.",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/",
    "title": "Financial Regulation Weekly Bulletin",
@@ -586,6 +620,15 @@
    "dateProbe": []
   },
   {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/pioneering-issuance-marks-milestone-in-polands-bank-capital-market",
+   "title": "mBank completes landmark EUR250m AT1 bond issuance",
+   "description": "A&O Shearman advised mBank on the EUR250 million AT1 issuance, the first euro-denominated Additional Tier 1 bond by a Polish bank.",
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/financial-regulatory-observer-autumn-2021",
    "title": "Financial Regulatory Observer - Autumn 2021",
@@ -603,24 +646,6 @@
    "date": "2026-10-09",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
-   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/insights/uk-corporate-tax-residence-and-permanent-establishment-risks-prepare-for-increased-hmrc-scrutiny/",
-   "title": "UK corporate tax residence and permanent establishment risks –prepare for increased HMRC scrutiny",
-   "description": "Overseas companies that do not want to be tax resident in the UK or have a permanent establishment (PE) in the UK should take note of recent developments.",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "latham",
@@ -650,6 +675,24 @@
    "lastmod": "2026-10-09"
   },
   {
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/california-adopts-regulations-expanding-healthcare-transaction-review",
+   "title": "California Adopts Regulations Expanding Healthcare Transaction Review",
+   "description": null,
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/10/australian-debtors-1250-retainers-meet-ch-15-test",
    "title": "Australian Debtors' $1,250 Retainers Meet Ch. 15 Test",
@@ -677,13 +720,13 @@
    "lastmod": "2026-10-09"
   },
   {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/how-to-preserve-optimization-of-a-business-in-bankruptcy",
-   "title": "How to preserve optimization of a business in bankruptcy",
-   "description": "In a new article for Pratt",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-itau-on-financing-for-fertil-pampa-sau",
+   "title": "Linklaters Advises Itaú on US$300 Million Financing for Fértil Pampa S.A.U.",
+   "description": "Linklaters advised Itaú on the provision of a US$300 million financing to Fértil Pampa S.A.U., a subsidiary of Pampa Energía S.A.",
+   "date": "2026-10-08",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-08"
   },
   {
    "firm": "aoshearman",
@@ -710,15 +753,6 @@
    "description": "The OECD has updated its model double tax convention (the Model Treaty), and in doing so, has amended its guidance on when a home office of a team member can generate a taxable presence of the foreign business for which they work. Businesses with remote workers will want to ascertain whether the relevant tax authorities will change their practices in line with the new guidance and, if so, confirm that their policies on remote working remain appropriate.",
    "date": "2026-10-08",
    "dateSource": "<time datetime>",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-itau-on-financing-for-fertil-pampa-sau",
-   "title": "Linklaters Advises Itaú on US$300 Million Financing for Fértil Pampa S.A.U.",
-   "description": "Linklaters advised Itaú on the provision of a US$300 million financing to Fértil Pampa S.A.U., a subsidiary of Pampa Energía S.A.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
    "lastmod": "2026-10-08"
   },
   {
@@ -756,24 +790,6 @@
    "date": "2026-10-08",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "ashurst",
-   "url": "https://www.ashurstperkinscoie.com/en/insights/financial-services-speedread-8-october-2026-edition/",
-   "title": "Financial Services SpeedRead: 8 October 2026 edition",
-   "description": "Financial Services SpeedRead: 8 October 2026 edition",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/insights/more-than-just-a-pipeline-what-does-gbr-s-rolling-stock-and-infrastructure-strategy-mean-for-train-manufacturers/",
-   "title": "More than just a pipeline: What does GBR’s Rolling Stock and Infrastructure Strategy mean for train manufacturers?",
-   "description": "The government's proposed railway reforms continue to gather pace. The eagerly awaited long term rolling stock and infrastructure strategy (the Strategy) was published on behalf of Great British Railways (GBR) on 28 September. Publication of the Strategy marks a notable milestone in the establishment of GBR and is a critical signal to the wider rail market of GBR’s priorities and intentions going forward.",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
   },
   {
    "firm": "latham",
@@ -884,40 +900,22 @@
    "lastmod": "2026-10-08"
   },
   {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/california-finalizes-expanded-health-care-transaction-review-regulations",
-   "title": "California finalizes expanded health care transaction review regulations",
-   "description": "On October 2, 2026, the California Office of Administrative Law approvedupdated regulations issued by the California Office of Health CareAffordability (OHCA) implementing Assembly Bill 1415 (AB 1415). The changes to the regulations will take effect on November 2, 2026. The updatedregulations implement AB 1415",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-pacific-universal-investments-debut-senior-secured-notes-issuance",
+   "title": "Linklaters advises on Pacific Universal Investments’ debut senior secured notes issuance",
+   "description": "Linklaters advises on Pacific Universal Investments’ debut US$325m senior secured notes issuance in the international debt capital markets.",
+   "date": "2026-10-07",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-07"
   },
   {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/the-future-of-manufacturing-international-trade-and-investment",
-   "title": "The Future of Manufacturing: International Trade and Investment – One year on",
-   "description": "One year after our November 2025 podcast on international trade and investment, we revisit the evolving global manufacturing landscape, focusing on the impact of U.S. tariffs and sanctions. This update explores the key developments since our original discussion, the effects of increased enforcement of tariffs, sanctions, and export controls, and the growing importance of supply chain transparency, compliance, and regulatory risk management. For those new to the topic, we recommend listening to the original episode first for essential background and context.",
-   "date": "2026-10-08",
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-sherman-advises-on-santander-consumer-banks",
+   "title": "A&O Sherman advises on Santander Consumer Bank’s cash SRT securitization of approximately EUR700 million",
+   "description": "A&O Shearman advises Santander Consumer Bank on a EUR700m STS auto loan securitization, marking S&P's first AAA-rated Italian ABS transaction since 2012.",
+   "date": "2026-10-07",
    "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/two-regulators-one-message-what-the-new-afrcsfc-mou-means-for-hong-kongs-financial-markets",
-   "title": "Two regulators, one message: What the new AFRC–SFC MoU means for Hong Kong",
-   "description": "On 28 September 2026, the AFRC and the SFC signed a new MOU, replacing the 2021 MoU between the SFC and the former Financial Reporting Council. The message is clear: where financial reporting, audit quality and market conduct meet, Hong Kong",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/uk-fcas-supervisory-spotlight-is-fixed-on-financial-crime-firms-should-review-systems-and-controls",
-   "title": "UK FCA’s supervisory spotlight is fixed on financial crime: firms should review systems and controls now",
-   "description": "The FCA’s September 2026 Regulation Round-Up includes a feature piece by Steve Smart, FCA Executive Director of Enforcement and Market Oversight and lead for fighting financial crime. The article emphasises the ‘vital’ importance of firms’ readiness to combat financial crime as it continues to grow in scale, sophistication and impact. It also outlines recent and planned FCA activity in this area. The combined message of this work is clear: the FCA is honing its strategic focus on fighting financial crime and could well be looking to further demonstrate the power of its technology-enabled, data-led approach through more supervisory and enforcement action in the not-too-distant future. In anticipation of such action, firms would be wise to carefully consider the FCA’s recent publications – including the findings from its multi-firm review of money mule activity – and carry out a comprehensive evaluation of their financial crime systems and controls, strengthening them where necessary. In this article, we set out key takeaways from some of the FCA’s most recent publications, including a few suggested next steps for firms.",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
+   "lastmod": "2026-10-13"
   },
   {
    "firm": "aoshearman",
@@ -930,30 +928,12 @@
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-sherman-advises-on-santander-consumer-banks",
-   "title": "A&O Sherman advises on Santander Consumer Bank’s cash SRT securitization of approximately EUR700 million",
-   "description": "A&O Shearman advises Santander Consumer Bank on a EUR700m STS auto loan securitization, marking S&P's first AAA-rated Italian ABS transaction since 2012.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "aoshearman",
    "url": "https://www.aoshearman.com/en/insights/bmf-draft-bill-would-tax-exchange-crypto-assets-as-investment-income",
    "title": "BMF: Draft Bill would tax exchange crypto-assets as investment income",
    "description": "Germany's BMF Draft Bill would tax crypto-assets such as Bitcoin as investment income: no holding period, 25% flat rate and new withholding duties.",
    "date": "2026-10-07",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-pacific-universal-investments-debut-senior-secured-notes-issuance",
-   "title": "Linklaters advises on Pacific Universal Investments’ debut senior secured notes issuance",
-   "description": "Linklaters advises on Pacific Universal Investments’ debut US$325m senior secured notes issuance in the international debt capital markets.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
   },
   {
    "firm": "whitecase",
@@ -1067,6 +1047,24 @@
    "lastmod": "2026-10-07"
   },
   {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/articles/pemacom-2026-insights-on-the-private-equity-and-ma-landscape/",
+   "title": "PEMACOM 2026: Insights on the private equity and M&A landscape",
+   "description": null,
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-07"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/news/reed-smith-represents-mckesson-in-agreement-with-cdr-to-acquire-option-care-health-in-58-billion-deal/",
+   "title": "Reed Smith represents McKesson in agreement with CD&R to acquire Option Care Health in $5.8 billion deal",
+   "description": null,
+   "date": "2026-10-07",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-07"
+  },
+  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-advises-sun-capital-on-gp-led-secondary-transaction-involving-anderson-global",
    "title": "Weil Advises Sun Capital on GP-Led Secondary Transaction Involving Anderson Global",
@@ -1108,24 +1106,6 @@
    ]
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/pemacom-2026-insights-on-the-private-equity-and-ma-landscape/",
-   "title": "PEMACOM 2026: Insights on the private equity and M&A landscape",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-represents-mckesson-in-agreement-with-cdr-to-acquire-option-care-health-in-58-billion-deal/",
-   "title": "Reed Smith represents McKesson in agreement with CD&R to acquire Option Care Health in $5.8 billion deal",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/booking-etraveli-eu-general-court-upholds-commissions-new-template-for-digital-merger-control",
    "title": "Booking/Etraveli: EU General Court Upholds Commission’s new Template for Digital Merger Control",
@@ -1133,24 +1113,6 @@
    "date": "2026-10-07",
    "dateSource": "datePublished",
    "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/fca-finalises-guidance-for-cryptoasset-firms-on-approach-to-overall-risk-assessments",
-   "title": "FCA finalises guidance for cryptoasset firms on approach to overall risk assessments",
-   "description": "The Financial Conduct Authority (FCA) has published two pieces of final non-Handbook guidance explaining how firms within its new prudential regime for regulated cryptoasset activities should approach their obligation under the FCA Handbook to perform an overall risk assessment: FG26/9 on COREPRU 7 and FG26/10 on CRYPTOPRU 7. The guidance describes how firms should evaluate their business models, risks and resource needs in order to maintain adequate financial resources to continue operating or, if necessary, to wind down without causing material harm to customers or the UK market. It is illustrative and non-exhaustive and does not impose a single methodology. Both publications take effect on 25 October 2027.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/uk-regulator-allows-more-flexibility-for-investment-funds-investing-into-crypto-etns",
-   "title": "UK regulator allows more flexibility for investment funds investing into crypto ETNs",
-   "description": "The UK’s Financial Conduct Authority (FCA) is proposing to relax its current restrictions for investment funds who wish to invest in exchange traded notes that reference cryptoassets (cETNs).",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
   },
   {
    "firm": "freshfields",
@@ -1264,24 +1226,6 @@
    "lastmod": null
   },
   {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/congressional-democrats-propose-first-federal-corporate-practice-of-medicine-law-unlikely-to-pass",
-   "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass",
-   "description": null,
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/news/brian-hirsch-discusses-ai-infrastructure-capital-tech-capital",
-   "title": "Brian Hirsch discusses AI infrastructure capital with The Tech Capital",
-   "description": "Davis Polk partner Brian Hirsch was quoted in The Tech Capital discussing the many elements of a data center project and how they rely on each other.The...",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
    "firm": "latham",
    "url": "https://www.lw.com/en/news/2026/10/Latham Advises Skydance in Completed Acquisition of Warner Bros Discovery",
    "title": "Latham Advises Skydance (Formerly Known as Paramount) in Completed Acquisition of Warner Bros. Discovery, Creating a New Global Entertainment Leader",
@@ -1327,13 +1271,22 @@
    "lastmod": "2026-10-06"
   },
   {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-new-us-fiber-joint-venture",
-   "title": "Weil Advises CPP Investments in New U.S. Fiber Joint Venture",
-   "description": "Weil is advising CPP Investments on a new U.S. fiber joint venture with AT&T and Global Infrastructure Partners to expand fiber internet access nationwide.",
+   "firm": "sidley",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/congressional-democrats-propose-first-federal-corporate-practice-of-medicine-law-unlikely-to-pass",
+   "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass",
+   "description": null,
    "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-11"
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-06"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/news/brian-hirsch-discusses-ai-infrastructure-capital-tech-capital",
+   "title": "Brian Hirsch discusses AI infrastructure capital with The Tech Capital",
+   "description": "Davis Polk partner Brian Hirsch was quoted in The Tech Capital discussing the many elements of a data center project and how they rely on each other.The...",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-12"
   },
   {
    "firm": "reedsmith",
@@ -1345,31 +1298,13 @@
    "lastmod": "2026-10-09"
   },
   {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/proposed-federal-legislation-would-significantly-expand-corporate-practice-of-medicine-restrictions",
-   "title": "Proposed federal legislation would significantly expand corporate practice of medicine restrictions nationwide",
-   "description": "On September 16, 2026, a group of Democratic lawmakers introduced the Stop Corporate Takeovers ofPhysicians Act, legislation that would establish the firstfederal prohibition on the corporate ownership and control of physicianpractices. If enacted, the bill would represent a significant departure fromthe longstanding approach to corporate practice of medicine (“CPOM”)regulation, which historically has been regulated almost exclusively by thestates.",
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-new-us-fiber-joint-venture",
+   "title": "Weil Advises CPP Investments in New U.S. Fiber Joint Venture",
+   "description": "Weil is advising CPP Investments on a new U.S. fiber joint venture with AT&T and Global Infrastructure Partners to expand fiber internet access nationwide.",
    "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/japans-critical-infrastructure-cybersecurity-regime-key-developments-took-effect-on-1-october-2026",
-   "title": "Japan",
-   "description": "Why companies supporting Japan",
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "traverssmith",
-   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
-   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
-   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
-   "date": "2026-10-05",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-05"
+   "dateSource": "page date label",
+   "lastmod": "2026-10-11"
   },
   {
    "firm": "macfarlanes",
@@ -1390,6 +1325,15 @@
    "lastmod": "2026-10-05"
   },
   {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
+   "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
+   "description": "Intro: The Government's Defence Investment Plan, published this summer, represents one of the most significant shifts in UK defence spending in a generation. Backed by £298 billion of investment over the next four years and built on the vision of the Strategic Defence Review ('SDR'), the plan signals a decisive move toward \"warfighting readiness\". This briefing examines what that may mean for the UK's real estate sector.",
+   "date": "2026-10-05",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-05"
+  },
+  {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-tdr-capital-on-acquisition-of-ocu-group",
    "title": "Kirkland Advises TDR Capital on Acquisition of OCU Group",
@@ -1406,24 +1350,6 @@
    "date": "2026-10-05",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/news/sijia-cai-and-alisa-waxman-discuss-private-market-relationships-private-equity-international",
-   "title": "Sijia Cai and Alisa Waxman discuss private market relationships with Private Equity International",
-   "description": "Davis Polk partners Sijia Cai and Alisa Waxman were featured in Private Equity International discussing private market relationships and how challenging...",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/insights/the-new-duty-to-correct-tax-errors/",
-   "title": "The new duty to correct tax errors",
-   "description": "The government is proposing to introduce a new legal obligation for taxpayers to correct errors in tax returns or documents provided to HMRC.",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-06"
   },
   {
    "firm": "latham",
@@ -1507,10 +1433,10 @@
    "lastmod": "2026-10-05"
   },
   {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/esg-focus-ukeuinternational-esg-regulation-monthly-roundup-augustseptember-2026",
-   "title": "ESG Focus: UK/EU/International ESG Regulation Monthly Round-Up – August/September 2026",
-   "description": "We took a brief summer break but are back with this edition of the ESG Regulation Monthly Round-Up covering developments from the UK, EU and internationally during August and September 2026.Generally there have been a lot of developments around corporate sustainability reporting in the UK, EU, Australia, New Zealand and California. The direction of travel seems to be a recalibration of mandatory expectations on companies. There have also been a number of conversations and plans announced around adaptation and resilience – which is a leading topic as we head to the end of 2026.",
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/news/sijia-cai-and-alisa-waxman-discuss-private-market-relationships-private-equity-international",
+   "title": "Sijia Cai and Alisa Waxman discuss private market relationships with Private Equity International",
+   "description": "Davis Polk partners Sijia Cai and Alisa Waxman were featured in Private Equity International discussing private market relationships and how challenging...",
    "date": "2026-10-05",
    "dateSource": "datePublished",
    "lastmod": "2026-10-05"
@@ -1611,24 +1537,6 @@
    "lastmod": null
   },
   {
-   "firm": "ashurst",
-   "url": "https://www.ashurstperkinscoie.com/en/insights/building-the-uks-agentic-financial-services-infrastructure-creating-the-future-building-on-the-past/",
-   "title": "Building the UK's agentic financial services infrastructure: creating the future, building on the past? Part two",
-   "description": "Agentic AI payments: next steps for UK financial services on the HMT consultation, FCA AI Lab, Know Your Agent and trust framework standards.",
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/insights/injunctions-against-bond-calls-a-reminder-of-the-high-threshold-ttsjv-v-bapco/",
-   "title": "Injunctions against bond calls: A reminder of the high threshold - TTSJV V BAPCO",
-   "description": "Performance bonds (or performance guarantees) are the “lifeblood of international commerce” and the English courts remain reluctant to intervene when a beneficiary seeks to call on one. In TTSJV WLL & Ors v BapCo Refining BSC [2026] EWHC 2047 (TCC), the Technology and Construction Court refused an urgent application to suspend a demand on a US$484 million performance guarantee arising from a delayed US$4.2 billion oil refinery modernisation project in Bahrain. The decision clarifies the very high threshold that must be met to prevent beneficiaries from calling on performance guarantees and provides useful guidance on the interaction between court intervention and emergency arbitration.",
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-02"
-  },
-  {
    "firm": "latham",
    "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Financing for Greenbriar Acquisition of Spectrum Control from AEA Investors",
    "title": "Latham Advises on Financing for Greenbriar’s Acquisition of Spectrum Control From AEA Investors",
@@ -1683,33 +1591,6 @@
    "lastmod": "2026-10-02"
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-lenders-on-the-financing-of-two-landmark-bess-projects-in-poland",
-   "title": "A&O Shearman advises lenders on the financing of two landmark BESS projects in Poland",
-   "description": null,
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-represents-banks-on-the-province-of-san-juans-usd600-million-inaugural-bond-offering",
-   "title": "A&O Shearman Advises on San Juan’s USD600m Inaugural Bond",
-   "description": "A&O Shearman advised the initial purchasers on the Province of San Juan's USD600m inaugural bond offering of 9.550% Notes due 2035.",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/navigating-the-eus-ecodesign-for-sustainable-products-regulation",
-   "title": "Navigating the EU’s Ecodesign for Sustainable Products Regulation",
-   "description": "Learn how the EU's ESPR impacts manufacturers, importers and distributors. Explore compliance timelines, Digital Product Passports and key steps to prepare.",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
    "firm": "macfarlanes",
    "url": "https://www.macfarlanes.com/insights/102o3yh/the-uk-sustainability-reporting-standards-the-fcas-latest-consultation-and-the",
    "title": "The UK Sustainability Reporting Standards: The FCA",
@@ -1755,6 +1636,33 @@
    "lastmod": "2026-10-01"
   },
   {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-lenders-on-the-financing-of-two-landmark-bess-projects-in-poland",
+   "title": "A&O Shearman advises lenders on the financing of two landmark BESS projects in Poland",
+   "description": null,
+   "date": "2026-10-01",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-represents-banks-on-the-province-of-san-juans-usd600-million-inaugural-bond-offering",
+   "title": "A&O Shearman Advises on San Juan’s USD600m Inaugural Bond",
+   "description": "A&O Shearman advised the initial purchasers on the Province of San Juan's USD600m inaugural bond offering of 9.550% Notes due 2035.",
+   "date": "2026-10-01",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/insights/navigating-the-eus-ecodesign-for-sustainable-products-regulation",
+   "title": "Navigating the EU’s Ecodesign for Sustainable Products Regulation",
+   "description": "Learn how the EU's ESPR impacts manufacturers, importers and distributors. Explore compliance timelines, Digital Product Passports and key steps to prepare.",
+   "date": "2026-10-01",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-08"
+  },
+  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/press-release/white-case-advises-eon-issuance-notes-nominal-amount-750-million-renminbi",
    "title": "White & Case advises E.ON on issuance of notes with nominal amount of 750 million Renminbi",
@@ -1791,27 +1699,13 @@
    "lastmod": null
   },
   {
-   "firm": "ashurst",
-   "url": "https://www.ashurstperkinscoie.com/en/blogs/regulatory-roundup/",
-   "title": "Regulatory Roundup: Navigating a New Era",
-   "description": "Regulatory Roundup shares timely insights into significant policy changes under the new administration, breaking down complex regulations into clear, actionable information.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-01",
-   "dateProbe": [
-    "rcement priorities</h3> <p class=\"summary\"> </p> <p class=\"date-post\">September 02, 2026</p> <div class=\"btn",
-    "electric equipment</h3> <p class=\"summary\"> </p> <p class=\"date-post\">August 28, 2026</p> <div class=\"btn",
-    "d decentralization</h3> <p class=\"summary\"> </p> <p class=\"date-post\">August 19, 2026</p> <div class=\"btn"
-   ]
-  },
-  {
-   "firm": "ashurst",
-   "url": "https://www.ashurstperkinscoie.com/en/insights/irs-treats-certain-etf-conversion-transactions-as-taxable/",
-   "title": "IRS treats certain ETF conversion transactions as taxable; Treasury expands scrutiny of tax-aware investment strategies",
-   "description": "The U.S. Department of the Treasury and the Internal Revenue Service have taken a significant next step in their scrutiny of certain tax-aware investment strategies, including some Section 351 ETF conversions, exchange-fund variations, and strategies designed to generate ordinary losses.",
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Shareholders on Sale of SK Pharma to Arcus Infrastructure Partners",
+   "title": "Latham & Watkins Advises Shareholders on Sale of SK Pharma to Arcus Infrastructure Partners",
+   "description": "Cross-practice team represents Syz Capital, Saturnus Capital, and the founder in the transaction.",
    "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
+   "dateSource": "page date label",
+   "lastmod": "2026-10-06"
   },
   {
    "firm": "davispolk",
@@ -1841,51 +1735,6 @@
    "lastmod": "2026-10-01"
   },
   {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/news/stephenson-harwood-strengthens-its-asia-ip-technology-and-data-practice-with-the-arrival-of-amita-haylock/",
-   "title": "Stephenson Harwood strengthens its Asia IP, Technology and Data Practice with the arrival of Amita Haylock",
-   "description": "Law firm Stephenson Harwood LLP has strengthened its IP, Technology and Data practice with the arrival of Amita Haylock who will be based out of Hong Kong and Singapore. Amita joins from Mayer Brown and will be the firm’s Head of Technology and IP, Asia.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/insights/increased-employment-tribunal-time-limits-practical-takeaways-for-employers/",
-   "title": "Increased employment tribunal time limits: practical takeaways for employers",
-   "description": "The primary time limit to bring a claim in the employment tribunal has increased today (1 October 2026), from three to six months. However, a claimant could have up to 10.5 months in some cases by virtue of ACAS early conciliation. Moreover, the hearing of the claim could be another three years later, approximately, due to increasing delays in the tribunal system. These timescales underscore the need for evidence preservation and encourage early dispute resolution where possible.",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/insights/rolling-into-town-gbr-s-rolling-stock-and-infrastructure-strategy/",
-   "title": "Rolling into town: GBR’s rolling stock and infrastructure strategy",
-   "description": "The eagerly-awaited long term rolling stock and infrastructure strategy (the Strategy) was published on Monday 28 September. The Strategy is a key part of the formation of Great British Railways (GBR) and the bringing together of track and train. It is one of the first documents to be branded as a GBR strategy, and so is a notable milestone.",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "stephensonharwood",
-   "url": "https://www.stephensonharwood.com/news/stephenson-harwood-strengthens-its-property-litigation-practice-with-the-arrival-of-david-marsden/",
-   "title": "Stephenson Harwood strengthens its Property Litigation Practice with the arrival of David Marsden",
-   "description": "Law firm Stephenson Harwood LLP has strengthened its Property Litigation practice with the arrival of a new practice area lead, Partner David Marsden, in London.",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Shareholders on Sale of SK Pharma to Arcus Infrastructure Partners",
-   "title": "Latham & Watkins Advises Shareholders on Sale of SK Pharma to Arcus Infrastructure Partners",
-   "description": "Cross-practice team represents Syz Capital, Saturnus Capital, and the founder in the transaction.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
    "firm": "reedsmith",
    "url": "https://www.reedsmith.com/news/reed-smith-earns-six-tier-1-practice-rankings-in-legal-500-uk/",
    "title": "Reed Smith earns six Tier 1 practice rankings in Legal 500 UK",
@@ -1899,15 +1748,6 @@
    "url": "https://www.reedsmith.com/news/reed-smith-advises-cohen-company-capital-markets-on-pricing-of-200-million-spac-ipo/",
    "title": "Reed Smith advises Cohen & Company Capital Markets on pricing of $200 million SPAC IPO",
    "description": null,
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-wins-finance-team-of-the-year-at-the-legal-business-awards",
-   "title": "Hogan Lovells Cadwalader wins Finance Team of the Year at the Legal Business Awards",
-   "description": "London, 1 October 2026 – Global law firm Hogan Lovells Cadwalader has won Finance Team of the Year at the Legal Business Awards. The firm was also Highly Commended in the ESG Programme of the Year category for HLC BaSE, its flagship ESG training and social enterprise program.",
    "date": "2026-10-01",
    "dateSource": "datePublished",
    "lastmod": "2026-10-01"
@@ -2064,255 +1904,6 @@
    "date": "2026-09-30",
    "dateSource": "datePublished",
    "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/publications/new-york-court-strikes-down-piedaterre-tax-rollout-while-constitutional-challenges-mount",
-   "title": "New York court strikes down Pied-à-Terre tax rollout, while constitutional challenges mount",
-   "description": "The pied-à-terre tax (“PAT”) continues to make news and be at the forefront of City and State politics. Yesterday in an outright rejection of the Mamdani Administration",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/09/freshfields-expands-capital-markets-team-with-two-partners-in-new-york-and-silicon-valley",
-   "title": "Freshfields Expands Capital Markets Team with Two Partners in New York and Silicon Valley",
-   "description": "New York and Silicon Valley (September 29, 2026) – Global law firm Freshfields expands its Capital Markets practice with two partner additions, further positioning the firm to advise companies and financial institutions on complex capital markets transactions: Jeffrey Gould and Justin Michael.",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102nzm3/investing-in-infrastructure-the-scale-of-the-opportunity",
-   "title": "Investing in infrastructure: the scale of the opportunity",
-   "description": "Infrastructure is one of the fastest-growing asset classes in private markets.1 Nearly $1.8tn of private capital has been deployed across...",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102nzm6/investing-in-infrastructure-when-public-policy-meets-private-capital",
-   "title": "Investing in infrastructure: when public policy meets private capital",
-   "description": "Governments across the UK and Europe have announced infrastructure programmes they cannot fund alone. The UK’s £725bn ten-year pipeline,...",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102nzm5/investing-in-infrastructure-navigating-complexity-and-dependencies",
-   "title": "Investing in infrastructure: navigating complexity and dependencies",
-   "description": "The previous sections examined where capital is flowing and how it is structured. This section looks at what determines whether an asset...",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102nzm4/investing-in-infrastructure-the-capital-stack",
-   "title": "Investing in infrastructure: the capital stack",
-   "description": "The infrastructure capital stack is evolving rapidly across equity, debt and fund finance. Equity: concentration at the top, opportunity...",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/investing-in-infrastructure/",
-   "title": "Investing in infrastructure",
-   "description": "Private capital’s opportunity",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-09-29",
-   "dateProbe": [
-    "/fit-in/2000x0/filters:crop(0,0,3999,2250)/Passle/MediaLibrary/Images/2026-01-09-17-39-34-413-69613d",
-    "/fit-in/2000x0/filters:crop(0,0,3999,2250)/Passle/MediaLibrary/Images/2026-01-09-17-39-34-413-69613d",
-    "/fit-in/2000x0/filters:crop(0,0,3999,2250)/Passle/MediaLibrary/Images/2026-01-09-17-39-34-413-69613d"
-   ]
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/uk-tax-snapshot/",
-   "title": "UK Tax Snapshot Autumn 2026",
-   "description": "UK tax developments with cross-border relevance, curated by Macfarlanes",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-09-29",
-   "dateProbe": [
-    "/fit-in/2000x0/filters:crop(0,0,3999,2250)/Passle/MediaLibrary/Images/2026-01-09-17-39-34-413-69613d",
-    "/fit-in/2000x0/filters:crop(0,0,3999,2250)/Passle/MediaLibrary/Images/2026-01-09-17-39-34-413-69613d",
-    "/fit-in/2000x0/filters:crop(0,0,3999,2250)/Passle/MediaLibrary/Images/2026-01-09-17-39-34-413-69613d"
-   ]
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/september/linklaters-advises-on-bank-of-maharashtras-establishment-of-mtn-programme",
-   "title": "Linklaters advises on Bank of Maharashtra’s establishment of its US$500m MTN Programme and debut international bond issuance",
-   "description": "Linklaters has advised the arranger and dealers on Bank of Maharashtra’s establishment of its US$500m Medium Term Note (MTN) Programme and the issuance of US$500m 6.112% senior unsecured fixed-rate notes due 2031 under the programme.",
-   "date": "2026-09-29",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/publications/2026/september/eu-insolvency-harmonisation-directive-what-businesses-creditors-and-investors-need-to-know",
-   "title": "EU Insolvency Harmonisation Directive: Key Impacts for Businesses and Creditors",
-   "description": "Explore the EU Insolvency Harmonisation Directive and its impact on businesses, creditors and investors, including avoidance actions, pre-pack proceedings, asset tracing, creditors' committees and directors' duties across key EU jurisdictions.",
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-09-29",
-   "dateProbe": [
-    "and directors' duties. Published in the Official Journal of the EU on 1 April 2026, the Directive aims",
-    "h3><p>Member States must transpose the Directive into national law by 22 January 2029, with a later deadl",
-    "ective into national law by 22 January 2029, with a later deadline of 10 July 2029 for provisions enab"
-   ]
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/news/2026/september/linklaters-strengthens-its-global-corporate-practice-with-addition-of-mohammed-almarzouki",
-   "title": "Linklaters strengthens its global corporate practice with the addition of Mohammed Almarzouki in Saudi Arabia",
-   "description": "Linklaters is pleased to announce that Mohammed Almarzouki will join the firm as a partner in its corporate practice on 1 October 2026, based in Riyadh, Saudi Arabia.",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/news/2026/september/linklaters-named-as-best-law-firm-for-covered-bonds-in-the-globalcapital-covered-bond-awards-2026",
-   "title": "Linklaters named as Best Law Firm for Covered Bonds in the GlobalCapital Covered Bond Awards 2026",
-   "description": null,
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-aura-minerals-us200-million-syndicated-loan-facility",
-   "title": "White & Case advises Aura Minerals on US$200 million syndicated loan facility",
-   "description": "Global law firm White & Case LLP has advised Aura Minerals Inc., as borrower, on its US$200 million unsecured syndicated loan facility.",
-   "date": "2026-09-29",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-luminate-capital-on-strategic-growth-investment-in-itpipes",
-   "title": "Kirkland Advises Luminate Capital on Strategic Growth Investment in ITpipes",
-   "description": null,
-   "date": "2026-09-29",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-greenbriar-on-acquisition-of-spectrum-control",
-   "title": "Kirkland Advises Greenbriar on Acquisition of Spectrum Control",
-   "description": null,
-   "date": "2026-09-29",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-transom-on-acquisition-of-soundthinking",
-   "title": "Kirkland Advises Transom on Acquisition of SoundThinking",
-   "description": null,
-   "date": "2026-09-29",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/09/hong-kong-regulator-reframes-enforcement-priorities-around-outcomes",
-   "title": "Hong Kong Regulator Reframes Enforcement Priorities Around Outcomes",
-   "description": null,
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/insights/client-update/key-takeaways-fdic-s-2026-proposed-rule-bank-mergers",
-   "title": "Key takeaways from the FDIC’s 2026 proposed rule on bank mergers",
-   "description": "The FDIC's proposal is a major shift in bank merger standards and may signal additional changes to come.",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "klgates",
-   "url": "https://www.klgates.com/thought-leadership/Legal-Reforms-Underpin-US60-Billion-Investment-Pipeline-Announced-at-QEF-2026-9-29-2026",
-   "title": "Legal Reforms Underpin US$60 Billion Investment Pipeline Announced at QEF 2026",
-   "description": "Qatar",
-   "date": "2026-09-29",
-   "dateSource": "page date label",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "klgates",
-   "url": "https://www.klgates.com/thought-leadership/Investment-Management-Client-Alert-September-2026-9-29-2026",
-   "title": "Investment Management Client Alert September 2026",
-   "description": "EU and German regulators advance SFDR 2.0, risk management, prospectus, MiCAR, and AIF rules affecting asset managers and funds.",
-   "date": "2026-09-29",
-   "dateSource": "page date label",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-guides-salad-and-go-through-chapter-11-sale-generating-123-million/",
-   "title": "Reed Smith guides Salad and Go through Chapter 11 sale generating $123 million",
-   "description": null,
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/probation-is-not-fixed-term-what-business-owners-and-hr-practitioners-must-know-after-nanyang-law-llc-v-ghui-meng-yang-2026-sghc-171/",
-   "title": "Probation is not fixed-term: What business owners and HR practitioners must know after Nanyang Law LLC v. Ghui Meng Yang [2026] SGHC 171",
-   "description": null,
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/federal-banking-agencies-issue-proposed-updates-to-interagency-third-party-risk-management-guidance-and-joint-statement-on-core-service-providers",
-   "title": "Federal Banking Agencies Issue Proposed Updates to Interagency Third-Party Risk Management Guidance and Joint Statement on Core Service Providers",
-   "description": "On September 11, 2026, the Board of Governors of the Federal Reserve System (the “Federal Reserve”), the Federal Deposit Insurance Corporation",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/09/mayer-brown-named-energy-and-infrastructure-team-of-the-year-at-the-lexisnexis-middle-east-legal-awards-2026",
-   "title": "Mayer Brown Named Energy & Infrastructure Team of the Year at the LexisNexis Middle East Legal Awards 2026",
-   "description": "Dubai - Mayer Brown has been recognised as Energy & Infrastructure Team of the Year at the LexisNexis Middle East Legal Awards 2026. The",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-brixmor-property-group-in-pending-acquisition-of-slate-grocery-in-us2-34-billion-reit-deal",
-   "title": "Hogan Lovells Cadwalader advises Brixmor Property Group in pending acquisition of Slate Grocery in US$2.34 billion REIT deal",
-   "description": "Washington, D.C. 29 September 2026 – Global law firm Hogan Lovells Cadwalader has advised Brixmor Property Group (NYSE: BRX) in its pending acquisition, alongside Everview Partners, of Slate Grocery REIT. The transaction is valued at US$2.34 billion.",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
-  },
-  {
-   "firm": "hoganlovells",
-   "url": "https://www.hlc.com/en/news/hogan-lovells-cadwalader-advises-ligand-on-financing-agreement-with-avencell-therapeutics",
-   "title": "Hogan Lovells Cadwalader advises Ligand on financing agreement with AvenCell Therapeutics",
-   "description": "Philadelphia, Houston, 29, September 2026 – Global law firm Hogan Lovells Cadwalader has advised Ligand Pharmaceuticals Incorporated (Nasdaq: LGND) as it enters into a financing agreement with AvenCell Therapeutics, Inc., a clinical-stage cell therapy company developing controllable, allogeneic CAR-T therapies for patients with cancer, for up to US$47 million. Ligand also committed up to US$6 million in concomitant Series C financing, details of which will be announced separately.",
-   "date": "2026-09-29",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-29"
   },
   {
    "firm": "kirkland",
