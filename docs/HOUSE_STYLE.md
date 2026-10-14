@@ -503,8 +503,8 @@ notification badge red (`#ef4444`).
   (R7). Each row shows the peer's name + a one-line rationale (a shared strategy /
   its size). Enforced by `tests/profile-peers.mjs`.
 
-- **R25 — Market-sizes matrix (Dashboard ▸ Macro).** The Macro dashboard carries a
-  **Market sizes** matrix (`MARKET_SIZES` in `macro/js/content.js`, rendered by
+- **R25 — Market-sizes matrix (Dashboard ▸ Rates ▸ Reference).** The Rates dashboard carries a
+  **Market sizes** matrix (in the collapsed **Reference** block, beside the Dalio / Marks cycles) (`MARKET_SIZES` in `macro/js/content.js`, rendered by
   `marketSizesHTML` in `v2/js/dashboard/app.js`): four asset classes (public
   equities, private equity AUM, public fixed income, private credit/debt) each
   broken into **US · Europe · Asia · Global**, with the latest size and a
@@ -1008,6 +1008,44 @@ notification badge red (`#ef4444`).
   every adviser on the roster and appear on the manager's Vehicles tab. Specs:
   `tests/transactions.mjs`, `tests/tx-credits.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`.
 
+- **R37 — Dashboard: Europe-first market state (review 2026-10).** The Dashboard is the
+  at-a-glance state for a **European credit-fund** reader. **(a) Sub-tabs, in priority
+  order: `Credit · Rates · Legal · Equities · Hedge Funds`** (`SUBTABS` in
+  `v2/js/dashboard/app.js`); **Credit is the default** (cold load and the bottom-nav
+  re-tap, `home()`). Macro and Bonds are **merged into Rates**; the retired
+  `/v2/dashboard/macro|fixed-income` URLs resolve to Rates and are canonicalised in place.
+  **(b) Credit** leads with the **ICE BofA OAS stack in basis points** (the rates feed
+  reports OAS in %, ×100 client-side) — **Euro HY first**, then US HY / IG / CCC — each
+  tile dated with its **1W / 1M move**; then **Europe — defaults & distress** (`EU_DISTRESS`,
+  curated + the live Eurostat bankruptcy index) beside **US private credit**
+  (`PRIVATE_CREDIT`, labelled US); the **stress list** (Europe first, each debtor drills to
+  Transactions ▸ Credits); the **maturity wall**; and **CLOs & fund closes** counted from
+  Wire's own deal records (labelled "tracked by Wire", never a market statistic). The
+  **credit wire** rail is de-duplicated (same date + headline or URL) and capped at 15;
+  a deal opens Wire's Transactions drawer (`#/deal/<id>`), intel links its source.
+  **(c) Rates**: regime pills (ECB · BoE · Fed · Cycle), the **policy table ECB · BoE ·
+  Fed** (rate LIVE from the ECB / BoE databases where loaded, next meeting, stance, as-of),
+  the **money-market strip** (€STR · 3M Euribor — the ECB **monthly average**, labelled so,
+  as daily fixings are EMMI-licensed · SONIA · SOFR), yield curves (**Euro AAA (ECB)** ·
+  gilts · Treasuries), curve shape + **10Y spreads to the Bund**, sovereign levels and
+  changes (**G7 + Western Europe only**, R4c), "why it moved", the Fed / BoE paths, and a
+  collapsed **Reference** block (cycles, market sizes). **(d) Legal**: restructuring &
+  insolvency (the legal desk's `ri` items), the **regulatory calendar** (`REG_CALENDAR`,
+  dated + sourced, upcoming first, undated = "TBC"), then the search. **(e) Truth in
+  labelling:** a `LIVE` badge renders as **"snapshot"** and flips to "live" only once a live
+  payload has actually been applied (`markLive`); **every data card shows a date**;
+  curated text is entity-decoded before escaping (`txt()`), so "&amp;" never leaks.
+  **(f) Layout:** below 1500px the desktop middle column is ONE column (every card full
+  width); ≥1500px compact cards pair; no card's content may spill or overlap a neighbour
+  (wide tables scroll inside `.dsh-scroll`). **(g) Data:** European rates/curve/distress
+  come from **`/api/eurates`** (`handleEuRates` in `src/index.js` — keyless ECB Data Portal,
+  BoE IADB, Eurostat; deterministic, no AI step; edge-cached 1h); `freshness-audit.mjs`
+  watches every curated Dashboard stamp (`dashboard_pc`, `dashboard_eu_distress`,
+  `dashboard_regcal`, `dashboard_fedwatch`, `dashboard_matwall`, `dashboard_market_sizes`,
+  `dashboard_snapshot`). Specs: `tests/dashboard-europe.mjs`, `tests/eurates-parse.mjs`,
+  `tests/dashboard-terminal.mjs` (no spill/overlap at 1024–1600px), `tests/dashboard-credit.mjs`,
+  `tests/dashboard-sections.mjs`, `tests/dashboard-tab-labels.mjs`.
+
 - **R37 — One profile layout; compare, timeline, CSV; the bell stays in Wire.** (2026-10.)
   **(a)** Every Profiles page — manager, hedge fund, investor, law firm, CLO — uses the
   same layout: identity header (☆ name, sub-line, coverage line "N tracked · N in 90 days ·
@@ -1141,7 +1179,10 @@ item keeps a real outbound source link (R7).
 - Federal Reserve Board (`federalreserve.gov`)
 - Federal Reserve Bank of New York (`markets.newyorkfed.org`) — SOFR
 - Bank of England (`bankofengland.co.uk`)
-- European Central Bank (`data.ecb.europa.eu`)
+- European Central Bank (`data.ecb.europa.eu`) — deposit rate (FM), €STR (EST), monthly 3M Euribor (FM), euro-area AAA curve (YC) via `/api/eurates` (R37)
+- Bank of England database (IADB) — Bank Rate `IUDBEDR`, SONIA `IUDSOIA` via `/api/eurates`
+- Eurostat `sts_rb_q` — EU27 bankruptcy-declarations index via `/api/eurates`
+- UK Insolvency Service official statistics (`gov.uk`, OGL) — monthly company insolvencies (curated, `EU_DISTRESS`)
 - UK Office for National Statistics (`ons.gov.uk`)
 - Eurostat / European Commission (`ec.europa.eu`)
 - DBnomics (`api.db.nomics.world`)

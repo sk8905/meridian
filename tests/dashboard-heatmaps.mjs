@@ -46,7 +46,7 @@ const base = `http://localhost:${srv.port}`;
 
 // ---- Fixed Income: yield-CHANGE heatmap (1W/1M/3M/6M/1Y) + tenor dropdown ----
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/fixed-income/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/rates/");
   await pg.waitForTimeout(1600);
   const gy = await pg.evaluate(() => {
     const box = document.querySelector("#dsh-yld");
@@ -67,8 +67,8 @@ const base = `http://localhost:${srv.port}`;
   checkEq(gy.tenors.join(","), "2Y,5Y,10Y,30Y", "Govt yields: bond-duration dropdown lists 2Y/5Y/10Y/30Y");
   checkEq(gy.defTenor, "y10", "Govt yields: dropdown defaults to 10Y");
   checkEq(gy.bands, 0, "Govt yields: no labelled region band (thin rules)");
-  checkEq(gy.breaks, 4, "Govt yields: five jurisdictions separated by thin grey rules");
-  check(gy.rows >= 10, `Govt yields: economy rows render (${gy.rows})`);
+  checkEq(gy.breaks, 3, "Govt yields: four jurisdictions (US · UK · Europe · Japan — G7 + Western Europe only) separated by thin grey rules");
+  check(gy.rows >= 8, `Govt yields: economy rows render (${gy.rows})`);
   check(gy.sourced, "Govt yields: every row links its source");
   check(gy.levels >= 8, `Govt yields: current yield shown in the label (${gy.levels})`);
   // Change cells are populated (curated m1/y1 snapshot) — guards the empty-table regression.
@@ -83,17 +83,17 @@ const base = `http://localhost:${srv.port}`;
     return { val: document.querySelector("#dsh-yld-tenor").value, rows: box.querySelectorAll("tbody tr").length };
   });
   checkEq(after.val, "y2", "Govt yields: selecting a duration switches + re-renders");
-  check(after.rows >= 10, `Govt yields: heatmap re-renders on duration change (${after.rows})`);
+  check(after.rows >= 8, `Govt yields: heatmap re-renders on duration change (${after.rows})`);
 
   // Multi-country term structure: a table row per country — plain country names,
   // no colour key beside them.
   const curve = await pg.evaluate(() => {
-    const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => /yield curves \(all countries\)/i.test(c.textContent));
+    const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => /sovereign yields — g7/i.test((c.querySelector('.dsh-h') || {}).textContent || ''));
     if (!card) return null;
     return { keys: card.querySelectorAll(".dsh-yc-key").length, rows: card.querySelectorAll("table tbody tr").length };
   });
-  check(curve && curve.rows >= 10, `Fixed Income: term-structure table covers every country (${curve && curve.rows} rows)`);
-  check(curve && curve.keys === 0, "Fixed Income: no colour key beside each country name");
+  check(curve && curve.rows >= 8, `Rates: term-structure table covers every in-scope country (${curve && curve.rows} rows)`);
+  check(curve && curve.keys === 0, "Rates: no colour key beside each country name");
   // The bond-duration selector sits in the card HEADER (top-right), not the body.
   const durSel = await pg.evaluate(() => {
     const sel = document.querySelector("#dsh-yld-tenor");
@@ -102,7 +102,7 @@ const base = `http://localhost:${srv.port}`;
     const inBody = !!sel.closest("#dsh-yld");
     return { inHeader, inBody, defVal: sel.value };
   });
-  check(durSel && durSel.inHeader && !durSel.inBody, "Fixed Income: the bond-duration selector is in the header, not the table body");
+  check(durSel && durSel.inHeader && !durSel.inBody, "Rates: the bond-duration selector is in the header, not the table body");
 
   // "Why it moved" box mirrors the Equities Key-moments card, each note sourced.
   const km = await pg.evaluate(() => {
@@ -111,15 +111,15 @@ const base = `http://localhost:${srv.port}`;
     const rows = [...card.querySelectorAll(".dsh-km")];
     return { rows: rows.length, sourced: rows.length > 0 && rows.every((r) => r.querySelector('.dsh-src[href^="http"]')) };
   });
-  check(km && km.rows > 0, `Fixed Income: "why it moved" box renders (${km && km.rows})`);
-  check(km && km.sourced, "Fixed Income: every why-it-moved note links its source");
+  check(km && km.rows > 0, `Rates: "why it moved" box renders (${km && km.rows})`);
+  check(km && km.sourced, "Rates: every why-it-moved note links its source");
   checkErrs(errs, "govt yields heatmap");
   await ctx.close();
 }
 
 // ---- Macro: Rate outlook (stacked) + US/UK Yield curve card ----
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/macro/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/rates/");
   await pg.waitForTimeout(1600);
   const m = await pg.evaluate(() => {
     const roTbl = document.querySelector(".dsh-ro-tbl");
@@ -130,17 +130,17 @@ const base = `http://localhost:${srv.port}`;
       economies: roTbl ? roTbl.querySelectorAll("tbody tr").length : 0,
       roReads: roTbl ? roTbl.querySelectorAll("tbody tr td.dsh-ro-read").length : 0,
       roLabels,
-      ycHeader: ycCard ? /Yield curve/.test(ycCard.querySelector(".dsh-h").textContent) : false,
+      ycHeader: ycCard ? /Yield curves/.test(ycCard.querySelector(".dsh-h").textContent) : false,
       ycLines: ycCard ? ycCard.querySelectorAll(".dsh-yc-svg path").length : 0,
       rowLabels,
     };
   });
-  checkEq(m.economies, 2, "Macro: Rate outlook renders both economies as table rows");
-  check(m.roLabels.some((l) => /Fed/.test(l)) && m.roLabels.some((l) => /BoE/.test(l)) && m.roReads === 2,
-    "Macro: Rate-outlook table carries US·Fed / UK·BoE with an inline commentary column");
-  check(m.ycHeader, "Macro: Yield-curve card renders with its header");
-  checkEq(m.ycLines, 2, "Macro: Yield curve draws US Treasury + UK gilt lines");
-  check(m.rowLabels.some((l) => /US Treasury/.test(l)) && m.rowLabels.some((l) => /UK gilts/.test(l)), "Macro: Yield-curve table has US Treasury + UK gilts rows");
+  checkEq(m.economies, 3, "Rates: policy table renders ECB · BoE · Fed as rows");
+  check(m.roLabels.some((l) => /ECB/.test(l)) && m.roLabels.some((l) => /Fed/.test(l)) && m.roLabels.some((l) => /BoE/.test(l)) && m.roReads === 3,
+    "Rates: policy table carries ECB / BoE / Fed with an inline read column");
+  check(m.ycHeader, "Rates: Yield-curve card renders with its header");
+  checkEq(m.ycLines, 2, "Rates: Yield curve draws US Treasury + UK gilt lines");
+  check(m.rowLabels.some((l) => /US Treasury/.test(l)) && m.rowLabels.some((l) => /UK gilts/.test(l)), "Rates: Yield-curve table has US Treasury + UK gilts rows");
   // MPC vote rows: the tally (6-3, 5-4) and the lean pill (3 → hike, 4 → cut) each
   // sit in a fixed column, so every row lines up regardless of pill text width.
   const votes = await pg.evaluate(() => {
@@ -150,11 +150,14 @@ const base = `http://localhost:${srv.port}`;
     return { n: rows.length, tallySpread: spread(lefts(".dsh-tally")), bandSpread: spread(lefts(".dsh-band")) };
   });
   if (votes.n >= 2) {
-    check(votes.tallySpread <= 2, `Macro: MPC vote tallies are column-aligned (${votes.tallySpread.toFixed(1)}px spread)`);
-    check(votes.bandSpread <= 2, `Macro: MPC vote lean pills are column-aligned (${votes.bandSpread.toFixed(1)}px spread)`);
-  } else check(true, "Macro: no MPC vote rows to align this cycle");
+    check(votes.tallySpread <= 2, `Rates: MPC vote tallies are column-aligned (${votes.tallySpread.toFixed(1)}px spread)`);
+    check(votes.bandSpread <= 2, `Rates: MPC vote lean pills are column-aligned (${votes.bandSpread.toFixed(1)}px spread)`);
+  } else check(true, "Rates: no MPC vote rows to align this cycle");
   // Market sizes matrix: asset-class bands over region rows, each with a size (or
   // "—") + 1Y/5Y/10Y trend arrows, every row source-linked (certifiable only).
+  // Market sizes sit in the collapsed Reference block — open it first.
+  await pg.evaluate(() => { const d = document.querySelector("details.dsh-ref"); if (d) d.open = true; });
+  await pg.waitForTimeout(200);
   const ms = await pg.evaluate(() => {
     const grid = document.querySelector(".dsh-ms-grid");
     if (!grid) return { present: false };
@@ -173,16 +176,16 @@ const base = `http://localhost:${srv.port}`;
       sized: rows.filter((r) => { const s = r.querySelector(".dsh-ms-sz"); return s && !/^—/.test(s.textContent.trim()); }).length,
     };
   });
-  check(ms.present, "Macro: market-sizes matrix renders");
+  check(ms.present, "Rates: market-sizes matrix renders");
   check(ms.present && ms.nCols === 4 && /Public equities/i.test(ms.bands[0] || "") && ms.bands.some((b) => /Private credit/i.test(b || "")),
-    `Macro: four asset-class blocks (${(ms.bands || []).join(" · ")})`);
-  check(ms.present && ms.sideBySide, "Macro: the asset-class blocks sit side by side (full width)");
-  check(ms.present && ms.colGap >= 32, `Macro: a generous gap separates each asset-class block (${ms.colGap}px)`);
-  check(ms.present && ms.nRows === 16, `Macro: US·Europe·Asia·Global for each class (${ms.nRows} rows)`);
-  check(ms.present && ms.horizonCells === 48 && ms.filled === 48, `Macro: every 1Y/5Y/10Y cell shows a % or a trend arrow (${ms.filled}/${ms.horizonCells})`);
-  check(ms.present && ms.pcts >= 6, `Macro: %% shown for the increases where sourced (${ms.pcts} cells)`);
-  check(ms.present && ms.sourced === ms.nRows, `Macro: every market-size row links its source (${ms.sourced}/${ms.nRows})`);
-  check(ms.present && ms.sized >= 10, `Macro: sizes shown where cleanly sourced, "—" otherwise (${ms.sized} sized)`);
+    `Rates: four asset-class blocks (${(ms.bands || []).join(" · ")})`);
+  check(ms.present && ms.sideBySide, "Rates: the asset-class blocks sit side by side (full width)");
+  check(ms.present && ms.colGap >= 32, `Rates: a generous gap separates each asset-class block (${ms.colGap}px)`);
+  check(ms.present && ms.nRows === 16, `Rates: US·Europe·Asia·Global for each class (${ms.nRows} rows)`);
+  check(ms.present && ms.horizonCells === 48 && ms.filled === 48, `Rates: every 1Y/5Y/10Y cell shows a % or a trend arrow (${ms.filled}/${ms.horizonCells})`);
+  check(ms.present && ms.pcts >= 6, `Rates: %% shown for the increases where sourced (${ms.pcts} cells)`);
+  check(ms.present && ms.sourced === ms.nRows, `Rates: every market-size row links its source (${ms.sourced}/${ms.nRows})`);
+  check(ms.present && ms.sized >= 10, `Rates: sizes shown where cleanly sourced, "—" otherwise (${ms.sized} sized)`);
   checkErrs(errs, "macro rate outlook + yield curve");
   await ctx.close();
 }

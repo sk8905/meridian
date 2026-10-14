@@ -730,6 +730,19 @@ a guess; if a figure can't be confirmed, leave the old one and say so.
   (`EQ_INDICES` level/ytd/asOf, `EQ_VALUATION`, `EQ_VOL`, `WORLD_INDICES`,
   `GOVT_YIELDS`), each with its own `asOf` + `source`, then set `DASH_ASOF`. Do a few
   series per run if budget is short — leave the rest for the next run.
+- **Dashboard: European distress, calendar + central-bank fields (HOUSE_STYLE R37)** —
+  driven by `node scripts/freshness-audit.mjs` (keys `dashboard_*`). `EU_DISTRESS`
+  (dashboard/js/data.js): roll each metric to its latest free release — PitchBook LCD
+  ELLI default rate (monthly), Fitch European lev-loan / HY TTM (monthly monitor), S&P
+  European spec-grade (quarterly), the Insolvency Service monthly company insolvencies
+  (gov.uk, ~3rd week) — each with its own `asOf` period + source URL, then bump
+  `EU_DISTRESS.asOf`; `bankruptcyFallback` mirrors the latest Eurostat quarter.
+  `REG_CALENDAR`: add a milestone only with a date verified at the instrument or the
+  regulator (EUR-Lex, ESMA, FCA); unknown = `date: null` ("TBC"). `OUTLOOK.ecb` /
+  `.uk` / `.us` (macro/js/content.js): `next` meeting, `stance` (one line, the latest
+  decision), `asOf` = that decision's date, `href` = its press release; update
+  `fedwatch` / `uk.sonia` odds and the dot plot after each FOMC SEP. The live rates
+  themselves come from `/api/eurates` — never hand-type a rate the feed already carries.
 
 ## 2020 backfill project (`backfill/checklist.json` + `scripts/backfill-progress.mjs`)
 

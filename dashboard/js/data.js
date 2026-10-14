@@ -12,9 +12,9 @@
 // ---- Equities -------------------------------------------------------------
 // Major global indices — seed close + YTD; the live feed refreshes `level`/`ytd`.
 export const EQ_INDICES = [
-  { id: "spx",  name: "S&P 500",         region: "US",     level: 7585.73,  ytd: 9.6,   asOf: "2026-07-21", stooq: "^spx",   source: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-20-2026", keyMoment: { text: "The S&amp;P 500 gained 0.7% on Friday as a weaker-than-expected September jobs report (29,000 payrolls) cemented expectations that the Fed will hold in October, with tech leading.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
-  { id: "ndq",  name: "Nasdaq Composite", region: "US",    level: 25981.57, ytd: 10.2,  asOf: "2026-07-21", stooq: "^ndq",   source: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-20-2026", keyMoment: { text: "The Nasdaq Composite surged 1.2% on Friday, the strongest of the three US benchmarks, as tech led the rally after the soft jobs report cooled Fed rate-hike expectations.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
-  { id: "dji",  name: "Dow Jones",        region: "US",     level: 52093.11, ytd: 9.4,   asOf: "2026-07-21", stooq: "^dji",   source: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-20-2026", keyMoment: { text: "The Dow rose 0.5% on Friday as the weak September payrolls print (29,000 jobs) faded Fed rate-hike expectations.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
+  { id: "spx",  name: "S&P 500",         region: "US",     level: 7805.45,  ytd: 14.0,  asOf: "2026-10-13", stooq: "^spx",   source: "https://fred.stlouisfed.org/series/SP500", keyMoment: { text: "The S&amp;P 500 gained 0.7% on Friday as a weaker-than-expected September jobs report (29,000 payrolls) cemented expectations that the Fed will hold in October, with tech leading.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
+  { id: "ndq",  name: "Nasdaq Composite", region: "US",    level: 27245.90, ytd: 17.2,  asOf: "2026-10-12", stooq: "^ndq",   source: "https://fred.stlouisfed.org/series/NASDAQCOM", keyMoment: { text: "The Nasdaq Composite surged 1.2% on Friday, the strongest of the three US benchmarks, as tech led the rally after the soft jobs report cooled Fed rate-hike expectations.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
+  { id: "dji",  name: "Dow Jones",        region: "US",     level: 51670.10, ytd: 7.5,   asOf: "2026-10-13", stooq: "^dji",   source: "https://fred.stlouisfed.org/series/DJIA", keyMoment: { text: "The Dow rose 0.5% on Friday as the weak September payrolls print (29,000 jobs) faded Fed rate-hike expectations.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
   { id: "rut",  name: "Russell 2000",     region: "US",     level: 2987.40,  ytd: 20.1,  asOf: "2026-07-21", stooq: "^rut",   source: "https://finance.yahoo.com/quote/%5ERUT/" },
   { id: "sxxp", name: "Stoxx Europe 600", region: "Europe", level: 638.0,    ytd: null,  asOf: "2026-07-23", stooq: "^stoxx", source: "https://finance.yahoo.com/quote/%5ESTOXX/" },
   { id: "ukx",  name: "FTSE 100",         region: "Europe", level: 10573.67, ytd: 0.54,  asOf: "2026-07-17", stooq: "^ftse",  source: "https://www.nakitte.com/briefs/ftse-2026-07-20/", keyMoment: { text: "The FTSE 100 slid to a two-week low on Tuesday, dragged down by heavyweight energy stocks as oil prices retreated, while British American Tobacco fell after issuing downbeat guidance.", src: "https://live.euronext.com/en/financial-news/ftse-100-hits-two-week-low-energy-stocks-slide", srcName: "Reuters (via Euronext)", date: "2026-09-29" } },
@@ -46,7 +46,7 @@ export const EQ_VALUATION = [
 
 // Volatility gauges — VIX / VSTOXX. Live feed refreshes `level`; bands in the view.
 export const EQ_VOL = [
-  { id: "vix",    name: "VIX",    level: 16.64, asOf: "2026-07-22", fred: "VIXCLS", source: "https://convextrade.com/metrics/vixcls" },
+  { id: "vix",    name: "VIX",    level: 15.21, asOf: "2026-10-12", fred: "VIXCLS", source: "https://fred.stlouisfed.org/series/VIXCLS" },
   { id: "vstoxx", name: "VSTOXX", level: 20.60, asOf: "2026-07-10", fred: null,     source: "https://tradingeconomics.com/vstoxx:ind" },
 ];
 
@@ -67,16 +67,6 @@ export const EQ_IPO = [
 ];
 
 // ---- Credit ---------------------------------------------------------------
-// ICE BofA OAS spread stack (bps) — seed values; the live feed (FRED) refreshes
-// `bps`. `fred` is the FRED series id. Ordered IG→CCC (the credit stack).
-export const CR_SPREADS = [
-  { id: "ig",  name: "US IG",  fred: "BAMLC0A0CM",     bps: null, asOf: null, source: "https://fred.stlouisfed.org/series/BAMLC0A0CM" },
-  { id: "hy",  name: "US HY",  fred: "BAMLH0A0HYM2",   bps: null, asOf: null, source: "https://fred.stlouisfed.org/series/BAMLH0A0HYM2" },
-  { id: "bb",  name: "BB",     fred: "BAMLH0A1HYBB",   bps: null, asOf: null, source: "https://fred.stlouisfed.org/series/BAMLH0A1HYBB" },
-  { id: "b",   name: "B",      fred: "BAMLH0A2HYB",    bps: null, asOf: null, source: "https://fred.stlouisfed.org/series/BAMLH0A2HYB" },
-  { id: "ccc", name: "CCC",    fred: "BAMLH0A3HYC",    bps: null, asOf: null, source: "https://fred.stlouisfed.org/series/BAMLH0A3HYC" },
-];
-
 // "Stress" — high-profile distressed / stressed corporate debtors in focus.
 // Each verified & sourced; refreshed by the routine. Ordered by prominence.
 export const CR_STRESS = [
@@ -211,7 +201,7 @@ export const PRIVATE_CREDIT = {
     { k: "Defaults via amendment", v: "45%", sub: "maturity extensions (Aug, 3rd mo.) · PIK/deferrals 47% of TTM · not missed payments", src: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings" },
     { k: "KBRA MM default monitor", v: "3.3%", sub: "by count, 2Q26 · first rise in a year · 2.4% by debt (record)", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
     { k: "MM debt assessed (KBRA)", v: "$1.2tn", sub: "2,785 borrowers, TTM 2Q26 · EBITDA growth fading", src: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA Q2'26 MM Compendium" },
-    { k: "Broadly-syndicated loan default (fcst)", v: "3.0–3.5%", sub: "2026, Fitch — set to ease", src: "https://www.investmentexecutive.com/news/research-and-markets/u-s-leveraged-loan-defaults-to-ease-in-2026-fitch/", srcName: "Fitch (via Investment Executive)" },
+    { k: "US leveraged-loan default (Fitch fcst)", v: "4.5–5.0%", sub: "end-2026 forecast · US HY 2.5–3.0% · Europe institutional loans 3.0–3.5%", src: "https://www.investmentexecutive.com/news/research-and-markets/u-s-leveraged-loan-defaults-to-ease-in-2026-fitch/", srcName: "Fitch (via Investment Executive)" },
     { k: "Market size (AUM)", v: "~$2.0tn", sub: "2026 est. · ~$4tn by 2030", src: "https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/private-credit-2026.html", srcName: "Moody's" },
     { k: "BDC non-accruals", v: "~1.2%", sub: "of portfolios (Q2'25)", src: "https://www.withintelligence.com/insights/what-is-actually-going-on-in-bdc-portfolios/", srcName: "With Intelligence" },
   ],
@@ -224,6 +214,44 @@ export const PRIVATE_CREDIT = {
   reports: [
     { title: "Fitch — U.S. Private Credit Default Rate Rose to 6.3% in August 2026 (monthly)", date: "2026-09-14", url: "https://www.fitchratings.com/research/corporate-finance/fitch-ratings-us-private-credit-default-rate-rose-to-6-3-in-august-2026-14-09-2026", srcName: "Fitch Ratings" },
     { title: "KBRA — Private Credit: Q2 2026 Middle Market Compendium (EBITDA's Fading Tailwinds)", date: "2026-07-28", url: "https://www.kbra.com/publications/RWVsCVCX/kbra-releases-research-private-credit-q2-2026-middle-market-compendium-ebitda-s-fading-tailwinds", srcName: "KBRA" },
-    { title: "AIMA/ACC — Private Credit Performance & Valuation Trends (quarterly)", date: "2026-Q2", url: "https://acc.aima.org/article/press-release-private-credit-market-surpasses-us-3trn-and-maintains-resilience-despite-growing-stress.html", srcName: "AIMA/ACC" },
+    { title: "AIMA/ACC — Financing the Economy 2025: private credit reaches US$3.5tn (end-2024)", date: "2025", url: "https://www.aima.org/article/press-release-strong-growth-sees-private-credit-market-reach-us-3-5-trillion.html", srcName: "AIMA/ACC" },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Europe — defaults & distress (Dashboard ▸ Credit). Curated from free public
+// releases; every figure carries its source and the period it is AS OF (never
+// fabricated, R7). Refreshed by the routine as each monthly/quarterly release
+// lands (docs/refresh-routines.md → "Dashboard: European distress"). The EU
+// bankruptcy index is LIVE from Eurostat via /api/eurates; `bankruptcyFallback`
+// is its last verified reading, shown only when the live call fails.
+export const EU_DISTRESS = {
+  asOf: "2026-10-14",
+  metrics: [
+    { k: "Lev-loan default rate (ELLI, by count)", v: "1.47%", asOf: "Jun 2026", sub: "PitchBook LCD Morningstar European Leveraged Loan Index, rolling 12m · 1.23% by amount · 2.06% incl. distressed exchanges/LMEs (Q2)", src: "https://en.paperjam.lu/article/europes-loan-market-buys-time-not-safety", srcName: "PitchBook LCD (via Paperjam)" },
+    { k: "Fitch European lev-loan default (TTM)", v: "2.4%", asOf: "Jul 2026", sub: "Fitch European Corporates Distressed and Default Monitor, Aug 2026", src: "https://x.com/FitchRatings/status/2093277482384298113", srcName: "Fitch Ratings" },
+    { k: "Fitch European HY default (TTM)", v: "2.2%", asOf: "Jul 2026", sub: "Fitch European Corporates Distressed and Default Monitor, Aug 2026", src: "https://x.com/FitchRatings/status/2093277482384298113", srcName: "Fitch Ratings" },
+    { k: "Fitch 2026 fcst — European inst. loans", v: "3.0–3.5%", asOf: "2026 fcst", sub: "European high-yield bonds 3.75–4.25%", src: "https://www.investmentexecutive.com/news/research-and-markets/u-s-leveraged-loan-defaults-to-ease-in-2026-fitch/", srcName: "Fitch (via Investment Executive)" },
+    { k: "S&P European spec-grade default (TTM)", v: "3.3%", asOf: "Mar 2026", sub: "down from 4.0% at end-2025 · S&P via AFME Q1 2026 report", src: "https://www.afme.eu/publications/data-research/european-high-yield-leveraged-loan-and-private-credit-report-q1-2026/", srcName: "AFME (citing S&P)" },
+    { k: "UK company insolvencies (E&W, month)", v: "1,946", asOf: "Aug 2026", sub: "seasonally adjusted · 2,007 in Aug 2025 · September release due 20 Oct 2026", src: "https://www.gov.uk/government/statistics/company-insolvencies-august-2026", srcName: "Insolvency Service" },
+  ],
+  bankruptcyFallback: { value: 195.9, asOf: "2026-Q2", yearAgo: 187.4, yearAgoAsOf: "2025-Q2", href: "https://ec.europa.eu/eurostat/databrowser/view/sts_rb_q/default/table" },
+};
+
+// ---------------------------------------------------------------------------
+// Regulatory calendar (Dashboard ▸ Legal) — dated milestones for European / UK
+// private-credit funds. Only dates verifiable from the instrument or the
+// regulator; an undated file is `date: null` (shown "TBC"). Refreshed by the
+// routine as dates are confirmed.
+export const REG_CALENDAR = {
+  asOf: "2026-10-14",
+  items: [
+    { date: "2026-04-16", item: "AIFMD II applies", note: "Transposition deadline of Directive (EU) 2024/927; loan-origination rules apply to new AIFs", src: "https://eur-lex.europa.eu/eli/dir/2024/927/oj", srcName: "EUR-Lex" },
+    { date: "2026-10-14", item: "FCA CP26/28 — UK AIFM regime consultation closes", note: "Proposed three-tier UK AIFM regime; final rules expected 2027", src: "https://www.fca.org.uk/publications/consultation-papers/cp26-28-uk-aifm-regime", srcName: "FCA" },
+    { date: "2027-01-01", item: "CRR3 output floor rises to 60%", note: "EU bank capital output floor steps up from 55% (2026)", src: "https://eur-lex.europa.eu/eli/reg/2024/1623/oj", srcName: "EUR-Lex" },
+    { date: "2027-04-16", item: "AIFMD II revised supervisory reporting", note: "Annex IV reporting changes apply", src: "https://eur-lex.europa.eu/eli/dir/2024/927/oj", srcName: "EUR-Lex" },
+    { date: "2029-04-16", item: "AIFMD II loan-origination grandfathering ends", note: "For AIFs constituted before 15 Apr 2024 that keep raising capital", src: "https://eur-lex.europa.eu/eli/dir/2024/927/oj", srcName: "EUR-Lex" },
+    { date: "2024-10-26", item: "ELTIF 2.0 RTS apply", note: "Delegated Regulation (EU) 2024/2759 — redemptions, liquidity tools, cost disclosure", src: "https://eur-lex.europa.eu/eli/reg_del/2024/2759/oj", srcName: "EUR-Lex" },
+    { date: null, item: "EU securitisation framework review", note: "In trilogue — no agreed application date", src: "https://www.europarl.europa.eu/legislative-train/theme-a-new-plan-for-europe-s-sustainable-prosperity-and-competitiveness/file-review-of-the-securitisation-framework", srcName: "European Parliament" },
   ],
 };

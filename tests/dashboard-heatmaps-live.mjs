@@ -35,7 +35,7 @@ const base = `http://localhost:${srv.port}`;
 // Fixed Income (default tenor 10Y): the US row shows the LIVE current 10Y yield in
 // the label (4.65%) and the LIVE 1M change (+12 bp) in the 1M column.
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/fixed-income/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/rates/");
   await pg.waitForTimeout(2000);
   const us = await pg.evaluate(() => {
     const r = [...document.querySelectorAll("#dsh-yld tbody tr")].find((x) => /United States/.test((x.querySelector(".dsh-nm") || {}).textContent || ""));

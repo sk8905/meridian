@@ -539,6 +539,127 @@ async function ecbSeries(keys) {
   return { value: null, change: null, asOf: null };
 }
 
+// ---- /api/eurates — European rates, curve + distress for the Dashboard -------
+// Deterministic, keyless official sources only (no AI step): the ECB Data Portal
+// (deposit rate, €STR, monthly 3M Euribor, the euro-area AAA spot curve), the Bank
+// of England database (Bank Rate, SONIA) and Eurostat (quarterly bankruptcy
+// declarations index). Each series returns its own dated history so the client can
+// show the level, the as-of date and a 1W / 1M change. Every value is the source's
+// own figure — a series that can't be read comes back value:null (never guessed).
+export const EU_RATE_SERIES = [
+  { key: "ecb_dfr", label: "ECB deposit rate", unit: "%", src: "ecb", flow: "FM", sk: "D.U2.EUR.4F.KR.DFR.LEV", href: "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV", source: "ECB" },
+  { key: "estr", label: "€STR", unit: "%", src: "ecb", flow: "EST", sk: "B.EU000A2X2A25.WT", href: "https://data.ecb.europa.eu/data/datasets/EST/EST.B.EU000A2X2A25.WT", source: "ECB" },
+  // Daily Euribor fixings are EMMI-licensed; the ECB publishes the MONTHLY average
+  // only (its daily keys 404), so the label says so.
+  { key: "euribor3m", label: "3M Euribor (monthly avg)", unit: "%", src: "ecb", flow: "FM", sk: "M.U2.EUR.RT.MM.EURIBOR3MD_.HSTA", href: "https://data.ecb.europa.eu/data/datasets/FM/FM.M.U2.EUR.RT.MM.EURIBOR3MD_.HSTA", source: "ECB" },
+  { key: "boe_bank", label: "BoE Bank Rate", unit: "%", src: "boe", code: "IUDBEDR", href: "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDBEDR&UsingCodes=Y&Filter=N&title=IUDBEDR&VPD=Y", source: "Bank of England" },
+  { key: "sonia", label: "SONIA", unit: "%", src: "boe", code: "IUDSOIA", href: "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?Travel=NIxAZxSUx&FromSeries=1&ToSeries=50&DAT=RNG&FD=1&FM=Jan&FY=2024&TD=31&TM=Dec&TY=2026&FNY=Y&CSVF=TT&html.x=66&html.y=26&SeriesCodes=IUDSOIA&UsingCodes=Y&Filter=N&title=IUDSOIA&VPD=Y", source: "Bank of England" },
+];
+// Euro-area AAA government spot curve (ECB YC dataset) — the free daily proxy for
+// the Bund curve, labelled as what it is.
+export const EU_AAA_TENORS = [["3M", "SR_3M"], ["2Y", "SR_2Y"], ["5Y", "SR_5Y"], ["10Y", "SR_10Y"], ["30Y", "SR_30Y"]];
+const EU_AAA_HREF = "https://data.ecb.europa.eu/data/datasets/YC";
+const EU_BKRT_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_rb_q?geo=EU27_2020&indic_bt=BKRT&s_adj=SCA&nace_r2=B-S_X_O_S94&unit=I21";
+const EU_BKRT_HREF = "https://ec.europa.eu/eurostat/databrowser/view/sts_rb_q/default/table";
+
+// Pure: ECB SDMX csvdata → ascending [[date, number]] (rows with no value dropped).
+export function ecbCsvPairs(txt) {
+  const lines = String(txt || "").trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  const h = lines[0].split(",");
+  const ti = h.indexOf("TIME_PERIOD"), vi = h.indexOf("OBS_VALUE");
+  if (ti < 0 || vi < 0) return [];
+  return lines.slice(1).map((l) => l.split(","))
+    .map((c) => [c[ti], parseFloat(c[vi])])
+    .filter((p) => p[0] && Number.isFinite(p[1]))
+    .sort((a, b) => (a[0] < b[0] ? -1 : 1));
+}
+// Pure: BoE IADB CSV ("DATE,IUDBEDR,IUDSOIA" / "08 Oct 2026,3.75,3.7332") → one
+// ascending [[isoDate, number]] series per requested code.
+const _MON = { Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06", Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12" };
+export function boeCsvSeries(txt, codes) {
+  const out = {}; codes.forEach((c) => { out[c] = []; });
+  const lines = String(txt || "").trim().split(/\r?\n/);
+  if (lines.length < 2) return out;
+  const h = lines[0].split(",").map((s) => s.trim().toUpperCase());
+  const idx = codes.map((c) => h.indexOf(c.toUpperCase()));
+  lines.slice(1).forEach((l) => {
+    const c = l.split(",");
+    const m = /^(\d{1,2}) ([A-Z][a-z]{2}) (\d{4})$/.exec((c[0] || "").trim());
+    if (!m || !_MON[m[2]]) return;
+    const d = `${m[3]}-${_MON[m[2]]}-${m[1].padStart(2, "0")}`;
+    codes.forEach((code, i) => { const v = parseFloat(c[idx[i]]); if (idx[i] > 0 && Number.isFinite(v)) out[code].push([d, v]); });
+  });
+  codes.forEach((c) => out[c].sort((a, b) => (a[0] < b[0] ? -1 : 1)));
+  return out;
+}
+// Pure: Eurostat JSON-stat (single series over time) → ascending [[period, number]].
+export function eurostatSeries(j) {
+  const t = j && j.dimension && j.dimension.time && j.dimension.time.category && j.dimension.time.category.index;
+  if (!t || !j.value) return [];
+  return Object.entries(t).map(([p, i]) => [p, j.value[i] != null ? +j.value[i] : null])
+    .filter((p) => Number.isFinite(p[1])).sort((a, b) => (a[0] < b[0] ? -1 : 1));
+}
+// Pure: a dated series → { value, asOf, chg1w, chg1m, history }. Changes are taken
+// against the last observation on/before 7 and 30 calendar days earlier (so a
+// monthly series simply has no 1W move). Changes are in the series' own unit.
+export function euPoint(pairs) {
+  if (!Array.isArray(pairs) || !pairs.length) return { value: null, asOf: null, chg1w: null, chg1m: null, history: [] };
+  const [asOf, value] = pairs[pairs.length - 1];
+  const back = (days) => {
+    const cut = new Date(Date.parse(asOf) - days * 864e5).toISOString().slice(0, 10);
+    for (let i = pairs.length - 2; i >= 0; i--) if (pairs[i][0] <= cut) return pairs[i][1];
+    return null;
+  };
+  const d = (p) => (p == null ? null : +(value - p).toFixed(4));
+  const daily = /^\d{4}-\d{2}-\d{2}$/.test(asOf);
+  return { value, asOf, chg1w: daily ? d(back(7)) : null, chg1m: daily ? d(back(30)) : null, history: pairs.slice(-45) };
+}
+
+async function handleEuRates(request, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/eurates?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const ecb = async (flow, sk, n) => ecbCsvPairs(await fetchText(`https://data-api.ecb.europa.eu/service/data/${flow}/${sk}?lastNObservations=${n}&format=csvdata`));
+  const since = new Date(Date.now() - 70 * 864e5);
+  const boeFrom = `${String(since.getUTCDate()).padStart(2, "0")}/${Object.keys(_MON)[since.getUTCMonth()]}/${since.getUTCFullYear()}`;
+  const boeCodes = EU_RATE_SERIES.filter((s) => s.src === "boe").map((s) => s.code);
+  const [boe, ...ecbRows] = await Promise.all([
+    fetchText(`https://www.bankofengland.co.uk/boeapps/database/_iadb-fromshowcolumns.asp?csv.x=yes&SeriesCodes=${boeCodes.join(",")}&Datefrom=${boeFrom}&Dateto=now&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`).then((t) => boeCsvSeries(t, boeCodes)).catch(() => ({})),
+    ...EU_RATE_SERIES.filter((s) => s.src === "ecb").map((s) => ecb(s.flow, s.sk, 45).catch(() => [])),
+  ]);
+  let ei = 0;
+  const series = EU_RATE_SERIES.map((s) => {
+    const pairs = s.src === "boe" ? ((boe && boe[s.code]) || []) : ecbRows[ei++];
+    return { key: s.key, label: s.label, unit: s.unit, href: s.href, source: s.source, ...euPoint(pairs) };
+  });
+  const curvePts = await Promise.all(EU_AAA_TENORS.map(([, k]) => ecb("YC", `B.U2.EUR.4F.G_N_A.SV_C_YM.${k}`, 30).catch(() => [])));
+  const curve = {
+    label: "Euro area AAA govt curve", source: "ECB", href: EU_AAA_HREF,
+    tenors: EU_AAA_TENORS.map(([t]) => t),
+    points: curvePts.map((p) => euPoint(p)),
+  };
+  curve.asOf = curve.points.reduce((a, p) => (p.asOf && p.asOf > a ? p.asOf : a), "") || null;
+  let bankruptcies = { value: null };
+  try {
+    const t = await fetchText(EU_BKRT_URL + "&sinceTimePeriod=2023-Q1");
+    const pairs = t ? eurostatSeries(JSON.parse(t)) : [];
+    if (pairs.length) {
+      const [asOf, value] = pairs[pairs.length - 1];
+      const yq = asOf.replace(/^(\d{4})/, (y) => String(+y - 1));
+      const ya = pairs.find((p) => p[0] === yq);
+      bankruptcies = { label: "EU bankruptcy declarations", unit: "index 2021=100", value, asOf, yearAgo: ya ? ya[1] : null, yearAgoAsOf: ya ? ya[0] : null, history: pairs, href: EU_BKRT_HREF, source: "Eurostat" };
+    }
+  } catch { /* stays null */ }
+  const body = { series, curve, bankruptcies, fetched: new Date().toISOString() };
+  const resp = new Response(JSON.stringify(body), { headers: { "content-type": "application/json", "cache-control": "public, max-age=900" } });
+  // Edge-cache 1h, but only a reasonably complete read so a transient miss never sticks.
+  const ok = series.filter((s) => s.value != null).length >= 4 && curve.points.filter((p) => p.value != null).length >= 4;
+  if (ok && ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, new Response(JSON.stringify(body), { headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" } })));
+  return resp;
+}
+
 async function handleRates(request, env, ctx) {
   const url = new URL(request.url);
   // Only the last ~60 days, so each FRED CSV is small and fast.
@@ -5336,6 +5457,7 @@ export default {
    try {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
+    if (url.pathname === "/api/eurates") return handleEuRates(request, env, ctx);
     if (url.pathname === "/api/hfm") return handleHfm(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
     if (url.pathname === "/api/quotes") return handleQuotes(request, env, ctx);

@@ -1,18 +1,18 @@
 // =============================================================================
-// v2/js/dashboard/app.js — the Dashboard tab: three OVERVIEW sub-tabs
-// (Macro · Equities · Credit), each a purpose-built "hybrid" layout modelled on
-// how the data pros present this material — TradingEconomics indicator grids,
-// Finviz sector heatmaps, Bloomberg stat-strips + movers, Refinitiv yield/credit
-// curves, Pitchbook league tables. The full desk content is EMBEDDED here (news
-// wires, indicator tables, curves) rather than linked out. Curated seed data
-// comes from dashboard/js/data.js; live figures (index closes via /api/eqindices,
-// credit spreads via /api/rates) override at runtime; macro reuses the macro
-// desk's own OUTLOOK/CYCLE/BUBBLE/YIELD_CURVE/NEWS/MATWALL so there is ONE source
-// of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
+// v2/js/dashboard/app.js — the Dashboard tab: the at-a-glance market state for a
+// European credit-fund reader. Five sub-tabs in priority order (HOUSE_STYLE R37):
+// Credit (the default) · Rates (policy, money markets, curves — the old Macro +
+// Bonds tabs merged) · Legal · Equities · Hedge Funds. Curated seed data comes
+// from dashboard/js/data.js + the macro desk's content (ONE source of truth);
+// live figures override at runtime from the Worker (/api/rates, /api/eurates,
+// /api/yield-curve, /api/govyields, /api/worldindices, /api/13f). Every figure
+// keeps a real outbound source link and an as-of date; a LIVE badge only lights
+// once live data has actually been applied (otherwise it reads "snapshot").
+// mount → {enter,leave,home}.
 // =============================================================================
 import { esc, MONTHS, byDateDesc } from "/util.js";
 import { fmtDay as fmtDate } from "/feed.js";
-import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT } from "/dashboard/js/data.js";
+import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT, EU_DISTRESS, REG_CALENDAR } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS, MARKET_SIZES } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
@@ -22,12 +22,24 @@ import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, are
 // Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
 // bar (≤760px) where the full two-word labels wrap to two lines; desktop (the
 // fixed-viewport terminal) keeps the full label.
-const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Bonds"], ["credit", "Credit"], ["hedge-funds", "Hedge Funds", "Hedge"], ["legal", "Legal"]];
+const SUBTABS = [["credit", "Credit"], ["rates", "Rates"], ["legal", "Legal"], ["equities", "Equities"], ["hedge-funds", "Hedge Funds", "Hedge"]];
+// Retired sub-tab URLs (Macro and Bonds merged into Rates) keep resolving.
+const SUB_ALIAS = { macro: "rates", "fixed-income": "rates", bonds: "rates" };
+const DEFAULT_SUB = "credit";
+const subOf = (k) => { const x = SUB_ALIAS[k] || k; return SUBTABS.some(([s]) => s === x) ? x : DEFAULT_SUB; };
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
 const srcLink = (u, label) => (u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">src</a>` : "");
 const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, "");
+// Curated text sometimes arrives entity-encoded ("S&amp;P"); decode the common
+// entities BEFORE esc() so the page never shows a literal "&amp;".
+const deEnt = (s) => String(s || "").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'");
+const txt = (s) => esc(deEnt(s));
+// LIVE badge: renders as "snapshot" and only flips to "live" once a live payload
+// has actually been applied (markLive), so stale fallback data is never badged live.
+const liveTag = (id) => `<span class="dsh-live is-snap" data-live="${id}" title="Sourced snapshot — live data not loaded">snapshot</span>`;
+const isoDay = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d || "")); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : String(d || ""); };
 // Search normaliser: lowercase and drop apostrophes so "director's" / "directors'"
 // / "directors" all collapse to the same token. Used to build each legal item's
 // search haystack and to tokenise the query (word-by-word AND match).
@@ -42,32 +54,21 @@ export function mount(host, ctx) {
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
   const _legalTypes = new Set();        // item types the search is limited to (empty = all): "alert" | "case"
 
+  // Live-state bookkeeping: flip a "snapshot" badge to "live" (with the live
+  // as-of date in its title) only once a live payload has been applied.
+  const _live = {};
+  function markLive(id, asOfDate) {
+    _live[id] = asOfDate || true;
+    host.querySelectorAll(`.dsh-live[data-live="${id}"]`).forEach((el) => {
+      el.classList.remove("is-snap"); el.textContent = "live";
+      el.title = asOfDate ? `Live · as of ${isoDay(asOfDate)}` : "Live";
+    });
+  }
+  const liveOr = (id) => (_live[id] ? `<span class="dsh-live" data-live="${id}" title="Live">live</span>` : liveTag(id));
+  let _eu = null;                        // /api/eurates payload (ECB · BoE · Eurostat)
+  let _rates = null;                     // /api/rates payload (FRED OAS, SOFR, Treasury)
+
   // ---- Equities -----------------------------------------------------------
-  function idxTile(x, live) {
-    const l = live && live[x.id];
-    const lv = l && l.value != null ? l.value : x.level;
-    const dp = l ? l.changePct : null;
-    const sub = dp != null ? `<span class="dsh-idx-yt ${upcls(dp)}">${pct1(dp)} today</span>`
-      : x.ytd != null ? `<span class="dsh-idx-yt ${upcls(x.ytd)}">${pct1(x.ytd)} YTD</span>`
-        : `<span class="dsh-idx-yt"></span>`;
-    return `<a class="dsh-idx" data-idx="${esc(x.id)}" href="${esc(x.source)}" target="_blank" rel="noopener noreferrer" title="${esc(x.name)} — source">`
-      + `<span class="dsh-idx-nm">${esc(x.name)}</span>`
-      + `<span class="dsh-idx-lv">${lv != null ? esc(Number(lv).toLocaleString("en-GB", { maximumFractionDigits: 2 })) : "—"}</span>`
-      + sub + `</a>`;
-  }
-  function indexStripHTML(live) { return `<div class="dsh-strip" id="dsh-strip">${EQ_INDICES.map((x) => idxTile(x, live)).join("")}</div>`; }
-  async function loadIndices() {
-    const strip = host.querySelector("#dsh-strip");
-    if (!strip) return;
-    try {
-      const r = await fetch("/api/eqindices", { headers: { accept: "application/json" } });
-      const d = r.ok ? await r.json() : null;
-      const arr = (d && d.indices) || [];
-      if (!arr.length) return;
-      const live = {}; arr.forEach((x) => { if (x && x.id) live[x.id] = x; });
-      strip.outerHTML = indexStripHTML(live);
-    } catch { /* keep the sourced seed strip */ }
-  }
   function sectorBarsHTML() {
     const rows = EQ_SECTORS.rows.filter((r) => r.ytd != null).sort((a, b) => b.ytd - a.ytd);
     const max = Math.max(1, ...rows.map((r) => Math.abs(r.ytd)));
@@ -89,8 +90,9 @@ export function mount(host, ctx) {
     return ["Panic", "down"];
   }
   function valVolHTML() {
-    const val = EQ_VALUATION.map((v) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(v.name)} fwd P/E</span><span class="dsh-kv-v">${v.fwdPE != null ? v.fwdPE.toFixed(1) + "×" : "—"}${srcLink(v.source, v.name + " valuation source")}</span></div>`).join("");
-    const vol = EQ_VOL.map((v) => { const [b, c] = volBand(v.level); return `<div class="dsh-kv"><span class="dsh-kv-k">${esc(v.name)}</span><span class="dsh-kv-v ${c}">${v.level != null ? v.level.toFixed(1) : "—"} <span class="dsh-band ${c}">${b}</span>${srcLink(v.source, v.name + " source")}</span></div>`; }).join("");
+    const d = (x) => (x ? ` <span class="dsh-asof">${esc(isoDay(x))}</span>` : "");
+    const val = EQ_VALUATION.map((v) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(v.name)} fwd P/E</span><span class="dsh-kv-v">${v.fwdPE != null ? v.fwdPE.toFixed(1) + "×" : "—"}${d(v.asOf)}${srcLink(v.source, v.name + " valuation source")}</span></div>`).join("");
+    const vol = EQ_VOL.map((v) => { const [b, c] = volBand(v.level); return `<div class="dsh-kv"><span class="dsh-kv-k">${esc(v.name)}</span><span class="dsh-kv-v ${c}">${v.level != null ? v.level.toFixed(1) : "—"} <span class="dsh-band ${c}">${b}</span>${d(v.asOf)}${srcLink(v.source, v.name + " source")}</span></div>`; }).join("");
     return `<div class="dsh-kvgrid">${val}${vol}</div>`;
   }
   function ipoHTML() {
@@ -155,7 +157,7 @@ export function mount(host, ctx) {
     const items = EQ_INDICES.filter((x) => x.keyMoment && x.keyMoment.text);
     if (!items.length) return "";
     const row = (x) => `<div class="dsh-km"><span class="dsh-km-t">${esc(x.name)}</span>`
-      + `<span class="dsh-km-x">${nbNums(esc(x.keyMoment.text))}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
+      + `<span class="dsh-km-x">${nbNums(txt(x.keyMoment.text))}${x.keyMoment.date ? ` <span class="dsh-asof">${esc(isoDay(x.keyMoment.date))}</span>` : ""}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
     return items.map(row).join("");
   }
   // ETF flows heatmap — net fund flows across the Top Movers cross-asset ETF set
@@ -232,12 +234,13 @@ export function mount(host, ctx) {
       if (!arr.length) return;
       const live = {}; arr.forEach((x) => { if (x && x.name) live[x.name] = x; });
       box.innerHTML = worldIndicesHeatHTML(live);
+      markLive("wi", arr.map((x) => x && x.asOf).filter(Boolean).sort().pop());
     } catch { /* keep the sourced snapshot */ }
   }
   // A compact "market tape" strip (major indices + VIX) for the top of a
   // terminal pane — the equities analogue of the Macro regime-pills strip.
   function eqTapeHTML() {
-    const majors = ["S&P 500", "Nasdaq Composite", "Dow Jones", "FTSE 100", "Nikkei 225"];
+    const majors = ["S&P 500", "Euro Stoxx 50", "FTSE 100", "DAX", "Nasdaq Composite"];
     const flat = (WORLD_INDICES.regions || []).flatMap((g) => g.rows || []);
     const pick = majors.map((nm) => flat.find((r) => r.name === nm)).filter(Boolean);
     // ONE consistent window (1-month) so the tape never mixes horizons; where a
@@ -251,14 +254,15 @@ export function mount(host, ctx) {
       const chg = v == null ? "" : `<span class="dsh-pill-chg ${cls}">${pct1(v)} <span class="dsh-pill-win">1M</span></span>`;
       return `<span class="dsh-pill"><span class="dsh-pill-k">${esc(r.name)}</span><span class="dsh-pill-lv">${lv}</span>${chg}</span>`; };
     const vix = EQ_VOL.find((v) => /vix/i.test(v.name));
-    return `<div class="dsh-pills dsh-tape">${pick.map(tape).join("")}${vix ? `<span class="dsh-pill"><span class="dsh-pill-k">${esc(vix.name)}</span><span class="dsh-pill-lv">${vix.level != null ? vix.level.toFixed(1) : "—"}</span></span>` : ""}</div>`;
+    return `<div class="dsh-pills dsh-tape">${pick.map(tape).join("")}${vix ? `<span class="dsh-pill"><span class="dsh-pill-k">${esc(vix.name)}</span><span class="dsh-pill-lv">${vix.level != null ? vix.level.toFixed(1) : "—"}</span></span>` : ""}</div>`
+      + `<div class="dsh-tape-as">${asOf(isoDay(WORLD_INDICES.asOf))}${srcLink((pick[0] || {}).source, "Index levels source")}</div>`;
   }
   function equitiesHTML() {
     const km = keyMomentsBody();
     const mid = `<section class="dsh-card dsh-span">${eqTapeHTML()}</section>
       <h3 class="dsh-term-lbl">Indices &amp; flows</h3>
-      <section class="dsh-card"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
-      <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">World indices — benchmarks by jurisdiction ${liveOr("wi")} ${asOf(isoDay(WORLD_INDICES.asOf))}</h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
       <h3 class="dsh-term-lbl">Sectors &amp; valuation</h3>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
@@ -270,8 +274,10 @@ export function mount(host, ctx) {
   }
 
   // ---- Credit -------------------------------------------------------------
-  // Pitchbook-style sortable Stress league table (default by prominence = source
-  // order). Click a header to sort; each row's note links to its cited article.
+  // Europe-first credit state: the spread stack (Euro HY leading), European +
+  // US defaults & distress, the stress list (drills into Transactions), the
+  // maturity wall and the deal/fund activity Wire itself tracks.
+  // Stress table — sortable; each debtor drills into Transactions ▸ Credits.
   // Parse a debt string ("€15.5bn net", "~£19bn", "$25bn bonds") to a comparable
   // magnitude (currency-agnostic) so the table can rank by size of debt.
   const debtNum = (s) => {
@@ -281,41 +287,36 @@ export function mount(host, ctx) {
     const u = (m[2] || "bn").toLowerCase();
     return n * (u === "tn" ? 1e12 : u === "bn" ? 1e9 : u === "m" ? 1e6 : u === "k" ? 1e3 : 1e9);
   };
-  // Default: largest debt first (item h). Header clicks re-sort; the "debt" column
-  // sorts numerically, everything else alphabetically.
-  let _stressSort = { key: "status", dir: 1 };   // grouped by status by default
+  // Region from the HQ string — a US state/city ends ", US"; everything else on
+  // the roster is European (the stress list is G7 + Western Europe only).
+  const regionOf = (s) => (/,\s*US$/i.test(String(s.hq || "")) ? "US" : "Europe");
+  // Default: Europe first, then grouped by status, biggest debt first inside.
+  let _stressSort = { key: "region", dir: 1 };
   function stressRows() {
-    const rows = CR_STRESS.map((s, i) => ({ ...s, _i: i }));
+    const rows = CR_STRESS.map((s, i) => ({ ...s, region: regionOf(s), _i: i }));
     const k = _stressSort.key, dir = _stressSort.dir;
+    const reg = (a, b) => (a.region === b.region ? 0 : a.region === "Europe" ? -1 : 1);
     if (k === "debt") rows.sort((a, b) => (debtNum(a.debt) - debtNum(b.debt)) * dir);
-    // Group by status: cluster same statuses, then biggest debt first inside a group.
+    else if (k === "region") rows.sort((a, b) => (reg(a, b) * dir) || String(a.status || "").localeCompare(String(b.status || "")) || (debtNum(b.debt) - debtNum(a.debt)));
     else if (k === "status") rows.sort((a, b) => (String(a.status || "").localeCompare(String(b.status || "")) * dir) || (debtNum(b.debt) - debtNum(a.debt)));
     else if (k) rows.sort((a, b) => String(a[k] || "").localeCompare(String(b[k] || "")) * dir);
     return rows;
   }
-  // Compact stacked cards (not a 7-column table, which on a phone scrolls
-  // sideways and — because the wrapping Note cell sets the row height — leaves
-  // the other columns floating in tall, half-empty rows). Each card packs the
-  // debtor + debt on one line, the sector/HQ/status/latest on the next, and the
-  // note beneath; a small chip bar keeps the by-debt (and A–Z) sort.
+  const txCredits = (name) => `${ctx.base}/transactions/#/credits?q=${encodeURIComponent(String(name).replace(/\s*\(.*\)\s*$/, ""))}`;
   function stressHTML() {
     const chip = (k, l) => `<button type="button" class="dsh-sortchip${_stressSort.key === k ? " is-on" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</button>`;
-    // Table format (matching the other tiles): debtor + debt + status, and the note
-    // clamped to two lines inline so it fits the space (short is fine — the source
-    // link opens the full story).
-    // Debtor / sector / HQ split into their own columns (was one stacked cell); all
-    // left-aligned. Rows group by status by default.
     const row = (s) => `<tr>`
-      + `<td class="dsh-nm">${esc(s.name)}</td>`
+      + `<td class="dsh-nm"><a class="dsh-drill" href="${esc(txCredits(s.name))}" title="Open ${esc(s.name)} in Transactions">${esc(s.name)}</a></td>`
       + `<td class="dsh-stress-sec">${esc(s.sector || "")}</td>`
       + `<td class="dsh-stress-hq">${esc(s.hq || "")}</td>`
       + `<td class="dsh-stress-debt">${esc(s.debt)}</td>`
       + `<td><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
+      + `<td class="dsh-stress-as">${esc(s.latest || "—")}</td>`
       + `<td class="dsh-note">${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
-      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("status", "Status")}${chip("debt", "Debt")}${chip("name", "Debtor")}${chip("sector", "Sector")}</div>`
-      + `<table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Src</th></tr></thead>`
-      + `<tbody>${stressRows().map(row).join("")}</tbody></table></div>`;
+      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("region", "Region")}${chip("status", "Status")}${chip("debt", "Debt")}${chip("name", "Debtor")}</div>`
+      + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Latest</th><th>Src</th></tr></thead>`
+      + `<tbody>${stressRows().map(row).join("")}</tbody></table></div></div>`;
   }
   function maturityHTML() {
     const w = MATWALL && MATWALL.rated, wall = MATWALL && MATWALL.ratedWall;
@@ -327,14 +328,12 @@ export function mount(host, ctx) {
     let ladder = "";
     if (wall && Array.isArray(wall.buckets) && wall.buckets.length) {
       const max = wall.max || Math.max(...wall.buckets.map((b) => b.amt));
-      // Per-year breakdown: a SHORT integrated bar + the $ figure on the left, then a
-      // Composition column that sets out how each year's maturities break down (real
-      // sourced components in `b.comp` — S&P's per-year sector split; never invented),
-      // then the running cumulative share.
       const tot = wall.buckets.reduce((s, b) => s + (b.amt || 0), 0) || 1;
       const fmtB = (v) => v >= 1000 ? "$" + (v / 1000).toFixed(2) + "tn" : "$" + Math.round(v) + "bn";
+      // Europe leads the per-year composition (the reader's market), then US, then the rest.
+      const rank = (l) => (/europe/i.test(l) ? 0 : /^us$|united states/i.test(l) ? 1 : 2);
       const compCell = (b) => {
-        const c = Array.isArray(b.comp) ? b.comp.filter((x) => x && x.label && x.amt != null) : [];
+        const c = Array.isArray(b.comp) ? b.comp.filter((x) => x && x.label && x.amt != null).slice().sort((x, y) => rank(x.label) - rank(y.label)) : [];
         if (!c.length) return `<span class="dsh-mw-comp-na">—</span>`;
         return c.map((x) => `<span class="dsh-mw-comp-i"><span class="dsh-mw-comp-l">${esc(x.label)}</span> <span class="dsh-mw-comp-v">${esc(fmtB(x.amt))}</span></span>`).join("");
       };
@@ -351,34 +350,47 @@ export function mount(host, ctx) {
     }
     return summary + ladder;
   }
-  // Embedded credit news — the desk's freshest sourced deals/intel, linked out.
-  function creditNewsHTML() {
-    const items = [...(deals || []), ...(intel || [])]
+  // Credit wire — the desk's freshest sourced deals/intel, DE-DUPLICATED (same
+  // headline on the same day collapses) and capped. A deal opens in Wire's own
+  // Transactions drawer (R36); an intel item links its source.
+  const WIRE_CAP = 15;
+  const _normHead = (h) => String(h || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  function creditWireItems() {
+    const seen = new Set(), out = [];
+    [...(deals || []).map((x) => ({ ...x, _deal: true })), ...(intel || [])]
       .filter((x) => x && x.date && (x.headline || x.title) && (x.sourceUrl || x.url))
       .sort(byDateDesc)
-      .slice(0, 50);
+      .forEach((x) => {
+        const u = x.sourceUrl || x.url;
+        const k1 = `${x.date}|${_normHead(x.headline || x.title)}`, k2 = `u|${u}`;
+        if (seen.has(k1) || seen.has(k2) || out.length >= WIRE_CAP) return;
+        seen.add(k1); seen.add(k2); out.push(x);
+      });
+    return out;
+  }
+  function creditNewsHTML() {
+    const items = creditWireItems();
     if (!items.length) return "";
-    const row = (x) => { const u = x.sourceUrl || x.url; return `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
-      + `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(x.headline || x.title)}</a>` + `</li>`; };
+    const row = (x) => {
+      const inApp = x._deal && x.id;
+      const href = inApp ? `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}` : (x.sourceUrl || x.url);
+      const attrs = inApp ? ` class="dsh-drill"` : ` target="_blank" rel="noopener noreferrer"`;
+      return `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
+        + `<a href="${esc(href)}"${attrs}>${txt(x.headline || x.title)}</a></li>`;
+    };
     return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
   }
-  // Private credit pulse — Fitch's Private Credit Default Rate + market context, a
-  // sourced KV grid (PRIVATE_CREDIT). Every metric links its source.
+  // US private credit — Fitch's PCDR + KBRA's middle-market monitor and market
+  // context (PRIVATE_CREDIT). Every metric links its source; a `prev` shows the
+  // year-ago comparison with its own source.
   function privateCreditHTML() {
     const P = PRIVATE_CREDIT;
     if (!P || !(P.metrics || []).length) return "";
-    // Clean: label · value · SRC only — no explainer paragraph, no per-row context
-    // note. Each metric stays on ONE line (label truncates with a hover title).
-    // A metric may carry a `prev` (value a year earlier) — shown as a faint "vs X"
-    // year-ago comparison that links its own source, so the trend over the prior 12
-    // months is visible at a glance.
     const yoy = (x) => x.prev
       ? `<a class="dsh-kv-yoy" href="${esc(x.prevSrc || x.src)}" target="_blank" rel="noopener noreferrer" title="a year earlier${x.prevAsOf ? ` (${esc(x.prevAsOf)})` : ""} — source">vs ${esc(x.prev)}${x.prevAsOf ? ` ${esc(x.prevAsOf)}` : ""}</a>`
       : "";
-    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}">${esc(x.k)}</span>`
+    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}${x.sub ? " — " + esc(x.sub) : ""}">${esc(x.k)}</span>`
       + `<span class="dsh-kv-v">${esc(x.v)}${yoy(x)}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
-    // Tracked industry research the pulse draws on (KBRA MM Compendium, AIMA/ACC),
-    // each linking the report — rolled to the newest quarterly edition each cycle.
     const rpt = (r) => `<a class="dsh-pc-report" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)}">`
       + `<span class="dsh-pc-report-t">${esc(r.title)}</span><span class="dsh-pc-report-d">${esc(r.date || r.srcName || "")}</span></a>`;
     const reports = (P.reports || []).length
@@ -386,62 +398,120 @@ export function mount(host, ctx) {
       : "";
     return `<div class="dsh-kvgrid dsh-pc-grid">${P.metrics.map(kv).join("")}</div>${reports}`;
   }
-  // Compact credit pulse strip — the Fitch PCDR + market-context metrics as pills.
-  function crTapeHTML() {
-    const P = PRIVATE_CREDIT;
-    const m = (P && P.metrics) || [];
-    if (!m.length) return "";
-    const pill = (x) => `<span class="dsh-pill"><span class="dsh-pill-k">${esc(x.k)}</span><span class="dsh-pill-v">${esc(x.v)}</span></span>`;
-    return `<div class="dsh-pills dsh-pills-stack">${m.slice(0, 5).map(pill).join("")}</div>`;
+  // Europe — defaults & distress: the curated, sourced European default/distress
+  // rates (EU_DISTRESS) plus the LIVE Eurostat bankruptcy index (/api/eurates).
+  function euDistressHTML() {
+    const E = EU_DISTRESS || {};
+    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}${x.sub ? " — " + esc(x.sub) : ""}">${esc(x.k)}</span>`
+      + `<span class="dsh-kv-v">${x.v != null ? esc(x.v) : "—"}${x.asOf ? ` <span class="dsh-asof">${esc(x.asOf)}</span>` : ""}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
+    // Live Eurostat reading when loaded; else the last verified reading (labelled by its own quarter).
+    const b = (_eu && _eu.bankruptcies && _eu.bankruptcies.value != null) ? _eu.bankruptcies : (E.bankruptcyFallback && E.bankruptcyFallback.value != null ? E.bankruptcyFallback : null);
+    const bk = b
+      ? `<div class="dsh-kv" id="dsh-eu-bkrt"><span class="dsh-kv-k" title="Eurostat sts_rb_q, EU27, seasonally & calendar adjusted, 2021=100">EU bankruptcy declarations (index)</span>`
+        + `<span class="dsh-kv-v">${esc(b.value.toFixed(1))}${b.yearAgo != null ? `<span class="dsh-kv-yoy" title="a year earlier (${esc(b.yearAgoAsOf || "")})">vs ${esc(b.yearAgo.toFixed(1))} ${esc(b.yearAgoAsOf || "")}</span>` : ""} <span class="dsh-asof">${esc(b.asOf)}</span>${srcLink(b.href, "Eurostat")}</span></div>`
+      : `<div class="dsh-kv" id="dsh-eu-bkrt"><span class="dsh-kv-k">EU bankruptcy declarations (index)</span><span class="dsh-kv-v">—${srcLink("https://ec.europa.eu/eurostat/databrowser/view/sts_rb_q/default/table", "Eurostat")}</span></div>`;
+    return `<div class="dsh-kvgrid dsh-pc-grid">${(E.metrics || []).map(kv).join("")}${bk}</div>`;
+  }
+  // Activity Wire itself tracks — European CLO pricings and private-credit fund
+  // closes counted from the desk's own sourced deal records (labelled as tracked
+  // by Wire, never presented as a market-wide statistic).
+  const isEuro = (x) => /€|\bEUR\b|\beuro(pe|pean)?\b|\bUK\b|£|\bGBP\b|sterling/i.test(`${x.headline || ""} ${x.summary || ""}`);
+  const isClo = (x) => x.type === "CLO" || x.clo === true;
+  const isClose = (x) => /final close|fundraise|first close/i.test(x.type || "");
+  function activityHTML() {
+    const D = (deals || []).filter((x) => x && x.date);
+    const now = new Date(), ym = (d) => d.toISOString().slice(0, 7);
+    const m0 = ym(now), m1 = ym(new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 1, 1))), m2 = ym(new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 2, 1)));
+    const cnt = (f, m) => D.filter((x) => f(x) && String(x.date).slice(0, 7) === m).length;
+    const lines = [["European CLOs priced", (x) => isClo(x) && isEuro(x)], ["All CLOs priced", isClo], ["Fund closes / raises", isClose], ["European deals (all types)", isEuro]];
+    const mo = (m) => MONTHS[+m.slice(5) - 1];
+    const head = `<tr><th>Tracked by Wire</th><th class="dsh-r">${mo(m2)}</th><th class="dsh-r">${mo(m1)}</th><th class="dsh-r" title="month to date">${mo(m0)}*</th></tr>`;
+    const rows = lines.map(([l, f]) => `<tr><td class="dsh-nm">${esc(l)}</td><td class="dsh-r">${cnt(f, m2)}</td><td class="dsh-r">${cnt(f, m1)}</td><td class="dsh-r">${cnt(f, m0)}</td></tr>`).join("");
+    const latest = D.filter((x) => (isClo(x) || isClose(x))).sort(byDateDesc).slice(0, 5)
+      .map((x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><a class="dsh-drill" href="${esc(`${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`)}">${txt(x.headline)}</a></li>`).join("");
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-act-tbl"><thead>${head}</thead><tbody>${rows}</tbody></table></div>`
+      + (latest ? `<div class="dsh-pc-reports-h">Latest CLOs &amp; fund closes</div><ul class="dsh-news dsh-act-list">${latest}</ul>` : "");
   }
   function creditHTML() {
-    const strip = crTapeHTML();
-    const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
-      <h3 class="dsh-term-lbl">Pulse · Maturity &amp; stress</h3>
-      <div class="dsh-wide dsh-row-cr">
-        <section class="dsh-card dsh-pc-card"><h3 class="dsh-h">Private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
-        <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
-        <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+    const mid = `<section class="dsh-card dsh-span dsh-spreads-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS ${liveOr("spreads")}</h3><div id="dsh-spreads" class="dsh-spreads">${spreadsBody()}</div></section>
+      <h3 class="dsh-term-lbl">Defaults &amp; distress</h3>
+      <div class="dsh-wide dsh-row2">
+        <section class="dsh-card dsh-pc-card"><h3 class="dsh-h">Europe — defaults &amp; distress ${asOf(EU_DISTRESS && EU_DISTRESS.asOf)}</h3><div id="dsh-eu-distress">${euDistressHTML()}</div></section>
+        <section class="dsh-card dsh-pc-card"><h3 class="dsh-h">US private credit ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
       </div>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>`;
+      <h3 class="dsh-term-lbl">Stress &amp; refinancing</h3>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall ${asOf(MATWALL && MATWALL.ratedWall && MATWALL.ratedWall.asOf)}</h3><div class="dsh-scroll">${maturityHTML()}</div></section>
+      <h3 class="dsh-term-lbl">Activity</h3>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3>${activityHTML()}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Credit wire" };
   }
-  async function loadSpreads() {
-    const el = host.querySelector("#dsh-spreads");
-    if (!el) return;
+  // ICE BofA OAS stack from /api/rates. The feed reports OAS in PERCENT (3.11 =
+  // 311bp) — converted to basis points here. Euro HY leads; each tile shows the
+  // level, its 1W / 1M move (from the feed's ~1-month daily history) and as-of.
+  const SPREAD_ORDER = [/euro hy/i, /us hy/i, /us ig/i, /us ccc/i];
+  function spreadsBody() {
+    const arr = Array.isArray(_rates && _rates.rates) ? _rates.rates : [];
+    const rows = arr.filter((x) => x && /oas/i.test(x.label || "") && x.value != null)
+      .sort((a, b) => { const r = (x) => { const i = SPREAD_ORDER.findIndex((re) => re.test(x.label)); return i < 0 ? 9 : i; }; return r(a) - r(b); });
+    if (!rows.length) {
+      return _rates === null ? `<p class="dsh-load">Loading live spreads…</p>`
+        : `<p class="dsh-load">Live spreads unavailable — <a href="https://fred.stlouisfed.org/series/BAMLHE00EHYIOAS" target="_blank" rel="noopener noreferrer">FRED Euro HY OAS</a> · <a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank" rel="noopener noreferrer">US HY OAS</a></p>`;
+    }
+    const bp = (v) => Math.round(v * 100);
+    const back = (h, k) => (Array.isArray(h) && h.length > k ? h[h.length - 1 - k] : null);
+    const chg = (x, k, lbl) => {
+      const p = back(x.history, k);
+      if (p == null || !Number.isFinite(+p)) return `<span class="dsh-spread-c">${lbl} —</span>`;
+      const d = bp(x.value) - bp(+p);
+      return `<span class="dsh-spread-c ${d > 0 ? "down" : d < 0 ? "up" : ""}" title="${lbl} change in basis points (wider = red)">${lbl} ${d > 0 ? "+" : ""}${d}</span>`;
+    };
+    return rows.map((x) => `<div class="dsh-spread"><span class="dsh-spread-nm">${esc(String(x.label).replace(/\s*OAS$/i, ""))}</span>`
+      + `<span class="dsh-spread-v">${bp(x.value)}<span class="dsh-spread-u">bp</span></span>`
+      + `<span class="dsh-spread-cs">${chg(x, 5, "1W")}${chg(x, 21, "1M")}</span>`
+      + `<span class="dsh-spread-as">${x.asOf ? esc(isoDay(x.asOf)) : ""}${srcLink(x.href, "FRED")}</span></div>`).join("");
+  }
+  async function loadRates() {
     try {
       const r = await fetch("/api/rates", { headers: { accept: "application/json" } });
       const d = r.ok ? await r.json() : null;
-      const rows = ((d && (d.rates || d.series || d)) || []).filter((x) => x && /oas/i.test(x.label || ""));
-      if (!rows.length) { el.innerHTML = `<p class="dsh-load">Live spreads unavailable — <a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank" rel="noopener noreferrer">FRED ICE BofA OAS</a></p>`; return; }
-      el.innerHTML = rows.map((x) => `<div class="dsh-spread"><span class="dsh-spread-nm">${esc(String(x.label).replace(/\s*OAS$/i, ""))}</span>`
-        + `<span class="dsh-spread-v">${x.value != null ? esc(String(x.value)) : "—"}<span class="dsh-spread-u">${esc(x.unit || "bp")}</span></span>`
-        + `${srcLink(x.href, "FRED")}</div>`).join("");
-    } catch { el.innerHTML = `<p class="dsh-load">Live spreads unavailable right now.</p>`; }
+      _rates = d && typeof d === "object" ? d : {};
+    } catch { _rates = {}; }
+    const el = host.querySelector("#dsh-spreads");
+    if (el) el.innerHTML = spreadsBody();
+    const oas = (Array.isArray(_rates.rates) ? _rates.rates : []).filter((x) => x && /oas/i.test(x.label || "") && x.value != null);
+    if (oas.length) markLive("spreads", oas.map((x) => x.asOf).filter(Boolean).sort().pop());
+    const mm = host.querySelector("#dsh-mm");
+    if (mm) mm.innerHTML = moneyMarketsHTML();
+  }
+  async function loadEu() {
+    try {
+      const r = await fetch("/api/eurates", { headers: { accept: "application/json" } });
+      const d = r.ok ? await r.json() : null;
+      _eu = d && typeof d === "object" ? d : {};
+    } catch { _eu = {}; }
+    const set = (sel, html) => { const el = host.querySelector(sel); if (el) el.innerHTML = html; };
+    set("#dsh-eu-distress", euDistressHTML());
+    set("#dsh-mm", moneyMarketsHTML());
+    set("#dsh-policy", policyHTML());
+    const yc = host.querySelector("#dsh-yc-card"); if (yc) yc.innerHTML = yieldCurveCardHTML();
+    const live = (_eu.series || []).filter((x) => x && x.value != null);
+    if (live.length) markLive("mm", live.map((x) => x.asOf).filter(Boolean).sort().pop());
   }
 
   // ---- Macro --------------------------------------------------------------
-  // Regime pills: policy stance / cycle stage / bubble read as coloured chips —
-  // a quick top-of-page read, each drawn from the macro desk's own fields.
-  function bubbleRead() {
-    const dims = (BUBBLE && Array.isArray(BUBBLE.dimensions)) ? BUBBLE.dimensions : [];
-    if (!dims.length) return "—";
-    const wsum = dims.reduce((s, d) => s + (d.weight || 0), 0) || 1;
-    const score = Math.round(dims.reduce((s, d) => s + (d.score || 0) * (d.weight || 0), 0) / wsum);
-    const band = score >= 80 ? "Bubble-like" : score >= 65 ? "Elevated / frothy" : score >= 50 ? "Stretched" : "Contained";
-    return `${band} · ${score}/100`;
-  }
+  // Regime pills: the three central banks' stance + the cycle read, a quick
+  // top-of-page state drawn from the macro desk's own fields (ECB first).
   function regimePillsHTML() {
     const pill = (label, val, cls) => `<span class="dsh-pill ${cls || ""}"><span class="dsh-pill-k">${esc(label)}</span><span class="dsh-pill-v">${esc(val)}</span></span>`;
-    const usStance = (OUTLOOK && OUTLOOK.us && OUTLOOK.us.stance) || "—";
-    const ukStance = (OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.stance) || "—";
+    const st = (o) => stripTags((o && o.stance) || "—");
     const cyc = (CYCLE && CYCLE.us && CYCLE.us.shortStage) || "—";
     return `<div class="dsh-pills">`
-      + pill("US · Fed", stripTags(usStance))
-      + pill("UK · BoE", stripTags(ukStance))
+      + pill("EA · ECB", st(OUTLOOK && OUTLOOK.ecb))
+      + pill("UK · BoE", st(OUTLOOK && OUTLOOK.uk))
+      + pill("US · Fed", st(OUTLOOK && OUTLOOK.us))
       + pill("Cycle", stripTags(String(cyc)))
-      + pill("Equity bubble", bubbleRead())
       + `</div>`;
   }
   // Fed path — the dot-plot median SEP projections and the CME FedWatch odds for
@@ -484,26 +554,45 @@ export function mount(host, ctx) {
     if (!sonia && !votes) return "";
     return `<div class="dsh-fed">${sonia}${votes}</div>`;
   }
-  // Rate-outlook grid (TradingEconomics-style): current rate, next meeting, stance,
-  // one-line read per economy, each with a source link.
-  // A compact table (matching the other tiles) — one row per central bank with the
-  // next meeting, the current rate, and the commentary inline in a wrapping "Read"
-  // column (no expand toggle; the read fits the space, short is fine).
-  function rateOutlookHTML() {
-    const row = (o, name) => {
-      if (!o) return "";
-      // The per-bank stance is the concise, distinct read (the long bottomLine is a
-      // shared macro narrative that reads identically when clamped).
-      const read = esc(stripTags(o.stance || o.bottomLine || ""));
+  // Policy rates — one row per central bank (ECB · BoE · Fed): the current rate
+  // (LIVE from the ECB / BoE databases where loaded, else the desk's curated
+  // figure), the next meeting, the concise stance read and the as-of date.
+  const euSer = (k) => ((_eu && _eu.series) || []).find((x) => x && x.key === k && x.value != null) || null;
+  const fmtPct = (v, dp = 2) => (v == null ? "—" : `${(+v).toFixed(dp)}%`);
+  function policyHTML() {
+    const row = (name, o, live, src) => {
+      if (!o && !live) return "";
+      const rate = live ? fmtPct(live.value) : esc(stripTags((o && o.rate) || "—"));
+      const asof = live ? isoDay(live.asOf) : ((o && o.asOf) || "");
+      const read = esc(stripTags((o && (o.stance || o.bottomLine)) || ""));
       return `<tr><td class="dsh-nm">${esc(name)}</td>`
-        + `<td>${esc(stripTags(o.next || "—"))}</td>`
-        + `<td class="dsh-r">${esc(stripTags(o.rate || "—"))}</td>`
-        + `<td class="dsh-ro-read"><span class="dsh-clamp2">${read || "—"}</span></td></tr>`;
+        + `<td class="dsh-r">${rate}${live ? ` <span class="dsh-live" title="Live · ${esc(live.source || "")}">live</span>` : ""}</td>`
+        + `<td>${esc(stripTags((o && o.next) || "—"))}</td>`
+        + `<td class="dsh-ro-read"><span class="dsh-clamp2">${read || "—"}</span></td>`
+        + `<td class="dsh-stress-as">${esc(asof)}${srcLink(live ? live.href : src, name + " source")}</td></tr>`;
     };
-    const src = (OUTLOOK && OUTLOOK.sources && OUTLOOK.sources[0]) || null;
-    return `<table class="dsh-tbl dsh-ro-tbl"><thead><tr><th>Policy</th><th>Meeting</th><th class="dsh-r">Rate</th><th>Read</th></tr></thead>`
-      + `<tbody>${row(OUTLOOK && OUTLOOK.us, "US · Fed")}${row(OUTLOOK && OUTLOOK.uk, "UK · BoE")}</tbody></table>`
-      + (src ? `<div class="dsh-ladder-cap">Source: <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
+    const ecb = OUTLOOK && OUTLOOK.ecb, uk = OUTLOOK && OUTLOOK.uk, us = OUTLOOK && OUTLOOK.us;
+    const srcOf = (o, fb) => (o && o.href) || fb;
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-ro-tbl"><thead><tr><th>Bank</th><th class="dsh-r">Rate</th><th>Next meeting</th><th>Read</th><th>As of</th></tr></thead>`
+      + `<tbody>${row("ECB · deposit", ecb, euSer("ecb_dfr"), srcOf(ecb, "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html"))}`
+      + `${row("BoE · Bank Rate", uk, euSer("boe_bank"), srcOf(uk, "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"))}`
+      + `${row("Fed · funds target", us, null, srcOf(us, "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"))}</tbody></table></div>`;
+  }
+  // Money markets — the floating-rate bases in European facilities: €STR, 3M
+  // Euribor (ECB monthly average — daily fixings are EMMI-licensed), SONIA, plus
+  // SOFR from the rates feed. Level · 1W / 1M move in bp · as-of · source.
+  function moneyMarketsHTML() {
+    const sofr = (Array.isArray(_rates && _rates.rates) ? _rates.rates : []).find((x) => x && x.label === "SOFR" && x.value != null);
+    const items = [euSer("estr"), euSer("euribor3m"), euSer("sonia"),
+      sofr ? { label: "SOFR", value: sofr.value, asOf: sofr.asOf, chg1w: null, chg1m: null, href: sofr.href, source: "NY Fed" } : null];
+    if (!items.some(Boolean)) {
+      return (_eu === null ? `<p class="dsh-load">Loading money-market rates…</p>` : `<p class="dsh-load">Money-market rates unavailable — <a href="https://data.ecb.europa.eu/" target="_blank" rel="noopener noreferrer">ECB Data Portal</a> · <a href="https://www.bankofengland.co.uk/boeapps/database/" target="_blank" rel="noopener noreferrer">BoE database</a></p>`);
+    }
+    const c = (v, l) => { if (v == null) return ""; const bp = Math.round(v * 100); return `<span class="dsh-spread-c ${bp > 0 ? "down" : bp < 0 ? "up" : ""}">${l} ${bp > 0 ? "+" : ""}${bp}bp</span>`; };
+    return items.filter(Boolean).map((x) => `<div class="dsh-spread"><span class="dsh-spread-nm">${esc(x.label)}</span>`
+      + `<span class="dsh-spread-v">${(+x.value).toFixed(3)}<span class="dsh-spread-u">%</span></span>`
+      + `<span class="dsh-spread-cs">${c(x.chg1w, "1W")}${c(x.chg1m, "1M")}</span>`
+      + `<span class="dsh-spread-as">${esc(/^\d{4}-\d{2}$/.test(x.asOf || "") ? `${MONTHS[+x.asOf.slice(5) - 1]} ${x.asOf.slice(0, 4)} avg` : isoDay(x.asOf))}${srcLink(x.href, x.source || "source")}</span></div>`).join("");
   }
   // Yield curve — a small SVG line for US & UK across the standard maturities,
   // plus the underlying table (used by the Macro pane). Refinitiv-style read.
@@ -518,6 +607,13 @@ export function mount(host, ctx) {
     const asOf = m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : (base.asOf || "");
     return { ...base, us: merge(_ycLive.us, base.us), uk: merge(_ycLive.uk, base.uk), asOf };
   }
+  // Euro-area AAA curve (ECB, live) aligned to the panel's maturities, or null.
+  function euCurve(mats) {
+    const c = _eu && _eu.curve;
+    if (!c || !Array.isArray(c.tenors) || !Array.isArray(c.points)) return null;
+    const v = (mats || []).map((m) => { const i = c.tenors.indexOf(m); const p = i >= 0 ? c.points[i] : null; return p && p.value != null ? +p.value : null; });
+    return v.some((x) => x != null) ? v : null;
+  }
   // Dots, tenor axis labels and the value table all share ONE column grid: a fixed
   // 92px label column, then N equal tenor columns. The plot stretches to fill
   // (preserveAspectRatio none) with each point at its column CENTRE, the axis
@@ -527,7 +623,8 @@ export function mount(host, ctx) {
   function yieldCurveHTML() {
     const yc = mergedYC(); if (!yc || !yc.maturities) return "";
     const mats = yc.maturities, us = yc.us || [], uk = yc.uk || [];
-    const all = [...us, ...uk].filter((v) => v != null);
+    const ea = euCurve(mats);
+    const all = [...us, ...uk, ...(ea || [])].filter((v) => v != null);
     const lo = Math.min(...all) - 0.2, hi = Math.max(...all) + 0.2;
     const N = mats.length, W = 100 * N, H = 120, padY = 10;
     const x = (i) => (i + 0.5) * (W / N);
@@ -536,17 +633,19 @@ export function mount(host, ctx) {
     const dots = (arr, cls) => arr.map((v, i) => v == null ? "" : `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.5" class="${cls}" vector-effect="non-scaling-stroke"/>`).join("");
     const svg = `<div class="dsh-yc2-plot"><svg class="dsh-yc-svg dsh-yc2-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="US and UK yield curves">`
       + `<path d="${path(us)}" class="dsh-yc-us" fill="none" vector-effect="non-scaling-stroke"/>${dots(us, "dsh-yc-us-d")}`
-      + `<path d="${path(uk)}" class="dsh-yc-uk" fill="none" vector-effect="non-scaling-stroke"/>${dots(uk, "dsh-yc-uk-d")}</svg></div>`
+      + `<path d="${path(uk)}" class="dsh-yc-uk" fill="none" vector-effect="non-scaling-stroke"/>${dots(uk, "dsh-yc-uk-d")}`
+      + (ea ? `<path d="${path(ea)}" class="dsh-yc-ea" fill="none" vector-effect="non-scaling-stroke"/>${dots(ea, "dsh-yc-ea-d")}` : "") + `</svg></div>`
       + `<div class="dsh-yc2-x" style="--n:${N}">${mats.map((m) => `<span>${esc(m)}</span>`).join("")}</div>`;
     const rowFor = (arr, lbl, cls) => `<tr><td class="dsh-nm"><span class="dsh-yc-key ${cls}"></span>${lbl}</td>${arr.map((v) => `<td>${v != null ? esc(v.toFixed(2)) : "—"}</td>`).join("")}</tr>`;
-    const table = `<table class="dsh-tbl dsh-yc2-tbl"><thead><tr><th>Curve</th>${mats.map((m) => `<th>${esc(m)}</th>`).join("")}</tr></thead><tbody>${rowFor(us, "US Treasury", "dsh-yc-us")}${rowFor(uk, "UK gilts", "dsh-yc-uk")}</tbody></table>`;
+    const table = `<table class="dsh-tbl dsh-yc2-tbl"><thead><tr><th>Curve</th>${mats.map((m) => `<th>${esc(m)}</th>`).join("")}</tr></thead><tbody>${ea ? rowFor(ea, "Euro AAA", "dsh-yc-ea") : ""}${rowFor(uk, "UK gilts", "dsh-yc-uk")}${rowFor(us, "US Treasury", "dsh-yc-us")}</tbody></table>`;
     const src = (yc.sources && yc.sources[0]) || null;
-    return `<div class="dsh-yc dsh-yc2">${svg}${table}</div>` + (src ? `<div class="dsh-ladder-cap">${esc(yc.asOf || "")} · <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
+    const eaCap = ea ? ` · Euro AAA ${esc(isoDay(_eu.curve.asOf))} · <a href="${esc(_eu.curve.href)}" target="_blank" rel="noopener noreferrer">ECB</a>` : "";
+    return `<div class="dsh-yc dsh-yc2 dsh-scroll">${svg}${table}</div>` + (src ? `<div class="dsh-ladder-cap">${esc(yc.asOf || "")} · <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a>${eaCap}</div>` : "");
   }
   // The whole Yield-curve card (header "as of" + body) so loadYieldCurve() can
   // repaint it in place once the live curve lands — header date included.
   function yieldCurveCardHTML() {
-    return `<h3 class="dsh-h">Yield curve ${asOf(mergedYC().asOf)}</h3>${yieldCurveHTML()}`;
+    return `<h3 class="dsh-h">Yield curves — Euro AAA · gilts · Treasuries ${_ycLive ? `<span class="dsh-live" title="Live">live</span>` : liveTag("yc")} ${asOf(mergedYC().asOf)}</h3>${yieldCurveHTML()}`;
   }
   // Pull the live US Treasury + UK gilt curves and repaint the card. Never throws —
   // on any failure the compiled curve (and its July date) simply stays.
@@ -566,9 +665,13 @@ export function mount(host, ctx) {
   // 14-line overlay chart added little over the numbers in a narrow tile, so it
   // was dropped in favour of the table alone.
   const YC_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
+  // Macro scope is the G7 + Western Europe (HOUSE_STYLE R4c): the sovereign tables
+  // show only those rows (the snapshot may carry others; they are not rendered).
+  const SOV_SCOPE = new Set(["United States", "Canada", "United Kingdom", "Germany", "France", "Italy", "Spain", "Netherlands", "Belgium", "Austria", "Portugal", "Ireland", "Switzerland", "Sweden", "Norway", "Denmark", "Finland", "Japan"]);
+  const sovRegions = () => ((GOVT_YIELDS && GOVT_YIELDS.regions) || []).map((g) => ({ ...g, rows: (g.rows || []).filter((r) => SOV_SCOPE.has(r.country)) })).filter((g) => g.rows.length);
   function worldYieldCurveHTML() {
-    const G = GOVT_YIELDS; if (!G || !(G.regions || []).length) return "";
-    const rows = G.regions.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
+    const regs = sovRegions(); if (!regs.length) return "";
+    const rows = regs.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
     if (!rows.length) return "";
     // Live where available: the /api/govyields feed carries the current level per
     // tenor (US, from FRED daily) — use it, else the sourced GOVT_YIELDS snapshot.
@@ -594,7 +697,7 @@ export function mount(host, ctx) {
       + `${r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country)}</td>`
       + `${YC_TENORS.map(([k]) => { const v = lvl(r, k); return `<td class="dsh-r dsh-fl"${heat(v, k)}>${v != null ? esc(v.toFixed(2)) : "—"}</td>`; }).join("")}</tr>`;
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note">Current yield by tenor, shaded vs a 2% target — <span class="dsh-fl-pos">green below</span> · <span class="dsh-fl-neg">red above</span>.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green below 2%</span> · <span class="dsh-fl-neg">red above</span></p>`;
   }
   // Embedded macro news wire — the desk's US + UK headlines, linked to source.
   function macroNewsHTML() {
@@ -696,29 +799,6 @@ export function mount(host, ctx) {
       + `<tbody>${(c.rows || []).map(row).join("")}</tbody></table></div>`;
     return `<div class="dsh-ms-grid">${M.classes.map(block).join("")}</div>`;
   }
-  function macroHTML() {
-    const fed = fedHTML();
-    const boe = boeHTML();
-    const cyc = cyclesHTML();
-    const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
-      <h3 class="dsh-term-lbl">Policy rates</h3>
-      <div class="dsh-wide dsh-row4">
-        ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-        ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
-        <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
-        <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
-      </div>
-      <h3 class="dsh-term-lbl">Cycle</h3>
-      <div class="dsh-wide dsh-row2">
-        <section class="dsh-card">${cyc.debt}</section>
-        <section class="dsh-card">${cyc.market}</section>
-      </div>
-      <h3 class="dsh-term-lbl">Market sizes</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Market sizes — by asset class &amp; region <span class="dsh-mut">${esc(MARKET_SIZES.asOf || "")}</span></h3><div class="dsh-scroll">${marketSizesHTML()}</div></section>`;
-    const news = `<section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>`;
-    return { mid, news, newsLabel: "Macro wire" };
-  }
-
   // ---- Bonds --------------------------------------------------------------
   // Government/sovereign (the US/UK yield curves) + corporate (ICE BofA OAS
   // spreads, loaded live). Reuses the macro yield-curve renderer and the credit
@@ -736,8 +816,8 @@ export function mount(host, ctx) {
   // history, keyed by country → per-tenor {v, w1..y1}); the current level falls
   // back to the sourced GOVT_YIELDS snapshot when live is absent.
   function govtYieldsHeatHTML() {
-    const G = GOVT_YIELDS;
-    if (!G || !(G.regions || []).length) return "";
+    const G = { regions: sovRegions() };
+    if (!G.regions.length) return "";
     const tk = _yldTenor;
     const tl = (YLD_TENORS.find(([k]) => k === tk) || [, ""])[1];
     const liveT = (r) => (_gyLive && _gyLive[r.country] && _gyLive[r.country][tk]) || null;
@@ -762,7 +842,7 @@ export function mount(host, ctx) {
     const group = (g, i) => (g.rows || []).map((r, ri) => row(r, i > 0 && ri === 0)).join("");
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YCHG_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${G.regions.map(group).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = yield fell</span> · <span class="dsh-fl-neg">red = yield rose</span> over each window (${esc(tl)} change in basis points, shaded per column); the grey figure is the current ${esc(tl)} yield.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = yield fell</span> · <span class="dsh-fl-neg">red = yield rose</span> (${esc(tl)}, bp)</p>`;
   }
   // Bond-duration selector — lives in the card HEADER (top-right, in line with the
   // title), not the table body, so it survives the body's live re-renders.
@@ -789,10 +869,13 @@ export function mount(host, ctx) {
       const arr = (d && d.yields) || [];
       if (!arr.length) return;
       _gyLive = {}; arr.forEach((x) => { if (x && x.country) _gyLive[x.country] = x; });
+      markLive("gy");
       const box = host.querySelector("#dsh-yld");
       if (box) box.innerHTML = govtYieldsHeatHTML();
       const curve = host.querySelector("#dsh-yc-tbl");        // levels table shares the live feed
       if (curve) curve.innerHTML = worldYieldCurveHTML();
+      const shape = host.querySelector("#dsh-shape");
+      if (shape) shape.innerHTML = curveShapeHTML();
     } catch { /* keep the sourced snapshot */ }
   }
   // "Why it moved" for rates — mirrors the Equities Key-moments box, reading the
@@ -806,50 +889,59 @@ export function mount(host, ctx) {
     const TEN = { two_year: "2Y", five_year: "5Y", ten_year: "10Y", thirty_year: "30Y" };
     const label = (k) => { const [cc, t] = String(k).split(":"); return `${cc}${TEN[t] ? " " + TEN[t] : ""}`; };
     const row = (k) => { const m = KM[k]; return `<div class="dsh-km"><span class="dsh-km-t">${esc(label(k))}</span>`
-      + `<span class="dsh-km-x">${nbNums(esc(m.text))}${srcLink(m.src, (m.srcName || "source") + " — source")}</span></div>`; };
+      + `<span class="dsh-km-x">${nbNums(txt(m.text))}${m.date ? ` <span class="dsh-asof">${esc(isoDay(m.date))}</span>` : ""}${srcLink(m.src, (m.srcName || "source") + " — source")}</span></div>`; };
     return keys.map(row).join("");
   }
-  // Compact sovereign-yields tape — headline benchmark levels as pills.
-  function fiTapeHTML() {
-    const flat = (GOVT_YIELDS.regions || []).flatMap((g) => g.rows || []);
-    const find = (c) => flat.find((r) => (r.country || "").toLowerCase() === c.toLowerCase());
-    const specs = [["United States", "y2", "US 2Y"], ["United States", "y10", "US 10Y"], ["United Kingdom", "y2", "UK 2Y"], ["United Kingdom", "y10", "UK 10Y"], ["Japan", "y2", "JP 2Y"], ["Japan", "y10", "JP 10Y"]];
-    const pills = specs.map(([c, tk, lbl]) => { const r = find(c), v = r && r[tk]; return v == null ? "" : `<span class="dsh-pill"><span class="dsh-pill-k">${esc(lbl)}</span><span class="dsh-pill-v">${v.toFixed(2)}%</span></span>`; }).filter(Boolean).join("");
-    return pills ? `<div class="dsh-pills">${pills}</div>` : "";
-  }
-  // Curve shape — the 2s10s and 2s30s slope (basis points) for the key sovereigns,
-  // DERIVED from the same sourced GOVT_YIELDS snapshot (y10−y2, y30−y2). A compact
-  // companion tile so Bonds reads as a grid; no new data, just arithmetic on
-  // the yields already on the page (each row links the same source).
+  // Curve shape (2s10s / 2s30s) and 10Y spreads to the Bund — both DERIVED from
+  // the sovereign levels already on the page (live where loaded, else the sourced
+  // snapshot). No new data, only arithmetic.
   function curveShapeHTML() {
-    const G = GOVT_YIELDS;
-    if (!G || !(G.regions || []).length) return "";
-    const flat = G.regions.flatMap((g) => g.rows || []);
+    const regs = sovRegions(); if (!regs.length) return "";
+    const flat = regs.flatMap((g) => g.rows || []);
     const find = (c) => flat.find((r) => (r.country || "").toLowerCase() === c.toLowerCase());
+    const lv = (r, k) => { const t = r && _gyLive && _gyLive[r.country] && _gyLive[r.country][k]; return (t && t.v != null) ? t.v : (r ? r[k] : null); };
     const bp = (a, b) => (a == null || b == null) ? null : Math.round((a - b) * 100);
-    const cell = (v) => v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-r ${v >= 0 ? "up" : "down"}">${v > 0 ? "+" : ""}${v}</td>`;
-    const specs = [["United States", "US"], ["United Kingdom", "UK"], ["Germany", "DE"], ["Japan", "JP"]];
-    const rows = specs.map(([c, lbl]) => {
-      const r = find(c); if (!r) return "";
-      return `<tr><td class="dsh-nm">${esc(lbl)}</td>${cell(bp(r.y10, r.y2))}${cell(bp(r.y30, r.y2))}</tr>`;
-    }).filter(Boolean).join("");
-    if (!rows) return "";
-    const src = (find("United States") || {}).source;
-    return `<table class="dsh-tbl"><thead><tr><th>Sovereign</th><th class="dsh-r">2s10s</th><th class="dsh-r">2s30s</th></tr></thead><tbody>${rows}</tbody></table>`
-      + `<p class="dsh-fl-note">Curve slope in basis points (10Y−2Y, 30Y−2Y), derived from the sovereign yield snapshot${src ? ` · <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">source</a>` : ""}. Positive = upward-sloping.</p>`;
+    const cell = (v) => v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-r">${v > 0 ? "+" : ""}${v}</td>`;
+    const specs = [["Germany", "DE"], ["United Kingdom", "UK"], ["United States", "US"], ["Japan", "JP"]];
+    const rows = specs.map(([c, lbl]) => { const r = find(c); return r ? `<tr><td class="dsh-nm">${esc(lbl)}</td>${cell(bp(lv(r, "y10"), lv(r, "y2")))}${cell(bp(lv(r, "y30"), lv(r, "y2")))}</tr>` : ""; }).join("");
+    const de = find("Germany");
+    const sp = [["Italy", "BTP"], ["France", "OAT"], ["Spain", "Bono"], ["United Kingdom", "Gilt"], ["United States", "UST"]]
+      .map(([c, lbl]) => { const r = find(c); const v = r && de ? bp(lv(r, "y10"), lv(de, "y10")) : null; return r ? `<tr><td class="dsh-nm">${esc(lbl)}–Bund</td>${cell(v)}</tr>` : ""; }).join("");
+    if (!rows && !sp) return "";
+    return `<div class="dsh-shape"><table class="dsh-tbl"><thead><tr><th>Slope</th><th class="dsh-r">2s10s</th><th class="dsh-r">2s30s</th></tr></thead><tbody>${rows}</tbody></table>`
+      + (sp ? `<table class="dsh-tbl"><thead><tr><th>10Y spread</th><th class="dsh-r">bp</th></tr></thead><tbody>${sp}</tbody></table>` : "") + `</div>`;
   }
-  function fixedIncomeHTML() {
-    const strip = fiTapeHTML();
+  // Rates = the old Macro + Bonds tabs merged: policy, money markets, curves,
+  // sovereign moves, the Fed/BoE paths, "why it moved", and a collapsed
+  // Reference block (cycles, market sizes) — with the macro wire as the rail.
+  function ratesHTML() {
+    const fed = fedHTML();
+    const boe = boeHTML();
+    const cyc = cyclesHTML();
     const km = fixedKeyMomentsBody();
-    const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
-      <h3 class="dsh-term-lbl">Sovereign</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) <span class="dsh-live">live</span> ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll" id="dsh-yc-tbl">${worldYieldCurveHTML()}</div></section>
-      <section class="dsh-card"><h3 class="dsh-h dsh-h-sel">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span>${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
-      <h3 class="dsh-term-lbl">Corporate &amp; curve</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Curve shape <span class="dsh-n">2s10s · 2s30s</span></h3>${curveShapeHTML()}</section>
-      <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>`;
-    const news = km ? `<section class="dsh-card"><h3 class="dsh-h">Rates — why it moved</h3><div class="dsh-news dsh-km-wrap">${km}</div></section>` : "";
-    return { mid, news, newsLabel: "Why it moved" };
+    const gyAsOf = asOf(isoDay(GOVT_YIELDS && GOVT_YIELDS.asOf));
+    const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
+      <h3 class="dsh-term-lbl">Policy &amp; money markets</h3>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Policy rates — ECB · BoE · Fed</h3><div id="dsh-policy">${policyHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Money markets — €STR · Euribor · SONIA · SOFR ${liveOr("mm")}</h3><div id="dsh-mm" class="dsh-spreads">${moneyMarketsHTML()}</div></section>
+      <h3 class="dsh-term-lbl">Curves</h3>
+      <section class="dsh-card dsh-wide" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
+      <section class="dsh-card"><h3 class="dsh-h">Curve shape &amp; spreads to Bund ${gyAsOf}</h3><div id="dsh-shape">${curveShapeHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">Sovereign yields — G7 &amp; Western Europe ${liveOr("gy")} ${gyAsOf}</h3><div class="dsh-scroll" id="dsh-yc-tbl">${worldYieldCurveHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h dsh-h-sel">Sovereign yield changes — 1W · 1M · 3M · 6M · 1Y ${liveOr("gy")} ${gyAsOf}${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+      ${km ? `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Rates — why it moved</h3><div class="dsh-km-wrap">${km}</div></section>` : ""}
+      <h3 class="dsh-term-lbl">Central-bank paths</h3>
+      <div class="dsh-wide dsh-row2">
+        ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+        ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS</h3>${boe}</section>` : ""}
+      </div>
+      <h3 class="dsh-term-lbl">Reference</h3>
+      <details class="dsh-card dsh-wide dsh-ref"><summary class="dsh-h dsh-ref-sum">Cycles &amp; market sizes <span class="dsh-mut">${esc(MARKET_SIZES.asOf || "")}</span></summary>
+        <div class="dsh-wide dsh-row2"><section class="dsh-card">${cyc.debt}</section><section class="dsh-card">${cyc.market}</section></div>
+        <section class="dsh-card dsh-wide"><h3 class="dsh-h">Market sizes — by asset class &amp; region ${asOf(MARKET_SIZES.asOf)}</h3><div class="dsh-scroll">${marketSizesHTML()}</div></section>
+      </details>`;
+    const news = `<section class="dsh-card"><h3 class="dsh-h">Rates wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>`;
+    return { mid, news, newsLabel: "Rates wire" };
   }
 
   // ---- Legal --------------------------------------------------------------
@@ -951,25 +1043,23 @@ export function mount(host, ctx) {
     const F = HF_13F || {};
     const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
     const tkr = (t) => `<a class="dsh-hf-t" href="${esc(yh(t))}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`;
-    const conRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h">${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
-    const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
+    const conRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h">${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${txt(x.note)}</div></div>`;
+    const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${txt(x.note)}</div></div>`;
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
     const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
     const mid = `<h3 class="dsh-term-lbl">Holdings — SEC 13F</h3>
       <section class="dsh-card">
-        <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
+        <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span> ${asOf(F.quarter)}</h3>
         <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
-        <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage. ${esc(F.filed || "")}</p>
-      </section>
+              </section>
       <section class="dsh-card">
-        <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
+        <h3 class="dsh-h">Per-fund holdings — SEC 13F ${liveOr("hf13f")}</h3>
         <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
-          <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select></div>
+          <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select><a id="dsh-hf-prof" class="dsh-drill dsh-hf-prof" href="${filers[0] ? esc(`${ctx.base}/profiles/#/hf/${filers[0].id}/holdings`) : "#"}">Open profile</a></div>
         <div id="dsh-hf-body" class="dsh-hf-body dsh-scroll"><p class="dsh-load">Loading latest 13F…</p></div>
       </section>`;
-    const news = `<section class="dsh-card"><h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
-      <div class="dsh-news dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
-      <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs.</p></section>`;
+    const news = `<section class="dsh-card"><h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves ${asOf(F.quarter)}</h3>
+      <div class="dsh-news dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div></section>`;
     return { mid, news, newsLabel: "Notable moves" };
   }
   function renderHfHoldings(body, d) {
@@ -983,7 +1073,7 @@ export function mount(host, ctx) {
       + `<td>${h.ticker ? `<a href="${esc(yh(h.ticker))}" target="_blank" rel="noopener noreferrer">${esc(h.ticker)}</a>` : "—"}</td>`
       + `<td class="dsh-r">${esc(hfUsd(h.value))}</td>`
       + `<td class="dsh-r">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
-    body.innerHTML = `<table class="dsh-tbl"><thead><tr><th class="dsh-r">#</th><th>Holding</th><th>Ticker</th><th class="dsh-r">Value</th><th class="dsh-r">Weight</th></tr></thead><tbody>${rows}</tbody></table>`
+    body.innerHTML = `<table class="dsh-tbl dsh-hf-tbl"><thead><tr><th class="dsh-r">#</th><th>Holding</th><th>Ticker</th><th class="dsh-r">Value</th><th class="dsh-r">Weight</th></tr></thead><tbody>${rows}</tbody></table>`
       + `<p class="dsh-fl-note">Top ${Math.min(50, d.holdings.length)} US-listed positions by value${d.asOf ? `, as of ${esc(d.asOf)}` : ""}${d.source ? ` · <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer">latest 13F</a>` : ""}.</p>`;
   }
   function wireHedgeFunds() {
@@ -994,10 +1084,15 @@ export function mount(host, ctx) {
       body.innerHTML = `<p class="dsh-load">Loading latest 13F…</p>`;
       try {
         const r = await fetch(`/api/13f?cik=${encodeURIComponent(cik)}`, { headers: { accept: "application/json" } });
-        renderHfHoldings(body, r.ok ? await r.json() : null);
+        if (!r.ok) { body.innerHTML = `<p class="dsh-load">Could not load holdings right now (SEC feed error ${r.status}).</p>`; return; }
+        const d = await r.json();
+        renderHfHoldings(body, d);
+        if (d && Array.isArray(d.holdings) && d.holdings.length) markLive("hf13f", d.asOf);
       } catch { body.innerHTML = `<p class="dsh-load">Could not load holdings right now.</p>`; }
     };
-    sel.addEventListener("change", () => load(sel.value));
+    const prof = host.querySelector("#dsh-hf-prof");
+    const syncProf = () => { const f = (HEDGE_FUNDS || []).find((x) => x.cik === sel.value); if (prof && f) prof.href = `${ctx.base}/profiles/#/hf/${f.id}/holdings`; };
+    sel.addEventListener("change", () => { syncProf(); load(sel.value); });
     if (sel.value) load(sel.value);
   }
   // Legal wire — the freshest sourced alerts & case law as a right-rail news list
@@ -1008,6 +1103,33 @@ export function mount(host, ctx) {
     const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
       + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a></li>`;
     return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
+  }
+  // Restructuring & insolvency — the newest sourced alerts / case law in the
+  // restructuring practice area (schemes, Part 26A plans, insolvency), drawn from
+  // the legal desk's own records.
+  function restructuringHTML() {
+    const items = legalDb().filter((x) => x && x.area === "ri" && x.date && x.title && x.url).slice(0, 8);
+    if (!items.length) return `<p class="dsh-load">No restructuring items tracked.</p>`;
+    const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
+      + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.title)}</a>`
+      + `<span class="dsh-news-s">${esc([x.type === "case" ? "Case" : "Alert", x.firm || x.court].filter(Boolean).join(" · "))}</span></li>`;
+    return `<ul class="dsh-news dsh-rx">${items.map(row).join("")}</ul>`;
+  }
+  // Regulatory calendar — dated, sourced milestones (REG_CALENDAR), upcoming first
+  // then the most recent past ones; an undated item (e.g. a file still in
+  // trilogue) is listed last as "TBC".
+  function regCalendarHTML() {
+    const R = (REG_CALENDAR && REG_CALENDAR.items) || [];
+    if (!R.length) return "";
+    const today = new Date().toISOString().slice(0, 10);
+    const up = R.filter((x) => x.date && x.date >= today).sort((a, b) => (a.date < b.date ? -1 : 1));
+    const past = R.filter((x) => x.date && x.date < today).sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 3);
+    const tbc = R.filter((x) => !x.date);
+    const row = (x, cls) => `<tr class="${cls}"><td class="dsh-stress-as">${x.date ? esc(isoDay(x.date)) : "TBC"}</td>`
+      + `<td class="dsh-nm">${esc(x.item)}${srcLink(x.src, (x.srcName || "source") + " — source")}</td><td class="dsh-reg-note">${esc(x.note || "")}</td></tr>`;
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-reg-tbl"><thead><tr><th>Date</th><th>Milestone</th><th>What</th></tr></thead><tbody>`
+      + up.map((x) => row(x, "dsh-reg-up")).join("") + tbc.map((x) => row(x, "dsh-reg-tbc")).join("") + past.map((x) => row(x, "dsh-reg-past")).join("")
+      + `</tbody></table></div>`;
   }
   function legalHTML() {
     const total = legalDb().length;
@@ -1021,13 +1143,17 @@ export function mount(host, ctx) {
     // Legal is a normal 3-zone tab: the search panel is a full-width card in the
     // middle (white surface on the grey ground, like the other pages) and the
     // recent alerts & case law ride in a right-hand news wire, just like Macro.
-    const mid = `<section class="dsh-card dsh-legal-panel dsh-span">
+    const cal = regCalendarHTML();
+    const mid = `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Restructuring &amp; insolvency — latest</h3>${restructuringHTML()}</section>
+      ${cal ? `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Regulatory calendar ${asOf(REG_CALENDAR.asOf)}</h3>${cal}</section>` : ""}
+      <section class="dsh-card dsh-legal-panel dsh-span">
         <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
         <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search all legal alerts &amp; case law — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
         ${typeChips}${areaChips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
       </section>`;
-    return { mid, news: legalNewsHTML(), newsLabel: "Legal wire" };
+    const lw = legalNewsHTML();
+    return { mid, news: lw ? `<section class="dsh-card"><h3 class="dsh-h">Legal wire — latest alerts &amp; case law</h3>${lw}</section>` : "", newsLabel: "Legal wire" };
   }
   function wireLegal() {
     const q = host.querySelector("#dsh-lgl-q");
@@ -1054,11 +1180,10 @@ export function mount(host, ctx) {
       return `<a class="dsh-navchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${label}</a>`;
     }).join("");
     const sec = pane === "equities" ? equitiesHTML()
-      : pane === "credit" ? creditHTML()
-      : pane === "fixed-income" ? fixedIncomeHTML()
+      : pane === "rates" ? ratesHTML()
       : pane === "hedge-funds" ? hedgeFundsHTML()
       : pane === "legal" ? legalHTML()
-      : macroHTML();
+      : creditHTML();
     const rail = sec.news
       ? `<aside class="dsh-newsrail"><h3 class="dsh-term-lbl">${esc(sec.newsLabel || "Wire")}</h3>${sec.news}</aside>`
       : "";
@@ -1067,10 +1192,9 @@ export function mount(host, ctx) {
       <main class="dsh-mid">${sec.mid}</main>
       ${rail}
     </div></div>`;
-    if (pane === "macro") loadYieldCurve();
     if (pane === "equities") loadWorldIndices();
-    if (pane === "credit") { loadSpreads(); wireStressSort(); }
-    if (pane === "fixed-income") { loadSpreads(); wireYields(); loadGovYields(); }
+    if (pane === "credit") { loadRates(); loadEu(); wireStressSort(); }
+    if (pane === "rates") { loadRates(); loadEu(); loadYieldCurve(); wireYields(); loadGovYields(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }
@@ -1091,17 +1215,23 @@ export function mount(host, ctx) {
     const i = parts.indexOf("dashboard");
     return i >= 0 ? parts[i + 1] : "";
   };
-  pane = SUBTABS.some(([x]) => x === subFromUrl()) ? subFromUrl() : "macro";
+  // Resolve the URL's sub-tab (retired macro/fixed-income → rates; unknown →
+  // Credit) and canonicalise a retired URL in place so Back never revisits it.
+  const resolve = (k) => {
+    const sub = subOf(k || "");
+    if (k && k !== sub) { try { history.replaceState(history.state, "", `${ctx.base}/dashboard/${sub}`); } catch { /* */ } }
+    return sub;
+  };
+  pane = resolve(subFromUrl());
   render();
 
   return {
     enter(sub) {
-      const k = (sub && sub[0]) || subFromUrl() || "macro";
-      pane = SUBTABS.some(([x]) => x === k) ? k : "macro";
+      pane = resolve((sub && sub[0]) || subFromUrl());
       render();
     },
     leave() {},
-    // home(): a nav-bar tap resets the Dashboard to its first sub-tab (Macro).
-    home() { pane = "macro"; render(); window.scrollTo(0, 0); },
+    // home(): a nav-bar tap resets the Dashboard to its first sub-tab (Credit).
+    home() { pane = DEFAULT_SUB; render(); window.scrollTo(0, 0); },
   };
 }

@@ -11,12 +11,12 @@ const b = await launchChromium();
 
 // The PRIMARY surface: the Dashboard tab (bottom nav) → Macro sub-tab. It must show a
 // cycle card with BOTH the Dalio debt cycle and the Howard Marks market cycle.
-const d = await open(b, PHONE, `http://localhost:${srv.port}/v2/dashboard/`);
+const d = await open(b, PHONE, `http://localhost:${srv.port}/v2/dashboard/rates/`);
 await d.pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await d.pg.waitForTimeout(1800);
 const dash = await d.pg.evaluate(() => {
-  const tab = document.querySelector('.dsh-subtabs [data-p="macro"], [data-sub="macro"], .dsh-subtab[data-p="macro"]');
-  if (tab) tab.click();
+  // The cycles live in Rates ▸ Reference (a collapsed <details>) — open it.
+  const ref = document.querySelector("details.dsh-ref"); if (ref) ref.open = true;
   const txt = (document.querySelector("#app") || document.body).textContent || "";
   const heads = Array.from(document.querySelectorAll(".dsh-cyc-hd")).map((h) => h.textContent.trim());
   const links = Array.from(document.querySelectorAll("#app .dsh-cyc-src")).map((a) => a.getAttribute("href"));
@@ -38,14 +38,14 @@ const dash = await d.pg.evaluate(() => {
     })(),
   };
 });
-check(dash.hasDebt, "Dashboard→Macro shows the Dalio debt-cycle block");
-check(dash.hasMarket, "Dashboard→Macro shows the Howard Marks market-cycle block");
-check(dash.mentionsPendulum, "Dashboard→Macro market cycle explains the pendulum");
-check(dash.mentionsStand, "Dashboard→Macro market cycle has a 'where we stand' read");
-check(dash.hasOaktree, "Dashboard→Macro market cycle links a real Oaktree memo");
-check(dash.meters >= 4, `Dashboard→Macro renders position meters (${dash.meters})`);
-check(dash.mkt && dash.mkt.labels.join(",") === "US,UK", `Dashboard→Macro market cycle shows US + UK meters (${dash.mkt && dash.mkt.labels.join(",")})`);
-check(dash.mkt && dash.mkt.mutedNote && dash.mkt.noBold, "Dashboard→Macro market-cycle descriptor is grey (muted), not bold");
+check(dash.hasDebt, "Dashboard→Rates shows the Dalio debt-cycle block");
+check(dash.hasMarket, "Dashboard→Rates shows the Howard Marks market-cycle block");
+check(dash.mentionsPendulum, "Dashboard→Rates market cycle explains the pendulum");
+check(dash.mentionsStand, "Dashboard→Rates market cycle has a 'where we stand' read");
+check(dash.hasOaktree, "Dashboard→Rates market cycle links a real Oaktree memo");
+check(dash.meters >= 4, `Dashboard→Rates renders position meters (${dash.meters})`);
+check(dash.mkt && dash.mkt.labels.join(",") === "US,UK", `Dashboard→Rates market cycle shows US + UK meters (${dash.mkt && dash.mkt.labels.join(",")})`);
+check(dash.mkt && dash.mkt.mutedNote && dash.mkt.noBold, "Dashboard→Rates market-cycle descriptor is grey (muted), not bold");
 
 // The Macro pane is a fixed-viewport terminal with side-by-side panes — Policy rates,
 // Cycle, Market sizes and the Macro wire — all visible at once (no sub-tabs). The Cycle
@@ -55,9 +55,9 @@ const cardVisible = (sel) => d.pg.evaluate((s) => {
   return !!(el && el.offsetParent !== null);
 }, sel);
 const lbls = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-term-lbl")).map((b) => b.textContent.trim()));
-check(lbls.join(",") === "Policy rates,Cycle,Market sizes,Macro wire", `Macro is labelled Policy rates · Cycle · Market sizes (stacked middle) + Macro wire (right rail) (got ${lbls.join(",")})`);
-check(await cardVisible(".dsh-mid .dsh-h"), "the stacked Policy-rates cards are visible");
-check(await cardVisible(".dsh-mid .dsh-cyc"), "the Cycle block is visible in the stacked middle");
+check(lbls.join(",") === "Policy & money markets,Curves,Central-bank paths,Reference,Rates wire", `Rates is labelled Policy & money markets · Curves · Central-bank paths · Reference + Rates wire (got ${lbls.join(",")})`);
+check(await cardVisible(".dsh-mid .dsh-h"), "the stacked policy cards are visible");
+check(await cardVisible(".dsh-mid .dsh-cyc"), "the Cycle blocks are visible once Reference is opened");
 
 // Both cycle blocks (debt + market) carry a collapsible narrative, collapsed by default;
 // expanding one reveals its framework prose. Collapse is native <details>.

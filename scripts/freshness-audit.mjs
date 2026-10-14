@@ -50,6 +50,8 @@ const BRIEF_STALE_HOURS = Math.max(1, parseInt(opt("--brief-stale", "6"), 10) ||
 
 const now = Date.now();
 const msOf = (d) => { const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d || "").slice(0, 10); const t = Date.parse(s); return Number.isNaN(t) ? 0 : t; };
+// A human "24 Sep 2026" / "1 Jan 2025" stamp → ISO day (null when unparseable).
+const _isoDay = (d) => { if (!d) return null; if (/^\d{4}-\d{2}(-\d{2})?$/.test(d)) return d; const t = Date.parse(d + " 12:00 UTC"); return Number.isNaN(t) ? null : new Date(t).toISOString().slice(0, 10); };
 const ageDaysOf = (ms) => (ms ? Math.floor((now - ms) / 86400000) : null);
 
 // Newest dated record across one or more arrays, by the given date field(s).
@@ -188,6 +190,13 @@ const SURFACES = [
   earningsSurface,
   stampSurface("hf_13f", "Hedge-fund 13F panel (quarter end)", _13F, 135),
   stampSurface("dashboard_snapshot", "Dashboard fallback snapshot (DASH_ASOF)", DASH.DASH_ASOF, 45),
+  // Dashboard curated panels (R37) — each a single as-of stamp on its source's cadence.
+  stampSurface("dashboard_pc", "Dashboard ▸ US private credit (Fitch PCDR, monthly)", (DASH.PRIVATE_CREDIT || {}).asOf, 45),
+  stampSurface("dashboard_eu_distress", "Dashboard ▸ Europe defaults & distress", (DASH.EU_DISTRESS || {}).asOf, 45),
+  stampSurface("dashboard_regcal", "Dashboard ▸ Legal regulatory calendar", (DASH.REG_CALENDAR || {}).asOf, 90),
+  stampSurface("dashboard_fedwatch", "Dashboard ▸ Rates CME FedWatch / SONIA odds", _isoDay((((MAC.OUTLOOK || {}).us || {}).fedwatch || {}).asOf), 14),
+  stampSurface("dashboard_matwall", "Dashboard ▸ Credit maturity wall (S&P vintage)", _isoDay(String((((MAC.MATWALL || {}).ratedWall) || {}).asOf || "").replace(/^\D*(?=\d)/, "")), 400),
+  stampSurface("dashboard_market_sizes", "Dashboard ▸ Rates market-sizes matrix", (MAC.MARKET_SIZES || {}).asOf, 120),
   asOfSurface("hf_aum", "Hedge-fund AUM (aumAsOf)", CR.HEDGE_FUNDS, "aumAsOf", 540),
   asOfSurface("lp_profiles", "Investor (LP) profiles (asOf)", CR.lps, "asOf", 365),
   volumeSurface("legal_volume", "Legal alerts — weekly volume", LG.items),
@@ -272,7 +281,13 @@ for (const s of staleSurfaces) {
     macro_keymoments: "Refresh IND_KEYMOMENTS / FX_KEYMOMENT with current, sourced captions (macro/js/content.js).",
     earnings: "Roll the EARNINGS calendar to the current and previous week (macro/js/content.js) — verified dates/tickers only.",
     hf_13f: "Update HF_13F to the latest filed 13F quarter (SEC EDGAR 13F-HR) — credit/js/data.js.",
-    dashboard_snapshot: "Refresh the dashboard fallback snapshot (EQ_*/CR_*/WORLD_INDICES/GOVT_YIELDS) and DASH_ASOF — it shows whenever a live call fails.",
+    dashboard_snapshot: "Refresh the dashboard fallback snapshot (EQ_*/WORLD_INDICES/GOVT_YIELDS) and DASH_ASOF — it shows whenever a live call fails.",
+    dashboard_pc: "Roll PRIVATE_CREDIT (dashboard/js/data.js) to Fitch's latest monthly US PCDR + KBRA's latest quarterly compendium; set asOf.",
+    dashboard_eu_distress: "Refresh EU_DISTRESS (dashboard/js/data.js): latest LCD ELLI / Fitch / S&P European default rates + the Insolvency Service monthly release; set asOf.",
+    dashboard_regcal: "Review REG_CALENDAR (dashboard/js/data.js): add newly confirmed AIFMD II / ELTIF / FCA / CRR dates; set asOf.",
+    dashboard_fedwatch: "Refresh OUTLOOK fedwatch + uk.sonia odds and the ECB/BoE/Fed next-meeting fields (macro/js/content.js).",
+    dashboard_matwall: "Replace MATWALL.ratedWall with S&P's latest per-year maturity split (whole series + asOf together).",
+    dashboard_market_sizes: "Refresh MARKET_SIZES from each source's latest release (macro/js/content.js).",
     hf_aum: "Refresh hedge-fund AUM from Form ADV (SEC IAPD) / firm disclosures; set aumAsOf to the figure's date.",
     lp_profiles: "Refresh investor (LP) profiles from their latest annual reports; set asOf to the report date.",
     legal_volume: "Legal alert flow has collapsed vs its weekly median — sweep EVERY firm in `firms` (insights/news pages), firm by firm.",

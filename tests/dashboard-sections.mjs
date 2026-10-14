@@ -1,39 +1,39 @@
-// Dashboard ▸ Fixed Income + Legal sections. Sub-tab order is Macro · Equities ·
-// Fixed Income · Credit · Legal. Fixed Income shows the sovereign yield curves
-// (government) and the ICE BofA OAS spreads container (corporate). Legal is a
-// SEARCH interface over all alerts + case law: nothing lists until a keyword is
-// entered; practice-area chips limit the search; every result is sourced.
+// Dashboard sections. Sub-tab order is Credit · Rates · Legal · Equities · Hedge
+// Funds (HOUSE_STYLE R37 — Macro + Bonds merged into Rates). Rates shows the
+// policy table (ECB · BoE · Fed), the sovereign curves (G7 + Western Europe only)
+// and the curve-shape / spreads-to-Bund tile; the ICE BofA spread stack lives on
+// Credit only. Legal is a SEARCH interface over all alerts + case law: nothing
+// lists until a keyword is entered; practice-area chips limit the search; every
+// result is sourced.
 import { serve, launchChromium, open, DESKTOP, PHONE, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 
-const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/fixed-income/");
+const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/rates/");
 await pg.waitForTimeout(1600);
 
-// Sub-tabs in the requested order, Fixed Income active with both blocks.
 const fi = await pg.evaluate(() => {
-  const curveCard = [...document.querySelectorAll(".dsh-mid .dsh-card")].find((c) => {
-    const h = c.querySelector(".dsh-h"); return h && /curve shape/i.test(h.textContent);
-  });
-  // Sovereign term-structure card: header + a table row per country (plain country
-  // names, no colour key beside them).
-  const ycCard = [...document.querySelectorAll(".dsh-mid .dsh-card")].find((c) => {
-    const h = c.querySelector(".dsh-h"); return h && /yield curves \(all countries\)/i.test(h.textContent);
-  });
+  const card = (re) => [...document.querySelectorAll(".dsh-mid .dsh-card")].find((c) => { const h = c.querySelector(".dsh-h"); return h && re.test(h.textContent); });
+  const sov = card(/sovereign yields — g7/i), shape = card(/curve shape/i), pol = card(/policy rates/i);
+  const countries = sov ? [...sov.querySelectorAll("tbody tr td.dsh-nm")].map((t) => t.textContent.trim()) : [];
   return {
     tabs: [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].map((c) => c.dataset.sub),
-    yc: !!ycCard && ycCard.querySelectorAll("table tbody tr").length >= 10 && ycCard.querySelectorAll(".dsh-yc-key").length === 0,
-    spreads: !!document.querySelector("#dsh-spreads"),
-    // Curve-shape companion tile: a 2s10s/2s30s table derived from the yield snapshot.
-    curve: !!curveCard && /2s10s/i.test(curveCard.textContent) && /\d/.test(curveCard.querySelector("td.dsh-r")?.textContent || ""),
+    sovRows: countries.length, countries,
+    noKeys: !!sov && sov.querySelectorAll(".dsh-yc-key").length === 0,
+    spreadsHere: !!document.querySelector("#dsh-spreads"),
+    shape: !!shape && /2s10s/i.test(shape.textContent) && /BTP–Bund/.test(shape.textContent) && /\d/.test(shape.querySelector("td.dsh-r")?.textContent || ""),
+    banks: pol ? [...pol.querySelectorAll("tbody td.dsh-nm")].map((t) => t.textContent.trim()) : [],
   };
 });
-checkEq(fi.tabs.join(","), "macro,equities,fixed-income,credit,hedge-funds,legal", "Dashboard sub-tab order (Hedge Funds before Legal)");
-check(fi.yc, "Fixed Income: sovereign term-structure table renders (government)");
-check(fi.spreads, "Fixed Income: corporate credit-spreads block present");
-check(fi.curve, "Fixed Income: Curve-shape tile shows 2s10s/2s30s slopes derived from the yields");
+checkEq(fi.tabs.join(","), "credit,rates,legal,equities,hedge-funds", "Dashboard sub-tab order: Credit · Rates · Legal · Equities · Hedge Funds");
+check(fi.sovRows >= 6 && fi.noKeys, `Rates: sovereign term-structure table renders (${fi.sovRows} rows, no colour keys)`);
+check(!fi.countries.some((c) => /Brazil|Mexico|China|India|Korea|Australia/.test(c)), `Rates: sovereign table is G7 + Western Europe only (R4c) (${fi.countries.join(", ")})`);
+check(fi.countries.includes("Germany") && fi.countries.includes("Italy"), "Rates: sovereign table carries the Bund and BTP rows");
+check(!fi.spreadsHere, "Rates: the ICE BofA spread stack is NOT duplicated here (it lives on Credit)");
+check(fi.shape, "Rates: Curve-shape tile shows 2s10s and the BTP–Bund 10Y spread derived from the yields");
+checkEq(fi.banks.map((x) => x.split(" ")[0]).join(","), "ECB,BoE,Fed", "Rates: policy table lists ECB · BoE · Fed in that order");
 
 // Switch to Legal — a search interface, not a list.
 await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].find((c) => c.dataset.sub === "legal"); t && t.click(); });
@@ -112,29 +112,21 @@ check(hf.sourced, "Hedge Funds: every consensus/move entry links a source");
 check(hf.moves >= 1, `Hedge Funds: notable moves tagged buy/sell/new/trim (${hf.moves})`);
 check(hf.picker, "Hedge Funds: per-fund 13F picker lists the tracked filers");
 
-checkErrs(errs, "dashboard fixed-income + legal + hedge funds");
+checkErrs(errs, "dashboard rates + legal + hedge funds");
 await ctx.close();
 
-// PHONE: on the Hedge Funds pane the "Notable moves" wire reads ABOVE the holdings
-// boxes (the newsrail is ordered before the mid column on phones).
+// PHONE: like every other tab, the Hedge Funds pane shows its own data first and
+// its wire ("Notable moves") last.
 {
   const p = await open(b, PHONE, base + "/v2/dashboard/hedge-funds/");
   await p.pg.waitForTimeout(1800);
   const ord = await p.pg.evaluate(() => {
     const rail = document.querySelector('.dsh-3z[data-pane="hedge-funds"] .dsh-newsrail');
     const mid = document.querySelector('.dsh-3z[data-pane="hedge-funds"] .dsh-mid');
-    const moves = document.querySelector(".dsh-hf-dir");
-    const perFund = [...document.querySelectorAll(".dsh-h")].find((h) => /Per-fund holdings/.test(h.textContent));
-    return {
-      railTop: rail ? Math.round(rail.getBoundingClientRect().top) : null,
-      midTop: mid ? Math.round(mid.getBoundingClientRect().top) : null,
-      movesTop: moves ? Math.round(moves.getBoundingClientRect().top) : null,
-      perFundTop: perFund ? Math.round(perFund.getBoundingClientRect().top) : null,
-    };
+    return { railTop: rail ? Math.round(rail.getBoundingClientRect().top) : null, midTop: mid ? Math.round(mid.getBoundingClientRect().top) : null };
   });
-  check(ord.railTop != null && ord.midTop != null && ord.railTop < ord.midTop, `phone: Notable moves (newsrail ${ord.railTop}) sits above the holdings (mid ${ord.midTop})`);
-  check(ord.movesTop != null && ord.perFundTop != null && ord.movesTop < ord.perFundTop, `phone: a notable move (${ord.movesTop}) reads above Per-fund holdings (${ord.perFundTop})`);
-  checkErrs(p.errs, "dashboard hedge notable-moves order");
+  check(ord.railTop != null && ord.midTop != null && ord.midTop < ord.railTop, `phone: Hedge Funds data (mid ${ord.midTop}) reads above its Notable-moves wire (${ord.railTop})`);
+  checkErrs(p.errs, "dashboard hedge order");
   await p.ctx.close();
 }
 

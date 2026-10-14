@@ -63,7 +63,7 @@ function buildIndex() {
   // The macro desk and its #/ deep-dive pages are retired — its sections live on the
   // Dashboard ▸ Macro tab, so every macro shortcut opens there (the old /macro/#/…
   // links redirected and dropped the hash, landing nowhere useful).
-  const MACRO_DASH = "/v2/dashboard/macro";
+  const MACRO_DASH = "/v2/dashboard/rates";
   [["Commentary", "Commentary"], ["Rate outlook", "Policy"], ["Cycle", "Cycle"], ["Bubble risk", "Bubble"]]
     .forEach(([l, tl]) => add("macro", `Macro — ${l}`, "Dashboard · Macro", MACRO_DASH, 4, "", tl));
   // Entity profiles (manager / hedge fund / law firm) open in the PROFILES tab —

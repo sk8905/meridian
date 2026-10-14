@@ -1,5 +1,5 @@
 /* =============================================================================
-   dashboard.css — the Dashboard tab (Macro · Equities · Credit overviews).
+   dashboard.css — the Dashboard tab (Credit · Rates · Legal · Equities · Hedge Funds, R37).
    Colour flows only from the shared --t-* tokens (HOUSE_STYLE R8). Mobile: a
    vertical stack of self-contained cards; desktop: the same cards tiled.
    ============================================================================= */
@@ -20,10 +20,6 @@
   /* Dashboard: the section chips pin directly under the header (no band above them). */
   /* Specificity must beat the base `.dsh-railnav { top:0 }` that follows it. */
   .dsh-3z > .dsh-railnav { top:var(--wire-head-h, 57px); z-index:8; }
-  /* Hedge Funds: the "Notable moves" wire (the newsrail) reads above the holdings
-     boxes on phones — the nav stays first, then Notable moves, then the mid column
-     (Consensus longs · Per-fund holdings). Desktop keeps the 3-zone side-by-side. */
-  .dsh-3z[data-pane="hedge-funds"] .dsh-mid { order: 1; }
 }
 /* Sub-tab labels: desktop shows the full label; the narrow iPhone tab bar shows
    the short one so "Hedge Funds" doesn't wrap to two lines. */
@@ -133,7 +129,7 @@
 @media (min-width:901px){
   .v2-view .dsh:has(.dsh-3z){ overflow:hidden; display:flex; flex-direction:column; padding:0; }
   .dsh-3z{ flex:1 1 auto; min-height:0; display:grid; align-items:stretch;
-    grid-template-columns:158px minmax(0,1fr) minmax(360px,440px); gap:var(--dsh-gap); padding:var(--dsh-gap); }
+    grid-template-columns:150px minmax(0,1fr) minmax(280px,340px); gap:var(--dsh-gap); padding:var(--dsh-gap); }
   .dsh-3z.dsh-norail{ grid-template-columns:158px minmax(0,1fr); }
   /* Left rail: a vertical stack of section chips (resets the mobile segmented bar). */
   .dsh-railnav{ flex-flow:column nowrap; gap:3px; min-height:0; align-self:start; position:static;
@@ -159,7 +155,7 @@
      the taller one; align-content:start packs the rows to the top of the scroll
      area. Only the top KPI strip (.dsh-span), the group labels, and panels marked
      .dsh-wide (genuinely wide tables / charts) take a full-width row of their own. */
-  .dsh-3z:not(.dsh-norail) .dsh-mid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+  .dsh-3z:not(.dsh-norail) .dsh-mid{ display:grid; grid-template-columns:minmax(0,1fr);
     align-items:stretch; align-content:start; gap:var(--dsh-gap); }
   .dsh-3z:not(.dsh-norail) .dsh-mid > *{ min-width:0; grid-column:auto; }
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-term-lbl,
@@ -175,17 +171,17 @@
      two-column splits (FedWatch|dot-plot, kv grids) collapse so each quarter reads
      on one line. */
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4{ grid-column:1 / -1; display:grid;
-    grid-template-columns:repeat(4, minmax(0,1fr)); gap:var(--dsh-gap); align-items:start; }
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:var(--dsh-gap); align-items:start; }
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4 .dsh-fed,
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4 .dsh-kvgrid{ grid-template-columns:1fr; }
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row4 .dsh-kvgrid{ grid-template-columns:minmax(0,1fr); }
   /* Cycle row: the two cycle panes side by side (each splits into meters + narrative
      internally — a 4-column slice across the pair). */
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row2{ grid-column:1 / -1; display:grid;
-    grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--dsh-gap); align-items:start; }
+    grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:var(--dsh-gap); align-items:start; }
   /* Credit row: the Pulse metrics beside the maturity wall + the (narrow) live
      spreads — the three read across the width rather than stacked. */
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row-cr{ grid-column:1 / -1; display:grid;
-    grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--dsh-gap); align-items:start; }
+    grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:var(--dsh-gap); align-items:start; }
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row-cr .dsh-pc-grid{ grid-template-columns:1fr; }
   /* A tile is only ~half the middle wide, so its inner two-column grids (kv
      metrics, the Fed/BoE FedWatch|dot-plot split) collapse to one column so every
@@ -248,14 +244,14 @@
    section rows) — no bespoke styling needed. */
 
 /* Key-value grid (valuation / vol / rate outlook / maturity) */
-.dsh-kvgrid { display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; }
+.dsh-kvgrid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px 14px; }
 @media (max-width:520px){ .dsh-kvgrid{ grid-template-columns:1fr; } }
 .dsh-kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-kv-k { color:var(--t-dim); font-family:var(--t-mono); font-size:var(--fs-body); }
 .dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
 /* Private-credit card: one metric per SINGLE line (always full-width rows; the
    label truncates with an ellipsis + hover title, the value · SRC stay put). */
-.dsh-pc-grid { grid-template-columns:1fr; }
+.dsh-pc-grid { grid-template-columns:minmax(0,1fr); }
 .dsh-pc-grid .dsh-kv { flex-wrap:nowrap; }
 .dsh-pc-grid .dsh-kv-k { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:0 1 auto; }
 .dsh-pc-grid .dsh-kv-v { white-space:nowrap; flex:0 0 auto; }
@@ -651,7 +647,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 @media (min-width:560px){ .dsh-fed{ grid-template-columns:1fr 1fr; } }
 .dsh-fed-h { color:var(--t-mut); font-size:var(--fs-body); margin-bottom:6px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .dsh-mut { color:var(--t-faint); font-weight:400; }
-.dsh-fw { display:grid; grid-template-columns:1fr 80px 42px; align-items:center; gap:8px; padding:3px 0; }
+.dsh-fw { display:grid; grid-template-columns:minmax(0,1fr) 80px 42px; align-items:center; gap:8px; padding:3px 0; }
 .dsh-fw-l { color:var(--t-dim); font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-fw-track { position:relative; height:12px; background:var(--t-panel2); border-radius:0; }
 .dsh-fw-bar { position:absolute; left:0; top:0; bottom:0; background:var(--t-accent); border-radius:0; }
@@ -695,3 +691,57 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-cyc-exp[open] .dsh-cyc-more { display:none; }
 .dsh-cyc-exp[open] .dsh-cyc-less { display:inline; }
 .dsh-cyc-body { margin-top:2px; }
+
+/* ---- Desktop width bands (R37). Below 1500px the middle column is ONE column
+   (every card full width) so no table is squeezed into a half tile; from 1500px
+   compact cards pair two-up again and the news rail widens. ---- */
+@media (min-width:1500px){
+  .dsh-3z{ grid-template-columns:158px minmax(0,1fr) minmax(340px,420px); }
+  .dsh-3z:not(.dsh-norail) .dsh-mid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+/* A card never lets its content spill over a neighbour: wide content scrolls
+   inside its own .dsh-scroll region instead. */
+.dsh-card { min-width:0; }
+.dsh-scroll { max-width:100%; overflow-x:auto; }
+.dsh-hf-pick { flex-wrap:wrap; }
+.dsh-hf-sel { min-width:0; flex:1 1 180px; }
+.dsh-hf-prof { white-space:nowrap; }
+/* LIVE badge while still a sourced snapshot: muted, not green. */
+.dsh-live.is-snap { color:var(--t-mut); border-color:var(--t-grid2); }
+/* Spread / money-market tiles: level · 1W / 1M moves · as-of + SRC. */
+.dsh-spreads-card .dsh-spreads, #dsh-mm { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); column-gap:18px; row-gap:0; }
+.dsh-spread { flex-wrap:wrap; row-gap:2px; }
+.dsh-spread-cs { display:inline-flex; gap:8px; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-mut); }
+.dsh-spread-c.up { color:var(--t-up); } .dsh-spread-c.down { color:var(--t-down); }
+.dsh-spread-as { flex:1 0 100%; color:var(--t-faint); font-size:var(--fs-micro); }
+.dsh-tape-as { display:flex; justify-content:flex-end; gap:6px; margin-top:4px; }
+.dsh-tape-as .dsh-asof { margin-left:0; }
+.dsh-stress-as { color:var(--t-mut); white-space:nowrap; font-variant-numeric:tabular-nums; }
+a.dsh-drill { color:inherit; text-decoration:none; border-bottom:1px dotted var(--t-faint); }
+a.dsh-drill:hover { color:var(--t-ink); border-bottom-color:var(--t-ink); }
+.dsh-shape { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:14px; }
+.dsh-yc-ea { stroke:var(--t-hdg); stroke-width:2; } .dsh-yc-ea-d { fill:var(--t-hdg); }
+.dsh-yc-key.dsh-yc-ea { background:var(--t-hdg); }
+td .dsh-yc-ea { border:0; }
+.dsh-ref > .dsh-ref-sum { cursor:pointer; list-style:none; display:flex; align-items:baseline; gap:8px; }
+.dsh-ref > .dsh-ref-sum::-webkit-details-marker { display:none; }
+.dsh-ref[open] > .dsh-ref-sum { margin-bottom:8px; }
+.dsh-ref > .dsh-row2, .dsh-ref > .dsh-card { margin-top:var(--dsh-gap); }
+.dsh-ref .dsh-row2 { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:var(--dsh-gap); }
+.dsh-reg-tbl td { vertical-align:top; }
+.dsh-reg-note { color:var(--t-dim); }
+.dsh-reg-past td { color:var(--t-mut); }
+.dsh-act-tbl td.dsh-r, .dsh-act-tbl th.dsh-r { font-variant-numeric:tabular-nums; }
+.dsh-act-list { margin-top:4px; }
+/* Paired cards (.dsh-row2) are at most half the middle wide: their inner 2-up
+   splits (FedWatch | dot plot, kv grids) stack so nothing spills. */
+.dsh-row2 .dsh-fed, .dsh-row2 .dsh-kvgrid { grid-template-columns:minmax(0,1fr); }
+.dsh-act-tbl { width:100%; }
+/* Restructuring list (Legal): headline on top, date · firm/court beneath. */
+.dsh-rx .dsh-news-i { display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-areas:"head head" "date src"; column-gap:8px; row-gap:1px; }
+.dsh-rx .dsh-news-i a { grid-area:head; } .dsh-rx .dsh-news-d { grid-area:date; }
+.dsh-rx .dsh-news-s { grid-area:src; margin-left:0; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+.dsh-reg-tbl td { white-space:normal; }
+.dsh-reg-tbl td.dsh-stress-as { white-space:nowrap; }
+.dsh-reg-tbl .dsh-nm { min-width:180px; }
+.dsh-news a.dsh-drill { border-bottom:0; }

@@ -23,7 +23,7 @@ async function visibleLabels(dev) {
       if (spans.length) return spans.filter((s) => s.offsetParent !== null || getComputedStyle(s).display !== "none").map((s) => s.textContent).join("").trim();
       return chip.textContent.trim();
     };
-    return { fi: shown("fixed-income"), hf: shown("hedge-funds") };
+    return { fi: shown("rates"), hf: shown("hedge-funds"), pane: (document.querySelector(".dsh-3z") || {}).dataset?.pane || null };
   });
   checkErrs(errs, `dashboard tab labels (${dev === PHONE ? "phone" : "desktop"})`);
   await ctx.close();
@@ -31,11 +31,24 @@ async function visibleLabels(dev) {
 }
 
 const phone = await visibleLabels(PHONE);
-checkEq(phone.fi, "Bonds", "iPhone top tab bar: the Bonds tab reads 'Bonds' (one word, no short variant)");
+checkEq(phone.fi, "Rates", "iPhone top tab bar: the Rates tab reads 'Rates' (one word, no short variant)");
+checkEq(phone.pane, "credit", "Dashboard opens on the Credit sub-tab by default (R37)");
 checkEq(phone.hf, "Hedge", "iPhone top tab bar: Hedge Funds shows 'Hedge'");
 
 const desk = await visibleLabels(DESKTOP);
-checkEq(desk.fi, "Bonds", "Desktop rail: the Bonds tab reads 'Bonds'");
+checkEq(desk.fi, "Rates", "Desktop rail: the Rates tab reads 'Rates'");
+checkEq(desk.pane, "credit", "Desktop: Dashboard opens on Credit by default");
+
+// Retired sub-tab URLs (Macro, Bonds) resolve to Rates and canonicalise in place.
+for (const old of ["macro", "fixed-income"]) {
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + `/v2/dashboard/${old}/`);
+  await pg.waitForTimeout(1200);
+  const r = await pg.evaluate(() => ({ pane: document.querySelector(".dsh-3z")?.dataset.pane, path: location.pathname }));
+  checkEq(r.pane, "rates", `/v2/dashboard/${old}/ opens the merged Rates tab`);
+  check(/\/dashboard\/rates$/.test(r.path), `/v2/dashboard/${old}/ canonicalises the URL to /dashboard/rates (${r.path})`);
+  checkErrs(errs, `dashboard legacy ${old} url`);
+  await ctx.close();
+}
 checkEq(desk.hf, "Hedge Funds", "Desktop rail: Hedge Funds keeps the full label");
 
 // Phones: the section tabs pin directly under the fixed Wire header (the old global

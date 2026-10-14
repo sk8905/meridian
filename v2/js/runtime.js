@@ -46,7 +46,7 @@ const ROUTES = [
 // hashes are gone); Credit/Legal → Profiles, PRESERVING the entity hash (#/manager/…,
 // #/item/…, #/firm/…) since Profiles now owns those detail pages.
 const LEGACY_REDIRECTS = [
-  [/^\/v2\/macro(\/|$)/, () => "/v2/dashboard/macro"],
+  [/^\/v2\/macro(\/|$)/, () => "/v2/dashboard/rates"],
   [/^\/v2\/credit(\/|$)/, (u) => "/v2/profiles/" + (u.hash || "")],
   [/^\/v2\/legal(\/|$)/, (u) => "/v2/profiles/" + (u.hash || "")],
 ];

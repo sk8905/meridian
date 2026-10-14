@@ -1,7 +1,7 @@
 // Credit dashboard ▸ Private credit card: Fitch's Private Credit Default Rate +
 // market-context metrics, each a sourced value. Guards that the card renders and
 // every metric links a real source (never fabricated).
-import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
+import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
@@ -12,7 +12,7 @@ const pc = await pg.evaluate(() => {
   // The Private credit DETAIL card (with the sourced metric grid) — identified by
   // its panel header, so the terminal's top pulse-strip card (whose pills also say
   // "Private credit default rate") isn't matched instead.
-  const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => { const h = c.querySelector(".dsh-h"); return h && /private credit/i.test(h.textContent); });
+  const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => { const h = c.querySelector(".dsh-h"); return h && /^\s*US private credit/i.test(h.textContent); });
   if (!card) return null;
   const rows = [...card.querySelectorAll(".dsh-kv")];
   return {
@@ -53,15 +53,22 @@ const stress = await pg.evaluate(() => {
   if (!tbl) return null;
   const rows = [...tbl.querySelectorAll("tbody tr")];
   const ths = [...tbl.querySelectorAll("thead th")].map((t) => t.textContent.trim());
-  const statuses = rows.map((r) => (r.querySelector(".dsh-tag-stress") || {}).textContent || "");
-  // Grouped by status = a status never reappears after a different one intervened.
-  const seen = new Set(); let grouped = true, prev = null;
-  for (const s of statuses) { if (s !== prev) { if (seen.has(s)) grouped = false; seen.add(s); prev = s; } }
+  // Default order: Europe first (HQ not ", US"), then grouped by status within each region.
+  const region = (r) => (/,\s*US$/.test((r.querySelector("td.dsh-stress-hq") || {}).textContent || "") ? "US" : "Europe");
+  const regs = rows.map(region);
+  const europeFirst = regs.lastIndexOf("Europe") < (regs.indexOf("US") < 0 ? Infinity : regs.indexOf("US")) || !regs.includes("US");
+  let grouped = true;
+  for (const R of ["Europe", "US"]) {
+    const statuses = rows.filter((r) => region(r) === R).map((r) => (r.querySelector(".dsh-tag-stress") || {}).textContent || "");
+    const seen = new Set(); let prev = null;
+    for (const s of statuses) { if (s !== prev) { if (seen.has(s)) grouped = false; seen.add(s); prev = s; } }
+  }
   const leftAligned = rows.length > 0 && ["td.dsh-nm", "td.dsh-stress-sec", "td.dsh-stress-hq", "td.dsh-stress-debt"].every((sel) => { const c = tbl.querySelector(sel); return !c || getComputedStyle(c).textAlign === "left" || getComputedStyle(c).textAlign === "start"; });
   return {
     rows: rows.length,
     ths,
-    grouped,
+    grouped, europeFirst,
+    drill: rows.length > 0 && rows.every((r) => /\/v2\/transactions\/#\/credits\?q=/.test((r.querySelector("td.dsh-nm a.dsh-drill") || {}).getAttribute?.("href") || "")),
     leftAligned,
     hasSplitCols: !!tbl.querySelector("td.dsh-stress-sec") && !!tbl.querySelector("td.dsh-stress-hq") && !tbl.querySelector(".dsh-stress-sub"),
     proseNotes: tbl.querySelectorAll(".dsh-clamp2").length,
@@ -70,26 +77,24 @@ const stress = await pg.evaluate(() => {
 });
 check(stress && stress.rows > 0, `Credit: stress table renders (${stress && stress.rows})`);
 check(stress && stress.proseNotes === 0 && stress.srcOnly, "Credit: stress rows carry just an SRC link, no prose note");
-check(stress && stress.ths.join("|") === "Debtor|Sector|HQ|Debt|Status|Src" && stress.hasSplitCols, `Credit: stress table splits debtor/sector/HQ/debt into columns (${stress && stress.ths.join(", ")})`);
-check(stress && stress.grouped, "Credit: stress rows are grouped by status (same statuses adjacent)");
+check(stress && stress.ths.join("|") === "Debtor|Sector|HQ|Debt|Status|Latest|Src" && stress.hasSplitCols, `Credit: stress table splits debtor/sector/HQ/debt into columns + a dated Latest column (${stress && stress.ths.join(", ")})`);
+check(stress && stress.europeFirst, "Credit: European debtors are listed first by default");
+check(stress && stress.grouped, "Credit: stress rows are grouped by status within each region");
+check(stress && stress.drill, "Credit: every debtor drills into Transactions ▸ Credits (#/credits?q=)");
 check(stress && stress.leftAligned, "Credit: stress table columns are left-aligned");
 
-// Top pulse pills: long metric labels stack over the value (no clipped text) and
-// the private-credit rows each sit on a single line.
+// No duplicate pulse-pill strip above the cards, and each US private-credit row
+// sits on a single line.
 const layout = await pg.evaluate(() => {
-  const pills = [...document.querySelectorAll(".dsh-pills-stack .dsh-pill")];
-  const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => { const h = c.querySelector(".dsh-h"); return h && /private credit/i.test(h.textContent); });
+  const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => { const h = c.querySelector(".dsh-h"); return h && /^\s*US private credit/i.test(h.textContent); });
   const rows = card ? [...card.querySelectorAll(".dsh-pc-grid .dsh-kv")] : [];
   return {
-    nPills: pills.length,
-    stacked: pills.length > 0 && pills.every((p) => getComputedStyle(p).flexDirection === "column"),
-    clipped: pills.filter((p) => [...p.querySelectorAll(".dsh-pill-k, .dsh-pill-v")].some((e) => e.scrollWidth > e.clientWidth + 1)).length,
+    nPills: document.querySelectorAll(".dsh-pills-stack .dsh-pill").length,
     nRows: rows.length,
     maxRowH: rows.length ? Math.max(...rows.map((r) => Math.round(r.getBoundingClientRect().height))) : 0,
   };
 });
-check(layout.nPills > 0 && layout.stacked, "Credit: top pulse pills stack the label over the value");
-check(layout.clipped === 0, `Credit: no pill text is clipped/overrunning (${layout.clipped} clipped)`);
+checkEq(layout.nPills, 0, "Credit: no duplicate pulse-pill strip (the card carries the metrics once)");
 check(layout.nRows > 0 && layout.maxRowH <= 34, `Credit: each private-credit row is a single line (max ${layout.maxRowH}px)`);
 
 checkErrs(errs, "dashboard credit private-credit");

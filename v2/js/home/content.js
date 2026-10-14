@@ -170,7 +170,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <!-- Order: Key rates → Spreads → Volatility → Yield curve → Policy rate
                (three separate market gauges lead; the central-bank read follows). -->
           <section class="tui-pnl g-anchor" id="jump-rates">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/fixed-income" data-godash="fixed-income" title="Open Dashboard › Bonds">Key rates</a><span class="tui-px">%</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/rates" data-godash="rates" title="Open Dashboard › Rates">Key rates</a><span class="tui-px">%</span></header>
             <div id="g-rates" class="rates-band" aria-label="Key benchmark rates and yields">
               <div class="g-loading">Loading market rates…</div>
             </div>
@@ -190,13 +190,13 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <!-- Yield curve (the full economic-indicators grid lives on the Macro
                dashboard, /v2/macro/). -->
           <section class="tui-pnl g-anchor" id="jump-curve">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Yield curve</a><span class="tui-px">UST</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/rates" data-godash="rates" title="Open Dashboard › Rates">Yield curve</a><span class="tui-px">UST</span></header>
             <div id="g-curve" class="rates-band" aria-label="US Treasury yield curve and 2s10s slope">
               <div class="g-loading">Loading curve…</div>
             </div>
           </section>
           <section class="tui-pnl g-anchor" id="jump-macro">
-            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/macro" data-godash="macro" title="Open Dashboard › Macro">Policy rate</a><span class="tui-px">US · UK</span></header>
+            <header class="tui-ph"><a class="g-ph-link" href="/v2/dashboard/rates" data-godash="rates" title="Open Dashboard › Rates">Policy rate</a><span class="tui-px">US · UK</span></header>
             <div id="g-macro-snap" class="g-snap" aria-label="Policy rate snapshot">
               <div class="g-loading">Loading policy rate…</div>
             </div>
