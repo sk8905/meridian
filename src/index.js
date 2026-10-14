@@ -1443,7 +1443,7 @@ async function fredHistory(id, env, limit) {
   return [];
 }
 // Level + windowed changes (bp) from an ascending [ms, yield%] series.
-function windowedBpChanges(pts) {
+export function windowedBpChanges(pts) {
   if (!pts || pts.length < 2) return null;
   const lastT = pts[pts.length - 1][0], lastV = pts[pts.length - 1][1];
   const chg = (days) => { const target = lastT - days * 864e5; let cand = null; for (const [t, v] of pts) { if (t <= target) cand = v; else break; } if (cand == null) cand = pts[0][1]; return +((lastV - cand) * 100).toFixed(1); };

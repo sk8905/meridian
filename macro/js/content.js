@@ -1128,6 +1128,29 @@ export const RELEASES = [
 // vintages conflict (factbook Jan-2025 vs refinancing study Jul-2025), both
 // are shown side by side, each with its own attribution.
 export const MATWALL = {
+  // EUROPE FIRST — the reader's market. European leveraged-loan maturity wall from
+  // LCD's public PitchBook write-ups of the Morningstar European Leveraged Loan Index
+  // (ELLI). VERBATIM figures only, each row with its own vintage; `prev` is the same
+  // series at an earlier LCD reading (never a derived number). `asOfIso` drives the
+  // freshness audit (dashboard_matwall). Re-source quarterly — see
+  // docs/refresh-routines.md "Maturity wall" and backfill/matwall-sources.json.
+  europe: {
+    title: "European leveraged loans",
+    asOf: "end-Jul 2026", asOfIso: "2026-07-31", published: "2026-08-05",
+    rows: [
+      { k: "2028 loans still to refinance", v: "\u20ac38.4bn", prev: "\u20ac90.9bn Jul 2025", sub: "cut 57.7% in a year" },
+      { k: "2029 need", v: "down 30.1%", sub: "since Jul 2025" },
+      { k: "Peak year", v: "2031 \u00b7 \u20ac98.8bn" },
+      { k: "2028 wall quoted below 90", v: "39.4%", prev: "33.4% Apr 2026", sub: "secondary price" },
+      { k: "Largest 2028 sector", v: "Healthcare \u20ac6.4bn", prev: "\u20ac12.5bn Apr 2026" },
+      { k: "Software share of 2028 wall", v: "16.4%", prev: "12.5% Apr 2026" },
+      { k: "Refi + extensions, 2026 loan supply", v: "67% of \u20ac110.6bn", sub: "excl. repricings" },
+    ],
+    note: "Morningstar European Leveraged Loan Index, per LCD (PitchBook, 5 Aug 2026). Earlier LCD reading (28 Apr 2026): close to \u20ac60bn of 2028 maturities left, a similar amount in 2029, peak 2031 at \u20ac95.4bn; 19.5% of the 2028 need quoted below 80.",
+    src: { name: "PitchBook LCD \u00b7 5 Aug 2026", url: "https://pitchbook.com/news/articles/europe-tackles-2028-loan-maturity-wall-faster-than-expected-but-software-lags" },
+    srcAlt: { name: "Free copy (Yahoo Finance)", url: "https://finance.yahoo.com/markets/stocks/articles/europe-tackles-2028-loan-maturity-080033956.html" },
+    src2: { name: "PitchBook LCD \u00b7 28 Apr 2026", url: "https://finance.yahoo.com/markets/stocks/articles/europes-loan-borrowers-shrink-2028-145136190.html" },
+  },
   rated: {
     total: "$12.4tn", window: "2025\u20132029", igPct: 73,
     asOf: "as of 1 Jan 2025",

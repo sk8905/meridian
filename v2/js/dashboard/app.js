@@ -325,6 +325,14 @@ export function mount(host, ctx) {
       <div class="dsh-kv"><span class="dsh-kv-k">Rated corporate debt maturing</span><span class="dsh-kv-v">${esc(w.total)} <span class="dsh-band">${esc(w.window)}</span></span></div>
       <div class="dsh-kv"><span class="dsh-kv-k">Investment-grade share</span><span class="dsh-kv-v">${esc(String(w.igPct))}%${srcLink(w.src && w.src.url, "S&P maturity data")}</span></div>
     </div>`;
+    // Europe first (the reader's market): LCD's European leveraged-loan wall, each row
+    // with its own earlier reading where LCD published one.
+    const eu = MATWALL.europe;
+    const europe = eu && (eu.rows || []).length ? `<div class="dsh-mw-eu" data-mw="europe"><div class="dsh-pc-reports-h">${esc(eu.title || "Europe")} · LCD</div>`
+      + `<div class="dsh-kvgrid">${eu.rows.map((x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}${x.sub ? " — " + esc(x.sub) : ""}">${esc(x.k)}</span>`
+        + `<span class="dsh-kv-v">${esc(x.v)}${x.prev ? ` <span class="dsh-kv-yoy" title="earlier LCD reading">vs ${esc(x.prev)}</span>` : ""}</span></div>`).join("")}</div>`
+      + `<div class="dsh-ladder-cap">${esc(eu.note || "")}${srcLink(eu.src && eu.src.url, (eu.src && eu.src.name) || "source")}${srcLink(eu.srcAlt && eu.srcAlt.url, (eu.srcAlt && eu.srcAlt.name) || "free copy")}${srcLink(eu.src2 && eu.src2.url, (eu.src2 && eu.src2.name) || "earlier reading")}</div></div>`
+      + `<div class="dsh-pc-reports-h">Global rated corporate debt (S&amp;P)</div>` : "";
     let ladder = "";
     if (wall && Array.isArray(wall.buckets) && wall.buckets.length) {
       const max = wall.max || Math.max(...wall.buckets.map((b) => b.amt));
@@ -348,7 +356,7 @@ export function mount(host, ctx) {
       const cap = `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${wall.compNote ? ` · ${esc(wall.compNote)}` : ""}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
       ladder = `<div class="dsh-mw-wall">${table}${cap}</div>`;
     }
-    return summary + ladder;
+    return europe + summary + ladder;
   }
   // Credit wire — the desk's freshest sourced deals/intel, DE-DUPLICATED (same
   // headline on the same day collapses) and capped. A deal opens in Wire's own
@@ -441,7 +449,7 @@ export function mount(host, ctx) {
       </div>
       <h3 class="dsh-term-lbl">Stress &amp; refinancing</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall ${asOf(MATWALL && MATWALL.ratedWall && MATWALL.ratedWall.asOf)}</h3><div class="dsh-scroll">${maturityHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall ${asOf(MATWALL && ((MATWALL.europe && MATWALL.europe.asOf) || (MATWALL.ratedWall && MATWALL.ratedWall.asOf)))}</h3><div class="dsh-scroll">${maturityHTML()}</div></section>
       <h3 class="dsh-term-lbl">Activity</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3>${activityHTML()}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;

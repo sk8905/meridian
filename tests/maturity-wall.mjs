@@ -4,6 +4,7 @@
 // the composition into a cramped stack. On phones it now RESTACKS into a two-line
 // block per year (Year · bar+$ · cumulative %, then the region composition inline) —
 // every figure preserved, nothing clipped, nothing scrolling. Desktop stays the table.
+import { MATWALL } from "../macro/js/content.js";
 import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
@@ -41,6 +42,24 @@ const base = `http://localhost:${srv.port}`;
   checkEq(r.compDisplay, "inline", "phone: region composition items sit inline on their own line (not a cramped stacked column)");
   check(r.trackW >= 60, `phone: the maturity bar is legible again, not a 30px sliver (track ${r.trackW}px)`);
   check(r.cums.length === 5 && r.cums.every(Boolean) && r.cums[4] === "100%", `phone: every cumulative % is preserved and reaches 100% (${r.cums.join(" ")})`);
+  // Europe first: LCD's European leveraged-loan wall leads the card, every row shown,
+  // dated, with a source link — ahead of the global S&P ladder.
+  const eu = await pg.evaluate(() => {
+    const e = document.querySelector('[data-mw="europe"]'), t = document.querySelector(".dsh-mw-tbl");
+    if (!e) return null;
+    return { rows: e.querySelectorAll(".dsh-kv").length, first: !!(e.compareDocumentPosition(t) & Node.DOCUMENT_POSITION_FOLLOWING),
+      links: [...e.querySelectorAll("a[href]")].map((a) => a.href), text: e.textContent, head: (e.closest("section").querySelector(".dsh-h") || {}).textContent || "", right: Math.round(e.getBoundingClientRect().right) };
+  });
+  check(eu, "phone: the Europe maturity block renders");
+  if (eu) {
+    checkEq(eu.rows, MATWALL.europe.rows.length, "phone: every European maturity row renders");
+    check(eu.first, "phone: Europe leads the maturity card, ahead of the global S&P ladder");
+    check(eu.links.some((h) => /pitchbook\.com|yahoo\.com/.test(h)), "phone: the European figures link their LCD source");
+    check(eu.head.includes(MATWALL.europe.asOf) && eu.text.includes("€38.4bn"), "phone: the card head carries the European data date; the block shows the verbatim 2028 figure");
+    check(eu.right <= r.clientW + 1, "phone: the European block fits the screen");
+  }
+  check(/^\d{4}-\d{2}-\d{2}$/.test(MATWALL.europe.asOfIso || ""), "data: MATWALL.europe carries an ISO as-of for the freshness audit");
+  check(MATWALL.europe.rows.every((x) => x.k && x.v), "data: every European row has a label and a value");
   checkErrs(errs, "phone maturity wall");
   await ctx.close();
 }

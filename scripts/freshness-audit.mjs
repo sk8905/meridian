@@ -198,7 +198,8 @@ const SURFACES = [
   stampSurface("dashboard_eu_distress", "Dashboard ▸ Europe defaults & distress", (DASH.EU_DISTRESS || {}).asOf, 45),
   stampSurface("dashboard_regcal", "Dashboard ▸ Legal regulatory calendar", (DASH.REG_CALENDAR || {}).asOf, 90),
   stampSurface("dashboard_fedwatch", "Dashboard ▸ Rates CME FedWatch / SONIA odds", _isoDay((((MAC.OUTLOOK || {}).us || {}).fedwatch || {}).asOf), 14),
-  stampSurface("dashboard_matwall", "Dashboard ▸ Credit maturity wall (S&P vintage)", _isoDay(String((((MAC.MATWALL || {}).ratedWall) || {}).asOf || "").replace(/^\D*(?=\d)/, "")), 400),
+  // Europe-first block (LCD, quarterly) when present; else the S&P global vintage.
+  stampSurface("dashboard_matwall", "Dashboard ▸ Credit maturity wall (Europe LCD / S&P)", ((MAC.MATWALL || {}).europe || {}).asOfIso || _isoDay(String((((MAC.MATWALL || {}).ratedWall) || {}).asOf || "").replace(/^\D*(?=\d)/, "")), ((MAC.MATWALL || {}).europe || {}).asOfIso ? 150 : 400),
   stampSurface("dashboard_market_sizes", "Dashboard ▸ Rates market-sizes matrix", (MAC.MARKET_SIZES || {}).asOf, 120),
   asOfSurface("hf_aum", "Hedge-fund AUM (net aumAsOf or SEC regulatory raumAsOf)", CR.HEDGE_FUNDS, ["aumAsOf", "raumAsOf"], 540),
   asOfSurface("lp_profiles", "Investor (LP) profiles (asOf)", CR.lps, "asOf", 365),
@@ -289,7 +290,7 @@ for (const s of staleSurfaces) {
     dashboard_eu_distress: "Refresh EU_DISTRESS (dashboard/js/data.js): latest LCD ELLI / Fitch / S&P European default rates + the Insolvency Service monthly release; set asOf.",
     dashboard_regcal: "Review REG_CALENDAR (dashboard/js/data.js): add newly confirmed AIFMD II / ELTIF / FCA / CRR dates; set asOf.",
     dashboard_fedwatch: "Refresh OUTLOOK fedwatch + uk.sonia odds and the ECB/BoE/Fed next-meeting fields (macro/js/content.js).",
-    dashboard_matwall: "Replace MATWALL.ratedWall with S&P's latest per-year maturity split (whole series + asOf together).",
+    dashboard_matwall: "Re-source MATWALL.europe from the newest LCD/PitchBook European maturity-wall write-up (leads in backfill/matwall-sources.json) — every row verbatim, asOf + asOfIso together; replace MATWALL.ratedWall only when S&P publishes a fresher per-year split.",
     dashboard_market_sizes: "Refresh MARKET_SIZES from each source's latest release (macro/js/content.js).",
     hf_aum: "Regulatory AUM is refreshed daily from SEC Form ADV (collect-sec Action → apply-sec); for funds with no SEC filing, refresh net AUM from firm disclosures and set aumAsOf to the figure's date.",
     lp_profiles: "Refresh investor (LP) profiles from their latest annual reports; set asOf to the report date.",

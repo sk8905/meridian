@@ -269,6 +269,8 @@
    AIMA/ACC) — a compact list of linked report titles beneath the metric grid. */
 .dsh-pc-reports { margin-top:8px; }
 .dsh-pc-reports-h { font-family:var(--t-mono); font-size:var(--fs-micro); font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--t-faint); margin-bottom:3px; }
+.dsh-mw-eu { margin-bottom:10px; }
+.dsh-mw-eu .dsh-ladder-cap { margin-top:4px; }
 .dsh-pc-report { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:4px 0; border-top:1px solid var(--t-grid); text-decoration:none; }
 .dsh-pc-report-t { color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; min-width:0; }
 .dsh-pc-report:hover .dsh-pc-report-t { color:var(--t-accent); }

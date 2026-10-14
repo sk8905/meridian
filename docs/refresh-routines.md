@@ -718,6 +718,28 @@ a `deals`/`intel` record with `sourceUrl` = the page and a summary ONLY from its
 description. Dedupe on manager + URL and headline. Skip careers, events, ESG
 boilerplate and generic market commentary.
 
+## Maturity wall (`backfill/matwall-sources.json`) — Europe first, quarterly
+
+The Dashboard maturity card leads with `MATWALL.europe` (macro/js/content.js): the
+European leveraged-loan wall from LCD's public PitchBook write-ups of the Morningstar
+European Leveraged Loan Index (free copies are usually syndicated on Yahoo Finance),
+then S&P's global rated ladder (`ratedWall`). A weekly GitHub Action
+(`.github/workflows/collect-matwall.yml`, Mondays) runs `scripts/collect-matwall.mjs`:
+recent European maturity-wall headlines (`leads`, `newer: true` = published after the
+held write-up) plus the maturity-schedule lines of the free official PDFs (S&P UBS
+Western European Leveraged Loan Index dashboard, AFME's quarterly European HY /
+leveraged loan / private credit report) under `docs`.
+
+When a `newer` lead (or a doc's `lines`) states fresher European maturity figures:
+open the article/PDF, copy each figure **verbatim** into `MATWALL.europe.rows`
+(`{k, v, prev?, sub?}` — `prev` only when the source itself states the earlier reading),
+and set `asOf` (data date, words), `asOfIso`, `published`, `note` and `src`/`srcAlt`
+together. Never derive, interpolate or mix two vintages in one row; a figure the new
+source doesn't restate keeps its row only if its own vintage is still within the
+quarter, otherwise drop it. The freshness audit flags `dashboard_matwall` once
+`asOfIso` is >150 days old. Replace `ratedWall` only when S&P publishes a fresher
+per-year split (whole series + asOf together).
+
 ## Profile rota (`scripts/profile-rota.mjs`) — slow data no feed refreshes
 
 `node scripts/profile-rota.mjs` prints this run's bounded slice, oldest first. Work it

@@ -61,13 +61,43 @@ export function mergeSnapshot(cur, { eq = [], world = [], gy = [], ytd = {} } = 
       if (row.country !== "United States") continue;
       let n = 0;
       for (const k of ["y2", "y5", "y10", "y30"]) if (us[k] && us[k].v != null) { row[k] = us[k].v; n++; }
-      if (n) { row.asOf = today(); row.source = "https://fred.stlouisfed.org/series/DGS10"; log.push(`GOVT_YIELDS United States → ${n} tenors`); }
+      if (n) { row.asOf = us.asOf || today(); row.source = us.href || "https://fred.stlouisfed.org/series/DGS10"; log.push(`GOVT_YIELDS United States → ${n} tenors${us.via ? " (" + us.via + ")" : ""}`); }
     }
     out.GOVT_YIELD_CHG = out.GOVT_YIELD_CHG || {};
     const chg = out.GOVT_YIELD_CHG["United States"] = out.GOVT_YIELD_CHG["United States"] || {};
     for (const k of ["y2", "y5", "y10", "y30"]) if (us[k]) chg[k] = { w1: us[k].w1, m1: us[k].m1, m3: us[k].m3, m6: us[k].m6, y1: us[k].y1 };
   }
   return { out, log };
+}
+
+// US Treasury's own daily par yield curve (home.treasury.gov, free, no key) — the
+// fallback when FRED returns nothing (FRED needs an API key outside the browser).
+// CSV: Date (MM/DD/YYYY), "1 Mo", …, "2 Yr", "5 Yr", "10 Yr", "30 Yr". Pure; unit-tested.
+export const TREASURY_PAGE = "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve";
+export function treasuryCurve(csvTexts, changes) {
+  const cols = { y2: "2 Yr", y5: "5 Yr", y10: "10 Yr", y30: "30 Yr" }, pts = { y2: [], y5: [], y10: [], y30: [] };
+  for (const txt of csvTexts) {
+    const lines = String(txt || "").trim().split(/\r?\n/); if (lines.length < 2) continue;
+    const hdr = lines[0].split(",").map((h) => h.replace(/"/g, "").trim());
+    for (const line of lines.slice(1)) {
+      const c = line.split(","), m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(c[0]).trim()); if (!m) continue;
+      const t = Date.UTC(+m[3], +m[1] - 1, +m[2]);
+      for (const [k, h] of Object.entries(cols)) { const v = parseFloat(c[hdr.indexOf(h)]); if (Number.isFinite(v)) pts[k].push([t, v]); }
+    }
+  }
+  const us = { country: "United States", href: TREASURY_PAGE, via: "US Treasury" };
+  let last = 0;
+  for (const k of Object.keys(pts)) {
+    const p = pts[k].sort((a, b) => a[0] - b[0]).filter((x, i, a) => !i || x[0] !== a[i - 1][0]);
+    const c = changes(p); if (c) { us[k] = c; last = Math.max(last, p[p.length - 1][0]); }
+  }
+  if (last) us.asOf = new Date(last).toISOString().slice(0, 10);
+  return us;
+}
+async function treasuryUs(changes) {
+  const y = new Date().getUTCFullYear();
+  const get = async (yr) => { try { const r = await fetch(`https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/${yr}/all?type=daily_treasury_yield_curve&field_tdr_date_value=${yr}&page&_format=csv`, { headers: { "user-agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(20000) }); return r.ok ? await r.text() : ""; } catch { return ""; } };
+  return treasuryCurve([await get(y - 1), await get(y)], changes);
 }
 
 async function yahooYtd(symbol) {
@@ -89,7 +119,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const call = async (fn, path) => { try { const r = await fn(new Request("https://wire.local" + path), {}, null); return await r.json(); } catch (e) { console.error(path, String(e).slice(0, 120)); return {}; } };
   const eq = (await call(W.handleEqIndices, "/api/eqindices")).indices || [];
   const world = (await call(W.handleWorldIndices, "/api/worldindices")).indices || [];
-  const gy = (await call(W.handleGovYields, "/api/govyields")).yields || [];
+  let gy = (await call(W.handleGovYields, "/api/govyields")).yields || [];
+  const usLive = gy.find((x) => x.country === "United States");
+  if (!usLive || !(usLive.y10 && usLive.y10.v != null)) gy = [await treasuryUs(W.windowedBpChanges), ...gy.filter((x) => x.country !== "United States")];
   const ytd = {};
   for (const s of W.DASH_INDEX_SERIES || []) ytd[s.id] = await yahooYtd(s.symbol);
   const D = await import("../dashboard/js/data.js");
