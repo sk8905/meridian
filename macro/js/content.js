@@ -1153,6 +1153,22 @@ export const MATWALL = {
     srcAlt: { name: "Free copy (Yahoo Finance)", url: "https://finance.yahoo.com/markets/stocks/articles/europe-tackles-2028-loan-maturity-080033956.html" },
     src2: { name: "PitchBook LCD \u00b7 28 Apr 2026", url: "https://finance.yahoo.com/markets/stocks/articles/europes-loan-borrowers-shrink-2028-145136190.html" },
   },
+  // European leveraged-loan maturity wall BY YEAR — S&P UBS Western European
+  // Leveraged Loan Index, par amount maturing (EUR bn), VERBATIM from the bar labels
+  // of S&P DJI's free monthly index dashboard (one vintage for the whole series).
+  // S&P refuses automated downloads, so the owner supplies each month's dashboard;
+  // replace the WHOLE series + asOf/asOfIso together (refresh-routines.md "Maturity wall").
+  europeWall: {
+    title: "European leveraged loans by year",
+    unit: "\u20acbn", asOf: "30 Sep 2026", asOfIso: "2026-09-30",
+    buckets: [
+      { y: "2026", amt: 0.58 }, { y: "2027", amt: 9.44 }, { y: "2028", amt: 48.53 }, { y: "2029", amt: 61.35 },
+      { y: "2030", amt: 65.74 }, { y: "2031", amt: 146.18 }, { y: "2032", amt: 120.94 }, { y: "2033", amt: 55.54 },
+    ],
+    note: "S&P UBS Western European Leveraged Loan Index \u2014 par amount maturing by year (EUR, GBP and USD loans of Western European borrowers).",
+    src: { name: "S&P DJI index dashboard \u00b7 30 Sep 2026", url: "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf" },
+    src2: { name: "Index page", url: "https://www.spglobal.com/spdji/en/indices/fixed-income/sp-ubs-western-european-leveraged-loan-index" },
+  },
   rated: {
     total: "$12.4tn", window: "2025\u20132029", igPct: 73,
     asOf: "as of 1 Jan 2025",

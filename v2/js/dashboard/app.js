@@ -318,6 +318,20 @@ export function mount(host, ctx) {
       + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Latest</th><th>Src</th></tr></thead>`
       + `<tbody>${stressRows().map(row).join("")}</tbody></table></div></div>`;
   }
+  // European loan maturities by year (S&P UBS index dashboard) — bar + cumulative %,
+  // figures exactly as the dashboard's bar labels.
+  function euWallHTML() {
+    const ew = MATWALL && MATWALL.europeWall;
+    if (!ew || !(ew.buckets || []).length) return "";
+    const max = Math.max(...ew.buckets.map((b) => b.amt || 0)) || 1, tot = ew.buckets.reduce((s, b) => s + (b.amt || 0), 0) || 1;
+    let cum = 0;
+    const row = (b) => { cum += b.amt || 0; const pct = Math.max(2, Math.round((b.amt / max) * 100));
+      return `<tr><td class="dsh-nm">${esc(b.y)}</td><td class="dsh-mw-barcell"><span class="dsh-mw-track"><span class="dsh-mw-fill" style="width:${pct}%"></span></span>`
+        + `<span class="dsh-mw-hval">€${esc(b.amt.toFixed(2))}bn</span></td><td class="dsh-r">${Math.round((cum / tot) * 100)}%</td></tr>`; };
+    return `<div class="dsh-mw-eu dsh-mw-euwall" data-mw="europe-wall"><div class="dsh-pc-reports-h">${esc(ew.title || "By year")}</div>`
+      + `<table class="dsh-tbl dsh-mw-tbl dsh-mw-eutbl"><thead><tr><th>Year</th><th>Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${ew.buckets.map(row).join("")}</tbody></table>`
+      + `<div class="dsh-ladder-cap">${esc(ew.note || "")} Data as of ${esc(ew.asOf || "")}.${srcLink(ew.src && ew.src.url, (ew.src && ew.src.name) || "source")}${srcLink(ew.src2 && ew.src2.url, (ew.src2 && ew.src2.name) || "index page")}</div></div>`;
+  }
   function maturityHTML() {
     const w = MATWALL && MATWALL.rated, wall = MATWALL && MATWALL.ratedWall;
     if (!w) return "";
@@ -356,7 +370,7 @@ export function mount(host, ctx) {
       const cap = `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${wall.compNote ? ` · ${esc(wall.compNote)}` : ""}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
       ladder = `<div class="dsh-mw-wall">${table}${cap}</div>`;
     }
-    return europe + summary + ladder;
+    return euWallHTML() + europe + summary + ladder;
   }
   // Credit wire — the desk's freshest sourced deals/intel, DE-DUPLICATED (same
   // headline on the same day collapses) and capped. A deal opens in Wire's own
@@ -449,7 +463,7 @@ export function mount(host, ctx) {
       </div>
       <h3 class="dsh-term-lbl">Stress &amp; refinancing</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall ${asOf(MATWALL && ((MATWALL.europe && MATWALL.europe.asOf) || (MATWALL.ratedWall && MATWALL.ratedWall.asOf)))}</h3><div class="dsh-scroll">${maturityHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall ${asOf(MATWALL && ((MATWALL.europeWall && MATWALL.europeWall.asOf) || (MATWALL.europe && MATWALL.europe.asOf) || (MATWALL.ratedWall && MATWALL.ratedWall.asOf)))}</h3><div class="dsh-scroll">${maturityHTML()}</div></section>
       <h3 class="dsh-term-lbl">Activity</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3>${activityHTML()}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;

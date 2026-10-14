@@ -17,7 +17,7 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForSelector(".dsh-mw-tbl", { timeout: 8000 });
   await pg.waitForTimeout(400);
   const r = await pg.evaluate(() => {
-    const tbl = document.querySelector(".dsh-mw-tbl");
+    const tbl = document.querySelector(".dsh-mw-tbl:not(.dsh-mw-eutbl)");
     const rows = [...tbl.querySelectorAll("tbody tr")];
     const clientW = document.documentElement.clientWidth;
     // Nothing in the table may cross the screen edge (the old "Cumulati" clip).
@@ -45,7 +45,7 @@ const base = `http://localhost:${srv.port}`;
   // Europe first: LCD's European leveraged-loan wall leads the card, every row shown,
   // dated, with a source link — ahead of the global S&P ladder.
   const eu = await pg.evaluate(() => {
-    const e = document.querySelector('[data-mw="europe"]'), t = document.querySelector(".dsh-mw-tbl");
+    const e = document.querySelector('[data-mw="europe"]'), t = document.querySelector(".dsh-mw-tbl:not(.dsh-mw-eutbl)");
     if (!e) return null;
     return { rows: e.querySelectorAll(".dsh-kv").length, first: !!(e.compareDocumentPosition(t) & Node.DOCUMENT_POSITION_FOLLOWING),
       links: [...e.querySelectorAll("a[href]")].map((a) => a.href), text: e.textContent, head: (e.closest("section").querySelector(".dsh-h") || {}).textContent || "", right: Math.round(e.getBoundingClientRect().right) };
@@ -55,9 +55,15 @@ const base = `http://localhost:${srv.port}`;
     checkEq(eu.rows, MATWALL.europe.rows.length, "phone: every European maturity row renders");
     check(eu.first, "phone: Europe leads the maturity card, ahead of the global S&P ladder");
     check(eu.links.some((h) => /pitchbook\.com|yahoo\.com/.test(h)), "phone: the European figures link their LCD source");
-    check(eu.head.includes(MATWALL.europe.asOf) && eu.text.includes("€38.4bn"), "phone: the card head carries the European data date; the block shows the verbatim 2028 figure");
+    check(eu.head.includes(MATWALL.europeWall.asOf) && eu.text.includes("€38.4bn"), "phone: the card head carries the newest European data date; the LCD block shows the verbatim 2028 figure");
+    const ew = await pg.evaluate(() => { const w = document.querySelector('[data-mw="europe-wall"]'); const first = document.querySelector('.dsh-card [data-mw]');
+      return w && { rows: [...w.querySelectorAll("tbody tr")].map((tr) => tr.textContent.replace(/\s+/g, " ").trim()), first: first === w, links: [...w.querySelectorAll("a[href]")].map((a) => a.href), right: Math.round(w.getBoundingClientRect().right) }; });
+    check(ew && ew.first, "phone: the European by-year wall leads the maturity card");
+    check(ew && ew.rows.length === MATWALL.europeWall.buckets.length && ew.rows.some((r) => /2031/.test(r) && /€146\.18bn/.test(r)), "phone: every European maturity year renders with its exact par amount (2031 €146.18bn)");
+    check(ew && ew.links.some((h) => /spglobal\.com\/spdji/.test(h)) && ew.right <= r.clientW + 1, "phone: the by-year wall links S&P DJI's dashboard and fits the screen");
     check(eu.right <= r.clientW + 1, "phone: the European block fits the screen");
   }
+  check(/^\d{4}-\d{2}-\d{2}$/.test(MATWALL.europeWall.asOfIso || "") && MATWALL.europeWall.buckets.every((b) => /^20\d\d$/.test(b.y) && b.amt > 0), "data: MATWALL.europeWall is one dated series of year → par amount");
   check(/^\d{4}-\d{2}-\d{2}$/.test(MATWALL.europe.asOfIso || ""), "data: MATWALL.europe carries an ISO as-of for the freshness audit");
   check(MATWALL.europe.rows.every((x) => x.k && x.v), "data: every European row has a label and a value");
   checkErrs(errs, "phone maturity wall");
@@ -70,7 +76,7 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForSelector(".dsh-mw-tbl", { timeout: 8000 });
   await pg.waitForTimeout(400);
   const d = await pg.evaluate(() => {
-    const tbl = document.querySelector(".dsh-mw-tbl");
+    const tbl = document.querySelector(".dsh-mw-tbl:not(.dsh-mw-eutbl)");
     const ths = [...tbl.querySelectorAll("thead th")].map((th) => th.textContent.trim());
     return { theadDisplay: getComputedStyle(tbl.querySelector("thead")).display, ths };
   });

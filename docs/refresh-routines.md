@@ -730,6 +730,14 @@ held write-up) plus the maturity-schedule lines of the free official PDFs (S&P U
 Western European Leveraged Loan Index dashboard, AFME's quarterly European HY /
 leveraged loan / private credit report) under `docs`.
 
+**By-year European loan wall (`MATWALL.europeWall`).** S&P DJI's free monthly
+"Dashboard: S&P UBS Western European Leveraged Loan Indices" charts the index's par
+amount maturing by year with each bar LABELLED (EUR bn). S&P refuses automated
+downloads (403 from routines and Actions alike), so the owner supplies it (PDF or
+screenshot) after each month end; copy every labelled bar verbatim and replace the
+whole series with `asOf` (the dashboard's "Data as of" date) and `asOfIso` together.
+Never read a value off an unlabelled bar.
+
 When a `newer` lead (or a doc's `lines`) states fresher European maturity figures:
 open the article/PDF, copy each figure **verbatim** into `MATWALL.europe.rows`
 (`{k, v, prev?, sub?}` — `prev` only when the source itself states the earlier reading),

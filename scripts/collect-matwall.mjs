@@ -32,12 +32,10 @@ export const QUERIES = [
 // month-stamped copies and Japanese mirror are alternates); `follow` = a listing page
 // whose report link (then PDF) is followed; kind "page" = an HTML article (its own
 // published date is read); kind "rss" = a feed (on-topic items kept).
-const ym = (k) => { const d = new Date(); d.setUTCDate(1); d.setUTCMonth(d.getUTCMonth() - k); return d.toISOString().slice(0, 7); };
 export const DOCS = [
+  // Only addresses S&P DJI is known to publish (seen in search results) — no guessed URLs.
   { id: "spdji_weu_ll", name: "S&P UBS Western European Leveraged Loan Index dashboard", urls: [
     "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf",
-    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf",
-    ...[1, 2, 3].map((k) => `https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-${ym(k)}.pdf`),
     "https://www.spglobal.com/spdji/jp/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf",
   ] },
   { id: "afme_hyll", name: "AFME data & research (HY / leveraged loan / private credit reports)", urls: ["https://www.afme.eu/publications/data-research"], follow: /european-high-yield[^"'#?]*report[^"'#?]*/i },

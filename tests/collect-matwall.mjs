@@ -23,7 +23,7 @@ checkEq(maturityLines("no schedule here").length, 0, "a document without a matur
 
 const pf = pageFacts('<meta property="article:published_time" content="2026-01-30T10:00:00+00:00"><p>Fitch: 40% of EMEA leveraged loans mature in 2028-2029.</p><p>Unrelated shipping news paragraph here.</p>', /matur/i);
 check(pf.published === "2026-01-30" && pf.paras.length === 1 && /40%/.test(pf.paras[0]), "an article page yields its own published date and the on-topic paragraphs");
-check(DOCS.find((d) => d.id === "spdji_weu_ll").urls.length >= 4, "the S&P loan-index report has alternate copies to try");
+check(DOCS.find((d) => d.id === "spdji_weu_ll").urls.length >= 2 && DOCS.every((d) => d.urls.every((u) => !/-20\d\d-\d\d\.pdf$/.test(u))), "the S&P loan-index report has a known alternate copy; no guessed month-stamped URLs");
 check(QUERIES.some((q) => /Europe/i.test(q)) && DOCS.every((d) => d.urls.every((u) => /^https:\/\//.test(u))), "European queries and free official documents are configured");
 check(MATWALL.europe && /^\d{4}-\d{2}-\d{2}$/.test(MATWALL.europe.published || ""), "the held European block records its source's publication date");
 finish();
