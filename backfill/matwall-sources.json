@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T10:37:20.541Z",
+ "generated": "2026-10-14T11:44:26.964Z",
  "held": "2026-08-05",
  "leads": [
   {
@@ -73,16 +73,13 @@
    "status": "unreachable",
    "tried": [
     "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf → 403",
-    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf → 403",
-    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-2026-09.pdf → 403",
-    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-2026-08.pdf → 403",
-    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-2026-07.pdf → 403",
     "https://www.spglobal.com/spdji/jp/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf → 403"
    ]
   },
   {
    "id": "afme_hyll",
    "name": "AFME data & research (HY / leveraged loan / private credit reports)",
+   "renderTo": "backfill/matwall-afme",
    "ok": true,
    "status": 200,
    "fetched": "https://www.afme.eu/media/1ygbf3ae/hyllpc-report-2q-2026.pdf",
@@ -99,6 +96,45 @@
     "In Q2 2026, the primary use of proceeds was refinancing, which accounted for 59.5% of total issuance, followed by general",
     "corporate purposes at 26%. The share of refinancing-related issuance has remained strong, after reaching the highest value in",
     "Yields are calculated to a three-year call. While most direct loans have a 5- to 7-year stated maturity, refinancing and corporate events reduce their average life to about 3"
+   ],
+   "charts": [
+    {
+     "page": 26,
+     "png": "backfill/matwall-afme-p26.png",
+     "text": [
+      "Power BI Desktop",
+      "High Yield Bonds Overview",
+      "6.7 European Corporate Bonds Outstanding 6.8 European Corporate High Yield Maturity Wall",
+      "Investment Grade High Yield Financials Non-Financials",
+      "6",
+      "100",
+      "EUR Trillions",
+      "EUR Billions",
+      "4",
+      "50",
+      "2",
+      "0",
+      "21 21 21 2 2 2 2 3 3 3 3 4 4 4 4 5 5 5 5 6 6 0",
+      "un- ep- ec- ar-2 un-2 ep-2 ec-2 ar-2 un-2 ep-2 ec-2 ar-2 un-2 ep-2 ec-2 ar-2 un-2 ep-2 ec-2 ar-2 un-2 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46",
+      "J S D M J S D M J S D M J S D M J S D M J 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20",
+      "6.9 European Corporate High Yield Outstanding by Sector: June 2026 6.10 European Corporate High Yield Outstanding by Current Rating:",
+      "June 2026",
+      "Consumer Staples 4.6%",
+      "Energy 5.6% Financials 20.6%",
+      "200",
+      "Health Care 6.7%",
+      "EUR Billions",
+      "Industrials 7.4%",
+      "100",
+      "Consumer Discretionary",
+      "Materials 8.5% 18.0%",
+      "Utilities 10.2% 0",
+      "Communications 15.9% BB+ BB BB- B+ B B- CCC+ CCC Remaining",
+      "HY",
+      "Source: SIFMA",
+      "High Yield, Leveraged Loan and Private Credit Report - Q2 2026 / 26"
+     ]
+    }
    ],
    "note": null,
    "tried": [
@@ -124,9 +160,17 @@
   {
    "id": "maalot_pubs",
    "name": "Maalot (S&P affiliate) — free S&P research PDFs",
-   "status": "unreachable",
+   "kind": "page",
+   "pdfLinks": true,
+   "ok": true,
+   "status": 200,
+   "fetched": "https://www.maalot.co.il/",
+   "published": null,
+   "paras": [],
+   "pdfs": [],
    "tried": [
-    "https://www.maalot.co.il/Publications → 404"
+    "https://www.maalot.co.il/en → 404",
+    "https://www.maalot.co.il/ → 200"
    ]
   },
   {
