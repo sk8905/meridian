@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T17:34:27.855Z",
+ "generated": "2026-10-14T22:01:24.212Z",
  "since": "2026-09-30",
  "firms": {
   "proskauerrose": {
@@ -43,17 +43,15 @@
    "errors": 0,
    "carried": 0
   },
-  "linklaters": {
+  "ashurst": {
    "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
+    "www.ashurst.com"
    ],
-   "sitemaps": 6,
-   "urls": 17766,
-   "kept": 16,
-   "fetched": 9,
-   "errors": 7,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1,
    "carried": 0
   },
   "hsf": {
@@ -67,41 +65,17 @@
    "errors": 1,
    "carried": 0
   },
-  "ashurst": {
+  "linklaters": {
    "domains": [
-    "www.ashurst.com"
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1,
-   "carried": 0
-  },
-  "aoshearman": {
-   "domains": [
-    "www.aoshearman.com",
-    "www.lit-antitrust.aoshearman.com",
-    "finreg.aoshearman.com"
-   ],
-   "sitemaps": 5,
-   "urls": 16530,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
-  "simmons": {
-   "domains": [
-    "www.simmons-simmons.com"
-   ],
-   "sitemaps": 1,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [],
-   "disallowed": 1,
+   "sitemaps": 6,
+   "urls": 17766,
+   "kept": 15,
+   "fetched": 8,
+   "errors": 7,
    "carried": 0
   },
   "macfarlanes": {
@@ -126,6 +100,32 @@
    "errors": 0,
    "carried": 0
   },
+  "simmons": {
+   "domains": [
+    "www.simmons-simmons.com"
+   ],
+   "sitemaps": 1,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 0,
+   "samples": [],
+   "disallowed": 1,
+   "carried": 0
+  },
+  "aoshearman": {
+   "domains": [
+    "www.aoshearman.com",
+    "www.lit-antitrust.aoshearman.com",
+    "finreg.aoshearman.com"
+   ],
+   "sitemaps": 5,
+   "urls": 16530,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "latham": {
    "domains": [
     "www.lw.com"
@@ -133,8 +133,8 @@
    "sitemaps": 9,
    "urls": 20128,
    "kept": 12,
-   "fetched": 10,
-   "errors": 2,
+   "fetched": 9,
+   "errors": 3,
    "carried": 0
   },
   "kirkland": {
@@ -142,7 +142,7 @@
     "www.kirkland.com"
    ],
    "sitemaps": 11,
-   "urls": 17400,
+   "urls": 17401,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -159,16 +159,15 @@
    "errors": 0,
    "carried": 0
   },
-  "cleary": {
+  "sidley": {
    "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
+    "www.sidley.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 2,
+   "sitemaps": 7,
+   "urls": 7577,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -201,15 +200,16 @@
    ],
    "carried": 0
   },
-  "sidley": {
+  "davispolk": {
    "domains": [
-    "www.sidley.com"
+    "www.davispolk.com",
+    "davispolk.com"
    ],
-   "sitemaps": 6,
-   "urls": 7177,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 11,
+   "sitemaps": 11,
+   "urls": 16192,
+   "kept": 9,
+   "fetched": 9,
+   "errors": 0,
    "carried": 0
   },
   "stephensonharwood": {
@@ -231,24 +231,12 @@
    ],
    "carried": 0
   },
-  "davispolk": {
-   "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
-   ],
-   "sitemaps": 11,
-   "urls": 16192,
-   "kept": 10,
-   "fetched": 10,
-   "errors": 0,
-   "carried": 0
-  },
   "klgates": {
    "domains": [
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12279,
+   "urls": 12281,
    "kept": 17,
    "fetched": 17,
    "errors": 0,
@@ -259,9 +247,25 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11560,
-   "kept": 9,
-   "fetched": 9,
+   "urls": 11564,
+   "kept": 10,
+   "fetched": 10,
+   "errors": 0,
+   "carried": 0
+  },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7756,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -269,11 +273,11 @@
    "domains": [
     "www.hoganlovells.com"
    ],
-   "sitemaps": 1,
-   "urls": 10687,
+   "sitemaps": 2,
+   "urls": 21375,
    "kept": 0,
    "fetched": 0,
-   "errors": 1,
+   "errors": 0,
    "samples": [
     "https://www.hlc.com/en/knowledge @2023-12-08",
     "https://www.hlc.com/de/knowledge @2023-12-08",
@@ -282,6 +286,29 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18691,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
+  "mayerbrown": {
+   "domains": [
+    "www.mayerbrown.com"
+   ],
+   "sitemaps": 9,
+   "urls": 16327,
+   "kept": 21,
+   "fetched": 21,
+   "errors": 0,
    "carried": 0
   },
   "southsquare": {
@@ -303,33 +330,6 @@
    ],
    "carried": 0
   },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "governance.weil.com",
-    "restructuring.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "european-disputes-blog.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7754,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
-  "mayerbrown": {
-   "domains": [
-    "www.mayerbrown.com"
-   ],
-   "sitemaps": 9,
-   "urls": 16326,
-   "kept": 21,
-   "fetched": 21,
-   "errors": 0,
-   "carried": 0
-  },
   "cliffordchance": {
    "domains": [
     "www.cliffordchance.com"
@@ -344,22 +344,13 @@
  },
  "items": [
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-banks-on-a-new-agented-cmbs-for-mileway-uk",
-   "title": "Linklaters advises banks on a new agented CMBS for Mileway UK",
-   "description": "Linklaters has advised Barclays Bank PLC, BNP Paribas, SMBC Bank International plc, Standard Chartered Bank and Wells Fargo Securities International Limited in connection with the issuance by UK Logistics 2026-4 DAC of £982,200,000 commercial mortgage-backed floating rate (CMBS) notes due 2036.",
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-captona-on-preferred-equity-investment-with-nexamp",
+   "title": "Kirkland Advises Captona on Preferred Equity Investment with Nexamp",
+   "description": null,
    "date": "2026-10-14",
    "dateSource": "page date label",
-   "lastmod": "2026-10-14"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-guides-airtel-money-on-londons-largest-ipo-since-2021",
-   "title": "AO Shearman guides Airtel Money on Londons largest IPO since 2021",
-   "description": "A&O Shearman advised Airtel Money on its GBP5.3bn London Stock Exchange IPO, the largest London IPO since 2021 and Europe's second-largest this year.",
-   "date": "2026-10-14",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-14"
+   "lastmod": null
   },
   {
    "firm": "kirkland",
@@ -389,6 +380,15 @@
    "lastmod": "2026-10-14"
   },
   {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/news/reed-smith-represents-pophouse-in-acquisition-of-50-stake-in-sias-publishing-and-master-music-rights/",
+   "title": "Reed Smith represents Pophouse in acquisition of 50% stake in Sia",
+   "description": null,
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
+  },
+  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-wins-summary-judgment-for-nycrc-defeating-all-remaining-claims-in-eb5-investor-mass-action",
    "title": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
@@ -396,6 +396,42 @@
    "date": "2026-10-14",
    "dateSource": "page date label",
    "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/david-j-cohen-named-to-american-bankruptcy-institutes-2026-40-under-40",
+   "title": "David J. Cohen Named to American Bankruptcy Institute’s 2026 40 Under 40",
+   "description": "Weil Restructuring partner David J. Cohen was named to the American Bankruptcy Institute’s 2026 40 Under 40, recognizing rising leaders in bankruptcy and insolvency.",
+   "date": "2026-10-14",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-ips-on-debt-financing-for-acquisitions-of-belyea-company-and-bold-renewables",
+   "title": "Weil Advises Integrated Power Services on Debt Financing for Acquisitions of Belyea Company and Bold Renewables",
+   "description": "Weil advised Searchlight Capital Partners and Integrated Power Services on debt financing for IPS’ acquisitions of Belyea Company and Bold Renewables.",
+   "date": "2026-10-14",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
+   "title": "News Listing",
+   "description": null,
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": null
+  },
+  {
+   "firm": "cleary",
+   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
+   "title": "Publications",
+   "description": null,
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": null
   },
   {
    "firm": "traverssmith",
@@ -459,15 +495,6 @@
    "date": "2026-10-13",
    "dateSource": "datePublished",
    "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/deutsche-bank-1-billion-notes-offering-october-2026",
-   "title": "Deutsche Bank $1 billion notes offering",
-   "description": "We advised the sole bookrunner, joint lead managers and co-managers on the offering",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-14"
   },
   {
    "firm": "klgates",
@@ -855,15 +882,6 @@
    "lastmod": "2026-10-05"
   },
   {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-earns-high-rankings-across-bloombergs-q3-2026-ma-and-private-equity-league-tables",
-   "title": "Weil Earns High Rankings Across Bloomberg’s Q3 2026 M&A and Private Equity League Tables",
-   "description": "Weil delivered strong results across Bloomberg’s Q3 2026 M&A and Private Equity league tables, earning high rankings across key markets around the world and a broad range of categories.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-1-october-2026/",
    "title": "Financial Regulation Weekly Bulletin - 1 October 2026",
@@ -876,6 +894,15 @@
     "a property=\"og:title\" content=\"Financial Regulation Weekly Bulletin - 1 October 2026\"/> <meta property=\"",
     "__page\"> <span itemprop=\"name\">Financial Regulation Weekly Bulletin - 1 October 2026</span> </span> <met"
    ]
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/insights/ao-shearman-on-data/ncsc-publishes-guidance-and-scheme-documents-for-cyber-adversary-simulation-scheme",
+   "title": "NCSC cyber adversary simulation scheme guidance",
+   "description": "Explore the NCSC Cyber Adversary Simulation scheme, including standards, provider requirements and guidance for high-risk organisations.",
+   "date": "2026-10-02",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-08"
   },
   {
    "firm": "whitecase",
