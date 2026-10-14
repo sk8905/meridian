@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-10-14";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "19:12 BST";
+export const LAST_CHECKED_TIME = "20:40 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -8045,6 +8045,9 @@ export const items = [
   {"id":"u2414","title":"Freshfields advises Fresenius on two bond issues","area":"banking","areas":["banking"],"type":"alert","firm":"freshfields","date":"2022-05-25","summary":"Freshfields advised Fresenius on two senior, unsecured bond issues totaling €1.3 billion, including a €750M three-year bond (1.875%) and a €550M eight-year bond (2.875%). Learn more about the transaction.","url":"https://www.freshfields.com/en/our-thinking/news/news-search/2022/05/freshfields-advises-fresenius-on-two-bond-issues"},
   {"id":"u2415","title":"Stephenson Harwood acts as lead legal advisor to LXi REIT on £773 million refinancing","area":"banking","areas":["banking"],"type":"alert","firm":"stephensonharwood","date":"2023-05-11","summary":"Law firm Stephenson Harwood LLP has acted as the lead legal advisor to LXi REIT plc on its recent £773 million debt refinancing.","url":"https://www.stephensonharwood.com/news/stephenson-harwood-acts-as-lead-legal-advisor-to-lxi-reit-on-773-million-refinancing/"},
   {"id":"u2416","title":"SEC Releases Final Private Fund Adviser Rules: Key Changes and Takeaways","area":"funds","areas":["funds"],"type":"alert","firm":"mayerbrown","date":"2023-08-23","summary":"Other Author Rachel A. Ponton, Professional Support Lawyer - Funds On August 23, 2023, the US Securities and Exchange Commission (the “SEC”)","url":"https://www.mayerbrown.com/en/insights/publications/2023/08/sec-releases-final-private-fund-adviser-rules-key-changes-and-takeaways"},
+  {"id":"u2417","title":"Linklaters advises banks on a new agented CMBS for Mileway UK","area":"banking","areas":["banking"],"type":"alert","firm":"linklaters","date":"2026-10-14","summary":"Linklaters has advised Barclays Bank PLC, BNP Paribas, SMBC Bank International plc, Standard Chartered Bank and Wells Fargo Securities International Limited in connection with the issuance by UK Logistics 2026-4 DAC of £982,200,000 commercial mortgage-backed floating rate (CMBS) notes due 2036.","url":"https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-banks-on-a-new-agented-cmbs-for-mileway-uk"},
+  {"id":"u2418","title":"AO Shearman guides Airtel Money on Londons largest IPO since 2021","area":"corporate","areas":["corporate"],"type":"alert","firm":"aoshearman","date":"2026-10-14","summary":"A&O Shearman advised Airtel Money on its GBP5.3bn London Stock Exchange IPO, the largest London IPO since 2021 and Europe's second-largest this year.","url":"https://www.aoshearman.com/en/news/ao-shearman-guides-airtel-money-on-londons-largest-ipo-since-2021"},
+  {"id":"u2419","title":"Deutsche Bank $1 billion notes offering","area":"banking","areas":["banking"],"type":"alert","firm":"davispolk","date":"2026-10-12","summary":"We advised the sole bookrunner, joint lead managers and co-managers on the offering","url":"https://www.davispolk.com/experience/deutsche-bank-1-billion-notes-offering-october-2026"},
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
