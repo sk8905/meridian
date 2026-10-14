@@ -1,0 +1,254 @@
+===== https://www.thegazette.co.uk/robots.txt
+HTTP/2 200 
+content-type: text/plain; charset=UTF-8
+date: Tue, 13 Oct 2026 23:13:54 GMT
+content-security-policy: frame-ancestors 'self';
+server: Apache
+cache-control: max-age=3600, public
+content-language: en
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+x-frame-options: sameorigin
+expires: Sun, 19 Nov 1978 05:00:00 GMT
+x-xss-protection: 0
+x-drupal-cache: HIT
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+last-modified: Tue, 13 Oct 2026 22:11:26 GMT
+etag: "1791929486"
+vary: Cookie
+x-cache: Hit from cloudfront
+via: 1.1 86ac3b64ccc9620b71c1780cdcce00a6.cloudfront.net (CloudFront)
+x-amz-cf-pop: ORD58-P3
+User-agent: *
+Sitemap: https://www.thegazette.co.uk/sitemap.xml
+Crawl-delay: 10
+
+Allow: *
+
+Disallow: /sign-in
+Disallow: /sign-in*
+
+Disallow: /notice/*/version/*
+Disallow: /id/notice/*/version/*
+Disallow: /id/activity/*
+Disallow: /activity/*
+Disallow: /notice/*/activity*
+Disallow: /id/agent/*
+Disallow: /agent/*
+Disallow: /bundle*
+Disallow: /id/bundle/*
+Disallow: /notice/*/agent/*
+Disallow: /notice/*/provenance/*
+Disallow: /notice/*/provenance
+Disallow: /notice/*/data.xml
+Disallow: /notice/*/data.pdf
+Disallow: /notice/*/data.rdf
+Disallow: /notice/*/data.ttl
+Disallow: /notice/*/data.jsonld
+Disallow: /notice/*/data_rdf/sig.trig
+Disallow: /notice/*/data_xml/sig.xml
+Disallow: */share/link
+Disallow: */share/email
+Disallow: */notice/*?view=linked-data*
+
+Disallow: /London/issue/60834
+Disallow: /London/issue/60834/data.pdf
+Allow: /London/issue/60834/page/*
+Disallow: /London/issue/60834/page/7201
+Disallow: /London/issue/60834/page/7201/data.pdf
+Disallow: /notice/2106275
+Disallow: /notice/2106275/provenance
+Disallow: /notice/2106275/provenance/data.xml
+Disallow: /notice/2106275/provenance/data.json
+
+Disallow: /London/issue/59614
+Disallow: /London/issue/59614/data.pdf
+Allow: /London/issue/59614/page/*
+Disallow: /London/issue/59614/page/22716
+Disallow: /London/issue/59614/page/22716/*
+Disallow: /notice/L-59614-1254187
+Disallow: /notice/L-59614-1254187/provenance
+Disallow: /notice/L-59614-1254187/provenance/data.xml
+Disallow: /notice/L-59614-1254187/provenance/data.json
+
+Disallow: /London/issue/54335
+Disallow: /London/issue/54335/data.pdf
+Allow: /London/issue/54335/page/*
+Disallow: /London/issue/54335/page/3311
+Disallow: /London/issue/54335/page/3311/*
+
+Disallow: /London/issue/53309
+Disallow: /London/issue/53309/data.pdf
+Allow: /London/issue/53309/page/*
+Disallow: /London/issue/53309/page/8980
+Disallow: /London/issue/53309/page/8980/*
+
+Disallow: /London/issue/49808
+Disallow: /London/issue/49808/data.pdf
+Allow: /London/issue/49808/page/*
+Disallow: /London/issue/49808/page/9817
+Disallow: /London/issue/49808/page/9817/*
+
+Disallow: /London/issue/50523
+Disallow: /London/issue/50523/data.pdf
+Allow: /London/issue/50523/page/*
+Disallow: /London/issue/50523/page/6892
+Disallow: /London/issue/50523/page/6892/*
+
+Disallow: /London/issue/59500
+Disallow: /London/issue/59500/data.pdf
+Allow: /London/issue/59500/page/*
+Disallow: /London/issue/59500/page/14314
+Disallow: /London/issue/59500/page/14314/*
+Disallow: /notice/L-59500-1171705
+Disallow: /notice/L-59500-1171705/provenance
+Disallow: /notice/L-59500-1171705/provenance/data.xml
+Disallow: /notice/L-59500-1171705/provenance/data.json
+
+Disallow: /London/issue/59944
+Disallow: /London/issue/59944/data.pdf
+Allow: /London/issue/59944/page/*
+Disallow: /London/issue/59944/page/20143
+Disallow: /London/issue/59944/page/20143/*
+Disallow: /notice/L-59944-1460932
+Disallow: /notice/L-59944-1460932/provenance
+Disallow: /notice/L-59944-1460932/provenance/data.xml
+Disallow: /notice/L-59944-1460932/provenance/data.json
+
+Disallow: /London/issue/59500
+Disallow: /London/issue/59500/data.pdf
+Allow: /London/issue/59500/page/*
+Disallow: /London/issue/59500/page/14382
+Disallow: /London/issue/59500/page/14382/*
+Disallow: /notice/L-59500-1171230
+Disallow: /notice/L-59500-1171230/provenance
+Disallow: /notice/L-59500-1171230/provenance/data.xml
+Disallow: /notice/L-59500-1171230/provenance/data.json
+
+Disallow: /London/issue/59384
+Disallow: /London/issue/59384/data.pdf
+Allow: /London/issue/59384/page/*
+Disallow: /London/issue/59384/page/5992
+Disallow: /London/issue/59384/page/5992/*
+Disallow: /notice/L-59384-1089792
+Disallow: /notice/L-59384-1089792/provenance
+Disallow: /notice/L-59384-1089792/provenance/data.xml
+Disallow: /notice/L-59384-1089792/provenance/data.json
+
+Disallow: /London/issue/59430
+Disallow: /London/issue/59430/data.pdf
+Allow: /London/issue/59430/page/*
+Disallow: /London/issue/59430/page/9841
+Disallow: /London/issue/59430/page/9841/*
+Disallow: /notice/L-59430-1127998
+Disallow: /notice/L-59430-11
+===== https://www.thegazette.co.uk/insolvency/notice/data.feed?text=%22Thames+Water%22
+HTTP/2 200 
+date: Wed, 14 Oct 2026 00:12:46 GMT
+set-cookie: Authenticated=false; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=""; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=YmFhZDgxY2YtOWNiYy00NjE4LTlhYzQtNDc5YjFlNDFkMGQ5; Path=/; Secure; HttpOnly
+content-security-policy: frame-ancestors 'self';
+server: Apache
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+last-modified: Fri, 10 Nov 2023 10:00:00 GMT
+x-robots-tag: noindex,follow
+gz-auth: false
+cache-control: public, max-age=0, s-maxage=300
+pragma: no-cache
+expires: Thu, 01 Jan 1970 00:00:00 GMT
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-frame-options: sameorigin
+content-language: en
+vary: Accept
+x-cache: Miss from cloudfront
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:f="https://www.thegazette.co.uk/facets" xmlns:openSearch="http://a9.com/-/spec/opensearch/1.1/"><id>https://www.thegazette.co.uk/insolvency/notice/data.feed?text="Thames Water"&amp;results-page=1</id><link href="https://www.thegazette.co.uk/insolvency/notice/data.feed?text=&#34;Thames Water&#34;&amp;results-page=1" rel="self" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/insolvency/notice/data.feed?text=&#34;Thames Water&#34;&amp;results-page=1" rel="first" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/insolvency/notice/data.feed?text=&#34;Thames Water&#34;&amp;results-page=2" rel="next" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/insolvency/notice/data.feed?text=&#34;Thames Water&#34;&amp;results-page=6" rel="last" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/insolvency/notice/data.htm?text=&#34;Thames Water&#34;&amp;results-page=1" rel="alternate" title="HTML" type="application/xhtml+xml"/><link href="https://www.thegazette.co.uk/insolvency/notice/data.json?text=&#34;Thames Water&#34;&amp;results-page=1" rel="alternate" title="JSON-SIMPLE" type="application/json"/><title>Search Result</title><updated>2026-10-14T01:12:44.85264+01:00</updated><openSearch:Query role="request" searchTerms="&#34;Thames Water&#34;"/><f:page-number>1</f:page-number><f:page-size>10</f:page-size><f:page-start>1</f:page-start><f:page-stop>10</f:page-stop><f:total>54</f:total><f:facets/><entry><id>https://www.thegazette.co.uk/id/notice/3123143</id><f:status>published</f:status><f:notice-code>2431</f:notice-code><f:name>Reynell</f:name><f:familyName>EPE</f:familyName><title>HAYMILLS ENGINEERING LIMITED</title><link href="https://www.thegazette.co.uk/id/notice/3123143" rel="self"/><link href="https://www.thegazette.co.uk/notice/3123143"/><link href="https://www.thegazette.co.uk/notice/3123143/data.ttl" rel="alternate" title="TURTLE" type="text/turtle"/><link href="https://www.thegazette.co.uk/notice/3123143/data.jsonld" rel="alternate" title="JSON-LD" type="application/json"/><link href="https://www.thegazette.co.uk/notice/3123143/data.rdf" rel="alternate" title="RDF/XML" type="application/rdf+xml"/><link href="https://www.thegazette.co.uk/notice/3123143/data.ttl?view=linked-data" rel="alternate" title="TURTLE" type="text/turtle"/><link href="https://www.thegazette.co.uk/notice/3123143/data.json?view=linked-data" rel="alternate" title="JSON-SIMPLE" type="application/json"/><link href="https://www.thegazette.co.uk/notice/3123143/data.rdfjson?view=linked-data" rel="alternate" title="JSON-RDF" type="application/rdf+json"/><link href="https://www.thegazette.co.uk/notice/3123143/data.rdf?view=linked-data" rel="alternate" title="RDF/XML" type="application/rdf+xml"/><link href="https://www.thegazette.co.uk/notice/3123143/data.xml?view=linked-data" rel="alternate" title="XML" type="application/xml"/><link href="https://www.thegazette.co.uk/notice/3123143/data.html?view=linked-data" rel="alternate" title="HTML" type="application/html"/><author><name>tso</name></author><updated>2018-10-05T14:39:34+01:00</updated><published>2018-10-04T18:01:54</published><category term="Resolutions for Winding-up"/><geo:Point><geo:lat>51.46048</geo:lat><geo:long>-0.968839</geo:long></geo:Point><content type="xhtml" xml:base="https://www.thegazette.co.uk/" xml:lang="en"><div xmlns="http://www.w3.org/1999/xhtml"><p>COUNTY WIDE COLLECTIONS LIMITED (Company Number 05450266 ) <em class="highlight">THAMES WATER</em> (UK) PENSION TRUSTEES LIMITED …</p></div></content></entry><entry><id>https://www.thegazette.co.uk/id/notice/3123165</id><f:status>published</f:status><f:notice-code>2433</f:notice-code><f:name>Reynell</f:name><f:familyName>EPE</f:familyName><title>THAMES WATER OVERSEAS CONSULTANCY LIMITED</title><link href="https://www.thegazette.co.uk/id/notice/3123165" rel="self"/><link href="https://www.thegazette.co.uk/notice/3123165"/><link href
+===== https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames+Water%22
+HTTP/2 200 
+content-type: application/json;charset=UTF-8
+date: Wed, 14 Oct 2026 00:12:48 GMT
+set-cookie: Authenticated=false; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=""; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=MWUxNmE5Y2ItOGI1OC00N2RlLTgzMDEtNGViNjI4OTIwZTgx; Path=/; Secure; HttpOnly
+content-security-policy: frame-ancestors 'self';
+server: Apache
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+last-modified: Fri, 10 Nov 2023 10:00:00 GMT
+x-robots-tag: noindex,follow
+gz-auth: false
+cache-control: public, max-age=0, s-maxage=300
+cache-control: no-store
+pragma: no-cache
+expires: Thu, 01 Jan 1970 00:00:00 GMT
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-frame-options: sameorigin
+content-language: en
+{"id":"https://www.thegazette.co.uk/insolvency/notice/data.feed?text=&quot;Thames Water&quot;&results-page=1","link":[{"@href":"https://www.thegazette.co.uk/insolvency/notice/data.feed?text=%22Thames Water%22&results-page=1","@rel":"alternate","@type":"application/atom+xml","@title":"ATOM"},{"@href":"https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames Water%22&results-page=1","@rel":"first","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames Water%22&results-page=2","@rel":"next","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames Water%22&results-page=6","@rel":"last","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/insolvency/notice/data.htm?text=%22Thames Water%22&results-page=1","@rel":"alternate","@title":"HTML","@type":"application/xhtml+xml"},{"@href":"https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames Water%22&results-page=1","@rel":"self","@type":"application/json"}],"title":"Search Result","updated":"2026-10-14T01:12:48.297719+01:00","openSearch:Query":{"@role":"request","@searchTerms":"\"Thames Water\""},"f:page-number":"1","f:page-size":"10","f:page-start":"1","f:page-stop":"10","f:total":"54","f:facets":null,"entry":[{"id":"https://www.thegazette.co.uk/id/notice/3123143","f:status":"published","f:notice-code":"2431","f:name":"Reynell","f:familyName":"EPE","title":"HAYMILLS ENGINEERING LIMITED","link":[{"@href":"https://www.thegazette.co.uk/id/notice/3123143","@rel":"self"},{"@href":"https://www.thegazette.co.uk/notice/3123143"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.ttl","@rel":"alternate","@title":"TURTLE","@type":"text/turtle"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.jsonld","@rel":"alternate","@title":"JSON-LD","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.rdf","@rel":"alternate","@title":"RDF/XML","@type":"application/rdf+xml"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.ttl?view=linked-data","@rel":"alternate","@title":"TURTLE","@type":"text/turtle"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.json?view=linked-data","@rel":"alternate","@title":"JSON-SIMPLE","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.rdfjson?view=linked-data","@rel":"alternate","@title":"JSON-RDF","@type":"application/rdf+json"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.rdf?view=linked-data","@rel":"alternate","@title":"RDF/XML","@type":"application/rdf+xml"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.xml?view=linked-data","@rel":"alternate","@title":"XML","@type":"application/xml"},{"@href":"https://www.thegazette.co.uk/notice/3123143/data.html?view=linked-data","@rel":"alternate","@title":"HTML","@type":"application/html"}],"author":{"name":"tso"},"updated":"2018-10-05T14:39:34+01:00","published":"2018-10-04T18:01:54","category":{"@term":"Resolutions for Winding-up"},"geo:Point":{"geo:lat":"51.46048","geo:long":"-0.968839"},"content":"<div><p>COUNTY WIDE COLLECTIONS LIMITED (Company Number 05450266 ) <em class=\"highlight\">THAMES WATER</em> (UK) PENSION TRUSTEES LIMITED …</p></div>"},{"id":"https://www.thegazette.co.uk/id/notice/3123165","f:status":"published","f:notice-code":"2433","f:name":"Reynell","f:familyName":"EPE","title":"THAMES WATER OVERSEAS CONSULTANCY LIMITED","link":[{"@href":"https://www.thegazette.co.uk/id/notice/3123165","@rel":"self"},{"@href":"https://www.thegazette.co.uk/notice/3123165"},{"@href":"https://www.thegazette.co.uk/notice/3123165/data.ttl","@rel":"alternate","@title":"TURTLE","@type":"text/turtle"},{"@href":"https://www.thegazette.co.uk/notice/3123165/data.jsonld","@rel":"alternate","@title":"JSON-LD","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/notice/3123165/data.rdf","@rel":"alternate","@title":"RDF/XML","@type":"application/rdf+xml"},{"@href":"https://www.thegazette.co.uk/notice/3123165/data.ttl?view=linked-data","@rel":"
+===== https://www.thegazette.co.uk/all-notices/notice/data.feed?categorycode=G205000000&results-page-size=5
+HTTP/2 200 
+content-length: 1519
+date: Wed, 14 Oct 2026 00:12:50 GMT
+content-security-policy: frame-ancestors 'self';
+server: Apache
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+x-robots-tag: noindex,follow
+gz-auth: false
+cache-control: public, max-age=0, s-maxage=300
+pragma: no-cache
+expires: Thu, 01 Jan 1970 00:00:00 GMT
+last-modified: Fri, 10 Nov 2023 10:00:00 GMT
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-frame-options: sameorigin
+content-language: en
+set-cookie: Authenticated=false; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=""; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=MDE5NWEyNDctOGE1ZC00NzJmLWEzMmYtMDU5NGE4ZmQzZGMz; Path=/; Secure; HttpOnly
+vary: Accept
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:f="https://www.thegazette.co.uk/facets" xmlns:openSearch="http://a9.com/-/spec/opensearch/1.1/"><id>https://www.thegazette.co.uk/all-notices/notice/data.feed?categorycode=G205000000&amp;results-page-size=5&amp;results-page=1</id><link href="https://www.thegazette.co.uk/all-notices/notice/data.feed?categorycode=G205000000&amp;results-page-size=5&amp;results-page=1" rel="self" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.feed?categorycode=G205000000&amp;results-page=1" rel="first" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.feed?categorycode=G205000000&amp;results-page=0" rel="last" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.htm?categorycode=G205000000&amp;results-page-size=5&amp;results-page=1" rel="alternate" title="HTML" type="application/xhtml+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.json?categorycode=G205000000&amp;results-page-size=5&amp;results-page=1" rel="alternate" title="JSON-SIMPLE" type="application/json"/><title>Search Result</title><updated>2026-10-14T01:12:50.833675+01:00</updated><openSearch:Query role="request"/><f:page-number>1</f:page-number><f:page-size>5</f:page-size><f:page-start>0</f:page-start><f:page-stop>0</f:page-stop><f:total>0</f:total><f:facets/></feed>
+===== https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&results-page-size=5
+HTTP/2 200 
+date: Wed, 14 Oct 2026 00:12:54 GMT
+set-cookie: Authenticated=false; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=""; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=MGJkNjZkZjctYzMyYi00MmVkLWFjOTUtNDY4M2NiNzdkY2Uz; Path=/; Secure; HttpOnly
+content-security-policy: frame-ancestors 'self';
+server: Apache
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+last-modified: Wed, 14 Oct 2026 01:07:56 GMT
+x-robots-tag: noindex,follow
+gz-auth: false
+cache-control: public, max-age=0, s-maxage=300
+pragma: no-cache
+expires: Thu, 01 Jan 1970 00:00:00 GMT
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-frame-options: sameorigin
+content-language: en
+vary: Accept
+x-cache: Miss from cloudfront
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:f="https://www.thegazette.co.uk/facets" xmlns:openSearch="http://a9.com/-/spec/opensearch/1.1/"><id>https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&amp;results-page-size=5&amp;results-page=1</id><link href="https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&amp;results-page-size=5&amp;results-page=1" rel="self" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&amp;results-page=1" rel="first" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&amp;results-page=2" rel="next" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&amp;results-page=67630" rel="last" type="application/atom+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.htm?noticetypes=2441&amp;results-page-size=5&amp;results-page=1" rel="alternate" title="HTML" type="application/xhtml+xml"/><link href="https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2441&amp;results-page-size=5&amp;results-page=1" rel="alternate" title="JSON-SIMPLE" type="application/json"/><title>Search Result</title><updated>2026-10-14T01:12:53.21014+01:00</updated><openSearch:Query role="request"/><f:page-number>1</f:page-number><f:page-size>5</f:page-size><f:page-start>1</f:page-start><f:page-stop>5</f:page-stop><f:total>338147</f:total><f:total-errors>13</f:total-errors><f:facets/><entry><id>https://www.thegazette.co.uk/id/notice/5230192</id><f:status>published</f:status><f:notice-code>2441</f:notice-code><f:name>London</f:name><f:familyName>Gazette</f:familyName><title>1 DOVER STREET OPERATIONS LTD</title><link href="https://www.thegazette.co.uk/id/notice/5230192" rel="self"/><link href="https://www.thegazette.co.uk/notice/5230192"/><link href="https://www.thegazette.co.uk/notice/5230192/data.ttl" rel="alternate" title="TURTLE" type="text/turtle"/><link href="https://www.thegazette.co.uk/notice/5230192/data.jsonld" rel="alternate" title="JSON-LD" type="application/json"/><link href="https://www.thegazette.co.uk/notice/5230192/data.rdf" rel="alternate" title="RDF/XML" type="application/rdf+xml"/><link href="https://www.thegazette.co.uk/notice/5230192/data.ttl?view=linked-data" rel="alternate" title="TURTLE" type="text/turtle"/><link href="https://www.thegazette.co.uk/notice/5230192/data.json?view=linked-data" rel="alternate" title="JSON-SIMPLE" type="application/json"/><link href="https://www.thegazette.co.uk/notice/5230192/data.rdfjson?view=linked-data" rel="alternate" title="JSON-RDF" type="application/rdf+json"/><link href="https://www.thegazette.co.uk/notice/5230192/data.rdf?view=linked-data" rel="alternate" title="RDF/XML" type="application/rdf+xml"/><link href="https://www.thegazette.co.uk/notice/5230192/data.xml?view=linked-data" rel="alternate" title="XML" type="application/xml"/><link href="https://www.thegazette.co.uk/notice/5230192/data.html?view=linked-data" rel="alternate" title="HTML" type="application/html"/><author><name>tso</name></author><updated>2026-10-14T01:07:57+01:00</updated><published>2026-10-14T01:07:56</published><category term="Resolutions for Winding-up"/><geo:Point><geo:lat>51.50794</geo:lat><geo:long>-0.14141</geo:long></geo:Point><content type="xhtml" xml:base="https://www.thegazette.co.uk/" xml:lang="en"><div xmlns="http://www.w3.org/1999/xhtml"><dl><dt>Company Address</dt><dd>Fifth Floor, 19 Berkeley Street, London, W1J 8ED</dd></dl></div></content></entry><entry><id>https://www.thegazette.co.uk/id/notice/5230178</id><f:status>published</f:status><f:notice-code>2441</f:notice-code><f:name>London</f:name><f:familyName>Gazette</f:familyName><title>CHAMBERLAIN RESIDENTIAL CARE LTD</title><link href="https://www.thegazette.co.uk/id/notice/5230178" rel="self"/><link href="https://www.thegazette.co.uk/notice/5230178"/><link href="https://www.
+===== https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2410&results-page-size=5
+HTTP/2 200 
+content-type: application/json;charset=UTF-8
+date: Wed, 14 Oct 2026 00:12:57 GMT
+set-cookie: Authenticated=false; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=""; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; Secure; HttpOnly
+set-cookie: JSESSIONID=MjUxMWJhNTgtYTA3OC00NDE5LThlM2ItMGM0Nzc4ODQxY2M0; Path=/; Secure; HttpOnly
+content-security-policy: frame-ancestors 'self';
+server: Apache
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+last-modified: Wed, 14 Oct 2026 01:02:47 GMT
+x-robots-tag: noindex,follow
+gz-auth: false
+cache-control: public, max-age=0, s-maxage=300
+cache-control: no-store
+pragma: no-cache
+expires: Thu, 01 Jan 1970 00:00:00 GMT
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-frame-options: sameorigin
+content-language: en
+{"id":"https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2410&results-page-size=5&results-page=1","link":[{"@href":"https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2410&results-page-size=5&results-page=1","@rel":"alternate","@type":"application/atom+xml","@title":"ATOM"},{"@href":"https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2410&results-page=1","@rel":"first","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2410&results-page=2","@rel":"next","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2410&results-page=9257","@rel":"last","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/all-notices/notice/data.htm?noticetypes=2410&results-page-size=5&results-page=1","@rel":"alternate","@title":"HTML","@type":"application/xhtml+xml"},{"@href":"https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2410&results-page-size=5&results-page=1","@rel":"self","@type":"application/json"}],"title":"Search Result","updated":"2026-10-14T01:12:56.390974+01:00","openSearch:Query":{"@role":"request"},"f:page-number":"1","f:page-size":"5","f:page-start":"1","f:page-stop":"5","f:total":"46282","f:total-errors":"7","f:facets":null,"entry":[{"id":"https://www.thegazette.co.uk/id/notice/5230100","f:status":"published","f:notice-code":"2410","f:name":"London","f:familyName":"Gazette","title":"CELLVOYANT TECHNOLOGIES LIMITED","link":[{"@href":"https://www.thegazette.co.uk/id/notice/5230100","@rel":"self"},{"@href":"https://www.thegazette.co.uk/notice/5230100"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.ttl","@rel":"alternate","@title":"TURTLE","@type":"text/turtle"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.jsonld","@rel":"alternate","@title":"JSON-LD","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.rdf","@rel":"alternate","@title":"RDF/XML","@type":"application/rdf+xml"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.ttl?view=linked-data","@rel":"alternate","@title":"TURTLE","@type":"text/turtle"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.json?view=linked-data","@rel":"alternate","@title":"JSON-SIMPLE","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.rdfjson?view=linked-data","@rel":"alternate","@title":"JSON-RDF","@type":"application/rdf+json"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.rdf?view=linked-data","@rel":"alternate","@title":"RDF/XML","@type":"application/rdf+xml"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.xml?view=linked-data","@rel":"alternate","@title":"XML","@type":"application/xml"},{"@href":"https://www.thegazette.co.uk/notice/5230100/data.html?view=linked-data","@rel":"alternate","@title":"HTML","@type":"application/html"}],"author":{"name":"tso"},"updated":"2026-10-14T01:02:48+01:00","published":"2026-10-14T01:02:47","category":{"@term":"Appointment of Administrators"},"geo:Point":{"geo:lat":"51.51109","geo:long":"-0.088175"},"geo:Point":{"geo:lat":"51.45553","geo:long":"-2.605448"},"content":"<div><p>In the High Court of Justice Court Number: CR-2026-007727 CELLVOYANT TECHNOLOGIES LIMITED (Company Number 13594965 ) Trading Name: CellVoyant Nature of Business: Other research and experimental develo…</p></div>"},{"id":"https://www.thegazette.co.uk/id/notice/5230099","f:status":"published","f:notice-code":"2410","f:name":"London","f:familyName":"Gazette","title":"LEBROV MOTION IMAGERY LIMITED","link":[{"@href":"https://www.thegazette.co.uk/id/notice/5230099","@rel":"self"},{"@href":"https://www.thegazette.co.uk/notice/5230099"},{"@href":"https://www.thegazette.co.uk/notice/5230099/data.ttl","@rel":"alternate","@title":"TURTLE","@type":"text/turtle"},{"@href":"https://www.thegazette.co.uk/notice/5230099/data.jsonld","@rel":"alternate","@title":"JSON-LD","@type":"application/json"},{"@href":"https://www.thegazette.co.uk/notice/5230099/data.rdf","@rel":"
