@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-openaibugging-20261014",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: OpenAI employee accused of bugging office",
+    date: "2026-10-14",
+    time: "06:36",
+    summary: "Also: who blew up the Nord Stream pipelines?",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bloomberg-pointsofreturn-7pctyields-20261014",
     publication: "Bloomberg",
     author: "John Authers",

@@ -21,6 +21,125 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "fa1aae13-a352-47cb-97aa-6667c070f308",
+    title: "FTAV’s further reading",
+    date: "2026-10-14",
+    time: "06:30",
+    url: "https://www.ft.com/content/fa1aae13-a352-47cb-97aa-6667c070f308"
+  },
+  {
+    id: "694aa230-fbad-40f2-b2dc-e663f24583d1",
+    title: "The rollout of 24-hour* trading",
+    date: "2026-10-14",
+    time: "06:30",
+    url: "https://www.ft.com/content/694aa230-fbad-40f2-b2dc-e663f24583d1"
+  },
+  {
+    id: "45e8941a-9f4d-4186-baec-eef5be5ce495",
+    title: "Le Pen casts doubt on future EU funding for Ukraine",
+    date: "2026-10-14",
+    time: "06:00",
+    url: "https://www.ft.com/content/45e8941a-9f4d-4186-baec-eef5be5ce495"
+  },
+  {
+    id: "76cd58f0-3a5c-4715-8879-d83c90ab6f2c",
+    title: "Maybe R-star never even existed?",
+    date: "2026-10-14",
+    time: "06:00",
+    url: "https://www.ft.com/content/76cd58f0-3a5c-4715-8879-d83c90ab6f2c"
+  },
+  {
+    id: "3cad49d9-4c88-46bc-bddd-7b237a399a7b",
+    title: "Gold Fields mounts charm offensive to woo Northern Star investors",
+    date: "2026-10-14",
+    time: "05:44",
+    url: "https://www.ft.com/content/3cad49d9-4c88-46bc-bddd-7b237a399a7b"
+  },
+  {
+    id: "25c6e29b-f6e6-40a4-b9df-cd0883e9234f",
+    title: "FirstFT: Marine Le Pen gears up for EU fight",
+    date: "2026-10-14",
+    time: "05:30",
+    url: "https://www.ft.com/content/25c6e29b-f6e6-40a4-b9df-cd0883e9234f"
+  },
+  {
+    id: "b77a0094-c6f1-449a-9323-2b4d16696cb7",
+    title: "Russia arrests Japanese journalist on espionage charges",
+    date: "2026-10-14",
+    time: "05:24",
+    url: "https://www.ft.com/content/b77a0094-c6f1-449a-9323-2b4d16696cb7"
+  },
+  {
+    id: "42209791-2167-4c4e-81a0-f610a981b745",
+    title: "UK’s Schillings sets up private investigations business with US law firm Clare Locke",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/42209791-2167-4c4e-81a0-f610a981b745"
+  },
+  {
+    id: "60d09841-052a-44f3-a8ae-52c38fdbb5ab",
+    title: "France’s Marine Le Pen gears up for fight with EU",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/60d09841-052a-44f3-a8ae-52c38fdbb5ab"
+  },
+  {
+    id: "16d4fa95-0532-4461-a7a2-588624202362",
+    title: "Top London private school reverses plan to scrap GCSEs",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/16d4fa95-0532-4461-a7a2-588624202362"
+  },
+  {
+    id: "8c3c631c-e37f-4209-aefd-112c4c58020c",
+    title: "Germany puts Ukrainian ex-officer in the dock over Nord Stream sabotage",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/8c3c631c-e37f-4209-aefd-112c4c58020c"
+  },
+  {
+    id: "dc21da0b-25b7-402e-8dbe-e7d9f7431b93",
+    title: "How Ukraine’s data centre strikes threw Russia into turmoil",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/dc21da0b-25b7-402e-8dbe-e7d9f7431b93"
+  },
+  {
+    id: "5e6d1d30-0934-4fda-b2c0-27b0d96aeba3",
+    title: "The global economy and the art of living dangerously",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/5e6d1d30-0934-4fda-b2c0-27b0d96aeba3"
+  },
+  {
+    id: "24818a5c-64d0-4d6c-a9c0-825156edf43b",
+    title: "Celebrity lawyer accused of participating in ‘outright plunder’ of BHS",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/24818a5c-64d0-4d6c-a9c0-825156edf43b"
+  },
+  {
+    id: "08b9bbe6-0637-497e-af6d-464dd41e6121",
+    title: "Healey set to pay for Budget giveaways without more borrowing",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"
+  },
+  {
+    id: "afa0a322-ad2a-4d49-aa0e-81f15a01c3a7",
+    title: "Military briefing: Houthis expose limits of Saudi Arabia’s vast arsenal",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/afa0a322-ad2a-4d49-aa0e-81f15a01c3a7"
+  },
+  {
+    id: "8c6a7595-9403-44f3-81ac-a2e5ceb37459",
+    title: "The battle over the AI-led future of banking has begun",
+    date: "2026-10-14",
+    time: "05:00",
+    url: "https://www.ft.com/content/8c6a7595-9403-44f3-81ac-a2e5ceb37459"
+  },
+  {
     id: "9c5501bc-7297-4864-a5a7-b2f2001e2dd9",
     title: "Modi cannot silence India’s disaffected youth",
     date: "2026-10-13",
@@ -180,124 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-13",
     time: "12:30",
     url: "https://www.ft.com/content/183ace53-2a89-43a9-88c1-9ea1e1b4437d"
-  },
-  {
-    id: "73257952-844b-4f5f-a1cb-112ae9cb0249",
-    title: "Can energy help Mexico in trade talks with Trump?",
-    date: "2026-10-13",
-    time: "12:00",
-    url: "https://www.ft.com/content/73257952-844b-4f5f-a1cb-112ae9cb0249"
-  },
-  {
-    id: "46bd62aa-73e1-4944-a242-f883d05191f1",
-    title: "Can a Hollywood star persuade you to become an art collector?",
-    date: "2026-10-13",
-    time: "12:00",
-    url: "https://www.ft.com/content/46bd62aa-73e1-4944-a242-f883d05191f1"
-  },
-  {
-    id: "763bf1f5-9b5d-4f7e-b865-b16d7a9a313a",
-    title: "JPMorgan fixed income miss: a signal the boom is fading?",
-    date: "2026-10-13",
-    time: "11:59",
-    url: "https://www.ft.com/content/763bf1f5-9b5d-4f7e-b865-b16d7a9a313a"
-  },
-  {
-    id: "c6a28cf5-cd3c-447b-ad79-dcc247fc6fdf",
-    title: "How governments spend money",
-    date: "2026-10-13",
-    time: "11:49",
-    url: "https://www.ft.com/content/c6a28cf5-cd3c-447b-ad79-dcc247fc6fdf"
-  },
-  {
-    id: "25ddd4fb-0075-4642-8f76-fa4ac912a172",
-    title: "Dimon ‘prepared for a wide range of outcomes’ in US economy",
-    date: "2026-10-13",
-    time: "11:45",
-    url: "https://www.ft.com/content/25ddd4fb-0075-4642-8f76-fa4ac912a172"
-  },
-  {
-    id: "5d92ea15-6211-43c4-9e41-d1b7f085dd4c",
-    title: "BP to set out new strategy after windfall year",
-    date: "2026-10-13",
-    time: "08:38",
-    url: "https://www.ft.com/content/5d92ea15-6211-43c4-9e41-d1b7f085dd4c"
-  },
-  {
-    id: "1cf8da1d-8abd-40a6-bcd2-055ee49c7fcb",
-    title: "Premier Inn owner urges investors to resist pressure from activist hedge fund",
-    date: "2026-10-13",
-    time: "08:09",
-    url: "https://www.ft.com/content/1cf8da1d-8abd-40a6-bcd2-055ee49c7fcb"
-  },
-  {
-    id: "27be530d-2faf-43ce-874f-0e6e0802bee2",
-    title: "China gets spiky on currencies",
-    date: "2026-10-13",
-    time: "06:30",
-    url: "https://www.ft.com/content/27be530d-2faf-43ce-874f-0e6e0802bee2"
-  },
-  {
-    id: "d0d8cfb8-ca9e-4d0d-a9cf-e3e4989a4694",
-    title: "FTAV’s further reading",
-    date: "2026-10-13",
-    time: "06:30",
-    url: "https://www.ft.com/content/d0d8cfb8-ca9e-4d0d-a9cf-e3e4989a4694"
-  },
-  {
-    id: "73c8d82e-68ea-4846-b28c-a0bc4069be36",
-    title: "Trump-Zelenskyy diesel spat reignites Europe’s White House angst",
-    date: "2026-10-13",
-    time: "06:00",
-    url: "https://www.ft.com/content/73c8d82e-68ea-4846-b28c-a0bc4069be36"
-  },
-  {
-    id: "0c821d3e-241f-46a9-a54b-e0d0cf8ee4cf",
-    title: "How Michael Woodford made modern macro relevant to central bankers",
-    date: "2026-10-13",
-    time: "06:00",
-    url: "https://www.ft.com/content/0c821d3e-241f-46a9-a54b-e0d0cf8ee4cf"
-  },
-  {
-    id: "e03b74a1-6f7f-4f2c-ad39-c70b8e63ae39",
-    title: "FirstFT: IMF sounds alarm on dire public finances",
-    date: "2026-10-13",
-    time: "05:40",
-    url: "https://www.ft.com/content/e03b74a1-6f7f-4f2c-ad39-c70b8e63ae39"
-  },
-  {
-    id: "f5ca22c7-8340-4189-8c40-224a1e16c5ef",
-    title: "Rising Treasury bill issuance puts pressure on short-term rates",
-    date: "2026-10-13",
-    time: "05:30",
-    url: "https://www.ft.com/content/f5ca22c7-8340-4189-8c40-224a1e16c5ef"
-  },
-  {
-    id: "15eac7b8-df53-41f4-bf51-bc28225eec51",
-    title: "‘A game of snakes and ladders’",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/15eac7b8-df53-41f4-bf51-bc28225eec51"
-  },
-  {
-    id: "c913d391-f4e2-439c-82d6-8f6205b31b0f",
-    title: "EU hybrid curbs to offer only ‘temporary’ respite against Chinese carmakers",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/c913d391-f4e2-439c-82d6-8f6205b31b0f"
-  },
-  {
-    id: "6fa735a2-a590-4461-b092-920ba489e7a8",
-    title: "Investors brave US Treasury rout to lock in highest yields in decades",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8"
-  },
-  {
-    id: "ec433e1f-bdb4-4a1c-868e-e1c7c4121f45",
-    title: "The election supercycle set to drag Europe right",
-    date: "2026-10-13",
-    time: "05:00",
-    url: "https://www.ft.com/content/ec433e1f-bdb4-4a1c-868e-e1c7c4121f45"
   }
 ];
