@@ -150,24 +150,87 @@ export const EQ_INDICES = [
   }
 ];
 
-// S&P 500 GICS sectors — YTD %, sorted best→worst by the view. asOf month-end.
+// S&P 500 sectors — YTD %, sorted best→worst by the view. S&P DJI's sector dashboard
+// is not reachable, so these are the SPDR Select Sector ETFs' YTD PRICE change (31 Dec
+// 2025 close → latest close, Yahoo Finance): a labelled ETF proxy, not the sector indices.
 export const EQ_SECTORS = {
-  asOf: "2026-06-30",
-  source: "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-us-sector.pdf",
-  rows: [
-    { name: "Energy", ytd: 25.37 }, { name: "Materials", ytd: 16.2 }, { name: "Industrials", ytd: 16.0 },
-    { name: "Health Care", ytd: 10.6 }, { name: "Financials", ytd: 9.4 }, { name: "Consumer Discretionary", ytd: 7.4 },
-    { name: "Consumer Staples", ytd: null }, { name: "Real Estate", ytd: null }, { name: "Utilities", ytd: 1.3 },
-    { name: "Communication Services", ytd: -1.1 }, { name: "Information Technology", ytd: -2.43 },
-  ],
+  "asOf": "2026-10-13",
+  "label": "S&P 500 sectors (SPDR sector ETFs) — YTD price",
+  "source": "https://finance.yahoo.com/quote/XLE/history/",
+  "rows": [
+    {
+      "name": "Energy",
+      "ytd": 50.3
+    },
+    {
+      "name": "Information Technology",
+      "ytd": 36.33
+    },
+    {
+      "name": "Materials",
+      "ytd": 9.64
+    },
+    {
+      "name": "Health Care",
+      "ytd": 9.6
+    },
+    {
+      "name": "Industrials",
+      "ytd": 8.74
+    },
+    {
+      "name": "Consumer Staples",
+      "ytd": 8.38
+    },
+    {
+      "name": "Real Estate",
+      "ytd": 3.67
+    },
+    {
+      "name": "Financials",
+      "ytd": 0.09
+    },
+    {
+      "name": "Utilities",
+      "ytd": -1.92
+    },
+    {
+      "name": "Communication Services",
+      "ytd": -4.62
+    },
+    {
+      "name": "Consumer Discretionary",
+      "ytd": -5.9
+    }
+  ]
 };
 
 // Forward P/E of the majors (valuation) — percentile context computed in the view.
 export const EQ_VALUATION = [
-  { name: "S&P 500",         fwdPE: 22.2,  asOf: "2026-07-17", source: "https://insight.factset.com/sp-500-earnings-season-update-july-17-2026" },
-  { name: "Stoxx Europe 600", fwdPE: 15.9, asOf: "2026-01-01", source: "https://siblisresearch.com/data/europe-pe-ratio/" },
-  { name: "FTSE 100",        fwdPE: 13.35, asOf: "2026-01-01", source: "https://siblisresearch.com/data/ftse-100-cape-pe-yield/" },
-  { name: "Nikkei 225",      fwdPE: 21.0,  asOf: "2026-04-30", source: "https://en.macromicro.me/charts/95007/japan-nikkei225" },
+  {
+    "name": "S&P 500",
+    "fwdPE": 19.1,
+    "asOf": "2026-10-09",
+    "source": "https://advantage.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_100926.pdf"
+  },
+  {
+    "name": "Stoxx Europe 600",
+    "fwdPE": 14.6,
+    "asOf": "2026-08-26",
+    "source": "https://www.kitco.com/news/off-the-wire/2026-08-26/stoxx-600-seen-rising-modestly-year-end-poll-shows"
+  },
+  {
+    "name": "FTSE 100",
+    "fwdPE": 13.35,
+    "asOf": "2025-12-31",
+    "source": "https://siblisresearch.com/data/ftse-100-cape-pe-yield/"
+  },
+  {
+    "name": "Nikkei 225",
+    "fwdPE": 21,
+    "asOf": "2026-04-30",
+    "source": "https://en.macromicro.me/charts/95007/japan-nikkei225"
+  }
 ];
 
 // Volatility gauges — VIX / VSTOXX. Live feed refreshes `level`; bands in the view.
@@ -404,11 +467,10 @@ export const WORLD_INDICES = {
 // in each jurisdiction, for the Bonds dashboard heatmap. Each row: country,
 // y2/y5/y10/y30, an as-of date and a source URL. This is the SEED + fallback: the
 // live /api/govyields (Stooq keyless yield series) refreshes these at runtime.
-// Every value is real + sourced (never fabricated). Nulls are genuine
-// non-issuance / no-benchmark cases: Brazil has no liquid 30Y, Japan's late-July
-// 30Y and China's 5Y had no consistent print. Refreshed by the daily routine.
+// G7 + Western Europe only (R4c). Every value is real + sourced (never fabricated);
+// a null is a tenor the source does not publish (Switzerland 5Y / 30Y).
 export const GOVT_YIELDS = {
-  "asOf": "2026-07-29",
+  "asOf": "2026-10-13",
   "tenors": [
     "2Y",
     "5Y",
@@ -431,38 +493,15 @@ export const GOVT_YIELDS = {
       ]
     },
     {
-      "region": "South America",
-      "rows": [
-        {
-          "country": "Brazil",
-          "y2": 14.07,
-          "y5": 14.98,
-          "y10": 14.86,
-          "y30": null,
-          "asOf": "2026-07-27",
-          "source": "https://tradingeconomics.com/brazil/government-bond-yield"
-        },
-        {
-          "country": "Mexico",
-          "y2": null,
-          "y5": null,
-          "y10": 9.16,
-          "y30": null,
-          "asOf": "2026-07-24",
-          "source": "https://tradingeconomics.com/mexico/government-bond-yield"
-        }
-      ]
-    },
-    {
       "region": "UK",
       "rows": [
         {
           "country": "United Kingdom",
-          "y2": 4.43,
-          "y5": 4.39,
-          "y10": 4.95,
-          "y30": 4.75,
-          "asOf": "2026-07-29",
+          "y2": 4.8,
+          "y5": 5.03,
+          "y10": 5.44,
+          "y30": 5.93,
+          "asOf": "2026-10-13",
           "source": "https://tradingeconomics.com/united-kingdom/government-bond-yield"
         }
       ]
@@ -472,48 +511,48 @@ export const GOVT_YIELDS = {
       "rows": [
         {
           "country": "Germany",
-          "y2": 2.62,
-          "y5": 2.71,
-          "y10": 3.19,
-          "y30": 3.48,
-          "asOf": "2026-07-27",
+          "y2": 3.12,
+          "y5": 3.25,
+          "y10": 3.46,
+          "y30": 3.81,
+          "asOf": "2026-10-13",
           "source": "https://tradingeconomics.com/germany/government-bond-yield"
         },
         {
           "country": "France",
-          "y2": 2.79,
-          "y5": 3.11,
-          "y10": 3.94,
-          "y30": 4.49,
-          "asOf": "2026-07-24",
+          "y2": 3.63,
+          "y5": 4.21,
+          "y10": 4.84,
+          "y30": 5.42,
+          "asOf": "2026-10-13",
           "source": "https://tradingeconomics.com/france/government-bond-yield"
         },
         {
           "country": "Italy",
-          "y2": 2.8,
-          "y5": 3.05,
-          "y10": 3.98,
-          "y30": 4.75,
-          "asOf": "2026-07-29",
+          "y2": 3.5,
+          "y5": 3.99,
+          "y10": 4.56,
+          "y30": 5.13,
+          "asOf": "2026-10-13",
           "source": "https://tradingeconomics.com/italy/government-bond-yield"
         },
         {
           "country": "Spain",
-          "y2": 2.76,
-          "y5": 2.97,
-          "y10": 3.5,
-          "y30": 4.16,
-          "asOf": "2026-07-24",
+          "y2": 3.32,
+          "y5": 3.58,
+          "y10": 4.09,
+          "y30": 4.6,
+          "asOf": "2026-10-13",
           "source": "https://tradingeconomics.com/spain/government-bond-yield"
         },
         {
           "country": "Switzerland",
-          "y2": 0.09,
-          "y5": 0.14,
-          "y10": 0.36,
-          "y30": 0.66,
-          "asOf": "2026-07-20",
-          "source": "https://www.worldgovernmentbonds.com/country/switzerland/"
+          "y2": 0.24,
+          "y5": null,
+          "y10": 0.56,
+          "y30": null,
+          "asOf": "2026-10-13",
+          "source": "https://tradingeconomics.com/switzerland/government-bond-yield"
         }
       ]
     },
@@ -522,48 +561,12 @@ export const GOVT_YIELDS = {
       "rows": [
         {
           "country": "Japan",
-          "y2": 1.44,
-          "y5": 2,
-          "y10": 2.76,
-          "y30": null,
-          "asOf": "2026-07-28",
+          "y2": 1.93,
+          "y5": 2.34,
+          "y10": 3,
+          "y30": 4.04,
+          "asOf": "2026-10-13",
           "source": "https://tradingeconomics.com/japan/government-bond-yield"
-        },
-        {
-          "country": "Australia",
-          "y2": 4.61,
-          "y5": 4.61,
-          "y10": 4.9,
-          "y30": 5.39,
-          "asOf": "2026-07-29",
-          "source": "https://tradingeconomics.com/australia/government-bond-yield"
-        },
-        {
-          "country": "China",
-          "y2": 1.62,
-          "y5": null,
-          "y10": 2.1,
-          "y30": 2.5,
-          "asOf": "2026-07-22",
-          "source": "https://centralbank.watch/tools/yield-curve/china-yield-curve/"
-        },
-        {
-          "country": "India",
-          "y2": 6.41,
-          "y5": 6.91,
-          "y10": 6.8,
-          "y30": 7.81,
-          "asOf": "2026-07-27",
-          "source": "https://tradingeconomics.com/india/government-bond-yield"
-        },
-        {
-          "country": "South Korea",
-          "y2": 3.33,
-          "y5": 3.59,
-          "y10": 3.69,
-          "y30": 3.61,
-          "asOf": "2026-07-20",
-          "source": "https://www.worldgovernmentbonds.com/country/south-korea/"
         }
       ]
     }
@@ -607,118 +610,122 @@ export const GOVT_YIELD_CHG = {
       "y1": 93
     }
   },
-  "Brazil": {
-    "y10": {
-      "m1": 35,
-      "y1": 68
-    }
-  },
-  "Mexico": {
-    "y10": {
-      "m1": 21,
-      "y1": 10
-    }
-  },
   "United Kingdom": {
     "y2": {
-      "m1": 13,
-      "y1": 45
+      "m1": 0,
+      "y1": 85
+    },
+    "y5": {
+      "m1": 2,
+      "y1": 98
     },
     "y10": {
-      "m1": 23,
-      "y1": 42
+      "m1": 3,
+      "y1": 86
     },
     "y30": {
-      "m1": 22,
-      "y1": 33
+      "m1": -3,
+      "y1": 54
     }
   },
   "Germany": {
     "y2": {
-      "m1": 24,
-      "y1": 80
+      "m1": -13,
+      "y1": 118
+    },
+    "y5": {
+      "m1": -10,
+      "y1": 108
     },
     "y10": {
-      "m1": 30,
-      "y1": 48
+      "m1": -7,
+      "y1": 91
     },
     "y30": {
-      "m1": 20,
-      "y1": 48
+      "m1": -7,
+      "y1": 68
     }
   },
   "France": {
+    "y2": {
+      "m1": 10,
+      "y1": 154
+    },
+    "y5": {
+      "m1": 28,
+      "y1": 154
+    },
     "y10": {
-      "m1": 40,
-      "y1": 62
+      "m1": 32,
+      "y1": 149
     },
     "y30": {
-      "m1": 22,
-      "y1": 59
+      "m1": 25,
+      "y1": 121
     }
   },
   "Italy": {
+    "y2": {
+      "m1": 4,
+      "y1": 138
+    },
+    "y5": {
+      "m1": 12,
+      "y1": 128
+    },
     "y10": {
-      "m1": 33,
-      "y1": 42
+      "m1": 14,
+      "y1": 118
     },
     "y30": {
-      "m1": 26,
-      "y1": 36
+      "m1": 9,
+      "y1": 85
     }
   },
   "Spain": {
+    "y2": {
+      "m1": 1,
+      "y1": 129
+    },
+    "y5": {
+      "m1": 5,
+      "y1": 123
+    },
     "y10": {
-      "m1": 21,
-      "y1": 29
+      "m1": 8,
+      "y1": 99
+    },
+    "y30": {
+      "m1": 6,
+      "y1": 68
     }
   },
   "Switzerland": {
+    "y2": {
+      "m1": -8,
+      "y1": 39
+    },
     "y10": {
-      "m1": 13,
-      "y1": 7
+      "m1": -4,
+      "y1": 35
     }
   },
   "Japan": {
     "y2": {
-      "m1": 9,
-      "y1": 65
+      "m1": 7,
+      "y1": 102
+    },
+    "y5": {
+      "m1": 4,
+      "y1": 115
     },
     "y10": {
-      "m1": 10,
-      "y1": 125
+      "m1": -4,
+      "y1": 135
     },
     "y30": {
-      "m1": 1,
-      "y1": 88
-    }
-  },
-  "Australia": {
-    "y2": {
-      "m1": 5,
-      "y1": 117
-    },
-    "y10": {
-      "m1": 21,
-      "y1": 72
-    }
-  },
-  "China": {
-    "y10": {
-      "m1": -3,
-      "y1": -1
-    }
-  },
-  "India": {
-    "y10": {
-      "m1": 12,
-      "y1": 45
-    }
-  },
-  "South Korea": {
-    "y10": {
-      "m1": 17,
-      "y1": 154
+      "m1": -11,
+      "y1": 87
     }
   }
 };

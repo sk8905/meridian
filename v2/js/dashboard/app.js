@@ -264,7 +264,7 @@ export function mount(host, ctx) {
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">World indices — benchmarks by jurisdiction ${liveOr("wi")} ${asOf(isoDay(WORLD_INDICES.asOf))}</h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
       <h3 class="dsh-term-lbl">Sectors &amp; valuation</h3>
-      <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
+      <section class="dsh-card"><h3 class="dsh-h">${esc(EQ_SECTORS.label || "S&P 500 sectors — YTD")} ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
       <h3 class="dsh-term-lbl">Calendar &amp; pipeline</h3>
       <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
