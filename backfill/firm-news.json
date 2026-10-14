@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T05:16:12.590Z",
+ "generated": "2026-10-14T12:20:01.419Z",
  "since": "2026-09-30",
  "firms": {
   "proskauerrose": {
@@ -27,8 +27,8 @@
    ],
    "sitemaps": 5,
    "urls": 7352,
-   "kept": 5,
-   "fetched": 5,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -37,29 +37,23 @@
     "www.slaughterandmay.com"
    ],
    "sitemaps": 1,
-   "urls": 6283,
+   "urls": 6284,
    "kept": 11,
    "fetched": 11,
    "errors": 0,
    "carried": 0
   },
-  "ashurst": {
+  "linklaters": {
    "domains": [
-    "www.ashurst.com"
+    "www.linklaters.com",
+    "financialregulation.linklaters.com",
+    "sustainablefutures.linklaters.com"
    ],
-   "sitemaps": 1,
-   "urls": 5614,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 0,
-   "samples": [
-    "https://www.ashurstperkinscoie.com/ @2026-10-12",
-    "https://www.ashurstperkinscoie.com/en/careers/ @2026-07-27",
-    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/ @2026-07-30",
-    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/commercial-awareness-and-legal-tech/ @2026-06-26",
-    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/secondment-experience-in-japan-insights-by-georgia-bertoloni/ @2026-06-18",
-    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/trainee-insights-by-kelsey-reid-jones/ @2026-06-18"
-   ],
+   "sitemaps": 6,
+   "urls": 17764,
+   "kept": 18,
+   "fetched": 11,
+   "errors": 7,
    "carried": 0
   },
   "hsf": {
@@ -73,28 +67,28 @@
    "errors": 1,
    "carried": 0
   },
-  "macfarlanes": {
+  "ashurst": {
    "domains": [
-    "www.macfarlanes.com"
+    "www.ashurst.com"
    ],
-   "sitemaps": 4,
-   "urls": 3549,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 0,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1,
    "carried": 0
   },
-  "linklaters": {
+  "aoshearman": {
    "domains": [
-    "www.linklaters.com",
-    "financialregulation.linklaters.com",
-    "sustainablefutures.linklaters.com"
+    "www.aoshearman.com",
+    "www.lit-antitrust.aoshearman.com",
+    "finreg.aoshearman.com"
    ],
-   "sitemaps": 6,
-   "urls": 17764,
-   "kept": 26,
-   "fetched": 18,
-   "errors": 8,
+   "sitemaps": 5,
+   "urls": 16528,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
    "carried": 0
   },
   "simmons": {
@@ -110,16 +104,14 @@
    "disallowed": 1,
    "carried": 0
   },
-  "aoshearman": {
+  "macfarlanes": {
    "domains": [
-    "www.aoshearman.com",
-    "www.lit-antitrust.aoshearman.com",
-    "finreg.aoshearman.com"
+    "www.macfarlanes.com"
    ],
-   "sitemaps": 5,
-   "urls": 16524,
-   "kept": 40,
-   "fetched": 40,
+   "sitemaps": 4,
+   "urls": 3555,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -128,9 +120,9 @@
     "www.traverssmith.com"
    ],
    "sitemaps": 1,
-   "urls": 5010,
-   "kept": 6,
-   "fetched": 6,
+   "urls": 5011,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -140,8 +132,8 @@
    ],
    "sitemaps": 11,
    "urls": 10381,
-   "kept": 33,
-   "fetched": 33,
+   "kept": 29,
+   "fetched": 29,
    "errors": 0,
    "carried": 0
   },
@@ -162,8 +154,8 @@
    ],
    "sitemaps": 9,
    "urls": 20128,
-   "kept": 40,
-   "fetched": 38,
+   "kept": 26,
+   "fetched": 24,
    "errors": 2,
    "carried": 0
   },
@@ -171,11 +163,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 6,
-   "urls": 7174,
-   "kept": 6,
-   "fetched": 6,
-   "errors": 11,
+   "sitemaps": 7,
+   "urls": 7571,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -215,8 +207,8 @@
    ],
    "sitemaps": 11,
    "urls": 16192,
-   "kept": 14,
-   "fetched": 14,
+   "kept": 10,
+   "fetched": 10,
    "errors": 0,
    "carried": 0
   },
@@ -225,7 +217,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2847,
+   "urls": 2848,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -244,18 +236,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12274,
-   "kept": 15,
-   "fetched": 15,
-   "errors": 0,
-   "carried": 0
-  },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11555,
+   "urls": 12273,
    "kept": 14,
    "fetched": 14,
    "errors": 0,
@@ -271,9 +252,20 @@
     "governance.weil.com"
    ],
    "sitemaps": 36,
-   "urls": 7740,
+   "urls": 7752,
    "kept": 40,
    "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11555,
+   "kept": 9,
+   "fetched": 9,
    "errors": 0,
    "carried": 0
   },
@@ -282,7 +274,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21366,
+   "urls": 21375,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -294,6 +286,18 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
+   "carried": 0
+  },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18685,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -315,26 +319,14 @@
    ],
    "carried": 0
   },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18685,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
-   "carried": 0
-  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16323,
-   "kept": 28,
-   "fetched": 28,
+   "urls": 16325,
+   "kept": 23,
+   "fetched": 23,
    "errors": 0,
    "carried": 0
   },
@@ -352,6 +344,15 @@
  },
  "items": [
   {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-uniper-se-on-new-3bn-euro-syndicated-credit-facility",
+   "title": "Linklaters advises Uniper on €3bn sustainability-linked syndicated credit facility refinancing",
+   "description": "Linklaters has advised Uniper on the refinancing of its €3bn sustainability-linked syndicated credit facility, supporting the energy company's long-term liquidity and sustainability objectives.",
+   "date": "2026-10-14",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-14"
+  },
+  {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/asia-funds-and-financial-services-newsletter",
    "title": "Asia Funds & Financial Services Newsletter",
@@ -361,13 +362,22 @@
    "lastmod": "2026-10-14"
   },
   {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-bregal-milestone-majority-investment-asolvi",
-   "title": "White & Case advises Bregal Milestone on majority investment in Asolvi",
-   "description": "Global law firm White & Case LLP has advised leading software growth private equity firm Bregal Milestone on its majority investment in Asolvi, a provider of field service management (FSM) software for compliance-critical and asset-intensive industries.",
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-insolvency-administrators-long-memory-when-gratuitous-benefits-are-reclaimed",
+   "title": "The Insolvency Administrator's Long Memory – When Gratuitous Benefits Are Reclaimed",
+   "description": "I. WHY THIS TOPIC IS IMPORTANT When someone receives a gift, the recipient rarely considers the possibility of the donor’s insolvency. Yet, this is",
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "traverssmith",
+   "url": "https://www.traverssmith.com/knowledge/knowledge-container/litigation-funding-in-english-seated-commercial-arbitration/",
+   "title": "Litigation funding in English-seated commercial arbitration",
+   "description": "Third-party litigation funding – whereby an independent funder pays some or all of a party's costs in connection with legal proceedings in exchange for a financial return should the case succeed – is has become an established feature of commercial arbitration seated in England & Wales. In this article, we explore the use of litigation funding in English-seated commercial arbitration, including its interaction with institutional rules, potential pitfalls and practical guidance to ensure its effective use.",
    "date": "2026-10-13",
    "dateSource": "<time datetime>",
-   "lastmod": "2026-10-13"
+   "lastmod": "2026-10-14"
   },
   {
    "firm": "whitecase",
@@ -377,33 +387,6 @@
    "date": "2026-10-13",
    "dateSource": "<time datetime>",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-represents-argano-on-acquisition-of-oktana",
-   "title": "Kirkland Represents Argano on Acquisition of Oktana",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-arsenal-capital-on-investment-in-esprigas",
-   "title": "Kirkland Advises Arsenal Capital on Investment in EspriGas",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-ithaca-holdings-on-1-3-billion-acquisition-of-bumble-inc",
-   "title": "Kirkland Advises Ithaca Holdings on $1.3 Billion Acquisition of Bumble Inc.",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "page date label",
-   "lastmod": null
   },
   {
    "firm": "kirkland",
@@ -424,48 +407,12 @@
    "lastmod": null
   },
   {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/in-sec-rulemaking-agency-appears-open-to-broad-expansion-of-cross-trading-by-registered-funds",
-   "title": "In SEC Rulemaking, Agency Appears Open to Broad Expansion of Cross Trading by Registered Funds",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/eswin-computing-technology-hk-2-5-billion-ipo",
-   "title": "ESWIN Computing Technology HK$2.5 billion IPO",
-   "description": "We advised ESWIN Computing Technology on its IPO and HKEX listing",
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
-  },
-  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/There-Is-a-New-Sheriff-in-Town-Why-Community-Approval-Now-Rules-Major-Project-Development-10-13-2026",
    "title": "There Is a New Sheriff in Town: Why Community Approval Now Rules Major Project Development",
    "description": null,
    "date": "2026-10-13",
    "dateSource": "url",
-   "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/the-fdic-s-proposed-overhaul-of-bank-merger-review-what-financial-institutions-need-to-know/",
-   "title": "The FDIC’s proposed overhaul of bank merger review: what financial institutions need to know",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advised-omers-private-equity-and-its-portfolio-companies-the-kenan-advantage-group-and-kenan",
-   "title": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in $1.89B Refinancing",
-   "description": "Weil Advised OMERS Private Equity and its Portfolio Companies The Kenan Advantage Group and Kenan Canada in $1.89B Refinancing",
-   "date": "2026-10-13",
-   "dateSource": "page date label",
    "lastmod": "2026-10-13"
   },
   {
@@ -496,33 +443,6 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/federal-fiscal-court-future-insolvency-administrators-remuneration-may-be-recognized-as-provisions",
-   "title": "Federal Fiscal Court: Future insolvency administrator’s remuneration may be recognized as provisions",
-   "description": "The BFH rules that insolvency administrator's remuneration may be recognized as a tax-deductible provision. Key takeaways for tax and insolvency practice.",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/uk-eu-investment-management-update",
-   "title": "UK/EU Investment Management Update (October 2026)",
-   "description": null,
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/experience/brightline-florida-chapter-11-filing-and-restructuring-support-agreement",
-   "title": "Brightline Florida chapter 11 filing and restructuring support agreement",
-   "description": "We are advising an ad hoc group of noteholders in connection with Brightline Florida's chapter 11 proceedings",
-   "date": "2026-10-12",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
-  },
-  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/New-South-Wales-No-Shortcuts-on-Scope-3-High-Court-Puts-Scope-3-Emissions-Back-on-the-Table-for-Resource-Projects-10-12-2026",
    "title": "New South Wales–No Shortcuts on Scope 3: High Court Puts Scope 3 Emissions Back on the Table for Resource Projects",
@@ -532,46 +452,10 @@
    "lastmod": "2026-10-13"
   },
   {
-   "firm": "klgates",
-   "url": "https://www.klgates.com/thought-leadership/Luxembourg-Financial-Services-Regulator-CSSF-Issues-First-FAQ-on-Fund-Tokenisation-10-12-2026",
-   "title": "Luxembourg Financial Services Regulator CSSF Issues First FAQ on Fund Tokenisation",
-   "description": "CSSF FAQ clarifies how Luxembourg investment funds may issue tokenised shares on DLT, outlining registrar, control agent, and DORA requirements.",
-   "date": "2026-10-12",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/leading-china-corporate-lawyer-shu-du-joins-weil-to-launch-asia-capital-markets-practice",
-   "title": "Leading China Corporate Lawyer Shu Du Joins Weil to Launch Asia Capital Markets Practice",
-   "description": "International law firm Weil, Gotshal & Manges LLP announced today that leading corporate attorney Shu Du will join the Firm as a partner in the Corporate practice, based in Hong Kong.",
-   "date": "2026-10-12",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-adds-prominent-private-equity-partner-in-london",
-   "title": "Weil Adds Prominent Private Equity Partner in London",
-   "description": "International law firm Weil, Gotshal & Manges LLP announced today that partner Rebecca Ward will join the firm’s market-leading Private Equity practice in London.",
-   "date": "2026-10-12",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-12"
-  },
-  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/mark-lawford-identified-as-one-of-financier-worldwides-2026-power-players-distinguished-advisers",
    "title": "Mark Lawford Identified as One of Financier Worldwide’s 2026 “Power Players: Distinguished Advisers”",
    "description": "Weil’s Mark Lawford was named a 2026 Power Player by Financier Worldwide for his expertise in cross-border restructuring, bankruptcy and insolvency.",
-   "date": "2026-10-12",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weils-european-restructuring-practice-recognized-by-turnarounds-workouts",
-   "title": "Weil’s European Restructuring Practice Recognized by Turnarounds & Workouts",
-   "description": "The publication’s special report highlights the leading restructuring lawyers at US firms in Europe.",
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-12"
@@ -620,15 +504,6 @@
    "dateProbe": []
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/pioneering-issuance-marks-milestone-in-polands-bank-capital-market",
-   "title": "mBank completes landmark EUR250m AT1 bond issuance",
-   "description": "A&O Shearman advised mBank on the EUR250 million AT1 issuance, the first euro-denominated Additional Tier 1 bond by a Polish bank.",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/publications/insight/financial-regulatory-observer-autumn-2021",
    "title": "Financial Regulatory Observer - Autumn 2021",
@@ -637,42 +512,6 @@
    "dateSource": null,
    "lastmod": "2026-10-09",
    "dateProbe": []
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-ta-associates-backed-rocscience-on-acquisition-by-hexagon",
-   "title": "Kirkland Advises TA Associates-Backed Rocscience on Acquisition by Hexagon",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/Treasury Issues First Ever Enforcement Penalty Under Outbound Investment Security Program",
-   "title": "Treasury Issues First-Ever Enforcement Penalty Under Outbound Investment Security Program",
-   "description": "Treasury’s first outbound investment penalty demonstrates that the Outbound Program enforcement regime is active and monitoring cross-border investments.",
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Balerion Space Ventures on Oversubscribed Fund II",
-   "title": "Latham & Watkins Advises Balerion Space Ventures on Oversubscribed Fund II",
-   "description": "Firm represents the space and defense-focused venture capital firm in the transaction.",
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Consonance Capital Partners on Fund Formation",
-   "title": "Latham & Watkins Advises Consonance Capital Partners on US$1.35 Billion Fund Formation",
-   "description": "Multidisciplinary team led by members of the firm’s Investment Funds Practice represented the healthcare private equity firm in the formation of its oversubscribed third fund.",
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "sidley",
@@ -694,24 +533,6 @@
   },
   {
    "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/10/australian-debtors-1250-retainers-meet-ch-15-test",
-   "title": "Australian Debtors' $1,250 Retainers Meet Ch. 15 Test",
-   "description": "Benjamin Bright is mentioned in this article.",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/10/private-capitals-new-hedging-habit-boosting-business-on-wall-street",
-   "title": "Private Capital’s New Hedging Habit Boosting Business on Wall Street",
-   "description": "Sarah Goodwin comments on how private equity sponsors are changing the way they use interest rate hedging.",
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-10"
-  },
-  {
-   "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/general-repercussion-theme-no-843-stf-rules-that-icms-presumed-credits-must-be-excluded-from-pis-and-cofins-tax-basis",
    "title": "General Repercussion Theme No. 843: STF Rules that ICMS Presumed Credits Must Be Excluded from PIS and COFINS Tax Basis",
    "description": "On October 7, 2026, the Brazilian Supreme Court (\"STF\") concluded the trial of the Extraordinary Appeal No. 835,818/PR (General Repercussion",
@@ -720,28 +541,10 @@
    "lastmod": "2026-10-09"
   },
   {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-itau-on-financing-for-fertil-pampa-sau",
-   "title": "Linklaters Advises Itaú on US$300 Million Financing for Fértil Pampa S.A.U.",
-   "description": "Linklaters advised Itaú on the provision of a US$300 million financing to Fértil Pampa S.A.U., a subsidiary of Pampa Energía S.A.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-guides-us-department-of-transportation-on-usd2-52-billion-loan",
-   "title": "A&O Shearman advises on USD2.52B Mobile River Bridge loan",
-   "description": "A&O Shearman advised the U.S. DOT on a USD2.52B TIFIA loan and USD3.8B infrastructure finance package for Alabama's Mobile River Bridge and Bayway project",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/leaked-draft-german-foreign-direct-investment-screening-act",
-   "title": "Leaked draft German Foreign Direct Investment Screening Act",
-   "description": "Germany's leaked FDI screening draft keeps the three-tier structure but changes EFTA treatment, filing thresholds and listed company rules. Key takeaways.",
+   "url": "https://www.aoshearman.com/en/insights/fca-finalises-uk-srs-aligned-sustainability-disclosure-rules-for-listed-issuers",
+   "title": "FCA finalises UK SRS-aligned sustainability disclosure rules for listed issuers",
+   "description": "UK SRS disclosure rules explained: scope, comply or explain obligations, transitional reliefs and a practical checklist for listed companies.",
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
@@ -757,102 +560,12 @@
   },
   {
    "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-aphias-capital-on-close-of-inaugural-fund",
-   "title": "Kirkland Advises Aphias Capital on Close of Inaugural Fund at Over $1.05 Billion",
-   "description": null,
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-bdt-msd-on-acquisition-of-sunrise-senior",
-   "title": "Kirkland Advises BDT & MSD on Acquisition of Sunrise Senior Living",
-   "description": null,
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-centalion-on-acquisition-of-haynesville-upstream-and-midstream-natural-gas-assets",
-   "title": "Kirkland Advises Centalion on Acquisition of Haynesville Upstream and Midstream Natural Gas Assets from Silver Hill Energy Partners",
-   "description": null,
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/10/tmt-finance-awards-digital-infrastructure-legal-advisor-of-the-year",
    "title": "Kirkland’s Digital Infrastructure Practice Honored at TMT Finance Awards",
    "description": null,
    "date": "2026-10-08",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/The Growth Rocketship Deep Research Bold Bets AI Inside Maverick Capital Portfolios",
-   "title": "The Growth Rocketship: Deep Research, Bold Bets, and AI — Inside Maverick Capital’s US$15 Billion Portfolios",
-   "description": "Latham speaks with Maverick Capital’s General Counsel and Chief Compliance Officer about what it takes to oversee legal risk and compliance across a US$15 billion platform spanning public equities, venture capital, and AI-driven semiconductor investing.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises HIG Capital and Medisolve on Refinancing and Growth Financing",
-   "title": "Latham Advises H.I.G. Capital and Medisolve on Refinancing and Growth Financing",
-   "description": "Finance team represents private equity investor in the transaction.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises UL Solutions on Acquisition of Eurofins Scientific Electronics Business",
-   "title": "Latham Advises UL Solutions on Acquisition of Eurofins Scientific’s Electrical & Electronics Business",
-   "description": "Firm represents the global leader in applied safety science in the transaction.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Represents Crescent Energy Acquisition Devon Energy Eagle Ford Assets",
-   "title": "Latham Represents Crescent Energy on Its Net US$3.85 Billion Acquisition of Devon Energy's Eagle Ford Assets",
-   "description": "A Texas-based team advised the energy company on the acquisition of oil and gas assets.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises on Lambda Senior Secured Term Loan Facility",
-   "title": "Latham & Watkins Advises on Lambda’s US$1 Billion Senior Secured Term Loan Facility",
-   "description": "Firm represents the arranging bank in the asset-backed financing supporting the deployment of GPU infrastructure for artificial intelligence workloads.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises on Waymo Debt Financing to Accelerate Business Expansion",
-   "title": "Latham & Watkins Advises on Waymo’s US$5 Billion Debt Financing to Accelerate Business Expansion",
-   "description": "Multidisciplinary team represents the private capital funds and sole lead arranger in financing for the autonomous driving technology company.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Stuut on Series B Financing",
-   "title": "Latham & Watkins Advises Stuut on US$52.5 Million Series B Financing",
-   "description": "Firm represents the AI-powered order-to-cash platform in latest financing supporting the company’s expansion of its enterprise cash-flow optimization technology.",
-   "date": "2026-10-08",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
   },
   {
    "firm": "klgates",
@@ -898,33 +611,6 @@
    "date": "2026-10-08",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-pacific-universal-investments-debut-senior-secured-notes-issuance",
-   "title": "Linklaters advises on Pacific Universal Investments’ debut senior secured notes issuance",
-   "description": "Linklaters advises on Pacific Universal Investments’ debut US$325m senior secured notes issuance in the international debt capital markets.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-sherman-advises-on-santander-consumer-banks",
-   "title": "A&O Sherman advises on Santander Consumer Bank’s cash SRT securitization of approximately EUR700 million",
-   "description": "A&O Shearman advises Santander Consumer Bank on a EUR700m STS auto loan securitization, marking S&P's first AAA-rated Italian ABS transaction since 2012.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-us-environmental-protection-agency-on-loan",
-   "title": "A&O Shearman advises EPA on USD251m WIFIA water loan",
-   "description": "A&O Shearman advised the EPA on a USD251m WIFIA loan for the Pure Water Project, a California water reuse initiative to boost drought-resilient supply.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "aoshearman",
@@ -975,105 +661,6 @@
    "dateProbe": []
   },
   {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-sheridan-capital-on-close-of-two-funds-totaling-more-than-1-3-billion",
-   "title": "Kirkland Advises Sheridan Capital on Close of Two Funds Totaling More Than $1.3 Billion",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-crcp-on-closing-of-oversubscribed-continuation-vehicle-for-psg",
-   "title": "Kirkland Advises Center Rock Capital Partners on Closing of Oversubscribed Continuation Vehicle for Power Services Group",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Financing for Wittington Acquisition of Boots",
-   "title": "Latham Advises on Financing for Wittington’s US$8.9 Billion Acquisition of Boots",
-   "description": "Cross-border team represents the financing sources in the acquisition of the UK's leading pharmacy and health and beauty retailer.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Vaxcyte Concurrent Public Offerings of Common Stock Pre Funded Warrants",
-   "title": "Latham Advises on Vaxcyte’s Concurrent Public Offerings of Common Stock, Pre-Funded Warrants, and Convertible Senior Notes",
-   "description": "Firm represents the underwriters in the offerings by the clinical-stage vaccine innovation company.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Hg Sale Gen II Fund Services KKR",
-   "title": "Latham & Watkins Advises Hg in US$5.1 Billion Sale of Gen II Fund Services to KKR",
-   "description": "New York-based corporate team represents the European and transatlantic technology and services businesses investor.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises The Sterling Group Foundation Fund on Acquisition of Slingmax Group",
-   "title": "Latham & Watkins Advises The Sterling Group Foundation Fund on Acquisition of Slingmax Group",
-   "description": "Multidisciplinary team represents the private equity firm in the transaction.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Wolfspeed on Loan Commitment From US Department of War",
-   "title": "Latham & Watkins Advises Wolfspeed on US$1.5 Billion Loan Commitment From Office of Strategic Capital of the US Department of War, Its Largest Commitment to Date",
-   "description": "Firm represents global leader in silicon carbide technologies in the financing to advance domestic wide bandgap supply chain.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Represents OIC on Credit Income Strategy Launch with Liberty Mutual Investments",
-   "title": "Latham & Watkins Represents OIC on Credit Income Strategy Launch With Liberty Mutual Investments",
-   "description": "Multidisciplinary Investment Funds team across fund formation, tax, and regulatory represented OIC on Credit Income Strategy focused on middle-market infrastructure debt opportunities.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/pemacom-2026-insights-on-the-private-equity-and-ma-landscape/",
-   "title": "PEMACOM 2026: Insights on the private equity and M&A landscape",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-represents-mckesson-in-agreement-with-cdr-to-acquire-option-care-health-in-58-billion-deal/",
-   "title": "Reed Smith represents McKesson in agreement with CD&R to acquire Option Care Health in $5.8 billion deal",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-sun-capital-on-gp-led-secondary-transaction-involving-anderson-global",
-   "title": "Weil Advises Sun Capital on GP-Led Secondary Transaction Involving Anderson Global",
-   "description": "Weil advised Sun Capital on a GP-led secondary transaction involving Anderson Global through a continuation vehicle sponsored by a Sun Capital affiliate.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
    "firm": "weil",
    "url": "https://eurorestructuring.weil.com/news/restructuring/the-weil-european-distress-index-18/attachment/image-16/",
    "title": "image - European Restructuring Watch",
@@ -1106,22 +693,18 @@
    ]
   },
   {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/booking-etraveli-eu-general-court-upholds-commissions-new-template-for-digital-merger-control",
-   "title": "Booking/Etraveli: EU General Court Upholds Commission’s new Template for Digital Merger Control",
-   "description": "Introduction The EU General Court’s (the \" Court \") judgment in Booking/Etraveli marks a watershed moment for digital merger control in Europe.",
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-longstanding-client-talktalk-on-acquisition-by-bt-group",
-   "title": "Freshfields advises longstanding client TalkTalk on acquisition by BT Group",
+   "firm": "weil",
+   "url": "https://eurorestructuring.weil.com/category/news/restructuring/",
+   "title": "Restructuring Archives - European Restructuring Watch",
    "description": null,
-   "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-07",
+   "dateProbe": [
+    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Oct 07, 2026 </span> </div> <div",
+    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Jul 16, 2026 </span> </div> <div",
+    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Mar 30, 2026 </span> </div> <div"
+   ]
   },
   {
    "firm": "slaughtermay",
@@ -1208,69 +791,6 @@
    "lastmod": "2026-10-06"
   },
   {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-gen-ii-fund-services-on-5-1-billion-sale-to-kkr",
-   "title": "Kirkland Advises Gen II Fund Services on $5.1 Billion Sale to KKR",
-   "description": null,
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-option-care-health-on-acquisition-by-cdr-and-mckesson",
-   "title": "Kirkland Advises Option Care Health on $5.8 Billion Acquisition by CD&R and McKesson",
-   "description": null,
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Skydance in Completed Acquisition of Warner Bros Discovery",
-   "title": "Latham Advises Skydance (Formerly Known as Paramount) in Completed Acquisition of Warner Bros. Discovery, Creating a New Global Entertainment Leader",
-   "description": "Multidisciplinary cross-border team represents the next-generation global media and entertainment company in the combination of two of the world’s most recognizable entertainment companies, forming a single creative powerhouse.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/Key Regulatory Updates for Hong Kong Listed Companies July August 2026",
-   "title": "Key Regulatory Updates for Hong Kong Listed Companies — July/August 2026",
-   "description": "The updates include the Stock Exchange’s Consultation Conclusions on listing framework competitiveness, new guidance on digital asset-related activities, and a temporary waiver extending the validity period of new listing applications.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Represents 5E Advanced Materials Inc in Completed Acquisition of Searles Valley Minerals",
-   "title": "Latham Represents 5E Advanced Materials, Inc. in Completed Acquisition of Searles Valley Minerals",
-   "description": "Multidisciplinary team advises the supplier of refined borates and advanced boron materials in the transformational transaction, transitioning the company from a pre-revenue developer to a revenue-generating US producer of boron and critical industrial minerals.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Spectrum Equity on Growth Investment in Symmetric Health Solutions",
-   "title": "Latham & Watkins Advises Spectrum Equity on Growth Investment in Symmetric Health Solutions",
-   "description": "Multidisciplinary team represents the growth equity firm in investment in the healthcare supply chain intelligence provider.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Stride Consumer Partners on Fund Formation",
-   "title": "Latham & Watkins Advises Stride Consumer Partners on US$550 Million Fund Formation",
-   "description": "Team led by members of the Investment Funds Practice represented the growth-equity investment firm in the formation of its oversubscribed Stride Consumer Fund II.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
    "firm": "sidley",
    "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/congressional-democrats-propose-first-federal-corporate-practice-of-medicine-law-unlikely-to-pass",
    "title": "Congressional Democrats Propose First Federal Corporate Practice of Medicine Law; Unlikely to Pass",
@@ -1289,22 +809,23 @@
    "lastmod": "2026-10-12"
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/regulatory-considerations-for-investment-advisers-compliance-reviews-valuation-and-proposed-rulemaking/",
-   "title": "Regulatory Considerations for Investment Advisers: Compliance Reviews, Valuation, and Proposed Rulemaking",
-   "description": null,
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-advises-amc-in-4b-global-refinancing",
+   "title": "Weil Advises AMC in $4B Global Refinancing",
+   "description": "Weil advised AMC Entertainment on its approximately $4 billion global refinancing, including first lien notes and new first and second lien term loan facilities.",
    "date": "2026-10-06",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
+   "dateSource": "page date label",
+   "lastmod": "2026-10-06"
   },
   {
    "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-cpp-investments-in-new-us-fiber-joint-venture",
-   "title": "Weil Advises CPP Investments in New U.S. Fiber Joint Venture",
-   "description": "Weil is advising CPP Investments on a new U.S. fiber joint venture with AT&T and Global Infrastructure Partners to expand fiber internet access nationwide.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-11"
+   "url": "https://restructuring.weil.com/category/news/",
+   "title": "News Archives",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-06",
+   "dateProbe": []
   },
   {
    "firm": "macfarlanes",
@@ -1334,42 +855,6 @@
    "lastmod": "2026-10-05"
   },
   {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-tdr-capital-on-acquisition-of-ocu-group",
-   "title": "Kirkland Advises TDR Capital on Acquisition of OCU Group",
-   "description": null,
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-trilantic-backed-sofie-biosciences-on-acquisition-by-ge-healthcare",
-   "title": "Kirkland Advises Trilantic-Backed SOFIE Biosciences on Acquisition by GE HealthCare",
-   "description": null,
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Charlesbank in Completed Merger of Spectrotel and AireSpring",
-   "title": "Latham & Watkins Advises Charlesbank in Completed Merger of Spectrotel and AireSpring",
-   "description": "Multidisciplinary team represents the private equity firm in the transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Financings Totaling for Lindsay Goldberg Strategic Investment in Alro Steel",
-   "title": "Latham Advises on Financings Totaling US$2.82 Billion for Lindsay Goldberg’s Strategic Investment in Alro Steel",
-   "description": "Multidisciplinary team represents the private investment firm in the financings.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
    "firm": "latham",
    "url": "https://www.lw.com/en/insights/2026/10/Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "title": "Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
@@ -1380,74 +865,20 @@
   },
   {
    "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/10/SEC Proposes Sweeping Performance Fee Eligibility Reforms and New Accredited Investor Pathways",
-   "title": "SEC Proposes Sweeping Performance Fee Eligibility Reforms and New Accredited Investor Pathways",
-   "description": "The SEC’s proposals would significantly expand who can enter into performance fee arrangements, while creating new ways to qualify as an accredited investor.",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises MaxSolar Infrastructure Financing",
+   "title": "Latham & Watkins Advises MaxSolar on €155 Million Infrastructure Financing",
+   "description": "Finance team represents leading independent power producer in the transaction.",
    "date": "2026-10-05",
    "dateSource": "page date label",
    "lastmod": "2026-10-05"
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Arsenal Medical in Acquisition by Terumo Neuro",
-   "title": "Latham Advises Arsenal Medical in Acquisition by Terumo Neuro",
-   "description": "Firm represents the clinical-stage biomaterials company in the transaction.",
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-earns-high-rankings-across-bloombergs-q3-2026-ma-and-private-equity-league-tables",
+   "title": "Weil Earns High Rankings Across Bloomberg’s Q3 2026 M&A and Private Equity League Tables",
+   "description": "Weil delivered strong results across Bloomberg’s Q3 2026 M&A and Private Equity league tables, earning high rankings across key markets around the world and a broad range of categories.",
    "date": "2026-10-05",
    "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises EMZ Partners on Investment in SBH Tiefbautechnik",
-   "title": "Latham & Watkins Advises EMZ Partners on Investment in SBH Tiefbautechnik",
-   "description": "Private equity team represents leading European investment firm in the transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Sovos on Acquisition of Flowie",
-   "title": "Latham Advises Sovos on Acquisition of Flowie",
-   "description": "Cross-border team represents the agentic tax compliance company in the transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Alta Group on Raiffeisen Bank International Tender Offer for Addiko Bank",
-   "title": "Latham & Watkins Advises Alta Group on Raiffeisen Bank International’s Tender Offer for Addiko Bank",
-   "description": "M&A team represents strategic investor in the complex transaction.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises ECP on Continuation Vehicle for Next Wave Energy Partners",
-   "title": "Latham & Watkins Advises ECP on US$834 Million Continuation Vehicle for Next Wave Energy Partners",
-   "description": "Multidisciplinary investment funds, M&A, and tax team represented the investment firm in a continuation fund transaction involving energy transition infrastructure.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/news/sijia-cai-and-alisa-waxman-discuss-private-market-relationships-private-equity-international",
-   "title": "Sijia Cai and Alisa Waxman discuss private market relationships with Private Equity International",
-   "description": "Davis Polk partners Sijia Cai and Alisa Waxman were featured in Private Equity International discussing private market relationships and how challenging...",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "freshfields",
-   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-the-underwriting-banks-on-the-500m-equity-raise-by-land-securities-group-plc",
-   "title": "Freshfields advises the underwriting banks on the £500m equity raise by Land Securities Group PLC",
-   "description": null,
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
    "lastmod": "2026-10-05"
   },
   {
@@ -1466,33 +897,6 @@
   },
   {
    "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/september/linklaters-advises-on-the-worlds-largest-digital-bond-offering-by-the-hong-kong-sar-government",
-   "title": "World’s Largest Digital Bond Offering by Hong Kong SAR Government",
-   "description": "Linklaters advised on the HK$20bn equivalent multi-currency digital green bond issuance by the Hong Kong SAR Government, the world’s largest digital bond offering.",
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-irb-invit-funds-inr-20bn-qualified-institutional-placement-of-units",
-   "title": "IRB InvIT Fund INR 20bn qualified institutional placement of units",
-   "description": "Linklaters advised the banks as sole international counsel on IRB InvIT Fund’s INR 20 billion qualified institutional placement and preferential allotment of units, supporting one of India’s leading infrastructure investment platforms.",
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-opmobility-on-the-acquisition-of-hyundai-mobis-lighting-activity",
-   "title": "Linklaters advises OPmobility on Hyundai Mobis lighting acquisition",
-   "description": "Linklaters advised OPmobility on its agreement to acquire Hyundai Mobis' lighting business, strengthening its global lighting operations and mobility offering.",
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "linklaters",
    "url": "https://www.linklaters.com/insights/blogs/foreigninvestmentlinks/2026/october/a-new-era-for-german-investment-screening-investitionsprufungsgesetz-ipg",
    "title": "German Investment Screening Act (IPG): Key Changes for Investors",
    "description": "Germany's draft Investment Screening Act (IPG) would reshape foreign investment reviews, introducing new rules on investor nationality, minority stakes, sector coverage and deal timing.",
@@ -1508,42 +912,6 @@
    "date": "2026-10-02",
    "dateSource": "<time datetime>",
    "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-banner-capital-on-acquisition-of-seaway-plastics-engineering-from-icg",
-   "title": "Kirkland Advises Banner Capital on Acquisition of Seaway Plastics Engineering from ICG",
-   "description": null,
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-ftv-capital-on-investment-in-kingsview-partners",
-   "title": "Kirkland Advises FTV Capital on Investment in Kingsview Partners",
-   "description": null,
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-ardian-and-slv-lighting-group-on-refinancing",
-   "title": "Kirkland Advises Ardian and SLV Lighting Group on Refinancing",
-   "description": null,
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Financing for Greenbriar Acquisition of Spectrum Control from AEA Investors",
-   "title": "Latham Advises on Financing for Greenbriar’s Acquisition of Spectrum Control From AEA Investors",
-   "description": "Firm represents the financing sources supporting the private equity firm’s acquisition of the independent developer and manufacturer of radio frequency components and subsystems.",
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
   },
   {
    "firm": "reedsmith",
@@ -1574,57 +942,12 @@
   },
   {
    "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/irs-targets-351-conversion-transactions-and-flags-various-other-etf-investment-fund-strategies-as-possibly-abusive",
-   "title": "IRS Targets “351 Conversion Transactions” and Flags Various Other ETF/Investment Fund Strategies as Possibly Abusive",
-   "description": "On Monday, September 28, 2026, the US Department of the Treasury and the IRS issued (i) Revenue Ruling 2026-20 (the “Ruling”), which targets an",
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/five-key-takeaways-from-mayer-browns-financial-services-ma-summit-chicago",
    "title": "Five Key Takeaways from Mayer Brown’s Financial Services M&A Summit – Chicago",
    "description": "Mayer Brown’s Financial Services M&A Summit in Chicago brought together senior industry leaders and Mayer Brown lawyers to discuss the forces",
    "date": "2026-10-02",
    "dateSource": "datePublished",
    "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o3yh/the-uk-sustainability-reporting-standards-the-fcas-latest-consultation-and-the",
-   "title": "The UK Sustainability Reporting Standards: The FCA",
-   "description": "What has the FCA announced and in what form? On 30 September 2026, the Financial Conduct Authority (FCA) published Policy Statement...",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-esr-on-its-proposed-acquisition-of-aquila-clean-energy-apac",
-   "title": "Linklaters advises ESR on its proposed acquisition of Aquila Clean Energy APAC",
-   "description": "Linklaters has advised ESR on its agreement to acquire 100% of Aquila Clean Energy APAC from Aquila Group, a Hamburg-based investment and industrial development company.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-chartered-investment-on-the-expansion-of-the-opus-issuance",
-   "title": "Linklaters advises Chartered Investment on the expansion of the Opus issuance platform for retail offerings",
-   "description": "Linklaters has advised Chartered Investment Germany GmbH (Chartered Investment) on the structuring and expansion of its Opus issuance platform.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-fresenius-on-the-full-acquisition-of-the-biopharmaceutical-company-mabxience",
-   "title": "Linklaters advises Fresenius on the full acquisition of the biopharmaceutical company mAbxience",
-   "description": "Linklaters is advising Fresenius on the acquisition of the remaining 45 percent stake in the leading global biopharmaceutical company mAbxience for a consideration of up to EUR 750 million.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
   },
   {
    "firm": "linklaters",
@@ -1637,24 +960,6 @@
   },
   {
    "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-lenders-on-the-financing-of-two-landmark-bess-projects-in-poland",
-   "title": "A&O Shearman advises lenders on the financing of two landmark BESS projects in Poland",
-   "description": null,
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/news/ao-shearman-represents-banks-on-the-province-of-san-juans-usd600-million-inaugural-bond-offering",
-   "title": "A&O Shearman Advises on San Juan’s USD600m Inaugural Bond",
-   "description": "A&O Shearman advised the initial purchasers on the Province of San Juan's USD600m inaugural bond offering of 9.550% Notes due 2035.",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "aoshearman",
    "url": "https://www.aoshearman.com/en/insights/navigating-the-eus-ecodesign-for-sustainable-products-regulation",
    "title": "Navigating the EU’s Ecodesign for Sustainable Products Regulation",
    "description": "Learn how the EU's ESPR impacts manufacturers, importers and distributors. Explore compliance timelines, Digital Product Passports and key steps to prepare.",
@@ -1663,31 +968,13 @@
    "lastmod": "2026-10-08"
   },
   {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-eon-issuance-notes-nominal-amount-750-million-renminbi",
-   "title": "White & Case advises E.ON on issuance of notes with nominal amount of 750 million Renminbi",
-   "description": "Global law firm White & Case LLP has advised E.ON SE on the issuance of notes with a nominal amount of 750 million Renminbi.The notes have a term of six years and a fixed coupon of 2.05%.",
+   "firm": "macfarlanes",
+   "url": "https://www.macfarlanes.com/insights/102o3yh/the-uk-sustainability-reporting-standards-the-fcas-latest-consultation-and-the",
+   "title": "The UK Sustainability Reporting Standards: The FCA",
+   "description": "What has the FCA announced and in what form? On 30 September 2026, the Financial Conduct Authority (FCA) published Policy Statement...",
    "date": "2026-10-01",
-   "dateSource": "<time datetime>",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2025/08/kirkland-represents-m-one-capital-on-single-asset-cv-for-scooters",
-   "title": "Kirkland Represents M-One Capital on Single-Asset Continuation Vehicle for Scooter's Coffee",
-   "description": null,
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-invictus-cap-part-on-majority-investment-by-ny-life-investment-management",
-   "title": "Kirkland Advises Invictus Capital Partners on Majority Investment by New York Life Investment Management",
-   "description": null,
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": null
   },
   {
    "firm": "kirkland",
@@ -1700,27 +987,72 @@
   },
   {
    "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Shareholders on Sale of SK Pharma to Arcus Infrastructure Partners",
-   "title": "Latham & Watkins Advises Shareholders on Sale of SK Pharma to Arcus Infrastructure Partners",
-   "description": "Cross-practice team represents Syz Capital, Saturnus Capital, and the founder in the transaction.",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Italo on Financing in Support of Its Investment in Germany",
+   "title": "Latham Advises Italo on Financing in Support of Its €3.6 Billion Investment in Germany",
+   "description": "Cross-border infrastructure team represents the high-speed rail operator on its entry into the German market.",
    "date": "2026-10-01",
    "dateSource": "page date label",
-   "lastmod": "2026-10-06"
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises MidOcean Energy on Phase 2 of LNG Canada Project",
+   "title": "Latham Advises MidOcean Energy on Phase 2 of LNG Canada Project",
+   "description": "A multidisciplinary, cross-practice team represents the LNG company in the project.",
+   "date": "2026-10-01",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Moneyview IPO",
+   "title": "Latham Advises on Moneyview’s US$114 Million IPO",
+   "description": "Firm represents the Book Running Lead Managers on Indian listing of digital financial services platform.",
+   "date": "2026-10-01",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Saudi Railway Company on CHF 254 Million Export Credit Facility",
+   "title": "Latham Advises Saudi Railway Company on CHF 254 Million Export Credit Facility",
+   "description": "Cross-border infrastructure team represents the Saudi national railway operator on its inaugural financing.",
+   "date": "2026-10-01",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Represents Paramount Skydance in Term Loan B Facility Pricing",
+   "title": "Latham Represents Paramount Skydance in US$8.5 Billion and €850 Million Term Loan B Facility Pricing",
+   "description": "Firm advises on largest M&A Term Loan B facility of the last decade to support Paramount’s previously announced US$110 billion acquisition of WBD.",
+   "date": "2026-10-01",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Coalesce Capital on Growth Investment in ClearDefense",
+   "title": "Latham & Watkins Advises Coalesce Capital on Growth Investment in ClearDefense",
+   "description": "Multidisciplinary team represented the private equity firm in the transaction.",
+   "date": "2026-10-01",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-01"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Wafra in Strategic Investment into CMC Railroad Gulf Inland Logistics Park",
+   "title": "Latham & Watkins Advises Wafra in Strategic Investment into CMC Railroad and Gulf Inland Logistics Park",
+   "description": "Houston-based team represents the alternative investment firm in its strategic investment into CMC Railroad and Gulf Inland Logistics Park to accelerate Gulf Inland expansion and support growth of a broad platform expected to pursue additional rail-served infrastructure and industrial opportunities.",
+   "date": "2026-10-01",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-01"
   },
   {
    "firm": "davispolk",
    "url": "https://www.davispolk.com/insights/client-update/fca-s-cryptoasset-authorisation-gateway-now-open",
    "title": "FCA’s cryptoasset authorisation gateway is now open",
    "description": "The UK's long-awaited regulatory regime for cryptoassets comes into force in October 2027. Firms that intend to provide regulated cryptoasset services at...",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/news/luke-eldridge-discusses-co-investments-private-equity-international",
-   "title": "Luke Eldridge discusses co-investments with Private Equity International",
-   "description": "Davis Polk partner Luke Eldridge discussed the increasing demand for co-investments and tips to ensure a frictionless co-investment with Private Equity...",
    "date": "2026-10-01",
    "dateSource": "datePublished",
    "lastmod": "2026-10-01"
@@ -1744,15 +1076,6 @@
    "lastmod": "2026-10-02"
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-advises-cohen-company-capital-markets-on-pricing-of-200-million-spac-ipo/",
-   "title": "Reed Smith advises Cohen & Company Capital Markets on pricing of $200 million SPAC IPO",
-   "description": null,
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/news/slaughter-and-may-wins-capital-markets-team-of-the-year-at-the-legal-business-awards-2026/",
    "title": "Slaughter and May wins Capital Markets Team of the Year at the Legal Business Awards 2026",
@@ -1771,60 +1094,6 @@
    "lastmod": "2026-10-01"
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o3wz/beyond-senior-debt-key-takeaways-from-our-alternative-private-capital-seminar",
-   "title": "Beyond senior debt: key takeaways from our alternative private capital seminar",
-   "description": "On 29 September 2026, Macfarlanes hosted Beyond senior debt: exploring alternative private capital strategies in real estate, a panel...",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-bank-syndicate-soitecs-eur500-million-ornanes-and-concurrent",
-   "title": "White & Case advises bank syndicate on Soitec’s €500 million ORNANEs and concurrent delta share placement",
-   "description": "Global law firm White & Case LLP has advised a syndicate of banks in connection with the issue of €500 million senior unsecured bonds settled in cash and/or convertible into new shares and/or exchangeable for existing shares (ORNANEs) due 2033 by Soitec, and the concurrent delta placement of",
-   "date": "2026-09-30",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/press-release/white-case-advises-revera-energy-financing-400mw-800mwh-hunterston-bess",
-   "title": "White & Case advises Revera Energy on financing of 400MW / 800MWh Hunterston BESS",
-   "description": "Global law firm White & Case LLP has advised Revera Energy on the successful non-recourse senior debt financing for the 400MW / 800MWh Hunterston Battery Energy Storage System (BESS) in Scotland.",
-   "date": "2026-09-30",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-blue-owl-cedar-and-powerhouse-jv-on-112-billion-notes-offering",
-   "title": "Kirkland Advises Blue Owl, Cedar and PowerHouse JV on $1.12 Billion Notes Offering",
-   "description": null,
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-advises-bain-capital-on-strategic-growth-investment-in-kahua",
-   "title": "Kirkland Advises Bain Capital on Strategic Growth Investment in Kahua",
-   "description": null,
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/press-release/2026/09/kirkland-represents-camsense-on-its-hong-kong-ipo",
-   "title": "Kirkland Represents Camsense on its Hong Kong IPO",
-   "description": null,
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/award/2026/09/restructuring-team-of-the-year",
    "title": "Kirkland Recognized as “Restructuring Team of the Year” at Legal Business Awards",
@@ -1834,12 +1103,66 @@
    "lastmod": null
   },
   {
-   "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/09/mas-charts-the-next-phase-of-stablecoin-regulation-in-singapore",
-   "title": "MAS Charts the Next Phase of Stablecoin Regulation in Singapore",
-   "description": null,
+   "firm": "latham",
+   "url": "https://www.lw.com/en/insights/2026/09/DOJ Revises Policy Use Guidance Dismissal Authority FCA Cases Announces DC USAO Fraud Division",
+   "title": "DOJ Revises Policy on Use of Guidance and Dismissal Authority in FCA Cases and Announces D.C. USAO Fraud Division",
+   "description": "The announcements reflect the administration’s continued focus on FCA enforcement and raise additional compliance considerations for companies doing",
    "date": "2026-09-30",
-   "dateSource": "datePublished",
+   "dateSource": "article:published_time",
+   "lastmod": "2026-09-30"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/09/Latham Advises on Private Credit Financing for GTCR Acquisition of Tactacam",
+   "title": "Latham Advises on Private Credit Financing for GTCR’s Acquisition of Tactacam",
+   "description": "Firm represents the financing sources supporting the private equity firm’s acquisition of the provider of cellular-connected cameras for the outdoor and security markets.",
+   "date": "2026-09-30",
+   "dateSource": "page date label",
+   "lastmod": "2026-09-30"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/09/Latham Advises Pacific Universal Investments Bond Issuance",
+   "title": "Latham Advises Pacific Universal Investments on Debut US$325 Million Bond Issuance",
+   "description": "Firm represents the investment firm in the transaction.",
+   "date": "2026-09-30",
+   "dateSource": "page date label",
+   "lastmod": "2026-09-30"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises Long Lake in Completed Acquisition of American Express Global Business Travel",
+   "title": "Latham & Watkins Advises Long Lake in Completed US$6.3 Billion Acquisition of American Express Global Business Travel",
+   "description": "Multidisciplinary team represents the world’s first AI holding company in the take-private transaction.",
+   "date": "2026-09-30",
+   "dateSource": "page date label",
+   "lastmod": "2026-09-30"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises PRA Group on Senior Notes Offering",
+   "title": "Latham & Watkins Advises the Initial Purchasers in connection with PRA Group’s US$400 Million Senior Notes Offering",
+   "description": "Firm represents the global leader in acquiring and collecting nonperforming loans in the offering.",
+   "date": "2026-09-30",
+   "dateSource": "page date label",
+   "lastmod": "2026-09-30"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises Salesforce Acquisition Listen Labs",
+   "title": "Latham & Watkins Advises on Salesforce’s Acquisition of Listen Labs",
+   "description": "Firm represents the AI-powered customer research platform in the transaction.",
+   "date": "2026-09-30",
+   "dateSource": "page date label",
+   "lastmod": "2026-09-30"
+  },
+  {
+   "firm": "latham",
+   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises Tactacam on Completed Acquisition by GTCR",
+   "title": "Latham & Watkins Advises Tactacam on Completed Acquisition by GTCR",
+   "description": "Multidisciplinary team represented the provider of cellular-connected cameras in the transaction.",
+   "date": "2026-09-30",
+   "dateSource": "page date label",
    "lastmod": "2026-09-30"
   },
   {
@@ -1871,15 +1194,6 @@
   },
   {
    "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/09/private-credit-firms-tool-up-for-takeovers-as-borrower-stress-builds",
-   "title": "Private Credit Firms Tool Up for Takeovers as Borrower Stress Builds",
-   "description": "Philip Butler comments on how private credit funds are now investing in restructuring and ownership-management expertise, hiring from restructuring",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-03"
-  },
-  {
-   "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/news/2026/09/building-safety-levy-could-make-housing-projects-unviable",
    "title": "Building Safety Levy Could Make Housing Projects Unviable",
    "description": "Charles Pacey comments on the Building Safety Levy as part of the Building Safety Act 2022.",
@@ -1895,15 +1209,6 @@
    "date": "2026-09-30",
    "dateSource": "datePublished",
    "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/risks-for-the-licensee-in-the-event-of-the-licensors-insolvency",
-   "title": "Risks for the Licensee in the Event of the Licensor's Insolvency",
-   "description": "I. WHY THIS TOPIC IS IMPORTANT IP licenses—whether for trademarks, patents, or copyrights—are typically business-critical for licensee companies.",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
   },
   {
    "firm": "kirkland",
