@@ -136,6 +136,11 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         content        [.macro-sum-line "Fed on hold at…" — the DEFAULT]
       card/panel titles (h2/h3) keep the established 1.05rem card-title size. -- */
 :root {
+  /* iPhone page gutter (R2d): the ONE distance between the screen edge and text on
+     every phone page — feed rows, lists, profile pages, deal card, Dashboard cards. */
+  --m-gutter: 12px;
+}
+:root {
   /* ========================================================================
      THE type scale — ONE knob controls the whole app's text size.
      Everything that sets a size points at one of the five grid tokens below;

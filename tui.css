@@ -208,6 +208,7 @@
 .tw-tag.intel { color: var(--t-hdg, #4aa3f0); }
 .tw-tag.clo { color: var(--t-mac, #9b83e2); }
 .tw-tag.news { color: var(--t-news, #8aa0c8); }
+:root[data-theme="light"] .tw-tag.news { color: var(--t-news, #4f6690); }   /* light: the dark-theme slate is too faint on white */
 .tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
 .tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:var(--fs-body); font-weight: 400; line-height: 1.35; color: var(--ink); }
 .tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
@@ -1510,3 +1511,13 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 /* Profiles: Following / CSV / sort / Monitor / Cross-holdings are driven from the panel. */
 #pf-panes .pf-hold { display: none; }
 #pf-panes .pf-sheet .pf-sort-p { display: inline-block; max-width: none; min-height: 26px; }
+
+/* ---- iPhone consistency pass (R2d, owner review 2026-10-14) ----
+   One page gutter (--m-gutter, 12px) on every phone page, and profile sub-tabs that
+   never wrap a label onto two lines ("Investments 46" did; its neighbours did not). */
+@media (max-width:760px) {
+  .tdet-id { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
+  .twire .compact-item { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
+  .tx-drawer-b { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
+  #pf-detail .tdet-tabbed > .twire-head .tchip { flex: 1 1 auto; white-space: nowrap; padding: 0 4px; }
+}

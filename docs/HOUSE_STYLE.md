@@ -44,6 +44,15 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   the wire tabs pin directly under the header (`--wire-band-h` is zeroed on
   phones, collapsing the sticky-stack offsets). Tablet + desktop (>760px) keep
   the body band and carry no magnifier.
+- **R2d — iPhone consistency (owner review 2026-10-14).** **(a) One page gutter:** every
+  phone page puts text (or a boxed card's edge) exactly **`--m-gutter` = 12px** from the
+  screen edge — feed rows, Profiles lists AND profile pages, the Transactions list and deal
+  card, Dashboard cards (card padding is the same 12px). Never a page-specific 14/16px.
+  **(b) Bars fit:** a phone tab/lane bar shows every label on one line inside the screen —
+  the News lanes share the width like the Home and Dashboard tabs, and profile sub-tabs
+  (`News · Vehicles 32 · Investments 46 · …`) never wrap. **(c) Theme-true colours:** a
+  colour token differs between light and dark when the dark tint is unreadable on white
+  (`--t-news` is `#8aa0c8` dark / `#4f6690` light). Spec: `tests/phone-consistency.mjs`.
 - **R3 — Four-column reading frame on Home** (desktop): markets rail
   (`.g-side`) · aggregated feed (`.g-feed-wrap`) · manager wire (`.g-side3`) ·
   macro rail (`.g-side2`). **Every rail is exactly the viewport height** — pinned

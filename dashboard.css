@@ -1040,3 +1040,9 @@ html.dsh-sheet-open, html.dsh-sheet-open body { overflow:hidden; }
   .dsh-fl-tbl .dsh-fl-t { display:block; margin-left:0; font-size:var(--fs-micro); }
   .dsh-fl-tbl td.dsh-fl, .dsh-fl-tbl td.dsh-fl-na { font-size:var(--fs-micro); }
 }
+
+/* iPhone gutter (R2d): card edges sit on the same 12px line as every other phone page. */
+@media (max-width:760px) {
+  .dsh-pane, .dsh-mid { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
+  .dsh-card { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
+}

@@ -786,7 +786,7 @@
       --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
       --t-accent:#fb8b1e; --t-accent-dim:#eab98a; --t-accent-soft:rgba(251,139,30,.10);
       --t-up:#0f9d68; --t-down:#df4763;
-      --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0; --t-news:#8aa0c8;
+      --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0; --t-news:#4f6690;
       --t-rsch:#0f7f7a;   /* Research desk — teal (light) */
       --t-link:#1f63c9;   /* reading-pane entity cross-reference link */
       --t-shadow:0 1px 2px rgba(19,27,44,.06);
@@ -1652,6 +1652,13 @@
       .tui .g-wire-lanechips .g-wire-lane.is-on{ color:var(--t-ink); font-weight:600;
         box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
       [data-theme="dark"] .tui .g-wire-lanechips .g-wire-lane.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
+      /* iPhone (R2d): the five lanes FIT the bar like the Home / Dashboard tabs (no lane
+         clipped off the edge), first label on the 12px page gutter. */
+      @media (max-width:760px){
+        .tui .g-layout.wire-newsmode .g-wire-lanechips{ padding:0 calc(var(--m-gutter, 12px) - 6px); }
+        .tui .g-wire-lanechips .g-wire-lane{ flex:1 1 auto; justify-content:center; padding:0 6px; }
+        .tui .g-wire-lanechips .g-wire-lane:first-child{ justify-content:flex-start; }
+      }
       .tui .g-layout.wire-newsmode .g-side,
       .tui .g-layout.wire-newsmode .g-side2{ display:none; }
       }

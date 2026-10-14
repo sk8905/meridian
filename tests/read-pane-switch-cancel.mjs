@@ -22,7 +22,9 @@ const READ = { source: "The Guardian", title: "A tighter RBI, but not a hawkish 
 // Openly-readable (non-walled) cached feed so the auto-open picks a row that fetches /api/read.
 const FEED = { asOf: Date.now(), items: Array.from({ length: 8 }, (_, i) => ({
   title: `Guardian story ${i} on oil, rates and credit`, url: `https://www.theguardian.com/business/s${i}`,
-  source: "The Guardian", date: "2026-10-07", time: `1${i}:00`, desk: "m",
+  // Dated far ahead so these rows always outrank the live research / newsletter data
+  // (otherwise the auto-open picks whichever real item is newest and the test turns on data).
+  source: "The Guardian", date: "2099-01-01", time: `1${i}:00`, desk: "m",
 })) };
 
 const srv = await serve();
