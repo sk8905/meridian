@@ -67,6 +67,8 @@ export const PUBLISHERS = {
   // not be the sending domain for the notes themselves, as with Apollo/UBS).
   "pimco.com": "PIMCO",
   "preqin.blackrock.com": "Preqin",
+  // J.P. Morgan CIB "In Context" — content sender `in.context.newsletter@jpmcib.jpmorgan.com`, first swept 2026-10-14.
+  "jpmcib.jpmorgan.com": "J.P. Morgan",
   // SIGNED UP / arriving but NOT yet activated — a sweep candidate, pending a call on
   // whether it belongs in Research vs Newsletters (see docs/refresh-routines.md §4a):
   //   • preqin.blackrock.com — Preqin "First Close" (private-markets data/intelligence).
@@ -102,6 +104,39 @@ export function isResearchPublication(name) {
 // so an entity like "AI&rsquo;s" or "S&amp;P" would show LITERALLY. (Only the
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
+  {
+    id: "rsch-jpm-incontext-housingaffordability-20261014",
+    publication: "J.P. Morgan",
+    author: null,
+    series: "In Context",
+    title: "The Long Road Home",
+    date: "2026-10-14",
+    time: "13:01",
+    summary: "J.P. Morgan research on global housing affordability: buying a median-priced US home takes 43% of median household income, against the 30% traditionally treated as affordable.",
+    url: "https://www.jpmorgan.com/insights/global-research/real-estate/housing-affordability"
+  },
+  {
+    id: "rsch-preqin-firstclose-fertility-20261014",
+    publication: "Preqin",
+    author: "Lizzie Carroll",
+    series: "First Close",
+    title: "How investors are seeding innovation in fertility diagnostics",
+    date: "2026-10-14",
+    time: "12:25",
+    summary: "Venture firms are backing reproductive-health start-ups; Preqin data shows private equity at 27% of future investment plans among Gulf family offices.",
+    url: "https://go.preqin.com/webmail/909852/2207444386/10a07fc888799ba93601ccf55d4c7de31840aed202839f3c768c45aa7be76665"
+  },
+  {
+    id: "rsch-apollo-aispending-roi-20261014",
+    publication: "Apollo Academy",
+    author: "Torsten Slok",
+    series: "The Daily Spark",
+    title: "AI Spending: Waiting on ROI, Watching the Bill",
+    date: "2026-10-14",
+    time: "11:46",
+    summary: "A Mavvrik/Benchmarkit survey of 396 enterprises finds only 11% forecast AI spending within 10% of actual, down from 15% a year earlier.",
+    url: "https://www.apolloacademy.com/the-daily-spark/"
+  },
   {
     id: "rsch-pimco-creditmarketlens-directlending-20261013",
     publication: "PIMCO",

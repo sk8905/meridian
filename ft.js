@@ -21,6 +21,90 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d",
+    title: "US inflation jumps to 3.7% as Iran war drives up prices",
+    date: "2026-10-14",
+    time: "13:51",
+    url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"
+  },
+  {
+    id: "b06d00da-9df7-405b-9410-b5485c267397",
+    title: "Global diesel prices set to rise again, warns IEA",
+    date: "2026-10-14",
+    time: "13:25",
+    url: "https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397"
+  },
+  {
+    id: "60a8f4e6-5da4-4f59-b009-baed53215497",
+    title: "Lufthansa wins battle to buy stake in Portugal’s TAP airline",
+    date: "2026-10-14",
+    time: "13:23",
+    url: "https://www.ft.com/content/60a8f4e6-5da4-4f59-b009-baed53215497"
+  },
+  {
+    id: "a82b4275-6519-4142-b1df-e74c66ead877",
+    title: "Bank of America profits drop 17% after $1.2bn money laundering fine",
+    date: "2026-10-14",
+    time: "13:19",
+    url: "https://www.ft.com/content/a82b4275-6519-4142-b1df-e74c66ead877"
+  },
+  {
+    id: "18b65495-9e2a-45d6-be85-7641442ab61a",
+    title: "Apple and OpenAI head to court in trade secrets battle",
+    date: "2026-10-14",
+    time: "13:15",
+    url: "https://www.ft.com/content/18b65495-9e2a-45d6-be85-7641442ab61a"
+  },
+  {
+    id: "7addd5d0-11d6-4706-bf0b-995084ef7bb6",
+    title: "It’s been a bad year for turning lawsuits into earnings",
+    date: "2026-10-14",
+    time: "13:00",
+    url: "https://www.ft.com/content/7addd5d0-11d6-4706-bf0b-995084ef7bb6"
+  },
+  {
+    id: "c5fb2ea9-9a41-416a-90b8-337936ec4971",
+    title: "Europe’s defence stocks send a geopolitical distress signal",
+    date: "2026-10-14",
+    time: "12:59",
+    url: "https://www.ft.com/content/c5fb2ea9-9a41-416a-90b8-337936ec4971"
+  },
+  {
+    id: "d9aaf82c-1975-4f07-99b1-f3b858b4dc7c",
+    title: "UK Greens split widens after deputy leader says Zionism vote must be ‘respected’",
+    date: "2026-10-14",
+    time: "12:53",
+    url: "https://www.ft.com/content/d9aaf82c-1975-4f07-99b1-f3b858b4dc7c"
+  },
+  {
+    id: "63e3c39b-357f-4a87-adf0-090c60c929a7",
+    title: "BlackRock pulls in $205bn to take assets to record high",
+    date: "2026-10-14",
+    time: "12:39",
+    url: "https://www.ft.com/content/63e3c39b-357f-4a87-adf0-090c60c929a7"
+  },
+  {
+    id: "73cfaf41-d3ea-4202-bd9b-f355c9e5b504",
+    title: "Marine Le Pen: ‘All the warning signs are flashing red’",
+    date: "2026-10-14",
+    time: "12:02",
+    url: "https://www.ft.com/content/73cfaf41-d3ea-4202-bd9b-f355c9e5b504"
+  },
+  {
+    id: "178041cc-c9e7-4bd9-8c6e-7967931dcb33",
+    title: "Giorgia Meloni criticises Trump’s diesel deal with Putin",
+    date: "2026-10-14",
+    time: "12:00",
+    url: "https://www.ft.com/content/178041cc-c9e7-4bd9-8c6e-7967931dcb33"
+  },
+  {
+    id: "f8f302b1-3859-45dd-9e45-b5e9149c6f51",
+    title: "Who should we leave our pensions to?",
+    date: "2026-10-14",
+    time: "11:37",
+    url: "https://www.ft.com/content/f8f302b1-3859-45dd-9e45-b5e9149c6f51"
+  },
+  {
     id: "eb0be26c-8ff7-49b8-b232-fc283aaebf22",
     title: "Is this the greatest Versace collection in the world?",
     date: "2026-10-14",
@@ -215,90 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "05:00",
     url: "https://www.ft.com/content/8c6a7595-9403-44f3-81ac-a2e5ceb37459"
-  },
-  {
-    id: "9c5501bc-7297-4864-a5a7-b2f2001e2dd9",
-    title: "Modi cannot silence India’s disaffected youth",
-    date: "2026-10-13",
-    time: "18:28",
-    url: "https://www.ft.com/content/9c5501bc-7297-4864-a5a7-b2f2001e2dd9"
-  },
-  {
-    id: "e582246d-c869-46dc-a8a5-5ea52fa689e7",
-    title: "‘Pro-business’ Burnham reassures chief executives on tax",
-    date: "2026-10-13",
-    time: "18:28",
-    url: "https://www.ft.com/content/e582246d-c869-46dc-a8a5-5ea52fa689e7"
-  },
-  {
-    id: "9fcf1e27-e0b7-4016-bf19-2f87ac62a13b",
-    title: "Number of UK Isa millionaires jumps 50 per cent in a year",
-    date: "2026-10-13",
-    time: "17:56",
-    url: "https://www.ft.com/content/9fcf1e27-e0b7-4016-bf19-2f87ac62a13b"
-  },
-  {
-    id: "9f6ec5b2-4f0b-4ed3-9541-588d49e3ad7e",
-    title: "Will bank earnings growth become a thing of the past?",
-    date: "2026-10-13",
-    time: "17:49",
-    url: "https://www.ft.com/content/9f6ec5b2-4f0b-4ed3-9541-588d49e3ad7e"
-  },
-  {
-    id: "bd1f3385-1985-4a8a-a781-22cbe1292d2d",
-    title: "Wall Street plays down investor fears of faltering trading boom",
-    date: "2026-10-13",
-    time: "17:10",
-    url: "https://www.ft.com/content/bd1f3385-1985-4a8a-a781-22cbe1292d2d"
-  },
-  {
-    id: "591cf3da-e7c1-4b04-9511-fea8785f983d",
-    title: "English football on ‘edge of financial disaster’, warns game’s new regulator",
-    date: "2026-10-13",
-    time: "17:01",
-    url: "https://www.ft.com/content/591cf3da-e7c1-4b04-9511-fea8785f983d"
-  },
-  {
-    id: "87a1a5a1-4942-47dd-856a-d9a694f7d2fd",
-    title: "White House asks US envoy to Greece Kimberly Guilfoyle to resign",
-    date: "2026-10-13",
-    time: "16:32",
-    url: "https://www.ft.com/content/87a1a5a1-4942-47dd-856a-d9a694f7d2fd"
-  },
-  {
-    id: "b31aaac7-69c1-40da-9c2f-d4f025104d24",
-    title: "Creditors sue Patrick Drahi’s Altice International over asset shifts",
-    date: "2026-10-13",
-    time: "16:27",
-    url: "https://www.ft.com/content/b31aaac7-69c1-40da-9c2f-d4f025104d24"
-  },
-  {
-    id: "52a1bbdd-2171-4fcb-9efe-99ed4283def5",
-    title: "How not to revive Europe’s auto industry",
-    date: "2026-10-13",
-    time: "16:03",
-    url: "https://www.ft.com/content/52a1bbdd-2171-4fcb-9efe-99ed4283def5"
-  },
-  {
-    id: "0a39fcdb-860c-4739-8454-21fb429f6336",
-    title: "Submit your questions: Who’s winning the trade war with China — the EU or US?",
-    date: "2026-10-13",
-    time: "15:16",
-    url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336"
-  },
-  {
-    id: "e16f0422-cf75-4cc9-962d-4605e421dc63",
-    title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss",
-    date: "2026-10-13",
-    time: "14:53",
-    url: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63"
-  },
-  {
-    id: "fbaeca48-5f50-40ca-b45e-5de62ad52b83",
-    title: "London Stock Exchange owner in talks to buy credit specialist Octus",
-    date: "2026-10-13",
-    time: "14:41",
-    url: "https://www.ft.com/content/fbaeca48-5f50-40ca-b45e-5de62ad52b83"
   }
 ];
-

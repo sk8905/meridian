@@ -100,13 +100,12 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-14",
-  time: "13:21 BST",
-  lede: "Markets are in wait-and-see mode ahead of today's US September CPI (consensus 3.6% y/y), with the US 10-year near 5.20%, Brent above $105 after a Houthi strike on Aramco's HQ, and the ECB's Wunsch saying it will probably have to hike again.",
+  time: "14:05 BST",
+  lede: "A hotter-than-expected US inflation print lands on a market already pricing higher-for-longer, with energy the common thread from the Iran war to the Houthi strike on Aramco and the IMF's warning on debt and yields.",
   bullets: [
-    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased 2bp to 5.195% (30-year 5.549%)</strong> ahead of September CPI (consensus +0.6% m/m, 3.6% y/y; core 2.5%), while ECB Governing Council member Pierre Wunsch said the bank will &ldquo;probably have to hike again&rdquo; with euro-area inflation approaching 4%.", src: "https://www.cnbc.com/2026/10/14/us-treasury-yields-cpi-inflation-report.html", srcName: "CNBC", date: "2026-10-14" },
-    { html: "<strong>Equities &mdash; S&amp;P 500 futures pointed to a modest rise (7,872, +0.2%)</strong> as ASML raised its full-year sales outlook for a third straight quarter on AI demand, while Bank of America slid 1.8% on a $1.2bn+ money-laundering and sanctions fine.", src: "https://www.bloomberg.com/news/articles/2026-10-14/asml-raises-full-year-sales-outlook-as-ai-boom-drives-demand", srcName: "Bloomberg", date: "2026-10-14" },
-    { html: "<strong>Macro &mdash; Brent crude traded around $105.40 (&minus;0.3%)</strong> after Houthi attacks hit Saudi Aramco&rsquo;s headquarters, and the IMF head said Treasury Secretary Bessent&rsquo;s growth-out-of-debt plan won&rsquo;t work fast enough, with GDP needing ~6% annual growth to stabilise US debt.", src: "https://www.bloomberg.com/news/articles/2026-10-14/imf-says-us-growth-not-enough-to-fight-high-debt-deficit-levels", srcName: "Bloomberg", date: "2026-10-14" },
+    { html: "<strong>Macro &mdash; US inflation jumped to 3.7% y/y in September, above the 3.6% consensus,</strong> as the Iran war pushed up energy prices; Brent was trading around $105 earlier in the session after Houthi attacks hit Saudi Aramco&rsquo;s headquarters.", src: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d", srcName: "Financial Times", date: "2026-10-14" },
+    { html: "<strong>Bonds &mdash; the US 10-year Treasury yield stood near 5.20% (30-year 5.549%) going into the September CPI print</strong>, while ECB Governing Council member Pierre Wunsch said the bank will &ldquo;probably have to hike again&rdquo; with euro-area inflation approaching 4%.", src: "https://www.cnbc.com/2026/10/14/us-treasury-yields-cpi-inflation-report.html", srcName: "CNBC", date: "2026-10-14" },
+    { html: "<strong>Equities &mdash; S&amp;P 500 futures pointed to a modest rise (7,872, +0.2%)</strong> before the CPI release as ASML raised its full-year sales outlook for a third straight quarter on AI demand.", src: "https://www.bloomberg.com/news/articles/2026-10-14/asml-raises-full-year-sales-outlook-as-ai-boom-drives-demand", srcName: "Bloomberg", date: "2026-10-14" },
     { html: "<strong>Credit &mdash; redemption requests at perpetual non-traded BDCs fell quarter on quarter at 13 of 15 tracked vehicles</strong> but still averaged 9.8% of shares, above the 5% cap at nine, per Fitch; Fitch expects further declines in coming quarters.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk1Rb7mMWlAmc_OtJ58Ixz-D4naVC4G8VQQGmARJOZKvK_7Hs_WgDiZftmyZrOEi3XWC1L9BA=", srcName: "Fitch Ratings", date: "2026-10-13" },
   ],
 };
-

@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-14",
-  lastCheckedTime: "13:21 BST",
+  lastCheckedTime: "14:05 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1036,17 +1036,18 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-10-13",
+  updated: "2026-10-14",
   us: [
-    {title: "Rising Treasury bill issuance puts pressure on short-term rates", source: "Financial Times", date: "2026-10-13", time: "05:30", url: "https://www.ft.com/content/f5ca22c7-8340-4189-8c40-224a1e16c5ef"},
-    {title: "Chip stocks slide in wake of ‘casino’ comment by Broadcom boss", source: "Financial Times", date: "2026-10-13", time: "06:44", url: "https://www.ft.com/content/e16f0422-cf75-4cc9-962d-4605e421dc63"},
-    {title: "Investors brave US Treasury rout to lock in highest yields in decades", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/6fa735a2-a590-4461-b092-920ba489e7a8"},
-    {title: "Bank earnings live updates: Here's how JPMorgan, Goldman, Wells Fargo and Citi performed in Q3", source: "CNBC", date: "2026-10-13", url: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html"},
-    {title: "JPMorgan, Goldman Sachs, Citigroup and Wells Fargo post strong profits, but warn rising interest rates and 'sticky inflation' will bite", source: "Fortune", date: "2026-10-13", url: "https://fortune.com/2026/10/13/jpmorgan-goldman-sachs-citigroup-wells-fargo-interest-inflation/"},
-  ],  uk: [
-    {title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"},
-    {title: "How BT’s TalkTalk swoop left broadband rivals fuming", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/39da2672-e57a-41aa-8f03-970ae37d88a6"},
+    {title: "US inflation jumps to 3.7% as Iran war drives up prices", source: "Financial Times", date: "2026-10-14", time: "13:51", url: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d"},
+    {title: "Houthis strike Saudi Aramco headquarters", source: "Financial Times", date: "2026-10-14", time: "10:03", url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"},
+    {title: "Global diesel prices set to rise again, warns IEA", source: "Financial Times", date: "2026-10-14", time: "13:25", url: "https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397"},
+    {title: "Bank of America profits drop 17% after $1.2bn money laundering fine", source: "Financial Times", date: "2026-10-14", time: "13:19", url: "https://www.ft.com/content/a82b4275-6519-4142-b1df-e74c66ead877"},
+    {title: "Maybe R-star never even existed?", source: "Financial Times", date: "2026-10-14", time: "06:00", url: "https://www.ft.com/content/76cd58f0-3a5c-4715-8879-d83c90ab6f2c"},
+  ],
+  uk: [
+    {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},
     {title: "Companies face rising number of UK complaints over conduct", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/c16b5a2d-f653-494f-9c18-587685f34bc2"},
+    {title: "UK chances of keeping £3.8bn bitcoin haul rise after High Court ruling", source: "Financial Times", date: "2026-10-13", time: "05:00", url: "https://www.ft.com/content/bbe24952-d66f-480e-b0a8-94339d75bc48"},
     {title: "Healey’s Budget will be ‘fiction’ without plan for £35bn hole in spending, IFS warns", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/619800ae-b2f2-46e3-b34e-23f0525637da"},
     {title: "Andy Burnham to step up UK business outreach amid fears of Budget tax rises", source: "Financial Times", date: "2026-10-12", time: "00:01", url: "https://www.ft.com/content/b00db29e-4334-4e04-8f09-a140aafd4b05"},
   ],

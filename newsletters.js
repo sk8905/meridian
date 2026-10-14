@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-feedbackloop-20261014",
+    publication: "Bloomberg",
+    author: "Zoe Schneeweiss",
+    series: "Economics Daily",
+    title: "Economics Daily: Feedback loop",
+    date: "2026-10-14",
+    time: "12:00",
+    summary: "The IMF warns that high yields and large debts combine to set a trap for governments.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-10-14/feedback-loop-ensnares-governments-with-debt-and-yields-high-imf-says",
+  },
+  {
     id: "nl-bloomberg-marketsdaily-beatingthepros-20261014",
     publication: "Bloomberg",
     author: "Greg Ritchie, Denitsa Tsekova",
