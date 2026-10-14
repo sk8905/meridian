@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T12:20:01.419Z",
+ "generated": "2026-10-14T17:34:27.855Z",
  "since": "2026-09-30",
  "firms": {
   "proskauerrose": {
@@ -37,7 +37,7 @@
     "www.slaughterandmay.com"
    ],
    "sitemaps": 1,
-   "urls": 6284,
+   "urls": 6286,
    "kept": 11,
    "fetched": 11,
    "errors": 0,
@@ -50,9 +50,9 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17764,
-   "kept": 18,
-   "fetched": 11,
+   "urls": 17766,
+   "kept": 16,
+   "fetched": 9,
    "errors": 7,
    "carried": 0
   },
@@ -85,7 +85,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16528,
+   "urls": 16530,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -110,8 +110,8 @@
    ],
    "sitemaps": 4,
    "urls": 3555,
-   "kept": 6,
-   "fetched": 6,
+   "kept": 4,
+   "fetched": 4,
    "errors": 0,
    "carried": 0
   },
@@ -120,9 +120,31 @@
     "www.traverssmith.com"
    ],
    "sitemaps": 1,
-   "urls": 5011,
+   "urls": 5013,
    "kept": 7,
    "fetched": 7,
+   "errors": 0,
+   "carried": 0
+  },
+  "latham": {
+   "domains": [
+    "www.lw.com"
+   ],
+   "sitemaps": 9,
+   "urls": 20128,
+   "kept": 12,
+   "fetched": 10,
+   "errors": 2,
+   "carried": 0
+  },
+  "kirkland": {
+   "domains": [
+    "www.kirkland.com"
+   ],
+   "sitemaps": 11,
+   "urls": 17400,
+   "kept": 40,
+   "fetched": 40,
    "errors": 0,
    "carried": 0
   },
@@ -137,37 +159,16 @@
    "errors": 0,
    "carried": 0
   },
-  "kirkland": {
+  "cleary": {
    "domains": [
-    "www.kirkland.com"
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
    ],
-   "sitemaps": 11,
-   "urls": 17400,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 0,
-   "carried": 0
-  },
-  "latham": {
-   "domains": [
-    "www.lw.com"
-   ],
-   "sitemaps": 9,
-   "urls": 20128,
-   "kept": 26,
-   "fetched": 24,
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
    "errors": 2,
-   "carried": 0
-  },
-  "sidley": {
-   "domains": [
-    "www.sidley.com"
-   ],
-   "sitemaps": 7,
-   "urls": 7571,
-   "kept": 3,
-   "fetched": 3,
-   "errors": 10,
    "carried": 0
   },
   "ropesgray": {
@@ -200,16 +201,15 @@
    ],
    "carried": 0
   },
-  "davispolk": {
+  "sidley": {
    "domains": [
-    "www.davispolk.com",
-    "davispolk.com"
+    "www.sidley.com"
    ],
-   "sitemaps": 11,
-   "urls": 16192,
-   "kept": 10,
-   "fetched": 10,
-   "errors": 0,
+   "sitemaps": 6,
+   "urls": 7177,
+   "kept": 3,
+   "fetched": 3,
+   "errors": 11,
    "carried": 0
   },
   "stephensonharwood": {
@@ -217,7 +217,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2848,
+   "urls": 2851,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -231,30 +231,26 @@
    ],
    "carried": 0
   },
+  "davispolk": {
+   "domains": [
+    "www.davispolk.com",
+    "davispolk.com"
+   ],
+   "sitemaps": 11,
+   "urls": 16192,
+   "kept": 10,
+   "fetched": 10,
+   "errors": 0,
+   "carried": 0
+  },
   "klgates": {
    "domains": [
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12273,
-   "kept": 14,
-   "fetched": 14,
-   "errors": 0,
-   "carried": 0
-  },
-  "weil": {
-   "domains": [
-    "www.weil.com",
-    "eurorestructuring.weil.com",
-    "tax.weil.com",
-    "restructuring.weil.com",
-    "european-disputes-blog.weil.com",
-    "governance.weil.com"
-   ],
-   "sitemaps": 36,
-   "urls": 7752,
-   "kept": 40,
-   "fetched": 40,
+   "urls": 12279,
+   "kept": 17,
+   "fetched": 17,
    "errors": 0,
    "carried": 0
   },
@@ -263,7 +259,7 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11555,
+   "urls": 11560,
    "kept": 9,
    "fetched": 9,
    "errors": 0,
@@ -273,11 +269,11 @@
    "domains": [
     "www.hoganlovells.com"
    ],
-   "sitemaps": 2,
-   "urls": 21375,
+   "sitemaps": 1,
+   "urls": 10687,
    "kept": 0,
    "fetched": 0,
-   "errors": 0,
+   "errors": 1,
    "samples": [
     "https://www.hlc.com/en/knowledge @2023-12-08",
     "https://www.hlc.com/de/knowledge @2023-12-08",
@@ -286,18 +282,6 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18685,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -319,14 +303,30 @@
    ],
    "carried": 0
   },
+  "weil": {
+   "domains": [
+    "www.weil.com",
+    "governance.weil.com",
+    "restructuring.weil.com",
+    "eurorestructuring.weil.com",
+    "tax.weil.com",
+    "european-disputes-blog.weil.com"
+   ],
+   "sitemaps": 36,
+   "urls": 7754,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16325,
-   "kept": 23,
-   "fetched": 23,
+   "urls": 16326,
+   "kept": 21,
+   "fetched": 21,
    "errors": 0,
    "carried": 0
   },
@@ -345,29 +345,56 @@
  "items": [
   {
    "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-uniper-se-on-new-3bn-euro-syndicated-credit-facility",
-   "title": "Linklaters advises Uniper on €3bn sustainability-linked syndicated credit facility refinancing",
-   "description": "Linklaters has advised Uniper on the refinancing of its €3bn sustainability-linked syndicated credit facility, supporting the energy company's long-term liquidity and sustainability objectives.",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-banks-on-a-new-agented-cmbs-for-mileway-uk",
+   "title": "Linklaters advises banks on a new agented CMBS for Mileway UK",
+   "description": "Linklaters has advised Barclays Bank PLC, BNP Paribas, SMBC Bank International plc, Standard Chartered Bank and Wells Fargo Securities International Limited in connection with the issuance by UK Logistics 2026-4 DAC of £982,200,000 commercial mortgage-backed floating rate (CMBS) notes due 2036.",
    "date": "2026-10-14",
    "dateSource": "page date label",
    "lastmod": "2026-10-14"
   },
   {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-guides-airtel-money-on-londons-largest-ipo-since-2021",
+   "title": "AO Shearman guides Airtel Money on Londons largest IPO since 2021",
+   "description": "A&O Shearman advised Airtel Money on its GBP5.3bn London Stock Exchange IPO, the largest London IPO since 2021 and Europe's second-largest this year.",
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/press-release/2026/10/kirkland-advises-thoma-bravo-backed-bluematrix-on-acquisition-of-aiera",
+   "title": "Kirkland Advises Thoma Bravo-Backed BlueMatrix on Acquisition of Aiera",
+   "description": null,
+   "date": "2026-10-14",
+   "dateSource": "page date label",
+   "lastmod": null
+  },
+  {
    "firm": "sidley",
-   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/asia-funds-and-financial-services-newsletter",
-   "title": "Asia Funds & Financial Services Newsletter",
+   "url": "https://www.sidley.com/en/insights/newsupdates/2026/10/banner-two-weeks-at-the-sec-for-funds-and-advisers",
+   "title": "Banner Two Weeks at SEC for Funds and Advisers: Rethinking Retail, Crypto Custody, Cross Trading, and More",
    "description": null,
    "date": "2026-10-14",
    "dateSource": "datePublished",
    "lastmod": "2026-10-14"
   },
   {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/the-insolvency-administrators-long-memory-when-gratuitous-benefits-are-reclaimed",
-   "title": "The Insolvency Administrator's Long Memory – When Gratuitous Benefits Are Reclaimed",
-   "description": "I. WHY THIS TOPIC IS IMPORTANT When someone receives a gift, the recipient rarely considers the possibility of the donor’s insolvency. Yet, this is",
+   "firm": "klgates",
+   "url": "https://www.klgates.com/thought-leadership/Treasury-Announces-First-Civil-Penalty-Under-Outbound-Investment-Security-Program-10-14-2026",
+   "title": "Treasury Announces First Civil Penalty Under Outbound Investment Security Program",
+   "description": "Treasury",
    "date": "2026-10-14",
-   "dateSource": "datePublished",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "weil",
+   "url": "https://www.weil.com/articles/weil-wins-summary-judgment-for-nycrc-defeating-all-remaining-claims-in-eb5-investor-mass-action",
+   "title": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
+   "description": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
+   "date": "2026-10-14",
+   "dateSource": "page date label",
    "lastmod": "2026-10-14"
   },
   {
@@ -378,15 +405,6 @@
    "date": "2026-10-13",
    "dateSource": "<time datetime>",
    "lastmod": "2026-10-14"
-  },
-  {
-   "firm": "whitecase",
-   "url": "https://www.whitecase.com/news/media/dealist-northbound-capital-inside-us-nordics-ma-surge",
-   "title": "The Dealist",
-   "description": "White & Case partners Airi Hammalov and Johan Steen joined SS&C Intralinks' The Dealist podcast to discuss the increasingly active US-Nordic M&A pipeline and the Nordic region's appeal as a destination for cross-border investment.",
-   "date": "2026-10-13",
-   "dateSource": "<time datetime>",
-   "lastmod": "2026-10-13"
   },
   {
    "firm": "kirkland",
@@ -407,6 +425,15 @@
    "lastmod": null
   },
   {
+   "firm": "whitecase",
+   "url": "https://www.whitecase.com/news/media/dealist-northbound-capital-inside-us-nordics-ma-surge",
+   "title": "The Dealist",
+   "description": "White & Case partners Airi Hammalov and Johan Steen joined SS&C Intralinks' The Dealist podcast to discuss the increasingly active US-Nordic M&A pipeline and the Nordic region's appeal as a destination for cross-border investment.",
+   "date": "2026-10-13",
+   "dateSource": "<time datetime>",
+   "lastmod": "2026-10-13"
+  },
+  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/There-Is-a-New-Sheriff-in-Town-Why-Community-Approval-Now-Rules-Major-Project-Development-10-13-2026",
    "title": "There Is a New Sheriff in Town: Why Community Approval Now Rules Major Project Development",
@@ -414,15 +441,6 @@
    "date": "2026-10-13",
    "dateSource": "url",
    "lastmod": "2026-10-13"
-  },
-  {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/publication-listing",
-   "title": "Publications",
-   "description": null,
-   "date": "2026-10-13",
-   "dateSource": "datePublished",
-   "lastmod": null
   },
   {
    "firm": "mayerbrown",
@@ -441,6 +459,15 @@
    "date": "2026-10-13",
    "dateSource": "datePublished",
    "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "davispolk",
+   "url": "https://www.davispolk.com/experience/deutsche-bank-1-billion-notes-offering-october-2026",
+   "title": "Deutsche Bank $1 billion notes offering",
+   "description": "We advised the sole bookrunner, joint lead managers and co-managers on the offering",
+   "date": "2026-10-12",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
   },
   {
    "firm": "klgates",
@@ -523,15 +550,6 @@
    "lastmod": "2026-10-09"
   },
   {
-   "firm": "cleary",
-   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
-   "title": "News Listing",
-   "description": null,
-   "date": "2026-10-09",
-   "dateSource": "datePublished",
-   "lastmod": null
-  },
-  {
    "firm": "mayerbrown",
    "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/general-repercussion-theme-no-843-stf-rules-that-icms-presumed-credits-must-be-excluded-from-pis-and-cofins-tax-basis",
    "title": "General Repercussion Theme No. 843: STF Rules that ICMS Presumed Credits Must Be Excluded from PIS and COFINS Tax Basis",
@@ -539,15 +557,6 @@
    "date": "2026-10-09",
    "dateSource": "datePublished",
    "lastmod": "2026-10-09"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/fca-finalises-uk-srs-aligned-sustainability-disclosure-rules-for-listed-issuers",
-   "title": "FCA finalises UK SRS-aligned sustainability disclosure rules for listed issuers",
-   "description": "UK SRS disclosure rules explained: scope, comply or explain obligations, transitional reliefs and a practical checklist for listed companies.",
-   "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
   },
   {
    "firm": "traverssmith",
@@ -810,15 +819,6 @@
   },
   {
    "firm": "weil",
-   "url": "https://www.weil.com/articles/weil-advises-amc-in-4b-global-refinancing",
-   "title": "Weil Advises AMC in $4B Global Refinancing",
-   "description": "Weil advised AMC Entertainment on its approximately $4 billion global refinancing, including first lien notes and new first and second lien term loan facilities.",
-   "date": "2026-10-06",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-06"
-  },
-  {
-   "firm": "weil",
    "url": "https://restructuring.weil.com/category/news/",
    "title": "News Archives",
    "description": null,
@@ -837,15 +837,6 @@
    "lastmod": "2026-10-05"
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o4iv/pace-and-pastries-how-two-bakery-mergers-sped-through-cma-review",
-   "title": "Pace and pastries: how two bakery mergers sped through CMA review",
-   "description": "The CMA has made it its mission to speed up the Phase 1 and Phase 2 merger investigation process in the UK. Through the lens of...",
-   "date": "2026-10-05",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-05"
-  },
-  {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/warfighting-readiness-what-298-billion-in-defence-spending-means-for-the-uk-real-estate-sector/",
    "title": "\"Warfighting readiness\" - what £298 billion in defence spending means for the UK real estate sector",
@@ -859,15 +850,6 @@
    "url": "https://www.lw.com/en/insights/2026/10/Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "title": "Newest Slate of AI Laws Keeps California at the Forefront of US Regulation",
    "description": "During the 2026 legislative session, California enacted more than two dozen AI laws regulating transparency, chatbot safety, automated decision-making, and other domains.",
-   "date": "2026-10-05",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-05"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises MaxSolar Infrastructure Financing",
-   "title": "Latham & Watkins Advises MaxSolar on €155 Million Infrastructure Financing",
-   "description": "Finance team represents leading independent power producer in the transaction.",
    "date": "2026-10-05",
    "dateSource": "page date label",
    "lastmod": "2026-10-05"
@@ -894,15 +876,6 @@
     "a property=\"og:title\" content=\"Financial Regulation Weekly Bulletin - 1 October 2026\"/> <meta property=\"",
     "__page\"> <span itemprop=\"name\">Financial Regulation Weekly Bulletin - 1 October 2026</span> </span> <met"
    ]
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/blogs/foreigninvestmentlinks/2026/october/a-new-era-for-german-investment-screening-investitionsprufungsgesetz-ipg",
-   "title": "German Investment Screening Act (IPG): Key Changes for Investors",
-   "description": "Germany's draft Investment Screening Act (IPG) would reshape foreign investment reviews, introducing new rules on investor nationality, minority stakes, sector coverage and deal timing.",
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-02"
   },
   {
    "firm": "whitecase",
@@ -941,24 +914,6 @@
    "lastmod": "2026-10-02"
   },
   {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/five-key-takeaways-from-mayer-browns-financial-services-ma-summit-chicago",
-   "title": "Five Key Takeaways from Mayer Brown’s Financial Services M&A Summit – Chicago",
-   "description": "Mayer Brown’s Financial Services M&A Summit in Chicago brought together senior industry leaders and Mayer Brown lawyers to discuss the forces",
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/insights/blogs/linkingcompetition/2026/october/collective-actions-regulatory-appeals-and-competition-enforcement-reforms",
-   "title": "UK competition reforms collective actions regulatory appeals and enforcement",
-   "description": "Analysis of the UK government's proposed reforms to collective actions, regulatory appeals and competition enforcement, and Linklaters' views on the key changes.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
    "firm": "aoshearman",
    "url": "https://www.aoshearman.com/en/insights/navigating-the-eus-ecodesign-for-sustainable-products-regulation",
    "title": "Navigating the EU’s Ecodesign for Sustainable Products Regulation",
@@ -968,15 +923,6 @@
    "lastmod": "2026-10-08"
   },
   {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o3yh/the-uk-sustainability-reporting-standards-the-fcas-latest-consultation-and-the",
-   "title": "The UK Sustainability Reporting Standards: The FCA",
-   "description": "What has the FCA announced and in what form? On 30 September 2026, the Financial Conduct Authority (FCA) published Policy Statement...",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
    "firm": "kirkland",
    "url": "https://www.kirkland.com/news/in-the-news/2026/10/credit-edge",
    "title": "Bloomberg News: “Credit Edge”",
@@ -984,78 +930,6 @@
    "date": "2026-10-01",
    "dateSource": "page date label",
    "lastmod": null
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Italo on Financing in Support of Its Investment in Germany",
-   "title": "Latham Advises Italo on Financing in Support of Its €3.6 Billion Investment in Germany",
-   "description": "Cross-border infrastructure team represents the high-speed rail operator on its entry into the German market.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises MidOcean Energy on Phase 2 of LNG Canada Project",
-   "title": "Latham Advises MidOcean Energy on Phase 2 of LNG Canada Project",
-   "description": "A multidisciplinary, cross-practice team represents the LNG company in the project.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises on Moneyview IPO",
-   "title": "Latham Advises on Moneyview’s US$114 Million IPO",
-   "description": "Firm represents the Book Running Lead Managers on Indian listing of digital financial services platform.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Advises Saudi Railway Company on CHF 254 Million Export Credit Facility",
-   "title": "Latham Advises Saudi Railway Company on CHF 254 Million Export Credit Facility",
-   "description": "Cross-border infrastructure team represents the Saudi national railway operator on its inaugural financing.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Represents Paramount Skydance in Term Loan B Facility Pricing",
-   "title": "Latham Represents Paramount Skydance in US$8.5 Billion and €850 Million Term Loan B Facility Pricing",
-   "description": "Firm advises on largest M&A Term Loan B facility of the last decade to support Paramount’s previously announced US$110 billion acquisition of WBD.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Coalesce Capital on Growth Investment in ClearDefense",
-   "title": "Latham & Watkins Advises Coalesce Capital on Growth Investment in ClearDefense",
-   "description": "Multidisciplinary team represented the private equity firm in the transaction.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Wafra in Strategic Investment into CMC Railroad Gulf Inland Logistics Park",
-   "title": "Latham & Watkins Advises Wafra in Strategic Investment into CMC Railroad and Gulf Inland Logistics Park",
-   "description": "Houston-based team represents the alternative investment firm in its strategic investment into CMC Railroad and Gulf Inland Logistics Park to accelerate Gulf Inland expansion and support growth of a broad platform expected to pursue additional rail-served infrastructure and industrial opportunities.",
-   "date": "2026-10-01",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "davispolk",
-   "url": "https://www.davispolk.com/insights/client-update/fca-s-cryptoasset-authorisation-gateway-now-open",
-   "title": "FCA’s cryptoasset authorisation gateway is now open",
-   "description": "The UK's long-awaited regulatory regime for cryptoassets comes into force in October 2027. Firms that intend to provide regulated cryptoasset services at...",
-   "date": "2026-10-01",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
   },
   {
    "firm": "davispolk",
@@ -1094,15 +968,6 @@
    "lastmod": "2026-10-01"
   },
   {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/award/2026/09/restructuring-team-of-the-year",
-   "title": "Kirkland Recognized as “Restructuring Team of the Year” at Legal Business Awards",
-   "description": null,
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
    "firm": "latham",
    "url": "https://www.lw.com/en/insights/2026/09/DOJ Revises Policy Use Guidance Dismissal Authority FCA Cases Announces DC USAO Fraud Division",
    "title": "DOJ Revises Policy on Use of Guidance and Dismissal Authority in FCA Cases and Announces D.C. USAO Fraud Division",
@@ -1112,58 +977,13 @@
    "lastmod": "2026-09-30"
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/09/Latham Advises on Private Credit Financing for GTCR Acquisition of Tactacam",
-   "title": "Latham Advises on Private Credit Financing for GTCR’s Acquisition of Tactacam",
-   "description": "Firm represents the financing sources supporting the private equity firm’s acquisition of the provider of cellular-connected cameras for the outdoor and security markets.",
+   "firm": "kirkland",
+   "url": "https://www.kirkland.com/news/award/2026/09/restructuring-team-of-the-year",
+   "title": "Kirkland Recognized as “Restructuring Team of the Year” at Legal Business Awards",
+   "description": null,
    "date": "2026-09-30",
    "dateSource": "page date label",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/09/Latham Advises Pacific Universal Investments Bond Issuance",
-   "title": "Latham Advises Pacific Universal Investments on Debut US$325 Million Bond Issuance",
-   "description": "Firm represents the investment firm in the transaction.",
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises Long Lake in Completed Acquisition of American Express Global Business Travel",
-   "title": "Latham & Watkins Advises Long Lake in Completed US$6.3 Billion Acquisition of American Express Global Business Travel",
-   "description": "Multidisciplinary team represents the world’s first AI holding company in the take-private transaction.",
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises PRA Group on Senior Notes Offering",
-   "title": "Latham & Watkins Advises the Initial Purchasers in connection with PRA Group’s US$400 Million Senior Notes Offering",
-   "description": "Firm represents the global leader in acquiring and collecting nonperforming loans in the offering.",
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises Salesforce Acquisition Listen Labs",
-   "title": "Latham & Watkins Advises on Salesforce’s Acquisition of Listen Labs",
-   "description": "Firm represents the AI-powered customer research platform in the transaction.",
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/09/Latham Watkins Advises Tactacam on Completed Acquisition by GTCR",
-   "title": "Latham & Watkins Advises Tactacam on Completed Acquisition by GTCR",
-   "description": "Multidisciplinary team represented the provider of cellular-connected cameras in the transaction.",
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": "2026-09-30"
+   "lastmod": null
   },
   {
    "firm": "reedsmith",
