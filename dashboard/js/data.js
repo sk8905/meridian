@@ -12,16 +12,142 @@
 // ---- Equities -------------------------------------------------------------
 // Major global indices — seed close + YTD; the live feed refreshes `level`/`ytd`.
 export const EQ_INDICES = [
-  { id: "spx",  name: "S&P 500",         region: "US",     level: 7805.45,  ytd: 14.0,  asOf: "2026-10-13", stooq: "^spx",   source: "https://fred.stlouisfed.org/series/SP500", keyMoment: { text: "The S&amp;P 500 gained 0.7% on Friday as a weaker-than-expected September jobs report (29,000 payrolls) cemented expectations that the Fed will hold in October, with tech leading.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
-  { id: "ndq",  name: "Nasdaq Composite", region: "US",    level: 27245.90, ytd: 17.2,  asOf: "2026-10-12", stooq: "^ndq",   source: "https://fred.stlouisfed.org/series/NASDAQCOM", keyMoment: { text: "The Nasdaq Composite surged 1.2% on Friday, the strongest of the three US benchmarks, as tech led the rally after the soft jobs report cooled Fed rate-hike expectations.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
-  { id: "dji",  name: "Dow Jones",        region: "US",     level: 51670.10, ytd: 7.5,   asOf: "2026-10-13", stooq: "^dji",   source: "https://fred.stlouisfed.org/series/DJIA", keyMoment: { text: "The Dow rose 0.5% on Friday as the weak September payrolls print (29,000 jobs) faded Fed rate-hike expectations.", src: "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html", srcName: "Yahoo Finance", date: "2026-10-02" } },
-  { id: "rut",  name: "Russell 2000",     region: "US",     level: 2987.40,  ytd: 20.1,  asOf: "2026-07-21", stooq: "^rut",   source: "https://finance.yahoo.com/quote/%5ERUT/" },
-  { id: "sxxp", name: "Stoxx Europe 600", region: "Europe", level: 638.0,    ytd: null,  asOf: "2026-07-23", stooq: "^stoxx", source: "https://finance.yahoo.com/quote/%5ESTOXX/" },
-  { id: "ukx",  name: "FTSE 100",         region: "Europe", level: 10573.67, ytd: 0.54,  asOf: "2026-07-17", stooq: "^ftse",  source: "https://www.nakitte.com/briefs/ftse-2026-07-20/", keyMoment: { text: "The FTSE 100 slid to a two-week low on Tuesday, dragged down by heavyweight energy stocks as oil prices retreated, while British American Tobacco fell after issuing downbeat guidance.", src: "https://live.euronext.com/en/financial-news/ftse-100-hits-two-week-low-energy-stocks-slide", srcName: "Reuters (via Euronext)", date: "2026-09-29" } },
-  { id: "dax",  name: "DAX",              region: "Europe", level: 25003.98, ytd: -0.34, asOf: "2026-07-23", stooq: "^dax",   source: "https://en.wikipedia.org/wiki/DAX" },
-  { id: "cac",  name: "CAC 40",           region: "Europe", level: 8353.64,  ytd: -0.05, asOf: "2026-07-23", stooq: "^cac",   source: "https://en.wikipedia.org/wiki/CAC_40" },
-  { id: "nkx",  name: "Nikkei 225",       region: "Asia",   level: 66514.0,  ytd: 38.5,  asOf: "2026-07-22", stooq: "^nkx",   source: "https://tradingeconomics.com/japan/stock-market", keyMoment: { text: "The Nikkei 225 rose 2.0% to 66,826 on Wednesday, extending the region's chip-led strength as investors looked to US PCE data later in the day.", src: "https://nordfx.com/market-news/market-pulse-september-30-2026", srcName: "NordFX", date: "2026-09-30" } },
-  { id: "hsi",  name: "Hang Seng",        region: "Asia",   level: 24892.66, ytd: -0.95, asOf: "2026-07-22", stooq: "^hsi",   source: "https://finance.yahoo.com/quote/%5EHSI/", keyMoment: { text: "The Hang Seng declined 0.2% to 24,472 on Wednesday while the Shanghai Composite rose 0.3% to 3,840 and the Kospi fell 0.4% to 6,843.", src: "https://nordfx.com/market-news/market-pulse-september-30-2026", srcName: "NordFX", date: "2026-09-30" } },
+  {
+    "id": "spx",
+    "name": "S&P 500",
+    "region": "US",
+    "level": 7805.45,
+    "ytd": 14.02,
+    "asOf": "2026-10-13",
+    "stooq": "^spx",
+    "source": "https://finance.yahoo.com/quote/%5EGSPC",
+    "keyMoment": {
+      "text": "The S&amp;P 500 gained 0.7% on Friday as a weaker-than-expected September jobs report (29,000 payrolls) cemented expectations that the Fed will hold in October, with tech leading.",
+      "src": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html",
+      "srcName": "Yahoo Finance",
+      "date": "2026-10-02"
+    }
+  },
+  {
+    "id": "ndq",
+    "name": "Nasdaq Composite",
+    "region": "US",
+    "level": 27204.38,
+    "ytd": 17.05,
+    "asOf": "2026-10-13",
+    "stooq": "^ndq",
+    "source": "https://finance.yahoo.com/quote/%5EIXIC",
+    "keyMoment": {
+      "text": "The Nasdaq Composite surged 1.2% on Friday, the strongest of the three US benchmarks, as tech led the rally after the soft jobs report cooled Fed rate-hike expectations.",
+      "src": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html",
+      "srcName": "Yahoo Finance",
+      "date": "2026-10-02"
+    }
+  },
+  {
+    "id": "dji",
+    "name": "Dow Jones",
+    "region": "US",
+    "level": 51670.1,
+    "ytd": 7.5,
+    "asOf": "2026-10-13",
+    "stooq": "^dji",
+    "source": "https://finance.yahoo.com/quote/%5EDJI",
+    "keyMoment": {
+      "text": "The Dow rose 0.5% on Friday as the weak September payrolls print (29,000 jobs) faded Fed rate-hike expectations.",
+      "src": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-2-dow-sp-500-nasdaq-september-jobs-report-080623878.html",
+      "srcName": "Yahoo Finance",
+      "date": "2026-10-02"
+    }
+  },
+  {
+    "id": "rut",
+    "name": "Russell 2000",
+    "region": "US",
+    "level": 2783.37,
+    "ytd": 12.15,
+    "asOf": "2026-10-13",
+    "stooq": "^rut",
+    "source": "https://finance.yahoo.com/quote/%5ERUT"
+  },
+  {
+    "id": "sxxp",
+    "name": "Stoxx Europe 600",
+    "region": "Europe",
+    "level": 638.09,
+    "ytd": 7.64,
+    "asOf": "2026-10-14",
+    "stooq": "^stoxx",
+    "source": "https://finance.yahoo.com/quote/%5ESTOXX"
+  },
+  {
+    "id": "ukx",
+    "name": "FTSE 100",
+    "region": "Europe",
+    "level": 10677.14,
+    "ytd": 7.51,
+    "asOf": "2026-10-14",
+    "stooq": "^ftse",
+    "source": "https://finance.yahoo.com/quote/%5EFTSE",
+    "keyMoment": {
+      "text": "The FTSE 100 slid to a two-week low on Tuesday, dragged down by heavyweight energy stocks as oil prices retreated, while British American Tobacco fell after issuing downbeat guidance.",
+      "src": "https://live.euronext.com/en/financial-news/ftse-100-hits-two-week-low-energy-stocks-slide",
+      "srcName": "Reuters (via Euronext)",
+      "date": "2026-09-29"
+    }
+  },
+  {
+    "id": "dax",
+    "name": "DAX",
+    "region": "Europe",
+    "level": 25368.04,
+    "ytd": 3.58,
+    "asOf": "2026-10-14",
+    "stooq": "^dax",
+    "source": "https://finance.yahoo.com/quote/%5EGDAXI"
+  },
+  {
+    "id": "cac",
+    "name": "CAC 40",
+    "region": "Europe",
+    "level": 7865.63,
+    "ytd": -3.48,
+    "asOf": "2026-10-14",
+    "stooq": "^cac",
+    "source": "https://finance.yahoo.com/quote/%5EFCHI"
+  },
+  {
+    "id": "nkx",
+    "name": "Nikkei 225",
+    "region": "Asia",
+    "level": 67744.29,
+    "ytd": 34.57,
+    "asOf": "2026-10-14",
+    "stooq": "^nkx",
+    "source": "https://finance.yahoo.com/quote/%5EN225",
+    "keyMoment": {
+      "text": "The Nikkei 225 rose 2.0% to 66,826 on Wednesday, extending the region's chip-led strength as investors looked to US PCE data later in the day.",
+      "src": "https://nordfx.com/market-news/market-pulse-september-30-2026",
+      "srcName": "NordFX",
+      "date": "2026-09-30"
+    }
+  },
+  {
+    "id": "hsi",
+    "name": "Hang Seng",
+    "region": "Asia",
+    "level": 24314.17,
+    "ytd": -5.14,
+    "asOf": "2026-10-14",
+    "stooq": "^hsi",
+    "source": "https://finance.yahoo.com/quote/%5EHSI",
+    "keyMoment": {
+      "text": "The Hang Seng declined 0.2% to 24,472 on Wednesday while the Shanghai Composite rose 0.3% to 3,840 and the Kospi fell 0.4% to 6,843.",
+      "src": "https://nordfx.com/market-news/market-pulse-september-30-2026",
+      "srcName": "NordFX",
+      "date": "2026-09-30"
+    }
+  }
 ];
 
 // S&P 500 GICS sectors — YTD %, sorted best→worst by the view. asOf month-end.
@@ -82,7 +208,7 @@ export const CR_STRESS = [
   { name: "Wolfspeed", sector: "Semiconductors", hq: "Durham, US", debt: "$2.1bn", status: "Emerged from Ch.11", note: "Silicon-carbide chipmaker filed prepackaged Chapter 11 in Jul 2025, emerged after 91 days cutting debt ~70% and extending maturities to 2030.", latest: "2025-09", source: "https://investor.wolfspeed.com/news/news-details/2025/Wolfspeed-Successfully-Completes-Financial-Restructuring-Emerges-as-Financially-Stronger-Company-Well-Positioned-in-Silicon-Carbide-Market/default.aspx" },
 ];
 
-export const DASH_ASOF = "2026-07-24";
+export const DASH_ASOF = "2026-10-14";
 
 // ---------------------------------------------------------------------------
 // World equity indices — major LOCAL benchmarks (not ETFs) grouped by
@@ -95,31 +221,183 @@ export const DASH_ASOF = "2026-07-24";
 // (3M/6M and many 1W) are null in the seed and filled live. Refreshed by the
 // daily routine.
 export const WORLD_INDICES = {
-  asOf: "2026-07-29",
-  regions: [
-    { region: "US", rows: [
-      { name: "S&P 500",          level: 7316.15,   w1: -0.6,  m1: -0.79,  m3: null, m6: null, y1: 17.9,  asOf: "2026-07-29", source: "https://tradingeconomics.com/united-states/stock-market" },
-      { name: "Nasdaq Composite", level: 24442.94,  w1: null,  m1: -2.52,  m3: null, m6: null, y1: 17.39, asOf: "2026-07-29", source: "https://ycharts.com/indices/%5EIXIC" },
-      { name: "Dow Jones",        level: 51594.14,  w1: null,  m1: null,   m3: null, m6: null, y1: 20.1,  asOf: "2026-07-29", source: "https://www.investing.com/indices/us-30-historical-data" },
-      { name: "Russell 2000",     level: 2906.44,   w1: null,  m1: -3.45,  m3: null, m6: null, y1: 31.4,  asOf: "2026-07-29", source: "https://www.gurufocus.com/economic_indicators/4448/russell-2000-index" },
-    ] },
-    { region: "UK", rows: [
-      { name: "FTSE 100", level: 10908.41, w1: null, m1: 3.92, m3: null, m6: null, y1: 18.22, asOf: "2026-07-29", source: "https://tradingeconomics.com/united-kingdom/stock-market" },
-      { name: "FTSE 250", level: 23996.81, w1: null, m1: null, m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://www.fidelity.co.uk/shares/ftse-250/" },
-    ] },
-    { region: "Europe", rows: [
-      { name: "Euro Stoxx 50", level: 6260.83,  w1: -0.98, m1: -1.47, m3: null, m6: null, y1: 15.61, asOf: "2026-07-29", source: "https://tradingeconomics.com/euro-area/stock-market" },
-      { name: "DAX",           level: 25411.08, w1: null,  m1: 3.21,  m3: null, m6: null, y1: 5.17,  asOf: "2026-07-29", source: "https://tradingeconomics.com/germany/stock-market" },
-      { name: "CAC 40",        level: 8429.26,  w1: null,  m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/france/stock-market" },
-      { name: "IBEX 35",       level: 19743,    w1: 2.0,   m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/spain/stock-market" },
-    ] },
-    { region: "APAC", rows: [
-      { name: "Nikkei 225",         level: 61434.19, w1: null, m1: -10.85, m3: null, m6: null, y1: 53.64, asOf: "2026-07-29", source: "https://tradingeconomics.com/japan/stock-market" },
-      { name: "Hang Seng",          level: 25807.92, w1: null, m1: 12.22,  m3: null, m6: null, y1: 1.99,  asOf: "2026-07-29", source: "https://tradingeconomics.com/hong-kong/stock-market" },
-      { name: "Shanghai Composite", level: 3828.5,   w1: null, m1: -6.49,  m3: null, m6: null, y1: 5.88,  asOf: "2026-07-29", source: "https://tradingeconomics.com/china/stock-market" },
-      { name: "KOSPI",              level: 5593.56,  w1: null, m1: -31.56, m3: null, m6: null, y1: 75.10, asOf: "2026-07-29", source: "https://tradingeconomics.com/south-korea/stock-market" },
-    ] },
-  ],
+  "asOf": "2026-10-14",
+  "regions": [
+    {
+      "region": "US",
+      "rows": [
+        {
+          "name": "S&P 500",
+          "level": 7805.45,
+          "w1": -0.17,
+          "m1": 1.94,
+          "m3": 3.47,
+          "m6": 12.03,
+          "y1": 17.48,
+          "asOf": "2026-10-13",
+          "source": "https://finance.yahoo.com/quote/%5EGSPC/"
+        },
+        {
+          "name": "Nasdaq Composite",
+          "level": 27204.38,
+          "w1": -1.43,
+          "m1": 3.31,
+          "m3": 4.2,
+          "m6": 15.08,
+          "y1": 20.79,
+          "asOf": "2026-10-13",
+          "source": "https://finance.yahoo.com/quote/%5EIXIC/"
+        },
+        {
+          "name": "Dow Jones",
+          "level": 51670.1,
+          "w1": 0.29,
+          "m1": -1.72,
+          "m3": -1.6,
+          "m6": 6.46,
+          "y1": 11.67,
+          "asOf": "2026-10-13",
+          "source": "https://finance.yahoo.com/quote/%5EDJI/"
+        },
+        {
+          "name": "Russell 2000",
+          "level": 2783.37,
+          "w1": -1.66,
+          "m1": -4.15,
+          "m3": -6.12,
+          "m6": 2.87,
+          "y1": 11.54,
+          "asOf": "2026-10-13",
+          "source": "https://finance.yahoo.com/quote/%5ERUT/"
+        }
+      ]
+    },
+    {
+      "region": "UK",
+      "rows": [
+        {
+          "name": "FTSE 100",
+          "level": 10677.16,
+          "w1": 2.09,
+          "m1": -0.19,
+          "m3": 1.53,
+          "m6": 1.11,
+          "y1": 12.95,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EFTSE/"
+        },
+        {
+          "name": "FTSE 250",
+          "level": 24500.88,
+          "w1": 1.93,
+          "m1": 2.8,
+          "m3": 4.43,
+          "m6": 8.1,
+          "y1": 11.23,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EFTMC/"
+        }
+      ]
+    },
+    {
+      "region": "Europe",
+      "rows": [
+        {
+          "name": "Euro Stoxx 50",
+          "level": 6204.99,
+          "w1": 0.4,
+          "m1": -0.88,
+          "m3": -0.97,
+          "m6": 4.46,
+          "y1": 11.76,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5ESTOXX50E/"
+        },
+        {
+          "name": "DAX",
+          "level": 25368.04,
+          "w1": 1.05,
+          "m1": -0.29,
+          "m3": 1.47,
+          "m6": 5.41,
+          "y1": 4.67,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EGDAXI/"
+        },
+        {
+          "name": "CAC 40",
+          "level": 7865.63,
+          "w1": 1.24,
+          "m1": -3.11,
+          "m3": -6.17,
+          "m6": -4.94,
+          "y1": -0.68,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EFCHI/"
+        },
+        {
+          "name": "IBEX 35",
+          "level": 19295.7,
+          "w1": 0.93,
+          "m1": -1.38,
+          "m3": 0.1,
+          "m6": 6.1,
+          "y1": 23.8,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EIBEX/"
+        }
+      ]
+    },
+    {
+      "region": "APAC",
+      "rows": [
+        {
+          "name": "Nikkei 225",
+          "level": 67744.29,
+          "w1": -3.27,
+          "m1": 6.7,
+          "m3": -1.47,
+          "m6": 16.53,
+          "y1": 44.61,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EN225/"
+        },
+        {
+          "name": "Hang Seng",
+          "level": 24314.17,
+          "w1": 0.76,
+          "m1": -2.42,
+          "m3": -1.49,
+          "m6": -6.29,
+          "y1": -4.43,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EHSI/"
+        },
+        {
+          "name": "Shanghai Composite",
+          "level": 3767.23,
+          "w1": -1.95,
+          "m1": -3.04,
+          "m3": -4.76,
+          "m6": -6.46,
+          "y1": -2.54,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/000001.SS/"
+        },
+        {
+          "name": "KOSPI",
+          "level": 6008.81,
+          "w1": -11.69,
+          "m1": -10.11,
+          "m3": -17.51,
+          "m6": -1.36,
+          "y1": 68.7,
+          "asOf": "2026-10-14",
+          "source": "https://finance.yahoo.com/quote/%5EKS11/"
+        }
+      ]
+    }
+  ]
 };
 
 // Government bond benchmark yields (2Y/5Y/10Y/30Y, in %) for the major economies
@@ -130,34 +408,166 @@ export const WORLD_INDICES = {
 // non-issuance / no-benchmark cases: Brazil has no liquid 30Y, Japan's late-July
 // 30Y and China's 5Y had no consistent print. Refreshed by the daily routine.
 export const GOVT_YIELDS = {
-  asOf: "2026-07-29",
-  tenors: ["2Y", "5Y", "10Y", "30Y"],
-  regions: [
-    { region: "US", rows: [
-      { country: "United States", y2: 4.31, y5: 4.35, y10: 4.65, y30: 5.12, asOf: "2026-07-28", source: "https://www.worldgovernmentbonds.com/country/united-states/" },
-    ] },
-    { region: "South America", rows: [
-      { country: "Brazil", y2: 14.07, y5: 14.98, y10: 14.86, y30: null, asOf: "2026-07-27", source: "https://tradingeconomics.com/brazil/government-bond-yield" },
-      { country: "Mexico", y2: null,  y5: null,  y10: 9.16,  y30: null, asOf: "2026-07-24", source: "https://tradingeconomics.com/mexico/government-bond-yield" },
-    ] },
-    { region: "UK", rows: [
-      { country: "United Kingdom", y2: 4.43, y5: 4.39, y10: 4.95, y30: 4.75, asOf: "2026-07-29", source: "https://tradingeconomics.com/united-kingdom/government-bond-yield" },
-    ] },
-    { region: "Europe", rows: [
-      { country: "Germany",     y2: 2.62, y5: 2.71, y10: 3.19, y30: 3.48, asOf: "2026-07-27", source: "https://tradingeconomics.com/germany/government-bond-yield" },
-      { country: "France",      y2: 2.79, y5: 3.11, y10: 3.94, y30: 4.49, asOf: "2026-07-24", source: "https://tradingeconomics.com/france/government-bond-yield" },
-      { country: "Italy",       y2: 2.80, y5: 3.05, y10: 3.98, y30: 4.75, asOf: "2026-07-29", source: "https://tradingeconomics.com/italy/government-bond-yield" },
-      { country: "Spain",       y2: 2.76, y5: 2.97, y10: 3.50, y30: 4.16, asOf: "2026-07-24", source: "https://tradingeconomics.com/spain/government-bond-yield" },
-      { country: "Switzerland", y2: 0.09, y5: 0.14, y10: 0.36, y30: 0.66, asOf: "2026-07-20", source: "https://www.worldgovernmentbonds.com/country/switzerland/" },
-    ] },
-    { region: "APAC", rows: [
-      { country: "Japan",       y2: 1.44, y5: 2.00, y10: 2.76, y30: null, asOf: "2026-07-28", source: "https://tradingeconomics.com/japan/government-bond-yield" },
-      { country: "Australia",   y2: 4.61, y5: 4.61, y10: 4.90, y30: 5.39, asOf: "2026-07-29", source: "https://tradingeconomics.com/australia/government-bond-yield" },
-      { country: "China",       y2: 1.62, y5: null, y10: 2.10, y30: 2.50, asOf: "2026-07-22", source: "https://centralbank.watch/tools/yield-curve/china-yield-curve/" },
-      { country: "India",       y2: 6.41, y5: 6.91, y10: 6.80, y30: 7.81, asOf: "2026-07-27", source: "https://tradingeconomics.com/india/government-bond-yield" },
-      { country: "South Korea", y2: 3.33, y5: 3.59, y10: 3.69, y30: 3.61, asOf: "2026-07-20", source: "https://www.worldgovernmentbonds.com/country/south-korea/" },
-    ] },
+  "asOf": "2026-07-29",
+  "tenors": [
+    "2Y",
+    "5Y",
+    "10Y",
+    "30Y"
   ],
+  "regions": [
+    {
+      "region": "US",
+      "rows": [
+        {
+          "country": "United States",
+          "y2": 4.31,
+          "y5": 4.35,
+          "y10": 4.65,
+          "y30": 5.12,
+          "asOf": "2026-07-28",
+          "source": "https://www.worldgovernmentbonds.com/country/united-states/"
+        }
+      ]
+    },
+    {
+      "region": "South America",
+      "rows": [
+        {
+          "country": "Brazil",
+          "y2": 14.07,
+          "y5": 14.98,
+          "y10": 14.86,
+          "y30": null,
+          "asOf": "2026-07-27",
+          "source": "https://tradingeconomics.com/brazil/government-bond-yield"
+        },
+        {
+          "country": "Mexico",
+          "y2": null,
+          "y5": null,
+          "y10": 9.16,
+          "y30": null,
+          "asOf": "2026-07-24",
+          "source": "https://tradingeconomics.com/mexico/government-bond-yield"
+        }
+      ]
+    },
+    {
+      "region": "UK",
+      "rows": [
+        {
+          "country": "United Kingdom",
+          "y2": 4.43,
+          "y5": 4.39,
+          "y10": 4.95,
+          "y30": 4.75,
+          "asOf": "2026-07-29",
+          "source": "https://tradingeconomics.com/united-kingdom/government-bond-yield"
+        }
+      ]
+    },
+    {
+      "region": "Europe",
+      "rows": [
+        {
+          "country": "Germany",
+          "y2": 2.62,
+          "y5": 2.71,
+          "y10": 3.19,
+          "y30": 3.48,
+          "asOf": "2026-07-27",
+          "source": "https://tradingeconomics.com/germany/government-bond-yield"
+        },
+        {
+          "country": "France",
+          "y2": 2.79,
+          "y5": 3.11,
+          "y10": 3.94,
+          "y30": 4.49,
+          "asOf": "2026-07-24",
+          "source": "https://tradingeconomics.com/france/government-bond-yield"
+        },
+        {
+          "country": "Italy",
+          "y2": 2.8,
+          "y5": 3.05,
+          "y10": 3.98,
+          "y30": 4.75,
+          "asOf": "2026-07-29",
+          "source": "https://tradingeconomics.com/italy/government-bond-yield"
+        },
+        {
+          "country": "Spain",
+          "y2": 2.76,
+          "y5": 2.97,
+          "y10": 3.5,
+          "y30": 4.16,
+          "asOf": "2026-07-24",
+          "source": "https://tradingeconomics.com/spain/government-bond-yield"
+        },
+        {
+          "country": "Switzerland",
+          "y2": 0.09,
+          "y5": 0.14,
+          "y10": 0.36,
+          "y30": 0.66,
+          "asOf": "2026-07-20",
+          "source": "https://www.worldgovernmentbonds.com/country/switzerland/"
+        }
+      ]
+    },
+    {
+      "region": "APAC",
+      "rows": [
+        {
+          "country": "Japan",
+          "y2": 1.44,
+          "y5": 2,
+          "y10": 2.76,
+          "y30": null,
+          "asOf": "2026-07-28",
+          "source": "https://tradingeconomics.com/japan/government-bond-yield"
+        },
+        {
+          "country": "Australia",
+          "y2": 4.61,
+          "y5": 4.61,
+          "y10": 4.9,
+          "y30": 5.39,
+          "asOf": "2026-07-29",
+          "source": "https://tradingeconomics.com/australia/government-bond-yield"
+        },
+        {
+          "country": "China",
+          "y2": 1.62,
+          "y5": null,
+          "y10": 2.1,
+          "y30": 2.5,
+          "asOf": "2026-07-22",
+          "source": "https://centralbank.watch/tools/yield-curve/china-yield-curve/"
+        },
+        {
+          "country": "India",
+          "y2": 6.41,
+          "y5": 6.91,
+          "y10": 6.8,
+          "y30": 7.81,
+          "asOf": "2026-07-27",
+          "source": "https://tradingeconomics.com/india/government-bond-yield"
+        },
+        {
+          "country": "South Korea",
+          "y2": 3.33,
+          "y5": 3.59,
+          "y10": 3.69,
+          "y30": 3.61,
+          "asOf": "2026-07-20",
+          "source": "https://www.worldgovernmentbonds.com/country/south-korea/"
+        }
+      ]
+    }
+  ]
 };
 
 // Curated government-bond-yield CHANGES (basis points) by country → tenor, for the
@@ -167,20 +577,138 @@ export const GOVT_YIELDS = {
 // via /api/govyields, and the whole US curve (all windows, daily) too — both override
 // these. Only 1W (needs daily non-US data) stays blank. Real + sourced.
 export const GOVT_YIELD_CHG = {
-  "United States": { y2: { m1: 4, y1: 26 }, y5: { m1: 13, y1: 40 }, y10: { m1: 22, y1: 33 }, y30: { m1: 23, y1: 31 } },
-  "Brazil":        { y10: { m1: 35, y1: 68 } },
-  "Mexico":        { y10: { m1: 21, y1: 10 } },
-  "United Kingdom": { y2: { m1: 13, y1: 45 }, y10: { m1: 23, y1: 42 }, y30: { m1: 22, y1: 33 } },
-  "Germany":       { y2: { m1: 24, y1: 80 }, y10: { m1: 30, y1: 48 }, y30: { m1: 20, y1: 48 } },
-  "France":        { y10: { m1: 40, y1: 62 }, y30: { m1: 22, y1: 59 } },
-  "Italy":         { y10: { m1: 33, y1: 42 }, y30: { m1: 26, y1: 36 } },
-  "Spain":         { y10: { m1: 21, y1: 29 } },
-  "Switzerland":   { y10: { m1: 13, y1: 7 } },
-  "Japan":         { y2: { m1: 9, y1: 65 }, y10: { m1: 10, y1: 125 }, y30: { m1: 1, y1: 88 } },
-  "Australia":     { y2: { m1: 5, y1: 117 }, y10: { m1: 21, y1: 72 } },
-  "China":         { y10: { m1: -3, y1: -1 } },
-  "India":         { y10: { m1: 12, y1: 45 } },
-  "South Korea":   { y10: { m1: 17, y1: 154 } },
+  "United States": {
+    "y2": {
+      "m1": 4,
+      "y1": 26
+    },
+    "y5": {
+      "m1": 13,
+      "y1": 40
+    },
+    "y10": {
+      "m1": 22,
+      "y1": 33
+    },
+    "y30": {
+      "m1": 23,
+      "y1": 31
+    }
+  },
+  "Brazil": {
+    "y10": {
+      "m1": 35,
+      "y1": 68
+    }
+  },
+  "Mexico": {
+    "y10": {
+      "m1": 21,
+      "y1": 10
+    }
+  },
+  "United Kingdom": {
+    "y2": {
+      "m1": 13,
+      "y1": 45
+    },
+    "y10": {
+      "m1": 23,
+      "y1": 42
+    },
+    "y30": {
+      "m1": 22,
+      "y1": 33
+    }
+  },
+  "Germany": {
+    "y2": {
+      "m1": 24,
+      "y1": 80
+    },
+    "y10": {
+      "m1": 30,
+      "y1": 48
+    },
+    "y30": {
+      "m1": 20,
+      "y1": 48
+    }
+  },
+  "France": {
+    "y10": {
+      "m1": 40,
+      "y1": 62
+    },
+    "y30": {
+      "m1": 22,
+      "y1": 59
+    }
+  },
+  "Italy": {
+    "y10": {
+      "m1": 33,
+      "y1": 42
+    },
+    "y30": {
+      "m1": 26,
+      "y1": 36
+    }
+  },
+  "Spain": {
+    "y10": {
+      "m1": 21,
+      "y1": 29
+    }
+  },
+  "Switzerland": {
+    "y10": {
+      "m1": 13,
+      "y1": 7
+    }
+  },
+  "Japan": {
+    "y2": {
+      "m1": 9,
+      "y1": 65
+    },
+    "y10": {
+      "m1": 10,
+      "y1": 125
+    },
+    "y30": {
+      "m1": 1,
+      "y1": 88
+    }
+  },
+  "Australia": {
+    "y2": {
+      "m1": 5,
+      "y1": 117
+    },
+    "y10": {
+      "m1": 21,
+      "y1": 72
+    }
+  },
+  "China": {
+    "y10": {
+      "m1": -3,
+      "y1": -1
+    }
+  },
+  "India": {
+    "y10": {
+      "m1": 12,
+      "y1": 45
+    }
+  },
+  "South Korea": {
+    "y10": {
+      "m1": 17,
+      "y1": 154
+    }
+  }
 };
 
 // Private-credit pulse for the Credit dashboard — Fitch's U.S. Private Credit
