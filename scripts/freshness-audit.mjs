@@ -134,7 +134,10 @@ function stampSurface(key, label, stamp, windowDays, count = 1, note) {
 }
 // Profile-style collections: stale when MOST records' as-of dates are older than maxAgeDays.
 function asOfSurface(key, label, rows, field, maxAgeDays) {
-  const ms = (rows || []).map((r) => msOf(r && r[field]));
+  // `field` may list alternatives — a record is as fresh as its NEWEST one (e.g. a hedge
+  // fund's net aumAsOf or its SEC Form ADV raumAsOf).
+  const fields = Array.isArray(field) ? field : [field];
+  const ms = (rows || []).map((r) => Math.max(0, ...fields.map((f) => msOf(r && r[f]) || 0)));
   const old = ms.filter((m) => !m || (now - m) / DAY_MS > maxAgeDays).length;
   const share = rows && rows.length ? old / rows.length : 1;
   const newest = Math.max(0, ...ms);
@@ -197,7 +200,7 @@ const SURFACES = [
   stampSurface("dashboard_fedwatch", "Dashboard ▸ Rates CME FedWatch / SONIA odds", _isoDay((((MAC.OUTLOOK || {}).us || {}).fedwatch || {}).asOf), 14),
   stampSurface("dashboard_matwall", "Dashboard ▸ Credit maturity wall (S&P vintage)", _isoDay(String((((MAC.MATWALL || {}).ratedWall) || {}).asOf || "").replace(/^\D*(?=\d)/, "")), 400),
   stampSurface("dashboard_market_sizes", "Dashboard ▸ Rates market-sizes matrix", (MAC.MARKET_SIZES || {}).asOf, 120),
-  asOfSurface("hf_aum", "Hedge-fund AUM (aumAsOf)", CR.HEDGE_FUNDS, "aumAsOf", 540),
+  asOfSurface("hf_aum", "Hedge-fund AUM (net aumAsOf or SEC regulatory raumAsOf)", CR.HEDGE_FUNDS, ["aumAsOf", "raumAsOf"], 540),
   asOfSurface("lp_profiles", "Investor (LP) profiles (asOf)", CR.lps, "asOf", 365),
   volumeSurface("legal_volume", "Legal alerts — weekly volume", LG.items),
   volumeSurface("credit_volume", "Credit deals + intel — weekly volume", [...(CR.deals || []), ...(CR.intel || [])]),
@@ -288,7 +291,7 @@ for (const s of staleSurfaces) {
     dashboard_fedwatch: "Refresh OUTLOOK fedwatch + uk.sonia odds and the ECB/BoE/Fed next-meeting fields (macro/js/content.js).",
     dashboard_matwall: "Replace MATWALL.ratedWall with S&P's latest per-year maturity split (whole series + asOf together).",
     dashboard_market_sizes: "Refresh MARKET_SIZES from each source's latest release (macro/js/content.js).",
-    hf_aum: "Refresh hedge-fund AUM from Form ADV (SEC IAPD) / firm disclosures; set aumAsOf to the figure's date.",
+    hf_aum: "Regulatory AUM is refreshed daily from SEC Form ADV (collect-sec Action → apply-sec); for funds with no SEC filing, refresh net AUM from firm disclosures and set aumAsOf to the figure's date.",
     lp_profiles: "Refresh investor (LP) profiles from their latest annual reports; set asOf to the report date.",
     legal_volume: "Legal alert flow has collapsed vs its weekly median — sweep EVERY firm in `firms` (insights/news pages), firm by firm.",
     credit_volume: "Credit deal/intel flow has collapsed vs its weekly median — run the full manager + category sweep.",

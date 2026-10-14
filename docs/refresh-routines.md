@@ -685,6 +685,20 @@ writes `repairs: [{id, url, date, dateSource, was}]` — the page's own publishe
 (never a URL date). Apply by `id`: set `date`, delete `dateEstimated`, then lower the
 MAX_UNDATED_LEGAL / MAX_ESTIMATED_LEGAL ratchets.
 
+## Managers' own websites (`backfill/manager-news.json`)
+
+A GitHub Action (`.github/workflows/collect-manager-news.yml`, every 4h) runs
+`scripts/collect-manager-news.mjs`: for each credit manager whose own domain can be
+inferred from its existing webNews/sources (~175 of 224), it reads the site's sitemaps
+and each new publication's OWN metadata (title, description, published date), skipping
+URLs Wire already holds. A manager's own release is the PRIMARY source, so record from
+it directly: (1) every in-scope item → the manager's `webNews` `{date, title, url,
+outlet: <manager name>}` (date only when `dateSource` is a published-date field);
+(2) a capital event (fund close/launch, financing, acquisition, senior hire, CLO) → ALSO
+a `deals`/`intel` record with `sourceUrl` = the page and a summary ONLY from its
+description. Dedupe on manager + URL and headline. Skip careers, events, ESG
+boilerplate and generic market commentary.
+
 ## Profile rota (`scripts/profile-rota.mjs`) — slow data no feed refreshes
 
 `node scripts/profile-rota.mjs` prints this run's bounded slice, oldest first. Work it

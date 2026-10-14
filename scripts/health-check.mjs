@@ -102,22 +102,33 @@ if (lastCommitAgeH != null && inActiveWindow && lastCommitAgeH > CADENCE_MAX_HOU
 // diff) so a restamp-only routine can't read as healthy.
 const YIELD_FILES = { deals: /"?id"?\s*:\s*"d\d+"/, intel: /"?id"?\s*:\s*"i\d+"/, hedge: /"?id"?\s*:\s*"hi\d+"/, legal: /"?id"?\s*:\s*"(u|c|rx)\d+"/ };
 let yield24 = null;
+// Compare the record ids NOW against the ids in the last commit from >24h ago. (Reading
+// `git log -p` instead over-counts in a SHALLOW clone — the routines' checkouts are
+// shallow, so the boundary commit's diff shows every record as "added": the 2026-10-14
+// email reported 4,316 new records, i.e. the whole dataset.) If that base commit isn't
+// in the checkout, deepen once; if it still isn't, report the yield as unknown.
 try {
-  const hasOrigin = spawnSync("git", ["rev-parse", "--verify", "-q", "origin/main"], { cwd: ROOT, encoding: "utf8" }).status === 0;
-  const r = spawnSync("git", ["log", "--since=24 hours ago", "-p", "--format=", hasOrigin ? "origin/main" : "HEAD", "--", "credit/js/data.js", "legal/js/data.js"],
-    { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 });
-  if (r.status === 0) {
-    yield24 = { deals: 0, intel: 0, hedge: 0, legal: 0 };
-    const added = new Set(), removed = new Set();
-    for (const line of r.stdout.split("\n")) {
-      const sign = line[0];
-      if (sign !== "+" && sign !== "-") continue;
-      const m = line.match(/"?id"?\s*:\s*"((?:d|i|hi|u|c|rx)\d+)"/); if (!m) continue;
-      (sign === "+" ? added : removed).add(m[1]);
-    }
-    for (const id of added) {
-      if (removed.has(id)) continue; // an edited record, not a new one
-      for (const [k, re] of Object.entries(YIELD_FILES)) if (re.test(`id: "${id}"`)) { yield24[k]++; break; }
+  const git = (args) => spawnSync("git", args, { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 });
+  const ref = git(["rev-parse", "--verify", "-q", "origin/main"]).status === 0 ? "origin/main" : "HEAD";
+  let base = git(["rev-list", "-1", "--before=24 hours ago", ref]).stdout.trim();
+  if (!base) { git(["fetch", "-q", "--shallow-since=3 days ago", "origin", "main"]); base = git(["rev-list", "-1", "--before=24 hours ago", ref]).stdout.trim(); }
+  if (base) {
+    const ids = (rev) => {
+      const out = new Set();
+      for (const f of ["credit/js/data.js", "legal/js/data.js"]) {
+        const r = git(["show", `${rev}:${f}`]);
+        if (r.status !== 0) return null;
+        for (const m of r.stdout.matchAll(/"?id"?\s*:\s*"((?:d|i|hi|u|c|rx)\d+)"/g)) out.add(m[1]);
+      }
+      return out;
+    };
+    const before = ids(base), now = ids(ref);
+    if (before && now) {
+      yield24 = { deals: 0, intel: 0, hedge: 0, legal: 0 };
+      for (const id of now) {
+        if (before.has(id)) continue;
+        for (const [k, re] of Object.entries(YIELD_FILES)) if (re.test(`id: "${id}"`)) { yield24[k]++; break; }
+      }
     }
   }
 } catch { /* not a git checkout — skip yield */ }

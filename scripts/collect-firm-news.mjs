@@ -191,9 +191,9 @@ const normUrl = (u) => String(u || "").toLowerCase().replace(/^https?:\/\/(www\.
 
 // `skip`: URLs already collected (a previous history file) — not re-fetched, so each
 // run reaches the next `max` pages further back instead of the same newest ones.
-export async function collectFirm(id, domains, { since, max = 40, fetcher = get, skip = new Set() } = {}) {
+export async function collectFirm(id, domains, { since, max = 40, fetcher = get, skip = new Set(), name = null } = {}) {
   const stat = { domains, sitemaps: 0, urls: 0, kept: 0, fetched: 0, errors: 0 };
-  const fname = ((LG.firms || []).find((f) => f.id === id) || {}).name || "";
+  const fname = name || ((LG.firms || []).find((f) => f.id === id) || {}).name || "";   // `name`: a non-law-firm caller (collect-manager-news)
   const known = new Set([...(LG.items || []).map((i) => normUrl(i.url)), ...skip]);
   const seenMaps = new Set(), cands = [], robotsByHost = new Map();
   const pause = (h) => new Promise((r) => setTimeout(r, (robotsByHost.get(h) || {}).delayMs ?? POLITE_MS));
