@@ -100,8 +100,8 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-14",
-  time: "07:16 BST",
-  lede: "Treasury yields stayed near multi-decade highs after bank earnings, while the New York Fed's Williams saw no need for 2027 rate hikes and private-credit redemption pressure at non-traded BDCs showed signs of easing.",
+  time: "09:15 BST",
+  lede: "Treasury yields edged lower ahead of today's September CPI release (8:30am ET), staying near multi-decade highs after bank earnings; while the New York Fed's Williams saw no need for 2027 rate hikes and private-credit redemption pressure at non-traded BDCs showed signs of easing.",
   bullets: [
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to about 5.20% from 5.24%</strong>, stepping back from the 24-year high of 5.364% hit last week as oil prices retreated.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html", srcName: "Yahoo Finance", date: "2026-10-13" },
     { html: "<strong>Equities &mdash; bank earnings split the tape:</strong> Goldman Sachs earned $17.01 a share (vs $12.25 a year ago) on $18.68bn revenue, while JPMorgan&rsquo;s $5.57 EPS missed the $5.93 consensus; chip stocks slid, with Micron down about 5.8% early.", src: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html", srcName: "CNBC", date: "2026-10-13" },
