@@ -1,0 +1,45 @@
+name: probe-gazette
+
+# One-off, manual-only probe of The Gazette's linked-data feeds (OGL; personal data
+# excluded from the licence) so scripts/collect-gazette.mjs is built against the REAL
+# feed format rather than a guess (docs/implementation-plan.md B4). Corporate-insolvency
+# searches only. Writes backfill/gazette-probe.txt (headers + first 4 KB of each).
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Probe feed formats
+        run: |
+          UA="WireMonitor/1.0 (+https://github.com/sk8905/meridian)"
+          out=backfill/gazette-probe.txt; mkdir -p backfill; : > $out
+          for u in \
+            "https://www.thegazette.co.uk/robots.txt" \
+            "https://www.thegazette.co.uk/insolvency/notice/data.feed?text=%22Thames+Water%22" \
+            "https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames+Water%22" \
+            "https://www.thegazette.co.uk/all-notices/notice/data.feed?categorycode=G205000000&results-page-size=5" \
+            "https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&results-page-size=5" \
+            "https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2410&results-page-size=5" ; do
+            echo "===== $u" >> $out
+            curl -sS -A "$UA" -D - -o /tmp/body -m 30 "$u" | head -20 >> $out || echo "curl failed" >> $out
+            head -c 4096 /tmp/body >> $out; echo >> $out
+            sleep 2
+          done
+      - name: Commit probe
+        run: |
+          git config user.name "wire-collector[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backfill/gazette-probe.txt
+          git commit -m "probe: backfill/gazette-probe.txt [skip ci]" || exit 0
+          for i in 1 2 3 4; do git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0; sleep $((i*5)); done
+          exit 1

@@ -24,7 +24,7 @@ Status key: ✅ shipped · 🟡 in progress · ⬜ not started · ⛔ blocked (o
 | A1 | **Niche-fit scoring** (`scripts/lib/niche.mjs`, `scripts/niche-fit.mjs`): European · ≤$15bn · 15%+ strategy → core / adjacent / context / off | ✅ | 44 core managers identified; `tests/niche-fit.mjs` |
 | A2 | **Niche-first worklists**: `manager-coverage.mjs` rotates within the core tier first; `backfill-progress.mjs` builds niche-first and proposes ADD for core managers not on the checklist | ✅ | First BUILD/ADD target is core; core managers' records per manager ≥ 13 (today ~6) |
 | A3 | **Reader compliance**: hosts whose ToU bar automated access are link-only (`READ_LINKONLY`; Moody's first) | ✅ | `tests/reader-terms.mjs` |
-| A4 | **Terms audit of every wired source** (feeds, reader, APIs, X, proxies) → fixes | 🟡 | Every host has a verdict in §4 |
+| A4 | **Terms audit of every wired source** (feeds, reader, APIs, X, proxies) → fixes | 🟡 reader + firm collector fixed; market-data / X items await owner decision (§4) | Every host has a verdict in §4 |
 | A5 | **Currency as data**: manager/investor AUM restated to USD with `aumFrom` provenance (done by the UX session, R29); funds carry `ccy` set only where the fund's own sourced text states it (no FX); otherwise absent | ✅ | 0 money figures without a currency OR an explicit `null`; UI follow-up in §6 |
 | A6 | **AUM reconciliation**: stale `aumTotal` vs `aum`/`aumText` (e.g. Arini 11 vs ~$18bn, Cheyne 12 vs $15bn) | ⬜ | List = profile = source text |
 | A7 | **Controlled vocabularies**: fund `status` (4 values + `evergreen` flag), `strategy` (STRATEGIES), `domicile` (country) + new `structure` field; integrity ratchets | ✅ | Enum spec green; free-text variants → 0 |
@@ -37,8 +37,8 @@ Status key: ✅ shipped · 🟡 in progress · ⬜ not started · ⛔ blocked (o
 |---|---|---|---|---|
 | B1 | **Fund-terms schema**: `targetIRR {low, high, basis, ccy}`, `structure`, `closes[]` (first / interim / final with date + amount), `evergreen` | ⬜ | A5, A7 | Funds with a sourced target return: 10 → 60+ |
 | B2 | **Deal ↔ adviser**: parse the law-firm "advises" alerts (already collected, 1,595 items) into `deals[].advisers[{firmId, role, side, sourceUrl}]` | ⬜ | — | % of deals with ≥1 adviser |
-| B3 | **GLEIF LEI enrichment** (CC0) as a GitHub Action — managers/funds/SPVs get `lei` + parent chain | ⬜ | — | Managers with an LEI |
-| B4 | **The Gazette corporate notices** (OGL; corporate only — personal-insolvency notices excluded) for tracked obligors (Transactions ▸ Credits) and restructuring names | ⬜ | — | Notices/week matched to a tracked entity |
+| B3 | **GLEIF LEI enrichment** (CC0) as a GitHub Action — managers/funds/SPVs get `lei` + parent chain | 🟡 collector shipped (`collect-gleif.yml` → `backfill/gleif.json`, candidates only); applying confirmed LEIs next | — | Managers with an LEI |
+| B4 | **The Gazette corporate notices** (🟡 format probe `probe-gazette.yml` first) (OGL; corporate only — personal-insolvency notices excluded) for tracked obligors (Transactions ▸ Credits) and restructuring names | ⬜ | — | Notices/week matched to a tracked entity |
 | B5 | **Companies House** charges (MR01) + streaming for UK borrowers/managers | ⛔ owner: free API key | key as repo secret `CH_API_KEY` | Charges matched to tracked borrowers |
 | B6 | **SEC Form D** amount-sold for tracked funds (EDGAR full-text search already proxied at `/api/formd`) → fund `raised` cues | ⬜ | — | Fund closes with a filing-backed amount |
 | B7 | **LP commitments** from UK LGPS ModernGov papers + US public-pension board documents (CalPERS, PSERS, WSIB, Oregon) → `commitments` | ⬜ | B1 | commitments 9 → 200+ |
@@ -83,7 +83,15 @@ fact itself is recorded from a source that does allow it.
 | **Paywalled specialists** (PDI, Creditflux, 9fin, Debtwire, Octus, FT, Bloomberg) | Paywalls | headline-only leads (current) | **Keep current rule**: public headline/standfirst only, verify via a readable primary, never paraphrase body text, never bypass a paywall. |
 | **Rating-agency / pension / council PDFs** | Normal copyright | facts + link | Extract facts (commitment, fund, amount, date) and link; no document re-hosting. |
 | **People moves (GDPR)** | Personal data | — | Professional role only (name, firm, title, date, source); written legitimate-interests note; no LinkedIn scraping (R19); exclude the Individual Insolvency Register. |
-| **In-app reader / proxies** (Jina, Firecrawl) for bot-walled sites | Several publishers' ToU may bar automated retrieval even for personal use | per-host verdict from the A4 audit | Pending A4: hosts whose terms forbid it move to `READ_LINKONLY`. |
+| **In-app reader / proxies** (Jina, Firecrawl) | Several publishers' ToU bar automated retrieval/storage | link-only vs on-demand-only vs allowlist | ✅ Shipped: `READ_LINKONLY` (Moody's, SCMP, Straits Times, Substack), `READ_NOAUTO` (AP, CNBC, MarketWatch, Investing.com — on demand only), proxy never after a refusal, pre-warm allowlist (`READ_PREWARM_OK`). |
+| **Law-firm sites** (`collect-firm-news.mjs`) | Read robots.txt only for sitemaps | — | ✅ Shipped: Disallow/Allow + Crawl-delay honoured, ≥1s per host, honest UA. |
+| **X** — free syndication scrape | X ToS bars scraping without written consent | remove | ✅ Removed. |
+| **X** — twitterapi.io / TwitterAPIs.com (paid resellers) | Wire is a customer, but the resellers' collection is not authorised by X | (a) keep; (b) official X API (pay-per-use); (c) drop the X lane | ⛔ **Owner decision.** Recommendation: (b) the official X API for the ~10-account list, if the cost is acceptable; otherwise (c). |
+| **Yahoo Finance** (quotes, 5y/intraday chart series, news search, crumb handshake) | Yahoo ToS §2(d)(9) bars automated access "for any purpose"; robots.txt `Disallow: /` on query1/query2 | (a) FRED API (keyed; daily S&P 500, Nasdaq, Brent, gold, BTC, yields — some series third-party © for personal use only) + ECB/BoE for FX/rates; (b) a keyed vendor whose free tier licenses personal use (e.g. Twelve Data, Finnhub, Alpha Vantage — terms to confirm) for intraday + single stocks/BDC prices; (c) drop intraday | ⛔ **Owner decision.** Recommendation: **(a) + (b)** behind one provider interface — daily series from FRED/ECB, intraday and equities from one keyed vendor on a personal licence. Yahoo stays until you choose (switching it off now would blank the markets band, hero chart, briefing pills and BDC price/NAV). |
+| **Stooq** (IGWD/EMEE CSV) | robots.txt `Disallow: /` | issuer NAV pages / the vendor above | ⛔ Replace with the vendor in the Yahoo decision. |
+| **FRED `fredgraph.csv` fallback** + spoofed browser UA in `fetchHeaders` | FRED FAQ: no scraping; API terms govern keyed use | API only, honest UA | ⬜ Next: API-only, honest UA (needs `FRED_API_KEY` bound — check). |
+| **CNBC `restQuote`** (UK gilt yields) | Unpublished internal endpoint | Bank of England yield data (OGL) | ⬜ Next: replace with BoE. |
+| **Bing News RSS mirror** | Terms unconfirmed | drop | ⬜ Next: drop unless confirmed. |
 
 ## 5. Owner actions (blockers I cannot clear)
 
