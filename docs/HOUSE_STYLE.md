@@ -1206,7 +1206,7 @@ item keeps a real outbound source link (R7).
 - 🔒 Nishant Kumar (Bloomberg) — switched off (Bloomberg paywall)
 - ✅ PE Wire
 - Paul Krugman
-- ✅ Moody's — free CreditView blog + /insights research, wired via Google News bridge (FI desk)
+- ✅ Moody's — free CreditView blog + /insights research, wired via Google News bridge (FI desk) as **headline + link only**: Moody's terms of use bar automated access, scraping and AI/NLP use, so the reader never fetches moodys.com (`READ_LINKONLY` in `src/index.js`, `tests/reader-terms.mjs`) and the row opens at Moody's
 - 📄 S&P (Global Ratings) — free press releases render (`press.spglobal.com`) but are barely Google-News-indexed, so no clean feed route
 - 📄 Preqin (`preqin.com`) — free /insights blogs + press releases render, but no RSS and Google News returns only database "Asset Profile" pages — no feed route
 - 🔒 9fin (`9fin.com`) — subscription (leveraged finance); some free deep-dives render inconsistently

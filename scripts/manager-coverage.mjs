@@ -21,6 +21,7 @@
 //   node scripts/manager-coverage.mjs --size=12  # override worklist size (default 10)
 // =============================================================================
 import * as CR from "../credit/js/data.js";
+import { nicheIndex } from "./lib/niche.mjs";
 
 const args = process.argv.slice(2);
 const flag = (n) => args.includes(n);
@@ -58,6 +59,9 @@ for (const d of deals) bump(d.managerId, d.date);
 for (const i of intel) bump(i.managerId, i.date);
 for (const m of managers) if (Array.isArray(m.webNews)) for (const w of m.webNews) bump(m.id, w.date);
 
+// Niche-first (scripts/lib/niche.mjs): core European ≤$15bn 15%+ managers outrank
+// adjacent, then context, then off-niche names — within a tier the old thinness order holds.
+const NICHE = nicheIndex(managers, CR.funds || []);
 const rows = [...byId.values()].map((c) => {
   const ageDays = c.newestMs ? Math.round((todayMs - c.newestMs) / 86400000) : null;
   const oldestYear = c.oldestMs < Infinity ? Number(yr(new Date(c.oldestMs).toISOString())) : null;
@@ -71,8 +75,9 @@ const rows = [...byId.values()].map((c) => {
   if (needsHistory) gaps.push("no-" + BACKFILL_YEAR);
   if (needsCurrent) gaps.push(ageDays == null ? "empty" : `stale-${ageDays}d`);
   // Priority score: lower = more urgent. Empty first, then thin, then missing-history, then stale.
-  const score = c.total * 10 + (needsHistory ? 0 : 1000) + (needsCurrent ? 0 : 500) + (c.founded || 0) / 10000;
-  return { ...c, years: [...c.years].sort(), ageDays, oldestYear, needsHistory, needsCurrent, thin, gaps, score };
+  const niche = NICHE.get(c.id) || { tier: "context", rank: 2 };
+  const score = niche.rank * 100000 + c.total * 10 + (needsHistory ? 0 : 1000) + (needsCurrent ? 0 : 500) + (c.founded || 0) / 10000;
+  return { ...c, niche: niche.tier, years: [...c.years].sort(), ageDays, oldestYear, needsHistory, needsCurrent, thin, gaps, score };
 });
 
 const flagged = rows.filter((r) => r.gaps.length).sort((a, b) => a.score - b.score || a.name.localeCompare(b.name));
@@ -81,21 +86,27 @@ const flagged = rows.filter((r) => r.gaps.length).sort((a, b) => a.score - b.sco
 // slices of the flagged roster (thinnest always re-surface because their score stays low,
 // but the rotation offset keeps the run from re-targeting the exact same 10 each time).
 const doy = Math.floor((todayMs - Date.parse(TODAY.getFullYear() + "-01-01")) / 86400000);
-const offset = flagged.length ? (doy * SIZE) % flagged.length : 0;
+// The rotation runs WITHIN each niche tier, best tier first, so the core niche is
+// swept before effort spills into adjacent / context names.
 const worklist = [];
-for (let i = 0; i < Math.min(SIZE, flagged.length); i++) worklist.push(flagged[(offset + i) % flagged.length]);
+for (const tier of ["core", "adjacent", "context", "off"]) {
+  const pool = flagged.filter((r) => r.niche === tier);
+  const offset = pool.length ? (doy * SIZE) % pool.length : 0;
+  for (let i = 0; i < pool.length && worklist.length < SIZE; i++) worklist.push(pool[(offset + i) % pool.length]);
+  if (worklist.length >= SIZE) break;
+}
 
 function fmt(r) {
   const fnd = r.founded != null ? `est.${r.founded}` : "est.?";
   const span = r.years.length ? `${r.years[0]}–${r.years[r.years.length - 1]}` : "—";
-  return `  ${String(r.total).padStart(3)}  ${r.name}  [${fnd}, ${r.hq || "?"}, span ${span}]  → ${r.gaps.join(", ")}`;
+  return `  ${String(r.total).padStart(3)}  ${r.niche.padEnd(8)} ${r.name}  [${fnd}, ${r.hq || "?"}, span ${span}]  → ${r.gaps.join(", ")}`;
 }
 
 if (flag("--json")) {
   console.log(JSON.stringify({
     generated: TODAY.toISOString().slice(0, 10),
     totalManagers: rows.length, flagged: flagged.length,
-    worklist: worklist.map((r) => ({ id: r.id, name: r.name, hq: r.hq, founded: r.founded, total: r.total, span: r.years, gaps: r.gaps })),
+    worklist: worklist.map((r) => ({ id: r.id, name: r.name, niche: r.niche, hq: r.hq, founded: r.founded, total: r.total, span: r.years, gaps: r.gaps })),
   }, null, 2));
 } else if (flag("--all")) {
   console.log(`MANAGER COVERAGE — ${rows.length} profiles, ${flagged.length} flagged (${TODAY.toISOString().slice(0, 10)})\n`);
@@ -104,7 +115,7 @@ if (flag("--json")) {
   const have2020 = rows.filter((r) => r.oldestYear != null && r.oldestYear <= 2020).length;
   console.log(`MANAGER COVERAGE — ${TODAY.toISOString().slice(0, 10)}`);
   console.log(`  ${rows.length} profiles · ${have2020} reach ≤2020 · ${flagged.length} flagged (thin / missing-history / stale)\n`);
-  console.log(`TODAY'S BACKFILL WORKLIST (${worklist.length} managers, thinnest-first, rotating):`);
+  console.log(`TODAY'S BACKFILL WORKLIST (${worklist.length} managers, niche-first, thinnest-first, rotating):`);
   console.log(`  Source VERIFIED events (real URL + real date, no fabrication) back to 2020 AND recent,`);
   console.log(`  then append to credit/js/data.js (deals / intel / manager.webNews). gaps legend:`);
   console.log(`  thin=<${THIN_TOTAL} events · no-${BACKFILL_YEAR}=no pre-${BACKFILL_YEAR} history · stale-Nd/empty=no recent activity\n`);

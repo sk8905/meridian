@@ -23,6 +23,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import * as C from "../credit/js/data.js";
+import { nicheIndex, TIER_RANK } from "./lib/niche.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const CHECKLIST = path.join(HERE, "..", "backfill", "checklist.json");
@@ -71,14 +72,23 @@ export function progress(cl) {
 }
 
 // Next work: fill built entities that still have missing events (worst first), then
-// build the highest-priority unbuilt checklists.
+// build checklists NICHE-FIRST (scripts/lib/niche.mjs: European, ≤$15bn, 15%+
+// strategies — the owner's actual universe), then by checklist priority. Core-niche
+// managers not yet on the checklist are proposed as ADD (put the entity on the
+// checklist with status "todo", then build it) — the original top-by-AUM priority
+// list is kept, it just no longer outranks the niche.
+const NICHE = nicheIndex(C.managers || [], C.funds || []);
+const nicheRank = (id) => NICHE.get(id)?.rank ?? TIER_RANK.context;
+const depth = new Map(); for (const r of RECORDS) if (r.managerId) depth.set(r.managerId, (depth.get(r.managerId) || 0) + 1);
 export function worklist(cl, size = 4) {
   const p = progress(cl);
   const fill = p.rows.filter((r) => r.missing > 0).map((r) => ({ action: "fill", ...r }));
   const build = Object.entries(cl.entities).filter(([, e]) => e.status !== "built")
-    .sort((a, b) => a[1].priority - b[1].priority)
-    .map(([id, e]) => ({ action: "build", id, name: e.name, kind: e.kind, priority: e.priority }));
-  return [...fill, ...build].slice(0, size);
+    .map(([id, e]) => ({ action: "build", id, name: e.name, kind: e.kind, priority: e.priority, niche: NICHE.get(id)?.tier || null }));
+  const add = (C.managers || []).filter((m) => !cl.entities[m.id] && NICHE.get(m.id)?.tier === "core")
+    .map((m) => ({ action: "add", id: m.id, name: m.name, kind: "manager", priority: Infinity, niche: "core" }));
+  const next = [...build, ...add].sort((a, b) => nicheRank(a.id) - nicheRank(b.id) || a.priority - b.priority || (depth.get(a.id) || 0) - (depth.get(b.id) || 0) || a.name.localeCompare(b.name));
+  return [...fill, ...next].slice(0, size);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -91,5 +101,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   console.log(`  ${p.present}/${p.events} listed events present in Wire = ${p.pct}% complete${p.rejected ? ` (${p.rejected} rejected as unverifiable/out of scope)` : ""}\n`);
   for (const r of p.rows) console.log(`  ${String(r.pct).padStart(3)}%  ${r.present}/${r.listed}  ${r.name} [${r.id}]`);
   console.log(`\nNEXT WORKLIST:`);
-  for (const w of wl) console.log(`  ${w.action.toUpperCase().padEnd(5)} ${w.name} [${w.id}]${w.action === "fill" ? ` — ${w.missing} missing event(s)` : " — research its 2020→today event checklist"}`);
+  for (const w of wl) console.log(`  ${w.action.toUpperCase().padEnd(5)} ${w.name} [${w.id}]${w.action === "fill" ? ` — ${w.missing} missing event(s)` : w.action === "add" ? " — core niche, not on the checklist: add it (status todo), then research its 2020→today events" : ` — research its 2020→today event checklist${w.niche ? ` (niche: ${w.niche})` : ""}`}`);
 }

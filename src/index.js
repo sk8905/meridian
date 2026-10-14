@@ -1971,6 +1971,14 @@ const READ_PAYWALL = new Set([
   // so render nothing and let the row open at the publisher.
   "thelawyer.com",
 ]);
+// Hosts whose terms of use forbid automated access / scraping / storage of their
+// pages, so the reader never fetches them (directly, via a proxy, or in the KV
+// pre-warm): the wire row keeps the headline + link and opens at the publisher.
+// Moody's ToU §1(c)(ii)–(iv) and §2 bar access "by means of any automated program",
+// scraping, data mining, and use for AI/NLP (moodys.com/web/en/us/legal/terms-of-use.html).
+const READ_LINKONLY = new Set([
+  "moodys.com",
+]);
 // Hosts we render in-pane even though they flag their pages "metered"
 // (isAccessibleForFree=false in the page data). These sites still serve the full
 // article body to a plain public fetch, so we print exactly what that public page
@@ -2387,7 +2395,7 @@ async function _readDirect(u, host) {
       // paywalled or internal host (SSRF via 3xx).
       let finalHost = host;
       try { finalHost = new URL(r.url).hostname.replace(/^www\./, ""); } catch { /* keep host */ }
-      if (finalHost !== host && (_readInSet(finalHost, READ_PAYWALL) || !readHostAllowed(finalHost)))
+      if (finalHost !== host && (_readInSet(finalHost, READ_PAYWALL) || _readInSet(finalHost, READ_LINKONLY) || !readHostAllowed(finalHost)))
         return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "redirect-blocked" };
       if (!r.ok) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "fetch-" + r.status };
       if (!/text\/html|xml/i.test(r.headers.get("content-type") || "text/html")) return { url: u.toString(), source: _readTidy(host), accessible: false, paragraphs: [], reason: "not-html" };
@@ -2543,6 +2551,7 @@ async function handleRead(request, env, ctx) {
   if (u.protocol !== "https:") return json({ error: "https only", accessible: false, paragraphs: [] }, 400);
   const host = u.hostname.replace(/^www\./, "");
   if (_readInSet(host, READ_PAYWALL)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "paywall" });
+  if (_readInSet(host, READ_LINKONLY)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "link-only" });
   if (!readHostAllowed(host)) return json({ url: target, source: _readTidy(host), accessible: false, paragraphs: [], reason: "blocked-host" });
   const cache = caches.default;
   // Cache-key version — bump on any extractor change so the edge discards reader
@@ -2609,7 +2618,7 @@ async function prewarmReads(env) {
   for (const it of items) {
     const href = it && it.url; if (!href || !/^https:\/\//i.test(href)) continue;
     let host; try { host = new URL(href).hostname.replace(/^www\./, ""); } catch { continue; }
-    if (_readInSet(host, READ_PAYWALL) || !readHostAllowed(host)) continue;
+    if (_readInSet(host, READ_PAYWALL) || _readInSet(host, READ_LINKONLY) || !readHostAllowed(host)) continue;
     if (seen.has(href)) continue; seen.add(href);
     cand.push({ href, host });
     if (cand.length >= 14) break;
@@ -3349,8 +3358,9 @@ export const FEED_SOURCES = [
   // Moody's — free credit research (CreditView blog + /insights/credit-risk): rating
   // trends, private-credit/bank outlooks, default-risk analysis. No RSS and the
   // ratings site bot-gates, so bridged via Google News scoped to the free
-  // insights/creditview paths. Openly readable in-pane (verified: renders direct,
-  // 400–2,900 words). fi:true badges it FI (credit desk); filter:false.
+  // insights/creditview paths. HEADLINE + LINK ONLY: Moody's ToU bars automated
+  // access/scraping, so the reader never fetches it (READ_LINKONLY). fi:true badges it
+  // FI (credit desk); filter:false.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=(site%3Amoodys.com%2Fweb%2Fen%2Fus%2Finsights%20OR%20site%3Amoodys.com%2Fweb%2Fen%2Fus%2Fcreditview)%20when%3A30d", source: "Moody's", region: "GEN", cap: 6, gnews: true, fi: true, filter: false },
   // (FT Alphaville's Google-News bridge removed: path-scoped site: queries
   // return zero items from Google News — confirmed by the live probe — so it

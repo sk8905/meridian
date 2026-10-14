@@ -738,7 +738,14 @@ that carries it), `missing` (with its `source`), or `rejected` (with a `note`).
 
 `node scripts/backfill-progress.mjs` prints % complete and the next worklist:
 **FILL** = a built entity with missing events; **BUILD** = research an unbuilt
-entity's checklist. `tests/backfill-progress.mjs` checks every row and ratchets the
+entity's checklist.
+
+**Niche-first (2026-10, `docs/implementation-plan.md` A2).** The worklist is ordered by
+fit to the owner's niche (`scripts/lib/niche.mjs`: European · ≤$15bn · 15%+ strategies),
+then by checklist priority. **ADD** = a core-niche manager not yet on the checklist: add it
+to `backfill/checklist.json` (`kind:"manager"`, `status:"todo"`, next free `priority`),
+then BUILD it. `scripts/manager-coverage.mjs` likewise rotates through the core tier
+before adjacent / context names. `node scripts/niche-fit.mjs` lists the tiers. `tests/backfill-progress.mjs` checks every row and ratchets the
 present/built counts (raise `MIN_PRESENT` / `MIN_BUILT` in the same commit when you make
 progress — never lower them). The health email reports the %.
 
