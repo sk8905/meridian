@@ -57,3 +57,42 @@ export function updateRecords(file, name, mutate, { dryRun = false } = {}) {
   if (changed && !dryRun) fs.writeFileSync(file, lines.join("\n"));
   return changed;
 }
+
+// Append records (one JSON line each) at the end of an array. Returns the count.
+export function appendRecords(file, name, objs, { dryRun = false } = {}) {
+  if (!objs.length) return 0;
+  const lines = fs.readFileSync(file, "utf8").split("\n");
+  const [s, e] = bounds(lines, name);
+  let last = e - 1;
+  while (last > s && !/^\s*\{/.test(lines[last])) last--;
+  if (last > s && !/,\s*$/.test(lines[last])) lines[last] += ",";
+  const indent = last > s ? lines[last].match(/^\s*/)[0] : "  ";
+  lines.splice(e, 0, ...objs.map((o) => indent + JSON.stringify(o) + ","));
+  if (!dryRun) fs.writeFileSync(file, lines.join("\n"));
+  return objs.length;
+}
+
+// Remove records whose id is in `ids`. Returns the count removed.
+export function deleteRecords(file, name, ids, { dryRun = false } = {}) {
+  const want = new Set(ids);
+  const lines = fs.readFileSync(file, "utf8").split("\n");
+  const [s, e] = bounds(lines, name);
+  const keep = [];
+  let n = 0;
+  for (let i = s + 1; i < e; i++) {
+    if (/^\s*\{/.test(lines[i]) && want.has(parseLine(lines[i]).id)) { n++; continue; }
+    keep.push(lines[i]);
+  }
+  if (n && !dryRun) fs.writeFileSync(file, [...lines.slice(0, s + 1), ...keep, ...lines.slice(e)].join("\n"));
+  return n;
+}
+
+// Highest numeric id with a given prefix ("m", "f", "i", "d") across BOTH the
+// hand-written `id: "m12"` and the JSON `"id":"m12"` forms (R29 — a scanner that
+// misses one form collides).
+export function maxId(file, prefix) {
+  const src = fs.readFileSync(file, "utf8");
+  let max = 0;
+  for (const m of src.matchAll(new RegExp(`(?:\\bid:\\s*|"id"\\s*:\\s*)"${prefix}(\\d+)"`, "g"))) max = Math.max(max, +m[1]);
+  return max;
+}

@@ -28,7 +28,7 @@ Status key: ✅ shipped · 🟡 in progress · ⬜ not started · ⛔ blocked (o
 | A5 | **Currency as data**: manager/investor AUM restated to USD with `aumFrom` provenance (done by the UX session, R29); funds carry `ccy` set only where the fund's own sourced text states it (no FX); otherwise absent | ✅ | 0 money figures without a currency OR an explicit `null`; UI follow-up in §6 |
 | A6 | **AUM reconciliation**: stale `aumTotal` vs `aum`/`aumText` (e.g. Arini 11 vs ~$18bn, Cheyne 12 vs $15bn) | ⬜ | List = profile = source text |
 | A7 | **Controlled vocabularies**: fund `status` (4 values + `evergreen` flag), `strategy` (STRATEGIES), `domicile` (country) + new `structure` field; integrity ratchets | ✅ | Enum spec green; free-text variants → 0 |
-| A8 | **Roster gaps**: add LCM, Avenue (Europe), AnaCap, Alchemy, Ironshield; missing funds (Cross Ocean ESS IV/V, Dolomite/Taconic ECDF III/IV, Arrow ACO III, Chorus V, Alcentra special sits, SVP V/VI) — each re-verified | 🟡 | 15-name niche test set: 15/15 covered |
+| A8 | **Roster gaps**: added LCM Partners, Avenue Capital (Europe), Alchemy, Ironshield, Veld Capital (AnaCap's credit arm since Oct 2022 — AnaCap itself is now PE); funds: LCM COPS 4/5, Avenue Europe V/VI, Alchemy SOF V, Ironshield ICOF, Cross Ocean ESS V, Taconic/Dolomite ECDF III/IV, Arrow ACO III, Chorus V, Alcentra special sits III, SVP V/VI. Corrected i841 (SVP V close) and removed i842 (a 2021 article mis-dated 2026). Not added: Cross Ocean ESS IV (no published size/close) | ✅ | 15-name niche test set: 14/15 (AnaCap → Veld) |
 | A9 | Off-niche names are **kept** (owner-added, R4c rule 4) but ranked last by A1 — never deleted | ✅ | — |
 
 ## 2. Phase B — medium (weeks)
