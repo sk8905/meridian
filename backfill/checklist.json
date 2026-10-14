@@ -77,7 +77,6 @@
      "key": "hsbc-4bn-paused",
      "date": "2026-05-15",
      "what": "FT reports HSBC pauses $4bn private credit investment",
-     "source": null,
      "status": "rejected",
      "note": "Date only seen in search summaries; not primary; HSBC did not confirm."
     },
@@ -222,7 +221,6 @@
      "key": "fund-ix-final-close",
      "date": "2017",
      "what": "Apollo Investment Fund IX final close (2017; pre-2020)",
-     "source": null,
      "status": "rejected",
      "note": "Pre-2020; only secondary sources with conflicting amounts; no exact date."
     },
@@ -230,7 +228,6 @@
      "key": "fund-x-final-close",
      "date": "2023",
      "what": "Apollo Investment Fund X final close (~$20bn, 2023)",
-     "source": null,
      "status": "rejected",
      "note": "Secondary sources conflict on month; no Apollo primary release or exact date found."
     },
@@ -238,7 +235,6 @@
      "key": "intel-fab34-buyback",
      "date": "2026-04-02",
      "what": "Intel agrees to buy back Apollo-held 49% Fab 34 JV stake",
-     "source": null,
      "status": "rejected",
      "note": "Only secondary reports seen; no primary source verified."
     }
@@ -303,7 +299,6 @@
      "key": "japan-private-debt-head-fujita-2025",
      "date": "2025-10-27",
      "what": "Neuberger hires Mizuho's Yasuyuki Fujita to head Japan private debt",
-     "source": null,
      "status": "rejected",
      "note": "Date only from a search summary of a Bloomberg report; not confirmed on the page."
     },
@@ -319,7 +314,6 @@
      "key": "ripple-prime-200m-facility-2026",
      "date": "2026-05-11",
      "what": "NBSF provides Ripple Prime $200m asset-based debt facility",
-     "source": null,
      "status": "rejected",
      "note": "Date conflicts across sources (11 May vs 3 Jun 2026); not confirmed."
     },
@@ -359,7 +353,6 @@
      "key": "firm-ma-leadership",
      "date": "2020",
      "what": "Firm M&A / stake sales / CIO changes 2020-2026",
-     "source": null,
      "status": "rejected",
      "note": "No major verified event found."
     }
@@ -480,7 +473,6 @@
      "key": "first-cio-fahlgren",
      "date": "2023",
      "what": "Oscar Fahlgren named Mubadala Capital's first CIO",
-     "source": null,
      "status": "rejected",
      "note": "Only secondary mention; no exact appointment date found."
     },
@@ -488,7 +480,6 @@
      "key": "standalone-subsidiary-2021",
      "date": "2021",
      "what": "Mubadala Capital commences operations as wholly owned subsidiary",
-     "source": null,
      "status": "rejected",
      "note": "Exact date not verifiable."
     }
@@ -2986,6 +2977,487 @@
      "source": "https://pitchbook.com/profiles/fund/19200-43F",
      "status": "rejected",
      "note": "No dated primary or tier-1 source; only a database profile with conflicting vintage."
+    }
+   ]
+  },
+  "m232": {
+   "kind": "manager",
+   "name": "LendInvest",
+   "priority": 102,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "ceo-lockhart-appointed",
+     "date": "2020-01-13",
+     "what": "Rod Lockhart becomes CEO; co-founder Christian Faes moves to executive chairman",
+     "source": "https://www.mortgagesolutions.co.uk/mortgage-news/2020/01/13/lendinvest-gets-new-ceo-as-faes-steps-back/",
+     "recordId": "i1097",
+     "status": "present"
+    },
+    {
+     "key": "mortimer-btl-2020-1",
+     "date": "2020-03-20",
+     "what": "Mortimer BTL 2020-1 £285m",
+     "source": "https://www.lendinvest.com/group/newsroom/releases/lendinvest-completes-second-securitisation-nine-months-after-debut-issue-amid-unprecedented-market-turbulence/",
+     "recordId": "d922",
+     "status": "present"
+    },
+    {
+     "key": "jpm-500m-originations",
+     "date": "2021-01-28",
+     "what": "J.P. Morgan commits £500m to future BTL mortgage originations",
+     "source": "https://www.mortgagesolutions.co.uk/specialist-lending/2021/01/28/lendinvest-secures-500m-investment-from-jp-morgan/",
+     "recordId": "d1060",
+     "status": "present"
+    },
+    {
+     "key": "aim-admission",
+     "date": "2021-07-14",
+     "what": "Admission to AIM (LINV), c.£40m raised at 186p",
+     "source": "https://www.investegate.co.uk/announcement/rns/lendinvest--linv/admission-to-aim-and-first-day-of-dealings/6650893",
+     "recordId": "i1098",
+     "status": "present"
+    },
+    {
+     "key": "lloyds-300m-warehouse",
+     "date": "2023-01-17",
+     "what": "Lloyds Bank warehouse funding increased to £300m",
+     "source": "https://www.investegate.co.uk/announcement/rns/lendinvest--linv/lendinvest-secures-funding-from-lloyds-bank/7439820",
+     "recordId": "d1061",
+     "status": "present"
+    },
+    {
+     "key": "chetwood-500m",
+     "date": "2023-07-03",
+     "what": "Chetwood Financial £500m funding line",
+     "source": "https://alternativecreditinvestor.com/2023/07/03/lendinvest-unveils-500m-funding-deal-with-chetwood-financial/",
+     "recordId": "d1062",
+     "status": "present"
+    },
+    {
+     "key": "mortimer-2023-1",
+     "date": "2023-12-01",
+     "what": "Mortimer 2023-1 £410m",
+     "source": "https://moneyage.co.uk/lendinvest-confirms-largest-securitisation-to-date-worth-410m.php",
+     "recordId": "d923",
+     "status": "present"
+    },
+    {
+     "key": "jpm-1-5bn-extension",
+     "date": "2024-09-10",
+     "what": "J.P. Morgan separate account extended by £500m to £1.5bn",
+     "source": "https://www.lendinvest.com/group/newsroom/releases/lendinvest-signs-1-5-billion-funding-agreement-with-jp-morgan/",
+     "recordId": "d1063",
+     "status": "present"
+    },
+    {
+     "key": "warehouse-300m-bnp-barclays-hsbc",
+     "date": "2024-10-21",
+     "what": "£300m warehouse renewed with BNP Paribas, Barclays, HSBC",
+     "source": "https://www.investegate.co.uk/announcement/rns/lendinvest--linv/lendinvest-secures-300m-from-bnp-barclays-hsbc/8497305",
+     "recordId": "d1064",
+     "status": "present"
+    },
+    {
+     "key": "mortimer-2024-m",
+     "date": "2024-11-07",
+     "what": "Mortimer 2024-M £285m, first owner-occupied RMBS",
+     "source": "https://www.mortgagesolutions.co.uk/specialist-lending/2024/11/07/lendinvest-completes-sixth-securitisation-of-285m-portfolio/",
+     "recordId": "d1065",
+     "status": "present"
+    },
+    {
+     "key": "socgen-250m-warehouse",
+     "date": "2025-03-25",
+     "what": "£250m warehouse facility with Société Générale",
+     "source": "https://theintermediary.co.uk/?p=64262",
+     "recordId": "d1066",
+     "status": "present"
+    },
+    {
+     "key": "mortimer-2025-1",
+     "date": "2025-10-28",
+     "what": "Mortimer 2025-1",
+     "source": "https://www.mortgagesolutions.co.uk/specialist-lending/complex-buy-to-let/2025/10/28/lendinvest-completes-seventh-rmbs-securitisation/",
+     "recordId": "d924",
+     "status": "present"
+    },
+    {
+     "key": "castlelake-250m",
+     "date": "2026-01-22",
+     "what": "Castlelake agreement to buy up to £250m of bridging loans",
+     "source": "https://www.lendinvest.com/group/newsroom/releases/lendinvest-strengthens-bridging-proposition-with-new-250m-funding-agreement-with-castlelake/",
+     "recordId": "d1067",
+     "status": "present"
+    },
+    {
+     "key": "mortimer-2026-1",
+     "date": "2026-09-25",
+     "what": "Mortimer 2026-1",
+     "source": "https://www.mortgagesolutions.co.uk/buy-to-let-mortgages/2026/09/25/lendinvest-completes-eighth-securitisation-with-300m-btl-portfolio/",
+     "recordId": "d998",
+     "status": "present"
+    },
+    {
+     "key": "japan-mizuho-nomura-stake",
+     "date": "2020",
+     "what": "Alleged Japanese (Mizuho/Nomura) stake in LendInvest",
+     "status": "rejected",
+     "note": "No source found; Nomura appears only as a 2018 JV funder, outside the 2020+ range. No takeover or stake sale found 2020-2026."
+    },
+    {
+     "key": "bond-2030-825",
+     "date": "2025-10-20",
+     "what": "LendInvest Secured Income III 8.25% 2030 retail bond",
+     "status": "rejected",
+     "note": "Only a secondary article date seen; the RNS date is unconfirmed."
+    },
+    {
+     "key": "cco-dismissal-2026",
+     "date": "2026-03",
+     "what": "Chief Capital Officer departure per April 2026 trading update",
+     "status": "rejected",
+     "note": "Seen only in a search summary; source PDF unreadable, so wording and date unverified."
+    }
+   ]
+  },
+  "m52": {
+   "kind": "manager",
+   "name": "Soho Square Capital",
+   "priority": 103,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "oliver-james-minority-investment",
+     "date": "2022-01-25",
+     "what": "Soho Square takes minority stake in Oliver James",
+     "source": "https://www.klgates.com/KL-Gates-Advises-Soho-Square-Capital-LLP-on-Investment-and-Partnership-with-Oliver-James-1-25-2022",
+     "recordId": "d1068",
+     "status": "present"
+    },
+    {
+     "key": "technical-fire-safety-exit",
+     "date": "2022-10-18",
+     "what": "Soho Square exits Technical Fire Safety Group (sold to svt Holdings)",
+     "source": "https://businesswire.com/news/home/20221018005097/en/Soho-Square-Exits-Investment-Technical-Fire-Safety",
+     "recordId": "d1069",
+     "status": "present"
+    },
+    {
+     "key": "xdesign-minority-investment",
+     "date": "2023-06-22",
+     "what": "Soho Square backs xDesign with minority investment",
+     "source": "https://www.businesswire.com/news/home/20230622417819/en/Soho-Square-Backs-xDesign-with-Minority-Investment-to-Accelerate-Growth-of-the-Business-Across-the-UK-and-Internationally",
+     "recordId": "d1070",
+     "status": "present"
+    },
+    {
+     "key": "churchill-eot-exit",
+     "date": "2023-08-15",
+     "what": "Soho Square exits Churchill via employee ownership trust",
+     "source": "https://bebeez.eu/2023/08/15/soho-square-exits-investment-in-churchill-via-sale-to-employee-ownership-trust-following-3-years-of-transformational-growth/",
+     "recordId": "d1071",
+     "status": "present"
+    },
+    {
+     "key": "newmarket-holidays-investment",
+     "date": "2024-10-04",
+     "what": "Soho Square invests in Newmarket Holidays",
+     "source": "https://www.hoganlovells.com/en/news/hogan-lovells-advises-soho-square-capital-on-its-investment-in-newmarket-holidays",
+     "recordId": "d1072",
+     "status": "present"
+    },
+    {
+     "key": "lmf-energy-services",
+     "date": "2024-10-28",
+     "what": "Growth investment in LMF Energy Services",
+     "source": "https://www.businesswire.com/news/home/20241028155211/en/Soho-Square-Backs-LMF-Energy-Services-to-Accelerate-Growth",
+     "recordId": "d170",
+     "status": "present"
+    },
+    {
+     "key": "paul-dix-cfo",
+     "date": "2025-01-01",
+     "what": "Paul Dix appointed CFO",
+     "source": "https://www.soho-sq.com/news-and-insights/soho-square-2025-year-review",
+     "recordId": "i287",
+     "status": "present"
+    },
+    {
+     "key": "netomnia-nexfibre-acquisition",
+     "date": "2026-02-18",
+     "what": "Netomnia to be acquired by nexfibre",
+     "source": "https://www.businesswire.com/news/home/20260218138647/en/Soho-Square-Capitals-First-Unicorn-Netomnia-to-Be-Acquired-by-InfraVia-Liberty-Global-and-Telefnica-Through-Their-Existing-Joint-Venture-nexfibre",
+     "recordId": "d171",
+     "status": "present"
+    },
+    {
+     "key": "createfuture-exit-version1",
+     "date": "2026-04-30",
+     "what": "Soho Square agrees exit of CreateFuture (formerly xDesign) to Version 1",
+     "source": "https://www.businesswire.com/news/home/20260430477909/en/Soho-Square-Agrees-Exit-of-Investment-in-CreateFuture-Following-Period-of-Strong-Growth",
+     "recordId": "d1073",
+     "status": "present"
+    },
+    {
+     "key": "bbb-fund-ii-cornerstone",
+     "date": "2026-07-15",
+     "what": "British Business Bank £50m cornerstone commitment to Fund II",
+     "source": "https://alternativecreditinvestor.com/2026/07/15/british-business-bank-commits-50m-to-sme-fund/",
+     "recordId": "i488",
+     "status": "present"
+    },
+    {
+     "key": "netomnia-first-investment-2020",
+     "date": "2020",
+     "what": "Soho Square first institutional investor in Netomnia (2020)",
+     "status": "rejected",
+     "note": "Only a secondary mention; no exact-date primary source found."
+    },
+    {
+     "key": "alpine-fire-exit",
+     "date": "2022-12",
+     "what": "Soho Square exit of Alpine Fire Engineers to WestBridge",
+     "status": "rejected",
+     "note": "Only the month (Dec 2022) seen; no exact day verified."
+    },
+    {
+     "key": "fund-closes-i-ii-iii",
+     "date": "2020",
+     "what": "Partnership Capital Fund I/II/III closes",
+     "status": "rejected",
+     "note": "No first/final close announcements or sizes found for any fund; only the BBB Fund II commitment is held."
+    },
+    {
+     "key": "leadership-hires-rebrand",
+     "date": "2020",
+     "what": "Partner hires / rebrand",
+     "status": "rejected",
+     "note": "No dated primary source found."
+    }
+   ]
+  },
+  "m157": {
+   "kind": "manager",
+   "name": "Triple Point",
+   "priority": 104,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "tent-ipo-launch-2020",
+     "date": "2020-08-25",
+     "what": "Triple Point Energy Efficiency Infrastructure Company proposed IPO, £200m target",
+     "source": "https://quoteddata.com/2020/08/issue-triple-point-energy-efficiency/",
+     "recordId": "i1099",
+     "status": "present"
+    },
+    {
+     "key": "dgi9-ipo-300m-2021",
+     "date": "2021-03-26",
+     "what": "Digital 9 Infrastructure raised £300m in IPO",
+     "source": "https://investmentweek.co.uk/news/4029073/triple-point-digital-infrastructure-trust-raises-gbp300m-ipo",
+     "recordId": "d1074",
+     "status": "present"
+    },
+    {
+     "key": "dgi9-managers-depart-2022",
+     "date": "2022-11-22",
+     "what": "DGI9 managers depart; Ben Beaton named co-managing partner of Triple Point",
+     "source": "https://investmentweek.co.uk/news/4060584/digital-infrastructure-lead-managers-step",
+     "recordId": "i1100",
+     "status": "present"
+    },
+    {
+     "key": "tent-winddown-2024",
+     "date": "2024-03-22",
+     "what": "Triple Point Energy Transition board opts for orderly wind-down",
+     "source": "https://quoteddata.com/2024/06/triple-point-energy-transitions-results-approving-winddown/",
+     "recordId": "i1101",
+     "status": "present"
+    },
+    {
+     "key": "soho-atrato-selected-2024",
+     "date": "2024-10-01",
+     "what": "Triple Point Social Housing REIT replaces Triple Point with Atrato",
+     "source": "https://www.cityam.com/social-housing-trust-taken-over-by-home-reits-sister-fund-manager/",
+     "recordId": "i1102",
+     "status": "present"
+    },
+    {
+     "key": "dgi9-infrared-2024",
+     "date": "2024-10-11",
+     "what": "DGI9 to appoint InfraRed Capital Partners for wind-down",
+     "source": "https://quoteddata.com/2024/10/infrared-capital-partners-to-manage-digital-9-infrastructure/",
+     "recordId": "i1103",
+     "status": "present"
+    },
+    {
+     "key": "tent-liquidation-proposal-2025",
+     "date": "2025-01-23",
+     "what": "Triple Point Energy Transition asks shareholders to back voluntary liquidation",
+     "source": "https://investmentweek.co.uk/news/4400376/triple-point-energy-transition-urges-shareholders-voluntary-liquidation",
+     "recordId": "i1104",
+     "status": "present"
+    },
+    {
+     "key": "dgi9-aqua-comms-2021",
+     "date": "2021-04-01",
+     "what": "Aqua Comms acquisition by Digital 9 Infrastructure",
+     "status": "rejected",
+     "note": "Source page not readable; only the headline and a URL-path date were seen, so terms and exact date are unverified."
+    }
+   ]
+  },
+  "m107": {
+   "kind": "manager",
+   "name": "CapMan",
+   "priority": 105,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "special-situations-launch",
+     "date": "2020-06-17",
+     "what": "CapMan launches Special Situations investment area",
+     "source": "https://capman.com/articles/capman-establishes-special-situations-an-investment-area-focused-on-turnarounds/",
+     "recordId": "i1105",
+     "status": "present"
+    },
+    {
+     "key": "nordic-real-estate-iii-final-close",
+     "date": "2021-03-10",
+     "what": "Nordic Real Estate III final close EUR 564m (hard cap)",
+     "source": "https://www.creherald.com/capman-closes-third-nordic-real-estate-fund-at-e564m-hard-cap/",
+     "recordId": "d1075",
+     "status": "present"
+    },
+    {
+     "key": "nordic-residential-fund-first-close",
+     "date": "2021-06-17",
+     "what": "Open-ended Nordic residential fund first close >EUR 300m",
+     "source": "https://capman.com/articles/capman-holds-a-e300-million-first-close-for-a-nordic-open-ended-residential-real-estate-fund-and-simultaneously-signs-a-portfolio-acquisition-in-helsinki-in-excess-of-e500-million/",
+     "recordId": "d1076",
+     "status": "present"
+    },
+    {
+     "key": "new-strategy-eur10bn-aum",
+     "date": "2022-09-07",
+     "what": "New strategy: double AUM to EUR 10bn in five years",
+     "source": "https://capman.com/2022/09/capman-announces-new-strategy-and-updated-long-term-financial-objectives-raises-growth-objective-and-maintains-dividend-policy-unchanged",
+     "recordId": "i1106",
+     "status": "present"
+    },
+    {
+     "key": "pia-kall-appointed-ceo",
+     "date": "2023-02-02",
+     "what": "Pia Kåll appointed CEO; Frimodig to full-time Chair",
+     "source": "https://capman.com/2023/02/inside-information-pia-kall-appointed-as-ceo-of-capman-plc-joakim-frimodig-to-become-full-time-chair-of-the-board-in-addition-appointments-to-management-group/",
+     "recordId": "i1107",
+     "status": "present"
+    },
+    {
+     "key": "dasos-acquisition-completed",
+     "date": "2024-03-01",
+     "what": "CapMan completes acquisition of Dasos Capital",
+     "source": "https://capman.com/2024/03/the-board-of-directors-of-capman-has-decided-on-a-directed-issue-to-complete-the-acquisition-of-dasos-capital-oy/",
+     "recordId": "i1108",
+     "status": "present"
+    },
+    {
+     "key": "growth-equity-iii-first-close",
+     "date": "2024-03-04",
+     "what": "Growth Equity III first close EUR 110m",
+     "source": "https://capman.com/2024/03/capman-growth-establishes-its-third-fund-first-closing-at-e110-million-surpassing-target-size/",
+     "recordId": "d1077",
+     "status": "present"
+    },
+    {
+     "key": "nordic-infrastructure-ii-final-close",
+     "date": "2024-04-29",
+     "what": "Nordic Infrastructure II final close >EUR 375m",
+     "source": "https://capman.com/?p=86816",
+     "recordId": "d1078",
+     "status": "present"
+    },
+    {
+     "key": "caps-divestment",
+     "date": "2024-10-04",
+     "what": "CapMan divests CaPS service business for EUR 75m",
+     "source": "https://capman.com/articles/inside-information-capman-plc-and-minority-shareholders-divest-service-business-caps-for-eur-75-million/",
+     "recordId": "d1079",
+     "status": "present"
+    },
+    {
+     "key": "caerus-51pct",
+     "date": "2025-06-19",
+     "what": "CAERUS 51% acquisition",
+     "source": "https://capman.com/2025/06/inside-information-capman-plc-acquires-majority-of-german-based-real-estate-debt-specialist-caerus-debt-investments-ag-and-launches-new-investment-area-real-asset-debt/",
+     "recordId": "i98",
+     "status": "present"
+    },
+    {
+     "key": "european-forest-fund-iv-first-close",
+     "date": "2025-12-23",
+     "what": "European Forest Fund IV first close",
+     "source": "https://capman.com/2025/12/capman-natural-capital-announces-first-close-of-european-forest-fund-iv/",
+     "recordId": "i97",
+     "status": "present"
+    },
+    {
+     "key": "inter-ikea-forest-sale",
+     "date": "2025-12-03",
+     "what": "Dasos Timberland Fund II sells Baltic forest to Inter IKEA Group",
+     "source": "https://www.inderes.se/releases/capman-oyj-capman-natural-capital-exits-forest-assets-to-inter-ikea-group",
+     "recordId": "d1080",
+     "status": "present"
+    },
+    {
+     "key": "caerus-infra-debt-entry",
+     "date": "2026-03-19",
+     "what": "CapMan and CAERUS enter infrastructure debt",
+     "source": "https://capman.com/2026/03/capman-and-caerus-enter-the-european-infrastructure-debt-market/",
+     "recordId": "i99",
+     "status": "present"
+    },
+    {
+     "key": "nordic-real-estate-iv-first-close",
+     "date": "2026-06-18",
+     "what": "Nordic Real Estate IV first close, target EUR 750m",
+     "source": "https://capman.com/articles/capman-real-estate-announces-first-close-of-nordic-real-estate-iv/",
+     "recordId": "d1081",
+     "status": "present"
+    },
+    {
+     "key": "nordic-infrastructure-iii-first-close",
+     "date": "2026-06-25",
+     "what": "Nordic Infrastructure III first close, target EUR 750m",
+     "source": "https://realassets.ipe.com/news/capman-secures-first-close-for-third-nordic-infrastructure-fund-targeting-750m/10137419.article",
+     "recordId": "d1082",
+     "status": "present"
+    },
+    {
+     "key": "buyout-xii-close",
+     "date": "2020",
+     "what": "Buyout XII first/final close",
+     "status": "rejected",
+     "note": "No source found for a CapMan Buyout XII close."
+    },
+    {
+     "key": "nordic-private-debt-close",
+     "date": "2020",
+     "what": "Nordic Private Debt fund close 2020+",
+     "status": "rejected",
+     "note": "Only a May 2016 first close found; no 2020-2026 private-debt fund close verified."
+    },
+    {
+     "key": "mandatum-capman",
+     "date": "2020",
+     "what": "Mandatum acquisition of CapMan",
+     "status": "rejected",
+     "note": "No source links Mandatum to CapMan."
     }
    ]
   }
