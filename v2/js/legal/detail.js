@@ -22,6 +22,7 @@ import {
 // a law firm is followable too, so its profile gets the same ☆ star (type "firm").
 import { nameCell } from "/credit/js/shared.js";
 import { peersOf, peerDetails } from "../peers.js";
+import { latestLine } from "../profile-tabs.js";
 
 export let app = null;
 export function __setHost(h) { app = h; }
@@ -246,7 +247,7 @@ export function viewFirm(id, tab0) {
   let dealRows = null; // null = credit wire still loading
   const pcDeals = (firm.pcDeals || []).slice().sort(byDateDesc);
   let firmTab = tab0 || _chipMem[chipMemKey("firm-chips")] || "all";
-  if (!["all", "alerts", "matters", "deals"].includes(firmTab)) firmTab = "all";
+  if (!["all", "alerts", "matters", "deals", "office"].includes(firmTab)) firmTab = "all";
   const emptyRow = (t) => `<li class="tw-empty muted small">${t}</li>`;
   const renderFirmWire = () => {
     const list = $id("firm-wire"); if (!list) return;
@@ -265,29 +266,38 @@ export function viewFirm(id, tab0) {
         : "Nothing tracked for this firm yet.");
   };
 
+  // Same layout as the manager / hedge-fund pages: identity header, then a section rail
+  // — All · Alerts · Matters · PC deals (one filtered wire) · Office (London facts and
+  // the practice-area mix).
+  const officePane = (londonRail || "")
+    + (areaRail ? `<section class="tpanel"><header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">alerts</span></header>${areaRail}</section>` : "")
+    || `<p class="tw-empty muted small">No London-office figures on file.</p>`;
+  const lawyers = L && L.lawyers != null ? ` · ${esc(String(L.lawyers))} London lawyers` : "";
   app.innerHTML = `
     <div class="tdash">
       ${sectionNav("firms")}
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
+      <div class="tdash-grid tdash-1">
+        <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${nameCell("firm", firm.id, esc(firm.name))}</h1>
+            <div class="tdet-sub">${esc(tierLabel(firm.tier))}${lawyers}</div>
+            ${latestLine([...firmAlerts, ...matterRows])}
             ${firmPeersDetails}
             <div class="tdet-src"><span class="lbl">Insights:</span> ${(firm.insightsUrl && firm.insightsUrl !== "#") ? `<a href="${esc(firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a>` : `<span>${esc(firm.name)} — insights / know-how</span>`}</div>
           </div>
           <header class="tpanel-h twire-head">
-            <div class="tchips" id="firm-chips">${[["all", "All"], ["alerts", "Alerts"], ["matters", "Matters"], ["deals", pcDeals.length ? `PC deals ${pcDeals.length}` : "PC deals"]]
+            <div class="tchips" id="firm-chips">${[["all", "All"], ["alerts", firmAlerts.length ? `Alerts ${firmAlerts.length}` : "Alerts"], ["matters", "Matters"], ["deals", pcDeals.length ? `PC deals ${pcDeals.length}` : "PC deals"], ["office", "Office"]]
               .map(([k, l]) => `<button type="button" class="tchip${k === firmTab ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
           </header>
-          <ul class="twire compact-list" id="firm-wire"></ul>
+          <div class="tpanes" id="firm-panes">
+            <div class="tpane" data-p="wire"${firmTab === "office" ? " hidden" : ""}><ul class="twire compact-list" id="firm-wire"></ul></div>
+            <div class="tpane" data-p="office"${firmTab === "office" ? "" : " hidden"}>${officePane}</div>
+          </div>
         </section>
-        <aside class="tcol tcol-r">
-          ${londonRail}
-          ${areaRail ? `<section class="tpanel"><header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">alerts</span></header>${areaRail}</section>` : ""}
-        </aside>
       </div>
     </div>
   `;
+  const showFirmPane = () => (app.querySelectorAll("#firm-panes > .tpane") || []).forEach((el) => { el.hidden = (el.dataset.p === "office") !== (firmTab === "office"); });
   renderFirmWire();
   const chips = $id("firm-chips");
   chips.addEventListener("click", (e) => {
@@ -300,6 +310,7 @@ export function viewFirm(id, tab0) {
       if (location.hash.split("?")[0] !== h) { try { history.replaceState(history.state, "", location.pathname + location.search + h); } catch { /* keep */ } }
     }
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    showFirmPane();
     renderFirmWire();
   });
 

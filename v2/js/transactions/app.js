@@ -22,6 +22,7 @@ import { esc } from "/util.js";
 import { fmtDay } from "/feed.js";
 import { dealCounterparty, dealSponsor } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
+import { downloadCSV } from "../csv.js";
 
 const _mById = new Map(managers.map((m) => [m.id, m]));
 const mgrName = (id) => (_mById.get(id) || {}).name || "";
@@ -180,10 +181,12 @@ export function mount(host, ctx) {
                 <option value="0">Any size</option><option value="100">≥ $100m</option><option value="500">≥ $500m</option><option value="1000">≥ $1bn</option>
               </select>
               <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
+              <button type="button" class="tfocus-btn tx-csv" data-csv="flow" title="Download the deals on screen as CSV">CSV</button>
               <div class="tx-active" id="tx-active" hidden></div>
             </header>
             <header class="tpanel-h thead-search" id="tx-credits-search">
               <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
+              <button type="button" class="tfocus-btn tx-csv" data-csv="credits" title="Download the credits on screen as CSV">CSV</button>
               <div class="tcr-grpctl" id="tx-cr-ctl" role="group" aria-label="Group the credit roster">
                 <button type="button" class="tcr-grpbtn" data-crgroup="sector" aria-pressed="false">${grpSvg}<span>Group by sector</span></button>
                 <button type="button" class="tcr-grpbtn" data-crgroup="rating" aria-pressed="false">${grpSvg}<span>Group by rating</span></button>
@@ -191,6 +194,7 @@ export function mount(host, ctx) {
             </header>
             <header class="tpanel-h thead-search" id="tx-bdc-search">
               <input type="search" id="tx-bdc-q" class="tsearch" placeholder="Search a BDC or manager…" aria-label="Search BDCs">
+              <button type="button" class="tfocus-btn tx-csv" data-csv="bdc" title="Download the BDCs on screen as CSV">CSV</button>
             </header>
             <div class="tx-scroll" id="tx-body"></div>
             <div class="tx-scroll" id="tx-credits-body"></div>
@@ -636,6 +640,34 @@ export function mount(host, ctx) {
     if (st.crOpen) { const r = creditsBody.querySelector("tr.tcr-row.is-open"); if (r) requestAnimationFrame(() => r.scrollIntoView({ block: "center" })); }
   }
 
+  // ---- CSV export: exactly what the active view shows (filters + search applied) ----
+  function currentFlowList() {
+    if (st.q) {
+      const q = st.q.toLowerCase();
+      return rows.filter((r) => passes(r) && ((r.d.headline || "").toLowerCase().includes(q) || mgrName(r.d.managerId).toLowerCase().includes(q) || (r.d.summary || "").toLowerCase().includes(q) || typeLabel(r.tx).toLowerCase().includes(q))).sort((a, b) => b.ts - a.ts);
+    }
+    const base = st.sub ? statsFor(st.sub).list : rows.filter((r) => groupOf(r.tx) === st.mode && passes(r));
+    return base.filter((r) => st.sec === "all" || r.sec === st.sec).sort((a, b) => b.ts - a.ts);
+  }
+  function exportCSV(kind) {
+    if (kind === "flow") {
+      const list = currentFlowList();
+      downloadCSV(`wire-transactions-${st.q ? "search" : st.mode}`,
+        ["Date", "Borrower / company", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Amount (reported)", "Amount (USD, approx.)", "Headline", "Source"],
+        list.map((r) => [r.d.date, dealCounterparty(r.d, mgrName(r.d.managerId)), dealSponsor(r.d), mgrName(r.d.managerId), groupLabel(groupOf(r.tx)), typeLabel(r.tx), SECTOR_LABEL[r.sec] || "", r.amt ? fmtAmt(r.amt) : "", r.usd != null ? Math.round(r.usd) : "", r.d.headline || "", r.d.sourceUrl || ""]));
+    } else if (kind === "credits") {
+      const q = st.crQ.toLowerCase();
+      const list = EUR_CREDITS.filter((c) => !q || `${c.name} ${c.sector} ${c.rating || ""} ${c.jurisdiction || ""}`.toLowerCase().includes(q));
+      downloadCSV("wire-eu-credits", ["Borrower", "Jurisdiction", "Sector", "Rating", "Agency", "Rating as of", "12m trend", "Tracked deals naming it", "Source"],
+        list.map((c) => [c.name, c.jurisdiction || "", c.sector || "", c.rating || "NR", c.agency || EUR_CREDITS_META.agency, c.asOf || "", c.trend || "flat", mentionsOf(c).length, c.source || ""]));
+    } else {
+      const q = st.bdcQ.toLowerCase();
+      const list = BDCS.filter((b) => !q || b.name.toLowerCase().includes(q) || (b.manager || "").toLowerCase().includes(q) || (b.ticker || "").toLowerCase().includes(q));
+      downloadCSV("wire-bdcs", ["Fund", "Ticker", "Exchange", "Structure", "Manager", "Total assets ($bn)", "Net assets ($bn)", "Portfolio ($bn)", "NAV / share ($)", "NAV as of", "Non-accrual FV (%)", "Non-accrual cost (%)", "Px/NAV (live)", "SEC EDGAR"],
+        list.map((b) => [b.name, b.ticker || "", b.exchange || "", b.structure, b.manager || "", b.totalAssets ?? "", b.netAssets ?? "", b.portfolio ?? "", b.nav ?? "", b.navAsOf || "", b.nonAccrualFV ?? "", b.nonAccrualCost ?? "", bdcPxNav(b) != null ? bdcPxNav(b).toFixed(2) : "", b.edgar || ""]));
+    }
+  }
+
   // ---- render ----------------------------------------------------------------
   function syncControls() {
     const set = (sel, v) => { const el = host.querySelector(sel); if (el && el.value !== v) el.value = v; };
@@ -702,6 +734,8 @@ export function mount(host, ctx) {
       return;
     }
     if (e.target.closest(".tx-drawer-x")) { closeDeal(); return; }
+    const csvb = e.target.closest(".tx-csv");
+    if (csvb) { exportCSV(csvb.dataset.csv); return; }
     // Type navigation (desktop rail + phone strip) — resets the sector filter.
     const subt = e.target.closest(".tx-subnav [data-sub], .tx-typestrip [data-sub]");
     if (subt) { if (subt.dataset.sub !== st.sub) change({ sub: subt.dataset.sub, sec: "all", deal: "" }); return; }

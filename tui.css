@@ -1330,3 +1330,21 @@ th.pf-sortable { cursor: pointer; user-select: none; }
 th.pf-sortable:hover { color: var(--ink); }
 th.pf-sortable[aria-sort="descending"]::after { content: " ▼"; color: var(--faint); }
 th.pf-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--faint); }
+/* Manager ▸ Timeline: deals per quarter (single series, neutral ink; hover = native
+   tooltip per column with a full-height hit area), then the deals by year. */
+.ttl { margin: 4px 0 10px; }
+.ttl-svg { display: block; width: 100%; height: auto; max-height: 190px; }
+.ttl-grid { stroke: var(--border); stroke-width: 1; }
+.ttl-base { stroke: var(--t-faint, #8b96ac); stroke-width: 1; }
+.ttl-ax { fill: var(--t-faint, #8b96ac); font-size: var(--fs-micro); font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
+.ttl-bar { fill: var(--t-dim, #3b475f); }
+.ttl-hit { fill: transparent; }
+.ttl-col:hover .ttl-bar, .ttl-col:focus .ttl-bar { fill: var(--t-ink, #131b2c); }
+.ttl-col:focus { outline: none; }
+.ttl-col:focus .ttl-hit { stroke: var(--accent); stroke-width: 1; }
+/* Compare two managers. */
+.tcmp-tbl td, .tcmp-tbl th { white-space: normal; vertical-align: top; }
+.tcmp-k { color: var(--muted); width: 26%; font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: .04em; }
+.tcmp-h { width: 37%; }
+.tcmp-h a { display: block; margin-bottom: 4px; color: var(--ink); font-size: var(--fs-body); text-transform: none; letter-spacing: 0; }
+.tcmp-pick { max-width: 100%; width: 100%; }

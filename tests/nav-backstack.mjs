@@ -218,6 +218,31 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   await ctx.close();
 }
 
+// ---- 6d) Extras: deal timeline, compare two managers, CSV export ----
+{
+  const { ctx, pg, errs } = await open(b, { ...DESKTOP, acceptDownloads: true }, base + "/v2/profiles/#/manager/m21/timeline");
+  await pg.waitForSelector("#pf-detail .ttl-svg", { timeout: 8000 });
+  const tl = await pg.evaluate(() => ({ cols: document.querySelectorAll("#pf-detail .ttl-col").length, bars: document.querySelectorAll("#pf-detail .ttl-bar").length, tip: (document.querySelector("#pf-detail .ttl-col title") || {}).textContent || "", links: document.querySelectorAll('#pf-detail .tpane[data-p="timeline"] a[href^="/v2/transactions/#/deal/"]').length }));
+  check(tl.cols >= 24 && tl.bars > 0 && /^Q[1-4] \d{4}: \d+ deal/.test(tl.tip) && tl.links > 0, `Timeline: quarterly columns since 2020 with hover tooltips, deals by year linking to their panel (${tl.cols} cols, ${tl.bars} bars, ${tl.links} links)`);
+  await pg.goto(base + "/v2/profiles/#/compare/m21/m30"); await pg.waitForSelector("#pf-detail .tcmp-tbl", { timeout: 8000 });
+  const cmp = await pg.evaluate(() => ({ heads: [...document.querySelectorAll("#pf-detail .tcmp-h a")].map((a) => a.textContent), rows: document.querySelectorAll("#pf-detail .tcmp-tbl tbody tr").length, aum: [...document.querySelectorAll("#pf-detail .tcmp-tbl tbody tr")].find((r) => /Group AUM/.test(r.textContent))?.textContent || "" }));
+  check(cmp.heads.length === 2 && cmp.rows >= 12 && /\$/.test(cmp.aum), `Compare: two managers side by side (${cmp.heads.join(" vs ")}, ${cmp.rows} rows)`);
+  await pg.selectOption('#pf-detail .tcmp-pick[data-side="b"]', "m20"); await pg.waitForTimeout(400);
+  check(/#\/compare\/m21\/m20$/.test(await pg.evaluate(() => location.hash)), "Compare: swapping a manager updates the URL");
+  // CSV: Transactions (the filtered deal list) and a Profiles list
+  await pg.goto(base + "/v2/transactions/#/lending?min=1000"); await pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
+  const n = await pg.evaluate(() => document.querySelectorAll("#tx-body [data-deal]").length);
+  const [dl] = await Promise.all([pg.waitForEvent("download"), pg.locator('#tx-flow-search .tx-csv').click()]);
+  const txt = await (async () => { const fs = await import("node:fs"); return fs.readFileSync(await dl.path(), "utf8"); })();
+  const lines = txt.replace(/^\ufeff/, "").trim().split(/\r\n/);
+  check(/^wire-transactions-lending-\d{4}-\d{2}-\d{2}\.csv$/.test(dl.suggestedFilename()) && lines.length === n + 1 && /^Date,Borrower/.test(lines[0]), `CSV: the on-screen deals export (${lines.length - 1} rows = ${n} shown)`);
+  await pg.goto(base + "/v2/profiles/#/?tab=hedgefunds"); await pg.waitForSelector("#hf-rows tr", { timeout: 8000 });
+  const [dl2] = await Promise.all([pg.waitForEvent("download"), pg.locator('#pf-panes .tpane[data-pane="hedgefunds"] .pf-csv-btn').click()]);
+  check(/^wire-hedgefunds-/.test(dl2.suggestedFilename()), `CSV: a Profiles list exports (${dl2.suggestedFilename()})`);
+  checkErrs(errs, "timeline + compare + csv");
+  await ctx.close();
+}
+
 // ---- 7) Transactions state lives in the URL (A4) + search / filters (C4, C5) ----
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/#/bdc?open=ARCC");

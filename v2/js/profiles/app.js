@@ -10,7 +10,7 @@
 // Profiles-owned host per render (see __setProfilesMode in the detail modules).
 
 import {
-  viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId,
+  viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId, viewCompare,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
 } from "/v2/js/credit/detail.js";
 import {
@@ -21,6 +21,7 @@ import {
 // the URL-driven row highlight here is the pending focus viewManager applies.
 import { setPendingFocus, isFollowed } from "/credit/js/shared.js";
 import { esc } from "/util.js";
+import { downloadCSV, tableRows } from "../csv.js";
 // The LinkedIn-connections importer was retired (monitoring-only app); clear any
 // connections a previous version left on this device.
 try { localStorage.removeItem("wire.li.v1"); } catch { /* ignore */ }
@@ -76,6 +77,10 @@ export async function mount(host, ctx) {
     f.textContent = "★ Following";
     const inp = h.querySelector(".tsearch");
     if (inp && inp.nextSibling) h.insertBefore(f, inp.nextSibling); else h.appendChild(f);
+    // CSV — the list's visible rows (search / focus / Following / sort applied).
+    const c = document.createElement("button");
+    c.type = "button"; c.className = "tfocus-btn pf-csv-btn"; c.title = "Download this list as CSV"; c.textContent = "CSV";
+    h.appendChild(c);
   });
   // ONE row filter per list — the search text, the $1–15bn AUM focus and Following
   // combine (each used to overwrite the others' result).
@@ -228,7 +233,8 @@ export async function mount(host, ctx) {
         renderCredit("managers", () => viewManager(mid)); return;
       }
       case "clo": return renderCredit("managers", () => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
-      case "lp": return renderCredit("investors", () => viewLp(arg));
+      case "compare": return renderCredit("managers", () => viewCompare(dec(arg || ""), seg[2] ? dec(seg[2]) : ""));
+      case "lp": return renderCredit("investors", () => viewLp(arg, seg[2]));
       case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg, seg[2])); return;
       case "firm": renderLegal("firms", () => viewFirm(dec(arg), seg[2])); return;
       case "item": return renderLegal("firms", () => viewItem(dec(arg)));
@@ -299,6 +305,12 @@ export async function mount(host, ctx) {
       fol.setAttribute("aria-pressed", on ? "true" : "false");
       fol.classList.toggle("is-on", on);
       filterList(fol.closest(".tpane"));
+      return;
+    }
+    const csvb = e.target.closest(".pf-csv-btn");
+    if (csvb) {
+      const pane = csvb.closest(".tpane"), t = pane && pane.querySelector(".tleague-wrap table");
+      if (t) { const { header, rows } = tableRows(t); downloadCSV(`wire-${pane.dataset.pane}`, header, rows); }
       return;
     }
     const sth = e.target.closest("#pf-panes th.pf-sortable");

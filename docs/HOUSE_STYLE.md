@@ -1008,6 +1008,26 @@ notification badge red (`#ef4444`).
   every adviser on the roster and appear on the manager's Vehicles tab. Specs:
   `tests/transactions.mjs`, `tests/tx-credits.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`.
 
+- **R37 — One profile layout; compare, timeline, CSV; the bell stays in Wire.** (2026-10.)
+  **(a)** Every Profiles page — manager, hedge fund, investor, law firm, CLO — uses the
+  same layout: identity header (☆ name, sub-line, coverage line "N tracked · N in 90 days ·
+  latest …", chips, Peers / Sources) over a section rail + panes (`.tdet-tabbed`, built
+  with `v2/js/profile-tabs.js`), the tab recorded in the URL. Investor = Commitments ·
+  Mentioned in · Profile; Law firm = All · Alerts · Matters · PC deals · Office; CLO =
+  Activity · Other CLOs. **(b) Timeline** (manager tab): deals per quarter since 2020 — one
+  series in a neutral ink token (no legend), a native hover tooltip per column (count,
+  disclosed ≈USD volume, group split) on a full-height hit area — then every deal by year,
+  each opening its deal panel. **(c) Compare** (`#/compare/<a>/<b>`, from a manager's
+  *Compare* dropdown): two managers side by side — identity, Group / Credit AUM, strategies,
+  funds, vehicles, tracked items, deal counts (all / 12m / 90d), 12-month mix, median
+  disclosed size, top sectors, latest deal, advisers; either side swappable. **(d) CSV**:
+  every Profiles list and every Transactions view (deals, credits, BDCs) exports exactly
+  what is on screen (filters / search / sort applied) via `v2/js/csv.js`. **(e) The bell**
+  (and its Watchlist tab) opens items IN Wire: a deal → its deal panel, a fundraising item →
+  the manager profile focused on it, a hedge-fund story → the fund profile focused on it, a
+  law-firm alert → its alert page; the panel closes on navigation. Cases / schemes with no
+  in-app page keep their judgment link. Spec: `tests/nav-backstack.mjs`.
+
 ---
 
 ## 7. Technical rules

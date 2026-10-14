@@ -20,11 +20,11 @@ await pg.waitForTimeout(900);
 
 // Tabs: News · Vehicles · Investments · Business (no standalone Funds/CLOs tabs).
 const tabs = await pg.evaluate(() => [...document.querySelectorAll("#mgr-tabs .tchip")].map((c) => c.dataset.p));
-check(JSON.stringify(tabs) === JSON.stringify(["news", "vehicles", "investments", "business"]), `manager tabs are News/Vehicles/Investments/Business (${tabs.join("/")})`);
+check(JSON.stringify(tabs) === JSON.stringify(["news", "vehicles", "investments", "timeline", "business"]), `manager tabs are News/Vehicles/Investments/Timeline/Business (${tabs.join("/")})`);
 
 // Sources are collapsed into a single expandable line — no long inline "Sources:" block.
 const src = await pg.evaluate(() => {
-  const det = document.querySelector("#pf-detail .tdet-src-det:not(.tdet-peers)");
+  const det = document.querySelector("#pf-detail .tdet-src-det:not(.tdet-peers):not(.tdet-compare)");
   const sum = det && det.querySelector("summary");
   const wasOpen = det ? det.open : null;
   if (det) det.open = true;   // expand

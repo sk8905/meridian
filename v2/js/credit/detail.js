@@ -18,6 +18,8 @@ import {
 } from "/credit/js/data.js";
 import { esc, byDateDesc } from "/util.js";
 import { BDCS } from "/credit/js/bdcs.js";
+import { tabbedHTML, bindTabs, latestLine } from "../profile-tabs.js";
+import { TX_TYPES, TX_GROUPS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtUsd } from "/credit/js/tx.js";
 import { firms as LAW_FIRMS } from "/legal/js/data.js";
 import { dealCounterparty, dealSponsor, dealAmount } from "../deal-parse.js";
 import { peersOf, peerDetails } from "../peers.js";
@@ -122,15 +124,6 @@ export function fundManagerId(id) { const f = fundById[id]; return (f && f.manag
 // The header's AUM figures — the SAME fields, labels and currency as the Managers
 // list columns (Group AUM · Credit AUM), so a number never changes meaning between
 // the list and the profile. The sourced aumText + as-of date ride on the tooltip.
-// Coverage at a glance: how many tracked items, and the date of the latest — so a
-// thin or stale profile is visible from the header, without explanatory prose.
-function latestLine(items) {
-  const dated = (items || []).filter((x) => x && x.date);
-  if (!dated.length) return `<div class="tdet-latest">No tracked items yet</div>`;
-  const last = dated.reduce((a, b) => (String(b.date) > String(a.date) ? b : a));
-  const d90 = dated.filter((x) => Date.parse(x.date) >= Date.now() - 90 * 864e5).length;
-  return `<div class="tdet-latest"><span>${dated.length} tracked</span><span>${d90} in 90 days</span><span>latest ${esc(fmtDate(last.date))}</span></div>`;
-}
 function aumLine(m) {
   if (m.notAum) return "";
   const g = m.aumTotal != null ? m.aumTotal : m.aum;
@@ -364,6 +357,106 @@ function fundBodyHTML(f) {
     + invHTML + notable + srcDetails(f);
 }
 
+// ---- Deal timeline (manager ▸ Timeline) -------------------------------------
+// Deals per quarter since 2020 as a single-series column chart (one neutral token —
+// no legend needed), each column's hover naming the quarter, its count, disclosed
+// volume and the Lending / Structured / Secondaries split; under it, every deal by
+// year, each opening its Transactions deal panel. Sourced records only.
+const _grpOf = (key) => (TX_TYPES.find((t) => t.key === key) || {}).group || "lending";
+const _grpLabel = (g) => (TX_GROUPS.find((x) => x.key === g) || {}).label || g;
+function timelineHTML(dealList) {
+  const rows = dealList.filter((d) => d && d.date && !isNaN(Date.parse(d.date)))
+    .map((d) => { const t = new Date(d.date); return { d, y: t.getUTCFullYear(), q: Math.floor(t.getUTCMonth() / 3) + 1, g: _grpOf(txOf(d)), usd: toUsd(amountOf(d)) }; });
+  if (!rows.length) return `<p class="tw-empty muted small">No dated deals tracked for this manager yet.</p>`;
+  const now = new Date(), y0 = Math.max(2020, Math.min(...rows.map((r) => r.y))), yN = now.getUTCFullYear(), qN = Math.floor(now.getUTCMonth() / 3) + 1;
+  const buckets = [];
+  for (let y = y0; y <= yN; y++) for (let q = 1; q <= 4; q++) { if (y === yN && q > qN) break; buckets.push({ y, q, rs: rows.filter((r) => r.y === y && r.q === q) }); }
+  const max = Math.max(1, ...buckets.map((b) => b.rs.length));
+  const W = 720, H = 150, padL = 26, padB = 20, padT = 8, n = buckets.length, slot = (W - padL) / n, bw = Math.max(3, slot - 2);
+  const yv = (v) => padT + (H - padT - padB) * (1 - v / max);
+  const ticks = [...new Set([0, Math.ceil(max / 2), max])];
+  const grid = ticks.map((t) => `<line x1="${padL}" x2="${W}" y1="${yv(t)}" y2="${yv(t)}" class="ttl-grid"/><text x="${padL - 5}" y="${yv(t) + 3}" class="ttl-ax" text-anchor="end">${t}</text>`).join("");
+  const bars = buckets.map((b, i) => {
+    const x = padL + i * slot + (slot - bw) / 2, h = (H - padT - padB) * (b.rs.length / max), yTop = H - padB - h;
+    const split = TX_GROUPS.map((g) => [g.label, b.rs.filter((r) => r.g === g.key).length]).filter(([, c]) => c).map(([l, c]) => `${l} ${c}`).join(" · ");
+    const vol = b.rs.reduce((s, r) => s + (r.usd || 0), 0);
+    const tip = `Q${b.q} ${b.y}: ${b.rs.length} deal${b.rs.length === 1 ? "" : "s"}${vol ? " · ≈" + fmtUsd(vol) + " disclosed" : ""}${split ? " · " + split : ""}`;
+    const r = Math.min(4, bw / 2);
+    const path = b.rs.length ? `<path class="ttl-bar" d="M${x},${H - padB} V${yTop + r} Q${x},${yTop} ${x + r},${yTop} H${x + bw - r} Q${x + bw},${yTop} ${x + bw},${yTop + r} V${H - padB} Z"/>` : "";
+    // A full-height hit target, wider than the mark (the hover layer).
+    return `<g class="ttl-col" tabindex="0" aria-label="${esc(tip)}"><title>${esc(tip)}</title><rect class="ttl-hit" x="${padL + i * slot}" y="${padT}" width="${slot}" height="${H - padT - padB}"/>${path}</g>`;
+  }).join("");
+  const years = buckets.filter((b) => b.q === 1).map((b) => `<text x="${padL + buckets.indexOf(b) * slot + 2}" y="${H - 5}" class="ttl-ax">${b.y}</text>`).join("");
+  const shown = rows.filter((r) => r.y >= y0).length;
+  const chart = `<figure class="ttl"><figcaption class="tpg-h">Deals per quarter since ${y0} <span class="tveh-grp-n">${shown}</span></figcaption>`
+    + `<svg viewBox="0 0 ${W} ${H}" class="ttl-svg" role="img" aria-label="Deals per quarter since ${y0}: ${shown} in total">${grid}${bars}<line x1="${padL}" x2="${W}" y1="${H - padB}" y2="${H - padB}" class="ttl-base"/>${years}</svg></figure>`;
+  const byYear = [...new Set(rows.map((r) => r.y))].sort((a, b) => b - a).map((y) => {
+    const rs = rows.filter((r) => r.y === y).sort((a, b) => String(b.d.date).localeCompare(String(a.d.date)));
+    return `<div class="tw-day">${y} · ${rs.length}</div><ul class="tmini">${rs.map((r) => `<li class="tmini-row"><a class="tmini-t" href="/v2/transactions/#/deal/${esc(encodeURIComponent(r.d.id))}">${esc(r.d.headline || "")}</a><span class="tmini-m">${esc(fmtDate(r.d.date))} · ${esc(_grpLabel(r.g))} · ${esc((TX_TYPES.find((t) => t.key === txOf(r.d)) || {}).label || "")}${r.usd ? " · ≈" + esc(fmtUsd(r.usd)) : ""}</span></li>`).join("")}</ul>`;
+  }).join("");
+  return chart + byYear;
+}
+
+// ---- Compare two managers (#/compare/<a>/<b>) --------------------------------
+// Side by side: identity, AUM, strategies, vehicles, and the tracked deal activity
+// (counts, mix, disclosed sizes, sectors, recency) — sourced records only.
+function mgrStats(m) {
+  const ds = deals.filter((d) => d.managerId === m.id && d.date);
+  const t12 = Date.now() - 365 * 864e5, t90 = Date.now() - 90 * 864e5;
+  const d12 = ds.filter((d) => Date.parse(d.date) >= t12);
+  const usd12 = d12.map((d) => toUsd(amountOf(d))).filter((v) => v != null).sort((a, b) => a - b);
+  const med = usd12.length ? usd12[Math.floor(usd12.length / 2)] : null;
+  const mix = TX_GROUPS.map((g) => [g.label, d12.filter((d) => _grpOf(txOf(d)) === g.key).length]).filter(([, n]) => n).map(([l, n]) => `${l} ${n}`).join(" · ") || "—";
+  const secN = {}; d12.forEach((d) => { const k = sectorOf(d); secN[k] = (secN[k] || 0) + 1; });
+  const topSec = Object.entries(secN).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, n]) => `${SECTOR_LABEL[k] || k} ${n}`).join(" · ") || "—";
+  const fs = fundsByManager(m.id);
+  const veh = ((VEHICLES && VEHICLES[m.id]) || []).length + (BDCS || []).filter((b) => b.managerId === m.id && !((VEHICLES && VEHICLES[m.id]) || []).some((v) => Number(v.cik) === Number(b.cik))).length;
+  const last = ds.reduce((a, d) => (!a || d.date > a ? d.date : a), "");
+  // Same count as the profile header: deals + intel + press, de-duplicated by story.
+  const seen = new Set();
+  const evN = [...ds, ...intel.filter((i) => i.managerId === m.id), ...(m.webNews || []), ...(m.news || [])]
+    .filter((x) => { const k = feedDedupKey(x); if (seen.has(k)) return false; seen.add(k); return !!x.date; }).length;
+  return [
+    ["HQ", esc(m.hq || "—")], ["Founded", esc(String(m.founded || "—"))],
+    ["Group AUM", m.notAum ? "n/a" : esc(fmtAumC(m.aumTotal != null ? m.aumTotal : m.aum))],
+    ["Credit AUM", m.aumCredit != null ? esc(fmtAumC(m.aumCredit)) : "—"],
+    ["Strategies", esc((m.strategies || []).join(" · ") || "—")],
+    ["Funds (in market)", `${fs.length} (${fs.filter((f) => !f.evergreen && (f.status === "Open" || f.status === "First Close")).length})`],
+    ["Listed vehicles / BDCs", String(veh)],
+    ["Tracked items", String(evN)],
+    ["Deals · all / 12m / 90d", `${ds.length} / ${d12.length} / ${ds.filter((d) => Date.parse(d.date) >= t90).length}`],
+    ["Deal mix · 12m", esc(mix)],
+    ["Median disclosed deal · 12m", med != null ? esc(fmtUsd(med)) : "—"],
+    ["Top sectors · 12m", esc(topSec)],
+    ["Latest deal", last ? esc(fmtDate(last)) : "—"],
+    ["Advisers on file", String((m.advisers || []).length)],
+  ];
+}
+export function viewCompare(a, b) {
+  const A = managerById[a], B = managerById[b];
+  if (!A) return notFound(app);
+  const pick = (cur, other, side) => `<select class="tx-filt tcmp-pick" data-side="${side}" aria-label="Choose a manager to compare">${[...managers].sort((x, y) => x.name.localeCompare(y.name)).map((m) => `<option value="${esc(m.id)}"${m.id === cur ? " selected" : ""}${m.id === other ? " disabled" : ""}>${esc(m.name)}</option>`).join("")}</select>`;
+  const sa = mgrStats(A), sb = B ? mgrStats(B) : sa.map(([k]) => [k, ""]);
+  const head = (m, side, other) => `<th class="tcmp-h"><a href="#/manager/${esc(m ? m.id : "")}">${esc(m ? m.name : "Choose a manager")}</a>${pick(m && m.id, other, side)}</th>`;
+  app.innerHTML = `
+    <div class="tdash">
+      ${breadcrumb([["#/", "Managers"], [null, "Compare"]])}
+      <div class="tdash-grid tdash-1">
+        <section class="tcol tcol-c tcol-full">
+          <div class="tdet-id"><h1>Compare managers</h1></div>
+          <div class="tleague-wrap"><table class="tleague tleague-full tcmp-tbl">
+            <thead><tr><th></th>${head(A, "a", b)}${head(B, "b", a)}</tr></thead>
+            <tbody>${sa.map(([k, v], i) => `<tr><td class="tcmp-k">${esc(k)}</td><td>${v}</td><td>${sb[i][1]}</td></tr>`).join("")}</tbody>
+          </table></div>
+        </section>
+      </div>
+    </div>`;
+  app.querySelectorAll(".tcmp-pick").forEach((sel) => sel.addEventListener("change", () => {
+    const na = sel.dataset.side === "a" ? sel.value : a, nb = sel.dataset.side === "b" ? sel.value : (b || "");
+    location.hash = `#/compare/${encodeURIComponent(na)}/${encodeURIComponent(nb)}`;
+  }));
+}
+
 export function viewManager(id, tab0) {
   const m = managerById[id];
   if (!m) return notFound(app);
@@ -486,6 +579,7 @@ export function viewManager(id, tab0) {
             ${latestLine(mgrFeed)}
             ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
             ${mgrPeersDetails}
+            <details class="tdet-src-det tdet-compare"><summary>Compare</summary><div class="tdet-src-body">${mgrPeers.map((p) => `<div class="tdet-peer-row"><a class="tdet-peer" href="#/compare/${esc(m.id)}/${esc(p.e.id)}">vs ${esc(p.e.name)}</a></div>`).join("")}<div class="tdet-peer-row"><a class="tdet-peer" href="#/compare/${esc(m.id)}/">vs any manager…</a></div></div></details>
             ${srcDetails(m)}
           </div>
           <header class="tpanel-h twire-head">
@@ -493,6 +587,7 @@ export function viewManager(id, tab0) {
               <button type="button" class="tchip is-on" data-p="news">News</button>
               <button type="button" class="tchip" data-p="vehicles">Vehicles${vehCount ? " " + vehCount : ""}</button>
               <button type="button" class="tchip" data-p="investments">Investments${investments.length ? " " + investments.length : ""}</button>
+              <button type="button" class="tchip" data-p="timeline">Timeline</button>
               ${hasBiz ? `<button type="button" class="tchip" data-p="business">Business</button>` : ""}
             </div>
           </header>
@@ -500,6 +595,7 @@ export function viewManager(id, tab0) {
             ${pane("news", newsPane)}
             ${pane("vehicles", vehiclesPane)}
             ${pane("investments", invPane)}
+            ${pane("timeline", timelineHTML(deals.filter(belongs)))}
             ${hasBiz ? pane("business", businessPane) : ""}
           </div>
         </section>
@@ -599,38 +695,33 @@ export function viewClo(mid, encName) {
   if (!c) return notFound(app);
   const items = [...c.items].sort(byDateDesc);
   const otherClos = roster.filter((r) => r.name !== c.name);
-  const metrics = [
-    ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
-    ["Items", c.items.length], ["Manager", m.name],
-  ];
-  const kvFig = [
-    ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
-    ["Items", c.items.length], ["Manager CLOs", roster.length],
-  ];
-  const otherRail = otherClos.length
+  const otherList = otherClos.length
     ? `<ul class="tmini">${otherClos.map((r) => `<li class="tmini-row clickable" data-href="#/clo/${mid}/${encodeURIComponent(r.name)}"><span class="tmini-t">${esc(r.name)}<span class="tmini-r">${r.size ? esc(r.size) : ""}</span></span><span class="tmini-m">${r.vintage ? "Vintage " + esc(r.vintage) : "Issued"}</span></li>`).join("")}</ul>`
     : `<p class="tw-empty muted small">No other tracked CLOs from this manager.</p>`;
+  const wire = items.length
+    ? `<ul class="twire compact-list" id="clo-wire">${items.map((x) => crWireRow(x, "")).join("")}</ul>`
+    : `<p class="tw-empty muted small">No tracked activity for this CLO yet.</p>`;
+  // Same layout as the manager / hedge-fund pages: identity header, then a section
+  // rail — Activity (issuance, pricings, resets, news) · Other CLOs from the manager.
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/managers", "Managers"], ["#/manager/" + mid, m.name], [null, c.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
+      <div class="tdash-grid tdash-1">
+        <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${esc(c.name)}</h1>
             <div class="tdet-sub">CLO · managed by ${link("#/manager/" + mid, m.name)}${c.vintage ? ` · Vintage ${esc(c.vintage)}` : ""}${c.size ? ` · ${esc(c.size)}` : ""}</div>
-            <div class="tdet-chips"><span class="tdet-chip">Structured Credit</span>${c.vintage ? `<span class="tdet-chip">Vintage ${esc(c.vintage)}</span>` : ""}</div>
+            ${latestLine(items)}
+            <div class="tdet-chips"><span class="tdet-chip">Structured Credit</span>${c.vintage ? `<span class="tdet-chip">Vintage ${esc(c.vintage)}</span>` : ""}<span class="tdet-chip">${roster.length} CLO${roster.length === 1 ? "" : "s"} from ${esc(m.name)}</span></div>
           </div>
-          <header class="tpanel-h twire-head"><span>Issuance, pricings, resets &amp; news</span><span class="tpanel-x">CLO wire</span></header>
-          <ul class="twire compact-list" id="clo-wire">${items.length ? items.map((x) => crWireRow(x, "")).join("") : '<li class="muted small tw-empty">No tracked activity for this CLO yet.</li>'}</ul>
+          ${tabbedHTML({ tabsId: "clo-tabs", panesId: "clo-panes", active: "activity", tabs: [
+            { k: "activity", label: "Activity", n: items.length, html: wire },
+            { k: "others", label: "Other CLOs", n: otherClos.length, html: otherList },
+          ] })}
         </section>
-        <aside class="tcol tcol-r">
-          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([l, v]) => `<div><dt>${esc(l)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
-          ${railPanel("Manager", "", `<ul class="tmini"><li class="tmini-row clickable" data-href="#/manager/${mid}"><span class="tmini-t">${esc(m.name)}</span><span class="tmini-m">${esc(m.hq || "")}</span></li></ul>`)}
-          ${railPanel("Other CLOs from " + esc(m.name), otherClos.length ? String(otherClos.length) : "", otherRail)}
-        </aside>
       </div>
     </div>`;
+  bindTabs(app, { tabsId: "clo-tabs", panesId: "clo-panes" });
   applyPendingFocus("clos");
 }
 
@@ -663,7 +754,7 @@ export function lpMentions(l) {
     .sort(byDateDesc);
 }
 
-export function viewLp(id) {
+export function viewLp(id, tab0) {
   const l = lpById[id];
   if (!l) return notFound(app);
   const pcAum = l.pcAllocationPct != null ? (l.aum * l.pcAllocationPct / 100) : null;
@@ -672,11 +763,6 @@ export function viewLp(id) {
   // commitments above, the investor's known positions.
   const fundsIn = funds.filter((f) => (f.investors || []).some((i) => i.lpId === l.id) && !commits.some((c) => c.fundId === f.id));
   const mentions = lpMentions(l);
-  const metrics = [
-    ["AUM", fmtAumC(l.aum)], ["PC alloc", pct(l.pcAllocationPct)],
-    ["Implied PC", pcAum != null ? "$" + pcAum.toFixed(1) + "bn" : "—"],
-    ["Commitments", commits.length + fundsIn.length], ["Mentions", mentions.length],
-  ];
   const kvFig = [
     ["Total AUM", fmtAumC(l.aum)], ["PC allocation", pct(l.pcAllocationPct)],
     ["Implied PC AUM", pcAum != null ? "$" + pcAum.toFixed(1) + "bn" : "—"], ["Typical ticket", usdM(l.typicalTicket)],
@@ -700,30 +786,35 @@ export function viewLp(id) {
     return [p.e.type || "", a].filter(Boolean).join(" · ");
   }, esc);
 
+  // Same layout as the manager / hedge-fund pages: identity header (with the AUM line),
+  // then a section rail — Commitments · Mentioned in · Profile (key figures, mandate).
+  const profilePane = `<div class="tpg"><div class="tpg-h">Key figures</div><ul class="tbiz">${kvFig.map(([k, v]) => bizRow(k, esc(String(v)))).join("")}</ul></div>`
+    + `<div class="tpg"><div class="tpg-h">Strategies of interest</div><div class="tdet-chips">${l.strategies.map((x) => `<span class="tdet-chip">${esc(x)}</span>`).join("")}</div></div>`
+    + (aumNote(l, "aum", AUM_FX) ? `<p class="tdet-latest">${esc(aumNote(l, "aum", AUM_FX))}</p>` : "");
+  const first = commitRows.length ? "commitments" : mentions.length ? "mentions" : "profile";
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([[profilesMode ? "#/?tab=investors" : "#/lps", "Investors"], [null, l.name]])}
-      <div class="tdash-ticker">${metrics.map(([lab, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(lab)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
+      <div class="tdash-grid tdash-1">
+        <section class="tcol tcol-c tcol-full tdet-tabbed">
           <div class="tdet-id">
             <h1>${nameCell("lp", l.id, esc(l.name))}</h1>
-            <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}</div>
+            <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}${l.aum != null ? ` · <span class="tdet-aum"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>AUM ${esc(fmtAumC(l.aum))}</span>` : ""}${l.pcAllocationPct != null ? ` · PC allocation ${esc(pct(l.pcAllocationPct))}` : ""}</div>
+            ${latestLine(mentions)}
             ${l.notes ? `<p class="tdet-desc">${esc(l.notes)}</p>` : ""}
-            <div class="tdet-chips"><span class="tdet-chip">${esc(l.mandateStatus)}</span>${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>
+            <div class="tdet-chips"><span class="tdet-chip">${esc(l.mandateStatus)}</span>${l.strategies.map((x) => `<span class="tdet-chip">${esc(x)}</span>`).join("")}</div>
             ${lpPeersDetails}
+            ${srcDetails(l)}
           </div>
-          <header class="tpanel-h twire-head"><span>Known commitments</span><span class="tpanel-x">${commitRows.length}</span></header>
-          <div id="lp-commits">${commitsBody}</div>
-          <header class="tpanel-h twire-head"><span>Mentioned in</span><span class="tpanel-x">${mentions.length}</span></header>
-          ${mentionsBody}
+          ${tabbedHTML({ tabsId: "lp-tabs", panesId: "lp-panes", active: tab0 || first, tabs: [
+            { k: "commitments", label: "Commitments", n: commitRows.length, html: `<div id="lp-commits">${commitsBody}</div>` },
+            { k: "mentions", label: "Mentioned in", n: mentions.length, html: mentionsBody },
+            { k: "profile", label: "Profile", html: profilePane },
+          ] })}
         </section>
-        <aside class="tcol tcol-r">
-          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([lab, v]) => `<div><dt>${esc(lab)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
-          ${railPanel("Strategies of interest", "", `<div class="tdet-chips" style="padding:9px 12px">${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>`)}
-        </aside>
       </div>
     </div>`;
+  bindTabs(app, { tabsId: "lp-tabs", panesId: "lp-panes", route: "lp", entityId: l.id, def: first });
 }
 
 // ================================ HEDGE FUNDS ================================

@@ -22,7 +22,7 @@ pg.on("pageerror", (e) => errs.push(String(e.message).slice(0, 160)));
 await pg.waitForTimeout(600);
 
 // Exactly the routes v2/js/profiles/app.js router() switches on. Anything else dead-ends.
-const HANDLED = ["manager", "fund", "clo", "lp", "hf", "firm", "item"];
+const HANDLED = ["manager", "fund", "clo", "lp", "hf", "firm", "item", "compare"];
 const ids = await pg.evaluate(async () => {
   const c = await import("/credit/js/data.js"); const l = await import("/legal/js/data.js");
   return {
