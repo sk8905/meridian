@@ -288,7 +288,7 @@ export function mount(host, ctx) {
           </header>
           <div class="tcol-main">
             <header class="tpanel-h thead-search tx-bar" id="tx-flow-search">
-              <input type="search" id="tx-q" class="tsearch" placeholder="Search every deal, manager or type…" aria-label="Search transactions">
+              <input type="search" id="tx-q" class="tsearch" placeholder="Search deals, managers…" aria-label="Search transactions">
               <button type="button" class="tx-fbtn" id="tx-filters" aria-expanded="false" aria-controls="tx-sheet">Filters</button>
               <select id="tx-sort" class="tx-filt tx-sortgrp" data-ctl="sort" aria-label="Sort the deals">${SORTS.map(opt).join("")}</select>
               <select id="tx-grp" class="tx-filt tx-sortgrp" data-ctl="grp" aria-label="Group the deals">${GROUPS.map(opt).join("")}</select>
@@ -340,10 +340,12 @@ export function mount(host, ctx) {
   function renderAsOf() {
     const el = host.querySelector("#tx-asof");
     if (!el) return;
-    if (!flowMode() || !_newestRow) { el.hidden = true; el.innerHTML = ""; return; }
-    el.hidden = false;
-    const ageDays = Math.round((Date.now() - _newestRow.ts) / DAY);
+    const ageDays = _newestRow ? Math.round((Date.now() - _newestRow.ts) / DAY) : 0;
     const stale = ageDays > TX_STALE_DAYS;
+    // A fresh ledger needs no banner — its date rides in the stats line; only a stale
+    // ledger gets its own line (the "awaiting fresh filings" flag).
+    if (!flowMode() || !_newestRow || !stale) { el.hidden = true; el.innerHTML = ""; return; }
+    el.hidden = false;
     el.className = "tx-asof" + (stale ? " is-stale" : "");
     el.innerHTML = `<span class="tx-asof-lbl">Deal flow as of ${esc(fmtDay(_newestRow.d.date))}</span>`
       + (stale ? `<span class="tx-asof-flag" title="No new deal recorded in ${ageDays} days — the ledger is awaiting fresh, verified filings">${ageDays}d ago · awaiting fresh filings</span>` : "");
@@ -538,12 +540,16 @@ export function mount(host, ctx) {
     + cols.map(([, cell, , cls], i) => `<td class="${cls}"${i === 0 ? ` title="${esc(r.d.headline || "")}"` : ""}>${cell(r)}</td>`).join("") + `</tr>`;
   // Phone: a two-line card per deal — party · amount, then date · lender · type /
   // country — so the facts that matter fit 390px without a sideways-scrolling table.
+  // Short type labels for the one-line phone card meta.
+  const TYPE_SHORT = { lend: "DL / unitranche", other: "Other", rx: "Restructuring", abl: "ABL", nav: "NAV", rescue: "Rescue", clo: "CLO", cfo: "CFO", srt: "SRT", gp_sec: "GP-led", lp_sec: "LP-led", npl: "NPL / portfolio" };
   const txCard = (r) => {
     const d = r.d;
-    const what = st.mode === "mna" && !st.q ? "Manager M&A" : st.mode === "structured" && r.tags.event && !st.q ? `${typeLabel(r.tx)} · ${EVENT_LABEL[r.tags.event]}` : typeLabel(r.tx);
+    // The type only when the list isn't already narrowed to one type (Manager M&A has none).
+    const showType = st.q || (st.mode !== "mna" && st.f.type.length !== 1);
+    const what = !showType ? "" : (TYPE_SHORT[r.tx] || typeLabel(r.tx)) + (st.mode === "structured" && r.tags.event && !st.q ? ` ${EVENT_LABEL[r.tags.event].toLowerCase()}` : "");
     return `<li class="tx-card${st.deal === d.id ? " is-open" : ""}" data-deal="${esc(d.id)}" tabindex="0">`
       + `<div class="tx-card-a"><span class="tx-card-nm">${st.mode === "structured" && !st.q ? hlCell(r) : partyCell(r)}</span><span class="tx-card-amt">${r.amt ? amtCell(r) : ""}</span></div>`
-      + `<div class="tx-card-b"><span>${esc(fmtDay(d.date))}</span><span>${mgrLink(d.managerId)}</span><span>${esc(what)}</span>${r.tags.country ? `<span>${esc(r.tags.country)}</span>` : ""}</div></li>`;
+      + `<div class="tx-card-b"><span class="tx-cb-dt">${esc(fmtDay(d.date))}</span><span class="tx-cb-mg">${mgrLink(d.managerId)}</span>${what ? `<span class="tx-cb-ty">${esc(what)}</span>` : ""}${r.tags.country ? `<span class="tx-cb-ct">${esc(r.tags.country)}</span>` : ""}</div></li>`;
   };
 
   // ---- grouping + stats ---------------------------------------------------------
@@ -577,9 +583,10 @@ export function mount(host, ctx) {
     const lc = {}; list.forEach((r) => { if (r.d.managerId && mgrName(r.d.managerId)) lc[r.d.managerId] = (lc[r.d.managerId] || 0) + 1; });
     const top = Object.entries(lc).sort((a, b) => b[1] - a[1]).slice(0, 3);
     const parts = [`<span><b>${list.length}</b> deal${list.length === 1 ? "" : "s"}</span>`];
-    if (vol) parts.push(`<span title="Disclosed deal sizes only, converted to USD">≈ <b>${esc(fmtUsd(vol))}</b> disclosed (${s.length}/${list.length})</span>`);
+    if (vol) parts.push(`<span title="Disclosed deal sizes only, converted to USD">≈ <b>${esc(fmtUsd(vol))}</b> disclosed<span class="tx-stats-x"> (${s.length}/${list.length})</span></span>`);
     if (med != null) parts.push(`<span>median <b>${esc(fmtUsd(med))}</b></span>`);
-    if (top.length) parts.push(`<span>top: ${top.map(([id, n]) => `${mgrLink(id)} ${n}`).join(" · ")}</span>`);
+    if (top.length) parts.push(`<span class="tx-stats-top">top: ${top.map(([id, n]) => `${mgrLink(id)} ${n}`).join(" · ")}</span>`);
+    if (_newestRow) parts.push(`<span class="tx-stats-asof" title="Newest deal in the ledger: ${esc(fmtDay(_newestRow.d.date))}">as of ${esc(fmtDay(_newestRow.d.date).replace(/\s\d{4}$/, ""))}</span>`);
     return `<div class="tx-stats" id="tx-stats">${parts.join("")}</div>`;
   }
   const CAP = 400;

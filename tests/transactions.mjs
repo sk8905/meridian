@@ -107,8 +107,10 @@ const asof = await pg.evaluate(async () => {
     hasFlag: !!(el && el.querySelector(".tx-asof-flag")),
   };
 });
-check(asof.shown && asof.hasLbl && /deal flow as of/i.test(asof.lbl),
-  `Transactions: a freshness cue shows the ledger's "as of" date (${asof.lbl})`);
+// The as-of date rides in the stats line; the banner appears only when the ledger is stale.
+const asofStat = await pg.evaluate(() => (document.querySelector("#tx-stats .tx-stats-asof") || {}).textContent || "");
+check(/as of \d{1,2} \w{3}/.test(asofStat) && (asof.ageDays > 7 ? asof.shown && /deal flow as of/i.test(asof.lbl) : !asof.shown),
+  `Transactions: a freshness cue shows the ledger's "as of" date (${asofStat}; banner ${asof.shown ? "shown (stale)" : "hidden (fresh)"})`);
 check(asof.staleClass === (asof.ageDays > 7) && asof.hasFlag === (asof.ageDays > 7),
   `Transactions: the stale flag reflects the real ledger age (${asof.ageDays}d → ${asof.ageDays > 7 ? "stale flag shown" : "fresh, no flag"})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
@@ -394,6 +396,17 @@ await ctx.close();
   });
   check(!drill.table && drill.nm && drill.meta >= 3 && drill.cardW <= drill.vw, `phone: deals are cards — name + amount, then date · lender · type (${drill.meta} meta, ${drill.cardW}px ≤ ${drill.vw})`);
   check(drill.lender, "phone: the card's lender links to its profile");
+  // iPhone polish: the card meta is ONE line (no wrap, no "·" separators) and the stats
+  // strip is one line too.
+  const one = await p.pg.evaluate(() => {
+    const cards = [...document.querySelectorAll(".tx-panes-in .tx-card .tx-card-b")].slice(0, 12);
+    const lh = (el) => parseFloat(getComputedStyle(el).lineHeight) || 16;
+    const st = document.querySelector("#tx-stats");
+    return { maxH: Math.max(...cards.map((c) => c.getBoundingClientRect().height)), lh: lh(cards[0]), dots: cards.some((c) => getComputedStyle(c.children[1], "::before").content.includes("·")),
+      statsH: st ? st.getBoundingClientRect().height : 0, ph: document.querySelector("#tx-q").placeholder };
+  });
+  check(one.maxH <= one.lh * 1.6 && !one.dots, `phone: card meta stays on one line with no separators (${Math.round(one.maxH)}px)`);
+  check(one.statsH > 0 && one.statsH < 34 && one.ph === "Search deals, managers…", `phone: one stats line and a short search placeholder (${Math.round(one.statsH)}px)`);
   check(drill.pageOverflow <= 1, `phone: the page itself does not scroll sideways (overflow ${drill.pageOverflow}px)`);
   // Tapping a card opens the deal in place of the list; Back returns to the list.
   await p.pg.evaluate(() => document.querySelector(".tx-panes-in .tx-card .tx-card-nm").click());

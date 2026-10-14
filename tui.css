@@ -1293,7 +1293,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-card-nm .tx-hl { color: var(--muted); }
 .tx-card-amt { flex: 0 0 auto; font-size: var(--fs-num); font-variant-numeric: tabular-nums; }
 .tx-card-b { display: flex; flex-wrap: wrap; gap: 2px 8px; margin-top: 3px; font-size: var(--fs-micro); color: var(--muted); }
-.tx-card-b > span + span::before { content: "· "; color: var(--faint); }
+
 .tx-card-b .tx-mgr { color: var(--muted); }
 .tx-cards .tx-grp { display: flex; justify-content: space-between; padding: 8px 12px; background: var(--head); border-bottom: 1px solid var(--border); font-size: var(--fs-micro); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
 /* The deal drawer. Desktop: a panel over the right of the list. Phone: the list
@@ -1466,3 +1466,23 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 /* Deal drawer: every block (facts, summary, related lists) shares the body's left edge. */
 .tx-drawer-b .tbiz li { padding-left: 0; padding-right: 0; }
 .tx-drawer-b .tpg-h { padding-left: 0; padding-right: 0; }
+
+/* ---- Transactions on iPhone: the Profiles-clean look -------------------------------
+   One-line card meta (date · lender · type · country as spaced muted text, no "·"
+   separators; the lender truncates), a single stats line, an evenly spaced scrolling
+   mode row, and a type strip in the Filters-sheet chip style (orange only on a type). */
+.tx-card-b { flex-wrap: nowrap; gap: 0 12px; white-space: nowrap; overflow: hidden; }
+.tx-card-b > span { flex: 0 0 auto; color: var(--muted); }
+.tx-card-b > .tx-cb-mg { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.tx-card-b .tx-mgr { color: var(--muted); }
+.tx-stats-asof { color: var(--faint); }
+@media (max-width: 760px) {
+  .tx-stats { flex-wrap: nowrap; white-space: nowrap; overflow: hidden; gap: 0 12px; }
+  .tx-stats .tx-stats-top, .tx-stats .tx-stats-x { display: none; }
+  .tx-dash .twire-head .tchips { overflow-x: auto; scrollbar-width: none; }
+  .tx-dash .twire-head .tchips::-webkit-scrollbar { display: none; }
+  .tx-dash .twire-head #tx-mode .tchip { flex: 1 0 auto; padding-left: 10px; padding-right: 10px; }
+  .tx-typestrip .tx-secchip { background: var(--surface); }
+  .tx-typestrip .tx-secchip.is-on[data-sub=""] { border-color: var(--muted); background: var(--surface); color: var(--ink); }
+}
+

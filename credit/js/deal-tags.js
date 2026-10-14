@@ -1017,5 +1017,8 @@ const T = {
   d1041: {"c":null,"s":"Transport & logistics","a":null,"p":"Nayak Aircraft Services","r":"borrower"},
   d1042: {"c":null,"s":"TMT","a":null},
   d1043: {"c":"US","s":"TMT","a":"financing","p":"SourceCode","r":"borrower","cs":"https://www.lincolninternational.com/transactions/jmc-capital-partners-has-sold-source-code-to-cerberus/","cb":"hq"},
+  d1044: {"c":"France","s":"TMT","a":"financing","p":"Enersweet","r":"borrower"},
+  d1045: {"c":"Pan-European","s":"Diversified","a":"fund","e":"new","p":"Capital Four CLO X DAC","r":"issuer"},
+  d1046: {"c":null,"s":"Asset-backed / specialty finance","a":"portfolio","p":"Encina Lender Finance","r":"target"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
