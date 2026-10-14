@@ -1217,7 +1217,18 @@ in `research.js`'s `PUBLISHERS` map. Parse each real note into the `RESEARCH` ar
 summary, url }` — a one-line topic summary in **plain text with real Unicode
 punctuation** (never HTML entities, never article body text), and the note's own
 "read online" / canonical link as `url`. SKIP account-activation / verify /
-preference-centre emails (no content). If a research house signs up that isn't in
+preference-centre emails (no content).
+
+**Sweep EVERY content email from a research sender — including short teasers and
+daily digests (owner rule 2026-10-14).** An email that only carries a headline, a
+one-line lead and a link to the house's own article (e.g. S&P Dow Jones Indices "Daily
+Index Insights" from `spdji@spglobal.com`) IS a research note: record it, with the
+article link (tracking params such as `utm_*` stripped) as `url`, the email's send
+date/time, and the lead as `summary`. A multi-article digest gets ONE item per
+article. "Too short", "teaser only" or "just an index/markets note" are never reasons
+to skip — only no-content admin mail is. Match a sender by full address first, then
+by domain (`spdji@spglobal.com` → S&P Dow Jones Indices; other `spglobal.com` →
+S&P Global Ratings). If a research house signs up that isn't in
 `PUBLISHERS` yet, ADD its content-sender domain to the map (confirm the real sender on
 the first delivery). Dedupe against existing entries (same `url`, or same `title` +
 `publication`), keep ~40 newest. `research.js` is TOKENLESS and served

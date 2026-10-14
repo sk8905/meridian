@@ -40,6 +40,10 @@ export const PUBLISHERS = {
   "fitchratings.com": "Fitch Ratings",
   "moodys.com": "Moody's Ratings",
   "spglobal.com": "S&P Global Ratings",
+  // S&P Dow Jones Indices "Daily Index Insights" — CONFIRMED 2026-10-14. Content sender is
+  // `spdji@spglobal.com` (same spglobal.com domain as Ratings, so label by the ADDRESS):
+  // a short teaser linking one public commentary article per day. Sweep EVERY issue.
+  "spdji@spglobal.com": "S&P Dow Jones Indices",
   // Apollo "Daily Spark" (Torsten Slok) — CONFIRMED + swept 2026-10-09. The real
   // content sender is `agm@e.apollo.com`, so the routed domain is `e.apollo.com`
   // (NOT the earlier-guessed `email.apolloacademy.com`). The notes publish openly on
@@ -88,7 +92,7 @@ export const PUBLISHERS = {
 // Gmail sweep misfiled into newsletters.js back into Research — a runtime safety net
 // so a routing slip can never again show house research under "Newsletters". Keep this
 // list in step with the PUBLISHERS map above (same houses, by display-name pattern).
-const RESEARCH_PUBLISHER_RE = /\b(?:apollo|goldman\s+sachs|guggenheim|fitch|moody'?s|s&p\s+global|morgan\s+stanley|jp\.?\s*morgan|jpmorgan|pimco|blackrock|preqin|ubs|with\s+intelligence|oaktree|aqr|m&g|bond\s+vigilantes)\b/i;
+const RESEARCH_PUBLISHER_RE = /\b(?:apollo|goldman\s+sachs|guggenheim|fitch|moody'?s|s&p\s+global|s&p\s+dow\s+jones|morgan\s+stanley|jp\.?\s*morgan|jpmorgan|pimco|blackrock|preqin|ubs|with\s+intelligence|oaktree|aqr|m&g|bond\s+vigilantes)\b/i;
 export function isResearchPublication(name) {
   return RESEARCH_PUBLISHER_RE.test(String(name || ""));
 }
@@ -104,6 +108,17 @@ export function isResearchPublication(name) {
 // so an entity like "AI&rsquo;s" or "S&amp;P" would show LITERALLY. (Only the
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
+  {
+    id: "rsch-spdji-dailyindexinsights-20261014",
+    publication: "S&P Dow Jones Indices",
+    author: null,
+    series: "Daily Index Insights",
+    title: "Daily Index Insights",
+    date: "2026-10-14",
+    time: "15:01",
+    summary: "On this day 79 years ago, U.S. Air Force Captain Chuck Yeager became the first person to officially travel faster than the speed of sound…",
+    url: "https://www.spglobal.com/spdji/en/commentary/article/daily-index-insights",
+  },
   {
     id: "rsch-mandg-wigglesworth-20261014",
     publication: "M&G Bond Vigilantes",
