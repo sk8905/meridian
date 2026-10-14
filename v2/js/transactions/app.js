@@ -650,7 +650,9 @@ export function mount(host, ctx) {
       : "Undisclosed";
     const facts = [
       [r.mode === "mna" ? "Target" : ROLE_LABEL[dealPartyRole(d)] || "Borrower / company", (r.cp ? esc(r.cp) : "—")
-        + (r.tags.partySource ? ` <span class="tf-est">researched · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")],
+        + (r.tags.partyQuality === "unconfirmed" ? ` <span class="tf-est">* unconfirmed — inferred, not named in a source${r.tags.partySource ? ` · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">closest source</a>` : ""}</span>`
+          : r.tags.partyQuality === "placeholder" ? ` <span class="tf-est">vehicle not named in any source found</span>`
+          : r.tags.partySource ? ` <span class="tf-est">researched · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")],
       ...(r.sponsor ? [["Sponsor", esc(r.sponsor)]] : []),
       [r.mode === "mna" ? "Acquirer" : "Lender / investor", mgrLink(d.managerId)],
       ...(fund ? [["Fund", `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(fund.managerId)}/vehicles">${esc(fund.name)}</a>`]] : []),

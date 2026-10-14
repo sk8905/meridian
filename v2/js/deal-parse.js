@@ -112,7 +112,8 @@ export function dealCounterparty(d, lenderName) {
   const t = d && d.id && DEAL_TAGS[d.id];
   // An audited party is shown as-is — even when it IS the lender (a BDC issuing its own
   // notes, a manager raising its own fund).
-  if (t && t.party != null) return t.party;
+  // An unconfirmed (inferred) vehicle name carries an asterisk wherever it is shown.
+  if (t && t.party != null) return t.party + (t.partyQuality === "unconfirmed" ? "*" : "");
   if (!s || !lenderName || (d && d.clo) || (d && (d.company || COMPANY_OVERRIDES[d.id]))) return s;
   const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").replace(/\s+/g, " ").trim();
   const a = norm(s), b = norm(lenderName);

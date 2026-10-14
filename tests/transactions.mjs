@@ -36,6 +36,7 @@ const tg = await pg.evaluate(async () => {
     || !(t.amountKind == null || ["financing", "fund", "portfolio", "ev", "aum", "other"].includes(t.amountKind))
     || !(t.event == null || ["new", "reset", "refi"].includes(t.event)) || typeof t.managerMA !== "boolean"
     || (t.partySource != null && (t.party == null || !/^https?:\/\//.test(t.partySource)))
+    || !(t.partyQuality == null || ["unconfirmed", "placeholder"].includes(t.partyQuality))
     // A researched country carries its source URL and basis (HQ | incorporation).
     || (t.countrySource != null && (!t.country || !/^https?:\/\//.test(t.countrySource) || !["hq", "incorporated", "issuer", "portfolio"].includes(t.countryBasis)))).map(([id]) => id);
   const evOnNonClo = Object.entries(G.DEAL_TAGS).filter(([id, t]) => t.event && D.deals.find((d) => d.id === id) && T.txOf(D.deals.find((d) => d.id === id)) !== "clo").map(([id]) => id);

@@ -218,6 +218,7 @@ export function tagsOf(deal, TAGS) {
     countryBasis: t ? t.countryBasis || null : null,
     // A researched counterparty (not named in the deal text) carries its source.
     partySource: t ? t.partySource || null : null,
+    partyQuality: t ? t.partyQuality || null : null,   // "unconfirmed" | "placeholder" | null
     region: regionOf(country),
     sector: (t && t.sector) || _SECTOR_FALLBACK[sectorOf(deal)] || "Diversified",
     amountKind: t ? t.amountKind || null : null,

@@ -1121,7 +1121,10 @@ notification badge red (`#ef4444`).
   `r` its role — borrower · issuer (incl. a BDC / manager issuing its own notes, shown
   even though it is the lender, and a CLO vehicle) · target · fund · seller · none. It wins
   over the headline parse (`dealCounterparty` in `v2/js/deal-parse.js`); never a
-  descriptor ("AI", "UK", "fintech"). The drawer labels the row by role. Spec:
+  descriptor ("AI", "UK", "fintech"). The drawer labels the row by role. A party not named
+  in the text but researched carries `ps` (source); `pq: "unconfirmed"` (inferred, e.g. from
+  a CLO series' numbering) shows with an **asterisk** ("Margay CLO V*"); `pq: "placeholder"`
+  reads "<Manager> vehicle" where no source names the vehicle. Spec:
   `tests/deal-parse.mjs`. **(l) Link convention — app-wide** (Home briefing, Dashboard,
   Profiles, Transactions; the newswire reader already did this): an INTERNAL link (profile / deal / fund in Wire) is body text with a **blue**
   underline (`--t-link`); an EXTERNAL link (source / filing / website, `target=_blank`)
