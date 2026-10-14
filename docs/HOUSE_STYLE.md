@@ -136,9 +136,10 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   stories** on every wire render, both surfaces (`prefetchTopReads` — warms the viewer's own
   edge colo); (2) a **15-min cron** (`prewarmReads`) extracts the day's top stories into
   **global KV** so a first open is instant *everywhere*, even a cold colo — and it is
-  **direct-fetch only**, so it spends **zero** Jina/Firecrawl proxy quota on a schedule
-  (bot-walled sources stay on the on-demand path; and on-demand, Jina is the default —
-  Firecrawl is reserved for the `READ_FC_HOSTS` allowlist, see R-reader below); (3) `handleRead` checks KV on an edge miss
+  **direct-fetch only** and **limited to `READ_PREWARM_OK`** (central banks, OECD, ING
+  Think, newswire press releases — publishers whose terms permit reuse); every other
+  host is read on demand only (on-demand, Jina is the default — Firecrawl is reserved
+  for the `READ_FC_HOSTS` allowlist); (3) `handleRead` checks KV on an edge miss
   and repopulates the local edge. The edge key and the KV key share one version constant
   (`READ_VER`) — **bump it on any extractor change** so both invalidate in lockstep.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
@@ -1148,13 +1149,19 @@ item keeps a real outbound source link (R7).
 > in `v2/js/home/glance.js`). **Nikkei Asia** (hard paywall) and **The Lawyer** are
 > dropped. **Channel NewsAsia was removed as a wire source (2026-10, owner request).**
 > **Reuters was removed as a wire source (2026-10)** — reuters.com is bot-walled
-> and never opened in the reading pane, so its headlines were dead-ends. The remaining
-> open-but-bot-shielded sources (AP, The Straits Times) render via the on-demand
-> browser proxy — **Jina by default; Firecrawl only for an explicit `READ_FC_HOSTS`
-> allowlist** (empty by default) so interactive reading doesn't drain paid Firecrawl
-> credit (see `_readViaProxy` / `readProxyChoice` in `src/index.js`). The old ≤30%
+> and never opened in the reading pane, so its headlines were dead-ends. 
+>
+> **Terms-of-use compliance (2026-10, `docs/implementation-plan.md` §4).** The reader
+> never goes round a publisher's refusal: the browser proxy (**Jina by default; Firecrawl
+> only for the `READ_FC_HOSTS` allowlist**) renders only a page the publisher served
+> openly whose body needs a browser — never after a 401/403/429/503/challenge
+> (`readProxyAllowed`). **`READ_LINKONLY`** hosts are never fetched at all — headline +
+> link, opening at the publisher — because their terms bar automated access/extraction:
+> Moody's, SCMP, The Straits Times, Substack (incl. butthistime.com). **`READ_NOAUTO`**
+> hosts (AP, CNBC, MarketWatch, Investing.com) are fetched once when the reader opens a
+> story, never pre-warmed or proxied. Spec: `tests/reader-terms.mjs`. The old ≤30%
 > paywalled-share cap was removed.
-- Associated Press (`apnews.com`) — openly-readable global wire (via Google News bridge)
+- Associated Press (`apnews.com`) — global wire (via Google News bridge); read on demand only (`READ_NOAUTO`)
 - **Added 2026-10 (owner-approved, trialled in-pane by `scripts/source-trial.mjs`):** European Central Bank, Bank of Japan, Bank of Canada (central-bank feeds); Euronews Business; AltAssets (private markets). The Guardian and Above the Law also passed the trial but stay OFF (removed 2026-09; not re-added without the owner's say-so). Law Society Gazette is pending — its feed returned no items in the trial.
 - CNBC (`cnbc.com`)
 - MarketWatch

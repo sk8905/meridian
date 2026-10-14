@@ -1976,18 +1976,34 @@ const READ_PAYWALL = new Set([
 // pre-warm): the wire row keeps the headline + link and opens at the publisher.
 // Moody's ToU §1(c)(ii)–(iv) and §2 bar access "by means of any automated program",
 // scraping, data mining, and use for AI/NLP (moodys.com/web/en/us/legal/terms-of-use.html).
+// SCMP T&C cl. 3.2.1 prohibits "any automated system" to access/extract content; The
+// Straits Times is bot-shielded (reading it meant going round that refusal); Substack's
+// ToS bars crawling and copying/storing "any significant portion" (substack.com/tos) —
+// their RSS headlines stay on the wire, the article opens at the publisher.
 const READ_LINKONLY = new Set([
-  "moodys.com",
+  "moodys.com", "scmp.com", "straitstimes.com", "substack.com", "butthistime.com",
 ]);
-// Hosts we render in-pane even though they flag their pages "metered"
-// (isAccessibleForFree=false in the page data). These sites still serve the full
-// article body to a plain public fetch, so we print exactly what that public page
-// returns — no login, no credentials, no hard-paywall bypass (READ_PAYWALL hosts
-// are never fetched at all). If a listed host serves only a teaser, extraction
-// stays thin and the reader still falls back to the link.
-const READ_OPEN = new Set([
-  "scmp.com",
+// Hosts the reader may fetch ONCE when the reader opens a story (personal use), but
+// never on a schedule (KV pre-warm) and never through the Jina/Firecrawl proxy — their
+// terms limit automated retrieval/storage, or could not be confirmed to allow it.
+const READ_NOAUTO = new Set([
+  "apnews.com", "cnbc.com", "marketwatch.com", "investing.com",
 ]);
+// Hosts the 15-min pre-warm may store in KV: official / press-release publishers whose
+// terms permit reuse (central banks, statistics offices, ING Think — "use, distribute,
+// reproduce… provided you credit ING", newswire press releases). Everything else is
+// read on demand only.
+const READ_PREWARM_OK = new Set([
+  "ecb.europa.eu", "bankofengland.co.uk", "federalreserve.gov", "boj.or.jp", "bankofcanada.ca",
+  "oecd.org", "think.ing.com", "businesswire.com", "prnewswire.com", "globenewswire.com",
+]);
+// A refusal by the publisher (auth wall, forbidden, rate-limited, bot challenge) is
+// respected: the proxy is never used to get round it, only to render a page the
+// publisher served openly but whose body needs a browser to assemble.
+export function readProxyAllowed(host, reason) {
+  if (_readInSet(host, READ_LINKONLY) || _readInSet(host, READ_NOAUTO) || _readInSet(host, READ_PAYWALL)) return false;
+  return !/fetch-(401|403|407|429|451|503)|redirect-blocked|challenge/.test(String(reason || ""));
+}
 // Reader extractor version — bump on ANY extraction change so BOTH the per-colo edge cache
 // (read.internal/<ver>) and the GLOBAL KV pre-warm (rdr:<ver>:<url>) discard bodies produced
 // by the old extractor. Keep the two in lockstep through this one constant.
@@ -2257,10 +2273,9 @@ export function extractReadable(html, u) {
   const date = _readMeta(html, ["article:published_time", "og:published_time", "parsely-pub-date", "datePublished"]);
   const freeMeta = _readMeta(html, ["isAccessibleForFree"]);
   const jsonldFree = /"isAccessibleForFree"\s*:\s*(?:false|"false")/i.test(html);
-  // READ_OPEN hosts are rendered from whatever their public page serves, so their
-  // "metered" flag is ignored; every other host honours it (a metered teaser stays
-  // behind its link). Body length still decides — no body, no render.
-  let accessible = _readInSet(host, READ_OPEN) ? true : !(/false/i.test(freeMeta) || jsonldFree);
+  // A "metered" flag (isAccessibleForFree=false) is always honoured — the teaser stays
+  // behind its link. Body length still decides — no body, no render.
+  let accessible = !(/false/i.test(freeMeta) || jsonldFree);
   // Body: prefer paragraphs inside <article>, else [itemprop=articleBody]. Many
   // sites (e.g. a page whose first <article> is a related-story card, with the real
   // copy in a <div class="articleBody/WYSIWYG/story-body…">) leave the body OUTSIDE
@@ -2579,10 +2594,11 @@ async function handleRead(request, env, ctx) {
       const out = json(data); out.headers.set("cache-control", "no-store"); return out;
     }
   } catch { /* KV miss / parse error → fall through to a live fetch */ }
-  // Direct publisher fetch first (fast, no third party); if that's blocked or dry,
-  // fall back to the reader proxy so bot-walled sources (e.g. Reuters 503) still read.
+  // Direct publisher fetch first (fast, no third party); if the page came back dry
+  // (served openly but assembled client-side), fall back to the reader proxy — but never
+  // to get round a refusal (401/403/429/503/challenge) or for a NOAUTO/LINKONLY host.
   let data = await _readDirect(u, host);
-  if (!(data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length)) {
+  if (!(data.accessible && Array.isArray(data.paragraphs) && data.paragraphs.length) && readProxyAllowed(host, data.reason)) {
     const viaProxy = await _readViaProxy(u, host, env);
     if (viaProxy.accessible && viaProxy.paragraphs.length) data = viaProxy;
     // Both paths failed: keep BOTH reasons (e.g. "fetch-503/proxy-402") so the note
@@ -2618,7 +2634,7 @@ async function prewarmReads(env) {
   for (const it of items) {
     const href = it && it.url; if (!href || !/^https:\/\//i.test(href)) continue;
     let host; try { host = new URL(href).hostname.replace(/^www\./, ""); } catch { continue; }
-    if (_readInSet(host, READ_PAYWALL) || _readInSet(host, READ_LINKONLY) || !readHostAllowed(host)) continue;
+    if (!_readInSet(host, READ_PREWARM_OK) || !readHostAllowed(host)) continue;
     if (seen.has(href)) continue; seen.add(href);
     cand.push({ href, host });
     if (cand.length >= 14) break;
@@ -3485,10 +3501,9 @@ export const FEED_SOURCES = [
   { url: "https://www.euronews.com/rss?level=theme&name=business", source: "Euronews Business", region: "GEN", cap: 6 },
   // (The Guardian, Sharecast and City AM removed as newswire sources.)
   // Asia — reputable regional business/finance desks for overnight coverage.
-  // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP stays
-  // via READ_OPEN (metered, but its public body renders). The Straits Times stays:
-  // its business articles are marked free (isAccessibleForFree=true) — merely
-  // bot-shielded, so the browser proxy (Firecrawl) renders them in-pane.
+  // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP and The
+  // Straits Times stay as RSS HEADLINES ONLY (READ_LINKONLY): SCMP's T&C bar automated
+  // extraction and The Straits Times bot-shields its pages, so both open at the publisher.
   { url: "https://www.scmp.com/rss/92/feed/", source: "South China Morning Post", region: "GEN", cap: 4 },
   { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
   // Channel NewsAsia removed as a wire source (2026-10, owner request).

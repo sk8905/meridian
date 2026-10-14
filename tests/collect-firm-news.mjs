@@ -2,7 +2,7 @@
 // standing in for the firm's site. It must: find sitemaps via robots.txt, expand a
 // sitemap index, keep only in-scope publication URLs inside the window that Wire
 // does not hold, and capture each page's OWN title / description / published date.
-import { collectFirm, parseSitemap, pageMeta, wanted, firmDomains, parseSince, dateProbe } from "../scripts/collect-firm-news.mjs";
+import { collectFirm, parseSitemap, pageMeta, wanted, firmDomains, parseSince, dateProbe, parseRobots, robotsAllows } from "../scripts/collect-firm-news.mjs";
 import { items } from "../legal/js/data.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
@@ -65,4 +65,14 @@ check(!wanted({ loc: "https://www.weil.com/experience/practices/restructuring", 
 const doms = firmDomains();
 check((doms.latham || []).includes("www.lw.com") && (doms.proskauerrose || []).length > 0, "every tracked firm resolves to its own site domain(s)");
 check(parseSince("2020-01-01") === "2020-01-01" && /^\d{4}-\d{2}-\d{2}$/.test(parseSince("14d")), "window parses as a date or N days");
+
+// robots.txt compliance (RFC 9309): our group or "*", longest match, Allow wins ties,
+// Crawl-delay honoured with a 1s floor; a disallowed sitemap/page is never fetched.
+{
+  const r = parseRobots("User-agent: Googlebot\nDisallow: /\n\nUser-agent: *\nDisallow: /search\nAllow: /insights/public\nDisallow: /insights/\nCrawl-delay: 5\n");
+  check(r.delayMs === 5000, `robots: Crawl-delay honoured (${r.delayMs}ms)`);
+  check(robotsAllows(r, "https://x.com/news/a") && !robotsAllows(r, "https://x.com/insights/a") && robotsAllows(r, "https://x.com/insights/public/a"), "robots: longest-match Allow/Disallow");
+  check(!robotsAllows(parseRobots("User-agent: WireMonitor\nDisallow: /\n"), "https://x.com/a"), "robots: a group naming WireMonitor applies to us");
+  check(parseRobots("").delayMs >= 1000, "robots: never faster than 1 request/second per host");
+}
 finish();

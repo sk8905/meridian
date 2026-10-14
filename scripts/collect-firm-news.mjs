@@ -68,6 +68,38 @@ export function parseSitemap(xml) {
 }
 export function sitemapsFromRobots(txt) { return [...String(txt || "").matchAll(/^\s*sitemap:\s*(\S+)/gim)].map((m) => m[1]); }
 
+// robots.txt compliance (RFC 9309): the group for our agent ("WireMonitor"), else "*";
+// Allow/Disallow by longest match (Allow wins a tie); Crawl-delay honoured, never
+// faster than POLITE_MS between requests to one host.
+export const POLITE_MS = 1000;
+export function parseRobots(txt, agent = "wiremonitor") {
+  const groups = []; let cur = null, lastWasAgent = false;
+  for (const raw of String(txt || "").split(/\r?\n/)) {
+    const line = raw.replace(/#.*$/, "").trim(); if (!line) continue;
+    const m = /^([A-Za-z-]+)\s*:\s*(.*)$/.exec(line); if (!m) continue;
+    const k = m[1].toLowerCase(), v = m[2].trim();
+    if (k === "user-agent") { if (!lastWasAgent || !cur) { cur = { agents: [], rules: [], delay: null }; groups.push(cur); } cur.agents.push(v.toLowerCase()); lastWasAgent = true; continue; }
+    lastWasAgent = false; if (!cur) continue;
+    if (k === "allow" || k === "disallow") { if (v || k === "allow") cur.rules.push({ allow: k === "allow", path: v }); }
+    else if (k === "crawl-delay") { const n = parseFloat(v); if (n > 0) cur.delay = n; }
+  }
+  const mine = groups.filter((g) => g.agents.some((a) => a !== "*" && agent.includes(a)));
+  const pick = mine.length ? mine : groups.filter((g) => g.agents.includes("*"));
+  return { rules: pick.flatMap((g) => g.rules), delayMs: Math.max(POLITE_MS, ...pick.map((g) => (g.delay || 0) * 1000)) };
+}
+const ruleRe = (p) => new RegExp("^" + p.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*").replace(/\\\$$/, "$"));
+export function robotsAllows(robots, url) {
+  let path; try { const u = new URL(url); path = u.pathname + u.search; } catch { return false; }
+  let best = null;
+  for (const r of (robots && robots.rules) || []) {
+    if (!r.path) continue;
+    if (!ruleRe(r.path).test(path)) continue;
+    const len = r.path.replace(/\*/g, "").length;
+    if (!best || len > best.len || (len === best.len && r.allow)) best = { len, allow: r.allow };
+  }
+  return best ? best.allow : true;
+}
+
 // Publication paths, and slugs that look in scope for the four practice areas.
 const PUB_PATH = /\/(news|insights?|publications?|pubs?|deals?|knowledge|our-thinking|thinking|what-we-think|briefings?|client-alerts?|alerts?|articles?|articles-publications|perspectives|press|press-releases|releases?|newsroom|blogs?|updates?|legal-updates|transactions|experience|thought-leadership|client-memos?|memos?|news-and-insights)\//i;
 const NOT_PUB = /\/(events?|webinars?|people|lawyers|professionals|careers|offices?|locations|practices?|services|sectors?|industries)(?:[-/]|$)/i;
@@ -163,17 +195,22 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get,
   const stat = { domains, sitemaps: 0, urls: 0, kept: 0, fetched: 0, errors: 0 };
   const fname = ((LG.firms || []).find((f) => f.id === id) || {}).name || "";
   const known = new Set([...(LG.items || []).map((i) => normUrl(i.url)), ...skip]);
-  const seenMaps = new Set(), cands = [];
+  const seenMaps = new Set(), cands = [], robotsByHost = new Map();
+  const pause = (h) => new Promise((r) => setTimeout(r, (robotsByHost.get(h) || {}).delayMs ?? POLITE_MS));
   for (const d of domains) {
     const base = `https://${d}`;
-    let maps = sitemapsFromRobots(await fetcher(`${base}/robots.txt`));
-    if (!maps.length) maps = [`${base}/sitemap.xml`];
+    const robotsTxt = await fetcher(`${base}/robots.txt`);
+    const robots = parseRobots(robotsTxt);
+    robotsByHost.set(d, robots);
+    let maps = sitemapsFromRobots(robotsTxt).filter((u) => robotsAllows(robots, u));
+    if (!maps.length && robotsAllows(robots, `${base}/sitemap.xml`)) maps = [`${base}/sitemap.xml`];
     // Expand indexes (depth ≤ 2), preferring child maps whose name hints at publications.
     const queue = maps.map((u) => [u, 0]);
     while (queue.length && seenMaps.size < 40) {
       const [u, depth] = queue.shift();
       if (seenMaps.has(u)) continue; seenMaps.add(u);
-      const xml = await fetcher(u); if (!xml) { stat.errors++; continue; }
+      if (!robotsAllows(robotsByHost.get(host(u)) || robotsByHost.get(d), u)) { stat.disallowed = (stat.disallowed || 0) + 1; continue; }
+      const xml = await fetcher(u); await pause(d); if (!xml) { stat.errors++; continue; }
       stat.sitemaps++;
       const { index, urls } = parseSitemap(xml);
       if (index.length && depth < 2) {
@@ -181,7 +218,12 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get,
         index.sort((a, b) => pri(a) - pri(b)).forEach((x) => queue.push([x, depth + 1]));
       }
       stat.urls += urls.length;
-      for (const x of urls) if (wanted(x, since) && !known.has(normUrl(x.loc))) cands.push(x);
+      for (const x of urls) if (wanted(x, since) && !known.has(normUrl(x.loc))) {
+        const rb = robotsByHost.get(host(x.loc));
+        if (rb && !robotsAllows(rb, x.loc)) { stat.disallowed = (stat.disallowed || 0) + 1; continue; }
+        if (!rb && !domains.includes(host(x.loc))) continue;   // only crawl the firm's own hosts
+        cands.push(x);
+      }
       if (!stat.samples) stat.samples = [];
       for (const x of urls) { if (stat.samples.length >= 6) break; if (!/\/(people|lawyers|professionals)\//i.test(x.loc)) stat.samples.push(x.loc + (x.lastmod ? " @" + x.lastmod : "")); }
     }
@@ -193,6 +235,7 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get,
   const items = [];
   for (const c of uniq) {
     const html = await fetcher(c.loc);
+    await pause(host(c.loc));                          // be polite: sequential, ≥ robots Crawl-delay
     if (!html) { stat.errors++; continue; }
     stat.fetched++;
     const m = pageMeta(html, c.loc, fname);
@@ -200,7 +243,6 @@ export async function collectFirm(id, domains, { since, max = 40, fetcher = get,
     if (m.date && m.date < since) continue;            // lastmod ≠ published: drop old pages re-touched
     if (m.date && m.date > new Date(Date.now() + DAY).toISOString().slice(0, 10)) continue;   // a future date = an event page, not a publication
     items.push({ firm: id, url: c.loc, title: m.title, description: m.description, date: m.date, dateSource: m.dateSource, lastmod: c.lastmod, ...(m.date ? {} : { dateProbe: dateProbe(html) }) });
-    await new Promise((r) => setTimeout(r, 300));       // be polite: one firm, sequential pages
   }
   return { stat, items };
 }
@@ -214,16 +256,23 @@ export function repairTargets(doms = firmDomains()) {
   return (LG.items || []).filter((i) => (!i.date || i.dateEstimated) && (doms[i.firm] || []).some((d) => d.replace(/^www\./, "") === host(i.url)));
 }
 export async function repairDates(targets, { fetcher = get, firmName = (id) => ((LG.firms || []).find((f) => f.id === id) || {}).name || "" } = {}) {
-  const out = [], queue = [...targets];
+  // One worker per HOST (never two requests at once to the same site), robots.txt honoured.
+  const byHost = new Map();
+  for (const t of targets) { const h = host(t.url); (byHost.get(h) || byHost.set(h, []).get(h)).push(t); }
+  const out = [], hosts = [...byHost.keys()];
   await Promise.all(Array.from({ length: 4 }, async () => {
-    while (queue.length) {
-      const t = queue.shift();
-      const html = await fetcher(t.url);
-      if (html) {
-        const m = pageMeta(html, t.url, firmName(t.firm));
-        if (m.date && m.dateSource !== "url" && m.date <= new Date().toISOString().slice(0, 10)) out.push({ id: t.id, url: t.url, date: m.date, dateSource: m.dateSource, was: t.date || null });
+    while (hosts.length) {
+      const h = hosts.shift();
+      const robots = parseRobots(await fetcher(`https://${h}/robots.txt`));
+      for (const t of byHost.get(h)) {
+        if (!robotsAllows(robots, t.url)) continue;
+        const html = await fetcher(t.url);
+        if (html) {
+          const m = pageMeta(html, t.url, firmName(t.firm));
+          if (m.date && m.dateSource !== "url" && m.date <= new Date().toISOString().slice(0, 10)) out.push({ id: t.id, url: t.url, date: m.date, dateSource: m.dateSource, was: t.date || null });
+        }
+        await new Promise((r) => setTimeout(r, robots.delayMs));
       }
-      await new Promise((r) => setTimeout(r, 300));
     }
   }));
   return out.sort((a, b) => a.id.localeCompare(b.id, "en", { numeric: true }));
