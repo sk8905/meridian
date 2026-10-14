@@ -68,7 +68,7 @@ const stress = await pg.evaluate(() => {
     rows: rows.length,
     ths,
     grouped, europeFirst,
-    drill: rows.length > 0 && rows.every((r) => /\/v2\/transactions\/#\/credits\?q=/.test((r.querySelector("td.dsh-nm a.dsh-drill") || {}).getAttribute?.("href") || "")),
+    drill: rows.length > 0 && rows.every((r) => /\/v2\/dashboard\/credit\?credit=/.test((r.querySelector("td.dsh-nm a.dsh-drill") || {}).getAttribute?.("href") || "")),
     leftAligned,
     hasSplitCols: !!tbl.querySelector("td.dsh-stress-sec") && !!tbl.querySelector("td.dsh-stress-hq") && !tbl.querySelector(".dsh-stress-sub"),
     proseNotes: tbl.querySelectorAll(".dsh-clamp2").length,
@@ -80,7 +80,7 @@ check(stress && stress.proseNotes === 0 && stress.srcOnly, "Credit: stress rows 
 check(stress && stress.ths.join("|") === "Debtor|Sector|HQ|Debt|Status|Latest|Src" && stress.hasSplitCols, `Credit: stress table splits debtor/sector/HQ/debt into columns + a dated Latest column (${stress && stress.ths.join(", ")})`);
 check(stress && stress.europeFirst, "Credit: European debtors are listed first by default");
 check(stress && stress.grouped, "Credit: stress rows are grouped by status within each region");
-check(stress && stress.drill, "Credit: every debtor drills into Transactions ▸ Credits (#/credits?q=)");
+check(stress && stress.drill, "Credit: every debtor drills into the European credits roster (?credit=)");
 check(stress && stress.leftAligned, "Credit: stress table columns are left-aligned");
 
 // No duplicate pulse-pill strip above the cards; each US private-credit row is the

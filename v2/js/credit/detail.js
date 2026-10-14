@@ -538,7 +538,7 @@ export function viewManager(id, tab0) {
   // ---- Listed vehicles (BDC / registered CEF) — live holdings from SEC ----
   // Rendered in the SAME .tmini row style as Funds/CLOs: a clickable row that
   // expands its latest SEC holdings inline (no separate card chrome).
-  // Listed / non-traded BDCs this manager advises (Transactions ▸ BDCs roster) join
+  // Listed / non-traded BDCs this manager advises (the Dashboard ▸ Credit BDC roster) join
   // the SEC-filer vehicles, de-duplicated by CIK.
   const vehicles = [...((VEHICLES && VEHICLES[m.id]) || [])];
   (BDCS || []).filter((b) => b.managerId === m.id && b.cik && !vehicles.some((v) => Number(v.cik) === Number(b.cik)))

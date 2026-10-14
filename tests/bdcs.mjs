@@ -1,8 +1,8 @@
-// Transactions ▸ BDCs sub-tab: the largest US business development companies,
-// split into LISTED and INTERVAL/PRIVATE, with total assets, NAV, non-accruals,
-// a LIVE price÷NAV ratio (listed) or repurchase/gating (non-traded), each row
-// expanding to its sourced figures + a holdings fetch. Certifiable data only.
-import { serve, launchChromium, open, PHONE, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
+// BDC roster data: the largest US business development companies, LISTED vs
+// INTERVAL/PRIVATE — every reported figure sourced, certifiable only — and the
+// manager profile's Vehicles tab listing the BDCs it advises. The roster's UI (a card
+// on Dashboard ▸ Credit) is covered by credit-rosters.mjs.
+import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 import { BDCS } from "../credit/js/bdcs.js";
 
 // ---- 1) Data integrity (pure): every reported figure is sourced, never guessed --
@@ -20,108 +20,10 @@ check(unsourced.length === 0, `every reported figure carries a real source URL �
 check(badListed.length === 0, `listed funds carry a ticker+exchange; non-traded carry none (${badListed.join(", ")})`);
 check(BDCS.some((b) => b.structure === "listed") && BDCS.some((b) => b.structure === "nontraded"), "the roster spans both listed and interval/private funds");
 
-// ---- 2) UI ---------------------------------------------------------------------
+// ---- 2) UI: the roster's cards live on Dashboard ▸ Credit — see credit-rosters.mjs.
 const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
-const { ctx, pg, errs } = await open(b, { viewport: { width: 1440, height: 900 }, colorScheme: "dark" }, base + "/v2/transactions/");
-await pg.waitForSelector("#tx-mode .tchip", { timeout: 8000 });
-// Deterministic quotes so the price/NAV ratio is stable (ARCC NAV 19.35 → 21.30/19.35 ≈ 1.10×).
-await pg.route("**/api/quotes**", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ quotes: { ARCC: { price: 21.30 }, FSK: { price: 15.50 }, MAIN: { price: 52.00 } }, asOf: "2026-09-15" }) }));
-
-check(await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].some((c) => c.dataset.mode === "bdc" && /BDC/i.test(c.textContent))), "a BDCs nav chip sits beside Primary / Secondaries / Credits");
-await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].find((c) => c.dataset.mode === "bdc").click());
-await pg.waitForSelector("#tx-bdc-body .tbdc-tbl tbody tr.tbdc-row", { timeout: 5000 });
-await pg.waitForTimeout(400);
-
-const view = await pg.evaluate(() => {
-  const rows = [...document.querySelectorAll("#tx-bdc-body .tbdc-tbl tbody tr.tbdc-row")];
-  const heads = [...document.querySelectorAll("#tx-bdc-body .tbdc-tbl thead th")].map((t) => t.textContent.trim());
-  const arcc = rows.find((x) => /Ares Capital/.test(x.textContent));
-  return {
-    rows: rows.length, heads,
-    arccPxNav: arcc ? (arcc.querySelector(".tbdc-pxnav") || {}).textContent : null,
-    arccPrem: arcc ? !!arcc.querySelector(".tbdc-pxnav.is-prem") : false,
-  };
-});
-check(view.rows >= 25, `the BDC table lists the roster (${view.rows})`);
-check(/Fund/.test(view.heads[0]) && view.heads.some((h) => /Ticker/.test(h)) && !view.heads.some((h) => /^Type$/.test(h)) && view.heads.some((h) => /Manager/.test(h)) && view.heads.some((h) => /Total assets/i.test(h)) && view.heads.some((h) => /NAV/i.test(h)) && view.heads.some((h) => /Non-accrual/i.test(h)) && view.heads.some((h) => /Px\/NAV|liquidity/i.test(h)),
-  `columns: Fund · Ticker · Manager · Total assets · NAV · Non-accrual · Px/NAV·liquidity — no Type column (the section says it) (${view.heads.slice(0, 7).join(" · ")})`);
-check(await pg.evaluate(() => { const rows = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")]; const arcc = rows.find((r) => /Ares Capital/.test(r.textContent)); const bcred = rows.find((r) => /Blackstone Private Credit/.test(r.textContent)); return /ARCC/.test(arcc?.querySelector(".tbdc-tk")?.textContent || "") && (bcred?.querySelector(".tbdc-tk")?.textContent || "").trim() === "—"; }),
-  "a Ticker column shows the listed fund's symbol and a dash for non-traded funds");
-const sec = await pg.evaluate(() => {
-  const labels = [...document.querySelectorAll("#tx-bdc-body .tbdc-seclbl")].map((h) => h.textContent.replace(/\d+$/, "").trim());
-  const tk = [...document.querySelectorAll("#tx-bdc-body td.tbdc-tk")].find((td) => td.querySelector(".tbdc-ex"));
-  const ex = tk && tk.querySelector(".tbdc-ex"), tr = tk && tk.firstChild;
-  // The exchange sits on its own line under the ticker — never running into the next cell.
-  const exR = ex ? ex.getBoundingClientRect() : null, cellR = tk ? tk.getBoundingClientRect() : null;
-  return { labels, exOwnLine: !!ex && getComputedStyle(ex).display === "block", exInside: !!exR && exR.right <= cellR.right + 0.5, noChips: !document.querySelector("#tx-bdc-body [data-bdcf]") };
-});
-check(sec.labels.join("|") === "Listed|Private (non-traded)" && sec.noChips, `the roster shows every fund at once in Listed / Private (non-traded) sections (${sec.labels.join(" · ")})`);
-check(sec.exOwnLine && sec.exInside, "the exchange sits under the ticker inside its cell (no NASDAQ/LISTED run-together)");
-// The first row is never hidden under the sticky column header.
-const sticky = await pg.evaluate(() => {
-  const body = document.querySelector("#tx-bdc-body"); body.scrollTop = 0;
-  const th = body.querySelector(".tbdc-tbl thead th"), tr = body.querySelector(".tbdc-tbl tbody tr.tbdc-row");
-  return { thBottom: Math.round(th.getBoundingClientRect().bottom), rowTop: Math.round(tr.getBoundingClientRect().top), top: getComputedStyle(th).top };
-});
-check(sticky.rowTop >= sticky.thBottom - 1 && sticky.top === "0px", `the sticky header pins to the body top and the first row sits below it (th ${sticky.thBottom} ≤ row ${sticky.rowTop}, top ${sticky.top})`);
-// Sortable columns (header click + the select), recorded in the URL.
-const srt = await pg.evaluate(async () => {
-  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-  const names = () => [...document.querySelector("#tx-bdc-body .tbdc-tbl").querySelectorAll("tr.tbdc-row td.tbdc-nm")].map((td) => td.textContent.replace("▸", "").trim());
-  document.querySelector('#tx-bdc-body th[data-bsort="name"]').click(); await wait(120);
-  const n1 = names(), h1 = location.hash;
-  document.querySelector('#tx-bdc-body th[data-bsort="na"]').click(); await wait(120);
-  const na = [...document.querySelector("#tx-bdc-body .tbdc-tbl").querySelectorAll("tr.tbdc-row td.tbdc-na")].map((td) => parseFloat(td.textContent)).filter((v) => !isNaN(v));
-  document.querySelector("#tx-bdc-filters").click(); await wait(120);   // sort + CSV sit in the BDC panel
-  const s = document.querySelector("#tx-bdc-sort"); const sv = s.value;
-  s.value = "size-desc"; s.dispatchEvent(new Event("change", { bubbles: true })); await wait(120);
-  document.querySelector("#tx-bdc-sheet .tx-sheet-done").click(); await wait(80);
-  return { sortedAZ: n1.every((x, i) => i === 0 || n1[i - 1].localeCompare(x) <= 0), h1, naDesc: na.length > 2 && na.every((v, i) => i === 0 || v <= na[i - 1]), sv };
-});
-check(srt.sortedAZ && /sort=name-asc/.test(srt.h1) && srt.naDesc && srt.sv === "na-desc", `BDC columns sort (name A–Z, non-accrual highest first; ${srt.h1})`);
-check(/^1\.10×$/.test((view.arccPxNav || "").trim()) && view.arccPrem, `listed funds show a LIVE price÷NAV ratio, marked premium/discount (${view.arccPxNav})`);
-
-// Expand a listed row → sourced facts (total assets / NAV / non-accruals) + source links + holdings CTA.
-const exp = await pg.evaluate(() => {
-  const row = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")].find((x) => /Ares Capital/.test(x.textContent));
-  row.click();
-  const d = row.nextElementSibling;
-  const fl = d.querySelector(".tbdc-facts");
-  const cols = fl ? getComputedStyle(fl).gridTemplateColumns.trim().split(/\s+/).length : 0;
-  return {
-    open: d && d.classList.contains("tbdc-exp") && !d.hidden,
-    facts: (fl || {}).textContent || "",
-    cols,
-    // NAV/share is stacked BENEATH non-accruals (single column), not beside it.
-    navAfterNa: fl ? fl.textContent.indexOf("Non-accruals") < fl.textContent.indexOf("NAV / share") : false,
-    srcs: d.querySelectorAll(".tbdc-srcs a[href^='https://www.sec.gov']").length,
-    holdBtn: !!d.querySelector(".tbdc-hold-btn"),
-  };
-});
-check(exp.open, "clicking a BDC row expands its detail");
-check(/Total assets/.test(exp.facts) && /Non-accruals/.test(exp.facts) && /fair value/.test(exp.facts), "the detail lists total assets + non-accruals (at fair value / cost)");
-check(exp.cols === 1, `the facts stack in a single column (${exp.cols})`);
-check(exp.navAfterNa, "NAV / share sits beneath Non-accruals (stacked)");
-check(exp.srcs > 0, `the detail links its SEC source(s) (${exp.srcs})`);
-check(exp.holdBtn, "a listed BDC offers a live SEC holdings fetch");
-
-// Every manager link resolves to a real profile, and a BDC whose adviser is a covered
-// manager is linked (the roster used to leave 27 of 31 unlinked — and one pointed at a
-// non-existent id).
-const links = await pg.evaluate(async () => {
-  const [{ BDCS }, D] = await Promise.all([import("/credit/js/bdcs.js"), import("/credit/js/data.js")]);
-  const ids = new Set(D.managers.map((m) => m.id));
-  const linked = BDCS.filter((b) => b.managerId);
-  return { n: BDCS.length, linked: linked.length, dead: linked.filter((b) => !ids.has(b.managerId)).map((b) => b.name),
-    rows: document.querySelectorAll("#tx-bdc-body a.tx-mgr").length };
-});
-check(links.dead.length === 0, `every BDC manager link resolves to a profile (dead: ${links.dead.join(", ") || "none"})`);
-check(links.linked >= 20 && links.rows === links.linked, `BDCs advised by covered managers link to them (${links.linked}/${links.n}, ${links.rows} links rendered)`);
-
-checkErrs(errs, "BDC roster");
-await ctx.close();
 
 // ---- 2b) A manager profile lists the BDCs it advises under Vehicles ----
 {
@@ -132,25 +34,6 @@ await ctx.close();
   check(veh.filter((n) => /Blue Owl Capital Corp/.test(n)).length === 1, "a BDC already on the manager's SEC vehicle list is not listed twice (same CIK)");
   checkErrs(e3, "manager vehicles BDCs");
   await c3.close();
-}
-
-// ---- 3) Phone: the BDC table fits the screen (no horizontal scroll) ----
-{
-  const { ctx: c2, pg: p2, errs: e2 } = await open(b, PHONE, base + "/v2/transactions/");
-  await p2.waitForSelector("#tx-mode .tchip", { timeout: 8000 });
-  await p2.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].find((c) => c.dataset.mode === "bdc").click());
-  await p2.waitForSelector("#tx-bdc-body .tbdc-tbl tbody tr.tbdc-row", { timeout: 5000 });
-  const fit = await p2.evaluate(() => {
-    const t = document.querySelector("#tx-bdc-body .tbdc-tbl");
-    const wrap = t.closest(".tleague-wrap");
-    const se = document.scrollingElement;
-    return { vw: window.innerWidth, tblW: Math.round(t.getBoundingClientRect().width),
-      wrapOverflow: wrap.scrollWidth - wrap.clientWidth, pageOverflow: se.scrollWidth - se.clientWidth };
-  });
-  check(fit.pageOverflow <= 1, `phone: the page itself does not scroll horizontally — only the table does (page ${fit.pageOverflow})`);
-  check(fit.wrapOverflow > 1, `phone: the full table extends and scrolls horizontally inside its wrapper (${fit.wrapOverflow}px)`);
-  checkErrs(e2, "BDC roster phone");
-  await c2.close();
 }
 
 await b.close(); srv.close();

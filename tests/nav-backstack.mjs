@@ -256,12 +256,14 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
 
 // ---- 7) Transactions state lives in the URL (A4) + search / filters (C4, C5) ----
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/#/bdc?open=ARCC");
-  await pg.waitForSelector("#tx-bdc-body tr.tbdc-row", { timeout: 8000 });
-  const bdc = await pg.evaluate(() => ({ mode: (document.querySelector("#tx-mode .tchip.is-on") || {}).dataset.mode, open: !!document.querySelector('#tx-bdc-body tr.tbdc-row.is-open[data-key="ARCC"]') }));
-  check(bdc.mode === "bdc" && bdc.open, `a pasted #/bdc?open=ARCC lands on BDCs with Ares Capital expanded (${JSON.stringify(bdc)})`);
-  await pg.reload(); await pg.waitForSelector("#tx-bdc-body tr.tbdc-row", { timeout: 8000 });
-  check(await pg.evaluate(() => (document.querySelector("#tx-mode .tchip.is-on") || {}).dataset.mode === "bdc"), "a reload keeps the Transactions mode");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/#/structured?sort=size-desc");
+  await pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
+  await pg.reload(); await pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
+  check(await pg.evaluate(() => (document.querySelector("#tx-mode .tchip.is-on") || {}).dataset.mode === "structured" && /sort=size-desc/.test(location.hash)), "a reload keeps the Transactions mode and sort");
+  // A BDC deep link opens on Dashboard ▸ Credit and survives a reload.
+  await pg.goto(base + "/v2/dashboard/credit?bdc=ARCC"); await pg.waitForSelector(".crr-row.is-open", { timeout: 8000 });
+  await pg.reload(); await pg.waitForSelector(".crr-row.is-open", { timeout: 8000 });
+  check(await pg.evaluate(() => (document.querySelector(".crr-row.is-open") || {}).dataset.bdc === "ARCC"), "a reload of ?bdc=ARCC keeps Ares Capital open on the Dashboard");
   // Legacy #/primary → Lending; a filter change is a history step Back undoes.
   await pg.goto(base + "/v2/transactions/#/primary"); await pg.waitForTimeout(600);
   check(await pg.evaluate(() => location.hash === "#/lending"), "the retired #/primary mode canonicalises to #/lending");

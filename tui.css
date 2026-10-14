@@ -1385,7 +1385,6 @@ th.pf-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 .tx-stats b { color: var(--ink); font-weight: 700; }
 .tx-stats .tx-mgr { color: var(--muted); }
 .tx-stats .tx-mgr:hover { color: var(--ink); }
-#tx-credits-body .tx-stats { padding: 7px 12px 6px; }
 /* Sortable column headers (▲/▼ on the active one). */
 th.tx-sortable { cursor: pointer; user-select: none; }
 th.tx-sortable:hover { color: var(--ink); }
@@ -1398,8 +1397,6 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 .tx-list td.txc-ctry, .tx-list td.txc-ev, .tx-list td.txc-type, .tx-list td.txc-sec { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px; }
 /* BDC + Credits: their tables scroll inside their own body, so the sticky header pins
    to its top (the shared top:28px hid the first row under it). */
-#tx-bdc-body .tleague th, #tx-credits-body .tcr-tbl th { top: 0; }
-#tx-credits-body .tcr-tbl th { position: sticky; background: var(--head); z-index: 1; }
 .tbdc-ex { display: block; color: var(--faint); font-size: var(--fs-micro); letter-spacing: .03em; }
 @media (min-width: 761px) {
   /* Desktop: the open sheet caps its height and scrolls, the list stays beneath it. */
@@ -1410,7 +1407,7 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
      group selects live in the sheet, not the bar. */
   .tx-bar .tx-sortgrp { display: none; }
   .tx-bar .tsearch { flex: 1 1 100px; }
-  .tx-sheet-open #tx-body, .tx-sheet-open #tx-asof, .tx-crsheet-open #tx-credits-body { display: none; }
+  .tx-sheet-open #tx-body, .tx-sheet-open #tx-asof { display: none; }
   .tx-sheet-f { position: sticky; bottom: 0; }
   .tx-fchip { min-height: 32px; }
   .tx-stats { padding-left: 12px; padding-right: 12px; }

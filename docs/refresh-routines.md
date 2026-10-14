@@ -286,7 +286,7 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   `"Acquisition financing"`, `"Preferred"`, `"Minority equity"`). Only when the source
   supports it — never guess; leave it off and let the auto-derive stand.
 - **European credit universe (`credit/js/eu-credits.js`) — compile incrementally.**
-  The Transactions ▸ Credits sub-tab lists the ~300 European leveraged-loan / CLO
+  The Dashboard ▸ Credit *European credits* card lists the ~300 European leveraged-loan / CLO
   obligors by sector with their current issuer rating, anchored to the Morningstar
   European Leveraged Loan Index (ELLI). The constituent list + ratings are
   proprietary, so build `EUR_CREDITS` from PUBLIC rating actions and coverage — a

@@ -103,7 +103,7 @@ check(asof.staleClass === (asof.ageDays > 7) && asof.hasFlag === (asof.ageDays >
   `Transactions: the stale flag reflects the real ledger age (${asof.ageDays}d → ${asof.ageDays > 7 ? "stale flag shown" : "fresh, no flag"})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.noPeriodChips, "the old Last 12 months / All time period CHIPS stay removed (a compact date-range select replaces them)");
-check(ov.modeChips.join(",") === "Lending,Structured credit,Secondaries,Manager M&A,Credits,BDCs", `the Lending / Structured credit / Secondaries / Manager M&A / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
+check(ov.modeChips.join(",") === "Lending,Structured credit,Secondaries,Manager M&A", `the Lending / Structured credit / Secondaries / Manager M&A nav chips are present — Credits and BDCs live on Dashboard ▸ Credit (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 
@@ -437,7 +437,7 @@ for (const w of [1280, 1024]) {
   const f = await open(b, { ...DESKTOP, viewport: { width: w, height: 800 } }, base + "/v2/transactions/");
   await f.pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
   const off = [];
-  for (const m of ["lending", "credits", "bdc"]) {
+  for (const m of ["lending", "structured", "mna"]) {
     await f.pg.evaluate((m) => { location.hash = "#/" + m; }, m); await f.pg.waitForTimeout(250);
     off.push(...await f.pg.evaluate(() => [...document.querySelectorAll(".tx-bar")].filter((h) => h.offsetParent).flatMap((h) => [...h.querySelectorAll("input, select, button")])
       .filter((e) => e.offsetParent && getComputedStyle(e).display !== "none")
@@ -465,16 +465,23 @@ for (const w of [1280, 1024]) {
     const x = document.querySelector("#tx-body .tx-amt-x");
     location.hash = "#/structured"; await wait(250);
     const sHeads = [...document.querySelectorAll("#tx-body .tx-list thead th")].map((h) => h.textContent.trim());
+    // Structured leads with the VEHICLE (the audited CLO / fund name), not the news headline.
+    const sRows = [...document.querySelectorAll("#tx-body tr.tx-row")].slice(0, 40);
+    const { deals } = await import("/credit/js/data.js");
+    const hl = new Map(deals.map((d) => [d.id, (d.headline || "").trim()]));
+    const vehicles = sRows.map((tr) => [tr.querySelector("td.tx-bd").textContent.replace("▸", "").trim(), hl.get(tr.dataset.deal)]);
+    const vehLead = vehicles.length > 0 && vehicles.filter(([v, h]) => v && v !== h).length >= vehicles.length * 0.9;
     const events = [...document.querySelectorAll("#tx-body td.txc-ev")].map((td) => td.textContent.trim()).filter((t) => t !== "—");
     const alt = document.querySelector("#tx-body .tx-alt");
     let altDrawer = "";
     if (alt) { alt.closest("tr").querySelector("td.tx-bd").click(); await wait(150); altDrawer = document.querySelector("#tx-drawer").innerText; }
-    return { n: ids.length, allMna: ids.length > 0 && ids.every((id) => mna.has(id)), noneInLending: ![...mna].some((id) => lendIds.has(id)), heads, x: x ? x.textContent : "", sHeads, events: [...new Set(events)], alt: !!alt, altDrawer: /Also reported/i.test(altDrawer) };
+    return { n: ids.length, allMna: ids.length > 0 && ids.every((id) => mna.has(id)), noneInLending: ![...mna].some((id) => lendIds.has(id)), heads, x: x ? x.textContent : "", sHeads, events: [...new Set(events)], vehLead, vehSample: vehicles.slice(0, 3).map(([v]) => v), alt: !!alt, altDrawer: /Also reported/i.test(altDrawer) };
   });
   check(r.allMna && r.noneInLending, `Manager M&A lists exactly the asset-manager acquisitions, kept out of Lending (${r.n})`);
   check(r.heads.join("|") === "Target|Acquirer|Country|Value|Date|Source", `Manager M&A columns: Target · Acquirer · Country · Value · Date · Source (${r.heads.join(" · ")})`);
   check(/^(EV|AUM) /.test(r.x) || r.x === "", `a non-deal-size figure reads muted with its kind (${r.x || "none on this page"})`);
-  check(r.sHeads.join("|") === "Deal|Manager|Type|Event|Country|Size|Date|Source" && r.events.some((e) => /New issue|Reset|Refi/.test(e)), `Structured credit has its own columns incl. the CLO event (${r.sHeads.join(" · ")}; ${r.events.join(", ")})`);
+  check(r.vehLead, `Structured credit leads each row with the vehicle name, not the headline (${r.vehSample.join(" · ")})`);
+  check(r.sHeads.join("|") === "Vehicle|Manager|Type|Event|Country|Size|Date|Source" && r.events.some((e) => /New issue|Reset|Refi/.test(e)), `Structured credit has its own columns incl. the CLO event (${r.sHeads.join(" · ")}; ${r.events.join(", ")})`);
   check(r.alt && r.altDrawer, "a de-duplicated deal shows its other source (+n in the row, Also reported in the drawer)");
   // $1–15bn → Target → off.
   await f.pg.evaluate(() => { location.hash = "#/lending"; }); await f.pg.waitForTimeout(250);

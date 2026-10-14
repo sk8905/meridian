@@ -460,8 +460,8 @@ notification badge red (`#ef4444`).
   facts, named investors (linked to their Investor profile) and sources — there is no
   separate fund page. Ongoing curation of
   `instrument`/`instrumentType` is a daily-refresh task (see refresh-routines).
-- **R22 — European credit universe (Transactions ▸ Credits).** The Credits sub-tab
-  (`credit/js/eu-credits.js` → `EUR_CREDITS`, rendered in `v2/js/transactions/app.js`)
+- **R22 — European credit universe (Dashboard ▸ Credit).** The *European credits* card
+  (`credit/js/eu-credits.js` → `EUR_CREDITS`, rendered by `v2/js/credit-roster.js`)
   lists the ~300 European leveraged-loan / CLO obligors **by sector** with their
   current **issuer rating**, its **borrower jurisdiction** and a **12-month rating
   trend** (▲ up / ▼ down / – unchanged), anchored to the Morningstar European
@@ -474,8 +474,8 @@ notification badge red (`#ef4444`).
   domicile; `trend` is the S&P rating's net direction over the trailing 12 months
   and is `"up"`/`"down"` only against a verified rating change in that window,
   `"flat"` otherwise. Growing it is a daily-refresh task.
-- **R23 — BDC roster (Transactions ▸ BDCs).** The BDCs sub-tab
-  (`credit/js/bdcs.js` → `BDCS`, rendered in `v2/js/transactions/app.js`) lists the
+- **R23 — BDC roster (Dashboard ▸ Credit).** The *BDCs* card
+  (`credit/js/bdcs.js` → `BDCS`, rendered by `v2/js/credit-roster.js`) lists the
   largest US business development companies, split **listed** vs **interval/private**
   (non-traded, perpetual-life). Every financial figure — total assets / net assets /
   portfolio, NAV per share, non-accruals (at fair value AND cost), and, for
@@ -487,7 +487,8 @@ notification badge red (`#ef4444`).
   manager/CIK/structure) is public fact. The **listed price÷NAV ratio is live**,
   computed client-side from `/api/quotes` (Yahoo last trade) ÷ the reported NAV — it
   is not stored. Refreshing the figures each quarter (new 10-Q/8-K season) and the
-  live-price wiring are daily-refresh concerns; enforced by `tests/bdcs.mjs`.
+  live-price wiring are daily-refresh concerns; enforced by `tests/bdcs.mjs` and
+  `tests/credit-rosters.mjs`.
 
 - **R24 — Profile Peers.** Every Profiles detail page (managers, hedge funds,
   investors, law firms) carries a **Peers** dropdown of **3–5 similar entities**
@@ -992,14 +993,16 @@ notification badge red (`#ef4444`).
   `pushState` wrapper. Specs: `tests/nav-backstack.mjs`, `tests/nav-back-button.mjs`.
 
 - **R36 — Transactions: modes, deals as objects, URL state.** (UX review 2026-10.) The
-  modes are **Lending · Structured credit · Secondaries · Manager M&A · Credits · BDCs**
+  modes are **Lending · Structured credit · Secondaries · Manager M&A** (the European
+  credits and BDC rosters moved to Dashboard ▸ Credit in 2026-10 — see R39j)
   (Manager M&A and the filters / columns / sorting / grouping: see **R39**) — the deal-flow
   groups (`TX_GROUPS` in `credit/js/tx.js`) named as the market uses them: *Lending* =
   origination (direct lending/unitranche, ABL, NAV/fund finance, rescue, restructuring,
   other); *Structured credit* = CLO, CFO, SRT; *Secondaries* = GP-/LP-led and NPL/loan
   portfolios. (The retired `#/primary` URL canonicalises to `#/lending`.) **Every view is
   in the hash** — `#/<mode>?type=&sec=&reg=&size=&ccy=&sp=&lender=&period=|from=&to=&focus=&q=&sort=&grp=&deal=`,
-  `#/credits?q=&rt=&tr=&jur=&csec=&sort=&grp=&open=`, `#/bdc?q=&sort=&open=` (legacy
+  (the old `#/credits?q=|open=` and `#/bdc?open=` links redirect to
+  `/v2/dashboard/credit?credit=` / `?bdc=`; legacy
   `#/<mode>/<type>`, `?min=` and `focus=1` links canonicalise); a type / mode change, a
   pill removal or an opened deal is a history step (Back undoes it); typing a search and
   toggling chips inside the open Filters sheet replace. **A deal is a
@@ -1011,10 +1014,8 @@ notification badge red (`#ef4444`).
   deals are two-line cards (borrower · amount / date · lender · type), never a
   sideways-scrolling table; the drawer replaces the list in the page flow. The **borrower**
   column never repeats the lender: `dealCounterparty()` (`v2/js/deal-parse.js`) falls back
-  to the sourced headline when the parse only found the lender. **Credits** rows open the
-  tracked deals that name the obligor + their lenders; **BDCs** carry `managerId` for
-  every adviser on the roster and appear on the manager's Vehicles tab. Specs:
-  `tests/transactions.mjs`, `tests/tx-credits.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`.
+  to the sourced headline when the parse only found the lender. Specs:
+  `tests/transactions.mjs`, `tests/nav-backstack.mjs`.
 
 - **R37 — Dashboard: Europe-first market state (review 2026-10).** The Dashboard is the
   at-a-glance state for a **European credit-fund** reader. **(a) Sub-tabs, in priority
@@ -1027,8 +1028,9 @@ notification badge red (`#ef4444`).
   tile dated with its **1W / 1M move**; then **Europe — defaults & distress** (`EU_DISTRESS`,
   curated + the live Eurostat bankruptcy index) beside **US private credit**
   (`PRIVATE_CREDIT`, labelled US); the **stress list** (Europe first, each debtor drills to
-  Transactions ▸ Credits); the **maturity wall**; and **CLOs & fund closes** counted from
-  Wire's own deal records (labelled "tracked by Wire", never a market statistic). The
+  the European credits roster, `?credit=<name>`); the **maturity wall**; **CLOs & fund
+  closes** counted from Wire's own deal records (labelled "tracked by Wire", never a market
+  statistic); and, last, the **reference rosters** — European credits and BDCs (R39j). The
   **credit wire** rail is de-duplicated (same date + headline or URL) and capped at 15;
   a deal opens Wire's Transactions drawer (`#/deal/<id>`), intel links its source.
   **(c) Rates**: regime pills (ECB · BoE · Fed · Cycle), the **policy table ECB · BoE ·
@@ -1066,7 +1068,7 @@ notification badge red (`#ef4444`).
   *Compare* dropdown): two managers side by side — identity, Group / Credit AUM, strategies,
   funds, vehicles, tracked items, deal counts (all / 12m / 90d), 12-month mix, median
   disclosed size, top sectors, latest deal, advisers; either side swappable. **(d) CSV**:
-  every Profiles list and every Transactions view (deals, credits, BDCs) exports exactly
+  every Profiles list, every Transactions view and both Dashboard rosters (credits, BDCs) export exactly
   what is on screen (filters / search / sort applied) via `v2/js/csv.js`. **(e) The bell**
   (and its Watchlist tab) opens items IN Wire: a deal → its deal panel, a fundraising item →
   the manager profile focused on it, a hedge-fund story → the fund profile focused on it, a
@@ -1105,11 +1107,12 @@ notification badge red (`#ef4444`).
   years, last six quarters, custom range) · Region (with *All Europe*) · Size; **More
   filters ▸** adds Sector · Currency · Sponsor · Lender and Sort & group. Footer: Clear all ·
   Export CSV · Show N. Multi-select chips with live counts (OR within a facet, AND across).
-  Credits' panel: rating · trend · jurisdiction · sector + sort & group; BDCs': sort + CSV.
   On phone the stats line is dropped (the panel's "Show N deals" carries the count).
   **(f) Columns per mode**
   (Lending: Borrower · Lender · Sponsor (only when any) · Sector · Country · Amount · Date ·
-  Source; Structured: Deal · Manager · Type · Event · Country · Size · Date · Source;
+  Source; Structured: **Vehicle** (the audited CLO / fund name — never the news headline,
+  which stays as the cell's tooltip and in the drawer) · Manager · Type · Event · Country ·
+  Size · Date · Source;
   Secondaries: Fund / portfolio · Buyer / lead · Type · Country · Size · Date · Source);
   Amount / Date / Lender / name headers sort (blanks always last); **group by** lender ·
   month · sector · region · type with a count + disclosed-volume subtotal per group; a
@@ -1126,12 +1129,19 @@ notification badge red (`#ef4444`).
   Views (Monitor, Cross-holdings). Investors → Type · Mandate; Law firms → Tier · Practice.
   The bar's button is **Target** on Managers and **$1–15bn** on Hedge funds. Managers and
   Hedge funds carry a sortable **90d** column (tracked deals + news in 90 days; tooltip =
-  latest date). Phone lists are **card rows**; their sort sits in the panel. **(j) Credits**: a Filters sheet (rating band · 12-month trend · jurisdiction ·
-  sector), sortable Borrower / Rating headers, a count line (credits · ▼ · ▲). **BDCs**:
-  no Type column (the Listed / Private (non-traded) sections say it), the exchange sits
-  under the ticker, sortable size / name / NAV / non-accrual / Px/NAV, and the sticky
-  header pins to its own scroller (no hidden first row). Specs: `tests/transactions.mjs`,
-  `tests/tx-credits.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`,
+  latest date). Phone lists are **card rows**; their sort sits in the panel. **(j) Credits & BDCs live on Dashboard ▸ Credit** (`v2/js/credit-roster.js`, full-width
+  cards under *Reference rosters*), not in Transactions. Each card has the SAME anatomy on
+  desktop and iPhone — a one-row bar (search · sort menu · CSV), then **two-line rows**
+  (name · headline figure / sector-or-manager meta) that **expand in place** (tap again to
+  close); never a table, never sideways scroll. Credits: quick chips *All · ▼ Downgraded ·
+  ▲ Upgraded*, a 12-row preview + *Show all N*; a row shows rating (with its source) and the
+  tracked deals naming the obligor + their lenders. BDCs: *Listed* / *Private (non-traded)*
+  sections; the row shows size, adviser (→ profile), NAV, non-accrual and the live Px/NAV
+  or GATED; expanding gives the sourced facts, SEC links and the holdings fetch. The open
+  row is in the URL (`?credit=<name>` / `?bdc=<ticker>`, replaceState); the palette, the
+  stress list and the old Transactions `#/credits` / `#/bdc` links land on it. Desktop caps
+  each list at ~560px and scrolls inside. Specs: `tests/transactions.mjs`,
+  `tests/credit-rosters.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`,
   `tests/profiles-filters.mjs`. **(k) Borrower / issuer column.** Every deal was audited
   (2026-10): `p` in deal-tags is the counterparty verbatim from the deal's own text and
   `r` its role — borrower · issuer (incl. a BDC / manager issuing its own notes, shown

@@ -13,8 +13,9 @@ check(card.int.length && card.int.every(([l, c]) => l === "underline" && c !== O
 check(card.ext.length && card.ext.every(([l, c]) => l === "underline" && c === ORANGE), `deal card: external links have an orange underline (${card.ext.length})`);
 const table = await st("#tx-body .tx-list a");
 check(table.length && table.every(([l]) => l === "none"), `Transactions table: names and sources keep their plain style (${table.length} links, none underlined)`);
-await pg.goto(base + "/v2/transactions/#/bdc"); await pg.waitForTimeout(600);
-check((await st("#tx-bdc-body a")).every(([l]) => l === "none"), "BDC table: no underlined links");
+await pg.goto(base + "/v2/dashboard/credit?bdc=ARCC"); await pg.waitForSelector(".crr-row.is-open", { timeout: 8000 });
+const roster = await st(".crr-hd a, .crr-srcs a");
+check(roster.length && roster.every(([l]) => l === "none"), `Dashboard rosters: manager names and sources keep their plain style (${roster.length})`);
 await pg.goto(base + "/v2/profiles/#/manager/m8"); await pg.waitForTimeout(1200);
 const pfSrc = await st("#pf-detail .tw-src a, #pf-detail .tdet-src a, #pf-detail .tw-head");
 check(pfSrc.every(([l]) => l === "none"), `Profiles: news rows and sources keep their source style (${pfSrc.length})`);

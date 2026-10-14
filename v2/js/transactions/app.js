@@ -1,9 +1,10 @@
 // =============================================================================
 // v2/js/transactions/app.js — the Transactions tab: the covered managers' deal
-// flow organised by TRANSACTION TYPE, plus the European credit universe and the
-// BDC roster. Six modes — Lending · Structured credit · Secondaries (the deal-flow
-// groups of credit/js/tx.js) · Manager M&A (acquisitions of / stakes in asset
-// managers, kept out of credit deal flow) · Credits · BDCs.
+// flow organised by TRANSACTION TYPE. Four modes — Lending · Structured credit ·
+// Secondaries (the deal-flow groups of credit/js/tx.js) · Manager M&A (acquisitions of /
+// stakes in asset managers, kept out of credit deal flow). The European credits and BDC
+// rosters moved to Dashboard ▸ Credit (v2/js/credit-roster.js, 2026-10); their old
+// #/credits · #/bdc links redirect there.
 //
 // Filtering (HOUSE_STYLE R36/R39): one Filters sheet of MULTI-SELECT facets with live
 // counts — type · sector (industry) · region · size band · currency · sponsor ·
@@ -15,13 +16,11 @@
 // Every view lives in the URL hash (HOUSE_STYLE R35), so reload / a pasted link /
 // Back restore it exactly:
 //   #/<mode>?type=&sec=&reg=&size=&ccy=&sp=&lender=&period=|from=&to=&focus=&q=&sort=&grp=&deal=
-//   #/credits?q=&rt=&tr=&jur=&csec=&sort=&grp=&open=      #/bdc?q=&sort=&open=
+//   #/credits?q=&open= · #/bdc?open=  (legacy → /v2/dashboard/credit?credit= · ?bdc=)
 //   #/deal/<id>  (deep link — canonicalised to that deal's mode with the drawer open)
 // mount(host, ctx) → { enter, leave, home }.
 // =============================================================================
 import { deals, managers, funds, fundById } from "/credit/js/data.js";
-import { BDCS } from "/credit/js/bdcs.js";
-import { EUR_CREDITS, EUR_CREDITS_META, creditsBySector } from "/credit/js/eu-credits.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { targetFit } from "/credit/js/target.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
@@ -50,7 +49,7 @@ const FOCUS_PILL = { band: "$1–15bn AUM", target: "Target managers" };
 
 const DEAL_MODES = [...TX_GROUPS.map((g) => [g.key, g.label]), ["mna", "Manager M&A"]];
 const FLOW = DEAL_MODES.map(([k]) => k);                       // lending · structured · secondary · mna
-const MODES = [...DEAL_MODES, ["credits", "Credits"], ["bdc", "BDCs"]];
+const MODES = DEAL_MODES;
 const MODE_KEYS = MODES.map(([k]) => k);
 const MODE_ALIAS = { primary: "lending" };                      // the pre-2026-10 mode name
 const MODE_LABEL = Object.fromEntries(MODES);
@@ -74,18 +73,6 @@ const GROUPS = [["", "No grouping"], ["lender", "By lender"], ["month", "By mont
 const FKEYS = { type: "type", sector: "sec", region: "reg", size: "size", ccy: "ccy", sponsor: "sp", lender: "lender" };
 const FACETS = Object.keys(FKEYS);
 const emptyF = () => Object.fromEntries(FACETS.map((k) => [k, []]));
-
-// Credits facets (HOUSE_STYLE R39): rating band · 12m trend · jurisdiction · sector.
-const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
-const ratingRank = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? 999 : i; };
-const RATING_BANDS = [["a", "A & above"], ["bbb", "BBB"], ["bb", "BB"], ["b", "B"], ["ccc", "CCC & below"], ["nr", "NR"]];
-const ratingBand = (r) => { const i = RATING_ORDER.indexOf(r); return i === -1 ? "nr" : i <= 6 ? "a" : i <= 9 ? "bbb" : i <= 12 ? "bb" : i <= 15 ? "b" : "ccc"; };
-const TREND_OPTS = [["down", "▼ Downgraded"], ["up", "▲ Upgraded"], ["flat", "– Unchanged"]];
-const CRKEYS = { rating: "rt", trend: "tr", jur: "jur", sector: "csec" };
-const CR_FACETS = Object.keys(CRKEYS);
-const emptyCr = () => Object.fromEntries(CR_FACETS.map((k) => [k, []]));
-const CR_SORTS = [["", "Sector order"], ["name", "Name A–Z"], ["rating", "Rating, best first"], ["rating-worst", "Rating, worst first"], ["deals", "Most tracked deals"]];
-const BDC_SORTS = [["size-desc", "Largest"], ["name-asc", "Name A–Z"], ["nav-desc", "NAV / sh"], ["na-desc", "Non-accrual, highest"], ["pxnav-asc", "Px/NAV, lowest"]];
 
 export function mount(host, ctx) {
   // ---- enrich every dated deal once ------------------------------------------
@@ -124,10 +111,9 @@ export function mount(host, ctx) {
   }
 
   // ---- state (the URL is its serialised form) --------------------------------
-  const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "",
-    crQ: "", crGroup: null, crOpen: "", cr: emptyCr(), crSort: "", bdcQ: "", bdcOpen: "", bdcSort: "size-desc" });
+  const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "" });
   let st = DEFAULT();
-  let sheetOpen = false, crSheetOpen = false, bdcSheetOpen = false, lenderAll = false, moreOpen = false, customDate = false;
+  let sheetOpen = false, lenderAll = false, moreOpen = false, customDate = false;
   const flowMode = () => FLOW.includes(st.mode);
 
   // ---- filters -----------------------------------------------------------------
@@ -183,16 +169,6 @@ export function mount(host, ctx) {
       if (st.sort !== "date" || st.dir !== "desc") p.set("sort", `${st.sort}-${st.dir}`);
       if (st.grp) p.set("grp", st.grp);
       if (st.deal) p.set("deal", st.deal);
-    } else if (st.mode === "credits") {
-      if (st.crQ) p.set("q", st.crQ);
-      for (const k of CR_FACETS) if (st.cr[k].length) p.set(CRKEYS[k], csv(st.cr[k]));
-      if (st.crSort) p.set("sort", st.crSort);
-      if (st.crGroup) p.set("grp", st.crGroup);
-      if (st.crOpen) p.set("open", st.crOpen);
-    } else {
-      if (st.bdcQ) p.set("q", st.bdcQ);
-      if (st.bdcSort !== "size-desc") p.set("sort", st.bdcSort);
-      if (st.bdcOpen) p.set("open", st.bdcOpen);
     }
     const qs = p.toString().replace(/%2C/g, ",");
     return path + (qs ? "?" + qs : "");
@@ -232,19 +208,6 @@ export function mount(host, ctx) {
       if (SORT_VAL[sk]) { s.sort = sk; s.dir = sd === "asc" ? "asc" : sd === "desc" ? "desc" : SORT_DEFAULT_DIR[sk]; }
       if (GROUPS.some(([k]) => k && k === q.get("grp"))) s.grp = q.get("grp");
       if (q.get("deal") && rowById.has(q.get("deal"))) s.deal = rowById.get(q.get("deal")).d.id;
-    } else if (s.mode === "credits") {
-      s.crQ = q.get("q") || "";
-      s.cr.rating = listParam(q, "rt", (v) => RATING_BANDS.some(([k]) => k === v));
-      s.cr.trend = listParam(q, "tr", (v) => TREND_OPTS.some(([k]) => k === v));
-      s.cr.jur = listParam(q, "jur", (v) => EUR_CREDITS.some((c) => c.jurisdiction === v));
-      s.cr.sector = listParam(q, "csec", (v) => EUR_CREDITS.some((c) => c.sector === v));
-      if (CR_SORTS.some(([k]) => k && k === q.get("sort"))) s.crSort = q.get("sort");
-      s.crGroup = ["sector", "rating"].includes(q.get("grp")) ? q.get("grp") : null;
-      s.crOpen = q.get("open") || "";
-    } else if (s.mode === "bdc") {
-      s.bdcQ = q.get("q") || "";
-      if (BDC_SORTS.some(([k]) => k === q.get("sort"))) s.bdcSort = q.get("sort");
-      s.bdcOpen = q.get("open") || "";
     }
     return s;
   }
@@ -261,7 +224,17 @@ export function mount(host, ctx) {
     try { if (push) history.pushState({ v2: true, tx: 1 }, "", url); else history.replaceState(history.state, "", url); } catch { /* keep the old URL */ }
   }
   // Apply a hash to the view (mount, Back/Forward, a deep link, enter()).
+  // The rosters that used to be modes here now live on Dashboard ▸ Credit.
+  function legacyRoster(raw) {
+    const [pathPart, qs = ""] = String(raw || "").replace(/^#/, "").split("?");
+    const seg = pathPart.split("/").filter(Boolean)[0], q = new URLSearchParams(qs);
+    if (seg === "credits") { const v = q.get("open") || q.get("q"); return `${ctx.base}/dashboard/credit${v ? "?credit=" + encodeURIComponent(v) : ""}#dsh-credits`; }
+    if (seg === "bdc") { const v = q.get("open"); return `${ctx.base}/dashboard/credit${v ? "?bdc=" + encodeURIComponent(v) : ""}#dsh-bdcs`; }
+    return "";
+  }
   function applyHash() {
+    const legacy = isActive() && legacyRoster(location.hash);
+    if (legacy) { try { history.replaceState(history.state, "", location.pathname + location.search); } catch { /* */ } ctx.navigate(legacy); return; }
     const next = fromHash(location.hash);
     const canon = (() => { const keep = st; st = next; const h = toHash(); st = keep; return h; })();
     st = next;
@@ -297,35 +270,17 @@ export function mount(host, ctx) {
               <button type="button" class="tx-fbtn" id="tx-filters" aria-expanded="false" aria-controls="tx-sheet" aria-label="Filters">${filtSvg}<span class="tx-fn"></span></button>
               <div class="tx-active" id="tx-active" hidden></div>
             </header>
-            <header class="tpanel-h thead-search tx-bar" id="tx-credits-search">
-              <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
-              <button type="button" class="tx-fbtn" id="tx-cr-filters" aria-expanded="false" aria-controls="tx-cr-sheet" aria-label="Filters">${filtSvg}<span class="tx-fn"></span></button>
-              <div class="tx-active" id="tx-cr-active" hidden></div>
-            </header>
-            <header class="tpanel-h thead-search tx-bar" id="tx-bdc-search">
-              <input type="search" id="tx-bdc-q" class="tsearch" placeholder="Search a BDC or manager…" aria-label="Search BDCs">
-              <button type="button" class="tx-fbtn" id="tx-bdc-filters" aria-expanded="false" aria-controls="tx-bdc-sheet" aria-label="Sort and export">${filtSvg}<span class="tx-fn"></span></button>
-            </header>
             <div class="tx-asof" id="tx-asof" hidden></div>
             <div class="tx-sheet" id="tx-sheet" role="region" aria-label="Filters" hidden></div>
-            <div class="tx-sheet" id="tx-cr-sheet" role="region" aria-label="Credit filters" hidden></div>
-            <div class="tx-sheet" id="tx-bdc-sheet" role="region" aria-label="BDC sort and export" hidden></div>
             <div class="tx-scroll" id="tx-body"></div>
-            <div class="tx-scroll" id="tx-credits-body"></div>
-            <div class="tx-scroll" id="tx-bdc-body"></div>
             <aside class="tx-drawer" id="tx-drawer" role="region" aria-label="Deal" hidden></aside>
           </div>
         </section>
       </div>
     </div>`;
   const body = host.querySelector("#tx-body");
-  const creditsBody = host.querySelector("#tx-credits-body");
-  const bdcBody = host.querySelector("#tx-bdc-body");
   const drawer = host.querySelector("#tx-drawer");
   const sheet = host.querySelector("#tx-sheet");
-  const crSheet = host.querySelector("#tx-cr-sheet");
-  const bdcSheet = host.querySelector("#tx-bdc-sheet");
-  let _bdcQuotes = null, _bdcQuotesTried = false;
 
   // ---- freshness cue -------------------------------------------------------
   // The newest dated deal in the ledger; older than TX_STALE_DAYS → a stale flag, so
@@ -519,7 +474,6 @@ export function mount(host, ctx) {
   // lender itself, the sourced headline stands in (muted) rather than repeating the
   // lender's name as the "borrower".
   const partyCell = (r) => (r.cp ? esc(r.cp) : `<span class="tx-hl">${esc(r.d.headline || "—")}</span>`);
-  const hlCell = (r) => `<span class="tx-hl">${esc(r.d.headline || "—")}</span>`;
   // Amounts that are NOT the deal size (a target's AUM, an enterprise value) read
   // muted with their kind, and never count in sizes, totals or medians.
   const amtCell = (r) => {
@@ -534,7 +488,6 @@ export function mount(host, ctx) {
   function columns(list) {
     const C = {
       party: (lbl) => [lbl, (r) => caret + partyCell(r), "name", "txc-party tx-bd"],
-      vehicle: (lbl) => [lbl, (r) => caret + hlCell(r), "name", "txc-party tx-bd"],
       lender: (lbl) => [lbl, (r) => mgrLink(r.d.managerId), "lender", "txc-lender tx-mg"],
       sponsor: ["Sponsor", (r) => (r.sponsor ? esc(r.sponsor) : "—"), null, "txc-sp tx-sp"],
       type: ["Type", (r) => esc(st.q ? `${MODE_LABEL[r.mode]} · ${typeLabel(r.tx)}` : typeLabel(r.tx)), null, "txc-type tx-cat"],
@@ -546,7 +499,7 @@ export function mount(host, ctx) {
       source: ["Source", srcCell, null, "txc-src tx-src2"],
     };
     if (st.q) return [C.party("Deal"), C.lender("Lender / investor"), C.type, C.amount("Amount"), C.date, C.source];
-    if (st.mode === "structured") return [C.vehicle("Deal"), C.lender("Manager"), C.type, C.event, C.country, C.amount("Size"), C.date, C.source];
+    if (st.mode === "structured") return [C.party("Vehicle"), C.lender("Manager"), C.type, C.event, C.country, C.amount("Size"), C.date, C.source];
     if (st.mode === "secondary") return [C.party("Fund / portfolio"), C.lender("Buyer / lead"), C.type, C.country, C.amount("Size"), C.date, C.source];
     if (st.mode === "mna") return [C.party("Target"), C.lender("Acquirer"), C.country, C.amount("Value"), C.date, C.source];
     const sp = list.some((r) => r.sponsor) ? [C.sponsor] : [];
@@ -565,7 +518,7 @@ export function mount(host, ctx) {
     const showType = st.q || (st.mode !== "mna" && st.f.type.length !== 1);
     const what = !showType ? "" : (TYPE_SHORT[r.tx] || typeLabel(r.tx)) + (st.mode === "structured" && r.tags.event && !st.q ? ` ${EVENT_LABEL[r.tags.event].toLowerCase()}` : "");
     return `<li class="tx-card${st.deal === d.id ? " is-open" : ""}" data-deal="${esc(d.id)}" tabindex="0">`
-      + `<div class="tx-card-a"><span class="tx-card-nm">${st.mode === "structured" && !st.q ? hlCell(r) : partyCell(r)}</span><span class="tx-card-amt">${r.amt ? amtCell(r) : ""}</span></div>`
+      + `<div class="tx-card-a"><span class="tx-card-nm">${partyCell(r)}</span><span class="tx-card-amt">${r.amt ? amtCell(r) : ""}</span></div>`
       + `<div class="tx-card-b"><span class="tx-cb-dt">${esc(fmtDay(d.date))}</span><span class="tx-cb-mg">${mgrLink(d.managerId)}</span>${what ? `<span class="tx-cb-ty">${esc(what)}</span>` : ""}${r.tags.country ? `<span class="tx-cb-ct">${esc(r.tags.country)}</span>` : ""}</div></li>`;
   };
 
@@ -715,248 +668,6 @@ export function mount(host, ctx) {
     if (_phone()) window.scrollTo({ top: _listY, behavior: "instant" });
   }
 
-  // ---- BDCs ------------------------------------------------------------------
-  // The largest US business development companies, LISTED vs PRIVATE (non-traded).
-  // Every figure is from the fund's own latest SEC filing / IR release (linked per
-  // row); the listed price÷NAV ratio is computed live from /api/quotes. Certifiable
-  // data only — an unverified field reads "n/a" rather than a guess.
-  const bdcPxNav = (b) => {
-    if (b.structure !== "listed" || b.nav == null || !_bdcQuotes) return null;
-    const q = _bdcQuotes[b.ticker];
-    return (q && q.price != null) ? q.price / b.nav : null;
-  };
-  const bdcSize = (b) => b.totalAssets != null ? b.totalAssets : (b.netAssets != null ? b.netAssets : (b.portfolio != null ? b.portfolio : null));
-  const bdcSizeCell = (b) => b.totalAssets != null ? `$${b.totalAssets}bn`
-    : b.netAssets != null ? `$${b.netAssets}bn<span class="tbdc-szt" title="Net assets (aggregate NAV) — total assets not stated in filing">net</span>`
-    : b.portfolio != null ? `$${b.portfolio}bn<span class="tbdc-szt" title="Investment portfolio at fair value — total assets not stated in filing">port</span>`
-    : "n/a";
-  function bdcLiquidityCell(b) {
-    if (b.structure === "listed") {
-      const r = bdcPxNav(b);
-      if (r == null) return `<span class="muted">${b.ticker ? esc(b.ticker) : "listed"}</span>`;
-      const prem = r >= 1;
-      return `<span class="tbdc-pxnav ${prem ? "is-prem" : "is-disc"}" title="Live price ÷ latest reported NAV — ${prem ? "premium" : "discount"} to NAV">${r.toFixed(2)}×</span>`;
-    }
-    const parts = [];
-    if (b.repurchaseCapPct != null) parts.push(`${b.repurchaseCapPct}% cap`);
-    if (b.repurchaseRequestedPct != null) parts.push(`${b.repurchaseRequestedPct}% req`);
-    const gated = b.repurchaseProrated === true ? `<span class="tbdc-gated" title="Repurchase requests exceeded the cap and were prorated (gated)">GATED</span>`
-      : b.repurchaseProrated === false ? `<span class="tbdc-open" title="Repurchase requests fully honoured last period">honoured</span>` : "";
-    if (!parts.length && !gated) return `<span class="muted" title="No verified repurchase figures on file for the latest period">n/a</span>`;
-    return `<span class="tbdc-rep">${parts.join(" · ")}${gated ? " " + gated : ""}</span>`;
-  }
-  function bdcDetail(b) {
-    const out = [];
-    if (b.totalAssets != null) out.push(["Total assets", `$${b.totalAssets}bn${b.totalAssetsAsOf ? " (" + b.totalAssetsAsOf + ")" : ""}`]);
-    if (b.netAssets != null) out.push(["Net assets", `$${b.netAssets}bn aggregate NAV${b.navAsOf ? " (" + b.navAsOf + ")" : ""}`]);
-    if (b.portfolio != null) out.push(["Portfolio", `$${b.portfolio}bn at fair value${b.navAsOf ? " (" + b.navAsOf + ")" : ""}`]);
-    if (b.nonAccrualFV != null) out.push(["Non-accruals", `${b.nonAccrualFV}% at fair value${b.nonAccrualCost != null ? ", " + b.nonAccrualCost + "% at cost" : ""}${b.nonAccrualAsOf ? " (" + b.nonAccrualAsOf + ")" : ""}`]);
-    if (b.nav != null) out.push(["NAV / share", `$${b.nav}${b.navAsOf ? " (" + b.navAsOf + ")" : ""}`]);
-    if (b.structure === "nontraded" && (b.repurchaseCapPct != null || b.repurchaseRequestedPct != null || b.repurchaseProrated != null)) {
-      const bits = [];
-      if (b.repurchaseCapPct != null) bits.push(`${b.repurchaseCapPct}% of NAV quarterly cap`);
-      if (b.repurchaseRequestedPct != null) bits.push(`${b.repurchaseRequestedPct}% requested`);
-      if (b.repurchaseProrated === true) bits.push("prorated (gated)");
-      else if (b.repurchaseProrated === false) bits.push("fully honoured");
-      out.push(["Repurchases", bits.join(" · ") + (b.repurchaseAsOf ? " (" + b.repurchaseAsOf + ")" : "")]);
-    }
-    const facts = out.length ? `<dl class="tbdc-facts">${out.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>`
-      : `<p class="muted small">No certifiable figures on file yet — see the fund's SEC filings.</p>`;
-    const holdCta = b.cik ? `<button type="button" class="tbdc-hold-btn" data-cik="${esc(b.cik)}">Load latest holdings (SEC)</button><div class="tbdc-hold"></div>` : "";
-    const srcLinks = (b.sources || []).map((s) => `<a class="tx-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)}</a>`);
-    if (b.edgar) srcLinks.push(`<a class="tx-src" href="${esc(b.edgar)}" target="_blank" rel="noopener noreferrer">SEC EDGAR filings</a>`);
-    return facts + holdCta + `<div class="tbdc-srcs">${srcLinks.join("<br>")}</div>`;
-  }
-  const bdcKey = (b) => b.ticker || b.name;
-  function bdcRow(b) {
-    const i = BDCS.indexOf(b);
-    const open = !!st.bdcOpen && (st.bdcOpen === b.ticker || st.bdcOpen === b.name);
-    const mgr = b.managerId && mgrName(b.managerId) ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(b.managerId)}" class="tx-mgr" data-id="${esc(b.managerId)}">${esc(b.manager)}</a>` : esc(b.manager);
-    const tk = b.ticker ? `${esc(b.ticker)}${b.exchange ? `<span class="tbdc-ex">${esc(b.exchange)}</span>` : ""}` : "—";
-    const na = b.nonAccrualFV != null
-      ? `<span title="${b.nonAccrualCost != null ? b.nonAccrualCost + "% at cost · " : ""}at fair value${b.nonAccrualAsOf ? ", " + esc(b.nonAccrualAsOf) : ""}">${b.nonAccrualFV}%</span>` : "n/a";
-    return `<tr class="tbdc-row${open ? " is-open" : ""}" data-i="${i}" data-key="${esc(bdcKey(b))}"><td class="tbdc-nm"><span class="tx-caret" aria-hidden="true">▸</span>${esc(b.name)}</td>`
-      + `<td class="tbdc-tk">${tk}</td>`
-      + `<td class="tbdc-mg">${mgr}</td>`
-      + `<td class="tl-n tbdc-ta">${bdcSizeCell(b)}</td>`
-      + `<td class="tl-n tbdc-nav">${b.nav != null ? "$" + b.nav.toFixed(2) : "n/a"}</td>`
-      + `<td class="tl-n tbdc-na">${na}</td>`
-      + `<td class="tl-n tbdc-lq">${bdcLiquidityCell(b)}</td></tr>`
-      + `<tr class="tbdc-exp" data-for="${i}"${open ? "" : " hidden"}><td colspan="7"><div class="tx-exp-in"${open ? ' data-built="1"' : ""}>${open ? bdcDetail(b) : ""}</div></td></tr>`;
-  }
-  const BDC_VAL = { size: bdcSize, name: (b) => b.name.toLowerCase(), nav: (b) => b.nav, na: (b) => b.nonAccrualFV, pxnav: bdcPxNav };
-  function bdcSorted(list) {
-    const [k, dir] = st.bdcSort.split("-"), f = BDC_VAL[k] || BDC_VAL.size, sgn = dir === "asc" ? 1 : -1;
-    return list.slice().sort((a, b) => {
-      const x = f(a), y = f(b);
-      if (x == null || y == null) return x == null && y == null ? a.name.localeCompare(b.name) : x == null ? 1 : -1;
-      return (x < y ? -1 : x > y ? 1 : 0) * sgn || a.name.localeCompare(b.name);
-    });
-  }
-  const bdcMatch = (b) => { const q = st.bdcQ.toLowerCase(); return !q || b.name.toLowerCase().includes(q) || (b.manager || "").toLowerCase().includes(q) || (b.ticker || "").toLowerCase().includes(q); };
-  function renderBdcSheet() {
-    bdcSheet.hidden = !(bdcSheetOpen && st.mode === "bdc");
-    host.classList.toggle("tx-bdcsheet-open", !bdcSheet.hidden);
-    setFbtn("#tx-bdc-filters", st.bdcSort !== "size-desc" ? 1 : 0, bdcSheetOpen);
-    if (bdcSheet.hidden) { bdcSheet.innerHTML = ""; return; }
-    bdcSheet.innerHTML = `<div class="tx-sheet-b"><div class="tx-fgrp"><div class="tx-fh">Sort</div><select id="tx-bdc-sort" class="tx-filt" aria-label="Sort the BDCs">${BDC_SORTS.map(opt).join("")}</select></div></div>`
-      + sheetFoot("", "bdc", null, "");
-    bdcSheet.querySelector("#tx-bdc-sort").value = st.bdcSort;
-    placeSheet(bdcSheet, host.querySelector("#tx-bdc-search"));
-  }
-  function renderBDCs() {
-    const list = bdcSorted(BDCS.filter(bdcMatch));
-    const groups = [
-      { key: "listed", label: "Listed", rows: list.filter((b) => b.structure === "listed") },
-      { key: "private", label: "Private (non-traded)", rows: list.filter((b) => b.structure !== "listed") },
-    ];
-    const [sk, sd] = st.bdcSort.split("-");
-    const th = (cls, label, k) => `<th class="${cls}${k ? " tx-sortable" : ""}"${k ? ` data-bsort="${k}"${sk === k ? ` aria-sort="${sd === "asc" ? "ascending" : "descending"}"` : ""}` : ""}>${label}</th>`;
-    const head = `<thead><tr>${th("tbdc-nm-h", "Fund", "name")}${th("tbdc-tk-h", "Ticker", "")}${th("tbdc-mg-h", "Manager", "")}${th("tbdc-ta-h", "Total assets", "size")}${th("tbdc-nav-h", "NAV / sh", "nav")}${th("tbdc-na-h", "Non-accrual", "na")}${th("tbdc-lq-h", "Px/NAV · liquidity", "pxnav")}</tr></thead>`;
-    const section = (g) => g.rows.length
-      ? `<section class="tbdc-sec"><h4 class="tbdc-seclbl">${esc(g.label)}<span class="tbdc-seclbl-n">${g.rows.length}</span></h4>`
-        + `<div class="tleague-wrap"><table class="tleague tleague-full tbdc-tbl">${head}<tbody>${g.rows.map(bdcRow).join("")}</tbody></table></div></section>`
-      : "";
-    bdcBody.innerHTML = list.length ? groups.map(section).join("") : `<p class="tw-empty muted small">No BDCs match “${esc(st.bdcQ)}”.</p>`;
-    if (st.bdcOpen) { const r = bdcBody.querySelector("tr.tbdc-row.is-open"); if (r) requestAnimationFrame(() => r.scrollIntoView({ block: "center" })); }
-  }
-  function loadBdcQuotes() {
-    if (_bdcQuotesTried) return;
-    _bdcQuotesTried = true;
-    const syms = [...new Set(BDCS.filter((b) => b.structure === "listed" && b.ticker).map((b) => b.ticker))];
-    if (!syms.length) return;
-    fetch(`/api/quotes?symbols=${encodeURIComponent(syms.join(","))}`, { headers: { accept: "application/json" } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (d && d.quotes) { _bdcQuotes = d.quotes; if (st.mode === "bdc") renderBDCs(); } })
-      .catch(() => { /* live ratio simply stays hidden */ });
-  }
-  function loadBdcHoldings(cik, host2, btn) {
-    if (host2.dataset.state === "loading" || host2.dataset.state === "loaded") return;
-    host2.dataset.state = "loading";
-    host2.innerHTML = `<p class="tw-empty muted small">Fetching the latest SEC schedule of investments…</p>`;
-    fetch(`/api/bdc?cik=${encodeURIComponent(cik)}`, { headers: { accept: "application/json" } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => {
-        host2.dataset.state = "loaded";
-        if (btn) btn.hidden = true;
-        const link = (d && d.source) ? ` — <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer" class="tx-src">latest filing</a>` : "";
-        if (!d || !Array.isArray(d.holdings) || !d.holdings.length) { host2.innerHTML = `<p class="tw-empty muted small">Couldn't parse this filer's schedule of investments automatically${link}.</p>`; return; }
-        const usd = (v) => v >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "bn" : v >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v || 0).toLocaleString("en-US");
-        const trs = d.holdings.slice(0, 25).map((h, i) => `<tr><td class="tl-n">${i + 1}</td><td class="tl-nm">${esc(h.name || "—")}</td><td class="tl-n">${usd(h.value)}</td><td class="tl-n">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
-        host2.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings"><thead><tr><th>#</th><th>Portfolio company</th><th>Fair value</th><th>% of book</th></tr></thead><tbody>${trs}</tbody></table></div><p class="muted tbdc-hold-note">Top ${Math.min(25, d.holdings.length)} of ${d.holdings.length} parsed from the latest SEC filing${link}.</p>`;
-      })
-      .catch(() => { host2.dataset.state = ""; if (btn) { btn.disabled = false; btn.textContent = "Load latest holdings (SEC)"; } host2.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`; });
-  }
-
-  // ---- Credits: the European credit universe (ELLI) ---------------------------
-  // By sector, with its current issuer rating, borrower domicile and 12-month rating
-  // trend; filterable by rating band, trend, jurisdiction and sector. A row opens what
-  // the app knows about the name: the tracked deals that NAME it and their lenders.
-  const TREND = {
-    up: { g: "▲", c: "tx-up", t: "Rating up over the past 12 months" },
-    down: { g: "▼", c: "tx-dn", t: "Rating down over the past 12 months" },
-    flat: { g: "–", c: "tx-fl", t: "Rating unchanged over the past 12 months" },
-  };
-  // An obligor's distinctive name, legal-form suffixes stripped ("Verisure Holding
-  // AB" → "Verisure"), for matching it in deal copy. Too-short cores never match.
-  const LEGAL = /\b(?:holdings?|group|bidco|topco|midco|holdco|lux(?:embourg)?|finance|financing|international|plc|ltd|limited|llc|inc|ab|asa|as|a\/s|sa|sas|sarl|s\.?a\.?r\.?l\.?|s\.?à\.?\s?r\.?l\.?|gmbh|ag|bv|b\.v\.|nv|n\.v\.|spa|s\.p\.a\.|srl|oy|oyj|se|kg|co|corp|corporation|the)\b\.?/gi;
-  const coreName = (n) => String(n || "").replace(/\(.*?\)/g, " ").replace(LEGAL, " ").replace(/[^A-Za-z0-9&' -]+/g, " ").replace(/\s+/g, " ").trim();
-  const reEsc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  function creditMentions(c) {
-    const core = coreName(c.name);
-    if (core.length < 4) return [];
-    const re = new RegExp("\\b" + reEsc(core) + "\\b", "i");
-    return rows.filter((r) => re.test((r.d.headline || "") + " " + (r.d.summary || ""))).sort((a, b) => b.ts - a.ts);
-  }
-  const _crMentions = new Map();
-  const mentionsOf = (c) => { if (!_crMentions.has(c.name)) _crMentions.set(c.name, creditMentions(c)); return _crMentions.get(c.name); };
-  function crDetail(c) {
-    const ms = mentionsOf(c);
-    if (!ms.length) return `<p class="tw-empty muted small">No tracked deal names ${esc(coreName(c.name))} yet.</p>`;
-    const lenders = [...new Set(ms.map((r) => r.d.managerId).filter((id) => id && mgrName(id)))];
-    return (lenders.length ? `<div class="tpg-h">Lenders / investors</div><div class="tcr-lenders">${lenders.map((id) => mgrLink(id)).join("")}</div>` : "")
-      + `<div class="tpg-h">Deals naming ${esc(coreName(c.name))} <span class="tveh-grp-n">${ms.length}</span></div><ul class="tmini">${ms.slice(0, 8).map(relRow).join("")}</ul>`;
-  }
-  const crRow = (c) => {
-    const rt = c.rating
-      ? (c.source
-        ? `<a class="tcr-rt" href="${esc(c.source)}" target="_blank" rel="noopener noreferrer" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</a>`
-        : `<span class="tcr-rt" title="${esc(c.agency || EUR_CREDITS_META.agency)}${c.asOf ? " · as of " + esc(c.asOf) : ""}">${esc(c.rating)}</span>`)
-      : `<span class="tcr-rt tcr-nr" title="Rating pending verification">NR</span>`;
-    const tr = TREND[c.trend] || TREND.flat;
-    const trend = `<span class="tcr-tr ${tr.c}" title="${tr.t} (${esc(c.agency || EUR_CREDITS_META.agency)})">${tr.g}</span>`;
-    const open = st.crOpen && st.crOpen === c.name;
-    const n = mentionsOf(c).length;
-    return `<tr class="tcr-row${open ? " is-open" : ""}" data-cr="${esc(c.name)}" tabindex="0">`
-      + `<td class="tcr-nm" title="${esc(c.name)}"><span class="tx-caret" aria-hidden="true">▸</span>${n ? `<span class="tcr-n" title="${n} tracked deal${n === 1 ? "" : "s"} name this credit">${n}</span>` : ""}${esc(c.name)}</td>`
-      + `<td class="tcr-jur">${esc(c.jurisdiction || "")}</td>`
-      + `<td class="tcr-sec">${esc(c.sector)}</td>`
-      + `<td class="tcr-rt-cell"><span class="tcr-rr">${trend}${rt}</span></td>`
-      + `</tr>`
-      + `<tr class="tcr-exp"${open ? "" : " hidden"}><td colspan="4"><div class="tx-exp-in">${open ? crDetail(c) : ""}</div></td></tr>`;
-  };
-  const CRVAL = { rating: (c) => ratingBand(c.rating), trend: (c) => c.trend || "flat", jur: (c) => c.jurisdiction || "", sector: (c) => c.sector || "" };
-  const crHit = (c) => { const q = st.crQ.toLowerCase(); return !q || `${c.name} ${c.sector} ${c.rating || ""} ${c.jurisdiction || ""}`.toLowerCase().includes(q); };
-  const crPasses = (c, except) => crHit(c) && CR_FACETS.every((k) => k === except || !st.cr[k].length || st.cr[k].includes(CRVAL[k](c)));
-  function crList() {
-    const filtered = EUR_CREDITS.filter((c) => crPasses(c));
-    const byName = (a, b) => a.name.localeCompare(b.name);
-    if (st.crSort === "name") return filtered.slice().sort(byName);
-    if (st.crSort === "rating" || (!st.crSort && st.crGroup === "rating")) return filtered.slice().sort((a, b) => ratingRank(a.rating) - ratingRank(b.rating) || byName(a, b));
-    if (st.crSort === "rating-worst") return filtered.slice().sort((a, b) => (ratingRank(b.rating) === 999 ? -1 : ratingRank(b.rating)) - (ratingRank(a.rating) === 999 ? -1 : ratingRank(a.rating)) || byName(a, b));
-    if (st.crSort === "deals") return filtered.slice().sort((a, b) => mentionsOf(b).length - mentionsOf(a).length || byName(a, b));
-    return creditsBySector(filtered).flatMap(([, arr]) => arr);
-  }
-  const crOptLabel = (k, v) => k === "rating" ? (RATING_BANDS.find(([x]) => x === v) || [])[1] || v : k === "trend" ? (TREND_OPTS.find(([x]) => x === v) || [])[1] || v : v;
-  const CR_TITLE = { rating: "Rating", trend: "12-month trend", jur: "Jurisdiction", sector: "Sector" };
-  function renderCrActive() {
-    const el = host.querySelector("#tx-cr-active");
-    const labels = CR_FACETS.flatMap((k) => st.cr[k].map((v) => crOptLabel(k, v)));
-    el.hidden = !labels.length;
-    el.innerHTML = summaryHTML(labels, `data-crclear="all"`);
-    setFbtn("#tx-cr-filters", labels.length, crSheetOpen);
-  }
-  function renderCrSheet() {
-    crSheet.hidden = !(crSheetOpen && st.mode === "credits");
-    host.classList.toggle("tx-crsheet-open", !crSheet.hidden);
-    if (crSheet.hidden) { crSheet.innerHTML = ""; return; }
-    const block = (k) => {
-      const counts = {}; EUR_CREDITS.forEach((c) => { if (crPasses(c, k)) { const v = CRVAL[k](c); counts[v] = (counts[v] || 0) + 1; } });
-      const opts = k === "rating" ? RATING_BANDS : k === "trend" ? TREND_OPTS
-        : [...new Set(EUR_CREDITS.map(CRVAL[k]).filter(Boolean))].sort().map((v) => [v, v]);
-      const shown = opts.filter(([v]) => counts[v] || st.cr[k].includes(v));
-      if (!shown.length) return "";
-      return `<div class="tx-fgrp" data-fgrp="${k}"><div class="tx-fh">${esc(CR_TITLE[k])}</div><div class="tx-fchips">`
-        + shown.map(([v, l]) => fchip(`data-crfacet="${k}" data-v="${esc(v)}"`, l, counts[v] || 0, st.cr[k].includes(v))).join("") + `</div></div>`;
-    };
-    const n = crList().length;
-    const grp = (k, l) => `<button type="button" class="tcr-grpbtn${st.crGroup === k ? " is-on" : ""}" data-crgroup="${k}" aria-pressed="${st.crGroup === k}">${grpSvg}<span>${l}</span></button>`;
-    crSheet.innerHTML = `<div class="tx-sheet-b">${CR_FACETS.map(block).join("")}`
-      + `<div class="tx-fgrp"><div class="tx-fh">Sort &amp; group</div><div class="tx-fchips"><select id="tx-cr-sort" class="tx-filt" aria-label="Sort the credits">${CR_SORTS.map(opt).join("")}</select>`
-      + `<div class="tcr-grpctl" id="tx-cr-ctl" role="group" aria-label="Group the credit roster">${grp("sector", "Group by sector")}${grp("rating", "Group by rating")}</div></div></div></div>`
-      + sheetFoot(`data-crclear="all"`, "credits", n, "credit");
-    crSheet.querySelector("#tx-cr-sort").value = st.crSort;
-    placeSheet(crSheet, host.querySelector("#tx-credits-search"));
-  }
-  function renderCredits() {
-    renderCrActive(); renderCrSheet();
-    if (!EUR_CREDITS.length) {
-      creditsBody.innerHTML = `<p class="tw-empty muted small">The European credit universe (anchored to the ${esc(EUR_CREDITS_META.index)}) is being compiled — sourced names and ratings land here as they’re verified.</p>`;
-      return;
-    }
-    const list = crList();
-    const down = list.filter((c) => c.trend === "down").length, up = list.filter((c) => c.trend === "up").length;
-    const th = (label, k) => `<th class="tx-sortable" data-crsort="${k}"${st.crSort === k ? ` aria-sort="${k === "deals" || k === "rating-worst" ? "descending" : "ascending"}"` : ""}>${label}</th>`;
-    creditsBody.innerHTML = list.length
-      ? `<div class="tx-stats"><span><b>${list.length}</b> credit${list.length === 1 ? "" : "s"}</span><span><b>${down}</b> ▼ downgraded</span><span><b>${up}</b> ▲ upgraded</span></div>`
-        + `<div class="tleague-wrap tcr-wrap"><table class="tcr-tbl">`
-        + `<colgroup><col class="c-nm"><col class="c-jur"><col class="c-sec"><col class="c-rt"></colgroup>`
-        + `<thead><tr>${th("Borrower", "name")}<th>Jurisdiction</th><th>Sector</th>${th("Rating", "rating")}</tr></thead>`
-        + `<tbody>${list.map(crRow).join("")}</tbody></table></div>`
-      : `<p class="tw-empty muted small">No credits match these filters.</p>`;
-    if (st.crOpen) { const r = creditsBody.querySelector("tr.tcr-row.is-open"); if (r) requestAnimationFrame(() => r.scrollIntoView({ block: "center" })); }
-  }
-
   // ---- CSV export: exactly what the active view shows (filters + search applied) ----
   function exportCSV(kind) {
     if (kind === "flow") {
@@ -965,21 +676,14 @@ export function mount(host, ctx) {
         ["Date", "Borrower / company", "Party role", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Country", "Country basis", "Country source", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
         list.map((r) => [r.d.date, r.cp, dealPartyRole(r.d), r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? `${BASIS_LABEL[r.tags.countryBasis] || "HQ"} (researched)` : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
           r.amt ? fmtAmt(r.amt) : "", r.tags.amountKind || "", r.usd != null ? Math.round(r.usd) : "", r.tags.event || "", r.d.headline || "", r.d.sourceUrl || "", r.alt.map((a) => a.sourceUrl).filter(Boolean).join(" ")]));
-    } else if (kind === "credits") {
-      downloadCSV("wire-eu-credits", ["Borrower", "Jurisdiction", "Sector", "Rating", "Agency", "Rating as of", "12m trend", "Tracked deals naming it", "Source"],
-        crList().map((c) => [c.name, c.jurisdiction || "", c.sector || "", c.rating || "NR", c.agency || EUR_CREDITS_META.agency, c.asOf || "", c.trend || "flat", mentionsOf(c).length, c.source || ""]));
-    } else {
-      downloadCSV("wire-bdcs", ["Fund", "Ticker", "Exchange", "Structure", "Manager", "Total assets ($bn)", "Net assets ($bn)", "Portfolio ($bn)", "NAV / share ($)", "NAV as of", "Non-accrual FV (%)", "Non-accrual cost (%)", "Px/NAV (live)", "SEC EDGAR"],
-        bdcSorted(BDCS.filter(bdcMatch)).map((b) => [b.name, b.ticker || "", b.exchange || "", b.structure, b.manager || "", b.totalAssets ?? "", b.netAssets ?? "", b.portfolio ?? "", b.nav ?? "", b.navAsOf || "", b.nonAccrualFV ?? "", b.nonAccrualCost ?? "", bdcPxNav(b) != null ? bdcPxNav(b).toFixed(2) : "", b.edgar || ""]));
     }
   }
 
   // ---- render ----------------------------------------------------------------
   function syncControls() {
     const set = (sel, v) => { const el = host.querySelector(sel); if (el && el.value !== v) el.value = v; };
-    set("#tx-q", st.q); set("#tx-cr-q", st.crQ); set("#tx-bdc-q", st.bdcQ);
+    set("#tx-q", st.q);
     set("#tx-sort", `${st.sort}-${st.dir}`); set("#tx-grp", st.grp);
-    set("#tx-cr-sort", st.crSort); set("#tx-bdc-sort", st.bdcSort);
     const f = host.querySelector("#tx-focus");
     if (f) {
       const on = st.focus === "target";
@@ -993,16 +697,11 @@ export function mount(host, ctx) {
   function showMode() {
     const show = (ids, on) => ids.forEach((id) => { const el = host.querySelector("#" + id); if (el) el.style.display = on ? "" : "none"; });
     show(["tx-flow-search", "tx-body"], flowMode());
-    show(["tx-credits-search", "tx-credits-body"], st.mode === "credits");
-    show(["tx-bdc-search", "tx-bdc-body"], st.mode === "bdc");
   }
   function render() {
     renderModeNav();
     if (flowMode()) renderFlow();
     renderSheet();
-    if (st.mode === "credits") renderCredits(); else renderCrSheet();
-    if (st.mode === "bdc") { renderBDCs(); loadBdcQuotes(); }
-    renderBdcSheet();
     renderDrawer();
   }
   // A state change from a control: update, record in the URL, re-render.
@@ -1026,8 +725,6 @@ export function mount(host, ctx) {
     render();
     clearTimeout(_qT); _qT = setTimeout(() => commit(false), 250);   // typing replaces, never stacks history
   });
-  host.querySelector("#tx-cr-q").addEventListener("input", (e) => { st.crQ = e.target.value.trim(); st.crOpen = ""; renderCredits(); clearTimeout(_qT); _qT = setTimeout(() => commit(false), 250); });
-  host.querySelector("#tx-bdc-q").addEventListener("input", (e) => { st.bdcQ = e.target.value.trim(); st.bdcOpen = ""; renderBDCs(); clearTimeout(_qT); _qT = setTimeout(() => commit(false), 250); });
   // The bar's Target button: Target on / off (the $1–15bn lens is in the panel's Managers row).
   host.querySelector("#tx-focus").addEventListener("click", () => change({ focus: st.focus === "target" ? "" : "target", deal: "" }));
   host.addEventListener("change", (e) => {
@@ -1047,8 +744,6 @@ export function mount(host, ctx) {
       if (from && to && from > to) [from, to] = [to, from];
       change({ from, to, period: "all", deal: "" }, false); return;
     }
-    if (t.id === "tx-cr-sort") { change({ crSort: t.value, crGroup: null }); return; }
-    if (t.id === "tx-bdc-sort") { change({ bdcSort: t.value }); return; }
   });
   host.addEventListener("click", (e) => {
     // Lender / manager links → the profile (in-app, a history entry).
@@ -1057,15 +752,11 @@ export function mount(host, ctx) {
     if (e.target.closest("a")) return;                                   // source links etc. keep native behaviour
     // Filters sheets.
     if (e.target.closest("#tx-filters")) { sheetOpen = !sheetOpen; renderSheet(); renderActive(); return; }
-    if (e.target.closest("#tx-cr-filters")) { crSheetOpen = !crSheetOpen; renderCrSheet(); renderCrActive(); return; }
-    if (e.target.closest("#tx-bdc-filters")) { bdcSheetOpen = !bdcSheetOpen; renderBdcSheet(); return; }
     if (e.target.closest("[data-fmore-t]")) { moreOpen = !moreOpen; renderSheet(); return; }
     const fit = e.target.closest("[data-fit]");
     if (fit) { change({ focus: fit.dataset.fit, deal: "" }, false); return; }
-    const crg = e.target.closest("[data-crgroup]");
-    if (crg) { const m = crg.dataset.crgroup === "rating" ? "rating" : "sector"; change({ crGroup: st.crGroup === m ? null : m, crSort: "" }, false); return; }
     if (e.target.closest(".tx-sheet-done")) {
-      sheetOpen = false; crSheetOpen = false; bdcSheetOpen = false; render();
+      sheetOpen = false; render();
       if (_phone()) window.scrollTo({ top: 0, behavior: "instant" });
       return;
     }
@@ -1077,15 +768,6 @@ export function mount(host, ctx) {
       change(withF("region", on ? st.f.region.filter((v) => !EUROPE_REGIONS.includes(v)) : [...new Set([...st.f.region, ...EUROPE_REGIONS])]), false); return;
     }
     if (e.target.closest("[data-fmore]")) { lenderAll = true; renderSheet(); return; }
-    const crf = e.target.closest("[data-crfacet]");
-    if (crf) { const k = crf.dataset.crfacet; change({ cr: { ...st.cr, [k]: toggle(st.cr[k], crf.dataset.v) }, crOpen: "" }, false); return; }
-    const crc = e.target.closest("[data-crclear]");
-    if (crc) {
-      const k = crc.dataset.crclear;
-      if (k === "all") change({ cr: emptyCr(), crOpen: "" });
-      else { const i = k.indexOf(":"), f = k.slice(0, i), v = k.slice(i + 1); change({ cr: { ...st.cr, [f]: st.cr[f].filter((x) => x !== v) } }); }
-      return;
-    }
     const clr = e.target.closest("[data-clear]");
     if (clr) {
       const k = clr.dataset.clear;
@@ -1102,59 +784,21 @@ export function mount(host, ctx) {
     // Sortable column headers.
     const sh = e.target.closest("th[data-sort]");
     if (sh) { const k = sh.dataset.sort; change(st.sort === k ? { dir: st.dir === "asc" ? "desc" : "asc" } : { sort: k, dir: SORT_DEFAULT_DIR[k] }, false); return; }
-    const bh = e.target.closest("th[data-bsort]");
-    if (bh) {
-      const k = bh.dataset.bsort, [ck, cd] = st.bdcSort.split("-");
-      const def = (BDC_SORTS.find(([v]) => v.startsWith(k + "-")) || [k + "-desc"])[0].split("-")[1];
-      change({ bdcSort: `${k}-${ck === k ? (cd === "asc" ? "desc" : "asc") : def}` }, false); return;
-    }
-    const ch = e.target.closest("th[data-crsort]");
-    if (ch) { const k = ch.dataset.crsort; change({ crSort: st.crSort === k ? (k === "rating" ? "rating-worst" : "") : k, crGroup: null }, false); return; }
     // A deal (row, card, or a related-deal row in the drawer / a credit) → its drawer.
     const dl = e.target.closest("[data-deal]");
-    if (dl) {
-      if (st.mode === "credits") {
-        const r = rowById.get(dl.dataset.deal);
-        if (r) { Object.assign(st, { mode: r.mode, f: emptyF(), period: "all", from: "", to: "", focus: "", grp: "", q: "" }); syncControls(); showMode(); render(); openDeal(r.d.id); }
-        return;
-      }
-      openDeal(dl.dataset.deal); return;
-    }
-    // BDC roster: holdings fetch; row expand (recorded as ?open=).
-    const hb = e.target.closest(".tbdc-hold-btn");
-    if (hb) { e.stopPropagation(); hb.disabled = true; hb.textContent = "Loading…"; loadBdcHoldings(hb.dataset.cik, hb.nextElementSibling, hb); return; }
-    const brow = e.target.closest("tr.tbdc-row");
-    if (brow) {
-      const exp = brow.nextElementSibling;
-      if (exp && exp.classList.contains("tbdc-exp")) {
-        const opening = exp.hasAttribute("hidden");
-        if (opening) { const inner = exp.querySelector(".tx-exp-in"); if (!inner.dataset.built) { inner.innerHTML = bdcDetail(BDCS[+brow.dataset.i]); inner.dataset.built = "1"; } }
-        exp.hidden = !opening; brow.classList.toggle("is-open", opening);
-        st.bdcOpen = opening ? brow.dataset.key : ""; commit(false);
-      }
-      return;
-    }
-    // Credits: a row opens the deals that name it + their lenders.
-    const crow = e.target.closest("tr.tcr-row");
-    if (crow) {
-      const exp = crow.nextElementSibling;
-      const opening = exp.hasAttribute("hidden");
-      if (opening) { const c = EUR_CREDITS.find((x) => x.name === crow.dataset.cr); exp.querySelector(".tx-exp-in").innerHTML = c ? crDetail(c) : ""; }
-      exp.hidden = !opening; crow.classList.toggle("is-open", opening);
-      st.crOpen = opening ? crow.dataset.cr : ""; commit(false);
-    }
+    if (dl) { openDeal(dl.dataset.deal); return; }
   });
   host.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && (sheetOpen || crSheetOpen || bdcSheetOpen)) { sheetOpen = crSheetOpen = bdcSheetOpen = false; render(); return; }
+    if (e.key === "Escape" && sheetOpen) { sheetOpen = false; render(); return; }
     if (e.key === "Escape" && st.deal) { closeDeal(); return; }
-    const row = e.target.closest && e.target.closest("[data-deal], tr.tcr-row");
+    const row = e.target.closest && e.target.closest("[data-deal]");
     if (row && e.target === row && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); row.click(); }
   });
   // Desktop: a click anywhere outside an open panel (and its button) closes it.
   document.addEventListener("click", (e) => {
-    if (!isActive() || _phone() || !(sheetOpen || crSheetOpen || bdcSheetOpen)) return;
+    if (!isActive() || _phone() || !sheetOpen) return;
     if (!document.contains(e.target) || e.target.closest(".tx-sheet, .tx-fbtn")) return;   // a re-rendered chip, or the panel itself
-    sheetOpen = crSheetOpen = bdcSheetOpen = false; render();
+    sheetOpen = false; render();
   });
   // Back / Forward inside Transactions (hash-only history moves) → re-apply the URL.
   window.addEventListener("hashchange", () => { if (isActive()) applyHash(); });
@@ -1170,7 +814,7 @@ export function mount(host, ctx) {
     // home(): re-tapping the Transactions tab resets it to its first part —
     // Lending, no search, default filters, sheets closed, scrolled to top.
     home() {
-      st = DEFAULT(); sheetOpen = crSheetOpen = bdcSheetOpen = lenderAll = moreOpen = customDate = false;
+      st = DEFAULT(); sheetOpen = lenderAll = moreOpen = customDate = false;
       commit(false); syncControls(); showMode(); render();
       window.scrollTo({ top: 0, behavior: "instant" });
     },

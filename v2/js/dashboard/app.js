@@ -17,6 +17,7 @@ import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNI
 import { deals, intel, managers, HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HF_13F, HEDGE_INTEL } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { nbNums } from "../nb-format.js";
+import { rosterCardsHTML, wireRosters } from "../credit-roster.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
 
 // Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
@@ -522,7 +523,7 @@ export function mount(host, ctx) {
   // Europe-first credit state: the spread stack (Euro HY leading), European +
   // US defaults & distress, the stress list (drills into Transactions), the
   // maturity wall and the deal/fund activity Wire itself tracks.
-  // Stress table — sortable; each debtor drills into Transactions ▸ Credits.
+  // Stress table — sortable; each debtor drills into the European credits roster below.
   // Parse a debt string ("€15.5bn net", "~£19bn", "$25bn bonds") to a comparable
   // magnitude (currency-agnostic) so the table can rank by size of debt.
   const debtNum = (s) => {
@@ -547,11 +548,11 @@ export function mount(host, ctx) {
     else if (k) rows.sort((a, b) => String(a[k] || "").localeCompare(String(b[k] || "")) * dir);
     return rows;
   }
-  const txCredits = (name) => `${ctx.base}/transactions/#/credits?q=${encodeURIComponent(String(name).replace(/\s*\(.*\)\s*$/, ""))}`;
+  const txCredits = (name) => `${ctx.base}/dashboard/credit?credit=${encodeURIComponent(String(name).replace(/\s*\(.*\)\s*$/, ""))}`;
   function stressHTML() {
     const chip = (k, l) => `<button type="button" class="dsh-sortchip${_stressSort.key === k ? " is-on" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</button>`;
     const row = (s) => `<tr>`
-      + `<td class="dsh-nm"><a class="dsh-drill" href="${esc(txCredits(s.name))}" title="Open ${esc(s.name)} in Transactions">${esc(s.name)}</a></td>`
+      + `<td class="dsh-nm"><a class="dsh-drill" href="${esc(txCredits(s.name))}" title="Find ${esc(s.name)} in the European credits roster">${esc(s.name)}</a></td>`
       + `<td class="dsh-stress-sec">${esc(s.sector || "")}</td>`
       + `<td class="dsh-stress-hq">${esc(s.hq || "")}</td>`
       + `<td class="dsh-stress-debt">${esc(s.debt)}</td>`
@@ -787,7 +788,8 @@ export function mount(host, ctx) {
       ${fillCard("dsh-lenders", "Most active lenders — 90 days", lendersBody(), `<span class="dsh-n">tracked by Wire</span> ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}`)}
       ${fillCard("dsh-dd", "Restructuring &amp; distress deals", distressDealsBody(), `<span class="dsh-n">tracked by Wire</span>`)}
       <h3 class="dsh-term-lbl">Activity</h3>
-      <section class="dsh-card dsh-fill"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3><div class="dsh-fill-body">${activityHTML()}</div></section>`;
+      <section class="dsh-card dsh-fill"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3><div class="dsh-fill-body">${activityHTML()}</div></section>
+      ${rosterCardsHTML(asOf)}`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Credit wire" };
   }
@@ -1743,6 +1745,7 @@ export function mount(host, ctx) {
       ${rail}
     </div></div>`;
     tidyHeaders();
+    if (pane === "credit") wireRosters(host);
     layoutMid();
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadRates(); loadEu(); wireStressSort(); }

@@ -78,8 +78,8 @@ function buildIndex() {
   deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, d.date ? `/v2/transactions/#/deal/${encodeURIComponent(d.id)}` : creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
   intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, i.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(i.managerId)}?focus=${encodeURIComponent(i.id)}` : creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise"));
   // BDCs and the European credit universe (Transactions) — each opens its row.
-  (BDCS || []).forEach((b) => add("credit", b.name, `BDC${b.ticker ? " · " + b.ticker : ""} · ${b.manager || ""}`, `/v2/transactions/#/bdc?open=${encodeURIComponent(b.ticker || b.name)}`, 1, "", "BDC"));
-  (EUR_CREDITS || []).forEach((c) => add("credit", c.name, `European credit · ${c.sector || ""}${c.rating ? " · " + c.rating : ""}${c.jurisdiction ? " · " + c.jurisdiction : ""}`, `/v2/transactions/#/credits?open=${encodeURIComponent(c.name)}`, 1, "", "Credit"));
+  (BDCS || []).forEach((b) => add("credit", b.name, `BDC${b.ticker ? " · " + b.ticker : ""} · ${b.manager || ""}`, `/v2/dashboard/credit?bdc=${encodeURIComponent(b.ticker || b.name)}`, 1, "", "BDC"));
+  (EUR_CREDITS || []).forEach((c) => add("credit", c.name, `European credit · ${c.sector || ""}${c.rating ? " · " + c.rating : ""}${c.jurisdiction ? " · " + c.jurisdiction : ""}`, `/v2/dashboard/credit?credit=${encodeURIComponent(c.name)}`, 1, "", "Credit"));
   [["lending", "Lending"], ["structured", "Structured credit"], ["secondary", "Secondaries"], ["credits", "Credits"], ["bdc", "BDCs"]]
     .forEach(([k, l]) => add("view", `Transactions — ${l}`, "Transactions", `/v2/transactions/#/${k}`, 4, ""));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
