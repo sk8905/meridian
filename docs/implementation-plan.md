@@ -103,6 +103,7 @@ fact itself is recorded from a source that does allow it.
 | O4 | Approve the routine-prompt change when C1/C2 land (Routines UI) | C1–C2 |
 | O5 | Confirm the Worker secret `FRED_API_KEY` is bound (free key at fred.stlouisfed.org) — then the `fredgraph.csv` fallback and the spoofed browser headers can be removed | §4 FRED row |
 | O6 | Decide the **market-data** replacement for Yahoo/Stooq/CNBC-restQuote and the **X** route (§4) | §4 |
+| O7 | Cloudflare Access: add a **Bypass** policy for the single path `/api/nl-ingest` (secret-guarded, write-only) so the routine can store newsletter bodies; and forward/subscribe your Bloomberg, WSJ, Economist and Reuters newsletters to the ingestion mailbox | R38 newsletters in-pane |
 
 ### Draft — Find Case Law computational-analysis licence (O1)
 

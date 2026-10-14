@@ -129,6 +129,83 @@ async function handleWatchlist(request, env) {
 // site sits behind Cloudflare Access, a headless routine must also be let past the
 // edge — add an Access *Bypass* policy for this one path, or call it with an Access
 // service token. Read-only; never mutates KV.
+// ---- Newsletter bodies (the reader's OWN subscriber emails) -------------------------
+// The refresh routine's Gmail sweep posts each newsletter's plain-text body here so the
+// reading pane can show the full issue in-app (Bloomberg, WSJ, The Economist, Reuters
+// newsletters the owner pays for). Stored ONLY in KV behind Cloudflare Access — never
+// in the (public) git repo. Two paths:
+//   POST /api/nl-ingest  — RESEARCH_KEY-guarded write (Access *Bypass* this one path,
+//                          like /api/research-targets); body {id, title, publication,
+//                          author, date, url, text}. Kept 60 days.
+//   GET  /api/nl-body?id=<newsletter id> — the reader's own read; requires a verified
+//                          Access identity, so a body is never served anonymously.
+const NL_TTL = 60 * 86400;
+const _nlKey = (id) => "nlb:" + id;
+const NL_FOOTER = /^(unsubscribe|manage (?:your )?(?:preferences|subscriptions|email)|update (?:your )?preferences|you (?:are )?received this|you(?:'re| are) receiving this|this email was sent|to stop receiving|view (?:this email )?in (?:your )?browser|view online|privacy (?:policy|notice)|©|copyright \d|all rights reserved|follow us on|download the app|was this (?:email|newsletter) forwarded|sign up here|forwarded this|bloomberg l\.?p\.? 731|dow jones & company|the economist newspaper limited|thomson reuters)/i;
+// Plain-text email → reading-pane blocks. Drops link-only lines, markdown/angle-bracket
+// URLs and everything from the first footer line on; a short unpunctuated line that
+// introduces a paragraph becomes a heading. Pure — unit-tested.
+export function nlBlocks(text) {
+  const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
+  const cut = [];
+  for (const raw of lines) {
+    let l = raw.replace(/\[([^\]]*)\]\((?:https?:|mailto:)[^)]*\)/g, "$1")   // [text](url) → text
+      .replace(/<(?:https?:|mailto:)[^>]*>/g, "").replace(/\((?:https?:)[^)\s]*\)/g, "")
+      .replace(/https?:\/\/\S+/g, "").replace(/[ \t\u00a0]+/g, " ").trim();
+    if (cut.length > 3 && NL_FOOTER.test(l)) break;                          // footer reached
+    cut.push(l);
+  }
+  const isHead = (t) => t.length <= 80 && !/[.!?:;,"”’)]$/.test(t) && !/,/.test(t) && t.split(" ").length <= 12;
+  const paras = [];
+  let cur = [];
+  // A short unpunctuated first line directly above its text is that section's title.
+  const flush = () => { if (!cur.length) return; if (cur.length > 1 && isHead(cur[0])) paras.push({ h: cur.shift() }); paras.push({ t: cur.join(" ") }); cur = []; };
+  for (const l of cut) {
+    if (!l || /^[-_=*·•|]{3,}$/.test(l)) { flush(); continue; }
+    cur.push(l);
+  }
+  flush();
+  const blocks = [];
+  let size = 0;
+  for (const p of paras) {
+    const t = p.h || p.t;
+    if (!/[a-z0-9]/i.test(t)) continue;
+    const h = !!p.h || isHead(t);
+    blocks.push(h ? { h: true, t } : { t });
+    size += t.length;
+    if (blocks.length >= 400 || size > 120000) break;
+  }
+  while (blocks.length && blocks[blocks.length - 1].h) blocks.pop();         // no dangling heading
+  return blocks;
+}
+async function handleNlIngest(request, env) {
+  if (request.method !== "POST") return json({ error: "method not allowed" }, 405);
+  if (!env.RESEARCH_KEY) return json({ error: "not configured" }, 503);
+  if ((request.headers.get("x-research-key") || "") !== env.RESEARCH_KEY) return json({ error: "forbidden" }, 403);
+  if (!env.WATCHLIST) return json({ error: "no kv" }, 503);
+  let b; try { b = await request.json(); } catch { return json({ error: "bad json" }, 400); }
+  const id = String((b && b.id) || "").trim();
+  if (!/^[a-z0-9][a-z0-9._-]{2,160}$/i.test(id)) return json({ error: "bad id" }, 400);
+  const blocks = nlBlocks(b.text);
+  if (blocks.filter((x) => !x.h).length < 2) return json({ error: "no body", blocks: blocks.length }, 422);
+  const rec = { id, title: String(b.title || "").slice(0, 300), source: String(b.publication || "").slice(0, 80),
+    byline: String(b.author || "").slice(0, 160), date: String(b.date || "").slice(0, 10), url: String(b.url || "").slice(0, 600), blocks, at: new Date().toISOString() };
+  await env.WATCHLIST.put(_nlKey(id), JSON.stringify(rec), { expirationTtl: NL_TTL });
+  return json({ ok: true, id, blocks: blocks.length });
+}
+async function handleNlBody(request, env) {
+  if (request.method !== "GET") return json({ error: "method not allowed" }, 405);
+  if (!identity(request)) return json({ accessible: false, paragraphs: [], reason: "auth" }, 401);
+  const id = new URL(request.url).searchParams.get("id") || "";
+  let rec = null;
+  try { const raw = env.WATCHLIST && await env.WATCHLIST.get(_nlKey(id)); rec = raw ? JSON.parse(raw) : null; } catch { rec = null; }
+  if (!rec) return json({ accessible: false, paragraphs: [], reason: "no-body" }, 404);
+  const out = json({ accessible: true, title: rec.title, byline: rec.byline, date: rec.date, source: rec.source, url: rec.url,
+    blocks: rec.blocks, paragraphs: rec.blocks.filter((x) => !x.h).map((x) => x.t) });
+  out.headers.set("cache-control", "private, no-store");
+  return out;
+}
+
 async function handleResearchTargets(request, env) {
   if (request.method !== "GET") return json({ error: "method not allowed" }, 405);
   const secret = env.RESEARCH_KEY;
@@ -5483,6 +5560,8 @@ export default {
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
+    if (url.pathname === "/api/nl-ingest") return handleNlIngest(request, env);   // routine write — Access-Bypass this path, secret-guarded
+    if (url.pathname === "/api/nl-body") return handleNlBody(request, env);       // reader read — stays behind Access
     if (url.pathname === "/api/feedback") return handleFeedback(request, env);
     if (url.pathname === "/api/feedback-export") return handleFeedback(request, env);   // admin dump path — Access-Bypass this one, secret-guarded
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);

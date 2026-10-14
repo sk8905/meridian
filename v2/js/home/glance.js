@@ -2800,7 +2800,13 @@ function renderWire() {
 // step with the Worker's READ_PAYWALL set so the lock shows instantly; every OTHER
 // source is attempted by the reader (any openly-accessible page prints in-pane).
 const PAYWALL_SRC = /financial times|bloomberg|wall street journal|\bwsj\b|economist|new york times|\bnyt\b|barron|business insider|the times|telegraph|nikkei|forbes|washington post|the information|seeking alpha/i;
+// The reader's OWN subscriber newsletters (Bloomberg, WSJ, The Economist, Reuters…)
+// whose email body the refresh routine stored in KV (`body: true` in newsletters.js) read
+// IN-PANE from /api/nl-body — so they are not "paywalled" here even though their
+// read-online link points at a subscriber site.
+const _NL_BODY = new Map((NEWSLETTERS || []).filter((n) => n && n.body && n.url && n.id).map((n) => [n.url, n.id]));
 function _isPaywalled(src, href) {
+  if (href && _NL_BODY.has(href)) return false;
   return PAYWALL_SRC.test(src || "")
     || /(?:^|\/\/|\.)(?:ft|bloomberg|wsj|economist|nytimes|barrons|businessinsider|thetimes|telegraph|nikkei|forbes|washingtonpost|theinformation|seekingalpha)\.[a-z]/i.test(href || "");
 }
@@ -2915,7 +2921,10 @@ function _fetchRead(href) {
   // flaky origin, then a proxy render ~20s), so this must outwait those retries to actually
   // LOAD the body rather than giving up on it. Only a genuinely dead source falls through to
   // the UI fallback — and the worker caches any success, so a later open is instant anyway.
-  const p = fetch(`/api/read?url=${encodeURIComponent(href)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) })
+  const nl = _NL_BODY.get(href);   // a stored newsletter body → read it from KV (R38), not the publisher
+  const p = (nl
+    ? fetch(`/api/nl-body?id=${encodeURIComponent(nl)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) })
+    : fetch(`/api/read?url=${encodeURIComponent(href)}`, { headers: { accept: "application/json" }, cache: "no-store", signal: _timeoutSignal(40000) }))
     .then((r) => (r && r.ok) ? r.json() : null).catch(() => null);
   _readMem.set(href, p);
   p.then((d) => { if (!d) _readMem.delete(href); });        // a failed/timed-out fetch retries on the next open

@@ -8,10 +8,11 @@
 // from Gmail through the connector, parsed, and written here as feed items.
 // This list is regenerated on each refresh.
 //
-// We keep only the headline, a one-line topic summary, the publication/author
-// and the newsletter's own "read online" link — never the full article body.
-// This deployment sits behind Cloudflare Access (single reader), so the list is
-// personal to it.
+// This file keeps only the headline, a one-line topic summary, the publication/
+// author and the newsletter's own "read online" link — never the body (the repo is
+// public). The FULL issue is stored separately in Cloudflare KV behind Access
+// (POST /api/nl-ingest by the routine → GET /api/nl-body by the reader); an item with
+// `body: true` opens in full in the reading pane. See docs/refresh-routines.md §2.
 //
 // PUBLISHERS maps a sender address/domain to a display name (used by the refresh
 // routine); extend it as new newsletters are added.

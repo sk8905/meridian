@@ -1174,10 +1174,29 @@ link; **summary** = ONE short line (the newsletter's own subhead / lead sentence
 phrase, never body paragraphs). If the links are all click-tracking redirects, use the
 newsletter's canonical web page. Prepend to `NEWSLETTERS` with schema
 `{ id, publication, author, series, title, date, time, summary, url }`; `id` = stable
-slug `nl-<pub>-<slug>-<YYYYMMDD>`. Dedupe on `id` and `url`; keep the ~40 newest. Store
-only headline + one-line summary + link — no article body text. `newsletters.js` is
-TOKENLESS + `no-cache`; no import token to bump. `glance.js` renders `NEWSLETTERS` into
-the feed under the `LETTER` label.
+slug `nl-<pub>-<slug>-<YYYYMMDD>`. Dedupe on `id` and `url`; keep the ~40 newest.
+`newsletters.js` itself carries only headline + one-line summary + link (the repo is
+PUBLIC — never commit body text). `newsletters.js` is TOKENLESS + `no-cache`; no import
+token to bump. `glance.js` renders `NEWSLETTERS` into the feed under the `LETTER` label.
+
+**Full text in the reading pane (owner request 2026-10-14).** For every newsletter
+recorded this run, read the email with `get_thread` (`messageFormat: PLAIN_TEXT`) and
+POST its body to the live site's **`/api/nl-ingest`** (same origin and `RESEARCH_KEY` as
+`/api/research-targets`; needs the same Access *Bypass* for that one path):
+
+```
+curl -sS -X POST "$WIRE_ORIGIN/api/nl-ingest" -H "content-type: application/json" \
+  -H "X-Research-Key: $RESEARCH_KEY" \
+  --data '{"id":"<nl id>","title":"…","publication":"Bloomberg","author":"…","date":"YYYY-MM-DD","url":"<view-in-browser url>","text":"<plain-text body>"}'
+```
+
+On `200 {ok:true}` set **`body: true`** on that `NEWSLETTERS` item — the reading pane
+then opens the full issue from KV (`/api/nl-body`, behind Access) instead of a padlock.
+`422 no body` (a teaser-only email) → leave `body` unset. If `/api/nl-ingest` is
+unreachable (no bypass yet / 5xx), leave `body` unset and carry on — never fail the run.
+Bodies live 60 days in KV. The owner subscribes these newsletters to the ingestion
+mailbox: Bloomberg, The Economist, Reuters and **The Wall Street Journal** (add the WSJ
+sender domain to `PUBLISHERS` on its first delivery — confirm the real sender).
 
 ### 3. myFT → `ft.js` (independent of Gmail — run every time)
 

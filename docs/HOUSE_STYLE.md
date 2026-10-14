@@ -1068,6 +1068,19 @@ notification badge red (`#ef4444`).
 
 ---
 
+- **R38 — Subscriber newsletters read in full in the reading pane.** The owner's own
+  newsletter emails (Bloomberg, WSJ, The Economist, Reuters…) open as the FULL issue in
+  the reading pane, not a padlock. The routine POSTs each email's plain-text body to
+  `/api/nl-ingest` (RESEARCH_KEY-guarded; the one Access-Bypassed write path) → KV
+  (`nlb:<id>`, 60 days); the reader reads `/api/nl-body?id=` (requires an Access identity,
+  `no-store`). `newsletters.js` carries only `body: true` — **body text is never committed**
+  (the repo is public). In `glance.js`, `_NL_BODY` makes such a row unlocked
+  (`_isPaywalled` → false) and routes `_fetchRead` to `/api/nl-body`; a missing body falls
+  back to the "open the original" link. `nlBlocks` (src/index.js) turns the email into
+  blocks: section titles → headings, URLs / markdown links dropped, everything from the
+  footer (unsubscribe / preferences / "you received this" / ©) cut. Spec:
+  `tests/newsletter-reader.mjs`.
+
 ## 7. Technical rules
 
 - **T1 — Cache-busting: code carries a token, data does NOT.**
