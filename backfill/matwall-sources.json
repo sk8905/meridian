@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-14T09:24:00.030Z",
+ "generated": "2026-10-14T10:37:20.541Z",
  "held": "2026-08-05",
  "leads": [
   {
@@ -70,26 +70,72 @@
   {
    "id": "spdji_weu_ll",
    "name": "S&P UBS Western European Leveraged Loan Index dashboard",
-   "url": "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf",
-   "fetched": "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf",
-   "status": 403,
-   "error": null
+   "status": "unreachable",
+   "tried": [
+    "https://www.spglobal.com/spdji/en/documents/performance-reports/dashboard-sp-ubs-western-european-leveraged-loan-indices.pdf → 403",
+    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf → 403",
+    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-2026-09.pdf → 403",
+    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-2026-08.pdf → 403",
+    "https://www.spglobal.com/spdji/en/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard-2026-07.pdf → 403",
+    "https://www.spglobal.com/spdji/jp/documents/performance-reports/sp-ubs-western-european-leveraged-loan-dashboard.pdf → 403"
+   ]
   },
   {
    "id": "afme_hyll",
    "name": "AFME data & research (HY / leveraged loan / private credit reports)",
-   "url": "https://www.afme.eu/publications/data-research",
-   "follow": {},
-   "fetched": "https://www.afme.eu/media/1ygbf3ae/hyllpc-report-2q-2026.pdf",
+   "ok": true,
    "status": 200,
+   "fetched": "https://www.afme.eu/media/1ygbf3ae/hyllpc-report-2q-2026.pdf",
    "dated": null,
    "lines": [
-    "6.7 European Corporate Bonds Outstanding 6.8 European Corporate High Yield Maturity Wall",
-    "6.9 European Corporate High Yield Outstanding by Sector: June 2026 6.10 European Corporate High Yield Outstanding by Current Rating:",
-    "High Yield, Leveraged Loan and Private Credit Report - Q2 2026 / 26",
-    "High Yield, Leveraged Loan and Private Credit Report - Q2 2026 /27"
+    "for refinancing, with an additional 5% for debt",
+    "Refinancing 71%",
+    "by refinancing and debt repayment (60%), followed",
+    "Refinancing 21% Bolt-on Acquisition",
+    "refinancing accounted for 21% of the total.",
+    "Repay Debt/Refinancing 29%",
+    "29% and Refinancing at 20.9%. Capex represented 14.8% of the total share.",
+    "Issuance Number of Deals Bolt-on Acquisition Capex/Growth LBO/SBO/P2P Others Refinancing",
+    "In Q2 2026, the primary use of proceeds was refinancing, which accounted for 59.5% of total issuance, followed by general",
+    "corporate purposes at 26%. The share of refinancing-related issuance has remained strong, after reaching the highest value in",
+    "Yields are calculated to a three-year call. While most direct loans have a 5- to 7-year stated maturity, refinancing and corporate events reduce their average life to about 3"
    ],
-   "note": null
+   "note": null,
+   "tried": [
+    "https://www.afme.eu/publications/data-research → 200"
+   ]
+  },
+  {
+   "id": "spratings_cmr",
+   "name": "S&P Global Ratings — Credit Markets Research hub (Global Refinancing items)",
+   "status": "unreachable",
+   "tried": [
+    "https://www.spglobal.com/ratings/en/research/credit-market-research → 403"
+   ]
+  },
+  {
+   "id": "fitch_levfin_maturity",
+   "name": "Fitch — Global Leveraged Finance Maturity Profile (free reprint)",
+   "status": "unreachable",
+   "tried": [
+    "https://www.hellenicshippingnews.com/global-leveraged-finance-maturity-profile-supports-refinancing-flexibility/ → 403"
+   ]
+  },
+  {
+   "id": "maalot_pubs",
+   "name": "Maalot (S&P affiliate) — free S&P research PDFs",
+   "status": "unreachable",
+   "tried": [
+    "https://www.maalot.co.il/Publications → 404"
+   ]
+  },
+  {
+   "id": "indexology",
+   "name": "Indexology (S&P DJI blog) — leveraged loan commentary",
+   "status": "unreachable",
+   "tried": [
+    "https://www.indexologyblog.com/feed/ → 403"
+   ]
   }
  ]
 }
