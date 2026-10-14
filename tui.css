@@ -1371,7 +1371,7 @@ th.pf-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 .tx-fsel { color: var(--accent); }
 .tx-fchips { display: flex; flex-wrap: wrap; gap: 5px; }
 .tx-fchips + .tx-fchips { margin-top: 5px; }
-.tx-fchip { display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 0 9px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font: inherit; font-size: var(--fs-micro); border-radius: 0; cursor: pointer; }
+.tx-fchip { display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 0 9px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font: inherit; font-size: var(--fs-body); border-radius: 0; cursor: pointer; }
 .tx-fchip:hover { color: var(--ink); border-color: var(--muted); }
 .tx-fchip.is-on { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
 .tx-fmore { color: var(--accent); }
@@ -1422,10 +1422,8 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 .tpane.pf-sheet-open > .tleague-wrap, .tpane.pf-sheet-open > .hf-cons, .tpane.pf-sheet-open > .hf-ofr { display: none; }
 #pf-panes .thead-search .pf-active { flex: 1 0 100%; }
 .tleague-full td.tl-fit { color: var(--muted); font-family: var(--t-mono); font-size: var(--fs-micro); white-space: nowrap; }
-.pf-act-l, .pf-sort, .pf-views { display: none; }
+.pf-act-l, .pf-sort { display: none; }
 @media (max-width: 760px) {
-  #pf-panes .thead-search .pf-sort { display: inline-block; max-width: 8.5rem; }
-  #pf-panes .pf-views { display: block; }
   /* Hedge Funds: Monitor / Cross-holdings move into the Filters sheet (P5). */
   #pf-panes #hf-mon-btn, #pf-panes #hf-cons-btn { display: none; }
   /* Card rows: name · headline figure, then HQ · fit · activity — no sideways table. */
@@ -1486,3 +1484,32 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   .tx-typestrip .tx-secchip.is-on[data-sub=""] { border-color: var(--muted); background: var(--surface); color: var(--ink); }
 }
 
+
+/* ---- One-row filter bars (Transactions + Profiles, HOUSE_STYLE R39e) ----------------
+   Bar = search · (Target) · Filters button with a count. Everything else lives in the
+   Filters panel: on desktop a dropdown over the list under its bar; on phone it takes the
+   list's place. Active filters read as ONE quiet summary line with "Clear". */
+.tx-fbtn { display: inline-flex; align-items: center; gap: 4px; min-height: 26px; padding: 0 8px; color: var(--muted); font-weight: 600; }
+.tx-fbtn svg { flex: 0 0 auto; }
+.tx-fbtn .tx-fn:empty { display: none; }
+.tx-fbtn.has-n { color: var(--ink); border-color: var(--accent); }
+.tx-fbtn.has-n .tx-fn { color: var(--accent); font-variant-numeric: tabular-nums; }
+.tx-active { flex-wrap: nowrap; gap: 0 10px; min-width: 0; font-size: var(--fs-micro); }
+.tx-active .tx-sum { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-weight: 400; font-size: var(--fs-micro); font-family: var(--t-mono); }
+.tx-active .tx-clear { flex: 0 0 auto; min-height: 0; padding: 0; }
+.tx-fmore-t { display: block; margin: 6px 0 2px; padding: 4px 0; border: 0; background: transparent; color: var(--accent); font: inherit; font-family: var(--t-mono); font-size: var(--fs-micro); font-weight: 700; cursor: pointer; }
+.tx-fdate { min-height: 28px; max-width: none; }
+.tx-sheet-fr { display: inline-flex; align-items: center; gap: 10px; }
+.tx-sheet-f .tx-csv { margin: 0; }
+@media (min-width: 761px) {
+  .tx-dash .tx-sheet, #pf-panes .pf-sheet { position: absolute; right: 11px; width: min(460px, calc(100% - 22px)); z-index: 9;
+    border: 1px solid var(--border); box-shadow: 0 12px 28px rgba(0, 0, 0, .22); }
+  #pf-panes .tpane { position: relative; }
+  .tx-sheet-b { max-height: 62vh; }
+}
+@media (max-width: 760px) {
+  #tx-body .tx-stats { display: none; }   /* the panel's "Show N deals" carries the count */
+}
+/* Profiles: Following / CSV / sort / Monitor / Cross-holdings are driven from the panel. */
+#pf-panes .pf-hold { display: none; }
+#pf-panes .pf-sheet .pf-sort-p { display: inline-block; max-width: none; min-height: 26px; }

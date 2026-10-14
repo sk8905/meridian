@@ -1094,13 +1094,20 @@ notification badge red (`#ef4444`).
   kind ("EV $2.8bn") and never counts. **(c) Manager M&A** (`managerMA`) is its own mode,
   out of Lending deal flow (columns Target · Acquirer · Country · Value · Date · Source).
   **(d) De-duplication:** the same lender + date + USD size + type from two outlets is ONE
-  row; the other source shows as "+n" and "Also reported" in the drawer. **(e) Filters
-  sheet** (one `Filters (n)` button; desktop: a panel under the bar, phone: replaces the
-  list, "Show N deals" returns): multi-select chips with LIVE counts — OR within a facet,
-  AND across — for type · sector · region (with *All Europe*, one "Europe" pill) · size band
-  (incl. *Not disclosed*) · currency · sponsor (Lending) · lender; dates as presets, years,
-  the last six quarters and a custom month range. Phone keeps only the type strip, the
-  pills and the bar on the page; sort + group live in the sheet. **(f) Columns per mode**
+  row; the other source shows as "+n" and "Also reported" in the drawer. **(e) One-row bar + Filters panel** (2026-10 simplification).
+  Every Transactions mode and every Profiles list has ONE control row: **search · (Target) ·
+  Filters** (a sliders icon with a count). Nothing else sits above the list — no type
+  sub-labels in the rail, no type strip, no pills: active filters read as ONE quiet summary
+  line ("Direct lending, UK & Ireland, Target · Clear"), only when something is active.
+  The **Filters panel** holds everything else — desktop: a dropdown over the list under its
+  bar (a click outside closes it); phone: it takes the list's place and "Show N" returns.
+  Panel order: **Managers** (All · $1–15bn AUM · Target) · Type · Date (ONE menu: presets,
+  years, last six quarters, custom range) · Region (with *All Europe*) · Size; **More
+  filters ▸** adds Sector · Currency · Sponsor · Lender and Sort & group. Footer: Clear all ·
+  Export CSV · Show N. Multi-select chips with live counts (OR within a facet, AND across).
+  Credits' panel: rating · trend · jurisdiction · sector + sort & group; BDCs': sort + CSV.
+  On phone the stats line is dropped (the panel's "Show N deals" carries the count).
+  **(f) Columns per mode**
   (Lending: Borrower · Lender · Sponsor (only when any) · Sector · Country · Amount · Date ·
   Source; Structured: Deal · Manager · Type · Event · Country · Size · Date · Source;
   Secondaries: Fund / portfolio · Buyer / lead · Type · Country · Size · Date · Source);
@@ -1108,18 +1115,18 @@ notification badge red (`#ef4444`).
   month · sector · region · type with a count + disclosed-volume subtotal per group; a
   **stats strip** (numbers only, R20): N deals · ≈$ disclosed (n/N) · median · top 3
   lenders. **(g) The control bar wraps** and every control stays inside the viewport at
-  ≥1024px (spec); the as-of line sits below it. **(h) Target.** `credit/js/target.js`
+  ≥1024px (spec); the as-of banner shows only when the ledger is stale. **(h) Target.** `credit/js/target.js`
   (`targetFit`; `scripts/lib/niche.mjs` re-exports it) scores each manager: **Target** =
   European HQ / European fund focus + AUM ≤ $15bn + a 15%+ strategy; then Adjacent ·
   Other credit · Non-credit. The **$1–15bn** button on Transactions and Profiles ▸
   Managers is a tri-state: $1–15bn → **Target** → off. Profiles ▸ Managers opens
-  **Target-first** (tier, then AUM) with a sortable **Fit** column. **(i) Profiles lists**
-  get the same Filters sheet: Managers → strategy · region (primary HQ) · AUM band · in
-  market; Hedge funds → strategy · region (+ the Monitor / Cross-holdings views on phone);
-  Investors → type · mandate; Law firms → tier · practice. Managers and Hedge funds carry a
-  sortable **90d** column (tracked deals + news in 90 days; tooltip = latest date). Phone
-  lists are **card rows** (name · headline figure / HQ · fit · activity) with a sort
-  select. **(j) Credits**: a Filters sheet (rating band · 12-month trend · jurisdiction ·
+  **Target-first** (tier, then AUM) with a sortable **Fit** column. **(i) Profiles lists** use the same one-row bar and
+  panel: Managers → Managers (All · $1–15bn · Target) · Strategy · Region; More → AUM band ·
+  In market · Show & sort (★ Following, sort). Hedge funds → AUM · Strategy · Region ·
+  Views (Monitor, Cross-holdings). Investors → Type · Mandate; Law firms → Tier · Practice.
+  The bar's button is **Target** on Managers and **$1–15bn** on Hedge funds. Managers and
+  Hedge funds carry a sortable **90d** column (tracked deals + news in 90 days; tooltip =
+  latest date). Phone lists are **card rows**; their sort sits in the panel. **(j) Credits**: a Filters sheet (rating band · 12-month trend · jurisdiction ·
   sector), sortable Borrower / Rating headers, a count line (credits · ▼ · ▲). **BDCs**:
   no Type column (the Listed / Private (non-traded) sections say it), the exchange sits
   under the ticker, sortable size / name / NAV / non-accrual / Px/NAV, and the sticky

@@ -72,6 +72,8 @@ if (cr.rows > 0) {
 
   // Group-by controls (sector | rating) — a mutually-exclusive pair, styled like the
   // news/manager-wire group button, defaulting to sector.
+  // The group-by pair lives in the Credits Filters panel (one-row bar, R39e).
+  await pg.evaluate(() => document.querySelector("#tx-cr-filters").click()); await pg.waitForTimeout(120);
   const g0 = await pg.evaluate(() => {
     const btns = [...document.querySelectorAll("#tx-cr-ctl .tcr-grpbtn")];
     return { n: btns.length, labels: btns.map((b) => b.textContent.trim()), anyOn: btns.some((b) => b.classList.contains("is-on")) };
@@ -95,6 +97,7 @@ if (cr.rows > 0) {
   await pg.waitForTimeout(120);
   const g2 = await pg.evaluate(() => ({ anyOn: [...document.querySelectorAll("#tx-cr-ctl .tcr-grpbtn")].some((b) => b.classList.contains("is-on")), rows: document.querySelectorAll("#tx-credits-body .tcr-row").length }));
   check(!g2.anyOn && g2.rows === q.total, `Credits: clicking the active group-by button again turns it off (${g2.rows} rows)`);
+  await pg.evaluate(() => document.querySelector("#tx-cr-sheet .tx-sheet-done").click()); await pg.waitForTimeout(120);
 }
 
 // A credit row opens what the app knows about the name: the tracked deals that NAME
@@ -140,7 +143,7 @@ checkEq(await pg.evaluate(() => getComputedStyle(document.querySelector("#tx-bod
     document.querySelector("#tx-cr-sheet .tx-sheet-done").click(); await wait(120);
     const rows = [...document.querySelectorAll("#tx-credits-body .tcr-row")];
     const allDown = rows.length > 0 && rows.every((r) => r.querySelector(".tcr-tr.tx-dn"));
-    const pills = [...document.querySelectorAll("#tx-cr-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim());
+    const pills = [(document.querySelector("#tx-cr-active .tx-sum") || {}).textContent || ""];
     const stats = (document.querySelector("#tx-credits-body .tx-stats") || {}).textContent || "";
     const h = location.hash;
     document.querySelector('#tx-cr-active [data-crclear="all"]').click(); await wait(120);

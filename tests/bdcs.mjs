@@ -74,8 +74,10 @@ const srt = await pg.evaluate(async () => {
   const n1 = names(), h1 = location.hash;
   document.querySelector('#tx-bdc-body th[data-bsort="na"]').click(); await wait(120);
   const na = [...document.querySelector("#tx-bdc-body .tbdc-tbl").querySelectorAll("tr.tbdc-row td.tbdc-na")].map((td) => parseFloat(td.textContent)).filter((v) => !isNaN(v));
+  document.querySelector("#tx-bdc-filters").click(); await wait(120);   // sort + CSV sit in the BDC panel
   const s = document.querySelector("#tx-bdc-sort"); const sv = s.value;
   s.value = "size-desc"; s.dispatchEvent(new Event("change", { bubbles: true })); await wait(120);
+  document.querySelector("#tx-bdc-sheet .tx-sheet-done").click(); await wait(80);
   return { sortedAZ: n1.every((x, i) => i === 0 || n1[i - 1].localeCompare(x) <= 0), h1, naDesc: na.length > 2 && na.every((v, i) => i === 0 || v <= na[i - 1]), sv };
 });
 check(srt.sortedAZ && /sort=name-asc/.test(srt.h1) && srt.naDesc && srt.sv === "na-desc", `BDC columns sort (name A–Z, non-accrual highest first; ${srt.h1})`);

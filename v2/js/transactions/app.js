@@ -35,9 +35,10 @@ const _mById = new Map(managers.map((m) => [m.id, m]));
 const mgrName = (id) => (_mById.get(id) || {}).name || "";
 const DAY = 864e5;
 
-// The AUM focus tri-state shared with Profiles: off → $1–15bn (group / parent AUM in
-// the band; banks / originators never qualify) → Target (the owner's target market:
-// European, ≤ $15bn, a 15%+ strategy — credit/js/target.js "core") → off.
+// The AUM / target-market lens shared with Profiles: "" (all) · "band" ($1–15bn group /
+// parent AUM; banks / originators never qualify) · "target" (the owner's target market:
+// European, ≤ $15bn, a 15%+ strategy — credit/js/target.js "core"). The bar's Target
+// button toggles Target; the Filters panel's Managers row offers all three.
 const inFocusAum = (aum) => aum != null && aum >= 1 && aum <= 15;
 const focusAumOf = (m) => (!m || m.notAum ? null : (m.aumTotal != null ? m.aumTotal : m.aum));
 const mInBand = (m) => inFocusAum(focusAumOf(m));
@@ -45,7 +46,6 @@ const _fundsBy = new Map();
 for (const f of funds) { if (!_fundsBy.has(f.managerId)) _fundsBy.set(f.managerId, []); _fundsBy.get(f.managerId).push(f); }
 const _tier = new Map(managers.map((m) => [m.id, targetFit(m, _fundsBy.get(m.id) || []).tier]));
 const mIsTarget = (id) => _tier.get(id) === "core";
-const FOCUS_NEXT = { "": "band", band: "target", target: "" };
 const FOCUS_PILL = { band: "$1–15bn AUM", target: "Target managers" };
 
 const DEAL_MODES = [...TX_GROUPS.map((g) => [g.key, g.label]), ["mna", "Manager M&A"]];
@@ -127,7 +127,7 @@ export function mount(host, ctx) {
   const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "",
     crQ: "", crGroup: null, crOpen: "", cr: emptyCr(), crSort: "", bdcQ: "", bdcOpen: "", bdcSort: "size-desc" });
   let st = DEFAULT();
-  let sheetOpen = false, crSheetOpen = false, lenderAll = false;
+  let sheetOpen = false, crSheetOpen = false, bdcSheetOpen = false, lenderAll = false, moreOpen = false, customDate = false;
   const flowMode = () => FLOW.includes(st.mode);
 
   // ---- filters -----------------------------------------------------------------
@@ -276,6 +276,8 @@ export function mount(host, ctx) {
 
   // ---- shell ---------------------------------------------------------------
   const grpSvg = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`;
+  // The Filters button: a sliders glyph (SVG, so iOS never swaps in an emoji) + a count.
+  const filtSvg = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="7" cy="18" r="2" fill="currentColor"/></svg>`;
   const opt = ([v, l]) => `<option value="${esc(v)}">${esc(l)}</option>`;
   host.innerHTML = `
     <div class="tdash tx-dash">
@@ -287,34 +289,27 @@ export function mount(host, ctx) {
             <div class="tchips" id="tx-mode"></div>
           </header>
           <div class="tcol-main">
+            <!-- One row per mode: search · (Target) · ⚙ Filters. Everything else — fit, type,
+                 dates, facets, sort / group, CSV — lives in the Filters panel (R39e). -->
             <header class="tpanel-h thead-search tx-bar" id="tx-flow-search">
               <input type="search" id="tx-q" class="tsearch" placeholder="Search deals, managers…" aria-label="Search transactions">
-              <button type="button" class="tx-fbtn" id="tx-filters" aria-expanded="false" aria-controls="tx-sheet">Filters</button>
-              <select id="tx-sort" class="tx-filt tx-sortgrp" data-ctl="sort" aria-label="Sort the deals">${SORTS.map(opt).join("")}</select>
-              <select id="tx-grp" class="tx-filt tx-sortgrp" data-ctl="grp" aria-label="Group the deals">${GROUPS.map(opt).join("")}</select>
-              <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false">$1–15bn</button>
-              <button type="button" class="tfocus-btn tx-csv" data-csv="flow" title="Download the deals on screen as CSV">CSV</button>
+              <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false">Target</button>
+              <button type="button" class="tx-fbtn" id="tx-filters" aria-expanded="false" aria-controls="tx-sheet" aria-label="Filters">${filtSvg}<span class="tx-fn"></span></button>
               <div class="tx-active" id="tx-active" hidden></div>
             </header>
             <header class="tpanel-h thead-search tx-bar" id="tx-credits-search">
               <input type="search" id="tx-cr-q" class="tsearch" placeholder="Search a credit or sector…" aria-label="Search credits">
-              <button type="button" class="tx-fbtn" id="tx-cr-filters" aria-expanded="false" aria-controls="tx-cr-sheet">Filters</button>
-              <select id="tx-cr-sort" class="tx-filt" aria-label="Sort the credits">${CR_SORTS.map(opt).join("")}</select>
-              <div class="tcr-grpctl" id="tx-cr-ctl" role="group" aria-label="Group the credit roster">
-                <button type="button" class="tcr-grpbtn" data-crgroup="sector" aria-pressed="false">${grpSvg}<span>Group by sector</span></button>
-                <button type="button" class="tcr-grpbtn" data-crgroup="rating" aria-pressed="false">${grpSvg}<span>Group by rating</span></button>
-              </div>
-              <button type="button" class="tfocus-btn tx-csv" data-csv="credits" title="Download the credits on screen as CSV">CSV</button>
+              <button type="button" class="tx-fbtn" id="tx-cr-filters" aria-expanded="false" aria-controls="tx-cr-sheet" aria-label="Filters">${filtSvg}<span class="tx-fn"></span></button>
               <div class="tx-active" id="tx-cr-active" hidden></div>
             </header>
             <header class="tpanel-h thead-search tx-bar" id="tx-bdc-search">
               <input type="search" id="tx-bdc-q" class="tsearch" placeholder="Search a BDC or manager…" aria-label="Search BDCs">
-              <select id="tx-bdc-sort" class="tx-filt" aria-label="Sort the BDCs">${BDC_SORTS.map(opt).join("")}</select>
-              <button type="button" class="tfocus-btn tx-csv" data-csv="bdc" title="Download the BDCs on screen as CSV">CSV</button>
+              <button type="button" class="tx-fbtn" id="tx-bdc-filters" aria-expanded="false" aria-controls="tx-bdc-sheet" aria-label="Sort and export">${filtSvg}<span class="tx-fn"></span></button>
             </header>
             <div class="tx-asof" id="tx-asof" hidden></div>
             <div class="tx-sheet" id="tx-sheet" role="region" aria-label="Filters" hidden></div>
             <div class="tx-sheet" id="tx-cr-sheet" role="region" aria-label="Credit filters" hidden></div>
+            <div class="tx-sheet" id="tx-bdc-sheet" role="region" aria-label="BDC sort and export" hidden></div>
             <div class="tx-scroll" id="tx-body"></div>
             <div class="tx-scroll" id="tx-credits-body"></div>
             <div class="tx-scroll" id="tx-bdc-body"></div>
@@ -329,6 +324,7 @@ export function mount(host, ctx) {
   const drawer = host.querySelector("#tx-drawer");
   const sheet = host.querySelector("#tx-sheet");
   const crSheet = host.querySelector("#tx-cr-sheet");
+  const bdcSheet = host.querySelector("#tx-bdc-sheet");
   let _bdcQuotes = null, _bdcQuotesTried = false;
 
   // ---- freshness cue -------------------------------------------------------
@@ -374,27 +370,33 @@ export function mount(host, ctx) {
   };
   const FACET_TITLE = { type: "Type", sector: "Sector", region: "Region", size: "Size", ccy: "Currency", sponsor: "Sponsor", lender: "Lender / investor" };
 
-  // ---- active-filter pills + the Filters button count -------------------------
-  // Every non-default filter shows as a removable pill, so what is narrowing the list
-  // is always visible and one tap undoes it.
+  // ---- the active-filter summary + the Filters button count ------------------
+  // One quiet line, only when something narrows the list: "Direct lending, UK & Ireland,
+  // Target · Clear". The values themselves are edited in the Filters panel.
+  const setFbtn = (sel, n, open) => {
+    const fb = host.querySelector(sel); if (!fb) return;
+    fb.querySelector(".tx-fn").textContent = n ? String(n) : "";
+    fb.classList.toggle("is-on", open); fb.classList.toggle("has-n", !!n);
+    fb.setAttribute("aria-expanded", String(open)); fb.setAttribute("aria-label", n ? `Filters (${n})` : "Filters");
+  };
+  const summaryHTML = (labels, clearAttr) => labels.length
+    ? `<span class="tx-sum">${esc(labels.join(", "))}</span><button type="button" class="tx-clear" ${clearAttr}>Clear</button>` : "";
+  function activeLabels() {
+    const out = [];
+    const allEu = EUROPE_REGIONS.every((v) => st.f.region.includes(v));
+    for (const k of FACETS) for (const v of st.f[k]) if (!(allEu && k === "region" && EUROPE_REGIONS.includes(v))) out.push(optLabel(k, v));
+    if (allEu) out.push("Europe");
+    const dl = dateLabel(); if (dl) out.push(dl);
+    if (st.focus) out.push(FOCUS_PILL[st.focus]);
+    return out;
+  }
   function renderActive() {
     const el = host.querySelector("#tx-active");
     if (!el) return;
-    const pills = [];
-    if (flowMode()) {
-      // Every European region selected reads as one "Europe" pill.
-      const allEu = EUROPE_REGIONS.every((v) => st.f.region.includes(v));
-      for (const k of FACETS) for (const v of st.f[k]) if (!(allEu && k === "region" && EUROPE_REGIONS.includes(v))) pills.push([`${k}:${v}`, optLabel(k, v)]);
-      if (allEu) pills.push(["europe", "Europe"]);
-      const dl = dateLabel(); if (dl) pills.push(["date", dl]);
-      if (st.focus) pills.push(["focus", FOCUS_PILL[st.focus]]);
-    }
-    el.hidden = !pills.length;
-    el.innerHTML = pills.map(([k, l]) => `<button type="button" class="tx-pill" data-clear="${esc(k)}" aria-label="Remove filter: ${esc(l)}">${esc(l)}<span aria-hidden="true">✕</span></button>`).join("")
-      + (pills.length ? `<button type="button" class="tx-clear" data-clear="all">Clear all</button>` : "");
-    const n = nSelected();
-    const fb = host.querySelector("#tx-filters");
-    if (fb) { fb.textContent = n ? `Filters (${n})` : "Filters"; fb.classList.toggle("is-on", sheetOpen); fb.setAttribute("aria-expanded", String(sheetOpen)); }
+    const labels = flowMode() ? activeLabels() : [];
+    el.hidden = !labels.length;
+    el.innerHTML = summaryHTML(labels, `data-clear="all"`);
+    setFbtn("#tx-filters", nSelected() + (st.focus === "band" ? 1 : 0), sheetOpen);
   }
 
   // ---- the Filters sheet -----------------------------------------------------
@@ -441,31 +443,57 @@ export function mount(host, ctx) {
     }
     return out;
   })();
-  function dateBlock() {
-    const custom = !!(st.from || st.to);
-    const pre = [["all", "All dates"], ...Object.entries(PERIOD_LABEL)].map(([k, l]) => fchip(`data-period="${k}"`, l, null, !custom && st.period === k)).join("");
-    const rng = (l, a, b) => fchip(`data-from="${a}" data-to="${b}"`, l, null, st.from === a && st.to === b);
-    const years = YEARS.map((y) => rng(y, `${y}-01`, `${y}-12`)).join("");
-    const qs = QUARTERS.map(([l, a, b]) => rng(l, a, b)).join("");
-    const lo = rows.reduce((m, r) => (ym(r) < m ? ym(r) : m), "9999-12"), hi = new Date(now).toISOString().slice(0, 7);
-    return `<div class="tx-fgrp" data-fgrp="date"><div class="tx-fh">Date</div><div class="tx-fchips">${pre}</div><div class="tx-fchips">${years}</div><div class="tx-fchips">${qs}</div>`
-      + `<div class="tx-frange"><label>From <input type="month" id="tx-from" min="${lo}" max="${hi}" value="${esc(st.from)}"></label><label>To <input type="month" id="tx-to" min="${lo}" max="${hi}" value="${esc(st.to)}"></label></div></div>`;
+  // Date: ONE menu — presets, years, the last six quarters, or a custom month range.
+  const ymd = (a, b) => `r:${a}:${b}`;
+  function dateValue() {
+    if (customDate) return "custom";
+    if (!st.from && !st.to) return st.period;
+    const v = ymd(st.from, st.to);
+    const known = YEARS.some((y) => ymd(`${y}-01`, `${y}-12`) === v) || QUARTERS.some(([, a, b]) => ymd(a, b) === v);
+    return known ? v : "custom";
   }
+  function dateBlock() {
+    const val = dateValue();
+    const o = (v, l) => `<option value="${esc(v)}"${v === val ? " selected" : ""}>${esc(l)}</option>`;
+    const sel = `<select class="tx-filt tx-fdate" id="tx-date" aria-label="Date range">`
+      + o("all", "All dates") + Object.entries(PERIOD_LABEL).map(([k, l]) => o(k, l)).join("")
+      + `<optgroup label="Year">${YEARS.map((y) => o(ymd(`${y}-01`, `${y}-12`), y)).join("")}</optgroup>`
+      + `<optgroup label="Quarter">${QUARTERS.map(([l, a, b]) => o(ymd(a, b), l)).join("")}</optgroup>`
+      + o("custom", "Custom range…") + `</select>`;
+    const lo = rows.reduce((m, r) => (ym(r) < m ? ym(r) : m), "9999-12"), hi = new Date(now).toISOString().slice(0, 7);
+    const range = val === "custom" ? `<div class="tx-frange"><label>From <input type="month" id="tx-from" min="${lo}" max="${hi}" value="${esc(st.from)}"></label><label>To <input type="month" id="tx-to" min="${lo}" max="${hi}" value="${esc(st.to)}"></label></div>` : "";
+    return `<div class="tx-fgrp" data-fgrp="date"><div class="tx-fh">Date</div>${sel}${range}</div>`;
+  }
+  // Fit: the AUM / target-market lens (the bar's Target button is its one-tap shortcut).
+  const fitBlock = () => `<div class="tx-fgrp" data-fgrp="fit"><div class="tx-fh">Managers</div><div class="tx-fchips">`
+    + [["", "All"], ["band", "$1–15bn AUM"], ["target", "Target"]].map(([v, l]) => fchip(`data-fit="${v}"`, l, null, st.focus === v)).join("") + `</div></div>`;
+  const MORE_FACETS = ["sector", "ccy", "sponsor", "lender"];
+  function placeSheet(el, bar) {
+    // Desktop: the panel drops down over the list, just under its bar; phone: in flow.
+    el.style.top = !_phone() && bar ? (bar.offsetTop + bar.offsetHeight) + "px" : "";
+  }
+  const sheetFoot = (clearAttr, csv, n, noun) => `<div class="tx-sheet-f">`
+    + (clearAttr ? `<button type="button" class="tx-clear" ${clearAttr}>Clear all</button>` : "<span></span>")
+    + `<span class="tx-sheet-fr"><button type="button" class="tfocus-btn tx-csv" data-csv="${csv}">Export CSV</button>`
+    + `<button type="button" class="tx-sheet-done">${n == null ? "Done" : `Show ${n} ${noun}${n === 1 ? "" : "s"}`}</button></span></div>`;
   function renderSheet() {
     sheet.hidden = !(sheetOpen && flowMode());
     host.classList.toggle("tx-sheet-open", !sheet.hidden);
     if (sheet.hidden) { sheet.innerHTML = ""; return; }
     const n = currentList().length;
-    const sortSel = `<select class="tx-filt" data-ctl="sort" aria-label="Sort the deals">${SORTS.map(opt).join("")}</select>`;
-    const grpSel = `<select class="tx-filt" data-ctl="grp" aria-label="Group the deals">${GROUPS.map(opt).join("")}</select>`;
+    if (MORE_FACETS.some((k) => st.f[k].length) || st.sort !== "date" || st.dir !== "desc" || st.grp) moreOpen = true;
+    const facets = (ks) => ks.filter((k) => !(k === "type" && st.mode === "mna" && !st.q)).filter((k) => !(k === "sponsor" && st.mode !== "lending" && !st.q)).map(facetBlock).join("");
+    const sortSel = `<select class="tx-filt" id="tx-sort" data-ctl="sort" aria-label="Sort the deals">${SORTS.map(opt).join("")}</select>`;
+    const grpSel = `<select class="tx-filt" id="tx-grp" data-ctl="grp" aria-label="Group the deals">${GROUPS.map(opt).join("")}</select>`;
     const keepY = sheet.querySelector(".tx-sheet-b") ? sheet.querySelector(".tx-sheet-b").scrollTop : 0;
     sheet.innerHTML = `<div class="tx-sheet-b">`
-      + `<div class="tx-fgrp tx-fsortgrp"><div class="tx-fh">Sort &amp; group</div><div class="tx-fchips">${sortSel}${grpSel}</div></div>`
-      + dateBlock()
-      + FACETS.filter((k) => !(k === "type" && st.mode === "mna" && !st.q)).filter((k) => !(k === "sponsor" && st.mode !== "lending" && !st.q)).map(facetBlock).join("")
-      + `</div><div class="tx-sheet-f"><button type="button" class="tx-clear" data-clear="all">Clear all</button><button type="button" class="tx-sheet-done">Show ${n} deal${n === 1 ? "" : "s"}</button></div>`;
-    sheet.querySelectorAll("select[data-ctl]").forEach((s) => { s.value = s.dataset.ctl === "sort" ? `${st.sort}-${st.dir}` : st.grp; });
+      + fitBlock() + facets(["type"]) + dateBlock() + facets(["region", "size"])
+      + `<button type="button" class="tx-fmore-t" data-fmore-t="1" aria-expanded="${moreOpen}">${moreOpen ? "Fewer filters ▾" : "More filters ▸"}</button>`
+      + (moreOpen ? facets(MORE_FACETS) + `<div class="tx-fgrp tx-fsortgrp"><div class="tx-fh">Sort &amp; group</div><div class="tx-fchips">${sortSel}${grpSel}</div></div>` : "")
+      + `</div>` + sheetFoot(`data-clear="all"`, "flow", n, "deal");
+    sheet.querySelectorAll("select[data-ctl]").forEach((x) => { x.value = x.dataset.ctl === "sort" ? `${st.sort}-${st.dir}` : st.grp; });
     const b = sheet.querySelector(".tx-sheet-b"); if (b) b.scrollTop = keepY;
+    placeSheet(sheet, host.querySelector("#tx-flow-search"));
   }
 
   // ---- mode nav ------------------------------------------------------------
@@ -474,18 +502,7 @@ export function mount(host, ctx) {
   function renderModeNav() {
     const nav = host.querySelector("#tx-mode");
     if (!nav) return;
-    let subHTML = "";
-    if (_txDesktop() && flowMode() && st.mode !== "mna" && !st.q) {
-      const counts = facetCounts("type");
-      const types = TX_TYPES.filter((t) => t.group === st.mode && (counts[t.key] || st.f.type.includes(t.key))).sort((a, b) => (counts[b.key] || 0) - (counts[a.key] || 0));
-      if (types.length) {
-        const groupN = types.reduce((a, t) => a + (counts[t.key] || 0), 0);
-        const one = st.f.type.length === 1 ? st.f.type[0] : null;
-        const chip = (t) => `<button type="button" class="tchip${one === t.key ? " is-on" : ""}" data-sub="${esc(t.key)}">${esc(t.label)}<span class="tx-subn">${counts[t.key] || 0}</span></button>`;
-        const allChip = `<button type="button" class="tchip${!st.f.type.length ? " is-on" : ""}" data-sub="">All<span class="tx-subn">${groupN}</span></button>`;
-        subHTML = `<div class="tx-subnav tx-subnav-nested"><div class="tchips">${allChip}${types.map(chip).join("")}</div></div>`;
-      }
-    }
+    const subHTML = "";   // types live in the Filters panel (no nested sub-labels)
     nav.innerHTML = MODES.map(([k, l]) => {
       const on = st.mode === k;
       // Long labels shorten on phones (six chips share 390px).
@@ -606,17 +623,7 @@ export function mount(host, ctx) {
 
   function renderFlow() {
     const list = currentList();
-    let strip = "";
-    if (!_txDesktop() && !st.q && st.mode !== "mna") {
-      // Phone / tablet: a labelled type strip (All + each type) — a Type-facet shortcut.
-      const counts = facetCounts("type");
-      const types = TX_TYPES.filter((t) => t.group === st.mode && (counts[t.key] || st.f.type.includes(t.key))).sort((a, b) => (counts[b.key] || 0) - (counts[a.key] || 0));
-      const one = st.f.type.length === 1 ? st.f.type[0] : null;
-      const tchip = (k, label, n, on) => `<button type="button" class="tx-secchip${on ? " is-on" : ""}" data-sub="${esc(k)}">${esc(label)}<span class="tx-secn">${n}</span></button>`;
-      if (types.length > 1) strip = `<div class="tx-typestrip tx-secfilter" role="group" aria-label="Filter by transaction type"><span class="tx-striplbl">Type</span>`
-        + tchip("", "All", types.reduce((a, t) => a + (counts[t.key] || 0), 0), !st.f.type.length)
-        + types.map((t) => tchip(t.key, t.label, counts[t.key] || 0, one === t.key)).join("") + `</div>`;
-    }
+    const strip = "";
     const head = st.q ? `<div class="tx-head"><h2 class="tx-title">Search · all transactions</h2>${searchSplit(list)}</div>` : "";
     const empty = `<p class="tw-empty muted small">No ${st.q ? `transactions match “${esc(st.q)}”` : esc(MODE_LABEL[st.mode].toLowerCase()) + " transactions match these filters"}.</p>`;
     body.innerHTML = `<div class="tx-panes-in">${strip}${head}${statsHTML(list)}${list.length ? dealList(list) : empty}</div>`;
@@ -787,6 +794,16 @@ export function mount(host, ctx) {
     });
   }
   const bdcMatch = (b) => { const q = st.bdcQ.toLowerCase(); return !q || b.name.toLowerCase().includes(q) || (b.manager || "").toLowerCase().includes(q) || (b.ticker || "").toLowerCase().includes(q); };
+  function renderBdcSheet() {
+    bdcSheet.hidden = !(bdcSheetOpen && st.mode === "bdc");
+    host.classList.toggle("tx-bdcsheet-open", !bdcSheet.hidden);
+    setFbtn("#tx-bdc-filters", st.bdcSort !== "size-desc" ? 1 : 0, bdcSheetOpen);
+    if (bdcSheet.hidden) { bdcSheet.innerHTML = ""; return; }
+    bdcSheet.innerHTML = `<div class="tx-sheet-b"><div class="tx-fgrp"><div class="tx-fh">Sort</div><select id="tx-bdc-sort" class="tx-filt" aria-label="Sort the BDCs">${BDC_SORTS.map(opt).join("")}</select></div></div>`
+      + sheetFoot("", "bdc", null, "");
+    bdcSheet.querySelector("#tx-bdc-sort").value = st.bdcSort;
+    placeSheet(bdcSheet, host.querySelector("#tx-bdc-search"));
+  }
   function renderBDCs() {
     const list = bdcSorted(BDCS.filter(bdcMatch));
     const groups = [
@@ -894,14 +911,10 @@ export function mount(host, ctx) {
   const CR_TITLE = { rating: "Rating", trend: "12-month trend", jur: "Jurisdiction", sector: "Sector" };
   function renderCrActive() {
     const el = host.querySelector("#tx-cr-active");
-    const pills = [];
-    for (const k of CR_FACETS) for (const v of st.cr[k]) pills.push([`${k}:${v}`, crOptLabel(k, v)]);
-    el.hidden = !pills.length;
-    el.innerHTML = pills.map(([k, l]) => `<button type="button" class="tx-pill" data-crclear="${esc(k)}" aria-label="Remove filter: ${esc(l)}">${esc(l)}<span aria-hidden="true">✕</span></button>`).join("")
-      + (pills.length ? `<button type="button" class="tx-clear" data-crclear="all">Clear all</button>` : "");
-    const n = CR_FACETS.reduce((a, k) => a + st.cr[k].length, 0);
-    const fb = host.querySelector("#tx-cr-filters");
-    fb.textContent = n ? `Filters (${n})` : "Filters"; fb.classList.toggle("is-on", crSheetOpen); fb.setAttribute("aria-expanded", String(crSheetOpen));
+    const labels = CR_FACETS.flatMap((k) => st.cr[k].map((v) => crOptLabel(k, v)));
+    el.hidden = !labels.length;
+    el.innerHTML = summaryHTML(labels, `data-crclear="all"`);
+    setFbtn("#tx-cr-filters", labels.length, crSheetOpen);
   }
   function renderCrSheet() {
     crSheet.hidden = !(crSheetOpen && st.mode === "credits");
@@ -917,8 +930,13 @@ export function mount(host, ctx) {
         + shown.map(([v, l]) => fchip(`data-crfacet="${k}" data-v="${esc(v)}"`, l, counts[v] || 0, st.cr[k].includes(v))).join("") + `</div></div>`;
     };
     const n = crList().length;
-    crSheet.innerHTML = `<div class="tx-sheet-b">${CR_FACETS.map(block).join("")}</div>`
-      + `<div class="tx-sheet-f"><button type="button" class="tx-clear" data-crclear="all">Clear all</button><button type="button" class="tx-sheet-done">Show ${n} credit${n === 1 ? "" : "s"}</button></div>`;
+    const grp = (k, l) => `<button type="button" class="tcr-grpbtn${st.crGroup === k ? " is-on" : ""}" data-crgroup="${k}" aria-pressed="${st.crGroup === k}">${grpSvg}<span>${l}</span></button>`;
+    crSheet.innerHTML = `<div class="tx-sheet-b">${CR_FACETS.map(block).join("")}`
+      + `<div class="tx-fgrp"><div class="tx-fh">Sort &amp; group</div><div class="tx-fchips"><select id="tx-cr-sort" class="tx-filt" aria-label="Sort the credits">${CR_SORTS.map(opt).join("")}</select>`
+      + `<div class="tcr-grpctl" id="tx-cr-ctl" role="group" aria-label="Group the credit roster">${grp("sector", "Group by sector")}${grp("rating", "Group by rating")}</div></div></div></div>`
+      + sheetFoot(`data-crclear="all"`, "credits", n, "credit");
+    crSheet.querySelector("#tx-cr-sort").value = st.crSort;
+    placeSheet(crSheet, host.querySelector("#tx-credits-search"));
   }
   function renderCredits() {
     renderCrActive(); renderCrSheet();
@@ -964,14 +982,11 @@ export function mount(host, ctx) {
     set("#tx-cr-sort", st.crSort); set("#tx-bdc-sort", st.bdcSort);
     const f = host.querySelector("#tx-focus");
     if (f) {
-      f.setAttribute("aria-pressed", st.focus ? "true" : "false"); f.classList.toggle("is-on", !!st.focus);
+      const on = st.focus === "target";
+      f.setAttribute("aria-pressed", String(on)); f.classList.toggle("is-on", on);
       f.dataset.focus = st.focus;
-      f.textContent = st.focus === "target" ? "Target" : "$1–15bn";
-      f.title = st.focus === "" ? "AUM focus — show only $1–15bn AUM managers"
-        : st.focus === "band" ? "Showing $1–15bn AUM managers — tap again for Target managers (European, ≤ $15bn, 15%+ strategy)"
-        : "Showing Target managers (European, ≤ $15bn, 15%+ strategy) — tap again to clear";
+      f.title = on ? "Showing Target managers (European, ≤ $15bn, 15%+ strategy) — tap to clear" : "Show only Target managers (European, ≤ $15bn, 15%+ strategy); $1–15bn AUM is in Filters";
     }
-    host.querySelectorAll("#tx-cr-ctl .tcr-grpbtn").forEach((b) => { const on = b.dataset.crgroup === st.crGroup; b.classList.toggle("is-on", on); b.setAttribute("aria-pressed", String(on)); });
   }
   // Show the active mode's chrome + body. Driven with inline display (the headers
   // carry a CSS display that beats the UA [hidden] rule).
@@ -987,6 +1002,7 @@ export function mount(host, ctx) {
     renderSheet();
     if (st.mode === "credits") renderCredits(); else renderCrSheet();
     if (st.mode === "bdc") { renderBDCs(); loadBdcQuotes(); }
+    renderBdcSheet();
     renderDrawer();
   }
   // A state change from a control: update, record in the URL, re-render.
@@ -1012,16 +1028,20 @@ export function mount(host, ctx) {
   });
   host.querySelector("#tx-cr-q").addEventListener("input", (e) => { st.crQ = e.target.value.trim(); st.crOpen = ""; renderCredits(); clearTimeout(_qT); _qT = setTimeout(() => commit(false), 250); });
   host.querySelector("#tx-bdc-q").addEventListener("input", (e) => { st.bdcQ = e.target.value.trim(); st.bdcOpen = ""; renderBDCs(); clearTimeout(_qT); _qT = setTimeout(() => commit(false), 250); });
-  host.querySelector("#tx-cr-ctl").addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-crgroup]"); if (!btn) return;
-    const mode = btn.dataset.crgroup === "rating" ? "rating" : "sector";
-    change({ crGroup: st.crGroup === mode ? null : mode, crSort: "" });
-  });
-  host.querySelector("#tx-focus").addEventListener("click", () => change({ focus: FOCUS_NEXT[st.focus], deal: "" }));
+  // The bar's Target button: Target on / off (the $1–15bn lens is in the panel's Managers row).
+  host.querySelector("#tx-focus").addEventListener("click", () => change({ focus: st.focus === "target" ? "" : "target", deal: "" }));
   host.addEventListener("change", (e) => {
     const t = e.target;
     if (t.matches("select[data-ctl='sort']")) { const [k, d] = t.value.split("-"); change({ sort: k, dir: d }, !sheetOpen); return; }
     if (t.matches("select[data-ctl='grp']")) { change({ grp: t.value }, !sheetOpen); return; }
+    if (t.id === "tx-date") {
+      const v = t.value;
+      if (v === "custom") { customDate = true; renderSheet(); return; }
+      customDate = false;
+      if (v.startsWith("r:")) { const [, a, b] = v.split(":"); change({ from: a, to: b, period: "all", deal: "" }, false); }
+      else change({ period: v, from: "", to: "", deal: "" }, false);
+      return;
+    }
     if (t.id === "tx-from" || t.id === "tx-to") {
       let from = host.querySelector("#tx-from").value || "", to = host.querySelector("#tx-to").value || "";
       if (from && to && from > to) [from, to] = [to, from];
@@ -1038,8 +1058,14 @@ export function mount(host, ctx) {
     // Filters sheets.
     if (e.target.closest("#tx-filters")) { sheetOpen = !sheetOpen; renderSheet(); renderActive(); return; }
     if (e.target.closest("#tx-cr-filters")) { crSheetOpen = !crSheetOpen; renderCrSheet(); renderCrActive(); return; }
+    if (e.target.closest("#tx-bdc-filters")) { bdcSheetOpen = !bdcSheetOpen; renderBdcSheet(); return; }
+    if (e.target.closest("[data-fmore-t]")) { moreOpen = !moreOpen; renderSheet(); return; }
+    const fit = e.target.closest("[data-fit]");
+    if (fit) { change({ focus: fit.dataset.fit, deal: "" }, false); return; }
+    const crg = e.target.closest("[data-crgroup]");
+    if (crg) { const m = crg.dataset.crgroup === "rating" ? "rating" : "sector"; change({ crGroup: st.crGroup === m ? null : m, crSort: "" }, false); return; }
     if (e.target.closest(".tx-sheet-done")) {
-      sheetOpen = false; crSheetOpen = false; render();
+      sheetOpen = false; crSheetOpen = false; bdcSheetOpen = false; render();
       if (_phone()) window.scrollTo({ top: 0, behavior: "instant" });
       return;
     }
@@ -1051,13 +1077,6 @@ export function mount(host, ctx) {
       change(withF("region", on ? st.f.region.filter((v) => !EUROPE_REGIONS.includes(v)) : [...new Set([...st.f.region, ...EUROPE_REGIONS])]), false); return;
     }
     if (e.target.closest("[data-fmore]")) { lenderAll = true; renderSheet(); return; }
-    const per = e.target.closest("[data-period]");
-    if (per) { change({ period: per.dataset.period, from: "", to: "", deal: "" }, false); return; }
-    const rng = e.target.closest("[data-from]");
-    if (rng) {
-      const on = st.from === rng.dataset.from && st.to === rng.dataset.to;
-      change(on ? { from: "", to: "", deal: "" } : { from: rng.dataset.from, to: rng.dataset.to, period: "all", deal: "" }, false); return;
-    }
     const crf = e.target.closest("[data-crfacet]");
     if (crf) { const k = crf.dataset.crfacet; change({ cr: { ...st.cr, [k]: toggle(st.cr[k], crf.dataset.v) }, crOpen: "" }, false); return; }
     const crc = e.target.closest("[data-crclear]");
@@ -1091,9 +1110,6 @@ export function mount(host, ctx) {
     }
     const ch = e.target.closest("th[data-crsort]");
     if (ch) { const k = ch.dataset.crsort; change({ crSort: st.crSort === k ? (k === "rating" ? "rating-worst" : "") : k, crGroup: null }, false); return; }
-    // Type shortcuts (desktop rail + phone strip) — set the Type facet to one type.
-    const subt = e.target.closest(".tx-subnav [data-sub], .tx-typestrip [data-sub]");
-    if (subt) { const v = subt.dataset.sub ? [subt.dataset.sub] : []; if (v.join() !== st.f.type.join()) change(withF("type", v)); return; }
     // A deal (row, card, or a related-deal row in the drawer / a credit) → its drawer.
     const dl = e.target.closest("[data-deal]");
     if (dl) {
@@ -1129,10 +1145,16 @@ export function mount(host, ctx) {
     }
   });
   host.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && (sheetOpen || crSheetOpen)) { sheetOpen = crSheetOpen = false; render(); return; }
+    if (e.key === "Escape" && (sheetOpen || crSheetOpen || bdcSheetOpen)) { sheetOpen = crSheetOpen = bdcSheetOpen = false; render(); return; }
     if (e.key === "Escape" && st.deal) { closeDeal(); return; }
     const row = e.target.closest && e.target.closest("[data-deal], tr.tcr-row");
     if (row && e.target === row && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); row.click(); }
+  });
+  // Desktop: a click anywhere outside an open panel (and its button) closes it.
+  document.addEventListener("click", (e) => {
+    if (!isActive() || _phone() || !(sheetOpen || crSheetOpen || bdcSheetOpen)) return;
+    if (!document.contains(e.target) || e.target.closest(".tx-sheet, .tx-fbtn")) return;   // a re-rendered chip, or the panel itself
+    sheetOpen = crSheetOpen = bdcSheetOpen = false; render();
   });
   // Back / Forward inside Transactions (hash-only history moves) → re-apply the URL.
   window.addEventListener("hashchange", () => { if (isActive()) applyHash(); });
@@ -1148,7 +1170,7 @@ export function mount(host, ctx) {
     // home(): re-tapping the Transactions tab resets it to its first part —
     // Lending, no search, default filters, sheets closed, scrolled to top.
     home() {
-      st = DEFAULT(); sheetOpen = crSheetOpen = lenderAll = false;
+      st = DEFAULT(); sheetOpen = crSheetOpen = bdcSheetOpen = lenderAll = moreOpen = customDate = false;
       commit(false); syncControls(); showMode(); render();
       window.scrollTo({ top: 0, behavior: "instant" });
     },

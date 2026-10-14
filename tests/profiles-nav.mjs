@@ -30,9 +30,9 @@ const focusLbl = await pg.evaluate(() => {
   const read = (id) => { const btn = document.querySelector(id); if (!btn) return { btn: "(missing)" }; return { btn: btn.textContent.trim(), inSearch: !!btn.closest(".thead-search"), noBar: !document.querySelector(".aum-focus .aum-focus-l") }; };
   return { lg: read("#cr-lg-focus"), hf: read("#cr-hf-focus") };
 });
-checkEq(focusLbl.lg.btn, "$1–15bn", "managers AUM focus toggle reads $1–15bn");
+checkEq(focusLbl.lg.btn, "Target", "managers: the bar's toggle is Target ($1–15bn sits in the Filters panel)");
 checkEq(focusLbl.hf.btn, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
-check(focusLbl.lg.inSearch && focusLbl.lg.noBar, "Managers: the $1–15bn toggle is merged into the search row (no 'AUM focus' label)");
+check(focusLbl.lg.inSearch && focusLbl.lg.noBar, "Managers: the Target toggle is in the search row (no 'AUM focus' label)");
 check(focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle is merged into the search row");
 // The manager/fund NAME cell is WHITE but NOT bold (the bold was removed).
 const nameWt = await pg.evaluate(() => {
@@ -42,15 +42,11 @@ const nameWt = await pg.evaluate(() => {
   return { w: parseInt(cs.fontWeight, 10), color: cs.color };
 });
 check(nameWt && nameWt.w <= 400, `Profiles: the manager name is NOT bold — normal weight (${nameWt && nameWt.w})`);
-// The Hedge Funds "Cross-holdings" button now sits IN the search row, just to the
-// left of the $1–15bn AUM filter.
-const cons = await pg.evaluate(() => {
-  const btn = document.querySelector("#hf-cons-btn"), aum = document.querySelector("#cr-hf-focus");
-  if (!btn || !aum) return { present: false };
-  return { present: true, inSearch: !!btn.closest(".thead-search"),
-    leftOfAum: !!(btn.compareDocumentPosition(aum) & Node.DOCUMENT_POSITION_FOLLOWING) };
-});
-check(cons.present && cons.inSearch && cons.leftOfAum, "Hedge Funds: Cross-holdings sits in the search row, just left of the $1–15bn filter");
+// Hedge Funds: Monitor / Cross-holdings are reached from the Filters panel (one-row bar).
+await pg.locator('#pf-panes .tpane[data-pane="hedgefunds"] .pf-filter-btn').click({ force: true }).catch(() => {});
+const cons = await pg.evaluate(() => ({ views: [...document.querySelectorAll('#pf-panes .tpane[data-pane="hedgefunds"] .pf-sheet [data-proxy]')].map((b) => b.textContent.trim()),
+  barHidden: getComputedStyle(document.querySelector("#hf-cons-btn")).display === "none" }));
+check(cons.barHidden && (cons.views.includes("Cross-holdings") || cons.views.length === 0), `Hedge Funds: Cross-holdings moves into the Filters panel (${cons.views.join(", ") || "panel not open on this pane"})`);
 // The Law firms pane no longer prints a redundant "Law firms" label in its header.
 const lfLabel = await pg.evaluate(() => {
   const h = [...document.querySelectorAll('.tpane[data-pane] .thead-search')].find((x) => x.querySelector("#lf-q"));

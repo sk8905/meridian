@@ -24,17 +24,17 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   await pg.click("#tx-filters"); await pg.waitForTimeout(120);
   await pg.locator('#tx-sheet [data-facet="size"][data-v="500to1bn"]').click(); await pg.waitForTimeout(150);
   await pg.locator('#tx-sheet [data-facet="size"][data-v="gt1bn"]').click(); await pg.waitForTimeout(150);
-  const chipN = await pg.evaluate(() => +((document.querySelector('#tx-mode [data-sub=""] .tx-subn') || {}).textContent || 0));
+  const chipN = await pg.evaluate(() => +((document.querySelector("#tx-stats b") || {}).textContent || 0));
   const big = await rows(pg);
   check(big < all && big === chipN, `≥$500m narrows the All list to the All count (${big} rows, chip ${chipN}, of ${all})`);
-  await pg.locator('#tx-sheet [data-period="30d"]').click(); await pg.waitForTimeout(150);
+  await pg.selectOption("#tx-date", "30d"); await pg.waitForTimeout(150);
   const recent = await rows(pg);
   check(recent <= big, `a date range narrows it further (${recent} ≤ ${big})`);
   // C2: a reset (re-tap the active Transactions tab) leaves every control showing its default
   await pg.locator("#tx-focus").click(); await pg.fill("#tx-q", "ares"); await pg.waitForTimeout(150);
   await pg.locator('[data-key="transactions"]').filter({ visible: true }).first().click(); await pg.waitForTimeout(300);
-  const ui = await pg.evaluate(() => ({ h: location.hash, pills: !document.querySelector("#tx-active").hidden, sheet: !document.querySelector("#tx-sheet").hidden, btn: document.querySelector("#tx-filters").textContent, f: document.querySelector("#tx-focus").getAttribute("aria-pressed"), q: document.querySelector("#tx-q").value, n: document.querySelectorAll("#tx-body [data-deal]").length }));
-  check(ui.h === "#/lending" && !ui.pills && !ui.sheet && ui.btn === "Filters" && ui.f === "false" && ui.q === "" && ui.n === all, `re-tapping Transactions resets the filters AND their controls (${JSON.stringify(ui)})`);
+  const ui = await pg.evaluate(() => ({ h: location.hash, pills: !document.querySelector("#tx-active").hidden, sheet: !document.querySelector("#tx-sheet").hidden, btn: document.querySelector("#tx-filters .tx-fn").textContent, f: document.querySelector("#tx-focus").getAttribute("aria-pressed"), q: document.querySelector("#tx-q").value, n: document.querySelectorAll("#tx-body [data-deal]").length }));
+  check(ui.h === "#/lending" && !ui.pills && !ui.sheet && ui.btn === "" && ui.f === "false" && ui.q === "" && ui.n === all, `re-tapping Transactions resets the filters AND their controls (${JSON.stringify(ui)})`);
   checkErrs(errs, "transactions filters");
   await ctx.close();
 }
@@ -160,14 +160,21 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
   await pg.evaluate(() => localStorage.setItem("meridian.follows", JSON.stringify({ manager: ["m20", "m21"] })));
   await pg.reload(); await pg.waitForSelector("#pf-panes #mgr-rows tr", { timeout: 8000 });
-  await pg.locator('#pf-panes .tpane[data-pane="managers"] .pf-follow-btn').click(); await pg.waitForTimeout(150);
+  // ★ Following lives in the Filters panel (Show & sort, under More filters).
+  const follow = async () => {
+    await pg.locator('#pf-panes .tpane[data-pane="managers"] .pf-filter-btn').click(); await pg.waitForTimeout(100);
+    if (!(await pg.locator('#pf-panes [data-pfstate="follow"]').count())) { await pg.locator('#pf-panes [data-pfmore]').click(); await pg.waitForTimeout(100); }
+    await pg.locator('#pf-panes [data-pfstate="follow"]').click(); await pg.waitForTimeout(100);
+    await pg.locator('#pf-panes .pf-sheet-done').click(); await pg.waitForTimeout(100);
+  };
+  await follow();
   const vis = await pg.evaluate(() => [...document.querySelectorAll("#pf-panes #mgr-rows tr")].filter((r) => r.style.display !== "none").map((r) => r.dataset.href));
   check(vis.length === 2 && vis.includes("#/manager/m20") && vis.includes("#/manager/m21"), `★ Following shows only the followed managers (${vis.join(", ")})`);
   await pg.fill("#pf-panes #mgr-q", "ares"); await pg.waitForTimeout(150);
   const vis2 = await pg.evaluate(() => [...document.querySelectorAll("#pf-panes #mgr-rows tr")].filter((r) => r.style.display !== "none").map((r) => r.dataset.href));
   check(vis2.length === 1 && vis2[0] === "#/manager/m20", `…and combines with the search box (${vis2.join(", ")})`);
   // Sortable list columns: Group AUM descending puts the largest first; again → ascending.
-  await pg.fill("#pf-panes #mgr-q", ""); await pg.locator('#pf-panes .tpane[data-pane="managers"] .pf-follow-btn').click(); await pg.waitForTimeout(100);
+  await pg.fill("#pf-panes #mgr-q", ""); await follow();
   const th = pg.locator('#pf-panes .tpane[data-pane="managers"] thead th', { hasText: "Group" });
   await th.click(); await pg.waitForTimeout(100);
   const firstDesc = await pg.evaluate(() => document.querySelector("#pf-panes #mgr-rows tr").dataset.href);
@@ -234,12 +241,14 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   // CSV: Transactions (the filtered deal list) and a Profiles list
   await pg.goto(base + "/v2/transactions/#/lending?min=1000"); await pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
   const n = await pg.evaluate(() => document.querySelectorAll("#tx-body [data-deal]").length);
-  const [dl] = await Promise.all([pg.waitForEvent("download"), pg.locator('#tx-flow-search .tx-csv').click()]);
+  await pg.click("#tx-filters"); await pg.waitForTimeout(100);
+  const [dl] = await Promise.all([pg.waitForEvent("download"), pg.locator("#tx-sheet .tx-csv").click()]);
   const txt = await (async () => { const fs = await import("node:fs"); return fs.readFileSync(await dl.path(), "utf8"); })();
   const lines = txt.replace(/^\ufeff/, "").trim().split(/\r\n/);
   check(/^wire-transactions-lending-\d{4}-\d{2}-\d{2}\.csv$/.test(dl.suggestedFilename()) && lines.length === n + 1 && /^Date,Borrower/.test(lines[0]), `CSV: the on-screen deals export (${lines.length - 1} rows = ${n} shown)`);
   await pg.goto(base + "/v2/profiles/#/?tab=hedgefunds"); await pg.waitForSelector("#hf-rows tr", { timeout: 8000 });
-  const [dl2] = await Promise.all([pg.waitForEvent("download"), pg.locator('#pf-panes .tpane[data-pane="hedgefunds"] .pf-csv-btn').click()]);
+  await pg.locator('#pf-panes .tpane[data-pane="hedgefunds"] .pf-filter-btn').click(); await pg.waitForTimeout(100);
+  const [dl2] = await Promise.all([pg.waitForEvent("download"), pg.locator('#pf-panes .tpane[data-pane="hedgefunds"] .pf-sheet .tx-csv').click()]);
   check(/^wire-hedgefunds-/.test(dl2.suggestedFilename()), `CSV: a Profiles list exports (${dl2.suggestedFilename()})`);
   checkErrs(errs, "timeline + compare + csv");
   await ctx.close();
@@ -258,15 +267,18 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   check(await pg.evaluate(() => location.hash === "#/lending"), "the retired #/primary mode canonicalises to #/lending");
   await pg.click("#tx-filters"); await pg.waitForTimeout(120);
   await pg.locator('#tx-sheet [data-facet="size"][data-v="gt1bn"]').click(); await pg.waitForTimeout(150);
+  const typeChip = pg.locator('#tx-sheet [data-facet="type"][data-v="lend"]');
+  await typeChip.click(); await pg.waitForTimeout(150);
   await pg.locator('#tx-sheet .tx-sheet-done').click(); await pg.waitForTimeout(120);
-  await pg.locator('#tx-mode [data-sub="lend"]').click(); await pg.waitForTimeout(150);
   check(await pg.evaluate(() => location.hash === "#/lending?type=lend&size=gt1bn"), `type + size are in the URL (${await pg.evaluate(() => location.hash)})`);
-  const pills = await pg.evaluate(() => [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()));
-  check(pills.includes("Direct lending / unitranche") && pills.includes("≥ $1bn"), `active filters show as removable pills (${pills.join(" · ")})`);
+  const sum = await pg.evaluate(() => (document.querySelector("#tx-active .tx-sum") || {}).textContent || "");
+  check(/Direct lending \/ unitranche/.test(sum) && /≥ \$1bn/.test(sum), `active filters read as one summary line (${sum})`);
+  // A mode change is a history step: Back returns to the filtered list.
+  await pg.locator('#tx-mode [data-mode="structured"]').click(); await pg.waitForTimeout(200);
   await pg.goBack(); await pg.waitForTimeout(250);
-  check(await pg.evaluate(() => location.hash === "#/lending?size=gt1bn" && (document.querySelector('#tx-mode [data-sub].is-on') || {}).dataset.sub === ""), "Back steps back through a filter change");
+  check(await pg.evaluate(() => location.hash === "#/lending?type=lend&size=gt1bn"), `Back steps back to the filtered list (${await pg.evaluate(() => location.hash)})`);
   await pg.locator('#tx-active [data-clear="all"]').click(); await pg.waitForTimeout(150);
-  check(await pg.evaluate(() => location.hash === "#/lending" && document.querySelector("#tx-active").hidden && document.querySelector("#tx-filters").textContent === "Filters"), "Clear all resets every filter");
+  check(await pg.evaluate(() => location.hash === "#/lending" && document.querySelector("#tx-active").hidden && document.querySelector("#tx-filters .tx-fn").textContent === ""), "Clear resets every filter");
   // Search covers every group (a CLO is found from the Lending mode).
   await pg.fill("#tx-q", "CLO"); await pg.waitForTimeout(300);
   const sr = await pg.evaluate(() => ({ title: (document.querySelector(".tx-title") || {}).textContent || "", n: document.querySelectorAll("#tx-body [data-deal]").length, blurb: (document.querySelector(".tx-blurb") || {}).textContent || "" }));

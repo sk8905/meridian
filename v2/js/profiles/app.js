@@ -78,18 +78,23 @@ export async function mount(host, ctx) {
     const inp = h.querySelector(".tsearch");
     if (inp && inp.nextSibling) h.insertBefore(f, inp.nextSibling); else h.appendChild(f);
     // Filters — the list's facet sheet (HOUSE_STYLE R39).
+    // One row (R39e): search · (Target / $1–15bn) · Filters. Following, CSV, sort and the
+    // Hedge Funds views stay in the DOM as hidden state holders; the panel drives them.
+    f.classList.add("pf-hold");
     const fb = document.createElement("button");
-    fb.type = "button"; fb.className = "tx-fbtn pf-filter-btn"; fb.setAttribute("aria-expanded", "false"); fb.textContent = "Filters";
-    h.insertBefore(fb, f);
+    fb.type = "button"; fb.className = "tx-fbtn pf-filter-btn"; fb.setAttribute("aria-expanded", "false"); fb.setAttribute("aria-label", "Filters");
+    fb.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="7" cy="18" r="2" fill="currentColor"/></svg><span class="tx-fn"></span>`;
+    h.appendChild(fb);
+    h.querySelectorAll("#hf-mon-btn, #hf-cons-btn").forEach((x) => x.classList.add("pf-hold"));
     // CSV — the list's visible rows (search / focus / Following / sort applied).
     const c = document.createElement("button");
-    c.type = "button"; c.className = "tfocus-btn pf-csv-btn"; c.title = "Download this list as CSV"; c.textContent = "CSV";
+    c.type = "button"; c.className = "tfocus-btn pf-csv-btn pf-hold"; c.title = "Download this list as CSV"; c.textContent = "CSV";
     h.appendChild(c);
     // Phone: the column headers give way to card rows, so sorting is a select.
     const table = h.parentNode.querySelector(".tleague-wrap table");
     if (table) {
       const sel = document.createElement("select");
-      sel.className = "tx-filt pf-sort"; sel.setAttribute("aria-label", "Sort the list");
+      sel.className = "tx-filt pf-sort pf-hold"; sel.setAttribute("aria-label", "Sort the list");
       sel.innerHTML = `<option value="">Default order</option>` + [...table.tHead.rows[0].cells].map((th, i) => {
         const l = th.textContent.replace(/\s+/g, " ").trim(); if (!l) return "";
         return `<option value="${i}:descending">${esc(l)} ↓</option><option value="${i}:ascending">${esc(l)} ↑</option>`;
@@ -109,13 +114,15 @@ export async function mount(host, ctx) {
     investors: [["type", "Type"], ["mandate", "Mandate"]],
     firms: [["tier", "Tier"], ["practice", "Practice"]],
   };
+  // Shown under "More filters ▸" (the rest are always in the panel).
+  const PF_MORE = { managers: ["band", "mkt"] };
+  const _pfMore = {};
   const FIXED_ORDER = { band: ["< $1bn", "$1–15bn", "$15–100bn", "> $100bn", "n/a"] };
   const OPT_LABEL = { mkt: { yes: "Raising now", no: "Not raising" } };
   const pfSel = {};   // pane key → { facet: [values] }
   const selOf = (key) => (pfSel[key] = pfSel[key] || Object.fromEntries((PF_FACETS[key] || []).map(([k]) => [k, []])));
   const rowVals = (tr, k) => (tr.getAttribute("data-f-" + k) || "").split("|").filter(Boolean);
   // The $1–15bn button on Managers is a tri-state: off → $1–15bn → Target → off.
-  const FOCUS_NEXT = { "": "band", band: "target", target: "" };
   const focusOf = (pane) => {
     const fb = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
     if (!fb) return "";
@@ -126,10 +133,11 @@ export async function mount(host, ctx) {
     fb.dataset.focus = v;
     fb.setAttribute("aria-pressed", v ? "true" : "false");
     fb.classList.toggle("is-on", !!v);
-    fb.textContent = v === "target" ? "Target" : "$1–15bn";
-    fb.title = v === "" ? "AUM focus — show only $1–15bn AUM managers; tap again for Target managers"
-      : v === "band" ? "Showing $1–15bn AUM managers — tap again for Target managers (European, ≤ $15bn, 15%+ strategy)"
-      : "Showing Target managers (European, ≤ $15bn, 15%+ strategy) — tap again to clear";
+    // The bar button is the Target shortcut; $1–15bn AUM is chosen in the panel.
+    fb.textContent = "Target";
+    fb.setAttribute("aria-pressed", v === "target" ? "true" : "false");
+    fb.classList.toggle("is-on", v === "target");
+    fb.title = v === "target" ? "Showing Target managers (European, ≤ $15bn, 15%+ strategy) — tap to clear" : "Show only Target managers (European, ≤ $15bn, 15%+ strategy); $1–15bn AUM is in Filters";
   }
   // ONE row filter per list — the search text, the $1–15bn AUM focus and Following
   // combine (each used to overwrite the others' result).
@@ -213,20 +221,29 @@ export async function mount(host, ctx) {
   function renderPfChrome(pane) {
     const key = pane.dataset.pane, facets = PF_FACETS[key] || [], sel = selOf(key);
     const label = (k, v) => (OPT_LABEL[k] && OPT_LABEL[k][v]) || v;
-    const pills = facets.flatMap(([k]) => sel[k].map((v) => [`${k}:${v}`, label(k, v)]));
+    const fol = pane.querySelector(".pf-follow-btn"), folOn = !!fol && fol.getAttribute("aria-pressed") === "true";
+    const focus = focusOf(pane);
+    // ONE quiet summary line, only when something narrows the list.
+    const labels = [...facets.flatMap(([k]) => sel[k].map((v) => label(k, v))),
+      ...(focus === "band" ? ["$1–15bn AUM"] : focus === "target" ? ["Target"] : []), ...(folOn ? ["Following"] : [])];
     const pe = pane.querySelector(".pf-active");
     if (pe) {
-      pe.hidden = !pills.length;
-      pe.innerHTML = pills.map(([k, l]) => `<button type="button" class="tx-pill" data-pfclear="${esc(k)}" aria-label="Remove filter: ${esc(l)}">${esc(l)}<span aria-hidden="true">✕</span></button>`).join("")
-        + (pills.length ? `<button type="button" class="tx-clear" data-pfclear="all">Clear all</button>` : "");
+      pe.hidden = !labels.length;
+      pe.innerHTML = labels.length ? `<span class="tx-sum">${esc(labels.join(", "))}</span><button type="button" class="tx-clear" data-pfclear="all">Clear</button>` : "";
     }
     const sheet = pane.querySelector(".pf-sheet"), fb = pane.querySelector(".pf-filter-btn");
     const open = !!sheet && !sheet.hidden;
-    if (fb) { fb.textContent = pills.length ? `Filters (${pills.length})` : "Filters"; fb.classList.toggle("is-on", open); fb.setAttribute("aria-expanded", String(open)); }
+    const n = labels.length - (focus === "target" ? 1 : 0);   // Target shows on its own button
+    if (fb) {
+      fb.querySelector(".tx-fn").textContent = n ? String(n) : "";
+      fb.classList.toggle("is-on", open); fb.classList.toggle("has-n", !!n);
+      fb.setAttribute("aria-expanded", String(open)); fb.setAttribute("aria-label", n ? `Filters (${n})` : "Filters");
+    }
     pane.classList.toggle("pf-sheet-open", open);
     if (!open) return;
     const rows = [...host.querySelectorAll(ROWSEL[key])];
     const shown = rows.filter((tr) => tr.style.display !== "none").length;
+    const chip = (attrs, l, on, n2) => `<button type="button" class="tx-fchip${on ? " is-on" : ""}" ${attrs} aria-pressed="${on}">${esc(l)}${n2 != null ? `<span class="tx-secn">${n2}</span>` : ""}</button>`;
     const block = ([k, title]) => {
       const counts = {};
       rows.forEach((tr) => { if (rowPasses(pane, tr, k)) rowVals(tr, k).forEach((v) => { counts[v] = (counts[v] || 0) + 1; }); });
@@ -236,13 +253,28 @@ export async function mount(host, ctx) {
       opts = opts.filter((v) => counts[v] || sel[k].includes(v));
       if (!opts.length) return "";
       return `<div class="tx-fgrp" data-fgrp="${k}"><div class="tx-fh">${esc(title)}</div><div class="tx-fchips">`
-        + opts.map((v) => `<button type="button" class="tx-fchip${sel[k].includes(v) ? " is-on" : ""}" data-pfacet="${k}" data-v="${esc(v)}" aria-pressed="${sel[k].includes(v)}">${esc(label(k, v))}<span class="tx-secn">${counts[v] || 0}</span></button>`).join("")
-        + `</div></div>`;
+        + opts.map((v) => chip(`data-pfacet="${k}" data-v="${esc(v)}"`, label(k, v), sel[k].includes(v), counts[v] || 0)).join("") + `</div></div>`;
     };
-    // Hedge Funds: the Monitor / Cross-holdings views live here on phones (P5).
+    const more = PF_MORE[key] || [];
+    if (more.some((k) => sel[k].length) || folOn) _pfMore[key] = true;
+    const moreOpen = !!_pfMore[key];
+    const fbtn = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
+    const fit = !fbtn ? "" : fbtn.id === "cr-lg-focus"
+      ? `<div class="tx-fgrp" data-fgrp="fit"><div class="tx-fh">Managers</div><div class="tx-fchips">${[["", "All"], ["band", "$1–15bn AUM"], ["target", "Target"]].map(([v, l]) => chip(`data-pffit="${v}"`, l, focus === v)).join("")}</div></div>`
+      : `<div class="tx-fgrp" data-fgrp="fit"><div class="tx-fh">AUM</div><div class="tx-fchips">${chip(`data-pffit=""`, "All", !focus)}${chip(`data-pffit="band"`, "$1–15bn", focus === "band")}</div></div>`;
+    const sortSel = pane.querySelector(".pf-sort");
+    const sortHTML = sortSel ? `<select class="tx-filt pf-sort-p" aria-label="Sort the list">${sortSel.innerHTML}</select>` : "";
+    const showMore = `<div class="tx-fgrp" data-fgrp="show"><div class="tx-fh">Show &amp; sort</div><div class="tx-fchips">${chip(`data-pfstate="follow"`, "★ Following", folOn)}${sortHTML}</div></div>`;
     const views = key === "hedgefunds" ? `<div class="tx-fgrp pf-views"><div class="tx-fh">Views</div><div class="tx-fchips"><button type="button" class="tx-fchip" data-proxy="#hf-mon-btn">Monitor</button><button type="button" class="tx-fchip" data-proxy="#hf-cons-btn">Cross-holdings</button></div></div>` : "";
-    sheet.innerHTML = `<div class="tx-sheet-b">${facets.map(block).join("")}${views}</div>`
-      + `<div class="tx-sheet-f"><button type="button" class="tx-clear" data-pfclear="all">Clear all</button><button type="button" class="tx-sheet-done pf-sheet-done">Show ${shown}</button></div>`;
+    sheet.innerHTML = `<div class="tx-sheet-b">${fit}${facets.filter(([k]) => !more.includes(k)).map(block).join("")}`
+      + (more.length ? `<button type="button" class="tx-fmore-t" data-pfmore="1" aria-expanded="${moreOpen}">${moreOpen ? "Fewer filters ▾" : "More filters ▸"}</button>` : "")
+      + (moreOpen || !more.length ? facets.filter(([k]) => more.includes(k)).map(block).join("") + showMore : "")
+      + views + `</div>`
+      + `<div class="tx-sheet-f"><button type="button" class="tx-clear" data-pfclear="all">Clear all</button><span class="tx-sheet-fr"><button type="button" class="tfocus-btn tx-csv" data-proxy=".pf-csv-btn" data-keep="1">Export CSV</button><button type="button" class="tx-sheet-done pf-sheet-done">Show ${shown}</button></span></div>`;
+    const ps = sheet.querySelector(".pf-sort-p"); if (ps && sortSel) ps.value = sortSel.value;
+    // Desktop: drop down just under the bar, over the list.
+    const bar = pane.querySelector(".thead-search");
+    sheet.style.top = window.matchMedia("(max-width:760px)").matches || !bar ? "" : (bar.offsetTop + bar.offsetHeight) + "px";
   }
 
   // Sortable columns: tap a list header to sort by it (again to reverse). Money cells
@@ -447,7 +479,7 @@ export async function mount(host, ctx) {
     const focus = e.target.closest("#cr-hf-focus, #cr-lg-focus");
     if (focus) {
       if (host.classList.contains("pf-detailing")) exitDetail();   // filtering means you want the list
-      if (focus.id === "cr-lg-focus") setFocus(focus, FOCUS_NEXT[focus.dataset.focus || ""]);
+      if (focus.id === "cr-lg-focus") setFocus(focus, focus.dataset.focus === "target" ? "" : "target");
       else { const on = focus.getAttribute("aria-pressed") !== "true"; focus.setAttribute("aria-pressed", on ? "true" : "false"); focus.classList.toggle("is-on", on); }
       filterList(focus.closest(".tpane"));
       return;
@@ -466,11 +498,27 @@ export async function mount(host, ctx) {
       sel[k] = sel[k].includes(v) ? sel[k].filter((x) => x !== v) : [...sel[k], v];
       filterList(pane); return;
     }
+    const pmo = e.target.closest("[data-pfmore]");
+    if (pmo) { const pane = pmo.closest(".tpane"); _pfMore[pane.dataset.pane] = !_pfMore[pane.dataset.pane]; renderPfChrome(pane); return; }
+    const pfit = e.target.closest("[data-pffit]");
+    if (pfit) {
+      const pane = pfit.closest(".tpane"), fbtn = pane.querySelector("#cr-lg-focus, #cr-hf-focus"), v = pfit.dataset.pffit;
+      if (fbtn.id === "cr-lg-focus") setFocus(fbtn, v);
+      else { fbtn.setAttribute("aria-pressed", String(v === "band")); fbtn.classList.toggle("is-on", v === "band"); }
+      filterList(pane); return;
+    }
+    const pst = e.target.closest("[data-pfstate]");
+    if (pst) { const pane = pst.closest(".tpane"), f = pane.querySelector(".pf-follow-btn"); const on = f.getAttribute("aria-pressed") !== "true"; f.setAttribute("aria-pressed", String(on)); f.classList.toggle("is-on", on); filterList(pane); return; }
     const pcl = e.target.closest("[data-pfclear]");
     if (pcl) {
       if (host.classList.contains("pf-detailing")) exitDetail();
       const pane = pcl.closest(".tpane"), sel = selOf(pane.dataset.pane), k = pcl.dataset.pfclear;
-      if (k === "all") Object.keys(sel).forEach((f) => { sel[f] = []; });
+      if (k === "all") {
+        Object.keys(sel).forEach((f) => { sel[f] = []; });
+        const fbtn = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
+        if (fbtn && fbtn.id === "cr-lg-focus") setFocus(fbtn, ""); else if (fbtn) { fbtn.setAttribute("aria-pressed", "false"); fbtn.classList.remove("is-on"); }
+        const f = pane.querySelector(".pf-follow-btn"); if (f) { f.setAttribute("aria-pressed", "false"); f.classList.remove("is-on"); }
+      }
       else { const i = k.indexOf(":"), f = k.slice(0, i), v = k.slice(i + 1); sel[f] = sel[f].filter((x) => x !== v); }
       filterList(pane); return;
     }
@@ -479,7 +527,7 @@ export async function mount(host, ctx) {
     const prox = e.target.closest("[data-proxy]");
     if (prox) {
       const pane = prox.closest(".tpane"), sh = pane.querySelector(".pf-sheet"), t = pane.querySelector(prox.dataset.proxy);
-      sh.hidden = true; sh.innerHTML = ""; renderPfChrome(pane);
+      if (!prox.dataset.keep) { sh.hidden = true; sh.innerHTML = ""; renderPfChrome(pane); }
       if (t) t.click();
       return;
     }
@@ -587,12 +635,20 @@ export async function mount(host, ctx) {
     goRow(row);
   }, { passive: false });
   host.addEventListener("change", (e) => {
+    const pp = e.target.closest(".pf-sort-p");
+    if (pp) { const real = pp.closest(".tpane").querySelector(".pf-sort"); real.value = pp.value; real.dispatchEvent(new Event("change", { bubbles: true })); return; }
     const ps = e.target.closest(".pf-sort"); if (!ps) return;
     const pane = ps.closest(".tpane");
     if (!ps.value) { resetOrder(pane); return; }
     const [i, dir] = ps.value.split(":");
     const th = pane.querySelector(".tleague-wrap table").tHead.rows[0].cells[+i];
     if (th) sortBy(th, dir);
+  });
+  // Desktop: a click outside an open Filters panel (and its button) closes it.
+  document.addEventListener("click", (e) => {
+    if (document.documentElement.dataset.v2tab !== "profiles" || window.matchMedia("(max-width:760px)").matches) return;
+    if (!document.contains(e.target) || e.target.closest(".pf-sheet, .pf-filter-btn")) return;
+    panes.querySelectorAll(".pf-sheet:not([hidden])").forEach((sh) => { sh.hidden = true; sh.innerHTML = ""; renderPfChrome(sh.closest(".tpane")); });
   });
   // Each list's search box filters its rows in place by the row's data-name.
   // Scoped to this host so it never touches the desks' own (hidden) copies.

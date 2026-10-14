@@ -64,10 +64,13 @@ const isAppFont = (fam) => /montserrat|gotham|futura/i.test(fam || "") && !/mono
 // ---- 3) Transactions type-filter chips read at the same BODY size ----
 {
   const { pg, errs } = await open(b, PHONE, base + "/v2/transactions/");
-  await pg.waitForSelector(".tx-typestrip .tx-secchip", { timeout: 8000 });
+  // Type chips now live in the Filters panel (the strip was retired, R39e).
+  await pg.waitForSelector("#tx-filters", { timeout: 8000 });
+  await pg.click("#tx-filters");
+  await pg.waitForSelector('#tx-sheet .tx-fchip[data-facet="type"]', { timeout: 8000 });
   await pg.waitForTimeout(300);
   const r = await pg.evaluate(() => {
-    const chip = document.querySelector(".tx-typestrip .tx-secchip");
+    const chip = document.querySelector('#tx-sheet .tx-fchip[data-facet="type"]');
     const n = chip && chip.querySelector(".tx-secn");
     const cs = (el) => (el ? getComputedStyle(el) : null);
     const o = cs(chip), c = cs(n);
@@ -105,7 +108,7 @@ const isAppFont = (fam) => /montserrat|gotham|futura/i.test(fam || "") && !/mono
 // This guards against that regression — on a REAL empty state and on a probe.
 {
   const { pg, errs } = await open(b, PHONE, base + "/v2/transactions/");
-  await pg.waitForSelector(".tx-typestrip", { timeout: 8000 });
+  await pg.waitForSelector("#tx-flow-search", { timeout: 8000 });
   await pg.waitForTimeout(400);
   const r = await pg.evaluate(() => {
     const adj = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0;
