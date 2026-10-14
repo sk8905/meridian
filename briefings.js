@@ -99,13 +99,13 @@
 // =============================================================================
 export const BRIEFINGS = {
   tz: "BST",
-  date: "2026-10-13",
-  time: "23:15 BST",
-  lede: "Treasury yields, bank earnings and IMF warnings on bond-market risk framed the day, while private-credit redemption pressure at non-traded BDCs showed early signs of easing.",
+  date: "2026-10-14",
+  time: "05:15 BST",
+  lede: "Treasury yields stayed near multi-decade highs after bank earnings, while the New York Fed's Williams saw no need for 2027 rate hikes and private-credit redemption pressure at non-traded BDCs showed signs of easing.",
   bullets: [
     { html: "<strong>Bonds &mdash; the US 10-year Treasury yield eased to about 5.20% from 5.24%</strong>, stepping back from the 24-year high of 5.364% hit last week as oil prices retreated.", src: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html", srcName: "Yahoo Finance", date: "2026-10-13" },
     { html: "<strong>Equities &mdash; bank earnings split the tape:</strong> Goldman Sachs earned $17.01 a share (vs $12.25 a year ago) on $18.68bn revenue, while JPMorgan&rsquo;s $5.57 EPS missed the $5.93 consensus; chip stocks slid, with Micron down about 5.8% early.", src: "https://www.cnbc.com/2026/10/13/bank-earnings-live-updates.html", srcName: "CNBC", date: "2026-10-13" },
-    { html: "<strong>Macro &mdash; the IMF&rsquo;s latest outlook holds up but nears the limits of resilience</strong>, while the Fund&rsquo;s separate stability report singles out surging bond yields as the top risk to the financial system.", src: "https://www.bloomberg.com/news/articles/2026-10-13/world-economy-holds-up-but-nears-limits-of-resilience-imf-says", srcName: "Bloomberg", date: "2026-10-13" },
+    { html: "<strong>Macro &mdash; the New York Fed&rsquo;s John Williams said he currently sees no need for a rate hike in 2027</strong>, easing hawkish expectations as the US 10-year Treasury yield held near 5.2% after the IMF flagged surging bond yields as a top financial-stability risk.", src: "https://www.bloomberg.com/news/articles/2026-10-13/fed-s-williams-currently-sees-no-need-for-rate-hike-in-2027", srcName: "Bloomberg", date: "2026-10-13" },
     { html: "<strong>Credit &mdash; redemption requests at perpetual non-traded BDCs fell quarter on quarter at 13 of 15 tracked vehicles</strong> but still averaged 9.8% of shares, above the 5% cap at nine, per Fitch; Fitch expects further declines in coming quarters.", src: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk1Rb7mMWlAmc_OtJ58Ixz-D4naVC4G8VQQGmARJOZKvK_7Hs_WgDiZftmyZrOEi3XWC1L9BA=", srcName: "Fitch Ratings", date: "2026-10-13" },
   ],
 };

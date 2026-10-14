@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bloomberg-pointsofreturn-7pctyields-20261014",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Hope I die before I get to 7% 10-year yields",
+    date: "2026-10-14",
+    time: "05:00",
+    summary: "Like old age, tipping points can change: fund managers still expect equities to withstand 6% on the 10-year.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-10-14/10-year-yields-hope-i-die-before-i-get-to-7",
+  },
+  {
     id: "nl-bloomberg-thebrink-virginmediaaltice-20261013",
     publication: "Bloomberg",
     author: "Irene Garcia Perez, Giulia Morpurgo",
