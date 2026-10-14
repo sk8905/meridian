@@ -270,6 +270,10 @@ const lk = await pg.evaluate(() => {
 });
 check(lk.int && lk.int[0] === "underline" && lk.ext && lk.ext[0] === "underline" && lk.int[1] !== lk.ext[1] && lk.row && lk.row[0] === "none", `deal card: internal links blue-underlined, external orange-underlined; the table's source keeps its plain style (${JSON.stringify(lk)})`);
 check(lk.aligned, "the drawer's facts align with its title");
+// Clicking the open deal's row again closes the card.
+await pg.evaluate((id) => document.querySelector(`#tx-body tr.tx-row[data-deal="${id}"] td.tx-bd`).click(), drw.id); await pg.waitForTimeout(250);
+check(await pg.evaluate(() => document.querySelector("#tx-drawer").hidden && !/deal=/.test(location.hash)), "clicking the open deal again closes its card");
+await pg.evaluate((id) => document.querySelector(`#tx-body tr.tx-row[data-deal="${id}"] td.tx-bd`).click(), drw.id); await pg.waitForTimeout(200);
 await pg.goBack(); await pg.waitForTimeout(250);
 check(await pg.evaluate(() => document.querySelector("#tx-drawer").hidden && !/deal=/.test(location.hash)), "Back closes the deal drawer");
 

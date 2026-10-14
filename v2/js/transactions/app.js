@@ -686,7 +686,7 @@ export function mount(host, ctx) {
     const r = rowById.get(id);
     if (!r) return;
     id = r.d.id;
-    if (st.deal === id) return;
+    if (st.deal === id) { closeDeal(); return; }   // clicking the open deal again closes its card
     if (!st.deal && _phone()) _listY = window.scrollY;
     st.deal = id; sheetOpen = false; commit(true); renderSheet(); renderActive(); renderDrawer();
     body.querySelectorAll("[data-deal].is-open").forEach((e) => e.classList.remove("is-open"));

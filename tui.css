@@ -1422,7 +1422,6 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 .tpane.pf-sheet-open > .tleague-wrap, .tpane.pf-sheet-open > .hf-cons, .tpane.pf-sheet-open > .hf-ofr { display: none; }
 #pf-panes .thead-search .pf-active { flex: 1 0 100%; }
 .tleague-full td.tl-fit { color: var(--muted); font-family: var(--t-mono); font-size: var(--fs-micro); white-space: nowrap; }
-.tleague-full tr[data-tier="core"] td.tl-fit { color: var(--accent); font-weight: 700; }
 .pf-act-l, .pf-sort, .pf-views { display: none; }
 @media (max-width: 760px) {
   #pf-panes .thead-search .pf-sort { display: inline-block; max-width: 8.5rem; }
