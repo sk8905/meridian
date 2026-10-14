@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-10-09";
+export const LAST_REVIEWED = "2026-10-14";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
 export const LAST_CHECKED = "2026-10-14";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "12:16 BST";
+export const LAST_CHECKED_TIME = "13:21 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -8576,6 +8576,14 @@ export const cases = [
     date: "2026-10-06", time: "22:25", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2477",
     counsel: [],
     summary: "HHJ Kelly (sitting as a Judge of the High Court, Circuit Commercial Court, Newcastle) refused the claimant assignee permission to make very late amendments adding fraudulent misrepresentation and overvaluation claims to its share purchase agreement claim." },
+  { id: "c283", name: "Central Térmica de Temane SA & Anor v Banco Santander SA", citation: "[2026] EWHC 2587 (Comm)", court: "High Court (Comm)",
+    date: "2026-10-13", time: "13:20", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2587",
+    counsel: [],
+    summary: "Calver J held that Santander's payment obligation under the Bonds is performed in Mozambique, where the claimant specified the receiving account, so the Ralli Brothers rule does not apply and the Spanish interim injunction provides no defence to the claim." },
+  { id: "c284", name: "Stonegate Farmers Limited v Joey Heavey", citation: "[2026] EWHC 2519 (Comm)", court: "High Court (Comm)",
+    date: "2026-10-09", time: "13:20", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2519",
+    counsel: [],
+    summary: "Thomas Raphael KC (sitting as a Deputy High Court Judge) found that an arbitrator's decision to imply a term into an egg supply contract was a serious irregularity, because Stonegate was not given a fair opportunity to address that term first." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -8811,6 +8819,8 @@ export const caseSummaries = {
   c280: "RS Lender IV, S.à r.l., a Luxembourg credit provider, advanced €37m of a €50m facility to Aster for Life SL under a July 2020 facility agreement, backed by a sponsor guarantee from Spanish real-estate businessman Fernando Oscar Gil Marin and a share pledge over Aster Lux S.à r.l. After the claimant appropriated the pledged shares at nil value, accelerated the loan and called on the guarantee, it applied to strike out parts of the Defence and the whole Counterclaim, or for summary judgment on particular issues. Robin Knowles J criticised the defendant's failure to plead the material facts he relied on and ordered an Amended Defence and Counterclaim complying with the CPR and the Commercial Court Guide by 9 October 2026, warning that no further flexibility should be expected if it fell short. Trial remains listed from 23 June 2027.",
   c281: "Rasmala Trade Finance Fund, a trade financier, paid Trafigura about $22.6m between 2017 and 2018 believing it was funding genuine coal contracts; the contracts were forged, and Trafigura applied the payments to old debts of its customer Farlin. Rajah J dismissed Rasmala's unjust-enrichment claim on the basis that Trafigura had a change of position defence. Nugee LJ, giving the lead judgment, held that Trafigura acted in good faith and that its continued trading in reliance on the payments supplied a sufficient causal connection, so that it would be inequitable to require repayment. Falk and Baker LJJ agreed and the appeal was dismissed; the decision is a useful appellate application of the change of position defence in trade-finance fraud recoveries.",
   c282: "SCRP Fund I Finance, as assignee of a buyer's rights under a share purchase agreement, sought permission shortly before trial to amend its claim to add allegations of fraudulent misrepresentation and overvaluation. HHJ Kelly extended time for the claimant's latest draft pleading but dismissed the amendment application. She found the fraud case had a realistic but not strong prospect of success, and that the lateness and the need to vacate the trial weighed heavily against permission. The overvaluation claim also failed because the notice given within the contractual limitation period lacked the reasonable detail the agreement required.",
+  c283: "Calver J held that Santander's payment obligation under the Bonds is performed in Mozambique, where the claimant specified the receiving account, so the Ralli Brothers rule does not apply and the Spanish interim injunction provides no defence to the claim.",
+  c284: "Thomas Raphael KC (sitting as a Deputy High Court Judge) found that an arbitrator's decision to imply a term into an egg supply contract was a serious irregularity, because Stonegate was not given a fair opportunity to address that term first.",
 };
 
 export const restructurings = [
