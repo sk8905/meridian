@@ -21,6 +21,27 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
+    title: "Inflation and interest rates tracker: see how your country compares",
+    date: "2026-10-14",
+    time: "14:15",
+    url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2"
+  },
+  {
+    id: "13929c26-1c01-41b2-b81a-d337fa5c9d27",
+    title: "US grocery prices poised to climb as soaring fuel costs drive inflation",
+    date: "2026-10-14",
+    time: "14:10",
+    url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"
+  },
+  {
+    id: "b71e0dc4-b190-49ec-b000-bd585054ddc8",
+    title: "He linked Saudi Arabia to Silicon Valley. Then OpenAI found a bug wrapped in toilet paper",
+    date: "2026-10-14",
+    time: "13:56",
+    url: "https://www.ft.com/content/b71e0dc4-b190-49ec-b000-bd585054ddc8"
+  },
+  {
     id: "c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d",
     title: "US inflation jumps to 3.7% as Iran war drives up prices",
     date: "2026-10-14",
@@ -279,25 +300,4 @@ export const FT_ITEMS = [
     time: "05:00",
     url: "https://www.ft.com/content/24818a5c-64d0-4d6c-a9c0-825156edf43b"
   },
-  {
-    id: "08b9bbe6-0637-497e-af6d-464dd41e6121",
-    title: "Healey set to pay for Budget giveaways without more borrowing",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"
-  },
-  {
-    id: "afa0a322-ad2a-4d49-aa0e-81f15a01c3a7",
-    title: "Military briefing: Houthis expose limits of Saudi Arabia’s vast arsenal",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/afa0a322-ad2a-4d49-aa0e-81f15a01c3a7"
-  },
-  {
-    id: "8c6a7595-9403-44f3-81ac-a2e5ceb37459",
-    title: "The battle over the AI-led future of banking has begun",
-    date: "2026-10-14",
-    time: "05:00",
-    url: "https://www.ft.com/content/8c6a7595-9403-44f3-81ac-a2e5ceb37459"
-  }
 ];

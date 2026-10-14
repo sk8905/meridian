@@ -100,7 +100,7 @@
 export const BRIEFINGS = {
   tz: "BST",
   date: "2026-10-14",
-  time: "14:05 BST",
+  time: "14:25 BST",
   lede: "A hotter-than-expected US inflation print lands on a market already pricing higher-for-longer, with energy the common thread from the Iran war to the Houthi strike on Aramco and the IMF's warning on debt and yields.",
   bullets: [
     { html: "<strong>Macro &mdash; US inflation jumped to 3.7% y/y in September, above the 3.6% consensus,</strong> as the Iran war pushed up energy prices; Brent was trading around $105 earlier in the session after Houthi attacks hit Saudi Aramco&rsquo;s headquarters.", src: "https://www.ft.com/content/c1e4c8b1-8fe0-414d-b52f-c74a6d927b3d", srcName: "Financial Times", date: "2026-10-14" },
