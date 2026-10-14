@@ -1993,8 +1993,8 @@
      "date": "2020-03-03",
      "what": "Tages Helios II partial closing of over EUR104m takes fund to about EUR252m",
      "source": "https://bebeez.it/2020/03/03/closing-104-mln-euro-fondo-tages-helios-ii-raggiunge-quota-252-mln/",
-     "status": "missing",
-     "note": "date from BeBeez URL; exact page date to confirm"
+     "status": "rejected",
+     "note": "Out of scope: renewable-energy (solar PV) real-asset equity fund, not credit; exact page date unconfirmed (date from URL slug only)"
     },
     {
      "key": "tages-credit-fund-first-close-80m",
@@ -2009,8 +2009,8 @@
      "date": "2024-11-21",
      "what": "21 Invest Healthcare fund first closing of EUR70m",
      "source": "https://www.milanofinanza.it/news/alessandro-benetton-punta-sull-healthcare-primo-closing-a-70-milioni-per-il-fondo-specializzato-di-21-202411211815457618",
-     "status": "missing",
-     "note": "date from URL; not private debt"
+     "status": "rejected",
+     "note": "Out of scope: private-equity healthcare fund, not credit; exact page date unconfirmed"
     },
     {
      "key": "21-next-announced",
@@ -2025,8 +2025,8 @@
      "date": "2026-02-10",
      "what": "Edizione targets EUR500m for 21 Next first fund",
      "source": "https://www.milanofinanza.it/news/edizione-obiettivo-500-milioni-per-il-primo-fondo-di-21-next-ecco-le-caratteristiche-202602102113118251",
-     "status": "missing",
-     "note": "date from URL; content unread"
+     "status": "rejected",
+     "note": "Out of scope: the fund is Tages Infra-Plus, an infrastructure equity vehicle, not credit; exact page date unconfirmed"
     },
     {
      "key": "tages-credit-fund-145m-helios-net-zero-554m",
@@ -2043,6 +2043,234 @@
      "source": "https://rankiapro.com/it/notizie/21-next-closing/",
      "recordId": "i699",
      "status": "present"
+    }
+   ]
+  },
+  "m131": {
+   "kind": "manager",
+   "name": "Alantra Private Debt",
+   "priority": 89,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "red1-first-close-2020",
+     "date": "2020-05-18",
+     "what": "Alteralia Real Estate Debt FIL first close, >EUR30m",
+     "source": "https://www.alantra.com/alantra-completes-the-first-close-of-its-real-estate-debt-fund/",
+     "status": "present",
+     "recordId": "i920"
+    },
+    {
+     "key": "indigo-capital-49pct-stake-2020",
+     "date": "2020-10-14",
+     "what": "Alantra AM acquires 49% of Indigo Capital SAS (Paris pan-European private debt manager)",
+     "source": "https://www.alantra.com/alantra-acquires-a-strategic-stake-in-indigo-capital-a-pan-european-private-debt-asset-manager/",
+     "status": "missing",
+     "note": "date from search summary of trade coverage; Alantra page itself not opened — confirm exact date"
+    },
+    {
+     "key": "red1-final-close-2021",
+     "date": "2021-10-15",
+     "what": "RED I final close EUR132m vs EUR100m target",
+     "source": "https://www.alantra.com/alantra-completes-a-e132m-close-of-its-real-estate-debt-fund/",
+     "status": "present",
+     "recordId": "i911"
+    },
+    {
+     "key": "italy-hires-pierotti-lantrade-2022",
+     "date": "2022-04-20",
+     "what": "Alberto Pierotti and Jean-Philippe Lantrade join as Managing Directors",
+     "source": "https://www.alantra.com/alantra-strengthens-its-private-debt-team-as-part-of-its-diversification-and-growth-ambitions/",
+     "status": "missing",
+     "note": "Alantra release reported 20 Apr 2022 but BeBeez covered it 13 Apr 2022 — confirm date on the page"
+    },
+    {
+     "key": "italy-milan-launch-2022",
+     "date": "2022-11-23",
+     "what": "Alantra private debt opens Milan operations; first Italian deal (Ambienta/HolwegWeber)",
+     "source": "https://www.alantra.com/alantra-strengthens-its-italian-presence-by-incorporating-private-debt-operations-and-completes-its-first-investment/",
+     "status": "present",
+     "recordId": "i1067"
+    },
+    {
+     "key": "credit-opportunities-first-close-2024",
+     "date": "2024-06",
+     "what": "Credit Opportunities strategy first closing",
+     "source": "https://www.alantra.com/alantra-appoints-david-rodriguez-as-managing-director-to-strengthen-its-pan-european-private-debt-platform/",
+     "status": "present",
+     "note": "Only a passing mention in the May 2025 hire release; no dedicated announcement, day, size or fund name",
+     "recordId": "i1068"
+    },
+    {
+     "key": "david-rodriguez-md-credit-opps-2025",
+     "date": "2025-05-12",
+     "what": "David Rodriguez appointed Managing Director to lead Credit Opportunities",
+     "source": "https://www.alantra.com/alantra-appoints-david-rodriguez-as-managing-director-to-strengthen-its-pan-european-private-debt-platform/",
+     "status": "present",
+     "recordId": "i1068"
+    },
+    {
+     "key": "red2-first-close-2026",
+     "date": "2026-01-29",
+     "what": "Alteralia RED II launch/first close EUR60m, EUR200m target",
+     "source": "https://www.alantra.com/alantra-launches-its-second-european-real-estate-debt-fund-with-a-e200m-target-size/",
+     "status": "present",
+     "recordId": "i468"
+    },
+    {
+     "key": "access-capital-stake-sale-announced-2026",
+     "date": "2026-03-27",
+     "what": "Alantra Investment Managers agrees to sell 49% of Access Capital Partners to Bankinter Investment for EUR115.1m",
+     "source": "https://www.alantra.com/alantra-investment-managers-sells-its-stake-in-access-capital-partners-for-e115-1mn-to-boost-its-growth-strategy/",
+     "status": "rejected",
+     "note": "Group-level fund-of-funds stake, not the private debt arm; completion not yet announced"
+    }
+   ]
+  },
+  "m180": {
+   "kind": "manager",
+   "name": "CIC Private Debt",
+   "priority": 90,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "cic-debt-fund-3-final-close-530m",
+     "date": "2019-11-25",
+     "what": "CIC Debt Fund 3 final close EUR530m (pre-2020, context)",
+     "source": "https://www.creditflux.com/Funds/2019-11-25/CIC-collects-530-million-for-direct-lending-fund",
+     "status": "present",
+     "recordId": "i834"
+    },
+    {
+     "key": "cic-mezzanine-unitranche-5-final-close-450m",
+     "date": "2021-07-13",
+     "what": "CIC Mezzanine & Unitranche fund 5 final close EUR450m",
+     "source": "https://www.creditflux.com/Funds/2021-07-13/CIC-holds-final-close-on-mezzanine-fund-at-450-million",
+     "status": "present",
+     "recordId": "i1069"
+    },
+    {
+     "key": "cic-debt-fund-4-second-close-381m",
+     "date": "2022-03-21",
+     "what": "CIC Debt Fund 4 second close EUR381m",
+     "source": "https://www.creditmutuel.fr/fr/alliancefederale/presse/communiques-de-presse/cic-debt-fund.html",
+     "status": "present",
+     "recordId": "i1070"
+    },
+    {
+     "key": "cic-debt-fund-4-final-close-565m",
+     "date": "2023-09-13",
+     "what": "CIC Debt Fund 4 final close EUR565m",
+     "source": "https://www.cic-privatedebt.eu/partage/fr/CSD-CIC/CIC-PRIVATE-DEBT/assets/articles/actualites/20230913_CP/CICDF4_CP_Septembre_2023_VF.pdf",
+     "status": "present",
+     "recordId": "i1071"
+    },
+    {
+     "key": "victory-street-clo-i-debut-pricing",
+     "date": "2024-11-15",
+     "what": "Debut CLO Victory Street CLO I priced (~EUR305m)",
+     "source": "https://www.cic-privatedebt.eu/partage/fr/CSD-CIC/CIC-PRIVATE-DEBT/assets/articles/actualites/20241120_Lancement_CLO_I/PRESS%20RELEASE%20CLO%20Victory%2015-11-2024%20ENG.pdf",
+     "status": "present",
+     "recordId": "d1039"
+    },
+    {
+     "key": "cic-private-debt-opportunites-eltif",
+     "date": "2025-02-13",
+     "what": "CIC Private Debt Opportunités evergreen ELTIF structured",
+     "source": "https://presse.la-francaise.com/assets/130225-cp-cic-private-debt-opportunites-pdf-941cf-61d2f.html?dl=1",
+     "status": "present",
+     "recordId": "i835"
+    },
+    {
+     "key": "cic-mezzanine-unitranche-6-final-close-610m",
+     "date": "2025-04",
+     "what": "CIC Mezzanine & Unitranche Financing Fund 6 closed at EUR610m",
+     "source": "https://presse.la-francaise.com/assets/300425-cp-cic-private-debt-pdf-fa995-61d2f.html?dl=1",
+     "status": "missing",
+     "note": "release dated 28 or 30 Apr 2025 — confirm exact day on the page"
+    },
+    {
+     "key": "dach-expansion-schreiber-ebutec",
+     "date": "2025-05-20",
+     "what": "Erwin Schreiber named Investment Director DACH; first German deal",
+     "source": "https://pressroom.la-francaise.com/news/cic-private-debt-expands-european-footprint-to-dach-region-and-closes-its-first-deal-in-germany-f0c57-64c1b.html",
+     "status": "present",
+     "recordId": "i1072"
+    },
+    {
+     "key": "cic-debt-fund-5-first-close-194m",
+     "date": "2025-10-08",
+     "what": "CIC Debt Fund 5 first close EUR194m",
+     "source": "https://pressroom.la-francaise.com/news/launch-of-5th-mid-cap-senior-debt-fund-cic-debt-fund-5-with-an-initial-closing-of-eur194-million-092c5-64c1b.html",
+     "status": "present",
+     "recordId": "i1073"
+    },
+    {
+     "key": "victory-street-clo-ii-pricing",
+     "date": "2025",
+     "what": "Victory Street CLO II DAC priced at EUR355m",
+     "source": "https://www.gide.com/en/news-insights/gide-has-advised-cic-private-debt-in-connection-with-the-successful-pricing-of-its-new-victory-street-ii-clo-a-collateralised-loan-obligation-vehicle-totalling-e355-million/",
+     "status": "rejected",
+     "note": "Event verified via Gide but no exact date found; needs a dated source"
+    },
+    {
+     "key": "head-of-risk-operations-khamlich-fischer",
+     "date": "2026-02",
+     "what": "Mounia Khamlich Fischer appointed Head of Risk & Operations",
+     "source": "https://www.la-francaise.com/en-de/investor/cic-private-debt-appoints-mounia-khamlich-fischer.html",
+     "status": "missing",
+     "note": "French release date 26 Feb 2026 per search; English page date not shown — confirm"
+    },
+    {
+     "key": "victory-street-clo-i-reset-307-5m",
+     "date": "2026-08-18",
+     "what": "Victory Street CLO I reset ~EUR307.5m",
+     "source": "https://alternativecreditinvestor.com/2026/08/18/cic-private-debt-closes-clo-reset-at-e307-5m/",
+     "status": "present",
+     "recordId": "d786"
+    }
+   ]
+  },
+  "m127": {
+   "kind": "manager",
+   "name": "Dolomite Capital",
+   "priority": 91,
+   "status": "built",
+   "builtAt": "2026-10-14",
+   "events": [
+    {
+     "key": "ecdf-iii-final-close-828m",
+     "date": "2021-03",
+     "what": "Taconic ECDF III closed with $828m of commitments",
+     "source": "https://www.hedgeweek.com/taconic-launches-fundraising-for-new-credit-dislocation-fund/",
+     "status": "rejected",
+     "note": "Only month precision (Hedgeweek 2025 retrospective); no contemporaneous dated source; fund f378 already carries raised 828"
+    },
+    {
+     "key": "ecdf-iv-fundraising-start",
+     "date": "2025-03-04",
+     "what": "Taconic begins raising ECDF IV",
+     "source": "https://www.institutionalinvestor.com/article/2ehv5u8rd6zdgqu8k2p6o/hedge-funds/taconic-passes-the-hat-for-new-fund",
+     "status": "present",
+     "recordId": "i1055"
+    },
+    {
+     "key": "taconic-restructuring-dolomite-announced",
+     "date": "2025-09-15",
+     "what": "Taconic closes $1.8bn flagship fund; European credit team to become Dolomite Capital",
+     "source": "https://www.hedgeweek.com/taconic-to-shutter-1-8bn-flagship-fund/",
+     "status": "present",
+     "recordId": "i1074"
+    },
+    {
+     "key": "dolomite-spinout-launch",
+     "date": "2026-01-19",
+     "what": "Dolomite Capital spins out of Taconic with ~$1.3bn; Magliana CIO",
+     "source": "https://www.hedgeweek.com/former-taconic-european-credit-team-spins-out-as-dolomite-capital-with-1-3bn/",
+     "status": "present",
+     "recordId": "i472"
     }
    ]
   }
