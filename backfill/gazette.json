@@ -1,0 +1,575 @@
+{
+ "generated": "2026-10-14T00:28:12.650Z",
+ "source": "The Gazette (OGL v3.0; personal data excluded) — https://www.thegazette.co.uk/insolvency/notice/data.json",
+ "companies": {
+  "Iguanas Holdings Limited": {
+   "name": "Iguanas Holdings Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Fossil (UK) Global Services Limited": {
+   "name": "Fossil (UK) Global Services Limited",
+   "from": "restructuring",
+   "error": "The operation was aborted due to timeout"
+  },
+  "Arxada Group": {
+   "name": "Arxada Group",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Waldorf Production UK Plc": {
+   "name": "Waldorf Production UK Plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "NFE Global Holdings Limited and NFE Brazil Newco Limited": {
+   "name": "NFE Global Holdings Limited and NFE Brazil Newco Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Poundstretcher Limited": {
+   "name": "Poundstretcher Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Argo Blockchain plc": {
+   "name": "Argo Blockchain plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Poundland Limited": {
+   "name": "Poundland Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Standard Profil Automotive GmbH": {
+   "name": "Standard Profil Automotive GmbH",
+   "from": "restructuring",
+   "notices": []
+  },
+  "River Island Holdings Limited": {
+   "name": "River Island Holdings Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Madagascar Oil Limited": {
+   "name": "Madagascar Oil Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Petrofac Limited (Court of Appeal)": {
+   "name": "Petrofac Limited (Court of Appeal)",
+   "from": "restructuring",
+   "notices": [
+    {
+     "company": "PETROFAC LIMITED",
+     "noticeCode": "2410",
+     "category": "Appointment of Administrators",
+     "published": "2025-10-31",
+     "url": "https://www.thegazette.co.uk/notice/4989949"
+    },
+    {
+     "company": "PETROFAC LIMITED",
+     "noticeCode": "2413",
+     "category": "Notices to Members",
+     "published": "2025-12-15",
+     "url": "https://www.thegazette.co.uk/notice/5017932"
+    }
+   ]
+  },
+  "Petrofac Limited and Petrofac International (UAE) LLC": {
+   "name": "Petrofac Limited and Petrofac International (UAE) LLC",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Thames Water Utilities Holdings Limited (Court of Appeal)": {
+   "name": "Thames Water Utilities Holdings Limited (Court of Appeal)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Enzen Global Limited and Enzen Limited": {
+   "name": "Enzen Global Limited and Enzen Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Sino-Ocean Group Holding Limited": {
+   "name": "Sino-Ocean Group Holding Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Speciality Steel UK Limited (Liberty Steel / GFG Alliance)": {
+   "name": "Speciality Steel UK Limited (Liberty Steel / GFG Alliance)",
+   "from": "restructuring",
+   "notices": [
+    {
+     "company": "SPECIALITY STEEL UK LIMITED",
+     "noticeCode": "2452",
+     "category": "Winding-Up Orders",
+     "published": "2025-08-28",
+     "url": "https://www.thegazette.co.uk/notice/4951750"
+    }
+   ]
+  },
+  "Chaptre Finance plc": {
+   "name": "Chaptre Finance plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Cineworld Group (Cine-UK Limited and others)": {
+   "name": "Cineworld Group (Cine-UK Limited and others)",
+   "from": "restructuring",
+   "notices": [
+    {
+     "company": "CINEWORLD GROUP PLC",
+     "noticeCode": "2403",
+     "category": "Moratoria, Prohibited Names and Other: Re-use of a Prohibited Name",
+     "published": "2023-08-07",
+     "url": "https://www.thegazette.co.uk/notice/4416002"
+    },
+    {
+     "company": "CINEWORLD GROUP PLC",
+     "noticeCode": "2410",
+     "category": "Appointment of Administrators",
+     "published": "2023-08-02",
+     "url": "https://www.thegazette.co.uk/notice/4411020"
+    }
+   ]
+  },
+  "Revolution Bars Limited (The Revel Collective plc, formerly Revolution Bars Group plc)": {
+   "name": "Revolution Bars Limited (The Revel Collective plc, formerly Revolution Bars Group plc)",
+   "from": "restructuring",
+   "notices": [
+    {
+     "company": "REVOLUTION BARS LIMITED",
+     "noticeCode": "2410",
+     "category": "Appointment of Administrators",
+     "published": "2026-01-29",
+     "url": "https://www.thegazette.co.uk/notice/5044743"
+    }
+   ]
+  },
+  "Consort Healthcare (Tameside) plc": {
+   "name": "Consort Healthcare (Tameside) plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Superdry plc (C-Retail Limited)": {
+   "name": "Superdry plc (C-Retail Limited)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Aggregate Holdings (Project Lietzenburger Strasse Holdco S.a.r.l.)": {
+   "name": "Aggregate Holdings (Project Lietzenburger Strasse Holdco S.a.r.l.)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "McDermott International (CB&I UK Limited)": {
+   "name": "McDermott International (CB&I UK Limited)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Adler Group / AGPS Bondco plc": {
+   "name": "Adler Group / AGPS Bondco plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Project Lietzenburger Strasse HoldCo S.a r.l. (Aggregate Holdings)": {
+   "name": "Project Lietzenburger Strasse HoldCo S.a r.l. (Aggregate Holdings)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "CB&I UK Limited (McDermott International Group)": {
+   "name": "CB&I UK Limited (McDermott International Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Cimolai S.p.A. and Luigi Cimolai Holdings S.p.A.": {
+   "name": "Cimolai S.p.A. and Luigi Cimolai Holdings S.p.A.",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Prezzo Investco Limited": {
+   "name": "Prezzo Investco Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Fitness First Clubs Limited": {
+   "name": "Fitness First Clubs Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Lamo Holding B.V. (Vroon Group)": {
+   "name": "Lamo Holding B.V. (Vroon Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "The Great Annual Savings Company Limited": {
+   "name": "The Great Annual Savings Company Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Nasmyth Group Limited": {
+   "name": "Nasmyth Group Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "AGPS Bondco plc (Adler Group)": {
+   "name": "AGPS Bondco plc (Adler Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Listrac Midco Limited and others (Lifeways Group)": {
+   "name": "Listrac Midco Limited and others (Lifeways Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "CFLD (Cayman) Investment Limited (China Fortune Land Development Co., Ltd.)": {
+   "name": "CFLD (Cayman) Investment Limited (China Fortune Land Development Co., Ltd.)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Hong Kong Airlines Limited": {
+   "name": "Hong Kong Airlines Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Houst Limited": {
+   "name": "Houst Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "ALL Scheme Limited (Amigo Loans)": {
+   "name": "ALL Scheme Limited (Amigo Loans)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Smile Telecoms Holdings Limited": {
+   "name": "Smile Telecoms Holdings Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "E D & F Man Holdings Limited": {
+   "name": "E D & F Man Holdings Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Amicus Finance plc (in administration)": {
+   "name": "Amicus Finance plc (in administration)",
+   "from": "restructuring",
+   "notices": [
+    {
+     "company": "AMICUS FINANCE PLC",
+     "noticeCode": "2410",
+     "category": "Appointment of Administrators",
+     "published": "2018-12-24",
+     "url": "https://www.thegazette.co.uk/notice/3177127"
+    }
+   ]
+  },
+  "Provident SPV Limited": {
+   "name": "Provident SPV Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Hurricane Energy plc": {
+   "name": "Hurricane Energy plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Virgin Active Holdings Limited": {
+   "name": "Virgin Active Holdings Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "gategroup Guarantee Limited": {
+   "name": "gategroup Guarantee Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "DeepOcean 1 UK Limited": {
+   "name": "DeepOcean 1 UK Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "PizzaExpress Financing 2 plc": {
+   "name": "PizzaExpress Financing 2 plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Codere Finance 2 (UK) Limited": {
+   "name": "Codere Finance 2 (UK) Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Virgin Atlantic Airways Limited": {
+   "name": "Virgin Atlantic Airways Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Swissport Fuelling Limited": {
+   "name": "Swissport Fuelling Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Big Table Group (Las Iguanas Holdings Ltd)": {
+   "name": "Big Table Group (Las Iguanas Holdings Ltd)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "SCUR-Alpha 1092 GmbH (Schleich Group)": {
+   "name": "SCUR-Alpha 1092 GmbH (Schleich Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "TG Jones Retail Holdings Limited": {
+   "name": "TG Jones Retail Holdings Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "HSE Finance S.à r.l. (Home Shopping Europe / HSE Group)": {
+   "name": "HSE Finance S.à r.l. (Home Shopping Europe / HSE Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Chandlers Building Supplies Holdings Limited & 12 Ors (\"Turbo Group\")": {
+   "name": "Chandlers Building Supplies Holdings Limited & 12 Ors (\"Turbo Group\")",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Ambatovy Minerals Société Anonyme and Dynatec Madagascar Société Anonyme": {
+   "name": "Ambatovy Minerals Société Anonyme and Dynatec Madagascar Société Anonyme",
+   "from": "restructuring",
+   "notices": []
+  },
+  "DSTBTD Limited (t/a \"Distributed\")": {
+   "name": "DSTBTD Limited (t/a \"Distributed\")",
+   "from": "restructuring",
+   "notices": [
+    {
+     "company": "DSTBTD LIMITED ",
+     "noticeCode": "2450",
+     "category": "Petitions to Wind Up (Companies)",
+     "published": "2025-08-12",
+     "url": "https://www.thegazette.co.uk/notice/4944938"
+    },
+    {
+     "company": "DSTBTD LIMITED",
+     "noticeCode": "2450",
+     "category": "Petitions to Wind Up (Companies)",
+     "published": "2025-08-08",
+     "url": "https://www.thegazette.co.uk/notice/4940679"
+    }
+   ]
+  },
+  "Nostrum Oil & Gas PLC and Nostrum Oil & Gas Finance B.V.": {
+   "name": "Nostrum Oil & Gas PLC and Nostrum Oil & Gas Finance B.V.",
+   "from": "restructuring",
+   "notices": []
+  },
+  "OutsideClinic Limited": {
+   "name": "OutsideClinic Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Atento UK Limited and Atento Luxco 1 S.A.": {
+   "name": "Atento UK Limited and Atento Luxco 1 S.A.",
+   "from": "restructuring",
+   "notices": []
+  },
+  "New Look Financing plc (New Look Group)": {
+   "name": "New Look Financing plc (New Look Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "TG Jones High Street Limited and TG Jones Retail Holdings Limited": {
+   "name": "TG Jones High Street Limited and TG Jones Retail Holdings Limited",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Tele Columbus AG": {
+   "name": "Tele Columbus AG",
+   "from": "restructuring",
+   "notices": []
+  },
+  "DTEK Energy BV and DTEK Finance plc": {
+   "name": "DTEK Energy BV and DTEK Finance plc",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Deutsche Glasfaser Group GmbH": {
+   "name": "Deutsche Glasfaser Group GmbH",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Selecta Finance UK Limited (Selecta Group)": {
+   "name": "Selecta Finance UK Limited (Selecta Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Yunneng Wind Power Co., Ltd (Yunlin offshore wind farm)": {
+   "name": "Yunneng Wind Power Co., Ltd (Yunlin offshore wind farm)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Southern Water (SWS Holdings Limited and Greensands Financing plc)": {
+   "name": "Southern Water (SWS Holdings Limited and Greensands Financing plc)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "Sprint Bidco BV (Accell Group)": {
+   "name": "Sprint Bidco BV (Accell Group)",
+   "from": "restructuring",
+   "notices": []
+  },
+  "EG Group": {
+   "name": "EG Group",
+   "from": "credits",
+   "notices": []
+  },
+  "Froneri International": {
+   "name": "Froneri International",
+   "from": "credits",
+   "notices": []
+  },
+  "INEOS Quattro": {
+   "name": "INEOS Quattro",
+   "from": "credits",
+   "notices": []
+  },
+  "IVC Evidensia": {
+   "name": "IVC Evidensia",
+   "from": "credits",
+   "notices": []
+  },
+  "Nomad Foods": {
+   "name": "Nomad Foods",
+   "from": "credits",
+   "notices": []
+  },
+  "Synthomer": {
+   "name": "Synthomer",
+   "from": "credits",
+   "notices": []
+  },
+  "TI Fluid Systems": {
+   "name": "TI Fluid Systems",
+   "from": "credits",
+   "notices": []
+  },
+  "Virgin Media O2": {
+   "name": "Virgin Media O2",
+   "from": "credits",
+   "notices": []
+  },
+  "Vue International": {
+   "name": "Vue International",
+   "from": "credits",
+   "notices": []
+  },
+  "Boparan Holdings": {
+   "name": "Boparan Holdings",
+   "from": "credits",
+   "notices": []
+  },
+  "Energean": {
+   "name": "Energean",
+   "from": "credits",
+   "notices": []
+  },
+  "EnQuest": {
+   "name": "EnQuest",
+   "from": "credits",
+   "notices": [
+    {
+     "company": "ENQUEST (HEATHER OILFIELD) LIMITED",
+     "noticeCode": "2435",
+     "category": "Final Meetings",
+     "published": "2010-12-31",
+     "url": "https://www.thegazette.co.uk/notice/L-59657-1274658"
+    }
+   ]
+  },
+  "Garfunkelux Holdco 2 (Lowell)": {
+   "name": "Garfunkelux Holdco 2 (Lowell)",
+   "from": "credits",
+   "notices": []
+  },
+  "Iceland Foods": {
+   "name": "Iceland Foods",
+   "from": "credits",
+   "notices": []
+  },
+  "Ithaca Energy": {
+   "name": "Ithaca Energy",
+   "from": "credits",
+   "notices": []
+  },
+  "Merlin Entertainments": {
+   "name": "Merlin Entertainments",
+   "from": "credits",
+   "notices": [
+    {
+     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
+     "noticeCode": "2431",
+     "category": "Resolutions for Winding-up",
+     "published": "2026-09-29",
+     "url": "https://www.thegazette.co.uk/notice/5219890"
+    },
+    {
+     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
+     "noticeCode": "2432",
+     "category": "Appointment of Liquidators",
+     "published": "2026-09-29",
+     "url": "https://www.thegazette.co.uk/notice/5219891"
+    },
+    {
+     "company": "MERLIN ENTERTAINMENTS (BLACKPOOL) LIMITED",
+     "noticeCode": "2433",
+     "category": "Notices to Creditors",
+     "published": "2026-09-29",
+     "url": "https://www.thegazette.co.uk/notice/5219892"
+    }
+   ]
+  },
+  "Miller Homes": {
+   "name": "Miller Homes",
+   "from": "credits",
+   "notices": []
+  },
+  "OCS Group": {
+   "name": "OCS Group",
+   "from": "credits",
+   "notices": []
+  },
+  "Sophos": {
+   "name": "Sophos",
+   "from": "credits",
+   "notices": []
+  },
+  "Theramex": {
+   "name": "Theramex",
+   "from": "credits",
+   "notices": []
+  },
+  "Aston Martin Lagonda": {
+   "name": "Aston Martin Lagonda",
+   "from": "credits",
+   "notices": []
+  },
+  "Aggreko (Albion Holdco)": {
+   "name": "Aggreko (Albion Holdco)",
+   "from": "credits",
+   "notices": []
+  },
+  "ContourGlobal Power Holdings": {
+   "name": "ContourGlobal Power Holdings",
+   "from": "credits",
+   "notices": []
+  }
+ },
+ "summary": {
+  "targets": 93,
+  "queried": 92,
+  "notices": 13
+ }
+}
