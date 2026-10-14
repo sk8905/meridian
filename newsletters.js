@@ -49,6 +49,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-thelawyer-newsdaily-globalelitepartnersmovedtwice-20261014",
+    publication: "The Lawyer",
+    author: "Rachel Moloney",
+    series: "News Daily",
+    title: "The Global Elite revolving door: The partners who have moved twice in three years",
+    date: "2026-10-14",
+    time: "08:16",
+    summary: "Over 20 partners hired by global elite firms in the past three years have already switched to a rival firm, according to data from The Lawyer.",
+    url: "https://r.mail.thelawyer.com/mk/mr/sh/28xHBT2OOm5aQrn4OwPr9qwiC32Ybr5qUL/0cCFc0e-o228",
+  },
+  {
     id: "nl-bbg-goingprivate-aibonusbooster-20261014",
     publication: "Bloomberg",
     author: "Sinead Cruise",

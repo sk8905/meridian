@@ -105,6 +105,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-fitch-europeanbanksupdate-20261014",
+    publication: "Fitch Ratings",
+    author: null,
+    series: "European Banks Update",
+    title: "European Banks Update | Updated EM Largest Banks Monitor, Impact of Geopolitical Shocks & More",
+    date: "2026-10-14",
+    time: "15:00",
+    summary: "Fitch has raised profitability forecasts for many of the 20 large European banks in its peer group after strong 1H26 results, and updated its Emerging Markets Largest Banks Monitor covering 142 banks.",
+    url: "https://goto.fitchratings.com/v/NzMyLUNLSC03NjcAAAGk2a_GYSFL40AETWfHkyBi-ewaxzjW7pTKDglmJILfUMopfW73uGB43qGcsdupXbbVSCZvB1E="
+  },
+  {
     id: "rsch-jpm-incontext-housingaffordability-20261014",
     publication: "J.P. Morgan",
     author: null,
