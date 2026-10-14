@@ -488,14 +488,17 @@
   /* EIGHT columns since SLS landed — the widths must always sum to 100% or
      table-layout:fixed starves whichever column is missing from this list
      (that's exactly what squashed SLS to nothing at the right edge). */
-  .tleague-full th:nth-child(1) { width: 24%; }   /* Manager    */
-  .tleague-full th:nth-child(2) { width: 14%; }   /* HQ         */
-  .tleague-full th:nth-child(3) { width: 10%; }   /* AUM        */
-  .tleague-full th:nth-child(4) { width: 11%; }   /* Credit AUM */
-  .tleague-full th:nth-child(5) { width: 8%;  }   /* Funds      */
-  .tleague-full th:nth-child(6) { width: 8%;  }   /* In mkt     */
-  .tleague-full th:nth-child(7) { width: 7%;  }   /* CLOs       */
-  .tleague-full th:nth-child(8) { width: 18%; }   /* SLS        */
+  /* TEN columns since Fit + 90d landed (R39). */
+  .tleague-full th:nth-child(1) { width: 21%; }   /* Manager    */
+  .tleague-full th:nth-child(2) { width: 12%; }   /* HQ         */
+  .tleague-full th:nth-child(3) { width: 8%;  }   /* Fit        */
+  .tleague-full th:nth-child(4) { width: 9%;  }   /* AUM        */
+  .tleague-full th:nth-child(5) { width: 9%;  }   /* Credit AUM */
+  .tleague-full th:nth-child(6) { width: 6%;  }   /* Funds      */
+  .tleague-full th:nth-child(7) { width: 6%;  }   /* In mkt     */
+  .tleague-full th:nth-child(8) { width: 8%;  }   /* 90d        */
+  .tleague-full th:nth-child(9) { width: 5%;  }   /* CLOs       */
+  .tleague-full th:nth-child(10) { width: 16%; }  /* SLS        */
   .tleague-full .tl-nm { max-width: none; }
 }
 /* Per-table column split for every OTHER .tleague-full family. They all inherit
@@ -518,13 +521,18 @@
   /* Transaction credits list (transactions/app.js): Date · Borrower/company · Lender/investor · Type · Amount · Source */
   /* Reordered: Borrower · Date · Lender · Type · Amount · Source — EVEN columns
      across the full width (each ~1/6), so no column hogs slack. */
-  .tx-list th:nth-child(1) { width: 19%; }   /* Borrower */
-  .tx-list th:nth-child(2) { width: 15%; }   /* Sponsor  */
-  .tx-list th:nth-child(3) { width: 10%; }   /* Date     */
-  .tx-list th:nth-child(4) { width: 16%; }   /* Lender   */
-  .tx-list th:nth-child(5) { width: 13%; }   /* Sector   */
-  .tx-list th:nth-child(6) { width: 11%; }   /* Amount   */
-  .tx-list th:nth-child(7) { width: 16%; }   /* Source   */
+  /* Deal lists (transactions/app.js): columns differ per mode, so widths key off the
+     column's class, not its position. */
+  .tx-list th.txc-party { width: 24%; }
+  .tx-list th.txc-lender { width: 15%; }
+  .tx-list th.txc-sp { width: 11%; }
+  .tx-list th.txc-type { width: 13%; }
+  .tx-list th.txc-sec { width: 12%; }
+  .tx-list th.txc-ctry { width: 9%; }
+  .tx-list th.txc-ev { width: 7%; }
+  .tx-list th.txc-amt { width: 9%; }
+  .tx-list th.txc-date { width: 9%; }
+  .tx-list th.txc-src { width: 11%; }
   /* Transaction type table (transactions/app.js): Type · Deals · 12mo · Volume · Median · Managers · Most active */
   .tx-tbl th:nth-child(1) { width: 19%; }
   .tx-tbl th:nth-child(2) { width: 8%; }
@@ -712,7 +720,7 @@
 /* Freshness cue: the ledger's "as of" date on its own full-width line inside the flow
    search header; the stale flag lights the brand accent when no new deal has landed
    within TX_STALE_DAYS, so a quiet pipeline is visible rather than masked. */
-.tx-asof { flex: 1 0 100%; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+.tx-asof { flex: 0 0 auto; padding: 4px 11px; border-bottom: 1px solid var(--border); background: var(--surface); display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
   font-family: var(--mono, ui-monospace, monospace); font-size: var(--fs-micro); letter-spacing: .02em; }
 .tx-asof[hidden] { display: none; }
 .tx-asof-lbl { color: var(--muted); text-transform: uppercase; }
@@ -967,9 +975,6 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbdc-tbl td.tbdc-nm { color: var(--ink); font-weight: 400; white-space: normal; line-height: 1.25; }
 .tbdc-sub { display: block; color: var(--faint); font-weight: 400; font-size:var(--fs-micro); letter-spacing: .02em; margin-top: 1px; }
 .tbdc-szt { margin-left: 3px; color: var(--faint); font-size:var(--fs-micro); font-weight: 400; text-transform: uppercase; letter-spacing: .03em; vertical-align: 1px; }
-.tbdc-ty-l, .tbdc-ty-p { font-size:var(--fs-micro); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
-.tbdc-ty-l { color: var(--muted); }
-.tbdc-ty-p { color: var(--muted); }
 /* Roster sections — LISTED / PRIVATE — each its own labelled table. */
 .tbdc-sec + .tbdc-sec { margin-top: 14px; }
 .tbdc-seclbl { margin: 0 0 3px; padding: 0 2px; font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
@@ -999,14 +1004,13 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tbdc-srcs a { color: var(--muted); }
 .tbdc-srcs a:hover { color: var(--ink); }
 @media (min-width: 761px) {
-  .tleague-full.tbdc-tbl th:nth-child(1) { width: 22%; }   /* Fund         */
-  .tleague-full.tbdc-tbl th:nth-child(2) { width: 9%; }    /* Ticker       */
-  .tleague-full.tbdc-tbl th:nth-child(3) { width: 7%; }    /* Type         */
-  .tleague-full.tbdc-tbl th:nth-child(4) { width: 17%; }   /* Manager      */
-  .tleague-full.tbdc-tbl th:nth-child(5) { width: 11%; }   /* Total assets */
-  .tleague-full.tbdc-tbl th:nth-child(6) { width: 9%; }    /* NAV          */
-  .tleague-full.tbdc-tbl th:nth-child(7) { width: 11%; }   /* Non-accrual  */
-  .tleague-full.tbdc-tbl th:nth-child(8) { width: 14%; }   /* Px/NAV       */
+  .tleague-full.tbdc-tbl th:nth-child(1) { width: 24%; }   /* Fund         */
+  .tleague-full.tbdc-tbl th:nth-child(2) { width: 12%; }   /* Ticker       */
+  .tleague-full.tbdc-tbl th:nth-child(3) { width: 18%; }   /* Manager      */
+  .tleague-full.tbdc-tbl th:nth-child(4) { width: 11%; }   /* Total assets */
+  .tleague-full.tbdc-tbl th:nth-child(5) { width: 9%; }    /* NAV          */
+  .tleague-full.tbdc-tbl th:nth-child(6) { width: 11%; }   /* Non-accrual  */
+  .tleague-full.tbdc-tbl th:nth-child(7) { width: 15%; }   /* Px/NAV       */
 }
 @media (max-width: 620px) {
   /* Don't squash on the phone: show every column at its natural width and let the
@@ -1348,3 +1352,95 @@ th.pf-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 .tcmp-h { width: 37%; }
 .tcmp-h a { display: block; margin-bottom: 4px; color: var(--ink); font-size: var(--fs-body); text-transform: none; letter-spacing: 0; }
 .tcmp-pick { max-width: 100%; width: 100%; }
+
+/* ---- Transactions filters (HOUSE_STYLE R36/R39) ------------------------------------
+   The control bar WRAPS (it used to be a fixed 28px row whose full-width as-of line
+   pushed every control off-screen at desktop widths); the as-of line sits below it. */
+.tx-dash .tx-bar { height: auto; min-height: 28px; flex-wrap: wrap; row-gap: 6px; padding-top: 5px; padding-bottom: 5px; }
+.tx-bar .tsearch { flex: 1 1 220px; min-width: 0; }
+.tx-bar .tfocus-btn, .tx-bar .tcr-grpctl { margin-left: 0; }
+.tx-bar .tx-filt { flex: 0 0 auto; }
+.tx-fbtn { flex: 0 0 auto; border: 1px solid var(--border); background: transparent; color: var(--ink); font-family: var(--t-mono); font-size: var(--fs-micro); font-weight: 700; padding: 2px 9px; border-radius: 0; cursor: pointer; }
+.tx-fbtn:hover, .tx-fbtn.is-on { border-color: var(--accent); }
+.tx-fbtn.is-on { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.tx-bar .tx-active { padding: 0; }
+.tx-sheet { flex: 0 0 auto; background: var(--head); border-bottom: 1px solid var(--border); }
+.tx-sheet[hidden] { display: none; }
+.tx-sheet-b { padding: 6px 11px 4px; }
+.tx-fgrp { padding: 6px 0; }
+.tx-fgrp + .tx-fgrp { border-top: 1px solid var(--border); }
+.tx-fh { margin-bottom: 5px; font-family: var(--t-mono); font-size: var(--fs-micro); font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.tx-fsel { color: var(--accent); }
+.tx-fchips { display: flex; flex-wrap: wrap; gap: 5px; }
+.tx-fchips + .tx-fchips { margin-top: 5px; }
+.tx-fchip { display: inline-flex; align-items: center; gap: 6px; min-height: 26px; padding: 0 9px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font: inherit; font-size: var(--fs-micro); border-radius: 0; cursor: pointer; }
+.tx-fchip:hover { color: var(--ink); border-color: var(--muted); }
+.tx-fchip.is-on { color: var(--ink); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.tx-fmore { color: var(--accent); }
+.tx-frange { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 7px; font-size: var(--fs-micro); color: var(--muted); }
+.tx-frange input { margin-left: 5px; border: 1px solid var(--border); background: var(--surface); color: var(--ink); font: inherit; font-size: var(--fs-micro); padding: 2px 4px; border-radius: 0; }
+.tx-sheet-f { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 6px 11px; border-top: 1px solid var(--border); background: var(--head); }
+.tx-sheet-done { min-height: 30px; padding: 0 14px; border: 1px solid var(--accent); background: var(--accent); color: var(--surface); font-family: var(--t-mono); font-size: var(--fs-micro); font-weight: 700; border-radius: 0; cursor: pointer; }
+.tx-fsortgrp .tx-filt { max-width: none; min-height: 26px; }
+/* Stats strip: the filtered set in one line of numbers (R20 — no prose). */
+.tx-stats { display: flex; flex-wrap: wrap; gap: 2px 14px; padding: 7px 8px 6px; font-family: var(--t-mono); font-size: var(--fs-micro); color: var(--muted); font-variant-numeric: tabular-nums; }
+.tx-stats b { color: var(--ink); font-weight: 700; }
+.tx-stats .tx-mgr { color: var(--muted); }
+.tx-stats .tx-mgr:hover { color: var(--ink); }
+#tx-credits-body .tx-stats { padding: 7px 12px 6px; }
+/* Sortable column headers (▲/▼ on the active one). */
+th.tx-sortable { cursor: pointer; user-select: none; }
+th.tx-sortable:hover { color: var(--ink); }
+th.tx-sortable[aria-sort="descending"]::after { content: " ▼"; color: var(--faint); }
+th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--faint); }
+/* A figure that is not the deal size (target AUM, enterprise value): muted. */
+.tx-amt-x { color: var(--faint); }
+.tx-alt { color: var(--faint); font-size: var(--fs-micro); }
+.tx-grp-v { margin-left: 9px; color: var(--muted); font-size: var(--fs-micro); font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
+.tx-list td.txc-ctry, .tx-list td.txc-ev, .tx-list td.txc-type, .tx-list td.txc-sec { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px; }
+/* BDC + Credits: their tables scroll inside their own body, so the sticky header pins
+   to its top (the shared top:28px hid the first row under it). */
+#tx-bdc-body .tleague th, #tx-credits-body .tcr-tbl th { top: 0; }
+#tx-credits-body .tcr-tbl th { position: sticky; background: var(--head); z-index: 1; }
+.tbdc-ex { display: block; color: var(--faint); font-size: var(--fs-micro); letter-spacing: .03em; }
+@media (min-width: 761px) {
+  /* Desktop: the open sheet caps its height and scrolls, the list stays beneath it. */
+  .tx-sheet-b { max-height: 46vh; overflow-y: auto; overscroll-behavior: contain; }
+}
+@media (max-width: 760px) {
+  /* Phone: the sheet takes the list's place (Show N deals returns to it); the sort and
+     group selects live in the sheet, not the bar. */
+  .tx-bar .tx-sortgrp { display: none; }
+  .tx-bar .tsearch { flex: 1 1 100px; }
+  .tx-sheet-open #tx-body, .tx-sheet-open #tx-asof, .tx-crsheet-open #tx-credits-body { display: none; }
+  .tx-sheet-f { position: sticky; bottom: 0; }
+  .tx-fchip { min-height: 32px; }
+  .tx-stats { padding-left: 12px; padding-right: 12px; }
+}
+@media (min-width: 761px) { .tx-fsortgrp { display: none; } }
+
+/* ---- Profiles lists: facet sheet, Fit / 90d columns, phone card rows (R39) -------- */
+#pf-panes .pf-sheet { position: static; }
+.tpane.pf-sheet-open > .tleague-wrap, .tpane.pf-sheet-open > .hf-cons, .tpane.pf-sheet-open > .hf-ofr { display: none; }
+#pf-panes .thead-search .pf-active { flex: 1 0 100%; }
+.tleague-full td.tl-fit { color: var(--muted); font-family: var(--t-mono); font-size: var(--fs-micro); white-space: nowrap; }
+.tleague-full tr[data-tier="core"] td.tl-fit { color: var(--accent); font-weight: 700; }
+.pf-act-l, .pf-sort, .pf-views { display: none; }
+@media (max-width: 760px) {
+  #pf-panes .thead-search .pf-sort { display: inline-block; max-width: 8.5rem; }
+  #pf-panes .pf-views { display: block; }
+  /* Hedge Funds: Monitor / Cross-holdings move into the Filters sheet (P5). */
+  #pf-panes #hf-mon-btn, #pf-panes #hf-cons-btn { display: none; }
+  /* Card rows: name · headline figure, then HQ · fit · activity — no sideways table. */
+  #pf-panes .pf-cards, #pf-panes .pf-cards tbody { display: block; width: 100%; min-width: 0; }
+  #pf-panes .pf-cards thead { display: none; }
+  #pf-panes .pf-cards tbody tr { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 10px; height: auto; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  #pf-panes .pf-cards tbody tr::after { content: ""; order: 2; flex-basis: 100%; height: 0; }
+  #pf-panes .pf-cards tbody td { display: none; padding: 0; border: 0; }
+  #pf-panes .pf-cards tbody td.tl-nm { display: block; order: 0; flex: 1 1 0; min-width: 0; max-width: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #pf-panes .pf-cards tbody td.pf-c-main { display: block; order: 1; flex: 0 0 auto; text-align: right; }
+  #pf-panes .pf-cards tbody td.pf-c-meta { display: inline; order: 3; font-size: var(--fs-micro); color: var(--muted); white-space: nowrap; max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
+  #pf-panes .pf-cards tbody td.pf-c-meta .pf-act-l { display: inline; }
+  #pf-panes .pf-cards tbody td.pf-c-meta .pf-nil { display: none; }
+}
+

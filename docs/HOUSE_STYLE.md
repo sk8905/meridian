@@ -986,20 +986,22 @@ notification badge red (`#ef4444`).
   in the hash or the query. Spec: `tests/nav-backstack.mjs`.
 
 - **R36 — Transactions: modes, deals as objects, URL state.** (UX review 2026-10.) The
-  modes are **Lending · Structured credit · Secondaries · Credits · BDCs** — the deal-flow
+  modes are **Lending · Structured credit · Secondaries · Manager M&A · Credits · BDCs**
+  (Manager M&A and the filters / columns / sorting / grouping: see **R39**) — the deal-flow
   groups (`TX_GROUPS` in `credit/js/tx.js`) named as the market uses them: *Lending* =
   origination (direct lending/unitranche, ABL, NAV/fund finance, rescue, restructuring,
   other); *Structured credit* = CLO, CFO, SRT; *Secondaries* = GP-/LP-led and NPL/loan
   portfolios. (The retired `#/primary` URL canonicalises to `#/lending`.) **Every view is
-  in the hash** — `#/<mode>[/<type>]?sec=&grp=lender&period=&min=&focus=1&q=&deal=`,
-  `#/credits?q=&grp=&open=`, `#/bdc?q=&open=`; a filter / type / mode change or an opened
-  deal is a history step (Back undoes it), typing a search replaces. **A deal is a
+  in the hash** — `#/<mode>?type=&sec=&reg=&size=&ccy=&sp=&lender=&period=|from=&to=&focus=&q=&sort=&grp=&deal=`,
+  `#/credits?q=&rt=&tr=&jur=&csec=&sort=&grp=&open=`, `#/bdc?q=&sort=&open=` (legacy
+  `#/<mode>/<type>`, `?min=` and `focus=1` links canonicalise); a type / mode change, a
+  pill removal or an opened deal is a history step (Back undoes it); typing a search and
+  toggling chips inside the open Filters sheet replace. **A deal is a
   first-class object:** a row opens its **drawer** (borrower, sponsor, lender → profile,
   fund, type, sector, amount, date, source, and *same borrower / same sponsor / more from
   this lender*); `#/deal/<id>` deep-links to it (search results, What's new, a manager's
-  Investments row all open deals here). **Period / size / AUM filters apply to every
-  view** (incl. the default All list) and show as removable pills with *Clear all*; the
-  type and sector chip strips are labelled. **Search spans all three groups.** **Phone:**
+  Investments row all open deals here). **Every filter applies to every view** (incl. the
+  default All list) and shows as a removable pill with *Clear all*. **Search spans all three groups.** **Phone:**
   deals are two-line cards (borrower · amount / date · lender · type), never a
   sideways-scrolling table; the drawer replaces the list in the page flow. The **borrower**
   column never repeats the lender: `dealCounterparty()` (`v2/js/deal-parse.js`) falls back
@@ -1065,6 +1067,55 @@ notification badge red (`#ef4444`).
   the manager profile focused on it, a hedge-fund story → the fund profile focused on it, a
   law-firm alert → its alert page; the panel closes on navigation. Cases / schemes with no
   in-app page keep their judgment link. Spec: `tests/nav-backstack.mjs`.
+
+- **R39 — Transactions + Profiles filters; deal tags; Target.** (Filters review 2026-10.)
+  **(a) Deal tags.** `credit/js/deal-tags.js` (`DEAL_TAGS`, tokenless + `no-cache` like
+  data.js) holds, per deal id, curated fields read from the deal's OWN sourced text —
+  `country` (borrower / asset / target, not the lender; `null` when unstated), `sector`
+  (the borrower's industry: `SECTOR_TAGS` in `credit/js/tx.js`), `amountKind`
+  (financing · fund · portfolio · ev · aum · other — what the parsed amount measures),
+  `event` (CLO issuance only: new · reset · refi) and `managerMA` (an acquisition of / stake
+  in an asset manager). `tagsOf()` expands them; an untagged deal falls back to the
+  classifier's sector and region "Unspecified" — never a guess shown as a tag. Region =
+  `REGIONS` (UK & Ireland · DACH · France & Benelux · Southern Europe · Nordics ·
+  Pan-European · Other Europe · North America · Rest of world). **(b) Sizes are deal
+  sizes.** Only `financing / fund / portfolio` amounts count in the size facet, totals,
+  medians and size sorting (`sizeCounts`); an EV or target-AUM figure shows muted with its
+  kind ("EV $2.8bn") and never counts. **(c) Manager M&A** (`managerMA`) is its own mode,
+  out of Lending deal flow (columns Target · Acquirer · Country · Value · Date · Source).
+  **(d) De-duplication:** the same lender + date + USD size + type from two outlets is ONE
+  row; the other source shows as "+n" and "Also reported" in the drawer. **(e) Filters
+  sheet** (one `Filters (n)` button; desktop: a panel under the bar, phone: replaces the
+  list, "Show N deals" returns): multi-select chips with LIVE counts — OR within a facet,
+  AND across — for type · sector · region (with *All Europe*, one "Europe" pill) · size band
+  (incl. *Not disclosed*) · currency · sponsor (Lending) · lender; dates as presets, years,
+  the last six quarters and a custom month range. Phone keeps only the type strip, the
+  pills and the bar on the page; sort + group live in the sheet. **(f) Columns per mode**
+  (Lending: Borrower · Lender · Sponsor (only when any) · Sector · Country · Amount · Date ·
+  Source; Structured: Deal · Manager · Type · Event · Country · Size · Date · Source;
+  Secondaries: Fund / portfolio · Buyer / lead · Type · Country · Size · Date · Source);
+  Amount / Date / Lender / name headers sort (blanks always last); **group by** lender ·
+  month · sector · region · type with a count + disclosed-volume subtotal per group; a
+  **stats strip** (numbers only, R20): N deals · ≈$ disclosed (n/N) · median · top 3
+  lenders. **(g) The control bar wraps** and every control stays inside the viewport at
+  ≥1024px (spec); the as-of line sits below it. **(h) Target.** `credit/js/target.js`
+  (`targetFit`; `scripts/lib/niche.mjs` re-exports it) scores each manager: **Target** =
+  European HQ / European fund focus + AUM ≤ $15bn + a 15%+ strategy; then Adjacent ·
+  Other credit · Non-credit. The **$1–15bn** button on Transactions and Profiles ▸
+  Managers is a tri-state: $1–15bn → **Target** → off. Profiles ▸ Managers opens
+  **Target-first** (tier, then AUM) with a sortable **Fit** column. **(i) Profiles lists**
+  get the same Filters sheet: Managers → strategy · region (primary HQ) · AUM band · in
+  market; Hedge funds → strategy · region (+ the Monitor / Cross-holdings views on phone);
+  Investors → type · mandate; Law firms → tier · practice. Managers and Hedge funds carry a
+  sortable **90d** column (tracked deals + news in 90 days; tooltip = latest date). Phone
+  lists are **card rows** (name · headline figure / HQ · fit · activity) with a sort
+  select. **(j) Credits**: a Filters sheet (rating band · 12-month trend · jurisdiction ·
+  sector), sortable Borrower / Rating headers, a count line (credits · ▼ · ▲). **BDCs**:
+  no Type column (the Listed / Private (non-traded) sections say it), the exchange sits
+  under the ticker, sortable size / name / NAV / non-accrual / Px/NAV, and the sticky
+  header pins to its own scroller (no hidden first row). Specs: `tests/transactions.mjs`,
+  `tests/tx-credits.mjs`, `tests/bdcs.mjs`, `tests/nav-backstack.mjs`,
+  `tests/profiles-filters.mjs`.
 
 ---
 

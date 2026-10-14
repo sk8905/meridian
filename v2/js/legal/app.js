@@ -318,12 +318,14 @@ const lfPep = (p, basis) => p == null ? "—" : lfCcy(basis) + (p >= 1 ? p.toFix
 function lawFirmRow(f) {
   const L = f.london || {};
   const areas = (L.areas || []).slice(0, 2).join(", ");
-  return `<tr class="clickable" data-href="#/firm/${esc(f.id)}" data-name="${esc((f.name + " " + ((tierById[f.tier] || {}).name || "") + " " + (L.areas || []).join(" ")).toLowerCase())}">`
+  // data-f-*: the Profiles facet sheet (HOUSE_STYLE R39) — tier + London practices.
+  return `<tr class="clickable" data-href="#/firm/${esc(f.id)}" data-name="${esc((f.name + " " + ((tierById[f.tier] || {}).name || "") + " " + (L.areas || []).join(" ")).toLowerCase())}"`
+    + ` data-f-tier="${esc((tierById[f.tier] || {}).name || f.tier || "Unspecified")}" data-f-practice="${esc((L.areas || []).join("|"))}">`
     + `<td class="tl-nm">${esc(f.name)}</td>`
-    + `<td class="tl-tier">${esc((tierById[f.tier] || {}).name || f.tier || "")}</td>`
-    + `<td class="tl-n">${L.lawyers != null ? esc(String(L.lawyers)) : "—"}</td>`
+    + `<td class="tl-tier pf-c-meta">${esc((tierById[f.tier] || {}).name || f.tier || "")}</td>`
+    + `<td class="tl-n pf-c-meta">${L.lawyers != null ? esc(String(L.lawyers)) + `<span class="pf-act-l"> lawyers</span>` : "—"}</td>`
     + `<td class="tl-areas">${esc(areas || "—")}</td>`
-    + `<td class="tl-n">${L.revenue != null ? `<span title="${esc(L.revenueBasis || "")}">${esc(lfMoney(L.revenue, L.revenueBasis))}</span>` : "—"}</td>`
+    + `<td class="tl-n pf-c-main">${L.revenue != null ? `<span title="${esc(L.revenueBasis || "")}">${esc(lfMoney(L.revenue, L.revenueBasis))}</span>` : "—"}</td>`
     + `<td class="tl-n">${L.revenueLondon != null ? `<span title="${esc(L.revenueLondonBasis || "")}">${esc(lfMoney(L.revenueLondon, L.revenueLondonBasis))}</span>` : "—"}</td>`
     + `<td class="tl-n">${L.pep != null ? `<span title="${esc(L.pepBasis || "")}">${esc(lfPep(L.pep, L.pepBasis))}</span>` : "—"}</td></tr>`;
 }
@@ -334,7 +336,7 @@ function lawFirmsPane() {
   const rows = firms.filter((f) => f.london).sort((a, b) => lfRevGBP(b) - lfRevGBP(a));
   return `<header class="tpanel-h thead-search">`
     + `<input type="search" id="lf-q" class="tsearch" placeholder="Search name, practice or tier…" aria-label="Search law firms"></header>`
-    + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf">`
+    + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf pf-cards">`
     + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Total&nbsp;revenue</th><th class="tl-n">London&nbsp;revenue</th><th class="tl-n">PEP</th></tr></thead>`
     + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="7" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`;
 }

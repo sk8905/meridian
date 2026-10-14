@@ -26,6 +26,22 @@ const tx = await pg.evaluate(async () => {
   return { total: deals.length, classified, cloOk, cloN: clo.length, amtN: withAmt.length, usdN: usd.length, types: T.TX_TYPES.length, dist };
 });
 check(tx.total > 500, `deal ledger present (${tx.total})`);
+// Curated deal tags (HOUSE_STYLE R39): every dated deal is tagged, with allowed values only.
+const tg = await pg.evaluate(async () => {
+  const [T, D, G] = await Promise.all([import("/credit/js/tx.js"), import("/credit/js/data.js"), import("/credit/js/deal-tags.js")]);
+  const countries = new Set(T.REGIONS.flatMap(([, , cs]) => cs));
+  const deals = D.deals.filter((d) => d && d.date);
+  const missing = deals.filter((d) => !G.DEAL_TAGS[d.id]).map((d) => d.id);
+  const bad = Object.entries(G.DEAL_TAGS).filter(([, t]) => !(t.country == null || countries.has(t.country)) || !T.SECTOR_TAGS.includes(t.sector)
+    || !(t.amountKind == null || ["financing", "fund", "portfolio", "ev", "aum", "other"].includes(t.amountKind))
+    || !(t.event == null || ["new", "reset", "refi"].includes(t.event)) || typeof t.managerMA !== "boolean").map(([id]) => id);
+  const evOnNonClo = Object.entries(G.DEAL_TAGS).filter(([id, t]) => t.event && D.deals.find((d) => d.id === id) && T.txOf(D.deals.find((d) => d.id === id)) !== "clo").map(([id]) => id);
+  return { missing, bad, evOnNonClo };
+});
+check(!tg.missing.length, `every dated deal carries curated tags in credit/js/deal-tags.js (${tg.missing.length} untagged${tg.missing.length ? ": " + tg.missing.slice(0, 8).join(", ") : ""})`);
+check(!tg.bad.length, `every deal tag uses an allowed value (${tg.bad.length} bad${tg.bad.length ? ": " + tg.bad.slice(0, 8).join(", ") : ""})`);
+check(!tg.evOnNonClo.length, `a CLO event is only set on CLO issuance (${tg.evOnNonClo.join(", ") || "ok"})`);
+
 check(tx.classified, "every deal is classified into a canonical transaction type");
 check(tx.cloOk, `CLO-flagged deals classify as CLO issuance (${tx.cloN})`);
 check(tx.amtN > 200 && tx.usdN > 200, `deal sizes parse from the sourced text and normalise to USD (${tx.amtN} sized, ${tx.usdN} in USD)`);
@@ -93,7 +109,7 @@ check(asof.staleClass === (asof.ageDays > 7) && asof.hasFlag === (asof.ageDays >
   `Transactions: the stale flag reflects the real ledger age (${asof.ageDays}d → ${asof.ageDays > 7 ? "stale flag shown" : "fresh, no flag"})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.noPeriodChips, "the old Last 12 months / All time period CHIPS stay removed (a compact date-range select replaces them)");
-check(ov.modeChips.join(",") === "Lending,Structured credit,Secondaries,Credits,BDCs", `the Lending / Structured credit / Secondaries / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
+check(ov.modeChips.join(",") === "Lending,Structured credit,Secondaries,Manager M&A,Credits,BDCs", `the Lending / Structured credit / Secondaries / Manager M&A / Credits / BDCs nav chips are present (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 check(ov.subsNestedInRail, "desktop: the type sub-tabs nest under the active mode in the left rail");
@@ -121,8 +137,8 @@ check(dt.activeName.includes("Direct lending"), `selecting a sub-tab activates i
 check(dt.activeBar && dt.activeBar !== "none" && /inset/.test(dt.activeBar), "the active sub-tab carries the blue left bar");
 check(dt.noDetailPage, "no separate detail page is rendered (no back bar, no KPI tiles)");
 check(dt.listRows > 0, `the pane lists the type's transactions (${dt.listRows})`);
-check(/Borrower/i.test(dt.heads[0] || "") && /Sponsor/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Date/i.test(h)) && dt.heads.some((h) => /Lender/i.test(h)) && dt.heads.some((h) => /Sector/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
-  `columns are Borrower · Sponsor · Date · Lender · Sector · Amount · Source (${dt.heads.join(" · ")})`);
+check(/Borrower/i.test(dt.heads[0] || "") && /Lender/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Sponsor/i.test(h)) && dt.heads.some((h) => /Sector/i.test(h)) && dt.heads.some((h) => /Country/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && dt.heads.some((h) => /Date/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
+  `Lending columns are Borrower · Lender · Sponsor · Sector · Country · Amount · Date · Source (${dt.heads.join(" · ")})`);
 check(dt.anySize, "transactions show their native disclosed size");
 check(dt.mgrLinks > 0 && dt.borrowerNamed > 0, `borrower cell is a plain name and the lender is named (${dt.borrowerNamed} borrower, ${dt.mgrLinks} lender)`);
 check(dt.srcLinks > 0, `the source link sits in its own Source column (${dt.srcLinks})`);
@@ -158,66 +174,75 @@ const allRestore = await pg.evaluate(async () => {
 check(allRestore.onAll && allRestore.allRows > allRestore.typeRows,
   `desktop: the All sub-tab clears the type filter — back to the whole group (${allRestore.allRows} > ${allRestore.typeRows} for one type)`);
 
-// ---- 3b) asset-class sub-category chips filter the pane ------------------
-const sub = await pg.evaluate(() => {
-  const exp = document.querySelector(".tx-panes-in");
-  const chips = [...exp.querySelectorAll(".tx-secchip")];
-  return { n: chips.length, hasAll: chips.some((c) => c.dataset.sec === "all"), labels: chips.slice(0, 5).map((c) => c.textContent.trim()) };
+// ---- 3b) the Filters sheet: multi-select facets with live counts (HOUSE_STYLE R39) ----
+const fs1 = await pg.evaluate(async () => {
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const rowsN = () => document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length;
+  const before = rowsN();
+  document.querySelector("#tx-filters").click(); await wait(80);
+  const sheet = document.querySelector("#tx-sheet");
+  const groups = [...sheet.querySelectorAll(".tx-fgrp")].map((g) => g.dataset.fgrp);
+  const sec = [...sheet.querySelectorAll('[data-facet="sector"]')].sort((a, b) => +b.querySelector(".tx-secn").textContent - +a.querySelector(".tx-secn").textContent);
+  const a = sec[0], bb = sec[1];
+  const na = +a.querySelector(".tx-secn").textContent, nb = +bb.querySelector(".tx-secn").textContent;
+  a.click(); await wait(80);
+  const one = rowsN();
+  document.querySelector(`#tx-sheet [data-facet="sector"][data-v="${CSS.escape(bb.dataset.v)}"]`).click(); await wait(80);
+  const two = rowsN();
+  const hash = location.hash;
+  const done = document.querySelector("#tx-sheet .tx-sheet-done").textContent;
+  const pills = [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim());
+  const btn = document.querySelector("#tx-filters").textContent;
+  document.querySelector("#tx-sheet .tx-sheet-done").click(); await wait(80);
+  return { before, groups, na, nb, one, two, hash, done, pills, btn, closed: document.querySelector("#tx-sheet").hidden, a: a.dataset.v, b: bb.dataset.v };
 });
-check(sub.n > 1 && sub.hasAll, `the pane shows asset-class sub-category chips (${sub.n}: ${sub.labels.join(" · ")})`);
-const filt = await pg.evaluate(async () => {
-  const exp = document.querySelector(".tx-panes-in");
-  const before = exp.querySelectorAll(".tx-list tr.tx-row").length;
-  [...exp.querySelectorAll(".tx-secchip")].find((c) => c.dataset.sec !== "all").click();
-  await new Promise((r) => setTimeout(r, 80));
-  const exp2 = document.querySelector(".tx-panes-in");
-  return { before, after: exp2.querySelectorAll(".tx-list tr.tx-row").length, on: [...exp2.querySelectorAll(".tx-secchip.is-on")].some((c) => c.dataset.sec !== "all") };
-});
-check(filt.on && filt.after > 0 && filt.after <= filt.before, `a sub-category chip filters the pane (${filt.after}/${filt.before})`);
+check(["date", "type", "sector", "region", "size", "ccy", "sponsor", "lender"].every((g) => fs1.groups.includes(g)), `the Filters sheet offers date · type · sector · region · size · currency · sponsor · lender (${fs1.groups.join(", ")})`);
+check(fs1.one === fs1.na && fs1.two === fs1.na + fs1.nb, `facet chips are multi-select with live counts — OR within a facet (${fs1.a} ${fs1.one}, + ${fs1.b} → ${fs1.two} = ${fs1.na}+${fs1.nb})`);
+check(fs1.pills.includes(fs1.a) && fs1.pills.includes(fs1.b) && /Filters \([2-9]\)/.test(fs1.btn) && new RegExp("Show " + fs1.two + " deal").test(fs1.done), `selected values show as pills, the button counts them, the sheet footer counts the result (${fs1.btn}; ${fs1.done}; ${JSON.stringify(fs1.pills)} ${fs1.two})`);
+check(/sec=/.test(fs1.hash) && fs1.closed, `facet selections live in the URL and "Show N deals" closes the sheet (${fs1.hash})`);
+// Pills remove one value; Clear all resets.
+await pg.evaluate(() => document.querySelector('#tx-active [data-clear="all"]').click()); await pg.waitForTimeout(120);
 
-// ---- 3c) "Group by lender / investor" toggle on the sub-category row ------
-// A button on the far right of the chips row buckets the deals by lender, each
-// group headed by the lender name + count; toggling off restores the flat list.
+// ---- 3c) group-by (lender / month / sector / region / type) with subtotals; sortable columns
 const grp = await pg.evaluate(async () => {
-  let exp = document.querySelector(".tx-panes-in");
-  const allChip = exp.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
-  await new Promise((r) => setTimeout(r, 80));
-  exp = document.querySelector(".tx-panes-in");
-  const btn = exp.querySelector(".tx-grpbtn");
-  const sh = exp.querySelector(".tx-subhead");
-  const rightAligned = btn && sh ? (sh.getBoundingClientRect().right - btn.getBoundingClientRect().right) < 3 : false;
-  const rowsFlat = exp.querySelectorAll(".tx-list tbody tr.tx-row").length;
-  const groupsFlat = exp.querySelectorAll(".tx-list tr.tx-grp").length;
-  btn.click();
-  await new Promise((r) => setTimeout(r, 80));
-  const e2 = document.querySelector(".tx-panes-in");
-  const heads = [...e2.querySelectorAll(".tx-list tr.tx-grp")];
-  const counts = heads.map((h) => +(h.querySelector(".tx-grp-n")?.textContent || 0));
-  const named = heads.every((h) => (h.querySelector(".tx-grp-nm")?.textContent || "").trim().length > 0);
-  const sumCounts = counts.reduce((a, b) => a + b, 0);
-  const descending = counts.every((c, i) => i === 0 || c <= counts[i - 1]);
-  const on = e2.querySelector(".tx-grpbtn").classList.contains("is-on");
-  const rowsGrouped = e2.querySelectorAll(".tx-list tbody tr.tx-row").length;
-  e2.querySelector(".tx-grpbtn").click();   // toggle back off for later steps
-  await new Promise((r) => setTimeout(r, 80));
-  const e3 = document.querySelector(".tx-panes-in");
-  return { hasBtn: !!btn, label: (btn.textContent || "").trim(), rightAligned, groupsFlat, groupsAfter: heads.length,
-    named, sumCounts, rowsFlat, rowsGrouped, descending, on, offAgain: e3.querySelectorAll(".tx-list tr.tx-grp").length };
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const sel = document.querySelector("#tx-grp");
+  const rowsFlat = document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length;
+  const out = { rowsFlat, opts: [...sel.options].map((o) => o.value) };
+  for (const g of ["lender", "month", "sector"]) {
+    sel.value = g; sel.dispatchEvent(new Event("change", { bubbles: true })); await wait(100);
+    const heads = [...document.querySelectorAll(".tx-panes-in .tx-list tr.tx-grp")];
+    const counts = heads.map((h) => +(h.querySelector(".tx-grp-n")?.textContent || 0));
+    out[g] = { n: heads.length, sum: counts.reduce((a, b) => a + b, 0), rows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length,
+      named: heads.every((h) => (h.querySelector(".tx-grp-nm")?.textContent || "").trim()), vol: heads.some((h) => /\$/.test(h.querySelector(".tx-grp-v")?.textContent || "")),
+      first: (heads[0]?.querySelector(".tx-grp-nm")?.textContent || ""), hash: location.hash };
+  }
+  sel.value = ""; sel.dispatchEvent(new Event("change", { bubbles: true })); await wait(100);
+  out.off = document.querySelectorAll(".tx-panes-in .tx-list tr.tx-grp").length;
+  // Sort by Amount via its header (largest first), then flip.
+  document.querySelector('.tx-list th[data-sort="size"]').click(); await wait(100);
+  const sizes = () => [...document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row td.tx-sz")].map((td) => td.textContent.trim());
+  out.sortDesc = { first: sizes().slice(0, 3), aria: document.querySelector('.tx-list th[data-sort="size"]').getAttribute("aria-sort"), sel: document.querySelector("#tx-sort").value, hash: location.hash };
+  document.querySelector('.tx-list th[data-sort="size"]').click(); await wait(100);
+  out.sortAsc = { aria: document.querySelector('.tx-list th[data-sort="size"]').getAttribute("aria-sort"), last: sizes().slice(-1)[0] };
+  const s = document.querySelector("#tx-sort"); s.value = "date-desc"; s.dispatchEvent(new Event("change", { bubbles: true })); await wait(100);
+  return out;
 });
-check(grp.hasBtn && /group by lender/i.test(grp.label), `a "Group by lender" button sits on the chips row (${grp.label})`);
-check(grp.rightAligned, "the group-by button is right-aligned on the chips row");
-check(grp.groupsFlat === 0 && grp.groupsAfter > 1, `toggling on buckets the deals into lender groups (${grp.groupsAfter})`);
-check(grp.named && grp.descending, "each group is headed by its lender name, most-active first");
-check(grp.sumCounts === grp.rowsFlat && grp.rowsGrouped === grp.rowsFlat, `grouping keeps every deal (${grp.rowsGrouped}/${grp.rowsFlat}, counts ${grp.sumCounts})`);
-check(grp.on && grp.offAgain === 0, "toggling the button off restores the flat list");
+check(["", "lender", "month", "sector", "region", "type"].every((g) => grp.opts.includes(g)), `group-by offers lender · month · sector · region · type (${grp.opts.join(",")})`);
+check(["lender", "month", "sector"].every((g) => grp[g].n > 1 && grp[g].sum === grp.rowsFlat && grp[g].rows === grp.rowsFlat && grp[g].named), `grouping keeps every deal under named headers (lender ${grp.lender.n}, month ${grp.month.n}, sector ${grp.sector.n} groups; ${grp.rowsFlat} deals)`);
+check(grp.lender.vol && /grp=sector/.test(grp.sector.hash) && /\d{4}/.test(grp.month.first), `group headers carry a disclosed-volume subtotal; month groups are newest first (${grp.month.first})`);
+check(grp.off === 0, "No grouping restores the flat list");
+check(grp.sortDesc.aria === "descending" && grp.sortDesc.sel === "size-desc" && /sort=size-desc/.test(grp.sortDesc.hash) && grp.sortAsc.aria === "ascending" && /^(—|EV |AUM |\$?[^0-9]*$)/.test(grp.sortAsc.last), `a column header sorts (Amount ▼ ${grp.sortDesc.first.join(", ")}; ▲ keeps undisclosed last: ${grp.sortAsc.last} · ${JSON.stringify(grp.sortDesc)})`);
+
+// ---- 3d) the stats strip summarises the filtered set (numbers only — R20)
+const stats = await pg.evaluate(() => (document.querySelector("#tx-stats") || {}).textContent || "");
+check(/\d+ deals?/.test(stats) && /disclosed \(\d+\/\d+\)/.test(stats) && /median/.test(stats) && /top:/.test(stats), `a stats strip shows N deals · disclosed volume (n/N) · median · top lenders (${stats.trim().slice(0, 110)})`);
 
 // A deal is a first-class object: tapping a row opens its DRAWER (borrower, lender →
 // profile, type, amount, date, source, related deals), recorded in the URL (?deal=),
 // and Back / ‹ closes it again.
 const drw = await pg.evaluate(async () => {
   let e = document.querySelector(".tx-panes-in");
-  const allChip = e.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
-  await new Promise((r) => setTimeout(r, 80));
   const row = document.querySelector(".tx-panes-in .tx-list tr.tx-row");
   const id = row.dataset.deal;
   row.querySelector("td.tx-bd").click();
@@ -269,14 +294,14 @@ const search = await pg.evaluate(async () => {
   const inp = document.querySelector("#tx-q"); if (!inp) return { present: false };
   inp.value = "lending"; inp.dispatchEvent(new Event("input", { bubbles: true }));
   await new Promise((r) => setTimeout(r, 160));
-  return { present: true, rows: document.querySelectorAll(".tx-list tr.tx-row").length, title: (document.querySelector(".tx-title") || {}).textContent || "", panesGone: !document.querySelector(".tx-panes-in") };
+  return { present: true, rows: document.querySelectorAll(".tx-list tr.tx-row").length, title: (document.querySelector(".tx-title") || {}).textContent || "", panesGone: !document.querySelector(".tx-subnav") };
 });
 check(search.present, "Transactions: a search box is present");
 check(/search/i.test(search.title) && search.rows > 0 && search.panesGone, `Transactions: typing filters to a flat list of matching deals (${search.rows} rows)`);
 const cleared = await pg.evaluate(async () => {
   const inp = document.querySelector("#tx-q"); inp.value = ""; inp.dispatchEvent(new Event("input", { bubbles: true }));
   await new Promise((r) => setTimeout(r, 160));
-  return { rows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length, typeView: !!document.querySelector(".tx-panes-in") };
+  return { rows: document.querySelectorAll(".tx-panes-in .tx-list tbody tr.tx-row").length, typeView: !!document.querySelector(".tx-subnav") && !document.querySelector(".tx-title") };
 });
 check(cleared.typeView && cleared.rows > 0, `Transactions: clearing the search restores the type view (${cleared.rows} rows)`);
 
@@ -347,7 +372,7 @@ await ctx.close();
       nm: !!c.querySelector(".tx-card-nm"), meta: c.querySelectorAll(".tx-card-b > span").length, lender: !!c.querySelector(".tx-card-b a.tx-mgr"),
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth };
   });
-  check(!drill.table && drill.nm && drill.meta === 3 && drill.cardW <= drill.vw, `phone: deals are cards — name + amount, then date · lender · type (${drill.meta} meta, ${drill.cardW}px ≤ ${drill.vw})`);
+  check(!drill.table && drill.nm && drill.meta >= 3 && drill.cardW <= drill.vw, `phone: deals are cards — name + amount, then date · lender · type (${drill.meta} meta, ${drill.cardW}px ≤ ${drill.vw})`);
   check(drill.lender, "phone: the card's lender links to its profile");
   check(drill.pageOverflow <= 1, `phone: the page itself does not scroll sideways (overflow ${drill.pageOverflow}px)`);
   // Tapping a card opens the deal in place of the list; Back returns to the list.
@@ -357,44 +382,125 @@ await ctx.close();
   check(dv.open && dv.listHidden, "phone: a card opens the deal in place of the list");
   await p.pg.goBack(); await p.pg.waitForTimeout(250);
   check(await p.pg.evaluate(() => document.querySelector("#tx-drawer").hidden && getComputedStyle(document.querySelector("#tx-body")).display !== "none"), "phone: Back returns from the deal to the list");
-// The sub-category chips sit on ONE row that scrolls horizontally (like the
-  // home-page wire filters); the Group-by-lender button stays pinned to the right
-  // of that row, on the same line, never overlapping a chip.
-  const gb = await p.pg.evaluate(() => {
-    const sh = document.querySelector(".tx-panes-in .tx-subhead");
-    const btn = sh && sh.querySelector(".tx-grpbtn");
-    const strip = sh && sh.querySelector(".tx-secfilter");
-    const chips = sh ? [...sh.querySelectorAll(".tx-secchip")] : [];
-    if (!sh || !btn || !strip) return null;
-    const s = sh.getBoundingClientRect(), r = btn.getBoundingClientRect(), st = strip.getBoundingClientRect();
-    const oneRow = chips.every((c) => Math.abs(c.getBoundingClientRect().top - chips[0].getBoundingClientRect().top) <= 1);
-    return {
-      sameRow: Math.abs(r.top - s.top) <= 2, rightPinned: (s.right - r.right) <= 3,
-      stripScrolls: strip.scrollWidth > strip.clientWidth + 1,   // chips overflow → horizontal scroll
-      noOverlap: st.right <= r.left + 1,                          // strip ends before the button starts
-      oneRow, chips: chips.length,
-    };
+  // Phone: sort + group live in the Filters sheet (not the bar); the open sheet takes the
+  // list's place and "Show N deals" returns to it.
+  const ph = await p.pg.evaluate(async () => {
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const barSel = getComputedStyle(document.querySelector("#tx-sort")).display;
+    document.querySelector("#tx-filters").click(); await wait(120);
+    const listHidden = getComputedStyle(document.querySelector("#tx-body")).display === "none";
+    const sheetSel = !!document.querySelector('#tx-sheet select[data-ctl="sort"]') && getComputedStyle(document.querySelector("#tx-sheet .tx-fsortgrp")).display !== "none";
+    const chipH = document.querySelector("#tx-sheet .tx-fchip").getBoundingClientRect().height;
+    document.querySelector("#tx-sheet .tx-sheet-done").click(); await wait(120);
+    return { barSel, listHidden, sheetSel, chipH, back: getComputedStyle(document.querySelector("#tx-body")).display !== "none" && document.querySelector("#tx-sheet").hidden };
   });
-  check(gb && gb.sameRow && gb.rightPinned, `phone: the Group-by button is pinned right of the filter row (sameRow ${gb && gb.sameRow}, right ${gb && gb.rightPinned})`);
-  check(gb && gb.oneRow && gb.stripScrolls && gb.noOverlap, `phone: the sub-category chips are one horizontally-scrolling row, not overlapping the button (oneRow ${gb && gb.oneRow}, scrolls ${gb && gb.stripScrolls})`);
+  check(ph.barSel === "none" && ph.sheetSel, "phone: sort and group sit in the Filters sheet, not the bar");
+  check(ph.listHidden && ph.back && ph.chipH >= 30, `phone: the open sheet replaces the list (chips ${ph.chipH}px tall); Show N deals returns to it`);
   checkErrs(p.errs, "transactions phone column fit");
   await p.ctx.close();
 }
 
-// Date-range + minimum-size filters narrow the deal list (monitoring filters).
+// Date (presets, years, quarters, a custom month range) + size bands narrow the list.
 {
   const f = await open(b, DESKTOP, base + "/v2/transactions/");
-  await f.pg.waitForSelector("#tx-period", { state: "attached", timeout: 8000 });
   await f.pg.waitForSelector(".tx-subnav [data-sub] .tx-subn", { state: "attached", timeout: 8000 });
-  const total = () => f.pg.evaluate(() => [...document.querySelectorAll(".tx-subnav [data-sub] .tx-subn")].reduce((n, x) => n + (parseInt(x.textContent, 10) || 0), 0));
+  const total = () => f.pg.evaluate(() => [...document.querySelectorAll(".tx-subnav [data-sub] .tx-subn")].slice(1).reduce((n, x) => n + (parseInt(x.textContent, 10) || 0), 0));
+  const go = async (h) => { await f.pg.evaluate((h) => { location.hash = h; }, h); await f.pg.waitForTimeout(250); };
   const all = await total();
-  await f.pg.selectOption("#tx-period", "30d"); await f.pg.waitForTimeout(250);
-  const recent = await total();
-  await f.pg.selectOption("#tx-period", "all"); await f.pg.selectOption("#tx-min", "1000"); await f.pg.waitForTimeout(250);
-  const big = await total();
-  check(all > 0 && recent < all, `the date filter narrows the counts (last 30 days ${recent} < all ${all})`);
-  check(big > 0 && big < all, `the minimum-size filter narrows to disclosed deals ≥ $1bn (${big} < ${all})`);
+  await go("#/lending?period=30d"); const recent = await total();
+  await go("#/lending?from=2025-01&to=2025-12"); const y2025 = await total();
+  const yr = await f.pg.evaluate(() => ({ pill: [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()) }));
+  await go("#/lending?from=2025-04&to=2025-06"); const q2 = await total();
+  const qp = await f.pg.evaluate(() => [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()));
+  await go("#/lending?size=gt1bn"); const big = await total();
+  await go("#/lending?min=1000"); const legacy = await f.pg.evaluate(() => location.hash);
+  // The sheet's year chip + custom range inputs drive the same state.
+  await go("#/lending");
+  await f.pg.click("#tx-filters"); await f.pg.waitForTimeout(120);
+  await f.pg.locator('#tx-sheet [data-from="2025-01"][data-to="2025-12"]').click(); await f.pg.waitForTimeout(150);
+  const viaChip = await total();
+  await f.pg.fill("#tx-from", "2024-01"); await f.pg.waitForTimeout(150);
+  const rng = await f.pg.evaluate(() => ({ h: location.hash, pill: [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()).join("|") }));
+  check(all > 0 && recent < all, `the date presets narrow the counts (last 30 days ${recent} < all ${all})`);
+  check(y2025 > 0 && y2025 < all && yr.pill.includes("2025") && viaChip === y2025, `a year narrows to that year (2025: ${y2025}; pill "${yr.pill.join("|")}")`);
+  check(q2 > 0 && q2 < y2025 && qp.includes("Q2 2025"), `a quarter narrows within the year (Q2 2025: ${q2})`);
+  check(/from=2024-01&to=2025-12/.test(rng.h) && /Jan 2024 – Dec 2025/.test(rng.pill), `a custom from–to month range (${rng.h}; ${rng.pill})`);
+  check(big > 0 && big < all, `the ≥ $1bn size band narrows to disclosed deals (${big} < ${all})`);
+  check(/size=gt1bn/.test(legacy) && !/min=/.test(legacy), `a legacy ?min= link canonicalises to the size band (${legacy})`);
   checkErrs(f.errs, "transactions filters");
+  await f.ctx.close();
+}
+
+// T1 — every control in each mode's bar sits inside the viewport at desktop widths
+// (the as-of line used to push the whole row off the right edge at 1280px).
+for (const w of [1280, 1024]) {
+  const f = await open(b, { ...DESKTOP, viewport: { width: w, height: 800 } }, base + "/v2/transactions/");
+  await f.pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
+  const off = [];
+  for (const m of ["lending", "credits", "bdc"]) {
+    await f.pg.evaluate((m) => { location.hash = "#/" + m; }, m); await f.pg.waitForTimeout(250);
+    off.push(...await f.pg.evaluate(() => [...document.querySelectorAll(".tx-bar")].filter((h) => h.offsetParent).flatMap((h) => [...h.querySelectorAll("input, select, button")])
+      .filter((e) => e.offsetParent && getComputedStyle(e).display !== "none")
+      .filter((e) => { const r = e.getBoundingClientRect(); return r.left < 0 || r.right > window.innerWidth + 0.5 || r.width === 0; })
+      .map((e) => `${e.id || e.className}@${Math.round(e.getBoundingClientRect().left)}`)));
+  }
+  check(!off.length, `${w}px: every Transactions control is inside the viewport (${off.join(", ") || "all in"})`);
+  checkErrs(f.errs, `transactions controls ${w}`);
+  await f.ctx.close();
+}
+
+// Manager M&A, de-duplication, amount kinds, CLO events, Target (HOUSE_STYLE R39).
+{
+  const f = await open(b, DESKTOP, base + "/v2/transactions/#/mna");
+  await f.pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
+  const r = await f.pg.evaluate(async () => {
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const [{ DEAL_TAGS }] = await Promise.all([import("/credit/js/deal-tags.js")]);
+    const mna = new Set(Object.entries(DEAL_TAGS).filter(([, t]) => t.managerMA).map(([id]) => id));
+    const ids = [...document.querySelectorAll("#tx-body tr.tx-row")].map((tr) => tr.dataset.deal);
+    const heads = [...document.querySelectorAll("#tx-body .tx-list thead th")].map((h) => h.textContent.trim());
+    location.hash = "#/lending"; await wait(250);
+    const lendIds = new Set([...document.querySelectorAll("#tx-body tr.tx-row")].map((tr) => tr.dataset.deal));
+    // A figure that is NOT the deal size (EV / target AUM) reads muted and never counts.
+    const x = document.querySelector("#tx-body .tx-amt-x");
+    location.hash = "#/structured"; await wait(250);
+    const sHeads = [...document.querySelectorAll("#tx-body .tx-list thead th")].map((h) => h.textContent.trim());
+    const events = [...document.querySelectorAll("#tx-body td.txc-ev")].map((td) => td.textContent.trim()).filter((t) => t !== "—");
+    const alt = document.querySelector("#tx-body .tx-alt");
+    let altDrawer = "";
+    if (alt) { alt.closest("tr").querySelector("td.tx-bd").click(); await wait(150); altDrawer = document.querySelector("#tx-drawer").innerText; }
+    return { n: ids.length, allMna: ids.length > 0 && ids.every((id) => mna.has(id)), noneInLending: ![...mna].some((id) => lendIds.has(id)), heads, x: x ? x.textContent : "", sHeads, events: [...new Set(events)], alt: !!alt, altDrawer: /Also reported/i.test(altDrawer) };
+  });
+  check(r.allMna && r.noneInLending, `Manager M&A lists exactly the asset-manager acquisitions, kept out of Lending (${r.n})`);
+  check(r.heads.join("|") === "Target|Acquirer|Country|Value|Date|Source", `Manager M&A columns: Target · Acquirer · Country · Value · Date · Source (${r.heads.join(" · ")})`);
+  check(/^(EV|AUM) /.test(r.x) || r.x === "", `a non-deal-size figure reads muted with its kind (${r.x || "none on this page"})`);
+  check(r.sHeads.join("|") === "Deal|Manager|Type|Event|Country|Size|Date|Source" && r.events.some((e) => /New issue|Reset|Refi/.test(e)), `Structured credit has its own columns incl. the CLO event (${r.sHeads.join(" · ")}; ${r.events.join(", ")})`);
+  check(r.alt && r.altDrawer, "a de-duplicated deal shows its other source (+n in the row, Also reported in the drawer)");
+  // $1–15bn → Target → off.
+  await f.pg.evaluate(() => { location.hash = "#/lending"; }); await f.pg.waitForTimeout(250);
+  const t = await f.pg.evaluate(async () => {
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const [D, T] = await Promise.all([import("/credit/js/data.js"), import("/credit/js/target.js")]);
+    const by = new Map(); D.funds.forEach((x) => { if (!by.has(x.managerId)) by.set(x.managerId, []); by.get(x.managerId).push(x); });
+    const core = new Set(D.managers.filter((m) => T.targetFit(m, by.get(m.id) || []).tier === "core").map((m) => m.id));
+    const n = () => document.querySelectorAll("#tx-body tr.tx-row").length;
+    const btn = document.querySelector("#tx-focus");
+    const n0 = n(); btn.click(); await wait(120);
+    const n1 = n(), l1 = btn.textContent; btn.click(); await wait(120);
+    const ids = [...document.querySelectorAll("#tx-body a.tx-mgr")].map((a) => a.dataset.id);
+    const n2 = n(), l2 = btn.textContent, h2 = location.hash, pill = [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim());
+    btn.click(); await wait(120);
+    return { n0, n1, n2, l1, l2, h2, pill, allCore: ids.length > 0 && ids.filter((id) => !core.has(id)).length === 0, off: btn.getAttribute("aria-pressed") === "false" && n() === n0 };
+  });
+  check(t.l1 === "$1–15bn" && t.l2 === "Target" && /focus=target/.test(t.h2) && t.pill.includes("Target managers"), `the AUM button cycles $1–15bn → Target → off (${t.n0} → ${t.n1} → ${t.n2})`);
+  check(t.allCore && t.n2 > 0 && t.n2 < t.n0 && t.off, "Target lists only target-market managers' deals (European · ≤ $15bn · 15%+ strategy)");
+  // Region: "All Europe" selects every European region and reads as one pill.
+  await f.pg.click("#tx-filters"); await f.pg.waitForTimeout(120);
+  await f.pg.locator("#tx-sheet [data-europe]").click(); await f.pg.waitForTimeout(150);
+  const eu = await f.pg.evaluate(() => ({ h: location.hash, pills: [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()), ctry: [...document.querySelectorAll("#tx-body td.txc-ctry")].map((td) => td.textContent.trim()) }));
+  const nonEu = eu.ctry.filter((c) => ["US", "Canada", "Australia", "Asia", "Middle East", "Latin America", "Africa", "Global", "—"].includes(c));
+  check(/reg=uki,dach/.test(eu.h) && eu.pills.join("|") === "Europe" && eu.ctry.length > 0 && !nonEu.length, `All Europe narrows to European deals under one pill (${eu.ctry.length} rows, ${nonEu.length} non-European)`);
+  checkErrs(f.errs, "transactions R39");
   await f.ctx.close();
 }
 

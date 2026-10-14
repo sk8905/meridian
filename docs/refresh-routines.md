@@ -553,6 +553,18 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   a supplier or the sponsor). Leave it unset when there is no single counterparty (the
   lender's own fund raise / CLO pricing / hire / platform launch) — the UI then shows the
   sourced headline. (2026-10 baseline: 90 curated, 90 legitimately without one.)
+- **Tag every new deal (HOUSE_STYLE R39).** Each deal you add to `credit/js/data.js`
+  gets an entry in `credit/js/deal-tags.js` (`T` map, compact keys) in the same commit:
+  `c` country of the borrower / asset / target (from the allowed list in the file header;
+  `null` when the text doesn't say — never the lender's HQ), `s` sector (one of
+  `SECTOR_TAGS`; "Diversified" for CLO pools and mixed portfolios), `a` what the parsed
+  amount measures (`financing` | `fund` | `portfolio` | `ev` | `aum` | `other`; `null`
+  when there is no amount), `e` for CLO issuance only (`new` | `reset` | `refi`), and
+  `m: 1` only for the acquisition of / stake in an asset manager (it moves the deal to
+  Manager M&A). Read every tag from the deal's own headline/summary; never guess. Before
+  adding a deal, check it is not the same lender + date + size + type as an existing one
+  (the UI collapses those into one row with two sources — add the second outlet only if
+  it adds a source). `tests/transactions.mjs` checks the tags resolve.
 - **Borrower vs Sponsor vs Lender.** A sponsor-backed deal names three parties: the
   BORROWER / target company ("Borrower / company"), the SPONSOR / PE backer
   (`dealSponsor` → the Transactions "Sponsor" column), and the LENDER that provides
@@ -562,8 +574,8 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   When a new deal's sponsor can't be parsed, set an explicit `sponsor` field on the
   `deal` (a real party from its sourced text; `""` suppresses a false positive),
   mirrored by `SPONSOR_OVERRIDES` in `deal-parse.js`. The Transactions deal list also
-  carries a **Sector** column (`sectorOf` in `credit/js/tx.js` — Real estate /
-  Consumer / Infrastructure & energy / …) and a **Group by lender** toggle; the
+  carries a **Sector** column (the curated `sector` tag, R39 — falling back to `sectorOf`
+  in `credit/js/tx.js` for an untagged deal) and group-by / sort controls; the
   manager profile **Investments** table shares the same extraction and expands each
   row to the deal's short sourced narrative + sponsor.
 - **Publish on every run.** Because `LAST_CHECKED` is bumped each run, every run

@@ -12,7 +12,7 @@ await pg.waitForTimeout(1600);
 
 // The top-level nav: Lending (default, on) + Structured credit + Secondaries + Credits + BDCs.
 const modes = await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].map((c) => ({ label: c.textContent.trim().replace(/\s+\d+$/, ""), on: c.classList.contains("is-on") })));
-check(modes.map((m) => m.label).join("/") === "Lending/Structured credit/Secondaries/Credits/BDCs", `nav chips are Lending / Structured credit / Secondaries / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
+check(modes.map((m) => m.label).join("/") === "Lending/Structured credit/Secondaries/Manager M&A/Credits/BDCs", `nav chips are Lending / Structured credit / Secondaries / Manager M&A / Credits / BDCs (${modes.map((m) => m.label).join("/")})`);
 check(modes[0].on && !modes[1].on, "Lending is the default mode");
 
 // Deal-flow chrome (shared by Primary/Secondaries) shows the type table; the credits body is hidden.
@@ -124,6 +124,36 @@ await pg.evaluate(() => document.querySelector('#tx-mode .tchip[data-mode="lendi
 await pg.waitForTimeout(200);
 checkEq(await pg.evaluate(() => getComputedStyle(document.querySelector("#tx-body")).display !== "none" && getComputedStyle(document.querySelector("#tx-credits-body")).display === "none"), true, "toggling back restores the deal-flow table");
 
+// Credits filters (T15): rating band · 12-month trend · jurisdiction · sector, multi-select
+// with live counts, as pills, in the URL; plus sortable columns and a downgrade count.
+{
+  await pg.goto(`http://localhost:${srv.port}/v2/transactions/#/credits`); await pg.waitForSelector("#tx-credits-body .tcr-row", { timeout: 8000 });
+  const f = await pg.evaluate(async () => {
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const total = document.querySelectorAll("#tx-credits-body .tcr-row").length;
+    document.querySelector("#tx-cr-filters").click(); await wait(120);
+    const groups = [...document.querySelectorAll("#tx-cr-sheet .tx-fgrp")].map((g) => g.dataset.fgrp);
+    const listHidden = getComputedStyle(document.querySelector("#tx-credits-body")).display === "none";
+    const down = document.querySelector('#tx-cr-sheet [data-crfacet="trend"][data-v="down"]');
+    const nDown = down ? +down.querySelector(".tx-secn").textContent : 0;
+    if (down) down.click(); await wait(120);
+    document.querySelector("#tx-cr-sheet .tx-sheet-done").click(); await wait(120);
+    const rows = [...document.querySelectorAll("#tx-credits-body .tcr-row")];
+    const allDown = rows.length > 0 && rows.every((r) => r.querySelector(".tcr-tr.tx-dn"));
+    const pills = [...document.querySelectorAll("#tx-cr-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim());
+    const stats = (document.querySelector("#tx-credits-body .tx-stats") || {}).textContent || "";
+    const h = location.hash;
+    document.querySelector('#tx-cr-active [data-crclear="all"]').click(); await wait(120);
+    document.querySelector('#tx-credits-body th[data-crsort="name"]').click(); await wait(120);
+    const names = [...document.querySelectorAll("#tx-credits-body .tcr-row .tcr-nm")].map((td) => td.textContent.replace("▸", "").replace(/^\d+/, "").trim());
+    return { total, groups, listHidden, nDown, n: rows.length, allDown, pills, stats, h, back: document.querySelectorAll("#tx-credits-body .tcr-row").length,
+      az: names.every((x, i) => i === 0 || names[i - 1].localeCompare(x) <= 0), sortH: location.hash };
+  });
+  check(["rating", "trend", "jur", "sector"].every((g) => f.groups.includes(g)) && f.listHidden, `Credits: a Filters sheet with rating · trend · jurisdiction · sector (${f.groups.join(", ")})`);
+  check(f.n === f.nDown && f.allDown && f.pills.join("|") === "▼ Downgraded" && /tr=down/.test(f.h), `Credits: "▼ Downgraded" narrows to the 12-month downgrades, as a pill and in the URL (${f.n})`);
+  check(/\d+ credits?/.test(f.stats) && /downgraded/.test(f.stats), `Credits: a stats line counts credits and up/downgrades (${f.stats.trim()})`);
+  check(f.back === f.total && f.az && /sort=name/.test(f.sortH), `Credits: Clear all restores every row; the Borrower header sorts A–Z (${f.sortH})`);
+}
 checkErrs(errs, "transactions credits");
 await ctx.close();
 await b.close(); srv.close();

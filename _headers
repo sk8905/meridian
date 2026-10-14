@@ -48,6 +48,8 @@
 # refresh-routines cache-buster note.
 /credit/js/data.js
   Cache-Control: no-cache
+/credit/js/deal-tags.js
+  Cache-Control: no-cache
 /legal/js/data.js
   Cache-Control: no-cache
 /macro/js/content.js

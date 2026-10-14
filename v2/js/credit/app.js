@@ -16,6 +16,7 @@ import {
   creditSource, feedDedupKey,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey, fmtAumC, aumNote, usdM,
 } from "/credit/js/shared.js";
+import { targetFit, TIER_RANK, TARGET_LABEL } from "/credit/js/target.js";
 import { viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js";
 import { esc, fmtAum, byDateDesc } from "/util.js";
@@ -334,12 +335,58 @@ function sortTh(view, key, label, extraClass = "") {
 // source, no second version. `hidden` keeps them off until their chip is picked
 // (the dashboard and Profiles each own the show/hide + search wiring against the
 // same ids: #mgr-q/#mgr-rows, #hf-q/#hf-rows).
+// ---- Profiles list facets (HOUSE_STYLE R39) -----------------------------------------
+// Each row carries data-f-<facet> (pipe-separated values) for the Profiles filter
+// sheet; values are derived from the record's own fields, never guessed.
+const STRAT_GROUPS = [
+  ["Direct lending", /direct lending|unitranche|middle.market/i],
+  ["Opportunistic", /opportunis|capital solutions|multi-strategy/i],
+  ["Distressed & special sits", /distress|special sit/i],
+  ["Mezzanine / junior", /mezz|junior/i],
+  ["Structured credit / CLO", /structured|clo/i],
+  ["Asset-based / specialty", /asset-based|specialty|equipment/i],
+  ["Real estate debt", /real estate/i],
+  ["Infrastructure debt", /infra/i],
+  ["NAV / fund finance", /nav|fund finance/i],
+  ["SRT / NPL / secondaries", /significant risk|npl|portfolio|secondary/i],
+  ["Venture debt", /venture/i],
+];
+const stratGroups = (list) => STRAT_GROUPS.filter(([, re]) => (list || []).some((s) => re.test(s))).map(([g]) => g);
+// Region of the PRIMARY HQ (the first of "A / B" locations).
+const HQ_REGIONS = [
+  ["UK & Ireland", /\b(uk|united kingdom|london|edinburgh|jersey|guernsey|henley|ireland|dublin)\b/i],
+  ["DACH", /\b(germany|de|frankfurt|munich|switzerland|ch|zurich|geneva|baar|pfäffikon|austria|vienna)\b/i],
+  ["France & Benelux", /\b(france|fr|paris|belgium|brussels|netherlands|nl|amsterdam|the hague|luxembourg)\b/i],
+  ["Southern Europe", /\b(spain|es|madrid|barcelona|italy|it|milan|treviso|portugal|lisbon|greece)\b/i],
+  ["Nordics", /\b(denmark|copenhagen|sweden|se|stockholm|norway|oslo|finland|fi|helsinki)\b/i],
+  ["Other Europe", /\b(czech|prague|poland|warsaw)\b/i],
+  ["North America", /\b(us|usa|united states|new york|canada|toronto|montreal|ca)\b/i],
+];
+const hqRegion = (hq) => { const p = String(hq || "").split(/\s*\/\s*/)[0]; if (!p) return "Unspecified"; const hit = HQ_REGIONS.find(([, re]) => re.test(p)); return hit ? hit[0] : "Rest of world"; };
+const aumBand = (a) => a == null ? "n/a" : a < 1 ? "< $1bn" : a <= 15 ? "$1–15bn" : a <= 100 ? "$15–100bn" : "> $100bn";
+// Tracked activity in the last 90 days: deals + news naming the manager (or fund).
+const _D90 = Date.now() - 90 * 864e5;
+function activity90(managerId) {
+  const xs = [...deals, ...intel].filter((x) => x.managerId === managerId && x.date);
+  const recent = xs.filter((x) => Date.parse(x.date) >= _D90);
+  const last = xs.reduce((a, x) => (!a || x.date > a ? x.date : a), "");
+  return { n: recent.length, last };
+}
+function hfActivity90(hfId) {
+  const xs = (HEDGE_INTEL || []).filter((x) => x.hfId === hfId && x.date);
+  const last = xs.reduce((a, x) => (!a || x.date > a ? x.date : a), "");
+  return { n: xs.filter((x) => Date.parse(x.date) >= _D90).length, last };
+}
+const actCell = (a) => `<td class="tl-n tl-act pf-c-meta" data-sort="${a.n}"${a.last ? ` title="Latest ${esc(fmtDate(a.last))}"` : ""}>${a.n ? `${a.n}<span class="pf-act-l"> in 90d</span>` : `<span class="pf-nil">—</span>`}</td>`;
+
 function managersPaneHTML() {
   const inMkt = (f) => !f.evergreen && (f.status === "Open" || f.status === "First Close");
   const mgrFundList = (id) => funds.filter((f) => f.managerId === id);
   const league = [...managers]
-    .map((m) => ({ m, aum: focusAumOf(m), nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m) }))
-    .sort((a, b) => (b.aum == null ? -1 : b.aum) - (a.aum == null ? -1 : a.aum));
+    .map((m) => ({ m, aum: focusAumOf(m), nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m), tier: targetFit(m, mgrFundList(m.id)).tier, act: activity90(m.id) }))
+    // Target-first (HOUSE_STYLE R39): the owner's target market leads, then adjacent,
+    // other credit and non-credit; largest AUM first within each tier.
+    .sort((a, b) => TIER_RANK[a.tier] - TIER_RANK[b.tier] || (b.aum == null ? -1 : b.aum) - (a.aum == null ? -1 : a.aum));
   const cloMgrIds = new Set([...deals, ...intel].filter((x) => x.clo && x.managerId).map((x) => x.managerId));
   const fst = filterState.managers;
   const q0 = (fst.q || "").toLowerCase();
@@ -357,23 +404,26 @@ function managersPaneHTML() {
       return `<a class="sls-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${esc(t)}</a>`;
     }).join("");
   };
-  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "") + " " + (r.m.strategies || []).join(" ")).toLowerCase())}">`
+  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-tier="${r.tier}" data-name="${esc((r.m.name + " " + (r.m.hq || "") + " " + (r.m.strategies || []).join(" ")).toLowerCase())}"`
+    + ` data-f-strategy="${esc(stratGroups(r.m.strategies).join("|"))}" data-f-region="${esc(hqRegion(r.m.hq))}" data-f-band="${aumBand(r.aum)}" data-f-mkt="${r.live ? "yes" : "no"}">`
     + `<td class="tl-nm">${esc(r.m.name)}</td>`
-    + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
-    + `<td class="tl-n" title="${esc([r.m.aumText, r.m.asOf ? "as of " + r.m.asOf : "", aumNote(r.m, r.m.aumTotal != null ? "aumTotal" : "aum", AUM_FX)].filter(Boolean).join(" · "))}">${r.aum == null ? "n/a" : esc(fmtAumC(r.aum))}</td>`
+    + `<td class="tl-hq pf-c-meta">${esc(r.m.hq || "")}</td>`
+    + `<td class="tl-fit pf-c-meta" data-sort="${TIER_RANK[r.tier]}" title="Target market fit — European, ≤ $15bn, a 15%+ strategy">${esc(TARGET_LABEL[r.tier])}</td>`
+    + `<td class="tl-n pf-c-main" title="${esc([r.m.aumText, r.m.asOf ? "as of " + r.m.asOf : "", aumNote(r.m, r.m.aumTotal != null ? "aumTotal" : "aum", AUM_FX)].filter(Boolean).join(" · "))}">${r.aum == null ? "n/a" : esc(fmtAumC(r.aum))}</td>`
     + `<td class="tl-n"${aumNote(r.m, "aumCredit", AUM_FX) ? ` title="${esc(aumNote(r.m, "aumCredit", AUM_FX))}"` : ""}>${r.m.aumCredit != null ? esc(fmtAumC(r.m.aumCredit)) : "—"}</td>`
     + `<td class="tl-n">${r.nf}</td>`
     + `<td class="tl-n">${r.live || ""}</td>`
+    + actCell(r.act)
     + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td>`
     + `<td class="tl-sls">${slsChips(r.m)}</td></tr>`;
   return `<div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search">
                 <input type="search" id="mgr-q" class="tsearch" placeholder="Search name, HQ or strategy…" value="${esc(fst.q || "")}" aria-label="Search managers">
-                <button type="button" class="tfocus-btn tfocus-aum" id="cr-lg-focus" aria-pressed="false" title="AUM focus — show only $1–15bn AUM managers">$1–15bn</button>
+                <button type="button" class="tfocus-btn tfocus-aum" id="cr-lg-focus" aria-pressed="false" data-focus="" title="AUM focus — show only $1–15bn AUM managers; tap again for Target managers">$1–15bn</button>
               </header>
               <div class="tleague-wrap">
-              <table class="tleague tleague-full">
-                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th title="Group (firm-wide) AUM where reported, else the credit platform's">Group&nbsp;AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Secondaries & structured liquidity — sell-side transactions">Secondaries</th></tr></thead>
+              <table class="tleague tleague-full pf-cards">
+                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th class="tl-fit" title="Target market fit — European, ≤ $15bn, a 15%+ strategy">Fit</th><th title="Group (firm-wide) AUM where reported, else the credit platform's">Group&nbsp;AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th class="tl-act" title="Tracked deals and news in the last 90 days">90d</th><th>CLOs</th><th class="tl-sls" title="Secondaries & structured liquidity — sell-side transactions">Secondaries</th></tr></thead>
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
               </div>
@@ -391,11 +441,13 @@ function hedgeFundsPaneHTML() {
     : (f.filing
       ? `<a href="${esc(f.filing.url)}" target="_blank" rel="noopener noreferrer" title="Latest filing (no US 13F-HR)">${esc(f.filing.label)}</a>`
       : `<span class="muted">—</span>`);
-  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-focus="${inFocusAum(f.aum) ? 1 : 0}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
+  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-focus="${inFocusAum(f.aum) ? 1 : 0}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}"`
+    + ` data-f-strategy="${esc(f.strategy || "Unspecified")}" data-f-region="${esc(f.region || "Unspecified")}">`
     + `<td class="tl-nm">${esc(f.name)}</td>`
-    + `<td class="tl-hq">${esc(f.hq)}</td>`
-    + `<td class="tl-aum">${hfAum(f)}</td>`
-    + `<td>${esc(f.strategy)}</td>`
+    + `<td class="tl-hq pf-c-meta">${esc(f.hq)}</td>`
+    + `<td class="tl-aum pf-c-main">${hfAum(f)}</td>`
+    + `<td class="pf-c-meta">${esc(f.strategy)}</td>`
+    + actCell(hfActivity90(f.id))
     + `<td>${esc(f.founder || "—")}</td>`
     + `<td>${f.founded || "—"}</td>`
     + `<td class="tl-fil">${hfFiling(f)}</td></tr>`;
@@ -415,8 +467,8 @@ function hedgeFundsPaneHTML() {
                 <div id="hf-cons-body"></div>
               </section>
               <div class="tleague-wrap">
-              <table class="tleague tleague-full tleague-hf">
-                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
+              <table class="tleague tleague-full tleague-hf pf-cards">
+                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th class="tl-act" title="Tracked news in the last 90 days">90d</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
                 <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
               </table>
               </div>
@@ -435,11 +487,12 @@ function investorsPaneHTML() {
       || l.name.toLowerCase().includes(q0)
       || String(l.hq || "").toLowerCase().includes(q0)
       || String(l.type || "").toLowerCase().includes(q0));
-  const lpRow = (l) => `<tr class="clickable" data-href="#/lp/${esc(l.id)}" data-name="${esc((l.name + " " + (l.hq || "") + " " + (l.type || "") + " " + (l.strategies || []).join(" ")).toLowerCase())}">`
+  const lpRow = (l) => `<tr class="clickable" data-href="#/lp/${esc(l.id)}" data-name="${esc((l.name + " " + (l.hq || "") + " " + (l.type || "") + " " + (l.strategies || []).join(" ")).toLowerCase())}"`
+    + ` data-f-type="${esc(l.type || "Unspecified")}" data-f-mandate="${esc(l.mandateStatus || "Not stated")}">`
     + `<td class="tl-nm">${esc(l.name)}</td>`
-    + `<td class="tl-hq">${esc(l.hq || "")}</td>`
-    + `<td>${esc(l.type || "")}</td>`
-    + `<td class="tl-n"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>${l.aum == null ? "—" : esc(fmtAumC(l.aum))}</td>`
+    + `<td class="tl-hq pf-c-meta">${esc(l.hq || "")}</td>`
+    + `<td class="pf-c-meta">${esc(l.type || "")}</td>`
+    + `<td class="tl-n pf-c-main"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>${l.aum == null ? "—" : esc(fmtAumC(l.aum))}</td>`
     + `<td class="tl-n">${l.pcAllocationPct == null ? "—" : pct(l.pcAllocationPct)}</td>`
     + `<td class="tl-n">${l.typicalTicket == null ? "—" : usdM(l.typicalTicket)}</td>`
     + `<td class="tl-mnd">${mandateBadge(l.mandateStatus)}</td></tr>`;
@@ -448,7 +501,7 @@ function investorsPaneHTML() {
                 <input type="search" id="lp-q" class="tsearch" placeholder="Search name, HQ or type…" value="${esc(fst.q || "")}" aria-label="Search investors">
               </header>
               <div class="tleague-wrap">
-              <table class="tleague tleague-full">
+              <table class="tleague tleague-full pf-cards">
                 <thead><tr><th>Investor</th><th class="tl-hq">HQ</th><th>Type</th><th>AUM</th><th title="Private-credit allocation">PC&nbsp;alloc.</th><th>Ticket</th><th class="tl-mnd" title="Mandate">Mand</th></tr></thead>
                 <tbody id="lp-rows">${rows.map(lpRow).join("")}</tbody>
               </table>

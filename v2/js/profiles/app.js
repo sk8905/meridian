@@ -77,35 +77,123 @@ export async function mount(host, ctx) {
     f.textContent = "★ Following";
     const inp = h.querySelector(".tsearch");
     if (inp && inp.nextSibling) h.insertBefore(f, inp.nextSibling); else h.appendChild(f);
+    // Filters — the list's facet sheet (HOUSE_STYLE R39).
+    const fb = document.createElement("button");
+    fb.type = "button"; fb.className = "tx-fbtn pf-filter-btn"; fb.setAttribute("aria-expanded", "false"); fb.textContent = "Filters";
+    h.insertBefore(fb, f);
     // CSV — the list's visible rows (search / focus / Following / sort applied).
     const c = document.createElement("button");
     c.type = "button"; c.className = "tfocus-btn pf-csv-btn"; c.title = "Download this list as CSV"; c.textContent = "CSV";
     h.appendChild(c);
+    // Phone: the column headers give way to card rows, so sorting is a select.
+    const table = h.parentNode.querySelector(".tleague-wrap table");
+    if (table) {
+      const sel = document.createElement("select");
+      sel.className = "tx-filt pf-sort"; sel.setAttribute("aria-label", "Sort the list");
+      sel.innerHTML = `<option value="">Default order</option>` + [...table.tHead.rows[0].cells].map((th, i) => {
+        const l = th.textContent.replace(/\s+/g, " ").trim(); if (!l) return "";
+        return `<option value="${i}:descending">${esc(l)} ↓</option><option value="${i}:ascending">${esc(l)} ↑</option>`;
+      }).join("");
+      h.appendChild(sel);
+    }
+    // Active-filter pills + the sheet, under the search row.
+    const pills = document.createElement("div"); pills.className = "tx-active pf-active"; pills.hidden = true;
+    h.appendChild(pills);
+    const sheet = document.createElement("div"); sheet.className = "tx-sheet pf-sheet"; sheet.hidden = true;
+    h.after(sheet);
   });
+  // Facets per list (rows carry data-f-<facet>, pipe-separated; see credit/app.js).
+  const PF_FACETS = {
+    managers: [["strategy", "Strategy"], ["region", "Region"], ["band", "AUM"], ["mkt", "In market"]],
+    hedgefunds: [["strategy", "Strategy"], ["region", "Region"]],
+    investors: [["type", "Type"], ["mandate", "Mandate"]],
+    firms: [["tier", "Tier"], ["practice", "Practice"]],
+  };
+  const FIXED_ORDER = { band: ["< $1bn", "$1–15bn", "$15–100bn", "> $100bn", "n/a"] };
+  const OPT_LABEL = { mkt: { yes: "Raising now", no: "Not raising" } };
+  const pfSel = {};   // pane key → { facet: [values] }
+  const selOf = (key) => (pfSel[key] = pfSel[key] || Object.fromEntries((PF_FACETS[key] || []).map(([k]) => [k, []])));
+  const rowVals = (tr, k) => (tr.getAttribute("data-f-" + k) || "").split("|").filter(Boolean);
+  // The $1–15bn button on Managers is a tri-state: off → $1–15bn → Target → off.
+  const FOCUS_NEXT = { "": "band", band: "target", target: "" };
+  const focusOf = (pane) => {
+    const fb = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
+    if (!fb) return "";
+    if (fb.id === "cr-lg-focus") return fb.dataset.focus || "";
+    return fb.getAttribute("aria-pressed") === "true" ? "band" : "";
+  };
+  function setFocus(fb, v) {
+    fb.dataset.focus = v;
+    fb.setAttribute("aria-pressed", v ? "true" : "false");
+    fb.classList.toggle("is-on", !!v);
+    fb.textContent = v === "target" ? "Target" : "$1–15bn";
+    fb.title = v === "" ? "AUM focus — show only $1–15bn AUM managers; tap again for Target managers"
+      : v === "band" ? "Showing $1–15bn AUM managers — tap again for Target managers (European, ≤ $15bn, 15%+ strategy)"
+      : "Showing Target managers (European, ≤ $15bn, 15%+ strategy) — tap again to clear";
+  }
   // ONE row filter per list — the search text, the $1–15bn AUM focus and Following
   // combine (each used to overwrite the others' result).
   const ROWSEL = { managers: "#mgr-rows tr", hedgefunds: "#hf-rows tr", investors: "#lp-rows tr", firms: "#lf-rows tr" };
   const FTYPE = { manager: "manager", hf: "hf", lp: "lp", firm: "firm" };
   const dec0 = (x) => { try { return decodeURIComponent(x); } catch { return x; } };
+  function rowPasses(pane, tr, except) {
+    const key = pane.dataset.pane;
+    const q = ((pane.querySelector(".tsearch") || {}).value || "").toLowerCase().trim();
+    const focus = focusOf(pane);
+    const fol = (pane.querySelector(".pf-follow-btn") || {}).getAttribute?.("aria-pressed") === "true";
+    const [, type, id] = (tr.getAttribute("data-href") || "").match(/^#\/(\w+)\/(.+)$/) || [];
+    const sel = selOf(key);
+    return (!q || (tr.dataset.name || "").includes(q))
+      && (!focus || (focus === "target" ? tr.dataset.tier === "core" : tr.dataset.focus === "1"))
+      && (!fol || (FTYPE[type] && isFollowed(FTYPE[type], dec0(id))))
+      && (PF_FACETS[key] || []).every(([k]) => k === except || !sel[k].length || rowVals(tr, k).some((v) => sel[k].includes(v)));
+  }
   function filterList(pane) {
     if (!pane) return;
     const key = pane.dataset.pane, sel = ROWSEL[key]; if (!sel) return;
-    const q = ((pane.querySelector(".tsearch") || {}).value || "").toLowerCase().trim();
-    const fb = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
-    const focus = !!fb && fb.getAttribute("aria-pressed") === "true";
-    const fol = (pane.querySelector(".pf-follow-btn") || {}).getAttribute?.("aria-pressed") === "true";
-    host.querySelectorAll(sel).forEach((tr) => {
-      const [, type, id] = (tr.getAttribute("data-href") || "").match(/^#\/(\w+)\/(.+)$/) || [];
-      const ok = (!q || (tr.dataset.name || "").includes(q))
-        && (!focus || tr.dataset.focus === "1")
-        && (!fol || (FTYPE[type] && isFollowed(FTYPE[type], dec0(id))));
-      tr.style.display = ok ? "" : "none";
-    });
+    host.querySelectorAll(sel).forEach((tr) => { tr.style.display = rowPasses(pane, tr) ? "" : "none"; });
+    renderPfChrome(pane);
+  }
+  // Pills + the Filters button count + (when open) the sheet with live counts.
+  function renderPfChrome(pane) {
+    const key = pane.dataset.pane, facets = PF_FACETS[key] || [], sel = selOf(key);
+    const label = (k, v) => (OPT_LABEL[k] && OPT_LABEL[k][v]) || v;
+    const pills = facets.flatMap(([k]) => sel[k].map((v) => [`${k}:${v}`, label(k, v)]));
+    const pe = pane.querySelector(".pf-active");
+    if (pe) {
+      pe.hidden = !pills.length;
+      pe.innerHTML = pills.map(([k, l]) => `<button type="button" class="tx-pill" data-pfclear="${esc(k)}" aria-label="Remove filter: ${esc(l)}">${esc(l)}<span aria-hidden="true">✕</span></button>`).join("")
+        + (pills.length ? `<button type="button" class="tx-clear" data-pfclear="all">Clear all</button>` : "");
+    }
+    const sheet = pane.querySelector(".pf-sheet"), fb = pane.querySelector(".pf-filter-btn");
+    const open = !!sheet && !sheet.hidden;
+    if (fb) { fb.textContent = pills.length ? `Filters (${pills.length})` : "Filters"; fb.classList.toggle("is-on", open); fb.setAttribute("aria-expanded", String(open)); }
+    pane.classList.toggle("pf-sheet-open", open);
+    if (!open) return;
+    const rows = [...host.querySelectorAll(ROWSEL[key])];
+    const shown = rows.filter((tr) => tr.style.display !== "none").length;
+    const block = ([k, title]) => {
+      const counts = {};
+      rows.forEach((tr) => { if (rowPasses(pane, tr, k)) rowVals(tr, k).forEach((v) => { counts[v] = (counts[v] || 0) + 1; }); });
+      const all = new Set(rows.flatMap((tr) => rowVals(tr, k)));
+      let opts = FIXED_ORDER[k] ? FIXED_ORDER[k].filter((v) => all.has(v)) : [...all].sort((a, b) => (counts[b] || 0) - (counts[a] || 0) || a.localeCompare(b));
+      if (k === "mkt") opts = ["yes"];
+      opts = opts.filter((v) => counts[v] || sel[k].includes(v));
+      if (!opts.length) return "";
+      return `<div class="tx-fgrp" data-fgrp="${k}"><div class="tx-fh">${esc(title)}</div><div class="tx-fchips">`
+        + opts.map((v) => `<button type="button" class="tx-fchip${sel[k].includes(v) ? " is-on" : ""}" data-pfacet="${k}" data-v="${esc(v)}" aria-pressed="${sel[k].includes(v)}">${esc(label(k, v))}<span class="tx-secn">${counts[v] || 0}</span></button>`).join("")
+        + `</div></div>`;
+    };
+    // Hedge Funds: the Monitor / Cross-holdings views live here on phones (P5).
+    const views = key === "hedgefunds" ? `<div class="tx-fgrp pf-views"><div class="tx-fh">Views</div><div class="tx-fchips"><button type="button" class="tx-fchip" data-proxy="#hf-mon-btn">Monitor</button><button type="button" class="tx-fchip" data-proxy="#hf-cons-btn">Cross-holdings</button></div></div>` : "";
+    sheet.innerHTML = `<div class="tx-sheet-b">${facets.map(block).join("")}${views}</div>`
+      + `<div class="tx-sheet-f"><button type="button" class="tx-clear" data-pfclear="all">Clear all</button><button type="button" class="tx-sheet-done pf-sheet-done">Show ${shown}</button></div>`;
   }
 
   // Sortable columns: tap a list header to sort by it (again to reverse). Money cells
   // ("€1.2tn", "$227.60bn", "€600m") sort by value; "—" / "n/a" always sort last.
   const cellVal = (td) => {
+    if (td && td.dataset.sort != null && td.dataset.sort !== "") return Number(td.dataset.sort);
     const t = (td ? td.textContent : "").trim();
     if (!t || /^(—|n\/a|-)$/i.test(t)) return null;
     const m = t.match(/^[~≈]?\s*[€$£]?\s*(-?[\d,.]+)\s*(tn|bn|m|k|%)?/i);
@@ -113,10 +201,10 @@ export async function mount(host, ctx) {
     return t.toLowerCase();
   };
   panes.querySelectorAll(".tleague thead th").forEach((th) => { th.classList.add("pf-sortable"); th.setAttribute("tabindex", "0"); th.setAttribute("aria-sort", "none"); });
-  function sortBy(th) {
+  function sortBy(th, force) {
     const table = th.closest("table"), tb = table && table.tBodies[0]; if (!tb) return;
     const i = [...th.parentNode.children].indexOf(th);
-    const dir = th.getAttribute("aria-sort") === "descending" ? "ascending" : "descending";
+    const dir = force || (th.getAttribute("aria-sort") === "descending" ? "ascending" : "descending");
     th.parentNode.querySelectorAll("th").forEach((h) => h.setAttribute("aria-sort", "none"));
     th.setAttribute("aria-sort", dir);
     const rowsArr = [...tb.rows];
@@ -128,6 +216,15 @@ export async function mount(host, ctx) {
       return dir === "ascending" ? c : -c;
     });
     rowsArr.forEach((r) => tb.appendChild(r));
+    const ps = th.closest(".tpane") && th.closest(".tpane").querySelector(".pf-sort");
+    if (ps) ps.value = `${i}:${dir}`;
+  }
+  // The builder's own order (target-first on Managers), for "Default order".
+  const _origOrder = new Map([...panes.querySelectorAll(".tleague-wrap table")].map((t) => [t, t.tBodies[0] ? [...t.tBodies[0].rows] : []]));
+  function resetOrder(pane) {
+    const t = pane.querySelector(".tleague-wrap table"); if (!t || !_origOrder.has(t)) return;
+    _origOrder.get(t).forEach((r) => t.tBodies[0].appendChild(r));
+    t.tHead.querySelectorAll("th").forEach((h) => h.setAttribute("aria-sort", "none"));
   }
   panes.addEventListener("keydown", (e) => { const th = e.target.closest && e.target.closest("th.pf-sortable"); if (th && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); sortBy(th); } });
 
@@ -292,10 +389,40 @@ export async function mount(host, ctx) {
     const focus = e.target.closest("#cr-hf-focus, #cr-lg-focus");
     if (focus) {
       if (host.classList.contains("pf-detailing")) exitDetail();   // filtering means you want the list
-      const on = focus.getAttribute("aria-pressed") !== "true";
-      focus.setAttribute("aria-pressed", on ? "true" : "false");
-      focus.classList.toggle("is-on", on);
+      if (focus.id === "cr-lg-focus") setFocus(focus, FOCUS_NEXT[focus.dataset.focus || ""]);
+      else { const on = focus.getAttribute("aria-pressed") !== "true"; focus.setAttribute("aria-pressed", on ? "true" : "false"); focus.classList.toggle("is-on", on); }
       filterList(focus.closest(".tpane"));
+      return;
+    }
+    // Facet sheet: open/close, chip toggles, pills, Show N, the HF view proxies.
+    const pfb = e.target.closest(".pf-filter-btn");
+    if (pfb) {
+      if (host.classList.contains("pf-detailing")) exitDetail();
+      const pane = pfb.closest(".tpane"), sh = pane.querySelector(".pf-sheet");
+      sh.hidden = !sh.hidden; if (sh.hidden) sh.innerHTML = "";
+      renderPfChrome(pane); return;
+    }
+    const pfc = e.target.closest("[data-pfacet]");
+    if (pfc) {
+      const pane = pfc.closest(".tpane"), sel = selOf(pane.dataset.pane), k = pfc.dataset.pfacet, v = pfc.dataset.v;
+      sel[k] = sel[k].includes(v) ? sel[k].filter((x) => x !== v) : [...sel[k], v];
+      filterList(pane); return;
+    }
+    const pcl = e.target.closest("[data-pfclear]");
+    if (pcl) {
+      if (host.classList.contains("pf-detailing")) exitDetail();
+      const pane = pcl.closest(".tpane"), sel = selOf(pane.dataset.pane), k = pcl.dataset.pfclear;
+      if (k === "all") Object.keys(sel).forEach((f) => { sel[f] = []; });
+      else { const i = k.indexOf(":"), f = k.slice(0, i), v = k.slice(i + 1); sel[f] = sel[f].filter((x) => x !== v); }
+      filterList(pane); return;
+    }
+    const pdone = e.target.closest(".pf-sheet-done");
+    if (pdone) { const pane = pdone.closest(".tpane"), sh = pane.querySelector(".pf-sheet"); sh.hidden = true; sh.innerHTML = ""; renderPfChrome(pane); return; }
+    const prox = e.target.closest("[data-proxy]");
+    if (prox) {
+      const pane = prox.closest(".tpane"), sh = pane.querySelector(".pf-sheet"), t = pane.querySelector(prox.dataset.proxy);
+      sh.hidden = true; sh.innerHTML = ""; renderPfChrome(pane);
+      if (t) t.click();
       return;
     }
     const fol = e.target.closest(".pf-follow-btn");
@@ -401,6 +528,14 @@ export async function mount(host, ctx) {
     e.preventDefault();
     goRow(row);
   }, { passive: false });
+  host.addEventListener("change", (e) => {
+    const ps = e.target.closest(".pf-sort"); if (!ps) return;
+    const pane = ps.closest(".tpane");
+    if (!ps.value) { resetOrder(pane); return; }
+    const [i, dir] = ps.value.split(":");
+    const th = pane.querySelector(".tleague-wrap table").tHead.rows[0].cells[+i];
+    if (th) sortBy(th, dir);
+  });
   // Each list's search box filters its rows in place by the row's data-name.
   // Scoped to this host so it never touches the desks' own (hidden) copies.
   host.addEventListener("input", (e) => {

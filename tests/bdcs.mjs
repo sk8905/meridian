@@ -45,14 +45,40 @@ const view = await pg.evaluate(() => {
   };
 });
 check(view.rows >= 25, `the BDC table lists the roster (${view.rows})`);
-check(/Fund/.test(view.heads[0]) && view.heads.some((h) => /Ticker/.test(h)) && view.heads.some((h) => /Type/.test(h)) && view.heads.some((h) => /Manager/.test(h)) && view.heads.some((h) => /Total assets/i.test(h)) && view.heads.some((h) => /NAV/i.test(h)) && view.heads.some((h) => /Non-accrual/i.test(h)) && view.heads.some((h) => /Px\/NAV|liquidity/i.test(h)),
-  `columns: Fund · Ticker · Type · Manager · Total assets · NAV · Non-accrual · Px/NAV·liquidity (${view.heads.join(" · ")})`);
+check(/Fund/.test(view.heads[0]) && view.heads.some((h) => /Ticker/.test(h)) && !view.heads.some((h) => /^Type$/.test(h)) && view.heads.some((h) => /Manager/.test(h)) && view.heads.some((h) => /Total assets/i.test(h)) && view.heads.some((h) => /NAV/i.test(h)) && view.heads.some((h) => /Non-accrual/i.test(h)) && view.heads.some((h) => /Px\/NAV|liquidity/i.test(h)),
+  `columns: Fund · Ticker · Manager · Total assets · NAV · Non-accrual · Px/NAV·liquidity — no Type column (the section says it) (${view.heads.slice(0, 7).join(" · ")})`);
 check(await pg.evaluate(() => { const rows = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")]; const arcc = rows.find((r) => /Ares Capital/.test(r.textContent)); const bcred = rows.find((r) => /Blackstone Private Credit/.test(r.textContent)); return /ARCC/.test(arcc?.querySelector(".tbdc-tk")?.textContent || "") && (bcred?.querySelector(".tbdc-tk")?.textContent || "").trim() === "—"; }),
   "a Ticker column shows the listed fund's symbol and a dash for non-traded funds");
-check(await pg.evaluate(() => { const rows = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")]; const listed = rows.filter((r) => /Listed/.test(r.querySelector(".tbdc-ty")?.textContent || "")); const priv = rows.filter((r) => /Private/.test(r.querySelector(".tbdc-ty")?.textContent || "")); return listed.length > 0 && priv.length > 0 && !rows.some((r) => /Interval \/ private/.test(r.querySelector(".tbdc-nm")?.textContent || "")); }),
-  "a Type column marks each fund Listed / Private (and the label is gone from under the name)");
-check(await pg.evaluate(() => { const rows = [...document.querySelectorAll("#tx-bdc-body tr.tbdc-row")]; const listed = rows.filter((r) => /Listed/.test(r.querySelector(".tbdc-ty")?.textContent || "")); const priv = rows.filter((r) => /Private/.test(r.querySelector(".tbdc-ty")?.textContent || "")); return listed.length > 0 && priv.length > 0 && !document.querySelector("#tx-bdc-body [data-bdcf]"); }),
-  "the roster shows every fund at once — no listed/interval filter chips");
+const sec = await pg.evaluate(() => {
+  const labels = [...document.querySelectorAll("#tx-bdc-body .tbdc-seclbl")].map((h) => h.textContent.replace(/\d+$/, "").trim());
+  const tk = [...document.querySelectorAll("#tx-bdc-body td.tbdc-tk")].find((td) => td.querySelector(".tbdc-ex"));
+  const ex = tk && tk.querySelector(".tbdc-ex"), tr = tk && tk.firstChild;
+  // The exchange sits on its own line under the ticker — never running into the next cell.
+  const exR = ex ? ex.getBoundingClientRect() : null, cellR = tk ? tk.getBoundingClientRect() : null;
+  return { labels, exOwnLine: !!ex && getComputedStyle(ex).display === "block", exInside: !!exR && exR.right <= cellR.right + 0.5, noChips: !document.querySelector("#tx-bdc-body [data-bdcf]") };
+});
+check(sec.labels.join("|") === "Listed|Private (non-traded)" && sec.noChips, `the roster shows every fund at once in Listed / Private (non-traded) sections (${sec.labels.join(" · ")})`);
+check(sec.exOwnLine && sec.exInside, "the exchange sits under the ticker inside its cell (no NASDAQ/LISTED run-together)");
+// The first row is never hidden under the sticky column header.
+const sticky = await pg.evaluate(() => {
+  const body = document.querySelector("#tx-bdc-body"); body.scrollTop = 0;
+  const th = body.querySelector(".tbdc-tbl thead th"), tr = body.querySelector(".tbdc-tbl tbody tr.tbdc-row");
+  return { thBottom: Math.round(th.getBoundingClientRect().bottom), rowTop: Math.round(tr.getBoundingClientRect().top), top: getComputedStyle(th).top };
+});
+check(sticky.rowTop >= sticky.thBottom - 1 && sticky.top === "0px", `the sticky header pins to the body top and the first row sits below it (th ${sticky.thBottom} ≤ row ${sticky.rowTop}, top ${sticky.top})`);
+// Sortable columns (header click + the select), recorded in the URL.
+const srt = await pg.evaluate(async () => {
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const names = () => [...document.querySelector("#tx-bdc-body .tbdc-tbl").querySelectorAll("tr.tbdc-row td.tbdc-nm")].map((td) => td.textContent.replace("▸", "").trim());
+  document.querySelector('#tx-bdc-body th[data-bsort="name"]').click(); await wait(120);
+  const n1 = names(), h1 = location.hash;
+  document.querySelector('#tx-bdc-body th[data-bsort="na"]').click(); await wait(120);
+  const na = [...document.querySelector("#tx-bdc-body .tbdc-tbl").querySelectorAll("tr.tbdc-row td.tbdc-na")].map((td) => parseFloat(td.textContent)).filter((v) => !isNaN(v));
+  const s = document.querySelector("#tx-bdc-sort"); const sv = s.value;
+  s.value = "size-desc"; s.dispatchEvent(new Event("change", { bubbles: true })); await wait(120);
+  return { sortedAZ: n1.every((x, i) => i === 0 || n1[i - 1].localeCompare(x) <= 0), h1, naDesc: na.length > 2 && na.every((v, i) => i === 0 || v <= na[i - 1]), sv };
+});
+check(srt.sortedAZ && /sort=name-asc/.test(srt.h1) && srt.naDesc && srt.sv === "na-desc", `BDC columns sort (name A–Z, non-accrual highest first; ${srt.h1})`);
 check(/^1\.10×$/.test((view.arccPxNav || "").trim()) && view.arccPrem, `listed funds show a LIVE price÷NAV ratio, marked premium/discount (${view.arccPxNav})`);
 
 // Expand a listed row → sourced facts (total assets / NAV / non-accruals) + source links + holdings CTA.

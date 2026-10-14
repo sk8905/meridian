@@ -16,23 +16,25 @@ const rows = (pg) => pg.evaluate(() => document.querySelectorAll("#tx-body [data
 const marker = (pg) => pg.evaluate(() => window.__navMarker === 1);
 const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
 
-// ---- 1) Transactions: the period / size filters filter the default "All" list ----
+// ---- 1) Transactions: the size / date facets filter the default "All" list ----
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/");
   await pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
   const all = await rows(pg);
-  await pg.selectOption("#tx-min", "500"); await pg.waitForTimeout(200);
+  await pg.click("#tx-filters"); await pg.waitForTimeout(120);
+  await pg.locator('#tx-sheet [data-facet="size"][data-v="500to1bn"]').click(); await pg.waitForTimeout(150);
+  await pg.locator('#tx-sheet [data-facet="size"][data-v="gt1bn"]').click(); await pg.waitForTimeout(150);
   const chipN = await pg.evaluate(() => +((document.querySelector('#tx-mode [data-sub=""] .tx-subn') || {}).textContent || 0));
   const big = await rows(pg);
   check(big < all && big === chipN, `≥$500m narrows the All list to the All count (${big} rows, chip ${chipN}, of ${all})`);
-  await pg.selectOption("#tx-period", "30d"); await pg.waitForTimeout(200);
+  await pg.locator('#tx-sheet [data-period="30d"]').click(); await pg.waitForTimeout(150);
   const recent = await rows(pg);
   check(recent <= big, `a date range narrows it further (${recent} ≤ ${big})`);
   // C2: a reset (re-tap the active Transactions tab) leaves every control showing its default
   await pg.locator("#tx-focus").click(); await pg.fill("#tx-q", "ares"); await pg.waitForTimeout(150);
   await pg.locator('[data-key="transactions"]').filter({ visible: true }).first().click(); await pg.waitForTimeout(300);
-  const ui = await pg.evaluate(() => ({ p: document.querySelector("#tx-period").value, m: document.querySelector("#tx-min").value, f: document.querySelector("#tx-focus").getAttribute("aria-pressed"), q: document.querySelector("#tx-q").value, n: document.querySelectorAll("#tx-body [data-deal]").length }));
-  check(ui.p === "all" && ui.m === "0" && ui.f === "false" && ui.q === "" && ui.n === all, `re-tapping Transactions resets the filters AND their controls (${JSON.stringify(ui)})`);
+  const ui = await pg.evaluate(() => ({ h: location.hash, pills: !document.querySelector("#tx-active").hidden, sheet: !document.querySelector("#tx-sheet").hidden, btn: document.querySelector("#tx-filters").textContent, f: document.querySelector("#tx-focus").getAttribute("aria-pressed"), q: document.querySelector("#tx-q").value, n: document.querySelectorAll("#tx-body [data-deal]").length }));
+  check(ui.h === "#/lending" && !ui.pills && !ui.sheet && ui.btn === "Filters" && ui.f === "false" && ui.q === "" && ui.n === all, `re-tapping Transactions resets the filters AND their controls (${JSON.stringify(ui)})`);
   checkErrs(errs, "transactions filters");
   await ctx.close();
 }
@@ -41,16 +43,16 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/transactions/");
   await pg.waitForSelector("#tx-body [data-deal]", { timeout: 8000 });
-  await pg.selectOption("#tx-min", "500"); await pg.waitForTimeout(200);
+  await pg.evaluate(() => { location.hash = "#/lending?size=500to1bn,gt1bn"; }); await pg.waitForTimeout(250);
   const before = await rows(pg);
   await setMarker(pg);
   await pg.evaluate(() => document.querySelector("#tx-body a.tx-mgr").click());
   await pg.waitForSelector("#pf-detail .tdet-id", { timeout: 8000 });
   check(/\/v2\/profiles\/#\/manager\//.test(await pg.evaluate(() => location.pathname + location.hash)), "phone: the lender opens its manager profile");
   await pg.goBack(); await pg.waitForTimeout(500);
-  const after = await pg.evaluate(() => ({ path: location.pathname, tab: document.documentElement.dataset.v2tab, min: document.querySelector("#tx-min").value, n: document.querySelectorAll("#tx-body [data-deal]").length }));
+  const after = await pg.evaluate(() => ({ path: location.pathname, tab: document.documentElement.dataset.v2tab, h: location.hash, n: document.querySelectorAll("#tx-body [data-deal]").length }));
   check(after.path === "/v2/transactions/" && after.tab === "transactions", `phone: Back returns to Transactions, not out of the app (${after.path})`);
-  check(after.min === "500" && after.n === before, `phone: …with the filter still applied (${after.n}/${before})`);
+  check(/size=500to1bn,gt1bn/.test(after.h) && after.n === before, `phone: …with the filter still applied (${after.n}/${before})`);
   check(await marker(pg), "phone: the round trip never reloaded the document");
   checkErrs(errs, "phone back-stack");
   await ctx.close();
@@ -176,8 +178,8 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   // a restated figure carries its provenance on the tooltip.
   const ccy = await pg.evaluate(async () => {
     const D = await import("/credit/js/data.js");
-    const cells = [...document.querySelectorAll("#pf-panes #mgr-rows td:nth-child(3), #pf-panes #lp-rows td:nth-child(4)")].map((td) => td.textContent.trim()).filter((t) => t && t !== "n/a" && t !== "—");
-    const restated = [...document.querySelectorAll("#pf-panes #mgr-rows td:nth-child(3)[title*='restated from']")].length;
+    const cells = [...document.querySelectorAll("#pf-panes #mgr-rows td.pf-c-main, #pf-panes #lp-rows td:nth-child(4)")].map((td) => td.textContent.trim()).filter((t) => t && t !== "n/a" && t !== "—");
+    const restated = [...document.querySelectorAll("#pf-panes #mgr-rows td.pf-c-main[title*='restated from']")].length;
     return { euro: cells.filter((t) => /€|£/.test(t)).length, usd: cells.filter((t) => t.startsWith("$")).length, restated, fx: !!(D.AUM_FX && D.AUM_FX.EURUSD > 0) };
   });
   check(ccy.euro === 0 && ccy.usd > 200 && ccy.restated > 50 && ccy.fx, `AUM columns are all USD (${ccy.usd} $, ${ccy.euro} €/£; ${ccy.restated} restated with provenance)`);
@@ -254,15 +256,17 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   // Legacy #/primary → Lending; a filter change is a history step Back undoes.
   await pg.goto(base + "/v2/transactions/#/primary"); await pg.waitForTimeout(600);
   check(await pg.evaluate(() => location.hash === "#/lending"), "the retired #/primary mode canonicalises to #/lending");
-  await pg.selectOption("#tx-min", "1000"); await pg.waitForTimeout(150);
+  await pg.click("#tx-filters"); await pg.waitForTimeout(120);
+  await pg.locator('#tx-sheet [data-facet="size"][data-v="gt1bn"]').click(); await pg.waitForTimeout(150);
+  await pg.locator('#tx-sheet .tx-sheet-done').click(); await pg.waitForTimeout(120);
   await pg.locator('#tx-mode [data-sub="lend"]').click(); await pg.waitForTimeout(150);
-  check(await pg.evaluate(() => location.hash === "#/lending/lend?min=1000"), `type + size are in the URL (${await pg.evaluate(() => location.hash)})`);
+  check(await pg.evaluate(() => location.hash === "#/lending?type=lend&size=gt1bn"), `type + size are in the URL (${await pg.evaluate(() => location.hash)})`);
   const pills = await pg.evaluate(() => [...document.querySelectorAll("#tx-active .tx-pill")].map((p) => p.textContent.replace("✕", "").trim()));
   check(pills.includes("Direct lending / unitranche") && pills.includes("≥ $1bn"), `active filters show as removable pills (${pills.join(" · ")})`);
   await pg.goBack(); await pg.waitForTimeout(250);
-  check(await pg.evaluate(() => location.hash === "#/lending?min=1000" && (document.querySelector('#tx-mode [data-sub].is-on') || {}).dataset.sub === ""), "Back steps back through a filter change");
+  check(await pg.evaluate(() => location.hash === "#/lending?size=gt1bn" && (document.querySelector('#tx-mode [data-sub].is-on') || {}).dataset.sub === ""), "Back steps back through a filter change");
   await pg.locator('#tx-active [data-clear="all"]').click(); await pg.waitForTimeout(150);
-  check(await pg.evaluate(() => location.hash === "#/lending" && document.querySelector("#tx-min").value === "0" && document.querySelector("#tx-active").hidden), "Clear all resets every filter");
+  check(await pg.evaluate(() => location.hash === "#/lending" && document.querySelector("#tx-active").hidden && document.querySelector("#tx-filters").textContent === "Filters"), "Clear all resets every filter");
   // Search covers every group (a CLO is found from the Lending mode).
   await pg.fill("#tx-q", "CLO"); await pg.waitForTimeout(300);
   const sr = await pg.evaluate(() => ({ title: (document.querySelector(".tx-title") || {}).textContent || "", n: document.querySelectorAll("#tx-body [data-deal]").length, blurb: (document.querySelector(".tx-blurb") || {}).textContent || "" }));

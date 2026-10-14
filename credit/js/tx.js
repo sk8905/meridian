@@ -174,3 +174,49 @@ export function fmtUsd(m) {
   if (m >= 1e3) return `$${(m / 1e3).toFixed(m % 1e3 ? 1 : 0)}bn`;
   return `$${Math.round(m)}m`;
 }
+
+// ---- Curated deal TAGS (credit/js/deal-tags.js — HOUSE_STYLE R39) --------------
+// The Transactions facets read these. A deal the routine hasn't tagged yet falls back
+// to the classifier above for its sector (mapped onto the industry list) and to
+// "Unspecified" for its region — never a guess presented as a tag.
+export const SECTOR_TAGS = [
+  "Real estate", "Infrastructure & energy", "Healthcare", "TMT", "Industrials",
+  "Business services", "Consumer & retail", "Leisure & hospitality",
+  "Transport & logistics", "Financial services", "Asset-backed / specialty finance", "Diversified",
+];
+const _SECTOR_FALLBACK = { re: "Real estate", infra: "Infrastructure & energy", abf: "Asset-backed / specialty finance", fund: "Financial services", consumer: "Consumer & retail" };
+// Country → region (Europe split the way European credit desks cut it).
+export const REGIONS = [
+  ["uki", "UK & Ireland", ["UK", "Ireland"]],
+  ["dach", "DACH", ["Germany", "Austria", "Switzerland"]],
+  ["frbnl", "France & Benelux", ["France", "Belgium", "Netherlands", "Luxembourg"]],
+  ["south", "Southern Europe", ["Spain", "Portugal", "Italy", "Greece"]],
+  ["nordics", "Nordics", ["Denmark", "Sweden", "Norway", "Finland"]],
+  ["paneu", "Pan-European", ["Pan-European"]],
+  ["oeu", "Other Europe", ["Poland", "Other Europe"]],
+  ["na", "North America", ["US", "Canada"]],
+  ["row", "Rest of world", ["Australia", "Asia", "Middle East", "Latin America", "Africa", "Global"]],
+  ["none", "Unspecified", []],
+];
+export const EUROPE_REGIONS = ["uki", "dach", "frbnl", "south", "nordics", "paneu", "oeu"];
+const _REGION_OF = Object.fromEntries(REGIONS.flatMap(([k, , cs]) => cs.map((c) => [c, k])));
+export const regionOf = (country) => (country && _REGION_OF[country]) || "none";
+export const REGION_LABEL = Object.fromEntries(REGIONS.map(([k, l]) => [k, l]));
+// One deal's tags (curated, else the documented fallbacks).
+export function tagsOf(deal, TAGS) {
+  const t = (TAGS && deal && TAGS[deal.id]) || null;
+  const country = t ? t.country || null : null;
+  return {
+    tagged: !!t,
+    country,
+    region: regionOf(country),
+    sector: (t && t.sector) || _SECTOR_FALLBACK[sectorOf(deal)] || "Diversified",
+    amountKind: t ? t.amountKind || null : null,
+    event: t ? t.event || null : null,
+    managerMA: !!(t && t.managerMA),
+  };
+}
+// Which parsed amounts count as the DEAL SIZE (size filter, volumes, medians): the
+// financing itself, a vehicle's size (CLO / fund) or a traded portfolio — never an
+// acquired firm's AUM or an enterprise value. Untagged deals count (benefit of doubt).
+export const sizeCounts = (tags) => !tags.tagged || tags.amountKind == null || ["financing", "fund", "portfolio"].includes(tags.amountKind);
