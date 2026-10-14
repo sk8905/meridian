@@ -3,7 +3,7 @@
 // ("08 Oct 2026,3.75,3.7332"); eurostatSeries reads Eurostat JSON-stat; euPoint
 // turns a dated series into { value, asOf, chg1w, chg1m } (calendar-day lookback,
 // no 1W/1M move for a monthly series).
-import { ecbCsvPairs, boeCsvSeries, eurostatSeries, euPoint, EU_RATE_SERIES, EU_AAA_TENORS } from "../src/index.js";
+import { ecbCsvPairs, boeCsvSeries, eurostatSeries, euPoint, EU_RATE_SERIES, EU_AAA_TENORS, EU_EXTRA_SERIES, isoWeekFriday, fredCsvPairs } from "../src/index.js";
 import { check, checkEq, finish } from "./lib.mjs";
 
 const ecb = `KEY,FREQ,BENCHMARK_ITEM,DATA_TYPE_EST,TIME_PERIOD,OBS_VALUE,OBS_STATUS
@@ -44,4 +44,15 @@ checkEq(eurostatSeries({}).length, 0, "eurostatSeries: malformed payload → []"
 check(EU_RATE_SERIES.every((s) => s.key && s.label && /^https:\/\//.test(s.href) && s.source), "EU_RATE_SERIES: every series carries a key, label, https source link and source name");
 check(EU_RATE_SERIES.some((s) => s.key === "euribor3m" && /monthly/i.test(s.label)), "EU_RATE_SERIES: the Euribor tile is labelled as the monthly average it is");
 checkEq(EU_AAA_TENORS.map((t) => t[0]).join(","), "3M,2Y,5Y,10Y,30Y", "EU_AAA_TENORS: matches the yield-curve panel's maturities");
+
+// Extra gauges: ECB weekly ISO-week periods → that week's Friday; FRED fredgraph CSV.
+checkEq(isoWeekFriday("2026-W41"), "2026-10-09", "isoWeekFriday: 2026-W41 → Fri 9 Oct 2026 (Eurosystem statement day)");
+checkEq(isoWeekFriday("2026-W01"), "2026-01-02", "isoWeekFriday: 2026-W01 → Fri 2 Jan 2026");
+checkEq(isoWeekFriday("2026-10-12"), "2026-10-12", "isoWeekFriday: a daily period passes through");
+const wk = ecbCsvPairs(`KEY,FREQ,TIME_PERIOD,OBS_VALUE,TITLE_COMPL\nILM.W,W,2026-W41,5943911,"Euro area, Eurosystem"\nILM.W,W,2026-W40,5947826,"Euro area, Eurosystem"`);
+checkEq(wk.map((p) => p.join(":")).join(","), "2026-10-02:5947826,2026-10-09:5943911", "ecbCsvPairs: weekly rows dated by their Friday, ascending");
+const fr = fredCsvPairs("observation_date,VIXCLS\n2026-10-09,15.52\n2026-10-10,.\n2026-10-12,15.21");
+checkEq(fr.map((p) => p.join(":")).join(","), "2026-10-09:15.52,2026-10-12:15.21", "fredCsvPairs: '.' (missing) rows dropped, never zero");
+checkEq(fredCsvPairs("<html>520</html>").length, 0, "fredCsvPairs: non-CSV body → []");
+check(EU_EXTRA_SERIES.every((s) => s.key && s.label && /^https:\/\//.test(s.href) && s.source), "EU_EXTRA_SERIES: every gauge carries a key, label, https source link and source name");
 finish();

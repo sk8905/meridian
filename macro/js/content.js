@@ -17,6 +17,18 @@ export const META = {
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
+// Central-bank meeting calendar (Dashboard ▸ Rates) — the next three policy
+// decisions per bank, verified on each bank's own published calendar. Refreshed by
+// the routine after each meeting (drop the past date, add the next confirmed one).
+export const CB_CALENDAR = {
+  asOf: "2026-10-14",
+  banks: [
+    { bank: "ECB", meetings: ["2026-10-29", "2026-12-17", "2027-02-04"], label: "Governing Council (decision day)", href: "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html" },
+    { bank: "Fed", meetings: ["2026-10-28", "2026-12-09", "2027-01-27"], label: "FOMC (decision day)", href: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
+    { bank: "BoE", meetings: ["2026-11-05", "2026-12-17", "2027-02-04"], label: "MPC (announcement)", href: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
+  ],
+};
+
 export const OUTLOOK = {
   // ECB — the euro-area policy read (Dashboard ▸ Rates). The live deposit rate
   // comes from the ECB Data Portal (/api/eurates); these curated fields carry the

@@ -196,7 +196,7 @@
   .dsh-newsrail .dsh-news{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; margin:0; }
   /* Legal is now a normal spanning card beside the Legal wire; its results list
      scrolls within the pane (base .dsh-lgl-body max-height), like the other tabs. */
-  .dsh-mid > .dsh-legal-panel{ align-self:start; min-height:0; }
+  .dsh-mid > .dsh-legal-panel{ align-self:start; }
 }
 
 /* Terminal panels: square corners, 1px hairline, flat — no radius or shadow, so
@@ -747,3 +747,162 @@ td .dsh-yc-ea { border:0; }
 .dsh-reg-tbl td.dsh-stress-as { white-space:nowrap; }
 .dsh-reg-tbl .dsh-nm { min-width:180px; }
 .dsh-news a.dsh-drill { border-bottom:0; }
+
+/* =============================================================================
+   R40 — ONE ANATOMY (design-consistency pass). Every card, row, number, date and
+   chip on the Dashboard is drawn by the rules below so the page lines up.
+   ============================================================================= */
+/* -- Card frame: title 14.5/600 ink (both themes) · meta pinned right, one line -- */
+.dsh-h { display:flex; align-items:baseline; flex-wrap:nowrap; gap:10px; min-height:20px; margin:0 0 8px; padding:0 0 8px;
+  font-size:var(--fs-head); font-weight:600; letter-spacing:0; color:var(--t-ink); }
+:root[data-theme="dark"] .dsh-h { color:var(--t-ink); font-weight:600; }
+.dsh-h-t { flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-h-r { flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
+.dsh-h .dsh-asof { margin-left:0; }
+.dsh-h-sel .dsh-yld-sel { height:22px; padding:0 6px; }
+@media (max-width:760px){
+  /* Phone: the meta drops to its own micro line under the title — never wraps the title. */
+  .dsh-h { flex-wrap:wrap; row-gap:3px; }
+  .dsh-h-t { flex:1 0 100%; }
+}
+/* -- Dates: one size, one grey -- */
+.dsh-asof, .dsh-kv-d, .dsh-spread-as, .dsh-stress-as, .dsh-news-d, .dsh-pc-report-d, .dsh-ms-as, .dsh-lgl-d, .dsh-km-x .dsh-asof {
+  font-size:var(--fs-micro); color:var(--t-faint); font-weight:400; font-variant-numeric:tabular-nums; }
+/* -- Chip family: status · source · tag — one size -- */
+.dsh-live, .dsh-src, .dsh-tag, .dsh-band, .dsh-hf-dir, .dsh-earn-when {
+  display:inline-flex; align-items:center; box-sizing:border-box; height:18px; padding:0 5px; line-height:1;
+  font-size:var(--fs-micro); font-weight:600; letter-spacing:.04em; text-transform:uppercase; border-radius:0; vertical-align:middle; white-space:nowrap; }
+.dsh-src { color:var(--t-mut); border:1px solid var(--t-grid2); margin-left:0; }
+.dsh-live.is-snap { color:var(--t-mut); border-color:var(--t-grid2); }
+.dsh-band { margin-left:0; }
+/* -- Numbers: right-aligned, tabular, one style -- */
+.dsh-tbl th.dsh-r, .dsh-tbl td.dsh-r,
+.dsh-fl-tbl th.dsh-r, .dsh-fl-tbl td.dsh-fl, .dsh-fl-tbl td.dsh-fl-na { text-align:right; }
+.dsh-tbl td.dsh-r, .dsh-fl, .dsh-kv-v, .dsh-spread-v, .dsh-mw-hval, .dsh-mw-comp-v, .dsh-stress-debt, .dsh-sec-v, .dsh-fw-p, .dsh-ms-sz {
+  font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
+.dsh-kv-v, .dsh-spread-v, .dsh-fl, .dsh-mw-hval, .dsh-mw-comp-v, .dsh-stress-debt { font-weight:600; color:var(--t-ink); }
+.dsh-fl-na { color:var(--t-faint); }
+.dsh-tbl td { vertical-align:baseline; }
+.dsh-tbl td.dsh-chg { color:var(--t-mut); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
+.dsh-tbl td.dsh-chg.up { color:var(--t-up); } .dsh-tbl td.dsh-chg.down { color:var(--t-down); }
+/* SRC always in its own narrow right column */
+.dsh-tbl th.dsh-srccol, .dsh-tbl td.dsh-srccol { width:34px; padding-left:4px; padding-right:0; text-align:right; }
+.dsh-tbl td .dsh-src { float:none; margin-left:0; }
+/* -- Mini tables (spreads, money markets) -- */
+.dsh-spreads-card .dsh-spreads, #dsh-mm { display:block; }
+.dsh-mini td.dsh-spread-nm { color:var(--t-dim); }
+.dsh-mini th:first-child, .dsh-mini td:first-child { width:38%; }
+/* -- KPI rows: label · value · period · SRC on a fixed grid -- */
+.dsh-kv.dsh-kv4 { display:grid; grid-template-columns:minmax(0,1fr) auto 64px 34px; column-gap:12px; align-items:baseline; }
+.dsh-kv4 .dsh-kv-k { white-space:normal; overflow:visible; text-overflow:clip; line-height:1.35; color:var(--t-dim); }
+.dsh-kv4 .dsh-kv-v { text-align:right; white-space:nowrap; }
+.dsh-kv4 .dsh-kv-d { text-align:right; white-space:nowrap; }
+.dsh-kv4 .dsh-kv-s { text-align:right; }
+.dsh-kv-sub { display:block; font-size:var(--fs-micro); color:var(--t-faint); margin-top:1px; }
+.dsh-kv-sub .dsh-kv-yoy { margin-left:0; }
+.dsh-kv-sub .dsh-band { margin-top:2px; }
+/* -- Row labels: one secondary grey for labels, one for meta -- */
+.dsh-kv-k, .dsh-spread-nm, .dsh-sec-nm, .dsh-fw-l { color:var(--t-dim); }
+.dsh-stress-sec, .dsh-stress-hq, .dsh-mw-comp-l { color:var(--t-mut); }
+/* -- Uppercase micro labels: one style -- */
+.dsh-pc-reports-h, .dsh-fl-tbl tr.dsh-georow td.dsh-geo, .dsh-ms-col-h, .dsh-pill-k, .dsh-earn-ml, .dsh-term-lbl {
+  font-size:var(--fs-micro); font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); }
+:root[data-theme="dark"] .dsh-term-lbl { color:var(--t-mut); }
+/* -- Grid: section label groups with its card; column tops align; pairs equal -- */
+.dsh-mid > .dsh-term-lbl { margin:6px 0 -4px; }
+.dsh-mid > .dsh-term-lbl:first-child { margin-top:0; }
+.dsh-newsrail > .dsh-term-lbl { display:none; }
+@media (min-width:901px){ .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-row2 { align-items:stretch; } }
+/* -- Regime pills: key over value, equal heights -- */
+.dsh-pills:not(.dsh-tape) { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:8px; }
+.dsh-pills:not(.dsh-tape) .dsh-pill { flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:4px; }
+.dsh-pills:not(.dsh-tape) .dsh-pill-v { text-align:left; color:var(--t-dim); }
+/* -- Equities tape: equal tiles -- */
+.dsh-pills.dsh-tape { display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:8px; }
+@media (max-width:760px){ .dsh-pills.dsh-tape { grid-template-columns:repeat(3, minmax(0,1fr)); } }
+/* -- Hedge-fund lists: SRC pinned right on the head line -- */
+.dsh-hf-i-h { display:flex; flex-wrap:wrap; align-items:baseline; column-gap:8px; row-gap:2px; }
+.dsh-hf-i-h .dsh-hf-by { order:5; flex:1 0 100%; }
+.dsh-hf-i-h .dsh-src { margin-left:auto; }
+.dsh-hf-note { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+/* -- Sectors: room for the full name -- */
+.dsh-sec { grid-template-columns:170px 1fr 56px; }
+.dsh-shape { align-items:start; }
+/* Phone (R40): mini tables drop the As-of column (the date rides under the name);
+   the policy table stacks each bank into a two-line card — no sideways scroll. */
+.dsh-mini-d { display:none; }
+@media (max-width:760px){
+  .dsh-mini th:nth-child(5), .dsh-mini td.dsh-spread-as { display:none; }
+  .dsh-mini-d { display:block; font-size:var(--fs-micro); color:var(--t-faint); margin-top:1px; }
+  .dsh-mini th:first-child, .dsh-mini td:first-child { width:auto; }
+  .dsh-mini td, .dsh-mini th { padding-left:4px; padding-right:4px; }
+  .dsh-ro-tbl thead { display:none; }
+  .dsh-ro-tbl tr.dsh-ro-r { display:grid; grid-template-columns:minmax(0,1fr) auto 34px; grid-template-areas:"nm rate src" "nx as as" "rd rd rd";
+    column-gap:8px; padding:6px 0; border-bottom:1px solid var(--t-grid); }
+  .dsh-ro-tbl tr.dsh-ro-r td { border:0; padding:1px 0; white-space:normal; }
+  .dsh-ro-r .dsh-nm { grid-area:nm; } .dsh-ro-r .dsh-ro-rate { grid-area:rate; }
+  .dsh-ro-r .dsh-srccol { grid-area:src; } .dsh-ro-r .dsh-ro-nx { grid-area:nx; color:var(--t-mut); font-size:var(--fs-micro); }
+  .dsh-ro-r .dsh-stress-as { grid-area:as; text-align:right; } .dsh-ro-r .dsh-ro-read { grid-area:rd; }
+  .dsh-ro-r .dsh-ro-read .dsh-clamp2 { -webkit-line-clamp:3; }
+}
+/* -- Desktop packing (R40): cards are absolutely placed by packMid(); the mid keeps its
+   own scroll and a pseudo-element gives it the packed height. -- */
+@media (min-width:901px){
+  .dsh-3z:not(.dsh-norail) .dsh-mid.dsh-masonry { display:block; position:relative; }
+  .dsh-mid.dsh-masonry > .dsh-card { position:absolute; box-sizing:border-box; margin:0; }
+  .dsh-mid.dsh-masonry > .dsh-term-lbl { display:none; }
+  .dsh-mid.dsh-masonry::after { content:""; display:block; height:var(--mas-h, 0px); }
+  /* News column widens in steps with the screen (laptop → ultra-wide). */
+  .dsh-3z { grid-template-columns:150px minmax(0,1fr) 320px; }
+  .dsh-3z.dsh-norail { grid-template-columns:150px minmax(0,1fr); }
+}
+@media (min-width:1700px){ .dsh-3z { grid-template-columns:158px minmax(0,1fr) 380px; } }
+@media (min-width:2300px){ .dsh-3z { grid-template-columns:158px minmax(0,1fr) 420px; } }
+@media (min-width:3000px){ .dsh-3z { grid-template-columns:158px minmax(0,1fr) 460px; } }
+/* Charts keep their shape at any width (never a flattened line). */
+.dsh-yc2-svg { height:auto; aspect-ratio:3 / 1; min-height:150px; max-height:300px; }
+/* Tables never spread their figures: numeric columns stay tight, the label column takes the rest. */
+.dsh-mini { table-layout:auto; }
+.dsh-mini th.dsh-r, .dsh-mini td.dsh-r { width:64px; }
+.dsh-mini th:nth-child(5), .dsh-mini td.dsh-spread-as { width:96px; }
+/* Wide list cards flow their rows into readable sub-columns instead of stretching
+   lines across a wide screen (R40). */
+@media (min-width:901px){
+  .dsh-mid.dsh-masonry .dsh-hf-list, .dsh-mid.dsh-masonry .dsh-lgl-list, .dsh-mid.dsh-masonry .dsh-rx,
+  .dsh-mid.dsh-masonry .dsh-earn, .dsh-mid.dsh-masonry .dsh-km-wrap { column-width:400px; column-gap:28px; column-rule:1px solid var(--t-grid); }
+  .dsh-mid.dsh-masonry .dsh-hf-i, .dsh-mid.dsh-masonry .dsh-lgl-i, .dsh-mid.dsh-masonry .dsh-rx .dsh-news-i,
+  .dsh-mid.dsh-masonry .dsh-earn-rel, .dsh-mid.dsh-masonry .dsh-km, .dsh-mid.dsh-masonry .dsh-earn-wk { break-inside:avoid; }
+}
+/* Long commentary lists keep a fixed height and scroll inside (like the news rail),
+   so one long list never leaves its neighbours ending far above it. */
+@media (min-width:901px){
+  .dsh-mid.dsh-masonry > .dsh-cap { display:flex; flex-direction:column; max-height:560px; }
+  .dsh-mid.dsh-masonry > .dsh-cap > .dsh-h { flex:0 0 auto; }
+  .dsh-mid.dsh-masonry > .dsh-cap > :not(.dsh-h) { flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+}
+/* -- Fill cards (R40): charts and long lists that take the height the layout gives
+   them. Header fixed; body fills and scrolls (lists) or scales (charts). -- */
+.dsh-card.dsh-fill { display:flex; flex-direction:column; box-sizing:border-box; }
+.dsh-fill > .dsh-h { flex:0 0 auto; }
+.dsh-fill-body { flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; display:flex; flex-direction:column; }
+.dsh-fill-body > .dsh-chart { flex:1 1 auto; }
+@media (max-width:900px){
+  .dsh-card.dsh-fill { height:auto; }
+  .dsh-fill-body { max-height:380px; }
+  .dsh-fill-body > .dsh-chart { min-height:200px; }
+}
+/* Desktop too narrow to pack (one column): fill cards keep the phone caps. */
+@media (min-width:901px){
+  .dsh-mid:not(.dsh-masonry) > .dsh-fill { height:auto; }
+  .dsh-mid:not(.dsh-masonry) .dsh-fill-body { max-height:380px; }
+  .dsh-mid:not(.dsh-masonry) .dsh-fill-body > .dsh-chart { min-height:200px; }
+}
+.dsh-chart { position:relative; min-height:120px; margin-right:44px; border-left:1px solid var(--t-grid); border-bottom:1px solid var(--t-grid); }
+.dsh-chart svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
+.dsh-chart-y { position:absolute; top:0; bottom:0; right:-44px; width:40px; pointer-events:none; }
+.dsh-chart-y span { position:absolute; right:0; transform:translateY(-50%); font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; }
+.dsh-lgs { display:flex; flex-wrap:wrap; gap:4px 14px; margin:0 0 8px; flex:0 0 auto; }
+.dsh-lg { display:inline-flex; align-items:center; gap:5px; font-size:var(--fs-micro); color:var(--t-mut); }
+.dsh-lg i { width:10px; height:2px; display:inline-block; }
+.dsh-lg b { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-fill > .dsh-hf-pick { flex:0 0 auto; }

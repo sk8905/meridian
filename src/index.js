@@ -636,6 +636,39 @@ export const EU_RATE_SERIES = [
 // the Bund curve, labelled as what it is.
 export const EU_AAA_TENORS = [["3M", "SR_3M"], ["2Y", "SR_2Y"], ["5Y", "SR_5Y"], ["10Y", "SR_10Y"], ["30Y", "SR_30Y"]];
 const EU_AAA_HREF = "https://data.ecb.europa.eu/data/datasets/YC";
+// Extra Dashboard gauges, all keyless official/benchmark series: central-bank
+// balance sheets (ECB weekly ILM statement, Fed H.4.1 via FRED WALCL — both in
+// millions, scaled to bn), ICE BofA all-in yields + BBB OAS (FRED, in %), the VIX
+// and EUR/USD · GBP/USD (FRED).
+// `days` is the lookback fetched; a series that can't be read is value:null.
+export const EU_EXTRA_SERIES = [
+  { key: "ecb_bs", label: "Eurosystem total assets", unit: "€bn", src: "ecb", flow: "ILM", sk: "W.U2.C.T000000.Z5.Z01", n: 45, scale: 1e-3, href: "https://data.ecb.europa.eu/data/datasets/ILM/ILM.W.U2.C.T000000.Z5.Z01", source: "ECB" },
+  { key: "fed_bs", label: "Fed total assets", unit: "$bn", src: "fred", id: "WALCL", days: 330, scale: 1e-3, href: "https://fred.stlouisfed.org/series/WALCL", source: "FRED" },
+  { key: "ehy_yld", label: "Euro HY effective yield", unit: "%", src: "fred", id: "BAMLHE00EHYIEY", days: 70, href: "https://fred.stlouisfed.org/series/BAMLHE00EHYIEY", source: "FRED" },
+  { key: "ushy_yld", label: "US HY effective yield", unit: "%", src: "fred", id: "BAMLH0A0HYM2EY", days: 70, href: "https://fred.stlouisfed.org/series/BAMLH0A0HYM2EY", source: "FRED" },
+  { key: "usbbb_oas", label: "US BBB OAS", unit: "%", src: "fred", id: "BAMLC0A4CBBB", days: 70, href: "https://fred.stlouisfed.org/series/BAMLC0A4CBBB", source: "FRED" },
+  // Cboe VIX close and the Fed H.10 noon-NY FX rates (USD per EUR / per GBP).
+  { key: "vix", label: "VIX", unit: "", src: "fred", id: "VIXCLS", days: 70, href: "https://fred.stlouisfed.org/series/VIXCLS", source: "FRED" },
+  { key: "eurusd", label: "EUR/USD", unit: "", src: "fred", id: "DEXUSEU", days: 70, href: "https://fred.stlouisfed.org/series/DEXUSEU", source: "FRED" },
+  { key: "gbpusd", label: "GBP/USD", unit: "", src: "fred", id: "DEXUSUK", days: 70, href: "https://fred.stlouisfed.org/series/DEXUSUK", source: "FRED" },
+];
+// Pure: ISO week "2026-W41" → the Friday of that week (the Eurosystem weekly
+// statement's reference day) as YYYY-MM-DD; any other period passes through.
+export function isoWeekFriday(p) {
+  const m = /^(\d{4})-W(\d{2})$/.exec(String(p || ""));
+  if (!m) return p;
+  const jan4 = Date.UTC(+m[1], 0, 4), dow = new Date(jan4).getUTCDay() || 7;
+  return new Date(jan4 + ((+m[2] - 1) * 7 + (5 - dow)) * 864e5).toISOString().slice(0, 10);
+}
+// Pure: FRED fredgraph.csv ("observation_date,ID" / "2026-10-12,3.23"; "." = missing)
+// → ascending [[date, number]].
+export function fredCsvPairs(txt) {
+  const lines = String(txt || "").trim().split(/\r?\n/);
+  if (lines.length < 2 || !/date/i.test(lines[0])) return [];
+  return lines.slice(1).map((l) => l.split(",")).map((c) => [c[0], parseFloat(c[1])])
+    .filter((p) => /^\d{4}-\d{2}-\d{2}$/.test(p[0]) && Number.isFinite(p[1]))
+    .sort((a, b) => (a[0] < b[0] ? -1 : 1));
+}
 const EU_BKRT_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_rb_q?geo=EU27_2020&indic_bt=BKRT&s_adj=SCA&nace_r2=B-S_X_O_S94&unit=I21";
 const EU_BKRT_HREF = "https://ec.europa.eu/eurostat/databrowser/view/sts_rb_q/default/table";
 
@@ -647,7 +680,7 @@ export function ecbCsvPairs(txt) {
   const ti = h.indexOf("TIME_PERIOD"), vi = h.indexOf("OBS_VALUE");
   if (ti < 0 || vi < 0) return [];
   return lines.slice(1).map((l) => l.split(","))
-    .map((c) => [c[ti], parseFloat(c[vi])])
+    .map((c) => [isoWeekFriday(c[ti]), parseFloat(c[vi])])
     .filter((p) => p[0] && Number.isFinite(p[1]))
     .sort((a, b) => (a[0] < b[0] ? -1 : 1));
 }
@@ -693,9 +726,23 @@ export function euPoint(pairs) {
   return { value, asOf, chg1w: daily ? d(back(7)) : null, chg1m: daily ? d(back(30)) : null, history: pairs.slice(-45) };
 }
 
+// FRED history for a lookback window: the official API when a key is configured
+// (FRED's site returns Cloudflare 520 to Workers), else the fredgraph CSV.
+async function fredWindow(id, days, env) {
+  const cosd = new Date(Date.now() - days * 864e5).toISOString().slice(0, 10);
+  if (env && env.FRED_API_KEY) {
+    const txt = await fetchText(`https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${env.FRED_API_KEY}&file_type=json&observation_start=${cosd}`);
+    try {
+      const pairs = (JSON.parse(txt || "{}").observations || []).map((o) => [o.date, parseFloat(o.value)]).filter((p) => Number.isFinite(p[1]));
+      if (pairs.length) return pairs.sort((a, b) => (a[0] < b[0] ? -1 : 1));
+    } catch { /* fall through to CSV */ }
+  }
+  return fredCsvPairs(await fetchText(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${id}&cosd=${cosd}`));
+}
+
 async function handleEuRates(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/eurates?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/eurates?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const ecb = async (flow, sk, n) => ecbCsvPairs(await fetchText(`https://data-api.ecb.europa.eu/service/data/${flow}/${sk}?lastNObservations=${n}&format=csvdata`));
@@ -711,7 +758,12 @@ async function handleEuRates(request, env, ctx) {
     const pairs = s.src === "boe" ? ((boe && boe[s.code]) || []) : ecbRows[ei++];
     return { key: s.key, label: s.label, unit: s.unit, href: s.href, source: s.source, ...euPoint(pairs) };
   });
-  const curvePts = await Promise.all(EU_AAA_TENORS.map(([, k]) => ecb("YC", `B.U2.EUR.4F.G_N_A.SV_C_YM.${k}`, 30).catch(() => [])));
+  const curvePts = await Promise.all(EU_AAA_TENORS.map(([, k]) => ecb("YC", `B.U2.EUR.4F.G_N_A.SV_C_YM.${k}`, 45).catch(() => [])));
+  const extraRows = await Promise.all(EU_EXTRA_SERIES.map((s) => (s.src === "ecb" ? ecb(s.flow, s.sk, s.n) : fredWindow(s.id, s.days, env)).catch(() => [])));
+  const extra = EU_EXTRA_SERIES.map((s, i) => {
+    const pairs = (extraRows[i] || []).map(([d, v]) => [d, s.scale ? +(v * s.scale).toFixed(1) : v]);
+    return { key: s.key, label: s.label, unit: s.unit, href: s.href, source: s.source, ...euPoint(pairs) };
+  });
   const curve = {
     label: "Euro area AAA govt curve", source: "ECB", href: EU_AAA_HREF,
     tenors: EU_AAA_TENORS.map(([t]) => t),
@@ -729,7 +781,7 @@ async function handleEuRates(request, env, ctx) {
       bankruptcies = { label: "EU bankruptcy declarations", unit: "index 2021=100", value, asOf, yearAgo: ya ? ya[1] : null, yearAgoAsOf: ya ? ya[0] : null, history: pairs, href: EU_BKRT_HREF, source: "Eurostat" };
     }
   } catch { /* stays null */ }
-  const body = { series, curve, bankruptcies, fetched: new Date().toISOString() };
+  const body = { series, curve, bankruptcies, extra, fetched: new Date().toISOString() };
   const resp = new Response(JSON.stringify(body), { headers: { "content-type": "application/json", "cache-control": "public, max-age=900" } });
   // Edge-cache 1h, but only a reasonably complete read so a transient miss never sticks.
   const ok = series.filter((s) => s.value != null).length >= 4 && curve.points.filter((p) => p.value != null).length >= 4;

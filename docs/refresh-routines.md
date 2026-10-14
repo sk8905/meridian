@@ -808,6 +808,11 @@ a guess; if a figure can't be confirmed, leave the old one and say so.
   decision), `asOf` = that decision's date, `href` = its press release; update
   `fedwatch` / `uk.sonia` odds and the dot plot after each FOMC SEP. The live rates
   themselves come from `/api/eurates` — never hand-type a rate the feed already carries.
+  `CB_CALENDAR` (macro/js/content.js, HOUSE_STYLE R40): keep at least the next three
+  decision dates per bank, each verified on the bank's own published calendar (ECB
+  governing-council calendar, FOMC calendar, BoE MPC dates); drop past dates' rows only
+  when a new date is added, and bump `CB_CALENDAR.asOf`. The R40 gauges (balance sheets,
+  all-in yields, VIX, FX) are live-only via `/api/eurates` `extra` — never curate them.
 
 ## 2020 backfill project (`backfill/checklist.json` + `scripts/backfill-progress.mjs`)
 

@@ -1034,8 +1034,7 @@ notification badge red (`#ef4444`).
   labelling:** a `LIVE` badge renders as **"snapshot"** and flips to "live" only once a live
   payload has actually been applied (`markLive`); **every data card shows a date**;
   curated text is entity-decoded before escaping (`txt()`), so "&amp;" never leaks.
-  **(f) Layout:** below 1500px the desktop middle column is ONE column (every card full
-  width); ≥1500px compact cards pair; no card's content may spill or overlap a neighbour
+  **(f) Layout:** superseded by **R40** (responsive packing); no card's content may spill or overlap a neighbour
   (wide tables scroll inside `.dsh-scroll`). **(g) Data:** European rates/curve/distress
   come from **`/api/eurates`** (`handleEuRates` in `src/index.js` — keyless ECB Data Portal,
   BoE IADB, Eurostat; deterministic, no AI step; edge-cached 1h); `freshness-audit.mjs`
@@ -1133,6 +1132,39 @@ notification badge red (`#ef4444`).
   blocks: section titles → headings, URLs / markdown links dropped, everything from the
   footer (unsubscribe / preferences / "you received this" / ©) cut. Spec:
   `tests/newsletter-reader.mjs`.
+
+- **R40 — Dashboard: one anatomy, responsive packing, fill cards.** (Design review
+  2026-10; supersedes R37(f).) **(a) One anatomy.** Card header = title (14.5/600 ink,
+  truncates) · meta on the right (count, LIVE/snapshot badge, date, select), split by
+  `tidyHeaders()` into `.dsh-h-t` / `.dsh-h-r`. Numbers are right-aligned and tabular;
+  dates are micro/faint in ONE format ("13 Oct 2026", `isoDay`). Metric lists use the
+  KPI row (`kpiRow`: label · value · period · SRC, grid `minmax(0,1fr) auto 64px 34px`);
+  rate / spread / gauge lists use the mini table (`dsh-mini`: name · level · 1W · 1M ·
+  As of · SRC; on phone the As-of column drops and the date rides under the name). Empty
+  cells read "—". **(b) Responsive packing (desktop ≥901px).** `packMid()` places the
+  middle-column cards absolutely in `round(width / 480)` columns (max 6, never more than
+  the tab's cards can fill); cards keep a natural size — std = 1 column, `dsh-wide` = 2,
+  `dsh-span` = all. It hill-climbs over nearby swaps scoring empty space plus a cost per
+  place a card moves from its priority order; full-span strips and the Reference block
+  are pinned. Slack is absorbed by **fill cards** first and, for a remainder ≤120px with
+  no fill card, by stretching the last card's frame (content stays top-aligned).
+  A ResizeObserver re-packs on width or content change (`dataset.ph` stops loops). Rail
+  width steps 320 / 380 (≥1700) / 420 (≥2300) / 460px (≥3000). **(c) Fill cards**
+  (`fillCard`, `.dsh-fill`) are charts (`lineChart`, natural height up to 460px) or long
+  lists (start 240px, show more rows or scroll) built ONLY from data Wire already holds or
+  a sourced live series: Credit — spread history 1M, all-in yields & BBB (ICE BofA via
+  FRED), most active lenders (90d) and restructuring & distress deals (tracked by Wire),
+  CLOs & fund closes; Rates — central-bank calendar (`CB_CALENDAR`, verified dates),
+  money-market rates 2M, central-bank balance sheets (Eurosystem ILM weekly · Fed WALCL),
+  FX EUR/USD · GBP/USD (Fed H.10), Euro AAA curve 2M (2Y/10Y/30Y + 2s10s), why it moved;
+  Legal — case law, most active firms (30d), restructuring; Equities — VIX 2M, earnings;
+  Hedge Funds — HF news, largest funds by AUM, per-fund 13F holdings. A gauge whose feed
+  is missing shows "… unavailable — <source link>", never a number. **(d) Data:** the
+  gauges ride `/api/eurates` `extra` (`EU_EXTRA_SERIES` in `src/index.js`: FRED via the API
+  key when set, else fredgraph CSV; ECB weekly periods dated to the statement Friday).
+  Specs: `tests/dashboard-layout.mjs` (six widths 1280–3440: no spill, no overlap, no
+  vertical gap >14px; gauge values + sources; empty-payload honesty),
+  `tests/eurates-parse.mjs`.
 
 ## 7. Technical rules
 
@@ -1245,7 +1277,8 @@ item keeps a real outbound source link (R7).
 - Federal Reserve Board (`federalreserve.gov`)
 - Federal Reserve Bank of New York (`markets.newyorkfed.org`) — SOFR
 - Bank of England (`bankofengland.co.uk`)
-- European Central Bank (`data.ecb.europa.eu`) — deposit rate (FM), €STR (EST), monthly 3M Euribor (FM), euro-area AAA curve (YC) via `/api/eurates` (R37)
+- European Central Bank (`data.ecb.europa.eu`) — deposit rate (FM), €STR (EST), monthly 3M Euribor (FM), euro-area AAA curve (YC), Eurosystem weekly balance sheet (ILM) via `/api/eurates` (R37, R40)
+- FRED gauges via `/api/eurates` `extra` (R40) — ICE BofA Euro/US HY effective yield (`BAMLHE00EHYIEY`, `BAMLH0A0HYM2EY`), US BBB OAS (`BAMLC0A4CBBB`), Fed total assets (`WALCL`), VIX (`VIXCLS`), EUR/USD · GBP/USD (`DEXUSEU`, `DEXUSUK`)
 - Bank of England database (IADB) — Bank Rate `IUDBEDR`, SONIA `IUDSOIA` via `/api/eurates`
 - Eurostat `sts_rb_q` — EU27 bankruptcy-declarations index via `/api/eurates`
 - UK Insolvency Service official statistics (`gov.uk`, OGL) — monthly company insolvencies (curated, `EU_DISTRESS`)

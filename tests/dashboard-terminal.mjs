@@ -71,7 +71,7 @@ for (const key of ["rates", "equities", "hedge-funds", "legal"]) {
   check(p.threeZone && p.navChips === 5 && p.dshFlex === "flex", `${key}: renders the 3-zone workspace with the left nav rail`);
   check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
   check(p.hasRail && !p.norail, `${key}: keeps a news rail on the right`);
-  check(p.hSize === `${12 + p.adj}px`, `${key}: panel headers use the app's body scale (12px + --fs-adj = ${12 + p.adj}px, got ${p.hSize})`);
+  check(p.hSize === `${14 + p.adj}px`, `${key}: panel headers use the card-heading token --fs-head (14px + --fs-adj = ${14 + p.adj}px, got ${p.hSize}) — R40 one anatomy`);
 }
 checkErrs(errs, "dashboard 3-zone all sections");
 
@@ -83,6 +83,7 @@ await ctx.close();
   const srv2 = await serve(LIVE);
   for (const w of [1024, 1280, 1440, 1600]) {
     const { ctx: c2, pg: p2, errs: e2 } = await open(b, { viewport: { width: w, height: 900 } }, `http://localhost:${srv2.port}/v2/dashboard/`);
+    await p2.waitForSelector(".dsh-3z .dsh-mid > .dsh-card", { timeout: 10000 });
     for (const key of ["credit", "rates", "legal", "equities", "hedge-funds"]) {
       await p2.evaluate((k) => { const t = document.querySelector(`.dsh-navchip[data-sub="${k}"]`); t && t.click(); }, key);
       await p2.waitForTimeout(700);

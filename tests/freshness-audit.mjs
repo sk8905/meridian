@@ -53,7 +53,7 @@ if (j) {
     const DASH = await import("../dashboard/js/data.js");
     const msOf = (d) => { const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d || "").slice(0, 10); const t = Date.parse(s); return Number.isNaN(t) ? 0 : t; };
     const newest = (rows, f = "date") => (rows || []).reduce((m, x) => Math.max(m, msOf(x && x[f])), 0);
-    const stale = (rows, key) => { const ms = newest(rows); return ms === 0 ? true : Math.round((now - ms) / DAY) > (WIN[key] || 7); };
+    const stale = (rows, key) => { const ms = newest(rows); return ms === 0 ? true : Math.floor((now - ms) / DAY) > (WIN[key] || 7); };
     const cmt = [...(((MAC.COMMENTARY || {}).us) || []), ...(((MAC.COMMENTARY || {}).uk) || [])];
     const out = {
       deals: stale(CR.deals, "deals"), intel: stale(CR.intel, "intel"),
@@ -68,7 +68,7 @@ if (j) {
     };
     // Macro commentary: stale when thin (<10, R18) OR its newest piece is past the window.
     const cmtMs = newest(cmt);
-    out.macro_commentary = cmt.length < 10 || cmtMs === 0 || Math.round((now - cmtMs) / DAY) > 7;
+    out.macro_commentary = cmt.length < 10 || cmtMs === 0 || Math.floor((now - cmtMs) / DAY) > 7;
     // Macro editorial: a single UPDATED stamp, judged on a slow 45d window.
     out.macro_editorial = stale([{ date: new Date(Date.parse(MAC.UPDATED || "") || 0).toISOString().slice(0, 10) }], "macro_editorial");
     // Macro releases calendar is FORWARD-looking: stale iff nothing dated today-or-later.

@@ -83,8 +83,9 @@ check(stress && stress.grouped, "Credit: stress rows are grouped by status withi
 check(stress && stress.drill, "Credit: every debtor drills into Transactions ▸ Credits (#/credits?q=)");
 check(stress && stress.leftAligned, "Credit: stress table columns are left-aligned");
 
-// No duplicate pulse-pill strip above the cards, and each US private-credit row
-// sits on a single line.
+// No duplicate pulse-pill strip above the cards; each US private-credit row is the
+// R40 KPI row — at most two lines (label + its faint sub-line) with every value on
+// one shared right edge.
 const layout = await pg.evaluate(() => {
   const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => { const h = c.querySelector(".dsh-h"); return h && /^\s*US private credit/i.test(h.textContent); });
   const rows = card ? [...card.querySelectorAll(".dsh-pc-grid .dsh-kv")] : [];
@@ -92,10 +93,12 @@ const layout = await pg.evaluate(() => {
     nPills: document.querySelectorAll(".dsh-pills-stack .dsh-pill").length,
     nRows: rows.length,
     maxRowH: rows.length ? Math.max(...rows.map((r) => Math.round(r.getBoundingClientRect().height))) : 0,
+    vEdges: new Set(rows.map((r) => Math.round((r.querySelector(".dsh-kv-v") || r).getBoundingClientRect().right))).size,
   };
 });
 checkEq(layout.nPills, 0, "Credit: no duplicate pulse-pill strip (the card carries the metrics once)");
-check(layout.nRows > 0 && layout.maxRowH <= 34, `Credit: each private-credit row is a single line (max ${layout.maxRowH}px)`);
+check(layout.nRows > 0 && layout.maxRowH <= 52, `Credit: each private-credit row is at most two lines (max ${layout.maxRowH}px)`);
+checkEq(layout.vEdges, 1, "Credit: private-credit values share one right edge");
 
 checkErrs(errs, "dashboard credit private-credit");
 await ctx.close();

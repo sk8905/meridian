@@ -13,8 +13,8 @@
 import { esc, MONTHS, byDateDesc } from "/util.js";
 import { fmtDay as fmtDate } from "/feed.js";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT, EU_DISTRESS, REG_CALENDAR } from "/dashboard/js/data.js";
-import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS, MARKET_SIZES } from "/macro/js/content.js";
-import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
+import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS, MARKET_SIZES, CB_CALENDAR } from "/macro/js/content.js";
+import { deals, intel, managers, HEDGE_FUNDS, HF_13F, HEDGE_INTEL } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { nbNums } from "../nb-format.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
@@ -29,7 +29,9 @@ const DEFAULT_SUB = "credit";
 const subOf = (k) => { const x = SUB_ALIAS[k] || k; return SUBTABS.some(([s]) => s === x) ? x : DEFAULT_SUB; };
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
-const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
+// Card-level "as of" — one date style and format everywhere (R40): "13 Oct 2026",
+// "Sep 2026", "Q2 2026"; the words "as of" live in the tooltip, not the header.
+const asOf = (d) => (d ? `<span class="dsh-asof" title="as of ${esc(isoDay(d))}">${esc(isoDay(d))}</span>` : "");
 const srcLink = (u, label) => (u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">src</a>` : "");
 const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, "");
 // Curated text sometimes arrives entity-encoded ("S&amp;P"); decode the common
@@ -39,7 +41,13 @@ const txt = (s) => esc(deEnt(s));
 // LIVE badge: renders as "snapshot" and only flips to "live" once a live payload
 // has actually been applied (markLive), so stale fallback data is never badged live.
 const liveTag = (id) => `<span class="dsh-live is-snap" data-live="${id}" title="Sourced snapshot — live data not loaded">snapshot</span>`;
-const isoDay = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d || "")); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : String(d || ""); };
+const isoDay = (d) => {
+  const t = String(d || "").replace(/^\s*as of\s+/i, "");
+  let m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t); if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`;
+  m = /^(\d{4})-(\d{2})$/.exec(t); if (m) return `${MONTHS[+m[2] - 1]} ${m[1]}`;
+  m = /^(\d{4})-Q([1-4])$/.exec(t); if (m) return `Q${m[2]} ${m[1]}`;
+  return t;
+};
 // Search normaliser: lowercase and drop apostrophes so "director's" / "directors'"
 // / "directors" all collapse to the same token. Used to build each legal item's
 // search haystack and to tokenise the query (word-by-word AND match).
@@ -63,6 +71,218 @@ export function mount(host, ctx) {
       el.classList.remove("is-snap"); el.textContent = "live";
       el.title = asOfDate ? `Live · as of ${isoDay(asOfDate)}` : "Live";
     });
+  }
+  // Card header anatomy (R40): <title (truncates)> · <meta: count, LIVE, date, select>.
+  // Panels build headers as inline markup; this splits them once into the two slots.
+  const META = ".dsh-live, .dsh-asof, .dsh-n, .dsh-mut, select, .dsh-src";
+  function tidyHeaders(root) {
+    (root || host).querySelectorAll(".dsh-h:not([data-tidy])").forEach((h) => {
+      h.dataset.tidy = "1";
+      const t = document.createElement("span"); t.className = "dsh-h-t";
+      const r = document.createElement("span"); r.className = "dsh-h-r";
+      [...h.childNodes].forEach((n) => { ((n.nodeType === 1 && n.matches(META)) ? r : t).appendChild(n); });
+      const last = t.lastChild; if (last && last.nodeType === 3) last.nodeValue = last.nodeValue.replace(/\s+$/, "");
+      if (t.title === "") t.title = t.textContent;
+      h.appendChild(t); if (r.childNodes.length) h.appendChild(r);
+    });
+  }
+  // ---- Desktop layout (R40): cards keep a natural width and pack into columns ----
+  // The middle column's own width decides HOW MANY columns (≈480px each, 1–6), never
+  // how wide a card is. Each card has a size — std (one column), wide (spans two) or
+  // full (every column) — and drops, in priority (DOM) order, into whichever column
+  // is shortest, so there are no holes and nothing is stretched. Phones keep the
+  // plain stacked flow. Re-packs whenever the width or any card's height changes.
+  const COL_TARGET = 480, GAP = 10;
+  const sizeOf = (el) => (el.classList.contains("dsh-span") ? "full" : el.classList.contains("dsh-wide") ? "wide" : "std");
+  let _ro = null, _raf = 0;
+  function flattenMid(mid) {
+    // Paired-row wrappers are a phone/tablet convenience; the packer places cards itself.
+    mid.querySelectorAll(":scope > .dsh-row2, :scope > .dsh-wide:not(.dsh-card)").forEach((w) => { while (w.firstElementChild) w.parentNode.insertBefore(w.firstElementChild, w); w.remove(); });
+  }
+  const FILL_BASE = 240;   // a fill card's starting height before it absorbs slack
+  const HOLE = 120;
+  function packMid() {
+    _raf = 0;
+    const mid = host.querySelector(".dsh-mid");
+    if (!mid) return;
+    const cards = [...mid.children].filter((el) => el.classList.contains("dsh-card"));
+    const W = mid.clientWidth;
+    const byWidth = window.matchMedia("(min-width: 901px)").matches ? Math.max(1, Math.min(6, Math.round(W / COL_TARGET))) : 1;
+    // Never more columns than the tab's cards can fill.
+    const units = Math.max(1, cards.reduce((a, c) => a + ({ full: 0, wide: 2, std: 1 })[sizeOf(c)], 0));
+    const cols = Math.max(1, Math.min(byWidth, units));
+    if (cols < 2) {
+      mid.classList.remove("dsh-masonry"); mid.style.removeProperty("--mas-h");
+      cards.forEach((c) => { ["left", "top", "width", "height"].forEach((k) => c.style.removeProperty(k)); c.dataset.ph = ""; });
+      return;
+    }
+    mid.classList.add("dsh-masonry");
+    const colW = (W - GAP * (cols - 1)) / cols;
+    const viewH = mid.clientHeight;
+    const widthOf = (span) => colW * span + GAP * (span - 1);
+    // Measure each card once at its width. Fill cards (charts / long lists) start at
+    // FILL_BASE; everything else at its natural height. A one-column card whose content
+    // cannot fit is promoted to two columns (never clips).
+    const items = cards.map((c, i) => {
+      const sz = sizeOf(c), fill = c.classList.contains("dsh-fill");
+      let span = sz === "full" ? cols : sz === "wide" ? Math.min(2, cols) : 1;
+      c.style.removeProperty("height");
+      if (span === 1) { c.style.width = `${colW}px`; if (c.scrollWidth > c.clientWidth + 1) span = Math.min(2, cols); }
+      c.style.width = `${widthOf(span)}px`;
+      // A chart fill starts at its natural height (chart at its min-height, so it can
+      // sit level beside a short rigid card) and reads badly beyond ~460px; a list
+      // fill starts at FILL_BASE and can take any height.
+      const chart = fill && !!c.querySelector(".dsh-chart");
+      if (fill && !chart) c.style.height = `${FILL_BASE}px`;
+      const fmax = chart ? 460 : Infinity;
+      return { c, i, span, fill, fmax, h: c.offsetHeight };
+    });
+    // Pack an order shortest-column first (pulling the next one-column card into a gap a
+    // wide card would leave), then let fill cards absorb every remaining gap: within each
+    // column, the stretch above a spanning card (or the end of the page) is levelled by
+    // growing a fill card in it. Returns positions, grown heights and unabsorbed space.
+    const simulate = (order, pullFill = true) => {
+      const h = new Array(cols).fill(0), pos = new Map();
+      const slot = (span) => {
+        let best = 0, top = Infinity, waste = Infinity;
+        for (let i = 0; i + span <= cols; i++) {
+          const seg = h.slice(i, i + span), t = Math.max(...seg), w = seg.reduce((acc, x) => acc + (t - x), 0);
+          if (t < top - 0.5 || (Math.abs(t - top) <= 0.5 && w < waste)) { best = i; top = t; waste = w; }
+        }
+        return { best, top, waste };
+      };
+      const queue = order.slice(), deferred = new Set();
+      while (queue.length) {
+        const it = queue[0];
+        if (it.span > 1) {
+          const { best, top, waste } = slot(it.span);
+          if (waste > 2) {
+            // Drop a one-column card — a fill card first, since it absorbs any remainder
+            // exactly — into EACH column this wide card would leave short. Without a fill
+            // card, only a gap taller than HOLE is worth reordering for.
+            let moved = false;
+            for (let c = best; c < best + it.span; c++) {
+              const need = top - h[c];
+              if (need <= 2) continue;
+              let j = pullFill ? queue.findIndex((q, k) => k > 0 && q.span === 1 && q.fill && q.fmax === Infinity) : -1;
+              if (j < 0 && pullFill) j = queue.findIndex((q, k) => k > 0 && q.span === 1 && q.fill && need <= q.fmax - q.h + HOLE);
+              if (j < 0 && need > HOLE) j = queue.findIndex((q, k) => k > 0 && q.span === 1 && q.h <= need + HOLE);
+              if (j < 0) continue;
+              const [q] = queue.splice(j, 1);
+              pos.set(q, { col: c, top: h[c], h: q.h }); h[c] += q.h + GAP; moved = true;
+            }
+            if (moved) continue;
+            if (waste > HOLE && !deferred.has(it) && queue.some((q, k) => k > 0 && q.span < it.span)) { deferred.add(it); queue.push(queue.shift()); continue; }
+          }
+        }
+        queue.shift();
+        const { best, top } = slot(it.span);
+        pos.set(it, { col: best, top, h: it.h });
+        for (let i = best; i < best + it.span; i++) h[i] = top + it.h + GAP;
+      }
+      // Level each column: segments end at the top of the next card spanning into the
+      // column from elsewhere (or at the page bottom). Grow the segment's last fill card.
+      // The page is levelled to its tallest column — or to the bottom of the screen when
+      // the tab is shorter than the screen, so a short tab never ends in an empty band.
+      // (Only when every column ends in a fill card can all of them follow it down.)
+      const lastIsFill = (c) => { let last = null; for (const [it, p] of pos) if (p.col <= c && c < p.col + it.span && (!last || p.top > last[1].top)) last = [it, p]; return !!(last && last[0].fill); };
+      const allFill = [...Array(cols).keys()].every(lastIsFill);
+      const end = Math.max(...h) >= viewH || !allFill ? Math.max(...h) : viewH;
+      let dead = 0;
+      for (let c = 0; c < cols; c++) {
+        const inCol = [...pos.entries()].filter(([it, p]) => p.col <= c && c < p.col + it.span).sort((x, y) => x[1].top - y[1].top);
+        let seg = [], prevBottom = 0;   // bottom (incl. gap) of the last card above the segment
+        const close = (limit) => {
+          if (!seg.length) { const gap = limit - prevBottom; if (gap > 1) dead += gap; return; }
+          const [lit, lp] = seg[seg.length - 1];
+          const gap = limit - (lp.top + lp.h + GAP);
+          if (gap > 1) {
+            // Share the gap among the segment's fill cards, last first, each up to its cap.
+            let left = gap;
+            for (let idx = seg.length - 1; idx >= 0 && left > 1; idx--) {
+              const [it, p] = seg[idx];
+              if (!it.fill || it.span !== 1) continue;
+              const g = Math.min(left, it.fmax - p.h);
+              if (g <= 0) continue;
+              p.h += g; left -= g;
+              for (let k = idx + 1; k < seg.length; k++) seg[k][1].top += g;
+            }
+            // No fill card to take a small remainder: stretch the last card's frame so
+            // the column edges still meet (content stays top-aligned inside it).
+            if (left > 1 && left <= HOLE && lit.span === 1) { lp.h += left; lp.stretch = true; dead += left * 0.25; left = 0; }
+            if (left > 1) dead += left * (lit.span === 1 ? 1 : 0.5);
+          }
+          seg = [];
+        };
+        for (const e of inCol) {
+          if (e[0].span > 1) { close(e[1].top); prevBottom = e[1].top + e[1].h + GAP; }
+          else { if (!seg.length && e[1].top - prevBottom > 1) dead += e[1].top - prevBottom; seg.push(e); }
+        }
+        close(end);
+      }
+      // Any fill card (wide ones too) then grows into the empty space directly below it,
+      // down to the next card in any of its columns or the page bottom.
+      for (const [it, p] of pos) {
+        if (!it.fill) continue;
+        let limit = end;
+        for (const [o, q] of pos) if (o !== it && q.col < p.col + it.span && p.col < q.col + o.span && q.top >= p.top + p.h - 1) limit = Math.min(limit, q.top);
+        const grow = Math.min(limit - (p.top + p.h + GAP), it.fmax - p.h);
+        if (grow > 1) { p.h += grow; dead = Math.max(0, dead - grow * it.span); }
+      }
+      return { pos, end, dead };
+    };
+    // Search for the cleanest layout that stays close to priority order: hill-climb
+    // over swaps of nearby cards, scoring empty space plus a cost per place a card
+    // moves away from its priority position (so order only bends for a real gain).
+    const MOVE_COST = 12;
+    // Full-width strips and the collapsed Reference block keep their places.
+    const pinned = (it) => it.span === cols || it.c.classList.contains("dsh-ref");
+    // Fill cards are flexible by design, so moving one costs a third as much.
+    const cost = (order, r) => r.dead + order.reduce((a, it, k) => a + Math.abs(k - it.i) * (it.fill ? MOVE_COST / 3 : MOVE_COST), 0);
+    const climb = (start, pullFill) => {
+      let order = start.slice(), res = simulate(order, pullFill), best = cost(order, res);
+      for (let iter = 0; iter < 30; iter++) {
+        let gain = null;
+        for (let a = 0; a < order.length; a++) for (let b = a + 1; b < Math.min(order.length, a + ((order[a].fill || order[Math.min(order.length - 1, a + 1)].fill) ? 9 : 4)); b++) {
+          if (pinned(order[a]) || pinned(order[b])) continue;
+          const o = order.slice(); [o[a], o[b]] = [o[b], o[a]];
+          const r = simulate(o, pullFill), c = cost(o, r);
+          if (c < best - 1 && (!gain || c < gain.c)) gain = { o, r, c };
+        }
+        if (!gain) break;
+        order = gain.o; res = gain.r; best = gain.c;
+      }
+      return { res, c: best };
+    };
+    // Second starting point: wide cards first, pinned cards left where they are.
+    const free = items.filter((it) => !pinned(it)).sort((a, b) => (b.span - a.span) || (a.i - b.i));
+    const wideFirst = items.map((it) => (pinned(it) ? it : free.shift()));
+    const tries = [[items, true], [items, false], [wideFirst, true], [wideFirst, false]].map(([o, pf]) => climb(o, pf));
+    const pick = tries.reduce((x, y) => (y.c < x.c ? y : x)).res;
+    items.forEach((it) => {
+      const p = pick.pos.get(it);
+      it.c.style.left = `${p.col * (colW + GAP)}px`; it.c.style.top = `${p.top}px`;
+      if (it.fill || p.stretch) it.c.style.height = `${p.h}px`;
+      it.c.dataset.ph = String(Math.round(p.h));
+    });
+    mid.style.setProperty("--mas-h", `${pick.end}px`);
+  }
+  const schedulePack = () => { if (!_raf) _raf = requestAnimationFrame(packMid); };
+  function layoutMid() {
+    const mid = host.querySelector(".dsh-mid");
+    if (!mid) return;
+    flattenMid(mid);
+    if (_ro) _ro.disconnect();
+    if (typeof ResizeObserver === "function") {
+      // Re-pack when the column width changes or a card's CONTENT changes its height —
+      // not when the packer itself sized it (dataset.ph), which would loop.
+      _ro = new ResizeObserver((entries) => {
+        if (entries.some((e) => e.target === host.querySelector(".dsh-mid") || Math.abs(e.target.offsetHeight - (+e.target.dataset.ph || 0)) > 1)) schedulePack();
+      });
+      _ro.observe(mid);
+      mid.querySelectorAll(":scope > .dsh-card").forEach((c) => _ro.observe(c));
+    }
+    packMid();
   }
   const liveOr = (id) => (_live[id] ? `<span class="dsh-live" data-live="${id}" title="Live">live</span>` : liveTag(id));
   let _eu = null;                        // /api/eurates payload (ECB · BoE · Eurostat)
@@ -90,10 +310,9 @@ export function mount(host, ctx) {
     return ["Panic", "down"];
   }
   function valVolHTML() {
-    const d = (x) => (x ? ` <span class="dsh-asof">${esc(isoDay(x))}</span>` : "");
-    const val = EQ_VALUATION.map((v) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(v.name)} fwd P/E</span><span class="dsh-kv-v">${v.fwdPE != null ? v.fwdPE.toFixed(1) + "×" : "—"}${d(v.asOf)}${srcLink(v.source, v.name + " valuation source")}</span></div>`).join("");
-    const vol = EQ_VOL.map((v) => { const [b, c] = volBand(v.level); return `<div class="dsh-kv"><span class="dsh-kv-k">${esc(v.name)}</span><span class="dsh-kv-v ${c}">${v.level != null ? v.level.toFixed(1) : "—"} <span class="dsh-band ${c}">${b}</span>${d(v.asOf)}${srcLink(v.source, v.name + " source")}</span></div>`; }).join("");
-    return `<div class="dsh-kvgrid">${val}${vol}</div>`;
+    const val = EQ_VALUATION.map((v) => kpiRow({ k: `${v.name} fwd P/E`, v: v.fwdPE != null ? v.fwdPE.toFixed(1) + "×" : null, d: v.asOf, src: v.source, srcName: v.name + " valuation" })).join("");
+    const vol = EQ_VOL.map((v) => { const [b, c] = volBand(v.level); return kpiRow({ k: v.name, v: v.level != null ? v.level.toFixed(1) : null, d: v.asOf, src: v.source, srcName: v.name, sub: b !== "—" ? `<span class="dsh-band ${c}">${b}</span>` : "" }); }).join("");
+    return `<div class="dsh-kvgrid dsh-pc-grid">${val}${vol}</div>`;
   }
   function ipoHTML() {
     const row = (x) => `<tr><td class="dsh-nm">${esc(x.company)}</td><td>${esc(x.exchange)}</td><td class="dsh-r">${esc(x.size)}</td><td>${esc(x.timing)}</td><td><span class="dsh-tag dsh-tag-${(x.status || "").toLowerCase()}">${esc(x.status)}</span>${srcLink(x.source, x.company + " source")}</td></tr>`;
@@ -184,7 +403,7 @@ export function mount(host, ctx) {
     const row = (s) => {
       const cells = wins.map(([k, l]) => {
         const v = s[k];
-        if (v == null) return `<td class="dsh-fl-na">·</td>`;
+        if (v == null) return `<td class="dsh-fl-na">—</td>`;
         return `<td class="dsh-fl"${heat(v, maxAbs[k])} title="${esc(s.t)} · ${esc(l)}: ${v >= 0 ? "+" : ""}${esc(fmtFlow(v))} net flow">${esc(fmtFlow(v))}</td>`;
       }).join("");
       return `<tr><td class="dsh-nm"><a href="${esc(s.src)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a> <span class="dsh-fl-t">${esc(s.t)}</span></td>${cells}</tr>`;
@@ -209,7 +428,7 @@ export function mount(host, ctx) {
     IDX_WINS.forEach(([k]) => { maxAbs[k] = Math.max(1, ...W.regions.flatMap((g) => (g.rows || []).map((r) => { const v = valK(r, k); return v == null ? 0 : Math.abs(v); }))); });
     const heat = (v, k) => { if (v == null) return ""; const a = (Math.abs(v) / maxAbs[k]) * 0.62 + 0.10; return ` style="background:color-mix(in srgb, var(--t-${v >= 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`; };
     const fmtLv = (v) => (v == null ? "" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
-    const cell = (r, k, l) => { const v = valK(r, k); return v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(v, k)} title="${esc(r.name)} · ${esc(l)}: ${pct1(v)}">${pct1(v)}</td>`; };
+    const cell = (r, k, l) => { const v = valK(r, k); return v == null ? `<td class="dsh-fl-na">—</td>` : `<td class="dsh-fl"${heat(v, k)} title="${esc(r.name)} · ${esc(l)}: ${pct1(v)}">${pct1(v)}</td>`; };
     // Each geography is introduced by a labelled band and set off by a rule, so the
     // table reads as regional blocks (United States, Europe, Asia-Pacific, …).
     const REGION_LABEL = { US: "United States", "South America": "South America", UK: "United Kingdom", Europe: "Europe", APAC: "Asia-Pacific" };
@@ -266,9 +485,10 @@ export function mount(host, ctx) {
       <h3 class="dsh-term-lbl">Sectors &amp; valuation</h3>
       <section class="dsh-card"><h3 class="dsh-h">${esc(EQ_SECTORS.label || "S&P 500 sectors — YTD")} ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
+      ${fillCard("dsh-vix", "VIX — 2 months", vixBody(), liveOr("vix"), "dsh-wide")}
       <h3 class="dsh-term-lbl">Calendar &amp; pipeline</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
-      <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>`;
+      <section class="dsh-card dsh-wide dsh-fill"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-fill-body">${earningsHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>`;
     const news = km ? `<section class="dsh-card"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3><div class="dsh-news dsh-km-wrap">${km}</div></section>` : "";
     return { mid, news, newsLabel: "Key moments" };
   }
@@ -411,8 +631,9 @@ export function mount(host, ctx) {
     const yoy = (x) => x.prev
       ? `<a class="dsh-kv-yoy" href="${esc(x.prevSrc || x.src)}" target="_blank" rel="noopener noreferrer" title="a year earlier${x.prevAsOf ? ` (${esc(x.prevAsOf)})` : ""} — source">vs ${esc(x.prev)}${x.prevAsOf ? ` ${esc(x.prevAsOf)}` : ""}</a>`
       : "";
-    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}${x.sub ? " — " + esc(x.sub) : ""}">${esc(x.k)}</span>`
-      + `<span class="dsh-kv-v">${esc(x.v)}${yoy(x)}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
+    // The period each metric refers to, read from its sourced sub-line ("TTM Aug 2026 · …").
+    const per = (x) => ((String(x.sub || "").match(/\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) 20\d{2}\b|\b[1-4]Q\d{2}\b|\bQ[1-4]'\d{2}\b|\b20\d{2}\b/) || [])[0] || "");
+    const kv = (x) => kpiRow({ k: x.k, v: x.v, d: per(x), src: x.src, srcName: x.srcName, title: x.sub ? `${x.k} — ${x.sub}` : x.k, sub: yoy(x) });
     const rpt = (r) => `<a class="dsh-pc-report" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)}">`
       + `<span class="dsh-pc-report-t">${esc(r.title)}</span><span class="dsh-pc-report-d">${esc(r.date || r.srcName || "")}</span></a>`;
     const reports = (P.reports || []).length
@@ -424,19 +645,24 @@ export function mount(host, ctx) {
   // rates (EU_DISTRESS) plus the LIVE Eurostat bankruptcy index (/api/eurates).
   function euDistressHTML() {
     const E = EU_DISTRESS || {};
-    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k" title="${esc(x.k)}${x.sub ? " — " + esc(x.sub) : ""}">${esc(x.k)}</span>`
-      + `<span class="dsh-kv-v">${x.v != null ? esc(x.v) : "—"}${x.asOf ? ` <span class="dsh-asof">${esc(x.asOf)}</span>` : ""}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
     // Live Eurostat reading when loaded; else the last verified reading (labelled by its own quarter).
     const b = (_eu && _eu.bankruptcies && _eu.bankruptcies.value != null) ? _eu.bankruptcies : (E.bankruptcyFallback && E.bankruptcyFallback.value != null ? E.bankruptcyFallback : null);
-    const bk = b
-      ? `<div class="dsh-kv" id="dsh-eu-bkrt"><span class="dsh-kv-k" title="Eurostat sts_rb_q, EU27, seasonally & calendar adjusted, 2021=100">EU bankruptcy declarations (index)</span>`
-        + `<span class="dsh-kv-v">${esc(b.value.toFixed(1))}${b.yearAgo != null ? `<span class="dsh-kv-yoy" title="a year earlier (${esc(b.yearAgoAsOf || "")})">vs ${esc(b.yearAgo.toFixed(1))} ${esc(b.yearAgoAsOf || "")}</span>` : ""} <span class="dsh-asof">${esc(b.asOf)}</span>${srcLink(b.href, "Eurostat")}</span></div>`
-      : `<div class="dsh-kv" id="dsh-eu-bkrt"><span class="dsh-kv-k">EU bankruptcy declarations (index)</span><span class="dsh-kv-v">—${srcLink("https://ec.europa.eu/eurostat/databrowser/view/sts_rb_q/default/table", "Eurostat")}</span></div>`;
-    return `<div class="dsh-kvgrid dsh-pc-grid">${(E.metrics || []).map(kv).join("")}${bk}</div>`;
+    const bk = kpiRow({ id: "dsh-eu-bkrt", k: "EU bankruptcy declarations (index)", title: "Eurostat sts_rb_q, EU27, seasonally & calendar adjusted, 2021=100",
+      v: b ? b.value.toFixed(1) : null, d: b ? b.asOf : null, src: (b && b.href) || "https://ec.europa.eu/eurostat/databrowser/view/sts_rb_q/default/table", srcName: "Eurostat",
+      sub: b && b.yearAgo != null ? `vs ${esc(b.yearAgo.toFixed(1))} ${esc(isoDay(b.yearAgoAsOf || ""))}` : "" });
+    return `<div class="dsh-kvgrid dsh-pc-grid">${(E.metrics || []).map((x) => kpiRow({ k: x.k, v: x.v, d: x.asOf, src: x.src, srcName: x.srcName, title: x.sub ? `${x.k} — ${x.sub}` : x.k })).join("")}${bk}</div>`;
   }
+
   // Activity Wire itself tracks — European CLO pricings and private-credit fund
   // closes counted from the desk's own sourced deal records (labelled as tracked
   // by Wire, never presented as a market-wide statistic).
+  // One KPI row anatomy (R40): label (wraps, with an optional faint sub-line) ·
+  // value (right) · period (fixed column) · SRC (fixed column).
+  const kpiRow = ({ k, v, d, src, srcName, sub, id, title }) => `<div class="dsh-kv dsh-kv4"${id ? ` id="${id}"` : ""}>`
+    + `<span class="dsh-kv-k" title="${esc(title || k)}">${esc(k)}${sub ? `<span class="dsh-kv-sub">${sub}</span>` : ""}</span>`
+    + `<span class="dsh-kv-v">${v != null ? esc(v) : "—"}</span>`
+    + `<span class="dsh-kv-d">${d ? esc(isoDay(d)) : ""}</span>`
+    + `<span class="dsh-kv-s">${srcLink(src, (srcName || "source") + " — source")}</span></div>`;
   const isEuro = (x) => /€|\bEUR\b|\beuro(pe|pean)?\b|\bUK\b|£|\bGBP\b|sterling/i.test(`${x.headline || ""} ${x.summary || ""}`);
   const isClo = (x) => x.type === "CLO" || x.clo === true;
   const isClose = (x) => /final close|fundraise|first close/i.test(x.type || "");
@@ -449,13 +675,63 @@ export function mount(host, ctx) {
     const mo = (m) => MONTHS[+m.slice(5) - 1];
     const head = `<tr><th>Tracked by Wire</th><th class="dsh-r">${mo(m2)}</th><th class="dsh-r">${mo(m1)}</th><th class="dsh-r" title="month to date">${mo(m0)}*</th></tr>`;
     const rows = lines.map(([l, f]) => `<tr><td class="dsh-nm">${esc(l)}</td><td class="dsh-r">${cnt(f, m2)}</td><td class="dsh-r">${cnt(f, m1)}</td><td class="dsh-r">${cnt(f, m0)}</td></tr>`).join("");
-    const latest = D.filter((x) => (isClo(x) || isClose(x))).sort(byDateDesc).slice(0, 5)
+    const latest = D.filter((x) => (isClo(x) || isClose(x))).sort(byDateDesc).slice(0, 30)
       .map((x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><a class="dsh-drill" href="${esc(`${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`)}">${txt(x.headline)}</a></li>`).join("");
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-act-tbl"><thead>${head}</thead><tbody>${rows}</tbody></table></div>`
       + (latest ? `<div class="dsh-pc-reports-h">Latest CLOs &amp; fund closes</div><ul class="dsh-news dsh-act-list">${latest}</ul>` : "");
   }
+  // ---- Fill cards (R40): charts and long lists that take whatever height the
+  // layout gives them — a chart scales, a list shows more rows or scrolls — so
+  // packed columns always end level. Built only from data Wire already holds.
+  const SERIES_C = ["var(--t-hdg)", "var(--t-accent)", "var(--t-mac)", "var(--t-amber)"];
+  // Multi-line chart over a common y axis: series = [{label, pts:[[x,y]…], last}].
+  // The SVG stretches to its box (non-scaling strokes); axis labels are HTML.
+  function lineChart(series, { unit = "", fmt = (v) => v.toFixed(2), zero = false } = {}) {
+    const all = series.flatMap((s) => s.pts.map((p) => p[1])).filter(Number.isFinite);
+    const xs = series.flatMap((s) => s.pts.map((p) => p[0]));
+    if (!all.length || !xs.length) return `<p class="dsh-load">No history available.</p>`;
+    let lo = Math.min(...all, zero ? 0 : Infinity), hi = Math.max(...all, zero ? 0 : -Infinity);
+    if (hi - lo < 1e-9) { hi += 1; lo -= 1; }
+    const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+    const x0 = Math.min(...xs), x1 = Math.max(...xs) || 1;
+    const X = (x) => (x1 === x0 ? 0 : ((x - x0) / (x1 - x0)) * 100), Y = (y) => (1 - (y - lo) / (hi - lo)) * 100;
+    const ticks = [hi - pad, (hi + lo) / 2, lo + pad];
+    const lines = series.map((s, i) => `<polyline fill="none" stroke="${SERIES_C[i % SERIES_C.length]}" stroke-width="1.6" vector-effect="non-scaling-stroke" points="${s.pts.filter((p) => Number.isFinite(p[1])).map((p) => `${X(p[0]).toFixed(2)},${Y(p[1]).toFixed(2)}`).join(" ")}"/>`).join("");
+    const zl = zero && lo < 0 && hi > 0 ? `<line x1="0" x2="100" y1="${Y(0).toFixed(2)}" y2="${Y(0).toFixed(2)}" stroke="var(--t-grid2)" stroke-width="1" vector-effect="non-scaling-stroke"/>` : "";
+    const legend = series.map((s, i) => `<span class="dsh-lg"><i style="background:${SERIES_C[i % SERIES_C.length]}"></i>${esc(s.label)} <b>${s.last != null ? esc(s.last) : ""}</b></span>`).join("");
+    return `<div class="dsh-lgs">${legend}</div><div class="dsh-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="${esc(series.map((s) => s.label).join(", "))}">${zl}${lines}</svg>`
+      + `<div class="dsh-chart-y">${ticks.map((t) => `<span style="top:${Y(t).toFixed(1)}%">${esc(fmt(t))}${esc(unit)}</span>`).join("")}</div></div>`;
+  }
+  // Credit · spread history: each OAS series' move in bp over its ~1-month daily history.
+  function spreadHistBody() {
+    const arr = (Array.isArray(_rates && _rates.rates) ? _rates.rates : []).filter((x) => x && /oas/i.test(x.label || "") && Array.isArray(x.history) && x.history.length > 2)
+      .sort((a, b) => { const r = (x) => { const i = SPREAD_ORDER.findIndex((re) => re.test(x.label)); return i < 0 ? 9 : i; }; return r(a) - r(b); });
+    if (!arr.length) return _rates === null ? `<p class="dsh-load">Loading spread history…</p>` : `<p class="dsh-load">Spread history unavailable — <a href="https://fred.stlouisfed.org/series/BAMLHE00EHYIOAS" target="_blank" rel="noopener noreferrer">FRED</a></p>`;
+    const series = arr.map((x) => { const h = x.history.map(Number), b0 = h[0]; const pts = h.map((v, i) => [i, Math.round((v - b0) * 100)]); const d = pts[pts.length - 1][1];
+      return { label: String(x.label).replace(/\s*OAS$/i, "").replace(/^EURO /, "Euro "), pts, last: `${d > 0 ? "+" : ""}${d}` }; });
+    return lineChart(series, { unit: "bp", fmt: (v) => `${v > 0 ? "+" : ""}${Math.round(v)}`, zero: true });
+  }
+  // Credit · most active lenders (deal records tracked by Wire, last 90 days).
+  function lendersBody() {
+    const cut = new Date(Date.now() - 90 * 864e5).toISOString().slice(0, 10);
+    const byId = new Map((managers || []).map((m) => [m.id, m]));
+    const n = new Map();
+    (deals || []).forEach((d) => { if (d && d.managerId && d.date >= cut && byId.has(d.managerId)) n.set(d.managerId, (n.get(d.managerId) || 0) + 1); });
+    const rows = [...n.entries()].sort((a, b) => b[1] - a[1] || byId.get(a[0]).name.localeCompare(byId.get(b[0]).name)).slice(0, 40);
+    if (!rows.length) return `<p class="dsh-load">No tracked deals in the last 90 days.</p>`;
+    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>Manager</th><th class="dsh-r">Deals</th></tr></thead><tbody>`
+      + rows.map(([id, c]) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${id}`)}">${esc(byId.get(id).name)}</a></td><td class="dsh-r">${c}</td></tr>`).join("") + `</tbody></table>`;
+  }
+  // Credit · distress & restructuring deals Wire has tracked (newest first, deal drawer).
+  function distressDealsBody() {
+    const rows = (deals || []).filter((d) => d && d.date && d.id && /restructuring|bankruptcy|distress/i.test(d.type || "")).sort(byDateDesc).slice(0, 40);
+    if (!rows.length) return `<p class="dsh-load">No tracked restructuring deals.</p>`;
+    return `<ul class="dsh-news dsh-rx">` + rows.map((x) => `<li class="dsh-news-i"><a class="dsh-drill" href="${esc(`${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`)}">${txt(x.headline)}</a><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><span class="dsh-news-s">${esc(x.type)}</span></li>`).join("") + `</ul>`;
+  }
+  const fillCard = (id, title, body, meta = "", cls = "") => `<section class="dsh-card dsh-fill${cls ? ` ${cls}` : ""}" id="${id}"><h3 class="dsh-h">${title} ${meta}</h3><div class="dsh-fill-body">${body}</div></section>`;
   function creditHTML() {
-    const mid = `<section class="dsh-card dsh-span dsh-spreads-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS ${liveOr("spreads")}</h3><div id="dsh-spreads" class="dsh-spreads">${spreadsBody()}</div></section>
+    const mid = `<section class="dsh-card dsh-spreads-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS ${liveOr("spreads")}</h3><div id="dsh-spreads" class="dsh-spreads">${spreadsBody()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">All-in yields &amp; BBB — ICE BofA ${liveOr("yld")}</h3><div id="dsh-yields" class="dsh-spreads">${yieldsBody()}</div></section>
       <h3 class="dsh-term-lbl">Defaults &amp; distress</h3>
       <div class="dsh-wide dsh-row2">
         <section class="dsh-card dsh-pc-card"><h3 class="dsh-h">Europe — defaults &amp; distress ${asOf(EU_DISTRESS && EU_DISTRESS.asOf)}</h3><div id="dsh-eu-distress">${euDistressHTML()}</div></section>
@@ -464,8 +740,11 @@ export function mount(host, ctx) {
       <h3 class="dsh-term-lbl">Stress &amp; refinancing</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall ${asOf(MATWALL && ((MATWALL.europeWall && MATWALL.europeWall.asOf) || (MATWALL.europe && MATWALL.europe.asOf) || (MATWALL.ratedWall && MATWALL.ratedWall.asOf)))}</h3><div class="dsh-scroll">${maturityHTML()}</div></section>
+      ${fillCard("dsh-sphist", "Spread history — 1M change", spreadHistBody(), liveOr("sphist"))}
+      ${fillCard("dsh-lenders", "Most active lenders — 90 days", lendersBody(), `<span class="dsh-n">tracked by Wire</span> ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}`)}
+      ${fillCard("dsh-dd", "Restructuring &amp; distress deals", distressDealsBody(), `<span class="dsh-n">tracked by Wire</span>`)}
       <h3 class="dsh-term-lbl">Activity</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3>${activityHTML()}</section>`;
+      <section class="dsh-card dsh-fill"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3><div class="dsh-fill-body">${activityHTML()}</div></section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Credit wire" };
   }
@@ -483,16 +762,18 @@ export function mount(host, ctx) {
     }
     const bp = (v) => Math.round(v * 100);
     const back = (h, k) => (Array.isArray(h) && h.length > k ? h[h.length - 1 - k] : null);
-    const chg = (x, k, lbl) => {
+    const chg = (x, k) => {
       const p = back(x.history, k);
-      if (p == null || !Number.isFinite(+p)) return `<span class="dsh-spread-c">${lbl} —</span>`;
+      if (p == null || !Number.isFinite(+p)) return `<td class="dsh-r dsh-chg">—</td>`;
       const d = bp(x.value) - bp(+p);
-      return `<span class="dsh-spread-c ${d > 0 ? "down" : d < 0 ? "up" : ""}" title="${lbl} change in basis points (wider = red)">${lbl} ${d > 0 ? "+" : ""}${d}</span>`;
+      return `<td class="dsh-r dsh-chg ${d > 0 ? "down" : d < 0 ? "up" : ""}" title="change in basis points (wider = red)">${d > 0 ? "+" : ""}${d}</td>`;
     };
-    return rows.map((x) => `<div class="dsh-spread"><span class="dsh-spread-nm">${esc(String(x.label).replace(/\s*OAS$/i, ""))}</span>`
-      + `<span class="dsh-spread-v">${bp(x.value)}<span class="dsh-spread-u">bp</span></span>`
-      + `<span class="dsh-spread-cs">${chg(x, 5, "1W")}${chg(x, 21, "1M")}</span>`
-      + `<span class="dsh-spread-as">${x.asOf ? esc(isoDay(x.asOf)) : ""}${srcLink(x.href, "FRED")}</span></div>`).join("");
+    // One mini table (R40): every value shares a right edge whatever the label length.
+    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>Index</th><th class="dsh-r">OAS bp</th><th class="dsh-r">1W</th><th class="dsh-r">1M</th><th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead><tbody>`
+      + rows.map((x) => `<tr class="dsh-mini-r"><td class="dsh-spread-nm">${esc(String(x.label).replace(/\s*OAS$/i, "").replace(/^EURO /, "Euro ").replace(/^US /, "US "))}<span class="dsh-mini-d">${x.asOf ? esc(isoDay(x.asOf)) : ""}</span></td>`
+        + `<td class="dsh-r dsh-spread-v">${bp(x.value)}</td>${chg(x, 5)}${chg(x, 21)}`
+        + `<td class="dsh-r dsh-spread-as">${x.asOf ? esc(isoDay(x.asOf)) : "—"}</td><td class="dsh-srccol">${srcLink(x.href, "FRED")}</td></tr>`).join("")
+      + `</tbody></table>`;
   }
   async function loadRates() {
     try {
@@ -502,6 +783,8 @@ export function mount(host, ctx) {
     } catch { _rates = {}; }
     const el = host.querySelector("#dsh-spreads");
     if (el) el.innerHTML = spreadsBody();
+    const sh = host.querySelector("#dsh-sphist .dsh-fill-body");
+    if (sh) { sh.innerHTML = spreadHistBody(); if ((_rates.rates || []).some((x) => /oas/i.test(x.label || "") && (x.history || []).length > 2)) markLive("sphist"); }
     const oas = (Array.isArray(_rates.rates) ? _rates.rates : []).filter((x) => x && /oas/i.test(x.label || "") && x.value != null);
     if (oas.length) markLive("spreads", oas.map((x) => x.asOf).filter(Boolean).sort().pop());
     const mm = host.querySelector("#dsh-mm");
@@ -517,9 +800,12 @@ export function mount(host, ctx) {
     set("#dsh-eu-distress", euDistressHTML());
     set("#dsh-mm", moneyMarketsHTML());
     set("#dsh-policy", policyHTML());
-    const yc = host.querySelector("#dsh-yc-card"); if (yc) yc.innerHTML = yieldCurveCardHTML();
+    set("#dsh-mmhist .dsh-fill-body", mmHistBody());
+    if (["estr", "sonia"].some((k) => { const x = euSer(k); return x && (x.history || []).length > 2; })) markLive("mmhist");
+    const yc = host.querySelector("#dsh-yc-card"); if (yc) { yc.innerHTML = yieldCurveCardHTML(); tidyHeaders(yc); }
+    setExtras();
     const live = (_eu.series || []).filter((x) => x && x.value != null);
-    if (live.length) markLive("mm", live.map((x) => x.asOf).filter(Boolean).sort().pop());
+    if (live.length) { markLive("mm", live.map((x) => x.asOf).filter(Boolean).sort().pop()); if (euSer("ecb_dfr") || euSer("boe_bank")) markLive("pol"); }
   }
 
   // ---- Macro --------------------------------------------------------------
@@ -587,15 +873,15 @@ export function mount(host, ctx) {
       const rate = live ? fmtPct(live.value) : esc(stripTags((o && o.rate) || "—"));
       const asof = live ? isoDay(live.asOf) : ((o && o.asOf) || "");
       const read = esc(stripTags((o && (o.stance || o.bottomLine)) || ""));
-      return `<tr><td class="dsh-nm">${esc(name)}</td>`
-        + `<td class="dsh-r">${rate}${live ? ` <span class="dsh-live" title="Live · ${esc(live.source || "")}">live</span>` : ""}</td>`
-        + `<td>${esc(stripTags((o && o.next) || "—"))}</td>`
+      return `<tr class="dsh-ro-r"><td class="dsh-nm">${esc(name)}</td>`
+        + `<td class="dsh-r dsh-ro-rate"${live ? ` title="Live · ${esc(live.source || "")}"` : ""}>${rate}</td>`
+        + `<td class="dsh-ro-nx">${esc(stripTags((o && o.next) || "—"))}</td>`
         + `<td class="dsh-ro-read"><span class="dsh-clamp2">${read || "—"}</span></td>`
-        + `<td class="dsh-stress-as">${esc(asof)}${srcLink(live ? live.href : src, name + " source")}</td></tr>`;
+        + `<td class="dsh-r dsh-stress-as">${esc(asof)}</td><td class="dsh-srccol">${srcLink(live ? live.href : src, name + " source")}</td></tr>`;
     };
     const ecb = OUTLOOK && OUTLOOK.ecb, uk = OUTLOOK && OUTLOOK.uk, us = OUTLOOK && OUTLOOK.us;
     const srcOf = (o, fb) => (o && o.href) || fb;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-ro-tbl"><thead><tr><th>Bank</th><th class="dsh-r">Rate</th><th>Next meeting</th><th>Read</th><th>As of</th></tr></thead>`
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-ro-tbl"><thead><tr><th>Bank</th><th class="dsh-r">Rate</th><th>Next meeting</th><th>Read</th><th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead>`
       + `<tbody>${row("ECB · deposit", ecb, euSer("ecb_dfr"), srcOf(ecb, "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html"))}`
       + `${row("BoE · Bank Rate", uk, euSer("boe_bank"), srcOf(uk, "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate"))}`
       + `${row("Fed · funds target", us, null, srcOf(us, "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"))}</tbody></table></div>`;
@@ -610,11 +896,12 @@ export function mount(host, ctx) {
     if (!items.some(Boolean)) {
       return (_eu === null ? `<p class="dsh-load">Loading money-market rates…</p>` : `<p class="dsh-load">Money-market rates unavailable — <a href="https://data.ecb.europa.eu/" target="_blank" rel="noopener noreferrer">ECB Data Portal</a> · <a href="https://www.bankofengland.co.uk/boeapps/database/" target="_blank" rel="noopener noreferrer">BoE database</a></p>`);
     }
-    const c = (v, l) => { if (v == null) return ""; const bp = Math.round(v * 100); return `<span class="dsh-spread-c ${bp > 0 ? "down" : bp < 0 ? "up" : ""}">${l} ${bp > 0 ? "+" : ""}${bp}bp</span>`; };
-    return items.filter(Boolean).map((x) => `<div class="dsh-spread"><span class="dsh-spread-nm">${esc(x.label)}</span>`
-      + `<span class="dsh-spread-v">${(+x.value).toFixed(3)}<span class="dsh-spread-u">%</span></span>`
-      + `<span class="dsh-spread-cs">${c(x.chg1w, "1W")}${c(x.chg1m, "1M")}</span>`
-      + `<span class="dsh-spread-as">${esc(/^\d{4}-\d{2}$/.test(x.asOf || "") ? `${MONTHS[+x.asOf.slice(5) - 1]} ${x.asOf.slice(0, 4)} avg` : isoDay(x.asOf))}${srcLink(x.href, x.source || "source")}</span></div>`).join("");
+    const c = (v) => { if (v == null) return `<td class="dsh-r dsh-chg">—</td>`; const bp = Math.round(v * 100); return `<td class="dsh-r dsh-chg ${bp > 0 ? "down" : bp < 0 ? "up" : ""}">${bp > 0 ? "+" : ""}${bp}</td>`; };
+    const when = (x) => (/^\d{4}-\d{2}$/.test(x.asOf || "") ? `${isoDay(x.asOf)} avg` : isoDay(x.asOf));
+    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>Rate</th><th class="dsh-r">%</th><th class="dsh-r">1W bp</th><th class="dsh-r">1M bp</th><th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead><tbody>`
+      + items.filter(Boolean).map((x) => `<tr class="dsh-mini-r"><td class="dsh-spread-nm">${esc(x.label)}<span class="dsh-mini-d">${esc(when(x))}</span></td><td class="dsh-r dsh-spread-v">${(+x.value).toFixed(3)}</td>${c(x.chg1w)}${c(x.chg1m)}`
+        + `<td class="dsh-r dsh-spread-as">${esc(when(x))}</td><td class="dsh-srccol">${srcLink(x.href, x.source || "source")}</td></tr>`).join("")
+      + `</tbody></table>`;
   }
   // Yield curve — a small SVG line for US & UK across the standard maturities,
   // plus the underlying table (used by the Macro pane). Refinitiv-style read.
@@ -679,7 +966,7 @@ export function mount(host, ctx) {
       if (!d || !Array.isArray(d.us)) return;
       _ycLive = d;
       const card = host.querySelector("#dsh-yc-card");
-      if (card) card.innerHTML = yieldCurveCardHTML();
+      if (card) { card.innerHTML = yieldCurveCardHTML(); tidyHeaders(card); }
     } catch { /* keep the compiled curve */ }
   }
   // Multi-country term structure (Bonds pane) — every country's 2Y/5Y/10Y/
@@ -853,7 +1140,7 @@ export function mount(host, ctx) {
     YCHG_WINS.forEach(([w]) => { maxAbs[w] = Math.max(1, ...G.regions.flatMap((g) => (g.rows || []).map((r) => { const c = chgOf(r, w); return c == null ? 0 : Math.abs(c); }))); });
     const heat = (c, w) => { if (c == null) return ""; const a = (Math.abs(c) / maxAbs[w]) * 0.62 + 0.10; return ` style="background:color-mix(in srgb, var(--t-${c <= 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`; };
     const fmtBp = (c) => (c == null ? "" : (c > 0 ? "+" : "") + Math.round(c));
-    const cell = (r, w, l) => { const c = chgOf(r, w); return c == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(c, w)} title="${esc(r.country)} ${esc(tl)} ${esc(l)}: ${c > 0 ? "+" : ""}${Math.round(c)}bp">${fmtBp(c)}</td>`; };
+    const cell = (r, w, l) => { const c = chgOf(r, w); return c == null ? `<td class="dsh-fl-na">—</td>` : `<td class="dsh-fl"${heat(c, w)} title="${esc(r.country)} ${esc(tl)} ${esc(l)}: ${c > 0 ? "+" : ""}${Math.round(c)}bp">${fmtBp(c)}</td>`; };
     const fmtLv = (v) => (v == null ? "" : v.toFixed(2) + "%");
     // Regions are separated by a thin grey rule (top border on the first row).
     const row = (r, brk) => {
@@ -923,7 +1210,7 @@ export function mount(host, ctx) {
     const find = (c) => flat.find((r) => (r.country || "").toLowerCase() === c.toLowerCase());
     const lv = (r, k) => { const t = r && _gyLive && _gyLive[r.country] && _gyLive[r.country][k]; return (t && t.v != null) ? t.v : (r ? r[k] : null); };
     const bp = (a, b) => (a == null || b == null) ? null : Math.round((a - b) * 100);
-    const cell = (v) => v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-r">${v > 0 ? "+" : ""}${v}</td>`;
+    const cell = (v) => v == null ? `<td class="dsh-fl-na">—</td>` : `<td class="dsh-r">${v > 0 ? "+" : ""}${v}</td>`;
     const specs = [["Germany", "DE"], ["United Kingdom", "UK"], ["United States", "US"], ["Japan", "JP"]];
     const rows = specs.map(([c, lbl]) => { const r = find(c); return r ? `<tr><td class="dsh-nm">${esc(lbl)}</td>${cell(bp(lv(r, "y10"), lv(r, "y2")))}${cell(bp(lv(r, "y30"), lv(r, "y2")))}</tr>` : ""; }).join("");
     const de = find("Germany");
@@ -936,6 +1223,93 @@ export function mount(host, ctx) {
   // Rates = the old Macro + Bonds tabs merged: policy, money markets, curves,
   // sovereign moves, the Fed/BoE paths, "why it moved", and a collapsed
   // Reference block (cycles, market sizes) — with the macro wire as the rail.
+  // Rates · central-bank calendar: the next three decision dates per bank (verified).
+  function cbCalHTML() {
+    const C = CB_CALENDAR || {}; const today = new Date().toISOString().slice(0, 10);
+    const rows = (C.banks || []).map((b) => { const next = (b.meetings || []).filter((d) => d >= today).slice(0, 3);
+      return `<tr><td class="dsh-nm" title="${esc(b.label || "")}">${esc(b.bank)}</td>${[0, 1, 2].map((i) => `<td class="dsh-r">${next[i] ? esc(isoDay(next[i])) : "—"}</td>`).join("")}<td class="dsh-srccol">${srcLink(b.href, b.bank + " calendar")}</td></tr>`; }).join("");
+    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>Bank</th><th class="dsh-r">Next</th><th class="dsh-r">Then</th><th class="dsh-r">Then</th><th class="dsh-srccol"></th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+  // Rates · money-market history (~2 months daily, live ECB / BoE series).
+  function mmHistBody() {
+    const pick = ["estr", "ecb_dfr", "sonia", "boe_bank"].map(euSer).filter((x) => x && Array.isArray(x.history) && x.history.length > 2);
+    if (!pick.length) return _eu === null ? `<p class="dsh-load">Loading rate history…</p>` : `<p class="dsh-load">Rate history unavailable — <a href="https://data.ecb.europa.eu/" target="_blank" rel="noopener noreferrer">ECB</a> · <a href="https://www.bankofengland.co.uk/boeapps/database/" target="_blank" rel="noopener noreferrer">BoE</a></p>`;
+    const series = pick.map((x) => ({ label: x.label, pts: x.history.map(([d, v]) => [Date.parse(d), +v]), last: `${(+x.value).toFixed(2)}%` }));
+    return lineChart(series, { unit: "%", fmt: (v) => v.toFixed(2) });
+  }
+  // ---- Extra gauges from /api/eurates `extra` (R40 fill cards): balance sheets,
+  // all-in yields, VIX, FX — each a keyless official/benchmark series with its own
+  // as-of and source link; nothing renders a number the feed didn't return.
+  const euX = (k) => ((_eu && _eu.extra) || []).find((x) => x && x.key === k && x.value != null) || null;
+  const euWait = (what, href, name) => (_eu === null ? `<p class="dsh-load">Loading ${what}…</p>`
+    : `<p class="dsh-load">${what[0].toUpperCase() + what.slice(1)} unavailable — <a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(name)}</a></p>`);
+  // One mini table (same anatomy as the spreads / money-market tables).
+  // fmt formats the level; chg formats a change (null → "—"); `up` = a rise reads red
+  // (false: a fall reads red; null: neutral — e.g. balance sheets, FX).
+  function gaugeTable(items, { head, fmt, chg, up = true, cols = ["1W", "1M"] }) {
+    const c = (v) => { if (v == null) return `<td class="dsh-r dsh-chg">—</td>`; const [t, n] = chg(v); const bad = up ? n > 0 : n < 0;
+      return `<td class="dsh-r dsh-chg ${n === 0 || up === null ? "" : bad ? "down" : "up"}">${esc(t)}</td>`; };
+    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>${esc(head[0])}</th><th class="dsh-r">${esc(head[1])}</th>${cols.map((h) => `<th class="dsh-r">${esc(h)}</th>`).join("")}<th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead><tbody>`
+      + items.map((x) => `<tr class="dsh-mini-r"><td class="dsh-spread-nm">${esc(x.label)}<span class="dsh-mini-d">${esc(isoDay(x.asOf))}</span></td><td class="dsh-r dsh-spread-v">${esc(fmt(x))}</td>${c(x.chg1w)}${c(x.chg1m)}`
+        + `<td class="dsh-r dsh-spread-as">${esc(isoDay(x.asOf))}</td><td class="dsh-srccol">${srcLink(x.href, x.source || "source")}</td></tr>`).join("") + `</tbody></table>`;
+  }
+  const bpChg = (v) => { const n = Math.round(v * 100); return [`${n > 0 ? "+" : ""}${n}`, n]; };
+  const ptsOf = (x) => (x.history || []).map(([d, v]) => [Date.parse(d), +v]);
+  // Credit · ICE BofA all-in (effective) yields + US BBB OAS — the level a buyer
+  // actually locks in, beside the spread table.
+  function yieldsBody() {
+    const items = ["ehy_yld", "ushy_yld", "usbbb_oas"].map(euX).filter(Boolean)
+      .map((x) => ({ ...x, label: x.label.replace(/ effective yield$/, " yield") }));
+    if (!items.length) return euWait("all-in yields", "https://fred.stlouisfed.org/series/BAMLHE00EHYIEY", "FRED");
+    return gaugeTable(items, { head: ["Index", "Level"], fmt: (x) => (x.key === "usbbb_oas" ? `${Math.round(x.value * 100)}bp` : `${x.value.toFixed(2)}%`), chg: bpChg, cols: ["1W bp", "1M bp"] });
+  }
+  // Rates · Euro-area AAA spot curve over ~2 months (ECB YC): 2Y, 10Y, 30Y.
+  function aaaHistBody() {
+    const C = _eu && _eu.curve; const T = (C && C.tenors) || [];
+    const pick = ["2Y", "10Y", "30Y"].map((t) => { const p = C && C.points && C.points[T.indexOf(t)]; return p && (p.history || []).length > 2 ? { t, p } : null; }).filter(Boolean);
+    if (!pick.length) return euWait("Euro AAA curve history", "https://data.ecb.europa.eu/data/datasets/YC", "ECB");
+    const s2 = pick.find((x) => x.t === "2Y"), s10 = pick.find((x) => x.t === "10Y");
+    const slope = s2 && s10 ? `<span class="dsh-lg">2s10s <b>${Math.round((s10.p.value - s2.p.value) * 100)}bp</b></span>` : "";
+    return lineChart(pick.map(({ t, p }) => ({ label: t, pts: ptsOf(p), last: `${p.value.toFixed(2)}%` })), { unit: "%", fmt: (v) => v.toFixed(2) })
+      .replace(`<div class="dsh-lgs">`, `<div class="dsh-lgs">${slope}`);
+  }
+  // Rates · central-bank balance sheets: Eurosystem (ECB weekly statement) and Fed
+  // (H.4.1) total assets, plus each one's % change across the window.
+  function cbBsBody() {
+    const items = ["ecb_bs", "fed_bs"].map(euX).filter(Boolean);
+    if (!items.length) return euWait("balance-sheet data", "https://data.ecb.europa.eu/data/datasets/ILM/ILM.W.U2.C.T000000.Z5.Z01", "ECB");
+    const cur = (x) => (x.unit === "€bn" ? "€" : "$");
+    const tbl = gaugeTable(items, { head: ["Total assets", "bn"], fmt: (x) => `${cur(x)}${Math.round(x.value).toLocaleString("en-GB")}`,
+      chg: (v) => { const n = Math.round(v); return [`${n > 0 ? "+" : ""}${n.toLocaleString("en-GB")}`, n]; }, up: null, cols: ["1W bn", "1M bn"] });
+    const series = items.filter((x) => (x.history || []).length > 2).map((x) => { const h = ptsOf(x), b = h[0][1];
+      return { label: x.key === "ecb_bs" ? "Eurosystem" : "Fed", pts: h.map(([d, v]) => [d, ((v / b) - 1) * 100]), last: (() => { const d = (x.value / b - 1) * 100; return `${d > 0 ? "+" : ""}${d.toFixed(1)}%`; })() }; });
+    const since = items[0].history && items[0].history[0] ? isoDay(items[0].history[0][0].slice(0, 7)) : "";
+    return tbl + `<div class="dsh-pc-reports-h">% change since ${esc(since)}</div>` + lineChart(series, { unit: "%", fmt: (v) => v.toFixed(1), zero: true });
+  }
+  // Rates · FX: EUR/USD and GBP/USD (Fed H.10 noon NY rates).
+  function fxBody() {
+    const items = ["eurusd", "gbpusd"].map(euX).filter(Boolean);
+    if (!items.length) return euWait("FX rates", "https://fred.stlouisfed.org/series/DEXUSEU", "FRED");
+    const tbl = gaugeTable(items, { head: ["Pair", "Rate"], fmt: (x) => x.value.toFixed(4), chg: (v) => { const n = +(v * 100).toFixed(2); return [`${n > 0 ? "+" : ""}${n.toFixed(2)}¢`, n]; }, up: null, cols: ["1W", "1M"] });
+    return tbl + lineChart(items.filter((x) => (x.history || []).length > 2).map((x) => ({ label: x.label, pts: ptsOf(x), last: x.value.toFixed(4) })), { fmt: (v) => v.toFixed(3) });
+  }
+  // Equities · VIX close over ~2 months (Cboe via FRED).
+  function vixBody() {
+    const x = euX("vix");
+    if (!x || (x.history || []).length < 3) return euWait("VIX history", "https://fred.stlouisfed.org/series/VIXCLS", "FRED");
+    return lineChart([{ label: `VIX · ${isoDay(x.asOf)}`, pts: ptsOf(x), last: x.value.toFixed(2) }], { fmt: (v) => v.toFixed(1) });
+  }
+  function setExtras() {
+    const set = (sel, html) => { const el = host.querySelector(sel); if (el) el.innerHTML = html; };
+    set("#dsh-yields", yieldsBody()); set("#dsh-aaa .dsh-fill-body", aaaHistBody()); set("#dsh-cbbs .dsh-fill-body", cbBsBody());
+    set("#dsh-fx .dsh-fill-body", fxBody()); set("#dsh-vix .dsh-fill-body", vixBody());
+    const last = (keys) => keys.map(euX).filter(Boolean).map((x) => x.asOf).sort().pop();
+    if (["ehy_yld", "ushy_yld", "usbbb_oas"].some(euX)) markLive("yld", last(["ehy_yld", "ushy_yld", "usbbb_oas"]));
+    if (_eu && _eu.curve && (_eu.curve.points || []).some((p) => (p.history || []).length > 2)) markLive("aaa", _eu.curve.asOf);
+    if (["ecb_bs", "fed_bs"].some(euX)) markLive("cbbs", last(["ecb_bs", "fed_bs"]));
+    if (["eurusd", "gbpusd"].some(euX)) markLive("fx", last(["eurusd", "gbpusd"]));
+    if (euX("vix")) markLive("vix", euX("vix").asOf);
+  }
   function ratesHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
@@ -944,21 +1318,26 @@ export function mount(host, ctx) {
     const gyAsOf = asOf(isoDay(GOVT_YIELDS && GOVT_YIELDS.asOf));
     const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <h3 class="dsh-term-lbl">Policy &amp; money markets</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Policy rates — ECB · BoE · Fed</h3><div id="dsh-policy">${policyHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Policy rates — ECB · BoE · Fed ${liveOr("pol")}</h3><div id="dsh-policy">${policyHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">Central-bank calendar ${asOf(CB_CALENDAR && CB_CALENDAR.asOf)}</h3>${cbCalHTML()}</section>
+      ${fillCard("dsh-mmhist", "Money-market rates — 2 months", mmHistBody(), liveOr("mmhist"))}
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Money markets — €STR · Euribor · SONIA · SOFR ${liveOr("mm")}</h3><div id="dsh-mm" class="dsh-spreads">${moneyMarketsHTML()}</div></section>
+      ${fillCard("dsh-cbbs", "Central-bank balance sheets", cbBsBody(), liveOr("cbbs"))}
+      ${fillCard("dsh-fx", "FX — EUR/USD · GBP/USD", fxBody(), liveOr("fx"))}
       <h3 class="dsh-term-lbl">Curves</h3>
       <section class="dsh-card dsh-wide" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
+      ${fillCard("dsh-aaa", "Euro AAA curve — 2 months", aaaHistBody(), liveOr("aaa"))}
       <section class="dsh-card"><h3 class="dsh-h">Curve shape &amp; spreads to Bund ${gyAsOf}</h3><div id="dsh-shape">${curveShapeHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">Sovereign yields — G7 &amp; Western Europe ${liveOr("gy")} ${gyAsOf}</h3><div class="dsh-scroll" id="dsh-yc-tbl">${worldYieldCurveHTML()}</div></section>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h dsh-h-sel">Sovereign yield changes — 1W · 1M · 3M · 6M · 1Y ${liveOr("gy")} ${gyAsOf}${yldSelectHTML()}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
-      ${km ? `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Rates — why it moved</h3><div class="dsh-km-wrap">${km}</div></section>` : ""}
+      ${km ? fillCard("dsh-why", "Rates — why it moved", `<div class="dsh-km-wrap">${km}</div>`) : ""}
       <h3 class="dsh-term-lbl">Central-bank paths</h3>
       <div class="dsh-wide dsh-row2">
         ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
         ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS</h3>${boe}</section>` : ""}
       </div>
       <h3 class="dsh-term-lbl">Reference</h3>
-      <details class="dsh-card dsh-wide dsh-ref"><summary class="dsh-h dsh-ref-sum">Cycles &amp; market sizes <span class="dsh-mut">${esc(MARKET_SIZES.asOf || "")}</span></summary>
+      <details class="dsh-card dsh-span dsh-ref"><summary class="dsh-h dsh-ref-sum">Cycles &amp; market sizes <span class="dsh-mut">${esc(MARKET_SIZES.asOf || "")}</span></summary>
         <div class="dsh-wide dsh-row2"><section class="dsh-card">${cyc.debt}</section><section class="dsh-card">${cyc.market}</section></div>
         <section class="dsh-card dsh-wide"><h3 class="dsh-h">Market sizes — by asset class &amp; region ${asOf(MARKET_SIZES.asOf)}</h3><div class="dsh-scroll">${marketSizesHTML()}</div></section>
       </details>`;
@@ -1061,6 +1440,20 @@ export function mount(host, ctx) {
     return a >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "bn" : a >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v).toLocaleString("en-US");
   };
   const _hfDir = { buy: "Buy", new: "New", trim: "Trim", sell: "Sell" };
+  const hfById = new Map((HEDGE_FUNDS || []).map((f) => [f.id, f]));
+  // Hedge funds · latest news on the covered funds (HEDGE_INTEL, newest first).
+  function hfNewsBody() {
+    const rows = (HEDGE_INTEL || []).filter((x) => x && x.date && x.headline && (x.sourceUrl || x.url)).sort(byDateDesc).slice(0, 40);
+    if (!rows.length) return `<p class="dsh-load">No hedge-fund news tracked.</p>`;
+    return `<ul class="dsh-news dsh-rx">` + rows.map((x) => `<li class="dsh-news-i"><a href="${esc(x.sourceUrl || x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.headline)}</a><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><span class="dsh-news-s">${esc((hfById.get(x.hfId) || {}).name || x.type || "")}</span></li>`).join("") + `</ul>`;
+  }
+  // Hedge funds · largest covered funds by reported AUM (US$bn, each dated + sourced).
+  function hfFundsBody() {
+    const rows = (HEDGE_FUNDS || []).filter((f) => f && f.aum != null).sort((a, b) => b.aum - a.aum).slice(0, 40);
+    if (!rows.length) return `<p class="dsh-load">No AUM figures.</p>`;
+    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>Fund</th><th class="dsh-r">AUM $bn</th><th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead><tbody>`
+      + rows.map((f) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${f.id}`)}">${esc(f.name)}</a></td><td class="dsh-r">${esc((+f.aum).toFixed(1))}</td><td class="dsh-r dsh-spread-as">${esc(isoDay(f.aumAsOf || ""))}</td><td class="dsh-srccol">${srcLink(f.aumSource, f.name + " AUM")}</td></tr>`).join("") + `</tbody></table>`;
+  }
   function hedgeFundsHTML() {
     const F = HF_13F || {};
     const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
@@ -1070,16 +1463,18 @@ export function mount(host, ctx) {
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
     const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
     const mid = `<h3 class="dsh-term-lbl">Holdings — SEC 13F</h3>
-      <section class="dsh-card">
-        <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span> ${asOf(F.quarter)}</h3>
+      <section class="dsh-card dsh-wide">
+        <h3 class="dsh-h">Consensus longs — ${esc(F.quarter || "")} 13Fs ${asOf(F.quarter)}</h3>
         <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
               </section>
-      <section class="dsh-card">
+      <section class="dsh-card dsh-wide dsh-fill">
         <h3 class="dsh-h">Per-fund holdings — SEC 13F ${liveOr("hf13f")}</h3>
         <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
           <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select><a id="dsh-hf-prof" class="dsh-drill dsh-hf-prof" href="${filers[0] ? esc(`${ctx.base}/profiles/#/hf/${filers[0].id}/holdings`) : "#"}">Open profile</a></div>
-        <div id="dsh-hf-body" class="dsh-hf-body dsh-scroll"><p class="dsh-load">Loading latest 13F…</p></div>
-      </section>`;
+        <div id="dsh-hf-body" class="dsh-hf-body dsh-fill-body"><p class="dsh-load">Loading latest 13F…</p></div>
+      </section>
+      ${fillCard("dsh-hfnews", "Hedge-fund news", hfNewsBody())}
+      ${fillCard("dsh-hfaum", "Largest funds tracked — AUM", hfFundsBody())}`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves ${asOf(F.quarter)}</h3>
       <div class="dsh-news dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div></section>`;
     return { mid, news, newsLabel: "Notable moves" };
@@ -1130,7 +1525,7 @@ export function mount(host, ctx) {
   // restructuring practice area (schemes, Part 26A plans, insolvency), drawn from
   // the legal desk's own records.
   function restructuringHTML() {
-    const items = legalDb().filter((x) => x && x.area === "ri" && x.date && x.title && x.url).slice(0, 8);
+    const items = legalDb().filter((x) => x && x.area === "ri" && x.date && x.title && x.url).slice(0, 30);
     if (!items.length) return `<p class="dsh-load">No restructuring items tracked.</p>`;
     const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
       + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.title)}</a>`
@@ -1153,6 +1548,23 @@ export function mount(host, ctx) {
       + up.map((x) => row(x, "dsh-reg-up")).join("") + tbc.map((x) => row(x, "dsh-reg-tbc")).join("") + past.map((x) => row(x, "dsh-reg-past")).join("")
       + `</tbody></table></div>`;
   }
+  // Legal · latest case law (all judgments the desk covers, newest first).
+  function caseLawBody() {
+    const rows = legalDb().filter((x) => x && x.type === "case" && x.date && x.title && x.url).slice(0, 40);
+    if (!rows.length) return `<p class="dsh-load">No case law tracked.</p>`;
+    return `<ul class="dsh-news dsh-rx">` + rows.map((x) => `<li class="dsh-news-i"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.title)}</a><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><span class="dsh-news-s">${esc(x.court || x.citation || "")}</span></li>`).join("") + `</ul>`;
+  }
+  // Legal · most active firms: alerts and updates published in the last 30 days.
+  function firmsBody() {
+    const cut = new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10);
+    const idByName = new Map(Object.values(LGL_FIRM_BY_ID || {}).map((f) => [f.name, f.id]));
+    const n = new Map();
+    legalDb().forEach((x) => { if (x && x.firm && x.date >= cut) n.set(x.firm, (n.get(x.firm) || 0) + 1); });
+    const rows = [...n.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 30);
+    if (!rows.length) return `<p class="dsh-load">No firm publications in the last 30 days.</p>`;
+    return `<table class="dsh-tbl dsh-mini"><thead><tr><th>Firm</th><th class="dsh-r">Items</th></tr></thead><tbody>`
+      + rows.map(([nm, c]) => { const id = idByName.get(nm); return `<tr><td>${id ? `<a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/firm/${encodeURIComponent(id)}`)}">${esc(nm)}</a>` : esc(nm)}</td><td class="dsh-r">${c}</td></tr>`; }).join("") + `</tbody></table>`;
+  }
   function legalHTML() {
     const total = legalDb().length;
     // Toggleable practice-area chips (multi-select) that LIMIT the keyword search;
@@ -1166,14 +1578,17 @@ export function mount(host, ctx) {
     // middle (white surface on the grey ground, like the other pages) and the
     // recent alerts & case law ride in a right-hand news wire, just like Macro.
     const cal = regCalendarHTML();
-    const mid = `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Restructuring &amp; insolvency — latest</h3>${restructuringHTML()}</section>
-      ${cal ? `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Regulatory calendar ${asOf(REG_CALENDAR.asOf)}</h3>${cal}</section>` : ""}
-      <section class="dsh-card dsh-legal-panel dsh-span">
+    const mid = `<section class="dsh-card dsh-legal-panel dsh-span">
         <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
         <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search all legal alerts &amp; case law — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
         ${typeChips}${areaChips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
-      </section>`;
+      </section>
+      ${fillCard("dsh-rxl", "Restructuring &amp; insolvency — latest", restructuringHTML())}
+      ${fillCard("dsh-cases", "Case law — latest judgments", caseLawBody())}
+      ${fillCard("dsh-firms", "Most active firms — 30 days", firmsBody(), `<span class="dsh-n">alerts &amp; updates</span> ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}`)}
+      ${cal ? `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Regulatory calendar ${asOf(REG_CALENDAR.asOf)}</h3>${cal}</section>` : ""}
+`;
     const lw = legalNewsHTML();
     return { mid, news: lw ? `<section class="dsh-card"><h3 class="dsh-h">Legal wire — latest alerts &amp; case law</h3>${lw}</section>` : "", newsLabel: "Legal wire" };
   }
@@ -1214,8 +1629,11 @@ export function mount(host, ctx) {
       <main class="dsh-mid">${sec.mid}</main>
       ${rail}
     </div></div>`;
+    tidyHeaders();
+    layoutMid();
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadRates(); loadEu(); wireStressSort(); }
+    if (pane === "equities") loadEu();
     if (pane === "rates") { loadRates(); loadEu(); loadYieldCurve(); wireYields(); loadGovYields(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
@@ -1252,7 +1670,7 @@ export function mount(host, ctx) {
       pane = resolve((sub && sub[0]) || subFromUrl());
       render();
     },
-    leave() {},
+    leave() { if (_ro) { _ro.disconnect(); _ro = null; } },
     // home(): a nav-bar tap resets the Dashboard to its first sub-tab (Credit).
     home() { pane = DEFAULT_SUB; render(); window.scrollTo(0, 0); },
   };
