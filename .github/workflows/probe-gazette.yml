@@ -23,17 +23,14 @@ jobs:
         run: |
           UA="WireMonitor/1.0 (+https://github.com/sk8905/meridian)"
           out=backfill/gazette-probe.txt; mkdir -p backfill; : > $out
+          # Corporate notices only; robots.txt Crawl-delay is 10s, honoured below.
           for u in \
-            "https://www.thegazette.co.uk/robots.txt" \
-            "https://www.thegazette.co.uk/insolvency/notice/data.feed?text=%22Thames+Water%22" \
-            "https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames+Water%22" \
-            "https://www.thegazette.co.uk/all-notices/notice/data.feed?categorycode=G205000000&results-page-size=5" \
-            "https://www.thegazette.co.uk/all-notices/notice/data.feed?noticetypes=2441&results-page-size=5" \
-            "https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2410&results-page-size=5" ; do
+            "https://www.thegazette.co.uk/insolvency/notice/data.json?text=%22Thames+Water%22&results-page-size=2" \
+            "https://www.thegazette.co.uk/all-notices/notice/data.json?noticetypes=2441&results-page-size=2" ; do
             echo "===== $u" >> $out
-            curl -sS -A "$UA" -D - -o /tmp/body -m 30 "$u" | head -20 >> $out || echo "curl failed" >> $out
-            head -c 4096 /tmp/body >> $out; echo >> $out
-            sleep 2
+            curl -sS -A "$UA" -m 30 "$u" -o /tmp/body.json || echo "curl failed" >> $out
+            node -e 'const j=require("/tmp/body.json");const e=[].concat(j.entry||[]);console.log("TOP KEYS:",Object.keys(j).join(","));console.log("TOTAL:",JSON.stringify(j["f:total"]||j["openSearch:totalResults"]||null));console.log("ENTRY0:",JSON.stringify(e[0],null,1).slice(0,6000))' >> $out 2>&1
+            sleep 11
           done
       - name: Commit probe
         run: |
