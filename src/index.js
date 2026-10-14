@@ -439,7 +439,8 @@ async function fetchText(url) {
 // plus a short recent history (~1 month) for a trend sparkline.
 function lastTwo(pairs) {
   pairs.sort((a, b) => (a[0] < b[0] ? -1 : 1));
-  const nums = pairs.map((p) => parseFloat(p[1])).filter((v) => Number.isFinite(v));
+  const ok = pairs.filter((p) => Number.isFinite(parseFloat(p[1])));
+  const nums = ok.map((p) => parseFloat(p[1]));
   const last = pairs[pairs.length - 1], prev = pairs[pairs.length - 2];
   const val = last ? parseFloat(last[1]) : null;
   const prevVal = prev ? parseFloat(prev[1]) : null;
@@ -448,6 +449,7 @@ function lastTwo(pairs) {
     change: (Number.isFinite(val) && Number.isFinite(prevVal)) ? +(val - prevVal).toFixed(4) : null,
     asOf: last ? last[0] : null,
     history: nums.slice(-22), // ~1 month of trading days
+    historyDates: ok.map((p) => p[0]).slice(-22), // the date of each history point
   };
 }
 
@@ -850,7 +852,7 @@ async function handleRates(request, env, ctx) {
       : s.src === "treasury" ? await treasurySeries(s.col)
       : s.src === "cnbc" ? await cnbcRate(s.sym)
       : await fredSeries(s.id, cosd, env);
-    return { label: s.label, unit: s.unit, value: r.value, change: r.change, asOf: r.asOf, href: s.href, history: r.history || [] };
+    return { label: s.label, unit: s.unit, value: r.value, change: r.change, asOf: r.asOf, href: s.href, history: r.history || [], historyDates: r.historyDates || [] };
   }));
   const resp = new Response(JSON.stringify({ rates: data }), {
     // Short browser cache (band also caches in-module per load); edge does the heavy lifting.

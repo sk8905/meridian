@@ -312,7 +312,7 @@
 .dsh-fl { color:var(--t-ink); font-weight:600; }
 .dsh-fl-na { color:var(--t-faint); font-weight:400; }
 .dsh-fl-t { color:var(--t-mut); font-size:var(--fs-body); margin-left:4px; }
-.dsh-fl-note { color:var(--t-faint); font-size:var(--fs-body); line-height:1.5; margin:8px 0 0; }
+.dsh-fl-note { color:var(--t-faint); font-size:var(--fs-micro); line-height:1.5; margin:8px 0 0; }
 /* Geography bands: a small left-aligned label rule introducing each regional
    block (United States, Europe, Asia-Pacific, …), set off by a top rule. */
 .dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:var(--fs-micro); font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid2); }
@@ -369,7 +369,7 @@
 .dsh-lgl-alert { color:var(--t-lex); border-color:var(--t-lex); }
 .dsh-lgl-t { display:block; color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; font-weight:500; }
 .dsh-lgl-t:hover { color:var(--t-ink); }
-.dsh-lgl-m { color:var(--t-mut); font-size:var(--fs-body); margin-top:2px; }
+.dsh-lgl-m { color:var(--t-mut); font-size:var(--fs-micro); margin-top:2px; }
 
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
@@ -409,15 +409,15 @@
 .dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 .dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:var(--fs-body); min-width:0; }
 .dsh-earn-when { color:var(--t-mut); font-size:var(--fs-micro); border:1px solid var(--t-grid2); border-radius:0; padding:0 5px; }
-.dsh-earn-dt { color:var(--t-faint); font-size:var(--fs-body); margin-left:auto; white-space:nowrap; }
-.dsh-earn-tag { color:var(--t-mut); font-size:var(--fs-body); margin-top:2px; }
+.dsh-earn-dt { color:var(--t-faint); font-size:var(--fs-micro); margin-left:auto; white-space:nowrap; }
+.dsh-earn-tag { color:var(--t-mut); font-size:var(--fs-micro); margin-top:2px; }
 .dsh-earn-ms { display:flex; flex-wrap:wrap; gap:5px 16px; margin-top:6px; align-items:baseline; }
 .dsh-earn-m { font-size:var(--fs-body); color:var(--t-dim); display:inline-flex; align-items:baseline; gap:5px; }
 .dsh-earn-ml { font-style:normal; color:var(--t-mut); font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.03em; }
 .dsh-earn-fct { color:var(--t-mut); font-variant-numeric:tabular-nums; }
 .dsh-earn-arw { color:var(--t-faint); }
 .dsh-earn-act { color:var(--t-ink); font-weight:700; font-variant-numeric:tabular-nums; }
-.dsh-earn-await { color:var(--t-faint); font-style:italic; font-size:var(--fs-body); }
+.dsh-earn-await { color:var(--t-faint); font-style:italic; font-size:var(--fs-micro); }
 .dsh-earn-px { font-weight:700; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-mut); }
 .dsh-earn-px.up { color:var(--t-up); } .dsh-earn-px.down { color:var(--t-down); }
 .dsh-earn-metric { display:inline-block; font-size:var(--fs-micro); font-weight:600; text-transform:uppercase;
@@ -430,7 +430,7 @@
 .dsh-hf-i-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; margin-bottom:2px; }
 .dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 .dsh-hf-nm { color:var(--t-dim); font-size:var(--fs-body); }
-.dsh-hf-by { color:var(--t-mut); font-size:var(--fs-body); margin-left:auto; }
+.dsh-hf-by { color:var(--t-mut); font-size:var(--fs-micro); margin-left:auto; }
 .dsh-hf-note { color:var(--t-mut); font-size:var(--fs-body); line-height:1.35; }
 .dsh-hf-dir { font-size:var(--fs-micro); font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-hf-buy, .dsh-hf-new { color:var(--t-up); border-color:var(--t-up); }
@@ -444,7 +444,7 @@
 .dsh-tag-rumoured{ color:var(--t-faint); }
 .dsh-tag-stress{ color:var(--t-down); border-color:var(--t-down); }
 
-.dsh-ladder-cap { color:var(--t-faint); font-size:var(--fs-body); margin-top:4px; }
+.dsh-ladder-cap { color:var(--t-faint); font-size:var(--fs-micro); margin-top:4px; }
 /* Maturity wall — the bar chart is integrated HORIZONTALLY into the per-year
    table: each Maturing cell holds a proportional bar (width = amt/max) with the
    figure sitting on it, so the ladder and the numbers are a single object and
@@ -620,7 +620,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-news-d { flex:0 0 auto; color:var(--t-faint); font-size:var(--fs-num); font-variant-numeric:tabular-nums; min-width:44px; }
 .dsh-news-i a { color:var(--t-dim); text-decoration:none; }
 .dsh-news-i a:hover { color:var(--t-ink); }
-.dsh-news-s { flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:var(--fs-body); white-space:nowrap; }
+.dsh-news-s { flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:var(--fs-micro); white-space:nowrap; }
 
 /* Sortable Stress league table (Credit) */
 .dsh-tbl th.dsh-sortable { cursor:pointer; user-select:none; }
@@ -679,7 +679,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-cyc-note { font-size:var(--fs-body); line-height:1.55; color:var(--t-ink); margin:8px 0 0; }
 .dsh-cyc-note.dsh-mut { color:var(--t-mut); font-size:var(--fs-body); }
 .dsh-cyc-srcs { display:flex; flex-wrap:wrap; gap:5px 14px; margin-top:10px; }
-.dsh-cyc-src { font-size:var(--fs-body); color:var(--t-mut); text-decoration:none; }
+.dsh-cyc-src { font-size:var(--fs-micro); color:var(--t-mut); text-decoration:none; }
 .dsh-cyc-src:hover { color:var(--t-dim); }
 /* Per-block expand/collapse for the cycle narrative (collapsed by default). */
 .dsh-cyc-exp { margin-top:10px; }
@@ -793,7 +793,7 @@ td .dsh-yc-ea { border:0; }
 .dsh-tbl td .dsh-src { float:none; margin-left:0; }
 /* -- Mini tables (spreads, money markets) -- */
 .dsh-spreads-card .dsh-spreads, #dsh-mm { display:block; }
-.dsh-mini td.dsh-spread-nm { color:var(--t-dim); }
+.dsh-mini td.dsh-spread-nm { color:var(--t-dim); white-space:normal; }
 .dsh-mini th:first-child, .dsh-mini td:first-child { width:38%; }
 /* -- KPI rows: label · value · period · SRC on a fixed grid -- */
 .dsh-kv.dsh-kv4 { display:grid; grid-template-columns:minmax(0,1fr) auto 64px 34px; column-gap:12px; align-items:baseline; }
@@ -837,6 +837,8 @@ td .dsh-yc-ea { border:0; }
 /* Date cells in list tables (latest / period): micro, faint, kept on phone. */
 .dsh-tbl td.dsh-d { font-size:var(--fs-micro); color:var(--t-faint); white-space:nowrap; font-variant-numeric:tabular-nums; }
 .dsh-tbl td.dsh-wrap { white-space:normal; }
+/* Notes & meta tags (type, source, "as of", "awaited"): the scale's micro step (R11). */
+.dsh-fed-h .dsh-mut { font-size:var(--fs-micro); }
 .dsh-tbl td.dsh-rank { color:var(--t-faint); width:28px; }
 .dsh-est { color:var(--t-faint); font-size:var(--fs-micro); font-weight:400; }
 .dsh-mini.dsh-hfaum-tbl th:first-child, .dsh-mini.dsh-hfaum-tbl td:first-child { width:28px; }
@@ -897,13 +899,14 @@ td .dsh-yc-ea { border:0; }
 .dsh-fill-body > .dsh-chart { flex:1 1 auto; }
 @media (max-width:900px){
   .dsh-card.dsh-fill { height:auto; }
-  .dsh-fill-body { max-height:380px; }
+  /* Long lists cap and scroll; a chart card (table + chart) shows in full. */
+  .dsh-fill-body:not(:has(.dsh-chart)) { max-height:380px; }
   .dsh-fill-body > .dsh-chart { min-height:200px; }
 }
 /* Desktop too narrow to pack (one column): fill cards keep the phone caps. */
 @media (min-width:901px){
   .dsh-mid:not(.dsh-masonry) > .dsh-fill { height:auto; }
-  .dsh-mid:not(.dsh-masonry) .dsh-fill-body { max-height:380px; }
+  .dsh-mid:not(.dsh-masonry) .dsh-fill-body:not(:has(.dsh-chart)) { max-height:380px; }
   .dsh-mid:not(.dsh-masonry) .dsh-fill-body > .dsh-chart { min-height:200px; }
 }
 .dsh-chart { position:relative; min-height:120px; margin-right:44px; border-left:1px solid var(--t-grid); border-bottom:1px solid var(--t-grid); }
@@ -911,8 +914,16 @@ td .dsh-yc-ea { border:0; }
 .dsh-chart-y { position:absolute; top:0; bottom:0; right:-44px; width:40px; pointer-events:none; }
 .dsh-chart-y span { position:absolute; right:0; transform:translateY(-50%); font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; }
 .dsh-lgs { display:flex; flex-wrap:wrap; gap:4px 14px; margin:0 0 8px; flex:0 0 auto; }
-.dsh-chart-x { display:flex; justify-content:space-between; gap:8px; margin:3px 44px 0 0; font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; flex:0 0 auto; }
-.dsh-chart-x .dsh-chart-t { color:var(--t-mut); text-align:center; }
+/* Time axis: date ticks under the plot (first/last pinned to the edges), the axis
+   title centred beneath; the y title sits above the value-tick column. */
+.dsh-chart-x { margin:0 44px 0 0; flex:0 0 auto; font-size:var(--fs-micro); font-variant-numeric:tabular-nums; }
+.dsh-chart-xt { position:relative; height:16px; border-top:0; }
+.dsh-chart-xt span { position:absolute; top:3px; transform:translateX(-50%); color:var(--t-faint); white-space:nowrap; }
+.dsh-chart-xt span.is-first { transform:none; }
+.dsh-chart-xt span.is-last { transform:translateX(-100%); }
+.dsh-chart-x .dsh-chart-t { color:var(--t-mut); text-align:center; margin-top:1px; }
+@media (max-width:760px){ .dsh-chart-xt span:nth-child(2), .dsh-chart-xt span:nth-child(4) { display:none; } }
+.dsh-chart-yt { flex:0 0 auto; text-align:right; font-size:var(--fs-micro); color:var(--t-mut); margin:0 0 3px; }
 /* Yield-curve axes: value ticks + "Yield" title in the 92px label column, "Maturity" under it. */
 .dsh-yc2-plot { position:relative; }
 .dsh-yc2-y { position:absolute; left:0; top:0; bottom:0; width:84px; pointer-events:none; font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; }

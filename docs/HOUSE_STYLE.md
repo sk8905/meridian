@@ -1181,9 +1181,14 @@ notification badge red (`#ef4444`).
   width steps 320 / 380 (≥1700) / 420 (≥2300) / 460px (≥3000). **(c) Fill cards**
   (`fillCard`, `.dsh-fill`) are charts (`lineChart`, natural height up to 460px) or long
   lists (start 240px, show more rows or scroll; spare height goes first to the list with
-  the most content still hidden). **Every chart is labelled on both axes**: value ticks
-  carrying the unit, an x row with the first / last date (or the caller's labels) and the
-  y-axis title between them; the yield-curve chart carries "Yield" ticks and "Maturity".
+  the most content still hidden). **Every chart is labelled on both axes**: the x axis is
+  **time** — five evenly spaced dated ticks (three on phone; "12 Oct" for spans under ~4
+  months, "Dec 25" beyond) with the title "Date, daily" / "Date, weekly", every point
+  placed at its own observation date (`historyDates` on `/api/rates`) — and the y axis
+  carries value ticks with the unit and its title above the tick column. The yield-curve
+  chart (a single-date curve) carries "Yield" ticks and "Maturity". **Notes and meta tags**
+  (deal type, source, "as of", captions, legend notes) use `--fs-micro`; table cells and
+  prose notes stay `--fs-body`. List rows de-duplicate the same story (date + headline).
   **Lists are never capped at an arbitrary N** — every tracked item is listed and the card
   scrolls. Fill cards built ONLY from data Wire already holds or
   a sourced live series: Credit — spread history 1M, all-in yields & BBB (ICE BofA via

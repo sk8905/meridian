@@ -18,6 +18,12 @@ const srv = await serve(apis);
 // Switch tab, then wait for the packed layout to settle (live data lands and the
 // packer re-runs) — positions unchanged across two reads 300ms apart, max ~6s.
 const snap = (pg) => pg.evaluate(() => [...document.querySelectorAll(".dsh-mid > .dsh-card")].map((c) => `${c.style.left}|${c.style.top}|${c.offsetHeight}`).join(","));
+const chartAxes = (pg) => pg.evaluate(() => [...document.querySelectorAll(".dsh-mid .dsh-chart")].map((c) => {
+  const x = c.nextElementSibling, yt = c.previousElementSibling;
+  return { y: c.querySelectorAll(".dsh-chart-y span").length, yt: yt && yt.classList.contains("dsh-chart-yt") ? yt.textContent.trim() : "",
+    dates: x ? [...x.querySelectorAll(".dsh-chart-xt span")].map((e) => e.textContent.trim()) : [], xt: x ? ((x.querySelector(".dsh-chart-t") || {}).textContent || "") : "" }; }));
+const DATE = /^(\d{1,2} (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)( \d{4})?|(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{2})$/;
+const timeOk = (cs) => cs.length > 0 && cs.every((c) => c.y >= 3 && c.yt && c.dates.length >= 3 && c.dates.every((d) => DATE.test(d)) && /^Date, (daily|weekly)$/.test(c.xt));
 const go = async (pg, k) => {
   await pg.evaluate((s) => document.querySelector(`.dsh-navchip[data-sub="${s}"]`).click(), k); await pg.waitForTimeout(600);
   let prev = await snap(pg);
@@ -60,15 +66,22 @@ for (const [w, h] of [[1280, 800], [1366, 768], [1536, 864], [1920, 1080], [2560
   checkEq(y.length, 3, "Credit: All-in yields card lists Euro HY yield, US HY yield, US BBB OAS");
   check(/Euro HY yield 6\.49%/.test(y[0] && y[0].t) && /US BBB OAS 102bp/.test(y[2] && y[2].t) && y.every((x) => x.src), `Credit: yields show the fixture's FRED values with source links (${y.map((x) => x.t).join(" / ")})`);
   check(await pg.evaluate(() => document.querySelector('.dsh-live[data-live="yld"]').textContent === "live"), "Credit: yields badge flips to live");
+  const sh = await chartAxes(pg);
+  check(timeOk(sh) && sh[0].dates[0] === "11 Sep" && sh[0].dates[sh[0].dates.length - 1] === "12 Oct", `Credit: spread history runs on real observation dates, 11 Sep → 12 Oct (${JSON.stringify(sh)})`);
+  const dd = await pg.evaluate(() => [...document.querySelectorAll("#dsh-dd .dsh-news-i")].map((li) => `${li.querySelector(".dsh-news-d").textContent}|${li.querySelector("a").textContent}`));
+  checkEq(dd.length - new Set(dd).size, 0, "Credit: restructuring & distress deals list each story once");
+  const notes = await pg.evaluate(() => getComputedStyle(document.querySelector("#dsh-dd .dsh-news-s")).fontSize);
+  const adj = await pg.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0);
+  check(notes === `${10 + adj}px`, `Credit: deal-type notes use the micro step (${notes})`);
   await go(pg, "rates");
   const bs = await rowTxt("#dsh-cbbs");
   check(bs.length === 4 && /Eurosystem total assets €5,944/.test(bs[0].t) && /Fed total assets \$6,748/.test(bs[1].t)
     && /BoE reserve balances £650/.test(bs[2].t) && /BoE loan to APF \(QE stock\) £522/.test(bs[3].t) && bs.every((x) => x.src), `Rates: balance sheets — Eurosystem €bn, Fed $bn, BoE Weekly Report reserves + APF £bn, each sourced (${bs.map((x) => x.t).join(" / ")})`);
   check(await pg.evaluate(() => [...document.querySelectorAll("#dsh-cbbs a.dsh-src")].some((a) => /bankofengland\.co\.uk\/boeapps\/database\/.*RPWB56A/.test(a.href))), "Rates: BoE reserves row links its IADB series (RPWB56A)");
-  // Every chart is labelled: y ticks with values, an x row with start / end and an axis title.
-  const charts = await pg.evaluate(() => [...document.querySelectorAll(".dsh-mid .dsh-chart")].map((c) => { const x = c.nextElementSibling; const sp = x && x.classList.contains("dsh-chart-x") ? [...x.children].map((e) => e.textContent.trim()) : [];
-    return { y: c.querySelectorAll(".dsh-chart-y span").length, xl: sp[0] || "", t: sp[1] || "", xr: sp[2] || "" }; }));
-  check(charts.length >= 4 && charts.every((c) => c.y >= 3 && c.xl && c.t && c.xr), `Rates: every line chart has value ticks, start/end labels and an axis title (${JSON.stringify(charts)})`);
+  // Every chart is labelled on both axes: the x axis is TIME (dated ticks + "Date, …"
+  // title) and the y axis carries value ticks plus a title above them.
+  const charts = await chartAxes(pg);
+  check(charts.length >= 4 && timeOk(charts), `Rates: every line chart has a time x-axis (dated ticks + "Date" title) and a titled value axis (${JSON.stringify(charts)})`);
   const yc = await pg.evaluate(() => ({ y: document.querySelectorAll("#dsh-yc-card .dsh-yc2-y span").length, yt: (document.querySelector("#dsh-yc-card .dsh-yc2-y em") || {}).textContent, xt: (document.querySelector("#dsh-yc-card .dsh-yc2-x em") || {}).textContent }));
   check(yc.y === 3 && yc.yt === "Yield" && yc.xt === "Maturity", `Rates: yield-curve chart carries a value axis and both axis titles (${JSON.stringify(yc)})`);
   // House type scale (R11): card titles at body size, column heads at micro.
@@ -81,8 +94,7 @@ for (const [w, h] of [[1280, 800], [1366, 768], [1536, 864], [1920, 1080], [2560
   checkEq(ch.join(","), "3,4,2,4", "Rates: chart lines — AAA 2Y/10Y/30Y, four balance-sheet lines (Eurosystem, Fed, BoE reserves, BoE APF), two FX pairs, four money-market rates");
   check(await pg.evaluate(() => /2s10s \d+bp/.test(document.querySelector("#dsh-aaa .dsh-lgs").textContent)), "Rates: Euro AAA chart legend carries the 2s10s slope");
   await go(pg, "equities");
-  const eqc = await pg.evaluate(() => [...document.querySelectorAll(".dsh-mid .dsh-chart")].every((c) => { const x = c.nextElementSibling; return x && x.classList.contains("dsh-chart-x") && [...x.children].every((e) => e.textContent.trim()); }));
-  check(eqc, "Equities: VIX chart labelled on both axes");
+  check(timeOk(await chartAxes(pg)), "Equities: VIX chart has a time x-axis and a titled value axis");
   // Legal + Hedge Funds lists are not capped: every tracked item is listed.
   const L = await import("../legal/js/data.js"), C = await import("../credit/js/data.js");
   await go(pg, "hedge-funds");
