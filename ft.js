@@ -21,6 +21,69 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "50c694da-c485-4176-853b-daf643eabb5c",
+    title: "Harvard’s endowment returns surge on back of AI and SpaceX investments",
+    date: "2026-10-15",
+    time: "21:06",
+    url: "https://www.ft.com/content/50c694da-c485-4176-853b-daf643eabb5c"
+  },
+  {
+    id: "3568dbda-ac85-45b3-815a-3a8ec853a78d",
+    title: "Meta and Apple team up on AI model tailored for Mac computers",
+    date: "2026-10-15",
+    time: "21:00",
+    url: "https://www.ft.com/content/3568dbda-ac85-45b3-815a-3a8ec853a78d"
+  },
+  {
+    id: "9f269231-7c1a-4cb0-a4d3-0603f6cd73b6",
+    title: "Fifa president Gianni Infantino apologises for failed investment plan",
+    date: "2026-10-15",
+    time: "20:23",
+    url: "https://www.ft.com/content/9f269231-7c1a-4cb0-a4d3-0603f6cd73b6"
+  },
+  {
+    id: "a3a389d2-7796-4f40-98d3-8986f26f6513",
+    title: "Anthropic grants non-profit METR ‘employee-like’ access to monitor AI risks",
+    date: "2026-10-15",
+    time: "20:12",
+    url: "https://www.ft.com/content/a3a389d2-7796-4f40-98d3-8986f26f6513"
+  },
+  {
+    id: "09e07278-8479-49bb-a145-51e5d93828a2",
+    title: "Healey signals bank tax raid in UK Budget",
+    date: "2026-10-15",
+    time: "18:53",
+    url: "https://www.ft.com/content/09e07278-8479-49bb-a145-51e5d93828a2"
+  },
+  {
+    id: "66c9bbf1-f25c-4e84-b8ae-c9272fbc49c2",
+    title: "Bankers and advisers set for £334mn easyJet payout",
+    date: "2026-10-15",
+    time: "18:41",
+    url: "https://www.ft.com/content/66c9bbf1-f25c-4e84-b8ae-c9272fbc49c2"
+  },
+  {
+    id: "70f69253-6017-4259-95c9-48bf0e088b40",
+    title: "Criminals stole $90mn of crypto by hiding password readers in USB-like devices",
+    date: "2026-10-15",
+    time: "18:23",
+    url: "https://www.ft.com/content/70f69253-6017-4259-95c9-48bf0e088b40"
+  },
+  {
+    id: "5dd8b17e-b0a3-4b14-9d83-aba2627e635d",
+    title: "Risk of an AI crunch for stock markets is rising",
+    date: "2026-10-15",
+    time: "17:53",
+    url: "https://www.ft.com/content/5dd8b17e-b0a3-4b14-9d83-aba2627e635d"
+  },
+  {
+    id: "8890bf3f-f243-4bd0-8e2f-f80c78e363f8",
+    title: "Europe cannot rely on trade barriers to counter China",
+    date: "2026-10-15",
+    time: "17:35",
+    url: "https://www.ft.com/content/8890bf3f-f243-4bd0-8e2f-f80c78e363f8"
+  },
+  {
     id: "064f7a19-c495-4ba0-a5e5-a6c4bb764ddb",
     title: "Donald Trump cancels Pete Hegseth’s plan to livestream execution after backlash",
     date: "2026-10-15",
@@ -236,68 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-15",
     time: "08:19",
     url: "https://www.ft.com/content/bbffeec4-c491-45a3-8df9-7339ddb020e3"
-  },
-  {
-    id: "c9ddcef8-a149-4273-a883-d6b33ef53bfa",
-    title: "FTAV’s further reading",
-    date: "2026-10-15",
-    time: "07:30",
-    url: "https://www.ft.com/content/c9ddcef8-a149-4273-a883-d6b33ef53bfa"
-  },
-  {
-    id: "789307ae-5109-465c-9b79-7ce71308f0d2",
-    title: "CPI comes in hot, AI goes cold",
-    date: "2026-10-15",
-    time: "06:30",
-    url: "https://www.ft.com/content/789307ae-5109-465c-9b79-7ce71308f0d2"
-  },
-  {
-    id: "9632f1f7-713f-43ab-ad42-d9e876b975e9",
-    title: "The UK’s Fastest-Growing Companies",
-    date: "2026-10-15",
-    time: "05:02",
-    url: "https://www.ft.com/content/9632f1f7-713f-43ab-ad42-d9e876b975e9"
-  },
-  {
-    id: "d9353431-e9ba-4b34-a277-ab1510120ef8",
-    title: "General Atlantic’s IPO ambitions",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/d9353431-e9ba-4b34-a277-ab1510120ef8"
-  },
-  {
-    id: "bbb1d399-e91c-4600-9882-ea93e1f96ac9",
-    title: "London’s gold market enjoys the Trump effect",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/bbb1d399-e91c-4600-9882-ea93e1f96ac9"
-  },
-  {
-    id: "7761de04-7fac-4f7b-bddb-8457e425b642",
-    title: "Investors predict new record price for gold within two years",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/7761de04-7fac-4f7b-bddb-8457e425b642"
-  },
-  {
-    id: "c84ce6a3-5724-4b98-a93a-c035d607d90f",
-    title: "Minister promises UK private pension proposals by spring",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/c84ce6a3-5724-4b98-a93a-c035d607d90f"
-  },
-  {
-    id: "3a9364ec-6930-4877-a1a2-c053dd689760",
-    title: "FCA plans to embrace AI to automate financial regulation",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/3a9364ec-6930-4877-a1a2-c053dd689760"
-  },
-  {
-    id: "4d79b52f-1f0d-4739-82ab-7ecfb4251326",
-    title: "Ukraine to resume strikes on Russian refineries, Zelenskyy says",
-    date: "2026-10-15",
-    time: "05:00",
-    url: "https://www.ft.com/content/4d79b52f-1f0d-4739-82ab-7ecfb4251326"
   }
 ];

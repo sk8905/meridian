@@ -49,6 +49,29 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bloomberg-moneystuff-privatemarketsnewai-20261015",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Private Markets Are the New AI Markets",
+    date: "2026-10-15",
+    time: "18:51",
+    summary: "Marks, prime, agents.",
+    url: "https://bloom.bg/4yopBFY",
+  },
+  {
+    id: "nl-lemonde-lebrief-fonderiebretagne-20261015",
+    publication: "Le Monde",
+    author: null,
+    series: "Le brief",
+    title: "Le brief | La fin de la Fonderie de Bretagne, après soixante années d’existence et une série de reprises infructueuses",
+    date: "2026-10-15",
+    time: "17:35",
+    summary: "Les 5 infos du jour, dont la liquidation de la Fonderie de Bretagne et ses 244 licenciements.",
+    url: "https://www.lemonde.fr/economie/article/2026/10/15/la-fin-des-fonderies-de-bretagne-apres-soixante-annees-d-existence-et-une-serie-de-reprises-infructueuses_6794449_3234.html",
+    body: true,
+  },
+  {
     id: "nl-thelawyer-breaking-kepromos-20261015",
     publication: "The Lawyer",
     author: null,
