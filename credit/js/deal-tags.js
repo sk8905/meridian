@@ -1096,5 +1096,16 @@ const T = {
   d1119: {"c":"UK","s":"Real estate","a":null},
   d1120: {"c":"Ireland","s":"Leisure & hospitality","a":null},
   d1121: {"c":"France","s":"Real estate","a":null},
+  d1122: {"c": "US", "s": "Real estate", "a": "financing", "p": "Go Store It", "r": "borrower"},
+  d1123: {"c": "US", "s": "Real estate", "a": "financing"},
+  d1124: {"c": "US", "s": "Real estate", "a": "financing", "p": "Bedrock Communities", "r": "borrower"},
+  d1125: {"c": "US", "s": "Real estate", "a": "financing", "p": "Provident Realty Advisors", "r": "borrower"},
+  d1126: {"c": "US", "s": "Real estate", "a": "financing", "p": "Crescent Heights", "r": "borrower"},
+  d1127: {"c": "US", "s": "Real estate", "a": "financing"},
+  d1128: {"c": "US", "s": "Real estate", "a": "financing", "p": "Rudin Management Company", "r": "borrower"},
+  d1129: {"c": "UK", "s": "Real estate", "a": "financing", "p": "Space Station", "r": "borrower"},
+  d1130: {"c": "US", "s": "Real estate", "a": "financing", "p": "Alterra IOS", "r": "borrower"},
+  d1131: {"c": "Germany", "s": "Real estate", "a": "financing", "p": "Centerscape", "r": "borrower"},
+  d1132: {"c": "UK", "s": "Transport & logistics", "a": null, "p": "Torque Holdings", "r": "borrower"},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));
