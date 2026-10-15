@@ -1164,7 +1164,8 @@ notification badge red (`#ef4444`).
   Views (Monitor, Cross-holdings). Investors → Type · Mandate; Law firms → Tier · Practice.
   The bar's button is **Target** on Managers and **$1–15bn** on Hedge funds. Managers and
   Hedge funds carry a sortable **90d** column (tracked deals + news in 90 days; tooltip =
-  latest date). Phone lists are **card rows**; their sort sits in the panel. **(j) Credits & BDCs live on Dashboard ▸ Credit** (`v2/js/credit-roster.js`, full-width
+  latest date). Phone lists are **card rows**; their sort sits in the panel. The card rows
+  carry no HQ (R44e) — it stays in the desktop table and on each profile page. **(j) Credits & BDCs live on Dashboard ▸ Credit** (`v2/js/credit-roster.js`, full-width
   cards under *Reference rosters*), not in Transactions. Each card has the SAME anatomy on
   desktop and iPhone — a one-row bar (search · sort menu · CSV), then **two-line rows**
   (name · headline figure / sector-or-manager meta) that **expand in place** (tap again to
@@ -1399,7 +1400,8 @@ notification badge red (`#ef4444`).
   or table of dated items** (deals, alerts, cases, plans & schemes, hearings, fund closes,
   LP commitments, people moves, news / digest rows). Not dated market data (rates, spreads,
   index levels). **(b) Column order:** an events row/table LEADS with the date and ENDS with
-  the source (the SRC chip or outlet name). Date format "15 Oct 26" everywhere; on the news
+  the source (the SRC chip or outlet name) — except the iPhone Deals card, which drops the
+  source column (R44e; the source stays in the deal drawer). Date format "15 Oct 26" everywhere; on the news
   wire, already grouped under day headers, the first column stays the time ("13:46").
   Status tags (SANCTIONED, ADMINISTRATION …) sit next to the item's name, before the source,
   in one muted tag style. **(c) Two lines max per events item, on every screen (iPhone

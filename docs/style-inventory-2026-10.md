@@ -478,10 +478,14 @@ unless listed under "Left as is".
 | Markets — data tables (spreads, money markets, policy, heatmaps, maturity wall, yield curve, HF AUM, by strategy, practice areas …) | unchanged (dated market data, R43a) | text columns share the width by content, never clip a word | bold figures (`.dsh-kv-v`, `.dsh-spread-v`, `.dsh-fl`, `.dsh-ms-*`) → regular |
 | Restructuring hub | stacked `.rxh-i` rows (name · tag · src / meta · date) → **shared events row** | 50px → 46px, one height in every card | bold names → regular; stage tag colours → muted |
 | Deals — Lending / Structured / Secondaries / M&A / search | … Amount · Date · Source → **Date · … · Amount · Source** | borrower wrapped 2–3 lines → one line, ellipsis | bold heads → regular small caps |
-| Deals — iPhone cards, Fundraising (funds in market, closes, LP commitments), drawer "More from …" | name first, date mid-row → **date first, source last** (shared events row) | 2–3 lines → 2 lines | filled / bold source chips → faint text |
+| Deals — iPhone cards, Fundraising (funds in market, closes, LP commitments), drawer "More from …" | name first, date mid-row → **date first, source last** (shared events row); iPhone deal cards then drop the source column (R44e, source in the drawer) | 2–3 lines → 2 lines | filled / bold source chips → faint text |
 | Profiles — manager / HF / LP / firm wires, firm credit deals, People, Borrower | date-first already on desktop; iPhone was headline-first, 3-line clamp → **shared two-line events row everywhere** | 3 lines (iPhone) → 2 | coloured DEAL / FUND / NEWS / ALERT tags → one muted tag; bold names → regular |
 | Home / News — wire, manager wire, earnings, briefing | wire (narrow column): headline → time · headline, code · source beneath; earnings 3 lines → 2 | 62px → 2 lines | brief-strip chips: dark text on solid fill → semantic up / down text on a tint; briefing `<strong>` → regular |
 | Menu — Digest, Sources, New; header panels (notifications, saved, Watchlist, Ask); search palette | digest / notifications headline-first → **date · headline · source**; palette rows two single lines | wrapping → 2 lines | Sources FAILING pill filled → outlined; palette codes / kbd bold → regular |
+
+**iPhone trims (owner 2026-10-15, R44e):** the Deals card has no source column and the
+Profiles card rows (All · Managers · Hedge Funds · Investors) have no HQ; desktop keeps both,
+and the deal drawer / profile page still show them (`tests/phone-trim.mjs`).
 
 **Left as is (not events lists, or a design call for the owner):** day-break headers keep
 "20 Jul 2026" (they are headings); chart axes keep "12 Oct" / "Dec 25"; KPI / metric rows
