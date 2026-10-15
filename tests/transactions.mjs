@@ -72,7 +72,7 @@ const ov = await pg.evaluate(() => {
     nameWt: (() => { const nm = document.querySelector(".tx-panes-in .tx-list tbody tr.tx-row td.tx-bd"); return nm ? parseInt(getComputedStyle(nm).fontWeight, 10) : null; })(),
   };
 });
-check(ov.ctl.join("|") === "tx-q|tx-focus|tx-filters" && ov.oneRow, `the bar is ONE row: search · Target · Filters (${ov.ctl.join(", ")})`);
+check(ov.ctl.join("|") === "tx-q|tx-scope|tx-focus|tx-filters" && ov.oneRow, `the bar is ONE row: search · Europe · Target · Filters (${ov.ctl.join(", ")})`);
 check(ov.noSubs, "no nested transaction-type sub-labels (types live in the Filters panel)");
 check(ov.nameWt != null && ov.nameWt <= 400, `Transactions: the deal name is NOT bold — normal weight (${ov.nameWt})`);
 check(ov.paneRows > 0, `it opens on the whole group's deals (${ov.paneRows} rows)`);
@@ -334,7 +334,7 @@ await ctx.close();
     return { noStrip: !document.querySelector(".tx-typestrip, .tx-subnav"), oneRow: Math.max(...tops) - Math.min(...tops) <= 4, n: ctl.length,
       statsHidden: getComputedStyle(document.querySelector("#tx-stats")).display === "none", defaultRows: document.querySelectorAll(".tx-panes-in .tx-card").length };
   });
-  check(strip.noStrip && strip.oneRow && strip.n === 3 && strip.statsHidden, `phone: one row (search · Target · Filters), no type strip, no stats band (${strip.n} controls)`);
+  check(strip.noStrip && strip.oneRow && strip.n === 4 && strip.statsHidden, `phone: one row (search · Europe · Target · Filters), no type strip, no stats band (${strip.n} controls)`);
   check(strip.defaultRows > 0, `phone: the whole group's deals show by default (${strip.defaultRows} cards)`);
   const pick = await p.pg.evaluate(async () => {
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -481,7 +481,7 @@ for (const w of [1280, 1024]) {
   check(r.heads.join("|") === "Target|Acquirer|Country|Value|Date|Source", `Manager M&A columns: Target · Acquirer · Country · Value · Date · Source (${r.heads.join(" · ")})`);
   check(/^(EV|AUM) /.test(r.x) || r.x === "", `a non-deal-size figure reads muted with its kind (${r.x || "none on this page"})`);
   check(r.vehLead, `Structured credit leads each row with the vehicle name, not the headline (${r.vehSample.join(" · ")})`);
-  check(r.sHeads.join("|") === "Vehicle|Manager|Type|Event|Country|Size|Date|Source" && r.events.some((e) => /New issue|Reset|Refi/.test(e)), `Structured credit has its own columns incl. the CLO event (${r.sHeads.join(" · ")}; ${r.events.join(", ")})`);
+  check(r.sHeads.join("|") === "Vehicle|Manager|Type|Event|Country|Size|AAA / WACD|Date|Source" && r.events.some((e) => /New issue|Reset|Refi/.test(e)), `Structured credit has its own columns incl. the CLO event (${r.sHeads.join(" · ")}; ${r.events.join(", ")})`);
   check(r.alt && r.altDrawer, "a de-duplicated deal shows its other source (+n in the row, Also reported in the drawer)");
   // $1–15bn → Target → off.
   await f.pg.evaluate(() => { location.hash = "#/lending"; }); await f.pg.waitForTimeout(250);

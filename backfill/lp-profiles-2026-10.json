@@ -1,0 +1,795 @@
+[
+ {
+  "name": "Pantheon",
+  "type": "Fund of Funds",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Credit Secondaries (GP-led continuation vehicle)",
+   "European Direct Lending (partnership / seasoned-loan seed)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Bridgepoint Credit, Oaktree Capital Management (latest 2026-09-08).",
+  "sources": [
+   {
+    "label": "Bridgepoint Credit commitment (2026-09-08)",
+    "url": "https://www.pei-privatecredit.com/pantheon-backs-bridgepoint-pennantpark-cvs/"
+   },
+   {
+    "label": "Oaktree Capital Management commitment (2026-05-31)",
+    "url": "https://www.alternativeswatch.com/2026/05/31/oaktree-pantheon-launch-e1bn-european-direct-lending-partnership/"
+   }
+  ]
+ },
+ {
+  "name": "Industriens Pension",
+  "type": "Corporate Pension",
+  "hq": "Denmark",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Real Estate Senior Whole Loans (Nordics & Germany)",
+   "Nordic Senior Direct Lending"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Urban Partners, Nordea Asset Management (latest 2026-08-18).",
+  "sources": [
+   {
+    "label": "Urban Partners commitment (2026-08-18)",
+    "url": "https://alternativecreditinvestor.com/2026/08/18/urban-partners-raises-e200m-from-danish-pension-funds-for-re-credit-fund-at-first-close/"
+   },
+   {
+    "label": "Nordea Asset Management commitment (2024-03-12)",
+    "url": "https://alternativecreditinvestor.com/2024/03/12/nordea-am-partners-with-danish-pension-for-private-credit-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Laegernes Pension",
+  "type": "Corporate Pension",
+  "hq": "Denmark",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Real Estate Senior Whole Loans (Nordics & Germany)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Urban Partners (latest 2026-08-18).",
+  "sources": [
+   {
+    "label": "Urban Partners commitment (2026-08-18)",
+    "url": "https://alternativecreditinvestor.com/2026/08/18/urban-partners-raises-e200m-from-danish-pension-funds-for-re-credit-fund-at-first-close/"
+   }
+  ]
+ },
+ {
+  "name": "Los Angeles County Employees Retirement Association (LACERA)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Multi-Asset Credit (separately managed account)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Cheyne Capital (latest 2026-08).",
+  "sources": [
+   {
+    "label": "Cheyne Capital commitment (2026-08)",
+    "url": "https://alternativecreditinvestor.com/2026/09/02/lacera-appoints-cheyne-capital-to-manage-750m-credit-mandate/"
+   }
+  ]
+ },
+ {
+  "name": "Ontario Teachers' Pension Plan (OTPP)",
+  "type": "Public Pension",
+  "hq": "Canada",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European CLO Equity"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to M&G Investments (latest 2026-07-28).",
+  "sources": [
+   {
+    "label": "M&G Investments commitment (2026-07-28)",
+    "url": "https://alternativecreditinvestor.com/2026/07/28/mg-forms-ontario-teachers-pension-plan-jv-to-grow-clo-platform/"
+   }
+  ]
+ },
+ {
+  "name": "LGPS Central",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Real Estate Senior Debt (UK & Europe)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Invesco Real Estate (latest 2026-07-22).",
+  "sources": [
+   {
+    "label": "Invesco Real Estate commitment (2026-07-22)",
+    "url": "https://realassets.ipe.com/news/lgps-central-backs-invesco-european-real-estate-debt-fund/10137865.article"
+   }
+  ]
+ },
+ {
+  "name": "Nest (National Employment Savings Trust)",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": 100,
+  "aumCcy": "GBP",
+  "aumAsOf": "2026-06",
+  "strategies": [
+   "Climate Infrastructure Credit",
+   "US Senior Direct Lending (evergreen mandate)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "UK's largest workplace DC scheme, ~GBP100bn. Recent credit commitments to IFM Investors, Crescent Capital Group (latest 2026-06-02).",
+  "sources": [
+   {
+    "label": "IFM Investors commitment (2026-06-02)",
+    "url": "https://alternativecreditinvestor.com/2026/06/02/nest-invests-200m-in-climate-focused-infra-debt/"
+   },
+   {
+    "label": "Crescent Capital Group commitment (2026-04-13)",
+    "url": "https://alternativecreditinvestor.com/2026/04/13/nest-hands-crescent-capital-450m-under-new-direct-lending-mandate/"
+   }
+  ]
+ },
+ {
+  "name": "PME Pensioenfonds",
+  "type": "Corporate Pension",
+  "hq": "Netherlands",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Private Corporate Debt (mid-market, NL & Europe)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Robeco (latest 2026-03-16).",
+  "sources": [
+   {
+    "label": "Robeco commitment (2026-03-16)",
+    "url": "https://alternativecreditinvestor.com/2026/03/16/dutch-pension-funds-back-robeco-with-over-e1bn-debt-mandate/"
+   }
+  ]
+ },
+ {
+  "name": "PMT (Pensioenfonds Metaal en Techniek)",
+  "type": "Corporate Pension",
+  "hq": "Netherlands",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Private Corporate Debt (mid-market, NL & Europe)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Robeco (latest 2026-03-16).",
+  "sources": [
+   {
+    "label": "Robeco commitment (2026-03-16)",
+    "url": "https://alternativecreditinvestor.com/2026/03/16/dutch-pension-funds-back-robeco-with-over-e1bn-debt-mandate/"
+   }
+  ]
+ },
+ {
+  "name": "Admiral Group",
+  "type": "Insurance",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "UK Mid-Market Direct Lending"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to HSBC Asset Management (Alternative Credit) (latest 2026-02-06).",
+  "sources": [
+   {
+    "label": "HSBC Asset Management (Alternative Credit) commitment (2026-02-06)",
+    "url": "https://alternativecreditinvestor.com/2026/02/06/admiral-group-invests-in-hsbc-ams-uk-direct-lending-fund/"
+   }
+  ]
+ },
+ {
+  "name": "American International Group (AIG)",
+  "type": "Insurance",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Multi-strategy Private Credit (SMAs + funds)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to CVC (Credit) (latest 2026-01-19).",
+  "sources": [
+   {
+    "label": "CVC (Credit) commitment (2026-01-19)",
+    "url": "https://alternativecreditinvestor.com/2026/01/19/cvc-to-manage-2bn-private-credit-mandates-for-insurer-aig/"
+   }
+  ]
+ },
+ {
+  "name": "Al Mirqab Capital",
+  "type": "Family Office",
+  "hq": "Qatar",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Multi-asset incl. Direct Lending & ABF (Germany)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to DWS (with Deutsche Bank) (latest 2025-11-27).",
+  "sources": [
+   {
+    "label": "DWS (with Deutsche Bank) commitment (2025-11-27)",
+    "url": "https://alternativecreditinvestor.com/2025/11/27/dws-deutsche-bank-and-al-mirqab-launch-e1bn-german-mandate/"
+   }
+  ]
+ },
+ {
+  "name": "San Francisco Employees' Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Asset-Backed / Opportunistic Credit"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Arrow Global Group (latest 2025-11-12).",
+  "sources": [
+   {
+    "label": "Arrow Global Group commitment (2025-11-12)",
+    "url": "https://www.pei-privatecredit.com/sfers-reveals-up-to-260m-worth-of-commitments/"
+   }
+  ]
+ },
+ {
+  "name": "The People's Pension",
+  "type": "Corporate Pension",
+  "hq": "United Kingdom",
+  "aum": 35,
+  "aumCcy": "GBP",
+  "aumAsOf": "2025-10",
+  "strategies": [
+   "AAA CLO Debt"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "GBP35bn UK master trust. Recent credit commitments to Invesco (latest 2025-10-27).",
+  "sources": [
+   {
+    "label": "Invesco commitment (2025-10-27)",
+    "url": "https://alternativecreditinvestor.com/2025/10/27/the-peoples-pension-invests-260m-in-clos/"
+   }
+  ]
+ },
+ {
+  "name": "Virginia Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Structured / Hybrid Capital"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to ICG (Intermediate Capital Group) (latest 2025-10-20).",
+  "sources": [
+   {
+    "label": "ICG (Intermediate Capital Group) commitment (2025-10-20)",
+    "url": "https://www.pei-privatecredit.com/vrs-commits-to-icg-europe-ix/"
+   }
+  ]
+ },
+ {
+  "name": "San Bernardino County Employees' Retirement Association",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Real Estate Debt"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to PGIM Real Estate (latest 2025-10-10).",
+  "sources": [
+   {
+    "label": "PGIM Real Estate commitment (2025-10-10)",
+    "url": "https://www.pei-privatecredit.com/sbcera-commits-50m-to-private-debt/"
+   }
+  ]
+ },
+ {
+  "name": "Pensioenfonds KPN",
+  "type": "Corporate Pension",
+  "hq": "Netherlands",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Impact Private Corporate Debt (mandate)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to M&G Investments (latest 2025-10-01).",
+  "sources": [
+   {
+    "label": "M&G Investments commitment (2025-10-01)",
+    "url": "https://www.alternativeswatch.com/2025/10/01/dutch-pension-kpn-adds-private-debt-mandate-mg-investments/"
+   }
+  ]
+ },
+ {
+  "name": "European Investment Fund (EIF)",
+  "type": "Bank / Treasury",
+  "hq": "Luxembourg",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Asset-Based Finance (European SMEs/mid-caps)",
+   "Nordic SME Senior Private Credit",
+   "SME Senior Private Debt (Baltics)",
+   "SME Senior Secured Lending (DACH)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Kartesia, Ture Invest Partners, Sound Asset Management (latest 2025-09-08).",
+  "sources": [
+   {
+    "label": "Kartesia commitment (2025-09-08)",
+    "url": "https://alternativecreditinvestor.com/2025/09/08/eif-commits-e50m-to-kartesia-asset-based-finance-fund/"
+   },
+   {
+    "label": "Ture Invest Partners commitment (2024-06-14)",
+    "url": "https://alternativecreditinvestor.com/2024/06/14/eif-commits-e30m-to-ture-invest-partners-private-credit-fund/"
+   },
+   {
+    "label": "Sound Asset Management commitment (2024-03-25)",
+    "url": "https://alternativecreditinvestor.com/2024/03/25/european-investment-fund-backs-two-private-credit-funds/"
+   }
+  ]
+ },
+ {
+  "name": "Pennsylvania Public School Employees' Retirement System (PSERS)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Senior Direct Lending (US)",
+   "European Direct Lending",
+   "European Mid-Market Structured Capital"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Park Square Capital, Sixth Street, ICG (Intermediate Capital Group) (latest 2025-08-21).",
+  "sources": [
+   {
+    "label": "Park Square Capital commitment (2025-08-21)",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/psers/documents/board3/resolutions/2025/2025-57%20pserb%20resolution%20park%20square%20us%20loan%20partners%201,%20l.p..pdf"
+   },
+   {
+    "label": "Sixth Street commitment (2024-12-20)",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/psers/documents/board3/resolutions/2024/2024-87%20pserb%20resolution%20sixth%20street%20specialty%20lending%20europe%20iii,%20l.p..pdf"
+   },
+   {
+    "label": "ICG (Intermediate Capital Group) commitment (2024-05-31)",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/psers/documents/board3/resolutions/2024/2024-28%20PSERB%20Resolution%20ICG%20Europe%20MidMarket%20Fund%20II%20SCSp.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Los Angeles Fire and Police Pension System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Subordinated / Mezzanine Debt (US & Europe)",
+   "Corporate Private Credit (North America & Western Europe)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Castlelake, L.P., Ares Management (European Credit) (latest 2025-08-21).",
+  "sources": [
+   {
+    "label": "Castlelake, L.P. commitment (2025-08-21)",
+    "url": "https://www.pei-privatecredit.com/lafpp-commits-30m-to-castlelake/"
+   },
+   {
+    "label": "Ares Management (European Credit) commitment (2025-04-25)",
+    "url": "https://www.pei-privatecredit.com/lafpp-commits-30m-to-private-debt/"
+   }
+  ]
+ },
+ {
+  "name": "Railways Pension Scheme (Railpen)",
+  "type": "Corporate Pension",
+  "hq": "United Kingdom",
+  "aum": 34,
+  "aumCcy": "GBP",
+  "aumAsOf": "2025-08",
+  "strategies": [
+   "Securitised Credit (CLO/ABS/CMBS/MBS) mandate"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "~GBP34bn AUM; existing GBP2bn multi-asset credit mandate with NB. Recent credit commitments to Neuberger Berman (latest 2025-08-06).",
+  "sources": [
+   {
+    "label": "Neuberger Berman commitment (2025-08-06)",
+    "url": "https://alternativecreditinvestor.com/2025/08/06/neuberger-berman-gains-securitised-credit-mandate-from-railpen/"
+   }
+  ]
+ },
+ {
+  "name": "British Columbia Investment Management Corporation (BCI)",
+  "type": "Public Pension",
+  "hq": "Canada",
+  "aum": 182,
+  "aumCcy": "USD",
+  "aumAsOf": "2025-06",
+  "strategies": [
+   "European Mid-Market Direct Lending"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "BCI AUM C$250bn (~$182bn) with ~C$16bn (7%) in private debt. Recent credit commitments to Arini Capital Management (latest 2025-06-20).",
+  "sources": [
+   {
+    "label": "Arini Capital Management commitment (2025-06-20)",
+    "url": "https://www.alternativeswatch.com/2025/06/20/bci-anchors-european-direct-lending-fund-arini-lazard/"
+   }
+  ]
+ },
+ {
+  "name": "Fresno County Employees' Retirement Association",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Direct Lending (unitranche/junior)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Crescent Capital Group (latest 2025-05-12).",
+  "sources": [
+   {
+    "label": "Crescent Capital Group commitment (2025-05-12)",
+    "url": "https://www.pei-privatecredit.com/fcera-commits-40m-to-private-debt-fund/"
+   }
+  ]
+ },
+ {
+  "name": "School Employees Retirement System of Ohio (Ohio SERS)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Distressed / Special Situations"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to SVP (Strategic Value Partners) (latest 2025-05-07).",
+  "sources": [
+   {
+    "label": "SVP (Strategic Value Partners) commitment (2025-05-07)",
+    "url": "https://www.pei-privatecredit.com/ohio-sers-commits-75m-to-private-debt/"
+   }
+  ]
+ },
+ {
+  "name": "Arkansas Teacher Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Mezzanine / Junior Capital (Europe & US)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to MML Capital (latest 2025-04-11).",
+  "sources": [
+   {
+    "label": "MML Capital commitment (2025-04-11)",
+    "url": "https://www.pei-privatecredit.com/atrs-proposes-e40m-commitment-to-private-debt/"
+   }
+  ]
+ },
+ {
+  "name": "European Bank for Reconstruction and Development (EBRD)",
+  "type": "Bank / Treasury",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "SME Senior Private Debt (Poland & CEE)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to CVI Dom Maklerski (latest 2025-04-02).",
+  "sources": [
+   {
+    "label": "CVI Dom Maklerski commitment (2025-04-02)",
+    "url": "https://alternativecreditinvestor.com/2025/04/02/ebrd-backs-polish-private-debt-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Illinois Municipal Retirement Fund",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Strategic / Opportunistic Credit"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Pemberton Asset Management (latest 2025-04-01).",
+  "sources": [
+   {
+    "label": "Pemberton Asset Management commitment (2025-04-01)",
+    "url": "https://www.pei-privatecredit.com/imrf-commits-50m-to-private-debt-2/"
+   }
+  ]
+ },
+ {
+  "name": "Mitsubishi UFJ Trust and Banking Corporation",
+  "type": "Bank / Treasury",
+  "hq": "Japan",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Senior Direct Lending"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to AlbaCore Capital Group (latest 2025-03-27).",
+  "sources": [
+   {
+    "label": "AlbaCore Capital Group commitment (2025-03-27)",
+    "url": "https://www.pei-privatecredit.com/albacore-launches-senior-strategy-with-1-8bn-anchor-commitments/"
+   }
+  ]
+ },
+ {
+  "name": "New York City Retirement Systems (NYC Comptroller)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Opportunistic / Tactical Credit"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Hayfin Capital Management (latest 2025-03-21).",
+  "sources": [
+   {
+    "label": "Hayfin Capital Management commitment (2025-03-21)",
+    "url": "https://www.pei-privatecredit.com/nyc-comptrollers-office-commits-350m-to-hayfin-strategy/"
+   }
+  ]
+ },
+ {
+  "name": "Sacramento County Employees' Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Distressed / Special Situations"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to SVP (Strategic Value Partners) (latest 2025-03-21).",
+  "sources": [
+   {
+    "label": "SVP (Strategic Value Partners) commitment (2025-03-21)",
+    "url": "https://www.pei-privatecredit.com/scers-commits-40-million-to-svp-private-debt-fund/"
+   }
+  ]
+ },
+ {
+  "name": "ACCESS Pool (A Collaboration of Central, Eastern and Southern Shires)",
+  "type": "Public Pension",
+  "hq": "United Kingdom",
+  "aum": 52,
+  "aumCcy": "GBP",
+  "aumAsOf": "2025-03",
+  "strategies": [
+   "European Senior Direct Lending (mandate)",
+   "US Senior Direct Lending (mandate)"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Pool of 11 LGPS funds with ~GBP52bn. Recent credit commitments to Arcmont Asset Management, Golub Capital (latest 2025-03-18).",
+  "sources": [
+   {
+    "label": "Arcmont Asset Management commitment (2025-03-18)",
+    "url": "https://alternativecreditinvestor.com/2025/03/18/access-pool-hires-arcmont-and-golub-to-manage-direct-lending-strategies/"
+   }
+  ]
+ },
+ {
+  "name": "London Treasury Liquidity Fund (London Treasury)",
+  "type": "Bank / Treasury",
+  "hq": "United Kingdom",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "UK Real Estate Development & Bridge Debt"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Pluto Finance (latest 2025-03-13).",
+  "sources": [
+   {
+    "label": "Pluto Finance commitment (2025-03-13)",
+    "url": "https://alternativecreditinvestor.com/2025/03/13/london-treasury-invests-30m-real-estate-debt/"
+   }
+  ]
+ },
+ {
+  "name": "New Jersey Division of Investment (State of New Jersey Pension Fund)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Distressed / Special Situations",
+   "European Structured / Hybrid Capital",
+   "European Senior Direct Lending"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to SVP (Strategic Value Partners), ICG (Intermediate Capital Group), CVC (Credit) (latest 2025-01-29).",
+  "sources": [
+   {
+    "label": "SVP (Strategic Value Partners) commitment (2025-01-29)",
+    "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2025/SICRegularMeetingMinutes01292025.pdf"
+   },
+   {
+    "label": "ICG (Intermediate Capital Group) commitment (2024-10-30)",
+    "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2024/Minutes10302024.pdf"
+   },
+   {
+    "label": "CVC (Credit) commitment (2024-04-24)",
+    "url": "https://www.nj.gov/treasury/doinvest/pdf/ApprovedMinutes/2024/Minutes04242024.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Teachers' Retirement System of Louisiana",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Senior Direct Lending"
+  ],
+  "mandateStatus": "Actively allocating",
+  "notes": "Recent credit commitments to Arcmont Asset Management (latest 2025-01-16).",
+  "sources": [
+   {
+    "label": "Arcmont Asset Management commitment (2025-01-16)",
+    "url": "https://www.pei-privatecredit.com/trsl-commits-100m-to-private-debt/"
+   }
+  ]
+ },
+ {
+  "name": "Oregon State Treasury (OPERF)",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Direct Lending"
+  ],
+  "mandateStatus": "Selective",
+  "notes": "Recent credit commitments to Sixth Street (latest 2024-12-13).",
+  "sources": [
+   {
+    "label": "Sixth Street commitment (2024-12-13)",
+    "url": "https://www.oregon.gov/treasury/invested-for-oregon/Documents/Invested-for-OR-47OIC-Agenda-and-Minutes/2025/3-05-2025-Public-Book.pdf"
+   }
+  ]
+ },
+ {
+  "name": "Seattle City Employees' Retirement System",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Senior Direct Lending"
+  ],
+  "mandateStatus": "Selective",
+  "notes": "Recent credit commitments to Arcmont Asset Management (latest 2024-08-29).",
+  "sources": [
+   {
+    "label": "Arcmont Asset Management commitment (2024-08-29)",
+    "url": "https://seattle.gov/documents/Departments/Retirement/Board/Minutes%2C%20Investment%20Committee/IC_Minutes_2024_08.pdf"
+   }
+  ]
+ },
+ {
+  "name": "New Mexico State Investment Council",
+  "type": "Sovereign Wealth Fund",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Strategic / Opportunistic Credit"
+  ],
+  "mandateStatus": "Selective",
+  "notes": "Recent credit commitments to Pemberton Asset Management (latest 2024-08).",
+  "sources": [
+   {
+    "label": "Pemberton Asset Management commitment (2024-08)",
+    "url": "https://www.pei-privatecredit.com/nmsic-commits-150m-to-private-credit-fund/"
+   }
+  ]
+ },
+ {
+  "name": "Minnesota State Board of Investment",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "Opportunistic / Strategic Credit"
+  ],
+  "mandateStatus": "Selective",
+  "notes": "Recent credit commitments to Permira Credit (latest 2024-05-21).",
+  "sources": [
+   {
+    "label": "Permira Credit commitment (2024-05-21)",
+    "url": "https://www.msbi.us/board%20approval%20may%202024"
+   }
+  ]
+ },
+ {
+  "name": "Houston Firefighters' Relief and Retirement Fund",
+  "type": "Public Pension",
+  "hq": "United States",
+  "aum": null,
+  "aumCcy": null,
+  "aumAsOf": null,
+  "strategies": [
+   "European Senior Direct Lending"
+  ],
+  "mandateStatus": "Selective",
+  "notes": "Recent credit commitments to Bridgepoint Credit (latest 2024-04-16).",
+  "sources": [
+   {
+    "label": "Bridgepoint Credit commitment (2024-04-16)",
+    "url": "https://www.dakota.com/fundraising-news/houston-firefighters-commits-30m-to-direct-lending-fund"
+   }
+  ]
+ }
+]

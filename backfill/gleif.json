@@ -422,7 +422,7 @@
   "m6": {
    "kind": "manager",
    "id": "m6",
-   "name": "Barings (European Private Credit)",
+   "name": "Barings",
    "candidates": [
     {
      "lei": "549300IFCTUR0OJZ7324",
@@ -1100,7 +1100,7 @@
   "m20": {
    "kind": "manager",
    "id": "m20",
-   "name": "Ares Management (European Credit)",
+   "name": "Ares Management",
    "candidates": [
     {
      "lei": "213800YT8WTIM57LZD97",

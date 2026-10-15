@@ -33,25 +33,52 @@ function parseLine(line) {
   return Function(`"use strict"; return (${body});`)();
 }
 
+// Record spans inside an array: a record starts on a line beginning with "{" and ends
+// on the line where its brace depth returns to zero (braces inside string literals
+// are ignored). Most records are ONE line; older hand-written legal records span
+// several (`{\n  id: "u137", …\n},`) — both forms are handled the same way.
+function spans(lines, s, e) {
+  const out = [];
+  for (let i = s + 1; i < e; i++) {
+    if (!/^\s*\{/.test(lines[i])) continue;
+    let depth = 0, q = null, j = i;
+    for (; j < e; j++) {
+      const L = lines[j];
+      for (let k = 0; k < L.length; k++) {
+        const c = L[k];
+        if (q) { if (c === "\\") k++; else if (c === q) q = null; continue; }
+        if (c === '"' || c === "'" || c === "`") q = c;
+        else if (c === "{") depth++;
+        else if (c === "}") depth--;
+      }
+      if (depth <= 0) break;
+    }
+    out.push([i, j]);
+    i = j;
+  }
+  return out;
+}
+const spanText = (lines, a, b) => lines.slice(a, b + 1).join("\n");
+
 export function readRecords(file, name) {
   const lines = fs.readFileSync(file, "utf8").split("\n");
   const [s, e] = bounds(lines, name);
-  const out = [];
-  for (let i = s + 1; i < e; i++) if (/^\s*\{/.test(lines[i])) out.push({ index: i, obj: parseLine(lines[i]), line: lines[i] });
-  return out;
+  return spans(lines, s, e).map(([a, b]) => ({ index: a, end: b, obj: parseLine(spanText(lines, a, b)), line: spanText(lines, a, b) }));
 }
 
 export function updateRecords(file, name, mutate, { dryRun = false } = {}) {
   const lines = fs.readFileSync(file, "utf8").split("\n");
   const [s, e] = bounds(lines, name);
   let changed = 0;
-  for (let i = s + 1; i < e; i++) {
-    if (!/^\s*\{/.test(lines[i])) continue;
-    const obj = parseLine(lines[i]);
+  // Walk spans bottom-up so a multi-line record collapsing to one line never shifts
+  // the indices of spans still to be visited.
+  for (const [a, b] of spans(lines, s, e).reverse()) {
+    const text = spanText(lines, a, b);
+    const obj = parseLine(text);
     if (!mutate(obj)) continue;
-    const indent = lines[i].match(/^\s*/)[0];
-    const comma = /,\s*$/.test(lines[i]) ? "," : "";
-    lines[i] = indent + JSON.stringify(obj) + comma;
+    const indent = lines[a].match(/^\s*/)[0];
+    const comma = /,\s*$/.test(lines[b]) ? "," : "";
+    lines.splice(a, b - a + 1, indent + JSON.stringify(obj) + comma);
     changed++;
   }
   if (changed && !dryRun) fs.writeFileSync(file, lines.join("\n"));
@@ -77,13 +104,12 @@ export function deleteRecords(file, name, ids, { dryRun = false } = {}) {
   const want = new Set(ids);
   const lines = fs.readFileSync(file, "utf8").split("\n");
   const [s, e] = bounds(lines, name);
-  const keep = [];
   let n = 0;
-  for (let i = s + 1; i < e; i++) {
-    if (/^\s*\{/.test(lines[i]) && want.has(parseLine(lines[i]).id)) { n++; continue; }
-    keep.push(lines[i]);
+  for (const [a, b] of spans(lines, s, e).reverse()) {
+    if (!want.has(parseLine(spanText(lines, a, b)).id)) continue;
+    lines.splice(a, b - a + 1); n++;
   }
-  if (n && !dryRun) fs.writeFileSync(file, [...lines.slice(0, s + 1), ...keep, ...lines.slice(e)].join("\n"));
+  if (n && !dryRun) fs.writeFileSync(file, lines.join("\n"));
   return n;
 }
 

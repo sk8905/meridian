@@ -32,16 +32,21 @@ jobs:
           node-version: 22
       - name: Refresh snapshot
         run: node scripts/refresh-dash-snapshot.mjs
+      # Last-known payloads of the live endpoints (dashboard/js/live-snapshot.js) — what
+      # a card shows, labelled with its capture time, when a live call fails or is empty.
+      # Never fails the job: an unreachable source keeps its previous dated payload.
+      - name: Refresh last-known live payloads
+        run: node scripts/refresh-live-snapshot.mjs || echo "live snapshot unchanged"
       - name: Validate
         run: |
           node --input-type=module -e "import('./dashboard/js/data.js').then(m=>{if(!Array.isArray(m.EQ_INDICES)||!m.DASH_ASOF)throw new Error('bad module');console.log('DASH_ASOF',m.DASH_ASOF)})"
           node tests/refresh-dash-snapshot.mjs
       - name: Commit if changed
         run: |
-          if git diff --quiet -- dashboard/js/data.js; then echo "No change"; exit 0; fi
+          if git diff --quiet -- dashboard/js/data.js dashboard/js/live-snapshot.js; then echo "No change"; exit 0; fi
           git config user.name "wire-collector[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add dashboard/js/data.js
+          git add dashboard/js/data.js dashboard/js/live-snapshot.js
           git commit -m "Dashboard: refresh fallback snapshot from live sources ($(date -u +%F))"
           for i in 1 2 3 4 5; do
             git pull --rebase -q origin main && git push -q origin HEAD:main && exit 0

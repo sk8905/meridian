@@ -5,7 +5,9 @@
 // yields — a heatmap of one tenor with a 2Y/5Y/10Y/30Y toggle that re-renders.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
-const srv = await serve();
+// Live endpoints stubbed empty AND no last-known snapshot: this spec checks the compiled
+// fallbacks (US + UK curves only — the Euro AAA line needs /api/eurates data).
+const srv = await serve({ "/dashboard/js/live-snapshot.js": () => [404, "x", "text/plain"] });
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 

@@ -9,6 +9,7 @@
 // returns to the list. The detail views are the desks' own view functions, at a
 // Profiles-owned host per render (see __setProfilesMode in the detail modules).
 
+import { viewBorrower } from "./borrower.js";
 import {
   viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId, viewCompare,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
@@ -422,6 +423,8 @@ export async function mount(host, ctx) {
       case "clo": return renderCredit("managers", () => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
       case "compare": return renderCredit("managers", () => viewCompare(dec(arg || ""), seg[2] ? dec(seg[2]) : ""));
       case "lp": return renderCredit("investors", () => viewLp(arg, seg[2]));
+      // Borrower / company page (review #10) — everything Wire holds on one company.
+      case "co": return renderCredit("managers", () => { viewBorrower(pfDetail, dec(arg || ""), ctx.base || "/v2"); });
       case "hf": renderCredit("hedgefunds", () => viewHedgeFund(arg, seg[2])); return;
       case "firm": renderLegal("firms", () => viewFirm(dec(arg), seg[2])); return;
       case "item": return renderLegal("firms", () => viewItem(dec(arg)));

@@ -72,10 +72,12 @@ const normT = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").t
 export function knownIndex() {
   const urls = new Set(), titles = new Set();
   const addR = (u, t) => { if (u) urls.add(normUrl(u)); if (t) titles.add(normT(t)); };
-  for (const r of [...(CR.deals || []), ...(CR.intel || [])]) addR(r.sourceUrl, r.headline);
+  // alsoReported: the URLs of duplicates merged away by scripts/dedupe-data.mjs —
+  // still "known", so a routine never re-adds a merged duplicate.
+  for (const r of [...(CR.deals || []), ...(CR.intel || [])]) { addR(r.sourceUrl, r.headline); for (const a of r.alsoReported || []) addR(a.url, a.headline); }
   for (const r of CR.HEDGE_INTEL || []) addR(r.url, r.headline);
   for (const m of CR.managers || []) for (const w of [...(m.webNews || []), ...(m.news || [])]) addR(w.url, w.title);
-  for (const r of LG.items || []) addR(r.url, r.title);
+  for (const r of LG.items || []) { addR(r.url, r.title); for (const a of r.alsoReported || []) addR(a.url, a.headline); }
   for (const r of LG.cases || []) addR(r.url, r.name);
   return { urls, titles };
 }

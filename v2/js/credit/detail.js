@@ -106,7 +106,7 @@ function crWireRow(x, inline) {
     ? (url ? ext(title, url) : `<span class="tw-head">${esc(title)}</span>`)
     : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
   return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}>`
-    + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : "undated"}</span>`
+    + `<span class="tw-date">${x.date ? esc(fmtDate(x)) : "undated"}</span>`
     + `<span class="tw-tag ${x._kind}">${CR_KIND[x._kind]}</span>`
     + `<span class="tw-body">${head}${inline ? `<span class="tw-mgr-w">${inline}</span>` : ""}</span>`
     + `<span class="tw-src">${src ? (url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src)) : ""}</span>`
@@ -329,7 +329,7 @@ function invRow(d) {
     + `<td class="tinv-c-type">${esc(d.type || "—")}</td>`
     + `<td class="tinv-c-instr">${tag}</td>`
     + `<td class="tinv-c-amt">${amt ? esc(amt) : "—"}</td>`
-    + `<td class="tinv-c-date">${esc(fmtDate(d.date))}</td>`
+    + `<td class="tinv-c-date">${esc(fmtDate(d))}</td>`
     + `<td class="tinv-c-src">${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${esc(outlet || "source")}</a>` : "—"}</td>`
     + `</tr>`
     + (hasDetail ? `<tr class="tinv-exp" data-for="${esc(d.id)}" hidden><td colspan="6"><div class="tx-exp-in">${detail}</div></td></tr>` : "");
@@ -768,7 +768,15 @@ export function viewLp(id, tab0) {
     ["Implied PC AUM", pcAum != null ? "$" + pcAum.toFixed(1) + "bn" : "—"], ["Typical ticket", usdM(l.typicalTicket)],
   ];
   const commitRows = [
-    ...commits.map((c) => `<li class="tmini-row clickable" data-href="#/manager/${esc(c.managerId)}"><span class="tmini-t">${esc((managerById[c.managerId] || {}).name)}${c.fundId && fundById[c.fundId] ? `<span class="tmini-r">${esc(fundById[c.fundId].name)}</span>` : ""}</span>${c.note ? `<span class="tmini-m">${esc(c.note)}</span>` : ""}</li>`),
+    // Newest first; each commitment shows its amount, date and public source (review #15).
+    ...commits.slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || ""))).map((c) => {
+      const mName = (managerById[c.managerId] || {}).name || c.manager || "—";
+      const fName = c.fundId && fundById[c.fundId] ? fundById[c.fundId].name : (c.fund || "");
+      const amt = c.amount != null ? `${{ EUR: "€", GBP: "£", USD: "$" }[c.ccy] || (c.ccy ? c.ccy + " " : "")}${c.amount >= 1000 ? +(c.amount / 1000).toFixed(2) + "bn" : c.amount + "m"}` : "";
+      const meta = [amt, c.date ? fmtDate({ date: c.date.length === 7 ? c.date + "-01" : c.date, datePrecision: c.date.length === 7 ? "month" : null }) : "", c.strategy || ""].filter(Boolean).join(" · ");
+      const src = c.sourceUrl ? ` <a href="${esc(c.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="tmini-src">source</a>` : "";
+      return `<li class="tmini-row${c.managerId ? " clickable" : ""}"${c.managerId ? ` data-href="#/manager/${esc(c.managerId)}"` : ""}><span class="tmini-t">${esc(mName)}${fName ? `<span class="tmini-r">${esc(fName)}</span>` : ""}</span>${meta ? `<span class="tmini-m">${esc(meta)}${src}</span>` : ""}${c.note ? `<span class="tmini-m">${esc(c.note)}${meta ? "" : src}</span>` : ""}</li>`;
+    }),
     ...fundsIn.map((f) => { const i = (f.investors || []).find((x) => x.lpId === l.id) || {}; return `<li class="tmini-row clickable" data-href="#/manager/${esc(f.managerId)}"><span class="tmini-t">${esc((managerById[f.managerId] || {}).name || "")}<span class="tmini-r">${esc(f.name)}</span></span>${i.note ? `<span class="tmini-m">${esc(i.note)}</span>` : ""}</li>`; }),
   ];
   const commitsBody = commitRows.length
@@ -802,7 +810,7 @@ export function viewLp(id, tab0) {
             <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}${l.aum != null ? ` · <span class="tdet-aum"${aumNote(l, "aum", AUM_FX) ? ` title="${esc(aumNote(l, "aum", AUM_FX))}"` : ""}>AUM ${esc(fmtAumC(l.aum))}</span>` : ""}${l.pcAllocationPct != null ? ` · PC allocation ${esc(pct(l.pcAllocationPct))}` : ""}</div>
             ${latestLine(mentions)}
             ${l.notes ? `<p class="tdet-desc">${esc(l.notes)}</p>` : ""}
-            <div class="tdet-chips"><span class="tdet-chip">${esc(l.mandateStatus)}</span>${l.strategies.map((x) => `<span class="tdet-chip">${esc(x)}</span>`).join("")}</div>
+            <div class="tdet-chips"><span class="tdet-chip"${l.mandateInferred ? ' title="Inferred from the dates of its latest public commitments"' : ""}>${esc(l.mandateStatus)}${l.mandateInferred ? " (inferred)" : ""}</span>${l.strategies.map((x) => `<span class="tdet-chip">${esc(x)}</span>`).join("")}</div>
             ${lpPeersDetails}
             ${srcDetails(l)}
           </div>

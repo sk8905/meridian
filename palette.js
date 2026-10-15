@@ -12,6 +12,8 @@
 import { deals, intel, managers, funds, lps, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 import { BDCS } from "/credit/js/bdcs.js";
+import { DEAL_TAGS } from "/credit/js/deal-tags.js";
+import { CR_STRESS } from "/dashboard/js/data.js";
 import { EUR_CREDITS } from "/credit/js/eu-credits.js";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js";
 import { FT_ITEMS } from "/ft.js";
@@ -28,7 +30,7 @@ function feedDedupKey(x) {
 import { esc } from "/util.js";
 // Shared label vocabulary + classifier, so a "#CODE" search behaves identically
 // here and in the Home palette (same tags, same precedence).
-import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire, fmtDay as fmt } from "/feed.js";
+import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire, fmtDay as fmt, fmtDateP } from "/feed.js";
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 // The standalone Deals/Fundraising list pages are retired, so a deal/intel record
 // links to its source article when we have one, else the manager's profile in the
@@ -58,7 +60,10 @@ function buildIndex() {
   // `label` is the pill text (the sub-section / tab the item lives in, e.g.
   // "Legal alert", "Case law", "Deal", "Fundraising"); `tag` still drives the
   // pill colour (macro / credit / legal). Falls back to the section name.
-  const add = (tag, title, sub, href, rank, date, label, source) => idx.push({ tag, title, sub, href, rank, date: date || "", label: label || "", source: (source || "").toLowerCase(), hay: expandHay(title + " " + sub) });
+  // `body` (a record's sourced summary) is searched too — so a concept that lives in
+  // the text, not the headline ("intercreditor", "unitranche", "Part 26A"), still
+  // finds the alert, judgment or deal; a body-only hit ranks after headline hits.
+  const add = (tag, title, sub, href, rank, date, label, source, body) => idx.push({ tag, title, sub, href, rank, date: date || "", label: label || "", source: (source || "").toLowerCase(), hay: expandHay(title + " " + sub), deep: body ? String(body).toLowerCase().slice(0, 600) : "" });
   add("view", "Home", "Cross-desk briefing", "/v2/", 4, "");
   // The macro desk and its #/ deep-dive pages are retired — its sections live on the
   // Dashboard ▸ Macro tab, so every macro shortcut opens there (the old /macro/#/…
@@ -75,8 +80,14 @@ function buildIndex() {
   // A deal opens IN-APP as its Transactions deal drawer (borrower, lender → profile,
   // related deals, source); a fundraising/people item opens its manager's profile
   // focused on that row (else its source).
-  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, d.date ? `/v2/transactions/#/deal/${encodeURIComponent(d.id)}` : creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
-  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, i.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(i.managerId)}?focus=${encodeURIComponent(i.id)}` : creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise"));
+  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmtDateP(d)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, d.date ? `/v2/transactions/#/deal/${encodeURIComponent(d.id)}` : creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal", "", d.summary));
+  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmtDateP(i)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, i.managerId ? `/v2/profiles/#/manager/${encodeURIComponent(i.managerId)}?focus=${encodeURIComponent(i.id)}` : creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise", "", i.summary));
+  // Borrowers / companies (review #10) — every audited deal party and every stress-list
+  // debtor opens its borrower page (deals + plans + judgments + alerts in one place).
+  const seenCo = new Set();
+  const addCo = (n, sub) => { const k = String(n || "").trim(); const kk = k.toLowerCase(); if (k.length < 3 || seenCo.has(kk)) return; seenCo.add(kk); add("credit", k, sub, `/v2/profiles/#/co/${encodeURIComponent(k)}`, 1, "", "Borrower"); };
+  (CR_STRESS || []).forEach((s) => addCo(s.name, `Borrower · ${s.status || "stress list"}`));
+  Object.values(DEAL_TAGS || {}).forEach((t) => { if (t && t.party && (t.partyRole || "borrower") === "borrower" && t.partyQuality !== "placeholder") addCo(t.party, "Borrower · deals"); });
   // BDCs and the European credit universe (Transactions) — each opens its row.
   (BDCS || []).forEach((b) => add("credit", b.name, `BDC${b.ticker ? " · " + b.ticker : ""} · ${b.manager || ""}`, `/v2/dashboard/credit?bdc=${encodeURIComponent(b.ticker || b.name)}`, 1, "", "BDC"));
   (EUR_CREDITS || []).forEach((c) => add("credit", c.name, `European credit · ${c.sector || ""}${c.rating ? " · " + c.rating : ""}${c.jurisdiction ? " · " + c.jurisdiction : ""}`, `/v2/dashboard/credit?credit=${encodeURIComponent(c.name)}`, 1, "", "Credit"));
@@ -93,8 +104,8 @@ function buildIndex() {
   const TIER_LBL = { magic: "Magic Circle", silver: "Silver Circle", "us-elite": "US elite", chambers: "Chambers" };
   (firms || []).forEach((f) => add("legal", f.name, `Law firm${TIER_LBL[f.tier] ? " · " + TIER_LBL[f.tier] : ""}`, `/v2/profiles/#/firm/${encodeURIComponent(f.id)}`, 0, "", "Firm"));
   const firmNm = Object.fromEntries((firms || []).map((f) => [f.id, f.name]));
-  items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + (firmNm[i.firm] || i.firm) : ""}${i.date ? " · " + fmt(i.date) : ""}`, i.url || `/v2/profiles/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
-  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || `/v2/profiles/#/?tab=firms`, 2, c.date, "Case"));
+  items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + (firmNm[i.firm] || i.firm) : ""}${i.date ? " · " + fmtDateP(i) : ""}`, i.url || `/v2/profiles/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert", "", [i.summary, ...(i.tags || [])].filter(Boolean).join(" ")));
+  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || `/v2/profiles/#/?tab=firms`, 2, c.date, "Case", "", c.summary));
   restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, r.judgmentUrl || r.articleUrl || `/v2/profiles/#/?tab=firms`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
   ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Dashboard · Macro", MACRO_DASH, 3, "", "Indicator")));
   // News items — so a search for e.g. "Federal Reserve" finds macro headlines too.
@@ -180,6 +191,7 @@ html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;
 .mcmdk-code.substack{color:var(--t-amber,#d9a441);background:color-mix(in srgb,var(--t-amber,#d9a441) 16%,transparent)}
 .mcmdk-code.brew{color:var(--t-amber,#d9a441);background:color-mix(in srgb,var(--t-amber,#d9a441) 16%,transparent)}
 .mcmdk-s{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mcmdk-more{display:block;width:100%;padding:10px 14px;border:0;background:transparent;color:var(--accent,#fb8b1e);font:inherit;font-size:var(--fs-body);text-align:left;cursor:pointer}
 .mcmdk-foot{border-top:1px solid var(--border,#232f47);padding:.5rem .8rem;color:var(--muted,#8592ad);font-size:.75rem;display:flex;gap:1rem}
 .mcmdk-foot kbd{background:var(--panel2,rgba(255,255,255,.06));border-radius:0;padding:.05rem .3rem;font-family:inherit;font-weight:700}
 /* On touch phones the tag pill ("Go") and the keyboard-hint footer are irrelevant. */
@@ -248,15 +260,25 @@ export function mountPalette() {
       : prof ? idx.filter((e) => PROFILE_LABELS.has(String(e.label || "").toLowerCase()))
       : idx;
     const toks = q ? q.split(/\s+/) : [];
-    return pool.filter((e) => toks.every((t) => e.hay.includes(t)))
-      .map((e) => ({ e, s: score(e, q) }))
+    // Within a rank: headline/meta hits before body-only hits, then NEWEST FIRST for
+    // dated records (CLOs, deals, alerts, cases — "latest CLO pricings" must lead with
+    // this month's, not 2021's), then match quality. The whole list is returned; the
+    // panel shows the first 40 with a "Show all" row (review 2026-10-15, #4).
+    return pool.map((e) => {
+      const head = toks.every((t) => e.hay.includes(t));
+      const deep = !head && e.deep && toks.every((t) => e.hay.includes(t) || e.deep.includes(t));
+      return head || deep ? { e, d: deep ? 1 : 0, s: score(e, q) } : null;
+    }).filter(Boolean)
       .sort((a, b) =>
         a.e.rank - b.e.rank ||
-        (a.e.rank === 2 ? String(b.e.date).localeCompare(String(a.e.date)) : 0) ||
+        a.d - b.d ||
+        (a.e.date && b.e.date ? String(b.e.date).localeCompare(String(a.e.date)) : (a.e.date ? -1 : b.e.date ? 1 : 0)) ||
         a.s - b.s ||
         a.e.title.localeCompare(b.e.title))
-      .slice(0, (code || prof) ? 60 : 40).map((x) => x.e);
+      .map((x) => x.e);
   }
+  const PAGE = 40;
+  let _all = [], _shown = PAGE;
   // Recent searches (shared key with the retired Menu list). Surfaced in the
   // palette's OWN empty state so search has a single home — the Menu no longer
   // carries a duplicate search section.
@@ -273,10 +295,11 @@ export function mountPalette() {
   function draw() {
     results.innerHTML = current.length
       ? current.map((e, i) => `<div class="mcmdk-row${i === sel ? " sel" : ""}" data-i="${i}"><span class="mcmdk-t">${esc(e.title)}</span><span class="mcmdk-meta"><span class="mcmdk-code ${e.tag}">${esc(DESKCODE[e.tag] || e.label || e.tag)}</span>${e.sub ? `<span class="mcmdk-s">${esc(e.sub)}</span>` : ""}</span></div>`).join("")
+        + (_all.length > current.length ? `<button type="button" class="mcmdk-more" data-more="1">Show all ${_all.length} results</button>` : "")
       : (input.value.trim() ? `<div class="mcmdk-empty">No matches.</div>` : emptyHTML());
     const s = results.querySelector(".mcmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
-  const refresh = () => { current = searchIdx(input.value); sel = 0; draw(); };
+  const refresh = () => { _all = searchIdx(input.value); _shown = PAGE; current = _all.slice(0, _shown); sel = 0; draw(); };
   // Remember the query whenever a result is opened — feeds the Menu panel's
   // "Recent searches" list (shared key with the Home palette).
   const recordSearch = (q) => {
@@ -318,6 +341,7 @@ export function mountPalette() {
   results.addEventListener("click", (ev) => {
     const rec = ev.target.closest(".mcmdk-recent");
     if (rec) { input.value = rec.dataset.recent || ""; refresh(); syncClr(); input.focus(); return; }
+    if (ev.target.closest(".mcmdk-more")) { _shown = _all.length; current = _all.slice(0, _shown); draw(); return; }
     const r = ev.target.closest(".mcmdk-row"); if (r) go(current[+r.getAttribute("data-i")]);
   });
   input.addEventListener("keydown", (ev) => {

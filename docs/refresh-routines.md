@@ -883,6 +883,35 @@ FUND_STATUS (an open-ended fund is `"Open"` + `evergreen:true`), `domicile` a co
 `tests/data-currency.mjs` ratchets the remaining off-vocabulary values. (Manager and
 investor AUM is USD by convention — R29.)
 
+## Duplicates, date precision and last-known values (review 2026-10-15)
+
+- **Same event, one record.** After appending deals / intel / legal items, run
+  `node scripts/dedupe-data.mjs` (idempotent). It merges same-manager records that share a
+  normalised source URL within 5 days, plus a reviewed list of same-event pairs reported by
+  two outlets; the dropped URL is kept on the survivor as `alsoReported` (shown as "+n" /
+  "Also reported" in Transactions) and the candidate collector treats it as already known.
+  Before adding a story, check it is not the same deal under a second outlet's headline —
+  if it is, add the URL to the existing record's `alsoReported` instead.
+- **Never a placeholder day.** If a source gives only the year or month, do NOT write
+  `YYYY-01-01` / `YYYY-MM-01` as if exact: set `dateEstimated:true` and `datePrecision:
+  "year" | "month"` (the app prints "2025" / "Jan 2025"). `node scripts/date-precision.mjs`
+  flags any that slip through and repairs a 1st-of-month date from the record's own URL day.
+- **Last-known live values.** `dashboard/js/live-snapshot.js` holds the last useful payload
+  of each live market endpoint (`scripts/refresh-live-snapshot.mjs`, run by the weekday
+  snapshot workflow). Do not hand-edit it.
+- **Regulatory calendar, stress list, default rates** (`dashboard/js/data.js`
+  `REG_CALENDAR`, `CR_STRESS`, `EU_DISTRESS`): each row carries a primary or clearly
+  attributed source and its date; `REG_CALENDAR` rows carry `jur` (EU/UK/US) and `area`;
+  `EU_DISTRESS` rows name their `measure` (TTM by count / amount / forecast). Refresh the
+  default rates when Fitch / S&P / Moody's / PitchBook LCD publish the next month.
+- **LP commitments.** New public commitments go in `backfill/lp-commitments-*.json` (and new
+  investors in `backfill/lp-profiles-*.json`) with a `sourceUrl` each, then run
+  `node scripts/merge-lp-research.mjs`. Good primary sources: US public pension board
+  papers and monthly transaction reports (NY Common, CalPERS, CalSTRS, PSERS, Oregon,
+  Minnesota SBI, New Jersey SIC), UK LGPS pool papers, Dutch/Nordic annual reports.
+- **Companies House.** `/api/ch` (borrower pages) needs a free Companies House REST key as
+  the Worker secret `CH_API_KEY`; without it the page links the public register.
+
 ## Register collectors — GLEIF LEIs and Gazette notices (GitHub Actions, candidates only)
 
 Two Actions read official sources the routine containers can't reach and commit CANDIDATES

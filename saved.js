@@ -109,7 +109,7 @@ function creditNotif() {
   deals.forEach((d) => { const h = dealHref(d); out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: h, ext: /^https?:/.test(h) }); });
   intel.forEach((i) => { const h = intelHref(i); out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: h, ext: /^https?:/.test(h) }); });
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/v2/profiles/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
-  return recentNotif(dedupNotif(out));
+  return recentNotif(dedupNotif(out.filter((x) => !_lowSignal(x.title))));
 }
 // A "[law firm] advised …" deal announcement is noise for the NOTIFICATION bell
 // UNLESS the deal involves a manager / hedge fund the app covers (then it's a
@@ -148,15 +148,23 @@ function _suppressedAdvised(title) {
 function _caseInBell(c) {
   return _mentionsCovered((c && c.name) || "");
 }
+// Materiality (review 2026-10-15, #8): the bell is for things a credit lawyer acts on —
+// deals, closes, restructurings, judgments, rule changes. Corporate housekeeping
+// (earnings-call dates, webcasts), marketing (awards, shortlists, podcasts, "how I
+// invest"), thought-leadership outlooks and firm newsletters / round-ups stay in the
+// feeds but never ring the bell.
+const _LOW_SIGNAL_RX = /\b(announces? (the )?(date|timing) of|to (announce|report|release) (its )?(first|second|third|fourth|q[1-4]|full[- ]year|half[- ]year)|earnings (release|call)|conference call|webcast|podcast|webinar|newsletter|bulletin|round-?up|digest|weekly (update|review)|\b(wins?|won|scoops?) [^.]{0,40}\bawards?\b|awards (20\d\d|ceremony)|\w+ awards 20\d\d|shortlisted|named (to|among|in) |how i invest|perspectives?\b|(mid-?year|annual|\d{4}) (credit |market |investment )?outlook|thought leadership)/i;
+function _lowSignal(title) { return _LOW_SIGNAL_RX.test(String(title || "")); }
 // Test hooks (see tests/notifications-advised-filter.mjs + notifications-caselaw.mjs).
 export const __suppressedAdvised = _suppressedAdvised;
+export const __lowSignal = _lowSignal;
 export const __caseInBell = _caseInBell;
 function legalNotif() {
   const out = [];
   items.forEach((it) => { if (_suppressedAdvised(it.title)) return; out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: itemHref(it), ext: false }); });
   cases.forEach((c) => { if (!_caseInBell(c)) return; out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/v2/profiles/#/?tab=firms", ext: !!c.url }); });
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/v2/profiles/#/?tab=firms", ext: !!u }); });
-  return recentNotif(dedupNotif(out));
+  return recentNotif(dedupNotif(out.filter((x) => !_lowSignal(x.title))));
 }
 export async function buildNotifs() {
   return [...creditNotif(), ...legalNotif()].sort(byDateDesc);

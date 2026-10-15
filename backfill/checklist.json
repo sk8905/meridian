@@ -970,7 +970,7 @@
     },
     "m20": {
       "kind": "manager",
-      "name": "Ares Management (European Credit)",
+      "name": "Ares Management",
       "priority": 0,
       "status": "built",
       "builtAt": "2026-10-13",
@@ -1139,7 +1139,7 @@
     },
     "m6": {
       "kind": "manager",
-      "name": "Barings (European Private Credit)",
+      "name": "Barings",
       "priority": 47,
       "status": "todo",
       "builtAt": null,
@@ -1959,7 +1959,7 @@
           "date": "2026-06-09",
           "what": "Janus Henderson to acquire Rantum Capital",
           "source": "https://alternativecreditinvestor.com/2026/06/09/janus-henderson-acquires-rantum-capital-in-private-credit-push/",
-          "recordId": "d1033",
+          "recordId": "d523",
           "status": "present"
         },
         {
@@ -2261,7 +2261,7 @@
           "what": "Dolomite Capital spins out of Taconic with ~$1.3bn; Magliana CIO",
           "source": "https://www.hedgeweek.com/former-taconic-european-credit-team-spins-out-as-dolomite-capital-with-1-3bn/",
           "status": "present",
-          "recordId": "i472"
+          "recordId": "i870"
         }
       ]
     },
@@ -2361,7 +2361,7 @@
           "what": "FDC seeks up to £500m for UK Real Estate Development Debt Fund",
           "source": "https://www.thebusinessdesk.com/yorkshire/news/2157749-mercia-targets-up-to-500m-for-uk-real-estate-development-fund",
           "status": "present",
-          "recordId": "i863"
+          "recordId": "i508"
         }
       ]
     },
@@ -2912,7 +2912,7 @@
           "what": "Cross Ocean completes Bosphorus CLO VII, first CLO under its management",
           "source": "https://www.crossoceanpartners.com/news-press/cross-ocean-partners-launches-its-first-clo-post-acquisition-of-the-bosphorus-european-clo-platform-from-commerzbank",
           "status": "present",
-          "recordId": "d960"
+          "recordId": "d638"
         },
         {
           "key": "celsa-takeover-formalised",
@@ -3206,7 +3206,7 @@
           "date": "2026-07-15",
           "what": "British Business Bank £50m cornerstone commitment to Fund II",
           "source": "https://alternativecreditinvestor.com/2026/07/15/british-business-bank-commits-50m-to-sme-fund/",
-          "recordId": "i488",
+          "recordId": "i525",
           "status": "present"
         },
         {
@@ -4166,7 +4166,7 @@
           "what": "AlbaCore and MUFG infrastructure debt platform",
           "source": "https://www.businesswire.com/news/home/20260305838000/en/albacore-capital-group-and-mitsubishi-ufj-financial-group-announce-infrastructure-debt-platform/",
           "status": "present",
-          "recordId": "i1136"
+          "recordId": "i233"
         },
         {
           "key": "e2020-06-clo1",

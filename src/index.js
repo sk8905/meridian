@@ -2099,6 +2099,48 @@ export function formdParse(j) {
     return { issuer, cik, date: s.file_date || "", form: s.file_type || "D", accession: adsh, url: link };
   }).filter((f) => f.issuer && f.date);
 }
+// /api/ch?q=<company> — UK Companies House profile + registered charges for the
+// Profiles borrower page (review 2026-10-15, #18). The free Companies House REST API
+// needs a key (env.CH_API_KEY, a Worker secret); without one this answers
+// { configured:false } and the page links to the public register instead. Picks the
+// best-matching ACTIVE company (exact name first), returns its number / status /
+// incorporation date and up to 25 charges (holders, created date, status). Edge-cached
+// 24h. Read-only; the key never leaves the Worker.
+export function chPick(items, q) {
+  const n = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").replace(/\b(limited|ltd|plc|holdings?|group)\b/g, "").replace(/\s+/g, " ").trim();
+  const want = n(q);
+  const list = (items || []).filter((c) => c && c.company_number);
+  return list.find((c) => n(c.title) === want && c.company_status === "active")
+    || list.find((c) => n(c.title) === want)
+    || list.find((c) => n(c.title).startsWith(want + " ") && c.company_status === "active")
+    || null;
+}
+async function handleCompaniesHouse(request, env, ctx) {
+  const url = new URL(request.url);
+  const q = (url.searchParams.get("q") || "").trim().slice(0, 120);
+  const json = (o, cc = "public, max-age=3600") => new Response(JSON.stringify(o), { headers: { "content-type": "application/json", "cache-control": cc } });
+  if (!env || !env.CH_API_KEY) return json({ configured: false });
+  if (q.length < 3) return json({ configured: true, company: null });
+  const cache = caches.default;
+  const ck = new Request("https://ch.internal/v1?q=" + encodeURIComponent(q.toLowerCase()));
+  const hit = await cache.match(ck); if (hit) return hit;
+  const auth = { authorization: "Basic " + btoa(env.CH_API_KEY + ":"), accept: "application/json" };
+  const get = async (path) => { try { const r = await fetch("https://api.company-information.service.gov.uk" + path, { headers: auth, signal: AbortSignal.timeout(MARKET_FETCH_MS) }); return r.ok ? await r.json() : null; } catch { return null; } };
+  const sr = await get("/search/companies?items_per_page=10&q=" + encodeURIComponent(q));
+  const c = chPick(sr && sr.items, q);
+  if (!c) { const resp = json({ configured: true, company: null }, "public, max-age=86400"); if (ctx) ctx.waitUntil(cache.put(ck, resp.clone())); return resp; }
+  const ch = await get(`/company/${c.company_number}/charges?items_per_page=25`);
+  const out = {
+    configured: true,
+    company: { name: c.title, number: c.company_number, status: c.company_status || null, incorporated: c.date_of_creation || null },
+    charges: ((ch && ch.items) || []).map((x) => ({ created: x.created_on || null, status: x.status || null, persons: (x.persons_entitled || []).map((p) => p.name).filter(Boolean), description: (x.particulars && x.particulars.description) ? String(x.particulars.description).slice(0, 160) : null })),
+    source: `https://find-and-update.company-information.service.gov.uk/company/${c.company_number}`,
+  };
+  const resp = json(out, "public, max-age=86400");
+  if (ctx) ctx.waitUntil(cache.put(ck, resp.clone()));
+  return resp;
+}
+
 async function handleFormD(request, env, ctx) {
   const url = new URL(request.url);
   const q = (url.searchParams.get("q") || "").trim();
@@ -5678,6 +5720,7 @@ export default {
     if (url.pathname === "/api/nport") return handleNPort(request, env, ctx);
     if (url.pathname === "/api/bdc") return handleBDC(request, env, ctx);
     if (url.pathname === "/api/formd") return handleFormD(request, env, ctx);
+    if (url.pathname === "/api/ch") return handleCompaniesHouse(request, env, ctx);
     if (url.pathname === "/api/xfeed") return handleXFeed(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/hero") return handleHero(request, env, ctx);

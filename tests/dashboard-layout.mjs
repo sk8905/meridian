@@ -115,7 +115,8 @@ srv.close();
 
 // ---- EMPTY /api/eurates: no number is invented
 {
-  const s2 = await serve({ ...apis, "/api/eurates": () => [200, "{}"] });
+  // No live data AND no committed last-known snapshot (the bare first-run case).
+  const s2 = await serve({ ...apis, "/api/eurates": () => [200, "{}"], "/dashboard/js/live-snapshot.js": () => [404, "x", "text/plain"] });
   const ctx = await b.newContext({ viewport: { width: 1920, height: 1080 } }); const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${s2.port}/v2/dashboard/rates/`, { waitUntil: "load" }); await pg.waitForTimeout(1500);
   const r = await pg.evaluate(() => ["#dsh-cbbs", "#dsh-fx", "#dsh-aaa"].map((s) => { const el = document.querySelector(s); return { t: el.textContent, a: !!el.querySelector(".dsh-fill-body a[href^='https://']"), badge: (el.querySelector(".dsh-live") || {}).textContent }; }));

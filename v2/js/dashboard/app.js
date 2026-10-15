@@ -14,10 +14,14 @@ import { esc, MONTHS, byDateDesc } from "/util.js";
 import { fmtDay as fmtDate } from "/feed.js";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT, EU_DISTRESS, REG_CALENDAR } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS, MARKET_SIZES, CB_CALENDAR } from "/macro/js/content.js";
-import { deals, intel, managers, HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HF_13F, HEDGE_INTEL } from "/credit/js/data.js";
+import { deals, intel, managers, funds, commitments, lps, HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HF_13F, HEDGE_INTEL } from "/credit/js/data.js";
+import { fmtBn } from "/credit/js/shared.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { nbNums } from "../nb-format.js";
 import { rosterCardsHTML, wireRosters } from "../credit-roster.js";
+import { liveJSON, lastKnownLabel } from "../live-cache.js";
+import { tagsOf, EUROPE_REGIONS } from "/credit/js/tx.js";
+import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
 
 // Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
@@ -66,6 +70,21 @@ export function mount(host, ctx) {
   // Live-state bookkeeping: flip a "snapshot" badge to "live" (with the live
   // as-of date in its title) only once a live payload has been applied.
   const _live = {};
+  // A card fed by LAST-KNOWN values (the live call failed or came back empty, so
+  // v2/js/live-cache.js served this viewer's last-good payload or the committed
+  // snapshot): the badge says so, with the capture time — never "live".
+  function markCached(id, at) {
+    _live[id] = false;
+    host.querySelectorAll(`.dsh-live[data-live="${id}"]`).forEach((el) => {
+      el.classList.add("is-snap"); el.classList.add("is-cached"); el.textContent = "last-known";
+      el.title = lastKnownLabel(at) + " — live data not loaded";
+      // The capture date rides visibly next to the badge (the tooltip never shows on a phone).
+      const h = el.closest(".dsh-h");
+      if (h && at && !h.querySelector(".dsh-asof")) el.insertAdjacentHTML("afterend", ` <span class="dsh-asof dsh-asof-lk" title="${esc(lastKnownLabel(at))}">${esc(isoDay(String(at).slice(0, 10)))}</span>`);
+    });
+  }
+  // Apply a liveJSON result's badge: live → LIVE (with as-of), else last-known.
+  const badge = (res, id, asOfDate) => { if (res.state === "live") markLive(id, asOfDate); else if (res.state !== "none") markCached(id, res.at); };
   function markLive(id, asOfDate) {
     _live[id] = asOfDate || true;
     host.querySelectorAll(`.dsh-live[data-live="${id}"]`).forEach((el) => {
@@ -651,22 +670,22 @@ export function mount(host, ctx) {
     if (k === "debt") rows.sort((a, b) => (debtNum(a.debt) - debtNum(b.debt)) * dir);
     else if (k === "region") rows.sort((a, b) => (reg(a, b) * dir) || String(a.status || "").localeCompare(String(b.status || "")) || (debtNum(b.debt) - debtNum(a.debt)));
     else if (k === "status") rows.sort((a, b) => (String(a.status || "").localeCompare(String(b.status || "")) * dir) || (debtNum(b.debt) - debtNum(a.debt)));
+    else if (k === "latest") rows.sort((a, b) => String(b.latest || "").localeCompare(String(a.latest || "")) * dir);
     else if (k) rows.sort((a, b) => String(a[k] || "").localeCompare(String(b[k] || "")) * dir);
     return rows;
   }
-  const txCredits = (name) => `${ctx.base}/dashboard/credit?credit=${encodeURIComponent(String(name).replace(/\s*\(.*\)\s*$/, ""))}`;
   function stressHTML() {
     const chip = (k, l) => `<button type="button" class="dsh-sortchip${_stressSort.key === k ? " is-on" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</button>`;
     const row = (s) => `<tr>`
-      + `<td class="dsh-nm"><a class="dsh-drill" href="${esc(txCredits(s.name))}" title="Find ${esc(s.name)} in the European credits roster">${esc(s.name)}</a></td>`
+      + `<td class="dsh-nm"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/co/${encodeURIComponent(s.name)}`)}" title="Everything Wire holds on ${esc(s.name)} — deals, plans, judgments, alerts">${esc(s.name)}</a></td>`
       + `<td class="dsh-stress-sec">${esc(s.sector || "")}</td>`
       + `<td class="dsh-stress-hq">${esc(s.hq || "")}</td>`
-      + `<td class="dsh-stress-debt">${esc(s.debt)}</td>`
+      + `<td class="dsh-stress-debt">${esc(s.debt || "—")}</td>`
       + `<td><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
-      + `<td class="dsh-stress-as">${esc(s.latest || "—")}</td>`
+      + `<td class="dsh-stress-as">${s.latest ? esc(isoDay(s.latest)) : "—"}</td>`
       + `<td class="dsh-note">${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
-      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("region", "Region")}${chip("status", "Status")}${chip("debt", "Debt")}${chip("name", "Debtor")}</div>`
+      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("region", "Region")}${chip("status", "Status")}${chip("debt", "Debt")}${chip("latest", "Latest")}${chip("name", "Debtor")}</div>`
       + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl dsh-stk-src" id="dsh-stress-body" data-stk-name="0" data-stk-key="3"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Latest</th><th>Src</th></tr></thead>`
       + `<tbody>${stressRows().map(row).join("")}</tbody></table></div></div>`;
   }
@@ -741,10 +760,18 @@ export function mount(host, ctx) {
   }
   const newsUl = (rows, cls = "") => `<ul class="dsh-news dsh-rx${cls ? ` ${cls}` : ""}">${rows.join("")}</ul>`;
   const metaOf = (...parts) => esc(parts.filter(Boolean).join(" · "));
+  // Europe-first (review 2026-10-15, #5): by default only European items — a deal whose
+  // borrower/asset region is European (deal-tags), an intel item whose own text names
+  // Europe/UK/€/£ — with one tap to "All regions".
+  let _cwScope = "eu";
+  const _mgrHq = new Map((managers || []).map((m) => [m.id, String(m.hq || "")]));
+  const euMgr = (id) => { const h = _mgrHq.get(id) || ""; return !!h && !/\b(US|USA|United States|Canada|Australia|Japan|Singapore|Hong Kong|Asia)\b/.test(h) && /,\s*(UK|[A-Z][a-z]+|[A-Z]{2})$|London|Paris|Frankfurt|Milan|Madrid|Stockholm|Copenhagen|Luxembourg|Amsterdam|Dublin|Zurich|Geneva|Munich|Brussels|Helsinki|Oslo|Jersey/.test(h); };
+  const isEuItem = (x) => x._deal ? EUROPE_REGIONS.includes(tagsOf(x, DEAL_TAGS).region) : (isEuro(x) || euMgr(x.managerId));
   function creditWireItems() {
     const seen = new Set(), out = [];
     [...(deals || []).map((x) => ({ ...x, _deal: true })), ...(intel || [])]
       .filter((x) => x && x.date && (x.headline || x.title) && (x.sourceUrl || x.url))
+      .filter((x) => _cwScope === "all" || isEuItem(x))
       .sort(byDateDesc)
       .forEach((x) => {
         const u = x.sourceUrl || x.url;
@@ -792,7 +819,7 @@ export function mount(host, ctx) {
     const bk = kpiRow({ id: "dsh-eu-bkrt", k: "EU bankruptcy declarations (index)", title: "Eurostat sts_rb_q, EU27, seasonally & calendar adjusted, 2021=100",
       v: b ? b.value.toFixed(1) : null, d: b ? b.asOf : null, src: (b && b.href) || "https://ec.europa.eu/eurostat/databrowser/view/sts_rb_q/default/table", srcName: "Eurostat",
       sub: b && b.yearAgo != null ? `vs ${esc(b.yearAgo.toFixed(1))} ${esc(isoDay(b.yearAgoAsOf || ""))}` : "" });
-    return `<div class="dsh-kvgrid dsh-pc-grid">${(E.metrics || []).map((x) => kpiRow({ k: x.k, v: x.v, d: x.asOf, src: x.src, srcName: x.srcName, title: x.sub ? `${x.k} — ${x.sub}` : x.k })).join("")}${bk}</div>`;
+    return `<div class="dsh-kvgrid dsh-pc-grid">${(E.metrics || []).map((x) => kpiRow({ k: x.k, v: x.v, d: x.asOf, src: x.src, srcName: x.srcName, sub: x.measure ? esc(x.measure) : "", title: x.sub ? `${x.k} — ${x.sub}` : x.k })).join("")}${bk}</div>`;
   }
 
   // Activity Wire itself tracks — European CLO pricings and private-credit fund
@@ -888,6 +915,60 @@ export function mount(host, ctx) {
     if (!rows.length) return `<p class="dsh-load">No tracked restructuring deals.</p>`;
     return newsUl(rows.map((x) => newsLi({ title: x.headline, href: `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`, inApp: true, date: x.date, meta: metaOf(x.type, mgrName(x.managerId)) })));
   }
+  // Funds in market (review 2026-10-15, #12) — "which managers are raising European
+  // direct-lending funds, and from which LPs?" in one card: every fund whose status is
+  // Pre-marketing / Open / First Close, Europe-focused by default, newest update first.
+  // A status not refreshed in 12+ months is flagged STALE (it may have closed since);
+  // named LPs come from the fund's sourced investors + the commitments ledger.
+  let _fimScope = "eu", _fimStrat = "";
+  const FIM_STATUS = new Set(["Pre-marketing", "Open", "First Close"]);
+  const EU_GEO = /europe|pan-?european|\buk\b|united kingdom|ireland|nordic|dach|germany|france|benelux|italy|spain|iberia|netherlands|belgium|switzerland|sweden|denmark|norway|finland|poland|cee/i;
+  const lpName = (id) => ((lps || []).find((l) => l.id === id) || {}).name || "";
+  function fundLps(f) {
+    const named = (f.investors || []).map((x) => (typeof x === "string" ? x : x && (x.name || x.lp))).filter(Boolean);
+    (commitments || []).forEach((c) => { if (c.fundId === f.id) { const n = lpName(c.lpId); if (n && !named.includes(n)) named.push(n); } });
+    return named;
+  }
+  function fundsInMarket() {
+    const yr = new Date(Date.now() - 365 * 864e5).toISOString().slice(0, 10);
+    return (funds || []).filter((f) => FIM_STATUS.has(f.status))
+      .filter((f) => _fimScope === "all" || EU_GEO.test(`${f.geoFocus || ""} ${f.domicile || ""}`))
+      .filter((f) => !_fimStrat || f.strategy === _fimStrat)
+      .map((f) => ({ f, lps: fundLps(f), stale: !f.asOf || String(f.asOf) < yr }))
+      .sort((a, b) => (a.stale - b.stale) || String(b.f.asOf || "").localeCompare(String(a.f.asOf || "")));
+  }
+  function fimHTML() {
+    const rows = fundsInMarket();
+    const strats = [...new Set((funds || []).filter((f) => FIM_STATUS.has(f.status)).map((f) => f.strategy).filter(Boolean))].sort();
+    const ccy = (f) => ({ EUR: "€", GBP: "£", USD: "$" }[f.ccy] || (f.ccy ? f.ccy + " " : "$"));
+    const amt = (f, v) => (v != null ? fmtBn(v / 1000, ccy(f)) : "—");
+    const bar = `<div class="dsh-sortbar"><button type="button" class="dsh-sortchip${_fimScope === "eu" ? " is-on" : ""}" data-fim-scope="1">${_fimScope === "eu" ? "Europe" : "All regions"}</button>`
+      + `<select class="dsh-fim-strat" aria-label="Strategy"><option value="">All strategies</option>${strats.map((x) => `<option value="${esc(x)}"${x === _fimStrat ? " selected" : ""}>${esc(x)}</option>`).join("")}</select>`
+      + `<span class="dsh-n">${rows.length} fund${rows.length === 1 ? "" : "s"} · ${rows.filter((r) => r.lps.length).length} with named LPs</span></div>`;
+    const row = ({ f, lps: L, stale }) => `<tr><td class="dsh-nm"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(f.managerId)}/vehicles`)}">${esc(f.name)}</a></td>`
+      + `<td>${esc(((managers || []).find((m) => m.id === f.managerId) || {}).name || "—")}</td>`
+      + `<td>${esc(f.strategy || "—")}</td><td><span class="dsh-tag">${esc(f.status)}</span>${stale ? ` <span class="dsh-tag dsh-tag-stale" title="Status not refreshed in 12+ months — it may have closed since">stale</span>` : ""}</td>`
+      + `<td class="dsh-r">${amt(f, f.targetSize)}</td><td class="dsh-r">${amt(f, f.raised)}</td>`
+      + `<td class="dsh-fim-lps">${L.length ? esc(L.slice(0, 3).join(", ")) + (L.length > 3 ? ` +${L.length - 3}` : "") : "—"}</td>`
+      + `<td class="dsh-stress-as">${f.asOf ? esc(isoDay(String(f.asOf).slice(0, 10))) : "—"}</td></tr>`;
+    return bar + `<div class="dsh-scroll"><table class="dsh-tbl dsh-fim-tbl dsh-stk-src" data-stk-name="0" data-stk-key="3"><thead><tr><th>Fund</th><th>Manager</th><th>Strategy</th><th>Status</th><th class="dsh-r">Target</th><th class="dsh-r">Raised</th><th>Named LPs</th><th>As of</th></tr></thead><tbody>`
+      + (rows.length ? rows.map(row).join("") : `<tr><td colspan="8" class="dsh-load">No funds in market for this filter.</td></tr>`) + `</tbody></table></div>`;
+  }
+  // Latest LP commitments (review #15) — the public commitments ledger, newest first:
+  // LP → manager / fund, amount, date, each linked to its source.
+  function lpCommitsHTML() {
+    const rows = (commitments || []).filter((c) => c.date && c.sourceUrl).slice().sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 25);
+    if (!rows.length) return `<p class="dsh-load">No dated commitments tracked.</p>`;
+    const sym = { EUR: "€", GBP: "£", USD: "$" };
+    const amt = (c) => (c.amount != null ? `${sym[c.ccy] || (c.ccy ? c.ccy + " " : "")}${c.amount >= 1000 ? +(c.amount / 1000).toFixed(2) + "bn" : c.amount + "m"}` : "—");
+    const mName = (c) => ((managers || []).find((m) => m.id === c.managerId) || {}).name || c.manager || "—";
+    const fName = (c) => ((funds || []).find((f) => f.id === c.fundId) || {}).name || c.fund || "";
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-lpc-tbl dsh-stk-src" data-stk-name="0" data-stk-key="2"><thead><tr><th>Investor</th><th>Manager / fund</th><th class="dsh-r">Amount</th><th>Date</th><th>Src</th></tr></thead><tbody>`
+      + rows.map((c) => `<tr><td class="dsh-nm"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/lp/${encodeURIComponent(c.lpId)}`)}">${esc(lpName(c.lpId))}</a></td>`
+        + `<td>${c.managerId ? `<a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(c.managerId)}`)}">${esc(mName(c))}</a>` : esc(mName(c))}${fName(c) ? ` <span class="dsh-n">${esc(fName(c))}</span>` : ""}</td>`
+        + `<td class="dsh-r">${esc(amt(c))}</td><td class="dsh-stress-as">${esc(isoDay(c.date))}</td><td class="dsh-note">${srcLink(c.sourceUrl, "source")}</td></tr>`).join("")
+      + `</tbody></table></div>`;
+  }
   const fillCard = (id, title, body, meta = "", cls = "") => `<section class="dsh-card dsh-fill${cls ? ` ${cls}` : ""}" id="${id}"><h3 class="dsh-h">${title} ${meta}</h3><div class="dsh-fill-body">${body}</div></section>`;
   function creditHTML() {
     const mid = `<section class="dsh-card dsh-spreads-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS ${liveOr("spreads")}</h3><div id="dsh-spreads" class="dsh-spreads">${spreadsBody()}</div></section>
@@ -903,10 +984,14 @@ export function mount(host, ctx) {
       ${fillCard("dsh-sphist", "Spread history — 1M change", spreadHistBody(), liveOr("sphist"))}
       ${fillCard("dsh-lenders", "Most active lenders — 90 days", lendersBody(), `<span class="dsh-n">tracked by Wire</span> ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}`)}
       ${fillCard("dsh-dd", "Restructuring &amp; distress deals", distressDealsBody(), `<span class="dsh-n">tracked by Wire</span>`)}
+      <h3 class="dsh-term-lbl">Fundraising</h3>
+      <section class="dsh-card dsh-wide" id="dsh-fim"><h3 class="dsh-h">Funds in market ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3><div id="dsh-fim-b">${fimHTML()}</div></section>
+      <section class="dsh-card dsh-wide" id="dsh-lpc"><h3 class="dsh-h">LP commitments — latest <span class="dsh-n">(${(commitments || []).filter((c) => c.date).length} dated)</span></h3>${lpCommitsHTML()}</section>
       <h3 class="dsh-term-lbl">Activity</h3>
       <section class="dsh-card dsh-fill"><h3 class="dsh-h">CLOs &amp; fund closes ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3><div class="dsh-fill-body">${activityHTML()}</div></section>
       ${rosterCardsHTML(asOf)}`;
-    const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
+    const scopeBtn = `<button type="button" class="dsh-sortchip dsh-cw-scope${_cwScope === "eu" ? " is-on" : ""}" data-cwscope="1" title="Europe only / all regions">${_cwScope === "eu" ? "Europe" : "All regions"}</button>`;
+    const news = `<section class="dsh-card" id="dsh-cw"><h3 class="dsh-h">Credit wire — latest deals &amp; intel ${scopeBtn}</h3><div id="dsh-cw-b">${creditNewsHTML()}</div></section>`;
     return { mid, news, newsLabel: "Credit wire" };
   }
   // ICE BofA OAS stack from /api/rates. The feed reports OAS in PERCENT (3.11 =
@@ -937,36 +1022,30 @@ export function mount(host, ctx) {
       + `</tbody></table>`;
   }
   async function loadRates() {
-    try {
-      const r = await fetch("/api/rates", { headers: { accept: "application/json" } });
-      const d = r.ok ? await r.json() : null;
-      _rates = d && typeof d === "object" ? d : {};
-    } catch { _rates = {}; }
+    const res = await liveJSON("/api/rates");
+    _rates = res.data && typeof res.data === "object" ? res.data : {};
     const el = host.querySelector("#dsh-spreads");
     if (el) el.innerHTML = spreadsBody();
     const sh = host.querySelector("#dsh-sphist .dsh-fill-body");
-    if (sh) { sh.innerHTML = spreadHistBody(); if ((_rates.rates || []).some((x) => /oas/i.test(x.label || "") && (x.history || []).length > 2)) markLive("sphist"); }
+    if (sh) { sh.innerHTML = spreadHistBody(); if ((_rates.rates || []).some((x) => /oas/i.test(x.label || "") && (x.history || []).length > 2)) badge(res, "sphist"); }
     const oas = (Array.isArray(_rates.rates) ? _rates.rates : []).filter((x) => x && /oas/i.test(x.label || "") && x.value != null);
-    if (oas.length) markLive("spreads", oas.map((x) => x.asOf).filter(Boolean).sort().pop());
+    if (oas.length) badge(res, "spreads", oas.map((x) => x.asOf).filter(Boolean).sort().pop());
     const mm = host.querySelector("#dsh-mm");
     if (mm) mm.innerHTML = moneyMarketsHTML();
   }
   async function loadEu() {
-    try {
-      const r = await fetch("/api/eurates", { headers: { accept: "application/json" } });
-      const d = r.ok ? await r.json() : null;
-      _eu = d && typeof d === "object" ? d : {};
-    } catch { _eu = {}; }
+    const res = await liveJSON("/api/eurates");
+    _eu = res.data && typeof res.data === "object" ? res.data : {};
     const set = (sel, html) => { const el = host.querySelector(sel); if (el) el.innerHTML = html; };
     set("#dsh-eu-distress", euDistressHTML());
     set("#dsh-mm", moneyMarketsHTML());
     set("#dsh-policy", policyHTML());
     set("#dsh-mmhist .dsh-fill-body", mmHistBody());
-    if (["estr", "sonia"].some((k) => { const x = euSer(k); return x && (x.history || []).length > 2; })) markLive("mmhist");
+    if (["estr", "sonia"].some((k) => { const x = euSer(k); return x && (x.history || []).length > 2; })) badge(res, "mmhist");
     const yc = host.querySelector("#dsh-yc-card"); if (yc) { yc.innerHTML = yieldCurveCardHTML(); tidyHeaders(yc); }
-    setExtras();
+    setExtras(res);
     const live = (_eu.series || []).filter((x) => x && x.value != null);
-    if (live.length) { markLive("mm", live.map((x) => x.asOf).filter(Boolean).sort().pop()); if (euSer("ecb_dfr") || euSer("boe_bank")) markLive("pol"); }
+    if (live.length) { badge(res, "mm", live.map((x) => x.asOf).filter(Boolean).sort().pop()); if (euSer("ecb_dfr") || euSer("boe_bank")) badge(res, "pol"); }
   }
 
   // ---- Macro --------------------------------------------------------------
@@ -1121,16 +1200,43 @@ export function mount(host, ctx) {
   }
   // Pull the live US Treasury + UK gilt curves and repaint the card. Never throws —
   // on any failure the compiled curve (and its July date) simply stays.
+  // Market-implied policy path (review 2026-10-15, #17): prediction-market odds on the
+  // next Fed / ECB / BoE decisions (Polymarket / Kalshi via the Worker's /api/predict),
+  // grouped by bank and meeting, newest-dated first, each linked to its market. Odds
+  // are crowd probabilities, labelled as such — not a forecast by Wire.
+  let _pred = null, _predState = null;
+  const BANK_OF = (q) => /\bFed\b|FOMC|Federal Reserve/i.test(q) ? "Fed" : /\bECB\b|European Central Bank/i.test(q) ? "ECB" : /Bank of England|\bBoE\b|\bMPC\b/i.test(q) ? "BoE" : null;
+  const MOVE_OF = (q) => /no change|hold|unchanged|pause/i.test(q) ? "Hold" : /(increase|hike|raise)[^?]*?(\d+)\s*bps?/i.test(q) ? `Hike ${RegExp.$2}bp` : /(decrease|cut|lower)[^?]*?(\d+)\s*bps?/i.test(q) ? `Cut ${RegExp.$2}bp` : /(hike|increase|raise)/i.test(q) ? "Hike" : /(cut|decrease|lower)/i.test(q) ? "Cut" : null;
+  function impliedHTML() {
+    const ms = ((_pred && _pred.markets) || []).filter((m) => m && m.q && m.yes != null && BANK_OF(m.q) && MOVE_OF(m.q));
+    if (!ms.length) return _pred === null ? `<p class="dsh-load">Loading market-implied odds…</p>` : `<p class="dsh-load">No live central-bank decision markets — <a href="https://polymarket.com/" target="_blank" rel="noopener noreferrer">Polymarket</a> · <a href="https://kalshi.com/" target="_blank" rel="noopener noreferrer">Kalshi</a></p>`;
+    const groups = new Map();
+    for (const m of ms) {
+      const meet = (/(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d\d)/i.exec(m.q) || [])[0] || (/in (20\d\d)/i.exec(m.q) ? "By end-" + /in (20\d\d)/i.exec(m.q)[1] : (m.end ? String(m.end).slice(0, 7) : "—"));
+      const k = BANK_OF(m.q) + "|" + meet;
+      if (!groups.has(k)) groups.set(k, { bank: BANK_OF(m.q), meet, end: m.end || "", rows: [] });
+      groups.get(k).rows.push(m);
+    }
+    const ORDER = { ECB: 0, BoE: 1, Fed: 2 };
+    const list = [...groups.values()].sort((a, b) => (ORDER[a.bank] - ORDER[b.bank]) || String(a.end).localeCompare(String(b.end)));
+    const cell = (m) => `<a href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer" title="${esc(m.q)} — ${esc(m.venue || "")}">${esc(MOVE_OF(m.q))} ${esc(String(m.yes))}%</a>${m.chg ? ` <span class="${m.chg > 0 ? "up" : "down"}">${m.chg > 0 ? "+" : ""}${esc(String(m.chg))}</span>` : ""}`;
+    return `<table class="dsh-tbl dsh-implied-tbl dsh-stk-src" data-stk-name="0" data-stk-key="1"><thead><tr><th>Bank</th><th>Meeting</th><th>Market-implied odds</th><th>Venue</th></tr></thead><tbody>`
+      + list.map((g) => `<tr><td class="dsh-nm">${esc(g.bank)}</td><td>${esc(g.meet)}</td><td>${g.rows.sort((a, b) => b.yes - a.yes).map(cell).join(" · ")}</td><td class="dsh-reg-jur">${esc([...new Set(g.rows.map((m) => m.venue).filter(Boolean))].join(", "))}</td></tr>`).join("")
+      + `</tbody></table><p class="dsh-ladder-cap">Crowd probabilities from prediction markets (pts change on the day) — not a Wire forecast.${_predState && _predState.state !== "live" ? " " + esc(lastKnownLabel(_predState.at)) + "." : ""}</p>`;
+  }
+  async function loadImplied() {
+    const res = await liveJSON("/api/predict");
+    _pred = res.data && typeof res.data === "object" ? res.data : {}; _predState = res;
+    const el = host.querySelector("#dsh-implied"); if (el) { el.innerHTML = impliedHTML(); if (isPhone()) stackTables(el); }
+    if ((_pred.markets || []).length) badge(res, "implied");
+  }
   async function loadYieldCurve() {
-    try {
-      const r = await fetch("/api/yield-curve", { headers: { accept: "application/json" } });
-      if (!r.ok) return;
-      const d = await r.json();
-      if (!d || !Array.isArray(d.us)) return;
-      _ycLive = d;
-      const card = host.querySelector("#dsh-yc-card");
-      if (card) { card.innerHTML = yieldCurveCardHTML(); tidyHeaders(card); }
-    } catch { /* keep the compiled curve */ }
+    const res = await liveJSON("/api/yield-curve");
+    const d = res.data;
+    if (!d || !Array.isArray(d.us)) return;            // keep the compiled curve (and its date)
+    _ycLive = d;
+    const card = host.querySelector("#dsh-yc-card");
+    if (card) { card.innerHTML = yieldCurveCardHTML(); tidyHeaders(card); }
   }
   // Multi-country term structure (Bonds pane) — every country's 2Y/5Y/10Y/
   // 30Y yields from GOVT_YIELDS as a table, one colour key per country. The old
@@ -1332,20 +1438,17 @@ export function mount(host, ctx) {
     });
   }
   async function loadGovYields() {
-    try {
-      const r = await fetch("/api/govyields", { headers: { accept: "application/json" } });
-      const d = r.ok ? await r.json() : null;
-      const arr = (d && d.yields) || [];
-      if (!arr.length) return;
-      _gyLive = {}; arr.forEach((x) => { if (x && x.country) _gyLive[x.country] = x; });
-      markLive("gy");
-      const box = host.querySelector("#dsh-yld");
-      if (box) box.innerHTML = govtYieldsHeatHTML();
-      const curve = host.querySelector("#dsh-yc-tbl");        // levels table shares the live feed
-      if (curve) curve.innerHTML = worldYieldCurveHTML();
-      const shape = host.querySelector("#dsh-shape");
-      if (shape) shape.innerHTML = curveShapeHTML();
-    } catch { /* keep the sourced snapshot */ }
+    const res = await liveJSON("/api/govyields");
+    const arr = ((res.data && res.data.yields) || []).filter((x) => x && x.country);
+    if (!arr.length) return;                           // keep the sourced snapshot
+    _gyLive = {}; arr.forEach((x) => { _gyLive[x.country] = x; });
+    badge(res, "gy");
+    const box = host.querySelector("#dsh-yld");
+    if (box) box.innerHTML = govtYieldsHeatHTML();
+    const curve = host.querySelector("#dsh-yc-tbl");        // levels table shares the live feed
+    if (curve) curve.innerHTML = worldYieldCurveHTML();
+    const shape = host.querySelector("#dsh-shape");
+    if (shape) shape.innerHTML = curveShapeHTML();
   }
   // "Why it moved" for rates — mirrors the Equities Key-moments box, reading the
   // sourced per-benchmark notes in IND_KEYMOMENTS (macro/js/content.js). Keys are
@@ -1464,16 +1567,16 @@ export function mount(host, ctx) {
     if (!x || (x.history || []).length < 3) return euWait("VIX history", "https://fred.stlouisfed.org/series/VIXCLS", "FRED");
     return lineChart([{ label: `VIX · ${isoDay(x.asOf)}`, pts: ptsOf(x), last: x.value.toFixed(2) }], { fmt: (v) => v.toFixed(1), ytitle: "Index level (close)" });
   }
-  function setExtras() {
+  function setExtras(res) {
     const set = (sel, html) => { const el = host.querySelector(sel); if (el) el.innerHTML = html; };
     set("#dsh-yields", yieldsBody()); set("#dsh-aaa .dsh-fill-body", aaaHistBody()); set("#dsh-cbbs .dsh-fill-body", cbBsBody());
     set("#dsh-fx .dsh-fill-body", fxBody()); set("#dsh-vix .dsh-fill-body", vixBody());
     const last = (keys) => keys.map(euX).filter(Boolean).map((x) => x.asOf).sort().pop();
-    if (["ehy_yld", "ushy_yld", "usbbb_oas"].some(euX)) markLive("yld", last(["ehy_yld", "ushy_yld", "usbbb_oas"]));
-    if (_eu && _eu.curve && (_eu.curve.points || []).some((p) => (p.history || []).length > 2)) markLive("aaa", _eu.curve.asOf);
-    if (["ecb_bs", "fed_bs", "boe_res", "boe_apf"].some(euX)) markLive("cbbs", last(["ecb_bs", "fed_bs", "boe_res", "boe_apf"]));
-    if (["eurusd", "gbpusd"].some(euX)) markLive("fx", last(["eurusd", "gbpusd"]));
-    if (euX("vix")) markLive("vix", euX("vix").asOf);
+    if (["ehy_yld", "ushy_yld", "usbbb_oas"].some(euX)) (res && res.state !== "live" ? (id, a) => markCached(id, res.at) : markLive)("yld", last(["ehy_yld", "ushy_yld", "usbbb_oas"]));
+    if (_eu && _eu.curve && (_eu.curve.points || []).some((p) => (p.history || []).length > 2)) (res && res.state !== "live" ? (id, a) => markCached(id, res.at) : markLive)("aaa", _eu.curve.asOf);
+    if (["ecb_bs", "fed_bs", "boe_res", "boe_apf"].some(euX)) (res && res.state !== "live" ? (id, a) => markCached(id, res.at) : markLive)("cbbs", last(["ecb_bs", "fed_bs", "boe_res", "boe_apf"]));
+    if (["eurusd", "gbpusd"].some(euX)) (res && res.state !== "live" ? (id, a) => markCached(id, res.at) : markLive)("fx", last(["eurusd", "gbpusd"]));
+    if (euX("vix")) (res && res.state !== "live" ? (id, a) => markCached(id, res.at) : markLive)("vix", euX("vix").asOf);
   }
   function ratesHTML() {
     const fed = fedHTML();
@@ -1484,6 +1587,7 @@ export function mount(host, ctx) {
     const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <h3 class="dsh-term-lbl">Policy &amp; money markets</h3>
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Policy rates — ECB · BoE · Fed ${liveOr("pol")}</h3><div id="dsh-policy">${policyHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Market-implied path — next decisions ${liveOr("implied")}</h3><div id="dsh-implied">${impliedHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">Central-bank calendar ${asOf(CB_CALENDAR && CB_CALENDAR.asOf)}</h3>${cbCalHTML()}</section>
       ${fillCard("dsh-mmhist", "Money-market rates — 2 months", mmHistBody(), liveOr("mmhist"))}
       <section class="dsh-card dsh-wide"><h3 class="dsh-h">Money markets — €STR · Euribor · SONIA · SOFR ${liveOr("mm")}</h3><div id="dsh-mm" class="dsh-spreads">${moneyMarketsHTML()}</div></section>
@@ -1735,17 +1839,28 @@ export function mount(host, ctx) {
   // Regulatory calendar — dated, sourced milestones (REG_CALENDAR), upcoming first
   // then the most recent past ones; an undated item (e.g. a file still in
   // trilogue) is listed last as "TBC".
+  // A window filter answers "what hits us next quarter?" in one tap: Next 90 days ·
+  // Next 12 months · All (default). Month-precision dates ("2026-12") sort and
+  // filter as the 1st of that month and read "Dec 2026".
+  let _regWin = "all";
+  const REG_WINS = [["90", "Next 90 days"], ["365", "Next 12 months"], ["all", "All"]];
   function regCalendarHTML() {
     const R = (REG_CALENDAR && REG_CALENDAR.items) || [];
     if (!R.length) return "";
     const today = new Date().toISOString().slice(0, 10);
-    const up = R.filter((x) => x.date && x.date >= today).sort((a, b) => (a.date < b.date ? -1 : 1));
-    const past = R.filter((x) => x.date && x.date < today).sort((a, b) => (a.date < b.date ? 1 : -1));
-    const tbc = R.filter((x) => !x.date);
+    const horizon = _regWin === "all" ? null : new Date(Date.now() + (+_regWin) * 864e5).toISOString().slice(0, 10);
+    const inWin = (x) => !horizon || (x.date && x.date >= today.slice(0, x.date.length) && x.date <= horizon);
+    const up = R.filter((x) => x.date && x.date >= today.slice(0, x.date.length) && inWin(x)).sort((a, b) => (a.date < b.date ? -1 : 1));
+    const past = horizon ? [] : R.filter((x) => x.date && x.date < today.slice(0, x.date.length)).sort((a, b) => (a.date < b.date ? 1 : -1));
+    const tbc = horizon ? [] : R.filter((x) => !x.date);
+    const n90 = R.filter((x) => x.date && x.date >= today.slice(0, x.date.length) && x.date <= new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10)).length;
+    const chips = `<div class="dsh-sortbar dsh-reg-wins"><span class="dsh-sortlbl">Show</span>${REG_WINS.map(([k, l]) => `<button type="button" class="dsh-sortchip dsh-reg-win${_regWin === k ? " is-on" : ""}" data-regwin="${k}">${esc(l)}${k === "90" ? ` (${n90})` : ""}</button>`).join("")}</div>`;
     const row = (x, cls) => `<tr class="${cls}"><td class="dsh-stress-as">${x.date ? esc(isoDay(x.date)) : "TBC"}</td>`
+      + `<td class="dsh-reg-jur">${esc(x.jur || "")}</td>`
       + `<td class="dsh-nm">${esc(x.item)}${srcLink(x.src, (x.srcName || "source") + " — source")}</td><td class="dsh-reg-note">${esc(x.note || "")}</td></tr>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-reg-tbl dsh-stk-src" data-stk-name="1" data-stk-key="0"><thead><tr><th>Date</th><th>Milestone</th><th>What</th></tr></thead><tbody>`
-      + up.map((x) => row(x, "dsh-reg-up")).join("") + tbc.map((x) => row(x, "dsh-reg-tbc")).join("") + past.map((x) => row(x, "dsh-reg-past")).join("")
+    const rows = up.map((x) => row(x, "dsh-reg-up")).join("") + tbc.map((x) => row(x, "dsh-reg-tbc")).join("") + past.map((x) => row(x, "dsh-reg-past")).join("");
+    return chips + `<div class="dsh-scroll"><table class="dsh-tbl dsh-reg-tbl dsh-stk-src" data-stk-name="2" data-stk-key="0"><thead><tr><th>Date</th><th>Jur.</th><th>Milestone</th><th>What</th></tr></thead><tbody>`
+      + (rows || `<tr><td colspan="4" class="dsh-load">No dated milestones in this window.</td></tr>`)
       + `</tbody></table></div>`;
   }
   // Legal · latest case law (all judgments the desk covers, newest first).
@@ -1805,18 +1920,23 @@ export function mount(host, ctx) {
         ${typeChips}${areaChips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
       </section>
+      ${cal ? `<section class="dsh-card dsh-wide" id="dsh-regcal"><h3 class="dsh-h">Regulatory calendar ${asOf(REG_CALENDAR.asOf)}</h3><div id="dsh-regcal-b">${cal}</div></section>` : ""}
       ${fillCard("dsh-rxl", "Restructuring &amp; insolvency — latest", restructuringHTML())}
       ${fillCard("dsh-cases", "Case law — latest judgments", caseLawBody())}
       ${fillCard("dsh-firms", "Most active firms — 30 / 90 days", firmsBody(), `<span class="dsh-n">alerts &amp; updates</span> ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}`, "dsh-wide")}
       <section class="dsh-card" id="dsh-areas"><h3 class="dsh-h">Activity by practice area ${asOf(isoDay(new Date().toISOString().slice(0, 10)))}</h3>${areasBody()}</section>
       ${fillCard("dsh-lfunds", "Funds — regulatory &amp; fund-finance alerts", areaListBody("funds"), `<span class="dsh-n">(${legalDb().filter((x) => x && x.area === "funds").length})</span>`)}
       ${fillCard("dsh-lbank", "Banking &amp; finance — latest", areaListBody("banking"), `<span class="dsh-n">(${legalDb().filter((x) => x && x.area === "banking").length})</span>`)}
-      ${cal ? `<section class="dsh-card dsh-wide"><h3 class="dsh-h">Regulatory calendar ${asOf(REG_CALENDAR.asOf)}</h3>${cal}</section>` : ""}
 `;
     const lw = legalNewsHTML();
     return { mid, news: lw ? `<section class="dsh-card"><h3 class="dsh-h">Legal wire — latest alerts &amp; case law</h3>${lw}</section>` : "", newsLabel: "Legal wire" };
   }
   function wireLegal() {
+    const rc = host.querySelector("#dsh-regcal-b");
+    if (rc) rc.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-regwin]"); if (!b) return;
+      _regWin = b.dataset.regwin; rc.innerHTML = regCalendarHTML(); if (isPhone()) stackTables(rc);
+    });
     const q = host.querySelector("#dsh-lgl-q");
     const body = host.querySelector("#dsh-lgl-body");
     if (q && body) q.addEventListener("input", () => { _legalQuery = q.value; body.innerHTML = legalListHTML(); previewList(body); });
@@ -1863,7 +1983,7 @@ export function mount(host, ctx) {
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadRates(); loadEu(); wireStressSort(); }
     if (pane === "equities") loadEu();
-    if (pane === "rates") { loadRates(); loadEu(); loadYieldCurve(); wireYields(); loadGovYields(); }
+    if (pane === "rates") { loadRates(); loadEu(); loadYieldCurve(); wireYields(); loadGovYields(); loadImplied(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }
@@ -1875,7 +1995,20 @@ export function mount(host, ctx) {
       if (wrap) { wrap.outerHTML = stressHTML(); stackTables(host); wireStressSort(); }
     }));
   }
+  host.addEventListener("change", (e) => {
+    if (!e.target.matches || !e.target.matches(".dsh-fim-strat")) return;
+    _fimStrat = e.target.value; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); if (isPhone()) stackTables(bx); }
+  });
   host.addEventListener("click", (e) => {
+    const fs = e.target.closest("[data-fim-scope]");
+    if (fs) { e.preventDefault(); _fimScope = _fimScope === "eu" ? "all" : "eu"; const bx = host.querySelector("#dsh-fim-b"); if (bx) { bx.innerHTML = fimHTML(); if (isPhone()) stackTables(bx); } return; }
+    const cw = e.target.closest("[data-cwscope]");
+    if (cw) {
+      e.preventDefault(); _cwScope = _cwScope === "eu" ? "all" : "eu";
+      cw.classList.toggle("is-on", _cwScope === "eu"); cw.textContent = _cwScope === "eu" ? "Europe" : "All regions";
+      host.querySelectorAll("#dsh-cw-b").forEach((b) => { b.innerHTML = creditNewsHTML(); });
+      return;
+    }
     const more = e.target.closest(".dsh-seeall:not([data-crall]):not([data-bdcall])");
     if (more) { e.preventDefault(); openSheet(more.parentElement); return; }
     const a = e.target.closest(".dsh-navchip[data-sub], .tchip[data-sub]");

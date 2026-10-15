@@ -139,6 +139,16 @@ export function onLiveWire(fn) {
 // ---- Formatting / sorting ---------------------------------------------------
 // The one day-header formatter — every wire's date breaks read "20 Jul 2026".
 export const fmtDay = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : (iso || ""); };
+// A record's date at the precision its source supports (scripts/date-precision.mjs):
+// datePrecision "year" → "2025", "month" → "Jan 2025", an estimated day → "c. 14 Jan
+// 2025", otherwise the exact day. Never prints a placeholder "1 Jan" as a real date.
+export const fmtDateP = (x) => {
+  const d = String((x && x.date) || "");
+  if (!d) return "";
+  if (x.datePrecision === "year") return d.slice(0, 4);
+  if (x.datePrecision === "month" && /^\d{4}-\d{2}/.test(d)) return `${MONTHS[+d.slice(5, 7) - 1]} ${d.slice(0, 4)}`;
+  return (x.dateEstimated ? "c. " : "") + fmtDay(d);
+};
 export const dayOf = (x) => String(x.date || "").slice(0, 10);
 // Newest-first by day then publish time; untimed items sort at midday to match
 // their "12:00" display.

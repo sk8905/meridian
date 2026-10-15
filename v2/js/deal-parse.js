@@ -201,7 +201,7 @@ const COMPANY_OVERRIDES = {
   d589: "Marabu", d590: "Casino Group", d597: "Ardagh", d598: "Intrum", d604: "Arqiva", d606: "Piraeus Bank",
   d607: "Ster-Kinekor", d645: "ABN AMRO", d647: "Shurco", d675: "Pharmacy2U", d704: "1Box", d706: "Solace",
   d709: "Saks Global", d733: "SME Finance and Leasing Solutions", d734: "SRE Capital", d738: "DKB",
-  d740: "Deutsche Pfandbriefbank", d755: "Yankee Global Enterprises", d765: "Yankee Global Enterprises",
+  d740: "Deutsche Pfandbriefbank", d755: "Yankee Global Enterprises",
   d768: "SIRE platform", d797: "Horus Finance", d802: "Upstart", d815: "Bridge", d832: "F2 Finance",
   d861: "Loparex", d867: "36th Street Capital", d869: "Altice International", d874: "BMG", d875: "Bayer",
   d876: "Onyx CenterSource", d877: "Alacrity Solutions", d879: "Global Gruppe", d929: "LNG Canada",

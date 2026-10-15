@@ -25,10 +25,11 @@ import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { targetFit } from "/credit/js/target.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
 import { esc } from "/util.js";
-import { fmtDay } from "/feed.js";
+import { fmtDay, fmtDateP } from "/feed.js";
 import { dealCounterparty, dealSponsor, dealPartyRole } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
 import { downloadCSV } from "../csv.js";
+import { advisersFor, dealTerms } from "../deal-advisers.js";
 
 const _mById = new Map(managers.map((m) => [m.id, m]));
 const mgrName = (id) => (_mById.get(id) || {}).name || "";
@@ -93,7 +94,10 @@ export function mount(host, ctx) {
         mode: tags.managerMA ? "mna" : groupOfTx(tx),
         sponsor: dealSponsor(d) || "",
         cp: dealCounterparty(d, mgrName(d.managerId)) || "",
-        alt: [],
+        // Other outlets' reports of this same deal: merged-away duplicates
+        // (scripts/dedupe-data.mjs keeps their URLs as alsoReported) plus any
+        // same-deal row folded in below.
+        alt: (d.alsoReported || []).map((a) => ({ id: d.id, sourceUrl: a.url, date: a.date, headline: a.headline })),
       };
     })
     .filter((r) => r.ts > 0);
@@ -111,7 +115,10 @@ export function mount(host, ctx) {
   }
 
   // ---- state (the URL is its serialised form) --------------------------------
-  const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "" });
+  // scope: "eu" (default — the reader is a European credit fund) | "all". Europe = the
+  // EUROPE_REGIONS of the deal's borrower/asset country; a search, an explicit Region
+  // facet or Manager M&A always spans every region (review 2026-10-15, #5).
+  const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "", scope: "eu" });
   let st = DEFAULT();
   let sheetOpen = false, lenderAll = false, moreOpen = false, customDate = false;
   const flowMode = () => FLOW.includes(st.mode);
@@ -127,7 +134,9 @@ export function mount(host, ctx) {
     type: (r) => r.tx, sector: (r) => r.tags.sector, region: (r) => r.tags.region, size: (r) => r.band,
     ccy: (r) => r.ccyK, sponsor: (r) => (r.sponsor ? "yes" : "no"), lender: (r) => r.d.managerId || "_",
   };
-  const passes = (r, except) => inDate(r) && inFocus(r) && FACETS.every((k) => k === except || !st.f[k].length || st.f[k].includes(FVAL[k](r)));
+  const scopeOn = () => st.scope === "eu" && !st.q && !st.f.region.length && st.mode !== "mna";
+  const inScope = (r) => !scopeOn() || EUROPE_REGIONS.includes(r.tags.region);
+  const passes = (r, except) => inDate(r) && inFocus(r) && inScope(r) && FACETS.every((k) => k === except || !st.f[k].length || st.f[k].includes(FVAL[k](r)));
   const hit = (r, q) => (r.d.headline || "").toLowerCase().includes(q) || mgrName(r.d.managerId).toLowerCase().includes(q)
     || (r.d.summary || "").toLowerCase().includes(q) || typeLabel(r.tx).toLowerCase().includes(q) || r.tags.sector.toLowerCase().includes(q)
     || (r.tags.country || "").toLowerCase().includes(q);
@@ -165,6 +174,7 @@ export function mount(host, ctx) {
       if (st.from || st.to) { if (st.from) p.set("from", st.from); if (st.to) p.set("to", st.to); }
       else if (st.period !== "all") p.set("period", st.period);
       if (st.focus) p.set("focus", st.focus);
+      if (st.scope === "all") p.set("scope", "all");
       if (st.q) p.set("q", st.q);
       if (st.sort !== "date" || st.dir !== "desc") p.set("sort", `${st.sort}-${st.dir}`);
       if (st.grp) p.set("grp", st.grp);
@@ -190,6 +200,7 @@ export function mount(host, ctx) {
       // A deep link to one deal: open it over its own mode's default list.
       const r = rowById.get(seg[1]);
       s.mode = r.mode; s.deal = r.d.id;
+      if (!EUROPE_REGIONS.includes(r.tags.region)) s.scope = "all";   // keep the deal's row in the list
       return s;
     }
     const m = MODE_ALIAS[seg[0]] || seg[0];
@@ -204,6 +215,8 @@ export function mount(host, ctx) {
       if (!s.from && !s.to && PERIODS[q.get("period")]) s.period = q.get("period");
       s.focus = q.get("focus") === "1" ? "band" : (["band", "target"].includes(q.get("focus")) ? q.get("focus") : "");
       s.q = q.get("q") || "";
+      s.scope = q.get("scope") === "all" ? "all" : "eu";
+      if (q.get("deal") && rowById.has(q.get("deal")) && !EUROPE_REGIONS.includes(rowById.get(q.get("deal")).tags.region)) s.scope = "all";
       const [sk, sd] = (q.get("sort") || "").split("-");
       if (SORT_VAL[sk]) { s.sort = sk; s.dir = sd === "asc" ? "asc" : sd === "desc" ? "desc" : SORT_DEFAULT_DIR[sk]; }
       if (GROUPS.some(([k]) => k && k === q.get("grp"))) s.grp = q.get("grp");
@@ -266,6 +279,7 @@ export function mount(host, ctx) {
                  dates, facets, sort / group, CSV — lives in the Filters panel (R39e). -->
             <header class="tpanel-h thead-search tx-bar" id="tx-flow-search">
               <input type="search" id="tx-q" class="tsearch" placeholder="Search deals, managers…" aria-label="Search transactions">
+              <button type="button" class="tfocus-btn tx-scope" id="tx-scope" aria-pressed="true">Europe</button>
               <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false">Target</button>
               <button type="button" class="tx-fbtn" id="tx-filters" aria-expanded="false" aria-controls="tx-sheet" aria-label="Filters">${filtSvg}<span class="tx-fn"></span></button>
               <div class="tx-active" id="tx-active" hidden></div>
@@ -494,12 +508,15 @@ export function mount(host, ctx) {
       sector: ["Sector", (r) => esc(r.tags.sector), null, "txc-sec tx-cat"],
       country: ["Country", (r) => esc(r.tags.country || "—"), null, "txc-ctry tx-cat"],
       event: ["Event", (r) => esc(EVENT_LABEL[r.tags.event] || "—"), null, "txc-ev tx-cat"],
+      // CLO pricing (review #11): the AAA spread and/or weighted-average cost of debt
+      // where the manager / arranger / rating release states them (deal.cloTerms).
+      pricing: ["AAA / WACD", (r) => { const t = r.d.cloTerms; if (!t) return "—"; const a = [t.aaaBp != null ? `${t.aaaBp}` : "—", t.wacdBp != null ? `${t.wacdBp}` : "—"]; return `<span title="AAA spread / weighted-average cost of debt, bp over the benchmark">${esc(a.join(" / "))}</span>`; }, null, "txc-px tl-n"],
       amount: (lbl) => [lbl, amtCell, "size", "txc-amt tl-n tx-sz"],
-      date: ["Date", (r) => esc(fmtDay(r.d.date)), "date", "txc-date tx-dt"],
+      date: ["Date", (r) => esc(fmtDateP(r.d)), "date", "txc-date tx-dt"],
       source: ["Source", srcCell, null, "txc-src tx-src2"],
     };
     if (st.q) return [C.party("Deal"), C.lender("Lender / investor"), C.type, C.amount("Amount"), C.date, C.source];
-    if (st.mode === "structured") return [C.party("Vehicle"), C.lender("Manager"), C.type, C.event, C.country, C.amount("Size"), C.date, C.source];
+    if (st.mode === "structured") return [C.party("Vehicle"), C.lender("Manager"), C.type, C.event, C.country, C.amount("Size"), C.pricing, C.date, C.source];
     if (st.mode === "secondary") return [C.party("Fund / portfolio"), C.lender("Buyer / lead"), C.type, C.country, C.amount("Size"), C.date, C.source];
     if (st.mode === "mna") return [C.party("Target"), C.lender("Acquirer"), C.country, C.amount("Value"), C.date, C.source];
     const sp = list.some((r) => r.sponsor) ? [C.sponsor] : [];
@@ -519,7 +536,7 @@ export function mount(host, ctx) {
     const what = !showType ? "" : (TYPE_SHORT[r.tx] || typeLabel(r.tx)) + (st.mode === "structured" && r.tags.event && !st.q ? ` ${EVENT_LABEL[r.tags.event].toLowerCase()}` : "");
     return `<li class="tx-card${st.deal === d.id ? " is-open" : ""}" data-deal="${esc(d.id)}" tabindex="0">`
       + `<div class="tx-card-a"><span class="tx-card-nm">${partyCell(r)}</span><span class="tx-card-amt">${r.amt ? amtCell(r) : ""}</span></div>`
-      + `<div class="tx-card-b"><span class="tx-cb-dt">${esc(fmtDay(d.date))}</span><span class="tx-cb-mg">${mgrLink(d.managerId)}</span>${what ? `<span class="tx-cb-ty">${esc(what)}</span>` : ""}${r.tags.country ? `<span class="tx-cb-ct">${esc(r.tags.country)}</span>` : ""}</div></li>`;
+      + `<div class="tx-card-b"><span class="tx-cb-dt">${esc(fmtDateP(d))}</span><span class="tx-cb-mg">${mgrLink(d.managerId)}</span>${what ? `<span class="tx-cb-ty">${esc(what)}</span>` : ""}${r.tags.country ? `<span class="tx-cb-ct">${esc(r.tags.country)}</span>` : ""}</div></li>`;
   };
 
   // ---- grouping + stats ---------------------------------------------------------
@@ -605,6 +622,24 @@ export function mount(host, ctx) {
   }
   const relRow = (x) => `<li class="tmini-row clickable" data-deal="${esc(x.d.id)}"><span class="tmini-t">${esc(x.d.headline || "—")}</span><span class="tmini-m">${esc(fmtDay(x.d.date))} · ${esc(mgrName(x.d.managerId) || "—")}${x.amt ? " · " + esc(fmtAmt(x.amt)) : ""}</span></li>`;
   const srcLink = (d) => d.sourceUrl ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(creditSource(d) || "source")}</a>` : "—";
+  // Law-firm announcements (legal desk) are loaded on the first drawer open only —
+  // the advisers line fills in when they land (deal-advisers.js).
+  let _legal = null, _legalLoading = false;
+  function legalForAdvisers() {
+    if (_legal || _legalLoading) return _legal;
+    _legalLoading = true;
+    import("/legal/js/data.js").then((m) => { _legal = m; if (st.deal) renderDrawer(); }).catch(() => { _legal = { items: [] }; });
+    return null;
+  }
+  function advisersHTML(r) {
+    const L = legalForAdvisers();
+    const list = advisersFor(r.d, r.cp, L);
+    const item = (a) => a.basis === "alert"
+      ? `${esc(a.firm)} <span class="tf-est">per the firm's <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">announcement</a>${a.date ? " · " + esc(fmtDay(a.date)) : ""}</span>`
+      : `${esc(a.firm)} <span class="tf-est">named in the deal source</span>`;
+    if (list.length) return list.map(item).join("<br>");
+    return L ? `<span class="tf-est">None named in the deal's source or a tracked firm's announcement</span>` : `<span class="tf-est">Checking law-firm announcements…</span>`;
+  }
   function renderDrawer() {
     const r = st.deal && flowMode() ? rowById.get(st.deal) : null;
     host.classList.toggle("tx-has-deal", !!r);
@@ -616,7 +651,7 @@ export function mount(host, ctx) {
       ? `${esc(fmtAmt(r.amt))}${r.usd != null && r.amt.ccy !== "USD" ? ` <span class="tf-est">≈ ${esc(fmtUsd(r.usd))}</span>` : ""}${kind && kind !== "financing" ? ` <span class="tf-est">${esc(KIND_LABEL[kind])}</span>` : ""}`
       : "Undisclosed";
     const facts = [
-      [r.mode === "mna" ? "Target" : ROLE_LABEL[dealPartyRole(d)] || "Borrower / company", (r.cp ? esc(r.cp) : "—")
+      [r.mode === "mna" ? "Target" : ROLE_LABEL[dealPartyRole(d)] || "Borrower / company", (r.cp ? `<a href="${esc(ctx.base)}/profiles/#/co/${encodeURIComponent(r.cp)}" title="Everything Wire holds on ${esc(r.cp)}">${esc(r.cp)}</a>` : "—")
         + (r.tags.partyQuality === "unconfirmed" ? ` <span class="tf-est">* unconfirmed — inferred, not named in a source${r.tags.partySource ? ` · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">closest source</a>` : ""}</span>`
           : r.tags.partyQuality === "placeholder" ? ` <span class="tf-est">vehicle not named in any source found</span>`
           : r.tags.partySource ? ` <span class="tf-est">researched · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")],
@@ -629,7 +664,15 @@ export function mount(host, ctx) {
         ? esc(r.tags.country) + (r.tags.countrySource ? ` <span class="tf-est">${esc(BASIS_LABEL[r.tags.countryBasis] || "HQ")} · <a href="${esc(r.tags.countrySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")
         : "—"],
       ["Amount", amount],
-      ["Date", esc(fmtDay(d.date))],
+      ["Date", esc(fmtDateP(d))],
+      ...(d.cloTerms ? [["CLO terms", [
+        d.cloTerms.aaaBp != null ? `AAA ${esc(d.cloTerms.aaaBp)}bp` : "", d.cloTerms.wacdBp != null ? `WACD ${esc(d.cloTerms.wacdBp)}bp` : "",
+        d.cloTerms.rpYrs != null ? `RP ${esc(d.cloTerms.rpYrs)}y` : (d.cloTerms.rpEnd ? `RP to ${esc(d.cloTerms.rpEnd)}` : ""),
+        d.cloTerms.ncYrs != null ? `NC ${esc(d.cloTerms.ncYrs)}y` : (d.cloTerms.ncEnd ? `NC to ${esc(d.cloTerms.ncEnd)}` : ""),
+        d.cloTerms.arranger ? `Arranger ${esc(d.cloTerms.arranger)}` : "",
+      ].filter(Boolean).join(" · ") + (d.cloTerms.src ? ` <span class="tf-est"><a href="${esc(d.cloTerms.src)}" target="_blank" rel="noopener noreferrer">terms source</a></span>` : "")]] : []),
+      ...(() => { const t = dealTerms(d); return t.length ? [["Terms", t.map(([k, v]) => `${esc(k)} ${esc(v)}`).join(" · ") + ` <span class="tf-est">as stated in the source</span>`]] : []; })(),
+      ...(r.mode === "mna" ? [] : [["Advisers", advisersHTML(r)]]),
       ["Source", srcLink(d)],
       ...r.alt.map((a) => ["Also reported", `${srcLink(a)} <span class="tf-est">${esc(fmtDay(a.date))}</span>`]),
     ];
@@ -684,6 +727,13 @@ export function mount(host, ctx) {
     const set = (sel, v) => { const el = host.querySelector(sel); if (el && el.value !== v) el.value = v; };
     set("#tx-q", st.q);
     set("#tx-sort", `${st.sort}-${st.dir}`); set("#tx-grp", st.grp);
+    const sc = host.querySelector("#tx-scope");
+    if (sc) {
+      const eu = st.scope === "eu";
+      sc.setAttribute("aria-pressed", String(eu)); sc.classList.toggle("is-on", eu);
+      sc.textContent = eu ? "Europe" : "All regions";
+      sc.title = eu ? "Showing European borrowers / assets (UK, EU, Nordics, Switzerland, pan-European) — tap for all regions" : "Showing every region — tap for Europe only";
+    }
     const f = host.querySelector("#tx-focus");
     if (f) {
       const on = st.focus === "target";
@@ -727,6 +777,7 @@ export function mount(host, ctx) {
   });
   // The bar's Target button: Target on / off (the $1–15bn lens is in the panel's Managers row).
   host.querySelector("#tx-focus").addEventListener("click", () => change({ focus: st.focus === "target" ? "" : "target", deal: "" }));
+  host.querySelector("#tx-scope").addEventListener("click", () => change({ scope: st.scope === "eu" ? "all" : "eu", deal: "" }));
   host.addEventListener("change", (e) => {
     const t = e.target;
     if (t.matches("select[data-ctl='sort']")) { const [k, d] = t.value.split("-"); change({ sort: k, dir: d }, !sheetOpen); return; }

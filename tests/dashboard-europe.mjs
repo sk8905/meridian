@@ -110,9 +110,30 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
   await ctx.close(); srv.close();
 }
 
-// --------------------------------------------------------------- EMPTY payloads
+// ------------------------------------------- EMPTY payloads → LAST-KNOWN values
+// A live call that returns nothing falls back to the committed last-known snapshot
+// (dashboard/js/live-snapshot.js, v2/js/live-cache.js): values with their capture
+// date and a "last-known" badge — never LIVE, never an empty "unavailable" card.
 {
   const srv = await serve();
+  const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
+  await pg.waitForTimeout(1600);
+  const lk = await pg.evaluate(() => ({
+    rows: document.querySelectorAll("#dsh-spreads tbody tr").length,
+    text: (document.querySelector("#dsh-spreads") || {}).textContent || "",
+    badge: ((document.querySelector('.dsh-live[data-live="spreads"]') || {}).textContent || "").trim(),
+    dated: !!document.querySelector('.dsh-live[data-live="spreads"] + .dsh-asof'),
+  }));
+  check(lk.rows > 0 && !/unavailable/i.test(lk.text), `Credit: an empty /api/rates shows last-known spreads, not "unavailable" (${lk.rows} rows)`);
+  checkEq(lk.badge, "last-known", "Credit: last-known values are badged LAST-KNOWN, never LIVE");
+  check(lk.dated, "Credit: the last-known badge carries its capture date visibly");
+  checkErrs(errs, "dashboard europe (last-known)");
+  await ctx.close(); srv.close();
+}
+
+// ------------------------------------- EMPTY payloads AND no snapshot (first run)
+{
+  const srv = await serve({ "/dashboard/js/live-snapshot.js": () => [404, "x", "text/plain"] });
   const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
   await pg.waitForTimeout(1600);
   const empty = await pg.evaluate(() => ({

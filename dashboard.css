@@ -443,6 +443,11 @@
 .dsh-tag-filed{ color:var(--t-mac); border-color:var(--t-mac); }
 .dsh-tag-rumoured{ color:var(--t-faint); }
 .dsh-tag-stress{ color:var(--t-down); border-color:var(--t-down); }
+.dsh-tag-stale{ color:var(--t-amber, #b3760f); border-color:var(--t-amber, #b3760f); font-weight:500; }
+.dsh-fim-strat{ font:inherit; font-size:var(--fs-body); color:var(--t-ink); background:var(--t-panel); border:1px solid var(--t-grid2); border-radius:0; padding:3px 6px; }
+.dsh-fim-lps{ max-width:260px; }
+.dsh-reg-jur{ color:var(--t-mut); white-space:nowrap; }
+.dsh-asof-lk{ margin-left:6px; }
 
 .dsh-ladder-cap { color:var(--t-faint); font-size:var(--fs-micro); margin-top:4px; }
 /* Maturity wall — the bar chart is integrated HORIZONTALLY into the per-year

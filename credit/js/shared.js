@@ -19,7 +19,22 @@ export const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m /
 const CCY_SIGN = { EUR: "€", USD: "$", GBP: "£", CAD: "C$", AUD: "A$", CHF: "CHF ", SEK: "SEK " };
 export const money = (m, ccy) => (m == null ? "Undisclosed" : (CCY_SIGN[ccy] || (ccy ? ccy + " " : "€")) + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
 export const pct = (n) => (n == null ? "Undisclosed" : Math.round(n) + "%");
-export const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+// "01 Oct 2026". Fixed English month abbreviations (toLocaleDateString printed
+// "Sept" on some engines, which overflowed the date column). Pass the RECORD (not its
+// date) to honour datePrecision / dateEstimated: "2025" · "Jan 2025" · "c. 14 Jan 2025".
+const _MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const fmtDate = (d) => {
+  if (d && typeof d === "object" && !(d instanceof Date)) {
+    const s = String(d.date || "");
+    if (d.datePrecision === "year") return s.slice(0, 4);
+    if (d.datePrecision === "month" && /^\d{4}-\d{2}/.test(s)) return `${_MON[+s.slice(5, 7) - 1]} ${s.slice(0, 4)}`;
+    return (d.dateEstimated ? "c. " : "") + fmtDate(s);
+  }
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d || ""));
+  if (m) return `${m[3]} ${_MON[+m[2] - 1]} ${m[1]}`;
+  const t = new Date(d);
+  return Number.isNaN(+t) ? String(d || "") : `${String(t.getUTCDate()).padStart(2, "0")} ${_MON[t.getUTCMonth()]} ${t.getUTCFullYear()}`;
+};
 // Format a $bn AUM figure: $Xtn above 1,000bn, $Xm below 1bn, else $Xbn.
 export const fmtAum = (n) => {
   if (n == null) return "—";

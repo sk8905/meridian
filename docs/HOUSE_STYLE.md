@@ -1262,6 +1262,25 @@ notification badge red (`#ef4444`).
   `tests/dashboard-phone.mjs` (390px, both themes: no inner scroll, no sideways scroll, no
   ellipsis, no orange at rest or on tap; See-all sheet), `tests/eurates-parse.mjs`.
 
+- **R41 — Finance-user review (2026-10-15).** The rules a European private-credit lawyer
+  graded the app against, and how they are enforced:
+  **(a) No empty live card** — a live card that fails or returns nothing shows dated
+  last-known values badged LAST-KNOWN (v2/js/live-cache.js + dashboard/js/live-snapshot.js);
+  "unavailable" only when nothing was ever captured (`tests/dashboard-europe.mjs`).
+  **(b) One event, one record; no false precision** — see refresh-routines "Duplicates, date
+  precision…"; dates render through `fmtDateP` / `fmtDate(record)` (`tests/search-quality.mjs`).
+  **(c) Europe-first** — Transactions, the credit wire and Funds in market default to
+  European borrowers/funds with a one-tap "All regions" (`tests/transactions-europe.mjs`).
+  **(d) Search** matches record summaries, runs newest-first within a rank and never
+  silently caps — "Show all N" (`tests/search-quality.mjs`). **(e) The bell is material
+  only** — earnings-call dates, webcasts, awards, podcasts, outlooks, newsletters stay out
+  (`tests/notifications-materiality.mjs`). **(f) Who advised / what terms** — the deal drawer
+  shows advisers and terms only from the deal's own source or a tracked firm's announcement
+  (`v2/js/deal-advisers.js`, `tests/deal-advisers.mjs`). **(g) Borrower pages** at
+  `/v2/profiles/#/co/<name>` gather deals, plans, judgments, alerts and the UK registry
+  (`tests/borrower-page.mjs`). **(h) Rates** show a market-implied path from prediction-
+  market odds, labelled as crowd probabilities (`tests/rates-implied.mjs`).
+
 ## 7. Technical rules
 
 - **T1 — Cache-busting: code carries a token, data does NOT.**
