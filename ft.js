@@ -21,6 +21,111 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   {
+    id: "fb2110b4-50d2-4ff9-9886-f7b42c5b4579",
+    title: "EU leaders to urge Zelenskyy to rein in criticism of Trump",
+    date: "2026-10-15",
+    time: "11:05",
+    url: "https://www.ft.com/content/fb2110b4-50d2-4ff9-9886-f7b42c5b4579"
+  },
+  {
+    id: "317796f3-af18-4acb-a482-ec0bdd0edf45",
+    title: "Reform UK councillors and candidates filmed making racist remarks",
+    date: "2026-10-15",
+    time: "11:02",
+    url: "https://www.ft.com/content/317796f3-af18-4acb-a482-ec0bdd0edf45"
+  },
+  {
+    id: "825b0ed4-060e-49dd-8199-b6accc393ff1",
+    title: "Macroeconomic policy must now do many things at once",
+    date: "2026-10-15",
+    time: "11:00",
+    url: "https://www.ft.com/content/825b0ed4-060e-49dd-8199-b6accc393ff1"
+  },
+  {
+    id: "481f7865-b6bb-40b8-9ee2-7554f6914007",
+    title: "Republicans fund midterms ad blitz as Democrats gain in polls",
+    date: "2026-10-15",
+    time: "11:00",
+    url: "https://www.ft.com/content/481f7865-b6bb-40b8-9ee2-7554f6914007"
+  },
+  {
+    id: "c8511d8c-4889-4b38-bcce-f31044ef5b30",
+    title: "FirstFT: Ukraine to resume strikes on Russian refineries, Zelenskyy says",
+    date: "2026-10-15",
+    time: "10:57",
+    url: "https://www.ft.com/content/c8511d8c-4889-4b38-bcce-f31044ef5b30"
+  },
+  {
+    id: "0a39fcdb-860c-4739-8454-21fb429f6336",
+    title: "Submit your questions: Who’s winning the trade war with China — the EU or US?",
+    date: "2026-10-15",
+    time: "10:37",
+    url: "https://www.ft.com/content/0a39fcdb-860c-4739-8454-21fb429f6336"
+  },
+  {
+    id: "246e950b-e1e5-4f12-af78-4a13433f3977",
+    title: "John Healey promises to ‘stay the path’ on reducing UK deficit",
+    date: "2026-10-15",
+    time: "10:36",
+    url: "https://www.ft.com/content/246e950b-e1e5-4f12-af78-4a13433f3977"
+  },
+  {
+    id: "72506712-3b5d-4a46-986e-6b06beb06b04",
+    title: "Norway’s $2.3tn oil fund urged to relax nuclear weapons ban",
+    date: "2026-10-15",
+    time: "10:30",
+    url: "https://www.ft.com/content/72506712-3b5d-4a46-986e-6b06beb06b04"
+  },
+  {
+    id: "54353d3a-afed-4fec-985a-50f3dfb9be8e",
+    title: "US floats unfreezing some Russian assets to restart Ukraine peace talks",
+    date: "2026-10-15",
+    time: "10:19",
+    url: "https://www.ft.com/content/54353d3a-afed-4fec-985a-50f3dfb9be8e"
+  },
+  {
+    id: "8171ef4a-b291-4375-bc85-87bee0f8bf7b",
+    title: "CoreWeave better hurry up figuring out how to tap insurers for cash",
+    date: "2026-10-15",
+    time: "10:17",
+    url: "https://www.ft.com/content/8171ef4a-b291-4375-bc85-87bee0f8bf7b"
+  },
+  {
+    id: "46708b2a-0392-43f9-b378-de7117febd16",
+    title: "UK economy defies contraction fears to grow 0.1% in August",
+    date: "2026-10-15",
+    time: "09:34",
+    url: "https://www.ft.com/content/46708b2a-0392-43f9-b378-de7117febd16"
+  },
+  {
+    id: "179f6911-cf9b-4fea-98e4-f635e8e8c563",
+    title: "EQT to acquire US real estate group Stockbridge",
+    date: "2026-10-15",
+    time: "08:27",
+    url: "https://www.ft.com/content/179f6911-cf9b-4fea-98e4-f635e8e8c563"
+  },
+  {
+    id: "bbffeec4-c491-45a3-8df9-7339ddb020e3",
+    title: "India approves biggest foreign takeover of domestic bank",
+    date: "2026-10-15",
+    time: "08:19",
+    url: "https://www.ft.com/content/bbffeec4-c491-45a3-8df9-7339ddb020e3"
+  },
+  {
+    id: "c9ddcef8-a149-4273-a883-d6b33ef53bfa",
+    title: "FTAV’s further reading",
+    date: "2026-10-15",
+    time: "07:30",
+    url: "https://www.ft.com/content/c9ddcef8-a149-4273-a883-d6b33ef53bfa"
+  },
+  {
+    id: "789307ae-5109-465c-9b79-7ce71308f0d2",
+    title: "CPI comes in hot, AI goes cold",
+    date: "2026-10-15",
+    time: "06:30",
+    url: "https://www.ft.com/content/789307ae-5109-465c-9b79-7ce71308f0d2"
+  },
+  {
     id: "cf5f1209-da29-4ce1-b425-0e83818bf9ec",
     title: "Global AI sell-off deepens as Asian markets tumble",
     date: "2026-10-15",
@@ -194,110 +299,5 @@ export const FT_ITEMS = [
     date: "2026-10-14",
     time: "16:35",
     url: "https://www.ft.com/content/9acc4f6f-2faa-4ac1-aa7b-42166d677316"
-  },
-  {
-    id: "5f1b2f31-2067-4c3a-8093-54210a7c0e72",
-    title: "Netflix to cut 1,000 jobs as growth concerns mount",
-    date: "2026-10-14",
-    time: "15:57",
-    url: "https://www.ft.com/content/5f1b2f31-2067-4c3a-8093-54210a7c0e72"
-  },
-  {
-    id: "b71e0dc4-b190-49ec-b000-bd585054ddc8",
-    title: "He linked Saudi Arabia to Silicon Valley. Then OpenAI found a bug wrapped in toilet paper",
-    date: "2026-10-14",
-    time: "15:40",
-    url: "https://www.ft.com/content/b71e0dc4-b190-49ec-b000-bd585054ddc8"
-  },
-  {
-    id: "d9aaf82c-1975-4f07-99b1-f3b858b4dc7c",
-    title: "Burnham rules out coalition with Greens while ‘Zionism is Racism’ policy remains",
-    date: "2026-10-14",
-    time: "15:39",
-    url: "https://www.ft.com/content/d9aaf82c-1975-4f07-99b1-f3b858b4dc7c"
-  },
-  {
-    id: "13929c26-1c01-41b2-b81a-d337fa5c9d27",
-    title: "US grocery prices poised to climb as soaring fuel costs drive inflation",
-    date: "2026-10-14",
-    time: "15:14",
-    url: "https://www.ft.com/content/13929c26-1c01-41b2-b81a-d337fa5c9d27"
-  },
-  {
-    id: "3c23e59b-f4c9-4837-b534-ec19fb77a0c8",
-    title: "Unshackle workers from non-compete clauses",
-    date: "2026-10-14",
-    time: "15:04",
-    url: "https://www.ft.com/content/3c23e59b-f4c9-4837-b534-ec19fb77a0c8"
-  },
-  {
-    id: "9af2b0d0-e31f-46e8-9041-36b37a9cd3ba",
-    title: "This is an era of Davids, not Goliaths",
-    date: "2026-10-14",
-    time: "14:52",
-    url: "https://www.ft.com/content/9af2b0d0-e31f-46e8-9041-36b37a9cd3ba"
-  },
-  {
-    id: "a82b4275-6519-4142-b1df-e74c66ead877",
-    title: "Bank of America profits drop 17% after $1.2bn money laundering fine",
-    date: "2026-10-14",
-    time: "14:39",
-    url: "https://www.ft.com/content/a82b4275-6519-4142-b1df-e74c66ead877"
-  },
-  {
-    id: "8c3c631c-e37f-4209-aefd-112c4c58020c",
-    title: "German prosecutors accuse Ukraine of Nord Stream sabotage",
-    date: "2026-10-14",
-    time: "14:39",
-    url: "https://www.ft.com/content/8c3c631c-e37f-4209-aefd-112c4c58020c"
-  },
-  {
-    id: "a25417b3-d4e4-4b89-b14d-6370a85ce3c4",
-    title: "Houthis attack Saudi Aramco headquarters",
-    date: "2026-10-14",
-    time: "14:25",
-    url: "https://www.ft.com/content/a25417b3-d4e4-4b89-b14d-6370a85ce3c4"
-  },
-  {
-    id: "6934f481-b61c-4ab0-8064-a79493702f2c",
-    title: "Hot September CPI inflation keeps Fed on course for further tightening",
-    date: "2026-10-14",
-    time: "14:21",
-    url: "https://www.ft.com/content/6934f481-b61c-4ab0-8064-a79493702f2c"
-  },
-  {
-    id: "60a8f4e6-5da4-4f59-b009-baed53215497",
-    title: "Lufthansa wins battle to buy stake in Portugal’s TAP airline",
-    date: "2026-10-14",
-    time: "14:16",
-    url: "https://www.ft.com/content/60a8f4e6-5da4-4f59-b009-baed53215497"
-  },
-  {
-    id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2",
-    title: "Inflation and interest rates tracker: see how your country compares",
-    date: "2026-10-14",
-    time: "14:15",
-    url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2"
-  },
-  {
-    id: "b06d00da-9df7-405b-9410-b5485c267397",
-    title: "Global diesel prices set to rise again, warns IEA",
-    date: "2026-10-14",
-    time: "13:25",
-    url: "https://www.ft.com/content/b06d00da-9df7-405b-9410-b5485c267397"
-  },
-  {
-    id: "7addd5d0-11d6-4706-bf0b-995084ef7bb6",
-    title: "It’s been a bad year for turning lawsuits into earnings",
-    date: "2026-10-14",
-    time: "13:00",
-    url: "https://www.ft.com/content/7addd5d0-11d6-4706-bf0b-995084ef7bb6"
-  },
-  {
-    id: "c5fb2ea9-9a41-416a-90b8-337936ec4971",
-    title: "Europe’s defence stocks send a geopolitical distress signal",
-    date: "2026-10-14",
-    time: "12:59",
-    url: "https://www.ft.com/content/c5fb2ea9-9a41-416a-90b8-337936ec4971"
   }
 ];

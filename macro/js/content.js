@@ -13,7 +13,7 @@ export const UPDATED = "28 September 2026";
 // viewer timezone. The ~2-hourly refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-10-15",
-  lastCheckedTime: "09:15 BST",
+  lastCheckedTime: "11:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1047,9 +1047,9 @@ export const NEWS = {
   uk: [
     {title: "Minister promises UK private pension proposals by spring", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/c84ce6a3-5724-4b98-a93a-c035d607d90f"},
     {title: "FCA plans to embrace AI to automate financial regulation", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/3a9364ec-6930-4877-a1a2-c053dd689760"},
-    {title: "Inheritance tax toll is mounting on UK family companies", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/ed713df4-92b3-45bc-9cf4-bb5c9ea72673"},
+    {title: "UK economy defies contraction fears to grow 0.1% in August", source: "Financial Times", date: "2026-10-15", time: "09:34", url: "https://www.ft.com/content/46708b2a-0392-43f9-b378-de7117febd16"},
     {title: "Healey set to pay for Budget giveaways without more borrowing", source: "Financial Times", date: "2026-10-14", time: "05:00", url: "https://www.ft.com/content/08b9bbe6-0637-497e-af6d-464dd41e6121"},
-    {title: "London’s gold market enjoys the Trump effect", source: "Financial Times", date: "2026-10-15", time: "05:00", url: "https://www.ft.com/content/bbb1d399-e91c-4600-9882-ea93e1f96ac9"},
+    {title: "John Healey promises to ‘stay the path’ on reducing UK deficit", source: "Financial Times", date: "2026-10-15", time: "10:36", url: "https://www.ft.com/content/246e950b-e1e5-4f12-af78-4a13433f3977"},
   ],
 };
 

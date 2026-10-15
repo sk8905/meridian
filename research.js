@@ -109,6 +109,17 @@ export function isResearchPublication(name) {
 // AI-briefing data in briefings.js uses authored HTML entities — it decodes them.)
 export const RESEARCH = [
   {
+    id: "rsch-withintel-pc-insights-20261015",
+    publication: "With Intelligence",
+    author: null,
+    series: "Private Credit Insights",
+    title: "Private Credit Insights: Falcon Wealth eyes specialty finance to diversify private credit sleeve",
+    date: "2026-10-15",
+    time: "10:39",
+    summary: "A curated weekly roundup of private-credit intelligence: Falcon Wealth eyes specialty finance for its private credit sleeve; Westbrooke works toward a £250m target for its UK credit fund; Deutsche Credit targets €750m for debut direct-lending fund DCCP I; and 26N preps a hybrid capital solutions strategy.",
+    url: "https://www.withintelligence.com/solutions/private-credit/",
+  },
+  {
     id: "rsch-spdji-dailyindexinsights-20261014",
     publication: "S&P Dow Jones Indices",
     author: null,
