@@ -48,7 +48,7 @@ const _fundsBy = new Map();
 for (const f of funds) { if (!_fundsBy.has(f.managerId)) _fundsBy.set(f.managerId, []); _fundsBy.get(f.managerId).push(f); }
 const _tier = new Map(managers.map((m) => [m.id, targetFit(m, _fundsBy.get(m.id) || []).tier]));
 const mIsTarget = (id) => _tier.get(id) === "core";
-const FOCUS_PILL = { band: "$1–15bn AUM", target: "Target managers" };
+const FOCUS_PILL = { band: "$1–15bn AUM", target: "European mid-market managers" };
 
 const DEAL_MODES = [...TX_GROUPS.map((g) => [g.key, g.label]), ["mna", "Manager M&A"]];
 const FLOW = DEAL_MODES.map(([k]) => k);                       // lending · structured · secondary · mna
@@ -311,7 +311,7 @@ export function mount(host, ctx) {
             <header class="tpanel-h thead-search tx-bar" id="tx-flow-search">
               <input type="search" id="tx-q" class="tsearch" placeholder="Search deals, managers…" aria-label="Search transactions">
               <button type="button" class="tfocus-btn tx-scope" id="tx-scope" aria-pressed="true">Europe</button>
-              <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false">Target</button>
+              <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false">European mid-market</button>
               <button type="button" class="tx-fbtn" id="tx-filters" aria-expanded="false" aria-controls="tx-sheet" aria-label="Filters">${filtSvg}<span class="tx-fn"></span></button>
               <div class="tx-active" id="tx-active" hidden></div>
             </header>
@@ -468,7 +468,7 @@ export function mount(host, ctx) {
   }
   // Fit: the AUM / target-market lens (the bar's Target button is its one-tap shortcut).
   const fitBlock = () => `<div class="tx-fgrp" data-fgrp="fit"><div class="tx-fh">Managers</div><div class="tx-fchips">`
-    + [["", "All"], ["band", "$1–15bn AUM"], ["target", "Target"]].map(([v, l]) => fchip(`data-fit="${v}"`, l, null, st.focus === v)).join("") + `</div></div>`;
+    + [["", "All"], ["band", "$1–15bn AUM"], ["target", "European mid-market"]].map(([v, l]) => fchip(`data-fit="${v}"`, l, null, st.focus === v)).join("") + `</div></div>`;
   const MORE_FACETS = ["sector", "ccy", "sponsor", "lender"];
   function placeSheet(el, bar) {
     // Desktop: the panel drops down over the list, just under its bar; phone: in flow.
@@ -1006,7 +1006,7 @@ export function mount(host, ctx) {
       const on = st.focus === "target";
       f.setAttribute("aria-pressed", String(on)); f.classList.toggle("is-on", on);
       f.dataset.focus = st.focus;
-      f.title = on ? "Showing Target managers (European, ≤ $15bn, 15%+ strategy) — tap to clear" : "Show only Target managers (European, ≤ $15bn, 15%+ strategy); $1–15bn AUM is in Filters";
+      f.title = on ? "Showing European mid-market managers (European, ≤ $15bn, 15%+ strategy) — tap to clear" : "Show only European mid-market managers (European, ≤ $15bn, 15%+ strategy); $1–15bn AUM is in Filters";
     }
   }
   // Show the active mode's chrome + body. Driven with inline display (the headers

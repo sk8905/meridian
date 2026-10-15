@@ -30,7 +30,7 @@ const focusLbl = await pg.evaluate(() => {
   const read = (id) => { const btn = document.querySelector(id); if (!btn) return { btn: "(missing)" }; return { btn: btn.textContent.trim(), inSearch: !!btn.closest(".thead-search"), noBar: !document.querySelector(".aum-focus .aum-focus-l") }; };
   return { lg: read("#cr-lg-focus"), hf: read("#cr-hf-focus") };
 });
-checkEq(focusLbl.lg.btn, "Target", "managers: the bar's toggle is Target ($1–15bn sits in the Filters panel)");
+checkEq(focusLbl.lg.btn, "European mid-market", "managers: the bar's toggle is European mid-market ($1–15bn sits in the Filters panel)");
 checkEq(focusLbl.hf.btn, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
 check(focusLbl.lg.inSearch && focusLbl.lg.noBar, "Managers: the Target toggle is in the search row (no 'AUM focus' label)");
 check(focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle is merged into the search row");

@@ -135,10 +135,10 @@ export async function mount(host, ctx) {
     fb.setAttribute("aria-pressed", v ? "true" : "false");
     fb.classList.toggle("is-on", !!v);
     // The bar button is the Target shortcut; $1–15bn AUM is chosen in the panel.
-    fb.textContent = "Target";
+    fb.textContent = "European mid-market";
     fb.setAttribute("aria-pressed", v === "target" ? "true" : "false");
     fb.classList.toggle("is-on", v === "target");
-    fb.title = v === "target" ? "Showing Target managers (European, ≤ $15bn, 15%+ strategy) — tap to clear" : "Show only Target managers (European, ≤ $15bn, 15%+ strategy); $1–15bn AUM is in Filters";
+    fb.title = v === "target" ? "Showing European mid-market managers (European, ≤ $15bn, 15%+ strategy) — tap to clear" : "Show only European mid-market managers (European, ≤ $15bn, 15%+ strategy); $1–15bn AUM is in Filters";
   }
   // ONE row filter per list — the search text, the $1–15bn AUM focus and Following
   // combine (each used to overwrite the others' result).
@@ -226,7 +226,7 @@ export async function mount(host, ctx) {
     const focus = focusOf(pane);
     // ONE quiet summary line, only when something narrows the list.
     const labels = [...facets.flatMap(([k]) => sel[k].map((v) => label(k, v))),
-      ...(focus === "band" ? ["$1–15bn AUM"] : focus === "target" ? ["Target"] : []), ...(folOn ? ["Following"] : [])];
+      ...(focus === "band" ? ["$1–15bn AUM"] : focus === "target" ? ["European mid-market"] : []), ...(folOn ? ["Following"] : [])];
     const pe = pane.querySelector(".pf-active");
     if (pe) {
       pe.hidden = !labels.length;
@@ -261,7 +261,7 @@ export async function mount(host, ctx) {
     const moreOpen = !!_pfMore[key];
     const fbtn = pane.querySelector("#cr-lg-focus, #cr-hf-focus");
     const fit = !fbtn ? "" : fbtn.id === "cr-lg-focus"
-      ? `<div class="tx-fgrp" data-fgrp="fit"><div class="tx-fh">Managers</div><div class="tx-fchips">${[["", "All"], ["band", "$1–15bn AUM"], ["target", "Target"]].map(([v, l]) => chip(`data-pffit="${v}"`, l, focus === v)).join("")}</div></div>`
+      ? `<div class="tx-fgrp" data-fgrp="fit"><div class="tx-fh">Managers</div><div class="tx-fchips">${[["", "All"], ["band", "$1–15bn AUM"], ["target", "European mid-market"]].map(([v, l]) => chip(`data-pffit="${v}"`, l, focus === v)).join("")}</div></div>`
       : `<div class="tx-fgrp" data-fgrp="fit"><div class="tx-fh">AUM</div><div class="tx-fchips">${chip(`data-pffit=""`, "All", !focus)}${chip(`data-pffit="band"`, "$1–15bn", focus === "band")}</div></div>`;
     const sortSel = pane.querySelector(".pf-sort");
     const sortHTML = sortSel ? `<select class="tx-filt pf-sort-p" aria-label="Sort the list">${sortSel.innerHTML}</select>` : "";

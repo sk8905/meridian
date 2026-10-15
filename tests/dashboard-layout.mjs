@@ -120,7 +120,7 @@ srv.close();
   const ctx = await b.newContext({ viewport: { width: 1920, height: 1080 } }); const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${s2.port}/v2/dashboard/rates/`, { waitUntil: "load" }); await pg.waitForTimeout(1500);
   const r = await pg.evaluate(() => ["#dsh-cbbs", "#dsh-fx", "#dsh-aaa"].map((s) => { const el = document.querySelector(s); return { t: el.textContent, a: !!el.querySelector(".dsh-fill-body a[href^='https://']"), badge: (el.querySelector(".dsh-live") || {}).textContent }; }));
-  check(r.every((x) => /unavailable/.test(x.t) && x.a && x.badge === "snapshot" && !/\d{3,}/.test(x.t.replace(/\d+ \w+ 20\d\d/g, ""))), "Empty payload: gauge cards read 'unavailable' with a source link, no numbers, badge not live");
+  check(r.every((x) => /unavailable/.test(x.t) && x.a && x.badge === "not live" && !/\d{3,}/.test(x.t.replace(/\d+ \w+ 20\d\d/g, ""))), "Empty payload: gauge cards read 'unavailable' with a source link, no numbers, badge not live");
   await ctx.close(); s2.close();
 }
 await b.close();
