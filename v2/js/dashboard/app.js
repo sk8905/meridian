@@ -104,6 +104,7 @@ export function mount(host, ctx) {
   const HOLE = 120;
   function packMid() {
     _raf = 0;
+    if (_lastPhone !== null && isPhone() !== _lastPhone) phoneTidy();
     const mid = host.querySelector(".dsh-mid");
     if (!mid) return;
     const cards = [...mid.children].filter((el) => el.classList.contains("dsh-card"));
@@ -316,7 +317,7 @@ export function mount(host, ctx) {
   // scroll, a filter box for long lists, ✕ to close). Wide tables re-render as
   // stacked rows: name + key figure on one line, the other fields on a small grey
   // line beneath — nothing clipped, nothing scrolling sideways.
-  const PREVIEW = 6;
+  const PREVIEW = 10;
   const PHONE_MQ = "(max-width:900px)";
   const isPhone = () => !!(window.matchMedia && window.matchMedia(PHONE_MQ).matches);
   function stackTables(root) {
@@ -344,41 +345,67 @@ export function mount(host, ctx) {
     for (const sel of ["li.dsh-news-i", ".dsh-km", ".dsh-earn-rel", ".dsh-hf-i", ".dsh-lgl-i"]) { const a = [...body.querySelectorAll(sel)]; if (a.length) return a; }
     return [...body.querySelectorAll("tbody tr")];
   };
+  // Hidden rows carry .dsh-pv-hide AND an inline display:none — row layouts such as
+  // `.dsh-rx .dsh-news-i { display:grid }` would otherwise out-rank a class rule.
+  const pvHide = (e) => { e.classList.add("dsh-pv-hide"); e.style.display = "none"; };
+  const pvShow = (e) => { e.classList.remove("dsh-pv-hide"); e.style.removeProperty("display"); };
   function previewList(body) {
-    body.querySelectorAll(".dsh-pv-hide").forEach((e) => e.classList.remove("dsh-pv-hide"));
+    body.querySelectorAll(".dsh-pv-hide").forEach(pvShow);
     body.querySelectorAll(":scope > .dsh-seeall").forEach((e) => e.remove());
     if (!isPhone() || body.querySelector(".dsh-chart")) return;
-    const items = itemsOf(body); if (items.length <= PREVIEW + 2) return;
-    items.slice(PREVIEW).forEach((e) => e.classList.add("dsh-pv-hide"));
+    const items = itemsOf(body); if (items.length <= PREVIEW) return;
+    items.slice(PREVIEW).forEach(pvHide);
     // A sub-heading (earnings week) left with nothing visible after it hides too.
-    body.querySelectorAll(".dsh-earn-wk").forEach((h) => { if (items[PREVIEW].compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING) h.classList.add("dsh-pv-hide"); });
+    body.querySelectorAll(".dsh-earn-wk").forEach((h) => { if (items[PREVIEW].compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING) pvHide(h); });
     body.insertAdjacentHTML("beforeend", `<button type="button" class="dsh-seeall">See all ${items.length} <span aria-hidden="true">›</span></button>`);
   }
+  // The phone decision is re-checked whenever the layout settles (packMid) or the width
+  // changes — an iPhone home-screen app can mount the view before its viewport width is
+  // final, so a decision taken only at mount could leave full lists showing.
+  let _lastPhone = null, _ros = null;
   function phoneTidy() {
+    const ph = isPhone();
+    if (_ros && _lastPhone !== null && ph !== _lastPhone) _ros.refresh();
+    _lastPhone = ph;
     stackTables(host);
-    host.querySelectorAll(".dsh-mid .dsh-fill-body, #dsh-lgl-body").forEach(previewList);
+    host.querySelectorAll(".dsh-mid .dsh-fill-body, #dsh-lgl-body, .dsh-newsrail > .dsh-card").forEach(previewList);
   }
   let _closeSheet = null;
-  function openSheet(body) {
+  // openSheet(body): the whole list, cloned, with a search bar.
+  // openSheet(null, { move: el, onClose }): a live, interactive block (a roster with its
+  // own search / sort / rows) is MOVED into the sheet and put back on close.
+  function openSheet(body, { move = null, onClose = null } = {}) {
     if (_closeSheet) _closeSheet();
-    const card = body.closest(".dsh-card");
+    const src = move || body;
+    const card = src.closest(".dsh-card");
     const title = card ? ((card.querySelector(".dsh-h-t") || card.querySelector(".dsh-h") || {}).textContent || "").trim() : "";
-    const clone = body.cloneNode(true);
-    clone.className = "dsh-sheet-body"; clone.removeAttribute("id"); clone.removeAttribute("style");
-    clone.querySelectorAll("[id]").forEach((e) => e.removeAttribute("id"));
-    clone.querySelectorAll(".dsh-pv-hide").forEach((e) => e.classList.remove("dsh-pv-hide"));
-    clone.querySelectorAll(".dsh-seeall").forEach((e) => e.remove());
-    const n = itemsOf(clone).length;
+    let clone, home = null;
+    if (move) {
+      home = document.createComment("dsh-sheet-home"); move.parentNode.insertBefore(home, move);
+      clone = document.createElement("div"); clone.className = "dsh-sheet-body"; clone.appendChild(move);
+    } else {
+      clone = body.cloneNode(true);
+      clone.className = "dsh-sheet-body"; clone.removeAttribute("id"); clone.removeAttribute("style");
+      clone.querySelectorAll("[id]").forEach((e) => e.removeAttribute("id"));
+      clone.querySelectorAll(":scope > .dsh-h").forEach((e) => e.remove());
+      clone.querySelectorAll(".dsh-pv-hide").forEach(pvShow);
+      clone.querySelectorAll(".dsh-seeall").forEach((e) => e.remove());
+    }
+    const n = move ? null : itemsOf(clone).length;
     const sh = document.createElement("div");
     // Mounted on <body> (above the app's tab bar), carrying .dsh so card styles apply.
     sh.className = "dsh dsh-sheet"; sh.setAttribute("role", "dialog"); sh.setAttribute("aria-modal", "true"); sh.setAttribute("aria-label", title);
-    sh.innerHTML = `<div class="dsh-sheet-hd"><span class="dsh-sheet-t">${esc(title)} <span class="dsh-n">(${n})</span></span><button type="button" class="dsh-sheet-x" aria-label="Close">✕</button></div>`
-      + (n > 12 ? `<div class="dsh-sheet-f"><input type="search" class="dsh-sheet-q" placeholder="Filter" aria-label="Filter this list" autocomplete="off"></div>` : "");
+    sh.innerHTML = `<div class="dsh-sheet-hd"><span class="dsh-sheet-t">${esc(title)}${n != null ? ` <span class="dsh-n">(${n})</span>` : ""}</span><button type="button" class="dsh-sheet-x" aria-label="Close">✕</button></div>`
+      + (move ? "" : `<div class="dsh-sheet-f"><input type="search" class="dsh-sheet-q" placeholder="Search this list" aria-label="Search this list" autocomplete="off"></div>`);
     sh.appendChild(clone);
     document.body.appendChild(sh);
     document.documentElement.classList.add("dsh-sheet-open");
     const onKey = (e) => { if (e.key === "Escape") close(); };
-    const close = () => { sh.remove(); document.documentElement.classList.remove("dsh-sheet-open"); document.removeEventListener("keydown", onKey); _closeSheet = null; };
+    const close = () => {
+      if (move && home && home.parentNode) { home.parentNode.insertBefore(move, home); home.remove(); }
+      sh.remove(); document.documentElement.classList.remove("dsh-sheet-open"); document.removeEventListener("keydown", onKey); _closeSheet = null;
+      if (onClose) onClose();
+    };
     document.addEventListener("keydown", onKey);
     sh.querySelector(".dsh-sheet-x").addEventListener("click", close);
     sh.addEventListener("click", (e) => { if (e.target.closest("a[href]")) close(); });
@@ -387,6 +414,8 @@ export function mount(host, ctx) {
     _closeSheet = close;
   }
   if (window.matchMedia) { try { window.matchMedia(PHONE_MQ).addEventListener("change", () => phoneTidy()); } catch { /* old Safari */ } }
+  window.addEventListener("resize", () => { if (isPhone() !== _lastPhone) phoneTidy(); });
+  window.addEventListener("pageshow", () => { if (isPhone() !== _lastPhone) phoneTidy(); });
   const liveOr = (id) => (_live[id] ? `<span class="dsh-live" data-live="${id}" title="Live">live</span>` : liveTag(id));
   let _eu = null;                        // /api/eurates payload (ECB · BoE · Eurostat)
   let _rates = null;                     // /api/rates payload (FRED OAS, SOFR, Treasury)
@@ -1803,6 +1832,7 @@ export function mount(host, ctx) {
   // full-width search).
   function render() {
     if (_closeSheet) _closeSheet();
+    _ros = null;
     const nav = SUBTABS.map(([k, l, s]) => {
       // Full label in the desktop rail; a short label appears on the narrow phone
       // tab bar (see dashboard.css) so "Hedge Funds" doesn't wrap.
@@ -1823,7 +1853,9 @@ export function mount(host, ctx) {
       ${rail}
     </div></div>`;
     tidyHeaders();
-    if (pane === "credit") wireRosters(host);
+    if (pane === "credit") {
+      _ros = wireRosters(host, { onSeeAll: (root, which) => openSheet(null, { move: root, onClose: () => _ros && _ros.collapse(which) }) });
+    }
     layoutMid();
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadRates(); loadEu(); wireStressSort(); }
@@ -1841,7 +1873,7 @@ export function mount(host, ctx) {
     }));
   }
   host.addEventListener("click", (e) => {
-    const more = e.target.closest(".dsh-seeall");
+    const more = e.target.closest(".dsh-seeall:not([data-crall]):not([data-bdcall])");
     if (more) { e.preventDefault(); openSheet(more.parentElement); return; }
     const a = e.target.closest(".dsh-navchip[data-sub], .tchip[data-sub]");
     if (a) { e.preventDefault(); e.stopPropagation(); pane = a.dataset.sub; render(); try { history.replaceState(null, "", a.getAttribute("href")); } catch { /* */ } }

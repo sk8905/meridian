@@ -38,18 +38,21 @@ for (const [dev, label] of [[DESKTOP, "desktop"], [PHONE, "phone"]]) {
       chips: [...cr.querySelectorAll("[data-crtrend]")].map((c) => c.textContent.replace(/\d+/g, "").trim()),
       more: !!cr.querySelector("[data-crall]"),
       secs: [...bd.querySelectorAll(".crr-sec")].map((s) => s.textContent.replace(/\d+/g, "").trim()),
-      bdRows: bd.querySelectorAll(".crr-row").length,
+      bdRows: bd.querySelectorAll(".crr-row").length, bdAll: !!bd.querySelector("[data-bdcall]"),
+      shownMgr: [...bd.querySelectorAll(".crr-row")].length,
       arccPx: arcc ? (arcc.querySelector(".tbdc-pxnav") || {}).textContent : null,
       mgrLinks: bd.querySelectorAll("a.crr-mgr").length,
       pageOver: se.scrollWidth - se.clientWidth, cardOver: over(cr) + over(bd),
     };
   }, V);
   check(v.crTables === 0, `${label}: the rosters are card lists, not tables (${v.crTables} tables)`);
-  check(v.crRows >= 12 && v.crTrend, `${label}: credits rows show a rating + 12-month trend (${v.crRows} rows)`);
+  // Phone previews 10 rows with "See all" (HOUSE_STYLE R40e); desktop previews 12.
+  check((label === "phone" ? v.crRows === 10 : v.crRows >= 12) && v.crTrend, `${label}: credits rows show a rating + 12-month trend (${v.crRows} rows)`);
   check(v.chips.join("|") === "All|▼ Downgraded|▲ Upgraded" && v.more, `${label}: credits quick chips + a "Show all" (${v.chips.join(" · ")})`);
-  check(v.secs.join("|") === "Listed|Private (non-traded)" && v.bdRows === BDCS.length, `${label}: BDCs list every fund in Listed / Private sections (${v.bdRows})`);
+  if (label === "phone") check(v.secs.join("|") === "Listed" && v.bdRows === 10 && v.bdAll, `phone: BDCs preview 10 funds with "See all" (${v.bdRows})`);
+  else check(v.secs.join("|") === "Listed|Private (non-traded)" && v.bdRows === BDCS.length, `${label}: BDCs list every fund in Listed / Private sections (${v.bdRows})`);
   check(/^1\.10× NAV$/.test((v.arccPx || "").trim()), `${label}: listed BDCs show the LIVE price÷NAV (${v.arccPx})`);
-  check(v.mgrLinks === BDCS.filter((x) => x.managerId).length, `${label}: covered advisers link to their profile (${v.mgrLinks})`);
+  check(label === "phone" ? v.mgrLinks > 0 && v.mgrLinks <= 10 : v.mgrLinks === BDCS.filter((x) => x.managerId).length, `${label}: covered advisers link to their profile (${v.mgrLinks})`);
   check(v.pageOver <= 1 && v.cardOver === 0, `${label}: no horizontal overflow — page ${v.pageOver}px, ${v.cardOver} elements past the card edge`);
 
   // Credits: Downgraded chip narrows; a row expands with its sourced rating + deals; re-tap closes.

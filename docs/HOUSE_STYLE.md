@@ -1239,10 +1239,14 @@ notification badge red (`#ef4444`).
   **(e) iPhone (≤900px).** Card headers keep the LIVE / SNAPSHOT badge pinned top-right on
   the title line (≤760px: `.dsh-h-r` dissolves; other meta drops to a micro line below; a
   long title wraps beside the badge). No card scrolls inside the page: a long list (fill-card lists,
-  tables, Legal search results) shows a **6-row preview + "See all N ›"**, which opens the
+  tables, Legal search results, the news rails, the Credits / BDC rosters) shows a **10-row
+  preview + "See all N ›"**, which opens the
   whole list in a **full-screen sheet** (`openSheet`: mounted on `<body>` above the tab bar,
-  its own scroll, a Filter box past 12 items, ✕ / Esc to close; a link inside navigates and
-  closes it). At ≤760px a wide table marked `dsh-stk-src` re-renders as **stacked rows**
+  its own scroll, a search bar, ✕ / Esc to close; a link inside navigates and closes it). A
+  roster's "See all" MOVES the live roster into the sheet (its own search / sort / CSV / rows
+  keep working) and puts it back on close. The phone decision is re-checked on every
+  re-pack and width change (a home-screen app can mount before its width is final); hidden
+  rows also carry an inline `display:none` so no row layout can out-rank them. At ≤760px a wide table marked `dsh-stk-src` re-renders as **stacked rows**
   (`stackTables`: name + key figure + SRC on one line, the other fields on a micro grey line,
   labels from `data-stk-lab`) — nothing scrolls sideways or is clipped; heatmaps tighten so
   every window column fits. **No tap colours:** every Dashboard `:hover` rule sits inside

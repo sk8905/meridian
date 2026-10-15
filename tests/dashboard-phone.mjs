@@ -1,7 +1,7 @@
 // Dashboard ▸ iPhone (HOUSE_STYLE R40 phone rules). At 390px with touch, on every
-// tab and both themes: no card scrolls inside itself (long lists show a 6-row preview
+// tab and both themes: no card scrolls inside itself (long lists show a 10-row preview
 // + "See all N ›"), nothing scrolls sideways or is clipped with "…" (wide tables
-// re-render as stacked rows), and no text is orange at rest or after a tap (every
+// re-render as stacked rows), long lists preview 10 rows, and no text is orange at rest or after a tap (every
 // Dashboard :hover rule is fenced in @media (hover:hover)). "See all" opens the full
 // list in a full-screen sheet above the tab bar, with a filter for long lists, ✕ to
 // close, and a link inside it navigates (closing the sheet). Desktop keeps tables.
@@ -59,10 +59,32 @@ for (const theme of ["dark", "light"]) {
   const nmc = await pg.evaluate(() => { const n = document.querySelector(".crr-row.is-open .crr-nm"); return n ? getComputedStyle(n).color : null; });
   check(nmc !== acc, `Tap: an opened roster row's name stays ink, not orange (${nmc})`);
 
+  // Credit: every long list previews 10 rows + "See all" (fill lists, the credit wire, both rosters).
+  await pg.goto(`http://localhost:${srv.port}/v2/dashboard/credit/`, { waitUntil: "load" }); await pg.waitForTimeout(1800);
+  const cr = await pg.evaluate(() => Object.fromEntries(["#dsh-lenders", "#dsh-dd", ".dsh-newsrail > .dsh-card", '.crr-root[data-roster="credits"]', '.crr-root[data-roster="bdc"]'].map((sel) => {
+    const c = document.querySelector(sel); const rows = [...c.querySelectorAll(".dsh-stk-i, li.dsh-news-i, .crr-row")].filter((e) => e.offsetParent).length;
+    return [sel, `${rows}${c.querySelector(".dsh-seeall") ? "+all" : ""}`]; })));
+  check(Object.values(cr).every((v) => v === "10+all"), `Credit: lenders, distress deals, credit wire and both rosters show 10 rows + "See all" (${JSON.stringify(cr)})`);
+  // Roster "See all": the live roster moves into the sheet (its own search works), and returns on close.
+  await pg.tap('.crr-root[data-roster="bdc"] .dsh-seeall'); await pg.waitForTimeout(500);
+  const rs = await pg.evaluate(() => { const s = document.querySelector(".dsh-sheet"); return s && { rows: s.querySelectorAll(".crr-row").length, search: !!s.querySelector(".crr-q") }; });
+  check(rs && rs.rows === 31 && rs.search, `Roster See all: the BDC roster opens in the sheet with all 31 and its own search (${JSON.stringify(rs)})`);
+  await pg.fill(".dsh-sheet .crr-q", "Ares"); await pg.waitForTimeout(400);
+  const rq = await pg.evaluate(() => document.querySelectorAll(".dsh-sheet .crr-row").length);
+  check(rq > 0 && rq < 31, `Roster See all: search inside the sheet narrows the roster (${rq})`);
+  await pg.fill(".dsh-sheet .crr-q", ""); await pg.waitForTimeout(400);
+  await pg.tap(".dsh-sheet-x"); await pg.waitForTimeout(400);
+  const back = await pg.evaluate(() => { const r = document.querySelector('.dsh-mid .crr-root[data-roster="bdc"]'); return r && [...r.querySelectorAll(".crr-row")].filter((e) => e.offsetParent).length; });
+  checkEq(back, 10, "Roster See all: closing puts the roster back in its card at the 10-row preview");
+  // A cloned list's sheet always carries a search bar.
+  await pg.tap("#dsh-lenders .dsh-seeall"); await pg.waitForTimeout(300);
+  check(await pg.evaluate(() => !!document.querySelector(".dsh-sheet .dsh-sheet-q")), "See all: the list sheet has a search bar");
+  await pg.tap(".dsh-sheet-x"); await pg.waitForTimeout(200);
+
   // "See all" → full-screen sheet.
   await pg.goto(`http://localhost:${srv.port}/v2/dashboard/hedge-funds/`, { waitUntil: "load" }); await pg.waitForTimeout(1800);
   const pv = await pg.evaluate(() => { const c = document.querySelector("#dsh-hfaum"); return { shown: [...c.querySelectorAll(".dsh-stk-i")].filter((e) => e.offsetParent).length, btn: (c.querySelector(".dsh-seeall") || {}).textContent || "" }; });
-  check(pv.shown === 6 && /See all 151/.test(pv.btn), `See all: the AUM card previews 6 funds with "See all 151" (${JSON.stringify(pv)})`);
+  check(pv.shown === 10 && /See all 151/.test(pv.btn), `See all: the AUM card previews 10 funds with "See all 151" (${JSON.stringify(pv)})`);
   await pg.tap("#dsh-hfaum .dsh-seeall"); await pg.waitForTimeout(400);
   const sh = await pg.evaluate(() => { const s = document.querySelector(".dsh-sheet"); if (!s) return null; const r = s.getBoundingClientRect(); const top = document.elementFromPoint(195, innerHeight - 20);
     return { items: [...s.querySelectorAll(".dsh-stk-i")].filter((e) => e.offsetParent).length, full: r.top <= 1 && r.height >= innerHeight - 1, above: !!(top && top.closest(".dsh-sheet")), scrolls: /(auto|scroll)/.test(getComputedStyle(s.querySelector(".dsh-sheet-body")).overflowY), locked: document.documentElement.classList.contains("dsh-sheet-open"), title: s.querySelector(".dsh-sheet-t").textContent }; });
@@ -75,6 +97,17 @@ for (const theme of ["dark", "light"]) {
   await pg.tap("#dsh-hfaum .dsh-seeall"); await pg.waitForTimeout(300);
   await pg.tap(".dsh-sheet .dsh-stk-i a.dsh-drill"); await pg.waitForTimeout(1200);
   check(await pg.evaluate(() => !document.querySelector(".dsh-sheet") && /\/profiles/.test(location.pathname)), "See all: a fund link in the sheet opens its profile and the sheet closes");
+  await ctx.close();
+}
+// The view can mount before the phone's width is final (iPhone home-screen app): start
+// wide, then narrow — previews and roster previews must still apply.
+{
+  const ctx = await b.newContext({ viewport: { width: 1100, height: 900 }, hasTouch: true }); const pg = await ctx.newPage();
+  await pg.goto(`http://localhost:${srv.port}/v2/dashboard/credit/`, { waitUntil: "load" }); await pg.waitForTimeout(1500);
+  await pg.setViewportSize({ width: 390, height: 844 }); await pg.waitForTimeout(900);
+  const late = await pg.evaluate(() => ["#dsh-lenders", '.crr-root[data-roster="bdc"]'].map((sel) => { const c = document.querySelector(sel);
+    return `${[...c.querySelectorAll(".dsh-stk-i, .crr-row")].filter((e) => e.offsetParent).length}${c.querySelector(".dsh-seeall") ? "+all" : ""}`; }));
+  checkEq(late.join(","), "10+all,10+all", "Late width: narrowing to a phone after mount still previews lists and rosters at 10");
   await ctx.close();
 }
 // Desktop keeps its tables (no previews, no stacked lists showing).

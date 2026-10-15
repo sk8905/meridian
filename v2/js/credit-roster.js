@@ -27,6 +27,10 @@ const cr = { q: "", trend: "", sort: "", open: "", all: false };
 const bdc = { q: "", sort: "size-desc", open: "" };
 let _quotes = null, _quotesTried = false;
 const CR_PREVIEW = 12;
+// iPhone: rosters preview 10 rows; "See all" hands the live roster to the Dashboard's
+// full-screen sheet (opts.onSeeAll) instead of expanding the card in place.
+const PHONE_PREVIEW = 10;
+const isPhone = () => !!(typeof window !== "undefined" && window.matchMedia && window.matchMedia("(max-width:900px)").matches);
 
 // ---- Credits ------------------------------------------------------------------
 const RATING_ORDER = ["AAA", "AA+", "AA", "AA-", "A+", "A", "A-", "BBB+", "BBB", "BBB-", "BB+", "BB", "BB-", "B+", "B", "B-", "CCC+", "CCC", "CCC-", "CC", "C", "SD", "D"];
@@ -88,7 +92,8 @@ function creditsBody() {
   if (!EUR_CREDITS.length) return `<p class="crr-none">The European credit universe (anchored to the ${esc(EUR_CREDITS_META.index)}) is being compiled — sourced names and ratings land here as they’re verified.</p>`;
   const list = crList();
   const narrowed = !!(cr.q || cr.trend);
-  const shown = cr.all || narrowed ? list : list.slice(0, Math.max(CR_PREVIEW, list.findIndex((c) => c.name === cr.open) + 1));
+  const lim = isPhone() ? PHONE_PREVIEW : CR_PREVIEW;
+  const shown = cr.all || narrowed ? list : list.slice(0, Math.max(lim, list.findIndex((c) => c.name === cr.open) + 1));
   const down = EUR_CREDITS.filter((c) => c.trend === "down").length, up = EUR_CREDITS.filter((c) => c.trend === "up").length;
   const chip = (v, l) => `<button type="button" class="crr-chip${cr.trend === v ? " is-on" : ""}" data-crtrend="${v}" aria-pressed="${cr.trend === v}">${l}</button>`;
   return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="credits" placeholder="Search credits" aria-label="Search credits" value="${esc(cr.q)}">`
@@ -96,7 +101,7 @@ function creditsBody() {
     + `<button type="button" class="crr-csv" data-csv="credits">CSV</button></div>`
     + `<div class="crr-chips">${chip("", `All ${EUR_CREDITS.length}`)}${chip("down", `▼ Downgraded ${down}`)}${chip("up", `▲ Upgraded ${up}`)}</div>`
     + `<div class="crr-body">${list.length ? `<ul class="crr-list">${shown.map(crRow).join("")}</ul>` : `<p class="crr-none">No credits match.</p>`}`
-    + (shown.length < list.length ? `<button type="button" class="crr-more" data-crall="1">Show all ${list.length}</button>` : "") + `</div>`;
+    + (shown.length < list.length ? (isPhone() ? `<button type="button" class="dsh-seeall" data-crall="1">See all ${list.length} <span aria-hidden="true">›</span></button>` : `<button type="button" class="crr-more" data-crall="1">Show all ${list.length}</button>`) : "") + `</div>`;
 }
 
 // ---- BDCs ----------------------------------------------------------------------
@@ -168,12 +173,18 @@ function bdcRow(b) {
 }
 function bdcBody() {
   const list = bdcSorted(BDCS.filter(bdcMatch));
-  const sec = (label, rows) => rows.length ? `<div class="crr-sec">${esc(label)} <span class="crr-n">${rows.length}</span></div><ul class="crr-list">${rows.map(bdcRow).join("")}</ul>` : "";
+  // Phone preview: the first 10 (listed first, then private) unless searching, a row is
+  // open, or the whole roster is showing in the sheet.
+  const cut = isPhone() && !bdc.all && !bdc.q && !bdc.open && list.length > PHONE_PREVIEW;
+  let left = cut ? PHONE_PREVIEW : Infinity;
+  const take = (rows) => { const r = rows.slice(0, Math.max(0, left)); left -= r.length; return r; };
+  const sec = (label, rows) => { const all = rows.length, r = take(rows); return r.length ? `<div class="crr-sec">${esc(label)} <span class="crr-n">${all}</span></div><ul class="crr-list">${r.map(bdcRow).join("")}</ul>` : ""; };
   return `<div class="crr-bar"><input type="search" class="crr-q" data-roster="bdc" placeholder="Search BDCs" aria-label="Search BDCs" value="${esc(bdc.q)}">`
     + `<select class="crr-sort" data-roster="bdc" aria-label="Sort the BDCs">${BDC_SORTS.map(([v, l]) => `<option value="${v}"${bdc.sort === v ? " selected" : ""}>${l}</option>`).join("")}</select>`
     + `<button type="button" class="crr-csv" data-csv="bdc">CSV</button></div>`
     + `<div class="crr-body">${list.length ? sec("Listed", list.filter((b) => b.structure === "listed")) + sec("Private (non-traded)", list.filter((b) => b.structure !== "listed"))
-      : `<p class="crr-none">No BDCs match “${esc(bdc.q)}”.</p>`}</div>`;
+      : `<p class="crr-none">No BDCs match “${esc(bdc.q)}”.</p>`}`
+    + (cut ? `<button type="button" class="dsh-seeall" data-bdcall="1">See all ${list.length} <span aria-hidden="true">›</span></button>` : "") + `</div>`;
 }
 function loadQuotes(onDone) {
   if (_quotesTried) return;
@@ -221,7 +232,7 @@ function writeUrl() {
   const qs = p.toString();
   try { history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + location.hash); } catch { /* keep */ }
 }
-export function wireRosters(host) {
+export function wireRosters(host, opts = {}) {
   const crRoot = host.querySelector('.crr-root[data-roster="credits"]'), bdcRoot = host.querySelector('.crr-root[data-roster="bdc"]');
   if (!crRoot || !bdcRoot) return;
   const q = new URLSearchParams(location.search);
@@ -264,7 +275,8 @@ export function wireRosters(host) {
     }
     const tr = e.target.closest("[data-crtrend]");
     if (tr) { cr.trend = tr.dataset.crtrend; cr.open = ""; paintCr(); writeUrl(); return; }
-    if (e.target.closest("[data-crall]")) { cr.all = true; paintCr(); return; }
+    if (e.target.closest("[data-crall]")) { cr.all = true; paintCr(); if (isPhone() && opts.onSeeAll) opts.onSeeAll(crRoot, "credits"); return; }
+    if (e.target.closest("[data-bdcall]")) { bdc.all = true; paintBdc(); if (isPhone() && opts.onSeeAll) opts.onSeeAll(bdcRoot, "bdc"); return; }
     const hb = e.target.closest(".tbdc-hold-btn");
     if (hb) { hb.disabled = true; hb.textContent = "Loading…"; loadHoldings(hb.dataset.cik, hb.nextElementSibling, hb); return; }
     if (e.target.closest(".crr-x")) return;   // clicks inside an open row's detail
@@ -279,4 +291,9 @@ export function wireRosters(host) {
     root.addEventListener("input", onInput); root.addEventListener("change", onChange);
     root.addEventListener("click", onClick); root.addEventListener("keydown", onKey);
   }
+  // Back to the 10-row preview (the sheet closed).
+  return {
+    collapse(which) { if (which === "credits") { cr.all = false; paintCr(); } else { bdc.all = false; paintBdc(); } },
+    refresh() { paintCr(); paintBdc(); },   // the phone / desktop breakpoint changed
+  };
 }
