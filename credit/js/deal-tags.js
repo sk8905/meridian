@@ -29,7 +29,6 @@
 // Compact keys (c country · s sector · a amountKind · e event · m managerMA) — expanded
 // by tagsOf() in credit/js/tx.js. Tagged 2026-10 from each deal's own text.
 const T = {
-  d1: {"c":"Norway","s":"TMT","a":"financing","cs":"https://www.globaldata.com/company-profile/adevinta-asa/","cb":"hq"},
   d2: {"c":"UK","s":"TMT","a":"financing"},
   d3: {"c":"France","s":"Consumer & retail","a":"financing"},
   d4: {"c":"Australia","s":"Transport & logistics","a":null,"cs":"https://www.scf.com.au/locations/","cb":"hq"},
@@ -279,7 +278,6 @@ const T = {
   d283: {"c":"US","s":"Healthcare","a":"financing","cs":"https://www.wilmerhale.com/en/insights/news/20260225-beam-therapeutics-announces-$500-million-strategic-financing-facility-with-sixth-street","cb":"hq","p":"Beam Therapeutics","r":"borrower"},
   d284: {"c":"US","s":"Financial services","a":null,"m":1,"cs":"https://www.goldmansachs.com/pressroom/press-releases/2025/goldman-sachs-announces-acquisition-of-industry-ventures","cb":"hq"},
   d285: {"c":"UK","s":"Real estate","a":null,"cs":"https://www.fieracapital.com/en-uk/press-releases/fiera-real-estate-provides-41-million-debt-facility-to-signal-and-w-re-for-london-grade-a-office-project/","cb":"hq"},
-  d286: {"c":"UK","s":"TMT","a":null,"cs":"https://www.annualreports.co.uk/Company/auction-technology-group-plc","cb":"hq"},
   d288: {"c":"Germany","s":"Infrastructure & energy","a":"financing"},
   d289: {"c":"Netherlands","s":"TMT","a":"financing"},
   d290: {"c":"France","s":"Industrials","a":null,"p":"Aubert & Duval","r":"target"},
@@ -1073,5 +1071,9 @@ const T = {
   d1138: {"c":"France","s":"Transport & logistics","a":null,"p":"Europcar Mobility Group","r":"target"},
   d1139: {"c":"France","s":"Transport & logistics","a":null,"p":"Europcar Mobility Group","r":"target"},
   d1140: {"c":"France","s":"Transport & logistics","a":null,"p":"Europcar Mobility Group","r":"target"},
+  d1141: {"c":"Global","s":"Diversified","a":null},
+  d1142: {"c":null,"s":"Diversified","a":null},
+  d1143: {"c":null,"s":"Diversified","a":null},
+  d1144: {"c":null,"s":"Transport & logistics","a":null},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));

@@ -41,7 +41,11 @@ function dupBy(rows, keyFn) {
   for (const r of rows || []) { const u = urlOf(r); if (!u) continue; const k = keyFn(r) + "|" + u; (g.get(k) || g.set(k, []).get(k)).push(r.id); }
   return [...g.values()].filter((v) => v.length > 1).map((v) => v.join("/"));
 }
-for (const [name, rows, key] of [["deals", C.deals, (r) => r.managerId], ["intel", C.intel, (r) => r.managerId],
+// (A deal's entity is its firm + its audited borrower: one release that reports several
+// separate transactions — a bundled record split by the 2026-10 audit, R39m — is one
+// record per borrower.)
+const dealEntity = (r) => r.managerId + (r.borrower && r.borrower !== "Unknown" ? "|" + r.borrower.toLowerCase() : "");
+for (const [name, rows, key] of [["deals", C.deals, dealEntity], ["intel", C.intel, (r) => r.managerId],
   ["HEDGE_INTEL", C.HEDGE_INTEL, (r) => r.hfId], ["legal.items", L.items, (r) => r.firm], ["legal.cases", L.cases, () => ""]]) {
   const d = dupBy(rows, key);
   check(d.length === 0, `${name}: no two records share the same entity + source URL${d.length ? ` (dupes: ${list(d)})` : ""}`);

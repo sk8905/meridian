@@ -4,7 +4,7 @@
 //  • tables, lists, briefing sources, Dashboard SRC tags: no underline (source style kept).
 import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 const srv = await serve(); const b = await launchChromium(); const base = `http://localhost:${srv.port}`;
-const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/#/lending?deal=d1");
+const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/#/lending?deal=d14");   // (d1 merged into d14, 2026-10 audit)
 await pg.waitForSelector("#tx-drawer a.tx-mgr", { timeout: 8000 });
 const ORANGE = "rgb(251, 139, 30)";
 const st = (sel) => pg.evaluate((sel) => [...document.querySelectorAll(sel)].filter((a) => a.offsetParent).map((a) => { const s = getComputedStyle(a); return [s.textDecorationLine, s.textDecorationColor, s.borderTopStyle]; }), sel);
