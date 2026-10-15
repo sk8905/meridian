@@ -26,8 +26,12 @@ for (const theme of ["dark", "light"]) {
       const clipped = inCard.filter((e) => e.children.length === 0 && e.textContent.trim() && getComputedStyle(e).overflow !== "visible" && e.scrollWidth > e.clientWidth + 1).map(nm);
       const tmp = document.createElement("span"); document.body.appendChild(tmp); tmp.style.color = getComputedStyle(document.documentElement).getPropertyValue("--t-accent").trim(); const acc = getComputedStyle(tmp).color; tmp.remove();
       const orange = inCard.filter((e) => [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && getComputedStyle(e).color === acc).map((e) => `${nm(e)}: ${e.textContent.trim().slice(0, 20)}`);
-      return { vscroll: [...new Set(vscroll)], hscroll: [...new Set(hscroll)], clipped: [...new Set(clipped)].slice(0, 5), orange: orange.slice(0, 5), pageW: document.documentElement.scrollWidth };
+      const badges = [...root.querySelectorAll(".dsh-mid .dsh-h")].filter((h) => h.offsetParent && h.querySelector(".dsh-live")).map((h) => {
+        const t = h.querySelector(".dsh-h-t").getBoundingClientRect(), l = h.querySelector(".dsh-live").getBoundingClientRect(), c = h.closest(".dsh-card").getBoundingClientRect();
+        return { n: nm(h), dy: Math.round(l.top - t.top), dr: Math.round(c.right - l.right) }; }).filter((x) => Math.abs(x.dy) > 4 || x.dr > 24).map((x) => `${x.n} (dy ${x.dy}, right ${x.dr})`);
+      return { badges, vscroll: [...new Set(vscroll)], hscroll: [...new Set(hscroll)], clipped: [...new Set(clipped)].slice(0, 5), orange: orange.slice(0, 5), pageW: document.documentElement.scrollWidth };
     });
+    checkEq(r.badges.join("|"), "", `${theme} ${t}: LIVE / SNAPSHOT badges sit top-right on the title line`);
     checkEq(r.vscroll.join("|"), "", `${theme} ${t}: no card scrolls inside itself`);
     checkEq(r.hscroll.join("|"), "", `${theme} ${t}: nothing scrolls sideways inside a card`);
     checkEq(r.clipped.join("|"), "", `${theme} ${t}: no text clipped with an ellipsis`);

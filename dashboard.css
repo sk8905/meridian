@@ -764,9 +764,15 @@ td .dsh-yc-ea { border:0; }
 .dsh-h .dsh-asof { margin-left:0; }
 .dsh-h-sel .dsh-yld-sel { height:22px; padding:0 6px; }
 @media (max-width:760px){
-  /* Phone: the meta drops to its own micro line under the title — never wraps the title. */
-  .dsh-h { flex-wrap:wrap; row-gap:3px; }
-  .dsh-h-t { flex:1 0 100%; }
+  /* Phone: the LIVE / SNAPSHOT badge stays pinned top-right on the title line; any
+     other meta (date, count, select) drops to its own micro line beneath. A long
+     title wraps beside the badge rather than being cut. */
+  .dsh-h { flex-wrap:wrap; row-gap:3px; align-items:flex-start; }
+  .dsh-h-t { order:1; flex:1 1 0; min-width:0; white-space:normal; overflow:visible; text-overflow:clip; }
+  .dsh-h-r { display:contents; }
+  .dsh-h-r > * { order:4; }
+  .dsh-h-r > .dsh-live { order:2; flex:0 0 auto; margin-left:auto; }
+  .dsh-h:has(.dsh-h-r > :not(.dsh-live))::before { content:""; order:3; flex:0 0 100%; height:0; }
 }
 /* -- Dates: one size, one grey -- */
 .dsh-asof, .dsh-kv-d, .dsh-spread-as, .dsh-stress-as, .dsh-news-d, .dsh-pc-report-d, .dsh-ms-as, .dsh-lgl-d, .dsh-km-x .dsh-asof {

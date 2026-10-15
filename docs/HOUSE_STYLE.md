@@ -1236,7 +1236,9 @@ notification badge red (`#ef4444`).
   is missing shows "… unavailable — <source link>", never a number. **(d) Data:** the
   gauges ride `/api/eurates` `extra` (`EU_EXTRA_SERIES` in `src/index.js`: FRED via the API
   key when set, else fredgraph CSV; ECB weekly periods dated to the statement Friday).
-  **(e) iPhone (≤900px).** No card scrolls inside the page: a long list (fill-card lists,
+  **(e) iPhone (≤900px).** Card headers keep the LIVE / SNAPSHOT badge pinned top-right on
+  the title line (≤760px: `.dsh-h-r` dissolves; other meta drops to a micro line below; a
+  long title wraps beside the badge). No card scrolls inside the page: a long list (fill-card lists,
   tables, Legal search results) shows a **6-row preview + "See all N ›"**, which opens the
   whole list in a **full-screen sheet** (`openSheet`: mounted on `<body>` above the tab bar,
   its own scroll, a Filter box past 12 items, ✕ / Esc to close; a link inside navigates and
