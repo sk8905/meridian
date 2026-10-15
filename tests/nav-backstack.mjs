@@ -105,8 +105,10 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   const f = await pg.evaluate(() => ({ h: history.length, hash: location.hash, open: !document.querySelector("#pf-detail li.fund-exp .fund-body").hidden, txt: document.querySelector("#pf-detail li.fund-exp .fund-body").textContent.length }));
   check(f.open && f.txt > 20 && f.h === h0 && /m21\/vehicles$/.test(f.hash), `a fund row expands to its facts in place (no navigation, ${f.txt} chars)`);
   // A10: a plain ?tab= query selects that list
-  await pg.goto(base + "/v2/profiles/?tab=hedgefunds"); await pg.waitForTimeout(800);
-  check(await pg.evaluate(() => (document.querySelector("#pf-chips .tchip.is-on") || {}).dataset.p === "hedgefunds"), "/v2/profiles/?tab=hedgefunds opens the Hedge Funds list");
+  // Wait for the list chips to render rather than a fixed 800ms (flaky under the parallel suite).
+  await pg.goto(base + "/v2/profiles/?tab=hedgefunds");
+  const hfOn = await pg.waitForFunction(() => { const c = document.querySelector("#pf-chips .tchip.is-on"); return c && c.dataset.p === "hedgefunds"; }, null, { timeout: 10000 }).then(() => true).catch(() => false);
+  check(hfOn, "/v2/profiles/?tab=hedgefunds opens the Hedge Funds list");
   checkErrs(errs, "in-app links + URL tabs");
   await ctx.close();
 }
