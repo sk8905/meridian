@@ -1,6 +1,6 @@
 // =============================================================================
 // credit/js/target.js — how well a covered manager fits the owner's TARGET market
-// (shown as "Target" in the UI; HOUSE_STYLE R39). ONE implementation, used by the app
+// (shown as "European mid-market" in the UI — formerly "Target"; HOUSE_STYLE R39). ONE implementation, used by the app
 // (Profiles / Transactions "Target" filter + target-first ordering) and by the Node
 // scripts (scripts/lib/niche.mjs re-exports it). Moved here from scripts/lib/niche.mjs
 // so the browser can load it (scripts/ is not published); logic unchanged.
@@ -69,4 +69,4 @@ export function nicheIndex(managers = [], funds = []) {
 
 // App-facing names ("target" in the UI; "niche" kept for the scripts).
 export const targetFit = nicheFit;
-export const TARGET_LABEL = { core: "Target", adjacent: "Adjacent", context: "Other credit", off: "Non-credit" };
+export const TARGET_LABEL = { core: "European mid-market", adjacent: "Adjacent", context: "Other credit", off: "Non-credit" };

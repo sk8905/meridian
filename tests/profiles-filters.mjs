@@ -26,7 +26,7 @@ const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf
     const n90 = [...D.deals, ...D.intel].filter((x) => x.managerId === id && x.date && Date.parse(x.date) >= Date.now() - 90 * 864e5).length;
     return { tierSorted: ranks.every((r, i) => i === 0 || r >= ranks[i - 1]), first, heads, nAct: act.length, actOk: !!act[0] && +act[0].dataset.sort === n90, core: ranks.filter((r) => r === 0).length };
   });
-  check(ord.tierSorted && ord.first === "Target", `Managers open Target-first (tier order kept down the list; ${ord.core} Target managers lead)`);
+  check(ord.tierSorted && ord.first === "European mid-market", `Managers open Target-first (tier order kept down the list; ${ord.core} Target managers lead)`);
   check(ord.heads.includes("Fit") && ord.heads.includes("90d"), `Managers carry Fit and 90d columns (${ord.heads.join(" · ")})`);
   check(ord.nAct > 0 && ord.actOk, `the 90d column counts tracked deals + news in the last 90 days (${ord.nAct} active)`);
 
@@ -43,7 +43,7 @@ const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf
   await pg.locator('#pf-panes [data-pffit="band"]').click(); const band = await vis(pg, "#mgr-rows tr");
   await pg.locator('#pf-panes [data-pffit=""]').click();
   await pg.locator('#pf-panes .pf-sheet-done').click(); await pg.waitForTimeout(100);
-  check(t.l === "Target" && tgt > 0 && tgt < band && band < all && t.allCore && off === all, `Target toggles from the bar (${tgt}); $1–15bn from the panel (${band}); off restores ${off}/${all}`);
+  check(t.l === "European mid-market" && tgt > 0 && tgt < band && band < all && t.allCore && off === all, `Target toggles from the bar (${tgt}); $1–15bn from the panel (${band}); off restores ${off}/${all}`);
 
   // Filters sheet: facets with live counts; OR within, AND across; pills; Clear all.
   await pg.locator('#pf-panes .tpane[data-pane="managers"] .pf-filter-btn').click(); await pg.waitForTimeout(120);
@@ -81,7 +81,7 @@ const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf
   await pg.locator('#pf-panes .tpane[data-pane="managers"] th.tl-fit').click(); await pg.waitForTimeout(100);
   await pg.locator('#pf-panes .tpane[data-pane="managers"] th.tl-fit').click(); await pg.waitForTimeout(100);
   const fitAsc = await pg.evaluate(() => document.querySelector("#pf-panes #mgr-rows tr .tl-fit").textContent.trim());
-  check(fitAsc === "Target", `the Fit column sorts by tier (ascending → ${fitAsc} first)`);
+  check(fitAsc === "European mid-market", `the Fit column sorts by tier (ascending → ${fitAsc} first)`);
 
   // Other lists' facets.
   for (const [tab, want] of [["hedgefunds", ["strategy", "region"]], ["investors", ["type", "mandate"]], ["firms", ["tier", "practice"]]]) {

@@ -40,7 +40,7 @@ for (const theme of ["dark", "light"]) {
       return { rowsBad: [...new Set(rowsBad)], badges, vscroll: [...new Set(vscroll)], hscroll: [...new Set(hscroll)], clipped: [...new Set(clipped)].slice(0, 5), orange: orange.slice(0, 5), pageW: document.documentElement.scrollWidth };
     });
     checkEq(r.rowsBad.join("|"), "", `${theme} ${t}: every news row reads headline, then date (left) · tag (right)`);
-    checkEq(r.badges.join("|"), "", `${theme} ${t}: LIVE / SNAPSHOT badges sit top-right on the title line`);
+    checkEq(r.badges.join("|"), "", `${theme} ${t}: LIVE / NOT LIVE / AS-OF badges sit top-right on the title line`);
     checkEq(r.vscroll.join("|"), "", `${theme} ${t}: no card scrolls inside itself`);
     checkEq(r.hscroll.join("|"), "", `${theme} ${t}: nothing scrolls sideways inside a card`);
     checkEq(r.clipped.join("|"), "", `${theme} ${t}: no text clipped with an ellipsis`);

@@ -222,3 +222,66 @@ html.wr-open, html.wr-open body { overflow: hidden; }
   .wr-art { padding: 14px 12px 40vh; }
   html.wr-open .mobile-tabbar { display: none !important; }
 }
+
+/* ---- Header Watchlist (R2) ------------------------------------------------------
+   The star button's COUNT badge: unlike the bell's plain unread dot, this carries
+   the number of records new since the last visit — accent orange (R9: orange =
+   new/unread), mono, pinned top-right of the 34px icon. */
+.na-count { position: absolute; top: 1px; right: 0; min-width: 15px; height: 15px; padding: 0 3px; box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center; border-radius: 999px;
+  background: var(--accent, #fb8b1e); color: #000; font-family: var(--t-mono, ui-monospace, monospace);
+  font-size: 9.5px; font-weight: 700; line-height: 1; letter-spacing: 0; pointer-events: none; }
+.na-count[hidden] { display: none; }
+/* Watchlist / New-since-last-visit rows — shared by the header panel and Menu ▸
+   Watchlist / New: the notification-row anatomy (title line, mono meta line, 12px
+   gutters, hairline rule) so every list in the chrome reads the same. */
+.wire-watch .watch-grp-h { padding: 9px 12px 4px; font-size: var(--fs-micro); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+.wire-watch .watch-grp-ct { color: var(--faint, #5c6a86); margin-left: 4px; }
+.wire-watch .watch-row { display: block; padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
+.wire-watch a.watch-row:hover, .wire-watch .wsug-main:hover .watch-nm { background: var(--head, #0a0a0a); }
+.wire-watch .watch-nm { display: block; color: var(--ink, #eaf0fb); font-size: var(--fs-body); line-height: 1.35; overflow-wrap: anywhere; }
+.wire-watch .watch-sub { display: block; margin-top: 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: var(--fs-micro); color: var(--muted, #8592ad); }
+.wire-watch .watch-empty, .wire-watch .watch-loading { padding: 14px 12px; margin: 0; color: var(--muted, #8592ad); font-size: var(--fs-body); line-height: 1.5; }
+.wire-watch .wn-new-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); font-size: var(--fs-body); color: var(--ink, #eaf0fb); }
+/* Empty-watchlist suggestions: name + real tally on the left, a one-tap Follow on the right. */
+.wire-watch .wsug-row { display: flex; align-items: center; gap: 10px; }
+.wire-watch .wsug-main { flex: 1 1 auto; min-width: 0; text-decoration: none; color: inherit; }
+.wsug-follow { flex: 0 0 auto; min-width: 84px; height: 30px; padding: 0 10px; border: 1px solid var(--accent, #fb8b1e); border-radius: 0; background: transparent;
+  color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size: var(--fs-micro); font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+.wsug-follow.is-on { background: var(--accent, #fb8b1e); color: #000; }
+/* In the header panel the chip row sits flush under the sticky panel head. */
+#na-watch-panel .na-chip { white-space: nowrap; }
+
+/* ---- Header Ask Wire (R16): suggested questions under the box ------------------- */
+.na-ask-qs { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border, #262626); }
+.na-ask-qs .na-ask-q { display: block; width: 100%; text-align: left; white-space: normal; border: 0; border-bottom: 1px solid var(--border, #262626);
+  background: transparent; padding: 10px 12px; font-family: inherit; font-size: var(--fs-body); line-height: 1.4; color: var(--ink, #eaf0fb); letter-spacing: 0; }
+.na-ask-qs .na-ask-q::before { content: "→ "; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); }
+.na-ask-qs .na-ask-q:hover { background: var(--head, #0a0a0a); color: var(--ink, #eaf0fb); border-color: var(--border, #262626); }
+
+/* ---- Feed code legend (R3): the "?" on the first day header of every wire ------- */
+.g-feed-legend { position: relative; float: right; margin: -2px 0 -2px 8px; text-transform: none; letter-spacing: 0; font-weight: 400; }
+.g-feed-legend > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px;
+  border: 1px solid currentColor; border-radius: 999px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; line-height: 1; opacity: .85; }
+.g-feed-legend > summary::-webkit-details-marker { display: none; }
+/* While open, lift its (sticky) day header above the later sticky day headers. */
+.g-feed-dayhdr:has(> .g-feed-legend[open]) { z-index: 6; }
+.g-feed-legend[open] > summary { opacity: 1; }
+.g-feed-legend-pop { position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; width: min(300px, calc(100vw - 32px)); max-height: min(55vh, 380px); overflow-y: auto; overscroll-behavior: contain; padding: 8px 10px 10px;
+  background: var(--surface, #111); color: var(--ink, #eaf0fb); border: 1px solid var(--border, #262626); box-shadow: 0 10px 28px rgba(0, 0, 0, .35); }
+.g-feed-legend-pop h4 { margin: 2px 0 6px; font-size: var(--fs-micro); letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); }
+.g-feed-legend-pop dl { display: grid; grid-template-columns: 38px 1fr; gap: 5px 8px; margin: 0; align-items: center; }
+.g-feed-legend-pop dt.g-feed-code, .g-feed-legend-pop dt { grid-area: auto; margin: 0; text-align: center; padding: 1px 0; font-family: var(--t-mono); font-size: calc(var(--fs-micro) - 1px); font-weight: 700; }
+.g-feed-legend-pop dd { margin: 0; font-size: var(--fs-body); line-height: 1.35; color: var(--ink, #eaf0fb); }
+.g-feed-legend-pop .g-feed-legend-t { font-family: var(--t-mono); color: var(--muted, #8592ad); }
+
+/* Dashboard live-state badge (R3): "live" · "not live" · "as of 14 Oct 09:15" — the
+   as-of form carries a time, so it never wraps mid-label. */
+.dsh-live { white-space: nowrap; }
+
+/* "European mid-market" (R3 — formerly "Target") is a longer toggle label: on phones
+   let the search field give up width first so the one-row bar (search · toggle(s) ·
+   Filters) never wraps the Filters button onto a second line. */
+@media (max-width: 760px) {
+  .tpane[data-pane="managers"] .thead-search .tsearch, #tx-flow-search .tsearch { flex: 1 1 0; min-width: 90px; }
+}

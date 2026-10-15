@@ -6,7 +6,7 @@
 // and the CLO / fund-close activity Wire tracks. Rates carries the ECB · BoE · Fed
 // policy table (live ECB / BoE rates), the €STR / Euribor / SONIA / SOFR strip and
 // a Euro AAA curve. Legal carries the restructuring list + regulatory calendar.
-// With EMPTY payloads ({}), nothing claims to be live: badges read "snapshot",
+// With EMPTY payloads ({}), nothing claims to be live: badges read "not live",
 // the spreads card shows its FRED fallback, and no "&amp;" ever leaks as text.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 import { apis as LIVE } from "./fixtures/dashboard-live.mjs";
@@ -113,7 +113,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
 // ------------------------------------------- EMPTY payloads → LAST-KNOWN values
 // A live call that returns nothing falls back to the committed last-known snapshot
 // (dashboard/js/live-snapshot.js, v2/js/live-cache.js): values with their capture
-// date and a "last-known" badge — never LIVE, never an empty "unavailable" card.
+// time in a plain-language "as of <time>" badge — never LIVE, never an empty card.
 {
   const srv = await serve();
   const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
@@ -122,11 +122,9 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
     rows: document.querySelectorAll("#dsh-spreads tbody tr").length,
     text: (document.querySelector("#dsh-spreads") || {}).textContent || "",
     badge: ((document.querySelector('.dsh-live[data-live="spreads"]') || {}).textContent || "").trim(),
-    dated: !!document.querySelector('.dsh-live[data-live="spreads"] + .dsh-asof'),
   }));
   check(lk.rows > 0 && !/unavailable/i.test(lk.text), `Credit: an empty /api/rates shows last-known spreads, not "unavailable" (${lk.rows} rows)`);
-  checkEq(lk.badge, "last-known", "Credit: last-known values are badged LAST-KNOWN, never LIVE");
-  check(lk.dated, "Credit: the last-known badge carries its capture date visibly");
+  check(/^as of \d{1,2} [A-Z][a-z]{2}( \d{4})? \d{2}:\d{2}$/.test(lk.badge), `Credit: last-known values are badged "as of <capture time>", never LIVE (${lk.badge})`);
   checkErrs(errs, "dashboard europe (last-known)");
   await ctx.close(); srv.close();
 }
@@ -143,7 +141,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
     bkrt: (document.querySelector("#dsh-eu-bkrt") || {}).textContent || "",
   }));
   check(/unavailable/i.test(empty.spreads) && empty.fredLink, `Credit: with an empty /api/rates the spreads card shows its FRED fallback link (${empty.spreads.trim().slice(0, 60)})`);
-  checkEq(empty.badge, "snapshot", "Credit: no live data → the badge reads SNAPSHOT, never LIVE");
+  checkEq(empty.badge, "not live", "Credit: no live data → the badge reads NOT LIVE, never LIVE");
   check(/195\.9/.test(empty.bkrt) && /Q2 2026/.test(empty.bkrt), "Credit: Eurostat index falls back to its last verified reading, labelled by quarter");
 
   // Every tab: no live badge without live data, no double-escaped entities, and

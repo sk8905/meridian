@@ -7,7 +7,8 @@
 // It renders the header markup + the five-tab bar, then boots the shared
 // session-long features once: the ticker + briefing (brief.js), the command
 // palette (palette.js), pull-to-refresh (ptr.js), and the header action cluster
-// + panels (the ported nav-actions — Markets / Saved / Notifications / Search).
+// + panels (the ported nav-actions — Search · Ask Wire · Watchlist · Markets ·
+// Notifications; see nav-actions.js for the per-size cluster).
 // =============================================================================
 
 // The build version (see runtime.js) — chrome is loaded with ?v=V, so it reads

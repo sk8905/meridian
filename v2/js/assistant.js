@@ -1,7 +1,8 @@
 // =============================================================================
 // assistant.js — the shared "Ask Wire" (B) + "Add a firm" (C) UI, mounted in
-// TWO places: the desktop header panel (Ask only) and the Menu → Dialogue chip
-// (Ask + Add). One implementation so the two surfaces never drift.
+// TWO places: the header "Ask Wire" panel (Ask only, desktop AND phone — with
+// suggested-question chips tied to Wire's data, see ASK_SUGGESTIONS) and the Menu →
+// Chat / Coverage chips (Ask, Add). One implementation so the surfaces never drift.
 //
 // Both post to the Access-gated Worker routes /api/ask and /api/propose, which
 // answer ONLY from Wire's own data + a CITED web search (never fabricate —
@@ -10,15 +11,15 @@
 // =============================================================================
 import { esc } from "/util.js";
 
-// The compact roster the client already loads, packed into ≤55 KB of context so
+// The compact roster the client already loads, packed into ≤59 KB of context so
 // /api/ask can ground its answer in the exact data on the reader's screen.
 let _askCtx = null;
 export async function buildAskContext() {
   if (_askCtx != null) return _askCtx;
   try {
     const [cr, lg] = await Promise.all([import("/credit/js/data.js"), import("/legal/js/data.js")]);
-    const parts = [];
-    const mgr = (cr.managers || []).map((m) => `${m.name} — ${m.hq || "?"} · AUM ${m.aumText || (m.aum ? "~$" + m.aum + "bn" : "n/a")} · ${(m.strategies || []).join("/")}`);
+    const parts = [], lead = [];
+    const mgr = (cr.managers || []).map((m) => `${m.name} — ${m.hq || "?"} · AUM ${m.aum ? "~$" + m.aum + "bn" : m.aumText ? String(m.aumText).slice(0, 48) : "n/a"} · ${(m.strategies || []).join("/")}`);
     parts.push(`CREDIT MANAGERS (${mgr.length}):\n${mgr.join("\n")}`);
     const hf = (cr.HEDGE_FUNDS || []).map((h) => `${h.name}${h.aum ? " — ~$" + h.aum + "bn" : ""}${h.strategy ? " · " + h.strategy : ""}${h.hq ? " · " + h.hq : ""}`);
     parts.push(`HEDGE FUNDS (${hf.length}):\n${hf.join("\n")}`);
@@ -26,7 +27,36 @@ export async function buildAskContext() {
     parts.push(`LAW FIRMS (${fw.length}):\n${fw.join("\n")}`);
     const dl = (cr.deals || []).slice(-40).reverse().map((d) => `${d.date || ""} · ${d.headline || ""}`);
     parts.push(`RECENT CREDIT DEALS:\n${dl.join("\n")}`);
-    _askCtx = parts.join("\n\n").slice(0, 55000);
+    // The header's suggested questions (ASK_SUGGESTIONS) must be answerable from
+    // what we send, so the slices they lean on ride along — all committed records
+    // with their real dates (fund closes, UK restructuring plans/schemes, law-firm
+    // deal announcements, deal counts by manager this year).
+    const mName = Object.fromEntries((cr.managers || []).map((m) => [m.id, m]));
+    const fName = (id) => ((lg.firmById || {})[id] || {}).name || id || "";
+    const since = (days) => new Date(Date.now() - days * 864e5).toISOString().slice(0, 10);
+    const closes = (cr.intel || []).filter((i) => /close/i.test(i.type || "") && String(i.date || "") >= since(120))
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+      .map((i) => `${i.date} · ${i.type} · ${(mName[i.managerId] || {}).name || ""} · ${i.headline || ""}`);
+    if (closes.length) lead.push(`FUND CLOSES — LAST 120 DAYS:\n${closes.join("\n")}`);
+    const rx = (lg.restructurings || []).slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || ""))).slice(0, 25)
+      .map((r) => `${r.date || "undated"} · ${r.type === "plan" ? "Part 26A restructuring plan" : "Part 26 scheme"} · ${r.company || ""} · ${[r.court, r.citation].filter(Boolean).join(" ")}${r.outcome ? " · " + r.outcome : ""}`);
+    if (rx.length) lead.push(`UK RESTRUCTURING PLANS (PART 26A) & SCHEMES (PART 26):\n${rx.join("\n")}`);
+    const uni = (cr.deals || []).filter((d) => /unitranche/i.test((d.type || "") + " " + (d.headline || "")) && String(d.date || "") >= since(365))
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+      .map((d) => `${d.date} · ${(mName[d.managerId] || {}).name || ""} · ${d.headline || ""}${d.summary ? " — " + String(d.summary).slice(0, 180) : ""}`);
+    if (uni.length) lead.push(`UNITRANCHE DEALS — LAST 12 MONTHS (with any adviser named in the record):\n${uni.join("\n")}`);
+    const adv = (lg.items || []).filter((x) => /unitranche|direct lend|private credit|financing/i.test(x.title || "") && String(x.date || "") >= since(180))
+      .sort((a, b) => String(b.date).localeCompare(String(a.date))).slice(0, 35)
+      .map((x) => `${x.date} · ${fName(x.firm)} · ${x.title}`);
+    if (adv.length) lead.push(`LAW-FIRM FINANCING / UNITRANCHE ANNOUNCEMENTS — LAST 180 DAYS:\n${adv.join("\n")}`);
+    const yr = String(new Date().getFullYear()), byMgr = new Map();
+    for (const d of (cr.deals || [])) if (d.managerId && String(d.date || "").startsWith(yr)) byMgr.set(d.managerId, (byMgr.get(d.managerId) || 0) + 1);
+    const act = [...byMgr.entries()].sort((a, b) => b[1] - a[1]).slice(0, 25).map(([id, n]) => `${(mName[id] || {}).name || id} (${(mName[id] || {}).hq || "?"}) — ${n} deals`);
+    if (act.length) lead.push(`MOST ACTIVE LENDERS ${yr} (recorded deals):\n${act.join("\n")}`);
+    // The compact targeted slices LEAD and the big rosters follow (the 55 KB cap trims
+    // the tail — the hedge-fund roster — rather than the dated records).
+    const big = parts.splice(0, 2);
+    _askCtx = [...lead, ...parts, ...big].join("\n\n").slice(0, 59000);   // /api/ask caps at 60 000
   } catch { _askCtx = ""; }
   return _askCtx;
 }
@@ -77,6 +107,37 @@ export async function newsTopics() {
   return _topics;
 }
 const topicQuestion = (t) => `What's the most important ${t} news today?`;
+
+// ---- Header "Ask Wire" suggested questions ------------------------------------
+// Chips under the header Ask box. Each is tied to records Wire actually holds: a
+// chip only shows when its `has` test finds supporting committed data, and
+// buildAskContext() sends exactly those slices, so a tap is answerable from Wire.
+const _daysAgo = (n) => new Date(Date.now() - n * 864e5).toISOString().slice(0, 10);
+const _qStart = () => { const d = new Date(); return new Date(Date.UTC(d.getUTCFullYear(), Math.floor(d.getUTCMonth() / 3) * 3, 1)).toISOString().slice(0, 10); };
+// The unitranche question names the tightest window that actually holds unitranche
+// records (deals typed/headlined unitranche, or law-firm unitranche announcements).
+const _isUni = (s) => /unitranche/i.test(s || "");
+const _uniSince = (cr, lg, from) => (cr.deals || []).some((d) => (_isUni(d.type) || _isUni(d.headline)) && String(d.date || "") >= from)
+  || (lg.items || []).some((x) => _isUni(x.title) && String(x.date || "") >= from);
+export const ASK_SUGGESTIONS = [
+  { make: (cr, lg) => {
+    const w = [["this quarter", _qStart()], ["in the last six months", _daysAgo(183)], ["this year", new Date().getFullYear() + "-01-01"]].find(([, from]) => _uniSince(cr, lg, from));
+    return w ? `Who advised on European unitranche deals ${w[0]}?` : null;
+  } },
+  { make: (cr) => ((cr.intel || []).some((i) => /close/i.test(i.type || "") && String(i.date || "") >= _daysAgo(90)) ? "Which managers closed funds in the last 90 days?" : null) },
+  { make: (cr, lg) => ((lg.restructurings || []).some((r) => r.type === "plan") ? "Latest Part 26A judgments" : null) },
+  { make: (cr) => ((cr.deals || []).some((d) => String(d.date || "").startsWith(String(new Date().getFullYear()))) ? "Most active European lenders this year" : null) },
+  { make: (cr, lg) => ((lg.items || []).some((x) => /financing|unitranche|direct lend/i.test(x.title || "") && String(x.date || "") >= _daysAgo(180)) ? "Which law firms are busiest on financing deals?" : null) },
+];
+let _sugg = null;
+export async function askSuggestions() {
+  if (_sugg) return _sugg;
+  try {
+    const [cr, lg] = await Promise.all([import("/credit/js/data.js"), import("/legal/js/data.js")]);
+    _sugg = ASK_SUGGESTIONS.map((s) => { try { return s.make(cr, lg); } catch { return null; } }).filter(Boolean);
+  } catch { _sugg = []; }
+  return _sugg;
+}
 // A small accent "spark" mark for the new-chat empty state (12 rays, drawn so the
 // source stays clean).
 const SPARK = `<svg class="na-sugg-mark" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><g stroke="currentColor" stroke-width="2.2" stroke-linecap="round">`
@@ -132,6 +193,14 @@ export function renderAsk(body, st, opts) {
     ? `<div class="na-chat-empty">${SPARK}<div class="na-suggs">`
       + (_topics || DEFAULT_TOPICS).map((t) => `<button type="button" class="na-sugg" data-ask="${esc(topicQuestion(t))}">${esc(t)}</button>`).join("")
       + `</div></div>`
+    : "";
+  // The header Ask (non-bare) shows suggested QUESTIONS (state.suggestions — see
+  // askSuggestions) until the first question is asked; a tap asks it.
+  const qs = Array.isArray(st.suggestions) ? st.suggestions : [];
+  const qsHTML = (isChat && !bare && !hasChat && qs.length)
+    ? `<div class="na-ask-qs" role="group" aria-label="Suggested questions">`
+      + qs.map((q) => `<button type="button" class="na-sugg na-ask-q" data-ask="${esc(q)}">${esc(q)}</button>`).join("")
+      + `</div>`
     : "";
   // On a PHONE the menu Chat (`bare`) is DOCKED: the whole view is a fixed column
   // with the input at the bottom — the new-chat empty state centres above it, and
@@ -201,7 +270,7 @@ export function renderAsk(body, st, opts) {
       + `</div>`
     : "";
   // The middle is the transcript (active chat) or the new-chat empty state.
-  const middle = hasChat ? chatHTML : emptyHTML;
+  const middle = hasChat ? chatHTML : (emptyHTML || qsHTML);
   // Docked (phone menu Chat): middle first, input LAST — a fixed flex column (CSS)
   // puts the input at the bottom. Otherwise the input stays on top.
   body.innerHTML = isChat

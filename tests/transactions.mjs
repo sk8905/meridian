@@ -268,7 +268,7 @@ const foc = await pg.evaluate(async () => {
   document.querySelector("#tx-sheet .tx-sheet-done").click(); await wait(80);
   return out;
 });
-check(foc.present && foc.on && foc.label === "Target" && foc.inSearch && foc.off, `the bar's Target button toggles the target market on and off ("${foc.label}")`);
+check(foc.present && foc.on && foc.label === "European mid-market" && foc.inSearch && foc.off, `the bar's Target button toggles the target market on and off ("${foc.label}")`);
 check(foc.tot > 0 && foc.tot < totOff && foc.band > foc.tot && foc.band < totOff, `Target narrows the deals (${foc.tot} < ${totOff}); the panel's $1–15bn lens is broader (${foc.band})`);
 const inband = await pg.evaluate(async () => {
   const D = await import("/credit/js/data.js");
@@ -498,7 +498,7 @@ for (const w of [1280, 1024]) {
     btn.click(); await wait(120);
     return { n0, n2, l2, h2, sum, allCore: ids.length > 0 && ids.filter((id) => !core.has(id)).length === 0, off: btn.getAttribute("aria-pressed") === "false" && n() === n0 };
   });
-  check(t.l2 === "Target" && /focus=target/.test(t.h2) && /Target managers/.test(t.sum), `the bar's Target button filters to Target managers and back (${t.n0} → ${t.n2})`);
+  check(t.l2 === "European mid-market" && /focus=target/.test(t.h2) && /European mid-market managers/.test(t.sum), `the bar's Target button filters to Target managers and back (${t.n0} → ${t.n2})`);
   check(t.allCore && t.n2 > 0 && t.n2 < t.n0 && t.off, "Target lists only target-market managers' deals (European · ≤ $15bn · 15%+ strategy)");
   // Region: "All Europe" selects every European region and reads as one pill.
   await f.pg.click("#tx-filters"); await f.pg.waitForTimeout(120);

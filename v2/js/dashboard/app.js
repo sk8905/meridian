@@ -7,7 +7,8 @@
 // live figures override at runtime from the Worker (/api/rates, /api/eurates,
 // /api/yield-curve, /api/govyields, /api/worldindices, /api/13f). Every figure
 // keeps a real outbound source link and an as-of date; a LIVE badge only lights
-// once live data has actually been applied (otherwise it reads "snapshot").
+// once live data has actually been applied (otherwise it reads "not live", or
+// "as of <time>" when last-known values are shown — plain language, R3).
 // mount → {enter,leave,home}.
 // =============================================================================
 import { esc, MONTHS, byDateDesc } from "/util.js";
@@ -19,7 +20,7 @@ import { fmtBn } from "/credit/js/shared.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { nbNums } from "../nb-format.js";
 import { rosterCardsHTML, wireRosters } from "../credit-roster.js";
-import { liveJSON, lastKnownLabel } from "../live-cache.js";
+import { liveJSON } from "../live-cache.js";
 import { tagsOf, EUROPE_REGIONS } from "/credit/js/tx.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
@@ -43,9 +44,18 @@ const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, "");
 // entities BEFORE esc() so the page never shows a literal "&amp;".
 const deEnt = (s) => String(s || "").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'");
 const txt = (s) => esc(deEnt(s));
-// LIVE badge: renders as "snapshot" and only flips to "live" once a live payload
-// has actually been applied (markLive), so stale fallback data is never badged live.
-const liveTag = (id) => `<span class="dsh-live is-snap" data-live="${id}" title="Sourced snapshot — live data not loaded">snapshot</span>`;
+// LIVE badge: renders as "not live" and only flips to "live" once a live payload
+// has actually been applied (markLive), so stale fallback data is never badged live;
+// last-known values read "as of <time>" (markCached).
+const liveTag = (id) => `<span class="dsh-live is-snap" data-live="${id}" title="Live data not loaded — the card shows Wire's sourced figures with their own dates">not live</span>`;
+// "as of 14 Oct 09:15" (the year only when it isn't this year) — the plain-language
+// label for last-known values (v2/js/live-cache.js "cached" / "snapshot" states).
+const asOfTime = (at) => {
+  const t = at ? new Date(at) : null;
+  if (!t || Number.isNaN(+t)) return "as of an earlier load";
+  const y = t.getFullYear() !== new Date().getFullYear() ? " " + t.getFullYear() : "";
+  return `as of ${t.getDate()} ${MONTHS[t.getMonth()]}${y} ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}`;
+};
 const isoDay = (d) => {
   const t = String(d || "").replace(/^\s*as of\s+/i, "");
   let m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t); if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`;
@@ -72,18 +82,16 @@ export function mount(host, ctx) {
   const _live = {};
   // A card fed by LAST-KNOWN values (the live call failed or came back empty, so
   // v2/js/live-cache.js served this viewer's last-good payload or the committed
-  // snapshot): the badge says so, with the capture time — never "live".
+  // snapshot): the badge itself reads "as of <capture time>" — never "live" — so the
+  // time is visible on a phone too (no tooltip needed).
   function markCached(id, at) {
     _live[id] = false;
     host.querySelectorAll(`.dsh-live[data-live="${id}"]`).forEach((el) => {
-      el.classList.add("is-snap"); el.classList.add("is-cached"); el.textContent = "last-known";
-      el.title = lastKnownLabel(at) + " — live data not loaded";
-      // The capture date rides visibly next to the badge (the tooltip never shows on a phone).
-      const h = el.closest(".dsh-h");
-      if (h && at && !h.querySelector(".dsh-asof")) el.insertAdjacentHTML("afterend", ` <span class="dsh-asof dsh-asof-lk" title="${esc(lastKnownLabel(at))}">${esc(isoDay(String(at).slice(0, 10)))}</span>`);
+      el.classList.add("is-snap"); el.classList.add("is-cached"); el.textContent = asOfTime(at);
+      el.title = asOfTime(at) + " — live data not loaded";
     });
   }
-  // Apply a liveJSON result's badge: live → LIVE (with as-of), else last-known.
+  // Apply a liveJSON result's badge: live → LIVE (with as-of), else "as of <time>".
   const badge = (res, id, asOfDate) => { if (res.state === "live") markLive(id, asOfDate); else if (res.state !== "none") markCached(id, res.at); };
   function markLive(id, asOfDate) {
     _live[id] = asOfDate || true;
@@ -1236,7 +1244,7 @@ export function mount(host, ctx) {
     const cell = (m) => `<a href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer" title="${esc(m.q)} — ${esc(m.venue || "")}">${esc(MOVE_OF(m.q))} ${esc(String(m.yes))}%</a>${m.chg ? ` <span class="${m.chg > 0 ? "up" : "down"}">${m.chg > 0 ? "+" : ""}${esc(String(m.chg))}</span>` : ""}`;
     return `<table class="dsh-tbl dsh-implied-tbl dsh-stk-src" data-stk-name="0" data-stk-key="1"><thead><tr><th>Bank</th><th>Meeting</th><th>Market-implied odds</th><th>Venue</th></tr></thead><tbody>`
       + list.map((g) => `<tr><td class="dsh-nm">${esc(g.bank)}</td><td>${esc(g.meet)}</td><td>${g.rows.sort((a, b) => b.yes - a.yes).map(cell).join(" · ")}</td><td class="dsh-reg-jur">${esc([...new Set(g.rows.map((m) => m.venue).filter(Boolean))].join(", "))}</td></tr>`).join("")
-      + `</tbody></table><p class="dsh-ladder-cap">Crowd probabilities from prediction markets (pts change on the day) — not a Wire forecast.${_predState && _predState.state !== "live" ? " " + esc(lastKnownLabel(_predState.at)) + "." : ""}</p>`;
+      + `</tbody></table><p class="dsh-ladder-cap">Crowd probabilities from prediction markets (pts change on the day) — not a Wire forecast.${_predState && _predState.state !== "live" ? " " + esc(asOfTime(_predState.at).replace(/^a/, "A")) + "." : ""}</p>`;
   }
   async function loadImplied() {
     const res = await liveJSON("/api/predict");

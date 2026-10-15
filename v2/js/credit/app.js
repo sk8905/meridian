@@ -419,7 +419,7 @@ function managersPaneHTML() {
   return `<div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search">
                 <input type="search" id="mgr-q" class="tsearch" placeholder="Search name, HQ or strategy…" value="${esc(fst.q || "")}" aria-label="Search managers">
-                <button type="button" class="tfocus-btn tfocus-aum" id="cr-lg-focus" aria-pressed="false" data-focus="" title="AUM focus — show only $1–15bn AUM managers; tap again for Target managers">$1–15bn</button>
+                <button type="button" class="tfocus-btn tfocus-aum" id="cr-lg-focus" aria-pressed="false" data-focus="" title="AUM focus — show only $1–15bn AUM managers; tap again for European mid-market managers">$1–15bn</button>
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full pf-cards">
