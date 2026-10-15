@@ -29,8 +29,17 @@ for (const theme of ["dark", "light"]) {
       const badges = [...root.querySelectorAll(".dsh-mid .dsh-h")].filter((h) => h.offsetParent && h.querySelector(".dsh-live")).map((h) => {
         const t = h.querySelector(".dsh-h-t").getBoundingClientRect(), l = h.querySelector(".dsh-live").getBoundingClientRect(), c = h.closest(".dsh-card").getBoundingClientRect();
         return { n: nm(h), dy: Math.round(l.top - t.top), dr: Math.round(c.right - l.right) }; }).filter((x) => Math.abs(x.dy) > 4 || x.dr > 24).map((x) => `${x.n} (dy ${x.dy}, right ${x.dr})`);
-      return { badges, vscroll: [...new Set(vscroll)], hscroll: [...new Set(hscroll)], clipped: [...new Set(clipped)].slice(0, 5), orange: orange.slice(0, 5), pageW: document.documentElement.scrollWidth };
+      // One news-row format: headline first, then the date (left) and the grey tag (right) beneath it.
+      const rowsBad = [...root.querySelectorAll(".dsh-news-i")].filter((li) => li.offsetParent).filter((li) => {
+        const k = [...li.children]; const a = k[0], d = li.querySelector(":scope > .dsh-news-d"), sx = li.querySelector(":scope > .dsh-news-s");
+        if (!a || a.tagName !== "A" || k[1] !== d) return true;
+        const ra = a.getBoundingClientRect(), rd = d.getBoundingClientRect();
+        if (rd.top < ra.bottom - 2 || Math.abs(rd.left - ra.left) > 2) return true;
+        if (sx) { const rs = sx.getBoundingClientRect(); if (Math.abs(rs.top - rd.top) > 3 && rs.top < rd.top) return true; }
+        return false; }).map((li) => nm(li));
+      return { rowsBad: [...new Set(rowsBad)], badges, vscroll: [...new Set(vscroll)], hscroll: [...new Set(hscroll)], clipped: [...new Set(clipped)].slice(0, 5), orange: orange.slice(0, 5), pageW: document.documentElement.scrollWidth };
     });
+    checkEq(r.rowsBad.join("|"), "", `${theme} ${t}: every news row reads headline, then date (left) · tag (right)`);
     checkEq(r.badges.join("|"), "", `${theme} ${t}: LIVE / SNAPSHOT badges sit top-right on the title line`);
     checkEq(r.vscroll.join("|"), "", `${theme} ${t}: no card scrolls inside itself`);
     checkEq(r.hscroll.join("|"), "", `${theme} ${t}: nothing scrolls sideways inside a card`);
@@ -114,6 +123,14 @@ for (const theme of ["dark", "light"]) {
 {
   const ctx = await b.newContext({ viewport: { width: 1920, height: 1080 } }); const pg = await ctx.newPage();
   await pg.goto(`http://localhost:${srv.port}/v2/dashboard/hedge-funds/`, { waitUntil: "load" }); await pg.waitForTimeout(1500);
+  for (const t of ["credit", "rates", "legal", "hedge-funds"]) {
+    await pg.goto(`http://localhost:${srv.port}/v2/dashboard/${t}/`, { waitUntil: "load" }); await pg.waitForTimeout(1200);
+    const bad = await pg.evaluate(() => [...document.querySelectorAll(".dsh-news-i")].filter((li) => li.offsetParent).filter((li) => {
+      const a = li.children[0], d = li.querySelector(":scope > .dsh-news-d"); if (!a || a.tagName !== "A" || li.children[1] !== d) return true;
+      return d.getBoundingClientRect().top < a.getBoundingClientRect().bottom - 2; }).length);
+    checkEq(bad, 0, `Desktop ${t}: every news row reads headline, then date · tag`);
+  }
+  await pg.goto(`http://localhost:${srv.port}/v2/dashboard/hedge-funds/`, { waitUntil: "load" }); await pg.waitForTimeout(1200);
   const d = await pg.evaluate(() => ({ btn: document.querySelectorAll(".dsh-seeall").length, stk: [...document.querySelectorAll(".dsh-stk-list")].filter((e) => e.offsetParent).length, tbl: !!document.querySelector("table.dsh-hfaum-tbl").offsetParent }));
   check(d.btn === 0 && d.stk === 0 && d.tbl, `Desktop: tables as tables, no previews (${JSON.stringify(d)})`);
   await ctx.close();

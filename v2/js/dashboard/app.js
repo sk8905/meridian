@@ -729,6 +729,18 @@ export function mount(host, ctx) {
   // Transactions drawer (R36); an intel item links its source.
   const WIRE_CAP = 15;
   const _normHead = (h) => String(h || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  // ONE news-row format for every Dashboard list (R40): the headline, then the date on
+  // the left and a grey tag (type · source / firm / court) on the right. In-app items
+  // (deals, profiles) open in Wire; everything else opens its source in a new tab.
+  const mgrName = (id) => ((managers || []).find((m) => m.id === id) || {}).name || "";
+  function newsLi({ title, href, inApp = false, date, est = false, meta = "", cls = "", aCls = "", dCls = "", attrs = "" }) {
+    const a = inApp ? ` class="dsh-drill${aCls ? ` ${aCls}` : ""}"` : ` target="_blank" rel="noopener noreferrer"${aCls ? ` class="${aCls}"` : ""}`;
+    return `<li class="dsh-news-i${cls ? ` ${cls}` : ""}"${attrs}><a href="${esc(href)}"${a}>${txt(title)}</a>`
+      + `<span class="dsh-news-d${dCls ? ` ${dCls}` : ""}"${est ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${est ? "c. " : ""}${esc(/^\d{4}-\d{2}-\d{2}/.test(String(date || "")) ? fmtDate(date) : isoDay(date))}</span>`
+      + (meta ? `<span class="dsh-news-s">${meta}</span>` : "") + `</li>`;
+  }
+  const newsUl = (rows, cls = "") => `<ul class="dsh-news dsh-rx${cls ? ` ${cls}` : ""}">${rows.join("")}</ul>`;
+  const metaOf = (...parts) => esc(parts.filter(Boolean).join(" · "));
   function creditWireItems() {
     const seen = new Set(), out = [];
     [...(deals || []).map((x) => ({ ...x, _deal: true })), ...(intel || [])]
@@ -746,13 +758,11 @@ export function mount(host, ctx) {
     const items = creditWireItems();
     if (!items.length) return "";
     const row = (x) => {
-      const inApp = x._deal && x.id;
-      const href = inApp ? `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}` : (x.sourceUrl || x.url);
-      const attrs = inApp ? ` class="dsh-drill"` : ` target="_blank" rel="noopener noreferrer"`;
-      return `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
-        + `<a href="${esc(href)}"${attrs}>${txt(x.headline || x.title)}</a></li>`;
+      const inApp = !!(x._deal && x.id);
+      return newsLi({ title: x.headline || x.title, href: inApp ? `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}` : (x.sourceUrl || x.url), inApp,
+        date: x.date, meta: metaOf(x.type, mgrName(x.managerId)) });
     };
-    return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
+    return newsUl(items.map(row));
   }
   // US private credit — Fitch's PCDR + KBRA's middle-market monitor and market
   // context (PRIVATE_CREDIT). Every metric links its source; a `prev` shows the
@@ -766,10 +776,10 @@ export function mount(host, ctx) {
     // The period each metric refers to, read from its sourced sub-line ("TTM Aug 2026 · …").
     const per = (x) => ((String(x.sub || "").match(/\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) 20\d{2}\b|\b[1-4]Q\d{2}\b|\bQ[1-4]'\d{2}\b|\b20\d{2}\b/) || [])[0] || "");
     const kv = (x) => kpiRow({ k: x.k, v: x.v, d: per(x), src: x.src, srcName: x.srcName, title: x.sub ? `${x.k} — ${x.sub}` : x.k, sub: yoy(x) });
-    const rpt = (r) => `<a class="dsh-pc-report" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)}">`
-      + `<span class="dsh-pc-report-t">${esc(r.title)}</span><span class="dsh-pc-report-d">${esc(r.date || r.srcName || "")}</span></a>`;
+    // Research: the same news row as every list (title · date · source); the anchor keeps
+    // its .dsh-pc-report hook.
     const reports = (P.reports || []).length
-      ? `<div class="dsh-pc-reports"><div class="dsh-pc-reports-h">Research</div>${P.reports.map(rpt).join("")}</div>`
+      ? `<div class="dsh-pc-reports"><div class="dsh-pc-reports-h">Research</div>${newsUl(P.reports.map((r) => newsLi({ title: r.title, href: r.url, date: r.date, meta: metaOf(r.srcName), aCls: "dsh-pc-report" })))}</div>`
       : "";
     return `<div class="dsh-kvgrid dsh-pc-grid">${P.metrics.map(kv).join("")}</div>${reports}`;
   }
@@ -807,10 +817,10 @@ export function mount(host, ctx) {
     const mo = (m) => MONTHS[+m.slice(5) - 1];
     const head = `<tr><th>Tracked by Wire</th><th class="dsh-r">${mo(m2)}</th><th class="dsh-r">${mo(m1)}</th><th class="dsh-r" title="month to date">${mo(m0)}*</th></tr>`;
     const rows = lines.map(([l, f]) => `<tr><td class="dsh-nm">${esc(l)}</td><td class="dsh-r">${cnt(f, m2)}</td><td class="dsh-r">${cnt(f, m1)}</td><td class="dsh-r">${cnt(f, m0)}</td></tr>`).join("");
-    const latest = D.filter((x) => (isClo(x) || isClose(x))).sort(byDateDesc).slice(0, 30)
-      .map((x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><a class="dsh-drill" href="${esc(`${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`)}">${txt(x.headline)}</a></li>`).join("");
+    const latest = D.filter((x) => (isClo(x) || isClose(x))).sort(byDateDesc)
+      .map((x) => newsLi({ title: x.headline, href: `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`, inApp: true, date: x.date, meta: metaOf(isClo(x) ? "CLO" : x.type, mgrName(x.managerId)) })).join("");
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-act-tbl"><thead>${head}</thead><tbody>${rows}</tbody></table></div>`
-      + (latest ? `<div class="dsh-pc-reports-h">Latest CLOs &amp; fund closes</div><ul class="dsh-news dsh-act-list">${latest}</ul>` : "");
+      + (latest ? `<div class="dsh-pc-reports-h">Latest CLOs &amp; fund closes</div><ul class="dsh-news dsh-rx dsh-act-list">${latest}</ul>` : "");
   }
   // ---- Fill cards (R40): charts and long lists that take whatever height the
   // layout gives them — a chart scales, a list shows more rows or scrolls — so
@@ -876,7 +886,7 @@ export function mount(host, ctx) {
     const rows = (deals || []).filter((d) => d && d.date && d.id && /restructuring|bankruptcy|distress/i.test(d.type || "")).sort(byDateDesc)
       .filter((d) => { const k = `${d.date}|${String(d.headline || "").trim().toLowerCase()}`; if (seen.has(k)) return false; seen.add(k); return true; });
     if (!rows.length) return `<p class="dsh-load">No tracked restructuring deals.</p>`;
-    return `<ul class="dsh-news dsh-rx">` + rows.map((x) => `<li class="dsh-news-i"><a class="dsh-drill" href="${esc(`${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`)}">${txt(x.headline)}</a><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><span class="dsh-news-s">${esc(x.type)}</span></li>`).join("") + `</ul>`;
+    return newsUl(rows.map((x) => newsLi({ title: x.headline, href: `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`, inApp: true, date: x.date, meta: metaOf(x.type, mgrName(x.managerId)) })));
   }
   const fillCard = (id, title, body, meta = "", cls = "") => `<section class="dsh-card dsh-fill${cls ? ` ${cls}` : ""}" id="${id}"><h3 class="dsh-h">${title} ${meta}</h3><div class="dsh-fill-body">${body}</div></section>`;
   function creditHTML() {
@@ -1168,10 +1178,7 @@ export function mount(host, ctx) {
       .sort((a, b) => byDateDesc(a, b) || String(b.time || "").localeCompare(String(a.time || "")))
       .slice(0, 50);
     if (!items.length) return "";
-    const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
-      + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>`
-      + (x.source ? `<span class="dsh-news-s">${esc(x.source)}</span>` : "") + `</li>`;
-    return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
+    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, meta: metaOf(x.source) })));
   }
   // Two readings of where we are: Ray Dalio's debt cycle (US/UK position on the
   // 0 early → 100 crisis track) and Howard Marks' market cycle (the pendulum of
@@ -1578,15 +1585,16 @@ export function mount(host, ctx) {
       + tokens.filter((t) => x.thay.includes(t)).length * 10;
     list.forEach((x) => { x._score = score(x); });
     list.sort((a, b) => byDateDesc(a, b) || (b._score - a._score));
-    const badge = (t) => t === "case" ? `<span class="dsh-lgl-badge dsh-lgl-case">Case</span>` : `<span class="dsh-lgl-badge dsh-lgl-alert">Alert</span>`;
+    // The same news row as every other list; the type word keeps its .dsh-lgl-case /
+    // .dsh-lgl-alert hook (plain text in the grey tag).
     const row = (x) => {
       const area = LGL_AREA_BY_ID[x.area];
-      const meta = [area && area.name, x.court, x.citation, x.firm].filter(Boolean).map(esc).join(" · ");
-      return `<div class="dsh-lgl-i" data-date="${esc(x.date || "")}"><div class="dsh-lgl-i-h">${badge(x.type)}<span class="dsh-lgl-d"${x.est ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${x.est ? "c. " : ""}${esc(fmtDate(x.date))}</span></div>`
-        + (x.url ? `<a class="dsh-lgl-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>` : `<span class="dsh-lgl-t">${esc(x.title)}</span>`)
-        + (meta ? `<div class="dsh-lgl-m">${meta}</div>` : "") + `</div>`;
+      const ty = x.type === "case" ? `<span class="dsh-lgl-ty dsh-lgl-case">Case</span>` : `<span class="dsh-lgl-ty dsh-lgl-alert">Alert</span>`;
+      const rest = esc([area && area.short, x.court, x.citation, x.firm].filter(Boolean).join(" · "));
+      return newsLi({ title: x.title, href: x.url || "#", date: x.date, est: x.est, meta: ty + (rest ? ` · ${rest}` : ""),
+        cls: "dsh-lgl-i", aCls: "dsh-lgl-t", dCls: "dsh-lgl-d", attrs: ` data-date="${esc(x.date || "")}"` });
     };
-    return `<div class="dsh-lgl-list">${list.map(row).join("")}</div>`;
+    return newsUl(list.map(row), "dsh-lgl-list");
   }
   // ---- Hedge Funds --------------------------------------------------------
   // Cross-fund 13F read: curated, SOURCED "consensus longs" + "notable Q1 moves"
@@ -1603,7 +1611,7 @@ export function mount(host, ctx) {
   function hfNewsBody() {
     const rows = (HEDGE_INTEL || []).filter((x) => x && x.date && x.headline && (x.sourceUrl || x.url)).sort(byDateDesc);
     if (!rows.length) return `<p class="dsh-load">No hedge-fund news tracked.</p>`;
-    return `<ul class="dsh-news dsh-rx">` + rows.map((x) => `<li class="dsh-news-i"><a href="${esc(x.sourceUrl || x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.headline)}</a><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><span class="dsh-news-s">${esc([(hfById.get(x.hfId) || {}).name, x.type, x.outlet].filter(Boolean).join(" · "))}</span></li>`).join("") + `</ul>`;
+    return newsUl(rows.map((x) => newsLi({ title: x.headline, href: x.sourceUrl || x.url, date: x.date, meta: metaOf((hfById.get(x.hfId) || {}).name, x.type, x.outlet) })));
   }
   // Hedge funds · every covered fund by reported AUM (US$bn, each dated + sourced;
   // an estimate is marked "est."), with strategy and HQ.
@@ -1714,9 +1722,7 @@ export function mount(host, ctx) {
   function legalNewsHTML() {
     const items = legalDb().filter((x) => x && x.date && x.title && x.url).slice(0, 16);
     if (!items.length) return "";
-    const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
-      + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a></li>`;
-    return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
+    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.type === "case" ? "Case" : "Alert", x.firm || x.court) })));
   }
   // Restructuring & insolvency — the newest sourced alerts / case law in the
   // restructuring practice area (schemes, Part 26A plans, insolvency), drawn from
@@ -1724,10 +1730,7 @@ export function mount(host, ctx) {
   function restructuringHTML() {
     const items = legalDb().filter((x) => x && x.area === "ri" && x.date && x.title && x.url);
     if (!items.length) return `<p class="dsh-load">No restructuring items tracked.</p>`;
-    const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
-      + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.title)}</a>`
-      + `<span class="dsh-news-s">${esc([x.type === "case" ? "Case" : "Alert", x.firm || x.court].filter(Boolean).join(" · "))}</span></li>`;
-    return `<ul class="dsh-news dsh-rx">${items.map(row).join("")}</ul>`;
+    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.type === "case" ? "Case" : "Alert", x.firm || x.court) })));
   }
   // Regulatory calendar — dated, sourced milestones (REG_CALENDAR), upcoming first
   // then the most recent past ones; an undated item (e.g. a file still in
@@ -1749,13 +1752,13 @@ export function mount(host, ctx) {
   function caseLawBody() {
     const rows = legalDb().filter((x) => x && x.type === "case" && x.date && x.title && x.url);
     if (!rows.length) return `<p class="dsh-load">No case law tracked.</p>`;
-    return `<ul class="dsh-news dsh-rx">` + rows.map((x) => `<li class="dsh-news-i"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.title)}</a><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><span class="dsh-news-s">${esc([x.court, x.citation, (LGL_AREA_BY_ID[x.area] || {}).short].filter(Boolean).join(" · "))}</span></li>`).join("") + `</ul>`;
+    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.court, x.citation, (LGL_AREA_BY_ID[x.area] || {}).short) })));
   }
   // Legal · every item in one practice area, newest first (alerts + judgments).
   function areaListBody(area) {
     const rows = legalDb().filter((x) => x && x.area === area && x.date && x.title && x.url);
     if (!rows.length) return `<p class="dsh-load">No items tracked.</p>`;
-    return `<ul class="dsh-news dsh-rx">` + rows.map((x) => `<li class="dsh-news-i"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${txt(x.title)}</a><span class="dsh-news-d">${esc(fmtDate(x.date))}</span><span class="dsh-news-s">${esc([x.type === "case" ? "Case" : "Alert", x.firm || x.court].filter(Boolean).join(" · "))}</span></li>`).join("") + `</ul>`;
+    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.type === "case" ? "Case" : "Alert", x.firm || x.court) })));
   }
   // Legal · activity by practice area: alerts and judgments in the last 30 / 90 days
   // and in total, from the desk's own records.

@@ -1052,3 +1052,10 @@ html.dsh-sheet-open, html.dsh-sheet-open body { overflow:hidden; }
   .dsh-pane, .dsh-mid { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
   .dsh-card { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
 }
+
+/* One news-row format (R40): a legal search result reads exactly like every other list
+   row — its legacy hooks carry no styling of their own here. */
+.dsh-news-s .dsh-lgl-ty { color:inherit; border:0; padding:0; font:inherit; text-transform:none; letter-spacing:0; }
+.dsh-news-i.dsh-lgl-i { padding:5px 0; }
+.dsh-news-i .dsh-lgl-t { display:inline; color:inherit; font-size:inherit; font-weight:inherit; line-height:inherit; }
+.dsh-news-i a.dsh-pc-report { display:inline; padding:0; border:0; }

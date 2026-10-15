@@ -1219,6 +1219,11 @@ notification badge red (`#ef4444`).
   chart (a single-date curve) carries "Yield" ticks and "Maturity". **Notes and meta tags**
   (deal type, source, "as of", captions, legend notes) use `--fs-micro`; table cells and
   prose notes stay `--fs-body`. List rows de-duplicate the same story (date + headline).
+  **One news-row format everywhere on the Dashboard** (`newsLi` / `newsUl`): the headline
+  first, then the date on the left and a grey tag on the right (type · source / manager /
+  firm / court) — credit wire, CLOs & fund closes, distress deals, research, rates and legal
+  wires, restructuring, case law, funds and banking alerts, hedge-fund news and Legal search
+  results all use it; never a date-first row.
   **Lists are never capped at an arbitrary N** — every tracked item is listed and the card
   scrolls. Fill cards built ONLY from data Wire already holds or
   a sourced live series: Credit — spread history 1M, all-in yields & BBB (ICE BofA via
