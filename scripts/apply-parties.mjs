@@ -171,6 +171,7 @@ function main() {
         d.sourceUrl = fx.sourceUrl; stats.fixes++;
         if (d.alsoReported) { d.alsoReported = d.alsoReported.filter((a) => normUrl(a.url) !== normUrl(fx.sourceUrl)); if (!d.alsoReported.length) delete d.alsoReported; }
       }
+      if (fx.clo === false && d.clo) { delete d.clo; stats.fixes++; }   // not a CLO (a source shows what it is)
       for (const k of ["type", "headline", "summary"]) if (typeof fx[k] === "string" && fx[k].trim() && d[k] !== fx[k].trim()) { d[k] = fx[k].trim(); stats.fixes++; }
       // Filed under the wrong tracked firm → re-file (the old firm keeps no claim on it).
       if (e.refileTo) { const rid = index.get(canon(e.refileTo)) || (mgrIds.has(e.refileTo) ? e.refileTo : null); if (rid && rid !== d.managerId) { d.managerId = rid; stats.fixes++; } }
