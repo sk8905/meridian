@@ -1657,9 +1657,11 @@
       /* iPhone (R2d): the five lanes FIT the bar like the Home / Dashboard tabs (no lane
          clipped off the edge), first label on the 12px page gutter. */
       @media (max-width:760px){
-        .tui .g-layout.wire-newsmode .g-wire-lanechips{ padding:0 calc(var(--m-gutter, 12px) - 6px); }
+        /* The row starts at the screen edge like every other heading row; the first lane
+           carries the 12px gutter, so its label and underline line up with Deals / Profiles. */
+        .tui .g-layout.wire-newsmode .g-wire-lanechips{ padding:0; }
         .tui .g-wire-lanechips .g-wire-lane{ flex:1 1 auto; justify-content:center; padding:0 6px; }
-        .tui .g-wire-lanechips .g-wire-lane:first-child{ justify-content:flex-start; }
+        .tui .g-wire-lanechips .g-wire-lane:first-child{ justify-content:flex-start; padding-left:var(--m-gutter, 12px); }
       }
       .tui .g-layout.wire-newsmode .g-side,
       .tui .g-layout.wire-newsmode .g-side2{ display:none; }

@@ -156,13 +156,11 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 /* ---- narrow wire column (phones + the iPad terminal's centre column): headline
    leads, meta line beneath (code · time · source). Driven by the COLUMN width, so
    it triggers whenever the wire is narrow, regardless of viewport/device. -------- */
-/* The manager wire dates its events ("15 Oct 26") where the news wire shows a time. */
-.g-mw-fev { --feed-time-w:56px; }
 @container feedwrap (max-width:760px){
   /* R43: the wire keeps its time as the first column — line 1 = time · headline,
      line 2 (under the headline) = code · source; two lines, one fixed height. */
   .g-feed-row { display:grid; align-items:baseline;
-    grid-template-columns:var(--feed-time-w, 44px) max-content minmax(0,1fr);
+    grid-template-columns:var(--c-date-w) max-content minmax(0,1fr);   /* the one lead column (R43c) */
     grid-template-areas:"time title title" ". code src";
     column-gap:8px; row-gap:1px; padding:0 12px; align-content:center;
     box-sizing:border-box; height:var(--ev-h); overflow:hidden; }   /* the Deals row's compact height (owner 2026-10-15) */
@@ -202,7 +200,10 @@ body.wire-sliding .g-feed-srcbar { position:static; }
    headings; <b>/<strong> in body copy inherit the surrounding weight.
    ============================================================================= */
 :root { --c-date-w:64px; --c-src-w:104px; --c-chip-w:34px; --ev-h:46px; }
-@media (max-width:760px){ :root { --c-date-w:58px; --c-src-w:76px; } }
+/* ONE leading column, every surface and every width (owner 2026-10-15): 64px fits the
+   widest lead ("Hedge fund", "28 Sep 26") + an 8px gap, so every headline starts on the
+   same line — the wire's time, a deal's date, a profile's type, a person's move date. */
+@media (max-width:760px){ :root { --c-src-w:76px; } }
 :where(b, strong) { font-weight:inherit; }
 
 /* ---- the events row: two single lines, one fixed height ---------------------

@@ -13,6 +13,7 @@
 .rxh-chips { flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain; }
 .rxh-chips::-webkit-scrollbar { display:none; }
 .rxh-chips .tchip { flex:1 0 auto; white-space:nowrap; padding:0 12px; font:inherit; font-size:var(--fs-body); text-decoration:none; display:inline-flex; align-items:center; justify-content:center; }
+.rxh-chips .tchip.is-on { font-weight:600; }   /* the selected tab's weight, as on every heading row */
 @media (min-width:761px) {
   .rxh-nav { position:sticky; top:0; z-index:3; height:var(--chip-h, 34px); }
 }

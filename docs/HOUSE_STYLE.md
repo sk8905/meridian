@@ -1419,7 +1419,11 @@ notification badge red (`#ef4444`).
   no date, leads with the entity TYPE — Manager · Hedge fund · Investor · Law firm — in the
   same style, on desktop (inside the first cell, header "Entity") and iPhone (the card
   row's first item, line 2 indented under the name); drawn from `data-lead` by CSS so sort,
-  URL state and CSV never see it. People keeps its date. **(d) Three
+  URL state and CSV never see it. People keeps its date. The leading column is also ONE
+  WIDTH: `--c-date-w` = **64px + an 8px gap** at every width (it fits the widest lead,
+  "Hedge fund" / "28 Sep 26"), so on iPhone every list's headline starts at the same x —
+  12px gutter + 64 + 8 = **84px** — on News, Deals, Fundraising, Profiles and People (no
+  page-specific 44 / 58 / 66px lead). **(d) Three
   text tiers only:** primary `--t-ink` (white in dark, near-black in light) for the
   name / headline / key figure; mid grey `--t-mut` for supporting facts (type, amount,
   court, counterparty); subtle `--t-faint` for dates, sources, counts and labels. `--t-dim`
@@ -1472,7 +1476,16 @@ notification badge red (`#ef4444`).
   Filters** only: Deals' region button (All Europe) and European mid-market, and Profiles'
   Target / $1–15bn, are in the Filters sheet. Profiles ▸ People rows carry **no move badge**
   (HIRE / DEPARTURE / PROMOTION) on iPhone: line 2's "to / from / at" carries the move, the
-  type rides in the row title, and the Move filter still applies. Spec: `tests/phone-trim.mjs`.
+  type rides in the row title, and the Move filter still applies.
+  **(f) One iPhone geometry** (owner 2026-10-15, "the spacing doesn't quite look right"):
+  every heading row (News lanes, Deals modes, Profiles lists, the hub, Menu, Markets,
+  profile sub-tabs) starts at the screen edge with its **first label on the 12px gutter**
+  — chips are `0 12px` (the News lanes and profile sub-tabs, which must fit the screen per
+  R2d b, keep `0 6px` / `0 4px` inside but pad their first label to the gutter) — and the
+  selected tab is weight 600 everywhere (the hub's chips no longer drop it). Every search
+  row is the same: **8px above and below on iPhone (43px), none on desktop (28px)** — Deals
+  matches Profiles. Lists start their headline at 84px (R43c). Spec:
+  `tests/phone-geometry.mjs` (390px and 430px). Spec: `tests/phone-trim.mjs`.
 
 ## 7. Technical rules
 

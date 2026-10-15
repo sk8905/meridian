@@ -1357,7 +1357,7 @@ th.pf-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 /* ---- Transactions filters (HOUSE_STYLE R36/R39) ------------------------------------
    The control bar WRAPS (it used to be a fixed 28px row whose full-width as-of line
    pushed every control off-screen at desktop widths); the as-of line sits below it. */
-.tx-dash .tx-bar { height: auto; min-height: 28px; flex-wrap: wrap; row-gap: 6px; padding-top: 5px; padding-bottom: 5px; }
+.tx-dash .tx-bar { height: auto; min-height: 28px; flex-wrap: wrap; row-gap: 6px; padding-top: 0; padding-bottom: 0; }   /* one search-row look: 28px on desktop, 8px above / below on iPhone — as Profiles / .thead-search */
 .tx-bar .tsearch { flex: 1 1 220px; min-width: 0; }
 .tx-bar .tfocus-btn, .tx-bar .tcr-grpctl { margin-left: 0; }
 .tx-bar .tx-filt { flex: 0 0 auto; }
@@ -1410,6 +1410,7 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
      group selects live in the sheet, not the bar. */
   .tx-bar .tx-sortgrp { display: none; }
   .tx-bar .tsearch { flex: 1 1 100px; }
+  .tx-dash .tx-bar { padding-top: 8px; padding-bottom: 8px; }
   .tx-sheet-open #tx-body, .tx-sheet-open #tx-asof { display: none; }
   .tx-sheet-f { position: sticky; bottom: 0; }
   .tx-fchip { min-height: 32px; }
@@ -1429,10 +1430,10 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 }
 @media (max-width: 760px) {
   /* The lead is a touch wider than a date so "Hedge fund" fits whole. */
-  #pf-panes .pf-lead.pf-cards { --pf-lead-w: 66px; }
-  #pf-panes .pf-lead.pf-cards tbody tr[data-lead] { padding-left: calc(var(--m-gutter, 12px) + var(--pf-lead-w) + 10px); }
+  #pf-panes .pf-lead.pf-cards { --pf-lead-w: var(--c-date-w); }   /* the one lead column (R43c) */
+  #pf-panes .pf-lead.pf-cards tbody tr[data-lead] { padding-left: calc(var(--m-gutter, 12px) + var(--pf-lead-w) + 8px); }
   #pf-panes .pf-lead.pf-cards tbody tr[data-lead]::before { content: attr(data-lead); order: -1; flex: 0 0 var(--pf-lead-w); width: var(--pf-lead-w);
-    margin-left: calc(-1 * (var(--pf-lead-w) + 10px)); }
+    margin-left: calc(-1 * (var(--pf-lead-w) + 8px)); }
   /* Line 2's facts share its width and truncate — never a third line (R43c). */
   #pf-panes .pf-lead.pf-cards tbody td.pf-c-meta { flex: 1 1 0; min-width: 0; max-width: none; }
 }
@@ -1451,7 +1452,7 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   #pf-panes .pf-cards thead { display: none; }
   /* One compact row height app-wide (owner 2026-10-15): the Deals events row — two
      lines inside --ev-h, 12px gutter. */
-  #pf-panes .pf-cards tbody tr { display: flex; flex-wrap: wrap; align-items: baseline; align-content: center; gap: 1px 10px;
+  #pf-panes .pf-cards tbody tr { display: flex; flex-wrap: wrap; align-items: baseline; align-content: center; gap: 1px 8px;
     box-sizing: border-box; height: var(--ev-h); overflow: hidden; padding: 0 var(--m-gutter, 12px); border-bottom: 1px solid var(--border); }
   #pf-panes .pf-cards tbody tr::after { content: ""; order: 2; flex-basis: 100%; height: 0; }
   #pf-panes .pf-cards tbody td { display: none; padding: 0; border: 0; }
@@ -1575,7 +1576,7 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   .tx-stats .tx-stats-top, .tx-stats .tx-stats-x { display: none; }
   .tx-dash .twire-head .tchips { overflow-x: auto; scrollbar-width: none; }
   .tx-dash .twire-head .tchips::-webkit-scrollbar { display: none; }
-  .tx-dash .twire-head #tx-mode .tchip { flex: 1 0 auto; padding-left: 10px; padding-right: 10px; }
+  .tx-dash .twire-head #tx-mode .tchip { flex: 1 0 auto; padding-left: 12px; padding-right: 12px; }   /* every heading row: 0 12px chips, first label on the gutter */
   .tx-typestrip .tx-secchip { background: var(--surface); }
   .tx-typestrip .tx-secchip.is-on[data-sub=""] { border-color: var(--muted); background: var(--surface); color: var(--ink); }
 }
@@ -1618,6 +1619,9 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   .twire .compact-item { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
   .tx-drawer-b { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
   #pf-detail .tdet-tabbed > .twire-head .tchip { flex: 1 1 auto; white-space: nowrap; padding: 0 4px; }
+  /* First / last label on the 12px gutter, like every heading row (owner 2026-10-15). */
+  #pf-detail .tdet-tabbed > .twire-head .tchip:first-child { padding-left: var(--m-gutter, 12px); justify-content: flex-start; }
+  #pf-detail .tdet-tabbed > .twire-head .tchip:last-child { padding-right: var(--m-gutter, 12px); }
 }
 
 /* ---- Transactions ▸ League tables · Fundraising · deal Share (R9 / R7, 2026-10) ------
