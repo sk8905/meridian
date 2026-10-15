@@ -8,6 +8,7 @@
 // every caller keeps the verbatim, sourced headline visible, so a miss leads with
 // the headline itself rather than fabricating a name.
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
+import { managers } from "/credit/js/data.js";
 const _NAME = "[A-Z][A-Za-z0-9&.’'-]*(?:\\s+[A-Z0-9][A-Za-z0-9&.’'-]*){0,4}";
 // Geographic / nationality adjectives that commonly sit between a connective verb
 // and the borrower's proper name ("… refinances GERMAN mid-market group Kaffee
@@ -79,6 +80,8 @@ export function dealSubject(d) {
   const h = String((d && d.headline) || "");
   // The audited party (credit/js/deal-tags.js `p`, HOUSE_STYLE R39) wins over everything —
   // including "" (no counterparty: a hire, a launch, an unnamed borrower).
+  // The audited explicit borrower (2026-10 party audit, HOUSE_STYLE R39m) wins first.
+  if (d && typeof d.borrower === "string" && d.borrower.trim()) return d.borrower.trim();
   const t = d && d.id && DEAL_TAGS[d.id];
   if (t && t.party != null) return t.party;
   // An explicit, verified borrower/company on the deal wins over any parse — set
@@ -109,6 +112,7 @@ export function dealSubject(d) {
 // deals keep their vehicle name.
 export function dealCounterparty(d, lenderName) {
   const s = dealSubject(d);
+  if (d && typeof d.borrower === "string" && d.borrower.trim()) return s;   // audited — shown as-is
   const t = d && d.id && DEAL_TAGS[d.id];
   // An audited party is shown as-is — even when it IS the lender (a BDC issuing its own
   // notes, a manager raising its own fund).
@@ -219,3 +223,52 @@ export function dealAmount(d) {
   if (!m) return "";
   return m[0].replace(/\s+/g, "").replace(/billion/i, "bn").replace(/million/i, "m");
 }
+
+// ---- Deal parties (HOUSE_STYLE R39m — 2026-10 party audit) -------------------------
+// A deal names up to four kinds of party: the BORROWER (`borrower`, else the parse
+// above), the SPONSOR (`sponsor`, `sponsorId` when it is a tracked firm), the LENDERS
+// (`lenders: [{ name, managerId, role: lead | participant | arranger | investor,
+// amount, ccy }]`) and the tracked firm the record is filed under (`managerId`) with
+// its real role (`managerRole`: lender | sponsor | borrower | issuer | adviser |
+// seller). One deal = one record: a club deal carries every lender in `lenders`.
+const _mgrById = new Map(managers.map((m) => [m.id, m]));
+const _mName = (id) => (_mgrById.get(id) || {}).name || "";
+export const MANAGER_ROLES = ["lender", "sponsor", "borrower", "issuer", "adviser", "seller"];
+// The tracked firm's role: explicit, else "issuer" for a CLO (the manager prices its own
+// vehicle), else "lender" (the pre-audit assumption).
+export function dealManagerRole(d) {
+  if (d && MANAGER_ROLES.includes(d.managerRole)) return d.managerRole;
+  return d && d.clo ? "issuer" : "lender";
+}
+// Every lender / investor (not arrangers), lead first. A deal without an audited
+// `lenders` list falls back to its tracked firm when that firm is the lender.
+export function dealLenders(d) {
+  if (!d) return [];
+  const own = (d.lenders || []).filter((l) => l && l.name && l.role !== "arranger")
+    .map((l) => ({ ...l, name: (l.managerId && _mName(l.managerId)) || l.name }));
+  if (own.length) {
+    const lead = own.findIndex((l) => l.role === "lead");
+    return lead > 0 ? [own[lead], ...own.slice(0, lead), ...own.slice(lead + 1)] : own;
+  }
+  const role = dealManagerRole(d);
+  return d.managerId && _mName(d.managerId) && (role === "lender" || role === "issuer")
+    ? [{ name: _mName(d.managerId), managerId: d.managerId, role: "lead", amount: null, ccy: null }] : [];
+}
+export function dealArrangers(d) {
+  return ((d && d.lenders) || []).filter((l) => l && l.name && l.role === "arranger")
+    .map((l) => ({ ...l, name: (l.managerId && _mName(l.managerId)) || l.name }));
+}
+// The tracked-firm ids a deal counts under as a LENDER (Lender facet, grouping, stats).
+export const dealLenderIds = (d) => [...new Set(dealLenders(d).map((l) => l.managerId).filter((id) => id && _mgrById.has(id)))];
+// Every tracked firm that is a party to the deal, with its role there — the profile
+// Investments tab lists the deal on each of them (sponsor deals labelled "Sponsor").
+export function dealParticipants(d) {
+  const out = new Map();
+  if (!d) return out;
+  if (d.managerId) out.set(d.managerId, dealManagerRole(d));
+  for (const l of d.lenders || []) if (l && l.managerId && !out.has(l.managerId)) out.set(l.managerId, l.role === "arranger" ? "arranger" : "lender");
+  if (d.sponsorId && !out.has(d.sponsorId)) out.set(d.sponsorId, "sponsor");
+  return out;
+}
+export const dealRoleFor = (d, managerId) => dealParticipants(d).get(managerId) || null;
+export const ROLE_NAME = { lender: "Lender", sponsor: "Sponsor", borrower: "Borrower", issuer: "Manager", adviser: "Adviser", arranger: "Arranger", seller: "Seller" };

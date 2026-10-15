@@ -17,7 +17,7 @@ import { X_LIST, X_ACCOUNTS } from "/v2/js/home/xposts.js";
 import { BRIEFINGS } from "/briefings.js";
 import { nbNums } from "/v2/js/nb-format.js";
 import { h, Fragment, signal, effect, batch, mount } from "/v2/js/ui.js";
-import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js";
+import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, MONTHS } from "/util.js";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js";
 
@@ -105,7 +105,7 @@ function creditSource(rec) {
   const host = srcHost(rec.sourceUrl);
   if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
   const nm = rec.managerId ? mgrName(rec.managerId) : "";
-  return nm || (host ? tidyDomain(host) : "");
+  return nm && isOwnSite(host, nm) ? nm : (host ? tidyDomain(host) : nm);
 }
 const firmName = (id) => (firmById[id] || {}).name || id || "";
 
@@ -3056,9 +3056,11 @@ function _buildEntIndex() {
       byTerm.set(k, href);
     }
   };
-  for (const m of (managers || [])) add(m.name, `/v2/profiles/#/manager/${encodeURIComponent(m.id)}`);
+  for (const m of (managers || [])) if (!m.profileStub) add(m.name, `/v2/profiles/#/manager/${encodeURIComponent(m.id)}`);
   for (const h of (hedgeFunds || [])) add(h.name, `/v2/profiles/#/hf/${encodeURIComponent(h.id)}`);
   for (const id of Object.keys(firmById || {})) add((firmById[id] || {}).name, `/v2/profiles/#/firm/${encodeURIComponent(id)}`);
+  // Lender profiles awaiting research (R39m) link only names no richer profile claims.
+  for (const m of (managers || [])) if (m.profileStub && !byTerm.has(String(m.name).toLowerCase())) add(m.name, `/v2/profiles/#/manager/${encodeURIComponent(m.id)}`);
   // The body text is ESCAPED before linking, so key the lookup + build the alternation
   // from the escaped form (a firm's "&" is "&amp;" in both). Longest first so the
   // longest name wins at any position.

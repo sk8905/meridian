@@ -22,7 +22,8 @@ for (const [id, e] of Object.entries(cl.entities || {})) {
     if (v.status === "present") {
       const r = recordById.get(v.recordId);
       if (!r) bad.push(`${tag}: recordId ${v.recordId} not in data`);
-      else if (r.managerId !== id && r.hfId !== id) bad.push(`${tag}: ${v.recordId} belongs to another entity`);
+      // A merged club deal (R39m) belongs to every firm that is a party to it.
+      else if (r.managerId !== id && r.hfId !== id && r.sponsorId !== id && !(r.lenders || []).some((l) => l.managerId === id)) bad.push(`${tag}: ${v.recordId} belongs to another entity`);
     } else if (v.status === "missing") {
       if (!/^https?:\/\//.test(String(v.source || ""))) bad.push(`${tag}: missing event without a source URL`);
     } else if (v.status === "rejected") {

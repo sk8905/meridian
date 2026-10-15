@@ -1174,6 +1174,23 @@ notification badge red (`#ef4444`).
   `tests/link-convention.mjs`. The newswire's "Open original" stays
   orange, bold, no underline. (The `!important` on these underlines exists only to beat
   premium.css's global `a { text-decoration: none !important }`.)
+  **(m) Deal parties** (2026-10 party audit). A deal carries its parties explicitly:
+  `borrower` (exact entity when the source names it, else the group), `sponsor` (+
+  `sponsorId` when tracked), `lenders: [{ name, managerId, role: lead | participant |
+  arranger | investor, amount, ccy }]` and `managerRole` — the real role of the tracked
+  firm the record is filed under (lender · sponsor · borrower · issuer · adviser). **One
+  deal = one record**: a club deal is one row whose Lender cell reads "Investec +1";
+  the Lender facet, lender grouping, "top lenders", Dashboard "Most active lenders" and
+  the CSV count EACH lender. Every party links to its profile (a tracked firm → its
+  manager page; any other company → `#/co/<name>`); every lender named in a deal has a
+  profile (`managers` with `category` bank | lender, `profileStub` until researched).
+  The drawer reads headline → summary → **Borrower / company · Sponsor · Lender(s)
+  (role-labelled, own amount) · Arranger** → Type · Sector · Country · Amount · Date ·
+  Advisers · Source. The **Source** label is the OUTLET (CoStar, Bloomberg, the firm's
+  own press page) — a manager's name only when the URL is that manager's own site
+  (`isOwnSite` in util.js). A manager's Investments tab lists every deal it is party to,
+  each tagged with its role there (Lender / Sponsor / Borrower / Manager). Data:
+  `backfill/deal-parties.json` → `scripts/apply-parties.mjs`. Spec: `tests/deal-parties.mjs`.
 
 ---
 

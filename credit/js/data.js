@@ -3281,8 +3281,10 @@ export function intelForManager(managerId) {
 export function intelForFund(fundId) {
   return intel.filter((i) => i.fundId === fundId);
 }
+// Every deal the firm is a party to: filed under it, or naming it as a lender / arranger
+// (`lenders[].managerId`) or as the sponsor (`sponsorId`) — HOUSE_STYLE R39m.
 export function dealsForManager(managerId) {
-  return deals.filter((d) => d.managerId === managerId);
+  return deals.filter((d) => d.managerId === managerId || d.sponsorId === managerId || (d.lenders || []).some((l) => l && l.managerId === managerId));
 }
 export function dealsForFund(fundId) {
   return deals.filter((d) => d.fundId === fundId);

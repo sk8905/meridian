@@ -5,7 +5,7 @@
 // Loaded lazily (dynamic import) the first time a panel is opened, so the heavy
 // data modules aren't pulled into each app's initial load.
 // =============================================================================
-import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js";
+import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain, isOwnSite } from "/util.js";
 import { deals, intel, managers, funds, HEDGE_FUNDS, HEDGE_INTEL, lps } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 
@@ -19,7 +19,7 @@ function creditSource(rec) {
   const host = srcHost(rec.sourceUrl);
   if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
   const nm = rec.managerId ? mgrName(rec.managerId) : "";
-  return nm || (host ? tidyDomain(host) : "");
+  return nm && isOwnSite(host, nm) ? nm : (host ? tidyDomain(host) : nm);
 }
 function feedDedupKey(x) {
   const u = (x.url || x.sourceUrl || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");

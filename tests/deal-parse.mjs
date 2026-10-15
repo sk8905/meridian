@@ -19,14 +19,14 @@ const { managers, deals } = await import("../credit/js/data.js");
 // 1) The reported case + a spread of headline shapes resolve to the BORROWER.
 const cases = [
   ["d207", "Amerplast Group"],          // "H.I.G. Bayside … refinances packaging maker Amerplast Group"
-  ["d779", "Toob"],                     // "Ares takes control of UK fibre broadband operator Toob …"
-  ["d767", "Nordstern"],                // "Pemberton takes ownership of Danish contractor Nordstern …"
+  ["d779", "Toob Ltd"],                  // audited (R39m): the entity the source names
+  ["d767", "Nordstern ApS"],            // audited (R39m): the entity the source names
   ["d856", "Eurofiber"],               // lender leads; borrower in the possessive
   ["d718", "Red Kite Lending"],
   ["d682", "Plend"],
   ["d630", "Borio Mangiarotti"],
-  ["d795", "Funding 365"],
-  ["d835", "Mohawk Day Camp"],
+  ["d795", "Funding 365 Limited"],
+  ["d835", "Mohawk Day Camp & Mohawk Country Day School"],
 ];
 const byId = new Map(deals.map((d) => [d.id, d]));
 for (const [id, want] of cases) {
@@ -47,8 +47,8 @@ for (const [id, wantBorrower, wantSponsor] of spCases) {
     checkEq(dealSponsor(d), wantSponsor, `deal ${id}: sponsor is identified separately`);
   }
 }
-// A plain refinancing / CLO names no sponsor.
-const noSp = byId.get("d207");
+// A CLO names no sponsor (d207's Chiltern Capital is now an audited sponsor, R39m).
+const noSp = deals.find((d) => d.clo && d.sponsor === "");
 if (noSp) checkEq(dealSponsor(noSp), "", "a deal with no PE backer reports no sponsor");
 // The sponsor is never the same string as the borrower it backs.
 let conflated = [];
@@ -88,7 +88,8 @@ check(empty <= 3, `nearly every deal yields a named subject (empty: ${empty})`);
   const byId = new Map(D.deals.map((x) => [x.id, x]));
   const pairs = [...blk.matchAll(/\b(d\d+): ("(?:[^"\\]|\\.)*")/g)].map((m) => [m[1], JSON.parse(m[2])]);
   const bad = pairs.filter(([id, name]) => { const x = byId.get(id); if (!x) return true; const t = ((x.headline || "") + " " + (x.summary || "")).toLowerCase(); return !t.includes(name.toLowerCase()); });
-  check(pairs.length >= 80 && bad.length === 0, `curated borrowers are verbatim from their own deal text (${pairs.length} entries, bad: ${bad.map((b) => b[0]).join(", ") || "none"})`);
+  // (The 2026-10 party audit retired the entries an explicit `borrower` supersedes.)
+  check(bad.length === 0, `curated borrowers are verbatim from their own deal text (${pairs.length} entries, bad: ${bad.map((b) => b[0]).join(", ") || "none"})`);
 }
 // The 2026-10 audit: the audited party (deal-tags `p`) wins over the parse — never a
 // descriptor ("AI"), and the issuer is shown even when it is the lender itself.

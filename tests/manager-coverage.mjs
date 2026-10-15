@@ -84,6 +84,7 @@ const DEPTH_DEFICIT_CEILING = 158; // ≤ this many may still be thin / missing-
 const BACKFILL_YEAR = 2020, THIN_TOTAL = 4;   // history to 2020 (R32) — matches scripts/manager-coverage.mjs
 let reach2020 = 0, depthDeficit = 0;
 for (const m of managers) {
+  if (m.profileStub) continue;   // a lender profile awaiting research (R39m) — the routine fills it
   const ys = events.get(m.id) || [];
   const total = ys.length;
   const oldestYear = ys.length ? Math.min(...ys) : null;

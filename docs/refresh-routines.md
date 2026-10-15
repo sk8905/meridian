@@ -587,7 +587,8 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 - **Borrower vs Sponsor vs Lender.** A sponsor-backed deal names three parties: the
   BORROWER / target company ("Borrower / company"), the SPONSOR / PE backer
   (`dealSponsor` → the Transactions "Sponsor" column), and the LENDER that provides
-  the financing (`managerId` → "Lender / investor"). The borrower is the acquisition
+  the financing (`lenders[]` → "Lender", lead "+N"; `managerId` is only the tracked firm
+  the record is filed under, with its role in `managerRole` — see "Deal parties" below). The borrower is the acquisition
   TARGET, never the sponsor whose name leads the possessive ("backs Bridgepoint's
   acquisition financing for GBA Group" → borrower GBA Group, sponsor Bridgepoint).
   When a new deal's sponsor can't be parsed, set an explicit `sponsor` field on the
@@ -597,6 +598,33 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   in `credit/js/tx.js` for an untagged deal) and group-by / sort controls; the
   manager profile **Investments** table shares the same extraction and expands each
   row to the deal's short sourced narrative + sponsor.
+- **Deal parties — every new deal (HOUSE_STYLE R39m, 2026-10 audit).** Each deal you add
+  carries its parties explicitly, read from its own source(s): `borrower` (the exact
+  borrowing / issuing entity when the source names it — an SPV, propco, "… CLO X DAC" —
+  else the group as the source writes it; never an SPV name inferred from a registry),
+  `sponsor` (the PE / real-estate owner, `""` when none is named) + `sponsorId` when that
+  sponsor is a tracked firm, `lenders: [{ name, managerId, role: lead | participant |
+  arranger | investor, amount, ccy }]` (EVERY lender / arranger the source names, each
+  with its own amount where stated) and `managerRole` (the tracked firm's real role:
+  lender | sponsor | borrower | issuer | adviser — a CLO the manager prices is "issuer",
+  a BDC's own notes "borrower"). **One deal = one record**: a club deal is ONE record with
+  every lender in `lenders`, never one row per tracked lender — before adding, search
+  `deals` for the same borrower + date ±10 days and add your firm to that record's
+  `lenders` instead. A lender that is not yet a tracked firm gets a lender profile (see
+  "Lender profiles" below). The audit itself lives in `backfill/deal-parties.json`
+  (`scripts/apply-parties.mjs` writes it; its `review` entries are the open list — clear
+  one only by re-reading a source that settles it). Specs: `tests/deal-parties.mjs`.
+- **Lender profiles — research the stubs every run (owner decision 2026-10).** Every
+  lender / arranger named in a deal is a clickable profile: a `managers` record with
+  `category: "bank" | "lender"` and `profileStub: true`, created by
+  `scripts/apply-parties.mjs` with every fact `null`. Each run, take up to ~10 stubs
+  (oldest `stubSince` first, lenders on recent deals first) and research them from public
+  sources: `hq`, `founded`, the institution type (confirm or correct `category`), AUM or
+  balance sheet (`aum` in $bn with `aumText` saying what it measures and when — a bank's
+  total assets are NOT AUM: set `notAum: true` and put the balance sheet in `aumText`),
+  credit focus (`strategies`, `description`), and `sources` (each fact's URL) with
+  `asOf`. Remove `profileStub` once HQ, type and a sourced description are in. Never
+  guess a figure — unknown stays `null`.
 - **Publish on every run.** Because `LAST_CHECKED` is bumped each run, every run
   produces a commit (even a "nothing new" run, which just advances `LAST_CHECKED`
   + cache-busters). Commit (message trailers below), then publish to `main` AND the

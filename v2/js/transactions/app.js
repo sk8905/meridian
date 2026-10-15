@@ -26,7 +26,7 @@ import { targetFit } from "/credit/js/target.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
 import { esc } from "/util.js";
 import { fmtDay, fmtDateP } from "/feed.js";
-import { dealCounterparty, dealSponsor, dealPartyRole } from "../deal-parse.js";
+import { dealCounterparty, dealSponsor, dealPartyRole, dealLenders, dealArrangers, dealLenderIds, dealManagerRole, dealParticipants, ROLE_NAME } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
 import { downloadCSV } from "../csv.js";
 import { advisersFor, dealTerms } from "../deal-advisers.js";
@@ -66,6 +66,8 @@ const KIND_SHORT = { ev: "EV", aum: "AUM", other: "" };
 const BASIS_LABEL = { hq: "HQ", incorporated: "incorporation", issuer: "issuer domicile", portfolio: "portfolio location" };
 // The audited role of the deal's counterparty (deal-tags `r`) → its drawer label.
 const ROLE_LABEL = { borrower: "Borrower / company", issuer: "Issuer", target: "Target", fund: "Fund / vehicle", seller: "Seller", none: "Counterparty" };
+// A lender's role in the drawer.
+const LROLE = { lead: "lead", participant: "participant", investor: "investor", arranger: "arranger" };
 const EVENT_LABEL = { new: "New issue", reset: "Reset", refi: "Refi" };
 const SORTS = [["date-desc", "Newest"], ["date-asc", "Oldest"], ["size-desc", "Largest"], ["size-asc", "Smallest"], ["lender-asc", "Lender A–Z"], ["name-asc", "Name A–Z"]];
 const SORT_DEFAULT_DIR = { date: "desc", size: "desc", lender: "asc", name: "asc" };
@@ -94,6 +96,9 @@ export function mount(host, ctx) {
         mode: tags.managerMA ? "mna" : groupOfTx(tx),
         sponsor: dealSponsor(d) || "",
         cp: dealCounterparty(d, mgrName(d.managerId)) || "",
+        // The parties (R39m): every lender (lead first), arrangers, the tracked firm's role.
+        lenders: dealLenders(d), arrangers: dealArrangers(d), role: dealManagerRole(d),
+        lenderIds: dealLenderIds(d), partyIds: [...dealParticipants(d).keys()],
         // Other outlets' reports of this same deal: merged-away duplicates
         // (scripts/dedupe-data.mjs keeps their URLs as alsoReported) plus any
         // same-deal row folded in below.
@@ -129,28 +134,37 @@ export function mount(host, ctx) {
   const inDate = (r) => (st.from || st.to)
     ? (!st.from || ym(r) >= st.from) && (!st.to || ym(r) <= st.to)
     : (st.period === "all" || r.ts >= (PERIODS[st.period] || PERIODS.all)());
-  const inFocus = (r) => !st.focus || (st.focus === "band" ? mInBand(_mById.get(r.d.managerId)) : mIsTarget(r.d.managerId));
+  const inFocus = (r) => !st.focus || r.partyIds.some((id) => (st.focus === "band" ? mInBand(_mById.get(id)) : mIsTarget(id)));
   const FVAL = {
     type: (r) => r.tx, sector: (r) => r.tags.sector, region: (r) => r.tags.region, size: (r) => r.band,
-    ccy: (r) => r.ccyK, sponsor: (r) => (r.sponsor ? "yes" : "no"), lender: (r) => r.d.managerId || "_",
+    ccy: (r) => r.ccyK, sponsor: (r) => (r.sponsor ? "yes" : "no"), lender: (r) => lenderKeys(r),
   };
+  // The Lender facet / grouping / stats count EACH lender of a club deal (R39m): the
+  // deal appears under Investec AND under AIB. Structured credit and Manager M&A keep
+  // the tracked firm (the CLO manager, the acquirer).
+  function lenderKeys(r) {
+    if (r.mode === "structured" || r.mode === "mna") return [r.d.managerId || "_"];
+    return r.lenderIds.length ? r.lenderIds : ["_"];
+  }
+  const fmatch = (v, sel) => (Array.isArray(v) ? v.some((x) => sel.includes(x)) : sel.includes(v));
   const scopeOn = () => st.scope === "eu" && !st.q && !st.f.region.length && st.mode !== "mna";
   const inScope = (r) => !scopeOn() || EUROPE_REGIONS.includes(r.tags.region);
-  const passes = (r, except) => inDate(r) && inFocus(r) && inScope(r) && FACETS.every((k) => k === except || !st.f[k].length || st.f[k].includes(FVAL[k](r)));
+  const passes = (r, except) => inDate(r) && inFocus(r) && inScope(r) && FACETS.every((k) => k === except || !st.f[k].length || fmatch(FVAL[k](r), st.f[k]));
   const hit = (r, q) => (r.d.headline || "").toLowerCase().includes(q) || mgrName(r.d.managerId).toLowerCase().includes(q)
+    || r.lenders.some((l) => l.name.toLowerCase().includes(q)) || r.sponsor.toLowerCase().includes(q) || r.cp.toLowerCase().includes(q)
     || (r.d.summary || "").toLowerCase().includes(q) || typeLabel(r.tx).toLowerCase().includes(q) || r.tags.sector.toLowerCase().includes(q)
     || (r.tags.country || "").toLowerCase().includes(q);
   // Search spans every deal-flow mode; otherwise the active mode's deals.
   const baseRows = () => (st.q ? rows.filter((r) => hit(r, st.q.toLowerCase())) : rows.filter((r) => r.mode === st.mode));
   function facetCounts(k) {
     const out = {};
-    for (const r of baseRows()) if (passes(r, k)) { const v = FVAL[k](r); out[v] = (out[v] || 0) + 1; }
+    for (const r of baseRows()) if (passes(r, k)) { const v = FVAL[k](r); for (const x of Array.isArray(v) ? v : [v]) out[x] = (out[x] || 0) + 1; }
     return out;
   }
   const SORT_VAL = {
     date: (r) => r.ts,
     size: (r) => (r.sizeOk && r.usd != null ? r.usd : null),
-    lender: (r) => mgrName(r.d.managerId).toLowerCase() || null,
+    lender: (r) => (lenderCellName(r) || "").toLowerCase() || null,
     name: (r) => (r.cp || r.d.headline || "").toLowerCase() || null,
   };
   function sortRows(list) {
@@ -484,6 +498,19 @@ export function mount(host, ctx) {
 
   // ---- cells / columns per mode -------------------------------------------------
   const mgrLink = (id) => id && mgrName(id) ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(id)}" class="tx-mgr" data-id="${esc(id)}">${esc(mgrName(id))}</a>` : "—";
+  // A named party → its profile: a tracked firm's manager page, else the company page.
+  const coLink = (name) => `<a href="${esc(ctx.base)}/profiles/#/co/${encodeURIComponent(name)}" title="Everything Wire holds on ${esc(name)}">${esc(name)}</a>`;
+  const partyLink = (name, id) => (id && mgrName(id) ? mgrLink(id) : name ? coLink(name) : "—");
+  // The Lender column: the lead lender "+N" (Investec +1); structured / M&A rows keep
+  // the tracked firm (CLO manager, acquirer).
+  const firmCol = (r) => r.mode === "structured" || r.mode === "mna";
+  const lenderCellName = (r) => (firmCol(r) ? mgrName(r.d.managerId) : (r.lenders[0] || {}).name || "");
+  const lenderCell = (r) => {
+    if (firmCol(r)) return mgrLink(r.d.managerId);
+    if (!r.lenders.length) return "—";
+    const [lead, ...rest] = r.lenders;
+    return partyLink(lead.name, lead.managerId) + (rest.length ? `<span class="tx-lmore" title="${esc(rest.map((l) => l.name).join(", "))}"> +${rest.length}</span>` : "");
+  };
   // The borrower / company — the deal's OTHER party. When the headline leads with the
   // lender itself, the sourced headline stands in (muted) rather than repeating the
   // lender's name as the "borrower".
@@ -502,7 +529,7 @@ export function mount(host, ctx) {
   function columns(list) {
     const C = {
       party: (lbl) => [lbl, (r) => caret + partyCell(r), "name", "txc-party tx-bd"],
-      lender: (lbl) => [lbl, (r) => mgrLink(r.d.managerId), "lender", "txc-lender tx-mg"],
+      lender: (lbl) => [lbl, lenderCell, "lender", "txc-lender tx-mg"],
       sponsor: ["Sponsor", (r) => (r.sponsor ? esc(r.sponsor) : "—"), null, "txc-sp tx-sp"],
       type: ["Type", (r) => esc(st.q ? `${MODE_LABEL[r.mode]} · ${typeLabel(r.tx)}` : typeLabel(r.tx)), null, "txc-type tx-cat"],
       sector: ["Sector", (r) => esc(r.tags.sector), null, "txc-sec tx-cat"],
@@ -520,10 +547,10 @@ export function mount(host, ctx) {
     if (st.mode === "secondary") return [C.party("Fund / portfolio"), C.lender("Buyer / lead"), C.type, C.country, C.amount("Size"), C.date, C.source];
     if (st.mode === "mna") return [C.party("Target"), C.lender("Acquirer"), C.country, C.amount("Value"), C.date, C.source];
     const sp = list.some((r) => r.sponsor) ? [C.sponsor] : [];
-    return [C.party("Borrower"), C.lender("Lender / investor"), ...sp, C.sector, C.country, C.amount("Amount"), C.date, C.source];
+    return [C.party("Borrower"), C.lender("Lender"), ...sp, C.sector, C.country, C.amount("Amount"), C.date, C.source];
   }
   const ariaSort = (k) => (k && st.sort === k ? ` aria-sort="${st.dir === "asc" ? "ascending" : "descending"}"` : "");
-  const txRow = (cols) => (r) => `<tr class="tx-row${st.deal === r.d.id ? " is-open" : ""}" data-deal="${esc(r.d.id)}" tabindex="0">`
+  const txRow = (cols) => (r) => `<tr class="tx-row${st.deal === r.d.id ? " is-open" : ""}" data-deal="${esc(r.d.id)}" data-parties="${esc(r.partyIds.join(" "))}" tabindex="0">`
     + cols.map(([, cell, , cls], i) => `<td class="${cls}"${i === 0 ? ` title="${esc(r.d.headline || "")}"` : ""}>${cell(r)}</td>`).join("") + `</tr>`;
   // Phone: a two-line card per deal — party · amount, then date · lender · type /
   // country — so the facts that matter fit 390px without a sideways-scrolling table.
@@ -536,19 +563,19 @@ export function mount(host, ctx) {
     const what = !showType ? "" : (TYPE_SHORT[r.tx] || typeLabel(r.tx)) + (st.mode === "structured" && r.tags.event && !st.q ? ` ${EVENT_LABEL[r.tags.event].toLowerCase()}` : "");
     return `<li class="tx-card${st.deal === d.id ? " is-open" : ""}" data-deal="${esc(d.id)}" tabindex="0">`
       + `<div class="tx-card-a"><span class="tx-card-nm">${partyCell(r)}</span><span class="tx-card-amt">${r.amt ? amtCell(r) : ""}</span></div>`
-      + `<div class="tx-card-b"><span class="tx-cb-dt">${esc(fmtDateP(d))}</span><span class="tx-cb-mg">${mgrLink(d.managerId)}</span>${what ? `<span class="tx-cb-ty">${esc(what)}</span>` : ""}${r.tags.country ? `<span class="tx-cb-ct">${esc(r.tags.country)}</span>` : ""}</div></li>`;
+      + `<div class="tx-card-b"><span class="tx-cb-dt">${esc(fmtDateP(d))}</span><span class="tx-cb-mg">${lenderCell(r)}</span>${what ? `<span class="tx-cb-ty">${esc(what)}</span>` : ""}${r.tags.country ? `<span class="tx-cb-ct">${esc(r.tags.country)}</span>` : ""}</div></li>`;
   };
 
   // ---- grouping + stats ---------------------------------------------------------
   const GRP_KEY = {
-    lender: (r) => r.d.managerId || "_", month: (r) => ym(r), sector: (r) => r.tags.sector, region: (r) => r.tags.region, type: (r) => r.tx,
+    lender: (r) => lenderKeys(r), month: (r) => ym(r), sector: (r) => r.tags.sector, region: (r) => r.tags.region, type: (r) => r.tx,
   };
   const GRP_LABEL = {
     lender: (k) => mgrName(k) || "—", month: (k) => ymLabel(k), sector: (k) => k, region: (k) => REGION_LABEL[k] || k, type: (k) => typeLabel(k),
   };
   function grouped(list) {
     const f = GRP_KEY[st.grp], m = new Map();
-    for (const r of list) { const k = f(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); }
+    for (const r of list) for (const k of [].concat(f(r))) { if (!m.has(k)) m.set(k, []); m.get(k).push(r); }
     const out = [...m.entries()];
     if (st.grp === "month") out.sort((a, b) => (a[0] < b[0] ? 1 : -1));
     else out.sort((a, b) => b[1].length - a[1].length || GRP_LABEL[st.grp](a[0]).localeCompare(GRP_LABEL[st.grp](b[0])));
@@ -567,7 +594,7 @@ export function mount(host, ctx) {
     const vol = s.reduce((a, r) => a + r.usd, 0);
     const us = s.map((r) => r.usd).sort((a, b) => a - b);
     const med = us.length ? (us.length % 2 ? us[(us.length - 1) / 2] : (us[us.length / 2 - 1] + us[us.length / 2]) / 2) : null;
-    const lc = {}; list.forEach((r) => { if (r.d.managerId && mgrName(r.d.managerId)) lc[r.d.managerId] = (lc[r.d.managerId] || 0) + 1; });
+    const lc = {}; list.forEach((r) => { for (const id of lenderKeys(r)) if (mgrName(id)) lc[id] = (lc[id] || 0) + 1; });
     const top = Object.entries(lc).sort((a, b) => b[1] - a[1]).slice(0, 3);
     const parts = [`<span><b>${list.length}</b> deal${list.length === 1 ? "" : "s"}</span>`];
     if (vol) parts.push(`<span title="Disclosed deal sizes only, converted to USD">≈ <b>${esc(fmtUsd(vol))}</b> disclosed<span class="tx-stats-x"> (${s.length}/${list.length})</span></span>`);
@@ -617,10 +644,11 @@ export function mount(host, ctx) {
     return {
       borrower: cp.length >= 3 ? by((x) => norm(x.cp) === cp) : [],
       sponsor: sp.length >= 3 ? by((x) => norm(x.sponsor) === sp) : [],
-      lender: r.d.managerId ? by((x) => x.d.managerId === r.d.managerId) : [],
+      lender: leadId(r) ? by((x) => lenderKeys(x).includes(leadId(r))) : [],
     };
   }
-  const relRow = (x) => `<li class="tmini-row clickable" data-deal="${esc(x.d.id)}"><span class="tmini-t">${esc(x.d.headline || "—")}</span><span class="tmini-m">${esc(fmtDay(x.d.date))} · ${esc(mgrName(x.d.managerId) || "—")}${x.amt ? " · " + esc(fmtAmt(x.amt)) : ""}</span></li>`;
+  const leadId = (r) => lenderKeys(r).find((id) => id !== "_") || "";
+  const relRow = (x) => `<li class="tmini-row clickable" data-deal="${esc(x.d.id)}"><span class="tmini-t">${esc(x.d.headline || "—")}</span><span class="tmini-m">${esc(fmtDay(x.d.date))} · ${esc(lenderCellName(x) || "—")}${x.amt ? " · " + esc(fmtAmt(x.amt)) : ""}</span></li>`;
   const srcLink = (d) => d.sourceUrl ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(creditSource(d) || "source")}</a>` : "—";
   // Law-firm announcements (legal desk) are loaded on the first drawer open only —
   // the advisers line fills in when they land (deal-advisers.js).
@@ -652,11 +680,21 @@ export function mount(host, ctx) {
       : "Undisclosed";
     const facts = [
       [r.mode === "mna" ? "Target" : ROLE_LABEL[dealPartyRole(d)] || "Borrower / company", (r.cp ? `<a href="${esc(ctx.base)}/profiles/#/co/${encodeURIComponent(r.cp)}" title="Everything Wire holds on ${esc(r.cp)}">${esc(r.cp)}</a>` : "—")
-        + (r.tags.partyQuality === "unconfirmed" ? ` <span class="tf-est">* unconfirmed — inferred, not named in a source${r.tags.partySource ? ` · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">closest source</a>` : ""}</span>`
+        + (d.borrower ? "" : r.tags.partyQuality === "unconfirmed" ? ` <span class="tf-est">* unconfirmed — inferred, not named in a source${r.tags.partySource ? ` · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">closest source</a>` : ""}</span>`
           : r.tags.partyQuality === "placeholder" ? ` <span class="tf-est">vehicle not named in any source found</span>`
           : r.tags.partySource ? ` <span class="tf-est">researched · <a href="${esc(r.tags.partySource)}" target="_blank" rel="noopener noreferrer">source</a></span>` : "")],
-      ...(r.sponsor ? [["Sponsor", esc(r.sponsor)]] : []),
-      [r.mode === "mna" ? "Acquirer" : "Lender / investor", mgrLink(d.managerId)],
+      // Parties in a fixed order (R39m): Borrower / company · Sponsor · Lender(s) · Arranger.
+      ...(r.sponsor ? [["Sponsor", partyLink(r.sponsor, d.sponsorId || (r.role === "sponsor" ? d.managerId : null))]] : []),
+      ...(r.mode === "mna" ? [["Acquirer", mgrLink(d.managerId)]] : r.mode === "structured" ? [["Manager", mgrLink(d.managerId)]] : []),
+      ...(r.mode === "mna" ? [] : (() => {
+        const ls = r.mode === "structured" ? r.lenders.filter((l) => l.managerId !== d.managerId) : r.lenders;
+        if (!ls.length) return r.mode === "structured" ? [] : [["Lender", `<span class="tf-est">None named in the source</span>`]];
+        const one = (l) => partyLink(l.name, l.managerId) + ` <span class="tf-est">${esc(LROLE[l.role] || "lender")}${l.amount != null ? " · " + esc(fmtAmt({ v: l.amount, ccy: l.ccy || (r.amt && r.amt.ccy) || "USD" })) : ""}</span>`;
+        return [[ls.length > 1 ? "Lenders" : "Lender", ls.map(one).join("<br>")]];
+      })()),
+      ...(r.arrangers.length ? [[r.arrangers.length > 1 ? "Arrangers" : "Arranger", r.arrangers.map((l) => partyLink(l.name, l.managerId)).join("<br>")]] : []),
+      // The tracked firm, when its role is not already shown above (an adviser).
+      ...(r.role === "adviser" ? [["Adviser", mgrLink(d.managerId)]] : []),
       ...(fund ? [["Fund", `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(fund.managerId)}/vehicles">${esc(fund.name)}</a>`]] : []),
       ["Type", `${esc(MODE_LABEL[r.mode])} · ${esc(typeLabel(r.tx))}${r.tags.event ? " · " + esc(EVENT_LABEL[r.tags.event]) : ""}`],
       ["Sector", esc(r.tags.sector)],
@@ -686,7 +724,7 @@ export function mount(host, ctx) {
         <ul class="tbiz">${facts.map(([k, v]) => `<li><span class="tbiz-k">${esc(k)}</span><span class="tbiz-v">${v}</span></li>`).join("")}</ul>
         ${relSec("Same borrower", rel.borrower)}
         ${relSec("Same sponsor", rel.sponsor)}
-        ${relSec("More from " + (mgrName(d.managerId) || "this lender"), rel.lender)}
+        ${relSec("More from " + (mgrName(leadId(r)) || "this lender"), rel.lender)}
       </div>`;
     drawer.hidden = false;
     if (_phone()) window.scrollTo({ top: 0, behavior: "instant" });
@@ -716,8 +754,10 @@ export function mount(host, ctx) {
     if (kind === "flow") {
       const list = currentList();
       downloadCSV(`wire-transactions-${st.q ? "search" : st.mode}`,
-        ["Date", "Borrower / company", "Party role", "Sponsor", "Lender / investor", "Group", "Type", "Sector", "Country", "Country basis", "Country source", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
-        list.map((r) => [r.d.date, r.cp, dealPartyRole(r.d), r.sponsor, mgrName(r.d.managerId), MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? `${BASIS_LABEL[r.tags.countryBasis] || "HQ"} (researched)` : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
+        ["Date", "Borrower / company", "Party role", "Sponsor", "Lead lender", "All lenders", "Arrangers", "Tracked firm", "Tracked firm role", "Group", "Type", "Sector", "Country", "Country basis", "Country source", "Region", "Amount (reported)", "Amount kind", "Amount (USD, approx.)", "CLO event", "Headline", "Source", "Other sources"],
+        list.map((r) => [r.d.date, r.cp, dealPartyRole(r.d), r.sponsor, (r.lenders[0] || {}).name || "",
+          r.lenders.map((l) => `${l.name} (${l.role}${l.amount != null ? " " + fmtAmt({ v: l.amount, ccy: l.ccy || (r.amt && r.amt.ccy) || "USD" }) : ""})`).join("; "),
+          r.arrangers.map((l) => l.name).join("; "), mgrName(r.d.managerId), ROLE_NAME[r.role] || r.role, MODE_LABEL[r.mode], typeLabel(r.tx), r.tags.sector, r.tags.country || "", r.tags.country ? (r.tags.countrySource ? `${BASIS_LABEL[r.tags.countryBasis] || "HQ"} (researched)` : "deal text") : "", r.tags.countrySource || "", REGION_LABEL[r.tags.region] || "",
           r.amt ? fmtAmt(r.amt) : "", r.tags.amountKind || "", r.usd != null ? Math.round(r.usd) : "", r.tags.event || "", r.d.headline || "", r.d.sourceUrl || "", r.alt.map((a) => a.sourceUrl).filter(Boolean).join(" ")]));
     }
   }
