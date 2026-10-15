@@ -33,7 +33,7 @@ export const LAST_CHECKED = "2026-10-15";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "16:23 BST";
+export const LAST_CHECKED_TIME = "18:35 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -3905,6 +3905,8 @@ export const HEDGE_INTEL = [
   {"id":"hi267","hfId":"h105","date":"2026-02-10","type":"Performance","headline":"Pharo's macro fund gains around 6.7% in January 2026","summary":"Pharo Management's macro fund rose around 6.7% in January 2026, one of the firm's best Januaries on record. The figure comes from unnamed people familiar with the matter as reported by Bloomberg; Pharo declined to comment.","sourceUrl":"https://hedgeweek.com/news/rokos-pharo-post-solid-gains-as-macro-funds-capitalise-on-volatile-january"},
   {"id":"hi268","hfId":"h105","date":"2026-08-04","type":"Performance","headline":"Pharo Macro gains 0.23% in July, up 9.9% year to date","summary":"Pharo Macro gained 0.23% in July 2026, taking its year-to-date return to 9.9%.","sourceUrl":"https://hedgeweek.com/news/millennium-slips-2-1-in-july-as-ai-sell-off-weighs-on-multi-strat-hedge-funds"},
   {"id":"hi269","hfId":"h63","date":"2026-04-08","type":"Other","headline":"Freestone Grove doubles in size since low-key 2024 launch","summary":"Hedgeweek reports the equities-focused multi-manager fund, launched in 2024 by ex-Citadel executives Todd Barker and Daniel Murillo, has roughly doubled from $3.5bn at launch to over $6bn and grown staff from 90 to more than 180. People familiar say it gained about 11% in 2024 and 8.5% in 2025, and was down about 3% in 2026 through March. It plans to expand teams across sectors.","sourceUrl":"https://www.hedgeweek.com/freestone-grove-doubles-in-size-since-low-key-2024-launch/"},
+  {"id":"hi270","hfId":"h64","date":"2026-09-24","type":"Fundraising","headline":"Cheyne Capital raises £3bn for real estate debt strategy","summary":"Alternatives Watch reports Cheyne Capital raised £3bn (about $4bn) for the ninth vintage of its European real estate lending strategy, CRECH IX.","sourceUrl":"https://www.alternativeswatch.com/2026/09/24/cheyne-capital-raises-3bn-for-real-estate-debt-strategy/"},
+  {"id":"hi271","hfId":"h64","date":"2026-06-09","type":"Personnel","headline":"Cheyne Capital names Rebecca Lawley CIO of multi-strategy","summary":"Alternative Credit Investor reports Cheyne Capital promoted Rebecca Lawley to chief investment officer, multi-strategy, alongside a new mandate across its private and liquid credit strategies. She will direct investment strategy and asset allocation and keeps her role as head of product development.","sourceUrl":"https://alternativecreditinvestor.com/2026/06/09/cheyne-capital-names-rebecca-lawley-cio-of-multi-strategy-platform/"}
 ];
 
 // 13F snapshot — the cross-fund read for the Dashboard ▸ Hedge Funds section.
