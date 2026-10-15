@@ -1083,5 +1083,18 @@ const T = {
   d1106: {"c":"Poland","s":"Industrials","a":"financing","p":"Polska Grupa Militarna","r":"borrower"},
   d1107: {"c":"Poland","s":"Industrials","a":"financing","p":"Proguns Group","r":"borrower"},
   d1108: {"c":"US","s":"TMT","a":"financing","cs":"https://www.blackstone.com/news/press/blackstone-credit-insurance-leads-1-billion-financing-to-support-combination-of-analogic-corporation-and-leidos-security-enterprise-solutions-businesses/","cb":"hq","p":"Analogic Corporation","r":"target"},
+  d1109: {"c":"UK","s":"Leisure & hospitality","a":null},
+  d1110: {"c":"UK","s":"Real estate","a":null},
+  d1111: {"c":"Greece","s":"Leisure & hospitality","a":null},
+  d1112: {"c":"UK","s":"Consumer & retail","a":null},
+  d1113: {"c":"UK","s":"Financial services","a":null},
+  d1114: {"c":"UK","s":"Financial services","a":null},
+  d1115: {"c":"UK","s":"Real estate","a":null},
+  d1116: {"c":"UK","s":"Real estate","a":null},
+  d1117: {"c":"Spain","s":"Financial services","a":null},
+  d1118: {"c":"Italy","s":"Financial services","a":null},
+  d1119: {"c":"UK","s":"Real estate","a":null},
+  d1120: {"c":"Ireland","s":"Leisure & hospitality","a":null},
+  d1121: {"c":"France","s":"Real estate","a":null},
 };
 export const DEAL_TAGS = Object.fromEntries(Object.entries(T).map(([id, t]) => [id, { country: t.c ?? null, countrySource: t.cs ?? null, countryBasis: t.cb ?? null, sector: t.s, amountKind: t.a ?? null, event: t.e ?? null, managerMA: !!t.m, ...(t.p != null ? { party: t.p, partyRole: t.r || "borrower", partySource: t.ps || null, partyQuality: t.pq || null } : {}) }]));

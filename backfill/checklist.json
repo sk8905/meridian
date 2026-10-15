@@ -4644,6 +4644,578 @@
         }
       ],
       "builtAt": "2026-10-15"
+    },
+    "m44": {
+      "kind": "manager",
+      "name": "Blantyre Capital",
+      "priority": 116,
+      "status": "built",
+      "builtAt": "2026-10-15",
+      "events": [
+        {
+          "key": "mcavoy-acq-2020",
+          "date": "2020-02-27",
+          "what": "Blantyre acquires majority of McAvoy Group",
+          "source": null,
+          "status": "present",
+          "recordId": "d605"
+        },
+        {
+          "key": "fund2-final-close-2021",
+          "date": "2021-08-06",
+          "what": "Fund II final close (~$887m)",
+          "source": null,
+          "status": "present",
+          "recordId": "i463"
+        },
+        {
+          "key": "strix-piraeus-2021",
+          "date": "2021-12-20",
+          "what": "Piraeus Bank / Strix partnership",
+          "source": null,
+          "status": "present",
+          "recordId": "d606"
+        },
+        {
+          "key": "music-publishing-2022",
+          "date": "2022-01-04",
+          "what": "Music publishing deal",
+          "source": null,
+          "status": "present",
+          "recordId": "d608"
+        },
+        {
+          "key": "crerar-2023",
+          "date": "2023-03-15",
+          "what": "Crerar Hotels",
+          "source": null,
+          "status": "present",
+          "recordId": "d609"
+        },
+        {
+          "key": "ncm-exit-2023",
+          "date": "2023-08-07",
+          "what": "NCM Ch11 exit",
+          "source": null,
+          "status": "present",
+          "recordId": "d611"
+        },
+        {
+          "key": "oqc-2025",
+          "date": "2025-04-09",
+          "what": "OQ Chemicals acquisition",
+          "source": null,
+          "status": "present",
+          "recordId": "d168"
+        },
+        {
+          "key": "gym-group-stake-sale-2025",
+          "date": "2025-07-17",
+          "what": "Blantyre sells ~5% of The Gym Group via block trade",
+          "source": "https://www.cityam.com/?p=2349072",
+          "status": "present",
+          "recordId": "d1109"
+        },
+        {
+          "key": "us-platform-2025",
+          "date": "2025-09-01",
+          "what": "US platform/fund launch",
+          "source": null,
+          "status": "present",
+          "recordId": "i420"
+        },
+        {
+          "key": "findango-exit-2025",
+          "date": "2025-09-18",
+          "what": "Findango exit",
+          "source": null,
+          "status": "present",
+          "recordId": "d219"
+        },
+        {
+          "key": "mcavoy-sale-2025",
+          "date": "2025-10-06",
+          "what": "McAvoy sale to Duke Street",
+          "source": "https://www.willkie.com/news/2025/10/willkie-advises-on-sale-of-mcavoy-group-to-duke-street",
+          "status": "present",
+          "recordId": "d562"
+        },
+        {
+          "key": "labiana-2026",
+          "date": "2026-02-01",
+          "what": "Labiana refinancing",
+          "source": null,
+          "status": "present",
+          "recordId": "d169"
+        },
+        {
+          "key": "fund3-close-2025",
+          "date": "2025",
+          "what": "Fund III close",
+          "source": null,
+          "status": "rejected",
+          "note": "No press release or article with an exact close date and size found; only database profiles. Unverifiable as a dated event."
+        },
+        {
+          "key": "stake-sale-leadership",
+          "date": "2020",
+          "what": "Firm M&A / stake sale / CIO change",
+          "source": null,
+          "status": "rejected",
+          "note": "No evidence found of any firm-level stake sale or senior leadership change."
+        }
+      ]
+    },
+    "m47": {
+      "kind": "manager",
+      "name": "Zetland Capital Partners",
+      "priority": 117,
+      "status": "built",
+      "builtAt": "2026-10-15",
+      "events": [
+        {
+          "key": "typhoo-majority",
+          "date": "2021-07-19",
+          "what": "Zetland takes majority of Typhoo Tea",
+          "source": "https://www.foodmanufacture.co.uk/Article/2021/07/19/Typhoo-Tea-acquired-by-Zetland-Capital",
+          "status": "present",
+          "recordId": "d563"
+        },
+        {
+          "key": "morrison-dublin",
+          "date": "2021-05-01",
+          "what": "Morrison Hotel Dublin",
+          "source": null,
+          "status": "present",
+          "recordId": "d133"
+        },
+        {
+          "key": "macdonald-hotels",
+          "date": "2021-11-17",
+          "what": "Macdonald Manchester and Holyrood hotels",
+          "source": "https://scottishfinancialreview.com/2021/11/17/macdonald-holyrood-hotel-sold-to-zetland-capital",
+          "status": "present",
+          "recordId": "d134"
+        },
+        {
+          "key": "buzz-bingo-portfolio",
+          "date": "2021-12-16",
+          "what": "Zetland acquires 37 bingo halls leased to Buzz Bingo",
+          "source": "https://www.bclplaw.com/en-US/events-insights-news/bclp-advises-zetland-capital-partners-on-acquisition-of-bingo-hall-portfolio.html",
+          "status": "present",
+          "recordId": "d1110"
+        },
+        {
+          "key": "a321-jv",
+          "date": "2022-01-21",
+          "what": "A321-200PCF freighter JV with Greenwich Highland",
+          "source": "https://avitrader.com/2022/01/21/zetland-capital-partners-and-greenwich-highland-secure-four-additional-a321-200pcf-conversions-with-321-precision-conversions/",
+          "status": "present",
+          "recordId": "d615"
+        },
+        {
+          "key": "lindian-village",
+          "date": "2022-02-15",
+          "what": "Zetland acquires Lindian Village, Rhodes",
+          "source": "https://www.tovima.gr/2022/02/15/international/swot-hospitality-begins-cooperation-with-zetland-capital-with-lindian-village-in-rhodes/",
+          "status": "present",
+          "recordId": "d1111"
+        },
+        {
+          "key": "portobello-oaknorth",
+          "date": "2022-04-11",
+          "what": "OakNorth GBP40m loan Portobello Starboard",
+          "source": "https://www.thecaterer.com/news/zetland-capital-40-million-acquire-expand-portobello-starboard",
+          "status": "present",
+          "recordId": "d564"
+        },
+        {
+          "key": "don-juan",
+          "date": "2022-05-01",
+          "what": "Hotel Don Juan",
+          "source": null,
+          "status": "present",
+          "recordId": "d613"
+        },
+        {
+          "key": "berlin-hcob",
+          "date": "2022-12-12",
+          "what": "HCOB EUR48.5m Berlin",
+          "source": null,
+          "status": "present",
+          "recordId": "d614"
+        },
+        {
+          "key": "ssf2-final-close",
+          "date": "2024-01-01",
+          "what": "SSF II close EUR620m+",
+          "source": "https://www.rede-partners.com/news-insights-database/zetland-capital-close-second-fund-at-620m",
+          "status": "present",
+          "recordId": "i465"
+        },
+        {
+          "key": "ssf3-form-d",
+          "date": "2024-08-12",
+          "what": "Form D SSF III",
+          "source": null,
+          "status": "present",
+          "recordId": "i466"
+        },
+        {
+          "key": "typhoo-administration-notice",
+          "date": "2024-11-15",
+          "what": "Typhoo announces intention to appoint administrators",
+          "source": "https://thecaterer.com/all-content/typhoo-plans-to-enter-administration",
+          "status": "present",
+          "recordId": "d1112"
+        },
+        {
+          "key": "typhoo-sale",
+          "date": "2024-12-02",
+          "what": "Typhoo sold from administration",
+          "source": null,
+          "status": "present",
+          "recordId": "d565"
+        },
+        {
+          "key": "leumi-refi",
+          "date": "2025-02-01",
+          "what": "Leumi GBP70m refi Marriott hotels",
+          "source": "https://www.hospitalityinvestor.com/finance/zetland-capital-secures-ps70m-refinancing-loan-leumi",
+          "status": "present",
+          "recordId": "d616"
+        },
+        {
+          "key": "ssf3-raising",
+          "date": "2025-06-01",
+          "what": "Raising SSF III ~EUR650m",
+          "source": null,
+          "status": "present",
+          "recordId": "i273"
+        },
+        {
+          "key": "tent-hotels",
+          "date": "2026-05-01",
+          "what": "Tent hotels sale",
+          "source": null,
+          "status": "present",
+          "recordId": "d617"
+        },
+        {
+          "key": "portobello-pubs-nov21",
+          "date": "2021-11",
+          "what": "Acquisition of 12 London pubs from Downing funds",
+          "source": null,
+          "status": "rejected",
+          "note": "Source page could not be verified."
+        },
+        {
+          "key": "leadership-ma",
+          "date": "2020",
+          "what": "Firm-level M&A / stake sale / CIO change",
+          "source": null,
+          "status": "rejected",
+          "note": "No source found."
+        },
+        {
+          "key": "ssf3-first-close",
+          "date": "2024",
+          "what": "SSF III first close",
+          "source": null,
+          "status": "rejected",
+          "note": "No press source found."
+        }
+      ]
+    },
+    "m109": {
+      "kind": "manager",
+      "name": "Arrow Global Group",
+      "priority": 118,
+      "status": "built",
+      "builtAt": "2026-10-15",
+      "events": [
+        {
+          "key": "aco1-final-close-2020",
+          "date": "2020-11-13",
+          "what": "Arrow Credit Opportunities 1 final close EUR1.7bn",
+          "source": "https://www.Stifel.com/docs/pdf/pressreleases/2020/Arrow%20Fund%20Close%20NEW%20FINAL%2011.13.2020.pdf",
+          "status": "present",
+          "recordId": "i1149"
+        },
+        {
+          "key": "tdr-offer-2021",
+          "date": "2021-03-31",
+          "what": "TDR Capital recommended offer for Arrow Global",
+          "source": "https://www.kirkland.com/news/press-release/2021/03/kirkland-advises-tdr-capital-on-recommended-acquis",
+          "status": "present",
+          "recordId": "d1113"
+        },
+        {
+          "key": "tdr-complete-2021",
+          "date": "2021-10-11",
+          "what": "TDR scheme of arrangement effective",
+          "source": "https://www.arrowglobal.net/?p=2516",
+          "status": "present",
+          "recordId": "d1114"
+        },
+        {
+          "key": "maslow-stake-2022",
+          "date": "2022-01-12",
+          "what": "Arrow takes minority stake in Maslow Capital",
+          "source": "https://www.privsource.com/acquisitions/deal/O3S4YE",
+          "status": "present",
+          "recordId": "d1115"
+        },
+        {
+          "key": "aco2-final-close-2023",
+          "date": "2023-03-23",
+          "what": "ACO II final close EUR2.75bn",
+          "source": "https://www.arrowglobal.net/?p=770",
+          "status": "present",
+          "recordId": "i1150"
+        },
+        {
+          "key": "maslow-full-2023",
+          "date": "2023-08-24",
+          "what": "Arrow announces full acquisition of Maslow Capital",
+          "source": "https://pbsanews.co.uk/article/arrow-global-announces-full-acquisition-of-maslow-capital",
+          "status": "present",
+          "recordId": "d1116"
+        },
+        {
+          "key": "amitra-2024",
+          "date": "2024-05-13",
+          "what": "Arrow acquires Amitra Capital from CPP Investments",
+          "source": "https://www.cppinvestments.com/wp-content/uploads/2024/05/Arrow-Acquisition-Amitra-Capital-Joint-Release-FINAL-13-May-2024-ENGLISH.pdf",
+          "status": "present",
+          "recordId": "d1117"
+        },
+        {
+          "key": "sanna-2025",
+          "date": "2025-03-10",
+          "what": "Enrico Sanna named CEO Platforms",
+          "source": "https://www.alternativeswatch.com/2025/03/10/arrow-global-names-enrico-sanna-as-ceo-platforms/",
+          "status": "present",
+          "recordId": "i101"
+        },
+        {
+          "key": "third-fund-target-2025",
+          "date": "2025-03",
+          "what": "Targets EUR4bn for third opportunistic credit fund",
+          "source": null,
+          "status": "present",
+          "recordId": "i1056"
+        },
+        {
+          "key": "iqera-2025",
+          "date": "2025-05",
+          "what": "iQera",
+          "source": null,
+          "status": "present",
+          "recordId": "i276"
+        },
+        {
+          "key": "raise-4-2bn-2025",
+          "date": "2025-11-21",
+          "what": "EUR4.2bn raised across strategies",
+          "source": "https://www.arrowglobal.net/?p=7258",
+          "status": "present",
+          "recordId": "i100"
+        },
+        {
+          "key": "alo-final-2025",
+          "date": "2025-12",
+          "what": "ALO final close EUR1.5bn",
+          "source": null,
+          "status": "present",
+          "recordId": "i253"
+        },
+        {
+          "key": "agi-2026",
+          "date": "2026-03-25",
+          "what": "Arrow Global Insurance launched",
+          "source": "https://www.aap.com.au/aapreleases/cision20260325ae14443/",
+          "status": "present",
+          "recordId": "i338"
+        },
+        {
+          "key": "zenith-sale-2026",
+          "date": "2026-06-10",
+          "what": "Sale of 100% of Zenith Global S.p.A.",
+          "source": "https://www.hlc.com/en/news/hogan-lovells-advises-arrow-global-on-the-sale-of-100-of-zenith-global-spa",
+          "status": "present",
+          "recordId": "d1118"
+        },
+        {
+          "key": "tdr-explores-sale-2026",
+          "date": "2026-08-12",
+          "what": "TDR explores sale of Arrow",
+          "source": null,
+          "status": "present",
+          "recordId": "i676"
+        },
+        {
+          "key": "ceo-change",
+          "date": "2020",
+          "what": "CEO/CIO change 2020-2026",
+          "source": null,
+          "status": "rejected",
+          "note": "No verifiable CEO change found; Zach Lewy described as Founder, CEO and CIO in 2024-2025 sources."
+        }
+      ]
+    },
+    "m12": {
+      "kind": "manager",
+      "name": "Cheyne Capital",
+      "priority": 119,
+      "status": "built",
+      "builtAt": "2026-10-15",
+      "events": [
+        {
+          "key": "impact-trust-launch-2020",
+          "date": "2020-04-22",
+          "what": "Cheyne launches second social impact real estate fund",
+          "source": "https://www.socialhousing.co.uk/news/news/cheyne-capital-launches-second-social-impact-real-estate-fund-with-550m-pipeline-66160",
+          "status": "present",
+          "recordId": "i1151"
+        },
+        {
+          "key": "four-senior-loans-2020",
+          "date": "2020-10-14",
+          "what": "Four senior loans £232m",
+          "source": null,
+          "status": "present",
+          "recordId": "d121"
+        },
+        {
+          "key": "svc2-final-close-2021",
+          "date": "2021-09-08",
+          "what": "SVC II final close EUR1bn",
+          "source": "https://www.hedgeweek.com/cheyne-strategic-value-credit-completes-eur1bn-fundraise/",
+          "status": "present",
+          "recordId": "i1152"
+        },
+        {
+          "key": "elivia-exit-2022",
+          "date": "2022-05-30",
+          "what": "Cheyne sells Elivia Homes stake to Octopus funds",
+          "source": "https://realassets.ipe.com/news/cheyne-capital-sells-elivia-homes-stake-to-octopus-funds/10060130.article",
+          "status": "present",
+          "recordId": "d1119"
+        },
+        {
+          "key": "riverstone-2024",
+          "date": "2024-02",
+          "what": "Riverstone £143m",
+          "source": null,
+          "status": "present",
+          "recordId": "d26"
+        },
+        {
+          "key": "adia-crech9-2024",
+          "date": "2024-03-13",
+          "what": "ADIA raises commitment to CRECH IX to £650m",
+          "source": "https://enterpriseam.com/uae/2024/03/13/adia-boosts-investment-in-private-credit-with-fresh-commitment-to-cheyne-capital/",
+          "status": "present",
+          "recordId": "i1153"
+        },
+        {
+          "key": "benhamou-hire-2024",
+          "date": "2024-04-22",
+          "what": "Frank Benhamou hire",
+          "source": null,
+          "status": "present",
+          "recordId": "i563"
+        },
+        {
+          "key": "press-up-2024",
+          "date": "2024-09-18",
+          "what": "Cheyne takes control of Press Up Hospitality",
+          "source": "https://www.irishtimes.com/business/2024/09/18/new-press-up-owner-cheyne-capital-plans-to-invest-fresh-capital-into-business/",
+          "status": "present",
+          "recordId": "d1120"
+        },
+        {
+          "key": "75-london-wall-2025",
+          "date": "2025",
+          "what": "75 London Wall £500m",
+          "source": null,
+          "status": "present",
+          "recordId": "d235"
+        },
+        {
+          "key": "kaffee-partner-2025",
+          "date": "2025-08",
+          "what": "Kaffee Partner",
+          "source": null,
+          "status": "present",
+          "recordId": "d25"
+        },
+        {
+          "key": "paris-loan-2026",
+          "date": "2026-04-01",
+          "what": "€288.6m senior loan Paris Champs-Elysees asset",
+          "source": "https://www.creherald.com/cheyne-capital-backs-paris-landmark-asset-with-e288-6m-financing/",
+          "status": "present",
+          "recordId": "d1121"
+        },
+        {
+          "key": "lawley-cio-2026",
+          "date": "2026-06-09",
+          "what": "Rebecca Lawley named CIO multi-strategy",
+          "source": "https://alternativecreditinvestor.com/2026/06/09/cheyne-capital-names-rebecca-lawley-cio-of-multi-strategy-platform/",
+          "status": "present",
+          "recordId": "i498"
+        },
+        {
+          "key": "mamas-papas-2026",
+          "date": "2026-08-21",
+          "what": "Mamas & Papas",
+          "source": null,
+          "status": "present",
+          "recordId": "d884"
+        },
+        {
+          "key": "lacera-2026",
+          "date": "2026-09-02",
+          "what": "LACERA $750m",
+          "source": null,
+          "status": "present",
+          "recordId": "i692"
+        },
+        {
+          "key": "crech9-final-close-2026",
+          "date": "2026-09-23",
+          "what": "CRECH IX final close £3bn",
+          "source": "https://alternativecreditinvestor.com/2026/09/23/cheyne-inks-3bn-for-re-debt-fund/",
+          "status": "present",
+          "recordId": "i820"
+        },
+        {
+          "key": "svc3-close",
+          "date": "2025",
+          "what": "SVC III close",
+          "source": null,
+          "status": "rejected",
+          "note": "No dated press report of a first/final close found; only a Form D."
+        },
+        {
+          "key": "crech-vi-viii-closes",
+          "date": "2020",
+          "what": "CRECH VI/VII/VIII fund closes",
+          "source": null,
+          "status": "rejected",
+          "note": "No dated close reports found."
+        },
+        {
+          "key": "firm-stake-sale",
+          "date": "2020",
+          "what": "Sale of stake in Cheyne / other senior leadership change",
+          "source": null,
+          "status": "rejected",
+          "note": "No evidence found."
+        }
+      ]
     }
   }
 }
