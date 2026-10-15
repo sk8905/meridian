@@ -15,7 +15,7 @@
 // here; the bell keeps its own per-app content/seen-state but is layered with
 // the same full-screen presentation on mobile.
 // =============================================================================
-import { esc, MONTHS, setThemeColorMeta } from "/util.js";
+import { esc, MONTHS, setThemeColorMeta, fmtD } from "/util.js";
 import { mountAssistant, askSuggestions } from "/v2/js/assistant.js";
 import { FX_KEYMOMENT, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { nbNums } from "./nb-format.js";
@@ -24,7 +24,7 @@ const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.a
 // OAS/bp series carry `value` in PERCENT (0.77 → 77 bp), matching the desktop's
 // fmtRate and rateRow's own change scaling — so bp values are ×100, not raw.
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return Math.round(v * 100) + " bp"; return v.toFixed(2) + "%"; };
-function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
+function fmtDate(d) { return d ? fmtD(d) : ""; }
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>';

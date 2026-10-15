@@ -9,13 +9,11 @@
 // twice as separate module instances (blank page).
 // =============================================================================
 import { firmById, areaById, typeById, tierById } from "./data.js";
-import { esc, MONTHS } from "/util.js";
+import { esc, MONTHS, fmtD } from "/util.js";
 
 // ----------------------------- date formatting ------------------------------
 export function fmtDate(iso) {
-  const d = new Date(iso + "T00:00:00");
-  if (isNaN(d)) return esc(iso);
-  return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; // day-month-year
+  return esc(fmtD(iso)); // "15 Oct 26" (R43b)
 }
 // Alert date for display: prefix "≈" when the date is an approximation pending
 // source verification (dateEstimated), or "undated" when we have no date yet.

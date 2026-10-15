@@ -16,25 +16,21 @@
 // previews 10 rows + "See all N" (phone AND desktop, HOUSE_STYLE R40/R41j), which opens
 // the whole list in a sheet. mount(host, ctx) → { enter, leave, home }.
 // =============================================================================
-import { esc, MONTHS, byDateDesc } from "/util.js";
+import { esc, MONTHS, byDateDesc, fmtD } from "/util.js";
 import { CR_STRESS, EU_DISTRESS, REG_CALENDAR } from "/dashboard/js/data.js";
 import { restructurings, cases } from "/legal/js/data.js";
 import { deals, managers } from "/credit/js/data.js";
+import { creditSource } from "/credit/js/shared.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { txOf, tagsOf, REGION_LABEL } from "/credit/js/tx.js";
 import { dealCounterparty } from "../deal-parse.js";
 import { coreName } from "../profiles/borrower.js";
 import { liveJSON, lastKnownLabel } from "../live-cache.js";
+import { evRow } from "/feed.js";
 
 const PREVIEW = 10;
 const CATH_SUMMARY = "https://www.court-tribunal-hearings.service.gov.uk/summary-of-publications?locationId=111";
-const isoDay = (d) => {
-  const t = String(d || "");
-  let m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t); if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`;
-  m = /^(\d{4})-(\d{2})$/.exec(t); if (m) return `${MONTHS[+m[2] - 1]} ${m[1]}`;
-  m = /^(\d{4})-Q([1-4])$/.exec(t); if (m) return `Q${m[2]} ${m[1]}`;
-  return t;
-};
+const isoDay = (d) => fmtD(String(d || "")); // R43b: "15 Oct 26"
 const srcLink = (u, label) => (u ? `<a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">src</a>` : "");
 const asOf = (d) => (d ? `<span class="dsh-asof" title="as of ${esc(isoDay(d))}">${esc(isoDay(d))}</span>` : "");
 const count = (n) => `<span class="dsh-n">(${n})</span>`;
@@ -86,36 +82,34 @@ export function mount(host, ctx) {
   let _eu = null, _euState = null, _cause = undefined;   // undefined = loading · null = unavailable
 
   // ---- rows -------------------------------------------------------------------
-  // Stacked row: name + key value + SRC on one line, the other fields on a micro line.
-  const row = ({ name, key = "", src = "", meta = [], attrs = "" }) => `<li class="rxh-i"${attrs}><div class="rxh-i-h"><span class="rxh-i-n">${name}</span>`
-    + (key ? `<span class="rxh-i-v">${key}</span>` : "") + (src ? `<span class="rxh-i-s">${src}</span>` : "") + `</div>`
-    + (meta.filter(Boolean).length ? `<div class="rxh-i-m">${meta.filter(Boolean).map((m) => `<span>${m}</span>`).join("")}</div>` : "") + `</li>`;
-  // News row (R40 one news-row format): headline first, date left, grey tag right.
-  const newsLi = ({ title, href, inApp = false, date, meta = "" }) => `<li class="dsh-news-i"><a href="${esc(href)}"${inApp ? ' class="dsh-drill"' : ' target="_blank" rel="noopener noreferrer"'}>${esc(title)}</a>`
-    + `<span class="dsh-news-d">${esc(isoDay(date))}</span>` + (meta ? `<span class="dsh-news-s">${meta}</span>` : "") + `</li>`;
-  const ul = (items, empty) => (items.length ? `<ul class="rxh-list">${items.join("")}</ul>` : `<p class="dsh-load">${empty}</p>`);
-  const newsUl = (items, empty) => (items.length ? `<ul class="dsh-news dsh-rx">${items.join("")}</ul>` : `<p class="dsh-load">${empty}</p>`);
-  const tag = (t, cls = "") => (t ? `<span class="dsh-tag${cls ? ` ${cls}` : ""}">${esc(t)}</span>` : "");
+  // Every list is the shared R43 events row (feed.js evRow): date · name / meta · tag ·
+  // source, two single lines at one fixed height so 10-row previews line up across cards.
+  const coRow = ({ name, date, dateText, tag: t = "", meta = [], srcHref = "", src = "", cls = "", attrs = "" }) => evRow({
+    title: name, href: name ? borrowerPath(name, base) : "", inApp: true, aCls: "dsh-drill rxh-co", date, dateText,
+    tag: t, meta: meta.filter(Boolean).join(" · "), srcHref, src, cls: `rxh-i${cls ? ` ${cls}` : ""}`, attrs });
+  const newsLi = ({ title, href, inApp = false, date, meta = "", src = "", srcHref = "" }) => evRow({ title, href, inApp, aCls: inApp ? "dsh-drill" : "", date, meta, src, srcHref, cls: "dsh-news-i" });
+  const ul = (items, empty, cls = "") => (items.length ? `<ul class="g-evs rxh-list${cls ? ` ${cls}` : ""}">${items.join("")}</ul>` : `<p class="dsh-load">${empty}</p>`);
+  const newsUl = (items, empty) => (items.length ? `<ul class="g-evs dsh-news dsh-rx">${items.join("")}</ul>` : `<p class="dsh-load">${empty}</p>`);
+  const tag = (t) => (t ? `<span class="dsh-tag">${esc(t)}</span>` : "");
 
   // ---- 1 · Stress list ------------------------------------------------------------
   function stressBody() {
-    return ul(stressRows().map((s) => row({
-      name: coLink(s.name, base), key: tag(s.status, "dsh-tag-stress"), src: srcLink(s.source, `${s.name} source`),
-      meta: [esc(s.sector || ""), esc(s.hq || ""), s.debt ? esc(s.debt) : "", s.latest ? `<span class="rxh-d">${esc(isoDay(s.latest))}</span>` : ""],
+    return ul(stressRows().map((s) => coRow({
+      name: s.name, date: s.latest, tag: tag(s.status), srcHref: s.source,
+      meta: [esc(s.sector || ""), esc(s.hq || ""), s.debt ? esc(s.debt) : ""],
     })), "No stressed names tracked.");
   }
   // ---- 2 · Plans & schemes ----------------------------------------------------------
-  const stageCls = (s) => (/sanction|allowed/i.test(s || "") ? "rxh-st-ok" : /refus|dismiss/i.test(s || "") ? "rxh-st-no" : "");
   function plansBody() {
-    return ul(plansAndSchemes().map((r) => row({
-      name: coLink(r.company, base), key: tag(r.stage, stageCls(r.stage)), src: srcLink(r.src, `${r.company} — judgment`),
-      meta: [esc(r.kind), esc(r.court || ""), r.citation ? esc(r.citation) : "", `<span class="rxh-d">${esc(isoDay(r.date))}</span>`],
+    return ul(plansAndSchemes().map((r) => coRow({
+      name: r.company, date: r.date, tag: tag(r.stage), srcHref: r.src || "",
+      meta: [esc(r.kind), esc(r.court || ""), r.citation ? esc(r.citation) : ""],
       attrs: ` data-rx="${esc(r.id)}"`,
     })), "No plans or schemes tracked.");
   }
   // ---- 3 · Case law --------------------------------------------------------------------
   function casesBody() {
-    return newsUl(rxCases().map((c) => newsLi({ title: c.name, href: c.url, date: c.date, meta: esc([courtShort(c.court), c.citation].filter(Boolean).join(" · ")) })), "No restructuring judgments tracked.");
+    return newsUl(rxCases().map((c) => newsLi({ title: c.name, href: c.url, date: c.date, meta: esc(c.citation || ""), src: courtShort(c.court) || "" })), "No restructuring judgments tracked.");
   }
   // ---- 4 · Restructuring & distressed deals -------------------------------------------
   function dealsBody() {
@@ -123,7 +117,7 @@ export function mount(host, ctx) {
       const cp = dealCounterparty(d, mgrName(d.managerId));
       const reg = REGION_LABEL[tagsOf(d, DEAL_TAGS).region] || "";
       const meta = [cp ? coLink(cp, base) : "", esc(mgrName(d.managerId)), esc(reg)].filter(Boolean).join(" · ");
-      return newsLi({ title: d.headline, href: `${base}/transactions/#/deal/${encodeURIComponent(d.id)}`, inApp: true, date: d.date, meta });
+      return newsLi({ title: d.headline, href: `${base}/transactions/#/deal/${encodeURIComponent(d.id)}`, inApp: true, date: d.date, meta, src: creditSource(d), srcHref: d.sourceUrl || "" });
     }), "No restructuring deals tracked.");
   }
   // ---- 5 · Insolvency statistics -------------------------------------------------------
@@ -145,7 +139,7 @@ export function mount(host, ctx) {
     const kv = (x) => kpiRow({ k: x.k, v: x.v, d: x.asOf, src: x.src, srcName: x.srcName, sub: x.measure ? esc(x.measure) : "", title: x.sub ? `${x.k} — ${x.sub}` : x.k });
     // Quarterly history of the live Eurostat series (latest 8 quarters), when loaded.
     const hist = live && Array.isArray(live.history) ? live.history.slice(-8).reverse() : [];
-    const histHTML = hist.length ? `<div class="dsh-pc-reports-h">EU bankruptcy declarations by quarter</div><ul class="rxh-list rxh-hist">${hist.map(([q, v]) => `<li class="rxh-i"><div class="rxh-i-h"><span class="rxh-i-n">${esc(isoDay(q))}</span><span class="rxh-i-v">${esc(Number(v).toFixed(1))}</span></div></li>`).join("")}</ul>` : "";
+    const histHTML = hist.length ? `<div class="dsh-pc-reports-h">EU bankruptcy declarations by quarter</div><ul class="rxh-hist">${hist.map(([q, v]) => `<li class="rxh-hist-i"><span class="rxh-hist-q">${esc(isoDay(q))}</span><span class="c-num">${esc(Number(v).toFixed(1))}</span></li>`).join("")}</ul>` : "";
     return `<div class="dsh-kvgrid rxh-kv">${official.map(kv).join("")}${bk}</div>${histHTML}`
       + (agency.length ? `<div class="dsh-pc-reports-h">Default rates</div><div class="dsh-kvgrid rxh-kv">${agency.map(kv).join("")}</div>` : "");
   }
@@ -160,15 +154,15 @@ export function mount(host, ctx) {
         .sort((a, b) => String(a.date).localeCompare(String(b.date)) || (b.rx ? 1 : 0) - (a.rx ? 1 : 0));
       const days = _cause.lists.map((l) => l.date).filter(Boolean);
       live = rows.length
-        ? `<ul class="rxh-list rxh-hear">${rows.map((r) => row({
-          name: coLink(r.caseName, base), key: r.rx ? tag(RX_LABEL[r.rx], "rxh-st-rx") : "", src: srcLink(r.url, `Cause list ${isoDay(r.date)}`),
-          meta: [`<span class="rxh-d">${esc(isoDay(r.date))}${r.time ? ` ${esc(r.time)}` : ""}</span>`, esc(r.type || ""), esc(r.judge || ""), esc(r.venue || ""), esc(r.caseNo || "")],
+        ? ul(rows.map((r) => coRow({
+          name: r.caseName, dateText: isoDay(r.date), tag: r.rx ? tag(RX_LABEL[r.rx]) : "", srcHref: r.url, src: "Cause list",
+          meta: [esc(r.time || ""), esc(r.type || ""), esc(r.judge || ""), esc(r.venue || ""), esc(r.caseNo || "")],
           attrs: r.rx ? ' data-rx-hearing="1"' : "",
-        })).join("")}</ul>`
+        })), "", "rxh-hear")
         : `<p class="dsh-load">No company hearings listed${days.length ? ` for ${esc(days.map(isoDay).join(", "))}` : ""}.</p>`;
     }
     const ms = rxMilestones();
-    const msHTML = ms.length ? `<div class="dsh-pc-reports-h">Restructuring milestones</div>${newsUl(ms.map((x) => newsLi({ title: x.item, href: x.src, date: x.date, meta: esc([x.jur, x.srcName].filter(Boolean).join(" · ")) })), "")}` : "";
+    const msHTML = ms.length ? `<div class="dsh-pc-reports-h">Restructuring milestones</div>${newsUl(ms.map((x) => newsLi({ title: x.item, href: x.src, date: x.date, meta: esc(x.jur || ""), src: x.srcName || "" })), "")}` : "";
     return `<div class="dsh-pc-reports-h">Rolls Building — company hearings</div>${live}${msHTML}`;
   }
 
@@ -195,10 +189,7 @@ export function mount(host, ctx) {
         ${card("rxh-stats", "Insolvency statistics", `<span class="dsh-live is-snap" data-live="bkrt" title="Sourced snapshot — live data not loaded">not live</span> ${asOf(EU_DISTRESS && EU_DISTRESS.asOf)}`, statsBody())}
       </div></div>`;
     host.querySelectorAll(".rxh-body").forEach(preview);
-    fullTitles(host);
   }
-  // Rows are one line each (even, aligned cards) — the full text stays on hover / long-press.
-  const fullTitles = (root) => root.querySelectorAll(".rxh-i-n, .rxh-i-m, .dsh-news-i > a, .dsh-news-i .dsh-news-s").forEach((el) => { if (!el.title) el.title = el.textContent.trim(); });
 
   // ---- 10-row preview + "See all N" (phone and desktop) -----------------------------
   const itemsOf = (body) => {
@@ -247,7 +238,7 @@ export function mount(host, ctx) {
   });
 
   // ---- live data ------------------------------------------------------------------------
-  const set = (id, html) => { const el = host.querySelector(`#${id} .rxh-body`); if (el) { el.innerHTML = html; preview(el); fullTitles(el); } };
+  const set = (id, html) => { const el = host.querySelector(`#${id} .rxh-body`); if (el) { el.innerHTML = html; preview(el); } };
   function loadLive() {
     liveJSON("/api/eurates").then((res) => {
       if (res && res.data && res.data.bankruptcies && res.data.bankruptcies.value != null) {

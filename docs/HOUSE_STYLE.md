@@ -262,7 +262,7 @@ notification badge red (`#ef4444`).
 | `--t-panel` / `--t-panel2` | `#141414` / `#202020` | `#ffffff` / `#f3f6fb` | panel surface / hover |
 | `--t-head` | `#111111` | `#f4f7fb` | header bands, day breaks |
 | `--t-ink` | `#eaf0fb` | `#131b2c` | primary text / values |
-| `--t-dim` / `--t-mut` / `--t-faint` | `#b7c2da` / `#8592ad` / `#5c6a86` | `#3b475f` / `#5e6a84` / `#8b96ac` | secondary → tertiary labels |
+| `--t-mut` / `--t-faint` | `#8592ad` / `#5c6a86` | `#5e6a84` / `#8b96ac` | supporting facts / dates, sources, counts, labels (R43d — `--t-dim` is retired, folded into `--t-ink`) |
 | `--t-accent` | `#fb8b1e` | `#fb8b1e` | active / emphasis only |
 | `--t-up` | `#3fc08d` | `#0f9d68` | up numbers + ▲ |
 | `--t-down` | `#f26d84` | `#df4763` | down numbers + ▼ |
@@ -1230,7 +1230,7 @@ notification badge red (`#ef4444`).
   ink — the Dashboard's dense terminal scale; weight, not size, carries the hierarchy;
   truncates) · meta on the right (count, LIVE/snapshot badge, date, select), split by
   `tidyHeaders()` into `.dsh-h-t` / `.dsh-h-r`. Table column heads are `--fs-micro`/600 muted (R11);
-  numbers are right-aligned, tabular, `--fs-num`; dates are micro/faint in ONE format ("13 Oct 2026", `isoDay`). Metric lists use the
+  numbers are right-aligned, tabular, `--fs-num`; dates are micro/faint in ONE format ("13 Oct 26", `isoDay` → util `fmtD`, R43b). Metric lists use the
   KPI row (`kpiRow`: label · value · period · SRC, grid `minmax(0,1fr) auto 64px 34px`);
   rate / spread / gauge lists use the mini table (`dsh-mini`: name · level · 1W · 1M ·
   As of · SRC; on phone the As-of column drops and the date rides under the name). Empty
@@ -1254,11 +1254,12 @@ notification badge red (`#ef4444`).
   chart (a single-date curve) carries "Yield" ticks and "Maturity". **Notes and meta tags**
   (deal type, source, "as of", captions, legend notes) use `--fs-micro`; table cells and
   prose notes stay `--fs-body`. List rows de-duplicate the same story (date + headline).
-  **One news-row format everywhere on the Dashboard** (`newsLi` / `newsUl`): the headline
-  first, then the date on the left and a grey tag on the right (type · source / manager /
-  firm / court) — credit wire, CLOs & fund closes, distress deals, research, rates and legal
-  wires, restructuring, case law, funds and banking alerts, hedge-fund news and Legal search
-  results all use it; never a date-first row.
+  **One events row everywhere on the Dashboard** (`newsLi` / `newsUl`, which now render the
+  shared R43 events row `evRow` from `feed.js`): the date first, the headline beside it, the
+  status tag, the source last; the type / manager / firm on a second line — credit wire, CLOs
+  & fund closes, distress deals, research, rates and legal wires, restructuring, case law,
+  funds and banking alerts, hedge-fund news and Legal search results all use it
+  (superseded the old headline-first row, owner 2026-10-15 — see R43).
   **Lists are never capped at an arbitrary N** — every tracked item is listed and the card
   scrolls. Fill cards built ONLY from data Wire already holds or
   a sourced live series: Credit — spread history 1M, all-in yields & BBB (ICE BofA via

@@ -49,7 +49,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .notif { position: relative; flex: 0 0 auto; }
 .notif-bell { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size:var(--fs-title); background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); color: #fff; }
 .notif-bell:hover { background: rgba(255,255,255,.22); }
-.notif-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: #fff; border-radius: 999px; min-width: 16px; height: 16px; padding: 0 4px; font-size:var(--fs-micro); font-weight: 700; line-height: 16px; text-align: center; }
+.notif-badge { position: absolute; top: -5px; right: -5px; background: #ef4444; color: #fff; border-radius: 999px; min-width: 16px; height: 16px; padding: 0 4px; font-size:var(--fs-micro); font-weight:400; line-height: 16px; text-align: center; }
 .notif-panel { position: absolute; top: calc(100% + 6px); right: 0; width: 360px; max-width: 92vw; max-height: 70vh; overflow-y: auto; overscroll-behavior: contain; background: var(--surface, #fff); color: var(--ink); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(15,23,42,.18); z-index: 40; padding: .5rem; }
 .notif-head { font-weight: 700; font-size:var(--fs-head); padding: .35rem .5rem .5rem; border-bottom: 1px solid var(--border); margin-bottom: .25rem; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
@@ -71,7 +71,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 /* Plain-text toggle matching the "Key metrics" summary (.rk-toggle > summary):
    no pill/border/shadow — muted bold label + caret, underline on hover. */
 .rel-dd-btn { display: inline-flex; align-items: center; gap: .45rem; width: fit-content;
-  font-size:var(--fs-title); font-weight: 700; color: var(--muted); padding: .15rem .1rem; }
+  font-size:var(--fs-title); font-weight:400; color: var(--muted); padding: .15rem .1rem; }
 .rel-dd-btn:hover { text-decoration: none; }
 .rel-dd[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
 @media (max-width: 620px) { .rel-dd { align-self: flex-start; } }
@@ -82,7 +82,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 
 /* ---------- macro dashboard ---------- */
 /* US and UK side by side, each a single row of six compact tiles (2 × 1×6). */
-.macro-country { font-size:var(--fs-title); font-weight: 700; color: var(--ink); margin: 0 0 .6rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
+.macro-country { font-size:var(--fs-title); font-weight:400; color: var(--ink); margin: 0 0 .6rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 /* Section divider heading inside the Cycle view (Debt cycle · Market cycle). */
 .macro-tile { position: relative; border: 1px solid var(--border); border-radius: 9px; padding: .48rem .5rem .55rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .26rem; }
 /* Deep-link highlight when a data-alert notification focuses a tile. */
@@ -123,7 +123,7 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
    collapsed by default. */
 .rk-toggle { margin: 0 0 1.5rem; }
 .rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
-  width: fit-content; font-weight: 700; font-size:var(--fs-title); color: var(--muted); padding: .15rem .1rem; }
+  width: fit-content; font-weight:400; font-size:var(--fs-title); color: var(--muted); padding: .15rem .1rem; }
 .rk-toggle > summary::-webkit-details-marker { display: none; }
 .rk-toggle > summary:hover { text-decoration: none; }
 .rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
@@ -169,7 +169,7 @@ a.intel-head:hover { text-decoration: none; }
 /* Quiet subtitle under the country/stage title — replaces the old purple pills
    to keep the Commentary and Cycle cards calm and uncluttered. */
 .macro-note-sub { margin: 0 0 .85rem; color: var(--muted); font-size:var(--fs-head); line-height: 1.45; }
-.macro-note-sub strong { color: var(--ink); font-weight: 700; }
+.macro-note-sub strong { color: var(--ink); font-weight:400; }
 .macro-para { color: var(--ink); margin: 0 0 .8rem; line-height: 1.6; }
 .macro-para:last-child { margin-bottom: 0; }
 .macro-para em { color: var(--muted); }
@@ -179,20 +179,20 @@ a.intel-head:hover { text-decoration: none; }
 .macro-subhead { font-size:var(--fs-title); font-weight: 700; color: var(--ink); margin: 1.6rem 0 .75rem; }
 .pw-head { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
 .pw-head .macro-country { margin: 0 0 .55rem; }
-.pw-src { flex: 0 0 auto; font-size:var(--fs-body); font-weight: 700; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.pw-src { flex: 0 0 auto; font-size:var(--fs-body); font-weight:400; color: var(--muted); text-decoration: none; white-space: nowrap; }
 .pw-src:hover { text-decoration: none; }
 /* FedWatch outcome rows: label + % on one line, a track bar spanning below. */
 .pw-bars { display: flex; flex-direction: column; gap: .7rem; margin: .1rem 0 .9rem; }
 .pw-row { display: grid; grid-template-columns: 1fr auto; column-gap: .6rem; align-items: baseline; }
-.pw-lbl { font-size:var(--fs-head); font-weight: 600; color: var(--ink); }
-.pw-pct { text-align: right; font-weight: 800; font-size:var(--fs-title); color: var(--ink); font-variant-numeric: tabular-nums; }
+.pw-lbl { font-size:var(--fs-head); font-weight:400; color: var(--ink); }
+.pw-pct { text-align: right; font-weight:400; font-size:var(--fs-title); color: var(--ink); font-variant-numeric: tabular-nums; }
 .pw-track { grid-column: 1 / -1; margin-top: .3rem; height: .5rem; background: var(--border); border-radius: 999px; overflow: hidden; }
 .pw-fill { display: block; height: 100%; background: var(--macro); border-radius: 999px; }
 /* Dot-plot median table. */
 .pw-dots { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin: .1rem 0 .3rem; }
 .pw-dots th, .pw-dots td { padding: .34rem .1rem; border-bottom: 1px solid var(--border); font-size:var(--fs-head); }
-.pw-dots th { text-align: left; color: var(--muted); font-weight: 600; }
-.pw-dots td { text-align: right; font-weight: 800; color: var(--ink); }
+.pw-dots th { text-align: left; color: var(--muted); font-weight:400; }
+.pw-dots td { text-align: right; font-weight:400; color: var(--ink); }
 .pw-dots tr:last-child th, .pw-dots tr:last-child td { border-bottom: 0; }
 .pw-note { margin: .7rem 0 0; line-height: 1.5; }
 /* Cycle: gauge and framework text side by side, filling the card. */
@@ -227,12 +227,12 @@ a.intel-head:hover { text-decoration: none; }
 .ck-h > span:first-child { font-size:var(--fs-body); font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ck-h > *:nth-child(2) { margin-left: auto; }
 .ck-x { font-size:var(--fs-micro); color: var(--muted); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
-.ck-more { font-size:var(--fs-micro); font-weight: 600; color: var(--macro); white-space: nowrap; }
+.ck-more { font-size:var(--fs-micro); font-weight:400; color: var(--macro); white-space: nowrap; }
 .ck-more:hover { text-decoration: none; }
 .ck-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
 .ck-sub { font-size:var(--fs-micro); color: var(--muted); margin: 0; }
-.ck-sub strong { color: var(--ink); font-weight: 600; }
-.ck-src { color: var(--muted); font-weight: 600; }
+.ck-sub strong { color: var(--ink); font-weight:400; }
+.ck-src { color: var(--muted); font-weight:400; }
 .ck-sub2 { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
 .ck-srcs { font-size:var(--fs-micro); color: var(--muted); margin: 3px 0 0; }
 .ck-srcs a { color: var(--muted); }
@@ -292,9 +292,9 @@ a.intel-head:hover { text-decoration: none; }
 .ck-stats2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .ck-stats { display: flex; flex-direction: column; gap: 6px; margin-top: 7px; }
 .ck-stat { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
-.ck-stat-l { font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); font-weight: 600;
+.ck-stat-l { font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); font-weight:400;
   letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); flex: 0 0 auto; }
-.ck-stat-v { font-size:var(--fs-head); font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ck-stat-v { font-size:var(--fs-head); font-weight:400; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .ck-stat-m { font-size:var(--fs-body); color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* Key-value data rows (maturity wall) — grey label, white mono value */
 .ck-kv { display: flex; flex-direction: column; margin-top: 4px; }
@@ -303,7 +303,7 @@ a.intel-head:hover { text-decoration: none; }
 .ck-kv-row:last-child { border-bottom: 0; }
 .ck-kv-l { color: var(--muted); min-width: 0; }
 .ck-kv-v { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
-  color: var(--ink); font-weight: 600; text-align: right; white-space: nowrap; }
+  color: var(--ink); font-weight:400; text-align: right; white-space: nowrap; }
 /* FedWatch + dot plot stacked (one above the other) */
 .ck-fed2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
 .ck-fed2 .ck-fed-col { min-width: 0; }
@@ -327,7 +327,7 @@ a.intel-head:hover { text-decoration: none; }
 .mw-res-h { margin: 6px 0 3px; }
 .mw-res-list { list-style: none; margin: 0; padding: 0; }
 .mw-res-list li { font-size: var(--fs-sm, 12px); line-height: 1.45; margin: 2px 0; }
-.mw-res-list a { font-weight: 600; }
+.mw-res-list a { font-weight:400; }
 /* Maturity-wall bar chart (Dashboard › Credit): published figures only. Series
    marks reuse the panel's two-hue system — neutral ink for loans, the macro
    accent for HY bonds; one rule per series covers both the SVG bar (fill) and
@@ -363,7 +363,7 @@ a.intel-head:hover { text-decoration: none; }
 .ew-row:last-of-type { border-bottom: 0; }
 /* Left column: ticker + ETF label / name / tag; right column: the Fcst-Act table */
 .ew-l { flex: 0 0 40%; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.ew-t { font-family: var(--t-mono); font-size:var(--fs-body); font-weight: 700; letter-spacing: .04em; color: var(--ink); }
+.ew-t { font-family: var(--t-mono); font-size:var(--fs-body); font-weight:400; letter-spacing: .04em; color: var(--ink); }
 .ew-n { font-size:var(--fs-body); color: var(--ink); }
 .ew-tag { font-family: var(--t-mono); font-size:var(--fs-micro); color: var(--faint, #5c6a86); }
 /* Release timing (Pre-mkt / After close) on its own line under the tag */
@@ -384,7 +384,7 @@ a.intel-head:hover { text-decoration: none; }
 .ew-tbl-note td.ew-cnote { width: 48%; vertical-align: top; text-align: right; padding: 1px 4px 1px 10px;
   font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 400; color: var(--muted); line-height: 1.35;
   white-space: normal; overflow-wrap: break-word; border-left: 1px solid var(--border); }
-.ew-tbl tbody th, .ew-tbl thead th { font-size:var(--fs-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.ew-tbl tbody th, .ew-tbl thead th { font-size:var(--fs-micro); font-weight:400; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .ew-tbl tbody th { text-align: left; padding-left: 0; white-space: normal; overflow-wrap: break-word; }
 .ew-tbl thead th:first-child { text-align: left; }
 .ew-tbl td { font-size:var(--fs-body); color: var(--ink); white-space: normal; overflow-wrap: break-word; }
@@ -395,13 +395,13 @@ a.intel-head:hover { text-decoration: none; }
    stock's index weight where the source publishes it. One colour per ETF so
    they're distinguishable at a glance (same tint recipe as the desk codes). */
 .ew-etf { display: inline-block; margin-left: 6px; padding: 1px 4px; vertical-align: 1px;
-  border: 0; font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 700;
+  border: 0; font-family: var(--t-mono); font-size:var(--fs-micro); font-weight:400;
   letter-spacing: .05em; font-variant-numeric: tabular-nums; }
 /* Sources tucked behind a collapse — the press-hold menu still reads the
    .ew-srcs links from the DOM whether or not the details is open. */
 .ew-srcwrap { margin-top: 10px; }
 .ew-srcwrap summary { cursor: pointer; list-style: none; font-family: var(--t-mono);
-  font-size:var(--fs-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+  font-size:var(--fs-micro); font-weight:400; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .ew-srcwrap summary::-webkit-details-marker { display: none; }
 .ew-srcwrap summary::after { content: " ▸"; }
 .ew-srcwrap[open] summary::after { content: " ▾"; }
@@ -444,13 +444,13 @@ a.intel-head:hover { text-decoration: none; }
 /* Fed dot plot */
 .ck-dots { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
 .ck-dots th { text-align: left; font-weight: 400; color: var(--muted); font-size:var(--fs-body); padding: 3px 0; border-bottom: 1px solid var(--border); }
-.ck-dots td { text-align: right; color: var(--ink); font-size:var(--fs-body); font-weight: 600; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.ck-dots td { text-align: right; color: var(--ink); font-size:var(--fs-body); font-weight:400; padding: 3px 0; border-bottom: 1px solid var(--border); }
 .ck-dots tr:last-child th, .ck-dots tr:last-child td { border-bottom: 0; }
 /* Bubble dimensions */
 .ck-dim { border: 1px solid var(--border); padding: 8px 10px; min-width: 0; }
 .ck-dim-h { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; margin-bottom: 4px; }
-.ck-dim-n { font-size:var(--fs-body); font-weight: 600; color: var(--ink); }
-.ck-dim-s { font-family: var(--t-mono); font-size:var(--fs-title); font-weight: 700; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.ck-dim-n { font-size:var(--fs-body); font-weight:400; color: var(--ink); }
+.ck-dim-s { font-family: var(--t-mono); font-size:var(--fs-title); font-weight:400; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
 .ck-dim-max { font-size:var(--fs-micro); color: var(--muted); font-weight: 400; }
 /* Gauge inside a cockpit panel — capped so the zone labels don't balloon on a
    full-width (span-2) panel; left-aligned to match the panel's other content. */
@@ -481,7 +481,7 @@ circle.yc-uk { fill: var(--ind-2y); }
 /* ---------- bubble-risk view ---------- */
 .macro-dim-head .macro-country { margin: 0; flex: 0 1 auto; }
 .macro-metrics { width: 100%; border-collapse: collapse; margin: .1rem 0 .7rem; }
-.macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size:var(--fs-head); padding: .4rem 0 .1rem; vertical-align: baseline; }
+.macro-metrics th { text-align: left; font-weight:400; color: var(--ink); font-size:var(--fs-head); padding: .4rem 0 .1rem; vertical-align: baseline; }
 .macro-metrics tr.macro-metric-ctx:last-child td { border-bottom: none; padding-bottom: 0; }
 
 /* ---------- chart tab ---------- */
@@ -503,7 +503,7 @@ circle.yc-uk { fill: var(--ind-2y); }
    full-width (each header on its own line), and each country's indicators sit in
    a 2-column grid — so nothing overflows off the side of the phone. */
 .chart-ind-sw.dash { border-top-style: dashed; }
-#chart-count.is-max { color: var(--t-down); font-weight: 800; }
+#chart-count.is-max { color: var(--t-down); font-weight:400; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
 .chart-grid.chart-zero { stroke: #cbd0da; stroke-width: 1.5; }
 /* Year gridlines are a touch stronger than the intra-year (month) ones. */

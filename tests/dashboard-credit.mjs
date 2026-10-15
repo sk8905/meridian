@@ -63,7 +63,9 @@ const stress = await pg.evaluate(() => {
     const seen = new Set(); let prev = null;
     for (const s of statuses) { if (s !== prev) { if (seen.has(s)) grouped = false; seen.add(s); prev = s; } }
   }
-  const leftAligned = rows.length > 0 && ["td.dsh-nm", "td.dsh-stress-sec", "td.dsh-stress-hq", "td.dsh-stress-debt"].every((sel) => { const c = tbl.querySelector(sel); return !c || getComputedStyle(c).textAlign === "left" || getComputedStyle(c).textAlign === "start"; });
+  // R43: text columns left-aligned; the Debt figure is a numeric column (right, tabular).
+  const leftAligned = rows.length > 0 && ["td.dsh-nm", "td.dsh-stress-sec", "td.dsh-stress-hq"].every((sel) => { const c = tbl.querySelector(sel); return !c || getComputedStyle(c).textAlign === "left" || getComputedStyle(c).textAlign === "start"; })
+    && getComputedStyle(tbl.querySelector("td.dsh-stress-debt")).textAlign === "right";
   return {
     rows: rows.length,
     ths,
@@ -77,11 +79,12 @@ const stress = await pg.evaluate(() => {
 });
 check(stress && stress.rows > 0, `Credit: stress table renders (${stress && stress.rows})`);
 check(stress && stress.proseNotes === 0 && stress.srcOnly, "Credit: stress rows carry just an SRC link, no prose note");
-check(stress && stress.ths.join("|") === "Debtor|Sector|HQ|Debt|Status|Latest|Src" && stress.hasSplitCols, `Credit: stress table splits debtor/sector/HQ/debt into columns + a dated Latest column (${stress && stress.ths.join(", ")})`);
+// R43: an events table leads with its date, the status tag beside the name, the source last.
+check(stress && stress.ths.join("|") === "Latest|Debtor|Status|Sector|HQ|Debt|Src" && stress.hasSplitCols, `Credit: stress table — date first, status beside the debtor, source last (${stress && stress.ths.join(", ")})`);
 check(stress && stress.europeFirst, "Credit: European debtors are listed first by default");
 check(stress && stress.grouped, "Credit: stress rows are grouped by status within each region");
 check(stress && stress.drill, "Credit: every debtor drills into its borrower page (/profiles/#/co/…)");
-check(stress && stress.leftAligned, "Credit: stress table columns are left-aligned");
+check(stress && stress.leftAligned, "Credit: stress table text columns left-aligned, Debt right-aligned (R43f)");
 
 // No duplicate pulse-pill strip above the cards; each US private-credit row is the
 // R40 KPI row — at most two lines (label + its faint sub-line) with every value on

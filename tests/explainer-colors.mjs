@@ -39,7 +39,9 @@ const eq = await pg.evaluate(() => {
     }),
   };
 });
-check(eq.heading === eq.inkRef && eq.heading !== ACCENT && eq.weight === "700", `dashboard Key-moment heading reads BOLD WHITE, not orange (${eq.heading} / ${eq.weight})`);
+// R43e (owner 2026-10-15): bold only for section / card / sheet headings — a key moment's
+// subject label is a name, so it reads in ink (white in dark) at regular weight.
+check(eq.heading === eq.inkRef && eq.heading !== ACCENT && +eq.weight < 600, `dashboard Key-moment label reads WHITE (ink), not orange, not bold (${eq.heading} / ${eq.weight})`);
 check(eq.hasNum && eq.numColor !== BLUE, `dashboard Key-moment numbers read PLAIN, not the old blue accent (${eq.numColor})`);
 check(!eq.badDate, "dashboard Key-moment date components are NOT blue");
 
@@ -68,7 +70,7 @@ const rates = await pg.evaluate(() => {
   if (t) { const p = document.createElement("span"); p.style.color = "var(--t-ink)"; t.parentElement.appendChild(p); inkRef = getComputedStyle(p).color; p.remove(); }
   return { present: !!t, heading: t ? getComputedStyle(t).color : null, weight: t ? getComputedStyle(t).fontWeight : null, inkRef };
 });
-check(!rates.present || (rates.heading === rates.inkRef && rates.weight === "700"), `rates why-it-moved heading bold white when present (${rates.heading} / ${rates.weight})`);
+check(!rates.present || (rates.heading === rates.inkRef && +rates.weight < 600), `rates why-it-moved label white (ink), regular weight when present (R43e) (${rates.heading} / ${rates.weight})`);
 
 // (The Macro desk view and its indicator Key-moments rail were retired — the macro
 // Key-moments now live on the Dashboard; their colour tokens are covered there.)

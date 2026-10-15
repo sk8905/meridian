@@ -1,7 +1,9 @@
 // Dashboard ▸ iPhone (HOUSE_STYLE R40 phone rules). At 390px with touch, on every
 // tab and both themes: no card scrolls inside itself (long lists show a 10-row preview
-// + "See all N ›"), nothing scrolls sideways or is clipped with "…" (wide tables
-// re-render as stacked rows), long lists preview 10 rows, and no text is orange at rest or after a tap (every
+// + "See all N ›"), nothing scrolls sideways (wide tables re-render as stacked rows), no
+// text is clipped with "…" EXCEPT inside an R43 events row (date · headline / meta · tag ·
+// source — two single lines, each ending in an ellipsis, full text in the row title) or a
+// table cell sized by its R43 column role, long lists preview 10 rows, and no text is orange at rest or after a tap (every
 // Dashboard :hover rule is fenced in @media (hover:hover)). "See all" opens the full
 // list in a full-screen sheet above the tab bar, with a filter for long lists, ✕ to
 // close, and a link inside it navigates (closing the sheet). Desktop keeps tables.
@@ -23,27 +25,27 @@ for (const theme of ["dark", "light"]) {
       const inCard = [...root.querySelectorAll(".dsh-card *")].filter((e) => e.offsetParent);
       const vscroll = inCard.filter((e) => /(auto|scroll)/.test(getComputedStyle(e).overflowY) && e.scrollHeight > e.clientHeight + 4 && e.clientHeight > 40).map(nm);
       const hscroll = inCard.filter((e) => /(auto|scroll)/.test(getComputedStyle(e).overflowX) && e.scrollWidth > e.clientWidth + 2).map(nm);
-      const clipped = inCard.filter((e) => e.children.length === 0 && e.textContent.trim() && getComputedStyle(e).overflow !== "visible" && e.scrollWidth > e.clientWidth + 1).map(nm);
+      const clipped = inCard.filter((e) => !e.closest(".g-ev, td[class*='c-'], th[class*='c-']") && e.children.length === 0 && e.textContent.trim() && getComputedStyle(e).overflow !== "visible" && e.scrollWidth > e.clientWidth + 1).map(nm);
       const tmp = document.createElement("span"); document.body.appendChild(tmp); tmp.style.color = getComputedStyle(document.documentElement).getPropertyValue("--t-accent").trim(); const acc = getComputedStyle(tmp).color; tmp.remove();
       const orange = inCard.filter((e) => [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && getComputedStyle(e).color === acc).map((e) => `${nm(e)}: ${e.textContent.trim().slice(0, 20)}`);
       const badges = [...root.querySelectorAll(".dsh-mid .dsh-h")].filter((h) => h.offsetParent && h.querySelector(".dsh-live")).map((h) => {
         const t = h.querySelector(".dsh-h-t").getBoundingClientRect(), l = h.querySelector(".dsh-live").getBoundingClientRect(), c = h.closest(".dsh-card").getBoundingClientRect();
         return { n: nm(h), dy: Math.round(l.top - t.top), dr: Math.round(c.right - l.right) }; }).filter((x) => Math.abs(x.dy) > 4 || x.dr > 24).map((x) => `${x.n} (dy ${x.dy}, right ${x.dr})`);
-      // One news-row format: headline first, then the date (left) and the grey tag (right) beneath it.
-      const rowsBad = [...root.querySelectorAll(".dsh-news-i")].filter((li) => li.offsetParent).filter((li) => {
-        const k = [...li.children]; const a = k[0], d = li.querySelector(":scope > .dsh-news-d"), sx = li.querySelector(":scope > .dsh-news-s");
-        if (!a || a.tagName !== "A" || k[1] !== d) return true;
-        const ra = a.getBoundingClientRect(), rd = d.getBoundingClientRect();
-        if (rd.top < ra.bottom - 2 || Math.abs(rd.left - ra.left) > 2) return true;
-        if (sx) { const rs = sx.getBoundingClientRect(); if (Math.abs(rs.top - rd.top) > 3 && rs.top < rd.top) return true; }
-        return false; }).map((li) => nm(li));
+      // R43 (supersedes R40's headline-first row): every events row leads with the date,
+      // the headline beside it, the source last on the same line, the meta beneath — two lines.
+      const rowsBad = [...root.querySelectorAll(".dsh-news-i, .dsh-stk-i.g-ev")].filter((li) => li.offsetParent).filter((li) => {
+        const d = li.querySelector(":scope > .c-date"), a = li.querySelector(":scope > .g-ev-t"), sx = li.querySelector(":scope > .c-src");
+        if (!d || !a || !sx || li.children[0] !== d) return true;
+        const rd = d.getBoundingClientRect(), ra = a.getBoundingClientRect(), rs = sx.getBoundingClientRect();
+        if (rd.right > ra.left + 1 || Math.abs(rd.top - ra.top) > 6 || rs.left < ra.right - 1) return true;
+        return li.getBoundingClientRect().height > parseFloat(getComputedStyle(a).lineHeight) * 2 + 16; }).map((li) => nm(li));
       return { rowsBad: [...new Set(rowsBad)], badges, vscroll: [...new Set(vscroll)], hscroll: [...new Set(hscroll)], clipped: [...new Set(clipped)].slice(0, 5), orange: orange.slice(0, 5), pageW: document.documentElement.scrollWidth };
     });
-    checkEq(r.rowsBad.join("|"), "", `${theme} ${t}: every news row reads headline, then date (left) · tag (right)`);
+    checkEq(r.rowsBad.join("|"), "", `${theme} ${t}: every events row reads date · headline · source, meta beneath — two lines max (R43)`);
     checkEq(r.badges.join("|"), "", `${theme} ${t}: LIVE / NOT LIVE / AS-OF badges sit top-right on the title line`);
     checkEq(r.vscroll.join("|"), "", `${theme} ${t}: no card scrolls inside itself`);
     checkEq(r.hscroll.join("|"), "", `${theme} ${t}: nothing scrolls sideways inside a card`);
-    checkEq(r.clipped.join("|"), "", `${theme} ${t}: no text clipped with an ellipsis`);
+    checkEq(r.clipped.join("|"), "", `${theme} ${t}: no text clipped with an ellipsis outside an R43 row / column`);
     checkEq(r.orange.join("|"), "", `${theme} ${t}: no orange text at rest`);
     check(r.pageW <= 390, `${theme} ${t}: page never wider than the phone (${r.pageW}px)`);
   }
@@ -126,9 +128,10 @@ for (const theme of ["dark", "light"]) {
   for (const t of ["credit", "rates", "legal", "hedge-funds"]) {
     await pg.goto(`http://localhost:${srv.port}/v2/dashboard/${t}/`, { waitUntil: "load" }); await pg.waitForTimeout(1200);
     const bad = await pg.evaluate(() => [...document.querySelectorAll(".dsh-news-i")].filter((li) => li.offsetParent).filter((li) => {
-      const a = li.children[0], d = li.querySelector(":scope > .dsh-news-d"); if (!a || a.tagName !== "A" || li.children[1] !== d) return true;
-      return d.getBoundingClientRect().top < a.getBoundingClientRect().bottom - 2; }).length);
-    checkEq(bad, 0, `Desktop ${t}: every news row reads headline, then date · tag`);
+      const d = li.children[0], a = li.querySelector(":scope > .g-ev-t"), sx = li.querySelector(":scope > .c-src");
+      if (!d || !d.classList.contains("c-date") || !a || !sx) return true;
+      return d.getBoundingClientRect().right > a.getBoundingClientRect().left + 1 || sx.getBoundingClientRect().left < a.getBoundingClientRect().right - 1; }).length);
+    checkEq(bad, 0, `Desktop ${t}: every events row reads date · headline · source (R43)`);
   }
   await pg.goto(`http://localhost:${srv.port}/v2/dashboard/hedge-funds/`, { waitUntil: "load" }); await pg.waitForTimeout(1200);
   const d = await pg.evaluate(() => ({ btn: document.querySelectorAll(".dsh-seeall").length, stk: [...document.querySelectorAll(".dsh-stk-list")].filter((e) => e.offsetParent).length, tbl: !!document.querySelector("table.dsh-hfaum-tbl").offsetParent }));

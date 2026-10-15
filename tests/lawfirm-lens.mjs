@@ -110,7 +110,7 @@ check(deals.some((d) => d.side === "unknown" && /not stated/i.test(d.label)), "a
 const kart = deals.find((d) => /Kartesia/.test(d.t));
 check(kart && kart.side === "lender", `Kartesia unitranche: Latham 'advised Kartesia as senior lender' → lender side (${kart && kart.side})`);
 check(deals.filter((d) => /^\/v2\/transactions\/#\/deal\/d\d+$/.test(d.href)).length >= 5, "credit-wire deals link into the Transactions deal drawer");
-check(deals.every((d) => /\d{4}/.test(d.meta)), "every credit deal is dated");
+check(deals.every((d) => /\d{4}|\d{1,2} [A-Z][a-z]{2} \d{2}(?!\d)/.test(d.meta)), "every credit deal is dated (R43b: \"15 Oct 26\")");
 check(deals.filter((d) => /^https?:/.test(d.src)).length >= 5, "credit-wire deals carry their source link");
 const sided = deals.filter((d) => d.side !== "unknown"), lend = sided.filter((d) => d.side === "lender").length;
 checkEq(glance[2].v, `${Math.round((lend / sided.length) * 100)}%`, "lender-side % is computed from the listed deals");

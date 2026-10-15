@@ -10,7 +10,7 @@
 // or the browser loads data.js twice as separate module instances (blank page).
 // =============================================================================
 import { managers, managerById, lpById, commitments, AUM_FX } from "./data.js";
-import { esc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite } from "/util.js";
+import { esc, NEWS_SOURCES, srcHost, tidyDomain, isOwnSite, fmtD } from "/util.js";
 
 // ----------------------------- formatting utils ----------------------------
 export const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
@@ -19,7 +19,7 @@ export const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m /
 const CCY_SIGN = { EUR: "€", USD: "$", GBP: "£", CAD: "C$", AUD: "A$", CHF: "CHF ", SEK: "SEK " };
 export const money = (m, ccy) => (m == null ? "Undisclosed" : (CCY_SIGN[ccy] || (ccy ? ccy + " " : "€")) + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
 export const pct = (n) => (n == null ? "Undisclosed" : Math.round(n) + "%");
-// "01 Oct 2026". Fixed English month abbreviations (toLocaleDateString printed
+// "1 Oct 26" (R43b, via util fmtD). Fixed English month abbreviations (toLocaleDateString printed
 // "Sept" on some engines, which overflowed the date column). Pass the RECORD (not its
 // date) to honour datePrecision / dateEstimated: "2025" · "Jan 2025" · "c. 14 Jan 2025".
 const _MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -30,10 +30,7 @@ export const fmtDate = (d) => {
     if (d.datePrecision === "month" && /^\d{4}-\d{2}/.test(s)) return `${_MON[+s.slice(5, 7) - 1]} ${s.slice(0, 4)}`;
     return (d.dateEstimated ? "c. " : "") + fmtDate(s);
   }
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d || ""));
-  if (m) return `${m[3]} ${_MON[+m[2] - 1]} ${m[1]}`;
-  const t = new Date(d);
-  return Number.isNaN(+t) ? String(d || "") : `${String(t.getUTCDate()).padStart(2, "0")} ${_MON[t.getUTCMonth()]} ${t.getUTCFullYear()}`;
+  return fmtD(d instanceof Date ? d.toISOString() : d);
 };
 // Format a $bn AUM figure: $Xtn above 1,000bn, $Xm below 1bn, else $Xbn.
 export const fmtAum = (n) => {

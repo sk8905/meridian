@@ -4,10 +4,10 @@
 // scripts/build-digest.mjs from Wire's own data — every item carries its real
 // source link + date). Shareable at /v2/menu/digest and /v2/menu/digest/weekly.
 // =============================================================================
-import { esc } from "/util.js";
+import { esc, fmtD } from "/util.js";
 
 const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const fmtDay = (iso) => { const t = Date.parse(String(iso || "").slice(0, 10) + "T12:00:00Z"); if (Number.isNaN(t)) return ""; const d = new Date(t); return `${d.getUTCDate()} ${M[d.getUTCMonth()]}`; };
+const fmtDay = (iso) => fmtD(String(iso || "").slice(0, 10)); // R43b: "15 Oct 26"
 const fmtStamp = (s) => { const t = Date.parse(s || ""); if (Number.isNaN(t)) return ""; const d = new Date(t); return `${d.getDate()} ${M[d.getMonth()]} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
 
 export const MODES = [["daily", "Daily"], ["weekly", "Weekly"]];

@@ -68,9 +68,9 @@ for (const [w, h] of [[1280, 800], [1366, 768], [1536, 864], [1920, 1080], [2560
   check(await pg.evaluate(() => document.querySelector('.dsh-live[data-live="yld"]').textContent === "live"), "Credit: yields badge flips to live");
   const sh = await chartAxes(pg);
   check(timeOk(sh) && sh[0].dates[0] === "11 Sep" && sh[0].dates[sh[0].dates.length - 1] === "12 Oct", `Credit: spread history runs on real observation dates, 11 Sep → 12 Oct (${JSON.stringify(sh)})`);
-  const dd = await pg.evaluate(() => [...document.querySelectorAll("#dsh-dd .dsh-news-i")].map((li) => `${li.querySelector(".dsh-news-d").textContent}|${li.querySelector("a").textContent}`));
+  const dd = await pg.evaluate(() => [...document.querySelectorAll("#dsh-dd .dsh-news-i")].map((li) => `${li.querySelector(".c-date").textContent}|${li.querySelector(".g-ev-t").textContent}`));
   checkEq(dd.length - new Set(dd).size, 0, "Credit: restructuring & distress deals list each story once");
-  const notes = await pg.evaluate(() => getComputedStyle(document.querySelector("#dsh-dd .dsh-news-s")).fontSize);
+  const notes = await pg.evaluate(() => getComputedStyle(document.querySelector("#dsh-dd .g-ev-m")).fontSize);
   const adj = await pg.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--fs-adj")) || 0);
   check(notes === `${10 + adj}px`, `Credit: deal-type notes use the micro step (${notes})`);
   await go(pg, "rates");

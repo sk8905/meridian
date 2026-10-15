@@ -26,7 +26,8 @@ check(ic.rows.length > 0, `"intercreditor" finds alerts/judgments by their text 
 
 const clo = await search("clo");
 const MON = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
-const ym = (s) => { const m = /(\d{1,2} )?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (20\d\d)/.exec(s); return m ? +m[3] * 100 + MON[m[2]] : null; };
+// R43b dates read "15 Oct 26" (two-digit year); month-precision ones keep "Oct 2026".
+const ym = (s) => { const m = /(\d{1,2} )?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (20\d\d|\d\d)\b/.exec(s); return m ? (m[3].length === 2 ? 2000 + +m[3] : +m[3]) * 100 + MON[m[2]] : null; };
 const cloDated = clo.rows.filter((r) => /^CLO/.test(r.s)).map((r) => ym(r.s)).filter(Boolean);
 check(cloDated.length > 3, `"clo" returns dated CLO rows (${cloDated.length})`);
 check(cloDated.every((d, i) => i === 0 || cloDated[i - 1] >= d), "CLO results run newest first");

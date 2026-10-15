@@ -114,10 +114,6 @@
 /* News-rail items read as a wire: the headline sits on top (full width) with a
    muted meta line (date · source) beneath, so the narrow rail never squeezes the
    headline down to one word per line. */
-.dsh-newsrail .dsh-news-i { display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-areas:"head head" "date src"; column-gap:8px; row-gap:1px; align-items:baseline; }
-.dsh-newsrail .dsh-news-i a { grid-area:head; }
-.dsh-newsrail .dsh-news-d { grid-area:date; }
-.dsh-newsrail .dsh-news-s { grid-area:src; margin-left:0; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
 /* In the rail, the "heading + body" items (Key moments · Why it moved) stack the
    heading ABOVE the text, not label-left / text-right. */
 .dsh-newsrail .dsh-km { grid-template-columns:1fr; gap:2px; align-items:start; }
@@ -217,20 +213,20 @@
 .dsh-asof { margin-left:auto; color:var(--t-faint); font-size:var(--fs-body); font-weight:400; }
 .dsh-src { color:var(--t-mut); text-decoration:none; font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:0; padding:0 3px; vertical-align:middle; }
 @media (hover:hover){ .dsh-src:hover { color:var(--t-ink); border-color:var(--t-mut); } }
-.dsh-live { color:var(--t-up); font-size:var(--fs-body); font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:0; padding:0 4px; }
+.dsh-live { color:var(--t-up); font-size:var(--fs-body); font-weight:400; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:0; padding:0 4px; }
 
 /* Index strip — horizontal scroll on phone, wraps on desktop */
 .dsh-strip { display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
 .dsh-strip::-webkit-scrollbar{ display:none; }
 .dsh-idx { flex:0 0 auto; min-width:120px; display:flex; flex-direction:column; gap:2px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:0; text-decoration:none; background:var(--t-panel2); }
 .dsh-idx-nm { color:var(--t-mut); font-size:var(--fs-body); }
-.dsh-idx-lv { color:var(--t-ink); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-idx-lv { color:var(--t-ink); font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; }
 .dsh-idx-yt { font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
 
 /* Sector ranked bars (diverging around a centre line) */
 .dsh-sectors { display:flex; flex-direction:column; gap:5px; }
 .dsh-sec { display:grid; grid-template-columns:120px 1fr 56px; align-items:center; gap:8px; }
-.dsh-sec-nm { color:var(--t-dim); font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-sec-nm { color:var(--t-ink); font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-sec-track { position:relative; height:14px; background:var(--t-panel2); border-radius:0; }
 .dsh-sec-track::before{ content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--t-grid2); }
 .dsh-sec-bar { position:absolute; top:2px; bottom:2px; min-width:2px; border-radius:0; }
@@ -247,8 +243,8 @@
 .dsh-kvgrid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:6px 14px; }
 @media (max-width:520px){ .dsh-kvgrid{ grid-template-columns:1fr; } }
 .dsh-kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-kv-k { color:var(--t-dim); font-family:var(--t-mono); font-size:var(--fs-body); }
-.dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
+.dsh-kv-k { color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-body); }
+.dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; text-align:right; }
 /* Private-credit card: one metric per SINGLE line (always full-width rows; the
    label truncates with an ellipsis + hover title, the value · SRC stay put). */
 .dsh-pc-grid { grid-template-columns:minmax(0,1fr); }
@@ -271,10 +267,6 @@
 .dsh-pc-reports-h { font-family:var(--t-mono); font-size:var(--fs-micro); font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--t-faint); margin-bottom:3px; }
 .dsh-mw-eu { margin-bottom:10px; }
 .dsh-mw-eu .dsh-ladder-cap { margin-top:4px; }
-.dsh-pc-report { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:4px 0; border-top:1px solid var(--t-grid); text-decoration:none; }
-.dsh-pc-report-t { color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; min-width:0; }
-@media (hover:hover){ .dsh-pc-report:hover .dsh-pc-report-t { color:var(--t-ink); } }
-.dsh-pc-report-d { color:var(--t-faint); font-family:var(--t-mono); font-size:var(--fs-micro); white-space:nowrap; flex:0 0 auto; }
 .dsh-band { color:var(--t-mut); font-weight:500; font-size:var(--fs-body); border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; margin-left:4px; }
 /* MPC vote rows: the tally (6-3, 5-4) and the lean pill (3 → hike, 4 → cut) each
    take a FIXED column so every row lines up — otherwise the varying pill width
@@ -287,8 +279,8 @@
 /* Spread rows */
 .dsh-spreads { display:flex; flex-direction:column; gap:4px; }
 .dsh-spread { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-spread-nm { flex:1; color:var(--t-dim); font-family:var(--t-mono); font-size:var(--fs-body); }
-.dsh-spread-v { color:var(--t-ink); font-family:var(--t-mono); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-spread-nm { flex:1; color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-body); }
+.dsh-spread-v { color:var(--t-ink); font-family:var(--t-mono); font-weight:400; font-variant-numeric:tabular-nums; }
 .dsh-spread-u { color:var(--t-faint); font-size:var(--fs-body); margin-left:2px; }
 .dsh-load { color:var(--t-mut); font-size:var(--fs-body); margin:2px 0; }
 
@@ -296,8 +288,8 @@
    column so every explanation lines up regardless of index-name length. */
 .dsh-km { display:grid; grid-template-columns:148px 1fr; gap:10px; align-items:baseline; padding:6px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-km:last-child { border-bottom:0; }
-.dsh-km-t { color:var(--t-ink); font-weight:700; font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.dsh-km-x { color:var(--t-dim); font-size:var(--fs-body); line-height:1.4; }
+.dsh-km-t { color:var(--t-ink); font-weight:400; font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-km-x { color:var(--t-ink); font-size:var(--fs-body); line-height:1.4; }
 @media (max-width:520px){ .dsh-km { grid-template-columns:118px 1fr; gap:8px; } }
 
 /* Sector flows heatmap (Equities) — diverging colour set inline per cell,
@@ -309,15 +301,15 @@
    for these tables. */
 .dsh-fl-tbl td.dsh-nm, .dsh-fl-tbl th:first-child { text-align:left; }
 .dsh-fl-tbl th.dsh-r { text-align:center; }
-.dsh-fl { color:var(--t-ink); font-weight:600; }
+.dsh-fl { color:var(--t-ink); font-weight:400; }
 .dsh-fl-na { color:var(--t-faint); font-weight:400; }
 .dsh-fl-t { color:var(--t-mut); font-size:var(--fs-body); margin-left:4px; }
 .dsh-fl-note { color:var(--t-faint); font-size:var(--fs-micro); line-height:1.5; margin:8px 0 0; }
 /* Geography bands: a small left-aligned label rule introducing each regional
    block (United States, Europe, Asia-Pacific, …), set off by a top rule. */
-.dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:var(--fs-micro); font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid2); }
+.dsh-fl-tbl tr.dsh-georow td.dsh-geo { text-align:left; padding:10px 6px 3px; font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); border-top:1px solid var(--t-grid2); }
 .dsh-fl-tbl tbody tr.dsh-georow:first-child td.dsh-geo { border-top:0; padding-top:2px; }
-.dsh-fl-pos { color:var(--t-up); font-weight:700; }
+.dsh-fl-pos { color:var(--t-up); font-weight:400; }
 /* Market-sizes matrix (Macro): the four asset classes laid out SIDE BY SIDE, each
    a block (region rows × Size + 1Y/5Y/10Y). Blocks fill the width and wrap to
    fewer columns as the card narrows. */
@@ -328,22 +320,22 @@
 .dsh-ms-col-h { font-size:var(--fs-micro); font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--t-mut); padding:2px 0 4px; border-bottom:1px solid var(--t-grid2); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-ms-tbl { width:100%; }
 .dsh-ms-tbl th, .dsh-ms-tbl td { padding:3px 4px; }
-.dsh-ms-tbl th { color:var(--t-mut); font-weight:600; font-size:var(--fs-micro); }
+.dsh-ms-tbl th { color:var(--t-mut); font-weight:400; font-size:var(--fs-micro); }
 .dsh-ms-tbl th.dsh-ms-nm, .dsh-ms-tbl td.dsh-ms-nm { text-align:left; }
 .dsh-ms-tbl th.dsh-ms-sz, .dsh-ms-tbl td.dsh-ms-sz { text-align:left; }
-.dsh-ms-tbl td.dsh-ms-nm { color:var(--t-dim); }
-.dsh-ms-tbl td.dsh-ms-nm a { color:var(--t-dim); text-decoration:none; }
+.dsh-ms-tbl td.dsh-ms-nm { color:var(--t-ink); }
+.dsh-ms-tbl td.dsh-ms-nm a { color:var(--t-ink); text-decoration:none; }
 @media (hover:hover){ .dsh-ms-tbl td.dsh-ms-nm a:hover { color:var(--t-ink); } }
-.dsh-ms-tbl td.dsh-ms-sz { color:var(--t-ink); font-weight:600; }
+.dsh-ms-tbl td.dsh-ms-sz { color:var(--t-ink); font-weight:400; }
 .dsh-ms-as { color:var(--t-faint); font-weight:400; font-size:var(--fs-micro); margin-left:3px; }
 .dsh-ms-tbl th.dsh-ms-a, .dsh-ms-tbl td.dsh-ms-a { text-align:center; }
-.dsh-ms-t { font-weight:700; }
+.dsh-ms-t { font-weight:400; }
 .dsh-ms-t.up { color:var(--t-up); } .dsh-ms-t.down { color:var(--t-down); }
 .dsh-ms-t.flat, .dsh-ms-t.na { color:var(--t-faint); font-weight:400; }
-.dsh-ms-p { font-size:var(--fs-micro); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-ms-p { font-size:var(--fs-micro); font-weight:400; font-variant-numeric:tabular-nums; }
 .dsh-ms-p.up { color:var(--t-up); } .dsh-ms-p.down { color:var(--t-down); }
 .dsh-ms-sub { color:var(--t-faint); font-weight:400; text-transform:none; letter-spacing:0; font-size:var(--fs-micro); }
-.dsh-fl-neg { color:var(--t-down); font-weight:700; }
+.dsh-fl-neg { color:var(--t-down); font-weight:400; }
 
 /* Legal database (Dashboard ▸ Legal) — searchable, practice-area-grouped list of
    all alerts + case law. */
@@ -352,7 +344,7 @@
 .dsh-lgl-search::placeholder { color:var(--t-faint); }
 .dsh-lgl-search:focus { outline:none; border-color:var(--t-mut); }
 .dsh-lgl-chips { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0 0 10px; }
-.dsh-lgl-lbl { color:var(--t-mut); font-size:var(--fs-body); font-weight:600; margin-right:2px; }
+.dsh-lgl-lbl { color:var(--t-mut); font-size:var(--fs-body); font-weight:400; margin-right:2px; }
 .dsh-lgl-chip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit;
   font-size:var(--fs-body); font-weight:600; padding:0 9px; border-radius:0; cursor:pointer; }
 @media (hover:hover){ .dsh-lgl-chip:hover { color:var(--t-ink); } }
@@ -360,15 +352,9 @@
 [data-theme="dark"] .dsh-lgl-chip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
 .dsh-lgl-body { max-height:62vh; overflow-y:auto; }
 .dsh-lgl-list { margin:0; }
-.dsh-lgl-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-lgl-i:last-child { border-bottom:0; }
 .dsh-lgl-i-h { display:flex; align-items:center; gap:8px; margin-bottom:2px; }
 .dsh-lgl-d { color:var(--t-mut); font-size:var(--fs-body); font-family:var(--t-mono); }
-.dsh-lgl-badge { font-size:var(--fs-micro); font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); }
-.dsh-lgl-case { color:var(--t-lex); border-color:var(--t-lex); }
-.dsh-lgl-alert { color:var(--t-lex); border-color:var(--t-lex); }
-.dsh-lgl-t { display:block; color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; font-weight:500; }
-@media (hover:hover){ .dsh-lgl-t:hover { color:var(--t-ink); } }
+.dsh-lgl-badge { font-size:var(--fs-micro); font-weight:400; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); }
 .dsh-lgl-m { color:var(--t-mut); font-size:var(--fs-micro); margin-top:2px; }
 
 /* IPO / generic table */
@@ -379,11 +365,11 @@
    and without this the short single-line cells float in the vertical middle of
    that tall row, reading as big empty gaps ("stretched"). Top keeps every row
    compact and its columns lined up on the first line. */
-.dsh-tbl td { padding:5px 8px; border-bottom:1px solid var(--t-grid); color:var(--t-dim); white-space:nowrap; vertical-align:top; }
-.dsh-tbl .dsh-nm { color:var(--t-ink); font-weight:600; }
+.dsh-tbl td { padding:5px 8px; border-bottom:1px solid var(--t-grid); color:var(--t-ink); white-space:nowrap; vertical-align:top; }
+.dsh-tbl .dsh-nm { color:var(--t-ink); font-weight:400; }
 /* Week sub-header row inside a grouped table (e.g. the earnings calendar's
    "This week" / "Last week" bands). */
-.dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:var(--fs-body); text-transform:uppercase;
+.dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:400; font-size:var(--fs-body); text-transform:uppercase;
   letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
 /* Dashboard tables read LEFT-ALIGNED throughout (headers + cells), including the
    value columns that .dsh-r used to right-align — a consistent left edge across
@@ -400,27 +386,27 @@
    release (ticker · company · session · date; sector; forecast→actual measures;
    price reaction; the "why" note). Replaces the old cramped 6-column table. */
 .dsh-earn { display:flex; flex-direction:column; }
-.dsh-earn-wk { font-size:var(--fs-body); font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+.dsh-earn-wk { font-size:var(--fs-body); font-weight:400; letter-spacing:.04em; text-transform:uppercase;
   color:var(--t-ink); background:var(--t-panel2); border-bottom:1px solid var(--t-grid2);
   padding:6px 8px; margin:10px -4px 2px; border-radius:0; }
 .dsh-earn-wk:first-child { margin-top:0; }
 .dsh-earn-rel { padding:8px 4px; border-bottom:1px solid var(--t-grid); }
 .dsh-earn-hd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
-.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
-.dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:var(--fs-body); min-width:0; }
+.dsh-earn-tk { font-weight:400; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
+.dsh-earn-co { color:var(--t-ink); font-weight:400; font-size:var(--fs-body); min-width:0; }
 .dsh-earn-when { color:var(--t-mut); font-size:var(--fs-micro); border:1px solid var(--t-grid2); border-radius:0; padding:0 5px; }
 .dsh-earn-dt { color:var(--t-faint); font-size:var(--fs-micro); margin-left:auto; white-space:nowrap; }
 .dsh-earn-tag { color:var(--t-mut); font-size:var(--fs-micro); margin-top:2px; }
 .dsh-earn-ms { display:flex; flex-wrap:wrap; gap:5px 16px; margin-top:6px; align-items:baseline; }
-.dsh-earn-m { font-size:var(--fs-body); color:var(--t-dim); display:inline-flex; align-items:baseline; gap:5px; }
+.dsh-earn-m { font-size:var(--fs-body); color:var(--t-ink); display:inline-flex; align-items:baseline; gap:5px; }
 .dsh-earn-ml { font-style:normal; color:var(--t-mut); font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.03em; }
 .dsh-earn-fct { color:var(--t-mut); font-variant-numeric:tabular-nums; }
 .dsh-earn-arw { color:var(--t-faint); }
-.dsh-earn-act { color:var(--t-ink); font-weight:700; font-variant-numeric:tabular-nums; }
+.dsh-earn-act { color:var(--t-ink); font-weight:400; font-variant-numeric:tabular-nums; }
 .dsh-earn-await { color:var(--t-faint); font-style:italic; font-size:var(--fs-micro); }
-.dsh-earn-px { font-weight:700; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-mut); }
+.dsh-earn-px { font-weight:400; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-mut); }
 .dsh-earn-px.up { color:var(--t-up); } .dsh-earn-px.down { color:var(--t-down); }
-.dsh-earn-metric { display:inline-block; font-size:var(--fs-micro); font-weight:600; text-transform:uppercase;
+.dsh-earn-metric { display:inline-block; font-size:var(--fs-micro); font-weight:400; text-transform:uppercase;
   letter-spacing:.03em; color:var(--t-mut); border:1px solid var(--t-grid2); border-radius:0; padding:0 4px; }
 .dsh-earn-note { color:var(--t-mut); font-size:var(--fs-body); line-height:1.45; margin-top:5px; }
 /* Hedge Funds section — consensus/moves lists + per-fund 13F picker. */
@@ -428,22 +414,17 @@
 .dsh-hf-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-hf-i:last-child { border-bottom:0; }
 .dsh-hf-i-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; margin-bottom:2px; }
-.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
-.dsh-hf-nm { color:var(--t-dim); font-size:var(--fs-body); }
+.dsh-hf-t { color:var(--t-ink); font-weight:400; font-family:var(--t-mono); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
+.dsh-hf-nm { color:var(--t-ink); font-size:var(--fs-body); }
 .dsh-hf-by { color:var(--t-mut); font-size:var(--fs-micro); margin-left:auto; }
 .dsh-hf-note { color:var(--t-mut); font-size:var(--fs-body); line-height:1.35; }
-.dsh-hf-dir { font-size:var(--fs-micro); font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); color:var(--t-mut); }
+.dsh-hf-dir { font-size:var(--fs-micro); font-weight:400; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:0; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-hf-buy, .dsh-hf-new { color:var(--t-up); border-color:var(--t-up); }
 .dsh-hf-sell, .dsh-hf-trim { color:var(--t-down); border-color:var(--t-down); }
 .dsh-hf-pick { display:flex; align-items:center; gap:8px; margin:2px 0 8px; }
 .dsh-hf-sel { font:inherit; font-size:var(--fs-body); color:var(--t-ink); background:var(--t-panel); border:1px solid var(--t-grid2); border-radius:0; padding:5px 8px; max-width:min(100%,320px); }
 .dsh-hf-body { min-height:40px; }
-.dsh-tag { font-size:var(--fs-body); font-weight:600; border-radius:0; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
-.dsh-tag-priced{ color:var(--t-up); border-color:var(--t-up); }
-.dsh-tag-filed{ color:var(--t-mac); border-color:var(--t-mac); }
-.dsh-tag-rumoured{ color:var(--t-faint); }
-.dsh-tag-stress{ color:var(--t-down); border-color:var(--t-down); }
-.dsh-tag-stale{ color:var(--t-amber, #b3760f); border-color:var(--t-amber, #b3760f); font-weight:500; }
+.dsh-tag { font-size:var(--fs-body); font-weight:400; border-radius:0; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-fim-strat{ font:inherit; font-size:var(--fs-body); color:var(--t-ink); background:var(--t-panel); border:1px solid var(--t-grid2); border-radius:0; padding:3px 6px; }
 .dsh-fim-lps{ max-width:260px; }
 .dsh-reg-jur{ color:var(--t-mut); white-space:nowrap; }
@@ -456,11 +437,10 @@
    the wide card's width does real work. */
 .dsh-mw-wall { margin-top:10px; }
 .dsh-mw-tbl { table-layout:fixed; width:100%; }
-.dsh-mw-tbl th { white-space:normal; }   /* let headers wrap so a narrow table never collides the Composition/Cumulative heads */
 .dsh-mw-tbl th, .dsh-mw-tbl td { vertical-align:middle; }
 .dsh-mw-tbl th:first-child, .dsh-mw-tbl td:first-child { width:48px; }        /* Year */
-.dsh-mw-tbl th:nth-child(2), .dsh-mw-tbl td.dsh-mw-barcell { width:158px; }    /* short bar + $ */
-.dsh-mw-tbl th:last-child, .dsh-mw-tbl td.dsh-r { width:78px; }                /* Cumulative */
+.dsh-mw-tbl th:nth-child(2), .dsh-mw-tbl td.dsh-mw-barcell { width:180px; }    /* short bar + $ — fits "€146.18bn" (R43f) */
+.dsh-mw-tbl th:last-child, .dsh-mw-tbl td.dsh-r { width:96px; }                /* Cumulative — wide enough for its one-word head (R43f) */
 /* The Stress table (6 columns) is wider than a phone; let it scroll rather than clip. */
 .dsh-stresswrap { overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
 .dsh-stresswrap::-webkit-scrollbar { display:none; }
@@ -473,7 +453,7 @@
 .dsh-mw-barcell { display:flex; align-items:center; gap:9px; }
 .dsh-mw-track { position:relative; display:block; width:84px; flex:0 0 84px; height:15px; background:var(--t-panel2); border-radius:0; }
 .dsh-mw-fill { position:absolute; inset:0 auto 0 0; height:100%; background:var(--t-crd); border-radius:0; min-width:2px; }
-.dsh-mw-hval { color:var(--t-ink); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-mw-hval { color:var(--t-ink); font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; white-space:nowrap; }
 /* Composition — how each year's bar breaks down (real sourced components). Inline
    "Label $Xtn" items, wrapping, middot-separated. */
 /* Override .dsh-tbl td's nowrap (higher specificity) so the Composition cell WRAPS —
@@ -483,7 +463,7 @@
 .dsh-mw-comp-i { display:inline-block; white-space:nowrap; }
 .dsh-mw-comp-i:not(:last-child)::after { content:"·"; margin:0 6px; color:var(--t-faint); }
 .dsh-mw-comp-l { color:var(--t-mut); }
-.dsh-mw-comp-v { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-mw-comp-v { color:var(--t-ink); font-weight:400; font-variant-numeric:tabular-nums; }
 .dsh-mw-comp-na { color:var(--t-faint); }
 .dsh-mw-comp-by { color:var(--t-faint); font-weight:400; text-transform:none; letter-spacing:0; }
 /* Phones: the 4-column ladder (Year · bar+$ · Composition · Cumulative) is too
@@ -510,7 +490,7 @@
   .dsh-mw-tbl tbody tr:last-child { border-bottom:0; }
   .dsh-mw-tbl td { display:block; width:auto; padding:0; border:0; }
   .dsh-mw-tbl td.dsh-nm { grid-area:year; }
-  .dsh-mw-tbl td.dsh-mw-barcell { grid-area:bar; display:flex; align-items:center; gap:9px; padding:0; }  /* bar + $ stay on one line (td{display:block} above would stack them) */
+  .dsh-mw-tbl td.dsh-mw-barcell { grid-area:bar; display:flex; align-items:center; gap:9px; padding:0; width:auto; }  /* bar + $ stay on one line (td{display:block} above would stack them) */
   .dsh-mw-track { width:96px; flex:0 0 96px; }                      /* bar legible again */
   .dsh-mw-tbl td.dsh-r { grid-area:cum; text-align:right; white-space:nowrap; }
   .dsh-mw-tbl td.dsh-mw-comp { grid-area:comp; margin-top:3px; padding:0; line-height:1.4; }
@@ -522,8 +502,8 @@
 .dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
 .dsh-stress { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
 .dsh-stress-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
-.dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:600; font-size:var(--fs-body); }
-.dsh-stress-debt { color:var(--t-ink); font-weight:700; font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:400; font-size:var(--fs-body); }
+.dsh-stress-debt { color:var(--t-ink); font-weight:400; font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .dsh-stress-m { color:var(--t-mut); font-size:var(--fs-body); margin:3px 0 4px; }
 /* Stress sort chip bar */
 .dsh-sortbar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:0 0 8px; }
@@ -531,7 +511,7 @@
 .dsh-sortchip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font-size:var(--fs-body); font-family:inherit; padding:0 8px; cursor:pointer; }
 .dsh-sortchip.is-on { color:var(--t-ink); font-weight:600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .dsh-sortchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
-.dsh-stress-n { color:var(--t-dim); font-size:var(--fs-body); line-height:1.35; }
+.dsh-stress-n { color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; }
 
 .dsh-more a { color:inherit; text-decoration:none; font-size:var(--fs-body); }
 @media (hover:hover){ .dsh-more a:hover { text-decoration:none; } }
@@ -544,11 +524,11 @@
 .dsh-pills { display:flex; flex-wrap:wrap; gap:8px; }
 /* Regime pills: title on the LEFT (dark ink), value on the RIGHT (muted grey). */
 .dsh-pill { display:flex; flex-direction:row; align-items:baseline; justify-content:space-between; gap:10px; flex:1 1 160px; min-width:0; padding:8px 11px; border:1px solid var(--t-grid2); border-radius: 0; background:var(--t-panel2); }
-.dsh-pill-k { color:var(--t-ink); font-size:var(--fs-micro); font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
+.dsh-pill-k { color:var(--t-ink); font-size:var(--fs-micro); font-weight:400; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
 .dsh-pill-v { color:var(--t-mut); font-size:var(--fs-num); font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; font-variant-numeric:tabular-nums; }
 .dsh-pill-v .dsh-pill-up, .dsh-pill-v.dsh-pill-up { color:var(--t-up); }
 .dsh-pill-v .dsh-pill-dn, .dsh-pill-v.dsh-pill-dn { color:var(--t-down); }
-.dsh-pill-win { color:var(--t-faint); font-size:var(--fs-micro); font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
+.dsh-pill-win { color:var(--t-faint); font-size:var(--fs-micro); font-weight:400; text-transform:uppercase; letter-spacing:.03em; }
 /* Long-label pills (credit pulse): stack the label OVER the value so a long metric
    name ("PRIVATE CREDIT DEFAULT RATE") never clips or pushes the value off. */
 .dsh-pills-stack .dsh-pill { flex-direction:column; align-items:flex-start; gap:3px; }
@@ -560,7 +540,7 @@
    one line, NASDAQ on three). */
 .dsh-tape .dsh-pill { flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:2px; padding:9px 12px; }
 .dsh-tape .dsh-pill-k { flex:0 0 auto; white-space:normal; line-height:1.2; }
-.dsh-tape .dsh-pill-lv { color:var(--t-ink); font-size:var(--fs-head); font-weight:600; line-height:1.15; font-variant-numeric:tabular-nums; }
+.dsh-tape .dsh-pill-lv { color:var(--t-ink); font-size:var(--fs-head); font-weight:400; line-height:1.15; font-variant-numeric:tabular-nums; }
 .dsh-tape .dsh-pill-chg { font-size:var(--fs-num); font-weight:500; color:var(--t-mut); font-variant-numeric:tabular-nums; }
 .dsh-tape .dsh-pill-chg.dsh-pill-up { color:var(--t-up); }
 .dsh-tape .dsh-pill-chg.dsh-pill-dn { color:var(--t-down); }
@@ -572,11 +552,11 @@
 .dsh-ro { border:1px solid var(--t-grid); border-radius:0; padding:9px 10px; background:var(--t-panel2); }
 .dsh-ro-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
 .dsh-ro-nm { color:var(--t-mut); font-size:var(--fs-body); }
-.dsh-ro-rate { color:var(--t-ink); font-size:var(--fs-num); font-weight:700; font-variant-numeric:tabular-nums; }
-.dsh-ro-m { color:var(--t-dim); font-size:var(--fs-body); margin:3px 0; }
+.dsh-ro-rate { color:var(--t-ink); font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; }
+.dsh-ro-m { color:var(--t-ink); font-size:var(--fs-body); margin:3px 0; }
 /* Collapsed-by-default commentary (native <details>). */
 .dsh-ro-more { margin-top:4px; }
-.dsh-ro-sum { cursor:pointer; color:var(--t-accent); font-size:var(--fs-body); font-weight:600; list-style:none;
+.dsh-ro-sum { cursor:pointer; color:var(--t-accent); font-size:var(--fs-body); font-weight:400; list-style:none;
   display:inline-flex; align-items:center; gap:5px; user-select:none; }
 .dsh-ro-sum::-webkit-details-marker { display:none; }
 .dsh-ro-sum::before { content:"\25B8"; font-size:.72em; transition:transform .15s ease; }
@@ -600,19 +580,19 @@
 .dsh-yc-x { display:flex; justify-content:space-between; color:var(--t-faint); font-size:var(--fs-body); padding:2px 6px 0; }
 /* Macro yield curve — dots, tenor axis labels and the value table share one
    column grid (92px label column + N equal tenor columns) so they line up. */
-.dsh-yc2-plot { padding-left:92px; }
+.dsh-yc2-plot { padding-left:104px; }
 .dsh-yc2-svg { width:100%; height:118px; }
-.dsh-yc2-x { padding-left:92px; display:grid; grid-template-columns:repeat(var(--n,5),1fr); text-align:center;
+.dsh-yc2-x { padding-left:104px; display:grid; grid-template-columns:repeat(var(--n,5),1fr); text-align:center;
   color:var(--t-faint); font-size:var(--fs-body); padding-top:4px; }
 .dsh-yc2-tbl { table-layout:fixed; width:100%; margin-top:8px; }
 .dsh-yc2-tbl th, .dsh-yc2-tbl td { text-align:center; }
-.dsh-yc2-tbl th:first-child, .dsh-yc2-tbl td.dsh-nm { width:92px; text-align:left; }
+.dsh-yc2-tbl th:first-child, .dsh-yc2-tbl td.dsh-nm { width:104px; text-align:left; white-space:nowrap; }
 .dsh-yc-key { display:inline-block; width:9px; height:9px; border-radius:0; margin-right:5px; vertical-align:baseline; }
 .dsh-yc-key.dsh-yc-us { background:var(--t-accent); } .dsh-yc-key.dsh-yc-uk { background:var(--t-mac); }
 td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Multi-country curve legend (Bonds) + the yield-change tenor selector. */
 .dsh-yc-leg { display:flex; flex-wrap:wrap; gap:4px 12px; margin:6px 0 10px; }
-.dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-dim); font-size:var(--fs-body); }
+.dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-ink); font-size:var(--fs-body); }
 .dsh-yc-lg i { width:9px; height:9px; border-radius:0; display:inline-block; }
 /* Bond-duration selector: pushed to the top-right of the card header, compact so
    it sits in line with the title. */
@@ -621,27 +601,22 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 
 /* Embedded news wires (Macro/Credit) — compact linked list */
 .dsh-news { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
-.dsh-news-i { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); font-size:var(--fs-body); }
-.dsh-news-d { flex:0 0 auto; color:var(--t-faint); font-size:var(--fs-num); font-variant-numeric:tabular-nums; min-width:44px; }
-.dsh-news-i a { color:var(--t-dim); text-decoration:none; }
-@media (hover:hover){ .dsh-news-i a:hover { color:var(--t-ink); } }
-.dsh-news-s { flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:var(--fs-micro); white-space:nowrap; }
 
 /* Sortable Stress league table (Credit) */
 .dsh-tbl th.dsh-sortable { cursor:pointer; user-select:none; }
-@media (hover:hover){ .dsh-tbl th.dsh-sortable:hover { color:var(--t-dim); } }
+@media (hover:hover){ .dsh-tbl th.dsh-sortable:hover { color:var(--t-ink); } }
 .dsh-tbl th.dsh-sorted { color:var(--t-ink); }
-.dsh-stresstbl td.dsh-note { white-space:normal; color:var(--t-dim); font-size:var(--fs-body); line-height:1.35; }
+.dsh-stresstbl td.dsh-note { white-space:normal; color:var(--t-ink); font-size:var(--fs-body); line-height:1.35; }
 .dsh-stresstbl td.dsh-nm { white-space:normal; }
 /* Debtor / Sector / HQ / Debt are their own columns now, all left-aligned. */
 .dsh-stresstbl th, .dsh-stresstbl td { text-align:left; }
 .dsh-stresstbl td.dsh-stress-sec, .dsh-stresstbl td.dsh-stress-hq { color:var(--t-mut); font-weight:400; font-size:var(--fs-body); white-space:nowrap; }
-.dsh-stresstbl td.dsh-stress-debt { color:var(--t-ink); font-weight:600; font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-stresstbl td.dsh-stress-debt { color:var(--t-ink); font-weight:400; font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
 /* Clamp an inline note to two lines so table rows stay compact; the SRC link
    after it opens the full story. */
 .dsh-clamp2 { display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 /* Rate-outlook table: the "Read" commentary column wraps to fit its space. */
-.dsh-ro-tbl td.dsh-ro-read { white-space:normal; color:var(--t-dim); font-size:var(--fs-body); line-height:1.4; }
+.dsh-ro-tbl td.dsh-ro-read { white-space:normal; color:var(--t-ink); font-size:var(--fs-body); line-height:1.4; }
 .dsh-tbl td.dsh-mut { color:var(--t-mut); }
 
 /* Two-up pair (spreads|maturity, earnings|IPO) — side by side from a small width */
@@ -655,7 +630,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-fed-h { color:var(--t-mut); font-size:var(--fs-body); margin-bottom:6px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
 .dsh-mut { color:var(--t-faint); font-weight:400; }
 .dsh-fw { display:grid; grid-template-columns:minmax(0,1fr) 80px 42px; align-items:center; gap:8px; padding:3px 0; }
-.dsh-fw-l { color:var(--t-dim); font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-fw-l { color:var(--t-ink); font-size:var(--fs-body); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-fw-track { position:relative; height:12px; background:var(--t-panel2); border-radius:0; }
 .dsh-fw-bar { position:absolute; left:0; top:0; bottom:0; background:var(--t-accent); border-radius:0; }
 .dsh-fw-p { text-align:right; font-size:var(--fs-num); font-variant-numeric:tabular-nums; color:var(--t-ink); }
@@ -679,17 +654,17 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-cyc-meters .dsh-fw { display:flex; grid-template-columns:none; gap:6px; padding:0; }
 .dsh-cyc-meters .dsh-fw-l { color:var(--t-mut); }
 .dsh-cyc-meters .dsh-fw-track { width:64px; flex:none; }
-.dsh-cyc-meters .dsh-fw-p { color:var(--t-dim); }
-.dsh-cyc-sub { font-size:var(--fs-body); font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--t-mut); margin:12px 0 0; }
+.dsh-cyc-meters .dsh-fw-p { color:var(--t-ink); }
+.dsh-cyc-sub { font-size:var(--fs-body); font-weight:400; letter-spacing:.03em; text-transform:uppercase; color:var(--t-mut); margin:12px 0 0; }
 .dsh-cyc-note { font-size:var(--fs-body); line-height:1.55; color:var(--t-ink); margin:8px 0 0; }
 .dsh-cyc-note.dsh-mut { color:var(--t-mut); font-size:var(--fs-body); }
 .dsh-cyc-srcs { display:flex; flex-wrap:wrap; gap:5px 14px; margin-top:10px; }
 .dsh-cyc-src { font-size:var(--fs-micro); color:var(--t-mut); text-decoration:none; }
-@media (hover:hover){ .dsh-cyc-src:hover { color:var(--t-dim); } }
+@media (hover:hover){ .dsh-cyc-src:hover { color:var(--t-ink); } }
 /* Per-block expand/collapse for the cycle narrative (collapsed by default). */
 .dsh-cyc-exp { margin-top:10px; }
 .dsh-cyc-sum { list-style:none; cursor:pointer; user-select:none; display:inline-flex; align-items:center; gap:6px;
-  font-size:var(--fs-body); font-weight:600; color:var(--t-mut); padding:4px 0; }
+  font-size:var(--fs-body); font-weight:400; color:var(--t-mut); padding:4px 0; }
 .dsh-cyc-sum::-webkit-details-marker { display:none; }
 .dsh-cyc-sum::before { content:"\25B8"; font-size:var(--fs-body); transition:transform .15s ease; }
 .dsh-cyc-exp[open] .dsh-cyc-sum::before { transform:rotate(90deg); }
@@ -736,7 +711,7 @@ td .dsh-yc-ea { border:0; }
 .dsh-ref > .dsh-row2, .dsh-ref > .dsh-card { margin-top:var(--dsh-gap); }
 .dsh-ref .dsh-row2 { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:var(--dsh-gap); }
 .dsh-reg-tbl td { vertical-align:top; }
-.dsh-reg-note { color:var(--t-dim); }
+.dsh-reg-note { color:var(--t-ink); }
 .dsh-reg-past td { color:var(--t-mut); }
 .dsh-act-tbl td.dsh-r, .dsh-act-tbl th.dsh-r { font-variant-numeric:tabular-nums; }
 .dsh-act-list { margin-top:4px; }
@@ -745,9 +720,6 @@ td .dsh-yc-ea { border:0; }
 .dsh-row2 .dsh-fed, .dsh-row2 .dsh-kvgrid { grid-template-columns:minmax(0,1fr); }
 .dsh-act-tbl { width:100%; }
 /* Restructuring list (Legal): headline on top, date · firm/court beneath. */
-.dsh-rx .dsh-news-i { display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-areas:"head head" "date src"; column-gap:8px; row-gap:1px; }
-.dsh-rx .dsh-news-i a { grid-area:head; } .dsh-rx .dsh-news-d { grid-area:date; }
-.dsh-rx .dsh-news-s { grid-area:src; margin-left:0; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
 .dsh-reg-tbl td { white-space:normal; }
 .dsh-reg-tbl td.dsh-stress-as { white-space:nowrap; }
 .dsh-reg-tbl .dsh-nm { min-width:180px; }
@@ -762,7 +734,7 @@ td .dsh-yc-ea { border:0; }
 .dsh-h { display:flex; align-items:baseline; flex-wrap:nowrap; gap:10px; min-height:20px; margin:0 0 8px; padding:0 0 8px;
   font-size:var(--fs-body); font-weight:600; letter-spacing:0; color:var(--t-ink); }
 /* -- Column heads: the scale's micro step (R11), muted -- */
-.dsh-tbl th { font-size:var(--fs-micro); font-weight:600; color:var(--t-mut); }
+.dsh-tbl th { font-size:var(--fs-micro); font-weight:400; color:var(--t-mut); }
 :root[data-theme="dark"] .dsh-h { color:var(--t-ink); font-weight:600; }
 .dsh-h-t { flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-h-r { flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
@@ -785,7 +757,7 @@ td .dsh-yc-ea { border:0; }
 /* -- Chip family: status · source · tag — one size -- */
 .dsh-live, .dsh-src, .dsh-tag, .dsh-band, .dsh-hf-dir, .dsh-earn-when {
   display:inline-flex; align-items:center; box-sizing:border-box; height:18px; padding:0 5px; line-height:1;
-  font-size:var(--fs-micro); font-weight:600; letter-spacing:.04em; text-transform:uppercase; border-radius:0; vertical-align:middle; white-space:nowrap; }
+  font-size:var(--fs-micro); font-weight:400; letter-spacing:.04em; text-transform:uppercase; border-radius:0; vertical-align:middle; white-space:nowrap; }
 .dsh-src { color:var(--t-mut); border:1px solid var(--t-grid2); margin-left:0; }
 .dsh-live.is-snap { color:var(--t-mut); border-color:var(--t-grid2); }
 .dsh-band { margin-left:0; }
@@ -794,7 +766,7 @@ td .dsh-yc-ea { border:0; }
 .dsh-fl-tbl th.dsh-r, .dsh-fl-tbl td.dsh-fl, .dsh-fl-tbl td.dsh-fl-na { text-align:right; }
 .dsh-tbl td.dsh-r, .dsh-fl, .dsh-kv-v, .dsh-spread-v, .dsh-mw-hval, .dsh-mw-comp-v, .dsh-stress-debt, .dsh-sec-v, .dsh-fw-p, .dsh-ms-sz {
   font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
-.dsh-kv-v, .dsh-spread-v, .dsh-fl, .dsh-mw-hval, .dsh-mw-comp-v, .dsh-stress-debt { font-weight:600; color:var(--t-ink); }
+.dsh-kv-v, .dsh-spread-v, .dsh-fl, .dsh-mw-hval, .dsh-mw-comp-v, .dsh-stress-debt { font-weight:400; color:var(--t-ink); }
 .dsh-fl-na { color:var(--t-faint); }
 .dsh-tbl td { vertical-align:baseline; }
 .dsh-tbl td.dsh-chg { color:var(--t-mut); font-size:var(--fs-num); font-variant-numeric:tabular-nums; }
@@ -804,11 +776,11 @@ td .dsh-yc-ea { border:0; }
 .dsh-tbl td .dsh-src { float:none; margin-left:0; }
 /* -- Mini tables (spreads, money markets) -- */
 .dsh-spreads-card .dsh-spreads, #dsh-mm { display:block; }
-.dsh-mini td.dsh-spread-nm { color:var(--t-dim); white-space:normal; }
+.dsh-mini td.dsh-spread-nm { color:var(--t-ink); white-space:normal; }
 .dsh-mini th:first-child, .dsh-mini td:first-child { width:38%; }
 /* -- KPI rows: label · value · period · SRC on a fixed grid -- */
 .dsh-kv.dsh-kv4 { display:grid; grid-template-columns:minmax(0,1fr) auto 64px 34px; column-gap:12px; align-items:baseline; }
-.dsh-kv4 .dsh-kv-k { white-space:normal; overflow:visible; text-overflow:clip; line-height:1.35; color:var(--t-dim); }
+.dsh-kv4 .dsh-kv-k { white-space:normal; overflow:visible; text-overflow:clip; line-height:1.35; color:var(--t-ink); }
 .dsh-kv4 .dsh-kv-v { text-align:right; white-space:nowrap; }
 .dsh-kv4 .dsh-kv-d { text-align:right; white-space:nowrap; }
 .dsh-kv4 .dsh-kv-s { text-align:right; }
@@ -816,11 +788,13 @@ td .dsh-yc-ea { border:0; }
 .dsh-kv-sub .dsh-kv-yoy { margin-left:0; }
 .dsh-kv-sub .dsh-band { margin-top:2px; }
 /* -- Row labels: one secondary grey for labels, one for meta -- */
-.dsh-kv-k, .dsh-spread-nm, .dsh-sec-nm, .dsh-fw-l { color:var(--t-dim); }
+.dsh-kv-k, .dsh-spread-nm, .dsh-sec-nm, .dsh-fw-l { color:var(--t-ink); }
 .dsh-stress-sec, .dsh-stress-hq, .dsh-mw-comp-l { color:var(--t-mut); }
 /* -- Uppercase micro labels: one style -- */
 .dsh-pc-reports-h, .dsh-fl-tbl tr.dsh-georow td.dsh-geo, .dsh-ms-col-h, .dsh-pill-k, .dsh-earn-ml, .dsh-term-lbl {
-  font-size:var(--fs-micro); font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); }
+  font-size:var(--fs-micro); font-weight:400; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); }
+/* Sub-section headings keep heading weight (R43e); the in-row labels above stay regular. */
+.dsh-pc-reports-h, .dsh-ms-col-h, .dsh-term-lbl { font-weight:600; }
 :root[data-theme="dark"] .dsh-term-lbl { color:var(--t-mut); }
 /* -- Grid: section label groups with its card; column tops align; pairs equal -- */
 .dsh-mid > .dsh-term-lbl { margin:6px 0 -4px; }
@@ -830,7 +804,7 @@ td .dsh-yc-ea { border:0; }
 /* -- Regime pills: key over value, equal heights -- */
 .dsh-pills:not(.dsh-tape) { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:8px; }
 .dsh-pills:not(.dsh-tape) .dsh-pill { flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:4px; }
-.dsh-pills:not(.dsh-tape) .dsh-pill-v { text-align:left; color:var(--t-dim); }
+.dsh-pills:not(.dsh-tape) .dsh-pill-v { text-align:left; color:var(--t-ink); }
 /* -- Equities tape: equal tiles -- */
 .dsh-pills.dsh-tape { display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:8px; }
 @media (max-width:760px){ .dsh-pills.dsh-tape { grid-template-columns:repeat(3, minmax(0,1fr)); } }
@@ -847,7 +821,6 @@ td .dsh-yc-ea { border:0; }
 .dsh-mini-d { display:none; }
 /* Date cells in list tables (latest / period): micro, faint, kept on phone. */
 .dsh-tbl td.dsh-d { font-size:var(--fs-micro); color:var(--t-faint); white-space:nowrap; font-variant-numeric:tabular-nums; }
-.dsh-tbl td.dsh-wrap { white-space:normal; }
 /* Notes & meta tags (type, source, "as of", "awaited"): the scale's micro step (R11). */
 .dsh-fed-h .dsh-mut { font-size:var(--fs-micro); }
 .dsh-tbl td.dsh-rank { color:var(--t-faint); width:28px; }
@@ -862,6 +835,7 @@ td .dsh-yc-ea { border:0; }
   .dsh-ro-tbl tr.dsh-ro-r { display:grid; grid-template-columns:minmax(0,1fr) auto 34px; grid-template-areas:"nm rate src" "nx as as" "rd rd rd";
     column-gap:8px; padding:6px 0; border-bottom:1px solid var(--t-grid); }
   .dsh-ro-tbl tr.dsh-ro-r td { border:0; padding:1px 0; white-space:normal; }
+  .dsh-ro-tbl[data-cols] tr.dsh-ro-r td { width:auto; max-width:none; min-width:0; }   /* restacked cells drop the R43 table widths */
   .dsh-ro-r .dsh-nm { grid-area:nm; } .dsh-ro-r .dsh-ro-rate { grid-area:rate; }
   .dsh-ro-r .dsh-srccol { grid-area:src; } .dsh-ro-r .dsh-ro-nx { grid-area:nx; color:var(--t-mut); font-size:var(--fs-micro); }
   .dsh-ro-r .dsh-stress-as { grid-area:as; text-align:right; } .dsh-ro-r .dsh-ro-read { grid-area:rd; }
@@ -937,7 +911,7 @@ td .dsh-yc-ea { border:0; }
 .dsh-chart-yt { flex:0 0 auto; text-align:right; font-size:var(--fs-micro); color:var(--t-mut); margin:0 0 3px; }
 /* Yield-curve axes: value ticks + "Yield" title in the 92px label column, "Maturity" under it. */
 .dsh-yc2-plot { position:relative; }
-.dsh-yc2-y { position:absolute; left:0; top:0; bottom:0; width:84px; pointer-events:none; font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; }
+.dsh-yc2-y { position:absolute; left:0; top:0; bottom:0; width:96px; pointer-events:none; font-size:var(--fs-micro); color:var(--t-faint); font-variant-numeric:tabular-nums; }
 .dsh-yc2-y span { position:absolute; right:0; transform:translateY(-50%); }
 .dsh-yc2-y em, .dsh-yc2-x em { position:absolute; left:0; font-style:normal; color:var(--t-mut); font-size:var(--fs-micro); }
 .dsh-yc2-y em { top:0; }
@@ -945,7 +919,7 @@ td .dsh-yc-ea { border:0; }
 .dsh-yc2-x em { top:0; }
 .dsh-lg { display:inline-flex; align-items:center; gap:5px; font-size:var(--fs-micro); color:var(--t-mut); }
 .dsh-lg i { width:10px; height:2px; display:inline-block; }
-.dsh-lg b { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-lg b { color:var(--t-ink); font-weight:400; font-variant-numeric:tabular-nums; }
 .dsh-fill > .dsh-hf-pick { flex:0 0 auto; }
 
 /* ---- Reference rosters (Dashboard ▸ Credit): European credits + BDCs (v2/js/credit-roster.js).
@@ -955,7 +929,7 @@ td .dsh-yc-ea { border:0; }
 .crr-bar { display:flex; gap:6px; align-items:center; margin:2px 0 8px; }
 .crr-q { flex:1 1 auto; min-width:0; height:var(--chip-h,34px); box-sizing:border-box; border:1px solid var(--t-grid2); background:transparent; color:var(--t-ink); font:inherit; font-size:var(--fs-body); padding:0 9px; border-radius:0; }
 .crr-sort { flex:0 1 auto; min-width:0; max-width:46%; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit; font-size:var(--fs-body); padding:0 4px; border-radius:0; }
-.crr-csv { flex:0 0 auto; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit; font-size:var(--fs-micro); font-weight:700; letter-spacing:.05em; padding:0 9px; cursor:pointer; border-radius:0; }
+.crr-csv { flex:0 0 auto; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit; font-size:var(--fs-micro); font-weight:400; letter-spacing:.05em; padding:0 9px; cursor:pointer; border-radius:0; }
 @media (hover:hover){ .crr-csv:hover, .crr-sort:hover { color:var(--t-ink); } }
 .crr-chips { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 6px; }
 .crr-chip { height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit; font-size:var(--fs-body); padding:0 9px; cursor:pointer; border-radius:0; }
@@ -967,14 +941,14 @@ td .dsh-yc-ea { border:0; }
 .crr-hd { display:block; width:100%; box-sizing:border-box; text-align:left; background:none; border:0; border-radius:0; margin:0; padding:8px 2px; font:inherit; color:inherit; cursor:pointer; }
 @media (hover:hover){ .crr-hd:hover .crr-nm { color:var(--t-ink); } }
 .crr-a { display:flex; align-items:baseline; gap:10px; }
-.crr-nm { flex:1 1 auto; min-width:0; color:var(--t-ink); font-size:var(--fs-body); font-weight:600; line-height:1.3; overflow-wrap:anywhere; }
+.crr-nm { flex:1 1 auto; min-width:0; color:var(--t-ink); font-size:var(--fs-body); font-weight:400; line-height:1.3; overflow-wrap:anywhere; }
 .crr-tk { color:var(--t-faint); font-family:var(--t-mono); font-size:var(--fs-micro); font-weight:400; white-space:nowrap; }
 .crr-v { flex:0 0 auto; display:inline-flex; align-items:center; gap:5px; color:var(--t-ink); font-family:var(--t-mono); font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .crr-b { display:flex; flex-wrap:wrap; column-gap:0; row-gap:2px; margin-top:2px; color:var(--t-mut); font-size:var(--fs-micro); line-height:1.35; }
 .crr-b > span { white-space:nowrap; }
 .crr-b > span:not(:last-child)::after { content:"·"; margin:0 6px; color:var(--t-faint); }
 .crr-b a.crr-mgr { color:inherit; }
-.crr-x { padding:2px 2px 10px; font-size:var(--fs-body); color:var(--t-dim); }
+.crr-x { padding:2px 2px 10px; font-size:var(--fs-body); color:var(--t-ink); }
 .crr-facts { display:grid; grid-template-columns:minmax(96px, 150px) 1fr; gap:8px; padding:3px 0; line-height:1.35; }
 .crr-facts > span:last-child { color:var(--t-ink); min-width:0; overflow-wrap:anywhere; }
 .crr-k { color:var(--t-faint); font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.05em; }
@@ -1004,7 +978,7 @@ td .dsh-yc-ea { border:0; }
 .dsh-stk-list { display:none; list-style:none; margin:0; padding:0; }
 .dsh-pv-hide { display:none; }
 .dsh-seeall { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:8px; height:var(--chip-h,34px);
-  border:1px solid var(--t-grid2); background:transparent; color:var(--t-dim); font:inherit; font-size:var(--fs-body); font-weight:600; cursor:pointer; border-radius:0; }
+  border:1px solid var(--t-grid2); background:transparent; color:var(--t-ink); font:inherit; font-size:var(--fs-body); font-weight:400; cursor:pointer; border-radius:0; }
 @media (max-width:900px){
   /* Lists show a preview (JS) — the card never scrolls inside the page. */
   .dsh-fill-body, .dsh-fill-body:not(:has(.dsh-chart)) { max-height:none; overflow:visible; }
@@ -1016,17 +990,15 @@ td .dsh-yc-ea { border:0; }
   .dsh-stk-i { padding:8px 0; border-bottom:1px solid var(--t-grid); }
   .dsh-stk-i:last-child { border-bottom:0; }
   .dsh-stk-h { display:flex; align-items:baseline; gap:8px; }
-  .dsh-stk-n { flex:1 1 auto; min-width:0; color:var(--t-ink); font-size:var(--fs-body); font-weight:600; line-height:1.35; overflow-wrap:anywhere; }
+  .dsh-stk-n { flex:1 1 auto; min-width:0; color:var(--t-ink); font-size:var(--fs-body); font-weight:400; line-height:1.35; overflow-wrap:anywhere; }
   .dsh-stk-n a { color:inherit; }
   .dsh-stk-r { color:var(--t-faint); font-weight:400; font-size:var(--fs-micro); margin-right:6px; font-variant-numeric:tabular-nums; }
-  .dsh-stk-v { flex:0 0 auto; color:var(--t-ink); font-size:var(--fs-num); font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .dsh-stk-v { flex:0 0 auto; color:var(--t-ink); font-size:var(--fs-num); font-weight:400; font-variant-numeric:tabular-nums; white-space:nowrap; }
   .dsh-stk-s { flex:0 0 auto; }
   .dsh-stk-m { display:flex; flex-wrap:wrap; margin-top:3px; color:var(--t-mut); font-size:var(--fs-micro); line-height:1.4; }
   .dsh-stk-m > span:not(:last-child)::after { content:"·"; margin:0 6px; color:var(--t-faint); }
   .dsh-stk-l, .dsh-stk-v .dsh-stk-l { color:var(--t-faint); font-weight:400; font-size:var(--fs-micro); }
   .dsh-stk-m .dsh-tag { height:16px; }
-  /* Notes wrap rather than being cut with "…". */
-  .dsh-rx .dsh-news-s, .dsh-newsrail .dsh-news-s { white-space:normal; overflow:visible; text-overflow:clip; }
   /* "Why it moved": the label sits above its text. */
   .dsh-km { grid-template-columns:1fr; gap:2px; }
   .dsh-km-t { white-space:normal; }
@@ -1058,12 +1030,6 @@ html.dsh-sheet-open, html.dsh-sheet-open body { overflow:hidden; }
   .dsh-card { padding-left: var(--m-gutter, 12px); padding-right: var(--m-gutter, 12px); }
 }
 
-/* One news-row format (R40): a legal search result reads exactly like every other list
-   row — its legacy hooks carry no styling of their own here. */
-.dsh-news-s .dsh-lgl-ty { color:inherit; border:0; padding:0; font:inherit; text-transform:none; letter-spacing:0; }
-.dsh-news-i.dsh-lgl-i { padding:5px 0; }
-.dsh-news-i .dsh-lgl-t { display:inline; color:inherit; font-size:inherit; font-weight:inherit; line-height:inherit; }
-.dsh-news-i a.dsh-pc-report { display:inline; padding:0; border:0; }
 /* Desktop (owner 2026-10-15): "See all" opens the whole list as a centred panel. */
 @media (min-width:901px){
   .dsh-sheet { inset:5vh max(6vw, calc(50vw - 640px)); border:1px solid var(--t-grid2); box-shadow:0 18px 50px rgba(0,0,0,.35); padding:0; }

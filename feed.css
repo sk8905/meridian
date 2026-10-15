@@ -40,7 +40,7 @@
 .g-feed-sel:focus { outline:none; border-color:var(--t-ink); }
 /* Newsletters shortcut, pinned to the right edge of the filter banner — routes to
    the Newsletters tab (data-nav-tab). Mirrors the .g-feed-sel height/treatment. */
-.g-feed-nlbtn { margin-left:auto; display:inline-flex; align-items:center; gap:6px; height:24px; padding:0 10px; background:var(--t-panel2); color:var(--t-dim); border:1px solid var(--t-grid2); border-radius:0; font-family:inherit; font-size:var(--fs-body); font-weight:600; cursor:pointer; }
+.g-feed-nlbtn { margin-left:auto; display:inline-flex; align-items:center; gap:6px; height:24px; padding:0 10px; background:var(--t-panel2); color:var(--t-ink); border:1px solid var(--t-grid2); border-radius:0; font-family:inherit; font-size:var(--fs-body); font-weight:400; cursor:pointer; }
 .g-feed-nlbtn:hover { color:var(--t-ink); border-color:var(--t-mut); }
 /* Active (Newsletters filter on): a neutral black/white underline (matches the
    selected-chip marker, R14a) — no orange accent. */
@@ -51,7 +51,7 @@
 .g-feed-chip { display:flex; align-items:center; justify-content:center; gap:6px; flex:1 1 0; min-width:0;
   height:100%; padding:0 15px; border:0; background:transparent; cursor:pointer; font-family:inherit;
   font-size:var(--fs-body); font-weight:500; letter-spacing:.005em; color:var(--t-mut); border-radius:0; }
-.g-feed-chip:hover { color:var(--t-dim); }
+.g-feed-chip:hover { color:var(--t-ink); }
 .g-feed-chip.is-on { color:var(--t-ink); font-weight:600; background:transparent; box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .g-feed-chip.is-on { box-shadow:inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
 .g-feed-chip-n { color:var(--t-faint); font-size:var(--fs-micro); font-variant-numeric:tabular-nums; background:none; padding:0; }
@@ -81,7 +81,7 @@
   gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
 .g-feed-row:hover { background:var(--t-panel2); }
 .g-feed-time { font-family:var(--t-mono); font-size:var(--fs-num); color:var(--t-mut); min-width:0; font-variant-numeric:tabular-nums; }
-.g-feed-code { font-family:var(--t-mono); font-size:calc(var(--fs-micro) - 1px); font-weight:700; letter-spacing:.02em;
+.g-feed-code { font-family:var(--t-mono); font-size:calc(var(--fs-micro) - 1px); font-weight:400; letter-spacing:.02em;
   text-align:center; border-radius:0; padding:2px 0; line-height:1.3; overflow:hidden; white-space:nowrap; }
 .g-feed-code.news{ color:var(--t-news, #8aa0c8); background:color-mix(in srgb,var(--t-news, #8aa0c8) 14%,transparent); }
 .g-feed-code.macro{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
@@ -134,13 +134,13 @@
    faint grey fell below WCAG AA on the light ground (~3:1); --t-mut clears AA in
    both themes and the newsroom name stays readable (F9). */
 .g-feed-src { font-family:var(--t-mono); font-size:var(--fs-micro); color:var(--t-mut); white-space:nowrap; min-width:0; overflow:hidden; text-overflow:ellipsis; cursor:pointer; justify-self:end; text-align:right; }
-.g-feed-src:hover { color:var(--t-dim); text-decoration:none; }
+.g-feed-src:hover { color:var(--t-ink); text-decoration:none; }
 .g-feed-desk { display:none; }
 /* Active source-filter bar above the wire. */
 .g-feed-srcbar { display:flex; align-items:center; gap:8px; padding:6px 12px; background:var(--t-ground);
   border-bottom:1px solid var(--t-grid); font-family:var(--t-mono); font-size:var(--fs-micro); letter-spacing:.03em;
   text-transform:uppercase; color:var(--t-mut); position:sticky; top:0; z-index:1; }
-.g-feed-srcbar strong { color:var(--t-ink); font-weight:600; text-transform:none; letter-spacing:0; }
+.g-feed-srcbar strong { color:var(--t-ink); font-weight:400; text-transform:none; letter-spacing:0; }
 .g-feed-srcclear { margin-left:auto; border:0; background:transparent; cursor:pointer; color:var(--t-accent);
   font-family:inherit; font-size:var(--fs-micro); letter-spacing:.03em; text-transform:uppercase; padding:0; }
 .g-feed-srcclear:hover { text-decoration:none; }
@@ -152,14 +152,16 @@ body.wire-sliding .g-feed-srcbar { position:static; }
    leads, meta line beneath (code · time · source). Driven by the COLUMN width, so
    it triggers whenever the wire is narrow, regardless of viewport/device. -------- */
 @container feedwrap (max-width:760px){
+  /* R43: the wire keeps its time as the first column — line 1 = time · headline,
+     line 2 (under the headline) = code · source; two lines, one fixed height. */
   .g-feed-row { display:grid; align-items:baseline;
-    grid-template-columns:max-content max-content minmax(0,1fr);
-    grid-template-areas:"title title title" "code time src";
-    column-gap:6px; row-gap:5px; padding:11px 12px; }
+    grid-template-columns:var(--feed-time-w, 44px) max-content minmax(0,1fr);
+    grid-template-areas:"time title title" ". code src";
+    column-gap:8px; row-gap:4px; padding:8px 12px; }
   .g-feed-title { grid-area:title; font-size:var(--fs-body); line-height:1.36; }
   .g-feed-code { grid-area:code; padding:2px 5px; }
   .g-feed-time { grid-area:time; white-space:nowrap; }
-  /* Source sits flush RIGHT on the meta line (code · time on the left). */
+  /* Source sits flush RIGHT on the meta line. */
   .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; justify-self:end; text-align:right; }
 }
 /* phones: keep the source-filter bar tucked under the fixed chrome. */
@@ -179,3 +181,73 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 /* Belt-and-suspenders: the shared wire never underlines, whatever the host page's
    a:hover rules do. */
 .g-feed-row, .g-feed-row:hover, .g-feed-title { text-decoration:none; }
+
+/* =============================================================================
+   R43 — ONE professional list & table style, everywhere (owner 2026-10-15).
+   The shared primitives every surface uses (HOUSE_STYLE R43; guarded by
+   tests/style-r43.mjs):
+     • THE events row  .g-ev   (feed.js evRow): date · headline / meta · tag · source
+     • THE table look  — header cells, column classes .c-date .c-num .c-text .c-tag .c-src
+     • THE tag         — one muted tag style (.dsh-tag and the legacy tag classes), placed in .c-tag
+   Three text tiers only: --t-ink (name / headline / key figure), --t-mut
+   (supporting facts), --t-faint (dates, sources, counts, labels). Bold only for
+   headings; <b>/<strong> in body copy inherit the surrounding weight.
+   ============================================================================= */
+:root { --c-date-w:64px; --c-src-w:104px; --c-chip-w:34px; --ev-h:46px; }
+@media (max-width:760px){ :root { --c-date-w:58px; --c-src-w:76px; } }
+:where(b, strong) { font-weight:inherit; }
+
+/* ---- the events row: two single lines, one fixed height ---------------------
+   line 1 = date · headline (ink) · tag · source; line 2 = meta (mut). Each line
+   truncates with an ellipsis; the row's title attribute carries the full text. */
+.g-evs { list-style:none; margin:0; padding:0; }
+.g-ev { display:grid; grid-template-columns:var(--c-date-w) minmax(0,1fr) auto var(--c-src-w);
+  grid-template-areas:"date title tag src" "date meta meta meta"; column-gap:8px; row-gap:1px;
+  align-items:baseline; align-content:center; box-sizing:border-box; height:var(--ev-h); margin:0;
+  padding:0; overflow:hidden; border-bottom:1px solid var(--t-grid); font-size:var(--fs-body); }
+.g-ev:last-child { border-bottom:0; }
+.g-ev > .c-date { grid-area:date; align-self:start; padding-top:2px; }
+.g-ev > .g-ev-t { grid-area:title; min-width:0; color:var(--t-ink); font-size:var(--fs-body); font-weight:400; line-height:1.35;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-decoration:none; }
+.g-ev > .g-ev-m { grid-area:meta; min-width:0; color:var(--t-mut); font-size:var(--fs-micro); line-height:1.4;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.g-ev > .g-ev-m a { color:inherit; text-decoration:none; }
+.g-ev > .c-tag { grid-area:tag; min-width:0; max-width:15ch; overflow:hidden; }
+@media (max-width:760px){ .g-ev > .c-tag { max-width:11ch; } }
+.g-ev > .c-tag > * { max-width:100%; overflow:hidden; text-overflow:ellipsis; vertical-align:top; }
+.g-ev > .c-src { grid-area:src; justify-self:stretch; }
+.g-ev.g-ev-chips { grid-template-columns:var(--c-date-w) minmax(0,1fr) auto var(--c-chip-w); }
+@media (hover:hover){ .g-ev > a.g-ev-t:hover, .g-ev > .g-ev-m a:hover { color:var(--t-ink); } }
+
+/* ---- column roles (events rows AND table cells) ------------------------------ */
+.c-date { color:var(--t-faint); font-size:var(--fs-micro); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.c-src { min-width:0; text-align:right; color:var(--t-faint); font-size:var(--fs-micro);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.c-src a:not(.dsh-src) { color:inherit; text-decoration:none; }
+.c-num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.c-tag { white-space:nowrap; }
+
+/* ---- ONE tag style: muted, micro, outlined — never coloured, never bold ------- */
+.dsh-tag, .tw-tag, .tinv-tag, .tui-li-tag, .tx-tag {
+  display:inline-block; font-size:var(--fs-micro); font-weight:400; line-height:1.45; letter-spacing:.03em;
+  text-transform:uppercase; color:var(--t-mut); background:transparent; border:1px solid var(--t-grid2);
+  border-radius:0; padding:0 4px; white-space:nowrap; vertical-align:baseline; }
+
+/* ---- ONE table look ---------------------------------------------------------
+   Header cells are small capitals in --t-faint, never bold, never wrapped. Dates
+   and sources are fixed and narrow; numbers right-aligned, tabular, sized to
+   content; text columns share the rest (min / max) and truncate with an ellipsis
+   instead of wrapping a word or stretching one column while another clips. */
+:is(.dsh-tbl, .tleague, .tx-mx, .mac-mtx, .data-table, .lg-sc-tbl, .ew-tbl, .g-fx-tbl, .na-fx-tbl, .dg-rates, .ck-dots, .dsh-fl-tbl) thead th {
+  font-size:var(--fs-micro); font-weight:400; text-transform:uppercase; letter-spacing:.06em; color:var(--t-faint); white-space:nowrap; }
+:is(th, td).c-date { white-space:nowrap; }
+:is(th, td).c-src { text-align:right; white-space:nowrap; }
+:is(th, td).c-num { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+:is(th, td).c-tag { white-space:nowrap; }
+td:is(.c-text, .c-date, .c-src, .c-num) { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+/* Widths — auto-layout tables (a fixed-layout table keeps its own column shares). */
+table[data-cols="auto"] :is(th, td).c-date { width:var(--c-date-w); min-width:var(--c-date-w); }
+table[data-cols="auto"] :is(th, td).c-src { width:var(--c-src-w); max-width:var(--c-src-w); }
+table[data-cols="auto"] :is(th, td).c-src:has(> a.dsh-src:only-child), table[data-cols="auto"] th.c-src.dsh-srccol { width:var(--c-chip-w); }
+table[data-cols="auto"] :is(th, td).c-num, table[data-cols="auto"] :is(th, td).c-tag { width:1%; }
+table[data-cols="auto"] td.c-text { max-width:0; min-width:var(--c-text-min, 8ch); }

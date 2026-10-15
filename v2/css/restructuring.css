@@ -39,39 +39,13 @@
 @media (hover:hover) { .rxh-card .dsh-h-r a.rxh-more:hover { color:var(--t-ink); } }
 .rxh-off { text-transform:none; letter-spacing:0; }
 
-/* ---- Stacked rows: name + key + SRC on one line, the other fields beneath ------- */
-.rxh-list { list-style:none; margin:0; padding:0; }
-.rxh-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
-.rxh-i:last-child { border-bottom:0; }
-.rxh-i-h { display:flex; align-items:baseline; gap:8px; }
-.rxh-i-n { flex:1 1 auto; min-width:0; color:var(--t-ink); font-size:var(--fs-body); font-weight:600; line-height:1.35; overflow-wrap:anywhere; }
-.rxh-i-n a { color:inherit; text-decoration:none; }
-.rxh-i-v { flex:0 0 auto; color:var(--t-ink); font-size:var(--fs-num); font-variant-numeric:tabular-nums; white-space:nowrap; }
-.rxh-i-s { flex:0 0 auto; }
-.rxh-i-m { display:flex; flex-wrap:wrap; margin-top:3px; color:var(--t-mut); font-size:var(--fs-micro); line-height:1.4; }
-.rxh-i-m > span:not(:last-child)::after { content:"·"; margin:0 6px; color:var(--t-faint); }
-.rxh-d { color:var(--t-faint); font-variant-numeric:tabular-nums; }
-.rxh-hist .rxh-i { padding:4px 0; }
-.rxh-hist .rxh-i-n { font-weight:400; color:var(--t-mut); }
+/* ---- Rows: the shared R43 events row (.g-ev, feed.css) at one fixed height, so a
+   10-row preview is the same height in every card. Only the quarterly statistics
+   history (dated market data, not an events list) keeps its own two-column line. */
+.rxh-hist { list-style:none; margin:0 0 6px; padding:0; }
+.rxh-hist-i { display:flex; justify-content:space-between; gap:8px; padding:4px 0; border-bottom:1px solid var(--t-grid);
+  color:var(--t-mut); font-size:var(--fs-body); }
+.rxh-hist-i:last-child { border-bottom:0; }
+.rxh-hist-q { color:var(--t-faint); font-size:var(--fs-micro); }
+.rxh-hist-i .c-num { color:var(--t-ink); font-size:var(--fs-num); }
 .rxh-kv { grid-template-columns:minmax(0,1fr); margin-bottom:6px; }
-.rxh-news-s a.dsh-drill, .rxh .dsh-news-s a.dsh-drill { color:var(--t-mut); }
-
-/* Stage tags: sanctioned / allowed (up), refused / dismissed (down), a live
-   restructuring hearing on the cause list (accent outline). */
-.rxh .dsh-tag { font-size:var(--fs-micro); white-space:nowrap; }
-.rxh-st-ok { color:var(--t-up); border-color:var(--t-up); }
-.rxh-st-no { color:var(--t-down); border-color:var(--t-down); }
-.rxh-st-rx { color:var(--t-ink); border-color:var(--t-ink); }
-@media (hover:hover) { .rxh a.dsh-drill.rxh-co:hover { color:var(--t-ink); } }
-
-/* ---- One row = one fixed height (owner 2026-10-15) ------------------------------
-   Every list row in every card is two single lines — the name / headline, then its
-   meta — truncated with an ellipsis (the full text is the row's title), at one fixed
-   height, so a 10-row preview is the same height in every card. */
-.rxh-card .rxh-list:not(.rxh-hist) > .rxh-i, .rxh-card .dsh-rx > .dsh-news-i {
-  box-sizing:border-box; height:var(--rxh-row, 50px); overflow:hidden; padding:6px 0; }
-.rxh-card .rxh-i-n, .rxh-card .dsh-rx .dsh-news-i > a { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; overflow-wrap:normal; }
-.rxh-card .rxh-i-m, .rxh-card .dsh-rx .dsh-news-s { flex-wrap:nowrap; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.rxh-card .rxh-i-m > span { flex:0 0 auto; }
-.rxh-card .rxh-i-m > span:last-child { flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; }
-.rxh-card .dsh-rx .dsh-news-i > a { display:block; min-width:0; }

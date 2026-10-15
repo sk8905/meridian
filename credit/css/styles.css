@@ -65,7 +65,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 .notif-badge {
   position: absolute; top: -5px; right: -5px; background: #ef4444; color: #fff;
   border-radius: 999px; min-width: 16px; height: 16px; padding: 0 4px;
-  font-size:var(--fs-micro); font-weight: 700; line-height: 16px; text-align: center;
+  font-size:var(--fs-micro); font-weight:400; line-height: 16px; text-align: center;
 }
 .notif-panel {
   position: absolute; top: calc(100% + 6px); right: 0; width: 340px; max-width: 92vw;
@@ -102,7 +102,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 /* "Load more" button for paginated feeds. */
 .load-more-wrap { display: flex; justify-content: center; margin-top: 1rem; }
 .load-more {
-  font: inherit; font-size:var(--fs-head); font-weight: 600; cursor: pointer;
+  font: inherit; font-size:var(--fs-head); font-weight:400; cursor: pointer;
   background: var(--surface); color: var(--primary);
   border: 1px solid var(--border); border-radius: 8px; padding: .55rem 1.1rem;
 }
@@ -123,7 +123,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
    card) that reveals the rates band + KPI tiles. Kept compact when collapsed. */
 .rk-toggle { margin: 0 0 1rem; }
 .rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
-  width: fit-content; font-weight: 700; font-size:var(--fs-title); color: var(--muted); padding: .15rem .1rem; }
+  width: fit-content; font-weight:400; font-size:var(--fs-title); color: var(--muted); padding: .15rem .1rem; }
 .rk-toggle > summary::-webkit-details-marker { display: none; }
 .rk-toggle > summary:hover { text-decoration: none; }
 .rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
@@ -172,7 +172,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
 .kpi-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--primary);
   border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow); }
-.kpi-value { font-size:var(--fs-hero); font-weight: 700; color: var(--primary-ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi-value { font-size:var(--fs-hero); font-weight:400; color: var(--primary-ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .kpi-value.kpi-aum { font-size:var(--fs-title); }
 .kpi-label { font-size:var(--fs-head); color: var(--muted); margin-top: .2rem; }
 .kpi-sub { font-size:var(--fs-body); }
@@ -225,13 +225,13 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .nav-badge {
   display: inline-block; min-width: 16px; padding: 0 5px; margin-left: .15rem;
   background: rgba(255,255,255,.22); color: #fff; border-radius: 999px;
-  font-size:var(--fs-body); font-weight: 700; line-height: 16px; text-align: center;
+  font-size:var(--fs-body); font-weight:400; line-height: 16px; text-align: center;
 }
 
 /* ---------- league tables ---------- */
 .data-table.league td { padding: .5rem .6rem; }
-.data-table .rank { width: 2rem; color: var(--muted); font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; }
-.data-table .num { text-align: right; font-weight: 700; color: var(--primary-ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.data-table .rank { width: 2rem; color: var(--muted); font-weight:400; text-align: center; font-variant-numeric: tabular-nums; }
+.data-table .num { text-align: right; font-weight:400; color: var(--primary-ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .card-aum { font-size:var(--fs-title); }
 
 /* ---------- deployment / dry powder ---------- */
@@ -245,7 +245,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 
 /* ---------- data completeness & provenance ---------- */
 .data-asof { margin: .5rem 0 0; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
-.data-meter { display: inline-flex; align-items: center; gap: .4rem; font-size:var(--fs-body); font-weight: 600; white-space: nowrap; }
+.data-meter { display: inline-flex; align-items: center; gap: .4rem; font-size:var(--fs-body); font-weight:400; white-space: nowrap; }
 .data-meter .dm-bar { width: 42px; height: 7px; border-radius: 4px; background: var(--border); overflow: hidden; display: inline-block; }
 .data-meter .dm-fill { display: block; height: 100%; }
 .data-meter.dm-hi .dm-fill { background: var(--t-up, #3fc08d); }
@@ -256,8 +256,8 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .provenance .dim-list { list-style: none; margin: .6rem 0; padding: 0; display: grid; gap: .3rem; }
 .provenance .dim { display: grid; grid-template-columns: 1.4rem 11rem 1fr; align-items: baseline; gap: .5rem; padding: .35rem .2rem; border-bottom: 1px solid var(--border); }
 .provenance .dim:last-child { border-bottom: 0; }
-.provenance .dim-icon { font-weight: 700; text-align: center; border-radius: 50%; }
-.provenance .dim-key { font-weight: 600; }
+.provenance .dim-icon { font-weight:400; text-align: center; border-radius: 50%; }
+.provenance .dim-key { font-weight:400; }
 .dim-yes .dim-icon { color: var(--t-up, #3fc08d); }
 .dim-est .dim-icon, .dim-indicative .dim-icon { color: var(--accent); }
 .dim-no .dim-icon { color: var(--t-down, #f26d84); }
@@ -267,14 +267,14 @@ h3.sub:first-of-type { margin-top: .2rem; }
 
 /* ---------- source citations ---------- */
 .sources { margin: .4rem 0 .25rem; line-height: 1.6; }
-.sources .src-label { font-weight: 600; }
+.sources .src-label { font-weight:400; }
 .sources a { word-break: break-word; color: var(--muted); }
 
 /* ---------- filters ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1rem; align-items: flex-end; }
 /* Each control grows to share the full row width instead of sitting fixed-width
    and left-aligned (search gets a little more room than the dropdowns). */
-.filter { display: flex; flex-direction: column; gap: .25rem; flex: 1 1 auto; min-width: 0; font-size:var(--fs-body); color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+.filter { display: flex; flex-direction: column; gap: .25rem; flex: 1 1 auto; min-width: 0; font-size:var(--fs-body); color: var(--muted); font-weight:400; text-transform: uppercase; letter-spacing: .5px; }
 .filter.search { flex: 2 1 auto; }
 /* Direct children only, so the popover checkboxes aren't styled like text inputs. */
 .filter > select, .filter > input {
@@ -307,7 +307,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .news-sum { margin: .2rem 0 .3rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
 /* Target-focus switch (€1–10bn AUM), shown above the filters on feed/table tabs. */
-.focus-toggle { display: flex; width: fit-content; align-items: center; gap: .5rem; cursor: pointer; user-select: none; margin: 0 0 1rem; font-size:var(--fs-head); font-weight: 600; color: var(--ink); }
+.focus-toggle { display: flex; width: fit-content; align-items: center; gap: .5rem; cursor: pointer; user-select: none; margin: 0 0 1rem; font-size:var(--fs-head); font-weight:400; color: var(--ink); }
 .focus-toggle input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .focus-toggle .muted { font-weight: 400; }
 .focus-sw { position: relative; width: 40px; height: 22px; background: var(--border); border-radius: 999px; transition: background .15s; flex: 0 0 auto; }
@@ -319,7 +319,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 /* ---------- progress ---------- */
 .progress { position: relative; background: #eef2f7; border-radius: 6px; height: 22px; overflow: hidden; border: 1px solid var(--border); }
 .progress-fill { position: absolute; inset: 0 auto 0 0; background: var(--accent, #fb8b1e); border-radius: 6px 0 0 6px; }
-.progress-label { position: relative; z-index: 1; font-size:var(--fs-body); font-weight: 600; color: #0f172a; padding: 0 .5rem; line-height: 22px; mix-blend-mode: normal; }
+.progress-label { position: relative; z-index: 1; font-size:var(--fs-body); font-weight:400; color: #0f172a; padding: 0 .5rem; line-height: 22px; mix-blend-mode: normal; }
 
 /* ---------- cards grid (managers) ---------- */
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
@@ -338,7 +338,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.5rem; margin: .75rem 0 0; }
 .facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .35rem 0; border-bottom: 1px dashed var(--border); }
 .facts dt { color: var(--muted); }
-.facts dd { margin: 0; font-weight: 600; text-align: right; overflow-wrap: anywhere; min-width: 0; }
+.facts dd { margin: 0; font-weight:400; text-align: right; overflow-wrap: anywhere; min-width: 0; }
 .link-list { list-style: none; margin: .25rem 0 0; padding: 0; }
 .link-list li { padding: .45rem 0; border-bottom: 1px solid var(--border); }
 .link-list li:last-child { border-bottom: none; }
@@ -397,7 +397,7 @@ a.intel-head:hover { text-decoration: none; }
 .kpi-card.clickable { cursor: pointer; transition: border-color .15s, transform .1s, box-shadow .15s; }
 .kpi-card.clickable:hover { border-left-color: var(--ink); box-shadow: 0 6px 16px rgba(15,23,42,.08); }
 .chart-label { font-size:var(--fs-body); fill: var(--muted); }
-.chart-value { font-size:var(--fs-num); fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.chart-value { font-size:var(--fs-num); fill: var(--ink); font-weight:400; font-variant-numeric: tabular-nums; }
 /* Faint full-scale track behind each bar so proportions read at a glance. */
 .bar-track { fill: var(--border); }
 /* ---------- Trends page ---------- */
@@ -413,7 +413,7 @@ a.intel-head:hover { text-decoration: none; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
 .donut-wrap { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
 .donut { width: 200px; height: 200px; flex: 0 0 auto; }
-.donut-total { font-size:var(--fs-hero); font-weight: 700; fill: var(--primary-ink); font-variant-numeric: tabular-nums; }
+.donut-total { font-size:var(--fs-hero); font-weight:400; fill: var(--primary-ink); font-variant-numeric: tabular-nums; }
 .donut-sub { font-size:var(--fs-micro); fill: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .legend { display: flex; flex-direction: column; gap: .4rem; font-size:var(--fs-head); min-width: 190px; }
 .legend-item { display: flex; align-items: center; gap: .55rem; }
@@ -543,7 +543,7 @@ a.intel-head:hover { text-decoration: none; }
 @media (max-width: 760px) {
   .ff-lab {
     display: flex; width: fit-content; align-items: center; gap: .4rem; cursor: pointer; user-select: none;
-    font-weight: 700; font-size:var(--fs-title); color: var(--muted); margin-bottom: .75rem; padding: .15rem .1rem;
+    font-weight:400; font-size:var(--fs-title); color: var(--muted); margin-bottom: .75rem; padding: .15rem .1rem;
   }
   .ff-lab::after { content: "▾"; color: var(--muted); font-size:var(--fs-head); }
   .ff-cb:checked ~ .ff-lab::after { content: "▴"; }
@@ -583,7 +583,7 @@ a.intel-head:hover { text-decoration: none; }
   font: inherit; font-size:var(--fs-head); text-transform: none; letter-spacing: 0;
   background: transparent; border: none; border-radius: 0;
   padding: .1rem 0; min-width: 0; width: fit-content; max-width: 100%; cursor: pointer;
-  color: var(--muted); font-weight: 700;
+  color: var(--muted); font-weight:400;
   display: inline-flex; align-items: center; justify-content: flex-start; gap: .35rem;
 }
 .ms-btn:hover, .ms-btn[aria-expanded="true"] { color: var(--ink); }
@@ -730,7 +730,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 /* Cross-holdings collapse toolbar. */
 .hf-cons-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 12px; background: var(--head); border-bottom: 1px solid var(--border); }
 .hf-cons-h-t { font-size:var(--fs-body); font-weight: 600; color: var(--ink); }
-.hf-cons-x { border: 1px solid var(--border, #262626); background: transparent; color: var(--muted); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; padding: 2px 8px; cursor: pointer; border-radius: 0; }
+.hf-cons-x { border: 1px solid var(--border, #262626); background: transparent; color: var(--muted); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight:400; padding: 2px 8px; cursor: pointer; border-radius: 0; }
 .hf-cons-x:hover { color: var(--ink); border-color: var(--muted); }
 
 /* OFR Hedge Fund Monitor — compact industry tiles atop the Hedge Funds pane. */
@@ -742,8 +742,8 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-ofr-tile { display: flex; flex-direction: column; gap: 3px; padding: 8px 12px; background: var(--bg); color: inherit; text-decoration: none; }
 .hf-ofr-tile:hover { background: var(--head); }
 .hf-ofr-lbl { font-size:var(--fs-micro); color: var(--muted); letter-spacing: .02em; }
-.hf-ofr-val { font-family: var(--t-mono); font-size:var(--fs-body); font-weight: 600; color: var(--ink); white-space: nowrap; }
-.hf-ofr-chg { font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; }
+.hf-ofr-val { font-family: var(--t-mono); font-size:var(--fs-body); font-weight:400; color: var(--ink); white-space: nowrap; }
+.hf-ofr-chg { font-family: var(--t-mono); font-size:var(--fs-micro); font-weight:400; }
 .hf-ofr-chg.up { color: var(--t-up); }
 .hf-ofr-chg.dn { color: var(--t-down); }
 /* In-panel close affordance (the Monitor header button also toggles it shut). */
@@ -753,7 +753,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-ofr-note { grid-column: 1 / -1; padding: 10px 12px; background: var(--bg); }
 
 /* SEC filing-type badges (13D/13G/Forms 3-4-5 on the hedge fund page) */
-.hf-fform { display: inline-block; min-width: 44px; text-align: center; padding: 0 5px; border-radius: 3px; border: 1px solid var(--t-grid2, #262626); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight: 600; color: var(--t-ink, #eaf0fb); }
+.hf-fform { display: inline-block; min-width: 44px; text-align: center; padding: 0 5px; border-radius: 3px; border: 1px solid var(--t-grid2, #262626); font-family: var(--t-mono); font-size:var(--fs-micro); font-weight:400; color: var(--t-ink, #eaf0fb); }
 .hf-fform.hf-fl-13d { color: var(--t-down, #f26d84); border-color: var(--t-down, #f26d84); }   /* activist / control */
 .hf-fform.hf-fl-13g { color: var(--muted); }                                                    /* passive >5% */
 .hf-fform.hf-fl-ins { color: var(--t-accent, #fb8b1e); border-color: var(--t-accent, #fb8b1e); }/* insider */
@@ -761,7 +761,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 /* Manager listed-vehicles (BDC / CEF) holdings panel */
 .veh { border: 1px solid var(--border, #262626); border-radius: 0; padding: 9px 11px; margin: 8px 0; background: var(--surface); }
 .veh-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.veh-nm { color: var(--ink); font-weight: 600; font-size:var(--fs-head); }
+.veh-nm { color: var(--ink); font-weight:400; font-size:var(--fs-head); }
 .veh-tk { font-family: var(--t-mono); font-size:var(--fs-num); color: var(--t-ink, #eaf0fb); font-variant-numeric: tabular-nums; }
 .veh-tag { font-size:var(--fs-micro); letter-spacing: .03em; text-transform: uppercase; border: 1px solid var(--border, #262626); border-radius: 3px; padding: 1px 5px; color: var(--muted); }
 .veh-tag.veh-bdc { color: var(--t-crd, #fb8b1e); border-color: var(--t-crd, #fb8b1e); }
@@ -800,10 +800,10 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .org-aum-c { font-family: var(--t-mono); font-size:var(--fs-num); color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .org-aum-cr { color: var(--muted); }
 .org-band { font-family: var(--t-mono); font-size:var(--fs-micro); color: var(--muted); }
-.org-band.mid { color: var(--ink); font-weight: 600; }
+.org-band.mid { color: var(--ink); font-weight:400; }
 .org-wallet { white-space: nowrap; }
 .org-w { display: inline-block; min-width: 21px; text-align: center; font-family: var(--t-mono); font-size:var(--fs-micro); padding: 1px 2px; margin-right: 1px; border: 1px solid var(--border, #262626); border-radius: 3px; color: var(--faint); }
-.org-w.on { color: var(--ink); border-color: var(--muted); font-weight: 600; }
+.org-w.on { color: var(--ink); border-color: var(--muted); font-weight:400; }
 .org-adv { font-size:var(--fs-micro); color: var(--muted); }
 .org-white-flag { color: var(--faint); }
 .org-latest { font-size:var(--fs-micro); white-space: nowrap; color: var(--muted); }
@@ -839,7 +839,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 }
 .org-card { border: 1px solid var(--border, #262626); border-radius: 6px; padding: 9px 11px; margin: 8px 12px; background: var(--surface2, var(--head, #131313)); }
 .org-card-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.org-card-tier { font-weight: 700; color: var(--ink); font-family: var(--t-mono); }
+.org-card-tier { font-weight:400; color: var(--ink); font-family: var(--t-mono); }
 .org-card-w { margin-left: auto; }
 .org-card-ctl { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0; font-size:var(--fs-micro); color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
 .org-notes { width: 100%; box-sizing: border-box; background: var(--bg); border: 1px solid var(--border, #262626); color: var(--ink); font-family: inherit; font-size:var(--fs-body); padding: 5px 7px; border-radius: 4px; resize: vertical; margin-top: 4px; }

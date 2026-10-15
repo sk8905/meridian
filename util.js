@@ -17,6 +17,22 @@ export const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.
 
 export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+// THE list/table date (HOUSE_STYLE R43b): "15 Oct 26" — day, short month, two-digit
+// year — on every events row and table cell app-wide. A month-only value reads
+// "Oct 2026", a quarter "Q3 2026"; anything unparseable passes through unchanged.
+// Every per-surface formatter (credit/legal/macro fmtDate, feed fmtDateP, the
+// Dashboard / hub isoDay) delegates here so the format can never drift.
+export const fmtD = (d) => {
+  const t = String(d == null ? "" : d).trim();
+  let m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t);
+  if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1].slice(2)}`;
+  m = /^(\d{4})-(\d{2})$/.exec(t); if (m) return `${MONTHS[+m[2] - 1]} ${m[1]}`;
+  m = /^(\d{4})-Q([1-4])$/.exec(t); if (m) return `Q${m[2]} ${m[1]}`;
+  if (/^\d{4}$/.test(t) || !/\d/.test(t) || /^(Q[1-4]|[A-Za-z]{3,9}\.?) \d{4}$/.test(t)) return t;
+  const x = new Date(t);
+  return Number.isNaN(+x) ? t : `${x.getUTCDate()} ${MONTHS[x.getUTCMonth()]} ${String(x.getUTCFullYear()).slice(2)}`;
+};
+
 // ---- Source labels ----------------------------------------------------------
 // Known newsrooms/wires by host (credit wires + the Home feed) and judgment
 // publishers (legal case law), plus the host helpers that consume them.
@@ -78,6 +94,13 @@ export const JUDGMENT_SOURCES = {
 };
 export const srcHost = (url) => { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } };
 export const tidyDomain = (host) => { const p = host.split("."); if (p.length > 2 && /^(co|com|org|net|ac|gov)$/.test(p[p.length - 2])) p.splice(p.length - 2, 1); const l = p.slice(-2, -1)[0] || host; return l ? l.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : ""; };
+// The outlet a URL belongs to, for a list's source column (R43b): a known newsroom
+// or judgment publisher by host, else the tidied domain ("Hayfin" for hayfin.com).
+export const outletOf = (url) => {
+  const h = srcHost(url); if (!h) return "";
+  const k = Object.keys(NEWS_SOURCES).find((d) => h === d || h.endsWith("." + d)) || Object.keys(JUDGMENT_SOURCES).find((d) => h === d || h.endsWith("." + d));
+  return k ? (NEWS_SOURCES[k] || JUDGMENT_SOURCES[k]) : tidyDomain(h);
+};
 
 // Sync the browser-chrome theme-color meta tag to the resolved theme ("dark"/
 // "light"). Shared by the desktop nav-bar theme toggle and the phone Menu

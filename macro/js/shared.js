@@ -6,7 +6,7 @@
 // NB macro MONTHS/MONTHS_FULL are 1-INDEXED (element 0 is "") — deliberately
 // different from the 0-indexed MONTHS in /util.js.
 // =============================================================================
-import { esc } from "/util.js";
+import { esc, fmtD } from "/util.js";
 import { BUBBLE } from "./content.js";
 
 export const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -17,14 +17,12 @@ export const isoToDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(is
 
 // Full-date formatter for news items: "2026-07-01" → "1 Jul 2026".
 export function fmtDay(iso) {
-  const d = isoToDate(iso);
-  return d ? `${d.getDate()} ${MONTHS[d.getMonth() + 1]} ${d.getFullYear()}` : (iso || "");
+  return isoToDate(iso) ? fmtD(iso) : (iso || ""); // R43b: "1 Jul 26"
 }
 // Zero-padded variant matching Credit's fmtDate ("09 Jul 2026") so the Commentary
 // feed uses the same date convention as the Credit News feed.
 export function fmtDayGB(iso) {
-  const d = isoToDate(iso);
-  return d ? `${String(d.getDate()).padStart(2, "0")} ${MONTHS[d.getMonth() + 1]} ${d.getFullYear()}` : (iso || "");
+  return isoToDate(iso) ? fmtD(iso) : (iso || ""); // R43b: one date format
 }
 // Weekday + day + month for the calendar banner: "2026-07-14" → "Tue 14 Jul".
 export function fmtWeekday(iso) {
@@ -36,8 +34,7 @@ export function fmtWeekday(iso) {
 export function fmtDate(d) {
   const p = String(d || "").split("-");
   if (p.length < 2) return String(d || "");
-  const day = p[2] ? `${(+p[2])} ` : "";
-  return `${day}${MONTHS[+p[1]] || ""} ${p[0]}`;
+  return fmtD(d); // R43b: "9 Jul 26" / "Jul 2026"
 }
 
 // ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------

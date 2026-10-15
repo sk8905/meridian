@@ -7,7 +7,7 @@
 // same build. Pure module — no page-specific imports; loaded site-absolute
 // ("/feed.js") tokenless, like every other shared root module (T1/T2).
 // =============================================================================
-import { esc, MONTHS } from "/util.js";
+import { esc, MONTHS, fmtD, outletOf } from "/util.js";
 
 // ---- Desk vocabulary --------------------------------------------------------
 // A "desk" is the label a row carries. Home merges the cross-desk streams
@@ -147,7 +147,7 @@ export const fmtDateP = (x) => {
   if (!d) return "";
   if (x.datePrecision === "year") return d.slice(0, 4);
   if (x.datePrecision === "month" && /^\d{4}-\d{2}/.test(d)) return `${MONTHS[+d.slice(5, 7) - 1]} ${d.slice(0, 4)}`;
-  return (x.dateEstimated ? "c. " : "") + fmtDay(d);
+  return (x.dateEstimated ? "c. " : "") + fmtD(d);
 };
 export const dayOf = (x) => String(x.date || "").slice(0, 10);
 // Newest-first by day then publish time; untimed items sort at midday to match
@@ -190,6 +190,83 @@ export function feedRow(o) {
     + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(cleanSource(o.src))} stories">${esc(cleanSource(o.src))}</span>` : "")
     + `<span class="g-feed-desk">${esc(DESK[codeKey] || "")}</span></a>`;
 }
+// ---- R43: THE events row ----------------------------------------------------
+// One row for every dated list outside the wire (deals, alerts, cases, plans &
+// schemes, hearings, fund closes, LP commitments, people moves, digest rows):
+//   date · headline / meta · tag · source
+// `title` is plain text (escaped here); `meta` and `tag` are trusted HTML the caller
+// built with esc(); `src` is the outlet name (plain text) and `srcHref` its URL — a
+// row with a URL but no outlet name gets the SRC chip. The full text rides in the
+// row's title attribute (hover / long-press); one fixed height (--ev-h) per list.
+const _plain = (h) => String(h || "").replace(/<[^>]*>/g, "").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, " ").trim();
+export function evRow({ date = "", dateText = "", est = false, title = "", href = "", inApp = false, meta = "", tag = "", src = "", srcHref = "", cls = "", aCls = "", dCls = "", attrs = "", tip = "" } = {}) {
+  const d = dateText || (date ? fmtD(date) : "");
+  const full = tip || [title, _plain(meta), _plain(tag), src].filter(Boolean).join(" · ");
+  const a = href
+    ? `<a class="g-ev-t${aCls ? ` ${aCls}` : ""}" href="${esc(href)}"${inApp ? "" : ' target="_blank" rel="noopener noreferrer"'}>${esc(title)}</a>`
+    : `<span class="g-ev-t${aCls ? ` ${aCls}` : ""}">${esc(title)}</span>`;
+  // No outlet given → name it from the source URL (or the external row link).
+  if (!src && (srcHref || (href && !inApp && /^https?:/.test(href)))) src = outletOf(srcHref || href);
+  const s = src
+    ? (srcHref ? `<a href="${esc(srcHref)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src))
+    : (srcHref ? `<a class="dsh-src" href="${esc(srcHref)}" target="_blank" rel="noopener noreferrer" title="Source">src</a>` : "");
+  return `<li class="g-ev${cls ? ` ${cls}` : ""}" title="${esc(full)}"${attrs}>`
+    + `<span class="c-date${dCls ? ` ${dCls}` : ""}"${est ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${est && d ? "c. " : ""}${esc(d)}</span>`
+    + a + `<span class="c-tag">${tag}</span><span class="c-src">${s}</span>`
+    + `<span class="g-ev-m">${meta}</span></li>`;
+}
+// ---- R43: THE table column roles -------------------------------------------------
+// Tags every table cell with its column role so ONE stylesheet (feed.css) sizes every
+// table the same way: .c-date (fixed, narrow, faint) · .c-num (right, tabular, sized to
+// content) · .c-src (fixed, narrow, faint, last) · .c-tag · .c-text (shares the rest,
+// min / max, ellipsis). A role set in the markup wins; otherwise it is read from the
+// header label and the column's own cells. Idempotent (re-run after any re-render).
+// A chart-table (bars / heat cells laid out as a table) opts out with data-cols="off".
+const _DATE_TXT = /^(c\. |≈ ?)?(\d{1,2} [A-Z][a-z]{2}( \d{2,4})?|[A-Z][a-z]{2} \d{4}|Q[1-4] \d{4}|\d{4}-\d{2}(-\d{2})?|TBC|—)$/;
+const _NUM_TXT = /^[-+−▲▼·]?\s*[€$£]?\s*[-+−]?[\d.,]+\s*(%|bp|bn|m|tn|x|pp|pt)?(\s*\(.*\))?$|^—$|^n\/a$/i;
+const _ROLE = /\bc-(date|num|text|tag|src)\b/;
+export function tableCols(root) {
+  if (!root || !root.querySelectorAll) return;
+  root.querySelectorAll("table:not([data-cols='off'])").forEach((t) => {
+    const head = t.tHead && t.tHead.rows[0] ? [...t.tHead.rows[0].cells] : [];
+    if (head.some((c) => c.colSpan > 1)) return;
+    // Width roles apply to auto-layout tables; a fixed-layout table keeps its own
+    // column shares (data-cols="fixed") and takes only the alignment / colour roles.
+    const fixed = getComputedStyle(t).tableLayout === "fixed";
+    t.dataset.cols = fixed ? "fixed" : "auto";
+    const rows = [...t.tBodies].flatMap((b) => [...b.rows]).filter((r) => ![...r.cells].some((c) => c.colSpan > 1));
+    const n = Math.max(head.length, ...rows.slice(0, 8).map((r) => r.cells.length), 0);
+    const textW = [];
+    for (let i = 0; i < n; i++) {
+      const h = head[i]; const cells = rows.map((r) => r.cells[i]).filter(Boolean);
+      const all = [h, ...cells].filter(Boolean);
+      const set = all.find((c) => _ROLE.test(c.className));
+      let role = set ? set.className.match(_ROLE)[0] : null;
+      if (!role) {
+        const lab = h ? h.textContent.replace(/\s+/g, " ").trim() : "";
+        const txt = cells.map((c) => c.textContent.replace(/\s+/g, " ").trim()).filter(Boolean);
+        const srcOnly = cells.length && cells.every((c) => !c.textContent.replace(/src/i, "").trim() && (c.querySelector("a.dsh-src") || !c.textContent.trim()));
+        if ((h && h.classList.contains("dsh-srccol")) || /^(src|source)$/i.test(lab) || srcOnly) role = "c-src";
+        else if (/^(date|as of|latest|updated|when|closed|announced|period|timing)$/i.test(lab) || (txt.length && txt.every((x) => _DATE_TXT.test(x)) && txt.some((x) => /\d/.test(x)))) role = "c-date";
+        else if ((h && h.classList.contains("dsh-r")) || (txt.length && txt.every((x) => _NUM_TXT.test(x)))) role = "c-num";
+        else role = "c-text";
+      }
+      all.forEach((c) => c.classList.add(role));
+      // A truncating cell keeps its full text on hover / long-press (R43c).
+      if (role === "c-text") {
+        cells.forEach((c) => { if (!c.title) { const t = c.textContent.replace(/\s+/g, " ").trim(); if (t) c.title = t; } });
+        // Weight = the column's typical (80th-percentile) text length, clamped 6–36ch, so
+        // text columns share the remaining width in proportion to what they hold.
+        const lens = cells.map((c) => c.textContent.replace(/\s+/g, " ").trim().length).sort((x, y) => x - y);
+        const p80 = lens.length ? lens[Math.min(lens.length - 1, Math.floor(lens.length * 0.8))] : 8;
+        textW.push([h || (rows[0] && rows[0].cells[i]), Math.max(6, Math.min(36, p80, 36)), Math.max(6, (h ? h.textContent.trim().length : 0))]);
+      }
+    }
+    const sum = fixed ? 0 : textW.reduce((a, [, w]) => a + w, 0);
+    if (sum) textW.forEach(([c, w]) => { if (c) c.style.width = `${Math.round((w / sum) * 96)}%`; });
+  });
+}
+export const evList = (rows, cls = "") => `<ul class="g-evs${cls ? ` ${cls}` : ""}">${rows.join("")}</ul>`;
 // Some rows carry no real publish time (curated items, or a live item whose
 // source omitted one). Rather than leave the time blank, stamp each with the
 // moment it was FIRST SEEN on this device — its "added to Wire" time — persisted

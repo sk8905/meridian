@@ -32,7 +32,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
       pane: document.querySelector(".dsh-3z")?.dataset.pane,
       names: tiles.map((t) => ((t.querySelector(".dsh-spread-nm") || {}).firstChild || {}).textContent),
       first: tiles[0] ? tiles[0].querySelector(".dsh-spread-v").textContent : "",
-      dated: tiles.length > 0 && tiles.every((t) => /\d{1,2} [A-Z][a-z]{2} \d{4}/.test((t.querySelector(".dsh-spread-as") || {}).textContent || "")),
+      dated: tiles.length > 0 && tiles.every((t) => /\d{1,2} [A-Z][a-z]{2} \d{2}(\d{2})?\b/.test((t.querySelector(".dsh-spread-as") || {}).textContent || "")),
       moves: tiles.length > 0 && tiles.every((t) => [...t.querySelectorAll(".dsh-chg")].filter((c) => /^[+-]?\d+$/.test(c.textContent.trim())).length === 2),
       sourced: tiles.length > 0 && tiles.every((t) => t.querySelector('.dsh-src[href^="https://fred.stlouisfed.org/"]')),
       badge: badge ? { text: badge.textContent.trim(), snap: badge.classList.contains("is-snap") } : null,
@@ -76,7 +76,7 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
     const yc = document.querySelector("#dsh-yc-card");
     return {
       ecb: pol.find((r) => /^ECB/.test(r)) || "", boe: pol.find((r) => /^BoE/.test(r)) || "",
-      mm, mmDated: mm.length > 0 && [...document.querySelectorAll("#dsh-mm .dsh-spread-as")].every((e) => /\d{4}/.test(e.textContent)),
+      mm, mmDated: mm.length > 0 && [...document.querySelectorAll("#dsh-mm .dsh-spread-as")].every((e) => /\d{4}|\d{1,2} [A-Z][a-z]{2} \d{2}\b/.test(e.textContent)),
       eaRow: !!yc && [...yc.querySelectorAll("tbody .dsh-nm")].some((t) => /^Euro AAA$/.test(t.textContent.trim())),
       eaLine: !!yc && !!yc.querySelector("path.dsh-yc-ea"),
       mmBadge: (document.querySelector('.dsh-live[data-live="mm"]') || {}).textContent,
@@ -147,7 +147,8 @@ const go = async (pg, sub) => { await pg.evaluate((k) => { const t = document.qu
   // Every tab: no live badge without live data, no double-escaped entities, and
   // every data card carries a date somewhere (as-of, period or per-row date).
   // textContent concatenates cells, so match a bare year / quarter without \b.
-  const DATE = /(?:19|20)\d{2}(?!\d)|Q[1-4]/;
+  // R43b: dates read "15 Oct 26" (two-digit year); month / quarter values keep "Oct 2026".
+  const DATE = /(?:19|20)\d{2}(?!\d)|Q[1-4]|\b\d{1,2} [A-Z][a-z]{2} \d{2}\b/;
   for (const sub of ["credit", "rates", "legal", "equities", "hedge-funds"]) {
     await go(pg, sub);
     await pg.evaluate(() => { const d = document.querySelector("details.dsh-ref"); if (d) d.open = true; });

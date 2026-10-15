@@ -123,7 +123,7 @@ check(/\.mcmdk-code\.brew\{color:var\(--t-amber,/.test(paletteJs), "palette.js .
 // fmtDate) includes the year; this one silently didn't. Dashboard now reuses
 // feed.js's canonical fmtDay (T9 — one day-header formatter) instead of a local
 // reimplementation, so both guards below stand in for the old inline check.
-check(/import \{ fmtDay as fmtDate \} from "\/feed\.js/.test(dashboardApp),
+check(/import \{ fmtDay as fmtDate[^}]*\} from "\/feed\.js/.test(dashboardApp),
   "v2/js/dashboard/app.js reuses feed.js's fmtDay (single source of truth), not a local reimplementation");
 check(/export const fmtDay = \(iso\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\] - 1\]\} \$\{m\[1\]\}/.test(feedJs),
   "feed.js fmtDay() includes the year in its output");

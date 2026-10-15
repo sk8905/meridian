@@ -11,12 +11,12 @@
 // "as of <time>" when last-known values are shown — plain language, R3).
 // mount → {enter,leave,home}.
 // =============================================================================
-import { esc, MONTHS, byDateDesc } from "/util.js";
-import { fmtDay as fmtDate } from "/feed.js";
+import { esc, MONTHS, byDateDesc, fmtD } from "/util.js";
+import { fmtDay as fmtDate, evRow, evList, tableCols } from "/feed.js";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT, EU_DISTRESS, REG_CALENDAR } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS, MARKET_SIZES, CB_CALENDAR } from "/macro/js/content.js";
 import { deals, intel, managers, funds, commitments, lps, HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HF_13F, HEDGE_INTEL } from "/credit/js/data.js";
-import { fmtBn } from "/credit/js/shared.js";
+import { fmtBn, creditSource } from "/credit/js/shared.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { nbNums } from "../nb-format.js";
 import { rosterCardsHTML, wireRosters } from "../credit-roster.js";
@@ -58,13 +58,7 @@ const asOfTime = (at) => {
   const y = t.getFullYear() !== new Date().getFullYear() ? " " + t.getFullYear() : "";
   return `as of ${t.getDate()} ${MONTHS[t.getMonth()]}${y} ${String(t.getHours()).padStart(2, "0")}:${String(t.getMinutes()).padStart(2, "0")}`;
 };
-const isoDay = (d) => {
-  const t = String(d || "").replace(/^\s*as of\s+/i, "");
-  let m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t); if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`;
-  m = /^(\d{4})-(\d{2})$/.exec(t); if (m) return `${MONTHS[+m[2] - 1]} ${m[1]}`;
-  m = /^(\d{4})-Q([1-4])$/.exec(t); if (m) return `Q${m[2]} ${m[1]}`;
-  return t;
-};
+const isoDay = (d) => fmtD(String(d || "").replace(/^\s*as of\s+/i, "")); // R43b: "15 Oct 26"
 // Search normaliser: lowercase and drop apostrophes so "director's" / "directors'"
 // / "directors" all collapse to the same token. Used to build each legal item's
 // search haystack and to tokenise the query (word-by-word AND match).
@@ -124,7 +118,7 @@ export function mount(host, ctx) {
   // plain stacked flow. Re-packs whenever the width or any card's height changes.
   const COL_TARGET = 480, GAP = 10;
   const sizeOf = (el) => (el.classList.contains("dsh-span") ? "full" : el.classList.contains("dsh-wide") ? "wide" : "std");
-  let _ro = null, _raf = 0;
+  let _ro = null, _raf = 0, _colMo = null;
   function flattenMid(mid) {
     // Paired-row wrappers are a phone/tablet convenience; the packer places cards itself.
     mid.querySelectorAll(":scope > .dsh-row2, :scope > .dsh-wide:not(.dsh-card)").forEach((w) => { while (w.firstElementChild) w.parentNode.insertBefore(w.firstElementChild, w); w.remove(); });
@@ -340,7 +334,14 @@ export function mount(host, ctx) {
     }
     phoneTidy();
     packMid();
+    // R43: a card body re-rendered by live data gets its table column roles again.
+    if (!_colMo && typeof MutationObserver === "function") {
+      let q = 0;
+      _colMo = new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; tableCols(host); }); });
+      _colMo.observe(host, { childList: true, subtree: true });
+    }
   }
+
   // ---- Phone (R40): no scrolling inside cards. A long list shows a short preview
   // and "See all N ›", which opens the whole list in a full-screen sheet (its own
   // scroll, a filter box for long lists, ✕ to close). Wide tables re-render as
@@ -350,23 +351,32 @@ export function mount(host, ctx) {
   const PHONE_MQ = "(max-width:900px)";
   const isPhone = () => !!(window.matchMedia && window.matchMedia(PHONE_MQ).matches);
   function stackTables(root) {
+    tableCols(root);   // R43 column roles first (desktop tables + the stacked rows read them)
     root.querySelectorAll("table.dsh-stk-src").forEach((t) => {
       const anchor = t.closest(".dsh-scroll") || t;
       const old = anchor.nextElementSibling; if (old && old.classList.contains("dsh-stk-list")) old.remove();
       const heads = [...t.querySelectorAll("thead th")].map((th) => th.textContent.trim());
+      const dIdx = t.dataset.stkDate != null ? +t.dataset.stkDate : -1;
       const nm = +(t.dataset.stkName || 0), key = t.dataset.stkKey != null ? +t.dataset.stkKey : -1, rank = t.dataset.stkRank != null ? +t.dataset.stkRank : -1;
       const lab = new Set(String(t.dataset.stkLab || "").split(",").filter((x) => x !== "").map(Number));
       const li = [...t.querySelectorAll("tbody tr")].map((tr) => {
         const td = [...tr.children];
         const isSrc = (c) => c.querySelector("a.dsh-src") && !c.textContent.replace(/src/i, "").trim();
         const src = td.filter((c, i) => i !== nm && isSrc(c)).map((c) => c.innerHTML).join("");
+        if (dIdx >= 0) {
+          // R43: a dated table stacks into the shared events row — date · name / meta · tag · source.
+          const m = td.map((c, i) => [c, i]).filter(([c, i]) => i !== nm && i !== key && i !== dIdx && !isSrc(c) && c.textContent.trim() && c.textContent.trim() !== "—").map(([c]) => c.innerHTML);
+          return `<li class="dsh-stk-i g-ev${src ? " g-ev-chips" : ""}" title="${esc(tr.title || tr.textContent.replace(/\s+/g, " ").trim())}"><span class="c-date">${td[dIdx] ? td[dIdx].innerHTML : ""}</span>`
+            + `<span class="g-ev-t">${td[nm] ? td[nm].innerHTML : ""}</span><span class="c-tag">${key >= 0 && td[key] ? td[key].innerHTML : ""}</span>`
+            + `<span class="c-src">${src}</span><span class="g-ev-m">${m.join(" · ")}</span></li>`;
+        }
         const meta = td.map((c, i) => [c, i]).filter(([c, i]) => i !== nm && i !== key && i !== rank && !isSrc(c) && c.textContent.trim() && c.textContent.trim() !== "—")
           .map(([c, i]) => `<span>${lab.has(i) && heads[i] ? `<span class="dsh-stk-l">${esc(heads[i])}</span> ` : ""}${c.innerHTML}</span>`);
         const kv = key >= 0 && td[key] ? `<span class="dsh-stk-v">${lab.has(key) && heads[key] ? `<span class="dsh-stk-l">${esc(heads[key])}</span> ` : ""}${td[key].innerHTML}</span>` : "";
         return `<li class="dsh-stk-i"><div class="dsh-stk-h"><span class="dsh-stk-n">${rank >= 0 && td[rank] ? `<span class="dsh-stk-r">${esc(td[rank].textContent.trim())}</span>` : ""}${td[nm] ? td[nm].innerHTML : ""}</span>${kv}${src ? `<span class="dsh-stk-s">${src}</span>` : ""}</div>`
           + (meta.length ? `<div class="dsh-stk-m">${meta.join("")}</div>` : "") + `</li>`;
       });
-      anchor.insertAdjacentHTML("afterend", `<ul class="dsh-stk-list">${li.join("")}</ul>`);
+      anchor.insertAdjacentHTML("afterend", `<ul class="dsh-stk-list${dIdx >= 0 ? " g-evs" : ""}">${li.join("")}</ul>`);
     });
   }
   const itemsOf = (body) => {
@@ -700,17 +710,18 @@ export function mount(host, ctx) {
   }
   function stressHTML() {
     const chip = (k, l) => `<button type="button" class="dsh-sortchip${_stressSort.key === k ? " is-on" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</button>`;
-    const row = (s) => `<tr>`
-      + `<td class="dsh-nm"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/co/${encodeURIComponent(s.name)}`)}" title="Everything Wire holds on ${esc(s.name)} — deals, plans, judgments, alerts">${esc(s.name)}</a></td>`
-      + `<td class="dsh-stress-sec">${esc(s.sector || "")}</td>`
-      + `<td class="dsh-stress-hq">${esc(s.hq || "")}</td>`
-      + `<td class="dsh-stress-debt">${esc(s.debt || "—")}</td>`
-      + `<td><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
-      + `<td class="dsh-stress-as">${s.latest ? esc(isoDay(s.latest)) : "—"}</td>`
-      + `<td class="dsh-note">${srcLink(s.source, s.name + " source")}</td></tr>`;
+    // R43: an events table — date first, the status tag beside the name, source last.
+    const row = (s) => `<tr title="${esc([s.name, s.status, s.sector, s.hq, s.debt].filter(Boolean).join(" · "))}">`
+      + `<td class="c-date">${s.latest ? esc(isoDay(s.latest)) : "—"}</td>`
+      + `<td class="dsh-nm c-text"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/co/${encodeURIComponent(s.name)}`)}" title="Everything Wire holds on ${esc(s.name)} — deals, plans, judgments, alerts">${esc(s.name)}</a></td>`
+      + `<td class="c-tag"><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
+      + `<td class="dsh-stress-sec c-text">${esc(s.sector || "")}</td>`
+      + `<td class="dsh-stress-hq c-text">${esc(s.hq || "")}</td>`
+      + `<td class="dsh-stress-debt c-num">${esc(s.debt || "—")}</td>`
+      + `<td class="dsh-note c-src dsh-srccol">${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
       + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("region", "Region")}${chip("status", "Status")}${chip("debt", "Debt")}${chip("latest", "Latest")}${chip("name", "Debtor")}</div>`
-      + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl dsh-stk-src" id="dsh-stress-body" data-stk-name="0" data-stk-key="3"><thead><tr><th>Debtor</th><th>Sector</th><th>HQ</th><th>Debt</th><th>Status</th><th>Latest</th><th>Src</th></tr></thead>`
+      + `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl dsh-stk-src" id="dsh-stress-body" data-events="1" data-stk-date="0" data-stk-name="1" data-stk-key="2"><thead><tr><th class="c-date">Latest</th><th>Debtor</th><th class="c-tag">Status</th><th>Sector</th><th>HQ</th><th class="c-num">Debt</th><th class="c-src dsh-srccol">Src</th></tr></thead>`
       + `<tbody>${stressRows().map(row).join("")}</tbody></table></div></div>`;
   }
   // European loan maturities by year (S&P UBS index dashboard) — bar + cumulative %,
@@ -724,7 +735,7 @@ export function mount(host, ctx) {
       return `<tr><td class="dsh-nm">${esc(b.y)}</td><td class="dsh-mw-barcell"><span class="dsh-mw-track"><span class="dsh-mw-fill" style="width:${pct}%"></span></span>`
         + `<span class="dsh-mw-hval">€${esc(b.amt.toFixed(2))}bn</span></td><td class="dsh-r">${Math.round((cum / tot) * 100)}%</td></tr>`; };
     return `<div class="dsh-mw-eu dsh-mw-euwall" data-mw="europe-wall"><div class="dsh-pc-reports-h">${esc(ew.title || "By year")}</div>`
-      + `<table class="dsh-tbl dsh-mw-tbl dsh-mw-eutbl"><thead><tr><th>Year</th><th>Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${ew.buckets.map(row).join("")}</tbody></table>`
+      + `<table class="dsh-tbl dsh-mw-tbl dsh-mw-eutbl" data-cols="off"><thead><tr><th>Year</th><th>Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${ew.buckets.map(row).join("")}</tbody></table>`
       + `<div class="dsh-ladder-cap">${esc(ew.note || "")} Data as of ${esc(ew.asOf || "")}.${srcLink(ew.src && ew.src.url, (ew.src && ew.src.name) || "source")}${srcLink(ew.src2 && ew.src2.url, (ew.src2 && ew.src2.name) || "index page")}</div></div>`;
   }
   function maturityHTML() {
@@ -761,7 +772,7 @@ export function mount(host, ctx) {
         + `<td class="dsh-mw-comp">${compCell(b)}</td>`
         + `<td class="dsh-r">${Math.round((cum / tot) * 100)}%</td></tr>`; };
       const anyComp = wall.buckets.some((b) => Array.isArray(b.comp) && b.comp.length);
-      const table = `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th>Maturing</th><th>Composition${anyComp && wall.compBy ? ` <span class="dsh-mw-comp-by">${esc(wall.compBy)}</span>` : ""}</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
+      const table = `<table class="dsh-tbl dsh-mw-tbl" data-cols="off"><thead><tr><th>Year</th><th>Maturing</th><th>Composition${anyComp && wall.compBy ? ` <span class="dsh-mw-comp-by">${esc(wall.compBy)}</span>` : ""}</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
       const cap = `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${wall.compNote ? ` · ${esc(wall.compNote)}` : ""}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
       ladder = `<div class="dsh-mw-wall">${table}${cap}</div>`;
     }
@@ -772,17 +783,16 @@ export function mount(host, ctx) {
   // Transactions drawer (R36); an intel item links its source.
   const WIRE_CAP = 15;
   const _normHead = (h) => String(h || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  // ONE news-row format for every Dashboard list (R40): the headline, then the date on
-  // the left and a grey tag (type · source / firm / court) on the right. In-app items
-  // (deals, profiles) open in Wire; everything else opens its source in a new tab.
+  // ONE events row for every Dashboard list (R43, superseding R40's headline-first
+  // row): date · headline / meta · tag · source — the shared feed.js evRow, so the
+  // Dashboard, the Restructuring hub and every other surface render the same row. In-app
+  // items (deals, profiles) open in Wire; everything else opens its source.
   const mgrName = (id) => ((managers || []).find((m) => m.id === id) || {}).name || "";
-  function newsLi({ title, href, inApp = false, date, est = false, meta = "", cls = "", aCls = "", dCls = "", attrs = "" }) {
-    const a = inApp ? ` class="dsh-drill${aCls ? ` ${aCls}` : ""}"` : ` target="_blank" rel="noopener noreferrer"${aCls ? ` class="${aCls}"` : ""}`;
-    return `<li class="dsh-news-i${cls ? ` ${cls}` : ""}"${attrs}><a href="${esc(href)}"${a}>${txt(title)}</a>`
-      + `<span class="dsh-news-d${dCls ? ` ${dCls}` : ""}"${est ? ' title="Approximate date — the source shows no exact publication date"' : ""}>${est ? "c. " : ""}${esc(/^\d{4}-\d{2}-\d{2}/.test(String(date || "")) ? fmtDate(date) : isoDay(date))}</span>`
-      + (meta ? `<span class="dsh-news-s">${meta}</span>` : "") + `</li>`;
+  function newsLi({ title, href, inApp = false, date, est = false, meta = "", tag = "", src = "", srcHref = "", cls = "", aCls = "", dCls = "", attrs = "" }) {
+    return evRow({ title: deEnt(title), href, inApp, dateText: isoDay(date),
+      est, meta, tag, src, srcHref, cls: `dsh-news-i${cls ? ` ${cls}` : ""}`, aCls, dCls, attrs });
   }
-  const newsUl = (rows, cls = "") => `<ul class="dsh-news dsh-rx${cls ? ` ${cls}` : ""}">${rows.join("")}</ul>`;
+  const newsUl = (rows, cls = "") => evList(rows, `dsh-news dsh-rx${cls ? ` ${cls}` : ""}`);
   const metaOf = (...parts) => esc(parts.filter(Boolean).join(" · "));
   // Europe-first (review 2026-10-15, #5): by default only European items — a deal whose
   // borrower/asset region is European (deal-tags), an intel item whose own text names
@@ -811,7 +821,7 @@ export function mount(host, ctx) {
     const row = (x) => {
       const inApp = !!(x._deal && x.id);
       return newsLi({ title: x.headline || x.title, href: inApp ? `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}` : (x.sourceUrl || x.url), inApp,
-        date: x.date, meta: metaOf(x.type, mgrName(x.managerId)) });
+        date: x.date, meta: metaOf(x.type, mgrName(x.managerId)), src: creditSource({ ...x, sourceUrl: x.sourceUrl || x.url }), srcHref: x.sourceUrl || x.url });
     };
     return newsUl(items.map(row));
   }
@@ -830,7 +840,7 @@ export function mount(host, ctx) {
     // Research: the same news row as every list (title · date · source); the anchor keeps
     // its .dsh-pc-report hook.
     const reports = (P.reports || []).length
-      ? `<div class="dsh-pc-reports"><div class="dsh-pc-reports-h">Research</div>${newsUl(P.reports.map((r) => newsLi({ title: r.title, href: r.url, date: r.date, meta: metaOf(r.srcName), aCls: "dsh-pc-report" })))}</div>`
+      ? `<div class="dsh-pc-reports"><div class="dsh-pc-reports-h">Research</div>${newsUl(P.reports.map((r) => newsLi({ title: r.title, href: r.url, date: r.date, meta: "Research", src: r.srcName, aCls: "dsh-pc-report" })))}</div>`
       : "";
     return `<div class="dsh-kvgrid dsh-pc-grid">${P.metrics.map(kv).join("")}</div>${reports}`;
   }
@@ -869,7 +879,7 @@ export function mount(host, ctx) {
     const head = `<tr><th>Tracked by Wire</th><th class="dsh-r">${mo(m2)}</th><th class="dsh-r">${mo(m1)}</th><th class="dsh-r" title="month to date">${mo(m0)}*</th></tr>`;
     const rows = lines.map(([l, f]) => `<tr><td class="dsh-nm">${esc(l)}</td><td class="dsh-r">${cnt(f, m2)}</td><td class="dsh-r">${cnt(f, m1)}</td><td class="dsh-r">${cnt(f, m0)}</td></tr>`).join("");
     const latest = D.filter((x) => (isClo(x) || isClose(x))).sort(byDateDesc)
-      .map((x) => newsLi({ title: x.headline, href: `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`, inApp: true, date: x.date, meta: metaOf(isClo(x) ? "CLO" : x.type, mgrName(x.managerId)) })).join("");
+      .map((x) => newsLi({ title: x.headline, href: `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`, inApp: true, date: x.date, meta: metaOf(isClo(x) ? "CLO" : x.type, mgrName(x.managerId)), src: creditSource(x), srcHref: x.sourceUrl })).join("");
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-act-tbl"><thead>${head}</thead><tbody>${rows}</tbody></table></div>`
       + (latest ? `<div class="dsh-pc-reports-h">Latest CLOs &amp; fund closes</div><ul class="dsh-news dsh-rx dsh-act-list">${latest}</ul>` : "");
   }
@@ -938,7 +948,7 @@ export function mount(host, ctx) {
     const rows = (deals || []).filter((d) => d && d.date && d.id && /restructuring|bankruptcy|distress/i.test(d.type || "")).sort(byDateDesc)
       .filter((d) => { const k = `${d.date}|${String(d.headline || "").trim().toLowerCase()}`; if (seen.has(k)) return false; seen.add(k); return true; });
     if (!rows.length) return `<p class="dsh-load">No tracked restructuring deals.</p>`;
-    return newsUl(rows.map((x) => newsLi({ title: x.headline, href: `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`, inApp: true, date: x.date, meta: metaOf(x.type, mgrName(x.managerId)) })));
+    return newsUl(rows.map((x) => newsLi({ title: x.headline, href: `${ctx.base}/transactions/#/deal/${encodeURIComponent(x.id)}`, inApp: true, date: x.date, meta: metaOf(x.type, mgrName(x.managerId)), src: creditSource(x), srcHref: x.sourceUrl })));
   }
   // Funds in market (review 2026-10-15, #12) — "which managers are raising European
   // direct-lending funds, and from which LPs?" in one card: every fund whose status is
@@ -957,14 +967,19 @@ export function mount(host, ctx) {
     const bar = `<div class="dsh-sortbar"><button type="button" class="dsh-sortchip${_fimScope === "eu" ? " is-on" : ""}" data-fim-scope="1">${_fimScope === "eu" ? "Europe" : "All regions"}</button>`
       + `<select class="dsh-fim-strat" aria-label="Strategy"><option value="">All strategies</option>${strats.map((x) => `<option value="${esc(x)}"${x === _fimStrat ? " selected" : ""}>${esc(x)}</option>`).join("")}</select>`
       + `<span class="dsh-n">${rows.length} fund${rows.length === 1 ? "" : "s"} · ${rows.filter((r) => r.lps.length).length} with named LPs</span></div>`;
-    const row = ({ f, lps: L, stale }) => `<tr><td class="dsh-nm"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(f.managerId)}/vehicles`)}">${esc(f.name)}</a></td>`
-      + `<td>${esc(((managers || []).find((m) => m.id === f.managerId) || {}).name || "—")}</td>`
-      + `<td>${esc(f.strategy || "—")}</td><td><span class="dsh-tag">${esc(f.status)}</span>${stale ? ` <span class="dsh-tag dsh-tag-stale" title="Status not refreshed in 12+ months — it may have closed since">stale</span>` : ""}</td>`
-      + `<td class="dsh-r">${amt(f, f.targetSize)}</td><td class="dsh-r">${amt(f, f.raised)}</td>`
-      + `<td class="dsh-fim-lps">${L.length ? esc(L.slice(0, 3).join(", ")) + (L.length > 3 ? ` +${L.length - 3}` : "") : "—"}</td>`
-      + `<td class="dsh-stress-as">${f.asOf ? esc(isoDay(String(f.asOf).slice(0, 10))) : "—"}</td></tr>`;
-    return bar + `<div class="dsh-scroll"><table class="dsh-tbl dsh-fim-tbl dsh-stk-src" data-stk-name="0" data-stk-key="3"><thead><tr><th>Fund</th><th>Manager</th><th>Strategy</th><th>Status</th><th class="dsh-r">Target</th><th class="dsh-r">Raised</th><th>Named LPs</th><th>As of</th></tr></thead><tbody>`
-      + (rows.length ? rows.map(row).join("") : `<tr><td colspan="8" class="dsh-load">No funds in market for this filter.</td></tr>`) + `</tbody></table></div>`;
+    // R43: dated by the fund's latest status update — date first, status beside the fund,
+    // its source last.
+    const fSrc = (f) => ((f.sources || []).find((x) => x && x.url) || {}).url || f.sourceUrl || "";
+    const row = ({ f, lps: L, stale }) => `<tr><td class="c-date">${f.asOf ? esc(isoDay(String(f.asOf).slice(0, 10))) : "—"}</td>`
+      + `<td class="dsh-nm c-text"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(f.managerId)}/vehicles`)}">${esc(f.name)}</a></td>`
+      + `<td class="c-tag"><span class="dsh-tag">${esc(f.status)}</span>${stale ? ` <span class="dsh-tag dsh-tag-stale" title="Status not refreshed in 12+ months — it may have closed since">stale</span>` : ""}</td>`
+      + `<td class="c-text">${esc(((managers || []).find((m) => m.id === f.managerId) || {}).name || "—")}</td>`
+      + `<td class="c-text">${esc(f.strategy || "—")}</td>`
+      + `<td class="dsh-r c-num">${amt(f, f.targetSize)}</td><td class="dsh-r c-num">${amt(f, f.raised)}</td>`
+      + `<td class="dsh-fim-lps c-text">${L.length ? esc(L.slice(0, 3).join(", ")) + (L.length > 3 ? ` +${L.length - 3}` : "") : "—"}</td>`
+      + `<td class="c-src dsh-srccol">${srcLink(fSrc(f), `${f.name} — source`)}</td></tr>`;
+    return bar + `<div class="dsh-scroll"><table class="dsh-tbl dsh-fim-tbl dsh-stk-src" data-events="1" data-stk-date="0" data-stk-name="1" data-stk-key="2"><thead><tr><th class="c-date">As of</th><th>Fund</th><th class="c-tag">Status</th><th>Manager</th><th>Strategy</th><th class="dsh-r c-num">Target</th><th class="dsh-r c-num">Raised</th><th>Named LPs</th><th class="c-src dsh-srccol">Src</th></tr></thead><tbody>`
+      + (rows.length ? rows.map(row).join("") : `<tr><td colspan="9" class="dsh-load">No funds in market for this filter.</td></tr>`) + `</tbody></table></div>`;
   }
   // Latest LP commitments (review #15) — the public commitments ledger, newest first:
   // LP → manager / fund, amount, date, each linked to its source.
@@ -975,10 +990,10 @@ export function mount(host, ctx) {
     const amt = (c) => (c.amount != null ? `${sym[c.ccy] || (c.ccy ? c.ccy + " " : "")}${c.amount >= 1000 ? +(c.amount / 1000).toFixed(2) + "bn" : c.amount + "m"}` : "—");
     const mName = (c) => ((managers || []).find((m) => m.id === c.managerId) || {}).name || c.manager || "—";
     const fName = (c) => ((funds || []).find((f) => f.id === c.fundId) || {}).name || c.fund || "";
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-lpc-tbl dsh-stk-src" data-stk-name="0" data-stk-key="2"><thead><tr><th>Investor</th><th>Manager / fund</th><th class="dsh-r">Amount</th><th>Date</th><th>Src</th></tr></thead><tbody>`
-      + rows.map((c) => `<tr><td class="dsh-nm"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/lp/${encodeURIComponent(c.lpId)}`)}">${esc(lpName(c.lpId))}</a></td>`
-        + `<td>${c.managerId ? `<a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(c.managerId)}`)}">${esc(mName(c))}</a>` : esc(mName(c))}${fName(c) ? ` <span class="dsh-n">${esc(fName(c))}</span>` : ""}</td>`
-        + `<td class="dsh-r">${esc(amt(c))}</td><td class="dsh-stress-as">${esc(isoDay(c.date))}</td><td class="dsh-note">${srcLink(c.sourceUrl, "source")}</td></tr>`).join("")
+    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-lpc-tbl dsh-stk-src" data-events="1" data-stk-date="0" data-stk-name="1" data-stk-key="3"><thead><tr><th class="c-date">Date</th><th>Investor</th><th>Manager / fund</th><th class="dsh-r c-num">Amount</th><th class="c-src dsh-srccol">Src</th></tr></thead><tbody>`
+      + rows.map((c) => `<tr title="${esc([lpName(c.lpId), mName(c), fName(c), amt(c)].filter(Boolean).join(" · "))}"><td class="c-date">${esc(isoDay(c.date))}</td><td class="dsh-nm c-text"><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/lp/${encodeURIComponent(c.lpId)}`)}">${esc(lpName(c.lpId))}</a></td>`
+        + `<td class="c-text">${c.managerId ? `<a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/manager/${encodeURIComponent(c.managerId)}`)}">${esc(mName(c))}</a>` : esc(mName(c))}${fName(c) ? ` <span class="dsh-n">${esc(fName(c))}</span>` : ""}</td>`
+        + `<td class="dsh-r c-num">${esc(amt(c))}</td><td class="c-src dsh-srccol">${srcLink(c.sourceUrl, "source")}</td></tr>`).join("")
       + `</tbody></table></div>`;
   }
   const fillCard = (id, title, body, meta = "", cls = "") => `<section class="dsh-card dsh-fill${cls ? ` ${cls}` : ""}" id="${id}"><h3 class="dsh-h">${title} ${meta}</h3><div class="dsh-fill-body">${body}</div></section>`;
@@ -1200,7 +1215,7 @@ export function mount(host, ctx) {
       + (ea ? `<path d="${path(ea)}" class="dsh-yc-ea" fill="none" vector-effect="non-scaling-stroke"/>${dots(ea, "dsh-yc-ea-d")}` : "") + `</svg></div>`
       + `<div class="dsh-yc2-x" style="--n:${N}"><em>Maturity</em>${mats.map((m) => `<span>${esc(m)}</span>`).join("")}</div>`;
     const rowFor = (arr, lbl, cls) => `<tr><td class="dsh-nm"><span class="dsh-yc-key ${cls}"></span>${lbl}</td>${arr.map((v) => `<td>${v != null ? esc(v.toFixed(2)) : "—"}</td>`).join("")}</tr>`;
-    const table = `<table class="dsh-tbl dsh-yc2-tbl"><thead><tr><th>Curve</th>${mats.map((m) => `<th>${esc(m)}</th>`).join("")}</tr></thead><tbody>${ea ? rowFor(ea, "Euro AAA", "dsh-yc-ea") : ""}${rowFor(uk, "UK gilts", "dsh-yc-uk")}${rowFor(us, "US Treasury", "dsh-yc-us")}</tbody></table>`;
+    const table = `<table class="dsh-tbl dsh-yc2-tbl" data-cols="off"><thead><tr><th>Curve</th>${mats.map((m) => `<th>${esc(m)}</th>`).join("")}</tr></thead><tbody>${ea ? rowFor(ea, "Euro AAA", "dsh-yc-ea") : ""}${rowFor(uk, "UK gilts", "dsh-yc-uk")}${rowFor(us, "US Treasury", "dsh-yc-us")}</tbody></table>`;
     const src = (yc.sources && yc.sources[0]) || null;
     const eaCap = ea ? ` · Euro AAA ${esc(isoDay(_eu.curve.asOf))} · <a href="${esc(_eu.curve.href)}" target="_blank" rel="noopener noreferrer">ECB</a>` : "";
     return `<div class="dsh-yc dsh-yc2 dsh-scroll">${svg}${table}</div>` + (src ? `<div class="dsh-ladder-cap">${esc(yc.asOf || "")} · <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a>${eaCap}</div>` : "");
@@ -1296,7 +1311,7 @@ export function mount(host, ctx) {
       .sort((a, b) => byDateDesc(a, b) || String(b.time || "").localeCompare(String(a.time || "")))
       .slice(0, 50);
     if (!items.length) return "";
-    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, meta: metaOf(x.source) })));
+    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, src: x.source })));
   }
   // Two readings of where we are: Ray Dalio's debt cycle (US/UK position on the
   // 0 early → 100 crisis track) and Howard Marks' market cycle (the pendulum of
@@ -1706,8 +1721,8 @@ export function mount(host, ctx) {
     const row = (x) => {
       const area = LGL_AREA_BY_ID[x.area];
       const ty = x.type === "case" ? `<span class="dsh-lgl-ty dsh-lgl-case">Case</span>` : `<span class="dsh-lgl-ty dsh-lgl-alert">Alert</span>`;
-      const rest = esc([area && area.short, x.court, x.citation, x.firm].filter(Boolean).join(" · "));
-      return newsLi({ title: x.title, href: x.url || "#", date: x.date, est: x.est, meta: ty + (rest ? ` · ${rest}` : ""),
+      const rest = esc([area && area.short, x.citation].filter(Boolean).join(" · "));
+      return newsLi({ title: x.title, href: x.url || "#", date: x.date, est: x.est, meta: ty + (rest ? ` · ${rest}` : ""), src: x.firm || x.court,
         cls: "dsh-lgl-i", aCls: "dsh-lgl-t", dCls: "dsh-lgl-d", attrs: ` data-date="${esc(x.date || "")}"` });
     };
     return newsUl(list.map(row), "dsh-lgl-list");
@@ -1727,7 +1742,7 @@ export function mount(host, ctx) {
   function hfNewsBody() {
     const rows = (HEDGE_INTEL || []).filter((x) => x && x.date && x.headline && (x.sourceUrl || x.url)).sort(byDateDesc);
     if (!rows.length) return `<p class="dsh-load">No hedge-fund news tracked.</p>`;
-    return newsUl(rows.map((x) => newsLi({ title: x.headline, href: x.sourceUrl || x.url, date: x.date, meta: metaOf((hfById.get(x.hfId) || {}).name, x.type, x.outlet) })));
+    return newsUl(rows.map((x) => newsLi({ title: x.headline, href: x.sourceUrl || x.url, date: x.date, meta: metaOf((hfById.get(x.hfId) || {}).name, x.type), src: x.outlet })));
   }
   // Hedge funds · every covered fund by reported AUM (US$bn, each dated + sourced;
   // an estimate is marked "est."), with strategy and HQ.
@@ -1735,7 +1750,7 @@ export function mount(host, ctx) {
     const rows = (HEDGE_FUNDS || []).filter((f) => f && f.aum != null).sort((a, b) => b.aum - a.aum);
     if (!rows.length) return `<p class="dsh-load">No AUM figures.</p>`;
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-hfaum-tbl dsh-stk-src" data-stk-rank="0" data-stk-name="1" data-stk-key="4" data-stk-lab="4"><thead><tr><th>#</th><th>Fund</th><th>Strategy</th><th>HQ</th><th class="dsh-r">AUM $bn</th><th class="dsh-r">As of</th><th class="dsh-srccol"></th></tr></thead><tbody>`
-      + rows.map((f, i) => `<tr><td class="dsh-r dsh-rank">${i + 1}</td><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${f.id}`)}">${esc(f.name)}</a></td><td class="dsh-mut dsh-wrap">${esc(f.strategy || "—")}</td><td class="dsh-mut dsh-wrap">${esc(f.hq || f.region || "—")}</td>`
+      + rows.map((f, i) => `<tr><td class="dsh-r dsh-rank">${i + 1}</td><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${f.id}`)}">${esc(f.name)}</a></td><td class="dsh-mut">${esc(f.strategy || "—")}</td><td class="dsh-mut">${esc(f.hq || f.region || "—")}</td>`
         + `<td class="dsh-r"${f.estimated ? ' title="Estimate — see source"' : ""}>${esc((+f.aum).toFixed(1))}${f.estimated ? `<span class="dsh-est"> est.</span>` : ""}</td><td class="dsh-r dsh-d">${esc(isoDay(f.aumAsOf || ""))}</td><td class="dsh-srccol">${srcLink(f.aumSource, f.name + " AUM")}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   // Hedge funds · latest reported performance per fund (each with its own period + source).
@@ -1744,7 +1759,7 @@ export function mount(host, ctx) {
       .sort((a, b) => String(b.perf.asOf || "").localeCompare(String(a.perf.asOf || "")) || a.name.localeCompare(b.name));
     if (!rows.length) return `<p class="dsh-load">No reported performance.</p>`;
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="2"><thead><tr><th>Fund</th><th>Reported</th><th class="dsh-r">Period</th><th class="dsh-srccol"></th></tr></thead><tbody>`
-      + rows.map((f) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${f.id}`)}">${esc(f.name)}</a></td><td class="dsh-mut dsh-wrap">${txt(f.perf.text)}</td><td class="dsh-r dsh-d">${esc(isoDay(f.perf.asOf || ""))}</td><td class="dsh-srccol">${srcLink(f.perf.source, f.name + " performance")}</td></tr>`).join("") + `</tbody></table></div>`;
+      + rows.map((f) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${f.id}`)}">${esc(f.name)}</a></td><td class="dsh-mut">${txt(f.perf.text)}</td><td class="dsh-r dsh-d">${esc(isoDay(f.perf.asOf || ""))}</td><td class="dsh-srccol">${srcLink(f.perf.source, f.name + " performance")}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   // Hedge funds · the covered universe by strategy family: each fund's own strategy
   // label grouped by keyword (first match wins), with fund count and summed AUM.
@@ -1758,7 +1773,7 @@ export function mount(host, ctx) {
     const rows = [...m.entries()].sort((a, b) => b[1].aum - a[1].aum);
     if (!rows.length) return `<p class="dsh-load">No funds tracked.</p>`;
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="4" data-stk-lab="1,2,3,4"><thead><tr><th>Strategy family</th><th>Largest</th><th class="dsh-r">Funds</th><th class="dsh-r" title="Europe / UK based">EU/UK</th><th class="dsh-r">AUM $bn</th></tr></thead><tbody>`
-      + rows.map(([k, r]) => `<tr><td class="dsh-wrap">${esc(k)}</td><td class="dsh-mut dsh-wrap">${r.top ? esc(r.top.name) : "—"}</td><td class="dsh-r">${r.n}</td><td class="dsh-r">${r.eu}</td><td class="dsh-r">${esc(r.aum.toFixed(0))}</td></tr>`).join("") + `</tbody></table></div>`;
+      + rows.map(([k, r]) => `<tr><td>${esc(k)}</td><td class="dsh-mut">${r.top ? esc(r.top.name) : "—"}</td><td class="dsh-r">${r.n}</td><td class="dsh-r">${r.eu}</td><td class="dsh-r">${esc(r.aum.toFixed(0))}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   // Hedge funds · which covered funds are in the news (last 90 days, tracked by Wire).
   function hfNewsCountBody() {
@@ -1768,7 +1783,7 @@ export function mount(host, ctx) {
     const rows = [...m.entries()].sort((a, b) => b[1].n - a[1].n || (a[1].last < b[1].last ? 1 : -1));
     if (!rows.length) return `<p class="dsh-load">No fund news in the last 90 days.</p>`;
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-key="3" data-stk-lab="2"><thead><tr><th>Fund</th><th>Topics</th><th class="dsh-r">Items</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
-      + rows.map(([id, r]) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${id}`)}">${esc(hfById.get(id).name)}</a></td><td class="dsh-mut dsh-wrap">${esc([...r.types].join(", "))}</td><td class="dsh-r">${r.n}</td><td class="dsh-r dsh-d">${esc(isoDay(r.last))}</td></tr>`).join("") + `</tbody></table></div>`;
+      + rows.map(([id, r]) => `<tr><td><a class="dsh-drill" href="${esc(`${ctx.base}/profiles/#/hf/${id}`)}">${esc(hfById.get(id).name)}</a></td><td class="dsh-mut">${esc([...r.types].join(", "))}</td><td class="dsh-r">${r.n}</td><td class="dsh-r dsh-d">${esc(isoDay(r.last))}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   function hedgeFundsHTML() {
     const F = HF_13F || {};
@@ -1838,7 +1853,7 @@ export function mount(host, ctx) {
   function legalNewsHTML() {
     const items = legalDb().filter((x) => x && x.date && x.title && x.url).slice(0, 16);
     if (!items.length) return "";
-    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.type === "case" ? "Case" : "Alert", x.firm || x.court) })));
+    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
   }
   // Restructuring & insolvency — the newest sourced alerts / case law in the
   // restructuring practice area (schemes, Part 26A plans, insolvency), drawn from
@@ -1846,7 +1861,7 @@ export function mount(host, ctx) {
   function restructuringHTML() {
     const items = legalDb().filter((x) => x && x.area === "ri" && x.date && x.title && x.url);
     if (!items.length) return `<p class="dsh-load">No restructuring items tracked.</p>`;
-    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.type === "case" ? "Case" : "Alert", x.firm || x.court) })));
+    return newsUl(items.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
   }
   // Regulatory calendar — dated, sourced milestones (REG_CALENDAR), upcoming first
   // then the most recent past ones; an undated item (e.g. a file still in
@@ -1867,25 +1882,25 @@ export function mount(host, ctx) {
     const tbc = horizon ? [] : R.filter((x) => !x.date);
     const n90 = R.filter((x) => x.date && x.date >= today.slice(0, x.date.length) && x.date <= new Date(Date.now() + 90 * 864e5).toISOString().slice(0, 10)).length;
     const chips = `<div class="dsh-sortbar dsh-reg-wins"><span class="dsh-sortlbl">Show</span>${REG_WINS.map(([k, l]) => `<button type="button" class="dsh-sortchip dsh-reg-win${_regWin === k ? " is-on" : ""}" data-regwin="${k}">${esc(l)}${k === "90" ? ` (${n90})` : ""}</button>`).join("")}</div>`;
-    const row = (x, cls) => `<tr class="${cls}"><td class="dsh-stress-as">${x.date ? esc(isoDay(x.date)) : "TBC"}</td>`
-      + `<td class="dsh-reg-jur">${esc(x.jur || "")}</td>`
-      + `<td class="dsh-nm">${esc(x.item)}${srcLink(x.src, (x.srcName || "source") + " — source")}</td><td class="dsh-reg-note">${esc(x.note || "")}</td></tr>`;
+    const row = (x, cls) => `<tr class="${cls}" title="${esc([x.item, x.jur, x.note].filter(Boolean).join(" · "))}"><td class="c-date">${x.date ? esc(isoDay(x.date)) : "TBC"}</td>`
+      + `<td class="dsh-nm c-text">${esc(x.item)}</td><td class="dsh-reg-jur c-tag">${esc(x.jur || "")}</td>`
+      + `<td class="dsh-reg-note c-text">${esc(x.note || "")}</td><td class="c-src dsh-srccol">${srcLink(x.src, (x.srcName || "source") + " — source")}</td></tr>`;
     const rows = up.map((x) => row(x, "dsh-reg-up")).join("") + tbc.map((x) => row(x, "dsh-reg-tbc")).join("") + past.map((x) => row(x, "dsh-reg-past")).join("");
-    return chips + `<div class="dsh-scroll"><table class="dsh-tbl dsh-reg-tbl dsh-stk-src" data-stk-name="2" data-stk-key="0"><thead><tr><th>Date</th><th>Jur.</th><th>Milestone</th><th>What</th></tr></thead><tbody>`
-      + (rows || `<tr><td colspan="4" class="dsh-load">No dated milestones in this window.</td></tr>`)
+    return chips + `<div class="dsh-scroll"><table class="dsh-tbl dsh-reg-tbl dsh-stk-src" data-events="1" data-stk-date="0" data-stk-name="1" data-stk-key="2"><thead><tr><th class="c-date">Date</th><th>Milestone</th><th class="c-tag">Jur.</th><th>What</th><th class="c-src dsh-srccol">Src</th></tr></thead><tbody>`
+      + (rows || `<tr><td colspan="5" class="dsh-load">No dated milestones in this window.</td></tr>`)
       + `</tbody></table></div>`;
   }
   // Legal · latest case law (all judgments the desk covers, newest first).
   function caseLawBody() {
     const rows = legalDb().filter((x) => x && x.type === "case" && x.date && x.title && x.url);
     if (!rows.length) return `<p class="dsh-load">No case law tracked.</p>`;
-    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.court, x.citation, (LGL_AREA_BY_ID[x.area] || {}).short) })));
+    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.citation, (LGL_AREA_BY_ID[x.area] || {}).short), src: x.court })));
   }
   // Legal · every item in one practice area, newest first (alerts + judgments).
   function areaListBody(area) {
     const rows = legalDb().filter((x) => x && x.area === area && x.date && x.title && x.url);
     if (!rows.length) return `<p class="dsh-load">No items tracked.</p>`;
-    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: metaOf(x.type === "case" ? "Case" : "Alert", x.firm || x.court) })));
+    return newsUl(rows.map((x) => newsLi({ title: x.title, href: x.url, date: x.date, est: x.est, meta: x.type === "case" ? "Case" : "Alert", src: x.firm || x.court })));
   }
   // Legal · activity by practice area: alerts and judgments in the last 30 / 90 days
   // and in total, from the desk's own records.
@@ -1897,7 +1912,7 @@ export function mount(host, ctx) {
     const rows = [...m.entries()].sort((a, b) => b[1].n90 - a[1].n90 || b[1].all - a[1].all);
     if (!rows.length) return `<p class="dsh-load">No legal items tracked.</p>`;
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-mini dsh-stk-src" data-stk-name="0" data-stk-lab="1,2,3,4,5"><thead><tr><th>Practice area</th><th class="dsh-r" title="Alerts, last 30 days">Alerts 30d</th><th class="dsh-r" title="Judgments, last 30 days">Cases 30d</th><th class="dsh-r">90d</th><th class="dsh-r">All</th><th class="dsh-r">Latest</th></tr></thead><tbody>`
-      + rows.map(([k, r]) => `<tr><td class="dsh-wrap">${esc((LGL_AREA_BY_ID[k] || {}).name || k)}</td><td class="dsh-r">${r.a30}</td><td class="dsh-r">${r.c30}</td><td class="dsh-r">${r.n90}</td><td class="dsh-r">${r.all}</td><td class="dsh-r dsh-d">${esc(isoDay(r.last))}</td></tr>`).join("") + `</tbody></table></div>`;
+      + rows.map(([k, r]) => `<tr><td>${esc((LGL_AREA_BY_ID[k] || {}).name || k)}</td><td class="dsh-r">${r.a30}</td><td class="dsh-r">${r.c30}</td><td class="dsh-r">${r.n90}</td><td class="dsh-r">${r.all}</td><td class="dsh-r dsh-d">${esc(isoDay(r.last))}</td></tr>`).join("") + `</tbody></table></div>`;
   }
   // Legal · most active firms: every firm publishing in the last 90 days — 30-day and
   // 90-day counts, its leading practice area, and its latest item's date.

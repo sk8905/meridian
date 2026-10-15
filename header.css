@@ -57,13 +57,13 @@
   font: inherit; font-size:var(--fs-head); padding: .42rem .7rem; border-radius: 0; cursor: pointer; text-align: left; white-space: nowrap; }
 .nav-search:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
 .nav-search .ns-lbl { flex: 1 1 auto; color: inherit; }
-.nav-search kbd { background: rgba(255,255,255,.16); border-radius: 0; padding: .02rem .42rem; font: inherit; font-size:var(--fs-head); font-weight: 700; line-height: 1.5; }
+.nav-search kbd { background: rgba(255,255,255,.16); border-radius: 0; padding: .02rem .42rem; font: inherit; font-size:var(--fs-head); font-weight:400; line-height: 1.5; }
 
 /* Right cluster: identity + last-refresh stacked, sitting in the right gutter. */
 .topbar-right { flex: 0 0 auto; margin-left: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
 .account-nav { font-size:var(--fs-body); color: var(--muted, #8592ad); white-space: nowrap; }
-.account-nav strong { color: #fff; font-weight: 600; }
-.account-nav a { color: #fff; font-weight: 600; }
+.account-nav strong { color: #fff; font-weight:400; }
+.account-nav a { color: #fff; font-weight:400; }
 .account-nav a:hover { color: #fff; text-decoration: none; }
 .account-nav:empty { display: none; }
 .data-status { display: flex; align-items: center; gap: .4rem; font-size:var(--fs-body); color: var(--muted, #8592ad); white-space: nowrap; }
@@ -118,7 +118,7 @@
    black --head band gone; the hairline --border keeps each strip legibly divided. */
 :root[data-theme="dark"] .wticker,
 :root[data-theme="dark"] .wbrief { background: var(--bg, #141414); }
-.wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size:var(--fs-body); font-weight: 600;
+.wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size:var(--fs-body); font-weight:400;
   letter-spacing: .04em; color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap; }
 /* Flat: the live-status dot is a solid accent disc, no glow halo. */
 .wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
@@ -157,12 +157,12 @@
 .wb-hello { color: var(--accent, #fb8b1e); font-size:var(--fs-body); font-weight: 400; letter-spacing: 0; white-space: nowrap; }
 .wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size:var(--fs-body); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wb-brief:empty { display: none; }
-.wb-lbl { font-size:var(--fs-micro); font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; margin-right: .3rem; }
+.wb-lbl { font-size:var(--fs-micro); font-weight:400; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; margin-right: .3rem; }
 .wb-link { color: var(--ink); font-weight: 400; text-decoration: none; }
 .wb-link:hover { color: var(--ink); text-decoration: none; }
 .wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
 .wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size:var(--fs-body); line-height: 1.4; color: var(--ink); overflow: hidden; }
-.wb-gl-l { flex: 0 0 auto; font-size:var(--fs-micro); font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; }
+.wb-gl-l { flex: 0 0 auto; font-size:var(--fs-micro); font-weight:400; letter-spacing: .02em; text-transform: uppercase; color: var(--wb-txt); opacity: 1; white-space: nowrap; }
 .wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; font-size:var(--fs-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); }
 .wb-gl-v a { color: inherit; text-decoration: none; }
 .wb-gl-v a:hover { color: var(--ink); text-decoration: none; }

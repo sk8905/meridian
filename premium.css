@@ -385,8 +385,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   .g-side2 > .acct-foot { flex: 0 0 auto; margin-top: auto;
     border-top: 1px solid var(--t-grid2, #262626); padding: 7px 12px 8px; }
   .g-side2 > .acct-foot .account-nav { font-size:var(--fs-body); line-height: 1.35; white-space: normal; color: var(--t-mut, #8592ad); }
-  .g-side2 > .acct-foot .account-nav strong { color: var(--t-ink, #eaf0fb); font-weight: 600; }
-  .g-side2 > .acct-foot .account-nav a { color: var(--t-ink, #eaf0fb); font-weight: 600; }
+  .g-side2 > .acct-foot .account-nav strong { color: var(--t-ink, #eaf0fb); font-weight:400; }
+  .g-side2 > .acct-foot .account-nav a { color: var(--t-ink, #eaf0fb); font-weight:400; }
   .g-side2 > .acct-foot .data-status { font-size:var(--fs-body); color: var(--t-faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); }
 
   /* App pages (Macro/Credit/Legal/Menu) — no right rail, so tuck it into the
@@ -394,8 +394,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   .footer > .acct-foot { align-items: flex-end; text-align: right; }
   .footer:has(> .acct-foot) { padding: .7rem 1.5rem; }
   .footer > .acct-foot .account-nav { font-size:var(--fs-body); color: var(--muted, #5e6a84); }
-  .footer > .acct-foot .account-nav strong { color: var(--ink, #131b2c); font-weight: 600; }
-  .footer > .acct-foot .account-nav a { color: var(--ink, #131b2c); font-weight: 600; }
+  .footer > .acct-foot .account-nav strong { color: var(--ink, #131b2c); font-weight:400; }
+  .footer > .acct-foot .account-nav a { color: var(--ink, #131b2c); font-weight:400; }
   .footer > .acct-foot .data-status { font-size:var(--fs-body); color: var(--muted, #5e6a84); }
 }
 
@@ -572,8 +572,8 @@ html.wire-boot #out { visibility: hidden; }
 .na-menu-search kbd { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body);
   border: 1px solid var(--border, #262626); padding: 0 5px; color: var(--muted, #8592ad); }
 .na-menu-acct { display: block; font-size:var(--fs-body); color: var(--muted, #8592ad); }
-.na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight: 600; }
-.na-menu-acct a { color: var(--muted, #8592ad); font-weight: 600; text-decoration: none; margin-left: .2em; }
+.na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight:400; }
+.na-menu-acct a { color: var(--muted, #8592ad); font-weight:400; text-decoration: none; margin-left: .2em; }
 .na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
   font-size:var(--fs-body); color: var(--faint, #5c6a86); border-bottom: 0; }
 /* Recent searches sit under the search bar; the account/refresh block is the
@@ -606,7 +606,7 @@ html.wire-boot #out { visibility: hidden; }
 .wire-navdiag { position: fixed; left: 10px; right: 10px; bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   z-index: 9600; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); color: var(--muted, #8592ad);
   font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); line-height: 1.55; padding: 9px 11px; }
-.wire-navdiag strong { color: var(--accent, #fb8b1e); font-weight: 700; }
+.wire-navdiag strong { color: var(--accent, #fb8b1e); font-weight:400; }
 
 /* the page footer hardcodes a white background — dark it so it doesn't show as a
    white band on the now dark-only app (holds the mobile account/refresh block) */
@@ -743,7 +743,7 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 57px) + v
 .na-panel[hidden] { display: none; }
 .na-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; z-index: 3; }
 .na-h-t { font-size:var(--fs-body); font-weight: 700; letter-spacing: .02em; color: var(--ink, #eaf0fb); text-transform: uppercase; }
-.na-h-n { color: var(--muted, #8592ad); font-weight: 600; text-transform: none; }
+.na-h-n { color: var(--muted, #8592ad); font-weight:400; text-transform: none; }
 .na-close { display: none; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; font-size:var(--fs-head); line-height: 1; }
 .na-close:hover { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
 /* Markets rows — mirror the desktop left rail: mono type, section headers with a
@@ -792,7 +792,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* Policy-rate snapshot rows (US · UK): label+rate · next meeting · forecast lean.
    The lean reads muted, never an accent (matches the desktop rail's g-snap-mood). */
 .na-pol { grid-template-columns: 1fr auto auto; align-items: baseline; }
-.na-pol-rate { color: var(--ink, #eaf0fb); font-weight: 600; }
+.na-pol-rate { color: var(--ink, #eaf0fb); font-weight:400; }
 .na-pol-nx { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; color: var(--muted, #8592ad); font-size:var(--fs-micro); }
 .na-pol-fcw { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); text-align: right; }
 .na-pol-mood { color: var(--muted, #8592ad); }
@@ -801,32 +801,32 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-fx-wrap { padding: 8px 12px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .na-fx-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size:var(--fs-num); }
 .na-fx-tbl th, .na-fx-tbl td { border: 1px solid var(--border, #262626); text-align: center; }
-.na-fx-tbl thead th, .na-fx-tbl tbody th { color: var(--mut, #8592ad); font-size:var(--fs-micro); letter-spacing: .04em; background: var(--head, #0a0a0a); font-weight: 600; padding: 5px 4px; }
-.na-fx-tbl td { color: var(--ink, #eaf0fb); font-weight: 600; padding: 0; }
+.na-fx-tbl thead th, .na-fx-tbl tbody th { color: var(--mut, #8592ad); font-size:var(--fs-micro); letter-spacing: .04em; background: var(--head, #0a0a0a); font-weight:400; padding: 5px 4px; }
+.na-fx-tbl td { color: var(--ink, #eaf0fb); font-weight:400; padding: 0; }
 .na-fx-tbl td.na-fx-diag { color: var(--faint, #5c6a86); font-weight: 400; padding: 5px 4px; }
 .na-fx-tbl td a { color: inherit; text-decoration: none; display: block; padding: 5px 4px; }
 /* FX key moment — a single sourced "why it moved" line under the matrix. */
 .na-fx-km { margin-top: 8px; color: var(--mut, #8592ad); font-size:var(--fs-body); line-height: 1.45; }
-.na-fx-km-l { color: var(--accent, #fb8b1e); font-weight: 700; font-size:var(--fs-micro); letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
+.na-fx-km-l { color: var(--accent, #fb8b1e); font-weight:400; font-size:var(--fs-micro); letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
 /* This week's earnings (Markets panel) — mirrors the desktop left-rail block: a
    date · ticker · timing line, then the consensus (Est) and, once reported, the
    outcome (Act) + share reaction. Self-contained on the panel's own tokens. */
 .na-earn-row { padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); }
 .na-earn-r1 { display: flex; align-items: baseline; gap: 6px; }
 .na-earn-date { flex: 0 0 auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-num); color: var(--muted, #8592ad); font-variant-numeric: tabular-nums; }
-.na-earn-tkr { flex: 0 0 auto; font-weight: 700; font-size:var(--fs-body); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); }
+.na-earn-tkr { flex: 0 0 auto; font-weight:400; font-size:var(--fs-body); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); }
 .na-earn-nm { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:var(--fs-body); color: var(--muted, #8592ad); }
-.na-earn-when { flex: 0 0 auto; font-size:var(--fs-micro); font-weight: 700; text-transform: uppercase; letter-spacing: .02em; color: var(--faint, #5c6a86); }
+.na-earn-when { flex: 0 0 auto; font-size:var(--fs-micro); font-weight:400; text-transform: uppercase; letter-spacing: .02em; color: var(--faint, #5c6a86); }
 .na-earn-px { flex: 0 0 auto; margin-left: auto; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-num); font-variant-numeric: tabular-nums; color: var(--muted, #8592ad); }
 .na-earn-px.up { color: var(--t-up, #3fc08d); } .na-earn-px.down { color: var(--t-down, #f26d84); }
 .na-earn-await { flex: 0 0 auto; margin-left: auto; font-size:var(--fs-micro); color: var(--faint, #5c6a86); font-style: italic; }
 .na-earn-l { margin-top: 2px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-num); color: var(--muted, #8592ad); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .na-earn-l.na-earn-act { color: var(--ink, #eaf0fb); }
-.na-earn-k { color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; margin-right: 4px; }
+.na-earn-k { color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight:400; text-transform: uppercase; letter-spacing: .03em; margin-right: 4px; }
 
 /* Segmented toggle sat in a section header (the predictions Top-movers Up/Down). */
 .na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }
-.na-pf-tgl, .na-pred-dir { padding: 1px 8px; font: inherit; font-size:var(--fs-micro); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }
+.na-pf-tgl, .na-pred-dir { padding: 1px 8px; font: inherit; font-size:var(--fs-micro); font-weight:400; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pf-tgl + .na-pf-tgl, .na-pred-dir + .na-pred-dir { border-left: 1px solid var(--border, #262626); }
 .na-pf-tgl.on, .na-pred-dir.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .na-pf-tgl.on, [data-theme="dark"] .na-pred-dir.on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
@@ -870,7 +870,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .nf-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
   color: var(--ink, #eaf0fb); font-weight: 400; font-size:var(--fs-body); line-height: 1.35; margin-bottom: 4px; }
 .nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); color: var(--muted, #8592ad); }
-.nf-code { flex: 0 0 auto; font-size:var(--fs-micro); font-weight: 700; letter-spacing: .04em; padding: 2px 5px; }
+.nf-code { flex: 0 0 auto; font-size:var(--fs-micro); font-weight:400; letter-spacing: .04em; padding: 2px 5px; }
 .nf-code.macro { color: var(--t-mac, #9b83e2); background: color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
 .nf-code.credit { color: var(--t-crd, #fb8b1e); background: color-mix(in srgb, var(--t-crd, #fb8b1e) 16%, transparent); }
 .nf-code.legal { color: var(--t-lex, #2fbf8a); background: color-mix(in srgb, var(--t-lex, #2fbf8a) 16%, transparent); }
@@ -893,7 +893,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-pred-main { flex: 1 1 auto; min-width: 0; }
 .na-pred-nums { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
 /* odds lead, weighted by magnitude (bright = more likely) — no good/bad colour. */
-.na-pred-yes { flex: 0 0 auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+.na-pred-yes { flex: 0 0 auto; font-weight:400; font-variant-numeric: tabular-nums; }
 .na-pred-yes.hi { color: var(--ink, #eaf0fb); }
 .na-pred-yes.lo { color: var(--muted, #8592ad); }
 .na-pred-chg { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size:var(--fs-micro); }
@@ -922,7 +922,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     margin: 0 0 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(127,127,127,.25); }
   .acct-foot .account-nav { position: static; color: var(--muted); font-size:var(--fs-head); }
   .acct-foot .account-nav[hidden] { display: none; }
-  .acct-foot .account-nav strong { color: var(--ink); font-weight: 600; }
+  .acct-foot .account-nav strong { color: var(--ink); font-weight:400; }
   .acct-foot .account-nav a { color: var(--muted); }
   .acct-foot .account-nav .si-prefix { display: inline; }
   .acct-foot .data-status { color: var(--muted); font-size:var(--fs-body); }
@@ -1023,7 +1023,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .topbar .nav-sep { background: rgba(255,255,255,.14); align-self: center; }
 .topbar .nav-search { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #9fb0cc; border-radius: 0; font-size:var(--fs-head); }
 .topbar .nav-search:hover { background: rgba(255,255,255,.11); color: #fff; border-color: rgba(255,255,255,.22); }
-.topbar .nav-search kbd { background: rgba(255,255,255,.1); font-weight: 600; border-radius: 0; }
+.topbar .nav-search kbd { background: rgba(255,255,255,.1); font-weight:400; border-radius: 0; }
 .topbar .topbar-tag { color: #8ea6c8; }
 .topbar button, .topbar .notif-bell, .topbar .nav-search { border-radius: 0; }
 .topbar .notif-panel, .topbar .mkt-panel { border-radius: 0; }
@@ -1059,7 +1059,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 /* Small grey group header inside the row menu (e.g. the earnings Sources list) */
 .rowmenu-sub { padding: 8px 14px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro);
-  font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86);
+  font-weight:400; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86);
   border-top: 1px solid var(--border, #262626); }
 .rowmenu-title { padding: 10px 14px; font-size:var(--fs-body); line-height: 1.35; color: var(--muted, #8592ad);
   border-bottom: 1px solid var(--border, #262626);
@@ -1096,7 +1096,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    = "dropdown") — same menu style as the News lane selector. The chips (above) stay
    on the desktop header panel. */
 .na-mktsel { position: relative; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); background: var(--head, #0a0a0a); }
-.na-mktsel-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border, #262626); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: var(--fs-body); font-weight: 600; letter-spacing: .02em; padding: 5px 11px; cursor: pointer; }
+.na-mktsel-btn { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border, #262626); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size: var(--fs-body); font-weight:400; letter-spacing: .02em; padding: 5px 11px; cursor: pointer; }
 .na-mktsel-btn .tchip-caret { opacity: .7; transition: transform .12s ease; }
 .na-mktsel-btn[aria-expanded="true"] .tchip-caret { transform: rotate(180deg); opacity: 1; }
 .na-mktsel-menu { position: absolute; top: calc(100% - 1px); left: 12px; z-index: 30; min-width: 170px;
@@ -1112,13 +1112,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* All briefing text is MONO on the terminal-panel scale (HOUSE_STYLE R11): 10px
    uppercase eyebrow · 12px lede · 12px body rows — no ad-hoc sizes, matching the
    Notifications panel's prose block and the .na-sec/.nf-sub chrome. */
-.na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+.na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight:400; letter-spacing: .05em; text-transform: uppercase; }
 /* Lede is clamped to 3 lines so a long authored summary can never push the panel
    past one screen (see renderBriefing — the bullet list is capped in lockstep). */
-.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size:var(--fs-body); line-height: 1.5; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size:var(--fs-body); line-height: 1.5; font-weight:400; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .na-brief-list { list-style: none; margin: 6px 0 0; padding: 0; }
 .na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size:var(--fs-body); line-height: 1.55; }
-.na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
+.na-brief-b strong { color: var(--ink, #eaf0fb); font-weight:400; }
 /* Briefing colour cues: the TOPIC heading (Macro / Bonds / Equities …) is
    orange, and every NUMBER (5%, $100, 4.97% …) is blue — in the lede and bullets. */
 /* Explainer colour marks — GLOBAL so every "Key moments" / "why it moved" line and
@@ -1127,7 +1127,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    (See v2/js/nb-format.js, which wraps the .nb-topic / .nb-num spans.) */
 .nb-topic { color: var(--accent, #fb8b1e); }
 .nb-num { color: inherit; }
-.na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
+.na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); font-weight:400; letter-spacing: .02em; white-space: nowrap; }
 .na-brief-src:hover { color: var(--ink); }
 .na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size:var(--fs-micro); line-height: 1.45; }
 
@@ -1136,13 +1136,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-form { display: flex; gap: 0; border-bottom: 1px solid var(--border, #262626); position: sticky; top: 33px; z-index: 2; background: var(--head, #0a0a0a); }
 .na-ask-in { flex: 1 1 auto; min-width: 0; border: 0; background: var(--lift, #202020); color: var(--ink, #eaf0fb); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); padding: 9px 12px; outline: none; }
 .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
-.na-ask-go { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
+.na-ask-go { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-weight:400; letter-spacing: .04em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
 .na-ask-go:disabled { color: var(--faint, #5c6a86); cursor: default; }
 /* Send button (bare menu Chat): an accent up-arrow that submits the typed line —
    the on-screen equivalent of pressing Enter. Squared, sits at the field's edge. */
 .na-ask-send { flex: 0 0 auto; display: grid; place-items: center; width: 40px; align-self: stretch; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); cursor: pointer; padding: 0; }
 .na-ask-send:disabled { color: var(--faint, #5c6a86); cursor: default; }
-.na-ask-add, .na-ask-search { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 0 12px; cursor: pointer; }
+.na-ask-add, .na-ask-search { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-weight:400; letter-spacing: .04em; text-transform: uppercase; padding: 0 12px; cursor: pointer; }
 .na-ask-add:hover:not(:disabled), .na-ask-search:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
 .na-ask-add:disabled, .na-ask-search:disabled { color: var(--faint, #5c6a86); cursor: default; }
 /* Clear-text ✕ — shows while the field has text, taps to empty it. In the menu
@@ -1156,13 +1156,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-answer { padding: 11px 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size:var(--fs-body); line-height: 1.55; word-wrap: break-word; }
 .na-ask-answer p { margin: 0 0 8px; }
 .na-ask-answer p:last-child { margin-bottom: 0; }
-.na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight: 600; }
+.na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight:400; }
 .na-ask-answer code { font-size:var(--fs-body); padding: 1px 4px; border-radius: 0; background: color-mix(in srgb, var(--ink, #eaf0fb) 10%, transparent); }
 /* Ask CONVERSATION transcript (Menu Chat + desktop header): a running list of
    {question → answer} turns, newest first, each divided by a 1px line. The
    question sits in emphasised mono above its answer; a small "New chat" clears it. */
 .na-chat-turn { border-bottom: 1px solid var(--border, #262626); }
-.na-chat-q { padding: 10px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-weight: 700; color: var(--ink, #eaf0fb); line-height: 1.4; word-wrap: break-word; }
+.na-chat-q { padding: 10px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); font-weight:400; color: var(--ink, #eaf0fb); line-height: 1.4; word-wrap: break-word; }
 /* New-chat EMPTY STATE: a centred accent spark + three one-word news topics as
    tappable pills — tapping one starts the chat on that topic. */
 .na-chat-empty { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 44px 16px; text-align: center; }
@@ -1223,14 +1223,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     bottom: var(--kbd-h, 0px);
   }
 }
-.na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-micro); font-weight:400; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
 /* Sources COLLAPSE into a click-to-expand disclosure. The .na-ask-srch summary
    keeps its uppercase-eyebrow look; a chevron on the right rotates when open. */
 .na-ask-srcd > summary { cursor: pointer; list-style: none; display: flex; align-items: center; }
 .na-ask-srcd > summary::-webkit-details-marker { display: none; }
 .na-ask-srcd > summary:hover { color: var(--muted, #8592ad); }
-.na-ask-srcn { color: var(--faint, #5c6a86); font-weight: 700; margin-left: 4px; }
+.na-ask-srcn { color: var(--faint, #5c6a86); font-weight:400; margin-left: 4px; }
 .na-ask-srcd > summary::after { content: ""; width: 5px; height: 5px; margin-left: auto; margin-right: 2px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; opacity: .75; transform: rotate(-45deg); transition: transform .12s ease; }
 .na-ask-srcd[open] > summary::after { transform: rotate(45deg); }
 .na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size:var(--fs-body); line-height: 1.4; }

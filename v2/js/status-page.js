@@ -26,12 +26,12 @@
 // Pure render helpers are exported for the spec (tests/status-page.mjs).
 // =============================================================================
 import { feedCodesHTML } from "/feed.js";
-import { esc } from "/util.js";
+import { esc, fmtD } from "/util.js";
 import { useful, lastKnown } from "/v2/js/live-cache.js";
 
 const DAY = 86400000, HOUR = 3600000;
 const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const fmtDay = (iso) => { const t = Date.parse(String(iso || "").slice(0, 10) + "T12:00:00Z"); if (Number.isNaN(t)) return ""; const d = new Date(t); return `${d.getUTCDate()} ${M[d.getUTCMonth()]}`; };
+const fmtDay = (iso) => fmtD(String(iso || "").slice(0, 10)); // R43b: "15 Oct 26"
 const fmtTime = (ms) => { if (!ms) return ""; const d = new Date(ms); return `${d.getDate()} ${M[d.getMonth()]} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
 const nf = (n) => (typeof n === "number" ? n.toLocaleString("en-GB") : "");
 const ageWords = (ms) => { const h = ms / HOUR; if (h < 1) return `${Math.max(1, Math.round(ms / 60000))} min`; if (h < 48) return `${Math.round(h)}h`; return `${Math.round(h / 24)} days`; };

@@ -55,7 +55,7 @@ const base = `http://localhost:${srv.port}`;
     checkEq(eu.rows, MATWALL.europe.rows.length, "phone: every European maturity row renders");
     check(eu.first, "phone: Europe leads the maturity card, ahead of the global S&P ladder");
     check(eu.links.some((h) => /pitchbook\.com|yahoo\.com/.test(h)), "phone: the European figures link their LCD source");
-    check(eu.head.includes(MATWALL.europeWall.asOf) && eu.text.includes("€38.4bn"), "phone: the card head carries the newest European data date; the LCD block shows the verbatim 2028 figure");
+    check(eu.head.includes(MATWALL.europeWall.asOf.replace(/ 20(\d\d)$/, " $1")) && eu.text.includes("€38.4bn"), "phone: the card head carries the newest European data date (30 Sep 26, R43b); the LCD block shows the verbatim 2028 figure");
     const ew = await pg.evaluate(() => { const w = document.querySelector('[data-mw="europe-wall"]'); const first = document.querySelector('.dsh-card [data-mw]');
       return w && { rows: [...w.querySelectorAll("tbody tr")].map((tr) => tr.textContent.replace(/\s+/g, " ").trim()), first: first === w, links: [...w.querySelectorAll("a[href]")].map((a) => a.href), right: Math.round(w.getBoundingClientRect().right) }; });
     check(ew && ew.first, "phone: the European by-year wall leads the maturity card");
