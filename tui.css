@@ -1280,6 +1280,12 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-card { padding: 10px 12px; border-bottom: 1px solid var(--border); cursor: pointer; background: var(--surface); }
 /* R43: the card IS the shared events row (.g-ev) — keep the phone gutter. */
 .tx-cards > .tx-card.g-ev { padding: 0 var(--m-gutter, 12px); }
+/* iPhone (owner 2026-10-15): no source column on the deal card — the headline gets the
+   width; the source stays one tap away in the deal drawer. */
+@media (max-width: 760px) {
+  .tx-cards > .tx-card.g-ev { grid-template-columns: var(--c-date-w) minmax(0, 1fr) auto; grid-template-areas: "date title tag" "date meta meta"; }
+  .tx-cards > .tx-card.g-ev > .c-src { display: none; }
+}
 .tx-card .tx-card-amt { color: var(--t-ink); font-size: var(--fs-num); font-variant-numeric: tabular-nums; }
 .tx-card .g-ev-m .tx-mgr { color: inherit; }
 .tx-card.is-open { box-shadow: inset 2px 0 0 var(--accent); }
@@ -1433,7 +1439,7 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 @media (max-width: 760px) {
   /* Hedge Funds: Monitor / Cross-holdings move into the Filters sheet (P5). */
   #pf-panes #hf-mon-btn, #pf-panes #hf-cons-btn { display: none; }
-  /* Card rows: name · headline figure, then HQ · fit · activity — no sideways table. */
+  /* Card rows: name · headline figure, then detail · fit · activity — no sideways table. */
   #pf-panes .pf-cards, #pf-panes .pf-cards tbody { display: block; width: 100%; min-width: 0; }
   #pf-panes .pf-cards thead { display: none; }
   /* One compact row height app-wide (owner 2026-10-15): the Deals events row — two
@@ -1447,6 +1453,8 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
   #pf-panes .pf-cards tbody td.pf-c-meta { display: inline; order: 3; font-size: var(--fs-micro); color: var(--muted); white-space: nowrap; max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
   #pf-panes .pf-cards tbody td.pf-c-meta .pf-act-l { display: inline; }
   #pf-panes .pf-cards tbody td.pf-c-meta .pf-nil { display: none; }
+  /* No HQ on the iPhone card (owner 2026-10-15) — it stays on the profile page. */
+  #pf-panes .pf-cards tbody td.tl-hq { display: none; }
 }
 
 /* ---- Currency honesty (R4): native figure, USD equivalent as a muted bracket ------- */

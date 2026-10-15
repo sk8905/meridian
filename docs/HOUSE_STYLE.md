@@ -1458,7 +1458,11 @@ notification badge red (`#ef4444`).
   history (`<html data-can-back>`, R35) — and only a cold deep link falls back to the
   list. Specs: `tests/transactions.mjs`, `tests/transactions-europe.mjs`,
   `tests/tx-league.mjs`, `tests/profiles-people.mjs`, `tests/nav-reset.mjs`,
-  `tests/v2-menu.mjs`, `tests/back-previous.mjs`.
+  `tests/v2-menu.mjs`, `tests/back-previous.mjs`. **(e) iPhone trims.** On iPhone the Deals card
+  drops its source column (the headline takes the width; the source stays in the deal
+  drawer) and the Profiles card rows drop HQ (it stays on the profile page). Desktop keeps
+  both. This is a deliberate phone exception to R43(b)'s "end with the source" and is
+  not a loss of information. Spec: `tests/phone-trim.mjs`.
 
 ## 7. Technical rules
 
