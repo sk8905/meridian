@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-15T07:47:06.280Z",
+ "generated": "2026-10-15T13:44:43.686Z",
  "since": "2026-10-01",
  "firms": {
   "proskauerrose": {
@@ -37,7 +37,7 @@
     "www.slaughterandmay.com"
    ],
    "sitemaps": 1,
-   "urls": 6286,
+   "urls": 6287,
    "kept": 10,
    "fetched": 10,
    "errors": 0,
@@ -47,11 +47,19 @@
    "domains": [
     "www.ashurst.com"
    ],
-   "sitemaps": 0,
-   "urls": 0,
+   "sitemaps": 1,
+   "urls": 5622,
    "kept": 0,
    "fetched": 0,
-   "errors": 1,
+   "errors": 0,
+   "samples": [
+    "https://www.ashurstperkinscoie.com/ @2026-10-12",
+    "https://www.ashurstperkinscoie.com/en/careers/ @2026-07-27",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/ @2026-07-30",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/commercial-awareness-and-legal-tech/ @2026-06-26",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/secondment-experience-in-japan-insights-by-georgia-bertoloni/ @2026-06-18",
+    "https://www.ashurstperkinscoie.com/en/careers/students-and-graduates/trainee-insights-by-kelsey-reid-jones/ @2026-06-18"
+   ],
    "carried": 0
   },
   "hsf": {
@@ -72,7 +80,7 @@
     "sustainablefutures.linklaters.com"
    ],
    "sitemaps": 6,
-   "urls": 17770,
+   "urls": 17774,
    "kept": 16,
    "fetched": 9,
    "errors": 7,
@@ -83,7 +91,7 @@
     "www.macfarlanes.com"
    ],
    "sitemaps": 4,
-   "urls": 3555,
+   "urls": 3556,
    "kept": 3,
    "fetched": 3,
    "errors": 0,
@@ -120,7 +128,7 @@
     "finreg.aoshearman.com"
    ],
    "sitemaps": 5,
-   "urls": 16530,
+   "urls": 16534,
    "kept": 40,
    "fetched": 40,
    "errors": 0,
@@ -132,9 +140,9 @@
    ],
    "sitemaps": 9,
    "urls": 20128,
-   "kept": 11,
-   "fetched": 10,
-   "errors": 1,
+   "kept": 9,
+   "fetched": 7,
+   "errors": 2,
    "carried": 0
   },
   "kirkland": {
@@ -163,11 +171,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 6,
-   "urls": 7181,
+   "sitemaps": 5,
+   "urls": 6769,
    "kept": 2,
    "fetched": 2,
-   "errors": 11,
+   "errors": 12,
    "carried": 0
   },
   "ropesgray": {
@@ -217,7 +225,7 @@
     "www.shlegal.com"
    ],
    "sitemaps": 1,
-   "urls": 2852,
+   "urls": 2853,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -236,7 +244,7 @@
     "www.klgates.com"
    ],
    "sitemaps": 1,
-   "urls": 12281,
+   "urls": 12283,
    "kept": 15,
    "fetched": 15,
    "errors": 0,
@@ -247,9 +255,9 @@
     "www.reedsmith.com"
    ],
    "sitemaps": 5,
-   "urls": 11564,
-   "kept": 6,
-   "fetched": 6,
+   "urls": 11570,
+   "kept": 8,
+   "fetched": 8,
    "errors": 0,
    "carried": 0
   },
@@ -274,7 +282,7 @@
     "www.hoganlovells.com"
    ],
    "sitemaps": 2,
-   "urls": 21375,
+   "urls": 11787,
    "kept": 0,
    "fetched": 0,
    "errors": 0,
@@ -286,18 +294,6 @@
     "https://www.hlc.com/es/knowledge @2023-12-08",
     "https://www.hlc.com/en/knowledge/topic-centers/fintech-mentor-program @2026-01-06"
    ],
-   "carried": 0
-  },
-  "cleary": {
-   "domains": [
-    "www.clearygottlieb.com",
-    "content.clearygottlieb.com"
-   ],
-   "sitemaps": 1,
-   "urls": 18691,
-   "kept": 40,
-   "fetched": 40,
-   "errors": 1,
    "carried": 0
   },
   "southsquare": {
@@ -319,14 +315,26 @@
    ],
    "carried": 0
   },
+  "cleary": {
+   "domains": [
+    "www.clearygottlieb.com",
+    "content.clearygottlieb.com"
+   ],
+   "sitemaps": 1,
+   "urls": 18691,
+   "kept": 40,
+   "fetched": 40,
+   "errors": 1,
+   "carried": 0
+  },
   "mayerbrown": {
    "domains": [
     "www.mayerbrown.com"
    ],
    "sitemaps": 9,
-   "urls": 16327,
-   "kept": 20,
-   "fetched": 20,
+   "urls": 16328,
+   "kept": 21,
+   "fetched": 21,
    "errors": 0,
    "carried": 0
   },
@@ -344,12 +352,78 @@
  },
  "items": [
   {
+   "firm": "slaughtermay",
+   "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
+   "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
+   "description": null,
+   "date": null,
+   "dateSource": null,
+   "lastmod": "2026-10-15",
+   "dateProbe": [
+    "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
+   ]
+  },
+  {
    "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-the-lao-peoples-democratic-republics-us500m-sovereign-bond-issuance",
-   "title": "Linklaters advises on the Lao People’s Democratic Republic’s US$500m sovereign bond issuance",
-   "description": "Linklaters has advised the joint lead managers on the successful issuance by the Lao People’s Democratic Republic (Lao PDR) of US$500m 9.625% senior unsecured notes due 2032.",
+   "url": "https://www.linklaters.com/insights/publications/2026/october/capital-regulation-and-capability-in-a-new-era",
+   "title": "Capital, regulation and capability in a new era",
+   "description": "On 22 September, Linklaters welcomed international clients, investors, policymakers and industry leaders to 20 Ropemaker for our inaugural Defence & Security Symposium.",
    "date": "2026-10-15",
    "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "linklaters",
+   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-on-cig-shanghais-concurrent-new-h-share-placing-and-convertible-bond-offering",
+   "title": "Linklaters advises on CIG Shanghai’s concurrent new H-share placing and convertible bond offering",
+   "description": "Linklaters advises the placing agents and managers on CIG Shanghai’s concurrent H-share placing and convertible bond offering, raising US$840m equivalent.",
+   "date": "2026-10-15",
+   "dateSource": "page date label",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-on-agos-eur1-2-billion-cash-srt-securitization",
+   "title": "A&O Shearman advises on Agos’ EUR1.2 billion cash SRT securitization",
+   "description": "A&O Shearman advised the arrangers and joint lead managers on Agos' EUR1.2bn cash SRT securitization of performing consumer loans.",
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/ao-shearman-advises-banks-on-informas-gbp940-million-equity-issue",
+   "title": "A&O Shearman advises on Informa's GBP940m equity issue",
+   "description": "A&O Shearman advised banks on Informa’s GBP940 million equity issue and financing for its acquisition of Clarion Events.",
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/articles/mas-consults-on-tiered-governance-rules-for-banks-and-insurers/",
+   "title": "MAS consults on tiered governance rules for banks and insurers",
+   "description": null,
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/news/chambers-uk-2027-ranks-more-than-30-reed-smith-practices-and-over-60-lawyers/",
+   "title": "Chambers UK 2027 ranks more than 30 Reed Smith practices and over 60 lawyers",
+   "description": "Firm’s UK Band 1 rankings span commodities, insurance and shipping",
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
+   "firm": "mayerbrown",
+   "url": "https://www.mayerbrown.com/en/insights/publications/2026/10/whats-happening-in-digital-markets-competition-regulation-edition-1",
+   "title": "What's happening in Digital Markets Competition Regulation? Edition 1",
+   "description": "As digital markets regulation evolves, products and services must be designed with applicable and future rules in mind. From interim measures against",
+   "date": "2026-10-15",
+   "dateSource": "datePublished",
    "lastmod": "2026-10-15"
   },
   {
@@ -470,24 +544,6 @@
    "lastmod": "2026-10-13"
   },
   {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/mark-lawford-identified-as-one-of-financier-worldwides-2026-power-players-distinguished-advisers",
-   "title": "Mark Lawford Identified as One of Financier Worldwide’s 2026 “Power Players: Distinguished Advisers”",
-   "description": "Weil’s Mark Lawford was named a 2026 Power Player by Financier Worldwide for his expertise in cross-border restructuring, bankruptcy and insolvency.",
-   "date": "2026-10-12",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "weil",
-   "url": "https://www.weil.com/articles/financial-times-names-weil-a-finalist-for-2026-innovative-lawyers-in-disputes-award",
-   "title": "Financial Times Names Weil a Finalist for 2026 “Innovative Lawyers in Disputes” Award",
-   "description": "Weil has been named a finalist in the “Innovative Lawyers in Disputes” category of the 2026 Financial Times Innovative Lawyers North America awards.",
-   "date": "2026-10-12",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-12"
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/",
    "title": "Financial Regulation Weekly Bulletin",
@@ -520,15 +576,6 @@
    "dateSource": null,
    "lastmod": "2026-10-09",
    "dateProbe": []
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Consonance Capital Partners on Fund Formation",
-   "title": "Latham & Watkins Advises Consonance Capital Partners on US$1.35 Billion Fund Formation",
-   "description": "Multidisciplinary team led by members of the firm’s Investment Funds Practice represented the healthcare private equity firm in the formation of its oversubscribed third fund.",
-   "date": "2026-10-09",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-09"
   },
   {
    "firm": "whitecase",
@@ -622,15 +669,6 @@
    "lastmod": "2026-10-08"
   },
   {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/news/2026/10/Latham Watkins Advises Hg Sale Gen II Fund Services KKR",
-   "title": "Latham & Watkins Advises Hg in US$5.1 Billion Sale of Gen II Fund Services to KKR",
-   "description": "New York-based corporate team represents the European and transatlantic technology and services businesses investor.",
-   "date": "2026-10-07",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-07"
-  },
-  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/cnbc-uk-leading-destination-defense-tech-investment",
    "title": "CNBC | UK is a leading destination for defense tech investment",
@@ -670,52 +708,6 @@
    "dateProbe": []
   },
   {
-   "firm": "weil",
-   "url": "https://eurorestructuring.weil.com/news/restructuring/the-weil-european-distress-index-18/attachment/image-16/",
-   "title": "image - European Restructuring Watch",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://eurorestructuring.weil.com/news/restructuring/the-weil-european-distress-index-18/attachment/image-17/",
-   "title": "image - European Restructuring Watch",
-   "description": null,
-   "date": "2026-10-07",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-07"
-  },
-  {
-   "firm": "weil",
-   "url": "https://eurorestructuring.weil.com/category/news/",
-   "title": "News Archives - European Restructuring Watch",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07",
-   "dateProbe": [
-    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Oct 07, 2026 </span> </div> <div",
-    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Jul 16, 2026 </span> </div> <div",
-    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Mar 30, 2026 </span> </div> <div"
-   ]
-  },
-  {
-   "firm": "weil",
-   "url": "https://eurorestructuring.weil.com/category/news/restructuring/",
-   "title": "Restructuring Archives - European Restructuring Watch",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-07",
-   "dateProbe": [
-    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Oct 07, 2026 </span> </div> <div",
-    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Jul 16, 2026 </span> </div> <div",
-    "r\"> <span class=\"f-book green-text text-14 relative padding-right-5\"> Mar 30, 2026 </span> </div> <div"
-   ]
-  },
-  {
    "firm": "slaughtermay",
    "url": "https://www.slaughterandmay.com/insights/client-case-studies/john-wood-group-s-highly-complex-acquisition-by-sidara/",
    "title": "John Wood Group's highly complex acquisition by Sidara",
@@ -727,18 +719,6 @@
     " class=\"heading-2 heading-2\"><span style=\"color: rgb(255, 255, 255);\">10 March 2026</span></h2> <h4 cla",
     "onal conditions”, including publication of Wood’s audited accounts by 31 October 2025 and completion of t",
     "ounts by 31 October 2025 and completion of the planned refinancing by 31 December 2025. If these condition"
-   ]
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/insights/client-case-studies/cpp-investments-and-equinix-s-us-4bn-joint-acquisition/",
-   "title": "CPP Investments and Equinix’s US$4bn joint acquisition",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-06",
-   "dateProbe": [
-    "td style=\"width: 49.9044%; border-style: none; padding: 20px;\"> <p>On 27 February 2026, Canada Pension Pla"
    ]
   },
   {
@@ -791,6 +771,15 @@
    ]
   },
   {
+   "firm": "aoshearman",
+   "url": "https://www.aoshearman.com/en/news/nippon-paint-builds-asia-pacific-presence-through-usd135-billion-acquisition",
+   "title": "Nippon Paint Acquires AkzoNobel Asia Paints Business",
+   "description": "A&O Shearman advised Nippon Paint on its USD1.35 billion acquisition of AkzoNobel’s decorative paints businesses across Asia-Pacific.",
+   "date": "2026-10-06",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-15"
+  },
+  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/ft-specialist-ignites-earnout-lawsuit-over-acquired-etf",
    "title": "FT Specialist – Ignites | Earnout lawsuit over acquired ETF",
@@ -816,16 +805,6 @@
    "date": "2026-10-06",
    "dateSource": "datePublished",
    "lastmod": "2026-10-12"
-  },
-  {
-   "firm": "weil",
-   "url": "https://restructuring.weil.com/category/news/",
-   "title": "News Archives",
-   "description": null,
-   "date": null,
-   "dateSource": null,
-   "lastmod": "2026-10-06",
-   "dateProbe": []
   },
   {
    "firm": "macfarlanes",
@@ -867,15 +846,6 @@
     "a property=\"og:title\" content=\"Financial Regulation Weekly Bulletin - 1 October 2026\"/> <meta property=\"",
     "__page\"> <span itemprop=\"name\">Financial Regulation Weekly Bulletin - 1 October 2026</span> </span> <met"
    ]
-  },
-  {
-   "firm": "linklaters",
-   "url": "https://www.linklaters.com/about-us/news-and-deals/deals/2026/october/linklaters-advises-opmobility-on-the-acquisition-of-hyundai-mobis-lighting-activity",
-   "title": "Linklaters advises OPmobility on Hyundai Mobis lighting acquisition",
-   "description": "Linklaters advised OPmobility on its agreement to acquire Hyundai Mobis' lighting business, strengthening its global lighting operations and mobility offering.",
-   "date": "2026-10-02",
-   "dateSource": "page date label",
-   "lastmod": "2026-10-02"
   },
   {
    "firm": "whitecase",
