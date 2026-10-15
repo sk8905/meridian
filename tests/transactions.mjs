@@ -129,8 +129,9 @@ const dt = await pg.evaluate(() => {
 check(/Direct lending/.test(dt.sum) && dt.n > 0 && dt.n < allN, `one type narrows the list and reads in the summary line (${dt.sum}: ${dt.n} < ${allN})`);
 check(dt.noDetailPage, "no separate detail page is rendered (no back bar, no KPI tiles)");
 check(dt.listRows > 0, `the pane lists the type's transactions (${dt.listRows})`);
-check(/Borrower/i.test(dt.heads[0] || "") && /Lender/i.test(dt.heads[1] || "") && dt.heads.some((h) => /Sponsor/i.test(h)) && dt.heads.some((h) => /Sector/i.test(h)) && dt.heads.some((h) => /Country/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && dt.heads.some((h) => /Date/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
-  `Lending columns are Borrower · Lender · Sponsor · Sector · Country · Amount · Date · Source (${dt.heads.join(" · ")})`);
+// R43 (owner 2026-10-15): an events table leads with its date and ends with its source.
+check(/Date/i.test(dt.heads[0] || "") && /Borrower/i.test(dt.heads[1] || "") && /Lender/i.test(dt.heads[2] || "") && dt.heads.some((h) => /Sponsor/i.test(h)) && dt.heads.some((h) => /Sector/i.test(h)) && dt.heads.some((h) => /Country/i.test(h)) && dt.heads.some((h) => /Amount/i.test(h)) && /Source/i.test(dt.heads[dt.heads.length - 1] || ""),
+  `Lending columns are Date · Borrower · Lender · Sponsor · Sector · Country · Amount · Source (${dt.heads.join(" · ")})`);
 check(dt.anySize, "transactions show their native disclosed size");
 check(dt.mgrLinks > 0 && dt.borrowerNamed > 0, `borrower cell is a plain name and the lender is named (${dt.borrowerNamed} borrower, ${dt.mgrLinks} lender)`);
 check(dt.srcLinks > 0, `the source link sits in its own Source column (${dt.srcLinks})`);
@@ -360,21 +361,22 @@ await ctx.close();
     const c = document.querySelector(".tx-panes-in .tx-card");
     const r = c.getBoundingClientRect();
     return { vw: window.innerWidth, cardW: Math.round(r.width), table: !!document.querySelector(".tx-panes-in .tx-list"),
-      nm: !!c.querySelector(".tx-card-nm"), meta: c.querySelectorAll(".tx-card-b > span").length, lender: !!c.querySelector(".tx-card-b a.tx-mgr"),
+      // R43: the card is the shared events row — date · name · amount · source, then lender · type · country.
+      nm: !!c.querySelector(".tx-card-nm") && c.firstElementChild.classList.contains("c-date"), meta: (c.querySelector(".g-ev-m") || { textContent: "" }).textContent.split(" · ").filter(Boolean).length + 1, lender: !!c.querySelector(".g-ev-m a.tx-mgr"),
       pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth };
   });
-  check(!drill.table && drill.nm && drill.meta >= 3 && drill.cardW <= drill.vw, `phone: deals are cards — name + amount, then date · lender · type (${drill.meta} meta, ${drill.cardW}px ≤ ${drill.vw})`);
+  check(!drill.table && drill.nm && drill.meta >= 3 && drill.cardW <= drill.vw, `phone: deals are events rows — date · name · amount, then lender · type · country (${drill.meta} parts, ${drill.cardW}px ≤ ${drill.vw})`);
   check(drill.lender, "phone: the card's lender links to its profile");
-  // iPhone polish: the card meta is ONE line (no wrap, no "·" separators) and the stats
-  // strip is one line too.
+  // iPhone polish: the card meta is ONE line (no wrap; R43's shared row separates its
+  // facts with "·" like every other list) and the stats strip is one line too.
   const one = await p.pg.evaluate(() => {
-    const cards = [...document.querySelectorAll(".tx-panes-in .tx-card .tx-card-b")].slice(0, 12);
+    const cards = [...document.querySelectorAll(".tx-panes-in .tx-card .g-ev-m")].slice(0, 12);
     const lh = (el) => parseFloat(getComputedStyle(el).lineHeight) || 16;
     const st = document.querySelector("#tx-stats");
-    return { maxH: Math.max(...cards.map((c) => c.getBoundingClientRect().height)), lh: lh(cards[0]), dots: cards.some((c) => getComputedStyle(c.children[1], "::before").content.includes("·")),
+    return { maxH: Math.max(...cards.map((c) => c.getBoundingClientRect().height)), lh: lh(cards[0]), dots: false,
       statsH: st ? st.getBoundingClientRect().height : 0, ph: document.querySelector("#tx-q").placeholder };
   });
-  check(one.maxH <= one.lh * 1.6 && !one.dots, `phone: card meta stays on one line with no separators (${Math.round(one.maxH)}px)`);
+  check(one.maxH <= one.lh * 1.6, `phone: card meta stays on one line (${Math.round(one.maxH)}px)`);
   check(one.statsH === 0 && one.ph === "Search deals, managers…", `phone: no stats band (the panel's Show N carries the count) and a short search placeholder`);
   check(drill.pageOverflow <= 1, `phone: the page itself does not scroll sideways (overflow ${drill.pageOverflow}px)`);
   // Tapping a card opens the deal in place of the list; Back returns to the list.
@@ -481,10 +483,10 @@ for (const w of [1280, 1024]) {
     return { n: ids.length, allMna: ids.length > 0 && ids.every((id) => mna.has(id)), noneInLending: ![...mna].some((id) => lendIds.has(id)), heads, x: x ? x.textContent : "", sHeads, events: [...new Set(events)], vehLead, vehSample: vehicles.slice(0, 3).map(([v]) => v), alt: !!alt, altDrawer: /Also reported/i.test(altDrawer) };
   });
   check(r.allMna && r.noneInLending, `Manager M&A lists exactly the asset-manager acquisitions, kept out of Lending (${r.n})`);
-  check(r.heads.join("|") === "Target|Acquirer|Country|Value|Date|Source", `Manager M&A columns: Target · Acquirer · Country · Value · Date · Source (${r.heads.join(" · ")})`);
+  check(r.heads.join("|") === "Date|Target|Acquirer|Country|Value|Source", `Manager M&A columns (R43 date first): Date · Target · Acquirer · Country · Value · Source (${r.heads.join(" · ")})`);
   check(/^(EV|AUM) /.test(r.x) || r.x === "", `a non-deal-size figure reads muted with its kind (${r.x || "none on this page"})`);
   check(r.vehLead, `Structured credit leads each row with the vehicle name, not the headline (${r.vehSample.join(" · ")})`);
-  check(r.sHeads.join("|") === "Vehicle|Manager|Type|Event|Country|Size|AAA / WACD|Date|Source" && r.events.some((e) => /New issue|Reset|Refi/.test(e)), `Structured credit has its own columns incl. the CLO event (${r.sHeads.join(" · ")}; ${r.events.join(", ")})`);
+  check(r.sHeads.join("|") === "Date|Vehicle|Manager|Type|Event|Country|Size|AAA / WACD|Source" && r.events.some((e) => /New issue|Reset|Refi/.test(e)), `Structured credit has its own columns incl. the CLO event (${r.sHeads.join(" · ")}; ${r.events.join(", ")})`);
   check(r.alt && r.altDrawer, "a de-duplicated deal shows its other source (+n in the row, Also reported in the drawer)");
   // $1–15bn → Target → off.
   await f.pg.evaluate(() => { location.hash = "#/lending"; }); await f.pg.waitForTimeout(250);

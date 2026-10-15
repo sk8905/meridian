@@ -24,7 +24,7 @@ const closes = intel.filter((i) => i.date && (i.type === "First Close" || i.type
       fimN: document.querySelectorAll("#tx-fr-fim tbody tr[data-pv]").length,
       fimWant: fundsInMarket({ scope: "eu" }).length,
       fimShown: shown("#tx-fr-fim tbody tr[data-pv]").length,
-      fimFirst: (document.querySelector("#tx-fr-fim tbody tr td") || {}).textContent,
+      fimFirst: (document.querySelector("#tx-fr-fim tbody tr td.tx-fr-nm") || {}).textContent,   // R43: the date leads; the fund is column 2
       fimWantFirst: (fundsInMarket({ scope: "eu" })[0] || { f: {} }).f.name,
       closesN: document.querySelectorAll("#tx-fr-closes tbody tr[data-pv]").length,
       closeSrc: [...document.querySelectorAll("#tx-fr-closes tbody tr")].slice(0, 10).every((tr) => tr.querySelector('a.tx-fr-src[href^="http"]')),

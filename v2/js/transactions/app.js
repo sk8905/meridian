@@ -24,8 +24,8 @@ import { deals, managers, funds, fundById } from "/credit/js/data.js";
 import { DEAL_TAGS } from "/credit/js/deal-tags.js";
 import { targetFit } from "/credit/js/target.js";
 import { TX_TYPES, TX_GROUPS, SECTOR_TAGS, REGIONS, REGION_LABEL, EUROPE_REGIONS, FX, txOf, amountOf, toUsd, fmtAmt, fmtUsd, tagsOf, sizeCounts } from "/credit/js/tx.js";
-import { esc } from "/util.js";
-import { fmtDay, fmtDateP } from "/feed.js";
+import { esc, fmtD } from "/util.js";
+import { fmtDateP, tableCols, evRow } from "/feed.js";
 import { dealCounterparty, dealSponsor, dealPartyRole, dealLenders, dealArrangers, dealLenderIds, dealManagerRole, dealParticipants, ROLE_NAME, UNKNOWN, bareName } from "../deal-parse.js";
 import { creditSource } from "/credit/js/shared.js";
 import { downloadCSV } from "../csv.js";
@@ -340,6 +340,11 @@ export function mount(host, ctx) {
     </div>`;
   const body = host.querySelector("#tx-body");
   const drawer = host.querySelector("#tx-drawer");
+  // R43: every (re-)rendered table gets its column roles (date · text · num · source).
+  if (typeof MutationObserver === "function") {
+    let q = 0;
+    new MutationObserver(() => { if (!q) q = requestAnimationFrame(() => { q = 0; tableCols(host); }); }).observe(host, { childList: true, subtree: true });
+  }
   const sheet = host.querySelector("#tx-sheet");
 
   // ---- freshness cue -------------------------------------------------------
@@ -358,7 +363,7 @@ export function mount(host, ctx) {
     if (!flowMode() || !_newestRow || !stale) { el.hidden = true; el.innerHTML = ""; return; }
     el.hidden = false;
     el.className = "tx-asof" + (stale ? " is-stale" : "");
-    el.innerHTML = `<span class="tx-asof-lbl">Deal flow as of ${esc(fmtDay(_newestRow.d.date))}</span>`
+    el.innerHTML = `<span class="tx-asof-lbl">Deal flow as of ${esc(fmtD(_newestRow.d.date))}</span>`
       + (stale ? `<span class="tx-asof-flag" title="No new deal recorded in ${ageDays} days — the ledger is awaiting fresh, verified filings">${ageDays}d ago · awaiting fresh filings</span>` : "");
   }
 
@@ -575,7 +580,7 @@ export function mount(host, ctx) {
   // [label, cell, sortKey|null, class]
   function columns(list) {
     const C = {
-      party: (lbl) => [lbl, (r) => caret + partyCell(r), "name", "txc-party tx-bd"],
+      party: (lbl) => [lbl, partyCell, "name", "txc-party tx-bd"],
       lender: (lbl) => [lbl, lenderCell, "lender", "txc-lender tx-mg"],
       sponsor: ["Sponsor", (r) => (r.sponsor ? esc(r.sponsor) : "—"), null, "txc-sp tx-sp"],
       type: ["Type", (r) => esc(st.q ? `${MODE_LABEL[r.mode]} · ${typeLabel(r.tx)}` : typeLabel(r.tx)), null, "txc-type tx-cat"],
@@ -586,19 +591,20 @@ export function mount(host, ctx) {
       // where the manager / arranger / rating release states them (deal.cloTerms).
       pricing: ["AAA / WACD", (r) => { const t = r.d.cloTerms; if (!t) return "—"; const a = [t.aaaBp != null ? `${t.aaaBp}` : "—", t.wacdBp != null ? `${t.wacdBp}` : "—"]; return `<span title="AAA spread / weighted-average cost of debt, bp over the benchmark">${esc(a.join(" / "))}</span>`; }, null, "txc-px tl-n"],
       amount: (lbl) => [lbl, amtCell, "size", "txc-amt tl-n tx-sz"],
-      date: ["Date", (r) => esc(fmtDateP(r.d)), "date", "txc-date tx-dt"],
-      source: ["Source", srcCell, null, "txc-src tx-src2"],
+      date: ["Date", (r) => caret + esc(fmtDateP(r.d)), "date", "txc-date c-date tx-dt"],
+      source: ["Source", srcCell, null, "txc-src c-src tx-src2"],
     };
-    if (st.q) return [C.party("Deal"), C.lender("Lender / investor"), C.type, C.amount("Amount"), C.date, C.source];
-    if (st.mode === "structured") return [C.party("Vehicle"), C.lender("Manager"), C.type, C.event, C.country, C.amount("Size"), C.pricing, C.date, C.source];
-    if (st.mode === "secondary") return [C.party("Fund / portfolio"), C.lender("Buyer / lead"), C.type, C.country, C.amount("Size"), C.date, C.source];
-    if (st.mode === "mna") return [C.party("Target"), C.lender("Acquirer"), C.country, C.amount("Value"), C.date, C.source];
+    // R43: an events table — the date leads (it carries the expand caret), the source closes.
+    if (st.q) return [C.date, C.party("Deal"), C.lender("Lender / investor"), C.type, C.amount("Amount"), C.source];
+    if (st.mode === "structured") return [C.date, C.party("Vehicle"), C.lender("Manager"), C.type, C.event, C.country, C.amount("Size"), C.pricing, C.source];
+    if (st.mode === "secondary") return [C.date, C.party("Fund / portfolio"), C.lender("Buyer / lead"), C.type, C.country, C.amount("Size"), C.source];
+    if (st.mode === "mna") return [C.date, C.party("Target"), C.lender("Acquirer"), C.country, C.amount("Value"), C.source];
     const sp = list.some((r) => r.sponsor) ? [C.sponsor] : [];
-    return [C.party("Borrower"), C.lender("Lender"), ...sp, C.sector, C.country, C.amount("Amount"), C.date, C.source];
+    return [C.date, C.party("Borrower"), C.lender("Lender"), ...sp, C.sector, C.country, C.amount("Amount"), C.source];
   }
   const ariaSort = (k) => (k && st.sort === k ? ` aria-sort="${st.dir === "asc" ? "ascending" : "descending"}"` : "");
-  const txRow = (cols) => (r) => `<tr class="tx-row${st.deal === r.d.id ? " is-open" : ""}" data-deal="${esc(r.d.id)}" data-parties="${esc(r.partyIds.join(" "))}" tabindex="0">`
-    + cols.map(([, cell, , cls], i) => `<td class="${cls}"${i === 0 ? ` title="${esc(r.d.headline || "")}"` : ""}>${cell(r)}</td>`).join("") + `</tr>`;
+  const txRow = (cols) => (r) => `<tr class="tx-row${st.deal === r.d.id ? " is-open" : ""}" data-deal="${esc(r.d.id)}" data-parties="${esc(r.partyIds.join(" "))}" tabindex="0" title="${esc(r.d.headline || "")}">`
+    + cols.map(([, cell, , cls]) => `<td class="${cls}">${cell(r)}</td>`).join("") + `</tr>`;
   // Phone: a two-line card per deal — party · amount, then date · lender · type /
   // country — so the facts that matter fit 390px without a sideways-scrolling table.
   // Short type labels for the one-line phone card meta.
@@ -608,9 +614,12 @@ export function mount(host, ctx) {
     // The type only when the list isn't already narrowed to one type (Manager M&A has none).
     const showType = st.q || (st.mode !== "mna" && st.f.type.length !== 1);
     const what = !showType ? "" : (TYPE_SHORT[r.tx] || typeLabel(r.tx)) + (st.mode === "structured" && r.tags.event && !st.q ? ` ${EVENT_LABEL[r.tags.event].toLowerCase()}` : "");
-    return `<li class="tx-card${st.deal === d.id ? " is-open" : ""}" data-deal="${esc(d.id)}" tabindex="0">`
-      + `<div class="tx-card-a"><span class="tx-card-nm">${partyCell(r)}</span><span class="tx-card-amt">${r.amt ? amtCell(r) : ""}</span></div>`
-      + `<div class="tx-card-b"><span class="tx-cb-dt">${esc(fmtDateP(d))}</span><span class="tx-cb-mg">${lenderCell(r)}</span>${what ? `<span class="tx-cb-ty">${esc(what)}</span>` : ""}${r.tags.country ? `<span class="tx-cb-ct">${esc(r.tags.country)}</span>` : ""}</div></li>`;
+    // R43: the shared events row — date · party / lender · type · country · amount · source.
+    const meta = [lenderCell(r), what ? esc(what) : "", r.tags.country ? esc(r.tags.country) : ""].filter((x) => x && x !== "—").join(" · ");
+    return `<li class="tx-card g-ev${st.deal === d.id ? " is-open" : ""}" data-deal="${esc(d.id)}" tabindex="0" title="${esc(d.headline || "")}">`
+      + `<span class="c-date">${esc(fmtDateP(d))}</span><span class="g-ev-t tx-card-nm">${partyCell(r)}</span>`
+      + `<span class="c-tag tx-card-amt">${r.amt ? amtCell(r) : ""}</span><span class="c-src">${d.sourceUrl ? srcCell(r) : ""}</span>`
+      + `<span class="g-ev-m">${meta}</span></li>`;
   };
 
   // ---- grouping + stats ---------------------------------------------------------
@@ -647,7 +656,7 @@ export function mount(host, ctx) {
     if (vol) parts.push(`<span title="Disclosed deal sizes only, converted to USD">≈ <b>${esc(fmtUsd(vol))}</b> disclosed<span class="tx-stats-x"> (${s.length}/${list.length})</span></span>`);
     if (med != null) parts.push(`<span>median <b>${esc(fmtUsd(med))}</b></span>`);
     if (top.length) parts.push(`<span class="tx-stats-top">top: ${top.map(([id, n]) => `${mgrLink(id)} ${n}`).join(" · ")}</span>`);
-    if (_newestRow) parts.push(`<span class="tx-stats-asof" title="Newest deal in the ledger: ${esc(fmtDay(_newestRow.d.date))}">as of ${esc(fmtDay(_newestRow.d.date).replace(/\s\d{4}$/, ""))}</span>`);
+    if (_newestRow) parts.push(`<span class="tx-stats-asof" title="Newest deal in the ledger: ${esc(fmtD(_newestRow.d.date))}">as of ${esc(fmtD(_newestRow.d.date).replace(/\s\d{2}$/, ""))}</span>`);
     return `<div class="tx-stats" id="tx-stats">${parts.join("")}</div>`;
   }
   const CAP = 400;
@@ -656,13 +665,13 @@ export function mount(host, ctx) {
     const more = all.length > CAP ? `<p class="tw-empty muted small">First ${CAP} of ${all.length} — narrow the filters or export the CSV.</p>` : "";
     if (_phone()) {
       const inner = st.grp ? grouped(list).map(([k, rs]) => grpHead(k, rs, "li") + rs.map(txCard).join("")).join("") : list.map(txCard).join("");
-      return `<ul class="tx-cards">${inner}</ul>` + more;
+      return `<ul class="tx-cards g-evs">${inner}</ul>` + more;
     }
     const cols = columns(list);
     const head = `<thead><tr>${cols.map(([l, , sk, cls]) => `<th class="${cls.split(" ")[0]}${sk ? " tx-sortable" : ""}"${sk ? ` data-sort="${sk}"${ariaSort(sk)}` : ""}>${esc(l)}</th>`).join("")}</tr></thead>`;
     const row = txRow(cols);
     const rowsHtml = st.grp ? grouped(list).map(([k, rs]) => grpHead(k, rs, "tr", cols.length) + rs.map(row).join("")).join("") : list.map(row).join("");
-    return `<div class="tleague-wrap"><table class="tleague tleague-full tx-list tx-m-${st.q ? "search" : st.mode}">${head}<tbody>${rowsHtml}</tbody></table></div>` + more;
+    return `<div class="tleague-wrap"><table class="tleague tleague-full tx-list tx-m-${st.q ? "search" : st.mode}" data-events="1">${head}<tbody>${rowsHtml}</tbody></table></div>` + more;
   }
 
   function renderFlow() {
@@ -695,7 +704,9 @@ export function mount(host, ctx) {
     };
   }
   const leadId = (r) => lenderKeys(r).find((id) => id !== "_") || "";
-  const relRow = (x) => `<li class="tmini-row clickable" data-deal="${esc(x.d.id)}"><span class="tmini-t">${esc(x.d.headline || "—")}</span><span class="tmini-m">${esc(fmtDay(x.d.date))} · ${esc(lenderCellName(x) || "—")}${x.amt ? " · " + esc(fmtAmt(x.amt)) : ""}</span></li>`;
+  // R43: related deals are an events list — the shared row (date · headline / lender · amount · source).
+  const relRow = (x) => evRow({ date: x.d.date, title: x.d.headline || "—", meta: [esc(lenderCellName(x) || ""), x.amt ? esc(fmtAmt(x.amt)) : ""].filter(Boolean).join(" · "),
+    src: creditSource(x.d), cls: "tmini-row clickable tx-rel", attrs: ` data-deal="${esc(x.d.id)}"` });
   const srcLink = (d) => d.sourceUrl ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(creditSource(d) || "source")}</a>` : "—";
   // Law-firm announcements (legal desk) are loaded on the first drawer open only —
   // the advisers line fills in when they land (deal-advisers.js).
@@ -710,7 +721,7 @@ export function mount(host, ctx) {
     const L = legalForAdvisers();
     const list = advisersFor(r.d, r.cp, L);
     const item = (a) => a.basis === "alert"
-      ? `${esc(a.firm)} <span class="tf-est">per the firm's <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">announcement</a>${a.date ? " · " + esc(fmtDay(a.date)) : ""}</span>`
+      ? `${esc(a.firm)} <span class="tf-est">per the firm's <a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">announcement</a>${a.date ? " · " + esc(fmtD(a.date)) : ""}</span>`
       : `${esc(a.firm)} <span class="tf-est">named in the deal source</span>`;
     if (list.length) return list.map(item).join("<br>");
     return L ? `<span class="tf-est">None named in the deal's source or a tracked firm's announcement</span>` : `<span class="tf-est">Checking law-firm announcements…</span>`;
@@ -759,7 +770,7 @@ export function mount(host, ctx) {
       ...(() => { const t = dealTerms(d); return t.length ? [["Terms", t.map(([k, v]) => `${esc(k)} ${esc(v)}`).join(" · ") + ` <span class="tf-est">as stated in the source</span>`]] : []; })(),
       ...(r.mode === "mna" ? [] : [["Advisers", advisersHTML(r)]]),
       ["Source", srcLink(d)],
-      ...r.alt.map((a) => ["Also reported", `${srcLink(a)} <span class="tf-est">${esc(fmtDay(a.date))}</span>`]),
+      ...r.alt.map((a) => ["Also reported", `${srcLink(a)} <span class="tf-est">${esc(fmtD(a.date))}</span>`]),
     ];
     const rel = relatedRows(r);
     const relSec = (title, list) => list.length ? `<div class="tpg-h">${esc(title)} <span class="tveh-grp-n">${list.length}</span></div><ul class="tmini">${list.map(relRow).join("")}</ul>` : "";
@@ -879,7 +890,7 @@ export function mount(host, ctx) {
     if (by === "law") { const fid = firmIdOf(a.name); if (fid) return `<a class="tx-lg-a" href="${esc(ctx.base)}/profiles/#/firm/${encodeURIComponent(fid)}">${esc(a.name)}</a>`; }
     return `<span class="tx-lg-nm">${esc(a.name)}</span>`;
   }
-  const dayOf = (ts) => fmtDay(new Date(ts).toISOString().slice(0, 10));
+  const dayOf = (ts) => fmtD(new Date(ts).toISOString().slice(0, 10));
   // The deals behind one row: newest first (each opens its deal card), plus the list
   // view filtered by that lender / sponsor, one link per mode the deals fall in.
   function lgDetail(a) {
@@ -887,7 +898,7 @@ export function mount(host, ctx) {
     const byMode = {}; ds.forEach((r) => { byMode[r.mode] = (byMode[r.mode] || 0) + 1; });
     const filt = st.lg.by === "lenders" && a.id ? { lender: a.id } : st.lg.by === "sponsors" ? { spn: a.name } : null;
     const open = filt ? `<div class="tx-lg-open">${DEAL_MODES.filter(([k]) => byMode[k]).map(([k, l]) => `<a class="tx-lg-ol" href="${esc(flowHref(k, filt))}">Open ${byMode[k]} in ${esc(l)}</a>`).join("")}</div>` : "";
-    const li = (r) => `<li><a class="tx-lg-deal" href="${esc(ctx.base)}/transactions/#/deal/${encodeURIComponent(r.d.id)}"><span class="tx-lg-dt">${esc(fmtDay(r.d.date))}</span><span class="tx-lg-dh">${esc(r.cp || r.d.headline || "—")}</span><span class="tx-lg-dv">${r.amt ? esc(fmtAmt(r.amt)) : ""}</span></a></li>`;
+    const li = (r) => `<li><a class="tx-lg-deal" href="${esc(ctx.base)}/transactions/#/deal/${encodeURIComponent(r.d.id)}"><span class="tx-lg-dt">${esc(fmtD(r.d.date))}</span><span class="tx-lg-dh">${esc(r.cp || r.d.headline || "—")}</span><span class="tx-lg-dv">${r.amt ? esc(fmtAmt(r.amt)) : ""}</span></a></li>`;
     return open + `<ul class="tx-lg-deals">${ds.slice(0, 12).map(li).join("")}</ul>` + (ds.length > 12 ? `<p class="tx-lg-more muted small">Newest 12 of ${ds.length}${filt ? " — open the list for all of them" : ""}.</p>` : "");
   }
   function leagueHTML() {

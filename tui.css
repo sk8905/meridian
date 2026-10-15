@@ -524,6 +524,11 @@
      across the full width (each ~1/6), so no column hogs slack. */
   /* Deal lists (transactions/app.js): columns differ per mode, so widths key off the
      column's class, not its position. */
+  /* R43: Date leads, fixed and narrow; Source closes, fixed and narrow; the text
+     columns share the rest (each cell one line, ellipsis, full text in the title). */
+  .tx-list th.txc-date { width: 84px; }
+  .tx-list th.txc-src { width: 132px; }
+  .tx-list th, .tx-list td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tx-list th.txc-party { width: 24%; }
   .tx-list th.txc-lender { width: 15%; }
   .tx-list th.txc-sp { width: 11%; }
@@ -532,8 +537,6 @@
   .tx-list th.txc-ctry { width: 9%; }
   .tx-list th.txc-ev { width: 7%; }
   .tx-list th.txc-amt { width: 9%; }
-  .tx-list th.txc-date { width: 9%; }
-  .tx-list th.txc-src { width: 11%; }
   /* Transaction type table (transactions/app.js): Type · Deals · 12mo · Volume · Median · Managers · Most active */
   .tx-tbl th:nth-child(1) { width: 19%; }
   .tx-tbl th:nth-child(2) { width: 8%; }
@@ -810,7 +813,7 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-list td.tx-hd { color: var(--ink); white-space: normal; line-height: 1.35; }
 /* Borrower / company cell: JUST the name (bold); the full headline is the hover
    title and the source link lives in the Source column. */
-.tx-list td.tx-bd { color: var(--ink); font-weight: 400; white-space: normal; line-height: 1.3; }
+.tx-list td.tx-bd { color: var(--ink); font-weight: 400; white-space: nowrap; line-height: 1.3; }   /* R43: one line, ellipsis — full headline in the row title */
 .tx-list td.tx-sp { color: var(--muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-list td.tx-mg { color: var(--muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-list td.tx-cat { color: var(--muted); white-space: nowrap; }
@@ -1286,17 +1289,16 @@ a.tcr-rt:hover { border-color: var(--accent); color: var(--accent); }
 .tx-pill span { color: var(--faint); }
 .tx-pill:hover span { color: var(--ink); }
 .tx-clear { min-height: 26px; padding: 0 6px; border: 0; background: transparent; color: var(--muted); font-family: var(--t-mono); font-size: var(--fs-micro); text-decoration: underline; cursor: pointer; }
-/* Phone deal cards: borrower · amount, then date · lender · type. */
+/* Phone deal cards: the shared events row — date · borrower · amount · source / lender · type · country. */
 .tx-cards { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--border); }
 .tx-card { padding: 10px 12px; border-bottom: 1px solid var(--border); cursor: pointer; background: var(--surface); }
+/* R43: the card IS the shared events row (.g-ev) — keep the phone gutter. */
+.tx-cards > .tx-card.g-ev { padding: 0 var(--m-gutter, 12px); }
+.tx-card .tx-card-amt { color: var(--t-ink); font-size: var(--fs-num); font-variant-numeric: tabular-nums; }
+.tx-card .g-ev-m .tx-mgr { color: inherit; }
 .tx-card.is-open { box-shadow: inset 2px 0 0 var(--accent); }
-.tx-card-a { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: var(--fs-body); color: var(--ink); line-height: 1.3; }
-.tx-card-nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-card-nm .tx-hl { color: var(--muted); }
-.tx-card-amt { flex: 0 0 auto; font-size: var(--fs-num); font-variant-numeric: tabular-nums; }
-.tx-card-b { display: flex; flex-wrap: wrap; gap: 2px 8px; margin-top: 3px; font-size: var(--fs-micro); color: var(--muted); }
 
-.tx-card-b .tx-mgr { color: var(--muted); }
 .tx-cards .tx-grp { display: flex; justify-content: space-between; padding: 8px 12px; background: var(--head); border-bottom: 1px solid var(--border); font-size: var(--fs-micro); font-weight:400; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
 /* The deal drawer. Desktop: a panel over the right of the list. Phone: the list
    gives way to the deal (in the page flow; Back / ‹ returns to the list). */
@@ -1523,10 +1525,6 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
    One-line card meta (date · lender · type · country as spaced muted text, no "·"
    separators; the lender truncates), a single stats line, an evenly spaced scrolling
    mode row, and a type strip in the Filters-sheet chip style (orange only on a type). */
-.tx-card-b { flex-wrap: nowrap; gap: 0 12px; white-space: nowrap; overflow: hidden; }
-.tx-card-b > span { flex: 0 0 auto; color: var(--muted); }
-.tx-card-b > .tx-cb-mg { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.tx-card-b .tx-mgr { color: var(--muted); }
 .tx-stats-asof { color: var(--faint); }
 @media (max-width: 760px) {
   .tx-stats { flex-wrap: nowrap; white-space: nowrap; overflow: hidden; gap: 0 12px; }
@@ -1613,6 +1611,7 @@ a.tchip.tx-rxchip { text-decoration: none; }
 .tx-lg-more { margin: 4px 0 2px; }
 .tx-lg-cards, .tx-fr-list { list-style: none; margin: 6px 0 0; padding: 0; border-top: 1px solid var(--border); }
 .tx-lg-card, .tx-fr-i { padding: 9px 12px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.tx-fr-list > .tx-fr-i.g-ev { padding: 0 var(--m-gutter, 12px); }   /* R43 events row keeps the phone gutter */
 .tx-lg-card { cursor: pointer; }
 .tx-lg-card.is-open { box-shadow: inset 2px 0 0 var(--accent); }
 .tx-lg-ca, .tx-fr-ia { display: flex; align-items: baseline; gap: 8px; font-size: var(--fs-body); color: var(--ink); line-height: 1.3; }

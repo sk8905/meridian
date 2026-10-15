@@ -14,8 +14,8 @@
 // =============================================================================
 import { funds, intel, commitments, managers, lps } from "/credit/js/data.js";
 import { fmtBn } from "/credit/js/shared.js";
-import { esc } from "/util.js";
-import { fmtDay } from "/feed.js";
+import { esc, fmtD } from "/util.js";
+import { evRow as eventRow } from "/feed.js";
 import { fundsInMarket, lpName } from "../funds-market.js";
 import { norm } from "./league.js";
 
@@ -68,49 +68,59 @@ export function fundraisingHTML(fs, base, phone) {
   const P = `${base}/profiles/#`;
   const mgrA = (id, name) => (id ? `<a class="tx-fr-a" href="${esc(P)}/manager/${encodeURIComponent(id)}">${esc(name || mgrNameOf(id))}</a>` : esc(name || "—"));
   const lpA = (id) => `<a class="tx-fr-a" href="${esc(P)}/lp/${encodeURIComponent(id)}">${esc(lpName(id) || id)}</a>`;
-  const src = (url) => (url ? `<a class="tx-fr-src" href="${esc(url)}" target="_blank" rel="noopener noreferrer">source</a>` : "—");
-  const day = (d) => (d ? esc(fmtDay(String(d).slice(0, 10))) : "—");
+  const src = (url) => (url ? `<a class="tx-fr-src dsh-src" href="${esc(url)}" target="_blank" rel="noopener noreferrer" title="Source">src</a>` : "");
+  const day = (d) => (d ? esc(fmtD(String(d).slice(0, 10))) : "—");
+  // R43: every dated list here is an events list — date first, the item, status tag, source
+  // last; on iPhone each row is the shared events row (feed.js evRow), at one fixed height.
+  const fSrc = (f) => ((f.sources || []).find((x) => x && x.url) || {}).url || f.sourceUrl || "";
+  const tagH = (t) => (t ? `<span class="dsh-tag">${esc(t)}</span>` : "");
+  const phoneRow = (o) => eventRow({ ...o, cls: `tx-fr-i${o.cls ? ` ${o.cls}` : ""}`, attrs: " data-pv" });
   const sec = (id, title, meta, ctl, inner) => `<section class="tx-fr-sec" id="tx-fr-${id}" data-fr="${id}"><header class="tx-fr-h"><h3 class="tx-fr-t">${esc(title)}</h3>${meta ? `<span class="tx-fr-n">${meta}</span>` : ""}${ctl || ""}</header>${inner}</section>`;
   const chip = (attr, label, on) => `<button type="button" class="tx-fchip${on ? " is-on" : ""}" ${attr} aria-pressed="${on}">${esc(label)}</button>`;
 
   // Funds in market.
   const fim = fundsInMarket({ scope: fs.fim });
   const fimRow = ({ f, lps: L, stale }) => phone
-    ? `<li class="tx-fr-i" data-pv><div class="tx-fr-ia"><span class="tx-fr-hl"><a class="tx-fr-a" href="${esc(P)}/manager/${encodeURIComponent(f.managerId)}/vehicles">${esc(f.name)}</a></span><span class="tx-fr-v" title="${f.raised != null ? "Raised" : "Target"}">${f.raised != null || f.targetSize != null ? `${f.raised != null ? "" : "target "}${money(f.raised != null ? f.raised : f.targetSize, f.ccy)}` : ""}</span></div>`
-      + `<div class="tx-fr-ib"><span>${esc(mgrNameOf(f.managerId))}</span><span>${esc(f.status)}${stale ? " · stale" : ""}</span>${f.strategy ? `<span>${esc(f.strategy)}</span>` : ""}${f.asOf ? `<span>${day(f.asOf)}</span>` : ""}</div></li>`
-    : `<tr data-pv><td class="tx-fr-nm"><a class="tx-fr-a" href="${esc(P)}/manager/${encodeURIComponent(f.managerId)}/vehicles">${esc(f.name)}</a></td><td>${mgrA(f.managerId)}</td><td>${esc(f.strategy || "—")}</td>`
-      + `<td>${esc(f.status)}${stale ? ` <span class="tx-fr-stale" title="Status not refreshed in 12+ months — it may have closed since">stale</span>` : ""}</td>`
-      + `<td class="tl-n">${money(f.targetSize, f.ccy)}</td><td class="tl-n">${money(f.raised, f.ccy)}</td>`
-      + `<td class="tx-fr-lps">${L.length ? esc(L.slice(0, 3).join(", ")) + (L.length > 3 ? ` +${L.length - 3}` : "") : "—"}</td><td class="tx-fr-d">${day(f.asOf)}</td></tr>`;
+    ? phoneRow({ date: f.asOf ? String(f.asOf).slice(0, 10) : "", title: f.name, href: `${P}/manager/${encodeURIComponent(f.managerId)}/vehicles`, inApp: true, aCls: "tx-fr-a",
+      tag: tagH(f.status + (stale ? " · stale" : "")), srcHref: fSrc(f),
+      meta: [esc(mgrNameOf(f.managerId)), esc(f.strategy || ""), f.raised != null ? `raised ${esc(money(f.raised, f.ccy))}` : f.targetSize != null ? `target ${esc(money(f.targetSize, f.ccy))}` : ""].filter(Boolean).join(" · ") })
+    : `<tr data-pv title="${esc([f.name, mgrNameOf(f.managerId), f.strategy, f.status].filter(Boolean).join(" · "))}"><td class="tx-fr-d c-date">${day(f.asOf)}</td><td class="tx-fr-nm c-text"><a class="tx-fr-a" href="${esc(P)}/manager/${encodeURIComponent(f.managerId)}/vehicles">${esc(f.name)}</a></td>`
+      + `<td class="c-tag">${tagH(f.status)}${stale ? ` <span class="dsh-tag tx-fr-stale" title="Status not refreshed in 12+ months — it may have closed since">stale</span>` : ""}</td>`
+      + `<td class="c-text">${mgrA(f.managerId)}</td><td class="c-text">${esc(f.strategy || "—")}</td>`
+      + `<td class="tl-n c-num">${money(f.targetSize, f.ccy)}</td><td class="tl-n c-num">${money(f.raised, f.ccy)}</td>`
+      + `<td class="tx-fr-lps c-text">${L.length ? esc(L.slice(0, 3).join(", ")) + (L.length > 3 ? ` +${L.length - 3}` : "") : "—"}</td><td class="c-src">${src(fSrc(f))}</td></tr>`;
   const fimBody = !fim.length ? `<p class="tw-empty muted small">No funds in market for this filter.</p>` : phone
-    ? `<ul class="tx-fr-list">${fim.map(fimRow).join("")}</ul>`
-    : `<div class="tleague-wrap"><table class="tleague tx-fr-tbl"><thead><tr><th>Fund</th><th>Manager</th><th>Strategy</th><th>Status</th><th class="tl-n">Target</th><th class="tl-n">Raised</th><th>Named LPs</th><th>As of</th></tr></thead><tbody>${fim.map(fimRow).join("")}</tbody></table></div>`;
+    ? `<ul class="tx-fr-list g-evs">${fim.map(fimRow).join("")}</ul>`
+    : `<div class="tleague-wrap"><table class="tleague tx-fr-tbl" data-events="1"><thead><tr><th class="c-date">As of</th><th>Fund</th><th class="c-tag">Status</th><th>Manager</th><th>Strategy</th><th class="tl-n c-num">Target</th><th class="tl-n c-num">Raised</th><th>Named LPs</th><th class="c-src">Src</th></tr></thead><tbody>${fim.map(fimRow).join("")}</tbody></table></div>`;
   const fimCtl = `<span class="tx-fr-ctl">${chip(`data-fr-fim="eu"`, "Europe", fs.fim === "eu")}${chip(`data-fr-fim="all"`, "All regions", fs.fim === "all")}</span>`;
 
   // First / final close timeline.
   const ev = closeEvents(fs.close);
   const fundOf = (i) => (i.fundId && _fById.get(i.fundId)) || null;
-  const evRow = (i) => {
+  const closeRow = (i) => {
     const f = fundOf(i), kind = i.type === "First Close" ? "First close" : "Final close";
+    if (phone) return phoneRow({ date: i.date, title: f ? f.name : (i.headline || "—"), href: f ? `${P}/manager/${encodeURIComponent(f.managerId)}/vehicles` : "", inApp: true, aCls: "tx-fr-a",
+      tag: tagH(kind), srcHref: i.sourceUrl || "", meta: [mgrA(i.managerId), f ? esc(i.headline || "") : ""].filter((x) => x && x !== "—").join(" · ") });
     const what = f ? `<a class="tx-fr-a" href="${esc(P)}/manager/${encodeURIComponent(f.managerId)}/vehicles">${esc(f.name)}</a>` : esc(i.headline || "—");
-    return phone
-      ? `<li class="tx-fr-i" data-pv><div class="tx-fr-ia"><span class="tx-fr-hl">${what}</span><span class="tx-fr-k">${kind}</span></div><div class="tx-fr-ib"><span>${day(i.date)}</span><span>${mgrA(i.managerId)}</span><span>${src(i.sourceUrl)}</span></div></li>`
-      : `<tr data-pv><td class="tx-fr-d">${day(i.date)}</td><td class="tx-fr-k">${kind}</td><td class="tx-fr-nm" title="${esc(i.headline || "")}">${what}${f ? `<span class="tx-fr-sub">${esc(i.headline || "")}</span>` : ""}</td><td>${mgrA(i.managerId)}</td><td>${src(i.sourceUrl)}</td></tr>`;
+    return `<tr data-pv title="${esc(i.headline || "")}"><td class="tx-fr-d c-date">${day(i.date)}</td><td class="tx-fr-nm c-text">${what}</td><td class="tx-fr-k c-tag">${tagH(kind)}</td><td class="c-text">${mgrA(i.managerId)}</td><td class="c-src">${src(i.sourceUrl)}</td></tr>`;
   };
   const evBody = !ev.length ? `<p class="tw-empty muted small">No close events tracked.</p>` : phone
-    ? `<ul class="tx-fr-list">${ev.map(evRow).join("")}</ul>`
-    : `<div class="tleague-wrap"><table class="tleague tx-fr-tbl"><thead><tr><th>Date</th><th>Event</th><th>Fund / announcement</th><th>Manager</th><th>Source</th></tr></thead><tbody>${ev.map(evRow).join("")}</tbody></table></div>`;
+    ? `<ul class="tx-fr-list g-evs">${ev.map(closeRow).join("")}</ul>`
+    : `<div class="tleague-wrap"><table class="tleague tx-fr-tbl" data-events="1"><thead><tr><th class="c-date">Date</th><th>Fund / announcement</th><th class="c-tag">Event</th><th>Manager</th><th class="c-src">Src</th></tr></thead><tbody>${ev.map(closeRow).join("")}</tbody></table></div>`;
   const evCtl = `<span class="tx-fr-ctl">${chip(`data-fr-close=""`, "All", !fs.close)}${chip(`data-fr-close="first"`, "First", fs.close === "first")}${chip(`data-fr-close="final"`, "Final", fs.close === "final")}</span>`;
 
   // LP commitments.
   const lc = lpCommitments();
   const fundName = (c) => ((c.fundId && _fById.get(c.fundId)) || {}).name || c.fund || "";
+  const lcMgr = (c) => mgrA(c.managerId && _mById.has(c.managerId) ? c.managerId : "", mgrNameOf(c.managerId, c.manager));
   const lcRow = (c) => phone
-    ? `<li class="tx-fr-i" data-pv><div class="tx-fr-ia"><span class="tx-fr-hl">${lpA(c.lpId)}</span><span class="tx-fr-v">${money(c.amount, c.ccy)}</span></div><div class="tx-fr-ib"><span>${mgrA(c.managerId && _mById.has(c.managerId) ? c.managerId : "", mgrNameOf(c.managerId, c.manager))}</span>${fundName(c) ? `<span>${esc(fundName(c))}</span>` : ""}<span>${day(c.date)}</span><span>${src(c.sourceUrl)}</span></div></li>`
-    : `<tr data-pv><td class="tx-fr-nm">${lpA(c.lpId)}</td><td>${mgrA(c.managerId && _mById.has(c.managerId) ? c.managerId : "", mgrNameOf(c.managerId, c.manager))}</td><td>${esc(fundName(c) || "—")}</td><td class="tl-n">${money(c.amount, c.ccy)}</td><td class="tx-fr-d">${day(c.date)}</td><td>${src(c.sourceUrl)}</td></tr>`;
+    ? phoneRow({ date: c.date, title: lpName(c.lpId) || c.lpId, href: `${P}/lp/${encodeURIComponent(c.lpId)}`, inApp: true, aCls: "tx-fr-a",
+      tag: c.amount != null ? `<span class="tx-fr-v">${esc(money(c.amount, c.ccy))}</span>` : "", srcHref: c.sourceUrl || "",
+      meta: [lcMgr(c), fundName(c) ? esc(fundName(c)) : ""].filter((x) => x && x !== "—").join(" · ") })
+    : `<tr data-pv><td class="tx-fr-d c-date">${day(c.date)}</td><td class="tx-fr-nm c-text">${lpA(c.lpId)}</td><td class="c-text">${lcMgr(c)}</td><td class="c-text">${esc(fundName(c) || "—")}</td><td class="tl-n c-num">${money(c.amount, c.ccy)}</td><td class="c-src">${src(c.sourceUrl)}</td></tr>`;
   const lcBody = !lc.length ? `<p class="tw-empty muted small">No commitments tracked.</p>` : phone
-    ? `<ul class="tx-fr-list">${lc.map(lcRow).join("")}</ul>`
-    : `<div class="tleague-wrap"><table class="tleague tx-fr-tbl"><thead><tr><th>Investor</th><th>Manager</th><th>Fund</th><th class="tl-n">Amount</th><th>Date</th><th>Source</th></tr></thead><tbody>${lc.map(lcRow).join("")}</tbody></table></div>`;
+    ? `<ul class="tx-fr-list g-evs">${lc.map(lcRow).join("")}</ul>`
+    : `<div class="tleague-wrap"><table class="tleague tx-fr-tbl" data-events="1"><thead><tr><th class="c-date">Date</th><th>Investor</th><th>Manager</th><th>Fund</th><th class="tl-n c-num">Amount</th><th class="c-src">Src</th></tr></thead><tbody>${lc.map(lcRow).join("")}</tbody></table></div>`;
 
   // LP ↔ manager.
   const mx = lpManagerMatrix(15);

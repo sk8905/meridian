@@ -89,6 +89,8 @@ export function r43Probe() {
       if (!ths[ths.length - 1].classList.contains("c-src")) out.push(`events table does not end with its source in ${where(t)}`);
     }
     for (const th of ths) {
+      // Rotated (vertical-text) matrix headers are tall by design.
+      if ([th, ...th.querySelectorAll("*")].some((e) => /vertical/.test(getComputedStyle(e).writingMode))) continue;
       if (+getComputedStyle(th).fontWeight >= 600) out.push(`bold table header "${th.textContent.trim().slice(0, 20)}" in ${where(t)}`);
       if (th.scrollWidth > th.clientWidth + 1 && !/\s/.test(th.textContent.trim())) out.push(`table header clips its word "${th.textContent.trim()}" in ${where(t)}`);
       if (th.getClientRects().length && R(th).height > parseFloat(getComputedStyle(th).lineHeight || "14") * 1.9 + 14 && !/\s/.test(th.textContent.trim())) out.push(`table header wraps a single word in ${where(t)}`);
