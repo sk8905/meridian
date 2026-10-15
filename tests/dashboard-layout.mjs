@@ -60,7 +60,10 @@ for (const [w, h] of [[1280, 800], [1366, 768], [1536, 864], [1920, 1080], [2560
 // ---- New sourced gauge cards (live /api/eurates `extra`)
 {
   const ctx = await b.newContext({ viewport: { width: 1920, height: 1080 } }); const pg = await ctx.newPage();
-  await pg.goto(`http://localhost:${srv.port}/v2/dashboard/credit/`, { waitUntil: "load" }); await pg.waitForTimeout(1500);
+  await pg.goto(`http://localhost:${srv.port}/v2/dashboard/credit/`, { waitUntil: "load" });
+  // Wait for the live /api/eurates payload to land (a condition, not a fixed timeout —
+  // a fixed 1.5s flaked under the parallel runner).
+  await pg.waitForFunction(() => document.querySelectorAll("#dsh-yields tbody tr").length >= 3 && document.querySelector('.dsh-live[data-live="yld"]')?.textContent === "live", null, { timeout: 15000 }).catch(() => {});
   const rowTxt = (sel) => pg.evaluate((s) => [...document.querySelectorAll(`${s} tbody tr`)].map((tr) => ({ t: tr.innerText.replace(/\s+/g, " "), src: !!tr.querySelector("a[href^='https://']") })), sel);
   const y = await rowTxt("#dsh-yields");
   checkEq(y.length, 3, "Credit: All-in yields card lists Euro HY yield, US HY yield, US BBB OAS");

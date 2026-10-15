@@ -1405,7 +1405,10 @@ notification badge red (`#ef4444`).
   in one muted tag style. **(c) Two lines max per events item, on every screen (iPhone
   included — never wrap further):** line 1 = headline / name, line 2 = meta, each one line
   with an ellipsis; the full text is the row's `title` (hover / long-press) and in full
-  when opened. One fixed row height per list so previews align (cf. R42 i). **(d) Three
+  when opened. One fixed row height per list so previews align (cf. R42 i) — and ONE compact height
+  app-wide (owner 2026-10-15, "like the Deals page"): every events row, the narrow news
+  wire (Home / News) and the iPhone Profiles card rows all sit at `--ev-h` (46px; 56px
+  under the Comfortable density) with a 12px gutter and two lines. **(d) Three
   text tiers only:** primary `--t-ink` (white in dark, near-black in light) for the
   name / headline / key figure; mid grey `--t-mut` for supporting facts (type, amount,
   court, counterparty); subtle `--t-faint` for dates, sources, counts and labels. `--t-dim`

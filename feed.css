@@ -21,6 +21,9 @@
    as data-density by the inline boot (persisted key m_density). */
 :root[data-density="comfortable"] { --chip-h:44px; }
 :root[data-density="comfortable"] .g-feed-row { padding-top:9px; padding-bottom:9px; }
+/* Comfortable also loosens every fixed-height list row (events rows, the narrow wire,
+   Profiles card rows) through the one row-height token. */
+:root[data-density="comfortable"] { --ev-h:56px; }
 /* container-name lets the feed rows respond to the WIRE COLUMN's width (narrow in
    the tablet/desktop 3-column terminal) rather than the viewport — so the stacked
    row layout kicks in on a narrow iPad wire the same way it does on a phone. */
@@ -159,9 +162,10 @@ body.wire-sliding .g-feed-srcbar { position:static; }
   .g-feed-row { display:grid; align-items:baseline;
     grid-template-columns:var(--feed-time-w, 44px) max-content minmax(0,1fr);
     grid-template-areas:"time title title" ". code src";
-    column-gap:8px; row-gap:4px; padding:8px 12px; }
-  .g-feed-title { grid-area:title; font-size:var(--fs-body); line-height:1.36; }
-  .g-feed-code { grid-area:code; padding:2px 5px; }
+    column-gap:8px; row-gap:1px; padding:0 12px; align-content:center;
+    box-sizing:border-box; height:var(--ev-h); overflow:hidden; }   /* the Deals row's compact height (owner 2026-10-15) */
+  .g-feed-title { grid-area:title; font-size:var(--fs-body); line-height:1.35; }
+  .g-feed-code { grid-area:code; padding:0 4px; line-height:1.45; }
   .g-feed-time { grid-area:time; white-space:nowrap; }
   /* Source sits flush RIGHT on the meta line. */
   .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; justify-self:end; text-align:right; }
