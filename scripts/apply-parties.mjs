@@ -159,7 +159,12 @@ function main() {
       const spId = !sp ? null : (e.managerRole === "sponsor" && d.managerId) ? d.managerId : (index.get(canon(sp)) || null);
       // (A sponsorId set by a merge — the dropped row's firm was the sponsor — is kept.)
       if (spId) d.sponsorId = spId; else if (!sp) delete d.sponsorId;
+      // A merged club deal keeps every lender its group's audits name, on every re-run
+      // (the dropped rows are gone after the first run, their audit entries are not).
       const ls = cleanLenders(e.lenders);
+      for (const g of audit.merges) if (g[0] === d.id) for (const did of g.slice(1)) {
+        for (const l of cleanLenders((byId.get(did) || {}).lenders)) if (!ls.some((x) => x.managerId === l.managerId)) ls.push(l);
+      }
       if (JSON.stringify(d.lenders || []) !== JSON.stringify(ls)) stats.lenders++;
       d.lenders = ls;
       const role = MANAGER_ROLES.includes(e.managerRole) ? e.managerRole : (d.clo ? "issuer" : "lender");
