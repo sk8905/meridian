@@ -11,6 +11,7 @@
 
 import { viewBorrower } from "./borrower.js";
 import { peoplePaneHTML } from "./people.js";
+import { allPaneHTML } from "./all.js";
 import {
   viewManager, viewClo, viewLp, viewHedgeFund, fundManagerId, viewCompare,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
@@ -32,7 +33,8 @@ try { localStorage.removeItem("wire.li.v1"); } catch { /* ignore */ }
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
   const [credit, legal] = await Promise.all([ctx.view("credit"), ctx.view("legal")]);
-  const CHIPS = [["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["investors", "Investors"], ["firms", "Law firms"], ["people", "People"]];
+  // "All" (owner 2026-10-15) is the first and default list: every covered entity in one directory.
+  const CHIPS = [["all", "All"], ["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["investors", "Investors"], ["firms", "Law firms"], ["people", "People"]];
   host.innerHTML = `
     <div id="pf-list" class="tdash">
       <div class="tdash-grid tdash-1">
@@ -42,6 +44,7 @@ export async function mount(host, ctx) {
               .map(([k, l], i) => `<button type="button" class="tchip${i === 0 ? " is-on" : ""}" data-p="${k}">${l}</button>`).join("")}</div>
           </header>
           <div class="tpanes" id="pf-panes">
+            ${allPaneHTML()}
             ${credit.buildManagers()}
             ${credit.buildHedgeFunds()}
             ${credit.buildInvestors()}
@@ -59,6 +62,9 @@ export async function mount(host, ctx) {
     tableCols(host);
   }
   const pfList = host.querySelector("#pf-list");
+  // The Managers bar toggle reads "European mid-market" from the first paint, whichever
+  // list opens first (All is the default since 2026-10-15).
+  { const lgF = host.querySelector("#cr-lg-focus"); if (lgF) setFocus(lgF, ""); }
   const pfDetail = host.querySelector("#pf-detail");
   const panes = host.querySelector("#pf-panes");
   const chips = host.querySelector("#pf-chips");
@@ -74,8 +80,8 @@ export async function mount(host, ctx) {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "pf-back-chev";
-    b.setAttribute("aria-label", "Back to list");
-    b.setAttribute("title", "Back to list");
+    b.setAttribute("aria-label", "Back");
+    b.setAttribute("title", "Back to the previous page");
     b.textContent = "‹";
     h.insertBefore(b, h.firstChild);
     // "★ Following" — narrows the list to the entities on your watchlist.
@@ -119,6 +125,7 @@ export async function mount(host, ctx) {
   });
   // Facets per list (rows carry data-f-<facet>, pipe-separated; see credit/app.js).
   const PF_FACETS = {
+    all: [["type", "Type"]],
     managers: [["strategy", "Strategy"], ["region", "Region"], ["band", "AUM"], ["mkt", "In market"]],
     hedgefunds: [["strategy", "Strategy"], ["region", "Region"]],
     investors: [["type", "Type"], ["mandate", "Mandate"]],
@@ -153,7 +160,7 @@ export async function mount(host, ctx) {
   }
   // ONE row filter per list — the search text, the $1–15bn AUM focus and Following
   // combine (each used to overwrite the others' result).
-  const ROWSEL = { managers: "#mgr-rows tr", hedgefunds: "#hf-rows tr", investors: "#lp-rows tr", firms: "#lf-rows tr", people: "#pp-rows tr" };
+  const ROWSEL = { all: "#all-rows tr", managers: "#mgr-rows tr", hedgefunds: "#hf-rows tr", investors: "#lp-rows tr", firms: "#lf-rows tr", people: "#pp-rows tr" };
   const FTYPE = { manager: "manager", hf: "hf", lp: "lp", firm: "firm" };
   const dec0 = (x) => { try { return decodeURIComponent(x); } catch { return x; } };
   function rowPasses(pane, tr, except) {
@@ -352,7 +359,7 @@ export async function mount(host, ctx) {
   const scroller = () => (host.scrollHeight > host.clientHeight + 1 && /(auto|scroll)/.test(getComputedStyle(host).overflowY)) ? host : null;
   const getY = () => { const s = scroller(); return s ? s.scrollTop : window.scrollY; };
   const setY = (y) => { const s = scroller(); if (s) s.scrollTo({ top: y, behavior: "instant" }); else window.scrollTo({ top: y, behavior: "instant" }); };
-  const activeTab = () => { const on = chips.querySelector(".tchip.is-on"); return on ? on.dataset.p : "managers"; };
+  const activeTab = () => { const on = chips.querySelector(".tchip.is-on"); return on ? on.dataset.p : "all"; };
   const rememberList = () => { if (!host.classList.contains("pf-detailing") && !pfList.hidden) _listY[activeTab()] = getY(); };
   function showList(tab) {
     exitDetail();
@@ -402,7 +409,7 @@ export async function mount(host, ctx) {
     // (/v2/profiles/?tab=…, e.g. a pasted link) is honoured too.
     const q = (location.hash || "").split("?")[1] || "";
     const t = new URLSearchParams(q).get("tab") || new URLSearchParams(location.search).get("tab");
-    return CHIPS.some(([k]) => k === t) ? t : "managers";
+    return CHIPS.some(([k]) => k === t) ? t : "all";
   }
   function router() {
     const raw = location.hash || "#/";
@@ -476,9 +483,13 @@ export async function mount(host, ctx) {
     // Leading ‹ chevron in the persistent search row → close the profile and
     // return to the list it came from (the active tab).
     const back = e.target.closest(".pf-back-chev");
+    // ‹ returns to the page you were on immediately before (owner 2026-10-15) — a
+    // profile reached from Deals, Markets, another profile or the list steps back
+    // there; only a cold deep link (no in-app history) falls back to the list.
+    if (back && document.documentElement.hasAttribute("data-can-back")) { history.back(); return; }
     if (back) {
       const on = chips.querySelector(".tchip.is-on");
-      const h = listHash(on ? on.dataset.p : "managers");
+      const h = listHash(on ? on.dataset.p : "all");
       if (location.hash !== h) location.hash = h;
       router();
       return;
@@ -672,7 +683,7 @@ export async function mount(host, ctx) {
   // Each list's search box filters its rows in place by the row's data-name.
   // Scoped to this host so it never touches the desks' own (hidden) copies.
   host.addEventListener("input", (e) => {
-    const inp = e.target.closest("#mgr-q, #hf-q, #lp-q, #lf-q, #pp-q"); if (!inp) return;
+    const inp = e.target.closest("#all-q, #mgr-q, #hf-q, #lp-q, #lf-q, #pp-q"); if (!inp) return;
     if (host.classList.contains("pf-detailing")) exitDetail();   // typing a search returns to the list
     filterList(inp.closest(".tpane"));
   });
@@ -691,7 +702,7 @@ export async function mount(host, ctx) {
     home() {
       Object.keys(_listY).forEach((k) => delete _listY[k]);
       CHIPS.forEach(([k]) => { delete _paneHash[k]; applyListState(k, "tab=" + k); });
-      showList("managers");
+      showList("all");
     },
   };
 }

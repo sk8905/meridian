@@ -10,7 +10,7 @@ const base = `http://localhost:${srv.port}`;
 const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf-panes " + sel)].filter((t) => t.style.display !== "none").length, sel);
 
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/#/?tab=managers");
   await pg.waitForSelector("#pf-panes #mgr-rows tr", { timeout: 8000 });
   const ord = await pg.evaluate(async () => {
     const [D, T] = await Promise.all([import("/credit/js/data.js"), import("/credit/js/target.js")]);
@@ -96,7 +96,7 @@ const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf
 
 // List state lives in the URL: reload, Back from a profile and a tab round-trip restore it.
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/#/?tab=managers");
   await pg.waitForSelector("#pf-panes #mgr-rows tr", { timeout: 8000 });
   const M = '#pf-panes .tpane[data-pane="managers"]';
   await pg.locator(M + " .pf-filter-btn").click(); await pg.waitForTimeout(120);
@@ -132,7 +132,7 @@ const vis = (pg, sel) => pg.evaluate((sel) => [...document.querySelectorAll("#pf
 
 // Phone: card rows, a sort select, Monitor / Cross-holdings in the HF sheet.
 {
-  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/profiles/");
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/profiles/#/?tab=managers");
   await pg.waitForSelector("#pf-panes #mgr-rows tr", { timeout: 8000 });
   const c = await pg.evaluate(() => {
     const tr = document.querySelector("#pf-panes #mgr-rows tr");

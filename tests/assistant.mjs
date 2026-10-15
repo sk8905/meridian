@@ -91,7 +91,8 @@ check(Math.abs(askTop - mktTop) <= 2, `Ask & Markets panels share one top edge (
 await pg.evaluate(() => document.getElementById("na-mkt").click());
 await pg.waitForTimeout(150);
 const chipUL = await pg.evaluate(() => { const c = document.querySelector("#na-mkt-panel .na-chip.is-on"); return c ? getComputedStyle(c).boxShadow : null; });
-check(chipUL && (chipUL.match(/rgb/g) || []).length >= 2 && /inset/.test(chipUL), `panel chip active marker is the flush 2-layer underline (${chipUL})`);
+// R14a (owner 2026-10-15): ONE underline layer — never the old double line.
+check(chipUL && (chipUL.match(/rgb/g) || []).length === 1 && /inset/.test(chipUL), `panel chip active marker is the single 2px inset underline (${chipUL})`);
 await pg.evaluate(() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
 await pg.waitForTimeout(120);
 

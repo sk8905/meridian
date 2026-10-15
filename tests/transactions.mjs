@@ -103,7 +103,7 @@ check(asof.staleClass === (asof.ageDays > 7) && asof.hasFlag === (asof.ageDays >
   `Transactions: the stale flag reflects the real ledger age (${asof.ageDays}d → ${asof.ageDays > 7 ? "stale flag shown" : "fresh, no flag"})`);
 check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the pane sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
 check(ov.noPeriodChips, "the old Last 12 months / All time period CHIPS stay removed (a compact date-range select replaces them)");
-check(ov.modeChips.join(",") === "Lending,Structured credit,Secondaries,Manager M&A", `the Lending / Structured credit / Secondaries / Manager M&A nav chips are present — Credits and BDCs live on Dashboard ▸ Credit (${ov.modeChips.join(",")})`);
+check(ov.modeChips.join(",") === "All,Lending,Structured credit,Secondaries,Manager M&A", `the All (first, default) / Lending / Structured credit / Secondaries / Manager M&A nav chips are present — Credits and BDCs live on Dashboard ▸ Credit (${ov.modeChips.join(",")})`);
 check(ov.railStacked > 10, `desktop: the mode tabs stack as a vertical left rail like the Dashboard (Δtop ${ov.railStacked}px)`);
 check(ov.railLeft, "desktop: the tab rail sits to the LEFT of the content (Dashboard-style sidebar)");
 

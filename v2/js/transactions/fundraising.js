@@ -92,7 +92,7 @@ export function fundraisingHTML(fs, base, phone) {
   const fimBody = !fim.length ? `<p class="tw-empty muted small">No funds in market for this filter.</p>` : phone
     ? `<ul class="tx-fr-list g-evs">${fim.map(fimRow).join("")}</ul>`
     : `<div class="tleague-wrap"><table class="tleague tx-fr-tbl" data-events="1"><thead><tr><th class="c-date">As of</th><th>Fund</th><th class="c-tag">Status</th><th>Manager</th><th>Strategy</th><th class="tl-n c-num">Target</th><th class="tl-n c-num">Raised</th><th>Named LPs</th><th class="c-src">Src</th></tr></thead><tbody>${fim.map(fimRow).join("")}</tbody></table></div>`;
-  const fimCtl = `<span class="tx-fr-ctl">${chip(`data-fr-fim="eu"`, "Europe", fs.fim === "eu")}${chip(`data-fr-fim="all"`, "All regions", fs.fim === "all")}</span>`;
+  const fimCtl = `<span class="tx-fr-ctl">${chip(`data-fr-fim="all"`, "All regions", fs.fim === "all")}${chip(`data-fr-fim="eu"`, "Europe", fs.fim === "eu")}</span>`;
 
   // First / final close timeline.
   const ev = closeEvents(fs.close);

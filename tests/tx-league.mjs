@@ -1,6 +1,6 @@
 // Transactions ▸ League tables (R9, 2026-10): a "League tables" chip after the modes
 // (#/league) ranks Lenders · Sponsors · Law firms · Financial advisers by tracked deal
-// count and disclosed ≈USD volume, filterable by period / region (Europe-first) / type;
+// count and disclosed ≈USD volume, filterable by period / region (all regions by default — owner 2026-10-15) / type;
 // names link to profiles; a row expands to the deals behind it and opens the list
 // filtered by that lender / sponsor. The aggregation counts a club deal ONCE per lender,
 // reads d.lenders[] when present (else managerId) and d.sponsor when present.
@@ -39,7 +39,7 @@ const base = `http://localhost:${srv.port}`;
 const { pg, errs } = await open(b, DESKTOP, base + "/v2/transactions/");
 await pg.waitForSelector("#tx-mode .tchip", { timeout: 10000 });
 const chips = await pg.evaluate(() => [...document.querySelectorAll("#tx-mode .tchip")].map((c) => c.textContent.trim()));
-checkEq(chips.join(" · "), "Lending · Structured credit · Secondaries · Restructuring · Fundraising · Manager M&A · League tables", "mode bar order");
+checkEq(chips.join(" · "), "All · Lending · Structured credit · Secondaries · Restructuring · Fundraising · Manager M&A · League tables", "mode bar order (All first and default — owner 2026-10-15)");
 check(await pg.evaluate(() => /\/v2\/restructuring\/$/.test(document.querySelector("#tx-mode a.tx-rxchip").getAttribute("href"))), "Restructuring is a link chip to /v2/restructuring/");
 
 await pg.click('#tx-mode [data-view="league"]'); await pg.waitForTimeout(300);
@@ -55,7 +55,7 @@ const t0 = await pg.evaluate(() => ({
 check(/League/.test(t0.on) && t0.rows > 0 && t0.rows <= 25, `lenders table renders (${t0.rows} shown of ${t0.all})`);
 check(t0.n.every((x, i) => i === 0 || t0.n[i - 1] >= x), "ranked by deal count");
 check(t0.link, "a tracked lender links to its manager profile");
-check(t0.reg === "eu" && t0.period === "ytd", "defaults: Europe, year to date");
+check(t0.reg === "all" && t0.period === "ytd", "defaults: all regions (no default filter on Deals — owner 2026-10-15), year to date");
 if (t0.all > 25) {
   await pg.click(".tx-seeall"); await pg.waitForTimeout(200);
   const sh = await pg.evaluate(() => ({ n: document.querySelectorAll(".tx-sheetv tbody[data-pv]").length, vis: [...document.querySelectorAll(".tx-sheetv tbody[data-pv]")].every((t) => t.style.display !== "none") }));
@@ -67,7 +67,7 @@ await pg.selectOption("#tx-lg-reg", "all"); await pg.waitForTimeout(250);
 const allN = await pg.evaluate(() => +document.querySelector(".tx-lg-stats b").textContent);
 await pg.selectOption("#tx-lg-reg", "eu"); await pg.waitForTimeout(250);
 const euN = await pg.evaluate(() => +document.querySelector(".tx-lg-stats b").textContent);
-check(allN >= euN && /reg=all/.test(await pg.evaluate(() => location.hash)) === false, `All regions widens the deal base (${allN} ≥ ${euN}); Europe is the default URL`);
+check(allN >= euN && /reg=eu/.test(await pg.evaluate(() => location.hash)), `All regions is the wider base (${allN} ≥ ${euN}); All regions is the default, Europe lands in the URL`);
 await pg.selectOption("#tx-lg-period", "12m"); await pg.waitForTimeout(250);
 check(/period=12m/.test(await pg.evaluate(() => location.hash)), "the period lands in the URL");
 // Expand the top row → deals + an "Open N in …" link filtered by that lender.

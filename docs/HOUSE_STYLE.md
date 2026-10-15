@@ -216,6 +216,20 @@ to keep pinned/full-height on these three sections.
   belongs (add the entity) or the source/query is too broad (tighten it). Rule 4 is
   editorial. **When in doubt, leave
   it out** — the wire is a curated universe, not a general feed.
+  **Scope gates & audit (2026-10-15).** `feedQualityKeep` also drops, from every source
+  except the reader's own curated streams (myFT / Substack / research): first-person and
+  personal-finance stories (`FEED_PERSONAL_RE` — "I lost my home … I rent", mortgage /
+  401(k) / Social Security / credit-score advice); out-of-scope central banks, EM
+  development finance and disaster live blogs named anywhere in a headline
+  (`FEED_OFFSCOPE_ANY_RE`); press-release slop on the deal wires (`FEED_PR_SLOP_RE` —
+  shareholder-alert ads, awards, anniversaries, dividend notices) and IR boilerplate even on
+  the curated wires; legal-profession gossip on the legal trade press
+  (`FEED_LEGAL_OFFSCOPE_RE` — jailed solicitors, open threads, apprentices, office tours,
+  SRA politics); small-ticket ABF Journal facilities. The Asia-only business desks (SCMP,
+  The Straits Times) are switched off. **Audit the live wire any time with
+  `node scripts/audit-wire.mjs [--dropped]`** — it runs every live source through the
+  Worker's own gates and prints what the wire would carry; a leak is a gap to close with a
+  rule here and a headline in `tests/wire-scope.mjs`.
 - **R5 — One feed engine, one `.g-feed-row` grid** across Home / Macro / Credit
   / Legal / Palette. No bespoke per-section list markup.
 - **R6 — Standard day breaks** on every dated list — the main wire *and*
@@ -389,21 +403,23 @@ notification badge red (`#ef4444`).
   sets its own height (30px feed chips, padding-sized pred chips) is a bug: it
   reads uneven next to the others on iPhone.
 
-- **R14a — The selected chip always shows its underline, one identical marker.**
+- **R14a — The selected chip always shows its underline, ONE single-line marker.**
   The active tab/filter chip is marked by a **2px bottom underline** in
   `--chip-ul` — **black in light, white in dark** (`--chip-ul` is set once,
-  globally, in `premium.css`) — drawn with **two shadow layers so it lands flush
-  ON the row's 1px divider** and never floats a pixel above it (the old
-  "double-line" look): `box-shadow: inset 0 -2px 0 var(--chip-ul), 0 1px 0
-  var(--chip-ul)`. This exact declaration is the ONE selection marker across every
-  tab row app-wide — the Menu chip bar, the `.twire-head` tab rows (Profiles,
-  Macro, Transactions, detail section-nav), the dashboard nav, the Home wire tabs
-  (`.g-wiretab`) — so no tab row ever reads heavier or thinner than another. The
-  base `.tchip.is-on` rule carries it; do NOT re-declare a one-layer variant per
-  surface. Always give BOTH layers a theme-aware fallback (`var(--chip-ul, #000)`
-  in light, `var(--chip-ul, #fff)` under `[data-theme="dark"]`): a bare
-  `var(--chip-ul)` with no fallback becomes an invalid declaration the moment the
-  token is missing from a scope, and the whole underline silently vanishes. The
+  globally, in `premium.css`) — drawn as ONE inset shadow layer:
+  `box-shadow: inset 0 -2px 0 var(--chip-ul)`. **Never a second layer** (owner
+  2026-10-15): the old extra `0 1px 0 var(--chip-ul)` line under the element read as a
+  DOUBLE underline on every bordered chip ("Europe", Filters, sort / segment chips) and
+  is removed app-wide — a selection marker is one line, never two. This exact
+  declaration is the ONE selection marker across every tab row app-wide — the Menu chip
+  bar, the `.twire-head` tab rows (Profiles, Macro, Transactions, detail section-nav),
+  the dashboard nav, the Home wire tabs (`.g-wiretab`) — so no tab row ever reads
+  heavier or thinner than another. The base `.tchip.is-on` rule carries it; do NOT
+  re-declare a variant per surface. Always give the layer a theme-aware fallback
+  (`var(--chip-ul, #000)` in light, `var(--chip-ul, #fff)` under `[data-theme="dark"]`):
+  a bare `var(--chip-ul)` with no fallback becomes an invalid declaration the moment the
+  token is missing from a scope, and the whole underline silently vanishes
+  (`tests/v2-menu.mjs` asserts exactly one layer). The
   **bottom tab bar's active marker** (`.mtab.is-active::before`, a 2px *top* line
   over the selected nav tab) is the ONE deliberate exception (owner's call): in LIGHT it still reads
   `--chip-ul` (black) like the rest of the family, but in DARK
@@ -1305,8 +1321,9 @@ notification badge red (`#ef4444`).
   "unavailable" only when nothing was ever captured (`tests/dashboard-europe.mjs`).
   **(b) One event, one record; no false precision** — see refresh-routines "Duplicates, date
   precision…"; dates render through `fmtDateP` / `fmtDate(record)` (`tests/search-quality.mjs`).
-  **(c) Europe-first** — Transactions, the credit wire and Funds in market default to
-  European borrowers/funds with a one-tap "All regions" (`tests/transactions-europe.mjs`).
+  **(c) Europe-first** — the Dashboard credit wire and Funds in market card default to
+  European borrowers/funds with a one-tap "All regions"; Deals opens unfiltered since
+  2026-10-15 (R44b, `tests/transactions-europe.mjs`).
   **(d) Search** matches record summaries, runs newest-first within a rank and never
   silently caps — "Show all N" (`tests/search-quality.mjs`). **(e) The bell is material
   only** — earnings-call dates, webcasts, awards, podcasts, outlooks, newsletters stay out
@@ -1414,6 +1431,24 @@ notification badge red (`#ef4444`).
   (`tests/style-r43.mjs` desk widths 1366 / 1920 / 2560 / 3440 + header panels + search
   palette; `tests/style-r43-phone.mjs` iPhone light and dark; shared probe
   `tests/fixtures/r43-probe.mjs`).
+
+- **R44 — Owner follow-ups (2026-10-15).** **(a) "All" first.** Deals and Profiles each
+  open on an **All** tab, the first chip in their bar: Deals ▸ All (`#/all`, the default
+  route) lists every deal across Lending · Structured · Secondaries · Manager M&A with a
+  Type column; Profiles ▸ All (`?tab=all`, the default) is one directory of every
+  manager, hedge fund, investor and law firm (`v2/js/profiles/all.js`) with the shared
+  search, Type filter, Following, sort and CSV. The Restructuring hub's copy of the Deals
+  bar carries All too. **(b) No default filter on Deals.** Every Deals view opens
+  unfiltered — the list (`scope` defaults to all regions; Europe is one tap, `scope=eu`
+  in the URL), League tables (region "All regions") and Fundraising (funds in market
+  "All regions"). This supersedes R41(c)'s Europe-first default *for Deals* (the
+  Dashboard cards keep theirs). **(c) Single underline** — see R14a. **(d) Back goes back.**
+  Every in-page back control (the Profiles ‹ chevron, the deal drawer ‹) returns to the
+  page you were on immediately before — `history.back()` whenever the app holds in-app
+  history (`<html data-can-back>`, R35) — and only a cold deep link falls back to the
+  list. Specs: `tests/transactions.mjs`, `tests/transactions-europe.mjs`,
+  `tests/tx-league.mjs`, `tests/profiles-people.mjs`, `tests/nav-reset.mjs`,
+  `tests/v2-menu.mjs`, `tests/back-previous.mjs`.
 
 ## 7. Technical rules
 

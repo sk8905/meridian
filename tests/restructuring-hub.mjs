@@ -67,8 +67,8 @@ for (const [name, dev, phone] of [["phone light", { ...PHONE, colorScheme: "ligh
   check(r.stats.some((t) => /UK company insolvencies/.test(t)) && r.stats.some((t) => /EU bankruptcy declarations/.test(t)), `${name}: insolvency statistics (Insolvency Service + Eurostat)`);
   // Owner 2026-10-15: the hub is part of Deals — its chip row is the Deals mode bar
   // (Restructuring lit; every other chip goes to its Deals view), not in-page section chips.
-  checkEq(r.chips.join("|"), "Lending|Structured credit|Secondaries|Restructuring|Fundraising|Manager M&A|League tables", `${name}: the Deals mode bar, Restructuring lit`);
-  check(r.chipHrefs.filter(Boolean).every((h) => /^\/v2\/transactions\/#\/\w+$/.test(h)) && r.chipHrefs.filter(Boolean).length === 6, `${name}: every other chip opens its Deals view`);
+  checkEq(r.chips.join("|"), "All|Lending|Structured credit|Secondaries|Restructuring|Fundraising|Manager M&A|League tables", `${name}: the Deals mode bar (All first — owner 2026-10-15), Restructuring lit`);
+  check(r.chipHrefs.filter(Boolean).every((h) => /^\/v2\/transactions\/#\/\w+$/.test(h)) && r.chipHrefs.filter(Boolean).length === 7, `${name}: every other chip opens its Deals view`);
   check(r.chipOneRow, `${name}: the mode bar sits on ONE row`);
   check(!r.hscroll, `${name}: no horizontal page scroll`);
   // Even, aligned cards: every list row is one fixed height.

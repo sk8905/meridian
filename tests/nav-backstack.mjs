@@ -34,7 +34,7 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
   await pg.locator("#tx-focus").click(); await pg.fill("#tx-q", "ares"); await pg.waitForTimeout(150);
   await pg.locator('[data-key="transactions"]').filter({ visible: true }).first().click(); await pg.waitForTimeout(300);
   const ui = await pg.evaluate(() => ({ h: location.hash, pills: !document.querySelector("#tx-active").hidden, sheet: !document.querySelector("#tx-sheet").hidden, btn: document.querySelector("#tx-filters .tx-fn").textContent, f: document.querySelector("#tx-focus").getAttribute("aria-pressed"), q: document.querySelector("#tx-q").value, n: document.querySelectorAll("#tx-body [data-deal]").length }));
-  check(ui.h === "#/lending" && !ui.pills && !ui.sheet && ui.btn === "" && ui.f === "false" && ui.q === "" && ui.n === all, `re-tapping Transactions resets the filters AND their controls (${JSON.stringify(ui)})`);
+  check(ui.h === "#/all" && !ui.pills && !ui.sheet && ui.btn === "" && ui.f === "false" && ui.q === "" && ui.n === all, `re-tapping Transactions resets the filters AND their controls (${JSON.stringify(ui)})`);
   checkErrs(errs, "transactions filters");
   await ctx.close();
 }
@@ -60,7 +60,7 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
 
 // ---- 3) iPhone: list scroll is restored on Back; a tab switch keeps the open profile ----
 {
-  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/profiles/");
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/profiles/#/?tab=managers");
   await pg.waitForSelector("#mgr-rows tr", { timeout: 8000 });
   await pg.waitForTimeout(1500);   // let the boot-time scroll settle before scrolling the list
   await pg.evaluate(() => window.scrollTo({ top: 2500, behavior: "instant" })); await pg.waitForTimeout(150);
@@ -83,7 +83,7 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
 
 // ---- 4) In-app links never reload; ⌘K opens search; profile sub-tab in the URL ----
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/#/?tab=managers");
   await pg.waitForSelector("#mgr-rows tr", { timeout: 8000 });
   await setMarker(pg);
   await pg.keyboard.press("Control+k");
@@ -159,7 +159,7 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
 // ---- 6b) Profiles ▸ ★ Following narrows a list to followed names; the reader offers
 // the hop from a Watchlist / manager-wire story to the profile it is about ----
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/#/?tab=managers");
   await pg.evaluate(() => localStorage.setItem("meridian.follows", JSON.stringify({ manager: ["m20", "m21"] })));
   await pg.reload(); await pg.waitForSelector("#pf-panes #mgr-rows tr", { timeout: 8000 });
   // ★ Following lives in the Filters panel (Show & sort, under More filters).
@@ -215,7 +215,7 @@ const setMarker = (pg) => pg.evaluate(() => { window.__navMarker = 1; });
 // ---- 6c) The bell opens items IN the app (deal panel / focused profile / alert page),
 // closes itself, and never reloads the document ----
 {
-  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/");
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/profiles/#/?tab=managers");
   await pg.waitForTimeout(800);
   const items = await pg.evaluate(async () => { const S = await import("/saved.js"); return (await S.buildNotifs()).map((x) => ({ href: x.href, ext: x.ext, id: x.id })); });
   const credit = items.filter((x) => /^[dil]:|^u:/.test(x.id));

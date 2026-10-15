@@ -42,7 +42,7 @@ check(await pg.evaluate(() => !!document.querySelector(".pf-detailing")), "setup
 await pg.click('.mtab[data-key="profiles"]');
 await pg.waitForTimeout(300);
 check(await pg.evaluate(() => !document.querySelector(".pf-detailing")), "Profiles tab: closes the open profile (back to the list)");
-check(await pg.evaluate(() => { const c = document.querySelector('#pf-chips .tchip[data-p="managers"]'); return !!c && c.classList.contains("is-on"); }), "Profiles tab: resets to the Managers category");
+check(await pg.evaluate(() => { const c = document.querySelector('#pf-chips .tchip[data-p="all"]'); return !!c && c.classList.contains("is-on"); }), "Profiles tab: resets to the All category (the first, default list — owner 2026-10-15)");
 
 await ctx.close();
 await b.close(); srv.close();

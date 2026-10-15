@@ -1,8 +1,8 @@
-// Transactions is Europe-first (review 2026-10-15, #5): the default list shows only
-// deals whose borrower / asset sits in a European region (credit/js/tx.js
-// EUROPE_REGIONS); one tap on the "Europe" button widens to every region (and the
-// URL carries scope=all so Back / a pasted link restore it); a search spans every
-// region; a deep link to a non-European deal still opens it.
+// Deals carries NO default filter (owner 2026-10-15, superseding review #5's Europe-first
+// default): the default list spans every region; one tap on the scope button narrows to
+// European borrowers / assets (credit/js/tx.js EUROPE_REGIONS) and the URL carries
+// scope=eu so Back / a pasted link restore it; a search spans every region; a deep link
+// to a non-European deal still opens it.
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 import { deals } from "../credit/js/data.js";
 import { DEAL_TAGS } from "../credit/js/deal-tags.js";
@@ -15,15 +15,15 @@ await pg.waitForSelector("#tx-body tr.tx-row", { timeout: 10000 });
 const isEu = (id) => { const d = deals.find((x) => x.id === id); return !!d && EUROPE_REGIONS.includes(tagsOf(d, DEAL_TAGS).region); };
 const ids = () => pg.evaluate(() => [...document.querySelectorAll("#tx-body tr.tx-row")].map((tr) => tr.dataset.deal));
 
-const eu = await ids();
-check(eu.length > 0 && eu.slice(0, 30).every(isEu), `default list is European deals only (${eu.slice(0, 30).filter(isEu).length}/${Math.min(30, eu.length)})`);
-checkEq(await pg.evaluate(() => document.querySelector("#tx-scope").textContent.trim()), "Europe", "the scope button reads Europe by default");
+const all = await ids();
+check(all.some((id) => !isEu(id)), `default list spans every region (non-European deals appear)`);
+checkEq(await pg.evaluate(() => document.querySelector("#tx-scope").textContent.trim()), "All regions", "the scope button reads All regions by default");
 
 await pg.click("#tx-scope"); await pg.waitForTimeout(250);
-const all = await ids();
-check(all.some((id) => !isEu(id)), "one tap widens to every region (non-European deals appear)");
-check(/scope=all/.test(await pg.evaluate(() => location.hash)), "the URL carries scope=all");
-checkEq(await pg.evaluate(() => document.querySelector("#tx-scope").textContent.trim()), "All regions", "the button then reads All regions");
+const eu = await ids();
+check(eu.length > 0 && eu.slice(0, 30).every(isEu), `one tap narrows to European deals only (${eu.slice(0, 30).filter(isEu).length}/${Math.min(30, eu.length)})`);
+check(/scope=eu/.test(await pg.evaluate(() => location.hash)), "the URL carries scope=eu");
+checkEq(await pg.evaluate(() => document.querySelector("#tx-scope").textContent.trim()), "Europe", "the button then reads Europe");
 
 await pg.click("#tx-scope"); await pg.waitForTimeout(150);
 await pg.fill("#tx-q", "waymo"); await pg.waitForTimeout(400);

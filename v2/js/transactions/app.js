@@ -51,8 +51,10 @@ const mIsTarget = (id) => _tier.get(id) === "core";
 const FOCUS_PILL = { band: "$1–15bn AUM", target: "European mid-market managers" };
 
 const DEAL_MODES = [...TX_GROUPS.map((g) => [g.key, g.label]), ["mna", "Manager M&A"]];
-const FLOW = DEAL_MODES.map(([k]) => k);                       // lending · structured · secondary · mna
-const MODES = DEAL_MODES;
+// "All" (owner 2026-10-15) — the first and default Deals tab: every deal in the ledger,
+// across lending · structured · secondaries · Manager M&A, with a Type column.
+const FLOW = ["all", ...DEAL_MODES.map(([k]) => k)];             // all · lending · structured · secondary · mna
+const MODES = [["all", "All"], ...DEAL_MODES];
 // Two views beside the deal-flow modes (chips after them, data-view not data-mode):
 // Fundraising (funds in market · closes · LP commitments · LP ↔ manager) and League
 // tables (lenders · sponsors · law firms · financial advisers ranked by deals / volume).
@@ -127,14 +129,14 @@ export function mount(host, ctx) {
   }
 
   // ---- state (the URL is its serialised form) --------------------------------
-  // scope: "eu" (default — the reader is a European credit fund) | "all". Europe = the
+  // scope: "all" (default — owner 2026-10-15: no default filter on Deals) | "eu". Europe = the
   // EUROPE_REGIONS of the deal's borrower/asset country; a search, an explicit Region
   // facet or Manager M&A always spans every region (review 2026-10-15, #5).
   // spn: one sponsor by name (a League tables sponsor row opens the list filtered by it).
   // lg: the League tables view; fr: the Fundraising view.
-  const LG_DEFAULT = () => ({ by: "lenders", period: "ytd", reg: "eu", type: "", sort: "n", open: "" });
-  const FR_DEFAULT = () => ({ fim: "eu", close: "" });
-  const DEFAULT = () => ({ mode: "lending", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "", scope: "eu", spn: "", lg: LG_DEFAULT(), fr: FR_DEFAULT() });
+  const LG_DEFAULT = () => ({ by: "lenders", period: "ytd", reg: "all", type: "", sort: "n", open: "" });
+  const FR_DEFAULT = () => ({ fim: "all", close: "" });
+  const DEFAULT = () => ({ mode: "all", q: "", deal: "", sort: "date", dir: "desc", grp: "", f: emptyF(), period: "all", from: "", to: "", focus: "", scope: "all", spn: "", lg: LG_DEFAULT(), fr: FR_DEFAULT() });
   let st = DEFAULT();
   let sheetOpen = false, lenderAll = false, moreOpen = false, customDate = false;
   const flowMode = () => FLOW.includes(st.mode);
@@ -167,7 +169,7 @@ export function mount(host, ctx) {
     || (r.d.summary || "").toLowerCase().includes(q) || typeLabel(r.tx).toLowerCase().includes(q) || r.tags.sector.toLowerCase().includes(q)
     || (r.tags.country || "").toLowerCase().includes(q);
   // Search spans every deal-flow mode; otherwise the active mode's deals.
-  const baseRows = () => (st.q ? rows.filter((r) => hit(r, st.q.toLowerCase())) : rows.filter((r) => r.mode === st.mode));
+  const baseRows = () => (st.q ? rows.filter((r) => hit(r, st.q.toLowerCase())) : rows.filter((r) => st.mode === "all" || r.mode === st.mode));
   function facetCounts(k) {
     const out = {};
     for (const r of baseRows()) if (passes(r, k)) { const v = FVAL[k](r); for (const x of Array.isArray(v) ? v : [v]) out[x] = (out[x] || 0) + 1; }
@@ -200,7 +202,7 @@ export function mount(host, ctx) {
       if (st.from || st.to) { if (st.from) p.set("from", st.from); if (st.to) p.set("to", st.to); }
       else if (st.period !== "all") p.set("period", st.period);
       if (st.focus) p.set("focus", st.focus);
-      if (st.scope === "all") p.set("scope", "all");
+      if (st.scope === "eu") p.set("scope", "eu");
       if (st.spn) p.set("spn", st.spn);
       if (st.q) p.set("q", st.q);
       if (st.sort !== "date" || st.dir !== "desc") p.set("sort", `${st.sort}-${st.dir}`);
@@ -210,7 +212,7 @@ export function mount(host, ctx) {
       const L = st.lg, D = LG_DEFAULT();
       for (const k of ["by", "period", "reg", "type", "sort", "open"]) if (L[k] !== D[k]) p.set(k, L[k]);
     } else if (st.mode === "fundraising") {
-      if (st.fr.fim !== "eu") p.set("fim", st.fr.fim);
+      if (st.fr.fim !== "all") p.set("fim", st.fr.fim);
       if (st.fr.close) p.set("close", st.fr.close);
     }
     const qs = p.toString().replace(/%2C/g, ",");
@@ -248,7 +250,7 @@ export function mount(host, ctx) {
       if (!s.from && !s.to && PERIODS[q.get("period")]) s.period = q.get("period");
       s.focus = q.get("focus") === "1" ? "band" : (["band", "target"].includes(q.get("focus")) ? q.get("focus") : "");
       s.q = q.get("q") || "";
-      s.scope = q.get("scope") === "all" ? "all" : "eu";
+      s.scope = q.get("scope") === "eu" ? "eu" : "all";
       if (q.get("deal") && rowById.has(q.get("deal")) && !EUROPE_REGIONS.includes(rowById.get(q.get("deal")).tags.region)) s.scope = "all";
       const [sk, sd] = (q.get("sort") || "").split("-");
       if (SORT_VAL[sk]) { s.sort = sk; s.dir = sd === "asc" ? "asc" : sd === "desc" ? "desc" : SORT_DEFAULT_DIR[sk]; }
@@ -259,12 +261,12 @@ export function mount(host, ctx) {
       const L = s.lg;
       if (BY_KEYS.includes(q.get("by"))) L.by = q.get("by");
       if (LG_PERIOD_OK(q.get("period"))) L.period = q.get("period");
-      if (q.get("reg") === "all" || REGION_LABEL[q.get("reg")] != null) L.reg = q.get("reg");
+      if (q.get("reg") === "eu" || REGION_LABEL[q.get("reg")] != null) L.reg = q.get("reg");
       if (LG_TYPE_OK(q.get("type"))) L.type = q.get("type");
       if (q.get("sort") === "vol") L.sort = "vol";
       L.open = (q.get("open") || "").slice(0, 160);
     } else if (s.mode === "fundraising") {
-      if (q.get("fim") === "all") s.fr.fim = "all";
+      if (q.get("fim") === "eu") s.fr.fim = "eu";
       if (["first", "final"].includes(q.get("close"))) s.fr.close = q.get("close");
     }
     return s;
@@ -427,7 +429,7 @@ export function mount(host, ctx) {
   function facetBlock(k) {
     const counts = facetCounts(k);
     let opts;
-    if (k === "type") opts = TX_TYPES.filter((t) => st.q || st.mode === "mna" || t.group === st.mode).map((t) => [t.key, t.label]);
+    if (k === "type") opts = TX_TYPES.filter((t) => st.q || st.mode === "mna" || st.mode === "all" || t.group === st.mode).map((t) => [t.key, t.label]);
     else if (k === "sector") opts = SECTOR_TAGS.map((s) => [s, s]);
     else if (k === "region") opts = REGIONS.map(([v, l]) => [v, l]);
     else if (k === "size") opts = SIZE_BANDS;
@@ -523,7 +525,7 @@ export function mount(host, ctx) {
   function renderModeNav() {
     const nav = host.querySelector("#tx-mode");
     if (!nav) return;
-    // Owner-approved order: Lending · Structured credit · Secondaries · Restructuring ·
+    // Owner-approved order: All (first, default — owner 2026-10-15) · Lending · Structured credit · Secondaries · Restructuring ·
     // Fundraising · Manager M&A · League tables. Restructuring is its own view
     // (/v2/restructuring/, a link the runtime routes); Fundraising and League tables are
     // views of this tab (data-view; #/fundraising · #/league). On iPhone the row scrolls
@@ -536,7 +538,7 @@ export function mount(host, ctx) {
     };
     const view = (k) => `<button type="button" class="tchip tx-vchip${st.mode === k ? " is-on" : ""}" data-view="${esc(k)}">${esc(VIEW_LABEL[k])}</button>`;
     const rx = `<a class="tchip tx-vchip tx-rxchip" href="${esc(ctx.base)}/restructuring/">Restructuring</a>`;
-    nav.innerHTML = [flow("lending"), flow("structured"), flow("secondary"), rx, view("fundraising"), flow("mna"), view("league")].join("");
+    nav.innerHTML = [flow("all"), flow("lending"), flow("structured"), flow("secondary"), rx, view("fundraising"), flow("mna"), view("league")].join("");
     const onChip = nav.querySelector(".tchip.is-on");
     if (onChip && nav.scrollWidth > nav.clientWidth + 1) {
       const nr = nav.getBoundingClientRect(), cr = onChip.getBoundingClientRect();
@@ -583,7 +585,7 @@ export function mount(host, ctx) {
       party: (lbl) => [lbl, partyCell, "name", "txc-party tx-bd"],
       lender: (lbl) => [lbl, lenderCell, "lender", "txc-lender tx-mg"],
       sponsor: ["Sponsor", (r) => (r.sponsor ? esc(r.sponsor) : "—"), null, "txc-sp tx-sp"],
-      type: ["Type", (r) => esc(st.q ? `${MODE_LABEL[r.mode]} · ${typeLabel(r.tx)}` : typeLabel(r.tx)), null, "txc-type tx-cat"],
+      type: ["Type", (r) => esc(st.q || st.mode === "all" ? `${MODE_LABEL[r.mode]} · ${typeLabel(r.tx)}` : typeLabel(r.tx)), null, "txc-type tx-cat"],
       sector: ["Sector", (r) => esc(r.tags.sector), null, "txc-sec tx-cat"],
       country: ["Country", (r) => esc(r.tags.country || "—"), null, "txc-ctry tx-cat"],
       event: ["Event", (r) => esc(EVENT_LABEL[r.tags.event] || "—"), null, "txc-ev tx-cat"],
@@ -595,7 +597,7 @@ export function mount(host, ctx) {
       source: ["Source", srcCell, null, "txc-src c-src tx-src2"],
     };
     // R43: an events table — the date leads (it carries the expand caret), the source closes.
-    if (st.q) return [C.date, C.party("Deal"), C.lender("Lender / investor"), C.type, C.amount("Amount"), C.source];
+    if (st.q || st.mode === "all") return [C.date, C.party("Deal"), C.lender("Lender / investor"), C.type, C.amount("Amount"), C.source];
     if (st.mode === "structured") return [C.date, C.party("Vehicle"), C.lender("Manager"), C.type, C.event, C.country, C.amount("Size"), C.pricing, C.source];
     if (st.mode === "secondary") return [C.date, C.party("Fund / portfolio"), C.lender("Buyer / lead"), C.type, C.country, C.amount("Size"), C.source];
     if (st.mode === "mna") return [C.date, C.party("Target"), C.lender("Acquirer"), C.country, C.amount("Value"), C.source];
@@ -612,7 +614,7 @@ export function mount(host, ctx) {
   const txCard = (r) => {
     const d = r.d;
     // The type only when the list isn't already narrowed to one type (Manager M&A has none).
-    const showType = st.q || (st.mode !== "mna" && st.f.type.length !== 1);
+    const showType = st.q || st.mode === "all" || (st.mode !== "mna" && st.f.type.length !== 1);
     const what = !showType ? "" : (TYPE_SHORT[r.tx] || typeLabel(r.tx)) + (st.mode === "structured" && r.tags.event && !st.q ? ` ${EVENT_LABEL[r.tags.event].toLowerCase()}` : "");
     // R43: the shared events row — date · party / lender · type · country · amount · source.
     const meta = [lenderCell(r), what ? esc(what) : "", r.tags.country ? esc(r.tags.country) : ""].filter((x) => x && x !== "—").join(" · ");
@@ -678,7 +680,7 @@ export function mount(host, ctx) {
     const list = currentList();
     const strip = "";
     const head = st.q ? `<div class="tx-head"><h2 class="tx-title">Search · all transactions</h2>${searchSplit(list)}</div>` : "";
-    const empty = `<p class="tw-empty muted small">No ${st.q ? `transactions match “${esc(st.q)}”` : esc(MODE_LABEL[st.mode].toLowerCase()) + " transactions match these filters"}.</p>`;
+    const empty = `<p class="tw-empty muted small">No ${st.q ? `transactions match “${esc(st.q)}”` : (st.mode === "all" ? "" : esc(MODE_LABEL[st.mode].toLowerCase()) + " ") + "transactions match these filters"}.</p>`;
     body.innerHTML = `<div class="tx-panes-in">${strip}${head}${statsHTML(list)}${list.length ? dealList(list) : empty}</div>`;
   }
   function searchSplit(list) {
@@ -800,8 +802,10 @@ export function mount(host, ctx) {
   }
   function closeDeal() {
     if (!st.deal) return;
-    // A drawer this view pushed is one history entry — step back so Back and ✕ agree.
-    if (history.state && history.state.tx && isActive()) { history.back(); return; }
+    // ‹ returns to the page you were on immediately before (owner 2026-10-15): any
+    // in-app history (a drawer this view pushed, or the Dashboard / profile / hub row
+    // that linked here) is one step back; only a cold deep link falls back to the list.
+    if (isActive() && ((history.state && history.state.tx) || document.documentElement.hasAttribute("data-can-back"))) { history.back(); return; }
     st.deal = ""; commit(false); renderDrawer();
     body.querySelectorAll("[data-deal].is-open").forEach((e) => e.classList.remove("is-open"));
     if (_phone()) window.scrollTo({ top: _listY, behavior: "instant" });
@@ -880,7 +884,7 @@ export function mount(host, ctx) {
     for (const [k, v] of Object.entries(extra)) p.set(k, v);
     if (L.type.startsWith("t:")) p.set("type", L.type.slice(2));
     if (L.period === "ytd" || L.period === "12m") p.set("period", L.period); else { p.set("from", `${L.period}-01`); p.set("to", `${L.period}-12`); }
-    if (L.reg === "all") p.set("scope", "all"); else if (L.reg !== "eu") p.set("reg", L.reg);
+    if (L.reg === "eu") p.set("scope", "eu"); else if (L.reg !== "all") p.set("reg", L.reg);
     return `${ctx.base}/transactions/#/${mode}?${p.toString().replace(/%2C/g, ",")}`;
   }
   const BY_NOUN = { lenders: "lender", sponsors: "sponsor", law: "law firm", fa: "financial adviser" };
@@ -912,7 +916,7 @@ export function mount(host, ctx) {
     const bar = `<div class="tx-lg-by" role="tablist" aria-label="League table">${BY.map(([k, l]) => `<button type="button" class="tx-fchip${L.by === k ? " is-on" : ""}" data-lg-by="${k}" role="tab" aria-selected="${L.by === k}" aria-label="${esc(l)}">${byLbl(k, l)}</button>`).join("")}</div>`
       + `<div class="tx-lg-ctl">`
       + `<select class="tx-filt" id="tx-lg-period" aria-label="Period">${o("ytd", "Year to date", L.period)}${o("12m", "Last 12 months", L.period)}<optgroup label="Calendar year">${YEARS.map((y) => o(y, y, L.period)).join("")}</optgroup></select>`
-      + `<select class="tx-filt" id="tx-lg-reg" aria-label="Region">${o("eu", "Europe", L.reg)}${o("all", "All regions", L.reg)}<optgroup label="Region">${REGIONS.map(([k, l]) => o(k, l, L.reg)).join("")}</optgroup></select>`
+      + `<select class="tx-filt" id="tx-lg-reg" aria-label="Region">${o("all", "All regions", L.reg)}${o("eu", "Europe", L.reg)}<optgroup label="Region">${REGIONS.map(([k, l]) => o(k, l, L.reg)).join("")}</optgroup></select>`
       + `<select class="tx-filt" id="tx-lg-type" aria-label="Deal type">${o("", "All credit deal flow", L.type)}<optgroup label="Mode">${DEAL_MODES.map(([k, l]) => o("m:" + k, l, L.type)).join("")}</optgroup>`
       + TX_GROUPS.map((g) => `<optgroup label="${esc(g.label)}">${TX_TYPES.filter((t) => t.group === g.key).map((t) => o("t:" + t.key, t.label, L.type)).join("")}</optgroup>`).join("") + `</select>`
       + `<button type="button" class="tfocus-btn tx-csv" data-csv="league">Export CSV</button></div>`;

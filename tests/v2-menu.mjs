@@ -190,7 +190,7 @@ async function menuState(pg) {
 }
 
 // 5) The active-tab underline is IDENTICAL across surfaces — one canonical
-// flush 2-layer marker (2px inset + 1px below), so no tab row looks heavier or
+// single 2px inset marker (owner 2026-10-15 — never a second layer), so no tab row looks heavier or
 // thinner than another (Menu chips, Macro .twire-head tabs, Home wire tabs).
 {
   async function underline(path, sel, waitSel) {
@@ -204,7 +204,9 @@ async function menuState(pg) {
   const menuUL = await underline("/v2/menu/", ".na-menu-bar .tchip.is-on", ".na-menu-bar .tchip");
   const homeUL = await underline("/v2/", ".tui .g-wiretab.is-on", ".g-wiretabs");
   // Two shadow layers = the flush marker (inset underline + the on-divider line).
-  check(menuUL && (menuUL.match(/rgb/g) || []).length >= 2 && /inset/.test(menuUL), `active-tab underline is the flush 2-layer marker (${menuUL})`);
+  // Owner 2026-10-15: ONE underline layer only — the old second (outer 1px) layer read
+  // as a double underline on bordered chips, so it is removed everywhere (R14a).
+  check(menuUL && (menuUL.match(/rgb/g) || []).length === 1 && /inset/.test(menuUL), `active-tab underline is the single 2px inset marker (${menuUL})`);
   checkEq(homeUL, menuUL, "Home wire-tab underline matches the Menu chip underline (same weight)");
 }
 

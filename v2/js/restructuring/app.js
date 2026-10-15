@@ -171,7 +171,7 @@ export function mount(host, ctx) {
   const txAll = `${base}/transactions/#/lending?type=rx&scope=all`;
   // The hub is part of Deals (owner 2026-10-15): it carries the Deals mode bar with
   // Restructuring lit, so every chip goes somewhere (the old in-page section chips are gone).
-  const DEALS_BAR = [["lending", "Lending"], ["structured", "Structured credit"], ["secondary", "Secondaries"], ["restructuring", "Restructuring"], ["fundraising", "Fundraising"], ["mna", "Manager M&amp;A"], ["league", "League tables"]];
+  const DEALS_BAR = [["all", "All"], ["lending", "Lending"], ["structured", "Structured credit"], ["secondary", "Secondaries"], ["restructuring", "Restructuring"], ["fundraising", "Fundraising"], ["mna", "Manager M&amp;A"], ["league", "League tables"]];
   function render() {
     const P = plansAndSchemes(), C = rxCases(), D = rxDeals();
     const chips = DEALS_BAR.map(([k, l]) => k === "restructuring"

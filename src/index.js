@@ -3919,8 +3919,12 @@ export const FEED_SOURCES = [
   // (Nikkei Asia dropped — a hard paywall that opens at the publisher.) SCMP reads
   // via READ_OPEN (metered, but its public body renders). The Straits Times is
   // bot-shielded, so the browser proxy renders it in-pane.
-  { url: "https://www.scmp.com/rss/92/feed/", source: "South China Morning Post", region: "GEN", cap: 4 },
-  { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
+  // South China Morning Post and The Straits Times — SWITCHED OFF (wire scope audit
+  // 2026-10-15): Asia-only business desks (Hong Kong land sales, Singapore-listed palm-oil
+  // firms, mainland stocks) sit outside R4c's G7 + Western Europe universe and carry no
+  // covered manager / firm news. Commented out (not deleted).
+  // { url: "https://www.scmp.com/rss/92/feed/", source: "South China Morning Post", region: "GEN", cap: 4 },
+  // { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
   // Channel NewsAsia removed as a wire source (2026-10, owner request).
   // Global aggregators removed: Yahoo Finance (RSS dominated by sensational
   // single-company clickbait with no reliable title signature to filter) and the
@@ -4224,7 +4228,7 @@ const FEED_LIFESTYLE_RE = new RegExp([
   "fashion", "beauty", "jewell?er", "luxury watch", "\\byacht", "interior design",
   // beauty / self-care / style-advice ("How does she get that glow?" got through)
   "skincare", "make-?up", "cosmetics?", "fragrance", "perfume", "grooming", "\\bglow\\b", "hairstyl",
-  "gift guide", "what to wear", "wardrobe", "\\bdating\\b", "parenting", "\\bfitness\\b", "\\bgym\\b",
+  "gift guide", "what to wear", "wardrobe", "\\bdating\\b(?! app)", "parenting", "\\bfitness\\b", "\\bgym\\b",
   "\\barts\\b", "artist", "\\bgallery\\b", "museum", "exhibition", "theatre", "theater", "\\bopera\\b", "ballet",
   "\\bfilm\\b", "\\bmovie", "\\bcinema", "box office", "\\bpodcast", "\\bmusic\\b", "\\balbum\\b", "\\bconcert\\b", "celebrit", "royal family", "memoir", "poetry",
   "crossword", "puzzle", "horoscope", "wellness", "\\byoga\\b", "recipes", "lunch with the ft", "how to spend it",
@@ -4237,7 +4241,7 @@ const FEED_LIFESTYLE_RE = new RegExp([
 const FEED_LIFESTYLE_HARD_RE = new RegExp([
   "\\brecipes?\\b", "cook(ing|book)", "horoscope", "crossword", "\\bpuzzle\\b", "obituar", "\\bdies aged\\b",
   "\\bpoetry\\b", "\\bmemoir\\b", "gift guide", "what to wear", "how to spend it", "lunch with the ft",
-  "\\bparenting\\b", "\\bdating\\b", "\\byoga\\b", "skincare", "hairstyl", "\\bgrooming\\b",
+  "\\bparenting\\b", "\\bdating\\b(?! app)", "\\byoga\\b", "skincare", "hairstyl", "\\bgrooming\\b",
 ].join("|"), "i");
 const feedNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 async function handleFeed(request, env, ctx) {
@@ -4274,10 +4278,7 @@ async function handleFeed(request, env, ctx) {
         }
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
-        const kept = f.soft ? parsed.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title))
-          : (f.filter === false) ? parsed
-          : f.core ? parsed.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
-          : parsed.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+        const kept = parsed.filter((x) => feedSourceKeep(x, f));
         // `dated` is the count that actually matters downstream: an item with
         // no parseable pubDate used to be dropped silently by the assembly's
         // cutoff check, so a source could probe "kept: 20" yet contribute
@@ -4419,11 +4420,51 @@ const FEED_PR_NOISE = /\bto (announce|report)\b.*\b(results|earnings)\b|\breport
 // country's macro print is dropped. See feedQualityKeep.
 const FEED_GEO_MACRO_RE = /\b(gdp|growth|econom\w+|inflation|deflation|disinflation|cpi|ppi|pce|unemploy\w*|jobless|jobs?|payrolls?|nonfarm|labou?r|wages?|retail sales|industrial production|pmi|ism|manufactur\w*|trade|exports?|imports?|tariffs?|current account|trade (balance|surplus|deficit)|budget|fiscal|borrowing|central bank|monetary|interest rates?|rate (cut|hike|rise|hold|decision|cuts|hikes|path)|bond yields?|sovereign|lira|rouble|ruble|zloty|forint|koruna|\bleu\b|\blei\b|peso|yuan|renminbi|rupee|\bwon\b|baht|ringgit|rupiah|currenc\w+|elections?|midterms?|referendum)\b/i;
 const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:russia(?:n)?|ukrain(?:e|ian)|belarus(?:ian)?|turk(?:ey|ish)|t[üu]rkiye|serbia(?:n)?|pol(?:and|ish)|czech(?:ia|\s*republic)?|hungar(?:y|ian)|romania(?:n)?|bulgaria(?:n)?|slovak(?:ia)?|sloven(?:ia|ian)|croatia(?:n)?|eston(?:ia|ian)|latvia(?:n)?|lithuania(?:n)?|bosnia(?:n)?|albania(?:n)?|(?:north\s*)?macedonia(?:n)?|montenegr(?:o|in)|kosov(?:o|an)|moldova(?:n)?|armenia(?:n)?|azerbaijan(?:i)?|china|chinese|hong\s*kong|taiwan(?:ese)?|(?:south\s*|north\s*)?korea(?:n)?|singapore|s['’]pore|malaysia(?:n)?|thai(?:land)?|indonesia(?:n)?|philippine(?:s)?|vietnam(?:ese)?|india(?:n)?|australia(?:n)?|new\s*zealand|israel(?:i)?|saudi(?:\s*arabia)?|u\.?a\.?e\.?|emirat\w*|qatar(?:i)?|kuwait(?:i)?|bahrain(?:i)?|oman(?:i)?|egypt(?:ian)?|morocc(?:o|an)|south\s*africa(?:n)?|brazil(?:ian)?|mexic(?:o|an)|argentin(?:a|e|ian)?|chile(?:an)?|colombia(?:n)?|ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:['’]s)?\b/i;
+// The per-source title gate (exported so scripts/audit-wire.mjs runs real feeds through
+// the exact same filters): junk rejects first; reader-curated feeds (myFT, Bloomberg
+// official wires) pass everything except lifestyle unless the headline also reads as
+// finance/business; filter:false desks pass; everything else must read as macro or
+// megacap (or core-macro for `core` sources).
+export function feedSourceKeep(x, f) {
+  if (feedReject(x.title)) return false;
+  if (f.soft) return !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title);
+  if (f.filter === false) return true;
+  return f.core ? FEED_CORE_MACRO_RE.test(x.title) : (FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+}
+// ---- Wire scope gates (R4c audit 2026-10-15; scripts/audit-wire.mjs) -------------------
+// Personal finance / first-person / human-interest money stories ("I lost my home … I rent
+// in my 50s", "Should I pay off my mortgage?", 401(k) / Social Security / credit-score
+// advice) are never macro, never a covered manager or firm — off the wire from any source
+// except the reader's own curated streams (myFT / Substack / research).
+const FEED_PERSONAL_RE = /(?:^|[\s‘'"“(:])(?:I(?:'m|’m| am| was| lost| rent| have| had| want| need| inherited| retired)|I['’]ve|my (?:wife|husband|partner|mortgage|home|house|savings|retirement|401|pension pot|kids|children|parents|mother|father|landlord|boss|salary|paycheck|credit))\b|\bshould (?:I|we)\b|\bam I\b|\bhow (?:do|can|should|much should) (?:I|you)\b|\b401\(k\)|\bRoth\b|\bIRA\b|social security|credit scores?|student loans?|personal finance|\bmoneyist\b|\bdear \w+\b|reader (?:asks|question)|first-time (?:home)?buyers? (?:guide|tips)|best (?:credit cards?|savings accounts?|mortgage rates?)|mortgage rates? today|\bhomeowners? (?:guide|tips)\b/i;
+// Out-of-scope central banks / emerging-market topics named anywhere in a headline
+// (a CEE or non-European central-bank preview, EM development finance, a disaster live
+// blog) — the geo-led cull below only sees a headline's first word.
+const FEED_OFFSCOPE_ANY_RE = /\b(?:national bank of (?:hungary|poland|romania|serbia|ukraine|kazakhstan)|czech national bank|people['’]s bank of china|\bpboc\b|reserve bank of (?:india|australia|new zealand)|bank of korea|monetary authority of singapore|\bhkma\b|banxico|central bank of (?:brazil|russia|turkey|t[üu]rkiye|egypt|nigeria|kenya)|blended finance|emerging[- ]markets? development|live blog|hurricane \w+)\b/i;
+// Press-release slop on the deal-scoped wires (they bypass the relevance gate):
+// shareholder-alert law-firm ads, award / "best places to work" lists, anniversaries,
+// dividend notices, partnership fluff.
+const FEED_PR_SLOP_RE = /shareholder alert|\binvestigates whether\b|class action|best places to work|\bawards?\b|\bcelebrates?\b|\banniversary\b|announces .*\bdividend\b|\bregular dividend\b|\bpartners with\b|\bwebinar\b|\bsohn\b/i;
+// Legal trade press: R4c carries news about the COVERED law firms and the finance /
+// restructuring practices — not the profession's gossip, pay surveys, training,
+// regulators' internal politics, office tours, criminal cases against individual
+// solicitors or unrelated US legal-tech launches.
+const FEED_LEGAL_OFFSCOPE_RE = /\bjailed\b|struck off|\bopen thread\b|apprentic|\btrainees?\b|\bstudents?\b|junior lawyers|pilates|\bgym\b|nutrition|\boffice (?:tour|move)\b|inside .*\b(?:HQ|office)\b|\bawkward\b|vote of no confidence|\bSRA\b|law society|bar council|bar standards|keeping up with the bar|criminal (?:defence|barrister|solicitor)|legal aid|conveyanc|housing market|rising stars|\btop (?:UK )?GCs\b|patent and trademark|employment law software|HR compliance|legal tech implementation|\bLegal 500\b|chambers (?:rankings|guide)/i;
+// The small-ticket US asset-based-lending wire (ABF Journal): a single-digit / low
+// two-digit "$15MM" facility for an uncovered borrower is below the wire's universe.
+const FEED_SMALL_TICKET_RE = /\$\s?\d{1,2}(?:\.\d+)?\s?MM\b/;
 export function feedQualityKeep(it) {
   const s = it.source || "";
   if (feedBanned(it)) return false;                          // owner-banned outlets — never shown, from any feed
   if (FEED_LOWTIER.has(s)) return false;
   if (FEED_LIFESTYLE_HARD_RE.test(it.title)) return false;   // recipes/obituaries/horoscopes… never finance, even with a stray "gold"
+  const ownStream = it.myft || it.substack || it.research;   // the reader's own curated streams
+  if (!ownStream && FEED_PERSONAL_RE.test(it.title)) return false;
+  if (!ownStream && FEED_OFFSCOPE_ANY_RE.test(it.title)) return false;
+  if (it.legal && FEED_LEGAL_OFFSCOPE_RE.test(it.title)) return false;
+  if (s === "ABF Journal" && (FEED_SMALL_TICKET_RE.test(it.title) || FEED_PR_SLOP_RE.test(it.title))) return false;
+  if ((FEED_CURATED_SRC.has(s) || s === "Business Wire" || it.hdg) && FEED_PR_SLOP_RE.test(it.title)) return false;
+  if (FEED_CURATED_SRC.has(s) && FEED_PR_NOISE.test(it.title)) return false;
   // The G7+Western Europe geo-scope applies to MACRO-ECONOMIC headlines only: an out-of-scope
   // country's own macro data ("Brazil's retail sales …", "China's exports surge …") is
   // dropped, but a markets / credit / deal / corporate / legal story about an Asian (or
@@ -4490,17 +4531,8 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
     if (d) d.bytes = txt ? txt.length : 0;
     let items = [];
     if (txt) {
-      items = feedParse(txt, f).filter((x) => !feedReject(x.title));
+      items = feedParse(txt, f).filter((x) => feedSourceKeep(x, f));
       if (d) d.parsed = items.length;
-      // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
-      // except lifestyle — unless the headline also reads as finance/business.
-      if (f.soft) {
-        items = items.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
-      } else if (f.filter !== false) {
-        items = f.core
-          ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
-          : items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
-      }
       // Cap the FRESHEST items, not the first-parsed: Google News search RSS is
       // relevance-ordered, so slicing in parse order could fill a source's cap
       // with days-old stories that then sort to the bottom and get cut.

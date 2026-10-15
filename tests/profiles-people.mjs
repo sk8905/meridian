@@ -28,7 +28,7 @@ const visRows = (pg) => pg.evaluate(() => [...document.querySelectorAll("#pf-pan
 {
   const { ctx, pg, errs } = await openPeople(PHONE);
   const chips = await pg.evaluate(() => [...document.querySelectorAll("#pf-chips .tchip")].map((c) => { const r = c.getBoundingClientRect(); return { p: c.dataset.p, l: c.textContent.trim(), on: c.classList.contains("is-on"), top: Math.round(r.top), right: Math.round(r.right), h: Math.round(r.height), lines: Math.round(r.height / parseFloat(getComputedStyle(c).lineHeight || "16")) }; }));
-  check(chips.map((c) => c.l).join(" · ") === "Managers · Hedge Funds · Investors · Law firms · People", `People chip joins the directory (${chips.map((c) => c.l).join(" · ")})`);
+  check(chips.map((c) => c.l).join(" · ") === "All · Managers · Hedge Funds · Investors · Law firms · People", `People chip joins the directory (${chips.map((c) => c.l).join(" · ")})`);
   check(chips.find((c) => c.p === "people").on, "?tab=people lands on the People list");
   // R42(b): one sideways-scrolling row, every label whole (no clipped chips).
   const fits = await pg.evaluate(() => { const row = document.querySelector("#pf-chips"); return /auto|scroll/.test(getComputedStyle(row).overflowX) && [...row.querySelectorAll(".tchip")].every((c) => c.scrollWidth <= c.clientWidth + 1 && getComputedStyle(c).whiteSpace === "nowrap"); });
