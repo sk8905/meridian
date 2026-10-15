@@ -1411,7 +1411,11 @@ notification badge red (`#ef4444`).
   under the Comfortable density) with a 12px gutter and two lines. The leading column is
   ONE style everywhere: a list's date ("15 Oct 26", `.c-date`) and the wire's time ("16:58",
   `.g-feed-time`) both read `--fs-micro`, `--t-faint`, tabular figures, top-aligned with
-  line 1. **(d) Three
+  line 1. A Profiles list (All · Managers · Hedge Funds · Investors · Law firms), which has
+  no date, leads with the entity TYPE — Manager · Hedge fund · Investor · Law firm — in the
+  same style, on desktop (inside the first cell, header "Entity") and iPhone (the card
+  row's first item, line 2 indented under the name); drawn from `data-lead` by CSS so sort,
+  URL state and CSV never see it. People keeps its date. **(d) Three
   text tiers only:** primary `--t-ink` (white in dark, near-black in light) for the
   name / headline / key figure; mid grey `--t-mut` for supporting facts (type, amount,
   court, counterparty); subtle `--t-faint` for dates, sources, counts and labels. `--t-dim`

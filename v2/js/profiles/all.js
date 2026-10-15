@@ -15,7 +15,7 @@ const LABEL = Object.fromEntries(TYPES);
 
 export function allEntities() {
   const out = [];
-  (managers || []).forEach((m) => m && m.id && out.push({ kind: "manager", id: m.id, name: m.name, hq: m.hq || "", aum: m.aum }));
+  (managers || []).forEach((m) => m && m.id && out.push({ kind: "manager", id: m.id, name: m.name, hq: m.hq || "", aum: m.aum, sub: (m.strategies || []).slice(0, 2).join(" · ") }));
   (HEDGE_FUNDS || []).forEach((h) => h && h.id && out.push({ kind: "hf", id: h.id, name: h.name, hq: h.hq || "", aum: h.aum, sub: h.strategy || "" }));
   (lps || []).forEach((l) => l && l.id && out.push({ kind: "lp", id: l.id, name: l.name, hq: l.hq || "", aum: l.aum, sub: l.type || "" }));
   (firms || []).forEach((f) => f && f.id && out.push({ kind: "firm", id: f.id, name: f.name, hq: (f.london ? "London, UK" : f.hq || ""), aum: null, sub: "" }));
@@ -26,7 +26,7 @@ export function allPaneHTML() {
   const rows = allEntities().map((e) => `<tr class="clickable" data-href="#/${e.kind}/${esc(encodeURIComponent(e.id))}" title="${esc([e.name, LABEL[e.kind], e.sub, e.hq].filter(Boolean).join(" · "))}"`
     + ` data-name="${esc([e.name, LABEL[e.kind], e.sub, e.hq].filter(Boolean).join(" ").toLowerCase())}" data-f-type="${esc(LABEL[e.kind])}">`
     + `<td class="tl-nm">${esc(e.name)}</td>`
-    + `<td class="pf-c-meta">${esc(LABEL[e.kind])}${e.sub ? ` · ${esc(e.sub)}` : ""}</td>`
+    + `<td class="pf-c-meta">${esc(e.sub || "—")}</td>`
     + `<td class="pf-c-meta tl-hq">${esc(e.hq || "—")}</td>`
     + `<td class="pf-c-main tl-n" data-sort="${e.aum != null ? e.aum : ""}">${e.aum != null ? esc(fmtBn(e.aum)) : "—"}</td></tr>`).join("");
   return `<div class="tpane" data-pane="all">
@@ -35,7 +35,7 @@ export function allPaneHTML() {
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full pf-cards pf-all-tbl">
-                <thead><tr><th>Name</th><th>Type</th><th>HQ</th><th class="tl-n">AUM</th></tr></thead>
+                <thead><tr><th>Name</th><th>Detail</th><th>HQ</th><th class="tl-n">AUM</th></tr></thead>
                 <tbody id="all-rows">${rows}</tbody>
               </table>
               </div>

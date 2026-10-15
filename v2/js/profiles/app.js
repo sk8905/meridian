@@ -68,6 +68,20 @@ export async function mount(host, ctx) {
   const pfDetail = host.querySelector("#pf-detail");
   const panes = host.querySelector("#pf-panes");
   const chips = host.querySelector("#pf-chips");
+  // Leading column (owner 2026-10-15): where a dated list leads with its date, a Profiles
+  // list leads with the entity's TYPE — Manager · Hedge fund · Investor · Law firm — in the
+  // same faint micro style (R43). Carried as data-lead and drawn by CSS (::before), so
+  // the table's columns, sort, URL state and CSV are untouched. People keeps its date.
+  const LEAD = { managers: "Manager", hedgefunds: "Hedge fund", investors: "Investor", firms: "Law firm" };
+  panes.querySelectorAll(".tpane[data-pane]").forEach((p) => {
+    const k = p.dataset.pane; if (k === "people") return;
+    const t = p.querySelector(".tleague-wrap table"); if (!t) return;
+    t.classList.add("pf-lead");
+    t.querySelectorAll("tbody tr").forEach((tr) => {
+      const lead = k === "all" ? tr.dataset.fType : LEAD[k]; if (!lead) return;
+      tr.dataset.lead = lead; if (tr.cells[0]) tr.cells[0].dataset.lead = lead;
+    });
+  });
   // The OFR Hedge Fund Monitor is collapsed on open — it loads lazily when the
   // "Monitor" toggle in the Hedge Funds header is first opened (wired below).
 

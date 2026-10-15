@@ -14,13 +14,16 @@ const G = 12;
 const leftOf = (pg, sel, inner) => pg.evaluate(([s, inner]) => {
   const e = [...document.querySelectorAll(s)].find((x) => x.getClientRects().length && x.getBoundingClientRect().width > 0);
   if (!e) return null;
+  if (inner === "lead") return Math.round(e.getBoundingClientRect().left + parseFloat(getComputedStyle(e).paddingLeft) + parseFloat(getComputedStyle(e, "::before").marginLeft));
   if (!inner) return Math.round(e.getBoundingClientRect().left);
   return Math.round(e.getBoundingClientRect().left + parseFloat(getComputedStyle(e).paddingLeft));
 }, [sel, inner]);
 
 const PAGES = [
   ["News feed row", "/v2/news/", ".g-feed-row", true, null],
-  ["Profiles list name", "/v2/profiles/#/?tab=managers", "#mgr-rows td.tl-nm", false, null],
+  // The row now leads with the entity type (owner 2026-10-15) — that leading label sits on
+  // the gutter (measured below as row padding + the ::before's negative margin).
+  ["Profiles list lead", "/v2/profiles/#/?tab=managers", "#mgr-rows tr[data-lead]", "lead", null],
   ["Profile page header", "/v2/profiles/#/manager/m21", "#pf-detail .tdet-id", true, null],
   ["Profile news row", "/v2/profiles/#/manager/m21", "#pf-detail .twire .compact-item", true, null],
   ["Transactions card", "/v2/transactions/#/lending", "#tx-body .tx-card", true, null],

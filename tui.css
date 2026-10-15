@@ -1404,6 +1404,26 @@ th.tx-sortable[aria-sort="ascending"]::after { content: " ▲"; color: var(--fai
 }
 @media (min-width: 761px) { .tx-fsortgrp { display: none; } }
 
+/* ---- Profiles lists lead with the entity TYPE (owner 2026-10-15) ------------------
+   Manager · Hedge fund · Investor · Law firm, in the leading-column style every dated
+   list uses for its date (R43: --fs-micro, --t-faint, --c-date-w). Drawn from data-lead
+   so sort / CSV / URL state never see it. Desktop: inside the first cell; iPhone: the
+   card row's first item, line 2 indented under the name like an events row. */
+.pf-lead td[data-lead]::before, .pf-lead tbody tr[data-lead]::before { color: var(--t-faint); font-size: var(--fs-micro); font-family: var(--t-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (min-width: 761px) {
+  .pf-lead td[data-lead]::before { content: attr(data-lead); display: inline-block; width: var(--c-date-w); margin-right: 8px; vertical-align: baseline; }
+  .pf-lead thead th:first-child::before { content: "Entity"; display: inline-block; width: var(--c-date-w); margin-right: 8px; }
+}
+@media (max-width: 760px) {
+  /* The lead is a touch wider than a date so "Hedge fund" fits whole. */
+  #pf-panes .pf-lead.pf-cards { --pf-lead-w: 66px; }
+  #pf-panes .pf-lead.pf-cards tbody tr[data-lead] { padding-left: calc(var(--m-gutter, 12px) + var(--pf-lead-w) + 10px); }
+  #pf-panes .pf-lead.pf-cards tbody tr[data-lead]::before { content: attr(data-lead); order: -1; flex: 0 0 var(--pf-lead-w); width: var(--pf-lead-w);
+    margin-left: calc(-1 * (var(--pf-lead-w) + 10px)); }
+  /* Line 2's facts share its width and truncate — never a third line (R43c). */
+  #pf-panes .pf-lead.pf-cards tbody td.pf-c-meta { flex: 1 1 0; min-width: 0; max-width: none; }
+}
+
 /* ---- Profiles lists: facet sheet, Fit / 90d columns, phone card rows (R39) -------- */
 #pf-panes .pf-sheet { position: static; }
 .tpane.pf-sheet-open > .tleague-wrap, .tpane.pf-sheet-open > .hf-cons, .tpane.pf-sheet-open > .hf-ofr { display: none; }
