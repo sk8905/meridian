@@ -219,6 +219,12 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   (Yahoo, TradingView, MarketScreener, cbonds, Kalkine, Finviz, pulse2 …). The summary
   states ONLY what the cited source says — no context added from memory. Run
   `node tests/run.mjs data-integrity` with the other gating specs before publishing.
+- **Every deal is tagged in the same commit — ALL routines (refresh, heavy sweep,
+  backfill, watchlist deep-dives, nightly verifier).** A deal appended to `credit/js/data.js`
+  without its `credit/js/deal-tags.js` entry drops out of the Transactions filters, and
+  `data-integrity` now FAILS on it (HARD rule, 2026-10-15 — a backfill had added 25
+  untagged deals). Tag from the deal's own text per "Tag every new deal" below; country
+  `null` when the source doesn't state it.
 - **Never restamp `asOf` without a change.** `asOf` is the date of the data, not the
   date you looked. A re-verification that changes nothing leaves `asOf` alone.
 - **Sync first.** Always start from the latest `main`: `git fetch origin`, then
@@ -821,6 +827,8 @@ a guess; if a figure can't be confirmed, leave the old one and say so.
   all-in yields, VIX, FX) are live-only via `/api/eurates` `extra` — never curate them.
 
 ## 2020 backfill project (`backfill/checklist.json` + `scripts/backfill-progress.mjs`)
+
+**Every deal this project adds also gets its `credit/js/deal-tags.js` entry in the same commit** (gated by `data-integrity`; see Invariants).
 
 "Complete since 2020" is measured against a **checklist**, not "has any 2020 item". For
 each priority entity (top 50 credit managers + top 30 hedge funds by AUM, in

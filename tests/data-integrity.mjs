@@ -11,6 +11,7 @@
 //   citations, low-grade aggregator citations, fund status outside FUND_STATUS.
 import * as C from "../credit/js/data.js";
 import * as L from "../legal/js/data.js";
+import { DEAL_TAGS } from "../credit/js/deal-tags.js";
 import { check, finish } from "./lib.mjs";
 
 const MAX_UNDATED_LEGAL = 17;
@@ -93,5 +94,18 @@ check(badStatus <= MAX_BAD_FUND_STATUS, `funds: status outside FUND_STATUS does 
   const all = [...(C.deals || []), ...(C.intel || []), ...(C.HEDGE_INTEL || []), ...(L.items || []), ...(L.cases || [])];
   const hits = all.filter((r) => [r.url, r.sourceUrl].some((u) => { try { return u && BANNED.test(new URL(u).hostname); } catch { return false; } })).map((r) => r.id);
   check(!hits.length, `no record cites a banned outlet (Channel NewsAsia)${hits.length ? " — " + hits.join(", ") : ""}`);
+}
+// Every dated deal is tagged in credit/js/deal-tags.js (HOUSE_STYLE R39) — HARD rule. The
+// Transactions filters (country · sector · size) read these tags; an untagged deal drops out
+// of them. This lives HERE (not only in the browser spec) because data-integrity is the gate
+// every refresh / backfill / sweep routine runs before it publishes (2026-10-15: a backfill
+// added 25 untagged deals that only the full suite caught).
+{
+  const SECTORS = ["Real estate", "Infrastructure & energy", "Healthcare", "TMT", "Industrials", "Business services",
+    "Consumer & retail", "Leisure & hospitality", "Transport & logistics", "Financial services", "Asset-backed / specialty finance", "Diversified"];
+  const untagged = C.deals.filter((d) => d && d.date && !DEAL_TAGS[d.id]).map((d) => d.id);
+  check(!untagged.length, `every dated deal has an entry in credit/js/deal-tags.js — add {c,s,a,…} for: ${list(untagged) || "none"}`);
+  const badSector = Object.entries(DEAL_TAGS).filter(([, t]) => !SECTORS.includes(t.sector)).map(([id]) => id);
+  check(!badSector.length, `every deal tag has a SECTOR_TAGS sector (${list(badSector) || "ok"})`);
 }
 finish();
