@@ -1,6 +1,6 @@
 {
- "generated": "2026-10-14T22:01:24.212Z",
- "since": "2026-09-30",
+ "generated": "2026-10-15T00:49:06.958Z",
+ "since": "2026-10-01",
  "firms": {
   "proskauerrose": {
    "domains": [
@@ -26,9 +26,9 @@
     "www.freshfields.com"
    ],
    "sitemaps": 5,
-   "urls": 7352,
-   "kept": 3,
-   "fetched": 3,
+   "urls": 7365,
+   "kept": 9,
+   "fetched": 9,
    "errors": 0,
    "carried": 0
   },
@@ -38,25 +38,14 @@
    ],
    "sitemaps": 1,
    "urls": 6286,
-   "kept": 11,
-   "fetched": 11,
+   "kept": 10,
+   "fetched": 10,
    "errors": 0,
    "carried": 0
   },
   "ashurst": {
    "domains": [
     "www.ashurst.com"
-   ],
-   "sitemaps": 0,
-   "urls": 0,
-   "kept": 0,
-   "fetched": 0,
-   "errors": 1,
-   "carried": 0
-  },
-  "hsf": {
-   "domains": [
-    "www.hsfkramer.com"
    ],
    "sitemaps": 0,
    "urls": 0,
@@ -73,9 +62,20 @@
    ],
    "sitemaps": 6,
    "urls": 17766,
-   "kept": 15,
-   "fetched": 8,
+   "kept": 14,
+   "fetched": 7,
    "errors": 7,
+   "carried": 0
+  },
+  "hsf": {
+   "domains": [
+    "www.hsfkramer.com"
+   ],
+   "sitemaps": 0,
+   "urls": 0,
+   "kept": 0,
+   "fetched": 0,
+   "errors": 1,
    "carried": 0
   },
   "macfarlanes": {
@@ -84,19 +84,8 @@
    ],
    "sitemaps": 4,
    "urls": 3555,
-   "kept": 4,
-   "fetched": 4,
-   "errors": 0,
-   "carried": 0
-  },
-  "traverssmith": {
-   "domains": [
-    "www.traverssmith.com"
-   ],
-   "sitemaps": 1,
-   "urls": 5013,
-   "kept": 7,
-   "fetched": 7,
+   "kept": 3,
+   "fetched": 3,
    "errors": 0,
    "carried": 0
   },
@@ -111,6 +100,17 @@
    "errors": 0,
    "samples": [],
    "disallowed": 1,
+   "carried": 0
+  },
+  "traverssmith": {
+   "domains": [
+    "www.traverssmith.com"
+   ],
+   "sitemaps": 1,
+   "urls": 5013,
+   "kept": 7,
+   "fetched": 7,
+   "errors": 0,
    "carried": 0
   },
   "aoshearman": {
@@ -132,9 +132,9 @@
    ],
    "sitemaps": 9,
    "urls": 20128,
-   "kept": 12,
-   "fetched": 9,
-   "errors": 3,
+   "kept": 9,
+   "fetched": 7,
+   "errors": 2,
    "carried": 0
   },
   "kirkland": {
@@ -163,11 +163,11 @@
    "domains": [
     "www.sidley.com"
    ],
-   "sitemaps": 7,
-   "urls": 7577,
+   "sitemaps": 9,
+   "urls": 8092,
    "kept": 3,
    "fetched": 3,
-   "errors": 10,
+   "errors": 8,
    "carried": 0
   },
   "ropesgray": {
@@ -207,8 +207,8 @@
    ],
    "sitemaps": 11,
    "urls": 16192,
-   "kept": 9,
-   "fetched": 9,
+   "kept": 6,
+   "fetched": 6,
    "errors": 0,
    "carried": 0
   },
@@ -237,19 +237,8 @@
    ],
    "sitemaps": 1,
    "urls": 12281,
-   "kept": 17,
-   "fetched": 17,
-   "errors": 0,
-   "carried": 0
-  },
-  "reedsmith": {
-   "domains": [
-    "www.reedsmith.com"
-   ],
-   "sitemaps": 5,
-   "urls": 11564,
-   "kept": 10,
-   "fetched": 10,
+   "kept": 15,
+   "fetched": 15,
    "errors": 0,
    "carried": 0
   },
@@ -266,6 +255,17 @@
    "urls": 7756,
    "kept": 40,
    "fetched": 40,
+   "errors": 0,
+   "carried": 0
+  },
+  "reedsmith": {
+   "domains": [
+    "www.reedsmith.com"
+   ],
+   "sitemaps": 5,
+   "urls": 11564,
+   "kept": 7,
+   "fetched": 7,
    "errors": 0,
    "carried": 0
   },
@@ -306,8 +306,8 @@
    ],
    "sitemaps": 9,
    "urls": 16327,
-   "kept": 21,
-   "fetched": 21,
+   "kept": 20,
+   "fetched": 20,
    "errors": 0,
    "carried": 0
   },
@@ -380,15 +380,6 @@
    "lastmod": "2026-10-14"
   },
   {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/news/reed-smith-represents-pophouse-in-acquisition-of-50-stake-in-sias-publishing-and-master-music-rights/",
-   "title": "Reed Smith represents Pophouse in acquisition of 50% stake in Sia",
-   "description": null,
-   "date": "2026-10-14",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-14"
-  },
-  {
    "firm": "weil",
    "url": "https://www.weil.com/articles/weil-wins-summary-judgment-for-nycrc-defeating-all-remaining-claims-in-eb5-investor-mass-action",
    "title": "Weil Wins Summary Judgment for NYCRC Defeating All Remaining Claims in EB-5 Investor “Mass Action”",
@@ -416,6 +407,15 @@
    "lastmod": "2026-10-14"
   },
   {
+   "firm": "reedsmith",
+   "url": "https://www.reedsmith.com/news/reed-smith-represents-pophouse-in-acquisition-of-50-stake-in-sias-publishing-and-master-music-rights/",
+   "title": "Reed Smith represents Pophouse in acquisition of 50% stake in Sia",
+   "description": null,
+   "date": "2026-10-14",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
+  },
+  {
    "firm": "cleary",
    "url": "https://www.clearygottlieb.com/news-and-insights/news-listing",
    "title": "News Listing",
@@ -432,6 +432,24 @@
    "date": "2026-10-14",
    "dateSource": "datePublished",
    "lastmod": null
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-eqt-on-c.5.8-billion-equivalent-multi-currency-bank-and-bond-financing-for-its-acquisition-of-intertek",
+   "title": "Freshfields advises EQT on c.£5.8 billion equivalent multi-currency bank and bond financing for its acquisition of Intertek",
+   "description": null,
+   "date": "2026-10-13",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-on-3bn-credit-facility-for-uniper",
+   "title": "Freshfields advises on €3bn credit facility for Uniper",
+   "description": null,
+   "date": "2026-10-13",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-14"
   },
   {
    "firm": "traverssmith",
@@ -497,6 +515,24 @@
    "lastmod": "2026-10-12"
   },
   {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-macquarie-asset-management-on-its-acquisition-of-units-from-la-caisse-in-maple-infrastructure-trust",
+   "title": "Freshfields advises Macquarie Asset Management on its acquisition of units from La Caisse in Maple Infrastructure Trust",
+   "description": "Global law firm Freshfields has advised Macquarie Asset Management (“MAM”), via Macquarie Asia-Pacific Infrastructure Fund 4 (“MAIF4”), on its acquisition of units from La Caisse in Maple Infrastructure Trust, an Infrastructure Investment Trust (“InvIT”) that owns and operates toll roads across India.",
+   "date": "2026-10-12",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-13"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/podcasts/the-ai-drop/the-ai-drop-26-a-view-from-two-desks-the-dispatch-from-london-on-ai-policy-ip-and-the-future-of-personal-agents-with-giles-pratt",
+   "title": "The AI Drop #26: AI Policy, Copyright and Personal Agents",
+   "description": "Who owns AI-generated code? Anna Gressel and Giles Pratt examine UK copyright law, AI policy, model training and the rise of personal AI agents. Listen to episode 26 of the AI Drop here.",
+   "date": "2026-10-12",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-13"
+  },
+  {
    "firm": "klgates",
    "url": "https://www.klgates.com/thought-leadership/New-South-Wales-No-Shortcuts-on-Scope-3-High-Court-Puts-Scope-3-Emissions-Back-on-the-Table-for-Resource-Projects-10-12-2026",
    "title": "New South Wales–No Shortcuts on Scope 3: High Court Puts Scope 3 Emissions Back on the Table for Resource Projects",
@@ -522,6 +558,15 @@
    "date": "2026-10-12",
    "dateSource": "page date label",
    "lastmod": "2026-10-12"
+  },
+  {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advised-astrazeneca-on-its-$2-billion-strategic-equity-investment-and-clinical-collaboration-with-summit-therapeutics",
+   "title": "Freshfields Advises AstraZeneca on $2bn Summit Therapeutics Deal",
+   "description": "Freshfields advised AstraZeneca on its $2 billion equity investment and clinical collaboration with Summit Therapeutics to advance ADC combination strategies in cancer.",
+   "date": "2026-10-09",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-09"
   },
   {
    "firm": "slaughtermay",
@@ -586,6 +631,15 @@
    "lastmod": "2026-10-09"
   },
   {
+   "firm": "freshfields",
+   "url": "https://www.freshfields.com/en/our-thinking/news/news-search/2026/10/freshfields-advises-behavox-on-apiax-acquisition",
+   "title": "Freshfields advises Behavox on Apiax acquisition",
+   "description": null,
+   "date": "2026-10-08",
+   "dateSource": "datePublished",
+   "lastmod": "2026-10-13"
+  },
+  {
    "firm": "traverssmith",
    "url": "https://www.traverssmith.com/knowledge/knowledge-container/oecd-updates-guidance-on-tax-treatment-of-remote-working/",
    "title": "OECD updates guidance on tax treatment of remote working",
@@ -645,15 +699,6 @@
    "title": "Projet de loi de finances pour 2027",
    "description": "Le projet de loi de finances pour 2027 (« PLF 2027 ») a été présenté à l’Assemblée nationale le 1 er octobre 2026. Notre équipe fiscale",
    "date": "2026-10-08",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/bmf-draft-bill-would-tax-exchange-crypto-assets-as-investment-income",
-   "title": "BMF: Draft Bill would tax exchange crypto-assets as investment income",
-   "description": "Germany's BMF Draft Bill would tax crypto-assets such as Bitcoin as investment income: no holding period, 25% flat rate and new withholding duties.",
-   "date": "2026-10-07",
    "dateSource": "datePublished",
    "lastmod": "2026-10-08"
   },
@@ -896,15 +941,6 @@
    ]
   },
   {
-   "firm": "aoshearman",
-   "url": "https://www.aoshearman.com/en/insights/ao-shearman-on-data/ncsc-publishes-guidance-and-scheme-documents-for-cyber-adversary-simulation-scheme",
-   "title": "NCSC cyber adversary simulation scheme guidance",
-   "description": "Explore the NCSC Cyber Adversary Simulation scheme, including standards, provider requirements and guidance for high-risk organisations.",
-   "date": "2026-10-02",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-08"
-  },
-  {
    "firm": "whitecase",
    "url": "https://www.whitecase.com/news/media/cnbc-bargain-britain-lures-foreign-buyers-hostile-takeovers-surge",
    "title": "CNBC | Bargain Britain lures foreign buyers as hostile takeovers surge",
@@ -975,87 +1011,6 @@
    "date": "2026-10-01",
    "dateSource": "datePublished",
    "lastmod": "2026-10-02"
-  },
-  {
-   "firm": "slaughtermay",
-   "url": "https://www.slaughterandmay.com/news/slaughter-and-may-wins-capital-markets-team-of-the-year-at-the-legal-business-awards-2026/",
-   "title": "Slaughter and May wins Capital Markets Team of the Year at the Legal Business Awards 2026",
-   "description": null,
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "macfarlanes",
-   "url": "https://www.macfarlanes.com/insights/102o3wu/your-first-home-equity-loan-scheme-for-first-time-buyers",
-   "title": "\"Your First Home\" equity loan scheme for first-time buyers",
-   "description": "The Government has announced that it will launch a new \"Your First Home\" equity loan scheme for first-time buyers. What do we know?...",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
-  },
-  {
-   "firm": "latham",
-   "url": "https://www.lw.com/en/insights/2026/09/DOJ Revises Policy Use Guidance Dismissal Authority FCA Cases Announces DC USAO Fraud Division",
-   "title": "DOJ Revises Policy on Use of Guidance and Dismissal Authority in FCA Cases and Announces D.C. USAO Fraud Division",
-   "description": "The announcements reflect the administration’s continued focus on FCA enforcement and raise additional compliance considerations for companies doing",
-   "date": "2026-09-30",
-   "dateSource": "article:published_time",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "kirkland",
-   "url": "https://www.kirkland.com/news/award/2026/09/restructuring-team-of-the-year",
-   "title": "Kirkland Recognized as “Restructuring Team of the Year” at Legal Business Awards",
-   "description": null,
-   "date": "2026-09-30",
-   "dateSource": "page date label",
-   "lastmod": null
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/entertainment-media-guide-to-ai-three-years-on/regulation-of-ai-in-the-uk/",
-   "title": "Regulation of AI in the UK",
-   "description": "Reed Smith lawyers explain AI rules in the UK: copyright & licensing for AI training, advertising rules, frontier models & data protection for media businesses",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/articles/entertainment-media-guide-to-ai-three-years-on/regulation-of-ai-in-the-eu/",
-   "title": "Regulation of AI in the EU",
-   "description": "Understand the EU’s framework for AI regulation. Learn about GDPR intersections, transparency requirements, human oversight mandates, and more",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "reedsmith",
-   "url": "https://www.reedsmith.com/our-insights/blogs/real-estate-legal-update/102n4s0/build-less-build-smarter-middle-market-senior-living-and-outpatient-growth-via/",
-   "title": "Build Less, Build Smarter: Middle Market Senior Living and Outpatient Growth via Adaptive Reuse",
-   "description": "Adaptive reuse is an ever-increasing strategy with potential benefits for developers, operators and the community. It has become a viable...",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-09-30"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/09/building-safety-levy-could-make-housing-projects-unviable",
-   "title": "Building Safety Levy Could Make Housing Projects Unviable",
-   "description": "Charles Pacey comments on the Building Safety Levy as part of the Building Safety Act 2022.",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-03"
-  },
-  {
-   "firm": "mayerbrown",
-   "url": "https://www.mayerbrown.com/en/news/2026/10/the-legal-500-uk-2027-ranks-mayer-brown-in-47-practice-areas-and-recognises-74-lawyers-in-individual-rankings",
-   "title": "The Legal 500 UK 2027 ranks Mayer Brown in 47 practice areas and recognises 74 lawyers in individual rankings",
-   "description": "London – The Legal 500 United Kingdom 2027 guide has ranked Mayer Brown in 47 practice areas. Of these rankings, five are in the top tier:",
-   "date": "2026-09-30",
-   "dateSource": "datePublished",
-   "lastmod": "2026-10-01"
   },
   {
    "firm": "kirkland",
