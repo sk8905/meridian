@@ -26,7 +26,7 @@ await pg.evaluate(({ goneDeals, goneLegal }) => {
 await pg.evaluate(() => document.querySelector('.na-menu-bar .tchip[data-sec="settings"]').click());
 const txt = await openNew();
 check(/3 new since/.test(txt), `lists exactly the records that arrived since the snapshot ("${txt.slice(0, 40)}")`);
-check(/Transactions\s*2/.test(txt) && /Law-firm alerts\s*1/.test(txt), "groups them by kind with counts (Transactions 2 · Law-firm alerts 1)");
+check(/Deals\s*2/.test(txt) && /Law-firm alerts\s*1/.test(txt), "groups them by kind with counts (Deals 2 · Law-firm alerts 1)");
 check(txt.includes(deals[deals.length - 1].headline.slice(0, 30)), "an OLD-dated record that is new to the device still appears (backfill is visible)");
 
 await pg.evaluate(() => document.querySelector("#v2-new-seen").click());
