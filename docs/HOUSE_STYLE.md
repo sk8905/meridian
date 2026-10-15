@@ -1408,7 +1408,10 @@ notification badge red (`#ef4444`).
   when opened. One fixed row height per list so previews align (cf. R42 i) — and ONE compact height
   app-wide (owner 2026-10-15, "like the Deals page"): every events row, the narrow news
   wire (Home / News) and the iPhone Profiles card rows all sit at `--ev-h` (46px; 56px
-  under the Comfortable density) with a 12px gutter and two lines. **(d) Three
+  under the Comfortable density) with a 12px gutter and two lines. The leading column is
+  ONE style everywhere: a list's date ("15 Oct 26", `.c-date`) and the wire's time ("16:58",
+  `.g-feed-time`) both read `--fs-micro`, `--t-faint`, tabular figures, top-aligned with
+  line 1. **(d) Three
   text tiers only:** primary `--t-ink` (white in dark, near-black in light) for the
   name / headline / key figure; mid grey `--t-mut` for supporting facts (type, amount,
   court, counterparty); subtle `--t-faint` for dates, sources, counts and labels. `--t-dim`
