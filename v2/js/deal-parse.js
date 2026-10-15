@@ -168,10 +168,9 @@ const COMPANY_OVERRIDES = {
   d608: "Cutting Edge", d810: "Crestline",
   // Curated 2026-10 (UX review): lender-led headlines whose borrower / target is named in
   // the deal's own headline or summary — each value checked verbatim against that text.
-  d158: "Cargill", d607: "Ster-Kinekor", d645: "ABN AMRO", d738: "DKB",
-  d874: "BMG", d876: "Onyx CenterSource", d929: "LNG Canada",
-  d954: "Zolva", d959: "Marble Point Credit Management",
-  d964: "Fortress", d1013: "Athene", d1014: "Athene", };
+  d645: "ABN AMRO", d738: "DKB",
+  d874: "BMG", d929: "LNG Canada",
+  d954: "Zolva", };
 
 // First currency figure in the headline (e.g. "$750m", "€6.5bn", "£1.2bn") — for
 // surfaces that carry no structured amount. Surfaces WITH a structured amount
